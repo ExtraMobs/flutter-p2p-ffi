@@ -1,0 +1,281 @@
+# Dart-related files and directories
+########################
+
+# Dart private and generated files
+.dart_tool/
+.packages
+build/
+
+# Lockfile (consider committing if it's an application)
+# Note: dart_ipfs is a library package, so we commit pubspec.lock for reproducible builds
+
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
+migrate_working_dir/
+scratch/
+go-ipfs-reference/
+.tmp*/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# VS Code related
+.vscode/
+.gemini/
+.playwright-mcp/
+.fastembed_cache/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+/build/
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# Android Studio will place build artifacts here
+/android/app/debug
+/android/app/profile
+/android/app/release
+
+# IPFS Data Directories (Runtime generated)
+# Example data directories
+blog_data/
+online_data/
+gateway_data/
+p2p_data/
+chat_data*/
+fileshare_data/
+cdn_data/
+ipfs_data/
+*_data/
+
+# IPFS Storage
+*.hive
+*.hive.lock
+*.lock
+blocks/
+datastore/
+keystore/
+pins/
+
+# Test data
+test_data/
+tmp/
+temp/
+.tmp/
+test_blocks/
+test_blocks_log/
+test_tmp/
+test_repo/
+test/interop/swarm.key
+
+# Logs
+logs/
+*.log
+*.log.*
+pana_report*.txt
+
+# Coverage
+coverage/
+.test_coverage.dart
+coverage.lcov
+coverage*.txt
+*.lcov
+
+# Test outputs
+test_output*.txt
+test_results.json
+test_node_debug.txt
+test_pin_debug.txt
+test_results_*.txt
+test_failures.txt
+final_test_output.txt
+rpc_test_*.txt
+test_summary.txt
+lib_analysis_errors.txt
+lint_issues.txt
+pub_get_error.txt
+git_status_output.txt
+all_tests_*.txt
+analysis_errors.txt
+current_test_output.txt
+
+# Temporary backups
+temp_backup/
+
+# Debug/Analysis tools
+# parse_all_coverage.dart
+# tool_coverage.dart
+# tool/
+# test/advanced_coverage_analyzer.dart
+
+# Generated mock files (mockito)
+# *.mocks.dart
+# !test/protocols/ipns/ipns_pubsub_test.mocks.dart
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Javascript artifacts from Dart compilation
+*.dart.js
+*.info.json
+*.js
+*.js_
+*.js.deps
+*.js.map
+
+
+# Visual Studio Code settings
+###########################
+
+
+# Visual Studio temporary files, build results
+##############################################
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.userprefs
+
+# Mono auto-generated files
+mono_crash.*
+
+# Build output directories
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+# [Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Visual Studio cache/options directory
+.vs/
+
+# MSTest test Results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+# NUnit and other testing frameworks
+*.VisualState.xml
+TestResult.xml
+nunit-*.xml
+
+# Benchmark results
+BenchmarkDotNet.Artifacts/
+
+# .NET Core lock files
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Files built by Visual Studio
+*_i.c
+*_p.c
+*_h.h
+*.ilk
+*.meta
+*.obj
+*.iobj
+*.pch
+*.pdb
+*.ipdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
+*_wpftmp.csproj
+*.log
+*.vspscc
+*.vssscc
+.builds
+*.pidb
+*.svclog
+*.scc
+
+# Other configuration and user-specific files
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+_TeamCity*
+*.dotCover
+.axoCover/*
+coverage*[.json, .xml, .info]
+*.coverage
+*.coveragexml
+
+# Miscellaneous and backup files
+_ClientBin/
+~$*
+*~
+*.dbmdl
+*.dbproj.schemaview
+*.jfm
+*.pfx
+*.publishsettings
+
+# Node.js and package manager directories
+node_modules/
+
+# Python bytecode and caches
+__pycache__/
+*.pyc
+
+# Additional tools and plugins
+.paket/paket.exe
+paket-files/
+.fake/
+.cr/personal
+.ntvs_analysis.dat
+
+# IDX-specific ignores
+.idx/
+
+# Agent Rules
+.agent/
+.windsurf/ci_*.log
+
+# Test Artifacts
+ipfs_facade_*
+verify.log
+
+# Ciel local domain
+.ciel/
+.mempalace/

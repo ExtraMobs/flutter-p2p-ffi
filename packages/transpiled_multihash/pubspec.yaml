@@ -1,0 +1,25 @@
+name: transpiled_multihash
+description: Port of multiformats/go-multihash.
+version: 0.1.0
+publish_to: none
+homepage: https://github.com/multiformats/go-multihash
+
+environment:
+  sdk: ^3.10.0
+
+dependencies:
+  boilerplate:
+    path: ../boilerplate
+  transpiled_varint:
+    path: ../transpiled_varint
+  crypto: ^3.0.7
+  pointycastle: ^4.0.0
+
+dev_dependencies:
+  test: ^1.28.0
+  lints: ^6.1.0
+  very_good_analysis: ^10.1.0
+  analyzer: ^14.1.0 # AST parsing for tool/generate_module_index.dart
+
+  convert: ^3.1.2
+  base_x: ^2.0.1

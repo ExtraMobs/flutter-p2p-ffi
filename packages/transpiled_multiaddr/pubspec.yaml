@@ -1,0 +1,26 @@
+name: transpiled_multiaddr
+description: Port of multiformats/go-multiaddr.
+version: 0.1.0
+publish_to: none
+homepage: https://github.com/multiformats/go-multiaddr
+
+environment:
+  sdk: ^3.10.0
+
+dependencies:
+  base32: ^2.2.0
+  multibase: ^1.0.0
+  transpiled_cid:
+    path: ../transpiled_cid
+  transpiled_multibase:
+    path: ../transpiled_multibase
+  transpiled_multihash:
+    path: ../transpiled_multihash
+  transpiled_varint:
+    path: ../transpiled_varint
+
+dev_dependencies:
+  test: ^1.28.0
+  lints: ^6.1.0
+  very_good_analysis: ^10.1.0
+  analyzer: ^14.1.0 # AST parsing for tool/generate_module_index.dart

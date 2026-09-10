@@ -1,0 +1,21 @@
+name: transpiled_libp2p_kbucket
+description: Port of go-libp2p-kbucket.
+version: 0.1.0
+publish_to: none
+homepage: https://github.com/libp2p/go-libp2p-kbucket
+
+environment:
+  sdk: ^3.10.0
+
+dependencies:
+  crypto: ^3.0.7
+  transpiled_libp2p:
+    path: ../transpiled_libp2p
+  transpiled_multihash:
+    path: ../transpiled_multihash
+
+dev_dependencies:
+  test: ^1.28.0
+  lints: ^6.1.0
+  very_good_analysis: ^10.1.0
+  analyzer: ^14.1.0 # AST parsing for tool/generate_module_index.dart

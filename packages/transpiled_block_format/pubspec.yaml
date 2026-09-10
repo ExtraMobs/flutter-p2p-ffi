@@ -1,0 +1,17 @@
+name: transpiled_block_format
+description: Port of github.com/ipfs/go-block-format.
+version: 0.1.0
+publish_to: none
+
+environment:
+  sdk: ^3.10.0
+
+dependencies:
+  transpiled_cid:
+    path: ../transpiled_cid
+  transpiled_multihash:
+    path: ../transpiled_multihash
+
+dev_dependencies:
+  test: ^1.28.0
+  lints: ^6.1.0

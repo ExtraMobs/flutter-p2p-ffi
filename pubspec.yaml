@@ -1,0 +1,153 @@
+name: transpiled_ipfs
+version: 1.11.7
+publish_to: 'none'
+description: A comprehensive IPFS implementation in Dart, supporting CID, Bitswap, UnixFS, and DHT.
+homepage: https://github.com/ExtraMobs/IPFS
+repository: https://github.com/ExtraMobs/IPFS
+issue_tracker: https://github.com/ExtraMobs/IPFS/issues
+
+environment:
+  sdk: ^3.10.0
+
+dependencies:
+  catalyst_cose: ^1.0.0
+  collection: ^1.19.1
+  http: ^1.6.0
+  fixnum: ^1.1.1
+  convert: ^3.1.2
+  uuid: ^4.5.2
+  web: ^1.1.1
+
+  # Networking and P2P
+
+  # Cryptography
+  crypto: ^3.0.7
+  pointycastle: ^4.0.0
+
+  # Serialization
+  protobuf: ^6.0.0
+  async: ^2.13.0
+
+  # Data Storage
+  hive: ^2.2.3
+  idb_shim: ^2.9.8 # IndexedDB for web storage
+
+
+  # Logging
+  logging: ^1.3.0
+
+  # Metrics
+  prometheus_client: ^1.0.0+1
+
+  dart_merkle_lib: ^1.0.1
+  multibase: ^1.0.0
+  dart_multihash: ^1.0.1
+  archive: ^4.0.7
+  murmurhash: ^1.0.1
+  cbor: ^6.3.7
+  shelf_router: ^1.1.4
+  intl: ^0.20.2
+  markdown: ^7.3.0
+  synchronized: ^3.4.0
+  multicast_dns: ^0.3.3
+  cipherlib: ^0.7.1
+
+  jose: ^0.3.5
+  mime: ^2.1.0
+  # go.mod boundary -- see doc/transpilation/PROGRESS.md).
+  transpiled_base58:
+    path: packages/transpiled_base58
+  transpiled_cid:
+    path: packages/transpiled_cid
+  transpiled_block_format:
+    path: packages/transpiled_block_format
+  transpiled_boxo:
+    path: packages/transpiled_boxo
+  transpiled_datastore:
+    path: packages/transpiled_datastore
+  transpiled_libp2p:
+    path: packages/transpiled_libp2p
+  transpiled_multiaddr:
+    path: packages/transpiled_multiaddr
+  transpiled_multiaddr_dns:
+    path: packages/transpiled_multiaddr_dns
+  transpiled_multibase:
+    path: packages/transpiled_multibase
+  transpiled_multicodec:
+    path: packages/transpiled_multicodec
+  transpiled_multihash:
+    path: packages/transpiled_multihash
+  transpiled_varint:
+    path: packages/transpiled_varint
+  transpiled_go_car:
+    path: packages/transpiled_go_car
+  transpiled_go_yamux:
+    path: packages/transpiled_go_yamux
+  boilerplate:
+    path: packages/boilerplate
+  transpiled_protobuf:
+    path: packages/transpiled_protobuf
+  transpiled_ipld_prime:
+    path: packages/transpiled_ipld_prime
+  transpiled_go_codec_dagpb:
+    path: packages/transpiled_go_codec_dagpb
+  transpiled_libp2p_record:
+    path: packages/transpiled_libp2p_record
+  transpiled_libp2p_pubsub:
+    path: packages/transpiled_libp2p_pubsub
+  transpiled_libp2p_kbucket:
+    path: packages/transpiled_libp2p_kbucket
+  transpiled_libp2p_routing_helpers:
+    path: packages/transpiled_libp2p_routing_helpers
+
+  # Common packages
+  args: ^2.6.0
+  yaml: ^3.1.4
+  meta: ^1.17.0
+  shelf: ^1.4.2
+  path: ^1.9.1
+  grpc: ^5.1.0
+  cryptography: ^2.9.0
+
+  dart_lz4: ^1.0.0
+  port_forwarder: ^1.0.0
+  get_it: ^9.2.1
+  base32: ^2.2.0
+
+dev_dependencies:
+  analyzer: ^14.3.0 # AST parsing for tool/generate_module_index.dart
+  test: ^1.28.0 # For unit and integration tests
+  lints: ^6.1.0 # For code style analysis
+  coverage: ^1.15.0
+  mockito: ^5.6.1
+  build_runner: ^2.10.4
+  very_good_analysis: ^10.1.0
+  flutter_lints: ^6.0.0
+  fake_async: ^1.3.1
+
+# Assets used in the project, such as images or other static files.
+assets:
+  - lib/assets/logo.svg
+
+# Example entry point for running the application.
+example: main.dart
+
+macos:
+  signing:
+    enable: false
+
+# Security-critical dependency overrides documented in SECURITY.md.
+# These are required during local development and CI because upstream packages
+# (e.g. port_forwarder) still allow older, vulnerable releases. Overrides are
+# not visible to package consumers, so the published package does not declare
+# these transitive dependencies directly. The publish workflow runs with these
+# overrides in place and accepts the resulting hints.
+dependency_overrides:
+  # xml ^7.0.1: Required for security fixes and compatibility with latest dependencies
+  # Resolves potential XML parsing vulnerabilities and ensures proper encoding support
+  xml: ^7.0.1
+  # dart_udx ^2.0.3: Required for UDP transport stability and security patches
+  # Fixes buffer overflow issues in UDP datagram handling and improves rate limiting
+  dart_udx: ^2.0.3
+
+

@@ -1,0 +1,2458 @@
+[
+  {
+    "parent": "BlockstoreNotFoundException",
+    "name": "toString",
+    "kind": "method",
+    "key": "BlockstoreNotFoundException.toString",
+    "file": "packages/transpiled_boxo/lib/src/blockstore.dart",
+    "line": 17
+  },
+  {
+    "parent": "Blockstore",
+    "name": "has",
+    "kind": "method",
+    "key": "Blockstore.has",
+    "file": "packages/transpiled_boxo/lib/src/blockstore.dart",
+    "line": 39
+  },
+  {
+    "parent": "Blockstore",
+    "name": "get",
+    "kind": "method",
+    "key": "Blockstore.get",
+    "file": "packages/transpiled_boxo/lib/src/blockstore.dart",
+    "line": 42
+  },
+  {
+    "parent": "Blockstore",
+    "name": "getSize",
+    "kind": "method",
+    "key": "Blockstore.getSize",
+    "file": "packages/transpiled_boxo/lib/src/blockstore.dart",
+    "line": 54
+  },
+  {
+    "parent": "Blockstore",
+    "name": "put",
+    "kind": "method",
+    "key": "Blockstore.put",
+    "file": "packages/transpiled_boxo/lib/src/blockstore.dart",
+    "line": 64
+  },
+  {
+    "parent": "Blockstore",
+    "name": "putMany",
+    "kind": "method",
+    "key": "Blockstore.putMany",
+    "file": "packages/transpiled_boxo/lib/src/blockstore.dart",
+    "line": 77
+  },
+  {
+    "parent": "FixedSizeChunker",
+    "name": "chunks",
+    "kind": "method",
+    "key": "FixedSizeChunker.chunks",
+    "file": "packages/transpiled_boxo/lib/src/chunker.dart",
+    "line": 50
+  },
+  {
+    "parent": null,
+    "name": "fromString",
+    "kind": "function",
+    "key": "fromString",
+    "file": "packages/transpiled_boxo/lib/src/chunker.dart",
+    "line": 66
+  },
+  {
+    "parent": "DagPbLink",
+    "name": "toBytes",
+    "kind": "method",
+    "key": "DagPbLink.toBytes",
+    "file": "packages/transpiled_boxo/lib/src/dag_pb.dart",
+    "line": 62
+  },
+  {
+    "parent": "DagPbNode",
+    "name": "toBytes",
+    "kind": "method",
+    "key": "DagPbNode.toBytes",
+    "file": "packages/transpiled_boxo/lib/src/dag_pb.dart",
+    "line": 112
+  },
+  {
+    "parent": "BalancedUnixFsImporter",
+    "name": "importStream",
+    "kind": "method",
+    "key": "BalancedUnixFsImporter.importStream",
+    "file": "packages/transpiled_boxo/lib/src/importer.dart",
+    "line": 78
+  },
+  {
+    "parent": "BalancedUnixFsImporter",
+    "name": "importFile",
+    "kind": "method",
+    "key": "BalancedUnixFsImporter.importFile",
+    "file": "packages/transpiled_boxo/lib/src/importer.dart",
+    "line": 132
+  },
+  {
+    "parent": null,
+    "name": "buildDagFromReader",
+    "kind": "function",
+    "key": "buildDagFromReader",
+    "file": "packages/transpiled_boxo/lib/src/importer.dart",
+    "line": 274
+  },
+  {
+    "parent": "on",
+    "name": "wireValue",
+    "kind": "getter",
+    "key": "on.wireValue",
+    "file": "packages/transpiled_boxo/lib/src/unixfs.dart",
+    "line": 10
+  },
+  {
+    "parent": "UnixFsData",
+    "name": "toBytes",
+    "kind": "method",
+    "key": "UnixFsData.toBytes",
+    "file": "packages/transpiled_boxo/lib/src/unixfs.dart",
+    "line": 154
+  },
+  {
+    "parent": null,
+    "name": "wrapData",
+    "kind": "function",
+    "key": "wrapData",
+    "file": "packages/transpiled_boxo/lib/src/unixfs.dart",
+    "line": 181
+  },
+  {
+    "parent": null,
+    "name": "filePbData",
+    "kind": "function",
+    "key": "filePbData",
+    "file": "packages/transpiled_boxo/lib/src/unixfs.dart",
+    "line": 183
+  },
+  {
+    "parent": null,
+    "name": "folderPbData",
+    "kind": "function",
+    "key": "folderPbData",
+    "file": "packages/transpiled_boxo/lib/src/unixfs.dart",
+    "line": 185
+  },
+  {
+    "parent": null,
+    "name": "unwrapData",
+    "kind": "function",
+    "key": "unwrapData",
+    "file": "packages/transpiled_boxo/lib/src/unixfs.dart",
+    "line": 187
+  },
+  {
+    "parent": null,
+    "name": "dataSize",
+    "kind": "function",
+    "key": "dataSize",
+    "file": "packages/transpiled_boxo/lib/src/unixfs.dart",
+    "line": 189
+  },
+  {
+    "parent": null,
+    "name": "fileExists",
+    "kind": "function",
+    "key": "fileExists",
+    "file": "packages/transpiled_boxo/lib/src/util/file.dart",
+    "line": 5
+  },
+  {
+    "parent": null,
+    "name": "parseRfc3339",
+    "kind": "function",
+    "key": "parseRfc3339",
+    "file": "packages/transpiled_boxo/lib/src/util/time.dart",
+    "line": 6
+  },
+  {
+    "parent": null,
+    "name": "formatRfc3339",
+    "kind": "function",
+    "key": "formatRfc3339",
+    "file": "packages/transpiled_boxo/lib/src/util/time.dart",
+    "line": 9
+  },
+  {
+    "parent": null,
+    "name": "errCast",
+    "kind": "function",
+    "key": "errCast",
+    "file": "packages/transpiled_boxo/lib/src/util/util.dart",
+    "line": 24
+  },
+  {
+    "parent": null,
+    "name": "expandPathnames",
+    "kind": "function",
+    "key": "expandPathnames",
+    "file": "packages/transpiled_boxo/lib/src/util/util.dart",
+    "line": 30
+  },
+  {
+    "parent": null,
+    "name": "getenvBool",
+    "kind": "function",
+    "key": "getenvBool",
+    "file": "packages/transpiled_boxo/lib/src/util/util.dart",
+    "line": 34
+  },
+  {
+    "parent": null,
+    "name": "partition",
+    "kind": "function",
+    "key": "partition",
+    "file": "packages/transpiled_boxo/lib/src/util/util.dart",
+    "line": 40
+  },
+  {
+    "parent": null,
+    "name": "rPartition",
+    "kind": "function",
+    "key": "rPartition",
+    "file": "packages/transpiled_boxo/lib/src/util/util.dart",
+    "line": 52
+  },
+  {
+    "parent": null,
+    "name": "hash",
+    "kind": "function",
+    "key": "hash",
+    "file": "packages/transpiled_boxo/lib/src/util/util.dart",
+    "line": 64
+  },
+  {
+    "parent": null,
+    "name": "isValidHash",
+    "kind": "function",
+    "key": "isValidHash",
+    "file": "packages/transpiled_boxo/lib/src/util/util.dart",
+    "line": 67
+  },
+  {
+    "parent": null,
+    "name": "xor",
+    "kind": "function",
+    "key": "xor",
+    "file": "packages/transpiled_boxo/lib/src/util/util.dart",
+    "line": 79
+  },
+  {
+    "parent": "BlockGetter",
+    "name": "getBlock",
+    "kind": "method",
+    "key": "BlockGetter.getBlock",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/client.dart",
+    "line": 18
+  },
+  {
+    "parent": "NullGauge",
+    "name": "inc",
+    "kind": "method",
+    "key": "NullGauge.inc",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/client.dart",
+    "line": 24
+  },
+  {
+    "parent": "NullGauge",
+    "name": "dec",
+    "kind": "method",
+    "key": "NullGauge.dec",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/client.dart",
+    "line": 26
+  },
+  {
+    "parent": "Client",
+    "name": "getBlock",
+    "kind": "method",
+    "key": "Client.getBlock",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/client.dart",
+    "line": 61
+  },
+  {
+    "parent": "Client",
+    "name": "getBlocks",
+    "kind": "method",
+    "key": "Client.getBlocks",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/client.dart",
+    "line": 69
+  },
+  {
+    "parent": "Client",
+    "name": "receiveMessage",
+    "kind": "method",
+    "key": "Client.receiveMessage",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/client.dart",
+    "line": 85
+  },
+  {
+    "parent": "Client",
+    "name": "receiveError",
+    "kind": "method",
+    "key": "Client.receiveError",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/client.dart",
+    "line": 109
+  },
+  {
+    "parent": "Client",
+    "name": "peerConnected",
+    "kind": "method",
+    "key": "Client.peerConnected",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/client.dart",
+    "line": 112
+  },
+  {
+    "parent": "Client",
+    "name": "peerDisconnected",
+    "kind": "method",
+    "key": "Client.peerDisconnected",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/client.dart",
+    "line": 117
+  },
+  {
+    "parent": "Client",
+    "name": "getWantlist",
+    "kind": "method",
+    "key": "Client.getWantlist",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/client.dart",
+    "line": 122
+  },
+  {
+    "parent": "Client",
+    "name": "getWantBlocks",
+    "kind": "method",
+    "key": "Client.getWantBlocks",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/client.dart",
+    "line": 123
+  },
+  {
+    "parent": "Client",
+    "name": "getWantHaves",
+    "kind": "method",
+    "key": "Client.getWantHaves",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/client.dart",
+    "line": 124
+  },
+  {
+    "parent": "Client",
+    "name": "isOnline",
+    "kind": "method",
+    "key": "Client.isOnline",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/client.dart",
+    "line": 125
+  },
+  {
+    "parent": "Client",
+    "name": "close",
+    "kind": "method",
+    "key": "Client.close",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/client.dart",
+    "line": 127
+  },
+  {
+    "parent": "Reader",
+    "name": "read",
+    "kind": "method",
+    "key": "Reader.read",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 23
+  },
+  {
+    "parent": "Writer",
+    "name": "write",
+    "kind": "method",
+    "key": "Writer.write",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 29
+  },
+  {
+    "parent": "ByteReader",
+    "name": "read",
+    "kind": "method",
+    "key": "ByteReader.read",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 39
+  },
+  {
+    "parent": "Buffer",
+    "name": "read",
+    "kind": "method",
+    "key": "Buffer.read",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 62
+  },
+  {
+    "parent": "Buffer",
+    "name": "write",
+    "kind": "method",
+    "key": "Buffer.write",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 72
+  },
+  {
+    "parent": "Buffer",
+    "name": "length",
+    "kind": "getter",
+    "key": "Buffer.length",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 78
+  },
+  {
+    "parent": "Buffer",
+    "name": "toBytes",
+    "kind": "method",
+    "key": "Buffer.toBytes",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 81
+  },
+  {
+    "parent": "Buffer",
+    "name": "bytes",
+    "kind": "method",
+    "key": "Buffer.bytes",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 84
+  },
+  {
+    "parent": "MsgReader",
+    "name": "readMsg",
+    "kind": "method",
+    "key": "MsgReader.readMsg",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 90
+  },
+  {
+    "parent": "MsgReader",
+    "name": "releaseMsg",
+    "kind": "method",
+    "key": "MsgReader.releaseMsg",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 91
+  },
+  {
+    "parent": "VarintReader",
+    "name": "readMsg",
+    "kind": "method",
+    "key": "VarintReader.readMsg",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 102
+  },
+  {
+    "parent": "VarintReader",
+    "name": "releaseMsg",
+    "kind": "method",
+    "key": "VarintReader.releaseMsg",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 158
+  },
+  {
+    "parent": "BlockPresence",
+    "name": "operator ==",
+    "kind": "operator",
+    "key": "BlockPresence.operator ==",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 169
+  },
+  {
+    "parent": "BlockPresence",
+    "name": "hashCode",
+    "kind": "getter",
+    "key": "BlockPresence.hashCode",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 174
+  },
+  {
+    "parent": "BlockPresence",
+    "name": "toString",
+    "kind": "method",
+    "key": "BlockPresence.toString",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 177
+  },
+  {
+    "parent": "Entry",
+    "name": "entry",
+    "kind": "getter",
+    "key": "Entry.entry",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 216
+  },
+  {
+    "parent": "Entry",
+    "name": "size",
+    "kind": "method",
+    "key": "Entry.size",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 222
+  },
+  {
+    "parent": "Entry",
+    "name": "toPb",
+    "kind": "method",
+    "key": "Entry.toPb",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 224
+  },
+  {
+    "parent": "Entry",
+    "name": "clone",
+    "kind": "method",
+    "key": "Entry.clone",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 232
+  },
+  {
+    "parent": "Entry",
+    "name": "operator ==",
+    "kind": "operator",
+    "key": "Entry.operator ==",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 240
+  },
+  {
+    "parent": "Entry",
+    "name": "hashCode",
+    "kind": "getter",
+    "key": "Entry.hashCode",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 250
+  },
+  {
+    "parent": "Entry",
+    "name": "toString",
+    "kind": "method",
+    "key": "Entry.toString",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 254
+  },
+  {
+    "parent": "Exportable",
+    "name": "toProtoV0",
+    "kind": "method",
+    "key": "Exportable.toProtoV0",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 261
+  },
+  {
+    "parent": "Exportable",
+    "name": "toProtoV1",
+    "kind": "method",
+    "key": "Exportable.toProtoV1",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 262
+  },
+  {
+    "parent": "Exportable",
+    "name": "toNetV0",
+    "kind": "method",
+    "key": "Exportable.toNetV0",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 263
+  },
+  {
+    "parent": "Exportable",
+    "name": "toNetV1",
+    "kind": "method",
+    "key": "Exportable.toNetV1",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 264
+  },
+  {
+    "parent": "BitSwapMessage",
+    "name": "fromBytes",
+    "kind": "method",
+    "key": "BitSwapMessage.fromBytes",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 274
+  },
+  {
+    "parent": "BitSwapMessage",
+    "name": "fillWantlist",
+    "kind": "method",
+    "key": "BitSwapMessage.fillWantlist",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 277
+  },
+  {
+    "parent": "BitSwapMessage",
+    "name": "wantlist",
+    "kind": "method",
+    "key": "BitSwapMessage.wantlist",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 278
+  },
+  {
+    "parent": "BitSwapMessage",
+    "name": "blocks",
+    "kind": "method",
+    "key": "BitSwapMessage.blocks",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 279
+  },
+  {
+    "parent": "BitSwapMessage",
+    "name": "blockPresences",
+    "kind": "method",
+    "key": "BitSwapMessage.blockPresences",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 280
+  },
+  {
+    "parent": "BitSwapMessage",
+    "name": "haves",
+    "kind": "method",
+    "key": "BitSwapMessage.haves",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 281
+  },
+  {
+    "parent": "BitSwapMessage",
+    "name": "dontHaves",
+    "kind": "method",
+    "key": "BitSwapMessage.dontHaves",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 282
+  },
+  {
+    "parent": "BitSwapMessage",
+    "name": "pendingBytes",
+    "kind": "method",
+    "key": "BitSwapMessage.pendingBytes",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 283
+  },
+  {
+    "parent": "BitSwapMessage",
+    "name": "addEntry",
+    "kind": "method",
+    "key": "BitSwapMessage.addEntry",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 285
+  },
+  {
+    "parent": "BitSwapMessage",
+    "name": "cancel",
+    "kind": "method",
+    "key": "BitSwapMessage.cancel",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 292
+  },
+  {
+    "parent": "BitSwapMessage",
+    "name": "remove",
+    "kind": "method",
+    "key": "BitSwapMessage.remove",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 293
+  },
+  {
+    "parent": "BitSwapMessage",
+    "name": "empty",
+    "kind": "method",
+    "key": "BitSwapMessage.empty",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 294
+  },
+  {
+    "parent": "BitSwapMessage",
+    "name": "size",
+    "kind": "method",
+    "key": "BitSwapMessage.size",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 295
+  },
+  {
+    "parent": "BitSwapMessage",
+    "name": "full",
+    "kind": "method",
+    "key": "BitSwapMessage.full",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 296
+  },
+  {
+    "parent": "BitSwapMessage",
+    "name": "addBlock",
+    "kind": "method",
+    "key": "BitSwapMessage.addBlock",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 298
+  },
+  {
+    "parent": "BitSwapMessage",
+    "name": "addBlockPresence",
+    "kind": "method",
+    "key": "BitSwapMessage.addBlockPresence",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 299
+  },
+  {
+    "parent": "BitSwapMessage",
+    "name": "addHave",
+    "kind": "method",
+    "key": "BitSwapMessage.addHave",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 300
+  },
+  {
+    "parent": "BitSwapMessage",
+    "name": "addDontHave",
+    "kind": "method",
+    "key": "BitSwapMessage.addDontHave",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 301
+  },
+  {
+    "parent": "BitSwapMessage",
+    "name": "setPendingBytes",
+    "kind": "method",
+    "key": "BitSwapMessage.setPendingBytes",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 302
+  },
+  {
+    "parent": "BitSwapMessage",
+    "name": "loggable",
+    "kind": "method",
+    "key": "BitSwapMessage.loggable",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 304
+  },
+  {
+    "parent": "BitSwapMessage",
+    "name": "reset",
+    "kind": "method",
+    "key": "BitSwapMessage.reset",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 305
+  },
+  {
+    "parent": "BitSwapMessage",
+    "name": "clone",
+    "kind": "method",
+    "key": "BitSwapMessage.clone",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 306
+  },
+  {
+    "parent": "Impl",
+    "name": "full",
+    "kind": "method",
+    "key": "Impl.full",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 320
+  },
+  {
+    "parent": "Impl",
+    "name": "empty",
+    "kind": "method",
+    "key": "Impl.empty",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 323
+  },
+  {
+    "parent": "Impl",
+    "name": "fillWantlist",
+    "kind": "method",
+    "key": "Impl.fillWantlist",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 327
+  },
+  {
+    "parent": "Impl",
+    "name": "wantlist",
+    "kind": "method",
+    "key": "Impl.wantlist",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 336
+  },
+  {
+    "parent": "Impl",
+    "name": "blocks",
+    "kind": "method",
+    "key": "Impl.blocks",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 340
+  },
+  {
+    "parent": "Impl",
+    "name": "blockPresences",
+    "kind": "method",
+    "key": "Impl.blockPresences",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 343
+  },
+  {
+    "parent": "Impl",
+    "name": "haves",
+    "kind": "method",
+    "key": "Impl.haves",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 348
+  },
+  {
+    "parent": "Impl",
+    "name": "dontHaves",
+    "kind": "method",
+    "key": "Impl.dontHaves",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 351
+  },
+  {
+    "parent": "Impl",
+    "name": "pendingBytes",
+    "kind": "method",
+    "key": "Impl.pendingBytes",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 365
+  },
+  {
+    "parent": "Impl",
+    "name": "setPendingBytes",
+    "kind": "method",
+    "key": "Impl.setPendingBytes",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 368
+  },
+  {
+    "parent": "Impl",
+    "name": "remove",
+    "kind": "method",
+    "key": "Impl.remove",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 373
+  },
+  {
+    "parent": "Impl",
+    "name": "cancel",
+    "kind": "method",
+    "key": "Impl.cancel",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 378
+  },
+  {
+    "parent": "Impl",
+    "name": "addEntry",
+    "kind": "method",
+    "key": "Impl.addEntry",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 382
+  },
+  {
+    "parent": "Impl",
+    "name": "addEntryRaw",
+    "kind": "method",
+    "key": "Impl.addEntryRaw",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 429
+  },
+  {
+    "parent": "Impl",
+    "name": "addBlock",
+    "kind": "method",
+    "key": "Impl.addBlock",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 439
+  },
+  {
+    "parent": "Impl",
+    "name": "addBlockPresence",
+    "kind": "method",
+    "key": "Impl.addBlockPresence",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 445
+  },
+  {
+    "parent": "Impl",
+    "name": "addHave",
+    "kind": "method",
+    "key": "Impl.addHave",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 453
+  },
+  {
+    "parent": "Impl",
+    "name": "addDontHave",
+    "kind": "method",
+    "key": "Impl.addDontHave",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 457
+  },
+  {
+    "parent": "Impl",
+    "name": "size",
+    "kind": "method",
+    "key": "Impl.size",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 461
+  },
+  {
+    "parent": "Impl",
+    "name": "toProtoV0",
+    "kind": "method",
+    "key": "Impl.toProtoV0",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 476
+  },
+  {
+    "parent": "Impl",
+    "name": "toProtoV1",
+    "kind": "method",
+    "key": "Impl.toProtoV1",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 488
+  },
+  {
+    "parent": "Impl",
+    "name": "toNetV0",
+    "kind": "method",
+    "key": "Impl.toNetV0",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 511
+  },
+  {
+    "parent": "Impl",
+    "name": "toNetV1",
+    "kind": "method",
+    "key": "Impl.toNetV1",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 514
+  },
+  {
+    "parent": "Impl",
+    "name": "loggable",
+    "kind": "method",
+    "key": "Impl.loggable",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 517
+  },
+  {
+    "parent": "Impl",
+    "name": "reset",
+    "kind": "method",
+    "key": "Impl.reset",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 523
+  },
+  {
+    "parent": "Impl",
+    "name": "clone",
+    "kind": "method",
+    "key": "Impl.clone",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 532
+  },
+  {
+    "parent": null,
+    "name": "blockPresenceSize",
+    "kind": "function",
+    "key": "blockPresenceSize",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 546
+  },
+  {
+    "parent": null,
+    "name": "wantlistBlock",
+    "kind": "function",
+    "key": "wantlistBlock",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 552
+  },
+  {
+    "parent": null,
+    "name": "fromNet",
+    "kind": "function",
+    "key": "fromNet",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 614
+  },
+  {
+    "parent": null,
+    "name": "fromMsgReader",
+    "kind": "function",
+    "key": "fromMsgReader",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/message.dart",
+    "line": 634
+  },
+  {
+    "parent": "ConnectionListener",
+    "name": "peerConnected",
+    "kind": "method",
+    "key": "ConnectionListener.peerConnected",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/connecteventmanager.dart",
+    "line": 7
+  },
+  {
+    "parent": "ConnectionListener",
+    "name": "peerDisconnected",
+    "kind": "method",
+    "key": "ConnectionListener.peerDisconnected",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/connecteventmanager.dart",
+    "line": 8
+  },
+  {
+    "parent": "ConnectEventManager",
+    "name": "changeQueueLength",
+    "kind": "getter",
+    "key": "ConnectEventManager.changeQueueLength",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/connecteventmanager.dart",
+    "line": 31
+  },
+  {
+    "parent": "ConnectEventManager",
+    "name": "hasPeers",
+    "kind": "getter",
+    "key": "ConnectEventManager.hasPeers",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/connecteventmanager.dart",
+    "line": 32
+  },
+  {
+    "parent": "ConnectEventManager",
+    "name": "hasPendingPeers",
+    "kind": "getter",
+    "key": "ConnectEventManager.hasPendingPeers",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/connecteventmanager.dart",
+    "line": 33
+  },
+  {
+    "parent": "ConnectEventManager",
+    "name": "setListeners",
+    "kind": "method",
+    "key": "ConnectEventManager.setListeners",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/connecteventmanager.dart",
+    "line": 41
+  },
+  {
+    "parent": "ConnectEventManager",
+    "name": "start",
+    "kind": "method",
+    "key": "ConnectEventManager.start",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/connecteventmanager.dart",
+    "line": 47
+  },
+  {
+    "parent": "ConnectEventManager",
+    "name": "stop",
+    "kind": "method",
+    "key": "ConnectEventManager.stop",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/connecteventmanager.dart",
+    "line": 55
+  },
+  {
+    "parent": "ConnectEventManager",
+    "name": "connected",
+    "kind": "method",
+    "key": "ConnectEventManager.connected",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/connecteventmanager.dart",
+    "line": 140
+  },
+  {
+    "parent": "ConnectEventManager",
+    "name": "disconnected",
+    "kind": "method",
+    "key": "ConnectEventManager.disconnected",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/connecteventmanager.dart",
+    "line": 147
+  },
+  {
+    "parent": "ConnectEventManager",
+    "name": "markUnresponsive",
+    "kind": "method",
+    "key": "ConnectEventManager.markUnresponsive",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/connecteventmanager.dart",
+    "line": 154
+  },
+  {
+    "parent": "ConnectEventManager",
+    "name": "onMessage",
+    "kind": "method",
+    "key": "ConnectEventManager.onMessage",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/connecteventmanager.dart",
+    "line": 161
+  },
+  {
+    "parent": "P2pStream",
+    "name": "protocol",
+    "kind": "getter",
+    "key": "P2pStream.protocol",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/interface.dart",
+    "line": 7
+  },
+  {
+    "parent": "P2pStream",
+    "name": "write",
+    "kind": "method",
+    "key": "P2pStream.write",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/interface.dart",
+    "line": 8
+  },
+  {
+    "parent": "P2pStream",
+    "name": "setWriteDeadline",
+    "kind": "method",
+    "key": "P2pStream.setWriteDeadline",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/interface.dart",
+    "line": 9
+  },
+  {
+    "parent": "P2pStream",
+    "name": "setDeadline",
+    "kind": "method",
+    "key": "P2pStream.setDeadline",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/interface.dart",
+    "line": 10
+  },
+  {
+    "parent": "P2pStream",
+    "name": "close",
+    "kind": "method",
+    "key": "P2pStream.close",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/interface.dart",
+    "line": 11
+  },
+  {
+    "parent": "P2pStream",
+    "name": "reset",
+    "kind": "method",
+    "key": "P2pStream.reset",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/interface.dart",
+    "line": 12
+  },
+  {
+    "parent": "P2pHost",
+    "name": "setStreamHandler",
+    "kind": "method",
+    "key": "P2pHost.setStreamHandler",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/interface.dart",
+    "line": 17
+  },
+  {
+    "parent": "P2pHost",
+    "name": "newStream",
+    "kind": "method",
+    "key": "P2pHost.newStream",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/interface.dart",
+    "line": 18
+  },
+  {
+    "parent": "P2pHost",
+    "name": "removeStreamHandler",
+    "kind": "method",
+    "key": "P2pHost.removeStreamHandler",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/interface.dart",
+    "line": 19
+  },
+  {
+    "parent": "P2pHost",
+    "name": "connect",
+    "kind": "method",
+    "key": "P2pHost.connect",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/interface.dart",
+    "line": 20
+  },
+  {
+    "parent": "P2pHost",
+    "name": "peers",
+    "kind": "getter",
+    "key": "P2pHost.peers",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/interface.dart",
+    "line": 21
+  },
+  {
+    "parent": "BitSwapNetwork",
+    "name": "sendMessage",
+    "kind": "method",
+    "key": "BitSwapNetwork.sendMessage",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/interface.dart",
+    "line": 27
+  },
+  {
+    "parent": "BitSwapNetwork",
+    "name": "start",
+    "kind": "method",
+    "key": "BitSwapNetwork.start",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/interface.dart",
+    "line": 30
+  },
+  {
+    "parent": "BitSwapNetwork",
+    "name": "stop",
+    "kind": "method",
+    "key": "BitSwapNetwork.stop",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/interface.dart",
+    "line": 33
+  },
+  {
+    "parent": "BitSwapNetwork",
+    "name": "connect",
+    "kind": "method",
+    "key": "BitSwapNetwork.connect",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/interface.dart",
+    "line": 35
+  },
+  {
+    "parent": "BitSwapNetwork",
+    "name": "disconnectFrom",
+    "kind": "method",
+    "key": "BitSwapNetwork.disconnectFrom",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/interface.dart",
+    "line": 36
+  },
+  {
+    "parent": "BitSwapNetwork",
+    "name": "isConnectedToPeer",
+    "kind": "method",
+    "key": "BitSwapNetwork.isConnectedToPeer",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/interface.dart",
+    "line": 37
+  },
+  {
+    "parent": "BitSwapNetwork",
+    "name": "newMessageSender",
+    "kind": "method",
+    "key": "BitSwapNetwork.newMessageSender",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/interface.dart",
+    "line": 39
+  },
+  {
+    "parent": "BitSwapNetwork",
+    "name": "host",
+    "kind": "method",
+    "key": "BitSwapNetwork.host",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/interface.dart",
+    "line": 41
+  },
+  {
+    "parent": "BitSwapNetwork",
+    "name": "stats",
+    "kind": "method",
+    "key": "BitSwapNetwork.stats",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/interface.dart",
+    "line": 43
+  },
+  {
+    "parent": "BitSwapNetwork",
+    "name": "self",
+    "kind": "method",
+    "key": "BitSwapNetwork.self",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/interface.dart",
+    "line": 45
+  },
+  {
+    "parent": "PeerTagger",
+    "name": "tagPeer",
+    "kind": "method",
+    "key": "PeerTagger.tagPeer",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/interface.dart",
+    "line": 50
+  },
+  {
+    "parent": "PeerTagger",
+    "name": "untagPeer",
+    "kind": "method",
+    "key": "PeerTagger.untagPeer",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/interface.dart",
+    "line": 51
+  },
+  {
+    "parent": "PeerTagger",
+    "name": "protect",
+    "kind": "method",
+    "key": "PeerTagger.protect",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/interface.dart",
+    "line": 52
+  },
+  {
+    "parent": "PeerTagger",
+    "name": "unprotect",
+    "kind": "method",
+    "key": "PeerTagger.unprotect",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/interface.dart",
+    "line": 53
+  },
+  {
+    "parent": "MessageSender",
+    "name": "sendMsg",
+    "kind": "method",
+    "key": "MessageSender.sendMsg",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/interface.dart",
+    "line": 59
+  },
+  {
+    "parent": "MessageSender",
+    "name": "reset",
+    "kind": "method",
+    "key": "MessageSender.reset",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/interface.dart",
+    "line": 60
+  },
+  {
+    "parent": "MessageSender",
+    "name": "supportsHave",
+    "kind": "method",
+    "key": "MessageSender.supportsHave",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/interface.dart",
+    "line": 62
+  },
+  {
+    "parent": "Receiver",
+    "name": "receiveMessage",
+    "kind": "method",
+    "key": "Receiver.receiveMessage",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/interface.dart",
+    "line": 79
+  },
+  {
+    "parent": "Receiver",
+    "name": "receiveError",
+    "kind": "method",
+    "key": "Receiver.receiveError",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/interface.dart",
+    "line": 80
+  },
+  {
+    "parent": "Receiver",
+    "name": "peerConnected",
+    "kind": "method",
+    "key": "Receiver.peerConnected",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/interface.dart",
+    "line": 83
+  },
+  {
+    "parent": "Receiver",
+    "name": "peerDisconnected",
+    "kind": "method",
+    "key": "Receiver.peerDisconnected",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/interface.dart",
+    "line": 84
+  },
+  {
+    "parent": "Routing",
+    "name": "provide",
+    "kind": "method",
+    "key": "Routing.provide",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/interface.dart",
+    "line": 91
+  },
+  {
+    "parent": "Pinger",
+    "name": "ping",
+    "kind": "method",
+    "key": "Pinger.ping",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/interface.dart",
+    "line": 104
+  },
+  {
+    "parent": "Pinger",
+    "name": "latency",
+    "kind": "method",
+    "key": "Pinger.latency",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/interface.dart",
+    "line": 106
+  },
+  {
+    "parent": null,
+    "name": "wantlist",
+    "kind": "function",
+    "key": "wantlist",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/wantlist/forward.dart",
+    "line": 21
+  },
+  {
+    "parent": null,
+    "name": "refEntry",
+    "kind": "function",
+    "key": "refEntry",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/wantlist/forward.dart",
+    "line": 25
+  },
+  {
+    "parent": "IpfsNetwork",
+    "name": "sendMessage",
+    "kind": "method",
+    "key": "IpfsNetwork.sendMessage",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/bsnet/ipfs_impl.dart",
+    "line": 63
+  },
+  {
+    "parent": "IpfsNetwork",
+    "name": "start",
+    "kind": "method",
+    "key": "IpfsNetwork.start",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/bsnet/ipfs_impl.dart",
+    "line": 96
+  },
+  {
+    "parent": "IpfsNetwork",
+    "name": "stop",
+    "kind": "method",
+    "key": "IpfsNetwork.stop",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/bsnet/ipfs_impl.dart",
+    "line": 115
+  },
+  {
+    "parent": "IpfsNetwork",
+    "name": "connect",
+    "kind": "method",
+    "key": "IpfsNetwork.connect",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/bsnet/ipfs_impl.dart",
+    "line": 120
+  },
+  {
+    "parent": "IpfsNetwork",
+    "name": "disconnectFrom",
+    "kind": "method",
+    "key": "IpfsNetwork.disconnectFrom",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/bsnet/ipfs_impl.dart",
+    "line": 126
+  },
+  {
+    "parent": "IpfsNetwork",
+    "name": "isConnectedToPeer",
+    "kind": "method",
+    "key": "IpfsNetwork.isConnectedToPeer",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/bsnet/ipfs_impl.dart",
+    "line": 129
+  },
+  {
+    "parent": "IpfsNetwork",
+    "name": "newMessageSender",
+    "kind": "method",
+    "key": "IpfsNetwork.newMessageSender",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/bsnet/ipfs_impl.dart",
+    "line": 134
+  },
+  {
+    "parent": "IpfsNetwork",
+    "name": "host",
+    "kind": "method",
+    "key": "IpfsNetwork.host",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/bsnet/ipfs_impl.dart",
+    "line": 156
+  },
+  {
+    "parent": "IpfsNetwork",
+    "name": "stats",
+    "kind": "method",
+    "key": "IpfsNetwork.stats",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/bsnet/ipfs_impl.dart",
+    "line": 159
+  },
+  {
+    "parent": "IpfsNetwork",
+    "name": "self",
+    "kind": "method",
+    "key": "IpfsNetwork.self",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/bsnet/ipfs_impl.dart",
+    "line": 162
+  },
+  {
+    "parent": "IpfsNetwork",
+    "name": "ping",
+    "kind": "method",
+    "key": "IpfsNetwork.ping",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/bsnet/ipfs_impl.dart",
+    "line": 165
+  },
+  {
+    "parent": "IpfsNetwork",
+    "name": "latency",
+    "kind": "method",
+    "key": "IpfsNetwork.latency",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/bsnet/ipfs_impl.dart",
+    "line": 170
+  },
+  {
+    "parent": "IpfsNetwork",
+    "name": "tagPeer",
+    "kind": "method",
+    "key": "IpfsNetwork.tagPeer",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/bsnet/ipfs_impl.dart",
+    "line": 175
+  },
+  {
+    "parent": "IpfsNetwork",
+    "name": "untagPeer",
+    "kind": "method",
+    "key": "IpfsNetwork.untagPeer",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/bsnet/ipfs_impl.dart",
+    "line": 177
+  },
+  {
+    "parent": "IpfsNetwork",
+    "name": "protect",
+    "kind": "method",
+    "key": "IpfsNetwork.protect",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/bsnet/ipfs_impl.dart",
+    "line": 179
+  },
+  {
+    "parent": "IpfsNetwork",
+    "name": "unprotect",
+    "kind": "method",
+    "key": "IpfsNetwork.unprotect",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/bsnet/ipfs_impl.dart",
+    "line": 181
+  },
+  {
+    "parent": null,
+    "name": "prefix",
+    "kind": "function",
+    "key": "prefix",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/bsnet/options.dart",
+    "line": 13
+  },
+  {
+    "parent": null,
+    "name": "supportedProtocols",
+    "kind": "function",
+    "key": "supportedProtocols",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/bsnet/options.dart",
+    "line": 19
+  },
+  {
+    "parent": null,
+    "name": "withConnectEventManager",
+    "kind": "function",
+    "key": "withConnectEventManager",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/network/bsnet/options.dart",
+    "line": 29
+  },
+  {
+    "parent": "WantType",
+    "name": "have",
+    "kind": "method",
+    "key": "WantType.have",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart",
+    "line": 13
+  },
+  {
+    "parent": "WantType",
+    "name": "code",
+    "kind": "getter",
+    "key": "WantType.code",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart",
+    "line": 21
+  },
+  {
+    "parent": "WantType",
+    "name": "fromValue",
+    "kind": "method",
+    "key": "WantType.fromValue",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart",
+    "line": 23
+  },
+  {
+    "parent": "BlockPresenceType",
+    "name": "dontHave",
+    "kind": "method",
+    "key": "BlockPresenceType.dontHave",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart",
+    "line": 33
+  },
+  {
+    "parent": "BlockPresenceType",
+    "name": "code",
+    "kind": "getter",
+    "key": "BlockPresenceType.code",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart",
+    "line": 41
+  },
+  {
+    "parent": "BlockPresenceType",
+    "name": "fromValue",
+    "kind": "method",
+    "key": "BlockPresenceType.fromValue",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart",
+    "line": 43
+  },
+  {
+    "parent": "Entry",
+    "name": "getBlock",
+    "kind": "method",
+    "key": "Entry.getBlock",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart",
+    "line": 67
+  },
+  {
+    "parent": "Entry",
+    "name": "getPriority",
+    "kind": "method",
+    "key": "Entry.getPriority",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart",
+    "line": 68
+  },
+  {
+    "parent": "Entry",
+    "name": "getCancel",
+    "kind": "method",
+    "key": "Entry.getCancel",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart",
+    "line": 69
+  },
+  {
+    "parent": "Entry",
+    "name": "getWantType",
+    "kind": "method",
+    "key": "Entry.getWantType",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart",
+    "line": 70
+  },
+  {
+    "parent": "Entry",
+    "name": "getSendDontHave",
+    "kind": "method",
+    "key": "Entry.getSendDontHave",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart",
+    "line": 71
+  },
+  {
+    "parent": "Entry",
+    "name": "size",
+    "kind": "method",
+    "key": "Entry.size",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart",
+    "line": 73
+  },
+  {
+    "parent": "Entry",
+    "name": "encode",
+    "kind": "method",
+    "key": "Entry.encode",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart",
+    "line": 96
+  },
+  {
+    "parent": "Entry",
+    "name": "decode",
+    "kind": "method",
+    "key": "Entry.decode",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart",
+    "line": 124
+  },
+  {
+    "parent": "Wantlist",
+    "name": "getEntries",
+    "kind": "method",
+    "key": "Wantlist.getEntries",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart",
+    "line": 193
+  },
+  {
+    "parent": "Wantlist",
+    "name": "getFull",
+    "kind": "method",
+    "key": "Wantlist.getFull",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart",
+    "line": 194
+  },
+  {
+    "parent": "Wantlist",
+    "name": "size",
+    "kind": "method",
+    "key": "Wantlist.size",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart",
+    "line": 196
+  },
+  {
+    "parent": "Wantlist",
+    "name": "encode",
+    "kind": "method",
+    "key": "Wantlist.encode",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart",
+    "line": 208
+  },
+  {
+    "parent": "Wantlist",
+    "name": "decode",
+    "kind": "method",
+    "key": "Wantlist.decode",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart",
+    "line": 222
+  },
+  {
+    "parent": "Block",
+    "name": "getPrefix",
+    "kind": "method",
+    "key": "Block.getPrefix",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart",
+    "line": 265
+  },
+  {
+    "parent": "Block",
+    "name": "getData",
+    "kind": "method",
+    "key": "Block.getData",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart",
+    "line": 266
+  },
+  {
+    "parent": "Block",
+    "name": "size",
+    "kind": "method",
+    "key": "Block.size",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart",
+    "line": 268
+  },
+  {
+    "parent": "Block",
+    "name": "encode",
+    "kind": "method",
+    "key": "Block.encode",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart",
+    "line": 279
+  },
+  {
+    "parent": "Block",
+    "name": "decode",
+    "kind": "method",
+    "key": "Block.decode",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart",
+    "line": 292
+  },
+  {
+    "parent": "BlockPresence",
+    "name": "getCid",
+    "kind": "method",
+    "key": "BlockPresence.getCid",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart",
+    "line": 334
+  },
+  {
+    "parent": "BlockPresence",
+    "name": "getType",
+    "kind": "method",
+    "key": "BlockPresence.getType",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart",
+    "line": 335
+  },
+  {
+    "parent": "BlockPresence",
+    "name": "size",
+    "kind": "method",
+    "key": "BlockPresence.size",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart",
+    "line": 337
+  },
+  {
+    "parent": "BlockPresence",
+    "name": "encode",
+    "kind": "method",
+    "key": "BlockPresence.encode",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart",
+    "line": 348
+  },
+  {
+    "parent": "BlockPresence",
+    "name": "decode",
+    "kind": "method",
+    "key": "BlockPresence.decode",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart",
+    "line": 361
+  },
+  {
+    "parent": "Message",
+    "name": "getWantlist",
+    "kind": "method",
+    "key": "Message.getWantlist",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart",
+    "line": 413
+  },
+  {
+    "parent": "Message",
+    "name": "getBlocks",
+    "kind": "method",
+    "key": "Message.getBlocks",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart",
+    "line": 414
+  },
+  {
+    "parent": "Message",
+    "name": "getPayload",
+    "kind": "method",
+    "key": "Message.getPayload",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart",
+    "line": 415
+  },
+  {
+    "parent": "Message",
+    "name": "getBlockPresences",
+    "kind": "method",
+    "key": "Message.getBlockPresences",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart",
+    "line": 416
+  },
+  {
+    "parent": "Message",
+    "name": "getPendingBytes",
+    "kind": "method",
+    "key": "Message.getPendingBytes",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart",
+    "line": 417
+  },
+  {
+    "parent": "Message",
+    "name": "size",
+    "kind": "method",
+    "key": "Message.size",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart",
+    "line": 419
+  },
+  {
+    "parent": "Message",
+    "name": "encode",
+    "kind": "method",
+    "key": "Message.encode",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart",
+    "line": 445
+  },
+  {
+    "parent": "Message",
+    "name": "decode",
+    "kind": "method",
+    "key": "Message.decode",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart",
+    "line": 476
+  },
+  {
+    "parent": "Wantlist",
+    "name": "length",
+    "kind": "getter",
+    "key": "Wantlist.length",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/wantlist/wantlist.dart",
+    "line": 49
+  },
+  {
+    "parent": "Wantlist",
+    "name": "add",
+    "kind": "method",
+    "key": "Wantlist.add",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/wantlist/wantlist.dart",
+    "line": 54
+  },
+  {
+    "parent": "Wantlist",
+    "name": "remove",
+    "kind": "method",
+    "key": "Wantlist.remove",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/wantlist/wantlist.dart",
+    "line": 66
+  },
+  {
+    "parent": "Wantlist",
+    "name": "removeType",
+    "kind": "method",
+    "key": "Wantlist.removeType",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/wantlist/wantlist.dart",
+    "line": 71
+  },
+  {
+    "parent": "Wantlist",
+    "name": "has",
+    "kind": "method",
+    "key": "Wantlist.has",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/wantlist/wantlist.dart",
+    "line": 95
+  },
+  {
+    "parent": "Wantlist",
+    "name": "get",
+    "kind": "method",
+    "key": "Wantlist.get",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/wantlist/wantlist.dart",
+    "line": 100
+  },
+  {
+    "parent": "Wantlist",
+    "name": "entries",
+    "kind": "method",
+    "key": "Wantlist.entries",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/wantlist/wantlist.dart",
+    "line": 105
+  },
+  {
+    "parent": "BlockPresenceManager",
+    "name": "receiveFrom",
+    "kind": "method",
+    "key": "BlockPresenceManager.receiveFrom",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/blockpresencemanager/blockpresencemanager.dart",
+    "line": 12
+  },
+  {
+    "parent": "BlockPresenceManager",
+    "name": "peerHasBlock",
+    "kind": "method",
+    "key": "BlockPresenceManager.peerHasBlock",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/blockpresencemanager/blockpresencemanager.dart",
+    "line": 39
+  },
+  {
+    "parent": "BlockPresenceManager",
+    "name": "peerDoesNotHaveBlock",
+    "kind": "method",
+    "key": "BlockPresenceManager.peerDoesNotHaveBlock",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/blockpresencemanager/blockpresencemanager.dart",
+    "line": 47
+  },
+  {
+    "parent": "BlockPresenceManager",
+    "name": "allPeersDoNotHaveBlock",
+    "kind": "method",
+    "key": "BlockPresenceManager.allPeersDoNotHaveBlock",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/blockpresencemanager/blockpresencemanager.dart",
+    "line": 58
+  },
+  {
+    "parent": "BlockPresenceManager",
+    "name": "removeKeys",
+    "kind": "method",
+    "key": "BlockPresenceManager.removeKeys",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/blockpresencemanager/blockpresencemanager.dart",
+    "line": 90
+  },
+  {
+    "parent": "BlockPresenceManager",
+    "name": "removePeer",
+    "kind": "method",
+    "key": "BlockPresenceManager.removePeer",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/blockpresencemanager/blockpresencemanager.dart",
+    "line": 99
+  },
+  {
+    "parent": "BlockPresenceManager",
+    "name": "hasKey",
+    "kind": "method",
+    "key": "BlockPresenceManager.hasKey",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/blockpresencemanager/blockpresencemanager.dart",
+    "line": 118
+  },
+  {
+    "parent": null,
+    "name": "syncGetBlock",
+    "kind": "function",
+    "key": "syncGetBlock",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/getter/getter.dart",
+    "line": 12
+  },
+  {
+    "parent": null,
+    "name": "asyncGetBlocks",
+    "kind": "function",
+    "key": "asyncGetBlocks",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/getter/getter.dart",
+    "line": 35
+  },
+  {
+    "parent": "PeerConnection",
+    "name": "ping",
+    "kind": "method",
+    "key": "PeerConnection.ping",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/messagequeue/donthavetimeoutmgr.dart",
+    "line": 46
+  },
+  {
+    "parent": "PeerConnection",
+    "name": "latency",
+    "kind": "method",
+    "key": "PeerConnection.latency",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/messagequeue/donthavetimeoutmgr.dart",
+    "line": 49
+  },
+  {
+    "parent": "DontHaveTimeoutManager",
+    "name": "create",
+    "kind": "method",
+    "key": "DontHaveTimeoutManager.create",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/messagequeue/donthavetimeoutmgr.dart",
+    "line": 90
+  },
+  {
+    "parent": "DontHaveTimeoutManager",
+    "name": "shutdown",
+    "kind": "method",
+    "key": "DontHaveTimeoutManager.shutdown",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/messagequeue/donthavetimeoutmgr.dart",
+    "line": 99
+  },
+  {
+    "parent": "DontHaveTimeoutManager",
+    "name": "start",
+    "kind": "method",
+    "key": "DontHaveTimeoutManager.start",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/messagequeue/donthavetimeoutmgr.dart",
+    "line": 105
+  },
+  {
+    "parent": "DontHaveTimeoutManager",
+    "name": "updateMessageLatency",
+    "kind": "method",
+    "key": "DontHaveTimeoutManager.updateMessageLatency",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/messagequeue/donthavetimeoutmgr.dart",
+    "line": 118
+  },
+  {
+    "parent": "DontHaveTimeoutManager",
+    "name": "addPending",
+    "kind": "method",
+    "key": "DontHaveTimeoutManager.addPending",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/messagequeue/donthavetimeoutmgr.dart",
+    "line": 188
+  },
+  {
+    "parent": "DontHaveTimeoutManager",
+    "name": "cancelPending",
+    "kind": "method",
+    "key": "DontHaveTimeoutManager.cancelPending",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/messagequeue/donthavetimeoutmgr.dart",
+    "line": 211
+  },
+  {
+    "parent": "MessageNetwork",
+    "name": "connect",
+    "kind": "method",
+    "key": "MessageNetwork.connect",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/messagequeue/messagequeue.dart",
+    "line": 31
+  },
+  {
+    "parent": "MessageNetwork",
+    "name": "newMessageSender",
+    "kind": "method",
+    "key": "MessageNetwork.newMessageSender",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/messagequeue/messagequeue.dart",
+    "line": 32
+  },
+  {
+    "parent": "MessageNetwork",
+    "name": "latency",
+    "kind": "method",
+    "key": "MessageNetwork.latency",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/messagequeue/messagequeue.dart",
+    "line": 33
+  },
+  {
+    "parent": "MessageNetwork",
+    "name": "ping",
+    "kind": "method",
+    "key": "MessageNetwork.ping",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/messagequeue/messagequeue.dart",
+    "line": 34
+  },
+  {
+    "parent": "MessageNetwork",
+    "name": "self",
+    "kind": "method",
+    "key": "MessageNetwork.self",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/messagequeue/messagequeue.dart",
+    "line": 35
+  },
+  {
+    "parent": "MessageQueue",
+    "name": "addBroadcastWantHaves",
+    "kind": "method",
+    "key": "MessageQueue.addBroadcastWantHaves",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/messagequeue/messagequeue.dart",
+    "line": 109
+  },
+  {
+    "parent": "MessageQueue",
+    "name": "addWants",
+    "kind": "method",
+    "key": "MessageQueue.addWants",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/messagequeue/messagequeue.dart",
+    "line": 121
+  },
+  {
+    "parent": "MessageQueue",
+    "name": "addCancels",
+    "kind": "method",
+    "key": "MessageQueue.addCancels",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/messagequeue/messagequeue.dart",
+    "line": 138
+  },
+  {
+    "parent": "MessageQueue",
+    "name": "hasMessage",
+    "kind": "method",
+    "key": "MessageQueue.hasMessage",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/messagequeue/messagequeue.dart",
+    "line": 163
+  },
+  {
+    "parent": "MessageQueue",
+    "name": "responseReceived",
+    "kind": "method",
+    "key": "MessageQueue.responseReceived",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/messagequeue/messagequeue.dart",
+    "line": 167
+  },
+  {
+    "parent": "MessageQueue",
+    "name": "rebroadcastNow",
+    "kind": "method",
+    "key": "MessageQueue.rebroadcastNow",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/messagequeue/messagequeue.dart",
+    "line": 172
+  },
+  {
+    "parent": "MessageQueue",
+    "name": "startup",
+    "kind": "method",
+    "key": "MessageQueue.startup",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/messagequeue/messagequeue.dart",
+    "line": 176
+  },
+  {
+    "parent": "MessageQueue",
+    "name": "shutdown",
+    "kind": "method",
+    "key": "MessageQueue.shutdown",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/messagequeue/messagequeue.dart",
+    "line": 180
+  },
+  {
+    "parent": "PubSub",
+    "name": "publish",
+    "kind": "method",
+    "key": "PubSub.publish",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/notifications/notifications.dart",
+    "line": 11
+  },
+  {
+    "parent": "PubSub",
+    "name": "subscribe",
+    "kind": "method",
+    "key": "PubSub.subscribe",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/notifications/notifications.dart",
+    "line": 12
+  },
+  {
+    "parent": "PubSub",
+    "name": "shutdown",
+    "kind": "method",
+    "key": "PubSub.shutdown",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/notifications/notifications.dart",
+    "line": 13
+  },
+  {
+    "parent": "NotificationsPubSub",
+    "name": "publish",
+    "kind": "method",
+    "key": "NotificationsPubSub.publish",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/notifications/notifications.dart",
+    "line": 26
+  },
+  {
+    "parent": "NotificationsPubSub",
+    "name": "subscribe",
+    "kind": "method",
+    "key": "NotificationsPubSub.subscribe",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/notifications/notifications.dart",
+    "line": 44
+  },
+  {
+    "parent": "NotificationsPubSub",
+    "name": "shutdown",
+    "kind": "method",
+    "key": "NotificationsPubSub.shutdown",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/notifications/notifications.dart",
+    "line": 109
+  },
+  {
+    "parent": "Session",
+    "name": "id",
+    "kind": "method",
+    "key": "Session.id",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peermanager.dart",
+    "line": 11
+  },
+  {
+    "parent": "Session",
+    "name": "signalAvailability",
+    "kind": "method",
+    "key": "Session.signalAvailability",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peermanager.dart",
+    "line": 12
+  },
+  {
+    "parent": "PeerManager",
+    "name": "availablePeers",
+    "kind": "method",
+    "key": "PeerManager.availablePeers",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peermanager.dart",
+    "line": 37
+  },
+  {
+    "parent": "PeerManager",
+    "name": "connectedPeers",
+    "kind": "method",
+    "key": "PeerManager.connectedPeers",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peermanager.dart",
+    "line": 41
+  },
+  {
+    "parent": "PeerManager",
+    "name": "connected",
+    "kind": "method",
+    "key": "PeerManager.connected",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peermanager.dart",
+    "line": 45
+  },
+  {
+    "parent": "PeerManager",
+    "name": "disconnected",
+    "kind": "method",
+    "key": "PeerManager.disconnected",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peermanager.dart",
+    "line": 52
+  },
+  {
+    "parent": "PeerManager",
+    "name": "responseReceived",
+    "kind": "method",
+    "key": "PeerManager.responseReceived",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peermanager.dart",
+    "line": 66
+  },
+  {
+    "parent": "PeerManager",
+    "name": "broadcastWantHaves",
+    "kind": "method",
+    "key": "PeerManager.broadcastWantHaves",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peermanager.dart",
+    "line": 73
+  },
+  {
+    "parent": "PeerManager",
+    "name": "sendWants",
+    "kind": "method",
+    "key": "PeerManager.sendWants",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peermanager.dart",
+    "line": 77
+  },
+  {
+    "parent": "PeerManager",
+    "name": "sendCancels",
+    "kind": "method",
+    "key": "PeerManager.sendCancels",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peermanager.dart",
+    "line": 85
+  },
+  {
+    "parent": "PeerManager",
+    "name": "currentWants",
+    "kind": "method",
+    "key": "PeerManager.currentWants",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peermanager.dart",
+    "line": 89
+  },
+  {
+    "parent": "PeerManager",
+    "name": "currentWantBlocks",
+    "kind": "method",
+    "key": "PeerManager.currentWantBlocks",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peermanager.dart",
+    "line": 93
+  },
+  {
+    "parent": "PeerManager",
+    "name": "currentWantHaves",
+    "kind": "method",
+    "key": "PeerManager.currentWantHaves",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peermanager.dart",
+    "line": 97
+  },
+  {
+    "parent": "PeerManager",
+    "name": "registerSession",
+    "kind": "method",
+    "key": "PeerManager.registerSession",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peermanager.dart",
+    "line": 117
+  },
+  {
+    "parent": "PeerManager",
+    "name": "unregisterSession",
+    "kind": "method",
+    "key": "PeerManager.unregisterSession",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peermanager.dart",
+    "line": 123
+  },
+  {
+    "parent": "PeerManager",
+    "name": "markBroadcastTarget",
+    "kind": "method",
+    "key": "PeerManager.markBroadcastTarget",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peermanager.dart",
+    "line": 134
+  },
+  {
+    "parent": "PeerQueue",
+    "name": "addBroadcastWantHaves",
+    "kind": "method",
+    "key": "PeerQueue.addBroadcastWantHaves",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peerqueue.dart",
+    "line": 4
+  },
+  {
+    "parent": "PeerQueue",
+    "name": "addWants",
+    "kind": "method",
+    "key": "PeerQueue.addWants",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peerqueue.dart",
+    "line": 5
+  },
+  {
+    "parent": "PeerQueue",
+    "name": "addCancels",
+    "kind": "method",
+    "key": "PeerQueue.addCancels",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peerqueue.dart",
+    "line": 6
+  },
+  {
+    "parent": "PeerQueue",
+    "name": "responseReceived",
+    "kind": "method",
+    "key": "PeerQueue.responseReceived",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peerqueue.dart",
+    "line": 7
+  },
+  {
+    "parent": "PeerQueue",
+    "name": "hasMessage",
+    "kind": "method",
+    "key": "PeerQueue.hasMessage",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peerqueue.dart",
+    "line": 8
+  },
+  {
+    "parent": "PeerQueue",
+    "name": "startup",
+    "kind": "method",
+    "key": "PeerQueue.startup",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peerqueue.dart",
+    "line": 9
+  },
+  {
+    "parent": "PeerQueue",
+    "name": "shutdown",
+    "kind": "method",
+    "key": "PeerQueue.shutdown",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peerqueue.dart",
+    "line": 10
+  },
+  {
+    "parent": "Gauge",
+    "name": "inc",
+    "kind": "method",
+    "key": "Gauge.inc",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peerwantmanager.dart",
+    "line": 9
+  },
+  {
+    "parent": "Gauge",
+    "name": "dec",
+    "kind": "method",
+    "key": "Gauge.dec",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peerwantmanager.dart",
+    "line": 10
+  },
+  {
+    "parent": "BroadcastControl",
+    "name": "needHost",
+    "kind": "method",
+    "key": "BroadcastControl.needHost",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peerwantmanager.dart",
+    "line": 35
+  },
+  {
+    "parent": "PeerWantManager",
+    "name": "addPeer",
+    "kind": "method",
+    "key": "PeerWantManager.addPeer",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peerwantmanager.dart",
+    "line": 60
+  },
+  {
+    "parent": "PeerWantManager",
+    "name": "removePeer",
+    "kind": "method",
+    "key": "PeerWantManager.removePeer",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peerwantmanager.dart",
+    "line": 76
+  },
+  {
+    "parent": "PeerWantManager",
+    "name": "broadcastWantHaves",
+    "kind": "method",
+    "key": "PeerWantManager.broadcastWantHaves",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peerwantmanager.dart",
+    "line": 106
+  },
+  {
+    "parent": "PeerWantManager",
+    "name": "markBroadcastTarget",
+    "kind": "method",
+    "key": "PeerWantManager.markBroadcastTarget",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peerwantmanager.dart",
+    "line": 201
+  },
+  {
+    "parent": "PeerWantManager",
+    "name": "sendWants",
+    "kind": "method",
+    "key": "PeerWantManager.sendWants",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peerwantmanager.dart",
+    "line": 214
+  },
+  {
+    "parent": "PeerWantManager",
+    "name": "sendCancels",
+    "kind": "method",
+    "key": "PeerWantManager.sendCancels",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peerwantmanager.dart",
+    "line": 261
+  },
+  {
+    "parent": "PeerWantManager",
+    "name": "getWantBlocks",
+    "kind": "method",
+    "key": "PeerWantManager.getWantBlocks",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peerwantmanager.dart",
+    "line": 386
+  },
+  {
+    "parent": "PeerWantManager",
+    "name": "getWantHaves",
+    "kind": "method",
+    "key": "PeerWantManager.getWantHaves",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peerwantmanager.dart",
+    "line": 394
+  },
+  {
+    "parent": "PeerWantManager",
+    "name": "getWants",
+    "kind": "method",
+    "key": "PeerWantManager.getWants",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peerwantmanager.dart",
+    "line": 403
+  },
+  {
+    "parent": "WantPeerCnts",
+    "name": "wanted",
+    "kind": "method",
+    "key": "WantPeerCnts.wanted",
+    "file": "packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peerwantmanager.dart",
+    "line": 438
+  }
+]

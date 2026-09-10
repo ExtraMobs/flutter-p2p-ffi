@@ -1,0 +1,3014 @@
+# Relatório de Auditoria de AST e Nomenclatura (Dart <-> Go)
+
+> Relatório gerado automaticamente por `tool/audit_ast_nomenclature.py`.
+> **Símbolos Dart Auditados:** 5251 | **Símbolos Go Indexados:** 33298
+> **Status Geral:** ❌ **0 Erros** | ⚠️ **0 Avisos** | ℹ️ **1483 Notas de Cobertura**
+
+## 1. Resumo Executivo das 23 Regras
+
+| # | Regra | Severidade | Ocorrências | Status |
+| :---: | :--- | :---: | :---: | :---: |
+| `RULE_ALL_CAPS` | 1. Violação de UpperCamelCase / lowerCamelCase (Blocos em All-Caps) | `ERROR` | 0 | ✅ Conforme |
+| `RULE_LOWER_CAMEL` | 2. Violação de lowerCamelCase (PascalCase em membros públicos) | `ERROR` | 0 | ✅ Conforme |
+| `RULE_NO_TYPEDEF_SHIMS` | 3. Veto a Typedefs e Shims Artificiais | `ERROR` | 0 | ✅ Conforme |
+| `RULE_NO_UNAUTHORIZED_DEPRECATED` | 4. Veto a @Deprecated Não Existente no Upstream Go | `ERROR` | 0 | ✅ Conforme |
+| `RULE_NO_NEW_X_FUNCTIONS` | 5. Veto a Funções Livres newX(...) Artificiais | `ERROR` | 0 | ✅ Conforme |
+| `RULE_CONSTANT_CASING` | 6. Veto a Constantes em SCREAMING_SNAKE_CASE | `ERROR` | 0 | ✅ Conforme |
+| `RULE_REDUNDANT_CONSTRUCTOR_NAMES` | 7. Veto a Construtores Nomeados Redundantes ou com Prefixo 'new' | `ERROR` | 0 | ✅ Conforme |
+| `RULE_NO_GO_STYLE_ERROR_TUPLES` | 8. Veto a Tuplas de Erro Go e Result Wrappers em APIs Públicas | `ERROR` | 0 | ✅ Conforme |
+| `RULE_NO_CLI_IN_LIBRARIES` | 9. Veto a Código de CLI em Pacotes de Bibliotecas | `ERROR` | 0 | ✅ Conforme |
+| `RULE_ENFORCE_BOILERPLATE_TYPES` | 10. Uso Obrigatório de fixed_types.Golang.* para Tipos Primitivos | `ERROR` | 0 | ✅ Conforme |
+| `RULE_MODULE_BOUNDARY_LEAK` | 11. Veto a Violação de Fronteira de Módulo (go.mod) | `ERROR` | 0 | ✅ Conforme |
+| `RULE_INVENTED_PUBLIC_SYMBOLS` | 12. Detecção de Símbolos Públicos Inventados (Sem Upstream Go) | `ERROR` | 0 | ✅ Conforme |
+| `RULE_EXCEPTION_NAMING` | 13. Nomenclatura e Padrão de Exceções Dart (Veto a prefixo 'Err') | `ERROR` | 0 | ✅ Conforme |
+| `RULE_NO_PRODUCTION_MOCKS` | 14. Veto a Mocks, Dummies e Stubs em Código de Biblioteca | `ERROR` | 0 | ✅ Conforme |
+| `RULE_RESTRICTED_PLATFORM_IMPORTS` | 15. Veto a dart:io em Pacotes de Codecs/Formatos Puros | `ERROR` | 0 | ✅ Conforme |
+| `RULE_NO_PRINT_IN_LIBRARIES` | 16. Veto a chamadas print(...) em Bibliotecas Reutilizáveis | `ERROR` | 0 | ✅ Conforme |
+| `RULE_NO_ARTIFICIAL_CONCURRENCY` | 17. Veto a Primitivas Artificiais de Concorrência Go | `ERROR` | 0 | ✅ Conforme |
+| `RULE_MISSING_GO_TYPES` | 18. Auditoria de Tipos e Interfaces do Upstream Go Ausentes | `INFO` | 1345 | ⚠️ Atenção |
+| `RULE_MISSING_GO_FIELDS` | 19. Auditoria de Campos de Structs do Upstream Go Ausentes | `INFO` | 22 | ⚠️ Atenção |
+| `RULE_MISSING_GO_METHODS` | 20. Auditoria de Métodos do Upstream Go Ausentes | `INFO` | 97 | ⚠️ Atenção |
+| `RULE_MISSING_GO_FUNCTIONS` | 21. Auditoria de Funções Top-Level do Upstream Go Ausentes | `INFO` | 19 | ⚠️ Atenção |
+| `RULE_PUBSPEC_DEPENDENCIES` | 22. Validação de Dependências em pubspec.yaml | `ERROR` | 0 | ✅ Conforme |
+| `RULE_EXPOSED_NON_PUBLIC_MEMBERS` | 23. Veto a Membros Públicos que Expõem Tipos Não-Públicos (Menor Permissão) | `ERROR` | 0 | ✅ Conforme |
+| `RULE_MISSING_ATOMIC_TESTS` | 24. Auditoria de Testes Atômicos 1 para 1 (test/atomic/<nivel>/<nome_modulo>_atomic_tests.dart) | `ERROR` | 0 | ✅ Conforme |
+
+## 2. Detalhamento dos Apontamentos
+
+### 18. Auditoria de Tipos e Interfaces do Upstream Go Ausentes (1345 ocorrências)
+
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Option' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Option' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'EndpointCapabilities' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'EndpointCapabilities' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'DelegatedRoutingEndpoint' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'DelegatedRoutingEndpoint' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Config' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Config' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'SystemConfig' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'SystemConfig' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'NativeConfig' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'NativeConfig' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'DelegatedConfig' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'DelegatedConfig' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'EndpointConfig' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'EndpointConfig' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Response' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Response' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Bitswap' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Bitswap' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Stat' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Stat' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Option' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Option' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'BlockService' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'BlockService' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'BoundedBlockService' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'BoundedBlockService' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'AllKeysChanWithErrer' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'AllKeysChanWithErrer' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Viewer' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Viewer' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'GCLocker' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'GCLocker' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'GCBlockstore' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'GCBlockstore' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Unlocker' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Unlocker' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'CacheOpts' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'CacheOpts' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'BloomCacheStatus' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'BloomCacheStatus' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'ValidatingBlockstore' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'ValidatingBlockstore' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'BootstrapConfig' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'BootstrapConfig' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Buzhash' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Buzhash' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Rabin' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Rabin' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'SplitterFunc' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'SplitterFunc' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Splitter' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Splitter' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'SplitterGen' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'SplitterGen' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Interface' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Interface' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Fetcher' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Fetcher' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'SessionExchange' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'SessionExchange' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'FetchResult' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'FetchResult' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Factory' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Factory' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'FetchCallback' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'FetchCallback' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Node' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Node' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'File' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'File' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'DirEntry' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'DirEntry' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'DirIterator' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'DirIterator' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Directory' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Directory' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'FileInfo' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'FileInfo' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Filter' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Filter' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Symlink' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Symlink' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'MultiFileReader' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'MultiFileReader' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'ReaderFile' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'ReaderFile' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'SerialFileOptions' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'SerialFileOptions' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'SliceFile' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'SliceFile' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'TarWriter' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'TarWriter' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'WebFile' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'WebFile' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'FileReader' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'FileReader' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Filestore' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Filestore' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'FileManager' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'FileManager' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'CorruptReferenceError' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'CorruptReferenceError' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'ListRes' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'ListRes' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Status' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Status' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'BackendOption' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'BackendOption' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'BlocksBackend' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'BlocksBackend' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'CarBackend' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'CarBackend' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'CarBackendMetrics' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'CarBackendMetrics' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'CarFetcher' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'CarFetcher' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'DataCallback' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'DataCallback' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'ErrorRetryAfter' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'ErrorRetryAfter' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'ErrorStatusCode' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'ErrorStatusCode' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'ErrInvalidResponse' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'ErrInvalidResponse' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'ErrPartialResponse' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'ErrPartialResponse' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'CarResource' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'CarResource' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'PublicGateway' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'PublicGateway' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'CarParams' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'CarParams' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'DagByteRange' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'DagByteRange' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'ContentPathMetadata' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'ContentPathMetadata' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'ByteRange' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'ByteRange' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'GetResponse' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'GetResponse' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'HeadResponse' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'HeadResponse' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'IPFSBackend' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'IPFSBackend' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'WithContextHint' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'WithContextHint' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'DagScope' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'DagScope' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'DagOrder' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'DagOrder' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'DuplicateBlocksPolicy' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'DuplicateBlocksPolicy' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'RequestContextKey' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'RequestContextKey' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Headers' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Headers' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Name' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Name' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Record' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Record' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'MetadataValue' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'MetadataValue' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'ValidityType' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'ValidityType' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'MetadataKind' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'MetadataKind' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Validator' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Validator' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'FSKeystore' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'FSKeystore' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Keystore' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Keystore' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'MemKeystore' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'MemKeystore' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Directory' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Directory' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'NodeListing' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'NodeListing' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'FileDescriptor' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'FileDescriptor' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'File' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'File' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'FSNode' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'FSNode' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'MkdirOpts' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'MkdirOpts' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Flags' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Flags' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Republisher' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Republisher' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'PubFunc' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'PubFunc' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Root' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Root' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'FSNode' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'FSNode' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'NodeType' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'NodeType' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'DNSResolver' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'DNSResolver' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'LookupTXTFunc' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'LookupTXTFunc' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'LookupTXTWithTTLFunc' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'LookupTXTWithTTLFunc' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Result' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Result' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'AsyncResult' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'AsyncResult' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'ResolveOptions' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'ResolveOptions' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'PublishOptions' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'PublishOptions' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'NameSystem' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'NameSystem' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Resolver' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Resolver' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Publisher' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Publisher' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'ResolveOption' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'ResolveOption' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'PublishOption' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'PublishOption' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'IPNSPublisher' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'IPNSPublisher' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'IPNSResolver' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'IPNSResolver' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'ErrInvalidPath' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'ErrInvalidPath' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'ImmutablePath' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'ImmutablePath' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Path' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Path' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'PeeringService' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'PeeringService' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Provider' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Provider' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'MultihashProvider' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'MultihashProvider' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Reprovider' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Reprovider' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'System' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'System' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'KeyChanFunc' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'KeyChanFunc' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'ReproviderStats' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'ReproviderStats' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Provide' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Provide' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'ProvideMany' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'ProvideMany' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Ready' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Ready' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Snapshot' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Snapshot' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'ErrorWithState' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'ErrorWithState' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'RetrievalPhase' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'RetrievalPhase' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Extractor' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Extractor' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Allowlist' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Allowlist' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'MockValidator' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'MockValidator' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'DelayConfig' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'DelayConfig' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Server' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Server' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'ProviderQueryManager' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'ProviderQueryManager' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'ProviderQueryDialer' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'ProviderQueryDialer' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'ProviderQueryPeerRouter' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'ProviderQueryPeerRouter' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'HTTPError' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'HTTPError' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'ResponseBodyLimitedTransport' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'ResponseBodyLimitedTransport' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'DHTRouter' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'DHTRouter' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'FindProvidersAsyncResponse' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'FindProvidersAsyncResponse' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'BitswapWriteProvideRequest' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'BitswapWriteProvideRequest' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'WriteProvideRequest' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'WriteProvideRequest' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'DelegatedRouter' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'DelegatedRouter' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'CID' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'CID' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Multiaddr' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Multiaddr' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Record' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Record' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'BitswapRecord' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'BitswapRecord' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'WriteBitswapRecord' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'WriteBitswapRecord' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'BitswapPayload' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'BitswapPayload' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'WriteBitswapRecordResponse' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'WriteBitswapRecordResponse' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'PeerRecord' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'PeerRecord' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'UnknownRecord' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'UnknownRecord' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Time' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Time' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Duration' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Duration' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'WriteProvidersRequest' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'WriteProvidersRequest' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'ProvidersResponse' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'ProvidersResponse' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'PeersResponse' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'PeersResponse' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'WriteProvidersResponse' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'WriteProvidersResponse' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'RecordsArray' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'RecordsArray' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Pinned' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Pinned' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'StreamedPin' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'StreamedPin' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Pinner' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Pinner' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Mode' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Mode' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'LsOption' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'LsOption' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'AddOption' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'AddOption' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'PinGetter' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'PinGetter' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'PinStatusGetter' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'PinStatusGetter' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'PinsApiService' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'PinsApiService' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'APIClient' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'APIClient' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'GenericOpenAPIError' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'GenericOpenAPIError' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'BasicAuth' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'BasicAuth' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'APIKey' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'APIKey' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'ServerVariable' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'ServerVariable' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'ServerConfiguration' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'ServerConfiguration' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Configuration' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Configuration' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'ServerConfigurations' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'ServerConfigurations' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Failure' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Failure' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'NullableFailure' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'NullableFailure' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'FailureError' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'FailureError' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'NullableFailureError' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'NullableFailureError' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Pin' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Pin' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'NullablePin' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'NullablePin' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'PinResults' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'PinResults' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'NullablePinResults' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'NullablePinResults' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'PinStatus' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'PinStatus' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'NullablePinStatus' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'NullablePinStatus' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'NullableStatus' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'NullableStatus' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'APIResponse' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'APIResponse' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'NullableBool' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'NullableBool' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'NullableInt' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'NullableInt' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'NullableInt32' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'NullableInt32' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'NullableInt64' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'NullableInt64' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'NullableFloat32' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'NullableFloat32' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'NullableFloat64' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'NullableFloat64' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'NullableString' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'NullableString' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'NullableTime' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'NullableTime' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Indexer' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Indexer' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'ErrNoLink' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'ErrNoLink' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'IpnsRecord' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'IpnsRecord' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'IpnsRecord_ValidityType' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'IpnsRecord_ValidityType' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'ErrorService' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'ErrorService' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'ProgressStat' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'ProgressStat' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'ProgressTracker' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'ProgressTracker' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'GetLinks' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'GetLinks' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'WalkOption' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'WalkOption' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'ProtoNode' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'ProtoNode' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'RawNode' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'RawNode' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'ComboService' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'ComboService' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'SessionMaker' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'SessionMaker' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'LinkResult' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'LinkResult' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'FSNode' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'FSNode' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Metadata' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Metadata' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Shard' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Shard' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'DagReader' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'DagReader' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'ReadSeekCloser' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'ReadSeekCloser' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'BasicDirectory' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'BasicDirectory' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'HAMTDirectory' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'HAMTDirectory' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'DynamicDirectory' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'DynamicDirectory' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'SizeEstimationMode' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'SizeEstimationMode' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'DirectoryOption' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'DirectoryOption' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'UnixFSProfile' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'UnixFSProfile' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'DagModifier' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'DagModifier' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Data' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Data' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'IPFSTimestamp' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'IPFSTimestamp' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Data_DataType' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Data_DataType' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'NodeOpts' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'NodeOpts' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'DagBuilderHelper' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'DagBuilderHelper' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'DagBuilderParams' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'DagBuilderParams' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'FSNodeOverDag' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'FSNodeOverDag' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'RawLeaves' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'RawLeaves' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'VerifyParams' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'VerifyParams' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Change' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Change' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Conflict' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Conflict' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'ChangeType' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'ChangeType' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Editor' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Editor' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'PBLink' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'PBLink' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'PBNode' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'PBNode' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'DAGGenerator' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'DAGGenerator' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Options' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Options' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Visited' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Visited' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Order' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Order' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Func' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Func' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'ErrFunc' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'ErrFunc' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'MenuItem' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'MenuItem' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'GlobalData' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'GlobalData' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'DagTemplateData' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'DagTemplateData' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'ErrorTemplateData' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'ErrorTemplateData' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'DirectoryTemplateData' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'DirectoryTemplateData' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'DirectoryItem' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'DirectoryItem' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Breadcrumb' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Breadcrumb' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'ParsedNode' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'ParsedNode' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'DataObj' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'DataObj' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'PosInfo' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'PosInfo' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'FilestoreNode' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'FilestoreNode' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'BlockResult' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'BlockResult' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'BlockCallback' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'BlockCallback' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'FetcherConfig' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'FetcherConfig' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'EntityType' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'EntityType' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'NodeFetcher' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'NodeFetcher' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'MapTracker' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'MapTracker' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'BloomTracker' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'BloomTracker' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'VisitedTracker' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'VisitedTracker' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'LinksFetcher' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'LinksFetcher' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'BlockReceivedNotifier' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'BlockReceivedNotifier' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'ParsedURL' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'ParsedURL' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Server' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Server' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'InstanceGenerator' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'InstanceGenerator' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Instance' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Instance' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Network' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Network' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'RateLimitGenerator' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'RateLimitGenerator' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Tracer' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Tracer' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Envelope' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Envelope' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Engine' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Engine' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'TaskInfo' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'TaskInfo' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'ScoreLedger' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'ScoreLedger' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'ScorePeerFunc' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'ScorePeerFunc' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'TaskComparator' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'TaskComparator' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'PeerBlockRequestFilter' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'PeerBlockRequestFilter' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Receipt' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Receipt' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'DefaultScoreLedger' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'DefaultScoreLedger' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'HasContext' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'HasContext' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'CooldownTracker' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'CooldownTracker' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Network' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Network' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Message_Wantlist' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Message_Wantlist' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Message_Block' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Message_Block' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Message_BlockPresence' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Message_BlockPresence' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Message_Wantlist_Entry' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Message_Wantlist_Entry' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Message_BlockPresenceType' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Message_BlockPresenceType' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Message_Wantlist_WantType' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Message_Wantlist_WantType' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'SessionManager' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'SessionManager' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'SessionPeerManager' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'SessionPeerManager' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'SessionWantsCanceller' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'SessionWantsCanceller' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'SessionInterestManager' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'SessionInterestManager' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'SessionManager' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'SessionManager' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'SessionFactory' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'SessionFactory' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'PeerManagerFactory' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'PeerManagerFactory' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'SessionPeerManager' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'SessionPeerManager' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'FilterIter' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'FilterIter' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Iter' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'Iter' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'ResultIter' (interface) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'ResultIter' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'JSONIter' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'JSONIter' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'LimitIter' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'LimitIter' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'MapIter' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'MapIter' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'SliceIter' (struct) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
+  - *Sugestão:* `Portar 'SliceIter' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_car:1`](packages/transpiled_go_car#L1)** — Tipo público Go 'Store' (interface) do módulo 'go-car-v2' ainda não foi portado para o pacote 'packages/transpiled_go_car'.
+  - *Sugestão:* `Portar 'Store' para 'packages/transpiled_go_car' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_car:1`](packages/transpiled_go_car#L1)** — Tipo público Go 'ReadStore' (interface) do módulo 'go-car-v2' ainda não foi portado para o pacote 'packages/transpiled_go_car'.
+  - *Sugestão:* `Portar 'ReadStore' para 'packages/transpiled_go_car' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_car:1`](packages/transpiled_go_car#L1)** — Tipo público Go 'WalkFunc' (type) do módulo 'go-car-v2' ainda não foi portado para o pacote 'packages/transpiled_go_car'.
+  - *Sugestão:* `Portar 'WalkFunc' para 'packages/transpiled_go_car' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_car:1`](packages/transpiled_go_car#L1)** — Tipo público Go 'CarReaderOption' (type) do módulo 'go-car-v2' ainda não foi portado para o pacote 'packages/transpiled_go_car'.
+  - *Sugestão:* `Portar 'CarReaderOption' para 'packages/transpiled_go_car' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_car:1`](packages/transpiled_go_car#L1)** — Tipo público Go 'Option' (type) do módulo 'go-car-v2' ainda não foi portado para o pacote 'packages/transpiled_go_car'.
+  - *Sugestão:* `Portar 'Option' para 'packages/transpiled_go_car' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_car:1`](packages/transpiled_go_car#L1)** — Tipo público Go 'Dag' (struct) do módulo 'go-car-v2' ainda não foi portado para o pacote 'packages/transpiled_go_car'.
+  - *Sugestão:* `Portar 'Dag' para 'packages/transpiled_go_car' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_car:1`](packages/transpiled_go_car#L1)** — Tipo público Go 'Block' (struct) do módulo 'go-car-v2' ainda não foi portado para o pacote 'packages/transpiled_go_car'.
+  - *Sugestão:* `Portar 'Block' para 'packages/transpiled_go_car' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_car:1`](packages/transpiled_go_car#L1)** — Tipo público Go 'SelectiveCar' (struct) do módulo 'go-car-v2' ainda não foi portado para o pacote 'packages/transpiled_go_car'.
+  - *Sugestão:* `Portar 'SelectiveCar' para 'packages/transpiled_go_car' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_car:1`](packages/transpiled_go_car#L1)** — Tipo público Go 'SelectiveCarPrepared' (struct) do módulo 'go-car-v2' ainda não foi portado para o pacote 'packages/transpiled_go_car'.
+  - *Sugestão:* `Portar 'SelectiveCarPrepared' para 'packages/transpiled_go_car' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_car:1`](packages/transpiled_go_car#L1)** — Tipo público Go 'OnCarHeaderFunc' (type) do módulo 'go-car-v2' ainda não foi portado para o pacote 'packages/transpiled_go_car'.
+  - *Sugestão:* `Portar 'OnCarHeaderFunc' para 'packages/transpiled_go_car' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_car:1`](packages/transpiled_go_car#L1)** — Tipo público Go 'OnNewCarBlockFunc' (type) do módulo 'go-car-v2' ainda não foi portado para o pacote 'packages/transpiled_go_car'.
+  - *Sugestão:* `Portar 'OnNewCarBlockFunc' para 'packages/transpiled_go_car' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_car:1`](packages/transpiled_go_car#L1)** — Tipo público Go 'BytesReader' (interface) do módulo 'go-car-v2' ainda não foi portado para o pacote 'packages/transpiled_go_car'.
+  - *Sugestão:* `Portar 'BytesReader' para 'packages/transpiled_go_car' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_car:1`](packages/transpiled_go_car#L1)** — Tipo público Go 'BlockReader' (struct) do módulo 'go-car-v2' ainda não foi portado para o pacote 'packages/transpiled_go_car'.
+  - *Sugestão:* `Portar 'BlockReader' para 'packages/transpiled_go_car' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_car:1`](packages/transpiled_go_car#L1)** — Tipo público Go 'BlockMetadata' (struct) do módulo 'go-car-v2' ainda não foi portado para o pacote 'packages/transpiled_go_car'.
+  - *Sugestão:* `Portar 'BlockMetadata' para 'packages/transpiled_go_car' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_car:1`](packages/transpiled_go_car#L1)** — Tipo público Go 'ErrCidTooLarge' (struct) do módulo 'go-car-v2' ainda não foi portado para o pacote 'packages/transpiled_go_car'.
+  - *Sugestão:* `Portar 'ErrCidTooLarge' para 'packages/transpiled_go_car' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_car:1`](packages/transpiled_go_car#L1)** — Tipo público Go 'Options' (struct) do módulo 'go-car-v2' ainda não foi portado para o pacote 'packages/transpiled_go_car'.
+  - *Sugestão:* `Portar 'Options' para 'packages/transpiled_go_car' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_car:1`](packages/transpiled_go_car#L1)** — Tipo público Go 'Reader' (struct) do módulo 'go-car-v2' ainda não foi portado para o pacote 'packages/transpiled_go_car'.
+  - *Sugestão:* `Portar 'Reader' para 'packages/transpiled_go_car' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_car:1`](packages/transpiled_go_car#L1)** — Tipo público Go 'Stats' (struct) do módulo 'go-car-v2' ainda não foi portado para o pacote 'packages/transpiled_go_car'.
+  - *Sugestão:* `Portar 'Stats' para 'packages/transpiled_go_car' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_car:1`](packages/transpiled_go_car#L1)** — Tipo público Go 'SectionReader' (interface) do módulo 'go-car-v2' ainda não foi portado para o pacote 'packages/transpiled_go_car'.
+  - *Sugestão:* `Portar 'SectionReader' para 'packages/transpiled_go_car' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_car:1`](packages/transpiled_go_car#L1)** — Tipo público Go 'Writer' (interface) do módulo 'go-car-v2' ainda não foi portado para o pacote 'packages/transpiled_go_car'.
+  - *Sugestão:* `Portar 'Writer' para 'packages/transpiled_go_car' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_car:1`](packages/transpiled_go_car#L1)** — Tipo público Go 'ReadOnly' (struct) do módulo 'go-car-v2' ainda não foi portado para o pacote 'packages/transpiled_go_car'.
+  - *Sugestão:* `Portar 'ReadOnly' para 'packages/transpiled_go_car' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_car:1`](packages/transpiled_go_car#L1)** — Tipo público Go 'Blockstore' (interface) do módulo 'go-car-v2' ainda não foi portado para o pacote 'packages/transpiled_go_car'.
+  - *Sugestão:* `Portar 'Blockstore' para 'packages/transpiled_go_car' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_car:1`](packages/transpiled_go_car#L1)** — Tipo público Go 'ReadWrite' (struct) do módulo 'go-car-v2' ainda não foi portado para o pacote 'packages/transpiled_go_car'.
+  - *Sugestão:* `Portar 'ReadWrite' para 'packages/transpiled_go_car' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_car:1`](packages/transpiled_go_car#L1)** — Tipo público Go 'InsertionIndex' (struct) do módulo 'go-car-v2' ainda não foi portado para o pacote 'packages/transpiled_go_car'.
+  - *Sugestão:* `Portar 'InsertionIndex' para 'packages/transpiled_go_car' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_car:1`](packages/transpiled_go_car#L1)** — Tipo público Go 'ErrNotFound' (struct) do módulo 'go-car-v2' ainda não foi portado para o pacote 'packages/transpiled_go_car'.
+  - *Sugestão:* `Portar 'ErrNotFound' para 'packages/transpiled_go_car' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_car:1`](packages/transpiled_go_car#L1)** — Tipo público Go 'StorageCar' (struct) do módulo 'go-car-v2' ainda não foi portado para o pacote 'packages/transpiled_go_car'.
+  - *Sugestão:* `Portar 'StorageCar' para 'packages/transpiled_go_car' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_car:1`](packages/transpiled_go_car#L1)** — Tipo público Go 'ReaderAtWriterAt' (interface) do módulo 'go-car-v2' ainda não foi portado para o pacote 'packages/transpiled_go_car'.
+  - *Sugestão:* `Portar 'ReaderAtWriterAt' para 'packages/transpiled_go_car' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_car:1`](packages/transpiled_go_car#L1)** — Tipo público Go 'ReadableCar' (interface) do módulo 'go-car-v2' ainda não foi portado para o pacote 'packages/transpiled_go_car'.
+  - *Sugestão:* `Portar 'ReadableCar' para 'packages/transpiled_go_car' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_car:1`](packages/transpiled_go_car#L1)** — Tipo público Go 'WritableCar' (interface) do módulo 'go-car-v2' ainda não foi portado para o pacote 'packages/transpiled_go_car'.
+  - *Sugestão:* `Portar 'WritableCar' para 'packages/transpiled_go_car' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_car:1`](packages/transpiled_go_car#L1)** — Tipo público Go 'DeferredCarWriter' (struct) do módulo 'go-car-v2' ainda não foi portado para o pacote 'packages/transpiled_go_car'.
+  - *Sugestão:* `Portar 'DeferredCarWriter' para 'packages/transpiled_go_car' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_car:1`](packages/transpiled_go_car#L1)** — Tipo público Go 'ReadSeekerAt' (interface) do módulo 'go-car-v2' ainda não foi portado para o pacote 'packages/transpiled_go_car'.
+  - *Sugestão:* `Portar 'ReadSeekerAt' para 'packages/transpiled_go_car' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_car:1`](packages/transpiled_go_car#L1)** — Tipo público Go 'OffsetWriteSeeker' (struct) do módulo 'go-car-v2' ainda não foi portado para o pacote 'packages/transpiled_go_car'.
+  - *Sugestão:* `Portar 'OffsetWriteSeeker' para 'packages/transpiled_go_car' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_car:1`](packages/transpiled_go_car#L1)** — Tipo público Go 'ReadCounter' (interface) do módulo 'go-car-v2' ainda não foi portado para o pacote 'packages/transpiled_go_car'.
+  - *Sugestão:* `Portar 'ReadCounter' para 'packages/transpiled_go_car' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_car:1`](packages/transpiled_go_car#L1)** — Tipo público Go 'IndexTracker' (interface) do módulo 'go-car-v2' ainda não foi portado para o pacote 'packages/transpiled_go_car'.
+  - *Sugestão:* `Portar 'IndexTracker' para 'packages/transpiled_go_car' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_car:1`](packages/transpiled_go_car#L1)** — Tipo público Go 'ReaderWriterAt' (interface) do módulo 'go-car-v2' ainda não foi portado para o pacote 'packages/transpiled_go_car'.
+  - *Sugestão:* `Portar 'ReaderWriterAt' para 'packages/transpiled_go_car' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_car:1`](packages/transpiled_go_car#L1)** — Tipo público Go 'Stat' (struct) do módulo 'go-car-v2' ainda não foi portado para o pacote 'packages/transpiled_go_car'.
+  - *Sugestão:* `Portar 'Stat' para 'packages/transpiled_go_car' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_car:1`](packages/transpiled_go_car#L1)** — Tipo público Go 'Report' (struct) do módulo 'go-car-v2' ainda não foi portado para o pacote 'packages/transpiled_go_car'.
+  - *Sugestão:* `Portar 'Report' para 'packages/transpiled_go_car' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_car:1`](packages/transpiled_go_car#L1)** — Tipo público Go 'Roots' (type) do módulo 'go-car-v2' ainda não foi portado para o pacote 'packages/transpiled_go_car'.
+  - *Sugestão:* `Portar 'Roots' para 'packages/transpiled_go_car' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_car:1`](packages/transpiled_go_car#L1)** — Tipo público Go 'Counts' (type) do módulo 'go-car-v2' ainda não foi portado para o pacote 'packages/transpiled_go_car'.
+  - *Sugestão:* `Portar 'Counts' para 'packages/transpiled_go_car' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_cid:1`](packages/transpiled_cid#L1)** — Tipo público Go 'V0Builder' (struct) do módulo 'go-cid' ainda não foi portado para o pacote 'packages/transpiled_cid'.
+  - *Sugestão:* `Portar 'V0Builder' para 'packages/transpiled_cid' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_cid:1`](packages/transpiled_cid#L1)** — Tipo público Go 'V1Builder' (struct) do módulo 'go-cid' ainda não foi portado para o pacote 'packages/transpiled_cid'.
+  - *Sugestão:* `Portar 'V1Builder' para 'packages/transpiled_cid' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_cid:1`](packages/transpiled_cid#L1)** — Tipo público Go 'Builder' (interface) do módulo 'go-cid' ainda não foi portado para o pacote 'packages/transpiled_cid'.
+  - *Sugestão:* `Portar 'Builder' para 'packages/transpiled_cid' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_cid:1`](packages/transpiled_cid#L1)** — Tipo público Go 'ErrInvalidCid' (struct) do módulo 'go-cid' ainda não foi portado para o pacote 'packages/transpiled_cid'.
+  - *Sugestão:* `Portar 'ErrInvalidCid' para 'packages/transpiled_cid' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_cid:1`](packages/transpiled_cid#L1)** — Tipo público Go 'Set' (struct) do módulo 'go-cid' ainda não foi portado para o pacote 'packages/transpiled_cid'.
+  - *Sugestão:* `Portar 'Set' para 'packages/transpiled_cid' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_cid:1`](packages/transpiled_cid#L1)** — Tipo público Go 'CidStr' (type) do módulo 'go-cid' ainda não foi portado para o pacote 'packages/transpiled_cid'.
+  - *Sugestão:* `Portar 'CidStr' para 'packages/transpiled_cid' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_cid:1`](packages/transpiled_cid#L1)** — Tipo público Go 'CidStruct' (struct) do módulo 'go-cid' ainda não foi portado para o pacote 'packages/transpiled_cid'.
+  - *Sugestão:* `Portar 'CidStruct' para 'packages/transpiled_cid' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_datastore:1`](packages/transpiled_datastore#L1)** — Tipo público Go 'LogBatch' (struct) do módulo 'go-datastore' ainda não foi portado para o pacote 'packages/transpiled_datastore'.
+  - *Sugestão:* `Portar 'LogBatch' para 'packages/transpiled_datastore' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_datastore:1`](packages/transpiled_datastore#L1)** — Tipo público Go 'BatchingFeature' (interface) do módulo 'go-datastore' ainda não foi portado para o pacote 'packages/transpiled_datastore'.
+  - *Sugestão:* `Portar 'BatchingFeature' para 'packages/transpiled_datastore' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_datastore:1`](packages/transpiled_datastore#L1)** — Tipo público Go 'CheckedFeature' (interface) do módulo 'go-datastore' ainda não foi portado para o pacote 'packages/transpiled_datastore'.
+  - *Sugestão:* `Portar 'CheckedFeature' para 'packages/transpiled_datastore' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_datastore:1`](packages/transpiled_datastore#L1)** — Tipo público Go 'ScrubbedFeature' (interface) do módulo 'go-datastore' ainda não foi portado para o pacote 'packages/transpiled_datastore'.
+  - *Sugestão:* `Portar 'ScrubbedFeature' para 'packages/transpiled_datastore' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_datastore:1`](packages/transpiled_datastore#L1)** — Tipo público Go 'GCFeature' (interface) do módulo 'go-datastore' ainda não foi portado para o pacote 'packages/transpiled_datastore'.
+  - *Sugestão:* `Portar 'GCFeature' para 'packages/transpiled_datastore' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_datastore:1`](packages/transpiled_datastore#L1)** — Tipo público Go 'PersistentFeature' (interface) do módulo 'go-datastore' ainda não foi portado para o pacote 'packages/transpiled_datastore'.
+  - *Sugestão:* `Portar 'PersistentFeature' para 'packages/transpiled_datastore' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_datastore:1`](packages/transpiled_datastore#L1)** — Tipo público Go 'TTL' (interface) do módulo 'go-datastore' ainda não foi portado para o pacote 'packages/transpiled_datastore'.
+  - *Sugestão:* `Portar 'TTL' para 'packages/transpiled_datastore' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_datastore:1`](packages/transpiled_datastore#L1)** — Tipo público Go 'TxnFeature' (interface) do módulo 'go-datastore' ainda não foi portado para o pacote 'packages/transpiled_datastore'.
+  - *Sugestão:* `Portar 'TxnFeature' para 'packages/transpiled_datastore' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_datastore:1`](packages/transpiled_datastore#L1)** — Tipo público Go 'KeySlice' (type) do módulo 'go-datastore' ainda não foi portado para o pacote 'packages/transpiled_datastore'.
+  - *Sugestão:* `Portar 'KeySlice' para 'packages/transpiled_datastore' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_datastore:1`](packages/transpiled_datastore#L1)** — Tipo público Go 'Delayed' (struct) do módulo 'go-datastore' ainda não foi portado para o pacote 'packages/transpiled_datastore'.
+  - *Sugestão:* `Portar 'Delayed' para 'packages/transpiled_datastore' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_datastore:1`](packages/transpiled_datastore#L1)** — Tipo público Go 'Failstore' (struct) do módulo 'go-datastore' ainda não foi portado para o pacote 'packages/transpiled_datastore'.
+  - *Sugestão:* `Portar 'Failstore' para 'packages/transpiled_datastore' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_datastore:1`](packages/transpiled_datastore#L1)** — Tipo público Go 'FailBatch' (struct) do módulo 'go-datastore' ainda não foi portado para o pacote 'packages/transpiled_datastore'.
+  - *Sugestão:* `Portar 'FailBatch' para 'packages/transpiled_datastore' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_datastore:1`](packages/transpiled_datastore#L1)** — Tipo público Go 'RunState' (struct) do módulo 'go-datastore' ainda não foi portado para o pacote 'packages/transpiled_datastore'.
+  - *Sugestão:* `Portar 'RunState' para 'packages/transpiled_datastore' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_datastore:1`](packages/transpiled_datastore#L1)** — Tipo público Go 'KeyTransform' (interface) do módulo 'go-datastore' ainda não foi portado para o pacote 'packages/transpiled_datastore'.
+  - *Sugestão:* `Portar 'KeyTransform' para 'packages/transpiled_datastore' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_datastore:1`](packages/transpiled_datastore#L1)** — Tipo público Go 'KeyMapping' (type) do módulo 'go-datastore' ainda não foi portado para o pacote 'packages/transpiled_datastore'.
+  - *Sugestão:* `Portar 'KeyMapping' para 'packages/transpiled_datastore' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_datastore:1`](packages/transpiled_datastore#L1)** — Tipo público Go 'Pair' (struct) do módulo 'go-datastore' ainda não foi portado para o pacote 'packages/transpiled_datastore'.
+  - *Sugestão:* `Portar 'Pair' para 'packages/transpiled_datastore' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_datastore:1`](packages/transpiled_datastore#L1)** — Tipo público Go 'PrefixTransform' (struct) do módulo 'go-datastore' ainda não foi portado para o pacote 'packages/transpiled_datastore'.
+  - *Sugestão:* `Portar 'PrefixTransform' para 'packages/transpiled_datastore' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_datastore:1`](packages/transpiled_datastore#L1)** — Tipo público Go 'Mount' (struct) do módulo 'go-datastore' ainda não foi portado para o pacote 'packages/transpiled_datastore'.
+  - *Sugestão:* `Portar 'Mount' para 'packages/transpiled_datastore' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_datastore:1`](packages/transpiled_datastore#L1)** — Tipo público Go 'Op' (type) do módulo 'go-datastore' ainda não foi portado para o pacote 'packages/transpiled_datastore'.
+  - *Sugestão:* `Portar 'Op' para 'packages/transpiled_datastore' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_datastore:1`](packages/transpiled_datastore#L1)** — Tipo público Go 'Result' (struct) do módulo 'go-datastore' ainda não foi portado para o pacote 'packages/transpiled_datastore'.
+  - *Sugestão:* `Portar 'Result' para 'packages/transpiled_datastore' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_datastore:1`](packages/transpiled_datastore#L1)** — Tipo público Go 'Iterator' (struct) do módulo 'go-datastore' ainda não foi portado para o pacote 'packages/transpiled_datastore'.
+  - *Sugestão:* `Portar 'Iterator' para 'packages/transpiled_datastore' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_datastore:1`](packages/transpiled_datastore#L1)** — Tipo público Go 'BatchingDS' (struct) do módulo 'go-datastore' ainda não foi portado para o pacote 'packages/transpiled_datastore'.
+  - *Sugestão:* `Portar 'BatchingDS' para 'packages/transpiled_datastore' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_datastore:1`](packages/transpiled_datastore#L1)** — Tipo público Go 'BoringDS' (struct) do módulo 'go-datastore' ainda não foi portado para o pacote 'packages/transpiled_datastore'.
+  - *Sugestão:* `Portar 'BoringDS' para 'packages/transpiled_datastore' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_datastore:1`](packages/transpiled_datastore#L1)** — Tipo público Go 'MutexDatastore' (struct) do módulo 'go-datastore' ainda não foi portado para o pacote 'packages/transpiled_datastore'.
+  - *Sugestão:* `Portar 'MutexDatastore' para 'packages/transpiled_datastore' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'ADL' (interface) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'ADL' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'ErrBudgetExhausted' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'ErrBudgetExhausted' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'ErrWrongKind' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'ErrWrongKind' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'ErrNotExists' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'ErrNotExists' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'ErrRepeatedMapKey' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'ErrRepeatedMapKey' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'ErrInvalidSegmentForList' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'ErrInvalidSegmentForList' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'ErrIteratorOverread' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'ErrIteratorOverread' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'Error' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'Error' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'Reflector' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'Reflector' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'ErrLinkingSetup' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'ErrLinkingSetup' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'ErrHashMismatch' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'ErrHashMismatch' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'ErrUnmatchable' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'ErrUnmatchable' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'ErrMissingRequiredField' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'ErrMissingRequiredField' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'ErrInvalidKey' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'ErrInvalidKey' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'ErrNoSuchField' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'ErrNoSuchField' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'ErrNotUnionStructure' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'ErrNotUnionStructure' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'TypeKind' (type) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'TypeKind' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'Maybe' (type) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'Maybe' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'TypeBool' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'TypeBool' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'TypeString' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'TypeString' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'TypeBytes' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'TypeBytes' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'TypeInt' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'TypeInt' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'TypeFloat' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'TypeFloat' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'TypeAny' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'TypeAny' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'TypeMap' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'TypeMap' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'TypeList' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'TypeList' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'TypeLink' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'TypeLink' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'TypeUnion' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'TypeUnion' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'UnionRepresentation_Keyed' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'UnionRepresentation_Keyed' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'UnionRepresentation_Kinded' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'UnionRepresentation_Kinded' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'UnionRepresentation_Envelope' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'UnionRepresentation_Envelope' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'UnionRepresentation_Inline' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'UnionRepresentation_Inline' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'UnionRepresentation_Stringprefix' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'UnionRepresentation_Stringprefix' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'TypeStruct' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'TypeStruct' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'StructField' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'StructField' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'StructRepresentation_Map' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'StructRepresentation_Map' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'StructRepresentation_Tuple' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'StructRepresentation_Tuple' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'StructRepresentation_ListPairs' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'StructRepresentation_ListPairs' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'StructRepresentation_StringPairs' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'StructRepresentation_StringPairs' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'StructRepresentation_Stringjoin' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'StructRepresentation_Stringjoin' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'TypeEnum' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'TypeEnum' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'ImplicitValue_EmptyList' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'ImplicitValue_EmptyList' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'ImplicitValue_EmptyMap' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'ImplicitValue_EmptyMap' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'Type' (interface) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'Type' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'UnionRepresentation' (interface) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'UnionRepresentation' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'StructRepresentation' (interface) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'StructRepresentation' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'EnumRepresentation' (interface) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'EnumRepresentation' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'ImplicitValue' (interface) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'ImplicitValue' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'EnumRepresentation_String' (type) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'EnumRepresentation_String' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'EnumRepresentation_Int' (type) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'EnumRepresentation_Int' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'ImplicitValue_String' (type) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'ImplicitValue_String' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'ImplicitValue_Int' (type) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'ImplicitValue_Int' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'ImplicitValue_Bool' (type) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'ImplicitValue_Bool' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'TypedNode' (interface) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'TypedNode' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'TypedLinkNode' (interface) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'TypedLinkNode' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'TypedPrototype' (interface) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'TypedPrototype' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'TypeSystem' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'TypeSystem' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'MultiByteNode' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'MultiByteNode' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'SkipMe' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'SkipMe' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'ErrBudgetExceeded' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'ErrBudgetExceeded' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'AdvVisitFn' (type) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'AdvVisitFn' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'LinkTargetNodePrototypeChooser' (type) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'LinkTargetNodePrototypeChooser' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'Operation' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'Operation' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'Op' (type) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'Op' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'ConditionMode' (type) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'ConditionMode' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'RecursionLimit_Mode' (type) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'RecursionLimit_Mode' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'ParsedParent' (interface) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'ParsedParent' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'ExploreFieldsSpecBuildingClosure' (type) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'ExploreFieldsSpecBuildingClosure' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'Options' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'Options' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'Option' (type) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'Option' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'Adapter' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'Adapter' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'Store' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'Store' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'Gen' (type) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'Gen' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'Bool' (type) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'Bool' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'String' (type) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'String' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'Schema' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'Schema' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'Map__TypeName__TypeDefn' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'Map__TypeName__TypeDefn' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'TypeDefn' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'TypeDefn' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'TypeNameOrInlineDefn' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'TypeNameOrInlineDefn' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'InlineDefn' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'InlineDefn' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'TypeDefnBool' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'TypeDefnBool' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'TypeDefnString' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'TypeDefnString' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'TypeDefnBytes' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'TypeDefnBytes' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'TypeDefnInt' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'TypeDefnInt' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'TypeDefnFloat' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'TypeDefnFloat' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'TypeDefnMap' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'TypeDefnMap' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'MapRepresentation' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'MapRepresentation' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'MapRepresentation_Map' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'MapRepresentation_Map' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'MapRepresentation_Stringpairs' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'MapRepresentation_Stringpairs' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'MapRepresentation_Listpairs' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'MapRepresentation_Listpairs' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'TypeDefnList' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'TypeDefnList' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'ListRepresentation' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'ListRepresentation' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'ListRepresentation_List' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'ListRepresentation_List' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'TypeDefnUnion' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'TypeDefnUnion' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'UnionMember' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'UnionMember' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'UnionMemberInlineDefn' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'UnionMemberInlineDefn' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'TypeDefnLink' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'TypeDefnLink' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'UnionRepresentation' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'UnionRepresentation' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'Map__String__UnionMember' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'Map__String__UnionMember' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'UnionRepresentation_StringPrefix' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'UnionRepresentation_StringPrefix' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'UnionRepresentation_BytesPrefix' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'UnionRepresentation_BytesPrefix' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'Map__HexString__TypeName' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'Map__HexString__TypeName' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'Map__String__TypeName' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'Map__String__TypeName' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'Map__TypeName__Int' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'Map__TypeName__Int' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'TypeDefnStruct' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'TypeDefnStruct' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'Map__FieldName__StructField' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'Map__FieldName__StructField' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'StructRepresentation' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'StructRepresentation' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'Map__FieldName__StructRepresentation_Map_FieldDetails' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'Map__FieldName__StructRepresentation_Map_FieldDetails' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'StructRepresentation_Map_FieldDetails' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'StructRepresentation_Map_FieldDetails' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'StructRepresentation_Stringpairs' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'StructRepresentation_Stringpairs' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'StructRepresentation_Listpairs' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'StructRepresentation_Listpairs' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'TypeDefnEnum' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'TypeDefnEnum' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'Unit' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'Unit' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'EnumRepresentation' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'EnumRepresentation' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'EnumRepresentation_String' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'EnumRepresentation_String' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'EnumRepresentation_Int' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'EnumRepresentation_Int' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'TypeDefnUnit' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'TypeDefnUnit' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'TypeDefnAny' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'TypeDefnAny' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'TypeDefnCopy' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'TypeDefnCopy' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'AnyScalar' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'AnyScalar' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'List__UnionMember' (type) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'List__UnionMember' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'List__TypeName' (type) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'List__TypeName' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'List__FieldName' (type) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'List__FieldName' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'List__EnumMember' (type) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'List__EnumMember' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'FieldTuple' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'FieldTuple' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'AdjunctCfg' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'AdjunctCfg' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'TypeGenerator' (interface) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'TypeGenerator' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'NodeGenerator' (interface) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'NodeGenerator' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'NodeBuilderGenerator' (interface) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'NodeBuilderGenerator' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'BoolTraits' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'BoolTraits' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'BoolAssemblerTraits' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'BoolAssemblerTraits' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'BytesTraits' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'BytesTraits' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'BytesAssemblerTraits' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'BytesAssemblerTraits' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'FloatTraits' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'FloatTraits' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'FloatAssemblerTraits' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'FloatAssemblerTraits' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'IntTraits' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'IntTraits' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'IntAssemblerTraits' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'IntAssemblerTraits' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'LinkTraits' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'LinkTraits' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'LinkAssemblerTraits' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'LinkAssemblerTraits' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'ListTraits' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'ListTraits' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'ListAssemblerTraits' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'ListAssemblerTraits' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'MapTraits' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'MapTraits' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'MapAssemblerTraits' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'MapAssemblerTraits' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'StringTraits' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'StringTraits' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'StringAssemblerTraits' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'StringAssemblerTraits' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'Prototype__Any' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'Prototype__Any' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'Prototype__Bool' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'Prototype__Bool' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'Prototype__Bytes' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'Prototype__Bytes' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'Prototype__Float' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'Prototype__Float' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'Prototype__Int' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'Prototype__Int' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'Prototype__Link' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'Prototype__Link' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'Prototype__List' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'Prototype__List' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'Prototype__Map' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'Prototype__Map' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'Prototype__String' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'Prototype__String' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'WrappedNode' (interface) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'WrappedNode' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'Map__String__Msg3__Itr' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'Map__String__Msg3__Itr' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'Bar__Repr' (type) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'Bar__Repr' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'Baz__Repr' (type) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'Baz__Repr' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'Foo__Repr' (type) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'Foo__Repr' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'Int__Repr' (type) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'Int__Repr' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'Map__String__Msg3__Repr' (type) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'Map__String__Msg3__Repr' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'Msg3__Repr' (type) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'Msg3__Repr' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'String__Repr' (type) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'String__Repr' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'UnionKinded__Repr' (type) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'UnionKinded__Repr' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'Bool' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'Bool' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'BoolAssembler' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'BoolAssembler' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'Bytes' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'Bytes' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'BytesAssembler' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'BytesAssembler' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'Float' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'Float' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'FloatAssembler' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'FloatAssembler' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'Int' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'Int' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'IntAssembler' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'IntAssembler' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'LinkAssembler' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'LinkAssembler' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'List' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'List' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'Map' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'Map' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'String' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'String' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'StringAssembler' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'StringAssembler' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'EngineSubtest' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'EngineSubtest' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'Frub' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'Frub' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'Engine' (interface) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'Engine' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'BindnodeRegistry' (type) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'BindnodeRegistry' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'Loader' (type) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'Loader' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'EncodeOptions' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'EncodeOptions' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'DecodeOptions' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'DecodeOptions' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'SubstrateRoot' (type) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
+  - *Sugestão:* `Portar 'SubstrateRoot' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'AutoNATConfig' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'AutoNATConfig' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Security' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Security' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Config' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Config' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'NATManagerC' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'NATManagerC' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'RoutingC' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'RoutingC' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Option' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Option' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'PrefixLimit' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'PrefixLimit' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'SubnetLimit' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'SubnetLimit' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'SubnetLimiter' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'SubnetLimiter' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'MockSourceIPSelector' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'MockSourceIPSelector' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'BlankHostOpts' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'BlankHostOpts' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'NodeLinkSettingsAndCount' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'NodeLinkSettingsAndCount' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'HostAndIdx' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'HostAndIdx' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'SimpleLibp2pNetworkMeta' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'SimpleLibp2pNetworkMeta' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'NetworkSettings' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'NetworkSettings' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'LatencyFunc' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'LatencyFunc' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'TestEvent' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'TestEvent' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'ProtocolMeta' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'ProtocolMeta' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'WellKnownHandler' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'WellKnownHandler' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'PeerMetadataGetter' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'PeerMetadataGetter' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'PeerMeta' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'PeerMeta' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'RoundTripperOption' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'RoundTripperOption' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'QUICListener' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'QUICListener' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'QUICTransport' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'QUICTransport' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'RefCountedQUICTransport' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'RefCountedQUICTransport' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'SourceIPSelector' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'SourceIPSelector' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'ContextDialer' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'ContextDialer' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'DialerForAddr' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'DialerForAddr' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'DemultiplexedConnType' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'DemultiplexedConnType' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'ConnMgr' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'ConnMgr' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Options' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Options' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'TransportSubTestFn' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'TransportSubTestFn' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'WebRTCTransport' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'WebRTCTransport' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'ListenUDPFn' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'ListenUDPFn' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Addr' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Addr' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'WebsocketTransport' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'WebsocketTransport' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'ErrCertHashMismatch' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'ErrCertHashMismatch' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Message' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Message' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Message_Flag' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Message_Flag' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Candidate' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Candidate' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'UDPMux' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'UDPMux' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'ManetTCPConnInterface' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'ManetTCPConnInterface' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Echo' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Echo' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'EchoStatus' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'EchoStatus' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'SessionTransport' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'SessionTransport' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'EarlyDataHandler' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'EarlyDataHandler' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Identity' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Identity' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'IdentityConfig' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'IdentityConfig' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'IdentityOption' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'IdentityOption' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'NoiseExtensions' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'NoiseExtensions' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'NoiseHandshakePayload' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'NoiseHandshakePayload' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Exchange' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Exchange' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Request' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Request' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Result' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Result' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'MetricsTracer' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'MetricsTracer' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'AutoNATOption' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'AutoNATOption' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'EventDialRequestCompleted' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'EventDialRequestCompleted' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'DialBackResponse' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'DialBackResponse' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'AddrFilter' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'AddrFilter' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'MetricsTracerOption' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'MetricsTracerOption' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Service' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Service' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Event' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Event' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'DirectDialEvt' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'DirectDialEvt' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'ProtocolErrorEvt' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'ProtocolErrorEvt' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'StartHolePunchEvt' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'StartHolePunchEvt' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'EndHolePunchEvt' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'EndHolePunchEvt' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'HolePunchAttemptEvt' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'HolePunchAttemptEvt' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'EventTracer' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'EventTracer' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Evt' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Evt' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'PingService' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'PingService' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'HolePunch' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'HolePunch' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'HolePunch_Type' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'HolePunch_Type' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'NetAddr' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'NetAddr' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'ReservationError' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'ReservationError' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'StopMessage' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'StopMessage' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Peer' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Peer' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Status' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Status' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'HopMessage_Type' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'HopMessage_Type' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'StopMessage_Type' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'StopMessage_Type' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'ACLFilter' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'ACLFilter' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'ReservationAddressFilterFunc' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'ReservationAddressFilterFunc' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Relay' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Relay' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Resources' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Resources' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'RelayLimit' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'RelayLimit' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'DelimitedReader' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'DelimitedReader' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Message_DialRequest' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Message_DialRequest' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Message_DialResponse' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Message_DialResponse' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Message_DialDataRequest' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Message_DialDataRequest' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Message_DialDataResponse' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Message_DialDataResponse' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'DialRequest' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'DialRequest' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'DialDataRequest' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'DialDataRequest' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'DialResponse' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'DialResponse' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'DialDataResponse' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'DialDataResponse' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'DialBack' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'DialBack' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'DialBackResponse' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'DialBackResponse' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'DialStatus' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'DialStatus' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'DialResponse_ResponseStatus' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'DialResponse_ResponseStatus' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'DialBackResponse_DialBackStatus' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'DialBackResponse_DialBackStatus' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'BasicConnectionGater' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'BasicConnectionGater' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'BasicConnMgr' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'BasicConnMgr' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'CMInfo' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'CMInfo' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'DecayerCfg' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'DecayerCfg' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'ListenerOption' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'ListenerOption' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'PeerOptions' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'PeerOptions' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'LinkOptions' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'LinkOptions' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Mocknet' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Mocknet' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Link' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Link' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Printer' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Printer' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'LinkMap' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'LinkMap' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'RateLimiter' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'RateLimiter' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'NAT' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'NAT' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'BlackHoleSuccessCounter' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'BlackHoleSuccessCounter' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'BlackHoleState' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'BlackHoleState' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'RealTimer' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'RealTimer' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'RealClock' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'RealClock' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'InstantTimer' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'InstantTimer' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Clock' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Clock' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'DialError' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'DialError' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'TransportError' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'TransportError' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'ResolverFromMaDNS' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'ResolverFromMaDNS' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'DialBackoff' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'DialBackoff' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'OrderedListener' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'OrderedListener' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Stream' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Stream' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'StreamMuxer' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'StreamMuxer' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'MockConnectionGater' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'MockConnectionGater' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'ErrNoNATFound' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'ErrNoNATFound' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'NAT' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'NAT' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'TransportTest' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'TransportTest' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'ClientPeerIDAuth' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'ClientPeerIDAuth' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'ServerPeerIDAuth' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'ServerPeerIDAuth' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Ping' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Ping' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'PeerIDAuthHandshakeClient' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'PeerIDAuthHandshakeClient' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'PeerIDAuthHandshakeServer' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'PeerIDAuthHandshakeServer' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Error' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Error' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'AddrFunc' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'AddrFunc' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'ClockWithInstantTimer' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'ClockWithInstantTimer' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'PeerSource' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'PeerSource' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'ObservedAddrsManager' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'ObservedAddrsManager' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'MetricsTracker' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'MetricsTracker' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'HostOpts' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'HostOpts' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'NAT' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'NAT' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Manager' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Manager' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'PeerstoreManager' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'PeerstoreManager' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'RelayManager' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'RelayManager' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Allowlist' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Allowlist' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'ConnLimitPerSubnet' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'ConnLimitPerSubnet' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'NetworkPrefixLimit' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'NetworkPrefixLimit' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'ErrStreamOrConnLimitExceeded' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'ErrStreamOrConnLimitExceeded' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'ErrMemoryLimitExceeded' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'ErrMemoryLimitExceeded' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'ResourceManagerStat' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'ResourceManagerStat' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'ResourceScopeLimiter' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'ResourceScopeLimiter' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'ResourceManagerState' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'ResourceManagerState' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'BaseLimitIncrease' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'BaseLimitIncrease' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'ScalingLimitConfig' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'ScalingLimitConfig' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'PartialLimitConfig' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'PartialLimitConfig' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'ConcreteLimitConfig' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'ConcreteLimitConfig' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Alias' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Alias' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'MetricsReporter' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'MetricsReporter' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'StatsTraceReporter' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'StatsTraceReporter' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'TraceEvt' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'TraceEvt' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'TraceReporter' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'TraceReporter' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'TraceEvtTyp' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'TraceEvtTyp' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'ProtoBookOption' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'ProtoBookOption' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'AddrSubManager' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'AddrSubManager' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'AddrBookOption' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'AddrBookOption' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'AddrBookFactory' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'AddrBookFactory' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'KeyBookFactory' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'KeyBookFactory' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'PeerstoreFactory' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'PeerstoreFactory' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'AddrBookRecord' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'AddrBookRecord' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'AddrBookRecord_AddrEntry' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'AddrBookRecord_AddrEntry' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'AddrBookRecord_CertifiedRecord' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'AddrBookRecord_CertifiedRecord' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Message_PeerInfo' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Message_PeerInfo' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Message_Dial' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Message_Dial' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Message_MessageType' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Message_MessageType' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Message_ResponseStatus' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Message_ResponseStatus' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'BackoffStrategy' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'BackoffStrategy' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'BackoffFactory' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'BackoffFactory' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Jitter' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Jitter' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'BackoffDiscovery' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'BackoffDiscovery' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'BackoffDiscoveryOption' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'BackoffDiscoveryOption' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'BackoffConnector' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'BackoffConnector' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Service' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Service' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Notifee' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Notifee' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'MockDiscoveryServer' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'MockDiscoveryServer' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'MockDiscoveryClient' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'MockDiscoveryClient' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'RoutingDiscovery' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'RoutingDiscovery' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'DiscoveryRouting' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'DiscoveryRouting' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'ProxyService' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'ProxyService' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'EchoProtocol' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'EchoProtocol' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Node' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Node' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'PingProtocol' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'PingProtocol' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'IdOutput' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'IdOutput' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'LogHarness' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'LogHarness' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Sequence' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Sequence' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Expectation' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Expectation' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'ChatRoom' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'ChatRoom' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'ChatMessage' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'ChatMessage' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'ChatUI' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'ChatUI' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'MessageData' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'MessageData' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'PingRequest' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'PingRequest' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'PingResponse' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'PingResponse' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'EchoRequest' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'EchoRequest' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'EchoResponse' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'EchoResponse' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'SendMessage' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'SendMessage' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'UpdatePeer' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'UpdatePeer' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Request_Type' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Request_Type' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'ECDSASig' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'ECDSASig' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Ed25519PrivateKey' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Ed25519PrivateKey' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Ed25519PublicKey' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Ed25519PublicKey' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'PubKeyUnmarshaller' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'PubKeyUnmarshaller' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'PrivKeyUnmarshaller' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'PrivKeyUnmarshaller' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'GenSharedKey' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'GenSharedKey' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'GenericDHTEvent' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'GenericDHTEvent' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'RawJSON' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'RawJSON' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'EvtNATDeviceTypeChanged' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'EvtNATDeviceTypeChanged' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'BandwidthCounter' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'BandwidthCounter' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Reporter' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Reporter' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'ConnError' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'ConnError' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'StreamError' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'StreamError' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'MuxedStream' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'MuxedStream' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'MuxedConn' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'MuxedConn' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Multiplexer' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Multiplexer' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Stream' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Stream' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'ID' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'ID' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'IDSlice' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'IDSlice' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Error' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Error' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'PSK' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'PSK' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Switch' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Switch' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'HelloRecord' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'HelloRecord' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'ErrPeerIDMismatch' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'ErrPeerIDMismatch' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'SecureConn' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'SecureConn' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'SecureTransport' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'SecureTransport' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'MockClock' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'MockClock' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Resolver' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Resolver' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'SkipResolver' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'SkipResolver' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'GatedMaListener' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'GatedMaListener' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'DialUpdateKind' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'DialUpdateKind' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'PeerRecord_AddressInfo' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'PeerRecord_AddressInfo' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'MockConnManagementScope' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'MockConnManagementScope' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'MockConnManagementScopeMockRecorder' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'MockConnManagementScopeMockRecorder' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'MockPeerScope' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'MockPeerScope' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'MockPeerScopeMockRecorder' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'MockPeerScopeMockRecorder' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'MockProtocolScope' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'MockProtocolScope' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'MockProtocolScopeMockRecorder' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'MockProtocolScopeMockRecorder' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'MockResourceManager' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'MockResourceManager' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'MockResourceManagerMockRecorder' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'MockResourceManagerMockRecorder' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'MockResourceScopeSpan' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'MockResourceScopeSpan' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'MockResourceScopeSpanMockRecorder' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'MockResourceScopeSpanMockRecorder' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'MockStreamManagementScope' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'MockStreamManagementScope' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'MockStreamManagementScopeMockRecorder' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'MockStreamManagementScopeMockRecorder' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'PublicKey' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'PublicKey' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'PrivateKey' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'PrivateKey' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'IpfsDHT' (struct) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'IpfsDHT' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'KeyKadID' (struct) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'KeyKadID' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'PeerKadID' (struct) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'PeerKadID' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'LookupEvent' (struct) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'LookupEvent' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'LookupUpdateEvent' (struct) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'LookupUpdateEvent' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'LookupTerminateEvent' (struct) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'LookupTerminateEvent' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'LookupTerminationReason' (type) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'LookupTerminationReason' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'HandleQueryResult' (type) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'HandleQueryResult' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'HandleQueryFail' (type) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'HandleQueryFail' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'Option' (type) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'Option' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'DHT' (struct) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'DHT' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'FullRT' (struct) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'FullRT' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'RecvdVal' (struct) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'RecvdVal' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'CtxMutex' (type) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'CtxMutex' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'LoggableRecordKeyString' (type) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'LoggableRecordKeyString' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'LoggableRecordKeyBytes' (type) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'LoggableRecordKeyBytes' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'LoggableProviderRecordBytes' (type) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'LoggableProviderRecordBytes' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'Estimator' (struct) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'Estimator' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'Message' (struct) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'Message' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'Message_Peer' (struct) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'Message_Peer' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'Message_MessageType' (type) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'Message_MessageType' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'Message_ConnectionType' (type) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'Message_ConnectionType' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'PeerRoutingInfo' (struct) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'PeerRoutingInfo' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'ProtocolMessenger' (struct) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'ProtocolMessenger' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'MessageSenderWithDisconnect' (interface) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'MessageSenderWithDisconnect' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'MessageSender' (interface) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'MessageSender' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'ProtocolMessengerOption' (type) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'ProtocolMessengerOption' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'SweepingProvider' (struct) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'SweepingProvider' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'KadClosestPeersRouter' (interface) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'KadClosestPeersRouter' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'QueryPeerset' (struct) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'QueryPeerset' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'PeerState' (type) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'PeerState' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'ProviderManager' (struct) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'ProviderManager' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'ProviderStore' (interface) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'ProviderStore' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'ValueStore' (struct) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'ValueStore' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'RtRefreshManager' (struct) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'RtRefreshManager' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'Provider' (interface) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'Provider' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'Keystore' (interface) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'Keystore' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'ResettableKeystoreOption' (type) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'ResettableKeystoreOption' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'ResettableKeystore' (struct) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'ResettableKeystore' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'Stats' (struct) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'Stats' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'Queues' (struct) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'Queues' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'Connectivity' (struct) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'Connectivity' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'Schedule' (struct) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'Schedule' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'Workers' (struct) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'Workers' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'Timing' (struct) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'Timing' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'Operations' (struct) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'Operations' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'OngoingOperations' (struct) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'OngoingOperations' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'PastOperations' (struct) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'PastOperations' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'Network' (struct) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'Network' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'ConnectivityChecker' (struct) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'ConnectivityChecker' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'PrefixAndKeys' (struct) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'PrefixAndKeys' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'Region' (struct) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'Region' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'ProvideQueue' (struct) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'ProvideQueue' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'ReprovideQueue' (struct) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'ReprovideQueue' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'CycleStats' (struct) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'CycleStats' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'Numeric' (interface) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'Numeric' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'Config' (struct) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'Config' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'ModeOpt' (type) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'ModeOpt' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'QueryFilterFunc' (type) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'QueryFilterFunc' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'RouteTableFilterFunc' (type) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'RouteTableFilterFunc' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'QuorumOptionKey' (struct) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'QuorumOptionKey' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'TestValidator' (struct) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'TestValidator' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'Crawler' (interface) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'Crawler' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'DefaultCrawler' (struct) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'DefaultCrawler' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Tipo público Go 'TimeSeries' (struct) do módulo 'go-libp2p-kad-dht' ainda não foi portado para o pacote 'lib/src/protocols/dht'.
+  - *Sugestão:* `Portar 'TimeSeries' para 'lib/src/protocols/dht' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_kbucket:1`](packages/transpiled_libp2p_kbucket#L1)** — Tipo público Go 'ID' (type) do módulo 'go-libp2p-kbucket' ainda não foi portado para o pacote 'packages/transpiled_libp2p_kbucket'.
+  - *Sugestão:* `Portar 'ID' para 'packages/transpiled_libp2p_kbucket' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_kbucket:1`](packages/transpiled_libp2p_kbucket#L1)** — Tipo público Go 'Key' (struct) do módulo 'go-libp2p-kbucket' ainda não foi portado para o pacote 'packages/transpiled_libp2p_kbucket'.
+  - *Sugestão:* `Portar 'Key' para 'packages/transpiled_libp2p_kbucket' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_kbucket:1`](packages/transpiled_libp2p_kbucket#L1)** — Tipo público Go 'PeerGroupInfo' (struct) do módulo 'go-libp2p-kbucket' ainda não foi portado para o pacote 'packages/transpiled_libp2p_kbucket'.
+  - *Sugestão:* `Portar 'PeerGroupInfo' para 'packages/transpiled_libp2p_kbucket' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_kbucket:1`](packages/transpiled_libp2p_kbucket#L1)** — Tipo público Go 'Filter' (struct) do módulo 'go-libp2p-kbucket' ainda não foi portado para o pacote 'packages/transpiled_libp2p_kbucket'.
+  - *Sugestão:* `Portar 'Filter' para 'packages/transpiled_libp2p_kbucket' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_kbucket:1`](packages/transpiled_libp2p_kbucket#L1)** — Tipo público Go 'CplDiversityStats' (struct) do módulo 'go-libp2p-kbucket' ainda não foi portado para o pacote 'packages/transpiled_libp2p_kbucket'.
+  - *Sugestão:* `Portar 'CplDiversityStats' para 'packages/transpiled_libp2p_kbucket' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_kbucket:1`](packages/transpiled_libp2p_kbucket#L1)** — Tipo público Go 'PeerIPGroupFilter' (interface) do módulo 'go-libp2p-kbucket' ainda não foi portado para o pacote 'packages/transpiled_libp2p_kbucket'.
+  - *Sugestão:* `Portar 'PeerIPGroupFilter' para 'packages/transpiled_libp2p_kbucket' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_kbucket:1`](packages/transpiled_libp2p_kbucket#L1)** — Tipo público Go 'PeerIPGroupKey' (type) do módulo 'go-libp2p-kbucket' ainda não foi portado para o pacote 'packages/transpiled_libp2p_kbucket'.
+  - *Sugestão:* `Portar 'PeerIPGroupKey' para 'packages/transpiled_libp2p_kbucket' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'TimeCachedBlacklist' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'TimeCachedBlacklist' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'Blacklist' (interface) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'Blacklist' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'MapBlacklist' (type) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'MapBlacklist' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'DiscoverOpt' (type) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'DiscoverOpt' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'BackoffConnectorFactory' (type) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'BackoffConnectorFactory' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'PeerExtensions' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'PeerExtensions' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'TestExtensionConfig' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'TestExtensionConfig' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'FloodSubRouter' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'FloodSubRouter' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'GossipSubParams' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'GossipSubParams' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'GossipSubRouter' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'GossipSubRouter' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'PXRecordReducer' (type) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'PXRecordReducer' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'GossipSubFeature' (type) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'GossipSubFeature' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'MessageCache' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'MessageCache' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'CacheEntry' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'CacheEntry' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'MessageBatch' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'MessageBatch' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'RoundRobinMessageIDScheduler' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'RoundRobinMessageIDScheduler' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'RPCScheduler' (interface) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'RPCScheduler' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'PeerGaterParams' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'PeerGaterParams' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'PubSub' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'PubSub' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'Message' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'Message' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'RPC' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'RPC' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'PubSubRouter' (interface) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'PubSubRouter' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'BatchPublisher' (interface) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'BatchPublisher' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'AcceptStatus' (type) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'AcceptStatus' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'Option' (type) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'Option' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'MsgIdFunction' (type) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'MsgIdFunction' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'PeerFilter' (type) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'PeerFilter' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'TopicOpt' (type) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'TopicOpt' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'SubOpt' (type) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'SubOpt' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'PeerFeedbackKind' (type) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'PeerFeedbackKind' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'RelayCancelFunc' (type) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'RelayCancelFunc' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'RandomSubRouter' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'RandomSubRouter' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'PeerScoreSnapshot' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'PeerScoreSnapshot' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'TopicScoreSnapshot' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'TopicScoreSnapshot' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'PeerScoreThresholds' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'PeerScoreThresholds' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'PeerScoreParams' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'PeerScoreParams' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'TopicScoreParams' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'TopicScoreParams' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'MessageSignaturePolicy' (type) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'MessageSignaturePolicy' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'Subscription' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'Subscription' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'SubscriptionFilter' (interface) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'SubscriptionFilter' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'Topic' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'Topic' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'PublishOptions' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'PublishOptions' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'BatchPublishOptions' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'BatchPublishOptions' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'TopicEventHandler' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'TopicEventHandler' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'PeerEvent' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'PeerEvent' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'RouterReady' (type) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'RouterReady' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'ProvideKey' (type) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'ProvideKey' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'PubOpt' (type) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'PubOpt' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'BatchPubOpt' (type) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'BatchPubOpt' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'EventType' (type) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'EventType' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'TopicEventHandlerOpt' (type) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'TopicEventHandlerOpt' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'EventTracer' (interface) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'EventTracer' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'RawTracer' (interface) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'RawTracer' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'JSONTracer' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'JSONTracer' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'PBTracer' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'PBTracer' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'RemoteTracer' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'RemoteTracer' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'ValidationError' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'ValidationError' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'Validator' (type) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'Validator' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'ValidatorEx' (type) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'ValidatorEx' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'ValidationResult' (type) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'ValidationResult' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'ValidatorOpt' (type) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'ValidatorOpt' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'BasicSeqnoValidator' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'BasicSeqnoValidator' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'PeerMetadataStore' (interface) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'PeerMetadataStore' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'PeerInfo' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'PeerInfo' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'PublishAction' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'PublishAction' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'Router' (interface) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'Router' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'PartsMetadata' (type) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'PartsMetadata' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'ControlMessage' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'ControlMessage' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'ControlIHave' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'ControlIHave' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'ControlIWant' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'ControlIWant' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'ControlGraft' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'ControlGraft' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'ControlPrune' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'ControlPrune' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'ControlIDontWant' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'ControlIDontWant' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'ControlExtensions' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'ControlExtensions' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'TestExtension' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'TestExtension' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'PartialMessagesExtension' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'PartialMessagesExtension' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'RPC_SubOpts' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'RPC_SubOpts' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'TraceEvent' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'TraceEvent' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'TraceEventBatch' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'TraceEventBatch' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'TraceEvent_PublishMessage' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'TraceEvent_PublishMessage' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'TraceEvent_RejectMessage' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'TraceEvent_RejectMessage' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'TraceEvent_DuplicateMessage' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'TraceEvent_DuplicateMessage' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'TraceEvent_DeliverMessage' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'TraceEvent_DeliverMessage' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'TraceEvent_OnNewOutboundStream' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'TraceEvent_OnNewOutboundStream' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'TraceEvent_OnClosedOutboundStream' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'TraceEvent_OnClosedOutboundStream' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'TraceEvent_RecvRPC' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'TraceEvent_RecvRPC' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'TraceEvent_SendRPC' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'TraceEvent_SendRPC' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'TraceEvent_DropRPC' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'TraceEvent_DropRPC' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'TraceEvent_Join' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'TraceEvent_Join' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'TraceEvent_Leave' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'TraceEvent_Leave' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'TraceEvent_Graft' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'TraceEvent_Graft' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'TraceEvent_Prune' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'TraceEvent_Prune' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'TraceEvent_RPCMeta' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'TraceEvent_RPCMeta' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'TraceEvent_MessageMeta' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'TraceEvent_MessageMeta' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'TraceEvent_SubMeta' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'TraceEvent_SubMeta' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'TraceEvent_ControlMeta' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'TraceEvent_ControlMeta' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'TraceEvent_ControlIHaveMeta' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'TraceEvent_ControlIHaveMeta' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'TraceEvent_ControlIWantMeta' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'TraceEvent_ControlIWantMeta' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'TraceEvent_ControlGraftMeta' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'TraceEvent_ControlGraftMeta' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'TraceEvent_ControlPruneMeta' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'TraceEvent_ControlPruneMeta' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'TraceEvent_ControlIDontWantMeta' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'TraceEvent_ControlIDontWantMeta' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'TraceEvent_Type' (type) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'TraceEvent_Type' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'Strategy' (type) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'Strategy' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'Config' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'Config' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'ProofStep' (struct) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
+  - *Sugestão:* `Portar 'ProofStep' para 'packages/transpiled_libp2p_pubsub' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_record:1`](packages/transpiled_libp2p_record#L1)** — Tipo público Go 'ErrBetterRecord' (struct) do módulo 'go-libp2p-record' ainda não foi portado para o pacote 'packages/transpiled_libp2p_record'.
+  - *Sugestão:* `Portar 'ErrBetterRecord' para 'packages/transpiled_libp2p_record' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_routing_helpers:1`](packages/transpiled_libp2p_routing_helpers#L1)** — Tipo público Go 'Null' (struct) do módulo 'go-libp2p-routing-helpers' ainda não foi portado para o pacote 'packages/transpiled_libp2p_routing_helpers'.
+  - *Sugestão:* `Portar 'Null' para 'packages/transpiled_libp2p_routing_helpers' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_routing_helpers:1`](packages/transpiled_libp2p_routing_helpers#L1)** — Tipo público Go 'Tracer' (type) do módulo 'go-libp2p-routing-helpers' ainda não foi portado para o pacote 'packages/transpiled_libp2p_routing_helpers'.
+  - *Sugestão:* `Portar 'Tracer' para 'packages/transpiled_libp2p_routing_helpers' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_multiaddr:1`](packages/transpiled_multiaddr#L1)** — Tipo público Go 'Filters' (struct) do módulo 'go-multiaddr' ainda não foi portado para o pacote 'packages/transpiled_multiaddr'.
+  - *Sugestão:* `Portar 'Filters' para 'packages/transpiled_multiaddr' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_multiaddr:1`](packages/transpiled_multiaddr#L1)** — Tipo público Go 'Action' (type) do módulo 'go-multiaddr' ainda não foi portado para o pacote 'packages/transpiled_multiaddr'.
+  - *Sugestão:* `Portar 'Action' para 'packages/transpiled_multiaddr' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_multiaddr:1`](packages/transpiled_multiaddr#L1)** — Tipo público Go 'Multiaddrer' (interface) do módulo 'go-multiaddr' ainda não foi portado para o pacote 'packages/transpiled_multiaddr'.
+  - *Sugestão:* `Portar 'Multiaddrer' para 'packages/transpiled_multiaddr' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_multiaddr:1`](packages/transpiled_multiaddr#L1)** — Tipo público Go 'Dialer' (struct) do módulo 'go-multiaddr' ainda não foi portado para o pacote 'packages/transpiled_multiaddr'.
+  - *Sugestão:* `Portar 'Dialer' para 'packages/transpiled_multiaddr' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_multiaddr:1`](packages/transpiled_multiaddr#L1)** — Tipo público Go 'Conn' (interface) do módulo 'go-multiaddr' ainda não foi portado para o pacote 'packages/transpiled_multiaddr'.
+  - *Sugestão:* `Portar 'Conn' para 'packages/transpiled_multiaddr' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_multiaddr:1`](packages/transpiled_multiaddr#L1)** — Tipo público Go 'Listener' (interface) do módulo 'go-multiaddr' ainda não foi portado para o pacote 'packages/transpiled_multiaddr'.
+  - *Sugestão:* `Portar 'Listener' para 'packages/transpiled_multiaddr' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_multiaddr:1`](packages/transpiled_multiaddr#L1)** — Tipo público Go 'PacketConn' (interface) do módulo 'go-multiaddr' ainda não foi portado para o pacote 'packages/transpiled_multiaddr'.
+  - *Sugestão:* `Portar 'PacketConn' para 'packages/transpiled_multiaddr' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_multiaddr:1`](packages/transpiled_multiaddr#L1)** — Tipo público Go 'CodecMap' (struct) do módulo 'go-multiaddr' ainda não foi portado para o pacote 'packages/transpiled_multiaddr'.
+  - *Sugestão:* `Portar 'CodecMap' para 'packages/transpiled_multiaddr' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_multiaddr:1`](packages/transpiled_multiaddr#L1)** — Tipo público Go 'FromNetAddrFunc' (type) do módulo 'go-multiaddr' ainda não foi portado para o pacote 'packages/transpiled_multiaddr'.
+  - *Sugestão:* `Portar 'FromNetAddrFunc' para 'packages/transpiled_multiaddr' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_multiaddr:1`](packages/transpiled_multiaddr#L1)** — Tipo público Go 'ToNetAddrFunc' (type) do módulo 'go-multiaddr' ainda não foi portado para o pacote 'packages/transpiled_multiaddr'.
+  - *Sugestão:* `Portar 'ToNetAddrFunc' para 'packages/transpiled_multiaddr' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_multiaddr:1`](packages/transpiled_multiaddr#L1)** — Tipo público Go 'MatchState' (struct) do módulo 'go-multiaddr' ainda não foi portado para o pacote 'packages/transpiled_multiaddr'.
+  - *Sugestão:* `Portar 'MatchState' para 'packages/transpiled_multiaddr' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_multiaddr:1`](packages/transpiled_multiaddr#L1)** — Tipo público Go 'Matchable' (interface) do módulo 'go-multiaddr' ainda não foi portado para o pacote 'packages/transpiled_multiaddr'.
+  - *Sugestão:* `Portar 'Matchable' para 'packages/transpiled_multiaddr' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_multiaddr:1`](packages/transpiled_multiaddr#L1)** — Tipo público Go 'CaptureFunc' (type) do módulo 'go-multiaddr' ainda não foi portado para o pacote 'packages/transpiled_multiaddr'.
+  - *Sugestão:* `Portar 'CaptureFunc' para 'packages/transpiled_multiaddr' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_multiaddr:1`](packages/transpiled_multiaddr#L1)** — Tipo público Go 'Matcher' (struct) do módulo 'go-multiaddr' ainda não foi portado para o pacote 'packages/transpiled_multiaddr'.
+  - *Sugestão:* `Portar 'Matcher' para 'packages/transpiled_multiaddr' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_multiaddr_dns:1`](packages/transpiled_multiaddr_dns#L1)** — Tipo público Go 'TXTWithTTLResolver' (interface) do módulo 'go-multiaddr-dns' ainda não foi portado para o pacote 'packages/transpiled_multiaddr_dns'.
+  - *Sugestão:* `Portar 'TXTWithTTLResolver' para 'packages/transpiled_multiaddr_dns' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_multiaddr_dns:1`](packages/transpiled_multiaddr_dns#L1)** — Tipo público Go 'Option' (type) do módulo 'go-multiaddr-dns' ainda não foi portado para o pacote 'packages/transpiled_multiaddr_dns'.
+  - *Sugestão:* `Portar 'Option' para 'packages/transpiled_multiaddr_dns' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_multibase:1`](packages/transpiled_multibase#L1)** — Tipo público Go 'Encoder' (struct) do módulo 'go-multibase' ainda não foi portado para o pacote 'packages/transpiled_multibase'.
+  - *Sugestão:* `Portar 'Encoder' para 'packages/transpiled_multibase' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_multicodec:1`](packages/transpiled_multicodec#L1)** — Tipo público Go 'RSAPublicKey' (type) do módulo 'go-multicodec' ainda não foi portado para o pacote 'packages/transpiled_multicodec'.
+  - *Sugestão:* `Portar 'RSAPublicKey' para 'packages/transpiled_multicodec' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_multihash:1`](packages/transpiled_multihash#L1)** — Tipo público Go 'Reader' (interface) do módulo 'go-multihash' ainda não foi portado para o pacote 'packages/transpiled_multihash'.
+  - *Sugestão:* `Portar 'Reader' para 'packages/transpiled_multihash' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_multihash:1`](packages/transpiled_multihash#L1)** — Tipo público Go 'Writer' (interface) do módulo 'go-multihash' ainda não foi portado para o pacote 'packages/transpiled_multihash'.
+  - *Sugestão:* `Portar 'Writer' para 'packages/transpiled_multihash' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_multihash:1`](packages/transpiled_multihash#L1)** — Tipo público Go 'ErrInconsistentLen' (struct) do módulo 'go-multihash' ainda não foi portado para o pacote 'packages/transpiled_multihash'.
+  - *Sugestão:* `Portar 'ErrInconsistentLen' para 'packages/transpiled_multihash' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_multihash:1`](packages/transpiled_multihash#L1)** — Tipo público Go 'Set' (struct) do módulo 'go-multihash' ainda não foi portado para o pacote 'packages/transpiled_multihash'.
+  - *Sugestão:* `Portar 'Set' para 'packages/transpiled_multihash' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_multihash:1`](packages/transpiled_multihash#L1)** — Tipo público Go 'Options' (struct) do módulo 'go-multihash' ainda não foi portado para o pacote 'packages/transpiled_multihash'.
+  - *Sugestão:* `Portar 'Options' para 'packages/transpiled_multihash' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_yamux:1`](packages/transpiled_go_yamux#L1)** — Tipo público Go 'Error' (struct) do módulo 'go-yamux' ainda não foi portado para o pacote 'packages/transpiled_go_yamux'.
+  - *Sugestão:* `Portar 'Error' para 'packages/transpiled_go_yamux' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_yamux:1`](packages/transpiled_go_yamux#L1)** — Tipo público Go 'GoAwayError' (struct) do módulo 'go-yamux' ainda não foi portado para o pacote 'packages/transpiled_go_yamux'.
+  - *Sugestão:* `Portar 'GoAwayError' para 'packages/transpiled_go_yamux' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_yamux:1`](packages/transpiled_go_yamux#L1)** — Tipo público Go 'StreamError' (struct) do módulo 'go-yamux' ainda não foi portado para o pacote 'packages/transpiled_go_yamux'.
+  - *Sugestão:* `Portar 'StreamError' para 'packages/transpiled_go_yamux' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_yamux:1`](packages/transpiled_go_yamux#L1)** — Tipo público Go 'MemoryManager' (interface) do módulo 'go-yamux' ainda não foi portado para o pacote 'packages/transpiled_go_yamux'.
+  - *Sugestão:* `Portar 'MemoryManager' para 'packages/transpiled_go_yamux' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_yamux:1`](packages/transpiled_go_yamux#L1)** — Tipo público Go 'Stream' (struct) do módulo 'go-yamux' ainda não foi portado para o pacote 'packages/transpiled_go_yamux'.
+  - *Sugestão:* `Portar 'Stream' para 'packages/transpiled_go_yamux' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'VersionInfo' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'VersionInfo' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Addresses' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Addresses' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'RPCAuthScope' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'RPCAuthScope' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'API' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'API' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'AutoConf' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'AutoConf' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'AutoNATConfig' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'AutoNATConfig' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'AutoNATThrottleConfig' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'AutoNATThrottleConfig' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'AutoNATServiceMode' (type) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'AutoNATServiceMode' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'AutoTLS' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'AutoTLS' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Bitswap' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Bitswap' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Config' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Config' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Datastore' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Datastore' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Discovery' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Discovery' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'MDNS' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'MDNS' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'DNS' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'DNS' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Experiments' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Experiments' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'GatewaySpec' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'GatewaySpec' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Gateway' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Gateway' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'HTTPRetrieval' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'HTTPRetrieval' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Identity' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Identity' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Import' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Import' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Internal' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Internal' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'InternalBitswap' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'InternalBitswap' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'BitswapBroadcastControl' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'BitswapBroadcastControl' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Ipns' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Ipns' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Migration' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Migration' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Mounts' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Mounts' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Peering' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Peering' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Plugins' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Plugins' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Plugin' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Plugin' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Profile' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Profile' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Transformer' (type) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Transformer' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Provide' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Provide' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'ProvideDHT' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'ProvideDHT' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'ProvideStrategy' (type) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'ProvideStrategy' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Provider' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Provider' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'PubsubConfig' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'PubsubConfig' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Pinning' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Pinning' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'RemotePinningService' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'RemotePinningService' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'RemotePinningServiceAPI' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'RemotePinningServiceAPI' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'RemotePinningServicePolicies' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'RemotePinningServicePolicies' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'RemotePinningServiceMFSPolicy' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'RemotePinningServiceMFSPolicy' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Reprovider' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Reprovider' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Routing' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Routing' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Router' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Router' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'RouterParser' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'RouterParser' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'HTTPRouterParams' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'HTTPRouterParams' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'DHTRouterParams' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'DHTRouterParams' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'ComposableRouterParams' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'ComposableRouterParams' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'ConfigRouter' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'ConfigRouter' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Method' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Method' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'RouterType' (type) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'RouterType' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'DHTMode' (type) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'DHTMode' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'MethodName' (type) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'MethodName' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'SwarmConfig' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'SwarmConfig' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'RelayClient' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'RelayClient' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'RelayService' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'RelayService' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Transports' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Transports' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'ConnMgr' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'ConnMgr' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'ResourceMgr' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'ResourceMgr' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'OptionalDuration' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'OptionalDuration' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Duration' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Duration' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'OptionalInteger' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'OptionalInteger' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'OptionalString' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'OptionalString' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'OptionalBytes' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'OptionalBytes' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Strings' (type) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Strings' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Flag' (type) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Flag' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Priority' (type) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Priority' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Version' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Version' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'FXNodeInfo' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'FXNodeInfo' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'ConstructPeerHostOpts' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'ConstructPeerHostOpts' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Result' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Result' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'CannotFetchLinksError' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'CannotFetchLinksError' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'CannotDeleteBlockError' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'CannotDeleteBlockError' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Listeners' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Listeners' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Listener' (interface) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Listener' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'P2P' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'P2P' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Stream' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Stream' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'StreamRegistry' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'StreamRegistry' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'PluginDaemon' (interface) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'PluginDaemon' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'PluginDaemonInternal' (interface) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'PluginDaemonInternal' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'PluginDatastore' (interface) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'PluginDatastore' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'PluginFx' (interface) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'PluginFx' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'PluginIPLD' (interface) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'PluginIPLD' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Environment' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Environment' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Plugin' (interface) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Plugin' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'PluginTracer' (interface) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'PluginTracer' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Options' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Options' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Mock' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Mock' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'OnlyOne' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'OnlyOne' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Repo' (interface) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Repo' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Datastore' (interface) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Datastore' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Composer' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Composer' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'ExtraHTTPParams' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'ExtraHTTPParams' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'ExtraDHTParams' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'ExtraDHTParams' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'ParamNeededError' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'ParamNeededError' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'ProvideManyRouter' (interface) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'ProvideManyRouter' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Information' (type) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Information' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'VerifBSGC' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'VerifBSGC' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'VerifBS' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'VerifBS' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Opts' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Opts' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'DatastoreConfig' (interface) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'DatastoreConfig' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'ConfigFromMap' (type) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'ConfigFromMap' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'DiskSpec' (type) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'DiskSpec' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'NoRepoError' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'NoRepoError' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'FSRepo' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'FSRepo' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'MultiFetcher' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'MultiFetcher' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Fetcher' (interface) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Fetcher' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'HttpFetcher' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'HttpFetcher' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'File' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'File' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'BaseMigration' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'BaseMigration' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Migration' (interface) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Migration' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'TestCase' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'TestCase' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'ConfigAssertion' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'ConfigAssertion' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'IpfsFetcher' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'IpfsFetcher' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'PluginLoader' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'PluginLoader' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'LogEvent' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'LogEvent' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'MountFunc' (type) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'MountFunc' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Root' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Root' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Link' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Link' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Mount' (interface) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Mount' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Node' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Node' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Dir' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Dir' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'FileInode' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'FileInode' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'FileHandle' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'FileHandle' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Symlink' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Symlink' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'BlockStat' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'BlockStat' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'BlockAPI' (type) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'BlockAPI' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'CoreAPI' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'CoreAPI' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'KeyAPI' (type) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'KeyAPI' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'NameAPI' (type) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'NameAPI' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'ObjectAPI' (type) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'ObjectAPI' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'PinAPI' (type) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'PinAPI' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'PubSubAPI' (type) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'PubSubAPI' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'RoutingAPI' (type) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'RoutingAPI' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'SwarmAPI' (type) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'SwarmAPI' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'UnixfsAPI' (type) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'UnixfsAPI' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'ServeOption' (type) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'ServeOption' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'IpfsNodeCollector' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'IpfsNodeCollector' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'BlockStat' (interface) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'BlockStat' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'BlockAPI' (interface) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'BlockAPI' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'CoreAPI' (interface) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'CoreAPI' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'APIDagService' (interface) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'APIDagService' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Key' (interface) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Key' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'KeyAPI' (interface) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'KeyAPI' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'IpnsResult' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'IpnsResult' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'NameAPI' (interface) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'NameAPI' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'ObjectChange' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'ObjectChange' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'ObjectAPI' (interface) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'ObjectAPI' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'ChangeType' (type) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'ChangeType' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Pin' (interface) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Pin' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'PinStatus' (interface) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'PinStatus' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'BadPinNode' (interface) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'BadPinNode' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'PinAPI' (interface) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'PinAPI' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'PubSubSubscription' (interface) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'PubSubSubscription' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'PubSubMessage' (interface) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'PubSubMessage' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'PubSubAPI' (interface) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'PubSubAPI' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'RoutingAPI' (interface) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'RoutingAPI' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'ConnectionInfo' (interface) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'ConnectionInfo' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'SwarmAPI' (interface) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'SwarmAPI' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'AddEvent' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'AddEvent' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'DirEntry' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'DirEntry' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'UnixfsAPI' (interface) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'UnixfsAPI' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'FileType' (type) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'FileType' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Reader' (interface) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Reader' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'ReadSeekCloser' (interface) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'ReadSeekCloser' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'GC' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'GC' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'MultiError' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'MultiError' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'SizeStat' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'SizeStat' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Stat' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Stat' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Adder' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Adder' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'FetchersOut' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'FetchersOut' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'FetchersIn' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'FetchersIn' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'PathResolversOut' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'PathResolversOut' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'NoopProvider' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'NoopProvider' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'LegacyProvider' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'LegacyProvider' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'DHTProvider' (interface) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'DHTProvider' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'BaseBlocks' (type) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'BaseBlocks' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'MetricsCtx' (type) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'MetricsCtx' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'P2PHostIn' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'P2PHostIn' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'P2PHostOut' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'P2PHostOut' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'HostOption' (type) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'HostOption' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Libp2pOpts' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Libp2pOpts' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'PNetFingerprint' (type) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'PNetFingerprint' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'ResourceLimitsAndUsage' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'ResourceLimitsAndUsage' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'LimitsConfigAndUsage' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'LimitsConfigAndUsage' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'ResourceInfo' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'ResourceInfo' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Alias' (type) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Alias' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'ResourceInfos' (type) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'ResourceInfos' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'AddrInfoChan' (type) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'AddrInfoChan' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'RoutingOptionArgs' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'RoutingOptionArgs' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'EndpointSource' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'EndpointSource' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'RoutingOption' (type) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'RoutingOption' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'BlockPutSettings' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'BlockPutSettings' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'BlockRmSettings' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'BlockRmSettings' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'ApiSettings' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'ApiSettings' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'ApiOption' (type) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'ApiOption' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'KeyGenerateSettings' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'KeyGenerateSettings' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'KeyRenameSettings' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'KeyRenameSettings' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'NamePublishSettings' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'NamePublishSettings' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'NameResolveSettings' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'NameResolveSettings' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'ObjectAddLinkSettings' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'ObjectAddLinkSettings' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'ObjectRmLinkSettings' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'ObjectRmLinkSettings' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'PinAddSettings' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'PinAddSettings' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'PinLsSettings' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'PinLsSettings' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'PinIsPinnedSettings' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'PinIsPinnedSettings' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'PinRmSettings' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'PinRmSettings' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'PinUpdateSettings' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'PinUpdateSettings' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'PinAddOption' (type) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'PinAddOption' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'PinLsOption' (type) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'PinLsOption' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'PinIsPinnedOption' (type) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'PinIsPinnedOption' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'PinRmOption' (type) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'PinRmOption' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'PinUpdateOption' (type) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'PinUpdateOption' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'PubSubPeersSettings' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'PubSubPeersSettings' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'PubSubSubscribeSettings' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'PubSubSubscribeSettings' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'RoutingPutSettings' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'RoutingPutSettings' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'RoutingProvideSettings' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'RoutingProvideSettings' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'RoutingFindProvidersSettings' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'RoutingFindProvidersSettings' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'RoutingPutOption' (type) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'RoutingPutOption' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'UnixfsAddSettings' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'UnixfsAddSettings' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'UnixfsLsSettings' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'UnixfsLsSettings' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Layout' (type) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Layout' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'TestSuite' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'TestSuite' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Provider' (interface) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Provider' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'HttpApi' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'HttpApi' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'PubsubAPI' (type) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'PubsubAPI' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Request' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Request' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'RequestBuilder' (interface) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'RequestBuilder' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Response' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Response' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'AuthorizedRoundTripper' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'AuthorizedRoundTripper' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'RemovedBlock' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'RemovedBlock' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'RmBlocksOpts' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'RmBlocksOpts' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'RemovedBlock' (type) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'RemovedBlock' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'IntrHandler' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'IntrHandler' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Context' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Context' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'ReqLog' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'ReqLog' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'ReqLogEntry' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'ReqLogEntry' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'BootstrapOutput' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'BootstrapOutput' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'CidFormatRes' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'CidFormatRes' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'CidInspectBase' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'CidInspectBase' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'CidInspectCodec' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'CidInspectCodec' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'CidInspectHash' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'CidInspectHash' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'CidInspectRes' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'CidInspectRes' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'CodeAndName' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'CodeAndName' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Command' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Command' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Option' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Option' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'ConfigField' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'ConfigField' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'ConfigUpdateOutput' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'ConfigUpdateOutput' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'IdOutput' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'IdOutput' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'KeyOutput' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'KeyOutput' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'KeyOutputList' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'KeyOutputList' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'KeyRenameOutput' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'KeyRenameOutput' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'KeySignOutput' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'KeySignOutput' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'KeyVerifyOutput' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'KeyVerifyOutput' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'LsLink' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'LsLink' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'LsObject' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'LsObject' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'LsOutput' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'LsOutput' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'P2PForegroundOutput' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'P2PForegroundOutput' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'P2PListenerInfoOutput' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'P2PListenerInfoOutput' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'P2PLsOutput' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'P2PLsOutput' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'P2PStreamInfoOutput' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'P2PStreamInfoOutput' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'P2PStreamsOutput' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'P2PStreamsOutput' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'PingResult' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'PingResult' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'ProvideOnceEvent' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'ProvideOnceEvent' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'KeyList' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'KeyList' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'RefWrapper' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'RefWrapper' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'RefWriter' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'RefWriter' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'GcResult' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'GcResult' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'RepoVersion' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'RepoVersion' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'VerifyProgress' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'VerifyProgress' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'MessageOutput' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'MessageOutput' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'UpdateCheckOutput' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'UpdateCheckOutput' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'UpdateCleanOutput' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'UpdateCleanOutput' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'UpdateInstallOutput' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'UpdateInstallOutput' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'UpdateRevertOutput' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'UpdateRevertOutput' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'UpdateVersionsOutput' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'UpdateVersionsOutput' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Dependency' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Dependency' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'VersionCheckOutput' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'VersionCheckOutput' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'CarImportOutput' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'CarImportOutput' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'CarImportStats' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'CarImportStats' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'DagStat' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'DagStat' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'DagStatSummary' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'DagStatSummary' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'OutputObject' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'OutputObject' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'ResolveOutput' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'ResolveOutput' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'RootMeta' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'RootMeta' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'HandlerError' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'HandlerError' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'KeyEncoder' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'KeyEncoder' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'ResolvedPath' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'ResolvedPath' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'IpnsEntry' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'IpnsEntry' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'IpnsInspectEntry' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'IpnsInspectEntry' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'IpnsInspectResult' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'IpnsInspectResult' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'IpnsInspectValidation' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'IpnsInspectValidation' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Changes' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Changes' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Object' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Object' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'AddPinOutput' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'AddPinOutput' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'BadNode' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'BadNode' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'PinLsList' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'PinLsList' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'PinLsObject' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'PinLsObject' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'PinLsOutputWrapper' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'PinLsOutputWrapper' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'PinLsType' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'PinLsType' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'PinOutput' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'PinOutput' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'PinStatus' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'PinStatus' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'PinVerifyRes' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'PinVerifyRes' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'PinCount' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'PinCount' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'PinServicesList' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'PinServicesList' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'RemotePinOutput' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'RemotePinOutput' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'ServiceDetails' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'ServiceDetails' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Buffer' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Buffer' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Harness' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Harness' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'HTTPClient' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'HTTPClient' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'HTTPResponse' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'HTTPResponse' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'TestLogger' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'TestLogger' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'PBData' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'PBData' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'PBHash' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'PBHash' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'PBLink' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'PBLink' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'PBNode' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'PBNode' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'RunRequest' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'RunRequest' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'RunResult' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'RunResult' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Runner' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Runner' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'MockHTTPContentRouter' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'MockHTTPContentRouter' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'AddPinRequest' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'AddPinRequest' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'ListPinsResponse' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'ListPinsResponse' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'Pin' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'Pin' para 'lib' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Tipo público Go 'PinningService' (struct) do módulo 'kubo' ainda não foi portado para o pacote 'lib'.
+  - *Sugestão:* `Portar 'PinningService' para 'lib' ou documentar se for omitido deliberadamente`
+
+### 19. Auditoria de Campos de Structs do Upstream Go Ausentes (22 ocorrências)
+
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart:255`](packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart#L255)** — Classe 'Block' possui 2 campo(s) do Go pendente(s) no módulo 'boxo': From, Delay.
+  - *Sugestão:* `Avaliar implementação dos campos: From, Delay`
+- ℹ️ `[INFO]` **[`packages/transpiled_datastore/lib/src/datastore.dart:59`](packages/transpiled_datastore/lib/src/datastore.dart#L59)** — Classe 'Datastore' possui 3 campo(s) do Go pendente(s) no módulo 'go-datastore': TempErrFunc, Retries, Delay.
+  - *Sugestão:* `Avaliar implementação dos campos: TempErrFunc, Retries, Delay`
+- ℹ️ `[INFO]` **[`packages/transpiled_datastore/lib/src/features.dart:38`](packages/transpiled_datastore/lib/src/features.dart#L38)** — Classe 'Feature' possui 2 campo(s) do Go pendente(s) no módulo 'go-datastore': Interface, DatastoreInterface.
+  - *Sugestão:* `Avaliar implementação dos campos: Interface, DatastoreInterface`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/datamodel/link.dart:10`](packages/transpiled_ipld_prime/lib/src/datamodel/link.dart#L10)** — Classe 'Link' possui 4 campo(s) do Go pendente(s) no módulo 'go-ipld-prime': TypeName, Segment, LinkNode, Link.
+  - *Sugestão:* `Avaliar implementação dos campos: TypeName, Segment, LinkNode, Link`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/datamodel/node_builder.dart:59`](packages/transpiled_ipld_prime/lib/src/datamodel/node_builder.dart#L59)** — Classe 'MapAssembler' possui 1 campo(s) do Go pendente(s) no módulo 'go-ipld-prime': TypeName.
+  - *Sugestão:* `Avaliar implementação dos campos: TypeName`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/datamodel/node_builder.dart:86`](packages/transpiled_ipld_prime/lib/src/datamodel/node_builder.dart#L86)** — Classe 'ListAssembler' possui 1 campo(s) do Go pendente(s) no módulo 'go-ipld-prime': TypeName.
+  - *Sugestão:* `Avaliar implementação dos campos: TypeName`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/datamodel/path_segment.dart:11`](packages/transpiled_ipld_prime/lib/src/datamodel/path_segment.dart#L11)** — Classe 'PathSegment' possui 5 campo(s) do Go pendente(s) no módulo 'go-ipld-prime': A, There, The, However....
+  - *Sugestão:* `Avaliar implementação dos campos: A, There, The, However, Because`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/linking/linking.dart:24`](packages/transpiled_ipld_prime/lib/src/linking/linking.dart#L24)** — Classe 'LinkContext' possui 1 campo(s) do Go pendente(s) no módulo 'go-ipld-prime': Ctx.
+  - *Sugestão:* `Avaliar implementação dos campos: Ctx`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/traversal/traversal.dart:31`](packages/transpiled_ipld_prime/lib/src/traversal/traversal.dart#L31)** — Classe 'PreloadContext' possui 1 campo(s) do Go pendente(s) no módulo 'go-ipld-prime': Ctx.
+  - *Sugestão:* `Avaliar implementação dos campos: Ctx`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/traversal/traversal.dart:53`](packages/transpiled_ipld_prime/lib/src/traversal/traversal.dart#L53)** — Classe 'Config' possui 8 campo(s) do Go pendente(s) no módulo 'go-ipld-prime': Abbreviate, Indentation, StartingIndent, AlwaysMarkStrings....
+  - *Sugestão:* `Avaliar implementação dos campos: Abbreviate, Indentation, StartingIndent, AlwaysMarkStrings, ElidePreludeTypeInfo, UseMapComplexStyleAlways, UseMapComplexStyleOnType, Ctx`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/traversal/traversal.dart:84`](packages/transpiled_ipld_prime/lib/src/traversal/traversal.dart#L84)** — Classe 'Progress' possui 1 campo(s) do Go pendente(s) no módulo 'go-ipld-prime': Link.
+  - *Sugestão:* `Avaliar implementação dos campos: Link`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/protocol/identify/id.dart:24`](packages/transpiled_libp2p/lib/src/p2p/protocol/identify/id.dart#L24)** — Classe 'IdService' possui 3 campo(s) do Go pendente(s) no módulo 'go-libp2p': Host, UserAgent, ProtocolVersion.
+  - *Sugestão:* `Avaliar implementação dos campos: Host, UserAgent, ProtocolVersion`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/protocol/circuitv2/client/reservation.dart:16`](packages/transpiled_libp2p/lib/src/p2p/protocol/circuitv2/client/reservation.dart#L16)** — Classe 'Reservation' possui 1 campo(s) do Go pendente(s) no módulo 'go-libp2p': Expire.
+  - *Sugestão:* `Avaliar implementação dos campos: Expire`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/host/resource_manager/limit.dart:17`](packages/transpiled_libp2p/lib/src/p2p/host/resource_manager/limit.dart#L17)** — Classe 'Limit' possui 4 campo(s) do Go pendente(s) no módulo 'go-libp2p': RPS, Burst, Duration, Data.
+  - *Sugestão:* `Avaliar implementação dos campos: RPS, Burst, Duration, Data`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/host/resource_manager/limit.dart:221`](packages/transpiled_libp2p/lib/src/p2p/host/resource_manager/limit.dart#L221)** — Classe 'Limiter' possui 3 campo(s) do Go pendente(s) no módulo 'go-libp2p': NetworkPrefixLimits, GlobalLimit, SubnetRateLimiter.
+  - *Sugestão:* `Avaliar implementação dos campos: NetworkPrefixLimits, GlobalLimit, SubnetRateLimiter`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/host/host.dart:24`](packages/transpiled_libp2p/lib/src/core/host/host.dart#L24)** — Classe 'Host' possui 10 campo(s) do Go pendente(s) no módulo 'go-libp2p': StreamHost, ListenAddrs, TLSConfig, InsecureAllowHTTP....
+  - *Sugestão:* `Avaliar implementação dos campos: StreamHost, ListenAddrs, TLSConfig, InsecureAllowHTTP, ServerPeerIDAuth, ClientPeerIDAuth, ServeMux, DefaultClientRoundTripper, WellKnownHandler, EnableCompatibilityWithLegacyWellKnownEndpoint`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/network/network.dart:351`](packages/transpiled_libp2p/lib/src/core/network/network.dart#L351)** — Classe 'Stats' possui 4 campo(s) do Go pendente(s) no módulo 'go-libp2p': TotalIn, TotalOut, RateIn, RateOut.
+  - *Sugestão:* `Avaliar implementação dos campos: TotalIn, TotalOut, RateIn, RateOut`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/network/network.dart:464`](packages/transpiled_libp2p/lib/src/core/network/network.dart#L464)** — Classe 'Conn' possui 2 campo(s) do Go pendente(s) no módulo 'go-libp2p': Scope, DefaultMessageType.
+  - *Sugestão:* `Avaliar implementação dos campos: Scope, DefaultMessageType`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/peer/peer_record.dart:40`](packages/transpiled_libp2p/lib/src/core/peer/peer_record.dart#L40)** — Classe 'PeerRecord' possui 1 campo(s) do Go pendente(s) no módulo 'go-libp2p': Addresses.
+  - *Sugestão:* `Avaliar implementação dos campos: Addresses`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/record/envelope.dart:57`](packages/transpiled_libp2p/lib/src/core/record/envelope.dart#L57)** — Classe 'Envelope' possui 1 campo(s) do Go pendente(s) no módulo 'go-libp2p': Payload.
+  - *Sugestão:* `Avaliar implementação dos campos: Payload`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_kbucket/lib/src/table.dart:56`](packages/transpiled_libp2p_kbucket/lib/src/table.dart#L56)** — Classe 'RoutingTable' possui 2 campo(s) do Go pendente(s) no módulo 'go-libp2p-kbucket': PeerRemoved, PeerAdded.
+  - *Sugestão:* `Avaliar implementação dos campos: PeerRemoved, PeerAdded`
+- ℹ️ `[INFO]` **[`packages/transpiled_multiaddr/lib/src/protocol.dart:41`](packages/transpiled_multiaddr/lib/src/protocol.dart#L41)** — Classe 'Protocol' possui 1 campo(s) do Go pendente(s) no módulo 'go-multiaddr': VCode.
+  - *Sugestão:* `Avaliar implementação dos campos: VCode`
+
+### 20. Auditoria de Métodos do Upstream Go Ausentes (97 ocorrências)
+
+- ℹ️ `[INFO]` **[`packages/transpiled_block_format/lib/src/blocks.dart:33`](packages/transpiled_block_format/lib/src/blocks.dart#L33)** — Classe 'BasicBlock' possui 1 método(s) do Go pendente(s) no módulo 'go-block-format': String.
+  - *Sugestão:* `Avaliar paridade e implementação de: String`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo/lib/src/blockstore.dart:22`](packages/transpiled_boxo/lib/src/blockstore.dart#L22)** — Classe 'Blockstore' possui 5 método(s) do Go pendente(s) no módulo 'boxo': DeleteBlock, AllKeysChan, AllKeysChanWithErr, DeleteBlock....
+  - *Sugestão:* `Avaliar paridade e implementação de: DeleteBlock, AllKeysChan, AllKeysChanWithErr, DeleteBlock, AllKeysChan`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo/lib/src/bitswap/client/client.dart:17`](packages/transpiled_boxo/lib/src/bitswap/client/client.dart#L17)** — Classe 'BlockGetter' possui 1 método(s) do Go pendente(s) no módulo 'boxo': GetBlocks.
+  - *Sugestão:* `Avaliar paridade e implementação de: GetBlocks`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo/lib/src/bitswap/client/client.dart:31`](packages/transpiled_boxo/lib/src/bitswap/client/client.dart#L31)** — Classe 'Client' possui 32 método(s) do Go pendente(s) no módulo 'boxo': GetLatest, GetCached, GetCachedOrRefresh, HasCachedConfig....
+  - *Sugestão:* `Avaliar paridade e implementação de: GetLatest, GetCached, GetCachedOrRefresh, HasCachedConfig, Start, Stop, PutValue, GetValue, SearchValue, FindProviders, FindPeer, FindProvidersAsync, Provide, Ping, Bootstrap, FindProviders, ProvideBitswap, FindPeers, GetIPNS, PutIPNS, GetClosestPeers, Ls, GoLs, LsSync, LsBatchSync, Add, GetStatusByID, DeleteByID, Replace, NotifyNewBlocks, NewSession, Stat`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo/lib/src/bitswap/message/message.dart:310`](packages/transpiled_boxo/lib/src/bitswap/message/message.dart#L310)** — Classe 'Impl' possui 20 método(s) do Go pendente(s) no módulo 'boxo': Self, Ping, Latency, Host....
+  - *Sugestão:* `Avaliar paridade e implementação de: Self, Ping, Latency, Host, SupportsHave, NewMessageSender, SendMessage, Start, Stop, Connect, DisconnectFrom, IsConnectedToPeer, TagPeer, UntagPeer, Protect, Unprotect, Stats, Publish, Shutdown, Subscribe`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart:184`](packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart#L184)** — Classe 'Wantlist' possui 1 método(s) do Go pendente(s) no módulo 'boxo': Len.
+  - *Sugestão:* `Avaliar paridade e implementação de: Len`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart:396`](packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart#L396)** — Classe 'Message' possui 5 método(s) do Go pendente(s) no módulo 'boxo': Reset, String, ProtoMessage, ProtoReflect....
+  - *Sugestão:* `Avaliar paridade e implementação de: Reset, String, ProtoMessage, ProtoReflect, Descriptor`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo/lib/src/bitswap/client/wantlist/wantlist.dart:40`](packages/transpiled_boxo/lib/src/bitswap/client/wantlist/wantlist.dart#L40)** — Classe 'Wantlist' possui 1 método(s) do Go pendente(s) no módulo 'boxo': Len.
+  - *Sugestão:* `Avaliar paridade e implementação de: Len`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peermanager.dart:10`](packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peermanager.dart#L10)** — Classe 'Session' possui 5 método(s) do Go pendente(s) no módulo 'boxo': GetBlock, GetBlocks, Close, ReceiveFrom....
+  - *Sugestão:* `Avaliar paridade e implementação de: GetBlock, GetBlocks, Close, ReceiveFrom, SetBaseTickDelay`
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peerwantmanager.dart:40`](packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peerwantmanager.dart#L40)** — Classe 'PeerWantManager' possui 1 método(s) do Go pendente(s) no módulo 'boxo': String.
+  - *Sugestão:* `Avaliar paridade e implementação de: String`
+- ℹ️ `[INFO]` **[`packages/transpiled_cid/lib/src/cid.dart:41`](packages/transpiled_cid/lib/src/cid.dart#L41)** — Classe 'Cid' possui 18 método(s) do Go pendente(s) no módulo 'go-cid': UnmarshalBinary, UnmarshalText, Version, Type....
+  - *Sugestão:* `Avaliar paridade e implementação de: UnmarshalBinary, UnmarshalText, Version, Type, String, StringOfBase, Hash, ByteLen, WriteBytes, MarshalBinary, MarshalText, Equals, UnmarshalJSON, MarshalJSON, KeyString, Loggable, Multicodec, Multihash`
+- ℹ️ `[INFO]` **[`packages/transpiled_cid/lib/src/cid.dart:332`](packages/transpiled_cid/lib/src/cid.dart#L332)** — Classe 'Prefix' possui 2 método(s) do Go pendente(s) no módulo 'go-cid': GetCodec, WithCodec.
+  - *Sugestão:* `Avaliar paridade e implementação de: GetCodec, WithCodec`
+- ℹ️ `[INFO]` **[`packages/transpiled_datastore/lib/src/datastore.dart:59`](packages/transpiled_datastore/lib/src/datastore.dart#L59)** — Classe 'Datastore' possui 15 método(s) do Go pendente(s) no módulo 'go-datastore': Delete, Get, Put, Flush....
+  - *Sugestão:* `Avaliar paridade e implementação de: Delete, Get, Put, Flush, Has, GetSize, Query, DiskUsage, Batch, NewTransaction, KeyFilename, Children, Check, Scrub, CollectGarbage`
+- ℹ️ `[INFO]` **[`packages/transpiled_datastore/lib/src/datastore.dart:136`](packages/transpiled_datastore/lib/src/datastore.dart#L136)** — Classe 'Txn' possui 6 método(s) do Go pendente(s) no módulo 'go-datastore': Put, Get, Has, GetSize....
+  - *Sugestão:* `Avaliar paridade e implementação de: Put, Get, Has, GetSize, Delete, Query`
+- ℹ️ `[INFO]` **[`packages/transpiled_datastore/lib/src/key.dart:19`](packages/transpiled_datastore/lib/src/key.dart#L19)** — Classe 'Key' possui 5 método(s) do Go pendente(s) no módulo 'go-datastore': Clean, String, Equal, Compare....
+  - *Sugestão:* `Avaliar paridade e implementação de: Clean, String, Equal, Compare, UnmarshalJSON`
+- ℹ️ `[INFO]` **[`packages/transpiled_datastore/lib/src/query/filter.dart:42`](packages/transpiled_datastore/lib/src/query/filter.dart#L42)** — Classe 'FilterValueCompare' possui 1 método(s) do Go pendente(s) no módulo 'go-datastore': String.
+  - *Sugestão:* `Avaliar paridade e implementação de: String`
+- ℹ️ `[INFO]` **[`packages/transpiled_datastore/lib/src/query/filter.dart:71`](packages/transpiled_datastore/lib/src/query/filter.dart#L71)** — Classe 'FilterKeyCompare' possui 1 método(s) do Go pendente(s) no módulo 'go-datastore': String.
+  - *Sugestão:* `Avaliar paridade e implementação de: String`
+- ℹ️ `[INFO]` **[`packages/transpiled_datastore/lib/src/query/filter.dart:99`](packages/transpiled_datastore/lib/src/query/filter.dart#L99)** — Classe 'FilterKeyPrefix' possui 1 método(s) do Go pendente(s) no módulo 'go-datastore': String.
+  - *Sugestão:* `Avaliar paridade e implementação de: String`
+- ℹ️ `[INFO]` **[`packages/transpiled_datastore/lib/src/query/order.dart:15`](packages/transpiled_datastore/lib/src/query/order.dart#L15)** — Classe 'OrderByFunction' possui 1 método(s) do Go pendente(s) no módulo 'go-datastore': String.
+  - *Sugestão:* `Avaliar paridade e implementação de: String`
+- ℹ️ `[INFO]` **[`packages/transpiled_datastore/lib/src/query/order.dart:30`](packages/transpiled_datastore/lib/src/query/order.dart#L30)** — Classe 'OrderByValue' possui 1 método(s) do Go pendente(s) no módulo 'go-datastore': String.
+  - *Sugestão:* `Avaliar paridade e implementação de: String`
+- ℹ️ `[INFO]` **[`packages/transpiled_datastore/lib/src/query/order.dart:43`](packages/transpiled_datastore/lib/src/query/order.dart#L43)** — Classe 'OrderByValueDescending' possui 1 método(s) do Go pendente(s) no módulo 'go-datastore': String.
+  - *Sugestão:* `Avaliar paridade e implementação de: String`
+- ℹ️ `[INFO]` **[`packages/transpiled_datastore/lib/src/query/order.dart:56`](packages/transpiled_datastore/lib/src/query/order.dart#L56)** — Classe 'OrderByKey' possui 1 método(s) do Go pendente(s) no módulo 'go-datastore': String.
+  - *Sugestão:* `Avaliar paridade e implementação de: String`
+- ℹ️ `[INFO]` **[`packages/transpiled_datastore/lib/src/query/order.dart:69`](packages/transpiled_datastore/lib/src/query/order.dart#L69)** — Classe 'OrderByKeyDescending' possui 1 método(s) do Go pendente(s) no módulo 'go-datastore': String.
+  - *Sugestão:* `Avaliar paridade e implementação de: String`
+- ℹ️ `[INFO]` **[`packages/transpiled_datastore/lib/src/query/query.dart:21`](packages/transpiled_datastore/lib/src/query/query.dart#L21)** — Classe 'Query' possui 1 método(s) do Go pendente(s) no módulo 'go-datastore': String.
+  - *Sugestão:* `Avaliar paridade e implementação de: String`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/basicnode/list_node.dart:18`](packages/transpiled_ipld_prime/lib/src/basicnode/list_node.dart#L18)** — Classe 'PlainList' possui 11 método(s) do Go pendente(s) no módulo 'go-ipld-prime': LookupByString, LookupByNode, MapIterator, IsAbsent....
+  - *Sugestão:* `Avaliar paridade e implementação de: LookupByString, LookupByNode, MapIterator, IsAbsent, IsNull, AsBool, AsInt, AsFloat, AsString, AsBytes, AsLink`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/basicnode/map_node.dart:23`](packages/transpiled_ipld_prime/lib/src/basicnode/map_node.dart#L23)** — Classe 'PlainMap' possui 10 método(s) do Go pendente(s) no módulo 'go-ipld-prime': LookupByIndex, ListIterator, IsAbsent, IsNull....
+  - *Sugestão:* `Avaliar paridade e implementação de: LookupByIndex, ListIterator, IsAbsent, IsNull, AsBool, AsInt, AsFloat, AsString, AsBytes, AsLink`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/basicnode/scalars.dart:55`](packages/transpiled_ipld_prime/lib/src/basicnode/scalars.dart#L55)** — Classe 'PlainBool' possui 14 método(s) do Go pendente(s) no módulo 'go-ipld-prime': LookupByString, LookupByNode, LookupByIndex, LookupBySegment....
+  - *Sugestão:* `Avaliar paridade e implementação de: LookupByString, LookupByNode, LookupByIndex, LookupBySegment, MapIterator, ListIterator, Length, IsAbsent, IsNull, AsInt, AsFloat, AsString, AsBytes, AsLink`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/basicnode/scalars.dart:104`](packages/transpiled_ipld_prime/lib/src/basicnode/scalars.dart#L104)** — Classe 'PlainInt' possui 14 método(s) do Go pendente(s) no módulo 'go-ipld-prime': LookupByString, LookupByNode, LookupByIndex, LookupBySegment....
+  - *Sugestão:* `Avaliar paridade e implementação de: LookupByString, LookupByNode, LookupByIndex, LookupBySegment, MapIterator, ListIterator, Length, IsAbsent, IsNull, AsBool, AsFloat, AsString, AsBytes, AsLink`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/basicnode/scalars.dart:125`](packages/transpiled_ipld_prime/lib/src/basicnode/scalars.dart#L125)** — Classe 'PlainUint' possui 14 método(s) do Go pendente(s) no módulo 'go-ipld-prime': LookupByString, LookupByNode, LookupByIndex, LookupBySegment....
+  - *Sugestão:* `Avaliar paridade e implementação de: LookupByString, LookupByNode, LookupByIndex, LookupBySegment, MapIterator, ListIterator, Length, IsAbsent, IsNull, AsBool, AsFloat, AsString, AsBytes, AsLink`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/basicnode/scalars.dart:179`](packages/transpiled_ipld_prime/lib/src/basicnode/scalars.dart#L179)** — Classe 'PlainFloat' possui 14 método(s) do Go pendente(s) no módulo 'go-ipld-prime': LookupByString, LookupByNode, LookupByIndex, LookupBySegment....
+  - *Sugestão:* `Avaliar paridade e implementação de: LookupByString, LookupByNode, LookupByIndex, LookupBySegment, MapIterator, ListIterator, Length, IsAbsent, IsNull, AsBool, AsInt, AsString, AsBytes, AsLink`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/basicnode/scalars.dart:229`](packages/transpiled_ipld_prime/lib/src/basicnode/scalars.dart#L229)** — Classe 'PlainString' possui 14 método(s) do Go pendente(s) no módulo 'go-ipld-prime': LookupByString, LookupByNode, LookupByIndex, LookupBySegment....
+  - *Sugestão:* `Avaliar paridade e implementação de: LookupByString, LookupByNode, LookupByIndex, LookupBySegment, MapIterator, ListIterator, Length, IsAbsent, IsNull, AsBool, AsInt, AsFloat, AsBytes, AsLink`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/basicnode/scalars.dart:279`](packages/transpiled_ipld_prime/lib/src/basicnode/scalars.dart#L279)** — Classe 'PlainBytes' possui 14 método(s) do Go pendente(s) no módulo 'go-ipld-prime': LookupByString, LookupByNode, LookupByIndex, LookupBySegment....
+  - *Sugestão:* `Avaliar paridade e implementação de: LookupByString, LookupByNode, LookupByIndex, LookupBySegment, MapIterator, ListIterator, Length, IsAbsent, IsNull, AsBool, AsInt, AsFloat, AsString, AsLink`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/basicnode/scalars.dart:367`](packages/transpiled_ipld_prime/lib/src/basicnode/scalars.dart#L367)** — Classe 'PlainLink' possui 14 método(s) do Go pendente(s) no módulo 'go-ipld-prime': LookupByString, LookupByNode, LookupByIndex, LookupBySegment....
+  - *Sugestão:* `Avaliar paridade e implementação de: LookupByString, LookupByNode, LookupByIndex, LookupBySegment, MapIterator, ListIterator, Length, IsAbsent, IsNull, AsBool, AsInt, AsFloat, AsString, AsBytes`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/basicnode/stream_bytes.dart:17`](packages/transpiled_ipld_prime/lib/src/basicnode/stream_bytes.dart#L17)** — Classe 'StreamBytes' possui 14 método(s) do Go pendente(s) no módulo 'go-ipld-prime': LookupByString, LookupByNode, LookupByIndex, LookupBySegment....
+  - *Sugestão:* `Avaliar paridade e implementação de: LookupByString, LookupByNode, LookupByIndex, LookupBySegment, MapIterator, ListIterator, Length, IsAbsent, IsNull, AsBool, AsInt, AsFloat, AsString, AsLink`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/datamodel/kind.dart:54`](packages/transpiled_ipld_prime/lib/src/datamodel/kind.dart#L54)** — Classe 'KindSet' possui 1 método(s) do Go pendente(s) no módulo 'go-ipld-prime': String.
+  - *Sugestão:* `Avaliar paridade e implementação de: String`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/datamodel/link.dart:10`](packages/transpiled_ipld_prime/lib/src/datamodel/link.dart#L10)** — Classe 'Link' possui 16 método(s) do Go pendente(s) no módulo 'go-ipld-prime': Kind, LookupByString, LookupByNode, LookupByIndex....
+  - *Sugestão:* `Avaliar paridade e implementação de: Kind, LookupByString, LookupByNode, LookupByIndex, LookupBySegment, MapIterator, ListIterator, Length, IsAbsent, IsNull, AsBool, AsInt, AsFloat, AsString, AsBytes, String`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/datamodel/node_builder.dart:17`](packages/transpiled_ipld_prime/lib/src/datamodel/node_builder.dart#L17)** — Classe 'NodeAssembler' possui 4 método(s) do Go pendente(s) no módulo 'go-ipld-prime': CreateMap, CreateList, CreateMap, CreateList.
+  - *Sugestão:* `Avaliar paridade e implementação de: CreateMap, CreateList, CreateMap, CreateList`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/datamodel/node_builder.dart:59`](packages/transpiled_ipld_prime/lib/src/datamodel/node_builder.dart#L59)** — Classe 'MapAssembler' possui 8 método(s) do Go pendente(s) no módulo 'go-ipld-prime': BeginList, AssignNull, AssignBool, AssignInt....
+  - *Sugestão:* `Avaliar paridade e implementação de: BeginList, AssignNull, AssignBool, AssignInt, AssignFloat, AssignString, AssignBytes, AssignLink`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/datamodel/node_builder.dart:86`](packages/transpiled_ipld_prime/lib/src/datamodel/node_builder.dart#L86)** — Classe 'ListAssembler' possui 8 método(s) do Go pendente(s) no módulo 'go-ipld-prime': BeginMap, AssignNull, AssignBool, AssignInt....
+  - *Sugestão:* `Avaliar paridade e implementação de: BeginMap, AssignNull, AssignBool, AssignInt, AssignFloat, AssignString, AssignBytes, AssignLink`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/datamodel/path.dart:11`](packages/transpiled_ipld_prime/lib/src/datamodel/path.dart#L11)** — Classe 'Path' possui 2 método(s) do Go pendente(s) no módulo 'go-ipld-prime': String, Len.
+  - *Sugestão:* `Avaliar paridade e implementação de: String, Len`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/datamodel/path_segment.dart:11`](packages/transpiled_ipld_prime/lib/src/datamodel/path_segment.dart#L11)** — Classe 'PathSegment' possui 1 método(s) do Go pendente(s) no módulo 'go-ipld-prime': String.
+  - *Sugestão:* `Avaliar paridade e implementação de: String`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/traversal/traversal.dart:53`](packages/transpiled_ipld_prime/lib/src/traversal/traversal.dart#L53)** — Classe 'Config' possui 3 método(s) do Go pendente(s) no módulo 'go-ipld-prime': Print, Sprint, Fprint.
+  - *Sugestão:* `Avaliar paridade e implementação de: Print, Sprint, Fprint`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/traversal/selector/selector.dart:271`](packages/transpiled_ipld_prime/lib/src/traversal/selector/selector.dart#L271)** — Classe 'RecursionLimit' possui 2 método(s) do Go pendente(s) no módulo 'go-ipld-prime': Mode, Depth.
+  - *Sugestão:* `Avaliar paridade e implementação de: Mode, Depth`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/traversal/selector/selector.dart:297`](packages/transpiled_ipld_prime/lib/src/traversal/selector/selector.dart#L297)** — Classe 'Condition' possui 1 método(s) do Go pendente(s) no módulo 'go-ipld-prime': Match.
+  - *Sugestão:* `Avaliar paridade e implementação de: Match`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/traversal/selector/selector.dart:392`](packages/transpiled_ipld_prime/lib/src/traversal/selector/selector.dart#L392)** — Classe 'ParseContext' possui 1 método(s) do Go pendente(s) no módulo 'go-ipld-prime': PushParent.
+  - *Sugestão:* `Avaliar paridade e implementação de: PushParent`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/transport/tcp/tcp_transport.dart:13`](packages/transpiled_libp2p/lib/src/p2p/transport/tcp/tcp_transport.dart#L13)** — Classe 'TcpTransport' possui 2 método(s) do Go pendente(s) no módulo 'go-libp2p': UseReuseport, String.
+  - *Sugestão:* `Avaliar paridade e implementação de: UseReuseport, String`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/protocol/holepunch/holepunch.dart:193`](packages/transpiled_libp2p/lib/src/p2p/protocol/holepunch/holepunch.dart#L193)** — Classe 'HolePuncher' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p': DirectConnect.
+  - *Sugestão:* `Avaliar paridade e implementação de: DirectConnect`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/protocol/identify/pb/identify_message.dart:10`](packages/transpiled_libp2p/lib/src/p2p/protocol/identify/pb/identify_message.dart#L10)** — Classe 'Identify' possui 12 método(s) do Go pendente(s) no módulo 'go-libp2p': Reset, String, ProtoMessage, ProtoReflect....
+  - *Sugestão:* `Avaliar paridade e implementação de: Reset, String, ProtoMessage, ProtoReflect, Descriptor, GetProtocolVersion, GetAgentVersion, GetPublicKey, GetListenAddrs, GetObservedAddr, GetProtocols, GetSignedPeerRecord`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/protocol/circuitv2/client/client.dart:14`](packages/transpiled_libp2p/lib/src/p2p/protocol/circuitv2/client/client.dart#L14)** — Classe 'Client' possui 9 método(s) do Go pendente(s) no módulo 'go-libp2p': GetReachability, Listener, SkipResolve, Dial....
+  - *Sugestão:* `Avaliar paridade e implementação de: GetReachability, Listener, SkipResolve, Dial, Listen, Protocols, Proxy, DialBack, DialBack`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/protocol/circuitv2/client/reservation.dart:16`](packages/transpiled_libp2p/lib/src/p2p/protocol/circuitv2/client/reservation.dart#L16)** — Classe 'Reservation' possui 8 método(s) do Go pendente(s) no módulo 'go-libp2p': Reset, String, ProtoMessage, ProtoReflect....
+  - *Sugestão:* `Avaliar paridade e implementação de: Reset, String, ProtoMessage, ProtoReflect, Descriptor, GetExpire, GetAddrs, GetVoucher`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/protocol/circuitv2/pb/circuit_message.dart:52`](packages/transpiled_libp2p/lib/src/p2p/protocol/circuitv2/pb/circuit_message.dart#L52)** — Classe 'HopMessage' possui 10 método(s) do Go pendente(s) no módulo 'go-libp2p': Reset, String, ProtoMessage, ProtoReflect....
+  - *Sugestão:* `Avaliar paridade e implementação de: Reset, String, ProtoMessage, ProtoReflect, Descriptor, GetType, GetPeer, GetReservation, GetLimit, GetStatus`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/protocol/circuitv2/proto/protocol.dart:16`](packages/transpiled_libp2p/lib/src/p2p/protocol/circuitv2/proto/protocol.dart#L16)** — Classe 'ReservationVoucher' possui 8 método(s) do Go pendente(s) no módulo 'go-libp2p': Reset, String, ProtoMessage, ProtoReflect....
+  - *Sugestão:* `Avaliar paridade e implementação de: Reset, String, ProtoMessage, ProtoReflect, Descriptor, GetRelay, GetPeer, GetExpiration`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/net/swarm/swarm.dart:17`](packages/transpiled_libp2p/lib/src/p2p/net/swarm/swarm.dart#L17)** — Classe 'Swarm' possui 12 método(s) do Go pendente(s) no módulo 'go-libp2p': Done, Peerstore, StreamHandler, LocalPeer....
+  - *Sugestão:* `Avaliar paridade e implementação de: Done, Peerstore, StreamHandler, LocalPeer, Backoff, String, ResourceManager, AddCertHashes, ListenClose, AddListenAddr, TransportForDialing, TransportForListening`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/host/autonat/autonat.dart:13`](packages/transpiled_libp2p/lib/src/p2p/host/autonat/autonat.dart#L13)** — Classe 'AutoNat' possui 2 método(s) do Go pendente(s) no módulo 'go-libp2p': Start, GetReachability.
+  - *Sugestão:* `Avaliar paridade e implementação de: Start, GetReachability`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/host/autonat/autonat.dart:32`](packages/transpiled_libp2p/lib/src/p2p/host/autonat/autonat.dart#L32)** — Classe 'AmbientAutoNat' possui 4 método(s) do Go pendente(s) no módulo 'go-libp2p': Listen, ListenClose, Connected, Disconnected.
+  - *Sugestão:* `Avaliar paridade e implementação de: Listen, ListenClose, Connected, Disconnected`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/host/basic/basic_host.dart:27`](packages/transpiled_libp2p/lib/src/p2p/host/basic/basic_host.dart#L27)** — Classe 'BasicHost' possui 7 método(s) do Go pendente(s) no módulo 'go-libp2p': Start, IDService, AllAddrs, ConfirmedAddrs....
+  - *Sugestão:* `Avaliar paridade e implementação de: Start, IDService, AllAddrs, ConfirmedAddrs, SetAutoNat, GetAutoNat, Reachability`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/host/resource_manager/limit.dart:17`](packages/transpiled_libp2p/lib/src/p2p/host/resource_manager/limit.dart#L17)** — Classe 'Limit' possui 7 método(s) do Go pendente(s) no módulo 'go-libp2p': Reset, String, ProtoMessage, ProtoReflect....
+  - *Sugestão:* `Avaliar paridade e implementação de: Reset, String, ProtoMessage, ProtoReflect, Descriptor, GetDuration, GetData`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/host/resource_manager/limit.dart:139`](packages/transpiled_libp2p/lib/src/p2p/host/resource_manager/limit.dart#L139)** — Classe 'ResourceLimits' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p': ToMaybeNilPtr.
+  - *Sugestão:* `Avaliar paridade e implementação de: ToMaybeNilPtr`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/host/resource_manager/limit.dart:221`](packages/transpiled_libp2p/lib/src/p2p/host/resource_manager/limit.dart#L221)** — Classe 'Limiter' possui 2 método(s) do Go pendente(s) no módulo 'go-libp2p': Limit, Allow.
+  - *Sugestão:* `Avaliar paridade e implementação de: Limit, Allow`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/connmgr/manager.dart:17`](packages/transpiled_libp2p/lib/src/core/connmgr/manager.dart#L17)** — Classe 'ConnManager' possui 10 método(s) do Go pendente(s) no módulo 'go-libp2p': LendTransport, ListenQUIC, ListenQUICAndAssociate, SharedNonQUICPacketConn....
+  - *Sugestão:* `Avaliar paridade e implementação de: LendTransport, ListenQUIC, ListenQUICAndAssociate, SharedNonQUICPacketConn, DialQUIC, TransportForDial, TransportWithAssociationForDial, Protocols, ClientConfig, Notifee`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/connmgr/null.dart:8`](packages/transpiled_libp2p/lib/src/core/connmgr/null.dart#L8)** — Classe 'NullConnMgr' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p': Notifee.
+  - *Sugestão:* `Avaliar paridade e implementação de: Notifee`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/crypto/ecdsa_key.dart:37`](packages/transpiled_libp2p/lib/src/core/crypto/ecdsa_key.dart#L37)** — Classe 'EcdsaPrivateKey' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p': Equals.
+  - *Sugestão:* `Avaliar paridade e implementação de: Equals`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/crypto/ecdsa_key.dart:75`](packages/transpiled_libp2p/lib/src/core/crypto/ecdsa_key.dart#L75)** — Classe 'EcdsaPublicKey' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p': Equals.
+  - *Sugestão:* `Avaliar paridade e implementação de: Equals`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/crypto/key_types.dart:44`](packages/transpiled_libp2p/lib/src/core/crypto/key_types.dart#L44)** — Classe 'Key' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p': Equals.
+  - *Sugestão:* `Avaliar paridade e implementação de: Equals`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/crypto/rsa_key.dart:35`](packages/transpiled_libp2p/lib/src/core/crypto/rsa_key.dart#L35)** — Classe 'RsaPrivateKey' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p': Equals.
+  - *Sugestão:* `Avaliar paridade e implementação de: Equals`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/crypto/rsa_key.dart:65`](packages/transpiled_libp2p/lib/src/core/crypto/rsa_key.dart#L65)** — Classe 'RsaPublicKey' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p': Equals.
+  - *Sugestão:* `Avaliar paridade e implementação de: Equals`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/crypto/secp256k1_key.dart:28`](packages/transpiled_libp2p/lib/src/core/crypto/secp256k1_key.dart#L28)** — Classe 'Secp256k1PrivateKey' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p': Equals.
+  - *Sugestão:* `Avaliar paridade e implementação de: Equals`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/crypto/secp256k1_key.dart:61`](packages/transpiled_libp2p/lib/src/core/crypto/secp256k1_key.dart#L61)** — Classe 'Secp256k1PublicKey' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p': Equals.
+  - *Sugestão:* `Avaliar paridade e implementação de: Equals`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/host/host.dart:24`](packages/transpiled_libp2p/lib/src/core/host/host.dart#L24)** — Classe 'Host' possui 12 método(s) do Go pendente(s) no módulo 'go-libp2p': PeerID, Serve, SetHTTPHandler, SetHTTPHandlerAtPath....
+  - *Sugestão:* `Avaliar paridade e implementação de: PeerID, Serve, SetHTTPHandler, SetHTTPHandlerAtPath, NamespaceRoundTripper, NamespacedClient, RoundTrip, NewConstrainedRoundTripper, SetPeerMetadata, AddPeerMetadata, GetPeerMetadata, RemovePeerMetadata`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/network/network.dart:436`](packages/transpiled_libp2p/lib/src/core/network/network.dart#L436)** — Classe 'Dialer' possui 2 método(s) do Go pendente(s) no módulo 'go-libp2p': Dial, DialContext.
+  - *Sugestão:* `Avaliar paridade e implementação de: Dial, DialContext`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/network/network.dart:464`](packages/transpiled_libp2p/lib/src/core/network/network.dart#L464)** — Classe 'Conn' possui 44 método(s) do Go pendente(s) no módulo 'go-libp2p': As, Close, CloseWithError, IsClosed....
+  - *Sugestão:* `Avaliar paridade e implementação de: As, Close, CloseWithError, IsClosed, OpenStream, AcceptStream, LocalPeer, RemotePeer, RemotePublicKey, LocalMultiaddr, RemoteMultiaddr, Transport, Scope, ConnState, LocalMultiaddr, RemoteMultiaddr, Read, Write, Close, LocalAddr, RemoteAddr, SetDeadline, SetReadDeadline, SetWriteDeadline, LocalPeer, RemotePeer, RemotePublicKey, ConnState, Stat, Read, LocalAddr, RemoteAddr, ID, NewStream, GetStreams, Stat, As, IsClosed, ID, CloseWithError, String, NewStream, GetStreams, Scope`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/network/network.dart:554`](packages/transpiled_libp2p/lib/src/core/network/network.dart#L554)** — Classe 'ResourceScope' possui 19 método(s) do Go pendente(s) no módulo 'go-libp2p': Limit, SetLimit, ReserveMemoryForChild, ReleaseMemoryForChild....
+  - *Sugestão:* `Avaliar paridade e implementação de: Limit, SetLimit, ReserveMemoryForChild, ReleaseMemoryForChild, AddStream, AddStreamForChild, RemoveStream, RemoveStreamForChild, AddConn, AddConnForChild, RemoveConn, RemoveConnForChild, ReserveForChild, ReleaseForChild, ReleaseResources, Done, IncRef, DecRef, IsUnused`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/network/network.dart:569`](packages/transpiled_libp2p/lib/src/core/network/network.dart#L569)** — Classe 'ProtocolScope' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p': SetLimit.
+  - *Sugestão:* `Avaliar paridade e implementação de: SetLimit`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/network/network.dart:573`](packages/transpiled_libp2p/lib/src/core/network/network.dart#L573)** — Classe 'PeerScope' possui 6 método(s) do Go pendente(s) no módulo 'go-libp2p': ReserveMemory, ReleaseMemory, Check, Stat....
+  - *Sugestão:* `Avaliar paridade e implementação de: ReserveMemory, ReleaseMemory, Check, Stat, BeginSpan, SetLimit`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/network/network.dart:592`](packages/transpiled_libp2p/lib/src/core/network/network.dart#L592)** — Classe 'StreamScope' possui 4 método(s) do Go pendente(s) no módulo 'go-libp2p': ProtocolScope, SetProtocol, ServiceScope, PeerScope.
+  - *Sugestão:* `Avaliar paridade e implementação de: ProtocolScope, SetProtocol, ServiceScope, PeerScope`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/network/network.dart:609`](packages/transpiled_libp2p/lib/src/core/network/network.dart#L609)** — Classe 'ResourceManager' possui 12 método(s) do Go pendente(s) no módulo 'go-libp2p': ListServices, ListProtocols, ListPeers, Stat....
+  - *Sugestão:* `Avaliar paridade e implementação de: ListServices, ListProtocols, ListPeers, Stat, GetConnLimit, GetAllowlist, ViewSystem, ViewTransient, ViewService, ViewProtocol, ViewPeer, OpenConnectionNoIP`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/network/network.dart:677`](packages/transpiled_libp2p/lib/src/core/network/network.dart#L677)** — Classe 'NullScope' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p': VerifySourceAddress.
+  - *Sugestão:* `Avaliar paridade e implementação de: VerifySourceAddress`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/peer/addr_info.dart:15`](packages/transpiled_libp2p/lib/src/core/peer/addr_info.dart#L15)** — Classe 'AddrInfo' possui 3 método(s) do Go pendente(s) no módulo 'go-libp2p': String, MarshalJSON, UnmarshalJSON.
+  - *Sugestão:* `Avaliar paridade e implementação de: String, MarshalJSON, UnmarshalJSON`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/peer/peer_record.dart:40`](packages/transpiled_libp2p/lib/src/core/peer/peer_record.dart#L40)** — Classe 'PeerRecord' possui 9 método(s) do Go pendente(s) no módulo 'go-libp2p': Equal, Reset, String, ProtoMessage....
+  - *Sugestão:* `Avaliar paridade e implementação de: Equal, Reset, String, ProtoMessage, ProtoReflect, Descriptor, GetPeerId, GetSeq, GetAddresses`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/peerstore/peerstore.dart:78`](packages/transpiled_libp2p/lib/src/core/peerstore/peerstore.dart#L78)** — Classe 'Metrics' possui 14 método(s) do Go pendente(s) no módulo 'go-libp2p': AllowConn, BlockConn, AllowStream, BlockStream....
+  - *Sugestão:* `Avaliar paridade e implementação de: AllowConn, BlockConn, AllowStream, BlockStream, AllowPeer, BlockPeer, AllowProtocol, BlockProtocol, BlockProtocolPeer, AllowService, BlockService, BlockServicePeer, AllowMemory, BlockMemory`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/record/envelope.dart:57`](packages/transpiled_libp2p/lib/src/core/record/envelope.dart#L57)** — Classe 'Envelope' possui 10 método(s) do Go pendente(s) no módulo 'go-libp2p': Equal, Reset, String, ProtoMessage....
+  - *Sugestão:* `Avaliar paridade e implementação de: Equal, Reset, String, ProtoMessage, ProtoReflect, Descriptor, GetPublicKey, GetPayloadType, GetPayload, GetSignature`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/routing/query.dart:47`](packages/transpiled_libp2p/lib/src/core/routing/query.dart#L47)** — Classe 'QueryEvent' possui 2 método(s) do Go pendente(s) no módulo 'go-libp2p': MarshalJSON, UnmarshalJSON.
+  - *Sugestão:* `Avaliar paridade e implementação de: MarshalJSON, UnmarshalJSON`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/routing/routing.dart:92`](packages/transpiled_libp2p/lib/src/core/routing/routing.dart#L92)** — Classe 'Routing' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p': FindPeer.
+  - *Sugestão:* `Avaliar paridade e implementação de: FindPeer`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/transport/transport.dart:32`](packages/transpiled_libp2p/lib/src/core/transport/transport.dart#L32)** — Classe 'CapableConn' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p': ConnState.
+  - *Sugestão:* `Avaliar paridade e implementação de: ConnState`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/transport/transport.dart:42`](packages/transpiled_libp2p/lib/src/core/transport/transport.dart#L42)** — Classe 'Listener' possui 7 método(s) do Go pendente(s) no módulo 'go-libp2p': Addr, Multiaddrs, ConnContext, ServeHTTP....
+  - *Sugestão:* `Avaliar paridade e implementação de: Addr, Multiaddrs, ConnContext, ServeHTTP, Addr, String, Multiaddrs`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/transport/transport.dart:49`](packages/transpiled_libp2p/lib/src/core/transport/transport.dart#L49)** — Classe 'Transport' possui 14 método(s) do Go pendente(s) no módulo 'go-libp2p': ListenOrder, String, Close, CloseVirtualListener....
+  - *Sugestão:* `Avaliar paridade e implementação de: ListenOrder, String, Close, CloseVirtualListener, Resolve, AddCertHashes, LocalPeer, SecureInbound, SecureOutbound, ID, WithSessionOptions, DialContext, NewConn, Config`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/transport/transport.dart:83`](packages/transpiled_libp2p/lib/src/core/transport/transport.dart#L83)** — Classe 'Upgrader' possui 6 método(s) do Go pendente(s) no módulo 'go-libp2p': UpgradeListener, GateMaListener, UpgradeGatedMaListener, UpgradeListener....
+  - *Sugestão:* `Avaliar paridade e implementação de: UpgradeListener, GateMaListener, UpgradeGatedMaListener, UpgradeListener, GateMaListener, UpgradeGatedMaListener`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_kbucket/lib/src/keyspace.dart:56`](packages/transpiled_libp2p_kbucket/lib/src/keyspace.dart#L56)** — Classe 'KeySpace' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p-kbucket': Equal.
+  - *Sugestão:* `Avaliar paridade e implementação de: Equal`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_kbucket/lib/src/sorting.dart:18`](packages/transpiled_libp2p_kbucket/lib/src/sorting.dart#L18)** — Classe 'PeerDistanceSorter' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p-kbucket': Len.
+  - *Sugestão:* `Avaliar paridade e implementação de: Len`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_kbucket/lib/src/table.dart:56`](packages/transpiled_libp2p_kbucket/lib/src/table.dart#L56)** — Classe 'RoutingTable' possui 6 método(s) do Go pendente(s) no módulo 'go-libp2p-kbucket': Print, GetDiversityStats, GetTrackedCplsForRefresh, GenRandPeerID....
+  - *Sugestão:* `Avaliar paridade e implementação de: Print, GetDiversityStats, GetTrackedCplsForRefresh, GenRandPeerID, GenRandomKey, ResetCplRefreshedAtForID`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_kbucket/lib/src/xor_keyspace.dart:16`](packages/transpiled_libp2p_kbucket/lib/src/xor_keyspace.dart#L16)** — Classe 'XorKeySpace' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p-kbucket': Equal.
+  - *Sugestão:* `Avaliar paridade e implementação de: Equal`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_record/lib/src/record.dart:15`](packages/transpiled_libp2p_record/lib/src/record.dart#L15)** — Classe 'Record' possui 8 método(s) do Go pendente(s) no módulo 'go-libp2p-record': Reset, String, ProtoMessage, ProtoReflect....
+  - *Sugestão:* `Avaliar paridade e implementação de: Reset, String, ProtoMessage, ProtoReflect, Descriptor, GetKey, GetValue, GetTimeReceived`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_routing_helpers/lib/src/limited_value_store.dart:19`](packages/transpiled_libp2p_routing_helpers/lib/src/limited_value_store.dart#L19)** — Classe 'LimitedValueStore' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p-routing-helpers': Close.
+  - *Sugestão:* `Avaliar paridade e implementação de: Close`
+- ℹ️ `[INFO]` **[`packages/transpiled_multiaddr/lib/src/multiaddr.dart:17`](packages/transpiled_multiaddr/lib/src/multiaddr.dart#L17)** — Classe 'Component' possui 18 método(s) do Go pendente(s) no módulo 'go-multiaddr': Multiaddr, Encapsulate, Decapsulate, Bytes....
+  - *Sugestão:* `Avaliar paridade e implementação de: Multiaddr, Encapsulate, Decapsulate, Bytes, MarshalBinary, UnmarshalBinary, MarshalText, UnmarshalText, MarshalJSON, UnmarshalJSON, Equal, Compare, Protocols, ValueForProtocol, Protocol, Code, RawValue, String`
+- ℹ️ `[INFO]` **[`packages/transpiled_multiaddr/lib/src/multiaddr.dart:120`](packages/transpiled_multiaddr/lib/src/multiaddr.dart#L120)** — Classe 'Multiaddr' possui 13 método(s) do Go pendente(s) no módulo 'go-multiaddr': Equal, Compare, Bytes, String....
+  - *Sugestão:* `Avaliar paridade e implementação de: Equal, Compare, Bytes, String, MarshalBinary, UnmarshalBinary, MarshalText, UnmarshalText, MarshalJSON, UnmarshalJSON, Multiaddr, AppendComponent, Match`
+- ℹ️ `[INFO]` **[`packages/transpiled_multiaddr/lib/src/protocol.dart:19`](packages/transpiled_multiaddr/lib/src/protocol.dart#L19)** — Classe 'Transcoder' possui 2 método(s) do Go pendente(s) no módulo 'go-multiaddr': StringToBytes, BytesToString.
+  - *Sugestão:* `Avaliar paridade e implementação de: StringToBytes, BytesToString`
+- ℹ️ `[INFO]` **[`packages/transpiled_multiaddr_dns/lib/src/dns_resolver.dart:122`](packages/transpiled_multiaddr_dns/lib/src/dns_resolver.dart#L122)** — Classe 'Resolver' possui 1 método(s) do Go pendente(s) no módulo 'go-multiaddr-dns': LookupTXTWithTTL.
+  - *Sugestão:* `Avaliar paridade e implementação de: LookupTXTWithTTL`
+
+### 21. Auditoria de Funções Top-Level do Upstream Go Ausentes (19 ocorrências)
+
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Pacote 'packages/transpiled_boxo' possui 536 função(ões) livre(s) do Go pendente(s) no módulo 'boxo': WithHTTPClient, WithCacheDir, WithCacheSize, WithUserAgent, WithTimeout....
+  - *Sugestão:* `Avaliar porte das funções: WithHTTPClient, WithCacheDir, WithCacheSize, WithUserAgent, WithTimeout, WithTLSInsecureSkipVerify, WithURL, WithRefreshInterval, WithFallback, WithOnNewVersion...`
+- ℹ️ `[INFO]` **[`packages/transpiled_block_format:1`](packages/transpiled_block_format#L1)** — Pacote 'packages/transpiled_block_format' possui 2 função(ões) livre(s) do Go pendente(s) no módulo 'go-block-format': NewBlockWithPrefix, NewBlockWithCid.
+  - *Sugestão:* `Avaliar porte das funções: NewBlockWithPrefix, NewBlockWithCid`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_car:1`](packages/transpiled_go_car#L1)** — Pacote 'packages/transpiled_go_car' possui 105 função(ões) livre(s) do Go pendente(s) no módulo 'go-car-v2': WriteCar, WriteCarWithWalker, DefaultWalkFunc, WithErrorOnEmptyRoots, NewCarReaderWithOptions....
+  - *Sugestão:* `Avaliar porte das funções: WriteCar, WriteCarWithWalker, DefaultWalkFunc, WithErrorOnEmptyRoots, NewCarReaderWithOptions, TraverseLinksOnlyOnce, MaxTraversalLinks, NewSelectiveCar, ReadCid, ReadNode...`
+- ℹ️ `[INFO]` **[`packages/transpiled_cid:1`](packages/transpiled_cid#L1)** — Pacote 'packages/transpiled_cid' possui 23 função(ões) livre(s) do Go pendente(s) no módulo 'go-cid': NewCidV0, NewCidV1, Parse, MustParse, Decode....
+  - *Sugestão:* `Avaliar porte das funções: NewCidV0, NewCidV1, Parse, MustParse, Decode, ExtractEncoding, Cast, PrefixFromBytes, CidFromBytes, CidFromReader...`
+- ℹ️ `[INFO]` **[`packages/transpiled_datastore:1`](packages/transpiled_datastore#L1)** — Pacote 'packages/transpiled_datastore' possui 48 função(ões) livre(s) do Go pendente(s) no módulo 'go-datastore': RawKey, KeyWithNamespaces, NewAutoBatching, WithWrite, GetWrite....
+  - *Sugestão:* `Avaliar porte das funções: RawKey, KeyWithNamespaces, NewAutoBatching, WithWrite, GetWrite, WithRead, GetRead, WrapDatastore, New, NewFailstore...`
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Pacote 'packages/transpiled_ipld_prime' possui 391 função(ões) livre(s) do Go pendente(s) no módulo 'go-ipld-prime': EncodeStreaming, DecodeStreaming, DecodeUsingPrototype, DecodeStreamingUsingPrototype, Marshal....
+  - *Sugestão:* `Avaliar porte das funções: EncodeStreaming, DecodeStreaming, DecodeUsingPrototype, DecodeStreamingUsingPrototype, Marshal, MarshalStreaming, Unmarshal, UnmarshalStreaming, ParsePath, ParsePathSegment...`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Pacote 'packages/transpiled_libp2p' possui 482 função(ões) livre(s) do Go pendente(s) no módulo 'go-libp2p': ChainOptions, New, NewWithoutDefaults, SetDefaultServiceLimits, ListenAddrStrings....
+  - *Sugestão:* `Avaliar porte das funções: ChainOptions, New, NewWithoutDefaults, SetDefaultServiceLimits, ListenAddrStrings, ListenAddrs, Security, Muxer, QUICReuse, Transport...`
+- ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Pacote 'lib/src/protocols/dht' possui 235 função(ões) livre(s) do Go pendente(s) no módulo 'go-libp2p-kad-dht': New, NewDHT, NewDHTClient, GetDefaultBootstrapPeerAddrInfos, PublicQueryFilter....
+  - *Sugestão:* `Avaliar porte das funções: New, NewDHT, NewDHTClient, GetDefaultBootstrapPeerAddrInfos, PublicQueryFilter, PublicRoutingTableFilter, PrivateQueryFilter, PrivateRoutingTableFilter, ValueDatastore, ProviderDatastore...`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_kbucket:1`](packages/transpiled_libp2p_kbucket#L1)** — Pacote 'packages/transpiled_libp2p_kbucket' possui 2 função(ões) livre(s) do Go pendente(s) no módulo 'go-libp2p-kbucket': NewFilter, IPGroupKey.
+  - *Sugestão:* `Avaliar porte das funções: NewFilter, IPGroupKey`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Pacote 'packages/transpiled_libp2p_pubsub' possui 114 função(ões) livre(s) do Go pendente(s) no módulo 'go-libp2p-pubsub': NewMapBlacklist, NewTimeCachedBlacklist, MinTopicSize, WithDiscoveryOpts, WithDiscoverConnector....
+  - *Sugestão:* `Avaliar porte das funções: NewMapBlacklist, NewTimeCachedBlacklist, MinTopicSize, WithDiscoveryOpts, WithDiscoverConnector, WithTestExtension, NewFloodsubWithProtocols, NewFloodSub, NewGossipSub, NewGossipSubWithRouter...`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_record:1`](packages/transpiled_libp2p_record#L1)** — Pacote 'packages/transpiled_libp2p_record' possui 4 função(ões) livre(s) do Go pendente(s) no módulo 'go-libp2p-record': MakePutRecord, NamespacedValidator.ValidatorByKey, NamespacedValidator.Validate, NamespacedValidator.Select.
+  - *Sugestão:* `Avaliar porte das funções: MakePutRecord, NamespacedValidator.ValidatorByKey, NamespacedValidator.Validate, NamespacedValidator.Select`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_routing_helpers:1`](packages/transpiled_libp2p_routing_helpers#L1)** — Pacote 'packages/transpiled_libp2p_routing_helpers' possui 9 função(ões) livre(s) do Go pendente(s) no módulo 'go-libp2p-routing-helpers': Tracer.StartSpan, Tracer.Provide, Tracer.ProvideMany, Tracer.FindProvidersAsync, Tracer.FindPeer....
+  - *Sugestão:* `Avaliar porte das funções: Tracer.StartSpan, Tracer.Provide, Tracer.ProvideMany, Tracer.FindProvidersAsync, Tracer.FindPeer, Tracer.PutValue, Tracer.GetValue, Tracer.SearchValue, Tracer.Bootstrap`
+- ℹ️ `[INFO]` **[`packages/transpiled_multiaddr:1`](packages/transpiled_multiaddr#L1)** — Pacote 'packages/transpiled_multiaddr' possui 82 função(ões) livre(s) do Go pendente(s) no módulo 'go-multiaddr': NewFilters, CaptureAddrPort, NewMultiaddrBytes, FilterAddrs, Contains....
+  - *Sugestão:* `Avaliar porte das funções: NewFilters, CaptureAddrPort, NewMultiaddrBytes, FilterAddrs, Contains, Unique, AddProtocol, ProtocolWithName, ProtocolWithCode, ProtocolsWithString...`
+- ℹ️ `[INFO]` **[`packages/transpiled_multiaddr_dns:1`](packages/transpiled_multiaddr_dns#L1)** — Pacote 'packages/transpiled_multiaddr_dns' possui 4 função(ões) livre(s) do Go pendente(s) no módulo 'go-multiaddr-dns': WithDefaultResolver, WithDomainResolver, Matches, Resolve.
+  - *Sugestão:* `Avaliar porte das funções: WithDefaultResolver, WithDomainResolver, Matches, Resolve`
+- ℹ️ `[INFO]` **[`packages/transpiled_multibase:1`](packages/transpiled_multibase#L1)** — Pacote 'packages/transpiled_multibase' possui 3 função(ões) livre(s) do Go pendente(s) no módulo 'go-multibase': NewEncoder, MustNewEncoder, EncoderByName.
+  - *Sugestão:* `Avaliar porte das funções: NewEncoder, MustNewEncoder, EncoderByName`
+- ℹ️ `[INFO]` **[`packages/transpiled_multicodec:1`](packages/transpiled_multicodec#L1)** — Pacote 'packages/transpiled_multicodec' possui 4 função(ões) livre(s) do Go pendente(s) no módulo 'go-multicodec': KnownCodes, Code.Set, Code.String, Code.Tag.
+  - *Sugestão:* `Avaliar porte das funções: KnownCodes, Code.Set, Code.String, Code.Tag`
+- ℹ️ `[INFO]` **[`packages/transpiled_multihash:1`](packages/transpiled_multihash#L1)** — Pacote 'packages/transpiled_multihash' possui 14 função(ões) livre(s) do Go pendente(s) no módulo 'go-multihash': NewReader, NewWriter, FromHexString, FromB58String, Register....
+  - *Sugestão:* `Avaliar porte das funções: NewReader, NewWriter, FromHexString, FromB58String, Register, GetHasher, NewSet, SumStream, RegisterVariableSize, GetVariableHasher...`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_yamux:1`](packages/transpiled_go_yamux#L1)** — Pacote 'packages/transpiled_go_yamux' possui 4 função(ões) livre(s) do Go pendente(s) no módulo 'go-yamux': DefaultConfig, VerifyConfig, Server, Client.
+  - *Sugestão:* `Avaliar porte das funções: DefaultConfig, VerifyConfig, Server, Client`
+- ℹ️ `[INFO]` **[`lib:1`](lib#L1)** — Pacote 'lib' possui 478 função(ões) livre(s) do Go pendente(s) no módulo 'kubo': GetUserAgentVersion, SetUserAgentSuffix, ImplicitAgentSuffix, GetVersionInfo, SeedInitDocs....
+  - *Sugestão:* `Avaliar porte das funções: GetUserAgentVersion, SetUserAgentSuffix, ImplicitAgentSuffix, GetVersionInfo, SeedInitDocs, ConvertAuthSecret, GetAutoConfClient, ValidateAutoConfWithRepo, ParseBootstrapPeers, BootstrapPeerStrings...`

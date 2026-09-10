@@ -1,0 +1,30 @@
+# Interop tests require separately started, isolated Kubo/Helia services.
+# Run them with `dart test --preset interop` after preparing those services.
+filename: "{*_test.dart,*_atomic_tests.dart}"
+tags:
+  p0:
+    skip: "requires Kubo/Helia interop services (run via test/interop)"
+    presets:
+      interop:
+        skip: false
+  p1:
+    skip: "requires Kubo/Helia interop services (run via test/interop)"
+    presets:
+      interop:
+        skip: false
+  helia:
+    skip: "requires Helia interop services (run via test/interop)"
+    presets:
+      interop:
+        skip: false
+  cli:
+    # CLI tests spawn subprocesses and are slower under coverage instrumentation.
+    timeout: 2x
+  network:
+    # Talks to real DNS resolvers / real domains; skipped by default so the
+    # standard test run stays offline-safe. Run explicitly with
+    # `dart test --preset network` when you want to prove live behavior.
+    skip: "requires real network/DNS access (run via --preset network)"
+    presets:
+      network:
+        skip: false

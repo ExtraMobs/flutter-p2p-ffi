@@ -1,0 +1,13 @@
+name: transpiled_libp2p_pubsub
+description: Port of go-libp2p-pubsub.
+version: 0.1.0
+homepage: https://github.com/libp2p/go-libp2p-pubsub
+
+environment:
+  sdk: ^3.10.0
+
+dev_dependencies:
+  test: ^1.28.0
+  lints: ^6.1.0
+  very_good_analysis: ^10.1.0
+  analyzer: ^14.1.0 # AST parsing for tool/generate_module_index.dart

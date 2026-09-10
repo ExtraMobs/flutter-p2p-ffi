@@ -1,0 +1,15 @@
+name: interop_tests
+description: Interoperability tests for transpiled_ipfs with Kubo and Helia
+publish_to: none
+
+environment:
+  sdk: ^3.0.0
+
+dependencies:
+  transpiled_ipfs:
+    path: ../..
+  test: ^1.24.0
+
+dependency_overrides:
+  xml: ^7.0.1
+  dart_udx: ^2.0.3

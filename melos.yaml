@@ -1,0 +1,28 @@
+name: transpiled_ipfs
+repository: https://github.com/ExtraMobs/IPFS
+
+packages:
+  - .
+  - packages/*
+
+scripts:
+  pub:get:
+    run: dart pub get
+    exec:
+      concurrency: 1
+
+  analyze:
+    run: dart analyze
+    exec:
+      concurrency: 1
+
+  test:
+    run: dart test
+    exec:
+      concurrency: 1
+
+  test:all:
+    run: |
+      melos run pub:get && \
+      melos run analyze && \
+      melos run test

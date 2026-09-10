@@ -1,0 +1,19 @@
+name: transpiled_go_car
+description: Port of the CAR v1 API from github.com/ipld/go-car.
+version: 0.1.0
+publish_to: none
+
+environment:
+  sdk: ^3.10.0
+
+dependencies:
+  transpiled_block_format:
+    path: ../transpiled_block_format
+  transpiled_cid:
+    path: ../transpiled_cid
+  transpiled_varint:
+    path: ../transpiled_varint
+
+dev_dependencies:
+  test: ^1.28.0
+  lints: ^6.1.0

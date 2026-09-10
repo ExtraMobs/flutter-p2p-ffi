@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package ipfs.boxo.bitswap.message.v1.pb;
+
+option go_package = "github.com/ipfs/boxo/bitswap/message/pb";
+
+message Message {
+  message Wantlist {
+    enum WantType {
+      Block = 0;
+      Have = 1;
+    }
+
+    message Entry {
+      bytes block = 1;
+      int32 priority = 2;
+      bool cancel = 3;
+      WantType wantType = 4;
+      bool sendDontHave = 5;
+    }
+
+    repeated Entry entries = 1;
+    bool full = 2;
+  }
+
+  message Block {
+    bytes prefix = 1;
+    bytes data = 2;
+  }
+
+  enum BlockPresenceType {
+    Have = 0;
+    DontHave = 1;
+  }
+
+  message BlockPresence {
+    bytes cid = 1;
+    BlockPresenceType type = 2;
+  }
+
+  Wantlist wantlist = 1;
+  repeated bytes blocks = 2;
+  repeated Block payload = 3;
+  repeated BlockPresence blockPresences = 4;
+  int32 pendingBytes = 5;
+}

@@ -1,0 +1,10 @@
+name: transpiled_go_yamux
+description: Minimal faithful Dart port of github.com/libp2p/go-yamux/v5.
+version: 0.1.0
+environment:
+  sdk: ^3.10.0
+
+dev_dependencies:
+  test: ^1.28.0
+  lints: ^6.1.0
+  very_good_analysis: ^10.1.0
