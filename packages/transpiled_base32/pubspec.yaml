@@ -1,0 +1,11 @@
+name: transpiled_base32
+description: Port of multiformats/go-base32 buffer encodings.
+version: 0.1.0
+publish_to: none
+environment:
+  sdk: ^3.10.0
+dependencies:
+  boilerplate:
+    path: ../boilerplate
+dev_dependencies:
+  test: ^1.28.0

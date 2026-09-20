@@ -1,0 +1,17 @@
+name: transpiled_pion_transport_v4
+description: Port of github.com/pion/transport/v4 (deadline, utils/xor, replaydetector, netctx and stdnet subpackages, plus the root net.go Net/UDPConn/NetAddr types -- the subset consumed by transpiled_pion_stun and transpiled_pion_dtls, each ported down to only the members real callers invoke, see the file-level doc comments of lib/src/net.dart, netctx.dart and stdnet.dart; vnet, packetio, udp, dpipe and reuseport are out of scope entirely, see doc/transpilation/UPSTREAM_LOCK.md).
+version: 0.1.0
+publish_to: none
+homepage: https://github.com/pion/transport
+
+environment:
+  sdk: ^3.10.0
+
+dependencies:
+  boilerplate:
+    path: ../boilerplate
+
+dev_dependencies:
+  test: ^1.28.0
+  lints: ^6.1.0
+  very_good_analysis: ^10.1.0

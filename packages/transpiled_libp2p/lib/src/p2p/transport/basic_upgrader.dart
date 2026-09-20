@@ -8,7 +8,7 @@ import 'package:transpiled_multiaddr/transpiled_multiaddr.dart';
 import '../../core/crypto/key_types.dart';
 import '../../core/network/network.dart';
 import '../../core/peer/peer_id.dart';
-import '../../core/protocol/protocol.dart';
+import '../../core/sec/security.dart';
 import '../../core/transport/transport.dart';
 import '../net/swarm/swarm_stream.dart';
 import '../protocol/multistream_select.dart';
@@ -34,6 +34,7 @@ class UpgradedCapableConn implements CapableConn {
     required Direction direction,
     required YamuxSession session,
     required YamuxTransport bridge,
+    ConnectionState? connectionState,
   })  : _transport = transport,
         _localPeer = localPeer,
         _remotePeer = remotePeer,
@@ -43,6 +44,11 @@ class UpgradedCapableConn implements CapableConn {
         _direction = direction,
         _session = session,
         _bridge = bridge,
+        _connectionState = connectionState ?? const ConnectionState(
+          streamMultiplexer: goYamuxProtocolId,
+          security: noiseProtocolId,
+          transport: 'tcp',
+        ),
         _opened = DateTime.now();
 
   final Transport _transport;
@@ -54,6 +60,7 @@ class UpgradedCapableConn implements CapableConn {
   final Direction _direction;
   final YamuxSession _session;
   final YamuxTransport _bridge;
+  final ConnectionState _connectionState;
   final DateTime _opened;
 
   @override
@@ -69,11 +76,7 @@ class UpgradedCapableConn implements CapableConn {
   PubKey remotePublicKey() => _remotePublicKey;
 
   @override
-  ConnectionState connState() => ConnectionState(
-        streamMultiplexer: goYamuxProtocolId,
-        security: noiseProtocolId,
-        transport: 'tcp',
-      );
+  ConnectionState connState() => _connectionState;
 
   @override
   Multiaddr localMultiaddr() => _localMultiaddr;
@@ -126,16 +129,72 @@ class BasicUpgrader implements Upgrader {
   BasicUpgrader({
     required this.localIdentityKey,
     this.resourceManager = const NullResourceManager(),
-  }) : localPeerId = PeerId.fromPubKey(localIdentityKey.getPublic());
+    List<SecureTransport>? security,
+  }) : localPeerId = PeerId.fromPubKey(localIdentityKey.getPublic()),
+       _security = security == null ? null : List.unmodifiable(security);
 
   final PrivKey localIdentityKey;
   final PeerId localPeerId;
   final ResourceManager resourceManager;
+  final List<SecureTransport>? _security;
 
   @override
   Future<CapableConn> upgrade(Conn conn, Direction dir, PeerId peer) async {
+    if (conn is CapableConn) {
+      return conn;
+    }
     final rawConn = conn is RawConn ? conn : _GenericRawConn(conn);
     final rawAdapter = _RawStreamAdapter(rawConn);
+
+    // Upstream upgrader.setupSecurity negotiates the configured transports.
+    // Omitting the list preserves this runtime's existing Noise default.
+    final security = _security;
+    if (security != null) {
+      final ids = security.map((transport) => transport.id()).toList();
+      if (ids.isEmpty) throw StateError('No security transports configured');
+      final selected = dir == Direction.outbound
+          ? await selectOutbound(rawAdapter, ids)
+          : await selectInbound(rawAdapter, ids);
+      final transport = security.firstWhere((value) => value.id() == selected);
+      final secured = dir == Direction.outbound
+          ? await transport.secureOutbound(rawConn, peer)
+          : await transport.secureInbound(rawConn, peer);
+      try {
+        final state = secured.connState();
+        var muxer = state.streamMultiplexer;
+        if (!state.usedEarlyMuxerNegotiation) {
+          muxer = dir == Direction.outbound
+              ? await selectOutbound(secured, const [goYamuxProtocolId])
+              : await selectInbound(secured, const [goYamuxProtocolId]);
+        }
+        if (muxer != goYamuxProtocolId) {
+          throw StateError('Unsupported negotiated multiplexer: $muxer');
+        }
+        final bridge = _SecureYamuxTransport(secured);
+        return UpgradedCapableConn(
+          transport: rawConn.transport(),
+          localPeer: secured.localPeer(),
+          remotePeer: secured.remotePeer(),
+          remotePublicKey: secured.remotePublicKey(),
+          localMultiaddr: rawConn.localMultiaddr(),
+          remoteMultiaddr: rawConn.remoteMultiaddr(),
+          direction: dir,
+          session: YamuxSession(bridge, isClient: dir == Direction.outbound),
+          bridge: bridge,
+          connectionState: ConnectionState(
+            streamMultiplexer: muxer,
+            security: selected,
+            transport: rawConn.remoteMultiaddr().components
+                .any((c) => c.protocol.name == 'ws' || c.protocol.name == 'wss')
+                ? 'websocket' : 'tcp',
+            usedEarlyMuxerNegotiation: state.usedEarlyMuxerNegotiation,
+          ),
+        );
+      } catch (_) {
+        await secured.close();
+        rethrow;
+      }
+    }
 
     // 1. Negotiate security protocol (/noise)
     if (dir == Direction.outbound) {
@@ -266,6 +325,48 @@ class BasicUpgrader implements Upgrader {
       buffer.add(chunk);
     }
     return buffer.toBytes();
+  }
+}
+
+/// Bridges an authenticated byte stream to the existing yamux runtime.
+class _SecureYamuxTransport implements YamuxTransport {
+  _SecureYamuxTransport(this._conn) {
+    unawaited(_pump());
+  }
+
+  final SecureConn _conn;
+  final _input = StreamController<List<int>>();
+  bool _closed = false;
+
+  @override
+  Stream<List<int>> get input => _input.stream;
+
+  Future<void> _pump() async {
+    try {
+      while (!_closed) {
+        final bytes = await _conn.read();
+        if (bytes.isEmpty) break;
+        if (!_closed) _input.add(bytes);
+      }
+    } catch (error, stack) {
+      if (!_closed) _input.addError(error, stack);
+    } finally {
+      unawaited(_input.close());
+    }
+  }
+
+  @override
+  Future<void> write(Uint8List bytes) {
+    if (_closed) throw StateError('Yamux transport is closed');
+    return _conn.write(bytes);
+  }
+
+  @override
+  Future<void> close() async {
+    if (_closed) return;
+    _closed = true;
+    await _conn.close();
+    unawaited(_input.close());
   }
 }
 

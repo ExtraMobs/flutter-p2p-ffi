@@ -6,7 +6,6 @@ import 'package:transpiled_multiaddr/transpiled_multiaddr.dart';
 import '../../../../core/host/host.dart';
 import '../../../../core/network/network.dart';
 import '../../../../core/peer/addr_info.dart';
-import '../../../../core/peer/peer_id.dart';
 import '../proto/protocol.dart';
 import 'reservation.dart';
 

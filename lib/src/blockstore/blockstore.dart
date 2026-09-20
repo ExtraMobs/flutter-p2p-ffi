@@ -67,6 +67,9 @@ final class Blockstore {
   /// Releases the underlying datastore.
   Future<void> close() => _datastore.close();
 
+  /// Enumerates stored multihashes as raw CIDv1, preserving iteration errors.
+  Future<Stream<Cid>> allKeysChanWithErr() => _store.allKeysChanWithErr();
+
   static void _validate(Cid cid, Uint8List data) {
     if (cid.prefix.sum(data) != cid) {
       throw BlockstoreHashMismatchException(cid);

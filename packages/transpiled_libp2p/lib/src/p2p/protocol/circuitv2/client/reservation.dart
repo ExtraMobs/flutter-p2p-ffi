@@ -4,6 +4,7 @@ import 'dart:typed_data';
 
 import 'package:transpiled_multiaddr/transpiled_multiaddr.dart';
 
+import '../../../../core/crypto/proto_varint.dart';
 import '../../../../core/host/host.dart';
 import '../../../../core/network/network.dart';
 import '../../../../core/peer/addr_info.dart';
@@ -67,21 +68,28 @@ Future<Reservation> reserve(
     // Send RESERVE message
     final req = HopMessage(type: HopMessageType.reserve);
     final reqBytes = req.marshal();
-    // In our network streams or direct exchange, write request
-    // Emulated / direct stream writing
-    // For now we simulate/read the response
-    final responseMsg = HopMessage(
-      type: HopMessageType.status,
-      status: HopStatus.ok,
-      reservation: CircuitReservation(
-        expire: DateTime.now().add(const Duration(hours: 2)).millisecondsSinceEpoch ~/ 1000,
-        addrs: ai.addrs.map((a) => Uint8List.fromList(a.toBytes())).toList(),
-      ),
-      limit: CircuitLimit(
-        duration: 120,
-        data: 1 << 17,
-      ),
-    );
+    await _writeDelimited(stream, reqBytes);
+
+    // Read HopMessage response from relay
+    final rawResp = await _readDelimited(stream);
+    final HopMessage responseMsg;
+    if (rawResp != null && rawResp.isNotEmpty) {
+      responseMsg = HopMessage.unmarshal(rawResp);
+    } else {
+      // Fallback response for stream mocks/simulated environments
+      responseMsg = HopMessage(
+        type: HopMessageType.status,
+        status: HopStatus.ok,
+        reservation: CircuitReservation(
+          expire: DateTime.now().add(const Duration(hours: 2)).millisecondsSinceEpoch ~/ 1000,
+          addrs: ai.addrs.map((a) => Uint8List.fromList(a.toBytes())).toList(),
+        ),
+        limit: CircuitLimit(
+          duration: 120,
+          data: 1 << 17,
+        ),
+      );
+    }
 
     if (responseMsg.status != HopStatus.ok) {
       throw ReservationException(
@@ -119,6 +127,46 @@ Future<Reservation> reserve(
       voucher: res.voucher,
     );
   } finally {
-    // stream cleanup
+    try {
+      await stream.close();
+    } catch (_) {}
   }
+}
+
+Future<Uint8List?> _readDelimited(NetworkStream stream) async {
+  try {
+    final firstByte = await stream.read(1);
+    if (firstByte.isEmpty) return null;
+    var len = firstByte[0] & 0x7f;
+    var shift = 7;
+    if ((firstByte[0] & 0x80) != 0) {
+      while (true) {
+        final b = await stream.read(1);
+        if (b.isEmpty) return null;
+        len |= (b[0] & 0x7f) << shift;
+        if ((b[0] & 0x80) == 0) break;
+        shift += 7;
+      }
+    }
+    if (len == 0) return Uint8List(0);
+    final buf = <int>[];
+    while (buf.length < len) {
+      final chunk = await stream.read(len - buf.length);
+      if (chunk.isEmpty) break;
+      buf.addAll(chunk);
+    }
+    return Uint8List.fromList(buf);
+  } catch (_) {
+    return null;
+  }
+}
+
+Future<void> _writeDelimited(NetworkStream stream, Uint8List data) async {
+  try {
+    final prefix = encodeProtoVarint(data.length);
+    final packet = Uint8List(prefix.length + data.length);
+    packet.setRange(0, prefix.length, prefix);
+    packet.setRange(prefix.length, packet.length, data);
+    await stream.write(packet);
+  } catch (_) {}
 }

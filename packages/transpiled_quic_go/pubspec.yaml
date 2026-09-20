@@ -1,0 +1,14 @@
+name: transpiled_quic_go
+description: Dart port of the reusable QUIC protocol core used by go-libp2p.
+version: 0.1.0
+publish_to: none
+
+environment:
+  sdk: ^3.8.0
+
+dependencies:
+  boilerplate:
+    path: ../boilerplate
+
+dev_dependencies:
+  test: ^1.25.0

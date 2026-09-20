@@ -25,3 +25,7 @@ export 'src/bitswap/message.dart' hide Entry;
 export 'src/bitswap/network.dart';
 export 'src/bitswap/client.dart' hide Entry, Wantlist, WantType;
 
+export 'src/provider/provider.dart';
+export 'src/provider/noop.dart';
+export 'src/provider/reprovider.dart';
+export 'src/datastore/dshelp/key.dart';

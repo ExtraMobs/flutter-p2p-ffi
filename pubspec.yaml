@@ -99,6 +99,22 @@ dependencies:
     path: packages/transpiled_libp2p_kbucket
   transpiled_libp2p_routing_helpers:
     path: packages/transpiled_libp2p_routing_helpers
+  transpiled_pion_randutil:
+    path: packages/transpiled_pion_randutil
+  transpiled_pion_logging:
+    path: packages/transpiled_pion_logging
+  transpiled_pion_sctp:
+    path: packages/transpiled_pion_sctp
+  transpiled_crypto_tls:
+    path: packages/transpiled_crypto_tls
+  transpiled_pion_stun:
+    path: packages/transpiled_pion_stun
+  transpiled_pion_sdp:
+    path: packages/transpiled_pion_sdp
+  transpiled_pion_transport:
+    path: packages/transpiled_pion_transport
+  transpiled_pion_transport_v4:
+    path: packages/transpiled_pion_transport_v4
 
   # Common packages
   args: ^2.6.0

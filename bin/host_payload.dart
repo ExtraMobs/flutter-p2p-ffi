@@ -162,32 +162,26 @@ Future<void> main(List<String> args) async {
     print('  Aviso ao conectar Kubo no Dart: $e');
   }
 
-  // 7. Announce CIDs to DHT
-  Future<void> announceAll() async {
-    print('\n[${DateTime.now().toUtc()}] Anunciando CIDs na DHT e Swarm...');
-    try {
-      await node.provide(unixFsCid);
-      print('  UnixFS CID anunciado com sucesso: ${unixFsCid.encode()}');
-    } catch (e) {
-      print('  Falha ao anunciar UnixFS CID: $e');
-    }
-
-    try {
-      await node.provide(rawCid);
-      print('  Raw CID anunciado com sucesso: ${rawCid.encode()}');
-    } catch (e) {
-      print('  Falha ao anunciar Raw CID: $e');
-    }
-
+  // 7. Announce CIDs to DHT. Periodic republishing is no longer this
+  // harness's job: IpfsNode.fromBuildCfg now wires a ReproviderSystem
+  // (packages/transpiled_boxo/lib/src/provider/reprovider.dart) that
+  // reprovides every Cid passed to node.provide() on boxo's own 22h
+  // schedule (DefaultReproviderInterval), started and stopped with the
+  // node itself. This harness only needs to make the initial announce.
+  print('\n[${DateTime.now().toUtc()}] Anunciando CIDs na DHT e Swarm...');
+  try {
+    await node.provide(unixFsCid);
+    print('  UnixFS CID anunciado com sucesso: ${unixFsCid.encode()}');
+  } catch (e) {
+    print('  Falha ao anunciar UnixFS CID: $e');
   }
 
-  await announceAll();
-
-  // Periodic republishing every 5 minutes
-  final timer = Timer.periodic(
-    const Duration(minutes: 5),
-    (_) => announceAll(),
-  );
+  try {
+    await node.provide(rawCid);
+    print('  Raw CID anunciado com sucesso: ${rawCid.encode()}');
+  } catch (e) {
+    print('  Falha ao anunciar Raw CID: $e');
+  }
 
   print('\n============================================================');
   print('>>> NÓ DART ATIVO E HOSPEDANDO O ARQUIVO EM TEMPO REAL <<<');
@@ -212,7 +206,6 @@ Future<void> main(List<String> args) async {
   try {
     ProcessSignal.sigint.watch().listen((_) async {
       print('\nEncerrando daemon...');
-      timer.cancel();
       await node.close();
       print('Nó Dart IPFS finalizado.');
       completer.complete();

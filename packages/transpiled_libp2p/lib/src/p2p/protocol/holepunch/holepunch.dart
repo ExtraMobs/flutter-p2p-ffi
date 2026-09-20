@@ -119,6 +119,10 @@ class HolePunchService {
         return;
       }
       final rtt = DateTime.now().difference(tstart);
+      final halfRtt = Duration(
+        microseconds: (rtt.inMicroseconds / 2).round().clamp(10000, 500000),
+      );
+      await Future<void>.delayed(halfRtt);
 
       await stream.close();
 

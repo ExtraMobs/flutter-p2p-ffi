@@ -76,7 +76,9 @@ List<String> _violationsIn(
   bool Function(String forwardSlashPath)? exclude,
 }) {
   final violations = <String>[];
-  final files = Directory(dir)
+  final directory = Directory(dir);
+  if (!directory.existsSync()) return violations;
+  final files = directory
       .listSync(recursive: true)
       .whereType<File>()
       .where((f) => f.path.endsWith('.dart'))

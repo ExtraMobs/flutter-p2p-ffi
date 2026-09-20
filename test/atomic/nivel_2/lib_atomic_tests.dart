@@ -13,7 +13,6 @@ import 'package:transpiled_cid/transpiled_cid.dart';
 import 'package:transpiled_ipfs/src/blockstore/blockstore.dart';
 import 'package:transpiled_ipfs/src/config/ipfs_runtime_config.dart';
 import 'package:transpiled_ipfs/src/core/builders/build_cfg.dart';
-import 'package:transpiled_ipfs/src/core/interfaces/routing_table.dart';
 import 'package:transpiled_ipfs/src/network/libp2p_host.dart';
 import 'package:transpiled_ipfs/src/node/ipfs_node.dart';
 import 'package:transpiled_ipfs/src/protocols/bitswap/bitswap_client.dart';
@@ -42,53 +41,6 @@ class _TestBlockGetter implements BlockGetter {
   @override
   Future<blocks.Block> getBlock(Cid cid) async =>
       blocks.BasicBlock(Uint8List.fromList([1, 2, 3]), cid);
-}
-
-class _TestDistanceMetric implements DistanceMetric {
-  @override
-  int calculateDistance(libp2p.PeerId a, libp2p.PeerId b) => 42;
-
-  @override
-  int calculateDistanceToKey(libp2p.PeerId peerId, List<int> key) => 24;
-}
-
-class _TestDhtRoutingTable implements DhtRoutingTable {
-  final _peers = <libp2p.PeerId>{};
-  final _metric = _TestDistanceMetric();
-
-  @override
-  DistanceMetric get distanceMetric => _metric;
-
-  @override
-  List<libp2p.PeerId> findClosestPeers(libp2p.PeerId target, {int k = 20}) =>
-      _peers.take(k).toList();
-
-  @override
-  List<libp2p.PeerId> findClosestPeersToKey(List<int> key, {int k = 20}) =>
-      _peers.take(k).toList();
-
-  @override
-  Future<void> addPeer(
-    libp2p.PeerId peerId,
-    libp2p.PeerId associatedPeerId, {
-    String? address,
-  }) async {
-    _peers.add(peerId);
-  }
-
-  @override
-  void removePeer(libp2p.PeerId peerId) {
-    _peers.remove(peerId);
-  }
-
-  @override
-  bool containsPeer(libp2p.PeerId peerId) => _peers.contains(peerId);
-
-  @override
-  int get peerCount => _peers.length;
-
-  @override
-  void clear() => _peers.clear();
 }
 
 class _FakeNetwork implements libp2p.Network {
@@ -928,72 +880,4 @@ void main() {
     });
   });
 
-  // DistanceMetric
-  group('DistanceMetric [Atomic Audit]', () {
-    test('calculateDistance() - calcula distancia numerica entre peers', () {
-      final metric = _TestDistanceMetric();
-      expect(metric.calculateDistance(samplePeerId, samplePeerId), equals(42));
-    });
-
-    test('calculateDistanceToKey() - calcula distancia entre peer e chave raw', () {
-      final metric = _TestDistanceMetric();
-      expect(metric.calculateDistanceToKey(samplePeerId, [1, 2, 3]), equals(24));
-    });
-  });
-
-  // DhtRoutingTable
-  group('DhtRoutingTable [Atomic Audit]', () {
-    test('distanceMetric - expoem metrica de distancia da tabela', () {
-      final rt = _TestDhtRoutingTable();
-      expect(rt.distanceMetric, isA<DistanceMetric>());
-    });
-
-    test('findClosestPeers() - busca peers mais proximos por id', () {
-      final rt = _TestDhtRoutingTable();
-      rt.addPeer(samplePeerId, samplePeerId);
-      final closest = rt.findClosestPeers(samplePeerId);
-      expect(closest, equals([samplePeerId]));
-    });
-
-    test('findClosestPeersToKey() - busca peers mais proximos por chave', () {
-      final rt = _TestDhtRoutingTable();
-      rt.addPeer(samplePeerId, samplePeerId);
-      final closest = rt.findClosestPeersToKey([1, 2, 3]);
-      expect(closest, equals([samplePeerId]));
-    });
-
-    test('addPeer() - adiciona peer a tabela de roteamento', () async {
-      final rt = _TestDhtRoutingTable();
-      await rt.addPeer(samplePeerId, samplePeerId);
-      expect(rt.containsPeer(samplePeerId), isTrue);
-    });
-
-    test('removePeer() - remove peer da tabela de roteamento', () {
-      final rt = _TestDhtRoutingTable();
-      rt.addPeer(samplePeerId, samplePeerId);
-      rt.removePeer(samplePeerId);
-      expect(rt.containsPeer(samplePeerId), isFalse);
-    });
-
-    test('containsPeer() - verifica presenca de peer na tabela', () {
-      final rt = _TestDhtRoutingTable();
-      expect(rt.containsPeer(samplePeerId), isFalse);
-      rt.addPeer(samplePeerId, samplePeerId);
-      expect(rt.containsPeer(samplePeerId), isTrue);
-    });
-
-    test('peerCount - quantidade total de peers na tabela', () {
-      final rt = _TestDhtRoutingTable();
-      expect(rt.peerCount, equals(0));
-      rt.addPeer(samplePeerId, samplePeerId);
-      expect(rt.peerCount, equals(1));
-    });
-
-    test('clear() - remove todos os peers da tabela', () {
-      final rt = _TestDhtRoutingTable();
-      rt.addPeer(samplePeerId, samplePeerId);
-      rt.clear();
-      expect(rt.peerCount, equals(0));
-    });
-  });
 }

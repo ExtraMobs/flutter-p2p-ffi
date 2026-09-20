@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'dart:math' as math;
 import 'dart:typed_data';
 
 import 'package:crypto/crypto.dart';
 import 'package:transpiled_cid/transpiled_cid.dart';
 import 'package:transpiled_libp2p/transpiled_libp2p.dart';
+import 'package:transpiled_libp2p_kbucket/transpiled_libp2p_kbucket.dart';
 import 'package:transpiled_multiaddr/transpiled_multiaddr.dart';
 
 import '../network/libp2p_host.dart';
@@ -13,26 +15,98 @@ import '../protocols/dht/query_peerset.dart';
 /// Kademlia DHT protocol identifier.
 const String dhtProtocol = '/ipfs/kad/1.0.0';
 
+/// LAN-scoped Kademlia DHT protocol identifier.
+const String lanDhtProtocol = '/ipfs/lan/kad/1.0.0';
+
 /// Protocols offered when opening a DHT stream, WAN first then LAN.
-const List<String> _kadProtocols = [dhtProtocol, '/ipfs/lan/kad/1.0.0'];
+const List<String> _kadProtocols = [dhtProtocol, lanDhtProtocol];
+
+/// Adapts go-libp2p's `peerstore.Metrics` (already implemented by
+/// [Host.peerstore]) to go-libp2p-kbucket's narrower `PeerMetrics`, which
+/// only depends on the `LatencyEWMA` reader. Equivalent to how go-libp2p's
+/// `kb.NewRoutingTable` is constructed directly with `dht.host.Peerstore()`.
+final class _PeerstoreLatencyMetrics implements PeerMetrics {
+  const _PeerstoreLatencyMetrics(this._metrics);
+  final Metrics _metrics;
+  @override
+  Duration latencyEwma(PeerId id) => _metrics.latencyEwma(id);
+}
 
 /// Queries the Kademlia DHT for providers of a Cid.
 final class DhtClient implements ContentDiscovery {
-  /// Creates a DHT provider finder using [router] and [bootstrapPeers].
-  DhtClient({
+  /// Creates a DHT provider finder using [router] and [bootstrapPeers], with
+  /// a live Kademlia [routingTable] seeded and refreshed as lookups run.
+  factory DhtClient({
+    required Libp2pRouter router,
+    required List<AddrInfo> bootstrapPeers,
+    Duration timeout = const Duration(seconds: 10),
+    Duration lookupTimeout = const Duration(minutes: 1),
+    int alpha = 3,
+    int beta = 3,
+    int bucketSize = 20,
+    Duration maxLatency = const Duration(minutes: 1),
+    Duration refreshInterval = const Duration(minutes: 10),
+  }) {
+    final routingTable = RoutingTable(
+      bucketSize: bucketSize,
+      local: router.host.id,
+      maxLatency: maxLatency,
+      metrics: _PeerstoreLatencyMetrics(router.host.peerstore),
+      usefulnessGracePeriod: _usefulnessGracePeriod(
+        alpha,
+        bucketSize,
+        refreshInterval,
+      ),
+    );
+    return DhtClient._(
+      router: router,
+      bootstrapPeers: bootstrapPeers,
+      timeout: timeout,
+      lookupTimeout: lookupTimeout,
+      alpha: alpha,
+      beta: beta,
+      bucketSize: bucketSize,
+      routingTable: routingTable,
+      refreshInterval: refreshInterval,
+    );
+  }
+
+  DhtClient._({
     required this.router,
     required this.bootstrapPeers,
-    this.timeout = const Duration(seconds: 10),
-    this.lookupTimeout = const Duration(minutes: 1),
-    this.alpha = 3,
-    this.beta = 3,
-    this.bucketSize = 20,
-  });
+    required this.timeout,
+    required this.lookupTimeout,
+    required this.alpha,
+    required this.beta,
+    required this.bucketSize,
+    required this.routingTable,
+    required Duration refreshInterval,
+  }) : _refreshInterval = refreshInterval;
+
+  /// Starts the periodic Kademlia bucket refresh and runs the first one.
+  ///
+  /// Equivalent to go-libp2p-kad-dht's `IpfsDHT.Bootstrap` plus the refresh
+  /// loop that `New` starts. Go's `New` takes a `context.Context` and owns
+  /// the goroutines it spawns, so construction and start are one step there;
+  /// a Dart constructor has no such handle, and starting network I/O from one
+  /// would make every `DhtClient` dial on construction and leave the caller
+  /// no way to opt out. Splitting it follows the pattern this codebase
+  /// already uses for `BitswapClient.start` and `DhtServer.start`.
+  ///
+  /// Calling it more than once is a no-op, and [close] stops it.
+  void bootstrap() {
+    if (_closed || _refreshTimer != null) return;
+    _refreshTimer = Timer.periodic(_refreshInterval, (_) {
+      unawaited(_refresh());
+    });
+    unawaited(_refresh());
+  }
 
   /// Router used to query DHT peers.
   final Libp2pRouter router;
 
-  /// Initial peers from which provider lookup begins.
+  /// Initial peers from which provider lookup begins, used only as a
+  /// fallback when [routingTable] doesn't yet hold peers closer to a key.
   final List<AddrInfo> bootstrapPeers;
 
   /// Maximum time allowed for each individual DHT RPC query.
@@ -50,12 +124,21 @@ final class DhtClient implements ContentDiscovery {
   /// Kademlia bucket size (K), default 20.
   final int bucketSize;
 
+  /// Live Kademlia routing table, populated by successful lookups and
+  /// periodically refreshed. Equivalent to go-libp2p-kad-dht's
+  /// `IpfsDHT.routingTable` / `RoutingTable()`.
+  final RoutingTable routingTable;
+
+  final Duration _refreshInterval;
+  Timer? _refreshTimer;
   bool _closed = false;
   final Set<NetworkStream> _activeStreams = {};
 
   /// Closes the DHT client, aborting in-flight queries and resetting streams.
   Future<void> close() async {
     _closed = true;
+    _refreshTimer?.cancel();
+    routingTable.close();
     for (final stream in _activeStreams.toList()) {
       try {
         await stream.reset();
@@ -121,7 +204,56 @@ final class DhtClient implements ContentDiscovery {
       request: encodeFindNode(key),
       isCancelled: () => _closed,
     );
-    return peers.getClosestNInStates(bucketSize, {PeerState.queried});
+    final result = peers.getClosestNInStates(bucketSize, {PeerState.queried});
+    // Reset the refresh timer for this key's bucket since we've just
+    // successfully interacted with the closest peers to it. Equivalent to
+    // go-libp2p-kad-dht's `IpfsDHT.GetClosestPeers`.
+    routingTable.resetCplRefreshedAtForId(
+      Uint8List.fromList(sha256.convert(key).bytes),
+      DateTime.now().toUtc(),
+    );
+    return result;
+  }
+
+  /// Periodic Kademlia routing-table refresh: queries for self, then for
+  /// each tracked Cpl whose bucket hasn't been refreshed within
+  /// [_refreshInterval], queries a random key of that Cpl. Equivalent to
+  /// go-libp2p-kad-dht/rtrefresh's `RtRefreshManager.doRefresh` (minus its
+  /// ping-and-evict pass over stale peers -- see PROGRESS.md).
+  Future<void> _refresh() async {
+    if (_closed) return;
+    try {
+      await getClosestPeers(Uint8List.fromList(router.host.id.value));
+    } catch (_) {}
+    if (_closed) return;
+
+    final refreshedAt = routingTable.getTrackedCplsForRefresh();
+    for (var cpl = 0; cpl < refreshedAt.length; cpl++) {
+      if (_closed) return;
+      if (DateTime.now().toUtc().difference(refreshedAt[cpl]) <=
+          _refreshInterval) {
+        continue;
+      }
+      try {
+        await getClosestPeers(routingTable.genRandPeerId(cpl));
+      } catch (_) {}
+    }
+  }
+
+  static Duration _usefulnessGracePeriod(
+    int alpha,
+    int bucketSize,
+    Duration refreshInterval,
+  ) {
+    // The threshold is the expected time before a refresh cycle would query
+    // a peer again; go-libp2p-kad-dht uses twice that to keep older peers
+    // around longer. Equivalent to `dht.go`'s
+    // `maxLastSuccessfulOutboundThreshold` computation.
+    if (alpha >= bucketSize) return refreshInterval * 2;
+    final l1 = math.log(1 / bucketSize);
+    final l2 = math.log(1 - (alpha / bucketSize));
+    final thresholdMs = (l1 / l2) * refreshInterval.inMilliseconds;
+    return Duration(milliseconds: (2 * thresholdMs).round());
   }
 
   Future<void> _sendAddProvider(AddrInfo peer, Uint8List msgBytes) async {
@@ -196,13 +328,59 @@ final class DhtClient implements ContentDiscovery {
     final deadline = DateTime.now().add(lookupTimeout);
     final selfId = router.host.id;
 
-    for (final p in bootstrapPeers) {
-      if (p.id == selfId) continue;
-      knownPeers[p.id] = p;
-      queryPeers.tryAdd(p.id, selfId);
+    // Seed the frontier from the live routing table first: successive
+    // lookups no longer restart from bootstrapPeers once the table holds
+    // reachable peers close to this key. Falls back to bootstrapPeers only
+    // when the table is still empty or yields nobody with a known address.
+    final keyDhtId = Uint8List.fromList(sha256.convert(key).bytes);
+    var seededFromTable = 0;
+    for (final id in routingTable.nearestPeers(keyDhtId, bucketSize)) {
+      if (id == selfId) continue;
+      final addrs = await router.getAddrs(id);
+      if (addrs.isEmpty) continue;
+      knownPeers[id] = AddrInfo(id: id, addrs: addrs);
+      queryPeers.tryAdd(id, selfId);
+      seededFromTable++;
+    }
+    if (seededFromTable == 0) {
+      for (final p in bootstrapPeers) {
+        if (p.id == selfId) continue;
+        knownPeers[p.id] = p;
+        queryPeers.tryAdd(p.id, selfId);
+      }
     }
 
     bool isStopped() => stop != null && stop();
+
+    // Admits a peer that just answered a DHT query correctly into the live
+    // routing table. Equivalent evidence to go-libp2p-kad-dht's separate
+    // `lookupCheck` liveness probe (a FIND_NODE asking the peer for its own
+    // ID) -- see PROGRESS.md for the documented divergence: this port folds
+    // that verification into the walk itself instead of a dedicated
+    // probing subsystem.
+    void admitQueried(PeerId id) {
+      if (id == selfId) return;
+      try {
+        routingTable.tryAddPeer(id, queryPeer: true, isReplaceable: false);
+      } on PeerRejectedHighLatencyException {
+        // Normal: too slow to route through, not a fatal error.
+      } on PeerRejectedNoCapacityException {
+        // Normal: bucket full of live, non-replaceable peers.
+      }
+    }
+
+    // Admits a peer only heard about (via a response's closerPeers) as a
+    // replaceable candidate, never having been queried directly.
+    void admitHeard(PeerId id) {
+      if (id == selfId) return;
+      try {
+        routingTable.tryAddPeer(id, queryPeer: false, isReplaceable: true);
+      } on PeerRejectedHighLatencyException {
+        // Ignored: heard peer did not meet latency threshold.
+      } on PeerRejectedNoCapacityException {
+        // Ignored: bucket full and candidate is replaceable.
+      }
+    }
 
     // Persists every peer the response carries and feeds the walk frontier.
     Future<void> absorb(PeerId from, DhtResponse response) async {
@@ -213,6 +391,7 @@ final class DhtClient implements ContentDiscovery {
         if (merged.addrs.isNotEmpty) {
           await router.addAddrs(merged, tempAddrTtl);
         }
+        admitHeard(peer.id);
         queryPeers.tryAdd(peer.id, from);
       }
 
@@ -263,11 +442,13 @@ final class DhtClient implements ContentDiscovery {
         final response = responses[i].response;
         if (response == null) {
           queryPeers.setState(peerId, PeerState.unreachable);
+          routingTable.removePeer(peerId);
           final error = responses[i].error;
           if (error != null) onError?.call(error);
           continue;
         }
         queryPeers.setState(peerId, PeerState.queried);
+        admitQueried(peerId);
         if (isCancelled()) break;
         await absorb(peerId, response);
         if (isStopped()) return queryPeers;
@@ -298,11 +479,13 @@ final class DhtClient implements ContentDiscovery {
         final response = result.response;
         if (response == null) {
           queryPeers.setState(peerId, PeerState.unreachable);
+          routingTable.removePeer(peerId);
           final error = result.error;
           if (error != null) onError?.call(error);
           continue;
         }
         queryPeers.setState(peerId, PeerState.queried);
+        admitQueried(peerId);
         await absorb(peerId, response);
       }
     }
@@ -352,7 +535,7 @@ final class DhtClient implements ContentDiscovery {
       }
       await stream.setDeadline(DateTime.now().add(rpcTimeout));
       await stream.write(request).timeout(rpcTimeout);
-      final bytes = await _readFrame(stream).timeout(rpcTimeout);
+      final bytes = await readDhtFrame(stream).timeout(rpcTimeout);
       return DhtResponse.fromBytes(bytes);
     } catch (e) {
       try {
@@ -392,32 +575,4 @@ BigInt _distance(Uint8List target, PeerId peer) {
     result = (result << 8) | BigInt.from(a[i] ^ b[i]);
   }
   return result;
-}
-
-Future<Uint8List> _readFrame(NetworkStream stream) async {
-  var length = 0;
-  var shift = 0;
-  for (var i = 0; i < 10; i++) {
-    final byte = await stream.read(1);
-    if (byte.isEmpty) {
-      throw const FormatException('Unexpected EOF in DHT frame');
-    }
-    length |= (byte.first & 0x7f) << shift;
-    if (byte.first & 0x80 == 0) {
-      if (length > dhtMessageSizeMax) {
-        throw const FormatException('DHT message exceeds 4 MiB');
-      }
-      final out = BytesBuilder(copy: false);
-      while (out.length < length) {
-        final chunk = await stream.read(length - out.length);
-        if (chunk.isEmpty) {
-          throw const FormatException('Unexpected EOF in DHT frame');
-        }
-        out.add(chunk);
-      }
-      return out.takeBytes();
-    }
-    shift += 7;
-  }
-  throw const FormatException('DHT frame varint is too long');
 }

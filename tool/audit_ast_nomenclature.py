@@ -100,6 +100,7 @@ COMMON_ACRONYMS = {
 
 # Mapeamento oficial de módulos Go para diretórios de pacotes Dart
 GO_MODULE_TO_DART_PACKAGE = {
+    'go-base32': 'packages/transpiled_base32',
     'go-cid': 'packages/transpiled_cid',
     'go-multiaddr': 'packages/transpiled_multiaddr',
     'go-multihash': 'packages/transpiled_multihash',
@@ -208,6 +209,7 @@ DOCUMENTED_ADAPTATIONS = {
     'NatGateway': 'PROGRESS.md - Interface de abstração de gateway UPnP/NAT-PMP para NATManager',
     'SimulatedNatGateway': 'PROGRESS.md - Implementação simulada de gateway UPnP/NAT-PMP para ambientes locais e testes',
     'BasicNatManager': 'PROGRESS.md - Implementação padrão de gerenciador NAT com port mapping (p2p/host/basic.natManager do Go)',
+    'TlsTransport': 'PROGRESS.md - Implementação de SecureTransport para TLS 1.3 (p2p/security/tls.Transport do Go renomeada para evitar colisão com core/transport.Transport)',
     # packages/transpiled_libp2p_kbucket
     'KeyspaceKey': 'PROGRESS.md - Chave no espaço de chaves XOR da Kademlia',
     'PeerMetrics': 'PROGRESS.md - Métricas de latência e confiabilidade de peers na tabela de roteamento',
@@ -1894,6 +1896,10 @@ class AstNomenclatureAuditor:
 
                     # Ignora parâmetros de funções/métodos
                     if clean_l.endswith(','):
+                        continue
+
+                    # Ignora variáveis locais dentro de blocos/métodos/funções
+                    if (current_class is None and brace_depth > open_b) or (current_class is not None and brace_depth > class_depth + 1):
                         continue
 
                     m_priv = re_priv_type.search(clean_l)

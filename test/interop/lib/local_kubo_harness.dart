@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
-/// A disposable, localhost-only Kubo process for VM interop tests.
+/// A disposable Kubo process for VM interop tests, localhost-only by default.
 ///
 /// The repository is always created by this class and is deleted by
 /// [dispose]. It never uses IPFS Desktop's repository.
@@ -15,6 +15,9 @@ class LocalKuboHarness {
     String? executable,
     String routingType = 'none',
     bool clearBootstrap = true,
+    bool mdnsEnabled = false,
+    bool? sweepEnabled,
+    String swarmHost = '127.0.0.1',
   }) async {
     final resolved = await findExecutable(executable: executable);
     if (resolved == null) {
@@ -27,7 +30,8 @@ class LocalKuboHarness {
       repository: repository,
     );
     try {
-      await harness._start(routingType, clearBootstrap);
+      await harness._start(
+          routingType, clearBootstrap, mdnsEnabled, sweepEnabled, swarmHost);
       return harness;
     } catch (_) {
       await harness.dispose();
@@ -67,6 +71,7 @@ class LocalKuboHarness {
 
   /// Port used by Kubo's TCP swarm listener.
   late final int swarmPort;
+  late final String _swarmHost;
 
   /// Port used by Kubo's gateway (not used for P2P assertions).
   late final int gatewayPort;
@@ -87,7 +92,7 @@ class LocalKuboHarness {
   late final String _peerId;
 
   /// The direct TCP multiaddr to this local Kubo.
-  String get swarmAddress => '/ip4/127.0.0.1/tcp/$swarmPort/p2p/$peerId';
+  String get swarmAddress => '/ip4/$_swarmHost/tcp/$swarmPort/p2p/$peerId';
 
   /// Returns the running Kubo version.
   Future<String> version() async =>
@@ -226,7 +231,8 @@ class LocalKuboHarness {
 
   /// Resolves providers through Kubo for interop diagnostics.
   Future<String> findProviders(String cid, {int count = 1}) async =>
-      '${(await _run(['routing', 'findprovs', '-n', '$count', cid])).stdout}'.trim();
+      '${(await _run(['routing', 'findprovs', '-n', '$count', cid])).stdout}'
+          .trim();
 
   /// Returns Kubo's live swarm and Bitswap diagnostics after a failed proof.
   Future<String> diagnostics() async {
@@ -235,7 +241,17 @@ class LocalKuboHarness {
     return 'swarm peers --streams:\n${peers.stdout}\nbitswap stat:\n${bitswap.stdout}';
   }
 
-  Future<void> _start(String routingType, bool clearBootstrap) async {
+  /// Connected peer IDs as reported by the running daemon.
+  Future<String> swarmPeers() async =>
+      '${(await _run(['swarm', 'peers'])).stdout}';
+
+  /// The daemon's actual routing tables, distinct from its swarm connections.
+  Future<String> routingTables() async =>
+      '${(await _run(['stats', 'dht'])).stdout}';
+
+  Future<void> _start(String routingType, bool clearBootstrap, bool mdnsEnabled,
+      bool? sweepEnabled, String swarmHost) async {
+    _swarmHost = swarmHost;
     apiPort = await _freePort();
     swarmPort = await _freePort();
     gatewayPort = await _freePort();
@@ -251,13 +267,17 @@ class LocalKuboHarness {
       'config',
       'Addresses.Swarm',
       '--json',
-      jsonEncode(['/ip4/127.0.0.1/tcp/$swarmPort']),
+      jsonEncode(['/ip4/$swarmHost/tcp/$swarmPort']),
     ]);
     if (clearBootstrap) {
       await _run(['config', 'Bootstrap', '--json', '[]']);
     }
-    await _run(['config', 'Discovery.MDNS.Enabled', '--json', 'false']);
+    await _run(['config', 'Discovery.MDNS.Enabled', '--json', '$mdnsEnabled']);
     await _run(['config', 'Routing.Type', routingType]);
+    if (sweepEnabled != null) {
+      await _run(
+          ['config', 'Provide.DHT.SweepEnabled', '--json', '$sweepEnabled']);
+    }
 
     final process = await Process.start(
       executable,

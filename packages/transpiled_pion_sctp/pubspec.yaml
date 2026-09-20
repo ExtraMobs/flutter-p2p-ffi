@@ -1,0 +1,24 @@
+name: transpiled_pion_sctp
+description: Port of github.com/pion/sctp.
+version: 0.1.0
+publish_to: none
+homepage: https://github.com/pion/sctp
+
+environment:
+  sdk: ^3.10.0
+
+dependencies:
+  crypto: ^3.0.7
+  boilerplate:
+    path: ../boilerplate
+  transpiled_pion_logging:
+    path: ../transpiled_pion_logging
+  transpiled_pion_randutil:
+    path: ../transpiled_pion_randutil
+  transpiled_pion_transport:
+    path: ../transpiled_pion_transport
+
+dev_dependencies:
+  test: ^1.28.0
+  lints: ^6.1.0
+  very_good_analysis: ^10.1.0

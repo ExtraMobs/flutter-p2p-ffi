@@ -1,0 +1,15 @@
+name: transpiled_pion_transport
+description: Port of github.com/pion/transport/v3 (deadline subpackage only -- the sole subpackage consumed by transpiled_pion_sctp; vnet, packetio, udp, netctx, replaydetector, stdnet and utils are out of scope for this go.mod boundary, see doc/transpilation/UPSTREAM_LOCK.md).
+version: 0.1.0
+publish_to: none
+homepage: https://github.com/pion/transport
+
+environment:
+  sdk: ^3.10.0
+
+dependencies:
+
+dev_dependencies:
+  test: ^1.28.0
+  lints: ^6.1.0
+  very_good_analysis: ^10.1.0

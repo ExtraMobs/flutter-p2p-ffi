@@ -1,9 +1,16 @@
+import 'dart:async';
 import 'dart:typed_data';
 
+import 'package:logging/logging.dart';
 import 'package:transpiled_block_format/transpiled_block_format.dart' as blocks;
 import 'package:transpiled_boxo/transpiled_boxo.dart' hide Blockstore;
 import 'package:transpiled_cid/transpiled_cid.dart';
+import 'package:transpiled_datastore/transpiled_datastore.dart'
+    show MapDatastore;
 import 'package:transpiled_go_car/transpiled_go_car.dart';
+import 'package:transpiled_libp2p/transpiled_libp2p.dart'
+    as observed
+    show Manager;
 import 'package:transpiled_libp2p/transpiled_libp2p.dart';
 import 'package:transpiled_multiaddr/transpiled_multiaddr.dart' as core_ma;
 
@@ -12,6 +19,8 @@ import '../config/ipfs_runtime_config.dart';
 import '../core/builders/build_cfg.dart';
 import '../network/libp2p_host.dart';
 import '../protocols/bitswap/bitswap_client.dart';
+import '../protocols/dht/dht_server.dart';
+import '../repo/repo.dart';
 import '../routing/dht_provider_finder.dart';
 import '../unixfs/unixfs.dart';
 
@@ -33,10 +42,38 @@ final class IpfsNode {
 
   /// Kubo `core.NewNode` equivalent for the supported Dart subset.
   static Future<IpfsNode> fromBuildCfg(BuildCfg buildCfg) async {
-    final config = buildCfg.config;
-    final blockstore = Blockstore();
+    final rollback = <Future<void> Function()>[];
+    try {
+      return await _build(buildCfg, rollback);
+    } catch (error, stack) {
+      for (final close in rollback.reversed) {
+        try {
+          await close();
+        } catch (cleanupError, cleanupStack) {
+          _log.warning(
+            'Could not release resource after node construction failed',
+            cleanupError,
+            cleanupStack,
+          );
+        }
+      }
+      Error.throwWithStackTrace(error, stack);
+    }
+  }
+
+  static Future<IpfsNode> _build(
+    BuildCfg buildCfg,
+    List<Future<void> Function()> rollback,
+  ) async {
+    final repo = buildCfg.repo;
+    if (repo != null) rollback.add(repo.close);
+    final config = (repo == null ? buildCfg.config : await repo.config())
+        .copyWith(offline: !buildCfg.online);
+    final store = repo?.datastore();
+    final blockstore = Blockstore(datastore: store);
+    if (repo == null) rollback.add(blockstore.close);
     if (!buildCfg.online) {
-      return IpfsNode._(
+      final node = IpfsNode._(
         config: config,
         blockstore: blockstore,
         host: null,
@@ -45,21 +82,43 @@ final class IpfsNode {
         idService: null,
         shutdownTimeout: buildCfg.shutdownTimeout,
       );
+      node._repo = repo;
+      return node;
     }
 
-    final identityKey = await generateEd25519KeyPair();
+    final identity = config.identity;
+    if (repo != null && identity == null) {
+      throw StateError('repository configuration has no identity');
+    }
+    final identityKey = identity == null
+        ? await generateEd25519KeyPair()
+        : await identity.decodePrivateKey('');
     final localPeer = PeerId.fromPubKey(identityKey.getPublic());
-    final peerstore = MemoryPeerstore();
+    if (identity != null && PeerId.decode(identity.peerId) != localPeer) {
+      throw StateError(
+        'private key in config does not match id: ${identity.peerId} != $localPeer',
+      );
+    }
+    final Peerstore peerstore = store == null
+        ? MemoryPeerstore()
+        : await Pstoreds.open(store);
+    rollback.add(peerstore.close);
     peerstore.addPrivKey(localPeer, identityKey);
     peerstore.addPubKey(localPeer, identityKey.getPublic());
 
     final upgrader = BasicUpgrader(localIdentityKey: identityKey);
     final tcpTransport = TcpTransport(upgrader: upgrader);
+    final eventBus = BasicBus();
     final swarm = Swarm(
       localPeer: localPeer,
       peerstore: peerstore,
-      transports: [tcpTransport],
+      eventBus: eventBus,
+      transports: [
+        WebsocketTransport(upgrader: upgrader),
+        tcpTransport,
+      ],
     );
+    rollback.add(swarm.close);
 
     final listenAddrs = config.network.listenAddresses
         .map(core_ma.Multiaddr.parse)
@@ -80,22 +139,34 @@ final class IpfsNode {
     }
 
     final autoRelay = AutoRelay();
+    rollback.add(autoRelay.close);
     final natGateway = announcedIp != null
         ? SimulatedNatGateway(externalIp: announcedIp)
         : null;
     final natManager = BasicNatManager(network: swarm, gateway: natGateway);
+    rollback.add(natManager.close);
     await natManager.start();
 
     HolePunchService? holePunch;
+    final observedAddresses = observed.Manager(eventBus, swarm);
+    rollback.add(observedAddresses.close);
+    observedAddresses.start(swarm);
     final host = BasicHost(
       network: swarm,
       peerstore: peerstore,
+      eventBus: eventBus,
+      observedAddrsManager: observedAddresses,
       autoRelay: autoRelay,
       natManager: natManager,
       holePunchService: holePunch,
     );
+    // The host takes ownership of the peerstore, swarm, NAT and relay.
+    // Keep the repository first so rollback closes it last.
+    rollback.removeRange(1, rollback.length);
+    rollback.addAll([host.close, observedAddresses.close]);
 
     holePunch = HolePunchService(host: host);
+    rollback.add(holePunch.close);
     await holePunch.start();
 
     final router = Libp2pRouter(host);
@@ -103,13 +174,20 @@ final class IpfsNode {
         .map(addrInfoFromString)
         .toList();
     final dht = DhtClient(router: router, bootstrapPeers: bootstrapPeers);
+    rollback.add(dht.close);
+    dht.bootstrap();
+    DhtServer(router: router, routingTable: dht.routingTable).start();
     final bitswap = BitswapClient(
       router: router,
       blockstore: blockstore,
       timeout: config.bitswap.p2pTimeout,
-    )..start();
-    final idService = IdService(host: host)..start();
-    return IpfsNode._(
+    );
+    rollback.add(bitswap.close);
+    bitswap.start();
+    final idService = IdService(host: host);
+    rollback.add(idService.close);
+    idService.start();
+    final node = IpfsNode._(
       config: config,
       blockstore: blockstore,
       host: host,
@@ -118,6 +196,42 @@ final class IpfsNode {
       idService: idService,
       shutdownTimeout: buildCfg.shutdownTimeout,
     );
+    node._observedAddresses = observedAddresses;
+    node._repo = repo;
+    node._holePunch = holePunch;
+    rollback
+      ..clear()
+      ..add(node.close);
+    if (config.network.mdnsEnabled) {
+      final handler = _NodeDiscoveryHandler(host);
+      final discovery = MdnsService(host, notifee: handler);
+      try {
+        await discovery.start();
+        node._mdns = discovery;
+        node._discoveryHandler = handler;
+      } catch (error, stack) {
+        // Kubo SetupDiscovery reports failure without aborting the node.
+        handler.close();
+        await discovery.close();
+        _log.warning('Could not start mDNS discovery', error, stack);
+      }
+    }
+
+    // Marco F.5 (scheduling half of PROGRESS.md's Objetivo 5): reprovide
+    // every stored block on boxo's default schedule
+    // (reprovider.go:24, 22h -- see DefaultReproviderInterval in
+    // packages/transpiled_boxo/lib/src/provider/reprovider.dart). Wired
+    // right after the DHT comes up so the library itself keeps content
+    // discoverable without a caller-managed timer; started here and closed
+    // in IpfsNode.close(), so it never outlives the node.
+    node._reprovider = reproviderSystem(
+      store ?? MapDatastore(),
+      options: [
+        online(_NodeReproviderAdapter(node)),
+        keyProvider(node._reprovideKeys),
+      ],
+    );
+    return node;
   }
 
   /// Effective node configuration.
@@ -132,9 +246,20 @@ final class IpfsNode {
   final IdService? _idService;
   final Duration _shutdownTimeout;
   Future<void>? _closeFuture;
+  static final _log = Logger('ipfs.node');
+  observed.Manager? _observedAddresses;
+  MdnsService? _mdns;
+  _NodeDiscoveryHandler? _discoveryHandler;
+  HolePunchService? _holePunch;
+  Repo? _repo;
+
+  System? _reprovider;
 
   /// Whether networking is active.
   bool get isOnline => _host != null;
+
+  /// Network host, or null when offline (Kubo IpfsNode.PeerHost).
+  Host? get peerHost => _host;
 
   /// Local cryptographic peer ID of this node.
   PeerId get peerId {
@@ -205,6 +330,12 @@ final class IpfsNode {
     await dht.provide(cid, self);
   }
 
+  /// Streams the CIDs backed by the blockstore, including after restart.
+  /// to boxo's `KeyChanFunc`, feeding the library's [ReproviderSystem].
+  Stream<Cid> _reprovideKeys() async* {
+    yield* await blockstore.allKeysChanWithErr();
+  }
+
   /// Discovers providers and downloads the first valid Bitswap block.
   Future<blocks.Block> getBlockFromDht(Cid cid) async {
     Object? lastError;
@@ -265,10 +396,8 @@ final class IpfsNode {
   ).stream();
 
   /// Validates and imports a CAR v1 into this node's blockstore.
-  Future<CarHeader> importCar(Object input) => loadCar(
-    input,
-    (CarBlock block) => blockstore.put(block),
-  );
+  Future<CarHeader> importCar(Object input) =>
+      loadCar(input, (CarBlock block) => blockstore.put(block));
 
   Future<blocks.Block> _getContentBlock(Cid cid) async {
     if (await blockstore.has(cid)) return blockstore.get(cid);
@@ -291,18 +420,87 @@ final class IpfsNode {
 
   Future<void> _close() async {
     final close = () async {
-      await _dht?.close();
-      await _bitswap?.close();
-      await _idService?.close();
-      await _host?.close();
-      await blockstore.close();
+      _discoveryHandler?.close();
+      Object? firstError;
+      StackTrace? firstStack;
+      for (final stop in <Future<void> Function()>[
+        if (_mdns != null) _mdns!.close,
+        if (_reprovider != null) _reprovider!.close,
+        if (_dht != null) _dht.close,
+        if (_bitswap != null) _bitswap.close,
+        if (_idService != null) _idService.close,
+        if (_observedAddresses != null) _observedAddresses!.close,
+        if (_holePunch != null) _holePunch!.close,
+        if (_host != null) _host.close,
+        if (_repo != null) _repo!.close else blockstore.close,
+      ]) {
+        try {
+          await stop();
+        } catch (error, stack) {
+          if (firstError == null) {
+            firstError = error;
+            firstStack = stack;
+          }
+        }
+      }
+      if (firstError != null) {
+        Error.throwWithStackTrace(firstError, firstStack!);
+      }
     }();
     if (_shutdownTimeout > Duration.zero) {
-      try {
-        await close.timeout(_shutdownTimeout);
-      } catch (_) {}
+      await close.timeout(_shutdownTimeout);
     } else {
       await close;
     }
   }
+}
+
+/// Kubo core/node/libp2p.discoveryHandler: connect to discovered LAN peers.
+final class _NodeDiscoveryHandler implements Notifee {
+  _NodeDiscoveryHandler(this._host);
+  final Host _host;
+  final Set<PeerId> _connecting = {};
+  bool _closed = false;
+
+  @override
+  void handlePeerFound(AddrInfo info) {
+    if (_closed || info.id == _host.id || !_connecting.add(info.id)) return;
+    unawaited(_connect(info));
+  }
+
+  Future<void> _connect(AddrInfo info) async {
+    try {
+      await _host.connect(
+        info,
+        context: const NetworkContext(dialPeerTimeout: Duration(seconds: 30)),
+      );
+    } catch (error, stack) {
+      if (!_closed) {
+        IpfsNode._log.warning(
+          'Could not connect to discovered peer ${info.id}',
+          error,
+          stack,
+        );
+      }
+    } finally {
+      _connecting.remove(info.id);
+    }
+  }
+
+  void close() => _closed = true;
+}
+
+/// Routes the library's reprovider through [IpfsNode.provide]. Not present
+/// upstream -- boxo's reprovider is handed an already-online
+/// `provider.Provide` implementation (typically the DHT client itself);
+/// this runtime delegates through `IpfsNode.provide`, so the adapter remains
+/// private per this
+/// project's rule that Go-internal-only helpers stay unexported.
+final class _NodeReproviderAdapter implements Provider {
+  const _NodeReproviderAdapter(this._node);
+
+  final IpfsNode _node;
+
+  @override
+  Future<void> provide(Cid cid, bool announce) => _node.provide(cid);
 }

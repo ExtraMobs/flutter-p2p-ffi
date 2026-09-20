@@ -1,4 +1,5 @@
 import '../../config/ipfs_runtime_config.dart';
+import '../../repo/repo.dart';
 
 /// Configuration accepted by the Kubo core node constructor.
 ///
@@ -6,14 +7,15 @@ import '../../config/ipfs_runtime_config.dart';
 /// [online] selects whether the node is built with networking enabled,
 /// [config] supplies the application configuration used by the existing
 /// runtime, and [shutdownTimeout] caps graceful shutdown when positive.
-/// Kubo's `Repo`, `Host`, and `Routing` hooks are intentionally not exposed
-/// until equivalent Dart contracts exist.
+/// [repo] supplies persistent configuration and storage when provided.
+/// Kubo's `Host` and `Routing` hooks remain unported.
 class BuildCfg {
   /// Creates a build configuration.
   ///
   /// A zero-value Kubo `BuildCfg` is offline. When [config] is omitted, the
   /// same default is used here.
   BuildCfg({
+    this.repo,
     IpfsConfig? config,
     this.online = false,
     Map<String, bool>? extraOpts,
@@ -22,6 +24,10 @@ class BuildCfg {
        extraOpts = extraOpts ?? <String, bool>{};
 
   final IpfsConfig _config;
+
+  /// Repository used by the node; its configuration takes precedence over
+  /// [config], matching Kubo BuildCfg.Repo. The node closes it on shutdown.
+  final Repo? repo;
 
   /// Whether the constructed node has networking enabled.
   final bool online;

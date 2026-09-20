@@ -22,6 +22,33 @@ import '../../protocol/multistream.dart';
 import '../../protocol/multistream_select.dart';
 import 'nat_manager.dart';
 
+/// Maps our local (listen) thin waist multiaddrs to externally observed
+/// addrs, so [BasicHost.addrs] can include our own publicly observed
+/// address without operator-supplied `announceAddresses`.
+///
+/// Mirrors go-libp2p's `ObservedAddrsManager` interface
+/// (`p2p/host/basic/addrs_manager.go:37-40`). Declared here rather than in a
+/// dedicated `addrs_manager.dart` because this port implements only the
+/// observed-addrs integration point of Go's `addrsManager` (per-listen-addr
+/// `AddrsFor` folded into [BasicHost.addrs]), not the full
+/// reachability-tracking/NAT-classification abstraction that file also
+/// owns; see `doc/transpilation/PROGRESS.md` (Marco F.3) for the scope note.
+/// Implemented by `p2p/host/observedaddrs/manager.dart`'s `Manager`.
+abstract interface class ObservedAddrsManager {
+  /// All observed addresses with at least [minObservers] observers (or the
+  /// implementation's activation threshold, if `minObservers <= 0`).
+  List<Multiaddr> addrs(int minObservers);
+
+  /// All activated observed addresses associated with the given (resolved)
+  /// listen address [local].
+  List<Multiaddr> addrsFor(Multiaddr local);
+}
+
+/// Maximum number of observed addresses folded into [BasicHost.addrs] per
+/// local listen address. Mirrors go-libp2p's
+/// `maxObservedAddrsPerListenAddr` (`p2p/host/basic/addrs_manager.go:25`).
+const int _maxObservedAddrsPerListenAddr = 3;
+
 /// Standard libp2p [Host] coordinating network transport, protocol multiplexing,
 /// identification, NAT traversal, and autonomous relaying.
 class BasicHost implements Host {
@@ -36,6 +63,7 @@ class BasicHost implements Host {
     this.autoRelay,
     this.natManager,
     this.holePunchService,
+    this.observedAddrsManager,
   })  : _network = network,
         _peerstore = peerstore ??
             (network.peerstore is Peerstore
@@ -58,6 +86,10 @@ class BasicHost implements Host {
   final AutoRelay? autoRelay;
   final NatManager? natManager;
   final HolePunchService? holePunchService;
+
+  /// Source of publicly observed addresses, fed by the identify protocol's
+  /// `EvtPeerIdentificationCompleted.observedAddr`. See [ObservedAddrsManager].
+  final ObservedAddrsManager? observedAddrsManager;
   Emitter? _protocolsEmitter;
 
   Future<Emitter> _getProtocolsEmitter() async {
@@ -87,13 +119,24 @@ class BasicHost implements Host {
     final baseAddrs = _network.listenAddresses();
     final circuitAddrs = autoRelay?.relayAddrs ?? const <Multiaddr>[];
     final mappedAddrs = <Multiaddr>[];
-    if (natManager != null) {
-      for (final addr in baseAddrs) {
+    final observedAddrs = <Multiaddr>[];
+    for (final addr in baseAddrs) {
+      if (natManager != null) {
         final mapped = natManager!.getMapping(addr);
         if (mapped != null) mappedAddrs.add(mapped);
       }
+      // Folds in publicly observed addresses per listen addr, mirroring
+      // go-libp2p's `addrsManager.appendObservedAddrs`
+      // (p2p/host/basic/addrs_manager.go:589-604).
+      if (observedAddrsManager != null) {
+        var obs = observedAddrsManager!.addrsFor(addr);
+        if (obs.length > _maxObservedAddrsPerListenAddr) {
+          obs = obs.sublist(0, _maxObservedAddrsPerListenAddr);
+        }
+        observedAddrs.addAll(obs);
+      }
     }
-    return _addrsFactory([...baseAddrs, ...mappedAddrs, ...circuitAddrs]);
+    return _addrsFactory([...baseAddrs, ...mappedAddrs, ...observedAddrs, ...circuitAddrs]);
   }
 
   @override

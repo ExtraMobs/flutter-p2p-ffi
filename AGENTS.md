@@ -1,10 +1,14 @@
 # Escopo do projeto
 
-O objetivo deste projeto é portar para Dart apenas bibliotecas reutilizáveis
+O objetivo deste projeto é portar para Dart apenas as bibliotecas reutilizáveis
 necessárias para executar um nó IPFS embutido em aplicações Dart ou Flutter.
 
-Kubo, Boxo e go-libp2p são referências de comportamento, não superfícies de
-produto que devam ser reproduzidas integralmente.
+O foco central de implementação no nível IPFS é **estritamente o Boxo**
+(`github.com/ipfs/boxo`), seguindo a orientação arquitetural de como o **Kubo**
+o consome e orquestra. O Kubo serve como guia de referência de uso e integração
+das APIs do Boxo, não como superfície de produto a ser portada.
+
+**Não vamos implementar gateway local (servidor HTTP) nem CLI.**
 
 ## Objetivos do projeto
 
@@ -178,7 +182,7 @@ Objetivo 5 fecharem.
   que um nó em navegador o alcança. Critério: teste de interoperabilidade que
   itera sobre a lista de `Addresses.Swarm` do Kubo e conecta em cada uma.
 
-Todo agente que atuar no projeto deve seguir a ordem e os critérios das checklists dos Objetivos no topo de `doc/transpilation/PROGRESS.md`. Trabalho que não destrava nem valida essas checklists fica atrás delas, salvo correção necessária para manter a suíte verde ou instrução explícita do usuário. Gateway HTTP(S) não conta como P2P e só entra no escopo quando o usuário o pedir explicitamente.
+Todo agente que atuar no projeto deve seguir a ordem e os critérios das checklists dos Objetivos no topo de `doc/transpilation/PROGRESS.md`. Trabalho que não destrava nem valida essas checklists fica atrás delas, salvo correção necessária para manter a suíte verde ou instrução explícita do usuário. Gateway HTTP local e interfaces CLI estão expressamente fora do escopo do projeto.
 
 ## Estratégia de execução: delegar a multi-agentes de nível mínimo
 
@@ -209,27 +213,36 @@ para julgamento e verificação.
 
 ## Fora do escopo
 
-Ignore qualquer pacote, arquivo ou teste cuja única finalidade seja CLI,
-incluindo:
+Estão expressamente fora do escopo do projeto:
 
-- `kubo/cmd/**`;
-- `kubo/commands/**`;
-- `kubo/core/commands/**`;
-- `kubo/test/cli/**`;
-- parsing de comandos e flags;
-- prompts, help, completion e formatação de terminal;
-- exit codes, PID files e gerenciamento de processo exclusivo da CLI.
+1. **CLI (Linha de Comando)**:
+   Ignore qualquer pacote, arquivo ou teste cuja única finalidade seja CLI,
+   incluindo:
+   - `kubo/cmd/**`;
+   - `kubo/commands/**`;
+   - `kubo/core/commands/**`;
+   - `kubo/test/cli/**`;
+   - parsing de comandos e flags;
+   - prompts, help, completion e formatação de terminal;
+   - exit codes, PID files e gerenciamento de processo exclusivo da CLI.
 
-Esses itens não devem ser portados, auditados nem contabilizados como lacunas.
+   Esses itens não devem ser portados, auditados nem contabilizados como lacunas.
+   O `bin/ipfs.dart` existente não é alvo de paridade com a CLI do Kubo. Ele pode
+   permanecer como ferramenta auxiliar de desenvolvimento e diagnóstico, mas não
+   deve orientar a arquitetura ou o escopo da transpilação.
 
-O `bin/ipfs.dart` existente não é alvo de paridade com a CLI do Kubo. Ele pode
-permanecer como ferramenta auxiliar, mas não deve orientar a arquitetura ou o
-escopo da transpilação.
+2. **Gateway HTTP Local e Servidor RPC**:
+   - **Servidor de Gateway HTTP local** (ex.: `boxo/gateway`, endpoints `/ipfs/<cid>`
+     ou `/ipns/<nome>` servidos via HTTP local, ou `corehttp`). O nó opera de forma
+     puramente P2P sobre as camadas de transporte e Bitswap.
+   - **Servidor RPC HTTP** (endpoints `/api/v0/`).
 
-Código utilizado tanto pela CLI quanto por APIs programáticas continua no
-escopo. Ciclo de vida `create`/`start`/`stop`, configuração, rede,
-armazenamento, protocolos, gateway e RPC reutilizáveis são componentes de
-biblioteca.
+O foco de implementação permanece na transpilação do **Boxo** (e na base de rede
+libp2p e multiformats necessária para suportá-lo), seguindo a orientação de como o
+**Kubo** consome e orquestra o Boxo. O Kubo é apenas um guia de orquestração interna,
+não um produto a ser reproduzido. Ciclo de vida `create`/`start`/`stop`, configuração,
+rede, armazenamento e protocolos P2P reutilizáveis são componentes de biblioteca
+que permanecem no escopo.
 
 Antes de trabalhar na transpilação, leia
 `doc/transpilation/PROGRESS.md`.

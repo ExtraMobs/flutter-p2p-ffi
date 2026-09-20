@@ -4,16 +4,14 @@ import 'dart:typed_data';
 
 import 'package:transpiled_multiaddr/transpiled_multiaddr.dart';
 
-import '../../../core/crypto/key_types.dart';
 import '../../../core/crypto/proto_varint.dart';
 import '../../../core/event/bus.dart';
 import '../../../core/event/identify.dart';
 import '../../../core/host/host.dart';
 import '../../../core/network/network.dart';
-import '../../../core/peer/peer_id.dart';
-import '../../../core/peerstore/peerstore.dart';
 import '../../../core/protocol/protocol.dart';
-import '../../../core/record/envelope.dart';
+import '../../../core/transport/transport.dart';
+import '../multistream_select.dart';
 import 'pb/identify_message.dart';
 
 const ProtocolId id = '/ipfs/id/1.0.0';
@@ -67,6 +65,10 @@ class _IdService implements IdService {
       final localAddrs = host.addrs.map((a) => Uint8List.fromList(a.toBytes())).toList();
       final protocols = host.mux.protocols();
       final pubKey = host.peerstore.pubKey(host.id);
+      // Observed address so the other side is informed of their "public"
+      // address, at least in relation to us. id.go:638-649
+      // (createBaseIdentifyResponse).
+      final connAddrs = stream.conn() is ConnMultiaddrs ? stream.conn() as ConnMultiaddrs : null;
 
       final msg = Identify(
         publicKey: pubKey,
@@ -74,6 +76,9 @@ class _IdService implements IdService {
         protocols: protocols,
         agentVersion: userAgent,
         protocolVersion: protocolVersion,
+        observedAddr: connAddrs != null
+            ? Uint8List.fromList(connAddrs.remoteMultiaddr().toBytes())
+            : null,
       );
 
       final payload = msg.marshal();
@@ -110,6 +115,7 @@ class _IdService implements IdService {
       final sec = c is ConnSecurity ? (c as ConnSecurity) : null;
       if (sec != null) {
         final remote = sec.remotePeer();
+        final observedAddr = await _requestObservedAddr(c);
         // Emit completed event when peer identification is observed
         final em = await _getEmitter();
         em.emit(EvtPeerIdentificationCompleted(
@@ -119,7 +125,7 @@ class _IdService implements IdService {
           protocols: host.peerstore.getProtocols(remote),
           agentVersion: userAgent,
           protocolVersion: protocolVersion,
-          observedAddr: host.addrs.isNotEmpty ? host.addrs.first : Multiaddr.empty,
+          observedAddr: observedAddr,
         ));
       }
       completer.complete();
@@ -128,6 +134,70 @@ class _IdService implements IdService {
     } finally {
       _identifying.remove(c);
     }
+  }
+
+  /// Opens the identify stream on [c] as the requester, reads the peer's
+  /// Identify message, and extracts the `observedAddr` field they reported
+  /// back about us. id.go:448-459 (`identifyConn` opening the stream) and
+  /// id.go:749-753 (`consumeMessage` parsing `ObservedAddr`).
+  ///
+  /// Returns [Multiaddr.empty] -- matching Go's `obsAddr = nil` -- on any
+  /// failure to open the stream, negotiate the protocol, read the message,
+  /// or parse the reported address, so a malformed/missing report never
+  /// fails identification itself, only observed-address collection.
+  Future<Multiaddr> _requestObservedAddr(Conn c) async {
+    final capable = c is CapableConn ? c : null;
+    if (capable == null) return Multiaddr.empty;
+
+    NetworkStream? stream;
+    try {
+      stream = await capable.openStream();
+      await stream.setProtocol(id);
+      await selectOutbound(stream, const [id]);
+      final bytes = await _readDelimited(stream);
+      if (bytes == null) return Multiaddr.empty;
+      final msg = Identify.unmarshal(bytes);
+      final raw = msg.observedAddr;
+      if (raw == null) return Multiaddr.empty;
+      return Multiaddr.fromBytes(raw);
+    } catch (_) {
+      try {
+        await stream?.reset();
+      } catch (_) {}
+      return Multiaddr.empty;
+    } finally {
+      try {
+        await stream?.close();
+      } catch (_) {}
+    }
+  }
+
+  /// Reads one varint-length-prefixed protobuf message off [stream].
+  /// Equivalent role to id.go's `pbio.NewDelimitedReader` read in
+  /// `handleIdentifyResponse` (id.go:512-567), scoped here to a single
+  /// message since `_handleIdentify` writes exactly one.
+  static Future<Uint8List?> _readDelimited(NetworkStream stream) async {
+    final firstByte = await stream.read(1);
+    if (firstByte.isEmpty) return null;
+    var len = firstByte[0] & 0x7f;
+    var shift = 7;
+    if ((firstByte[0] & 0x80) != 0) {
+      while (true) {
+        final b = await stream.read(1);
+        if (b.isEmpty) return null;
+        len |= (b[0] & 0x7f) << shift;
+        if ((b[0] & 0x80) == 0) break;
+        shift += 7;
+      }
+    }
+    if (len == 0) return Uint8List(0);
+    final buf = <int>[];
+    while (buf.length < len) {
+      final chunk = await stream.read(len - buf.length);
+      if (chunk.isEmpty) break;
+      buf.addAll(chunk);
+    }
+    return Uint8List.fromList(buf);
   }
 
   @override

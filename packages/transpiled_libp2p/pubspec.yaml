@@ -8,9 +8,13 @@ environment:
   sdk: ^3.10.0
 
 dependencies:
+  transpiled_base32:
+    path: ../transpiled_base32
   crypto: ^3.0.7
   cryptography: ^2.9.0
   pointycastle: ^4.0.0
+  transpiled_datastore:
+    path: ../transpiled_datastore
   transpiled_base58:
     path: ../transpiled_base58
   transpiled_cid:
@@ -25,6 +29,8 @@ dependencies:
     path: ../transpiled_go_yamux
   transpiled_varint:
     path: ../transpiled_varint
+  transpiled_crypto_tls:
+    path: ../transpiled_crypto_tls
 
 dev_dependencies:
   test: ^1.28.0
