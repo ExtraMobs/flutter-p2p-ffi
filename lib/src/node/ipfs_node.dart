@@ -106,7 +106,13 @@ final class IpfsNode {
     peerstore.addPrivKey(localPeer, identityKey);
     peerstore.addPubKey(localPeer, identityKey.getPublic());
 
-    final upgrader = BasicUpgrader(localIdentityKey: identityKey);
+    final upgrader = BasicUpgrader(
+      localIdentityKey: identityKey,
+      security: [
+        TlsTransport(privKey: identityKey),
+        NoiseTransport(privKey: identityKey),
+      ],
+    );
     final tcpTransport = TcpTransport(upgrader: upgrader);
     final eventBus = BasicBus();
     final swarm = Swarm(
@@ -114,6 +120,9 @@ final class IpfsNode {
       peerstore: peerstore,
       eventBus: eventBus,
       transports: [
+        QuicTransport(privKey: identityKey),
+        WebtransportTransport(privKey: identityKey),
+        WebRtcTransport(privKey: identityKey),
         WebsocketTransport(upgrader: upgrader),
         tcpTransport,
       ],

@@ -31,6 +31,8 @@ dependencies:
     path: ../transpiled_varint
   transpiled_crypto_tls:
     path: ../transpiled_crypto_tls
+  transpiled_quic_go:
+    path: ../transpiled_quic_go
 
 dev_dependencies:
   test: ^1.28.0

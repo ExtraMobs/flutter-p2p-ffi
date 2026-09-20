@@ -210,6 +210,8 @@ DOCUMENTED_ADAPTATIONS = {
     'SimulatedNatGateway': 'PROGRESS.md - Implementação simulada de gateway UPnP/NAT-PMP para ambientes locais e testes',
     'BasicNatManager': 'PROGRESS.md - Implementação padrão de gerenciador NAT com port mapping (p2p/host/basic.natManager do Go)',
     'TlsTransport': 'PROGRESS.md - Implementação de SecureTransport para TLS 1.3 (p2p/security/tls.Transport do Go renomeada para evitar colisão com core/transport.Transport)',
+    'WebtransportTransport': 'PROGRESS.md - Implementação de Transport para WebTransport (p2p/transport/webtransport.transport do Go renomeada para evitar colisão com core/transport.Transport)',
+    'WebRtcTransport': 'PROGRESS.md - Implementação de Transport para WebRTC Direct (p2p/transport/webrtc.transport do Go renomeada para evitar colisão com core/transport.Transport)',
     # packages/transpiled_libp2p_kbucket
     'KeyspaceKey': 'PROGRESS.md - Chave no espaço de chaves XOR da Kademlia',
     'PeerMetrics': 'PROGRESS.md - Métricas de latência e confiabilidade de peers na tabela de roteamento',

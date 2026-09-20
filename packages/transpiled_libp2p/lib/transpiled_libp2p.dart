@@ -138,7 +138,6 @@ export 'src/core/event/identify.dart';
 export 'src/core/event/bus.dart';
 export 'src/p2p/host/eventbus/basic.dart';
 export 'src/core/host/host.dart';
-export 'src/core/peerstore/peerstore.dart';
 export 'src/p2p/host/peerstore/pstoremem/peerstore.dart';
 export 'src/p2p/protocol/multistream.dart';
 export 'src/p2p/host/blank/blank_host.dart';
@@ -165,6 +164,7 @@ export 'src/p2p/security/noise/noise_state.dart'
         SymmetricState,
         generateNoiseKeyPair,
         noiseProtocolName;
+export 'src/p2p/security/noise/transport.dart' hide ID;
 export 'src/core/transport/transport.dart';
 export 'src/p2p/protocol/circuitv2/proto/protocol.dart';
 export 'src/p2p/protocol/circuitv2/pb/circuit_message.dart';
@@ -187,10 +187,13 @@ export 'src/p2p/host/observedaddrs/manager.dart';
 export 'src/p2p/discovery/mdns/mdns.dart';
 export 'src/p2p/security/tls/crypto.dart';
 export 'src/p2p/security/tls/extension.dart';
-export 'src/p2p/security/tls/transport.dart';
+export 'src/p2p/security/tls/transport.dart' hide ID;
 export 'src/p2p/discovery/routing/routing.dart';
 export 'src/p2p/discovery/backoff/backoff.dart';
 export 'src/p2p/discovery/backoff/backoffcache.dart';
 export 'src/p2p/discovery/backoff/backoffconnector.dart';
 export 'src/p2p/transport/websocket/websocket.dart';
+export 'src/p2p/transport/quic/quic_transport.dart';
+export 'src/p2p/transport/webtransport/webtransport.dart';
+export 'src/p2p/transport/webrtc/webrtc_transport.dart';
 export 'src/p2p/host/peerstore/pstoreds/peerstore.dart';
