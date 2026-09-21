@@ -109,7 +109,8 @@ class _PacketConn implements PacketConn {
     );
     unawaited(
       cancellation.then((_) {
-        if (!result.isCompleted) result.completeError(DeadlineExceededException());
+        if (!result.isCompleted)
+          result.completeError(DeadlineExceededException());
       }),
     );
     return result.future;

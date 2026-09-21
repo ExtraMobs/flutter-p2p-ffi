@@ -29,8 +29,9 @@ import 'helpers.dart';
 import 'message.dart';
 
 String ipToString(Uint8List ip) {
-  final type =
-      ip.length == 4 ? InternetAddressType.IPv4 : InternetAddressType.IPv6;
+  final type = ip.length == 4
+      ? InternetAddressType.IPv4
+      : InternetAddressType.IPv6;
   return InternetAddress.fromRawAddress(ip, type: type).address;
 }
 
@@ -47,7 +48,9 @@ final class BadIpLengthException implements Exception {
 }
 
 bool isIpv4(Uint8List ip) =>
-    isZeros(Uint8List.sublistView(ip, 0, 10)) && ip[10] == 0xff && ip[11] == 0xff;
+    isZeros(Uint8List.sublistView(ip, 0, 10)) &&
+    ip[10] == 0xff &&
+    ip[11] == 0xff;
 
 bool isZeros(Uint8List p) {
   for (final b in p) {
@@ -76,7 +79,11 @@ class MappedAddress implements Setter, Getter {
     final data = ByteData.sublistView(value);
     final family = data.getUint16(0, Endian.big);
     if (family != _familyIpv6 && family != _familyIpv4) {
-      throw DecodeException.at('xor-mapped address', 'family', 'bad value $family');
+      throw DecodeException.at(
+        'xor-mapped address',
+        'family',
+        'bad value $family',
+      );
     }
     final ipLen = family == _familyIpv6 ? 16 : 4;
     port = data.getUint16(2, Endian.big);

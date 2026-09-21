@@ -73,7 +73,9 @@ final class ParamType {
     if (raw.length < 2) {
       throw const ParamPacketTooShortException();
     }
-    return ParamType._(ByteData.sublistView(raw, 0, 2).getUint16(0, Endian.big));
+    return ParamType._(
+      ByteData.sublistView(raw, 0, 2).getUint16(0, Endian.big),
+    );
   }
 
   /// Port of `paramType.String` (paramtype.go:57-94).

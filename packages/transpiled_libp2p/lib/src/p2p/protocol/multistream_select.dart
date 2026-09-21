@@ -41,7 +41,9 @@ Future<String> readDelimited(StreamReadWriter stream) async {
   while (buffer.length < length) {
     final chunk = await stream.read(length - buffer.length);
     if (chunk.isEmpty) {
-      throw StateError('EOF reading multistream payload: expected $length bytes, got ${buffer.length}');
+      throw StateError(
+        'EOF reading multistream payload: expected $length bytes, got ${buffer.length}',
+      );
     }
     buffer.add(chunk);
   }
@@ -62,7 +64,9 @@ Future<ProtocolId> selectOutbound(
   await writeDelimited(stream, multistreamProtocol);
   final header = await readDelimited(stream);
   if (header != multistreamProtocol) {
-    throw StateError('Multistream protocol mismatch: expected $multistreamProtocol, got $header');
+    throw StateError(
+      'Multistream protocol mismatch: expected $multistreamProtocol, got $header',
+    );
   }
 
   for (final proto in preferredProtocols) {
@@ -86,7 +90,9 @@ Future<ProtocolId> selectInbound(
 ) async {
   final header = await readDelimited(stream);
   if (header != multistreamProtocol) {
-    throw StateError('Multistream protocol mismatch: expected $multistreamProtocol, got $header');
+    throw StateError(
+      'Multistream protocol mismatch: expected $multistreamProtocol, got $header',
+    );
   }
   await writeDelimited(stream, multistreamProtocol);
 

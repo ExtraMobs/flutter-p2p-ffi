@@ -58,6 +58,7 @@ abstract interface class PeerTagger {
 abstract interface class MessageSender {
   Future<void> sendMsg(BitSwapMessage msg);
   Future<void> reset();
+
   /// Indicates whether the remote peer supports HAVE / DONT_HAVE messages
   bool supportsHave();
 }
@@ -102,6 +103,7 @@ class PingResult {
 abstract interface class Pinger {
   /// Ping a peer
   Future<PingResult> ping(PeerId peer);
+
   /// Get the average latency of all pings
   Duration latency(PeerId peer);
 }
@@ -111,8 +113,5 @@ class Stats {
   int messagesSent;
   int messagesRecvd;
 
-  Stats({
-    this.messagesSent = 0,
-    this.messagesRecvd = 0,
-  });
+  Stats({this.messagesSent = 0, this.messagesRecvd = 0});
 }

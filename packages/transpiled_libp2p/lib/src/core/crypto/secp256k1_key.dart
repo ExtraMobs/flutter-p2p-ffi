@@ -49,8 +49,10 @@ class Secp256k1PrivateKey extends PrivKey {
 
   @override
   Future<Uint8List> sign(Uint8List data) async {
-    final signer = pc.ECDSASigner(pc.SHA256Digest(), pc.HMac(pc.SHA256Digest(), 64))
-      ..init(true, pc.PrivateKeyParameter<pc.ECPrivateKey>(_key));
+    final signer = pc.ECDSASigner(
+      pc.SHA256Digest(),
+      pc.HMac(pc.SHA256Digest(), 64),
+    )..init(true, pc.PrivateKeyParameter<pc.ECPrivateKey>(_key));
     final sig = signer.generateSignature(data) as pc.ECSignature;
     return _encodeDerSignature(sig.normalize(_params));
   }
@@ -91,7 +93,12 @@ class Secp256k1PublicKey extends PubKey {
 /// `GenerateSecp256k1Key`.
 Secp256k1PrivateKey generateSecp256k1KeyPair() {
   final keyGen = pc.ECKeyGenerator()
-    ..init(pc.ParametersWithRandom(pc.ECKeyGeneratorParameters(_params), _secureRandom()));
+    ..init(
+      pc.ParametersWithRandom(
+        pc.ECKeyGeneratorParameters(_params),
+        _secureRandom(),
+      ),
+    );
   final pair = keyGen.generateKeyPair();
   return Secp256k1PrivateKey.fromPointyCastle(pair.privateKey);
 }
@@ -111,7 +118,9 @@ pc.SecureRandom _secureRandom() {
 /// `UnmarshalSecp256k1PrivateKey`.
 Secp256k1PrivateKey unmarshalSecp256k1PrivateKey(Uint8List data) {
   if (data.length != 32) {
-    throw FormatException('expected secp256k1 data size to be 32, got ${data.length}');
+    throw FormatException(
+      'expected secp256k1 data size to be 32, got ${data.length}',
+    );
   }
   final d = _decodeUnsigned(data);
   if (d == BigInt.zero || d >= _params.n) {
@@ -151,9 +160,7 @@ BigInt _decodeUnsigned(Uint8List bytes) {
 /// DER `SEQUENCE { INTEGER r, INTEGER s }`, matching dcrd's
 /// `Signature.Serialize()`.
 Uint8List _encodeDerSignature(pc.ECSignature sig) {
-  final seq = ASN1Sequence(
-    elements: [ASN1Integer(sig.r), ASN1Integer(sig.s)],
-  );
+  final seq = ASN1Sequence(elements: [ASN1Integer(sig.r), ASN1Integer(sig.s)]);
   return seq.encode();
 }
 

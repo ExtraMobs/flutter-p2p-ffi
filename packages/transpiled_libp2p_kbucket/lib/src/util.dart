@@ -89,7 +89,8 @@ PeerId genRandPeerIdWithCpl(DhtId targetId, int cpl) {
   // Combine the toggled local prefix and the random bits at the correct
   // offset such that ONLY the first `targetCpl` bits match the local ID.
   final mask = (0xFFFF << (16 - (cpl + 1))) & 0xFFFF;
-  final targetPrefix = (toggledLocalPrefix & mask) | (randPrefix & ~mask & 0xFFFF);
+  final targetPrefix =
+      (toggledLocalPrefix & mask) | (randPrefix & ~mask & 0xFFFF);
 
   // Convert to a known peer ID.
   final key = keyPrefixMap[targetPrefix];

@@ -17,7 +17,12 @@ import 'paramtype.dart';
 
 /// Port of `paramECNCapable` (param_ecn_capable.go:7-9).
 final class ParamEcnCapable implements Param {
-  ParamEcnCapable() : header = ParamHeader(typ: ParamType.ecnCapable, len: 0, raw: Uint8List(0));
+  ParamEcnCapable()
+    : header = ParamHeader(
+        typ: ParamType.ecnCapable,
+        len: 0,
+        raw: Uint8List(0),
+      );
 
   /// Composition standing in for Go's embedded `paramHeader`.
   ParamHeader header;

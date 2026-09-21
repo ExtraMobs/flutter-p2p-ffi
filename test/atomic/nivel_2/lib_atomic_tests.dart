@@ -54,10 +54,11 @@ class _FakeNetwork implements libp2p.Network {
 
 class _FakeHost implements libp2p.Host {
   _FakeHost({libp2p.PeerId? selfId})
-      : selfId = selfId ??
-            libp2p.PeerId.decode(
-              '12D3KooWCryG7Mon9orvQxcS1rYZjotPgpwoJNHHKcLLfE4Hf5mV',
-            ) {
+    : selfId =
+          selfId ??
+          libp2p.PeerId.decode(
+            '12D3KooWCryG7Mon9orvQxcS1rYZjotPgpwoJNHHKcLLfE4Hf5mV',
+          ) {
     peerstore = libp2p.MemoryPeerstore();
   }
 
@@ -85,15 +86,25 @@ class _FakeHost implements libp2p.Host {
   libp2p.Bus get eventBus => libp2p.BasicBus();
 
   @override
-  Future<void> connect(libp2p.AddrInfo pi, {libp2p.NetworkContext context = libp2p.NetworkContext.empty}) async {}
+  Future<void> connect(
+    libp2p.AddrInfo pi, {
+    libp2p.NetworkContext context = libp2p.NetworkContext.empty,
+  }) async {}
 
   @override
-  void setStreamHandler(libp2p.ProtocolId protocol, libp2p.StreamHandler handler) {
+  void setStreamHandler(
+    libp2p.ProtocolId protocol,
+    libp2p.StreamHandler handler,
+  ) {
     handlers[protocol] = handler;
   }
 
   @override
-  void setStreamHandlerMatch(libp2p.ProtocolId pid, bool Function(libp2p.ProtocolId) match, libp2p.StreamHandler handler) {}
+  void setStreamHandlerMatch(
+    libp2p.ProtocolId pid,
+    bool Function(libp2p.ProtocolId) match,
+    libp2p.StreamHandler handler,
+  ) {}
 
   @override
   void removeStreamHandler(libp2p.ProtocolId pid) {}
@@ -127,7 +138,10 @@ class _FakeP2PStream implements libp2p.NetworkStream {
   @override
   Future<void> setProtocol(libp2p.ProtocolId id) async {}
   @override
-  libp2p.Stats stat() => libp2p.Stats(direction: libp2p.Direction.outbound, opened: DateTime.now());
+  libp2p.Stats stat() => libp2p.Stats(
+    direction: libp2p.Direction.outbound,
+    opened: DateTime.now(),
+  );
   @override
   libp2p.Conn conn() => throw UnimplementedError();
   @override
@@ -150,7 +164,9 @@ class _FakeP2PStream implements libp2p.NetworkStream {
     if (isClosed) throw StateError('stream closed');
     if (_readOffset >= _data.length) return Uint8List(0);
     final remaining = _data.length - _readOffset;
-    final count = (maxLength == null || remaining < maxLength) ? remaining : maxLength;
+    final count = (maxLength == null || remaining < maxLength)
+        ? remaining
+        : maxLength;
     final result = Uint8List.fromList(
       _data.sublist(_readOffset, _readOffset + count),
     );
@@ -231,29 +247,38 @@ void main() {
     expect(query.length, greaterThan(12));
   });
 
-  test('decodeDnsMessage() - decodifica mensagem dns da rede com validacao', () {
-    expect(() => decodeDnsMessage(Uint8List(5)), throwsFormatException);
-  });
+  test(
+    'decodeDnsMessage() - decodifica mensagem dns da rede com validacao',
+    () {
+      expect(() => decodeDnsMessage(Uint8List(5)), throwsFormatException);
+    },
+  );
 
   test('encodeWantBlock() - codifica mensagem want block com prioridade', () {
     final bytes = encodeWantBlock(sampleCid, priority: 2);
     expect(bytes, isNotEmpty);
   });
 
-  test('encodeBitswapMessage() - codifica mensagem bitswap com framing varint', () {
-    final msg = BitSwapMessage(false);
-    msg.addEntry(sampleCid, 1, WantType.block, true);
-    final bytes = encodeBitswapMessage(msg);
-    expect(bytes, isNotEmpty);
-  });
+  test(
+    'encodeBitswapMessage() - codifica mensagem bitswap com framing varint',
+    () {
+      final msg = BitSwapMessage(false);
+      msg.addEntry(sampleCid, 1, WantType.block, true);
+      final bytes = encodeBitswapMessage(msg);
+      expect(bytes, isNotEmpty);
+    },
+  );
 
-  test('readBitswapMessage() - le mensagem bitswap emoldurada em varint', () async {
-    final payload = encodeWantBlock(sampleCid);
-    final stream = _FakeP2PStream(payload);
-    final msg = await readBitswapMessage(stream);
-    expect(msg, isA<BitSwapMessage>());
-    expect(msg.wantlist(), isNotEmpty);
-  });
+  test(
+    'readBitswapMessage() - le mensagem bitswap emoldurada em varint',
+    () async {
+      final payload = encodeWantBlock(sampleCid);
+      final stream = _FakeP2PStream(payload);
+      final msg = await readBitswapMessage(stream);
+      expect(msg, isA<BitSwapMessage>());
+      expect(msg.wantlist(), isNotEmpty);
+    },
+  );
 
   test('blockFromMessage() - extrai bloco correspondente da mensagem', () {
     final msg = BitSwapMessage(false);
@@ -270,10 +295,13 @@ void main() {
     expect(blockFromMessage(emptyMsg, sampleCid), isNull);
   });
 
-  test('encodeGetProviders() - codifica requisicao get providers para a dht', () {
-    final bytes = encodeGetProviders(sampleCid);
-    expect(bytes, isNotEmpty);
-  });
+  test(
+    'encodeGetProviders() - codifica requisicao get providers para a dht',
+    () {
+      final bytes = encodeGetProviders(sampleCid);
+      expect(bytes, isNotEmpty);
+    },
+  );
 
   test('encodeFindNode() - codifica requisicao find node para a dht', () {
     final key = Uint8List.fromList(sampleCid.multihash.toBytes());
@@ -290,16 +318,19 @@ void main() {
     expect(bytes, isNotEmpty);
   });
 
-  test('boundPeerRecordAddrs() - delimita enderecos para caber no limite maximo', () {
-    final maddr = Multiaddr.parse('/ip4/127.0.0.1/tcp/4001');
-    final bounded = boundPeerRecordAddrs(
-      id: samplePeerId.value,
-      rawAddrs: [maddr.toBytes()],
-      connection: 2,
-      maxSize: 8192,
-    );
-    expect(bounded, hasLength(1));
-  });
+  test(
+    'boundPeerRecordAddrs() - delimita enderecos para caber no limite maximo',
+    () {
+      final maddr = Multiaddr.parse('/ip4/127.0.0.1/tcp/4001');
+      final bounded = boundPeerRecordAddrs(
+        id: samplePeerId.value,
+        rawAddrs: [maddr.toBytes()],
+        connection: 2,
+        maxSize: 8192,
+      );
+      expect(bounded, hasLength(1));
+    },
+  );
 
   test('encodePeerRecord() - codifica registro de peer com enderecos', () {
     final maddr = Multiaddr.parse('/ip4/127.0.0.1/tcp/4001');
@@ -310,10 +341,7 @@ void main() {
   test('encodeDhtResponse() - codifica resposta protobuf da dht com peers', () {
     final maddr = Multiaddr.parse('/ip4/127.0.0.1/tcp/4001');
     final peer = libp2p.AddrInfo(id: samplePeerId, addrs: [maddr]);
-    final resp = encodeDhtResponse(
-      closerPeers: [peer],
-      providerPeers: [peer],
-    );
+    final resp = encodeDhtResponse(closerPeers: [peer], providerPeers: [peer]);
     expect(resp, isNotEmpty);
   });
 
@@ -452,11 +480,14 @@ void main() {
       await node.close();
     });
 
-    test('findProvidersAsync() - lanca erro se o node estiver offline', () async {
-      final node = await IpfsNode.fromBuildCfg(BuildCfg(online: false));
-      expect(() => node.findProvidersAsync(sampleCid, 1), throwsStateError);
-      await node.close();
-    });
+    test(
+      'findProvidersAsync() - lanca erro se o node estiver offline',
+      () async {
+        final node = await IpfsNode.fromBuildCfg(BuildCfg(online: false));
+        expect(() => node.findProvidersAsync(sampleCid, 1), throwsStateError);
+        await node.close();
+      },
+    );
 
     test('getBlockFromDht() - lanca erro se o node estiver offline', () async {
       final node = await IpfsNode.fromBuildCfg(BuildCfg(online: false));
@@ -492,10 +523,9 @@ void main() {
     test('exportCar() - exporta dag em formato car', () async {
       final node = await IpfsNode.fromBuildCfg(BuildCfg(online: false));
       await node.blockstore.put(blocks.BasicBlock(sampleRawData, sampleCid));
-      final carBytes = await node.exportCar(sampleCid).fold<List<int>>(
-        [],
-        (a, b) => [...a, ...b],
-      );
+      final carBytes = await node
+          .exportCar(sampleCid)
+          .fold<List<int>>([], (a, b) => [...a, ...b]);
       expect(carBytes, isNotEmpty);
       await node.close();
     });
@@ -503,10 +533,9 @@ void main() {
     test('importCar() - importa blocos de arquivo car', () async {
       final node = await IpfsNode.fromBuildCfg(BuildCfg(online: false));
       await node.blockstore.put(blocks.BasicBlock(sampleRawData, sampleCid));
-      final carBytes = await node.exportCar(sampleCid).fold<List<int>>(
-        [],
-        (a, b) => [...a, ...b],
-      );
+      final carBytes = await node
+          .exportCar(sampleCid)
+          .fold<List<int>>([], (a, b) => [...a, ...b]);
       final header = await node.importCar(Uint8List.fromList(carBytes));
       expect(header.roots, contains(sampleCid));
       await node.close();
@@ -524,11 +553,14 @@ void main() {
       await node.close();
     });
 
-    test('swarmAddresses() - lanca erro se offline pois depende do peerId', () async {
-      final node = await IpfsNode.fromBuildCfg(BuildCfg(online: false));
-      expect(() => node.swarmAddresses, throwsStateError);
-      await node.close();
-    });
+    test(
+      'swarmAddresses() - lanca erro se offline pois depende do peerId',
+      () async {
+        final node = await IpfsNode.fromBuildCfg(BuildCfg(online: false));
+        expect(() => node.swarmAddresses, throwsStateError);
+        await node.close();
+      },
+    );
 
     test('putBlock() - persiste bloco no blockstore local', () async {
       final node = await IpfsNode.fromBuildCfg(BuildCfg(online: false));
@@ -538,13 +570,16 @@ void main() {
       await node.close();
     });
 
-    test('putRawBlock() - divide dados brutos, persiste no blockstore e retorna cid', () async {
-      final node = await IpfsNode.fromBuildCfg(BuildCfg(online: false));
-      final cid = await node.putRawBlock(sampleRawData);
-      expect(cid.version, equals(0));
-      expect(await node.blockstore.has(cid), isTrue);
-      await node.close();
-    });
+    test(
+      'putRawBlock() - divide dados brutos, persiste no blockstore e retorna cid',
+      () async {
+        final node = await IpfsNode.fromBuildCfg(BuildCfg(online: false));
+        final cid = await node.putRawBlock(sampleRawData);
+        expect(cid.version, equals(0));
+        expect(await node.blockstore.has(cid), isTrue);
+        await node.close();
+      },
+    );
 
     test('provide() - lanca erro se o node estiver offline', () async {
       final node = await IpfsNode.fromBuildCfg(BuildCfg(online: false));
@@ -587,15 +622,18 @@ void main() {
       expect(() => client.getClosestPeers(key), throwsStateError);
     });
 
-    test('provide() - lanca erro se cliente dht estiver fechado ou conclui sem candidatos', () async {
-      final host = _FakeHost();
-      final router = Libp2pRouter(host);
-      final client = DhtClient(router: router, bootstrapPeers: []);
-      final provider = libp2p.AddrInfo(id: samplePeerId, addrs: []);
-      await client.provide(sampleCid, provider);
-      await client.close();
-      expect(() => client.provide(sampleCid, provider), throwsStateError);
-    });
+    test(
+      'provide() - lanca erro se cliente dht estiver fechado ou conclui sem candidatos',
+      () async {
+        final host = _FakeHost();
+        final router = Libp2pRouter(host);
+        final client = DhtClient(router: router, bootstrapPeers: []);
+        final provider = libp2p.AddrInfo(id: samplePeerId, addrs: []);
+        await client.provide(sampleCid, provider);
+        await client.close();
+        expect(() => client.provide(sampleCid, provider), throwsStateError);
+      },
+    );
   });
 
   // ImmutableBytes
@@ -672,8 +710,10 @@ void main() {
       final b = TypedMap({'x': 1});
       expect(a.hashCode, equals(b.hashCode));
       expect({a, b}, hasLength(1));
-      expect(TypedMap({'x': 1, 'y': 2}).hashCode,
-          TypedMap({'y': 2, 'x': 1}).hashCode);
+      expect(
+        TypedMap({'x': 1, 'y': 2}).hashCode,
+        TypedMap({'y': 2, 'x': 1}).hashCode,
+      );
     });
   });
 
@@ -692,7 +732,10 @@ void main() {
         attemptsPerResolver: 1,
       );
       final resolver = SystemResolver(client: client);
-      expect(() => resolver.lookupTxt('example.invalid'), throwsA(isA<TimeoutException>()));
+      expect(
+        () => resolver.lookupTxt('example.invalid'),
+        throwsA(isA<TimeoutException>()),
+      );
     });
   });
 
@@ -704,9 +747,11 @@ void main() {
         timeout: const Duration(milliseconds: 10),
         attemptsPerResolver: 1,
       );
-      expect(() => client.lookup('example.invalid', 16), throwsA(isA<TimeoutException>()));
+      expect(
+        () => client.lookup('example.invalid', 16),
+        throwsA(isA<TimeoutException>()),
+      );
     });
-
   });
 
   // BitswapClient
@@ -775,11 +820,14 @@ void main() {
 
   // BlockGetter
   group('BlockGetter [Atomic Audit]', () {
-    test('getBlock() - busca bloco por cid na interface block getter', () async {
-      final getter = _TestBlockGetter();
-      final blk = await getter.getBlock(sampleCid);
-      expect(blk.rawData(), equals([1, 2, 3]));
-    });
+    test(
+      'getBlock() - busca bloco por cid na interface block getter',
+      () async {
+        final getter = _TestBlockGetter();
+        final blk = await getter.getBlock(sampleCid);
+        expect(blk.rawData(), equals([1, 2, 3]));
+      },
+    );
   });
 
   // QueryPeerset
@@ -836,16 +884,19 @@ void main() {
       expect(list, equals([p1]));
     });
 
-    test('getClosestInStates() - busca todos os peers mais proximos nos estados', () {
-      final target = samplePeerId;
-      final qp = QueryPeerset(target, (t, a, b) => 0);
-      final p1 = libp2p.PeerId.decode(
-        '12D3KooWStiM2F2p4k2c6c3H3c2wM7d8Xv5R7n3w4k7K2c6c3H3c',
-      );
-      qp.tryAdd(p1, target);
-      final list = qp.getClosestInStates({PeerState.heard});
-      expect(list, equals([p1]));
-    });
+    test(
+      'getClosestInStates() - busca todos os peers mais proximos nos estados',
+      () {
+        final target = samplePeerId;
+        final qp = QueryPeerset(target, (t, a, b) => 0);
+        final p1 = libp2p.PeerId.decode(
+          '12D3KooWStiM2F2p4k2c6c3H3c2wM7d8Xv5R7n3w4k7K2c6c3H3c',
+        );
+        qp.tryAdd(p1, target);
+        final list = qp.getClosestInStates({PeerState.heard});
+        expect(list, equals([p1]));
+      },
+    );
 
     test('numHeard - quantidade de peers descobertos pendentes', () {
       final target = samplePeerId;
@@ -879,5 +930,4 @@ void main() {
       expect(cfgOnline.config.offline, isFalse);
     });
   });
-
 }

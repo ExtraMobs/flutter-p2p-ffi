@@ -70,23 +70,20 @@ void main() {
       expect(MultibaseUtils.decode(encoded), equals(bytes));
     });
 
-    test(
-      'real-world raw-codec CIDv1 byte sequence with leading-zero digest '
-      'encodes to the well-known bafkrei... family prefix',
-      () {
-        // version(0x01) + codec(raw=0x55) + multihash-fn(sha2-256=0x12) +
-        // digest-len(0x20=32) + a 32-byte digest starting with 0x00.
-        final bytes = Uint8List.fromList([
-          0x01, 0x55, 0x12, 0x20,
-          0x00, 0x9b, 0x53, 0xe3, 0x22, 0x2c, 0x3c, 0x1c, //
-          0xd8, 0x3f, 0x3c, 0xc8, 0x78, 0x46, 0xfd, 0x36, //
-          0xce, 0x7b, 0x73, 0xd1, 0x7d, 0x2e, 0x48, 0xd5, //
-          0x49, 0xb1, 0x41, 0xbc, 0x52, 0x41, 0x99, 0x1a, //
-        ]);
-        final encoded = MultibaseUtils.encode(mb.Multibase.base32, bytes);
-        expect(encoded, startsWith('bafkrei'));
-        expect(MultibaseUtils.decode(encoded), equals(bytes));
-      },
-    );
+    test('real-world raw-codec CIDv1 byte sequence with leading-zero digest '
+        'encodes to the well-known bafkrei... family prefix', () {
+      // version(0x01) + codec(raw=0x55) + multihash-fn(sha2-256=0x12) +
+      // digest-len(0x20=32) + a 32-byte digest starting with 0x00.
+      final bytes = Uint8List.fromList([
+        0x01, 0x55, 0x12, 0x20,
+        0x00, 0x9b, 0x53, 0xe3, 0x22, 0x2c, 0x3c, 0x1c, //
+        0xd8, 0x3f, 0x3c, 0xc8, 0x78, 0x46, 0xfd, 0x36, //
+        0xce, 0x7b, 0x73, 0xd1, 0x7d, 0x2e, 0x48, 0xd5, //
+        0x49, 0xb1, 0x41, 0xbc, 0x52, 0x41, 0x99, 0x1a, //
+      ]);
+      final encoded = MultibaseUtils.encode(mb.Multibase.base32, bytes);
+      expect(encoded, startsWith('bafkrei'));
+      expect(MultibaseUtils.decode(encoded), equals(bytes));
+    });
   });
 }

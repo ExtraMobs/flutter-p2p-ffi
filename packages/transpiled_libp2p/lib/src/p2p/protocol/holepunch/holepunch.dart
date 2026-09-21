@@ -29,10 +29,10 @@ class HolePunchService {
     this.directDialTimeout = const Duration(seconds: 10),
     this.listenAddrs,
   }) : holePuncher = HolePuncher(
-          host: host,
-          directDialTimeout: directDialTimeout,
-          listenAddrs: listenAddrs,
-        );
+         host: host,
+         directDialTimeout: directDialTimeout,
+         listenAddrs: listenAddrs,
+       );
 
   final Host host;
   final Duration directDialTimeout;
@@ -135,9 +135,9 @@ class HolePunchService {
           const Duration(minutes: 5),
         );
         try {
-          await host.connect(
-            AddrInfo(id: remotePeer, addrs: initiatorAddrs),
-          ).timeout(directDialTimeout);
+          await host
+              .connect(AddrInfo(id: remotePeer, addrs: initiatorAddrs))
+              .timeout(directDialTimeout);
         } catch (_) {
           // Hole punch attempt completed; if direct dial failed, relay stays active
         }
@@ -150,10 +150,7 @@ class HolePunchService {
   }
 
   /// Attempts a direct connection to a remote peer via DCUtR.
-  Future<bool> directConnect(
-    PeerId peer, {
-    List<Multiaddr> addrs = const [],
-  }) {
+  Future<bool> directConnect(PeerId peer, {List<Multiaddr> addrs = const []}) {
     return holePuncher.initiateHolePunch(peer, addrs);
   }
 
@@ -226,11 +223,11 @@ class HolePuncher {
 
     try {
       // Step 1: Open /libp2p/dcutr stream over the existing connection
-      final stream = await host.newStream(
-        remotePeer,
-        [holePunchProtocol],
-        context: NetworkContext(dialPeerTimeout: directDialTimeout),
-      ).timeout(directDialTimeout);
+      final stream = await host
+          .newStream(remotePeer, [
+            holePunchProtocol,
+          ], context: NetworkContext(dialPeerTimeout: directDialTimeout))
+          .timeout(directDialTimeout);
 
       try {
         // Step 2: Send CONNECT with our direct addresses
@@ -285,9 +282,9 @@ class HolePuncher {
             remoteDirectAddrs,
             const Duration(minutes: 5),
           );
-          await host.connect(
-            AddrInfo(id: remotePeer, addrs: remoteDirectAddrs),
-          ).timeout(directDialTimeout);
+          await host
+              .connect(AddrInfo(id: remotePeer, addrs: remoteDirectAddrs))
+              .timeout(directDialTimeout);
           return true;
         }
         return false;

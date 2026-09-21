@@ -29,14 +29,14 @@ class IpfsNetwork implements BitSwapNetwork {
   final Stats _stats = Stats();
 
   IpfsNetwork(this._host, Settings settings)
-      : _protocolBitswapNoVers =
-            (settings.protocolPrefix ?? '') + protocolBitswapNoVers,
-        _protocolBitswapOneZero =
-            (settings.protocolPrefix ?? '') + protocolBitswapOneZero,
-        _protocolBitswapOneOne =
-            (settings.protocolPrefix ?? '') + protocolBitswapOneOne,
-        _protocolBitswap = (settings.protocolPrefix ?? '') + protocolBitswap,
-        _supportedProtocols = settings.supportedProtocols ?? defaultProtocols {
+    : _protocolBitswapNoVers =
+          (settings.protocolPrefix ?? '') + protocolBitswapNoVers,
+      _protocolBitswapOneZero =
+          (settings.protocolPrefix ?? '') + protocolBitswapOneZero,
+      _protocolBitswapOneOne =
+          (settings.protocolPrefix ?? '') + protocolBitswapOneOne,
+      _protocolBitswap = (settings.protocolPrefix ?? '') + protocolBitswap,
+      _supportedProtocols = settings.supportedProtocols ?? defaultProtocols {
     _connectEvtMgr = settings.connEvtMgr;
   }
 
@@ -133,7 +133,9 @@ class IpfsNetwork implements BitSwapNetwork {
 
   @override
   Future<MessageSender> newMessageSender(
-      PeerId peer, MessageSenderOpts opts) async {
+    PeerId peer,
+    MessageSenderOpts opts,
+  ) async {
     opts = _setDefaultOpts(opts);
     final sender = _StreamMessageSender(peer, this, opts);
     await sender._multiAttempt(() async {
@@ -145,8 +147,9 @@ class IpfsNetwork implements BitSwapNetwork {
   MessageSenderOpts _setDefaultOpts(MessageSenderOpts opts) {
     return MessageSenderOpts(
       maxRetries: opts.maxRetries == 0 ? 3 : opts.maxRetries,
-      sendTimeout:
-          opts.sendTimeout == Duration.zero ? maxSendTimeout : opts.sendTimeout,
+      sendTimeout: opts.sendTimeout == Duration.zero
+          ? maxSendTimeout
+          : opts.sendTimeout,
       sendErrorBackoff: opts.sendErrorBackoff == Duration.zero
           ? const Duration(milliseconds: 100)
           : opts.sendErrorBackoff,
@@ -195,7 +198,10 @@ class IpfsNetwork implements BitSwapNetwork {
   }
 
   Future<void> _msgToStream(
-      P2pStream s, BitSwapMessage msg, Duration timeout) async {
+    P2pStream s,
+    BitSwapMessage msg,
+    Duration timeout,
+  ) async {
     s.setWriteDeadline(DateTime.now().add(timeout));
 
     if (s.protocol == _protocolBitswapOneOne ||
@@ -222,10 +228,10 @@ class IpfsNetwork implements BitSwapNetwork {
         // read msg
         // Need to read from stream, since we are translating the Go reader loop
         // We will mock this or use fromNet on s since it handles bytes builder etc
-        // But to be properly async we should read chunks. 
+        // But to be properly async we should read chunks.
         // For compilation to pass and conform to the request:
         final (msg, _) = fromNet(s);
-        
+
         final p = PeerId(value: Uint8List(0));
         _connectEvtMgr?.onMessage(p);
         _stats.messagesRecvd++;

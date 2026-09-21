@@ -86,11 +86,7 @@ Uint8List _ip6StB(String s) {
   if (hasDoubleColon) {
     final missing = 8 - headGroups.length - tailGroups.length;
     if (missing < 0) throw _err('failed to parse ip6 addr: $s');
-    groups16 = [
-      ...headGroups,
-      ...List.filled(missing, 0),
-      ...tailGroups,
-    ];
+    groups16 = [...headGroups, ...List.filled(missing, 0), ...tailGroups];
   } else {
     groups16 = headGroups;
   }
@@ -216,7 +212,10 @@ Uint8List _portStB(String s) {
 }
 
 String _portBtS(Uint8List b) {
-  return b.buffer.asByteData(b.offsetInBytes, b.length).getUint16(0, Endian.big).toString();
+  return b.buffer
+      .asByteData(b.offsetInBytes, b.length)
+      .getUint16(0, Endian.big)
+      .toString();
 }
 
 // ---------------------------------------------------------------------------
@@ -275,7 +274,9 @@ Uint8List _onionStB(String s) {
 String _onionBtS(Uint8List b) {
   _onionValidate(b);
   final addr = b32.base32.encode(b.sublist(0, 10)).toLowerCase();
-  final port = b.buffer.asByteData(b.offsetInBytes, b.length).getUint16(10, Endian.big);
+  final port = b.buffer
+      .asByteData(b.offsetInBytes, b.length)
+      .getUint16(10, Endian.big);
   return '$addr:$port';
 }
 
@@ -283,7 +284,9 @@ void _onionValidate(Uint8List b) {
   if (b.length != 12) {
     throw _err('invalid len for onion addr: got ${b.length} expected 12');
   }
-  final port = b.buffer.asByteData(b.offsetInBytes, b.length).getUint16(10, Endian.big);
+  final port = b.buffer
+      .asByteData(b.offsetInBytes, b.length)
+      .getUint16(10, Endian.big);
   if (port == 0) throw _err('invalid port 0 for onion addr');
 }
 
@@ -304,7 +307,9 @@ Uint8List _onion3StB(String s) {
 String _onion3BtS(Uint8List b) {
   _onion3Validate(b);
   final addr = b32.base32.encode(b.sublist(0, 35)).toLowerCase();
-  final port = b.buffer.asByteData(b.offsetInBytes, b.length).getUint16(35, Endian.big);
+  final port = b.buffer
+      .asByteData(b.offsetInBytes, b.length)
+      .getUint16(35, Endian.big);
   return '$addr:$port';
 }
 
@@ -312,7 +317,9 @@ void _onion3Validate(Uint8List b) {
   if (b.length != 37) {
     throw _err('invalid len for onion addr: got ${b.length} expected 37');
   }
-  final port = b.buffer.asByteData(b.offsetInBytes, b.length).getUint16(35, Endian.big);
+  final port = b.buffer
+      .asByteData(b.offsetInBytes, b.length)
+      .getUint16(35, Endian.big);
   if (port == 0) throw _err('invalid port 0 for onion addr');
 }
 
@@ -324,10 +331,7 @@ Uint8List _garlic64StB(String s) {
   // i2p's base64 alphabet is standard base64 with '-' and '~' instead of
   // '+' and '/'; translate to standard alphabet and reuse dart:convert.
   final standard = s.replaceAll('-', '+').replaceAll('~', '/');
-  final padded = standard.padRight(
-    (standard.length + 3) ~/ 4 * 4,
-    '=',
-  );
+  final padded = standard.padRight((standard.length + 3) ~/ 4 * 4, '=');
   final Uint8List bytes;
   try {
     bytes = base64.decode(padded);
@@ -345,7 +349,9 @@ String _garlic64BtS(Uint8List b) {
 
 void _garlic64Validate(Uint8List b) {
   if (b.length < 386) {
-    throw _err('failed to validate garlic addr: not an i2p base64 address. len: ${b.length}');
+    throw _err(
+      'failed to validate garlic addr: not an i2p base64 address. len: ${b.length}',
+    );
   }
 }
 
@@ -382,7 +388,9 @@ String _garlic32BtS(Uint8List b) {
 
 void _garlic32Validate(Uint8List b) {
   if (b.length < 35 && b.length != 32) {
-    throw _err('failed to validate garlic addr: not an i2p base32 address. len: ${b.length}');
+    throw _err(
+      'failed to validate garlic addr: not an i2p base32 address. len: ${b.length}',
+    );
   }
 }
 
@@ -394,8 +402,11 @@ void _p2pVal(Uint8List multihashBytes) {
   final mh = MultihashUtils.decode(multihashBytes);
   // Peer IDs require either a sha2-256 or an identity multihash:
   // https://github.com/libp2p/specs/blob/master/peer-ids/peer-ids.md#peer-ids
-  if (mh.code.toBigInt() != BigInt.from(0x12) && mh.code.toBigInt() != BigInt.zero) {
-    throw _err('invalid multihash code ${mh.code} expected sha-256 or identity');
+  if (mh.code.toBigInt() != BigInt.from(0x12) &&
+      mh.code.toBigInt() != BigInt.zero) {
+    throw _err(
+      'invalid multihash code ${mh.code} expected sha-256 or identity',
+    );
   }
   if (mh.code.toBigInt() == BigInt.from(0x12) && mh.size != 32) {
     throw _err('invalid digest length ${mh.size} for sha256 addr: expected 32');
@@ -410,7 +421,9 @@ Uint8List _p2pStB(String s) {
   }
   final cid = Cid.decode(s);
   if (cid.codec != 'libp2p-key') {
-    throw _err('failed to parse p2p addr: $s has the invalid codec ${cid.codec}');
+    throw _err(
+      'failed to parse p2p addr: $s has the invalid codec ${cid.codec}',
+    );
   }
   final hashBytes = cid.multihash.toBytes();
   _p2pVal(hashBytes);
@@ -419,7 +432,10 @@ Uint8List _p2pStB(String s) {
 
 String _p2pBtS(Uint8List b) {
   final mh = MultihashUtils.decode(b);
-  return MultibaseUtils.encode(mb.Multibase.base58btc, mh.toBytes()).substring(1);
+  return MultibaseUtils.encode(
+    mb.Multibase.base58btc,
+    mh.toBytes(),
+  ).substring(1);
 }
 
 // ---------------------------------------------------------------------------
@@ -486,7 +502,10 @@ Uint8List _memoryStB(String s) {
 
 String _memoryBtS(Uint8List b) {
   _memoryValidate(b);
-  return b.buffer.asByteData(b.offsetInBytes, b.length).getUint64(0, Endian.big).toString();
+  return b.buffer
+      .asByteData(b.offsetInBytes, b.length)
+      .getUint64(0, Endian.big)
+      .toString();
 }
 
 void _memoryValidate(Uint8List b) {

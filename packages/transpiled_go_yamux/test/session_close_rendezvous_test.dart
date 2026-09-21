@@ -64,7 +64,8 @@ void main() {
     expect(
       transport.events,
       equals(['write-start', 'write-end', 'close']),
-      reason: 'o transporte não pode ser fechado por cima de um quadro '
+      reason:
+          'o transporte não pode ser fechado por cima de um quadro '
           'escrito pela metade (go-yamux session.go: <-s.sendDoneCh)',
     );
   });

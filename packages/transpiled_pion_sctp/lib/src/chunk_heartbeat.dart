@@ -46,7 +46,8 @@ final class ChunkTypeNotHeartbeatException implements Exception {
   final ChunkType actual;
 
   @override
-  String toString() => 'ChunkType is not of type HEARTBEAT: actually is $actual';
+  String toString() =>
+      'ChunkType is not of type HEARTBEAT: actually is $actual';
 }
 
 /// Port of `ErrHeartbeatNotLongEnoughInfo` (chunk_heartbeat.go:40).
@@ -56,7 +57,8 @@ final class HeartbeatNotLongEnoughInfoException implements Exception {
   final int length;
 
   @override
-  String toString() => 'heartbeat is not long enough to contain Heartbeat Info: $length';
+  String toString() =>
+      'heartbeat is not long enough to contain Heartbeat Info: $length';
 }
 
 /// Port of `ErrParseParamTypeFailed` (chunk_heartbeat.go:41), wrapping the
@@ -77,7 +79,8 @@ final class HeartbeatParamException implements Exception {
   final ParamType actual;
 
   @override
-  String toString() => 'heartbeat should only have HEARTBEAT param: instead have $actual';
+  String toString() =>
+      'heartbeat should only have HEARTBEAT param: instead have $actual';
 }
 
 /// Port of `ErrHeartbeatChunkUnmarshal` (chunk_heartbeat.go:43), wrapping
@@ -95,7 +98,11 @@ final class HeartbeatChunkUnmarshalException implements Exception {
 final class ChunkHeartbeat implements Chunk {
   ChunkHeartbeat({List<Param>? params})
     : params = params ?? <Param>[],
-      header = ChunkHeader(typ: ChunkType.heartbeat, flags: 0, raw: Uint8List(0));
+      header = ChunkHeader(
+        typ: ChunkType.heartbeat,
+        flags: 0,
+        raw: Uint8List(0),
+      );
 
   /// Composition standing in for Go's embedded `chunkHeader`.
   ChunkHeader header;

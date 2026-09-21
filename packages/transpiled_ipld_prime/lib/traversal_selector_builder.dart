@@ -131,4 +131,3 @@ final class _Spec implements SelectorSpec {
   @override
   Selector selector() => compileSelector(_node);
 }
-

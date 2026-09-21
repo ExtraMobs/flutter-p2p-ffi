@@ -31,7 +31,8 @@ class Key implements Comparable<Key> {
   /// malformed input" contract (ported as [ArgumentError]).
   factory Key.raw(String s) {
     if (s.isEmpty) return const Key._('/');
-    if (s.codeUnitAt(0) != 0x2F || (s.length > 1 && s.codeUnitAt(s.length - 1) == 0x2F)) {
+    if (s.codeUnitAt(0) != 0x2F ||
+        (s.length > 1 && s.codeUnitAt(s.length - 1) == 0x2F)) {
       throw ArgumentError('invalid datastore key: $s');
     }
     return Key._(s);
@@ -39,7 +40,8 @@ class Key implements Comparable<Key> {
 
   /// Constructs a key by joining [namespaces] with `/`. Equivalent to
   /// go-datastore's `KeyWithNamespaces`.
-  factory Key.withNamespaces(List<String> namespaces) => Key(namespaces.join('/'));
+  factory Key.withNamespaces(List<String> namespaces) =>
+      Key(namespaces.join('/'));
 
   /// Parses a key back out of [marshalJson]'s output. Equivalent to
   /// go-datastore's `Key.UnmarshalJSON`.
@@ -207,4 +209,6 @@ String namespaceType(String namespace) {
 String namespaceValue(String namespace) => namespace.split(':').last;
 
 /// The keys of [entries]. Equivalent to go-datastore's `EntryKeys`.
-List<Key> entryKeys(List<Entry> entries) => [for (final e in entries) Key(e.key)];
+List<Key> entryKeys(List<Entry> entries) => [
+  for (final e in entries) Key(e.key),
+];

@@ -59,9 +59,15 @@ final class MessageIntegrity implements Setter, Checker {
   /// SASL-prepared. Not a free `newX` function (AGENTS.md,
   /// "RULE_NO_NEW_X_FUNCTIONS"): it builds a [MessageIntegrity], so it
   /// belongs on the class as a named constructor.
-  factory MessageIntegrity.longTerm(String username, String realm, String password) {
+  factory MessageIntegrity.longTerm(
+    String username,
+    String realm,
+    String password,
+  ) {
     final k = [username, realm, password].join(_credentialsSep);
-    return MessageIntegrity(Uint8List.fromList(md5.convert(utf8.encode(k)).bytes));
+    return MessageIntegrity(
+      Uint8List.fromList(md5.convert(utf8.encode(k)).bytes),
+    );
   }
 
   /// Port of `NewShortTermIntegrity` (integrity.go:30-33): a key for
@@ -123,7 +129,9 @@ final class MessageIntegrity implements Setter, Checker {
     msg.length -= sizeReduced;
     msg.writeLength();
     final startOfHmac =
-        messageHeaderSize + msg.length - (attributeHeaderSize + _messageIntegritySize);
+        messageHeaderSize +
+        msg.length -
+        (attributeHeaderSize + _messageIntegritySize);
     final b = Uint8List.sublistView(msg.raw, 0, startOfHmac);
     final expected = _hmacSha1(key, b);
     msg.length = length;

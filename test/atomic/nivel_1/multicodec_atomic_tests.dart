@@ -21,7 +21,10 @@ void main() {
     });
 
     test('code() - lança ArgumentError para codec desconhecido', () {
-      expect(() => code('nonexistent-codec-xyz'), throwsA(isA<ArgumentError>()));
+      expect(
+        () => code('nonexistent-codec-xyz'),
+        throwsA(isA<ArgumentError>()),
+      );
     });
 
     test('name() - retorna nome canônico a partir do Code', () {
@@ -32,17 +35,26 @@ void main() {
   });
 
   group('Multicodec [Atomic Audit]', () {
-    test('code() - retorna código numérico para nome válido e lança para desconhecido', () {
-      expect(Multicodec.code('raw'), equals(0x55));
-      expect(Multicodec.code('sha2-256'), equals(0x12));
-      expect(() => Multicodec.code('unknown-codec-xyz'), throwsA(isA<ArgumentError>()));
-    });
+    test(
+      'code() - retorna código numérico para nome válido e lança para desconhecido',
+      () {
+        expect(Multicodec.code('raw'), equals(0x55));
+        expect(Multicodec.code('sha2-256'), equals(0x12));
+        expect(
+          () => Multicodec.code('unknown-codec-xyz'),
+          throwsA(isA<ArgumentError>()),
+        );
+      },
+    );
 
-    test('name() - retorna nome canônico para código válido e lança para inválido', () {
-      expect(Multicodec.name(0x55), equals('raw'));
-      expect(Multicodec.name(0x12), equals('sha2-256'));
-      expect(() => Multicodec.name(0x9999999), throwsA(isA<ArgumentError>()));
-    });
+    test(
+      'name() - retorna nome canônico para código válido e lança para inválido',
+      () {
+        expect(Multicodec.name(0x55), equals('raw'));
+        expect(Multicodec.name(0x12), equals('sha2-256'));
+        expect(() => Multicodec.name(0x9999999), throwsA(isA<ArgumentError>()));
+      },
+    );
 
     test('supports() - valida se o nome está presente na tabela de codecs', () {
       expect(Multicodec.supports('raw'), isTrue);
@@ -50,18 +62,27 @@ void main() {
       expect(Multicodec.supports('unknown-codec-xyz'), isFalse);
     });
 
-    test('supportsByCode() - valida se o código numérico está presente na tabela', () {
-      expect(Multicodec.supportsByCode(0x55), isTrue);
-      expect(Multicodec.supportsByCode(0x70), isTrue);
-      expect(Multicodec.supportsByCode(0x9999999), isFalse);
-    });
+    test(
+      'supportsByCode() - valida se o código numérico está presente na tabela',
+      () {
+        expect(Multicodec.supportsByCode(0x55), isTrue);
+        expect(Multicodec.supportsByCode(0x70), isTrue);
+        expect(Multicodec.supportsByCode(0x9999999), isFalse);
+      },
+    );
 
-    test('supported - retorna lista não-modificável contendo nomes registrados', () {
-      final list = Multicodec.supported;
-      expect(list.contains('raw'), isTrue);
-      expect(list.contains('dag-pb'), isTrue);
-      expect(() => (list as dynamic).add('fake'), throwsA(isA<UnsupportedError>()));
-    });
+    test(
+      'supported - retorna lista não-modificável contendo nomes registrados',
+      () {
+        final list = Multicodec.supported;
+        expect(list.contains('raw'), isTrue);
+        expect(list.contains('dag-pb'), isTrue);
+        expect(
+          () => (list as dynamic).add('fake'),
+          throwsA(isA<UnsupportedError>()),
+        );
+      },
+    );
 
     test('count - retorna a contagem total de codecs registrados', () {
       expect(Multicodec.count, greaterThan(600));

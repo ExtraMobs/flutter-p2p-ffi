@@ -34,12 +34,12 @@ final class ConnectionRole {
 
   @override
   String toString() => switch (value) {
-        1 => 'active',
-        2 => 'passive',
-        3 => 'actpass',
-        4 => 'holdconn',
-        _ => 'Unknown',
-      };
+    1 => 'active',
+    2 => 'passive',
+    3 => 'actpass',
+    4 => 'holdconn',
+    _ => 'Unknown',
+  };
 
   @override
   bool operator ==(Object other) =>

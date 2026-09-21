@@ -14,7 +14,8 @@ import 'package:transpiled_pion_sdp/transpiled_pion_sdp.dart';
 // Porta de CanonicalMarshalSDP (marshal_test.go) / CanonicalUnmarshalSDP
 // (unmarshal_test.go) -- as duas constantes upstream têm texto idêntico e
 // servem como o vetor de ida-e-volta (round trip) canônico do pacote.
-const String _canonicalSdp = 'v=0\r\n'
+const String _canonicalSdp =
+    'v=0\r\n'
     'o=jdoe 2890844526 2890842807 IN IP4 10.47.16.5\r\n'
     's=SDP Seminar\r\n'
     'i=A Seminar on the session description protocol\r\n'
@@ -42,50 +43,53 @@ const String _canonicalSdp = 'v=0\r\n'
 
 // Porta de getTestSessionDescription() (util_test.go).
 SessionDescription _testSessionDescription() => SessionDescription(
-      mediaDescriptions: [
-        MediaDescription(
-          mediaName: MediaName(
-            media: 'video',
-            port: RangedPort(value: 51372),
-            protos: ['RTP', 'AVP'],
-            formats: ['120', '121', '126', '97', '98'],
-          ),
-          attributes: [
-            Attribute.withValue(
-              'fmtp:126 profile-level-id=42e01f;level-asymmetry-allowed=1;'
-                  'packetization-mode=1',
-              '',
-            ),
-            Attribute.withValue(
-              'fmtp:97 profile-level-id=42e01f;level-asymmetry-allowed=1',
-              '',
-            ),
-            Attribute.withValue(
-              'fmtp:98 profile-level-id=42e01e; packetization-mode=1',
-              '',
-            ),
-            Attribute.withValue('fmtp:120 max-fs=12288;max-fr=60', ''),
-            Attribute.withValue('fmtp:121 max-fs=12288;max-fr=60', ''),
-            Attribute.withValue('rtpmap:120 VP8/90000', ''),
-            Attribute.withValue('rtpmap:121 VP9/90000', ''),
-            Attribute.withValue('rtpmap:126 H264/90000', ''),
-            Attribute.withValue('rtpmap:97 H264/90000', ''),
-            Attribute.withValue('rtpmap:98 H264/90000', ''),
-            Attribute.withValue('rtcp-fb:97 ccm fir', ''),
-            Attribute.withValue('rtcp-fb:97 nack', ''),
-            Attribute.withValue('rtcp-fb:97 nack pli', ''),
-            Attribute.withValue('rtcp-fb:* transport-cc', ''),
-            Attribute.withValue('rtcp-fb:* nack', ''),
-          ],
+  mediaDescriptions: [
+    MediaDescription(
+      mediaName: MediaName(
+        media: 'video',
+        port: RangedPort(value: 51372),
+        protos: ['RTP', 'AVP'],
+        formats: ['120', '121', '126', '97', '98'],
+      ),
+      attributes: [
+        Attribute.withValue(
+          'fmtp:126 profile-level-id=42e01f;level-asymmetry-allowed=1;'
+              'packetization-mode=1',
+          '',
         ),
+        Attribute.withValue(
+          'fmtp:97 profile-level-id=42e01f;level-asymmetry-allowed=1',
+          '',
+        ),
+        Attribute.withValue(
+          'fmtp:98 profile-level-id=42e01e; packetization-mode=1',
+          '',
+        ),
+        Attribute.withValue('fmtp:120 max-fs=12288;max-fr=60', ''),
+        Attribute.withValue('fmtp:121 max-fs=12288;max-fr=60', ''),
+        Attribute.withValue('rtpmap:120 VP8/90000', ''),
+        Attribute.withValue('rtpmap:121 VP9/90000', ''),
+        Attribute.withValue('rtpmap:126 H264/90000', ''),
+        Attribute.withValue('rtpmap:97 H264/90000', ''),
+        Attribute.withValue('rtpmap:98 H264/90000', ''),
+        Attribute.withValue('rtcp-fb:97 ccm fir', ''),
+        Attribute.withValue('rtcp-fb:97 nack', ''),
+        Attribute.withValue('rtcp-fb:97 nack pli', ''),
+        Attribute.withValue('rtcp-fb:* transport-cc', ''),
+        Attribute.withValue('rtcp-fb:* nack', ''),
       ],
-    );
+    ),
+  ],
+);
 
 void main() {
   group('DocumentStartException [Atomic Audit]', () {
-    test('toString() - descreve a tentativa de retroceder no início do documento', () {
-      expect(DocumentStartException().toString(), contains('document start'));
-    });
+    test(
+      'toString() - descreve a tentativa de retroceder no início do documento',
+      () {
+        expect(DocumentStartException().toString(), contains('document start'));
+      },
+    );
   });
 
   group('SdpUnexpectedEndOfInputException [Atomic Audit]', () {
@@ -113,7 +117,10 @@ void main() {
 
   group('ExtMapSyntaxException [Atomic Audit]', () {
     test('toString() - inclui a entrada bruta recebida', () {
-      expect(ExtMapSyntaxException('extmap 1').toString(), contains('extmap 1'));
+      expect(
+        ExtMapSyntaxException('extmap 1').toString(),
+        contains('extmap 1'),
+      );
     });
   });
 
@@ -137,10 +144,7 @@ void main() {
 
   group('SdpInvalidValueException [Atomic Audit]', () {
     test('toString() - inclui o valor inválido', () {
-      expect(
-        SdpInvalidValueException('XX').toString(),
-        contains('XX'),
-      );
+      expect(SdpInvalidValueException('XX').toString(), contains('XX'));
     });
   });
 
@@ -207,10 +211,13 @@ void main() {
       expect(ConnectionRole.holdconn.toString(), equals('holdconn'));
     });
 
-    test('toString() - cai para "Unknown" no valor zero e em valores arbitrários', () {
-      expect(const ConnectionRole().toString(), equals('Unknown'));
-      expect(const ConnectionRole(99).toString(), equals('Unknown'));
-    });
+    test(
+      'toString() - cai para "Unknown" no valor zero e em valores arbitrários',
+      () {
+        expect(const ConnectionRole().toString(), equals('Unknown'));
+        expect(const ConnectionRole(99).toString(), equals('Unknown'));
+      },
+    );
 
     test('operator == - compara por valor numérico subjacente', () {
       expect(const ConnectionRole(1), equals(ConnectionRole.active));
@@ -226,20 +233,23 @@ void main() {
   });
 
   group('Codec [Atomic Audit]', () {
-    test('toString() - formata payload, nome, taxa, parâmetros e feedback RTCP', () {
-      final codec = Codec(
-        payloadType: 111,
-        name: 'opus',
-        clockRate: 48000,
-        encodingParameters: '2',
-        fmtp: 'minptime=10;useinbandfec=1',
-        rtcpFeedback: ['nack', 'pli'],
-      );
-      expect(
-        codec.toString(),
-        equals('111 opus/48000/2 (minptime=10;useinbandfec=1) [nack, pli]'),
-      );
-    });
+    test(
+      'toString() - formata payload, nome, taxa, parâmetros e feedback RTCP',
+      () {
+        final codec = Codec(
+          payloadType: 111,
+          name: 'opus',
+          clockRate: 48000,
+          encodingParameters: '2',
+          fmtp: 'minptime=10;useinbandfec=1',
+          rtcpFeedback: ['nack', 'pli'],
+        );
+        expect(
+          codec.toString(),
+          equals('111 opus/48000/2 (minptime=10;useinbandfec=1) [nack, pli]'),
+        );
+      },
+    );
   });
 
   group('ConnectionInformation [Atomic Audit]', () {
@@ -316,12 +326,15 @@ void main() {
       );
     });
 
-    test('isIceCandidate() - verdadeiro apenas para a chave exata "candidate"', () {
-      expect(Attribute(key: 'candidate').isIceCandidate(), isTrue);
-      expect(Attribute(key: 'Candidate').isIceCandidate(), isFalse);
-      expect(Attribute(key: 'ice-candidate').isIceCandidate(), isFalse);
-      expect(Attribute().isIceCandidate(), isFalse);
-    });
+    test(
+      'isIceCandidate() - verdadeiro apenas para a chave exata "candidate"',
+      () {
+        expect(Attribute(key: 'candidate').isIceCandidate(), isTrue);
+        expect(Attribute(key: 'Candidate').isIceCandidate(), isFalse);
+        expect(Attribute(key: 'ice-candidate').isIceCandidate(), isFalse);
+        expect(Attribute().isIceCandidate(), isFalse);
+      },
+    );
   });
 
   group('ExtMap [Atomic Audit]', () {
@@ -345,37 +358,49 @@ void main() {
       expect(e.marshal(), equals(example2));
     });
 
-    test('unmarshal() - lança ExtMapSyntaxException quando faltam os dois-pontos', () {
-      expect(
-        () => ExtMap().unmarshal('extmap 1 example.com'),
-        throwsA(isA<ExtMapSyntaxException>()),
-      );
-      expect(
-        () => ExtMap().unmarshal(''),
-        throwsA(isA<ExtMapSyntaxException>()),
-      );
-    });
+    test(
+      'unmarshal() - lança ExtMapSyntaxException quando faltam os dois-pontos',
+      () {
+        expect(
+          () => ExtMap().unmarshal('extmap 1 example.com'),
+          throwsA(isA<ExtMapSyntaxException>()),
+        );
+        expect(
+          () => ExtMap().unmarshal(''),
+          throwsA(isA<ExtMapSyntaxException>()),
+        );
+      },
+    );
 
-    test('unmarshal() - lança ExtMapSyntaxException com menos de dois campos', () {
-      expect(
-        () => ExtMap().unmarshal('extmap:1'),
-        throwsA(isA<ExtMapSyntaxException>()),
-      );
-    });
+    test(
+      'unmarshal() - lança ExtMapSyntaxException com menos de dois campos',
+      () {
+        expect(
+          () => ExtMap().unmarshal('extmap:1'),
+          throwsA(isA<ExtMapSyntaxException>()),
+        );
+      },
+    );
 
-    test('unmarshal() - lança ExtMapSyntaxException fora do intervalo 1-246', () {
-      expect(
-        () => ExtMap().unmarshal(failingRange),
-        throwsA(isA<ExtMapSyntaxException>()),
-      );
-    });
+    test(
+      'unmarshal() - lança ExtMapSyntaxException fora do intervalo 1-246',
+      () {
+        expect(
+          () => ExtMap().unmarshal(failingRange),
+          throwsA(isA<ExtMapSyntaxException>()),
+        );
+      },
+    );
 
-    test('unmarshal() - propaga FormatException de uma direção desconhecida', () {
-      expect(
-        () => ExtMap().unmarshal(failingDirection),
-        throwsA(isA<FormatException>()),
-      );
-    });
+    test(
+      'unmarshal() - propaga FormatException de uma direção desconhecida',
+      () {
+        expect(
+          () => ExtMap().unmarshal(failingDirection),
+          throwsA(isA<FormatException>()),
+        );
+      },
+    );
 
     test('marshal() - concatena name() e a representação interna com ":"', () {
       final e = ExtMap(value: 3, uri: Uri.parse(transportCcUri));
@@ -429,15 +454,18 @@ void main() {
   });
 
   group('MediaName [Atomic Audit]', () {
-    test('toString() - concatena media, porta, protos (com "/") e formatos', () {
-      final m = MediaName(
-        media: 'audio',
-        port: RangedPort(value: 5004, range: 2),
-        protos: ['UDP', 'TLS', 'RTP', 'SAVPF'],
-        formats: ['111', '96'],
-      );
-      expect(m.toString(), equals('audio 5004/2 UDP/TLS/RTP/SAVPF 111 96'));
-    });
+    test(
+      'toString() - concatena media, porta, protos (com "/") e formatos',
+      () {
+        final m = MediaName(
+          media: 'audio',
+          port: RangedPort(value: 5004, range: 2),
+          protos: ['UDP', 'TLS', 'RTP', 'SAVPF'],
+          formats: ['111', '96'],
+        );
+        expect(m.toString(), equals('audio 5004/2 UDP/TLS/RTP/SAVPF 111 96'));
+      },
+    );
   });
 
   group('SessionDescription [Atomic Audit]', () {
@@ -478,8 +506,7 @@ void main() {
   group('TimeZone [Atomic Audit]', () {
     test('toString() - concatena adjustmentTime e offset', () {
       expect(
-        TimeZone(adjustmentTime: Golang.Uint64(3600), offset: -1800)
-            .toString(),
+        TimeZone(adjustmentTime: Golang.Uint64(3600), offset: -1800).toString(),
         equals('3600 -1800'),
       );
       expect(
@@ -492,13 +519,17 @@ void main() {
   group('Timing [Atomic Audit]', () {
     test('toString() - concatena startTime e stopTime', () {
       expect(
-        Timing(startTime: Golang.Uint64(), stopTime: Golang.Uint64())
-            .toString(),
+        Timing(
+          startTime: Golang.Uint64(),
+          stopTime: Golang.Uint64(),
+        ).toString(),
         equals('0 0'),
       );
       expect(
-        Timing(startTime: Golang.Uint64(12345), stopTime: Golang.Uint64(67890))
-            .toString(),
+        Timing(
+          startTime: Golang.Uint64(12345),
+          stopTime: Golang.Uint64(67890),
+        ).toString(),
         equals('12345 67890'),
       );
     });
@@ -525,15 +556,17 @@ void main() {
   });
 
   group('SessionDescriptionCodecs [Atomic Audit]', () {
-    test('getCodecForPayloadType() - resolve um codec anunciado via rtpmap/fmtp', () {
-      final codec = _testSessionDescription().getCodecForPayloadType(120);
-      expect(codec.name, equals('VP8'));
-      expect(codec.clockRate, equals(90000));
-      expect(codec.fmtp, equals('max-fs=12288;max-fr=60'));
-    });
-
     test(
-        'getCodecForPayloadType() - lança PayloadTypeNotFoundException para '
+      'getCodecForPayloadType() - resolve um codec anunciado via rtpmap/fmtp',
+      () {
+        final codec = _testSessionDescription().getCodecForPayloadType(120);
+        expect(codec.name, equals('VP8'));
+        expect(codec.clockRate, equals(90000));
+        expect(codec.fmtp, equals('max-fs=12288;max-fr=60'));
+      },
+    );
+
+    test('getCodecForPayloadType() - lança PayloadTypeNotFoundException para '
         'payload type ausente', () {
       expect(
         () => SessionDescription().getCodecForPayloadType(42),
@@ -541,24 +574,33 @@ void main() {
       );
     });
 
-    test('getCodecsForPayloadTypes() - resolve múltiplos payload types de uma vez', () {
-      final codecs =
-          _testSessionDescription().getCodecsForPayloadTypes([120, 121]);
-      expect(codecs.map((c) => c.name), equals(['VP8', 'VP9']));
-    });
-
-    test('getPayloadTypeForCodec() - casa por nome quando não há outros critérios', () {
-      final pt =
-          _testSessionDescription().getPayloadTypeForCodec(Codec(name: 'VP8'));
-      expect(pt, equals(120));
-    });
+    test(
+      'getCodecsForPayloadTypes() - resolve múltiplos payload types de uma vez',
+      () {
+        final codecs = _testSessionDescription().getCodecsForPayloadTypes([
+          120,
+          121,
+        ]);
+        expect(codecs.map((c) => c.name), equals(['VP8', 'VP9']));
+      },
+    );
 
     test(
-        'getPayloadTypeForCodec() - lança CodecNotFoundException quando '
+      'getPayloadTypeForCodec() - casa por nome quando não há outros critérios',
+      () {
+        final pt = _testSessionDescription().getPayloadTypeForCodec(
+          Codec(name: 'VP8'),
+        );
+        expect(pt, equals(120));
+      },
+    );
+
+    test('getPayloadTypeForCodec() - lança CodecNotFoundException quando '
         'nenhum codec corresponde', () {
       expect(
-        () => SessionDescription()
-            .getPayloadTypeForCodec(Codec(name: 'doesnotexist')),
+        () => SessionDescription().getPayloadTypeForCodec(
+          Codec(name: 'doesnotexist'),
+        ),
         throwsA(isA<CodecNotFoundException>()),
       );
     });
@@ -577,12 +619,18 @@ void main() {
         sd.sessionInformation?.value,
         equals('A Seminar on the session description protocol'),
       );
-      expect(sd.bandwidth.map((b) => b.toString()), equals(['X-YZ:128', 'AS:12345']));
+      expect(
+        sd.bandwidth.map((b) => b.toString()),
+        equals(['X-YZ:128', 'AS:12345']),
+      );
       expect(sd.timeDescriptions, hasLength(2));
       expect(sd.timeDescriptions[1].repeatTimes, hasLength(1));
       expect(sd.timeZones, hasLength(2));
       expect(sd.encryptionKey?.value, equals('prompt'));
-      expect(sd.attributes.map((a) => a.key), equals(['candidate', 'recvonly']));
+      expect(
+        sd.attributes.map((a) => a.key),
+        equals(['candidate', 'recvonly']),
+      );
       expect(sd.mediaDescriptions, hasLength(2));
       expect(sd.mediaDescriptions[0].mediaName.media, equals('audio'));
       expect(sd.mediaDescriptions[1].attributes.single.key, equals('rtpmap'));
@@ -592,22 +640,27 @@ void main() {
       );
     });
 
-    test('unmarshalString() - lança SdpInvalidValueException quando v != 0', () {
-      expect(
-        () => SessionDescription().unmarshalString('v=1\r\n'),
-        throwsA(isA<SdpInvalidValueException>()),
-      );
-    });
-
-    test('unmarshalString() - lança SdpSyntaxException em linha malformada', () {
-      expect(
-        () => SessionDescription().unmarshalString('v0\r\n'),
-        throwsA(isA<SdpSyntaxException>()),
-      );
-    });
+    test(
+      'unmarshalString() - lança SdpInvalidValueException quando v != 0',
+      () {
+        expect(
+          () => SessionDescription().unmarshalString('v=1\r\n'),
+          throwsA(isA<SdpInvalidValueException>()),
+        );
+      },
+    );
 
     test(
-        'unmarshalString() - campos ausentes de Origin recebem os padrões '
+      'unmarshalString() - lança SdpSyntaxException em linha malformada',
+      () {
+        expect(
+          () => SessionDescription().unmarshalString('v0\r\n'),
+          throwsA(isA<SdpSyntaxException>()),
+        );
+      },
+    );
+
+    test('unmarshalString() - campos ausentes de Origin recebem os padrões '
         'de compatibilidade IP4/0.0.0.0', () {
       final sd = SessionDescription();
       sd.unmarshalString('v=0\r\no=jdoe 123 456 IN\ns=x\r\n');
@@ -615,37 +668,49 @@ void main() {
       expect(sd.origin.unicastAddress, equals('0.0.0.0'));
     });
 
-    test('unmarshal() - decodifica bytes UTF-8 delegando para unmarshalString()', () {
-      final sd = SessionDescription();
-      sd.unmarshal(utf8.encode(_canonicalSdp));
-      expect(sd.origin.username, equals('jdoe'));
-      expect(sd.mediaDescriptions, hasLength(2));
-    });
+    test(
+      'unmarshal() - decodifica bytes UTF-8 delegando para unmarshalString()',
+      () {
+        final sd = SessionDescription();
+        sd.unmarshal(utf8.encode(_canonicalSdp));
+        expect(sd.origin.username, equals('jdoe'));
+        expect(sd.mediaDescriptions, hasLength(2));
+      },
+    );
   });
 
   group('SessionDescriptionMarshal [Atomic Audit]', () {
-    test('marshal() - reproduz o documento canônico byte a byte (ida e volta)', () {
-      final sd = SessionDescription();
-      sd.unmarshalString(_canonicalSdp);
-      expect(sd.marshal(), equals(_canonicalSdp));
-    });
+    test(
+      'marshal() - reproduz o documento canônico byte a byte (ida e volta)',
+      () {
+        final sd = SessionDescription();
+        sd.unmarshalString(_canonicalSdp);
+        expect(sd.marshal(), equals(_canonicalSdp));
+      },
+    );
 
-    test('marshalSize() - igual ao comprimento em bytes UTF-8 de marshal()', () {
-      final sd = SessionDescription();
-      sd.unmarshalString(_canonicalSdp);
-      expect(sd.marshalSize(), equals(utf8.encode(sd.marshal()).length));
-      expect(sd.marshalSize(), equals(utf8.encode(_canonicalSdp).length));
-    });
+    test(
+      'marshalSize() - igual ao comprimento em bytes UTF-8 de marshal()',
+      () {
+        final sd = SessionDescription();
+        sd.unmarshalString(_canonicalSdp);
+        expect(sd.marshalSize(), equals(utf8.encode(sd.marshal()).length));
+        expect(sd.marshalSize(), equals(utf8.encode(_canonicalSdp).length));
+      },
+    );
   });
 
   group('SessionDescriptionJsep [Atomic Audit]', () {
-    test('withPropertyAttribute() - adiciona atributo somente-chave e retorna this', () {
-      final sd = SessionDescription.jsep();
-      final ret = sd.withPropertyAttribute(attrKeyRtcpMux);
-      expect(identical(ret, sd), isTrue);
-      expect(sd.attributes, hasLength(1));
-      expect(sd.attributes.single.key, equals(attrKeyRtcpMux));
-    });
+    test(
+      'withPropertyAttribute() - adiciona atributo somente-chave e retorna this',
+      () {
+        final sd = SessionDescription.jsep();
+        final ret = sd.withPropertyAttribute(attrKeyRtcpMux);
+        expect(identical(ret, sd), isTrue);
+        expect(sd.attributes, hasLength(1));
+        expect(sd.attributes.single.key, equals(attrKeyRtcpMux));
+      },
+    );
 
     test('withValueAttribute() - adiciona atributo chave:valor', () {
       final sd = SessionDescription.jsep();
@@ -654,24 +719,29 @@ void main() {
       expect(sd.attributes.single.value, equals('video'));
     });
 
-    test('withIceRenomination() - adiciona o atributo ice-options "renomination"', () {
-      final sd = SessionDescription.jsep();
-      sd.withIceRenomination();
-      expect(sd.attributes.single.key, equals(attrKeyIceOptions));
-      expect(sd.attributes.single.value, equals('renomination'));
-    });
+    test(
+      'withIceRenomination() - adiciona o atributo ice-options "renomination"',
+      () {
+        final sd = SessionDescription.jsep();
+        sd.withIceRenomination();
+        expect(sd.attributes.single.key, equals(attrKeyIceOptions));
+        expect(sd.attributes.single.value, equals('renomination'));
+      },
+    );
 
     test(
-        'withIceTrickleAdvertised() combinado com withIceRenomination() - '
-        'ambos se acumulam em um único atributo ice-options separado por espaço',
-        () {
-      final sd = SessionDescription.jsep();
-      sd.withIceTrickleAdvertised().withIceRenomination();
-      final iceOptions =
-          sd.attributes.where((a) => a.key == attrKeyIceOptions).toList();
-      expect(iceOptions, hasLength(1));
-      expect(iceOptions.single.value, equals('trickle renomination'));
-    });
+      'withIceTrickleAdvertised() combinado com withIceRenomination() - '
+      'ambos se acumulam em um único atributo ice-options separado por espaço',
+      () {
+        final sd = SessionDescription.jsep();
+        sd.withIceTrickleAdvertised().withIceRenomination();
+        final iceOptions = sd.attributes
+            .where((a) => a.key == attrKeyIceOptions)
+            .toList();
+        expect(iceOptions, hasLength(1));
+        expect(iceOptions.single.value, equals('trickle renomination'));
+      },
+    );
 
     test('withFingerprint() - formata "algoritmo valor"', () {
       final sd = SessionDescription.jsep();
@@ -727,39 +797,61 @@ void main() {
       expect(md.attributes[1].value, equals('111 minptime=10;useinbandfec=1'));
     });
 
-    test('withMediaSource() - adiciona os quatro atributos ssrc na ordem upstream', () {
-      final md = MediaDescription.jsep('audio', []);
-      md.withMediaSource(1234567890, 'test-cname', 'test-stream', 'test-label');
-      expect(md.attributes, hasLength(4));
-      expect(md.attributes[0].value, equals('1234567890 cname:test-cname'));
-      expect(
-        md.attributes[1].value,
-        equals('1234567890 msid:test-stream test-label'),
-      );
-      expect(md.attributes[2].value, equals('1234567890 mslabel:test-stream'));
-      expect(md.attributes[3].value, equals('1234567890 label:test-label'));
-    });
+    test(
+      'withMediaSource() - adiciona os quatro atributos ssrc na ordem upstream',
+      () {
+        final md = MediaDescription.jsep('audio', []);
+        md.withMediaSource(
+          1234567890,
+          'test-cname',
+          'test-stream',
+          'test-label',
+        );
+        expect(md.attributes, hasLength(4));
+        expect(md.attributes[0].value, equals('1234567890 cname:test-cname'));
+        expect(
+          md.attributes[1].value,
+          equals('1234567890 msid:test-stream test-label'),
+        );
+        expect(
+          md.attributes[2].value,
+          equals('1234567890 mslabel:test-stream'),
+        );
+        expect(md.attributes[3].value, equals('1234567890 label:test-label'));
+      },
+    );
 
-    test('withCandidate() - adiciona o atributo "candidate" (API depreciada)', () {
-      final md = MediaDescription.jsep('audio', []);
-      // ignore: deprecated_member_use
-      md.withCandidate('0 1 UDP 2113667327 203.0.113.1 54400 typ host');
-      expect(md.attributes.single.key, equals('candidate'));
-    });
+    test(
+      'withCandidate() - adiciona o atributo "candidate" (API depreciada)',
+      () {
+        final md = MediaDescription.jsep('audio', []);
+        // ignore: deprecated_member_use
+        md.withCandidate('0 1 UDP 2113667327 203.0.113.1 54400 typ host');
+        expect(md.attributes.single.key, equals('candidate'));
+      },
+    );
 
-    test('withExtMap() - adiciona o extmap serializado como atributo de propriedade', () {
-      final md = MediaDescription.jsep('audio', []);
-      final uri = Uri.parse(extMapValueTransportCc == 3 ? transportCcUri : '');
-      md.withExtMap(ExtMap(value: extMapValueTransportCc, uri: uri));
-      expect(md.attributes.single.key, equals('extmap:3 $uri'));
-      expect(md.attributes.single.value, equals(''));
-    });
+    test(
+      'withExtMap() - adiciona o extmap serializado como atributo de propriedade',
+      () {
+        final md = MediaDescription.jsep('audio', []);
+        final uri = Uri.parse(
+          extMapValueTransportCc == 3 ? transportCcUri : '',
+        );
+        md.withExtMap(ExtMap(value: extMapValueTransportCc, uri: uri));
+        expect(md.attributes.single.key, equals('extmap:3 $uri'));
+        expect(md.attributes.single.value, equals(''));
+      },
+    );
 
-    test('withTransportCcExtMap() - usa o valor e a URI padrão do transport-cc', () {
-      final md = MediaDescription.jsep('audio', []);
-      md.withTransportCcExtMap();
-      expect(md.attributes.single.key, startsWith('extmap:3 '));
-      expect(md.attributes.single.key, contains(transportCcUri));
-    });
+    test(
+      'withTransportCcExtMap() - usa o valor e a URI padrão do transport-cc',
+      () {
+        final md = MediaDescription.jsep('audio', []);
+        md.withTransportCcExtMap();
+        expect(md.attributes.single.key, startsWith('extmap:3 '));
+        expect(md.attributes.single.key, contains(transportCcUri));
+      },
+    );
   });
 }

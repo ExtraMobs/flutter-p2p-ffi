@@ -14,7 +14,11 @@ import 'dart:typed_data';
 class KeyspaceKey {
   /// Creates a key in [space], remembering both its [original] value and
   /// its [bytes] representation within that space.
-  const KeyspaceKey({required this.space, required this.original, required this.bytes});
+  const KeyspaceKey({
+    required this.space,
+    required this.original,
+    required this.bytes,
+  });
 
   /// The [KeySpace] this key belongs to.
   final KeySpace space;

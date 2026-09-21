@@ -73,7 +73,11 @@ final class XorMappedAddress implements Setter, Getter {
     final data = ByteData.sublistView(value);
     final family = data.getUint16(0, Endian.big);
     if (family != _familyIpv6 && family != _familyIpv4) {
-      throw DecodeException.at('xor-mapped address', 'family', 'bad value $family');
+      throw DecodeException.at(
+        'xor-mapped address',
+        'family',
+        'bad value $family',
+      );
     }
     final ipLen = family == _familyIpv6 ? 16 : 4;
     if (value.length <= 4) throw const UnexpectedEofException();

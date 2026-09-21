@@ -12,7 +12,8 @@ import 'package:transpiled_ipfs/transpiled_ipfs.dart';
 Future<void> setupUpnpPortMapping(int port) async {
   print('Configurando mapeamento de porta UPnP no gateway da rede...');
   try {
-    final soapAddMapping = '<?xml version="1.0"?>\r\n'
+    final soapAddMapping =
+        '<?xml version="1.0"?>\r\n'
         '<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">\r\n'
         '<s:Body>\r\n'
         '<u:AddPortMapping xmlns:u="urn:schemas-upnp-org:service:WANIPConnection:1">\r\n'
@@ -42,7 +43,9 @@ Future<void> setupUpnpPortMapping(int port) async {
     req.contentLength = bytes.length;
     req.add(bytes);
     final resp = await req.close();
-    print('  UPnP Port Mapping status: ${resp.statusCode} ${resp.reasonPhrase}');
+    print(
+      '  UPnP Port Mapping status: ${resp.statusCode} ${resp.reasonPhrase}',
+    );
   } catch (e) {
     print('  Aviso ao configurar UPnP: $e');
   }
@@ -64,8 +67,9 @@ Future<void> main(List<String> args) async {
   } else {
     final rng = Random.secure();
     final randomBytes = List<int>.generate(32, (_) => rng.nextInt(256));
-    final randomHex =
-        randomBytes.map((b) => b.toRadixString(16).padLeft(2, '0')).join();
+    final randomHex = randomBytes
+        .map((b) => b.toRadixString(16).padLeft(2, '0'))
+        .join();
     final timestamp = DateTime.now().toUtc().toIso8601String();
     secretSequence = 'Dart-IPFS-Proof-[$timestamp]-$randomHex';
   }
@@ -191,11 +195,15 @@ Future<void> main(List<String> args) async {
   print('ipfs swarm connect $directWanAddr');
   print('ipfs cat ${unixFsCid.encode()}');
   print('ipfs block get ${rawCid.encode()}');
-  print('\n--- Opcao B: Conexao via Circuit Relay v2 (Garantido através do Kubo) ---');
+  print(
+    '\n--- Opcao B: Conexao via Circuit Relay v2 (Garantido através do Kubo) ---',
+  );
   print('ipfs swarm connect $relayKuboAddr1');
   print('ipfs cat ${unixFsCid.encode()}');
   print('ipfs block get ${rawCid.encode()}');
-  print('\n--- Opcao C: Conexao via Circuit Relay Mars (IPFS Public Relay) ---');
+  print(
+    '\n--- Opcao C: Conexao via Circuit Relay Mars (IPFS Public Relay) ---',
+  );
   print('ipfs swarm connect $relayMarsAddr');
   print('ipfs cat ${unixFsCid.encode()}');
   print('ipfs block get ${rawCid.encode()}');

@@ -103,7 +103,11 @@ class TcpTransport implements Transport, DialUpdater {
     int? port;
     for (final c in addr.components) {
       final name = c.protocol.name;
-      if (name == 'ip4' || name == 'ip6' || name == 'dns' || name == 'dns4' || name == 'dns6') {
+      if (name == 'ip4' ||
+          name == 'ip6' ||
+          name == 'dns' ||
+          name == 'dns4' ||
+          name == 'dns6') {
         host = c.value;
       } else if (name == 'tcp') {
         port = int.tryParse(c.value);
@@ -121,9 +125,9 @@ class _TcpRawConn implements RawConn {
     required Socket socket,
     required Transport transport,
     Multiaddr? targetRemoteAddr,
-  })  : _socket = socket,
-        _transport = transport,
-        _targetRemoteAddr = targetRemoteAddr {
+  }) : _socket = socket,
+       _transport = transport,
+       _targetRemoteAddr = targetRemoteAddr {
     _subscription = _socket.listen(
       (data) {
         _buffer.addAll(data);
@@ -163,15 +167,23 @@ class _TcpRawConn implements RawConn {
 
   @override
   Multiaddr localMultiaddr() {
-    final ipProto = _socket.address.type == InternetAddressType.IPv6 ? 'ip6' : 'ip4';
-    return Multiaddr.parse('/$ipProto/${_socket.address.address}/tcp/${_socket.port}');
+    final ipProto = _socket.address.type == InternetAddressType.IPv6
+        ? 'ip6'
+        : 'ip4';
+    return Multiaddr.parse(
+      '/$ipProto/${_socket.address.address}/tcp/${_socket.port}',
+    );
   }
 
   @override
   Multiaddr remoteMultiaddr() {
     if (_targetRemoteAddr != null) return _targetRemoteAddr!;
-    final ipProto = _socket.remoteAddress.type == InternetAddressType.IPv6 ? 'ip6' : 'ip4';
-    return Multiaddr.parse('/$ipProto/${_socket.remoteAddress.address}/tcp/${_socket.remotePort}');
+    final ipProto = _socket.remoteAddress.type == InternetAddressType.IPv6
+        ? 'ip6'
+        : 'ip4';
+    return Multiaddr.parse(
+      '/$ipProto/${_socket.remoteAddress.address}/tcp/${_socket.remotePort}',
+    );
   }
 
   @override
@@ -205,20 +217,20 @@ class _TcpRawConn implements RawConn {
 
   @override
   Future<void> write(Uint8List data) => _serialized(() async {
-        if (_isClosed) throw StateError('TCP connection is closed');
-        _socket.add(data);
-        await _socket.flush();
-      });
+    if (_isClosed) throw StateError('TCP connection is closed');
+    _socket.add(data);
+    await _socket.flush();
+  });
 
   @override
   Future<void> close() => _serialized(() async {
-        if (_isClosed) return;
-        _isClosed = true;
-        await _subscription?.cancel();
-        _subscription = null;
-        await _socket.close();
-        _socket.destroy();
-      });
+    if (_isClosed) return;
+    _isClosed = true;
+    await _subscription?.cancel();
+    _subscription = null;
+    await _socket.close();
+    _socket.destroy();
+  });
 
   @override
   bool get isClosed => _isClosed;
@@ -229,9 +241,9 @@ class _TcpListener implements Listener {
     required ServerSocket serverSocket,
     required Transport transport,
     required Upgrader upgrader,
-  })  : _serverSocket = serverSocket,
-        _transport = transport,
-        _upgrader = upgrader {
+  }) : _serverSocket = serverSocket,
+       _transport = transport,
+       _upgrader = upgrader {
     _subscription = _serverSocket.listen(
       (socket) {
         _pendingSockets.add(socket);
@@ -278,7 +290,11 @@ class _TcpListener implements Listener {
     final socket = _pendingSockets.removeAt(0);
     final rawConn = _TcpRawConn(socket: socket, transport: _transport);
     try {
-      return await _upgrader.upgrade(rawConn, Direction.inbound, PeerId(value: Uint8List(0)));
+      return await _upgrader.upgrade(
+        rawConn,
+        Direction.inbound,
+        PeerId(value: Uint8List(0)),
+      );
     } catch (err) {
       await rawConn.close();
       rethrow;
@@ -300,7 +316,11 @@ class _TcpListener implements Listener {
 
   @override
   Multiaddr multiaddr() {
-    final ipProto = _serverSocket.address.type == InternetAddressType.IPv6 ? 'ip6' : 'ip4';
-    return Multiaddr.parse('/$ipProto/${_serverSocket.address.address}/tcp/${_serverSocket.port}');
+    final ipProto = _serverSocket.address.type == InternetAddressType.IPv6
+        ? 'ip6'
+        : 'ip4';
+    return Multiaddr.parse(
+      '/$ipProto/${_serverSocket.address.address}/tcp/${_serverSocket.port}',
+    );
   }
 }

@@ -13,11 +13,18 @@ import 'dart:typed_data';
 import 'package:test/test.dart';
 import 'package:transpiled_libp2p/transpiled_libp2p.dart';
 
-Future<((CipherState, CipherState), (CipherState, CipherState))> _handshakeSplitPair() async {
+Future<((CipherState, CipherState), (CipherState, CipherState))>
+_handshakeSplitPair() async {
   final aStatic = await generateNoiseKeyPair();
   final bStatic = await generateNoiseKeyPair();
-  final a = await HandshakeState.initialize(initiator: true, staticKeyPair: aStatic);
-  final b = await HandshakeState.initialize(initiator: false, staticKeyPair: bStatic);
+  final a = await HandshakeState.initialize(
+    initiator: true,
+    staticKeyPair: aStatic,
+  );
+  final b = await HandshakeState.initialize(
+    initiator: false,
+    staticKeyPair: bStatic,
+  );
 
   final (m0, _) = await a.writeMessage(Uint8List(0));
   await b.readMessage(m0);
@@ -57,7 +64,9 @@ void main() {
 
     test('length prefix matches the actual ciphertext length', () async {
       final (aSplit, _) = await _handshakeSplitPair();
-      final plaintext = Uint8List.fromList(List<int>.generate(1000, (i) => i % 256));
+      final plaintext = Uint8List.fromList(
+        List<int>.generate(1000, (i) => i % 256),
+      );
       final frames = await encryptFrames(aSplit.$1, plaintext);
       final frame = frames.single;
       final bd = ByteData.sublistView(frame, 0, lengthPrefixLength);
@@ -67,35 +76,54 @@ void main() {
       expect(declaredLen, equals(plaintext.length + 16));
     });
 
-    test('plaintext larger than maxPlaintextLength is chunked across frames', () async {
-      final (aSplit, bSplit) = await _handshakeSplitPair();
-      final size = maxPlaintextLength * 2 + 137; // 2 full chunks + a remainder
-      final plaintext = Uint8List.fromList(List<int>.generate(size, (i) => i % 256));
+    test(
+      'plaintext larger than maxPlaintextLength is chunked across frames',
+      () async {
+        final (aSplit, bSplit) = await _handshakeSplitPair();
+        final size =
+            maxPlaintextLength * 2 + 137; // 2 full chunks + a remainder
+        final plaintext = Uint8List.fromList(
+          List<int>.generate(size, (i) => i % 256),
+        );
 
-      final frames = await encryptFrames(aSplit.$1, plaintext);
-      expect(frames, hasLength(3));
-      for (final frame in frames.take(2)) {
-        expect(frame.length - lengthPrefixLength, equals(maxPlaintextLength + 16));
-      }
-      expect(frames.last.length - lengthPrefixLength, equals(137 + 16));
+        final frames = await encryptFrames(aSplit.$1, plaintext);
+        expect(frames, hasLength(3));
+        for (final frame in frames.take(2)) {
+          expect(
+            frame.length - lengthPrefixLength,
+            equals(maxPlaintextLength + 16),
+          );
+        }
+        expect(frames.last.length - lengthPrefixLength, equals(137 + 16));
 
-      final decrypted = BytesBuilder();
-      for (final frame in frames) {
-        decrypted.add(await decryptFrame(bSplit.$1, _readLengthPrefix(frame)));
-      }
-      expect(decrypted.toBytes(), equals(plaintext));
-    });
+        final decrypted = BytesBuilder();
+        for (final frame in frames) {
+          decrypted.add(
+            await decryptFrame(bSplit.$1, _readLengthPrefix(frame)),
+          );
+        }
+        expect(decrypted.toBytes(), equals(plaintext));
+      },
+    );
 
-    test('a plaintext of exactly maxPlaintextLength stays in one frame', () async {
-      final (aSplit, bSplit) = await _handshakeSplitPair();
-      final plaintext = Uint8List.fromList(List<int>.generate(maxPlaintextLength, (i) => i % 256));
+    test(
+      'a plaintext of exactly maxPlaintextLength stays in one frame',
+      () async {
+        final (aSplit, bSplit) = await _handshakeSplitPair();
+        final plaintext = Uint8List.fromList(
+          List<int>.generate(maxPlaintextLength, (i) => i % 256),
+        );
 
-      final frames = await encryptFrames(aSplit.$1, plaintext);
-      expect(frames, hasLength(1));
+        final frames = await encryptFrames(aSplit.$1, plaintext);
+        expect(frames, hasLength(1));
 
-      final decrypted = await decryptFrame(bSplit.$1, _readLengthPrefix(frames.single));
-      expect(decrypted, equals(plaintext));
-    });
+        final decrypted = await decryptFrame(
+          bSplit.$1,
+          _readLengthPrefix(frames.single),
+        );
+        expect(decrypted, equals(plaintext));
+      },
+    );
 
     test('decrypting with the wrong cipher state fails', () async {
       final (aSplit, bSplit) = await _handshakeSplitPair();

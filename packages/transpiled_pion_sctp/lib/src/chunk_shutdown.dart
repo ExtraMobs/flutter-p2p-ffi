@@ -39,7 +39,12 @@ const int cumulativeTsnAckLength = 4;
 
 /// Port of `chunkShutdown` (chunk_shutdown.go:20-23).
 final class ChunkShutdown implements Chunk {
-  ChunkShutdown({this.cumulativeTsnAck = 0}) : header = ChunkHeader(typ: ChunkType.shutdown, flags: 0, raw: Uint8List(0));
+  ChunkShutdown({this.cumulativeTsnAck = 0})
+    : header = ChunkHeader(
+        typ: ChunkType.shutdown,
+        flags: 0,
+        raw: Uint8List(0),
+      );
 
   /// Composition standing in for Go's embedded `chunkHeader`.
   ChunkHeader header;
@@ -57,7 +62,9 @@ final class ChunkShutdown implements Chunk {
     if (header.raw.length != cumulativeTsnAckLength) {
       throw const InvalidChunkSizeException();
     }
-    cumulativeTsnAck = ByteData.sublistView(header.raw).getUint32(0, Endian.big);
+    cumulativeTsnAck = ByteData.sublistView(
+      header.raw,
+    ).getUint32(0, Endian.big);
   }
 
   /// Port of `chunkShutdown.marshal` (chunk_shutdown.go:50-58).

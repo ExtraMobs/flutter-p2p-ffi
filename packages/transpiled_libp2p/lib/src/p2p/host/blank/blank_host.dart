@@ -25,14 +25,15 @@ class BlankHost implements Host {
     Bus? eventBus,
     ProtocolSwitch? mux,
     Peerstore? peerstore,
-  })  : _network = network,
-        _connManager = connManager ?? const NullConnMgr(),
-        _eventBus = eventBus ?? BasicBus(),
-        _mux = mux ?? MultistreamMuxer(),
-        _peerstore = peerstore ??
-            (network.peerstore is Peerstore
-                ? network.peerstore as Peerstore
-                : MemoryPeerstore()) {
+  }) : _network = network,
+       _connManager = connManager ?? const NullConnMgr(),
+       _eventBus = eventBus ?? BasicBus(),
+       _mux = mux ?? MultistreamMuxer(),
+       _peerstore =
+           peerstore ??
+           (network.peerstore is Peerstore
+               ? network.peerstore as Peerstore
+               : MemoryPeerstore()) {
     _network.setStreamHandler(_handleIncomingStream);
   }
 
@@ -44,8 +45,9 @@ class BlankHost implements Host {
   Emitter? _protocolsEmitter;
 
   Future<Emitter> _getProtocolsEmitter() async {
-    return _protocolsEmitter ??=
-        await _eventBus.emitter(EvtLocalProtocolsUpdated);
+    return _protocolsEmitter ??= await _eventBus.emitter(
+      EvtLocalProtocolsUpdated,
+    );
   }
 
   void _handleIncomingStream(NetworkStream stream) async {

@@ -46,15 +46,18 @@ final class ErrorCauseCode {
   static const ErrorCauseCode invalidMandatoryParameter = ErrorCauseCode._(7);
   static const ErrorCauseCode unrecognizedParameters = ErrorCauseCode._(8);
   static const ErrorCauseCode noUserData = ErrorCauseCode._(9);
-  static const ErrorCauseCode cookieReceivedWhileShuttingDown = ErrorCauseCode._(10);
-  static const ErrorCauseCode restartOfAnAssociationWithNewAddresses = ErrorCauseCode._(11);
+  static const ErrorCauseCode cookieReceivedWhileShuttingDown =
+      ErrorCauseCode._(10);
+  static const ErrorCauseCode restartOfAnAssociationWithNewAddresses =
+      ErrorCauseCode._(11);
   static const ErrorCauseCode userInitiatedAbort = ErrorCauseCode._(12);
   static const ErrorCauseCode protocolViolation = ErrorCauseCode._(13);
 
   factory ErrorCauseCode.fromValue(int value) => ErrorCauseCode._(value);
 
   @override
-  bool operator ==(Object other) => other is ErrorCauseCode && other.value == value;
+  bool operator ==(Object other) =>
+      other is ErrorCauseCode && other.value == value;
 
   @override
   int get hashCode => value.hashCode;
@@ -112,7 +115,9 @@ abstract interface class ErrorCause {
 
 /// Port of `buildErrorCause` (error_cause.go:29-49).
 ErrorCause buildErrorCause(Uint8List raw) {
-  final c = ErrorCauseCode.fromValue(ByteData.sublistView(raw, 0, 2).getUint16(0, Endian.big));
+  final c = ErrorCauseCode.fromValue(
+    ByteData.sublistView(raw, 0, 2).getUint16(0, Endian.big),
+  );
 
   final ErrorCause errCause;
   if (c == ErrorCauseCode.invalidMandatoryParameter) {

@@ -29,7 +29,8 @@ const int errorCauseHeaderLength = 4;
 
 /// Port of `errorCauseHeader` (error_cause_header.go:12-16).
 final class ErrorCauseHeader {
-  ErrorCauseHeader({required this.code, this.len = 0, Uint8List? raw}) : raw = raw ?? Uint8List(0);
+  ErrorCauseHeader({required this.code, this.len = 0, Uint8List? raw})
+    : raw = raw ?? Uint8List(0);
 
   /// Port of `errorCauseHeader.code` (error_cause_header.go:13).
   ErrorCauseCode code;
@@ -60,7 +61,11 @@ final class ErrorCauseHeader {
       throw const InvalidSctpChunkException();
     }
     final valueLength = len - errorCauseHeaderLength;
-    this.raw = Uint8List.sublistView(raw, errorCauseHeaderLength, errorCauseHeaderLength + valueLength);
+    this.raw = Uint8List.sublistView(
+      raw,
+      errorCauseHeaderLength,
+      errorCauseHeaderLength + valueLength,
+    );
   }
 
   /// Port of `errorCauseHeader.length` (error_cause_header.go:47-49).

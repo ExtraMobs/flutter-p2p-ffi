@@ -116,7 +116,7 @@ String _microTimestamp(DateTime now) =>
 /// levels.
 final class DefaultLeveledLogger implements LeveledLogger {
   DefaultLeveledLogger._(this._scope, this._level, StringSink writer)
-      : _writer = _LoggerWriter(writer);
+    : _writer = _LoggerWriter(writer);
 
   /// Port of `NewDefaultLeveledLoggerForScope` (logger.go:164-179).
   factory DefaultLeveledLogger.forScope(
@@ -140,10 +140,18 @@ final class DefaultLeveledLogger implements LeveledLogger {
   /// Port of `DefaultLeveledLogger.SetLevel` (logger.go:109-111).
   void setLevel(LogLevel newLevel) => _level = newLevel;
 
-  void _log(String label, LogLevel level, bool micro, String format, List<Object?> args) {
+  void _log(
+    String label,
+    LogLevel level,
+    bool micro,
+    String format,
+    List<Object?> args,
+  ) {
     if (_level.value < level.value) return;
     final msg = _formatLogMessage(format, args);
-    final timestamp = micro ? _microTimestamp(DateTime.now()) : _stdTimestamp(DateTime.now());
+    final timestamp = micro
+        ? _microTimestamp(DateTime.now())
+        : _stdTimestamp(DateTime.now());
     _writer.write('$_scope $label: $timestamp$msg\n');
   }
 
@@ -200,7 +208,10 @@ final class DefaultLoggerFactory implements LoggerFactory {
   /// `PION_LOG_<LEVEL>`/`PIONS_LOG_<LEVEL>` environment variables (`ALL` or
   /// a comma-separated scope list) to seed [defaultLogLevel] and
   /// [scopeLevels].
-  DefaultLoggerFactory() : writer = stderr, defaultLogLevel = LogLevel.error, scopeLevels = {} {
+  DefaultLoggerFactory()
+    : writer = stderr,
+      defaultLogLevel = LogLevel.error,
+      scopeLevels = {} {
     const logLevels = <String, LogLevel>{
       'DISABLE': LogLevel.disabled,
       'ERROR': LogLevel.error,

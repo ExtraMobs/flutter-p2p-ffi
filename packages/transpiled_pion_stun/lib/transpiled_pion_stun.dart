@@ -30,7 +30,15 @@
 library;
 
 export 'src/addr.dart'
-    show AlternateServer, BadIpLengthException, MappedAddress, OtherAddress, ResponseOrigin, ipToString, isIpv4, isZeros;
+    show
+        AlternateServer,
+        BadIpLengthException,
+        MappedAddress,
+        OtherAddress,
+        ResponseOrigin,
+        ipToString,
+        isIpv4,
+        isZeros;
 export 'src/agent.dart'
     show
         Agent,
@@ -53,7 +61,13 @@ export 'src/attributes.dart'
         nearestPaddedValueLength,
         padding;
 export 'src/checks.dart'
-    show checkFingerprint, checkHmac, checkOverflow, checkSize, isAttrSizeInvalid, isAttrSizeOverflow;
+    show
+        checkFingerprint,
+        checkHmac,
+        checkOverflow,
+        checkSize,
+        isAttrSizeInvalid,
+        isAttrSizeOverflow;
 export 'src/client.dart'
     show
         Client,
@@ -86,11 +100,18 @@ export 'src/errors.dart'
         DecodeException,
         UnexpectedEofException;
 export 'src/fingerprint.dart'
-    show FingerprintAttr, FingerprintMismatchException, fingerprint, fingerprintValue;
+    show
+        FingerprintAttr,
+        FingerprintMismatchException,
+        fingerprint,
+        fingerprintValue;
 export 'src/helpers.dart'
     show Checker, Getter, MessageBuildX, Setter, build, mustBuild;
 export 'src/integrity.dart'
-    show FingerprintBeforeIntegrityException, IntegrityMismatchException, MessageIntegrity;
+    show
+        FingerprintBeforeIntegrityException,
+        IntegrityMismatchException,
+        MessageIntegrity;
 export 'src/message.dart'
     show
         DecodeToNilException,
@@ -111,7 +132,8 @@ export 'src/message.dart'
         transactionIdSetter,
         transactionIdSize;
 export 'src/stun.dart' show defaultPort, defaultTlsPort, transactionId;
-export 'src/textattrs.dart' show Nonce, Realm, Software, TextAttribute, Username;
+export 'src/textattrs.dart'
+    show Nonce, Realm, Software, TextAttribute, Username;
 export 'src/uattrs.dart' show BadUnknownAttrsSizeException, UnknownAttributes;
 export 'src/uri.dart'
     show

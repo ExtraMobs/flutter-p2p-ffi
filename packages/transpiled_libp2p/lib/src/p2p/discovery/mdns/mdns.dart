@@ -151,8 +151,9 @@ const Set<int> _unsuitableProtocolCodes = {
   Protocols.wss,
 };
 
-bool _containsUnsuitableProtocol(Multiaddr addr) =>
-    addr.components.any((c) => _unsuitableProtocolCodes.contains(c.protocol.code));
+bool _containsUnsuitableProtocol(Multiaddr addr) => addr.components.any(
+  (c) => _unsuitableProtocolCodes.contains(c.protocol.code),
+);
 
 /// Builds the TXT-record strings an mDNS responder should advertise for
 /// [id] listening on [interfaceAddrs]: each address suitable for mDNS
@@ -231,7 +232,8 @@ const String _randomAlphabet = 'abcdefghijklmnopqrstuvwxyz0123456789';
 String _randomPeerName() {
   final length = 32 + _random.nextInt(32);
   return String.fromCharCodes([
-    for (var i = 0; i < length; i++) _randomAlphabet.codeUnitAt(_random.nextInt(_randomAlphabet.length)),
+    for (var i = 0; i < length; i++)
+      _randomAlphabet.codeUnitAt(_random.nextInt(_randomAlphabet.length)),
   ]);
 }
 
@@ -293,7 +295,9 @@ class MdnsService implements Service {
   Future<void> _startServer() async {
     final interfaceAddrs = await _host.network.interfaceListenAddresses();
     final txts = buildMdnsTxtRecords(_host.id, interfaceAddrs);
-    final p2pAddrs = addrInfoToP2pAddrs(AddrInfo(id: _host.id, addrs: interfaceAddrs));
+    final p2pAddrs = addrInfoToP2pAddrs(
+      AddrInfo(id: _host.id, addrs: interfaceAddrs),
+    );
     final ips = _hostIps(p2pAddrs);
 
     // ponytail: IPv4 multicast only. go-libp2p's zeroconf responder binds
@@ -310,7 +314,10 @@ class MdnsService implements Service {
     );
     _socket = socket;
     socket.multicastLoopback = true;
-    final interfaces = await NetworkInterface.list(includeLoopback: true, type: InternetAddressType.IPv4);
+    final interfaces = await NetworkInterface.list(
+      includeLoopback: true,
+      type: InternetAddressType.IPv4,
+    );
     for (final iface in interfaces) {
       try {
         socket.joinMulticast(_mdnsAddressIPv4, iface);
@@ -323,7 +330,12 @@ class MdnsService implements Service {
     socket.listen((event) => _handleIncomingDatagram(event, socket, ips, txts));
   }
 
-  void _handleIncomingDatagram(RawSocketEvent event, RawDatagramSocket socket, List<String> ips, List<String> txts) {
+  void _handleIncomingDatagram(
+    RawSocketEvent event,
+    RawDatagramSocket socket,
+    List<String> ips,
+    List<String> txts,
+  ) {
     if (event != RawSocketEvent.read) return;
     final datagram = socket.receive();
     if (datagram == null) return;
@@ -369,7 +381,8 @@ class MdnsService implements Service {
     // *Fqdn getters keep one for encoding; strip it here so the two sides
     // compare equal.
     final name = _stripTrailingDot(q.name.toLowerCase());
-    if (name == _stripTrailingDot(_serviceFqdn.toLowerCase()) && (q.type == _rrPtr || q.type == _rrAny)) {
+    if (name == _stripTrailingDot(_serviceFqdn.toLowerCase()) &&
+        (q.type == _rrPtr || q.type == _rrAny)) {
       return true;
     }
     return name == _stripTrailingDot(_instanceFqdn.toLowerCase()) ||
@@ -388,7 +401,10 @@ class MdnsService implements Service {
   /// file's header comment).
   void _startResolver() {
     _sendQuery();
-    _browseTimer = Timer.periodic(const Duration(seconds: 3), (_) => _sendQuery());
+    _browseTimer = Timer.periodic(
+      const Duration(seconds: 3),
+      (_) => _sendQuery(),
+    );
   }
 
   void _sendQuery() {
@@ -405,11 +421,15 @@ class MdnsService implements Service {
     if (socket == null || _closed) return;
     for (final interface in _interfaces) {
       try {
-        socket.setRawOption(RawSocketOption(
-          RawSocketOption.levelIPv4,
-          RawSocketOption.IPv4MulticastInterface,
-          interface.addresses.firstWhere((a) => a.type == InternetAddressType.IPv4).rawAddress,
-        ));
+        socket.setRawOption(
+          RawSocketOption(
+            RawSocketOption.levelIPv4,
+            RawSocketOption.IPv4MulticastInterface,
+            interface.addresses
+                .firstWhere((a) => a.type == InternetAddressType.IPv4)
+                .rawAddress,
+          ),
+        );
         socket.send(bytes, _mdnsAddressIPv4, _mdnsPort);
       } on OSError {
         // An interface can disappear between enumeration and transmission.
@@ -465,7 +485,10 @@ class _MdnsAnswer {
 /// mdnsDomain, entryChan)`; not vendored, see this file's header).
 Uint8List _encodeMdnsQuery(String serviceFqdn) {
   final out = BytesBuilder();
-  _writeUint16(out, 0); // Transaction ID: unused for multicast queries (RFC 6762 §18.1).
+  _writeUint16(
+    out,
+    0,
+  ); // Transaction ID: unused for multicast queries (RFC 6762 §18.1).
   _writeUint16(out, 0); // Flags: standard query, no special bits.
   _writeUint16(out, 1); // QDCOUNT
   _writeUint16(out, 0); // ANCOUNT
@@ -520,7 +543,10 @@ Uint8List _encodeMdnsResponse({
   ];
 
   final out = BytesBuilder();
-  _writeUint16(out, 0); // Transaction ID: unused for multicast responses (RFC 6762 §18.1).
+  _writeUint16(
+    out,
+    0,
+  ); // Transaction ID: unused for multicast responses (RFC 6762 §18.1).
   _writeUint16(out, 0x8400); // QR=1 (response), AA=1 (authoritative).
   _writeUint16(out, 0); // QDCOUNT
   _writeUint16(out, answers.length); // ANCOUNT
@@ -586,10 +612,13 @@ Uint8List _encodeTxtData(List<String> txts) {
   return out.toBytes();
 }
 
-String _stripTrailingDot(String name) => name.endsWith('.') ? name.substring(0, name.length - 1) : name;
+String _stripTrailingDot(String name) =>
+    name.endsWith('.') ? name.substring(0, name.length - 1) : name;
 
 Uint8List _encodeDnsName(String name) {
-  final trimmed = name.endsWith('.') ? name.substring(0, name.length - 1) : name;
+  final trimmed = name.endsWith('.')
+      ? name.substring(0, name.length - 1)
+      : name;
   final out = BytesBuilder();
   if (trimmed.isNotEmpty) {
     for (final label in trimmed.split('.')) {
@@ -626,7 +655,9 @@ void _writeUint32(BytesBuilder out, int v) {
 /// record type this port cares about in the answer section. Throws
 /// [FormatException] on structurally invalid input, since this parses
 /// untrusted network bytes.
-(List<_MdnsQuestion> questions, List<_MdnsAnswer> answers) _decodeMdnsMessage(Uint8List bytes) {
+(List<_MdnsQuestion> questions, List<_MdnsAnswer> answers) _decodeMdnsMessage(
+  Uint8List bytes,
+) {
   if (bytes.length < 12) {
     throw const FormatException('mDNS message shorter than the header');
   }
@@ -718,22 +749,30 @@ int _readUint16(Uint8List b, int offset) {
     }
     if ((len & 0xc0) == 0xc0) {
       if (pos + 1 >= b.length) {
-        throw const FormatException('mDNS name pointer runs past end of message');
+        throw const FormatException(
+          'mDNS name pointer runs past end of message',
+        );
       }
       if (end == -1) end = pos + 2;
       jumps++;
       if (jumps > maxJumps) {
-        throw const FormatException('mDNS name has too many compression pointers');
+        throw const FormatException(
+          'mDNS name has too many compression pointers',
+        );
       }
       final target = ((len & 0x3f) << 8) | b[pos + 1];
       if (target >= pos) {
-        throw const FormatException('mDNS name compression pointer does not point backward');
+        throw const FormatException(
+          'mDNS name compression pointer does not point backward',
+        );
       }
       pos = target;
       continue;
     }
     if ((len & 0xc0) != 0) {
-      throw const FormatException('mDNS name uses a reserved label length encoding');
+      throw const FormatException(
+        'mDNS name uses a reserved label length encoding',
+      );
     }
     final labelStart = pos + 1;
     final labelEnd = labelStart + len;

@@ -3,5 +3,4 @@
 library;
 
 export 'message/message.dart';
-export 'message/pb/message.dart'
-    show BlockPresenceType, WantType;
+export 'message/pb/message.dart' show BlockPresenceType, WantType;

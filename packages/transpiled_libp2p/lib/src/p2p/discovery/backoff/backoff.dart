@@ -39,17 +39,28 @@ abstract class BackoffStrategy {
 /// [minDelay] must be lower than or equal to [maxDelay]. Equivalent to go-libp2p's
 /// `Jitter`.
 typedef Jitter =
-    Duration Function(Duration duration, Duration minDelay, Duration maxDelay, Random? rng);
+    Duration Function(
+      Duration duration,
+      Duration minDelay,
+      Duration maxDelay,
+      Random? rng,
+    );
 
 /// Returns a random duration, uniformly chosen from `[minDelay, boundedDur]`,
 /// where `boundedDur` is [duration] bounded between [minDelay] and [maxDelay].
 /// Equivalent to go-libp2p's `FullJitter`.
 ///
 /// [rng] must be non-null (mirrors Go's `*rand.Rand` being dereferenced).
-Duration fullJitter(Duration duration, Duration minDelay, Duration maxDelay, Random? rng) {
+Duration fullJitter(
+  Duration duration,
+  Duration minDelay,
+  Duration maxDelay,
+  Random? rng,
+) {
   if (duration <= minDelay) return minDelay;
 
-  final normalizedDur = _boundedDuration(duration, minDelay, maxDelay) - minDelay;
+  final normalizedDur =
+      _boundedDuration(duration, minDelay, maxDelay) - minDelay;
   final micros = normalizedDur.inMicroseconds;
   final jittered = Duration(microseconds: rng!.nextInt(micros));
   return _boundedDuration(jittered + minDelay, minDelay, maxDelay);
@@ -57,8 +68,12 @@ Duration fullJitter(Duration duration, Duration minDelay, Duration maxDelay, Ran
 
 /// Returns [duration] bounded between [minDelay] and [maxDelay], ignoring [rng].
 /// Equivalent to go-libp2p's `NoJitter`.
-Duration noJitter(Duration duration, Duration minDelay, Duration maxDelay, Random? rng) =>
-    _boundedDuration(duration, minDelay, maxDelay);
+Duration noJitter(
+  Duration duration,
+  Duration minDelay,
+  Duration maxDelay,
+  Random? rng,
+) => _boundedDuration(duration, minDelay, maxDelay);
 
 Duration _boundedDuration(Duration d, Duration minDelay, Duration maxDelay) {
   if (d < minDelay) return minDelay;
@@ -69,13 +84,18 @@ Duration _boundedDuration(Duration d, Duration minDelay, Duration maxDelay) {
 /// Shared minDelay/maxDelay bound plus PRNG, mirroring go-libp2p's private
 /// `randomizedBackoff`.
 abstract class _RandomizedBackoff {
-  _RandomizedBackoff({required this.minDelay, required this.maxDelay, required this.rng});
+  _RandomizedBackoff({
+    required this.minDelay,
+    required this.maxDelay,
+    required this.rng,
+  });
 
   final Duration minDelay;
   final Duration maxDelay;
   final Random rng;
 
-  Duration _boundedDelay(Duration duration) => _boundedDuration(duration, minDelay, maxDelay);
+  Duration _boundedDelay(Duration duration) =>
+      _boundedDuration(duration, minDelay, maxDelay);
 }
 
 /// Adds an attempt counter and jitter function on top of
@@ -96,7 +116,8 @@ abstract class _AttemptBackoff extends _RandomizedBackoff {
 
 /// Creates a [BackoffFactory] with a constant backoff duration. Equivalent
 /// to go-libp2p's `NewFixedBackoff`.
-BackoffFactory fixedBackoff(Duration delay) => () => _FixedBackoff(delay);
+BackoffFactory fixedBackoff(Duration delay) =>
+    () => _FixedBackoff(delay);
 
 class _FixedBackoff implements BackoffStrategy {
   _FixedBackoff(this._delay);
@@ -122,14 +143,15 @@ BackoffFactory polynomialBackoff(
   Duration timeUnits,
   List<double> polyCoefficients,
   Random rng,
-) => () => _PolynomialBackoff(
-  minDelay: minDelay,
-  maxDelay: maxDelay,
-  jitter: jitter,
-  rng: rng,
-  timeUnits: timeUnits,
-  poly: polyCoefficients,
-);
+) =>
+    () => _PolynomialBackoff(
+      minDelay: minDelay,
+      maxDelay: maxDelay,
+      jitter: jitter,
+      rng: rng,
+      timeUnits: timeUnits,
+      poly: polyCoefficients,
+    );
 
 class _PolynomialBackoff extends _AttemptBackoff implements BackoffStrategy {
   _PolynomialBackoff({
@@ -186,15 +208,16 @@ BackoffFactory exponentialBackoff(
   double base,
   Duration offset,
   Random rng,
-) => () => _ExponentialBackoff(
-  minDelay: minDelay,
-  maxDelay: maxDelay,
-  jitter: jitter,
-  rng: rng,
-  timeUnits: timeUnits,
-  base: base,
-  offset: offset,
-);
+) =>
+    () => _ExponentialBackoff(
+      minDelay: minDelay,
+      maxDelay: maxDelay,
+      jitter: jitter,
+      rng: rng,
+      timeUnits: timeUnits,
+      base: base,
+      offset: offset,
+    );
 
 class _ExponentialBackoff extends _AttemptBackoff implements BackoffStrategy {
   _ExponentialBackoff({
@@ -215,8 +238,14 @@ class _ExponentialBackoff extends _AttemptBackoff implements BackoffStrategy {
   Duration delay() {
     final currentAttempt = attempt;
     attempt++;
-    final micros = (pow(base, currentAttempt) * timeUnits.inMicroseconds).truncate();
-    return jitter(Duration(microseconds: micros) + offset, minDelay, maxDelay, rng);
+    final micros = (pow(base, currentAttempt) * timeUnits.inMicroseconds)
+        .truncate();
+    return jitter(
+      Duration(microseconds: micros) + offset,
+      minDelay,
+      maxDelay,
+      rng,
+    );
   }
 
   @override
@@ -232,7 +261,13 @@ BackoffFactory exponentialDecorrelatedJitter(
   Duration maxDelay,
   double base,
   Random rng,
-) => () => _ExponentialDecorrelatedJitter(minDelay: minDelay, maxDelay: maxDelay, rng: rng, base: base);
+) =>
+    () => _ExponentialDecorrelatedJitter(
+      minDelay: minDelay,
+      maxDelay: maxDelay,
+      rng: rng,
+      base: base,
+    );
 
 class _ExponentialDecorrelatedJitter extends _RandomizedBackoff
     implements BackoffStrategy {

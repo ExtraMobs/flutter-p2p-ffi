@@ -32,7 +32,12 @@ final class ChunkParseParamTypeFailedException implements Exception {
 
 /// Port of `chunkReconfig` (chunk_reconfig.go:28-31).
 final class ChunkReconfig implements Chunk {
-  ChunkReconfig({this.paramA, this.paramB}) : header = ChunkHeader(typ: ChunkType.reconfig, flags: 0, raw: Uint8List(0));
+  ChunkReconfig({this.paramA, this.paramB})
+    : header = ChunkHeader(
+        typ: ChunkType.reconfig,
+        flags: 0,
+        raw: Uint8List(0),
+      );
 
   /// Composition standing in for Go's embedded `chunkHeader`.
   ChunkHeader header;

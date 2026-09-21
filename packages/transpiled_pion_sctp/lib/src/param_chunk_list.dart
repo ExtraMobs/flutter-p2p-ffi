@@ -32,7 +32,9 @@ final class ParamChunkList implements Param {
   @override
   Uint8List marshal() {
     header.typ = ParamType.chunkList;
-    header.raw = Uint8List.fromList([for (final t in chunkTypes) t.value & 0xFF]);
+    header.raw = Uint8List.fromList([
+      for (final t in chunkTypes) t.value & 0xFF,
+    ]);
     return header.marshal();
   }
 

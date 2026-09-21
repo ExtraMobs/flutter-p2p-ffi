@@ -99,5 +99,9 @@ Uint8List _encodeRecordProto({
         timeReceived = String.fromCharCodes(fieldBytes);
     }
   }
-  return (key: key ?? Uint8List(0), value: value ?? Uint8List(0), timeReceived: timeReceived);
+  return (
+    key: key ?? Uint8List(0),
+    value: value ?? Uint8List(0),
+    timeReceived: timeReceived,
+  );
 }

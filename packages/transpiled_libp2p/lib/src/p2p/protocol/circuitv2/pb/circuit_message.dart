@@ -81,6 +81,20 @@ class HopMessage {
     // field 1: type (varint)
     writeVarint(1, type.index);
 
+    // field 2: peer
+    if (peer != null) {
+      final peerBuilder = BytesBuilder();
+      peerBuilder.add(encodeProtoVarint((1 << 3) | 2));
+      peerBuilder.add(encodeProtoVarint(peer!.id.length));
+      peerBuilder.add(peer!.id);
+      for (final a in peer!.addrs) {
+        peerBuilder.add(encodeProtoVarint((2 << 3) | 2));
+        peerBuilder.add(encodeProtoVarint(a.length));
+        peerBuilder.add(a);
+      }
+      writeBytes(2, peerBuilder.toBytes());
+    }
+
     // field 3: reservation
     if (reservation != null) {
       final resBuilder = BytesBuilder();
@@ -125,6 +139,7 @@ class HopMessage {
 
   factory HopMessage.unmarshal(Uint8List bytes) {
     var type = HopMessageType.reserve;
+    CircuitPeer? peer;
     CircuitReservation? reservation;
     CircuitLimit? limit;
     var status = HopStatus.ok;
@@ -175,7 +190,57 @@ class HopMessage {
               if (rField == 3) voucher = b;
             }
           }
-          reservation = CircuitReservation(expire: expire, addrs: addrs, voucher: voucher);
+          reservation = CircuitReservation(
+            expire: expire,
+            addrs: addrs,
+            voucher: voucher,
+          );
+        } else if (fieldNumber == 2) {
+          var pOffset = 0;
+          var id = Uint8List(0);
+          final addrs = <Uint8List>[];
+          while (pOffset < fieldBytes.length) {
+            final (pTag, pTagLen) = readProtoVarint(fieldBytes, pOffset);
+            pOffset += pTagLen;
+            final pField = pTag >> 3;
+            final pWire = pTag & 0x7;
+            if (pWire == 2) {
+              final (pLen, pLenLen) = readProtoVarint(fieldBytes, pOffset);
+              pOffset += pLenLen;
+              final b = fieldBytes.sublist(pOffset, pOffset + pLen);
+              pOffset += pLen;
+              if (pField == 1) id = b;
+              if (pField == 2) addrs.add(b);
+            } else if (pWire == 0) {
+              final (_, pValLen) = readProtoVarint(fieldBytes, pOffset);
+              pOffset += pValLen;
+            } else {
+              break;
+            }
+          }
+          peer = CircuitPeer(id: id, addrs: addrs);
+        } else if (fieldNumber == 4) {
+          var lOffset = 0;
+          var duration = 0;
+          var data = 0;
+          while (lOffset < fieldBytes.length) {
+            final (lTag, lTagLen) = readProtoVarint(fieldBytes, lOffset);
+            lOffset += lTagLen;
+            final lField = lTag >> 3;
+            final lWire = lTag & 0x7;
+            if (lWire == 0) {
+              final (lVal, lValLen) = readProtoVarint(fieldBytes, lOffset);
+              lOffset += lValLen;
+              if (lField == 1) duration = lVal;
+              if (lField == 2) data = lVal;
+            } else if (lWire == 2) {
+              final (lLen, lLenLen) = readProtoVarint(fieldBytes, lOffset);
+              lOffset += lLenLen + lLen;
+            } else {
+              break;
+            }
+          }
+          limit = CircuitLimit(duration: duration, data: data);
         }
       } else {
         break;
@@ -184,6 +249,7 @@ class HopMessage {
 
     return HopMessage(
       type: type,
+      peer: peer,
       reservation: reservation,
       limit: limit,
       status: status,

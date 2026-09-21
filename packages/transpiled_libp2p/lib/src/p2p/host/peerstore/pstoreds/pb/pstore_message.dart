@@ -18,7 +18,11 @@ import '../../../../../core/crypto/proto_varint.dart';
 /// A single multiaddr entry inside an [AddrBookRecord]. Equivalent to
 /// go-libp2p's `pb.AddrBookRecord_AddrEntry`.
 class AddrBookRecord_AddrEntry {
-  AddrBookRecord_AddrEntry({required this.addr, required this.expiry, required this.ttl});
+  AddrBookRecord_AddrEntry({
+    required this.addr,
+    required this.expiry,
+    required this.ttl,
+  });
 
   /// The multiaddr's binary representation.
   final Uint8List addr;
@@ -49,8 +53,11 @@ class CertifiedRecord {
 /// Persisted record for a single peer's addresses. Equivalent to
 /// go-libp2p's `pb.AddrBookRecord`.
 class AddrBookRecord {
-  AddrBookRecord({required this.id, List<AddrBookRecord_AddrEntry>? addrs, this.certifiedRecord})
-    : addrs = addrs ?? <AddrBookRecord_AddrEntry>[];
+  AddrBookRecord({
+    required this.id,
+    List<AddrBookRecord_AddrEntry>? addrs,
+    this.certifiedRecord,
+  }) : addrs = addrs ?? <AddrBookRecord_AddrEntry>[];
 
   /// The peer ID, as raw bytes.
   final Uint8List id;
@@ -134,7 +141,11 @@ class AddrBookRecord {
       }
     }
 
-    return AddrBookRecord(id: id, addrs: addrs, certifiedRecord: certifiedRecord);
+    return AddrBookRecord(
+      id: id,
+      addrs: addrs,
+      certifiedRecord: certifiedRecord,
+    );
   }
 }
 

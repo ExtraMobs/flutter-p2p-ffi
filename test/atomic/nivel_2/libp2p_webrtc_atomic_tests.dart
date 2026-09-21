@@ -32,7 +32,9 @@ void main() {
       final transport = WebRtcTransport(privKey: key);
 
       expect(
-        transport.canDial(Multiaddr.parse('/ip4/127.0.0.1/udp/4001/webrtc-direct')),
+        transport.canDial(
+          Multiaddr.parse('/ip4/127.0.0.1/udp/4001/webrtc-direct'),
+        ),
         isTrue,
       );
       expect(
@@ -65,20 +67,25 @@ void main() {
       await transport.close();
     });
 
-    test('addCertHashes() - appends certhash component to multiaddress', () async {
-      final key = await generateEd25519KeyPair();
-      final transport = WebRtcTransport(privKey: key);
+    test(
+      'addCertHashes() - appends certhash component to multiaddress',
+      () async {
+        final key = await generateEd25519KeyPair();
+        final transport = WebRtcTransport(privKey: key);
 
-      final baseAddr = Multiaddr.parse('/ip4/127.0.0.1/udp/4001/webrtc-direct');
-      final withCert = transport.addCertHashes(baseAddr);
+        final baseAddr = Multiaddr.parse(
+          '/ip4/127.0.0.1/udp/4001/webrtc-direct',
+        );
+        final withCert = transport.addCertHashes(baseAddr);
 
-      expect(withCert.toString(), contains('/certhash/'));
-      final (ok, count) = isWebRtcDirectMultiaddr(withCert);
-      expect(ok, isTrue);
-      expect(count, equals(1));
+        expect(withCert.toString(), contains('/certhash/'));
+        final (ok, count) = isWebRtcDirectMultiaddr(withCert);
+        expect(ok, isTrue);
+        expect(count, equals(1));
 
-      await transport.close();
-    });
+        await transport.close();
+      },
+    );
 
     test('listen() - binds and advertises multiaddr', () async {
       final key = await generateEd25519KeyPair();

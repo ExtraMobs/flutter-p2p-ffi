@@ -145,9 +145,8 @@ void main() {
     test('throws for an unregistered namespace', () {
       final sel = NamespacedValidator({'pk': const PublicKeyValidator()});
       expect(
-        () => sel.select('/other/thing', [
-          Uint8List.fromList('first'.codeUnits),
-        ]),
+        () =>
+            sel.select('/other/thing', [Uint8List.fromList('first'.codeUnits)]),
         throwsA(isA<InvalidRecordTypeException>()),
       );
     });

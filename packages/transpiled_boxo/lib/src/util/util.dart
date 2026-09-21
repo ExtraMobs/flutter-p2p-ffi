@@ -61,7 +61,8 @@ List<String> rPartition(String subject, String separator) {
 }
 
 /// Computes the default SHA2-256 multihash.
-DecodedMultihash hash(Uint8List data) => MultihashUtils.sum(defaultIpfsHash, data);
+DecodedMultihash hash(Uint8List data) =>
+    MultihashUtils.sum(defaultIpfsHash, data);
 
 /// Returns whether [value] is a valid base58 multihash.
 bool isValidHash(String value) {

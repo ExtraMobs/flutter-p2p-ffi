@@ -23,12 +23,12 @@ class SessionDescription {
     this.encryptionKey,
     List<Attribute>? attributes,
     List<MediaDescription>? mediaDescriptions,
-  })  : origin = origin ?? Origin(),
-        bandwidth = bandwidth ?? [],
-        timeDescriptions = timeDescriptions ?? [],
-        timeZones = timeZones ?? [],
-        attributes = attributes ?? [],
-        mediaDescriptions = mediaDescriptions ?? [];
+  }) : origin = origin ?? Origin(),
+       bandwidth = bandwidth ?? [],
+       timeDescriptions = timeDescriptions ?? [],
+       timeZones = timeZones ?? [],
+       attributes = attributes ?? [],
+       mediaDescriptions = mediaDescriptions ?? [];
 
   /// Creates a new [SessionDescription] with settings required by the JSEP
   /// spec. Port of `NewJSEPSessionDescription` (jsep.go:69).
@@ -53,8 +53,9 @@ class SessionDescription {
       origin: Origin(
         username: '-',
         sessionId: _newSessionId(),
-        sessionVersion:
-            Golang.Uint64(DateTime.now().millisecondsSinceEpoch ~/ 1000),
+        sessionVersion: Golang.Uint64(
+          DateTime.now().millisecondsSinceEpoch ~/ 1000,
+        ),
         networkType: 'IN',
         addressType: 'IP4',
         unicastAddress: '0.0.0.0',
@@ -153,8 +154,8 @@ class Origin {
     this.networkType = '',
     this.addressType = '',
     this.unicastAddress = '',
-  })  : sessionId = sessionId ?? Golang.Uint64(),
-        sessionVersion = sessionVersion ?? Golang.Uint64();
+  }) : sessionId = sessionId ?? Golang.Uint64(),
+       sessionVersion = sessionVersion ?? Golang.Uint64();
 
   String username;
   Golang.Uint64 sessionId;

@@ -22,13 +22,19 @@ void main() {
       expect(bytes[0], equals(ip4Proto.code));
     });
 
-    test('toAddrString() - formata componente com barra e nome do protocolo', () {
-      expect(component.toAddrString(), equals('/ip4/127.0.0.1'));
-    });
+    test(
+      'toAddrString() - formata componente com barra e nome do protocolo',
+      () {
+        expect(component.toAddrString(), equals('/ip4/127.0.0.1'));
+      },
+    );
 
-    test('toString() - converte para mesma representacao textual toAddrString', () {
-      expect(component.toString(), equals('/ip4/127.0.0.1'));
-    });
+    test(
+      'toString() - converte para mesma representacao textual toAddrString',
+      () {
+        expect(component.toString(), equals('/ip4/127.0.0.1'));
+      },
+    );
 
     test('operator == - compara igualdade de componentes por wire bytes', () {
       final compEqual = Component(ip4Proto, '127.0.0.1');
@@ -75,11 +81,14 @@ void main() {
       expect(protos[1].name, equals('tcp'));
     });
 
-    test('valueForProtocol() - busca valor do protocolo pelo codigo numerico', () {
-      expect(ma.valueForProtocol(Protocols.ip4), equals('127.0.0.1'));
-      expect(ma.valueForProtocol(Protocols.tcp), equals('4001'));
-      expect(ma.valueForProtocol(Protocols.udp), isNull);
-    });
+    test(
+      'valueForProtocol() - busca valor do protocolo pelo codigo numerico',
+      () {
+        expect(ma.valueForProtocol(Protocols.ip4), equals('127.0.0.1'));
+        expect(ma.valueForProtocol(Protocols.tcp), equals('4001'));
+        expect(ma.valueForProtocol(Protocols.udp), isNull);
+      },
+    );
 
     test('hasProtocol() - verifica se o protocolo esta presente na cadeia', () {
       expect(ma.hasProtocol(Protocols.ip4), isTrue);
@@ -115,11 +124,14 @@ void main() {
       expect(early, equals(['ip4']));
     });
 
-    test('splitFunc() - divide multiaddr a partir de predicado em tupla pre e post', () {
-      final (pre, post) = ma.splitFunc((c) => c.protocol.name == 'tcp');
-      expect(pre.toString(), equals('/ip4/127.0.0.1'));
-      expect(post?.toString(), equals('/tcp/4001'));
-    });
+    test(
+      'splitFunc() - divide multiaddr a partir de predicado em tupla pre e post',
+      () {
+        final (pre, post) = ma.splitFunc((c) => c.protocol.name == 'tcp');
+        expect(pre.toString(), equals('/ip4/127.0.0.1'));
+        expect(post?.toString(), equals('/tcp/4001'));
+      },
+    );
 
     test('splitFirst() - divide primeiro componente separando o resto', () {
       final (first, rest) = ma.splitFirst();
@@ -152,28 +164,33 @@ void main() {
   });
 
   group('Transcoder [Atomic Audit]', () {
-    test('validateBytes() - valida fatia de bytes executando validador do transcoder', () {
-      var called = false;
-      final transcoder = Transcoder(
-        (s) => Uint8List(0),
-        (b) => '',
-        (b) {
+    test(
+      'validateBytes() - valida fatia de bytes executando validador do transcoder',
+      () {
+        var called = false;
+        final transcoder = Transcoder((s) => Uint8List(0), (b) => '', (b) {
           called = true;
           if (b.length != 4) throw const FormatException('invalid length');
-        },
-      );
-      transcoder.validateBytes(Uint8List(4));
-      expect(called, isTrue);
-      expect(() => transcoder.validateBytes(Uint8List(3)), throwsA(isA<FormatException>()));
-    });
+        });
+        transcoder.validateBytes(Uint8List(4));
+        expect(called, isTrue);
+        expect(
+          () => transcoder.validateBytes(Uint8List(3)),
+          throwsA(isA<FormatException>()),
+        );
+      },
+    );
   });
 
   group('Protocol [Atomic Audit]', () {
-    test('isVariableSize - getter retorna verdadeiro para protocolos de tamanho variavel', () {
-      expect(Protocols.byName('p2p')!.isVariableSize, isTrue);
-      expect(Protocols.byName('ip4')!.isVariableSize, isFalse);
-      expect(Protocols.byName('tcp')!.isVariableSize, isFalse);
-    });
+    test(
+      'isVariableSize - getter retorna verdadeiro para protocolos de tamanho variavel',
+      () {
+        expect(Protocols.byName('p2p')!.isVariableSize, isTrue);
+        expect(Protocols.byName('ip4')!.isVariableSize, isFalse);
+        expect(Protocols.byName('tcp')!.isVariableSize, isFalse);
+      },
+    );
   });
 
   group('Protocols [Atomic Audit]', () {

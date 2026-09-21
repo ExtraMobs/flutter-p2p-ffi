@@ -557,15 +557,20 @@ para depois, equivale a não ter concluído a tarefa.
 
 A sequência mínima obrigatória antes de finalizar é:
 
-1. `python tool/audit_ast_nomenclature.py --tests --severity ERROR`
+1. `dart format lib bin test packages`
+   — **obrigatório antes de qualquer commit, sem exceção.** Roda primeiro na
+   sequência, e não por último: formatar depois de auditar invalidaria em
+   silêncio os relatórios recém-gerados do passo 5. Ver a seção
+   "Formatação obrigatória antes de commitar" logo abaixo.
+2. `python tool/audit_ast_nomenclature.py --tests --severity ERROR`
    — precisa terminar em `NENHUMA INCONSISTÊNCIA ENCONTRADA` e sair com código 0.
-2. `python tool/audit_ast_nomenclature.py --tests`
+3. `python tool/audit_ast_nomenclature.py --tests`
    — reveja também os avisos e notas de cobertura; resolva o que for do escopo
    da alteração em curso em vez de acumular dívida silenciosa.
-3. Rodar a suíte completa conforme a seção "Suíte verde é a linha de base,
+4. Rodar a suíte completa conforme a seção "Suíte verde é a linha de base,
    independente de autoria" (raiz, cada pacote em `packages/*/`, presets
    `interop` e `network`), corrigindo qualquer falha encontrada.
-4. Regenerar os relatórios versionados que o próprio auditor produz, porque
+5. Regenerar os relatórios versionados que o próprio auditor produz, porque
    eles ficam obsoletos em silêncio a cada símbolo adicionado ou alterado:
    - `python tool/audit_ast_nomenclature.py --progress` → `PROGRESS_RELATORY.md`
    - `python tool/audit_ast_nomenclature.py --markdown --output audit_report.md`
@@ -577,8 +582,29 @@ A sequência mínima obrigatória antes de finalizar é:
    `audit_report.md`, sem nenhuma referência no repositório e defasado em
    centenas de símbolos até ser removido em 2026-09-09. Ao gerar um relatório
    ad hoc para inspeção pontual, escreva fora da árvore versionada.
-5. Registrar em `doc/transpilation/PROGRESS.md` o rastreamento e as decisões da
+6. Registrar em `doc/transpilation/PROGRESS.md` o rastreamento e as decisões da
    alteração, conforme já exigido acima.
+
+#### Formatação obrigatória antes de commitar
+
+**Nenhum commit pode ser feito sem rodar `dart format` antes.** Não é
+preferência de estilo nem passo cosmético opcional: é requisito de commit, no
+mesmo nível do auditor AST e da suíte verde.
+
+```
+dart format lib bin test packages
+```
+
+A razão é específica deste repositório. O código nasce transpilado do Go em
+lotes grandes e repetitivos, muitas vezes por vários subagentes em paralelo.
+Sem um passo de formatação obrigatório, cada lote carrega o espaçamento e as
+quebras de linha que o seu autor por acaso produziu, e o diff resultante mistura
+mudança semântica real com ruído de formatação — o que dificulta a revisão e
+esconde defeitos.
+
+Rode-o **no início** da sequência de conclusão, não no fim: formatar depois de
+gerar `PROGRESS_RELATORY.md` e `audit_report.md` deixaria esses relatórios
+defasados em relação à árvore já no mesmo commit.
 
 **Sempre confira as regras que governam os testes antes de escrever ou ajustar
 qualquer teste.** Releia a seção "Diretrizes para Testes Atômicos 1 para 1

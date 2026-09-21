@@ -12,7 +12,9 @@ import 'package:convert/convert.dart' as pkgconvert;
 import 'package:base_x/base_x.dart' as basex;
 
 class TooShortException implements FormatException {
-  const TooShortException([this.message = 'multihash too short. must be >= 2 bytes']);
+  const TooShortException([
+    this.message = 'multihash too short. must be >= 2 bytes',
+  ]);
   @override
   final String message;
   @override
@@ -24,14 +26,12 @@ class TooShortException implements FormatException {
 }
 
 class InconsistentLenException implements FormatException {
-  const InconsistentLenException([
-    this.expected,
-    this.got,
-    String? message,
-  ]) : message = message ??
-            (expected != null && got != null
-                ? 'multihash length inconsistent: expected $expected; got $got'
-                : 'multihash length inconsistent');
+  const InconsistentLenException([this.expected, this.got, String? message])
+    : message =
+          message ??
+          (expected != null && got != null
+              ? 'multihash length inconsistent: expected $expected; got $got'
+              : 'multihash length inconsistent');
 
   final int? expected;
   final int? got;
@@ -48,7 +48,9 @@ class InconsistentLenException implements FormatException {
 
 extension type const Multihash(Uint8List bytes) {
   String hexString() => pkgconvert.hex.encode(bytes);
-  String b58String() => basex.BaseXCodec('123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz').encode(bytes);
+  String b58String() => basex.BaseXCodec(
+    '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz',
+  ).encode(bytes);
 }
 
 const int id = 0x00;
@@ -72,7 +74,8 @@ const int md5 = 0xd5;
 
 Uint8List sum(Uint8List data, Golang.Uint64 code, [int length = -1]) {
   final name = codes[code] ?? '';
-  if (name.isEmpty) throw UnsupportedError('Hash function not supported: $code');
+  if (name.isEmpty)
+    throw UnsupportedError('Hash function not supported: $code');
   final fullDigest = MultihashUtils._digestFor(name, data);
   var digest = fullDigest;
   if (length >= 0) {
@@ -83,7 +86,6 @@ Uint8List sum(Uint8List data, Golang.Uint64 code, [int length = -1]) {
   }
   return encode(digest, code);
 }
-
 
 /// Helpers for computing and decoding multihashes.
 ///
@@ -210,7 +212,6 @@ final Map<String, Golang.Uint64> names = {
   for (final entry in codes.entries) entry.value: entry.key,
   'sha3': Golang.Uint64(0x14),
 };
-
 
 /// Go Decode: parses exactly one multihash, rejecting trailing bytes.
 DecodedMultihash decode(Uint8List bytes) => _decode(bytes);

@@ -113,7 +113,8 @@ final class Agent implements ClientAgent {
   }
 
   /// Port of `Agent.Stop` (agent.go:94-96).
-  void stop(List<int> id) => stopWithError(id, const TransactionStoppedException());
+  void stop(List<int> id) =>
+      stopWithError(id, const TransactionStoppedException());
 
   /// Port of `Agent.Start` (agent.go:104-121): registers a transaction with
   /// the provided ID and deadline. Throws [AgentClosedException] or
@@ -121,7 +122,8 @@ final class Agent implements ClientAgent {
   void start(List<int> id, DateTime deadline) {
     if (_closed) throw const AgentClosedException();
     final key = _key(id);
-    if (_transactions.containsKey(key)) throw const TransactionExistsException();
+    if (_transactions.containsKey(key))
+      throw const TransactionExistsException();
     _transactions[key] = _AgentTransaction(id, deadline);
   }
 
@@ -137,7 +139,9 @@ final class Agent implements ClientAgent {
     }
     final removed = toRemove.map((k) => _transactions.remove(k)!).toList();
     for (final t in removed) {
-      _handler(Event(transactionId: t.id, error: const TransactionTimeOutException()));
+      _handler(
+        Event(transactionId: t.id, error: const TransactionTimeOutException()),
+      );
     }
   }
 

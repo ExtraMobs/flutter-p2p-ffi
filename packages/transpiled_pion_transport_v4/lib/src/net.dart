@@ -83,8 +83,9 @@ final class UdpAddr implements NetAddr {
 
   /// Port of `UDPAddr.String()`.
   @override
-  String toString() =>
-      zone.isEmpty ? '${address.address}:$port' : '${address.address}%$zone:$port';
+  String toString() => zone.isEmpty
+      ? '${address.address}:$port'
+      : '${address.address}%$zone:$port';
 
   @override
   bool operator ==(Object other) =>
@@ -157,5 +158,9 @@ abstract interface class Net {
   /// (`pion-stun/client.go:87`, `nw.DialUDP("udp", nil, udpAddr)`) passes a
   /// destination, and Go's own `net.DialUDP` has no defined behavior for a
   /// nil `raddr` either -- dialing requires somewhere to dial.
-  Future<UdpConn> dialUdp(String network, UdpAddr? localAddr, UdpAddr remoteAddr);
+  Future<UdpConn> dialUdp(
+    String network,
+    UdpAddr? localAddr,
+    UdpAddr remoteAddr,
+  );
 }

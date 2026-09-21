@@ -11,8 +11,10 @@ abstract interface class SecureConn implements RawConn, ConnSecurity {}
 abstract interface class SecureTransport {
   /// Authenticates the remote initiator, allowing an empty expected peer.
   Future<SecureConn> secureInbound(RawConn insecure, PeerId peer);
+
   /// Authenticates the remote responder against the expected peer.
   Future<SecureConn> secureOutbound(RawConn insecure, PeerId peer);
+
   /// Multistream-select security protocol identifier.
   String id();
 }
@@ -24,6 +26,7 @@ class PeerIdMismatchException implements Exception {
 
   /// Identity requested by the caller.
   final PeerId expected;
+
   /// Identity derived from the remote public key.
   final PeerId actual;
 

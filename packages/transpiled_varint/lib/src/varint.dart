@@ -20,7 +20,6 @@ const errNotMinimal = FormatException('varint not minimally encoded');
 const int maxLenUvarint63 = 9;
 const int maxValueUvarint63 = 9223372036854775807; // 0x7FFFFFFFFFFFFFFF
 
-
 /// Port of go-varint UvarintSize.
 int uvarintSize(Golang.Uint64 value) {
   final bits = value.toBigInt().bitLength;

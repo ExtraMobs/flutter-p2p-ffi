@@ -199,10 +199,7 @@ Uint8List encodePkcs1PrivateKey(pc.RSAPrivateKey key) {
 /// `x509.MarshalPKIXPublicKey`.
 Uint8List encodePkixPublicKey(pc.RSAPublicKey key) {
   final inner = ASN1Sequence(
-    elements: [
-      ASN1Integer(key.modulus!),
-      ASN1Integer(key.publicExponent!),
-    ],
+    elements: [ASN1Integer(key.modulus!), ASN1Integer(key.publicExponent!)],
   ).encode();
 
   final algorithmId = ASN1Sequence(

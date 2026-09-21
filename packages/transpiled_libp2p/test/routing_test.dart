@@ -80,19 +80,25 @@ void main() {
     test('is "/pk/<raw peer id bytes>"', () async {
       final keyPair = await generateEd25519KeyPair();
       final id = PeerId.fromPubKey(keyPair.getPublic());
-      expect(keyForPublicKey(id), equals('/pk/${String.fromCharCodes(id.value)}'));
+      expect(
+        keyForPublicKey(id),
+        equals('/pk/${String.fromCharCodes(id.value)}'),
+      );
     });
   });
 
   group('getPublicKey', () {
-    test('extracts an embedded (identity-multihash) key without touching the store', () async {
-      final keyPair = await generateEd25519KeyPair();
-      final id = PeerId.fromPubKey(keyPair.getPublic());
-      final store = _FakeValueStore({});
+    test(
+      'extracts an embedded (identity-multihash) key without touching the store',
+      () async {
+        final keyPair = await generateEd25519KeyPair();
+        final id = PeerId.fromPubKey(keyPair.getPublic());
+        final store = _FakeValueStore({});
 
-      final pk = await getPublicKey(store, id);
-      expect(pk.keyEquals(keyPair.getPublic()), isTrue);
-    });
+        final pk = await getPublicKey(store, id);
+        expect(pk.keyEquals(keyPair.getPublic()), isTrue);
+      },
+    );
 
     test('prefers a PubKeyFetcher store over a plain value lookup', () async {
       final keyPair = generateRsaKeyPair(2048);
@@ -104,15 +110,18 @@ void main() {
       expect(pk.keyEquals(keyPair.getPublic()), isTrue);
     });
 
-    test('falls back to a plain GetValue lookup for a hashed (RSA) ID', () async {
-      final keyPair = generateRsaKeyPair(2048);
-      final id = PeerId.fromPubKey(keyPair.getPublic());
-      final store = _FakeValueStore({
-        keyForPublicKey(id): marshalPublicKey(keyPair.getPublic()),
-      });
+    test(
+      'falls back to a plain GetValue lookup for a hashed (RSA) ID',
+      () async {
+        final keyPair = generateRsaKeyPair(2048);
+        final id = PeerId.fromPubKey(keyPair.getPublic());
+        final store = _FakeValueStore({
+          keyForPublicKey(id): marshalPublicKey(keyPair.getPublic()),
+        });
 
-      final pk = await getPublicKey(store, id);
-      expect(pk.keyEquals(keyPair.getPublic()), isTrue);
-    });
+        final pk = await getPublicKey(store, id);
+        expect(pk.keyEquals(keyPair.getPublic()), isTrue);
+      },
+    );
   });
 }

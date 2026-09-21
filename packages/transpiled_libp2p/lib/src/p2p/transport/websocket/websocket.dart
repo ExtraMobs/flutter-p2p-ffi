@@ -37,7 +37,11 @@ final Multiaddr _tlsWsAddr = Multiaddr([_tlsComponent, _wsComponent]);
 /// Result of decomposing a `/ws`/`/wss`/`/tls[/sni/<host>]/ws` multiaddr.
 /// Mirrors upstream's unexported `parsedWebsocketMultiaddr` (addrs.go).
 class _ParsedWebsocketMultiaddr {
-  _ParsedWebsocketMultiaddr({required this.isWss, this.sni, required this.restMultiaddr});
+  _ParsedWebsocketMultiaddr({
+    required this.isWss,
+    this.sni,
+    required this.restMultiaddr,
+  });
 
   final bool isWss;
   final Component? sni;
@@ -77,7 +81,11 @@ _ParsedWebsocketMultiaddr _parseWebsocketMultiaddr(Multiaddr a) {
       break;
     }
   }
-  return _ParsedWebsocketMultiaddr(isWss: isWss, sni: sni, restMultiaddr: restMultiaddr);
+  return _ParsedWebsocketMultiaddr(
+    isWss: isWss,
+    sni: sni,
+    restMultiaddr: restMultiaddr,
+  );
 }
 
 /// Mirrors upstream's unexported `(*parsedWebsocketMultiaddr).toMultiaddr`
@@ -85,9 +93,13 @@ _ParsedWebsocketMultiaddr _parseWebsocketMultiaddr(Multiaddr a) {
 Multiaddr _reconstructMultiaddr(_ParsedWebsocketMultiaddr p) {
   if (!p.isWss) return p.restMultiaddr.encapsulate(Multiaddr([_wsComponent]));
   if (p.sni == null) {
-    return p.restMultiaddr.encapsulate(Multiaddr([_tlsComponent, _wsComponent]));
+    return p.restMultiaddr.encapsulate(
+      Multiaddr([_tlsComponent, _wsComponent]),
+    );
   }
-  return p.restMultiaddr.encapsulate(Multiaddr([_tlsComponent, p.sni!, _wsComponent]));
+  return p.restMultiaddr.encapsulate(
+    Multiaddr([_tlsComponent, p.sni!, _wsComponent]),
+  );
 }
 
 /// Whether [m] is exactly a `/<ip4|ip6|dns|dns4|dns6|dnsaddr>/<tcp>` pair,
@@ -107,7 +119,8 @@ bool _looksLikeTcpEndpoint(Multiaddr m) {
     Protocols.dns6,
     Protocols.dnsaddr,
   };
-  return validHosts.contains(m.components[0].protocol.code) && m.components[1].protocol.code == Protocols.tcp;
+  return validHosts.contains(m.components[0].protocol.code) &&
+      m.components[1].protocol.code == Protocols.tcp;
 }
 
 /// Extracts `(host, port)` for the protocols this transport can actually
@@ -119,7 +132,11 @@ bool _looksLikeTcpEndpoint(Multiaddr m) {
   int? port;
   for (final c in addr.components) {
     final name = c.protocol.name;
-    if (name == 'ip4' || name == 'ip6' || name == 'dns' || name == 'dns4' || name == 'dns6') {
+    if (name == 'ip4' ||
+        name == 'ip6' ||
+        name == 'dns' ||
+        name == 'dns4' ||
+        name == 'dns6') {
       host = c.value;
     } else if (name == 'tcp') {
       port = int.tryParse(c.value);
@@ -129,11 +146,18 @@ bool _looksLikeTcpEndpoint(Multiaddr m) {
   return null;
 }
 
-Multiaddr _buildListenMultiaddr(InternetAddress address, int port, {required bool isWss, Component? sni}) {
+Multiaddr _buildListenMultiaddr(
+  InternetAddress address,
+  int port, {
+  required bool isWss,
+  Component? sni,
+}) {
   final ipProto = address.type == InternetAddressType.IPv6 ? 'ip6' : 'ip4';
   final base = Multiaddr.parse('/$ipProto/${address.address}/tcp/$port');
   if (!isWss) return base.encapsulate(Multiaddr([_wsComponent]));
-  final tlsPart = sni == null ? Multiaddr([_tlsComponent]) : Multiaddr([_tlsComponent, sni]);
+  final tlsPart = sni == null
+      ? Multiaddr([_tlsComponent])
+      : Multiaddr([_tlsComponent, sni]);
   return base.encapsulate(tlsPart).encapsulate(Multiaddr([_wsComponent]));
 }
 
@@ -180,7 +204,9 @@ class WebsocketTransport implements Transport {
   @override
   bool canDial(Multiaddr addr) {
     try {
-      return _looksLikeTcpEndpoint(_parseWebsocketMultiaddr(addr).restMultiaddr);
+      return _looksLikeTcpEndpoint(
+        _parseWebsocketMultiaddr(addr).restMultiaddr,
+      );
     } on FormatException {
       return false;
     }
@@ -206,7 +232,9 @@ class WebsocketTransport implements Transport {
     if (sni == null) {
       for (final c in parsed.restMultiaddr.components) {
         final code = c.protocol.code;
-        if (code == Protocols.dns || code == Protocols.dns4 || code == Protocols.dns6) {
+        if (code == Protocols.dns ||
+            code == Protocols.dns4 ||
+            code == Protocols.dns6) {
           sni = Component(Protocols.byCode(Protocols.sni)!, c.value);
           break;
         }
@@ -215,7 +243,11 @@ class WebsocketTransport implements Transport {
     if (sni == null) return [maddr];
     return [
       _reconstructMultiaddr(
-        _ParsedWebsocketMultiaddr(isWss: true, sni: sni, restMultiaddr: parsed.restMultiaddr),
+        _ParsedWebsocketMultiaddr(
+          isWss: true,
+          sni: sni,
+          restMultiaddr: parsed.restMultiaddr,
+        ),
       ),
     ];
   }
@@ -225,7 +257,11 @@ class WebsocketTransport implements Transport {
     if (_closed) throw StateError('WebsocketTransport is closed');
     final rawConn = await _maDial(addr);
     try {
-      final upgraded = await upgrader.upgrade(rawConn, Direction.outbound, peer);
+      final upgraded = await upgrader.upgrade(
+        rawConn,
+        Direction.outbound,
+        peer,
+      );
       return _WebsocketCapableConn(upgraded);
     } catch (err) {
       await rawConn.close();
@@ -238,7 +274,9 @@ class WebsocketTransport implements Transport {
     final parsed = _parseWebsocketMultiaddr(raddr);
     final endpoint = _tcpEndpoint(parsed.restMultiaddr);
     if (endpoint == null) {
-      throw ArgumentError('Address $raddr is not a dialable websocket multiaddr');
+      throw ArgumentError(
+        'Address $raddr is not a dialable websocket multiaddr',
+      );
     }
     final (restHost, port) = endpoint;
     // Upstream dials the already-resolved IP directly and only overrides the
@@ -255,7 +293,10 @@ class WebsocketTransport implements Transport {
     if (parsed.isWss && tlsClientContext != null) {
       client = HttpClient(context: tlsClientContext);
     }
-    final socket = await WebSocket.connect(uri.toString(), customClient: client).timeout(handshakeTimeout);
+    final socket = await WebSocket.connect(
+      uri.toString(),
+      customClient: client,
+    ).timeout(handshakeTimeout);
 
     return _WebsocketConn(
       socket: socket,
@@ -276,7 +317,9 @@ class WebsocketTransport implements Transport {
     if (_closed) throw StateError('WebsocketTransport is closed');
     final parsed = _parseWebsocketMultiaddr(addr);
     if (parsed.isWss && tlsSecurityContext == null) {
-      throw ArgumentError('cannot listen on wss address $addr without a tls SecurityContext');
+      throw ArgumentError(
+        'cannot listen on wss address $addr without a tls SecurityContext',
+      );
     }
     final endpoint = _tcpEndpoint(parsed.restMultiaddr);
     if (endpoint == null) {
@@ -288,7 +331,12 @@ class WebsocketTransport implements Transport {
         ? await HttpServer.bindSecure(host, port, tlsSecurityContext!)
         : await HttpServer.bind(host, port);
 
-    final boundMultiaddr = _buildListenMultiaddr(server.address, server.port, isWss: parsed.isWss, sni: parsed.sni);
+    final boundMultiaddr = _buildListenMultiaddr(
+      server.address,
+      server.port,
+      isWss: parsed.isWss,
+      sni: parsed.sni,
+    );
 
     final listener = _WebsocketListener(
       server: server,
@@ -345,13 +393,15 @@ class _WebsocketConn implements RawConn {
     required bool isSecure,
     required Multiaddr localMultiaddr,
     required Multiaddr remoteMultiaddr,
-  })  : _socket = socket,
-        _transport = transportInstance,
-        _local = localMultiaddr,
-        _remote = remoteMultiaddr {
+  }) : _socket = socket,
+       _transport = transportInstance,
+       _local = localMultiaddr,
+       _remote = remoteMultiaddr {
     _subscription = _socket.listen(
       (dynamic message) {
-        final bytes = message is String ? utf8.encode(message) : (message as List<int>);
+        final bytes = message is String
+            ? utf8.encode(message)
+            : (message as List<int>);
         if (bytes.isNotEmpty) _buffer.addAll(bytes);
         _wake();
       },
@@ -399,8 +449,9 @@ class _WebsocketConn implements RawConn {
       _completer = null;
     }
     if (_buffer.isEmpty) return Uint8List(0);
-    final count =
-        maxLength != null && maxLength > 0 ? (maxLength < _buffer.length ? maxLength : _buffer.length) : _buffer.length;
+    final count = maxLength != null && maxLength > 0
+        ? (maxLength < _buffer.length ? maxLength : _buffer.length)
+        : _buffer.length;
     final chunk = Uint8List.fromList(_buffer.sublist(0, count));
     _buffer.removeRange(0, count);
     return chunk;
@@ -419,18 +470,18 @@ class _WebsocketConn implements RawConn {
 
   @override
   Future<void> write(Uint8List data) => _serialized(() async {
-        if (_isClosed) throw StateError('WebSocket connection is closed');
-        _socket.add(data);
-      });
+    if (_isClosed) throw StateError('WebSocket connection is closed');
+    _socket.add(data);
+  });
 
   @override
   Future<void> close() => _serialized(() async {
-        if (_isClosed) return;
-        _isClosed = true;
-        await _subscription?.cancel();
-        _subscription = null;
-        await _socket.close();
-      });
+    if (_isClosed) return;
+    _isClosed = true;
+    await _subscription?.cancel();
+    _subscription = null;
+    await _socket.close();
+  });
 
   @override
   bool get isClosed => _isClosed;
@@ -512,11 +563,11 @@ class _WebsocketListener implements Listener {
     required Upgrader upgrader,
     required bool isWss,
     required Multiaddr multiaddr,
-  })  : _server = server,
-        _transport = transportInstance,
-        _upgrader = upgrader,
-        _isWss = isWss,
-        _multiaddr = multiaddr {
+  }) : _server = server,
+       _transport = transportInstance,
+       _upgrader = upgrader,
+       _isWss = isWss,
+       _multiaddr = multiaddr {
     _subscription = _server.listen(
       _handleRequest,
       onError: (Object _) {},
@@ -584,7 +635,11 @@ class _WebsocketListener implements Listener {
     if (_pending.isEmpty) throw const ListenerClosedException();
     final rawConn = _pending.removeAt(0);
     try {
-      final upgraded = await _upgrader.upgrade(rawConn, Direction.inbound, PeerId(value: Uint8List(0)));
+      final upgraded = await _upgrader.upgrade(
+        rawConn,
+        Direction.inbound,
+        PeerId(value: Uint8List(0)),
+      );
       return _WebsocketCapableConn(upgraded);
     } catch (err) {
       await rawConn.close();

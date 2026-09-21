@@ -1,8 +1,8 @@
 # Relatório de Auditoria de AST e Nomenclatura (Dart <-> Go)
 
 > Relatório gerado automaticamente por `tool/audit_ast_nomenclature.py`.
-> **Símbolos Dart Auditados:** 8094 | **Símbolos Go Indexados:** 51093
-> **Status Geral:** ❌ **0 Erros** | ⚠️ **0 Avisos** | ℹ️ **1463 Notas de Cobertura**
+> **Símbolos Dart Auditados:** 8417 | **Símbolos Go Indexados:** 51093
+> **Status Geral:** ❌ **0 Erros** | ⚠️ **0 Avisos** | ℹ️ **1462 Notas de Cobertura**
 
 ## 1. Resumo Executivo das 23 Regras
 
@@ -25,9 +25,9 @@
 | `RULE_RESTRICTED_PLATFORM_IMPORTS` | 15. Veto a dart:io em Pacotes de Codecs/Formatos Puros | `ERROR` | 0 | ✅ Conforme |
 | `RULE_NO_PRINT_IN_LIBRARIES` | 16. Veto a chamadas print(...) em Bibliotecas Reutilizáveis | `ERROR` | 0 | ✅ Conforme |
 | `RULE_NO_ARTIFICIAL_CONCURRENCY` | 17. Veto a Primitivas Artificiais de Concorrência Go | `ERROR` | 0 | ✅ Conforme |
-| `RULE_MISSING_GO_TYPES` | 18. Auditoria de Tipos e Interfaces do Upstream Go Ausentes | `INFO` | 1315 | ⚠️ Atenção |
+| `RULE_MISSING_GO_TYPES` | 18. Auditoria de Tipos e Interfaces do Upstream Go Ausentes | `INFO` | 1312 | ⚠️ Atenção |
 | `RULE_MISSING_GO_FIELDS` | 19. Auditoria de Campos de Structs do Upstream Go Ausentes | `INFO` | 23 | ⚠️ Atenção |
-| `RULE_MISSING_GO_METHODS` | 20. Auditoria de Métodos do Upstream Go Ausentes | `INFO` | 105 | ⚠️ Atenção |
+| `RULE_MISSING_GO_METHODS` | 20. Auditoria de Métodos do Upstream Go Ausentes | `INFO` | 107 | ⚠️ Atenção |
 | `RULE_MISSING_GO_FUNCTIONS` | 21. Auditoria de Funções Top-Level do Upstream Go Ausentes | `INFO` | 20 | ⚠️ Atenção |
 | `RULE_PUBSPEC_DEPENDENCIES` | 22. Validação de Dependências em pubspec.yaml | `ERROR` | 0 | ✅ Conforme |
 | `RULE_EXPOSED_NON_PUBLIC_MEMBERS` | 23. Veto a Membros Públicos que Expõem Tipos Não-Públicos (Menor Permissão) | `ERROR` | 0 | ✅ Conforme |
@@ -35,7 +35,7 @@
 
 ## 2. Detalhamento dos Apontamentos
 
-### 18. Auditoria de Tipos e Interfaces do Upstream Go Ausentes (1315 ocorrências)
+### 18. Auditoria de Tipos e Interfaces do Upstream Go Ausentes (1312 ocorrências)
 
 - ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Option' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
   - *Sugestão:* `Portar 'Option' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
@@ -901,10 +901,6 @@
   - *Sugestão:* `Portar 'SkipMe' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
 - ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'ErrBudgetExceeded' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
   - *Sugestão:* `Portar 'ErrBudgetExceeded' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
-- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'AdvVisitFn' (type) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
-  - *Sugestão:* `Portar 'AdvVisitFn' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
-- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'LinkTargetNodePrototypeChooser' (type) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
-  - *Sugestão:* `Portar 'LinkTargetNodePrototypeChooser' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
 - ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'Operation' (struct) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
   - *Sugestão:* `Portar 'Operation' para 'packages/transpiled_ipld_prime' ou documentar se for omitido deliberadamente`
 - ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Tipo público Go 'Op' (type) do módulo 'go-ipld-prime' ainda não foi portado para o pacote 'packages/transpiled_ipld_prime'.
@@ -1197,8 +1193,6 @@
   - *Sugestão:* `Portar 'RoundTripperOption' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'QUICListener' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
   - *Sugestão:* `Portar 'QUICListener' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
-- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'QUICTransport' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
-  - *Sugestão:* `Portar 'QUICTransport' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'RefCountedQUICTransport' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
   - *Sugestão:* `Portar 'RefCountedQUICTransport' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'SourceIPSelector' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
@@ -1213,8 +1207,6 @@
   - *Sugestão:* `Portar 'ConnMgr' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'TransportSubTestFn' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
   - *Sugestão:* `Portar 'TransportSubTestFn' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
-- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'WebRTCTransport' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
-  - *Sugestão:* `Portar 'WebRTCTransport' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'ListenUDPFn' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
   - *Sugestão:* `Portar 'ListenUDPFn' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Addr' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
@@ -1477,6 +1469,8 @@
   - *Sugestão:* `Portar 'Message_MessageType' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Message_ResponseStatus' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
   - *Sugestão:* `Portar 'Message_ResponseStatus' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Jitter' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
+  - *Sugestão:* `Portar 'Jitter' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'MockDiscoveryServer' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
   - *Sugestão:* `Portar 'MockDiscoveryServer' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'MockDiscoveryClient' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
@@ -2670,7 +2664,7 @@
 
 ### 19. Auditoria de Campos de Structs do Upstream Go Ausentes (23 ocorrências)
 
-- ℹ️ `[INFO]` **[`packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart:255`](packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart#L255)** — Classe 'Block' possui 2 campo(s) do Go pendente(s) no módulo 'boxo': From, Delay.
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart:268`](packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart#L268)** — Classe 'Block' possui 2 campo(s) do Go pendente(s) no módulo 'boxo': From, Delay.
   - *Sugestão:* `Avaliar implementação dos campos: From, Delay`
 - ℹ️ `[INFO]` **[`packages/transpiled_datastore/lib/src/datastore.dart:59`](packages/transpiled_datastore/lib/src/datastore.dart#L59)** — Classe 'Datastore' possui 3 campo(s) do Go pendente(s) no módulo 'go-datastore': TempErrFunc, Retries, Delay.
   - *Sugestão:* `Avaliar implementação dos campos: TempErrFunc, Retries, Delay`
@@ -2686,15 +2680,15 @@
   - *Sugestão:* `Avaliar implementação dos campos: A, There, The, However, Because`
 - ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/linking/linking.dart:24`](packages/transpiled_ipld_prime/lib/src/linking/linking.dart#L24)** — Classe 'LinkContext' possui 1 campo(s) do Go pendente(s) no módulo 'go-ipld-prime': Ctx.
   - *Sugestão:* `Avaliar implementação dos campos: Ctx`
-- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/traversal/traversal.dart:31`](packages/transpiled_ipld_prime/lib/src/traversal/traversal.dart#L31)** — Classe 'PreloadContext' possui 1 campo(s) do Go pendente(s) no módulo 'go-ipld-prime': Ctx.
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/traversal/traversal.dart:26`](packages/transpiled_ipld_prime/lib/src/traversal/traversal.dart#L26)** — Classe 'PreloadContext' possui 1 campo(s) do Go pendente(s) no módulo 'go-ipld-prime': Ctx.
   - *Sugestão:* `Avaliar implementação dos campos: Ctx`
-- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/traversal/traversal.dart:53`](packages/transpiled_ipld_prime/lib/src/traversal/traversal.dart#L53)** — Classe 'Config' possui 8 campo(s) do Go pendente(s) no módulo 'go-ipld-prime': Abbreviate, Indentation, StartingIndent, AlwaysMarkStrings....
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/traversal/traversal.dart:48`](packages/transpiled_ipld_prime/lib/src/traversal/traversal.dart#L48)** — Classe 'Config' possui 8 campo(s) do Go pendente(s) no módulo 'go-ipld-prime': Abbreviate, Indentation, StartingIndent, AlwaysMarkStrings....
   - *Sugestão:* `Avaliar implementação dos campos: Abbreviate, Indentation, StartingIndent, AlwaysMarkStrings, ElidePreludeTypeInfo, UseMapComplexStyleAlways, UseMapComplexStyleOnType, Ctx`
-- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/traversal/traversal.dart:84`](packages/transpiled_ipld_prime/lib/src/traversal/traversal.dart#L84)** — Classe 'Progress' possui 1 campo(s) do Go pendente(s) no módulo 'go-ipld-prime': Link.
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/traversal/traversal.dart:79`](packages/transpiled_ipld_prime/lib/src/traversal/traversal.dart#L79)** — Classe 'Progress' possui 1 campo(s) do Go pendente(s) no módulo 'go-ipld-prime': Link.
   - *Sugestão:* `Avaliar implementação dos campos: Link`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/protocol/identify/id.dart:22`](packages/transpiled_libp2p/lib/src/p2p/protocol/identify/id.dart#L22)** — Classe 'IdService' possui 3 campo(s) do Go pendente(s) no módulo 'go-libp2p': Host, UserAgent, ProtocolVersion.
   - *Sugestão:* `Avaliar implementação dos campos: Host, UserAgent, ProtocolVersion`
-- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/protocol/circuitv2/client/reservation.dart:17`](packages/transpiled_libp2p/lib/src/p2p/protocol/circuitv2/client/reservation.dart#L17)** — Classe 'Reservation' possui 1 campo(s) do Go pendente(s) no módulo 'go-libp2p': Expire.
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/protocol/circuitv2/client/reservation.dart:20`](packages/transpiled_libp2p/lib/src/p2p/protocol/circuitv2/client/reservation.dart#L20)** — Classe 'Reservation' possui 1 campo(s) do Go pendente(s) no módulo 'go-libp2p': Expire.
   - *Sugestão:* `Avaliar implementação dos campos: Expire`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/host/resource_manager/limit.dart:17`](packages/transpiled_libp2p/lib/src/p2p/host/resource_manager/limit.dart#L17)** — Classe 'Limit' possui 4 campo(s) do Go pendente(s) no módulo 'go-libp2p': RPS, Burst, Duration, Data.
   - *Sugestão:* `Avaliar implementação dos campos: RPS, Burst, Duration, Data`
@@ -2708,7 +2702,7 @@
   - *Sugestão:* `Avaliar implementação dos campos: TotalIn, TotalOut, RateIn, RateOut`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/network/network.dart:464`](packages/transpiled_libp2p/lib/src/core/network/network.dart#L464)** — Classe 'Conn' possui 2 campo(s) do Go pendente(s) no módulo 'go-libp2p': Scope, DefaultMessageType.
   - *Sugestão:* `Avaliar implementação dos campos: Scope, DefaultMessageType`
-- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/peer/peer_record.dart:40`](packages/transpiled_libp2p/lib/src/core/peer/peer_record.dart#L40)** — Classe 'PeerRecord' possui 1 campo(s) do Go pendente(s) no módulo 'go-libp2p': Addresses.
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/peer/peer_record.dart:43`](packages/transpiled_libp2p/lib/src/core/peer/peer_record.dart#L43)** — Classe 'PeerRecord' possui 1 campo(s) do Go pendente(s) no módulo 'go-libp2p': Addresses.
   - *Sugestão:* `Avaliar implementação dos campos: Addresses`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/record/envelope.dart:57`](packages/transpiled_libp2p/lib/src/core/record/envelope.dart#L57)** — Classe 'Envelope' possui 1 campo(s) do Go pendente(s) no módulo 'go-libp2p': Payload.
   - *Sugestão:* `Avaliar implementação dos campos: Payload`
@@ -2717,7 +2711,7 @@
 - ℹ️ `[INFO]` **[`packages/transpiled_multiaddr/lib/src/protocol.dart:41`](packages/transpiled_multiaddr/lib/src/protocol.dart#L41)** — Classe 'Protocol' possui 1 campo(s) do Go pendente(s) no módulo 'go-multiaddr': VCode.
   - *Sugestão:* `Avaliar implementação dos campos: VCode`
 
-### 20. Auditoria de Métodos do Upstream Go Ausentes (105 ocorrências)
+### 20. Auditoria de Métodos do Upstream Go Ausentes (107 ocorrências)
 
 - ℹ️ `[INFO]` **[`packages/transpiled_block_format/lib/src/blocks.dart:33`](packages/transpiled_block_format/lib/src/blocks.dart#L33)** — Classe 'BasicBlock' possui 1 método(s) do Go pendente(s) no módulo 'go-block-format': String.
   - *Sugestão:* `Avaliar paridade e implementação de: String`
@@ -2729,21 +2723,21 @@
   - *Sugestão:* `Avaliar paridade e implementação de: GetBlocks`
 - ℹ️ `[INFO]` **[`packages/transpiled_boxo/lib/src/bitswap/client/client.dart:31`](packages/transpiled_boxo/lib/src/bitswap/client/client.dart#L31)** — Classe 'Client' possui 32 método(s) do Go pendente(s) no módulo 'boxo': GetLatest, GetCached, GetCachedOrRefresh, HasCachedConfig....
   - *Sugestão:* `Avaliar paridade e implementação de: GetLatest, GetCached, GetCachedOrRefresh, HasCachedConfig, Start, Stop, PutValue, GetValue, SearchValue, FindProviders, FindPeer, FindProvidersAsync, Provide, Ping, Bootstrap, FindProviders, ProvideBitswap, FindPeers, GetIPNS, PutIPNS, GetClosestPeers, Ls, GoLs, LsSync, LsBatchSync, Add, GetStatusByID, DeleteByID, Replace, NotifyNewBlocks, NewSession, Stat`
-- ℹ️ `[INFO]` **[`packages/transpiled_boxo/lib/src/bitswap/message/message.dart:310`](packages/transpiled_boxo/lib/src/bitswap/message/message.dart#L310)** — Classe 'Impl' possui 20 método(s) do Go pendente(s) no módulo 'boxo': Self, Ping, Latency, Host....
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo/lib/src/bitswap/message/message.dart:301`](packages/transpiled_boxo/lib/src/bitswap/message/message.dart#L301)** — Classe 'Impl' possui 20 método(s) do Go pendente(s) no módulo 'boxo': Self, Ping, Latency, Host....
   - *Sugestão:* `Avaliar paridade e implementação de: Self, Ping, Latency, Host, SupportsHave, NewMessageSender, SendMessage, Start, Stop, Connect, DisconnectFrom, IsConnectedToPeer, TagPeer, UntagPeer, Protect, Unprotect, Stats, Publish, Shutdown, Subscribe`
-- ℹ️ `[INFO]` **[`packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart:184`](packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart#L184)** — Classe 'Wantlist' possui 1 método(s) do Go pendente(s) no módulo 'boxo': Len.
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart:195`](packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart#L195)** — Classe 'Wantlist' possui 1 método(s) do Go pendente(s) no módulo 'boxo': Len.
   - *Sugestão:* `Avaliar paridade e implementação de: Len`
-- ℹ️ `[INFO]` **[`packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart:396`](packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart#L396)** — Classe 'Message' possui 5 método(s) do Go pendente(s) no módulo 'boxo': Reset, String, ProtoMessage, ProtoReflect....
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart:413`](packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart#L413)** — Classe 'Message' possui 5 método(s) do Go pendente(s) no módulo 'boxo': Reset, String, ProtoMessage, ProtoReflect....
   - *Sugestão:* `Avaliar paridade e implementação de: Reset, String, ProtoMessage, ProtoReflect, Descriptor`
 - ℹ️ `[INFO]` **[`packages/transpiled_boxo/lib/src/bitswap/client/wantlist/wantlist.dart:40`](packages/transpiled_boxo/lib/src/bitswap/client/wantlist/wantlist.dart#L40)** — Classe 'Wantlist' possui 1 método(s) do Go pendente(s) no módulo 'boxo': Len.
   - *Sugestão:* `Avaliar paridade e implementação de: Len`
 - ℹ️ `[INFO]` **[`packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peermanager.dart:10`](packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peermanager.dart#L10)** — Classe 'Session' possui 5 método(s) do Go pendente(s) no módulo 'boxo': GetBlock, GetBlocks, Close, ReceiveFrom....
   - *Sugestão:* `Avaliar paridade e implementação de: GetBlock, GetBlocks, Close, ReceiveFrom, SetBaseTickDelay`
-- ℹ️ `[INFO]` **[`packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peerwantmanager.dart:40`](packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peerwantmanager.dart#L40)** — Classe 'PeerWantManager' possui 1 método(s) do Go pendente(s) no módulo 'boxo': String.
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peerwantmanager.dart:39`](packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peerwantmanager.dart#L39)** — Classe 'PeerWantManager' possui 1 método(s) do Go pendente(s) no módulo 'boxo': String.
   - *Sugestão:* `Avaliar paridade e implementação de: String`
 - ℹ️ `[INFO]` **[`packages/transpiled_cid/lib/src/cid.dart:41`](packages/transpiled_cid/lib/src/cid.dart#L41)** — Classe 'Cid' possui 18 método(s) do Go pendente(s) no módulo 'go-cid': UnmarshalBinary, UnmarshalText, Version, Type....
   - *Sugestão:* `Avaliar paridade e implementação de: UnmarshalBinary, UnmarshalText, Version, Type, String, StringOfBase, Hash, ByteLen, WriteBytes, MarshalBinary, MarshalText, Equals, UnmarshalJSON, MarshalJSON, KeyString, Loggable, Multicodec, Multihash`
-- ℹ️ `[INFO]` **[`packages/transpiled_cid/lib/src/cid.dart:332`](packages/transpiled_cid/lib/src/cid.dart#L332)** — Classe 'Prefix' possui 2 método(s) do Go pendente(s) no módulo 'go-cid': GetCodec, WithCodec.
+- ℹ️ `[INFO]` **[`packages/transpiled_cid/lib/src/cid.dart:333`](packages/transpiled_cid/lib/src/cid.dart#L333)** — Classe 'Prefix' possui 2 método(s) do Go pendente(s) no módulo 'go-cid': GetCodec, WithCodec.
   - *Sugestão:* `Avaliar paridade e implementação de: GetCodec, WithCodec`
 - ℹ️ `[INFO]` **[`packages/transpiled_datastore/lib/src/datastore.dart:59`](packages/transpiled_datastore/lib/src/datastore.dart#L59)** — Classe 'Datastore' possui 15 método(s) do Go pendente(s) no módulo 'go-datastore': Delete, Get, Put, Flush....
   - *Sugestão:* `Avaliar paridade e implementação de: Delete, Get, Put, Flush, Has, GetSize, Query, DiskUsage, Batch, NewTransaction, KeyFilename, Children, Check, Scrub, CollectGarbage`
@@ -2775,19 +2769,19 @@
   - *Sugestão:* `Avaliar paridade e implementação de: LookupByIndex, ListIterator, IsAbsent, IsNull, AsBool, AsInt, AsFloat, AsString, AsBytes, AsLink`
 - ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/basicnode/scalars.dart:55`](packages/transpiled_ipld_prime/lib/src/basicnode/scalars.dart#L55)** — Classe 'PlainBool' possui 14 método(s) do Go pendente(s) no módulo 'go-ipld-prime': LookupByString, LookupByNode, LookupByIndex, LookupBySegment....
   - *Sugestão:* `Avaliar paridade e implementação de: LookupByString, LookupByNode, LookupByIndex, LookupBySegment, MapIterator, ListIterator, Length, IsAbsent, IsNull, AsInt, AsFloat, AsString, AsBytes, AsLink`
-- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/basicnode/scalars.dart:104`](packages/transpiled_ipld_prime/lib/src/basicnode/scalars.dart#L104)** — Classe 'PlainInt' possui 14 método(s) do Go pendente(s) no módulo 'go-ipld-prime': LookupByString, LookupByNode, LookupByIndex, LookupBySegment....
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/basicnode/scalars.dart:103`](packages/transpiled_ipld_prime/lib/src/basicnode/scalars.dart#L103)** — Classe 'PlainInt' possui 14 método(s) do Go pendente(s) no módulo 'go-ipld-prime': LookupByString, LookupByNode, LookupByIndex, LookupBySegment....
   - *Sugestão:* `Avaliar paridade e implementação de: LookupByString, LookupByNode, LookupByIndex, LookupBySegment, MapIterator, ListIterator, Length, IsAbsent, IsNull, AsBool, AsFloat, AsString, AsBytes, AsLink`
-- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/basicnode/scalars.dart:125`](packages/transpiled_ipld_prime/lib/src/basicnode/scalars.dart#L125)** — Classe 'PlainUint' possui 14 método(s) do Go pendente(s) no módulo 'go-ipld-prime': LookupByString, LookupByNode, LookupByIndex, LookupBySegment....
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/basicnode/scalars.dart:124`](packages/transpiled_ipld_prime/lib/src/basicnode/scalars.dart#L124)** — Classe 'PlainUint' possui 14 método(s) do Go pendente(s) no módulo 'go-ipld-prime': LookupByString, LookupByNode, LookupByIndex, LookupBySegment....
   - *Sugestão:* `Avaliar paridade e implementação de: LookupByString, LookupByNode, LookupByIndex, LookupBySegment, MapIterator, ListIterator, Length, IsAbsent, IsNull, AsBool, AsFloat, AsString, AsBytes, AsLink`
-- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/basicnode/scalars.dart:179`](packages/transpiled_ipld_prime/lib/src/basicnode/scalars.dart#L179)** — Classe 'PlainFloat' possui 14 método(s) do Go pendente(s) no módulo 'go-ipld-prime': LookupByString, LookupByNode, LookupByIndex, LookupBySegment....
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/basicnode/scalars.dart:178`](packages/transpiled_ipld_prime/lib/src/basicnode/scalars.dart#L178)** — Classe 'PlainFloat' possui 14 método(s) do Go pendente(s) no módulo 'go-ipld-prime': LookupByString, LookupByNode, LookupByIndex, LookupBySegment....
   - *Sugestão:* `Avaliar paridade e implementação de: LookupByString, LookupByNode, LookupByIndex, LookupBySegment, MapIterator, ListIterator, Length, IsAbsent, IsNull, AsBool, AsInt, AsString, AsBytes, AsLink`
-- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/basicnode/scalars.dart:229`](packages/transpiled_ipld_prime/lib/src/basicnode/scalars.dart#L229)** — Classe 'PlainString' possui 14 método(s) do Go pendente(s) no módulo 'go-ipld-prime': LookupByString, LookupByNode, LookupByIndex, LookupBySegment....
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/basicnode/scalars.dart:228`](packages/transpiled_ipld_prime/lib/src/basicnode/scalars.dart#L228)** — Classe 'PlainString' possui 14 método(s) do Go pendente(s) no módulo 'go-ipld-prime': LookupByString, LookupByNode, LookupByIndex, LookupBySegment....
   - *Sugestão:* `Avaliar paridade e implementação de: LookupByString, LookupByNode, LookupByIndex, LookupBySegment, MapIterator, ListIterator, Length, IsAbsent, IsNull, AsBool, AsInt, AsFloat, AsBytes, AsLink`
-- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/basicnode/scalars.dart:279`](packages/transpiled_ipld_prime/lib/src/basicnode/scalars.dart#L279)** — Classe 'PlainBytes' possui 14 método(s) do Go pendente(s) no módulo 'go-ipld-prime': LookupByString, LookupByNode, LookupByIndex, LookupBySegment....
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/basicnode/scalars.dart:278`](packages/transpiled_ipld_prime/lib/src/basicnode/scalars.dart#L278)** — Classe 'PlainBytes' possui 14 método(s) do Go pendente(s) no módulo 'go-ipld-prime': LookupByString, LookupByNode, LookupByIndex, LookupBySegment....
   - *Sugestão:* `Avaliar paridade e implementação de: LookupByString, LookupByNode, LookupByIndex, LookupBySegment, MapIterator, ListIterator, Length, IsAbsent, IsNull, AsBool, AsInt, AsFloat, AsString, AsLink`
-- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/basicnode/scalars.dart:367`](packages/transpiled_ipld_prime/lib/src/basicnode/scalars.dart#L367)** — Classe 'PlainLink' possui 14 método(s) do Go pendente(s) no módulo 'go-ipld-prime': LookupByString, LookupByNode, LookupByIndex, LookupBySegment....
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/basicnode/scalars.dart:366`](packages/transpiled_ipld_prime/lib/src/basicnode/scalars.dart#L366)** — Classe 'PlainLink' possui 14 método(s) do Go pendente(s) no módulo 'go-ipld-prime': LookupByString, LookupByNode, LookupByIndex, LookupBySegment....
   - *Sugestão:* `Avaliar paridade e implementação de: LookupByString, LookupByNode, LookupByIndex, LookupBySegment, MapIterator, ListIterator, Length, IsAbsent, IsNull, AsBool, AsInt, AsFloat, AsString, AsBytes`
-- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/basicnode/stream_bytes.dart:17`](packages/transpiled_ipld_prime/lib/src/basicnode/stream_bytes.dart#L17)** — Classe 'StreamBytes' possui 14 método(s) do Go pendente(s) no módulo 'go-ipld-prime': LookupByString, LookupByNode, LookupByIndex, LookupBySegment....
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/basicnode/stream_bytes.dart:16`](packages/transpiled_ipld_prime/lib/src/basicnode/stream_bytes.dart#L16)** — Classe 'StreamBytes' possui 14 método(s) do Go pendente(s) no módulo 'go-ipld-prime': LookupByString, LookupByNode, LookupByIndex, LookupBySegment....
   - *Sugestão:* `Avaliar paridade e implementação de: LookupByString, LookupByNode, LookupByIndex, LookupBySegment, MapIterator, ListIterator, Length, IsAbsent, IsNull, AsBool, AsInt, AsFloat, AsString, AsLink`
 - ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/datamodel/kind.dart:54`](packages/transpiled_ipld_prime/lib/src/datamodel/kind.dart#L54)** — Classe 'KindSet' possui 1 método(s) do Go pendente(s) no módulo 'go-ipld-prime': String.
   - *Sugestão:* `Avaliar paridade e implementação de: String`
@@ -2803,7 +2797,7 @@
   - *Sugestão:* `Avaliar paridade e implementação de: String, Len`
 - ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/datamodel/path_segment.dart:11`](packages/transpiled_ipld_prime/lib/src/datamodel/path_segment.dart#L11)** — Classe 'PathSegment' possui 1 método(s) do Go pendente(s) no módulo 'go-ipld-prime': String.
   - *Sugestão:* `Avaliar paridade e implementação de: String`
-- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/traversal/traversal.dart:53`](packages/transpiled_ipld_prime/lib/src/traversal/traversal.dart#L53)** — Classe 'Config' possui 3 método(s) do Go pendente(s) no módulo 'go-ipld-prime': Print, Sprint, Fprint.
+- ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/traversal/traversal.dart:48`](packages/transpiled_ipld_prime/lib/src/traversal/traversal.dart#L48)** — Classe 'Config' possui 3 método(s) do Go pendente(s) no módulo 'go-ipld-prime': Print, Sprint, Fprint.
   - *Sugestão:* `Avaliar paridade e implementação de: Print, Sprint, Fprint`
 - ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/traversal/selector/selector.dart:271`](packages/transpiled_ipld_prime/lib/src/traversal/selector/selector.dart#L271)** — Classe 'RecursionLimit' possui 2 método(s) do Go pendente(s) no módulo 'go-ipld-prime': Mode, Depth.
   - *Sugestão:* `Avaliar paridade e implementação de: Mode, Depth`
@@ -2811,19 +2805,23 @@
   - *Sugestão:* `Avaliar paridade e implementação de: Match`
 - ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/traversal/selector/selector.dart:392`](packages/transpiled_ipld_prime/lib/src/traversal/selector/selector.dart#L392)** — Classe 'ParseContext' possui 1 método(s) do Go pendente(s) no módulo 'go-ipld-prime': PushParent.
   - *Sugestão:* `Avaliar paridade e implementação de: PushParent`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/transport/quic/quic_transport.dart:58`](packages/transpiled_libp2p/lib/src/p2p/transport/quic/quic_transport.dart#L58)** — Classe 'QuicTransport' possui 2 método(s) do Go pendente(s) no módulo 'go-libp2p': WriteTo, ReadNonQUICPacket.
+  - *Sugestão:* `Avaliar paridade e implementação de: WriteTo, ReadNonQUICPacket`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/transport/tcp/tcp_transport.dart:13`](packages/transpiled_libp2p/lib/src/p2p/transport/tcp/tcp_transport.dart#L13)** — Classe 'TcpTransport' possui 2 método(s) do Go pendente(s) no módulo 'go-libp2p': UseReuseport, String.
   - *Sugestão:* `Avaliar paridade e implementação de: UseReuseport, String`
-- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/protocol/holepunch/holepunch.dart:197`](packages/transpiled_libp2p/lib/src/p2p/protocol/holepunch/holepunch.dart#L197)** — Classe 'HolePuncher' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p': DirectConnect.
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/transport/webrtc/webrtc_transport.dart:64`](packages/transpiled_libp2p/lib/src/p2p/transport/webrtc/webrtc_transport.dart#L64)** — Classe 'WebRtcTransport' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p': ListenOrder.
+  - *Sugestão:* `Avaliar paridade e implementação de: ListenOrder`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/protocol/holepunch/holepunch.dart:194`](packages/transpiled_libp2p/lib/src/p2p/protocol/holepunch/holepunch.dart#L194)** — Classe 'HolePuncher' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p': DirectConnect.
   - *Sugestão:* `Avaliar paridade e implementação de: DirectConnect`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/protocol/identify/pb/identify_message.dart:10`](packages/transpiled_libp2p/lib/src/p2p/protocol/identify/pb/identify_message.dart#L10)** — Classe 'Identify' possui 12 método(s) do Go pendente(s) no módulo 'go-libp2p': Reset, String, ProtoMessage, ProtoReflect....
   - *Sugestão:* `Avaliar paridade e implementação de: Reset, String, ProtoMessage, ProtoReflect, Descriptor, GetProtocolVersion, GetAgentVersion, GetPublicKey, GetListenAddrs, GetObservedAddr, GetProtocols, GetSignedPeerRecord`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/protocol/circuitv2/client/client.dart:13`](packages/transpiled_libp2p/lib/src/p2p/protocol/circuitv2/client/client.dart#L13)** — Classe 'Client' possui 9 método(s) do Go pendente(s) no módulo 'go-libp2p': GetReachability, Listener, SkipResolve, Dial....
   - *Sugestão:* `Avaliar paridade e implementação de: GetReachability, Listener, SkipResolve, Dial, Listen, Protocols, Proxy, DialBack, DialBack`
-- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/protocol/circuitv2/client/reservation.dart:17`](packages/transpiled_libp2p/lib/src/p2p/protocol/circuitv2/client/reservation.dart#L17)** — Classe 'Reservation' possui 8 método(s) do Go pendente(s) no módulo 'go-libp2p': Reset, String, ProtoMessage, ProtoReflect....
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/protocol/circuitv2/client/reservation.dart:20`](packages/transpiled_libp2p/lib/src/p2p/protocol/circuitv2/client/reservation.dart#L20)** — Classe 'Reservation' possui 8 método(s) do Go pendente(s) no módulo 'go-libp2p': Reset, String, ProtoMessage, ProtoReflect....
   - *Sugestão:* `Avaliar paridade e implementação de: Reset, String, ProtoMessage, ProtoReflect, Descriptor, GetExpire, GetAddrs, GetVoucher`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/protocol/circuitv2/pb/circuit_message.dart:52`](packages/transpiled_libp2p/lib/src/p2p/protocol/circuitv2/pb/circuit_message.dart#L52)** — Classe 'HopMessage' possui 10 método(s) do Go pendente(s) no módulo 'go-libp2p': Reset, String, ProtoMessage, ProtoReflect....
   - *Sugestão:* `Avaliar paridade e implementação de: Reset, String, ProtoMessage, ProtoReflect, Descriptor, GetType, GetPeer, GetReservation, GetLimit, GetStatus`
-- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/protocol/circuitv2/proto/protocol.dart:16`](packages/transpiled_libp2p/lib/src/p2p/protocol/circuitv2/proto/protocol.dart#L16)** — Classe 'ReservationVoucher' possui 8 método(s) do Go pendente(s) no módulo 'go-libp2p': Reset, String, ProtoMessage, ProtoReflect....
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/protocol/circuitv2/proto/protocol.dart:42`](packages/transpiled_libp2p/lib/src/p2p/protocol/circuitv2/proto/protocol.dart#L42)** — Classe 'ReservationVoucher' possui 8 método(s) do Go pendente(s) no módulo 'go-libp2p': Reset, String, ProtoMessage, ProtoReflect....
   - *Sugestão:* `Avaliar paridade e implementação de: Reset, String, ProtoMessage, ProtoReflect, Descriptor, GetRelay, GetPeer, GetExpiration`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/net/swarm/swarm.dart:17`](packages/transpiled_libp2p/lib/src/p2p/net/swarm/swarm.dart#L17)** — Classe 'Swarm' possui 12 método(s) do Go pendente(s) no módulo 'go-libp2p': Done, Peerstore, StreamHandler, LocalPeer....
   - *Sugestão:* `Avaliar paridade e implementação de: Done, Peerstore, StreamHandler, LocalPeer, Backoff, String, ResourceManager, AddCertHashes, ListenClose, AddListenAddr, TransportForDialing, TransportForListening`
@@ -2839,7 +2837,7 @@
   - *Sugestão:* `Avaliar paridade e implementação de: ToMaybeNilPtr`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/host/resource_manager/limit.dart:221`](packages/transpiled_libp2p/lib/src/p2p/host/resource_manager/limit.dart#L221)** — Classe 'Limiter' possui 2 método(s) do Go pendente(s) no módulo 'go-libp2p': Limit, Allow.
   - *Sugestão:* `Avaliar paridade e implementação de: Limit, Allow`
-- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/host/peerstore/pstoreds/addr_book.dart:109`](packages/transpiled_libp2p/lib/src/p2p/host/peerstore/pstoreds/addr_book.dart#L109)** — Classe 'DsAddrBook' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p': Close.
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/host/peerstore/pstoreds/addr_book.dart:111`](packages/transpiled_libp2p/lib/src/p2p/host/peerstore/pstoreds/addr_book.dart#L111)** — Classe 'DsAddrBook' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p': Close.
   - *Sugestão:* `Avaliar paridade e implementação de: Close`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/host/peerstore/pstoreds/options.dart:20`](packages/transpiled_libp2p/lib/src/p2p/host/peerstore/pstoreds/options.dart#L20)** — Classe 'Options' possui 2 método(s) do Go pendente(s) no módulo 'go-libp2p': Apply, ToOption.
   - *Sugestão:* `Avaliar paridade e implementação de: Apply, ToOption`
@@ -2849,7 +2847,7 @@
   - *Sugestão:* `Avaliar paridade e implementação de: Since, InstantTimer, After`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/host/peerstore/pstoreds/pb/pstore_message.dart:20`](packages/transpiled_libp2p/lib/src/p2p/host/peerstore/pstoreds/pb/pstore_message.dart#L20)** — Classe 'AddrBookRecord_AddrEntry' possui 8 método(s) do Go pendente(s) no módulo 'go-libp2p': Reset, String, ProtoMessage, ProtoReflect....
   - *Sugestão:* `Avaliar paridade e implementação de: Reset, String, ProtoMessage, ProtoReflect, Descriptor, GetAddr, GetExpiry, GetTtl`
-- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/host/peerstore/pstoreds/pb/pstore_message.dart:51`](packages/transpiled_libp2p/lib/src/p2p/host/peerstore/pstoreds/pb/pstore_message.dart#L51)** — Classe 'AddrBookRecord' possui 8 método(s) do Go pendente(s) no módulo 'go-libp2p': Reset, String, ProtoMessage, ProtoReflect....
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/host/peerstore/pstoreds/pb/pstore_message.dart:55`](packages/transpiled_libp2p/lib/src/p2p/host/peerstore/pstoreds/pb/pstore_message.dart#L55)** — Classe 'AddrBookRecord' possui 8 método(s) do Go pendente(s) no módulo 'go-libp2p': Reset, String, ProtoMessage, ProtoReflect....
   - *Sugestão:* `Avaliar paridade e implementação de: Reset, String, ProtoMessage, ProtoReflect, Descriptor, GetId, GetAddrs, GetCertifiedRecord`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/discovery/mdns/mdns.dart:102`](packages/transpiled_libp2p/lib/src/p2p/discovery/mdns/mdns.dart#L102)** — Classe 'Service' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p': DirectConnect.
   - *Sugestão:* `Avaliar paridade e implementação de: DirectConnect`
@@ -2859,7 +2857,7 @@
   - *Sugestão:* `Avaliar paridade e implementação de: Notifee`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/crypto/ecdsa_key.dart:37`](packages/transpiled_libp2p/lib/src/core/crypto/ecdsa_key.dart#L37)** — Classe 'EcdsaPrivateKey' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p': Equals.
   - *Sugestão:* `Avaliar paridade e implementação de: Equals`
-- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/crypto/ecdsa_key.dart:75`](packages/transpiled_libp2p/lib/src/core/crypto/ecdsa_key.dart#L75)** — Classe 'EcdsaPublicKey' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p': Equals.
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/crypto/ecdsa_key.dart:78`](packages/transpiled_libp2p/lib/src/core/crypto/ecdsa_key.dart#L78)** — Classe 'EcdsaPublicKey' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p': Equals.
   - *Sugestão:* `Avaliar paridade e implementação de: Equals`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/crypto/key_types.dart:44`](packages/transpiled_libp2p/lib/src/core/crypto/key_types.dart#L44)** — Classe 'Key' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p': Equals.
   - *Sugestão:* `Avaliar paridade e implementação de: Equals`
@@ -2869,7 +2867,7 @@
   - *Sugestão:* `Avaliar paridade e implementação de: Equals`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/crypto/secp256k1_key.dart:28`](packages/transpiled_libp2p/lib/src/core/crypto/secp256k1_key.dart#L28)** — Classe 'Secp256k1PrivateKey' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p': Equals.
   - *Sugestão:* `Avaliar paridade e implementação de: Equals`
-- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/crypto/secp256k1_key.dart:61`](packages/transpiled_libp2p/lib/src/core/crypto/secp256k1_key.dart#L61)** — Classe 'Secp256k1PublicKey' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p': Equals.
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/crypto/secp256k1_key.dart:63`](packages/transpiled_libp2p/lib/src/core/crypto/secp256k1_key.dart#L63)** — Classe 'Secp256k1PublicKey' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p': Equals.
   - *Sugestão:* `Avaliar paridade e implementação de: Equals`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/host/host.dart:24`](packages/transpiled_libp2p/lib/src/core/host/host.dart#L24)** — Classe 'Host' possui 12 método(s) do Go pendente(s) no módulo 'go-libp2p': PeerID, Serve, SetHTTPHandler, SetHTTPHandlerAtPath....
   - *Sugestão:* `Avaliar paridade e implementação de: PeerID, Serve, SetHTTPHandler, SetHTTPHandlerAtPath, NamespaceRoundTripper, NamespacedClient, RoundTrip, NewConstrainedRoundTripper, SetPeerMetadata, AddPeerMetadata, GetPeerMetadata, RemovePeerMetadata`
@@ -2891,7 +2889,7 @@
   - *Sugestão:* `Avaliar paridade e implementação de: VerifySourceAddress`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/peer/addr_info.dart:15`](packages/transpiled_libp2p/lib/src/core/peer/addr_info.dart#L15)** — Classe 'AddrInfo' possui 3 método(s) do Go pendente(s) no módulo 'go-libp2p': String, MarshalJSON, UnmarshalJSON.
   - *Sugestão:* `Avaliar paridade e implementação de: String, MarshalJSON, UnmarshalJSON`
-- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/peer/peer_record.dart:40`](packages/transpiled_libp2p/lib/src/core/peer/peer_record.dart#L40)** — Classe 'PeerRecord' possui 9 método(s) do Go pendente(s) no módulo 'go-libp2p': Equal, Reset, String, ProtoMessage....
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/peer/peer_record.dart:43`](packages/transpiled_libp2p/lib/src/core/peer/peer_record.dart#L43)** — Classe 'PeerRecord' possui 9 método(s) do Go pendente(s) no módulo 'go-libp2p': Equal, Reset, String, ProtoMessage....
   - *Sugestão:* `Avaliar paridade e implementação de: Equal, Reset, String, ProtoMessage, ProtoReflect, Descriptor, GetPeerId, GetSeq, GetAddresses`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/peerstore/peerstore.dart:78`](packages/transpiled_libp2p/lib/src/core/peerstore/peerstore.dart#L78)** — Classe 'Metrics' possui 14 método(s) do Go pendente(s) no módulo 'go-libp2p': AllowConn, BlockConn, AllowStream, BlockStream....
   - *Sugestão:* `Avaliar paridade e implementação de: AllowConn, BlockConn, AllowStream, BlockStream, AllowPeer, BlockPeer, AllowProtocol, BlockProtocol, BlockProtocolPeer, AllowService, BlockService, BlockServicePeer, AllowMemory, BlockMemory`
@@ -2901,15 +2899,15 @@
   - *Sugestão:* `Avaliar paridade e implementação de: MarshalJSON, UnmarshalJSON`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/routing/routing.dart:92`](packages/transpiled_libp2p/lib/src/core/routing/routing.dart#L92)** — Classe 'Routing' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p': FindPeer.
   - *Sugestão:* `Avaliar paridade e implementação de: FindPeer`
-- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/transport/transport.dart:32`](packages/transpiled_libp2p/lib/src/core/transport/transport.dart#L32)** — Classe 'CapableConn' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p': ConnState.
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/transport/transport.dart:33`](packages/transpiled_libp2p/lib/src/core/transport/transport.dart#L33)** — Classe 'CapableConn' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p': ConnState.
   - *Sugestão:* `Avaliar paridade e implementação de: ConnState`
-- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/transport/transport.dart:42`](packages/transpiled_libp2p/lib/src/core/transport/transport.dart#L42)** — Classe 'Listener' possui 7 método(s) do Go pendente(s) no módulo 'go-libp2p': Addr, Multiaddrs, ConnContext, ServeHTTP....
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/transport/transport.dart:43`](packages/transpiled_libp2p/lib/src/core/transport/transport.dart#L43)** — Classe 'Listener' possui 7 método(s) do Go pendente(s) no módulo 'go-libp2p': Addr, Multiaddrs, ConnContext, ServeHTTP....
   - *Sugestão:* `Avaliar paridade e implementação de: Addr, Multiaddrs, ConnContext, ServeHTTP, Addr, String, Multiaddrs`
-- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/transport/transport.dart:49`](packages/transpiled_libp2p/lib/src/core/transport/transport.dart#L49)** — Classe 'Transport' possui 14 método(s) do Go pendente(s) no módulo 'go-libp2p': ListenOrder, String, Close, CloseVirtualListener....
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/transport/transport.dart:50`](packages/transpiled_libp2p/lib/src/core/transport/transport.dart#L50)** — Classe 'Transport' possui 14 método(s) do Go pendente(s) no módulo 'go-libp2p': ListenOrder, String, Close, CloseVirtualListener....
   - *Sugestão:* `Avaliar paridade e implementação de: ListenOrder, String, Close, CloseVirtualListener, Resolve, AddCertHashes, LocalPeer, SecureInbound, SecureOutbound, ID, WithSessionOptions, DialContext, NewConn, Config`
-- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/transport/transport.dart:83`](packages/transpiled_libp2p/lib/src/core/transport/transport.dart#L83)** — Classe 'Upgrader' possui 6 método(s) do Go pendente(s) no módulo 'go-libp2p': UpgradeListener, GateMaListener, UpgradeGatedMaListener, UpgradeListener....
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/transport/transport.dart:84`](packages/transpiled_libp2p/lib/src/core/transport/transport.dart#L84)** — Classe 'Upgrader' possui 6 método(s) do Go pendente(s) no módulo 'go-libp2p': UpgradeListener, GateMaListener, UpgradeGatedMaListener, UpgradeListener....
   - *Sugestão:* `Avaliar paridade e implementação de: UpgradeListener, GateMaListener, UpgradeGatedMaListener, UpgradeListener, GateMaListener, UpgradeGatedMaListener`
-- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_kbucket/lib/src/keyspace.dart:56`](packages/transpiled_libp2p_kbucket/lib/src/keyspace.dart#L56)** — Classe 'KeySpace' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p-kbucket': Equal.
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_kbucket/lib/src/keyspace.dart:60`](packages/transpiled_libp2p_kbucket/lib/src/keyspace.dart#L60)** — Classe 'KeySpace' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p-kbucket': Equal.
   - *Sugestão:* `Avaliar paridade e implementação de: Equal`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p_kbucket/lib/src/sorting.dart:18`](packages/transpiled_libp2p_kbucket/lib/src/sorting.dart#L18)** — Classe 'PeerDistanceSorter' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p-kbucket': Len.
   - *Sugestão:* `Avaliar paridade e implementação de: Len`
@@ -2946,7 +2944,7 @@
   - *Sugestão:* `Avaliar porte das funções: RawKey, KeyWithNamespaces, NewAutoBatching, WithWrite, GetWrite, WithRead, GetRead, WrapDatastore, New, NewFailstore...`
 - ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Pacote 'packages/transpiled_ipld_prime' possui 391 função(ões) livre(s) do Go pendente(s) no módulo 'go-ipld-prime': EncodeStreaming, DecodeStreaming, DecodeUsingPrototype, DecodeStreamingUsingPrototype, Marshal....
   - *Sugestão:* `Avaliar porte das funções: EncodeStreaming, DecodeStreaming, DecodeUsingPrototype, DecodeStreamingUsingPrototype, Marshal, MarshalStreaming, Unmarshal, UnmarshalStreaming, ParsePath, ParsePathSegment...`
-- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Pacote 'packages/transpiled_libp2p' possui 464 função(ões) livre(s) do Go pendente(s) no módulo 'go-libp2p': ChainOptions, New, NewWithoutDefaults, SetDefaultServiceLimits, ListenAddrStrings....
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Pacote 'packages/transpiled_libp2p' possui 462 função(ões) livre(s) do Go pendente(s) no módulo 'go-libp2p': ChainOptions, New, NewWithoutDefaults, SetDefaultServiceLimits, ListenAddrStrings....
   - *Sugestão:* `Avaliar porte das funções: ChainOptions, New, NewWithoutDefaults, SetDefaultServiceLimits, ListenAddrStrings, ListenAddrs, Security, Muxer, QUICReuse, Transport...`
 - ℹ️ `[INFO]` **[`lib/src/protocols/dht:1`](lib/src/protocols/dht#L1)** — Pacote 'lib/src/protocols/dht' possui 235 função(ões) livre(s) do Go pendente(s) no módulo 'go-libp2p-kad-dht': New, NewDHT, NewDHTClient, GetDefaultBootstrapPeerAddrInfos, PublicQueryFilter....
   - *Sugestão:* `Avaliar porte das funções: New, NewDHT, NewDHTClient, GetDefaultBootstrapPeerAddrInfos, PublicQueryFilter, PublicRoutingTableFilter, PrivateQueryFilter, PrivateRoutingTableFilter, ValueDatastore, ProviderDatastore...`

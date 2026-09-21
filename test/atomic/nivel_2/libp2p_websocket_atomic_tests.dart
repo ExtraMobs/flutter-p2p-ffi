@@ -29,12 +29,21 @@ void main() async {
   final remoteIdentity = await generateEd25519KeyPair();
   final remotePeer = PeerId.fromPubKey(remoteIdentity.getPublic());
 
-  Future<(CapableConn, CapableConn, Listener, WebsocketTransport, WebsocketTransport)> dialedPair() async {
-    final tServer = WebsocketTransport(upgrader: BasicUpgrader(localIdentityKey: remoteIdentity));
-    final listener = await tServer.listen(Multiaddr.parse('/ip4/127.0.0.1/tcp/0/ws'));
+  Future<
+    (CapableConn, CapableConn, Listener, WebsocketTransport, WebsocketTransport)
+  >
+  dialedPair() async {
+    final tServer = WebsocketTransport(
+      upgrader: BasicUpgrader(localIdentityKey: remoteIdentity),
+    );
+    final listener = await tServer.listen(
+      Multiaddr.parse('/ip4/127.0.0.1/tcp/0/ws'),
+    );
     final boundAddr = listener.multiaddr();
 
-    final tClient = WebsocketTransport(upgrader: BasicUpgrader(localIdentityKey: identity));
+    final tClient = WebsocketTransport(
+      upgrader: BasicUpgrader(localIdentityKey: identity),
+    );
     final acceptFuture = listener.accept();
     final clientConn = await tClient.dial(boundAddr, remotePeer);
     final serverConn = await acceptFuture;
@@ -42,40 +51,57 @@ void main() async {
   }
 
   group('WebsocketTransport [Atomic Audit]', () {
-    test('listen() - binds a /ws listener and reports its bound multiaddr', () async {
-      final t = WebsocketTransport(upgrader: BasicUpgrader(localIdentityKey: identity));
-      final listener = await t.listen(Multiaddr.parse('/ip4/127.0.0.1/tcp/0/ws'));
-      expect(listener.multiaddr().toString(), contains('/tcp/'));
-      expect(listener.multiaddr().toString(), endsWith('/ws'));
-      await listener.close();
-      await t.close();
-    });
+    test(
+      'listen() - binds a /ws listener and reports its bound multiaddr',
+      () async {
+        final t = WebsocketTransport(
+          upgrader: BasicUpgrader(localIdentityKey: identity),
+        );
+        final listener = await t.listen(
+          Multiaddr.parse('/ip4/127.0.0.1/tcp/0/ws'),
+        );
+        expect(listener.multiaddr().toString(), contains('/tcp/'));
+        expect(listener.multiaddr().toString(), endsWith('/ws'));
+        await listener.close();
+        await t.close();
+      },
+    );
 
-    test('listen() - rejects /wss without a configured tls SecurityContext', () async {
-      final t = WebsocketTransport(upgrader: BasicUpgrader(localIdentityKey: identity));
-      await expectLater(
-        () => t.listen(Multiaddr.parse('/ip4/127.0.0.1/tcp/0/wss')),
-        throwsA(isA<ArgumentError>()),
-      );
-      await t.close();
-    });
+    test(
+      'listen() - rejects /wss without a configured tls SecurityContext',
+      () async {
+        final t = WebsocketTransport(
+          upgrader: BasicUpgrader(localIdentityKey: identity),
+        );
+        await expectLater(
+          () => t.listen(Multiaddr.parse('/ip4/127.0.0.1/tcp/0/wss')),
+          throwsA(isA<ArgumentError>()),
+        );
+        await t.close();
+      },
+    );
 
-    test('dial() - connects to a listening /ws transport and negotiates Noise+yamux', () async {
-      final (clientConn, serverConn, listener, tServer, tClient) = await dialedPair();
+    test(
+      'dial() - connects to a listening /ws transport and negotiates Noise+yamux',
+      () async {
+        final (clientConn, serverConn, listener, tServer, tClient) =
+            await dialedPair();
 
-      expect(clientConn.remotePeer(), equals(remotePeer));
-      expect(clientConn.connState().transport, equals('websocket'));
-      expect(serverConn.connState().transport, equals('websocket'));
+        expect(clientConn.remotePeer(), equals(remotePeer));
+        expect(clientConn.connState().transport, equals('websocket'));
+        expect(serverConn.connState().transport, equals('websocket'));
 
-      await clientConn.close();
-      await serverConn.close();
-      await listener.close();
-      await tServer.close();
-      await tClient.close();
-    });
+        await clientConn.close();
+        await serverConn.close();
+        await listener.close();
+        await tServer.close();
+        await tClient.close();
+      },
+    );
 
     test('dial()/accept() - exchanges bytes over an opened stream', () async {
-      final (clientConn, serverConn, listener, tServer, tClient) = await dialedPair();
+      final (clientConn, serverConn, listener, tServer, tClient) =
+          await dialedPair();
 
       final msg = Uint8List.fromList('HELLO WORLD'.codeUnits);
       final serverAcceptStream = serverConn.acceptStream();
@@ -98,7 +124,8 @@ void main() async {
       'dial()/accept() - a large single write is reassembled correctly from many small reads '
       '(the underlying WebSocket-message buffer must not drop or reorder bytes across a partial read)',
       () async {
-        final (clientConn, serverConn, listener, tServer, tClient) = await dialedPair();
+        final (clientConn, serverConn, listener, tServer, tClient) =
+            await dialedPair();
 
         final msg = Uint8List.fromList(List.generate(20000, (i) => i % 256));
         final serverAcceptStream = serverConn.acceptStream();
@@ -126,8 +153,12 @@ void main() async {
     );
 
     test('close() - closes every listener created by the transport', () async {
-      final t = WebsocketTransport(upgrader: BasicUpgrader(localIdentityKey: identity));
-      final listener = await t.listen(Multiaddr.parse('/ip4/127.0.0.1/tcp/0/ws'));
+      final t = WebsocketTransport(
+        upgrader: BasicUpgrader(localIdentityKey: identity),
+      );
+      final listener = await t.listen(
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/0/ws'),
+      );
       await t.close();
       await expectLater(
         () => listener.accept(),

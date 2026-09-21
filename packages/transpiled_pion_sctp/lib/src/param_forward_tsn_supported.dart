@@ -18,7 +18,12 @@ import 'paramtype.dart';
 
 /// Port of `paramForwardTSNSupported` (param_forward_tsn_supported.go:14-16).
 final class ParamForwardTsnSupported implements Param {
-  ParamForwardTsnSupported() : header = ParamHeader(typ: ParamType.forwardTsnSupp, len: 0, raw: Uint8List(0));
+  ParamForwardTsnSupported()
+    : header = ParamHeader(
+        typ: ParamType.forwardTsnSupp,
+        len: 0,
+        raw: Uint8List(0),
+      );
 
   /// Composition standing in for Go's embedded `paramHeader`.
   ParamHeader header;

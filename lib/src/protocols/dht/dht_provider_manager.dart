@@ -44,7 +44,9 @@ final class ProviderManager {
     final byPeer = _byKey[encoded];
     if (byPeer == null) return const [];
     final now = DateTime.now();
-    byPeer.removeWhere((_, record) => now.difference(record.addedAt) > validity);
+    byPeer.removeWhere(
+      (_, record) => now.difference(record.addedAt) > validity,
+    );
     if (byPeer.isEmpty) {
       _byKey.remove(encoded);
       return const [];

@@ -35,7 +35,8 @@ final class ChunkNotLongEnoughForParamsException implements Exception {
   final int actual;
 
   @override
-  String toString() => "chunk Value isn't long enough for mandatory parameters exp: $expected actual: $actual";
+  String toString() =>
+      "chunk Value isn't long enough for mandatory parameters exp: $expected actual: $actual";
 }
 
 /// Port of `ErrChunkTypeInitAckFlagZero` (chunk_init_ack.go:33).
@@ -97,7 +98,8 @@ final class InitAckAdvertisedReceiver1500Exception implements Exception {
   const InitAckAdvertisedReceiver1500Exception();
 
   @override
-  String toString() => 'INIT ACK Advertised Receiver Window Credit (a_rwnd) must be >= 1500';
+  String toString() =>
+      'INIT ACK Advertised Receiver Window Credit (a_rwnd) must be >= 1500';
 }
 
 /// Port of `chunkInitAck` (chunk_init_ack.go:27-29).
@@ -120,7 +122,10 @@ final class ChunkInitAck implements Chunk {
     if (header.typ != ChunkType.initAck) {
       throw ChunkTypeNotInitAckException(header.typ);
     } else if (header.raw.length < initChunkMinLength) {
-      throw ChunkNotLongEnoughForParamsException(initChunkMinLength, header.raw.length);
+      throw ChunkNotLongEnoughForParamsException(
+        initChunkMinLength,
+        header.raw.length,
+      );
     }
 
     // The Chunk Flags field in INIT is reserved, and all bits in it should

@@ -157,8 +157,7 @@ class _FixedBigInt {
   /// Port of `newFixedBigInt` (fixedbig.go:18-29).
   _FixedBigInt(this._n)
     : _bits = List.generate(_chunkCount(_n), (_) => Golang.Uint64(0)),
-      _msbMask =
-          (Golang.Uint64(1) << (64 - _n % 64)) - Golang.Uint64(1);
+      _msbMask = (Golang.Uint64(1) << (64 - _n % 64)) - Golang.Uint64(1);
 
   static int _chunkCount(int n) {
     final chunkSize = (n + 63) ~/ 64;

@@ -26,9 +26,7 @@ extension RoutingTableRefresh on RoutingTable {
     final maxCommonPrefix = min(this.maxCommonPrefix(), maxCplForRefresh);
     final refreshedAt = cplRefreshedAt;
     final zero = DateTime.fromMillisecondsSinceEpoch(0, isUtc: true);
-    return [
-      for (var i = 0; i <= maxCommonPrefix; i++) refreshedAt[i] ?? zero,
-    ];
+    return [for (var i = 0; i <= maxCommonPrefix; i++) refreshedAt[i] ?? zero];
   }
 
   /// Generates a random peer ID for the given common-prefix-length.
@@ -45,7 +43,9 @@ extension RoutingTableRefresh on RoutingTable {
   DhtId genRandomKey(int targetCpl) {
     final localKey = convertPeerId(local);
     if (targetCpl + 1 >= localKey.length * 8) {
-      throw ArgumentError('cannot generate peer ID for Cpl greater than key length');
+      throw ArgumentError(
+        'cannot generate peer ID for Cpl greater than key length',
+      );
     }
     final partialOffset = targetCpl ~/ 8;
 

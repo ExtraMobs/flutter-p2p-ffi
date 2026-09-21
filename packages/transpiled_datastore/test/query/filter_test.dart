@@ -16,19 +16,21 @@ void testKeyFilter(Filter f, List<String> keys, List<String> expected) {
 
 void main() {
   test('TestFilterKeyCompare', () {
-    testKeyFilter(const FilterKeyCompare(FilterOp.equal, '/ab'), sampleKeys, const ['/ab']);
-    testKeyFilter(const FilterKeyCompare(FilterOp.greaterThan, '/ab'), sampleKeys, const [
-      '/ab/c',
-      '/ab/cd',
-      '/ab/ef',
-      '/ab/fg',
-      '/abce',
-      '/abcf',
-    ]);
-    testKeyFilter(const FilterKeyCompare(FilterOp.lessThanOrEqual, '/ab'), sampleKeys, const [
-      '/a',
-      '/ab',
-    ]);
+    testKeyFilter(
+      const FilterKeyCompare(FilterOp.equal, '/ab'),
+      sampleKeys,
+      const ['/ab'],
+    );
+    testKeyFilter(
+      const FilterKeyCompare(FilterOp.greaterThan, '/ab'),
+      sampleKeys,
+      const ['/ab/c', '/ab/cd', '/ab/ef', '/ab/fg', '/abce', '/abcf'],
+    );
+    testKeyFilter(
+      const FilterKeyCompare(FilterOp.lessThanOrEqual, '/ab'),
+      sampleKeys,
+      const ['/a', '/ab'],
+    );
   });
 
   test('TestFilterKeyPrefix', () {

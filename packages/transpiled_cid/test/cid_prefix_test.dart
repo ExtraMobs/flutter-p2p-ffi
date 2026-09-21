@@ -70,12 +70,7 @@ void main() {
 
       expect(
         prefix,
-        Prefix(
-          version: 1,
-          codec: 'raw',
-          mhType: 'sha2-256',
-          mhLength: 20,
-        ),
+        Prefix(version: 1, codec: 'raw', mhType: 'sha2-256', mhLength: 20),
       );
       expect(cid.multihash.size, 20);
     });

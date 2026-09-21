@@ -48,8 +48,7 @@ final class BasicBlock implements Block {
 
   /// Creates a block from a precomputed Cid. Equivalent to Go's
   /// `NewBlockWithCid`.
-  factory BasicBlock.withCid(Uint8List data, Cid cid) =>
-      BasicBlock(data, cid);
+  factory BasicBlock.withCid(Uint8List data, Cid cid) => BasicBlock(data, cid);
 
   final Uint8List _data;
   final Cid _cid;

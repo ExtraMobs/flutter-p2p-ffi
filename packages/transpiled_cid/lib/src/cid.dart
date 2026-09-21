@@ -40,6 +40,7 @@ String _codecName(Golang.Uint64 code) {
 
 class Cid {
   Uint8List bytes() => toBytes();
+
   /// Creates a Cid with the specified components.
   Cid({
     required this.version,
@@ -457,5 +458,6 @@ class InvalidEncodingException implements Exception {
   final Object? cause;
   const InvalidEncodingException([this.cause]);
   @override
-  String toString() => cause == null ? 'invalid base encoding' : 'invalid base encoding: $cause';
+  String toString() =>
+      cause == null ? 'invalid base encoding' : 'invalid base encoding: $cause';
 }

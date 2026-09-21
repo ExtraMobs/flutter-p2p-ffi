@@ -5,8 +5,6 @@ import '../../../packages/transpiled_quic_go/lib/src/frames.dart';
 import '../../../packages/transpiled_quic_go/lib/src/packet_number.dart';
 import '../../../packages/transpiled_quic_go/lib/src/varint.dart';
 
-
-
 void main() {
   group('Top-Level Functions [Atomic Audit]', () {
     test('decodePacketNumber() - recovers full packet numbers', () {
@@ -26,17 +24,20 @@ void main() {
       }
     });
 
-    test('varIntLength() - returns expected byte length based on integer threshold', () {
-      expect(varIntLength(0), 1);
-      expect(varIntLength(63), 1);
-      expect(varIntLength(64), 2);
-      expect(varIntLength(16383), 2);
-      expect(varIntLength(16384), 4);
-      expect(varIntLength(1073741823), 4);
-      expect(varIntLength(1073741824), 8);
-      expect(() => varIntLength(-1), throwsA(isA<RangeError>()));
-      expect(() => varIntLength(maxVarInt + 1), throwsA(isA<RangeError>()));
-    });
+    test(
+      'varIntLength() - returns expected byte length based on integer threshold',
+      () {
+        expect(varIntLength(0), 1);
+        expect(varIntLength(63), 1);
+        expect(varIntLength(64), 2);
+        expect(varIntLength(16383), 2);
+        expect(varIntLength(16384), 4);
+        expect(varIntLength(1073741823), 4);
+        expect(varIntLength(1073741824), 8);
+        expect(() => varIntLength(-1), throwsA(isA<RangeError>()));
+        expect(() => varIntLength(maxVarInt + 1), throwsA(isA<RangeError>()));
+      },
+    );
 
     test('appendVarInt() - appends varint bytes with correct length tags', () {
       expect(appendVarInt([], 25), Uint8List.fromList([25]));
@@ -55,20 +56,32 @@ void main() {
       expect(n2, 2);
 
       expect(() => parseVarInt(Uint8List(0)), throwsFormatException);
-      expect(() => parseVarInt(Uint8List.fromList([0x40])), throwsFormatException);
+      expect(
+        () => parseVarInt(Uint8List.fromList([0x40])),
+        throwsFormatException,
+      );
     });
 
     test('parseFrame() - parses Ping, Crypto and Stream frames', () {
       final ping = parseFrame(const PingFrame().encode());
       expect(ping, isA<PingFrame>());
 
-      final crypto = parseFrame(CryptoFrame(10, Uint8List.fromList([1, 2, 3])).encode());
+      final crypto = parseFrame(
+        CryptoFrame(10, Uint8List.fromList([1, 2, 3])).encode(),
+      );
       expect(crypto, isA<CryptoFrame>());
       final cf = crypto as CryptoFrame;
       expect(cf.offset, 10);
       expect(cf.data, Uint8List.fromList([1, 2, 3]));
 
-      final stream = parseFrame(StreamFrame(streamId: 4, offset: 20, data: Uint8List.fromList([5, 6]), fin: true).encode());
+      final stream = parseFrame(
+        StreamFrame(
+          streamId: 4,
+          offset: 20,
+          data: Uint8List.fromList([5, 6]),
+          fin: true,
+        ).encode(),
+      );
       expect(stream, isA<StreamFrame>());
       final sf = stream as StreamFrame;
       expect(sf.streamId, 4);
@@ -76,7 +89,10 @@ void main() {
       expect(sf.data, Uint8List.fromList([5, 6]));
       expect(sf.fin, isTrue);
 
-      expect(() => parseFrame(Uint8List.fromList([0x00])), throwsFormatException);
+      expect(
+        () => parseFrame(Uint8List.fromList([0x00])),
+        throwsFormatException,
+      );
     });
   });
 
@@ -105,7 +121,12 @@ void main() {
 
   group('StreamFrame [Atomic Audit]', () {
     test('encode() - serializes Stream frame', () {
-      final frame = StreamFrame(streamId: 1, offset: 0, data: Uint8List.fromList([99]), fin: false);
+      final frame = StreamFrame(
+        streamId: 1,
+        offset: 0,
+        data: Uint8List.fromList([99]),
+        fin: false,
+      );
       final bytes = frame.encode();
       expect(bytes, isNotEmpty);
       expect(bytes.last, 99);

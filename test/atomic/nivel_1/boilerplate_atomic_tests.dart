@@ -116,7 +116,10 @@ void main() {
 
     test('toString() - formata complexo para string', () {
       final a = Golang.Complex128.fromDoubles(1.5, 2.5);
-      expect(a.toString(), equals("(Instance of 'Float64'+Instance of 'Float64' i)"));
+      expect(
+        a.toString(),
+        equals("(Instance of 'Float64'+Instance of 'Float64' i)"),
+      );
     });
   });
 
@@ -161,7 +164,10 @@ void main() {
 
     test('toString() - formata complex64 para string', () {
       final a = Golang.Complex64.fromDoubles(2.0, 3.0);
-      expect(a.toString(), equals("(Instance of 'Float32'+Instance of 'Float32' i)"));
+      expect(
+        a.toString(),
+        equals("(Instance of 'Float32'+Instance of 'Float32' i)"),
+      );
     });
   });
 
@@ -223,7 +229,10 @@ void main() {
     });
 
     test('hashCode - hash code baseado no double', () {
-      expect(Golang.Float32(1.0).hashCode, equals(Golang.Float32(1.0).hashCode));
+      expect(
+        Golang.Float32(1.0).hashCode,
+        equals(Golang.Float32(1.0).hashCode),
+      );
     });
   });
 
@@ -285,7 +294,10 @@ void main() {
     });
 
     test('hashCode - hash code do Float64', () {
-      expect(Golang.Float64(2.5).hashCode, equals(Golang.Float64(2.5).hashCode));
+      expect(
+        Golang.Float64(2.5).hashCode,
+        equals(Golang.Float64(2.5).hashCode),
+      );
     });
   });
 
@@ -546,8 +558,14 @@ void main() {
 
   group('Int32 [Atomic Audit]', () {
     test('toBigInt() - retorna valor assinado em 32 bits', () {
-      expect(Golang.Int32(-2147483648).toBigInt(), equals(BigInt.from(-2147483648)));
-      expect(Golang.Int32(2147483647).toBigInt(), equals(BigInt.from(2147483647)));
+      expect(
+        Golang.Int32(-2147483648).toBigInt(),
+        equals(BigInt.from(-2147483648)),
+      );
+      expect(
+        Golang.Int32(2147483647).toBigInt(),
+        equals(BigInt.from(2147483647)),
+      );
     });
 
     test('toUint32() - converte para Uint32 preservando bits', () {
@@ -664,7 +682,10 @@ void main() {
     });
 
     test('hashCode - hash code do Int32', () {
-      expect(Golang.Int32(100000).hashCode, equals(BigInt.from(100000).hashCode));
+      expect(
+        Golang.Int32(100000).hashCode,
+        equals(BigInt.from(100000).hashCode),
+      );
     });
 
     test('toString() - representacao textual de Int32', () {
@@ -755,7 +776,10 @@ void main() {
 
     test('operator << - shift left com truncamento 64-bit', () {
       final a = Golang.Int64(1);
-      expect((a << 63).toBigInt(), equals(BigInt.parse('-9223372036854775808')));
+      expect(
+        (a << 63).toBigInt(),
+        equals(BigInt.parse('-9223372036854775808')),
+      );
       expect((a << 64).toBigInt(), equals(BigInt.zero));
     });
 
@@ -800,12 +824,18 @@ void main() {
     });
 
     test('hashCode - hash code do Int64', () {
-      expect(Golang.Int64(987654321).hashCode, equals(BigInt.from(987654321).hashCode));
+      expect(
+        Golang.Int64(987654321).hashCode,
+        equals(BigInt.from(987654321).hashCode),
+      );
     });
 
     test('toString() - representacao textual de Int64', () {
       final minStr = '-9223372036854775808';
-      expect(Golang.Int64.fromBigInt(BigInt.parse(minStr)).toString(), equals(minStr));
+      expect(
+        Golang.Int64.fromBigInt(BigInt.parse(minStr)).toString(),
+        equals(minStr),
+      );
     });
   });
 
@@ -1154,7 +1184,10 @@ void main() {
   group('Uint32 [Atomic Audit]', () {
     test('toBigInt() - retorna unsigned exato em 32 bits', () {
       expect(Golang.Uint32(0).toBigInt(), equals(BigInt.zero));
-      expect(Golang.Uint32.fromBigInt(BigInt.parse('4294967295')).toBigInt(), equals(BigInt.parse('4294967295')));
+      expect(
+        Golang.Uint32.fromBigInt(BigInt.parse('4294967295')).toBigInt(),
+        equals(BigInt.parse('4294967295')),
+      );
     });
 
     test('toLittleEndianBytes() - exporta 4 bytes little-endian', () {
@@ -1237,7 +1270,10 @@ void main() {
     test('compareTo() - comparacao ordinal unsigned 32-bit', () {
       expect(Golang.Uint32(1000).compareTo(Golang.Uint32(2000)), lessThan(0));
       expect(Golang.Uint32(2000).compareTo(Golang.Uint32(2000)), equals(0));
-      expect(Golang.Uint32(2000).compareTo(Golang.Uint32(1000)), greaterThan(0));
+      expect(
+        Golang.Uint32(2000).compareTo(Golang.Uint32(1000)),
+        greaterThan(0),
+      );
     });
 
     test('operator < - menor que unsigned 32-bit', () {
@@ -1268,7 +1304,10 @@ void main() {
     });
 
     test('hashCode - hash code de Uint32', () {
-      expect(Golang.Uint32(55555).hashCode, equals(BigInt.from(55555).hashCode));
+      expect(
+        Golang.Uint32(55555).hashCode,
+        equals(BigInt.from(55555).hashCode),
+      );
     });
 
     test('toString() - representacao textual de Uint32', () {
@@ -1360,7 +1399,10 @@ void main() {
     test('compareTo() - comparacao ordinal unsigned 64-bit', () {
       expect(Golang.Uint64(10000).compareTo(Golang.Uint64(20000)), lessThan(0));
       expect(Golang.Uint64(20000).compareTo(Golang.Uint64(20000)), equals(0));
-      expect(Golang.Uint64(20000).compareTo(Golang.Uint64(10000)), greaterThan(0));
+      expect(
+        Golang.Uint64(20000).compareTo(Golang.Uint64(10000)),
+        greaterThan(0),
+      );
     });
 
     test('operator < - menor que unsigned 64-bit', () {
@@ -1391,12 +1433,18 @@ void main() {
     });
 
     test('hashCode - hash code de Uint64', () {
-      expect(Golang.Uint64(999999999).hashCode, equals(BigInt.from(999999999).hashCode));
+      expect(
+        Golang.Uint64(999999999).hashCode,
+        equals(BigInt.from(999999999).hashCode),
+      );
     });
 
     test('toString() - representacao textual de Uint64', () {
       final maxStr = '18446744073709551615';
-      expect(Golang.Uint64.fromBigInt(BigInt.parse(maxStr)).toString(), equals(maxStr));
+      expect(
+        Golang.Uint64.fromBigInt(BigInt.parse(maxStr)).toString(),
+        equals(maxStr),
+      );
     });
   });
 
@@ -1435,27 +1483,31 @@ void main() {
       expect(mu.isClosed, isTrue);
     });
 
-    test('readWaiters - conta esperas pendentes pela trava de leitura',
-        () async {
-      final mu = FdMutex();
-      await mu.rwlock(true);
-      expect(mu.readWaiters, 0);
-      // ignore: unawaited_futures
-      mu.rwlock(true).then((_) {});
-      await Future<void>.delayed(Duration.zero);
-      expect(mu.readWaiters, 1);
-    });
+    test(
+      'readWaiters - conta esperas pendentes pela trava de leitura',
+      () async {
+        final mu = FdMutex();
+        await mu.rwlock(true);
+        expect(mu.readWaiters, 0);
+        // ignore: unawaited_futures
+        mu.rwlock(true).then((_) {});
+        await Future<void>.delayed(Duration.zero);
+        expect(mu.readWaiters, 1);
+      },
+    );
 
-    test('writeWaiters - conta esperas pendentes pela trava de escrita',
-        () async {
-      final mu = FdMutex();
-      await mu.rwlock(false);
-      expect(mu.writeWaiters, 0);
-      // ignore: unawaited_futures
-      mu.rwlock(false).then((_) {});
-      await Future<void>.delayed(Duration.zero);
-      expect(mu.writeWaiters, 1);
-    });
+    test(
+      'writeWaiters - conta esperas pendentes pela trava de escrita',
+      () async {
+        final mu = FdMutex();
+        await mu.rwlock(false);
+        expect(mu.writeWaiters, 0);
+        // ignore: unawaited_futures
+        mu.rwlock(false).then((_) {});
+        await Future<void>.delayed(Duration.zero);
+        expect(mu.writeWaiters, 1);
+      },
+    );
   });
 
   group('NetClosingException [Atomic Audit]', () {
@@ -1485,15 +1537,18 @@ void main() {
       expect(errClosing(isFile: true), isA<FileClosingException>());
     });
 
-    test('integerToFloat() - arredonda BigInt para precisao float com desempate par', () {
-      // Valor pequeno que cabe na precisao
-      expect(integerToFloat(BigInt.from(100), 24), equals(100.0));
-      expect(integerToFloat(BigInt.from(-100), 24), equals(-100.0));
+    test(
+      'integerToFloat() - arredonda BigInt para precisao float com desempate par',
+      () {
+        // Valor pequeno que cabe na precisao
+        expect(integerToFloat(BigInt.from(100), 24), equals(100.0));
+        expect(integerToFloat(BigInt.from(-100), 24), equals(-100.0));
 
-      // Valor com mais de 24 bits
-      final bigVal = (BigInt.one << 30) + (BigInt.one << 29);
-      final rounded = integerToFloat(bigVal, 24);
-      expect(rounded, equals(bigVal.toDouble()));
-    });
+        // Valor com mais de 24 bits
+        final bigVal = (BigInt.one << 30) + (BigInt.one << 29);
+        final rounded = integerToFloat(bigVal, 24);
+        expect(rounded, equals(bigVal.toDouble()));
+      },
+    );
   });
 }

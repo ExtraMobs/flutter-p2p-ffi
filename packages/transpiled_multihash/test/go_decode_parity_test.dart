@@ -35,7 +35,9 @@ void main() {
     }
     var vectorFile = File('test/go_decode_vectors.go').absolute;
     if (!vectorFile.existsSync()) {
-      vectorFile = File('packages/transpiled_multihash/test/go_decode_vectors.go').absolute;
+      vectorFile = File(
+        'packages/transpiled_multihash/test/go_decode_vectors.go',
+      ).absolute;
     }
     final revision = await Process.run('git', [
       'rev-parse',

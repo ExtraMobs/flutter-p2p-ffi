@@ -8,7 +8,9 @@ import 'package:test/test.dart';
 import 'package:transpiled_cid/transpiled_cid.dart';
 
 void main() {
-  final sampleData = Uint8List.fromList(utf8.encode('ipfs content addressing sample data'));
+  final sampleData = Uint8List.fromList(
+    utf8.encode('ipfs content addressing sample data'),
+  );
 
   group('Cid [Atomic Audit]', () {
     test('bytes() - delega para toBytes retornando representacao binaria', () {
@@ -17,35 +19,54 @@ void main() {
       expect(cid.bytes().isNotEmpty, isTrue);
     });
 
-    test('fromContent() - gera Cid v1 e v0 de forma assincrona a partir de payload binario', () async {
-      final cidV1 = await Cid.fromContent(sampleData, codec: 'raw', version: 1);
-      expect(cidV1.version, equals(1));
-      expect(cidV1.codec, equals('raw'));
+    test(
+      'fromContent() - gera Cid v1 e v0 de forma assincrona a partir de payload binario',
+      () async {
+        final cidV1 = await Cid.fromContent(
+          sampleData,
+          codec: 'raw',
+          version: 1,
+        );
+        expect(cidV1.version, equals(1));
+        expect(cidV1.codec, equals('raw'));
 
-      final cidV0 = await Cid.fromContent(sampleData, version: 0);
-      expect(cidV0.version, equals(0));
-      expect(cidV0.codec, equals('dag-pb'));
-    });
+        final cidV0 = await Cid.fromContent(sampleData, version: 0);
+        expect(cidV0.version, equals(0));
+        expect(cidV0.codec, equals('dag-pb'));
+      },
+    );
 
-    test('computeForData() - conveniencia assincrona gerando Cid valido', () async {
-      final cid = await Cid.computeForData(sampleData, format: 'raw');
-      expect(cid.version, equals(1));
-      expect(cid.validate(), isTrue);
-    });
+    test(
+      'computeForData() - conveniencia assincrona gerando Cid valido',
+      () async {
+        final cid = await Cid.computeForData(sampleData, format: 'raw');
+        expect(cid.version, equals(1));
+        expect(cid.validate(), isTrue);
+      },
+    );
 
-    test('computeForDataSync() - calcula Cid v1 sincronamente com SHA2-256', () {
-      final cid = Cid.computeForDataSync(sampleData, codec: 'raw');
-      expect(cid.version, equals(1));
-      expect(cid.codec, equals('raw'));
-      expect(cid.multihash.name, equals('sha2-256'));
-    });
+    test(
+      'computeForDataSync() - calcula Cid v1 sincronamente com SHA2-256',
+      () {
+        final cid = Cid.computeForDataSync(sampleData, codec: 'raw');
+        expect(cid.version, equals(1));
+        expect(cid.codec, equals('raw'));
+        expect(cid.multihash.name, equals('sha2-256'));
+      },
+    );
 
-    test('fromPrefixBytes() - reconstroi Cid a partir do prefixo serializado e payload', () async {
-      final cidOriginal = Cid.computeForDataSync(sampleData, codec: 'raw');
-      final prefixBytes = cidOriginal.toPrefixBytes();
-      final cidReconstructed = await Cid.fromPrefixBytes(prefixBytes, sampleData);
-      expect(cidReconstructed, equals(cidOriginal));
-    });
+    test(
+      'fromPrefixBytes() - reconstroi Cid a partir do prefixo serializado e payload',
+      () async {
+        final cidOriginal = Cid.computeForDataSync(sampleData, codec: 'raw');
+        final prefixBytes = cidOriginal.toPrefixBytes();
+        final cidReconstructed = await Cid.fromPrefixBytes(
+          prefixBytes,
+          sampleData,
+        );
+        expect(cidReconstructed, equals(cidOriginal));
+      },
+    );
 
     test('fromBytes() - decodifica bytes binarios de Cid v0 e v1', () {
       final cidV1 = Cid.computeForDataSync(sampleData, codec: 'raw');
@@ -77,17 +98,23 @@ void main() {
       expect(str.startsWith('b'), isTrue);
     });
 
-    test('encodeWithBase() - codifica Cid v1 usando a base multibase informada', () {
-      final cid = Cid.computeForDataSync(sampleData, codec: 'raw');
-      final b58Str = cid.encodeWithBase(mb.Multibase.base58btc);
-      expect(b58Str.startsWith('z'), isTrue);
-    });
+    test(
+      'encodeWithBase() - codifica Cid v1 usando a base multibase informada',
+      () {
+        final cid = Cid.computeForDataSync(sampleData, codec: 'raw');
+        final b58Str = cid.encodeWithBase(mb.Multibase.base58btc);
+        expect(b58Str.startsWith('z'), isTrue);
+      },
+    );
 
-    test('encodeWithBaseName() - codifica Cid usando o nome da base textual', () {
-      final cid = Cid.computeForDataSync(sampleData, codec: 'raw');
-      final str = cid.encodeWithBaseName('base58btc');
-      expect(str.startsWith('z'), isTrue);
-    });
+    test(
+      'encodeWithBaseName() - codifica Cid usando o nome da base textual',
+      () {
+        final cid = Cid.computeForDataSync(sampleData, codec: 'raw');
+        final str = cid.encodeWithBaseName('base58btc');
+        expect(str.startsWith('z'), isTrue);
+      },
+    );
 
     test('toBytes() - serializa Cid para formato binario autodescritivo', () {
       final cid = Cid.computeForDataSync(sampleData, codec: 'raw');
@@ -114,31 +141,48 @@ void main() {
       expect(cid.validate(), isTrue);
     });
 
-    test('defined - getter retorna se Cid possui estrutura valida definida', () {
-      final cid = Cid.computeForDataSync(sampleData, codec: 'raw');
-      expect(cid.defined, isTrue);
-    });
+    test(
+      'defined - getter retorna se Cid possui estrutura valida definida',
+      () {
+        final cid = Cid.computeForDataSync(sampleData, codec: 'raw');
+        expect(cid.defined, isTrue);
+      },
+    );
 
-    test('toString() - converte Cid para sua representacao textual codificada', () {
-      final cid = Cid.computeForDataSync(sampleData, codec: 'raw');
-      expect(cid.toString(), equals(cid.encode()));
-    });
+    test(
+      'toString() - converte Cid para sua representacao textual codificada',
+      () {
+        final cid = Cid.computeForDataSync(sampleData, codec: 'raw');
+        expect(cid.toString(), equals(cid.encode()));
+      },
+    );
 
-    test('operator == - compara igualdade estrutural e de digest entre Cids', () {
-      final cidA = Cid.computeForDataSync(sampleData, codec: 'raw');
-      final cidB = Cid.computeForDataSync(sampleData, codec: 'raw');
-      expect(cidA == cidB, isTrue);
-    });
+    test(
+      'operator == - compara igualdade estrutural e de digest entre Cids',
+      () {
+        final cidA = Cid.computeForDataSync(sampleData, codec: 'raw');
+        final cidB = Cid.computeForDataSync(sampleData, codec: 'raw');
+        expect(cidA == cidB, isTrue);
+      },
+    );
 
-    test('hashCode - gera hash consistente para instancias estruturalmente equivalentes', () {
-      final cidA = Cid.computeForDataSync(sampleData, codec: 'raw');
-      final cidB = Cid.computeForDataSync(sampleData, codec: 'raw');
-      expect(cidA.hashCode, equals(cidB.hashCode));
-    });
+    test(
+      'hashCode - gera hash consistente para instancias estruturalmente equivalentes',
+      () {
+        final cidA = Cid.computeForDataSync(sampleData, codec: 'raw');
+        final cidB = Cid.computeForDataSync(sampleData, codec: 'raw');
+        expect(cidA.hashCode, equals(cidB.hashCode));
+      },
+    );
   });
 
   group('Prefix [Atomic Audit]', () {
-    final prefix = Prefix(version: 1, codec: 'raw', mhType: 'sha2-256', mhLength: 32);
+    final prefix = Prefix(
+      version: 1,
+      codec: 'raw',
+      mhType: 'sha2-256',
+      mhLength: 32,
+    );
 
     test('codec - getter retorna nome do codec configurado no prefixo', () {
       expect(prefix.codec, equals('raw'));
@@ -162,12 +206,22 @@ void main() {
     });
 
     test('operator == - compara igualdade entre prefixos', () {
-      final prefixB = Prefix(version: 1, codec: 'raw', mhType: 'sha2-256', mhLength: 32);
+      final prefixB = Prefix(
+        version: 1,
+        codec: 'raw',
+        mhType: 'sha2-256',
+        mhLength: 32,
+      );
       expect(prefix == prefixB, isTrue);
     });
 
     test('hashCode - produz codigo hash consistente para prefixos iguais', () {
-      final prefixB = Prefix(version: 1, codec: 'raw', mhType: 'sha2-256', mhLength: 32);
+      final prefixB = Prefix(
+        version: 1,
+        codec: 'raw',
+        mhType: 'sha2-256',
+        mhLength: 32,
+      );
       expect(prefix.hashCode, equals(prefixB.hashCode));
     });
   });
@@ -183,19 +237,30 @@ void main() {
   });
 
   group('CidTooShortException [Atomic Audit]', () {
-    test('toString() - formata mensagem de erro de Cid excessivamente curto', () {
-      const ex = CidTooShortException();
-      expect(ex.toString(), equals('cid too short'));
-    });
+    test(
+      'toString() - formata mensagem de erro de Cid excessivamente curto',
+      () {
+        const ex = CidTooShortException();
+        expect(ex.toString(), equals('cid too short'));
+      },
+    );
   });
 
   group('InvalidEncodingException [Atomic Audit]', () {
-    test('toString() - formata mensagem de erro de codificacao base multibase invalida', () {
-      const exNoCause = InvalidEncodingException();
-      expect(exNoCause.toString(), equals('invalid base encoding'));
+    test(
+      'toString() - formata mensagem de erro de codificacao base multibase invalida',
+      () {
+        const exNoCause = InvalidEncodingException();
+        expect(exNoCause.toString(), equals('invalid base encoding'));
 
-      const exWithCause = InvalidEncodingException('unsupported base character');
-      expect(exWithCause.toString(), equals('invalid base encoding: unsupported base character'));
-    });
+        const exWithCause = InvalidEncodingException(
+          'unsupported base character',
+        );
+        expect(
+          exWithCause.toString(),
+          equals('invalid base encoding: unsupported base character'),
+        );
+      },
+    );
   });
 }

@@ -39,8 +39,7 @@ final class AttrType {
 
   /// Port of `AttrType.String` (attributes.go:215-222).
   @override
-  String toString() =>
-      _attrNames[this] ?? '0x${value.toRadixString(16)}';
+  String toString() => _attrNames[this] ?? '0x${value.toRadixString(16)}';
 
   // Attributes from comprehension-required range (0x0000-0x7FFF).
   static const AttrType mappedAddress = AttrType(0x0001);

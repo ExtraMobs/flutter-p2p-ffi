@@ -46,9 +46,13 @@ void main() {
     test('cleanAddrs', () async {
       final (pid, _) = await _freshPeer();
       final plain = _addr(4001);
-      final withSuffix = Multiaddr.parse('/ip4/127.0.0.1/tcp/4001/p2p/${pid.toBase58()}');
+      final withSuffix = Multiaddr.parse(
+        '/ip4/127.0.0.1/tcp/4001/p2p/${pid.toBase58()}',
+      );
       final (otherPid, _) = await _freshPeer();
-      final wrongSuffix = Multiaddr.parse('/ip4/127.0.0.1/tcp/4002/p2p/${otherPid.toBase58()}');
+      final wrongSuffix = Multiaddr.parse(
+        '/ip4/127.0.0.1/tcp/4002/p2p/${otherPid.toBase58()}',
+      );
 
       final result = cleanAddrs([plain, withSuffix, wrongSuffix], pid);
       expect(result.length, 2);
@@ -61,8 +65,17 @@ void main() {
     test('marshal', () {
       final rec = AddrBookRecord(
         id: Uint8List.fromList([1, 2, 3]),
-        addrs: [AddrBookRecord_AddrEntry(addr: Uint8List.fromList([9, 9]), expiry: 100, ttl: 50)],
-        certifiedRecord: CertifiedRecord(seq: 7, raw: Uint8List.fromList([4, 5])),
+        addrs: [
+          AddrBookRecord_AddrEntry(
+            addr: Uint8List.fromList([9, 9]),
+            expiry: 100,
+            ttl: 50,
+          ),
+        ],
+        certifiedRecord: CertifiedRecord(
+          seq: 7,
+          raw: Uint8List.fromList([4, 5]),
+        ),
       );
       final bytes = rec.marshal();
       final decoded = AddrBookRecord.unmarshal(bytes);
@@ -105,7 +118,9 @@ void main() {
           addrs: [
             AddrBookRecord_AddrEntry(
               addr: Uint8List.fromList([1]),
-              expiry: now.subtract(const Duration(minutes: 1)).microsecondsSinceEpoch,
+              expiry: now
+                  .subtract(const Duration(minutes: 1))
+                  .microsecondsSinceEpoch,
               ttl: const Duration(seconds: 1).inMicroseconds,
             ),
             AddrBookRecord_AddrEntry(
@@ -126,7 +141,13 @@ void main() {
     test('isGhost', () {
       final rec = AddrsRecord(AddrBookRecord(id: Uint8List(0)));
       expect(rec.isGhost, isTrue);
-      rec.record.addrs.add(AddrBookRecord_AddrEntry(addr: Uint8List.fromList([1]), expiry: 0, ttl: 0));
+      rec.record.addrs.add(
+        AddrBookRecord_AddrEntry(
+          addr: Uint8List.fromList([1]),
+          expiry: 0,
+          ttl: 0,
+        ),
+      );
       expect(rec.isGhost, isFalse);
     });
   });
@@ -370,7 +391,11 @@ void main() {
       final (pid, _) = await _freshPeer();
       ab.addAddr(pid, _addr(4001), const Duration(minutes: 5));
 
-      ab.updateAddrs(pid, const Duration(minutes: 5), const Duration(seconds: 1));
+      ab.updateAddrs(
+        pid,
+        const Duration(minutes: 5),
+        const Duration(seconds: 1),
+      );
       expect(ab.addrs(pid), [_addr(4001)]);
 
       clock.advance(const Duration(seconds: 2));
@@ -421,12 +446,18 @@ void main() {
       final rec = PeerRecord(peerId: pid, addrs: [_addr(4001)], seq: 1);
       final envelope = await Envelope.seal(rec, priv);
 
-      expect(ab.consumePeerRecord(envelope, const Duration(minutes: 5)), isTrue);
+      expect(
+        ab.consumePeerRecord(envelope, const Duration(minutes: 5)),
+        isTrue,
+      );
       expect(ab.addrs(pid), [_addr(4001)]);
 
       final stale = PeerRecord(peerId: pid, addrs: [_addr(4002)], seq: 0);
       final staleEnvelope = await Envelope.seal(stale, priv);
-      expect(ab.consumePeerRecord(staleEnvelope, const Duration(minutes: 5)), isFalse);
+      expect(
+        ab.consumePeerRecord(staleEnvelope, const Duration(minutes: 5)),
+        isFalse,
+      );
     });
 
     test('getPeerRecord', () async {
@@ -539,7 +570,10 @@ void main() {
       final (pid, priv) = await _freshPeer();
       final rec = PeerRecord(peerId: pid, addrs: [_addr(4001)], seq: 1);
       final envelope = await Envelope.seal(rec, priv);
-      expect(ps.consumePeerRecord(envelope, const Duration(minutes: 5)), isTrue);
+      expect(
+        ps.consumePeerRecord(envelope, const Duration(minutes: 5)),
+        isTrue,
+      );
     });
 
     test('getPeerRecord', () async {

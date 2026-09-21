@@ -12,14 +12,17 @@ void main() {
     'b': SimpleNode.ofString('three'),
   });
 
-  test('WalkLocal is depth-first, reports paths, and SkipMeException stops a subtree', () {
-    final seen = <String>[];
-    walkLocal(tree, (progress, node) {
-      seen.add('${progress.path}:${node.kind()}');
-      if (progress.path.toString() == 'a') throw const SkipMeException();
-    });
-    expect(seen, ['${Path.empty}:map', 'a:list', 'b:string']);
-  });
+  test(
+    'WalkLocal is depth-first, reports paths, and SkipMeException stops a subtree',
+    () {
+      final seen = <String>[];
+      walkLocal(tree, (progress, node) {
+        seen.add('${progress.path}:${node.kind()}');
+        if (progress.path.toString() == 'a') throw const SkipMeException();
+      });
+      expect(seen, ['${Path.empty}:map', 'a:list', 'b:string']);
+    },
+  );
 
   test('WalkMatching follows selector order and reports match paths', () {
     final seen = <String>[];
@@ -48,7 +51,10 @@ void main() {
     ) {
       reasons.add('${progress.path}:$reason');
     });
-    expect(reasons, [':VisitReason.selectionCandidate', 'b:VisitReason.selectionMatch']);
+    expect(reasons, [
+      ':VisitReason.selectionCandidate',
+      'b:VisitReason.selectionMatch',
+    ]);
 
     final seen = <String>[];
     Progress(cfg: Config(startAtPath: Path.parse('a/1'))).walkMatching(
@@ -59,31 +65,37 @@ void main() {
     expect(seen, ['a/1']);
   });
 
-  test('walk crosses links through configured LinkSystem and tracks LastBlock', () {
-    const link = _TestLink(1);
-    final system = LinkSystem(
-      encoderChooser: (_) => (_, _) {},
-      decoderChooser: (_) => (assembler, _) => assembler.assignString('loaded'),
-      hasherChooser: (_, _) => Uint8List(0),
-      storageReadOpener: (_, _) => Uint8List.fromList([0]),
-      trustedStorage: true,
-    );
-    final seen = <String>[];
-    Progress(
-      cfg: Config(
-        linkSystem: system,
-        linkTargetNodePrototypeChooser: (_, _) => const PrototypeAny(),
-      ),
-    ).walkMatching(
-      SimpleNode.ofMap({'link': SimpleNode.ofLink(link)}),
-      const ExploreAll(Matcher()),
-      (progress, node) {
-        seen.add('${progress.path}:${node.asString()}:${progress.lastBlock.path}');
-        expect(progress.lastBlock.link, link);
-      },
-    );
-    expect(seen, ['link:loaded:link']);
-  });
+  test(
+    'walk crosses links through configured LinkSystem and tracks LastBlock',
+    () {
+      const link = _TestLink(1);
+      final system = LinkSystem(
+        encoderChooser: (_) => (_, _) {},
+        decoderChooser: (_) =>
+            (assembler, _) => assembler.assignString('loaded'),
+        hasherChooser: (_, _) => Uint8List(0),
+        storageReadOpener: (_, _) => Uint8List.fromList([0]),
+        trustedStorage: true,
+      );
+      final seen = <String>[];
+      Progress(
+        cfg: Config(
+          linkSystem: system,
+          linkTargetNodePrototypeChooser: (_, _) => const PrototypeAny(),
+        ),
+      ).walkMatching(
+        SimpleNode.ofMap({'link': SimpleNode.ofLink(link)}),
+        const ExploreAll(Matcher()),
+        (progress, node) {
+          seen.add(
+            '${progress.path}:${node.asString()}:${progress.lastBlock.path}',
+          );
+          expect(progress.lastBlock.link, link);
+        },
+      );
+      expect(seen, ['link:loaded:link']);
+    },
+  );
 
   test('link traversal fails without its required loader configuration', () {
     expect(
@@ -96,37 +108,39 @@ void main() {
     );
   });
 
-  test('budget, link selection, and transforming follow traversal semantics', () {
-    expect(
-      () => Progress(budget: Budget(nodeBudget: 1, linkBudget: 10)).walkLocal(
+  test(
+    'budget, link selection, and transforming follow traversal semantics',
+    () {
+      expect(
+        () => Progress(
+          budget: Budget(nodeBudget: 1, linkBudget: 10),
+        ).walkLocal(tree, (_, _) {}),
+        throwsA(isA<BudgetExceededException>()),
+      );
+      const link = _TestLink(2);
+      expect(
+        selectLinks(
+          SimpleNode.ofList([SimpleNode.ofLink(link), SimpleNode.ofLink(link)]),
+        ),
+        [link, link],
+      );
+      final transformed = walkTransforming(
         tree,
-        (_, _) {},
-      ),
-      throwsA(isA<BudgetExceededException>()),
-    );
-    const link = _TestLink(2);
-    expect(
-      selectLinks(
-        SimpleNode.ofList([SimpleNode.ofLink(link), SimpleNode.ofLink(link)]),
-      ),
-      [link, link],
-    );
-    final transformed = walkTransforming(
-      tree,
-      ExploreFields({'b': const Matcher()}),
-      (_, node) => node!.kind() == Kind.string
-          ? SimpleNode.ofString(node.asString().toUpperCase())
-          : node,
-    );
-    expect(transformed.lookupByString('b').asString(), 'THREE');
-    final focused = focusedTransform(
-      tree,
-      Path.parse('a/0'),
-      (_, __) => SimpleNode.ofInt(10),
-      false,
-    );
-    expect(focused.lookupByString('a').lookupByIndex(0).asInt(), 10);
-  });
+        ExploreFields({'b': const Matcher()}),
+        (_, node) => node!.kind() == Kind.string
+            ? SimpleNode.ofString(node.asString().toUpperCase())
+            : node,
+      );
+      expect(transformed.lookupByString('b').asString(), 'THREE');
+      final focused = focusedTransform(
+        tree,
+        Path.parse('a/0'),
+        (_, __) => SimpleNode.ofInt(10),
+        false,
+      );
+      expect(focused.lookupByString('a').lookupByIndex(0).asInt(), 10);
+    },
+  );
 }
 
 final class _TestLink implements Link {

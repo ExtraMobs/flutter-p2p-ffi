@@ -5,11 +5,7 @@ import '../../core/network/network.dart';
 import '../../core/protocol/protocol.dart';
 
 class _HandlerEntry {
-  _HandlerEntry({
-    required this.protocol,
-    required this.handler,
-    this.match,
-  });
+  _HandlerEntry({required this.protocol, required this.handler, this.match});
 
   final ProtocolId protocol;
   final HandlerFunc handler;

@@ -21,10 +21,10 @@ enum WantType {
   int get code => value;
 
   static WantType fromValue(int val) => switch (val) {
-        0 => WantType.block,
-        1 => WantType.have,
-        _ => WantType.block,
-      };
+    0 => WantType.block,
+    1 => WantType.have,
+    _ => WantType.block,
+  };
 }
 
 /// BlockPresenceType represents HAVE or DONT_HAVE.
@@ -41,10 +41,10 @@ enum BlockPresenceType {
   int get code => value;
 
   static BlockPresenceType fromValue(int val) => switch (val) {
-        0 => BlockPresenceType.have,
-        1 => BlockPresenceType.dontHave,
-        _ => BlockPresenceType.have,
-      };
+    0 => BlockPresenceType.have,
+    1 => BlockPresenceType.dontHave,
+    _ => BlockPresenceType.have,
+  };
 }
 
 /// Entry is a single wantlist entry in the Bitswap protobuf message.
@@ -76,7 +76,8 @@ class Entry {
       s += wire.sizeTag(1) + wire.sizeBytes(block.length);
     }
     if (priority != 0) {
-      s += wire.sizeTag(2) +
+      s +=
+          wire.sizeTag(2) +
           wire.sizeVarint(
             Golang.Uint64.fromBigInt(Golang.Int32(priority).toBigInt()),
           );
@@ -136,31 +137,41 @@ class Entry {
       switch (num) {
         case 1:
           if (type != 2) throw const FormatException('invalid wire type');
-          final (val, consumed) = wire.consumeBytes(Uint8List.sublistView(b, p));
+          final (val, consumed) = wire.consumeBytes(
+            Uint8List.sublistView(b, p),
+          );
           if (consumed < 0) throw wire.parseError(consumed)!;
           block = val!;
           p += consumed;
         case 2:
           if (type != 0) throw const FormatException('invalid wire type');
-          final (val, consumed) = wire.consumeVarint(Uint8List.sublistView(b, p));
+          final (val, consumed) = wire.consumeVarint(
+            Uint8List.sublistView(b, p),
+          );
           if (consumed < 0) throw wire.parseError(consumed)!;
           priority = val.toBigInt().toSigned(32).toInt();
           p += consumed;
         case 3:
           if (type != 0) throw const FormatException('invalid wire type');
-          final (val, consumed) = wire.consumeVarint(Uint8List.sublistView(b, p));
+          final (val, consumed) = wire.consumeVarint(
+            Uint8List.sublistView(b, p),
+          );
           if (consumed < 0) throw wire.parseError(consumed)!;
           cancel = val != Golang.Uint64(0);
           p += consumed;
         case 4:
           if (type != 0) throw const FormatException('invalid wire type');
-          final (val, consumed) = wire.consumeVarint(Uint8List.sublistView(b, p));
+          final (val, consumed) = wire.consumeVarint(
+            Uint8List.sublistView(b, p),
+          );
           if (consumed < 0) throw wire.parseError(consumed)!;
           wantType = WantType.fromValue(val.toBigInt().toSigned(32).toInt());
           p += consumed;
         case 5:
           if (type != 0) throw const FormatException('invalid wire type');
-          final (val, consumed) = wire.consumeVarint(Uint8List.sublistView(b, p));
+          final (val, consumed) = wire.consumeVarint(
+            Uint8List.sublistView(b, p),
+          );
           if (consumed < 0) throw wire.parseError(consumed)!;
           sendDontHave = val != Golang.Uint64(0);
           p += consumed;
@@ -182,10 +193,8 @@ class Entry {
 /// Wantlist represents the wantlist inside a Bitswap message.
 /// Equivalent to `Message_Wantlist`.
 class Wantlist {
-  Wantlist({
-    List<Entry>? entries,
-    this.full = false,
-  }) : entries = entries ?? <Entry>[];
+  Wantlist({List<Entry>? entries, this.full = false})
+    : entries = entries ?? <Entry>[];
 
   List<Entry> entries;
   bool full;
@@ -231,13 +240,17 @@ class Wantlist {
       switch (num) {
         case 1:
           if (type != 2) throw const FormatException('invalid wire type');
-          final (val, consumed) = wire.consumeBytes(Uint8List.sublistView(b, p));
+          final (val, consumed) = wire.consumeBytes(
+            Uint8List.sublistView(b, p),
+          );
           if (consumed < 0) throw wire.parseError(consumed)!;
           entries.add(Entry.decode(val!));
           p += consumed;
         case 2:
           if (type != 0) throw const FormatException('invalid wire type');
-          final (val, consumed) = wire.consumeVarint(Uint8List.sublistView(b, p));
+          final (val, consumed) = wire.consumeVarint(
+            Uint8List.sublistView(b, p),
+          );
           if (consumed < 0) throw wire.parseError(consumed)!;
           full = val != Golang.Uint64(0);
           p += consumed;
@@ -253,11 +266,9 @@ class Wantlist {
 /// Block represents a block payload with CID prefix in bitswap 1.1.0+.
 /// Equivalent to `Message_Block`.
 class Block {
-  Block({
-    Uint8List? prefix,
-    Uint8List? data,
-  })  : prefix = prefix ?? Uint8List(0),
-        data = data ?? Uint8List(0);
+  Block({Uint8List? prefix, Uint8List? data})
+    : prefix = prefix ?? Uint8List(0),
+      data = data ?? Uint8List(0);
 
   Uint8List prefix;
   Uint8List data;
@@ -301,13 +312,17 @@ class Block {
       switch (num) {
         case 1:
           if (type != 2) throw const FormatException('invalid wire type');
-          final (val, consumed) = wire.consumeBytes(Uint8List.sublistView(b, p));
+          final (val, consumed) = wire.consumeBytes(
+            Uint8List.sublistView(b, p),
+          );
           if (consumed < 0) throw wire.parseError(consumed)!;
           prefix = val!;
           p += consumed;
         case 2:
           if (type != 2) throw const FormatException('invalid wire type');
-          final (val, consumed) = wire.consumeBytes(Uint8List.sublistView(b, p));
+          final (val, consumed) = wire.consumeBytes(
+            Uint8List.sublistView(b, p),
+          );
           if (consumed < 0) throw wire.parseError(consumed)!;
           data = val!;
           p += consumed;
@@ -323,10 +338,8 @@ class Block {
 /// BlockPresence represents HAVE or DONT_HAVE for a given CID.
 /// Equivalent to `Message_BlockPresence`.
 class BlockPresence {
-  BlockPresence({
-    Uint8List? cid,
-    this.type = BlockPresenceType.have,
-  }) : cid = cid ?? Uint8List(0);
+  BlockPresence({Uint8List? cid, this.type = BlockPresenceType.have})
+    : cid = cid ?? Uint8List(0);
 
   Uint8List cid;
   BlockPresenceType type;
@@ -370,13 +383,17 @@ class BlockPresence {
       switch (num) {
         case 1:
           if (typeWire != 2) throw const FormatException('invalid wire type');
-          final (val, consumed) = wire.consumeBytes(Uint8List.sublistView(b, p));
+          final (val, consumed) = wire.consumeBytes(
+            Uint8List.sublistView(b, p),
+          );
           if (consumed < 0) throw wire.parseError(consumed)!;
           cid = val!;
           p += consumed;
         case 2:
           if (typeWire != 0) throw const FormatException('invalid wire type');
-          final (val, consumed) = wire.consumeVarint(Uint8List.sublistView(b, p));
+          final (val, consumed) = wire.consumeVarint(
+            Uint8List.sublistView(b, p),
+          );
           if (consumed < 0) throw wire.parseError(consumed)!;
           type = BlockPresenceType.fromValue(
             val.toBigInt().toSigned(32).toInt(),
@@ -400,9 +417,9 @@ class Message {
     List<Block>? payload,
     List<BlockPresence>? blockPresences,
     this.pendingBytes = 0,
-  })  : blocks = blocks ?? <Uint8List>[],
-        payload = payload ?? <Block>[],
-        blockPresences = blockPresences ?? <BlockPresence>[];
+  }) : blocks = blocks ?? <Uint8List>[],
+       payload = payload ?? <Block>[],
+       blockPresences = blockPresences ?? <BlockPresence>[];
 
   Wantlist? wantlist;
   List<Uint8List> blocks;
@@ -434,7 +451,8 @@ class Message {
       s += wire.sizeTag(4) + wire.sizeBytes(bpSize);
     }
     if (pendingBytes != 0) {
-      s += wire.sizeTag(5) +
+      s +=
+          wire.sizeTag(5) +
           wire.sizeVarint(
             Golang.Uint64.fromBigInt(Golang.Int32(pendingBytes).toBigInt()),
           );
@@ -488,31 +506,41 @@ class Message {
       switch (num) {
         case 1:
           if (type != 2) throw const FormatException('invalid wire type');
-          final (val, consumed) = wire.consumeBytes(Uint8List.sublistView(b, p));
+          final (val, consumed) = wire.consumeBytes(
+            Uint8List.sublistView(b, p),
+          );
           if (consumed < 0) throw wire.parseError(consumed)!;
           wantlist = Wantlist.decode(val!);
           p += consumed;
         case 2:
           if (type != 2) throw const FormatException('invalid wire type');
-          final (val, consumed) = wire.consumeBytes(Uint8List.sublistView(b, p));
+          final (val, consumed) = wire.consumeBytes(
+            Uint8List.sublistView(b, p),
+          );
           if (consumed < 0) throw wire.parseError(consumed)!;
           blocks.add(val!);
           p += consumed;
         case 3:
           if (type != 2) throw const FormatException('invalid wire type');
-          final (val, consumed) = wire.consumeBytes(Uint8List.sublistView(b, p));
+          final (val, consumed) = wire.consumeBytes(
+            Uint8List.sublistView(b, p),
+          );
           if (consumed < 0) throw wire.parseError(consumed)!;
           payload.add(Block.decode(val!));
           p += consumed;
         case 4:
           if (type != 2) throw const FormatException('invalid wire type');
-          final (val, consumed) = wire.consumeBytes(Uint8List.sublistView(b, p));
+          final (val, consumed) = wire.consumeBytes(
+            Uint8List.sublistView(b, p),
+          );
           if (consumed < 0) throw wire.parseError(consumed)!;
           blockPresences.add(BlockPresence.decode(val!));
           p += consumed;
         case 5:
           if (type != 0) throw const FormatException('invalid wire type');
-          final (val, consumed) = wire.consumeVarint(Uint8List.sublistView(b, p));
+          final (val, consumed) = wire.consumeVarint(
+            Uint8List.sublistView(b, p),
+          );
           if (consumed < 0) throw wire.parseError(consumed)!;
           pendingBytes = val.toBigInt().toSigned(32).toInt();
           p += consumed;

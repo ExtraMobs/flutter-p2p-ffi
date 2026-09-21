@@ -15,8 +15,10 @@ void main() {
       final error = PeerIdMismatchException(expected: expected, actual: actual);
       expect(error.expected, same(expected));
       expect(error.actual, same(actual));
-      expect(error.toString(),
-          'peer id mismatch: expected $expected, but remote key matches $actual');
+      expect(
+        error.toString(),
+        'peer id mismatch: expected $expected, but remote key matches $actual',
+      );
     });
   });
 
@@ -49,72 +51,84 @@ void main() {
       expect(transport.localPeer, equals(PeerId.fromPubKey(key.getPublic())));
     });
 
-    test('secureOutbound() - completes Noise handshake as initiator and exchanges data', () async {
-      final clientKey = await generateEd25519KeyPair();
-      final serverKey = await generateEd25519KeyPair();
-      final clientPeer = PeerId.fromPubKey(clientKey.getPublic());
-      final serverPeer = PeerId.fromPubKey(serverKey.getPublic());
+    test(
+      'secureOutbound() - completes Noise handshake as initiator and exchanges data',
+      () async {
+        final clientKey = await generateEd25519KeyPair();
+        final serverKey = await generateEd25519KeyPair();
+        final clientPeer = PeerId.fromPubKey(clientKey.getPublic());
+        final serverPeer = PeerId.fromPubKey(serverKey.getPublic());
 
-      final clientTransport = NoiseTransport(privKey: clientKey);
-      final serverTransport = NoiseTransport(privKey: serverKey);
+        final clientTransport = NoiseTransport(privKey: clientKey);
+        final serverTransport = NoiseTransport(privKey: serverKey);
 
-      final (clientRaw, serverRaw) = _createDuplexPipePair();
+        final (clientRaw, serverRaw) = _createDuplexPipePair();
 
-      final results = await Future.wait([
-        clientTransport.secureOutbound(clientRaw, serverPeer),
-        serverTransport.secureInbound(serverRaw, clientPeer),
-      ]);
+        final results = await Future.wait([
+          clientTransport.secureOutbound(clientRaw, serverPeer),
+          serverTransport.secureInbound(serverRaw, clientPeer),
+        ]);
 
-      final clientConn = results[0];
-      final serverConn = results[1];
+        final clientConn = results[0];
+        final serverConn = results[1];
 
-      expect(clientConn.localPeer(), equals(clientPeer));
-      expect(clientConn.remotePeer(), equals(serverPeer));
-      expect(clientConn.remotePublicKey().raw(), equals(serverKey.getPublic().raw()));
-      expect(clientConn.connState().security, equals('/noise'));
-      expect(clientConn.isClosed, isFalse);
+        expect(clientConn.localPeer(), equals(clientPeer));
+        expect(clientConn.remotePeer(), equals(serverPeer));
+        expect(
+          clientConn.remotePublicKey().raw(),
+          equals(serverKey.getPublic().raw()),
+        );
+        expect(clientConn.connState().security, equals('/noise'));
+        expect(clientConn.isClosed, isFalse);
 
-      final msg = utf8.encode('hello noise from client');
-      await clientConn.write(Uint8List.fromList(msg));
-      final received = await serverConn.read();
-      expect(utf8.decode(received), equals('hello noise from client'));
+        final msg = utf8.encode('hello noise from client');
+        await clientConn.write(Uint8List.fromList(msg));
+        final received = await serverConn.read();
+        expect(utf8.decode(received), equals('hello noise from client'));
 
-      await clientConn.close();
-      expect(clientConn.isClosed, isTrue);
-      await serverConn.close();
-    });
+        await clientConn.close();
+        expect(clientConn.isClosed, isTrue);
+        await serverConn.close();
+      },
+    );
 
-    test('secureInbound() - completes Noise handshake as responder and exchanges data', () async {
-      final clientKey = await generateEd25519KeyPair();
-      final serverKey = await generateEd25519KeyPair();
-      final clientPeer = PeerId.fromPubKey(clientKey.getPublic());
-      final serverPeer = PeerId.fromPubKey(serverKey.getPublic());
+    test(
+      'secureInbound() - completes Noise handshake as responder and exchanges data',
+      () async {
+        final clientKey = await generateEd25519KeyPair();
+        final serverKey = await generateEd25519KeyPair();
+        final clientPeer = PeerId.fromPubKey(clientKey.getPublic());
+        final serverPeer = PeerId.fromPubKey(serverKey.getPublic());
 
-      final clientTransport = NoiseTransport(privKey: clientKey);
-      final serverTransport = NoiseTransport(privKey: serverKey);
+        final clientTransport = NoiseTransport(privKey: clientKey);
+        final serverTransport = NoiseTransport(privKey: serverKey);
 
-      final (clientRaw, serverRaw) = _createDuplexPipePair();
+        final (clientRaw, serverRaw) = _createDuplexPipePair();
 
-      final results = await Future.wait([
-        clientTransport.secureOutbound(clientRaw, serverPeer),
-        serverTransport.secureInbound(serverRaw, clientPeer),
-      ]);
+        final results = await Future.wait([
+          clientTransport.secureOutbound(clientRaw, serverPeer),
+          serverTransport.secureInbound(serverRaw, clientPeer),
+        ]);
 
-      final clientConn = results[0];
-      final serverConn = results[1];
+        final clientConn = results[0];
+        final serverConn = results[1];
 
-      expect(serverConn.localPeer(), equals(serverPeer));
-      expect(serverConn.remotePeer(), equals(clientPeer));
-      expect(serverConn.remotePublicKey().raw(), equals(clientKey.getPublic().raw()));
+        expect(serverConn.localPeer(), equals(serverPeer));
+        expect(serverConn.remotePeer(), equals(clientPeer));
+        expect(
+          serverConn.remotePublicKey().raw(),
+          equals(clientKey.getPublic().raw()),
+        );
 
-      final msg = utf8.encode('hello noise from server');
-      await serverConn.write(Uint8List.fromList(msg));
-      final received = await clientConn.read();
-      expect(utf8.decode(received), equals('hello noise from server'));
+        final msg = utf8.encode('hello noise from server');
+        await serverConn.write(Uint8List.fromList(msg));
+        final received = await clientConn.read();
+        expect(utf8.decode(received), equals('hello noise from server'));
 
-      await clientConn.close();
-      await serverConn.close();
-    });
+        await clientConn.close();
+        await serverConn.close();
+      },
+    );
   });
 }
 
@@ -137,6 +151,7 @@ class _MockSecureConn implements SecureConn {
   Future<void> close() async {
     _closed = true;
   }
+
   @override
   bool get isClosed => _closed;
 
@@ -181,15 +196,13 @@ class _MockRawConn implements RawConn {
   Future<void> close() async {
     _closed = true;
   }
+
   @override
   bool get isClosed => _closed;
 }
 
 class _DuplexPipeConn implements RawConn {
-  _DuplexPipeConn({
-    required this.localAddr,
-    required this.remoteAddr,
-  });
+  _DuplexPipeConn({required this.localAddr, required this.remoteAddr});
 
   final Multiaddr localAddr;
   final Multiaddr remoteAddr;
@@ -234,7 +247,9 @@ class _DuplexPipeConn implements RawConn {
       _readCompleter = Completer<void>();
       await _readCompleter!.future;
     }
-    final len = maxLength != null ? math.min(maxLength, _incoming.length) : _incoming.length;
+    final len = maxLength != null
+        ? math.min(maxLength, _incoming.length)
+        : _incoming.length;
     final res = Uint8List.fromList(_incoming.sublist(0, len));
     _incoming.removeRange(0, len);
     return res;

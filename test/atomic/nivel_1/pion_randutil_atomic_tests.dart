@@ -11,8 +11,7 @@ const String _runesAlpha =
 
 void main() {
   group('generateCryptoRandomString [Atomic Audit]', () {
-    test(
-        'generateCryptoRandomString() - gera string do comprimento pedido '
+    test('generateCryptoRandomString() - gera string do comprimento pedido '
         'apenas com caracteres do alfabeto fornecido', () {
       for (var i = 0; i < 200; i++) {
         final s = generateCryptoRandomString(10, _runesAlpha);
@@ -21,12 +20,14 @@ void main() {
       }
     });
 
-    test('generateCryptoRandomString() - comprimento zero retorna string vazia', () {
-      expect(generateCryptoRandomString(0, _runesAlpha), equals(''));
-    });
-
     test(
-        'generateCryptoRandomString() - duas chamadas sucessivas não colidem '
+      'generateCryptoRandomString() - comprimento zero retorna string vazia',
+      () {
+        expect(generateCryptoRandomString(0, _runesAlpha), equals(''));
+      },
+    );
+
+    test('generateCryptoRandomString() - duas chamadas sucessivas não colidem '
         '(fonte criptográfica real, não determinística)', () {
       final a = generateCryptoRandomString(32, _runesAlpha);
       final b = generateCryptoRandomString(32, _runesAlpha);
@@ -35,8 +36,7 @@ void main() {
   });
 
   group('cryptoUint64 [Atomic Audit]', () {
-    test(
-        'cryptoUint64() - amostragem grande cobre valores próximos dos '
+    test('cryptoUint64() - amostragem grande cobre valores próximos dos '
         'limites inferior e superior do intervalo de 64 bits', () {
       // Porta o vetor de TestCryptoUint64 (crypto_test.go): sobre 10000
       // amostras, o mínimo deve cair perto de 0 e o máximo perto do teto.
@@ -54,18 +54,28 @@ void main() {
         }
         if (sawLowHalf && sawHighHalf) break;
       }
-      expect(sawLowHalf, isTrue, reason: 'nenhum valor da metade inferior gerado');
-      expect(sawHighHalf, isTrue, reason: 'nenhum valor da metade superior gerado');
+      expect(
+        sawLowHalf,
+        isTrue,
+        reason: 'nenhum valor da metade inferior gerado',
+      );
+      expect(
+        sawHighHalf,
+        isTrue,
+        reason: 'nenhum valor da metade superior gerado',
+      );
     });
 
-    test('cryptoUint64() - duas chamadas sucessivas produzem valores diferentes', () {
-      expect(cryptoUint64(), isNot(equals(cryptoUint64())));
-    });
+    test(
+      'cryptoUint64() - duas chamadas sucessivas produzem valores diferentes',
+      () {
+        expect(cryptoUint64(), isNot(equals(cryptoUint64())));
+      },
+    );
   });
 
   group('MathRandomGenerator [Atomic Audit]', () {
-    test(
-        'MathRandomGenerator() - factory constrói um gerador utilizável '
+    test('MathRandomGenerator() - factory constrói um gerador utilizável '
         '(porta NewMathRandomGenerator)', () {
       final g = MathRandomGenerator();
       expect(g, isNotNull);
@@ -86,23 +96,25 @@ void main() {
       expect(max, greaterThanOrEqualTo(90));
     });
 
-    test('uint32() - retorna valores não-negativos cobrindo o intervalo de 32 bits', () {
-      final g = MathRandomGenerator();
-      var min = 0xFFFFFFFF;
-      var max = 0;
-      for (var i = 0; i < 10000; i++) {
-        final r = g.uint32();
-        expect(r, greaterThanOrEqualTo(0));
-        expect(r, lessThanOrEqualTo(0xFFFFFFFF));
-        if (r < min) min = r;
-        if (r > max) max = r;
-      }
-      expect(min, lessThanOrEqualTo(0x10000000));
-      expect(max, greaterThanOrEqualTo(0xF0000000));
-    });
-
     test(
-        'uint64() - amostragem grande cobre valores próximos dos limites '
+      'uint32() - retorna valores não-negativos cobrindo o intervalo de 32 bits',
+      () {
+        final g = MathRandomGenerator();
+        var min = 0xFFFFFFFF;
+        var max = 0;
+        for (var i = 0; i < 10000; i++) {
+          final r = g.uint32();
+          expect(r, greaterThanOrEqualTo(0));
+          expect(r, lessThanOrEqualTo(0xFFFFFFFF));
+          if (r < min) min = r;
+          if (r > max) max = r;
+        }
+        expect(min, lessThanOrEqualTo(0x10000000));
+        expect(max, greaterThanOrEqualTo(0xF0000000));
+      },
+    );
+
+    test('uint64() - amostragem grande cobre valores próximos dos limites '
         'inferior e superior do padrão de 64 bits', () {
       final g = MathRandomGenerator();
       var sawLowHalf = false;
@@ -120,8 +132,7 @@ void main() {
       expect(sawHighHalf, isTrue);
     });
 
-    test(
-        'generateString() - gera string do comprimento pedido apenas com '
+    test('generateString() - gera string do comprimento pedido apenas com '
         'caracteres do alfabeto fornecido', () {
       final g = MathRandomGenerator();
       for (var i = 0; i < 200; i++) {

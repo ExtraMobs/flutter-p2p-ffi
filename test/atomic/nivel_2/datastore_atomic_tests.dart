@@ -71,7 +71,10 @@ void main() {
       final ds = MapDatastore();
       await ds.put(Key('/a'), [10, 20]);
       expect(await ds.get(Key('/a')), equals([10, 20]));
-      expect(() => ds.get(Key('/inexistente')), throwsA(isA<NotFoundException>()));
+      expect(
+        () => ds.get(Key('/inexistente')),
+        throwsA(isA<NotFoundException>()),
+      );
     });
 
     test('has(key) - verifica existencia da chave informada', () async {
@@ -85,7 +88,10 @@ void main() {
       final ds = MapDatastore();
       await ds.put(Key('/size_key'), [1, 2, 3, 4, 5]);
       expect(await ds.getSize(Key('/size_key')), equals(5));
-      expect(() => ds.getSize(Key('/inexistente')), throwsA(isA<NotFoundException>()));
+      expect(
+        () => ds.getSize(Key('/inexistente')),
+        throwsA(isA<NotFoundException>()),
+      );
     });
 
     test('delete(key) - remove par chave e valor do datastore', () async {
@@ -135,12 +141,15 @@ void main() {
       expect(logDs.children(), equals([inner]));
     });
 
-    test('put(key, value) - registra log e delega escrita para filho', () async {
-      final inner = MapDatastore();
-      final logDs = LogDatastore(inner);
-      await logDs.put(Key('/k'), [10, 20]);
-      expect(await inner.has(Key('/k')), isTrue);
-    });
+    test(
+      'put(key, value) - registra log e delega escrita para filho',
+      () async {
+        final inner = MapDatastore();
+        final logDs = LogDatastore(inner);
+        await logDs.put(Key('/k'), [10, 20]);
+        expect(await inner.has(Key('/k')), isTrue);
+      },
+    );
 
     test('sync(prefix) - registra log e delega sincronizacao', () async {
       final inner = MapDatastore();
@@ -179,20 +188,26 @@ void main() {
       expect(await inner.has(Key('/k')), isFalse);
     });
 
-    test('diskUsage() - registra log e calcula uso de disco do filho', () async {
-      final inner = MapDatastore();
-      final logDs = LogDatastore(inner);
-      final usage = await logDs.diskUsage();
-      expect(usage, equals(0));
-    });
+    test(
+      'diskUsage() - registra log e calcula uso de disco do filho',
+      () async {
+        final inner = MapDatastore();
+        final logDs = LogDatastore(inner);
+        final usage = await logDs.diskUsage();
+        expect(usage, equals(0));
+      },
+    );
 
-    test('query(q) - registra log e delega consulta ao datastore filho', () async {
-      final inner = MapDatastore();
-      await inner.put(Key('/item/1'), [99]);
-      final logDs = LogDatastore(inner);
-      final res = await logDs.query(const Query(prefix: '/item'));
-      expect(res.rest().length, equals(1));
-    });
+    test(
+      'query(q) - registra log e delega consulta ao datastore filho',
+      () async {
+        final inner = MapDatastore();
+        await inner.put(Key('/item/1'), [99]);
+        final logDs = LogDatastore(inner);
+        final res = await logDs.query(const Query(prefix: '/item'));
+        expect(res.rest().length, equals(1));
+      },
+    );
 
     test('batch() - instancia lote com logs para filho compativel', () async {
       final inner = MapDatastore();
@@ -210,19 +225,25 @@ void main() {
       expect(true, isTrue);
     });
 
-    test('check() - delega checagem caso o filho suporte CheckedDatastore', () async {
-      final inner = NullDatastore();
-      final logDs = LogDatastore(inner);
-      await logDs.check();
-      expect(true, isTrue);
-    });
+    test(
+      'check() - delega checagem caso o filho suporte CheckedDatastore',
+      () async {
+        final inner = NullDatastore();
+        final logDs = LogDatastore(inner);
+        await logDs.check();
+        expect(true, isTrue);
+      },
+    );
 
-    test('scrub() - delega limpeza caso o filho suporte ScrubbedDatastore', () async {
-      final inner = NullDatastore();
-      final logDs = LogDatastore(inner);
-      await logDs.scrub();
-      expect(true, isTrue);
-    });
+    test(
+      'scrub() - delega limpeza caso o filho suporte ScrubbedDatastore',
+      () async {
+        final inner = NullDatastore();
+        final logDs = LogDatastore(inner);
+        await logDs.scrub();
+        expect(true, isTrue);
+      },
+    );
 
     test('collectGarbage() - delega coleta de lixo se suportada', () async {
       final inner = NullDatastore();
@@ -233,31 +254,40 @@ void main() {
   });
 
   group('BasicBatch [Atomic Audit]', () {
-    test('put(key, value) - enfileira gravacao no lote para posterior commit', () async {
-      final ds = MapDatastore();
-      final b = BasicBatch(ds);
-      await b.put(Key('/k1'), [1, 2]);
-      expect(await ds.has(Key('/k1')), isFalse);
-    });
+    test(
+      'put(key, value) - enfileira gravacao no lote para posterior commit',
+      () async {
+        final ds = MapDatastore();
+        final b = BasicBatch(ds);
+        await b.put(Key('/k1'), [1, 2]);
+        expect(await ds.has(Key('/k1')), isFalse);
+      },
+    );
 
-    test('delete(key) - enfileira remocao no lote para posterior commit', () async {
-      final ds = MapDatastore();
-      await ds.put(Key('/k2'), [3, 4]);
-      final b = BasicBatch(ds);
-      await b.delete(Key('/k2'));
-      expect(await ds.has(Key('/k2')), isTrue);
-    });
+    test(
+      'delete(key) - enfileira remocao no lote para posterior commit',
+      () async {
+        final ds = MapDatastore();
+        await ds.put(Key('/k2'), [3, 4]);
+        final b = BasicBatch(ds);
+        await b.delete(Key('/k2'));
+        expect(await ds.has(Key('/k2')), isTrue);
+      },
+    );
 
-    test('commit() - descarrega todas as operacoes gravadas no datastore alvo', () async {
-      final ds = MapDatastore();
-      await ds.put(Key('/del_me'), [1]);
-      final b = BasicBatch(ds);
-      await b.put(Key('/add_me'), [2]);
-      await b.delete(Key('/del_me'));
-      await b.commit();
-      expect(await ds.has(Key('/add_me')), isTrue);
-      expect(await ds.has(Key('/del_me')), isFalse);
-    });
+    test(
+      'commit() - descarrega todas as operacoes gravadas no datastore alvo',
+      () async {
+        final ds = MapDatastore();
+        await ds.put(Key('/del_me'), [1]);
+        final b = BasicBatch(ds);
+        await b.put(Key('/add_me'), [2]);
+        await b.delete(Key('/del_me'));
+        await b.commit();
+        expect(await ds.has(Key('/add_me')), isTrue);
+        expect(await ds.has(Key('/del_me')), isFalse);
+      },
+    );
   });
 
   group('NotFoundException [Atomic Audit]', () {
@@ -282,37 +312,49 @@ void main() {
       expect(await reader.get(Key('/r1')), equals([5, 6]));
     });
 
-    test('has(key) - verifica chave atraves da interface abstrata Read', () async {
-      final MapDatastore mapDs = MapDatastore();
-      await mapDs.put(Key('/r1'), [5, 6]);
-      final Read reader = mapDs;
-      expect(await reader.has(Key('/r1')), isTrue);
-      expect(await reader.has(Key('/none')), isFalse);
-    });
+    test(
+      'has(key) - verifica chave atraves da interface abstrata Read',
+      () async {
+        final MapDatastore mapDs = MapDatastore();
+        await mapDs.put(Key('/r1'), [5, 6]);
+        final Read reader = mapDs;
+        expect(await reader.has(Key('/r1')), isTrue);
+        expect(await reader.has(Key('/none')), isFalse);
+      },
+    );
 
-    test('getSize(key) - obtem tamanho atraves da interface abstrata Read', () async {
-      final MapDatastore mapDs = MapDatastore();
-      await mapDs.put(Key('/r1'), [5, 6]);
-      final Read reader = mapDs;
-      expect(await reader.getSize(Key('/r1')), equals(2));
-    });
+    test(
+      'getSize(key) - obtem tamanho atraves da interface abstrata Read',
+      () async {
+        final MapDatastore mapDs = MapDatastore();
+        await mapDs.put(Key('/r1'), [5, 6]);
+        final Read reader = mapDs;
+        expect(await reader.getSize(Key('/r1')), equals(2));
+      },
+    );
 
-    test('query(q) - executa consulta atraves da interface abstrata Read', () async {
-      final MapDatastore mapDs = MapDatastore();
-      await mapDs.put(Key('/r1/sub'), [5, 6]);
-      final Read reader = mapDs;
-      final res = await reader.query(const Query(prefix: '/r1'));
-      expect(res.rest(), hasLength(1));
-    });
+    test(
+      'query(q) - executa consulta atraves da interface abstrata Read',
+      () async {
+        final MapDatastore mapDs = MapDatastore();
+        await mapDs.put(Key('/r1/sub'), [5, 6]);
+        final Read reader = mapDs;
+        final res = await reader.query(const Query(prefix: '/r1'));
+        expect(res.rest(), hasLength(1));
+      },
+    );
   });
 
   group('Write [Atomic Audit]', () {
-    test('put(key, value) - armazena dados atraves da interface Write', () async {
-      final MapDatastore mapDs = MapDatastore();
-      final Write writer = mapDs;
-      await writer.put(Key('/w1'), [9, 8]);
-      expect(await mapDs.has(Key('/w1')), isTrue);
-    });
+    test(
+      'put(key, value) - armazena dados atraves da interface Write',
+      () async {
+        final MapDatastore mapDs = MapDatastore();
+        final Write writer = mapDs;
+        await writer.put(Key('/w1'), [9, 8]);
+        expect(await mapDs.has(Key('/w1')), isTrue);
+      },
+    );
 
     test('delete(key) - remove dados atraves da interface Write', () async {
       final MapDatastore mapDs = MapDatastore();
@@ -324,11 +366,14 @@ void main() {
   });
 
   group('Datastore [Atomic Audit]', () {
-    test('sync(prefix) - sincroniza dados atraves da interface Datastore', () async {
-      final Datastore ds = MapDatastore();
-      await ds.sync(Key('/test_sync'));
-      expect(true, isTrue);
-    });
+    test(
+      'sync(prefix) - sincroniza dados atraves da interface Datastore',
+      () async {
+        final Datastore ds = MapDatastore();
+        await ds.sync(Key('/test_sync'));
+        expect(true, isTrue);
+      },
+    );
 
     test('close() - libera recursos atraves da interface Datastore', () async {
       final Datastore ds = MapDatastore();
@@ -348,63 +393,93 @@ void main() {
   });
 
   group('Batching [Atomic Audit]', () {
-    test('batch() - cria instancia de lote atraves da interface Batching', () async {
-      final Batching bds = MapDatastore();
-      final batch = await bds.batch();
-      expect(batch, isA<Batch>());
-    });
+    test(
+      'batch() - cria instancia de lote atraves da interface Batching',
+      () async {
+        final Batching bds = MapDatastore();
+        final batch = await bds.batch();
+        expect(batch, isA<Batch>());
+      },
+    );
   });
 
   group('CheckedDatastore [Atomic Audit]', () {
-    test('check() - valida integridade atraves da interface CheckedDatastore', () async {
-      final CheckedDatastore cds = NullDatastore();
-      await cds.check();
-      expect(true, isTrue);
-    });
+    test(
+      'check() - valida integridade atraves da interface CheckedDatastore',
+      () async {
+        final CheckedDatastore cds = NullDatastore();
+        await cds.check();
+        expect(true, isTrue);
+      },
+    );
   });
 
   group('ScrubbedDatastore [Atomic Audit]', () {
-    test('scrub() - executa higienizacao atraves da interface ScrubbedDatastore', () async {
-      final ScrubbedDatastore sds = NullDatastore();
-      await sds.scrub();
-      expect(true, isTrue);
-    });
+    test(
+      'scrub() - executa higienizacao atraves da interface ScrubbedDatastore',
+      () async {
+        final ScrubbedDatastore sds = NullDatastore();
+        await sds.scrub();
+        expect(true, isTrue);
+      },
+    );
   });
 
   group('GcDatastore [Atomic Audit]', () {
-    test('collectGarbage() - coleta lixo atraves da interface GcDatastore', () async {
-      final GcDatastore gcds = NullDatastore();
-      await gcds.collectGarbage();
-      expect(true, isTrue);
-    });
+    test(
+      'collectGarbage() - coleta lixo atraves da interface GcDatastore',
+      () async {
+        final GcDatastore gcds = NullDatastore();
+        await gcds.collectGarbage();
+        expect(true, isTrue);
+      },
+    );
   });
 
   group('PersistentDatastore [Atomic Audit]', () {
-    test('diskUsage() - quantifica armazenamento atraves da interface PersistentDatastore', () async {
-      final PersistentDatastore pds = NullDatastore();
-      final usage = await pds.diskUsage();
-      expect(usage, equals(0));
-    });
+    test(
+      'diskUsage() - quantifica armazenamento atraves da interface PersistentDatastore',
+      () async {
+        final PersistentDatastore pds = NullDatastore();
+        final usage = await pds.diskUsage();
+        expect(usage, equals(0));
+      },
+    );
   });
 
   group('TtlDatastore [Atomic Audit]', () {
-    test('putWithTtl(key, value, ttl) - armazena registro associado a prazo de expiracao', () async {
-      final TtlDatastore ttlDs = _TestTtlDatastore();
-      await ttlDs.putWithTtl(Key('/temp'), [1, 2], const Duration(minutes: 5));
-      expect(true, isTrue);
-    });
+    test(
+      'putWithTtl(key, value, ttl) - armazena registro associado a prazo de expiracao',
+      () async {
+        final TtlDatastore ttlDs = _TestTtlDatastore();
+        await ttlDs.putWithTtl(Key('/temp'), [
+          1,
+          2,
+        ], const Duration(minutes: 5));
+        expect(true, isTrue);
+      },
+    );
 
-    test('setTtl(key, ttl) - atualiza tempo de vida para chave existente', () async {
-      final TtlDatastore ttlDs = _TestTtlDatastore();
-      await ttlDs.setTtl(Key('/temp'), const Duration(minutes: 10));
-      expect(true, isTrue);
-    });
+    test(
+      'setTtl(key, ttl) - atualiza tempo de vida para chave existente',
+      () async {
+        final TtlDatastore ttlDs = _TestTtlDatastore();
+        await ttlDs.setTtl(Key('/temp'), const Duration(minutes: 10));
+        expect(true, isTrue);
+      },
+    );
 
-    test('getExpiration(key) - consulta timestamp de expiracao configurado', () async {
-      final TtlDatastore ttlDs = _TestTtlDatastore();
-      final exp = await ttlDs.getExpiration(Key('/temp'));
-      expect(exp.isAfter(DateTime.now().subtract(const Duration(minutes: 1))), isTrue);
-    });
+    test(
+      'getExpiration(key) - consulta timestamp de expiracao configurado',
+      () async {
+        final TtlDatastore ttlDs = _TestTtlDatastore();
+        final exp = await ttlDs.getExpiration(Key('/temp'));
+        expect(
+          exp.isAfter(DateTime.now().subtract(const Duration(minutes: 1))),
+          isTrue,
+        );
+      },
+    );
   });
 
   group('Txn [Atomic Audit]', () {
@@ -424,11 +499,14 @@ void main() {
   });
 
   group('TxnDatastore [Atomic Audit]', () {
-    test('newTransaction({required bool readOnly}) - cria instancia de transacao isolada', () async {
-      final TxnDatastore txnDs = NullDatastore();
-      final txn = await txnDs.newTransaction(readOnly: true);
-      expect(txn, isNotNull);
-    });
+    test(
+      'newTransaction({required bool readOnly}) - cria instancia de transacao isolada',
+      () async {
+        final TxnDatastore txnDs = NullDatastore();
+        final txn = await txnDs.newTransaction(readOnly: true);
+        expect(txn, isNotNull);
+      },
+    );
   });
 
   group('Feature [Atomic Audit]', () {
@@ -446,10 +524,13 @@ void main() {
       expect(f1.hashCode, equals(f2.hashCode));
     });
 
-    test('toString() - formata metadados de feature para exibicao como string', () {
-      const f1 = Feature('Batching', _dummyFeatureMatch);
-      expect(f1.toString(), equals('Batching'));
-    });
+    test(
+      'toString() - formata metadados de feature para exibicao como string',
+      () {
+        const f1 = Feature('Batching', _dummyFeatureMatch);
+        expect(f1.toString(), equals('Batching'));
+      },
+    );
   });
 
   group('Key [Atomic Audit]', () {
@@ -463,13 +544,16 @@ void main() {
       expect(k.bytes, equals(utf8.encode('/Comedy/MontyPython')));
     });
 
-    test('equalTo(other) - valida correspondencia estrita de conteudo com outra chave', () {
-      final k1 = Key('/Comedy/MontyPython');
-      final k2 = Key('/Comedy/MontyPython');
-      final k3 = Key('/Outro');
-      expect(k1.equalTo(k2), isTrue);
-      expect(k1.equalTo(k3), isFalse);
-    });
+    test(
+      'equalTo(other) - valida correspondencia estrita de conteudo com outra chave',
+      () {
+        final k1 = Key('/Comedy/MontyPython');
+        final k2 = Key('/Comedy/MontyPython');
+        final k3 = Key('/Outro');
+        expect(k1.equalTo(k2), isTrue);
+        expect(k1.equalTo(k3), isFalse);
+      },
+    );
 
     test('operator == - operador de igualdade entre instancias de chaves', () {
       final k1 = Key('/Comedy/MontyPython');
@@ -505,10 +589,13 @@ void main() {
       expect(k2.less(k1), isFalse);
     });
 
-    test('list - divide o caminho nos componentes de namespace correspondentes', () {
-      final k = Key('/Comedy/MontyPython/Actor:JohnCleese');
-      expect(k.list, equals(['Comedy', 'MontyPython', 'Actor:JohnCleese']));
-    });
+    test(
+      'list - divide o caminho nos componentes de namespace correspondentes',
+      () {
+        final k = Key('/Comedy/MontyPython/Actor:JohnCleese');
+        expect(k.list, equals(['Comedy', 'MontyPython', 'Actor:JohnCleese']));
+      },
+    );
 
     test('namespaces - expoem os namespaces como lista de strings', () {
       final k = Key('/Comedy/MontyPython');
@@ -542,10 +629,16 @@ void main() {
       expect(Key('/Comedy/MontyPython').name, equals('MontyPython'));
     });
 
-    test('instance(s) - concatena especificador de instancia com separador dois pontos', () {
-      final k = Key('/Comedy/MontyPython');
-      expect(k.instance('sketch').value, equals('/Comedy/MontyPython:sketch'));
-    });
+    test(
+      'instance(s) - concatena especificador de instancia com separador dois pontos',
+      () {
+        final k = Key('/Comedy/MontyPython');
+        expect(
+          k.instance('sketch').value,
+          equals('/Comedy/MontyPython:sketch'),
+        );
+      },
+    );
 
     test('path - forma chave combinando ancestral e tipo', () {
       final k = Key('/Comedy/MontyPython/Actor:JohnCleese');
@@ -570,39 +663,54 @@ void main() {
       expect(k.childString('MontyPython').value, equals('/Comedy/MontyPython'));
     });
 
-    test('isAncestorOf(other) - checa se chave eh ancestral legitima de outra', () {
-      final k1 = Key('/Comedy');
-      final k2 = Key('/Comedy/MontyPython');
-      expect(k1.isAncestorOf(k2), isTrue);
-      expect(k2.isAncestorOf(k1), isFalse);
-      expect(Key('/').isAncestorOf(k1), isTrue);
-    });
+    test(
+      'isAncestorOf(other) - checa se chave eh ancestral legitima de outra',
+      () {
+        final k1 = Key('/Comedy');
+        final k2 = Key('/Comedy/MontyPython');
+        expect(k1.isAncestorOf(k2), isTrue);
+        expect(k2.isAncestorOf(k1), isFalse);
+        expect(Key('/').isAncestorOf(k1), isTrue);
+      },
+    );
 
-    test('isDescendantOf(other) - checa se chave eh descendente legitima de outra', () {
-      final k1 = Key('/Comedy');
-      final k2 = Key('/Comedy/MontyPython');
-      expect(k2.isDescendantOf(k1), isTrue);
-      expect(k1.isDescendantOf(k2), isFalse);
-    });
+    test(
+      'isDescendantOf(other) - checa se chave eh descendente legitima de outra',
+      () {
+        final k1 = Key('/Comedy');
+        final k2 = Key('/Comedy/MontyPython');
+        expect(k2.isDescendantOf(k1), isTrue);
+        expect(k1.isDescendantOf(k2), isFalse);
+      },
+    );
 
-    test('isTopLevel - verifica se chave pertence ao nivel imediatamente raiz', () {
-      expect(Key('/Comedy').isTopLevel, isTrue);
-      expect(Key('/Comedy/MontyPython').isTopLevel, isFalse);
-    });
+    test(
+      'isTopLevel - verifica se chave pertence ao nivel imediatamente raiz',
+      () {
+        expect(Key('/Comedy').isTopLevel, isTrue);
+        expect(Key('/Comedy/MontyPython').isTopLevel, isFalse);
+      },
+    );
 
-    test('marshalJson() - serializa chave em formato JSON codificado em UTF8', () {
-      final k = Key('/Comedy/MontyPython');
-      final jsonBytes = k.marshalJson();
-      expect(utf8.decode(jsonBytes), equals('"/Comedy/MontyPython"'));
-    });
+    test(
+      'marshalJson() - serializa chave em formato JSON codificado em UTF8',
+      () {
+        final k = Key('/Comedy/MontyPython');
+        final jsonBytes = k.marshalJson();
+        expect(utf8.decode(jsonBytes), equals('"/Comedy/MontyPython"'));
+      },
+    );
   });
 
   group('NullDatastore [Atomic Audit]', () {
-    test('put(key, value) - executa gravacao nula sem efeitos colaterais', () async {
-      final nds = NullDatastore();
-      await nds.put(Key('/a'), [1, 2]);
-      expect(true, isTrue);
-    });
+    test(
+      'put(key, value) - executa gravacao nula sem efeitos colaterais',
+      () async {
+        final nds = NullDatastore();
+        await nds.put(Key('/a'), [1, 2]);
+        expect(true, isTrue);
+      },
+    );
 
     test('sync(prefix) - executa sincronizacao nula com sucesso', () async {
       final nds = NullDatastore();
@@ -610,20 +718,26 @@ void main() {
       expect(true, isTrue);
     });
 
-    test('get(key) - lanca NotFoundException ao tentar recuperar valor', () async {
-      final nds = NullDatastore();
-      expect(() => nds.get(Key('/a')), throwsA(isA<NotFoundException>()));
-    });
+    test(
+      'get(key) - lanca NotFoundException ao tentar recuperar valor',
+      () async {
+        final nds = NullDatastore();
+        expect(() => nds.get(Key('/a')), throwsA(isA<NotFoundException>()));
+      },
+    );
 
     test('has(key) - sempre reporta que a chave nao existe', () async {
       final nds = NullDatastore();
       expect(await nds.has(Key('/a')), isFalse);
     });
 
-    test('getSize(key) - lanca NotFoundException ao requisitar dimensao do valor', () async {
-      final nds = NullDatastore();
-      expect(() => nds.getSize(Key('/a')), throwsA(isA<NotFoundException>()));
-    });
+    test(
+      'getSize(key) - lanca NotFoundException ao requisitar dimensao do valor',
+      () async {
+        final nds = NullDatastore();
+        expect(() => nds.getSize(Key('/a')), throwsA(isA<NotFoundException>()));
+      },
+    );
 
     test('delete(key) - executa remocao nula sem erros', () async {
       final nds = NullDatastore();
@@ -643,23 +757,32 @@ void main() {
       expect(true, isTrue);
     });
 
-    test('query(q) - devolve conjunto de resultados vazio para qualquer consulta', () async {
-      final nds = NullDatastore();
-      final res = await nds.query(const Query());
-      expect(res.rest(), isEmpty);
-    });
+    test(
+      'query(q) - devolve conjunto de resultados vazio para qualquer consulta',
+      () async {
+        final nds = NullDatastore();
+        final res = await nds.query(const Query());
+        expect(res.rest(), isEmpty);
+      },
+    );
 
-    test('batch() - instancia lote funcional apoiado no NullDatastore', () async {
-      final nds = NullDatastore();
-      final b = await nds.batch();
-      expect(b, isA<Batch>());
-    });
+    test(
+      'batch() - instancia lote funcional apoiado no NullDatastore',
+      () async {
+        final nds = NullDatastore();
+        final b = await nds.batch();
+        expect(b, isA<Batch>());
+      },
+    );
 
-    test('collectGarbage() - executa coleta de lixo no-op com sucesso', () async {
-      final nds = NullDatastore();
-      await nds.collectGarbage();
-      expect(true, isTrue);
-    });
+    test(
+      'collectGarbage() - executa coleta de lixo no-op com sucesso',
+      () async {
+        final nds = NullDatastore();
+        await nds.collectGarbage();
+        expect(true, isTrue);
+      },
+    );
 
     test('diskUsage() - reporta zero bytes de uso de disco', () async {
       final nds = NullDatastore();
@@ -672,13 +795,16 @@ void main() {
       expect(true, isTrue);
     });
 
-    test('newTransaction({required bool readOnly}) - gera transacao no-op valida', () async {
-      final nds = NullDatastore();
-      final txn = await nds.newTransaction(readOnly: true);
-      expect(txn, isNotNull);
-      await txn.commit();
-      await txn.discard();
-    });
+    test(
+      'newTransaction({required bool readOnly}) - gera transacao no-op valida',
+      () async {
+        final nds = NullDatastore();
+        final txn = await nds.newTransaction(readOnly: true);
+        expect(txn, isNotNull);
+        await txn.commit();
+        await txn.discard();
+      },
+    );
   });
 
   group('Filter [Atomic Audit]', () {
@@ -690,125 +816,209 @@ void main() {
   });
 
   group('FilterOp [Atomic Audit]', () {
-    test('lessThanOrEqual - verifica simbolo textual atribuido ao operador menor ou igual', () {
-      expect(FilterOp.lessThanOrEqual.symbol, equals('<='));
-    });
+    test(
+      'lessThanOrEqual - verifica simbolo textual atribuido ao operador menor ou igual',
+      () {
+        expect(FilterOp.lessThanOrEqual.symbol, equals('<='));
+      },
+    );
   });
 
   group('FilterValueCompare [Atomic Audit]', () {
-    test('filter(e) - compara conteudo binario da entrada contra valor de teste', () {
-      final fvc = FilterValueCompare(FilterOp.equal, [1, 2, 3]);
-      expect(fvc.filter(const Entry(key: '/k', value: [1, 2, 3])), isTrue);
-      expect(fvc.filter(const Entry(key: '/k', value: [1, 2, 4])), isFalse);
-    });
+    test(
+      'filter(e) - compara conteudo binario da entrada contra valor de teste',
+      () {
+        final fvc = FilterValueCompare(FilterOp.equal, [1, 2, 3]);
+        expect(fvc.filter(const Entry(key: '/k', value: [1, 2, 3])), isTrue);
+        expect(fvc.filter(const Entry(key: '/k', value: [1, 2, 4])), isFalse);
+      },
+    );
 
-    test('toString() - gera representacao em string descritiva do filtro de valor', () {
-      final fvc = FilterValueCompare(FilterOp.equal, [65, 66]);
-      expect(fvc.toString(), equals('VALUE == "AB"'));
-    });
+    test(
+      'toString() - gera representacao em string descritiva do filtro de valor',
+      () {
+        final fvc = FilterValueCompare(FilterOp.equal, [65, 66]);
+        expect(fvc.toString(), equals('VALUE == "AB"'));
+      },
+    );
   });
 
   group('FilterKeyCompare [Atomic Audit]', () {
-    test('filter(e) - compara chave da entrada com parametro de referencia', () {
-      final fkc = FilterKeyCompare(FilterOp.greaterThan, '/b');
-      expect(fkc.filter(const Entry(key: '/c')), isTrue);
-      expect(fkc.filter(const Entry(key: '/a')), isFalse);
-    });
+    test(
+      'filter(e) - compara chave da entrada com parametro de referencia',
+      () {
+        final fkc = FilterKeyCompare(FilterOp.greaterThan, '/b');
+        expect(fkc.filter(const Entry(key: '/c')), isTrue);
+        expect(fkc.filter(const Entry(key: '/a')), isFalse);
+      },
+    );
 
-    test('toString() - gera representacao textual da condicao de comparacao de chave', () {
-      final fkc = FilterKeyCompare(FilterOp.greaterThan, '/b');
-      expect(fkc.toString(), equals('KEY > "/b"'));
-    });
+    test(
+      'toString() - gera representacao textual da condicao de comparacao de chave',
+      () {
+        final fkc = FilterKeyCompare(FilterOp.greaterThan, '/b');
+        expect(fkc.toString(), equals('KEY > "/b"'));
+      },
+    );
   });
 
   group('FilterKeyPrefix [Atomic Audit]', () {
-    test('filter(e) - confere se o caminho da entrada inicia com o prefixo esperado', () {
-      final fkp = FilterKeyPrefix('/prefixo');
-      expect(fkp.filter(const Entry(key: '/prefixo/dado')), isTrue);
-      expect(fkp.filter(const Entry(key: '/outro/dado')), isFalse);
-    });
+    test(
+      'filter(e) - confere se o caminho da entrada inicia com o prefixo esperado',
+      () {
+        final fkp = FilterKeyPrefix('/prefixo');
+        expect(fkp.filter(const Entry(key: '/prefixo/dado')), isTrue);
+        expect(fkp.filter(const Entry(key: '/outro/dado')), isFalse);
+      },
+    );
 
-    test('toString() - gera expressao descritiva do filtro de prefixo de chave', () {
-      final fkp = FilterKeyPrefix('/prefixo');
-      expect(fkp.toString(), equals('PREFIX("/prefixo")'));
-    });
+    test(
+      'toString() - gera expressao descritiva do filtro de prefixo de chave',
+      () {
+        final fkp = FilterKeyPrefix('/prefixo');
+        expect(fkp.toString(), equals('PREFIX("/prefixo")'));
+      },
+    );
   });
 
   group('Order [Atomic Audit]', () {
-    test('compare(a, b) - compara duas entradas de consulta atraves da interface Order', () {
-      final Order o = const OrderByKey();
-      expect(o.compare(const Entry(key: '/a'), const Entry(key: '/b')), isNegative);
-    });
+    test(
+      'compare(a, b) - compara duas entradas de consulta atraves da interface Order',
+      () {
+        final Order o = const OrderByKey();
+        expect(
+          o.compare(const Entry(key: '/a'), const Entry(key: '/b')),
+          isNegative,
+        );
+      },
+    );
   });
 
   group('OrderByFunction [Atomic Audit]', () {
-    test('compare(a, b) - ordena entradas utilizando closure de comparacao fornecida', () {
-      final obf = OrderByFunction((a, b) => a.size.compareTo(b.size));
-      expect(obf.compare(const Entry(key: '/1', size: 10), const Entry(key: '/2', size: 20)), isNegative);
-    });
+    test(
+      'compare(a, b) - ordena entradas utilizando closure de comparacao fornecida',
+      () {
+        final obf = OrderByFunction((a, b) => a.size.compareTo(b.size));
+        expect(
+          obf.compare(
+            const Entry(key: '/1', size: 10),
+            const Entry(key: '/2', size: 20),
+          ),
+          isNegative,
+        );
+      },
+    );
 
-    test('toString() - expressa nome textual representativo da ordenacao por funcao', () {
-      final obf = OrderByFunction((a, b) => 0);
-      expect(obf.toString(), equals('FN'));
-    });
+    test(
+      'toString() - expressa nome textual representativo da ordenacao por funcao',
+      () {
+        final obf = OrderByFunction((a, b) => 0);
+        expect(obf.toString(), equals('FN'));
+      },
+    );
   });
 
   group('OrderByValue [Atomic Audit]', () {
-    test('compare(a, b) - compara entradas ordenando de forma crescente por bytes do valor', () {
-      const obv = OrderByValue();
-      expect(obv.compare(const Entry(key: '/1', value: [1]), const Entry(key: '/2', value: [2])), isNegative);
-    });
+    test(
+      'compare(a, b) - compara entradas ordenando de forma crescente por bytes do valor',
+      () {
+        const obv = OrderByValue();
+        expect(
+          obv.compare(
+            const Entry(key: '/1', value: [1]),
+            const Entry(key: '/2', value: [2]),
+          ),
+          isNegative,
+        );
+      },
+    );
 
-    test('toString() - expressa identificador textual do ordenador por valor', () {
-      const obv = OrderByValue();
-      expect(obv.toString(), equals('VALUE'));
-    });
+    test(
+      'toString() - expressa identificador textual do ordenador por valor',
+      () {
+        const obv = OrderByValue();
+        expect(obv.toString(), equals('VALUE'));
+      },
+    );
   });
 
   group('OrderByValueDescending [Atomic Audit]', () {
-    test('compare(a, b) - compara entradas ordenando de forma decrescente por bytes do valor', () {
-      const obvd = OrderByValueDescending();
-      expect(obvd.compare(const Entry(key: '/1', value: [1]), const Entry(key: '/2', value: [2])), isPositive);
-    });
+    test(
+      'compare(a, b) - compara entradas ordenando de forma decrescente por bytes do valor',
+      () {
+        const obvd = OrderByValueDescending();
+        expect(
+          obvd.compare(
+            const Entry(key: '/1', value: [1]),
+            const Entry(key: '/2', value: [2]),
+          ),
+          isPositive,
+        );
+      },
+    );
 
-    test('toString() - expressa identificador textual do ordenador decrescente por valor', () {
-      const obvd = OrderByValueDescending();
-      expect(obvd.toString(), equals('desc(VALUE)'));
-    });
+    test(
+      'toString() - expressa identificador textual do ordenador decrescente por valor',
+      () {
+        const obvd = OrderByValueDescending();
+        expect(obvd.toString(), equals('desc(VALUE)'));
+      },
+    );
   });
 
   group('OrderByKey [Atomic Audit]', () {
-    test('compare(a, b) - compara entradas ordenando de forma crescente pela chave', () {
-      const obk = OrderByKey();
-      expect(obk.compare(const Entry(key: '/alpha'), const Entry(key: '/beta')), isNegative);
-    });
+    test(
+      'compare(a, b) - compara entradas ordenando de forma crescente pela chave',
+      () {
+        const obk = OrderByKey();
+        expect(
+          obk.compare(const Entry(key: '/alpha'), const Entry(key: '/beta')),
+          isNegative,
+        );
+      },
+    );
 
-    test('toString() - expressa identificador textual do ordenador por chave', () {
-      const obk = OrderByKey();
-      expect(obk.toString(), equals('KEY'));
-    });
+    test(
+      'toString() - expressa identificador textual do ordenador por chave',
+      () {
+        const obk = OrderByKey();
+        expect(obk.toString(), equals('KEY'));
+      },
+    );
   });
 
   group('OrderByKeyDescending [Atomic Audit]', () {
-    test('compare(a, b) - compara entradas ordenando de forma decrescente pela chave', () {
-      const obkd = OrderByKeyDescending();
-      expect(obkd.compare(const Entry(key: '/alpha'), const Entry(key: '/beta')), isPositive);
-    });
+    test(
+      'compare(a, b) - compara entradas ordenando de forma decrescente pela chave',
+      () {
+        const obkd = OrderByKeyDescending();
+        expect(
+          obkd.compare(const Entry(key: '/alpha'), const Entry(key: '/beta')),
+          isPositive,
+        );
+      },
+    );
 
-    test('toString() - expressa identificador textual do ordenador decrescente por chave', () {
-      const obkd = OrderByKeyDescending();
-      expect(obkd.toString(), equals('desc(KEY)'));
-    });
+    test(
+      'toString() - expressa identificador textual do ordenador decrescente por chave',
+      () {
+        const obkd = OrderByKeyDescending();
+        expect(obkd.toString(), equals('desc(KEY)'));
+      },
+    );
   });
 
   group('Query [Atomic Audit]', () {
-    test('operator == - compara configuracoes de consulta para determinar igualdade', () {
-      const q1 = Query(prefix: '/test', limit: 10);
-      const q2 = Query(prefix: '/test', limit: 10);
-      const q3 = Query(prefix: '/outro', limit: 5);
-      expect(q1 == q2, isTrue);
-      expect(q1 == q3, isFalse);
-    });
+    test(
+      'operator == - compara configuracoes de consulta para determinar igualdade',
+      () {
+        const q1 = Query(prefix: '/test', limit: 10);
+        const q2 = Query(prefix: '/test', limit: 10);
+        const q3 = Query(prefix: '/outro', limit: 5);
+        expect(q1 == q2, isTrue);
+        expect(q1 == q3, isFalse);
+      },
+    );
 
     test('hashCode - gera hash code congruente com configuracao da query', () {
       const q1 = Query(prefix: '/test', limit: 10);
@@ -823,80 +1033,123 @@ void main() {
   });
 
   group('Results [Atomic Audit]', () {
-    test('query() - retorna os parametros de consulta que originaram o resultado', () {
-      const q = Query(prefix: '/origem');
-      final res = resultsWithEntries(q, [const Entry(key: '/origem/1')]);
-      expect(res.query(), equals(q));
-    });
+    test(
+      'query() - retorna os parametros de consulta que originaram o resultado',
+      () {
+        const q = Query(prefix: '/origem');
+        final res = resultsWithEntries(q, [const Entry(key: '/origem/1')]);
+        expect(res.query(), equals(q));
+      },
+    );
 
-    test('nextSync() - itera sincronicamente obtendo a proxima entrada disponivel', () {
-      final res = resultsWithEntries(const Query(), [const Entry(key: '/item/1')]);
-      final (result, ok) = res.nextSync();
-      expect(ok, isTrue);
-      expect(result.entry.key, equals('/item/1'));
-    });
+    test(
+      'nextSync() - itera sincronicamente obtendo a proxima entrada disponivel',
+      () {
+        final res = resultsWithEntries(const Query(), [
+          const Entry(key: '/item/1'),
+        ]);
+        final (result, ok) = res.nextSync();
+        expect(ok, isTrue);
+        expect(result.entry.key, equals('/item/1'));
+      },
+    );
 
     test('next - expoem os resultados como stream de QueryResult', () async {
-      final res = resultsWithEntries(const Query(), [const Entry(key: '/item/1'), const Entry(key: '/item/2')]);
+      final res = resultsWithEntries(const Query(), [
+        const Entry(key: '/item/1'),
+        const Entry(key: '/item/2'),
+      ]);
       final items = await res.next.toList();
       expect(items.length, equals(2));
     });
 
-    test('done - future que completa ao terminar a emissao de resultados', () async {
-      final res = resultsWithEntries(const Query(), []);
-      res.nextSync();
-      await expectLater(res.done, completes);
-    });
+    test(
+      'done - future que completa ao terminar a emissao de resultados',
+      () async {
+        final res = resultsWithEntries(const Query(), []);
+        res.nextSync();
+        await expectLater(res.done, completes);
+      },
+    );
 
-    test('rest() - drena e retorna em lista todas as entradas remanescentes', () {
-      final res = resultsWithEntries(const Query(), [const Entry(key: '/r1'), const Entry(key: '/r2')]);
-      final list = res.rest();
-      expect(list.length, equals(2));
-    });
+    test(
+      'rest() - drena e retorna em lista todas as entradas remanescentes',
+      () {
+        final res = resultsWithEntries(const Query(), [
+          const Entry(key: '/r1'),
+          const Entry(key: '/r2'),
+        ]);
+        final list = res.rest();
+        expect(list.length, equals(2));
+      },
+    );
 
-    test('close() - encerra prematuramente a iteracao e consumo de resultados', () {
-      final res = resultsWithEntries(const Query(), [const Entry(key: '/fechar')]);
-      res.close();
-      expect(true, isTrue);
-    });
+    test(
+      'close() - encerra prematuramente a iteracao e consumo de resultados',
+      () {
+        final res = resultsWithEntries(const Query(), [
+          const Entry(key: '/fechar'),
+        ]);
+        res.close();
+        expect(true, isTrue);
+      },
+    );
   });
 
   group('Top-Level Functions [Atomic Audit]', () {
-    test('diskUsage(ds) - calcula ocupacao de armazenamento de um datastore', () async {
-      final usage1 = await diskUsage(MapDatastore());
-      expect(usage1, equals(0));
-      final usage2 = await diskUsage(NullDatastore());
-      expect(usage2, equals(0));
-    });
+    test(
+      'diskUsage(ds) - calcula ocupacao de armazenamento de um datastore',
+      () async {
+        final usage1 = await diskUsage(MapDatastore());
+        expect(usage1, equals(0));
+        final usage2 = await diskUsage(NullDatastore());
+        expect(usage2, equals(0));
+      },
+    );
 
-    test('getBackedHas(ds, key) - checa presenca da chave baseando-se em get', () async {
-      final ds = MapDatastore();
-      await ds.put(Key('/item'), [1, 2]);
-      expect(await getBackedHas(ds, Key('/item')), isTrue);
-      expect(await getBackedHas(ds, Key('/ausente')), isFalse);
-    });
+    test(
+      'getBackedHas(ds, key) - checa presenca da chave baseando-se em get',
+      () async {
+        final ds = MapDatastore();
+        await ds.put(Key('/item'), [1, 2]);
+        expect(await getBackedHas(ds, Key('/item')), isTrue);
+        expect(await getBackedHas(ds, Key('/ausente')), isFalse);
+      },
+    );
 
-    test('getBackedSize(ds, key) - apura tamanho do conteudo baseando-se em get', () async {
-      final ds = MapDatastore();
-      await ds.put(Key('/item'), [1, 2, 3]);
-      expect(await getBackedSize(ds, Key('/item')), equals(3));
-      expect(() => getBackedSize(ds, Key('/ausente')), throwsA(isA<NotFoundException>()));
-    });
+    test(
+      'getBackedSize(ds, key) - apura tamanho do conteudo baseando-se em get',
+      () async {
+        final ds = MapDatastore();
+        await ds.put(Key('/item'), [1, 2, 3]);
+        expect(await getBackedSize(ds, Key('/item')), equals(3));
+        expect(
+          () => getBackedSize(ds, Key('/ausente')),
+          throwsA(isA<NotFoundException>()),
+        );
+      },
+    );
 
-    test('queryIter(ds, q) - converte resultados de consulta em stream assincrona', () async {
-      final ds = MapDatastore();
-      await ds.put(Key('/q1'), [1]);
-      await ds.put(Key('/q2'), [2]);
-      final stream = queryIter(ds, const Query());
-      final list = await stream.toList();
-      expect(list.length, equals(2));
-    });
+    test(
+      'queryIter(ds, q) - converte resultados de consulta em stream assincrona',
+      () async {
+        final ds = MapDatastore();
+        await ds.put(Key('/q1'), [1]);
+        await ds.put(Key('/q2'), [2]);
+        final stream = queryIter(ds, const Query());
+        final list = await stream.toList();
+        expect(list.length, equals(2));
+      },
+    );
 
-    test('features() - lista metadados de todas as capacidades de datastore registradas', () {
-      final list = features();
-      expect(list.length, equals(7));
-      expect(list.map((f) => f.name), contains('Batching'));
-    });
+    test(
+      'features() - lista metadados de todas as capacidades de datastore registradas',
+      () {
+        final list = features();
+        expect(list.length, equals(7));
+        expect(list.map((f) => f.name), contains('Batching'));
+      },
+    );
 
     test('featureByName(name) - recupera capacidade pelo nome informado', () {
       expect(featureByName('Batching'), isNotNull);
@@ -904,161 +1157,256 @@ void main() {
       expect(featureByName('Inexistente'), isNull);
     });
 
-    test('featuresForDatastore(ds) - identifica conjunto de capacidades de um datastore', () {
-      final ds = MapDatastore();
-      final supported = featuresForDatastore(ds);
-      expect(supported.map((f) => f.name), contains('Batching'));
-      expect(featuresForDatastore(null), isEmpty);
-    });
+    test(
+      'featuresForDatastore(ds) - identifica conjunto de capacidades de um datastore',
+      () {
+        final ds = MapDatastore();
+        final supported = featuresForDatastore(ds);
+        expect(supported.map((f) => f.name), contains('Batching'));
+        expect(featuresForDatastore(null), isEmpty);
+      },
+    );
 
-    test('randomKey() - produz chave aleatoria com 32 caracteres hexadecimais seguros', () {
-      final k1 = randomKey();
-      final k2 = randomKey();
-      expect(k1.value.length, equals(33));
-      expect(k1.value, isNot(equals(k2.value)));
-    });
+    test(
+      'randomKey() - produz chave aleatoria com 32 caracteres hexadecimais seguros',
+      () {
+        final k1 = randomKey();
+        final k2 = randomKey();
+        expect(k1.value.length, equals(33));
+        expect(k1.value, isNot(equals(k2.value)));
+      },
+    );
 
-    test('namespaceType(namespace) - separa prefixo de tipo presente antes dos dois pontos', () {
-      expect(namespaceType('Actor:JohnCleese'), equals('Actor'));
-      expect(namespaceType('SemTipo'), equals(''));
-    });
+    test(
+      'namespaceType(namespace) - separa prefixo de tipo presente antes dos dois pontos',
+      () {
+        expect(namespaceType('Actor:JohnCleese'), equals('Actor'));
+        expect(namespaceType('SemTipo'), equals(''));
+      },
+    );
 
-    test('namespaceValue(namespace) - extrai valor final apos ultimo separador', () {
-      expect(namespaceValue('Actor:JohnCleese'), equals('JohnCleese'));
-      expect(namespaceValue('ApenasValor'), equals('ApenasValor'));
-    });
+    test(
+      'namespaceValue(namespace) - extrai valor final apos ultimo separador',
+      () {
+        expect(namespaceValue('Actor:JohnCleese'), equals('JohnCleese'));
+        expect(namespaceValue('ApenasValor'), equals('ApenasValor'));
+      },
+    );
 
-    test('entryKeys(entries) - converte colecao de entradas em colecao de chaves', () {
-      final entries = [const Entry(key: '/k1'), const Entry(key: '/k2')];
-      final keys = entryKeys(entries);
-      expect(keys.map((k) => k.value), equals(['/k1', '/k2']));
-    });
+    test(
+      'entryKeys(entries) - converte colecao de entradas em colecao de chaves',
+      () {
+        final entries = [const Entry(key: '/k1'), const Entry(key: '/k2')];
+        final keys = entryKeys(entries);
+        expect(keys.map((k) => k.value), equals(['/k1', '/k2']));
+      },
+    );
 
-    test('cleanPath(path) - simplifica e normaliza caminho removendo duplicidades', () {
-      expect(cleanPath('//a///b//'), equals('/a/b'));
-      expect(cleanPath('/a/b/'), equals('/a/b'));
-      expect(cleanPath(''), equals('.'));
-    });
+    test(
+      'cleanPath(path) - simplifica e normaliza caminho removendo duplicidades',
+      () {
+        expect(cleanPath('//a///b//'), equals('/a/b'));
+        expect(cleanPath('/a/b/'), equals('/a/b'));
+        expect(cleanPath(''), equals('.'));
+      },
+    );
 
-    test('queryLess(orders, a, b) - afere se uma entrada precede outra na ordenacao', () {
-      final a = const Entry(key: '/a', value: [1]);
-      final b = const Entry(key: '/b', value: [2]);
-      expect(queryLess([const OrderByValue()], a, b), isTrue);
-      expect(queryLess([const OrderByValue()], b, a), isFalse);
-    });
+    test(
+      'queryLess(orders, a, b) - afere se uma entrada precede outra na ordenacao',
+      () {
+        final a = const Entry(key: '/a', value: [1]);
+        final b = const Entry(key: '/b', value: [2]);
+        expect(queryLess([const OrderByValue()], a, b), isTrue);
+        expect(queryLess([const OrderByValue()], b, a), isFalse);
+      },
+    );
 
-    test('queryCompare(orders, a, b) - compara par de entradas de acordo com os ordenadores', () {
-      final a = const Entry(key: '/a');
-      final b = const Entry(key: '/b');
-      expect(queryCompare([const OrderByKey()], a, b), isNegative);
-      expect(queryCompare([const OrderByKey()], b, a), isPositive);
-      expect(queryCompare([const OrderByKey()], a, a), equals(0));
-    });
+    test(
+      'queryCompare(orders, a, b) - compara par de entradas de acordo com os ordenadores',
+      () {
+        final a = const Entry(key: '/a');
+        final b = const Entry(key: '/b');
+        expect(queryCompare([const OrderByKey()], a, b), isNegative);
+        expect(queryCompare([const OrderByKey()], b, a), isPositive);
+        expect(queryCompare([const OrderByKey()], a, a), equals(0));
+      },
+    );
 
-    test('querySort(orders, entries) - ordena colecao mutavel de entradas segundo ordenadores', () {
-      final e1 = const Entry(key: '/z');
-      final e2 = const Entry(key: '/a');
-      final list = [e1, e2];
-      querySort([const OrderByKey()], list);
-      expect(list.first.key, equals('/a'));
-    });
+    test(
+      'querySort(orders, entries) - ordena colecao mutavel de entradas segundo ordenadores',
+      () {
+        final e1 = const Entry(key: '/z');
+        final e2 = const Entry(key: '/a');
+        final list = [e1, e2];
+        querySort([const OrderByKey()], list);
+        expect(list.first.key, equals('/a'));
+      },
+    );
 
-    test('compareBytes(a, b) - compara duas listas de bytes tratando nulos adequadamente', () {
-      expect(compareBytes([1], [2]), isNegative);
-      expect(compareBytes([2], [1]), isPositive);
-      expect(compareBytes([1, 2], [1, 2]), equals(0));
-      expect(compareBytes(null, [1]), isNegative);
-      expect(compareBytes([1], null), isPositive);
-    });
+    test(
+      'compareBytes(a, b) - compara duas listas de bytes tratando nulos adequadamente',
+      () {
+        expect(compareBytes([1], [2]), isNegative);
+        expect(compareBytes([2], [1]), isPositive);
+        expect(compareBytes([1, 2], [1, 2]), equals(0));
+        expect(compareBytes(null, [1]), isNegative);
+        expect(compareBytes([1], null), isPositive);
+      },
+    );
 
-    test('resultsWithContext(q, process) - instancia Results com processo assincrono de cancelamento', () async {
-      final res = resultsWithContext(const Query(), (cancelled, sink) {
-        sink.add(const QueryResult(Entry(key: '/ctx')));
-      });
-      final item = await res.next.first;
-      expect(item.entry.key, equals('/ctx'));
-      res.close();
-    });
+    test(
+      'resultsWithContext(q, process) - instancia Results com processo assincrono de cancelamento',
+      () async {
+        final res = resultsWithContext(const Query(), (cancelled, sink) {
+          sink.add(const QueryResult(Entry(key: '/ctx')));
+        });
+        final item = await res.next.first;
+        expect(item.entry.key, equals('/ctx'));
+        res.close();
+      },
+    );
 
-    test('resultsFromIterator(q, iterator) - encapsula iterador pull-based em Results', () {
-      var emitted = false;
-      final res = resultsFromIterator(const Query(), QueryIterator(next: () {
-        if (!emitted) {
-          emitted = true;
-          return (const QueryResult(Entry(key: '/iter')), true);
-        }
-        return (const QueryResult(Entry(key: '')), false);
-      }));
-      final (item, ok) = res.nextSync();
-      expect(ok, isTrue);
-      expect(item.entry.key, equals('/iter'));
-    });
+    test(
+      'resultsFromIterator(q, iterator) - encapsula iterador pull-based em Results',
+      () {
+        var emitted = false;
+        final res = resultsFromIterator(
+          const Query(),
+          QueryIterator(
+            next: () {
+              if (!emitted) {
+                emitted = true;
+                return (const QueryResult(Entry(key: '/iter')), true);
+              }
+              return (const QueryResult(Entry(key: '')), false);
+            },
+          ),
+        );
+        final (item, ok) = res.nextSync();
+        expect(ok, isTrue);
+        expect(item.entry.key, equals('/iter'));
+      },
+    );
 
-    test('resultsWithEntries(q, entries) - constroi Results suportado por lista estatica', () {
-      final res = resultsWithEntries(const Query(), [const Entry(key: '/fixo')]);
-      final entries = res.rest();
-      expect(entries.length, equals(1));
-      expect(entries.first.key, equals('/fixo'));
-    });
+    test(
+      'resultsWithEntries(q, entries) - constroi Results suportado por lista estatica',
+      () {
+        final res = resultsWithEntries(const Query(), [
+          const Entry(key: '/fixo'),
+        ]);
+        final entries = res.rest();
+        expect(entries.length, equals(1));
+        expect(entries.first.key, equals('/fixo'));
+      },
+    );
 
-    test('resultsReplaceQuery(results, query) - substitui definicao da query preservando iterador', () {
-      const q1 = Query(prefix: '/antigo');
-      const q2 = Query(prefix: '/novo');
-      final res = resultsWithEntries(q1, [const Entry(key: '/antigo/1')]);
-      final replaced = resultsReplaceQuery(res, q2);
-      expect(replaced.query(), equals(q2));
-    });
+    test(
+      'resultsReplaceQuery(results, query) - substitui definicao da query preservando iterador',
+      () {
+        const q1 = Query(prefix: '/antigo');
+        const q2 = Query(prefix: '/novo');
+        final res = resultsWithEntries(q1, [const Entry(key: '/antigo/1')]);
+        final replaced = resultsReplaceQuery(res, q2);
+        expect(replaced.query(), equals(q2));
+      },
+    );
 
-    test('naiveFilter(results, filter) - aplica filtro em memoria descartando discrepancias', () {
-      final base = resultsWithEntries(const Query(), [const Entry(key: '/aceitar'), const Entry(key: '/rejeitar')]);
-      final filtered = naiveFilter(base, FilterKeyCompare(FilterOp.equal, '/aceitar'));
-      final list = filtered.rest();
-      expect(list.length, equals(1));
-      expect(list.first.key, equals('/aceitar'));
-    });
+    test(
+      'naiveFilter(results, filter) - aplica filtro em memoria descartando discrepancias',
+      () {
+        final base = resultsWithEntries(const Query(), [
+          const Entry(key: '/aceitar'),
+          const Entry(key: '/rejeitar'),
+        ]);
+        final filtered = naiveFilter(
+          base,
+          FilterKeyCompare(FilterOp.equal, '/aceitar'),
+        );
+        final list = filtered.rest();
+        expect(list.length, equals(1));
+        expect(list.first.key, equals('/aceitar'));
+      },
+    );
 
-    test('naiveLimit(results, limit) - trunca fluxo de resultados ao limite configurado', () {
-      final base = resultsWithEntries(const Query(), [const Entry(key: '/1'), const Entry(key: '/2'), const Entry(key: '/3')]);
-      final limited = naiveLimit(base, 2);
-      expect(limited.rest().length, equals(2));
-    });
+    test(
+      'naiveLimit(results, limit) - trunca fluxo de resultados ao limite configurado',
+      () {
+        final base = resultsWithEntries(const Query(), [
+          const Entry(key: '/1'),
+          const Entry(key: '/2'),
+          const Entry(key: '/3'),
+        ]);
+        final limited = naiveLimit(base, 2);
+        expect(limited.rest().length, equals(2));
+      },
+    );
 
-    test('naiveOffset(results, offset) - descarta entradas iniciais correspondentes ao offset', () {
-      final base = resultsWithEntries(const Query(), [const Entry(key: '/1'), const Entry(key: '/2'), const Entry(key: '/3')]);
-      final offsetted = naiveOffset(base, 1);
-      final list = offsetted.rest();
-      expect(list.length, equals(2));
-      expect(list.first.key, equals('/2'));
-    });
+    test(
+      'naiveOffset(results, offset) - descarta entradas iniciais correspondentes ao offset',
+      () {
+        final base = resultsWithEntries(const Query(), [
+          const Entry(key: '/1'),
+          const Entry(key: '/2'),
+          const Entry(key: '/3'),
+        ]);
+        final offsetted = naiveOffset(base, 1);
+        final list = offsetted.rest();
+        expect(list.length, equals(2));
+        expect(list.first.key, equals('/2'));
+      },
+    );
 
-    test('naiveOrder(results, orders) - ordena entradas em memoria segundo a lista de ordenadores', () {
-      final base = resultsWithEntries(const Query(), [const Entry(key: '/z'), const Entry(key: '/a')]);
-      final ordered = naiveOrder(base, [const OrderByKey()]);
-      final list = ordered.rest();
-      expect(list.first.key, equals('/a'));
-    });
+    test(
+      'naiveOrder(results, orders) - ordena entradas em memoria segundo a lista de ordenadores',
+      () {
+        final base = resultsWithEntries(const Query(), [
+          const Entry(key: '/z'),
+          const Entry(key: '/a'),
+        ]);
+        final ordered = naiveOrder(base, [const OrderByKey()]);
+        final list = ordered.rest();
+        expect(list.first.key, equals('/a'));
+      },
+    );
 
-    test('naiveQueryApply(q, results) - processa consulta aplicando filtro ordenacao e limites', () {
-      final base = resultsWithEntries(const Query(), [
-        const Entry(key: '/p/3'),
-        const Entry(key: '/p/1'),
-        const Entry(key: '/p/2'),
-        const Entry(key: '/outro'),
-      ]);
-      const q = Query(prefix: '/p', orders: [OrderByKey()], offset: 1, limit: 1);
-      final result = naiveQueryApply(q, base);
-      final list = result.rest();
-      expect(list.length, equals(1));
-      expect(list.first.key, equals('/p/2'));
-    });
+    test(
+      'naiveQueryApply(q, results) - processa consulta aplicando filtro ordenacao e limites',
+      () {
+        final base = resultsWithEntries(const Query(), [
+          const Entry(key: '/p/3'),
+          const Entry(key: '/p/1'),
+          const Entry(key: '/p/2'),
+          const Entry(key: '/outro'),
+        ]);
+        const q = Query(
+          prefix: '/p',
+          orders: [OrderByKey()],
+          offset: 1,
+          limit: 1,
+        );
+        final result = naiveQueryApply(q, base);
+        final list = result.rest();
+        expect(list.length, equals(1));
+        expect(list.first.key, equals('/p/2'));
+      },
+    );
 
-    test('resultEntriesFrom(keys, values) - emparelha chaves e valores compondo lista de Entry', () {
-      final entries = resultEntriesFrom(['/k1', '/k2'], [[10], [20, 30]]);
-      expect(entries.length, equals(2));
-      expect(entries[0].key, equals('/k1'));
-      expect(entries[0].value, equals([10]));
-      expect(entries[1].key, equals('/k2'));
-      expect(entries[1].size, equals(2));
-    });
+    test(
+      'resultEntriesFrom(keys, values) - emparelha chaves e valores compondo lista de Entry',
+      () {
+        final entries = resultEntriesFrom(
+          ['/k1', '/k2'],
+          [
+            [10],
+            [20, 30],
+          ],
+        );
+        expect(entries.length, equals(2));
+        expect(entries[0].key, equals('/k1'));
+        expect(entries[0].value, equals([10]));
+        expect(entries[1].key, equals('/k2'));
+        expect(entries[1].size, equals(2));
+      },
+    );
   });
 }

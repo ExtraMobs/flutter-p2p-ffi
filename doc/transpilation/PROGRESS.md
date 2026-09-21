@@ -395,15 +395,25 @@ Este painel consolida o estado oficial da auditoria automatizada entre o upstrea
    - Testes de interoperabilidade com Kubo real (`dart test --preset interop`): 5/5 aprovados (Bitswap download, Bitswap serving, DHT findprovs, DHT provide, UnixFS large file DAGs).
    - **Atenção:** o `dart test` da raiz **não** executa as suítes dos pacotes transpilados, e `melos` não está disponível no PATH desta máquina. A suíte completa exige rodar, além da raiz, cada pacote em `packages/*/`, mais os presets `interop` e `network`. Um "All tests passed" com contagem de pulados (`~N`) não é prova de suíte verde: as tags `p0`, `p1`, `helia` e `network` são puladas por padrão.
 
-### ⚠️ Defeitos Conhecidos em Marcos Declarados 100% Concluídos
+### ✅ Defeitos Conhecidos em Marcos Declarados 100% Concluídos — CORRIGIDOS (2026-09-20)
 
-> [!WARNING]
-> Os dois defeitos abaixo estão em marcos listados como `[x]` concluídos na seção anterior (Objetivo 3, Marcos D.2 e D.3). Uma verificação de código encontrou que **não foram corrigidos** e continuam abertos.
+> [!NOTE]
+> Os dois defeitos historicamente registrados nesta seção (Objetivo 3, Marcos
+> D.2 e D.3) foram corrigidos. O registro é mantido porque ambos nasceram de
+> marcos já marcados `[x]`, e essa é a lição: `[x]` mede superfície transpilada,
+> não ausência de defeito.
 
-- **Defeito 1 — Marco D.2 (Circuit Relay v2): `reserve()` nunca faz o handshake.** Em `packages/transpiled_libp2p/lib/src/p2p/protocol/circuitv2/client/reservation.dart`, a função `reserve()` abre o stream, serializa a mensagem `RESERVE` na variável local `reqBytes` (linha 69) e nunca a escreve — não existe nenhum `stream.write` no arquivo. Em seguida ela **fabrica a resposta localmente**, com `HopStatus.ok` e validade de 2 horas inventada, valida a própria invenção e devolve uma `Reservation`. O comentário na linha 72 diz textualmente "For now we simulate/read the response". O upstream `go-ipfs-reference/go-libp2p/p2p/protocol/circuitv2/client/reservation.go:74-90` faz `wr.WriteMsg` e `rd.ReadMsg` reais. Consequência: toda reserva de relay "tem sucesso" sem jamais falar com o relay. Isso viola a proibição do `AGENTS.md` a "stubs parciais ou mocks em código de produção".
-- **Defeito 2 — Marco D.3 (DCUtR): o RTT medido é descartado.** Em `packages/transpiled_libp2p/lib/src/p2p/protocol/holepunch/holepunch.dart:121`, a variável `rtt` é calculada e nunca usada. No Go, ela governa o instante do connect simultâneo: `synTime := rtt / 2` em `go-ipfs-reference/go-libp2p/p2p/protocol/holepunch/holepuncher.go:150`. Sem isso o hole punch dispara sem o atraso que faz a técnica funcionar.
+- **Defeito 1 — Marco D.2 (Circuit Relay v2): `reserve()` fabricava a resposta.** CORRIGIDO. O estado anterior: `reserve()` serializava a mensagem `RESERVE` numa variável local e nunca a escrevia, e então **fabricava a resposta localmente** com `HopStatus.ok` e validade de 2 horas inventada, validava a própria invenção e devolvia uma `Reservation` — toda reserva "tinha sucesso" sem jamais falar com o relay. A correção reescreveu a função contra `go-ipfs-reference/go-libp2p/p2p/protocol/circuitv2/client/reservation.go:61-176`, detalhada na seção "Correção dos defeitos D.2/D.3 e do codec circuitv2" mais abaixo.
+- **Defeito 2 — Marco D.3 (DCUtR): o RTT medido era descartado.** CORRIGIDO. O `rtt` calculado em `packages/transpiled_libp2p/lib/src/p2p/protocol/holepunch/holepunch.dart` é hoje consumido como `rtt / 2` nas duas rotas de connect simultâneo (linhas 123 e 260), fiel a `synTime := rtt / 2` em `go-ipfs-reference/go-libp2p/p2p/protocol/holepunch/holepuncher.go:150`.
 
-Três erros de `dart analyze` permanecem **de propósito** em `packages/transpiled_libp2p` (as variáveis locais não usadas `stream` e `reqBytes` em `reservation.dart` e `rtt` em `holepunch.dart`), porque são a única evidência visível desses dois defeitos; apagá-las deixaria o `analyze` verde escondendo o problema. Elas devem sumir junto com a correção real, não antes.
+Os três erros de `dart analyze` que eram mantidos **de propósito** em
+`packages/transpiled_libp2p` (as variáveis locais não usadas `stream` e
+`reqBytes` em `reservation.dart` e `rtt` em `holepunch.dart`) existiam como a
+única evidência visível desses defeitos, para que apagá-las não deixasse o
+`analyze` verde escondendo o problema. Eles sumiram junto com a correção real,
+como estava previsto: `dart analyze` do pacote hoje reporta **0 erros**
+(45 apontamentos restantes, todos `warning`/`info` pré-existentes e alheios a
+este caminho).
 
 ### Pontos de Atenção e Roadmap Técnico
 
@@ -470,6 +480,106 @@ O índice AST do Go (`go-ipfs-reference/*-index/`) cataloga a totalidade das dec
 - **Verificar apenas erros bloqueantes:** `python tool/audit_ast_nomenclature.py --severity ERROR`
 
 ## Como isto foi gerado / como continuar
+
+### Correção dos defeitos D.2/D.3 e do codec circuitv2 — 2026-09-20
+
+Os dois "Defeitos Conhecidos" registrados acima foram fechados. Corrigir o
+Defeito 1 expôs mais três defeitos no mesmo caminho de código, que a resposta
+fabricada vinha escondendo — todos corrigidos na mesma rodada, porque um port
+que valida um voucher com codec errado é pior que um que não valida.
+
+**Rastreamento `chamador Go → símbolo chamado → módulo/revisão → símbolo/pacote Dart`:**
+
+- `client.Reserve` (`p2p/protocol/circuitv2/client/reservation.go:61`) →
+  `util.NewDelimitedWriter.WriteMsg` / `NewDelimitedReader.ReadMsg` →
+  `go-libp2p` (revisão do `UPSTREAM_LOCK.md`) → `reserve()` em
+  `packages/transpiled_libp2p/lib/src/p2p/protocol/circuitv2/client/reservation.dart`.
+- `record.ConsumeEnvelope` (`core/record/envelope.go`) → `Envelope.consumeEnvelope`
+  já portado em `core/record/envelope.dart` → consumido por `_consumeVoucher`.
+- `peer.IDFromPublicKey` (`core/peer/peer.go`) → `PeerId.fromPubKey` já portado.
+- `record.RegisterType(&ReservationVoucher{})`, do `init()` de
+  `p2p/protocol/circuitv2/proto/voucher.go:19` → `registerType` já portado em
+  `core/record/record.dart`.
+
+**Defeito 1 — `reserve()` fabricava a resposta (corrigido).** A função agora
+escreve a mensagem `RESERVE` e lê a resposta de verdade, e toda a cadeia de
+validação do upstream passou a existir, na mesma ordem e com os mesmos status
+observáveis: resposta ausente ou truncada vira
+`ReservationException(connectionFailed, 'error reading reservation response message')`
+em vez de uma reserva sintética; falha de escrita reseta o stream e vira
+`connectionFailed, 'error writing reservation message'`; `type != STATUS` vira
+`malformedMessage, 'unexpected relay response: not a status message'`;
+`status != OK` vira `reservation failed` carregando o status do relay;
+`reservation == nil` vira `malformedMessage, 'missing reservation info'`
+(antes era `connectionFailed`); e a expiração no passado, que o port não
+checava, vira `malformedMessage`. O deadline do stream passou a ser armado com
+`ReserveTimeout`, como em `reservation.go:88` — antes o timeout cobria apenas o
+dial. Endereços de relay ilegíveis continuam sendo pulados, como upstream, mas
+o fallback inventado para `ai.addrs` foi removido: o Go devolve o que veio na
+resposta, mesmo que vazio.
+
+**Defeito 3 (novo) — o voucher assinado nunca era validado.** O port recebia os
+bytes do voucher e os devolvia crus em `Reservation.voucher` como `Uint8List?`.
+O upstream (`reservation.go:128-167`) consome o envelope assinado, exige que o
+record seja um `ReservationVoucher`, que o signatário do envelope seja o próprio
+relay e que o voucher se refira a este host. Nada disso acontecia: qualquer
+sequência de bytes era aceita como voucher. `Reservation.voucher` passou a ser
+`ReservationVoucher?`, como o `*proto.ReservationVoucher` do Go, e as quatro
+validações foram portadas, cada uma com o status `MALFORMED_MESSAGE` e a razão
+do upstream. Único consumidor do campo era o próprio `reserve()`.
+
+**Defeito 4 (novo) — o `ReservationVoucher` era incompatível com o wire do Go.**
+Duas divergências, ambas fatais contra um relay real: o `recordCodec` era
+`utf8.encode('/libp2p/circuit/relay/0.2.0/rsvp')` em vez dos dois bytes
+`[0x03, 0x02]` de `proto/voucher.go:16`, e `marshalRecord`/`parseRecord` usavam
+um formato próprio de comprimento-prefixado em vez do protobuf de
+`pb/voucher.proto` (`relay = 1 bytes`, `peer = 2 bytes`, `expiration = 3 uint64`).
+Os dois foram corrigidos, e o tipo passou a se registrar no `registerType` de
+forma idempotente a partir do construtor — o mesmo idioma que
+`core/peer/peer_record.dart` já usa para contornar a falta de `init()` no Dart.
+Os IDs de relay e peer passam por `validate()` na desserialização, como o
+`peer.IDFromBytes` do Go.
+
+**Defeito 5 (novo) — `HopMessage.unmarshal` ignorava os campos `peer` e `limit`.**
+O codec escrevia o campo 4 (`limit`) mas nunca o lia de volta, então toda
+resposta de relay chegava com `limitDuration` e `limitData` zerados — limites
+silenciosamente ilimitados. O campo 2 (`peer`) não era nem escrito nem lido,
+deixando `CircuitPeer` como tipo público morto e impedindo o fluxo `CONNECT` de
+carregar o peer de destino. Ambos foram portados em `pb/circuit_message.dart`,
+fiéis a `pb/circuit.proto:7-45`.
+
+**Testes.** O teste atômico `reserve() - reserves slot on relay host` passava
+apenas porque a resposta fabricada garantia `limitData > 0`; ele foi **reparado**,
+não reescrito — as asserções originais continuam, mas agora alimentadas por uma
+resposta de relay real. Para isso `_FakeStream` ganhou um buffer de resposta
+opcional (vazio por padrão, preservando o comportamento de todos os outros
+testes que o usam) e `_FakeTransportNetwork` um campo `streamResponse`. O mesmo
+reparo foi aplicado a `reserveSlot() - delegates reservation to reserve function`.
+Três testes novos cobrem as rotas de erro, sendo o primeiro o guarda de
+regressão direto do Defeito 1: relay que não responde, relay que recusa, e
+reserva já expirada. O teste `parseRecord() - decodes bytes into reservation
+voucher` tinha seus bytes fixados no formato inventado; os bytes foram trocados
+pelo protobuf correto, com as mesmas asserções.
+
+**Verificações desta rodada:** `dart analyze` do `transpiled_libp2p` com
+**0 erros** (os três erros deliberados sumiram junto com a correção);
+`test/atomic/nivel_2/libp2p_nat_atomic_tests.dart` **105 aprovados**;
+`libp2p_transport_atomic_tests.dart` + `libp2p_nat_atomic_tests.dart`
+**182 aprovados**; suíte raiz `dart test` **3604 aprovados / 12 pulados**;
+auditor `--tests --severity ERROR` em `NENHUMA INCONSISTÊNCIA ENCONTRADA`
+(exit 0); auditor `--tests` com **0 erros, 0 avisos, 1462 notas de cobertura**
+(uma nota a menos que antes da correção, por `CircuitPeer` ter deixado de ser
+tipo morto). Relatórios `PROGRESS_RELATORY.md` e `audit_report.md` regenerados.
+
+Nesta mesma rodada o repositório passou a exigir `dart format` antes de
+qualquer commit, regra registrada em `AGENTS.md` na seção "Formatação
+obrigatória antes de commitar" e incorporada como passo 1 da sequência de
+conclusão. A primeira execução (`dart format lib bin test packages`)
+reformatou **289 de 617 arquivos**. A suíte raiz, o portão do auditor e os
+dois relatórios versionados foram reexecutados **depois** da formatação, e é
+esse estado pós-formatação que as contagens acima descrevem. Os presets
+`interop` e `network` não foram executados nesta rodada: exigem daemon Kubo e
+rede real, e este caminho de código (circuitv2) não é exercitado por eles.
 
 ### Objetivo 5 (Marcos F.1 a F.4), Marco G.2 parcial, correção do pré-requisito do G.1, descarte do G.6 e defeitos encontrados nos Marcos D.2/D.3 — 2026-09-10
 

@@ -64,15 +64,16 @@ class BasicHost implements Host {
     this.natManager,
     this.holePunchService,
     this.observedAddrsManager,
-  })  : _network = network,
-        _peerstore = peerstore ??
-            (network.peerstore is Peerstore
-                ? network.peerstore as Peerstore
-                : MemoryPeerstore()),
-        _eventBus = eventBus ?? BasicBus(),
-        _connManager = connManager ?? const NullConnMgr(),
-        _mux = mux ?? MultistreamMuxer(),
-        _addrsFactory = addrsFactory ?? ((addrs) => addrs) {
+  }) : _network = network,
+       _peerstore =
+           peerstore ??
+           (network.peerstore is Peerstore
+               ? network.peerstore as Peerstore
+               : MemoryPeerstore()),
+       _eventBus = eventBus ?? BasicBus(),
+       _connManager = connManager ?? const NullConnMgr(),
+       _mux = mux ?? MultistreamMuxer(),
+       _addrsFactory = addrsFactory ?? ((addrs) => addrs) {
     _network.setStreamHandler(_handleIncomingStream);
   }
 
@@ -93,8 +94,9 @@ class BasicHost implements Host {
   Emitter? _protocolsEmitter;
 
   Future<Emitter> _getProtocolsEmitter() async {
-    return _protocolsEmitter ??=
-        await _eventBus.emitter(EvtLocalProtocolsUpdated);
+    return _protocolsEmitter ??= await _eventBus.emitter(
+      EvtLocalProtocolsUpdated,
+    );
   }
 
   void _handleIncomingStream(NetworkStream stream) async {
@@ -136,7 +138,12 @@ class BasicHost implements Host {
         observedAddrs.addAll(obs);
       }
     }
-    return _addrsFactory([...baseAddrs, ...mappedAddrs, ...observedAddrs, ...circuitAddrs]);
+    return _addrsFactory([
+      ...baseAddrs,
+      ...mappedAddrs,
+      ...observedAddrs,
+      ...circuitAddrs,
+    ]);
   }
 
   @override

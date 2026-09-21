@@ -19,7 +19,8 @@ import 'error_cause_header.dart';
 /// Port of `errorCauseInvalidMandatoryParameter`
 /// (error_cause_invalid_mandatory_parameter.go:7-9).
 final class ErrorCauseInvalidMandatoryParameter implements ErrorCause {
-  ErrorCauseInvalidMandatoryParameter() : header = ErrorCauseHeader(code: ErrorCauseCode.invalidMandatoryParameter);
+  ErrorCauseInvalidMandatoryParameter()
+    : header = ErrorCauseHeader(code: ErrorCauseCode.invalidMandatoryParameter);
 
   /// Composition standing in for Go's embedded `errorCauseHeader`.
   ErrorCauseHeader header;

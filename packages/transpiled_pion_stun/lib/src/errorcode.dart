@@ -126,36 +126,49 @@ final Map<ErrorCode, Uint8List> _errorReasons = {
   ErrorCode.codeTryAlternate: Uint8List.fromList('Try Alternate'.codeUnits),
   ErrorCode.codeBadRequest: Uint8List.fromList('Bad Request'.codeUnits),
   ErrorCode.codeUnauthorized: Uint8List.fromList('Unauthorized'.codeUnits),
-  ErrorCode.codeUnknownAttribute:
-      Uint8List.fromList('Unknown Attribute'.codeUnits),
+  ErrorCode.codeUnknownAttribute: Uint8List.fromList(
+    'Unknown Attribute'.codeUnits,
+  ),
   ErrorCode.codeStaleNonce: Uint8List.fromList('Stale Nonce'.codeUnits),
   ErrorCode.codeServerError: Uint8List.fromList('Server Error'.codeUnits),
   ErrorCode.codeRoleConflict: Uint8List.fromList('Role Conflict'.codeUnits),
   ErrorCode.codeForbidden: Uint8List.fromList('Forbidden'.codeUnits),
-  ErrorCode.codeAllocMismatch:
-      Uint8List.fromList('Allocation Mismatch'.codeUnits),
-  ErrorCode.codeWrongCredentials:
-      Uint8List.fromList('Wrong Credentials'.codeUnits),
-  ErrorCode.codeUnsupportedTransProto:
-      Uint8List.fromList('Unsupported Transport Protocol'.codeUnits),
-  ErrorCode.codeAllocQuotaReached:
-      Uint8List.fromList('Allocation Quota Reached'.codeUnits),
-  ErrorCode.codeInsufficientCapacity:
-      Uint8List.fromList('Insufficient Capacity'.codeUnits),
-  ErrorCode.codeConnAlreadyExists:
-      Uint8List.fromList('Connection Already Exists'.codeUnits),
-  ErrorCode.codeConnTimeoutOrFailure:
-      Uint8List.fromList('Connection Timeout or Failure'.codeUnits),
-  ErrorCode.codeAddrFamilyNotSupported:
-      Uint8List.fromList('Address Family not Supported'.codeUnits),
-  ErrorCode.codePeerAddrFamilyMismatch:
-      Uint8List.fromList('Peer Address Family Mismatch'.codeUnits),
+  ErrorCode.codeAllocMismatch: Uint8List.fromList(
+    'Allocation Mismatch'.codeUnits,
+  ),
+  ErrorCode.codeWrongCredentials: Uint8List.fromList(
+    'Wrong Credentials'.codeUnits,
+  ),
+  ErrorCode.codeUnsupportedTransProto: Uint8List.fromList(
+    'Unsupported Transport Protocol'.codeUnits,
+  ),
+  ErrorCode.codeAllocQuotaReached: Uint8List.fromList(
+    'Allocation Quota Reached'.codeUnits,
+  ),
+  ErrorCode.codeInsufficientCapacity: Uint8List.fromList(
+    'Insufficient Capacity'.codeUnits,
+  ),
+  ErrorCode.codeConnAlreadyExists: Uint8List.fromList(
+    'Connection Already Exists'.codeUnits,
+  ),
+  ErrorCode.codeConnTimeoutOrFailure: Uint8List.fromList(
+    'Connection Timeout or Failure'.codeUnits,
+  ),
+  ErrorCode.codeAddrFamilyNotSupported: Uint8List.fromList(
+    'Address Family not Supported'.codeUnits,
+  ),
+  ErrorCode.codePeerAddrFamilyMismatch: Uint8List.fromList(
+    'Peer Address Family Mismatch'.codeUnits,
+  ),
 };
 
 /// Port of `TurnException` (errorcode.go:156-159): an error from a TURN
 /// response.
 final class TurnException implements Exception {
-  const TurnException({required this.stunMessageType, required this.errorCodeAttr});
+  const TurnException({
+    required this.stunMessageType,
+    required this.errorCodeAttr,
+  });
 
   final MessageType stunMessageType;
   final ErrorCodeAttribute errorCodeAttr;

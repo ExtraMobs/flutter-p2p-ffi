@@ -182,7 +182,8 @@ class _MockCapableConn implements CapableConn {
   ConnScope scope() => const NullScope();
 
   @override
-  ConnStats stat() => ConnStats(direction: Direction.outbound, opened: DateTime.now());
+  ConnStats stat() =>
+      ConnStats(direction: Direction.outbound, opened: DateTime.now());
 
   @override
   Future<NetworkStream> openStream() async => _DummyNetworkStream(this);
@@ -370,7 +371,9 @@ void main() async {
       }();
 
       final clientReadWriter = _DualStreamReadWriter(clientRw, serverRw);
-      final selected = await selectOutbound(clientReadWriter, const ['/echo/1.0.0']);
+      final selected = await selectOutbound(clientReadWriter, const [
+        '/echo/1.0.0',
+      ]);
       await serverFuture;
       expect(selected, equals('/echo/1.0.0'));
     });
@@ -390,18 +393,25 @@ void main() async {
       }();
 
       final serverReadWriter = _DualStreamReadWriter(serverRw, clientRw);
-      final selected = await selectInbound(serverReadWriter, const ['/chat/1.0.0']);
+      final selected = await selectInbound(serverReadWriter, const [
+        '/chat/1.0.0',
+      ]);
       await clientFuture;
       expect(selected, equals('/chat/1.0.0'));
     });
   });
 
   group('UpgradedCapableConn [Atomic Audit]', () {
-    UpgradedCapableConn createTestConn({YamuxSession? clientSession, YamuxTransport? bridgeTransport}) {
+    UpgradedCapableConn createTestConn({
+      YamuxSession? clientSession,
+      YamuxTransport? bridgeTransport,
+    }) {
       final (linkClient, linkServer) = _Link.pair();
       final session = clientSession ?? YamuxSession(linkClient, isClient: true);
       final raw = _MockRawConn(
-        transportInstance: _MockTransport(Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')),
+        transportInstance: _MockTransport(
+          Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+        ),
         localAddr: Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
         remoteAddr: Multiaddr.parse('/ip4/127.0.0.1/tcp/4002'),
       );
@@ -449,12 +459,18 @@ void main() async {
 
     test('localMultiaddr() - returns local multiaddr', () {
       final conn = createTestConn();
-      expect(conn.localMultiaddr().toString(), equals('/ip4/127.0.0.1/tcp/4001'));
+      expect(
+        conn.localMultiaddr().toString(),
+        equals('/ip4/127.0.0.1/tcp/4001'),
+      );
     });
 
     test('remoteMultiaddr() - returns remote multiaddr', () {
       final conn = createTestConn();
-      expect(conn.remoteMultiaddr().toString(), equals('/ip4/127.0.0.1/tcp/4002'));
+      expect(
+        conn.remoteMultiaddr().toString(),
+        equals('/ip4/127.0.0.1/tcp/4002'),
+      );
     });
 
     test('scope() - returns connection scope', () {
@@ -528,30 +544,35 @@ void main() async {
       expect(upgrader.resourceManager, isNotNull);
     });
 
-    test('upgrade() - upgrades raw connection with security and muxer', () async {
-      final upgraderServer = BasicUpgrader(localIdentityKey: remoteIdentity);
-      final tServer = TcpTransport(upgrader: upgraderServer);
-      final listener = await tServer.listen(Multiaddr.parse('/ip4/127.0.0.1/tcp/0'));
-      final boundAddr = listener.multiaddr();
+    test(
+      'upgrade() - upgrades raw connection with security and muxer',
+      () async {
+        final upgraderServer = BasicUpgrader(localIdentityKey: remoteIdentity);
+        final tServer = TcpTransport(upgrader: upgraderServer);
+        final listener = await tServer.listen(
+          Multiaddr.parse('/ip4/127.0.0.1/tcp/0'),
+        );
+        final boundAddr = listener.multiaddr();
 
-      final upgraderClient = BasicUpgrader(localIdentityKey: identity);
-      final tClient = TcpTransport(upgrader: upgraderClient);
+        final upgraderClient = BasicUpgrader(localIdentityKey: identity);
+        final tClient = TcpTransport(upgrader: upgraderClient);
 
-      final acceptFuture = listener.accept();
-      final dialFuture = tClient.dial(boundAddr, remotePeer);
+        final acceptFuture = listener.accept();
+        final dialFuture = tClient.dial(boundAddr, remotePeer);
 
-      final clientConn = await dialFuture;
-      final serverConn = await acceptFuture;
+        final clientConn = await dialFuture;
+        final serverConn = await acceptFuture;
 
-      expect(clientConn.remotePeer(), equals(remotePeer));
-      expect(serverConn.remotePeer(), equals(localPeer));
+        expect(clientConn.remotePeer(), equals(remotePeer));
+        expect(serverConn.remotePeer(), equals(localPeer));
 
-      await clientConn.close();
-      await serverConn.close();
-      await listener.close();
-      await tServer.close();
-      await tClient.close();
-    });
+        await clientConn.close();
+        await serverConn.close();
+        await listener.close();
+        await tServer.close();
+        await tClient.close();
+      },
+    );
   });
 
   group('TcpTransport [Atomic Audit]', () {
@@ -578,7 +599,9 @@ void main() async {
     test('dial() - establishes connection to remote endpoint', () async {
       final upgraderServer = BasicUpgrader(localIdentityKey: remoteIdentity);
       final tServer = TcpTransport(upgrader: upgraderServer);
-      final listener = await tServer.listen(Multiaddr.parse('/ip4/127.0.0.1/tcp/0'));
+      final listener = await tServer.listen(
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/0'),
+      );
       final boundAddr = listener.multiaddr();
 
       final upgraderClient = BasicUpgrader(localIdentityKey: identity);
@@ -608,7 +631,9 @@ void main() async {
     test('dialWithUpdates() - yields start and success events', () async {
       final upgraderServer = BasicUpgrader(localIdentityKey: remoteIdentity);
       final tServer = TcpTransport(upgrader: upgraderServer);
-      final listener = await tServer.listen(Multiaddr.parse('/ip4/127.0.0.1/tcp/0'));
+      final listener = await tServer.listen(
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/0'),
+      );
       final boundAddr = listener.multiaddr();
 
       final upgraderClient = BasicUpgrader(localIdentityKey: identity);
@@ -616,7 +641,9 @@ void main() async {
 
       final acceptFuture = listener.accept();
       final events = <DialUpdate>[];
-      final subscription = tClient.dialWithUpdates(boundAddr, remotePeer).listen(events.add);
+      final subscription = tClient
+          .dialWithUpdates(boundAddr, remotePeer)
+          .listen(events.add);
 
       final serverConn = await acceptFuture;
       await Future<void>.delayed(const Duration(milliseconds: 100));
@@ -642,10 +669,12 @@ void main() async {
 
   group('ReservationVoucher [Atomic Audit]', () {
     test('parseRecord() - decodes bytes into reservation voucher', () {
+      // pb.ReservationVoucher: relay = 1 (bytes), peer = 2 (bytes),
+      // expiration = 3 (uint64), per circuitv2/pb/voucher.proto.
       final bytes = Uint8List.fromList([
-        1, 10, // relay peer: 1 byte [10]
-        1, 20, // client peer: 1 byte [20]
-        0, 0, 0, 0, 0, 0, 0, 100, // expiration sec
+        0x0A, 0x01, 10, // relay peer: 1 byte [10]
+        0x12, 0x01, 20, // client peer: 1 byte [20]
+        0x18, 100, // expiration: 100s
       ]);
       final v = ReservationVoucher.parseRecord(bytes);
       expect(v.relay.value, equals(Uint8List.fromList([10])));
@@ -656,10 +685,15 @@ void main() async {
 
   group('Swarm [Atomic Audit]', () {
     test('addTransport() - registers new transport', () {
-      final mockTransport = _MockTransport(Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'));
+      final mockTransport = _MockTransport(
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+      );
       final swarm = Swarm(localPeer: localPeer, transports: []);
       swarm.addTransport(mockTransport);
-      expect(swarm.canDial(remotePeer, Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')), isTrue);
+      expect(
+        swarm.canDial(remotePeer, Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')),
+        isTrue,
+      );
     });
 
     test('setStreamHandler() - registers incoming stream handler', () {
@@ -669,9 +703,13 @@ void main() async {
     });
 
     test('dialPeer() - establishes connection to peer', () async {
-      final mockTransport = _MockTransport(Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'));
+      final mockTransport = _MockTransport(
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+      );
       final swarm = Swarm(localPeer: localPeer, transports: [mockTransport]);
-      swarm.peerstore.addAddrs(remotePeer, [Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')], tempAddrTtl);
+      swarm.peerstore.addAddrs(remotePeer, [
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+      ], tempAddrTtl);
 
       final conn = await swarm.dialPeer(NetworkContext.empty, remotePeer);
       expect(conn.remotePeer(), equals(remotePeer));
@@ -679,9 +717,13 @@ void main() async {
     });
 
     test('newStream() - opens stream to peer', () async {
-      final mockTransport = _MockTransport(Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'));
+      final mockTransport = _MockTransport(
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+      );
       final swarm = Swarm(localPeer: localPeer, transports: [mockTransport]);
-      swarm.peerstore.addAddrs(remotePeer, [Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')], tempAddrTtl);
+      swarm.peerstore.addAddrs(remotePeer, [
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+      ], tempAddrTtl);
 
       final stream = await swarm.newStream(NetworkContext.empty, remotePeer);
       expect(stream.id, equals('dummy-1'));
@@ -689,15 +731,22 @@ void main() async {
     });
 
     test('listenAddresses() - returns listen multiaddrs', () async {
-      final mockTransport = _MockTransport(Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'));
+      final mockTransport = _MockTransport(
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+      );
       final swarm = Swarm(localPeer: localPeer, transports: [mockTransport]);
       await swarm.listen([Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')]);
-      expect(swarm.listenAddresses(), contains(Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')));
+      expect(
+        swarm.listenAddresses(),
+        contains(Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')),
+      );
       await swarm.close();
     });
 
     test('interfaceListenAddresses() - returns interface addresses', () async {
-      final mockTransport = _MockTransport(Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'));
+      final mockTransport = _MockTransport(
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+      );
       final swarm = Swarm(localPeer: localPeer, transports: [mockTransport]);
       await swarm.listen([Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')]);
       final iface = await swarm.interfaceListenAddresses();
@@ -707,40 +756,59 @@ void main() async {
 
     test('connectedness() - returns connectedness state', () {
       final swarm = Swarm(localPeer: localPeer, transports: []);
-      expect(swarm.connectedness(remotePeer), equals(Connectedness.notConnected));
+      expect(
+        swarm.connectedness(remotePeer),
+        equals(Connectedness.notConnected),
+      );
     });
 
     test('peers() - lists all connected peers', () async {
-      final mockTransport = _MockTransport(Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'));
+      final mockTransport = _MockTransport(
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+      );
       final swarm = Swarm(localPeer: localPeer, transports: [mockTransport]);
-      swarm.peerstore.addAddrs(remotePeer, [Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')], tempAddrTtl);
+      swarm.peerstore.addAddrs(remotePeer, [
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+      ], tempAddrTtl);
       await swarm.dialPeer(NetworkContext.empty, remotePeer);
       expect(swarm.peers(), contains(remotePeer));
       await swarm.close();
     });
 
     test('conns() - returns all active connections', () async {
-      final mockTransport = _MockTransport(Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'));
+      final mockTransport = _MockTransport(
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+      );
       final swarm = Swarm(localPeer: localPeer, transports: [mockTransport]);
-      swarm.peerstore.addAddrs(remotePeer, [Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')], tempAddrTtl);
+      swarm.peerstore.addAddrs(remotePeer, [
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+      ], tempAddrTtl);
       final c = await swarm.dialPeer(NetworkContext.empty, remotePeer);
       expect(swarm.conns(), contains(c));
       await swarm.close();
     });
 
     test('connsToPeer() - returns connections to specific peer', () async {
-      final mockTransport = _MockTransport(Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'));
+      final mockTransport = _MockTransport(
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+      );
       final swarm = Swarm(localPeer: localPeer, transports: [mockTransport]);
-      swarm.peerstore.addAddrs(remotePeer, [Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')], tempAddrTtl);
+      swarm.peerstore.addAddrs(remotePeer, [
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+      ], tempAddrTtl);
       final c = await swarm.dialPeer(NetworkContext.empty, remotePeer);
       expect(swarm.connsToPeer(remotePeer), contains(c));
       await swarm.close();
     });
 
     test('closePeer() - closes connections to peer', () async {
-      final mockTransport = _MockTransport(Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'));
+      final mockTransport = _MockTransport(
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+      );
       final swarm = Swarm(localPeer: localPeer, transports: [mockTransport]);
-      swarm.peerstore.addAddrs(remotePeer, [Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')], tempAddrTtl);
+      swarm.peerstore.addAddrs(remotePeer, [
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+      ], tempAddrTtl);
       await swarm.dialPeer(NetworkContext.empty, remotePeer);
       await swarm.closePeer(remotePeer);
       expect(swarm.connectedness(remotePeer), equals(Connectedness.canConnect));
@@ -748,14 +816,24 @@ void main() async {
     });
 
     test('canDial() - checks dialability of address', () {
-      final mockTransport = _MockTransport(Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'));
+      final mockTransport = _MockTransport(
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+      );
       final swarm = Swarm(localPeer: localPeer, transports: [mockTransport]);
-      expect(swarm.canDial(remotePeer, Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')), isTrue);
-      expect(swarm.canDial(remotePeer, Multiaddr.parse('/ip4/127.0.0.1/udp/4001')), isFalse);
+      expect(
+        swarm.canDial(remotePeer, Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')),
+        isTrue,
+      );
+      expect(
+        swarm.canDial(remotePeer, Multiaddr.parse('/ip4/127.0.0.1/udp/4001')),
+        isFalse,
+      );
     });
 
     test('listen() - binds listen addresses', () async {
-      final mockTransport = _MockTransport(Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'));
+      final mockTransport = _MockTransport(
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+      );
       final swarm = Swarm(localPeer: localPeer, transports: [mockTransport]);
       await swarm.listen([Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')]);
       expect(swarm.listenAddresses(), isNotEmpty);
@@ -778,7 +856,9 @@ void main() async {
     });
 
     test('close() - closes all listeners and connections', () async {
-      final mockTransport = _MockTransport(Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'));
+      final mockTransport = _MockTransport(
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+      );
       final swarm = Swarm(localPeer: localPeer, transports: [mockTransport]);
       await swarm.listen([Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')]);
       await swarm.close();
@@ -787,7 +867,8 @@ void main() async {
   });
 
   group('SwarmStream [Atomic Audit]', () {
-    Future<(SwarmStream, SwarmStream, YamuxSession, YamuxSession)> createStreamPair() async {
+    Future<(SwarmStream, SwarmStream, YamuxSession, YamuxSession)>
+    createStreamPair() async {
       final (linkClient, linkServer) = _Link.pair();
       final clientSession = YamuxSession(linkClient, isClient: true);
       final serverSession = YamuxSession(linkServer, isClient: false);
@@ -796,15 +877,27 @@ void main() async {
       final incoming = await acceptFuture;
 
       final mockConn = _MockCapableConn(
-        transportInstance: _MockTransport(Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')),
+        transportInstance: _MockTransport(
+          Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+        ),
         local: localPeer,
         remote: remotePeer,
         localAddr: Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
         remoteAddr: Multiaddr.parse('/ip4/127.0.0.1/tcp/4002'),
       );
 
-      final stream1 = SwarmStream(yamuxStream: yStream, conn: mockConn, direction: Direction.outbound, protocol: '/test/1.0.0');
-      final stream2 = SwarmStream(yamuxStream: incoming, conn: mockConn, direction: Direction.inbound, protocol: '/test/1.0.0');
+      final stream1 = SwarmStream(
+        yamuxStream: yStream,
+        conn: mockConn,
+        direction: Direction.outbound,
+        protocol: '/test/1.0.0',
+      );
+      final stream2 = SwarmStream(
+        yamuxStream: incoming,
+        conn: mockConn,
+        direction: Direction.inbound,
+        protocol: '/test/1.0.0',
+      );
       return (stream1, stream2, clientSession, serverSession);
     }
 
@@ -977,7 +1070,9 @@ void main() async {
 
   group('BasicHost [Atomic Audit]', () {
     test('id() - returns host peer ID', () async {
-      final mockTransport = _MockTransport(Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'));
+      final mockTransport = _MockTransport(
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+      );
       final swarm = Swarm(localPeer: localPeer, transports: [mockTransport]);
       final host = BasicHost(network: swarm);
       expect(host.id, equals(localPeer));
@@ -985,7 +1080,9 @@ void main() async {
     });
 
     test('peerstore() - returns host peerstore', () async {
-      final mockTransport = _MockTransport(Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'));
+      final mockTransport = _MockTransport(
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+      );
       final swarm = Swarm(localPeer: localPeer, transports: [mockTransport]);
       final host = BasicHost(network: swarm);
       expect(host.peerstore, isNotNull);
@@ -993,7 +1090,9 @@ void main() async {
     });
 
     test('network() - returns underlying swarm network', () async {
-      final mockTransport = _MockTransport(Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'));
+      final mockTransport = _MockTransport(
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+      );
       final swarm = Swarm(localPeer: localPeer, transports: [mockTransport]);
       final host = BasicHost(network: swarm);
       expect(host.network, equals(swarm));
@@ -1001,7 +1100,9 @@ void main() async {
     });
 
     test('mux() - returns protocol multiplexer', () async {
-      final mockTransport = _MockTransport(Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'));
+      final mockTransport = _MockTransport(
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+      );
       final swarm = Swarm(localPeer: localPeer, transports: [mockTransport]);
       final host = BasicHost(network: swarm);
       expect(host.mux, isNotNull);
@@ -1009,7 +1110,9 @@ void main() async {
     });
 
     test('connManager() - returns connection manager', () async {
-      final mockTransport = _MockTransport(Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'));
+      final mockTransport = _MockTransport(
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+      );
       final swarm = Swarm(localPeer: localPeer, transports: [mockTransport]);
       final host = BasicHost(network: swarm);
       expect(host.connManager, isNotNull);
@@ -1017,7 +1120,9 @@ void main() async {
     });
 
     test('eventBus() - returns event bus', () async {
-      final mockTransport = _MockTransport(Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'));
+      final mockTransport = _MockTransport(
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+      );
       final swarm = Swarm(localPeer: localPeer, transports: [mockTransport]);
       final host = BasicHost(network: swarm);
       expect(host.eventBus, isNotNull);
@@ -1025,7 +1130,9 @@ void main() async {
     });
 
     test('setStreamHandler() - registers stream handler', () async {
-      final mockTransport = _MockTransport(Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'));
+      final mockTransport = _MockTransport(
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+      );
       final swarm = Swarm(localPeer: localPeer, transports: [mockTransport]);
       final host = BasicHost(network: swarm);
       host.setStreamHandler('/chat/1.0.0', (stream) {});
@@ -1033,17 +1140,28 @@ void main() async {
       await host.close();
     });
 
-    test('setStreamHandlerMatch() - registers matching stream handler', () async {
-      final mockTransport = _MockTransport(Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'));
-      final swarm = Swarm(localPeer: localPeer, transports: [mockTransport]);
-      final host = BasicHost(network: swarm);
-      host.setStreamHandlerMatch('/match/1.0.0', (p) => p.startsWith('/match'), (stream) {});
-      expect(host.mux.protocols(), contains('/match/1.0.0'));
-      await host.close();
-    });
+    test(
+      'setStreamHandlerMatch() - registers matching stream handler',
+      () async {
+        final mockTransport = _MockTransport(
+          Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+        );
+        final swarm = Swarm(localPeer: localPeer, transports: [mockTransport]);
+        final host = BasicHost(network: swarm);
+        host.setStreamHandlerMatch(
+          '/match/1.0.0',
+          (p) => p.startsWith('/match'),
+          (stream) {},
+        );
+        expect(host.mux.protocols(), contains('/match/1.0.0'));
+        await host.close();
+      },
+    );
 
     test('removeStreamHandler() - removes stream handler', () async {
-      final mockTransport = _MockTransport(Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'));
+      final mockTransport = _MockTransport(
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+      );
       final swarm = Swarm(localPeer: localPeer, transports: [mockTransport]);
       final host = BasicHost(network: swarm);
       host.setStreamHandler('/del/1.0.0', (stream) {});
@@ -1053,10 +1171,14 @@ void main() async {
     });
 
     test('newStream() - opens stream to peer', () async {
-      final mockTransport = _MockTransport(Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'));
+      final mockTransport = _MockTransport(
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+      );
       final swarm = Swarm(localPeer: localPeer, transports: [mockTransport]);
       final host = BasicHost(network: swarm);
-      swarm.peerstore.addAddrs(remotePeer, [Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')], tempAddrTtl);
+      swarm.peerstore.addAddrs(remotePeer, [
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+      ], tempAddrTtl);
       await expectLater(
         () => host.newStream(remotePeer, const ['/echo/1.0.0']),
         throwsA(anything),
@@ -1065,7 +1187,9 @@ void main() async {
     });
 
     test('addrs() - returns listen multiaddrs including relay', () async {
-      final mockTransport = _MockTransport(Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'));
+      final mockTransport = _MockTransport(
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+      );
       final swarm = Swarm(localPeer: localPeer, transports: [mockTransport]);
       await swarm.listen([Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')]);
       final host = BasicHost(network: swarm);
@@ -1074,17 +1198,24 @@ void main() async {
     });
 
     test('connect() - connects host to remote peer info', () async {
-      final mockTransport = _MockTransport(Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'));
+      final mockTransport = _MockTransport(
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+      );
       final swarm = Swarm(localPeer: localPeer, transports: [mockTransport]);
       final host = BasicHost(network: swarm);
-      final pi = AddrInfo(id: remotePeer, addrs: [Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')]);
+      final pi = AddrInfo(
+        id: remotePeer,
+        addrs: [Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')],
+      );
       await host.connect(pi);
       expect(swarm.connectedness(remotePeer), equals(Connectedness.connected));
       await host.close();
     });
 
     test('natManager - exposes configured nat manager', () async {
-      final mockTransport = _MockTransport(Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'));
+      final mockTransport = _MockTransport(
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+      );
       final swarm = Swarm(localPeer: localPeer, transports: [mockTransport]);
       final host = BasicHost(network: swarm);
       expect(host.natManager, isNull);
@@ -1092,7 +1223,9 @@ void main() async {
     });
 
     test('holePunchService - exposes configured hole punch service', () async {
-      final mockTransport = _MockTransport(Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'));
+      final mockTransport = _MockTransport(
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+      );
       final swarm = Swarm(localPeer: localPeer, transports: [mockTransport]);
       final host = BasicHost(network: swarm);
       expect(host.holePunchService, isNull);
@@ -1100,7 +1233,9 @@ void main() async {
     });
 
     test('close() - closes host and network', () async {
-      final mockTransport = _MockTransport(Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'));
+      final mockTransport = _MockTransport(
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+      );
       final swarm = Swarm(localPeer: localPeer, transports: [mockTransport]);
       final host = BasicHost(network: swarm);
       await host.close();
@@ -1132,7 +1267,11 @@ class _TestNotifiee implements Notifiee {
   void disconnected(Network network, Conn connection) {}
 }
 
-YamuxTransport _createSecureBridge(RawConn raw, CipherState cs1, CipherState cs2) {
+YamuxTransport _createSecureBridge(
+  RawConn raw,
+  CipherState cs1,
+  CipherState cs2,
+) {
   final (a, _) = _Link.pair();
   return a;
 }

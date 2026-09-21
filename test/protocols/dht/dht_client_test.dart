@@ -28,17 +28,16 @@ void main() {
       final router = Libp2pRouter(fakeHost);
 
       final closerPeer = AddrInfo(
-        id: PeerId.decode('12D3KooWDeH2M6r2L9c5Z8n1P3q4R7s8T9u1V2w3X4y5Z6a7B8c9'),
+        id: PeerId.decode(
+          '12D3KooWDeH2M6r2L9c5Z8n1P3q4R7s8T9u1V2w3X4y5Z6a7B8c9',
+        ),
         addrs: [Multiaddr.parse('/ip4/1.2.3.4/tcp/4001')],
       );
 
       final responseBytes = encodeDhtResponse(closerPeers: [closerPeer]);
       fakeHost.streamHandler = (peerId) => FakeP2PStream(responseBytes);
 
-      final client = DhtClient(
-        router: router,
-        bootstrapPeers: [bootstrapPeer],
-      );
+      final client = DhtClient(router: router, bootstrapPeers: [bootstrapPeer]);
 
       final providers = await client.findProvidersAsync(targetCid, 1).toList();
       expect(providers, isEmpty);
@@ -50,67 +49,79 @@ void main() {
       expect(fakeHost.lastAddedTtl, tempAddrTtl);
     });
 
-    test('preserves complete AddrInfo for providers and merges peerstore addrs', () async {
-      final fakeHost = FakeHost(selfId: selfPeerId);
-      final router = Libp2pRouter(fakeHost);
+    test(
+      'preserves complete AddrInfo for providers and merges peerstore addrs',
+      () async {
+        final fakeHost = FakeHost(selfId: selfPeerId);
+        final router = Libp2pRouter(fakeHost);
 
-      final providerPeer = AddrInfo(
-        id: PeerId.decode('12D3KooWDeH2M6r2L9c5Z8n1P3q4R7s8T9u1V2w3X4y5Z6a7B8c9'),
-        addrs: [Multiaddr.parse('/ip4/5.6.7.8/tcp/4001')],
-      );
+        final providerPeer = AddrInfo(
+          id: PeerId.decode(
+            '12D3KooWDeH2M6r2L9c5Z8n1P3q4R7s8T9u1V2w3X4y5Z6a7B8c9',
+          ),
+          addrs: [Multiaddr.parse('/ip4/5.6.7.8/tcp/4001')],
+        );
 
-      // Pre-populate peerstore with an extra address for this provider
-      final existingAddr = Multiaddr.parse('/ip4/9.10.11.12/tcp/4001');
-      await router.addAddrs(
-        AddrInfo(id: providerPeer.id, addrs: [existingAddr]),
-      );
+        // Pre-populate peerstore with an extra address for this provider
+        final existingAddr = Multiaddr.parse('/ip4/9.10.11.12/tcp/4001');
+        await router.addAddrs(
+          AddrInfo(id: providerPeer.id, addrs: [existingAddr]),
+        );
 
-      final responseBytes = encodeDhtResponse(providerPeers: [providerPeer]);
-      fakeHost.streamHandler = (peerId) => FakeP2PStream(responseBytes);
+        final responseBytes = encodeDhtResponse(providerPeers: [providerPeer]);
+        fakeHost.streamHandler = (peerId) => FakeP2PStream(responseBytes);
 
-      final client = DhtClient(
-        router: router,
-        bootstrapPeers: [bootstrapPeer],
-      );
+        final client = DhtClient(
+          router: router,
+          bootstrapPeers: [bootstrapPeer],
+        );
 
-      final providers = await client.findProvidersAsync(targetCid, 1).toList();
-      expect(providers, hasLength(1));
-      final result = providers.single;
-      expect(result.id, providerPeer.id);
+        final providers = await client
+            .findProvidersAsync(targetCid, 1)
+            .toList();
+        expect(providers, hasLength(1));
+        final result = providers.single;
+        expect(result.id, providerPeer.id);
 
-      // Provider preserves both the DHT response address and pre-known peerstore address
-      final addrStrings = result.addrs.map((a) => a.toString()).toSet();
-      expect(addrStrings, contains('/ip4/5.6.7.8/tcp/4001'));
-      expect(addrStrings, contains('/ip4/9.10.11.12/tcp/4001'));
-    });
+        // Provider preserves both the DHT response address and pre-known peerstore address
+        final addrStrings = result.addrs.map((a) => a.toString()).toSet();
+        expect(addrStrings, contains('/ip4/5.6.7.8/tcp/4001'));
+        expect(addrStrings, contains('/ip4/9.10.11.12/tcp/4001'));
+      },
+    );
 
-    test('discards self peer ID from queries, closerPeers and providers', () async {
-      final fakeHost = FakeHost(selfId: selfPeerId);
-      final router = Libp2pRouter(fakeHost);
+    test(
+      'discards self peer ID from queries, closerPeers and providers',
+      () async {
+        final fakeHost = FakeHost(selfId: selfPeerId);
+        final router = Libp2pRouter(fakeHost);
 
-      // Response returns self as closer and provider
-      final selfAsCloser = AddrInfo(
-        id: selfPeerId,
-        addrs: [Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')],
-      );
-      final responseBytes = encodeDhtResponse(
-        closerPeers: [selfAsCloser],
-        providerPeers: [selfAsCloser],
-      );
-      fakeHost.streamHandler = (peerId) => FakeP2PStream(responseBytes);
+        // Response returns self as closer and provider
+        final selfAsCloser = AddrInfo(
+          id: selfPeerId,
+          addrs: [Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')],
+        );
+        final responseBytes = encodeDhtResponse(
+          closerPeers: [selfAsCloser],
+          providerPeers: [selfAsCloser],
+        );
+        fakeHost.streamHandler = (peerId) => FakeP2PStream(responseBytes);
 
-      final client = DhtClient(
-        router: router,
-        bootstrapPeers: [bootstrapPeer, selfAsCloser],
-      );
+        final client = DhtClient(
+          router: router,
+          bootstrapPeers: [bootstrapPeer, selfAsCloser],
+        );
 
-      final providers = await client.findProvidersAsync(targetCid, 1).toList();
-      // Self must not be emitted
-      expect(providers, isEmpty);
+        final providers = await client
+            .findProvidersAsync(targetCid, 1)
+            .toList();
+        // Self must not be emitted
+        expect(providers, isEmpty);
 
-      // Self must not be added to peerstore by closerPeers handling
-      expect(fakeHost.addedAddrsForSelf, isFalse);
-    });
+        // Self must not be added to peerstore by closerPeers handling
+        expect(fakeHost.addedAddrsForSelf, isFalse);
+      },
+    );
 
     test('clean cancellation resets active streams and stops query', () async {
       final fakeHost = FakeHost(selfId: selfPeerId);
@@ -139,57 +150,60 @@ void main() {
       expect(stream.isReset, isTrue);
     });
 
-    test('client.close() aborts in-flight streams and rejects new queries', () async {
-      final fakeHost = FakeHost(selfId: selfPeerId);
-      final router = Libp2pRouter(fakeHost);
+    test(
+      'client.close() aborts in-flight streams and rejects new queries',
+      () async {
+        final fakeHost = FakeHost(selfId: selfPeerId);
+        final router = Libp2pRouter(fakeHost);
 
-      final streamCreated = Completer<FakeP2PStream>();
-      fakeHost.streamHandler = (peerId) {
-        final stream = FakeP2PStream(null, delay: const Duration(seconds: 5));
-        streamCreated.complete(stream);
-        return stream;
-      };
+        final streamCreated = Completer<FakeP2PStream>();
+        fakeHost.streamHandler = (peerId) {
+          final stream = FakeP2PStream(null, delay: const Duration(seconds: 5));
+          streamCreated.complete(stream);
+          return stream;
+        };
 
-      final client = DhtClient(
-        router: router,
-        bootstrapPeers: [bootstrapPeer],
-      );
+        final client = DhtClient(
+          router: router,
+          bootstrapPeers: [bootstrapPeer],
+        );
 
-      final sub = client.findProvidersAsync(targetCid, 1).listen((_) {});
-      final stream = await streamCreated.future;
+        final sub = client.findProvidersAsync(targetCid, 1).listen((_) {});
+        final stream = await streamCreated.future;
 
-      await client.close();
-      expect(stream.isReset, isTrue);
-      await sub.cancel();
+        await client.close();
+        expect(stream.isReset, isTrue);
+        await sub.cancel();
 
-      // Subsequent queries throw StateError
-      expect(
-        () => client.findProvidersAsync(targetCid, 1),
-        throwsStateError,
-      );
-    });
+        // Subsequent queries throw StateError
+        expect(() => client.findProvidersAsync(targetCid, 1), throwsStateError);
+      },
+    );
 
-    test('RPC query timeout resets stream and emits TimeoutException when all fail', () async {
-      final fakeHost = FakeHost(selfId: selfPeerId);
-      final router = Libp2pRouter(fakeHost);
+    test(
+      'RPC query timeout resets stream and emits TimeoutException when all fail',
+      () async {
+        final fakeHost = FakeHost(selfId: selfPeerId);
+        final router = Libp2pRouter(fakeHost);
 
-      fakeHost.streamHandler = (peerId) {
-        // Stream never returns, causing RPC timeout
-        return FakeP2PStream(null, delay: const Duration(seconds: 10));
-      };
+        fakeHost.streamHandler = (peerId) {
+          // Stream never returns, causing RPC timeout
+          return FakeP2PStream(null, delay: const Duration(seconds: 10));
+        };
 
-      final client = DhtClient(
-        router: router,
-        bootstrapPeers: [bootstrapPeer],
-        timeout: const Duration(milliseconds: 50),
-        lookupTimeout: const Duration(milliseconds: 200),
-      );
+        final client = DhtClient(
+          router: router,
+          bootstrapPeers: [bootstrapPeer],
+          timeout: const Duration(milliseconds: 50),
+          lookupTimeout: const Duration(milliseconds: 200),
+        );
 
-      expect(
-        client.findProvidersAsync(targetCid, 1).toList(),
-        throwsA(isA<TimeoutException>()),
-      );
-    });
+        expect(
+          client.findProvidersAsync(targetCid, 1).toList(),
+          throwsA(isA<TimeoutException>()),
+        );
+      },
+    );
 
     test('limits closerPeers to 2 * bucketSize (40)', () async {
       final fakeHost = FakeHost(selfId: selfPeerId);
@@ -199,7 +213,9 @@ void main() {
       final closerPeers = [
         for (var i = 0; i < 50; i++)
           AddrInfo(
-            id: PeerId(value: Uint8List.fromList([i + 1, ...List.filled(31, 0)])),
+            id: PeerId(
+              value: Uint8List.fromList([i + 1, ...List.filled(31, 0)]),
+            ),
             addrs: [Multiaddr.parse('/ip4/10.0.0.1/tcp/${2000 + i}')],
           ),
       ];
@@ -224,11 +240,15 @@ void main() {
       final router = Libp2pRouter(fakeHost);
 
       final peerA = AddrInfo(
-        id: PeerId.decode('12D3KooWDeH2M6r2L9c5Z8n1P3q4R7s8T9u1V2w3X4y5Z6a7B8c9'),
+        id: PeerId.decode(
+          '12D3KooWDeH2M6r2L9c5Z8n1P3q4R7s8T9u1V2w3X4y5Z6a7B8c9',
+        ),
         addrs: [Multiaddr.parse('/ip4/10.0.0.1/tcp/4001')],
       );
       final peerB = AddrInfo(
-        id: PeerId.decode('12D3KooWNvV1Z6A3M5P7Q9R2T4U6W8X1Y3Z5A7B9C1D3E5F7G9H1'),
+        id: PeerId.decode(
+          '12D3KooWNvV1Z6A3M5P7Q9R2T4U6W8X1Y3Z5A7B9C1D3E5F7G9H1',
+        ),
         addrs: [Multiaddr.parse('/ip4/10.0.0.2/tcp/4001')],
       );
 
@@ -256,7 +276,11 @@ void main() {
       // Follow-up must have queried the closer peers
       final queriedBase58 = queriedPeers.map((p) => p.toString()).toSet();
       expect(queriedBase58, contains(bootstrapPeer.id.toString()));
-      expect(queriedBase58.contains(peerA.id.toString()) || queriedBase58.contains(peerB.id.toString()), isTrue);
+      expect(
+        queriedBase58.contains(peerA.id.toString()) ||
+            queriedBase58.contains(peerB.id.toString()),
+        isTrue,
+      );
     });
   });
 }
@@ -317,7 +341,10 @@ class FakeHost implements Host {
   Bus get eventBus => BasicBus();
 
   @override
-  Future<void> connect(AddrInfo pi, {NetworkContext context = NetworkContext.empty}) async {}
+  Future<void> connect(
+    AddrInfo pi, {
+    NetworkContext context = NetworkContext.empty,
+  }) async {}
 
   @override
   Future<NetworkStream> newStream(
@@ -336,7 +363,11 @@ class FakeHost implements Host {
   void setStreamHandler(ProtocolId pid, StreamHandler handler) {}
 
   @override
-  void setStreamHandlerMatch(ProtocolId pid, bool Function(ProtocolId) match, StreamHandler handler) {}
+  void setStreamHandlerMatch(
+    ProtocolId pid,
+    bool Function(ProtocolId) match,
+    StreamHandler handler,
+  ) {}
 
   @override
   void removeStreamHandler(ProtocolId pid) {}
@@ -351,10 +382,7 @@ class FakeHost implements Host {
 class FakeP2PStream implements NetworkStream {
   FakeP2PStream(Uint8List? responseBytes, {this.delay}) {
     if (responseBytes != null) {
-      final framed = [
-        ...encodeVarint(responseBytes.length),
-        ...responseBytes,
-      ];
+      final framed = [...encodeVarint(responseBytes.length), ...responseBytes];
       _buffer.addAll(framed);
     }
   }
@@ -409,8 +437,8 @@ class FakeP2PStream implements NetworkStream {
     final toRead = maxLength == null
         ? _buffer.length - _offset
         : (_buffer.length - _offset < maxLength
-            ? _buffer.length - _offset
-            : maxLength);
+              ? _buffer.length - _offset
+              : maxLength);
     final chunk = Uint8List.fromList(
       _buffer.sublist(_offset, _offset + toRead),
     );

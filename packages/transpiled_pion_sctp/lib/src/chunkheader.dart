@@ -84,15 +84,22 @@ final class ChunkHeader {
 
     final typ = ChunkType.fromValue(raw[0]);
     final flags = raw[1];
-    final lengthField = Golang.Uint16(ByteData.sublistView(raw, 2, 4).getUint16(0, Endian.big));
+    final lengthField = Golang.Uint16(
+      ByteData.sublistView(raw, 2, 4).getUint16(0, Endian.big),
+    );
 
     // Length includes Chunk header; see the file-level doc comment for why
     // this subtraction must wrap like Go's uint16 arithmetic.
-    final valueLength = (lengthField - Golang.Uint16(chunkHeaderSize)).toBigInt().toInt();
+    final valueLength = (lengthField - Golang.Uint16(chunkHeaderSize))
+        .toBigInt()
+        .toInt();
     final lengthAfterValue = raw.length - (chunkHeaderSize + valueLength);
 
     if (lengthAfterValue < 0) {
-      throw ChunkHeaderNotEnoughSpaceException(valueLength, raw.length - chunkHeaderSize);
+      throw ChunkHeaderNotEnoughSpaceException(
+        valueLength,
+        raw.length - chunkHeaderSize,
+      );
     } else if (lengthAfterValue < 4) {
       // https://tools.ietf.org/html/rfc4960#section-3.2
       // The Chunk Length field does not count any chunk padding. The
@@ -108,7 +115,11 @@ final class ChunkHeader {
     return ChunkHeader(
       typ: typ,
       flags: flags,
-      raw: Uint8List.sublistView(raw, chunkHeaderSize, chunkHeaderSize + valueLength),
+      raw: Uint8List.sublistView(
+        raw,
+        chunkHeaderSize,
+        chunkHeaderSize + valueLength,
+      ),
     );
   }
 
@@ -126,7 +137,9 @@ final class ChunkHeader {
     final out = Uint8List(4 + raw.length);
     out[0] = typ.value;
     out[1] = flags;
-    ByteData.sublistView(out).setUint16(2, (raw.length + chunkHeaderSize) & 0xFFFF, Endian.big);
+    ByteData.sublistView(
+      out,
+    ).setUint16(2, (raw.length + chunkHeaderSize) & 0xFFFF, Endian.big);
     out.setRange(4, 4 + raw.length, raw);
     return out;
   }

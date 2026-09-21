@@ -12,7 +12,9 @@ import 'package:transpiled_libp2p_kbucket/transpiled_libp2p_kbucket.dart';
 
 PeerId _randPeerId() {
   final random = Random.secure();
-  final bytes = Uint8List.fromList(List.generate(16, (_) => random.nextInt(256)));
+  final bytes = Uint8List.fromList(
+    List.generate(16, (_) => random.nextInt(256)),
+  );
   return PeerId(value: bytes);
 }
 

@@ -18,7 +18,9 @@ void subtestKey(String s) {
   final namespaces = fixed.split('/').sublist(1);
   final lastNamespace = namespaces.last;
   final lnparts = lastNamespace.split(':');
-  final ktype = lnparts.length > 1 ? lnparts.sublist(0, lnparts.length - 1).join(':') : '';
+  final ktype = lnparts.length > 1
+      ? lnparts.sublist(0, lnparts.length - 1).join(':')
+      : '';
   final kname = lnparts.last;
 
   final kchild = cleanPath('$fixed/cchildd');
@@ -146,7 +148,13 @@ void main() {
   test('TestKey_RootNamespace', () {
     expect(Key.raw('/').rootNamespace, equals(''));
     expect(Key.raw('/Comedy').rootNamespace, equals('Comedy'));
-    expect(Key.raw('/Comedy/MontyPython/Actor:JohnCleese').rootNamespace, equals('Comedy'));
-    expect(Key.raw('/Comedy:MontyPython').rootNamespace, equals('Comedy:MontyPython'));
+    expect(
+      Key.raw('/Comedy/MontyPython/Actor:JohnCleese').rootNamespace,
+      equals('Comedy'),
+    );
+    expect(
+      Key.raw('/Comedy:MontyPython').rootNamespace,
+      equals('Comedy:MontyPython'),
+    );
   });
 }

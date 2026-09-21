@@ -23,14 +23,19 @@ final class ChunkTypeNotCookieEchoException implements Exception {
   final ChunkType actual;
 
   @override
-  String toString() => 'ChunkType is not of type COOKIEECHO: actually is $actual';
+  String toString() =>
+      'ChunkType is not of type COOKIEECHO: actually is $actual';
 }
 
 /// Port of `chunkCookieEcho` (chunk_cookie_echo.go:12-15).
 final class ChunkCookieEcho implements Chunk {
   ChunkCookieEcho({Uint8List? cookie})
     : cookie = cookie ?? Uint8List(0),
-      header = ChunkHeader(typ: ChunkType.cookieEcho, flags: 0, raw: Uint8List(0));
+      header = ChunkHeader(
+        typ: ChunkType.cookieEcho,
+        flags: 0,
+        raw: Uint8List(0),
+      );
 
   /// Composition standing in for Go's embedded `chunkHeader`.
   ChunkHeader header;

@@ -15,7 +15,7 @@ Future<Block> syncGetBlock(Cid k, GetBlocksFunc gb) async {
   }
 
   final promise = await gb([k]);
-  
+
   try {
     final block = await promise.first;
     return block;
@@ -33,11 +33,11 @@ typedef WantFunc = void Function(List<Cid> keys);
 /// blocks, a want function, and a close function, and returns a channel of
 /// incoming blocks.
 Future<Stream<Block>> asyncGetBlocks(
-    List<Cid> keys,
-    PubSub notif,
-    WantFunc want,
-    void Function(List<Cid>) cwants) async {
-  
+  List<Cid> keys,
+  PubSub notif,
+  WantFunc want,
+  void Function(List<Cid>) cwants,
+) async {
   // If there are no keys supplied, just return a closed channel
   if (keys.isEmpty) {
     return const Stream.empty();
@@ -71,7 +71,7 @@ Future<Stream<Block>> asyncGetBlocks(
     },
     cancelOnError: false,
   );
-  
+
   out.onCancel = () {
     // Note: Since we are using an async stream, if canceled, clean up remaining wants
     cleanup();

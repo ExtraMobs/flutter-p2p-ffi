@@ -25,8 +25,9 @@ import '../../../../core/peerstore/peerstore.dart';
 
 final Key _pmBase = Key('/peers/metadata');
 
-Key _metadataKey(PeerId p, String key) =>
-    _pmBase.childString(base32.rawStdEncoding.encodeToString(p.value)).childString(key);
+Key _metadataKey(PeerId p, String key) => _pmBase
+    .childString(base32.rawStdEncoding.encodeToString(p.value))
+    .childString(key);
 
 /// A [PeerMetadata] backed by a persistent [Datastore]. Equivalent to
 /// go-libp2p's `pstoreds.dsPeerMetadata`.
@@ -78,7 +79,9 @@ class DsPeerMetadata implements PeerMetadata {
       final peerSegment = key.parent.name;
       late final PeerId peerId;
       try {
-        peerId = PeerId.fromBytes(base32.rawStdEncoding.decodeString(peerSegment));
+        peerId = PeerId.fromBytes(
+          base32.rawStdEncoding.decodeString(peerSegment),
+        );
       } catch (_) {
         // Repair records written by the earlier Dart Base58 implementation.
         final PeerId legacyPeer;
@@ -98,7 +101,8 @@ class DsPeerMetadata implements PeerMetadata {
       }
       try {
         final decoded = json.decode(utf8.decode(value));
-        pm._metadata.putIfAbsent(peerId.toBase58(), () => {})[metaKey] = decoded;
+        pm._metadata.putIfAbsent(peerId.toBase58(), () => {})[metaKey] =
+            decoded;
       } catch (_) {
         // Skip malformed/foreign entries under this prefix.
       }

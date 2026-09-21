@@ -50,7 +50,10 @@ void main() {
       ('base32hex', 'v8him6pbeehp62r39f9ii0pbmclp7it38d5n6e89144'),
       ('base32hexupper', 'V8HIM6PBEEHP62R39F9II0PBMCLP7IT38D5N6E89144'),
       ('base32hexpad', 't8him6pbeehp62r39f9ii0pbmclp7it38d5n6e89144======'),
-      ('base32hexpadupper', 'T8HIM6PBEEHP62R39F9II0PBMCLP7IT38D5N6E89144======'),
+      (
+        'base32hexpadupper',
+        'T8HIM6PBEEHP62R39F9II0PBMCLP7IT38D5N6E89144======',
+      ),
       ('base36', 'km552ng4dabi4neu1oo8l4i5mndwmpc3mkukwtxy9'),
       ('base36upper', 'KM552NG4DABI4NEU1OO8L4I5MNDWMPC3MKUKWTXY9'),
       ('base58btc', 'z36UQrhJq9fNDS7DiAHM9YXqDHMPfr4EMArvt'),
@@ -59,10 +62,7 @@ void main() {
       ('base64url', 'uRGVjZW50cmFsaXplIGV2ZXJ5dGhpbmchISE'),
       ('base64pad', 'MRGVjZW50cmFsaXplIGV2ZXJ5dGhpbmchISE='),
       ('base64urlpad', 'URGVjZW50cmFsaXplIGV2ZXJ5dGhpbmchISE='),
-      (
-        'base256emoji',
-        '🚀💛✋💃✋😻😈🥺🤤🍀🌟💐✋😅✋💦✋🥺🏃😈😴🌟😻😝👏👏👏',
-      ),
+      ('base256emoji', '🚀💛✋💃✋😻😈🥺🤤🍀🌟💐✋😅✋💦✋🥺🏃😈😴🌟😻😝👏👏👏'),
     ];
 
     for (final (name, expected) in cases) {
@@ -90,7 +90,8 @@ void main() {
     }
 
     checkRow('yes mani !', {
-      'base2': '0'
+      'base2':
+          '0'
           '01111001011001010111001100100000011011010110000101101110011'
           '010010010000000100001',
       'base16': 'f796573206d616e692021',
@@ -115,7 +116,8 @@ void main() {
     });
 
     checkRow('\x00yes mani !', {
-      'base2': '0'
+      'base2':
+          '0'
           '0000000001111001011001010111001100100000011011010110000101'
           '101110011010010010000000100001',
       'base16': 'f00796573206d616e692021',
@@ -140,7 +142,8 @@ void main() {
     });
 
     checkRow('\x00\x00yes mani !', {
-      'base2': '0'
+      'base2':
+          '0'
           '000000000000000001111001011001010111001100100000011011010'
           '110000101101110011010010010000000100001',
       'base16': 'f0000796573206d616e692021',

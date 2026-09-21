@@ -2,4 +2,16 @@
 /// Port of `multiformats/go-varint`.
 library;
 
-export 'src/varint.dart' show maxLenUvarint63, maxValueUvarint63, uvarintSize, toUvarint, putUvarint, fromUvarint, readVarint, encodeVarint, errOverflow, errUnderflow, errNotMinimal;
+export 'src/varint.dart'
+    show
+        maxLenUvarint63,
+        maxValueUvarint63,
+        uvarintSize,
+        toUvarint,
+        putUvarint,
+        fromUvarint,
+        readVarint,
+        encodeVarint,
+        errOverflow,
+        errUnderflow,
+        errNotMinimal;

@@ -46,7 +46,9 @@ typedef BackoffDiscoveryOption = void Function(BackoffDiscovery discovery);
 /// listeners are never dropped for lack of buffer space -- so this setting
 /// is accepted (and validated, matching Go's error behavior) for API
 /// parity but does not change delivery.
-BackoffDiscoveryOption withBackoffDiscoverySimultaneousQueryBufferSize(int size) {
+BackoffDiscoveryOption withBackoffDiscoverySimultaneousQueryBufferSize(
+  int size,
+) {
   if (size < 0) {
     throw ArgumentError('cannot set size to be smaller than 0');
   }
@@ -116,7 +118,8 @@ class BackoffDiscovery implements Discovery {
     );
 
     final timeExpired =
-        cache.nextDiscover == null || DateTime.now().isAfter(cache.nextDiscover!);
+        cache.nextDiscover == null ||
+        DateTime.now().isAfter(cache.nextDiscover!);
 
     // If it's not yet time to search again and no search is in progress,
     // return cached peers.

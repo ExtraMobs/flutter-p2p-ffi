@@ -59,8 +59,7 @@ Future<List<Uint8List>> _noiseHkdf(
   return [output1, output2, output3];
 }
 
-Uint8List _concat(List<int> a, List<int> b) =>
-    Uint8List.fromList([...a, ...b]);
+Uint8List _concat(List<int> a, List<int> b) => Uint8List.fromList([...a, ...b]);
 
 /// A Noise DH key pair: [privateKeyBytes] is the raw 32-byte X25519 scalar
 /// (pre-clamping seed, matching flynn/noise's `DHKey.Private`), and
@@ -98,10 +97,7 @@ Future<Uint8List> _dh(NoiseKeyPair local, Uint8List remotePublicKey) async {
   final localKeyPair = await local._asCryptographyKeyPair();
   final shared = await _x25519.sharedSecretKey(
     keyPair: localKeyPair,
-    remotePublicKey: SimplePublicKey(
-      remotePublicKey,
-      type: KeyPairType.x25519,
-    ),
+    remotePublicKey: SimplePublicKey(remotePublicKey, type: KeyPairType.x25519),
   );
   return Uint8List.fromList(await shared.extractBytes());
 }
@@ -242,11 +238,7 @@ class SymmetricState {
   /// [CipherState]s from the final chaining key, once the handshake's
   /// message patterns are exhausted.
   Future<(CipherState, CipherState)> split() async {
-    final outputs = await _noiseHkdf(
-      _chainingKey,
-      Uint8List(0),
-      numOutputs: 2,
-    );
+    final outputs = await _noiseHkdf(_chainingKey, Uint8List(0), numOutputs: 2);
     return (CipherState(key: outputs[0]), CipherState(key: outputs[1]));
   }
 }

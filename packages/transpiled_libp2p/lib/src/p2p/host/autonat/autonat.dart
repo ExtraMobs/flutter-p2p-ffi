@@ -41,7 +41,9 @@ class AmbientAutoNat implements AutoNat {
   Emitter? _emitter;
 
   Future<Emitter> _getEmitter() async {
-    return _emitter ??= await host.eventBus.emitter(EvtLocalReachabilityChanged);
+    return _emitter ??= await host.eventBus.emitter(
+      EvtLocalReachabilityChanged,
+    );
   }
 
   @override

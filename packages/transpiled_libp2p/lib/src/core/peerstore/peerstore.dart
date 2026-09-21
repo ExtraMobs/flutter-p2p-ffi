@@ -100,7 +100,8 @@ abstract interface class PeerMetadata {
 }
 
 /// Peerstore provides a store of peer-related information.
-abstract interface class Peerstore implements AddrBook, KeyBook, PeerMetadata, Metrics, ProtoBook {
+abstract interface class Peerstore
+    implements AddrBook, KeyBook, PeerMetadata, Metrics, ProtoBook {
   AddrInfo peerInfo(PeerId p);
   List<PeerId> peers();
   @override

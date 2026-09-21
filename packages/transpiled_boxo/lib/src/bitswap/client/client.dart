@@ -37,16 +37,17 @@ class Client implements Receiver, BlockGetter {
     BlockPresenceManager? bpm,
     NotificationsPubSub? notif,
     this.timeout = const Duration(seconds: 30),
-  })  : bpm = bpm ?? BlockPresenceManager(),
-        notif = notif ?? NotificationsPubSub(),
-        pm = pm ??
-            PeerManager(
-              (p) => _DefaultPeerQueue(p, network),
-              BroadcastControl(),
-              const NullGauge(),
-              const NullGauge(),
-              const NullGauge(),
-            );
+  }) : bpm = bpm ?? BlockPresenceManager(),
+       notif = notif ?? NotificationsPubSub(),
+       pm =
+           pm ??
+           PeerManager(
+             (p) => _DefaultPeerQueue(p, network),
+             BroadcastControl(),
+             const NullGauge(),
+             const NullGauge(),
+             const NullGauge(),
+           );
 
   final BitSwapNetwork network;
   final Blockstore blockstore;

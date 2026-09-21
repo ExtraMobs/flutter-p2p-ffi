@@ -17,7 +17,10 @@ import 'util.dart';
 class FirstSeenCache implements TimeCache {
   /// Creates the cache. [sweepInterval] defaults to
   /// [backgroundSweepInterval], overridable for testing.
-  FirstSeenCache(this._ttl, [Duration sweepInterval = backgroundSweepInterval]) {
+  FirstSeenCache(
+    this._ttl, [
+    Duration sweepInterval = backgroundSweepInterval,
+  ]) {
     _sweepTimer = startBackgroundSweep(_entries, sweepInterval);
   }
 

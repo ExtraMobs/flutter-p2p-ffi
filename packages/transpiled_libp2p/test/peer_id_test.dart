@@ -77,20 +77,23 @@ void main() {
       expect(pid1.value.length, equals(38));
     });
 
-    test('fromPublicKey inlines an Ed25519 key as its marshaled protobuf bytes', () {
-      final publicKey = Uint8List.fromList(List.generate(32, (i) => i));
-      final pid = PeerId.fromPublicKey(publicKey, type: 'Ed25519');
-      // varint(0x00) + varint(36) + protobuf PublicKey{Type:1(Ed25519),
-      // Data:<32 bytes>}: field tags 0x08 0x01 (Type) and 0x12 0x20 (Data,
-      // length 32) framing the raw key.
-      final expected = Uint8List.fromList([
-        0x00, 36, // multihash: identity, length 36
-        0x08, 0x01, // PublicKey.Type = Ed25519 (1)
-        0x12, 32, // PublicKey.Data, length 32
-        ...publicKey,
-      ]);
-      expect(pid.value, orderedEquals(expected));
-    });
+    test(
+      'fromPublicKey inlines an Ed25519 key as its marshaled protobuf bytes',
+      () {
+        final publicKey = Uint8List.fromList(List.generate(32, (i) => i));
+        final pid = PeerId.fromPublicKey(publicKey, type: 'Ed25519');
+        // varint(0x00) + varint(36) + protobuf PublicKey{Type:1(Ed25519),
+        // Data:<32 bytes>}: field tags 0x08 0x01 (Type) and 0x12 0x20 (Data,
+        // length 32) framing the raw key.
+        final expected = Uint8List.fromList([
+          0x00, 36, // multihash: identity, length 36
+          0x08, 0x01, // PublicKey.Type = Ed25519 (1)
+          0x12, 32, // PublicKey.Data, length 32
+          ...publicKey,
+        ]);
+        expect(pid.value, orderedEquals(expected));
+      },
+    );
 
     test('fromPublicKey RSA-sized keys hash instead of inlining', () {
       // A 270-byte "key" (typical marshaled size for a 2048-bit RSA key)
@@ -148,58 +151,61 @@ void main() {
     });
   });
 
-  group('PeerId.decode / ToCid / FromCid (go-libp2p TestIDEncoding vector)', () {
-    test('decodes the base58 form and round-trips through Cid', () {
-      final p1 = PeerId.decode(_manPeerIdBase58);
-      expect(p1.toBase58(), equals(_manPeerIdBase58));
-
-      final cid = p1.toCid();
-      final p2 = PeerId.fromCid(cid);
-      expect(p2, equals(p1));
-
-      final p3 = PeerId.decode(cid.toString());
-      expect(p3, equals(p1));
-    });
-
-    test('refuses to decode a non-peer-ID Cid', () {
-      // dag-pb (raw file), not libp2p-key -- go-libp2p's own vector.
-      expect(
-        () => PeerId.decode(
-          'bafkreifoybygix7fh3r3g5rqle3wcnhqldgdg4shzf4k3ulyw3gn7mabt4',
-        ),
-        throwsA(isA<InvalidPeerIdSourceException>()),
-      );
-    });
-
-    test('toCid throws for the empty peer ID (no zero-value Cid sentinel)', () {
-      expect(() => PeerId(value: Uint8List(0)).toCid(), throwsA(anything));
-    });
-  });
-
   group(
-    'PeerId.matchesPublicKey / matchesPrivateKey / fromPrivateKey '
-    '(go-libp2p TestIDMatchesPublicKey/PrivateKey vector, real RSA key)',
+    'PeerId.decode / ToCid / FromCid (go-libp2p TestIDEncoding vector)',
     () {
-      test('matches the RSA private/public key it was derived from', () async {
-        final skBytes = base64.decode(_manPrivateKeyBase64);
-        final sk = await unmarshalPrivateKey(Uint8List.fromList(skBytes));
+      test('decodes the base58 form and round-trips through Cid', () {
         final p1 = PeerId.decode(_manPeerIdBase58);
+        expect(p1.toBase58(), equals(_manPeerIdBase58));
 
-        expect(p1.matchesPrivateKey(sk), isTrue);
-        expect(p1.matchesPublicKey(sk.getPublic()), isTrue);
-
-        final p2 = PeerId.fromPrivateKey(sk);
+        final cid = p1.toCid();
+        final p2 = PeerId.fromCid(cid);
         expect(p2, equals(p1));
-        expect(p2.toBase58(), equals(_manPeerIdBase58));
+
+        final p3 = PeerId.decode(cid.toString());
+        expect(p3, equals(p1));
       });
 
-      test('does not match an unrelated key', () async {
-        final keyPair = await generateEd25519KeyPair();
-        final p1 = PeerId.decode(_manPeerIdBase58);
-        expect(p1.matchesPublicKey(keyPair.getPublic()), isFalse);
+      test('refuses to decode a non-peer-ID Cid', () {
+        // dag-pb (raw file), not libp2p-key -- go-libp2p's own vector.
+        expect(
+          () => PeerId.decode(
+            'bafkreifoybygix7fh3r3g5rqle3wcnhqldgdg4shzf4k3ulyw3gn7mabt4',
+          ),
+          throwsA(isA<InvalidPeerIdSourceException>()),
+        );
       });
+
+      test(
+        'toCid throws for the empty peer ID (no zero-value Cid sentinel)',
+        () {
+          expect(() => PeerId(value: Uint8List(0)).toCid(), throwsA(anything));
+        },
+      );
     },
   );
+
+  group('PeerId.matchesPublicKey / matchesPrivateKey / fromPrivateKey '
+      '(go-libp2p TestIDMatchesPublicKey/PrivateKey vector, real RSA key)', () {
+    test('matches the RSA private/public key it was derived from', () async {
+      final skBytes = base64.decode(_manPrivateKeyBase64);
+      final sk = await unmarshalPrivateKey(Uint8List.fromList(skBytes));
+      final p1 = PeerId.decode(_manPeerIdBase58);
+
+      expect(p1.matchesPrivateKey(sk), isTrue);
+      expect(p1.matchesPublicKey(sk.getPublic()), isTrue);
+
+      final p2 = PeerId.fromPrivateKey(sk);
+      expect(p2, equals(p1));
+      expect(p2.toBase58(), equals(_manPeerIdBase58));
+    });
+
+    test('does not match an unrelated key', () async {
+      final keyPair = await generateEd25519KeyPair();
+      final p1 = PeerId.decode(_manPeerIdBase58);
+      expect(p1.matchesPublicKey(keyPair.getPublic()), isFalse);
+    });
+  });
 
   group('PeerId.validate', () {
     test('throws for the empty peer ID', () {
@@ -215,14 +221,17 @@ void main() {
   });
 
   group('PeerId.extractPublicKey', () {
-    test('extracts the embedded key from an identity-multihash (Ed25519) ID', () async {
-      final keyPair = await generateEd25519KeyPair();
-      final pubKey = keyPair.getPublic();
-      final id = PeerId.fromPubKey(pubKey);
+    test(
+      'extracts the embedded key from an identity-multihash (Ed25519) ID',
+      () async {
+        final keyPair = await generateEd25519KeyPair();
+        final pubKey = keyPair.getPublic();
+        final id = PeerId.fromPubKey(pubKey);
 
-      final extracted = id.extractPublicKey();
-      expect(extracted.raw(), orderedEquals(pubKey.raw()));
-    });
+        final extracted = id.extractPublicKey();
+        expect(extracted.raw(), orderedEquals(pubKey.raw()));
+      },
+    );
 
     test('throws for a hashed (RSA-sized) ID with no embedded key', () async {
       final skBytes = base64.decode(_manPrivateKeyBase64);
@@ -241,7 +250,10 @@ void main() {
     test('long IDs are truncated to first-2*last-6 chars', () {
       final id = PeerId.decode(_manPeerIdBase58);
       final s = id.toBase58();
-      expect(id.shortString(), equals('<peer.ID ${s.substring(0, 2)}*${s.substring(s.length - 6)}>'));
+      expect(
+        id.shortString(),
+        equals('<peer.ID ${s.substring(0, 2)}*${s.substring(s.length - 6)}>'),
+      );
     });
   });
 

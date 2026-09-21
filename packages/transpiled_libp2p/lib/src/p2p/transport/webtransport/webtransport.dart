@@ -32,7 +32,8 @@ import '../../../core/transport/transport.dart';
       if (!foundUdp) foundUdp = true;
     } else if (code == Protocols.quicV1 || c.protocol.name == 'quic-v1') {
       if (foundUdp && !foundQuicV1) foundQuicV1 = true;
-    } else if (code == Protocols.webtransport || c.protocol.name == 'webtransport') {
+    } else if (code == Protocols.webtransport ||
+        c.protocol.name == 'webtransport') {
       if (foundQuicV1) foundWebTransport = true;
     } else if (code == Protocols.certhash || c.protocol.name == 'certhash') {
       if (foundWebTransport) certhashCount++;
@@ -45,7 +46,8 @@ import '../../../core/transport/transport.dart';
 List<Uint8List> extractCertHashes(Multiaddr addr) {
   final hashes = <Uint8List>[];
   for (final c in addr.components) {
-    if (c.protocol.code == Protocols.certhash || c.protocol.name == 'certhash') {
+    if (c.protocol.code == Protocols.certhash ||
+        c.protocol.name == 'certhash') {
       try {
         final (_, bytes) = multibase.decode(c.value);
         final mh = multihash.decode(bytes);
@@ -89,12 +91,12 @@ class WebtransportTransport implements Transport {
 
   @override
   List<int> protocols() => const [
-        Protocols.ip4,
-        Protocols.ip6,
-        Protocols.udp,
-        Protocols.quicV1,
-        Protocols.webtransport,
-      ];
+    Protocols.ip4,
+    Protocols.ip6,
+    Protocols.udp,
+    Protocols.quicV1,
+    Protocols.webtransport,
+  ];
 
   @override
   bool proxy() => false;
@@ -114,10 +116,14 @@ class WebtransportTransport implements Transport {
     if (_closed) throw StateError('WebtransportTransport is closed');
     final (isValid, certhashCount) = isWebtransportMultiaddr(addr);
     if (!isValid) {
-      throw ArgumentError('Address $addr is not a valid WebTransport multiaddr');
+      throw ArgumentError(
+        'Address $addr is not a valid WebTransport multiaddr',
+      );
     }
     if (certhashCount > 0) {
-      throw ArgumentError('Cannot listen on multiaddr with specific certhash: $addr');
+      throw ArgumentError(
+        'Cannot listen on multiaddr with specific certhash: $addr',
+      );
     }
 
     String? host;
@@ -140,10 +146,10 @@ class WebtransportTransport implements Transport {
     final bindAddress = (host == '127.0.0.1' || host == 'localhost')
         ? InternetAddress.loopbackIPv4
         : (host == '::1'
-            ? InternetAddress.loopbackIPv6
-            : (host.contains(':')
-                ? InternetAddress.anyIPv6
-                : InternetAddress.anyIPv4));
+              ? InternetAddress.loopbackIPv6
+              : (host.contains(':')
+                    ? InternetAddress.anyIPv6
+                    : InternetAddress.anyIPv4));
 
     final socket = await RawDatagramSocket.bind(bindAddress, port);
     final boundPort = socket.port;
@@ -197,7 +203,9 @@ class WebtransportTransport implements Transport {
 
     final socket = await RawDatagramSocket.bind(clientBindAddr, 0);
 
-    final localAddr = Multiaddr.parse('/ip4/${socket.address.address}/udp/${socket.port}/quic-v1/webtransport');
+    final localAddr = Multiaddr.parse(
+      '/ip4/${socket.address.address}/udp/${socket.port}/quic-v1/webtransport',
+    );
     final remoteAddr = addr;
 
     final handshakeCompleter = Completer<Uint8List>();
@@ -239,7 +247,9 @@ class WebtransportTransport implements Transport {
       const Duration(seconds: 10),
       onTimeout: () {
         conn.close();
-        throw TimeoutException('WebTransport handshake timed out dialing $addr');
+        throw TimeoutException(
+          'WebTransport handshake timed out dialing $addr',
+        );
       },
     );
 
@@ -263,12 +273,15 @@ class _WebtransportListener implements Listener {
     required WebtransportTransport transport,
     required RawDatagramSocket socket,
     required Multiaddr boundAddr,
-  })  : _transport = transport,
-        _socket = socket,
-        _boundAddr = boundAddr {
-    _subscription = _socket.listen(_onEvent, onError: (Object e) {
-      _closeCompleters(e);
-    });
+  }) : _transport = transport,
+       _socket = socket,
+       _boundAddr = boundAddr {
+    _subscription = _socket.listen(
+      _onEvent,
+      onError: (Object e) {
+        _closeCompleters(e);
+      },
+    );
   }
 
   final WebtransportTransport _transport;
@@ -412,20 +425,23 @@ class _WebtransportConn implements CapableConn {
     required this.isClient,
     required this.ownsSocket,
     this.onHandshakeResponse,
-  })  : _transport = transport,
-        _socket = socket,
-        _localPeer = localPeer,
-        _remotePeer = remotePeer,
-        _remotePubKey = remotePubKey,
-        _localMultiaddr = localMultiaddr,
-        _remoteMultiaddr = remoteMultiaddr,
-        _remoteAddress = remoteAddress,
-        _remotePort = remotePort,
-        _opened = DateTime.now() {
+  }) : _transport = transport,
+       _socket = socket,
+       _localPeer = localPeer,
+       _remotePeer = remotePeer,
+       _remotePubKey = remotePubKey,
+       _localMultiaddr = localMultiaddr,
+       _remoteMultiaddr = remoteMultiaddr,
+       _remoteAddress = remoteAddress,
+       _remotePort = remotePort,
+       _opened = DateTime.now() {
     if (ownsSocket) {
-      _subscription = _socket.listen(_onEvent, onError: (e) {
-        _closeStreams();
-      });
+      _subscription = _socket.listen(
+        _onEvent,
+        onError: (e) {
+          _closeStreams();
+        },
+      );
     }
   }
 
@@ -477,7 +493,11 @@ class _WebtransportConn implements CapableConn {
         final (frameLen, n) = parseVarInt(bytes, cursor);
         cursor += n;
         if (cursor + frameLen > bytes.length) break;
-        final frameBytes = Uint8List.sublistView(bytes, cursor, cursor + frameLen);
+        final frameBytes = Uint8List.sublistView(
+          bytes,
+          cursor,
+          cursor + frameLen,
+        );
         cursor += frameLen;
 
         final frame = parseFrame(frameBytes);
@@ -549,17 +569,17 @@ class _WebtransportConn implements CapableConn {
 
   @override
   ConnectionState connState() => const ConnectionState(
-        streamMultiplexer: 'webtransport',
-        security: '/noise',
-        transport: 'webtransport',
-      );
+    streamMultiplexer: 'webtransport',
+    security: '/noise',
+    transport: 'webtransport',
+  );
 
   @override
   ConnStats stat() => ConnStats(
-        direction: isClient ? Direction.outbound : Direction.inbound,
-        opened: _opened,
-        numStreams: _activeStreams.length,
-      );
+    direction: isClient ? Direction.outbound : Direction.inbound,
+    opened: _opened,
+    numStreams: _activeStreams.length,
+  );
 
   @override
   ConnScope scope() => const NullScope();
@@ -571,7 +591,14 @@ class _WebtransportConn implements CapableConn {
     _nextStreamId += 4;
     final stream = _WebtransportStream(conn: this, id: streamId);
     _activeStreams[streamId] = stream;
-    _sendStreamFrame(StreamFrame(streamId: streamId, offset: 0, data: Uint8List(0), fin: false));
+    _sendStreamFrame(
+      StreamFrame(
+        streamId: streamId,
+        offset: 0,
+        data: Uint8List(0),
+        fin: false,
+      ),
+    );
     return stream;
   }
 
@@ -600,9 +627,9 @@ class _WebtransportConn implements CapableConn {
 
 class _WebtransportStream implements NetworkStream {
   _WebtransportStream({required _WebtransportConn conn, required int id})
-      : _conn = conn,
-        _id = id,
-        _opened = DateTime.now();
+    : _conn = conn,
+      _id = id,
+      _opened = DateTime.now();
 
   final _WebtransportConn _conn;
   final int _id;
@@ -652,10 +679,7 @@ class _WebtransportStream implements NetworkStream {
   StreamScope scope() => const NullScope();
 
   @override
-  Stats stat() => Stats(
-        direction: Direction.outbound,
-        opened: _opened,
-      );
+  Stats stat() => Stats(direction: Direction.outbound, opened: _opened);
 
   @override
   bool get isClosed => _closed;

@@ -36,7 +36,8 @@ import 'package:transpiled_libp2p/src/core/peer/addr_info.dart';
 import 'package:transpiled_libp2p/src/core/peer/peer_id.dart';
 import 'package:transpiled_libp2p/src/core/peerstore/peerstore.dart';
 import 'package:transpiled_libp2p/src/core/protocol/protocol.dart';
-import 'package:transpiled_libp2p/src/core/routing/routing.dart' as core_routing;
+import 'package:transpiled_libp2p/src/core/routing/routing.dart'
+    as core_routing;
 import 'package:transpiled_libp2p/src/p2p/discovery/backoff/backoff.dart';
 import 'package:transpiled_libp2p/src/p2p/discovery/backoff/backoffcache.dart';
 import 'package:transpiled_libp2p/src/p2p/discovery/backoff/backoffconnector.dart';
@@ -221,10 +222,7 @@ void main() {
         // to, by round-tripping through advertise's own Cid computation.
         await d.advertise('/test');
         final cid = router.provided.single.$1;
-        router.providers[cid.toString()] = List.generate(
-          150,
-          (i) => _ai(i),
-        );
+        router.providers[cid.toString()] = List.generate(150, (i) => _ai(i));
         final results = await d.findPeers('/test').toList();
         expect(results, hasLength(100));
       },
@@ -242,28 +240,38 @@ void main() {
   });
 
   group('DiscoveryRouting [Atomic Audit]', () {
-    test('disc/options - expose the wrapped discovery and configured options', () {
-      final disc = _RecordingDiscovery();
-      final opts = [ttl(const Duration(hours: 1))];
-      final r = DiscoveryRouting(disc, opts);
-      expect(r.disc, same(disc));
-      expect(r.options, same(opts));
-    });
+    test(
+      'disc/options - expose the wrapped discovery and configured options',
+      () {
+        final disc = _RecordingDiscovery();
+        final opts = [ttl(const Duration(hours: 1))];
+        final r = DiscoveryRouting(disc, opts);
+        expect(r.disc, same(disc));
+        expect(r.options, same(opts));
+      },
+    );
 
-    test('advertise() - passes through directly to the wrapped Discovery', () async {
-      final disc = _RecordingDiscovery()..ttlToReturn = const Duration(minutes: 5);
-      final r = DiscoveryRouting(disc);
-      final result = await r.advertise('/ns');
-      expect(disc.advertised, ['/ns']);
-      expect(result, const Duration(minutes: 5));
-    });
+    test(
+      'advertise() - passes through directly to the wrapped Discovery',
+      () async {
+        final disc = _RecordingDiscovery()
+          ..ttlToReturn = const Duration(minutes: 5);
+        final r = DiscoveryRouting(disc);
+        final result = await r.advertise('/ns');
+        expect(disc.advertised, ['/ns']);
+        expect(result, const Duration(minutes: 5));
+      },
+    );
 
-    test('findPeers() - passes through directly to the wrapped Discovery', () async {
-      final disc = _RecordingDiscovery()..peersByNs['/ns'] = [_ai(1)];
-      final r = DiscoveryRouting(disc);
-      final results = await r.findPeers('/ns').toList();
-      expect(results, hasLength(1));
-    });
+    test(
+      'findPeers() - passes through directly to the wrapped Discovery',
+      () async {
+        final disc = _RecordingDiscovery()..peersByNs['/ns'] = [_ai(1)];
+        final r = DiscoveryRouting(disc);
+        final results = await r.findPeers('/ns').toList();
+        expect(results, hasLength(1));
+      },
+    );
 
     test(
       'provide() - a no-op when bcast/local is false (routing.go:88-90)',
@@ -312,22 +320,25 @@ void main() {
       expect(strat.delay(), const Duration(seconds: 3));
     });
 
-    test('reset() - clears state so delay() restarts from the first attempt', () {
-      final BackoffStrategy strat = exponentialBackoff(
-        const Duration(milliseconds: 1),
-        const Duration(seconds: 100),
-        noJitter,
-        const Duration(seconds: 1),
-        2,
-        Duration.zero,
-        Random(0),
-      )();
-      final first = strat.delay(); // attempt 0: 2^0 * 1s == 1s
-      final second = strat.delay(); // attempt 1: 2^1 * 1s == 2s
-      expect(second, isNot(first));
-      strat.reset();
-      expect(strat.delay(), first);
-    });
+    test(
+      'reset() - clears state so delay() restarts from the first attempt',
+      () {
+        final BackoffStrategy strat = exponentialBackoff(
+          const Duration(milliseconds: 1),
+          const Duration(seconds: 100),
+          noJitter,
+          const Duration(seconds: 1),
+          2,
+          Duration.zero,
+          Random(0),
+        )();
+        final first = strat.delay(); // attempt 0: 2^0 * 1s == 1s
+        final second = strat.delay(); // attempt 1: 2^1 * 1s == 2s
+        expect(second, isNot(first));
+        strat.reset();
+        expect(strat.delay(), first);
+      },
+    );
   });
 
   group('fixedBackoff [Atomic Audit]', () {
@@ -343,10 +354,13 @@ void main() {
       expect(strat.delay(), const Duration(seconds: 1));
     });
 
-    test('fixedBackoff() - each factory call produces an independent strategy', () {
-      final factory = fixedBackoff(const Duration(seconds: 2));
-      expect(factory(), isNot(same(factory())));
-    });
+    test(
+      'fixedBackoff() - each factory call produces an independent strategy',
+      () {
+        final factory = fixedBackoff(const Duration(seconds: 2));
+        expect(factory(), isNot(same(factory())));
+      },
+    );
   });
 
   group('polynomialBackoff [Atomic Audit]', () {
@@ -380,18 +394,21 @@ void main() {
       },
     );
 
-    test('polynomialBackoff() - an empty coefficient list always delays zero', () {
-      final strat = polynomialBackoff(
-        Duration.zero,
-        const Duration(seconds: 100),
-        noJitter,
-        const Duration(seconds: 1),
-        const [],
-        Random(0),
-      )();
-      expect(strat.delay(), Duration.zero);
-      expect(strat.delay(), Duration.zero);
-    });
+    test(
+      'polynomialBackoff() - an empty coefficient list always delays zero',
+      () {
+        final strat = polynomialBackoff(
+          Duration.zero,
+          const Duration(seconds: 100),
+          noJitter,
+          const Duration(seconds: 1),
+          const [],
+          Random(0),
+        )();
+        expect(strat.delay(), Duration.zero);
+        expect(strat.delay(), Duration.zero);
+      },
+    );
   });
 
   group('exponentialBackoff [Atomic Audit]', () {
@@ -458,31 +475,44 @@ void main() {
       },
     );
 
-    test('exponentialDecorrelatedJitter() - reset() returns to the min delay', () {
-      final strat = exponentialDecorrelatedJitter(
-        const Duration(milliseconds: 100),
-        const Duration(seconds: 10),
-        3,
-        Random(0),
-      )();
-      strat.delay();
-      strat.delay();
-      strat.reset();
-      expect(strat.delay(), const Duration(milliseconds: 100));
-    });
+    test(
+      'exponentialDecorrelatedJitter() - reset() returns to the min delay',
+      () {
+        final strat = exponentialDecorrelatedJitter(
+          const Duration(milliseconds: 100),
+          const Duration(seconds: 10),
+          3,
+          Random(0),
+        )();
+        strat.delay();
+        strat.delay();
+        strat.reset();
+        expect(strat.delay(), const Duration(milliseconds: 100));
+      },
+    );
   });
 
   group('noJitter [Atomic Audit]', () {
     test('noJitter() - bounds a duration below min up to min', () {
       expect(
-        noJitter(Duration.zero, const Duration(hours: 10), const Duration(hours: 20), null),
+        noJitter(
+          Duration.zero,
+          const Duration(hours: 10),
+          const Duration(hours: 20),
+          null,
+        ),
         const Duration(hours: 10),
       );
     });
 
     test('noJitter() - bounds a duration above max down to max', () {
       expect(
-        noJitter(const Duration(hours: 1), Duration.zero, const Duration(microseconds: 10), null),
+        noJitter(
+          const Duration(hours: 1),
+          Duration.zero,
+          const Duration(microseconds: 10),
+          null,
+        ),
         const Duration(microseconds: 10),
       );
     });
@@ -493,7 +523,12 @@ void main() {
         for (var i = 0; i < 10; i++) {
           final expected = Duration(seconds: i);
           expect(
-            noJitter(expected, Duration.zero, const Duration(seconds: 100), null),
+            noJitter(
+              expected,
+              Duration.zero,
+              const Duration(seconds: 100),
+              null,
+            ),
             expected,
           );
         }
@@ -552,14 +587,17 @@ void main() {
   // backoffcache.go
   // -----------------------------------------------------------------
   group('withBackoffDiscoverySimultaneousQueryBufferSize [Atomic Audit]', () {
-    test('withBackoffDiscoverySimultaneousQueryBufferSize() - sets parallelBufferSize', () {
-      final bd = BackoffDiscovery(
-        _RecordingDiscovery(),
-        fixedBackoff(const Duration(seconds: 1)),
-        options: [withBackoffDiscoverySimultaneousQueryBufferSize(64)],
-      );
-      expect(bd.parallelBufferSize, 64);
-    });
+    test(
+      'withBackoffDiscoverySimultaneousQueryBufferSize() - sets parallelBufferSize',
+      () {
+        final bd = BackoffDiscovery(
+          _RecordingDiscovery(),
+          fixedBackoff(const Duration(seconds: 1)),
+          options: [withBackoffDiscoverySimultaneousQueryBufferSize(64)],
+        );
+        expect(bd.parallelBufferSize, 64);
+      },
+    );
 
     test(
       'withBackoffDiscoverySimultaneousQueryBufferSize() - rejects a negative size (backoffcache.go:55-56)',
@@ -573,14 +611,17 @@ void main() {
   });
 
   group('withBackoffDiscoveryReturnedChannelSize [Atomic Audit]', () {
-    test('withBackoffDiscoveryReturnedChannelSize() - sets returnedBufferSize', () {
-      final bd = BackoffDiscovery(
-        _RecordingDiscovery(),
-        fixedBackoff(const Duration(seconds: 1)),
-        options: [withBackoffDiscoveryReturnedChannelSize(64)],
-      );
-      expect(bd.returnedBufferSize, 64);
-    });
+    test(
+      'withBackoffDiscoveryReturnedChannelSize() - sets returnedBufferSize',
+      () {
+        final bd = BackoffDiscovery(
+          _RecordingDiscovery(),
+          fixedBackoff(const Duration(seconds: 1)),
+          options: [withBackoffDiscoveryReturnedChannelSize(64)],
+        );
+        expect(bd.returnedBufferSize, 64);
+      },
+    );
 
     test(
       'withBackoffDiscoveryReturnedChannelSize() - rejects a negative size (backoffcache.go:67-68)',
@@ -594,13 +635,20 @@ void main() {
   });
 
   group('BackoffDiscovery [Atomic Audit]', () {
-    test('advertise() - passes through directly to the wrapped Discovery', () async {
-      final disc = _RecordingDiscovery()..ttlToReturn = const Duration(hours: 2);
-      final bd = BackoffDiscovery(disc, fixedBackoff(const Duration(seconds: 1)));
-      final ttl = await bd.advertise('/ns');
-      expect(disc.advertised, ['/ns']);
-      expect(ttl, const Duration(hours: 2));
-    });
+    test(
+      'advertise() - passes through directly to the wrapped Discovery',
+      () async {
+        final disc = _RecordingDiscovery()
+          ..ttlToReturn = const Duration(hours: 2);
+        final bd = BackoffDiscovery(
+          disc,
+          fixedBackoff(const Duration(seconds: 1)),
+        );
+        final ttl = await bd.advertise('/ns');
+        expect(disc.advertised, ['/ns']);
+        expect(ttl, const Duration(hours: 2));
+      },
+    );
 
     test(
       'findPeers() - caches results and refetches only after the backoff expires '
@@ -633,33 +681,38 @@ void main() {
       },
     );
 
-    test(
-      'findPeers() - a concurrent caller joins the same in-flight query '
-      '(adapted from TestBackoffDiscoverySimultaneousQuery)',
-      () async {
-        final disc = _RecordingDiscovery()
-          ..peersByNs['test'] = [_ai(1), _ai(2), _ai(3)]
-          ..perItemDelay = const Duration(milliseconds: 5);
-        final bd = BackoffDiscovery(disc, fixedBackoff(const Duration(seconds: 1)));
+    test('findPeers() - a concurrent caller joins the same in-flight query '
+        '(adapted from TestBackoffDiscoverySimultaneousQuery)', () async {
+      final disc = _RecordingDiscovery()
+        ..peersByNs['test'] = [_ai(1), _ai(2), _ai(3)]
+        ..perItemDelay = const Duration(milliseconds: 5);
+      final bd = BackoffDiscovery(
+        disc,
+        fixedBackoff(const Duration(seconds: 1)),
+      );
 
-        final first = bd.findPeers('test', options: [limit(10)]).toList();
-        // Let the first query start (and register as `ongoing`) before the
-        // second caller joins it.
-        await Future<void>.delayed(const Duration(milliseconds: 1));
-        final second = bd.findPeers('test', options: [limit(10)]).toList();
+      final first = bd.findPeers('test', options: [limit(10)]).toList();
+      // Let the first query start (and register as `ongoing`) before the
+      // second caller joins it.
+      await Future<void>.delayed(const Duration(milliseconds: 1));
+      final second = bd.findPeers('test', options: [limit(10)]).toList();
 
-        final results = await Future.wait([first, second]);
-        expect(results[0], hasLength(3));
-        expect(results[1], hasLength(3));
-      },
-    );
+      final results = await Future.wait([first, second]);
+      expect(results[0], hasLength(3));
+      expect(results[1], hasLength(3));
+    });
 
     test(
       'findPeers() - an empty result set for an unseen namespace closes cleanly',
       () async {
         final disc = _RecordingDiscovery();
-        final bd = BackoffDiscovery(disc, fixedBackoff(const Duration(seconds: 1)));
-        final results = await bd.findPeers('nothing', options: [limit(10)]).toList();
+        final bd = BackoffDiscovery(
+          disc,
+          fixedBackoff(const Duration(seconds: 1)),
+        );
+        final results = await bd
+            .findPeers('nothing', options: [limit(10)])
+            .toList();
         expect(results, isEmpty);
       },
     );
@@ -669,20 +722,17 @@ void main() {
   // backoffconnector.go
   // -----------------------------------------------------------------
   group('BackoffConnector [Atomic Audit]', () {
-    test(
-      'BackoffConnector() - rejects a non-positive cacheSize',
-      () {
-        expect(
-          () => BackoffConnector(
-            _FakeHost(_peer(0)),
-            0,
-            const Duration(seconds: 1),
-            fixedBackoff(const Duration(seconds: 1)),
-          ),
-          throwsA(isA<ArgumentError>()),
-        );
-      },
-    );
+    test('BackoffConnector() - rejects a non-positive cacheSize', () {
+      expect(
+        () => BackoffConnector(
+          _FakeHost(_peer(0)),
+          0,
+          const Duration(seconds: 1),
+          fixedBackoff(const Duration(seconds: 1)),
+        ),
+        throwsA(isA<ArgumentError>()),
+      );
+    });
 
     test('connect() - dials a newly seen peer', () async {
       final host = _FakeHost(_peer(0));

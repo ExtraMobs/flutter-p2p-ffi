@@ -11,7 +11,6 @@ abstract class Gauge {
 }
 
 class BroadcastControl {
-
   BroadcastControl({
     this.enable = false,
     this.host,
@@ -38,7 +37,6 @@ class BroadcastControl {
 }
 
 class PeerWantManager {
-
   PeerWantManager(this._wantGauge, this._wantBlockGauge, this._bcastControl) {
     if (_bcastControl.enable) {
       if (_bcastControl.host == null && _bcastControl.needHost()) {
@@ -413,7 +411,6 @@ class PeerWantManager {
 }
 
 class PeerWant {
-
   PeerWant({
     required this.wantBlocks,
     required this.wantHaves,
@@ -425,7 +422,6 @@ class PeerWant {
 }
 
 class WantPeerCnts {
-
   WantPeerCnts({
     required this.wantBlock,
     required this.wantHave,
@@ -439,4 +435,3 @@ class WantPeerCnts {
     return wantBlock > 0 || wantHave > 0 || isBroadcast;
   }
 }
-

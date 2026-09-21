@@ -19,7 +19,8 @@ class _SimpleRecord implements Record {
   String domain() => _testDomain ?? 'libp2p-testing';
 
   @override
-  Uint8List codec() => _testCodec ?? Uint8List.fromList('/libp2p/testdata'.codeUnits);
+  Uint8List codec() =>
+      _testCodec ?? Uint8List.fromList('/libp2p/testdata'.codeUnits);
 
   @override
   Uint8List marshalRecord() => Uint8List.fromList(message.codeUnits);
@@ -174,10 +175,7 @@ void main() {
 
   test('seal fails if the record fails to marshal', () async {
     final keyPair = await generateEd25519KeyPair();
-    expect(
-      () => Envelope.seal(_FailingRecord(), keyPair),
-      throwsException,
-    );
+    expect(() => Envelope.seal(_FailingRecord(), keyPair), throwsException);
   });
 
   test('consumeEnvelope fails if the envelope fails to unmarshal', () async {

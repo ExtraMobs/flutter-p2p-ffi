@@ -24,7 +24,10 @@ const List<int> extensionPrefix = [1, 3, 6, 1, 4, 1, 53594];
 /// Returns an Object Identifier under [extensionPrefix] that can be used
 /// in X.509 certificates, per go-libp2p's `getPrefixedExtensionID`
 /// (extension.go:5-9).
-List<int> getPrefixedExtensionId(List<int> suffix) => [...extensionPrefix, ...suffix];
+List<int> getPrefixedExtensionId(List<int> suffix) => [
+  ...extensionPrefix,
+  ...suffix,
+];
 
 /// Compares two extension IDs for structural equality, per go-libp2p's
 /// `extensionIDEqual` (extension.go:11-22).

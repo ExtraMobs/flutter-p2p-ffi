@@ -21,7 +21,9 @@ const Duration _rebroadcastInterval = Duration(seconds: 30);
 const Duration _sendErrorBackoff = Duration(milliseconds: 100);
 const int _sendMessageCutoff = 256;
 const Duration _sendTimeout = Duration(seconds: 30);
-const Duration _defaultPerPeerDelay = Duration(microseconds: 125); // Millisecond / 8 is 125us
+const Duration _defaultPerPeerDelay = Duration(
+  microseconds: 125,
+); // Millisecond / 8 is 125us
 const Duration _maxSendMessageDelay = Duration(seconds: 2);
 const Duration _minSendMessageDelay = Duration(milliseconds: 20);
 
@@ -45,8 +47,10 @@ class MessageQueue implements PeerQueue {
   final Duration sendErrorBackoff;
   final Duration maxValidLatency;
 
-  final StreamController<void> _outgoingWork = StreamController<void>.broadcast();
-  final StreamController<List<Cid>> _responses = StreamController<List<Cid>>.broadcast();
+  final StreamController<void> _outgoingWork =
+      StreamController<void>.broadcast();
+  final StreamController<List<Cid>> _responses =
+      StreamController<List<Cid>>.broadcast();
 
   final _RecallWantlist _bcstWants = _RecallWantlist();
   final _RecallWantlist _peerWants = _RecallWantlist();
@@ -54,13 +58,14 @@ class MessageQueue implements PeerQueue {
   int priority = _maxPriority;
 
   MessageSender? _sender;
-  final StreamController<void> _rebroadcastNow = StreamController<void>.broadcast();
+  final StreamController<void> _rebroadcastNow =
+      StreamController<void>.broadcast();
   final BitSwapMessage msg = BitSwapMessage(false);
 
   final StreamSink<MessageEvent>? events;
   Duration perPeerDelay = _defaultPerPeerDelay;
   void Function()? bcastInc;
-  
+
   Timer? _rebroadcastTimer;
 
   MessageQueue._({
@@ -83,9 +88,12 @@ class MessageQueue implements PeerQueue {
     DontHaveTimeoutManager? dhTimeoutMgr;
     if (onDontHaveTimeout != null) {
       void onTimeout(List<Cid> ks, Duration timeout) {
-        log.info('Bitswap: timeout waiting for blocks timeout=$timeout cids=$ks peer=$p');
+        log.info(
+          'Bitswap: timeout waiting for blocks timeout=$timeout cids=$ks peer=$p',
+        );
         onDontHaveTimeout(ks, timeout);
       }
+
       dhTimeoutMgr = DontHaveTimeoutManager.create(
         _PeerConn(p, network),
         onTimeout,
@@ -161,7 +169,9 @@ class MessageQueue implements PeerQueue {
   }
 
   bool hasMessage() {
-    return _bcstWants._pending.isNotEmpty || _peerWants._pending.isNotEmpty || cancels.isNotEmpty;
+    return _bcstWants._pending.isNotEmpty ||
+        _peerWants._pending.isNotEmpty ||
+        cancels.isNotEmpty;
   }
 
   void responseReceived(List<Cid> ks) {
@@ -191,10 +201,12 @@ class MessageQueue implements PeerQueue {
   }
 
   Future<void> _runQueue() async {
-    const runRebroadcastsInterval = Duration(seconds: 15); // rebroadcastInterval / 2
+    const runRebroadcastsInterval = Duration(
+      seconds: 15,
+    ); // rebroadcastInterval / 2
 
     _peerCount++;
-    
+
     // We simulate `scheduleWork` as a Completer / Timer
     Timer? scheduleWork;
 
@@ -210,11 +222,13 @@ class MessageQueue implements PeerQueue {
       if (_isShutdown) return;
       events?.add(MessageEvent.messageQueued);
       await _sendMessage();
-      
+
       var delayUs = _peerCount * perPeerDelay.inMicroseconds;
-      if (delayUs < _minSendMessageDelay.inMicroseconds) delayUs = _minSendMessageDelay.inMicroseconds;
-      if (delayUs > _maxSendMessageDelay.inMicroseconds) delayUs = _maxSendMessageDelay.inMicroseconds;
-      
+      if (delayUs < _minSendMessageDelay.inMicroseconds)
+        delayUs = _minSendMessageDelay.inMicroseconds;
+      if (delayUs > _maxSendMessageDelay.inMicroseconds)
+        delayUs = _maxSendMessageDelay.inMicroseconds;
+
       scheduleWork?.cancel();
       scheduleWork = Timer(Duration(microseconds: delayUs), () {
         if (!_isShutdown && hasMessage()) {
@@ -246,7 +260,8 @@ class MessageQueue implements PeerQueue {
   }
 
   void _rebroadcastWantlist(DateTime now, Duration interval) {
-    final toRebroadcast = _bcstWants.refresh(now, interval) + _peerWants.refresh(now, interval);
+    final toRebroadcast =
+        _bcstWants.refresh(now, interval) + _peerWants.refresh(now, interval);
     if (toRebroadcast > 0) {
       unawaited(_sendMessage());
       log.info('Rebroadcasting wants amount=$toRebroadcast peer=$p');
@@ -326,14 +341,16 @@ class MessageQueue implements PeerQueue {
     for (final c in ks) {
       if (_bcstWants._sentAt.containsKey(c)) {
         final at = _bcstWants._sentAt[c]!;
-        if ((earliest == null || at.isBefore(earliest)) && now.difference(at) < maxValidLatency) {
+        if ((earliest == null || at.isBefore(earliest)) &&
+            now.difference(at) < maxValidLatency) {
           earliest = at;
         }
         _bcstWants.clearSentAt(c);
       }
       if (_peerWants._sentAt.containsKey(c)) {
         final at = _peerWants._sentAt[c]!;
-        if ((earliest == null || at.isBefore(earliest)) && now.difference(at) < maxValidLatency) {
+        if ((earliest == null || at.isBefore(earliest)) &&
+            now.difference(at) < maxValidLatency) {
           earliest = at;
         }
         _peerWants.clearSentAt(c);
@@ -351,7 +368,9 @@ class MessageQueue implements PeerQueue {
   }
 
   int _pendingWorkCount() {
-    return _bcstWants._pending.length + _peerWants._pending.length + cancels.length;
+    return _bcstWants._pending.length +
+        _peerWants._pending.length +
+        cancels.length;
   }
 
   _ExtractRes _extractOutgoingMessage(bool supportsHave) {
@@ -360,10 +379,15 @@ class MessageQueue implements PeerQueue {
     final cancelList = cancels.toList();
 
     if (!supportsHave) {
-      peerEntries = peerEntries.where((e) => e.wantType != pb.WantType.have).toList();
+      peerEntries = peerEntries
+          .where((e) => e.wantType != pb.WantType.have)
+          .toList();
       // Wait, we also need to remove them from peerWants pending if they are removed?
       // "doing this here under the lock makes everything else simpler."
-      final toRemove = _peerWants._pending.values.where((e) => e.wantType == pb.WantType.have).map((e) => e.cid).toList();
+      final toRemove = _peerWants._pending.values
+          .where((e) => e.wantType == pb.WantType.have)
+          .map((e) => e.cid)
+          .toList();
       for (final c in toRemove) {
         _peerWants.removeType(c, pb.WantType.have);
       }
@@ -428,7 +452,8 @@ class MessageQueue implements PeerQueue {
       final now = DateTime.now();
       for (var i = 0; i < sentPeerEntries; i++) {
         final e = peerEntries[i];
-        if (_peerWants._sent.containsKey(e.cid)) { // approximate check if it wasn't nullified
+        if (_peerWants._sent.containsKey(e.cid)) {
+          // approximate check if it wasn't nullified
           _peerWants.setSentAt(e.cid, now);
         }
       }
@@ -468,11 +493,7 @@ class _ExtractRes {
   _ExtractRes(this.message, this.onSent);
 }
 
-enum MessageEvent {
-  messageQueued,
-  messageFinishedSending,
-  latenciesRecorded,
-}
+enum MessageEvent { messageQueued, messageFinishedSending, latenciesRecorded }
 
 class _RecallWantlist {
   final Map<Cid, _WantEntry> _pending = {};
@@ -523,7 +544,7 @@ class _RecallWantlist {
   int refresh(DateTime now, Duration interval) {
     var refreshed = 0;
     final keysToRefresh = <Cid>[];
-    
+
     for (final want in _sent.values) {
       final at = _sentAt[want.cid];
       if (at != null && now.difference(at) >= interval) {

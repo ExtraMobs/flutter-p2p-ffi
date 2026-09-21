@@ -6,18 +6,18 @@ import 'float64.dart';
 final class Complex128 {
   /// Constructs a complex128 value; defaults to (0+0i).
   Complex128([Float64? real, Float64? imag])
-      : real = real ?? Float64(),
-        imag = imag ?? Float64();
+    : real = real ?? Float64(),
+      imag = imag ?? Float64();
 
   /// Constructs from raw double values.
   Complex128.fromDoubles([double real = 0.0, double imag = 0.0])
-      : real = Float64(real),
-        imag = Float64(imag);
+    : real = Float64(real),
+      imag = Float64(imag);
 
   /// Widening conversion from complex64.
   Complex128.fromComplex64(Complex64 value)
-      : real = Float64.fromFloat32(value.real),
-        imag = Float64.fromFloat32(value.imag);
+    : real = Float64.fromFloat32(value.real),
+      imag = Float64.fromFloat32(value.imag);
 
   /// Real component.
   final Float64 real;
@@ -37,10 +37,8 @@ final class Complex128 {
   Complex128 operator -() => Complex128(-real, -imag);
 
   /// Complex multiplication: (ac - bd) + (ad + bc)i.
-  Complex128 operator *(Complex128 o) => Complex128(
-        real * o.real - imag * o.imag,
-        real * o.imag + imag * o.real,
-      );
+  Complex128 operator *(Complex128 o) =>
+      Complex128(real * o.real - imag * o.imag, real * o.imag + imag * o.real);
 
   /// Complex division using Go's runtime implementation (Smith's algorithm).
   Complex128 operator /(Complex128 o) {

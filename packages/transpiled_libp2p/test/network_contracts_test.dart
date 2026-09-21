@@ -27,7 +27,10 @@ void main() {
       connection.matches(ConnException(errorCode: connShutdown, remote: false)),
       isTrue,
     );
-    expect(() => StreamException(errorCode: -1, remote: false), throwsRangeError);
+    expect(
+      () => StreamException(errorCode: -1, remote: false),
+      throwsRangeError,
+    );
   });
 
   test('NAT values and null resource manager reproduce exported behavior', () {

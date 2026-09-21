@@ -71,8 +71,10 @@ class ExtMap {
       throw ExtMapSyntaxException(raw);
     }
 
-    final fields =
-        parts[1].split(RegExp(r'\s+')).where((f) => f.isNotEmpty).toList();
+    final fields = parts[1]
+        .split(RegExp(r'\s+'))
+        .where((f) => f.isNotEmpty)
+        .toList();
     if (fields.length < 2) {
       throw ExtMapSyntaxException(raw);
     }

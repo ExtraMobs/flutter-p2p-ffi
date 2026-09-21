@@ -200,7 +200,9 @@ final class StunUri {
       if (pair.isEmpty) continue;
       final idx = pair.indexOf('=');
       final key = idx < 0 ? pair : pair.substring(0, idx);
-      final value = idx < 0 ? '' : Uri.decodeQueryComponent(pair.substring(idx + 1));
+      final value = idx < 0
+          ? ''
+          : Uri.decodeQueryComponent(pair.substring(idx + 1));
       result[Uri.decodeQueryComponent(key)] = value;
     }
     return result;
@@ -264,7 +266,11 @@ String _joinHostPort(String host, int port) =>
 /// (uri.go:135-142) needs from Go's `net/url.Parse` for non-hierarchical
 /// (no `//`) STUN/TURN URIs: `Scheme`, `Opaque`, `RawQuery`.
 final class _RawUri {
-  const _RawUri({required this.scheme, required this.opaque, required this.rawQuery});
+  const _RawUri({
+    required this.scheme,
+    required this.opaque,
+    required this.rawQuery,
+  });
 
   final String scheme;
   final String opaque;

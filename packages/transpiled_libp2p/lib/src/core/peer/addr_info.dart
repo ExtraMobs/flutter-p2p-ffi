@@ -124,7 +124,9 @@ AddrInfo addrInfoFromP2pAddr(Multiaddr m) {
 List<Multiaddr> addrInfoToP2pAddrs(AddrInfo info) {
   final p2pComponent = Component(Protocols.byName('p2p')!, info.id.toBase58());
   if (info.addrs.isEmpty) {
-    return [Multiaddr([p2pComponent])];
+    return [
+      Multiaddr([p2pComponent]),
+    ];
   }
   return [
     for (final addr in info.addrs) addr.encapsulate(Multiaddr([p2pComponent])),
@@ -143,7 +145,10 @@ List<AddrInfo> addrInfosFromP2pAddrs(List<Multiaddr> maddrs) {
     final addrs = byId.putIfAbsent(id, () => []);
     if (transport != null) addrs.add(transport);
   }
-  return [for (final entry in byId.entries) AddrInfo(id: entry.key, addrs: entry.value)];
+  return [
+    for (final entry in byId.entries)
+      AddrInfo(id: entry.key, addrs: entry.value),
+  ];
 }
 
 /// Extracts the peer IDs from [infos], in order. Equivalent to go-libp2p's

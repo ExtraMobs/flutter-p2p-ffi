@@ -25,12 +25,18 @@ final class ChunkTypeNotShutdownCompleteException implements Exception {
   final ChunkType actual;
 
   @override
-  String toString() => 'ChunkType is not of type SHUTDOWN-COMPLETE: actually is $actual';
+  String toString() =>
+      'ChunkType is not of type SHUTDOWN-COMPLETE: actually is $actual';
 }
 
 /// Port of `chunkShutdownComplete` (chunk_shutdown_complete.go:12-14).
 final class ChunkShutdownComplete implements Chunk {
-  ChunkShutdownComplete() : header = ChunkHeader(typ: ChunkType.shutdownComplete, flags: 0, raw: Uint8List(0));
+  ChunkShutdownComplete()
+    : header = ChunkHeader(
+        typ: ChunkType.shutdownComplete,
+        flags: 0,
+        raw: Uint8List(0),
+      );
 
   /// Composition standing in for Go's embedded `chunkHeader`.
   ChunkHeader header;

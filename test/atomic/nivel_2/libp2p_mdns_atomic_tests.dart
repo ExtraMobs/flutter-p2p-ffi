@@ -16,8 +16,12 @@ import 'package:transpiled_multiaddr/transpiled_multiaddr.dart';
 // round trip over a real socket are covered by
 // test/atomic/nivel_3/libp2p_mdns_atomic_tests.dart instead.
 void main() {
-  final selfId = PeerId.decode('12D3KooWCryG7Mon9orvQxcS1rYZjotPgpwoJNHHKcLLfE4Hf5mV');
-  final otherId = PeerId.decode('12D3KooWStiM2F2p4k2c6c3H3c2wM7d8Xv5R7n3w4k7K2c6c3H3c');
+  final selfId = PeerId.decode(
+    '12D3KooWCryG7Mon9orvQxcS1rYZjotPgpwoJNHHKcLLfE4Hf5mV',
+  );
+  final otherId = PeerId.decode(
+    '12D3KooWStiM2F2p4k2c6c3H3c2wM7d8Xv5R7n3w4k7K2c6c3H3c',
+  );
 
   group('mdnsServiceName [Atomic Audit]', () {
     test('mdnsServiceName - matches go-libp2p ServiceName (mdns.go:21)', () {
@@ -32,12 +36,18 @@ void main() {
   });
 
   group('mdnsAddressRecordTtl [Atomic Audit]', () {
-    test('mdnsAddressRecordTtl - matches zeroconf appendAddrs override of 120 seconds', () {
-      expect(mdnsAddressRecordTtl, const Duration(seconds: 120));
-    });
-    test('mdnsAddressRecordTtl - shorter than mdnsRecordTtl per RFC 6762 §10', () {
-      expect(mdnsAddressRecordTtl < mdnsRecordTtl, isTrue);
-    });
+    test(
+      'mdnsAddressRecordTtl - matches zeroconf appendAddrs override of 120 seconds',
+      () {
+        expect(mdnsAddressRecordTtl, const Duration(seconds: 120));
+      },
+    );
+    test(
+      'mdnsAddressRecordTtl - shorter than mdnsRecordTtl per RFC 6762 §10',
+      () {
+        expect(mdnsAddressRecordTtl < mdnsRecordTtl, isTrue);
+      },
+    );
   });
 
   group('isSuitableForMdns() [Atomic Audit]', () {
@@ -83,45 +93,80 @@ void main() {
   });
 
   group('buildMdnsTxtRecords() [Atomic Audit]', () {
-    test('buildMdnsTxtRecords() - encodes suitable addrs as dnsaddr= entries with the peer id', () {
-      final txts = buildMdnsTxtRecords(selfId, [Multiaddr.parse('/ip4/192.168.1.5/tcp/4001')]);
-      expect(txts, hasLength(1));
-      expect(txts.single, startsWith('dnsaddr='));
-      expect(txts.single, contains('/ip4/192.168.1.5/tcp/4001/p2p/${selfId.toBase58()}'));
-    });
+    test(
+      'buildMdnsTxtRecords() - encodes suitable addrs as dnsaddr= entries with the peer id',
+      () {
+        final txts = buildMdnsTxtRecords(selfId, [
+          Multiaddr.parse('/ip4/192.168.1.5/tcp/4001'),
+        ]);
+        expect(txts, hasLength(1));
+        expect(txts.single, startsWith('dnsaddr='));
+        expect(
+          txts.single,
+          contains('/ip4/192.168.1.5/tcp/4001/p2p/${selfId.toBase58()}'),
+        );
+      },
+    );
 
-    test('buildMdnsTxtRecords() - drops addrs unsuitable for mDNS (e.g. /ws)', () {
-      final txts = buildMdnsTxtRecords(selfId, [Multiaddr.parse('/ip4/192.168.1.5/tcp/4001/ws')]);
-      expect(txts, isEmpty);
-    });
+    test(
+      'buildMdnsTxtRecords() - drops addrs unsuitable for mDNS (e.g. /ws)',
+      () {
+        final txts = buildMdnsTxtRecords(selfId, [
+          Multiaddr.parse('/ip4/192.168.1.5/tcp/4001/ws'),
+        ]);
+        expect(txts, isEmpty);
+      },
+    );
 
-    test('buildMdnsTxtRecords() - empty interface address list yields no TXT entries', () {
-      expect(buildMdnsTxtRecords(selfId, const []), isEmpty);
-    });
+    test(
+      'buildMdnsTxtRecords() - empty interface address list yields no TXT entries',
+      () {
+        expect(buildMdnsTxtRecords(selfId, const []), isEmpty);
+      },
+    );
   });
 
   group('mdnsAddrInfosFromTxtRecords() [Atomic Audit]', () {
-    test('mdnsAddrInfosFromTxtRecords() - recovers the AddrInfo a matching buildMdnsTxtRecords() produced', () {
-      final interfaceAddrs = [Multiaddr.parse('/ip4/192.168.1.5/tcp/4001')];
-      final txts = buildMdnsTxtRecords(otherId, interfaceAddrs);
-      final infos = mdnsAddrInfosFromTxtRecords(txts);
-      expect(infos, hasLength(1));
-      expect(infos.single.id, otherId);
-      expect(infos.single.addrs, [Multiaddr.parse('/ip4/192.168.1.5/tcp/4001')]);
-    });
+    test(
+      'mdnsAddrInfosFromTxtRecords() - recovers the AddrInfo a matching buildMdnsTxtRecords() produced',
+      () {
+        final interfaceAddrs = [Multiaddr.parse('/ip4/192.168.1.5/tcp/4001')];
+        final txts = buildMdnsTxtRecords(otherId, interfaceAddrs);
+        final infos = mdnsAddrInfosFromTxtRecords(txts);
+        expect(infos, hasLength(1));
+        expect(infos.single.id, otherId);
+        expect(infos.single.addrs, [
+          Multiaddr.parse('/ip4/192.168.1.5/tcp/4001'),
+        ]);
+      },
+    );
 
-    test('mdnsAddrInfosFromTxtRecords() - skips entries without the dnsaddr= prefix', () {
-      expect(mdnsAddrInfosFromTxtRecords(['not-a-dnsaddr-entry']), isEmpty);
-    });
+    test(
+      'mdnsAddrInfosFromTxtRecords() - skips entries without the dnsaddr= prefix',
+      () {
+        expect(mdnsAddrInfosFromTxtRecords(['not-a-dnsaddr-entry']), isEmpty);
+      },
+    );
 
-    test('mdnsAddrInfosFromTxtRecords() - skips a malformed multiaddr after the prefix', () {
-      expect(mdnsAddrInfosFromTxtRecords(['dnsaddr=not a multiaddr']), isEmpty);
-    });
+    test(
+      'mdnsAddrInfosFromTxtRecords() - skips a malformed multiaddr after the prefix',
+      () {
+        expect(
+          mdnsAddrInfosFromTxtRecords(['dnsaddr=not a multiaddr']),
+          isEmpty,
+        );
+      },
+    );
 
-    test('mdnsAddrInfosFromTxtRecords() - discards the whole batch when an entry has no /p2p/ suffix', () {
-      final txts = ['dnsaddr=/ip4/192.168.1.5/tcp/4001']; // no trailing /p2p/<id>
-      expect(mdnsAddrInfosFromTxtRecords(txts), isEmpty);
-    });
+    test(
+      'mdnsAddrInfosFromTxtRecords() - discards the whole batch when an entry has no /p2p/ suffix',
+      () {
+        final txts = [
+          'dnsaddr=/ip4/192.168.1.5/tcp/4001',
+        ]; // no trailing /p2p/<id>
+        expect(mdnsAddrInfosFromTxtRecords(txts), isEmpty);
+      },
+    );
 
     test('mdnsAddrInfosFromTxtRecords() - empty input yields no AddrInfos', () {
       expect(mdnsAddrInfosFromTxtRecords(const []), isEmpty);
@@ -129,25 +174,34 @@ void main() {
   });
 
   group('Notifee [Atomic Audit]', () {
-    test('handlePeerFound() - implementer receives the discovered AddrInfo', () {
-      AddrInfo? received;
-      final notifee = _RecordingNotifee((info) => received = info);
-      final info = AddrInfo(id: otherId, addrs: [Multiaddr.parse('/ip4/10.0.0.1/tcp/4001')]);
-      notifee.handlePeerFound(info);
-      expect(received, info);
-    });
+    test(
+      'handlePeerFound() - implementer receives the discovered AddrInfo',
+      () {
+        AddrInfo? received;
+        final notifee = _RecordingNotifee((info) => received = info);
+        final info = AddrInfo(
+          id: otherId,
+          addrs: [Multiaddr.parse('/ip4/10.0.0.1/tcp/4001')],
+        );
+        notifee.handlePeerFound(info);
+        expect(received, info);
+      },
+    );
   });
 
   group('MdnsService [Atomic Audit]', () {
-    test('start() - propagates the StateError _hostIps() raises when the host has no interface addresses', () async {
-      // Matches go-libp2p's `Start()` returning `startServer()`'s error
-      // (`mdns.go:66-72`) before ever reaching `startResolver`/opening a
-      // socket -- exercised here with the default (empty-string) service
-      // name constructor argument (`mdns.go:53-55`).
-      final host = _FakeHost(selfId, const []);
-      final service = MdnsService(host, notifee: _RecordingNotifee((_) {}));
-      await expectLater(service.start(), throwsA(isA<StateError>()));
-    });
+    test(
+      'start() - propagates the StateError _hostIps() raises when the host has no interface addresses',
+      () async {
+        // Matches go-libp2p's `Start()` returning `startServer()`'s error
+        // (`mdns.go:66-72`) before ever reaching `startResolver`/opening a
+        // socket -- exercised here with the default (empty-string) service
+        // name constructor argument (`mdns.go:53-55`).
+        final host = _FakeHost(selfId, const []);
+        final service = MdnsService(host, notifee: _RecordingNotifee((_) {}));
+        await expectLater(service.start(), throwsA(isA<StateError>()));
+      },
+    );
 
     test('close() - is safe to call before start() and idempotent', () async {
       final host = _FakeHost(selfId, const []);
@@ -160,13 +214,22 @@ void main() {
   });
 
   group('Service [Atomic Audit]', () {
-    test('start() - propagates errors from the implementation through the interface', () async {
-      final Service service = MdnsService(_FakeHost(selfId, const []), notifee: _RecordingNotifee((_) {}));
-      await expectLater(service.start(), throwsA(isA<StateError>()));
-    });
+    test(
+      'start() - propagates errors from the implementation through the interface',
+      () async {
+        final Service service = MdnsService(
+          _FakeHost(selfId, const []),
+          notifee: _RecordingNotifee((_) {}),
+        );
+        await expectLater(service.start(), throwsA(isA<StateError>()));
+      },
+    );
 
     test('close() - completes without error through the interface', () async {
-      final Service service = MdnsService(_FakeHost(selfId, const []), notifee: _RecordingNotifee((_) {}));
+      final Service service = MdnsService(
+        _FakeHost(selfId, const []),
+        notifee: _RecordingNotifee((_) {}),
+      );
       await expectLater(service.close(), completes);
     });
   });
@@ -192,7 +255,8 @@ class _FakeNetwork implements Network {
 }
 
 class _FakeHost implements Host {
-  _FakeHost(this.id, List<Multiaddr> interfaceAddrs) : network = _FakeNetwork(interfaceAddrs);
+  _FakeHost(this.id, List<Multiaddr> interfaceAddrs)
+    : network = _FakeNetwork(interfaceAddrs);
 
   @override
   final PeerId id;

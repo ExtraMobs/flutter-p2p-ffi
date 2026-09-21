@@ -36,14 +36,17 @@ final class ReconfigResult {
   static const ReconfigResult successPerformed = ReconfigResult._(1);
   static const ReconfigResult denied = ReconfigResult._(2);
   static const ReconfigResult errorWrongSsn = ReconfigResult._(3);
-  static const ReconfigResult errorRequestAlreadyInProgress = ReconfigResult._(4);
+  static const ReconfigResult errorRequestAlreadyInProgress = ReconfigResult._(
+    4,
+  );
   static const ReconfigResult errorBadSequenceNumber = ReconfigResult._(5);
   static const ReconfigResult inProgress = ReconfigResult._(6);
 
   factory ReconfigResult.fromValue(int value) => ReconfigResult._(value);
 
   @override
-  bool operator ==(Object other) => other is ReconfigResult && other.value == value;
+  bool operator ==(Object other) =>
+      other is ReconfigResult && other.value == value;
 
   @override
   int get hashCode => value.hashCode;
@@ -74,8 +77,14 @@ final class ReconfigResult {
 
 /// Port of `paramReconfigResponse` (param_reconfig_response.go:27-35).
 final class ParamReconfigResponse implements Param {
-  ParamReconfigResponse({this.reconfigResponseSequenceNumber = 0, this.result = ReconfigResult.successNop})
-    : header = ParamHeader(typ: ParamType.reconfigResp, len: 0, raw: Uint8List(0));
+  ParamReconfigResponse({
+    this.reconfigResponseSequenceNumber = 0,
+    this.result = ReconfigResult.successNop,
+  }) : header = ParamHeader(
+         typ: ParamType.reconfigResp,
+         len: 0,
+         raw: Uint8List(0),
+       );
 
   /// Composition standing in for Go's embedded `paramHeader`.
   ParamHeader header;

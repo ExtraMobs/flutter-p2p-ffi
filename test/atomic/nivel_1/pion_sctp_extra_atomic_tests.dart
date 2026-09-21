@@ -65,6 +65,7 @@ class _ConcreteErrorCause implements ErrorCause {
   void unmarshal(Uint8List raw) {
     _data = raw;
   }
+
   @override
   Uint8List marshal() => _data;
   @override
@@ -76,7 +77,10 @@ class _ConcreteErrorCause implements ErrorCause {
 void main() {
   group('pion_sctp Extra Atomic Tests [Atomic Audit]', () {
     test('ChunkTypeNotAbortException.toString()', () {
-      expect(ChunkTypeNotAbortException(ChunkType.payloadData).toString(), contains('not'));
+      expect(
+        ChunkTypeNotAbortException(ChunkType.payloadData).toString(),
+        contains('not'),
+      );
     });
     test('BuildAbortChunkFailedException.toString()', () {
       expect(BuildAbortChunkFailedException('err').toString(), contains('err'));
@@ -92,7 +96,10 @@ void main() {
     });
 
     test('ChunkTypeNotCookieAckException.toString()', () {
-      expect(ChunkTypeNotCookieAckException(ChunkType.payloadData).toString(), contains('not'));
+      expect(
+        ChunkTypeNotCookieAckException(ChunkType.payloadData).toString(),
+        contains('not'),
+      );
     });
     test('ChunkCookieAck.marshal()', () {
       expect(ChunkCookieAck().marshal(), isNotNull);
@@ -108,7 +115,10 @@ void main() {
     });
 
     test('ChunkTypeNotCookieEchoException.toString()', () {
-      expect(ChunkTypeNotCookieEchoException(ChunkType.payloadData).toString(), contains('not'));
+      expect(
+        ChunkTypeNotCookieEchoException(ChunkType.payloadData).toString(),
+        contains('not'),
+      );
     });
     test('ChunkCookieEcho.marshal()', () {
       expect(ChunkCookieEcho().marshal(), isNotNull);
@@ -124,7 +134,10 @@ void main() {
     });
 
     test('ChunkTypeNotCtErrorException.toString()', () {
-      expect(ChunkTypeNotCtErrorException(ChunkType.payloadData).toString(), contains('not'));
+      expect(
+        ChunkTypeNotCtErrorException(ChunkType.payloadData).toString(),
+        contains('not'),
+      );
     });
     test('BuildErrorChunkFailedException.toString()', () {
       expect(BuildErrorChunkFailedException('err').toString(), contains('err'));
@@ -165,7 +178,10 @@ void main() {
     });
 
     test('ChunkTypeNotHeartbeatException.toString()', () {
-      expect(ChunkTypeNotHeartbeatException(ChunkType.payloadData).toString(), contains('not'));
+      expect(
+        ChunkTypeNotHeartbeatException(ChunkType.payloadData).toString(),
+        contains('not'),
+      );
     });
     test('HeartbeatNotLongEnoughInfoException.toString()', () {
       expect(HeartbeatNotLongEnoughInfoException(4).toString(), contains('4'));
@@ -174,10 +190,16 @@ void main() {
       expect(ParseParamTypeFailedException('err').toString(), contains('err'));
     });
     test('HeartbeatParamException.toString()', () {
-      expect(HeartbeatParamException(ParamType.chunkList).toString(), isNotEmpty);
+      expect(
+        HeartbeatParamException(ParamType.chunkList).toString(),
+        isNotEmpty,
+      );
     });
     test('HeartbeatChunkUnmarshalException.toString()', () {
-      expect(HeartbeatChunkUnmarshalException('err').toString(), contains('err'));
+      expect(
+        HeartbeatChunkUnmarshalException('err').toString(),
+        contains('err'),
+      );
     });
     test('ChunkHeartbeat.check()', () {
       expect(ChunkHeartbeat(params: []).check(), isFalse);
@@ -199,7 +221,10 @@ void main() {
       expect(HeartbeatAckNotHeartbeatInfoException().toString(), isNotEmpty);
     });
     test('HeartbeatAckMarshalParamException.toString()', () {
-      expect(HeartbeatAckMarshalParamException('err').toString(), contains('err'));
+      expect(
+        HeartbeatAckMarshalParamException('err').toString(),
+        contains('err'),
+      );
     });
     test('ChunkHeartbeatAck.valueLength()', () {
       expect(ChunkHeartbeatAck().valueLength(), equals(0));
@@ -209,19 +234,31 @@ void main() {
     });
 
     test('ChunkTypeNotTypeInitException.toString()', () {
-      expect(ChunkTypeNotTypeInitException(ChunkType.payloadData).toString(), contains('not'));
+      expect(
+        ChunkTypeNotTypeInitException(ChunkType.payloadData).toString(),
+        contains('not'),
+      );
     });
     test('ChunkValueNotLongEnoughException.toString()', () {
-      expect(ChunkValueNotLongEnoughException(10, 4).toString(), contains('10'));
+      expect(
+        ChunkValueNotLongEnoughException(10, 4).toString(),
+        contains('10'),
+      );
     });
     test('ChunkTypeInitFlagZeroException.toString()', () {
       expect(ChunkTypeInitFlagZeroException().toString(), isNotEmpty);
     });
     test('ChunkTypeInitUnmarshalFailedException.toString()', () {
-      expect(ChunkTypeInitUnmarshalFailedException('err').toString(), contains('err'));
+      expect(
+        ChunkTypeInitUnmarshalFailedException('err').toString(),
+        contains('err'),
+      );
     });
     test('ChunkTypeInitMarshalFailedException.toString()', () {
-      expect(ChunkTypeInitMarshalFailedException('err').toString(), contains('err'));
+      expect(
+        ChunkTypeInitMarshalFailedException('err').toString(),
+        contains('err'),
+      );
     });
     test('ChunkTypeInitInitateTagZeroException.toString()', () {
       expect(ChunkTypeInitInitateTagZeroException().toString(), isNotEmpty);
@@ -239,32 +276,68 @@ void main() {
       expect(InitUnknownParamException().toString(), isNotEmpty);
     });
     test('ChunkInit.marshal()', () {
-      final c = ChunkInit(common: ChunkInitCommon(initiateTag: 1, advertisedReceiverWindowCredit: 1500, numOutboundStreams: 1, numInboundStreams: 1, initialTsn: 1));
+      final c = ChunkInit(
+        common: ChunkInitCommon(
+          initiateTag: 1,
+          advertisedReceiverWindowCredit: 1500,
+          numOutboundStreams: 1,
+          numInboundStreams: 1,
+          initialTsn: 1,
+        ),
+      );
       expect(c.marshal(), isNotNull);
     });
     test('ChunkInit.valueLength()', () {
-      final c = ChunkInit(common: ChunkInitCommon(initiateTag: 1, advertisedReceiverWindowCredit: 1500, numOutboundStreams: 1, numInboundStreams: 1, initialTsn: 1));
+      final c = ChunkInit(
+        common: ChunkInitCommon(
+          initiateTag: 1,
+          advertisedReceiverWindowCredit: 1500,
+          numOutboundStreams: 1,
+          numInboundStreams: 1,
+          initialTsn: 1,
+        ),
+      );
       expect(c.valueLength(), equals(0));
     });
     test('ChunkInit.toString()', () {
-      final c = ChunkInit(common: ChunkInitCommon(initiateTag: 1, advertisedReceiverWindowCredit: 1500, numOutboundStreams: 1, numInboundStreams: 1, initialTsn: 1));
+      final c = ChunkInit(
+        common: ChunkInitCommon(
+          initiateTag: 1,
+          advertisedReceiverWindowCredit: 1500,
+          numOutboundStreams: 1,
+          numInboundStreams: 1,
+          initialTsn: 1,
+        ),
+      );
       expect(c.toString(), isNotEmpty);
     });
 
     test('ChunkTypeNotInitAckException.toString()', () {
-      expect(ChunkTypeNotInitAckException(ChunkType.payloadData).toString(), contains('not'));
+      expect(
+        ChunkTypeNotInitAckException(ChunkType.payloadData).toString(),
+        contains('not'),
+      );
     });
     test('ChunkNotLongEnoughForParamsException.toString()', () {
-      expect(ChunkNotLongEnoughForParamsException(10, 4).toString(), isNotEmpty);
+      expect(
+        ChunkNotLongEnoughForParamsException(10, 4).toString(),
+        isNotEmpty,
+      );
     });
     test('ChunkTypeInitAckFlagZeroException.toString()', () {
       expect(ChunkTypeInitAckFlagZeroException().toString(), isNotEmpty);
     });
     test('InitAckUnmarshalFailedException.toString()', () {
-      expect(InitAckUnmarshalFailedException('err').toString(), contains('err'));
+      expect(
+        InitAckUnmarshalFailedException('err').toString(),
+        contains('err'),
+      );
     });
     test('InitCommonDataMarshalFailedException.toString()', () {
-      expect(InitCommonDataMarshalFailedException('err').toString(), contains('err'));
+      expect(
+        InitCommonDataMarshalFailedException('err').toString(),
+        contains('err'),
+      );
     });
     test('ChunkTypeInitAckInitateTagZeroException.toString()', () {
       expect(ChunkTypeInitAckInitateTagZeroException().toString(), isNotEmpty);
@@ -273,36 +346,78 @@ void main() {
       expect(InitAckInboundStreamRequestZeroException().toString(), isNotEmpty);
     });
     test('InitAckOutboundStreamRequestZeroException.toString()', () {
-      expect(InitAckOutboundStreamRequestZeroException().toString(), isNotEmpty);
+      expect(
+        InitAckOutboundStreamRequestZeroException().toString(),
+        isNotEmpty,
+      );
     });
     test('InitAckAdvertisedReceiver1500Exception.toString()', () {
       expect(InitAckAdvertisedReceiver1500Exception().toString(), isNotEmpty);
     });
     test('ChunkInitAck.marshal()', () {
-      final c = ChunkInitAck(common: ChunkInitCommon(initiateTag: 1, advertisedReceiverWindowCredit: 1500, numOutboundStreams: 1, numInboundStreams: 1, initialTsn: 1));
+      final c = ChunkInitAck(
+        common: ChunkInitCommon(
+          initiateTag: 1,
+          advertisedReceiverWindowCredit: 1500,
+          numOutboundStreams: 1,
+          numInboundStreams: 1,
+          initialTsn: 1,
+        ),
+      );
       expect(c.marshal(), isNotNull);
     });
     test('ChunkInitAck.valueLength()', () {
-      final c = ChunkInitAck(common: ChunkInitCommon(initiateTag: 1, advertisedReceiverWindowCredit: 1500, numOutboundStreams: 1, numInboundStreams: 1, initialTsn: 1));
+      final c = ChunkInitAck(
+        common: ChunkInitCommon(
+          initiateTag: 1,
+          advertisedReceiverWindowCredit: 1500,
+          numOutboundStreams: 1,
+          numInboundStreams: 1,
+          initialTsn: 1,
+        ),
+      );
       expect(c.valueLength(), equals(0));
     });
     test('ChunkInitAck.toString()', () {
-      final c = ChunkInitAck(common: ChunkInitCommon(initiateTag: 1, advertisedReceiverWindowCredit: 1500, numOutboundStreams: 1, numInboundStreams: 1, initialTsn: 1));
+      final c = ChunkInitAck(
+        common: ChunkInitCommon(
+          initiateTag: 1,
+          advertisedReceiverWindowCredit: 1500,
+          numOutboundStreams: 1,
+          numInboundStreams: 1,
+          initialTsn: 1,
+        ),
+      );
       expect(c.toString(), isNotEmpty);
     });
 
     test('InitChunkParseParamTypeFailedException.toString()', () {
-      expect(InitChunkParseParamTypeFailedException('err').toString(), contains('err'));
+      expect(
+        InitChunkParseParamTypeFailedException('err').toString(),
+        contains('err'),
+      );
     });
     test('InitAckMarshalParamException.toString()', () {
       expect(InitAckMarshalParamException('err').toString(), contains('err'));
     });
     test('ChunkInitCommon.marshal()', () {
-      final c = ChunkInitCommon(initiateTag: 1, advertisedReceiverWindowCredit: 1500, numOutboundStreams: 1, numInboundStreams: 1, initialTsn: 1);
+      final c = ChunkInitCommon(
+        initiateTag: 1,
+        advertisedReceiverWindowCredit: 1500,
+        numOutboundStreams: 1,
+        numInboundStreams: 1,
+        initialTsn: 1,
+      );
       expect(c.marshal(), isNotNull);
     });
     test('ChunkInitCommon.toString()', () {
-      final c = ChunkInitCommon(initiateTag: 1, advertisedReceiverWindowCredit: 1500, numOutboundStreams: 1, numInboundStreams: 1, initialTsn: 1);
+      final c = ChunkInitCommon(
+        initiateTag: 1,
+        advertisedReceiverWindowCredit: 1500,
+        numOutboundStreams: 1,
+        numInboundStreams: 1,
+        initialTsn: 1,
+      );
       expect(c.toString(), isNotEmpty);
     });
 
@@ -310,10 +425,17 @@ void main() {
       expect(ChunkPayloadSmallException().toString(), isNotEmpty);
     });
     test('PayloadProtocolIdentifier.operator ==()', () {
-      expect(PayloadProtocolIdentifier.fromValue(0) == PayloadProtocolIdentifier.fromValue(0), isTrue);
+      expect(
+        PayloadProtocolIdentifier.fromValue(0) ==
+            PayloadProtocolIdentifier.fromValue(0),
+        isTrue,
+      );
     });
     test('PayloadProtocolIdentifier.hashCode()', () {
-      expect(PayloadProtocolIdentifier.fromValue(0).hashCode, equals(PayloadProtocolIdentifier.fromValue(0).hashCode));
+      expect(
+        PayloadProtocolIdentifier.fromValue(0).hashCode,
+        equals(PayloadProtocolIdentifier.fromValue(0).hashCode),
+      );
     });
     test('ChunkPayloadData.check()', () {
       expect(ChunkPayloadData().check(), isFalse);
@@ -326,7 +448,10 @@ void main() {
     });
 
     test('ChunkParseParamTypeFailedException.toString()', () {
-      expect(ChunkParseParamTypeFailedException('err').toString(), contains('err'));
+      expect(
+        ChunkParseParamTypeFailedException('err').toString(),
+        contains('err'),
+      );
     });
     test('ChunkReconfig.marshal()', () {
       final c = ChunkReconfig(paramA: ParamHeartbeatInfo());
@@ -340,10 +465,16 @@ void main() {
     });
 
     test('ChunkTypeNotSackException.toString()', () {
-      expect(ChunkTypeNotSackException(ChunkType.payloadData).toString(), contains('not'));
+      expect(
+        ChunkTypeNotSackException(ChunkType.payloadData).toString(),
+        contains('not'),
+      );
     });
     test('SackSizeNotLargeEnoughInfoException.toString()', () {
-      expect(SackSizeNotLargeEnoughInfoException(4, 16).toString(), contains('4'));
+      expect(
+        SackSizeNotLargeEnoughInfoException(4, 16).toString(),
+        contains('4'),
+      );
     });
     test('SackSizeNotMatchPredictedException.toString()', () {
       expect(SackSizeNotMatchPredictedException().toString(), isNotEmpty);
@@ -365,7 +496,10 @@ void main() {
       expect(InvalidChunkSizeException().toString(), isNotEmpty);
     });
     test('ChunkTypeNotShutdownException.toString()', () {
-      expect(ChunkTypeNotShutdownException(ChunkType.payloadData).toString(), contains('not'));
+      expect(
+        ChunkTypeNotShutdownException(ChunkType.payloadData).toString(),
+        contains('not'),
+      );
     });
     test('ChunkShutdown.marshal()', () {
       expect(ChunkShutdown().marshal(), isNotNull);
@@ -381,7 +515,10 @@ void main() {
     });
 
     test('ChunkTypeNotShutdownAckException.toString()', () {
-      expect(ChunkTypeNotShutdownAckException(ChunkType.payloadData).toString(), contains('not'));
+      expect(
+        ChunkTypeNotShutdownAckException(ChunkType.payloadData).toString(),
+        contains('not'),
+      );
     });
     test('ChunkShutdownAck.marshal()', () {
       expect(ChunkShutdownAck().marshal(), isNotNull);
@@ -397,7 +534,10 @@ void main() {
     });
 
     test('ChunkTypeNotShutdownCompleteException.toString()', () {
-      expect(ChunkTypeNotShutdownCompleteException(ChunkType.payloadData).toString(), contains('not'));
+      expect(
+        ChunkTypeNotShutdownCompleteException(ChunkType.payloadData).toString(),
+        contains('not'),
+      );
     });
     test('ChunkShutdownComplete.marshal()', () {
       expect(ChunkShutdownComplete().marshal(), isNotNull);
@@ -413,13 +553,22 @@ void main() {
     });
 
     test('BuildErrorCaseHandleException.toString()', () {
-      expect(BuildErrorCaseHandleException(ErrorCauseCode.fromValue(1)).toString(), isNotEmpty);
+      expect(
+        BuildErrorCaseHandleException(ErrorCauseCode.fromValue(1)).toString(),
+        isNotEmpty,
+      );
     });
     test('ErrorCauseCode.operator ==()', () {
-      expect(ErrorCauseCode.fromValue(1) == ErrorCauseCode.fromValue(1), isTrue);
+      expect(
+        ErrorCauseCode.fromValue(1) == ErrorCauseCode.fromValue(1),
+        isTrue,
+      );
     });
     test('ErrorCauseCode.hashCode()', () {
-      expect(ErrorCauseCode.fromValue(1).hashCode, equals(ErrorCauseCode.fromValue(1).hashCode));
+      expect(
+        ErrorCauseCode.fromValue(1).hashCode,
+        equals(ErrorCauseCode.fromValue(1).hashCode),
+      );
     });
     test('ErrorCause.unmarshal()', () {
       final cause = _ConcreteErrorCause();
@@ -443,18 +592,29 @@ void main() {
       expect(InvalidSctpChunkException().toString(), isNotEmpty);
     });
     test('ErrorCauseHeader.length()', () {
-      expect(ErrorCauseHeader(code: ErrorCauseCode.fromValue(1), len: 4).length(), equals(4));
+      expect(
+        ErrorCauseHeader(code: ErrorCauseCode.fromValue(1), len: 4).length(),
+        equals(4),
+      );
     });
     test('ErrorCauseHeader.errorCauseCode()', () {
-      expect(ErrorCauseHeader(code: ErrorCauseCode.fromValue(1)).errorCauseCode(), isNotNull);
+      expect(
+        ErrorCauseHeader(code: ErrorCauseCode.fromValue(1)).errorCauseCode(),
+        isNotNull,
+      );
     });
     test('ErrorCauseHeader.toString()', () {
-      expect(ErrorCauseHeader(code: ErrorCauseCode.fromValue(1)).toString(), isNotEmpty);
+      expect(
+        ErrorCauseHeader(code: ErrorCauseCode.fromValue(1)).toString(),
+        isNotEmpty,
+      );
     });
 
     test('ErrorCauseInvalidMandatoryParameter.unmarshal()', () {
       final e = ErrorCauseInvalidMandatoryParameter();
-      e.unmarshal(_makeErrorCauseRaw(ErrorCauseCode.invalidMandatoryParameter.value));
+      e.unmarshal(
+        _makeErrorCauseRaw(ErrorCauseCode.invalidMandatoryParameter.value),
+      );
       expect(e.length(), equals(4));
     });
     test('ErrorCauseInvalidMandatoryParameter.length()', () {
@@ -468,7 +628,10 @@ void main() {
     });
 
     test('ProtocolViolationUnmarshalException.toString()', () {
-      expect(ProtocolViolationUnmarshalException('err').toString(), contains('err'));
+      expect(
+        ProtocolViolationUnmarshalException('err').toString(),
+        contains('err'),
+      );
     });
     test('ErrorCauseProtocolViolation.unmarshal()', () {
       final e = ErrorCauseProtocolViolation();
@@ -514,10 +677,16 @@ void main() {
       expect(PacketRawTooSmallException(4, 12).toString(), contains('4'));
     });
     test('ParseSctpChunkNotEnoughDataException.toString()', () {
-      expect(ParseSctpChunkNotEnoughDataException(4, 2).toString(), contains('4'));
+      expect(
+        ParseSctpChunkNotEnoughDataException(4, 2).toString(),
+        contains('4'),
+      );
     });
     test('UnmarshalUnknownChunkTypeException.toString()', () {
-      expect(UnmarshalUnknownChunkTypeException(ChunkType.payloadData).toString(), isNotEmpty);
+      expect(
+        UnmarshalUnknownChunkTypeException(ChunkType.payloadData).toString(),
+        isNotEmpty,
+      );
     });
     test('ChecksumMismatchException.toString()', () {
       expect(ChecksumMismatchException(1, 2).toString(), isNotEmpty);
@@ -527,7 +696,10 @@ void main() {
     });
 
     test('ParamTypeUnhandledException.toString()', () {
-      expect(ParamTypeUnhandledException(ParamType.chunkList).toString(), isNotEmpty);
+      expect(
+        ParamTypeUnhandledException(ParamType.chunkList).toString(),
+        isNotEmpty,
+      );
     });
     test('Param.marshal()', () {
       Param p = ParamHeartbeatInfo();
@@ -542,23 +714,43 @@ void main() {
       expect(ParamHeaderTooShortException().toString(), isNotEmpty);
     });
     test('ParamHeaderSelfReportedLengthShorterException.toString()', () {
-      expect(ParamHeaderSelfReportedLengthShorterException(2, 4).toString(), contains('2'));
+      expect(
+        ParamHeaderSelfReportedLengthShorterException(2, 4).toString(),
+        contains('2'),
+      );
     });
     test('ParamHeaderSelfReportedLengthLongerException.toString()', () {
-      expect(ParamHeaderSelfReportedLengthLongerException(4, 8).toString(), contains('4'));
+      expect(
+        ParamHeaderSelfReportedLengthLongerException(4, 8).toString(),
+        contains('4'),
+      );
     });
     test('ParamHeaderParseFailedException.toString()', () {
-      expect(ParamHeaderParseFailedException('err').toString(), contains('err'));
+      expect(
+        ParamHeaderParseFailedException('err').toString(),
+        contains('err'),
+      );
     });
     test('ParamHeaderUnrecognizedAction.hashCode()', () {
-      expect(ParamHeaderUnrecognizedAction.fromValue(0).hashCode, equals(ParamHeaderUnrecognizedAction.fromValue(0).hashCode));
+      expect(
+        ParamHeaderUnrecognizedAction.fromValue(0).hashCode,
+        equals(ParamHeaderUnrecognizedAction.fromValue(0).hashCode),
+      );
     });
     test('ParamHeader.marshal()', () {
-      final h = ParamHeader(typ: ParamType.chunkList, len: 4, raw: Uint8List(0));
+      final h = ParamHeader(
+        typ: ParamType.chunkList,
+        len: 4,
+        raw: Uint8List(0),
+      );
       expect(h.marshal(), isNotNull);
     });
     test('ParamHeader.toString()', () {
-      final h = ParamHeader(typ: ParamType.chunkList, len: 4, raw: Uint8List(0));
+      final h = ParamHeader(
+        typ: ParamType.chunkList,
+        len: 4,
+        raw: Uint8List(0),
+      );
       expect(h.toString(), isNotEmpty);
     });
 
@@ -566,7 +758,10 @@ void main() {
       expect(ParamPacketTooShortException().toString(), isNotEmpty);
     });
     test('ParamType.hashCode()', () {
-      expect(ParamType.chunkList.hashCode, equals(ParamType.chunkList.hashCode));
+      expect(
+        ParamType.chunkList.hashCode,
+        equals(ParamType.chunkList.hashCode),
+      );
     });
 
     test('ParamChunkList.unmarshal()', () {
@@ -624,10 +819,16 @@ void main() {
       expect(ReconfigRespParamTooShortException().toString(), isNotEmpty);
     });
     test('ReconfigResult.operator ==()', () {
-      expect(ReconfigResult.fromValue(0) == ReconfigResult.fromValue(0), isTrue);
+      expect(
+        ReconfigResult.fromValue(0) == ReconfigResult.fromValue(0),
+        isTrue,
+      );
     });
     test('ReconfigResult.hashCode()', () {
-      expect(ReconfigResult.fromValue(0).hashCode, equals(ReconfigResult.fromValue(0).hashCode));
+      expect(
+        ReconfigResult.fromValue(0).hashCode,
+        equals(ReconfigResult.fromValue(0).hashCode),
+      );
     });
     test('ParamReconfigResponse.marshal()', () {
       expect(ParamReconfigResponse().marshal(), isNotNull);
@@ -637,7 +838,10 @@ void main() {
     });
 
     test('InvalidAlgorithmTypeException.toString()', () {
-      expect(InvalidAlgorithmTypeException(HmacAlgorithm.fromValue(1)).toString(), contains('1'));
+      expect(
+        InvalidAlgorithmTypeException(HmacAlgorithm.fromValue(1)).toString(),
+        contains('1'),
+      );
     });
     test('InvalidChunkLengthException.toString()', () {
       expect(InvalidChunkLengthException().toString(), isNotEmpty);
@@ -646,7 +850,10 @@ void main() {
       expect(HmacAlgorithm.fromValue(0) == HmacAlgorithm.fromValue(0), isTrue);
     });
     test('HmacAlgorithm.hashCode()', () {
-      expect(HmacAlgorithm.fromValue(0).hashCode, equals(HmacAlgorithm.fromValue(0).hashCode));
+      expect(
+        HmacAlgorithm.fromValue(0).hashCode,
+        equals(HmacAlgorithm.fromValue(0).hashCode),
+      );
     });
     test('ParamRequestedHmacAlgorithm.length()', () {
       expect(ParamRequestedHmacAlgorithm().length(), equals(0));

@@ -31,7 +31,10 @@ final class ParamHeaderTooShortException implements Exception {
 
 /// Port of `ErrParamHeaderSelfReportedLengthShorter` (paramheader.go:53).
 final class ParamHeaderSelfReportedLengthShorterException implements Exception {
-  const ParamHeaderSelfReportedLengthShorterException(this.reportedLength, this.headerLength);
+  const ParamHeaderSelfReportedLengthShorterException(
+    this.reportedLength,
+    this.headerLength,
+  );
 
   final int reportedLength;
   final int headerLength;
@@ -43,7 +46,10 @@ final class ParamHeaderSelfReportedLengthShorterException implements Exception {
 
 /// Port of `ErrParamHeaderSelfReportedLengthLonger` (paramheader.go:54).
 final class ParamHeaderSelfReportedLengthLongerException implements Exception {
-  const ParamHeaderSelfReportedLengthLongerException(this.rawLength, this.reportedLength);
+  const ParamHeaderSelfReportedLengthLongerException(
+    this.rawLength,
+    this.reportedLength,
+  );
 
   final int rawLength;
   final int reportedLength;
@@ -74,15 +80,21 @@ final class ParamHeaderUnrecognizedAction {
   /// The raw wire value (a Go `byte`, already masked to the top 2 bits).
   final int value;
 
-  static const ParamHeaderUnrecognizedAction stop = ParamHeaderUnrecognizedAction._(0x00);
-  static const ParamHeaderUnrecognizedAction stopAndReport = ParamHeaderUnrecognizedAction._(0x40);
-  static const ParamHeaderUnrecognizedAction skip = ParamHeaderUnrecognizedAction._(0x80);
-  static const ParamHeaderUnrecognizedAction skipAndReport = ParamHeaderUnrecognizedAction._(0xC0);
+  static const ParamHeaderUnrecognizedAction stop =
+      ParamHeaderUnrecognizedAction._(0x00);
+  static const ParamHeaderUnrecognizedAction stopAndReport =
+      ParamHeaderUnrecognizedAction._(0x40);
+  static const ParamHeaderUnrecognizedAction skip =
+      ParamHeaderUnrecognizedAction._(0x80);
+  static const ParamHeaderUnrecognizedAction skipAndReport =
+      ParamHeaderUnrecognizedAction._(0xC0);
 
-  factory ParamHeaderUnrecognizedAction.fromValue(int value) => ParamHeaderUnrecognizedAction._(value);
+  factory ParamHeaderUnrecognizedAction.fromValue(int value) =>
+      ParamHeaderUnrecognizedAction._(value);
 
   @override
-  bool operator ==(Object other) => other is ParamHeaderUnrecognizedAction && other.value == value;
+  bool operator ==(Object other) =>
+      other is ParamHeaderUnrecognizedAction && other.value == value;
 
   @override
   int get hashCode => value.hashCode;
@@ -111,12 +123,22 @@ final class ParamHeader {
       throw const ParamHeaderTooShortException();
     }
 
-    final paramLengthPlusHeader = ByteData.sublistView(raw, 2, 4).getUint16(0, Endian.big);
+    final paramLengthPlusHeader = ByteData.sublistView(
+      raw,
+      2,
+      4,
+    ).getUint16(0, Endian.big);
     if (paramLengthPlusHeader < paramHeaderLength) {
-      throw ParamHeaderSelfReportedLengthShorterException(paramLengthPlusHeader, paramHeaderLength);
+      throw ParamHeaderSelfReportedLengthShorterException(
+        paramLengthPlusHeader,
+        paramHeaderLength,
+      );
     }
     if (raw.length < paramLengthPlusHeader) {
-      throw ParamHeaderSelfReportedLengthLongerException(raw.length, paramLengthPlusHeader);
+      throw ParamHeaderSelfReportedLengthLongerException(
+        raw.length,
+        paramLengthPlusHeader,
+      );
     }
 
     final ParamType typ;
@@ -128,7 +150,9 @@ final class ParamHeader {
 
     return ParamHeader(
       typ: typ,
-      unrecognizedAction: ParamHeaderUnrecognizedAction.fromValue(raw[0] & paramHeaderUnrecognizedActionMask),
+      unrecognizedAction: ParamHeaderUnrecognizedAction.fromValue(
+        raw[0] & paramHeaderUnrecognizedActionMask,
+      ),
       len: paramLengthPlusHeader,
       raw: Uint8List.sublistView(raw, paramHeaderLength, paramLengthPlusHeader),
     );
@@ -151,7 +175,9 @@ final class ParamHeader {
     final paramLengthPlusHeader = paramHeaderLength + raw.length;
     final out = Uint8List(paramLengthPlusHeader);
     ByteData.sublistView(out).setUint16(0, typ.value & 0xFFFF, Endian.big);
-    ByteData.sublistView(out).setUint16(2, paramLengthPlusHeader & 0xFFFF, Endian.big);
+    ByteData.sublistView(
+      out,
+    ).setUint16(2, paramLengthPlusHeader & 0xFFFF, Endian.big);
     out.setRange(paramHeaderLength, paramLengthPlusHeader, raw);
     return out;
   }

@@ -34,7 +34,11 @@ const int dtlsErrorDetectionMethod = 1;
 /// Port of `paramZeroChecksumAcceptable` (param_zero_checksum.go:17-23).
 final class ParamZeroChecksumAcceptable implements Param {
   ParamZeroChecksumAcceptable({this.edmid = 0})
-    : header = ParamHeader(typ: ParamType.zeroChecksumAcceptable, len: 0, raw: Uint8List(0));
+    : header = ParamHeader(
+        typ: ParamType.zeroChecksumAcceptable,
+        len: 0,
+        raw: Uint8List(0),
+      );
 
   /// Composition standing in for Go's embedded `paramHeader`.
   ParamHeader header;

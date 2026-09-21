@@ -18,7 +18,9 @@ void main() {
     final b = m.prototype().newBuilder();
     b.assignInt(4);
     final n = b.build();
-    final u = const PlainInt(5); // stand-in for basicnode.NewUint(5): see below.
+    final u = const PlainInt(
+      5,
+    ); // stand-in for basicnode.NewUint(5): see below.
 
     expect(m.asInt(), equals(3));
     expect(n.asInt(), equals(4));

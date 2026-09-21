@@ -90,11 +90,19 @@ abstract interface class CipherSuiteTls13Aead {
 
   /// Port of `cipher.AEAD.Seal` as wrapped by `xorNonceAEAD.Seal`
   /// (`tls/cipher_suites.go:493-501`).
-  Uint8List seal(Uint8List nonce, Uint8List plaintext, Uint8List additionalData);
+  Uint8List seal(
+    Uint8List nonce,
+    Uint8List plaintext,
+    Uint8List additionalData,
+  );
 
   /// Port of `cipher.AEAD.Open` as wrapped by `xorNonceAEAD.Open`
   /// (`tls/cipher_suites.go:505-514`).
-  Uint8List open(Uint8List nonce, Uint8List ciphertext, Uint8List additionalData);
+  Uint8List open(
+    Uint8List nonce,
+    Uint8List ciphertext,
+    Uint8List additionalData,
+  );
 }
 
 /// Port of `cipherSuiteTLS13` (`tls/cipher_suites.go:196-201`) plus its four
@@ -124,25 +132,37 @@ final class CipherSuiteTls13 {
   /// Port of `(*cipherSuiteTLS13).nextTrafficSecret`
   /// (`tls/key_schedule.go:20-24`).
   Uint8List nextTrafficSecret(Uint8List trafficSecret) => expandLabel(
-        hash,
-        trafficSecret,
-        'traffic upd',
-        Uint8List(0),
-        _hashSize(hash),
-      );
+    hash,
+    trafficSecret,
+    'traffic upd',
+    Uint8List(0),
+    _hashSize(hash),
+  );
 
   /// Port of `(*cipherSuiteTLS13).trafficKey` (`tls/key_schedule.go:26-31`).
   /// Go returns the pair via named results `(key, iv []byte)`; a Dart record
   /// preserves that shape without resorting to a positional 2-tuple.
   ({Uint8List key, Uint8List iv}) trafficKey(Uint8List trafficSecret) {
     final key = expandLabel(hash, trafficSecret, 'key', Uint8List(0), keyLen);
-    final iv = expandLabel(hash, trafficSecret, 'iv', Uint8List(0), _aeadNonceLength);
+    final iv = expandLabel(
+      hash,
+      trafficSecret,
+      'iv',
+      Uint8List(0),
+      _aeadNonceLength,
+    );
     return (key: key, iv: iv);
   }
 
   /// Port of `(*cipherSuiteTLS13).finishedHash` (`tls/key_schedule.go:33-41`).
   Uint8List finishedHash(Uint8List baseKey, HandshakeTranscript transcript) {
-    final finishedKey = expandLabel(hash, baseKey, 'finished', Uint8List(0), _hashSize(hash));
+    final finishedKey = expandLabel(
+      hash,
+      baseKey,
+      'finished',
+      Uint8List(0),
+      _hashSize(hash),
+    );
     final verifyData = crypto.Hmac(hash, finishedKey).convert(transcript.sum());
     return Uint8List.fromList(verifyData.bytes);
   }
@@ -153,12 +173,11 @@ final class CipherSuiteTls13 {
   /// fail) -- the tuple exists only to satisfy an unrelated exporter
   /// interface, so the Dart signature drops it rather than inventing a
   /// public `(Uint8List?, Exception?)` return the AGENTS.md contract vetoes.
-  Uint8List Function(String label, Uint8List context, int length) exportKeyingMaterial(
-    MasterSecret secret,
-    HandshakeTranscript transcript,
-  ) {
+  Uint8List Function(String label, Uint8List context, int length)
+  exportKeyingMaterial(MasterSecret secret, HandshakeTranscript transcript) {
     final expMasterSecret = secret.exporterMasterSecret(transcript);
-    return (label, context, length) => expMasterSecret.exporter(label, context, length);
+    return (label, context, length) =>
+        expMasterSecret.exporter(label, context, length);
   }
 }
 
@@ -237,7 +256,11 @@ Uint8List _deriveSecret(
 /// `newSecret == nil` branch (zero bytes of hash size), and the HMAC
 /// primitive itself comes from `package:crypto`'s [crypto.Hmac] rather than
 /// being reimplemented.
-Uint8List _hkdfExtract(crypto.Hash hash, {required Uint8List? newSecret, required Uint8List? currentSecret}) {
+Uint8List _hkdfExtract(
+  crypto.Hash hash, {
+  required Uint8List? newSecret,
+  required Uint8List? currentSecret,
+}) {
   final ikm = newSecret ?? Uint8List(_hashSize(hash));
   final salt = currentSecret ?? Uint8List(_hashSize(hash));
   return Uint8List.fromList(crypto.Hmac(hash, salt).convert(ikm).bytes);
@@ -245,7 +268,12 @@ Uint8List _hkdfExtract(crypto.Hash hash, {required Uint8List? newSecret, require
 
 /// Port of `hkdf.Expand` (`fips140/hkdf/hkdf.go:27-52`), RFC 5869's
 /// HKDF-Expand, over `package:crypto`'s [crypto.Hmac] primitive.
-Uint8List _hkdfExpand(crypto.Hash hash, Uint8List pseudorandomKey, List<int> info, int keyLen) {
+Uint8List _hkdfExpand(
+  crypto.Hash hash,
+  Uint8List pseudorandomKey,
+  List<int> info,
+  int keyLen,
+) {
   final out = BytesBuilder(copy: false);
   var counter = 0;
   var buf = const <int>[];
@@ -287,15 +315,16 @@ Uint8List _beUint16(int value) {
 final class EarlySecret {
   /// Port of `tls13.NewEarlySecret` (`fips140/tls13/tls13.go:73-78`).
   EarlySecret(crypto.Hash hash, Uint8List psk)
-      : _hash = hash,
-        _secret = _hkdfExtract(hash, newSecret: psk, currentSecret: null);
+    : _hash = hash,
+      _secret = _hkdfExtract(hash, newSecret: psk, currentSecret: null);
 
   final crypto.Hash _hash;
   final Uint8List _secret;
 
   /// Port of `(*EarlySecret).ResumptionBinderKey`
   /// (`fips140/tls13/tls13.go:80-82`).
-  Uint8List resumptionBinderKey() => _deriveSecret(_hash, _secret, 'res binder', null);
+  Uint8List resumptionBinderKey() =>
+      _deriveSecret(_hash, _secret, 'res binder', null);
 
   /// Port of `(*EarlySecret).ClientEarlyTrafficSecret`
   /// (`fips140/tls13/tls13.go:86-88`).
@@ -304,13 +333,20 @@ final class EarlySecret {
 
   /// Port of `(*EarlySecret).EarlyExporterMasterSecret`
   /// (`fips140/tls13/tls13.go:162-167`).
-  ExporterMasterSecret earlyExporterMasterSecret(HandshakeTranscript transcript) =>
-      ExporterMasterSecret._(_deriveSecret(_hash, _secret, 'e exp master', transcript), _hash);
+  ExporterMasterSecret earlyExporterMasterSecret(
+    HandshakeTranscript transcript,
+  ) => ExporterMasterSecret._(
+    _deriveSecret(_hash, _secret, 'e exp master', transcript),
+    _hash,
+  );
 
   /// Port of `(*EarlySecret).HandshakeSecret` (`fips140/tls13/tls13.go:95-101`).
   HandshakeSecret handshakeSecret(Uint8List sharedSecret) {
     final derived = _deriveSecret(_hash, _secret, 'derived', null);
-    return HandshakeSecret._(_hkdfExtract(_hash, newSecret: sharedSecret, currentSecret: derived), _hash);
+    return HandshakeSecret._(
+      _hkdfExtract(_hash, newSecret: sharedSecret, currentSecret: derived),
+      _hash,
+    );
   }
 }
 
@@ -337,7 +373,10 @@ final class HandshakeSecret {
   /// Port of `(*HandshakeSecret).MasterSecret` (`fips140/tls13/tls13.go:120-126`).
   MasterSecret masterSecret() {
     final derived = _deriveSecret(_hash, _secret, 'derived', null);
-    return MasterSecret._(_hkdfExtract(_hash, newSecret: null, currentSecret: derived), _hash);
+    return MasterSecret._(
+      _hkdfExtract(_hash, newSecret: null, currentSecret: derived),
+      _hash,
+    );
   }
 }
 
@@ -368,7 +407,10 @@ final class MasterSecret {
   /// Port of `(*MasterSecret).ExporterMasterSecret`
   /// (`fips140/tls13/tls13.go:151-158`).
   ExporterMasterSecret exporterMasterSecret(HandshakeTranscript transcript) =>
-      ExporterMasterSecret._(_deriveSecret(_hash, _secret, 'exp master', transcript), _hash);
+      ExporterMasterSecret._(
+        _deriveSecret(_hash, _secret, 'exp master', transcript),
+        _hash,
+      );
 }
 
 /// Port of `tls13.ExporterMasterSecret` and its methods

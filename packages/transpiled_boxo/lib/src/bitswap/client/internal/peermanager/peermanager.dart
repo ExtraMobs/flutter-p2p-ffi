@@ -15,7 +15,6 @@ abstract class Session {
 typedef PeerQueueFactory = PeerQueue Function(PeerId p);
 
 class PeerManager {
-
   PeerManager(
     this._createPeerQueue,
     BroadcastControl bcastControl,
@@ -148,4 +147,3 @@ class PeerManager {
     }
   }
 }
-

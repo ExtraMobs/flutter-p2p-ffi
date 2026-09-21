@@ -56,7 +56,8 @@ final class HeartbeatAckNotHeartbeatInfoException implements Exception {
   const HeartbeatAckNotHeartbeatInfoException();
 
   @override
-  String toString() => 'heartbeat Ack must have one param, and it should be a HeartbeatInfo';
+  String toString() =>
+      'heartbeat Ack must have one param, and it should be a HeartbeatInfo';
 }
 
 /// Port of `ErrHeartbeatAckMarshalParam` (chunk_heartbeat_ack.go:37),
@@ -74,7 +75,11 @@ final class HeartbeatAckMarshalParamException implements Exception {
 final class ChunkHeartbeatAck implements Chunk {
   ChunkHeartbeatAck({List<Param>? params})
     : params = params ?? <Param>[],
-      header = ChunkHeader(typ: ChunkType.heartbeatAck, flags: 0, raw: Uint8List(0));
+      header = ChunkHeader(
+        typ: ChunkType.heartbeatAck,
+        flags: 0,
+        raw: Uint8List(0),
+      );
 
   /// Composition standing in for Go's embedded `chunkHeader`.
   ChunkHeader header;

@@ -42,7 +42,8 @@ final class Username implements Setter, Getter {
 
   /// Port of `Username.AddTo` (textattrs.go:23-25).
   @override
-  void addTo(Message m) => TextAttribute(value).addToAs(m, AttrType.username, _maxUsernameB);
+  void addTo(Message m) =>
+      TextAttribute(value).addToAs(m, AttrType.username, _maxUsernameB);
 
   /// Port of `Username.GetFrom` (textattrs.go:28-30).
   @override
@@ -66,7 +67,8 @@ final class Realm implements Setter, Getter {
 
   /// Port of `Realm.AddTo` (textattrs.go:49-51).
   @override
-  void addTo(Message m) => TextAttribute(value).addToAs(m, AttrType.realm, _maxRealmB);
+  void addTo(Message m) =>
+      TextAttribute(value).addToAs(m, AttrType.realm, _maxRealmB);
 
   /// Port of `Realm.GetFrom` (textattrs.go:54-56).
   @override
@@ -115,7 +117,8 @@ final class Nonce implements Setter, Getter {
 
   /// Port of `Nonce.AddTo` (textattrs.go:101-103, second block).
   @override
-  void addTo(Message m) => TextAttribute(value).addToAs(m, AttrType.nonce, _maxNonceB);
+  void addTo(Message m) =>
+      TextAttribute(value).addToAs(m, AttrType.nonce, _maxNonceB);
 
   /// Port of `Nonce.GetFrom` (textattrs.go:106-108, second block).
   @override

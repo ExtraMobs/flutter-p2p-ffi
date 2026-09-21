@@ -44,7 +44,7 @@ class DontHaveTimeoutConfig {
 abstract class PeerConnection {
   /// Ping the peer. Throws if there is an error, returns the latency.
   Future<Duration> ping(Duration timeout);
-  
+
   /// The average latency of all pings
   Duration latency();
 }
@@ -54,11 +54,7 @@ class _PendingWant {
   bool active;
   final DateTime sent;
 
-  _PendingWant({
-    required this.c,
-    required this.active,
-    required this.sent,
-  });
+  _PendingWant({required this.c, required this.active, required this.sent});
 }
 
 typedef OnDontHaveTimeout = void Function(List<Cid> cids, Duration timeout);
@@ -66,17 +62,17 @@ typedef OnDontHaveTimeout = void Function(List<Cid> cids, Duration timeout);
 class DontHaveTimeoutManager {
   bool _started = false;
   bool _isShutdown = false;
-  
+
   final PeerConnection _peerConn;
   final OnDontHaveTimeout _onDontHaveTimeout;
   final DontHaveTimeoutConfig _config;
 
   final Map<Cid, _PendingWant> _activeWants = {};
   final Queue<_PendingWant> _wantQueue = Queue();
-  
+
   late Duration _timeout;
   final _LatencyEwma _messageLatency;
-  
+
   Timer? _checkForTimeoutsTimer;
 
   DontHaveTimeoutManager._(
@@ -93,7 +89,11 @@ class DontHaveTimeoutManager {
     DontHaveTimeoutConfig? cfg,
   ]) {
     if (onDontHaveTimeout == null) return null;
-    return DontHaveTimeoutManager._(pc, onDontHaveTimeout, cfg ?? DontHaveTimeoutConfig.defaultConfig());
+    return DontHaveTimeoutManager._(
+      pc,
+      onDontHaveTimeout,
+      cfg ?? DontHaveTimeoutConfig.defaultConfig(),
+    );
   }
 
   void shutdown() {
@@ -193,11 +193,7 @@ class DontHaveTimeoutManager {
 
     for (final c in ks) {
       if (!_activeWants.containsKey(c)) {
-        final pw = _PendingWant(
-          c: c,
-          sent: start,
-          active: true,
-        );
+        final pw = _PendingWant(c: c, sent: start, active: true);
         _activeWants[c] = pw;
         _wantQueue.addLast(pw);
       }
@@ -231,7 +227,9 @@ class DontHaveTimeoutManager {
   }
 
   Duration _calculateTimeoutFromPingLatency(Duration latency) {
-    var timeout = _config.maxExpectedWantProcessTime + latency * _config.pingLatencyMultiplier;
+    var timeout =
+        _config.maxExpectedWantProcessTime +
+        latency * _config.pingLatencyMultiplier;
     if (timeout > _config.maxTimeout) {
       timeout = _config.maxTimeout;
     } else if (timeout < _config.minTimeout) {
@@ -266,7 +264,10 @@ class _LatencyEwma {
       currentAlpha = alpha;
     }
 
-    final newLatencyUs = (elapsed.inMicroseconds * currentAlpha + latency.inMicroseconds * (1 - currentAlpha)).round();
+    final newLatencyUs =
+        (elapsed.inMicroseconds * currentAlpha +
+                latency.inMicroseconds * (1 - currentAlpha))
+            .round();
     latency = Duration(microseconds: newLatencyUs);
   }
 }

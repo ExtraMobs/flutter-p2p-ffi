@@ -15,15 +15,10 @@ import 'selector/selector.dart';
 
 typedef VisitFn = void Function(Progress progress, Node node);
 typedef TransformFn = Node? Function(Progress progress, Node? node);
-typedef AdvVisitFn = void Function(
-  Progress progress,
-  Node node,
-  VisitReason reason,
-);
-typedef LinkTargetNodePrototypeChooser = NodePrototype Function(
-  Link link,
-  LinkContext context,
-);
+typedef AdvVisitFn =
+    void Function(Progress progress, Node node, VisitReason reason);
+typedef LinkTargetNodePrototypeChooser =
+    NodePrototype Function(Link link, LinkContext context);
 typedef Preloader = void Function(PreloadContext context, PreloadLink link);
 
 enum VisitReason { selectionMatch, selectionParent, selectionCandidate }
@@ -109,9 +104,8 @@ final class Progress {
 
   void _init() {
     final config = cfg ??= Config();
-    config.linkTargetNodePrototypeChooser ??= (_, _) => throw StateError(
-      'no LinkTargetNodePrototypeChooser configured',
-    );
+    config.linkTargetNodePrototypeChooser ??= (_, _) =>
+        throw StateError('no LinkTargetNodePrototypeChooser configured');
     if (config.linkVisitOnlyOnce) seenLinks ??= <Link>{};
   }
 
@@ -327,7 +321,8 @@ final class Progress {
     );
     final prototype = cfg!.linkTargetNodePrototypeChooser!(link, context);
     final system = cfg!.linkSystem;
-    if (system == null) throw const TraversalException('no LinkSystem configured');
+    if (system == null)
+      throw const TraversalException('no LinkSystem configured');
     return system.load(context, link, prototype);
   }
 
@@ -358,7 +353,9 @@ final class Progress {
       final replacement = transform(this, node);
       if (!identical(replacement, node)) {
         if (replacement == null) {
-          throw const TraversalException('a walk transform cannot remove its root');
+          throw const TraversalException(
+            'a walk transform cannot remove its root',
+          );
         }
         return replacement;
       }
@@ -448,8 +445,8 @@ final class Progress {
           Kind.map => current.lookupByString(segment.toString()),
           Kind.list => current.lookupByIndex(segment.index()),
           _ => throw TraversalException(
-              'cannot traverse terminals at ${target.truncate(index)}',
-            ),
+            'cannot traverse terminals at ${target.truncate(index)}',
+          ),
         };
       } catch (error) {
         if (error is TraversalException) rethrow;
@@ -469,7 +466,8 @@ final class Progress {
         );
         final prototype = cfg!.linkTargetNodePrototypeChooser!(link, context);
         final system = cfg!.linkSystem;
-        if (system == null) throw const TraversalException('no LinkSystem configured');
+        if (system == null)
+          throw const TraversalException('no LinkSystem configured');
         previous = current;
         current = system.load(context, link, prototype);
         if (trackProgress) {
@@ -503,13 +501,27 @@ final class Progress {
       final map = assembler.beginMap(1);
       path = at.appendSegment(segment);
       map.assembleKey().assignString(segment.toString());
-      _focusedTransform(null, map.assembleValue(), rest, transform, createParents);
+      _focusedTransform(
+        null,
+        map.assembleValue(),
+        rest,
+        transform,
+        createParents,
+      );
       map.finish();
       return;
     }
     switch (node.kind()) {
       case Kind.map:
-        _focusedMap(node, assembler, segment, rest, transform, createParents, at);
+        _focusedMap(
+          node,
+          assembler,
+          segment,
+          rest,
+          transform,
+          createParents,
+          at,
+        );
       case Kind.list:
         _focusedList(node, assembler, segment, rest, transform, createParents);
       case Kind.link:
@@ -522,12 +534,15 @@ final class Progress {
         );
         final prototype = cfg!.linkTargetNodePrototypeChooser!(link, context);
         final system = cfg!.linkSystem;
-        if (system == null) throw const TraversalException('no LinkSystem configured');
+        if (system == null)
+          throw const TraversalException('no LinkSystem configured');
         final loaded = system.load(context, link, prototype);
         lastBlock = LastBlock(path: path, link: link);
         final builder = prototype.newBuilder();
         _focusedTransform(loaded, builder, target, transform, createParents);
-        assembler.assignLink(system.store(context, link.prototype(), builder.build()));
+        assembler.assignLink(
+          system.store(context, link.prototype(), builder.build()),
+        );
       default:
         throw TraversalException('transform parent at $path was a scalar');
     }
@@ -547,7 +562,10 @@ final class Progress {
     Node? replacement;
     if (end) {
       try {
-        replacement = transform(this..path = at.appendSegment(segment), node.lookupBySegment(segment));
+        replacement = transform(
+          this..path = at.appendSegment(segment),
+          node.lookupBySegment(segment),
+        );
       } catch (error) {
         if (error is TraversalException) rethrow;
         replacement = transform(this..path = at.appendSegment(segment), null);
@@ -565,7 +583,13 @@ final class Progress {
           map.assembleValue().assignNode(replacement!);
         } else {
           path = at.appendSegment(segment);
-          _focusedTransform(value, map.assembleValue(), rest, transform, createParents);
+          _focusedTransform(
+            value,
+            map.assembleValue(),
+            rest,
+            transform,
+            createParents,
+          );
         }
       } else {
         map.assembleKey().assignNode(key);
@@ -587,7 +611,13 @@ final class Progress {
     if (end) {
       map.assembleValue().assignNode(replacement!);
     } else {
-      _focusedTransform(null, map.assembleValue(), rest, transform, createParents);
+      _focusedTransform(
+        null,
+        map.assembleValue(),
+        rest,
+        transform,
+        createParents,
+      );
     }
     map.finish();
   }
@@ -608,7 +638,13 @@ final class Progress {
       final (current, value) = iterator.next();
       if (current == index) {
         path = path.appendSegment(segment);
-        _focusedTransform(value, list.assembleValue(), rest, transform, createParents);
+        _focusedTransform(
+          value,
+          list.assembleValue(),
+          rest,
+          transform,
+          createParents,
+        );
         replaced = true;
       } else {
         list.assembleValue().assignNode(value);
@@ -619,10 +655,18 @@ final class Progress {
       return;
     }
     if (index >= 0) {
-      throw TraversalException('transform list index $segment is out of bounds');
+      throw TraversalException(
+        'transform list index $segment is out of bounds',
+      );
     }
     path = path.appendSegmentInt(node.length());
-    _focusedTransform(null, list.assembleValue(), rest, transform, createParents);
+    _focusedTransform(
+      null,
+      list.assembleValue(),
+      rest,
+      transform,
+      createParents,
+    );
     list.finish();
   }
 }
@@ -671,7 +715,8 @@ void walkAdv(Node node, Selector selector, AdvVisitFn visit) =>
     Progress().walkAdv(node, selector, visit);
 Node walkTransforming(Node node, Selector selector, TransformFn transform) =>
     Progress().walkTransforming(node, selector, transform);
-void focus(Node node, Path path, VisitFn visit) => Progress().focus(node, path, visit);
+void focus(Node node, Path path, VisitFn visit) =>
+    Progress().focus(node, path, visit);
 Node get(Node node, Path path) => Progress().get(node, path);
 Node focusedTransform(
   Node node,
@@ -696,6 +741,7 @@ List<Link> selectLinks(Node node) {
         return;
     }
   }
+
   collect(node);
   return links;
 }

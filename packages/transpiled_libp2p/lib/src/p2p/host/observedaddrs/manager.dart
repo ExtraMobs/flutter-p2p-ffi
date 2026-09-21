@@ -103,7 +103,10 @@ String? _getObserver(Multiaddr a) {
       return ip.sublist(12, 16).join('.');
     }
     // Count the /56 prefix as a single observer (net.CIDRMask(56, 128)).
-    return ip.sublist(0, 7).map((b) => b.toRadixString(16).padLeft(2, '0')).join();
+    return ip
+        .sublist(0, 7)
+        .map((b) => b.toRadixString(16).padLeft(2, '0'))
+        .join();
   }
   return null;
 }
@@ -116,7 +119,8 @@ Multiaddr? _zoneless(Multiaddr m) {
   if (m.components.isEmpty) return null;
   final head = m.components.first;
   if (head.protocol.code == Protocols.ip6zone) {
-    if (m.components.length < 2 || m.components[1].protocol.code != Protocols.ip6) {
+    if (m.components.length < 2 ||
+        m.components[1].protocol.code != Protocols.ip6) {
       return null;
     }
     return Multiaddr(m.components.sublist(1));
@@ -308,7 +312,8 @@ final class Manager implements ObservedAddrsManager {
     Map<String, List<_ObserverSet>>? twToObserverSets,
     List<Multiaddr> addrs,
   ) {
-    final map = twToObserverSets ??
+    final map =
+        twToObserverSets ??
         {
           for (final localTwStr in _externalAddrs.keys)
             localTwStr: _getTopExternalAddrs(localTwStr, activationThresh),
@@ -331,7 +336,8 @@ final class Manager implements ObservedAddrsManager {
   /// -309 (`getTopExternalAddrs`).
   List<_ObserverSet> _getTopExternalAddrs(String localTwStr, int minObservers) {
     final sets = <_ObserverSet>[
-      for (final v in _externalAddrs[localTwStr]?.values ?? const <_ObserverSet>[])
+      for (final v
+          in _externalAddrs[localTwStr]?.values ?? const <_ObserverSet>[])
         if (v.observedBy.length >= minObservers) v,
     ];
     sets.sort((a, b) {
@@ -398,10 +404,19 @@ final class Manager implements ObservedAddrsManager {
     final prevObservedTwAddr = _connObservedTwAddrs[conn];
     if (prevObservedTwAddr != null) {
       if (prevObservedTwAddr == observedTw.tw) return;
-      _removeExternalAddrsUnlocked(observer, localTwStr, _bytesKey(prevObservedTwAddr));
+      _removeExternalAddrsUnlocked(
+        observer,
+        localTwStr,
+        _bytesKey(prevObservedTwAddr),
+      );
     }
     _connObservedTwAddrs[conn] = observedTw.tw;
-    _addExternalAddrsUnlocked(observedTw.tw, observer, localTwStr, _bytesKey(observedTw.tw));
+    _addExternalAddrsUnlocked(
+      observedTw.tw,
+      observer,
+      localTwStr,
+      _bytesKey(observedTw.tw),
+    );
   }
 
   /// manager.go:460-475 (`removeExternalAddrsUnlocked`).
@@ -435,7 +450,10 @@ final class Manager implements ObservedAddrsManager {
     String observedTwStr,
   ) {
     final byLocal = _externalAddrs.putIfAbsent(localTwStr, () => {});
-    final s = byLocal.putIfAbsent(observedTwStr, () => _ObserverSet(observedTwAddr));
+    final s = byLocal.putIfAbsent(
+      observedTwStr,
+      () => _ObserverSet(observedTwAddr),
+    );
     s.observedBy[observer] = (s.observedBy[observer] ?? 0) + 1;
   }
 
@@ -451,7 +469,11 @@ final class Manager implements ObservedAddrsManager {
     final observer = _getObserver(c.remoteMultiaddr());
     if (observer == null) return;
 
-    _removeExternalAddrsUnlocked(observer, _bytesKey(localTw.tw), _bytesKey(observedTwAddr));
+    _removeExternalAddrsUnlocked(
+      observer,
+      _bytesKey(localTw.tw),
+      _bytesKey(observedTwAddr),
+    );
   }
 
   /// Stops tracking: unregisters the disconnect notifee and cancels the

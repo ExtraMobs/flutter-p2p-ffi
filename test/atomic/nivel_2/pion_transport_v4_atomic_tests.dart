@@ -199,35 +199,45 @@ void main() {
       await server.close();
     });
 
-    test('dial() - conecta via UDP em modo "connected" e troca datagramas '
-        'com um peer loopback (porta Net.Dial, pion-stun/client.go:64)',
-        () async {
-      final peer = await RawDatagramSocket.bind(InternetAddress.loopbackIPv4, 0);
-      peer.listen((event) {
-        if (event != RawSocketEvent.read) return;
-        final datagram = peer.receive();
-        if (datagram == null) return;
-        // Responde à porta efêmera de origem, como faz um servidor STUN.
-        peer.send([7, 7, 7], datagram.address, datagram.port);
-      });
+    test(
+      'dial() - conecta via UDP em modo "connected" e troca datagramas '
+      'com um peer loopback (porta Net.Dial, pion-stun/client.go:64)',
+      () async {
+        final peer = await RawDatagramSocket.bind(
+          InternetAddress.loopbackIPv4,
+          0,
+        );
+        peer.listen((event) {
+          if (event != RawSocketEvent.read) return;
+          final datagram = peer.receive();
+          if (datagram == null) return;
+          // Responde à porta efêmera de origem, como faz um servidor STUN.
+          peer.send([7, 7, 7], datagram.address, datagram.port);
+        });
 
-      final conn = await StdNet().dial('udp', '127.0.0.1:${peer.port}');
-      final written = await conn.write(Uint8List.fromList([9, 9]));
-      expect(written, equals(2));
+        final conn = await StdNet().dial('udp', '127.0.0.1:${peer.port}');
+        final written = await conn.write(Uint8List.fromList([9, 9]));
+        expect(written, equals(2));
 
-      final buffer = Uint8List(3);
-      final read = await conn.read(buffer).timeout(const Duration(seconds: 5));
-      expect(read, equals(3));
-      expect(buffer, equals([7, 7, 7]));
+        final buffer = Uint8List(3);
+        final read = await conn
+            .read(buffer)
+            .timeout(const Duration(seconds: 5));
+        expect(read, equals(3));
+        expect(buffer, equals([7, 7, 7]));
 
-      await conn.close();
-      peer.close();
-    });
+        await conn.close();
+        peer.close();
+      },
+    );
 
     test('dialUdp() - vincula localmente e troca datagramas via '
         'readFrom()/writeTo() com um peer loopback (porta Net.DialUDP, '
         'pion-stun/client.go:87)', () async {
-      final peer = await RawDatagramSocket.bind(InternetAddress.loopbackIPv4, 0);
+      final peer = await RawDatagramSocket.bind(
+        InternetAddress.loopbackIPv4,
+        0,
+      );
       peer.listen((event) {
         if (event != RawSocketEvent.read) return;
         final datagram = peer.receive();
@@ -242,8 +252,9 @@ void main() {
       expect(writeN, equals(1));
 
       final buffer = Uint8List(2);
-      final (readN, from) =
-          await conn.readFrom(buffer).timeout(const Duration(seconds: 5));
+      final (readN, from) = await conn
+          .readFrom(buffer)
+          .timeout(const Duration(seconds: 5));
       expect(readN, equals(2));
       expect(buffer, equals([6, 6]));
       expect((from as UdpAddr).port, equals(peer.port));
@@ -275,7 +286,10 @@ void main() {
     test('dialUdp() - via a interface Net, StdNet envia um datagrama a um '
         'peer loopback (porta net.go:136)', () async {
       final Net net = StdNet();
-      final peer = await RawDatagramSocket.bind(InternetAddress.loopbackIPv4, 0);
+      final peer = await RawDatagramSocket.bind(
+        InternetAddress.loopbackIPv4,
+        0,
+      );
       final remote = UdpAddr(InternetAddress.loopbackIPv4, peer.port);
 
       final conn = await net.dialUdp('udp', null, remote);
@@ -298,16 +312,21 @@ void main() {
     // ficava pendurado para sempre. No Go, fechar uma `net.Conn` desbloqueia
     // um `Read` concorrente ("use of closed network connection").
     test('close() - libera um read() UDP que já estava bloqueado', () async {
-      final peer = await RawDatagramSocket.bind(InternetAddress.loopbackIPv4, 0);
+      final peer = await RawDatagramSocket.bind(
+        InternetAddress.loopbackIPv4,
+        0,
+      );
       final conn = await StdNet().dial('udp', '127.0.0.1:${peer.port}');
 
       var settled = false;
       // Nada será enviado: só o close() pode encerrar esta leitura.
       unawaited(
-        conn.read(Uint8List(16)).then<void>(
-          (_) => settled = true,
-          onError: (Object _) => settled = true,
-        ),
+        conn
+            .read(Uint8List(16))
+            .then<void>(
+              (_) => settled = true,
+              onError: (Object _) => settled = true,
+            ),
       );
       await Future<void>.delayed(const Duration(milliseconds: 50));
       expect(settled, isFalse, reason: 'a leitura deve estar bloqueada');
@@ -326,10 +345,12 @@ void main() {
 
       var settled = false;
       unawaited(
-        conn.read(Uint8List(16)).then<void>(
-          (_) => settled = true,
-          onError: (Object _) => settled = true,
-        ),
+        conn
+            .read(Uint8List(16))
+            .then<void>(
+              (_) => settled = true,
+              onError: (Object _) => settled = true,
+            ),
       );
       await Future<void>.delayed(const Duration(milliseconds: 50));
       expect(settled, isFalse, reason: 'a leitura deve estar bloqueada');
@@ -392,20 +413,26 @@ void main() {
       await server.close();
     });
 
-    test('close() - encerra a conexão TCP sem lançar (porta io Closer)', () async {
-      final server = await ServerSocket.bind(InternetAddress.loopbackIPv4, 0);
-      server.listen((client) {});
+    test(
+      'close() - encerra a conexão TCP sem lançar (porta io Closer)',
+      () async {
+        final server = await ServerSocket.bind(InternetAddress.loopbackIPv4, 0);
+        server.listen((client) {});
 
-      final conn = await StdNet().dial('tcp', '127.0.0.1:${server.port}');
-      await expectLater(conn.close(), completes);
-      await server.close();
-    });
+        final conn = await StdNet().dial('tcp', '127.0.0.1:${server.port}');
+        await expectLater(conn.close(), completes);
+        await server.close();
+      },
+    );
   });
 
   group('UdpConn [Atomic Audit]', () {
     test('writeTo() - envia um datagrama que um peer loopback recebe '
         '(porta UDPConn.WriteTo, net.go)', () async {
-      final peer = await RawDatagramSocket.bind(InternetAddress.loopbackIPv4, 0);
+      final peer = await RawDatagramSocket.bind(
+        InternetAddress.loopbackIPv4,
+        0,
+      );
       final remote = UdpAddr(InternetAddress.loopbackIPv4, peer.port);
 
       final conn = await StdNet().dialUdp('udp', null, remote);
@@ -426,7 +453,10 @@ void main() {
       final conn = await StdNet().dialUdp('udp', null, dummyRemote);
       final localPort = (conn.localAddr as UdpAddr).port;
 
-      final peer = await RawDatagramSocket.bind(InternetAddress.loopbackIPv4, 0);
+      final peer = await RawDatagramSocket.bind(
+        InternetAddress.loopbackIPv4,
+        0,
+      );
       final sent = peer.send(
         Uint8List.fromList([7]),
         InternetAddress.loopbackIPv4,
@@ -474,16 +504,22 @@ void main() {
   });
 
   group('PacketConn [Atomic Audit]', () {
-    test('readFromContext() - retorna o resultado quando a leitura conclui '
-        'antes do cancelamento (porta ReadFromContext, packetconn.go:61)', () async {
-      final fake = _FakeUdpConn();
-      final pc = PacketConn(fake);
-      final future = pc.readFromContext(Completer<void>().future, Uint8List(4));
-      fake.readCompleter.complete((3, fake.remoteAddr));
-      final (n, addr) = await future;
-      expect(n, equals(3));
-      expect(addr, equals(fake.remoteAddr));
-    });
+    test(
+      'readFromContext() - retorna o resultado quando a leitura conclui '
+      'antes do cancelamento (porta ReadFromContext, packetconn.go:61)',
+      () async {
+        final fake = _FakeUdpConn();
+        final pc = PacketConn(fake);
+        final future = pc.readFromContext(
+          Completer<void>().future,
+          Uint8List(4),
+        );
+        fake.readCompleter.complete((3, fake.remoteAddr));
+        final (n, addr) = await future;
+        expect(n, equals(3));
+        expect(addr, equals(fake.remoteAddr));
+      },
+    );
 
     test('readFromContext() - lança DeadlineExceededException quando o '
         'cancelamento dispara antes da leitura concluir', () async {
@@ -514,7 +550,11 @@ void main() {
       final fake = _FakeUdpConn();
       final pc = PacketConn(fake);
       final cancel = Completer<void>();
-      final future = pc.writeToContext(cancel.future, Uint8List(2), fake.remoteAddr);
+      final future = pc.writeToContext(
+        cancel.future,
+        Uint8List(2),
+        fake.remoteAddr,
+      );
       cancel.complete();
       await expectLater(future, throwsA(isA<DeadlineExceededException>()));
     });
@@ -530,7 +570,11 @@ void main() {
         throwsA(isA<ClosingException>()),
       );
       expect(
-        () => pc.writeToContext(Completer<void>().future, Uint8List(1), fake.remoteAddr),
+        () => pc.writeToContext(
+          Completer<void>().future,
+          Uint8List(1),
+          fake.remoteAddr,
+        ),
         throwsA(isA<ClosingException>()),
       );
     });

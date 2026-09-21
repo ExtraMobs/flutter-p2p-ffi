@@ -9,7 +9,7 @@ import 'package:transpiled_go_yamux/transpiled_go_yamux.dart';
 
 class _MemoryTransport implements YamuxTransport {
   _MemoryTransport([StreamController<List<int>>? controller])
-      : _controller = controller ?? StreamController<List<int>>();
+    : _controller = controller ?? StreamController<List<int>>();
 
   final StreamController<List<int>> _controller;
   final List<Uint8List> writtenChunks = <Uint8List>[];
@@ -107,13 +107,16 @@ void main() {
       expect(decoded.length, equals(8192));
     });
 
-    test('decode() - lanca YamuxProtocolException quando cabecalho e truncado', () {
-      final shortBytes = Uint8List(8);
-      expect(
-        () => YamuxFrame.decode(shortBytes),
-        throwsA(isA<YamuxProtocolException>()),
-      );
-    });
+    test(
+      'decode() - lanca YamuxProtocolException quando cabecalho e truncado',
+      () {
+        final shortBytes = Uint8List(8);
+        expect(
+          () => YamuxFrame.decode(shortBytes),
+          throwsA(isA<YamuxProtocolException>()),
+        );
+      },
+    );
 
     test('toString() - formata informacoes do frame em string', () {
       final frame = YamuxFrame(
@@ -149,29 +152,46 @@ void main() {
       expect(decoded.payload, equals([1, 2, 3, 4, 5]));
     });
 
-    test('add() - lanca YamuxProtocolException quando versao do protocolo e invalida', () {
-      final decoder = YamuxFrameDecoder();
-      final invalidHeader = Uint8List.fromList([
-        99, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
-      ]);
-      expect(
-        () => decoder.add(invalidHeader),
-        throwsA(isA<YamuxProtocolException>()),
-      );
-    });
+    test(
+      'add() - lanca YamuxProtocolException quando versao do protocolo e invalida',
+      () {
+        final decoder = YamuxFrameDecoder();
+        final invalidHeader = Uint8List.fromList([
+          99,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+        ]);
+        expect(
+          () => decoder.add(invalidHeader),
+          throwsA(isA<YamuxProtocolException>()),
+        );
+      },
+    );
 
-    test('add() - lanca YamuxProtocolException quando tamanho excede maxDataLength', () {
-      final decoder = YamuxFrameDecoder(maxDataLength: 4);
-      final frame = YamuxFrame(
-        type: YamuxMessageType.data,
-        payload: Uint8List.fromList([1, 2, 3, 4, 5, 6]),
-      );
-      final bytes = frame.encode();
-      expect(
-        () => decoder.add(bytes),
-        throwsA(isA<YamuxProtocolException>()),
-      );
-    });
+    test(
+      'add() - lanca YamuxProtocolException quando tamanho excede maxDataLength',
+      () {
+        final decoder = YamuxFrameDecoder(maxDataLength: 4);
+        final frame = YamuxFrame(
+          type: YamuxMessageType.data,
+          payload: Uint8List.fromList([1, 2, 3, 4, 5, 6]),
+        );
+        final bytes = frame.encode();
+        expect(
+          () => decoder.add(bytes),
+          throwsA(isA<YamuxProtocolException>()),
+        );
+      },
+    );
   });
 
   group('YamuxConfig [Atomic Audit]', () {
@@ -179,40 +199,52 @@ void main() {
       expect(() => YamuxConfig.defaults.verify(), returnsNormally);
     });
 
-    test('verify() - lanca YamuxConfigException para acceptBacklog invalido', () {
-      const invalidConfig = YamuxConfig(acceptBacklog: 0);
-      expect(
-        () => invalidConfig.verify(),
-        throwsA(isA<YamuxConfigException>()),
-      );
-    });
+    test(
+      'verify() - lanca YamuxConfigException para acceptBacklog invalido',
+      () {
+        const invalidConfig = YamuxConfig(acceptBacklog: 0);
+        expect(
+          () => invalidConfig.verify(),
+          throwsA(isA<YamuxConfigException>()),
+        );
+      },
+    );
 
-    test('verify() - lanca YamuxConfigException para maxMessageSize menor que 1024', () {
-      const invalidConfig = YamuxConfig(maxMessageSize: 512);
-      expect(
-        () => invalidConfig.verify(),
-        throwsA(isA<YamuxConfigException>()),
-      );
-    });
+    test(
+      'verify() - lanca YamuxConfigException para maxMessageSize menor que 1024',
+      () {
+        const invalidConfig = YamuxConfig(maxMessageSize: 512);
+        expect(
+          () => invalidConfig.verify(),
+          throwsA(isA<YamuxConfigException>()),
+        );
+      },
+    );
 
-    test('verify() - lanca YamuxConfigException para initialStreamWindowSize invalido', () {
-      const invalidConfig = YamuxConfig(initialStreamWindowSize: 1024);
-      expect(
-        () => invalidConfig.verify(),
-        throwsA(isA<YamuxConfigException>()),
-      );
-    });
+    test(
+      'verify() - lanca YamuxConfigException para initialStreamWindowSize invalido',
+      () {
+        const invalidConfig = YamuxConfig(initialStreamWindowSize: 1024);
+        expect(
+          () => invalidConfig.verify(),
+          throwsA(isA<YamuxConfigException>()),
+        );
+      },
+    );
 
-    test('verify() - lanca YamuxConfigException para maxStreamWindowSize menor que initial', () {
-      const invalidConfig = YamuxConfig(
-        initialStreamWindowSize: 256 * 1024,
-        maxStreamWindowSize: 128 * 1024,
-      );
-      expect(
-        () => invalidConfig.verify(),
-        throwsA(isA<YamuxConfigException>()),
-      );
-    });
+    test(
+      'verify() - lanca YamuxConfigException para maxStreamWindowSize menor que initial',
+      () {
+        const invalidConfig = YamuxConfig(
+          initialStreamWindowSize: 256 * 1024,
+          maxStreamWindowSize: 128 * 1024,
+        );
+        expect(
+          () => invalidConfig.verify(),
+          throwsA(isA<YamuxConfigException>()),
+        );
+      },
+    );
   });
 
   group('YamuxConfigException [Atomic Audit]', () {
@@ -300,39 +332,45 @@ void main() {
       expect(completed, isTrue);
     });
 
-    test('numStreams - rastreia quantidade de streams ativas na sessao', () async {
-      final (clientTransport, serverTransport) = _MemoryTransport.pair();
-      final client = YamuxSession.client(clientTransport);
-      final server = YamuxSession.server(serverTransport);
-      final acceptFuture = server.acceptStream();
-      final outgoing = await client.openStream();
-      final incoming = await acceptFuture;
-      expect(client.numStreams, equals(1));
-      expect(server.numStreams, equals(1));
-      await outgoing.close();
-      await incoming.close();
-      await Future<void>.delayed(Duration.zero);
-      expect(client.numStreams, equals(0));
-      expect(server.numStreams, equals(0));
-      await client.close();
-      await server.close();
-    });
+    test(
+      'numStreams - rastreia quantidade de streams ativas na sessao',
+      () async {
+        final (clientTransport, serverTransport) = _MemoryTransport.pair();
+        final client = YamuxSession.client(clientTransport);
+        final server = YamuxSession.server(serverTransport);
+        final acceptFuture = server.acceptStream();
+        final outgoing = await client.openStream();
+        final incoming = await acceptFuture;
+        expect(client.numStreams, equals(1));
+        expect(server.numStreams, equals(1));
+        await outgoing.close();
+        await incoming.close();
+        await Future<void>.delayed(Duration.zero);
+        expect(client.numStreams, equals(0));
+        expect(server.numStreams, equals(0));
+        await client.close();
+        await server.close();
+      },
+    );
 
-    test('numIncomingStreams - rastreia streams recebidas pela sessao', () async {
-      final (clientTransport, serverTransport) = _MemoryTransport.pair();
-      final client = YamuxSession.client(clientTransport);
-      final server = YamuxSession.server(serverTransport);
-      final acceptFuture = server.acceptStream();
-      final outgoing = await client.openStream();
-      final incoming = await acceptFuture;
-      expect(server.numIncomingStreams, equals(1));
-      await outgoing.close();
-      await incoming.close();
-      await Future<void>.delayed(Duration.zero);
-      expect(server.numIncomingStreams, equals(0));
-      await client.close();
-      await server.close();
-    });
+    test(
+      'numIncomingStreams - rastreia streams recebidas pela sessao',
+      () async {
+        final (clientTransport, serverTransport) = _MemoryTransport.pair();
+        final client = YamuxSession.client(clientTransport);
+        final server = YamuxSession.server(serverTransport);
+        final acceptFuture = server.acceptStream();
+        final outgoing = await client.openStream();
+        final incoming = await acceptFuture;
+        expect(server.numIncomingStreams, equals(1));
+        await outgoing.close();
+        await incoming.close();
+        await Future<void>.delayed(Duration.zero);
+        expect(server.numIncomingStreams, equals(0));
+        await client.close();
+        await server.close();
+      },
+    );
 
     test('openStream() - abre uma nova stream de saida com timeout', () async {
       final (clientTransport, serverTransport) = _MemoryTransport.pair();
@@ -380,41 +418,50 @@ void main() {
       await server.close();
     });
 
-    test('accept() - metodo de conveniencia equivalente a acceptStream', () async {
-      final (clientTransport, serverTransport) = _MemoryTransport.pair();
-      final client = YamuxSession.client(clientTransport);
-      final server = YamuxSession.server(serverTransport);
-      final acceptFuture = server.accept();
-      final outgoing = await client.open();
-      final incoming = await acceptFuture;
-      expect(incoming.streamId, equals(outgoing.streamId));
-      await outgoing.close();
-      await incoming.close();
-      await client.close();
-      await server.close();
-    });
+    test(
+      'accept() - metodo de conveniencia equivalente a acceptStream',
+      () async {
+        final (clientTransport, serverTransport) = _MemoryTransport.pair();
+        final client = YamuxSession.client(clientTransport);
+        final server = YamuxSession.server(serverTransport);
+        final acceptFuture = server.accept();
+        final outgoing = await client.open();
+        final incoming = await acceptFuture;
+        expect(incoming.streamId, equals(outgoing.streamId));
+        await outgoing.close();
+        await incoming.close();
+        await client.close();
+        await server.close();
+      },
+    );
 
-    test('goAway() - envia frame goAway e impede abertura de novas streams', () async {
-      final (clientTransport, serverTransport) = _MemoryTransport.pair();
-      final client = YamuxSession.client(clientTransport);
-      final server = YamuxSession.server(serverTransport);
-      await client.goAway();
-      expect(
-        () => client.openStream(),
-        throwsA(isA<YamuxSessionClosedException>()),
-      );
-      await client.close();
-      await server.close();
-    });
+    test(
+      'goAway() - envia frame goAway e impede abertura de novas streams',
+      () async {
+        final (clientTransport, serverTransport) = _MemoryTransport.pair();
+        final client = YamuxSession.client(clientTransport);
+        final server = YamuxSession.server(serverTransport);
+        await client.goAway();
+        expect(
+          () => client.openStream(),
+          throwsA(isA<YamuxSessionClosedException>()),
+        );
+        await client.close();
+        await server.close();
+      },
+    );
 
-    test('closeWithError() - encerra a sessao enviando goAway com codigo de erro', () async {
-      final (clientTransport, serverTransport) = _MemoryTransport.pair();
-      final client = YamuxSession.client(clientTransport);
-      final server = YamuxSession.server(serverTransport);
-      await client.closeWithError(99);
-      expect(client.isClosed, isTrue);
-      await server.close();
-    });
+    test(
+      'closeWithError() - encerra a sessao enviando goAway com codigo de erro',
+      () async {
+        final (clientTransport, serverTransport) = _MemoryTransport.pair();
+        final client = YamuxSession.client(clientTransport);
+        final server = YamuxSession.server(serverTransport);
+        await client.closeWithError(99);
+        expect(client.isClosed, isTrue);
+        await server.close();
+      },
+    );
 
     test('close() - encerra a sessao e recursos associados', () async {
       final (clientTransport, serverTransport) = _MemoryTransport.pair();
@@ -464,38 +511,44 @@ void main() {
       await server.close();
     });
 
-    test('isClosed - indica quando os dois lados ou reset encerraram a stream', () async {
-      final (clientTransport, serverTransport) = _MemoryTransport.pair();
-      final client = YamuxSession.client(clientTransport);
-      final server = YamuxSession.server(serverTransport);
-      final acceptFuture = server.acceptStream();
-      final stream = await client.openStream();
-      final incoming = await acceptFuture;
-      expect(stream.isClosed, isFalse);
-      await stream.close();
-      await incoming.close();
-      expect(stream.isClosed, isTrue);
-      await client.close();
-      await server.close();
-    });
+    test(
+      'isClosed - indica quando os dois lados ou reset encerraram a stream',
+      () async {
+        final (clientTransport, serverTransport) = _MemoryTransport.pair();
+        final client = YamuxSession.client(clientTransport);
+        final server = YamuxSession.server(serverTransport);
+        final acceptFuture = server.acceptStream();
+        final stream = await client.openStream();
+        final incoming = await acceptFuture;
+        expect(stream.isClosed, isFalse);
+        await stream.close();
+        await incoming.close();
+        expect(stream.isClosed, isTrue);
+        await client.close();
+        await server.close();
+      },
+    );
 
-    test('bufferedBytes - indica quantidade de bytes pendentes no buffer de leitura', () async {
-      final (clientTransport, serverTransport) = _MemoryTransport.pair();
-      final client = YamuxSession.client(clientTransport);
-      final server = YamuxSession.server(serverTransport);
-      final acceptFuture = server.acceptStream();
-      final stream = await client.openStream();
-      final incoming = await acceptFuture;
-      await stream.write(Uint8List.fromList([1, 2, 3, 4, 5, 6, 7]));
-      await Future<void>.delayed(const Duration(milliseconds: 20));
-      expect(incoming.bufferedBytes, equals(7));
-      await incoming.read();
-      expect(incoming.bufferedBytes, equals(0));
-      await stream.close();
-      await incoming.close();
-      await client.close();
-      await server.close();
-    });
+    test(
+      'bufferedBytes - indica quantidade de bytes pendentes no buffer de leitura',
+      () async {
+        final (clientTransport, serverTransport) = _MemoryTransport.pair();
+        final client = YamuxSession.client(clientTransport);
+        final server = YamuxSession.server(serverTransport);
+        final acceptFuture = server.acceptStream();
+        final stream = await client.openStream();
+        final incoming = await acceptFuture;
+        await stream.write(Uint8List.fromList([1, 2, 3, 4, 5, 6, 7]));
+        await Future<void>.delayed(const Duration(milliseconds: 20));
+        expect(incoming.bufferedBytes, equals(7));
+        await incoming.read();
+        expect(incoming.bufferedBytes, equals(0));
+        await stream.close();
+        await incoming.close();
+        await client.close();
+        await server.close();
+      },
+    );
 
     test('write() - envia dados pela stream com sucesso', () async {
       final (clientTransport, serverTransport) = _MemoryTransport.pair();
@@ -515,41 +568,47 @@ void main() {
       await server.close();
     });
 
-    test('read() - le dados recebidos na stream ou null no encerramento', () async {
-      final (clientTransport, serverTransport) = _MemoryTransport.pair();
-      final client = YamuxSession.client(clientTransport);
-      final server = YamuxSession.server(serverTransport);
-      final acceptFuture = server.acceptStream();
-      final stream = await client.openStream();
-      final incoming = await acceptFuture;
-      await stream.write(Uint8List.fromList([55, 66]));
-      final chunk = await incoming.read();
-      expect(chunk, equals([55, 66]));
-      await stream.closeWrite();
-      final eof = await incoming.read();
-      expect(eof, isNull);
-      await incoming.close();
-      await client.close();
-      await server.close();
-    });
+    test(
+      'read() - le dados recebidos na stream ou null no encerramento',
+      () async {
+        final (clientTransport, serverTransport) = _MemoryTransport.pair();
+        final client = YamuxSession.client(clientTransport);
+        final server = YamuxSession.server(serverTransport);
+        final acceptFuture = server.acceptStream();
+        final stream = await client.openStream();
+        final incoming = await acceptFuture;
+        await stream.write(Uint8List.fromList([55, 66]));
+        final chunk = await incoming.read();
+        expect(chunk, equals([55, 66]));
+        await stream.closeWrite();
+        final eof = await incoming.read();
+        expect(eof, isNull);
+        await incoming.close();
+        await client.close();
+        await server.close();
+      },
+    );
 
-    test('readInto() - preenche buffer alvo com bytes recebidos e retorna tamanho', () async {
-      final (clientTransport, serverTransport) = _MemoryTransport.pair();
-      final client = YamuxSession.client(clientTransport);
-      final server = YamuxSession.server(serverTransport);
-      final acceptFuture = server.acceptStream();
-      final stream = await client.openStream();
-      final incoming = await acceptFuture;
-      await stream.write(Uint8List.fromList([7, 8, 9]));
-      final target = Uint8List(3);
-      final bytesRead = await incoming.readInto(target);
-      expect(bytesRead, equals(3));
-      expect(target, equals([7, 8, 9]));
-      await stream.close();
-      await incoming.close();
-      await client.close();
-      await server.close();
-    });
+    test(
+      'readInto() - preenche buffer alvo com bytes recebidos e retorna tamanho',
+      () async {
+        final (clientTransport, serverTransport) = _MemoryTransport.pair();
+        final client = YamuxSession.client(clientTransport);
+        final server = YamuxSession.server(serverTransport);
+        final acceptFuture = server.acceptStream();
+        final stream = await client.openStream();
+        final incoming = await acceptFuture;
+        await stream.write(Uint8List.fromList([7, 8, 9]));
+        final target = Uint8List(3);
+        final bytesRead = await incoming.readInto(target);
+        expect(bytesRead, equals(3));
+        expect(target, equals([7, 8, 9]));
+        await stream.close();
+        await incoming.close();
+        await client.close();
+        await server.close();
+      },
+    );
 
     test('closeWrite() - encerra lado de escrita e envia flag FIN', () async {
       final (clientTransport, serverTransport) = _MemoryTransport.pair();
@@ -578,10 +637,7 @@ void main() {
       final stream = await client.openStream();
       final incoming = await acceptFuture;
       await incoming.closeRead();
-      expect(
-        incoming.read(),
-        throwsA(isA<YamuxStreamResetException>()),
-      );
+      expect(incoming.read(), throwsA(isA<YamuxStreamResetException>()));
       await stream.close();
       await incoming.close();
       await client.close();
@@ -602,40 +658,40 @@ void main() {
       await server.close();
     });
 
-    test('reset() - cancela stream com codigo opcional e notifica peer', () async {
-      final (clientTransport, serverTransport) = _MemoryTransport.pair();
-      final client = YamuxSession.client(clientTransport);
-      final server = YamuxSession.server(serverTransport);
-      final acceptFuture = server.acceptStream();
-      final stream = await client.openStream();
-      final incoming = await acceptFuture;
-      final readFuture = incoming.read();
-      await stream.reset(42);
-      expect(
-        readFuture,
-        throwsA(isA<YamuxStreamResetException>()),
-      );
-      expect(stream.isClosed, isTrue);
-      await client.close();
-      await server.close();
-    });
+    test(
+      'reset() - cancela stream com codigo opcional e notifica peer',
+      () async {
+        final (clientTransport, serverTransport) = _MemoryTransport.pair();
+        final client = YamuxSession.client(clientTransport);
+        final server = YamuxSession.server(serverTransport);
+        final acceptFuture = server.acceptStream();
+        final stream = await client.openStream();
+        final incoming = await acceptFuture;
+        final readFuture = incoming.read();
+        await stream.reset(42);
+        expect(readFuture, throwsA(isA<YamuxStreamResetException>()));
+        expect(stream.isClosed, isTrue);
+        await client.close();
+        await server.close();
+      },
+    );
 
-    test('resetWithError() - reseta stream com codigo de erro especifico', () async {
-      final (clientTransport, serverTransport) = _MemoryTransport.pair();
-      final client = YamuxSession.client(clientTransport);
-      final server = YamuxSession.server(serverTransport);
-      final acceptFuture = server.acceptStream();
-      final stream = await client.openStream();
-      final incoming = await acceptFuture;
-      final readFuture = incoming.read();
-      await stream.resetWithError(77);
-      expect(
-        readFuture,
-        throwsA(isA<YamuxStreamResetException>()),
-      );
-      expect(stream.isClosed, isTrue);
-      await client.close();
-      await server.close();
-    });
+    test(
+      'resetWithError() - reseta stream com codigo de erro especifico',
+      () async {
+        final (clientTransport, serverTransport) = _MemoryTransport.pair();
+        final client = YamuxSession.client(clientTransport);
+        final server = YamuxSession.server(serverTransport);
+        final acceptFuture = server.acceptStream();
+        final stream = await client.openStream();
+        final incoming = await acceptFuture;
+        final readFuture = incoming.read();
+        await stream.resetWithError(77);
+        expect(readFuture, throwsA(isA<YamuxStreamResetException>()));
+        expect(stream.isClosed, isTrue);
+        await client.close();
+        await server.close();
+      },
+    );
   });
 }

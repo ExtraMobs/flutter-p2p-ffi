@@ -92,7 +92,8 @@ void main() {
       expect(
         escritos,
         total,
-        reason: 'write só completa quando TODOS os bytes foram aceitos pelo '
+        reason:
+            'write só completa quando TODOS os bytes foram aceitos pelo '
             'kernel, atravessando quantos ciclos de prontidão forem precisos',
       );
 
@@ -105,58 +106,67 @@ void main() {
   });
 
   group('Fd - fechamento durante operação em voo', () {
-    test('fechar com escrita em voo notifica a escrita e não corrompe estado',
-        () async {
-      final servidor = await _ServidorMudo.abrir();
-      servidor.aceitarSemLer();
+    test(
+      'fechar com escrita em voo notifica a escrita e não corrompe estado',
+      () async {
+        final servidor = await _ServidorMudo.abrir();
+        servidor.aceitarSemLer();
 
-      final raw = await RawSocket.connect('127.0.0.1', servidor.port);
-      final fd = Fd(raw);
+        final raw = await RawSocket.connect('127.0.0.1', servidor.port);
+        final fd = Fd(raw);
 
-      // Grande o bastante para exceder o buffer de envio com folga: a escrita
-      // vai estacionar esperando prontidão.
-      final payload = Uint8List(16 * 1024 * 1024);
+        // Grande o bastante para exceder o buffer de envio com folga: a escrita
+        // vai estacionar esperando prontidão.
+        final payload = Uint8List(16 * 1024 * 1024);
 
-      Object? erroDaEscrita;
-      var escritaTerminou = false;
-      unawaited(
-        fd.write(payload).then(
-          (_) => escritaTerminou = true,
-          onError: (Object e) {
-            erroDaEscrita = e;
-            escritaTerminou = true;
-          },
-        ),
-      );
+        Object? erroDaEscrita;
+        var escritaTerminou = false;
+        unawaited(
+          fd
+              .write(payload)
+              .then(
+                (_) => escritaTerminou = true,
+                onError: (Object e) {
+                  erroDaEscrita = e;
+                  escritaTerminou = true;
+                },
+              ),
+        );
 
-      // Confirma que a escrita realmente ficou presa antes de fechar. Sem isso
-      // o teste poderia passar sem nunca exercitar a corrida.
-      await _pump(10);
-      expect(
-        escritaTerminou,
-        isFalse,
-        reason: 'com o par sem ler, a escrita tem de estar estacionada; '
-            'se ela completou, o cenário do bug não foi reproduzido',
-      );
+        // Confirma que a escrita realmente ficou presa antes de fechar. Sem isso
+        // o teste poderia passar sem nunca exercitar a corrida.
+        await _pump(10);
+        expect(
+          escritaTerminou,
+          isFalse,
+          reason:
+              'com o par sem ler, a escrita tem de estar estacionada; '
+              'se ela completou, o cenário do bug não foi reproduzido',
+        );
 
-      await fd.close();
+        await fd.close();
 
-      await _ate(() => escritaTerminou, motivo: 'a escrita presa foi acordada');
-      expect(
-        erroDaEscrita,
-        isA<NetClosingException>(),
-        reason: 'a escrita interrompida por fechamento tem de ser notificada '
-            'com o sentinela do upstream, e não silenciosamente dada como '
-            'bem-sucedida nem com um StateError sobre o sink',
-      );
-      expect(
-        erroDaEscrita.toString(),
-        'use of closed network connection',
-        reason: 'texto preservado literalmente do upstream',
-      );
+        await _ate(
+          () => escritaTerminou,
+          motivo: 'a escrita presa foi acordada',
+        );
+        expect(
+          erroDaEscrita,
+          isA<NetClosingException>(),
+          reason:
+              'a escrita interrompida por fechamento tem de ser notificada '
+              'com o sentinela do upstream, e não silenciosamente dada como '
+              'bem-sucedida nem com um StateError sobre o sink',
+        );
+        expect(
+          erroDaEscrita.toString(),
+          'use of closed network connection',
+          reason: 'texto preservado literalmente do upstream',
+        );
 
-      await servidor.fechar();
-    });
+        await servidor.fechar();
+      },
+    );
 
     // Nota sobre o alcance destes testes, apurada por mutação e mantida porque
     // registra uma decisão de projeto que parece faltar quando se lê o código.
@@ -171,40 +181,46 @@ void main() {
     //
     // O que sobrou é verificado: remover o `await _destroyed.future` do fim de
     // `close` faz o teste abaixo cair.
-    test('close deixa a operação em voo notificada e o descritor destruído',
-        () async {
-      final servidor = await _ServidorMudo.abrir();
-      servidor.aceitarSemLer();
+    test(
+      'close deixa a operação em voo notificada e o descritor destruído',
+      () async {
+        final servidor = await _ServidorMudo.abrir();
+        servidor.aceitarSemLer();
 
-      final raw = await RawSocket.connect('127.0.0.1', servidor.port);
-      final fd = Fd(raw);
+        final raw = await RawSocket.connect('127.0.0.1', servidor.port);
+        final fd = Fd(raw);
 
-      var destruido = false;
-      unawaited(fd.destroyed.then((_) => destruido = true));
+        var destruido = false;
+        unawaited(fd.destroyed.then((_) => destruido = true));
 
-      var escritaTerminou = false;
-      unawaited(
-        fd
-            .write(Uint8List(16 * 1024 * 1024))
-            .then((_) => escritaTerminou = true, onError: (Object _) {
-          escritaTerminou = true;
-        }),
-      );
-      await _pump(10);
-      expect(escritaTerminou, isFalse);
+        var escritaTerminou = false;
+        unawaited(
+          fd
+              .write(Uint8List(16 * 1024 * 1024))
+              .then(
+                (_) => escritaTerminou = true,
+                onError: (Object _) {
+                  escritaTerminou = true;
+                },
+              ),
+        );
+        await _pump(10);
+        expect(escritaTerminou, isFalse);
 
-      await fd.close();
+        await fd.close();
 
-      expect(
-        escritaTerminou,
-        isTrue,
-        reason: 'ao retornar de close, a escrita que estava estacionada já '
-            'tem de ter sido acordada e notificada',
-      );
-      expect(destruido, isTrue);
+        expect(
+          escritaTerminou,
+          isTrue,
+          reason:
+              'ao retornar de close, a escrita que estava estacionada já '
+              'tem de ter sido acordada e notificada',
+        );
+        expect(destruido, isTrue);
 
-      await servidor.fechar();
-    });
+        await servidor.fechar();
+      },
+    );
 
     // Este cobre o alargamento real do contrato, e não é acidental: a operação
     // B nunca chega a adquirir a trava, fica na fila do FdMutex. Sob a
@@ -223,7 +239,9 @@ void main() {
 
       // A estaciona na contrapressão, segurando a trava de escrita.
       unawaited(
-        fd.write(Uint8List(16 * 1024 * 1024)).then(
+        fd
+            .write(Uint8List(16 * 1024 * 1024))
+            .then(
               (_) => assentadas.add('A'),
               onError: (Object _) => assentadas.add('A'),
             ),
@@ -232,7 +250,9 @@ void main() {
 
       // B nem chega a entrar: fica na fila da trava de escrita.
       unawaited(
-        fd.write(Uint8List.fromList([1, 2, 3])).then(
+        fd
+            .write(Uint8List.fromList([1, 2, 3]))
+            .then(
               (_) => assentadas.add('B'),
               onError: (Object _) => assentadas.add('B'),
             ),
@@ -241,7 +261,8 @@ void main() {
       expect(
         assentadas,
         isEmpty,
-        reason: 'A presa na contrapressão e B presa atrás de A; se alguma '
+        reason:
+            'A presa na contrapressão e B presa atrás de A; se alguma '
             'tivesse assentado, o cenário não foi montado',
       );
 
@@ -250,7 +271,8 @@ void main() {
       expect(
         assentadas,
         unorderedEquals(<String>['A', 'B']),
-        reason: 'close espera pelas DUAS. B nunca adquiriu a trava, então sob '
+        reason:
+            'close espera pelas DUAS. B nunca adquiriu a trava, então sob '
             'a contagem de referências do upstream ela não seria contada e '
             'poderia notificar o chamador depois do teardown',
       );
@@ -268,10 +290,13 @@ void main() {
       Object? erroDaLeitura;
       var leituraTerminou = false;
       unawaited(
-        fd.read().then((_) => leituraTerminou = true, onError: (Object e) {
-          erroDaLeitura = e;
-          leituraTerminou = true;
-        }),
+        fd.read().then(
+          (_) => leituraTerminou = true,
+          onError: (Object e) {
+            erroDaLeitura = e;
+            leituraTerminou = true;
+          },
+        ),
       );
 
       await _pump(10);
@@ -324,7 +349,8 @@ void main() {
       expect(
         fd.isClosed,
         isTrue,
-        reason: 'close é idempotente como o resto do dart:io. O FD.Close do Go '
+        reason:
+            'close é idempotente como o resto do dart:io. O FD.Close do Go '
             'devolve errClosing no segundo fechamento, mas lá isso é valor de '
             'retorno que o idioma `defer conn.Close()` descarta; em Dart seria '
             'exceção lançada num finally de teardown, que é a falha que este '
@@ -334,39 +360,44 @@ void main() {
       await servidor.fechar();
     });
 
-    test('segundo fechamento concorrente espera a destruição em curso',
-        () async {
-      final servidor = await _ServidorMudo.abrir();
-      servidor.aceitarSemLer();
-      final raw = await RawSocket.connect('127.0.0.1', servidor.port);
-      final fd = Fd(raw);
+    test(
+      'segundo fechamento concorrente espera a destruição em curso',
+      () async {
+        final servidor = await _ServidorMudo.abrir();
+        servidor.aceitarSemLer();
+        final raw = await RawSocket.connect('127.0.0.1', servidor.port);
+        final fd = Fd(raw);
 
-      var escritaTerminou = false;
-      unawaited(
-        fd.write(Uint8List(16 * 1024 * 1024)).then(
-              (_) => escritaTerminou = true,
-              onError: (Object _) => escritaTerminou = true,
-            ),
-      );
-      await _pump(10);
-      expect(escritaTerminou, isFalse);
+        var escritaTerminou = false;
+        unawaited(
+          fd
+              .write(Uint8List(16 * 1024 * 1024))
+              .then(
+                (_) => escritaTerminou = true,
+                onError: (Object _) => escritaTerminou = true,
+              ),
+        );
+        await _pump(10);
+        expect(escritaTerminou, isFalse);
 
-      // Os dois partem juntos, sem que o segundo saiba do primeiro — que é a
-      // forma real da corrida: o FIN do par dispara um teardown enquanto a
-      // camada de cima fecha a conexão explicitamente.
-      final primeiro = fd.close();
-      final segundo = fd.close();
-      await Future.wait(<Future<void>>[primeiro, segundo]);
+        // Os dois partem juntos, sem que o segundo saiba do primeiro — que é a
+        // forma real da corrida: o FIN do par dispara um teardown enquanto a
+        // camada de cima fecha a conexão explicitamente.
+        final primeiro = fd.close();
+        final segundo = fd.close();
+        await Future.wait(<Future<void>>[primeiro, segundo]);
 
-      expect(
-        escritaTerminou,
-        isTrue,
-        reason: 'o segundo fechamento tem de dar a mesma promessa do primeiro: '
-            'ao voltar, nada desta conexão dispara mais',
-      );
+        expect(
+          escritaTerminou,
+          isTrue,
+          reason:
+              'o segundo fechamento tem de dar a mesma promessa do primeiro: '
+              'ao voltar, nada desta conexão dispara mais',
+        );
 
-      await servidor.fechar();
-    });
+        await servidor.fechar();
+      },
+    );
   });
 
   group('Fd - fechamento com muitas operações em voo', () {
@@ -391,7 +422,9 @@ void main() {
       // A primeira estaciona na contrapressão e segura a trava; as demais
       // ficam na fila do FdMutex, sem nunca tocar no socket.
       unawaited(
-        fd.write(Uint8List(16 * 1024 * 1024)).then(
+        fd
+            .write(Uint8List(16 * 1024 * 1024))
+            .then(
               (_) => assentadas.add(0),
               onError: (Object _) => assentadas.add(0),
             ),
@@ -399,7 +432,9 @@ void main() {
       await _pump(10);
       for (var i = 1; i <= quantas; i++) {
         unawaited(
-          fd.write(Uint8List.fromList([i])).then(
+          fd
+              .write(Uint8List.fromList([i]))
+              .then(
                 (_) => assentadas.add(i),
                 onError: (Object _) => assentadas.add(i),
               ),
@@ -413,7 +448,8 @@ void main() {
       expect(
         assentadas.length,
         quantas + 1,
-        reason: 'ao retornar de close, TODAS as operações registradas já têm '
+        reason:
+            'ao retornar de close, TODAS as operações registradas já têm '
             'de ter assentado — nenhuma pode notificar o chamador depois do '
             'teardown',
       );
@@ -423,30 +459,33 @@ void main() {
   });
 
   group('Fd - fim de leitura', () {
-    test('read devolve vazio quando o par encerra a direção de envio', () async {
-      final server = await ServerSocket.bind('127.0.0.1', 0);
-      server.listen((socket) {
-        socket.add(<int>[1, 2, 3]);
-        socket.close();
-      });
+    test(
+      'read devolve vazio quando o par encerra a direção de envio',
+      () async {
+        final server = await ServerSocket.bind('127.0.0.1', 0);
+        server.listen((socket) {
+          socket.add(<int>[1, 2, 3]);
+          socket.close();
+        });
 
-      final raw = await RawSocket.connect('127.0.0.1', server.port);
-      final fd = Fd(raw);
+        final raw = await RawSocket.connect('127.0.0.1', server.port);
+        final fd = Fd(raw);
 
-      final primeiro = await fd.read();
-      expect(primeiro, equals(Uint8List.fromList([1, 2, 3])));
+        final primeiro = await fd.read();
+        expect(primeiro, equals(Uint8List.fromList([1, 2, 3])));
 
-      await _ate(() => fd.isReadClosed, motivo: 'readClosed do par');
-      final segundo = await fd.read();
-      expect(
-        segundo,
-        isEmpty,
-        reason: 'lista vazia é o equivalente de io.EOF neste ponto do port',
-      );
+        await _ate(() => fd.isReadClosed, motivo: 'readClosed do par');
+        final segundo = await fd.read();
+        expect(
+          segundo,
+          isEmpty,
+          reason: 'lista vazia é o equivalente de io.EOF neste ponto do port',
+        );
 
-      await fd.close();
-      await server.close();
-    });
+        await fd.close();
+        await server.close();
+      },
+    );
   });
 }
 

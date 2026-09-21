@@ -18,7 +18,8 @@ class ListenerClosedException implements Exception {
 const errListenerClosed = ListenerClosedException();
 
 /// A raw network connection before security and multiplexing upgrade.
-abstract interface class RawConn implements Conn, ConnMultiaddrs, StreamReadWriter {
+abstract interface class RawConn
+    implements Conn, ConnMultiaddrs, StreamReadWriter {
   Transport transport();
   @override
   Future<Uint8List> read([int? maxLength]);

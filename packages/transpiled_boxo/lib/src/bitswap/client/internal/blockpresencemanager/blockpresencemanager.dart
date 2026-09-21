@@ -99,7 +99,7 @@ class BlockPresenceManager {
   void removePeer(PeerId p) {
     final peerStr = p.toString();
     final keysToRemove = <Cid>[];
-    
+
     for (final entry in _presence.entries) {
       final pm = entry.value;
       pm.remove(peerStr);
@@ -107,7 +107,7 @@ class BlockPresenceManager {
         keysToRemove.add(entry.key);
       }
     }
-    
+
     for (final k in keysToRemove) {
       _presence.remove(k);
     }

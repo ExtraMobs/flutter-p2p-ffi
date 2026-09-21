@@ -8,12 +8,14 @@ import 'package:transpiled_ipld_prime/src/codec/dagjson/codec.dart' as dagjson;
 import 'package:transpiled_ipld_prime/src/codec/json/codec.dart' as json_codec;
 import 'package:transpiled_ipld_prime/src/codec/raw/codec.dart' as raw_codec;
 import 'package:transpiled_ipld_prime/src/linking/cid/cid_link.dart';
-import 'package:transpiled_ipld_prime/src/linking/cid/link_system.dart' as cid_ls;
+import 'package:transpiled_ipld_prime/src/linking/cid/link_system.dart'
+    as cid_ls;
 import 'package:transpiled_ipld_prime/src/linking/linking.dart';
 import 'package:transpiled_ipld_prime/src/multicodec/registry.dart' as reg;
 import 'package:transpiled_ipld_prime/src/storage/memstore.dart';
 import 'package:transpiled_ipld_prime/src/storage/storage.dart' as stor;
-import 'package:transpiled_ipld_prime/src/traversal/selector/selector.dart' as sel;
+import 'package:transpiled_ipld_prime/src/traversal/selector/selector.dart'
+    as sel;
 import 'package:transpiled_ipld_prime/src/traversal/traversal.dart' as trav;
 import 'package:transpiled_ipld_prime/transpiled_ipld_prime.dart';
 
@@ -51,7 +53,8 @@ class _TestAmendPrototype implements NodePrototypeSupportingAmend {
   NodeBuilder amendingBuilder(Node base) => const PrototypeMap().newBuilder();
 }
 
-class _TestStreamingWritableStore implements stor.StreamingWritableStorage, stor.Storage {
+class _TestStreamingWritableStore
+    implements stor.StreamingWritableStorage, stor.Storage {
   final Map<String, Uint8List> data = {};
   @override
   bool has(Object? context, String key) => data.containsKey(key);
@@ -63,7 +66,8 @@ class _TestStreamingWritableStore implements stor.StreamingWritableStorage, stor
   }
 }
 
-class _TestVectorWritableStore implements stor.VectorWritableStorage, stor.Storage {
+class _TestVectorWritableStore
+    implements stor.VectorWritableStorage, stor.Storage {
   final Map<String, Uint8List> data = {};
   @override
   bool has(Object? context, String key) => data.containsKey(key);
@@ -74,9 +78,12 @@ class _TestVectorWritableStore implements stor.VectorWritableStorage, stor.Stora
 }
 
 void main() {
-  final dummyCid = Cid.decode('bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi');
+  final dummyCid = Cid.decode(
+    'bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi',
+  );
   final testLink = CidLink(dummyCid);
-  Prefix makeRawPrefix() => Prefix(version: 1, codec: 'raw', mhType: 'sha2-256', mhLength: 32);
+  Prefix makeRawPrefix() =>
+      Prefix(version: 1, codec: 'raw', mhType: 'sha2-256', mhLength: 32);
 
   group('Top-Level Functions [Atomic Audit]', () {
     test('buildMap() - constroi mapa fluentemente com callback sem erros', () {
@@ -107,17 +114,20 @@ void main() {
       expect(n.lookupByString('key1').asBool(), isTrue);
     });
 
-    test('buildList() - constroi lista fluentemente com callback sem erros', () {
-      final (res, err) = buildList(const PrototypeList(), 2, (la) {
-        listEntry(la, intValue(10));
-        listEntry(la, intValue(20));
-      });
-      expect(err, isNull);
-      expect(res, isNotNull);
-      expect(res!.length(), equals(2));
-      expect(res.lookupByIndex(0).asInt(), equals(10));
-      expect(res.lookupByIndex(1).asInt(), equals(20));
-    });
+    test(
+      'buildList() - constroi lista fluentemente com callback sem erros',
+      () {
+        final (res, err) = buildList(const PrototypeList(), 2, (la) {
+          listEntry(la, intValue(10));
+          listEntry(la, intValue(20));
+        });
+        expect(err, isNull);
+        expect(res, isNotNull);
+        expect(res!.length(), equals(2));
+        expect(res.lookupByIndex(0).asInt(), equals(10));
+        expect(res.lookupByIndex(1).asInt(), equals(20));
+      },
+    );
 
     test('list() - cria assemble de lista para montar valores', () {
       final fn = list(1, (la) {
@@ -214,7 +224,10 @@ void main() {
     });
 
     test('registerDecoder() - registra decoder globalmente', () {
-      reg.registerDecoder(0x7777, (assembler, reader) => assembler.assignInt(123));
+      reg.registerDecoder(
+        0x7777,
+        (assembler, reader) => assembler.assignInt(123),
+      );
       expect(reg.listDecoders(), contains(0x7777));
     });
 
@@ -263,7 +276,10 @@ void main() {
 
     test('putVec() - helper global de gravacao vetorial', () {
       final ms = MemoryStore();
-      stor.putVec(null, ms, 'k6', [Uint8List.fromList([1, 2]), Uint8List.fromList([3, 4])]);
+      stor.putVec(null, ms, 'k6', [
+        Uint8List.fromList([1, 2]),
+        Uint8List.fromList([3, 4]),
+      ]);
       expect(ms.get(null, 'k6'), equals(Uint8List.fromList([1, 2, 3, 4])));
     });
 
@@ -284,7 +300,10 @@ void main() {
 
     test('walkMatching() - percorre no com seletor de correspondencia', () {
       var count = 0;
-      trav.walkMatching(const PlainInt(8), const sel.Matcher(), (progress, node) {
+      trav.walkMatching(const PlainInt(8), const sel.Matcher(), (
+        progress,
+        node,
+      ) {
         count++;
         expect(node.asInt(), equals(8));
       });
@@ -293,7 +312,11 @@ void main() {
 
     test('walkAdv() - executa caminhada avancada com visit reason', () {
       var reasonSeen = false;
-      trav.walkAdv(const PlainInt(9), const sel.Matcher(), (progress, node, reason) {
+      trav.walkAdv(const PlainInt(9), const sel.Matcher(), (
+        progress,
+        node,
+        reason,
+      ) {
         reasonSeen = true;
         expect(reason, equals(trav.VisitReason.selectionMatch));
       });
@@ -301,9 +324,13 @@ void main() {
     });
 
     test('walkTransforming() - transforma valores durante caminhada', () {
-      final result = trav.walkTransforming(const PlainInt(10), const sel.Matcher(), (progress, node) {
-        return const PlainInt(20);
-      });
+      final result = trav.walkTransforming(
+        const PlainInt(10),
+        const sel.Matcher(),
+        (progress, node) {
+          return const PlainInt(20);
+        },
+      );
       expect(result.asInt(), equals(20));
     });
 
@@ -331,20 +358,26 @@ void main() {
       final (mapNode, _) = buildMap(const PrototypeMap(), 1, (ma) {
         mapEntry(ma, 'val', intValue(1));
       });
-      final transformed = trav.focusedTransform(mapNode!, Path.parse('val'), (prog, node) {
+      final transformed = trav.focusedTransform(mapNode!, Path.parse('val'), (
+        prog,
+        node,
+      ) {
         return const PlainInt(99);
       }, false);
       expect(transformed.lookupByString('val').asInt(), equals(99));
     });
 
-    test('selectLinks() - extrai todos os links contidos em uma arvore de nos', () {
-      final (mapNode, _) = buildMap(const PrototypeMap(), 1, (ma) {
-        mapEntry(ma, 'ln', link(testLink));
-      });
-      final links = trav.selectLinks(mapNode!);
-      expect(links, hasLength(1));
-      expect(links.first, equals(testLink));
-    });
+    test(
+      'selectLinks() - extrai todos os links contidos em uma arvore de nos',
+      () {
+        final (mapNode, _) = buildMap(const PrototypeMap(), 1, (ma) {
+          mapEntry(ma, 'ln', link(testLink));
+        });
+        final links = trav.selectLinks(mapNode!);
+        expect(links, hasLength(1));
+        expect(links.first, equals(testLink));
+      },
+    );
 
     test('defaultLinkSystem() - instancia sistema de links padrao', () {
       final ls = cid_ls.defaultLinkSystem();
@@ -352,12 +385,15 @@ void main() {
       expect(ls.encoderChooser, isNotNull);
     });
 
-    test('linkSystemUsingMulticodecRegistry() - cria link system com registro customizado', () {
-      final r = reg.Registry();
-      raw_codec.registerRawCodec(r);
-      final ls = cid_ls.linkSystemUsingMulticodecRegistry(r);
-      expect(ls, isNotNull);
-    });
+    test(
+      'linkSystemUsingMulticodecRegistry() - cria link system com registro customizado',
+      () {
+        final r = reg.Registry();
+        raw_codec.registerRawCodec(r);
+        final ls = cid_ls.linkSystemUsingMulticodecRegistry(r);
+        expect(ls, isNotNull);
+      },
+    );
 
     test('registerDagJsonCodec() - registra dag-json no registro indicado', () {
       final r = reg.Registry();
@@ -374,17 +410,20 @@ void main() {
       expect(str, contains('hello'));
     });
 
-    test('encodeDagJsonWithOptions() - codifica no com opcoes dag-json customizadas', () {
-      final out = <List<int>>[];
-      final sink = StreamControllerSink(out);
-      dagjson.encodeDagJsonWithOptions(
-        const PlainInt(123),
-        sink,
-        const dagjson.DagJsonEncodeOptions(sortMaps: false),
-      );
-      final str = utf8.decode(out.expand((i) => i).toList());
-      expect(str, equals('123'));
-    });
+    test(
+      'encodeDagJsonWithOptions() - codifica no com opcoes dag-json customizadas',
+      () {
+        final out = <List<int>>[];
+        final sink = StreamControllerSink(out);
+        dagjson.encodeDagJsonWithOptions(
+          const PlainInt(123),
+          sink,
+          const dagjson.DagJsonEncodeOptions(sortMaps: false),
+        );
+        final str = utf8.decode(out.expand((i) => i).toList());
+        expect(str, equals('123'));
+      },
+    );
 
     test('decodeDagJson() - decodifica dag-json para assembler', () {
       final b = const PrototypeString().newBuilder();
@@ -438,61 +477,109 @@ void main() {
 
     test('computeLink() - computa link deterministico do no sem gravar', () {
       final proto = CidLinkPrototype(makeRawPrefix());
-      final link = ls.computeLink(proto, PlainBytes(Uint8List.fromList([1, 2, 3])));
+      final link = ls.computeLink(
+        proto,
+        PlainBytes(Uint8List.fromList([1, 2, 3])),
+      );
       expect(link, isA<CidLink>());
     });
 
     test('mustComputeLink() - computa link com sucesso', () {
       final proto = CidLinkPrototype(makeRawPrefix());
-      final link = ls.mustComputeLink(proto, PlainBytes(Uint8List.fromList([4, 5, 6])));
+      final link = ls.mustComputeLink(
+        proto,
+        PlainBytes(Uint8List.fromList([4, 5, 6])),
+      );
       expect(link, isNotNull);
     });
 
     test('store() - grava no no storage e retorna link criado', () {
       final proto = CidLinkPrototype(makeRawPrefix());
-      final link = ls.store(const LinkContext(), proto, PlainBytes(Uint8List.fromList([10, 20, 30])));
+      final link = ls.store(
+        const LinkContext(),
+        proto,
+        PlainBytes(Uint8List.fromList([10, 20, 30])),
+      );
       expect(link, isNotNull);
-      expect(ls.load(const LinkContext(), link, const PrototypeBytes()).asBytes(), equals([10, 20, 30]));
+      expect(
+        ls.load(const LinkContext(), link, const PrototypeBytes()).asBytes(),
+        equals([10, 20, 30]),
+      );
     });
 
     test('mustStore() - grava no com mustStore', () {
       final proto = CidLinkPrototype(makeRawPrefix());
-      final link = ls.mustStore(const LinkContext(), proto, PlainBytes(Uint8List.fromList([40, 50])));
+      final link = ls.mustStore(
+        const LinkContext(),
+        proto,
+        PlainBytes(Uint8List.fromList([40, 50])),
+      );
       expect(link, isNotNull);
     });
 
     test('load() - carrega no do storage reconstruindo o modelo', () {
       final proto = CidLinkPrototype(makeRawPrefix());
-      final link = ls.store(const LinkContext(), proto, PlainBytes(Uint8List.fromList([1, 2])));
+      final link = ls.store(
+        const LinkContext(),
+        proto,
+        PlainBytes(Uint8List.fromList([1, 2])),
+      );
       final loaded = ls.load(const LinkContext(), link, const PrototypeBytes());
       expect(loaded.asBytes(), equals([1, 2]));
     });
 
     test('mustLoad() - carrega no com mustLoad', () {
       final proto = CidLinkPrototype(makeRawPrefix());
-      final link = ls.store(const LinkContext(), proto, PlainBytes(Uint8List.fromList([3, 4])));
-      final loaded = ls.mustLoad(const LinkContext(), link, const PrototypeBytes());
+      final link = ls.store(
+        const LinkContext(),
+        proto,
+        PlainBytes(Uint8List.fromList([3, 4])),
+      );
+      final loaded = ls.mustLoad(
+        const LinkContext(),
+        link,
+        const PrototypeBytes(),
+      );
       expect(loaded.asBytes(), equals([3, 4]));
     });
 
     test('loadRaw() - obtem bytes puros do bloco referenciado', () {
       final proto = CidLinkPrototype(makeRawPrefix());
-      final link = ls.store(const LinkContext(), proto, PlainBytes(Uint8List.fromList([7, 8, 9])));
+      final link = ls.store(
+        const LinkContext(),
+        proto,
+        PlainBytes(Uint8List.fromList([7, 8, 9])),
+      );
       final raw = ls.loadRaw(const LinkContext(), link);
       expect(raw, equals(Uint8List.fromList([7, 8, 9])));
     });
 
-    test('loadPlusRaw() - carrega no montado juntamente com seus bytes puros', () {
-      final proto = CidLinkPrototype(makeRawPrefix());
-      final link = ls.store(const LinkContext(), proto, PlainBytes(Uint8List.fromList([11, 12])));
-      final (node, raw) = ls.loadPlusRaw(const LinkContext(), link, const PrototypeBytes());
-      expect(node.asBytes(), equals([11, 12]));
-      expect(raw, equals(Uint8List.fromList([11, 12])));
-    });
+    test(
+      'loadPlusRaw() - carrega no montado juntamente com seus bytes puros',
+      () {
+        final proto = CidLinkPrototype(makeRawPrefix());
+        final link = ls.store(
+          const LinkContext(),
+          proto,
+          PlainBytes(Uint8List.fromList([11, 12])),
+        );
+        final (node, raw) = ls.loadPlusRaw(
+          const LinkContext(),
+          link,
+          const PrototypeBytes(),
+        );
+        expect(node.asBytes(), equals([11, 12]));
+        expect(raw, equals(Uint8List.fromList([11, 12])));
+      },
+    );
 
     test('fill() - preenche assembler a partir de link', () {
       final proto = CidLinkPrototype(makeRawPrefix());
-      final link = ls.store(const LinkContext(), proto, PlainBytes(Uint8List.fromList([13, 14])));
+      final link = ls.store(
+        const LinkContext(),
+        proto,
+        PlainBytes(Uint8List.fromList([13, 14])),
+      );
       final b = const PrototypeBytes().newBuilder();
       ls.fill(const LinkContext(), link, b);
       expect(b.build().asBytes(), equals([13, 14]));
@@ -500,7 +587,11 @@ void main() {
 
     test('mustFill() - preenche assembler via mustFill', () {
       final proto = CidLinkPrototype(makeRawPrefix());
-      final link = ls.store(const LinkContext(), proto, PlainBytes(Uint8List.fromList([15, 16])));
+      final link = ls.store(
+        const LinkContext(),
+        proto,
+        PlainBytes(Uint8List.fromList([15, 16])),
+      );
       final b = const PrototypeBytes().newBuilder();
       ls.mustFill(const LinkContext(), link, b);
       expect(b.build().asBytes(), equals([15, 16]));
@@ -537,12 +628,20 @@ void main() {
 
     test('walkTransforming() - metodo de instancia para transformacao', () {
       final p = trav.Progress();
-      final n = p.walkTransforming(const PlainInt(4), const sel.Matcher(), (prog, node) => const PlainInt(40));
+      final n = p.walkTransforming(
+        const PlainInt(4),
+        const sel.Matcher(),
+        (prog, node) => const PlainInt(40),
+      );
       expect(n.asInt(), equals(40));
     });
 
     test('focus() - metodo de instancia para foco por path', () {
-      final (mapNode, _) = buildMap(const PrototypeMap(), 1, (ma) => mapEntry(ma, 'z', intValue(7)));
+      final (mapNode, _) = buildMap(
+        const PrototypeMap(),
+        1,
+        (ma) => mapEntry(ma, 'z', intValue(7)),
+      );
       final p = trav.Progress();
       var called = false;
       p.focus(mapNode!, Path.parse('z'), (prog, node) {
@@ -553,17 +652,33 @@ void main() {
     });
 
     test('get() - metodo de instancia para busca direta', () {
-      final (mapNode, _) = buildMap(const PrototypeMap(), 1, (ma) => mapEntry(ma, 'w', intValue(8)));
+      final (mapNode, _) = buildMap(
+        const PrototypeMap(),
+        1,
+        (ma) => mapEntry(ma, 'w', intValue(8)),
+      );
       final p = trav.Progress();
       expect(p.get(mapNode!, Path.parse('w')).asInt(), equals(8));
     });
 
-    test('focusedTransform() - metodo de instancia para transformacao focada', () {
-      final (mapNode, _) = buildMap(const PrototypeMap(), 1, (ma) => mapEntry(ma, 'v', intValue(9)));
-      final p = trav.Progress();
-      final res = p.focusedTransform(mapNode!, Path.parse('v'), (prog, n) => const PlainInt(99), false);
-      expect(res.lookupByString('v').asInt(), equals(99));
-    });
+    test(
+      'focusedTransform() - metodo de instancia para transformacao focada',
+      () {
+        final (mapNode, _) = buildMap(
+          const PrototypeMap(),
+          1,
+          (ma) => mapEntry(ma, 'v', intValue(9)),
+        );
+        final p = trav.Progress();
+        final res = p.focusedTransform(
+          mapNode!,
+          Path.parse('v'),
+          (prog, n) => const PlainInt(99),
+          false,
+        );
+        expect(res.lookupByString('v').asInt(), equals(99));
+      },
+    );
   });
 
   group('Registry [Atomic Audit]', () {
@@ -736,7 +851,9 @@ void main() {
 
   group('ByteReadSeeker and Memory [Atomic Audit]', () {
     test('ByteReadSeeker.read() - le dados para buffer', () {
-      final ByteReadSeeker seeker = _TestByteSeeker(Uint8List.fromList([1, 2, 3]));
+      final ByteReadSeeker seeker = _TestByteSeeker(
+        Uint8List.fromList([1, 2, 3]),
+      );
       final buf = Uint8List(2);
       final n = seeker.read(buf);
       expect(n, equals(2));
@@ -744,7 +861,9 @@ void main() {
     });
 
     test('ByteReadSeeker.seek() - altera posicao do cursor', () {
-      final ByteReadSeeker seeker = _TestByteSeeker(Uint8List.fromList([1, 2, 3]));
+      final ByteReadSeeker seeker = _TestByteSeeker(
+        Uint8List.fromList([1, 2, 3]),
+      );
       final pos = seeker.seek(1, SeekOrigin.start);
       expect(pos, equals(1));
     });
@@ -777,13 +896,19 @@ void main() {
       expect(lbn.asLargeBytes(), isNotNull);
     });
 
-    test('NodePrototypeSupportingAmend.amendingBuilder() - interface amend', () {
-      final NodePrototypeSupportingAmend npsa = _TestAmendPrototype();
-      expect(npsa.amendingBuilder(const PlainInt(1)), isNotNull);
-    });
+    test(
+      'NodePrototypeSupportingAmend.amendingBuilder() - interface amend',
+      () {
+        final NodePrototypeSupportingAmend npsa = _TestAmendPrototype();
+        expect(npsa.amendingBuilder(const PlainInt(1)), isNotNull);
+      },
+    );
 
     test('BudgetExhaustedException.toString() - representacao em texto', () {
-      expect(const BudgetExhaustedException().toString(), contains('exhausted'));
+      expect(
+        const BudgetExhaustedException().toString(),
+        contains('exhausted'),
+      );
     });
 
     test('WrongKindException.toString() - representacao em texto', () {
@@ -796,42 +921,61 @@ void main() {
     });
 
     test('NotExistsException.toString() - representacao em texto', () {
-      expect(const NotExistsException(PathSegment.ofString('not found')).toString(), contains('not found'));
+      expect(
+        const NotExistsException(PathSegment.ofString('not found')).toString(),
+        contains('not found'),
+      );
     });
 
     test('RepeatedMapKeyException.toString() - representacao em texto', () {
       expect(const RepeatedMapKeyException('dup').toString(), contains('dup'));
     });
 
-    test('InvalidSegmentForListException.toString() - representacao em texto', () {
-      final ex = const InvalidSegmentForListException(
-        troubleSegment: PathSegment.ofString('bad'),
-      );
-      expect(ex.toString(), contains('bad'));
-    });
+    test(
+      'InvalidSegmentForListException.toString() - representacao em texto',
+      () {
+        final ex = const InvalidSegmentForListException(
+          troubleSegment: PathSegment.ofString('bad'),
+        );
+        expect(ex.toString(), contains('bad'));
+      },
+    );
 
     test('IteratorOverreadException.toString() - representacao em texto', () {
-      expect(const IteratorOverreadException().toString(), contains('iterator overread'));
+      expect(
+        const IteratorOverreadException().toString(),
+        contains('iterator overread'),
+      );
     });
 
     test('LinkPrototype.buildLink() - interface LinkPrototype', () {
       final LinkPrototype lp = CidLinkPrototype(makeRawPrefix());
-      final l = lp.buildLink(Uint8List.fromList([0x12, 0x20, ...List.filled(32, 1)]));
+      final l = lp.buildLink(
+        Uint8List.fromList([0x12, 0x20, ...List.filled(32, 1)]),
+      );
       expect(l, isA<CidLink>());
     });
 
     test('CidLinkPrototype.buildLink() - constroi link por bytes', () {
       final clp = CidLinkPrototype(makeRawPrefix());
-      final l = clp.buildLink(Uint8List.fromList([0x12, 0x20, ...List.filled(32, 2)]));
+      final l = clp.buildLink(
+        Uint8List.fromList([0x12, 0x20, ...List.filled(32, 2)]),
+      );
       expect(l, isA<CidLink>());
     });
 
     test('LinkingSetupException.toString() - representacao em texto', () {
-      expect(LinkingSetupException('err', StateError('x')).toString(), contains('err'));
+      expect(
+        LinkingSetupException('err', StateError('x')).toString(),
+        contains('err'),
+      );
     });
 
     test('HashMismatchException.toString() - representacao em texto', () {
-      expect(HashMismatchException(testLink, testLink).toString(), contains('hash mismatch'));
+      expect(
+        HashMismatchException(testLink, testLink).toString(),
+        contains('hash mismatch'),
+      );
     });
 
     test('Storage.has() - interface Storage', () {
@@ -850,27 +994,40 @@ void main() {
       expect(ws.has(null, 'k'), isTrue);
     });
 
-    test('StreamingReadableStorage.getStream() - interface StreamingReadableStorage', () {
-      final stor.StreamingReadableStorage srs = MemoryStore()..put(null, 'k', Uint8List.fromList([1, 2]));
-      expect(srs.getStream(null, 'k'), equals([1, 2]));
-    });
+    test(
+      'StreamingReadableStorage.getStream() - interface StreamingReadableStorage',
+      () {
+        final stor.StreamingReadableStorage srs = MemoryStore()
+          ..put(null, 'k', Uint8List.fromList([1, 2]));
+        expect(srs.getStream(null, 'k'), equals([1, 2]));
+      },
+    );
 
-    test('StreamingWritableStorage.putStream() - interface StreamingWritableStorage', () {
-      final stor.StreamingWritableStorage sws = _TestStreamingWritableStore();
-      final (sink, commit) = sws.putStream(null);
-      sink.add([1]);
-      commit('k');
-      expect((sws as stor.Storage).has(null, 'k'), isTrue);
-    });
+    test(
+      'StreamingWritableStorage.putStream() - interface StreamingWritableStorage',
+      () {
+        final stor.StreamingWritableStorage sws = _TestStreamingWritableStore();
+        final (sink, commit) = sws.putStream(null);
+        sink.add([1]);
+        commit('k');
+        expect((sws as stor.Storage).has(null, 'k'), isTrue);
+      },
+    );
 
-    test('VectorWritableStorage.putVec() - interface VectorWritableStorage', () {
-      final stor.VectorWritableStorage vws = _TestVectorWritableStore();
-      vws.putVec(null, 'k', [Uint8List.fromList([1])]);
-      expect((vws as stor.Storage).has(null, 'k'), isTrue);
-    });
+    test(
+      'VectorWritableStorage.putVec() - interface VectorWritableStorage',
+      () {
+        final stor.VectorWritableStorage vws = _TestVectorWritableStore();
+        vws.putVec(null, 'k', [
+          Uint8List.fromList([1]),
+        ]);
+        expect((vws as stor.Storage).has(null, 'k'), isTrue);
+      },
+    );
 
     test('PeekableStorage.peek() - interface PeekableStorage', () {
-      final stor.PeekableStorage ps = MemoryStore()..put(null, 'k', Uint8List.fromList([9]));
+      final stor.PeekableStorage ps = MemoryStore()
+        ..put(null, 'k', Uint8List.fromList([9]));
       expect(ps.peek(null, 'k'), equals(Uint8List.fromList([9])));
     });
 
@@ -893,7 +1050,10 @@ void main() {
     });
 
     test('BudgetExceededException.toString() - representacao em texto', () {
-      expect(const trav.BudgetExceededException('node', Path.empty).toString(), contains('budget'));
+      expect(
+        const trav.BudgetExceededException('node', Path.empty).toString(),
+        contains('budget'),
+      );
     });
 
     test('TraversalException.toString() - representacao em texto', () {
@@ -915,7 +1075,10 @@ void main() {
     });
 
     test('JsonCodecException.toString() - representacao em texto', () {
-      expect(const json_codec.JsonCodecException('json err').toString(), contains('json err'));
+      expect(
+        const json_codec.JsonCodecException('json err').toString(),
+        contains('json err'),
+      );
     });
   });
 }

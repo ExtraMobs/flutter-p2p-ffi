@@ -87,8 +87,8 @@ class BasicNatManager implements NatManager {
     required Network network,
     NatGateway? gateway,
     this.syncInterval = const Duration(seconds: 30),
-  })  : _network = network,
-        _gateway = gateway ?? SimulatedNatGateway();
+  }) : _network = network,
+       _gateway = gateway ?? SimulatedNatGateway();
 
   final Network _network;
   final NatGateway _gateway;

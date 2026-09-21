@@ -35,12 +35,22 @@ class _FakeConn implements Conn, ConnSecurity, ConnMultiaddrs, ConnScoper {
 }
 
 class _FakeStream implements NetworkStream {
-  _FakeStream({required this.id, required this.local, required this.remote});
+  _FakeStream({
+    required this.id,
+    required this.local,
+    required this.remote,
+    Uint8List? response,
+  }) : _response = response ?? Uint8List(0);
 
   @override
   final String id;
   final PeerId local;
   final PeerId remote;
+
+  /// Bytes this stream hands back to [read], mimicking a remote peer's
+  /// reply. Empty (the default) models a peer that never answers.
+  final Uint8List _response;
+  int _readOffset = 0;
   ProtocolId _proto = '/ipfs/id/1.0.0';
 
   @override
@@ -67,7 +77,16 @@ class _FakeStream implements NetworkStream {
   bool get isClosed => false;
 
   @override
-  Future<Uint8List> read([int? maxLength]) async => Uint8List(0);
+  Future<Uint8List> read([int? maxLength]) async {
+    final remaining = _response.length - _readOffset;
+    if (remaining <= 0) return Uint8List(0);
+    final take = maxLength == null || maxLength > remaining
+        ? remaining
+        : maxLength;
+    final chunk = _response.sublist(_readOffset, _readOffset + take);
+    _readOffset += take;
+    return chunk;
+  }
 
   @override
   Future<void> write(Uint8List data) async {}
@@ -130,13 +149,16 @@ class _FakeCapableConn implements CapableConn {
   bool _closed = false;
 
   @override
-  ConnStats stat() => ConnStats(direction: Direction.outbound, opened: DateTime.now());
+  ConnStats stat() =>
+      ConnStats(direction: Direction.outbound, opened: DateTime.now());
 
   @override
-  Future<NetworkStream> openStream() async => _FakeStream(id: 's', local: _local, remote: _remote);
+  Future<NetworkStream> openStream() async =>
+      _FakeStream(id: 's', local: _local, remote: _remote);
 
   @override
-  Future<NetworkStream> acceptStream() async => _FakeStream(id: 's', local: _local, remote: _remote);
+  Future<NetworkStream> acceptStream() async =>
+      _FakeStream(id: 's', local: _local, remote: _remote);
 
   @override
   Future<void> close() async {
@@ -186,7 +208,11 @@ class _FakeListener implements Listener {
   @override
   Future<CapableConn> accept() async {
     if (_closed) throw const ListenerClosedException();
-    return _FakeCapableConn(_transport, PeerId(value: Uint8List.fromList([1])), PeerId(value: Uint8List.fromList([2])));
+    return _FakeCapableConn(
+      _transport,
+      PeerId(value: Uint8List.fromList([1])),
+      PeerId(value: Uint8List.fromList([2])),
+    );
   }
 
   @override
@@ -220,6 +246,10 @@ class _FakeTransport implements Transport {
 class _FakeTransportNetwork implements TransportNetwork {
   final List<Transport> transports = [];
 
+  /// Canned reply handed to every stream this network opens, so protocols
+  /// that expect an answer from the remote peer can be exercised for real.
+  Uint8List? streamResponse;
+
   @override
   void addTransport(Transport transport) {
     transports.add(transport);
@@ -244,7 +274,8 @@ class _FakeTransportNetwork implements TransportNetwork {
   List<Conn> connsToPeer(PeerId peer) => [];
 
   @override
-  Future<Conn> dialPeer(NetworkContext context, PeerId peer) async => _FakeConn(local: peer, remote: peer);
+  Future<Conn> dialPeer(NetworkContext context, PeerId peer) async =>
+      _FakeConn(local: peer, remote: peer);
 
   @override
   Future<List<Multiaddr>> interfaceListenAddresses() async => [];
@@ -259,7 +290,13 @@ class _FakeTransportNetwork implements TransportNetwork {
   PeerId get localPeer => PeerId(value: Uint8List.fromList([1]));
 
   @override
-  Future<NetworkStream> newStream(NetworkContext context, PeerId peer) async => _FakeStream(id: 's', local: localPeer, remote: peer);
+  Future<NetworkStream> newStream(NetworkContext context, PeerId peer) async =>
+      _FakeStream(
+        id: 's',
+        local: localPeer,
+        remote: peer,
+        response: streamResponse,
+      );
 
   @override
   void notify(Notifiee notifiee) {}
@@ -292,6 +329,20 @@ class _FakeUpgrader implements Upgrader {
   Future<CapableConn> upgrade(Conn conn, Direction dir, PeerId peer) async {
     return _FakeCapableConn(_FakeTransport(), peer, peer);
   }
+}
+
+/// Length-delimits a protobuf message the way the circuitv2 hop protocol
+/// frames it on the wire.
+Uint8List _delimited(Uint8List message) {
+  final prefix = encodeProtoVarint(message.length);
+  return Uint8List.fromList([...prefix, ...message]);
+}
+
+/// A host whose streams reply with [response], so a protocol exchange can be
+/// driven end to end without a real relay.
+BlankHost _hostAnsweringWith(Uint8List response) {
+  final net = _FakeTransportNetwork()..streamResponse = response;
+  return BlankHost(network: net, peerstore: MemoryPeerstore());
 }
 
 BlankHost _newTestHost([PeerId? id]) {
@@ -388,17 +439,36 @@ void main() {
     });
 
     test('reserveSlot() - delegates reservation to reserve function', () async {
-      final host = _newTestHost();
+      final host = _hostAnsweringWith(
+        _delimited(
+          HopMessage(
+            type: HopMessageType.status,
+            reservation: CircuitReservation(
+              expire:
+                  DateTime.now()
+                      .add(const Duration(hours: 1))
+                      .millisecondsSinceEpoch ~/
+                  1000,
+            ),
+          ).marshal(),
+        ),
+      );
       final client = Client(host: host);
-      final ai = AddrInfo(id: peerB, addrs: [Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')]);
+      final ai = AddrInfo(
+        id: peerB,
+        addrs: [Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')],
+      );
       final rsvp = await client.reserveSlot(ai);
-      expect(rsvp.expiration.isAfter(DateTime.now()), isTrue);
+      expect(rsvp.expiration.isAfter(DateTime.now().toUtc()), isTrue);
     });
   });
 
   group('ReservationException [Atomic Audit]', () {
     test('toString() - formats status and reason', () {
-      const ex = ReservationException(status: HopStatus.resourceLimitExceeded, reason: 'too busy');
+      const ex = ReservationException(
+        status: HopStatus.resourceLimitExceeded,
+        reason: 'too busy',
+      );
       expect(ex.toString(), contains('resourceLimitExceeded'));
       expect(ex.toString(), contains('too busy'));
     });
@@ -435,12 +505,20 @@ void main() {
 
   group('ReservationVoucher [Atomic Audit]', () {
     test('domain() - returns expected record domain', () {
-      final v = ReservationVoucher(relay: peerA, peer: peerB, expiration: DateTime.now());
+      final v = ReservationVoucher(
+        relay: peerA,
+        peer: peerB,
+        expiration: DateTime.now(),
+      );
       expect(v.domain(), equals(recordDomain));
     });
 
     test('codec() - returns expected record codec', () {
-      final v = ReservationVoucher(relay: peerA, peer: peerB, expiration: DateTime.now());
+      final v = ReservationVoucher(
+        relay: peerA,
+        peer: peerB,
+        expiration: DateTime.now(),
+      );
       expect(v.codec(), equals(recordCodec));
     });
 
@@ -455,11 +533,18 @@ void main() {
       final exp = DateTime.utc(2030, 1, 1);
       final v = ReservationVoucher(relay: peerA, peer: peerB, expiration: exp);
       final b = v.marshalRecord();
-      final parsed = ReservationVoucher(relay: peerA, peer: peerB, expiration: DateTime.now());
+      final parsed = ReservationVoucher(
+        relay: peerA,
+        peer: peerB,
+        expiration: DateTime.now(),
+      );
       parsed.unmarshalRecord(b);
       expect(parsed.relay, equals(peerA));
       expect(parsed.peer, equals(peerB));
-      expect(parsed.expiration.millisecondsSinceEpoch, equals(exp.millisecondsSinceEpoch));
+      expect(
+        parsed.expiration.millisecondsSinceEpoch,
+        equals(exp.millisecondsSinceEpoch),
+      );
     });
   });
 
@@ -492,7 +577,10 @@ void main() {
   group('AmbientAutoNat [Atomic Audit]', () {
     test('status() - returns ambient status', () {
       final host = _newTestHost();
-      final nat = AmbientAutoNat(host: host, initialReachability: Reachability.unknown);
+      final nat = AmbientAutoNat(
+        host: host,
+        initialReachability: Reachability.unknown,
+      );
       expect(nat.status(), equals(Reachability.unknown));
     });
 
@@ -552,7 +640,10 @@ void main() {
 
     test('start() - starts relay daemon and listens to reachability', () async {
       final host = _newTestHost();
-      final ar = AutoRelay(host: host, bootDelay: const Duration(milliseconds: 50));
+      final ar = AutoRelay(
+        host: host,
+        bootDelay: const Duration(milliseconds: 50),
+      );
       await ar.start();
       expect(ar.isStarted, isTrue);
       await ar.close();
@@ -638,7 +729,10 @@ void main() {
     test('remoteMultiaddr() - returns remote address', () {
       final t = _FakeTransport();
       final rc = _FakeRawConn(t);
-      expect(rc.remoteMultiaddr().toString(), equals('/ip4/127.0.0.1/tcp/4002'));
+      expect(
+        rc.remoteMultiaddr().toString(),
+        equals('/ip4/127.0.0.1/tcp/4002'),
+      );
     });
 
     test('read() - reads bytes from raw conn', () async {
@@ -733,7 +827,9 @@ void main() {
   group('DialUpdater [Atomic Audit]', () {
     test('dialWithUpdates() - yields dial progress updates', () async {
       final du = _FakeDialUpdater();
-      final updates = await du.dialWithUpdates(Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'), peerA).toList();
+      final updates = await du
+          .dialWithUpdates(Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'), peerA)
+          .toList();
       expect(updates, hasLength(1));
       expect(updates.first.kind, equals('connecting'));
     });
@@ -750,12 +846,124 @@ void main() {
 
   group('Top-Level Functions [Atomic Audit]', () {
     test('reserve() - reserves slot on relay host', () async {
-      final host = _newTestHost();
-      final ai = AddrInfo(id: peerB, addrs: [Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')]);
+      final relayAddr = Multiaddr.parse('/ip4/127.0.0.1/tcp/4001');
+      final host = _hostAnsweringWith(
+        _delimited(
+          HopMessage(
+            type: HopMessageType.status,
+            reservation: CircuitReservation(
+              expire:
+                  DateTime.now()
+                      .add(const Duration(hours: 1))
+                      .millisecondsSinceEpoch ~/
+                  1000,
+              addrs: [Uint8List.fromList(relayAddr.toBytes())],
+            ),
+            limit: CircuitLimit(duration: 120, data: 1 << 17),
+          ).marshal(),
+        ),
+      );
+
+      final ai = AddrInfo(id: peerB, addrs: [relayAddr]);
       final rsvp = await reserve(host, ai);
+
       expect(rsvp.limitData, greaterThan(0));
       expect(rsvp.limitDuration.inSeconds, greaterThan(0));
+      expect(rsvp.expiration.isAfter(DateTime.now().toUtc()), isTrue);
+      expect(
+        rsvp.addrs.map((a) => a.toString()),
+        contains(relayAddr.toString()),
+      );
     });
+
+    test(
+      'reserve() - throws ReservationException when the relay never replies',
+      () async {
+        // Regression guard: an unanswered stream must fail, never synthesize a
+        // successful reservation locally.
+        final host = _newTestHost();
+        final ai = AddrInfo(
+          id: peerB,
+          addrs: [Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')],
+        );
+
+        await expectLater(
+          reserve(host, ai),
+          throwsA(
+            isA<ReservationException>().having(
+              (e) => e.status,
+              'status',
+              HopStatus.connectionFailed,
+            ),
+          ),
+        );
+      },
+    );
+
+    test(
+      'reserve() - throws ReservationException when the relay refuses',
+      () async {
+        final host = _hostAnsweringWith(
+          _delimited(
+            HopMessage(
+              type: HopMessageType.status,
+              status: HopStatus.reservationRefused,
+            ).marshal(),
+          ),
+        );
+        final ai = AddrInfo(
+          id: peerB,
+          addrs: [Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')],
+        );
+
+        await expectLater(
+          reserve(host, ai),
+          throwsA(
+            isA<ReservationException>().having(
+              (e) => e.status,
+              'status',
+              HopStatus.reservationRefused,
+            ),
+          ),
+        );
+      },
+    );
+
+    test(
+      'reserve() - throws ReservationException on an expired reservation',
+      () async {
+        final host = _hostAnsweringWith(
+          _delimited(
+            HopMessage(
+              type: HopMessageType.status,
+              reservation: CircuitReservation(
+                expire:
+                    DateTime.now()
+                        .subtract(const Duration(hours: 1))
+                        .millisecondsSinceEpoch ~/
+                    1000,
+              ),
+              limit: CircuitLimit(duration: 120, data: 1 << 17),
+            ).marshal(),
+          ),
+        );
+        final ai = AddrInfo(
+          id: peerB,
+          addrs: [Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')],
+        );
+
+        await expectLater(
+          reserve(host, ai),
+          throwsA(
+            isA<ReservationException>().having(
+              (e) => e.status,
+              'status',
+              HopStatus.malformedMessage,
+            ),
+          ),
+        );
+      },
+    );
 
     test('isRelayAddress() - checks if address contains p2p-circuit', () {
       final direct = Multiaddr.parse('/ip4/127.0.0.1/tcp/4001');
@@ -771,9 +979,18 @@ void main() {
     });
 
     test('fromCode() - parses message types from wire codes', () {
-      expect(HolePunchMessageType.fromCode(100), equals(HolePunchMessageType.connect));
-      expect(HolePunchMessageType.fromCode(300), equals(HolePunchMessageType.sync));
-      expect(HolePunchMessageType.fromCode(999), equals(HolePunchMessageType.connect));
+      expect(
+        HolePunchMessageType.fromCode(100),
+        equals(HolePunchMessageType.connect),
+      );
+      expect(
+        HolePunchMessageType.fromCode(300),
+        equals(HolePunchMessageType.sync),
+      );
+      expect(
+        HolePunchMessageType.fromCode(999),
+        equals(HolePunchMessageType.connect),
+      );
     });
   });
 
@@ -781,7 +998,9 @@ void main() {
     test('marshal() - encodes message into protobuf bytes', () {
       final msg = HolePunchMessage(
         type: HolePunchMessageType.connect,
-        obsAddrs: [Uint8List.fromList([1, 2, 3])],
+        obsAddrs: [
+          Uint8List.fromList([1, 2, 3]),
+        ],
       );
       final bytes = msg.marshal();
       expect(bytes, isNotEmpty);
@@ -790,7 +1009,9 @@ void main() {
     test('unmarshal() - restores message from protobuf bytes', () {
       final msg = HolePunchMessage(
         type: HolePunchMessageType.sync,
-        obsAddrs: [Uint8List.fromList([4, 5, 6])],
+        obsAddrs: [
+          Uint8List.fromList([4, 5, 6]),
+        ],
       );
       final bytes = msg.marshal();
       final restored = HolePunchMessage.unmarshal(bytes);
@@ -908,12 +1129,15 @@ void main() {
       expect(hp.listenAddrs, isNull);
     });
 
-    test('initiateHolePunch() - fails gracefully if cannot open stream', () async {
-      final host = _newTestHost();
-      final hp = HolePuncher(host: host);
-      final ok = await hp.initiateHolePunch(peerB, []);
-      expect(ok, isFalse);
-    });
+    test(
+      'initiateHolePunch() - fails gracefully if cannot open stream',
+      () async {
+        final host = _newTestHost();
+        final hp = HolePuncher(host: host);
+        final ok = await hp.initiateHolePunch(peerB, []);
+        expect(ok, isFalse);
+      },
+    );
 
     test('close() - cleans up active punches', () async {
       final host = _newTestHost();
@@ -957,7 +1181,10 @@ void main() {
   group('BasicNatManager [Atomic Audit]', () {
     test('syncInterval - exposes sync duration', () {
       final network = _FakeTransportNetwork();
-      final nm = BasicNatManager(network: network, syncInterval: const Duration(seconds: 15));
+      final nm = BasicNatManager(
+        network: network,
+        syncInterval: const Duration(seconds: 15),
+      );
       expect(nm.syncInterval.inSeconds, equals(15));
     });
 
@@ -1056,4 +1283,3 @@ void main() {
     });
   });
 }
-

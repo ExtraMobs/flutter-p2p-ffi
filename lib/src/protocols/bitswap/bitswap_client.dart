@@ -45,10 +45,7 @@ final class BitswapClient implements BlockGetter {
       '/ipfs/bitswap/1.0.0',
       '/ipfs/bitswap',
     ]) {
-      router.host.setStreamHandler(
-        proto,
-        (stream) => _handleIncoming(stream),
-      );
+      router.host.setStreamHandler(proto, (stream) => _handleIncoming(stream));
     }
   }
 
@@ -92,10 +89,9 @@ final class BitswapClient implements BlockGetter {
         try {
           if (stream == null || stream.isClosed) {
             await router.connect(provider);
-            stream = await router.host.newStream(
-              provider.id,
-              const [bitswapProtocol],
-            );
+            stream = await router.host.newStream(provider.id, const [
+              bitswapProtocol,
+            ]);
             _outbound[key] = stream;
           }
           await stream.setWriteDeadline(DateTime.now().add(timeout));
@@ -197,10 +193,7 @@ final class BitswapClient implements BlockGetter {
     await (_senderLocks[key] ??= Lock()).synchronized(() async {
       var stream = _outbound[key];
       if (stream == null || stream.isClosed) {
-        stream = await router.host.newStream(
-          peer,
-          const [bitswapProtocol],
-        );
+        stream = await router.host.newStream(peer, const [bitswapProtocol]);
         _outbound[key] = stream;
       }
       await stream.setWriteDeadline(DateTime.now().add(timeout));

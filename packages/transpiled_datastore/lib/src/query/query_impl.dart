@@ -19,7 +19,8 @@ Results naiveFilter(Results results, Filter filter) {
         while (true) {
           final (result, ok) = results.nextSync();
           if (!ok) return (result, false);
-          if (result.error != null || filter.filter(result.entry)) return (result, true);
+          if (result.error != null || filter.filter(result.entry))
+            return (result, true);
         }
       },
       close: results.close,
@@ -103,7 +104,8 @@ Results naiveOrder(Results results, List<Order> orders) {
     QueryIterator(
       next: () {
         if (errors.isNotEmpty) return (errors.removeAt(0), true);
-        if (i >= entries.length) return (const QueryResult(Entry(key: '')), false);
+        if (i >= entries.length)
+          return (const QueryResult(Entry(key: '')), false);
         final next = entries[i];
         i++;
         return (QueryResult(next), true);
@@ -143,5 +145,6 @@ Results naiveQueryApply(Query q, Results results) {
 /// Builds entries by zipping [keys] and [values]. Equivalent to
 /// go-datastore's `query.ResultEntriesFrom`.
 List<Entry> resultEntriesFrom(List<String> keys, List<List<int>> values) => [
-  for (var i = 0; i < keys.length; i++) Entry(key: keys[i], size: values[i].length, value: values[i]),
+  for (var i = 0; i < keys.length; i++)
+    Entry(key: keys[i], size: values[i].length, value: values[i]),
 ];

@@ -190,22 +190,21 @@ class Entry {
     wantlist.Entry? entry,
     this.cancel = false,
     this.sendDontHave = false,
-  })  : cid = cid ?? entry!.cid,
-        priority = priority ?? entry!.priority,
-        wantType = wantType ?? entry!.wantType;
+  }) : cid = cid ?? entry!.cid,
+       priority = priority ?? entry!.priority,
+       wantType = wantType ?? entry!.wantType;
 
   factory Entry.fromWantlistEntry(
     wantlist.Entry entry, {
     bool cancel = false,
     bool sendDontHave = false,
-  }) =>
-      Entry(
-        cid: entry.cid,
-        priority: entry.priority,
-        wantType: entry.wantType,
-        cancel: cancel,
-        sendDontHave: sendDontHave,
-      );
+  }) => Entry(
+    cid: entry.cid,
+    priority: entry.priority,
+    wantType: entry.wantType,
+    cancel: cancel,
+    sendDontHave: sendDontHave,
+  );
 
   Cid cid;
   int priority;
@@ -213,29 +212,26 @@ class Entry {
   bool cancel;
   bool sendDontHave;
 
-  wantlist.Entry get entry => wantlist.Entry(
-        cid: cid,
-        priority: priority,
-        wantType: wantType,
-      );
+  wantlist.Entry get entry =>
+      wantlist.Entry(cid: cid, priority: priority, wantType: wantType);
 
   int size() => toPb().size();
 
   pb.Entry toPb() => pb.Entry(
-        block: cid.toBytes(),
-        priority: priority,
-        cancel: cancel,
-        wantType: wantType,
-        sendDontHave: sendDontHave,
-      );
+    block: cid.toBytes(),
+    priority: priority,
+    cancel: cancel,
+    wantType: wantType,
+    sendDontHave: sendDontHave,
+  );
 
   Entry clone() => Entry(
-        cid: cid,
-        priority: priority,
-        wantType: wantType,
-        cancel: cancel,
-        sendDontHave: sendDontHave,
-      );
+    cid: cid,
+    priority: priority,
+    wantType: wantType,
+    cancel: cancel,
+    sendDontHave: sendDontHave,
+  );
 
   @override
   bool operator ==(Object other) =>
@@ -282,12 +278,7 @@ abstract interface class BitSwapMessage implements Exportable {
   List<Cid> dontHaves();
   int pendingBytes();
 
-  int addEntry(
-    Cid key,
-    int priority,
-    pb.WantType wantType,
-    bool sendDontHave,
-  );
+  int addEntry(Cid key, int priority, pb.WantType wantType, bool sendDontHave);
 
   int cancel(Cid key);
   void remove(Cid key);
@@ -334,8 +325,7 @@ class Impl implements BitSwapMessage {
   }
 
   @override
-  List<Entry> wantlist() =>
-      _wantlist.values.map((e) => e.clone()).toList();
+  List<Entry> wantlist() => _wantlist.values.map((e) => e.clone()).toList();
 
   @override
   List<block_format.Block> blocks() => _blocks.values.toList();
@@ -376,8 +366,7 @@ class Impl implements BitSwapMessage {
   }
 
   @override
-  int cancel(Cid key) =>
-      _addEntry(key, 0, true, pb.WantType.block, false);
+  int cancel(Cid key) => _addEntry(key, 0, true, pb.WantType.block, false);
 
   @override
   int addEntry(
@@ -385,8 +374,7 @@ class Impl implements BitSwapMessage {
     int priority,
     pb.WantType wantType,
     bool sendDontHave,
-  ) =>
-      _addEntry(key, priority, false, wantType, sendDontHave);
+  ) => _addEntry(key, priority, false, wantType, sendDontHave);
 
   int _addEntry(
     Cid c,
@@ -451,8 +439,7 @@ class Impl implements BitSwapMessage {
   }
 
   @override
-  void addHave(Cid cid) =>
-      addBlockPresence(cid, pb.BlockPresenceType.have);
+  void addHave(Cid cid) => addBlockPresence(cid, pb.BlockPresenceType.have);
 
   @override
   void addDontHave(Cid cid) =>
@@ -494,10 +481,7 @@ class Impl implements BitSwapMessage {
       ),
       payload: _blocks.values
           .map(
-            (b) => pb.Block(
-              data: b.rawData(),
-              prefix: b.cid().prefix.bytes(),
-            ),
+            (b) => pb.Block(data: b.rawData(), prefix: b.cid().prefix.bytes()),
           )
           .toList(),
       blockPresences: _blockPresences.entries
@@ -516,9 +500,9 @@ class Impl implements BitSwapMessage {
 
   @override
   Map<String, dynamic> loggable() => <String, dynamic>{
-        'blocks': _blocks.values.map((v) => v.cid().toString()).toList(),
-        'wants': wantlist(),
-      };
+    'blocks': _blocks.values.map((v) => v.cid().toString()).toList(),
+    'wants': wantlist(),
+  };
 
   @override
   void reset(bool full) {
@@ -543,17 +527,11 @@ class Impl implements BitSwapMessage {
 }
 
 /// Returns the size in bytes of a BlockPresence entry in protobuf.
-int blockPresenceSize(Cid c) => pb.BlockPresence(
-      cid: c.toBytes(),
-      type: pb.BlockPresenceType.have,
-    ).size();
+int blockPresenceSize(Cid c) =>
+    pb.BlockPresence(cid: c.toBytes(), type: pb.BlockPresenceType.have).size();
 
 /// Creates a block from payload bytes and Cid prefix.
-block_format.Block wantlistBlock(
-  Uint8List bs, [
-  Cid? c,
-  Prefix? prefix,
-]) {
+block_format.Block wantlistBlock(Uint8List bs, [Cid? c, Prefix? prefix]) {
   final Prefix pref;
   if (prefix != null) {
     pref = prefix;

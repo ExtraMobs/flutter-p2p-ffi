@@ -35,7 +35,8 @@ final class SackSizeNotLargeEnoughInfoException implements Exception {
   final int needed;
 
   @override
-  String toString() => 'SACK Chunk size is not large enough to contain header: $remaining remaining, needs $needed bytes';
+  String toString() =>
+      'SACK Chunk size is not large enough to contain header: $remaining remaining, needs $needed bytes';
 }
 
 /// Port of `ErrSackSizeNotMatchPredicted` (chunk_selective_ack.go:43).
@@ -43,7 +44,8 @@ final class SackSizeNotMatchPredictedException implements Exception {
   const SackSizeNotMatchPredictedException();
 
   @override
-  String toString() => 'SACK Chunk size does not match predicted amount from header values';
+  String toString() =>
+      'SACK Chunk size does not match predicted amount from header values';
 }
 
 /// Port of `selectiveAckHeaderSize` (chunk_selective_ack.go:60-62).
@@ -102,7 +104,10 @@ final class ChunkSelectiveAck implements Chunk {
     }
 
     if (header.raw.length < selectiveAckHeaderSize) {
-      throw SackSizeNotLargeEnoughInfoException(header.raw.length, selectiveAckHeaderSize);
+      throw SackSizeNotLargeEnoughInfoException(
+        header.raw.length,
+        selectiveAckHeaderSize,
+      );
     }
 
     final view = ByteData.sublistView(header.raw);
@@ -111,14 +116,21 @@ final class ChunkSelectiveAck implements Chunk {
     final numGapAckBlocks = view.getUint16(8, Endian.big);
     final numDuplicateTsn = view.getUint16(10, Endian.big);
 
-    if (header.raw.length != selectiveAckHeaderSize + (4 * numGapAckBlocks + (4 * numDuplicateTsn))) {
+    if (header.raw.length !=
+        selectiveAckHeaderSize +
+            (4 * numGapAckBlocks + (4 * numDuplicateTsn))) {
       throw const SackSizeNotMatchPredictedException();
     }
 
     var offset = selectiveAckHeaderSize;
     final blocks = <GapAckBlock>[];
     for (var i = 0; i < numGapAckBlocks; i++) {
-      blocks.add(GapAckBlock(start: view.getUint16(offset, Endian.big), end: view.getUint16(offset + 2, Endian.big)));
+      blocks.add(
+        GapAckBlock(
+          start: view.getUint16(offset, Endian.big),
+          end: view.getUint16(offset + 2, Endian.big),
+        ),
+      );
       offset += 4;
     }
     gapAckBlocks = blocks;
@@ -134,7 +146,10 @@ final class ChunkSelectiveAck implements Chunk {
   /// Port of `chunkSelectiveAck.marshal` (chunk_selective_ack.go:98-116).
   @override
   Uint8List marshal() {
-    final sackRaw = Uint8List(selectiveAckHeaderSize + (4 * gapAckBlocks.length + (4 * duplicateTsn.length)));
+    final sackRaw = Uint8List(
+      selectiveAckHeaderSize +
+          (4 * gapAckBlocks.length + (4 * duplicateTsn.length)),
+    );
     final view = ByteData.sublistView(sackRaw);
     view.setUint32(0, cumulativeTsnAck, Endian.big);
     view.setUint32(4, advertisedReceiverWindowCredit, Endian.big);
@@ -167,7 +182,8 @@ final class ChunkSelectiveAck implements Chunk {
   /// Port of `chunkSelectiveAck.String` (chunk_selective_ack.go:123-133).
   @override
   String toString() {
-    var res = 'SACK cumTsnAck=$cumulativeTsnAck arwnd=$advertisedReceiverWindowCredit dupTsn=$duplicateTsn';
+    var res =
+        'SACK cumTsnAck=$cumulativeTsnAck arwnd=$advertisedReceiverWindowCredit dupTsn=$duplicateTsn';
     for (final gap in gapAckBlocks) {
       res = '$res\n gap ack: $gap';
     }

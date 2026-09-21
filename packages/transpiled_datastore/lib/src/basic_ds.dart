@@ -60,7 +60,11 @@ class MapDatastore implements Datastore, Batching {
   Future<Results> query(Query q) async {
     final entries = [
       for (final e in _values.entries)
-        Entry(key: e.key.value, value: q.keysOnly ? null : e.value, size: e.value.length),
+        Entry(
+          key: e.key.value,
+          value: q.keysOnly ? null : e.value,
+          size: e.value.length,
+        ),
     ];
     final r = resultsWithEntries(q, entries);
     return naiveQueryApply(q, r);
@@ -94,7 +98,8 @@ class LogDatastore
         Shim {
   /// Creates a log datastore wrapping [child], logging under [name]
   /// (defaults to `'LogDatastore'` if empty).
-  LogDatastore(this._child, [String name = '']) : name = name.isEmpty ? 'LogDatastore' : name;
+  LogDatastore(this._child, [String name = ''])
+    : name = name.isEmpty ? 'LogDatastore' : name;
 
   /// This datastore's log name.
   final String name;

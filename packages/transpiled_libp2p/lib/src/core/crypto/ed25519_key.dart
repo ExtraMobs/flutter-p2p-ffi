@@ -56,7 +56,11 @@ class Ed25519PubKey extends PubKey {
 
   @override
   Future<bool> verify(Uint8List data, Uint8List signature) {
-    return _signer.verify(data, signature, _signer.publicKeyFromBytes(_rawBytes));
+    return _signer.verify(
+      data,
+      signature,
+      _signer.publicKeyFromBytes(_rawBytes),
+    );
   }
 }
 
@@ -72,7 +76,9 @@ Future<Ed25519PrivKey> generateEd25519KeyPair() async {
 /// the full 64-byte `seed || publicKey` private key.
 Future<Ed25519PrivKey> ed25519KeyPairFromSeed(Uint8List seed) async {
   if (seed.length != 32) {
-    throw ArgumentError('Ed25519 seed must be exactly 32 bytes, got ${seed.length}');
+    throw ArgumentError(
+      'Ed25519 seed must be exactly 32 bytes, got ${seed.length}',
+    );
   }
   return _wrapKeyPair(await _signer.keyPairFromSeed(seed));
 }
@@ -87,13 +93,17 @@ Future<Ed25519PrivKey> unmarshalEd25519PrivateKey(Uint8List data) async {
     final embeddedPk = data.sublist(32, 64);
     final redundantPk = data.sublist(64, 96);
     if (!CryptoUtils.constantTimeEquals(embeddedPk, redundantPk)) {
-      throw const FormatException('expected redundant ed25519 public key to be redundant');
+      throw const FormatException(
+        'expected redundant ed25519 public key to be redundant',
+      );
     }
     keyBytes = data.sublist(0, 64);
   } else if (data.length == 64) {
     keyBytes = data;
   } else {
-    throw FormatException('expected ed25519 data size to be 64 or 96, got ${data.length}');
+    throw FormatException(
+      'expected ed25519 data size to be 64 or 96, got ${data.length}',
+    );
   }
 
   final seed = keyBytes.sublist(0, 32);
@@ -106,7 +116,9 @@ Future<Ed25519PrivKey> unmarshalEd25519PrivateKey(Uint8List data) async {
 /// `UnmarshalEd25519PublicKey`.
 Ed25519PubKey unmarshalEd25519PublicKey(Uint8List data) {
   if (data.length != 32) {
-    throw FormatException('expected ed25519 public key data size to be 32, got ${data.length}');
+    throw FormatException(
+      'expected ed25519 public key data size to be 32, got ${data.length}',
+    );
   }
   return Ed25519PubKey._(data);
 }

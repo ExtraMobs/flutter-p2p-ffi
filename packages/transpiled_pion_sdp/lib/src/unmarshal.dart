@@ -94,218 +94,218 @@ extension SessionDescriptionUnmarshal on SessionDescription {
 }
 
 _StateFn? _s1(_Lexer l) => l.handleType(
-      (key) => String.fromCharCode(key) == 'v' ? _unmarshalProtocolVersion : null,
-    );
+  (key) => String.fromCharCode(key) == 'v' ? _unmarshalProtocolVersion : null,
+);
 
 _StateFn? _s2(_Lexer l) => l.handleType(
-      (key) => String.fromCharCode(key) == 'o' ? _unmarshalOrigin : null,
-    );
+  (key) => String.fromCharCode(key) == 'o' ? _unmarshalOrigin : null,
+);
 
 _StateFn? _s3(_Lexer l) => l.handleType(
-      (key) => String.fromCharCode(key) == 's' ? _unmarshalSessionName : null,
-    );
+  (key) => String.fromCharCode(key) == 's' ? _unmarshalSessionName : null,
+);
 
 _StateFn? _s4(_Lexer l) => l.handleType((key) {
-      switch (String.fromCharCode(key)) {
-        case 'i':
-          return _unmarshalSessionInformation;
-        case 'u':
-          return _unmarshalUri;
-        case 'e':
-          return _unmarshalEmail;
-        case 'p':
-          return _unmarshalPhone;
-        case 'c':
-          return _unmarshalSessionConnectionInformation;
-        case 'b':
-          return _unmarshalSessionBandwidth;
-        case 't':
-          return _unmarshalTiming;
-      }
-      return null;
-    });
+  switch (String.fromCharCode(key)) {
+    case 'i':
+      return _unmarshalSessionInformation;
+    case 'u':
+      return _unmarshalUri;
+    case 'e':
+      return _unmarshalEmail;
+    case 'p':
+      return _unmarshalPhone;
+    case 'c':
+      return _unmarshalSessionConnectionInformation;
+    case 'b':
+      return _unmarshalSessionBandwidth;
+    case 't':
+      return _unmarshalTiming;
+  }
+  return null;
+});
 
 _StateFn? _s5(_Lexer l) => l.handleType((key) {
-      switch (String.fromCharCode(key)) {
-        case 'b':
-          return _unmarshalSessionBandwidth;
-        case 't':
-          return _unmarshalTiming;
-      }
-      return null;
-    });
+  switch (String.fromCharCode(key)) {
+    case 'b':
+      return _unmarshalSessionBandwidth;
+    case 't':
+      return _unmarshalTiming;
+  }
+  return null;
+});
 
 _StateFn? _s6(_Lexer l) => l.handleType((key) {
-      switch (String.fromCharCode(key)) {
-        case 'p':
-          return _unmarshalPhone;
-        case 'c':
-          return _unmarshalSessionConnectionInformation;
-        case 'b':
-          return _unmarshalSessionBandwidth;
-        case 't':
-          return _unmarshalTiming;
-      }
-      return null;
-    });
+  switch (String.fromCharCode(key)) {
+    case 'p':
+      return _unmarshalPhone;
+    case 'c':
+      return _unmarshalSessionConnectionInformation;
+    case 'b':
+      return _unmarshalSessionBandwidth;
+    case 't':
+      return _unmarshalTiming;
+  }
+  return null;
+});
 
 _StateFn? _s7(_Lexer l) => l.handleType((key) {
-      switch (String.fromCharCode(key)) {
-        case 'u':
-          return _unmarshalUri;
-        case 'e':
-          return _unmarshalEmail;
-        case 'p':
-          return _unmarshalPhone;
-        case 'c':
-          return _unmarshalSessionConnectionInformation;
-        case 'b':
-          return _unmarshalSessionBandwidth;
-        case 't':
-          return _unmarshalTiming;
-      }
-      return null;
-    });
+  switch (String.fromCharCode(key)) {
+    case 'u':
+      return _unmarshalUri;
+    case 'e':
+      return _unmarshalEmail;
+    case 'p':
+      return _unmarshalPhone;
+    case 'c':
+      return _unmarshalSessionConnectionInformation;
+    case 'b':
+      return _unmarshalSessionBandwidth;
+    case 't':
+      return _unmarshalTiming;
+  }
+  return null;
+});
 
 _StateFn? _s8(_Lexer l) => l.handleType((key) {
-      switch (String.fromCharCode(key)) {
-        case 'c':
-          return _unmarshalSessionConnectionInformation;
-        case 'b':
-          return _unmarshalSessionBandwidth;
-        case 't':
-          return _unmarshalTiming;
-      }
-      return null;
-    });
+  switch (String.fromCharCode(key)) {
+    case 'c':
+      return _unmarshalSessionConnectionInformation;
+    case 'b':
+      return _unmarshalSessionBandwidth;
+    case 't':
+      return _unmarshalTiming;
+  }
+  return null;
+});
 
 _StateFn? _s9(_Lexer l) => l.handleType((key) {
-      switch (String.fromCharCode(key)) {
-        case 'z':
-          return _unmarshalTimeZones;
-        case 'k':
-          return _unmarshalSessionEncryptionKey;
-        case 'a':
-          return _unmarshalSessionAttribute;
-        case 'r':
-          return _unmarshalRepeatTimes;
-        case 't':
-          return _unmarshalTiming;
-        case 'm':
-          return _unmarshalMediaDescription;
-      }
-      return null;
-    });
+  switch (String.fromCharCode(key)) {
+    case 'z':
+      return _unmarshalTimeZones;
+    case 'k':
+      return _unmarshalSessionEncryptionKey;
+    case 'a':
+      return _unmarshalSessionAttribute;
+    case 'r':
+      return _unmarshalRepeatTimes;
+    case 't':
+      return _unmarshalTiming;
+    case 'm':
+      return _unmarshalMediaDescription;
+  }
+  return null;
+});
 
 _StateFn? _s10(_Lexer l) => l.handleType((key) {
-      switch (String.fromCharCode(key)) {
-        case 'e':
-          return _unmarshalEmail;
-        case 'p':
-          return _unmarshalPhone;
-        case 'c':
-          return _unmarshalSessionConnectionInformation;
-        case 'b':
-          return _unmarshalSessionBandwidth;
-        case 't':
-          return _unmarshalTiming;
-      }
-      return null;
-    });
+  switch (String.fromCharCode(key)) {
+    case 'e':
+      return _unmarshalEmail;
+    case 'p':
+      return _unmarshalPhone;
+    case 'c':
+      return _unmarshalSessionConnectionInformation;
+    case 'b':
+      return _unmarshalSessionBandwidth;
+    case 't':
+      return _unmarshalTiming;
+  }
+  return null;
+});
 
 _StateFn? _s11(_Lexer l) => l.handleType((key) {
-      switch (String.fromCharCode(key)) {
-        case 'a':
-          return _unmarshalSessionAttribute;
-        case 'm':
-          return _unmarshalMediaDescription;
-      }
-      return null;
-    });
+  switch (String.fromCharCode(key)) {
+    case 'a':
+      return _unmarshalSessionAttribute;
+    case 'm':
+      return _unmarshalMediaDescription;
+  }
+  return null;
+});
 
 _StateFn? _s12(_Lexer l) => l.handleType((key) {
-      switch (String.fromCharCode(key)) {
-        case 'a':
-          return _unmarshalMediaAttribute;
-        case 'k':
-          return _unmarshalMediaEncryptionKey;
-        case 'b':
-          return _unmarshalMediaBandwidth;
-        case 'c':
-          return _unmarshalMediaConnectionInformation;
-        case 'i':
-          return _unmarshalMediaTitle;
-        case 'm':
-          return _unmarshalMediaDescription;
-      }
-      return null;
-    });
+  switch (String.fromCharCode(key)) {
+    case 'a':
+      return _unmarshalMediaAttribute;
+    case 'k':
+      return _unmarshalMediaEncryptionKey;
+    case 'b':
+      return _unmarshalMediaBandwidth;
+    case 'c':
+      return _unmarshalMediaConnectionInformation;
+    case 'i':
+      return _unmarshalMediaTitle;
+    case 'm':
+      return _unmarshalMediaDescription;
+  }
+  return null;
+});
 
 _StateFn? _s13(_Lexer l) => l.handleType((key) {
-      switch (String.fromCharCode(key)) {
-        case 'a':
-          return _unmarshalSessionAttribute;
-        case 'k':
-          return _unmarshalSessionEncryptionKey;
-        case 'm':
-          return _unmarshalMediaDescription;
-      }
-      return null;
-    });
+  switch (String.fromCharCode(key)) {
+    case 'a':
+      return _unmarshalSessionAttribute;
+    case 'k':
+      return _unmarshalSessionEncryptionKey;
+    case 'm':
+      return _unmarshalMediaDescription;
+  }
+  return null;
+});
 
 _StateFn? _s14(_Lexer l) => l.handleType((key) {
-      switch (String.fromCharCode(key)) {
-        case 'a':
-          return _unmarshalMediaAttribute;
-        case 'k': // Non-spec ordering.
-          return _unmarshalMediaEncryptionKey;
-        case 'b': // Non-spec ordering.
-          return _unmarshalMediaBandwidth;
-        case 'c': // Non-spec ordering.
-          return _unmarshalMediaConnectionInformation;
-        case 'i': // Non-spec ordering.
-          return _unmarshalMediaTitle;
-        case 'm':
-          return _unmarshalMediaDescription;
-      }
-      return null;
-    });
+  switch (String.fromCharCode(key)) {
+    case 'a':
+      return _unmarshalMediaAttribute;
+    case 'k': // Non-spec ordering.
+      return _unmarshalMediaEncryptionKey;
+    case 'b': // Non-spec ordering.
+      return _unmarshalMediaBandwidth;
+    case 'c': // Non-spec ordering.
+      return _unmarshalMediaConnectionInformation;
+    case 'i': // Non-spec ordering.
+      return _unmarshalMediaTitle;
+    case 'm':
+      return _unmarshalMediaDescription;
+  }
+  return null;
+});
 
 _StateFn? _s15(_Lexer l) => l.handleType((key) {
-      switch (String.fromCharCode(key)) {
-        case 'a':
-          return _unmarshalMediaAttribute;
-        case 'k':
-          return _unmarshalMediaEncryptionKey;
-        case 'b':
-          return _unmarshalMediaBandwidth;
-        case 'c':
-          return _unmarshalMediaConnectionInformation;
-        case 'i': // Non-spec ordering.
-          return _unmarshalMediaTitle;
-        case 'm':
-          return _unmarshalMediaDescription;
-      }
-      return null;
-    });
+  switch (String.fromCharCode(key)) {
+    case 'a':
+      return _unmarshalMediaAttribute;
+    case 'k':
+      return _unmarshalMediaEncryptionKey;
+    case 'b':
+      return _unmarshalMediaBandwidth;
+    case 'c':
+      return _unmarshalMediaConnectionInformation;
+    case 'i': // Non-spec ordering.
+      return _unmarshalMediaTitle;
+    case 'm':
+      return _unmarshalMediaDescription;
+  }
+  return null;
+});
 
 _StateFn? _s16(_Lexer l) => l.handleType((key) {
-      switch (String.fromCharCode(key)) {
-        case 'a':
-          return _unmarshalMediaAttribute;
-        case 'k':
-          return _unmarshalMediaEncryptionKey;
-        case 'c':
-          return _unmarshalMediaConnectionInformation;
-        case 'b':
-          return _unmarshalMediaBandwidth;
-        case 'i': // Non-spec ordering.
-          return _unmarshalMediaTitle;
-        case 'm':
-          return _unmarshalMediaDescription;
-      }
-      return null;
-    });
+  switch (String.fromCharCode(key)) {
+    case 'a':
+      return _unmarshalMediaAttribute;
+    case 'k':
+      return _unmarshalMediaEncryptionKey;
+    case 'c':
+      return _unmarshalMediaConnectionInformation;
+    case 'b':
+      return _unmarshalMediaBandwidth;
+    case 'i': // Non-spec ordering.
+      return _unmarshalMediaTitle;
+    case 'm':
+      return _unmarshalMediaDescription;
+  }
+  return null;
+});
 
 _StateFn? _unmarshalProtocolVersion(_Lexer l) {
   final version = l.readUint64Field();
@@ -369,8 +369,9 @@ void _handleUnicastAddress(_Lexer lex) {
   try {
     unicastAddress = lex.readRequiredField();
   } on _FieldMissingException {
-    lex.desc!.origin.unicastAddress =
-        lex.desc!.origin.addressType == 'IP6' ? '::' : '0.0.0.0';
+    lex.desc!.origin.unicastAddress = lex.desc!.origin.addressType == 'IP6'
+        ? '::'
+        : '0.0.0.0';
     return;
   }
   lex.desc!.origin.unicastAddress = unicastAddress;
@@ -485,7 +486,9 @@ _StateFn? _unmarshalTiming(_Lexer lex) {
   final stopTime = lex.readUint64Field();
   lex.nextLine();
   lex.desc!.timeDescriptions.add(
-    TimeDescription(timing: Timing(startTime: startTime, stopTime: stopTime)),
+    TimeDescription(
+      timing: Timing(startTime: startTime, stopTime: stopTime),
+    ),
   );
   return _s9;
 }
@@ -561,10 +564,13 @@ _StateFn? _unmarshalMediaDescription(_Lexer lex) {
   final mediaField = lex.readField();
   // Set according to currently registered with IANA.
   // https://tools.ietf.org/html/rfc4566#section-5.14
-  if (!_anyOf(
-    mediaField,
-    const ['audio', 'video', 'text', 'application', 'message'],
-  )) {
+  if (!_anyOf(mediaField, const [
+    'audio',
+    'video',
+    'text',
+    'application',
+    'message',
+  ])) {
     throw SdpInvalidValueException(mediaField);
   }
 

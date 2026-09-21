@@ -55,8 +55,8 @@ class SdpSyntaxException implements Exception {
 /// (base_lexer.go:29).
 class _BaseLexer {
   _BaseLexer(String value)
-      : _bytes = Uint8List.fromList(utf8.encode(value)),
-        pos = 0;
+    : _bytes = Uint8List.fromList(utf8.encode(value)),
+      pos = 0;
 
   final Uint8List _bytes;
   int pos;

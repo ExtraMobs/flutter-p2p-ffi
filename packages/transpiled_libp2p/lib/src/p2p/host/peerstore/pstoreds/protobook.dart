@@ -68,7 +68,10 @@ class DsProtoBook implements ProtoBook {
   @override
   List<ProtocolId> supportsProtocols(PeerId p, List<ProtocolId> protos) {
     final pmap = _protocolMap(p);
-    return [for (final proto in protos) if (pmap.contains(proto)) proto];
+    return [
+      for (final proto in protos)
+        if (pmap.contains(proto)) proto,
+    ];
   }
 
   /// Equivalent to go-libp2p's `dsProtoBook.FirstSupportedProtocol`.

@@ -113,20 +113,35 @@ class _TestDecayingTag implements DecayingTag {
   @override
   Duration interval() => _interval;
   @override
-  void bump(PeerId peer, int delta) { bumps[peer] = delta; }
+  void bump(PeerId peer, int delta) {
+    bumps[peer] = delta;
+  }
+
   @override
-  void remove(PeerId peer) { removals.add(peer); }
+  void remove(PeerId peer) {
+    removals.add(peer);
+  }
+
   @override
-  void close() { isClosed = true; }
+  void close() {
+    isClosed = true;
+  }
 }
 
 class _TestDecayer implements Decayer {
   bool isClosed = false;
   @override
-  DecayingTag registerDecayingTag(String name, Duration interval, DecayFn decayFn, BumpFn bumpFn) =>
-      _TestDecayingTag(name, interval);
+  DecayingTag registerDecayingTag(
+    String name,
+    Duration interval,
+    DecayFn decayFn,
+    BumpFn bumpFn,
+  ) => _TestDecayingTag(name, interval);
   @override
-  void close() { isClosed = true; }
+  void close() {
+    isClosed = true;
+  }
+
   Future<void> decayTag(PeerId peer, String tag) async {}
 }
 
@@ -160,9 +175,14 @@ class _TestConnectionGater implements ConnectionGater {
   @override
   bool interceptAccept(ConnMultiaddrs addrs) => true;
   @override
-  bool interceptSecured(Direction direction, PeerId peer, ConnMultiaddrs addrs) => true;
+  bool interceptSecured(
+    Direction direction,
+    PeerId peer,
+    ConnMultiaddrs addrs,
+  ) => true;
   @override
-  ({bool allow, int reason}) interceptUpgraded(Conn conn) => (allow: true, reason: 0);
+  ({bool allow, int reason}) interceptUpgraded(Conn conn) =>
+      (allow: true, reason: 0);
 }
 
 class _TestGetConnLimiter implements GetConnLimiter {
@@ -174,13 +194,23 @@ class _TestGetConnLimiter implements GetConnLimiter {
 
 class _TestAdvertiser implements Advertiser {
   @override
-  Future<Duration> advertise(String namespace, {List<DiscoveryOption> options = const []}) async => const Duration(minutes: 5);
+  Future<Duration> advertise(
+    String namespace, {
+    List<DiscoveryOption> options = const [],
+  }) async => const Duration(minutes: 5);
 }
 
 class _TestDiscoverer implements Discoverer {
   @override
-  Stream<AddrInfo> findPeers(String namespace, {List<DiscoveryOption> options = const []}) =>
-      Stream.value(AddrInfo(id: PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N'), addrs: []));
+  Stream<AddrInfo> findPeers(
+    String namespace, {
+    List<DiscoveryOption> options = const [],
+  }) => Stream.value(
+    AddrInfo(
+      id: PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N'),
+      addrs: [],
+    ),
+  );
 }
 
 class _TestNetworkStream implements NetworkStream {
@@ -190,9 +220,13 @@ class _TestNetworkStream implements NetworkStream {
   @override
   ProtocolId protocol() => _proto;
   @override
-  Future<void> setProtocol(ProtocolId id) async { _proto = id; }
+  Future<void> setProtocol(ProtocolId id) async {
+    _proto = id;
+  }
+
   @override
-  Stats stat() => ConnStats(direction: Direction.outbound, opened: DateTime.now());
+  Stats stat() =>
+      ConnStats(direction: Direction.outbound, opened: DateTime.now());
   @override
   Conn conn() => _TestConn();
   @override
@@ -223,18 +257,31 @@ class _TestNetworkStream implements NetworkStream {
 
 class _TestMultiaddrDnsResolver implements MultiaddrDnsResolver {
   @override
-  Future<List<Multiaddr>> resolveDnsAddr(NetworkContext context, PeerId expectedPeerId, Multiaddr multiaddr, int recursionLimit, int outputLimit) async => [multiaddr];
+  Future<List<Multiaddr>> resolveDnsAddr(
+    NetworkContext context,
+    PeerId expectedPeerId,
+    Multiaddr multiaddr,
+    int recursionLimit,
+    int outputLimit,
+  ) async => [multiaddr];
   @override
-  Future<List<Multiaddr>> resolveDnsComponent(NetworkContext context, Multiaddr multiaddr, int outputLimit) async => [multiaddr];
+  Future<List<Multiaddr>> resolveDnsComponent(
+    NetworkContext context,
+    Multiaddr multiaddr,
+    int outputLimit,
+  ) async => [multiaddr];
 }
 
 class _TestDialer implements Dialer {
   @override
-  PeerId get localPeer => PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N');
+  PeerId get localPeer =>
+      PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N');
   @override
   Object get peerstore => Object();
   @override
-  List<PeerId> peers() => [PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N')];
+  List<PeerId> peers() => [
+    PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N'),
+  ];
   @override
   Connectedness connectedness(PeerId peer) => Connectedness.connected;
   @override
@@ -244,7 +291,8 @@ class _TestDialer implements Dialer {
   @override
   Future<void> closePeer(PeerId peer) async {}
   @override
-  Future<Conn> dialPeer(NetworkContext context, PeerId peer) async => _TestConn();
+  Future<Conn> dialPeer(NetworkContext context, PeerId peer) async =>
+      _TestConn();
   @override
   bool canDial(PeerId peer, Multiaddr address) => true;
   @override
@@ -274,7 +322,8 @@ class _TestConnSecurity implements ConnSecurity {
 
 class _TestConnStat implements ConnStat {
   @override
-  ConnStats stat() => ConnStats(direction: Direction.inbound, opened: DateTime.now());
+  ConnStats stat() =>
+      ConnStats(direction: Direction.inbound, opened: DateTime.now());
 }
 
 class _TestConnScoper implements ConnScoper {
@@ -286,7 +335,8 @@ class _TestNetwork implements Network {
   @override
   Dialer get dialer => throw UnimplementedError();
   @override
-  Future<Conn> dialPeer(NetworkContext context, PeerId peer) async => throw UnimplementedError();
+  Future<Conn> dialPeer(NetworkContext context, PeerId peer) async =>
+      throw UnimplementedError();
   @override
   Future<void> closePeer(PeerId peer) async {}
   @override
@@ -302,7 +352,8 @@ class _TestNetwork implements Network {
   @override
   void stopNotify(Notifiee notifiee) {}
   @override
-  Future<NetworkStream> newStream(NetworkContext context, PeerId peer) async => _TestNetworkStream();
+  Future<NetworkStream> newStream(NetworkContext context, PeerId peer) async =>
+      _TestNetworkStream();
   @override
   Future<void> listen(Iterable<Multiaddr> addrs) async {}
   @override
@@ -329,21 +380,29 @@ class _TestRouter implements Router {
   void addHandler(ProtocolId id, HandlerFunc handler) {
     handlers[id] = handler;
   }
+
   @override
-  void addHandlerWithFunc(ProtocolId id, bool Function(ProtocolId) match, HandlerFunc handler) {
+  void addHandlerWithFunc(
+    ProtocolId id,
+    bool Function(ProtocolId) match,
+    HandlerFunc handler,
+  ) {
     handlers[id] = handler;
   }
+
   @override
   void removeHandler(ProtocolId id) {
     handlers.remove(id);
   }
+
   @override
   List<ProtocolId> protocols() => handlers.keys.toList();
 }
 
 class _TestNegotiator implements Negotiator {
   @override
-  Future<(ProtocolId, HandlerFunc)> negotiate(Object stream) async => ('/echo/1', (p, s) async {});
+  Future<(ProtocolId, HandlerFunc)> negotiate(Object stream) async =>
+      ('/echo/1', (p, s) async {});
   @override
   Future<void> handle(Object stream) async {}
 }
@@ -358,8 +417,12 @@ class _TestContentProviding implements ContentProviding {
 
 class _TestContentDiscovery implements ContentDiscovery {
   @override
-  Stream<AddrInfo> findProvidersAsync(Cid cid, int count) =>
-      Stream.value(AddrInfo(id: PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N'), addrs: []));
+  Stream<AddrInfo> findProvidersAsync(Cid cid, int count) => Stream.value(
+    AddrInfo(
+      id: PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N'),
+      addrs: [],
+    ),
+  );
 }
 
 class _TestPeerRouting implements PeerRouting {
@@ -370,17 +433,29 @@ class _TestPeerRouting implements PeerRouting {
 class _TestValueStore implements ValueStore {
   final Map<String, Uint8List> store = {};
   @override
-  Future<void> putValue(String key, Uint8List value, {List<RoutingOption> options = const []}) async {
+  Future<void> putValue(
+    String key,
+    Uint8List value, {
+    List<RoutingOption> options = const [],
+  }) async {
     store[key] = value;
   }
+
   @override
-  Future<Uint8List> getValue(String key, {List<RoutingOption> options = const []}) async {
+  Future<Uint8List> getValue(
+    String key, {
+    List<RoutingOption> options = const [],
+  }) async {
     final v = store[key];
     if (v == null) throw const RoutingNotFoundException();
     return v;
   }
+
   @override
-  Stream<Uint8List> searchValue(String key, {List<RoutingOption> options = const []}) {
+  Stream<Uint8List> searchValue(
+    String key, {
+    List<RoutingOption> options = const [],
+  }) {
     final v = store[key];
     if (v == null) return const Stream.empty();
     return Stream.value(v);
@@ -393,10 +468,12 @@ class _TestRouting extends _TestValueStore implements Routing {
   Future<void> bootstrap() async {
     bootstrapped = true;
   }
+
   @override
   Future<void> provide(Cid cid, bool local) async {}
   @override
-  Stream<AddrInfo> findProvidersAsync(Cid cid, int count) => const Stream.empty();
+  Stream<AddrInfo> findProvidersAsync(Cid cid, int count) =>
+      const Stream.empty();
   @override
   Future<AddrInfo> findPeer(PeerId id) async => AddrInfo(id: id, addrs: []);
 }
@@ -416,7 +493,7 @@ class _TestValueStoreRouting extends _TestValueStore implements PubKeyFetcher {
 }
 
 void main() {
-group('NoiseHandshakeAuthException [Atomic Audit]', () {
+  group('NoiseHandshakeAuthException [Atomic Audit]', () {
     test('toString() - formats exception message without dots', () {
       final exc = NoiseHandshakeAuthException('auth failed');
       expect(exc.toString(), contains('auth failed'));
@@ -489,76 +566,117 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
       expect(ciphertext, equals(Uint8List.fromList([7, 8, 9])));
     });
 
-    test('decryptAndHash() - decrypts ciphertext and mixes into hash', () async {
-      final ss = await SymmetricState.initialize(noiseProtocolName);
-      final plaintext = await ss.decryptAndHash(Uint8List.fromList([7, 8, 9]));
-      expect(plaintext, equals(Uint8List.fromList([7, 8, 9])));
-    });
+    test(
+      'decryptAndHash() - decrypts ciphertext and mixes into hash',
+      () async {
+        final ss = await SymmetricState.initialize(noiseProtocolName);
+        final plaintext = await ss.decryptAndHash(
+          Uint8List.fromList([7, 8, 9]),
+        );
+        expect(plaintext, equals(Uint8List.fromList([7, 8, 9])));
+      },
+    );
 
-    test('split() - splits chaining key into bidirectional cipher states', () async {
-      final ss = await SymmetricState.initialize(noiseProtocolName);
-      await ss.mixKey(Uint8List(32));
-      final (cs1, cs2) = await ss.split();
-      expect(cs1.hasKey, isTrue);
-      expect(cs2.hasKey, isTrue);
-    });
+    test(
+      'split() - splits chaining key into bidirectional cipher states',
+      () async {
+        final ss = await SymmetricState.initialize(noiseProtocolName);
+        await ss.mixKey(Uint8List(32));
+        final (cs1, cs2) = await ss.split();
+        expect(cs1.hasKey, isTrue);
+        expect(cs2.hasKey, isTrue);
+      },
+    );
   });
 
   group('HandshakeState [Atomic Audit]', () {
-    test('initialize() - creates handshake state for initiator and responder', () async {
-      final staticKp = await generateNoiseKeyPair();
-      final hs = await HandshakeState.initialize(initiator: true, staticKeyPair: staticKp);
-      expect(hs.initiator, isTrue);
-      expect(hs.remoteStaticKey, isNull);
-    });
+    test(
+      'initialize() - creates handshake state for initiator and responder',
+      () async {
+        final staticKp = await generateNoiseKeyPair();
+        final hs = await HandshakeState.initialize(
+          initiator: true,
+          staticKeyPair: staticKp,
+        );
+        expect(hs.initiator, isTrue);
+        expect(hs.remoteStaticKey, isNull);
+      },
+    );
 
-    test('writeMessage() - writes handshake pattern tokens and payload', () async {
-      final initStatic = await generateNoiseKeyPair();
-      final respStatic = await generateNoiseKeyPair();
-      final initHs = await HandshakeState.initialize(initiator: true, staticKeyPair: initStatic);
-      final respHs = await HandshakeState.initialize(initiator: false, staticKeyPair: respStatic);
+    test(
+      'writeMessage() - writes handshake pattern tokens and payload',
+      () async {
+        final initStatic = await generateNoiseKeyPair();
+        final respStatic = await generateNoiseKeyPair();
+        final initHs = await HandshakeState.initialize(
+          initiator: true,
+          staticKeyPair: initStatic,
+        );
+        final respHs = await HandshakeState.initialize(
+          initiator: false,
+          staticKeyPair: respStatic,
+        );
 
-      final (msg1, split1) = await initHs.writeMessage(Uint8List(0));
-      expect(msg1, isNotEmpty);
-      expect(split1, isNull);
+        final (msg1, split1) = await initHs.writeMessage(Uint8List(0));
+        expect(msg1, isNotEmpty);
+        expect(split1, isNull);
 
-      final (payload1, splitResp1) = await respHs.readMessage(msg1);
-      expect(payload1, isEmpty);
-      expect(splitResp1, isNull);
-    });
+        final (payload1, splitResp1) = await respHs.readMessage(msg1);
+        expect(payload1, isEmpty);
+        expect(splitResp1, isNull);
+      },
+    );
 
-    test('readMessage() - consumes handshake messages and completes handshake', () async {
-      final initStatic = await generateNoiseKeyPair();
-      final respStatic = await generateNoiseKeyPair();
-      final initHs = await HandshakeState.initialize(initiator: true, staticKeyPair: initStatic);
-      final respHs = await HandshakeState.initialize(initiator: false, staticKeyPair: respStatic);
+    test(
+      'readMessage() - consumes handshake messages and completes handshake',
+      () async {
+        final initStatic = await generateNoiseKeyPair();
+        final respStatic = await generateNoiseKeyPair();
+        final initHs = await HandshakeState.initialize(
+          initiator: true,
+          staticKeyPair: initStatic,
+        );
+        final respHs = await HandshakeState.initialize(
+          initiator: false,
+          staticKeyPair: respStatic,
+        );
 
-      final (msg1, _) = await initHs.writeMessage(Uint8List(0));
-      await respHs.readMessage(msg1);
+        final (msg1, _) = await initHs.writeMessage(Uint8List(0));
+        await respHs.readMessage(msg1);
 
-      final (msg2, _) = await respHs.writeMessage(Uint8List(0));
-      await initHs.readMessage(msg2);
+        final (msg2, _) = await respHs.writeMessage(Uint8List(0));
+        await initHs.readMessage(msg2);
 
-      final (msg3, initSplit) = await initHs.writeMessage(Uint8List(0));
-      final (_, respSplit) = await respHs.readMessage(msg3);
+        final (msg3, initSplit) = await initHs.writeMessage(Uint8List(0));
+        final (_, respSplit) = await respHs.readMessage(msg3);
 
-      expect(initSplit, isNotNull);
-      expect(respSplit, isNotNull);
-    });
+        expect(initSplit, isNotNull);
+        expect(respSplit, isNotNull);
+      },
+    );
 
-    test('remoteStaticKey - exposes remote static key after message exchange', () async {
-      final initStatic = await generateNoiseKeyPair();
-      final respStatic = await generateNoiseKeyPair();
-      final initHs = await HandshakeState.initialize(initiator: true, staticKeyPair: initStatic);
-      final respHs = await HandshakeState.initialize(initiator: false, staticKeyPair: respStatic);
+    test(
+      'remoteStaticKey - exposes remote static key after message exchange',
+      () async {
+        final initStatic = await generateNoiseKeyPair();
+        final respStatic = await generateNoiseKeyPair();
+        final initHs = await HandshakeState.initialize(
+          initiator: true,
+          staticKeyPair: initStatic,
+        );
+        final respHs = await HandshakeState.initialize(
+          initiator: false,
+          staticKeyPair: respStatic,
+        );
 
-      final (msg1, _) = await initHs.writeMessage(Uint8List(0));
-      await respHs.readMessage(msg1);
-      final (msg2, _) = await respHs.writeMessage(Uint8List(0));
-      await initHs.readMessage(msg2);
+        final (msg1, _) = await initHs.writeMessage(Uint8List(0));
+        await respHs.readMessage(msg1);
+        final (msg2, _) = await respHs.writeMessage(Uint8List(0));
+        await initHs.readMessage(msg2);
 
-      expect(initHs.remoteStaticKey, equals(respStatic.publicKeyBytes));
-    });
+        expect(initHs.remoteStaticKey, equals(respStatic.publicKeyBytes));
+      },
+    );
   });
 
   group('Limit [Atomic Audit]', () {
@@ -720,13 +838,19 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
       expect(lim.getTransientLimits(), isA<Limit>());
     });
 
-    test('getAllowlistedSystemLimits() - provides allowlisted system limits', () {
-      expect(lim.getAllowlistedSystemLimits(), isA<Limit>());
-    });
+    test(
+      'getAllowlistedSystemLimits() - provides allowlisted system limits',
+      () {
+        expect(lim.getAllowlistedSystemLimits(), isA<Limit>());
+      },
+    );
 
-    test('getAllowlistedTransientLimits() - provides allowlisted transient limits', () {
-      expect(lim.getAllowlistedTransientLimits(), isA<Limit>());
-    });
+    test(
+      'getAllowlistedTransientLimits() - provides allowlisted transient limits',
+      () {
+        expect(lim.getAllowlistedTransientLimits(), isA<Limit>());
+      },
+    );
 
     test('getServiceLimits() - provides limits for named service', () {
       expect(lim.getServiceLimits('test-svc'), isA<Limit>());
@@ -769,13 +893,19 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
       expect(fl.getTransientLimits().memoryLimit, greaterThan(0));
     });
 
-    test('getAllowlistedSystemLimits() - returns allowlisted system limits', () {
-      expect(fl.getAllowlistedSystemLimits().memoryLimit, greaterThan(0));
-    });
+    test(
+      'getAllowlistedSystemLimits() - returns allowlisted system limits',
+      () {
+        expect(fl.getAllowlistedSystemLimits().memoryLimit, greaterThan(0));
+      },
+    );
 
-    test('getAllowlistedTransientLimits() - returns allowlisted transient limits', () {
-      expect(fl.getAllowlistedTransientLimits().memoryLimit, greaterThan(0));
-    });
+    test(
+      'getAllowlistedTransientLimits() - returns allowlisted transient limits',
+      () {
+        expect(fl.getAllowlistedTransientLimits().memoryLimit, greaterThan(0));
+      },
+    );
 
     test('getServiceLimits() - returns service limits', () {
       expect(fl.getServiceLimits('svc').memoryLimit, greaterThan(0));
@@ -827,7 +957,9 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
 
   group('DecayingTag [Atomic Audit]', () {
     final DecayingTag tag = _TestDecayingTag('p2p', const Duration(seconds: 2));
-    final peer = PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N');
+    final peer = PeerId.decode(
+      'QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N',
+    );
 
     test('name() - reports tag name', () {
       expect(tag.name(), equals('p2p'));
@@ -855,7 +987,9 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
 
   group('ConnectionGater [Atomic Audit]', () {
     final ConnectionGater gater = _TestConnectionGater();
-    final peer = PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N');
+    final peer = PeerId.decode(
+      'QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N',
+    );
     final addr = Multiaddr.parse('/ip4/127.0.0.1/tcp/4001');
 
     test('interceptPeerDial() - decides whether peer dial is allowed', () {
@@ -866,23 +1000,41 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
       expect(gater.interceptAddrDial(peer, addr), isTrue);
     });
 
-    test('interceptAccept() - decides whether inbound connection is accepted', () {
-      expect(gater.interceptAccept(_TestConnMultiaddrs(addr)), isTrue);
-    });
+    test(
+      'interceptAccept() - decides whether inbound connection is accepted',
+      () {
+        expect(gater.interceptAccept(_TestConnMultiaddrs(addr)), isTrue);
+      },
+    );
 
-    test('interceptSecured() - decides whether secured connection is allowed', () {
-      expect(gater.interceptSecured(Direction.inbound, peer, _TestConnMultiaddrs(addr)), isTrue);
-    });
+    test(
+      'interceptSecured() - decides whether secured connection is allowed',
+      () {
+        expect(
+          gater.interceptSecured(
+            Direction.inbound,
+            peer,
+            _TestConnMultiaddrs(addr),
+          ),
+          isTrue,
+        );
+      },
+    );
 
-    test('interceptUpgraded() - decides whether upgraded connection is accepted', () {
-      final res = gater.interceptUpgraded(_TestConn());
-      expect(res.allow, isTrue);
-    });
+    test(
+      'interceptUpgraded() - decides whether upgraded connection is accepted',
+      () {
+        final res = gater.interceptUpgraded(_TestConn());
+        expect(res.allow, isTrue);
+      },
+    );
   });
 
   group('ConnManager [Atomic Audit]', () {
     final ConnManager mgr = const NullConnMgr();
-    final peer = PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N');
+    final peer = PeerId.decode(
+      'QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N',
+    );
 
     test('tagPeer() - associates tag with peer', () {
       expect(() => mgr.tagPeer(peer, 'tag', 1), returnsNormally);
@@ -893,7 +1045,10 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
     });
 
     test('upsertTag() - modifies existing tag or inserts new', () {
-      expect(() => mgr.upsertTag(peer, 'tag', (val) => val + 1), returnsNormally);
+      expect(
+        () => mgr.upsertTag(peer, 'tag', (val) => val + 1),
+        returnsNormally,
+      );
     });
 
     test('getTagInfo() - fetches tag metadata for peer', () {
@@ -920,9 +1075,12 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
       expect(mgr.isProtected(peer, 'tag'), isFalse);
     });
 
-    test('checkLimit() - enforces connection manager limits against limiter', () {
-      expect(() => mgr.checkLimit(_TestGetConnLimiter(10)), returnsNormally);
-    });
+    test(
+      'checkLimit() - enforces connection manager limits against limiter',
+      () {
+        expect(() => mgr.checkLimit(_TestGetConnLimiter(10)), returnsNormally);
+      },
+    );
 
     test('close() - closes connection manager', () {
       expect(() => mgr.close(), returnsNormally);
@@ -938,7 +1096,9 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
 
   group('NullConnMgr [Atomic Audit]', () {
     const nullMgr = NullConnMgr();
-    final peer = PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N');
+    final peer = PeerId.decode(
+      'QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N',
+    );
 
     test('tagPeer() - noop tag operation', () {
       expect(() => nullMgr.tagPeer(peer, 'p', 1), returnsNormally);
@@ -1010,21 +1170,27 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
       expect(key.length, equals(32));
     });
 
-    test('encrypt() - performs aes gcm encryption returning EncryptedData', () async {
-      final key = Uint8List(32);
-      final plaintext = Uint8List.fromList([1, 2, 3, 4]);
-      final enc = await CryptoUtils.encrypt(plaintext, key);
-      expect(enc.ciphertext, isNotEmpty);
-      expect(enc.nonce.length, equals(12));
-    });
+    test(
+      'encrypt() - performs aes gcm encryption returning EncryptedData',
+      () async {
+        final key = Uint8List(32);
+        final plaintext = Uint8List.fromList([1, 2, 3, 4]);
+        final enc = await CryptoUtils.encrypt(plaintext, key);
+        expect(enc.ciphertext, isNotEmpty);
+        expect(enc.nonce.length, equals(12));
+      },
+    );
 
-    test('decrypt() - decrypts aes gcm ciphertext back to original bytes', () async {
-      final key = Uint8List(32);
-      final plaintext = Uint8List.fromList([1, 2, 3, 4]);
-      final enc = await CryptoUtils.encrypt(plaintext, key);
-      final dec = await CryptoUtils.decrypt(enc, key);
-      expect(dec, equals(plaintext));
-    });
+    test(
+      'decrypt() - decrypts aes gcm ciphertext back to original bytes',
+      () async {
+        final key = Uint8List(32);
+        final plaintext = Uint8List.fromList([1, 2, 3, 4]);
+        final enc = await CryptoUtils.encrypt(plaintext, key);
+        final dec = await CryptoUtils.decrypt(enc, key);
+        expect(dec, equals(plaintext));
+      },
+    );
 
     test('zeroMemory() - overwrites buffer with zeroes', () {
       final buf = Uint8List.fromList([1, 2, 3, 4]);
@@ -1154,11 +1320,14 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
       expect(kp, isNotNull);
     });
 
-    test('keyPairFromSeed() - generates deterministic key pair from seed', () async {
-      final seed = Uint8List(32);
-      final kp = await signer.keyPairFromSeed(seed);
-      expect(kp, isNotNull);
-    });
+    test(
+      'keyPairFromSeed() - generates deterministic key pair from seed',
+      () async {
+        final seed = Uint8List(32);
+        final kp = await signer.keyPairFromSeed(seed);
+        expect(kp, isNotNull);
+      },
+    );
 
     test('sign() - signs payload bytes using key pair', () async {
       final kp = await signer.generateKeyPair();
@@ -1300,7 +1469,9 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
     });
 
     test('verify() - validates sha256 pkcs1 signature', () async {
-      final rsaPriv = unmarshalRsaPrivateKey(_hexDecode(_sampleRsaPrivateDerHex));
+      final rsaPriv = unmarshalRsaPrivateKey(
+        _hexDecode(_sampleRsaPrivateDerHex),
+      );
       final msg = Uint8List.fromList([1, 2, 3]);
       final sig = await rsaPriv.sign(msg);
       expect(await rsaPub.verify(msg, sig), isTrue);
@@ -1410,8 +1581,14 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
 
   group('NatDeviceTypeText [Atomic Audit]', () {
     test('text - returns string representation of nat device type', () {
-      expect(NatDeviceType.endpointIndependent.text, equals('Endpoint Independent'));
-      expect(NatDeviceType.endpointDependent.text, equals('Endpoint Dependent'));
+      expect(
+        NatDeviceType.endpointIndependent.text,
+        equals('Endpoint Independent'),
+      );
+      expect(
+        NatDeviceType.endpointDependent.text,
+        equals('Endpoint Dependent'),
+      );
       expect(NatDeviceType.unknown.text, equals('Unknown'));
     });
   });
@@ -1565,23 +1742,37 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
 
   group('MultiaddrDnsResolver [Atomic Audit]', () {
     final MultiaddrDnsResolver resolver = _TestMultiaddrDnsResolver();
-    final peer = PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N');
+    final peer = PeerId.decode(
+      'QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N',
+    );
     final addr = Multiaddr.parse('/ip4/127.0.0.1/tcp/4001');
 
     test('resolveDnsAddr() - resolves dns multiaddr for peer', () async {
-      final res = await resolver.resolveDnsAddr(NetworkContext.empty, peer, addr, 5, 10);
+      final res = await resolver.resolveDnsAddr(
+        NetworkContext.empty,
+        peer,
+        addr,
+        5,
+        10,
+      );
       expect(res, contains(addr));
     });
 
     test('resolveDnsComponent() - resolves raw dns component', () async {
-      final res = await resolver.resolveDnsComponent(NetworkContext.empty, addr, 10);
+      final res = await resolver.resolveDnsComponent(
+        NetworkContext.empty,
+        addr,
+        10,
+      );
       expect(res, contains(addr));
     });
   });
 
   group('Dialer [Atomic Audit]', () {
     final Dialer dialer = _TestDialer();
-    final peer = PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N');
+    final peer = PeerId.decode(
+      'QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N',
+    );
     final addr = Multiaddr.parse('/ip4/127.0.0.1/tcp/4001');
 
     test('peerstore - provides peerstore handle', () {
@@ -1632,7 +1823,9 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
 
   group('Network [Atomic Audit]', () {
     final Network net = _TestNetwork();
-    final peer = PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N');
+    final peer = PeerId.decode(
+      'QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N',
+    );
     final addr = Multiaddr.parse('/ip4/127.0.0.1/tcp/4001');
 
     test('close() - closes network instance', () async {
@@ -1656,10 +1849,13 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
       expect(net.listenAddresses(), isEmpty);
     });
 
-    test('interfaceListenAddresses() - resolves system interface listen addresses', () async {
-      final addrs = await net.interfaceListenAddresses();
-      expect(addrs, isEmpty);
-    });
+    test(
+      'interfaceListenAddresses() - resolves system interface listen addresses',
+      () async {
+        final addrs = await net.interfaceListenAddresses();
+        expect(addrs, isEmpty);
+      },
+    );
 
     test('resourceManager - provides resource manager handle', () {
       expect(net.resourceManager, isNotNull);
@@ -1667,9 +1863,14 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
   });
 
   group('ConnSecurity [Atomic Audit]', () {
-    final peer = PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N');
+    final peer = PeerId.decode(
+      'QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N',
+    );
     final pub = Ed25519Signer().publicKeyFromBytes(Uint8List(32));
-    final sec = _TestConnSecurity(peer, unmarshalEd25519PublicKey(Uint8List(32)));
+    final sec = _TestConnSecurity(
+      peer,
+      unmarshalEd25519PublicKey(Uint8List(32)),
+    );
 
     test('localPeer() - returns local peer id', () {
       expect(sec.localPeer(), equals(peer));
@@ -1803,7 +2004,10 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
     final ResourceScope scope = const NullScope();
 
     test('reserveMemory() - attempts memory reservation', () {
-      expect(() => scope.reserveMemory(1024, reservationPriorityLow), returnsNormally);
+      expect(
+        () => scope.reserveMemory(1024, reservationPriorityLow),
+        returnsNormally,
+      );
     });
 
     test('releaseMemory() - releases previously allocated memory', () {
@@ -1849,7 +2053,9 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
 
   group('ConnManagementScope [Atomic Audit]', () {
     final ConnManagementScope scope = const NullScope();
-    final peer = PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N');
+    final peer = PeerId.decode(
+      'QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N',
+    );
 
     test('peerScope() - retrieves associated peer scope', () {
       expect(scope.peerScope(), isNotNull);
@@ -1862,7 +2068,9 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
 
   group('StreamManagementScope [Atomic Audit]', () {
     final StreamManagementScope scope = const NullScope();
-    final peer = PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N');
+    final peer = PeerId.decode(
+      'QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N',
+    );
 
     test('protocolScope() - returns protocol scope handle', () {
       expect(scope.protocolScope(), isNotNull);
@@ -1894,7 +2102,9 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
 
   group('ResourceScopeViewer [Atomic Audit]', () {
     final ResourceScopeViewer viewer = const NullResourceManager();
-    final peer = PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N');
+    final peer = PeerId.decode(
+      'QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N',
+    );
 
     test('viewSystem() - visits system resource scope', () {
       expect(() => viewer.viewSystem((s) {}), returnsNormally);
@@ -1919,7 +2129,9 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
 
   group('ResourceManager [Atomic Audit]', () {
     final ResourceManager mgr = const NullResourceManager();
-    final peer = PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N');
+    final peer = PeerId.decode(
+      'QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N',
+    );
     final addr = Multiaddr.parse('/ip4/127.0.0.1/tcp/4001');
 
     test('openConnection() - creates connection management scope', () {
@@ -1927,9 +2139,12 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
       expect(connScope, isNotNull);
     });
 
-    test('verifySourceAddress() - validates source address against limiter', () {
-      expect(mgr.verifySourceAddress(addr), isFalse);
-    });
+    test(
+      'verifySourceAddress() - validates source address against limiter',
+      () {
+        expect(mgr.verifySourceAddress(addr), isFalse);
+      },
+    );
 
     test('openStream() - creates stream management scope', () {
       final streamScope = mgr.openStream(peer, Direction.outbound);
@@ -1950,7 +2165,9 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
 
   group('NullResourceManager [Atomic Audit]', () {
     const mgr = NullResourceManager();
-    final peer = PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N');
+    final peer = PeerId.decode(
+      'QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N',
+    );
     final addr = Multiaddr.parse('/ip4/127.0.0.1/tcp/4001');
 
     test('viewSystem() - visits null scope on system', () {
@@ -1974,7 +2191,10 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
     });
 
     test('openConnection() - returns null scope for connection', () {
-      expect(mgr.openConnection(Direction.inbound, false, addr), isA<NullScope>());
+      expect(
+        mgr.openConnection(Direction.inbound, false, addr),
+        isA<NullScope>(),
+      );
     });
 
     test('verifySourceAddress() - returns false in null resource manager', () {
@@ -1992,7 +2212,9 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
 
   group('NullScope [Atomic Audit]', () {
     const scope = NullScope();
-    final peer = PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N');
+    final peer = PeerId.decode(
+      'QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N',
+    );
 
     test('reserveMemory() - noop reserve memory', () {
       expect(() => scope.reserveMemory(10, 1), returnsNormally);
@@ -2052,7 +2274,9 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
   });
 
   group('AddrInfo [Atomic Audit]', () {
-    final peer = PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N');
+    final peer = PeerId.decode(
+      'QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N',
+    );
     final addr = Multiaddr.parse('/ip4/127.0.0.1/tcp/4001');
     final info = AddrInfo(id: peer, addrs: [addr]);
 
@@ -2076,12 +2300,15 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
       expect(str, contains(peer.toBase58()));
     });
 
-    test('operator == - compares AddrInfo instances for structural equality', () {
-      final info2 = AddrInfo(id: peer, addrs: [addr]);
-      final info3 = AddrInfo(id: peer, addrs: []);
-      expect(info == info2, isTrue);
-      expect(info == info3, isFalse);
-    });
+    test(
+      'operator == - compares AddrInfo instances for structural equality',
+      () {
+        final info2 = AddrInfo(id: peer, addrs: [addr]);
+        final info3 = AddrInfo(id: peer, addrs: []);
+        expect(info == info2, isTrue);
+        expect(info == info3, isFalse);
+      },
+    );
 
     test('hashCode - computes consistent hash code', () {
       final info2 = AddrInfo(id: peer, addrs: [addr]);
@@ -2111,7 +2338,9 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
   });
 
   group('PeerId [Atomic Audit]', () {
-    final peer = PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N');
+    final peer = PeerId.decode(
+      'QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N',
+    );
 
     test('isEmpty - checks if underlying value buffer is empty', () {
       expect(peer.isEmpty, isFalse);
@@ -2139,18 +2368,24 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
       expect(cid.version, equals(1));
     });
 
-    test('matchesPublicKey() - tests if peer matches given public key', () async {
-      final key = await generateEd25519KeyPair();
-      final pub = key.getPublic();
-      final p = PeerId.fromPublicKey(pub.raw(), type: 'ed25519');
-      expect(p.matchesPublicKey(pub), isTrue);
-    });
+    test(
+      'matchesPublicKey() - tests if peer matches given public key',
+      () async {
+        final key = await generateEd25519KeyPair();
+        final pub = key.getPublic();
+        final p = PeerId.fromPublicKey(pub.raw(), type: 'ed25519');
+        expect(p.matchesPublicKey(pub), isTrue);
+      },
+    );
 
-    test('matchesPrivateKey() - tests if peer matches given private key', () async {
-      final key = await generateEd25519KeyPair();
-      final p = PeerId.fromPublicKey(key.getPublic().raw(), type: 'ed25519');
-      expect(p.matchesPrivateKey(key), isTrue);
-    });
+    test(
+      'matchesPrivateKey() - tests if peer matches given private key',
+      () async {
+        final key = await generateEd25519KeyPair();
+        final p = PeerId.fromPublicKey(key.getPublic().raw(), type: 'ed25519');
+        expect(p.matchesPrivateKey(key), isTrue);
+      },
+    );
 
     test('extractPublicKey() - extracts embedded public key if present', () {
       final rawKey = Uint8List(32);
@@ -2185,7 +2420,9 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
     });
 
     test('hashCode - returns consistent hash code', () {
-      final p2 = PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N');
+      final p2 = PeerId.decode(
+        'QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N',
+      );
       expect(peer.hashCode, equals(p2.hashCode));
     });
 
@@ -2205,7 +2442,9 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
   });
 
   group('PeerRecord [Atomic Audit]', () {
-    final peer = PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N');
+    final peer = PeerId.decode(
+      'QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N',
+    );
     final rec = PeerRecord(peerId: peer, addrs: []);
 
     test('domain() - returns peer record signature domain', () {
@@ -2280,7 +2519,9 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
   });
 
   group('Record [Atomic Audit]', () {
-    final Record rec = PeerRecord(peerId: PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N'));
+    final Record rec = PeerRecord(
+      peerId: PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N'),
+    );
 
     test('domain() - returns record domain identifier', () {
       expect(rec.domain(), isNotEmpty);
@@ -2305,69 +2546,109 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
   group('Envelope [Atomic Audit]', () {
     test('seal() - signs a record into an envelope', () async {
       final key = await generateEd25519KeyPair();
-      final rec = PeerRecord(peerId: PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N'));
+      final rec = PeerRecord(
+        peerId: PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N'),
+      );
       final env = await Envelope.seal(rec, key);
       expect(env, isNotNull);
       expect(env.payloadType, equals(rec.codec()));
     });
 
-    test('consumeEnvelope() - validates and opens envelope using registered type', () async {
-      registerType(() => PeerRecord(peerId: PeerId(value: Uint8List(0))));
-      final key = await generateEd25519KeyPair();
-      final rec = PeerRecord(peerId: PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N'));
-      final env = await Envelope.seal(rec, key);
-      final marshaled = env.marshal();
+    test(
+      'consumeEnvelope() - validates and opens envelope using registered type',
+      () async {
+        registerType(() => PeerRecord(peerId: PeerId(value: Uint8List(0))));
+        final key = await generateEd25519KeyPair();
+        final rec = PeerRecord(
+          peerId: PeerId.decode(
+            'QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N',
+          ),
+        );
+        final env = await Envelope.seal(rec, key);
+        final marshaled = env.marshal();
 
-      final (consumedEnv, consumedRec) = await Envelope.consumeEnvelope(marshaled, rec.domain());
-      expect(consumedEnv.equals(env), isTrue);
-      expect((consumedRec as PeerRecord).peerId, equals(rec.peerId));
-    });
+        final (consumedEnv, consumedRec) = await Envelope.consumeEnvelope(
+          marshaled,
+          rec.domain(),
+        );
+        expect(consumedEnv.equals(env), isTrue);
+        expect((consumedRec as PeerRecord).peerId, equals(rec.peerId));
+      },
+    );
 
-    test('consumeTypedEnvelope() - validates and opens envelope into target record', () async {
-      final key = await generateEd25519KeyPair();
-      final rec = PeerRecord(peerId: PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N'));
-      final env = await Envelope.seal(rec, key);
-      final marshaled = env.marshal();
+    test(
+      'consumeTypedEnvelope() - validates and opens envelope into target record',
+      () async {
+        final key = await generateEd25519KeyPair();
+        final rec = PeerRecord(
+          peerId: PeerId.decode(
+            'QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N',
+          ),
+        );
+        final env = await Envelope.seal(rec, key);
+        final marshaled = env.marshal();
 
-      final dest = PeerRecord(peerId: PeerId(value: Uint8List(0)));
-      final consumedEnv = await Envelope.consumeTypedEnvelope(marshaled, dest);
-      expect(consumedEnv.equals(env), isTrue);
-      expect(dest.peerId, equals(rec.peerId));
-    });
+        final dest = PeerRecord(peerId: PeerId(value: Uint8List(0)));
+        final consumedEnv = await Envelope.consumeTypedEnvelope(
+          marshaled,
+          dest,
+        );
+        expect(consumedEnv.equals(env), isTrue);
+        expect(dest.peerId, equals(rec.peerId));
+      },
+    );
 
     test('marshal() - serializes envelope to protobuf binary format', () async {
       final key = await generateEd25519KeyPair();
-      final rec = PeerRecord(peerId: PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N'));
+      final rec = PeerRecord(
+        peerId: PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N'),
+      );
       final env = await Envelope.seal(rec, key);
       final bytes = env.marshal();
       expect(bytes, isNotEmpty);
     });
 
-    test('equals() - checks envelope equality based on key payload and sig', () async {
-      final key = await generateEd25519KeyPair();
-      final rec = PeerRecord(peerId: PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N'));
-      final env1 = await Envelope.seal(rec, key);
-      final env2 = Envelope.unmarshal(env1.marshal());
-      expect(env1.equals(env2), isTrue);
-    });
+    test(
+      'equals() - checks envelope equality based on key payload and sig',
+      () async {
+        final key = await generateEd25519KeyPair();
+        final rec = PeerRecord(
+          peerId: PeerId.decode(
+            'QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N',
+          ),
+        );
+        final env1 = await Envelope.seal(rec, key);
+        final env2 = Envelope.unmarshal(env1.marshal());
+        expect(env1.equals(env2), isTrue);
+      },
+    );
 
     test('record() - unmarshals payload via registered type factory', () async {
       registerType(() => PeerRecord(peerId: PeerId(value: Uint8List(0))));
       final key = await generateEd25519KeyPair();
-      final rec = PeerRecord(peerId: PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N'));
+      final rec = PeerRecord(
+        peerId: PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N'),
+      );
       final env = await Envelope.seal(rec, key);
       final r = env.record();
       expect((r as PeerRecord).peerId, equals(rec.peerId));
     });
 
-    test('typedRecord() - unmarshals raw payload into explicit record instance', () async {
-      final key = await generateEd25519KeyPair();
-      final rec = PeerRecord(peerId: PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N'));
-      final env = await Envelope.seal(rec, key);
-      final dest = PeerRecord(peerId: PeerId(value: Uint8List(0)));
-      env.typedRecord(dest);
-      expect(dest.peerId, equals(rec.peerId));
-    });
+    test(
+      'typedRecord() - unmarshals raw payload into explicit record instance',
+      () async {
+        final key = await generateEd25519KeyPair();
+        final rec = PeerRecord(
+          peerId: PeerId.decode(
+            'QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N',
+          ),
+        );
+        final env = await Envelope.seal(rec, key);
+        final dest = PeerRecord(peerId: PeerId(value: Uint8List(0)));
+        env.typedRecord(dest);
+        expect(dest.peerId, equals(rec.peerId));
+      },
+    );
   });
 
   group('Router [Atomic Audit]', () {
@@ -2379,10 +2660,17 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
       expect(router.protocols(), contains('/echo/1'));
     });
 
-    test('addHandlerWithFunc() - registers protocol with custom match function', () {
-      router.addHandlerWithFunc('/match/1', (p) => p == '/match/1', dummyHandler);
-      expect(router.protocols(), contains('/match/1'));
-    });
+    test(
+      'addHandlerWithFunc() - registers protocol with custom match function',
+      () {
+        router.addHandlerWithFunc(
+          '/match/1',
+          (p) => p == '/match/1',
+          dummyHandler,
+        );
+        expect(router.protocols(), contains('/match/1'));
+      },
+    );
 
     test('removeHandler() - unregisters protocol handler', () {
       router.addHandler('/temp/1', dummyHandler);
@@ -2418,7 +2706,9 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
     });
 
     test('toOption() - converts options to composable option function', () {
-      final opts1 = RoutingOptions()..expired = true..offline = true;
+      final opts1 = RoutingOptions()
+        ..expired = true
+        ..offline = true;
       final opt = opts1.toOption();
       final opts2 = RoutingOptions();
       opt(opts2);
@@ -2471,7 +2761,9 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
   });
 
   group('ContentProviding [Atomic Audit]', () {
-    final cid = Cid.decode('bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi');
+    final cid = Cid.decode(
+      'bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi',
+    );
     final ContentProviding cp = _TestContentProviding();
 
     test('provide() - publishes cid to routing system', () async {
@@ -2481,19 +2773,26 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
   });
 
   group('ContentDiscovery [Atomic Audit]', () {
-    final cid = Cid.decode('bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi');
+    final cid = Cid.decode(
+      'bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi',
+    );
     final ContentDiscovery cd = _TestContentDiscovery();
 
     test('findProvidersAsync() - streams providers for cid', () async {
       final providers = await cd.findProvidersAsync(cid, 0).toList();
       expect(providers, isNotEmpty);
-      expect(providers.first.id, equals(PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N')));
+      expect(
+        providers.first.id,
+        equals(PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N')),
+      );
     });
   });
 
   group('PeerRouting [Atomic Audit]', () {
     final PeerRouting pr = _TestPeerRouting();
-    final peer = PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N');
+    final peer = PeerId.decode(
+      'QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N',
+    );
 
     test('findPeer() - searches for peer address information', () async {
       final info = await pr.findPeer(peer);
@@ -2533,46 +2832,82 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
   });
 
   group('PubKeyFetcher [Atomic Audit]', () {
-    test('getPublicKey() - fetches public key directly from optimized source', () async {
-      final kp = await generateEd25519KeyPair();
-      final pub = kp.getPublic();
-      final PubKeyFetcher fetcher = _TestPubKeyFetcher(pub);
-      final peer = PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N');
-      final retrieved = await fetcher.getPublicKey(peer);
-      expect(retrieved.keyEquals(pub), isTrue);
-    });
+    test(
+      'getPublicKey() - fetches public key directly from optimized source',
+      () async {
+        final kp = await generateEd25519KeyPair();
+        final pub = kp.getPublic();
+        final PubKeyFetcher fetcher = _TestPubKeyFetcher(pub);
+        final peer = PeerId.decode(
+          'QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N',
+        );
+        final retrieved = await fetcher.getPublicKey(peer);
+        expect(retrieved.keyEquals(pub), isTrue);
+      },
+    );
   });
 
   group('Top-Level Functions [Atomic Audit]', () {
-    test('addrInfoFromP2pAddr() - constructs addr info from multiaddr with p2p', () {
-      final ma = Multiaddr.parse('/ip4/127.0.0.1/tcp/4001/p2p/QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N');
-      final info = addrInfoFromP2pAddr(ma);
-      expect(info.id.toBase58(), equals('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N'));
-      expect(info.addrs, isNotEmpty);
-    });
+    test(
+      'addrInfoFromP2pAddr() - constructs addr info from multiaddr with p2p',
+      () {
+        final ma = Multiaddr.parse(
+          '/ip4/127.0.0.1/tcp/4001/p2p/QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N',
+        );
+        final info = addrInfoFromP2pAddr(ma);
+        expect(
+          info.id.toBase58(),
+          equals('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N'),
+        );
+        expect(info.addrs, isNotEmpty);
+      },
+    );
 
     test('addrInfoFromString() - parses multiaddr string to addr info', () {
-      final info = addrInfoFromString('/ip4/127.0.0.1/tcp/4001/p2p/QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N');
-      expect(info.id.toBase58(), equals('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N'));
+      final info = addrInfoFromString(
+        '/ip4/127.0.0.1/tcp/4001/p2p/QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N',
+      );
+      expect(
+        info.id.toBase58(),
+        equals('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N'),
+      );
     });
 
-    test('addrInfoToP2pAddrs() - formats addr info back into p2p multiaddrs', () {
-      final peer = PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N');
-      final info = AddrInfo(id: peer, addrs: [Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')]);
-      final addrs = addrInfoToP2pAddrs(info);
-      expect(addrs, isNotEmpty);
-      expect(addrs.first.toString(), contains('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N'));
-    });
+    test(
+      'addrInfoToP2pAddrs() - formats addr info back into p2p multiaddrs',
+      () {
+        final peer = PeerId.decode(
+          'QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N',
+        );
+        final info = AddrInfo(
+          id: peer,
+          addrs: [Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')],
+        );
+        final addrs = addrInfoToP2pAddrs(info);
+        expect(addrs, isNotEmpty);
+        expect(
+          addrs.first.toString(),
+          contains('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N'),
+        );
+      },
+    );
 
     test('addrInfosFromP2pAddrs() - groups multiple p2p addresses by peer', () {
-      final ma = Multiaddr.parse('/ip4/127.0.0.1/tcp/4001/p2p/QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N');
+      final ma = Multiaddr.parse(
+        '/ip4/127.0.0.1/tcp/4001/p2p/QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N',
+      );
       final list = addrInfosFromP2pAddrs([ma]);
       expect(list.length, equals(1));
-      expect(list.first.id.toBase58(), equals('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N'));
+      expect(
+        list.first.id.toBase58(),
+        equals('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N'),
+      );
     });
 
     test('addrInfosToIds() - maps list of addr infos to peer ids', () {
-      final peer = PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N');
+      final peer = PeerId.decode(
+        'QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N',
+      );
       final info = AddrInfo(id: peer, addrs: []);
       final ids = addrInfosToIds([info]);
       expect(ids, equals([peer]));
@@ -2586,14 +2921,26 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
 
     test('bumpSumBounded() - adds delta respecting min and max boundaries', () {
       final fn = bumpSumBounded(0, 50);
-      expect(fn(_makeDecayingValue(10, lastVisit: DateTime.now()), 20), equals(30));
-      expect(fn(_makeDecayingValue(10, lastVisit: DateTime.now()), 60), equals(50));
-      expect(fn(_makeDecayingValue(10, lastVisit: DateTime.now()), -30), equals(0));
+      expect(
+        fn(_makeDecayingValue(10, lastVisit: DateTime.now()), 20),
+        equals(30),
+      );
+      expect(
+        fn(_makeDecayingValue(10, lastVisit: DateTime.now()), 60),
+        equals(50),
+      );
+      expect(
+        fn(_makeDecayingValue(10, lastVisit: DateTime.now()), -30),
+        equals(0),
+      );
     });
 
     test('bumpSumUnbounded() - adds delta without ceiling or floor', () {
       final fn = bumpSumUnbounded();
-      expect(fn(_makeDecayingValue(10, lastVisit: DateTime.now()), 100), equals(110));
+      expect(
+        fn(_makeDecayingValue(10, lastVisit: DateTime.now()), 100),
+        equals(110),
+      );
     });
 
     test('convertFromStrings() - casts string list to protocol id list', () {
@@ -2606,12 +2953,15 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
       expect(list, equals(['/echo/1']));
     });
 
-    test('decayExpireWhenInactive() - removes tag if inactive duration exceeded', () {
-      final fn = decayExpireWhenInactive(const Duration(minutes: 30));
-      final futureTime = DateTime.now().add(const Duration(hours: 1));
-      final res = fn(_makeDecayingValue(10, lastVisit: futureTime));
-      expect(res.remove, isTrue);
-    });
+    test(
+      'decayExpireWhenInactive() - removes tag if inactive duration exceeded',
+      () {
+        final fn = decayExpireWhenInactive(const Duration(minutes: 30));
+        final futureTime = DateTime.now().add(const Duration(hours: 1));
+        final res = fn(_makeDecayingValue(10, lastVisit: futureTime));
+        expect(res.remove, isTrue);
+      },
+    );
 
     test('decayFixed() - decrements score by constant amount', () {
       final fn = decayFixed(4);
@@ -2644,20 +2994,26 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
       expect(decrypted, equals(plain));
     });
 
-    test('ed25519KeyPairFromSeed() - generates ed25519 key from 32 byte seed', () async {
-      final seed = Uint8List(32);
-      final kp = await ed25519KeyPairFromSeed(seed);
-      expect(kp.type, equals(KeyType.ed25519));
-    });
+    test(
+      'ed25519KeyPairFromSeed() - generates ed25519 key from 32 byte seed',
+      () async {
+        final seed = Uint8List(32);
+        final kp = await ed25519KeyPairFromSeed(seed);
+        expect(kp.type, equals(KeyType.ed25519));
+      },
+    );
 
-    test('encodePkcs1PrivateKey() - encodes rsa key to pkcs1 der structure', () {
-      final der = _hexToBytes(_sampleRsaPrivateDerHex);
-      final seq = ASN1Sequence.fromBytes(der);
-      BigInt intAt(int i) => (seq.elements![i] as ASN1Integer).integer!;
-      final pcKey = pc.RSAPrivateKey(intAt(1), intAt(3), intAt(4), intAt(5));
-      final encoded = encodePkcs1PrivateKey(pcKey);
-      expect(encoded, equals(der));
-    });
+    test(
+      'encodePkcs1PrivateKey() - encodes rsa key to pkcs1 der structure',
+      () {
+        final der = _hexToBytes(_sampleRsaPrivateDerHex);
+        final seq = ASN1Sequence.fromBytes(der);
+        BigInt intAt(int i) => (seq.elements![i] as ASN1Integer).integer!;
+        final pcKey = pc.RSAPrivateKey(intAt(1), intAt(3), intAt(4), intAt(5));
+        final encoded = encodePkcs1PrivateKey(pcKey);
+        expect(encoded, equals(der));
+      },
+    );
 
     test('encodePkixEcPublicKey() - encodes ecdsa public key to pkix', () {
       final pcParams = pc.ECCurve_secp256r1();
@@ -2670,33 +3026,44 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
       final der = _hexToBytes(_sampleRsaPublicDerHex);
       final seq = ASN1Sequence.fromBytes(der);
       final bitString = seq.elements![1] as ASN1BitString;
-      final inner = ASN1Sequence.fromBytes(Uint8List.fromList(bitString.stringValues!));
+      final inner = ASN1Sequence.fromBytes(
+        Uint8List.fromList(bitString.stringValues!),
+      );
       final n = (inner.elements![0] as ASN1Integer).integer!;
       final e = (inner.elements![1] as ASN1Integer).integer!;
       final encoded = encodePkixPublicKey(pc.RSAPublicKey(n, e));
       expect(encoded, equals(der));
     });
 
-    test('encodeProtoVarint() - encodes integer value as leb128 varint bytes', () {
-      final bytes = encodeProtoVarint(300);
-      expect(bytes, equals(Uint8List.fromList([0xac, 0x02])));
-    });
+    test(
+      'encodeProtoVarint() - encodes integer value as leb128 varint bytes',
+      () {
+        final bytes = encodeProtoVarint(300);
+        expect(bytes, equals(Uint8List.fromList([0xac, 0x02])));
+      },
+    );
 
-    test('encodeSec1EcPrivateKey() - encodes ecdsa private key in sec1 format', () {
-      final pcParams = pc.ECCurve_secp256r1();
-      final pcPriv = pc.ECPrivateKey(BigInt.two, pcParams);
-      final pcPub = pc.ECPublicKey((pcParams.G * BigInt.two)!, pcParams);
-      final der = encodeSec1EcPrivateKey(pcPriv, pcPub);
-      expect(der, isNotEmpty);
-    });
+    test(
+      'encodeSec1EcPrivateKey() - encodes ecdsa private key in sec1 format',
+      () {
+        final pcParams = pc.ECCurve_secp256r1();
+        final pcPriv = pc.ECPrivateKey(BigInt.two, pcParams);
+        final pcPub = pc.ECPublicKey((pcParams.G * BigInt.two)!, pcParams);
+        final der = encodeSec1EcPrivateKey(pcPriv, pcPub);
+        expect(der, isNotEmpty);
+      },
+    );
 
-    test('encryptFrames() - splits and encrypts plaintext into length prefixed frames', () async {
-      final cs = CipherState(key: Uint8List(32));
-      final plain = Uint8List.fromList([1, 2, 3]);
-      final frames = await encryptFrames(cs, plain);
-      expect(frames, isNotEmpty);
-      expect(frames.first.length, greaterThan(3));
-    });
+    test(
+      'encryptFrames() - splits and encrypts plaintext into length prefixed frames',
+      () async {
+        final cs = CipherState(key: Uint8List(32));
+        final plain = Uint8List.fromList([1, 2, 3]);
+        final frames = await encryptFrames(cs, plain);
+        expect(frames, isNotEmpty);
+        expect(frames.first.length, greaterThan(3));
+      },
+    );
 
     test('expiredOption() - sets expired flag on routing options', () {
       final opts = RoutingOptions();
@@ -2710,25 +3077,34 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
       expect(priv.getPublic().type, equals(KeyType.ecdsa));
     });
 
-    test('generateEd25519KeyPair() - generates random ed25519 keypair', () async {
-      final kp = await generateEd25519KeyPair();
-      expect(kp.type, equals(KeyType.ed25519));
-    });
+    test(
+      'generateEd25519KeyPair() - generates random ed25519 keypair',
+      () async {
+        final kp = await generateEd25519KeyPair();
+        expect(kp.type, equals(KeyType.ed25519));
+      },
+    );
 
-    test('generateNoiseHandshakePayload() - builds signed noise handshake payload', () async {
-      final idKey = await generateEd25519KeyPair();
-      final staticKp = await generateNoiseKeyPair();
-      final payload = await generateNoiseHandshakePayload(
-        localIdentityKey: idKey,
-        localNoiseStaticPublicKey: staticKp.publicKeyBytes,
-      );
-      expect(payload, isNotEmpty);
-    });
+    test(
+      'generateNoiseHandshakePayload() - builds signed noise handshake payload',
+      () async {
+        final idKey = await generateEd25519KeyPair();
+        final staticKp = await generateNoiseKeyPair();
+        final payload = await generateNoiseHandshakePayload(
+          localIdentityKey: idKey,
+          localNoiseStaticPublicKey: staticKp.publicKeyBytes,
+        );
+        expect(payload, isNotEmpty);
+      },
+    );
 
-    test('generateNoiseKeyPair() - generates 25519 keypair for noise session', () async {
-      final kp = await generateNoiseKeyPair();
-      expect(kp.publicKeyBytes.length, equals(32));
-    });
+    test(
+      'generateNoiseKeyPair() - generates 25519 keypair for noise session',
+      () async {
+        final kp = await generateNoiseKeyPair();
+        expect(kp.publicKeyBytes.length, equals(32));
+      },
+    );
 
     test('generateRsaKeyPair() - validates minimum rsa bit length', () {
       expect(() => generateRsaKeyPair(1024), throwsArgumentError);
@@ -2739,49 +3115,71 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
       expect(priv.type, equals(KeyType.secp256k1));
     });
 
-    test('getAllowLimitedConn() - extracts allow limited conn flag from context', () {
-      final ctx = withAllowLimitedConn(NetworkContext.empty, 'testing');
-      final (allow, reason) = getAllowLimitedConn(ctx);
-      expect(allow, isTrue);
-      expect(reason, equals('testing'));
-    });
+    test(
+      'getAllowLimitedConn() - extracts allow limited conn flag from context',
+      () {
+        final ctx = withAllowLimitedConn(NetworkContext.empty, 'testing');
+        final (allow, reason) = getAllowLimitedConn(ctx);
+        expect(allow, isTrue);
+        expect(reason, equals('testing'));
+      },
+    );
 
     test('getDialPeerTimeout() - retrieves dial peer timeout from context', () {
-      final ctx = withDialPeerTimeout(NetworkContext.empty, const Duration(seconds: 15));
+      final ctx = withDialPeerTimeout(
+        NetworkContext.empty,
+        const Duration(seconds: 15),
+      );
       expect(getDialPeerTimeout(ctx), equals(const Duration(seconds: 15)));
     });
 
-    test('getForceDirectDial() - extracts force direct dial reason from context', () {
-      final ctx = withForceDirectDial(NetworkContext.empty, 'force');
-      final (force, reason) = getForceDirectDial(ctx);
-      expect(force, isTrue);
-      expect(reason, equals('force'));
-    });
+    test(
+      'getForceDirectDial() - extracts force direct dial reason from context',
+      () {
+        final ctx = withForceDirectDial(NetworkContext.empty, 'force');
+        final (force, reason) = getForceDirectDial(ctx);
+        expect(force, isTrue);
+        expect(reason, equals('force'));
+      },
+    );
 
-    test('getNoDial() - reads no dial flag and reason from network context', () {
-      final ctx = withNoDial(NetworkContext.empty, 'nodial');
-      final (nodial, reason) = getNoDial(ctx);
-      expect(nodial, isTrue);
-      expect(reason, equals('nodial'));
-    });
+    test(
+      'getNoDial() - reads no dial flag and reason from network context',
+      () {
+        final ctx = withNoDial(NetworkContext.empty, 'nodial');
+        final (nodial, reason) = getNoDial(ctx);
+        expect(nodial, isTrue);
+        expect(reason, equals('nodial'));
+      },
+    );
 
-    test('getPublicKey() - retrieves public key from value store or peer id', () async {
-      final kp = await generateEd25519KeyPair();
-      final pub = kp.getPublic();
-      final fetcher = _TestPubKeyFetcher(pub);
-      final store = _TestValueStoreRouting(fetcher);
-      final p = PeerId.fromPublicKey(pub.raw(), type: 'ed25519');
-      final result = await getPublicKey(store, p);
-      expect(result.keyEquals(pub), isTrue);
-    });
+    test(
+      'getPublicKey() - retrieves public key from value store or peer id',
+      () async {
+        final kp = await generateEd25519KeyPair();
+        final pub = kp.getPublic();
+        final fetcher = _TestPubKeyFetcher(pub);
+        final store = _TestValueStoreRouting(fetcher);
+        final p = PeerId.fromPublicKey(pub.raw(), type: 'ed25519');
+        final result = await getPublicKey(store, p);
+        expect(result.keyEquals(pub), isTrue);
+      },
+    );
 
-    test('getSimultaneousConnect() - extracts simultaneous connect details', () {
-      final ctx = withSimultaneousConnect(NetworkContext.empty, true, 'simult');
-      final (simult, isClient, reason) = getSimultaneousConnect(ctx);
-      expect(simult, isTrue);
-      expect(isClient, isTrue);
-      expect(reason, equals('simult'));
-    });
+    test(
+      'getSimultaneousConnect() - extracts simultaneous connect details',
+      () {
+        final ctx = withSimultaneousConnect(
+          NetworkContext.empty,
+          true,
+          'simult',
+        );
+        final (simult, isClient, reason) = getSimultaneousConnect(ctx);
+        expect(simult, isTrue);
+        expect(isClient, isTrue);
+        expect(reason, equals('simult'));
+      },
+    );
 
     test('getUseTransient() - reads use transient alias flag from context', () {
       final ctx = withUseTransient(NetworkContext.empty, 'transient');
@@ -2791,15 +3189,23 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
     });
 
     test('idFromP2pAddr() - parses peer id component from p2p multiaddr', () {
-      final ma = Multiaddr.parse('/p2p/QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N');
+      final ma = Multiaddr.parse(
+        '/p2p/QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N',
+      );
       final peer = idFromP2pAddr(ma);
-      expect(peer.toBase58(), equals('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N'));
+      expect(
+        peer.toBase58(),
+        equals('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N'),
+      );
     });
 
-    test('keyForPublicKey() - generates storage routing key for public key lookup', () {
-      final peer = PeerId(value: Uint8List.fromList([65, 66, 67]));
-      expect(keyForPublicKey(peer), equals('/pk/ABC'));
-    });
+    test(
+      'keyForPublicKey() - generates storage routing key for public key lookup',
+      () {
+        final peer = PeerId(value: Uint8List.fromList([65, 66, 67]));
+        expect(keyForPublicKey(peer), equals('/pk/ABC'));
+      },
+    );
 
     test('limit() - creates discovery option setting result limit', () {
       final opt = limit(25);
@@ -2808,16 +3214,22 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
       expect(opts.limit, equals(25));
     });
 
-    test('marshalKeyProto() - serializes key type and data into protobuf payload', () {
-      final bytes = marshalKeyProto(KeyType.ed25519, Uint8List(32));
-      expect(bytes, isNotEmpty);
-    });
+    test(
+      'marshalKeyProto() - serializes key type and data into protobuf payload',
+      () {
+        final bytes = marshalKeyProto(KeyType.ed25519, Uint8List(32));
+        expect(bytes, isNotEmpty);
+      },
+    );
 
-    test('marshalPrivateKey() - encodes private key to protobuf bytes', () async {
-      final kp = await generateEd25519KeyPair();
-      final bytes = marshalPrivateKey(kp);
-      expect(bytes, isNotEmpty);
-    });
+    test(
+      'marshalPrivateKey() - encodes private key to protobuf bytes',
+      () async {
+        final kp = await generateEd25519KeyPair();
+        final bytes = marshalPrivateKey(kp);
+        expect(bytes, isNotEmpty);
+      },
+    );
 
     test('marshalPublicKey() - encodes public key to protobuf bytes', () async {
       final kp = await generateEd25519KeyPair();
@@ -2832,83 +3244,123 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
     });
 
     test('peerIdFromCid() - extracts peer id from libp2p key cid', () {
-      final peer = PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N');
+      final peer = PeerId.decode(
+        'QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N',
+      );
       final cid = peer.toCid();
       final restored = peerIdFromCid(cid);
       expect(restored, equals(peer));
     });
 
     test('peerIdToCid() - converts peer id into cid format', () {
-      final peer = PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N');
+      final peer = PeerId.decode(
+        'QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N',
+      );
       final cid = peerIdToCid(peer);
       expect(cid.version, equals(1));
     });
 
-    test('publishQueryEvent() - broadcasts event to active registration channel', () async {
-      final reg = registerForQueryEvents();
-      final futureEvent = reg.events.first;
-      reg.run(() {
-        publishQueryEvent(QueryEvent(
-          id: PeerId(value: Uint8List.fromList([1])),
-          type: sendingQuery,
-          extra: 'ev',
-        ));
-      });
-      final ev = await futureEvent;
-      expect(ev.extra, equals('ev'));
-      await reg.close();
-    });
+    test(
+      'publishQueryEvent() - broadcasts event to active registration channel',
+      () async {
+        final reg = registerForQueryEvents();
+        final futureEvent = reg.events.first;
+        reg.run(() {
+          publishQueryEvent(
+            QueryEvent(
+              id: PeerId(value: Uint8List.fromList([1])),
+              type: sendingQuery,
+              extra: 'ev',
+            ),
+          );
+        });
+        final ev = await futureEvent;
+        expect(ev.extra, equals('ev'));
+        await reg.close();
+      },
+    );
 
-    test('readProtoVarint() - reads leb128 varint integer from byte buffer', () {
-      final encoded = encodeProtoVarint(12345);
-      final (val, len) = readProtoVarint(encoded, 0);
-      expect(val, equals(12345));
-      expect(len, equals(encoded.length));
-    });
+    test(
+      'readProtoVarint() - reads leb128 varint integer from byte buffer',
+      () {
+        final encoded = encodeProtoVarint(12345);
+        final (val, len) = readProtoVarint(encoded, 0);
+        expect(val, equals(12345));
+        expect(len, equals(encoded.length));
+      },
+    );
 
-    test('registerForQueryEvents() - initializes query event registration channel', () {
-      final reg = registerForQueryEvents();
-      expect(reg, isNotNull);
-      reg.close();
-    });
+    test(
+      'registerForQueryEvents() - initializes query event registration channel',
+      () {
+        final reg = registerForQueryEvents();
+        expect(reg, isNotNull);
+        reg.close();
+      },
+    );
 
-    test('registerType() - registers record factory with global type registry', () {
-      registerType(() => PeerRecord(peerId: PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N')));
-      final targetPeer = PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N');
-      final unmarshaled = unmarshalRecordPayload(
-        peerRecordEnvelopePayloadType,
-        PeerRecord(peerId: targetPeer).marshalRecord(),
-      );
-      expect((unmarshaled as PeerRecord).peerId, equals(targetPeer));
-    });
+    test(
+      'registerType() - registers record factory with global type registry',
+      () {
+        registerType(
+          () => PeerRecord(
+            peerId: PeerId.decode(
+              'QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N',
+            ),
+          ),
+        );
+        final targetPeer = PeerId.decode(
+          'QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N',
+        );
+        final unmarshaled = unmarshalRecordPayload(
+          peerRecordEnvelopePayloadType,
+          PeerRecord(peerId: targetPeer).marshalRecord(),
+        );
+        expect((unmarshaled as PeerRecord).peerId, equals(targetPeer));
+      },
+    );
 
     test('splitAddr() - separates transport address from trailing peer id', () {
-      final ma = Multiaddr.parse('/ip4/127.0.0.1/tcp/4001/p2p/QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N');
+      final ma = Multiaddr.parse(
+        '/ip4/127.0.0.1/tcp/4001/p2p/QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N',
+      );
       final (transport, peer) = splitAddr(ma);
       expect(transport.toString(), equals('/ip4/127.0.0.1/tcp/4001'));
-      expect(peer?.toBase58(), equals('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N'));
+      expect(
+        peer?.toBase58(),
+        equals('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N'),
+      );
     });
 
-    test('subscribesToQueryEvents() - checks if current zone has event listener', () {
-      expect(subscribesToQueryEvents(), isFalse);
-      final reg = registerForQueryEvents();
-      reg.run(() {
-        expect(subscribesToQueryEvents(), isTrue);
-      });
-      reg.close();
-    });
+    test(
+      'subscribesToQueryEvents() - checks if current zone has event listener',
+      () {
+        expect(subscribesToQueryEvents(), isFalse);
+        final reg = registerForQueryEvents();
+        reg.run(() {
+          expect(subscribesToQueryEvents(), isTrue);
+        });
+        reg.close();
+      },
+    );
 
-    test('supportsDecay() - checks if connection manager supports decaying tags', () {
-      final (decayer, supported) = supportsDecay(const NullConnMgr());
-      expect(supported, isFalse);
-      expect(decayer, isNull);
-    });
+    test(
+      'supportsDecay() - checks if connection manager supports decaying tags',
+      () {
+        final (decayer, supported) = supportsDecay(const NullConnMgr());
+        expect(supported, isFalse);
+        expect(decayer, isNull);
+      },
+    );
 
-    test('timestampSeq() - produces monotonically increasing timestamp sequence', () {
-      final s1 = timestampSeq();
-      final s2 = timestampSeq();
-      expect(s2, greaterThanOrEqualTo(s1));
-    });
+    test(
+      'timestampSeq() - produces monotonically increasing timestamp sequence',
+      () {
+        final s1 = timestampSeq();
+        final s2 = timestampSeq();
+        expect(s2, greaterThanOrEqualTo(s1));
+      },
+    );
 
     test('ttl() - creates discovery option setting ttl duration', () {
       final opt = ttl(const Duration(minutes: 10));
@@ -2917,138 +3369,219 @@ group('NoiseHandshakeAuthException [Atomic Audit]', () {
       expect(opts.ttl, equals(const Duration(minutes: 10)));
     });
 
-    test('unmarshalEcdsaPrivateKey() - deserializes ecdsa private key from sec1 bytes', () {
-      final pcParams = pc.ECCurve_secp256r1();
-      final pcPriv = pc.ECPrivateKey(BigInt.two, pcParams);
-      final pcPub = pc.ECPublicKey((pcParams.G * BigInt.two)!, pcParams);
-      final der = encodeSec1EcPrivateKey(pcPriv, pcPub);
-      final restored = unmarshalEcdsaPrivateKey(der);
-      expect(restored.type, equals(KeyType.ecdsa));
-    });
+    test(
+      'unmarshalEcdsaPrivateKey() - deserializes ecdsa private key from sec1 bytes',
+      () {
+        final pcParams = pc.ECCurve_secp256r1();
+        final pcPriv = pc.ECPrivateKey(BigInt.two, pcParams);
+        final pcPub = pc.ECPublicKey((pcParams.G * BigInt.two)!, pcParams);
+        final der = encodeSec1EcPrivateKey(pcPriv, pcPub);
+        final restored = unmarshalEcdsaPrivateKey(der);
+        expect(restored.type, equals(KeyType.ecdsa));
+      },
+    );
 
-    test('unmarshalEcdsaPublicKey() - deserializes ecdsa public key from pkix bytes', () {
-      final pcParams = pc.ECCurve_secp256r1();
-      final pcPub = pc.ECPublicKey((pcParams.G * BigInt.two)!, pcParams);
-      final der = encodePkixEcPublicKey(pcPub);
-      final restored = unmarshalEcdsaPublicKey(der);
-      expect(restored.type, equals(KeyType.ecdsa));
-    });
+    test(
+      'unmarshalEcdsaPublicKey() - deserializes ecdsa public key from pkix bytes',
+      () {
+        final pcParams = pc.ECCurve_secp256r1();
+        final pcPub = pc.ECPublicKey((pcParams.G * BigInt.two)!, pcParams);
+        final der = encodePkixEcPublicKey(pcPub);
+        final restored = unmarshalEcdsaPublicKey(der);
+        expect(restored.type, equals(KeyType.ecdsa));
+      },
+    );
 
-    test('unmarshalEd25519PrivateKey() - restores ed25519 private key from raw bytes', () async {
-      final kp = await generateEd25519KeyPair();
-      final restored = await unmarshalEd25519PrivateKey(kp.raw());
-      expect(restored.type, equals(KeyType.ed25519));
-    });
+    test(
+      'unmarshalEd25519PrivateKey() - restores ed25519 private key from raw bytes',
+      () async {
+        final kp = await generateEd25519KeyPair();
+        final restored = await unmarshalEd25519PrivateKey(kp.raw());
+        expect(restored.type, equals(KeyType.ed25519));
+      },
+    );
 
-    test('unmarshalEd25519PublicKey() - restores ed25519 public key from 32 byte buffer', () {
-      final pub = unmarshalEd25519PublicKey(Uint8List(32));
-      expect(pub.type, equals(KeyType.ed25519));
-    });
+    test(
+      'unmarshalEd25519PublicKey() - restores ed25519 public key from 32 byte buffer',
+      () {
+        final pub = unmarshalEd25519PublicKey(Uint8List(32));
+        expect(pub.type, equals(KeyType.ed25519));
+      },
+    );
 
-    test('unmarshalKeyProto() - parses key type and raw payload from protobuf', () {
-      final payload = marshalKeyProto(KeyType.ed25519, Uint8List(32));
-      final (type, raw) = unmarshalKeyProto(payload);
-      expect(type, equals(KeyType.ed25519));
-      expect(raw.length, equals(32));
-    });
+    test(
+      'unmarshalKeyProto() - parses key type and raw payload from protobuf',
+      () {
+        final payload = marshalKeyProto(KeyType.ed25519, Uint8List(32));
+        final (type, raw) = unmarshalKeyProto(payload);
+        expect(type, equals(KeyType.ed25519));
+        expect(raw.length, equals(32));
+      },
+    );
 
-    test('unmarshalPrivateKey() - deserializes generic private key from envelope', () async {
-      final kp = await generateEd25519KeyPair();
-      final marshaled = marshalPrivateKey(kp);
-      final restored = await unmarshalPrivateKey(marshaled);
-      expect(restored.type, equals(KeyType.ed25519));
-    });
+    test(
+      'unmarshalPrivateKey() - deserializes generic private key from envelope',
+      () async {
+        final kp = await generateEd25519KeyPair();
+        final marshaled = marshalPrivateKey(kp);
+        final restored = await unmarshalPrivateKey(marshaled);
+        expect(restored.type, equals(KeyType.ed25519));
+      },
+    );
 
-    test('unmarshalPublicKey() - deserializes generic public key from envelope', () async {
-      final kp = await generateEd25519KeyPair();
-      final marshaled = marshalPublicKey(kp.getPublic());
-      final restored = unmarshalPublicKey(marshaled);
-      expect(restored.type, equals(KeyType.ed25519));
-    });
+    test(
+      'unmarshalPublicKey() - deserializes generic public key from envelope',
+      () async {
+        final kp = await generateEd25519KeyPair();
+        final marshaled = marshalPublicKey(kp.getPublic());
+        final restored = unmarshalPublicKey(marshaled);
+        expect(restored.type, equals(KeyType.ed25519));
+      },
+    );
 
-    test('unmarshalRecordPayload() - builds and unmarshals registered payload type', () {
-      final targetPeer = PeerId.decode('QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N');
-      registerType(() => PeerRecord(peerId: targetPeer));
-      final rec = PeerRecord(peerId: targetPeer);
-      final restored = unmarshalRecordPayload(peerRecordEnvelopePayloadType, rec.marshalRecord());
-      expect((restored as PeerRecord).peerId, equals(targetPeer));
-    });
+    test(
+      'unmarshalRecordPayload() - builds and unmarshals registered payload type',
+      () {
+        final targetPeer = PeerId.decode(
+          'QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N',
+        );
+        registerType(() => PeerRecord(peerId: targetPeer));
+        final rec = PeerRecord(peerId: targetPeer);
+        final restored = unmarshalRecordPayload(
+          peerRecordEnvelopePayloadType,
+          rec.marshalRecord(),
+        );
+        expect((restored as PeerRecord).peerId, equals(targetPeer));
+      },
+    );
 
-    test('unmarshalRsaPrivateKey() - parses pkcs1 rsa private key from der bytes', () {
-      final der = _hexToBytes(_sampleRsaPrivateDerHex);
-      final key = unmarshalRsaPrivateKey(der);
-      expect(key.type, equals(KeyType.rsa));
-    });
+    test(
+      'unmarshalRsaPrivateKey() - parses pkcs1 rsa private key from der bytes',
+      () {
+        final der = _hexToBytes(_sampleRsaPrivateDerHex);
+        final key = unmarshalRsaPrivateKey(der);
+        expect(key.type, equals(KeyType.rsa));
+      },
+    );
 
-    test('unmarshalRsaPublicKey() - parses pkix rsa public key from der bytes', () {
-      final der = _hexToBytes(_sampleRsaPublicDerHex);
-      final key = unmarshalRsaPublicKey(der);
-      expect(key.type, equals(KeyType.rsa));
-    });
+    test(
+      'unmarshalRsaPublicKey() - parses pkix rsa public key from der bytes',
+      () {
+        final der = _hexToBytes(_sampleRsaPublicDerHex);
+        final key = unmarshalRsaPublicKey(der);
+        expect(key.type, equals(KeyType.rsa));
+      },
+    );
 
-    test('unmarshalSecp256k1PrivateKey() - parses 32 byte scalar into secp256k1 key', () {
-      final priv = generateSecp256k1KeyPair();
-      final restored = unmarshalSecp256k1PrivateKey(priv.raw());
-      expect(restored.type, equals(KeyType.secp256k1));
-    });
+    test(
+      'unmarshalSecp256k1PrivateKey() - parses 32 byte scalar into secp256k1 key',
+      () {
+        final priv = generateSecp256k1KeyPair();
+        final restored = unmarshalSecp256k1PrivateKey(priv.raw());
+        expect(restored.type, equals(KeyType.secp256k1));
+      },
+    );
 
-    test('unmarshalSecp256k1PublicKey() - parses sec1 point into secp256k1 public key', () {
-      final priv = generateSecp256k1KeyPair();
-      final pub = priv.getPublic();
-      final restored = unmarshalSecp256k1PublicKey(pub.raw());
-      expect(restored.type, equals(KeyType.secp256k1));
-    });
+    test(
+      'unmarshalSecp256k1PublicKey() - parses sec1 point into secp256k1 public key',
+      () {
+        final priv = generateSecp256k1KeyPair();
+        final pub = priv.getPublic();
+        final restored = unmarshalSecp256k1PublicKey(pub.raw());
+        expect(restored.type, equals(KeyType.secp256k1));
+      },
+    );
 
-    test('unwrapConnManagementScope() - extracts conn scope or throws missing exception', () {
-      final ctx = withConnManagementScope(NetworkContext.empty, const NullScope());
-      final scope = unwrapConnManagementScope(ctx);
-      expect(scope, isA<NullScope>());
-    });
+    test(
+      'unwrapConnManagementScope() - extracts conn scope or throws missing exception',
+      () {
+        final ctx = withConnManagementScope(
+          NetworkContext.empty,
+          const NullScope(),
+        );
+        final scope = unwrapConnManagementScope(ctx);
+        expect(scope, isA<NullScope>());
+      },
+    );
 
-    test('verifyNoiseHandshakePayload() - verifies signature on remote static key', () async {
-      final idKey = await generateEd25519KeyPair();
-      final staticKp = await generateNoiseKeyPair();
-      final payload = await generateNoiseHandshakePayload(
-        localIdentityKey: idKey,
-        localNoiseStaticPublicKey: staticKp.publicKeyBytes,
-      );
-      final identity = await verifyNoiseHandshakePayload(payload, staticKp.publicKeyBytes);
-      expect(identity.publicKey.keyEquals(idKey.getPublic()), isTrue);
-    });
+    test(
+      'verifyNoiseHandshakePayload() - verifies signature on remote static key',
+      () async {
+        final idKey = await generateEd25519KeyPair();
+        final staticKp = await generateNoiseKeyPair();
+        final payload = await generateNoiseHandshakePayload(
+          localIdentityKey: idKey,
+          localNoiseStaticPublicKey: staticKp.publicKeyBytes,
+        );
+        final identity = await verifyNoiseHandshakePayload(
+          payload,
+          staticKp.publicKeyBytes,
+        );
+        expect(identity.publicKey.keyEquals(idKey.getPublic()), isTrue);
+      },
+    );
 
-    test('withAllowLimitedConn() - decorates network context with allow limited flag', () {
-      final ctx = withAllowLimitedConn(NetworkContext.empty, 'allow-lim');
-      expect(ctx.allowLimitedConnReason, equals('allow-lim'));
-    });
+    test(
+      'withAllowLimitedConn() - decorates network context with allow limited flag',
+      () {
+        final ctx = withAllowLimitedConn(NetworkContext.empty, 'allow-lim');
+        expect(ctx.allowLimitedConnReason, equals('allow-lim'));
+      },
+    );
 
-    test('withConnManagementScope() - attaches conn management scope to context', () {
-      final ctx = withConnManagementScope(NetworkContext.empty, const NullScope());
-      expect(ctx.connManagementScope, isA<NullScope>());
-    });
+    test(
+      'withConnManagementScope() - attaches conn management scope to context',
+      () {
+        final ctx = withConnManagementScope(
+          NetworkContext.empty,
+          const NullScope(),
+        );
+        expect(ctx.connManagementScope, isA<NullScope>());
+      },
+    );
 
-    test('withDialPeerTimeout() - attaches dial peer timeout duration to context', () {
-      final ctx = withDialPeerTimeout(NetworkContext.empty, const Duration(seconds: 45));
-      expect(ctx.dialPeerTimeout, equals(const Duration(seconds: 45)));
-    });
+    test(
+      'withDialPeerTimeout() - attaches dial peer timeout duration to context',
+      () {
+        final ctx = withDialPeerTimeout(
+          NetworkContext.empty,
+          const Duration(seconds: 45),
+        );
+        expect(ctx.dialPeerTimeout, equals(const Duration(seconds: 45)));
+      },
+    );
 
-    test('withForceDirectDial() - attaches force direct dial reason to context', () {
-      final ctx = withForceDirectDial(NetworkContext.empty, 'forced');
-      expect(ctx.forceDirectDialReason, equals('forced'));
-    });
+    test(
+      'withForceDirectDial() - attaches force direct dial reason to context',
+      () {
+        final ctx = withForceDirectDial(NetworkContext.empty, 'forced');
+        expect(ctx.forceDirectDialReason, equals('forced'));
+      },
+    );
 
     test('withNoDial() - attaches no dial reason to network context', () {
       final ctx = withNoDial(NetworkContext.empty, 'nodial-reason');
       expect(ctx.noDialReason, equals('nodial-reason'));
     });
 
-    test('withSimultaneousConnect() - attaches simultaneous connect client or server reason', () {
-      final ctx = withSimultaneousConnect(NetworkContext.empty, false, 'server-side');
-      expect(ctx.simultaneousConnectServerReason, equals('server-side'));
-    });
+    test(
+      'withSimultaneousConnect() - attaches simultaneous connect client or server reason',
+      () {
+        final ctx = withSimultaneousConnect(
+          NetworkContext.empty,
+          false,
+          'server-side',
+        );
+        expect(ctx.simultaneousConnectServerReason, equals('server-side'));
+      },
+    );
 
-    test('withUseTransient() - attaches deprecated use transient reason to context', () {
-      final ctx = withUseTransient(NetworkContext.empty, 'transient-reason');
-      expect(ctx.allowLimitedConnReason, equals('transient-reason'));
-    });
+    test(
+      'withUseTransient() - attaches deprecated use transient reason to context',
+      () {
+        final ctx = withUseTransient(NetworkContext.empty, 'transient-reason');
+        expect(ctx.allowLimitedConnReason, equals('transient-reason'));
+      },
+    );
   });
 }

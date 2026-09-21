@@ -85,21 +85,26 @@ void main() {
     expect(datastore.putKeys, hasLength(1));
     expect(
       datastore.putKeys.map((key) => key.value),
-      equals(['/blocks/CIQES2WKQDSNR4U7XDUM3ALMHL5URU7RAOLQWORO4FQAYCGKM4ZG33Q']),
+      equals([
+        '/blocks/CIQES2WKQDSNR4U7XDUM3ALMHL5URU7RAOLQWORO4FQAYCGKM4ZG33Q',
+      ]),
     );
   });
 
-  test('uses the same key for CIDv0 and CIDv1 with the same multihash', () async {
-    final datastore = _FakeDatastore();
-    final blockstore = Blockstore(datastore);
-    final data = Uint8List.fromList('same-hash'.codeUnits);
-    final v0 = BasicBlock.fromData(data).cid();
-    final v1 = Cid.v1('raw', v0.multihash);
+  test(
+    'uses the same key for CIDv0 and CIDv1 with the same multihash',
+    () async {
+      final datastore = _FakeDatastore();
+      final blockstore = Blockstore(datastore);
+      final data = Uint8List.fromList('same-hash'.codeUnits);
+      final v0 = BasicBlock.fromData(data).cid();
+      final v1 = Cid.v1('raw', v0.multihash);
 
-    await blockstore.put(BasicBlock.withCid(data, v0));
+      await blockstore.put(BasicBlock.withCid(data, v0));
 
-    expect(await blockstore.has(v1), isTrue);
-  });
+      expect(await blockstore.has(v1), isTrue);
+    },
+  );
 
   test('put ignores Has errors and Has still propagates them', () async {
     final error = StateError('has failed');
@@ -179,8 +184,10 @@ void main() {
       expect(datastore.commitCount, 1);
 
       final throughDatastore = _FakeDatastore();
-      await Blockstore(throughDatastore, writeThrough: true)
-          .putMany([first, second]);
+      await Blockstore(
+        throughDatastore,
+        writeThrough: true,
+      ).putMany([first, second]);
       expect(throughDatastore.hasKeys, isEmpty);
       expect(throughDatastore.batchPutKeys, hasLength(2));
       expect(throughDatastore.commitCount, 1);

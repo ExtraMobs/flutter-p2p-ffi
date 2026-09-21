@@ -42,12 +42,15 @@ void main() {
       expect(priv.raw(), equals(raw));
     });
 
-    test('unmarshal compressed public key, re-marshal matches byte-for-byte', () {
-      final raw = _fromHex(_rawPublicCompressedHex);
-      final pub = unmarshalSecp256k1PublicKey(raw);
-      expect(pub.type, equals(KeyType.secp256k1));
-      expect(pub.raw(), equals(raw));
-    });
+    test(
+      'unmarshal compressed public key, re-marshal matches byte-for-byte',
+      () {
+        final raw = _fromHex(_rawPublicCompressedHex);
+        final pub = unmarshalSecp256k1PublicKey(raw);
+        expect(pub.type, equals(KeyType.secp256k1));
+        expect(pub.raw(), equals(raw));
+      },
+    );
 
     test("private key's derived public key matches the vector", () {
       final priv = unmarshalSecp256k1PrivateKey(_fromHex(_rawPrivateHex));
@@ -55,13 +58,20 @@ void main() {
     });
 
     test('verifies a real dcrd RFC6979/DER signature', () async {
-      final pub = unmarshalSecp256k1PublicKey(_fromHex(_rawPublicCompressedHex));
-      final ok = await pub.verify(_fromHex(_messageHex), _fromHex(_signatureDerHex));
+      final pub = unmarshalSecp256k1PublicKey(
+        _fromHex(_rawPublicCompressedHex),
+      );
+      final ok = await pub.verify(
+        _fromHex(_messageHex),
+        _fromHex(_signatureDerHex),
+      );
       expect(ok, isTrue);
     });
 
     test('rejects a tampered signature', () async {
-      final pub = unmarshalSecp256k1PublicKey(_fromHex(_rawPublicCompressedHex));
+      final pub = unmarshalSecp256k1PublicKey(
+        _fromHex(_rawPublicCompressedHex),
+      );
       final sig = _fromHex(_signatureDerHex);
       sig[sig.length - 1] ^= 0xff;
       final ok = await pub.verify(_fromHex(_messageHex), sig);
@@ -69,8 +79,13 @@ void main() {
     });
 
     test('rejects a signature over the wrong message', () async {
-      final pub = unmarshalSecp256k1PublicKey(_fromHex(_rawPublicCompressedHex));
-      final ok = await pub.verify(_fromHex('00' * 20), _fromHex(_signatureDerHex));
+      final pub = unmarshalSecp256k1PublicKey(
+        _fromHex(_rawPublicCompressedHex),
+      );
+      final ok = await pub.verify(
+        _fromHex('00' * 20),
+        _fromHex(_signatureDerHex),
+      );
       expect(ok, isFalse);
     });
 
@@ -85,13 +100,19 @@ void main() {
   });
 
   group('Secp256k1 -- generation and round-trip', () {
-    test('a freshly generated key signs and verifies its own signature', () async {
-      final priv = generateSecp256k1KeyPair();
-      final data = Uint8List.fromList('round trip me'.codeUnits);
-      final sig = await priv.sign(data);
-      final ok = await (priv.getPublic() as Secp256k1PublicKey).verify(data, sig);
-      expect(ok, isTrue);
-    });
+    test(
+      'a freshly generated key signs and verifies its own signature',
+      () async {
+        final priv = generateSecp256k1KeyPair();
+        final data = Uint8List.fromList('round trip me'.codeUnits);
+        final sig = await priv.sign(data);
+        final ok = await (priv.getPublic() as Secp256k1PublicKey).verify(
+          data,
+          sig,
+        );
+        expect(ok, isTrue);
+      },
+    );
 
     test('signing the same key/message twice is deterministic', () async {
       final priv = generateSecp256k1KeyPair();
@@ -114,7 +135,10 @@ void main() {
     });
 
     test('rejects a private key of the wrong length', () {
-      expect(() => unmarshalSecp256k1PrivateKey(Uint8List(16)), throwsFormatException);
+      expect(
+        () => unmarshalSecp256k1PrivateKey(Uint8List(16)),
+        throwsFormatException,
+      );
     });
   });
 }

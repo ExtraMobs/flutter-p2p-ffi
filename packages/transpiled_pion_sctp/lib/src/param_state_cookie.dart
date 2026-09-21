@@ -29,7 +29,11 @@ import 'paramtype.dart';
 final class ParamStateCookie implements Param {
   ParamStateCookie({Uint8List? cookie})
     : cookie = cookie ?? Uint8List(0),
-      header = ParamHeader(typ: ParamType.stateCookie, len: 0, raw: Uint8List(0));
+      header = ParamHeader(
+        typ: ParamType.stateCookie,
+        len: 0,
+        raw: Uint8List(0),
+      );
 
   /// Port of newRandomStateCookie: 32 bytes from the operating system CSPRNG.
   factory ParamStateCookie.random() {

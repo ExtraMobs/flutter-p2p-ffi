@@ -177,25 +177,32 @@ final class _TickerCollector implements Collector {
 typedef ClientOption = void Function(Client c);
 
 /// Port of `WithHandler` (client.go:120-126).
-ClientOption withHandler(Handler h) => (c) => c._handler = h;
+ClientOption withHandler(Handler h) =>
+    (c) => c._handler = h;
 
 /// Port of `WithRTO` (client.go:129-133).
-ClientOption withRto(Duration rto) => (c) => c._rto = rto;
+ClientOption withRto(Duration rto) =>
+    (c) => c._rto = rto;
 
 /// Port of `WithClock` (client.go:136-141).
-ClientOption withClock(Clock clock) => (c) => c._clock = clock;
+ClientOption withClock(Clock clock) =>
+    (c) => c._clock = clock;
 
 /// Port of `WithTimeoutRate` (client.go:144-148).
-ClientOption withTimeoutRate(Duration d) => (c) => c._rtoRate = d;
+ClientOption withTimeoutRate(Duration d) =>
+    (c) => c._rtoRate = d;
 
 /// Port of `WithAgent` (client.go:151-156).
-ClientOption withAgent(ClientAgent a) => (c) => c._agent = a;
+ClientOption withAgent(ClientAgent a) =>
+    (c) => c._agent = a;
 
 /// Port of `WithCollector` (client.go:159-164).
-ClientOption withCollector(Collector coll) => (c) => c._collector = coll;
+ClientOption withCollector(Collector coll) =>
+    (c) => c._collector = coll;
 
 /// Port of `WithNoConnClose` (client.go:167-171).
-ClientOption withNoConnClose() => (c) => c._closeConn = false;
+ClientOption withNoConnClose() =>
+    (c) => c._closeConn = false;
 
 const Duration _defaultTimeoutRate = Duration(milliseconds: 5);
 const Duration _defaultRto = Duration(milliseconds: 300);
@@ -501,19 +508,16 @@ final class Client {
       return;
     }
     unawaited(
-      _conn
-          .write(transaction.raw)
-          .then((_) {})
-          .catchError((Object writeErr) {
-            _delete(id);
-            Object err = writeErr;
-            try {
-              _agent.stop(id);
-            } catch (stopErr) {
-              err = StopException(err: stopErr, cause: writeErr);
-            }
-            transaction.handle(Event(transactionId: id, error: err));
-          }),
+      _conn.write(transaction.raw).then((_) {}).catchError((Object writeErr) {
+        _delete(id);
+        Object err = writeErr;
+        try {
+          _agent.stop(id);
+        } catch (stopErr) {
+          err = StopException(err: stopErr, cause: writeErr);
+        }
+        transaction.handle(Event(transactionId: id, error: err));
+      }),
     );
   }
 

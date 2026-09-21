@@ -26,7 +26,10 @@ class FakeMessageNetwork implements MessageNetwork {
   }
 
   @override
-  Future<MessageSender> newMessageSender(PeerId peer, MessageSenderOpts opts) async {
+  Future<MessageSender> newMessageSender(
+    PeerId peer,
+    MessageSenderOpts opts,
+  ) async {
     if (messageSenderError != null) throw messageSenderError!;
     return messageSender;
   }
@@ -69,7 +72,9 @@ var _cidCounter = 0;
 List<Cid> _randomCids(int count) {
   return List.generate(count, (i) {
     _cidCounter++;
-    return Cid.fromBytes(Uint8List.fromList([1, 85, 0, 5, 0, 1, 2, _cidCounter, 4, 5]));
+    return Cid.fromBytes(
+      Uint8List.fromList([1, 85, 0, 5, 0, 1, 2, _cidCounter, 4, 5]),
+    );
   });
 }
 
@@ -79,51 +84,63 @@ void main() {
   test('TestStartupAndShutdown', () async {
     final messagesSent = StreamController<List<Entry>>.broadcast();
     final resetChan = StreamController<void>.broadcast();
-    
-    final fakeSender = FakeMessageSender(resetChan.sink, messagesSent.sink, true);
+
+    final fakeSender = FakeMessageSender(
+      resetChan.sink,
+      messagesSent.sink,
+      true,
+    );
     final fakeNet = FakeMessageNetwork(messageSender: fakeSender);
-    
+
     final peerID = PeerId(value: Uint8List.fromList([1, 2, 3]));
     final messageQueue = MessageQueue.create(peerID, fakeNet, mockTimeoutCb);
-    
+
     final bcstwh = _randomCids(10);
-    
+
     messageQueue.startup();
     messageQueue.addBroadcastWantHaves(bcstwh);
-    
-    final message = await messagesSent.stream.first.timeout(const Duration(seconds: 2));
+
+    final message = await messagesSent.stream.first.timeout(
+      const Duration(seconds: 2),
+    );
     expect(message.length, bcstwh.length);
-    
+
     for (final entry in message) {
       expect(entry.cancel, false);
     }
-    
+
     messageQueue.shutdown();
-    
+
     await resetChan.stream.first.timeout(const Duration(seconds: 1));
   });
 
   test('TestSendingMessagesDeduped', () async {
     final messagesSent = StreamController<List<Entry>>.broadcast();
     final resetChan = StreamController<void>.broadcast();
-    
-    final fakeSender = FakeMessageSender(resetChan.sink, messagesSent.sink, true);
+
+    final fakeSender = FakeMessageSender(
+      resetChan.sink,
+      messagesSent.sink,
+      true,
+    );
     final fakeNet = FakeMessageNetwork(messageSender: fakeSender);
-    
+
     final peerID = PeerId(value: Uint8List.fromList([1, 2, 3]));
     final messageQueue = MessageQueue.create(peerID, fakeNet, mockTimeoutCb);
-    
+
     final wantHaves = _randomCids(10);
     final wantBlocks = _randomCids(10);
-    
+
     messageQueue.startup();
     messageQueue.addWants(wantBlocks, wantHaves);
     messageQueue.addWants(wantBlocks, wantHaves); // Duplicate
-    
-    final message = await messagesSent.stream.first.timeout(const Duration(seconds: 2));
-    
+
+    final message = await messagesSent.stream.first.timeout(
+      const Duration(seconds: 2),
+    );
+
     expect(message.length, wantHaves.length + wantBlocks.length);
-    
+
     messageQueue.shutdown();
   });
 }

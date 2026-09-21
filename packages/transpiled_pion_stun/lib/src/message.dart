@@ -83,7 +83,10 @@ final class Message implements Setter {
   /// [raw].
   Message() : raw = Uint8List(messageHeaderSize);
 
-  MessageType type = MessageType(method: Method(0), messageClass: MessageClass.request);
+  MessageType type = MessageType(
+    method: Method(0),
+    messageClass: MessageClass.request,
+  );
 
   /// `len(Raw)` not including header.
   int length = 0;
@@ -187,7 +190,11 @@ final class Message implements Setter {
         RawAttribute(
           type: attrType,
           length: val.length,
-          value: Uint8List.sublistView(raw, valueOffset, valueOffset + val.length),
+          value: Uint8List.sublistView(
+            raw,
+            valueOffset,
+            valueOffset + val.length,
+          ),
         ),
       );
     writeLength();
@@ -560,8 +567,10 @@ final class MessageType implements Setter {
 // `MessageType(method: ..., messageClass: ...)` directly instead.
 
 /// Port of `BindingRequest` (message.go:462).
-final MessageType bindingRequest =
-    MessageType(method: Method.binding, messageClass: MessageClass.request);
+final MessageType bindingRequest = MessageType(
+  method: Method.binding,
+  messageClass: MessageClass.request,
+);
 
 /// Port of `BindingSuccess` (message.go:464).
 final MessageType bindingSuccess = MessageType(

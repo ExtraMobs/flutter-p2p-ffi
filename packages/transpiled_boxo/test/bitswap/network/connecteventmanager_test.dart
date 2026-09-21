@@ -117,8 +117,8 @@ void main() {
     // Let's just expect it.
     // To avoid flakiness in Dart due to no mutex lock, we will just await after p1 connect.
     await connListener.waitEvent();
-    
-    // In the Go test, the lock makes sure the events are batched. 
+
+    // In the Go test, the lock makes sure the events are batched.
     // Here we might just see one extra event if we don't block.
     // Let's just make it simple: wait for it.
   });

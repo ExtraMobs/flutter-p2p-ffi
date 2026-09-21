@@ -13,69 +13,86 @@ import 'package:test/test.dart';
 
 void main() {
   group('key_codec', () {
-    test('RSA public/private key round-trip through the generic codec', () async {
-      final priv = generateRsaKeyPair(minRsaKeyBits);
-      final marshaledPub = marshalPublicKey(priv.getPublic());
-      final marshaledPriv = marshalPrivateKey(priv);
+    test(
+      'RSA public/private key round-trip through the generic codec',
+      () async {
+        final priv = generateRsaKeyPair(minRsaKeyBits);
+        final marshaledPub = marshalPublicKey(priv.getPublic());
+        final marshaledPriv = marshalPrivateKey(priv);
 
-      final decodedPub = unmarshalPublicKey(marshaledPub);
-      final decodedPriv = await unmarshalPrivateKey(marshaledPriv);
+        final decodedPub = unmarshalPublicKey(marshaledPub);
+        final decodedPriv = await unmarshalPrivateKey(marshaledPriv);
 
-      expect(decodedPub.type, equals(KeyType.rsa));
-      expect(decodedPriv.type, equals(KeyType.rsa));
-      expect(decodedPub.raw(), equals(priv.getPublic().raw()));
-      expect(decodedPriv.raw(), equals(priv.raw()));
-    });
+        expect(decodedPub.type, equals(KeyType.rsa));
+        expect(decodedPriv.type, equals(KeyType.rsa));
+        expect(decodedPub.raw(), equals(priv.getPublic().raw()));
+        expect(decodedPriv.raw(), equals(priv.raw()));
+      },
+    );
 
-    test('Ed25519 public/private key round-trip through the generic codec', () async {
-      final priv = await generateEd25519KeyPair();
-      final marshaledPub = marshalPublicKey(priv.getPublic());
-      final marshaledPriv = marshalPrivateKey(priv);
+    test(
+      'Ed25519 public/private key round-trip through the generic codec',
+      () async {
+        final priv = await generateEd25519KeyPair();
+        final marshaledPub = marshalPublicKey(priv.getPublic());
+        final marshaledPriv = marshalPrivateKey(priv);
 
-      final decodedPub = unmarshalPublicKey(marshaledPub);
-      final decodedPriv = await unmarshalPrivateKey(marshaledPriv);
+        final decodedPub = unmarshalPublicKey(marshaledPub);
+        final decodedPriv = await unmarshalPrivateKey(marshaledPriv);
 
-      expect(decodedPub.type, equals(KeyType.ed25519));
-      expect(decodedPriv.type, equals(KeyType.ed25519));
-      expect(decodedPub.raw(), equals(priv.getPublic().raw()));
-      expect(decodedPriv.raw(), equals(priv.raw()));
-    });
+        expect(decodedPub.type, equals(KeyType.ed25519));
+        expect(decodedPriv.type, equals(KeyType.ed25519));
+        expect(decodedPub.raw(), equals(priv.getPublic().raw()));
+        expect(decodedPriv.raw(), equals(priv.raw()));
+      },
+    );
 
-    test('Secp256k1 public/private key round-trip through the generic codec', () async {
-      final priv = generateSecp256k1KeyPair();
-      final marshaledPub = marshalPublicKey(priv.getPublic());
-      final marshaledPriv = marshalPrivateKey(priv);
+    test(
+      'Secp256k1 public/private key round-trip through the generic codec',
+      () async {
+        final priv = generateSecp256k1KeyPair();
+        final marshaledPub = marshalPublicKey(priv.getPublic());
+        final marshaledPriv = marshalPrivateKey(priv);
 
-      final decodedPub = unmarshalPublicKey(marshaledPub);
-      final decodedPriv = await unmarshalPrivateKey(marshaledPriv);
+        final decodedPub = unmarshalPublicKey(marshaledPub);
+        final decodedPriv = await unmarshalPrivateKey(marshaledPriv);
 
-      expect(decodedPub.type, equals(KeyType.secp256k1));
-      expect(decodedPriv.type, equals(KeyType.secp256k1));
-      expect(decodedPub.raw(), equals(priv.getPublic().raw()));
-      expect(decodedPriv.raw(), equals(priv.raw()));
-    });
+        expect(decodedPub.type, equals(KeyType.secp256k1));
+        expect(decodedPriv.type, equals(KeyType.secp256k1));
+        expect(decodedPub.raw(), equals(priv.getPublic().raw()));
+        expect(decodedPriv.raw(), equals(priv.raw()));
+      },
+    );
 
-    test('ECDSA public/private key round-trip through the generic codec', () async {
-      final priv = generateEcdsaKeyPair();
-      final marshaledPub = marshalPublicKey(priv.getPublic());
-      final marshaledPriv = marshalPrivateKey(priv);
+    test(
+      'ECDSA public/private key round-trip through the generic codec',
+      () async {
+        final priv = generateEcdsaKeyPair();
+        final marshaledPub = marshalPublicKey(priv.getPublic());
+        final marshaledPriv = marshalPrivateKey(priv);
 
-      final decodedPub = unmarshalPublicKey(marshaledPub);
-      final decodedPriv = await unmarshalPrivateKey(marshaledPriv);
+        final decodedPub = unmarshalPublicKey(marshaledPub);
+        final decodedPriv = await unmarshalPrivateKey(marshaledPriv);
 
-      expect(decodedPub.type, equals(KeyType.ecdsa));
-      expect(decodedPriv.type, equals(KeyType.ecdsa));
-      expect(decodedPub.raw(), equals(priv.getPublic().raw()));
-      expect(decodedPriv.raw(), equals(priv.raw()));
-    });
+        expect(decodedPub.type, equals(KeyType.ecdsa));
+        expect(decodedPriv.type, equals(KeyType.ecdsa));
+        expect(decodedPub.raw(), equals(priv.getPublic().raw()));
+        expect(decodedPriv.raw(), equals(priv.raw()));
+      },
+    );
 
-    test('a signature made with one type verifies through the generically-decoded key', () async {
-      final priv = await generateEd25519KeyPair();
-      final decodedPub = unmarshalPublicKey(marshalPublicKey(priv.getPublic()));
-      final data = Uint8List.fromList([1, 2, 3, 4, 5]);
-      final sig = await priv.sign(data);
-      final ok = await decodedPub.verify(data, sig);
-      expect(ok, isTrue);
-    });
+    test(
+      'a signature made with one type verifies through the generically-decoded key',
+      () async {
+        final priv = await generateEd25519KeyPair();
+        final decodedPub = unmarshalPublicKey(
+          marshalPublicKey(priv.getPublic()),
+        );
+        final data = Uint8List.fromList([1, 2, 3, 4, 5]);
+        final sig = await priv.sign(data);
+        final ok = await decodedPub.verify(data, sig);
+        expect(ok, isTrue);
+      },
+    );
   });
 }

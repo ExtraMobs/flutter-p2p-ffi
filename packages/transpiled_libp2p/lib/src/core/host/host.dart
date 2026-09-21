@@ -38,19 +38,30 @@ abstract interface class Host {
   ProtocolSwitch get mux;
 
   /// Ensures a connection exists to the specified peer.
-  Future<void> connect(AddrInfo pi, {NetworkContext context = NetworkContext.empty});
+  Future<void> connect(
+    AddrInfo pi, {
+    NetworkContext context = NetworkContext.empty,
+  });
 
   /// Sets the protocol stream handler.
   void setStreamHandler(ProtocolId pid, StreamHandler handler);
 
   /// Sets the protocol stream handler with a protocol matching function.
-  void setStreamHandlerMatch(ProtocolId pid, bool Function(ProtocolId) match, StreamHandler handler);
+  void setStreamHandlerMatch(
+    ProtocolId pid,
+    bool Function(ProtocolId) match,
+    StreamHandler handler,
+  );
 
   /// Removes the protocol stream handler for [pid].
   void removeStreamHandler(ProtocolId pid);
 
   /// Opens a new stream to peer [p] with preferred protocols [pids].
-  Future<NetworkStream> newStream(PeerId p, List<ProtocolId> pids, {NetworkContext context = NetworkContext.empty});
+  Future<NetworkStream> newStream(
+    PeerId p,
+    List<ProtocolId> pids, {
+    NetworkContext context = NetworkContext.empty,
+  });
 
   /// Closes the host, shutting down its network and services.
   Future<void> close();

@@ -76,7 +76,9 @@ bool _isScrubbed(Datastore d) => d is ScrubbedDatastore;
 bool _isTtl(Datastore d) => d is TtlDatastore;
 bool _isTransaction(Datastore d) => d is TxnDatastore;
 
-final Map<String, Feature> _featuresByName = {for (final f in features()) f.name: f};
+final Map<String, Feature> _featuresByName = {
+  for (final f in features()) f.name: f,
+};
 
 /// The feature named [name], if known. Equivalent to go-datastore's
 /// `FeatureByName`.
@@ -86,5 +88,8 @@ Feature? featureByName(String name) => _featuresByName[name];
 /// `FeaturesForDatastore`.
 List<Feature> featuresForDatastore(Datastore? d) {
   if (d == null) return const [];
-  return [for (final f in features()) if (f.matches(d)) f];
+  return [
+    for (final f in features())
+      if (f.matches(d)) f,
+  ];
 }

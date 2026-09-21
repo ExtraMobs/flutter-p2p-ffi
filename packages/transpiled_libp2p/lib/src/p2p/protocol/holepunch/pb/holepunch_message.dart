@@ -18,10 +18,7 @@ enum HolePunchMessageType {
 }
 
 class HolePunchMessage {
-  HolePunchMessage({
-    required this.type,
-    this.obsAddrs = const [],
-  });
+  HolePunchMessage({required this.type, this.obsAddrs = const []});
 
   final HolePunchMessageType type;
   final List<Uint8List> obsAddrs;
@@ -88,9 +85,6 @@ class HolePunchMessage {
       }
     }
 
-    return HolePunchMessage(
-      type: type,
-      obsAddrs: obsAddrs,
-    );
+    return HolePunchMessage(type: type, obsAddrs: obsAddrs);
   }
 }

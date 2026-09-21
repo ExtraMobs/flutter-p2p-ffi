@@ -98,14 +98,17 @@ void main() {
       expect(priv.getPublic().raw(), equals(_fromHex(_pkixPublicDerHex)));
     });
 
-    test('verifies a real go-libp2p-style SHA256/PKCS1v1.5 signature', () async {
-      final pub = unmarshalRsaPublicKey(_fromHex(_pkixPublicDerHex));
-      final ok = await pub.verify(
-        _fromHex(_messageHex),
-        _fromHex(_signatureHex),
-      );
-      expect(ok, isTrue);
-    });
+    test(
+      'verifies a real go-libp2p-style SHA256/PKCS1v1.5 signature',
+      () async {
+        final pub = unmarshalRsaPublicKey(_fromHex(_pkixPublicDerHex));
+        final ok = await pub.verify(
+          _fromHex(_messageHex),
+          _fromHex(_signatureHex),
+        );
+        expect(ok, isTrue);
+      },
+    );
 
     test('rejects a tampered signature', () async {
       final pub = unmarshalRsaPublicKey(_fromHex(_pkixPublicDerHex));
@@ -117,31 +120,34 @@ void main() {
 
     test('rejects a signature over the wrong message', () async {
       final pub = unmarshalRsaPublicKey(_fromHex(_pkixPublicDerHex));
-      final ok = await pub.verify(
-        _fromHex('00' * 30),
-        _fromHex(_signatureHex),
-      );
+      final ok = await pub.verify(_fromHex('00' * 30), _fromHex(_signatureHex));
       expect(ok, isFalse);
     });
 
-    test("signs with Dart's own key, and Dart's own verify accepts it", () async {
-      final priv = unmarshalRsaPrivateKey(_fromHex(_pkcs1PrivateDerHex));
-      final sig = await priv.sign(_fromHex(_messageHex));
-      // A real PKCS1v1.5 signature over a fixed key+message is
-      // deterministic (no randomization in the padding scheme), so this
-      // must match Go's own signature exactly.
-      expect(sig, equals(_fromHex(_signatureHex)));
-    });
+    test(
+      "signs with Dart's own key, and Dart's own verify accepts it",
+      () async {
+        final priv = unmarshalRsaPrivateKey(_fromHex(_pkcs1PrivateDerHex));
+        final sig = await priv.sign(_fromHex(_messageHex));
+        // A real PKCS1v1.5 signature over a fixed key+message is
+        // deterministic (no randomization in the padding scheme), so this
+        // must match Go's own signature exactly.
+        expect(sig, equals(_fromHex(_signatureHex)));
+      },
+    );
   });
 
   group('RSA -- generation and round-trip', () {
-    test('a freshly generated key signs and verifies its own signature', () async {
-      final priv = generateRsaKeyPair(minRsaKeyBits);
-      final data = Uint8List.fromList('round trip me'.codeUnits);
-      final sig = await priv.sign(data);
-      final ok = await (priv.getPublic() as RsaPublicKey).verify(data, sig);
-      expect(ok, isTrue);
-    });
+    test(
+      'a freshly generated key signs and verifies its own signature',
+      () async {
+        final priv = generateRsaKeyPair(minRsaKeyBits);
+        final data = Uint8List.fromList('round trip me'.codeUnits);
+        final sig = await priv.sign(data);
+        final ok = await (priv.getPublic() as RsaPublicKey).verify(data, sig);
+        expect(ok, isTrue);
+      },
+    );
 
     test('rejects a key smaller than minRsaKeyBits', () {
       expect(() => generateRsaKeyPair(1024), throwsArgumentError);

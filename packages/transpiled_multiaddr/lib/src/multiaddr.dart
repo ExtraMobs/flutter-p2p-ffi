@@ -131,7 +131,9 @@ class Multiaddr {
     }
     var parts = trimmed.split('/');
     if (parts.isEmpty || parts[0] != '') {
-      throw FormatException('failed to parse multiaddr "$s": must begin with /');
+      throw FormatException(
+        'failed to parse multiaddr "$s": must begin with /',
+      );
     }
     parts = parts.sublist(1);
     if (parts.isEmpty) {
@@ -144,7 +146,9 @@ class Multiaddr {
       final name = parts[i];
       final protocol = Protocols.byName(name);
       if (protocol == null) {
-        throw FormatException('failed to parse multiaddr "$s": unknown protocol $name');
+        throw FormatException(
+          'failed to parse multiaddr "$s": unknown protocol $name',
+        );
       }
       i++;
 
@@ -154,7 +158,9 @@ class Multiaddr {
       }
 
       if (i >= parts.length) {
-        throw FormatException('failed to parse multiaddr "$s": unexpected end of multiaddr');
+        throw FormatException(
+          'failed to parse multiaddr "$s": unexpected end of multiaddr',
+        );
       }
 
       String rawValue;
@@ -213,7 +219,9 @@ class Multiaddr {
       offset += size;
 
       if (sawPathComponent) {
-        throw const FormatException('unexpected component after path component');
+        throw const FormatException(
+          'unexpected component after path component',
+        );
       }
       sawPathComponent = protocol.path;
       out.add(Component.fromValueBytes(protocol, valueBytes));
@@ -298,7 +306,9 @@ class Multiaddr {
   /// Splits at the first component for which [callback] returns `true`;
   /// that component is included in the *second* half. Equivalent to
   /// go-multiaddr's `SplitFunc`.
-  (Multiaddr pre, Multiaddr? post) splitFunc(bool Function(Component c) callback) {
+  (Multiaddr pre, Multiaddr? post) splitFunc(
+    bool Function(Component c) callback,
+  ) {
     if (components.isEmpty) return (Multiaddr.empty, null);
     var idx = components.length;
     for (var i = 0; i < components.length; i++) {

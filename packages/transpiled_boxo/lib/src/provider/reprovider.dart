@@ -189,8 +189,10 @@ Duration reprovideFirstDelay({
 /// constructor-function pattern `AGENTS.md` separately bans (that rule
 /// targets free functions standing in for a public type's own
 /// constructor); there is deliberately no public type here to have one.
-System reproviderSystem(Batching ds, {List<ReproviderOption> options = const []}) =>
-    _ReproviderSystem(ds, options: options);
+System reproviderSystem(
+  Batching ds, {
+  List<ReproviderOption> options = const [],
+}) => _ReproviderSystem(ds, options: options);
 
 /// Schedules and runs periodic reprovides of a stream of Cids. Equivalent
 /// to boxo's unexported `reprovider` struct. Construct via
@@ -322,8 +324,8 @@ final class _ReproviderSystem implements System {
           _avgReprovideDuration.inMicroseconds * _totalReprovides;
       _totalReprovides += keys.length;
       _avgReprovideDuration = Duration(
-        microseconds: (totalProvideTimeUs + dur.inMicroseconds) ~/
-            _totalReprovides,
+        microseconds:
+            (totalProvideTimeUs + dur.inMicroseconds) ~/ _totalReprovides,
       );
       _lastReprovideBatchSize = keys.length;
       _lastReprovideDuration = dur;

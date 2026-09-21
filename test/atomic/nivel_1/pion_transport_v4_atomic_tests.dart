@@ -16,23 +16,26 @@ import 'package:transpiled_pion_transport_v4/transpiled_pion_transport_v4.dart';
 
 void main() {
   group('xorBytes [Atomic Audit]', () {
-    test('xorBytes() - XORa byte a byte e retorna a contagem (porta TestXOR)', () {
-      final rnd = Random(42);
-      for (var j = 1; j <= 64; j++) {
-        final a = Uint8List.fromList(
-          List.generate(j, (_) => rnd.nextInt(256)),
-        );
-        final b = Uint8List.fromList(
-          List.generate(j, (_) => rnd.nextInt(256)),
-        );
-        final dst = Uint8List(j);
-        final n = xorBytes(dst, a, b);
-        expect(n, equals(j));
-        for (var i = 0; i < j; i++) {
-          expect(dst[i], equals(a[i] ^ b[i]));
+    test(
+      'xorBytes() - XORa byte a byte e retorna a contagem (porta TestXOR)',
+      () {
+        final rnd = Random(42);
+        for (var j = 1; j <= 64; j++) {
+          final a = Uint8List.fromList(
+            List.generate(j, (_) => rnd.nextInt(256)),
+          );
+          final b = Uint8List.fromList(
+            List.generate(j, (_) => rnd.nextInt(256)),
+          );
+          final dst = Uint8List(j);
+          final n = xorBytes(dst, a, b);
+          expect(n, equals(j));
+          for (var i = 0; i < j; i++) {
+            expect(dst[i], equals(a[i] ^ b[i]));
+          }
         }
-      }
-    });
+      },
+    );
 
     test('xorBytes() - trunca no menor comprimento entre a e b', () {
       final a = Uint8List.fromList([0xFF, 0xFF, 0xFF, 0xFF]);
@@ -90,17 +93,52 @@ void main() {
       }
       // Replaying the exact same sequence must now be rejected.
       for (final v in [16, 17, 18, 19, 20, 21, 22, 23, 24, 25]) {
-        expect(d.check(seq(v)), isNull, reason: 'seq $v é replay e deve ser rejeitada');
+        expect(
+          d.check(seq(v)),
+          isNull,
+          reason: 'seq $v é replay e deve ser rejeitada',
+        );
       }
     });
 
     test('check() - registra pacotes reordenados como não-mais-recentes '
         '(porta commonCases["Reordered"])', () {
       final d = ReplayDetector(128, seq(0x0000FFFFFFFFFFFF));
-      const input = [96, 64, 16, 80, 32, 48, 8, 24, 88, 40, 128, 56, 72, 112, 104, 120];
+      const input = [
+        96,
+        64,
+        16,
+        80,
+        32,
+        48,
+        8,
+        24,
+        88,
+        40,
+        128,
+        56,
+        72,
+        112,
+        104,
+        120,
+      ];
       const expectedLatest = [
-        true, false, false, false, false, false, false, false, false, false,
-        true, false, false, false, false, false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
       ];
       for (var i = 0; i < input.length; i++) {
         final accept = d.check(seq(input[i]));
@@ -113,28 +151,42 @@ void main() {
       }
     });
 
-    test('ReplayDetector.withWrap() - lida com estouro de contador curto '
-        '(porta TestWrappedReplayDetector, entrada crescente ao redor do wrap)', () {
-      const maxSeq = 0x7FFF; // contador de 15 bits, como SRTP/SRTCP
-      final d = ReplayDetector.withWrap(8, seq(maxSeq));
-      // Sequência inicial válida.
-      for (final v in [maxSeq - 2, maxSeq - 1, maxSeq]) {
-        final accept = d.check(seq(v));
-        expect(accept, isNotNull, reason: 'seq $v deveria ser aceita antes do wrap');
-        accept!();
-      }
-      // Passa por cima do limite (wrap para 0) -- deve continuar sendo aceito
-      // porque withWrap tolera o estouro do contador.
-      final wrapped = d.check(seq(0));
-      expect(wrapped, isNotNull, reason: 'seq 0 após o wrap deveria ser aceita');
-      expect(wrapped!(), isTrue);
-    });
+    test(
+      'ReplayDetector.withWrap() - lida com estouro de contador curto '
+      '(porta TestWrappedReplayDetector, entrada crescente ao redor do wrap)',
+      () {
+        const maxSeq = 0x7FFF; // contador de 15 bits, como SRTP/SRTCP
+        final d = ReplayDetector.withWrap(8, seq(maxSeq));
+        // Sequência inicial válida.
+        for (final v in [maxSeq - 2, maxSeq - 1, maxSeq]) {
+          final accept = d.check(seq(v));
+          expect(
+            accept,
+            isNotNull,
+            reason: 'seq $v deveria ser aceita antes do wrap',
+          );
+          accept!();
+        }
+        // Passa por cima do limite (wrap para 0) -- deve continuar sendo aceito
+        // porque withWrap tolera o estouro do contador.
+        final wrapped = d.check(seq(0));
+        expect(
+          wrapped,
+          isNotNull,
+          reason: 'seq 0 após o wrap deveria ser aceita',
+        );
+        expect(wrapped!(), isTrue);
+      },
+    );
 
-    test('check() - rejeita sequência acima do maxSeq configurado em withWrap', () {
-      const maxSeq = 0xFF;
-      final d = ReplayDetector.withWrap(8, seq(maxSeq));
-      expect(d.check(seq(maxSeq + 1)), isNull);
-    });
+    test(
+      'check() - rejeita sequência acima do maxSeq configurado em withWrap',
+      () {
+        const maxSeq = 0xFF;
+        final d = ReplayDetector.withWrap(8, seq(maxSeq));
+        expect(d.check(seq(maxSeq + 1)), isNull);
+      },
+    );
   });
 
   group('NetAddr [Atomic Audit]', () {

@@ -84,7 +84,9 @@ class AddrsRecord {
     final before = addrs.length;
     addrs.sort((a, b) => a.expiry.compareTo(b.expiry));
     addrs.removeWhere(
-      (e) => e.ttl < connectedAddrTtl.inMicroseconds && e.expiry <= now.microsecondsSinceEpoch,
+      (e) =>
+          e.ttl < connectedAddrTtl.inMicroseconds &&
+          e.expiry <= now.microsecondsSinceEpoch,
     );
     return addrs.length != before;
   }
@@ -162,7 +164,9 @@ class DsAddrBook implements AddrBook, CertifiedAddrBook {
       } catch (_) {
         continue;
       }
-      final canonical = _addrBookBase.childString(base32.rawStdEncoding.encodeToString(peerId.value));
+      final canonical = _addrBookBase.childString(
+        base32.rawStdEncoding.encodeToString(peerId.value),
+      );
       if (entry.key != canonical.value) {
         final legacy = _addrBookBase.childString(peerId.toBase58());
         if (entry.key != legacy.value) continue;
@@ -199,12 +203,16 @@ class DsAddrBook implements AddrBook, CertifiedAddrBook {
     return ab;
   }
 
-  AddrsRecord _recordFor(PeerId p) =>
-      _records.putIfAbsent(p.toBase58(), () => AddrsRecord(AddrBookRecord(id: p.value)));
+  AddrsRecord _recordFor(PeerId p) => _records.putIfAbsent(
+    p.toBase58(),
+    () => AddrsRecord(AddrBookRecord(id: p.value)),
+  );
 
   void _persistOrRemove(PeerId p, AddrsRecord r) {
     final pKey = p.toBase58();
-    final key = _addrBookBase.childString(base32.rawStdEncoding.encodeToString(p.value));
+    final key = _addrBookBase.childString(
+      base32.rawStdEncoding.encodeToString(p.value),
+    );
     if (r.isGhost) {
       _records.remove(pKey);
       _peerRecordEnvelopes.remove(pKey);
@@ -225,7 +233,8 @@ class DsAddrBook implements AddrBook, CertifiedAddrBook {
 
   /// Equivalent to go-libp2p's `dsAddrBook.AddAddr`.
   @override
-  void addAddr(PeerId p, Multiaddr addr, Duration ttl) => addAddrs(p, [addr], ttl);
+  void addAddr(PeerId p, Multiaddr addr, Duration ttl) =>
+      addAddrs(p, [addr], ttl);
 
   /// Equivalent to go-libp2p's `dsAddrBook.AddAddrs`.
   @override
@@ -236,7 +245,8 @@ class DsAddrBook implements AddrBook, CertifiedAddrBook {
 
   /// Equivalent to go-libp2p's `dsAddrBook.SetAddr`.
   @override
-  void setAddr(PeerId p, Multiaddr addr, Duration ttl) => setAddrs(p, [addr], ttl);
+  void setAddr(PeerId p, Multiaddr addr, Duration ttl) =>
+      setAddrs(p, [addr], ttl);
 
   /// Equivalent to go-libp2p's `dsAddrBook.SetAddrs`.
   @override
@@ -313,7 +323,9 @@ class DsAddrBook implements AddrBook, CertifiedAddrBook {
     final pKey = p.toBase58();
     _records.remove(pKey);
     _peerRecordEnvelopes.remove(pKey);
-    final key = _addrBookBase.childString(base32.rawStdEncoding.encodeToString(p.value));
+    final key = _addrBookBase.childString(
+      base32.rawStdEncoding.encodeToString(p.value),
+    );
     _enqueue(() => _store.delete(key));
   }
 
@@ -321,13 +333,20 @@ class DsAddrBook implements AddrBook, CertifiedAddrBook {
     final r = _records[p.toBase58()];
     if (r == null) return;
     final toRemove = {for (final a in addrs) a.toAddrString()};
-    r.record.addrs.removeWhere((e) => toRemove.contains(Multiaddr.fromBytes(e.addr).toAddrString()));
+    r.record.addrs.removeWhere(
+      (e) => toRemove.contains(Multiaddr.fromBytes(e.addr).toAddrString()),
+    );
     r.clean(_opts.clock.now());
     _persistOrRemove(p, r);
   }
 
   /// Equivalent to go-libp2p's `dsAddrBook.setAddrs`.
-  void _setAddrs(PeerId p, List<Multiaddr> addrs, Duration ttl, TtlWriteMode mode) {
+  void _setAddrs(
+    PeerId p,
+    List<Multiaddr> addrs,
+    Duration ttl,
+    TtlWriteMode mode,
+  ) {
     if (addrs.isEmpty) return;
 
     final r = _recordFor(p);
@@ -336,7 +355,8 @@ class DsAddrBook implements AddrBook, CertifiedAddrBook {
     final newTtl = ttl.inMicroseconds;
 
     final addrsMap = <String, AddrBookRecord_AddrEntry>{
-      for (final e in r.record.addrs) Multiaddr.fromBytes(e.addr).toAddrString(): e,
+      for (final e in r.record.addrs)
+        Multiaddr.fromBytes(e.addr).toAddrString(): e,
     };
 
     AddrBookRecord_AddrEntry? updateExisting(Multiaddr incoming) {
@@ -376,7 +396,9 @@ class DsAddrBook implements AddrBook, CertifiedAddrBook {
         }
       }
       if (victim == -1) return false;
-      final victimKey = Multiaddr.fromBytes(r.record.addrs[victim].addr).toAddrString();
+      final victimKey = Multiaddr.fromBytes(
+        r.record.addrs[victim].addr,
+      ).toAddrString();
       addrsMap.remove(victimKey);
       r.record.addrs.removeAt(victim);
       return true;
@@ -392,7 +414,11 @@ class DsAddrBook implements AddrBook, CertifiedAddrBook {
         unconnectedCount--;
       }
 
-      final entry = AddrBookRecord_AddrEntry(addr: incoming.toBytes(), expiry: newExpiry, ttl: newTtl);
+      final entry = AddrBookRecord_AddrEntry(
+        addr: incoming.toBytes(),
+        expiry: newExpiry,
+        ttl: newTtl,
+      );
       newEntries.add(entry);
       if (incomingIsUnconnected) unconnectedCount++;
       _broadcast(p, incoming);
@@ -446,7 +472,10 @@ class DsAddrBook implements AddrBook, CertifiedAddrBook {
   void _storeSignedPeerRecord(PeerId p, Envelope envelope, PeerRecord rec) {
     final envelopeBytes = envelope.marshal();
     final r = _recordFor(p);
-    r.record.certifiedRecord = CertifiedRecord(seq: rec.seq, raw: envelopeBytes);
+    r.record.certifiedRecord = CertifiedRecord(
+      seq: rec.seq,
+      raw: envelopeBytes,
+    );
     _peerRecordEnvelopes[p.toBase58()] = envelope;
     _persistOrRemove(p, r);
   }

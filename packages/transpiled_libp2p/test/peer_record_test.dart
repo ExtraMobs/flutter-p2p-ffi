@@ -5,21 +5,24 @@ import 'package:test/test.dart';
 
 void main() {
   group('PeerRecord protobuf round-trip', () {
-    test('toProtobuf / fromProtobuf preserves peer ID, addrs, and seq', () async {
-      final keyPair = await generateEd25519KeyPair();
-      final id = PeerId.fromPubKey(keyPair.getPublic());
-      final addrs = [
-        Multiaddr.parse('/ip4/1.2.3.4/tcp/4001'),
-        Multiaddr.parse('/ip6/::1/udp/4001/quic-v1'),
-      ];
-      final rec = PeerRecord(peerId: id, addrs: addrs, seq: 42);
+    test(
+      'toProtobuf / fromProtobuf preserves peer ID, addrs, and seq',
+      () async {
+        final keyPair = await generateEd25519KeyPair();
+        final id = PeerId.fromPubKey(keyPair.getPublic());
+        final addrs = [
+          Multiaddr.parse('/ip4/1.2.3.4/tcp/4001'),
+          Multiaddr.parse('/ip6/::1/udp/4001/quic-v1'),
+        ];
+        final rec = PeerRecord(peerId: id, addrs: addrs, seq: 42);
 
-      final decoded = PeerRecord.fromProtobuf(rec.toProtobuf());
-      expect(decoded.peerId, equals(id));
-      expect(decoded.addrs, equals(addrs));
-      expect(decoded.seq, equals(42));
-      expect(decoded.equals(rec), isTrue);
-    });
+        final decoded = PeerRecord.fromProtobuf(rec.toProtobuf());
+        expect(decoded.peerId, equals(id));
+        expect(decoded.addrs, equals(addrs));
+        expect(decoded.seq, equals(42));
+        expect(decoded.equals(rec), isTrue);
+      },
+    );
 
     test('drops empty multiaddrs when encoding, matching go-libp2p', () async {
       final keyPair = await generateEd25519KeyPair();
@@ -78,7 +81,10 @@ void main() {
       final (deserializedEnvelope, recoveredRecord) =
           await Envelope.consumeEnvelope(serialized, peerRecordEnvelopeDomain);
 
-      expect(deserializedEnvelope.publicKey.keyEquals(keyPair.getPublic()), isTrue);
+      expect(
+        deserializedEnvelope.publicKey.keyEquals(keyPair.getPublic()),
+        isTrue,
+      );
       expect(recoveredRecord, isA<PeerRecord>());
       final recovered = recoveredRecord as PeerRecord;
       expect(recovered.peerId, equals(id));
@@ -101,10 +107,18 @@ void main() {
       // its own contents) -- this isn't a tampering scenario, it's proving
       // the envelope's embedded PublicKey is the *signer's*, independent of
       // whichever PeerId happens to be inside the PeerRecord payload.
-      final (deserialized, _) =
-          await Envelope.consumeEnvelope(serialized, peerRecordEnvelopeDomain);
-      expect(deserialized.publicKey.keyEquals(signerKeyPair.getPublic()), isTrue);
-      expect(deserialized.publicKey.keyEquals(otherKeyPair.getPublic()), isFalse);
+      final (deserialized, _) = await Envelope.consumeEnvelope(
+        serialized,
+        peerRecordEnvelopeDomain,
+      );
+      expect(
+        deserialized.publicKey.keyEquals(signerKeyPair.getPublic()),
+        isTrue,
+      );
+      expect(
+        deserialized.publicKey.keyEquals(otherKeyPair.getPublic()),
+        isFalse,
+      );
     });
   });
 }

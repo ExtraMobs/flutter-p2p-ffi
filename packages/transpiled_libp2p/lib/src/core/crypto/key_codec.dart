@@ -49,4 +49,5 @@ Future<PrivKey> unmarshalPrivateKey(Uint8List data) async {
 
 /// Encodes a private key as a protobuf-wrapped `crypto.pb.PrivateKey`,
 /// per go-libp2p's `MarshalPrivateKey`.
-Uint8List marshalPrivateKey(PrivKey key) => marshalKeyProto(key.type, key.raw());
+Uint8List marshalPrivateKey(PrivKey key) =>
+    marshalKeyProto(key.type, key.raw());

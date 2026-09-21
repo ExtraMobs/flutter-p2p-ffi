@@ -33,7 +33,11 @@ const int _dnsClassIn = 1;
 /// [DnsRecordType]). [id] should be unpredictable per query (basic
 /// anti-spoofing hygiene: an off-path attacker must also guess it to inject
 /// a forged reply).
-Uint8List encodeDnsQuery({required int id, required String name, required int type}) {
+Uint8List encodeDnsQuery({
+  required int id,
+  required String name,
+  required int type,
+}) {
   final out = BytesBuilder();
 
   // Header: ID, flags (RD=1, everything else 0), QDCOUNT=1, AN/NS/AR=0.
@@ -97,7 +101,11 @@ class DnsRecord {
 /// diagnosing why there are none.
 class DnsResponse {
   /// Builds a response with the given [id]/[rcode]/[records].
-  const DnsResponse({required this.id, required this.rcode, required this.records});
+  const DnsResponse({
+    required this.id,
+    required this.rcode,
+    required this.records,
+  });
 
   /// The transaction id, echoed from the query.
   final int id;
@@ -156,23 +164,21 @@ DnsResponse decodeDnsMessage(Uint8List bytes) {
         records.add(
           DnsRecord(
             type: type,
-            data: '${bytes[rdStart]}.${bytes[rdStart + 1]}.'
+            data:
+                '${bytes[rdStart]}.${bytes[rdStart + 1]}.'
                 '${bytes[rdStart + 2]}.${bytes[rdStart + 3]}',
           ),
         );
       case DnsRecordType.aaaa:
         if (rdLength != 16) {
-          throw const FormatException('malformed AAAA record (expected 16 bytes)');
+          throw const FormatException(
+            'malformed AAAA record (expected 16 bytes)',
+          );
         }
-        records.add(
-          DnsRecord(type: type, data: _formatIp6(bytes, rdStart)),
-        );
+        records.add(DnsRecord(type: type, data: _formatIp6(bytes, rdStart)));
       case DnsRecordType.txt:
         records.add(
-          DnsRecord(
-            type: type,
-            data: _readTxtStrings(bytes, rdStart, rdEnd),
-          ),
+          DnsRecord(type: type, data: _readTxtStrings(bytes, rdStart, rdEnd)),
         );
       default:
         // Not a type this client resolves; skip its RDATA.
@@ -217,24 +223,32 @@ int _readUint16(Uint8List b, int offset) {
       // Compression pointer: 14-bit offset from the low 6 bits of this
       // byte plus the next byte.
       if (pos + 1 >= b.length) {
-        throw const FormatException('DNS name pointer runs past end of message');
+        throw const FormatException(
+          'DNS name pointer runs past end of message',
+        );
       }
       if (end == -1) end = pos + 2;
       jumps++;
       if (jumps > maxJumps) {
-        throw const FormatException('DNS name has too many compression pointers');
+        throw const FormatException(
+          'DNS name has too many compression pointers',
+        );
       }
       final target = ((len & 0x3f) << 8) | b[pos + 1];
       if (target >= pos) {
         // RFC 1035 requires pointers to point backward; reject forward/
         // self pointers outright rather than risk a loop.
-        throw const FormatException('DNS name compression pointer does not point backward');
+        throw const FormatException(
+          'DNS name compression pointer does not point backward',
+        );
       }
       pos = target;
       continue;
     }
     if ((len & 0xc0) != 0) {
-      throw const FormatException('DNS name uses a reserved label length encoding');
+      throw const FormatException(
+        'DNS name uses a reserved label length encoding',
+      );
     }
     final labelStart = pos + 1;
     final labelEnd = labelStart + len;
@@ -271,8 +285,14 @@ String _formatIp6(Uint8List b, int start) {
     }
   }
   if (bestLen < 2) return groups.map((g) => g.toRadixString(16)).join(':');
-  final before = groups.sublist(0, bestStart).map((g) => g.toRadixString(16)).join(':');
-  final after = groups.sublist(bestStart + bestLen).map((g) => g.toRadixString(16)).join(':');
+  final before = groups
+      .sublist(0, bestStart)
+      .map((g) => g.toRadixString(16))
+      .join(':');
+  final after = groups
+      .sublist(bestStart + bestLen)
+      .map((g) => g.toRadixString(16))
+      .join(':');
   return '$before::$after';
 }
 

@@ -118,13 +118,14 @@ class _SignedKey {
 /// abstraction to preserve here. Returns a record instead of a `pkix.
 /// Extension` (a foreign, `crypto/x509/pkix` stdlib type with no
 /// go-libp2p-owned Dart counterpart to promote to public API).
-Future<({List<int> id, bool critical, Uint8List value})> generateSignedExtension(
-  PrivKey sk,
-  Uint8List certPublicKeySpkiDer,
-) async {
+Future<({List<int> id, bool critical, Uint8List value})>
+generateSignedExtension(PrivKey sk, Uint8List certPublicKeySpkiDer) async {
   final keyBytes = marshalPublicKey(sk.getPublic());
   final signature = await sk.sign(
-    Uint8List.fromList([...utf8.encode(_certificatePrefix), ...certPublicKeySpkiDer]),
+    Uint8List.fromList([
+      ...utf8.encode(_certificatePrefix),
+      ...certPublicKeySpkiDer,
+    ]),
   );
   final value = _SignedKey(pubKey: keyBytes, signature: signature).encode();
   return (id: extensionId, critical: _extensionCritical, value: value);
@@ -143,29 +144,38 @@ Future<({List<int> id, bool critical, Uint8List value})> generateSignedExtension
 /// Subject/Issuer name. go-libp2p's `WithCertTemplate` customization hook
 /// exists solely to serve `NewIdentity`'s config API, which is out of
 /// scope here.
-Future<({Uint8List certificateDer, EcdsaPrivateKey privateKey})> keyToCertificate(PrivKey sk) async {
+Future<({Uint8List certificateDer, EcdsaPrivateKey privateKey})>
+keyToCertificate(PrivKey sk) async {
   final certKey = generateEcdsaKeyPair();
   final certPublicKeySpki = certKey.getPublic().raw();
 
   final ext = await generateSignedExtension(sk, certPublicKeySpki);
   final extensionSeq = ASN1Sequence(
-    elements: [ASN1ObjectIdentifier(ext.id), ASN1OctetString(octets: ext.value)],
+    elements: [
+      ASN1ObjectIdentifier(ext.id),
+      ASN1OctetString(octets: ext.value),
+    ],
   );
 
   final tmpl = _certTemplate();
 
   final tbs = ASN1Sequence(
     elements: [
-      ASN1Object(tag: 0xA0)..valueBytes = ASN1Integer(BigInt.two).encode(), // version v3
+      ASN1Object(tag: 0xA0)
+        ..valueBytes = ASN1Integer(BigInt.two).encode(), // version v3
       ASN1Integer(tmpl.serialNumber),
       _ecdsaWithSha256AlgorithmIdentifier(),
       _buildName(tmpl.subjectSerialNumber), // issuer == subject: self-signed
       ASN1Sequence(
-        elements: [_encodeAsn1Time(tmpl.notBefore), _encodeAsn1Time(tmpl.notAfter)],
+        elements: [
+          _encodeAsn1Time(tmpl.notBefore),
+          _encodeAsn1Time(tmpl.notAfter),
+        ],
       ),
       _buildName(tmpl.subjectSerialNumber), // subject
       ASN1Object.fromBytes(certPublicKeySpki),
-      ASN1Object(tag: 0xA3)..valueBytes = ASN1Sequence(elements: [extensionSeq]).encode(),
+      ASN1Object(tag: 0xA3)
+        ..valueBytes = ASN1Sequence(elements: [extensionSeq]).encode(),
     ],
   );
   final tbsDer = tbs.encode();
@@ -208,7 +218,8 @@ Future<PubKey> pubKeyFromCertChain(List<Uint8List> chain) async {
 
   var idx = 0;
   if (tbsElements.isNotEmpty && tbsElements[0].tag == 0xA0) {
-    idx = 1; // explicit [0] version present (always true for certs with extensions)
+    idx =
+        1; // explicit [0] version present (always true for certs with extensions)
   }
   if (tbsElements.length < idx + 6) {
     throw const FormatException('malformed X.509 certificate');
@@ -238,7 +249,9 @@ Future<PubKey> pubKeyFromCertChain(List<Uint8List> chain) async {
     }
   }
   if (keyExt == null) {
-    throw const FormatException('expected certificate to contain the key extension');
+    throw const FormatException(
+      'expected certificate to contain the key extension',
+    );
   }
 
   final notBefore = _decodeAsn1Time(validityElements[0]);
@@ -257,7 +270,9 @@ Future<PubKey> pubKeyFromCertChain(List<Uint8List> chain) async {
 
   final _SignedKey signedKey;
   try {
-    signedKey = _SignedKey.decode((keyExt.elements!.last as ASN1OctetString).octets!);
+    signedKey = _SignedKey.decode(
+      (keyExt.elements!.last as ASN1OctetString).octets!,
+    );
   } catch (e) {
     throw FormatException('unmarshalling signed certificate failed: $e');
   }
@@ -270,7 +285,10 @@ Future<PubKey> pubKeyFromCertChain(List<Uint8List> chain) async {
   }
 
   final certKeyPub = subjectPublicKeyInfoElement.encode();
-  final toVerify = Uint8List.fromList([...utf8.encode(_certificatePrefix), ...certKeyPub]);
+  final toVerify = Uint8List.fromList([
+    ...utf8.encode(_certificatePrefix),
+    ...certKeyPub,
+  ]);
   final valid = await pubKey.verify(toVerify, signedKey.signature);
   if (!valid) {
     throw const FormatException('signature invalid');
@@ -280,7 +298,13 @@ Future<PubKey> pubKeyFromCertChain(List<Uint8List> chain) async {
 
 /// The default certificate template, per go-libp2p's `certTemplate`
 /// (crypto.go:266-286).
-({BigInt serialNumber, BigInt subjectSerialNumber, DateTime notBefore, DateTime notAfter}) _certTemplate() {
+({
+  BigInt serialNumber,
+  BigInt subjectSerialNumber,
+  DateTime notBefore,
+  DateTime notAfter,
+})
+_certTemplate() {
   final rng = Random.secure();
   final now = DateTime.now().toUtc();
   return (
@@ -343,7 +367,8 @@ ASN1Object _encodeAsn1Time(DateTime dt) {
   // Hand-rolled rather than ASN1GeneralizedTime(dt)..encode(): that
   // encoder doesn't zero-pad month/day/hour/minute/second, producing
   // malformed DER for any single-digit field.
-  return ASN1Object(tag: 0x18)..valueBytes = Uint8List.fromList(ascii.encode(value));
+  return ASN1Object(tag: 0x18)
+    ..valueBytes = Uint8List.fromList(ascii.encode(value));
 }
 
 /// Decodes a `Validity` element (`UTCTime` or `GeneralizedTime`) parsed by
@@ -351,7 +376,9 @@ ASN1Object _encodeAsn1Time(DateTime dt) {
 DateTime _decodeAsn1Time(ASN1Object el) {
   if (el is ASN1UtcTime) return _decodeUtcTimeValue(el.valueBytes!);
   if (el is ASN1GeneralizedTime) return el.dateTimeValue!;
-  throw FormatException('unsupported certificate time encoding (tag ${el.tag})');
+  throw FormatException(
+    'unsupported certificate time encoding (tag ${el.tag})',
+  );
 }
 
 /// Decodes a raw `UTCTime` value (`YYMMDDHHMMSSZ`), applying RFC 5280's

@@ -6,7 +6,9 @@ import 'package:transpiled_multiaddr/transpiled_multiaddr.dart';
 import 'package:test/test.dart';
 
 void main() {
-  final testId = PeerId.decode('QmS3zcG7LhYZYSJMhyRZvTddvbNUqtt8BJpaSs6mi1K5Va');
+  final testId = PeerId.decode(
+    'QmS3zcG7LhYZYSJMhyRZvTddvbNUqtt8BJpaSs6mi1K5Va',
+  );
   final maddrTpt = Multiaddr.parse('/ip4/127.0.0.1/tcp/1234');
   final maddrPeer = Multiaddr.parse('/p2p/${testId.toBase58()}');
   final maddrFull = maddrTpt.encapsulate(maddrPeer);

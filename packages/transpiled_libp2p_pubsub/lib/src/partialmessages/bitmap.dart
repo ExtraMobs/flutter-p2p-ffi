@@ -46,7 +46,9 @@ class Bitmap {
   /// The bitwise OR of [left] and [right], sized to the larger of the two.
   /// Equivalent to go-libp2p-pubsub's `Merge`.
   static Bitmap merge(Bitmap left, Bitmap right) {
-    final n = left.byteLength > right.byteLength ? left.byteLength : right.byteLength;
+    final n = left.byteLength > right.byteLength
+        ? left.byteLength
+        : right.byteLength;
     final out = Bitmap(Uint8List(n));
     out.or(left);
     out.or(right);
@@ -92,7 +94,9 @@ class Bitmap {
   /// Bitwise ANDs [other] into this bitmap, up to the shorter of the two
   /// lengths. Equivalent to go-libp2p-pubsub's `Bitmap.And`.
   void and(Bitmap other) {
-    final n = _bytes.length < other._bytes.length ? _bytes.length : other._bytes.length;
+    final n = _bytes.length < other._bytes.length
+        ? _bytes.length
+        : other._bytes.length;
     for (var i = 0; i < n; i++) {
       _bytes[i] &= other._bytes[i];
     }
@@ -101,7 +105,9 @@ class Bitmap {
   /// Bitwise ORs [other] into this bitmap, up to the shorter of the two
   /// lengths. Equivalent to go-libp2p-pubsub's `Bitmap.Or`.
   void or(Bitmap other) {
-    final n = _bytes.length < other._bytes.length ? _bytes.length : other._bytes.length;
+    final n = _bytes.length < other._bytes.length
+        ? _bytes.length
+        : other._bytes.length;
     for (var i = 0; i < n; i++) {
       _bytes[i] |= other._bytes[i];
     }
@@ -110,7 +116,9 @@ class Bitmap {
   /// Bitwise XORs [other] into this bitmap, up to the shorter of the two
   /// lengths. Equivalent to go-libp2p-pubsub's `Bitmap.Xor`.
   void xor(Bitmap other) {
-    final n = _bytes.length < other._bytes.length ? _bytes.length : other._bytes.length;
+    final n = _bytes.length < other._bytes.length
+        ? _bytes.length
+        : other._bytes.length;
     for (var i = 0; i < n; i++) {
       _bytes[i] ^= other._bytes[i];
     }

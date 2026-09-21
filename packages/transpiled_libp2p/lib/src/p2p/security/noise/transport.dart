@@ -68,9 +68,14 @@ class NoiseTransport implements SecureTransport {
       throw StateError('Noise handshake completed without remote static key');
     }
 
-    final remoteIdentity = await verifyNoiseHandshakePayload(remotePayloadBytes, remoteStatic);
+    final remoteIdentity = await verifyNoiseHandshakePayload(
+      remotePayloadBytes,
+      remoteStatic,
+    );
     if (peer.value.isNotEmpty && remoteIdentity.peerId != peer) {
-      throw StateError('Authenticated peer ID mismatch: expected $peer, got ${remoteIdentity.peerId}');
+      throw StateError(
+        'Authenticated peer ID mismatch: expected $peer, got ${remoteIdentity.peerId}',
+      );
     }
 
     final (encState, decState) = splitStates;
@@ -119,7 +124,9 @@ class NoiseTransport implements SecureTransport {
 
     final remoteIdentity = await verifyNoiseHandshakePayload(p2, remoteStatic);
     if (peer.value.isNotEmpty && remoteIdentity.peerId != peer) {
-      throw StateError('Authenticated peer ID mismatch: expected $peer, got ${remoteIdentity.peerId}');
+      throw StateError(
+        'Authenticated peer ID mismatch: expected $peer, got ${remoteIdentity.peerId}',
+      );
     }
 
     final (cs1, cs2) = splitStates;
@@ -172,13 +179,13 @@ class _NoiseConn implements SecureConn {
     required CipherState encState,
     required CipherState decState,
     required String protocolId,
-  })  : _rawConn = rawConn,
-        _localPeer = localPeer,
-        _remotePeer = remotePeer,
-        _remotePubKey = remotePubKey,
-        _encState = encState,
-        _decState = decState,
-        _protocolId = protocolId;
+  }) : _rawConn = rawConn,
+       _localPeer = localPeer,
+       _remotePeer = remotePeer,
+       _remotePubKey = remotePubKey,
+       _encState = encState,
+       _decState = decState,
+       _protocolId = protocolId;
 
   final RawConn _rawConn;
   final PeerId _localPeer;
@@ -201,12 +208,15 @@ class _NoiseConn implements SecureConn {
 
   @override
   ConnectionState connState() => ConnectionState(
-        streamMultiplexer: '/yamux/1.0.0',
-        security: _protocolId,
-        transport: _rawConn.remoteMultiaddr().components.any((c) => c.protocol.name == 'ws' || c.protocol.name == 'wss')
-            ? 'websocket'
-            : 'tcp',
-      );
+    streamMultiplexer: '/yamux/1.0.0',
+    security: _protocolId,
+    transport:
+        _rawConn.remoteMultiaddr().components.any(
+          (c) => c.protocol.name == 'ws' || c.protocol.name == 'wss',
+        )
+        ? 'websocket'
+        : 'tcp',
+  );
 
   @override
   Transport transport() => _rawConn.transport();

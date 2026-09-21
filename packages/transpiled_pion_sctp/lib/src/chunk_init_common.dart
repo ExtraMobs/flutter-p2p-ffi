@@ -109,7 +109,9 @@ final class ChunkInitCommon {
       }
 
       try {
-        parsedParams.add(buildParam(pHeader.typ, Uint8List.sublistView(raw, offset)));
+        parsedParams.add(
+          buildParam(pHeader.typ, Uint8List.sublistView(raw, offset)),
+        );
       } on Object {
         parsedUnrecognized.add(pHeader);
       }

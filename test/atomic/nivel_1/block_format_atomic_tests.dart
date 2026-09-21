@@ -25,16 +25,22 @@ void main() {
       expect(block.cid().version, equals(0));
     });
 
-    test('toString() - formata bloco em representacao legivel via interface', () {
-      final Block block = BasicBlock.fromData(Uint8List.fromList([1, 2, 3]));
-      expect(block.toString(), contains('Block'));
-    });
+    test(
+      'toString() - formata bloco em representacao legivel via interface',
+      () {
+        final Block block = BasicBlock.fromData(Uint8List.fromList([1, 2, 3]));
+        expect(block.toString(), contains('Block'));
+      },
+    );
 
-    test('loggable() - produz mapa de campos estruturados de log via interface', () {
-      final Block block = BasicBlock.fromData(Uint8List.fromList([1, 2, 3]));
-      final map = block.loggable();
-      expect(map, containsPair('block', block.cid().toString()));
-    });
+    test(
+      'loggable() - produz mapa de campos estruturados de log via interface',
+      () {
+        final Block block = BasicBlock.fromData(Uint8List.fromList([1, 2, 3]));
+        final map = block.loggable();
+        expect(map, containsPair('block', block.cid().toString()));
+      },
+    );
   });
 
   group('BasicBlock [Atomic Audit]', () {
@@ -48,19 +54,25 @@ void main() {
       expect(block.cid().version, equals(0));
     });
 
-    test('multihash() - extrai bytes do multihash associado ao Cid do bloco', () {
-      final block = BasicBlock.fromData(Uint8List.fromList([10, 20, 30]));
-      expect(block.multihash().isNotEmpty, isTrue);
-    });
+    test(
+      'multihash() - extrai bytes do multihash associado ao Cid do bloco',
+      () {
+        final block = BasicBlock.fromData(Uint8List.fromList([10, 20, 30]));
+        expect(block.multihash().isNotEmpty, isTrue);
+      },
+    );
 
     test('toString() - converte bloco basico para string formatada', () {
       final block = BasicBlock.fromData(Uint8List.fromList([10, 20, 30]));
       expect(block.toString(), equals('[Block ${block.cid()}]'));
     });
 
-    test('loggable() - expoe mapa contendo a chave block com a string do Cid', () {
-      final block = BasicBlock.fromData(Uint8List.fromList([10, 20, 30]));
-      expect(block.loggable()['block'], equals(block.cid().toString()));
-    });
+    test(
+      'loggable() - expoe mapa contendo a chave block com a string do Cid',
+      () {
+        final block = BasicBlock.fromData(Uint8List.fromList([10, 20, 30]));
+        expect(block.loggable()['block'], equals(block.cid().toString()));
+      },
+    );
   });
 }

@@ -63,17 +63,26 @@ final class PayloadProtocolIdentifier {
   /// The raw wire value (a Go `uint32`).
   final int value;
 
-  static const PayloadProtocolIdentifier unknown = PayloadProtocolIdentifier._(0);
-  static const PayloadProtocolIdentifier webRtcDcep = PayloadProtocolIdentifier._(50);
-  static const PayloadProtocolIdentifier webRtcString = PayloadProtocolIdentifier._(51);
-  static const PayloadProtocolIdentifier webRtcBinary = PayloadProtocolIdentifier._(53);
-  static const PayloadProtocolIdentifier webRtcStringEmpty = PayloadProtocolIdentifier._(56);
-  static const PayloadProtocolIdentifier webRtcBinaryEmpty = PayloadProtocolIdentifier._(57);
+  static const PayloadProtocolIdentifier unknown = PayloadProtocolIdentifier._(
+    0,
+  );
+  static const PayloadProtocolIdentifier webRtcDcep =
+      PayloadProtocolIdentifier._(50);
+  static const PayloadProtocolIdentifier webRtcString =
+      PayloadProtocolIdentifier._(51);
+  static const PayloadProtocolIdentifier webRtcBinary =
+      PayloadProtocolIdentifier._(53);
+  static const PayloadProtocolIdentifier webRtcStringEmpty =
+      PayloadProtocolIdentifier._(56);
+  static const PayloadProtocolIdentifier webRtcBinaryEmpty =
+      PayloadProtocolIdentifier._(57);
 
-  factory PayloadProtocolIdentifier.fromValue(int value) => PayloadProtocolIdentifier._(value);
+  factory PayloadProtocolIdentifier.fromValue(int value) =>
+      PayloadProtocolIdentifier._(value);
 
   @override
-  bool operator ==(Object other) => other is PayloadProtocolIdentifier && other.value == value;
+  bool operator ==(Object other) =>
+      other is PayloadProtocolIdentifier && other.value == value;
 
   @override
   int get hashCode => value.hashCode;
@@ -113,7 +122,11 @@ final class ChunkPayloadData implements Chunk {
     this.payloadType = PayloadProtocolIdentifier.unknown,
     Uint8List? userData,
   }) : userData = userData ?? Uint8List(0),
-       header = ChunkHeader(typ: ChunkType.payloadData, flags: 0, raw: Uint8List(0));
+       header = ChunkHeader(
+         typ: ChunkType.payloadData,
+         flags: 0,
+         raw: Uint8List(0),
+       );
 
   /// Composition standing in for Go's embedded `chunkHeader`.
   ChunkHeader header;
@@ -162,7 +175,9 @@ final class ChunkPayloadData implements Chunk {
     tsn = view.getUint32(0, Endian.big);
     streamIdentifier = view.getUint16(4, Endian.big);
     streamSequenceNumber = view.getUint16(6, Endian.big);
-    payloadType = PayloadProtocolIdentifier.fromValue(view.getUint32(8, Endian.big));
+    payloadType = PayloadProtocolIdentifier.fromValue(
+      view.getUint32(8, Endian.big),
+    );
     userData = Uint8List.sublistView(header.raw, payloadDataHeaderSize);
   }
 

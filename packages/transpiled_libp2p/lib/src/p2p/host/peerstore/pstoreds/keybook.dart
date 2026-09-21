@@ -20,8 +20,9 @@ import '../../../../core/peerstore/peerstore.dart';
 final Key _kbBase = Key('/peers/keys');
 
 /// Loads or persists one peer's key under `[_kbBase]/<peer base32>/[suffix]`.
-Key _peerToKey(PeerId p, String suffix) =>
-    _kbBase.childString(base32.rawStdEncoding.encodeToString(p.value)).childString(suffix);
+Key _peerToKey(PeerId p, String suffix) => _kbBase
+    .childString(base32.rawStdEncoding.encodeToString(p.value))
+    .childString(suffix);
 
 /// A KeyBook backed by a persistent [Datastore]. Equivalent to
 /// go-libp2p's `pstoreds.dsKeyBook`.
@@ -75,7 +76,9 @@ class DsKeyBook implements KeyBook {
       final peerSegment = key.parent.name;
       late final PeerId peerId;
       try {
-        peerId = PeerId.fromBytes(base32.rawStdEncoding.decodeString(peerSegment));
+        peerId = PeerId.fromBytes(
+          base32.rawStdEncoding.decodeString(peerSegment),
+        );
       } catch (_) {
         // Repair records written by the earlier Dart Base58 implementation.
         final PeerId legacyPeer;
@@ -116,7 +119,9 @@ class DsKeyBook implements KeyBook {
     try {
       final extracted = p.extractPublicKey();
       _pubKeys[pKey] = extracted;
-      _enqueue(() => _store.put(_peerToKey(p, 'pub'), marshalPublicKey(extracted)));
+      _enqueue(
+        () => _store.put(_peerToKey(p, 'pub'), marshalPublicKey(extracted)),
+      );
       return extracted;
     } catch (_) {
       return null;
@@ -144,7 +149,9 @@ class DsKeyBook implements KeyBook {
       throw ArgumentError('ID does not match PrivateKey');
     }
     _privKeys[p.toBase58()] = sk;
-    _enqueue(() async => _store.put(_peerToKey(p, 'priv'), marshalPrivateKey(sk)));
+    _enqueue(
+      () async => _store.put(_peerToKey(p, 'priv'), marshalPrivateKey(sk)),
+    );
   }
 
   /// Equivalent to go-libp2p's `dsKeyBook.PeersWithKeys`.

@@ -26,50 +26,72 @@ import 'package:transpiled_multiaddr/transpiled_multiaddr.dart';
 
 void main() {
   group('MdnsService [Atomic Audit]', () {
-    test('start() - two local hosts discover each other over a real multicast socket', () async {
-      final idA = PeerId.decode('12D3KooWCryG7Mon9orvQxcS1rYZjotPgpwoJNHHKcLLfE4Hf5mV');
-      final idB = PeerId.decode('12D3KooWStiM2F2p4k2c6c3H3c2wM7d8Xv5R7n3w4k7K2c6c3H3c');
-      final hostA = _FakeHost(idA, [Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')]);
-      final hostB = _FakeHost(idB, [Multiaddr.parse('/ip4/127.0.0.1/tcp/4002')]);
+    test(
+      'start() - two local hosts discover each other over a real multicast socket',
+      () async {
+        final idA = PeerId.decode(
+          '12D3KooWCryG7Mon9orvQxcS1rYZjotPgpwoJNHHKcLLfE4Hf5mV',
+        );
+        final idB = PeerId.decode(
+          '12D3KooWStiM2F2p4k2c6c3H3c2wM7d8Xv5R7n3w4k7K2c6c3H3c',
+        );
+        final hostA = _FakeHost(idA, [
+          Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+        ]);
+        final hostB = _FakeHost(idB, [
+          Multiaddr.parse('/ip4/127.0.0.1/tcp/4002'),
+        ]);
 
-      // A dedicated service name isolates this test from any real
-      // _p2p._udp traffic already on the test machine (a running Kubo
-      // node, etc.) in both directions.
-      const testServiceName = '_p2p-mdns-atomic-test._udp';
+        // A dedicated service name isolates this test from any real
+        // _p2p._udp traffic already on the test machine (a running Kubo
+        // node, etc.) in both directions.
+        const testServiceName = '_p2p-mdns-atomic-test._udp';
 
-      final foundByA = Completer<AddrInfo>();
-      final foundByB = Completer<AddrInfo>();
+        final foundByA = Completer<AddrInfo>();
+        final foundByB = Completer<AddrInfo>();
 
-      final serviceA = MdnsService(
-        hostA,
-        serviceName: testServiceName,
-        notifee: _RecordingNotifee((info) {
-          if (!foundByA.isCompleted) foundByA.complete(info);
-        }),
-      );
-      final serviceB = MdnsService(
-        hostB,
-        serviceName: testServiceName,
-        notifee: _RecordingNotifee((info) {
-          if (!foundByB.isCompleted) foundByB.complete(info);
-        }),
-      );
+        final serviceA = MdnsService(
+          hostA,
+          serviceName: testServiceName,
+          notifee: _RecordingNotifee((info) {
+            if (!foundByA.isCompleted) foundByA.complete(info);
+          }),
+        );
+        final serviceB = MdnsService(
+          hostB,
+          serviceName: testServiceName,
+          notifee: _RecordingNotifee((info) {
+            if (!foundByB.isCompleted) foundByB.complete(info);
+          }),
+        );
 
-      await serviceA.start();
-      await serviceB.start();
-      addTearDown(() async {
-        await serviceA.close();
-        await serviceB.close();
-      });
+        await serviceA.start();
+        await serviceB.start();
+        addTearDown(() async {
+          await serviceA.close();
+          await serviceB.close();
+        });
 
-      final infoOfAFoundByB = await foundByB.future.timeout(const Duration(seconds: 30));
-      final infoOfBFoundByA = await foundByA.future.timeout(const Duration(seconds: 30));
+        final infoOfAFoundByB = await foundByB.future.timeout(
+          const Duration(seconds: 30),
+        );
+        final infoOfBFoundByA = await foundByA.future.timeout(
+          const Duration(seconds: 30),
+        );
 
-      expect(infoOfAFoundByB.id, idA);
-      expect(infoOfAFoundByB.addrs, contains(Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')));
-      expect(infoOfBFoundByA.id, idB);
-      expect(infoOfBFoundByA.addrs, contains(Multiaddr.parse('/ip4/127.0.0.1/tcp/4002')));
-    }, timeout: const Timeout(Duration(seconds: 45)));
+        expect(infoOfAFoundByB.id, idA);
+        expect(
+          infoOfAFoundByB.addrs,
+          contains(Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')),
+        );
+        expect(infoOfBFoundByA.id, idB);
+        expect(
+          infoOfBFoundByA.addrs,
+          contains(Multiaddr.parse('/ip4/127.0.0.1/tcp/4002')),
+        );
+      },
+      timeout: const Timeout(Duration(seconds: 45)),
+    );
   });
 }
 
@@ -93,7 +115,8 @@ class _FakeNetwork implements Network {
 }
 
 class _FakeHost implements Host {
-  _FakeHost(this.id, List<Multiaddr> interfaceAddrs) : network = _FakeNetwork(interfaceAddrs);
+  _FakeHost(this.id, List<Multiaddr> interfaceAddrs)
+    : network = _FakeNetwork(interfaceAddrs);
 
   @override
   final PeerId id;

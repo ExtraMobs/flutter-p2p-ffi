@@ -8,7 +8,9 @@ import 'package:transpiled_multiaddr/transpiled_multiaddr.dart';
 void main() {
   group('functions - WebTransport [Atomic Audit]', () {
     test('isWebtransportMultiaddr() - validates multiaddresses correctly', () {
-      final valid = Multiaddr.parse('/ip4/127.0.0.1/udp/4001/quic-v1/webtransport');
+      final valid = Multiaddr.parse(
+        '/ip4/127.0.0.1/udp/4001/quic-v1/webtransport',
+      );
       final (ok1, count1) = isWebtransportMultiaddr(valid);
       expect(ok1, isTrue);
       expect(count1, equals(0));
@@ -28,20 +30,23 @@ void main() {
     test('extractCertHashes() - extracts sha256 cert hashes', () {
       final certBytes = Uint8List.fromList(utf8.encode('dummy-test-cert'));
       final comp = addrComponentForCert(certBytes);
-      final addr = Multiaddr.parse('/ip4/127.0.0.1/udp/4001/quic-v1/webtransport').encapsulate(
-        Multiaddr.parse('/certhash/${comp.value}'),
-      );
+      final addr = Multiaddr.parse(
+        '/ip4/127.0.0.1/udp/4001/quic-v1/webtransport',
+      ).encapsulate(Multiaddr.parse('/certhash/${comp.value}'));
       final extracted = extractCertHashes(addr);
       expect(extracted, isNotEmpty);
       expect(extracted.first.length, equals(32));
     });
 
-    test('addrComponentForCert() - creates certhash component from cert bytes', () {
-      final certBytes = Uint8List.fromList(utf8.encode('dummy-test-cert'));
-      final comp = addrComponentForCert(certBytes);
-      expect(comp.protocol.code, equals(Protocols.certhash));
-      expect(comp.value, isNotEmpty);
-    });
+    test(
+      'addrComponentForCert() - creates certhash component from cert bytes',
+      () {
+        final certBytes = Uint8List.fromList(utf8.encode('dummy-test-cert'));
+        final comp = addrComponentForCert(certBytes);
+        expect(comp.protocol.code, equals(Protocols.certhash));
+        expect(comp.value, isNotEmpty);
+      },
+    );
   });
 
   group('WebtransportTransport [Atomic Audit]', () {
@@ -50,7 +55,9 @@ void main() {
       final transport = WebtransportTransport(privKey: key);
 
       expect(
-        transport.canDial(Multiaddr.parse('/ip4/127.0.0.1/udp/4001/quic-v1/webtransport')),
+        transport.canDial(
+          Multiaddr.parse('/ip4/127.0.0.1/udp/4001/quic-v1/webtransport'),
+        ),
         isTrue,
       );
       expect(
@@ -70,7 +77,12 @@ void main() {
 
       expect(
         transport.protocols(),
-        containsAll([Protocols.ip4, Protocols.udp, Protocols.quicV1, Protocols.webtransport]),
+        containsAll([
+          Protocols.ip4,
+          Protocols.udp,
+          Protocols.quicV1,
+          Protocols.webtransport,
+        ]),
       );
       await transport.close();
     });
@@ -87,26 +99,33 @@ void main() {
       final key = await generateEd25519KeyPair();
       final transport = WebtransportTransport(privKey: key);
 
-      final addr = Multiaddr.parse('/ip4/127.0.0.1/udp/4001/quic-v1/webtransport');
+      final addr = Multiaddr.parse(
+        '/ip4/127.0.0.1/udp/4001/quic-v1/webtransport',
+      );
       final resolved = await transport.resolve(addr);
       expect(resolved.toString(), equals(addr.toString()));
       await transport.close();
     });
 
-    test('addCertHashes() - appends certhash component to multiaddress', () async {
-      final key = await generateEd25519KeyPair();
-      final transport = WebtransportTransport(privKey: key);
+    test(
+      'addCertHashes() - appends certhash component to multiaddress',
+      () async {
+        final key = await generateEd25519KeyPair();
+        final transport = WebtransportTransport(privKey: key);
 
-      final baseAddr = Multiaddr.parse('/ip4/127.0.0.1/udp/4001/quic-v1/webtransport');
-      final withCert = transport.addCertHashes(baseAddr);
+        final baseAddr = Multiaddr.parse(
+          '/ip4/127.0.0.1/udp/4001/quic-v1/webtransport',
+        );
+        final withCert = transport.addCertHashes(baseAddr);
 
-      expect(withCert.toString(), contains('/certhash/'));
-      final (ok, count) = isWebtransportMultiaddr(withCert);
-      expect(ok, isTrue);
-      expect(count, equals(1));
+        expect(withCert.toString(), contains('/certhash/'));
+        final (ok, count) = isWebtransportMultiaddr(withCert);
+        expect(ok, isTrue);
+        expect(count, equals(1));
 
-      await transport.close();
-    });
+        await transport.close();
+      },
+    );
 
     test('listen() - binds and advertises multiaddr', () async {
       final key = await generateEd25519KeyPair();
@@ -115,7 +134,10 @@ void main() {
       final listener = await transport.listen(
         Multiaddr.parse('/ip4/127.0.0.1/udp/0/quic-v1/webtransport'),
       );
-      expect(listener.multiaddr().toString(), contains('/quic-v1/webtransport'));
+      expect(
+        listener.multiaddr().toString(),
+        contains('/quic-v1/webtransport'),
+      );
       expect(listener.multiaddr().toString(), contains('/certhash/'));
       await listener.close();
       await transport.close();

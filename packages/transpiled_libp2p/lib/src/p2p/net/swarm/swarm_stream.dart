@@ -14,11 +14,11 @@ class SwarmStream implements NetworkStream {
     required Conn conn,
     required Direction direction,
     ProtocolId protocol = '',
-  })  : _yamuxStream = yamuxStream,
-        _conn = conn,
-        _direction = direction,
-        _protocol = protocol,
-        _opened = DateTime.now();
+  }) : _yamuxStream = yamuxStream,
+       _conn = conn,
+       _direction = direction,
+       _protocol = protocol,
+       _opened = DateTime.now();
 
   final YamuxStream _yamuxStream;
   final Conn _conn;
@@ -41,10 +41,7 @@ class SwarmStream implements NetworkStream {
   }
 
   @override
-  Stats stat() => Stats(
-        direction: _direction,
-        opened: _opened,
-      );
+  Stats stat() => Stats(direction: _direction, opened: _opened);
 
   @override
   Conn conn() => _conn;
@@ -61,7 +58,9 @@ class SwarmStream implements NetworkStream {
   @override
   Future<Uint8List> read([int? maxLength]) {
     final effectiveDeadline = _readDeadline ?? _deadline;
-    final op = _yamuxStream.read(maxLength ?? 65536).then((data) => data ?? Uint8List(0));
+    final op = _yamuxStream
+        .read(maxLength ?? 65536)
+        .then((data) => data ?? Uint8List(0));
     return _applyDeadline(op, effectiveDeadline);
   }
 

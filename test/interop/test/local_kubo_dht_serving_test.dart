@@ -54,10 +54,12 @@ void main() {
 
         // Store a unique test block in the Dart node blockstore
         final testBytes = Uint8List.fromList(
-          'dart-ipfs-dht-serving-block-${DateTime.now().millisecondsSinceEpoch}'.codeUnits,
+          'dart-ipfs-dht-serving-block-${DateTime.now().millisecondsSinceEpoch}'
+              .codeUnits,
         );
         final cid = await node.putRawBlock(testBytes);
-        printOnFailure('Dart ($dartPeerId at $dartSwarmAddr) announcing cid=$cid to DHT');
+        printOnFailure(
+            'Dart ($dartPeerId at $dartSwarmAddr) announcing cid=$cid to DHT');
 
         // Connect Dart node to Kubo in the swarm first
         await node.connect(addrInfoFromString(kubo.swarmAddress));

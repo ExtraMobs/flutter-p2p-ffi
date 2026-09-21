@@ -46,9 +46,10 @@ const String semanticTokenWebRtcMediaStreams = 'WMS';
 const int extMapValueTransportCc = 3;
 
 Map<int, String> _extMapUri() => {
-      extMapValueTransportCc: 'http://www.ietf.org/id/draft-holmer-rmcat-'
-          'transport-wide-cc-extensions-01',
-    };
+  extMapValueTransportCc:
+      'http://www.ietf.org/id/draft-holmer-rmcat-'
+      'transport-wide-cc-extensions-01',
+};
 
 /// JSEP convenience builders for [SessionDescription]. Port of the
 /// `SessionDescription` methods in jsep.go.
@@ -128,8 +129,10 @@ extension MediaDescriptionJsep on MediaDescription {
   /// Adds ICE credentials to this media description. Port of
   /// `MediaDescription.WithICECredentials` (jsep.go:201).
   MediaDescription withIceCredentials(String username, String password) =>
-      withValueAttribute('ice-ufrag', username)
-          .withValueAttribute('ice-pwd', password);
+      withValueAttribute(
+        'ice-ufrag',
+        username,
+      ).withValueAttribute('ice-pwd', password);
 
   /// Adds codec information to this media description. Port of
   /// `MediaDescription.WithCodec` (jsep.go:208).
@@ -160,10 +163,19 @@ extension MediaDescriptionJsep on MediaDescription {
     String streamLabel,
     String label,
   ) =>
-      withValueAttribute('ssrc', '$ssrc cname:$cname') // Deprecated but not phased out?
+      withValueAttribute(
+            'ssrc',
+            '$ssrc cname:$cname',
+          ) // Deprecated but not phased out?
           .withValueAttribute('ssrc', '$ssrc msid:$streamLabel $label')
-          .withValueAttribute('ssrc', '$ssrc mslabel:$streamLabel') // Deprecated but not phased out?
-          .withValueAttribute('ssrc', '$ssrc label:$label'); // Deprecated but not phased out?
+          .withValueAttribute(
+            'ssrc',
+            '$ssrc mslabel:$streamLabel',
+          ) // Deprecated but not phased out?
+          .withValueAttribute(
+            'ssrc',
+            '$ssrc label:$label',
+          ); // Deprecated but not phased out?
 
   /// Adds an ICE candidate to this media description.
   ///

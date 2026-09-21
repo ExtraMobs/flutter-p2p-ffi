@@ -104,7 +104,8 @@ final class PacketRawTooSmallException implements Exception {
   final int minimumLength;
 
   @override
-  String toString() => 'raw is smaller than the minimum length for a SCTP packet: raw only $actualLength bytes, $minimumLength is the minimum length';
+  String toString() =>
+      'raw is smaller than the minimum length for a SCTP packet: raw only $actualLength bytes, $minimumLength is the minimum length';
 }
 
 /// Port of `ErrParseSCTPChunkNotEnoughData` (packet.go:63).
@@ -115,7 +116,8 @@ final class ParseSctpChunkNotEnoughDataException implements Exception {
   final int remaining;
 
   @override
-  String toString() => 'unable to parse SCTP chunk, not enough data for complete header: offset $offset remaining $remaining';
+  String toString() =>
+      'unable to parse SCTP chunk, not enough data for complete header: offset $offset remaining $remaining';
 }
 
 /// Port of `ErrUnmarshalUnknownChunkType` (packet.go:64).
@@ -125,7 +127,8 @@ final class UnmarshalUnknownChunkTypeException implements Exception {
   final ChunkType actual;
 
   @override
-  String toString() => 'failed to unmarshal, contains unknown chunk type: $actual';
+  String toString() =>
+      'failed to unmarshal, contains unknown chunk type: $actual';
 }
 
 /// Port of `ErrChecksumMismatch` (packet.go:65).
@@ -141,8 +144,12 @@ final class ChecksumMismatchException implements Exception {
 
 /// Port of `packet` (packet.go:44-49).
 final class Packet {
-  Packet({this.sourcePort = 0, this.destinationPort = 0, this.verificationTag = 0, List<Chunk>? chunks})
-    : chunks = chunks ?? <Chunk>[];
+  Packet({
+    this.sourcePort = 0,
+    this.destinationPort = 0,
+    this.verificationTag = 0,
+    List<Chunk>? chunks,
+  }) : chunks = chunks ?? <Chunk>[];
 
   /// Port of `packet.sourcePort` (packet.go:45).
   int sourcePort;
@@ -169,11 +176,16 @@ final class Packet {
     // implemented, this depends only on the type of the first chunk.
     if (offset + chunkHeaderSize <= raw.length) {
       final firstType = raw[offset];
-      if (firstType == ChunkType.init.value || firstType == ChunkType.cookieEcho.value) {
+      if (firstType == ChunkType.init.value ||
+          firstType == ChunkType.cookieEcho.value) {
         shouldChecksum = true;
       }
     }
-    final theirChecksum = ByteData.sublistView(raw, 8, 12).getUint32(0, Endian.little);
+    final theirChecksum = ByteData.sublistView(
+      raw,
+      8,
+      12,
+    ).getUint32(0, Endian.little);
     if (theirChecksum != 0 || shouldChecksum) {
       final ourChecksum = generatePacketChecksum(raw);
       if (theirChecksum != ourChecksum) {
@@ -226,7 +238,9 @@ final class Packet {
         case 14:
           dataChunk = ChunkShutdownComplete();
         default:
-          throw UnmarshalUnknownChunkTypeException(ChunkType.fromValue(raw[offset]));
+          throw UnmarshalUnknownChunkTypeException(
+            ChunkType.fromValue(raw[offset]),
+          );
       }
 
       dataChunk.unmarshal(Uint8List.sublistView(raw, offset));
@@ -265,7 +279,11 @@ final class Packet {
       //
       // Use little-endian to avoid flipping the bytes in to the spec
       // compliant checksum order.
-      ByteData.sublistView(raw, 8, 12).setUint32(0, generatePacketChecksum(raw), Endian.little);
+      ByteData.sublistView(
+        raw,
+        8,
+        12,
+      ).setUint32(0, generatePacketChecksum(raw), Endian.little);
     }
 
     return raw;

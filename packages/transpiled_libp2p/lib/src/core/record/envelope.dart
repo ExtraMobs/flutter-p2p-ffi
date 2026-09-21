@@ -175,8 +175,16 @@ class Envelope {
 /// an unsigned varint, then concatenated. Equivalent to go-libp2p's
 /// `makeUnsigned` (Go pools this buffer for performance; Dart leaves that
 /// to the garbage collector, not a behavioral gap).
-Uint8List _makeUnsigned(String domain, Uint8List payloadType, Uint8List payload) {
-  final fields = [Uint8List.fromList(utf8.encode(domain)), payloadType, payload];
+Uint8List _makeUnsigned(
+  String domain,
+  Uint8List payloadType,
+  Uint8List payload,
+) {
+  final fields = [
+    Uint8List.fromList(utf8.encode(domain)),
+    payloadType,
+    payload,
+  ];
   final out = BytesBuilder();
   for (final field in fields) {
     out.add(encodeProtoVarint(field.length));
@@ -213,7 +221,12 @@ Uint8List _encodeEnvelopeProto({
   return out.toBytes();
 }
 
-({PubKey publicKey, Uint8List payloadType, Uint8List payload, Uint8List signature})
+({
+  PubKey publicKey,
+  Uint8List payloadType,
+  Uint8List payload,
+  Uint8List signature,
+})
 _decodeEnvelopeProto(Uint8List bytes) {
   Uint8List? publicKeyBytes;
   Uint8List? payloadType;

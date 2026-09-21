@@ -138,28 +138,28 @@ void main() {
       });
     });
 
+    test('core (outside the ipfs_node/ and builders/ composition root) '
+        'does not reach into higher layers', () {
+      _expectNoImportsFrom(
+        'lib/src/core (excluding the composition root)',
+        'lib/src/core',
+        {'network', 'protocols', 'routing', 'services', 'transport'},
+        exclude: (path) =>
+            path.contains('/core/ipfs_node/') ||
+            path.contains('/core/builders/'),
+      );
+    });
+
     test(
-      'core (outside the ipfs_node/ and builders/ composition root) '
-      'does not reach into higher layers',
+      'transport does not depend on the protocol/routing/service layers',
       () {
-        _expectNoImportsFrom(
-          'lib/src/core (excluding the composition root)',
-          'lib/src/core',
-          {'network', 'protocols', 'routing', 'services', 'transport'},
-          exclude: (path) =>
-              path.contains('/core/ipfs_node/') ||
-              path.contains('/core/builders/'),
-        );
+        _expectNoImportsFrom('lib/src/transport', 'lib/src/transport', {
+          'protocols',
+          'routing',
+          'services',
+        });
       },
     );
-
-    test('transport does not depend on the protocol/routing/service layers', () {
-      _expectNoImportsFrom('lib/src/transport', 'lib/src/transport', {
-        'protocols',
-        'routing',
-        'services',
-      });
-    });
 
     test('network does not depend on the protocol/routing/service layers', () {
       _expectNoImportsFrom('lib/src/network', 'lib/src/network', {
@@ -171,58 +171,55 @@ void main() {
   });
 
   group('architecture boundaries (protocol layer, Phase 3)', () {
-    test(
-      'protocols/* only cross-import each other via the documented pairs '
-      '(graphsync->bitswap, ipns->dht)',
-      () {
-        // protocol subdirectory -> the other protocols/<x>/ it may import.
-        // Anything not listed here must not import from any other
-        // protocols/<x>/ at all.
-        const allowed = {
-          'graphsync': {'bitswap'},
-          'ipns': {'dht'},
-        };
+    test('protocols/* only cross-import each other via the documented pairs '
+        '(graphsync->bitswap, ipns->dht)', () {
+      // protocol subdirectory -> the other protocols/<x>/ it may import.
+      // Anything not listed here must not import from any other
+      // protocols/<x>/ at all.
+      const allowed = {
+        'graphsync': {'bitswap'},
+        'ipns': {'dht'},
+      };
 
-        final violations = <String>[];
-        for (final entry in Directory('lib/src/protocols').listSync()) {
-          if (entry is! Directory) continue;
-          final protocol = _forwardSlashes(entry.path).split('/').last;
-          final files = entry
-              .listSync(recursive: true)
-              .whereType<File>()
-              .where((f) => f.path.endsWith('.dart'));
+      final violations = <String>[];
+      for (final entry in Directory('lib/src/protocols').listSync()) {
+        if (entry is! Directory) continue;
+        final protocol = _forwardSlashes(entry.path).split('/').last;
+        final files = entry
+            .listSync(recursive: true)
+            .whereType<File>()
+            .where((f) => f.path.endsWith('.dart'));
 
-          for (final file in files) {
-            final path = _forwardSlashes(file.path);
-            final fileDir = _forwardSlashes(file.parent.path);
-            final content = file.readAsStringSync();
-            for (final match in _importPattern.allMatches(content)) {
-              final resolved = _resolveToLibSrcPath(match.group(1)!, fileDir);
-              if (resolved == null) continue;
-              final segments = resolved.split('/');
-              final protocolsIdx = segments.indexOf('protocols');
-              if (protocolsIdx == -1 || protocolsIdx + 1 >= segments.length) {
-                continue;
-              }
-              final targetProtocol = segments[protocolsIdx + 1];
-              if (targetProtocol == protocol) continue; // importing itself
-              if (!targetProtocol.endsWith('.dart') &&
-                  !(allowed[protocol]?.contains(targetProtocol) ?? false)) {
-                violations.add(
-                  '$path -> protocols/$targetProtocol/ (${match.group(1)})',
-                );
-              }
+        for (final file in files) {
+          final path = _forwardSlashes(file.path);
+          final fileDir = _forwardSlashes(file.parent.path);
+          final content = file.readAsStringSync();
+          for (final match in _importPattern.allMatches(content)) {
+            final resolved = _resolveToLibSrcPath(match.group(1)!, fileDir);
+            if (resolved == null) continue;
+            final segments = resolved.split('/');
+            final protocolsIdx = segments.indexOf('protocols');
+            if (protocolsIdx == -1 || protocolsIdx + 1 >= segments.length) {
+              continue;
+            }
+            final targetProtocol = segments[protocolsIdx + 1];
+            if (targetProtocol == protocol) continue; // importing itself
+            if (!targetProtocol.endsWith('.dart') &&
+                !(allowed[protocol]?.contains(targetProtocol) ?? false)) {
+              violations.add(
+                '$path -> protocols/$targetProtocol/ (${match.group(1)})',
+              );
             }
           }
         }
-        expect(
-          violations,
-          isEmpty,
-          reason:
-              'Unexpected cross-protocol import (only graphsync->bitswap and '
-              'ipns->dht are documented as intentional):\n${violations.join("\n")}',
-        );
-      },
-    );
+      }
+      expect(
+        violations,
+        isEmpty,
+        reason:
+            'Unexpected cross-protocol import (only graphsync->bitswap and '
+            'ipns->dht are documented as intentional):\n${violations.join("\n")}',
+      );
+    });
   });
 }

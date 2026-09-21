@@ -45,8 +45,11 @@ final class UnknownAttributes implements Setter, Getter {
     final v = Uint8List(_attrTypeSize * types.length);
     for (var i = 0; i < types.length; i++) {
       final first = _attrTypeSize * i;
-      ByteData.sublistView(v, first, first + _attrTypeSize)
-          .setUint16(0, types[i].value, Endian.big);
+      ByteData.sublistView(
+        v,
+        first,
+        first + _attrTypeSize,
+      ).setUint16(0, types[i].value, Endian.big);
     }
     m.add(AttrType.unknownAttributes, v);
   }

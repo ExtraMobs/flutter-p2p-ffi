@@ -24,7 +24,10 @@ const String peerRecordEnvelopeDomain = 'libp2p-peer-record';
 /// The type hint identifying a PeerRecord's payload inside an [Envelope]
 /// (the multicodec `libp2p-peer-record`, table code `0x0301`). Equivalent
 /// to go-libp2p's `PeerRecordEnvelopePayloadType`.
-final Uint8List peerRecordEnvelopePayloadType = Uint8List.fromList([0x03, 0x01]);
+final Uint8List peerRecordEnvelopePayloadType = Uint8List.fromList([
+  0x03,
+  0x01,
+]);
 
 /// Shares a peer's public listen addresses, ordered in time by [seq].
 /// Equivalent to go-libp2p core/peer's `PeerRecord`.
@@ -166,7 +169,9 @@ void _ensurePeerRecordTypeRegistered() {
         final (length, lenLen) = readProtoVarint(bytes, offset);
         offset += lenLen;
         if (offset + length > bytes.length) {
-          throw const FormatException('protobuf field runs past end of message');
+          throw const FormatException(
+            'protobuf field runs past end of message',
+          );
         }
         final fieldBytes = bytes.sublist(offset, offset + length);
         offset += length;

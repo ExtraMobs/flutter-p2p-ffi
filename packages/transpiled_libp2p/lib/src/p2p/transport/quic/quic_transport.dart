@@ -38,10 +38,13 @@ const int listenOrder = 1;
       host = c.value;
     } else if (c.protocol.code == Protocols.udp) {
       port = int.tryParse(c.value);
-    } else if (c.protocol.code == Protocols.quicV1 || c.protocol.name == 'quic-v1') {
+    } else if (c.protocol.code == Protocols.quicV1 ||
+        c.protocol.name == 'quic-v1') {
       hasQuicV1 = true;
-    } else if (c.protocol.code == Protocols.webtransport || c.protocol.name == 'webtransport' ||
-        c.protocol.code == Protocols.certhash || c.protocol.name == 'certhash') {
+    } else if (c.protocol.code == Protocols.webtransport ||
+        c.protocol.name == 'webtransport' ||
+        c.protocol.code == Protocols.certhash ||
+        c.protocol.name == 'certhash') {
       return null;
     }
   }
@@ -58,8 +61,8 @@ class QuicTransport implements Transport {
     this.rcmgr = const NullResourceManager(),
     this.gater,
     Identity? identity,
-  })  : localPeer = PeerId.fromPubKey(privKey.getPublic()),
-        identity = identity ?? Identity(privKey: privKey);
+  }) : localPeer = PeerId.fromPubKey(privKey.getPublic()),
+       identity = identity ?? Identity(privKey: privKey);
 
   final PrivKey privKey;
   final PeerId localPeer;
@@ -74,11 +77,11 @@ class QuicTransport implements Transport {
 
   @override
   List<int> protocols() => const [
-        Protocols.ip4,
-        Protocols.ip6,
-        Protocols.udp,
-        Protocols.quicV1,
-      ];
+    Protocols.ip4,
+    Protocols.ip6,
+    Protocols.udp,
+    Protocols.quicV1,
+  ];
 
   @override
   bool proxy() => false;
@@ -117,7 +120,8 @@ class QuicTransport implements Transport {
     }
 
     final (host, port) = endpoint;
-    final remoteAddress = InternetAddress.tryParse(host) ??
+    final remoteAddress =
+        InternetAddress.tryParse(host) ??
         (await InternetAddress.lookup(host)).first;
 
     final clientBindAddr = remoteAddress.isLoopback
@@ -125,7 +129,9 @@ class QuicTransport implements Transport {
         : InternetAddress.anyIPv4;
     final clientSocket = await RawDatagramSocket.bind(clientBindAddr, 0);
     final localPort = clientSocket.port;
-    final localAddr = Multiaddr.parse('/ip4/${clientSocket.address.address}/udp/$localPort/quic-v1');
+    final localAddr = Multiaddr.parse(
+      '/ip4/${clientSocket.address.address}/udp/$localPort/quic-v1',
+    );
 
     final handshakeCompleter = Completer<Uint8List>();
 
@@ -200,13 +206,19 @@ class QuicTransport implements Transport {
     // Extract server certificate & verify peer ID
     final (certLen, n2) = parseVarInt(serverResp, cursor);
     cursor += n2;
-    final serverCertDer = Uint8List.sublistView(serverResp, cursor, cursor + certLen);
+    final serverCertDer = Uint8List.sublistView(
+      serverResp,
+      cursor,
+      cursor + certLen,
+    );
     final remotePubKey = await pubKeyFromCertChain([serverCertDer]);
     final authenticatedPeer = PeerId.fromPubKey(remotePubKey);
 
     if (peer.value.isNotEmpty && authenticatedPeer != peer) {
       await conn.close();
-      throw StateError('Authenticated peer ID mismatch: expected $peer, got $authenticatedPeer');
+      throw StateError(
+        'Authenticated peer ID mismatch: expected $peer, got $authenticatedPeer',
+      );
     }
 
     conn._setAuthenticatedRemote(authenticatedPeer, remotePubKey);
@@ -274,7 +286,11 @@ class _QuicListener implements Listener {
           var cursor = 1;
           final (frameLen, n1) = parseVarInt(data, cursor);
           cursor += n1;
-          final clientCryptoBytes = Uint8List.sublistView(data, cursor, cursor + frameLen);
+          final clientCryptoBytes = Uint8List.sublistView(
+            data,
+            cursor,
+            cursor + frameLen,
+          );
           final parsed = parseFrame(clientCryptoBytes);
           if (parsed is! CryptoFrame) return;
 
@@ -301,8 +317,12 @@ class _QuicListener implements Listener {
 
           socket.send(resp.toBytes(), dg.address, dg.port);
 
-          final clientRemoteMultiaddr = Multiaddr.parse('/ip4/${dg.address.address}/udp/${dg.port}/quic-v1');
-          final localMultiaddr = Multiaddr.parse('/ip4/${socket.address.address}/udp/${socket.port}/quic-v1');
+          final clientRemoteMultiaddr = Multiaddr.parse(
+            '/ip4/${dg.address.address}/udp/${dg.port}/quic-v1',
+          );
+          final localMultiaddr = Multiaddr.parse(
+            '/ip4/${socket.address.address}/udp/${socket.port}/quic-v1',
+          );
 
           final conn = _QuicConn(
             transport: transport,
@@ -310,7 +330,9 @@ class _QuicListener implements Listener {
             remoteAddress: dg.address,
             remotePort: dg.port,
             localPeer: localPeer,
-            remotePeer: PeerId(value: Uint8List.fromList(dg.address.rawAddress)),
+            remotePeer: PeerId(
+              value: Uint8List.fromList(dg.address.rawAddress),
+            ),
             remotePubKey: unmarshalEd25519PublicKey(Uint8List(32)),
             localMultiaddr: localMultiaddr,
             remoteMultiaddr: clientRemoteMultiaddr,
@@ -370,7 +392,9 @@ class _QuicListener implements Listener {
 
   @override
   Multiaddr multiaddr() {
-    return Multiaddr.parse('/ip4/${socket.address.address}/udp/${socket.port}/quic-v1');
+    return Multiaddr.parse(
+      '/ip4/${socket.address.address}/udp/${socket.port}/quic-v1',
+    );
   }
 }
 
@@ -388,17 +412,17 @@ class _QuicConn implements CapableConn {
     required bool isInitiator,
     this.ownsSocket = true,
     this.onHandshakeResponse,
-  })  : _transport = transport,
-        _socket = socket,
-        _remoteAddress = remoteAddress,
-        _remotePort = remotePort,
-        _localPeer = localPeer,
-        _remotePeer = remotePeer,
-        _remotePubKey = remotePubKey,
-        _localMultiaddr = localMultiaddr,
-        _remoteMultiaddr = remoteMultiaddr,
-        _opened = DateTime.now(),
-        _nextStreamId = isInitiator ? 0 : 1 {
+  }) : _transport = transport,
+       _socket = socket,
+       _remoteAddress = remoteAddress,
+       _remotePort = remotePort,
+       _localPeer = localPeer,
+       _remotePeer = remotePeer,
+       _remotePubKey = remotePubKey,
+       _localMultiaddr = localMultiaddr,
+       _remoteMultiaddr = remoteMultiaddr,
+       _opened = DateTime.now(),
+       _nextStreamId = isInitiator ? 0 : 1 {
     if (ownsSocket) {
       _subscription = _socket.listen(_onDatagram);
     }
@@ -453,7 +477,11 @@ class _QuicConn implements CapableConn {
         final (frameLen, n) = parseVarInt(bytes, cursor);
         cursor += n;
         if (cursor + frameLen > bytes.length) break;
-        final frameBytes = Uint8List.sublistView(bytes, cursor, cursor + frameLen);
+        final frameBytes = Uint8List.sublistView(
+          bytes,
+          cursor,
+          cursor + frameLen,
+        );
         cursor += frameLen;
 
         final frame = parseFrame(frameBytes);
@@ -510,17 +538,17 @@ class _QuicConn implements CapableConn {
 
   @override
   ConnectionState connState() => const ConnectionState(
-        streamMultiplexer: 'quic',
-        security: tlsProtocolId,
-        transport: 'quic-v1',
-      );
+    streamMultiplexer: 'quic',
+    security: tlsProtocolId,
+    transport: 'quic-v1',
+  );
 
   @override
   ConnStats stat() => ConnStats(
-        direction: Direction.outbound,
-        opened: _opened,
-        numStreams: _activeStreams.length,
-      );
+    direction: Direction.outbound,
+    opened: _opened,
+    numStreams: _activeStreams.length,
+  );
 
   @override
   ConnScope scope() => const NullScope();
@@ -532,7 +560,14 @@ class _QuicConn implements CapableConn {
     _nextStreamId += 4;
     final stream = _QuicStream(conn: this, id: streamId);
     _activeStreams[streamId] = stream;
-    _sendStreamFrame(StreamFrame(streamId: streamId, offset: 0, data: Uint8List(0), fin: false));
+    _sendStreamFrame(
+      StreamFrame(
+        streamId: streamId,
+        offset: 0,
+        data: Uint8List(0),
+        fin: false,
+      ),
+    );
     return stream;
   }
 
@@ -568,9 +603,9 @@ class _QuicConn implements CapableConn {
 
 class _QuicStream implements NetworkStream {
   _QuicStream({required _QuicConn conn, required int id})
-      : _conn = conn,
-        _id = id,
-        _opened = DateTime.now();
+    : _conn = conn,
+      _id = id,
+      _opened = DateTime.now();
 
   final _QuicConn _conn;
   final int _id;
@@ -613,10 +648,7 @@ class _QuicStream implements NetworkStream {
   StreamScope scope() => const NullScope();
 
   @override
-  Stats stat() => Stats(
-        direction: Direction.outbound,
-        opened: _opened,
-      );
+  Stats stat() => Stats(direction: Direction.outbound, opened: _opened);
 
   @override
   bool get isClosed => _closed;

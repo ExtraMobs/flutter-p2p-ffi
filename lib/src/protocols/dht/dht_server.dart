@@ -5,7 +5,8 @@ import 'package:transpiled_libp2p/transpiled_libp2p.dart';
 import 'package:transpiled_libp2p_kbucket/transpiled_libp2p_kbucket.dart';
 
 import '../../network/libp2p_host.dart';
-import '../../routing/dht_provider_finder.dart' show dhtProtocol, lanDhtProtocol;
+import '../../routing/dht_provider_finder.dart'
+    show dhtProtocol, lanDhtProtocol;
 import 'dht_message.dart';
 import 'dht_provider_manager.dart';
 

@@ -24,12 +24,18 @@ final class ChunkTypeNotCookieAckException implements Exception {
   final ChunkType actual;
 
   @override
-  String toString() => 'ChunkType is not of type COOKIEACK: actually is $actual';
+  String toString() =>
+      'ChunkType is not of type COOKIEACK: actually is $actual';
 }
 
 /// Port of `chunkCookieAck` (chunk_cookie_ack.go:16-18).
 final class ChunkCookieAck implements Chunk {
-  ChunkCookieAck() : header = ChunkHeader(typ: ChunkType.cookieAck, flags: 0, raw: Uint8List(0));
+  ChunkCookieAck()
+    : header = ChunkHeader(
+        typ: ChunkType.cookieAck,
+        flags: 0,
+        raw: Uint8List(0),
+      );
 
   /// Composition standing in for Go's embedded `chunkHeader`.
   ChunkHeader header;

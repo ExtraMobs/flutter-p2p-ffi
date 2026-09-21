@@ -23,7 +23,8 @@ void main() {
 
   const expHasFalseMsg = 'Expected PeerHasBlock to return false';
   const expHasTrueMsg = 'Expected PeerHasBlock to return true';
-  const expDoesNotHaveFalseMsg = 'Expected PeerDoesNotHaveBlock to return false';
+  const expDoesNotHaveFalseMsg =
+      'Expected PeerDoesNotHaveBlock to return false';
   const expDoesNotHaveTrueMsg = 'Expected PeerDoesNotHaveBlock to return true';
 
   test('TestBlockPresenceManager', () {
@@ -36,29 +37,49 @@ void main() {
     // Nothing stored yet, both PeerHasBlock and PeerDoesNotHaveBlock should
     // return false
     expect(bpm.peerHasBlock(p, c0), isFalse, reason: expHasFalseMsg);
-    expect(bpm.peerDoesNotHaveBlock(p, c0), isFalse, reason: expDoesNotHaveFalseMsg);
+    expect(
+      bpm.peerDoesNotHaveBlock(p, c0),
+      isFalse,
+      reason: expDoesNotHaveFalseMsg,
+    );
 
     // HAVE cid0 / DONT_HAVE cid1
     bpm.receiveFrom(p, [c0], [c1]);
 
     // Peer has received HAVE for cid0
     expect(bpm.peerHasBlock(p, c0), isTrue, reason: expHasTrueMsg);
-    expect(bpm.peerDoesNotHaveBlock(p, c0), isFalse, reason: expDoesNotHaveFalseMsg);
+    expect(
+      bpm.peerDoesNotHaveBlock(p, c0),
+      isFalse,
+      reason: expDoesNotHaveFalseMsg,
+    );
 
     // Peer has received DONT_HAVE for cid1
-    expect(bpm.peerDoesNotHaveBlock(p, c1), isTrue, reason: expDoesNotHaveTrueMsg);
+    expect(
+      bpm.peerDoesNotHaveBlock(p, c1),
+      isTrue,
+      reason: expDoesNotHaveTrueMsg,
+    );
     expect(bpm.peerHasBlock(p, c1), isFalse, reason: expHasFalseMsg);
 
     // HAVE cid1 / DONT_HAVE cid0
     bpm.receiveFrom(p, [c1], [c0]);
 
     // DONT_HAVE cid0 should NOT over-write earlier HAVE cid0
-    expect(bpm.peerDoesNotHaveBlock(p, c0), isFalse, reason: expDoesNotHaveFalseMsg);
+    expect(
+      bpm.peerDoesNotHaveBlock(p, c0),
+      isFalse,
+      reason: expDoesNotHaveFalseMsg,
+    );
     expect(bpm.peerHasBlock(p, c0), isTrue, reason: expHasTrueMsg);
 
     // HAVE cid1 should over-write earlier DONT_HAVE cid1
     expect(bpm.peerHasBlock(p, c1), isTrue, reason: expHasTrueMsg);
-    expect(bpm.peerDoesNotHaveBlock(p, c1), isFalse, reason: expDoesNotHaveFalseMsg);
+    expect(
+      bpm.peerDoesNotHaveBlock(p, c1),
+      isFalse,
+      reason: expDoesNotHaveFalseMsg,
+    );
 
     // Remove cid0
     bpm.removeKeys([c0]);
@@ -66,7 +87,11 @@ void main() {
     // Nothing stored, both PeerHasBlock and PeerDoesNotHaveBlock should
     // return false
     expect(bpm.peerHasBlock(p, c0), isFalse, reason: expHasFalseMsg);
-    expect(bpm.peerDoesNotHaveBlock(p, c0), isFalse, reason: expDoesNotHaveFalseMsg);
+    expect(
+      bpm.peerDoesNotHaveBlock(p, c0),
+      isFalse,
+      reason: expDoesNotHaveFalseMsg,
+    );
 
     // Remove cid1
     bpm.removeKeys([c1]);
@@ -74,17 +99,33 @@ void main() {
     // Nothing stored, both PeerHasBlock and PeerDoesNotHaveBlock should
     // return false
     expect(bpm.peerHasBlock(p, c1), isFalse, reason: expHasFalseMsg);
-    expect(bpm.peerDoesNotHaveBlock(p, c1), isFalse, reason: expDoesNotHaveFalseMsg);
+    expect(
+      bpm.peerDoesNotHaveBlock(p, c1),
+      isFalse,
+      reason: expDoesNotHaveFalseMsg,
+    );
 
     bpm.receiveFrom(p, [c0], [c1]);
     expect(bpm.peerHasBlock(p, c0), isTrue, reason: expHasTrueMsg);
-    expect(bpm.peerDoesNotHaveBlock(p, c1), isTrue, reason: expDoesNotHaveTrueMsg);
+    expect(
+      bpm.peerDoesNotHaveBlock(p, c1),
+      isTrue,
+      reason: expDoesNotHaveTrueMsg,
+    );
 
     bpm.removePeer(p);
     expect(bpm.peerHasBlock(p, c0), isFalse, reason: expHasFalseMsg);
-    expect(bpm.peerDoesNotHaveBlock(p, c0), isFalse, reason: expDoesNotHaveFalseMsg);
+    expect(
+      bpm.peerDoesNotHaveBlock(p, c0),
+      isFalse,
+      reason: expDoesNotHaveFalseMsg,
+    );
     expect(bpm.peerHasBlock(p, c1), isFalse, reason: expHasFalseMsg);
-    expect(bpm.peerDoesNotHaveBlock(p, c1), isFalse, reason: expDoesNotHaveFalseMsg);
+    expect(
+      bpm.peerDoesNotHaveBlock(p, c1),
+      isFalse,
+      reason: expDoesNotHaveFalseMsg,
+    );
   });
 
   test('TestAddRemoveMulti', () {
@@ -107,7 +148,11 @@ void main() {
     // - DONT_HAVE cid2
     expect(bpm.peerHasBlock(p0, c0), isTrue, reason: expHasTrueMsg);
     expect(bpm.peerHasBlock(p0, c1), isTrue, reason: expHasTrueMsg);
-    expect(bpm.peerDoesNotHaveBlock(p0, c2), isTrue, reason: expDoesNotHaveTrueMsg);
+    expect(
+      bpm.peerDoesNotHaveBlock(p0, c2),
+      isTrue,
+      reason: expDoesNotHaveTrueMsg,
+    );
 
     // Peer 1 should end up with
     // - HAVE cid1
@@ -115,25 +160,49 @@ void main() {
     // - DONT_HAVE cid0
     expect(bpm.peerHasBlock(p1, c1), isTrue, reason: expHasTrueMsg);
     expect(bpm.peerHasBlock(p1, c2), isTrue, reason: expHasTrueMsg);
-    expect(bpm.peerDoesNotHaveBlock(p1, c0), isTrue, reason: expDoesNotHaveTrueMsg);
+    expect(
+      bpm.peerDoesNotHaveBlock(p1, c0),
+      isTrue,
+      reason: expDoesNotHaveTrueMsg,
+    );
 
     // Remove cid1 and cid2. Should end up with
     // Peer 0: HAVE cid0
     // Peer 1: DONT_HAVE cid0
     bpm.removeKeys([c1, c2]);
     expect(bpm.peerHasBlock(p0, c0), isTrue, reason: expHasTrueMsg);
-    expect(bpm.peerDoesNotHaveBlock(p1, c0), isTrue, reason: expDoesNotHaveTrueMsg);
+    expect(
+      bpm.peerDoesNotHaveBlock(p1, c0),
+      isTrue,
+      reason: expDoesNotHaveTrueMsg,
+    );
 
     // The other keys should have been cleared, so both HasBlock() and
     // DoesNotHaveBlock() should return false
     expect(bpm.peerHasBlock(p0, c1), isFalse, reason: expHasFalseMsg);
-    expect(bpm.peerDoesNotHaveBlock(p0, c1), isFalse, reason: expDoesNotHaveFalseMsg);
+    expect(
+      bpm.peerDoesNotHaveBlock(p0, c1),
+      isFalse,
+      reason: expDoesNotHaveFalseMsg,
+    );
     expect(bpm.peerHasBlock(p0, c2), isFalse, reason: expHasFalseMsg);
-    expect(bpm.peerDoesNotHaveBlock(p0, c2), isFalse, reason: expDoesNotHaveFalseMsg);
+    expect(
+      bpm.peerDoesNotHaveBlock(p0, c2),
+      isFalse,
+      reason: expDoesNotHaveFalseMsg,
+    );
     expect(bpm.peerHasBlock(p1, c1), isFalse, reason: expHasFalseMsg);
-    expect(bpm.peerDoesNotHaveBlock(p1, c1), isFalse, reason: expDoesNotHaveFalseMsg);
+    expect(
+      bpm.peerDoesNotHaveBlock(p1, c1),
+      isFalse,
+      reason: expDoesNotHaveFalseMsg,
+    );
     expect(bpm.peerHasBlock(p1, c2), isFalse, reason: expHasFalseMsg);
-    expect(bpm.peerDoesNotHaveBlock(p1, c2), isFalse, reason: expDoesNotHaveFalseMsg);
+    expect(
+      bpm.peerDoesNotHaveBlock(p1, c2),
+      isFalse,
+      reason: expDoesNotHaveFalseMsg,
+    );
   });
 
   test('TestAllPeersDoNotHaveBlock', () {
@@ -155,10 +224,18 @@ void main() {
     bpm.receiveFrom(p1, [c1], [c0]);
     bpm.receiveFrom(p2, [c0, c1], [c2]);
 
-    void runTestCase(List<PeerId> peers, List<Cid> ks, List<Cid> exp, int testIdx) {
+    void runTestCase(
+      List<PeerId> peers,
+      List<Cid> ks,
+      List<Cid> exp,
+      int testIdx,
+    ) {
       final res = bpm.allPeersDoNotHaveBlock(peers, ks);
-      expect(res.map((e) => e.toString()), unorderedEquals(exp.map((e) => e.toString())), 
-          reason: 'test case \$testIdx failed: expected matching keys');
+      expect(
+        res.map((e) => e.toString()),
+        unorderedEquals(exp.map((e) => e.toString())),
+        reason: 'test case \$testIdx failed: expected matching keys',
+      );
     }
 
     runTestCase([p0], [c0], [], 0);

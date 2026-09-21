@@ -19,11 +19,9 @@ const Duration routedAddressTtl = Duration(seconds: 10);
 /// RoutedHost is a p2p [Host] that includes a routing system to discover
 /// peer addresses dynamically when dialing.
 class RoutedHost implements Host {
-  RoutedHost({
-    required Host host,
-    required PeerRouting route,
-  })  : _host = host,
-        _route = route;
+  RoutedHost({required Host host, required PeerRouting route})
+    : _host = host,
+      _route = route;
 
   final Host _host;
   final PeerRouting _route;
@@ -82,7 +80,10 @@ class RoutedHost implements Host {
       }
     }
 
-    await _host.connect(AddrInfo(id: pi.id, addrs: addrs), context: context);
+    await _host.connect(
+      AddrInfo(id: pi.id, addrs: addrs),
+      context: context,
+    );
   }
 
   @override
@@ -94,8 +95,7 @@ class RoutedHost implements Host {
     ProtocolId pid,
     bool Function(ProtocolId) match,
     StreamHandler handler,
-  ) =>
-      _host.setStreamHandlerMatch(pid, match, handler);
+  ) => _host.setStreamHandlerMatch(pid, match, handler);
 
   @override
   void removeStreamHandler(ProtocolId pid) => _host.removeStreamHandler(pid);

@@ -147,7 +147,8 @@ final class RecordHeaderException implements Exception {
   /// Builds a header validation failure. [recordHeader] is padded/truncated
   /// to exactly [recordHeaderLen] bytes, mirroring `copy(err.RecordHeader[:], ...)`
   /// (`conn.go:584`) with a source shorter than the fixed `[5]byte` array.
-  RecordHeaderException(this.message, Uint8List rawHeader) : recordHeader = _headerOrPartial(rawHeader);
+  RecordHeaderException(this.message, Uint8List rawHeader)
+    : recordHeader = _headerOrPartial(rawHeader);
 
   /// Port of `RecordHeaderError.Msg` (`conn.go:568`).
   final String message;
@@ -173,7 +174,8 @@ Uint8List _headerOrPartial(Uint8List record) {
 /// mirrors the existing convention in `handshake_messages.dart`'s
 /// `_Reader` (parsing an already-fixed-width field does not carry the
 /// truncation-on-write risk `Golang.UintN` guards against).
-Uint8List _beUint8(int value) => Uint8List.fromList([Golang.Uint8(value).toLittleEndianBytes()[0]]);
+Uint8List _beUint8(int value) =>
+    Uint8List.fromList([Golang.Uint8(value).toLittleEndianBytes()[0]]);
 
 Uint8List _beUint16(int value) {
   final le = Golang.Uint16(value).toLittleEndianBytes();
@@ -299,7 +301,9 @@ final class HalfConn {
   /// `record[3]`/`record[4]` rewrite. Returns the full wire record.
   Uint8List encrypt(Uint8List header, Uint8List payload) {
     if (header.length != recordHeaderLen) {
-      throw ArgumentError('tls: internal error: header must be exactly $recordHeaderLen bytes');
+      throw ArgumentError(
+        'tls: internal error: header must be exactly $recordHeaderLen bytes',
+      );
     }
     final c = cipher;
     if (c == null) {
@@ -330,13 +334,18 @@ final class HalfConn {
 /// change_cipher_spec branch -- see file header. Returns each fragment as a
 /// ready-to-send wire record, in order; writing them to the transport is
 /// left to the caller (no `net.Conn` in scope).
-List<Uint8List> writeTls13Records(HalfConn out, int type, Uint8List data, {int version = versionTls13}) {
+List<Uint8List> writeTls13Records(
+  HalfConn out,
+  int type,
+  Uint8List data, {
+  int version = versionTls13,
+}) {
   // Port of conn.go:1016-1027's version-byte selection.
   final headerVersion = version == 0
       ? versionTls10
       : version == versionTls13
-          ? versionTls12
-          : version;
+      ? versionTls12
+      : version;
 
   final records = <Uint8List>[];
   var remaining = data;
@@ -371,7 +380,10 @@ List<Uint8List> writeTls13Records(HalfConn out, int type, Uint8List data, {int v
   required int? expectedVersion,
 }) {
   if (record.length < recordHeaderLen) {
-    throw RecordHeaderException('internal error: record shorter than header', _headerOrPartial(record));
+    throw RecordHeaderException(
+      'internal error: record shorter than header',
+      _headerOrPartial(record),
+    );
   }
   final typ = record[0];
   final vers = (record[1] << 8) | record[2];
@@ -382,16 +394,25 @@ List<Uint8List> writeTls13Records(HalfConn out, int type, Uint8List data, {int v
     // Port of conn.go:642-649: an SSLv2 handshake starts with a uint16
     // length whose MSB is set (typ byte reads as 0x80).
     if (typ == 0x80) {
-      throw RecordHeaderException('unsupported SSLv2 handshake received', headerBytes);
+      throw RecordHeaderException(
+        'unsupported SSLv2 handshake received',
+        headerBytes,
+      );
     }
     // Port of conn.go:664-672.
-    if ((typ != recordTypeAlert && typ != recordTypeHandshake) || vers >= 0x1000) {
-      throw RecordHeaderException('first record does not look like a TLS handshake', headerBytes);
+    if ((typ != recordTypeAlert && typ != recordTypeHandshake) ||
+        vers >= 0x1000) {
+      throw RecordHeaderException(
+        'first record does not look like a TLS handshake',
+        headerBytes,
+      );
     }
   } else {
     // Port of conn.go:652-663: TLS 1.3 froze the record layer version to
     // 1.2 (RFC 8446 Section 5.1).
-    final effectiveExpected = expectedVersion == versionTls13 ? versionTls12 : expectedVersion;
+    final effectiveExpected = expectedVersion == versionTls13
+        ? versionTls12
+        : expectedVersion;
     if (vers != effectiveExpected) {
       throw RecordHeaderException(
         'received record with version ${vers.toRadixString(16)} '
@@ -406,10 +427,14 @@ List<Uint8List> writeTls13Records(HalfConn out, int type, Uint8List data, {int v
     throw const AlertException(alertRecordOverflow);
   }
   if (record.length < recordHeaderLen + n) {
-    throw RecordHeaderException('internal error: record buffer shorter than header-declared length', headerBytes);
+    throw RecordHeaderException(
+      'internal error: record buffer shorter than header-declared length',
+      headerBytes,
+    );
   }
-  final frame =
-      record.length == recordHeaderLen + n ? record : Uint8List.sublistView(record, 0, recordHeaderLen + n);
+  final frame = record.length == recordHeaderLen + n
+      ? record
+      : Uint8List.sublistView(record, 0, recordHeaderLen + n);
 
   final decrypted = inHalfConn.decrypt(frame);
 
@@ -418,13 +443,15 @@ List<Uint8List> writeTls13Records(HalfConn out, int type, Uint8List data, {int v
     throw const AlertException(alertRecordOverflow);
   }
   // Port of conn.go:696-698: application data is always protected.
-  if (inHalfConn.cipher == null && decrypted.recordType == recordTypeApplicationData) {
+  if (inHalfConn.cipher == null &&
+      decrypted.recordType == recordTypeApplicationData) {
     throw const AlertException(alertUnexpectedMessage);
   }
   // Port of conn.go:717-720's wire-shape check (semantic interpretation --
   // level, close_notify-as-EOF, retry -- is connection-loop policy, out of
   // scope; see file header).
-  if (decrypted.recordType == recordTypeAlert && decrypted.plaintext.length != 2) {
+  if (decrypted.recordType == recordTypeAlert &&
+      decrypted.plaintext.length != 2) {
     throw const AlertException(alertUnexpectedMessage);
   }
 

@@ -9,7 +9,10 @@ import 'package:transpiled_libp2p_pubsub/transpiled_libp2p_pubsub.dart';
 
 void main() {
   test('TestLastSeenCacheFound', () {
-    final tc = TimeCache.lastSeenWithSweepInterval(const Duration(minutes: 1), const Duration(minutes: 1));
+    final tc = TimeCache.lastSeenWithSweepInterval(
+      const Duration(minutes: 1),
+      const Duration(minutes: 1),
+    );
     addTearDown(tc.done);
 
     tc.add('test');
@@ -30,7 +33,11 @@ void main() {
     await Future<void>.delayed(const Duration(milliseconds: 500));
 
     for (var i = 0; i < 5; i++) {
-      expect(tc.has('$i'), isFalse, reason: 'should have dropped key $i from the cache already');
+      expect(
+        tc.has('$i'),
+        isFalse,
+        reason: 'should have dropped key $i from the cache already',
+      );
     }
   });
 
@@ -54,12 +61,24 @@ void main() {
     // have removed it; '0' was slid forward at ~T200ms, so its fresh
     // 300ms window runs to ~T500ms -- still alive at T450ms.
     await Future<void>.delayed(const Duration(milliseconds: 250));
-    expect(tc.has('1'), isFalse, reason: 'should have dropped this from the cache already');
-    expect(tc.has('0'), isTrue, reason: 'should still have this key'); // slides '0' forward again.
+    expect(
+      tc.has('1'),
+      isFalse,
+      reason: 'should have dropped this from the cache already',
+    );
+    expect(
+      tc.has('0'),
+      isTrue,
+      reason: 'should still have this key',
+    ); // slides '0' forward again.
 
     // '0' was just slid forward at ~T450ms; wait well past that window.
     await Future<void>.delayed(const Duration(milliseconds: 500));
-    expect(tc.has('0'), isFalse, reason: 'should have dropped this from the cache already');
+    expect(
+      tc.has('0'),
+      isFalse,
+      reason: 'should have dropped this from the cache already',
+    );
   });
 
   test('TestLastSeenCacheNotFoundAfterExpire', () async {
@@ -73,6 +92,10 @@ void main() {
 
     await Future<void>.delayed(const Duration(milliseconds: 500));
 
-    expect(tc.has('0'), isFalse, reason: 'should have dropped this from the cache already');
+    expect(
+      tc.has('0'),
+      isFalse,
+      reason: 'should have dropped this from the cache already',
+    );
   });
 }

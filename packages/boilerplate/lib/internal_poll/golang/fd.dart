@@ -71,6 +71,7 @@ final class Fd {
   Completer<void>? _writeWaiter;
 
   bool _readClosed = false;
+
   /// Prontidão de leitura anunciada por `RawSocketEvent.read` e ainda não
   /// consumida. Faz o papel que, no Go, cabe ao retorno do próprio `read(2)`.
   bool _readable = false;
@@ -106,7 +107,11 @@ final class Fd {
     try {
       var written = 0;
       while (written < buffer.length) {
-        final accepted = _socket.write(buffer, written, buffer.length - written);
+        final accepted = _socket.write(
+          buffer,
+          written,
+          buffer.length - written,
+        );
         written += accepted;
         if (written < buffer.length) {
           // Aceitou menos que o pedido: é o EAGAIN do dart:io. Estaciona à

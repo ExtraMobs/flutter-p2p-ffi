@@ -25,7 +25,10 @@ class PeerInfo {
        lastSuccessfulOutboundQueryAt = lastSuccessfulOutboundQueryAt ?? _zero,
        addedAt = addedAt ?? _zero;
 
-  static final DateTime _zero = DateTime.fromMillisecondsSinceEpoch(0, isUtc: true);
+  static final DateTime _zero = DateTime.fromMillisecondsSinceEpoch(
+    0,
+    isUtc: true,
+  );
 
   /// The peer this record describes.
   final PeerId id;

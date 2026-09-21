@@ -56,7 +56,10 @@ class Identity {
   ({Uint8List certificateDer, EcdsaPrivateKey privateKey})? _cert;
 
   /// Creates a new identity with the given private key and options.
-  static Future<Identity> newIdentity(PrivKey privKey, [List<IdentityOption>? options]) async {
+  static Future<Identity> newIdentity(
+    PrivKey privKey, [
+    List<IdentityOption>? options,
+  ]) async {
     final cfg = IdentityConfig();
     if (options != null) {
       for (final opt in options) {
@@ -69,7 +72,8 @@ class Identity {
   }
 
   /// Returns the cached certificate or generates a new one.
-  Future<({Uint8List certificateDer, EcdsaPrivateKey privateKey})> getCertificate() async {
+  Future<({Uint8List certificateDer, EcdsaPrivateKey privateKey})>
+  getCertificate() async {
     return _cert ??= await keyToCertificate(privKey);
   }
 
@@ -84,8 +88,8 @@ class TlsTransport implements SecureTransport {
     this.muxers = const ['/yamux/1.0.0'],
     this.protocolId = tlsProtocolId,
     Identity? identity,
-  })  : localPeer = PeerId.fromPubKey(privKey.getPublic()),
-        _identity = identity ?? Identity(privKey: privKey);
+  }) : localPeer = PeerId.fromPubKey(privKey.getPublic()),
+       _identity = identity ?? Identity(privKey: privKey);
 
   final PrivKey privKey;
   final PeerId localPeer;
@@ -106,7 +110,11 @@ class TlsTransport implements SecureTransport {
     return _handshake(insecure, peer, isClient: false);
   }
 
-  Future<SecureConn> _handshake(RawConn insecure, PeerId peer, {required bool isClient}) async {
+  Future<SecureConn> _handshake(
+    RawConn insecure,
+    PeerId peer, {
+    required bool isClient,
+  }) async {
     final cert = await _identity.getCertificate();
     final recordReader = _TlsRecordReader(insecure);
     final x25519 = crypto_pkg.X25519();
@@ -129,7 +137,11 @@ class TlsTransport implements SecureTransport {
         vers: versionTls12,
         random: clientRandom,
         sessionId: sessionId,
-        cipherSuites: const [tlsAes128GcmSha256, tlsChacha20Poly1305Sha256, tlsAes256GcmSha384],
+        cipherSuites: const [
+          tlsAes128GcmSha256,
+          tlsChacha20Poly1305Sha256,
+          tlsAes256GcmSha384,
+        ],
         compressionMethods: Uint8List.fromList(const [0]),
         keyShares: [KeyShare(group: 0x001d, data: clientPubBytes)],
         supportedVersions: const [versionTls13],
@@ -139,19 +151,31 @@ class TlsTransport implements SecureTransport {
       final chBytes = ch.marshal();
 
       final clientOutUnprotected = HalfConn();
-      final chRecords = writeTls13Records(clientOutUnprotected, recordTypeHandshake, chBytes, version: versionTls10);
+      final chRecords = writeTls13Records(
+        clientOutUnprotected,
+        recordTypeHandshake,
+        chBytes,
+        version: versionTls10,
+      );
       for (final r in chRecords) {
         await insecure.write(r);
       }
 
       // 2. Client receives ServerHello
       final shRecord = await recordReader.readRecord();
-      final shDecoded = readTls13Record(clientOutUnprotected, shRecord, expectedVersion: null);
+      final shDecoded = readTls13Record(
+        clientOutUnprotected,
+        shRecord,
+        expectedVersion: null,
+      );
       if (shDecoded.recordType != recordTypeHandshake) {
-        throw FormatException('expected handshake record for ServerHello, got ${shDecoded.recordType}');
+        throw FormatException(
+          'expected handshake record for ServerHello, got ${shDecoded.recordType}',
+        );
       }
       final sh = ServerHelloMsg.unmarshal(shDecoded.data);
-      final suite = cipherSuiteTls13ById(sh.cipherSuite) ?? cipherSuitesTls13[0];
+      final suite =
+          cipherSuiteTls13ById(sh.cipherSuite) ?? cipherSuitesTls13[0];
 
       // 3. Compute shared secret and key schedule
       final serverShare = sh.serverShare;
@@ -160,9 +184,14 @@ class TlsTransport implements SecureTransport {
       }
       final sharedSecret = await x25519.sharedSecretKey(
         keyPair: clientKeyPair,
-        remotePublicKey: crypto_pkg.SimplePublicKey(serverShare.data, type: crypto_pkg.KeyPairType.x25519),
+        remotePublicKey: crypto_pkg.SimplePublicKey(
+          serverShare.data,
+          type: crypto_pkg.KeyPairType.x25519,
+        ),
       );
-      final sharedSecretBytes = Uint8List.fromList(await sharedSecret.extractBytes());
+      final sharedSecretBytes = Uint8List.fromList(
+        await sharedSecret.extractBytes(),
+      );
 
       final transcript = HandshakeTranscript(suite.hash);
       transcript.write(chBytes);
@@ -170,8 +199,12 @@ class TlsTransport implements SecureTransport {
 
       final earlySecret = EarlySecret(suite.hash, Uint8List(0));
       final handshakeSecret = earlySecret.handshakeSecret(sharedSecretBytes);
-      final clientHsSecret = handshakeSecret.clientHandshakeTrafficSecret(transcript);
-      final serverHsSecret = handshakeSecret.serverHandshakeTrafficSecret(transcript);
+      final clientHsSecret = handshakeSecret.clientHandshakeTrafficSecret(
+        transcript,
+      );
+      final serverHsSecret = handshakeSecret.serverHandshakeTrafficSecret(
+        transcript,
+      );
 
       final clientHsIn = HalfConn()
         ..version = versionTls13
@@ -200,7 +233,9 @@ class TlsTransport implements SecureTransport {
       if (serverCertMsg.certificateChain.isEmpty) {
         throw const FormatException('server sent empty certificate chain');
       }
-      final serverPubKey = await pubKeyFromCertChain(serverCertMsg.certificateChain);
+      final serverPubKey = await pubKeyFromCertChain(
+        serverCertMsg.certificateChain,
+      );
       if (peer.value.isNotEmpty && !peer.matchesPublicKey(serverPubKey)) {
         final actualPeer = PeerId.fromPubKey(serverPubKey);
         throw PeerIdMismatchException(expected: peer, actual: actualPeer);
@@ -215,24 +250,36 @@ class TlsTransport implements SecureTransport {
         0x00,
         ...transcript.sum(),
       ]);
-      final serverEcdsaPub = _extractEcdsaPubFromCert(serverCertMsg.certificateChain.first);
-      final serverSigValid = await serverEcdsaPub.verify(serverVerifyPayload, serverCv.signature);
+      final serverEcdsaPub = _extractEcdsaPubFromCert(
+        serverCertMsg.certificateChain.first,
+      );
+      final serverSigValid = await serverEcdsaPub.verify(
+        serverVerifyPayload,
+        serverCv.signature,
+      );
       if (!serverSigValid) {
-        throw const FormatException('server CertificateVerify signature invalid');
+        throw const FormatException(
+          'server CertificateVerify signature invalid',
+        );
       }
       transcript.write(scvBytes);
 
       // Finished
       final sfBytes = await hsReader.readMessage();
       final serverFinished = FinishedMsg.unmarshal(sfBytes);
-      final expectedServerVerifyData = suite.finishedHash(serverHsSecret, transcript);
+      final expectedServerVerifyData = suite.finishedHash(
+        serverHsSecret,
+        transcript,
+      );
       if (!_bytesEqual(serverFinished.verifyData, expectedServerVerifyData)) {
         throw const FormatException('server Finished verify_data mismatch');
       }
       transcript.write(sfBytes);
 
       // 5. Client sends Client Flight: Certificate, CertificateVerify, Finished
-      final clientCertMsg = CertificateMsgTls13(certificateChain: [cert.certificateDer]);
+      final clientCertMsg = CertificateMsgTls13(
+        certificateChain: [cert.certificateDer],
+      );
       final ccBytes = clientCertMsg.marshal();
       transcript.write(ccBytes);
 
@@ -256,16 +303,29 @@ class TlsTransport implements SecureTransport {
       final cfBytes = clientFinished.marshal();
       transcript.write(cfBytes);
 
-      final clientFlight = Uint8List.fromList([...ccBytes, ...ccvBytes, ...cfBytes]);
-      final clientEncryptedRecords = writeTls13Records(clientHsOut, recordTypeHandshake, clientFlight, version: versionTls13);
+      final clientFlight = Uint8List.fromList([
+        ...ccBytes,
+        ...ccvBytes,
+        ...cfBytes,
+      ]);
+      final clientEncryptedRecords = writeTls13Records(
+        clientHsOut,
+        recordTypeHandshake,
+        clientFlight,
+        version: versionTls13,
+      );
       for (final r in clientEncryptedRecords) {
         await insecure.write(r);
       }
 
       // 6. Transition to Application Secrets
       final masterSecret = handshakeSecret.masterSecret();
-      final clientAppSecret = masterSecret.clientApplicationTrafficSecret(transcript);
-      final serverAppSecret = masterSecret.serverApplicationTrafficSecret(transcript);
+      final clientAppSecret = masterSecret.clientApplicationTrafficSecret(
+        transcript,
+      );
+      final serverAppSecret = masterSecret.serverApplicationTrafficSecret(
+        transcript,
+      );
 
       final clientAppIn = HalfConn()
         ..version = versionTls13
@@ -274,7 +334,8 @@ class TlsTransport implements SecureTransport {
         ..version = versionTls13
         ..setTrafficSecret(suite, clientAppSecret);
 
-      final negotiatedMuxer = ee.alpnProtocol.isNotEmpty && ee.alpnProtocol != 'libp2p'
+      final negotiatedMuxer =
+          ee.alpnProtocol.isNotEmpty && ee.alpnProtocol != 'libp2p'
           ? ee.alpnProtocol
           : (muxers.isNotEmpty ? muxers.first : '/yamux/1.0.0');
 
@@ -287,7 +348,8 @@ class TlsTransport implements SecureTransport {
           streamMultiplexer: negotiatedMuxer,
           security: protocolId,
           transport: 'tcp',
-          usedEarlyMuxerNegotiation: ee.alpnProtocol.isNotEmpty && ee.alpnProtocol != 'libp2p',
+          usedEarlyMuxerNegotiation:
+              ee.alpnProtocol.isNotEmpty && ee.alpnProtocol != 'libp2p',
         ),
         inHalfConn: clientAppIn,
         outHalfConn: clientAppOut,
@@ -296,9 +358,15 @@ class TlsTransport implements SecureTransport {
     } else {
       // 1. Server receives ClientHello
       final chRecord = await recordReader.readRecord();
-      final chDecoded = readTls13Record(HalfConn(), chRecord, expectedVersion: null);
+      final chDecoded = readTls13Record(
+        HalfConn(),
+        chRecord,
+        expectedVersion: null,
+      );
       if (chDecoded.recordType != recordTypeHandshake) {
-        throw FormatException('expected handshake record for ClientHello, got ${chDecoded.recordType}');
+        throw FormatException(
+          'expected handshake record for ClientHello, got ${chDecoded.recordType}',
+        );
       }
       final ch = ClientHelloMsg.unmarshal(chDecoded.data);
 
@@ -342,7 +410,12 @@ class TlsTransport implements SecureTransport {
       final shBytes = sh.marshal();
 
       final serverOutUnprotected = HalfConn();
-      final shRecords = writeTls13Records(serverOutUnprotected, recordTypeHandshake, shBytes, version: versionTls12);
+      final shRecords = writeTls13Records(
+        serverOutUnprotected,
+        recordTypeHandshake,
+        shBytes,
+        version: versionTls12,
+      );
       for (final r in shRecords) {
         await insecure.write(r);
       }
@@ -360,9 +433,14 @@ class TlsTransport implements SecureTransport {
       }
       final sharedSecret = await x25519.sharedSecretKey(
         keyPair: serverKeyPair,
-        remotePublicKey: crypto_pkg.SimplePublicKey(clientShare.data, type: crypto_pkg.KeyPairType.x25519),
+        remotePublicKey: crypto_pkg.SimplePublicKey(
+          clientShare.data,
+          type: crypto_pkg.KeyPairType.x25519,
+        ),
       );
-      final sharedSecretBytes = Uint8List.fromList(await sharedSecret.extractBytes());
+      final sharedSecretBytes = Uint8List.fromList(
+        await sharedSecret.extractBytes(),
+      );
 
       final transcript = HandshakeTranscript(suite.hash);
       transcript.write(ch.marshal());
@@ -370,8 +448,12 @@ class TlsTransport implements SecureTransport {
 
       final earlySecret = EarlySecret(suite.hash, Uint8List(0));
       final handshakeSecret = earlySecret.handshakeSecret(sharedSecretBytes);
-      final clientHsSecret = handshakeSecret.clientHandshakeTrafficSecret(transcript);
-      final serverHsSecret = handshakeSecret.serverHandshakeTrafficSecret(transcript);
+      final clientHsSecret = handshakeSecret.clientHandshakeTrafficSecret(
+        transcript,
+      );
+      final serverHsSecret = handshakeSecret.serverHandshakeTrafficSecret(
+        transcript,
+      );
 
       final serverHsOut = HalfConn()
         ..version = versionTls13
@@ -391,7 +473,9 @@ class TlsTransport implements SecureTransport {
       final crBytes = cr.marshal();
       transcript.write(crBytes);
 
-      final serverCertMsg = CertificateMsgTls13(certificateChain: [cert.certificateDer]);
+      final serverCertMsg = CertificateMsgTls13(
+        certificateChain: [cert.certificateDer],
+      );
       final scBytes = serverCertMsg.marshal();
       transcript.write(scBytes);
 
@@ -415,8 +499,19 @@ class TlsTransport implements SecureTransport {
       final sfBytes = serverFinished.marshal();
       transcript.write(sfBytes);
 
-      final serverFlight = Uint8List.fromList([...eeBytes, ...crBytes, ...scBytes, ...scvBytes, ...sfBytes]);
-      final serverEncryptedRecords = writeTls13Records(serverHsOut, recordTypeHandshake, serverFlight, version: versionTls13);
+      final serverFlight = Uint8List.fromList([
+        ...eeBytes,
+        ...crBytes,
+        ...scBytes,
+        ...scvBytes,
+        ...sfBytes,
+      ]);
+      final serverEncryptedRecords = writeTls13Records(
+        serverHsOut,
+        recordTypeHandshake,
+        serverFlight,
+        version: versionTls13,
+      );
       for (final r in serverEncryptedRecords) {
         await insecure.write(r);
       }
@@ -432,7 +527,9 @@ class TlsTransport implements SecureTransport {
       if (clientCertMsg.certificateChain.isEmpty) {
         throw const FormatException('client sent empty certificate chain');
       }
-      final clientPubKey = await pubKeyFromCertChain(clientCertMsg.certificateChain);
+      final clientPubKey = await pubKeyFromCertChain(
+        clientCertMsg.certificateChain,
+      );
       if (peer.value.isNotEmpty && !peer.matchesPublicKey(clientPubKey)) {
         final actualPeer = PeerId.fromPubKey(clientPubKey);
         throw PeerIdMismatchException(expected: peer, actual: actualPeer);
@@ -447,17 +544,27 @@ class TlsTransport implements SecureTransport {
         0x00,
         ...transcript.sum(),
       ]);
-      final clientEcdsaPub = _extractEcdsaPubFromCert(clientCertMsg.certificateChain.first);
-      final clientSigValid = await clientEcdsaPub.verify(clientVerifyPayload, clientCv.signature);
+      final clientEcdsaPub = _extractEcdsaPubFromCert(
+        clientCertMsg.certificateChain.first,
+      );
+      final clientSigValid = await clientEcdsaPub.verify(
+        clientVerifyPayload,
+        clientCv.signature,
+      );
       if (!clientSigValid) {
-        throw const FormatException('client CertificateVerify signature invalid');
+        throw const FormatException(
+          'client CertificateVerify signature invalid',
+        );
       }
       transcript.write(ccvBytes);
 
       // Client Finished
       final cfBytes = await hsReader.readMessage();
       final clientFinished = FinishedMsg.unmarshal(cfBytes);
-      final expectedClientVerifyData = suite.finishedHash(clientHsSecret, transcript);
+      final expectedClientVerifyData = suite.finishedHash(
+        clientHsSecret,
+        transcript,
+      );
       if (!_bytesEqual(clientFinished.verifyData, expectedClientVerifyData)) {
         throw const FormatException('client Finished verify_data mismatch');
       }
@@ -465,8 +572,12 @@ class TlsTransport implements SecureTransport {
 
       // 6. Transition to Application Secrets
       final masterSecret = handshakeSecret.masterSecret();
-      final clientAppSecret = masterSecret.clientApplicationTrafficSecret(transcript);
-      final serverAppSecret = masterSecret.serverApplicationTrafficSecret(transcript);
+      final clientAppSecret = masterSecret.clientApplicationTrafficSecret(
+        transcript,
+      );
+      final serverAppSecret = masterSecret.serverApplicationTrafficSecret(
+        transcript,
+      );
 
       final serverAppIn = HalfConn()
         ..version = versionTls13
@@ -481,7 +592,9 @@ class TlsTransport implements SecureTransport {
         remotePeer: PeerId.fromPubKey(clientPubKey),
         remotePubKey: clientPubKey,
         connectionState: ConnectionState(
-          streamMultiplexer: negotiatedAlpn != 'libp2p' ? negotiatedAlpn : (muxers.isNotEmpty ? muxers.first : '/yamux/1.0.0'),
+          streamMultiplexer: negotiatedAlpn != 'libp2p'
+              ? negotiatedAlpn
+              : (muxers.isNotEmpty ? muxers.first : '/yamux/1.0.0'),
           security: protocolId,
           transport: 'tcp',
           usedEarlyMuxerNegotiation: negotiatedAlpn != 'libp2p',
@@ -502,7 +615,8 @@ class _TlsRecordReader {
   Future<Uint8List> readRecord() async {
     while (_buffer.length < 5) {
       final chunk = await _conn.read();
-      if (chunk.isEmpty) throw StateError('EOF while reading TLS record header');
+      if (chunk.isEmpty)
+        throw StateError('EOF while reading TLS record header');
       _buffer.add(chunk);
     }
     final bytes = _buffer.toBytes();
@@ -510,7 +624,8 @@ class _TlsRecordReader {
     final totalRecordLen = 5 + length;
     while (_buffer.length < totalRecordLen) {
       final chunk = await _conn.read();
-      if (chunk.isEmpty) throw StateError('EOF while reading TLS record payload');
+      if (chunk.isEmpty)
+        throw StateError('EOF while reading TLS record payload');
       _buffer.add(chunk);
     }
     final fullBuf = _buffer.takeBytes();
@@ -540,7 +655,9 @@ class _HandshakeReader {
         continue;
       }
       if (decrypted.recordType != recordTypeHandshake) {
-        throw FormatException('unexpected TLS record type: ${decrypted.recordType}');
+        throw FormatException(
+          'unexpected TLS record type: ${decrypted.recordType}',
+        );
       }
       _buffer.add(decrypted.data);
     }
@@ -590,14 +707,14 @@ class _TlsConn implements SecureConn {
     required HalfConn inHalfConn,
     required HalfConn outHalfConn,
     required _TlsRecordReader recordReader,
-  })  : _rawConn = rawConn,
-        _localPeer = localPeer,
-        _remotePeer = remotePeer,
-        _remotePubKey = remotePubKey,
-        _connectionState = connectionState,
-        _inHalfConn = inHalfConn,
-        _outHalfConn = outHalfConn,
-        _recordReader = recordReader;
+  }) : _rawConn = rawConn,
+       _localPeer = localPeer,
+       _remotePeer = remotePeer,
+       _remotePubKey = remotePubKey,
+       _connectionState = connectionState,
+       _inHalfConn = inHalfConn,
+       _outHalfConn = outHalfConn,
+       _recordReader = recordReader;
 
   final RawConn _rawConn;
   final PeerId _localPeer;

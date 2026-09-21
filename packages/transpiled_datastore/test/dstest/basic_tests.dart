@@ -28,18 +28,30 @@ Future<void> subtestBasicPutGet(Datastore ds) async {
 
   await ds.put(k, val);
 
-  expect(await ds.has(k), isTrue, reason: 'should have key foo, has returned false');
+  expect(
+    await ds.has(k),
+    isTrue,
+    reason: 'should have key foo, has returned false',
+  );
   expect(await ds.getSize(k), equals(val.length));
 
   final out = await ds.get(k);
   expect(out, equals(val));
 
-  expect(await ds.has(k), isTrue, reason: 'should have key foo, has returned false');
+  expect(
+    await ds.has(k),
+    isTrue,
+    reason: 'should have key foo, has returned false',
+  );
   expect(await ds.getSize(k), equals(val.length));
 
   await ds.delete(k);
 
-  expect(await ds.has(k), isFalse, reason: 'should not have key foo, has returned true');
+  expect(
+    await ds.has(k),
+    isFalse,
+    reason: 'should not have key foo, has returned true',
+  );
   await expectLater(
     () => ds.getSize(k),
     throwsA(isA<NotFoundException>()),
@@ -53,7 +65,11 @@ Future<void> subtestNotFounds(Datastore ds) async {
 
   await expectLater(() => ds.get(badk), throwsA(isA<NotFoundException>()));
 
-  expect(await ds.has(badk), isFalse, reason: "has returned true for key we don't have");
+  expect(
+    await ds.has(badk),
+    isFalse,
+    reason: "has returned true for key we don't have",
+  );
   await expectLater(() => ds.getSize(badk), throwsA(isA<NotFoundException>()));
 
   // Must not throw even though the key doesn't exist.
@@ -108,7 +124,11 @@ Future<List<Entry>> _seedQueryFixture(Datastore ds, int count) async {
   }
   for (final e in input) {
     final val = await ds.get(Key.raw(e.key));
-    expect(val, equals(e.value), reason: 'input value didnt match the one returned from Get');
+    expect(
+      val,
+      equals(e.value),
+      reason: 'input value didnt match the one returned from Get',
+    );
   }
   return input;
 }
@@ -158,10 +178,12 @@ Future<void> subtestQuery(Datastore ds, Query q, int count) async {
 }
 
 /// Equivalent to go-datastore's `dstest.SubtestManyKeysAndQuery`.
-Future<void> subtestManyKeysAndQuery(Datastore ds) => subtestQuery(ds, const Query(keysOnly: true), elemCount);
+Future<void> subtestManyKeysAndQuery(Datastore ds) =>
+    subtestQuery(ds, const Query(keysOnly: true), elemCount);
 
 /// Equivalent to go-datastore's `dstest.SubtestReturnSizes`.
-Future<void> subtestReturnSizes(Datastore ds) => subtestQuery(ds, const Query(returnsSizes: true), 100);
+Future<void> subtestReturnSizes(Datastore ds) =>
+    subtestQuery(ds, const Query(returnsSizes: true), 100);
 
 /// Equivalent to go-datastore's `dstest.SubtestOrder`.
 Future<void> subtestOrder(Datastore ds) async {
@@ -179,7 +201,12 @@ Future<void> subtestOrder(Datastore ds) async {
 Future<void> subtestLimit(Datastore ds) async {
   Future<void> run(int offset, int limit) => subtestQuery(
     ds,
-    Query(orders: const [OrderByKey()], offset: offset, limit: limit, keysOnly: true),
+    Query(
+      orders: const [OrderByKey()],
+      offset: offset,
+      limit: limit,
+      keysOnly: true,
+    ),
     elemCount,
   );
 
@@ -253,7 +280,13 @@ Future<void> subtestCombinations(Datastore ds) async {
             for (final length in lengths) {
               await subtestQuery(
                 ds,
-                Query(offset: offset, limit: limit, filters: filter, orders: order, prefix: prefix),
+                Query(
+                  offset: offset,
+                  limit: limit,
+                  filters: filter,
+                  orders: order,
+                  prefix: prefix,
+                ),
                 length,
               );
             }

@@ -18,14 +18,21 @@ Uint8List appendVarInt(List<int> prefix, int value) {
     out[i] = remaining & 0xff;
     remaining >>= 8;
   }
-  out[prefix.length] |= switch (length) { 1 => 0, 2 => 0x40, 4 => 0x80, _ => 0xc0 };
+  out[prefix.length] |= switch (length) {
+    1 => 0,
+    2 => 0x40,
+    4 => 0x80,
+    _ => 0xc0,
+  };
   return out;
 }
 
 (int value, int bytesRead) parseVarInt(Uint8List bytes, [int offset = 0]) {
-  if (offset < 0 || offset >= bytes.length) throw const FormatException('empty QUIC varint');
+  if (offset < 0 || offset >= bytes.length)
+    throw const FormatException('empty QUIC varint');
   final length = 1 << (bytes[offset] >> 6);
-  if (bytes.length - offset < length) throw const FormatException('truncated QUIC varint');
+  if (bytes.length - offset < length)
+    throw const FormatException('truncated QUIC varint');
   var value = bytes[offset] & 0x3f;
   for (var i = 1; i < length; i++) value = (value << 8) | bytes[offset + i];
   return (value, length);

@@ -8,7 +8,7 @@ part of '../transpiled_pion_sdp.dart';
 /// intervals. Port of `sdp.TimeDescription` (time_description.go:13).
 class TimeDescription {
   TimeDescription({required this.timing, List<RepeatTime>? repeatTimes})
-      : repeatTimes = repeatTimes ?? [];
+    : repeatTimes = repeatTimes ?? [];
 
   /// `t=<start-time> <stop-time>`.
   /// https://tools.ietf.org/html/rfc4566#section-5.9

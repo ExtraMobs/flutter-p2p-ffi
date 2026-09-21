@@ -21,8 +21,8 @@ class Swarm implements TransportNetwork {
     this.resourceManager = const NullResourceManager(),
     Bus? eventBus,
     List<Transport>? transports,
-  })  : peerstore = peerstore ?? MemoryPeerstore(),
-        eventBus = eventBus ?? BasicBus() {
+  }) : peerstore = peerstore ?? MemoryPeerstore(),
+       eventBus = eventBus ?? BasicBus() {
     if (transports != null) {
       _transports.addAll(transports);
     }
@@ -101,7 +101,16 @@ class Swarm implements TransportNetwork {
     for (final n in _notifiees.toList()) {
       n.connected(this, conn);
     }
-    eventBus.emitter(EvtPeerConnectednessChanged).then((e) => e.emit(EvtPeerConnectednessChanged(peer: remote, connectedness: Connectedness.connected)));
+    eventBus
+        .emitter(EvtPeerConnectednessChanged)
+        .then(
+          (e) => e.emit(
+            EvtPeerConnectednessChanged(
+              peer: remote,
+              connectedness: Connectedness.connected,
+            ),
+          ),
+        );
 
     _startIncomingStreamsLoop(conn);
   }
@@ -128,7 +137,16 @@ class Swarm implements TransportNetwork {
       list.remove(conn);
       if (list.isEmpty) {
         _connections.remove(remote);
-        eventBus.emitter(EvtPeerConnectednessChanged).then((e) => e.emit(EvtPeerConnectednessChanged(peer: remote, connectedness: Connectedness.notConnected)));
+        eventBus
+            .emitter(EvtPeerConnectednessChanged)
+            .then(
+              (e) => e.emit(
+                EvtPeerConnectednessChanged(
+                  peer: remote,
+                  connectedness: Connectedness.notConnected,
+                ),
+              ),
+            );
       }
     }
     for (final n in _notifiees.toList()) {
@@ -164,7 +182,9 @@ class Swarm implements TransportNetwork {
         }
       }
     }
-    throw StateError('Failed to dial peer $peer on addresses $addrs: $lastError');
+    throw StateError(
+      'Failed to dial peer $peer on addresses $addrs: $lastError',
+    );
   }
 
   @override
@@ -175,7 +195,9 @@ class Swarm implements TransportNetwork {
   }
 
   @override
-  List<Multiaddr> listenAddresses() => [for (final l in _listeners) l.multiaddr()];
+  List<Multiaddr> listenAddresses() => [
+    for (final l in _listeners) l.multiaddr(),
+  ];
 
   @override
   Future<List<Multiaddr>> interfaceListenAddresses() async => listenAddresses();
@@ -205,7 +227,8 @@ class Swarm implements TransportNetwork {
   }
 
   @override
-  List<Conn> connsToPeer(PeerId peer) => List.unmodifiable(_connections[peer] ?? const []);
+  List<Conn> connsToPeer(PeerId peer) =>
+      List.unmodifiable(_connections[peer] ?? const []);
 
   @override
   Future<void> closePeer(PeerId peer) async {

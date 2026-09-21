@@ -17,7 +17,9 @@ class _FakeNetwork implements Network {
 
   StreamHandler? handler;
   bool closed = false;
-  final List<Multiaddr> _listenAddrs = [Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')];
+  final List<Multiaddr> _listenAddrs = [
+    Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+  ];
 
   @override
   List<Multiaddr> listenAddresses() => _listenAddrs;
@@ -253,15 +255,41 @@ void main() async {
     });
     tearDown(() => host.close());
 
-    test('id - returns local peer ID', () => expect(host.id, equals(localPeer)));
-    test('peerstore - returns host peerstore', () => expect(host.peerstore, same(ps)));
-    test('addrs - returns listen addresses', () => expect(host.addrs, isNotEmpty));
-    test('network - returns underlying network', () => expect(host.network, same(net)));
-    test('mux - returns protocol muxer', () => expect(host.mux, isA<ProtocolSwitch>()));
-    test('connManager - returns connection manager', () => expect(host.connManager, isA<ConnManager>()));
-    test('eventBus - returns host event bus', () => expect(host.eventBus, isA<Bus>()));
+    test(
+      'id - returns local peer ID',
+      () => expect(host.id, equals(localPeer)),
+    );
+    test(
+      'peerstore - returns host peerstore',
+      () => expect(host.peerstore, same(ps)),
+    );
+    test(
+      'addrs - returns listen addresses',
+      () => expect(host.addrs, isNotEmpty),
+    );
+    test(
+      'network - returns underlying network',
+      () => expect(host.network, same(net)),
+    );
+    test(
+      'mux - returns protocol muxer',
+      () => expect(host.mux, isA<ProtocolSwitch>()),
+    );
+    test(
+      'connManager - returns connection manager',
+      () => expect(host.connManager, isA<ConnManager>()),
+    );
+    test(
+      'eventBus - returns host event bus',
+      () => expect(host.eventBus, isA<Bus>()),
+    );
     test('connect() - connects to remote peer', () async {
-      await host.connect(AddrInfo(id: otherPeer, addrs: [Multiaddr.parse('/ip4/127.0.0.1/tcp/4002')]));
+      await host.connect(
+        AddrInfo(
+          id: otherPeer,
+          addrs: [Multiaddr.parse('/ip4/127.0.0.1/tcp/4002')],
+        ),
+      );
       expect(host.peerstore.addrs(otherPeer), isNotEmpty);
     });
     test('setStreamHandler() - registers stream handler', () {
@@ -299,15 +327,41 @@ void main() async {
     });
     tearDown(() => host.close());
 
-    test('id - returns local peer ID', () => expect(host.id, equals(localPeer)));
-    test('peerstore - returns host peerstore', () => expect(host.peerstore, same(ps)));
-    test('addrs - returns listen addresses', () => expect(host.addrs, isNotEmpty));
-    test('network - returns underlying network', () => expect(host.network, same(net)));
-    test('mux - returns protocol muxer', () => expect(host.mux, isA<ProtocolSwitch>()));
-    test('connManager - returns connection manager', () => expect(host.connManager, isA<ConnManager>()));
-    test('eventBus - returns host event bus', () => expect(host.eventBus, isA<Bus>()));
+    test(
+      'id - returns local peer ID',
+      () => expect(host.id, equals(localPeer)),
+    );
+    test(
+      'peerstore - returns host peerstore',
+      () => expect(host.peerstore, same(ps)),
+    );
+    test(
+      'addrs - returns listen addresses',
+      () => expect(host.addrs, isNotEmpty),
+    );
+    test(
+      'network - returns underlying network',
+      () => expect(host.network, same(net)),
+    );
+    test(
+      'mux - returns protocol muxer',
+      () => expect(host.mux, isA<ProtocolSwitch>()),
+    );
+    test(
+      'connManager - returns connection manager',
+      () => expect(host.connManager, isA<ConnManager>()),
+    );
+    test(
+      'eventBus - returns host event bus',
+      () => expect(host.eventBus, isA<Bus>()),
+    );
     test('connect() - connects to remote peer', () async {
-      await host.connect(AddrInfo(id: otherPeer, addrs: [Multiaddr.parse('/ip4/127.0.0.1/tcp/4002')]));
+      await host.connect(
+        AddrInfo(
+          id: otherPeer,
+          addrs: [Multiaddr.parse('/ip4/127.0.0.1/tcp/4002')],
+        ),
+      );
       expect(host.peerstore.addrs(otherPeer), isNotEmpty);
     });
     test('setStreamHandler() - registers stream handler', () {
@@ -343,21 +397,44 @@ void main() async {
       ps = MemoryPeerstore();
       net = _FakeNetwork(localPeer: localPeer, peerstore: ps);
       rawHost = BlankHost(network: net, peerstore: ps);
-      final route = _FakeRouting(AddrInfo(
-        id: otherPeer,
-        addrs: [Multiaddr.parse('/ip4/1.2.3.4/tcp/4001')],
-      ));
+      final route = _FakeRouting(
+        AddrInfo(
+          id: otherPeer,
+          addrs: [Multiaddr.parse('/ip4/1.2.3.4/tcp/4001')],
+        ),
+      );
       routed = RoutedHost(host: rawHost, route: route);
     });
     tearDown(() => routed.close());
 
-    test('id - returns local peer ID', () => expect(routed.id, equals(localPeer)));
-    test('peerstore - returns host peerstore', () => expect(routed.peerstore, same(ps)));
-    test('addrs - returns listen addresses', () => expect(routed.addrs, isNotEmpty));
-    test('network - returns underlying network', () => expect(routed.network, same(net)));
-    test('mux - returns protocol muxer', () => expect(routed.mux, isA<ProtocolSwitch>()));
-    test('connManager - returns connection manager', () => expect(routed.connManager, isA<ConnManager>()));
-    test('eventBus - returns host event bus', () => expect(routed.eventBus, isA<Bus>()));
+    test(
+      'id - returns local peer ID',
+      () => expect(routed.id, equals(localPeer)),
+    );
+    test(
+      'peerstore - returns host peerstore',
+      () => expect(routed.peerstore, same(ps)),
+    );
+    test(
+      'addrs - returns listen addresses',
+      () => expect(routed.addrs, isNotEmpty),
+    );
+    test(
+      'network - returns underlying network',
+      () => expect(routed.network, same(net)),
+    );
+    test(
+      'mux - returns protocol muxer',
+      () => expect(routed.mux, isA<ProtocolSwitch>()),
+    );
+    test(
+      'connManager - returns connection manager',
+      () => expect(routed.connManager, isA<ConnManager>()),
+    );
+    test(
+      'eventBus - returns host event bus',
+      () => expect(routed.eventBus, isA<Bus>()),
+    );
     test('connect() - queries routing and connects', () async {
       await routed.connect(AddrInfo(id: otherPeer));
       expect(routed.peerstore.addrs(otherPeer), isNotEmpty);
@@ -394,7 +471,11 @@ void main() async {
 
     test('addHandlerWithFunc() - adds matching protocol handler', () {
       final mux = MultistreamMuxer();
-      mux.addHandlerWithFunc('/test/1.0.0', (p) => true, (proto, stream) async {});
+      mux.addHandlerWithFunc(
+        '/test/1.0.0',
+        (p) => true,
+        (proto, stream) async {},
+      );
       expect(mux.protocols(), contains('/test/1.0.0'));
     });
 
@@ -437,43 +518,75 @@ void main() async {
     setUp(() => ab = MemoryPeerstore());
 
     test('addAddr() - adds address', () {
-      ab.addAddr(otherPeer, Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'), addressTtl);
+      ab.addAddr(
+        otherPeer,
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+        addressTtl,
+      );
       expect(ab.addrs(otherPeer), hasLength(1));
     });
     test('addAddrs() - adds multiple addresses', () {
-      ab.addAddrs(otherPeer, [Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')], addressTtl);
+      ab.addAddrs(otherPeer, [
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+      ], addressTtl);
       expect(ab.addrs(otherPeer), hasLength(1));
     });
     test('setAddr() - sets address', () {
-      ab.setAddr(otherPeer, Multiaddr.parse('/ip4/127.0.0.1/tcp/4002'), addressTtl);
+      ab.setAddr(
+        otherPeer,
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4002'),
+        addressTtl,
+      );
       expect(ab.addrs(otherPeer), hasLength(1));
     });
     test('setAddrs() - sets address list', () {
-      ab.setAddrs(otherPeer, [Multiaddr.parse('/ip4/127.0.0.1/tcp/4003')], addressTtl);
+      ab.setAddrs(otherPeer, [
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4003'),
+      ], addressTtl);
       expect(ab.addrs(otherPeer), hasLength(1));
     });
     test('updateAddrs() - updates address TTL', () {
-      ab.addAddr(otherPeer, Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'), addressTtl);
+      ab.addAddr(
+        otherPeer,
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+        addressTtl,
+      );
       ab.updateAddrs(otherPeer, addressTtl, tempAddrTtl);
       expect(ab.addrs(otherPeer), hasLength(1));
     });
     test('addrs() - retrieves valid addresses', () {
-      ab.addAddr(otherPeer, Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'), addressTtl);
+      ab.addAddr(
+        otherPeer,
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+        addressTtl,
+      );
       expect(ab.addrs(otherPeer), isNotEmpty);
     });
     test('addrStream() - streams addresses', () async {
-      ab.addAddr(otherPeer, Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'), addressTtl);
+      ab.addAddr(
+        otherPeer,
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+        addressTtl,
+      );
       final stream = ab.addrStream(otherPeer);
       final item = await stream.first;
       expect(item, isNotNull);
     });
     test('clearAddrs() - clears addresses', () {
-      ab.addAddr(otherPeer, Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'), addressTtl);
+      ab.addAddr(
+        otherPeer,
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+        addressTtl,
+      );
       ab.clearAddrs(otherPeer);
       expect(ab.addrs(otherPeer), isEmpty);
     });
     test('peersWithAddrs() - lists peers with addresses', () {
-      ab.addAddr(otherPeer, Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'), addressTtl);
+      ab.addAddr(
+        otherPeer,
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+        addressTtl,
+      );
       expect(ab.peersWithAddrs(), contains(otherPeer));
     });
   });
@@ -483,13 +596,19 @@ void main() async {
     setUp(() => cab = MemoryPeerstore());
 
     test('consumePeerRecord() - accepts peer record', () async {
-      final rec = PeerRecord(peerId: localPeer, addrs: [Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')]);
+      final rec = PeerRecord(
+        peerId: localPeer,
+        addrs: [Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')],
+      );
       final env = await Envelope.seal(rec, kp);
       expect(cab.consumePeerRecord(env, addressTtl), isTrue);
     });
 
     test('getPeerRecord() - retrieves peer record', () async {
-      final rec = PeerRecord(peerId: localPeer, addrs: [Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')]);
+      final rec = PeerRecord(
+        peerId: localPeer,
+        addrs: [Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')],
+      );
       final env = await Envelope.seal(rec, kp);
       cab.consumePeerRecord(env, addressTtl);
       expect(cab.getPeerRecord(localPeer), isNotNull);
@@ -532,7 +651,10 @@ void main() async {
 
     test('recordLatency() - records latency', () {
       m.recordLatency(otherPeer, const Duration(milliseconds: 50));
-      expect(m.latencyEwma(otherPeer), equals(const Duration(milliseconds: 50)));
+      expect(
+        m.latencyEwma(otherPeer),
+        equals(const Duration(milliseconds: 50)),
+      );
     });
     test('latencyEwma() - calculates EWMA latency', () {
       m.recordLatency(otherPeer, const Duration(milliseconds: 50));
@@ -569,11 +691,17 @@ void main() async {
     });
     test('supportsProtocols() - filters supported protocols', () {
       pb.setProtocols(otherPeer, ['/proto/1']);
-      expect(pb.supportsProtocols(otherPeer, ['/proto/1', '/proto/2']), equals(['/proto/1']));
+      expect(
+        pb.supportsProtocols(otherPeer, ['/proto/1', '/proto/2']),
+        equals(['/proto/1']),
+      );
     });
     test('firstSupportedProtocol() - returns first supported protocol', () {
       pb.setProtocols(otherPeer, ['/proto/2']);
-      expect(pb.firstSupportedProtocol(otherPeer, ['/proto/1', '/proto/2']), equals('/proto/2'));
+      expect(
+        pb.firstSupportedProtocol(otherPeer, ['/proto/1', '/proto/2']),
+        equals('/proto/2'),
+      );
     });
     test('removePeer() - removes protocols for peer', () {
       pb.setProtocols(otherPeer, ['/proto/1']);
@@ -597,7 +725,10 @@ void main() async {
     test('removePeer() - removes peer metadata', () {
       pm.put(otherPeer, 'k', 'v');
       pm.removePeer(otherPeer);
-      expect(() => pm.get(otherPeer, 'k'), throwsA(isA<ItemNotFoundException>()));
+      expect(
+        () => pm.get(otherPeer, 'k'),
+        throwsA(isA<ItemNotFoundException>()),
+      );
     });
   });
 
@@ -607,19 +738,30 @@ void main() async {
     tearDown(() => ps.close());
 
     test('peerInfo() - returns AddrInfo', () {
-      ps.addAddr(otherPeer, Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'), addressTtl);
+      ps.addAddr(
+        otherPeer,
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+        addressTtl,
+      );
       final info = ps.peerInfo(otherPeer);
       expect(info.id, equals(otherPeer));
       expect(info.addrs, hasLength(1));
     });
     test('peers() - returns all known peer IDs', () {
-      ps.addAddr(otherPeer, Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'), addressTtl);
+      ps.addAddr(
+        otherPeer,
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+        addressTtl,
+      );
       expect(ps.peers(), contains(otherPeer));
     });
     test('removePeer() - removes peer across sub-stores', () {
       ps.put(otherPeer, 'k', 'v');
       ps.removePeer(otherPeer);
-      expect(() => ps.get(otherPeer, 'k'), throwsA(isA<ItemNotFoundException>()));
+      expect(
+        () => ps.get(otherPeer, 'k'),
+        throwsA(isA<ItemNotFoundException>()),
+      );
     });
     test('close() - closes peerstore', () async {
       await ps.close();
@@ -633,51 +775,89 @@ void main() async {
     tearDown(() => ps.close());
 
     test('addAddr() - adds address', () {
-      ps.addAddr(otherPeer, Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'), addressTtl);
+      ps.addAddr(
+        otherPeer,
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+        addressTtl,
+      );
       expect(ps.addrs(otherPeer), hasLength(1));
     });
     test('addAddrs() - adds address list', () {
-      ps.addAddrs(otherPeer, [Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')], addressTtl);
+      ps.addAddrs(otherPeer, [
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+      ], addressTtl);
       expect(ps.addrs(otherPeer), hasLength(1));
     });
     test('setAddr() - sets address', () {
-      ps.setAddr(otherPeer, Multiaddr.parse('/ip4/127.0.0.1/tcp/4002'), addressTtl);
+      ps.setAddr(
+        otherPeer,
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4002'),
+        addressTtl,
+      );
       expect(ps.addrs(otherPeer), hasLength(1));
     });
     test('setAddrs() - sets address list', () {
-      ps.setAddrs(otherPeer, [Multiaddr.parse('/ip4/127.0.0.1/tcp/4003')], addressTtl);
+      ps.setAddrs(otherPeer, [
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4003'),
+      ], addressTtl);
       expect(ps.addrs(otherPeer), hasLength(1));
     });
     test('updateAddrs() - updates address TTL', () {
-      ps.addAddr(otherPeer, Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'), addressTtl);
+      ps.addAddr(
+        otherPeer,
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+        addressTtl,
+      );
       ps.updateAddrs(otherPeer, addressTtl, tempAddrTtl);
       expect(ps.addrs(otherPeer), hasLength(1));
     });
     test('addrs() - returns active addresses', () {
-      ps.addAddr(otherPeer, Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'), addressTtl);
+      ps.addAddr(
+        otherPeer,
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+        addressTtl,
+      );
       expect(ps.addrs(otherPeer), isNotEmpty);
     });
     test('addrStream() - streams addresses', () async {
-      ps.addAddr(otherPeer, Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'), addressTtl);
+      ps.addAddr(
+        otherPeer,
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+        addressTtl,
+      );
       final item = await ps.addrStream(otherPeer).first;
       expect(item, isNotNull);
     });
     test('clearAddrs() - clears addresses', () {
-      ps.addAddr(otherPeer, Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'), addressTtl);
+      ps.addAddr(
+        otherPeer,
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+        addressTtl,
+      );
       ps.clearAddrs(otherPeer);
       expect(ps.addrs(otherPeer), isEmpty);
     });
     test('peersWithAddrs() - lists peers with addresses', () {
-      ps.addAddr(otherPeer, Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'), addressTtl);
+      ps.addAddr(
+        otherPeer,
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+        addressTtl,
+      );
       expect(ps.peersWithAddrs(), contains(otherPeer));
     });
     test('consumePeerRecord() - consumes record', () async {
-      final rec = PeerRecord(peerId: localPeer, addrs: [Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')]);
+      final rec = PeerRecord(
+        peerId: localPeer,
+        addrs: [Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')],
+      );
       final env = await Envelope.seal(rec, kp);
       expect(ps.consumePeerRecord(env, addressTtl), isTrue);
     });
     test('getPeerRecord() - gets record', () async {
-      final rec = PeerRecord(peerId: localPeer, addrs: [Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')]);
+      final rec = PeerRecord(
+        peerId: localPeer,
+        addrs: [Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')],
+      );
       final env = await Envelope.seal(rec, kp);
       ps.consumePeerRecord(env, addressTtl);
       expect(ps.getPeerRecord(localPeer), isNotNull);
@@ -703,11 +883,17 @@ void main() async {
     });
     test('recordLatency() - records latency', () {
       ps.recordLatency(otherPeer, const Duration(milliseconds: 30));
-      expect(ps.latencyEwma(otherPeer), equals(const Duration(milliseconds: 30)));
+      expect(
+        ps.latencyEwma(otherPeer),
+        equals(const Duration(milliseconds: 30)),
+      );
     });
     test('latencyEwma() - calculates EWMA', () {
       ps.recordLatency(otherPeer, const Duration(milliseconds: 30));
-      expect(ps.latencyEwma(otherPeer), equals(const Duration(milliseconds: 30)));
+      expect(
+        ps.latencyEwma(otherPeer),
+        equals(const Duration(milliseconds: 30)),
+      );
     });
     test('getProtocols() - gets protocols', () {
       ps.setProtocols(otherPeer, ['/p1']);
@@ -732,7 +918,10 @@ void main() async {
     });
     test('firstSupportedProtocol() - returns first supported', () {
       ps.setProtocols(otherPeer, ['/p2']);
-      expect(ps.firstSupportedProtocol(otherPeer, ['/p1', '/p2']), equals('/p2'));
+      expect(
+        ps.firstSupportedProtocol(otherPeer, ['/p1', '/p2']),
+        equals('/p2'),
+      );
     });
     test('put() - stores metadata', () {
       ps.put(otherPeer, 'k', 'v');
@@ -743,17 +932,28 @@ void main() async {
       expect(ps.get(otherPeer, 'k'), equals('v'));
     });
     test('peerInfo() - returns AddrInfo', () {
-      ps.addAddr(otherPeer, Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'), addressTtl);
+      ps.addAddr(
+        otherPeer,
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+        addressTtl,
+      );
       expect(ps.peerInfo(otherPeer).id, equals(otherPeer));
     });
     test('peers() - lists all peers', () {
-      ps.addAddr(otherPeer, Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'), addressTtl);
+      ps.addAddr(
+        otherPeer,
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+        addressTtl,
+      );
       expect(ps.peers(), contains(otherPeer));
     });
     test('removePeer() - removes peer', () {
       ps.put(otherPeer, 'k', 'v');
       ps.removePeer(otherPeer);
-      expect(() => ps.get(otherPeer, 'k'), throwsA(isA<ItemNotFoundException>()));
+      expect(
+        () => ps.get(otherPeer, 'k'),
+        throwsA(isA<ItemNotFoundException>()),
+      );
     });
     test('close() - closes memory peerstore', () async {
       await ps.close();
@@ -785,7 +985,11 @@ void main() async {
 
     test('addrInfos() - converts peer list to AddrInfo list', () {
       final ps = MemoryPeerstore();
-      ps.addAddr(otherPeer, Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'), addressTtl);
+      ps.addAddr(
+        otherPeer,
+        Multiaddr.parse('/ip4/127.0.0.1/tcp/4001'),
+        addressTtl,
+      );
       final infos = addrInfos(ps, [otherPeer]);
       expect(infos, hasLength(1));
       expect(infos.first.id, equals(otherPeer));

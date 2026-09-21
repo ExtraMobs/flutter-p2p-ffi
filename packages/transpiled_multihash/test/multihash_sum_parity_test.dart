@@ -71,7 +71,10 @@ void main() {
 
     for (final (name, input, expectedHex) in cases) {
       test(name, () {
-        final mh = MultihashUtils.sum(name, Uint8List.fromList(utf8.encode(input)));
+        final mh = MultihashUtils.sum(
+          name,
+          Uint8List.fromList(utf8.encode(input)),
+        );
         expect(_hex(mh.toBytes()), equals(expectedHex));
       });
     }

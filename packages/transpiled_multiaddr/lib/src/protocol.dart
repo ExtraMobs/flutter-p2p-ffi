@@ -243,12 +243,7 @@ class Protocols {
     ),
     Protocol(name: 'sctp', code: sctp, size: 16, transcoder: transcoderPort),
     Protocol(name: 'p2p-circuit', code: circuit, size: 0),
-    Protocol(
-      name: 'onion',
-      code: onion,
-      size: 96,
-      transcoder: transcoderOnion,
-    ),
+    Protocol(name: 'onion', code: onion, size: 96, transcoder: transcoderOnion),
     Protocol(
       name: 'onion3',
       code: onion3,

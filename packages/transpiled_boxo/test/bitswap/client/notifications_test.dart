@@ -38,7 +38,9 @@ class MyQueue<T> {
 }
 
 void main() {
-  final zeroPeer = PeerId.fromBytes(Uint8List(34)..setRange(0, 2, [0x12, 0x20]));
+  final zeroPeer = PeerId.fromBytes(
+    Uint8List(34)..setRange(0, 2, [0x12, 0x20]),
+  );
 
   Block newBlock(String data) {
     return BasicBlock.fromData(Uint8List.fromList(utf8.encode(data)));
@@ -55,7 +57,7 @@ void main() {
 
     final n = NotificationsPubSub(traceBlock: false);
     addTearDown(() => n.shutdown());
-    
+
     final ch = n.subscribe([b1.cid(), b2.cid()]);
     final iter = MyQueue<Block>(ch);
 
@@ -75,7 +77,7 @@ void main() {
 
     final n = NotificationsPubSub(traceBlock: false);
     addTearDown(() => n.shutdown());
-    
+
     final ch = n.subscribe([blockSent.cid()]);
     final iter = MyQueue<Block>(ch);
 
@@ -91,7 +93,7 @@ void main() {
 
     final n = NotificationsPubSub(traceBlock: false);
     addTearDown(() => n.shutdown());
-    
+
     final ch = n.subscribe([e1.cid(), e2.cid()]);
     final iter = MyQueue<Block>(ch);
 
@@ -109,7 +111,7 @@ void main() {
 
     final n = NotificationsPubSub(traceBlock: false);
     addTearDown(() => n.shutdown());
-    
+
     final ch1 = n.subscribe([e1.cid()]);
     final ch2 = n.subscribe([e1.cid()]);
 
@@ -117,7 +119,7 @@ void main() {
     final iter2 = MyQueue<Block>(ch2);
 
     n.publish(zeroPeer, [e1]);
-    
+
     final r1 = await iter1.next;
     assertBlocksEqual(e1, r1);
 
@@ -129,7 +131,7 @@ void main() {
     final e1 = newBlock('1');
 
     final n = NotificationsPubSub(traceBlock: false);
-    
+
     // Subscribe and shutdown
     final ch = n.subscribe([e1.cid()]);
     n.shutdown();
@@ -142,7 +144,7 @@ void main() {
   test('TestSubscribeIsANoopWhenCalledWithNoKeys', () async {
     final n = NotificationsPubSub(traceBlock: false);
     addTearDown(() => n.shutdown());
-    
+
     final ch = n.subscribe([]);
     final list = await ch.toList();
     expect(list, isEmpty);
@@ -153,13 +155,13 @@ void main() {
     // In Dart, we can just cancel the subscription immediately to simulate.
     final n = NotificationsPubSub(traceBlock: false);
     addTearDown(() => n.shutdown());
-    
+
     final block = newBlock('A Missed Connection');
     final blockChannel = n.subscribe([block.cid()]);
-    
+
     final sub = blockChannel.listen((event) {});
     await sub.cancel(); // Cancel immediately
-    
+
     // We shouldn't receive anything.
   });
 

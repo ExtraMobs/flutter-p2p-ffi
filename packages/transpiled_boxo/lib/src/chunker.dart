@@ -95,4 +95,3 @@ FixedSizeChunker fromString(
   }
   return FixedSizeChunker.size(input, size);
 }
-

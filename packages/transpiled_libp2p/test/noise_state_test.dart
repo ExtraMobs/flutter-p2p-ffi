@@ -70,85 +70,88 @@ void main() {
     const msg4Ciphertext =
         '2445aa438ebd649281c636cc7269ca82f1d9023d72520943aeabf909cdf521';
 
-    test('every handshake and transport message matches byte-for-byte', () async {
-      final initStatic = await _fixedKeyPair(initStaticPriv);
-      final respStatic = await _fixedKeyPair(respStaticPriv);
-      final initEphemeral = await _fixedKeyPair(genInitEphemeral);
-      final respEphemeral = await _fixedKeyPair(genRespEphemeral);
-      final prologue = _fromHex(prologueHex);
+    test(
+      'every handshake and transport message matches byte-for-byte',
+      () async {
+        final initStatic = await _fixedKeyPair(initStaticPriv);
+        final respStatic = await _fixedKeyPair(respStaticPriv);
+        final initEphemeral = await _fixedKeyPair(genInitEphemeral);
+        final respEphemeral = await _fixedKeyPair(genRespEphemeral);
+        final prologue = _fromHex(prologueHex);
 
-      final init = await HandshakeState.initialize(
-        initiator: true,
-        staticKeyPair: initStatic,
-        prologue: prologue,
-        ephemeralKeyGenerator: () async => initEphemeral,
-      );
-      final resp = await HandshakeState.initialize(
-        initiator: false,
-        staticKeyPair: respStatic,
-        prologue: prologue,
-        ephemeralKeyGenerator: () async => respEphemeral,
-      );
+        final init = await HandshakeState.initialize(
+          initiator: true,
+          staticKeyPair: initStatic,
+          prologue: prologue,
+          ephemeralKeyGenerator: () async => initEphemeral,
+        );
+        final resp = await HandshakeState.initialize(
+          initiator: false,
+          staticKeyPair: respStatic,
+          prologue: prologue,
+          ephemeralKeyGenerator: () async => respEphemeral,
+        );
 
-      // msg_0: initiator -> responder, "-> e"
-      final (m0, split0) = await init.writeMessage(_fromHex(msg0Payload));
-      expect(split0, isNull);
-      expect(m0, equals(_fromHex(msg0Ciphertext)));
-      final (p0, rSplit0) = await resp.readMessage(m0);
-      expect(rSplit0, isNull);
-      expect(p0, equals(_fromHex(msg0Payload)));
+        // msg_0: initiator -> responder, "-> e"
+        final (m0, split0) = await init.writeMessage(_fromHex(msg0Payload));
+        expect(split0, isNull);
+        expect(m0, equals(_fromHex(msg0Ciphertext)));
+        final (p0, rSplit0) = await resp.readMessage(m0);
+        expect(rSplit0, isNull);
+        expect(p0, equals(_fromHex(msg0Payload)));
 
-      // msg_1: responder -> initiator, "<- e, ee, s, es"
-      final (m1, split1) = await resp.writeMessage(_fromHex(msg1Payload));
-      expect(split1, isNull);
-      expect(m1, equals(_fromHex(msg1Ciphertext)));
-      final (p1, iSplit1) = await init.readMessage(m1);
-      expect(iSplit1, isNull);
-      expect(p1, equals(_fromHex(msg1Payload)));
-      expect(init.remoteStaticKey, equals(respStatic.publicKeyBytes));
+        // msg_1: responder -> initiator, "<- e, ee, s, es"
+        final (m1, split1) = await resp.writeMessage(_fromHex(msg1Payload));
+        expect(split1, isNull);
+        expect(m1, equals(_fromHex(msg1Ciphertext)));
+        final (p1, iSplit1) = await init.readMessage(m1);
+        expect(iSplit1, isNull);
+        expect(p1, equals(_fromHex(msg1Payload)));
+        expect(init.remoteStaticKey, equals(respStatic.publicKeyBytes));
 
-      // msg_2: initiator -> responder, "-> s, se" -- handshake completes.
-      final (m2, iSplit2) = await init.writeMessage(_fromHex(msg2Payload));
-      expect(iSplit2, isNotNull);
-      expect(m2, equals(_fromHex(msg2Ciphertext)));
-      final (p2, rSplit2) = await resp.readMessage(m2);
-      expect(rSplit2, isNotNull);
-      expect(p2, equals(_fromHex(msg2Payload)));
-      expect(resp.remoteStaticKey, equals(initStatic.publicKeyBytes));
+        // msg_2: initiator -> responder, "-> s, se" -- handshake completes.
+        final (m2, iSplit2) = await init.writeMessage(_fromHex(msg2Payload));
+        expect(iSplit2, isNotNull);
+        expect(m2, equals(_fromHex(msg2Ciphertext)));
+        final (p2, rSplit2) = await resp.readMessage(m2);
+        expect(rSplit2, isNotNull);
+        expect(p2, equals(_fromHex(msg2Payload)));
+        expect(resp.remoteStaticKey, equals(initStatic.publicKeyBytes));
 
-      // vectorgen's own transport-phase vectors (msg_3/msg_4) are *not* a
-      // cross-party exchange: they come straight from whichever side
-      // wrote the last handshake message (the initiator here) calling
-      // Encrypt on its own two split CipherStates in turn --
-      // vectorgen.go's `cs0, cs1 = writer.WriteMessage(...)` followed by
-      // `cs0.Encrypt(payload0)` then `cs1.Encrypt(payload1)`, with no
-      // corresponding Decrypt call on the other side at all. So both
-      // messages are encrypted from iSplit2 directly.
-      final (initCs1, initCs2) = iSplit2!;
+        // vectorgen's own transport-phase vectors (msg_3/msg_4) are *not* a
+        // cross-party exchange: they come straight from whichever side
+        // wrote the last handshake message (the initiator here) calling
+        // Encrypt on its own two split CipherStates in turn --
+        // vectorgen.go's `cs0, cs1 = writer.WriteMessage(...)` followed by
+        // `cs0.Encrypt(payload0)` then `cs1.Encrypt(payload1)`, with no
+        // corresponding Decrypt call on the other side at all. So both
+        // messages are encrypted from iSplit2 directly.
+        final (initCs1, initCs2) = iSplit2!;
 
-      final m3 = await initCs1.encryptWithAd(
-        Uint8List(0),
-        _fromHex(msg3Payload),
-      );
-      expect(m3, equals(_fromHex(msg3Ciphertext)));
+        final m3 = await initCs1.encryptWithAd(
+          Uint8List(0),
+          _fromHex(msg3Payload),
+        );
+        expect(m3, equals(_fromHex(msg3Ciphertext)));
 
-      final m4 = await initCs2.encryptWithAd(
-        Uint8List(0),
-        _fromHex(msg4Payload),
-      );
-      expect(m4, equals(_fromHex(msg4Ciphertext)));
+        final m4 = await initCs2.encryptWithAd(
+          Uint8List(0),
+          _fromHex(msg4Payload),
+        );
+        expect(m4, equals(_fromHex(msg4Ciphertext)));
 
-      // Not part of the vector, but confirms the responder's Split()
-      // independently derives the identical two keys from the same final
-      // chaining key: decrypting each message with the responder's
-      // same-index CipherState (fresh, nonce 0, matching the encrypting
-      // side) must recover the original payload.
-      final (respCs1, respCs2) = rSplit2!;
-      final p3 = await respCs1.decryptWithAd(Uint8List(0), m3);
-      expect(p3, equals(_fromHex(msg3Payload)));
-      final p4 = await respCs2.decryptWithAd(Uint8List(0), m4);
-      expect(p4, equals(_fromHex(msg4Payload)));
-    });
+        // Not part of the vector, but confirms the responder's Split()
+        // independently derives the identical two keys from the same final
+        // chaining key: decrypting each message with the responder's
+        // same-index CipherState (fresh, nonce 0, matching the encrypting
+        // side) must recover the original payload.
+        final (respCs1, respCs2) = rSplit2!;
+        final p3 = await respCs1.decryptWithAd(Uint8List(0), m3);
+        expect(p3, equals(_fromHex(msg3Payload)));
+        final p4 = await respCs2.decryptWithAd(Uint8List(0), m4);
+        expect(p4, equals(_fromHex(msg4Payload)));
+      },
+    );
   });
 
   group('HandshakeState -- self-interop sanity', () {

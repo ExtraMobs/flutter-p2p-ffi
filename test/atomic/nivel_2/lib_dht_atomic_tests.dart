@@ -231,7 +231,10 @@ Future<Uint8List> _unframe(Uint8List wireBytes) =>
 
 void main() {
   final sampleCidBytes = Uint8List.fromList([1, 2, 3, 4, 5]);
-  final sampleCid = Cid.v1('raw', MultihashUtils.sum('sha2-256', sampleCidBytes));
+  final sampleCid = Cid.v1(
+    'raw',
+    MultihashUtils.sum('sha2-256', sampleCidBytes),
+  );
 
   // Top-level functions
 
@@ -242,12 +245,15 @@ void main() {
     expect(framed.last, equals(30));
   });
 
-  test('readDhtFrame() - le um frame prefixado por varint de um stream', () async {
-    final body = Uint8List.fromList([1, 2, 3]);
-    final stream = _FakeDhtStream(_peerId(0), frameDhtMessage(body));
-    final read = await readDhtFrame(stream);
-    expect(read, equals(body));
-  });
+  test(
+    'readDhtFrame() - le um frame prefixado por varint de um stream',
+    () async {
+      final body = Uint8List.fromList([1, 2, 3]);
+      final stream = _FakeDhtStream(_peerId(0), frameDhtMessage(body));
+      final read = await readDhtFrame(stream);
+      expect(read, equals(body));
+    },
+  );
 
   test('readDhtFrame() - lanca FormatException em eof inesperado', () async {
     // A varint continuation byte (high bit set) with nothing following.
@@ -444,7 +450,9 @@ void main() {
         );
         await _dispatchToHandler(host, dhtProtocol, stream);
 
-        final resp = DhtResponse.fromBytes(await _unframe(stream.written.single));
+        final resp = DhtResponse.fromBytes(
+          await _unframe(stream.written.single),
+        );
         final ids = resp.closerPeers.map((p) => p.id).toList();
         expect(ids.first, equals(target));
         expect(ids, contains(known));
@@ -478,10 +486,15 @@ void main() {
           providerStore: providerStore,
         ).start();
 
-        final stream = _FakeDhtStream(_peerId(3), encodeGetProviders(sampleCid));
+        final stream = _FakeDhtStream(
+          _peerId(3),
+          encodeGetProviders(sampleCid),
+        );
         await _dispatchToHandler(host, dhtProtocol, stream);
 
-        final resp = DhtResponse.fromBytes(await _unframe(stream.written.single));
+        final resp = DhtResponse.fromBytes(
+          await _unframe(stream.written.single),
+        );
         expect(resp.closerPeers.map((p) => p.id), contains(known));
         expect(resp.providerPeers.single.id, equals(provider.id));
       },

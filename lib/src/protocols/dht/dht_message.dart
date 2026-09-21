@@ -38,10 +38,7 @@ Uint8List encodeAddProvider(Cid cid, AddrInfo provider) {
     ..add(_varintField(1, 2))
     ..add(_bytesField(2, Uint8List.fromList(cid.multihash.toBytes())))
     ..add(
-      _bytesField(
-        9,
-        encodePeerRecord(id: provider.id, addrs: provider.addrs),
-      ),
+      _bytesField(9, encodePeerRecord(id: provider.id, addrs: provider.addrs)),
     );
   return frameDhtMessage(payload.takeBytes());
 }
@@ -84,7 +81,6 @@ Future<Uint8List> readDhtFrame(NetworkStream stream) async {
   }
   throw const FormatException('DHT frame varint is too long');
 }
-
 
 int _varintLength(int value) {
   if (value < 0) return 10;

@@ -211,7 +211,8 @@ final class HandshakeMessageFormatException implements Exception {
 // Private wire-format infrastructure (see file header for design rationale).
 // ---------------------------------------------------------------------------
 
-Uint8List _beUint8(int value) => Uint8List.fromList([Golang.Uint8(value).toLittleEndianBytes()[0]]);
+Uint8List _beUint8(int value) =>
+    Uint8List.fromList([Golang.Uint8(value).toLittleEndianBytes()[0]]);
 
 Uint8List _beUint16(int value) {
   final le = Golang.Uint16(value).toLittleEndianBytes();
@@ -219,7 +220,9 @@ Uint8List _beUint16(int value) {
 }
 
 Uint8List _beUint24(int value) {
-  final le = Golang.Uint32(value).toLittleEndianBytes(); // [b0,b1,b2,b3]; b3 dropped (24-bit truncation).
+  final le = Golang.Uint32(
+    value,
+  ).toLittleEndianBytes(); // [b0,b1,b2,b3]; b3 dropped (24-bit truncation).
   return Uint8List.fromList([le[2], le[1], le[0]]);
 }
 
@@ -252,13 +255,20 @@ final class _Builder {
     _buf.add(v);
   }
 
-  void addUint8LengthPrefixed(void Function(_Builder b) fn) => _addLengthPrefixed(1, 0xFF, fn);
+  void addUint8LengthPrefixed(void Function(_Builder b) fn) =>
+      _addLengthPrefixed(1, 0xFF, fn);
 
-  void addUint16LengthPrefixed(void Function(_Builder b) fn) => _addLengthPrefixed(2, 0xFFFF, fn);
+  void addUint16LengthPrefixed(void Function(_Builder b) fn) =>
+      _addLengthPrefixed(2, 0xFFFF, fn);
 
-  void addUint24LengthPrefixed(void Function(_Builder b) fn) => _addLengthPrefixed(3, 0xFFFFFF, fn);
+  void addUint24LengthPrefixed(void Function(_Builder b) fn) =>
+      _addLengthPrefixed(3, 0xFFFFFF, fn);
 
-  void _addLengthPrefixed(int prefixWidth, int maxLen, void Function(_Builder b) fn) {
+  void _addLengthPrefixed(
+    int prefixWidth,
+    int maxLen,
+    void Function(_Builder b) fn,
+  ) {
     final inner = _Builder();
     fn(inner);
     final body = inner.toBytes();
@@ -299,7 +309,9 @@ final class _Reader {
 
   void _require(int n) {
     if (remainingLength < n) {
-      throw const HandshakeMessageFormatException('unexpected end of handshake message data');
+      throw const HandshakeMessageFormatException(
+        'unexpected end of handshake message data',
+      );
     }
   }
 
@@ -308,7 +320,9 @@ final class _Reader {
   /// `handshake_messages.go`.
   void expectEmpty() {
     if (!isEmpty) {
-      throw const HandshakeMessageFormatException('unexpected trailing bytes in handshake message');
+      throw const HandshakeMessageFormatException(
+        'unexpected trailing bytes in handshake message',
+      );
     }
   }
 
@@ -338,7 +352,11 @@ final class _Reader {
 
   int readUint32() {
     _require(4);
-    final v = (_data[_pos] << 24) | (_data[_pos + 1] << 16) | (_data[_pos + 2] << 8) | _data[_pos + 3];
+    final v =
+        (_data[_pos] << 24) |
+        (_data[_pos + 1] << 16) |
+        (_data[_pos + 2] << 8) |
+        _data[_pos + 3];
     _pos += 4;
     return v;
   }
@@ -361,9 +379,11 @@ final class _Reader {
 
   _Reader readUint8LengthPrefixedReader() => _Reader(readUint8LengthPrefixed());
 
-  _Reader readUint16LengthPrefixedReader() => _Reader(readUint16LengthPrefixed());
+  _Reader readUint16LengthPrefixedReader() =>
+      _Reader(readUint16LengthPrefixed());
 
-  _Reader readUint24LengthPrefixedReader() => _Reader(readUint24LengthPrefixed());
+  _Reader readUint24LengthPrefixedReader() =>
+      _Reader(readUint24LengthPrefixed());
 }
 
 // ---------------------------------------------------------------------------
@@ -434,24 +454,25 @@ final class ClientHelloMsg {
     this.quicTransportParameters,
     this.encryptedClientHello,
     List<int>? extensions,
-  })  : random = random ?? Uint8List(0),
-        sessionId = sessionId ?? Uint8List(0),
-        cipherSuites = cipherSuites ?? <int>[],
-        compressionMethods = compressionMethods ?? Uint8List(0),
-        supportedCurves = supportedCurves ?? <int>[],
-        supportedPoints = supportedPoints ?? Uint8List(0),
-        sessionTicket = sessionTicket ?? Uint8List(0),
-        supportedSignatureAlgorithms = supportedSignatureAlgorithms ?? <int>[],
-        supportedSignatureAlgorithmsCert = supportedSignatureAlgorithmsCert ?? <int>[],
-        secureRenegotiation = secureRenegotiation ?? Uint8List(0),
-        alpnProtocols = alpnProtocols ?? <String>[],
-        supportedVersions = supportedVersions ?? <int>[],
-        cookie = cookie ?? Uint8List(0),
-        keyShares = keyShares ?? <KeyShare>[],
-        pskModes = pskModes ?? Uint8List(0),
-        pskIdentities = pskIdentities ?? <PskIdentity>[],
-        pskBinders = pskBinders ?? <Uint8List>[],
-        extensions = extensions ?? <int>[];
+  }) : random = random ?? Uint8List(0),
+       sessionId = sessionId ?? Uint8List(0),
+       cipherSuites = cipherSuites ?? <int>[],
+       compressionMethods = compressionMethods ?? Uint8List(0),
+       supportedCurves = supportedCurves ?? <int>[],
+       supportedPoints = supportedPoints ?? Uint8List(0),
+       sessionTicket = sessionTicket ?? Uint8List(0),
+       supportedSignatureAlgorithms = supportedSignatureAlgorithms ?? <int>[],
+       supportedSignatureAlgorithmsCert =
+           supportedSignatureAlgorithmsCert ?? <int>[],
+       secureRenegotiation = secureRenegotiation ?? Uint8List(0),
+       alpnProtocols = alpnProtocols ?? <String>[],
+       supportedVersions = supportedVersions ?? <int>[],
+       cookie = cookie ?? Uint8List(0),
+       keyShares = keyShares ?? <KeyShare>[],
+       pskModes = pskModes ?? Uint8List(0),
+       pskIdentities = pskIdentities ?? <PskIdentity>[],
+       pskBinders = pskBinders ?? <Uint8List>[],
+       extensions = extensions ?? <int>[];
 
   /// Port of `clientHelloMsg.original` (`:72`): the exact bytes this message
   /// was parsed from, when known. Preserved because
@@ -566,7 +587,9 @@ final class ClientHelloMsg {
       exts.addUint16LengthPrefixed((exts) {
         exts.addUint16LengthPrefixed((exts) {
           exts.addUint8(0); // name_type = host_name
-          exts.addUint16LengthPrefixed((exts) => exts.addBytes(utf8.encode(serverName)));
+          exts.addUint16LengthPrefixed(
+            (exts) => exts.addBytes(utf8.encode(serverName)),
+          );
         });
       });
     }
@@ -598,7 +621,9 @@ final class ClientHelloMsg {
       exts.addUint16LengthPrefixed((exts) {
         exts.addUint16LengthPrefixed((exts) {
           for (final proto in alpnProtocols) {
-            exts.addUint8LengthPrefixed((exts) => exts.addBytes(utf8.encode(proto)));
+            exts.addUint8LengthPrefixed(
+              (exts) => exts.addBytes(utf8.encode(proto)),
+            );
           }
         });
       });
@@ -689,7 +714,11 @@ final class ClientHelloMsg {
       bindersLen += 1 + binder.length; // uint8 length prefix + binder bytes
     }
     final fullMessage = original ?? marshal();
-    return Uint8List.sublistView(fullMessage, 0, fullMessage.length - bindersLen);
+    return Uint8List.sublistView(
+      fullMessage,
+      0,
+      fullMessage.length - bindersLen,
+    );
   }
 
   /// Port of `(*clientHelloMsg).updateBinders` (`:404-416`): replaces
@@ -739,7 +768,9 @@ final class ClientHelloMsg {
       final extData = extReader.readUint16LengthPrefixedReader();
 
       if (!seenExts.add(extension)) {
-        throw const HandshakeMessageFormatException('duplicate extension in ClientHello');
+        throw const HandshakeMessageFormatException(
+          'duplicate extension in ClientHello',
+        );
       }
       m.extensions.add(extension);
 
@@ -748,13 +779,17 @@ final class ClientHelloMsg {
           // RFC 6066, Section 3
           final nameList = extData.readUint16LengthPrefixedReader();
           if (nameList.isEmpty) {
-            throw const HandshakeMessageFormatException('empty server_name list');
+            throw const HandshakeMessageFormatException(
+              'empty server_name list',
+            );
           }
           while (!nameList.isEmpty) {
             final nameType = nameList.readUint8();
             final serverNameReader = nameList.readUint16LengthPrefixedReader();
             if (serverNameReader.isEmpty) {
-              throw const HandshakeMessageFormatException('empty server_name entry');
+              throw const HandshakeMessageFormatException(
+                'empty server_name entry',
+              );
             }
             if (nameType != 0) continue;
             if (m.serverName.isNotEmpty) {
@@ -764,14 +799,18 @@ final class ClientHelloMsg {
             }
             m.serverName = utf8.decode(serverNameReader.readAll());
             if (m.serverName.endsWith('.')) {
-              throw const HandshakeMessageFormatException('server_name may not include a trailing dot');
+              throw const HandshakeMessageFormatException(
+                'server_name may not include a trailing dot',
+              );
             }
           }
         case _extensionSupportedCurves:
           // RFC 4492, Section 5.1.1 and RFC 8446, Section 4.2.7
           final curves = extData.readUint16LengthPrefixedReader();
           if (curves.isEmpty) {
-            throw const HandshakeMessageFormatException('empty supported_groups list');
+            throw const HandshakeMessageFormatException(
+              'empty supported_groups list',
+            );
           }
           while (!curves.isEmpty) {
             m.supportedCurves.add(curves.readUint16());
@@ -780,7 +819,9 @@ final class ClientHelloMsg {
           // RFC 5246, Section 7.4.1.4.1
           final sigAndAlgs = extData.readUint16LengthPrefixedReader();
           if (sigAndAlgs.isEmpty) {
-            throw const HandshakeMessageFormatException('empty signature_algorithms list');
+            throw const HandshakeMessageFormatException(
+              'empty signature_algorithms list',
+            );
           }
           while (!sigAndAlgs.isEmpty) {
             m.supportedSignatureAlgorithms.add(sigAndAlgs.readUint16());
@@ -789,12 +830,16 @@ final class ClientHelloMsg {
           // RFC 7301, Section 3.1
           final protoList = extData.readUint16LengthPrefixedReader();
           if (protoList.isEmpty) {
-            throw const HandshakeMessageFormatException('empty alpn protocol list');
+            throw const HandshakeMessageFormatException(
+              'empty alpn protocol list',
+            );
           }
           while (!protoList.isEmpty) {
             final proto = protoList.readUint8LengthPrefixed();
             if (proto.isEmpty) {
-              throw const HandshakeMessageFormatException('empty alpn protocol name');
+              throw const HandshakeMessageFormatException(
+                'empty alpn protocol name',
+              );
             }
             m.alpnProtocols.add(utf8.decode(proto));
           }
@@ -802,7 +847,9 @@ final class ClientHelloMsg {
           // RFC 8446, Section 4.2.1
           final versList = extData.readUint8LengthPrefixedReader();
           if (versList.isEmpty) {
-            throw const HandshakeMessageFormatException('empty supported_versions list');
+            throw const HandshakeMessageFormatException(
+              'empty supported_versions list',
+            );
           }
           while (!versList.isEmpty) {
             m.supportedVersions.add(versList.readUint16());
@@ -820,7 +867,9 @@ final class ClientHelloMsg {
             final group = clientShares.readUint16();
             final ksData = clientShares.readUint16LengthPrefixed();
             if (ksData.isEmpty) {
-              throw const HandshakeMessageFormatException('empty key_share entry');
+              throw const HandshakeMessageFormatException(
+                'empty key_share entry',
+              );
             }
             m.keyShares.add(KeyShare(group: group, data: ksData));
           }
@@ -830,23 +879,36 @@ final class ClientHelloMsg {
         case _extensionPreSharedKey:
           // RFC 8446, Section 4.2.11
           if (!extReader.isEmpty) {
-            throw const HandshakeMessageFormatException('pre_shared_key must be the last extension');
+            throw const HandshakeMessageFormatException(
+              'pre_shared_key must be the last extension',
+            );
           }
           final identities = extData.readUint16LengthPrefixedReader();
           if (identities.isEmpty) {
-            throw const HandshakeMessageFormatException('empty psk identities list');
+            throw const HandshakeMessageFormatException(
+              'empty psk identities list',
+            );
           }
           while (!identities.isEmpty) {
             final label = identities.readUint16LengthPrefixed();
             final obfuscatedTicketAge = identities.readUint32();
             if (label.isEmpty) {
-              throw const HandshakeMessageFormatException('empty psk identity label');
+              throw const HandshakeMessageFormatException(
+                'empty psk identity label',
+              );
             }
-            m.pskIdentities.add(PskIdentity(label: label, obfuscatedTicketAge: obfuscatedTicketAge));
+            m.pskIdentities.add(
+              PskIdentity(
+                label: label,
+                obfuscatedTicketAge: obfuscatedTicketAge,
+              ),
+            );
           }
           final binders = extData.readUint16LengthPrefixedReader();
           if (binders.isEmpty) {
-            throw const HandshakeMessageFormatException('empty psk binders list');
+            throw const HandshakeMessageFormatException(
+              'empty psk binders list',
+            );
           }
           while (!binders.isEmpty) {
             final binder = binders.readUint8LengthPrefixed();
@@ -894,12 +956,12 @@ final class ServerHelloMsg {
     this.serverNameAck = false,
     Uint8List? cookie,
     this.selectedGroup,
-  })  : random = random ?? Uint8List(0),
-        sessionId = sessionId ?? Uint8List(0),
-        secureRenegotiation = secureRenegotiation ?? Uint8List(0),
-        scts = scts ?? <Uint8List>[],
-        supportedPoints = supportedPoints ?? Uint8List(0),
-        cookie = cookie ?? Uint8List(0);
+  }) : random = random ?? Uint8List(0),
+       sessionId = sessionId ?? Uint8List(0),
+       secureRenegotiation = secureRenegotiation ?? Uint8List(0),
+       scts = scts ?? <Uint8List>[],
+       supportedPoints = supportedPoints ?? Uint8List(0),
+       cookie = cookie ?? Uint8List(0);
 
   /// Port of `serverHelloMsg.original` (`:720`).
   Uint8List? original;
@@ -988,7 +1050,9 @@ final class ServerHelloMsg {
     if (secureRenegotiationSupported) {
       exts.addUint16(_extensionRenegotiationInfo);
       exts.addUint16LengthPrefixed((exts) {
-        exts.addUint8LengthPrefixed((exts) => exts.addBytes(secureRenegotiation));
+        exts.addUint8LengthPrefixed(
+          (exts) => exts.addBytes(secureRenegotiation),
+        );
       });
     }
     if (extendedMasterSecret) {
@@ -999,7 +1063,9 @@ final class ServerHelloMsg {
       exts.addUint16(_extensionALPN);
       exts.addUint16LengthPrefixed((exts) {
         exts.addUint16LengthPrefixed((exts) {
-          exts.addUint8LengthPrefixed((exts) => exts.addBytes(utf8.encode(alpnProtocol)));
+          exts.addUint8LengthPrefixed(
+            (exts) => exts.addBytes(utf8.encode(alpnProtocol)),
+          );
         });
       });
     }
@@ -1094,7 +1160,9 @@ final class ServerHelloMsg {
       final extData = extReader.readUint16LengthPrefixedReader();
 
       if (!seenExts.add(extension)) {
-        throw const HandshakeMessageFormatException('duplicate extension in ServerHello');
+        throw const HandshakeMessageFormatException(
+          'duplicate extension in ServerHello',
+        );
       }
 
       switch (extension) {
@@ -1110,22 +1178,30 @@ final class ServerHelloMsg {
         case _extensionALPN:
           final protoList = extData.readUint16LengthPrefixedReader();
           if (protoList.isEmpty) {
-            throw const HandshakeMessageFormatException('empty alpn protocol list');
+            throw const HandshakeMessageFormatException(
+              'empty alpn protocol list',
+            );
           }
           final proto = protoList.readUint8LengthPrefixed();
           if (proto.isEmpty || !protoList.isEmpty) {
-            throw const HandshakeMessageFormatException('server_hello alpn must carry exactly one protocol');
+            throw const HandshakeMessageFormatException(
+              'server_hello alpn must carry exactly one protocol',
+            );
           }
           m.alpnProtocol = utf8.decode(proto);
         case _extensionSCT:
           final sctList = extData.readUint16LengthPrefixedReader();
           if (sctList.isEmpty) {
-            throw const HandshakeMessageFormatException('empty signed_certificate_timestamp list');
+            throw const HandshakeMessageFormatException(
+              'empty signed_certificate_timestamp list',
+            );
           }
           while (!sctList.isEmpty) {
             final sct = sctList.readUint16LengthPrefixed();
             if (sct.isEmpty) {
-              throw const HandshakeMessageFormatException('empty signed_certificate_timestamp');
+              throw const HandshakeMessageFormatException(
+                'empty signed_certificate_timestamp',
+              );
             }
             m.scts.add(sct);
           }
@@ -1154,11 +1230,15 @@ final class ServerHelloMsg {
           // RFC 4492, Section 5.1.2
           m.supportedPoints = extData.readUint8LengthPrefixed();
           if (m.supportedPoints.isEmpty) {
-            throw const HandshakeMessageFormatException('empty supported_points list');
+            throw const HandshakeMessageFormatException(
+              'empty supported_points list',
+            );
           }
         case _extensionServerName:
           if (!extData.isEmpty) {
-            throw const HandshakeMessageFormatException('server_name ack must be empty');
+            throw const HandshakeMessageFormatException(
+              'server_name ack must be empty',
+            );
           }
           m.serverNameAck = true;
         default:
@@ -1214,7 +1294,9 @@ final class EncryptedExtensionsMsg {
           b.addUint16(_extensionALPN);
           b.addUint16LengthPrefixed((b) {
             b.addUint16LengthPrefixed((b) {
-              b.addUint8LengthPrefixed((b) => b.addBytes(utf8.encode(alpnProtocol)));
+              b.addUint8LengthPrefixed(
+                (b) => b.addBytes(utf8.encode(alpnProtocol)),
+              );
             });
           });
         }
@@ -1248,14 +1330,18 @@ final class EncryptedExtensionsMsg {
       final extData = extReader.readUint16LengthPrefixedReader();
 
       if (!seenExts.add(extension)) {
-        throw const HandshakeMessageFormatException('duplicate extension in EncryptedExtensions');
+        throw const HandshakeMessageFormatException(
+          'duplicate extension in EncryptedExtensions',
+        );
       }
 
       switch (extension) {
         case _extensionALPN:
           final protoList = extData.readUint16LengthPrefixedReader();
           if (protoList.isEmpty) {
-            throw const HandshakeMessageFormatException('empty alpn protocol list');
+            throw const HandshakeMessageFormatException(
+              'empty alpn protocol list',
+            );
           }
           final proto = protoList.readUint8LengthPrefixed();
           if (proto.isEmpty || !protoList.isEmpty) {
@@ -1268,7 +1354,9 @@ final class EncryptedExtensionsMsg {
           m.earlyData = true;
         case _extensionServerName:
           if (!extData.isEmpty) {
-            throw const HandshakeMessageFormatException('server_name ack must be empty');
+            throw const HandshakeMessageFormatException(
+              'server_name ack must be empty',
+            );
           }
           m.serverNameAck = true;
         default:
@@ -1295,7 +1383,9 @@ final class EndOfEarlyDataMsg {
   /// Port of `(*endOfEarlyDataMsg).unmarshal` (`:1129-1131`).
   factory EndOfEarlyDataMsg.unmarshal(Uint8List data) {
     if (data.length != 4) {
-      throw const HandshakeMessageFormatException('end_of_early_data must be exactly 4 bytes');
+      throw const HandshakeMessageFormatException(
+        'end_of_early_data must be exactly 4 bytes',
+      );
     }
     return const EndOfEarlyDataMsg();
   }
@@ -1330,7 +1420,9 @@ final class KeyUpdateMsg {
       case 1:
         return KeyUpdateMsg(updateRequested: true);
       default:
-        throw const HandshakeMessageFormatException('invalid key_update request value');
+        throw const HandshakeMessageFormatException(
+          'invalid key_update request value',
+        );
     }
   }
 }
@@ -1345,8 +1437,8 @@ final class NewSessionTicketMsgTls13 {
     Uint8List? nonce,
     Uint8List? label,
     this.maxEarlyData = 0,
-  })  : nonce = nonce ?? Uint8List(0),
-        label = label ?? Uint8List(0);
+  }) : nonce = nonce ?? Uint8List(0),
+       label = label ?? Uint8List(0);
 
   /// Port of `newSessionTicketMsgTLS13.lifetime` (`:1171`).
   int lifetime;
@@ -1430,9 +1522,10 @@ final class CertificateRequestMsgTls13 {
     List<int>? supportedSignatureAlgorithms,
     List<int>? supportedSignatureAlgorithmsCert,
     List<Uint8List>? certificateAuthorities,
-  })  : supportedSignatureAlgorithms = supportedSignatureAlgorithms ?? <int>[],
-        supportedSignatureAlgorithmsCert = supportedSignatureAlgorithmsCert ?? <int>[],
-        certificateAuthorities = certificateAuthorities ?? <Uint8List>[];
+  }) : supportedSignatureAlgorithms = supportedSignatureAlgorithms ?? <int>[],
+       supportedSignatureAlgorithmsCert =
+           supportedSignatureAlgorithmsCert ?? <int>[],
+       certificateAuthorities = certificateAuthorities ?? <Uint8List>[];
 
   /// Port of `certificateRequestMsgTLS13.ocspStapling` (`:1246`).
   bool ocspStapling;
@@ -1507,7 +1600,9 @@ final class CertificateRequestMsgTls13 {
     s.skip(4); // message type and uint24 length field
     final context = s.readUint8LengthPrefixed();
     if (context.isNotEmpty) {
-      throw const HandshakeMessageFormatException('certificate_request_context must be empty');
+      throw const HandshakeMessageFormatException(
+        'certificate_request_context must be empty',
+      );
     }
     final extReader = s.readUint16LengthPrefixedReader();
     s.expectEmpty();
@@ -1524,7 +1619,9 @@ final class CertificateRequestMsgTls13 {
         case _extensionSignatureAlgorithms:
           final sigAndAlgs = extData.readUint16LengthPrefixedReader();
           if (sigAndAlgs.isEmpty) {
-            throw const HandshakeMessageFormatException('empty signature_algorithms list');
+            throw const HandshakeMessageFormatException(
+              'empty signature_algorithms list',
+            );
           }
           while (!sigAndAlgs.isEmpty) {
             m.supportedSignatureAlgorithms.add(sigAndAlgs.readUint16());
@@ -1532,7 +1629,9 @@ final class CertificateRequestMsgTls13 {
         case _extensionSignatureAlgorithmsCert:
           final sigAndAlgs = extData.readUint16LengthPrefixedReader();
           if (sigAndAlgs.isEmpty) {
-            throw const HandshakeMessageFormatException('empty signature_algorithms_cert list');
+            throw const HandshakeMessageFormatException(
+              'empty signature_algorithms_cert list',
+            );
           }
           while (!sigAndAlgs.isEmpty) {
             m.supportedSignatureAlgorithmsCert.add(sigAndAlgs.readUint16());
@@ -1540,12 +1639,16 @@ final class CertificateRequestMsgTls13 {
         case _extensionCertificateAuthorities:
           final auths = extData.readUint16LengthPrefixedReader();
           if (auths.isEmpty) {
-            throw const HandshakeMessageFormatException('empty certificate_authorities list');
+            throw const HandshakeMessageFormatException(
+              'empty certificate_authorities list',
+            );
           }
           while (!auths.isEmpty) {
             final ca = auths.readUint16LengthPrefixed();
             if (ca.isEmpty) {
-              throw const HandshakeMessageFormatException('empty certificate_authority entry');
+              throw const HandshakeMessageFormatException(
+                'empty certificate_authority entry',
+              );
             }
             m.certificateAuthorities.add(ca);
           }
@@ -1617,7 +1720,9 @@ final class CertificateMsgTls13 {
     s.skip(4); // message type and uint24 length field
     final context = s.readUint8LengthPrefixed();
     if (context.isNotEmpty) {
-      throw const HandshakeMessageFormatException('certificate_request_context must be empty');
+      throw const HandshakeMessageFormatException(
+        'certificate_request_context must be empty',
+      );
     }
     final decoded = _unmarshalCertificateEntries(s);
     s.expectEmpty();
@@ -1669,7 +1774,8 @@ void _marshalCertificateEntries(
 }
 
 /// Port of `unmarshalCertificate` (`handshake_messages.go:1539-1597`).
-({List<Uint8List> chain, Uint8List? ocspStaple, List<Uint8List>? scts}) _unmarshalCertificateEntries(_Reader s) {
+({List<Uint8List> chain, Uint8List? ocspStaple, List<Uint8List>? scts})
+_unmarshalCertificateEntries(_Reader s) {
   final certListReader = s.readUint24LengthPrefixedReader();
   final chain = <Uint8List>[];
   Uint8List? ocspStaple;
@@ -1691,7 +1797,9 @@ void _marshalCertificateEntries(
         case _extensionStatusRequest:
           final statusType = extData.readUint8();
           if (statusType != _statusTypeOCSP) {
-            throw const HandshakeMessageFormatException('unsupported certificate_status_type');
+            throw const HandshakeMessageFormatException(
+              'unsupported certificate_status_type',
+            );
           }
           ocspStaple = extData.readUint24LengthPrefixed();
           if (ocspStaple.isEmpty) {
@@ -1700,13 +1808,17 @@ void _marshalCertificateEntries(
         case _extensionSCT:
           final sctListReader = extData.readUint16LengthPrefixedReader();
           if (sctListReader.isEmpty) {
-            throw const HandshakeMessageFormatException('empty signed_certificate_timestamp list');
+            throw const HandshakeMessageFormatException(
+              'empty signed_certificate_timestamp list',
+            );
           }
           scts ??= <Uint8List>[];
           while (!sctListReader.isEmpty) {
             final sct = sctListReader.readUint16LengthPrefixed();
             if (sct.isEmpty) {
-              throw const HandshakeMessageFormatException('empty signed_certificate_timestamp');
+              throw const HandshakeMessageFormatException(
+                'empty signed_certificate_timestamp',
+              );
             }
             scts.add(sct);
           }
@@ -1724,7 +1836,8 @@ void _marshalCertificateEntries(
 /// Section 4.4.4).
 final class FinishedMsg {
   /// Builds a Finished message from its `verify_data`.
-  FinishedMsg({Uint8List? verifyData}) : verifyData = verifyData ?? Uint8List(0);
+  FinishedMsg({Uint8List? verifyData})
+    : verifyData = verifyData ?? Uint8List(0);
 
   /// Port of `finishedMsg.verifyData` (`:1694`): produced by
   /// `CipherSuiteTls13.finishedHash` in `key_schedule.dart`.
@@ -1783,7 +1896,10 @@ final class CertificateVerifyMsg {
   }
 
   /// Port of `(*certificateVerifyMsg).unmarshal` (`:1869-1881`).
-  factory CertificateVerifyMsg.unmarshal(Uint8List data, {bool hasSignatureAlgorithm = true}) {
+  factory CertificateVerifyMsg.unmarshal(
+    Uint8List data, {
+    bool hasSignatureAlgorithm = true,
+  }) {
     final s = _Reader(data);
     s.skip(4); // message type and uint24 length field
     var signatureAlgorithm = 0;

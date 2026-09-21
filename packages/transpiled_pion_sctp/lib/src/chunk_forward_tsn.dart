@@ -77,9 +77,15 @@ final class ChunkForwardTsnStream {
 
 /// Port of `chunkForwardTSN` (chunk_forward_tsn.go:31-41).
 final class ChunkForwardTsn implements Chunk {
-  ChunkForwardTsn({this.newCumulativeTsn = 0, List<ChunkForwardTsnStream>? streams})
-    : streams = streams ?? <ChunkForwardTsnStream>[],
-      header = ChunkHeader(typ: ChunkType.forwardTsn, flags: 0, raw: Uint8List(0));
+  ChunkForwardTsn({
+    this.newCumulativeTsn = 0,
+    List<ChunkForwardTsnStream>? streams,
+  }) : streams = streams ?? <ChunkForwardTsnStream>[],
+       header = ChunkHeader(
+         typ: ChunkType.forwardTsn,
+         flags: 0,
+         raw: Uint8List(0),
+       );
 
   /// Composition standing in for Go's embedded `chunkHeader`.
   ChunkHeader header;
@@ -99,7 +105,11 @@ final class ChunkForwardTsn implements Chunk {
       throw const ChunkTooShortException();
     }
 
-    newCumulativeTsn = ByteData.sublistView(header.raw, 0, 4).getUint32(0, Endian.big);
+    newCumulativeTsn = ByteData.sublistView(
+      header.raw,
+      0,
+      4,
+    ).getUint32(0, Endian.big);
 
     var offset = newCumulativeTsnLength;
     var remaining = header.raw.length - offset;

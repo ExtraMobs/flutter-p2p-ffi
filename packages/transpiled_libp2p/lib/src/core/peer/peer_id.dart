@@ -147,7 +147,8 @@ class PeerId implements Comparable<PeerId> {
 
   /// Creates a PeerId from a [PrivKey]'s public half. Equivalent to
   /// go-libp2p's `IDFromPrivateKey`.
-  factory PeerId.fromPrivateKey(PrivKey sk) => PeerId.fromPubKey(sk.getPublic());
+  factory PeerId.fromPrivateKey(PrivKey sk) =>
+      PeerId.fromPubKey(sk.getPublic());
 
   static Uint8List _sumFromMarshaledKey(Uint8List marshaled) {
     final alg = marshaled.length <= _maxInlineKeyLength

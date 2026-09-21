@@ -25,7 +25,11 @@ import 'paramtype.dart';
 final class ParamSupportedExtensions implements Param {
   ParamSupportedExtensions({List<ChunkType>? chunkTypes})
     : chunkTypes = chunkTypes ?? <ChunkType>[],
-      header = ParamHeader(typ: ParamType.supportedExt, len: 0, raw: Uint8List(0));
+      header = ParamHeader(
+        typ: ParamType.supportedExt,
+        len: 0,
+        raw: Uint8List(0),
+      );
 
   /// Composition standing in for Go's embedded `paramHeader`.
   ParamHeader header;
@@ -37,7 +41,9 @@ final class ParamSupportedExtensions implements Param {
   @override
   Uint8List marshal() {
     header.typ = ParamType.supportedExt;
-    header.raw = Uint8List.fromList([for (final t in chunkTypes) t.value & 0xFF]);
+    header.raw = Uint8List.fromList([
+      for (final t in chunkTypes) t.value & 0xFF,
+    ]);
     return header.marshal();
   }
 

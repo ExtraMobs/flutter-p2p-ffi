@@ -156,12 +156,8 @@ final class DhtClient implements ContentDiscovery {
     late StreamController<AddrInfo> controller;
     var cancelled = false;
     controller = StreamController<AddrInfo>(
-      onListen: () => _lookup(
-        cid,
-        count,
-        controller,
-        () => cancelled || _closed,
-      ),
+      onListen: () =>
+          _lookup(cid, count, controller, () => cancelled || _closed),
       onCancel: () => cancelled = true,
     );
     return controller.stream;
@@ -176,7 +172,9 @@ final class DhtClient implements ContentDiscovery {
     final candidates = <AddrInfo>[];
     for (final peerId in await getClosestPeers(key)) {
       if (peerId == provider.id) continue;
-      candidates.add(AddrInfo(id: peerId, addrs: await router.getAddrs(peerId)));
+      candidates.add(
+        AddrInfo(id: peerId, addrs: await router.getAddrs(peerId)),
+      );
     }
 
     // The walk reached nobody: fall back to announcing to the bootstrap set.
@@ -260,10 +258,9 @@ final class DhtClient implements ContentDiscovery {
     NetworkStream? stream;
     try {
       await router.connect(peer).timeout(timeout);
-      stream = await router.host.newStream(
-        peer.id,
-        _kadProtocols,
-      ).timeout(timeout);
+      stream = await router.host
+          .newStream(peer.id, _kadProtocols)
+          .timeout(timeout);
       _activeStreams.add(stream);
       await stream.setWriteDeadline(DateTime.now().add(timeout));
       await stream.write(msgBytes).timeout(timeout);
@@ -413,10 +410,11 @@ final class DhtClient implements ContentDiscovery {
       if (DateTime.now().isAfter(deadline)) break;
 
       // Termination condition: the closest beta peers are all queried.
-      final closestBeta = queryPeers.getClosestNInStates(
-        beta,
-        {PeerState.heard, PeerState.waiting, PeerState.queried},
-      );
+      final closestBeta = queryPeers.getClosestNInStates(beta, {
+        PeerState.heard,
+        PeerState.waiting,
+        PeerState.queried,
+      });
       if (closestBeta.length >= beta &&
           closestBeta.every(
             (p) => queryPeers.getState(p) == PeerState.queried,
@@ -457,10 +455,11 @@ final class DhtClient implements ContentDiscovery {
 
     // Kademlia follow-up: query the peers still unqueried inside the top K.
     if (!isCancelled() && !isStopped() && !DateTime.now().isAfter(deadline)) {
-      final topK = queryPeers.getClosestNInStates(
-        bucketSize,
-        {PeerState.heard, PeerState.waiting, PeerState.queried},
-      );
+      final topK = queryPeers.getClosestNInStates(bucketSize, {
+        PeerState.heard,
+        PeerState.waiting,
+        PeerState.queried,
+      });
       final followUpPeers = topK
           .where((p) => queryPeers.getState(p) == PeerState.heard)
           .toList();
@@ -522,10 +521,9 @@ final class DhtClient implements ContentDiscovery {
     await router.connect(peer).timeout(rpcTimeout);
     if (isCancelled()) throw StateError('DHT query cancelled');
 
-    final stream = await router.host.newStream(
-      peer.id,
-      _kadProtocols,
-    ).timeout(rpcTimeout);
+    final stream = await router.host
+        .newStream(peer.id, _kadProtocols)
+        .timeout(rpcTimeout);
 
     _activeStreams.add(stream);
     try {

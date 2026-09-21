@@ -85,7 +85,9 @@ class Identify {
         final (length, lenLen) = readProtoVarint(bytes, offset);
         offset += lenLen;
         if (offset + length > bytes.length) {
-          throw const FormatException('protobuf field runs past end of message');
+          throw const FormatException(
+            'protobuf field runs past end of message',
+          );
         }
         final fieldBytes = bytes.sublist(offset, offset + length);
         offset += length;

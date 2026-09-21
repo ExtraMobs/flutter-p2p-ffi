@@ -45,7 +45,10 @@ class FakeNetwork implements BitSwapNetwork {
   bool isConnectedToPeer(PeerId peer) => connectedPeersSet.contains(peer);
 
   @override
-  Future<MessageSender> newMessageSender(PeerId peer, MessageSenderOpts opts) async {
+  Future<MessageSender> newMessageSender(
+    PeerId peer,
+    MessageSenderOpts opts,
+  ) async {
     throw UnimplementedError();
   }
 
@@ -56,7 +59,8 @@ class FakeNetwork implements BitSwapNetwork {
   Stats stats() => Stats();
 
   @override
-  PeerId self() => PeerId.decode('12D3KooWD3otHYgKUsJpbqEZkUyF1UJYzMW6t8ru2tUwLm3pnHs4');
+  PeerId self() =>
+      PeerId.decode('12D3KooWD3otHYgKUsJpbqEZkUyF1UJYzMW6t8ru2tUwLm3pnHs4');
 
   @override
   Duration latency(PeerId peer) => Duration.zero;
@@ -79,25 +83,27 @@ class FakeNetwork implements BitSwapNetwork {
 
 void main() {
   group('Bitswap Client', () {
-    test('retrieves block already in blockstore without network request', () async {
-      final network = FakeNetwork();
-      final blockstore = Blockstore(MapDatastore());
-      final block = blocks.BasicBlock(
-        Uint8List.fromList([1, 2, 3, 4]),
-        Cid.decode('bafkreiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'),
-      );
-      await blockstore.put(block);
+    test(
+      'retrieves block already in blockstore without network request',
+      () async {
+        final network = FakeNetwork();
+        final blockstore = Blockstore(MapDatastore());
+        final block = blocks.BasicBlock(
+          Uint8List.fromList([1, 2, 3, 4]),
+          Cid.decode(
+            'bafkreiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          ),
+        );
+        await blockstore.put(block);
 
-      final client = Client(
-        network: network,
-        blockstore: blockstore,
-      );
+        final client = Client(network: network, blockstore: blockstore);
 
-      final result = await client.getBlock(block.cid());
-      expect(result.rawData(), orderedEquals(block.rawData()));
-      expect(network.sentMessages, isEmpty);
-      await client.close();
-    });
+        final result = await client.getBlock(block.cid());
+        expect(result.rawData(), orderedEquals(block.rawData()));
+        expect(network.sentMessages, isEmpty);
+        await client.close();
+      },
+    );
 
     test('retrieves block via network receiveMessage', () async {
       final network = FakeNetwork();
@@ -109,11 +115,18 @@ void main() {
       );
       network.start([client]);
 
-      final peer = PeerId.decode('12D3KooWPAfko2Q2pSAzf4ZGKZaG2n6yNJkByJsS4FqPp6nQr54B');
+      final peer = PeerId.decode(
+        '12D3KooWPAfko2Q2pSAzf4ZGKZaG2n6yNJkByJsS4FqPp6nQr54B',
+      );
       client.peerConnected(peer);
 
-      final testCid = Cid.decode('bafkreiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
-      final testBlock = blocks.BasicBlock(Uint8List.fromList([10, 20, 30]), testCid);
+      final testCid = Cid.decode(
+        'bafkreiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+      );
+      final testBlock = blocks.BasicBlock(
+        Uint8List.fromList([10, 20, 30]),
+        testCid,
+      );
 
       // Request block asynchronously
       final getFuture = client.getBlock(testCid);
@@ -132,11 +145,10 @@ void main() {
     test('peer connectedness lifecycle in client', () async {
       final network = FakeNetwork();
       final blockstore = Blockstore(MapDatastore());
-      final client = Client(
-        network: network,
-        blockstore: blockstore,
+      final client = Client(network: network, blockstore: blockstore);
+      final peer = PeerId.decode(
+        '12D3KooWPAfko2Q2pSAzf4ZGKZaG2n6yNJkByJsS4FqPp6nQr54B',
       );
-      final peer = PeerId.decode('12D3KooWPAfko2Q2pSAzf4ZGKZaG2n6yNJkByJsS4FqPp6nQr54B');
 
       client.peerConnected(peer);
       expect(client.pm.connectedPeers(), contains(peer));

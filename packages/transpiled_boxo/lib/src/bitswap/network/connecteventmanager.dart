@@ -8,11 +8,7 @@ abstract interface class ConnectionListener {
   void peerDisconnected(PeerId peer);
 }
 
-enum State {
-  disconnected,
-  responsive,
-  unresponsive,
-}
+enum State { disconnected, responsive, unresponsive }
 
 class _PeerState {
   State newState = State.disconnected;
@@ -36,7 +32,7 @@ class ConnectEventManager {
   final Completer<void> _done = Completer<void>();
 
   ConnectEventManager([List<ConnectionListener>? connListeners])
-      : _connListeners = connListeners ?? [];
+    : _connListeners = connListeners ?? [];
 
   void setListeners(List<ConnectionListener> connListeners) {
     if (!_workerStarted) {

@@ -42,11 +42,7 @@ void main() {
     final str = mkFakeCid('a_key');
 
     final protoMessage = pb.Message(
-      wantlist: pb.Wantlist(
-        entries: [
-          pb.Entry(block: str.toBytes()),
-        ],
-      ),
+      wantlist: pb.Wantlist(entries: [pb.Entry(block: str.toBytes())]),
     );
 
     expect(wantlistContains(protoMessage.wantlist, str), isTrue);
@@ -444,9 +440,7 @@ void main() {
   test('TestNewMessageFromProtoValidation', () {
     // Missing CID in wantlist entry throws
     final badWl = pb.Message(
-      wantlist: pb.Wantlist(
-        entries: [pb.Entry(block: Uint8List(0))],
-      ),
+      wantlist: pb.Wantlist(entries: [pb.Entry(block: Uint8List(0))]),
     );
     expect(() => BitSwapMessage.fromProto(badWl), throwsFormatException);
 

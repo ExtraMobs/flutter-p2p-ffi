@@ -43,7 +43,10 @@ void main() {
         _fromHex(_noiseStaticPubkeyHex),
       );
       expect(identity.peerId.toString(), equals(_expectedPeerId));
-      expect(identity.publicKey.raw(), equals(_fromHex(_identityPubkeyMarshaledHex).sublist(4)));
+      expect(
+        identity.publicKey.raw(),
+        equals(_fromHex(_identityPubkeyMarshaledHex).sublist(4)),
+      );
     });
 
     test('honors an expectedRemoteId that matches', () async {
@@ -57,7 +60,9 @@ void main() {
     });
 
     test('rejects a mismatched expectedRemoteId', () async {
-      final wrongId = PeerId.fromBase58('QmSoLnSGccFuZQJzRadHn95W2CrSFmZuTdDWP8HXaHca9z');
+      final wrongId = PeerId.fromBase58(
+        'QmSoLnSGccFuZQJzRadHn95W2CrSFmZuTdDWP8HXaHca9z',
+      );
       await expectLater(
         verifyNoiseHandshakePayload(
           _fromHex(_payloadHex),
@@ -68,13 +73,18 @@ void main() {
       );
     });
 
-    test('rejects the payload when checked against the wrong Noise static key', () async {
-      final wrongStaticKey = Uint8List(32); // all-zero, definitely not the signed one
-      await expectLater(
-        verifyNoiseHandshakePayload(_fromHex(_payloadHex), wrongStaticKey),
-        throwsA(isA<NoiseHandshakeAuthException>()),
-      );
-    });
+    test(
+      'rejects the payload when checked against the wrong Noise static key',
+      () async {
+        final wrongStaticKey = Uint8List(
+          32,
+        ); // all-zero, definitely not the signed one
+        await expectLater(
+          verifyNoiseHandshakePayload(_fromHex(_payloadHex), wrongStaticKey),
+          throwsA(isA<NoiseHandshakeAuthException>()),
+        );
+      },
+    );
 
     test('rejects a truncated payload', () async {
       final truncated = _fromHex(_payloadHex);
@@ -89,31 +99,52 @@ void main() {
   });
 
   group('Noise handshake payload -- generate/verify round trip', () {
-    test('a freshly generated Ed25519 identity round-trips through generate+verify', () async {
-      final identity = await unmarshalEd25519PrivateKey(
-        (await generateEd25519KeyPair()).raw(),
-      );
-      final noiseStaticKey = Uint8List.fromList(List<int>.generate(32, (i) => i));
+    test(
+      'a freshly generated Ed25519 identity round-trips through generate+verify',
+      () async {
+        final identity = await unmarshalEd25519PrivateKey(
+          (await generateEd25519KeyPair()).raw(),
+        );
+        final noiseStaticKey = Uint8List.fromList(
+          List<int>.generate(32, (i) => i),
+        );
 
-      final payload = await generateNoiseHandshakePayload(
-        localIdentityKey: identity,
-        localNoiseStaticPublicKey: noiseStaticKey,
-      );
+        final payload = await generateNoiseHandshakePayload(
+          localIdentityKey: identity,
+          localNoiseStaticPublicKey: noiseStaticKey,
+        );
 
-      final remote = await verifyNoiseHandshakePayload(payload, noiseStaticKey);
-      expect(remote.peerId, equals(PeerId.fromPublicKey(identity.getPublic().raw(), type: 'ed25519')));
-    });
+        final remote = await verifyNoiseHandshakePayload(
+          payload,
+          noiseStaticKey,
+        );
+        expect(
+          remote.peerId,
+          equals(
+            PeerId.fromPublicKey(identity.getPublic().raw(), type: 'ed25519'),
+          ),
+        );
+      },
+    );
 
-    test('rejects a payload verified against a different Noise static key', () async {
-      final identity = await generateEd25519KeyPair();
-      final payload = await generateNoiseHandshakePayload(
-        localIdentityKey: identity,
-        localNoiseStaticPublicKey: Uint8List.fromList(List<int>.generate(32, (i) => i)),
-      );
-      await expectLater(
-        verifyNoiseHandshakePayload(payload, Uint8List.fromList(List<int>.generate(32, (i) => i + 1))),
-        throwsA(isA<NoiseHandshakeAuthException>()),
-      );
-    });
+    test(
+      'rejects a payload verified against a different Noise static key',
+      () async {
+        final identity = await generateEd25519KeyPair();
+        final payload = await generateNoiseHandshakePayload(
+          localIdentityKey: identity,
+          localNoiseStaticPublicKey: Uint8List.fromList(
+            List<int>.generate(32, (i) => i),
+          ),
+        );
+        await expectLater(
+          verifyNoiseHandshakePayload(
+            payload,
+            Uint8List.fromList(List<int>.generate(32, (i) => i + 1)),
+          ),
+          throwsA(isA<NoiseHandshakeAuthException>()),
+        );
+      },
+    );
   });
 }

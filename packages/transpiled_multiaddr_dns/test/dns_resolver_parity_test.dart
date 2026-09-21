@@ -38,7 +38,13 @@ Resolver makeResolver() {
     },
     txt: {
       '_dnsaddr.example.com': [txta, txtb],
-      '_dnsaddr.matching.com': [txtc, txtd, txte, 'not a dnsaddr', 'dnsaddr=/foobar'],
+      '_dnsaddr.matching.com': [
+        txtc,
+        txtd,
+        txte,
+        'not a dnsaddr',
+        'dnsaddr=/foobar',
+      ],
     },
   );
   return Resolver(defaultResolver: mock);
@@ -46,7 +52,10 @@ Resolver makeResolver() {
 
 /// Repeatedly resolves every DNS component in [input], mirroring
 /// resolve_test.go's own `resolveAllDNS` test helper.
-Future<List<Multiaddr>> resolveAllDns(Resolver resolver, Multiaddr input) async {
+Future<List<Multiaddr>> resolveAllDns(
+  Resolver resolver,
+  Multiaddr input,
+) async {
   if (!dnsMatches(input)) return [input];
   var toResolve = [input];
   final out = <Multiaddr>[];
@@ -99,10 +108,13 @@ void main() {
     final addrs = await makeResolver().resolve(
       ma('/dns4/example.com/quic/dns6/example.com'),
     );
-    expect(addrs, equals([
-      ip4ma.encapsulate(ma('/quic/dns6/example.com')),
-      ip4mb.encapsulate(ma('/quic/dns6/example.com')),
-    ]));
+    expect(
+      addrs,
+      equals([
+        ip4ma.encapsulate(ma('/quic/dns6/example.com')),
+        ip4mb.encapsulate(ma('/quic/dns6/example.com')),
+      ]),
+    );
   });
 
   test('resolving repeatedly walks every DNS component (middle)', () async {
@@ -129,7 +141,9 @@ void main() {
     final expected = <Multiaddr>[];
     for (final x in [ip4ma, ip4mb]) {
       for (final y in [ip6ma, ip6mb]) {
-        expected.add(ma('/quic').encapsulate(x).encapsulate(y).encapsulate(ma('/http')));
+        expected.add(
+          ma('/quic').encapsulate(x).encapsulate(y).encapsulate(ma('/http')),
+        );
       }
     }
     expect(addrs, equals(expected));
@@ -188,7 +202,11 @@ void main() {
 
   group('custom per-domain resolvers', () {
     test('match left-to-right, most specific wins', () async {
-      final def = MockResolver(ip: {'example.com': ['1.2.3.4']});
+      final def = MockResolver(
+        ip: {
+          'example.com': ['1.2.3.4'],
+        },
+      );
       final custom1 = MockResolver(
         ip: {
           'custom.test': ['2.3.4.5'],

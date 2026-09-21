@@ -11,11 +11,7 @@ final class Libp2pRouter {
 
   /// Connects the host to the complete peer information in [peer].
   Future<void> connect(core.AddrInfo peer) async {
-    host.peerstore.addAddrs(
-      peer.id,
-      peer.addrs,
-      const Duration(minutes: 2),
-    );
+    host.peerstore.addAddrs(peer.id, peer.addrs, const Duration(minutes: 2));
     await host.connect(peer);
   }
 

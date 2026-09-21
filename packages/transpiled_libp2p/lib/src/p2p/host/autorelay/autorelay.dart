@@ -74,7 +74,8 @@ class AutoRelay {
 
   void _onReachabilityChanged(Reachability reachability) {
     if (_closed) return;
-    if (reachability == Reachability.private_ || reachability == Reachability.unknown) {
+    if (reachability == Reachability.private_ ||
+        reachability == Reachability.unknown) {
       _findAndReserveRelays();
     }
   }

@@ -56,7 +56,10 @@ Future<List<Uint8List>> encryptFrames(
 /// Decrypts one already length-delimited ciphertext frame (i.e. the
 /// bytes read after peeling off the 2-byte length prefix), per
 /// go-libp2p's `secureSession.Read`.
-Future<Uint8List> decryptFrame(CipherState cipherState, Uint8List frameCiphertext) {
+Future<Uint8List> decryptFrame(
+  CipherState cipherState,
+  Uint8List frameCiphertext,
+) {
   return cipherState.decryptWithAd(Uint8List(0), frameCiphertext);
 }
 

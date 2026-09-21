@@ -38,7 +38,11 @@ final class ParamOutgoingResetRequest implements Param {
     this.senderLastTsn = 0,
     List<int>? streamIdentifiers,
   }) : streamIdentifiers = streamIdentifiers ?? <int>[],
-       header = ParamHeader(typ: ParamType.outSsnResetReq, len: 0, raw: Uint8List(0));
+       header = ParamHeader(
+         typ: ParamType.outSsnResetReq,
+         len: 0,
+         raw: Uint8List(0),
+       );
 
   /// Composition standing in for Go's embedded `paramHeader`.
   ParamHeader header;
@@ -64,13 +68,20 @@ final class ParamOutgoingResetRequest implements Param {
   @override
   Uint8List marshal() {
     header.typ = ParamType.outSsnResetReq;
-    final raw = Uint8List(paramOutgoingResetRequestStreamIdentifiersOffset + 2 * streamIdentifiers.length);
+    final raw = Uint8List(
+      paramOutgoingResetRequestStreamIdentifiersOffset +
+          2 * streamIdentifiers.length,
+    );
     final view = ByteData.sublistView(raw);
     view.setUint32(0, reconfigRequestSequenceNumber, Endian.big);
     view.setUint32(4, reconfigResponseSequenceNumber, Endian.big);
     view.setUint32(8, senderLastTsn, Endian.big);
     for (var i = 0; i < streamIdentifiers.length; i++) {
-      view.setUint16(paramOutgoingResetRequestStreamIdentifiersOffset + 2 * i, streamIdentifiers[i] & 0xFFFF, Endian.big);
+      view.setUint16(
+        paramOutgoingResetRequestStreamIdentifiersOffset + 2 * i,
+        streamIdentifiers[i] & 0xFFFF,
+        Endian.big,
+      );
     }
     header.raw = raw;
     return header.marshal();
@@ -88,10 +99,16 @@ final class ParamOutgoingResetRequest implements Param {
     reconfigResponseSequenceNumber = view.getUint32(4, Endian.big);
     senderLastTsn = view.getUint32(8, Endian.big);
 
-    final lim = (header.raw.length - paramOutgoingResetRequestStreamIdentifiersOffset) ~/ 2;
+    final lim =
+        (header.raw.length -
+            paramOutgoingResetRequestStreamIdentifiersOffset) ~/
+        2;
     streamIdentifiers = [
       for (var i = 0; i < lim; i++)
-        view.getUint16(paramOutgoingResetRequestStreamIdentifiersOffset + 2 * i, Endian.big),
+        view.getUint16(
+          paramOutgoingResetRequestStreamIdentifiersOffset + 2 * i,
+          Endian.big,
+        ),
     ];
   }
 

@@ -63,7 +63,10 @@ void main() {
 
     test('verifies a real Go-produced ECDSA/SHA-256 signature', () async {
       final pub = unmarshalEcdsaPublicKey(_fromHex(_pkixPublicDerHex));
-      final ok = await pub.verify(_fromHex(_messageHex), _fromHex(_signatureDerHex));
+      final ok = await pub.verify(
+        _fromHex(_messageHex),
+        _fromHex(_signatureDerHex),
+      );
       expect(ok, isTrue);
     });
 
@@ -77,7 +80,10 @@ void main() {
 
     test('rejects a signature over the wrong message', () async {
       final pub = unmarshalEcdsaPublicKey(_fromHex(_pkixPublicDerHex));
-      final ok = await pub.verify(_fromHex('00' * 20), _fromHex(_signatureDerHex));
+      final ok = await pub.verify(
+        _fromHex('00' * 20),
+        _fromHex(_signatureDerHex),
+      );
       expect(ok, isFalse);
     });
 
@@ -90,13 +96,16 @@ void main() {
   });
 
   group('ECDSA (P-256) -- generation and round-trip', () {
-    test('a freshly generated key signs and verifies its own signature', () async {
-      final priv = generateEcdsaKeyPair();
-      final data = Uint8List.fromList('round trip me'.codeUnits);
-      final sig = await priv.sign(data);
-      final ok = await (priv.getPublic() as EcdsaPublicKey).verify(data, sig);
-      expect(ok, isTrue);
-    });
+    test(
+      'a freshly generated key signs and verifies its own signature',
+      () async {
+        final priv = generateEcdsaKeyPair();
+        final data = Uint8List.fromList('round trip me'.codeUnits);
+        final sig = await priv.sign(data);
+        final ok = await (priv.getPublic() as EcdsaPublicKey).verify(data, sig);
+        expect(ok, isTrue);
+      },
+    );
 
     test('marshal -> unmarshal round-trips a freshly generated key', () async {
       final priv = generateEcdsaKeyPair();
@@ -117,7 +126,10 @@ void main() {
       // The curve OID bytes '2a8648ce3d030107' (prime256v1) sit right
       // before the uncompressed point; flip a byte inside them so the OID
       // no longer matches, without touching the point bytes.
-      final oidIndex = _indexOfSubsequence(tampered, _fromHex('2a8648ce3d030107'));
+      final oidIndex = _indexOfSubsequence(
+        tampered,
+        _fromHex('2a8648ce3d030107'),
+      );
       expect(oidIndex, isNonNegative);
       tampered[oidIndex] ^= 0xff;
       expect(() => unmarshalEcdsaPublicKey(tampered), throwsFormatException);

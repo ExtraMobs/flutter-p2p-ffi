@@ -31,13 +31,15 @@ void main() {
       await p.server.close();
     });
 
-    test('read() - recusa depois de fechado com o sentinela do upstream',
-        () async {
-      final p = await _par();
-      await p.fd.close();
-      expect(() => p.fd.read(), throwsA(isA<NetClosingException>()));
-      await p.server.close();
-    });
+    test(
+      'read() - recusa depois de fechado com o sentinela do upstream',
+      () async {
+        final p = await _par();
+        await p.fd.close();
+        expect(() => p.fd.read(), throwsA(isA<NetClosingException>()));
+        await p.server.close();
+      },
+    );
 
     test('close() - fecha o descritor e e idempotente', () async {
       final p = await _par();
@@ -74,16 +76,18 @@ void main() {
       await p.server.close();
     });
 
-    test('destroyed - completa quando o descritor e destruido de fato',
-        () async {
-      final p = await _par();
-      var destruido = false;
-      // ignore: unawaited_futures
-      p.fd.destroyed.then((_) => destruido = true);
-      expect(destruido, isFalse);
-      await p.fd.close();
-      expect(destruido, isTrue);
-      await p.server.close();
-    });
+    test(
+      'destroyed - completa quando o descritor e destruido de fato',
+      () async {
+        final p = await _par();
+        var destruido = false;
+        // ignore: unawaited_futures
+        p.fd.destroyed.then((_) => destruido = true);
+        expect(destruido, isFalse);
+        await p.fd.close();
+        expect(destruido, isTrue);
+        await p.server.close();
+      },
+    );
   });
 }

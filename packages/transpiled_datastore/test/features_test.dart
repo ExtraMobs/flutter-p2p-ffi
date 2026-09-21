@@ -14,14 +14,23 @@ void main() {
   });
 
   test('TestFeaturesForDatastore', () {
-    List<Feature> byNames(List<String> names) => [for (final n in names) featureByName(n)!];
+    List<Feature> byNames(List<String> names) => [
+      for (final n in names) featureByName(n)!,
+    ];
 
     final cases = <(String, Datastore?, List<String>)>[
       ('MapDatastore', MapDatastore(), const ['Batching']),
       (
         'NullDatastore',
         NullDatastore(),
-        const ['Batching', 'Checked', 'GC', 'Persistent', 'Scrubbed', 'Transaction'],
+        const [
+          'Batching',
+          'Checked',
+          'GC',
+          'Persistent',
+          'Scrubbed',
+          'Transaction',
+        ],
       ),
       (
         'LogDatastore',

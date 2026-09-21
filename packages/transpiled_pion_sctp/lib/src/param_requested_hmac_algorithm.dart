@@ -50,7 +50,8 @@ final class HmacAlgorithm {
   factory HmacAlgorithm.fromValue(int value) => HmacAlgorithm._(value);
 
   @override
-  bool operator ==(Object other) => other is HmacAlgorithm && other.value == value;
+  bool operator ==(Object other) =>
+      other is HmacAlgorithm && other.value == value;
 
   @override
   int get hashCode => value.hashCode;
@@ -77,7 +78,11 @@ final class HmacAlgorithm {
 final class ParamRequestedHmacAlgorithm implements Param {
   ParamRequestedHmacAlgorithm({List<HmacAlgorithm>? availableAlgorithms})
     : availableAlgorithms = availableAlgorithms ?? <HmacAlgorithm>[],
-      header = ParamHeader(typ: ParamType.reqHmacAlgo, len: 0, raw: Uint8List(0));
+      header = ParamHeader(
+        typ: ParamType.reqHmacAlgo,
+        len: 0,
+        raw: Uint8List(0),
+      );
 
   /// Composition standing in for Go's embedded `paramHeader`.
   ParamHeader header;

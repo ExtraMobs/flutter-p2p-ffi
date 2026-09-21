@@ -14,8 +14,8 @@ class MediaDescription {
     List<Bandwidth>? bandwidth,
     this.encryptionKey,
     List<Attribute>? attributes,
-  })  : bandwidth = bandwidth ?? [],
-        attributes = attributes ?? [];
+  }) : bandwidth = bandwidth ?? [],
+       attributes = attributes ?? [];
 
   /// Creates a new [MediaDescription] with settings required by the JSEP
   /// spec. Port of `NewJSEPMediaDescription` (jsep.go:164).
@@ -113,9 +113,9 @@ class MediaName {
     RangedPort? port,
     List<String>? protos,
     List<String>? formats,
-  })  : port = port ?? RangedPort(value: 0),
-        protos = protos ?? [],
-        formats = formats ?? [];
+  }) : port = port ?? RangedPort(value: 0),
+       protos = protos ?? [],
+       formats = formats ?? [];
 
   String media;
   RangedPort port;

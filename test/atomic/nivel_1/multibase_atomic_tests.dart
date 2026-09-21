@@ -11,39 +11,63 @@ void main() {
   final sampleBytes = Uint8List.fromList(utf8.encode('hello world'));
 
   group('MultibaseUtils [Atomic Audit]', () {
-    test('decode() - decodifica string multibase com prefixo z (base58btc) e b (base32)', () {
-      final encodedB58 = MultibaseUtils.encodeWithName('base58btc', sampleBytes);
-      expect(encodedB58.startsWith('z'), isTrue);
-      final decodedB58 = MultibaseUtils.decode(encodedB58);
-      expect(decodedB58, equals(sampleBytes));
+    test(
+      'decode() - decodifica string multibase com prefixo z (base58btc) e b (base32)',
+      () {
+        final encodedB58 = MultibaseUtils.encodeWithName(
+          'base58btc',
+          sampleBytes,
+        );
+        expect(encodedB58.startsWith('z'), isTrue);
+        final decodedB58 = MultibaseUtils.decode(encodedB58);
+        expect(decodedB58, equals(sampleBytes));
 
-      final encodedB32 = MultibaseUtils.encodeWithName('base32', sampleBytes);
-      expect(encodedB32.startsWith('b'), isTrue);
-      final decodedB32 = MultibaseUtils.decode(encodedB32);
-      expect(decodedB32, equals(sampleBytes));
-    });
+        final encodedB32 = MultibaseUtils.encodeWithName('base32', sampleBytes);
+        expect(encodedB32.startsWith('b'), isTrue);
+        final decodedB32 = MultibaseUtils.decode(encodedB32);
+        expect(decodedB32, equals(sampleBytes));
+      },
+    );
 
-    test('decode() - lança FormatException quando a entrada é uma string vazia', () {
-      expect(() => MultibaseUtils.decode(''), throwsA(isA<FormatException>()));
-    });
+    test(
+      'decode() - lança FormatException quando a entrada é uma string vazia',
+      () {
+        expect(
+          () => MultibaseUtils.decode(''),
+          throwsA(isA<FormatException>()),
+        );
+      },
+    );
 
-    test('encode() - codifica bytes usando enum Multibase do pacote multibase', () {
-      final resB58 = MultibaseUtils.encode(mb.Multibase.base58btc, sampleBytes);
-      expect(resB58.startsWith('z'), isTrue);
-      expect(MultibaseUtils.decode(resB58), equals(sampleBytes));
+    test(
+      'encode() - codifica bytes usando enum Multibase do pacote multibase',
+      () {
+        final resB58 = MultibaseUtils.encode(
+          mb.Multibase.base58btc,
+          sampleBytes,
+        );
+        expect(resB58.startsWith('z'), isTrue);
+        expect(MultibaseUtils.decode(resB58), equals(sampleBytes));
 
-      final resB16 = MultibaseUtils.encode(mb.Multibase.base16, sampleBytes);
-      expect(resB16.startsWith('f'), isTrue);
-      expect(MultibaseUtils.decode(resB16), equals(sampleBytes));
-    });
+        final resB16 = MultibaseUtils.encode(mb.Multibase.base16, sampleBytes);
+        expect(resB16.startsWith('f'), isTrue);
+        expect(MultibaseUtils.decode(resB16), equals(sampleBytes));
+      },
+    );
 
-    test('encodeWithName() - codifica por nome canônico e faz fallback para base32 em nome desconhecido', () {
-      final resB58 = MultibaseUtils.encodeWithName('base58btc', sampleBytes);
-      expect(resB58.startsWith('z'), isTrue);
+    test(
+      'encodeWithName() - codifica por nome canônico e faz fallback para base32 em nome desconhecido',
+      () {
+        final resB58 = MultibaseUtils.encodeWithName('base58btc', sampleBytes);
+        expect(resB58.startsWith('z'), isTrue);
 
-      final fallback = MultibaseUtils.encodeWithName('nao_existe_codec_xyz', sampleBytes);
-      expect(fallback.startsWith('b'), isTrue); // fallback é base32 ('b')
-    });
+        final fallback = MultibaseUtils.encodeWithName(
+          'nao_existe_codec_xyz',
+          sampleBytes,
+        );
+        expect(fallback.startsWith('b'), isTrue); // fallback é base32 ('b')
+      },
+    );
   });
 
   group('UnsupportedEncodingException [Atomic Audit]', () {
@@ -63,13 +87,16 @@ void main() {
       expect(decode(enc).$2, equals(sampleBytes));
     });
 
-    test('decode() - decodifica para tupla (Encoding, Uint8List) e rejeita string vazia', () {
-      final enc = encode(Encoding.base32, sampleBytes);
-      final (base, data) = decode(enc);
-      expect(base, equals(Encoding.base32));
-      expect(data, equals(sampleBytes));
+    test(
+      'decode() - decodifica para tupla (Encoding, Uint8List) e rejeita string vazia',
+      () {
+        final enc = encode(Encoding.base32, sampleBytes);
+        final (base, data) = decode(enc);
+        expect(base, equals(Encoding.base32));
+        expect(data, equals(sampleBytes));
 
-      expect(() => decode(''), throwsA(isA<FormatException>()));
-    });
+        expect(() => decode(''), throwsA(isA<FormatException>()));
+      },
+    );
   });
 }

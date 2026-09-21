@@ -49,7 +49,8 @@ export 'addr_book.dart' show AddrsRecord, DsAddrBook, TtlWriteMode, cleanAddrs;
 export 'keybook.dart' show DsKeyBook;
 export 'metadata.dart' show DsPeerMetadata;
 export 'options.dart' show Clock, Options, RealClock, defaultOpts;
-export 'pb/pstore_message.dart' show AddrBookRecord, AddrBookRecord_AddrEntry, CertifiedRecord;
+export 'pb/pstore_message.dart'
+    show AddrBookRecord, AddrBookRecord_AddrEntry, CertifiedRecord;
 export 'protobook.dart' show DsProtoBook;
 
 const double _latencyEwmaSmoothing = 0.1;
@@ -57,7 +58,12 @@ const double _latencyEwmaSmoothing = 0.1;
 /// A [Peerstore] and [CertifiedAddrBook] backed by a persistent
 /// [Datastore]. Equivalent to go-libp2p's `pstoreds.pstoreds`.
 class Pstoreds implements Peerstore, CertifiedAddrBook {
-  Pstoreds._(this._keyBook, this._addrBook, this._protoBook, this._peerMetadata);
+  Pstoreds._(
+    this._keyBook,
+    this._addrBook,
+    this._protoBook,
+    this._peerMetadata,
+  );
 
   final DsKeyBook _keyBook;
   final DsAddrBook _addrBook;
@@ -77,23 +83,30 @@ class Pstoreds implements Peerstore, CertifiedAddrBook {
     final addrBook = await DsAddrBook.open(store, options);
     final keyBook = await DsKeyBook.open(store);
     final peerMetadata = await DsPeerMetadata.open(store);
-    final protoBook = DsProtoBook(peerMetadata, maxProtocols: options.maxProtocols);
+    final protoBook = DsProtoBook(
+      peerMetadata,
+      maxProtocols: options.maxProtocols,
+    );
     return Pstoreds._(keyBook, addrBook, protoBook, peerMetadata);
   }
 
   // --- AddrBook (delegates to _addrBook) ---
 
   @override
-  void addAddr(PeerId p, Multiaddr addr, Duration ttl) => _addrBook.addAddr(p, addr, ttl);
+  void addAddr(PeerId p, Multiaddr addr, Duration ttl) =>
+      _addrBook.addAddr(p, addr, ttl);
 
   @override
-  void addAddrs(PeerId p, List<Multiaddr> addrs, Duration ttl) => _addrBook.addAddrs(p, addrs, ttl);
+  void addAddrs(PeerId p, List<Multiaddr> addrs, Duration ttl) =>
+      _addrBook.addAddrs(p, addrs, ttl);
 
   @override
-  void setAddr(PeerId p, Multiaddr addr, Duration ttl) => _addrBook.setAddr(p, addr, ttl);
+  void setAddr(PeerId p, Multiaddr addr, Duration ttl) =>
+      _addrBook.setAddr(p, addr, ttl);
 
   @override
-  void setAddrs(PeerId p, List<Multiaddr> addrs, Duration ttl) => _addrBook.setAddrs(p, addrs, ttl);
+  void setAddrs(PeerId p, List<Multiaddr> addrs, Duration ttl) =>
+      _addrBook.setAddrs(p, addrs, ttl);
 
   @override
   void updateAddrs(PeerId p, Duration oldTtl, Duration newTtl) =>
@@ -114,7 +127,8 @@ class Pstoreds implements Peerstore, CertifiedAddrBook {
   // --- CertifiedAddrBook (delegates to _addrBook) ---
 
   @override
-  bool consumePeerRecord(Envelope s, Duration ttl) => _addrBook.consumePeerRecord(s, ttl);
+  bool consumePeerRecord(Envelope s, Duration ttl) =>
+      _addrBook.consumePeerRecord(s, ttl);
 
   @override
   Envelope? getPeerRecord(PeerId p) => _addrBook.getPeerRecord(p);
@@ -142,13 +156,16 @@ class Pstoreds implements Peerstore, CertifiedAddrBook {
   List<ProtocolId> getProtocols(PeerId p) => _protoBook.getProtocols(p);
 
   @override
-  void addProtocols(PeerId p, List<ProtocolId> protos) => _protoBook.addProtocols(p, protos);
+  void addProtocols(PeerId p, List<ProtocolId> protos) =>
+      _protoBook.addProtocols(p, protos);
 
   @override
-  void setProtocols(PeerId p, List<ProtocolId> protos) => _protoBook.setProtocols(p, protos);
+  void setProtocols(PeerId p, List<ProtocolId> protos) =>
+      _protoBook.setProtocols(p, protos);
 
   @override
-  void removeProtocols(PeerId p, List<ProtocolId> protos) => _protoBook.removeProtocols(p, protos);
+  void removeProtocols(PeerId p, List<ProtocolId> protos) =>
+      _protoBook.removeProtocols(p, protos);
 
   @override
   List<ProtocolId> supportsProtocols(PeerId p, List<ProtocolId> protos) =>
@@ -221,9 +238,6 @@ class Pstoreds implements Peerstore, CertifiedAddrBook {
   /// persistence write across all four books to reach the underlying
   /// [Datastore].
   @override
-  Future<void> close() => Future.wait([
-    _keyBook.flush(),
-    _addrBook.flush(),
-    _peerMetadata.flush(),
-  ]);
+  Future<void> close() =>
+      Future.wait([_keyBook.flush(), _addrBook.flush(), _peerMetadata.flush()]);
 }

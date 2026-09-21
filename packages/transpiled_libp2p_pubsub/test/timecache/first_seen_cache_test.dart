@@ -14,7 +14,10 @@ import 'package:transpiled_libp2p_pubsub/transpiled_libp2p_pubsub.dart';
 
 void main() {
   test('TestFirstSeenCacheFound', () {
-    final tc = TimeCache.firstSeenWithSweepInterval(const Duration(minutes: 1), const Duration(minutes: 1));
+    final tc = TimeCache.firstSeenWithSweepInterval(
+      const Duration(minutes: 1),
+      const Duration(minutes: 1),
+    );
     addTearDown(tc.done);
 
     tc.add('test');
@@ -35,7 +38,11 @@ void main() {
     await Future<void>.delayed(const Duration(milliseconds: 500));
 
     for (var i = 0; i < 5; i++) {
-      expect(tc.has('$i'), isFalse, reason: 'should have dropped key $i from the cache already');
+      expect(
+        tc.has('$i'),
+        isFalse,
+        reason: 'should have dropped key $i from the cache already',
+      );
     }
   });
 
@@ -50,6 +57,10 @@ void main() {
 
     await Future<void>.delayed(const Duration(milliseconds: 500));
 
-    expect(tc.has('0'), isFalse, reason: 'should have dropped this from the cache already');
+    expect(
+      tc.has('0'),
+      isFalse,
+      reason: 'should have dropped this from the cache already',
+    );
   });
 }

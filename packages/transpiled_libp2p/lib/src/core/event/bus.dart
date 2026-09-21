@@ -19,7 +19,10 @@ abstract interface class Subscription {
 }
 
 abstract interface class Bus {
-  Subscription subscribe(Object eventType, {List<SubscriptionOpt> opts = const []});
+  Subscription subscribe(
+    Object eventType, {
+    List<SubscriptionOpt> opts = const [],
+  });
   Future<Emitter> emitter(Object eventType, {List<EmitterOpt> opts = const []});
   List<Type> getAllEventTypes();
 }

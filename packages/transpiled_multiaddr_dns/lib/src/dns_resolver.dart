@@ -236,9 +236,7 @@ class Resolver implements BasicResolver {
           if (_dropFirst(rmaddr, rmlen - length) != postDNS) continue;
         }
 
-        final trimmed = postDNS != null
-            ? rmaddr.decapsulate(postDNS)
-            : rmaddr;
+        final trimmed = postDNS != null ? rmaddr.decapsulate(postDNS) : rmaddr;
         resolved.add(trimmed);
       }
     } else {

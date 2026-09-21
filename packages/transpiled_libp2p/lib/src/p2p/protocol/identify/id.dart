@@ -49,7 +49,9 @@ class _IdService implements IdService {
   bool _closed = false;
 
   Future<Emitter> _getEmitter() async {
-    return _emitter ??= await host.eventBus.emitter(EvtPeerIdentificationCompleted);
+    return _emitter ??= await host.eventBus.emitter(
+      EvtPeerIdentificationCompleted,
+    );
   }
 
   @override
@@ -62,13 +64,17 @@ class _IdService implements IdService {
 
   Future<void> _handleIdentify(NetworkStream stream) async {
     try {
-      final localAddrs = host.addrs.map((a) => Uint8List.fromList(a.toBytes())).toList();
+      final localAddrs = host.addrs
+          .map((a) => Uint8List.fromList(a.toBytes()))
+          .toList();
       final protocols = host.mux.protocols();
       final pubKey = host.peerstore.pubKey(host.id);
       // Observed address so the other side is informed of their "public"
       // address, at least in relation to us. id.go:638-649
       // (createBaseIdentifyResponse).
-      final connAddrs = stream.conn() is ConnMultiaddrs ? stream.conn() as ConnMultiaddrs : null;
+      final connAddrs = stream.conn() is ConnMultiaddrs
+          ? stream.conn() as ConnMultiaddrs
+          : null;
 
       final msg = Identify(
         publicKey: pubKey,
@@ -118,15 +124,17 @@ class _IdService implements IdService {
         final observedAddr = await _requestObservedAddr(c);
         // Emit completed event when peer identification is observed
         final em = await _getEmitter();
-        em.emit(EvtPeerIdentificationCompleted(
-          peer: remote,
-          conn: c,
-          listenAddrs: host.peerstore.addrs(remote),
-          protocols: host.peerstore.getProtocols(remote),
-          agentVersion: userAgent,
-          protocolVersion: protocolVersion,
-          observedAddr: observedAddr,
-        ));
+        em.emit(
+          EvtPeerIdentificationCompleted(
+            peer: remote,
+            conn: c,
+            listenAddrs: host.peerstore.addrs(remote),
+            protocols: host.peerstore.getProtocols(remote),
+            agentVersion: userAgent,
+            protocolVersion: protocolVersion,
+            observedAddr: observedAddr,
+          ),
+        );
       }
       completer.complete();
     } catch (e, st) {

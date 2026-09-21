@@ -18,8 +18,16 @@ void main() {
         .lookupByString('Hash');
     final node = PlainMap({
       'Links': PlainList([
-        PlainMap({'Hash': hash, 'Name': PlainString('z'), 'Tsize': PlainInt(-1)}),
-        PlainMap({'Hash': hash, 'Name': PlainString('a'), 'Tsize': PlainInt(-2)}),
+        PlainMap({
+          'Hash': hash,
+          'Name': PlainString('z'),
+          'Tsize': PlainInt(-1),
+        }),
+        PlainMap({
+          'Hash': hash,
+          'Name': PlainString('a'),
+          'Tsize': PlainInt(-2),
+        }),
       ]),
     });
     expect(

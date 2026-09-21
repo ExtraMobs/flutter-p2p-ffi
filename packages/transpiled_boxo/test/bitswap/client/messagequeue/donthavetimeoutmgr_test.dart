@@ -56,7 +56,9 @@ var _cidCounter = 0;
 List<Cid> _randomCids(int count) {
   return List.generate(count, (i) {
     _cidCounter++;
-    return Cid.fromBytes(Uint8List.fromList([1, 85, 0, 5, 0, 1, 2, _cidCounter, 4, 5]));
+    return Cid.fromBytes(
+      Uint8List.fromList([1, 85, 0, 5, 0, 1, 2, _cidCounter, 4, 5]),
+    );
   });
 }
 
@@ -89,7 +91,7 @@ void main() {
     final dhtm = DontHaveTimeoutManager.create(pc, tr.onTimeout, testCfg)!;
     final pingedFuture = pinged.stream.first;
     dhtm.start();
-    
+
     await pingedFuture;
 
     dhtm.addPending(firstks);
@@ -102,7 +104,7 @@ void main() {
     await Future.delayed(const Duration(milliseconds: 200));
 
     await timeoutsTriggered.stream.first.timeout(const Duration(seconds: 2));
-    
+
     expect(tr.timedOutCount() >= firstks.length, true);
     tr.clear();
 

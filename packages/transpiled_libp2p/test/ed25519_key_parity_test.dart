@@ -36,12 +36,15 @@ const _signatureHex =
 
 void main() {
   group('Ed25519 -- real Go-generated vector', () {
-    test('unmarshal 64-byte private key, re-marshal matches byte-for-byte', () async {
-      final raw = _fromHex(_rawPrivateHex);
-      final priv = await unmarshalEd25519PrivateKey(raw);
-      expect(priv.type, equals(KeyType.ed25519));
-      expect(priv.raw(), equals(raw));
-    });
+    test(
+      'unmarshal 64-byte private key, re-marshal matches byte-for-byte',
+      () async {
+        final raw = _fromHex(_rawPrivateHex);
+        final priv = await unmarshalEd25519PrivateKey(raw);
+        expect(priv.type, equals(KeyType.ed25519));
+        expect(priv.raw(), equals(raw));
+      },
+    );
 
     test('unmarshal 32-byte public key, re-marshal matches byte-for-byte', () {
       final raw = _fromHex(_rawPublicHex);
@@ -57,7 +60,10 @@ void main() {
 
     test('verifies a real Go-produced EdDSA signature', () async {
       final pub = unmarshalEd25519PublicKey(_fromHex(_rawPublicHex));
-      final ok = await pub.verify(_fromHex(_messageHex), _fromHex(_signatureHex));
+      final ok = await pub.verify(
+        _fromHex(_messageHex),
+        _fromHex(_signatureHex),
+      );
       expect(ok, isTrue);
     });
 
@@ -69,30 +75,42 @@ void main() {
       expect(ok, isFalse);
     });
 
-    test("Dart's own EdDSA signature over the real key/message matches Go's", () async {
-      final priv = await unmarshalEd25519PrivateKey(_fromHex(_rawPrivateHex));
-      final sig = await priv.sign(_fromHex(_messageHex));
-      // EdDSA is deterministic, so this must match Go's signature exactly.
-      expect(sig, equals(_fromHex(_signatureHex)));
-    });
+    test(
+      "Dart's own EdDSA signature over the real key/message matches Go's",
+      () async {
+        final priv = await unmarshalEd25519PrivateKey(_fromHex(_rawPrivateHex));
+        final sig = await priv.sign(_fromHex(_messageHex));
+        // EdDSA is deterministic, so this must match Go's signature exactly.
+        expect(sig, equals(_fromHex(_signatureHex)));
+      },
+    );
 
-    test('rejects a private key with a mismatched redundant public key', () async {
-      final tampered = Uint8List.fromList([
-        ..._fromHex(_rawPrivateHex),
-        ...List<int>.filled(32, 0), // wrong "redundant" pubkey copy
-      ]);
-      await expectLater(unmarshalEd25519PrivateKey(tampered), throwsFormatException);
-    });
+    test(
+      'rejects a private key with a mismatched redundant public key',
+      () async {
+        final tampered = Uint8List.fromList([
+          ..._fromHex(_rawPrivateHex),
+          ...List<int>.filled(32, 0), // wrong "redundant" pubkey copy
+        ]);
+        await expectLater(
+          unmarshalEd25519PrivateKey(tampered),
+          throwsFormatException,
+        );
+      },
+    );
   });
 
   group('Ed25519 -- generation and round-trip', () {
-    test('a freshly generated key signs and verifies its own signature', () async {
-      final priv = await generateEd25519KeyPair();
-      final data = Uint8List.fromList('round trip me'.codeUnits);
-      final sig = await priv.sign(data);
-      final ok = await priv.getPublic().verify(data, sig);
-      expect(ok, isTrue);
-    });
+    test(
+      'a freshly generated key signs and verifies its own signature',
+      () async {
+        final priv = await generateEd25519KeyPair();
+        final data = Uint8List.fromList('round trip me'.codeUnits);
+        final sig = await priv.sign(data);
+        final ok = await priv.getPublic().verify(data, sig);
+        expect(ok, isTrue);
+      },
+    );
 
     test('marshal -> unmarshal round-trips a freshly generated key', () async {
       final priv = await generateEd25519KeyPair();
@@ -102,23 +120,34 @@ void main() {
     });
 
     test('rejects a private key of the wrong length', () async {
-      await expectLater(unmarshalEd25519PrivateKey(Uint8List(10)), throwsFormatException);
+      await expectLater(
+        unmarshalEd25519PrivateKey(Uint8List(10)),
+        throwsFormatException,
+      );
     });
 
-    test('ed25519KeyPairFromSeed is deterministic and matches the seed embedded in raw()', () async {
-      final seed = Uint8List.fromList(List<int>.generate(32, (i) => i * 7 % 256));
-      final a = await ed25519KeyPairFromSeed(seed);
-      final b = await ed25519KeyPairFromSeed(seed);
-      expect(a.raw(), equals(b.raw()));
-      expect(a.raw().sublist(0, 32), equals(seed));
+    test(
+      'ed25519KeyPairFromSeed is deterministic and matches the seed embedded in raw()',
+      () async {
+        final seed = Uint8List.fromList(
+          List<int>.generate(32, (i) => i * 7 % 256),
+        );
+        final a = await ed25519KeyPairFromSeed(seed);
+        final b = await ed25519KeyPairFromSeed(seed);
+        expect(a.raw(), equals(b.raw()));
+        expect(a.raw().sublist(0, 32), equals(seed));
 
-      final data = Uint8List.fromList('seeded key check'.codeUnits);
-      final sig = await a.sign(data);
-      expect(await b.getPublic().verify(data, sig), isTrue);
-    });
+        final data = Uint8List.fromList('seeded key check'.codeUnits);
+        final sig = await a.sign(data);
+        expect(await b.getPublic().verify(data, sig), isTrue);
+      },
+    );
 
     test('ed25519KeyPairFromSeed rejects a seed of the wrong length', () async {
-      await expectLater(ed25519KeyPairFromSeed(Uint8List(31)), throwsArgumentError);
+      await expectLater(
+        ed25519KeyPairFromSeed(Uint8List(31)),
+        throwsArgumentError,
+      );
     });
   });
 }

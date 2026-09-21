@@ -98,7 +98,6 @@ class PlainBoolAssembler extends BaseAssembler implements NodeBuilder {
   void reset() => _value = null;
 }
 
-
 /// A boxed integer conforming to [Node]. Equivalent to go-ipld-prime's
 /// `plainInt`.
 class PlainInt extends BaseNode {

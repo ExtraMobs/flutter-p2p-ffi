@@ -11,11 +11,7 @@ import '../../../../core/protocol/protocol.dart';
 import '../../../../core/record/envelope.dart';
 
 class _ExpiringAddr {
-  _ExpiringAddr({
-    required this.addr,
-    required this.ttl,
-    required this.expiry,
-  });
+  _ExpiringAddr({required this.addr, required this.ttl, required this.expiry});
 
   final Multiaddr addr;
   Duration ttl;
@@ -63,14 +59,21 @@ class MemoryPeerstore implements Peerstore, CertifiedAddrBook {
     _checkClosed();
     if (ttl <= Duration.zero || addrs.isEmpty) return;
     final pKey = p.toBase58();
-    final peerAddrs = _addrBook.putIfAbsent(pKey, () => <String, _ExpiringAddr>{});
+    final peerAddrs = _addrBook.putIfAbsent(
+      pKey,
+      () => <String, _ExpiringAddr>{},
+    );
     final now = DateTime.now();
 
     for (final addr in addrs) {
       final aKey = addr.toAddrString();
       final existing = peerAddrs[aKey];
       if (existing == null) {
-        peerAddrs[aKey] = _ExpiringAddr(addr: addr, ttl: ttl, expiry: now.add(ttl));
+        peerAddrs[aKey] = _ExpiringAddr(
+          addr: addr,
+          ttl: ttl,
+          expiry: now.add(ttl),
+        );
         final streams = _addrStreams[pKey];
         if (streams != null) {
           for (final s in streams) {
@@ -99,14 +102,21 @@ class MemoryPeerstore implements Peerstore, CertifiedAddrBook {
       clearAddrs(p);
       return;
     }
-    final peerAddrs = _addrBook.putIfAbsent(pKey, () => <String, _ExpiringAddr>{});
+    final peerAddrs = _addrBook.putIfAbsent(
+      pKey,
+      () => <String, _ExpiringAddr>{},
+    );
     final now = DateTime.now();
 
     for (final addr in addrs) {
       final aKey = addr.toAddrString();
       final existing = peerAddrs[aKey];
       if (existing == null) {
-        peerAddrs[aKey] = _ExpiringAddr(addr: addr, ttl: ttl, expiry: now.add(ttl));
+        peerAddrs[aKey] = _ExpiringAddr(
+          addr: addr,
+          ttl: ttl,
+          expiry: now.add(ttl),
+        );
         final streams = _addrStreams[pKey];
         if (streams != null) {
           for (final s in streams) {
@@ -285,8 +295,11 @@ class MemoryPeerstore implements Peerstore, CertifiedAddrBook {
     if (existing == null) {
       _latencies[pKey] = d;
     } else {
-      final s = (latencyEwmaSmoothing > 1 || latencyEwmaSmoothing < 0) ? 0.1 : latencyEwmaSmoothing;
-      final newMicros = ((1.0 - s) * existing.inMicroseconds) + (s * d.inMicroseconds);
+      final s = (latencyEwmaSmoothing > 1 || latencyEwmaSmoothing < 0)
+          ? 0.1
+          : latencyEwmaSmoothing;
+      final newMicros =
+          ((1.0 - s) * existing.inMicroseconds) + (s * d.inMicroseconds);
       _latencies[pKey] = Duration(microseconds: newMicros.round());
     }
   }
@@ -341,7 +354,10 @@ class MemoryPeerstore implements Peerstore, CertifiedAddrBook {
     _checkClosed();
     final set = _protocols[p.toBase58()];
     if (set == null) return const [];
-    return [for (final pr in protos) if (set.contains(pr)) pr];
+    return [
+      for (final pr in protos)
+        if (set.contains(pr)) pr,
+    ];
   }
 
   @override

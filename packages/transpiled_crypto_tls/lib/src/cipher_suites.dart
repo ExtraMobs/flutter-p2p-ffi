@@ -85,9 +85,24 @@ const int _tagLength = 16;
 /// plain public constant list since Dart has no equivalent linker escape
 /// hatch to guard against, and nothing about that history changes the value.
 final List<CipherSuiteTls13> cipherSuitesTls13 = [
-  const CipherSuiteTls13(id: tlsAes128GcmSha256, keyLen: 16, aead: aeadAesGcmTls13, hash: crypto.sha256),
-  const CipherSuiteTls13(id: tlsChacha20Poly1305Sha256, keyLen: 32, aead: aeadChaCha20Poly1305, hash: crypto.sha256),
-  const CipherSuiteTls13(id: tlsAes256GcmSha384, keyLen: 32, aead: aeadAesGcmTls13, hash: crypto.sha384),
+  const CipherSuiteTls13(
+    id: tlsAes128GcmSha256,
+    keyLen: 16,
+    aead: aeadAesGcmTls13,
+    hash: crypto.sha256,
+  ),
+  const CipherSuiteTls13(
+    id: tlsChacha20Poly1305Sha256,
+    keyLen: 32,
+    aead: aeadChaCha20Poly1305,
+    hash: crypto.sha256,
+  ),
+  const CipherSuiteTls13(
+    id: tlsAes256GcmSha384,
+    keyLen: 32,
+    aead: aeadAesGcmTls13,
+    hash: crypto.sha384,
+  ),
 ];
 
 /// Port of `mutualCipherSuiteTLS13` (`cipher_suites.go:664-671`).
@@ -162,8 +177,8 @@ final class AeadAuthenticationException implements Exception {
 /// handling a fresh nonce per `Seal`/`Open` call.
 sealed class _XorNonceAead implements CipherSuiteTls13Aead {
   _XorNonceAead(Uint8List key, Uint8List nonceMask)
-      : _key = Uint8List.fromList(key),
-        _nonceMask = Uint8List.fromList(nonceMask);
+    : _key = Uint8List.fromList(key),
+      _nonceMask = Uint8List.fromList(nonceMask);
 
   final Uint8List _key;
   final Uint8List _nonceMask;
@@ -192,14 +207,26 @@ sealed class _XorNonceAead implements CipherSuiteTls13Aead {
   /// `processBytes` + `doFinal`. Not `pc.AEADCipher.process`/the default
   /// `pc.AEADBlockCipher.process` for [pc.ChaCha20Poly1305]: see the
   /// file-level doc comment for why.
-  Uint8List _run(bool forEncryption, Uint8List nonce, Uint8List input, Uint8List additionalData);
+  Uint8List _run(
+    bool forEncryption,
+    Uint8List nonce,
+    Uint8List input,
+    Uint8List additionalData,
+  );
 
   @override
-  Uint8List seal(Uint8List nonce, Uint8List plaintext, Uint8List additionalData) =>
-      _run(true, _effectiveNonce(nonce), plaintext, additionalData);
+  Uint8List seal(
+    Uint8List nonce,
+    Uint8List plaintext,
+    Uint8List additionalData,
+  ) => _run(true, _effectiveNonce(nonce), plaintext, additionalData);
 
   @override
-  Uint8List open(Uint8List nonce, Uint8List ciphertext, Uint8List additionalData) {
+  Uint8List open(
+    Uint8List nonce,
+    Uint8List ciphertext,
+    Uint8List additionalData,
+  ) {
     try {
       return _run(false, _effectiveNonce(nonce), ciphertext, additionalData);
     } on pc.InvalidCipherTextException catch (e) {
@@ -218,9 +245,22 @@ final class _XorNonceGcmAead extends _XorNonceAead {
   _XorNonceGcmAead(super.key, super.nonceMask);
 
   @override
-  Uint8List _run(bool forEncryption, Uint8List nonce, Uint8List input, Uint8List additionalData) {
+  Uint8List _run(
+    bool forEncryption,
+    Uint8List nonce,
+    Uint8List input,
+    Uint8List additionalData,
+  ) {
     final cipher = pc.GCMBlockCipher(pc.AESEngine())
-      ..init(forEncryption, pc.AEADParameters(pc.KeyParameter(_key), _tagLength * 8, nonce, additionalData));
+      ..init(
+        forEncryption,
+        pc.AEADParameters(
+          pc.KeyParameter(_key),
+          _tagLength * 8,
+          nonce,
+          additionalData,
+        ),
+      );
     final out = Uint8List(cipher.getOutputSize(input.length));
     var len = cipher.processBytes(input, 0, input.length, out, 0);
     len += cipher.doFinal(out, len);
@@ -232,9 +272,22 @@ final class _XorNonceChaCha20Poly1305Aead extends _XorNonceAead {
   _XorNonceChaCha20Poly1305Aead(super.key, super.nonceMask);
 
   @override
-  Uint8List _run(bool forEncryption, Uint8List nonce, Uint8List input, Uint8List additionalData) {
+  Uint8List _run(
+    bool forEncryption,
+    Uint8List nonce,
+    Uint8List input,
+    Uint8List additionalData,
+  ) {
     final cipher = pc.ChaCha20Poly1305(pc.ChaCha7539Engine(), pc.Poly1305())
-      ..init(forEncryption, pc.AEADParameters(pc.KeyParameter(_key), _tagLength * 8, nonce, additionalData));
+      ..init(
+        forEncryption,
+        pc.AEADParameters(
+          pc.KeyParameter(_key),
+          _tagLength * 8,
+          nonce,
+          additionalData,
+        ),
+      );
     final out = Uint8List(cipher.getOutputSize(input.length));
     var len = cipher.processBytes(input, 0, input.length, out, 0);
     len += cipher.doFinal(out, len);

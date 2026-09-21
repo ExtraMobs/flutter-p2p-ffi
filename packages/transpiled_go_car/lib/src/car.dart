@@ -39,8 +39,8 @@ final class CarHeader {
 final class CarBlock implements Block {
   /// Creates a [CarBlock] with the given [cid] and payload [data].
   CarBlock(Cid cid, Uint8List data)
-      : _cid = cid,
-        data = Uint8List.fromList(data);
+    : _cid = cid,
+      data = Uint8List.fromList(data);
 
   final Cid _cid;
 
@@ -58,9 +58,9 @@ final class CarBlock implements Block {
 
   @override
   Map<String, Object?> loggable() => {
-        'cid': _cid.encode(),
-        'length': data.length,
-      };
+    'cid': _cid.encode(),
+    'length': data.length,
+  };
 }
 
 /// Raised when a section's Cid does not hash to its bytes.

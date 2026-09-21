@@ -77,7 +77,8 @@ void main() {
     test('rejects a label over 63 bytes', () {
       final tooLong = 'a' * 64;
       expect(
-        () => encodeDnsQuery(id: 1, name: '$tooLong.com', type: DnsRecordType.a),
+        () =>
+            encodeDnsQuery(id: 1, name: '$tooLong.com', type: DnsRecordType.a),
         throwsFormatException,
       );
     });
@@ -88,7 +89,9 @@ void main() {
       final response = decodeDnsMessage(_fromHex(_txtResponseHex));
       expect(response.id, equals(0xbeef));
       expect(response.rcode, equals(0));
-      final txt = response.records.where((r) => r.type == DnsRecordType.txt).toList();
+      final txt = response.records
+          .where((r) => r.type == DnsRecordType.txt)
+          .toList();
       expect(txt, hasLength(4));
       expect(
         txt.map((r) => r.data),
@@ -104,27 +107,34 @@ void main() {
     test('A: parses two IPv4 addresses', () {
       final response = decodeDnsMessage(_fromHex(_aResponseHex));
       expect(response.rcode, equals(0));
-      final a = response.records.where((r) => r.type == DnsRecordType.a).toList();
+      final a = response.records
+          .where((r) => r.type == DnsRecordType.a)
+          .toList();
       expect(a.map((r) => r.data), equals(['8.8.8.8', '8.8.4.4']));
     });
 
     test('AAAA: parses two IPv6 addresses in canonical compressed form', () {
       final response = decodeDnsMessage(_fromHex(_aaaaResponseHex));
       expect(response.rcode, equals(0));
-      final aaaa = response.records.where((r) => r.type == DnsRecordType.aaaa).toList();
+      final aaaa = response.records
+          .where((r) => r.type == DnsRecordType.aaaa)
+          .toList();
       expect(
         aaaa.map((r) => r.data),
         equals(['2001:4860:4860::8844', '2001:4860:4860::8888']),
       );
     });
 
-    test('NXDOMAIN: rcode is 3 with no answer records (SOA is authority-only)', () {
-      // ANCOUNT=0, NSCOUNT=1 (an SOA record this client doesn't need to
-      // parse, since it only walks the answer section).
-      final response = decodeDnsMessage(_fromHex(_nxdomainResponseHex));
-      expect(response.rcode, equals(3));
-      expect(response.records, isEmpty);
-    });
+    test(
+      'NXDOMAIN: rcode is 3 with no answer records (SOA is authority-only)',
+      () {
+        // ANCOUNT=0, NSCOUNT=1 (an SOA record this client doesn't need to
+        // parse, since it only walks the answer section).
+        final response = decodeDnsMessage(_fromHex(_nxdomainResponseHex));
+        expect(response.rcode, equals(3));
+        expect(response.records, isEmpty);
+      },
+    );
   });
 
   group('decodeDnsMessage -- structural validation', () {
@@ -137,7 +147,8 @@ void main() {
       // NAME is a pointer to an offset past itself.
       final bytes = Uint8List.fromList([
         0, 0, 0x81, 0x80, 0, 0, 0, 1, 0, 0, 0, 0, // header
-        0xc0, 0x20, // NAME: pointer to offset 0x20 (forward -- past this record)
+        0xc0,
+        0x20, // NAME: pointer to offset 0x20 (forward -- past this record)
         0, 16, 0, 1, 0, 0, 0, 0, 0, 1, 0, // TYPE=TXT CLASS=IN TTL RDLENGTH=1
         0, // RDATA (1 empty character-string)
       ]);

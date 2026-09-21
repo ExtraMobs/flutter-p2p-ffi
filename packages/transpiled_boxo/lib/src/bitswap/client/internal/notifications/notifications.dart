@@ -20,13 +20,13 @@ class NotificationsPubSub implements PubSub {
   }
 
   bool _closed = false;
-  
+
   final Map<String, List<StreamController<Block>>> _listeners = {};
 
   @override
   void publish(PeerId from, List<Block> blocks) {
     if (_closed) return;
-    
+
     for (final block in blocks) {
       final key = block.cid().encode();
       final subs = _listeners[key];
@@ -46,14 +46,14 @@ class NotificationsPubSub implements PubSub {
     if (keys.isEmpty) {
       return const Stream.empty();
     }
-    
+
     if (_closed) {
       return const Stream.empty();
     }
 
     final controller = StreamController<Block>();
     final remaining = keys.map((k) => k.encode()).toSet();
-    
+
     void cleanup() {
       for (final key in keys) {
         final keyStr = key.encode();
@@ -68,40 +68,43 @@ class NotificationsPubSub implements PubSub {
     }
 
     controller.onCancel = cleanup;
-    
+
     for (final key in keys) {
       final keyStr = key.encode();
       _listeners.putIfAbsent(keyStr, () => []).add(controller);
     }
-    
+
     final actualController = StreamController<Block>();
     actualController.onCancel = cleanup;
-    
+
     StreamSubscription<Block>? sub;
-    sub = controller.stream.listen((block) {
-      final keyStr = block.cid().encode();
-      if (remaining.contains(keyStr)) {
-        remaining.remove(keyStr);
-        
-        final subs = _listeners[keyStr];
-        if (subs != null) {
-          subs.remove(controller);
-          if (subs.isEmpty) {
-            _listeners.remove(keyStr);
+    sub = controller.stream.listen(
+      (block) {
+        final keyStr = block.cid().encode();
+        if (remaining.contains(keyStr)) {
+          remaining.remove(keyStr);
+
+          final subs = _listeners[keyStr];
+          if (subs != null) {
+            subs.remove(controller);
+            if (subs.isEmpty) {
+              _listeners.remove(keyStr);
+            }
+          }
+
+          actualController.add(block);
+
+          if (remaining.isEmpty) {
+            sub?.cancel();
+            if (!controller.isClosed) controller.close();
+            if (!actualController.isClosed) actualController.close();
           }
         }
-        
-        actualController.add(block);
-        
-        if (remaining.isEmpty) {
-          sub?.cancel();
-          if (!controller.isClosed) controller.close();
-          if (!actualController.isClosed) actualController.close();
-        }
-      }
-    }, onDone: () {
-      if (!actualController.isClosed) actualController.close();
-    });
+      },
+      onDone: () {
+        if (!actualController.isClosed) actualController.close();
+      },
+    );
 
     return actualController.stream;
   }

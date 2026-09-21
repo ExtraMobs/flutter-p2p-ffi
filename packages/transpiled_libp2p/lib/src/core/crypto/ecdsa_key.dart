@@ -40,7 +40,10 @@ class EcdsaPrivateKey extends PrivKey {
   /// Wraps an already-parsed pointycastle EC private key.
   factory EcdsaPrivateKey.fromPointyCastle(pc.ECPrivateKey key) {
     final q = (_params.G * key.d!)!;
-    return EcdsaPrivateKey._(key, EcdsaPublicKey.fromPointyCastle(pc.ECPublicKey(q, _params)));
+    return EcdsaPrivateKey._(
+      key,
+      EcdsaPublicKey.fromPointyCastle(pc.ECPublicKey(q, _params)),
+    );
   }
 
   final pc.ECPrivateKey _key;
@@ -76,7 +79,8 @@ class EcdsaPublicKey extends PubKey {
   EcdsaPublicKey._(this._key);
 
   /// Wraps an already-parsed pointycastle EC public key.
-  factory EcdsaPublicKey.fromPointyCastle(pc.ECPublicKey key) => EcdsaPublicKey._(key);
+  factory EcdsaPublicKey.fromPointyCastle(pc.ECPublicKey key) =>
+      EcdsaPublicKey._(key);
 
   final pc.ECPublicKey _key;
 
@@ -104,7 +108,12 @@ class EcdsaPublicKey extends PubKey {
 /// `GenerateECDSAKeyPair`.
 EcdsaPrivateKey generateEcdsaKeyPair() {
   final keyGen = pc.ECKeyGenerator()
-    ..init(pc.ParametersWithRandom(pc.ECKeyGeneratorParameters(_params), _secureRandom()));
+    ..init(
+      pc.ParametersWithRandom(
+        pc.ECKeyGeneratorParameters(_params),
+        _secureRandom(),
+      ),
+    );
   final pair = keyGen.generateKeyPair();
   return EcdsaPrivateKey.fromPointyCastle(pair.privateKey);
 }
@@ -139,7 +148,9 @@ EcdsaPrivateKey unmarshalEcdsaPrivateKey(Uint8List der) {
     if (el.tag == 0xA0) {
       final oid = ASN1ObjectIdentifier.fromBytes(el.valueBytes!);
       if (oid.objectIdentifierAsString != _prime256v1Oid.join('.')) {
-        throw FormatException('unsupported EC curve OID: ${oid.objectIdentifierAsString}');
+        throw FormatException(
+          'unsupported EC curve OID: ${oid.objectIdentifierAsString}',
+        );
       }
     } else if (el.tag == 0xA1) {
       final bitString = ASN1BitString.fromBytes(el.valueBytes!);
@@ -163,11 +174,13 @@ EcdsaPublicKey unmarshalEcdsaPublicKey(Uint8List der) {
     throw const FormatException('malformed PKIX EC public key');
   }
   final algId = elements[0] as ASN1Sequence;
-  final algOid = (algId.elements![0] as ASN1ObjectIdentifier).objectIdentifierAsString;
+  final algOid =
+      (algId.elements![0] as ASN1ObjectIdentifier).objectIdentifierAsString;
   if (algOid != _ecPublicKeyOid.join('.')) {
     throw FormatException('not an EC public key (algorithm OID $algOid)');
   }
-  final curveOid = (algId.elements![1] as ASN1ObjectIdentifier).objectIdentifierAsString;
+  final curveOid =
+      (algId.elements![1] as ASN1ObjectIdentifier).objectIdentifierAsString;
   if (curveOid != _prime256v1Oid.join('.')) {
     throw FormatException('unsupported EC curve OID: $curveOid');
   }
@@ -185,7 +198,9 @@ Uint8List encodeSec1EcPrivateKey(pc.ECPrivateKey key, pc.ECPublicKey pub) {
   final namedCurveTag = ASN1Object(tag: 0xA0)
     ..valueBytes = ASN1ObjectIdentifier(_prime256v1Oid).encode();
   final publicKeyTag = ASN1Object(tag: 0xA1)
-    ..valueBytes = (ASN1BitString(stringValues: pub.Q!.getEncoded(false))..unusedbits = 0).encode();
+    ..valueBytes = (ASN1BitString(
+      stringValues: pub.Q!.getEncoded(false),
+    )..unusedbits = 0).encode();
 
   final seq = ASN1Sequence(
     elements: [
@@ -207,7 +222,8 @@ Uint8List encodePkixEcPublicKey(pc.ECPublicKey key) {
       ASN1ObjectIdentifier(_prime256v1Oid),
     ],
   );
-  final bitString = ASN1BitString(stringValues: key.Q!.getEncoded(false))..unusedbits = 0;
+  final bitString = ASN1BitString(stringValues: key.Q!.getEncoded(false))
+    ..unusedbits = 0;
   final outer = ASN1Sequence(elements: [algorithmId, bitString]);
   return outer.encode();
 }

@@ -20,7 +20,11 @@ import 'paramtype.dart';
 final class ParamHeartbeatInfo implements Param {
   ParamHeartbeatInfo({Uint8List? heartbeatInformation})
     : heartbeatInformation = heartbeatInformation ?? Uint8List(0),
-      header = ParamHeader(typ: ParamType.heartbeatInfo, len: 0, raw: Uint8List(0));
+      header = ParamHeader(
+        typ: ParamType.heartbeatInfo,
+        len: 0,
+        raw: Uint8List(0),
+      );
 
   /// Composition standing in for Go's embedded `paramHeader`.
   ParamHeader header;

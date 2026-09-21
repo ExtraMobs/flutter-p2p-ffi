@@ -91,7 +91,10 @@ Future<NoiseRemoteIdentity> verifyNoiseHandshakePayload(
   final (identityKeyBytes, identitySig) = _decodeNoiseHandshakePayload(payload);
   final remotePubKey = unmarshalPublicKey(identityKeyBytes);
 
-  final peerId = PeerId.fromPublicKey(remotePubKey.raw(), type: remotePubKey.type.name);
+  final peerId = PeerId.fromPublicKey(
+    remotePubKey.raw(),
+    type: remotePubKey.type.name,
+  );
   if (expectedRemoteId != null && expectedRemoteId != peerId) {
     throw NoiseHandshakeAuthException(
       'peer ID mismatch: expected $expectedRemoteId, got $peerId',
@@ -120,7 +123,9 @@ Uint8List _encodeNoiseHandshakePayload({
   return out.toBytes();
 }
 
-(Uint8List identityKey, Uint8List identitySig) _decodeNoiseHandshakePayload(Uint8List bytes) {
+(Uint8List identityKey, Uint8List identitySig) _decodeNoiseHandshakePayload(
+  Uint8List bytes,
+) {
   Uint8List? identityKey;
   Uint8List? identitySig;
   var offset = 0;
@@ -137,23 +142,33 @@ Uint8List _encodeNoiseHandshakePayload({
         final (length, lenLen) = _readVarint(bytes, offset);
         offset += lenLen;
         if (offset + length > bytes.length) {
-          throw const FormatException('Noise handshake payload field runs past end of message');
+          throw const FormatException(
+            'Noise handshake payload field runs past end of message',
+          );
         }
         final fieldBytes = bytes.sublist(offset, offset + length);
         offset += length;
         if (fieldNumber == 1) identityKey = fieldBytes;
         if (fieldNumber == 2) identitySig = fieldBytes;
       default:
-        throw FormatException('unsupported protobuf wire type in Noise handshake payload: $wireType');
+        throw FormatException(
+          'unsupported protobuf wire type in Noise handshake payload: $wireType',
+        );
     }
   }
   if (identityKey == null || identitySig == null) {
-    throw const FormatException('Noise handshake payload missing identity_key or identity_sig');
+    throw const FormatException(
+      'Noise handshake payload missing identity_key or identity_sig',
+    );
   }
   return (identityKey, identitySig);
 }
 
-void _writeLengthDelimitedField(BytesBuilder out, int fieldNumber, Uint8List value) {
+void _writeLengthDelimitedField(
+  BytesBuilder out,
+  int fieldNumber,
+  Uint8List value,
+) {
   out.add(_encodeVarint((fieldNumber << 3) | 2));
   out.add(_encodeVarint(value.length));
   out.add(value);
@@ -176,7 +191,9 @@ Uint8List _encodeVarint(int value) {
   var index = offset;
   while (true) {
     if (index >= bytes.length) {
-      throw const FormatException('protobuf varint runs past end of Noise handshake payload');
+      throw const FormatException(
+        'protobuf varint runs past end of Noise handshake payload',
+      );
     }
     final byte = bytes[index];
     value |= (byte & 0x7f) << shift;

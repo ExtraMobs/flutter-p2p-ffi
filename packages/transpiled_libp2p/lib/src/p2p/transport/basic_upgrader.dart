@@ -14,7 +14,6 @@ import '../net/swarm/swarm_stream.dart';
 import '../protocol/multistream_select.dart';
 import '../security/noise/transport.dart';
 
-
 /// Multistream protocol ID for Yamux multiplexing.
 const String goYamuxProtocolId = '/yamux/1.0.0';
 
@@ -31,21 +30,23 @@ class UpgradedCapableConn implements CapableConn {
     required YamuxSession session,
     required YamuxTransport bridge,
     ConnectionState? connectionState,
-  })  : _transport = transport,
-        _localPeer = localPeer,
-        _remotePeer = remotePeer,
-        _remotePublicKey = remotePublicKey,
-        _localMultiaddr = localMultiaddr,
-        _remoteMultiaddr = remoteMultiaddr,
-        _direction = direction,
-        _session = session,
-        _bridge = bridge,
-        _connectionState = connectionState ?? const ConnectionState(
-          streamMultiplexer: goYamuxProtocolId,
-          security: noiseProtocolId,
-          transport: 'tcp',
-        ),
-        _opened = DateTime.now();
+  }) : _transport = transport,
+       _localPeer = localPeer,
+       _remotePeer = remotePeer,
+       _remotePublicKey = remotePublicKey,
+       _localMultiaddr = localMultiaddr,
+       _remoteMultiaddr = remoteMultiaddr,
+       _direction = direction,
+       _session = session,
+       _bridge = bridge,
+       _connectionState =
+           connectionState ??
+           const ConnectionState(
+             streamMultiplexer: goYamuxProtocolId,
+             security: noiseProtocolId,
+             transport: 'tcp',
+           ),
+       _opened = DateTime.now();
 
   final Transport _transport;
   final PeerId _localPeer;
@@ -85,10 +86,10 @@ class UpgradedCapableConn implements CapableConn {
 
   @override
   ConnStats stat() => ConnStats(
-        direction: _direction,
-        opened: _opened,
-        numStreams: _session.numStreams,
-      );
+    direction: _direction,
+    opened: _opened,
+    numStreams: _session.numStreams,
+  );
 
   @override
   bool get isClosed => _session.isClosed;
@@ -179,9 +180,12 @@ class BasicUpgrader implements Upgrader {
         connectionState: ConnectionState(
           streamMultiplexer: muxer,
           security: selected,
-          transport: rawConn.remoteMultiaddr().components
-              .any((c) => c.protocol.name == 'ws' || c.protocol.name == 'wss')
-              ? 'websocket' : 'tcp',
+          transport:
+              rawConn.remoteMultiaddr().components.any(
+                (c) => c.protocol.name == 'ws' || c.protocol.name == 'wss',
+              )
+              ? 'websocket'
+              : 'tcp',
           usedEarlyMuxerNegotiation: state.usedEarlyMuxerNegotiation,
         ),
       );
@@ -300,4 +304,3 @@ class _GenericRawConn implements RawConn {
     return conn is RawConn ? conn.isClosed : false;
   }
 }
-

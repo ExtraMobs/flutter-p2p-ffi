@@ -25,22 +25,41 @@ import 'package:transpiled_multiaddr/transpiled_multiaddr.dart';
 // certificates go-libp2p itself uses to test PubKeyFromCertChain.
 void main() {
   group('getPrefixedExtensionId [Atomic Audit]', () {
-    test('getPrefixedExtensionId() - matches the upstream TestExtensionGenerating vector', () {
-      expect(getPrefixedExtensionId(const [13, 37]), [1, 3, 6, 1, 4, 1, 53594, 13, 37]);
-    });
+    test(
+      'getPrefixedExtensionId() - matches the upstream TestExtensionGenerating vector',
+      () {
+        expect(getPrefixedExtensionId(const [13, 37]), [
+          1,
+          3,
+          6,
+          1,
+          4,
+          1,
+          53594,
+          13,
+          37,
+        ]);
+      },
+    );
 
-    test('getPrefixedExtensionId() - suffix [1, 1] matches the libp2p TLS extension id', () {
-      expect(getPrefixedExtensionId(const [1, 1]), extensionId);
-    });
+    test(
+      'getPrefixedExtensionId() - suffix [1, 1] matches the libp2p TLS extension id',
+      () {
+        expect(getPrefixedExtensionId(const [1, 1]), extensionId);
+      },
+    );
   });
 
   group('extensionIdEqual [Atomic Audit]', () {
-    test('extensionIdEqual() - matches the upstream TestExtensionComparison vectors', () {
-      expect(extensionIdEqual([1, 2, 3, 4], [1, 2, 3, 4]), isTrue);
-      expect(extensionIdEqual([1, 2, 3, 4], [1, 2, 3]), isFalse);
-      expect(extensionIdEqual([1, 2, 3], [1, 2, 3, 4]), isFalse);
-      expect(extensionIdEqual([1, 2, 3, 4], [4, 3, 2, 1]), isFalse);
-    });
+    test(
+      'extensionIdEqual() - matches the upstream TestExtensionComparison vectors',
+      () {
+        expect(extensionIdEqual([1, 2, 3, 4], [1, 2, 3, 4]), isTrue);
+        expect(extensionIdEqual([1, 2, 3, 4], [1, 2, 3]), isFalse);
+        expect(extensionIdEqual([1, 2, 3], [1, 2, 3, 4]), isFalse);
+        expect(extensionIdEqual([1, 2, 3, 4], [4, 3, 2, 1]), isFalse);
+      },
+    );
   });
 
   group('generateSignedExtension [Atomic Audit]', () {
@@ -57,8 +76,10 @@ void main() {
         expect(ext.critical, isFalse);
 
         final signedKeySeq = ASN1Sequence.fromBytes(ext.value);
-        final embeddedPubKeyBytes = (signedKeySeq.elements![0] as ASN1OctetString).octets!;
-        final signatureBytes = (signedKeySeq.elements![1] as ASN1OctetString).octets!;
+        final embeddedPubKeyBytes =
+            (signedKeySeq.elements![0] as ASN1OctetString).octets!;
+        final signatureBytes =
+            (signedKeySeq.elements![1] as ASN1OctetString).octets!;
 
         expect(embeddedPubKeyBytes, marshalPublicKey(identityKey.getPublic()));
 
@@ -66,7 +87,10 @@ void main() {
           ...utf8.encode('libp2p-tls-handshake:'),
           ...certSpki,
         ]);
-        expect(await identityKey.getPublic().verify(toVerify, signatureBytes), isTrue);
+        expect(
+          await identityKey.getPublic().verify(toVerify, signatureBytes),
+          isTrue,
+        );
       },
     );
   });
@@ -78,10 +102,25 @@ void main() {
         final identityKey = await generateEd25519KeyPair();
         final result = await keyToCertificate(identityKey);
 
-        final tbs = (ASN1Sequence.fromBytes(result.certificateDer).elements![0] as ASN1Sequence).elements!;
-        expect(tbs[0].tag, 0xA0, reason: 'explicit [0] version tag must be present');
-        expect(ASN1Integer.fromBytes(tbs[0].valueBytes!).integer, BigInt.two, reason: 'version must be v3');
-        expect(tbs.any((e) => e.tag == 0xA3), isTrue, reason: 'extensions [3] tag must be present');
+        final tbs =
+            (ASN1Sequence.fromBytes(result.certificateDer).elements![0]
+                    as ASN1Sequence)
+                .elements!;
+        expect(
+          tbs[0].tag,
+          0xA0,
+          reason: 'explicit [0] version tag must be present',
+        );
+        expect(
+          ASN1Integer.fromBytes(tbs[0].valueBytes!).integer,
+          BigInt.two,
+          reason: 'version must be v3',
+        );
+        expect(
+          tbs.any((e) => e.tag == 0xA3),
+          isTrue,
+          reason: 'extensions [3] tag must be present',
+        );
 
         expect(result.privateKey.type, KeyType.ecdsa);
       },
@@ -94,7 +133,9 @@ void main() {
         final expectedPeerId = PeerId.fromPubKey(identityKey.getPublic());
 
         final result = await keyToCertificate(identityKey);
-        final recoveredPubKey = await pubKeyFromCertChain([result.certificateDer]);
+        final recoveredPubKey = await pubKeyFromCertChain([
+          result.certificateDer,
+        ]);
 
         expect(PeerId.fromPubKey(recoveredPubKey), expectedPeerId);
       },
@@ -102,26 +143,49 @@ void main() {
   });
 
   group('pubKeyFromCertChain [Atomic Audit]', () {
-    test('pubKeyFromCertChain() - crypto_test.go "ED25519 Peer ID" vector', () async {
-      final pubKey = await pubKeyFromCertChain([_hexToBytes(_ed25519VectorHex)]);
-      expect(pubKey.type, KeyType.ed25519);
-      expect(PeerId.fromPubKey(pubKey), PeerId.decode('12D3KooWM6CgA9iBFZmcYAHA6A2qvbAxqfkmrYiRQuz3XEsk4Ksv'));
-    });
+    test(
+      'pubKeyFromCertChain() - crypto_test.go "ED25519 Peer ID" vector',
+      () async {
+        final pubKey = await pubKeyFromCertChain([
+          _hexToBytes(_ed25519VectorHex),
+        ]);
+        expect(pubKey.type, KeyType.ed25519);
+        expect(
+          PeerId.fromPubKey(pubKey),
+          PeerId.decode('12D3KooWM6CgA9iBFZmcYAHA6A2qvbAxqfkmrYiRQuz3XEsk4Ksv'),
+        );
+      },
+    );
 
-    test('pubKeyFromCertChain() - crypto_test.go "ECDSA Peer ID" vector', () async {
-      final pubKey = await pubKeyFromCertChain([_hexToBytes(_ecdsaVectorHex)]);
-      expect(pubKey.type, KeyType.ecdsa);
-      expect(PeerId.fromPubKey(pubKey), PeerId.decode('QmfXbAwNjJLXfesgztEHe8HwgVDCMMpZ9Eax1HYq6hn9uE'));
-    });
+    test(
+      'pubKeyFromCertChain() - crypto_test.go "ECDSA Peer ID" vector',
+      () async {
+        final pubKey = await pubKeyFromCertChain([
+          _hexToBytes(_ecdsaVectorHex),
+        ]);
+        expect(pubKey.type, KeyType.ecdsa);
+        expect(
+          PeerId.fromPubKey(pubKey),
+          PeerId.decode('QmfXbAwNjJLXfesgztEHe8HwgVDCMMpZ9Eax1HYq6hn9uE'),
+        );
+      },
+    );
 
-    test('pubKeyFromCertChain() - crypto_test.go "secp256k1 Peer ID" vector', () async {
-      final pubKey = await pubKeyFromCertChain([_hexToBytes(_secp256k1VectorHex)]);
-      expect(pubKey.type, KeyType.secp256k1);
-      expect(
-        PeerId.fromPubKey(pubKey),
-        PeerId.decode('16Uiu2HAkutTMoTzDw1tCvSRtu6YoixJwS46S1ZFxW8hSx9fWHiPs'),
-      );
-    });
+    test(
+      'pubKeyFromCertChain() - crypto_test.go "secp256k1 Peer ID" vector',
+      () async {
+        final pubKey = await pubKeyFromCertChain([
+          _hexToBytes(_secp256k1VectorHex),
+        ]);
+        expect(pubKey.type, KeyType.secp256k1);
+        expect(
+          PeerId.fromPubKey(pubKey),
+          PeerId.decode(
+            '16Uiu2HAkutTMoTzDw1tCvSRtu6YoixJwS46S1ZFxW8hSx9fWHiPs',
+          ),
+        );
+      },
+    );
 
     test(
       'pubKeyFromCertChain() - throws FormatException("signature invalid") for crypto_test.go '
@@ -129,18 +193,30 @@ void main() {
       () async {
         await expectLater(
           () => pubKeyFromCertChain([_hexToBytes(_invalidSignatureVectorHex)]),
-          throwsA(isA<FormatException>().having((e) => e.message, 'message', contains('signature invalid'))),
+          throwsA(
+            isA<FormatException>().having(
+              (e) => e.message,
+              'message',
+              contains('signature invalid'),
+            ),
+          ),
         );
       },
     );
 
-    test('pubKeyFromCertChain() - throws FormatException when the chain is not exactly one certificate', () async {
-      await expectLater(() => pubKeyFromCertChain([]), throwsA(isA<FormatException>()));
-      await expectLater(
-        () => pubKeyFromCertChain([Uint8List(0), Uint8List(0)]),
-        throwsA(isA<FormatException>()),
-      );
-    });
+    test(
+      'pubKeyFromCertChain() - throws FormatException when the chain is not exactly one certificate',
+      () async {
+        await expectLater(
+          () => pubKeyFromCertChain([]),
+          throwsA(isA<FormatException>()),
+        );
+        await expectLater(
+          () => pubKeyFromCertChain([Uint8List(0), Uint8List(0)]),
+          throwsA(isA<FormatException>()),
+        );
+      },
+    );
 
     test(
       'pubKeyFromCertChain() - throws FormatException when the libp2p extension is missing '
@@ -169,33 +245,42 @@ void main() {
       },
     );
 
-    test(
-      'pubKeyFromCertChain() - throws FormatException when the embedded public key was swapped '
-      'for a different key (wrong key)',
-      () async {
-        final signerKey = await generateEd25519KeyPair();
-        final otherKey = await generateEd25519KeyPair();
-        final result = await keyToCertificate(signerKey);
+    test('pubKeyFromCertChain() - throws FormatException when the embedded public key was swapped '
+        'for a different key (wrong key)', () async {
+      final signerKey = await generateEd25519KeyPair();
+      final otherKey = await generateEd25519KeyPair();
+      final result = await keyToCertificate(signerKey);
 
-        final signerKeyBytes = marshalPublicKey(signerKey.getPublic());
-        final otherKeyBytes = marshalPublicKey(otherKey.getPublic());
-        expect(
-          otherKeyBytes.length,
-          signerKeyBytes.length,
-          reason: 'both Ed25519 keys marshal to the same byte length, so the swap keeps the DER well-formed',
-        );
+      final signerKeyBytes = marshalPublicKey(signerKey.getPublic());
+      final otherKeyBytes = marshalPublicKey(otherKey.getPublic());
+      expect(
+        otherKeyBytes.length,
+        signerKeyBytes.length,
+        reason:
+            'both Ed25519 keys marshal to the same byte length, so the swap keeps the DER well-formed',
+      );
 
-        final tampered = Uint8List.fromList(result.certificateDer);
-        final at = _indexOfBytes(tampered, signerKeyBytes);
-        expect(at, isNonNegative, reason: 'the signer\'s marshaled public key must appear in the certificate DER');
-        tampered.setRange(at, at + signerKeyBytes.length, otherKeyBytes);
+      final tampered = Uint8List.fromList(result.certificateDer);
+      final at = _indexOfBytes(tampered, signerKeyBytes);
+      expect(
+        at,
+        isNonNegative,
+        reason:
+            'the signer\'s marshaled public key must appear in the certificate DER',
+      );
+      tampered.setRange(at, at + signerKeyBytes.length, otherKeyBytes);
 
-        await expectLater(
-          () => pubKeyFromCertChain([tampered]),
-          throwsA(isA<FormatException>().having((e) => e.message, 'message', contains('signature invalid'))),
-        );
-      },
-    );
+      await expectLater(
+        () => pubKeyFromCertChain([tampered]),
+        throwsA(
+          isA<FormatException>().having(
+            (e) => e.message,
+            'message',
+            contains('signature invalid'),
+          ),
+        ),
+      );
+    });
   });
 
   group('withCertTemplate [Atomic Audit]', () {
@@ -226,15 +311,18 @@ void main() {
       expect(identity.config?.certTemplate, equals('dummy-template'));
     });
 
-    test('getCertificate() - returns valid certificate and caches it', () async {
-      final idKey = await generateEd25519KeyPair();
-      final identity = await Identity.newIdentity(idKey);
-      final cert1 = await identity.getCertificate();
-      final cert2 = await identity.getCertificate();
-      expect(cert1.certificateDer, isNotEmpty);
-      expect(cert1.privateKey, isNotNull);
-      expect(cert1, equals(cert2));
-    });
+    test(
+      'getCertificate() - returns valid certificate and caches it',
+      () async {
+        final idKey = await generateEd25519KeyPair();
+        final identity = await Identity.newIdentity(idKey);
+        final cert1 = await identity.getCertificate();
+        final cert2 = await identity.getCertificate();
+        expect(cert1.certificateDer, isNotEmpty);
+        expect(cert1.privateKey, isNotNull);
+        expect(cert1, equals(cert2));
+      },
+    );
 
     test('configForPeer() - returns remote peer identifier', () async {
       final idKey = await generateEd25519KeyPair();
@@ -397,10 +485,7 @@ const _invalidSignatureVectorHex =
     'd6b57a7e8b3989e470325de4406e52e084e34a3fd56eef0d0df';
 
 class _DuplexPipeConn implements RawConn {
-  _DuplexPipeConn({
-    required this.localAddr,
-    required this.remoteAddr,
-  });
+  _DuplexPipeConn({required this.localAddr, required this.remoteAddr});
 
   final Multiaddr localAddr;
   final Multiaddr remoteAddr;
@@ -445,7 +530,9 @@ class _DuplexPipeConn implements RawConn {
       _readCompleter = Completer<void>();
       await _readCompleter!.future;
     }
-    final len = maxLength != null ? math.min(maxLength, _incoming.length) : _incoming.length;
+    final len = maxLength != null
+        ? math.min(maxLength, _incoming.length)
+        : _incoming.length;
     final res = Uint8List.fromList(_incoming.sublist(0, len));
     _incoming.removeRange(0, len);
     return res;

@@ -57,7 +57,8 @@ class _DummyP2pHost implements P2pHost {
   @override
   void setStreamHandler(String protocol, void Function(P2pStream) handler) {}
   @override
-  Future<P2pStream> newStream(PeerId peer, List<String> protocols) async => _DummyP2pStream();
+  Future<P2pStream> newStream(PeerId peer, List<String> protocols) async =>
+      _DummyP2pStream();
   @override
   void removeStreamHandler(String protocol) {}
   @override
@@ -79,7 +80,8 @@ class _DummyReceiver implements Receiver, ConnectionListener {
 
 class _DummyPeerConn implements PeerConnection {
   @override
-  Future<Duration> ping(Duration timeout) async => const Duration(milliseconds: 10);
+  Future<Duration> ping(Duration timeout) async =>
+      const Duration(milliseconds: 10);
   @override
   Duration latency() => const Duration(milliseconds: 10);
 }
@@ -88,13 +90,17 @@ class _DummyMessageNetwork implements MessageNetwork {
   @override
   Future<void> connect(PeerId peer, {dynamic addrInfo}) async {}
   @override
-  Future<MessageSender> newMessageSender(PeerId peer, MessageSenderOpts opts) async => _DummyMessageSender();
+  Future<MessageSender> newMessageSender(
+    PeerId peer,
+    MessageSenderOpts opts,
+  ) async => _DummyMessageSender();
   @override
   Duration latency(PeerId peer) => const Duration(milliseconds: 10);
   @override
   Future<Duration> ping(PeerId peer) async => const Duration(milliseconds: 10);
   @override
-  PeerId self() => PeerId.fromBytes(Uint8List.fromList([0x12, 0x20, ...List.filled(32, 9)]));
+  PeerId self() =>
+      PeerId.fromBytes(Uint8List.fromList([0x12, 0x20, ...List.filled(32, 9)]));
 }
 
 class _DummyMessageSender implements MessageSender {
@@ -110,7 +116,8 @@ class _DummyRouting implements Routing {
   @override
   Future<void> provide(Cid key) async {}
   @override
-  Stream<AddrInfo> findProvidersAsync(Cid key, int count) => const Stream.empty();
+  Stream<AddrInfo> findProvidersAsync(Cid key, int count) =>
+      const Stream.empty();
 }
 
 class _TestGauge implements Gauge {
@@ -129,28 +136,44 @@ class _TestSession implements Session {
 }
 
 void main() {
-  final testCid = Cid.decode('bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi');
-  final testPeer = PeerId.fromBytes(Uint8List.fromList([0x12, 0x20, ...List.filled(32, 7)]));
+  final testCid = Cid.decode(
+    'bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi',
+  );
+  final testPeer = PeerId.fromBytes(
+    Uint8List.fromList([0x12, 0x20, ...List.filled(32, 7)]),
+  );
   final testBlock = blocks.BasicBlock.fromData(Uint8List.fromList([1, 2, 3]));
 
   group('FixedSizeChunker [Atomic Audit]', () {
-    test('chunks() - particiona stream de bytes em blocos de tamanho fixo', () async {
-      final chunker = FixedSizeChunker(Stream.value([1, 2, 3, 4, 5]), size: 2);
-      final chunks = await chunker.chunks().toList();
-      expect(chunks, hasLength(3));
-    });
+    test(
+      'chunks() - particiona stream de bytes em blocos de tamanho fixo',
+      () async {
+        final chunker = FixedSizeChunker(
+          Stream.value([1, 2, 3, 4, 5]),
+          size: 2,
+        );
+        final chunks = await chunker.chunks().toList();
+        expect(chunks, hasLength(3));
+      },
+    );
   });
 
   group('Top-Level Functions [Atomic Audit]', () {
-    test('fromString() - instancia chunker a partir de especificacao textual', () {
-      final c = fromString(Stream.value([1, 2, 3]), 'default');
-      expect(c, isNotNull);
-    });
+    test(
+      'fromString() - instancia chunker a partir de especificacao textual',
+      () {
+        final c = fromString(Stream.value([1, 2, 3]), 'default');
+        expect(c, isNotNull);
+      },
+    );
 
-    test('buildDagFromReader() - constroi dag unixfs a partir de stream de bytes', () async {
-      final res = await buildDagFromReader(Stream.value([1, 2, 3]));
-      expect(res.root, isNotNull);
-    });
+    test(
+      'buildDagFromReader() - constroi dag unixfs a partir de stream de bytes',
+      () async {
+        final res = await buildDagFromReader(Stream.value([1, 2, 3]));
+        expect(res.root, isNotNull);
+      },
+    );
 
     test('wrapData() - empacota bytes em estrutura de dados raw', () {
       final bytes = wrapData(Uint8List.fromList([1, 2]));
@@ -198,10 +221,13 @@ void main() {
       expect(err, isNotNull);
     });
 
-    test('expandPathnames() - resolve lista de caminhos para forma canonica', () {
-      final paths = expandPathnames(['pubspec.yaml']);
-      expect(paths.first, contains('pubspec.yaml'));
-    });
+    test(
+      'expandPathnames() - resolve lista de caminhos para forma canonica',
+      () {
+        final paths = expandPathnames(['pubspec.yaml']);
+        expect(paths.first, contains('pubspec.yaml'));
+      },
+    );
 
     test('getenvBool() - le variavel de ambiente como valor booleano', () {
       expect(getenvBool('UNKNOWN_ENV_VAR_123'), isFalse);
@@ -221,7 +247,10 @@ void main() {
     });
 
     test('isValidHash() - valida consistencia de multihash textual', () {
-      expect(isValidHash('QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG'), isTrue);
+      expect(
+        isValidHash('QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG'),
+        isTrue,
+      );
       expect(isValidHash('invalid-hash'), isFalse);
     });
 
@@ -256,18 +285,25 @@ void main() {
       expect(s.supportedProtocols, equals(['/p/1']));
     });
 
-    test('withConnectEventManager() - configura gerenciador de eventos de conexao', () {
-      final cem = ConnectEventManager();
-      final opt = withConnectEventManager(cem);
-      final s = Settings();
-      opt(s);
-      expect(s.connEvtMgr, equals(cem));
-    });
+    test(
+      'withConnectEventManager() - configura gerenciador de eventos de conexao',
+      () {
+        final cem = ConnectEventManager();
+        final opt = withConnectEventManager(cem);
+        final s = Settings();
+        opt(s);
+        expect(s.connEvtMgr, equals(cem));
+      },
+    );
   });
 
   group('DagPbLink [Atomic Audit]', () {
     test('toBytes() - serializa link em bytes', () {
-      final link = DagPbLink(hash: testCid.toBytes(), name: 'link-1', tsize: 100);
+      final link = DagPbLink(
+        hash: testCid.toBytes(),
+        name: 'link-1',
+        tsize: 100,
+      );
       final bytes = link.toBytes();
       expect(bytes, isNotEmpty);
     });
@@ -275,19 +311,29 @@ void main() {
 
   group('DagPbNode [Atomic Audit]', () {
     test('toBytes() - serializa no dag pb em bytes', () {
-      final link = DagPbLink(hash: testCid.toBytes(), name: 'link-1', tsize: 100);
-      final node = DagPbNode(data: Uint8List.fromList([1, 2, 3]), links: [link]);
+      final link = DagPbLink(
+        hash: testCid.toBytes(),
+        name: 'link-1',
+        tsize: 100,
+      );
+      final node = DagPbNode(
+        data: Uint8List.fromList([1, 2, 3]),
+        links: [link],
+      );
       final bytes = node.toBytes();
       expect(bytes, isNotEmpty);
     });
   });
 
   group('BalancedUnixFsImporter [Atomic Audit]', () {
-    test('importStream() - importa stream de bytes para arvore unixfs', () async {
-      final imp = BalancedUnixFsImporter();
-      final res = await imp.importStream(Stream.value([1, 2, 3]));
-      expect(res.root, isNotNull);
-    });
+    test(
+      'importStream() - importa stream de bytes para arvore unixfs',
+      () async {
+        final imp = BalancedUnixFsImporter();
+        final res = await imp.importStream(Stream.value([1, 2, 3]));
+        expect(res.root, isNotNull);
+      },
+    );
 
     test('importFile() - importa arquivo do disco para unixfs', () async {
       final imp = BalancedUnixFsImporter();
@@ -346,7 +392,11 @@ void main() {
       final ds = MapDatastore();
       bs = Blockstore(ds);
       await bs.put(testBlock);
-      client = client_impl.Client(network: net, blockstore: bs, timeout: const Duration(milliseconds: 50));
+      client = client_impl.Client(
+        network: net,
+        blockstore: bs,
+        timeout: const Duration(milliseconds: 50),
+      );
     });
 
     test('getBlock() - busca bloco via cliente', () async {
@@ -1116,10 +1166,13 @@ void main() {
       expect(s.id(), equals(1));
     });
 
-    test('signalAvailability() - notifica disponibilidade de peer para a sessao', () {
-      s.signalAvailability(testPeer, true);
-      expect(s, isNotNull);
-    });
+    test(
+      'signalAvailability() - notifica disponibilidade de peer para a sessao',
+      () {
+        s.signalAvailability(testPeer, true);
+        expect(s, isNotNull);
+      },
+    );
   });
 
   group('PeerManager [Atomic Audit]', () {
@@ -1130,7 +1183,11 @@ void main() {
     setUp(() {
       g1 = _TestGauge();
       g2 = _TestGauge();
-      final bc = BroadcastControl(maxPeers: 10, localPeers: false, peeredPeers: false);
+      final bc = BroadcastControl(
+        maxPeers: 10,
+        localPeers: false,
+        peeredPeers: false,
+      );
       final net = _DummyMessageNetwork();
       pm = PeerManager(
         (p) => MessageQueue.create(p, net, (ks, d) {}),
@@ -1273,7 +1330,11 @@ void main() {
 
   group('BroadcastControl [Atomic Audit]', () {
     test('needHost() - checagem de host requerido', () {
-      final bc = BroadcastControl(maxPeers: 10, localPeers: false, peeredPeers: false);
+      final bc = BroadcastControl(
+        maxPeers: 10,
+        localPeers: false,
+        peeredPeers: false,
+      );
       expect(bc.needHost(), isTrue);
     });
   });
@@ -1286,7 +1347,11 @@ void main() {
     setUp(() {
       g1 = _TestGauge();
       g2 = _TestGauge();
-      final bc = BroadcastControl(maxPeers: 10, localPeers: false, peeredPeers: false);
+      final bc = BroadcastControl(
+        maxPeers: 10,
+        localPeers: false,
+        peeredPeers: false,
+      );
       pwm = PeerWantManager(g1, g2, bc);
     });
 
@@ -1345,7 +1410,11 @@ void main() {
     test('wanted() - avalia presenca de solicitacao', () {
       final wpc = WantPeerCnts(wantBlock: 1, wantHave: 0, isBroadcast: false);
       expect(wpc.wanted(), isTrue);
-      final wpcFalse = WantPeerCnts(wantBlock: 0, wantHave: 0, isBroadcast: false);
+      final wpcFalse = WantPeerCnts(
+        wantBlock: 0,
+        wantHave: 0,
+        isBroadcast: false,
+      );
       expect(wpcFalse.wanted(), isFalse);
     });
   });
