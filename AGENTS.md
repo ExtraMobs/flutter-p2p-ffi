@@ -35,8 +35,9 @@ shims e dependências externas via git:
 
 > [!IMPORTANT]
 > Este objetivo **não** portou a `go-libp2p` integralmente, e o pacote não deve
-> ser tratado como fechado. A cobertura atual é de 873 de 3.688 símbolos
-> (**23,7%**; tipos 164/391 — ver `PROGRESS_RELATORY.md`).
+> ser tratado como fechado. A cobertura atual está em `PROGRESS_RELATORY.md`,
+> que é regenerado pelo auditor; não repita o número aqui, porque ele muda a
+> cada símbolo portado.
 >
 > O que existe hoje, depois dos Objetivos 5 e 6: transportes TCP, WebSocket,
 > QUIC, WebTransport e WebRTC Direct; segurança Noise; muxer yamux; e a camada
@@ -119,7 +120,7 @@ nem peers locais, e perdia todo o estado de rede a cada reinício.
 > discovery e persistência, sem encostar no caminho de dial/listen/upgrade, que é
 > onde transporte mora — e podem ser tocados em qualquer ordem.
 
-### Objetivo 6 — Ampliação da Matriz de Transporte e Segurança (G.1, G.2 e G.3 concluídos e comprovados na discagem; G.4 com a discagem comprovada e o servimento pendente; G.5 e G.7 pendentes; G.6 descartado)
+### Objetivo 6 — Ampliação da Matriz de Transporte e Segurança (G.2 concluído nas duas direções; G.1 e G.4 comprovados só na discagem; G.3, G.5 e G.7 pendentes; G.6 descartado)
 
 Enquanto o Objetivo 5 trata de **como** o nó participa da rede, este trata de
 **quantos peers ele consegue alcançar**.
@@ -131,9 +132,11 @@ IPv4 e IPv6, eram invisíveis, e nós de navegador (Helia sobre WebTransport ou
 WebRTC) eram inalcançáveis por completo.
 
 Os transportes desse diagnóstico foram portados e estão registrados no Swarm do
-nó. O que **não** está comprovado é o alcance efetivo: nenhum deles foi
-exercitado contra um Kubo real, e é isso que o Marco G.7 exige — ver o aviso
-sobre `canDial()` lá embaixo antes de dar o marco por fechado.
+nó. O alcance efetivo, porém, é uma afirmação separada, e só vale contra um
+Kubo real: hoje `local_kubo_transport_matrix_test.dart` recupera bloco por
+`/tcp`, `/quic-v1` e `/quic-v1/webtransport`, e falha em `/webrtc-direct`. É
+isso que o Marco G.7 mede — ver o aviso sobre `canDial()` lá embaixo antes de
+dar o marco por fechado.
 
 > [!IMPORTANT]
 > **O bloqueio arquitetural do QUIC deixou de existir e isso muda a viabilidade
@@ -159,7 +162,7 @@ sobre `canDial()` lá embaixo antes de dar o marco por fechado.
 >
 > ```
 > TLS 1.3 transpilado (G.2)
-> ├── G.1  QUIC ................... CONCLUÍDO E COMPROVADO
+> ├── G.1  QUIC ................... discagem comprovada; entrada não
 > │   └── G.4  WebTransport ....... depende via G.1
 > ├── G.7  Validação da matriz .... depende via G.1 e G.4
 > └── (o próprio /tls/1.0.0)
@@ -191,8 +194,9 @@ sobre `canDial()` lá embaixo antes de dar o marco por fechado.
 > e o servidor DHT são agnósticos de transporte — é por isso que o nó hospeda e
 > serve por CID hoje, com Noise sozinho.
 >
-> Ordem executável do que resta: **G.4**, com **G.5** em paralelo
-> (após DTLS) e **G.7** por último.
+> Ordem executável do que resta: fechar a **direção de entrada** compartilhada
+> por G.1 e G.4 (um mesmo `QuicServer`), **G.3** e **G.5** (após DTLS) em
+> paralelo, e **G.7** por último.
 
 - **Marco G.1 (QUIC — `/udp/<porta>/quic-v1`)**:
   Formato de fio QUIC real (RFC 9000 e RFC 9001) implementado com Long Header
@@ -200,10 +204,16 @@ sobre `canDial()` lá embaixo antes de dar o marco por fechado.
   AEAD de payload via AES-128-GCM e proteção de cabeçalho via AES-ECB. Handshake
   TLS 1.3 completo integrado via CRYPTO frames negociando ALPN `libp2p`,
   parâmetros de transporte QUIC e certificado libp2p. Suporte a frames STREAM,
-  ACK, RESET_STREAM, STOP_SENDING e NEW_CONNECTION_ID. Interoperabilidade 100%
-  comprovada contra daemon Kubo 0.43.0 real com abertura de stream multistream-select,
-  Bitswap 1.2.0 e recuperação/validação de blocos por CID (100% concluído e
-  comprovado via `local_kubo_quic_test.dart`).
+  ACK, RESET_STREAM, STOP_SENDING e NEW_CONNECTION_ID. A **discagem** está 100%
+  comprovada contra daemon Kubo 0.43.0 real, com abertura de stream por
+  multistream-select, Bitswap 1.2.0 e recuperação/validação de blocos por CID
+  (`local_kubo_quic_test.dart`).
+
+  A direção de **entrada** não está comprovada: o `QuicServer` que atende
+  `/quic-v1` é o mesmo do WebTransport, e um Kubo real ainda não completa o
+  handshake contra ele. O ponto exato onde para está em
+  `doc/transpilation/PROGRESS.md`. O marco só fecha quando as duas direções
+  estiverem comprovadas.
 - **Marco G.2 (Segurança TLS 1.3 — `/tls/1.0.0`)**:
   **Fundação de metade deste objetivo**: habilita o `/tls/1.0.0` negociado por
   multistream-select à frente do Noise, com máquinas de estado do handshake TLS 1.3
@@ -215,6 +225,11 @@ sobre `canDial()` lá embaixo antes de dar o marco por fechado.
   O transporte mais barato de acrescentar sobre a base TCP já existente, e o que
   destrava peers de infraestrutura e ambientes com egresso restrito a HTTP(S).
   Critério: conexão com um peer público que anuncie `/wss`.
+
+  O transporte está implementado e registrado no Swarm à frente do TCP, e `/ws`
+  foi exercitado entre dois nós Dart, mas **o critério acima não está
+  atendido**: não há prova contra um peer externo que anuncie `/wss`. Uma
+  bateria de `canDial()` sobre a string do multiaddr não conta.
 - **Marco G.4 (WebTransport — `/quic-v1/webtransport`)** — metade concluída:
   Depende do G.1, por rodar sobre HTTP/3 sobre QUIC, e usa o componente
   `certhash` do multiaddr para fixação de certificado no navegador. Critério:

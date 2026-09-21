@@ -4,7 +4,7 @@
 > **Símbolos Dart Auditados:** 8897 | **Símbolos Go Indexados:** 52972
 > **Status Geral:** ❌ **0 Erros** | ⚠️ **0 Avisos** | ℹ️ **1462 Notas de Cobertura**
 
-## 1. Resumo Executivo das 23 Regras
+## 1. Resumo Executivo das 24 Regras
 
 | # | Regra | Severidade | Ocorrências | Status |
 | :---: | :--- | :---: | :---: | :---: |

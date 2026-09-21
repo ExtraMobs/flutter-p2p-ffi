@@ -1995,7 +1995,7 @@ class AstNomenclatureAuditor:
             f"> **Símbolos Dart Auditados:** {len(self.dart_symbols)} | **Símbolos Go Indexados:** {sum(len(s) for s in self.go_symbols_by_module.values())}",
             f"> **Status Geral:** ❌ **{len(errors)} Erros** | ⚠️ **{len(warnings)} Avisos** | ℹ️ **{len(infos)} Notas de Cobertura**",
             "",
-            "## 1. Resumo Executivo das 23 Regras",
+            "## 1. Resumo Executivo das 24 Regras",
             "",
             "| # | Regra | Severidade | Ocorrências | Status |",
             "| :---: | :--- | :---: | :---: | :---: |",

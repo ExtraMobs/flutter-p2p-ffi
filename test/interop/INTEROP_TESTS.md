@@ -1,105 +1,93 @@
 # Interoperability tests
 
-This directory contains VM tests that prove wire-level interoperability with
-an independently installed IPFS implementation. The reusable local process
-helper is `lib/local_kubo_harness.dart`. Its P0 consumers cover both
-directions: downloading from a known Kubo Bitswap provider
-(`local_kubo_bitswap_test.dart`), DHT provider discovery followed by Bitswap
-(`local_kubo_dht_bitswap_test.dart`), Kubo downloading a block served by the
-Dart node over a direct connection (`local_kubo_serving_test.dart`), and Kubo
-finding that Dart node through the DHT before downloading
-(`local_kubo_dht_serving_test.dart`). The single P1 consumer is the large
-UnixFS proof (`local_kubo_large_unixfs_test.dart`).
+VM tests that prove wire-level interoperability against a separately installed
+Kubo daemon. Every test drives `lib/local_kubo_harness.dart`, which owns an
+isolated Kubo process, and a fresh Dart node.
+
+There is no Helia harness in this repository. `helia/` holds only
+`package.json`/`package-lock.json`, the scripts they reference are not
+committed, and no test carries the `helia` tag.
+
+## Tests
+
+All under `test/interop/test/`. Each file's doc comment states what it proves.
+
+| Test | Tag |
+| --- | --- |
+| `local_kubo_bitswap_test.dart` | `p0` |
+| `local_kubo_dht_bitswap_test.dart` | `p0` |
+| `local_kubo_serving_test.dart` | `p0` |
+| `local_kubo_dht_serving_test.dart` | `p0` |
+| `local_kubo_network_participation_test.dart` | `p0` |
+| `local_kubo_tls_handshake_test.dart` | `p0` |
+| `local_kubo_quic_test.dart` | `p0` |
+| `local_kubo_webtransport_quic_test.dart` | `p0` |
+| `local_kubo_transport_matrix_test.dart` | `p0` |
+| `local_kubo_large_unixfs_test.dart` | `p1` |
+
+`local_kubo_transport_matrix_test.dart` (Marco G.7) is **expected to fail**
+today: it iterates Kubo's effective `Addresses.Swarm` and requires a block over
+every one of them, and `/webrtc-direct` has no DTLS port yet. Making it pass
+means porting DTLS, not weakening the assertion.
 
 ## Invariants
 
-- Tests use direct P2P connections (TCP/Noise/yamux/Bitswap; the node has no
-  QUIC transport). HTTP gateway reads do not count as proof.
-- Every Kubo instance gets a newly-created repository. The harness uses
-  `<workspace>/.tmp-validation/kubo-*` when the repository root is available,
-  otherwise `Directory.systemTemp`.
-- The harness never reads, modifies, or deletes the user's IPFS Desktop/Kubo
-  repository. `dispose` stops the child process and deletes only its own
-  temporary directory, and tests call it from `finally`.
-- API, gateway, and swarm listeners bind only to `127.0.0.1` on dynamically
-  allocated ports. The gateway port is configured for Kubo compatibility but
-  must not be used by a P2P proof.
+- Proof means a direct P2P connection (transport → security → muxer → Bitswap)
+  with the bytes validated against the CID. An HTTP gateway read, a mocked
+  transport or a `canDial()` predicate is not a proof.
+- Every Kubo instance gets a newly-created repository under
+  `<workspace>/.tmp-validation/kubo-*`, or `Directory.systemTemp` when the
+  repository root is unavailable. The harness never reads, modifies or deletes
+  the user's IPFS Desktop/Kubo repository.
+- `dispose` stops the child process and deletes only the harness-owned
+  directory; tests call it from `finally`.
+- API, gateway and swarm listeners bind to `127.0.0.1` on dynamically allocated
+  ports.
+- The DHT proofs keep repository isolation but leave Kubo's default public
+  bootstrappers enabled, because `routing provide` requires connected peers.
 
 ## Selecting Kubo
 
-`LocalKuboHarness.findExecutable` checks, in order:
-
-1. the `IPFS_EXECUTABLE` compile-time define (`-DIPFS_EXECUTABLE=...`);
-2. the `IPFS_EXECUTABLE` process environment variable;
-3. `ipfs.exe`/`ipfs` (Windows) or `ipfs` (Unix) on `PATH`.
-
-If no executable is found, the local test calls `markTestSkipped` with a
-clear message. This keeps the normal suite usable on machines without Kubo.
+`LocalKuboHarness.findExecutable` checks, in order, the `IPFS_EXECUTABLE`
+compile-time define (`-DIPFS_EXECUTABLE=...`), the `IPFS_EXECUTABLE`
+environment variable, then `ipfs` on `PATH`. With no executable found the test
+calls `markTestSkipped`, so the normal suite stays usable without Kubo.
 
 ## Lifecycle
 
-`LocalKuboHarness.start()` performs the complete lifecycle:
+`LocalKuboHarness.start()` creates the private temporary repository, runs
+`ipfs init` with `IPFS_PATH` pointing at it, configures localhost API, gateway
+and swarm addresses on free ports, starts `ipfs daemon` while draining its
+output, and polls `/api/v0/id` until ready, exposing `client`, `peerId`,
+`swarmAddress` and the selected ports. Read `stdoutLog`/`stderrLog` when
+diagnosing startup failures.
 
-1. create a private temporary repository;
-2. run `ipfs init` with `IPFS_PATH` set to that repository;
-3. configure localhost API, gateway, and TCP swarm addresses using free ports;
-4. start `ipfs daemon` and drain/capture its stdout and stderr;
-5. poll `/api/v0/id` until the API is ready and expose `client`, `peerId`,
-   `swarmAddress`, and the selected ports.
+## Running
 
-Call `await harness.dispose()` (or `close()`) in `finally`. Shutdown first
-sends the normal process signal, then uses a bounded forceful fallback, and
-only removes the harness-owned repository afterward. Read `stdoutLog` and
-`stderrLog` when diagnosing daemon startup or readiness failures.
-
-## Running and extending
-
-From the repository root:
+The `p0`, `p1` and `helia` tags are skipped by default (`dart_test.yaml`), so a
+plain `dart test` reports these as skipped. From the repository root:
 
 ```text
-dart test --preset interop test/interop/test/local_kubo_bitswap_test.dart
-dart test --preset interop test/interop/test/local_kubo_dht_bitswap_test.dart
-dart test --preset interop test/interop/test/local_kubo_serving_test.dart
-dart test --preset interop test/interop/test/local_kubo_dht_serving_test.dart
 dart test --preset interop
+dart test --preset interop test/interop/test/local_kubo_bitswap_test.dart
 ```
 
-The `p0`, `p1` and `helia` tags are skipped by default (see `dart_test.yaml`),
-so only `--preset interop` actually executes these tests; a plain `dart test`
-reports them as skipped.
-
-The large UnixFS proof accepts `KUBO_LARGE_FIXTURE_SIZES` as a comma-separated
-subset of `50,100,200,500` (MiB), or `all`. It generates exact-size
-deterministic text files under `.tmp-validation`, downloads every DAG block by
-Bitswap, checks library statistics and recursive CIDs, imports the Kubo CAR in
-Dart, imports the Dart CAR in Kubo, reconstructs the file byte-for-byte, and
-removes every generated file and repository:
+`local_kubo_large_unixfs_test.dart` accepts `KUBO_LARGE_FIXTURE_SIZES` as a
+comma-separated subset of `50,100,200,500` (MiB) or `all`. It generates
+exact-size deterministic files under `.tmp-validation`, downloads every DAG
+block by Bitswap, cross-imports CARs in both directions, reconstructs the file
+byte-for-byte and removes everything it created:
 
 ```powershell
 $env:KUBO_LARGE_FIXTURE_SIZES = '50,100,200,500'
 dart test --preset interop -j 1 test/interop/test/local_kubo_large_unixfs_test.dart
 ```
 
-To select an installation explicitly in PowerShell:
+## Adding a test
 
-```powershell
-$env:IPFS_EXECUTABLE = 'C:\path\to\ipfs.exe'
-dart test --preset interop test/interop/test/local_kubo_bitswap_test.dart
-```
-
-New protocol tests should reuse the harness and a separate Dart node. Keep
-fixtures deterministic, connect by the exposed
-`swarmAddress`, validate bytes against the CID, and assert persistence in the
-target blockstore or other durable store. Add a focused test tag (`p0`, `p1`,
-or a protocol-specific tag) and retain a clear skip when its external
-implementation is unavailable.
-
-A proof must state the implementation/version, peer identity or address,
-protocol path, exact fixture/CID, validated bytes, persistence result, and
-successful cleanup. A mocked transport or gateway response is a unit test,
-not an interoperability proof.
-
-The DHT proof retains repository isolation but deliberately leaves Kubo's
-default public bootstrappers enabled: `routing provide` requires connected
-peers. This changes only the newly created `IPFS_PATH`; it never reads the
-user's Kubo/IPFS Desktop repository.
+Reuse the harness and a separate Dart node, keep fixtures deterministic,
+connect by the exposed `swarmAddress`, validate bytes against the CID and
+assert persistence in the target blockstore. Tag it `p0`, `p1` or with a
+protocol-specific tag, and keep a clear skip when the external implementation
+is unavailable. State in the test what it proves: implementation and version,
+peer identity or address, protocol path, fixture/CID, and cleanup.
