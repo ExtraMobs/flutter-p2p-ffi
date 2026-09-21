@@ -35,14 +35,22 @@ shims e dependências externas via git:
 
 > [!IMPORTANT]
 > Este objetivo **não** portou a `go-libp2p` integralmente, e o pacote não deve
-> ser tratado como fechado. A cobertura atual é de 748 de 3.688 símbolos
-> (**20,3%**; tipos 141/391 — ver `PROGRESS_RELATORY.md`). O nó fala uma única
-> combinação: **TCP + Noise + yamux**. Não estão portados: os transportes QUIC,
-> WebSocket, WebTransport e WebRTC; a segurança TLS; o muxer mplex; e as
-> implementações da camada `discovery` (mDNS, `RoutingDiscovery`, rendezvous —
-> só as interfaces existem em `core/discovery/`). A porcentagem mede superfície
-> de API, não função: o que foi portado está comprovado contra Kubo real e
-> contra a rede pública.
+> ser tratado como fechado. A cobertura atual é de 873 de 3.688 símbolos
+> (**23,7%**; tipos 164/391 — ver `PROGRESS_RELATORY.md`).
+>
+> O que existe hoje, depois dos Objetivos 5 e 6: transportes TCP, WebSocket,
+> QUIC, WebTransport e WebRTC Direct; segurança Noise; muxer yamux; e a camada
+> `discovery` com mDNS, `RoutingDiscovery` e `BackoffDiscovery`. O TLS 1.3 está
+> parcialmente portado mas **deliberadamente não anunciado** (ver Marco G.2); o
+> mplex foi descartado; rendezvous não foi portado.
+>
+> A porcentagem mede **superfície de API, não função**, e essa distinção já
+> custou caro: durante um período os Objetivos 1 a 4 constavam como "100%
+> comprovados" enquanto o nó estava, de fato, incomunicável com qualquer Kubo
+> real, porque um TLS incompleto era anunciado à frente do Noise. Nenhum teste
+> da suíte obrigatória pegou isso, porque ela exercita Dart contra Dart. Trate
+> "portado" e "funciona contra peer real" como afirmações distintas, e só faça a
+> segunda com um daemon Kubo de verdade na frente.
 
 - **Marco D.1 (Transpilação dos subsistemas de host e rede de `go-libp2p`)**:
   Portar os subsistemas de host, rede e identificação (`BasicHost`, `RoutedHost`, `Network`, `Swarm`, `Identify`, `IdentifyPush`, `connmgr`), substituindo a dependência externa `ipfs_libp2p` e mantendo conformidade com as 24 regras do auditor AST e 100% de cobertura de testes atômicos (100% concluído para esse escopo).
@@ -64,7 +72,7 @@ Concluída a transição do estado "parcialmente público" (onde o nó já era d
 - **Marco E.3 (Descoberta Cega Pública Comprovada em Gateways HTTPS)**:
   `bloco inédito de Random.secure() → putRawBlock apenas no blockstore Dart → node.provide(cid) → getClosestPeers → ADD_PROVIDER aos 20 mais próximos → gateway HTTPS público recupera os bytes só pelo CID` (100% comprovado via `dht_public_discovery_network_test.dart`, marcado `@Tags(['network'])` e executado com `dart test --preset network`). CID `QmNM7y6W1DqmTtkJGxLUDQ7bFehpsC59rjc8xesekKHrv6` servido por `https://ipfs.io/ipfs/QmNM7y6W1DqmTtkJGxLUDQ7bFehpsC59rjc8xesekKHrv6?format=raw` em 72s, a partir do nó `12D3KooWDsMmX7axDC6HTTXUNe4upxEvFbNQjmE2FToVVbBzUK6f` anunciado em `/ip4/203.0.113.47/tcp/4002`, sem multiaddr prévio nem `swarm connect` manual. Confirmação independente: já com o nó Dart offline, o daemon Kubo local respondeu `ipfs routing findprovs <cid>` com exatamente esse PeerId, provando que os `ADD_PROVIDER` ficaram armazenados na própria Amino DHT pública (100% comprovado).
 
-### Objetivo 5 — Interoperabilidade Plena de Rede (Próximo Marco)
+### Objetivo 5 — Interoperabilidade Plena de Rede (Marcos F.1 a F.6 concluídos; F.7 aberto)
 
 Os Objetivos 1 a 4 provaram que o nó **consome** e **publica** na rede: baixa,
 serve e anuncia blocos por CID, de forma autônoma e comprovada na internet
@@ -124,18 +132,21 @@ rede a cada reinício.
 > discovery e persistência, sem encostar no caminho de dial/listen/upgrade, que é
 > onde transporte mora — e podem ser tocados em qualquer ordem.
 
-### Objetivo 6 — Ampliação da Matriz de Transporte e Segurança
+### Objetivo 6 — Ampliação da Matriz de Transporte e Segurança (G.1, G.3, G.4 e G.5 concluídos; G.2 parcial; G.6 descartado; G.7 aberto)
 
 Enquanto o Objetivo 5 trata de **como** o nó participa da rede, este trata de
-**quantos peers ele consegue alcançar**. Hoje o nó fala uma única combinação,
-`TCP + Noise + yamux`.
+**quantos peers ele consegue alcançar**.
 
-O custo disso, medido contra um Kubo real: o daemon local publica **8 endereços
-de swarm** e o nó Dart disca **2** deles (os dois `/tcp/`). Os outros seis —
-`quic-v1`, `quic-v1/webtransport` e `webrtc-direct`, em IPv4 e IPv6 — são
-invisíveis. Nós que rodam apenas em navegador (Helia sobre WebTransport ou
-WebRTC) são inalcançáveis por completo, independentemente de quantos marcos do
-Objetivo 5 fecharem.
+O diagnóstico original: o nó falava uma única combinação, `TCP + Noise + yamux`,
+e dos **8 endereços de swarm** que um Kubo publica discava apenas os dois
+`/tcp/`. Os transportes `quic-v1`, `quic-v1/webtransport` e `webrtc-direct`, em
+IPv4 e IPv6, eram invisíveis, e nós de navegador (Helia sobre WebTransport ou
+WebRTC) eram inalcançáveis por completo.
+
+Os transportes desse diagnóstico foram portados e estão registrados no Swarm do
+nó. O que **não** está comprovado é o alcance efetivo: nenhum deles foi
+exercitado contra um Kubo real, e é isso que o Marco G.7 exige — ver o aviso
+sobre `canDial()` lá embaixo antes de dar o marco por fechado.
 
 > [!IMPORTANT]
 > **O bloqueio arquitetural do QUIC deixou de existir e isso muda a viabilidade
@@ -178,9 +189,27 @@ Objetivo 5 fecharem.
   libp2p em favor do yamux, e o Kubo o removeu dos padrões. Só entra se algum
   peer real que interesse ainda exigir.
 - **Marco G.7 (Validação da Matriz Completa)**:
-  Comprovar que o nó Dart disca **os 8 endereços** que um Kubo real publica, e
-  que um nó em navegador o alcança. Critério: teste de interoperabilidade que
-  itera sobre a lista de `Addresses.Swarm` do Kubo e conecta em cada uma.
+  Comprovar que o nó Dart **disca de fato** os endereços que um Kubo real
+  publica — estabelecendo conexão, abrindo stream e recuperando um bloco por
+  Bitswap em cada transporte — e que um nó em navegador o alcança.
+
+  > [!WARNING]
+  > **`canDial()` não comprova este marco.** É um predicado que inspeciona a
+  > string do multiaddr e responde se aquele transporte se candidata a discá-lo:
+  > não abre socket, não faz handshake e não troca byte algum. Uma matriz de
+  > `expect(transport.canDial(...), isTrue)` cobrindo os 8 formatos de endereço
+  > passa com o transporte inteiramente quebrado — e foi exatamente o que
+  > aconteceu. O `QuicTransport` respondia `canDial` para `/ip6/.../quic-v1` e,
+  > ao discar de verdade, derrubava o processo inteiro com `SocketException`,
+  > porque vinculava o socket sempre em IPv4. Trocas em loopback entre dois nós
+  > Dart também não comprovam nada aqui: os dois lados compartilham os mesmos
+  > defeitos e se entendem justamente por isso.
+  >
+  > Critério de aceite, e nada menos: um daemon Kubo real em execução; iterar
+  > sobre a lista efetiva de `Addresses.Swarm` dele; e, para **cada** endereço,
+  > conectar, abrir stream e recuperar um bloco por Bitswap validando o CID. O
+  > teste pertence ao preset `interop`, e precisa **falhar** quando o transporte
+  > falhar — um teste que passa com o daemon desligado não está validando nada.
 
 Todo agente que atuar no projeto deve seguir a ordem e os critérios das checklists dos Objetivos no topo de `doc/transpilation/PROGRESS.md`. Trabalho que não destrava nem valida essas checklists fica atrás delas, salvo correção necessária para manter a suíte verde ou instrução explícita do usuário. Gateway HTTP local e interfaces CLI estão expressamente fora do escopo do projeto.
 

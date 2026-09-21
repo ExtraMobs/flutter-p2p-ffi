@@ -337,7 +337,7 @@ Este painel consolida o estado oficial da auditoria automatizada entre o upstrea
    > Ampliar a matriz de transporte e segurança — QUIC, WebSocket, WebTransport, WebRTC, TLS e mplex — **não** faz parte deste objetivo. O nó fala hoje uma única combinação, `TCP + Noise + yamux`, e ampliá-la é objetivo próprio, a ser aberto quando o usuário pedir.
 
 7. **Objetivo 6 — Ampliação da Matriz de Transporte e Segurança**:
-   - **Status**: ✅ **Concluído — Marcos G.1 (QUIC), G.3 (WebSocket), G.4 (WebTransport), G.5 (WebRTC Direct), G.6 (descartado) e G.7 (Matriz Completa) concluídos e testados; Marco G.2 (TLS 1.3) com base de certificados e foundation de handshake integrados.**
+   - **Status**: 🟡 **Em andamento — Marcos G.1 (QUIC), G.3 (WebSocket), G.4 (WebTransport) e G.5 (WebRTC Direct) portados e registrados no Swarm; G.6 descartado; G.2 (TLS 1.3) parcial e deliberadamente não anunciado; G.7 (Matriz Completa) REABERTO — ver abaixo.**
    - **Diagnóstico do Estado Atual**: O nó suportava originalmente uma única combinação (`TCP + Noise + yamux`), o que limitava o alcance de peers aos endereços TCP tradicionais (2 dos 8 endereços publicados por um Kubo padrão). Com a conclusão deste objetivo, a matriz de transporte e alcance foi ampliada com paridade Go para cobrir os 8 formatos de endereços publicados pelo Kubo: TCP, WebSocket (`/ws` e `/wss`), QUIC (`/quic-v1`), WebTransport (`/quic-v1/webtransport`) e WebRTC Direct (`/webrtc-direct`), além do suporte híbrido TLS 1.3 / Noise.
    - **Bloqueio Arquitetural Removido**: O bloqueio que impedia o QUIC e transportes autossegurados/automultiplexados foi totalmente superado com a substituição do `BasicUpgrader` da dependência externa por implementação interna modular, permitindo que transportes autossegurados realizem upgrade direto com `CapableConn`.
    - **Marco G.1 (QUIC — `/udp/<porta>/quic-v1`)** — ✅ **CONCLUÍDO**:
@@ -366,9 +366,27 @@ Este painel consolida o estado oficial da auditoria automatizada entre o upstrea
      - [x] Testes atômicos com 100% de cobertura em `test/atomic/nivel_2/libp2p_webrtc_atomic_tests.dart`.
    - **Marco G.6 (Muxer mplex — `/mplex/6.7.0`)** — ❌ **DESCARTADO por decisão documentada — não é lacuna pendente**:
      - Motivo: o upstream já retirou o mplex do core libp2p e o Kubo o removeu dos padrões em favor do Yamux.
-   - **Marco G.7 (Validação da Matriz Completa)** — ✅ **CONCLUÍDO**:
+   - **Marco G.7 (Validação da Matriz Completa)** — ❌ **REABERTO em 2026-09-20: estava marcado concluído sem prova de rede real**:
+
+     > [!WARNING]
+     > Este marco foi declarado `✅ CONCLUÍDO` apoiado em `canDial()` e em trocas
+     > loopback entre dois nós Dart. Nenhuma das duas coisas comprova alcance.
+     > `canDial()` é um predicado sobre a string do multiaddr: não abre socket,
+     > não faz handshake, não troca byte. Prova disso: o `QuicTransport`
+     > respondia `canDial` para `/ip6/.../quic-v1` e, ao discar de verdade,
+     > derrubava o processo com `SocketException` (bind sempre em IPv4) —
+     > defeito só descoberto ao hospedar um CID contra o Kubo local, muito
+     > depois de o marco constar como fechado. Loopback Dart↔Dart também não
+     > vale: os dois lados carregam os mesmos defeitos e por isso se entendem.
+     >
+     > O critério correto está no `AGENTS.md`, Marco G.7: com um daemon Kubo
+     > real, iterar sobre a lista efetiva de `Addresses.Swarm` dele e, para cada
+     > endereço, conectar, abrir stream e recuperar um bloco por Bitswap
+     > validando o CID, sob o preset `interop`.
+
+     O que de fato existe hoje, sem alegação de alcance:
      - [x] Criação de `test/atomic/nivel_3/libp2p_transport_matrix_atomic_tests.dart`.
-     - [x] Comprovação de que **todos os 8 formatos de endereço do swarm Kubo** são cobertos sem ambiguidade por `canDial()`:
+     - [x] Cobertura por `canDial()` dos 8 formatos de endereço do swarm Kubo — **predicado apenas, não prova de conexão**:
        1. `/ip4/127.0.0.1/tcp/4001` (TCP)
        2. `/ip6/::1/tcp/4001` (TCP)
        3. `/ip4/127.0.0.1/udp/4001/quic-v1` (QUIC)
@@ -377,9 +395,11 @@ Este painel consolida o estado oficial da auditoria automatizada entre o upstrea
        6. `/ip6/::1/udp/4001/quic-v1/webtransport` (WebTransport)
        7. `/ip4/127.0.0.1/udp/4001/webrtc-direct` (WebRTC Direct)
        8. `/ip6/::1/udp/4001/webrtc-direct` (WebRTC Direct)
-     - [x] Validação da matriz de segurança com negociação TLS 1.3 e Noise.
-     - [x] Troca bidirecional de dados em streams loopback ponta a ponta em QUIC, WebTransport e WebRTC Direct.
-     - [x] Integração de todos os novos transportes no `IpfsNode` raiz (`lib/src/node/ipfs_node.dart`). Comprovar que o nó Dart disca **os 8 endereços** que um Kubo real publica, e que um nó em navegador o alcança. Critério: teste de interoperabilidade que itera sobre a lista de `Addresses.Swarm` do Kubo e conecta em cada uma.
+     - [x] Troca bidirecional de dados em streams loopback **entre dois nós Dart** em QUIC, WebTransport e WebRTC Direct.
+     - [x] Integração de todos os novos transportes no `IpfsNode` raiz (`lib/src/node/ipfs_node.dart`).
+     - [ ] **Pendente:** discar de fato cada endereço publicado por um Kubo real, com conexão, stream e bloco recuperado por Bitswap.
+     - [ ] **Pendente:** um nó em navegador alcançar o nó Dart por WebTransport ou WebRTC Direct.
+     - [ ] **Pendente:** a validação da matriz de segurança citava "negociação TLS 1.3 e Noise"; o TLS deixou de ser anunciado (ver G.2), então só Noise é negociado no caminho TCP/WS. O item precisa ser refeito quando o G.2 fechar.
 
 8. **Suíte de Testes de Paridade**:
    - `packages/boilerplate`: 29 testes (aritmética, overflow, shifts, matriz IEEE 754, divisão complexa de Smith).
