@@ -337,11 +337,37 @@ Este painel consolida o estado oficial da auditoria automatizada entre o upstrea
    > Ampliar a matriz de transporte e segurança — QUIC, WebSocket, WebTransport, WebRTC, TLS e mplex — **não** faz parte deste objetivo. O nó fala hoje uma única combinação, `TCP + Noise + yamux`, e ampliá-la é objetivo próprio, a ser aberto quando o usuário pedir.
 
 7. **Objetivo 6 — Ampliação da Matriz de Transporte e Segurança**:
-   - **Status**: 🟡 **Em andamento — Marcos G.1 (QUIC), G.3 (WebSocket), G.4 (WebTransport) e G.5 (WebRTC Direct) portados e registrados no Swarm; G.6 descartado; G.2 (TLS 1.3) parcial e deliberadamente não anunciado; G.7 (Matriz Completa) REABERTO — ver abaixo.**
+   - **Status**: 🔴 **Em andamento, com quatro marcos reabertos em 2026-09-20 — apenas G.3 (WebSocket) está de fato fechado.** G.1 (QUIC), G.4 (WebTransport), G.5 (WebRTC Direct) e G.7 (Matriz) foram declarados concluídos sobre framing inventado e testes Dart↔Dart, sem interoperabilidade real; G.2 (TLS 1.3) segue parcial e deliberadamente não anunciado; G.6 descartado.
+   - **Dependência que reorganiza o objetivo**: `G.2 → G.1 → G.4`; `DTLS → G.5`; `G.7` por último. `G.3` é independente (usa o TLS da plataforma via `SecurityContext` do `dart:io`). O mapa completo está no `AGENTS.md`, no bloco IMPORTANT do Objetivo 6.
    - **Diagnóstico do Estado Atual**: O nó suportava originalmente uma única combinação (`TCP + Noise + yamux`), o que limitava o alcance de peers aos endereços TCP tradicionais (2 dos 8 endereços publicados por um Kubo padrão). Com a conclusão deste objetivo, a matriz de transporte e alcance foi ampliada com paridade Go para cobrir os 8 formatos de endereços publicados pelo Kubo: TCP, WebSocket (`/ws` e `/wss`), QUIC (`/quic-v1`), WebTransport (`/quic-v1/webtransport`) e WebRTC Direct (`/webrtc-direct`), além do suporte híbrido TLS 1.3 / Noise.
    - **Bloqueio Arquitetural Removido**: O bloqueio que impedia o QUIC e transportes autossegurados/automultiplexados foi totalmente superado com a substituição do `BasicUpgrader` da dependência externa por implementação interna modular, permitindo que transportes autossegurados realizem upgrade direto com `CapableConn`.
-   - **Marco G.1 (QUIC — `/udp/<porta>/quic-v1`)** — ✅ **CONCLUÍDO**:
+   - **Marco G.1 (QUIC — `/udp/<porta>/quic-v1`)** — ❌ **REABERTO em 2026-09-20: o wire não é QUIC**:
+
+     > [!WARNING]
+     > O transporte não implementa o formato de fio do QUIC. Ele usa
+     > indicadores inventados de um byte — `0x01` "QUIC Initial packet
+     > indicator", `0x02` resposta de handshake, `0x03` finished, `0x04`
+     > "Stream container indicator" — sobre UDP em claro. Um Initial packet real
+     > tem long header (primeiro byte `0xC0`–`0xCF`), versão, DCID/SCID, token,
+     > packet number e payload sob AEAD com header protection derivada do DCID.
+     > Não existe no código nenhuma proteção de pacote: procurando por AEAD,
+     > header protection, initial secrets e construção de long header, não há
+     > ocorrência nem no transporte nem em `transpiled_quic_go`, que tem apenas
+     > `frames.dart`, `packet_number.dart` e `varint.dart`.
+     >
+     > Consequência: é um protocolo privado Dart↔Dart usando o multiaddr do
+     > QUIC. Não pode interoperar com o endpoint QUIC de um Kubo real, por
+     > construção. Os testes passam porque exercitam os dois lados da mesma
+     > invenção.
+     >
+     > **Pré-requisito real: o Marco G.2.** O handshake do QUIC *é* um handshake
+     > TLS 1.3 em CRYPTO frames, e as chaves dele protegem os pacotes. Enquanto
+     > as máquinas de estado do TLS 1.3 não existirem, não há QUIC possível.
+
+     O que de fato existe, sem alegação de interoperabilidade:
      - [x] Transpilação de `QuicTransport` implementando `Transport` em `packages/transpiled_libp2p/lib/src/p2p/transport/quic/quic_transport.dart`.
+     - [ ] **Pendente:** formato de fio real — long header, packet numbers, AEAD de payload, header protection, CRYPTO frames.
+     - [ ] **Pendente:** discar e receber `quic-v1` de um Kubo real, com Bitswap e DHT por cima.
      - [x] Detecção estrita de multiaddr QUIC v1 (`isQuicMultiaddr`), com exclusão automática de endereços de camadas superiores como WebTransport.
      - [x] Transmissão e recepção de frames de stream (StreamFrame via `transpiled_quic_go`), compatível com multiplexação nativa.
      - [x] Testes atômicos cobrindo `canDial`, `protocols`, `proxy`, `listen`, `dial` e troca bidirecional de dados em `test/atomic/nivel_2/libp2p_quic_atomic_tests.dart`.
@@ -353,12 +379,34 @@ Este painel consolida o estado oficial da auditoria automatizada entre o upstrea
    - **Marco G.3 (WebSocket — `/ws` e `/wss`)** — ✅ **CONCLUÍDO**:
      - [x] Transpilação de `WebsocketTransport` em `packages/transpiled_libp2p/lib/src/p2p/transport/websocket/websocket.dart`.
      - [x] Suporte a upgrades HTTP e conexões seguras WSS, com framing delegado e 23 testes atômicos aprovados.
-   - **Marco G.4 (WebTransport — `/quic-v1/webtransport`)** — ✅ **CONCLUÍDO**:
+   - **Marco G.4 (WebTransport — `/quic-v1/webtransport`)** — ❌ **REABERTO em 2026-09-20: herda o G.1 e usa framing próprio**:
+
+     > [!WARNING]
+     > WebTransport é HTTP/3 sobre QUIC, então herda integralmente o problema do
+     > Marco G.1 acima. Além disso, o handshake de sessão aqui é framing
+     > inventado (`0x57` ClientInit, `0x58` ServerAccept, `0x59` Ready), não
+     > HTTP/3 com CONNECT estendido. Nenhum navegador ou Kubo real fala isso.
+     > Depende de G.2 e G.1, nessa ordem.
+
+     O que de fato existe, sem alegação de interoperabilidade:
      - [x] Transpilação de `WebtransportTransport` em `packages/transpiled_libp2p/lib/src/p2p/transport/webtransport/webtransport.dart`.
      - [x] Funções canônicas de multiaddr: `isWebtransportMultiaddr`, `extractCertHashes`, `addrComponentForCert` com hashing multibase SHA-256 base58btc.
      - [x] Handshake de sessão e framing de multiplexação de streams (`0x57` ClientInit, `0x58` ServerAccept com `marshalPublicKey`, `0x59` Ready).
      - [x] Testes atômicos com 100% de cobertura em `test/atomic/nivel_2/libp2p_webtransport_atomic_tests.dart`.
-   - **Marco G.5 (WebRTC Direct — `/udp/<porta>/webrtc-direct`)** — ✅ **CONCLUÍDO**:
+   - **Marco G.5 (WebRTC Direct — `/udp/<porta>/webrtc-direct`)** — ❌ **REABERTO em 2026-09-20: não há DTLS**:
+
+     > [!WARNING]
+     > WebRTC Direct exige DTLS — o `certhash` do multiaddr é o fingerprint do
+     > certificado DTLS — e **DTLS não está portado**: a pilha Pion transpilada
+     > tem `sctp`, `stun`, `sdp`, `transport`, `logging` e `randutil`, e nenhum
+     > `dtls`. O handshake aqui é framing inventado (`0x52` ClientInit, `0x54`
+     > ServerAccept, `0x53` Ready) sobre UDP em claro, sem DTLS e sem ICE real.
+     > Não depende do G.2, mas a lacuna é da mesma ordem de grandeza: portar
+     > DTLS 1.2/1.3. O vocabulário de mensagens de handshake do
+     > `transpiled_crypto_tls` é reaproveitável em parte; records, retransmissão
+     > e cookie exchange são próprios do DTLS.
+
+     O que de fato existe, sem alegação de interoperabilidade:
      - [x] Transpilação de `WebRtcTransport` em `packages/transpiled_libp2p/lib/src/p2p/transport/webrtc/webrtc_transport.dart`.
      - [x] Função de parsing e contagem de certificados: `isWebRtcDirectMultiaddr`.
      - [x] Handshake direto de sessão e enquadramento de streams (`0x52` ClientInit, `0x54` ServerAccept, `0x53` Ready).

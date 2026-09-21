@@ -164,15 +164,75 @@ sobre `canDial()` lá embaixo antes de dar o marco por fechado.
 > `doc/specs/QUIC_TRANSPORT_RFC.md`, que **não existe mais** — o diretório
 > `doc/specs/` foi removido. Trate a análise como perdida e refaça-a.
 
+> [!IMPORTANT]
+> **Mapa de dependência deste objetivo — leia antes de escolher um marco.**
+> A ordem em que os marcos foram numerados não é a ordem em que podem ser
+> feitos, e tratá-los como independentes já produziu marcos declarados
+> concluídos sem alcance nenhum.
+>
+> ```
+> TLS 1.3 transpilado (G.2)
+> ├── G.1  QUIC ................... depende DIRETO
+> │   └── G.4  WebTransport ....... depende via G.1
+> ├── G.7  Validação da matriz .... depende via G.1 e G.4
+> └── (o próprio /tls/1.0.0)
+>
+> DTLS (não portado)
+> └── G.5  WebRTC Direct .......... depende DIRETO
+>
+> G.3  WebSocket /wss ............. INDEPENDENTE (usa o TLS da plataforma)
+> ```
+>
+> **G.1 depende de G.2 porque o handshake do QUIC *é* um handshake TLS 1.3**
+> carregado em CRYPTO frames, e as chaves derivadas dele são as que protegem os
+> pacotes. Não existe "QUIC sem TLS". G.4 é HTTP/3 sobre QUIC, então herda a
+> dependência; G.7 não pode comprovar a matriz enquanto dois dos transportes
+> dela não falarem o protocolo real.
+>
+> **G.5 não depende de TLS, e sim de DTLS** — o `certhash` do multiaddr é o
+> fingerprint do certificado DTLS. A pilha Pion portada tem `sctp`, `stun`,
+> `sdp`, `transport`, `logging` e `randutil`, mas **não tem `dtls`**, então o
+> G.5 tem uma lacuna própria do mesmo tamanho. O vocabulário de mensagens de
+> handshake do `transpiled_crypto_tls` ajuda em parte, mas records,
+> retransmissão e cookie exchange do DTLS são próprios.
+>
+> **G.3 é independente**: o transporte WebSocket faz `/wss` com
+> `SecurityContext` do `dart:io`, isto é, o TLS da plataforma, e não o
+> transpilado.
+>
+> Nada nos Objetivos 1 a 5 depende disto. DHT, discovery, persistência, Bitswap
+> e o servidor DHT são agnósticos de transporte — é por isso que o nó hospeda e
+> serve por CID hoje, com Noise sozinho.
+>
+> Ordem executável do que resta: **G.2 → G.1 → G.4**, com **G.5** em paralelo
+> (após DTLS) e **G.7** por último.
+
 - **Marco G.1 (QUIC — `/udp/<porta>/quic-v1`)**:
-  Maior ganho de alcance por esforço, e pré-requisito do G.4. Exige, antes do
-  transporte em si, tornar o upgrade de segurança e de muxer **opcional** por
-  transporte no `BasicUpgrader`, já que o QUIC traz TLS 1.3 e multiplexação de
-  streams nativos. Critério: discar e receber conexões `quic-v1` de um Kubo
-  real, com Bitswap e DHT funcionando por cima.
+  Pré-requisito do G.4 e **dependente do G.2**: o QUIC não traz TLS 1.3 de
+  graça, ele *é* TLS 1.3 sobre UDP com proteção de pacote própria. Além do
+  handshake, exige long header, packet numbers, proteção AEAD de payload e
+  header protection — nada disso é opcional para interoperar. Exige também
+  tornar o upgrade de segurança e de muxer **opcional** por transporte no
+  `BasicUpgrader`, já que o QUIC multiplexa streams nativamente.
+  Critério: discar e receber conexões `quic-v1` de um Kubo real, com Bitswap e
+  DHT funcionando por cima. Framing próprio que só dois nós Dart entendem não
+  comprova o marco.
 - **Marco G.2 (Segurança TLS 1.3 — `/tls/1.0.0`)**:
-  Segunda opção de segurança ao lado do Noise, negociada por multistream-select.
+  **Fundação de metade deste objetivo**, não uma segunda opção de segurança ao
+  lado do Noise: além de habilitar o `/tls/1.0.0` negociado por
+  multistream-select, é pré-requisito de G.1 e, por consequência, de G.4 e G.7.
+  Estão portados o vocabulário (`handshake_messages`, `key_schedule`,
+  `cipher_suites`, `record_layer`, `alert`) e a camada de certificado libp2p;
+  falta a gramática — as máquinas de estado de cliente e servidor
+  (`handshake_client_tls13.go`, `handshake_server_tls13.go`) e `common.go`.
   Critério: handshake TLS bem-sucedido contra um peer real que ofereça TLS.
+  > [!WARNING]
+  > Enquanto o handshake não completar, `/tls/1.0.0` **não pode voltar a ser
+  > anunciado** na lista de segurança do nó. Anunciar protocolo de segurança que
+  > não se consegue concluir não é cobertura parcial: como o `DefaultSecurity`
+  > do go-libp2p põe TLS à frente do Noise, é perda total de conectividade
+  > contra qualquer Kubo real — foi exatamente o que ocorreu, nos dois sentidos,
+  > até ser removido em 2026-09-20.
 - **Marco G.3 (WebSocket — `/ws` e `/wss`)**:
   O transporte mais barato de acrescentar sobre a base TCP já existente, e o que
   destrava peers de infraestrutura e ambientes com egresso restrito a HTTP(S).
@@ -182,8 +242,15 @@ sobre `canDial()` lá embaixo antes de dar o marco por fechado.
   `certhash` do multiaddr para fixação de certificado no navegador. Critério:
   um nó Helia rodando em navegador conecta no nó Dart e baixa um bloco.
 - **Marco G.5 (WebRTC Direct — `/udp/<porta>/webrtc-direct`)**:
-  Alcance de navegador sem servidor de sinalização, também via `certhash`.
-  Critério: mesmo do G.4, por WebRTC.
+  Alcance de navegador sem servidor de sinalização, também via `certhash` — que
+  aqui é o fingerprint do **certificado DTLS**. Independe do G.2, mas **depende
+  de DTLS**, que não está portado: a pilha Pion transpilada tem `sctp`, `stun`,
+  `sdp`, `transport`, `logging` e `randutil`, e nenhum `dtls`. Portar DTLS é
+  trabalho da mesma ordem de grandeza do G.2; o vocabulário de mensagens de
+  handshake do `transpiled_crypto_tls` é reaproveitável em parte, mas os
+  records, a retransmissão e o cookie exchange do DTLS são próprios.
+  Critério: mesmo do G.4, por WebRTC. Framing próprio entre dois nós Dart não
+  comprova o marco.
 - **Marco G.6 (Muxer mplex — `/mplex/6.7.0`)**:
   Prioridade baixa e possivelmente descartável: o mplex está depreciado na
   libp2p em favor do yamux, e o Kubo o removeu dos padrões. Só entra se algum
