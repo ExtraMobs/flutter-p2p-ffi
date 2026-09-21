@@ -54,6 +54,17 @@ por `transpiled_libp2p` e `transpiled_boxo`) **não tem revisão fixada nesta
 tabela nem clone local**. Enquanto isso não for resolvido, ele não tem
 autoridade de fidelidade: trate-o como port não auditado.
 
+`filippo.io/keygen` está **pendente de clone e de fixação nesta tabela**. Ele é
+pré-requisito do Marco G.4: `generateCert`
+(`go-libp2p/p2p/transport/webtransport/crypto.go:78-86`) deriva a chave ECDSA
+P-256 do certificado determinístico do WebTransport chamando
+`keygen.ECDSA(elliptic.P256(), ecdsaSeed)` sobre 24 bytes vindos do HKDF.
+Decisão do mantenedor: **clonar e portar byte a byte**, e não substituir por
+derivação própria — ainda que nenhum par verifique a origem da chave, só o
+hash do certificado, é o que mantém o certhash idêntico entre reinícios e o
+que a exigência de fidelidade do `AGENTS.md` pede. Até o clone existir, o
+certificado determinístico não pode ser dado como portado.
+
 Os clones correspondentes ficam em `go-ipfs-reference/<clone local>`, na raiz
 deste checkout, e os índices AST em `go-ipfs-reference/<clone local>-index`.
 Duas exceções de nomenclatura: o índice de `go-libp2p` é `libp2p-index` e o de
