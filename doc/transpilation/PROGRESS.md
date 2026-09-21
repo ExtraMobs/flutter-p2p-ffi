@@ -481,6 +481,74 @@ O índice AST do Go (`go-ipfs-reference/*-index/`) cataloga a totalidade das dec
 
 ## Como isto foi gerado / como continuar
 
+### Validacao de hospedagem contra Kubo real e tres defeitos que ela expos — 2026-09-20
+
+Hospedagem de um CID com conteudo aleatorio validada ponta a ponta contra o
+daemon Kubo local (`12D3KooWBvCyh8Vezjcwjhe2etkvjxw7g8hx9SW4jP5c94yXkyX1`,
+Kubo 0.43.0). Conteudo gerado por `Random.secure()` em `bin/host_payload.dart`,
+gravado apenas no blockstore Dart, recuperado pelo Kubo via Bitswap:
+
+- PeerId do no Dart: `12D3KooWRVWxwTgnk1zdntyj3984exm1MsjDKUiGWZSr4wyAFeWd`
+- UnixFS CID: `QmWNYpk6hRPQHyn4GszkwQt9Vaxbi7k5Ph7eAFuJujRD69`
+- Raw block CID: `QmVp3tq2XXtJPfmyBfuGo7RH5yrhE2TBhZ1QZ5BeAFRvqZ`
+- Payload recuperado pelo Kubo, identico ao gerado:
+  `Dart-IPFS-Proof-[2026-09-21T00:35:43.388136Z]-13902b18e8850728f7bda4cb69583372a375b60c189c462e5c69b58ee2411972`
+- Ambos os CIDs anunciados com sucesso na DHT.
+
+A validacao so foi possivel depois de corrigir tres defeitos que a bloqueavam
+por completo. **Nenhum deles aparecia na suite**: sao todos de caminho de rede
+real, exatamente o que os presets `interop` e `network` cobririam.
+
+**Defeito A — TLS incompleto anunciado na negociacao de seguranca quebrava toda
+conexao com Kubo real.** `lib/src/node/ipfs_node.dart` registrava
+`TlsTransport` antes de `NoiseTransport` na lista de seguranca do
+`BasicUpgrader`. Como o Marco G.2 esta parcial e o handshake TLS 1.3 nao
+completa, e como `libp2p.DefaultSecurity` do go-libp2p poe TLS a frente de
+Noise, todo dial de saida falhava com `FormatException: expected handshake
+record for ServerHello, got 21` (21 = TLS alert) e todo dial de entrada vindo
+do Kubo falhava com `tls: bad record MAC`. O no estava, na pratica,
+**incomunicavel com qualquer Kubo real** — uma regressao dos Objetivos 1 a 4,
+todos comprovados sobre TCP+Noise. Correcao: `/tls/1.0.0` deixa de ser
+anunciado ate o G.2 fechar; so Noise e oferecido. `TlsTransport` continua
+existindo e coberto por testes, apenas nao entra na negociacao do no.
+
+**Defeito B — `QuicTransport.dial` sempre vinculava socket IPv4.** O bind usava
+`loopbackIPv4`/`anyIPv4` independentemente da familia do destino, de modo que
+discar um `/ip6/.../quic-v1` derrubava o processo com `SocketException`
+WSAEAFNOSUPPORT (errno 10047). O multiaddr local montado tambem era sempre
+`/ip4/...`. Correcao: o socket passa a ser vinculado na familia do destino e o
+multiaddr local reflete `ip4`/`ip6`.
+
+**Defeito C — erros de socket e de dial tardio matavam o processo.** Dois
+caminhos distintos, ambos fatais: (1) `RawDatagramSocket.listen` no QUIC era
+chamado sem `onError`, entao um erro de stream — um destino IPv6 sem rota,
+`errno 1231` — virava erro assincrono nao tratado e encerrava o no; (2)
+`lib/src/routing/dht_provider_finder.dart` fazia
+`await router.connect(peer).timeout(...)`, e quando o dial falhava **depois** do
+timeout ja ter disparado, o erro tardio ficava sem handler e derrubava o
+processo. Correcao: `onError` nos dois `listen` do QUIC, `try`/`catch` no `send`
+feito de dentro do callback de datagrama, e nos dois pontos do DHT um
+`unawaited(pending.catchError(...))` que absorve exclusivamente a falha tardia,
+preservando a propagacao normal do erro e do `TimeoutException`.
+
+Os tres sao da mesma familia do defeito de reserva corrigido nesta mesma data:
+falhas de rede que deveriam ficar contidas em uma conexao e em vez disso
+contaminavam o processo inteiro, ou capacidades anunciadas sem implementacao
+capaz de honra-las.
+
+**Verificacao:** `dart format` sem alteracoes pendentes; suite raiz **3604
+aprovados / 12 pulados**; pacote `transpiled_libp2p` **198 aprovados**; testes
+de QUIC e da matriz de transporte **10 aprovados**; auditor
+`--tests --severity ERROR` em `NENHUMA INCONSISTENCIA ENCONTRADA` (exit 0);
+relatorios regenerados. A prova de hospedagem acima e a validacao de rede real
+que a suite nao cobre.
+
+**Consequencia para o Marco G.2:** enquanto o handshake TLS 1.3 nao estiver
+completo, `/tls/1.0.0` nao deve voltar a ser anunciado. Anunciar um protocolo
+de seguranca que nao se consegue completar nao e cobertura parcial: e perda
+total de conectividade contra qualquer peer que prefira esse protocolo, que e
+o caso do padrao do go-libp2p.
+
 ### Correção dos defeitos D.2/D.3 e do codec circuitv2 — 2026-09-20
 
 Os dois "Defeitos Conhecidos" registrados acima foram fechados. Corrigir o

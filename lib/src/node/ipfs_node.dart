@@ -108,10 +108,12 @@ final class IpfsNode {
 
     final upgrader = BasicUpgrader(
       localIdentityKey: identityKey,
-      security: [
-        TlsTransport(privKey: identityKey),
-        NoiseTransport(privKey: identityKey),
-      ],
+      // Only Noise is offered here until Marco G.2 lands the TLS 1.3
+      // handshake state machines. TlsTransport negotiates its protocol id but
+      // cannot complete a handshake, and go-libp2p's DefaultSecurity puts TLS
+      // ahead of Noise -- so advertising /tls/1.0.0 made every real Kubo pick
+      // TLS and fail the connection, in both directions.
+      security: [NoiseTransport(privKey: identityKey)],
     );
     final tcpTransport = TcpTransport(upgrader: upgrader);
     final eventBus = BasicBus();

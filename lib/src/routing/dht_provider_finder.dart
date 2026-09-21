@@ -257,7 +257,12 @@ final class DhtClient implements ContentDiscovery {
   Future<void> _sendAddProvider(AddrInfo peer, Uint8List msgBytes) async {
     NetworkStream? stream;
     try {
-      await router.connect(peer).timeout(timeout);
+      // A dial that fails *after* the timeout has already fired would
+      // otherwise surface as an unhandled async error and take the process
+      // down; the handler below absorbs only that late failure.
+      final pending = router.connect(peer);
+      unawaited(pending.catchError((Object _) {}));
+      await pending.timeout(timeout);
       stream = await router.host
           .newStream(peer.id, _kadProtocols)
           .timeout(timeout);
@@ -518,7 +523,10 @@ final class DhtClient implements ContentDiscovery {
     }
     final rpcTimeout = timeout < remaining ? timeout : remaining;
 
-    await router.connect(peer).timeout(rpcTimeout);
+    // See the note above: absorb a dial failure arriving after the timeout.
+    final pending = router.connect(peer);
+    unawaited(pending.catchError((Object _) {}));
+    await pending.timeout(rpcTimeout);
     if (isCancelled()) throw StateError('DHT query cancelled');
 
     final stream = await router.host

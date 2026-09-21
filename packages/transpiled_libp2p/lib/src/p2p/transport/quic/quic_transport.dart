@@ -124,13 +124,22 @@ class QuicTransport implements Transport {
         InternetAddress.tryParse(host) ??
         (await InternetAddress.lookup(host)).first;
 
-    final clientBindAddr = remoteAddress.isLoopback
-        ? InternetAddress.loopbackIPv4
-        : InternetAddress.anyIPv4;
+    // The socket must be bound in the same address family as the destination:
+    // sending an IPv6 datagram from an IPv4-bound socket fails with
+    // WSAEAFNOSUPPORT on Windows (errno 10047) and EAFNOSUPPORT elsewhere.
+    final isIPv6 = remoteAddress.type == InternetAddressType.IPv6;
+    final clientBindAddr = isIPv6
+        ? (remoteAddress.isLoopback
+              ? InternetAddress.loopbackIPv6
+              : InternetAddress.anyIPv6)
+        : (remoteAddress.isLoopback
+              ? InternetAddress.loopbackIPv4
+              : InternetAddress.anyIPv4);
     final clientSocket = await RawDatagramSocket.bind(clientBindAddr, 0);
     final localPort = clientSocket.port;
     final localAddr = Multiaddr.parse(
-      '/ip4/${clientSocket.address.address}/udp/$localPort/quic-v1',
+      '/${isIPv6 ? 'ip6' : 'ip4'}/${clientSocket.address.address}'
+      '/udp/$localPort/quic-v1',
     );
 
     final handshakeCompleter = Completer<Uint8List>();
@@ -256,7 +265,11 @@ class _QuicListener implements Listener {
     required this.identity,
     required this.listenAddr,
   }) {
-    _subscription = socket.listen(_onSocketEvent);
+    // A datagram socket error (an unroutable destination, for instance)
+    // arrives as a stream error. Without a handler it becomes an unhandled
+    // async error and takes the whole process down, so it is confined to this
+    // listener instead.
+    _subscription = socket.listen(_onSocketEvent, onError: (Object _) {});
   }
 
   final QuicTransport transport;
@@ -315,7 +328,13 @@ class _QuicListener implements Listener {
           resp.add(appendVarInt([], serverCert.certificateDer.length));
           resp.add(serverCert.certificateDer);
 
-          socket.send(resp.toBytes(), dg.address, dg.port);
+          // Throwing inside this stream callback would escape unhandled;
+          // a failed reply only loses this handshake.
+          try {
+            socket.send(resp.toBytes(), dg.address, dg.port);
+          } catch (_) {
+            return;
+          }
 
           final clientRemoteMultiaddr = Multiaddr.parse(
             '/ip4/${dg.address.address}/udp/${dg.port}/quic-v1',
@@ -424,7 +443,9 @@ class _QuicConn implements CapableConn {
        _opened = DateTime.now(),
        _nextStreamId = isInitiator ? 0 : 1 {
     if (ownsSocket) {
-      _subscription = _socket.listen(_onDatagram);
+      // See the note in _QuicListener: a socket stream error must not
+      // escape as an unhandled async error.
+      _subscription = _socket.listen(_onDatagram, onError: (Object _) {});
     }
   }
 
