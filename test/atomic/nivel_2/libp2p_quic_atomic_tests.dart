@@ -95,14 +95,19 @@ void main() {
         expect(clientConn.isClosed, isFalse);
 
         // Test stream multiplexing over QUIC
-        final clientStreamFuture = clientConn.openStream();
+        final clientStream = await clientConn.openStream();
         final serverStreamFuture = serverConn.acceptStream();
 
-        final clientStream = await clientStreamFuture;
-        final serverStream = await serverStreamFuture;
-
+        // Opening a QUIC stream sends nothing: the peer only learns a stream
+        // exists when a frame for it arrives (RFC 9000 s. 2.1, and quic-go's
+        // `OpenStreamSync`, which likewise puts no bytes on the wire). So the
+        // first write has to happen before the accept can complete -- which is
+        // exactly what every real libp2p stream does, by writing its
+        // multistream-select header right after opening.
         final testData = utf8.encode('hello quic over libp2p');
         await clientStream.write(Uint8List.fromList(testData));
+
+        final serverStream = await serverStreamFuture;
         final receivedData = await serverStream.read();
         expect(utf8.decode(receivedData), equals('hello quic over libp2p'));
 

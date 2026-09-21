@@ -19,18 +19,54 @@ const String ID = '/noise';
 /// Multistream protocol ID for Noise security.
 const String noiseProtocolId = ID;
 
+/// Defines the application payload smuggled as Noise handshake early data,
+/// and how to consume the other side's, per go-libp2p's
+/// `noise.EarlyDataHandler`. Installed on a [NoiseTransport] via its
+/// `initiatorEarlyDataHandler`/`responderEarlyDataHandler` constructor
+/// parameters, the Dart equivalent of go-libp2p's functional
+/// `EarlyData(initiator, responder)` session option -- a transport (e.g.
+/// WebTransport) that needs to run Noise over a stream and prove control of
+/// its TLS certificates supplies one of these to carry
+/// `webtransport_certhashes` through the handshake.
+abstract interface class NoiseEarlyDataHandler {
+  /// For the initiator, called before sending the third handshake message.
+  /// For the responder, called before sending the second one. Returns the
+  /// extensions to embed in that message's payload, or `null` to send none.
+  NoiseExtensions? send(RawConn insecure, PeerId remote);
+
+  /// For the initiator, called once the second handshake message -- and
+  /// thus the responder's extensions -- has been received and
+  /// authenticated. For the responder, called once the third message (the
+  /// initiator's extensions) has been received and authenticated. Throwing
+  /// aborts the handshake, mirroring go-libp2p returning a non-nil error
+  /// from `Received`.
+  Future<void> received(RawConn insecure, NoiseExtensions? extensions);
+}
+
 /// Noise XX security transport for libp2p.
 class NoiseTransport implements SecureTransport {
   NoiseTransport({
     required this.privKey,
     this.muxers = const ['/yamux/1.0.0'],
     this.protocolId = ID,
+    this.initiatorEarlyDataHandler,
+    this.responderEarlyDataHandler,
   }) : localPeer = PeerId.fromPubKey(privKey.getPublic());
 
   final PrivKey privKey;
   final PeerId localPeer;
   final List<String> muxers;
   final String protocolId;
+
+  /// Early-data handler used when this transport is the handshake
+  /// initiator, or `null` to send/expect no extensions. Mirrors
+  /// go-libp2p's `EarlyData` initiator argument.
+  final NoiseEarlyDataHandler? initiatorEarlyDataHandler;
+
+  /// Early-data handler used when this transport is the handshake
+  /// responder, or `null`. Mirrors go-libp2p's `EarlyData` responder
+  /// argument.
+  final NoiseEarlyDataHandler? responderEarlyDataHandler;
 
   @override
   String id() => protocolId;
@@ -52,22 +88,28 @@ class NoiseTransport implements SecureTransport {
     final (p1, _) = await hs.readMessage(m1);
     final remotePayloadBytes = p1;
 
-    // msg 2: -> s, se + our identity payload
-    final ourPayload = await generateNoiseHandshakePayload(
-      localIdentityKey: privKey,
-      localNoiseStaticPublicKey: localStatic.publicKeyBytes,
-    );
-    final (m2, splitStates) = await hs.writeMessage(ourPayload);
-    await _writeFramed(insecure, m2);
-
-    if (splitStates == null) {
-      throw StateError('Noise handshake did not produce split cipher states');
-    }
+    // The responder's `s` token in message 1 is what populates
+    // remoteStaticKey -- available immediately, no need to wait for
+    // message 2.
     final remoteStatic = hs.remoteStaticKey;
     if (remoteStatic == null) {
-      throw StateError('Noise handshake completed without remote static key');
+      throw StateError(
+        'Noise handshake completed message 1 without remote static key',
+      );
     }
 
+    // Verify the responder's payload -- signature and, if requested, peer
+    // ID -- right after reading message 1, *before* building message 2.
+    // This mirrors go-libp2p's runHandshake (handshake.go): the initiator
+    // calls handleRemoteHandshakePayload immediately on reading message 1,
+    // and only once that succeeds does it feed the resulting extensions to
+    // initiatorEarlyDataHandler.Received and then ask
+    // initiatorEarlyDataHandler.Send what to put in message 2. The
+    // previous version of this method verified only *after* already
+    // writing message 2 to the wire, which both diverges from upstream
+    // ordering and would have handed an unauthenticated remote's
+    // extensions to an early-data handler after bytes had already been
+    // committed to the network.
     final remoteIdentity = await verifyNoiseHandshakePayload(
       remotePayloadBytes,
       remoteStatic,
@@ -76,6 +118,24 @@ class NoiseTransport implements SecureTransport {
       throw StateError(
         'Authenticated peer ID mismatch: expected $peer, got ${remoteIdentity.peerId}',
       );
+    }
+    final earlyData = initiatorEarlyDataHandler;
+    if (earlyData != null) {
+      await earlyData.received(insecure, remoteIdentity.extensions);
+    }
+
+    // msg 2: -> s, se + our identity payload
+    final outExtensions = earlyData?.send(insecure, remoteIdentity.peerId);
+    final ourPayload = await generateNoiseHandshakePayload(
+      localIdentityKey: privKey,
+      localNoiseStaticPublicKey: localStatic.publicKeyBytes,
+      extensions: outExtensions,
+    );
+    final (m2, splitStates) = await hs.writeMessage(ourPayload);
+    await _writeFramed(insecure, m2);
+
+    if (splitStates == null) {
+      throw StateError('Noise handshake did not produce split cipher states');
     }
 
     final (encState, decState) = splitStates;
@@ -103,9 +163,12 @@ class NoiseTransport implements SecureTransport {
     await hs.readMessage(m0);
 
     // msg 1: -> e, ee, s, es + our identity payload
+    final earlyData = responderEarlyDataHandler;
+    final outExtensions = earlyData?.send(insecure, peer);
     final ourPayload = await generateNoiseHandshakePayload(
       localIdentityKey: privKey,
       localNoiseStaticPublicKey: localStatic.publicKeyBytes,
+      extensions: outExtensions,
     );
     final (m1, _) = await hs.writeMessage(ourPayload);
     await _writeFramed(insecure, m1);
@@ -127,6 +190,9 @@ class NoiseTransport implements SecureTransport {
       throw StateError(
         'Authenticated peer ID mismatch: expected $peer, got ${remoteIdentity.peerId}',
       );
+    }
+    if (earlyData != null) {
+      await earlyData.received(insecure, remoteIdentity.extensions);
     }
 
     final (cs1, cs2) = splitStates;

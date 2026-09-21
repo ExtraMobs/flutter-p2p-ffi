@@ -74,7 +74,9 @@ void main() {
                 ),
               ),
             );
-            await node.connect(addrInfoFromString(address));
+            await node
+                .connect(addrInfoFromString(address))
+                .timeout(const Duration(seconds: 15));
             final downloaded =
                 await node.getBlock(cid).timeout(const Duration(seconds: 30));
             expect(downloaded.rawData(), orderedEquals(bytes));

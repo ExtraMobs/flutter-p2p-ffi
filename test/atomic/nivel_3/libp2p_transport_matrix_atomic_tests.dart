@@ -217,10 +217,16 @@ void main() {
         final qClientConn = await qDial;
         final qServerConn = await qAccept;
         final qClientStream = await qClientConn.openStream();
-        final qServerStream = await qServerConn.acceptStream();
+        // Opening a stream puts no bytes on the wire on a natively
+        // multiplexed transport: the peer only learns the stream exists when
+        // a frame for it arrives (RFC 9000 s. 2.1). So the first write has to
+        // precede the accept, which is what every real libp2p stream does by
+        // writing its multistream-select header right after opening.
+        final qServerStreamFuture = qServerConn.acceptStream();
         await qClientStream.write(
           Uint8List.fromList(utf8.encode('matrix quic test')),
         );
+        final qServerStream = await qServerStreamFuture;
         final qReceived = await qServerStream.read();
         expect(utf8.decode(qReceived), equals('matrix quic test'));
         await qClientStream.close();
@@ -238,10 +244,11 @@ void main() {
         final wtClientConn = await wtDial;
         final wtServerConn = await wtAccept;
         final wtClientStream = await wtClientConn.openStream();
-        final wtServerStream = await wtServerConn.acceptStream();
+        final wtServerStreamFuture = wtServerConn.acceptStream();
         await wtClientStream.write(
           Uint8List.fromList(utf8.encode('matrix webtransport test')),
         );
+        final wtServerStream = await wtServerStreamFuture;
         final wtReceived = await wtServerStream.read();
         expect(utf8.decode(wtReceived), equals('matrix webtransport test'));
         await wtClientStream.close();
@@ -262,10 +269,11 @@ void main() {
         final rtcClientConn = await rtcDial;
         final rtcServerConn = await rtcAccept;
         final rtcClientStream = await rtcClientConn.openStream();
-        final rtcServerStream = await rtcServerConn.acceptStream();
+        final rtcServerStreamFuture = rtcServerConn.acceptStream();
         await rtcClientStream.write(
           Uint8List.fromList(utf8.encode('matrix webrtc test')),
         );
+        final rtcServerStream = await rtcServerStreamFuture;
         final rtcReceived = await rtcServerStream.read();
         expect(utf8.decode(rtcReceived), equals('matrix webrtc test'));
         await rtcClientStream.close();

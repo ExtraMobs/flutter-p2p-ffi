@@ -1,0 +1,16 @@
+name: transpiled_webtransport_go
+description: Dart port of github.com/quic-go/webtransport-go, the WebTransport over HTTP/3 layer libp2p's /quic-v1/webtransport transport is built on.
+version: 0.1.0
+publish_to: none
+
+environment:
+  sdk: ^3.8.0
+
+dependencies:
+  transpiled_quic_go:
+    path: ../transpiled_quic_go
+  transpiled_qpack:
+    path: ../transpiled_qpack
+
+dev_dependencies:
+  test: ^1.25.0

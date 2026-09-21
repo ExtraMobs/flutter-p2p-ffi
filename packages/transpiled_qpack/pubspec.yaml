@@ -1,0 +1,14 @@
+name: transpiled_qpack
+description: Port of github.com/quic-go/qpack (QPACK header compression, RFC 9204).
+version: 0.1.0
+publish_to: none
+
+environment:
+  sdk: ^3.8.0
+
+dependencies:
+  boilerplate:
+    path: ../boilerplate
+
+dev_dependencies:
+  test: ^1.25.0

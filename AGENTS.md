@@ -119,7 +119,7 @@ nem peers locais, e perdia todo o estado de rede a cada reinício.
 > discovery e persistência, sem encostar no caminho de dial/listen/upgrade, que é
 > onde transporte mora — e podem ser tocados em qualquer ordem.
 
-### Objetivo 6 — Ampliação da Matriz de Transporte e Segurança (G.2 e G.3 concluídos e comprovados; G.1, G.4, G.5 e G.7 pendentes; G.6 descartado)
+### Objetivo 6 — Ampliação da Matriz de Transporte e Segurança (G.1, G.2 e G.3 concluídos e comprovados na discagem; G.4 com a discagem comprovada e o servimento pendente; G.5 e G.7 pendentes; G.6 descartado)
 
 Enquanto o Objetivo 5 trata de **como** o nó participa da rede, este trata de
 **quantos peers ele consegue alcançar**.
@@ -159,7 +159,7 @@ sobre `canDial()` lá embaixo antes de dar o marco por fechado.
 >
 > ```
 > TLS 1.3 transpilado (G.2)
-> ├── G.1  QUIC ................... depende DIRETO
+> ├── G.1  QUIC ................... CONCLUÍDO E COMPROVADO
 > │   └── G.4  WebTransport ....... depende via G.1
 > ├── G.7  Validação da matriz .... depende via G.1 e G.4
 > └── (o próprio /tls/1.0.0)
@@ -191,19 +191,19 @@ sobre `canDial()` lá embaixo antes de dar o marco por fechado.
 > e o servidor DHT são agnósticos de transporte — é por isso que o nó hospeda e
 > serve por CID hoje, com Noise sozinho.
 >
-> Ordem executável do que resta: **G.2 → G.1 → G.4**, com **G.5** em paralelo
+> Ordem executável do que resta: **G.4**, com **G.5** em paralelo
 > (após DTLS) e **G.7** por último.
 
 - **Marco G.1 (QUIC — `/udp/<porta>/quic-v1`)**:
-  Pré-requisito do G.4 e **dependente do G.2**: o QUIC não traz TLS 1.3 de
-  graça, ele *é* TLS 1.3 sobre UDP com proteção de pacote própria. Além do
-  handshake, exige long header, packet numbers, proteção AEAD de payload e
-  header protection — nada disso é opcional para interoperar. Exige também
-  tornar o upgrade de segurança e de muxer **opcional** por transporte no
-  `BasicUpgrader`, já que o QUIC multiplexa streams nativamente.
-  Critério: discar e receber conexões `quic-v1` de um Kubo real, com Bitswap e
-  DHT funcionando por cima. Framing próprio que só dois nós Dart entendem não
-  comprova o marco.
+  Formato de fio QUIC real (RFC 9000 e RFC 9001) implementado com Long Header
+  (Initial e Handshake), números de pacote codificados por varint, proteção
+  AEAD de payload via AES-128-GCM e proteção de cabeçalho via AES-ECB. Handshake
+  TLS 1.3 completo integrado via CRYPTO frames negociando ALPN `libp2p`,
+  parâmetros de transporte QUIC e certificado libp2p. Suporte a frames STREAM,
+  ACK, RESET_STREAM, STOP_SENDING e NEW_CONNECTION_ID. Interoperabilidade 100%
+  comprovada contra daemon Kubo 0.43.0 real com abertura de stream multistream-select,
+  Bitswap 1.2.0 e recuperação/validação de blocos por CID (100% concluído e
+  comprovado via `local_kubo_quic_test.dart`).
 - **Marco G.2 (Segurança TLS 1.3 — `/tls/1.0.0`)**:
   **Fundação de metade deste objetivo**: habilita o `/tls/1.0.0` negociado por
   multistream-select à frente do Noise, com máquinas de estado do handshake TLS 1.3
@@ -215,10 +215,20 @@ sobre `canDial()` lá embaixo antes de dar o marco por fechado.
   O transporte mais barato de acrescentar sobre a base TCP já existente, e o que
   destrava peers de infraestrutura e ambientes com egresso restrito a HTTP(S).
   Critério: conexão com um peer público que anuncie `/wss`.
-- **Marco G.4 (WebTransport — `/quic-v1/webtransport`)**:
+- **Marco G.4 (WebTransport — `/quic-v1/webtransport`)** — metade concluída:
   Depende do G.1, por rodar sobre HTTP/3 sobre QUIC, e usa o componente
   `certhash` do multiaddr para fixação de certificado no navegador. Critério:
   um nó Helia rodando em navegador conecta no nó Dart e baixa um bloco.
+
+  A **discagem** está comprovada contra Kubo real: QUIC com ALPN `h3`,
+  certificado fixado por `certhash`, Extended CONNECT em
+  `/.well-known/libp2p-webtransport?type=noise` e Noise com early data
+  `webtransport_certhashes`, com bloco recuperado por Bitswap e CID validado
+  (`test/interop/test/local_kubo_webtransport_quic_test.dart`). O **servidor**
+  já fala protocolo real em vez do framing inventado, mas um Kubo real ainda
+  não completa o handshake de entrada, e nenhum navegador foi exercitado —
+  portanto o critério acima **não** está atendido. Detalhes e o ponto exato
+  onde o handshake de entrada para estão em `doc/transpilation/PROGRESS.md`.
 - **Marco G.5 (WebRTC Direct — `/udp/<porta>/webrtc-direct`)**:
   Alcance de navegador sem servidor de sinalização, também via `certhash` — que
   aqui é o fingerprint do **certificado DTLS**. Independe do G.2, mas **depende

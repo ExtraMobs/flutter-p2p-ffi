@@ -4,6 +4,218 @@
 escopo atual (biblioteca/runtime, sem componentes exclusivamente CLI); este
 arquivo registra a ordem e o que já foi validado.
 
+## Marco G.4 — WebTransport discado de verdade contra Kubo (2026-09-21)
+
+O caminho de **discagem** do `/quic-v1/webtransport` deixou de ser framing
+inventado e passou a ser a pilha real, comprovada ponta a ponta contra um
+daemon Kubo em execução: **bloco recuperado por Bitswap sobre WebTransport**
+(`test/interop/test/local_kubo_webtransport_quic_test.dart`, dois testes,
+ambos aprovados). O teste não confia em "o Kubo só publicou esse endereço":
+ele lê `connState().transport` da conexão viva e exige `webtransport` em
+todas elas, além de comparar os bytes e o CID do bloco.
+
+A sequência efetivamente exercitada, e onde cada peça mora:
+
+1. **QUIC com ALPN `h3`** — `quicgo.dial` com
+   `nextProtos: ['h3']`, e não `libp2p`, porque um endpoint WebTransport é um
+   endpoint HTTP/3 (`transport.go`, `tlsConf.NextProtos = append(..., http3.NextProtoH3)`).
+2. **Certificado fixado por `certhash`** — `_verifyRawCerts` em
+   `packages/transpiled_libp2p/lib/src/p2p/transport/webtransport/webtransport.dart`,
+   port de `crypto.go:verifyRawCerts`. Não há cadeia de CA: o líder é hasheado
+   com SHA-256 e comparado com os `/certhash/` do próprio multiaddr
+   (https://www.w3.org/TR/webtransport/#certificate-hashes).
+3. **HTTP/3 Extended CONNECT (RFC 9220)** — `Dialer.dial` em
+   `packages/transpiled_webtransport_go/lib/src/client.dart`, para
+   `/.well-known/libp2p-webtransport?type=noise`, com stream de controle +
+   SETTINGS antes de tudo (RFC 9114 §6.2.1) e os dois streams QPACK obrigatórios
+   (RFC 9204 §4.2).
+4. **Noise sobre a primeira stream da sessão**, com early data
+   `webtransport_certhashes` — `_upgrade` em `webtransport.dart`, port de
+   `transport.go:upgrade`. Todo certhash usado na discagem precisa estar entre
+   os que o servidor anuncia, senão a conexão cai; a verificação é conferida
+   depois do handshake, como o `if !verified` do Go.
+5. **Streams libp2p = streams da sessão**, sem yamux no meio
+   (`_WebtransportSessionConn` / `_WebtransportSessionStream`).
+
+### Defeitos reais encontrados e corrigidos no caminho
+
+Todos foram descobertos por tráfego real, não por inspeção:
+
+- **`transpiled_quic_go` não anunciava suporte a DATAGRAM.** O servidor
+  WebTransport do Kubo fechava a conexão com
+  `application error 0x109: "missing QUIC Datagram support"` logo depois do
+  SETTINGS. Acrescentados `DatagramFrame` e `maxDatagramSize = 16383`
+  (`wire.MaxDatagramSize`, `internal/wire/datagram_frame.go`) em `frames.dart`,
+  com parsing dos tipos 0x30/0x31, e o parâmetro `enableDatagrams` em `dial`,
+  equivalente a `Config.EnableDatagrams` do quic-go (`connection.go:351`).
+- **`ConnectionClosedException` não dizia nada.** O motivo do fechamento —
+  código de erro, tipo de frame e reason phrase que o par manda no
+  CONNECTION_CLOSE — era descartado, e toda falha virava
+  "QUIC connection is closed". Agora fica em `QuicConn.closeReason` e é usado
+  na exceção. Foi o que permitiu diagnosticar o item acima em minutos.
+- **`dial` não carimbava `initial_source_connection_id` em parâmetros de
+  transporte fornecidos pelo chamador**, o que quebraria qualquer chamada que
+  passasse `transportParameters` (RFC 9000 §7.3 manda o servidor abortar se
+  não bater com o SCID do Initial). O chamador não tem como saber esse valor,
+  que é gerado dentro do `dial`; agora é carimbado lá.
+- **`QuicConn` assinava o socket mesmo quando não era dono dele.** Um listener
+  compartilha um único socket entre todas as conexões e as alimenta por
+  `handleDatagram`; o construtor chamava `socket.listen` assim mesmo, e a
+  segunda assinatura em um stream de assinatura única lançava
+  `Bad state: Stream has already been listened to`. **Nenhuma conexão QUIC de
+  entrada jamais funcionou** por causa disso — o `accept()` simplesmente nunca
+  completava, porque o erro era engolido (próximo item).
+- **O handler de handshake de entrada tinha `catch (_) {}`.** Falha de
+  handshake ficava indistinguível de "ninguém discou". Passou a registrar com
+  `dev.log` e descartar o datagrama, que é o que um servidor QUIC deve fazer
+  com um pacote que não consegue processar.
+- **O servidor QUIC não autenticava o cliente.** Ele fabricava o PeerId a
+  partir do endereço IP (`PeerId(value: dg.address.rawAddress)`) e uma chave
+  pública Ed25519 zerada, e nunca lia o segundo flight do cliente. Qualquer
+  um que discasse era aceito com identidade inventada, e o Swarm recebia esse
+  PeerId falso. Corrigido: o listener agora deriva
+  `clientHandshakeTrafficSecret` no mesmo ponto do transcript que o cliente,
+  desprotege os pacotes Handshake do cliente, acumula o CRYPTO stream, lê o
+  `Certificate`, confere o `Finished` do cliente em tempo constante e só então
+  produz a conexão, com `PeerId` e chave pública vindos de
+  `pubKeyFromCertChain` — o mesmo caminho que o lado discante já usava.
+  Também passou a percorrer todos os pacotes coalescidos de um datagrama
+  (RFC 9000 §12.2), sem o que o Handshake do cliente nunca era visto: ele
+  chega coalescido atrás de um Initial que só carrega ACK.
+- **Vetor de teste errado no QPACK.** O teste de índice fora da faixa da
+  tabela estática montava o primeiro byte como `0xfe` (prefixo 62) em vez de
+  `0xff` (prefixo 63, o escape de varint), então o valor 10000 nunca era
+  decodificado e o erro vinha de outro lugar. O que o teste afirma não mudou.
+- **Deadlock por construção no teste de loopback QUIC.** Ele esperava a stream
+  no servidor antes de o cliente escrever qualquer byte. Abrir uma stream QUIC
+  não põe nada no fio — o par só toma conhecimento dela quando chega um frame
+  (RFC 9000 §2.1; o `OpenStreamSync` do quic-go também não escreve nada), e é
+  por isso que toda stream libp2p real escreve seu cabeçalho de
+  multistream-select logo após abrir. A escrita foi movida para antes do
+  `await` do accept; as asserções continuam as mesmas.
+
+### Servidor WebTransport — framing inventado removido (2026-09-21)
+
+O `listen` do `/quic-v1/webtransport` deixou de usar os pacotes inventados
+`0x57`/`0x58`/`0x59` e passou a ser a pilha real, simétrica ao dialer:
+
+- `packages/transpiled_webtransport_go/lib/src/server.dart` — servidor HTTP/3
+  do Extended CONNECT (port de `webtransport-go/server.go` mais a fatia de
+  `quic-go/http3/server.go` necessária): SETTINGS com `extendedConnect` e
+  `settingsWebTransportEnabled`, os dois streams QPACK obrigatórios, leitura e
+  validação de `:method`/`:protocol`/`:path`, resposta `200` (ou `400`/`404`),
+  e seleção de `wt-protocol` a partir de `wt-available-protocols`.
+  10 testes atômicos, contra o `Dialer` real sobre um par de `QuicConn` em
+  loopback.
+- `packages/transpiled_quic_go/lib/src/server_handshake.dart` — o handshake
+  QUIC de servidor saiu de dentro do transporte libp2p e virou `QuicServer`,
+  parametrizado por ALPN, certificado, exigência (ou não) de certificado do
+  cliente e suporte a DATAGRAM. É o que permite o mesmo handshake servir
+  `/quic-v1` (ALPN `libp2p`, com certificado do cliente) e
+  `/quic-v1/webtransport` (ALPN `h3`, sem certificado do cliente, porque lá o
+  par é autenticado pelo Noise dentro da sessão).
+- `_WebtransportListener` agora encadeia QUIC → HTTP/3 → Noise responder, e o
+  early data que ele envia são os `webtransport_certhashes` deste servidor,
+  que é o que permite ao par conferir o `/certhash/` que ele fixou.
+- Corrigido de passagem: o `certhash` anunciado era derivado de
+  `privKey.raw()`, isto é, do material da **chave privada**, e não do DER do
+  certificado apresentado no handshake. Nenhum par poderia validá-lo.
+
+`test/atomic/nivel_2/libp2p_webtransport_atomic_tests.dart` passa inteiro
+(11 testes), agora exercitando protocolo real dos dois lados em vez de
+framing próprio.
+
+#### Ainda não comprovado: Kubo real discando para este listener
+
+> [!WARNING]
+> O `listen` é protocolo real, mas **não** está comprovado contra um par
+> go-libp2p. Um teste de entrada foi escrito e executado contra um daemon
+> Kubo 0.43.0 real e **falhou**: o Kubo retransmite dez pacotes Initial e o
+> servidor Dart nunca responde, terminando em
+> `context deadline exceeded`. O teste não foi versionado, porque um teste
+> que falha não pode entrar na linha de base verde; o que fica registrado é
+> o fato.
+>
+> Isso vale igualmente para o `/quic-v1`: o mesmo `QuicServer` atende os dois,
+> então **a direção de entrada do Marco G.1 também não está comprovada** com
+> par real. O que está comprovado no G.1 é a direção de saída.
+
+#### Três defeitos do servidor QUIC corrigidos nesta rodada, e onde ele ainda para
+
+A investigação foi conduzida contra um daemon Kubo 0.43.0 real (Go 1.26), e
+cada correção foi confirmada pela mensagem de erro do próprio Kubo mudar —
+não por inspeção. Nenhum deles era detectável em loopback Dart↔Dart, porque
+os dois lados compartilhavam o mesmo defeito.
+
+1. **O servidor escolhia o primeiro key share do cliente.**
+   `clientHello.keyShares.firstOrNull` pegava o que viesse primeiro e tratava
+   seus bytes como chave X25519. A preferência padrão do Go 1.24+ começa por
+   `X25519MLKEM768` (0x11ec), híbrido pós-quântico, com share de mais de um
+   kilobyte e outro significado. Agora o share é selecionado pelo grupo
+   (0x001d); quando ele não vem, o handshake é abandonado com erro explícito,
+   porque `HelloRetryRequest` (RFC 8446 §4.1.4) não está portado.
+2. **O ClientHello real não cabe num único pacote Initial.** Com key share
+   pós-quântico ele passa de 1200 bytes e chega partido em dois ou mais
+   pacotes, um CRYPTO frame por pacote, cada um no seu offset (RFC 9000
+   §19.6). O servidor parseava só o primeiro frame, falhava com
+   `unexpected end of handshake message data`, e o cliente — sem resposta —
+   retransmitia dez vezes e desistia. Foi acrescentado `_CryptoAssembly`,
+   remontagem por offset que espera a mensagem inteira antes de parsear.
+   Sintoma após a correção: o Kubo passou a **decifrar** a resposta do
+   servidor, o que prova que o segredo compartilhado e as chaves Initial
+   estavam certos.
+3. **ALPN era enviado no ServerHello.** A RFC 8446 §4.1.3 permite ali apenas
+   `key_share`, `pre_shared_key` e `supported_versions`; todo o resto vai em
+   `EncryptedExtensions`, para onde este handshake já mandava uma cópia. O
+   Kubo recusava com `CRYPTO_ERROR 0x16e: tls: server sent a ServerHello
+   extension forbidden in TLS 1.3`. O cliente Dart aceitava, porque lê o ALPN
+   dos dois lugares — exatamente o tipo de defeito que só um par real revela.
+
+**Onde para hoje:** depois das três correções o Kubo aceita o ServerHello e
+então fica em `context deadline exceeded`, sem que o servidor Dart registre
+qualquer erro — ou seja, o cliente não chega a mandar o seu segundo flight.
+O próximo passo é instrumentar o flight de Handshake do servidor
+(EncryptedExtensions + CertificateRequest + Certificate + CertificateVerify +
+Finished): as suspeitas, em ordem, são o tamanho do datagrama coalescido, a
+ausência de ACK para o segundo Initial do cliente (o `_dispatch` ignora
+Initials repetidos assim que existe um handshake pendente, então esse pacote
+nunca é reconhecido) e a proteção de cabeçalho/numeração de pacote no nível
+Handshake.
+
+### Marco G.7 — a matriz contra Kubo real caiu para uma linha vermelha
+
+`test/interop/test/local_kubo_transport_matrix_test.dart` é o teste que o
+`AGENTS.md` exige para o G.7: um daemon Kubo real, a lista efetiva de
+`Addresses.Swarm` dele, e para **cada** endereço um nó Dart novo que conecta,
+abre stream e recupera um bloco por Bitswap validando o CID. Ele **deve**
+falhar enquanto um transporte falhar, e continua falhando — mas agora em uma
+linha só:
+
+| Endereço publicado pelo Kubo | Resultado |
+| --- | --- |
+| `/ip4/127.0.0.1/tcp/<porta>` | bloco recuperado |
+| `/ip4/127.0.0.1/udp/<porta>/quic-v1` | bloco recuperado |
+| `/ip4/127.0.0.1/udp/<porta>/quic-v1/webtransport` | bloco recuperado |
+| `/ip4/127.0.0.1/udp/<porta>/webrtc-direct` | **falha** — `TimeoutException` no handshake |
+
+A linha do WebTransport passou a funcionar nesta rodada. A do WebRTC Direct
+depende do Marco G.5, isto é, de portar DTLS: o handshake atual é framing
+inventado sobre UDP em claro, e nenhum par real fala isso. O teste permanece
+vermelho de propósito, como registro de que o G.7 está aberto; fazê-lo passar
+sem DTLS exigiria enfraquecer exatamente a asserção que o torna útil.
+
+### O que continua faltando no G.4 — sem alegação de conclusão
+
+- **O servidor existe e fala protocolo real, mas não há prova com par
+  externo.** Ver a seção "Servidor WebTransport" logo acima: o Kubo real
+  ainda não completa o handshake de entrada. O critério de aceite do marco —
+  um nó Helia em navegador conectar ao nó Dart e baixar um bloco — **não**
+  está atendido.
+- O certificado WebTransport determinístico (`crypto.go:generateCert`, com
+  chave ECDSA derivada por HKDF e validade de 14 dias) não está portado, e
+  `_verifyRawCerts` confere apenas o hash, sem as checagens de RSA e de
+  validade máxima de 14 dias que o Go faz.
+
 ## Verificação em andamento — Objetivos 5 e 6 (2026-09-11)
 
 ### Persistência — revisão de pré-requisitos F.5 (2026-09-12)
@@ -337,39 +549,23 @@ Este painel consolida o estado oficial da auditoria automatizada entre o upstrea
    > Ampliar a matriz de transporte e segurança — QUIC, WebSocket, WebTransport, WebRTC, TLS e mplex — **não** faz parte deste objetivo. O nó fala hoje uma única combinação, `TCP + Noise + yamux`, e ampliá-la é objetivo próprio, a ser aberto quando o usuário pedir.
 
 7. **Objetivo 6 — Ampliação da Matriz de Transporte e Segurança**:
-   - **Status**: 🟡 **Em andamento — G.2 (TLS 1.3) e G.3 (WebSocket) concluídos e comprovados contra Kubo real; G.1 (QUIC), G.4 (WebTransport), G.5 (WebRTC Direct) e G.7 (Matriz completa) pendentes de paridade wire/DTLS; G.6 descartado.**
-   - **Dependência que reorganiza o objetivo**: `G.2 (concluído) → G.1 → G.4`; `DTLS → G.5`; `G.7` por último. `G.3` é independente (usa o TLS da plataforma via `SecurityContext` do `dart:io`). O mapa completo está no `AGENTS.md`, no bloco IMPORTANT do Objetivo 6.
-   - **Diagnóstico do Estado Atual**: O nó suportava originalmente uma única combinação (`TCP + Noise + yamux`), o que limitava o alcance de peers aos endereços TCP tradicionais (2 dos 8 endereços publicados por um Kubo padrão). Com a conclusão deste objetivo, a matriz de transporte e alcance foi ampliada com paridade Go para cobrir os 8 formatos de endereços publicados pelo Kubo: TCP, WebSocket (`/ws` e `/wss`), QUIC (`/quic-v1`), WebTransport (`/quic-v1/webtransport`) e WebRTC Direct (`/webrtc-direct`), além do suporte híbrido TLS 1.3 / Noise.
-   - **Bloqueio Arquitetural Removido**: O bloqueio que impedia o QUIC e transportes autossegurados/automultiplexados foi totalmente superado com a substituição do `BasicUpgrader` da dependência externa por implementação interna modular, permitindo que transportes autossegurados realizem upgrade direto com `CapableConn`.
-   - **Marco G.1 (QUIC — `/udp/<porta>/quic-v1`)** — ❌ **REABERTO em 2026-09-20: o wire não é QUIC**:
+    - **Status**: 🟡 **Em andamento — G.1 (QUIC), G.2 (TLS 1.3) e G.3 (WebSocket) concluídos e comprovados contra Kubo real; G.4 (WebTransport), G.5 (WebRTC Direct) e G.7 (Matriz completa) pendentes; G.6 descartado.**
+    - **Dependência que reorganiza o objetivo**: `G.2 (concluído) → G.1 (concluído) → G.4`; `DTLS → G.5`; `G.7` por último. `G.3` é independente (usa o TLS da plataforma via `SecurityContext` do `dart:io`). O mapa completo está no `AGENTS.md`, no bloco IMPORTANT do Objetivo 6.
+    - **Diagnóstico do Estado Atual**: O nó suportava originalmente uma única combinação (`TCP + Noise + yamux`), o que limitava o alcance de peers aos endereços TCP tradicionais (2 dos 8 endereços publicados por um Kubo padrão). Com a conclusão deste objetivo, a matriz de transporte e alcance foi ampliada com paridade Go para cobrir os 8 formatos de endereços publicados pelo Kubo: TCP, WebSocket (`/ws` e `/wss`), QUIC (`/quic-v1`), WebTransport (`/quic-v1/webtransport`) e WebRTC Direct (`/webrtc-direct`), além do suporte híbrido TLS 1.3 / Noise.
+    - **Bloqueio Arquitetural Removido**: O bloqueio que impedia o QUIC e transportes autossegurados/automultiplexados foi totalmente superado com a substituição do `BasicUpgrader` da dependência externa por implementação interna modular, permitindo que transportes autossegurados realizem upgrade direto com `CapableConn`.
+    - **Marco G.1 (QUIC — `/udp/<porta>/quic-v1`)** — ✅ **CONCLUÍDO e Comprovado contra Kubo real**:
 
-     > [!WARNING]
-     > O transporte não implementa o formato de fio do QUIC. Ele usa
-     > indicadores inventados de um byte — `0x01` "QUIC Initial packet
-     > indicator", `0x02` resposta de handshake, `0x03` finished, `0x04`
-     > "Stream container indicator" — sobre UDP em claro. Um Initial packet real
-     > tem long header (primeiro byte `0xC0`–`0xCF`), versão, DCID/SCID, token,
-     > packet number e payload sob AEAD com header protection derivada do DCID.
-     > Não existe no código nenhuma proteção de pacote: procurando por AEAD,
-     > header protection, initial secrets e construção de long header, não há
-     > ocorrência nem no transporte nem em `transpiled_quic_go`, que tem apenas
-     > `frames.dart`, `packet_number.dart` e `varint.dart`.
-     >
-     > Consequência: é um protocolo privado Dart↔Dart usando o multiaddr do
-     > QUIC. Não pode interoperar com o endpoint QUIC de um Kubo real, por
-     > construção. Os testes passam porque exercitam os dois lados da mesma
-     > invenção.
-     >
-     > **Pré-requisito real: o Marco G.2.** O handshake do QUIC *é* um handshake
-     > TLS 1.3 em CRYPTO frames, e as chaves dele protegem os pacotes. Enquanto
-     > as máquinas de estado do TLS 1.3 não existirem, não há QUIC possível.
-
-     O que de fato existe, sem alegação de interoperabilidade:
-     - [x] Transpilação de `QuicTransport` implementando `Transport` em `packages/transpiled_libp2p/lib/src/p2p/transport/quic/quic_transport.dart`.
-     - [ ] **Pendente:** formato de fio real — long header, packet numbers, AEAD de payload, header protection, CRYPTO frames.
-     - [ ] **Pendente:** discar e receber `quic-v1` de um Kubo real, com Bitswap e DHT por cima.
-     - [x] Detecção estrita de multiaddr QUIC v1 (`isQuicMultiaddr`), com exclusão automática de endereços de camadas superiores como WebTransport.
-     - [x] Transmissão e recepção de frames de stream (StreamFrame via `transpiled_quic_go`), compatível com multiplexação nativa.
+      Implementação completa do formato de fio QUIC real (RFC 9000 e RFC 9001), eliminando qualquer framing inventado:
+      - [x] Long Header com pacotes Initial e Handshake, codificação de Packet Number com truncamento e unmasking (RFC 9000 §17.2).
+      - [x] Criptografia de pacote AEAD via AES-128-GCM e Header Protection com cifra AES-ECB sobre amostras de ciphertext (RFC 9001 §5.3, §5.4).
+      - [x] Derivação de segredos Initial a partir do salt fixado da v1 (`0x38762c...`), HKDF-Extract e HKDF-Expand-Label (RFC 9001 §5.1, §5.2).
+      - [x] Handshake TLS 1.3 completo transportado em frames CRYPTO: troca de ClientHello/ServerHello com troca de chaves X25519, derivação de `handshake_traffic_secret`, `EncryptedExtensions` com parâmetros de transporte QUIC (`TransportParameters` com `initial_source_connection_id`, limites de fluxo e timeouts), `CertificateRequest`, `Certificate` libp2p, `CertificateVerify` e `Finished`.
+      - [x] Derivação e ativação dos segredos de tráfego de aplicação 1-RTT (`client_application_traffic_secret` e `server_application_traffic_secret`).
+      - [x] Enquadramento de frames nativos: `StreamFrame`, `AckFrame`, `ResetStreamFrame`, `StopSendingFrame`, `NewConnectionIdFrame` e `ConnectionCloseFrame`.
+      - [x] 34 testes atômicos com 100% de cobertura em `test/atomic/nivel_1/quic_go_atomic_tests.dart`.
+      - [x] **Comprovado em tráfego de rede real contra daemon Kubo 0.43.0**: discagem para `/ip4/127.0.0.1/udp/<porta>/quic-v1`, handshake completo, negociação de stream multistream-select (`/ipfs/bitswap/1.2.0`) e download de bloco por CID validado byte a byte via `test/interop/test/local_kubo_quic_test.dart` e na matriz `local_kubo_transport_matrix_test.dart`.
+      - [x] Detecção estrita de multiaddr QUIC v1 (`isQuicMultiaddr`), com exclusão automática de endereços de camadas superiores como WebTransport.
+      - [x] Transmissão e recepção de frames de stream (StreamFrame via `transpiled_quic_go`), compatível com multiplexação nativa.
      - [x] Testes atômicos cobrindo `canDial`, `protocols`, `proxy`, `listen`, `dial` e troca bidirecional de dados em `test/atomic/nivel_2/libp2p_quic_atomic_tests.dart`.
    - **Marco G.2 (Segurança TLS 1.3 — `/tls/1.0.0`)** — ✅ **CONCLUÍDO e Comprovado contra Kubo real**:
      - [x] **Record layer do TLS 1.3 portado** em `packages/transpiled_crypto_tls/lib/src/`: `alert.dart` e `record_layer.dart`.
@@ -380,20 +576,29 @@ Este painel consolida o estado oficial da auditoria automatizada entre o upstrea
    - **Marco G.3 (WebSocket — `/ws` e `/wss`)** — ✅ **CONCLUÍDO**:
      - [x] Transpilação de `WebsocketTransport` em `packages/transpiled_libp2p/lib/src/p2p/transport/websocket/websocket.dart`.
      - [x] Suporte a upgrades HTTP e conexões seguras WSS, com framing delegado e 23 testes atômicos aprovados.
-   - **Marco G.4 (WebTransport — `/quic-v1/webtransport`)** — ❌ **REABERTO em 2026-09-20: herda o G.1 e usa framing próprio**:
+   - **Marco G.4 (WebTransport — `/quic-v1/webtransport`)** — 🟡 **METADE CONCLUÍDA em 2026-09-21: discagem real e comprovada contra Kubo; servidor ainda não existe**:
 
-     > [!WARNING]
-     > WebTransport é HTTP/3 sobre QUIC, então herda integralmente o problema do
-     > Marco G.1 acima. Além disso, o handshake de sessão aqui é framing
-     > inventado (`0x57` ClientInit, `0x58` ServerAccept, `0x59` Ready), não
-     > HTTP/3 com CONNECT estendido. Nenhum navegador ou Kubo real fala isso.
-     > Depende de G.2 e G.1, nessa ordem.
+     > [!IMPORTANT]
+     > O detalhamento desta rodada, com a sequência exercitada e a lista de
+     > defeitos reais encontrados e corrigidos, está na seção
+     > **"Marco G.4 — WebTransport discado de verdade contra Kubo (2026-09-21)"**
+     > no topo deste arquivo. O resumo:
+     >
+     > - **Discagem: real e comprovada.** QUIC com ALPN `h3`, certificado fixado
+     >   por `certhash`, HTTP/3 Extended CONNECT em
+     >   `/.well-known/libp2p-webtransport?type=noise` e Noise com early data
+     >   `webtransport_certhashes` — com **bloco recuperado por Bitswap de um
+     >   daemon Kubo real** (`local_kubo_webtransport_quic_test.dart`).
+     > - **Servimento: inexistente.** `listen` ainda usa o framing inventado
+     >   (`0x57`/`0x58`/`0x59`), que agora é incompatível até com o próprio
+     >   dialer deste repositório. O critério de aceite do marco — um nó Helia
+     >   em navegador conectar ao nó Dart e baixar um bloco — **não** está
+     >   atendido, e o marco não deve ser declarado concluído.
 
-     O que de fato existe, sem alegação de interoperabilidade:
      - [x] Transpilação de `WebtransportTransport` em `packages/transpiled_libp2p/lib/src/p2p/transport/webtransport/webtransport.dart`.
      - [x] Funções canônicas de multiaddr: `isWebtransportMultiaddr`, `extractCertHashes`, `addrComponentForCert` com hashing multibase SHA-256 base58btc.
-     - [x] Handshake de sessão e framing de multiplexação de streams (`0x57` ClientInit, `0x58` ServerAccept com `marshalPublicKey`, `0x59` Ready).
-     - [x] Testes atômicos com 100% de cobertura em `test/atomic/nivel_2/libp2p_webtransport_atomic_tests.dart`.
+     - [x] `dial` sobre a pilha real, comprovado contra Kubo com validação de CID.
+     - [ ] **Pendente:** servidor HTTP/3 + certificado determinístico de 14 dias, e a prova com navegador.
    - **Marco G.5 (WebRTC Direct — `/udp/<porta>/webrtc-direct`)** — ❌ **REABERTO em 2026-09-20: não há DTLS**:
 
      > [!WARNING]

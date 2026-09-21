@@ -273,9 +273,10 @@ class LocalKuboHarness {
   Future<String> swarmPeers() async =>
       '${(await _run(['swarm', 'peers'])).stdout}';
 
-  /// The daemon's actual routing tables, distinct from its swarm connections.
-  Future<String> routingTables() async =>
-      '${(await _run(['stats', 'dht'])).stdout}';
+  /// Sets the logging level for a Kubo subsystem (or 'all').
+  Future<void> setLogLevel(String subsystem, String level) async {
+    await _run(['log', 'level', subsystem, level]);
+  }
 
   Future<void> _start(
       String routingType,

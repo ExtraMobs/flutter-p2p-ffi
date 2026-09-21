@@ -9,6 +9,15 @@ dependencies:
   transpiled_ipfs:
     path: ../..
   test: ^1.24.0
+  transpiled_quic_go:
+    path: ../../packages/transpiled_quic_go
+  transpiled_webtransport_go:
+    path: ../../packages/transpiled_webtransport_go
+  transpiled_multibase:
+    path: ../../packages/transpiled_multibase
+  transpiled_multihash:
+    path: ../../packages/transpiled_multihash
+  crypto: ^3.0.7
 
 dependency_overrides:
   xml: ^7.0.1

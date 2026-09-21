@@ -1,5 +1,6 @@
 // ignore_for_file: duplicate_ignore, public_member_api_docs, sort_constructors_first, directives_ordering, dangling_library_doc_comments, library_prefixes, constant_identifier_names, depend_on_referenced_packages
 import 'dart:async';
+import 'dart:developer' as dev;
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -9,14 +10,26 @@ import 'package:transpiled_multiaddr/transpiled_multiaddr.dart';
 import 'package:transpiled_multibase/transpiled_multibase.dart' as multibase;
 import 'package:transpiled_multihash/transpiled_multihash.dart' as multihash;
 import 'package:transpiled_quic_go/transpiled_quic_go.dart';
+import 'package:transpiled_quic_go/transpiled_quic_go.dart' as quicgo;
+import 'package:transpiled_webtransport_go/transpiled_webtransport_go.dart'
+    as webtransport;
 
 import '../../../core/connmgr/gater.dart';
-import '../../../core/crypto/key_codec.dart';
 import '../../../core/crypto/key_types.dart';
 import '../../../core/network/network.dart';
 import '../../../core/peer/peer_id.dart';
 import '../../../core/protocol/protocol.dart';
+import '../../../core/sec/security.dart';
 import '../../../core/transport/transport.dart';
+import '../../security/noise/noise_handshake_payload.dart';
+import '../../security/tls/transport.dart' show Identity;
+import '../../security/noise/transport.dart' as noise;
+
+/// The HTTP/3 path a libp2p WebTransport session is established on.
+///
+/// Go: `webtransportHTTPEndpoint` (`p2p/transport/webtransport/transport.go`).
+/// It is unexported there, so it stays private here too.
+const String _webtransportHttpEndpoint = '/.well-known/libp2p-webtransport';
 
 /// Checks whether [multiaddr] is a valid WebTransport multiaddr and returns
 /// whether it is valid along with the count of certhashes.
@@ -74,12 +87,25 @@ class WebtransportTransport implements Transport {
     required this.privKey,
     this.rcmgr = const NullResourceManager(),
     this.gater,
-  }) : localPeer = PeerId.fromPubKey(privKey.getPublic());
+    this.handshakeTimeout = const Duration(seconds: 10),
+    Identity? identity,
+  }) : localPeer = PeerId.fromPubKey(privKey.getPublic()),
+       identity = identity ?? Identity(privKey: privKey);
 
   final PrivKey privKey;
   final PeerId localPeer;
+
+  /// Supplies the certificate the QUIC handshake presents, whose SHA-256 is
+  /// the `/certhash/` this transport advertises.
+  final Identity identity;
   final ResourceManager rcmgr;
   final ConnectionGater? gater;
+
+  /// How long the QUIC, HTTP/3 and Noise handshakes may take.
+  ///
+  /// Go: `handshakeTimeout` (`listener.go:25`), overridable with
+  /// `WithHandshakeTimeout`.
+  final Duration handshakeTimeout;
   final List<Listener> _listeners = [];
   bool _closed = false;
 
@@ -126,22 +152,9 @@ class WebtransportTransport implements Transport {
       );
     }
 
-    String? host;
-    int? port;
-    for (final c in addr.components) {
-      if (c.protocol.code == Protocols.ip4 ||
-          c.protocol.code == Protocols.ip6 ||
-          c.protocol.code == Protocols.dns ||
-          c.protocol.code == Protocols.dns4 ||
-          c.protocol.code == Protocols.dns6) {
-        host = c.value;
-      } else if (c.protocol.code == Protocols.udp) {
-        port = int.tryParse(c.value);
-      }
-    }
-
-    host ??= '0.0.0.0';
-    port ??= 0;
+    final endpoint = _endpointOf(addr);
+    final host = endpoint?.$1 ?? '0.0.0.0';
+    final port = endpoint?.$2 ?? 0;
 
     final bindAddress = (host == '127.0.0.1' || host == 'localhost')
         ? InternetAddress.loopbackIPv4
@@ -152,20 +165,42 @@ class WebtransportTransport implements Transport {
                     : InternetAddress.anyIPv4));
 
     final socket = await RawDatagramSocket.bind(bindAddress, port);
-    final boundPort = socket.port;
-    final boundHost = socket.address.address;
 
-    final certBytes = privKey.raw();
-    final certhashComp = addrComponentForCert(certBytes);
+    // The certificate the QUIC handshake presents is what the `/certhash/`
+    // component pins, so the two have to come from the same bytes -- the
+    // DER of the leaf certificate, never the raw private key.
+    final certificate = await identity.getCertificate();
+    final certhash = addrComponentForCert(certificate.certificateDer);
+
+    final server = quicgo.QuicServer(
+      socket: socket,
+      certificate: quicgo.QuicServerCertificate(
+        der: certificate.certificateDer,
+        sign: certificate.privateKey.sign,
+      ),
+      nextProtos: const [nextProtoH3],
+      // WebTransport authenticates the peer with the Noise handshake that
+      // runs inside the session, not with a TLS client certificate: a
+      // browser has none to offer. Go: `getTLSConf` builds a server config
+      // with no `ClientAuth`.
+      requestClientCertificate: false,
+      // An HTTP/3 server refuses a WebTransport session whose peer did not
+      // enable datagrams, so this side has to offer them too.
+      enableDatagrams: true,
+    );
 
     final boundAddr = Multiaddr.parse(
-      '/ip4/$boundHost/udp/$boundPort/quic-v1/webtransport/certhash/${certhashComp.value}',
+      '/${socket.address.type == InternetAddressType.IPv6 ? 'ip6' : 'ip4'}'
+      '/${socket.address.address}/udp/${socket.port}/quic-v1/webtransport'
+      '/certhash/${certhash.value}',
     );
 
     final listener = _WebtransportListener(
       transport: this,
       socket: socket,
+      server: server,
       boundAddr: boundAddr,
+      certificateDer: certificate.certificateDer,
     );
     _listeners.add(listener);
     return listener;
@@ -178,85 +213,135 @@ class WebtransportTransport implements Transport {
       throw ArgumentError('Cannot dial non-WebTransport address: $addr');
     }
 
-    String? host;
-    int? port;
-    for (final c in addr.components) {
-      if (c.protocol.code == Protocols.ip4 ||
-          c.protocol.code == Protocols.ip6 ||
-          c.protocol.code == Protocols.dns ||
-          c.protocol.code == Protocols.dns4 ||
-          c.protocol.code == Protocols.dns6) {
-        host = c.value;
-      } else if (c.protocol.code == Protocols.udp) {
-        port = int.tryParse(c.value);
-      }
+    // Go's `dialWithScope` refuses outright without certhashes: they are the
+    // only thing authenticating the TLS certificate, because the server has
+    // no CA-issued chain.
+    final certHashes = _certHashMultihashes(addr);
+    if (certHashes.isEmpty) {
+      throw ArgumentError("can't dial webtransport without certhashes: $addr");
     }
 
-    if (host == null || port == null) {
+    final endpoint = _endpointOf(addr);
+    if (endpoint == null) {
       throw ArgumentError('Could not resolve host/port from $addr');
     }
+    final (host, port) = endpoint;
+    final remoteAddress =
+        InternetAddress.tryParse(host) ??
+        (await InternetAddress.lookup(host)).first;
+    final isIPv6 = remoteAddress.type == InternetAddressType.IPv6;
 
-    final targetAddress = (await InternetAddress.lookup(host)).first;
-    final clientBindAddr = targetAddress.isLoopback
-        ? InternetAddress.loopbackIPv4
-        : InternetAddress.anyIPv4;
-
-    final socket = await RawDatagramSocket.bind(clientBindAddr, 0);
-
-    final localAddr = Multiaddr.parse(
-      '/ip4/${socket.address.address}/udp/${socket.port}/quic-v1/webtransport',
+    final socket = await RawDatagramSocket.bind(
+      isIPv6
+          ? (remoteAddress.isLoopback
+                ? InternetAddress.loopbackIPv6
+                : InternetAddress.anyIPv6)
+          : (remoteAddress.isLoopback
+                ? InternetAddress.loopbackIPv4
+                : InternetAddress.anyIPv4),
+      0,
     );
-    final remoteAddr = addr;
+    final localAddr = Multiaddr.parse(
+      '/${isIPv6 ? 'ip6' : 'ip4'}/${socket.address.address}'
+      '/udp/${socket.port}/quic-v1/webtransport',
+    );
 
-    final handshakeCompleter = Completer<Uint8List>();
+    try {
+      final quicConn = await quicgo.dial(
+        socket: socket,
+        remoteAddress: remoteAddress,
+        remotePort: port,
+        tlsConfig: quicgo.QuicTlsConfig(
+          // A WebTransport endpoint is an HTTP/3 endpoint, so ALPN is `h3`,
+          // not `libp2p` -- Go appends `http3.NextProtoH3` in `transport.dial`.
+          nextProtos: const [nextProtoH3],
+          // Not insecure: the certificate is verified against the certhashes
+          // carried by the multiaddr itself, per
+          // https://www.w3.org/TR/webtransport/#certificate-hashes and Go's
+          // `verifyRawCerts`.
+          verifyPeerCertificate: (chain) async =>
+              _verifyRawCerts(chain, certHashes),
+        ),
+        // webtransport-go's server refuses a session whose client did not
+        // advertise QUIC datagram support.
+        enableDatagrams: true,
+        handshakeTimeout: handshakeTimeout,
+      );
 
-    late final _WebtransportConn conn;
-    conn = _WebtransportConn(
+      final session =
+          await webtransport.Dialer(handshakeTimeout: handshakeTimeout).dial(
+            conn: quicConn,
+            authority: isIPv6 ? '[$host]:$port' : '$host:$port',
+            path: '$_webtransportHttpEndpoint?type=noise',
+          );
+
+      final secured = await _upgrade(
+        session: session,
+        peer: peer,
+        certHashes: certHashes,
+        localAddr: localAddr,
+        remoteAddr: addr,
+      );
+
+      if (gater != null &&
+          !gater!.interceptSecured(Direction.outbound, peer, secured)) {
+        await session.close();
+        throw StateError('secured connection gated');
+      }
+
+      return _WebtransportSessionConn(
+        transport: this,
+        session: session,
+        localPeer: localPeer,
+        remotePeer: secured.remotePeer(),
+        remotePubKey: secured.remotePublicKey(),
+        localMultiaddr: localAddr,
+        remoteMultiaddr: addr,
+        direction: Direction.outbound,
+      );
+    } catch (_) {
+      socket.close();
+      rethrow;
+    }
+  }
+
+  /// Authenticates the peer over the session, per Go's `transport.upgrade`.
+  ///
+  /// The WebTransport certificate proves nothing about the libp2p identity, so
+  /// a Noise handshake runs on the session's first stream. Its early data
+  /// carries the server's full set of certificate hashes, and the ones this
+  /// side dialled with must all be in it -- otherwise a server could hand out
+  /// a multiaddr pinning a certificate it does not actually hold.
+  Future<SecureConn> _upgrade({
+    required webtransport.Session session,
+    required PeerId peer,
+    required List<Uint8List> certHashes,
+    required Multiaddr localAddr,
+    required Multiaddr remoteAddr,
+  }) async {
+    final stream = session.openStream();
+    final insecure = _SessionRawConn(
       transport: this,
-      socket: socket,
-      localPeer: localPeer,
-      remotePeer: peer,
-      localPubKey: privKey.getPublic(),
-      remotePubKey: peer.extractPublicKey(),
+      stream: stream,
       localMultiaddr: localAddr,
       remoteMultiaddr: remoteAddr,
-      remoteAddress: targetAddress,
-      remotePort: port,
-      isClient: true,
-      ownsSocket: true,
-      onHandshakeResponse: (data) {
-        if (!handshakeCompleter.isCompleted) {
-          handshakeCompleter.complete(data);
-        }
-      },
     );
-
-    // Initial WebTransport session setup packet (0x57 = 'W')
-    final initialPayload = BytesBuilder(copy: false);
-    initialPayload.addByte(0x57);
-    final peerBytes = localPeer.value;
-    initialPayload.add(appendVarInt([], peerBytes.length));
-    initialPayload.add(peerBytes);
-    final pubKeyBytes = marshalPublicKey(privKey.getPublic());
-    initialPayload.add(appendVarInt([], pubKeyBytes.length));
-    initialPayload.add(pubKeyBytes);
-
-    socket.send(initialPayload.toBytes(), targetAddress, port);
-
-    await handshakeCompleter.future.timeout(
-      const Duration(seconds: 10),
-      onTimeout: () {
-        conn.close();
-        throw TimeoutException(
-          'WebTransport handshake timed out dialing $addr',
-        );
-      },
-    );
-
-    // Send session ready packet (0x59)
-    socket.send(Uint8List.fromList([0x59]), targetAddress, port);
-    return conn;
+    final receiver = _CertHashesReceiver(certHashes);
+    final secured = await noise.NoiseTransport(
+      privKey: privKey,
+      initiatorEarlyDataHandler: receiver,
+    ).secureOutbound(insecure, peer);
+    // The Noise handshake _should_ guarantee the callback ran; Go
+    // double-checks and so does this.
+    if (!receiver.verified) {
+      await secured.close();
+      throw StateError('WebTransport peer never sent its certificate hashes');
+    }
+    await secured.close();
+    return secured;
   }
+
+  void _removeListener(Listener listener) => _listeners.remove(listener);
 
   Future<void> close() async {
     if (_closed) return;
@@ -268,283 +353,382 @@ class WebtransportTransport implements Transport {
   }
 }
 
+/// Accepts inbound WebTransport sessions, per Go's `listener`
+/// (`p2p/transport/webtransport/listener.go`).
+///
+/// Three handshakes stack up before a libp2p connection exists: QUIC with
+/// ALPN `h3`, the HTTP/3 Extended CONNECT that turns that connection into a
+/// WebTransport session, and a Noise handshake on the session's first stream
+/// that finally names the peer. A failure in any of them concerns only the
+/// peer that caused it, so it is logged and the wait resumes rather than
+/// failing the listener for everyone.
 class _WebtransportListener implements Listener {
   _WebtransportListener({
     required WebtransportTransport transport,
     required RawDatagramSocket socket,
+    required quicgo.QuicServer server,
     required Multiaddr boundAddr,
+    required Uint8List certificateDer,
   }) : _transport = transport,
        _socket = socket,
-       _boundAddr = boundAddr {
-    _subscription = _socket.listen(
-      _onEvent,
-      onError: (Object e) {
-        _closeCompleters(e);
-      },
-    );
+       _server = server,
+       _boundAddr = boundAddr,
+       _certHashes = [
+         multihash.encode(
+           Uint8List.fromList(crypto_pkg.sha256.convert(certificateDer).bytes),
+           Golang.Uint64(multihash.sha2_256),
+         ),
+       ] {
+    // The listener owns the socket and the server multiplexes every peer over
+    // it, so datagrams are read here once and handed across.
+    _subscription = _socket.listen((event) {
+      if (event != RawSocketEvent.read || _closed) return;
+      final datagram = _socket.receive();
+      if (datagram != null) _server.handleDatagram(datagram);
+    }, onError: (Object _) {});
   }
+
+  StreamSubscription<RawSocketEvent>? _subscription;
 
   final WebtransportTransport _transport;
   final RawDatagramSocket _socket;
+  final quicgo.QuicServer _server;
   final Multiaddr _boundAddr;
-  StreamSubscription<RawSocketEvent>? _subscription;
+
+  /// The multihashes of the certificates this listener presents, sent to
+  /// every peer as Noise early data so it can check that the `/certhash/` it
+  /// dialled really belongs to this server.
+  final List<Uint8List> _certHashes;
+
   bool _closed = false;
-
-  final List<Completer<CapableConn>> _acceptQueue = [];
-  final List<CapableConn> _pendingConns = [];
-  final Map<String, _WebtransportConn> _activeConns = {};
-
-  void _onEvent(RawSocketEvent event) {
-    if (event == RawSocketEvent.read) {
-      final dg = _socket.receive();
-      if (dg == null) return;
-      _handleDatagram(dg);
-    }
-  }
-
-  void _handleDatagram(Datagram dg) {
-    final key = '${dg.address.address}:${dg.port}';
-    final bytes = dg.data;
-    if (bytes.isEmpty) return;
-
-    if (bytes[0] == 0x57) {
-      // New WebTransport session initiation
-      try {
-        var cursor = 1;
-        final (peerLen, n1) = parseVarInt(bytes, cursor);
-        cursor += n1;
-        final peerBytes = bytes.sublist(cursor, cursor + peerLen);
-        cursor += peerLen;
-
-        final (pkLen, n2) = parseVarInt(bytes, cursor);
-        cursor += n2;
-        final pkBytes = bytes.sublist(cursor, cursor + pkLen);
-        final remotePubKey = unmarshalPublicKey(pkBytes);
-        final remotePeer = PeerId(value: peerBytes);
-
-        final remoteMultiaddr = Multiaddr.parse(
-          '/ip4/${dg.address.address}/udp/${dg.port}/quic-v1/webtransport',
-        );
-
-        final conn = _WebtransportConn(
-          transport: _transport,
-          socket: _socket,
-          localPeer: _transport.localPeer,
-          remotePeer: remotePeer,
-          localPubKey: _transport.privKey.getPublic(),
-          remotePubKey: remotePubKey,
-          localMultiaddr: _boundAddr,
-          remoteMultiaddr: remoteMultiaddr,
-          remoteAddress: dg.address,
-          remotePort: dg.port,
-          isClient: false,
-          ownsSocket: false,
-        );
-
-        _activeConns[key] = conn;
-
-        // Respond with WebTransport server accept packet (0x58 = 'X')
-        final reply = BytesBuilder(copy: false);
-        reply.addByte(0x58);
-        final myPeerBytes = _transport.localPeer.value;
-        reply.add(appendVarInt([], myPeerBytes.length));
-        reply.add(myPeerBytes);
-        final myPkBytes = marshalPublicKey(_transport.privKey.getPublic());
-        reply.add(appendVarInt([], myPkBytes.length));
-        reply.add(myPkBytes);
-        _socket.send(reply.toBytes(), dg.address, dg.port);
-      } catch (_) {
-        // Malformed session initiation
-      }
-    } else if (bytes[0] == 0x59) {
-      // Client confirmed ready
-      final conn = _activeConns[key];
-      if (conn != null) {
-        if (_acceptQueue.isNotEmpty) {
-          final c = _acceptQueue.removeAt(0);
-          c.complete(conn);
-        } else {
-          _pendingConns.add(conn);
-        }
-      }
-    } else {
-      final conn = _activeConns[key];
-      if (conn != null) {
-        conn._handlePacket(bytes);
-      }
-    }
-  }
-
-  void _closeCompleters(Object error) {
-    for (final c in _acceptQueue) {
-      c.completeError(error);
-    }
-    _acceptQueue.clear();
-  }
-
-  @override
-  Future<CapableConn> accept() async {
-    if (_closed) throw const ListenerClosedException();
-    if (_pendingConns.isNotEmpty) {
-      return _pendingConns.removeAt(0);
-    }
-    final completer = Completer<CapableConn>();
-    _acceptQueue.add(completer);
-    return completer.future;
-  }
 
   @override
   Multiaddr multiaddr() => _boundAddr;
+
+  @override
+  Future<CapableConn> accept() async {
+    while (true) {
+      if (_closed) throw const ListenerClosedException();
+      final quicConn = await _server.accept();
+      try {
+        final session =
+            await webtransport.Server(
+              handshakeTimeout: _transport.handshakeTimeout,
+            ).accept(
+              conn: quicConn,
+              acceptPath: (path) => path.startsWith(_webtransportHttpEndpoint),
+            );
+        return await _upgradeInbound(session, quicConn);
+      } catch (e, st) {
+        await quicConn.close();
+        if (_closed) throw const ListenerClosedException();
+        dev.log(
+          'inbound WebTransport session rejected',
+          name: 'webtransport',
+          error: e,
+          stackTrace: st,
+        );
+      }
+    }
+  }
+
+  /// Authenticates the peer over the session's first stream.
+  ///
+  /// Go: `listener.Accept` -> `transport.upgrade`, with the roles reversed --
+  /// here this side is the Noise responder, and the early data it sends is
+  /// its own certificate hashes, which is what lets the dialling peer check
+  /// the `/certhash/` it pinned.
+  Future<CapableConn> _upgradeInbound(
+    webtransport.Session session,
+    quicgo.QuicConn quicConn,
+  ) async {
+    final localAddr = _boundAddr;
+    final remoteAddr = _remoteMultiaddrOf(quicConn);
+    final stream = await session.acceptStream();
+    final insecure = _SessionRawConn(
+      transport: _transport,
+      stream: stream,
+      localMultiaddr: localAddr,
+      remoteMultiaddr: remoteAddr,
+    );
+    final secured = await noise.NoiseTransport(
+      privKey: _transport.privKey,
+      responderEarlyDataHandler: _CertHashesSender(_certHashes),
+      // An inbound peer is whoever authenticates, so there is no expected
+      // PeerId to check against: an empty one disables that comparison.
+    ).secureInbound(insecure, PeerId(value: Uint8List(0)));
+    await secured.close();
+
+    final gater = _transport.gater;
+    if (gater != null &&
+        !gater.interceptSecured(
+          Direction.inbound,
+          secured.remotePeer(),
+          secured,
+        )) {
+      await session.close();
+      throw StateError('secured connection gated');
+    }
+
+    return _WebtransportSessionConn(
+      transport: _transport,
+      session: session,
+      localPeer: _transport.localPeer,
+      remotePeer: secured.remotePeer(),
+      remotePubKey: secured.remotePublicKey(),
+      localMultiaddr: localAddr,
+      remoteMultiaddr: remoteAddr,
+      direction: Direction.inbound,
+    );
+  }
+
+  Multiaddr _remoteMultiaddrOf(quicgo.QuicConn conn) {
+    final address = conn.remoteAddress;
+    final ip = address.type == InternetAddressType.IPv6 ? 'ip6' : 'ip4';
+    return Multiaddr.parse(
+      '/$ip/${address.address}/udp/${conn.remotePort}/quic-v1/webtransport',
+    );
+  }
 
   @override
   Future<void> close() async {
     if (_closed) return;
     _closed = true;
     await _subscription?.cancel();
+    _subscription = null;
+    await _server.close();
     _socket.close();
-    for (final conn in _activeConns.values) {
-      await conn.close();
-    }
-    _activeConns.clear();
-    _closeCompleters(const ListenerClosedException());
+    _transport._removeListener(this);
   }
 }
 
-class _WebtransportConn implements CapableConn {
-  _WebtransportConn({
-    required WebtransportTransport transport,
-    required RawDatagramSocket socket,
+/// Sends this side's WebTransport certificate hashes as Noise early data.
+///
+/// Go: `newEarlyDataSender(&pb.NoiseExtensions{WebtransportCerthashes: ...})`
+/// in `listener.Accept`.
+class _CertHashesSender implements noise.NoiseEarlyDataHandler {
+  _CertHashesSender(this._certHashes);
+
+  final List<Uint8List> _certHashes;
+
+  @override
+  NoiseExtensions? send(RawConn insecure, PeerId remote) =>
+      NoiseExtensions(webtransportCerthashes: _certHashes);
+
+  @override
+  Future<void> received(RawConn insecure, NoiseExtensions? extensions) async {}
+}
+
+/// The `(host, port)` a WebTransport multiaddr points at, or `null` when it
+/// carries neither.
+(String, int)? _endpointOf(Multiaddr addr) {
+  String? host;
+  int? port;
+  for (final c in addr.components) {
+    final code = c.protocol.code;
+    if (code == Protocols.ip4 ||
+        code == Protocols.ip6 ||
+        code == Protocols.dns ||
+        code == Protocols.dns4 ||
+        code == Protocols.dns6) {
+      host = c.value;
+    } else if (code == Protocols.udp) {
+      port = int.tryParse(c.value);
+    }
+  }
+  if (host == null || port == null) return null;
+  return (host, port);
+}
+
+/// The raw multihashes carried by the `/certhash/...` components of [addr].
+///
+/// [extractCertHashes] returns only the digests; the comparison against a
+/// peer's advertised `webtransport_certhashes` is over whole multihashes, so
+/// that two digests of different hash functions can never match each other --
+/// the same guarantee Go gets by comparing `DecodedMultihash.Code` alongside
+/// `Digest`.
+List<Uint8List> _certHashMultihashes(Multiaddr addr) {
+  final hashes = <Uint8List>[];
+  for (final c in addr.components) {
+    if (c.protocol.code != Protocols.certhash &&
+        c.protocol.name != 'certhash') {
+      continue;
+    }
+    final (_, bytes) = multibase.decode(c.value);
+    // Decoding validates that the bytes really are a multihash; the raw form
+    // is what gets compared.
+    multihash.decode(bytes);
+    hashes.add(Uint8List.fromList(bytes));
+  }
+  return hashes;
+}
+
+/// Verifies the server's certificate chain against the pinned [certHashes].
+///
+/// Go: `verifyRawCerts` (`crypto.go`). The W3C WebTransport specification
+/// only allows SHA-256 for `serverCertificateHashes`, so the leaf is hashed
+/// once with SHA-256 and matched against every pinned hash.
+void _verifyRawCerts(List<Uint8List> chain, List<Uint8List> certHashes) {
+  if (chain.isEmpty) throw const FormatException('no cert');
+  final leaf = chain.last;
+  final digest = Uint8List.fromList(crypto_pkg.sha256.convert(leaf).bytes);
+  for (final pinned in certHashes) {
+    final decoded = multihash.decode(pinned);
+    if (decoded.code != Golang.Uint64(multihash.sha2_256)) continue;
+    if (_sameBytes(decoded.digest, digest)) return;
+  }
+  throw FormatException(
+    'cert hash not found: ${_hex(digest)} '
+    '(expected one of ${certHashes.map(_hex).join(', ')})',
+  );
+}
+
+/// Receives the peer's `webtransport_certhashes` Noise extension and checks
+/// that every hash this side dialled with is among them.
+///
+/// Go: the closure `transport.upgrade` builds `newEarlyDataReceiver` with.
+class _CertHashesReceiver implements noise.NoiseEarlyDataHandler {
+  _CertHashesReceiver(this._dialled);
+
+  final List<Uint8List> _dialled;
+
+  /// Whether the peer's hashes arrived and covered every dialled hash.
+  bool verified = false;
+
+  @override
+  NoiseExtensions? send(RawConn insecure, PeerId remote) => null;
+
+  @override
+  Future<void> received(RawConn insecure, NoiseExtensions? extensions) async {
+    final received = extensions?.webtransportCerthashes ?? const <Uint8List>[];
+    for (final sent in _dialled) {
+      // Decoding both sides keeps the comparison on (code, digest) rather than
+      // on an encoding that could differ byte-for-byte for the same hash.
+      final want = multihash.decode(sent);
+      final found = received.any((raw) {
+        try {
+          final got = multihash.decode(raw);
+          return got.code == want.code && _sameBytes(got.digest, want.digest);
+        } on FormatException {
+          return false;
+        }
+      });
+      if (!found) {
+        throw FormatException('missing cert hash: ${_hex(sent)}');
+      }
+    }
+    verified = true;
+  }
+}
+
+bool _sameBytes(List<int> a, List<int> b) {
+  if (a.length != b.length) return false;
+  for (var i = 0; i < a.length; i++) {
+    if (a[i] != b[i]) return false;
+  }
+  return true;
+}
+
+String _hex(List<int> bytes) =>
+    bytes.map((b) => b.toRadixString(16).padLeft(2, '0')).join();
+
+/// Presents one WebTransport session stream as the raw connection a security
+/// transport upgrades.
+///
+/// Go: `webtransportStream` (`stream.go`), which adapts a
+/// `webtransport.Stream` to `net.Conn` so `noise.SecureOutbound` can run on it.
+class _SessionRawConn implements RawConn {
+  _SessionRawConn({
+    required Transport transport,
+    required webtransport.SessionStream stream,
+    required Multiaddr localMultiaddr,
+    required Multiaddr remoteMultiaddr,
+  }) : _transport = transport,
+       _stream = stream,
+       _localMultiaddr = localMultiaddr,
+       _remoteMultiaddr = remoteMultiaddr;
+
+  final Transport _transport;
+  final webtransport.SessionStream _stream;
+  final Multiaddr _localMultiaddr;
+  final Multiaddr _remoteMultiaddr;
+  final BytesBuilder _surplus = BytesBuilder(copy: false);
+  bool _closed = false;
+
+  @override
+  Transport transport() => _transport;
+
+  @override
+  Multiaddr localMultiaddr() => _localMultiaddr;
+
+  @override
+  Multiaddr remoteMultiaddr() => _remoteMultiaddr;
+
+  @override
+  bool get isClosed => _closed;
+
+  @override
+  Future<Uint8List> read([int? maxLength]) async {
+    if (_surplus.isEmpty) {
+      if (_closed) return Uint8List(0);
+      _surplus.add(await _stream.read());
+    }
+    final available = _surplus.takeBytes();
+    if (maxLength == null || maxLength <= 0 || available.length <= maxLength) {
+      return available;
+    }
+    _surplus.add(Uint8List.sublistView(available, maxLength));
+    return Uint8List.sublistView(available, 0, maxLength);
+  }
+
+  @override
+  Future<void> write(Uint8List data) async {
+    if (_closed) throw StateError('Stream is closed');
+    _stream.write(data);
+  }
+
+  @override
+  Future<void> close() async {
+    if (_closed) return;
+    _closed = true;
+    _stream.closeWrite();
+  }
+}
+
+/// A libp2p connection carried by a WebTransport session.
+///
+/// WebTransport multiplexes natively, so a libp2p stream *is* a session
+/// stream: no yamux frame sits in between. Go: `conn` (`conn.go`).
+class _WebtransportSessionConn implements CapableConn {
+  _WebtransportSessionConn({
+    required Transport transport,
+    required webtransport.Session session,
     required PeerId localPeer,
     required PeerId remotePeer,
-    required PubKey localPubKey,
     required PubKey remotePubKey,
     required Multiaddr localMultiaddr,
     required Multiaddr remoteMultiaddr,
-    required InternetAddress remoteAddress,
-    required int remotePort,
-    required this.isClient,
-    required this.ownsSocket,
-    this.onHandshakeResponse,
+    required Direction direction,
   }) : _transport = transport,
-       _socket = socket,
+       _session = session,
        _localPeer = localPeer,
        _remotePeer = remotePeer,
        _remotePubKey = remotePubKey,
        _localMultiaddr = localMultiaddr,
        _remoteMultiaddr = remoteMultiaddr,
-       _remoteAddress = remoteAddress,
-       _remotePort = remotePort,
-       _opened = DateTime.now() {
-    if (ownsSocket) {
-      _subscription = _socket.listen(
-        _onEvent,
-        onError: (e) {
-          _closeStreams();
-        },
-      );
-    }
-  }
+       _direction = direction,
+       _opened = DateTime.now();
 
-  final WebtransportTransport _transport;
-  final RawDatagramSocket _socket;
+  final Transport _transport;
+  final webtransport.Session _session;
   final PeerId _localPeer;
   final PeerId _remotePeer;
   final PubKey _remotePubKey;
   final Multiaddr _localMultiaddr;
   final Multiaddr _remoteMultiaddr;
-  final InternetAddress _remoteAddress;
-  final int _remotePort;
-  final bool isClient;
-  final bool ownsSocket;
-  final void Function(Uint8List data)? onHandshakeResponse;
+  final Direction _direction;
   final DateTime _opened;
-  StreamSubscription<RawSocketEvent>? _subscription;
-
-  bool _closed = false;
-  int _nextStreamId = 0;
-  final Map<int, _WebtransportStream> _activeStreams = {};
-  final List<Completer<NetworkStream>> _acceptStreamQueue = [];
-  final List<NetworkStream> _pendingStreams = [];
-
-  void _onEvent(RawSocketEvent event) {
-    if (event == RawSocketEvent.read) {
-      final dg = _socket.receive();
-      if (dg == null) return;
-      _handlePacket(dg.data);
-    }
-  }
-
-  void _handlePacket(Uint8List bytes) {
-    if (bytes.isEmpty) return;
-    if (bytes[0] == 0x58) {
-      onHandshakeResponse?.call(bytes);
-      return;
-    }
-    if (bytes[0] == 0x05) {
-      // WebTransport stream framing container
-      _handleStreamBytes(bytes);
-    }
-  }
-
-  void _handleStreamBytes(Uint8List bytes) {
-    var cursor = 1;
-    while (cursor < bytes.length) {
-      try {
-        final (frameLen, n) = parseVarInt(bytes, cursor);
-        cursor += n;
-        if (cursor + frameLen > bytes.length) break;
-        final frameBytes = Uint8List.sublistView(
-          bytes,
-          cursor,
-          cursor + frameLen,
-        );
-        cursor += frameLen;
-
-        final frame = parseFrame(frameBytes);
-        if (frame is StreamFrame) {
-          var stream = _activeStreams[frame.streamId];
-          if (stream == null) {
-            stream = _WebtransportStream(conn: this, id: frame.streamId);
-            _activeStreams[frame.streamId] = stream;
-            if (_acceptStreamQueue.isNotEmpty) {
-              final completer = _acceptStreamQueue.removeAt(0);
-              completer.complete(stream);
-            } else {
-              _pendingStreams.add(stream);
-            }
-          }
-          stream._feedData(frame.data, fin: frame.fin);
-        }
-      } catch (_) {
-        break;
-      }
-    }
-  }
-
-  void _sendStreamFrame(StreamFrame frame) {
-    if (_closed) return;
-    final encoded = frame.encode();
-    final packet = BytesBuilder(copy: false);
-    packet.addByte(0x05); // WebTransport stream indicator
-    packet.add(appendVarInt([], encoded.length));
-    packet.add(encoded);
-    _socket.send(packet.toBytes(), _remoteAddress, _remotePort);
-  }
-
-  void _closeStreams() {
-    for (final s in _activeStreams.values) {
-      s._closeLocal();
-    }
-    _activeStreams.clear();
-    for (final c in _acceptStreamQueue) {
-      c.completeError(StateError('Connection closed'));
-    }
-    _acceptQueueClear();
-  }
-
-  void _acceptQueueClear() {
-    _acceptStreamQueue.clear();
-  }
+  int _numStreams = 0;
 
   @override
   Transport transport() => _transport;
@@ -565,20 +749,20 @@ class _WebtransportConn implements CapableConn {
   Multiaddr remoteMultiaddr() => _remoteMultiaddr;
 
   @override
-  bool get isClosed => _closed;
+  bool get isClosed => _session.isClosed;
 
   @override
   ConnectionState connState() => const ConnectionState(
     streamMultiplexer: 'webtransport',
-    security: '/noise',
+    security: noise.ID,
     transport: 'webtransport',
   );
 
   @override
   ConnStats stat() => ConnStats(
-    direction: isClient ? Direction.outbound : Direction.inbound,
+    direction: _direction,
     opened: _opened,
-    numStreams: _activeStreams.length,
+    numStreams: _numStreams,
   );
 
   @override
@@ -586,83 +770,42 @@ class _WebtransportConn implements CapableConn {
 
   @override
   Future<NetworkStream> openStream() async {
-    if (_closed) throw StateError('Connection is closed');
-    final streamId = _nextStreamId;
-    _nextStreamId += 4;
-    final stream = _WebtransportStream(conn: this, id: streamId);
-    _activeStreams[streamId] = stream;
-    _sendStreamFrame(
-      StreamFrame(
-        streamId: streamId,
-        offset: 0,
-        data: Uint8List(0),
-        fin: false,
-      ),
+    _numStreams++;
+    return _WebtransportSessionStream(
+      conn: this,
+      stream: _session.openStream(),
     );
-    return stream;
   }
 
   @override
   Future<NetworkStream> acceptStream() async {
-    if (_closed) throw StateError('Connection is closed');
-    if (_pendingStreams.isNotEmpty) {
-      return _pendingStreams.removeAt(0);
-    }
-    final completer = Completer<NetworkStream>();
-    _acceptStreamQueue.add(completer);
-    return completer.future;
+    final stream = await _session.acceptStream();
+    _numStreams++;
+    return _WebtransportSessionStream(conn: this, stream: stream);
   }
 
   @override
-  Future<void> close() async {
-    if (_closed) return;
-    _closed = true;
-    if (ownsSocket) {
-      await _subscription?.cancel();
-      _socket.close();
-    }
-    _closeStreams();
-  }
+  Future<void> close() => _session.close();
 }
 
-class _WebtransportStream implements NetworkStream {
-  _WebtransportStream({required _WebtransportConn conn, required int id})
-    : _conn = conn,
-      _id = id,
-      _opened = DateTime.now();
+/// Adapts a WebTransport session stream to libp2p's [NetworkStream].
+class _WebtransportSessionStream implements NetworkStream {
+  _WebtransportSessionStream({
+    required _WebtransportSessionConn conn,
+    required webtransport.SessionStream stream,
+  }) : _conn = conn,
+       _stream = stream,
+       _opened = DateTime.now();
 
-  final _WebtransportConn _conn;
-  final int _id;
+  final _WebtransportSessionConn _conn;
+  final webtransport.SessionStream _stream;
   final DateTime _opened;
+  final BytesBuilder _surplus = BytesBuilder(copy: false);
   ProtocolId _protocol = '';
-  final BytesBuilder _readBuffer = BytesBuilder(copy: false);
-  Completer<void>? _readCompleter;
-  int _sendOffset = 0;
-  bool _remoteClosed = false;
   bool _closed = false;
 
-  void _feedData(Uint8List data, {bool fin = false}) {
-    if (_closed) return;
-    if (data.isNotEmpty) {
-      _readBuffer.add(data);
-    }
-    if (fin) {
-      _remoteClosed = true;
-    }
-    if (_readCompleter != null && !_readCompleter!.isCompleted) {
-      _readCompleter!.complete();
-    }
-  }
-
-  void _closeLocal() {
-    _closed = true;
-    if (_readCompleter != null && !_readCompleter!.isCompleted) {
-      _readCompleter!.complete();
-    }
-  }
-
   @override
-  String get id => _id.toString();
+  String get id => _stream.id.toString();
 
   @override
   ProtocolId protocol() => _protocol;
@@ -679,68 +822,63 @@ class _WebtransportStream implements NetworkStream {
   StreamScope scope() => const NullScope();
 
   @override
-  Stats stat() => Stats(direction: Direction.outbound, opened: _opened);
+  Stats stat() => Stats(direction: _conn.stat().direction, opened: _opened);
 
   @override
   bool get isClosed => _closed;
 
   @override
   Future<Uint8List> read([int? maxLength]) async {
-    while (_readBuffer.isEmpty && !_remoteClosed && !_closed) {
-      _readCompleter = Completer<void>();
-      await _readCompleter!.future;
-      _readCompleter = null;
+    if (_surplus.isEmpty) {
+      if (_closed) return Uint8List(0);
+      try {
+        _surplus.add(await _stream.read());
+      } on quicgo.ConnectionClosedException {
+        return Uint8List(0);
+      } on quicgo.StreamResetException {
+        return Uint8List(0);
+      } on webtransport.SessionClosedException {
+        return Uint8List(0);
+      }
     }
-    if (_readBuffer.isEmpty) return Uint8List(0);
-    final all = _readBuffer.takeBytes();
-    if (maxLength == null || all.length <= maxLength) {
-      return all;
+    final available = _surplus.takeBytes();
+    if (maxLength == null || maxLength <= 0 || available.length <= maxLength) {
+      return available;
     }
-    final chunk = Uint8List.sublistView(all, 0, maxLength);
-    _readBuffer.add(Uint8List.sublistView(all, maxLength));
-    return chunk;
+    _surplus.add(Uint8List.sublistView(available, maxLength));
+    return Uint8List.sublistView(available, 0, maxLength);
   }
 
   @override
   Future<void> write(Uint8List data) async {
     if (_closed) throw StateError('Stream is closed');
-    final frame = StreamFrame(
-      streamId: _id,
-      offset: _sendOffset,
-      data: data,
-      fin: false,
-    );
-    _sendOffset += data.length;
-    _conn._sendStreamFrame(frame);
+    _stream.write(data);
   }
 
   @override
   Future<void> close() async {
     if (_closed) return;
     _closed = true;
-    final frame = StreamFrame(
-      streamId: _id,
-      offset: _sendOffset,
-      data: Uint8List(0),
-      fin: true,
-    );
-    _conn._sendStreamFrame(frame);
-    if (_readCompleter != null && !_readCompleter!.isCompleted) {
-      _readCompleter!.complete();
-    }
+    _stream.closeWrite();
   }
 
   @override
-  Future<void> reset() async => close();
+  Future<void> reset() async {
+    _closed = true;
+    _stream.reset();
+  }
 
   @override
   Future<void> closeRead() async {}
 
   @override
-  Future<void> closeWrite() async => close();
+  Future<void> closeWrite() async => _stream.closeWrite();
 
   @override
-  Future<void> resetWithError(StreamErrorCode errorCode) async => close();
+  Future<void> resetWithError(StreamErrorCode errorCode) async {
+    _closed = true;
+    _stream.reset(errorCode);
+  }
 
   @override
   Future<void> setDeadline(DateTime? time) async {}

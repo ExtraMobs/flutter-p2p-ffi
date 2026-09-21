@@ -10,6 +10,8 @@ dependencies:
   crypto: ^3.0.7
   cryptography: ^2.9.0
   pointycastle: ^4.0.0
+  transpiled_crypto_tls:
+    path: ../transpiled_crypto_tls
   boilerplate:
     path: ../boilerplate
 

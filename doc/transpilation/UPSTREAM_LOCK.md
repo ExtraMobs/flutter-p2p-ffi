@@ -30,6 +30,9 @@ dos clones só podem alterar esta tabela junto com a revalidação dos ports afe
 | `go-libp2p-record` | `github.com/libp2p/go-libp2p-record` | `24a25767ab0bae0d74df408199f554ce42977892` | <https://github.com/libp2p/go-libp2p-record.git> |
 | `go-libp2p-routing-helpers` | `github.com/libp2p/go-libp2p-routing-helpers` | `246b1c6f74307b0847842d72f2208b69d2b13790` | <https://github.com/libp2p/go-libp2p-routing-helpers.git> |
 | `quic-go` | `github.com/quic-go/quic-go` (v0.60.0) | `7612ad1036957cde45d672bebb8b9ec9c2e9b2a7` | <https://github.com/quic-go/quic-go.git> |
+| `qpack` | `github.com/quic-go/qpack` (v0.6.0) | `c415cad59091662a20b7b1c4505fbb177dbda0e3` | <https://github.com/quic-go/qpack.git> |
+| `webtransport-go` | `github.com/quic-go/webtransport-go` (v0.11.1) | `d03fbc34952e05e833ab2a3810ab55aeefe2bf30` | <https://github.com/quic-go/webtransport-go.git> |
+| `golang-x-net` | `golang.org/x/net` (v0.28.0) | `4542a42604cd159f1adb93c58368079ae37b3bf6` | <https://github.com/golang/net.git> |
 | `zeroconf` | `github.com/libp2p/zeroconf/v2` (v2.2.0) | `586e7c571d106f842c8567012dacd28d73fcf966` | <https://github.com/libp2p/zeroconf.git> |
 | `go-stdlib` (sparse: `src/crypto/tls`, `src/crypto/internal`, `src/go.mod`) | `std` / `crypto/tls` (go1.25.1) | `56ebf80e57db9f61981fc0636fc6419dc6f68eda` | <https://go.googlesource.com/go> |
 | `pion-randutil` | `github.com/pion/randutil` (v0.1.0) | `3e7aefb6fd280d89fca72f1596348f1939525187` | <https://github.com/pion/randutil.git> |

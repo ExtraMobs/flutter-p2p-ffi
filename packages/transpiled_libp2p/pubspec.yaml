@@ -33,6 +33,8 @@ dependencies:
     path: ../transpiled_crypto_tls
   transpiled_quic_go:
     path: ../transpiled_quic_go
+  transpiled_webtransport_go:
+    path: ../transpiled_webtransport_go
 
 dev_dependencies:
   test: ^1.28.0

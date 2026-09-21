@@ -12,9 +12,12 @@
 // (unmarshalPublicKey/marshalPublicKey), it works for any of the four
 // crypto.pb key types (RSA/Ed25519/Secp256k1/ECDSA), not just Ed25519.
 //
-// The wire format is a minimal 2-field protobuf (identity_key,
-// identity_sig -- field 4 `extensions` is never emitted and ignored on
-// decode, matching how go-libp2p treats it as optional).
+// The wire format is `pb.NoiseHandshakePayload` (identity_key,
+// identity_sig, and the optional field 4 `extensions` submessage,
+// `pb.NoiseExtensions`). Field 4 is only emitted when a caller passes
+// [NoiseExtensions] to [generateNoiseHandshakePayload]; a `null` extensions
+// argument reproduces the payload's previous 2-field-only wire format
+// byte-for-byte.
 import 'dart:convert';
 import 'dart:typed_data';
 
@@ -31,7 +34,11 @@ const String noisePayloadSigPrefix = 'noise-libp2p-static-key:';
 class NoiseRemoteIdentity {
   /// Creates a [NoiseRemoteIdentity] from a verified public key and its
   /// derived [PeerId].
-  NoiseRemoteIdentity({required this.publicKey, required this.peerId});
+  NoiseRemoteIdentity({
+    required this.publicKey,
+    required this.peerId,
+    this.extensions,
+  });
 
   /// The remote peer's libp2p identity public key.
   final PubKey publicKey;
@@ -39,6 +46,69 @@ class NoiseRemoteIdentity {
   /// The [PeerId] derived from [publicKey], per `core/peer`'s
   /// `IDFromPublicKey`.
   final PeerId peerId;
+
+  /// The remote's early-data extensions (`pb.NoiseHandshakePayload`'s
+  /// field 4), or `null` if the payload carried none.
+  final NoiseExtensions? extensions;
+}
+
+/// Early-data extensions carried in a Noise handshake payload, per
+/// go-libp2p's `pb.NoiseExtensions` (field 4 of `NoiseHandshakePayload`).
+/// Used by transports that need to smuggle data through the handshake
+/// before the connection is authenticated -- e.g. WebTransport certificate
+/// hashes.
+class NoiseExtensions {
+  /// Creates a [NoiseExtensions]. Both fields default to empty lists,
+  /// matching an absent repeated field on the wire.
+  NoiseExtensions({
+    List<Uint8List>? webtransportCerthashes,
+    List<String>? streamMuxers,
+  }) : webtransportCerthashes = webtransportCerthashes ?? const [],
+       streamMuxers = streamMuxers ?? const [];
+
+  /// Certificate hashes for the local WebTransport certificates (field 1,
+  /// `repeated bytes`).
+  final List<Uint8List> webtransportCerthashes;
+
+  /// Stream multiplexer protocol IDs this side supports (field 2,
+  /// `repeated string`).
+  final List<String> streamMuxers;
+
+  Uint8List _encode() {
+    final out = BytesBuilder();
+    for (final certhash in webtransportCerthashes) {
+      _writeLengthDelimitedField(out, 1, certhash);
+    }
+    for (final muxer in streamMuxers) {
+      _writeLengthDelimitedField(
+        out,
+        2,
+        Uint8List.fromList(utf8.encode(muxer)),
+      );
+    }
+    return out.toBytes();
+  }
+
+  static NoiseExtensions _decode(Uint8List bytes) {
+    final certhashes = <Uint8List>[];
+    final muxers = <String>[];
+    var offset = 0;
+    while (offset < bytes.length) {
+      final (tag, tagLen) = _readVarint(bytes, offset);
+      offset += tagLen;
+      final fieldNumber = tag >> 3;
+      final wireType = tag & 0x7;
+      final (nextOffset, value) = _readProtoField(bytes, offset, wireType);
+      offset = nextOffset;
+      if (value == null) continue;
+      if (fieldNumber == 1) certhashes.add(value);
+      if (fieldNumber == 2) muxers.add(utf8.decode(value));
+    }
+    return NoiseExtensions(
+      webtransportCerthashes: certhashes,
+      streamMuxers: muxers,
+    );
+  }
 }
 
 /// Thrown when a Noise handshake payload's signature doesn't verify
@@ -59,9 +129,16 @@ class NoiseHandshakeAuthException implements Exception {
 /// inside the Noise XX handshake: our identity public key plus a
 /// signature -- made with our identity private key -- over our Noise
 /// static public key, per go-libp2p's `generateHandshakePayload`.
+///
+/// [extensions], when given, are embedded as field 4 (`pb.NoiseExtensions`).
+/// Leaving it `null` keeps the wire format byte-for-byte identical to a
+/// payload with no extensions field at all -- this is required for
+/// non-regression against Kubo, which already interoperates with this
+/// transport over plain TCP without any extensions.
 Future<Uint8List> generateNoiseHandshakePayload({
   required PrivKey localIdentityKey,
   required Uint8List localNoiseStaticPublicKey,
+  NoiseExtensions? extensions,
 }) async {
   final toSign = Uint8List.fromList([
     ...utf8.encode(noisePayloadSigPrefix),
@@ -72,6 +149,7 @@ Future<Uint8List> generateNoiseHandshakePayload({
   return _encodeNoiseHandshakePayload(
     identityKey: identityKeyBytes,
     identitySig: signature,
+    extensions: extensions,
   );
 }
 
@@ -88,7 +166,8 @@ Future<NoiseRemoteIdentity> verifyNoiseHandshakePayload(
   Uint8List remoteNoiseStaticPublicKey, {
   PeerId? expectedRemoteId,
 }) async {
-  final (identityKeyBytes, identitySig) = _decodeNoiseHandshakePayload(payload);
+  final (identityKeyBytes, identitySig, extensions) =
+      _decodeNoiseHandshakePayload(payload);
   final remotePubKey = unmarshalPublicKey(identityKeyBytes);
 
   final peerId = PeerId.fromPublicKey(
@@ -110,58 +189,96 @@ Future<NoiseRemoteIdentity> verifyNoiseHandshakePayload(
     throw NoiseHandshakeAuthException('handshake payload signature invalid');
   }
 
-  return NoiseRemoteIdentity(publicKey: remotePubKey, peerId: peerId);
+  return NoiseRemoteIdentity(
+    publicKey: remotePubKey,
+    peerId: peerId,
+    extensions: extensions,
+  );
 }
 
 Uint8List _encodeNoiseHandshakePayload({
   required Uint8List identityKey,
   required Uint8List identitySig,
+  NoiseExtensions? extensions,
 }) {
   final out = BytesBuilder();
   _writeLengthDelimitedField(out, 1, identityKey);
   _writeLengthDelimitedField(out, 2, identitySig);
+  if (extensions != null) {
+    _writeLengthDelimitedField(out, 4, extensions._encode());
+  }
   return out.toBytes();
 }
 
-(Uint8List identityKey, Uint8List identitySig) _decodeNoiseHandshakePayload(
-  Uint8List bytes,
-) {
+(Uint8List identityKey, Uint8List identitySig, NoiseExtensions? extensions)
+_decodeNoiseHandshakePayload(Uint8List bytes) {
   Uint8List? identityKey;
   Uint8List? identitySig;
+  NoiseExtensions? extensions;
   var offset = 0;
   while (offset < bytes.length) {
     final (tag, tagLen) = _readVarint(bytes, offset);
     offset += tagLen;
     final fieldNumber = tag >> 3;
     final wireType = tag & 0x7;
-    switch (wireType) {
-      case 0: // varint
-        final (_, len) = _readVarint(bytes, offset);
-        offset += len;
-      case 2: // length-delimited
-        final (length, lenLen) = _readVarint(bytes, offset);
-        offset += lenLen;
-        if (offset + length > bytes.length) {
-          throw const FormatException(
-            'Noise handshake payload field runs past end of message',
-          );
-        }
-        final fieldBytes = bytes.sublist(offset, offset + length);
-        offset += length;
-        if (fieldNumber == 1) identityKey = fieldBytes;
-        if (fieldNumber == 2) identitySig = fieldBytes;
-      default:
-        throw FormatException(
-          'unsupported protobuf wire type in Noise handshake payload: $wireType',
-        );
-    }
+    final (nextOffset, value) = _readProtoField(bytes, offset, wireType);
+    offset = nextOffset;
+    if (value == null) continue; // varint / 32-/64-bit field, skipped
+    if (fieldNumber == 1) identityKey = value;
+    if (fieldNumber == 2) identitySig = value;
+    if (fieldNumber == 4) extensions = NoiseExtensions._decode(value);
   }
   if (identityKey == null || identitySig == null) {
     throw const FormatException(
       'Noise handshake payload missing identity_key or identity_sig',
     );
   }
-  return (identityKey, identitySig);
+  return (identityKey, identitySig, extensions);
+}
+
+/// Reads one protobuf field's value at [offset], given its already-parsed
+/// [wireType]. Length-delimited fields (wire type 2) return their raw
+/// bytes; varint (0), 64-bit (1) and 32-bit (5) fields are consumed and
+/// skipped, returning a `null` value, matching how a real protobuf parser
+/// tolerates unknown fields of those wire types. Wire types 3, 4, 6 and 7
+/// (group start/end and two reserved values) have no valid meaning here and
+/// throw.
+(int offset, Uint8List? value) _readProtoField(
+  Uint8List bytes,
+  int offset,
+  int wireType,
+) {
+  switch (wireType) {
+    case 0: // varint
+      final (_, len) = _readVarint(bytes, offset);
+      return (offset + len, null);
+    case 1: // 64-bit fixed
+      return (_skipFixedWidth(bytes, offset, 8), null);
+    case 2: // length-delimited
+      final (length, lenLen) = _readVarint(bytes, offset);
+      final start = offset + lenLen;
+      if (start + length > bytes.length) {
+        throw const FormatException(
+          'Noise handshake payload field runs past end of message',
+        );
+      }
+      return (start + length, bytes.sublist(start, start + length));
+    case 5: // 32-bit fixed
+      return (_skipFixedWidth(bytes, offset, 4), null);
+    default:
+      throw FormatException(
+        'unsupported protobuf wire type in Noise handshake payload: $wireType',
+      );
+  }
+}
+
+int _skipFixedWidth(Uint8List bytes, int offset, int width) {
+  if (offset + width > bytes.length) {
+    throw const FormatException(
+      'protobuf fixed-width field runs past end of Noise handshake payload',
+    );
+  }
+  return offset + width;
 }
 
 void _writeLengthDelimitedField(

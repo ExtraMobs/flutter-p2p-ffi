@@ -185,6 +185,7 @@ const int _extensionPSKModes = 45;
 const int _extensionCertificateAuthorities = 47;
 const int _extensionSignatureAlgorithmsCert = 50;
 const int _extensionKeyShare = 51;
+const int _extensionQuicTransportParameters = 57;
 const int _extensionRenegotiationInfo = 0xff01;
 
 const int _statusTypeOCSP = 1;
@@ -665,6 +666,13 @@ final class ClientHelloMsg {
         exts.addUint8LengthPrefixed((exts) => exts.addBytes(pskModes));
       });
     }
+    if (quicTransportParameters != null) {
+      // RFC 9001, Section 8.2
+      exts.addUint16(_extensionQuicTransportParameters);
+      exts.addUint16LengthPrefixed(
+        (exts) => exts.addBytes(quicTransportParameters!),
+      );
+    }
     if (pskIdentities.isNotEmpty) {
       // RFC 8446, Section 4.2.11 -- pre_shared_key must be the last extension.
       exts.addUint16(_extensionPreSharedKey);
@@ -876,6 +884,9 @@ final class ClientHelloMsg {
         case _extensionPSKModes:
           // RFC 8446, Section 4.2.9
           m.pskModes = extData.readUint8LengthPrefixed();
+        case _extensionQuicTransportParameters:
+          // RFC 9001, Section 8.2
+          m.quicTransportParameters = extData.readAll();
         case _extensionPreSharedKey:
           // RFC 8446, Section 4.2.11
           if (!extReader.isEmpty) {
@@ -1300,7 +1311,13 @@ final class EncryptedExtensionsMsg {
             });
           });
         }
-        // quicTransportParameters: named gap, never marshaled.
+        if (quicTransportParameters != null) {
+          // RFC 9001, Section 8.2
+          b.addUint16(_extensionQuicTransportParameters);
+          b.addUint16LengthPrefixed(
+            (b) => b.addBytes(quicTransportParameters!),
+          );
+        }
         if (earlyData) {
           // RFC 8446, Section 4.2.10
           b.addUint16(_extensionEarlyData);
@@ -1359,6 +1376,9 @@ final class EncryptedExtensionsMsg {
             );
           }
           m.serverNameAck = true;
+        case _extensionQuicTransportParameters:
+          // RFC 9001, Section 8.2
+          m.quicTransportParameters = extData.readAll();
         default:
           // Ignore unrecognized extensions (also covers the QUIC/ECH gaps).
           continue;
