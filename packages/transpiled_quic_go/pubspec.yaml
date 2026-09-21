@@ -7,6 +7,9 @@ environment:
   sdk: ^3.8.0
 
 dependencies:
+  crypto: ^3.0.7
+  cryptography: ^2.9.0
+  pointycastle: ^4.0.0
   boilerplate:
     path: ../boilerplate
 

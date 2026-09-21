@@ -314,7 +314,12 @@ Uint8List _beUint16(int value) {
 /// `NewEarlySecret` -- there is no other way to obtain one upstream either.
 final class EarlySecret {
   /// Port of `tls13.NewEarlySecret` (`fips140/tls13/tls13.go:73-78`).
-  EarlySecret(crypto.Hash hash, Uint8List psk)
+  ///
+  /// [psk] is nullable so Go's `NewEarlySecret(hash, nil)` stays expressible:
+  /// `extract` replaces a nil secret with `hashSize` zero bytes, which is the
+  /// no-PSK early secret of RFC 8446 Section 7.1. An *empty* list is a
+  /// different input and yields a different, wrong secret.
+  EarlySecret(crypto.Hash hash, Uint8List? psk)
     : _hash = hash,
       _secret = _hkdfExtract(hash, newSecret: psk, currentSecret: null);
 

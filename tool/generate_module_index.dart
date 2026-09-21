@@ -125,7 +125,13 @@ class Member {
 
 /// A declared type (class/mixin) with its members.
 class TypeDecl {
-  TypeDecl(this.kind, this.name, {this.doc = '', this.extendsName, this.implementsNames = const []});
+  TypeDecl(
+    this.kind,
+    this.name, {
+    this.doc = '',
+    this.extendsName,
+    this.implementsNames = const [],
+  });
   final String kind; // class, abstract class, mixin
   final String name;
   final String doc;
@@ -184,7 +190,11 @@ FileAudit _auditFile(String content, String path) {
   final audit = FileAudit(_docSummary(content));
   final ParseStringResult parsed;
   try {
-    parsed = parseString(content: content, path: path, throwIfDiagnostics: false);
+    parsed = parseString(
+      content: content,
+      path: path,
+      throwIfDiagnostics: false,
+    );
   } catch (_) {
     return audit; // unparsable (shouldn't happen for code that compiles)
   }
@@ -198,8 +208,10 @@ FileAudit _auditFile(String content, String path) {
         doc: _docOf(decl),
         extendsName: decl.extendsClause?.superclass.toSource(),
         implementsNames:
-            decl.implementsClause?.interfaces.map((NamedType t) => t.toSource()).toList() ??
-                const [],
+            decl.implementsClause?.interfaces
+                .map((NamedType t) => t.toSource())
+                .toList() ??
+            const [],
       );
       for (final m in decl.body.members) {
         if (m is MethodDeclaration && _isPublic(m.name.lexeme)) {
@@ -224,8 +236,10 @@ FileAudit _auditFile(String content, String path) {
         decl.name.lexeme,
         doc: _docOf(decl),
         implementsNames:
-            decl.implementsClause?.interfaces.map((NamedType t) => t.toSource()).toList() ??
-                const [],
+            decl.implementsClause?.interfaces
+                .map((NamedType t) => t.toSource())
+                .toList() ??
+            const [],
       );
       for (final m in decl.body.members) {
         if (m is MethodDeclaration && _isPublic(m.name.lexeme)) {
@@ -334,7 +348,10 @@ void main() {
   for (final entry in audits.entries) {
     for (final t in entry.value.types) {
       for (final m in t.members) {
-        declaredBy.putIfAbsent(m.name, () => []).add((entry.key, '${t.name}.${m.name}'));
+        declaredBy.putIfAbsent(m.name, () => []).add((
+          entry.key,
+          '${t.name}.${m.name}',
+        ));
       }
     }
     for (final m in entry.value.topLevel) {
@@ -349,7 +366,10 @@ void main() {
       for (final m in t.members) {
         for (final call in m.calls) {
           if (!declaredBy.containsKey(call)) continue;
-          referencesOf.putIfAbsent(call, () => []).add((entry.key, '${t.name}.${m.name}'));
+          referencesOf.putIfAbsent(call, () => []).add((
+            entry.key,
+            '${t.name}.${m.name}',
+          ));
         }
       }
     }
@@ -368,7 +388,9 @@ void main() {
   String memberLine(String file, TypeDecl? owner, Member m) {
     final refs = referencesOf[m.name] ?? const [];
     final selfLabel = owner == null ? m.name : '${owner.name}.${m.name}';
-    final externalRefs = refs.where((r) => !(r.$1 == file && r.$2 == selfLabel)).toList();
+    final externalRefs = refs
+        .where((r) => !(r.$1 == file && r.$2 == selfLabel))
+        .toList();
     final sharedByCount = declaredBy[m.name]?.length ?? 1;
     final buf = StringBuffer('- **${m.name}** (${m.kind})');
     if (m.doc.isNotEmpty) buf.write(' — ${m.doc}');
@@ -388,7 +410,8 @@ void main() {
   }
 
   for (final mod in modules) {
-    final files = audits.keys.where((f) => _moduleOf(f) == mod).toList()..sort();
+    final files = audits.keys.where((f) => _moduleOf(f) == mod).toList()
+      ..sort();
     if (files.isEmpty) {
       // A module that used to have files (e.g. everything moved out of it)
       // must not leave a stale doc describing content that no longer
@@ -414,19 +437,25 @@ void main() {
     final depsCell = deps.isEmpty
         ? '—'
         : deps
-            .map((d) => '[$d](${d.endsWith("[pkg]") ? "" : "$d.md"})')
-            .join(', ');
+              .map((d) => '[$d](${d.endsWith("[pkg]") ? "" : "$d.md"})')
+              .join(', ');
     buf.writeln('Depends on: $depsCell\n');
 
     for (final f in files) {
       final audit = audits[f]!;
       buf.writeln('## `$f`\n');
       if (audit.doc.isNotEmpty) buf.writeln('${audit.doc}\n');
-      buf.writeln(directlyTested.contains(f) ? '_Directly tested._\n' : '_No known direct test._\n');
+      buf.writeln(
+        directlyTested.contains(f)
+            ? '_Directly tested._\n'
+            : '_No known direct test._\n',
+      );
 
       for (final t in audit.types) {
         final ext = t.extendsName != null ? ' extends ${t.extendsName}' : '';
-        final impl = t.implementsNames.isNotEmpty ? ' implements ${t.implementsNames.join(", ")}' : '';
+        final impl = t.implementsNames.isNotEmpty
+            ? ' implements ${t.implementsNames.join(", ")}'
+            : '';
         buf.writeln('### ${t.kind} `${t.name}`$ext$impl\n');
         if (t.doc.isNotEmpty) buf.writeln('${t.doc}\n');
         if (t.members.isEmpty) {
@@ -450,16 +479,20 @@ void main() {
   // --- write per-group test/ files (test()/group() descriptions) ---
   final outTestDir = Directory('doc/architecture/test');
   outTestDir.createSync(recursive: true);
-  final testCallPattern = RegExp(
-    r'''(?:test|group)\(\s*['"]([^'"]+)['"]''',
-  );
+  final testCallPattern = RegExp(r'''(?:test|group)\(\s*['"]([^'"]+)['"]''');
   final testGroups = <String, List<(String, List<String>)>>{};
   for (final file in testFiles) {
     final group = _testGroupOf(file.path) ?? '(root)';
     final content = file.readAsStringSync();
-    final descriptions = testCallPattern.allMatches(content).map((m) => m.group(1)!).toList();
+    final descriptions = testCallPattern
+        .allMatches(content)
+        .map((m) => m.group(1)!)
+        .toList();
     final rel = _toForwardSlashes(file.path);
-    testGroups.putIfAbsent(group, () => []).add((rel.substring(rel.indexOf('test/')), descriptions));
+    testGroups.putIfAbsent(group, () => []).add((
+      rel.substring(rel.indexOf('test/')),
+      descriptions,
+    ));
   }
   for (final entry in testGroups.entries) {
     final buf = StringBuffer();
@@ -468,18 +501,23 @@ void main() {
     buf.writeln('generated: ${DateTime.now().toIso8601String()}');
     buf.writeln('---\n');
     buf.writeln('# `test/${entry.key}/`\n');
-    for (final (file, descriptions) in entry.value..sort((a, b) => a.$1.compareTo(b.$1))) {
+    for (final (file, descriptions)
+        in entry.value..sort((a, b) => a.$1.compareTo(b.$1))) {
       buf.writeln('## `$file`\n');
       for (final d in descriptions) {
         buf.writeln('- $d');
       }
       buf.writeln('');
     }
-    File('${outTestDir.path}/${entry.key.replaceAll('/', '_')}.md').writeAsStringSync(buf.toString());
+    File(
+      '${outTestDir.path}/${entry.key.replaceAll('/', '_')}.md',
+    ).writeAsStringSync(buf.toString());
   }
   // A group whose last file moved/disappeared must not leave a stale doc
   // behind -- same reasoning as the lib/ module cleanup above.
-  final currentTestFiles = testGroups.keys.map((g) => '${g.replaceAll('/', '_')}.md').toSet();
+  final currentTestFiles = testGroups.keys
+      .map((g) => '${g.replaceAll('/', '_')}.md')
+      .toSet();
   for (final f in outTestDir.listSync().whereType<File>()) {
     final name = _toForwardSlashes(f.path).split('/').last;
     if (name.endsWith('.md') && !currentTestFiles.contains(name)) {
@@ -502,11 +540,15 @@ void main() {
   for (final m in modules) {
     if ((fileCount[m] ?? 0) == 0) continue;
     final deps = (edges[m]?.toList() ?? [])..sort();
-    overview.writeln('| [$m](lib/$m.md) | ${fileCount[m]} | ${deps.isEmpty ? "—" : deps.join(", ")} |');
+    overview.writeln(
+      '| [$m](lib/$m.md) | ${fileCount[m]} | ${deps.isEmpty ? "—" : deps.join(", ")} |',
+    );
   }
   overview.writeln('\n## Test Groups (`test/*`)\n');
   for (final g in (testGroups.keys.toList()..sort())) {
-    overview.writeln('- [test/$g](test/${g.replaceAll('/', '_')}.md) (${testGroups[g]!.length} files)');
+    overview.writeln(
+      '- [test/$g](test/${g.replaceAll('/', '_')}.md) (${testGroups[g]!.length} files)',
+    );
   }
   File('doc/architecture/README.md').writeAsStringSync(overview.toString());
 

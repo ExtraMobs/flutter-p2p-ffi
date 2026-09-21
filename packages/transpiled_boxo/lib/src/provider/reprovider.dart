@@ -312,6 +312,7 @@ final class _ReproviderSystem implements System {
       final start = DateTime.now();
       try {
         for (final c in keys) {
+          if (_closed) return;
           await rsys.provide(c, true);
         }
       } catch (error, stackTrace) {
@@ -368,7 +369,9 @@ final class _ReproviderSystem implements System {
     if (signal != null && !signal.isCompleted) signal.complete();
     _ticker?.stop();
     final task = _schedulingTask;
-    if (task != null) await task;
+    if (task != null) {
+      await task.timeout(const Duration(milliseconds: 250), onTimeout: () {});
+    }
   }
 
   @override

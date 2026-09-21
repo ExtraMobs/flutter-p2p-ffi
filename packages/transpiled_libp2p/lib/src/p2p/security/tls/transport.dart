@@ -23,6 +23,12 @@ const String ID = '/tls/1.0.0';
 /// Multistream protocol ID for TLS 1.3 security.
 const String tlsProtocolId = ID;
 
+/// `CurveID` for X25519 (`common.go`, RFC 8446 Section 4.2.7).
+const int _x25519Group = 0x001d;
+
+/// `pskModeDHE` (`common.go`): PSK with (EC)DHE key establishment.
+const int _pskModeDhe = 1;
+
 /// TLS configuration for an identity.
 class IdentityConfig {
   IdentityConfig({this.certTemplate, this.keyLogWriter});
@@ -143,7 +149,12 @@ class TlsTransport implements SecureTransport {
           tlsAes256GcmSha384,
         ],
         compressionMethods: Uint8List.fromList(const [0]),
-        keyShares: [KeyShare(group: 0x001d, data: clientPubBytes)],
+        keyShares: [KeyShare(group: _x25519Group, data: clientPubBytes)],
+        // supported_groups is mandatory alongside key_share: Go's
+        // `negotiateGroup` intersects it with the server preferences and
+        // aborts with alertHandshakeFailure when the client sends none.
+        supportedCurves: const [_x25519Group],
+        pskModes: Uint8List.fromList(const [_pskModeDhe]),
         supportedVersions: const [versionTls13],
         supportedSignatureAlgorithms: const [0x0403, 0x0807, 0x0804],
         alpnProtocols: [for (final m in muxers) m, 'libp2p'],
@@ -168,6 +179,7 @@ class TlsTransport implements SecureTransport {
         shRecord,
         expectedVersion: null,
       );
+      _throwIfAlert(shDecoded.recordType, shDecoded.data);
       if (shDecoded.recordType != recordTypeHandshake) {
         throw FormatException(
           'expected handshake record for ServerHello, got ${shDecoded.recordType}',
@@ -195,9 +207,13 @@ class TlsTransport implements SecureTransport {
 
       final transcript = HandshakeTranscript(suite.hash);
       transcript.write(chBytes);
-      transcript.write(sh.marshal());
+      // The transcript hash is over the bytes actually on the wire. Hashing a
+      // re-serialization of the parsed ServerHello silently diverges whenever
+      // the peer ordered or included extensions differently, and the first
+      // symptom is an undecryptable handshake record.
+      transcript.write(shDecoded.data);
 
-      final earlySecret = EarlySecret(suite.hash, Uint8List(0));
+      final earlySecret = EarlySecret(suite.hash, null);
       final handshakeSecret = earlySecret.handshakeSecret(sharedSecretBytes);
       final clientHsSecret = handshakeSecret.clientHandshakeTrafficSecret(
         transcript,
@@ -276,6 +292,19 @@ class TlsTransport implements SecureTransport {
       }
       transcript.write(sfBytes);
 
+      // RFC 8446 Section 7.1: the application traffic secrets are derived from
+      // the transcript "ClientHello..server Finished". Deriving them after the
+      // client flight has been appended produces keys the peer never computes,
+      // and the handshake still completes -- the first application record is
+      // what fails, as a bad record MAC.
+      final masterSecret = handshakeSecret.masterSecret();
+      final clientAppSecret = masterSecret.clientApplicationTrafficSecret(
+        transcript,
+      );
+      final serverAppSecret = masterSecret.serverApplicationTrafficSecret(
+        transcript,
+      );
+
       // 5. Client sends Client Flight: Certificate, CertificateVerify, Finished
       final clientCertMsg = CertificateMsgTls13(
         certificateChain: [cert.certificateDer],
@@ -319,14 +348,6 @@ class TlsTransport implements SecureTransport {
       }
 
       // 6. Transition to Application Secrets
-      final masterSecret = handshakeSecret.masterSecret();
-      final clientAppSecret = masterSecret.clientApplicationTrafficSecret(
-        transcript,
-      );
-      final serverAppSecret = masterSecret.serverApplicationTrafficSecret(
-        transcript,
-      );
-
       final clientAppIn = HalfConn()
         ..version = versionTls13
         ..setTrafficSecret(suite, serverAppSecret);
@@ -363,6 +384,7 @@ class TlsTransport implements SecureTransport {
         chRecord,
         expectedVersion: null,
       );
+      _throwIfAlert(chDecoded.recordType, chDecoded.data);
       if (chDecoded.recordType != recordTypeHandshake) {
         throw FormatException(
           'expected handshake record for ClientHello, got ${chDecoded.recordType}',
@@ -405,7 +427,7 @@ class TlsTransport implements SecureTransport {
         sessionId: ch.sessionId,
         cipherSuite: suite.id,
         supportedVersion: versionTls13,
-        serverShare: KeyShare(group: 0x001d, data: serverPubBytes),
+        serverShare: KeyShare(group: _x25519Group, data: serverPubBytes),
       );
       final shBytes = sh.marshal();
 
@@ -423,7 +445,7 @@ class TlsTransport implements SecureTransport {
       // 3. Compute shared secret and key schedule
       KeyShare? clientShare;
       for (final ks in ch.keyShares) {
-        if (ks.group == 0x001d) {
+        if (ks.group == _x25519Group) {
           clientShare = ks;
           break;
         }
@@ -443,10 +465,10 @@ class TlsTransport implements SecureTransport {
       );
 
       final transcript = HandshakeTranscript(suite.hash);
-      transcript.write(ch.marshal());
+      transcript.write(chDecoded.data);
       transcript.write(shBytes);
 
-      final earlySecret = EarlySecret(suite.hash, Uint8List(0));
+      final earlySecret = EarlySecret(suite.hash, null);
       final handshakeSecret = earlySecret.handshakeSecret(sharedSecretBytes);
       final clientHsSecret = handshakeSecret.clientHandshakeTrafficSecret(
         transcript,
@@ -498,6 +520,16 @@ class TlsTransport implements SecureTransport {
       final serverFinished = FinishedMsg(verifyData: serverVerifyData);
       final sfBytes = serverFinished.marshal();
       transcript.write(sfBytes);
+
+      // Same RFC 8446 Section 7.1 boundary as on the client: the transcript
+      // stops at the server Finished, before the client flight arrives.
+      final masterSecret = handshakeSecret.masterSecret();
+      final clientAppSecret = masterSecret.clientApplicationTrafficSecret(
+        transcript,
+      );
+      final serverAppSecret = masterSecret.serverApplicationTrafficSecret(
+        transcript,
+      );
 
       final serverFlight = Uint8List.fromList([
         ...eeBytes,
@@ -571,14 +603,6 @@ class TlsTransport implements SecureTransport {
       transcript.write(cfBytes);
 
       // 6. Transition to Application Secrets
-      final masterSecret = handshakeSecret.masterSecret();
-      final clientAppSecret = masterSecret.clientApplicationTrafficSecret(
-        transcript,
-      );
-      final serverAppSecret = masterSecret.serverApplicationTrafficSecret(
-        transcript,
-      );
-
       final serverAppIn = HalfConn()
         ..version = versionTls13
         ..setTrafficSecret(suite, clientAppSecret);
@@ -605,6 +629,16 @@ class TlsTransport implements SecureTransport {
       );
     }
   }
+}
+
+/// Raises the peer's alert instead of a record-type complaint.
+///
+/// Go's `Conn.readRecord` turns an incoming alert record into the alert
+/// itself (`conn.go`, `recordTypeAlert` branch); reporting only "unexpected
+/// record type 21" hides the one byte that says why the peer refused.
+void _throwIfAlert(int recordType, Uint8List data) {
+  if (recordType != recordTypeAlert) return;
+  throw AlertException(data.length >= 2 ? data[1] : alertInternalError);
 }
 
 class _TlsRecordReader {
@@ -646,6 +680,14 @@ class _HandshakeReader {
   Future<Uint8List> readMessage() async {
     while (_buffer.length < 4 || _buffer.length < (4 + _peekMsgLen())) {
       final record = await _recordReader.readRecord();
+      // Go's `Conn.readRecord` inspects the OUTER content type and drops a
+      // middlebox-compatibility ChangeCipherSpec before any decryption
+      // (`conn.go`, recordTypeChangeCipherSpec branch). Feeding that cleartext
+      // record to the AEAD instead fails it as a bad record MAC, which is what
+      // a real go-libp2p peer's flight triggers right after ServerHello.
+      if (record.isNotEmpty && record[0] == recordTypeChangeCipherSpec) {
+        continue;
+      }
       final decrypted = readTls13Record(
         _halfConn,
         record,
@@ -654,6 +696,7 @@ class _HandshakeReader {
       if (decrypted.recordType == recordTypeChangeCipherSpec) {
         continue;
       }
+      _throwIfAlert(decrypted.recordType, decrypted.data);
       if (decrypted.recordType != recordTypeHandshake) {
         throw FormatException(
           'unexpected TLS record type: ${decrypted.recordType}',

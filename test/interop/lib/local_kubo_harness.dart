@@ -18,6 +18,7 @@ class LocalKuboHarness {
     bool mdnsEnabled = false,
     bool? sweepEnabled,
     String swarmHost = '127.0.0.1',
+    List<String>? swarmAddresses,
   }) async {
     final resolved = await findExecutable(executable: executable);
     if (resolved == null) {
@@ -30,8 +31,8 @@ class LocalKuboHarness {
       repository: repository,
     );
     try {
-      await harness._start(
-          routingType, clearBootstrap, mdnsEnabled, sweepEnabled, swarmHost);
+      await harness._start(routingType, clearBootstrap, mdnsEnabled,
+          sweepEnabled, swarmHost, swarmAddresses);
       return harness;
     } catch (_) {
       await harness.dispose();
@@ -115,6 +116,33 @@ class LocalKuboHarness {
       return '${result.stdout}'.trim();
     } finally {
       if (await input.exists()) await input.delete();
+    }
+  }
+
+  /// The multiaddrs this daemon actually listens on, as it reports them.
+  ///
+  /// This is the daemon's own `Addresses` list from `/api/v0/id`, restricted
+  /// to the loopback host used by the harness, so a transport matrix iterates
+  /// over what Kubo really bound and not over what was merely configured.
+  Future<List<String>> effectiveSwarmAddresses() async {
+    final client = HttpClient();
+    try {
+      final request = await client.postUrl(
+        Uri.parse('http://127.0.0.1:$apiPort/api/v0/id'),
+      );
+      final response = await request.close();
+      if (response.statusCode != HttpStatus.ok) {
+        throw HttpException('Kubo id returned ${response.statusCode}');
+      }
+      final body = await utf8.decoder.bind(response).join();
+      final decoded = jsonDecode(body) as Map<String, dynamic>;
+      final addresses = (decoded['Addresses'] as List<dynamic>? ?? const [])
+          .cast<String>()
+          .where((a) => a.startsWith('/ip4/$_swarmHost/'))
+          .toList(growable: false);
+      return addresses;
+    } finally {
+      client.close(force: true);
     }
   }
 
@@ -249,8 +277,13 @@ class LocalKuboHarness {
   Future<String> routingTables() async =>
       '${(await _run(['stats', 'dht'])).stdout}';
 
-  Future<void> _start(String routingType, bool clearBootstrap, bool mdnsEnabled,
-      bool? sweepEnabled, String swarmHost) async {
+  Future<void> _start(
+      String routingType,
+      bool clearBootstrap,
+      bool mdnsEnabled,
+      bool? sweepEnabled,
+      String swarmHost,
+      List<String>? swarmAddresses) async {
     _swarmHost = swarmHost;
     apiPort = await _freePort();
     swarmPort = await _freePort();
@@ -267,7 +300,7 @@ class LocalKuboHarness {
       'config',
       'Addresses.Swarm',
       '--json',
-      jsonEncode(['/ip4/$swarmHost/tcp/$swarmPort']),
+      jsonEncode(swarmAddresses ?? <String>['/ip4/$swarmHost/tcp/$swarmPort']),
     ]);
     if (clearBootstrap) {
       await _run(['config', 'Bootstrap', '--json', '[]']);

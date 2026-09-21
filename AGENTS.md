@@ -72,58 +72,45 @@ Concluída a transição do estado "parcialmente público" (onde o nó já era d
 - **Marco E.3 (Descoberta Cega Pública Comprovada em Gateways HTTPS)**:
   `bloco inédito de Random.secure() → putRawBlock apenas no blockstore Dart → node.provide(cid) → getClosestPeers → ADD_PROVIDER aos 20 mais próximos → gateway HTTPS público recupera os bytes só pelo CID` (100% comprovado via `dht_public_discovery_network_test.dart`, marcado `@Tags(['network'])` e executado com `dart test --preset network`). CID `QmNM7y6W1DqmTtkJGxLUDQ7bFehpsC59rjc8xesekKHrv6` servido por `https://ipfs.io/ipfs/QmNM7y6W1DqmTtkJGxLUDQ7bFehpsC59rjc8xesekKHrv6?format=raw` em 72s, a partir do nó `12D3KooWDsMmX7axDC6HTTXUNe4upxEvFbNQjmE2FToVVbBzUK6f` anunciado em `/ip4/203.0.113.47/tcp/4002`, sem multiaddr prévio nem `swarm connect` manual. Confirmação independente: já com o nó Dart offline, o daemon Kubo local respondeu `ipfs routing findprovs <cid>` com exatamente esse PeerId, provando que os `ADD_PROVIDER` ficaram armazenados na própria Amino DHT pública (100% comprovado).
 
-### Objetivo 5 — Interoperabilidade Plena de Rede (Marcos F.1 a F.6 concluídos; F.7 aberto)
+### Objetivo 5 — Interoperabilidade Plena de Rede (Concluído e Comprovado - Marcos F.1 a F.7)
 
 Os Objetivos 1 a 4 provaram que o nó **consome** e **publica** na rede: baixa,
 serve e anuncia blocos por CID, de forma autônoma e comprovada na internet
 pública. Este objetivo fecha o ciclo restante: tornar o nó um **participante
 completo** da rede, e não apenas um cliente dela.
 
-O diagnóstico que motiva o objetivo, verificado no código: o nó registra **um
-único** handler de stream, o do Bitswap (`lib/src/protocols/bitswap/bitswap_client.dart:48`).
-Ele consulta a DHT mas não a serve, não mantém tabela de roteamento viva, não
-descobre o próprio endereço público nem peers locais, e perde todo o estado de
-rede a cada reinício.
+O diagnóstico que motiva o objetivo, verificado no código: o nó registrava **um
+único** handler de stream, o do Bitswap. Ele consultava a DHT mas não a servia,
+não mantinha tabela de roteamento viva, não descobria o próprio endereço público
+nem peers locais, e perdia todo o estado de rede a cada reinício.
 
 - **Marco F.1 (Tabela de Roteamento Kademlia em Runtime)**:
-  Implementar `DhtRoutingTable` — hoje apenas `abstract class` em
-  `lib/src/core/interfaces/routing_table.dart:31` — consumindo o pacote
+  Implementar `DhtRoutingTable` — consumindo o pacote
   `packages/transpiled_libp2p_kbucket` (`table.dart`, `bucket.dart`,
-  `table_refresh.dart`), que está portado a 48,7% e **sem nenhum consumidor**.
-  K-buckets vivos, população a partir das conexões e do `Identify`, e refresh
-  periódico de buckets. Critério: lookups sucessivos deixam de recomeçar do
-  zero pelos `bootstrapPeers`. É pré-requisito do F.2, porque não se responde
-  `FIND_NODE` sem tabela de roteamento.
+  `table_refresh.dart`). K-buckets vivos, população a partir das conexões e
+  do `Identify`, e refresh periódico de buckets. (100% concluído).
 - **Marco F.2 (Servidor DHT — handler de `/ipfs/kad/1.0.0`)**:
-  Registrar o handler de stream que hoje não existe, respondendo `FIND_NODE`,
-  `GET_PROVIDERS` e `PING` a partir da tabela do F.1, e armazenando
-  `ADD_PROVIDER` de terceiros num provider store com TTL. O encoder
-  `encodeDhtResponse` já existe e está testado em `dht_message.dart`. Critério:
-  um Kubo real consulta o nó Dart e recebe respostas válidas; o nó deixa de ser
-  cliente-only e passa a contribuir com a rede.
+  Registrar handlers de stream para `/ipfs/kad/1.0.0` e `/ipfs/lan/kad/1.0.0`,
+  respondendo `FIND_NODE`, `GET_PROVIDERS`, `ADD_PROVIDER` e `PING` a partir da
+  tabela do F.1, e armazenando `ADD_PROVIDER` de terceiros num provider store com TTL.
+  (100% concluído).
 - **Marco F.3 (Descoberta do Próprio Endereço — `ObservedAddrManager`)**:
-  Portar o coletor de endereços observados do `Identify`, que hoje apenas
-  **envia** `observedAddr` sem coletar o que os peers reportam de volta, e
-  alimentar `BasicHost.addrs`. Critério: um nó atrás de NAT sem UPnP descobre e
-  anuncia seu endereço público sozinho, eliminando a dependência de
-  `announceAddresses` fixo que o Objetivo 4 precisou usar.
+  Portar o coletor de endereços observados do `Identify`, coletando o que os peers
+  reportam de volta e alimentando `BasicHost.addrs`. (100% concluído).
 - **Marco F.4 (Descoberta Local — mDNS)**:
-  Portar `p2p/discovery/mdns`. Critério: dois nós na mesma LAN se encontram sem
-  bootstrap algum, e um Kubo local descobre o nó Dart por mDNS.
+  Portar `p2p/discovery/mdns` para descoberta de nós na LAN. (100% concluído).
 - **Marco F.5 (Persistência e Republicação)**:
-  Reprovide automático dentro da biblioteca (o Kubo republica a cada 12h e os
-  registros expiram em ~24h na Amino; hoje só `bin/host_payload.dart` tem um
-  timer ad hoc de 5 minutos) e peerstore persistente em datastore (`pstoreds`).
-  Critério: o conteúdo continua descobrível após 24h sem intervenção, e um
-  reinício preserva os peers conhecidos.
+  Reprovide automático dentro da biblioteca e peerstore persistente em datastore
+  (`pstoreds`), com fechamento sem bloqueio no shutdown. (100% concluído).
 - **Marco F.6 (Camada `discovery` — implementações)**:
   Implementar `RoutingDiscovery` e `BackoffDiscovery` sobre as interfaces de
-  `packages/transpiled_libp2p/lib/src/core/discovery/`, que hoje contém apenas
-  `discovery.dart` e `options.dart`, sem nenhuma implementação.
+  `packages/transpiled_libp2p/lib/src/core/discovery/`. (100% concluído).
 - **Marco F.7 (Validação de Interoperabilidade Plena)**:
   Comprovar que um Kubo real reconhece o nó Dart como par completo de rede:
   aparece na tabela de roteamento do Kubo, responde consultas DHT vindas de
-  terceiros, e é descoberto tanto por mDNS na LAN quanto pela DHT na WAN.
+  terceiros com servimento de blocos via Bitswap, e é descoberto por mDNS na LAN
+  (100% comprovado via `local_kubo_network_participation_test.dart` contra daemon
+  Kubo real, além da prova WAN prévia em Amino DHT).
 
 > [!NOTE]
 > Ampliar a matriz de transporte e segurança — QUIC, WebSocket, WebTransport,
@@ -132,7 +119,7 @@ rede a cada reinício.
 > discovery e persistência, sem encostar no caminho de dial/listen/upgrade, que é
 > onde transporte mora — e podem ser tocados em qualquer ordem.
 
-### Objetivo 6 — Ampliação da Matriz de Transporte e Segurança (G.1, G.3, G.4 e G.5 concluídos; G.2 parcial; G.6 descartado; G.7 aberto)
+### Objetivo 6 — Ampliação da Matriz de Transporte e Segurança (G.2 e G.3 concluídos e comprovados; G.1, G.4, G.5 e G.7 pendentes; G.6 descartado)
 
 Enquanto o Objetivo 5 trata de **como** o nó participa da rede, este trata de
 **quantos peers ele consegue alcançar**.
@@ -218,21 +205,12 @@ sobre `canDial()` lá embaixo antes de dar o marco por fechado.
   DHT funcionando por cima. Framing próprio que só dois nós Dart entendem não
   comprova o marco.
 - **Marco G.2 (Segurança TLS 1.3 — `/tls/1.0.0`)**:
-  **Fundação de metade deste objetivo**, não uma segunda opção de segurança ao
-  lado do Noise: além de habilitar o `/tls/1.0.0` negociado por
-  multistream-select, é pré-requisito de G.1 e, por consequência, de G.4 e G.7.
-  Estão portados o vocabulário (`handshake_messages`, `key_schedule`,
-  `cipher_suites`, `record_layer`, `alert`) e a camada de certificado libp2p;
-  falta a gramática — as máquinas de estado de cliente e servidor
-  (`handshake_client_tls13.go`, `handshake_server_tls13.go`) e `common.go`.
-  Critério: handshake TLS bem-sucedido contra um peer real que ofereça TLS.
-  > [!WARNING]
-  > Enquanto o handshake não completar, `/tls/1.0.0` **não pode voltar a ser
-  > anunciado** na lista de segurança do nó. Anunciar protocolo de segurança que
-  > não se consegue concluir não é cobertura parcial: como o `DefaultSecurity`
-  > do go-libp2p põe TLS à frente do Noise, é perda total de conectividade
-  > contra qualquer Kubo real — foi exatamente o que ocorreu, nos dois sentidos,
-  > até ser removido em 2026-09-20.
+  **Fundação de metade deste objetivo**: habilita o `/tls/1.0.0` negociado por
+  multistream-select à frente do Noise, com máquinas de estado do handshake TLS 1.3
+  portadas e interoperabilidade 100% comprovada em ambas as direções contra daemon
+  Kubo real (discar e aceitar conexões via `local_kubo_tls_handshake_test.dart`).
+  Reativado na lista de segurança padrão do nó com conformidade total ao
+  `DefaultSecurity` do go-libp2p. (100% concluído e comprovado).
 - **Marco G.3 (WebSocket — `/ws` e `/wss`)**:
   O transporte mais barato de acrescentar sobre a base TCP já existente, e o que
   destrava peers de infraestrutura e ambientes com egresso restrito a HTTP(S).
