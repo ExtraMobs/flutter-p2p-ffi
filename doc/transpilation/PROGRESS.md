@@ -48,7 +48,7 @@ G.3 WebSocket — independente (usa o TLS do dart:io)
 | --- | --- | --- | --- |
 | G.1 QUIC | **comprovada** contra Kubo 0.43.0 (`local_kubo_quic_test.dart`) | **não comprovada** | o mesmo `QuicServer` atende `/quic-v1` e WebTransport |
 | G.2 TLS 1.3 | **comprovada** | **comprovada** | `local_kubo_tls_handshake_test.dart`; `/tls/1.0.0` volta à lista de segurança padrão |
-| G.3 WebSocket | `/ws` entre nós Dart | listener implementado | **critério do marco não atendido**: falta discar um peer público que anuncie `/wss` |
+| G.3 WebSocket | `/ws` entre nós Dart | listener implementado | **sem porte pendente**; falta só a prova: discar um peer público que anuncie `/wss` |
 | G.4 WebTransport | **comprovada** (`local_kubo_webtransport_quic_test.dart`) | protocolo real, **não comprovada** | critério do marco (navegador Helia) não atendido |
 | G.5 WebRTC Direct | não | não | bloqueado por DTLS, que não está portado |
 | G.6 mplex | descartado | — | depreciado na libp2p, removido dos padrões do Kubo |
@@ -79,10 +79,37 @@ mensagem de erro do próprio Kubo mudar — nenhum era detectável em loopback:
 
 **Estado após as três correções:** o Kubo aceita o ServerHello e para em
 `context deadline exceeded`, sem que o servidor Dart registre erro — o cliente
-não chega a mandar o segundo flight. Suspeitas, em ordem: tamanho do datagrama
-coalescido; ausência de ACK para o segundo Initial do cliente (`_dispatch`
-ignora Initials repetidos quando já existe handshake pendente); proteção de
-cabeçalho e numeração de pacote no nível Handshake.
+não chega a mandar o segundo flight.
+
+**A causa deixou de ser suspeita e está localizada.** O servidor nunca
+reconhece pacote Initial repetido:
+
+- `packages/transpiled_quic_go/lib/src/server_handshake.dart:186-190` — com
+  `_pending` já preenchido, todo Initial subsequente cai num `continue`: não é
+  aberto, não é contabilizado e não é ACKado.
+- `server_handshake.dart:420-423` — o único ACK que sai é
+  `AckFrame(largestAcked: decHdr.packetNumber, firstAckRange: 0)`, que
+  reconhece **apenas** o Initial que completou o ClientHello. O primeiro, que
+  carregava o começo da mensagem, nunca é reconhecido.
+- `packages/transpiled_quic_go/lib/src/connection.dart` não tem recuperação de
+  perda alguma: sem rastreamento de pacotes em voo, sem PTO, sem retransmissão
+  de flight.
+
+O Kubo então retransmite o Initial não reconhecido, o servidor descarta em
+silêncio, e o cliente expira. No quic-go real não existe caso especial de
+"Initial repetido": o pacote vai direto para a conexão
+(`quic-go/transport.go:584-587`) e só é descartado se o número de pacote
+repetir (`connection.go:1366-1383`); e todo pacote ack-eliciting de
+Initial/Handshake gera ACK **imediato**, sem esperar dois pacotes nem timer —
+a decimação por `max_ack_delay` vale só para AppData
+(`quic-go/internal/ackhandler/received_packet_tracker.go:30-49` versus
+`:78-134`).
+
+Dois pontos adjacentes que o conserto precisa respeitar: `bytesReceived` do
+limite anti-amplificação 3x é contado **antes** da checagem de duplicata
+(`connection.go:1053` versus `:1366`), e o endereço do peer só é considerado
+validado ao chegar o primeiro pacote **Handshake** do cliente, não o segundo
+Initial (`sent_packet_handler.go:233-237`).
 
 O servidor WebTransport encadeia QUIC → HTTP/3 Extended CONNECT → Noise
 responder e não usa mais os pacotes inventados `0x57`/`0x58`/`0x59`. Falta
@@ -90,15 +117,53 @@ portar o certificado determinístico (`crypto.go:generateCert`, ECDSA derivada
 por HKDF, validade de 14 dias); `_verifyRawCerts` confere só o hash, sem as
 checagens de RSA e de validade máxima que o Go faz.
 
+**A camada HTTP/3 do servidor não é o que trava a entrada.**
+`packages/transpiled_webtransport_go/lib/src/server.dart:81-83` já emite o
+frame SETTINGS com `extendedConnect: true` no control stream, que é o que o
+`quic-go/http3/server.go:456-461` faz. Como esse servidor roda sobre o mesmo
+`QuicServer` do G.1, consertar a direção de entrada do QUIC deve destravar os
+dois marcos de uma vez.
+
 ### G.5 — o que falta é DTLS, não WebRTC
 
 O `certhash` do multiaddr WebRTC Direct é o fingerprint do certificado **DTLS**.
 A cadeia que importa é ICE → DTLS → SCTP → DataChannel. A pilha Pion portada
-tem `sctp` (parcial), `stun`, `sdp`, `transport`, `transport_v4`, `logging` e
-`randutil`, e **não tem `dtls`**. O `WebRtcTransport` está registrado no Swarm,
-mas o handshake atual é framing inventado sobre UDP em claro: nenhum par real
-fala isso. Os módulos de mídia (`rtp`, `rtcp`, `srtp`, `interceptor`) ficaram
-deliberadamente fora, porque `/webrtc-direct` usa apenas data channels.
+tem `sctp` (wire completo, runtime ausente), `stun`, `sdp`, `transport`,
+`transport_v4`, `logging` e `randutil`, e **não tem `dtls`** nem `ice` nem
+`datachannel`. O `WebRtcTransport` está registrado no Swarm, mas o handshake
+atual é framing inventado sobre UDP em claro: nenhum par real fala isso. Os
+módulos de mídia (`rtp`, `rtcp`, `srtp`, `interceptor`) ficaram deliberadamente
+fora, porque `/webrtc-direct` usa apenas data channels.
+
+Dimensão medida do que falta, em linhas de Go de produção (`*.go` fora de
+teste, `examples/` e `e2e/`):
+
+| Subsistema | Módulo Go | Falta portar |
+| --- | --- | --- |
+| `pion-sctp` | 8.245 | ≈4.850 — `association.go` (2.960), `stream.go` (514), `reassembly_queue.go` (383), `rtx_timer.go` (257), e as demais filas e timers |
+| `pion-dtls` | 15.163 | ≈12.570 — o núcleo; ≈2.595 são dispensáveis (ver abaixo) |
+| `pion-datachannel` | 716 | tudo (DCEP) |
+| `pion-ice` | 9.434 | ≈6.100 — ≈2.107 dispensáveis (ver abaixo) |
+| `pion-webrtc` | 22.602 | a cola; boa parte é mídia, fora de escopo |
+| `go-libp2p/p2p/transport/webrtc` | 3.252 | tudo; o transporte Dart atual é descartável |
+
+Da ordem de **27.500 linhas** sem contar a fatia aproveitável do `pion-webrtc`
+— a maior frente isolada que resta no projeto, comparável ou maior que todo o
+TLS 1.3 do G.2.
+
+Dispensável, verificado no código e não suposto: em `pion-dtls`, o
+`listener.go` e seu `internal/net/udp` (o libp2p chama `dtls.Client`/
+`dtls.Server` direto sobre o `net.Conn` que o ICE já demultiplexou), o
+Connection ID da RFC 9146, as mensagens `*_13` (código morto), e as suítes PSK,
+CCM e `ECDHE_RSA_*` — nenhum dos dois lados tem certificado RSA, porque o
+libp2p gera ECDSA P-256 em `webrtc/cert.go:105`. Em `pion-ice`, o ICE sobre
+TCP, o relay TURN, o mDNS, o mapeamento de IP externo e o parsing de URL de
+STUN: o `/webrtc-direct` usa só host candidates entregues por um UDP mux
+próprio do libp2p (`webrtc/udpmux/mux.go`), em modo ICE lite
+(`webrtc/listener.go:205-221`). **Não** é dispensável a extensão `use_srtp`,
+apesar de não haver mídia: `pion-webrtc/dtlstransport.go:326` seta
+`SRTPProtectionProfiles` incondicionalmente, então ela precisa ser negociada no
+wire para interoperar com nó Go.
 
 ### G.7 — a matriz
 
@@ -178,6 +243,113 @@ módulo/revisão → símbolo/pacote Dart`). As revisões estão em `UPSTREAM_LO
   de `dial`; `wire.MaxDatagramSize` → `maxDatagramSize = 16383`. Sem isso o Kubo
   fecha a conexão com `application error 0x109: missing QUIC Datagram support`.
 
+### Objetivo 6 — símbolos Go localizados, ainda não portados
+
+Rastreamento levantado para o que resta do Objetivo 6. Caminhos relativos a
+`go-ipfs-reference/`, revisões em `UPSTREAM_LOCK.md`. Nada aqui foi portado
+ainda: é o mapa de onde buscar a autoridade de comportamento.
+
+**QUIC, direção de entrada (G.1)** — destino Dart
+`packages/transpiled_quic_go/lib/src/{server_handshake,connection}.dart`:
+
+- ACK imediato em Initial/Handshake e decimação só em AppData →
+  `quic-go/internal/ackhandler/received_packet_tracker.go:30-49` e `:78-134`
+  (`ReceivedPacket`, `appDataReceivedPacketTracker.shouldQueueACK`);
+  `GetAckFrame` em `:51-72`; `MaxAckDelay = 25ms` em
+  `quic-go/internal/protocol/params.go:150`.
+- Frames que elicitam ACK → `quic-go/internal/ackhandler/ack_eliciting.go:5-16`
+  (`IsFrameTypeAckEliciting`).
+- Limite anti-amplificação 3x e validação de endereço →
+  `quic-go/internal/ackhandler/sent_packet_handler.go:25, 224-263, 1034-1039`
+  (`amplificationFactor`, `ReceivedBytes`, `isAmplificationLimited`).
+- Coalescência ao enviar e padding de 1200 B só quando o Initial é
+  ack-eliciting → `quic-go/packet_packer.go:333-421` (`PackCoalescedPacket`) e
+  `:318-328` (`initialPaddingLen`); `MinInitialPacketSize` em
+  `quic-go/internal/protocol/protocol.go:119`.
+- Split do datagrama recebido → `quic-go/connection.go:1052-1168`
+  (`handleOnePacket`).
+- Packet number truncado → `quic-go/internal/protocol/packet_number.go:24-39`
+  (`DecodePacketNumber`); header protection, máscara de 4 bits em Long e 5 em
+  Short → `quic-go/internal/handshake/header_protector.go:67-80`.
+- Handshake servidor TLS 1.3 e o instante em que cada chave passa a valer →
+  `go-stdlib/src/crypto/tls/handshake_server_tls13.go:66-105` (`handshake`),
+  `:730-832` (`sendServerParameters`, chaves em 769-780 e EE em 827),
+  `:838-904` (`sendServerCertificate`), `:906-941` (`sendServerFinished`),
+  `:1047-1162` (`readClientCertificate`, `readClientFinished`); read secret
+  1-RTT só após o Finished do cliente, em `go-stdlib/src/crypto/tls/conn.go:1591-1597`.
+- Ponte CRYPTO ↔ `crypto/tls` →
+  `quic-go/internal/handshake/crypto_setup.go:224-246, 456, 498, 556`.
+- PeerId da cadeia de certificados no listener →
+  `go-libp2p/p2p/transport/quic/listener.go:115-148` e
+  `go-libp2p/p2p/security/tls/crypto.go:157` (`PubKeyFromCertChain`).
+
+**WebTransport (G.4)** — destino Dart
+`packages/transpiled_libp2p/lib/src/p2p/transport/webtransport/webtransport.dart`:
+
+- Certificado determinístico → `go-libp2p/p2p/transport/webtransport/crypto.go:48-96`
+  (`generateCert`), info `"determinisitic cert"` em `:29`, salt em `:54-56`,
+  reader em `:148-150`, seed ECDSA P-256 em `:78-86`, signer em `:161-175`;
+  `certValidity = 14 dias` em `webtransport/transport.go:41`.
+- `verifyRawCerts` com as quatro checagens (hash do leaf, veto a RSA, validade
+  ≤ 14 dias, janela temporal) → `webtransport/crypto.go:107-146`. O Dart em
+  `webtransport.dart:571` confere só o hash.
+- Rotação com até três certhashes anunciados em paralelo e 1h de skew →
+  `webtransport/cert_manager.go:19-23, 44-58, 89-155, 182-219`.
+- Early data `webtransport_certhashes` → `webtransport/listener.go:269-304` e
+  `webtransport/noise_early_data.go:12-36`. A extensão **não** é assinada: viaja
+  no payload Noise cifrado, e a assinatura cobre só a chave estática
+  (`go-libp2p/p2p/security/noise/handshake.go:219-244, 249-286`).
+- SETTINGS e Extended CONNECT do servidor → `quic-go/http3/server.go:456-461`,
+  `webtransport-go/server.go:38-63` (`ConfigureHTTP3Server`) e `:374-436`
+  (`Server.Upgrade`, com timeout de 5s esperando as SETTINGS do cliente);
+  `:protocol` em `quic-go/http3/headers.go:96, 231-263, 294-299`.
+
+**WebSocket (G.3)** — nada a portar; referências de conferência em
+`go-libp2p/p2p/transport/websocket/`: `websocket.go:243-285` (`maDial`, SNI →
+`ServerName` e Host header, `NetDial` discando o IP já resolvido),
+`addrs.go:133-175` (`parseWebsocketMultiaddr`, `/wss` → `/tls/ws`),
+`websocket.go:180-214` (`Resolve`), `conn.go:39-64, 126-135` (mensagem sempre
+binária, uma por `Write`) e `conn.go:17-19, 110-114, 144-153` (close 1000/1005
+como EOF, fechamento gracioso em 100ms). O pacote **não** tem `crypto.go` nem
+`cert_manager.go`: o TLS do listener é o `tls.Config` injetado.
+
+**WebRTC Direct (G.5)**:
+
+- Flights DTLS → `pion-dtls/flight.go`, `flighthandler.go` e
+  `flight0handler.go`…`flight6handler.go` (9 estados; cliente e servidor no
+  mesmo arquivo, com branch por `state.isClient`); laço em
+  `pion-dtls/handshaker.go`.
+- Retransmissão: intervalo inicial de 1s (`pion-dtls/conn.go:31`), backoff
+  dobrando com teto de 60s (`handshaker.go:288, 337, 339-340`).
+- Record layer → `pion-dtls/pkg/protocol/recordlayer/`; fragmentação de
+  mensagem de handshake → `pion-dtls/fragment_buffer.go`.
+- Cookie exchange → `pion-dtls/flight2handler.go:44-49`,
+  `pkg/protocol/handshake/message_hello_verify_request.go`,
+  `pkg/protocol/extension/cookie.go`.
+- Suítes default → `pion-dtls/cipher_suite.go:167` (`defaultCipherSuites`); só
+  as três ECDSA são alcançáveis.
+- Certificado determinístico ECDSA P-256 →
+  `go-libp2p/p2p/transport/webrtc/cert.go:105`; o fingerprint que vira certhash
+  **não** é o do pion, e sim `webrtc/fingerprint.go:20, 43`
+  (`parseFingerprint`, `encodeDTLSFingerprint`).
+- UDP mux próprio do libp2p, que demultiplexa por ufrag lido do USERNAME do
+  STUN → `go-libp2p/p2p/transport/webrtc/udpmux/mux.go`, uso em
+  `webrtc/listener.go:97`; ICE lite e papel DTLS de servidor em `:205-221`.
+- Sem sinalização: as duas SDPs são fabricadas localmente →
+  `webrtc/transport.go:389` (`createServerSDP`) e `webrtc/listener.go:233-236`
+  (`createClientSDP`). Os fingerprints são amarrados no prólogo Noise
+  (`webrtc/transport.go:509, 530-538`).
+- Canal 0 do handshake Noise é `negotiated=true` e não passa por DCEP →
+  `webrtc/transport.go:53-62, 602`. Um data channel SCTP por stream libp2p →
+  `webrtc/connection.go:184`.
+- Framing protobuf dos streams (FIN, STOP_SENDING, RESET, FIN_ACK) →
+  `webrtc/pb/message.proto`; limites em `webrtc/stream.go:17-43`
+  (`maxSendMessageSize = 16384`, `maxReceiveMessageSize = 257 KiB`,
+  `maxFINACKWait = 10s`), leitura delimitada por varint em `:111`.
+- ICE efetivamente exercitado: só `gatherCandidatesLocalUDPMux`
+  (`pion-ice/gather.go:324`), mais `agent.go`, `candidate_base.go`,
+  `selection.go`, `udp_mux.go` e `udp_muxed_conn.go`.
+
 ### Circuit Relay v2 e hole punching
 
 - `client.Reserve` → `record.ConsumeEnvelope` → `peer.IDFromPublicKey` /
@@ -225,7 +397,7 @@ lacunas que um número não mostra.
 | `transpiled_protobuf` | `AppendString` e `ConsumeString` omitidos enquanto strings Go com UTF-8 inválido não forem preservadas. Grupos e campos `fixed` não portados. |
 | `transpiled_crypto_tls` | `go-stdlib` **não tem índice AST e não pode ter** com a ferramenta atual (`go_module_index.exe` entra em panic na raiz `module std`). As regras 18–21 não medem o que falta; os 100% reportados valem só para a regra 24. |
 | `transpiled_pion_logging` | Portado integralmente. `LogLevel.Set/Get`, `WithXLogger` e `Lshortfile` omitidos deliberadamente. |
-| `transpiled_pion_sctp` | Parcial: `util`, `chunktype`, `chunkheader`, a interface `chunk` e CRC32C. Chunks concretos, parâmetros, filas, timers e `association.go` inteiro não portados. O overflow `uint16` em `length - chunkHeaderSize` precisa ser preservado. |
+| `transpiled_pion_sctp` | **Wire completo, runtime ausente.** 42 arquivos e 4.625 linhas cobrem todos os chunks concretos, todos os parâmetros, as error causes, `packet.dart`, `util` e CRC32C. O que falta é o motor: `association.go` (2.960 linhas), `stream.go`, as filas (`pending`, `payload`, `control`, `receive_payload`, `reassembly`) e os timers (`rtx_timer`, `ack_timer`) — ≈4.850 linhas de Go. O overflow `uint16` em `length - chunkHeaderSize` precisa ser preservado. |
 | `packages/boilerplate` | `internal_poll.Fd` e `FdMutex` estão portados e testados, **mas sem chamador de produção**: `_TcpRawConn` em `tcp_transport.dart` ainda usa o paliativo `_serialized`. Plugá-los muda o caminho de escrita de toda conexão TCP e exige decisão do mantenedor. |
 
 O módulo `kubo` é guia de orquestração, não superfície de paridade: só o
