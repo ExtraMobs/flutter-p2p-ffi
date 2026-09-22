@@ -296,6 +296,53 @@ dar o marco por fechado.
 
 Todo agente que atuar no projeto deve seguir a ordem e os critérios das checklists dos Objetivos no topo de `doc/transpilation/PROGRESS.md`. Trabalho que não destrava nem valida essas checklists fica atrás delas, salvo correção necessária para manter a suíte verde ou instrução explícita do usuário. Gateway HTTP local e interfaces CLI estão expressamente fora do escopo do projeto.
 
+## Diante de um problema ou impasse, consulte o repositório de referência
+
+**Sempre que houver um problema, um impasse, um defeito a diagnosticar ou uma
+decisão de desenho a tomar, a resposta se deriva lendo o Go em
+`go-ipfs-reference/` — não inspecionando o que já existe em Dart.** Esta regra
+vale para análise, diagnóstico e planejamento, e não apenas para o momento de
+escrever código portado, que a seção "Rastrear chamadas antes de implementar"
+já cobre.
+
+A razão é estrutural, não estilística. Este porte é incompleto por definição.
+Um inventário do que ele tem **não pode** revelar o que falta nele: subsistemas
+inteiros que o upstream considera obrigatórios ficam invisíveis simplesmente
+porque nada no Dart os referencia. Perguntar "o que está faltando aqui?" olhando
+para cá devolve, na melhor das hipóteses, a lista do que está quebrado — nunca
+a do que nunca existiu.
+
+Na prática isso significa abrir o Go primeiro e deixar que o grafo de chamadas
+e a fiação de opções do upstream determinem o formato da resposta. Para saber
+que subsistemas um nó real executa, leia como o Kubo constrói o seu host
+(`kubo/core/node/groups.go`, `kubo/core/node/libp2p/`), em vez de ler o nó Dart
+e perguntar o que parece ausente.
+
+Dois episódios reais deste repositório mostram o custo de inverter a ordem:
+
+- A pergunta "o que falta para aguentar ser um servidor DHT?" foi respondida
+  primeiro a partir do Dart, e produziu uma lista que começava no
+  `ResourceManager` e no `ConnManager`. Lida a partir do Go, a primeira defesa
+  do desenho é outra e vinha antes de qualquer limite: o `ModeAuto`
+  (`go-libp2p-kad-dht/dht_options.go:28`), pelo qual um nó **só assume o papel
+  de servidor quando o AutoNAT confirma alcançabilidade pública**. Na rede
+  pública a maioria dos nós nunca vira servidor, e é por isso que o Go pode ter
+  limites generosos. Essa camada era invisível do lado Dart, porque aqui não
+  havia nada que se parecesse com ela.
+- A mesma leitura expôs que `p2p/host/autonat/autonat.dart` tem **69 linhas**
+  contra **1849** do `p2p/host/autonat` upstream, que nada sonda par algum e
+  que `setReachability` não tem chamador — o que contradiz a alegação do
+  Marco D.2. Nenhuma inspeção do Dart levantaria isso, porque o arquivo existe,
+  compila, tem teste e parece pronto.
+
+Comparar tamanho de módulo contra o upstream (`wc -l` do pacote Go de produção
+contra o arquivo Dart correspondente) é um teste barato e desproporcionalmente
+informativo quando se suspeita de um subsistema.
+
+Citar o Go para justificar uma conclusão a que se chegou pelo lado Dart **não
+é** o mesmo que derivar a conclusão do Go. A ordem importa e é esta: ler o
+upstream, entender o desenho, e só então mapear para o que existe aqui.
+
 ## Estratégia de execução: delegar a multi-agentes de nível mínimo
 
 Sempre que possível, o trabalho de transpilação e de revisão deve ser
