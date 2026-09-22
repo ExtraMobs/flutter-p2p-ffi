@@ -1,8 +1,8 @@
 # Relatório de Auditoria de AST e Nomenclatura (Dart <-> Go)
 
 > Relatório gerado automaticamente por `tool/audit_ast_nomenclature.py`.
-> **Símbolos Dart Auditados:** 8897 | **Símbolos Go Indexados:** 52972
-> **Status Geral:** ❌ **0 Erros** | ⚠️ **0 Avisos** | ℹ️ **1462 Notas de Cobertura**
+> **Símbolos Dart Auditados:** 8974 | **Símbolos Go Indexados:** 52972
+> **Status Geral:** ❌ **0 Erros** | ⚠️ **0 Avisos** | ℹ️ **1463 Notas de Cobertura**
 
 ## 1. Resumo Executivo das 24 Regras
 
@@ -27,7 +27,7 @@
 | `RULE_NO_ARTIFICIAL_CONCURRENCY` | 17. Veto a Primitivas Artificiais de Concorrência Go | `ERROR` | 0 | ✅ Conforme |
 | `RULE_MISSING_GO_TYPES` | 18. Auditoria de Tipos e Interfaces do Upstream Go Ausentes | `INFO` | 1311 | ⚠️ Atenção |
 | `RULE_MISSING_GO_FIELDS` | 19. Auditoria de Campos de Structs do Upstream Go Ausentes | `INFO` | 23 | ⚠️ Atenção |
-| `RULE_MISSING_GO_METHODS` | 20. Auditoria de Métodos do Upstream Go Ausentes | `INFO` | 108 | ⚠️ Atenção |
+| `RULE_MISSING_GO_METHODS` | 20. Auditoria de Métodos do Upstream Go Ausentes | `INFO` | 109 | ⚠️ Atenção |
 | `RULE_MISSING_GO_FUNCTIONS` | 21. Auditoria de Funções Top-Level do Upstream Go Ausentes | `INFO` | 20 | ⚠️ Atenção |
 | `RULE_PUBSPEC_DEPENDENCIES` | 22. Validação de Dependências em pubspec.yaml | `ERROR` | 0 | ✅ Conforme |
 | `RULE_EXPOSED_NON_PUBLIC_MEMBERS` | 23. Veto a Membros Públicos que Expõem Tipos Não-Públicos (Menor Permissão) | `ERROR` | 0 | ✅ Conforme |
@@ -2709,7 +2709,7 @@
 - ℹ️ `[INFO]` **[`packages/transpiled_multiaddr/lib/src/protocol.dart:41`](packages/transpiled_multiaddr/lib/src/protocol.dart#L41)** — Classe 'Protocol' possui 1 campo(s) do Go pendente(s) no módulo 'go-multiaddr': VCode.
   - *Sugestão:* `Avaliar implementação dos campos: VCode`
 
-### 20. Auditoria de Métodos do Upstream Go Ausentes (108 ocorrências)
+### 20. Auditoria de Métodos do Upstream Go Ausentes (109 ocorrências)
 
 - ℹ️ `[INFO]` **[`packages/transpiled_block_format/lib/src/blocks.dart:33`](packages/transpiled_block_format/lib/src/blocks.dart#L33)** — Classe 'BasicBlock' possui 1 método(s) do Go pendente(s) no módulo 'go-block-format': String.
   - *Sugestão:* `Avaliar paridade e implementação de: String`
@@ -2809,6 +2809,8 @@
   - *Sugestão:* `Avaliar paridade e implementação de: UseReuseport, String`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/transport/webrtc/webrtc_transport.dart:64`](packages/transpiled_libp2p/lib/src/p2p/transport/webrtc/webrtc_transport.dart#L64)** — Classe 'WebRtcTransport' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p': ListenOrder.
   - *Sugestão:* `Avaliar paridade e implementação de: ListenOrder`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/transport/webtransport/cert_manager.dart:70`](packages/transpiled_libp2p/lib/src/p2p/transport/webtransport/cert_manager.dart#L70)** — Classe 'CertManager' possui 3 método(s) do Go pendente(s) no módulo 'go-libp2p': GetConfig, AddrComponent, SerializedCertHashes.
+  - *Sugestão:* `Avaliar paridade e implementação de: GetConfig, AddrComponent, SerializedCertHashes`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/security/noise/noise_handshake_payload.dart:60`](packages/transpiled_libp2p/lib/src/p2p/security/noise/noise_handshake_payload.dart#L60)** — Classe 'NoiseExtensions' possui 7 método(s) do Go pendente(s) no módulo 'go-libp2p': Reset, String, ProtoMessage, ProtoReflect....
   - *Sugestão:* `Avaliar paridade e implementação de: Reset, String, ProtoMessage, ProtoReflect, Descriptor, GetWebtransportCerthashes, GetStreamMuxers`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/protocol/holepunch/holepunch.dart:194`](packages/transpiled_libp2p/lib/src/p2p/protocol/holepunch/holepunch.dart#L194)** — Classe 'HolePuncher' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p': DirectConnect.

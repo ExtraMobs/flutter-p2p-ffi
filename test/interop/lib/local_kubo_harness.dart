@@ -269,6 +269,14 @@ class LocalKuboHarness {
     return 'swarm peers --streams:\n${peers.stdout}\nbitswap stat:\n${bitswap.stdout}';
   }
 
+  /// The daemon's Kademlia routing tables, as `ipfs stats dht` prints them.
+  ///
+  /// Proves something stronger than `swarmPeers`: a peer listed here is one
+  /// this daemon keeps in a k-bucket and will route queries through, not
+  /// merely one it happens to hold a connection to.
+  Future<String> routingTables() async =>
+      '${(await _run(['stats', 'dht', 'wan', 'lan'])).stdout}';
+
   /// Connected peer IDs as reported by the running daemon.
   Future<String> swarmPeers() async =>
       '${(await _run(['swarm', 'peers'])).stdout}';

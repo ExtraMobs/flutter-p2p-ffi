@@ -27,7 +27,7 @@ validados pelo CID.
 | 3 — Host, rede e NAT traversal (D.1–D.4) | Concluído | `check.ipfs.network` discando `/ip4/203.0.113.47/tcp/4002` |
 | 4 — Descoberta global autônoma na DHT (E.1–E.3) | Concluído | `dht_public_discovery_network_test.dart` (`--preset network`) |
 | 5 — Interoperabilidade plena de rede (F.1–F.7) | Concluído | `local_kubo_network_participation_test.dart` |
-| 6 — Matriz de transporte e segurança (G.1–G.7) | **Aberto** | ver abaixo |
+| 6 — Matriz de transporte e segurança (G.1–G.7) | **Aberto** (G.1, G.2 e G.3 fechados; G.4 metade; G.5 e G.7 abertos) | ver abaixo |
 
 O Objetivo 3 não portou a `go-libp2p` integralmente, e `transpiled_libp2p` não
 deve ser tratado como pacote fechado — a porcentagem em `PROGRESS_RELATORY.md`
@@ -46,83 +46,155 @@ G.3 WebSocket — independente (usa o TLS do dart:io)
 
 | Marco | Discagem | Entrada (listen) | Observação |
 | --- | --- | --- | --- |
-| G.1 QUIC | **comprovada** contra Kubo 0.43.0 (`local_kubo_quic_test.dart`) | **não comprovada** | o mesmo `QuicServer` atende `/quic-v1` e WebTransport |
+| G.1 QUIC | **comprovada** contra Kubo 0.43.0 (`local_kubo_quic_test.dart`) | **comprovada** contra Kubo 0.43.0 (`local_kubo_quic_inbound_test.dart`) | **marco fechado**; o mesmo `QuicServer` atende `/quic-v1` e WebTransport |
 | G.2 TLS 1.3 | **comprovada** | **comprovada** | `local_kubo_tls_handshake_test.dart`; `/tls/1.0.0` volta à lista de segurança padrão |
-| G.3 WebSocket | `/ws` entre nós Dart | listener implementado | **sem porte pendente**; falta só a prova: discar um peer público que anuncie `/wss` |
-| G.4 WebTransport | **comprovada** (`local_kubo_webtransport_quic_test.dart`) | protocolo real, **não comprovada** | critério do marco (navegador Helia) não atendido |
+| G.3 WebSocket | **comprovada** contra bootstrapper público da libp2p (`public_wss_dial_test.dart`) | listener implementado | **marco fechado**; sem porte pendente, o que faltava era a prova |
+| G.4 WebTransport | **comprovada** (`local_kubo_webtransport_quic_test.dart`) | **comprovada** contra Kubo 0.43.0 (`local_kubo_webtransport_inbound_test.dart`) | ainda **aberto**: o critério do marco é um navegador Helia, que não foi exercitado |
 | G.5 WebRTC Direct | não | não | bloqueado por DTLS, que não está portado |
 | G.6 mplex | descartado | — | depreciado na libp2p, removido dos padrões do Kubo |
 | G.7 matriz | — | — | `local_kubo_transport_matrix_test.dart` **falha de propósito** |
 
-### G.1 / G.4 — onde a direção de entrada para hoje
+### G.1 / G.4 — a direção de entrada, fechada contra Kubo real
 
-O servidor QUIC deixou de fabricar identidade a partir do IP: deriva
-`clientHandshakeTrafficSecret`, desprotege os pacotes Handshake do cliente, lê
-o `Certificate`, confere o `Finished` em tempo constante e só então produz a
-conexão, com `PeerId` vindo de `pubKeyFromCertChain`. Ele também percorre todos
-os pacotes coalescidos de um datagrama (RFC 9000 §12.2), sem o que o Handshake
-do cliente nunca era visto.
+Um Kubo 0.43.0 real disca o nó Dart em `/quic-v1` e em `/quic-v1/webtransport`,
+completa o handshake, abre stream por multistream-select e baixa um bloco por
+Bitswap validando o CID. As provas são `local_kubo_quic_inbound_test.dart` e
+`local_kubo_webtransport_inbound_test.dart`, ambas no preset `interop`. Nos
+dois o nó Dart **apenas escuta** — não disca o Kubo em momento algum, para que
+uma conexão de saída não mascare a falha da de entrada.
 
-Três defeitos foram corrigidos contra Kubo real, cada um confirmado pela
-mensagem de erro do próprio Kubo mudar — nenhum era detectável em loopback:
+**O diagnóstico anterior registrado aqui estava errado, e vale dizer por quê.**
+Esta seção afirmava que a causa estava localizada na falta de reconhecimento de
+Initial repetido e na ausência de recuperação de perda. Essas lacunas eram
+reais e foram corrigidas (abaixo), mas **não eram o bloqueio**. As duas causas
+de fato eram outras, e ambas ficam invisíveis em loopback Dart-contra-Dart,
+porque os dois lados compartilhavam o mesmo defeito:
 
-1. O servidor escolhia `keyShares.firstOrNull`, que no Go 1.24+ é
-   `X25519MLKEM768` (0x11ec). O share passou a ser selecionado pelo grupo
-   (0x001d); sem ele, o handshake é abandonado com erro explícito, porque
-   `HelloRetryRequest` (RFC 8446 §4.1.4) não está portado.
-2. O ClientHello real não cabe num Initial e chega partido, um CRYPTO frame por
-   pacote, cada um no seu offset (RFC 9000 §19.6). `_CryptoAssembly` remonta por
-   offset antes de parsear.
-3. ALPN era enviado no ServerHello. A RFC 8446 §4.1.3 só permite ali
-   `key_share`, `pre_shared_key` e `supported_versions`; o resto vai em
-   `EncryptedExtensions`.
+1. **O transcript TLS hasheava um fragmento do ClientHello.**
+   `server_handshake.dart` remontava a mensagem por offset (`_CryptoAssembly`)
+   e então escrevia no transcript o `data` do **primeiro CRYPTO frame do
+   último pacote Initial**, em vez da mensagem remontada. Com um ClientHello
+   que cabe num pacote os dois são a mesma coisa; com o ClientHello real do Go
+   1.24+, que é partido, não são. Todo segredo derivado desse transcript
+   diverge do que o cliente calcula, então o par não consegue desproteger o
+   pacote Handshake do servidor, nunca vê EncryptedExtensions..Finished e por
+   isso **nunca manda o segundo flight** — exatamente o sintoma que estava
+   documentado como "o cliente não chega a mandar o segundo flight". Go hasheia
+   a mensagem inteira: `crypto/tls`'s `readHandshake` devolve uma mensagem
+   completa e `handshake_server_tls13.go:66-105` escreve aquilo no transcript.
+2. **Faltava o transport parameter `original_destination_connection_id`.**
+   A RFC 9000 s. 7.3 o torna obrigatório para servidor, e o Kubo recusava com
+   `TRANSPORT_PARAMETER_ERROR (local): missing original_destination_connection_id`.
+   O suporte já existia em `transport_parameters.dart` (marshal sob
+   `isServer`); o servidor simplesmente nunca preenchia o campo.
 
-**Estado após as três correções:** o Kubo aceita o ServerHello e para em
-`context deadline exceeded`, sem que o servidor Dart registre erro — o cliente
-não chega a mandar o segundo flight.
+Corrigidas as duas, o QUIC de entrada passou. E, como previsto, **o mesmo
+conserto destravou o WebTransport**, que roda sobre o mesmo `QuicServer` — o
+erro seguinte do Kubo já foi outro, do certificado, tratado abaixo.
 
-**A causa deixou de ser suspeita e está localizada.** O servidor nunca
-reconhece pacote Initial repetido:
+**Lacunas de ACK, corrigidas na mesma passagem.** Eram reais, mesmo não sendo o
+bloqueio, e um enlace com perda as exporia:
 
-- `packages/transpiled_quic_go/lib/src/server_handshake.dart:186-190` — com
-  `_pending` já preenchido, todo Initial subsequente cai num `continue`: não é
-  aberto, não é contabilizado e não é ACKado.
-- `server_handshake.dart:420-423` — o único ACK que sai é
-  `AckFrame(largestAcked: decHdr.packetNumber, firstAckRange: 0)`, que
-  reconhece **apenas** o Initial que completou o ClientHello. O primeiro, que
-  carregava o começo da mensagem, nunca é reconhecido.
-- `packages/transpiled_quic_go/lib/src/connection.dart` não tem recuperação de
-  perda alguma: sem rastreamento de pacotes em voo, sem PTO, sem retransmissão
-  de flight.
+- Initial repetido caía num `continue`: não era aberto, não era contabilizado e
+  não era ACKado. O quic-go não tem caso especial nenhum para isso — o pacote
+  vai direto para a conexão (`transport.go:584-587`) e só é descartado se o
+  *número de pacote* repetir (`connection.go:1366-1383`). Agora o servidor
+  decifra, registra e ACKa.
+- O único ACK que saía era `AckFrame(largestAcked: <último>, firstAckRange: 0)`,
+  que reconhecia apenas o Initial que completou o ClientHello; o primeiro,
+  que carregava o começo da mensagem, nunca era reconhecido. Um
+  `_ReceivedPacketTracker` (porte reduzido do `receivedPacketTracker` de
+  `internal/ackhandler/received_packet_tracker.go:15-16, 30-49`) agora
+  acompanha o espaço de números de pacote e emite ranges da RFC 9000 s. 19.3.
+- Os pacotes Handshake do cliente — que carregam Certificate, CertificateVerify
+  e Finished — **não eram ACKados de forma alguma**. Agora são, imediatamente,
+  como manda o comentário do próprio `receivedPacketTracker` (a decimação por
+  `max_ack_delay` vale só para AppData, `:78-134`).
+- O servidor não enviava `HANDSHAKE_DONE`. Agora envia ao completar
+  (RFC 9001 s. 4.1.2), que é o que permite ao par descartar as chaves de
+  Handshake e parar de retransmitir aquele flight.
 
-O Kubo então retransmite o Initial não reconhecido, o servidor descarta em
-silêncio, e o cliente expira. No quic-go real não existe caso especial de
-"Initial repetido": o pacote vai direto para a conexão
-(`quic-go/transport.go:584-587`) e só é descartado se o número de pacote
-repetir (`connection.go:1366-1383`); e todo pacote ack-eliciting de
-Initial/Handshake gera ACK **imediato**, sem esperar dois pacotes nem timer —
-a decimação por `max_ack_delay` vale só para AppData
-(`quic-go/internal/ackhandler/received_packet_tracker.go:30-49` versus
-`:78-134`).
+**Um efeito colateral que custou uma rodada de depuração, registrado para quem
+mexer aqui depois:** o Source Connection ID do servidor era sorteado só quando
+o ClientHello completava. Assim que passou a existir um ACK-only Initial
+emitido *antes* disso, o servidor mandava dois SCIDs diferentes na mesma
+conexão, e a RFC 9000 s. 7.2 manda o cliente adotar o primeiro e abandonar a
+conexão quando um posterior discorda — o handshake, que tinha acabado de
+passar, voltou a falhar. O ID passou a nascer junto do espaço Initial, que é
+onde o quic-go o escolhe (`transport.go`, `handleInitialImpl`), antes de
+qualquer envio.
 
-Dois pontos adjacentes que o conserto precisa respeitar: `bytesReceived` do
-limite anti-amplificação 3x é contado **antes** da checagem de duplicata
-(`connection.go:1053` versus `:1366`), e o endereço do peer só é considerado
-validado ao chegar o primeiro pacote **Handshake** do cliente, não o segundo
-Initial (`sent_packet_handler.go:233-237`).
+**O que continua fora:** não há recuperação de perda do lado emissor em
+`packages/transpiled_quic_go/lib/src/connection.dart` — sem rastreamento de
+pacotes em voo, sem PTO e sem retransmissão de flight. O handshake de entrada
+não depende disso para funcionar (o par retransmite o que se perde, e agora é
+ACKado), mas um enlace ruim com perda no sentido servidor→cliente não tem
+recuperação nenhuma. As referências Go para quando isso for portado continuam
+mapeadas abaixo, em "QUIC, direção de entrada (G.1)".
 
-O servidor WebTransport encadeia QUIC → HTTP/3 Extended CONNECT → Noise
-responder e não usa mais os pacotes inventados `0x57`/`0x58`/`0x59`. Falta
-portar o certificado determinístico (`crypto.go:generateCert`, ECDSA derivada
-por HKDF, validade de 14 dias); `_verifyRawCerts` confere só o hash, sem as
-checagens de RSA e de validade máxima que o Go faz.
+### G.4 — o certificado que faltava
 
-**A camada HTTP/3 do servidor não é o que trava a entrada.**
-`packages/transpiled_webtransport_go/lib/src/server.dart:81-83` já emite o
-frame SETTINGS com `extendedConnect: true` no control stream, que é o que o
-`quic-go/http3/server.go:456-461` faz. Como esse servidor roda sobre o mesmo
-`QuicServer` do G.1, consertar a direção de entrada do QUIC deve destravar os
-dois marcos de uma vez.
+Destravado o QUIC de entrada, o Kubo passou a recusar o WebTransport com uma
+mensagem específica e correta:
+
+```
+CRYPTO_ERROR 0x12a (local): cert must not be valid for longer than 14 days
+(NotBefore: 2026-09-21 ..., NotAfter: 2126-08-28 ..., Length: 876001h0m0s)
+```
+
+O listener WebTransport apresentava o **certificado de identidade libp2p**, que
+tem validade de ~100 anos por desenho (`certValidityPeriod`,
+`p2p/security/tls/crypto.dart:49`). O go-libp2p usa para WebTransport um
+certificado **separado, determinístico e de 14 dias**, porque ali o par não
+valida cadeia nenhuma: ele fixa a folha pelo SHA-256 anunciado no `/certhash/`,
+e a especificação W3C limita por quanto tempo um certificado fixado assim pode
+valer.
+
+Portados, em dois arquivos novos:
+
+- `webtransport/crypto.dart` — `generateCert` e as **quatro** checagens de
+  `verifyRawCerts` (hash da folha, veto a RSA, validade ≤ 14 dias, janela
+  temporal). Antes só o hash era conferido.
+- `webtransport/cert_manager.dart` — o bucketing de `getCurrentBucketStartTime`,
+  o offset por chave, a rotação com sobreposição de duas folgas de relógio, e o
+  anúncio de até três certhashes (retirado, atual e próximo).
+
+`webtransport.dart` passou a consumir o cert manager, e `addCertHashes` — que
+hasheava `privKey.raw()`, a chave privada crua, produzindo um `/certhash/` que
+jamais bateria com o certificado do handshake — passou a seguir
+`transport.go:436-441`.
+
+**O que continua fora:** o critério do marco G.4 é um nó Helia **em navegador**
+discando o nó Dart. Isso não foi exercitado, e o marco permanece aberto. O que
+está comprovado é a interoperabilidade com Kubo nas duas direções.
+
+### G.3 — a prova contra peer público
+
+`public_wss_dial_test.dart` (preset `network`) resolve em runtime os registros
+TXT `_dnsaddr.bootstrap.libp2p.io`, filtra os endereços que carregam `/wss` e
+disca de verdade, exigindo que o swarm registre uma conexão viva cujo
+transporte seja `websocket` e cujo multiaddr remoto ainda carregue o `/wss`.
+Nenhum `canDial()`, nenhum loopback entre dois nós Dart. O teste falha quando
+nenhum candidato responde, em vez de ser pulado.
+
+A primeira execução falhou de forma instrutiva, e o motivo vale registro: o
+teste resolvia DNS até o IP, e um `/wss` discado para `/ip4/...` não tem
+hostname para virar SNI nem cabeçalho `Host`, então o terminador TLS
+compartilhado do outro lado fecha a conexão (`EOF reading multistream varint`).
+O go-libp2p preserva o nome ordenando sua cadeia de resolvers de modo que o
+`Resolve` do próprio transporte — que copia o nome DNS para um componente
+`/sni/` (`websocket.go:180-214`) — rode **antes** da etapa DNS→IP:
+`dnsAddrResolver`, `skipResolver`, `tptResolver`, `dnsResolver`, nessa ordem
+(`p2p/net/swarm/swarm_dial.go:383-446`).
+
+**Lacuna conhecida, deliberadamente não fechada agora:** o `Swarm.dialPeer`
+deste porte não roda cadeia de resolvers alguma — entrega o endereço direto ao
+transporte, e `WebsocketTransport.resolve` (que existe, portado) **não tem
+nenhum chamador**. A interface `transport.Resolver`
+(`core/transport/transport.go:88-90`) também não está portada. Aqui isso não
+muda nada observável, porque `_maDial` lê o hostname do próprio componente
+`/dns*/` e o usa como host de conexão; passa a importar no dia em que o swarm
+resolver DNS por conta própria antes de discar.
 
 ### G.5 — o que falta é DTLS, não WebRTC
 
@@ -243,13 +315,107 @@ módulo/revisão → símbolo/pacote Dart`). As revisões estão em `UPSTREAM_LO
   de `dial`; `wire.MaxDatagramSize` → `maxDatagramSize = 16383`. Sem isso o Kubo
   fecha a conexão com `application error 0x109: missing QUIC Datagram support`.
 
+### Objetivo 6 — símbolos portados na passagem que fechou G.1, G.3 e a entrada do G.4
+
+Rastreamento `chamador Go → símbolo chamado → módulo/revisão → símbolo/pacote
+Dart`, como o `AGENTS.md` exige. Revisões em `UPSTREAM_LOCK.md`.
+
+**QUIC, direção de entrada (G.1)** — `packages/transpiled_quic_go/lib/src/server_handshake.dart`:
+
+- Transcript do ClientHello remontado →
+  `go-stdlib/src/crypto/tls/handshake_server_tls13.go:66-105` (`handshake`,
+  que hasheia a mensagem devolvida por `readHandshake`) → o construtor de
+  `HandshakeTranscript` em `_handleClientInitial` passou a escrever
+  `helloBytes` (a saída de `_CryptoAssembly.completeMessage`).
+- `original_destination_connection_id` →
+  RFC 9000 s. 7.3 e `quic-go/connection.go` (`newConnection`, que o preenche a
+  partir do DCID do primeiro Initial) →
+  `TransportParameters.originalDestinationConnectionId`, já existente em
+  `transport_parameters.dart`, agora preenchido pelo servidor.
+- `receivedPacketTracker` →
+  `quic-go/internal/ackhandler/received_packet_tracker.go:15-16, 30-49` →
+  `_ReceivedPacketTracker` (privado; não existe símbolo exportado no Go, e o
+  porte cobre só o que o handshake precisa: sem contadores ECN e sem reuso de
+  `wire.AckFrame`).
+- `IsFrameTypeAckEliciting` → `quic-go/internal/ackhandler/ack_eliciting.go:5-16`
+  → predicado embutido em `_handleClientHandshake` (tudo que não é ACK nem
+  PADDING elicita ACK).
+- Ausência de caso especial para Initial repetido →
+  `quic-go/transport.go:584-587` e `connection.go:1366-1383` →
+  `_acknowledgeInitial`, que decifra, registra e ACKa em vez de descartar.
+- `HandshakeDoneFrame` na conclusão do servidor → RFC 9001 s. 4.1.2 e
+  `quic-go/connection.go` (`handleHandshakeComplete`) → `_completeInbound`
+  envia `HandshakeDoneFrame`, que já existia em `frames.dart:177-181`.
+- Escolha do Source Connection ID antes de qualquer envio →
+  `quic-go/transport.go` (`handleInitialImpl`) e RFC 9000 s. 7.2 →
+  `_InitialSpace.serverConnectionId`, final, sorteado na criação do espaço.
+
+**WebTransport (G.4)** — `packages/transpiled_libp2p/lib/src/p2p/transport/webtransport/`:
+
+- `getTLSConf` (`webtransport/crypto.go:31-42`) e `generateCert` (`:48-96`) →
+  `crypto.dart`'s `generateCert`, devolvendo `WebtransportCertificate` (DER +
+  signer + janela). Adaptação registrada: o Go devolve
+  `(*x509.Certificate, *ecdsa.PrivateKey)` e embrulha em `tls.Config`, e este
+  projeto não tem nenhum dos dois tipos; o tipo está na allowlist
+  `DOCUMENTED_ADAPTATIONS` do auditor.
+- `newDeterministicReader` (`crypto.go:148-150`) → `_DeterministicReader`
+  (HKDF-SHA256 em fluxo, RFC 5869). A string `info` preserva o typo
+  `"determinisitic cert"` do upstream (`crypto.go:28`), que é byte de fio.
+- `verifyRawCerts` (`crypto.go:107-146`) → `crypto.dart`'s `verifyRawCerts`,
+  com as quatro checagens; `_verifyRawCerts` em `webtransport.dart` virou um
+  desembrulho de multihash que delega a ela.
+- `ErrCertHashMismatch` (`crypto.go:98-104`) → `CertHashMismatchException`
+  (Regra 13 do auditor).
+- `certValidity` (`transport.go:41`), `clockSkewAllowance` e
+  `validityMinusTwoSkew` (`cert_manager.go:22-23`) → constantes homônimas em
+  `cert_manager.dart`.
+- `getCurrentBucketStartTime` (`cert_manager.go:82-85`) →
+  `currentBucketStartTime`.
+- `certManager` (`cert_manager.go:48-61`), `newCertManager`/`init` (`:63-71`,
+  `:87-108`), `rollConfig` (`:110-125`), `background` (`:127-154`) →
+  `CertManager` (público por falta de visibilidade de pacote no Dart, como já
+  se fez com `keyToCertificate`; fora da API exportada em
+  `transpiled_libp2p.dart`).
+- `AddCertHashes` (`transport.go:436-441`) →
+  `WebtransportTransport.addCertHashes`, que antes hasheava `privKey.raw()`.
+
+  Três métodos do Go ficam sem contraparte de mesmo nome, e o auditor os
+  aponta como INFO na Regra 20: `GetConfig` devolve um `tls.Config`, que não
+  existe aqui, e vira o getter `current`; `SerializedCertHashes` vira
+  `certHashes`, sem o envelope multihash (os chamadores querem digest cru, e o
+  único ponto que precisa de envelope o monta); e `cacheAddrComponent` fica no
+  transporte, porque seu auxiliar `addrComponentForCert` mora no arquivo de
+  multiaddr, que importa o do cert manager.
+
+**Divergências deliberadas do certificado, nenhuma observável por um par.**
+Um par confere o certificado contra o `/certhash/` que o **próprio nó**
+publicou, de modo que a derivação nunca é comparada entre implementações; o que
+precisa valer, e vale, é a propriedade observável — mesma chave de host e mesma
+janela dão o mesmo certificado, então um reinício preserva o `/certhash/` que
+um par possa ter em cache.
+
+1. O Go deriva a chave P-256 do seed de 192 bits com `filippo.io/keygen`, que
+   **não está na árvore upstream fixada**; o porte expande o mesmo seed com
+   HKDF-SHA256 e faz rejection sampling em `[1, n)`, que é o método de
+   "geração por teste de candidatos" da FIPS 186-5 A.2.1 que o próprio
+   `keygen` documenta seguir.
+2. O Go obtém assinatura determinística passando fonte de aleatoriedade nula
+   para `ecdsa.Sign` (`deterministicSigner`, `crypto.go:161-175`); o porte usa
+   RFC 6979, a construção padrão para a mesma propriedade.
+3. A codificação ASN.1 segue a RFC 5280 direto, e não `crypto/x509`, que está
+   **fora do checkout esparso** de `go-stdlib` (ver `UPSTREAM_LOCK.md`). O
+   template codificado é o do upstream, campo a campo (`crypto.go:66-75`).
+
+**WebSocket (G.3)** — nada foi portado: o transporte já estava completo, e o
+que faltava era a prova. Ver a seção "G.3 — a prova contra peer público" acima,
+inclusive a lacuna do `tptResolver` que continua aberta.
+
 ### Objetivo 6 — símbolos Go localizados, ainda não portados
 
-Rastreamento levantado para o que resta do Objetivo 6. Caminhos relativos a
-`go-ipfs-reference/`, revisões em `UPSTREAM_LOCK.md`. Nada aqui foi portado
-ainda: é o mapa de onde buscar a autoridade de comportamento.
+O que resta. Caminhos relativos a `go-ipfs-reference/`, revisões em
+`UPSTREAM_LOCK.md`: é o mapa de onde buscar a autoridade de comportamento.
 
-**QUIC, direção de entrada (G.1)** — destino Dart
+**QUIC, recuperação de perda do lado emissor** — destino Dart
 `packages/transpiled_quic_go/lib/src/{server_handshake,connection}.dart`:
 
 - ACK imediato em Initial/Handshake e decimação só em AppData →
@@ -408,6 +574,60 @@ apenas a finalidade dos hooks (`shutdown.CloseWithCtx`).
 
 ## Lacunas conhecidas ainda abertas
 
+- **O caminho de entrada trava o nó inteiro depois de alguns minutos na rede
+  pública, e isso invalida qualquer alegação de hospedagem sustentada.**
+  `_TcpListener.accept()`
+  (`packages/transpiled_libp2p/lib/src/p2p/transport/tcp/tcp_transport.dart:281`)
+  executa o upgrade completo — multistream-select, Noise/TLS e yamux — dentro
+  da própria chamada, e `Swarm._startAcceptLoop`
+  (`p2p/net/swarm/swarm.dart:79`) a chama **em série**. Um único par que abra
+  TCP e não fale nada bloqueia a fila para sempre, porque não há timeout de
+  accept; os sockets seguintes se acumulam num `List` sem limite, e o
+  `catch (_)` do laço engole o erro sem registrar nada.
+
+  Quatro desvios do upstream, todos em `go-libp2p/p2p/net/upgrader/listener.go`
+  e `upgrader.go`:
+
+  | Upstream | Este porte |
+  | --- | --- |
+  | `handleIncoming` dispara uma goroutine por conexão (`listener.go:106`) | série |
+  | `acceptTimeout` de 15 s por upgrade (`upgrader.go:31`, `listener.go:110`) | sem timeout |
+  | `threshold` limita a 16 conexões **já negociadas** à espera de `Accept` (`upgrader.go:28`) | fila crua sem limite |
+  | falha de upgrade é logada e a conexão fechada (`listener.go:117-123`) | erro engolido em silêncio |
+
+  Comprovado em rede real: um nó recém-iniciado aceita o dial de um Kubo local
+  pelo loopback; quarenta minutos depois, com ~200 sockets TCP estabelecidos
+  vindos da DHT pública, o **mesmo** dial falha com
+  `failed to negotiate security protocol: context deadline exceeded`, em
+  loopback e na WAN. Nesse estado o nó continua anunciado e descoberto — o
+  provider record está na DHT e `trustless-gateway.link` acha os providers —,
+  mas responde `none were reachable`, porque nenhum handshake de entrada
+  completa.
+
+  Atinge **TCP** e **WebSocket** (mesmo padrão em `websocket.dart`), e
+  parcialmente **WebTransport**, que ao menos tem `handshakeTimeout`. **QUIC
+  não é atingido**: `QuicServer.handleDatagram` processa handshakes de forma
+  assíncrona, e `_QuicListener.accept()` só entrega conexões já concluídas.
+
+  Nenhum teste da suíte pega isso: todos usam um par único e bem-comportado
+  contra um nó recém-iniciado, que é exatamente a condição em que o defeito
+  não aparece.
+
+- **Sem recuperação de perda no emissor QUIC.**
+  `packages/transpiled_quic_go/lib/src/connection.dart` não rastreia pacotes em
+  voo, não tem PTO e não retransmite flight. O handshake de entrada funciona
+  sem isso porque o par retransmite o que se perde e agora é reconhecido, mas
+  perda no sentido servidor→cliente não tem recuperação nenhuma.
+- **O `Swarm` não roda cadeia de resolvers.** `dialPeer` entrega o endereço
+  direto ao transporte;
+  `WebsocketTransport.resolve` está portado e **não tem chamador**, e a
+  interface `transport.Resolver` (`core/transport/transport.go:88-90`) não está
+  portada. Hoje não muda nada observável — `_maDial` lê o hostname do
+  componente `/dns*/` —, mas fecha a porta para o swarm resolver DNS por conta
+  própria.
+- **Critério de navegador do G.4 não exercitado.** A interoperabilidade
+  WebTransport está comprovada nas duas direções contra Kubo; nenhum nó Helia
+  em navegador discou o nó Dart.
 - **Reprovide após reinício e após 24h não comprovados.** `_providedCids` segue
   em memória: falta `blockstore.AllKeysChan` → `AllKeysChanWithErr` →
   `datastore.Query(KeysOnly)` → `dshelp.BinaryFromDsKey`.

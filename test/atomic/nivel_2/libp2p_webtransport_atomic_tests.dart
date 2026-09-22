@@ -107,25 +107,59 @@ void main() {
       await transport.close();
     });
 
-    test(
-      'addCertHashes() - appends certhash component to multiaddress',
-      () async {
-        final key = await generateEd25519KeyPair();
-        final transport = WebtransportTransport(privKey: key);
+    test('addCertHashes() - appends the current and next certhashes once the '
+        'transport is listening', () async {
+      final key = await generateEd25519KeyPair();
+      final transport = WebtransportTransport(privKey: key);
+      final listener = await transport.listen(
+        Multiaddr.parse('/ip4/127.0.0.1/udp/0/quic-v1/webtransport'),
+      );
 
-        final baseAddr = Multiaddr.parse(
-          '/ip4/127.0.0.1/udp/4001/quic-v1/webtransport',
-        );
-        final withCert = transport.addCertHashes(baseAddr);
+      final baseAddr = Multiaddr.parse(
+        '/ip4/127.0.0.1/udp/4001/quic-v1/webtransport',
+      );
+      final withCert = transport.addCertHashes(baseAddr);
 
-        expect(withCert.toString(), contains('/certhash/'));
-        final (ok, count) = isWebtransportMultiaddr(withCert);
-        expect(ok, isTrue);
-        expect(count, equals(1));
+      expect(withCert.toString(), contains('/certhash/'));
+      final (ok, count) = isWebtransportMultiaddr(withCert);
+      expect(ok, isTrue);
+      // Two, not one: upstream advertises the certificate in use and the
+      // one that replaces it (`cert_manager.go:201-215`), so a peer holding
+      // a cached multiaddr can still dial across a rollover.
+      expect(count, equals(2));
+      // The hashes have to be the listener's own, which is the whole point
+      // of a certhash -- the previous implementation hashed `privKey.raw()`,
+      // the raw private key, so the component could never match the
+      // certificate the TLS handshake actually presented.
+      expect(
+        extractCertHashes(withCert).map((h) => h.toString()),
+        orderedEquals(
+          extractCertHashes(listener.multiaddr()).map((h) => h.toString()),
+        ),
+      );
 
-        await transport.close();
-      },
-    );
+      await listener.close();
+      await transport.close();
+    });
+
+    test('addCertHashes() - leaves the address untouched while no listener has '
+        'created a certificate yet', () async {
+      final key = await generateEd25519KeyPair();
+      final transport = WebtransportTransport(privKey: key);
+
+      final baseAddr = Multiaddr.parse(
+        '/ip4/127.0.0.1/udp/4001/quic-v1/webtransport',
+      );
+      // Go answers the same way, with `ok == false`
+      // (`transport.go:436-441`): before the transport listens there is no
+      // certificate to name.
+      expect(
+        transport.addCertHashes(baseAddr).toString(),
+        equals(baseAddr.toString()),
+      );
+
+      await transport.close();
+    });
 
     test('listen() - binds and advertises multiaddr', () async {
       final key = await generateEd25519KeyPair();

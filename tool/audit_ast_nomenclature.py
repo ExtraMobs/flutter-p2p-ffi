@@ -170,6 +170,7 @@ DOCUMENTED_ADAPTATIONS = {
     'DagJsonDecodeOptions': 'PROGRESS.md - Opções de decoding DAG-JSON',
     'JsonCodecException': 'PROGRESS.md - Exceção tipada para falhas do codec JSON',
     # packages/transpiled_libp2p
+    'WebtransportCertificate': 'PROGRESS.md - Certificado WebTransport de 14 dias com o seu signer; o Go devolve (*x509.Certificate, *ecdsa.PrivateKey) de generateCert e embrulha em tls.Config (crypto.go:31-42), e este projeto nao tem nenhum dos dois tipos',
     'NoiseKeyPair': 'PROGRESS.md:1318 - Par de chaves Noise do flynn/noise',
     'NoiseRemoteIdentity': 'PROGRESS.md:1318 - Identidade remota autenticada do handshake Noise',
     'NoiseHandshakeAuthException': 'PROGRESS.md:1318 - Exceção tipada para falhas de autenticação Noise',

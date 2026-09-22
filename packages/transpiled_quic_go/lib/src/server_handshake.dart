@@ -135,8 +135,11 @@ class QuicServer {
   final Map<String, QuicConn> _connsByRemote = {};
   final Map<String, _InboundHandshake> _pending = {};
 
-  /// Partially received ClientHellos, keyed by remote endpoint.
-  final Map<String, _CryptoAssembly> _clientHellos = {};
+  /// Per-peer Initial packet number space, keyed by remote endpoint: the
+  /// ClientHello being reassembled, the packet numbers seen in that space,
+  /// and the ciphers protecting it. It outlives the ClientHello because the
+  /// client keeps retransmitting Initials until they are acknowledged.
+  final Map<String, _InitialSpace> _initialSpaces = {};
   final List<Completer<QuicConn>> _acceptQueue = [];
   final List<QuicConn> _pendingConns = [];
   bool _closed = false;
@@ -184,9 +187,15 @@ class QuicServer {
 
       final type = (firstByte >> 4) & 0x03;
       if (type == packetTypeInitial) {
-        if (_pending.containsKey(remoteKey) ||
-            _connsByRemote.containsKey(remoteKey)) {
-          continue; // A retransmit or a pure ACK; the flight already went out.
+        if (_connsByRemote.containsKey(remoteKey)) continue;
+        if (_pending.containsKey(remoteKey)) {
+          // Not a no-op: quic-go has no special case for a repeated Initial
+          // either (`transport.go:584-587` hands it straight to the
+          // connection, and `connection.go:1366-1383` drops it only when the
+          // packet *number* repeats). Dropping it silently leaves the peer
+          // retransmitting a packet this side never acknowledges.
+          _acknowledgeInitial(dg, remoteKey, packet);
+          continue;
         }
         await _handleClientInitial(dg, remoteKey, packet);
       } else if (type == packetTypeHandshake) {
@@ -209,22 +218,29 @@ class QuicServer {
       final scidLen = data[cursor++];
       final clientScid = Uint8List.sublistView(data, cursor, cursor + scidLen);
 
-      final (clientSecret, serverSecret) = computeInitialSecrets(clientDcid);
-      final (sKey, sIv, sHp) = computeKeyAndIv(serverSecret);
-      final (cKey, cIv, cHp) = computeKeyAndIv(clientSecret);
+      final space = _initialSpaces.putIfAbsent(remoteKey, () {
+        final (clientSecret, serverSecret) = computeInitialSecrets(clientDcid);
+        final (sKey, sIv, sHp) = computeKeyAndIv(serverSecret);
+        final (cKey, cIv, cHp) = computeKeyAndIv(clientSecret);
+        return _InitialSpace(
+          clientCipher: QuicPacketCipher(
+            key: cKey,
+            iv: cIv,
+            hp: AesHeaderProtector(cHp),
+          ),
+          serverCipher: QuicPacketCipher(
+            key: sKey,
+            iv: sIv,
+            hp: AesHeaderProtector(sHp),
+          ),
+          clientConnectionId: Uint8List.fromList(clientScid),
+          serverConnectionId: _randomBytes(8),
+        );
+      });
+      final serverInitCipher = space.serverCipher;
 
-      final serverInitCipher = QuicPacketCipher(
-        key: sKey,
-        iv: sIv,
-        hp: AesHeaderProtector(sHp),
-      );
-      final clientInitCipher = QuicPacketCipher(
-        key: cKey,
-        iv: cIv,
-        hp: AesHeaderProtector(cHp),
-      );
-
-      final (decHdr, decPayload) = clientInitCipher.open(data);
+      final (decHdr, decPayload) = space.clientCipher.open(data);
+      space.tracker.receivedPacket(decHdr.packetNumber);
       final frames = parseFrames(decPayload);
 
       // A real client's ClientHello does not fit in one Initial packet: with
@@ -234,16 +250,21 @@ class QuicServer {
       // fails with a truncated message and the client, hearing nothing, just
       // retransmits until it times out. Reassemble the CRYPTO stream by
       // offset and wait until a whole handshake message is there.
-      final assembly = _clientHellos.putIfAbsent(
-        remoteKey,
-        _CryptoAssembly.new,
-      );
       for (final f in frames) {
-        if (f is CryptoFrame) assembly.add(f.offset, f.data);
+        if (f is CryptoFrame) space.assembly.add(f.offset, f.data);
       }
-      final helloBytes = assembly.completeMessage();
-      if (helloBytes == null) return;
-      _clientHellos.remove(remoteKey);
+      final helloBytes = space.assembly.completeMessage();
+      if (helloBytes == null) {
+        // Only part of the ClientHello is here. quic-go acknowledges an
+        // ack-eliciting Initial the moment it arrives rather than waiting for
+        // the flight it completes -- the `receivedPacketTracker` covering the
+        // Initial and Handshake spaces says so in as many words, and the
+        // `max_ack_delay` decimation applies only to Application Data
+        // (`internal/ackhandler/received_packet_tracker.go:15-16, 30-49`
+        // against `:78-134`).
+        _sendInitialAck(dg, space);
+        return;
+      }
       final clientHello = ClientHelloMsg.unmarshal(helloBytes);
 
       // The client offers its key shares in preference order, and its first
@@ -282,10 +303,18 @@ class QuicServer {
         await sharedSecret.extractBytes(),
       );
 
-      final serverConnId = _randomBytes(8);
+      final serverConnId = space.serverConnectionId;
 
       final tp = TransportParameters(
         initialSourceConnectionId: serverConnId,
+        // RFC 9000 s. 7.3 makes this mandatory for a server: it echoes the
+        // Destination Connection ID the client chose for its first Initial,
+        // which is what lets the client detect an off-path attacker having
+        // swapped connection IDs mid-handshake. quic-go sets it in
+        // `connection.go`'s `newConnection`; omitting it makes a Go peer
+        // abort with `TRANSPORT_PARAMETER_ERROR: missing
+        // original_destination_connection_id`.
+        originalDestinationConnectionId: Uint8List.fromList(clientDcid),
         initialMaxData: 10485760,
         initialMaxStreamDataBidiLocal: 2097152,
         initialMaxStreamDataBidiRemote: 2097152,
@@ -317,14 +346,18 @@ class QuicServer {
 
       final suite =
           cipherSuiteTls13ById(serverHello.cipherSuite) ?? cipherSuitesTls13[0];
-      final transcript = HandshakeTranscript(suite.hash);
-      for (final f in frames) {
-        if (f is CryptoFrame) {
-          transcript.write(f.data);
-          break;
-        }
-      }
-      transcript.write(shBytes);
+      // The transcript hashes the ClientHello *as a whole message*, which is
+      // what `helloBytes` is: the CRYPTO stream reassembled by offset. Hashing
+      // the first CRYPTO frame of the last Initial instead hashes a fragment,
+      // and every secret derived from this transcript then differs from the
+      // client's -- so the peer cannot unprotect the server's Handshake
+      // packet, never sees EncryptedExtensions..Finished, and therefore never
+      // sends its own second flight. Go hashes the assembled message too:
+      // `crypto/tls`'s `readHandshake` returns one complete message and
+      // `handshake_server_tls13.go:66-105` writes that into the transcript.
+      final transcript = HandshakeTranscript(suite.hash)
+        ..write(helloBytes)
+        ..write(shBytes);
       final earlySecret = EarlySecret(suite.hash, null);
       final handshakeSecret = earlySecret.handshakeSecret(sharedSecretBytes);
       final serverHsSecret = handshakeSecret.serverHandshakeTrafficSecret(
@@ -414,13 +447,14 @@ class QuicServer {
         destConnectionId: clientScid,
         srcConnectionId: serverConnId,
         version: 1,
-        packetNumber: 0,
+        packetNumber: space.nextPacketNumber++,
         packetNumberLen: 4,
       );
-      final ackInit = AckFrame(
-        largestAcked: decHdr.packetNumber,
-        firstAckRange: 0,
-      );
+      // Every Initial received so far, as ACK ranges -- not just the one that
+      // completed the ClientHello. A split ClientHello leaves the earlier
+      // packets unacknowledged otherwise, and the peer retransmits them for
+      // as long as it keeps its Initial keys.
+      final ackInit = space.tracker.ackFrame()!;
       final cryptoInit = CryptoFrame(0, shBytes);
       final initPayload = BytesBuilder(copy: false)
         ..add(ackInit.encode())
@@ -473,6 +507,7 @@ class QuicServer {
           iv: cHsIv,
           hp: AesHeaderProtector(cHsHp),
         ),
+        serverHandshakeCipher: serverHsCipher,
         clientHandshakeSecret: clientHsSecret,
         serverAppCipher: serverAppCipher,
         clientAppCipher: clientAppCipher,
@@ -512,9 +547,29 @@ class QuicServer {
     final pending = _pending[remoteKey];
     if (pending == null) return;
     try {
-      final (_, payload) = pending.clientHandshakeCipher.open(packet);
+      final (handshakeHeader, payload) = pending.clientHandshakeCipher.open(
+        packet,
+      );
+      var ackEliciting = false;
       for (final frame in parseFrames(payload)) {
-        if (frame is CryptoFrame) pending.cryptoStream.add(frame.data);
+        if (frame is CryptoFrame) {
+          pending.cryptoStream.add(frame.data);
+          ackEliciting = true;
+        } else if (frame is! AckFrame && frame is! PaddingFrame) {
+          // Go: `internal/ackhandler/ack_eliciting.go:5-16`
+          // (`IsFrameTypeAckEliciting`) -- everything but ACK and PADDING
+          // elicits an acknowledgement.
+          ackEliciting = true;
+        }
+      }
+      // The client's certificate and Finished travel here, and nothing
+      // acknowledged them before: the peer kept retransmitting its whole
+      // second flight until the handshake was confirmed some other way.
+      if (pending.handshakeTracker.receivedPacket(
+            handshakeHeader.packetNumber,
+          ) &&
+          ackEliciting) {
+        _sendHandshakeAck(dg, pending);
       }
 
       var buffered = pending.cryptoStream.takeBytes();
@@ -581,6 +636,7 @@ class QuicServer {
     _InboundHandshake pending,
   ) async {
     _pending.remove(remoteKey);
+    _initialSpaces.remove(remoteKey);
     if (requestClientCertificate && pending.certificateChain.isEmpty) {
       throw const FormatException(
         'client completed the handshake without a certificate',
@@ -602,6 +658,11 @@ class QuicServer {
     );
 
     _connsByRemote[remoteKey] = conn;
+    // RFC 9001 s. 4.1.2: the server confirms the handshake by sending
+    // HANDSHAKE_DONE, which is what lets the peer drop its Handshake keys and
+    // stop retransmitting that flight. quic-go queues it from
+    // `connection.go`'s `handleHandshakeComplete` on the server side.
+    conn.sendFrames([const HandshakeDoneFrame()]);
     if (_acceptQueue.isNotEmpty) {
       _acceptQueue.removeAt(0).complete(conn);
     } else {
@@ -614,7 +675,7 @@ class QuicServer {
   Future<void> close() async {
     if (_closed) return;
     _closed = true;
-    _clientHellos.clear();
+    _initialSpaces.clear();
     for (final c in _acceptQueue) {
       c.completeError(const QuicServerClosedException());
     }
@@ -628,6 +689,65 @@ class QuicServer {
     }
     _connsByRemote.clear();
     _pending.clear();
+  }
+
+  /// Records a retransmitted Initial and acknowledges it.
+  ///
+  /// The client keeps its Initial keys, and keeps resending, until every
+  /// Initial it sent has been acknowledged. Dropping the packet without a
+  /// word -- which is what this server used to do once its flight had gone
+  /// out -- leaves the peer retransmitting into silence.
+  void _acknowledgeInitial(Datagram dg, String remoteKey, Uint8List packet) {
+    final space = _initialSpaces[remoteKey];
+    if (space == null) return;
+    try {
+      final (header, _) = space.clientCipher.open(packet);
+      if (!space.tracker.receivedPacket(header.packetNumber)) return;
+      _sendInitialAck(dg, space);
+    } catch (e) {
+      dev.log('dropping unreadable Initial retransmit', name: 'quic', error: e);
+    }
+  }
+
+  /// Sends an ACK-only Initial packet covering everything [space] has seen.
+  void _sendInitialAck(Datagram dg, _InitialSpace space) {
+    final ack = space.tracker.ackFrame();
+    if (ack == null) return;
+    final header = ExtendedHeader(
+      isLongHeader: true,
+      type: packetTypeInitial,
+      destConnectionId: space.clientConnectionId,
+      srcConnectionId: space.serverConnectionId,
+      version: 1,
+      packetNumber: space.nextPacketNumber++,
+      packetNumberLen: 4,
+    );
+    _socket.send(
+      space.serverCipher.seal(header: header, payload: ack.encode()),
+      dg.address,
+      dg.port,
+    );
+  }
+
+  /// Sends an ACK-only Handshake packet covering everything [pending] has
+  /// seen in the Handshake packet number space.
+  void _sendHandshakeAck(Datagram dg, _InboundHandshake pending) {
+    final ack = pending.handshakeTracker.ackFrame();
+    if (ack == null) return;
+    final header = ExtendedHeader(
+      isLongHeader: true,
+      type: packetTypeHandshake,
+      destConnectionId: pending.clientConnectionId,
+      srcConnectionId: pending.serverConnectionId,
+      version: 1,
+      packetNumber: pending.nextHandshakePacketNumber++,
+      packetNumberLen: 4,
+    );
+    _socket.send(
+      pending.serverHandshakeCipher.seal(header: header, payload: ack.encode()),
+      dg.address,
+      dg.port,
+    );
   }
 
   Uint8List _randomBytes(int length) {
@@ -680,6 +800,7 @@ int _longHeaderPacketLength(Uint8List bytes, int offset) {
 class _InboundHandshake {
   _InboundHandshake({
     required this.clientHandshakeCipher,
+    required this.serverHandshakeCipher,
     required this.clientHandshakeSecret,
     required this.serverAppCipher,
     required this.clientAppCipher,
@@ -692,6 +813,9 @@ class _InboundHandshake {
   });
 
   final QuicPacketCipher clientHandshakeCipher;
+
+  /// Protects the ACK-only Handshake packets this server sends back.
+  final QuicPacketCipher serverHandshakeCipher;
   final Uint8List clientHandshakeSecret;
   final QuicPacketCipher serverAppCipher;
   final QuicPacketCipher clientAppCipher;
@@ -706,9 +830,123 @@ class _InboundHandshake {
   /// handshake-message boundaries.
   final BytesBuilder cryptoStream = BytesBuilder(copy: false);
 
+  /// Packet numbers seen in the Handshake packet number space.
+  final _ReceivedPacketTracker handshakeTracker = _ReceivedPacketTracker();
+
+  /// The next packet number this server uses in the Handshake space; 0
+  /// carried the server's own flight.
+  int nextHandshakePacketNumber = 1;
+
   /// The client's DER certificate chain, once its Certificate message landed
   /// (empty when [QuicServer.requestClientCertificate] never asked for one).
   List<Uint8List> certificateChain = const [];
+}
+
+/// One peer's Initial packet number space: the ClientHello being reassembled
+/// from CRYPTO frames, the packet numbers acknowledged in that space, and the
+/// Initial-level ciphers, which are derived from the client's first
+/// Destination Connection ID and so are fixed for the whole space.
+class _InitialSpace {
+  _InitialSpace({
+    required this.clientCipher,
+    required this.serverCipher,
+    required this.clientConnectionId,
+    required this.serverConnectionId,
+  });
+
+  final QuicPacketCipher clientCipher;
+  final QuicPacketCipher serverCipher;
+
+  /// The connection ID the client chose for itself, used as the Destination
+  /// Connection ID of every Initial this server sends back.
+  final Uint8List clientConnectionId;
+
+  /// The connection ID this server answers under, as the Source Connection
+  /// ID of every packet it sends in this space.
+  ///
+  /// Chosen once, when the space is created, and never again: RFC 9000
+  /// section 7.2 has the client adopt the Source Connection ID of the first
+  /// Initial it receives from the server as its Destination Connection ID,
+  /// and abandon the connection if a later one disagrees. Picking it only
+  /// when the ClientHello completes therefore breaks any handshake in which
+  /// an ACK went out first -- which is exactly what a split ClientHello
+  /// causes. quic-go picks it in `transport.go`'s `handleInitialImpl`, before
+  /// anything is sent.
+  final Uint8List serverConnectionId;
+
+  final _CryptoAssembly assembly = _CryptoAssembly();
+  final _ReceivedPacketTracker tracker = _ReceivedPacketTracker();
+
+  /// The next packet number this server uses in the Initial space.
+  int nextPacketNumber = 0;
+}
+
+/// The packet numbers received in one packet number space, and the ACK frame
+/// that reports them.
+///
+/// Go: `quic-go/internal/ackhandler/received_packet_tracker.go`'s
+/// `receivedPacketTracker`, whose own comment (`:15-16`) states the rule this
+/// server had been breaking -- for the Initial and Handshake spaces, "every
+/// received packet is acknowledged immediately". The `max_ack_delay`
+/// decimation that waits for a second packet or a timer belongs to the
+/// Application Data space alone (`appDataReceivedPacketTracker`, `:78-134`).
+///
+/// Reduced to what an inbound handshake needs: no ECN counters, and no reuse
+/// of one `wire.AckFrame` across calls, because this side sends few enough
+/// ACKs for the allocation never to matter.
+class _ReceivedPacketTracker {
+  final Set<int> _received = {};
+
+  /// Records [packetNumber], reporting whether it had not been seen before.
+  ///
+  /// Go's `ReceivedPacket` treats a duplicate as a caller bug, because the
+  /// connection filters duplicates before calling it
+  /// (`connection.go:1366-1383`); here this method *is* the duplicate check,
+  /// so it answers rather than failing.
+  bool receivedPacket(int packetNumber) => _received.add(packetNumber);
+
+  /// The ACK frame covering every packet number received so far, or `null`
+  /// when nothing has been received yet.
+  ///
+  /// RFC 9000 section 19.3 encodes the acknowledged set as ranges walking
+  /// down from the largest: `largest_acknowledged` and `first_ack_range`,
+  /// then one gap/length pair per further range. A gap counts the
+  /// unacknowledged packets between two ranges, minus one (section 19.3.1).
+  AckFrame? ackFrame() {
+    if (_received.isEmpty) return null;
+    final sorted = _received.toList()..sort();
+
+    // Contiguous runs as (smallest, largest), ascending.
+    final runs = <(int, int)>[];
+    var start = sorted.first;
+    var previous = sorted.first;
+    for (final pn in sorted.skip(1)) {
+      if (pn == previous + 1) {
+        previous = pn;
+        continue;
+      }
+      runs.add((start, previous));
+      start = pn;
+      previous = pn;
+    }
+    runs.add((start, previous));
+
+    final descending = runs.reversed.toList();
+    final largest = descending.first;
+    final additional = <AckRange>[];
+    var previousSmallest = largest.$1;
+    for (final run in descending.skip(1)) {
+      additional.add(
+        AckRange(gap: previousSmallest - run.$2 - 2, length: run.$2 - run.$1),
+      );
+      previousSmallest = run.$1;
+    }
+    return AckFrame(
+      largestAcked: largest.$2,
+      firstAckRange: largest.$2 - largest.$1,
+      additionalRanges: additional,
+    );
+  }
 }
 
 /// Offset-ordered reassembly of a TLS handshake message carried by CRYPTO

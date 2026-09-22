@@ -22,8 +22,9 @@ import '../../../core/protocol/protocol.dart';
 import '../../../core/sec/security.dart';
 import '../../../core/transport/transport.dart';
 import '../../security/noise/noise_handshake_payload.dart';
-import '../../security/tls/transport.dart' show Identity;
 import '../../security/noise/transport.dart' as noise;
+import 'cert_manager.dart';
+import 'crypto.dart' as wtcrypto;
 
 /// The HTTP/3 path a libp2p WebTransport session is established on.
 ///
@@ -88,16 +89,10 @@ class WebtransportTransport implements Transport {
     this.rcmgr = const NullResourceManager(),
     this.gater,
     this.handshakeTimeout = const Duration(seconds: 10),
-    Identity? identity,
-  }) : localPeer = PeerId.fromPubKey(privKey.getPublic()),
-       identity = identity ?? Identity(privKey: privKey);
+  }) : localPeer = PeerId.fromPubKey(privKey.getPublic());
 
   final PrivKey privKey;
   final PeerId localPeer;
-
-  /// Supplies the certificate the QUIC handshake presents, whose SHA-256 is
-  /// the `/certhash/` this transport advertises.
-  final Identity identity;
   final ResourceManager rcmgr;
   final ConnectionGater? gater;
 
@@ -108,6 +103,14 @@ class WebtransportTransport implements Transport {
   final Duration handshakeTimeout;
   final List<Listener> _listeners = [];
   bool _closed = false;
+
+  /// The short-lived certificates this transport presents and advertises.
+  ///
+  /// Go keeps it on the transport too (`transport.go`'s `certManager`),
+  /// created on the first `Listen` and shared by every listener, so that one
+  /// node advertises one set of `/certhash/` values however many addresses it
+  /// listens on.
+  CertManager? _certManager;
 
   @override
   bool canDial(Multiaddr addr) {
@@ -130,12 +133,30 @@ class WebtransportTransport implements Transport {
   /// Resolves multiaddr endpoint.
   Future<Multiaddr> resolve(Multiaddr addr) async => addr;
 
-  /// Adds certificate hashes to the multiaddr for public advertisement.
+  /// Appends this transport's `/certhash/` components to [addr].
+  ///
+  /// Go: `AddCertHashes` (`transport.go`), which appends the cert manager's
+  /// current and next hashes. Before a listener exists there is no
+  /// certificate to name, so [addr] comes back unchanged -- Go answers the
+  /// same way, with `ok == false`.
+  ///
+  /// This used to hash `privKey.raw()`, the raw private key, which is not a
+  /// certificate at all: the `/certhash/` it produced could never match what
+  /// the TLS handshake presented, so no peer could dial the address.
   Multiaddr addCertHashes(Multiaddr addr) {
-    final certBytes = privKey.raw();
-    final comp = addrComponentForCert(certBytes);
-    return addr.encapsulate(Multiaddr.parse('/certhash/${comp.value}'));
+    final manager = _certManager;
+    if (manager == null) return addr;
+    return addr.encapsulate(Multiaddr.parse(_certhashPath(manager)));
   }
+
+  /// The `/certhash/<current>/certhash/<next>` suffix a listener publishes.
+  ///
+  /// Go: `certManager.cacheAddrComponent` (`cert_manager.go:201-215`), which
+  /// advertises the current and next certificates but not the retired one --
+  /// that one is still accepted from a peer holding a cached multiaddr.
+  static String _certhashPath(CertManager manager) =>
+      '/certhash/${addrComponentForCert(manager.current.certificateDer).value}'
+      '/certhash/${addrComponentForCert(manager.next.certificateDer).value}';
 
   @override
   Future<Listener> listen(Multiaddr addr) async {
@@ -166,17 +187,19 @@ class WebtransportTransport implements Transport {
 
     final socket = await RawDatagramSocket.bind(bindAddress, port);
 
-    // The certificate the QUIC handshake presents is what the `/certhash/`
-    // component pins, so the two have to come from the same bytes -- the
-    // DER of the leaf certificate, never the raw private key.
-    final certificate = await identity.getCertificate();
-    final certhash = addrComponentForCert(certificate.certificateDer);
+    // NOT the libp2p identity certificate. That one is valid for a century,
+    // and the W3C WebTransport specification caps a pinned certificate at
+    // fourteen days -- a Go peer refuses anything longer outright, with
+    // "cert must not be valid for longer than 14 days", so presenting the
+    // identity certificate made this listener undiallable by any real peer.
+    final manager = _certManager ??= await CertManager.create(privKey);
+    final certificate = manager.current;
 
     final server = quicgo.QuicServer(
       socket: socket,
       certificate: quicgo.QuicServerCertificate(
         der: certificate.certificateDer,
-        sign: certificate.privateKey.sign,
+        sign: certificate.sign,
       ),
       nextProtos: const [nextProtoH3],
       // WebTransport authenticates the peer with the Noise handshake that
@@ -192,7 +215,7 @@ class WebtransportTransport implements Transport {
     final boundAddr = Multiaddr.parse(
       '/${socket.address.type == InternetAddressType.IPv6 ? 'ip6' : 'ip4'}'
       '/${socket.address.address}/udp/${socket.port}/quic-v1/webtransport'
-      '/certhash/${certhash.value}',
+      '${_certhashPath(manager)}',
     );
 
     final listener = _WebtransportListener(
@@ -200,7 +223,7 @@ class WebtransportTransport implements Transport {
       socket: socket,
       server: server,
       boundAddr: boundAddr,
-      certificateDer: certificate.certificateDer,
+      certManager: manager,
     );
     _listeners.add(listener);
     return listener;
@@ -350,6 +373,8 @@ class WebtransportTransport implements Transport {
       await l.close();
     }
     _listeners.clear();
+    _certManager?.close();
+    _certManager = null;
   }
 }
 
@@ -368,17 +393,12 @@ class _WebtransportListener implements Listener {
     required RawDatagramSocket socket,
     required quicgo.QuicServer server,
     required Multiaddr boundAddr,
-    required Uint8List certificateDer,
+    required CertManager certManager,
   }) : _transport = transport,
        _socket = socket,
        _server = server,
        _boundAddr = boundAddr,
-       _certHashes = [
-         multihash.encode(
-           Uint8List.fromList(crypto_pkg.sha256.convert(certificateDer).bytes),
-           Golang.Uint64(multihash.sha2_256),
-         ),
-       ] {
+       _certManager = certManager {
     // The listener owns the socket and the server multiplexes every peer over
     // it, so datagrams are read here once and handed across.
     _subscription = _socket.listen((event) {
@@ -394,11 +414,20 @@ class _WebtransportListener implements Listener {
   final RawDatagramSocket _socket;
   final quicgo.QuicServer _server;
   final Multiaddr _boundAddr;
+  final CertManager _certManager;
 
   /// The multihashes of the certificates this listener presents, sent to
   /// every peer as Noise early data so it can check that the `/certhash/` it
   /// dialled really belongs to this server.
-  final List<Uint8List> _certHashes;
+  ///
+  /// Read from the cert manager on every use rather than captured once:
+  /// after a rollover the set changes, and a peer dialling with a cached
+  /// multiaddr has to still find its hash among them. Go reads it the same
+  /// way, through `certManager.SerializedCertHashes()`.
+  List<Uint8List> get _certHashes => [
+    for (final digest in _certManager.certHashes)
+      multihash.encode(digest, Golang.Uint64(multihash.sha2_256)),
+  ];
 
   bool _closed = false;
 
@@ -563,24 +592,23 @@ List<Uint8List> _certHashMultihashes(Multiaddr addr) {
   return hashes;
 }
 
-/// Verifies the server's certificate chain against the pinned [certHashes].
+/// Verifies the server's certificate chain against the pinned [certHashes],
+/// which arrive multihash-encoded from the dialled multiaddr.
 ///
-/// Go: `verifyRawCerts` (`crypto.go`). The W3C WebTransport specification
-/// only allows SHA-256 for `serverCertificateHashes`, so the leaf is hashed
-/// once with SHA-256 and matched against every pinned hash.
+/// Unwraps them to the raw SHA-256 digests -- the only code the W3C
+/// WebTransport specification allows for `serverCertificateHashes`, which is
+/// why Go filters on it too (`crypto.go:117`) -- and hands the work to the
+/// port of `verifyRawCerts`, which also enforces the three checks this
+/// function used to skip: no RSA, no more than fourteen days of validity, and
+/// valid right now.
 void _verifyRawCerts(List<Uint8List> chain, List<Uint8List> certHashes) {
-  if (chain.isEmpty) throw const FormatException('no cert');
-  final leaf = chain.last;
-  final digest = Uint8List.fromList(crypto_pkg.sha256.convert(leaf).bytes);
+  final digests = <Uint8List>[];
   for (final pinned in certHashes) {
     final decoded = multihash.decode(pinned);
     if (decoded.code != Golang.Uint64(multihash.sha2_256)) continue;
-    if (_sameBytes(decoded.digest, digest)) return;
+    digests.add(Uint8List.fromList(decoded.digest));
   }
-  throw FormatException(
-    'cert hash not found: ${_hex(digest)} '
-    '(expected one of ${certHashes.map(_hex).join(', ')})',
-  );
+  wtcrypto.verifyRawCerts(chain, digests);
 }
 
 /// Receives the peer's `webtransport_certhashes` Noise extension and checks

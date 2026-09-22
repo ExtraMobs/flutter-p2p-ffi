@@ -120,7 +120,7 @@ nem peers locais, e perdia todo o estado de rede a cada reinício.
 > discovery e persistência, sem encostar no caminho de dial/listen/upgrade, que é
 > onde transporte mora — e podem ser tocados em qualquer ordem.
 
-### Objetivo 6 — Ampliação da Matriz de Transporte e Segurança (G.2 concluído nas duas direções; G.1 e G.4 comprovados só na discagem; G.3, G.5 e G.7 pendentes; G.6 descartado)
+### Objetivo 6 — Ampliação da Matriz de Transporte e Segurança (G.1, G.2 e G.3 concluídos; G.4 comprovado contra Kubo nas duas direções mas sem o critério de navegador; G.5 e G.7 pendentes; G.6 descartado)
 
 Enquanto o Objetivo 5 trata de **como** o nó participa da rede, este trata de
 **quantos peers ele consegue alcançar**.
@@ -133,7 +133,7 @@ WebRTC) eram inalcançáveis por completo.
 
 Os transportes desse diagnóstico foram portados e estão registrados no Swarm do
 nó. O alcance efetivo, porém, é uma afirmação separada, e só vale contra um
-Kubo real: hoje `local_kubo_transport_matrix_test.dart` recupera bloco por
+peer real: hoje `local_kubo_transport_matrix_test.dart` recupera bloco por
 `/tcp`, `/quic-v1` e `/quic-v1/webtransport`, e falha em `/webrtc-direct`. É
 isso que o Marco G.7 mede — ver o aviso sobre `canDial()` lá embaixo antes de
 dar o marco por fechado.
@@ -162,15 +162,15 @@ dar o marco por fechado.
 >
 > ```
 > TLS 1.3 transpilado (G.2)
-> ├── G.1  QUIC ................... discagem comprovada; entrada não
-> │   └── G.4  WebTransport ....... depende via G.1
-> ├── G.7  Validação da matriz .... depende via G.1 e G.4
+> ├── G.1  QUIC ................... CONCLUÍDO (discagem e entrada)
+> │   └── G.4  WebTransport ....... Kubo nas duas direções; falta navegador
+> ├── G.7  Validação da matriz .... depende de G.5
 > └── (o próprio /tls/1.0.0)
 >
 > DTLS (não portado)
 > └── G.5  WebRTC Direct .......... depende DIRETO
 >
-> G.3  WebSocket /wss ............. INDEPENDENTE (usa o TLS da plataforma)
+> G.3  WebSocket /wss ............. CONCLUÍDO (peer público real)
 > ```
 >
 > **G.1 depende de G.2 porque o handshake do QUIC *é* um handshake TLS 1.3**
@@ -194,9 +194,10 @@ dar o marco por fechado.
 > e o servidor DHT são agnósticos de transporte — é por isso que o nó hospeda e
 > serve por CID hoje, com Noise sozinho.
 >
-> Ordem executável do que resta: fechar a **direção de entrada** compartilhada
-> por G.1 e G.4 (um mesmo `QuicServer`), **G.3** e **G.5** (após DTLS) em
-> paralelo, e **G.7** por último.
+> Ordem executável do que resta: **DTLS e o G.5**, que é a única frente grande
+> ainda aberta, e **G.7** por último. O critério de navegador do G.4 (um nó
+> Helia discando o nó Dart) pode ser exercitado a qualquer momento, e não
+> depende do G.5.
 
 - **Marco G.1 (QUIC — `/udp/<porta>/quic-v1`)**:
   Formato de fio QUIC real (RFC 9000 e RFC 9001) implementado com Long Header
@@ -209,11 +210,15 @@ dar o marco por fechado.
   multistream-select, Bitswap 1.2.0 e recuperação/validação de blocos por CID
   (`local_kubo_quic_test.dart`).
 
-  A direção de **entrada** não está comprovada: o `QuicServer` que atende
-  `/quic-v1` é o mesmo do WebTransport, e um Kubo real ainda não completa o
-  handshake contra ele. O ponto exato onde para está em
-  `doc/transpilation/PROGRESS.md`. O marco só fecha quando as duas direções
-  estiverem comprovadas.
+  A direção de **entrada** também está 100% comprovada: um Kubo 0.43.0 real
+  disca o nó Dart em `/quic-v1`, completa o handshake, abre stream e baixa um
+  bloco por Bitswap validando o CID (`local_kubo_quic_inbound_test.dart`), sem
+  que o nó Dart disque o Kubo em momento algum. **Marco concluído.** As duas
+  causas do bloqueio anterior — transcript TLS hasheando um fragmento do
+  ClientHello, e ausência do transport parameter
+  `original_destination_connection_id` — estão registradas em
+  `doc/transpilation/PROGRESS.md`, junto com o que ainda falta no emissor
+  (recuperação de perda: PTO e retransmissão de flight).
 - **Marco G.2 (Segurança TLS 1.3 — `/tls/1.0.0`)**:
   **Fundação de metade deste objetivo**: habilita o `/tls/1.0.0` negociado por
   multistream-select à frente do Noise, com máquinas de estado do handshake TLS 1.3
@@ -226,10 +231,12 @@ dar o marco por fechado.
   destrava peers de infraestrutura e ambientes com egresso restrito a HTTP(S).
   Critério: conexão com um peer público que anuncie `/wss`.
 
-  O transporte está implementado e registrado no Swarm à frente do TCP, e `/ws`
-  foi exercitado entre dois nós Dart, mas **o critério acima não está
-  atendido**: não há prova contra um peer externo que anuncie `/wss`. Uma
-  bateria de `canDial()` sobre a string do multiaddr não conta.
+  **Marco concluído.** `public_wss_dial_test.dart` (preset `network`) resolve
+  em runtime os registros TXT `_dnsaddr.bootstrap.libp2p.io`, filtra os
+  endereços com `/wss` e disca de verdade um bootstrapper público da libp2p,
+  exigindo que o swarm registre uma conexão viva cujo transporte seja
+  `websocket` e cujo multiaddr remoto ainda carregue o `/wss`. Nenhum
+  `canDial()`, nenhum loopback entre dois nós Dart.
 - **Marco G.4 (WebTransport — `/quic-v1/webtransport`)** — metade concluída:
   Depende do G.1, por rodar sobre HTTP/3 sobre QUIC, e usa o componente
   `certhash` do multiaddr para fixação de certificado no navegador. Critério:
@@ -239,11 +246,17 @@ dar o marco por fechado.
   certificado fixado por `certhash`, Extended CONNECT em
   `/.well-known/libp2p-webtransport?type=noise` e Noise com early data
   `webtransport_certhashes`, com bloco recuperado por Bitswap e CID validado
-  (`test/interop/test/local_kubo_webtransport_quic_test.dart`). O **servidor**
-  já fala protocolo real em vez do framing inventado, mas um Kubo real ainda
-  não completa o handshake de entrada, e nenhum navegador foi exercitado —
-  portanto o critério acima **não** está atendido. Detalhes e o ponto exato
-  onde o handshake de entrada para estão em `doc/transpilation/PROGRESS.md`.
+  (`test/interop/test/local_kubo_webtransport_quic_test.dart`). A **entrada**
+  também está comprovada contra Kubo real
+  (`local_kubo_webtransport_inbound_test.dart`), depois de portar o
+  certificado determinístico de 14 dias (`crypto.go:48-96`), o cert manager
+  (`cert_manager.go`) e as quatro checagens de `verifyRawCerts` — o listener
+  apresentava o certificado de identidade libp2p, válido por um século, que um
+  par Go recusa de saída.
+
+  O marco, ainda assim, **continua aberto**: seu critério é um nó Helia em
+  navegador, e nenhum navegador foi exercitado. Detalhes em
+  `doc/transpilation/PROGRESS.md`.
 - **Marco G.5 (WebRTC Direct — `/udp/<porta>/webrtc-direct`)**:
   Alcance de navegador sem servidor de sinalização, também via `certhash` — que
   aqui é o fingerprint do **certificado DTLS**. Independe do G.2, mas **depende
