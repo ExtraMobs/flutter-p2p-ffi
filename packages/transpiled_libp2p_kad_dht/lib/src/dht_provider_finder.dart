@@ -8,9 +8,8 @@ import 'package:transpiled_libp2p/transpiled_libp2p.dart';
 import 'package:transpiled_libp2p_kbucket/transpiled_libp2p_kbucket.dart';
 import 'package:transpiled_multiaddr/transpiled_multiaddr.dart';
 
-import '../network/libp2p_host.dart';
-import '../protocols/dht/dht_message.dart';
-import '../protocols/dht/query_peerset.dart';
+import 'dht_message.dart';
+import 'query_peerset.dart';
 
 /// Kademlia DHT protocol identifier.
 const String dhtProtocol = '/ipfs/kad/1.0.0';
@@ -34,10 +33,10 @@ final class _PeerstoreLatencyMetrics implements PeerMetrics {
 
 /// Queries the Kademlia DHT for providers of a Cid.
 final class DhtClient implements ContentDiscovery {
-  /// Creates a DHT provider finder using [router] and [bootstrapPeers], with
+  /// Creates a DHT provider finder using [host] and [bootstrapPeers], with
   /// a live Kademlia [routingTable] seeded and refreshed as lookups run.
   factory DhtClient({
-    required Libp2pRouter router,
+    required Host host,
     required List<AddrInfo> bootstrapPeers,
     Duration timeout = const Duration(seconds: 10),
     Duration lookupTimeout = const Duration(minutes: 1),
@@ -49,9 +48,9 @@ final class DhtClient implements ContentDiscovery {
   }) {
     final routingTable = RoutingTable(
       bucketSize: bucketSize,
-      local: router.host.id,
+      local: host.id,
       maxLatency: maxLatency,
-      metrics: _PeerstoreLatencyMetrics(router.host.peerstore),
+      metrics: _PeerstoreLatencyMetrics(host.peerstore),
       usefulnessGracePeriod: _usefulnessGracePeriod(
         alpha,
         bucketSize,
@@ -59,7 +58,7 @@ final class DhtClient implements ContentDiscovery {
       ),
     );
     return DhtClient._(
-      router: router,
+      host: host,
       bootstrapPeers: bootstrapPeers,
       timeout: timeout,
       lookupTimeout: lookupTimeout,
@@ -72,7 +71,7 @@ final class DhtClient implements ContentDiscovery {
   }
 
   DhtClient._({
-    required this.router,
+    required this.host,
     required this.bootstrapPeers,
     required this.timeout,
     required this.lookupTimeout,
@@ -103,7 +102,11 @@ final class DhtClient implements ContentDiscovery {
   }
 
   /// Router used to query DHT peers.
-  final Libp2pRouter router;
+  /// Host used to reach peers and their addresses.
+  ///
+  /// Go: `IpfsDHT.host` (`dht.go:105`), which the upstream holds directly
+  /// rather than behind an adapter.
+  final Host host;
 
   /// Initial peers from which provider lookup begins, used only as a
   /// fallback when [routingTable] doesn't yet hold peers closer to a key.
@@ -172,9 +175,7 @@ final class DhtClient implements ContentDiscovery {
     final candidates = <AddrInfo>[];
     for (final peerId in await getClosestPeers(key)) {
       if (peerId == provider.id) continue;
-      candidates.add(
-        AddrInfo(id: peerId, addrs: await router.getAddrs(peerId)),
-      );
+      candidates.add(AddrInfo(id: peerId, addrs: _addrsFor(host, peerId)));
     }
 
     // The walk reached nobody: fall back to announcing to the bootstrap set.
@@ -221,7 +222,7 @@ final class DhtClient implements ContentDiscovery {
   Future<void> _refresh() async {
     if (_closed) return;
     try {
-      await getClosestPeers(Uint8List.fromList(router.host.id.value));
+      await getClosestPeers(Uint8List.fromList(host.id.value));
     } catch (_) {}
     if (_closed) return;
 
@@ -260,12 +261,10 @@ final class DhtClient implements ContentDiscovery {
       // A dial that fails *after* the timeout has already fired would
       // otherwise surface as an unhandled async error and take the process
       // down; the handler below absorbs only that late failure.
-      final pending = router.connect(peer);
+      final pending = _connect(host, peer);
       unawaited(pending.catchError((Object _) {}));
       await pending.timeout(timeout);
-      stream = await router.host
-          .newStream(peer.id, _kadProtocols)
-          .timeout(timeout);
+      stream = await host.newStream(peer.id, _kadProtocols).timeout(timeout);
       _activeStreams.add(stream);
       await stream.setWriteDeadline(DateTime.now().add(timeout));
       await stream.write(msgBytes).timeout(timeout);
@@ -328,7 +327,7 @@ final class DhtClient implements ContentDiscovery {
     final queryPeers = QueryPeerset(PeerId(value: key), compareDistance);
     final knownPeers = <PeerId, AddrInfo>{};
     final deadline = DateTime.now().add(lookupTimeout);
-    final selfId = router.host.id;
+    final selfId = host.id;
 
     // Seed the frontier from the live routing table first: successive
     // lookups no longer restart from bootstrapPeers once the table holds
@@ -338,7 +337,7 @@ final class DhtClient implements ContentDiscovery {
     var seededFromTable = 0;
     for (final id in routingTable.nearestPeers(keyDhtId, bucketSize)) {
       if (id == selfId) continue;
-      final addrs = await router.getAddrs(id);
+      final addrs = _addrsFor(host, id);
       if (addrs.isEmpty) continue;
       knownPeers[id] = AddrInfo(id: id, addrs: addrs);
       queryPeers.tryAdd(id, selfId);
@@ -391,7 +390,7 @@ final class DhtClient implements ContentDiscovery {
         final merged = await _mergeWithPeerstore(knownPeers[peer.id], peer);
         knownPeers[peer.id] = merged;
         if (merged.addrs.isNotEmpty) {
-          await router.addAddrs(merged, tempAddrTtl);
+          _maybeAddAddrs(host, merged, tempAddrTtl);
         }
         admitHeard(peer.id);
         queryPeers.tryAdd(peer.id, from);
@@ -405,7 +404,7 @@ final class DhtClient implements ContentDiscovery {
         );
         knownPeers[provider.id] = complete;
         if (complete.addrs.isNotEmpty) {
-          await router.addAddrs(complete, tempAddrTtl);
+          _maybeAddAddrs(host, complete, tempAddrTtl);
         }
         onProvider?.call(complete);
       }
@@ -501,7 +500,7 @@ final class DhtClient implements ContentDiscovery {
     AddrInfo? known,
     AddrInfo received,
   ) async {
-    final fromPeerstore = await router.getAddrs(received.id);
+    final fromPeerstore = _addrsFor(host, received.id);
     final allAddrs = <Multiaddr>{
       ...?known?.addrs,
       ...fromPeerstore,
@@ -524,12 +523,12 @@ final class DhtClient implements ContentDiscovery {
     final rpcTimeout = timeout < remaining ? timeout : remaining;
 
     // See the note above: absorb a dial failure arriving after the timeout.
-    final pending = router.connect(peer);
+    final pending = _connect(host, peer);
     unawaited(pending.catchError((Object _) {}));
     await pending.timeout(rpcTimeout);
     if (isCancelled()) throw StateError('DHT query cancelled');
 
-    final stream = await router.host
+    final stream = await host
         .newStream(peer.id, _kadProtocols)
         .timeout(rpcTimeout);
 
@@ -581,4 +580,37 @@ BigInt _distance(Uint8List target, PeerId peer) {
     result = (result << 8) | BigInt.from(a[i] ^ b[i]);
   }
   return result;
+}
+
+/// Addresses the peerstore holds for [id], or empty when it has none.
+///
+/// Go inlines `dht.host.Peerstore().Addrs(p)` at the call sites
+/// (`handlers.go:80-96`); this port keeps the guard the previous
+/// `Libp2pRouter` adapter had.
+List<Multiaddr> _addrsFor(Host host, PeerId id) {
+  try {
+    return host.peerstore.addrs(id);
+  } catch (_) {
+    return const [];
+  }
+}
+
+/// Records [peer]'s addresses and dials it.
+///
+/// Go: `dht.host.Connect` after `maybeAddAddrs` (`dht.go:958-964`).
+Future<void> _connect(Host host, AddrInfo peer) async {
+  host.peerstore.addAddrs(peer.id, peer.addrs, const Duration(minutes: 2));
+  await host.connect(peer);
+}
+
+/// Adds [peer]'s addresses to the peerstore with [ttl], skipping ourselves.
+///
+/// Go: `maybeAddAddrs` (`dht.go:958-964`). Two upstream guards are **not**
+/// ported yet and are recorded in `doc/transpilation/PROGRESS.md`: skipping
+/// peers we are already connected to (`hasValidConnectedness`, "we have
+/// better ones") and `dht.filterAddrs`.
+void _maybeAddAddrs(Host host, AddrInfo peer, Duration ttl) {
+  if (peer.addrs.isEmpty) return;
+  if (peer.id == host.id) return;
+  host.peerstore.addAddrs(peer.id, peer.addrs, ttl);
 }

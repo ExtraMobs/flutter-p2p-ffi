@@ -7,11 +7,10 @@ import 'dart:typed_data';
 
 import 'package:test/test.dart';
 import 'package:transpiled_cid/transpiled_cid.dart';
-import 'package:transpiled_ipfs/src/network/libp2p_host.dart';
-import 'package:transpiled_ipfs/src/protocols/dht/dht_message.dart';
-import 'package:transpiled_ipfs/src/protocols/dht/dht_provider_manager.dart';
-import 'package:transpiled_ipfs/src/protocols/dht/dht_server.dart';
-import 'package:transpiled_ipfs/src/routing/dht_provider_finder.dart';
+import 'package:transpiled_libp2p_kad_dht/src/dht_message.dart';
+import 'package:transpiled_libp2p_kad_dht/src/dht_provider_manager.dart';
+import 'package:transpiled_libp2p_kad_dht/src/dht_server.dart';
+import 'package:transpiled_libp2p_kad_dht/src/dht_provider_finder.dart';
 import 'package:transpiled_libp2p/transpiled_libp2p.dart';
 import 'package:transpiled_libp2p_kbucket/transpiled_libp2p_kbucket.dart';
 import 'package:transpiled_multiaddr/transpiled_multiaddr.dart';
@@ -306,8 +305,7 @@ void main() {
   group('DhtClient [Atomic Audit]', () {
     test('routingTable - expoe a tabela kademlia viva do cliente', () async {
       final host = _FakeHost(selfId: _peerId(0));
-      final router = Libp2pRouter(host);
-      final client = DhtClient(router: router, bootstrapPeers: []);
+      final client = DhtClient(host: host, bootstrapPeers: []);
       expect(client.routingTable, isA<RoutingTable>());
       expect(client.routingTable.size(), equals(0));
       await client.close();
@@ -318,7 +316,7 @@ void main() {
       () async {
         final host = _FakeHost(selfId: _peerId(0));
         final client = DhtClient(
-          router: Libp2pRouter(host),
+          host: host,
           bootstrapPeers: [
             AddrInfo(
               id: _peerId(1),
@@ -340,7 +338,7 @@ void main() {
       () async {
         final host = _FakeHost(selfId: _peerId(0));
         final client = DhtClient(
-          router: Libp2pRouter(host),
+          host: host,
           bootstrapPeers: [
             AddrInfo(
               id: _peerId(1),
@@ -402,7 +400,7 @@ void main() {
       final self = _peerId(0);
       final host = _FakeHost(selfId: self);
       final server = DhtServer(
-        router: Libp2pRouter(host),
+        host: host,
         routingTable: _buildRoutingTable(self),
         mode: ModeOpt.client,
       )..start();
@@ -415,7 +413,7 @@ void main() {
       final self = _peerId(0);
       final host = _FakeHost(selfId: self);
       final server = DhtServer(
-        router: Libp2pRouter(host),
+        host: host,
         routingTable: _buildRoutingTable(self),
         mode: ModeOpt.auto,
       )..start();
@@ -442,7 +440,7 @@ void main() {
       final self = _peerId(0);
       final host = _FakeHost(selfId: self);
       final server = DhtServer(
-        router: Libp2pRouter(host),
+        host: host,
         routingTable: _buildRoutingTable(self),
       )..start();
       expect(server.isServing, isTrue);
@@ -453,8 +451,7 @@ void main() {
     test('start() - registra handlers para os protocolos dht wan e lan', () {
       final self = _peerId(0);
       final host = _FakeHost(selfId: self);
-      final router = Libp2pRouter(host);
-      DhtServer(router: router, routingTable: _buildRoutingTable(self)).start();
+      DhtServer(host: host, routingTable: _buildRoutingTable(self)).start();
       expect(host.handlers.containsKey(dhtProtocol), isTrue);
       expect(host.handlers.containsKey(lanDhtProtocol), isTrue);
     });
@@ -462,8 +459,7 @@ void main() {
     test('start() - responde PING ecoando type e key', () async {
       final self = _peerId(0);
       final host = _FakeHost(selfId: self);
-      final router = Libp2pRouter(host);
-      DhtServer(router: router, routingTable: _buildRoutingTable(self)).start();
+      DhtServer(host: host, routingTable: _buildRoutingTable(self)).start();
 
       final key = Uint8List.fromList([1, 2, 3]);
       final pingFramed = frameDhtMessage(encodeDhtResponse(type: 5, key: key));
@@ -481,7 +477,6 @@ void main() {
       () async {
         final self = _peerId(0);
         final host = _FakeHost(selfId: self);
-        final router = Libp2pRouter(host);
         final routingTable = _buildRoutingTable(self);
 
         final known = _peerId(1);
@@ -495,7 +490,7 @@ void main() {
           Multiaddr.parse('/ip4/8.8.8.8/tcp/4001'),
         ], addressTtl);
 
-        DhtServer(router: router, routingTable: routingTable).start();
+        DhtServer(host: host, routingTable: routingTable).start();
 
         final stream = _FakeDhtStream(
           _peerId(3),
@@ -517,7 +512,6 @@ void main() {
       () async {
         final self = _peerId(0);
         final host = _FakeHost(selfId: self);
-        final router = Libp2pRouter(host);
         final routingTable = _buildRoutingTable(self);
         final known = _peerId(1);
         host.peerstore.addAddrs(known, [
@@ -534,7 +528,7 @@ void main() {
         providerStore.addProvider(key, provider);
 
         DhtServer(
-          router: router,
+          host: host,
           routingTable: routingTable,
           providerStore: providerStore,
         ).start();
@@ -558,10 +552,9 @@ void main() {
       () async {
         final self = _peerId(0);
         final host = _FakeHost(selfId: self);
-        final router = Libp2pRouter(host);
         final providerStore = ProviderManager();
         DhtServer(
-          router: router,
+          host: host,
           routingTable: _buildRoutingTable(self),
           providerStore: providerStore,
         ).start();
@@ -588,10 +581,9 @@ void main() {
       () async {
         final self = _peerId(0);
         final host = _FakeHost(selfId: self);
-        final router = Libp2pRouter(host);
         final providerStore = ProviderManager();
         DhtServer(
-          router: router,
+          host: host,
           routingTable: _buildRoutingTable(self),
           providerStore: providerStore,
         ).start();

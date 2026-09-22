@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:test/test.dart';
-import 'package:transpiled_ipfs/src/protocols/dht/query_peerset.dart';
+import 'package:transpiled_libp2p_kad_dht/src/query_peerset.dart';
 import 'package:transpiled_libp2p/transpiled_libp2p.dart';
 
 void main() {

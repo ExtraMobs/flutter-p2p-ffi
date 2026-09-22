@@ -1,7 +1,7 @@
 # Relatório de Auditoria de AST e Nomenclatura (Dart <-> Go)
 
 > Relatório gerado automaticamente por `tool/audit_ast_nomenclature.py`.
-> **Símbolos Dart Auditados:** 9249 | **Símbolos Go Indexados:** 53053
+> **Símbolos Dart Auditados:** 9290 | **Símbolos Go Indexados:** 53053
 > **Status Geral:** ❌ **0 Erros** | ⚠️ **0 Avisos** | ℹ️ **1462 Notas de Cobertura**
 
 ## 1. Resumo Executivo das 24 Regras

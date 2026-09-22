@@ -1,0 +1,27 @@
+name: transpiled_libp2p_kad_dht
+description: Port of go-libp2p-kad-dht.
+version: 0.1.0
+publish_to: none
+homepage: https://github.com/libp2p/go-libp2p-kad-dht
+
+environment:
+  sdk: ^3.10.0
+
+dependencies:
+  crypto: ^3.0.7
+  transpiled_cid:
+    path: ../transpiled_cid
+  transpiled_libp2p:
+    path: ../transpiled_libp2p
+  transpiled_libp2p_kbucket:
+    path: ../transpiled_libp2p_kbucket
+  transpiled_multiaddr:
+    path: ../transpiled_multiaddr
+  transpiled_varint:
+    path: ../transpiled_varint
+
+dev_dependencies:
+  test: ^1.28.0
+  lints: ^6.1.0
+  very_good_analysis: ^10.1.0
+  analyzer: ^14.1.0 # AST parsing for tool/generate_module_index.dart

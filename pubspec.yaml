@@ -97,6 +97,8 @@ dependencies:
     path: packages/transpiled_libp2p_record
   transpiled_libp2p_pubsub:
     path: packages/transpiled_libp2p_pubsub
+  transpiled_libp2p_kad_dht:
+    path: packages/transpiled_libp2p_kad_dht
   transpiled_libp2p_kbucket:
     path: packages/transpiled_libp2p_kbucket
   transpiled_libp2p_routing_helpers:

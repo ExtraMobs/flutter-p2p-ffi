@@ -18,6 +18,7 @@ export 'src/config/ipfs_runtime_config.dart'
 export 'src/core/builders/build_cfg.dart' show BuildCfg;
 export 'src/node/ipfs_node.dart' show IpfsNode;
 export 'src/protocols/bitswap/interface_bitswap_handler.dart' show BlockGetter;
+export 'package:transpiled_libp2p_kad_dht/transpiled_libp2p_kad_dht.dart'
+    show DhtClient;
 export 'src/repo/repo.dart' show Repo;
-export 'src/routing/dht_provider_finder.dart' show DhtClient;
 export 'src/unixfs/unixfs.dart' show UnixFsStat;

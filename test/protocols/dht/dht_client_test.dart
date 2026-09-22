@@ -4,8 +4,8 @@ import 'dart:typed_data';
 import 'package:test/test.dart';
 import 'package:transpiled_cid/transpiled_cid.dart';
 import 'package:transpiled_ipfs/src/network/libp2p_host.dart';
-import 'package:transpiled_ipfs/src/protocols/dht/dht_message.dart';
-import 'package:transpiled_ipfs/src/routing/dht_provider_finder.dart';
+import 'package:transpiled_libp2p_kad_dht/src/dht_message.dart';
+import 'package:transpiled_libp2p_kad_dht/src/dht_provider_finder.dart';
 import 'package:transpiled_libp2p/transpiled_libp2p.dart';
 import 'package:transpiled_multiaddr/transpiled_multiaddr.dart';
 import 'package:transpiled_varint/transpiled_varint.dart';
@@ -37,7 +37,7 @@ void main() {
       final responseBytes = encodeDhtResponse(closerPeers: [closerPeer]);
       fakeHost.streamHandler = (peerId) => FakeP2PStream(responseBytes);
 
-      final client = DhtClient(router: router, bootstrapPeers: [bootstrapPeer]);
+      final client = DhtClient(host: fakeHost, bootstrapPeers: [bootstrapPeer]);
 
       final providers = await client.findProvidersAsync(targetCid, 1).toList();
       expect(providers, isEmpty);
@@ -72,7 +72,7 @@ void main() {
         fakeHost.streamHandler = (peerId) => FakeP2PStream(responseBytes);
 
         final client = DhtClient(
-          router: router,
+          host: fakeHost,
           bootstrapPeers: [bootstrapPeer],
         );
 
@@ -94,7 +94,6 @@ void main() {
       'discards self peer ID from queries, closerPeers and providers',
       () async {
         final fakeHost = FakeHost(selfId: selfPeerId);
-        final router = Libp2pRouter(fakeHost);
 
         // Response returns self as closer and provider
         final selfAsCloser = AddrInfo(
@@ -108,7 +107,7 @@ void main() {
         fakeHost.streamHandler = (peerId) => FakeP2PStream(responseBytes);
 
         final client = DhtClient(
-          router: router,
+          host: fakeHost,
           bootstrapPeers: [bootstrapPeer, selfAsCloser],
         );
 
@@ -125,7 +124,6 @@ void main() {
 
     test('clean cancellation resets active streams and stops query', () async {
       final fakeHost = FakeHost(selfId: selfPeerId);
-      final router = Libp2pRouter(fakeHost);
 
       final streamCreated = Completer<FakeP2PStream>();
       fakeHost.streamHandler = (peerId) {
@@ -135,7 +133,7 @@ void main() {
       };
 
       final client = DhtClient(
-        router: router,
+        host: fakeHost,
         bootstrapPeers: [bootstrapPeer],
         timeout: const Duration(seconds: 10),
       );
@@ -154,7 +152,6 @@ void main() {
       'client.close() aborts in-flight streams and rejects new queries',
       () async {
         final fakeHost = FakeHost(selfId: selfPeerId);
-        final router = Libp2pRouter(fakeHost);
 
         final streamCreated = Completer<FakeP2PStream>();
         fakeHost.streamHandler = (peerId) {
@@ -164,7 +161,7 @@ void main() {
         };
 
         final client = DhtClient(
-          router: router,
+          host: fakeHost,
           bootstrapPeers: [bootstrapPeer],
         );
 
@@ -184,7 +181,6 @@ void main() {
       'RPC query timeout resets stream and emits TimeoutException when all fail',
       () async {
         final fakeHost = FakeHost(selfId: selfPeerId);
-        final router = Libp2pRouter(fakeHost);
 
         fakeHost.streamHandler = (peerId) {
           // Stream never returns, causing RPC timeout
@@ -192,7 +188,7 @@ void main() {
         };
 
         final client = DhtClient(
-          router: router,
+          host: fakeHost,
           bootstrapPeers: [bootstrapPeer],
           timeout: const Duration(milliseconds: 50),
           lookupTimeout: const Duration(milliseconds: 200),
@@ -207,7 +203,6 @@ void main() {
 
     test('limits closerPeers to 2 * bucketSize (40)', () async {
       final fakeHost = FakeHost(selfId: selfPeerId);
-      final router = Libp2pRouter(fakeHost);
 
       // Return 50 closer peers
       final closerPeers = [
@@ -224,7 +219,7 @@ void main() {
       fakeHost.streamHandler = (peerId) => FakeP2PStream(responseBytes);
 
       final client = DhtClient(
-        router: router,
+        host: fakeHost,
         bootstrapPeers: [bootstrapPeer],
         bucketSize: 20,
       );
@@ -237,7 +232,6 @@ void main() {
 
     test('executes follow-up query on top K heard peers', () async {
       final fakeHost = FakeHost(selfId: selfPeerId);
-      final router = Libp2pRouter(fakeHost);
 
       final peerA = AddrInfo(
         id: PeerId.decode(
@@ -264,7 +258,7 @@ void main() {
       };
 
       final client = DhtClient(
-        router: router,
+        host: fakeHost,
         bootstrapPeers: [bootstrapPeer],
         alpha: 1,
         beta: 1, // Beta = 1 terminates lookup loop once bootstrap is queried

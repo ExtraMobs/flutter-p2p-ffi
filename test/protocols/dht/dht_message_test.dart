@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:test/test.dart';
-import 'package:transpiled_ipfs/src/protocols/dht/dht_message.dart';
+import 'package:transpiled_libp2p_kad_dht/src/dht_message.dart';
 import 'package:transpiled_ipfs/transpiled_ipfs.dart';
 import 'package:transpiled_multiaddr/transpiled_multiaddr.dart';
 import 'package:transpiled_varint/transpiled_varint.dart';

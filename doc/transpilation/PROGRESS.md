@@ -466,6 +466,57 @@ Pré-requisitos do `BasicConnMgr`, portados antes dele.
   `dhtMessageSizeMax = 4 MiB` (validado em `DhtResponse.fromBytes`),
   `lookupTimeout = 60s`, `timeout = 10s`, cancelamento por `stream.reset()`.
 
+### Fronteira de módulo do kad-dht e tipos de rede do stdlib
+
+- **`packages/transpiled_libp2p_kad_dht/` criado.** O porte de
+  `go-libp2p-kad-dht` (módulo próprio, `10e0adf9` no `UPSTREAM_LOCK.md`) vivia
+  em `lib/src/protocols/dht/` e `lib/src/routing/`, contra a regra de fronteira
+  de `go.mod`. `dht_message.dart`, `dht_provider_manager.dart`,
+  `dht_server.dart`, `query_peerset.dart` e `dht_provider_finder.dart` foram
+  movidos com `git mv`; em `lib/` ficou só a integração do nó.
+
+  Uma coisa **não** foi mecânica, e é registro obrigatório: o adaptador
+  `Libp2pRouter` (`lib/src/network/libp2p_host.dart`) é símbolo inventado neste
+  repositório e é glue compartilhada com o Bitswap, então não podia entrar num
+  pacote transpilado nem ser importado de `lib/` por ele — a dependência seria
+  circular. Dentro do pacote ele deu lugar a `Host` direto, que é a forma do
+  upstream: `IpfsDHT` guarda `host.Host` (`dht.go:105`), não um adaptador.
+  `DhtClient` e `DhtServer` passaram a receber `host:` em vez de `router:`, e os
+  três usos do adaptador viraram funções privadas por arquivo:
+  `_addrsFor` (Go inlina `dht.host.Peerstore().Addrs(p)`, `handlers.go:80-96`),
+  `_connect` e `_maybeAddAddrs` (`maybeAddAddrs`, `dht.go:958-964`).
+
+  **Divergência deliberada, a fechar depois:** `_maybeAddAddrs` ainda não tem os
+  dois guards do upstream — pular peers já conectados (`hasValidConnectedness`,
+  "we have better ones") e `dht.filterAddrs`. Portá-los muda comportamento de
+  DHT e não cabia no mesmo commit de uma movimentação de arquivos.
+
+  `Libp2pRouter` continua em `lib/` porque o `BitswapClient` o usa, e seus
+  testes atômicos seguem em `test/atomic/nivel_2/lib_atomic_tests.dart`.
+
+- **`boilerplate/net_netip/` — `netip.Addr` e `netip.Prefix`.** `conn_limiter.go`
+  (10 usos), `conn_rate_limiter.go` (2), `conngater.go` (11) e `dialpolicy.go`
+  (1) fazem aritmética de prefixo de sub-rede; sem um tipo comum cada um
+  reimplementaria máscara de `/56` e `/48` à mão, que é o que a Regra 10 proíbe.
+  `net/netip` é stdlib e não pertence a nenhum `go.mod` transpilado, então mora
+  em `boilerplate`, pelo mesmo critério já usado por `internal_poll/`.
+
+  Adaptação registrada: o Go guarda `uint128` + discriminador de zona `z`,
+  mantendo IPv4 em forma 4-em-6 e distinguindo por `z4`. Este porte guarda os 4
+  ou 16 bytes de origem — é a mesma distinção que `AddrFromSlice` já faz por
+  tamanho (`netip.go:349-356`) — o que torna as comparações mascaradas
+  byte-a-byte em vez de exigir aritmética de 128 bits. Zonas (`%eth0`) não são
+  representadas: nenhum chamador daqui as analisa, e `Prefix.Contains` rejeita
+  endereço com zona de saída (`netip.go:1429`). Parse e formatação delegam a
+  `InternetAddress` do `dart:io`, que `boilerplate` já usa em `internal_poll/`.
+
+  Os vetores dos testes atômicos (`test/atomic/nivel_1/`
+  `boilerplate_netip_atomic_tests.dart`) foram **executados em Go 1.25.7**, não
+  deduzidos: incluem `p4.Contains(a6) == false`, `p4.Contains(::ffff:127.0.0.1)
+  == false`, `Addr.Prefix` mascarando `1.2.3.4/24 -> 1.2.3.0/24` e
+  `2001:db8::1/56 -> 2001:db8::/56`, e `zero.Prefix(8)` devolvendo prefixo
+  inválido **sem** erro (`netip.go:683-684`).
+
 ### Host, descoberta e persistência
 
 - `go-libp2p config.NewNode` → `observedaddrs.NewManager/Start/Close` →

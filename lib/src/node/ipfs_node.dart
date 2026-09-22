@@ -12,6 +12,7 @@ import 'package:transpiled_libp2p/transpiled_libp2p.dart'
     as observed
     show Manager;
 import 'package:transpiled_libp2p/transpiled_libp2p.dart';
+import 'package:transpiled_libp2p_kad_dht/transpiled_libp2p_kad_dht.dart';
 import 'package:transpiled_multiaddr/transpiled_multiaddr.dart' as core_ma;
 
 import '../blockstore/blockstore.dart';
@@ -19,9 +20,7 @@ import '../config/ipfs_runtime_config.dart';
 import '../core/builders/build_cfg.dart';
 import '../network/libp2p_host.dart';
 import '../protocols/bitswap/bitswap_client.dart';
-import '../protocols/dht/dht_server.dart';
 import '../repo/repo.dart';
-import '../routing/dht_provider_finder.dart';
 import '../unixfs/unixfs.dart';
 
 /// Embedded IPFS node containing the currently ported reusable runtime.
@@ -193,10 +192,10 @@ final class IpfsNode {
     final bootstrapPeers = config.network.bootstrapPeers
         .map(addrInfoFromString)
         .toList();
-    final dht = DhtClient(router: router, bootstrapPeers: bootstrapPeers);
+    final dht = DhtClient(host: host, bootstrapPeers: bootstrapPeers);
     rollback.add(dht.close);
     dht.bootstrap();
-    final dhtServer = DhtServer(router: router, routingTable: dht.routingTable)
+    final dhtServer = DhtServer(host: host, routingTable: dht.routingTable)
       ..start();
     rollback.add(dhtServer.close);
     final bitswap = BitswapClient(

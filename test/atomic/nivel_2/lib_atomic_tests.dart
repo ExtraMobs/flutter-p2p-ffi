@@ -2,10 +2,8 @@
 // Testes atomicos 1 para 1 para o pacote lib.
 
 import 'dart:async';
-import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:async/async.dart';
 import 'package:test/test.dart';
 import 'package:transpiled_block_format/transpiled_block_format.dart' as blocks;
 import 'package:transpiled_boxo/bitswap/message.dart';
@@ -18,9 +16,9 @@ import 'package:transpiled_ipfs/src/node/ipfs_node.dart';
 import 'package:transpiled_ipfs/src/protocols/bitswap/bitswap_client.dart';
 import 'package:transpiled_ipfs/src/protocols/bitswap/bitswap_message.dart';
 import 'package:transpiled_ipfs/src/protocols/bitswap/interface_bitswap_handler.dart';
-import 'package:transpiled_ipfs/src/protocols/dht/dht_message.dart';
-import 'package:transpiled_ipfs/src/protocols/dht/query_peerset.dart';
-import 'package:transpiled_ipfs/src/routing/dht_provider_finder.dart';
+import 'package:transpiled_libp2p_kad_dht/src/dht_message.dart';
+import 'package:transpiled_libp2p_kad_dht/src/query_peerset.dart';
+import 'package:transpiled_libp2p_kad_dht/src/dht_provider_finder.dart';
 import 'package:transpiled_ipfs/src/transport/dns/dns_bootstrap_resolver.dart';
 import 'package:transpiled_ipfs/src/transport/dns/dns_message.dart';
 import 'package:transpiled_ipfs/src/transport/dns/system_resolver.dart';
@@ -31,7 +29,6 @@ import 'package:transpiled_ipfs/src/utils/typed_map.dart';
 import 'package:transpiled_libp2p/transpiled_libp2p.dart' as libp2p;
 import 'package:transpiled_multiaddr/transpiled_multiaddr.dart';
 import 'package:transpiled_multihash/transpiled_multihash.dart';
-import 'package:transpiled_varint/transpiled_varint.dart';
 
 // ---------------------------------------------------------------------------
 // Helpers e Fakes de Teste
@@ -598,24 +595,21 @@ void main() {
   group('DhtClient [Atomic Audit]', () {
     test('close() - encerra cliente dht e cancela streams', () async {
       final host = _FakeHost();
-      final router = Libp2pRouter(host);
-      final client = DhtClient(router: router, bootstrapPeers: []);
+      final client = DhtClient(host: host, bootstrapPeers: []);
       await client.close();
       expect(() => client.findProvidersAsync(sampleCid, 1), throwsStateError);
     });
 
     test('findProvidersAsync() - valida parametros e encerramento', () async {
       final host = _FakeHost();
-      final router = Libp2pRouter(host);
-      final client = DhtClient(router: router, bootstrapPeers: []);
+      final client = DhtClient(host: host, bootstrapPeers: []);
       expect(() => client.findProvidersAsync(sampleCid, -1), throwsRangeError);
       await client.close();
     });
 
     test('getClosestPeers() - caminha a dht e valida encerramento', () async {
       final host = _FakeHost();
-      final router = Libp2pRouter(host);
-      final client = DhtClient(router: router, bootstrapPeers: []);
+      final client = DhtClient(host: host, bootstrapPeers: []);
       final key = Uint8List.fromList(sampleCid.multihash.toBytes());
       expect(await client.getClosestPeers(key), isEmpty);
       await client.close();
@@ -626,8 +620,7 @@ void main() {
       'provide() - lanca erro se cliente dht estiver fechado ou conclui sem candidatos',
       () async {
         final host = _FakeHost();
-        final router = Libp2pRouter(host);
-        final client = DhtClient(router: router, bootstrapPeers: []);
+        final client = DhtClient(host: host, bootstrapPeers: []);
         final provider = libp2p.AddrInfo(id: samplePeerId, addrs: []);
         await client.provide(sampleCid, provider);
         await client.close();

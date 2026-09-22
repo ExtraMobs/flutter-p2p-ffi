@@ -4,11 +4,10 @@ import 'dart:typed_data';
 import 'package:crypto/crypto.dart';
 import 'package:transpiled_libp2p/transpiled_libp2p.dart';
 import 'package:transpiled_libp2p_kbucket/transpiled_libp2p_kbucket.dart';
+import 'package:transpiled_multiaddr/transpiled_multiaddr.dart';
 
-import '../../network/libp2p_host.dart';
-import '../../routing/dht_provider_finder.dart'
-    show dhtProtocol, lanDhtProtocol;
 import 'dht_message.dart';
+import 'dht_provider_finder.dart' show dhtProtocol, lanDhtProtocol;
 import 'dht_provider_manager.dart';
 
 /// How long an inbound DHT stream may sit idle before it is reset.
@@ -49,18 +48,21 @@ enum ModeOpt {
 /// established with [DhtClient] (see PROGRESS.md), so `DhtServer` covers
 /// `handlers.go` and the response-writing half of `dht_net.go`.
 final class DhtServer {
-  /// Creates a server answering DHT requests over [router] from
+  /// Creates a server answering DHT requests over [host] from
   /// [routingTable], storing `ADD_PROVIDER` records in [providerStore].
   DhtServer({
-    required this.router,
+    required this.host,
     required this.routingTable,
     this.bucketSize = 20,
     ProviderManager? providerStore,
     this.mode = ModeOpt.autoServer,
   }) : providerStore = providerStore ?? ProviderManager();
 
-  /// Router used to reach the local host and its peerstore.
-  final Libp2pRouter router;
+  /// Host used to reach peers and their addresses.
+  ///
+  /// Go: `IpfsDHT.host` (`dht.go:105`), held directly rather than behind an
+  /// adapter.
+  final Host host;
 
   /// Live routing table queried to answer FIND_NODE / GET_PROVIDERS.
   final RoutingTable routingTable;
@@ -130,7 +132,7 @@ final class DhtServer {
   }
 
   void _watchReachability() {
-    final sub = router.host.eventBus.subscribe(EvtLocalReachabilityChanged);
+    final sub = host.eventBus.subscribe(EvtLocalReachabilityChanged);
     _reachability = sub;
     _events = sub.out().listen((event) {
       if (event is EvtLocalReachabilityChanged) {
@@ -164,7 +166,7 @@ final class DhtServer {
   /// Go: `moveToServerMode` (`dht.go:810-816`).
   void _moveToServerMode() {
     for (final proto in const [dhtProtocol, lanDhtProtocol]) {
-      router.host.setStreamHandler(proto, (stream) => _handleStream(stream));
+      host.setStreamHandler(proto, (stream) => _handleStream(stream));
     }
     _serving = true;
   }
@@ -176,7 +178,7 @@ final class DhtServer {
   /// flight are left to finish. Recorded in `doc/transpilation/PROGRESS.md`.
   void _moveToClientMode() {
     for (final proto in const [dhtProtocol, lanDhtProtocol]) {
-      router.host.removeStreamHandler(proto);
+      host.removeStreamHandler(proto);
     }
     _serving = false;
   }
@@ -281,7 +283,7 @@ final class DhtServer {
 
     final withAddrs = <AddrInfo>[];
     for (final id in candidates) {
-      final addrs = await router.getAddrs(id);
+      final addrs = _addrsFor(host, id);
       if (addrs.isNotEmpty) withAddrs.add(AddrInfo(id: id, addrs: addrs));
     }
     return encodeDhtResponse(
@@ -308,7 +310,7 @@ final class DhtServer {
     final closest = _closestPeersToQuery(request.key, from, bucketSize);
     final closerPeers = <AddrInfo>[];
     for (final id in closest) {
-      closerPeers.add(AddrInfo(id: id, addrs: await router.getAddrs(id)));
+      closerPeers.add(AddrInfo(id: id, addrs: _addrsFor(host, id)));
     }
 
     final base = encodeDhtResponse(
@@ -370,7 +372,7 @@ final class DhtServer {
   List<PeerId> _closestPeersToQuery(Uint8List key, PeerId from, int count) {
     final target = Uint8List.fromList(sha256.convert(key).bytes);
     final nearest = routingTable.nearestPeers(target, count + 1);
-    final selfId = router.host.id;
+    final selfId = host.id;
     final filtered = <PeerId>[];
     for (final p in nearest) {
       if (p == selfId) continue;
@@ -390,4 +392,17 @@ int _varintSize(int value) {
     n++;
   }
   return n;
+}
+
+/// Addresses the peerstore holds for [id], or empty when it has none.
+///
+/// Go inlines `dht.host.Peerstore().Addrs(p)` at the call sites
+/// (`handlers.go:80-96`); this port keeps the guard the previous
+/// `Libp2pRouter` adapter had.
+List<Multiaddr> _addrsFor(Host host, PeerId id) {
+  try {
+    return host.peerstore.addrs(id);
+  } catch (_) {
+    return const [];
+  }
 }
