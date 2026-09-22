@@ -175,14 +175,25 @@ class IpfsNetwork implements BitSwapNetwork {
     return Duration.zero;
   }
 
+  /// Go: `TagPeer` (`ipfs_impl.go:529-534`). The Go nil check on `bsnet.host`
+  /// has no counterpart here: [_host] is non-nullable.
   @override
-  void tagPeer(PeerId peer, String tag, int weight) {}
+  void tagPeer(PeerId peer, String tag, int weight) =>
+      _host.connManager.tagPeer(peer, tag, weight);
+
+  /// Go: `UntagPeer` (`ipfs_impl.go:536-541`).
   @override
-  void untagPeer(PeerId peer, String tag) {}
+  void untagPeer(PeerId peer, String tag) =>
+      _host.connManager.untagPeer(peer, tag);
+
+  /// Go: `Protect` (`ipfs_impl.go:543-548`).
   @override
-  void protect(PeerId peer, String tag) {}
+  void protect(PeerId peer, String tag) => _host.connManager.protect(peer, tag);
+
+  /// Go: `Unprotect` (`ipfs_impl.go:550-555`).
   @override
-  bool unprotect(PeerId peer, String tag) => false;
+  bool unprotect(PeerId peer, String tag) =>
+      _host.connManager.unprotect(peer, tag);
 
   bool _supportsHave(ProtocolId proto) {
     if (proto == _protocolBitswapOneOne ||

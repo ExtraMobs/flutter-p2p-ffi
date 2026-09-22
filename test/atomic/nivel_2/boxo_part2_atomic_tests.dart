@@ -8,7 +8,6 @@ import 'package:transpiled_boxo/bitswap/client.dart';
 import 'package:transpiled_boxo/bitswap/message.dart' as msg;
 import 'package:transpiled_boxo/bitswap/network.dart';
 import 'package:transpiled_boxo/src/bitswap/client/client.dart' as client_impl;
-import 'package:transpiled_boxo/src/bitswap/client/internal/blockpresencemanager/blockpresencemanager.dart';
 import 'package:transpiled_boxo/src/bitswap/client/internal/messagequeue/donthavetimeoutmgr.dart';
 import 'package:transpiled_boxo/src/bitswap/client/internal/messagequeue/messagequeue.dart';
 import 'package:transpiled_boxo/src/bitswap/client/internal/notifications/notifications.dart';
@@ -53,7 +52,13 @@ class _DummyP2pStream implements P2pStream {
 }
 
 class _DummyP2pHost implements P2pHost {
+  _DummyP2pHost([this.connManager = const NullConnMgr()]);
+
   final List<PeerId> _peers = [];
+
+  @override
+  final ConnManager connManager;
+
   @override
   void setStreamHandler(String protocol, void Function(P2pStream) handler) {}
   @override
@@ -734,6 +739,10 @@ void main() {
     test('peers() - consulta pares conectados ao host', () {
       expect(host.peers, isEmpty);
     });
+
+    test('connManager - expoe o gerenciador de conexoes do host', () {
+      expect(host.connManager, isA<ConnManager>());
+    });
   });
 
   group('BitSwapNetwork [Atomic Audit]', () {
@@ -820,6 +829,52 @@ void main() {
     test('unprotect() - revoga protecao de conexao', () {
       final res = tagger.unprotect(testPeer, 'tagA');
       expect(res, isFalse);
+    });
+
+    test('protect() - delega ao ConnManager do host', () {
+      final cm = BasicConnMgr(1, 2);
+      addTearDown(cm.close);
+      final net = IpfsNetwork.fromIpfsHost(_DummyP2pHost(cm));
+      net.protect(testPeer, 'tagA');
+      expect(cm.isProtected(testPeer, 'tagA'), isTrue);
+    });
+
+    test('unprotect() - delega ao ConnManager do host', () {
+      final cm = BasicConnMgr(1, 2);
+      addTearDown(cm.close);
+      final net = IpfsNetwork.fromIpfsHost(_DummyP2pHost(cm));
+      net.protect(testPeer, 'tagA');
+      // Go's `Unprotect` reports whether the peer REMAINS protected after the
+      // tag is dropped (`connmgr.go:208-221`), not whether it was protected.
+      expect(net.unprotect(testPeer, 'tagA'), isFalse);
+      expect(cm.isProtected(testPeer, 'tagA'), isFalse);
+    });
+
+    test('unprotect() - devolve true enquanto restar outra marcacao', () {
+      final cm = BasicConnMgr(1, 2);
+      addTearDown(cm.close);
+      final net = IpfsNetwork.fromIpfsHost(_DummyP2pHost(cm));
+      net.protect(testPeer, 'tagA');
+      net.protect(testPeer, 'tagB');
+      expect(net.unprotect(testPeer, 'tagA'), isTrue);
+      expect(cm.isProtected(testPeer, 'tagB'), isTrue);
+    });
+
+    test('tagPeer() - delega ao ConnManager do host', () {
+      final cm = BasicConnMgr(1, 2);
+      addTearDown(cm.close);
+      final net = IpfsNetwork.fromIpfsHost(_DummyP2pHost(cm));
+      net.tagPeer(testPeer, 'tagA', 10);
+      expect(cm.getTagInfo(testPeer)?.tags['tagA'], 10);
+    });
+
+    test('untagPeer() - delega ao ConnManager do host', () {
+      final cm = BasicConnMgr(1, 2);
+      addTearDown(cm.close);
+      final net = IpfsNetwork.fromIpfsHost(_DummyP2pHost(cm));
+      net.tagPeer(testPeer, 'tagA', 10);
+      net.untagPeer(testPeer, 'tagA');
+      expect(cm.getTagInfo(testPeer)?.tags['tagA'], isNull);
     });
   });
 

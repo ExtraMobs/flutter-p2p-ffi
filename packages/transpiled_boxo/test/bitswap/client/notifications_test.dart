@@ -4,7 +4,6 @@ import 'dart:typed_data';
 
 import 'package:test/test.dart';
 import 'package:transpiled_block_format/transpiled_block_format.dart';
-import 'package:transpiled_cid/transpiled_cid.dart';
 import 'package:transpiled_libp2p/transpiled_libp2p.dart';
 import 'package:transpiled_boxo/src/bitswap/client/internal/notifications/notifications.dart';
 
