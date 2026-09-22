@@ -1136,6 +1136,19 @@ desnecessário.
 do próprio pacote. Aí a declaração está ao lado e nenhum prefixo acrescenta
 informação.
 
+**Terceiro braço: prefixo que sombreia identificador local.** O auditor aponta
+quando o prefixo exigido tem o mesmo nome de uma variável, campo ou método
+declarado no arquivo, e a saída é a forma longa com sufixo `_package`
+(`transpiled_datastore_package`, `rate_package`). O sufixo não aparece em
+identificador Dart nenhum, então resolve sem abandonar o nome do upstream.
+
+Foi assim que apareceu o único caso restante do repositório:
+`ipld_prime_part2_atomic_tests.dart` tem `final raw = ls.loadRaw(...)` e
+importava `codec/raw/codec.dart` como `raw`. O arquivo **compilava**, porque a
+variável e os dois usos do prefixo ficam em escopos distintos — é o tipo de
+sombreamento que só quebra quando alguém aproxima os dois. Agora é
+`as raw_package`.
+
 **Armadilha registrada:** o prefixo exigido pode colidir com um identificador do
 arquivo. Aconteceu três vezes — uma variável `client`, uma variável `message` e
 um método `datastore()` que implementa interface. Nos dois primeiros a variável

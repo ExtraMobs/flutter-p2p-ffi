@@ -442,6 +442,16 @@ def strip_generics(s: str) -> str:
     return "".join(res)
 
 
+
+def cleaned_of(file_path, content: str) -> str:
+    """Conteúdo sem comentários e sem literais de string.
+
+    A detecção de identificador declarado não pode casar texto dentro de uma
+    string -- uma descrição de teste como `'rate limita por prefixo'` não
+    declara nada.
+    """
+    return clean_dart_source(content)
+
 class DartAuditSymbol:
     def __init__(self, kind: str, name: str, file_path: str, line: int, parent_type: Optional[str] = None, is_deprecated: bool = False, deprecation_msg: str = '', return_type: str = '', supertypes: str = ''):
         self.kind = kind  # class, mixin, enum, extension, extension_type, typedef, method, field, getter, setter, function, constructor
@@ -761,6 +771,26 @@ class AstNomenclatureAuditor:
         stem = uri.rsplit('/', 1)[-1]
         return stem[:-5] if stem.endswith('.dart') else stem
 
+    # Identificadores declarados no arquivo, para detectar prefixo sombreado.
+    RE_LOCAL_DECL = re.compile(
+        r"(?:(?:final|late|var|const)\s+(?:[A-Za-z0-9_.<>,? ]+\s+)?([a-z_]\w*)\s*[;=]"
+        r"|(?<![A-Za-z0-9_.])([a-z_]\w*)\s*\([^)]*\)\s*(?:async\s*)?[{=])"
+    )
+
+    @staticmethod
+    def escape_prefix_for(base: str, library: Optional[str] = None) -> str:
+        """Forma longa a usar quando o prefixo exigido colide com um
+        identificador do arquivo.
+
+        Para prefixo de pacote Dart, é o nome completo do pacote com o sufixo
+        `_package` (`transpiled_datastore_package`); para prefixo de pacote Go,
+        é o nome do pacote Go com o mesmo sufixo (`rate_package`). O sufixo
+        nunca aparece num identificador Dart comum, então a colisão desaparece
+        sem abandonar o nome do upstream.
+        """
+        stem = library if library else base
+        return f"{stem}_package"
+
     @staticmethod
     def allowed_prefixes_for(library: str) -> Set[str]:
         """Prefixos que nomeiam `library` de forma reconhecível.
@@ -770,7 +800,7 @@ class AstNomenclatureAuditor:
         `boilerplate` aceita também `Golang`, que o próprio AGENTS.md manda usar
         nos esquemas `fixed_types.Golang.<tipo>`.
         """
-        allowed = {library}
+        allowed = {library, f'{library}_package'}
         if library.startswith('transpiled_'):
             allowed.add(library[len('transpiled_'):])
         if library == 'boilerplate':
@@ -848,6 +878,11 @@ class AstNomenclatureAuditor:
         clause = self.go_package_clause.get(f"{pkg}:{directory}")
         if clause:
             candidates.add(clause)
+        if not candidates:
+            # Sem pacote Go identificável (arquivo na raiz de `src/`, por
+            # exemplo) não há nome fiel a exigir: a regra se cala.
+            return set()
+        candidates |= {f'{c}_package' for c in set(candidates)}
         return candidates
 
     def resolve_prefixed_reference(self, rel_path: str, reference: str) -> Tuple[str, Optional[str]]:
@@ -2176,6 +2211,45 @@ class AstNomenclatureAuditor:
                     lib_i = self.library_name_of_uri(m_imp.group(1))
                     if lib_i and (lib_i.startswith('transpiled_') or lib_i == 'boilerplate'):
                         other_libs.add(lib_i)
+
+                # Braço 3: o prefixo exigido sombreia um identificador do
+                # próprio arquivo. Em Dart o prefixo divide o espaço de nomes
+                # com variáveis, campos e métodos, então `as rate` num arquivo
+                # que declara `rate` deixa de compilar -- ou, pior, passa a
+                # apontar para o identificador errado. A saída é a forma longa
+                # com sufixo `_package`, que nenhum identificador Dart usa.
+                declared_local: Set[str] = set()
+                for m_decl in self.RE_LOCAL_DECL.finditer(cleaned_of(file_path, content)):
+                    for g in m_decl.groups():
+                        if g:
+                            declared_local.add(g)
+
+                for prefix, library in self.dart_import_prefixes.get(rel_path, {}).items():
+                    if not (library.startswith('transpiled_') or library == 'boilerplate'):
+                        continue
+                    if prefix.endswith('_package'):
+                        continue
+                    if prefix not in declared_local:
+                        continue
+                    uri_p = uri_of_prefix.get(prefix, '')
+                    escape = (
+                        self.escape_prefix_for(prefix)
+                        if '/src/' in uri_p
+                        else self.escape_prefix_for(prefix, library)
+                    )
+                    self.violations.append({
+                        'rule': 'RULE_IMPORT_PREFIX_NAMING',
+                        'severity': 'ERROR',
+                        'message': (
+                            f"O prefixo '{prefix}' sombreia um identificador declarado neste arquivo. "
+                            f"Em Dart o prefixo de import divide o espaço de nomes com variáveis e métodos, "
+                            f"então o nome fiel precisa da forma longa com sufixo `_package` aqui."
+                        ),
+                        'file': rel_path,
+                        'line': line_of.get(prefix, 1),
+                        'symbol': prefix,
+                        'suggested': f"Usar 'as {escape}' e qualificar os usos",
+                    })
 
                 # Imports do MESMO pacote Dart feitos neste arquivo, com a URI
                 # de cada um, para achar colisões internas.

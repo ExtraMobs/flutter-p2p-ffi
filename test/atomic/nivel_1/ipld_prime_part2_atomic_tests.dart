@@ -6,7 +6,7 @@ import 'package:transpiled_cid/transpiled_cid.dart';
 import 'package:transpiled_ipld_prime/fluent/qp.dart';
 import 'package:transpiled_ipld_prime/src/codec/dagjson/codec.dart' as dagjson;
 import 'package:transpiled_ipld_prime/src/codec/json/codec.dart' as json;
-import 'package:transpiled_ipld_prime/src/codec/raw/codec.dart' as raw;
+import 'package:transpiled_ipld_prime/src/codec/raw/codec.dart' as raw_package;
 import 'package:transpiled_ipld_prime/src/linking/cid/cid_link.dart';
 import 'package:transpiled_ipld_prime/src/linking/cid/link_system.dart' as cid;
 import 'package:transpiled_ipld_prime/src/linking/linking.dart';
@@ -392,7 +392,7 @@ void main() {
       'linkSystemUsingMulticodecRegistry() - cria link system com registro customizado',
       () {
         final r = multicodec.Registry();
-        raw.registerRawCodec(r);
+        raw_package.registerRawCodec(r);
         final ls = cid.linkSystemUsingMulticodecRegistry(r);
         expect(ls, isNotNull);
       },
@@ -452,7 +452,7 @@ void main() {
 
     test('registerRawCodec() - registra codec raw de bytes puros', () {
       final r = multicodec.Registry();
-      raw.registerRawCodec(r);
+      raw_package.registerRawCodec(r);
       expect(r.listEncoders(), contains(0x55));
     });
   });

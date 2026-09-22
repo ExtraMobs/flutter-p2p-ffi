@@ -661,9 +661,20 @@ auditando automaticamente as 25 regras contratuais:
     de um arquivo local do próprio pacote, `hide` continua correto e a regra não
     se aplica.
 
-    Quando o prefixo exigido colidir com um identificador do arquivo (uma
-    variável ou um método homônimo), use a forma longa que a regra também
-    aceita — o nome completo do pacote — em vez de abandonar a convenção.
+    **Quando o prefixo exigido sombreia um identificador do arquivo** — uma
+    variável, um campo ou um método homônimo —, o auditor aponta e a saída é a
+    forma longa com sufixo `_package`: `transpiled_datastore_package` para
+    prefixo de pacote Dart, `rate_package` para prefixo de pacote Go. Nenhum
+    identificador Dart usa esse sufixo, então a colisão desaparece sem
+    abandonar o nome do upstream. Em Dart o prefixo de import divide o espaço
+    de nomes com variáveis e métodos, e o sombreamento pode passar despercebido
+    quando prefixo e identificador ficam em escopos distintos: o arquivo
+    compila, e só quebra quando alguém aproxima os dois.
+
+    **Ao renomear um prefixo, renomeie primeiro o identificador local.**
+    Enquanto o prefixo antigo ainda está no lugar, `nome` só pode ser a
+    variável; depois da troca, os dois viram o mesmo token e não há como
+    separá-los por regex.
 
     O auditor mantém, por arquivo, o mapa `prefixo → biblioteca`, exposto por
     `resolve_prefixed_reference`, de modo que uma referência `foo.Bar` seja
