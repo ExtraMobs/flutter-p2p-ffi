@@ -189,7 +189,9 @@ final class IpfsNode {
     final dht = DhtClient(router: router, bootstrapPeers: bootstrapPeers);
     rollback.add(dht.close);
     dht.bootstrap();
-    DhtServer(router: router, routingTable: dht.routingTable).start();
+    final dhtServer = DhtServer(router: router, routingTable: dht.routingTable)
+      ..start();
+    rollback.add(dhtServer.close);
     final bitswap = BitswapClient(
       router: router,
       blockstore: blockstore,

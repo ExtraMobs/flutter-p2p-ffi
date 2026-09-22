@@ -609,25 +609,53 @@ apenas a finalidade dos hooks (`shutdown.CloseWithCtx`).
   minutos (o antigo nunca passava disso enfileirado sem negociar) e então
   **morreu**, pela lacuna do yamux logo abaixo.
 
-- **Uma escrita do yamux que falha derruba o processo inteiro.**
-  `YamuxSession._sendFrame` (`packages/transpiled_go_yamux/lib/src/yamux.dart:472`)
-  encadeia a escrita num `_writeTail` e devolve esse future sem tratar erro.
-  Quando um par reseta a conexão no meio de uma escrita, a exceção escapa para
-  a zona raiz:
+- **Sobreviver como servidor DHT: três das quatro camadas do go-libp2p
+  portadas, e o nó ainda cai.** Derivado do upstream, um nó que serve DHT na
+  rede pública se defende em quatro camadas, nesta ordem:
 
-  ```
-  Unhandled exception:
-  SocketException: Write failed (OS Error: ... errno = 10054)
-    _TcpRawConn.write -> _TlsConn.write -> YamuxSession._sendFrame
-  ```
+  | Camada | Go | Estado aqui |
+  | --- | --- | --- |
+  | 0. Só servir quando se deve | `ModeAuto` + `EvtLocalReachabilityChanged` (`dht_options.go:28`, `subscriber_notifee.go:102-126`, `dht.go:788-843`) | **portada, em `ModeOpt.autoServer`** (ver abaixo) |
+  | 1. Disciplina por stream | `dhtStreamIdleTimeout` de 1 min (`dht_net.go:20,43`), leitura limitada a `MessageSizeMax` 4 MB | **portada** (o teto de leitura já existia em `dhtMessageSizeMax`) |
+  | 2. Admissão no host | `rcmgr.OpenConnection` no listener gated (`upgrader/listener.go:195-210`) e `BasicConnMgr` podando 96→32 (`config/init.go:80-92`) | rcmgr **ligado**, connmgr **não portado** |
+  | 3. Contenção de erro | `send()` converte erro de escrita em fim de sessão (`go-yamux/session.go:545-567`) | **portada**, e insuficiente (ver abaixo) |
 
-  O defeito é anterior ao conserto do accept, mas era inofensivo enquanto o nó
-  mantinha efetivamente **uma** sessão de entrada por vez: quase nunca se
-  escrevia para um par morrendo. Com centenas de sessões reais simultâneas, um
-  reset no meio de uma escrita é rotina, e a primeira ocorrência mata o
-  processo. O Go trata isso no `sendLoop` de `go-yamux/session.go` com log e
-  `exitErr(err)`, encerrando **a sessão** — uma falha de um par nunca é uma
-  falha do nó.
+  **Camada 0 não pode ficar completa.** O padrão do Kubo é `ModeAuto`: serve
+  só quando o AutoNAT reporta endereço público. Este porte não tem AutoNAT que
+  mereça o nome — `p2p/host/autonat/autonat.dart` tem **69 linhas** contra
+  **1849** do `p2p/host/autonat` upstream, nada sonda par algum e
+  `setReachability` não tem chamador. Sob alcançabilidade permanentemente
+  desconhecida a semântica do Go faz `ModeAutoServer` servir e `ModeAuto` não
+  (`subscriber_notifee.go:108-113`), então o default aqui é `autoServer`: é
+  exatamente o comportamento de hoje, escrito no vocabulário do upstream em
+  vez de fixado no código. Portar AutoNAT de verdade transforma isso numa
+  mudança de uma palavra. **A alegação do Marco D.2 de "detecção autônoma de
+  reachability (AutoNAT v1/v2)" a 100% não se sustenta perante o código.**
+
+  **Camada 2 está pela metade, e a metade que falta é a que importa.** O
+  `ResourceManagerImpl` existe e agora é consultado no accept, mas o piso do
+  próprio Kubo para conexões de entrada é `DefaultResourceMgrMinInboundConns =
+  800` (`config/init.go:100`): as ~780 conexões que derrubaram este nó estavam
+  **dentro** do que o Kubo permitiria. Quem reduz carga lá é o `BasicConnMgr`,
+  podando de 96 para 32 com 20 s de carência — e dele só as interfaces estão
+  portadas (`core/connmgr/`), não a implementação. Além disso o escopo aberto
+  aqui cobre só a negociação, porque `Upgrade` não recebe escopo e
+  `CapableConn` não expõe gancho de fechamento; segurar um escopo que ninguém
+  libera viraria catraca e estrangularia o listener.
+
+  **Camada 3 revelou um terceiro defeito, específico do `dart:io`.** O
+  `YamuxSession._sendFrame` foi corrigido (erro de escrita fecha a sessão, e o
+  tail deixou de ficar envenenado), e `_TcpRawConn`/`_WebsocketConn` passaram a
+  observar `Socket.done`. Não basta: o `SocketException` de um par que reseta é
+  lançado **dentro da subscription interna do `IOSink`**, e chega ao root zone
+  por `_RootZone.runUnaryGuarded` — `done` não é o canal por onde ele passa.
+  Medido: com as correções o nó passou de morrer em menos de um minuto para
+  sobreviver três, com 653 sockets, e então caiu pela mesma exceção.
+
+  A saída fiel é deixar de escrever pelo `IOSink`: `RawSocket.write` devolve o
+  erro ao chamador de forma síncrona, que é a semântica de `net.Conn.Write` do
+  Go. Isso é uma reescrita do `_TcpRawConn` (buffer e backpressure próprios) e
+  não foi feita.
 
 - **Sem recuperação de perda no emissor QUIC.**
   `packages/transpiled_quic_go/lib/src/connection.dart` não rastreia pacotes em

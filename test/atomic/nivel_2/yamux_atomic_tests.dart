@@ -7,6 +7,35 @@ import 'dart:typed_data';
 import 'package:test/test.dart';
 import 'package:transpiled_go_yamux/transpiled_go_yamux.dart';
 
+/// A transport whose writes fail the way a peer resetting the socket makes
+/// them fail, so the session's handling of a dead connection can be observed.
+class _ResettingTransport implements YamuxTransport {
+  final StreamController<List<int>> _controller = StreamController<List<int>>();
+  bool closed = false;
+
+  @override
+  Stream<List<int>> get input => _controller.stream;
+
+  @override
+  Future<void> write(Uint8List bytes) =>
+      Future<void>.error(const SocketResetException());
+
+  @override
+  Future<void> close() async {
+    closed = true;
+    if (!_controller.isClosed) await _controller.close();
+  }
+}
+
+/// Stands in for `dart:io`'s SocketException, which this package must not
+/// import: `transpiled_go_yamux` is platform agnostic.
+class SocketResetException implements Exception {
+  const SocketResetException();
+
+  @override
+  String toString() => 'SocketResetException: connection reset by peer';
+}
+
 class _MemoryTransport implements YamuxTransport {
   _MemoryTransport([StreamController<List<int>>? controller])
     : _controller = controller ?? StreamController<List<int>>();
@@ -280,6 +309,30 @@ void main() {
 
       final exCustom = YamuxSessionClosedException('conexao encerrada');
       expect(exCustom.toString(), equals('conexao encerrada'));
+    });
+  });
+
+  group('YamuxSession write failure [Atomic Audit]', () {
+    test('openStream() - a write that fails closes the session instead of '
+        'escaping as an unhandled asynchronous error', () async {
+      final session = YamuxSession.client(_ResettingTransport());
+      // Go: `send()` takes the error out of `sendLoop`, closes the connection
+      // and calls `s.close(err, false, 0)` (`go-yamux/session.go:545-567`).
+      // The session dies; the process does not.
+      await expectLater(session.openStream(), throwsA(isA<Object>()));
+      await Future<void>.delayed(const Duration(milliseconds: 20));
+      expect(session.isClosed, isTrue);
+    });
+
+    test('openStream() - a second write after the first failed does not chain '
+        'onto a poisoned tail', () async {
+      final session = YamuxSession.client(_ResettingTransport());
+      await expectLater(session.openStream(), throwsA(isA<Object>()));
+      await Future<void>.delayed(const Duration(milliseconds: 20));
+      // The session is closed, so this reports *that* -- not a rejected write
+      // tail left over from the previous frame.
+      await expectLater(session.openStream(), throwsA(isA<Object>()));
+      expect(session.isClosed, isTrue);
     });
   });
 

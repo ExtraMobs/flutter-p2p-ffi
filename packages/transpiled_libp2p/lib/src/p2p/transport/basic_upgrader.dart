@@ -161,7 +161,11 @@ class BasicUpgrader implements Upgrader {
     // [transport] is unused, and kept for signature parity with Go, which
     // hands it to `upgrader.Upgrade` (`listener.go:110`). Here `upgrade`
     // reads the transport back off the connection itself.
-    return _UpgradedListener(upgrader: this, gated: listener);
+    return _UpgradedListener(
+      upgrader: this,
+      gated: listener,
+      resourceManager: resourceManager,
+    );
   }
 
   @override
@@ -372,13 +376,26 @@ class _UpgradedListener implements Listener {
   _UpgradedListener({
     required Upgrader upgrader,
     required GatedMaListener gated,
+    required ResourceManager resourceManager,
   }) : _upgrader = upgrader,
-       _gated = gated {
+       _gated = gated,
+       _resourceManager = resourceManager {
     unawaited(_handleIncoming());
   }
 
   final Upgrader _upgrader;
   final GatedMaListener _gated;
+
+  /// Decides whether there is room for one more inbound connection.
+  ///
+  /// Go asks this in the gated listener, before the raw connection is ever
+  /// handed over: `gatedMaListener.Accept` calls
+  /// `rcmgr.OpenConnection(DirInbound, true, conn.RemoteMultiaddr())` and
+  /// closes the connection when it is refused
+  /// (`p2p/net/upgrader/listener.go:195-210`). This port has no separate
+  /// gated wrapper, so the question is asked here, at the one place both
+  /// transports funnel through.
+  final ResourceManager _resourceManager;
 
   /// Negotiated connections waiting for [accept] to take them. Go: the
   /// unbuffered `incoming` channel (`upgrader.go:128`).
@@ -449,6 +466,28 @@ class _UpgradedListener implements Listener {
   /// Negotiates one inbound connection and hands it over, on one clock that
   /// covers both. Go: the goroutine body at `listener.go:106-146`.
   Future<void> _negotiate(RawConn raw) async {
+    // Admission first, negotiation second. A connection this node has no room
+    // for costs nothing beyond the close; negotiating it first would spend a
+    // handshake to arrive at the same answer.
+    final ConnManagementScope scope;
+    try {
+      scope = _resourceManager.openConnection(
+        Direction.inbound,
+        true,
+        raw.remoteMultiaddr(),
+      );
+    } catch (error) {
+      // Go: "resource manager blocked accept of new connection"
+      // (`listener.go:204`).
+      dev.log(
+        'resource manager blocked accept of new connection',
+        name: 'upgrader',
+        error: error,
+      );
+      await raw.close();
+      return;
+    }
+
     final elapsed = Stopwatch()..start();
     final CapableConn conn;
     try {
@@ -459,13 +498,29 @@ class _UpgradedListener implements Listener {
       // Go: "Don't bother bubbling this up. We just failed to completely
       // negotiate the connection." (`listener.go:118-119`).
       dev.log('accept upgrade error', name: 'upgrader', error: error);
+      scope.done();
       await raw.close();
       return;
     }
     if (_closed) {
+      scope.done();
       await conn.close();
       return;
     }
+    // Go keeps the scope for the life of the connection: it is handed to
+    // `Upgrade`, stored on the resulting conn, and released when that conn
+    // closes. This port's `Upgrade` takes no scope and `CapableConn` offers
+    // no close hook, so the scope covers **negotiation only** and is released
+    // on delivery.
+    //
+    // That is a narrower limit than upstream's, and deliberately so rather
+    // than by omission: holding a scope that nothing will ever release would
+    // turn the counter into a ratchet and strangle the listener after N
+    // connections, which is worse than the missing limit. What is bounded is
+    // how many inbound handshakes may run at once -- which is the resource a
+    // DHT flood actually consumes. Recorded in
+    // `doc/transpilation/PROGRESS.md`.
+    scope.done();
     _deliver(conn, _defaultAcceptTimeout - elapsed.elapsed);
   }
 

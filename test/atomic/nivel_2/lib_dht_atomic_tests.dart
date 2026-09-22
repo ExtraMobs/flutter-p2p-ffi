@@ -172,8 +172,9 @@ class _FakeHost implements Host {
   ProtocolSwitch get mux => throw UnimplementedError();
   @override
   ConnManager get connManager => const NullConnMgr();
+  final Bus _eventBus = BasicBus();
   @override
-  Bus get eventBus => BasicBus();
+  Bus get eventBus => _eventBus;
   @override
   Future<void> connect(
     AddrInfo pi, {
@@ -397,6 +398,58 @@ void main() {
 
   // DhtServer
   group('DhtServer [Atomic Audit]', () {
+    test('isServing() - modo client nunca registra handlers', () {
+      final self = _peerId(0);
+      final host = _FakeHost(selfId: self);
+      final server = DhtServer(
+        router: Libp2pRouter(host),
+        routingTable: _buildRoutingTable(self),
+        mode: ModeOpt.client,
+      )..start();
+      expect(server.isServing, isFalse);
+      expect(host.handlers.containsKey(dhtProtocol), isFalse);
+    });
+
+    test('isServing() - modo auto so serve quando a alcancabilidade vira '
+        'publica', () async {
+      final self = _peerId(0);
+      final host = _FakeHost(selfId: self);
+      final server = DhtServer(
+        router: Libp2pRouter(host),
+        routingTable: _buildRoutingTable(self),
+        mode: ModeOpt.auto,
+      )..start();
+      // Go: a alcancabilidade comeca desconhecida, e sob ModeAuto isso
+      // significa cliente (subscriber_notifee.go:108-113).
+      expect(server.isServing, isFalse);
+
+      final emitter = await host.eventBus.emitter(EvtLocalReachabilityChanged);
+      await emitter.emit(
+        const EvtLocalReachabilityChanged(reachability: Reachability.public_),
+      );
+      await Future<void>.delayed(const Duration(milliseconds: 20));
+      expect(server.isServing, isTrue);
+
+      await emitter.emit(
+        const EvtLocalReachabilityChanged(reachability: Reachability.private_),
+      );
+      await Future<void>.delayed(const Duration(milliseconds: 20));
+      expect(server.isServing, isFalse);
+      await server.close();
+    });
+
+    test('close() - para de servir e libera a assinatura', () async {
+      final self = _peerId(0);
+      final host = _FakeHost(selfId: self);
+      final server = DhtServer(
+        router: Libp2pRouter(host),
+        routingTable: _buildRoutingTable(self),
+      )..start();
+      expect(server.isServing, isTrue);
+      await server.close();
+      expect(server.isServing, isFalse);
+    });
+
     test('start() - registra handlers para os protocolos dht wan e lan', () {
       final self = _peerId(0);
       final host = _FakeHost(selfId: self);

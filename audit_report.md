@@ -1,7 +1,7 @@
 # Relatório de Auditoria de AST e Nomenclatura (Dart <-> Go)
 
 > Relatório gerado automaticamente por `tool/audit_ast_nomenclature.py`.
-> **Símbolos Dart Auditados:** 9007 | **Símbolos Go Indexados:** 52972
+> **Símbolos Dart Auditados:** 9020 | **Símbolos Go Indexados:** 52972
 > **Status Geral:** ❌ **0 Erros** | ⚠️ **0 Avisos** | ℹ️ **1463 Notas de Cobertura**
 
 ## 1. Resumo Executivo das 24 Regras
@@ -2803,7 +2803,7 @@
   - *Sugestão:* `Avaliar paridade e implementação de: PushParent`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/transport/quic/quic_transport.dart:59`](packages/transpiled_libp2p/lib/src/p2p/transport/quic/quic_transport.dart#L59)** — Classe 'QuicTransport' possui 2 método(s) do Go pendente(s) no módulo 'go-libp2p': WriteTo, ReadNonQUICPacket.
   - *Sugestão:* `Avaliar paridade e implementação de: WriteTo, ReadNonQUICPacket`
-- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/transport/tcp/tcp_transport.dart:13`](packages/transpiled_libp2p/lib/src/p2p/transport/tcp/tcp_transport.dart#L13)** — Classe 'TcpTransport' possui 2 método(s) do Go pendente(s) no módulo 'go-libp2p': UseReuseport, String.
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/transport/tcp/tcp_transport.dart:14`](packages/transpiled_libp2p/lib/src/p2p/transport/tcp/tcp_transport.dart#L14)** — Classe 'TcpTransport' possui 2 método(s) do Go pendente(s) no módulo 'go-libp2p': UseReuseport, String.
   - *Sugestão:* `Avaliar paridade e implementação de: UseReuseport, String`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/transport/webrtc/webrtc_transport.dart:64`](packages/transpiled_libp2p/lib/src/p2p/transport/webrtc/webrtc_transport.dart#L64)** — Classe 'WebRtcTransport' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p': ListenOrder.
   - *Sugestão:* `Avaliar paridade e implementação de: ListenOrder`

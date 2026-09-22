@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:crypto/crypto.dart';
@@ -9,6 +10,35 @@ import '../../routing/dht_provider_finder.dart'
     show dhtProtocol, lanDhtProtocol;
 import 'dht_message.dart';
 import 'dht_provider_manager.dart';
+
+/// How long an inbound DHT stream may sit idle before it is reset.
+///
+/// Go: `dhtStreamIdleTimeout` (`go-libp2p-kad-dht/dht_net.go:20`), armed as a
+/// `time.AfterFunc` for the life of the stream and pushed forward after every
+/// message (`:43`, `:96`). Without it a peer can open a stream, send nothing,
+/// and hold the resources behind it indefinitely -- which on a public DHT is
+/// not a hypothetical.
+const Duration dhtStreamIdleTimeout = Duration(minutes: 1);
+
+/// What mode the DHT should operate in.
+///
+/// Go: `ModeOpt` (`go-libp2p-kad-dht/dht_options.go:26-37`). Kubo's default is
+/// [auto], and that default is load control before any limit exists: a node
+/// that is not publicly reachable never takes server traffic at all, which is
+/// why most of the network never has to defend itself against it.
+enum ModeOpt {
+  /// Switches between client and server from `EvtLocalReachabilityChanged`.
+  auto,
+
+  /// Client only; never answers incoming queries.
+  client,
+
+  /// Server; answers incoming queries unconditionally.
+  server,
+
+  /// Like [auto], but serves while reachability is still unknown.
+  autoServer,
+}
 
 /// Serves the Kademlia DHT protocol (`/ipfs/kad/1.0.0` and
 /// `/ipfs/lan/kad/1.0.0`), answering `FIND_NODE`, `GET_PROVIDERS`,
@@ -26,6 +56,7 @@ final class DhtServer {
     required this.routingTable,
     this.bucketSize = 20,
     ProviderManager? providerStore,
+    this.mode = ModeOpt.autoServer,
   }) : providerStore = providerStore ?? ProviderManager();
 
   /// Router used to reach the local host and its peerstore.
@@ -40,14 +71,114 @@ final class DhtServer {
   /// Provider records received via ADD_PROVIDER, served by GET_PROVIDERS.
   final ProviderManager providerStore;
 
-  /// Registers the inbound DHT stream handlers for the WAN and LAN protocol
-  /// IDs. Equivalent to go-libp2p-kad-dht's `moveToServerMode`, minus the
-  /// client/server mode toggle: this node always serves once online (see
-  /// PROGRESS.md).
+  /// Whether this node serves DHT queries, and what decides it.
+  ///
+  /// Defaults to [ModeOpt.autoServer], **not** to Kubo's [ModeOpt.auto], and
+  /// the difference is forced by a gap rather than chosen. Under
+  /// [ModeOpt.auto] a node serves only once AutoNAT reports a public address;
+  /// this port has no AutoNAT worth the name -- `p2p/host/autonat/autonat.dart`
+  /// is a 69-line status holder against 1849 lines of protocol upstream,
+  /// nothing probes a peer, and `setReachability` has no caller -- so
+  /// reachability would stay `unknown` forever and the DHT would never serve.
+  ///
+  /// Under permanently unknown reachability Go's own semantics make
+  /// [ModeOpt.autoServer] serve and [ModeOpt.auto] not
+  /// (`subscriber_notifee.go:108-113`), so this default is exactly today's
+  /// behaviour, expressed in upstream's vocabulary instead of hard-coded. The
+  /// day AutoNAT is ported the node starts reacting on its own, and switching
+  /// the default to [ModeOpt.auto] becomes a one-word change.
+  final ModeOpt mode;
+
+  /// Whether the server protocol handlers are registered right now.
+  bool get isServing => _serving;
+
+  bool _serving = false;
+  Subscription? _reachability;
+  StreamSubscription<Object>? _events;
+
+  /// Brings the server up in the mode [mode] asks for.
+  ///
+  /// Go: `IpfsDHT` decides this at construction and then keeps it current from
+  /// the event bus (`subscriber_notifee.go:32-76`). Reachability starts
+  /// unknown, so [ModeOpt.auto] starts as a **client** and only begins serving
+  /// once AutoNAT reports a public address -- which is the point. Answering
+  /// `/ipfs/kad/1.0.0` makes the whole network dial this node continuously; a
+  /// node that cannot be reached from outside has no business inviting that
+  /// traffic, and a node that can needs the rest of the defences in place
+  /// before it does.
   void start() {
+    switch (mode) {
+      case ModeOpt.client:
+        return;
+      case ModeOpt.server:
+        _moveToServerMode();
+      case ModeOpt.autoServer:
+        _moveToServerMode();
+        _watchReachability();
+      case ModeOpt.auto:
+        _watchReachability();
+    }
+  }
+
+  /// Stops serving and releases the reachability subscription.
+  Future<void> close() async {
+    await _events?.cancel();
+    _events = null;
+    await _reachability?.close();
+    _reachability = null;
+    if (_serving) _moveToClientMode();
+  }
+
+  void _watchReachability() {
+    final sub = router.host.eventBus.subscribe(EvtLocalReachabilityChanged);
+    _reachability = sub;
+    _events = sub.out().listen((event) {
+      if (event is EvtLocalReachabilityChanged) {
+        _handleLocalReachabilityChangedEvent(event);
+      }
+    });
+  }
+
+  /// Go: `handleLocalReachabilityChangedEvent`
+  /// (`subscriber_notifee.go:102-126`).
+  void _handleLocalReachabilityChangedEvent(EvtLocalReachabilityChanged e) {
+    final target = switch (e.reachability) {
+      Reachability.private_ => false,
+      Reachability.unknown => mode == ModeOpt.autoServer,
+      Reachability.public_ => true,
+    };
+    _setMode(serving: target);
+  }
+
+  /// Go: `setMode` (`dht.go:788-808`), which is a no-op when the mode already
+  /// matches.
+  void _setMode({required bool serving}) {
+    if (serving == _serving) return;
+    if (serving) {
+      _moveToServerMode();
+    } else {
+      _moveToClientMode();
+    }
+  }
+
+  /// Go: `moveToServerMode` (`dht.go:810-816`).
+  void _moveToServerMode() {
     for (final proto in const [dhtProtocol, lanDhtProtocol]) {
       router.host.setStreamHandler(proto, (stream) => _handleStream(stream));
     }
+    _serving = true;
+  }
+
+  /// Go: `moveToClientMode` (`dht.go:823-843`), which also resets the inbound
+  /// streams still open on those protocols. Resetting them is not done here:
+  /// this port's `Network` exposes no way to enumerate the streams of a
+  /// connection, so the handlers are withdrawn and the streams already in
+  /// flight are left to finish. Recorded in `doc/transpilation/PROGRESS.md`.
+  void _moveToClientMode() {
+    for (final proto in const [dhtProtocol, lanDhtProtocol]) {
+      router.host.removeStreamHandler(proto);
+    }
+    _serving = false;
   }
 
   Future<void> _handleStream(NetworkStream stream) async {
@@ -65,14 +196,24 @@ final class DhtServer {
       return;
     }
 
+    // Go arms this before the read loop and stops it on the way out
+    // (`dht_net.go:43-44`); every message received pushes it forward.
+    var idle = Timer(dhtStreamIdleTimeout, () => unawaited(stream.reset()));
+
     // Mirrors go-libp2p-kad-dht's handleNewMessage: a stream may carry
     // several requests before the remote closes it.
     var resetOnExit = false;
     try {
       while (!stream.isClosed) {
+        // Go checks the mode on every iteration and stops serving the moment
+        // it leaves server mode (`dht_net.go:47-50`), rather than letting a
+        // stream opened while serving outlive the switch.
+        if (!_serving) break;
         final Uint8List frameBytes;
         try {
           frameBytes = await readDhtFrame(stream);
+          idle.cancel();
+          idle = Timer(dhtStreamIdleTimeout, () => unawaited(stream.reset()));
         } on FormatException {
           // Clean or unexpected EOF ends the read loop. This port doesn't
           // distinguish the two (unlike Go's io.EOF-vs-other-error split),
@@ -89,6 +230,7 @@ final class DhtServer {
     } catch (_) {
       resetOnExit = true;
     }
+    idle.cancel();
     try {
       if (resetOnExit) {
         await stream.reset();

@@ -1,5 +1,6 @@
 // ignore_for_file: duplicate_ignore, public_member_api_docs, sort_constructors_first, directives_ordering, dangling_library_doc_comments, library_prefixes, constant_identifier_names, depend_on_referenced_packages
 import 'dart:async';
+import 'dart:developer' as dev;
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -132,6 +133,27 @@ class _TcpRawConn implements RawConn {
   }) : _socket = socket,
        _transport = transport,
        _targetRemoteAddr = targetRemoteAddr {
+    // A socket that dies mid-write reports it through `Socket.done`, not
+    // through the `write` that queued the bytes: `IOSink.add` is fire and
+    // forget, and the failure surfaces inside the sink's own stream
+    // subscription, in the root zone. Unobserved, that is an unhandled
+    // asynchronous error, and an unhandled asynchronous error terminates the
+    // isolate -- so a single peer resetting its connection took the whole
+    // node down, which is exactly what happened under public DHT traffic.
+    //
+    // Go has no equivalent hazard: `net.Conn.Write` hands the error back to
+    // its caller, and `go-yamux`'s `send()` turns it into a session shutdown
+    // (`go-yamux/session.go:545-567`). Observing `done` here is the dart:io
+    // adaptation that restores that shape.
+    unawaited(
+      _socket.done.then<void>(
+        (_) {},
+        onError: (Object error) {
+          _isClosed = true;
+          dev.log('tcp socket failed', name: 'tcp', error: error);
+        },
+      ),
+    );
     _subscription = _socket.listen(
       (data) {
         _buffer.addAll(data);

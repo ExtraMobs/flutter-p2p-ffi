@@ -469,12 +469,33 @@ final class YamuxSession {
 
   Object get _closedError => _shutdownReason ?? YamuxSessionClosedException();
 
+  /// Queues [frame] behind whatever is already being written.
+  ///
+  /// A write that fails is fatal to this session and to nothing else. Go's
+  /// `send()` takes the error out of `sendLoop`, closes the connection and
+  /// calls `s.close(err, false, 0)` (`go-yamux/session.go:545-567`): the
+  /// goroutine ends, the process keeps running. A peer that resets the socket
+  /// mid-write is an ordinary event on a public network, not a fault of this
+  /// node.
+  ///
+  /// Two things follow, and both used to be wrong here. The error must not
+  /// escape as an unhandled asynchronous error -- several callers fire this
+  /// without awaiting, so it reached the root zone and killed the isolate on
+  /// the first peer that reset. And the tail must not stay poisoned: chaining
+  /// the next frame onto a rejected future made every later write fail too,
+  /// long after the session should simply have been closed.
   Future<void> _sendFrame(YamuxFrame frame) {
     final bytes = frame.encode();
-    _writeTail = _writeTail.then((_) async {
+    final sent = _writeTail.then((_) async {
       if (!isClosed) await transport.write(bytes);
     });
-    return _writeTail;
+    // Registering the handler on `sent` is what makes it safe to ignore the
+    // returned future, and leaves the tail resolved rather than rejected.
+    _writeTail = sent.then<void>(
+      (_) {},
+      onError: (Object error) => unawaited(close(reason: error)),
+    );
+    return sent;
   }
 
   void _onInput(List<int> chunk) {

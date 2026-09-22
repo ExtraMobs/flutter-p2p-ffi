@@ -15,6 +15,7 @@
 // documented gaps.
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer' as dev;
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -403,6 +404,19 @@ class _WebsocketConn implements RawConn {
        _transport = transportInstance,
        _local = localMultiaddr,
        _remote = remoteMultiaddr {
+    // Same hazard as `_TcpRawConn`: a WebSocket that dies mid-write reports
+    // it through `done`, asynchronously and in the root zone, so leaving it
+    // unobserved turns one peer's reset into an unhandled asynchronous error
+    // and kills the isolate.
+    unawaited(
+      _socket.done.then<void>(
+        (_) {},
+        onError: (Object error) {
+          _isClosed = true;
+          dev.log('websocket failed', name: 'websocket', error: error);
+        },
+      ),
+    );
     _subscription = _socket.listen(
       (dynamic message) {
         final bytes = message is String
