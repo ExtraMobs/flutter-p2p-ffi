@@ -517,6 +517,61 @@ Pré-requisitos do `BasicConnMgr`, portados antes dele.
   `2001:db8::1/56 -> 2001:db8::/56`, e `zero.Prefix(8)` devolvendo prefixo
   inválido **sem** erro (`netip.go:683-684`).
 
+### Limitador de taxa (`golang.org/x/time/rate`) e `net.IP`
+
+- **`packages/transpiled_golang_x_time/` criado**, portando `rate.go` (427
+  linhas) e `sometimes.go`. Foi preciso porque `go-libp2p/x/rate/limiter.go`
+  — dependência do `conn_rate_limiter.go` do rcmgr — importa
+  `golang.org/x/time/rate`, que é módulo `go.mod` próprio e não estava clonado.
+  Revisão travada no `UPSTREAM_LOCK.md` em **v0.15.0** / `812b343c8714`, que é
+  o que `go-libp2p/go.mod:66` fixa; o clone tinha vindo no tip do master, mais
+  novo, e foi recuado para a tag.
+
+  Portados: `Limit` (classe real — `type Limit float64` é *defined type* com
+  método próprio, não alias), `Limit.inf`, `every`, `infDuration`, `Limiter`
+  (`NewLimiter` → construtor, `allow`/`allowN`, `reserve`/`reserveN`,
+  `wait`/`waitN`, `setLimit(At)`, `setBurst(At)`, `tokensAt`), `Reservation` e
+  `Sometimes`.
+
+  **Renomeação não mecânica, registrada como o `AGENTS.md` exige:**
+  `Sometimes.Do` → `Sometimes.run`, porque `do` é palavra reservada do Dart.
+
+  **Adaptação de unidade de tempo, e um defeito que ela evitou.**
+  `time.Duration` do Go conta nanossegundos e `Duration` do Dart conta
+  microssegundos. `InfDuration = time.Duration(math.MaxInt64)` **não** pode ser
+  copiado como o mesmo inteiro bruto reinterpretado em microssegundos: daria
+  ~292.471 anos em vez dos ~292 anos reais, estourando o alcance do `DateTime`
+  (~273.790 anos) e produzindo `RangeError` em `DateTime.add`. O porte
+  converte a unidade de verdade (`(2^63-1) ~/ 1000`), preservando a magnitude,
+  e o cap de overflow de `durationFromTokens` (`rate.go:412-415`) usa esse
+  mesmo limiar. O valor só é usado como sentinela de "espera infinita", nunca
+  decomposto de volta em tokens.
+
+  Omissões deliberadas: `sync.Mutex` de `Limiter` (`rate.go:58`) e de
+  `Sometimes` (`sometimes.go:27`), pelo mesmo motivo já registrado no
+  `BasicConnMgr` — nenhuma região guardada tem `await`. O `context.Context` de
+  `WaitN` virou `deadline` e `cancellation` explícitos; a checagem síncrona
+  inicial do Go passa a ocorrer depois de um turno de microtask, porque um
+  `Future` não é inspecionável de forma síncrona.
+
+- **`boilerplate/net/` — `Ip` e `IpNet`**, separados de `net_netip/` porque a
+  semântica diverge onde importa. `net.IP` dobra o endereço IPv4 mapeado na
+  forma IPv4 antes de imprimir e de comparar, então `10.0.0.0/8` **contém**
+  `::ffff:10.1.2.3`; `netip.Prefix.Contains` recusa o mesmo par, porque os
+  comprimentos de bit diferem. `conngater.go` depende do primeiro
+  comportamento, `conn_limiter.go` do segundo — um único tipo deixaria um dos
+  dois sutilmente errado.
+
+  Adaptação registrada: `net.ParseCIDR` devolve `(IP, *IPNet, error)`;
+  `IpNet.tryParseCidr` devolve só a rede, porque a Regra 8 veta tuplas de erro
+  em API pública. O endereço que o Go devolve primeiro é `Ip.tryParse` do
+  trecho antes da barra.
+
+  Vetores executados em Go 1.25.7, não deduzidos: `net.ParseIP("127.0.0.1")`
+  com **16** bytes, `ParseIP("::ffff:127.0.0.1").String() == "127.0.0.1"`,
+  `ParseCIDR("10.0.0.0/8")` com endereço e máscara de **4** bytes,
+  `n4.Contains(::ffff:10.1.2.3) == true` e `net.IP(nil).String() == "<nil>"`.
+
 ### Host, descoberta e persistência
 
 - `go-libp2p config.NewNode` → `observedaddrs.NewManager/Start/Close` →

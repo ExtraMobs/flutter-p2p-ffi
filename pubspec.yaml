@@ -97,6 +97,8 @@ dependencies:
     path: packages/transpiled_libp2p_record
   transpiled_libp2p_pubsub:
     path: packages/transpiled_libp2p_pubsub
+  transpiled_golang_x_time:
+    path: packages/transpiled_golang_x_time
   transpiled_libp2p_kad_dht:
     path: packages/transpiled_libp2p_kad_dht
   transpiled_libp2p_kbucket:
