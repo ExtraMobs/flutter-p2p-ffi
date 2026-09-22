@@ -312,6 +312,40 @@ void main() {
     });
   });
 
+  group('YamuxSession keepalive [Atomic Audit]', () {
+    test(
+      'ping() - devolve o tempo de ida e volta quando o par responde',
+      () async {
+        final (clientTransport, serverTransport) = _MemoryTransport.pair();
+        final client = YamuxSession.client(clientTransport);
+        final server = YamuxSession.server(serverTransport);
+        // Go: `Ping` manda um ping SYN e espera o ACK que ecoa o valor opaco
+        // carregado no campo length do frame.
+        final rtt = await client.ping();
+        expect(rtt, isA<Duration>());
+        expect(client.isClosed, isFalse);
+        await client.close();
+        await server.close();
+      },
+    );
+
+    test('ping() - recusa quando a sessao ja esta fechada', () async {
+      final (clientTransport, _) = _MemoryTransport.pair();
+      final client = YamuxSession.client(clientTransport);
+      await client.close();
+      await expectLater(client.ping(), throwsA(isA<Object>()));
+    });
+  });
+
+  group('YamuxKeepAliveTimeoutException [Atomic Audit]', () {
+    test('toString() - nomeia o motivo do fechamento', () {
+      expect(
+        const YamuxKeepAliveTimeoutException().toString(),
+        contains('keepalive timeout'),
+      );
+    });
+  });
+
   group('YamuxSession write failure [Atomic Audit]', () {
     test('openStream() - a write that fails closes the session instead of '
         'escaping as an unhandled asynchronous error', () async {

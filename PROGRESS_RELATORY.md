@@ -1,7 +1,7 @@
 # Relatório Sintético de Progresso e Cobertura da Árvore AST (Go <-> Dart)
 
 > Documento gerado automaticamente pela ferramenta `tool/audit_ast_nomenclature.py --progress`.
-> **Símbolos Dart Auditados:** 9020 | **Símbolos Go Indexados:** 52972
+> **Símbolos Dart Auditados:** 9033 | **Símbolos Go Indexados:** 52972
 
 ## 1. Visão Geral em Duas Perspectivas
 

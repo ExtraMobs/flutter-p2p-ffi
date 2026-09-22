@@ -331,6 +331,17 @@ abstract interface class YamuxTransport {
   Future<void> close();
 }
 
+/// Thrown into a session that stopped answering keepalives.
+///
+/// Go: `ErrKeepAliveTimeout` (`go-yamux/const.go:130-131`).
+class YamuxKeepAliveTimeoutException implements Exception {
+  /// Creates a [YamuxKeepAliveTimeoutException].
+  const YamuxKeepAliveTimeoutException();
+
+  @override
+  String toString() => 'YamuxKeepAliveTimeoutException: keepalive timeout';
+}
+
 final class YamuxSession {
   YamuxSession(
     this.transport, {
@@ -349,6 +360,7 @@ final class YamuxSession {
           close(reason: YamuxSessionClosedException('transport closed')),
       cancelOnError: true,
     );
+    _startKeepalive();
   }
 
   factory YamuxSession.client(
@@ -446,6 +458,7 @@ final class YamuxSession {
   Future<void> close({Object? reason}) => _closeFuture ??= _close(reason);
 
   Future<void> _close(Object? reason) async {
+    _stopKeepalive();
     _shutdownReason = reason ?? YamuxSessionClosedException();
     _goAway = true;
     _closed.complete();
@@ -469,6 +482,65 @@ final class YamuxSession {
 
   Object get _closedError => _shutdownReason ?? YamuxSessionClosedException();
 
+  /// Pings still waiting for their pong, keyed by the opaque value carried in
+  /// the frame's length field.
+  final Map<int, Completer<void>> _pings = {};
+  int _nextPingId = 0;
+  Timer? _keepaliveTimer;
+
+  /// Sends a ping and waits for its pong, reporting the round trip.
+  ///
+  /// Go: `Ping` (`go-yamux/session.go`), which puts one
+  /// [YamuxConfig.connectionWriteTimeout] over both halves -- getting the
+  /// ping out, and hearing the answer.
+  Future<Duration> ping() async {
+    if (isClosed) throw _closedError;
+    final id = _nextPingId++;
+    final pong = Completer<void>();
+    _pings[id] = pong;
+    final elapsed = Stopwatch()..start();
+    try {
+      await _sendFrame(
+        YamuxFrame(type: YamuxMessageType.ping, flags: yamuxSyn, length: id),
+      ).timeout(config.connectionWriteTimeout);
+      await pong.future.timeout(config.connectionWriteTimeout);
+    } finally {
+      _pings.remove(id);
+    }
+    return elapsed.elapsed;
+  }
+
+  /// Arms the next keepalive ping.
+  ///
+  /// Go: `startKeepalive` (`go-yamux/session.go:446-473`) -- a timer that
+  /// pings, reschedules itself, and closes the session with
+  /// `ErrKeepAliveTimeout` when the ping fails.
+  ///
+  /// Without this a session whose peer vanished silently is never reaped: no
+  /// bytes arrive, nothing errors, and the socket sits open forever. On a
+  /// public DHT that is the difference between a connection count that
+  /// plateaus and one that only climbs.
+  void _startKeepalive() {
+    if (!config.enableKeepAlive || isClosed) return;
+    _keepaliveTimer = Timer(config.keepAliveInterval, () async {
+      if (isClosed) return;
+      try {
+        await ping();
+      } catch (_) {
+        // Go: `s.close(ErrKeepAliveTimeout, false, 0)` (`session.go:468-471`).
+        unawaited(close(reason: const YamuxKeepAliveTimeoutException()));
+        return;
+      }
+      _startKeepalive();
+    });
+  }
+
+  /// Go: `stopKeepalive` (`go-yamux/session.go:476`).
+  void _stopKeepalive() {
+    _keepaliveTimer?.cancel();
+    _keepaliveTimer = null;
+  }
+
   /// Queues [frame] behind whatever is already being written.
   ///
   /// A write that fails is fatal to this session and to nothing else. Go's
@@ -487,7 +559,15 @@ final class YamuxSession {
   Future<void> _sendFrame(YamuxFrame frame) {
     final bytes = frame.encode();
     final sent = _writeTail.then((_) async {
-      if (!isClosed) await transport.write(bytes);
+      // Go's `sendLoop` puts `ConnectionWriteTimeout` on the connection before
+      // every write (`extendWriteDeadline`, `session.go:583-590`). Without a
+      // deadline, a peer that stops reading parks this write forever and the
+      // connection behind it is never released. The queue wait ahead of it is
+      // deliberately outside the clock: Go's deadline covers the write, not
+      // the time spent behind other frames.
+      if (!isClosed) {
+        await transport.write(bytes).timeout(config.connectionWriteTimeout);
+      }
     });
     // Registering the handler on `sent` is what makes it safe to ignore the
     // returned future, and leaves the tail resolved rather than rejected.
@@ -526,6 +606,11 @@ final class YamuxSession {
             ),
           ),
         );
+      } else {
+        // The pong to one of our own keepalives; the length field echoes the
+        // opaque value we sent.
+        final waiting = _pings.remove(frame.length);
+        if (waiting != null && !waiting.isCompleted) waiting.complete();
       }
       return;
     }

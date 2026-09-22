@@ -609,53 +609,58 @@ apenas a finalidade dos hooks (`shutdown.CloseWithCtx`).
   minutos (o antigo nunca passava disso enfileirado sem negociar) e então
   **morreu**, pela lacuna do yamux logo abaixo.
 
-- **Sobreviver como servidor DHT: três das quatro camadas do go-libp2p
-  portadas, e o nó ainda cai.** Derivado do upstream, um nó que serve DHT na
-  rede pública se defende em quatro camadas, nesta ordem:
+- **Servidor DHT auto-hospedado: comprovado, e ainda sem teto de conexões.**
+  Um terceiro recupera o bloco pelo CID, com o nó Dart na ponta:
 
-  | Camada | Go | Estado aqui |
-  | --- | --- | --- |
-  | 0. Só servir quando se deve | `ModeAuto` + `EvtLocalReachabilityChanged` (`dht_options.go:28`, `subscriber_notifee.go:102-126`, `dht.go:788-843`) | **portada, em `ModeOpt.autoServer`** (ver abaixo) |
-  | 1. Disciplina por stream | `dhtStreamIdleTimeout` de 1 min (`dht_net.go:20,43`), leitura limitada a `MessageSizeMax` 4 MB | **portada** (o teto de leitura já existia em `dhtMessageSizeMax`) |
-  | 2. Admissão no host | `rcmgr.OpenConnection` no listener gated (`upgrader/listener.go:195-210`) e `BasicConnMgr` podando 96→32 (`config/init.go:80-92`) | rcmgr **ligado**, connmgr **não portado** |
-  | 3. Contenção de erro | `send()` converte erro de escrita em fim de sessão (`go-yamux/session.go:545-567`) | **portada**, e insuficiente (ver abaixo) |
+  ```
+  ipfs-check: ConnectionError "", ConnectionMaddrs ["/ip4/203.0.113.47/tcp/4002"],
+              ProviderRecordFromPeerInDHT true,
+              DataAvailableOverBitswap {Found: true, Responded: true, 879 ms}
+  trustless-gateway.link/ipfs/<cid>?format=raw -> HTTP 200 com o payload
+  ```
 
-  **Camada 0 não pode ficar completa.** O padrão do Kubo é `ModeAuto`: serve
-  só quando o AutoNAT reporta endereço público. Este porte não tem AutoNAT que
-  mereça o nome — `p2p/host/autonat/autonat.dart` tem **69 linhas** contra
-  **1849** do `p2p/host/autonat` upstream, nada sonda par algum e
-  `setReachability` não tem chamador. Sob alcançabilidade permanentemente
-  desconhecida a semântica do Go faz `ModeAutoServer` servir e `ModeAuto` não
-  (`subscriber_notifee.go:108-113`), então o default aqui é `autoServer`: é
-  exatamente o comportamento de hoje, escrito no vocabulário do upstream em
-  vez de fixado no código. Portar AutoNAT de verdade transforma isso numa
-  mudança de uma palavra. **A alegação do Marco D.2 de "detecção autônoma de
-  reachability (AutoNAT v1/v2)" a 100% não se sustenta perante o código.**
+  O segundo é recuperação **cega**: só o CID, sem multiaddr. É a primeira vez
+  que a cadeia inteira fecha ponta a ponta.
 
-  **Camada 2 está pela metade, e a metade que falta é a que importa.** O
-  `ResourceManagerImpl` existe e agora é consultado no accept, mas o piso do
-  próprio Kubo para conexões de entrada é `DefaultResourceMgrMinInboundConns =
-  800` (`config/init.go:100`): as ~780 conexões que derrubaram este nó estavam
-  **dentro** do que o Kubo permitiria. Quem reduz carga lá é o `BasicConnMgr`,
-  podando de 96 para 32 com 20 s de carência — e dele só as interfaces estão
-  portadas (`core/connmgr/`), não a implementação. Além disso o escopo aberto
-  aqui cobre só a negociação, porque `Upgrade` não recebe escopo e
-  `CapableConn` não expõe gancho de fechamento; segurar um escopo que ninguém
-  libera viraria catraca e estrangularia o listener.
+  Quatro defeitos tiveram de cair para isso, e a ordem em que apareceram é
+  instrutiva, porque cada conserto revelou o seguinte:
 
-  **Camada 3 revelou um terceiro defeito, específico do `dart:io`.** O
-  `YamuxSession._sendFrame` foi corrigido (erro de escrita fecha a sessão, e o
-  tail deixou de ficar envenenado), e `_TcpRawConn`/`_WebsocketConn` passaram a
-  observar `Socket.done`. Não basta: o `SocketException` de um par que reseta é
-  lançado **dentro da subscription interna do `IOSink`**, e chega ao root zone
-  por `_RootZone.runUnaryGuarded` — `done` não é o canal por onde ele passa.
-  Medido: com as correções o nó passou de morrer em menos de um minuto para
-  sobreviver três, com 653 sockets, e então caiu pela mesma exceção.
+  1. **Accept serial** (`upgrader/listener.go`) — negociação em série sem
+     timeout travava o nó em minutos. Ver o commit `1e5c08cc`.
+  2. **`_sendFrame` do yamux** — erro de escrita escapava para a zona raiz;
+     Go faz log e `exitErr` (`go-yamux/session.go:545-567`).
+  3. **`IOSink` do `dart:io`** — `Socket.add` é fire-and-forget e o
+     `SocketException` do par que reseta nasce dentro da subscription interna
+     do sink, chegando ao root zone por `_RootZone.runUnaryGuarded`. Não passa
+     por `Socket.done`, então observar `done` não resolve. `_TcpRawConn` foi
+     reescrito sobre `RawSocket`, cujo `write` devolve `(n, err)` ao chamador
+     como o `net.Conn.Write` do Go, com laço de escrita parcial e
+     backpressure explícitos.
+  4. **Keepalive ausente** — `enableKeepAlive` e `keepAliveInterval` eram
+     campos só validados, sem `Timer` nenhum no pacote: uma sessão cujo par
+     sumiu em silêncio nunca era ceifada. Portados `startKeepalive`
+     (`session.go:446-473`), `Ping`, e o deadline de escrita
+     `connectionWriteTimeout` que o `sendLoop` aplica na conexão
+     (`session.go:583-590`).
 
-  A saída fiel é deixar de escrever pelo `IOSink`: `RawSocket.write` devolve o
-  erro ao chamador de forma síncrona, que é a semântica de `net.Conn.Write` do
-  Go. Isso é uma reescrita do `_TcpRawConn` (buffer e backpressure próprios) e
-  não foi feita.
+  O item 4 introduziu um quinto defeito antes de funcionar, e vale registrar:
+  com o deadline de escrita o yamux passou a **abandonar** o `await`, deixando
+  o `_TcpRawConn` estacionado num completer de escrita sem ouvinte. Completá-lo
+  com erro na morte do socket virou erro assíncrono não tratado — a mesma
+  classe de falha que o item 3 acabara de eliminar. O completer passou a ser
+  concluído normalmente, e o laço de escrita reconfere `isClosed` ao acordar,
+  lançando de dentro da cadeia do chamador, onde há tratador.
+
+  **O que falta:** não há teto de conexões. Medido com tudo acima em pé, o
+  número de sockets de entrada sobe de forma monótona — 240 no primeiro minuto,
+  658 no nono — e o keepalive apenas reduz a inclinação. Quem estabiliza isso
+  no Kubo é o `BasicConnMgr`, podando de 96 para 32 com 20 s de carência
+  (`config/init.go:80-92`), e dele só as interfaces estão portadas em
+  `core/connmgr/`. O `ResourceManager` não substitui: o piso do próprio Kubo
+  para conexões de entrada é 800 (`config/init.go:100`).
+
+  A sobrevida medida hoje é de dezenas de minutos, não de dias, e não existe
+  teste de soak no repositório que meça isso continuamente.
 
 - **Sem recuperação de perda no emissor QUIC.**
   `packages/transpiled_quic_go/lib/src/connection.dart` não rastreia pacotes em

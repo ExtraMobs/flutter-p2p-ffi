@@ -1,6 +1,5 @@
 // ignore_for_file: duplicate_ignore, public_member_api_docs, sort_constructors_first, directives_ordering, dangling_library_doc_comments, library_prefixes, constant_identifier_names, depend_on_referenced_packages
 import 'dart:async';
-import 'dart:developer' as dev;
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -36,7 +35,7 @@ class TcpTransport implements Transport, DialUpdater {
     }
 
     final (host, port) = endpoint;
-    final socket = await Socket.connect(host, port, timeout: connectTimeout);
+    final socket = await RawSocket.connect(host, port, timeout: connectTimeout);
     final rawConn = _TcpRawConn(
       socket: socket,
       transport: this,
@@ -75,7 +74,7 @@ class TcpTransport implements Transport, DialUpdater {
     }
 
     final (host, port) = endpoint;
-    final serverSocket = await ServerSocket.bind(host, port);
+    final serverSocket = await RawServerSocket.bind(host, port);
     // The socket listener only hands out raw connections; negotiating them is
     // the upgrader's job, and it does so concurrently. Go wires it the same
     // way -- `tcp.Transport.Listen` returns
@@ -125,68 +124,99 @@ class TcpTransport implements Transport, DialUpdater {
   }
 }
 
+/// A TCP connection with `net.Conn` semantics, built on [RawSocket].
+///
+/// Deliberately **not** built on `Socket`. `Socket` is an `IOSink`, and
+/// `IOSink.add` is fire and forget: when the peer resets the connection the
+/// failure is raised inside the sink's own stream subscription, reaching the
+/// root zone through `_RootZone.runUnaryGuarded`. It does not travel back to
+/// the `write` that queued the bytes, and it does not travel through
+/// `Socket.done` either -- both were tried. An unhandled asynchronous error
+/// terminates the isolate, so one peer resetting took the whole node down,
+/// which is what happened repeatedly under public DHT traffic.
+///
+/// Go has no such hazard, because `net.Conn.Write` returns `(n, err)` to its
+/// caller. [RawSocket.write] is the one dart:io API with that shape: it is
+/// synchronous, it returns how many bytes the kernel accepted, and it throws
+/// to the caller. Everything below exists to rebuild `net.Conn` on top of it
+/// -- which also means this class owns the partial-write loop and the
+/// backpressure that `IOSink` used to hide.
 class _TcpRawConn implements RawConn {
   _TcpRawConn({
-    required Socket socket,
+    required RawSocket socket,
     required Transport transport,
     Multiaddr? targetRemoteAddr,
   }) : _socket = socket,
        _transport = transport,
        _targetRemoteAddr = targetRemoteAddr {
-    // A socket that dies mid-write reports it through `Socket.done`, not
-    // through the `write` that queued the bytes: `IOSink.add` is fire and
-    // forget, and the failure surfaces inside the sink's own stream
-    // subscription, in the root zone. Unobserved, that is an unhandled
-    // asynchronous error, and an unhandled asynchronous error terminates the
-    // isolate -- so a single peer resetting its connection took the whole
-    // node down, which is exactly what happened under public DHT traffic.
-    //
-    // Go has no equivalent hazard: `net.Conn.Write` hands the error back to
-    // its caller, and `go-yamux`'s `send()` turns it into a session shutdown
-    // (`go-yamux/session.go:545-567`). Observing `done` here is the dart:io
-    // adaptation that restores that shape.
-    unawaited(
-      _socket.done.then<void>(
-        (_) {},
-        onError: (Object error) {
-          _isClosed = true;
-          dev.log('tcp socket failed', name: 'tcp', error: error);
-        },
-      ),
-    );
+    _socket.readEventsEnabled = true;
+    _socket.writeEventsEnabled = false;
     _subscription = _socket.listen(
-      (data) {
-        _buffer.addAll(data);
-        final waiting = _completer;
-        if (waiting != null && !waiting.isCompleted) {
-          waiting.complete();
-        }
-      },
-      onError: (Object err) {
-        _isClosed = true;
-        final waiting = _completer;
-        if (waiting != null && !waiting.isCompleted) {
-          waiting.completeError(err);
-        }
-      },
-      onDone: () {
-        _isClosed = true;
-        final waiting = _completer;
-        if (waiting != null && !waiting.isCompleted) {
-          waiting.complete();
-        }
-      },
-      cancelOnError: true,
+      _onEvent,
+      onError: (Object error) => _fail(error),
+      onDone: () => _fail(null),
     );
   }
 
-  final Socket _socket;
+  final RawSocket _socket;
   final Transport _transport;
   final Multiaddr? _targetRemoteAddr;
-  StreamSubscription<Uint8List>? _subscription;
-  final List<int> _buffer = [];
-  Completer<void>? _completer;
+  StreamSubscription<RawSocketEvent>? _subscription;
+
+  final BytesBuilder _buffer = BytesBuilder(copy: false);
+  Completer<void>? _readable;
+  Completer<void>? _writable;
   bool _isClosed = false;
+
+  void _onEvent(RawSocketEvent event) {
+    switch (event) {
+      case RawSocketEvent.read:
+        // `available()` can report zero while the event is still delivered;
+        // `read` then answers null and there is simply nothing to buffer.
+        final chunk = _socket.read();
+        if (chunk != null && chunk.isNotEmpty) {
+          _buffer.add(chunk);
+          _wake(_readable);
+          _readable = null;
+        }
+      case RawSocketEvent.write:
+        // dart:io delivers this once and clears the flag, so a writer that
+        // still has bytes left re-arms it on the next pass.
+        _wake(_writable);
+        _writable = null;
+      case RawSocketEvent.readClosed:
+        _fail(null);
+      case RawSocketEvent.closed:
+        _fail(null);
+    }
+  }
+
+  /// Marks the connection dead and releases whoever is waiting on it.
+  ///
+  /// [error] is the socket's own failure when there was one; a clean remote
+  /// close passes null, and a reader then sees end of stream rather than an
+  /// exception, matching what `net.Conn` reports as `io.EOF`.
+  void _fail(Object? error) {
+    _isClosed = true;
+    final readable = _readable;
+    final writable = _writable;
+    _readable = null;
+    _writable = null;
+    _wake(readable);
+    // Completed normally, deliberately, and never with an error: the writer
+    // parked here may already have walked away, because yamux abandons a
+    // write once `connectionWriteTimeout` elapses
+    // (`go-yamux/session.go:583-590`). Completing an abandoned completer with
+    // an error raises it with nobody listening, and an unhandled asynchronous
+    // error kills the isolate -- the very failure this class exists to
+    // prevent. The write loop re-checks `isClosed` after waking and throws
+    // from inside the caller's own chain instead, where a handler exists.
+    _wake(writable);
+  }
+
+  static void _wake(Completer<void>? completer) {
+    if (completer != null && !completer.isCompleted) completer.complete();
+  }
 
   @override
   Transport transport() => _transport;
@@ -215,24 +245,24 @@ class _TcpRawConn implements RawConn {
   @override
   Future<Uint8List> read([int? maxLength]) async {
     while (_buffer.isEmpty && !_isClosed) {
-      _completer = Completer<void>();
-      await _completer!.future;
-      _completer = null;
+      final waiter = _readable ??= Completer<void>();
+      await waiter.future;
     }
     if (_buffer.isEmpty) return Uint8List(0);
-    final count = maxLength != null && maxLength > 0
-        ? (maxLength < _buffer.length ? maxLength : _buffer.length)
-        : _buffer.length;
-    final chunk = Uint8List.fromList(_buffer.sublist(0, count));
-    _buffer.removeRange(0, count);
-    return chunk;
+    final pending = _buffer.takeBytes();
+    if (maxLength == null || maxLength <= 0 || maxLength >= pending.length) {
+      return pending;
+    }
+    // Hand back what was asked for and keep the tail for the next read, in
+    // the order it arrived.
+    _buffer.add(Uint8List.sublistView(pending, maxLength));
+    return Uint8List.sublistView(pending, 0, maxLength);
   }
 
-  // Go's net.Conn permite chamadas concorrentes de goroutines distintas; o
-  // Socket do dart:io não. IOSink.flush() marca o sink como bound enquanto está
-  // em voo, então um close() concorrente a um write() pendente — ou dois writes
-  // simultâneos — lançam "StreamSink is bound to a stream". Serializar restaura
-  // a semântica do Go.
+  // Go's net.Conn tolerates concurrent calls from different goroutines; a
+  // single RawSocket does not, and a half-written buffer interleaved with
+  // another writer's bytes would corrupt the stream. Serialising restores the
+  // Go semantics.
   Future<void> _pending = Future<void>.value();
 
   Future<void> _serialized(Future<void> Function() action) {
@@ -243,19 +273,45 @@ class _TcpRawConn implements RawConn {
 
   @override
   Future<void> write(Uint8List data) => _serialized(() async {
-    if (_isClosed) throw StateError('TCP connection is closed');
-    _socket.add(data);
-    await _socket.flush();
+    if (_isClosed) throw const SocketException('TCP connection is closed');
+    var offset = 0;
+    while (offset < data.length) {
+      final int written;
+      try {
+        written = _socket.write(data, offset, data.length - offset);
+      } on SocketException {
+        // Exactly what `net.Conn.Write` does: the error goes to the caller.
+        // Nothing here reaches the root zone, so a peer that resets can no
+        // longer take the isolate with it.
+        _isClosed = true;
+        rethrow;
+      }
+      offset += written;
+      if (offset < data.length) {
+        // The kernel buffer is full. `IOSink` hid this behind its own queue;
+        // here it is explicit, and it is the same wait Go's blocking
+        // `Write` does inside the runtime.
+        if (_isClosed) {
+          throw const SocketException('TCP connection closed while writing');
+        }
+        _socket.writeEventsEnabled = true;
+        final waiter = _writable ??= Completer<void>();
+        await waiter.future;
+        if (_isClosed) {
+          throw const SocketException('TCP connection closed while writing');
+        }
+      }
+    }
   });
 
   @override
   Future<void> close() => _serialized(() async {
     if (_isClosed) return;
     _isClosed = true;
+    _fail(null);
     await _subscription?.cancel();
     _subscription = null;
     await _socket.close();
-    _socket.destroy();
   });
 
   @override
@@ -270,7 +326,7 @@ class _TcpRawConn implements RawConn {
 /// (see `_UpgradedListener` in `basic_upgrader.dart`).
 class _TcpListener implements GatedMaListener {
   _TcpListener({
-    required ServerSocket serverSocket,
+    required RawServerSocket serverSocket,
     required Transport transport,
   }) : _serverSocket = serverSocket,
        _transport = transport {
@@ -299,10 +355,10 @@ class _TcpListener implements GatedMaListener {
     );
   }
 
-  final ServerSocket _serverSocket;
+  final RawServerSocket _serverSocket;
   final Transport _transport;
-  StreamSubscription<Socket>? _subscription;
-  final List<Socket> _pendingSockets = [];
+  StreamSubscription<RawSocket>? _subscription;
+  final List<RawSocket> _pendingSockets = [];
   Completer<void>? _completer;
   bool _closed = false;
 
@@ -330,7 +386,9 @@ class _TcpListener implements GatedMaListener {
     _subscription = null;
     await _serverSocket.close();
     for (final s in _pendingSockets) {
-      s.destroy();
+      // RawSocket has no `destroy`; closing it releases the descriptor just
+      // the same, and these were never handed to anyone.
+      unawaited(s.close());
     }
     _pendingSockets.clear();
   }

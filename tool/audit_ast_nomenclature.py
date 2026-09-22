@@ -159,6 +159,7 @@ DOCUMENTED_ADAPTATIONS = {
     'YamuxFrameDecoder': 'PROGRESS.md - Decodificador sequencial de frames Yamux sobre stream de bytes',
     'YamuxStreamResetException': 'PROGRESS.md - Exceção tipada para ErrStreamReset do go-yamux',
     'YamuxSessionClosedException': 'PROGRESS.md - Exceção tipada para ErrSessionShutdown do go-yamux',
+    'YamuxKeepAliveTimeoutException': 'PROGRESS.md - Exceção tipada para ErrKeepAliveTimeout do go-yamux (const.go:130)',
     # packages/transpiled_ipld_prime
     'SeekOrigin': 'PROGRESS.md - Equivalente Dart para io.SeekStart/Current/End do Go',
     'ByteReadSeeker': 'PROGRESS.md - Equivalente Dart para io.ReadSeeker do Go',
