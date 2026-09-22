@@ -11,6 +11,7 @@ data: números de cobertura e de conformidade vêm dos relatórios gerados.
 | `PROGRESS_RELATORY.md` (`--progress`) | Cobertura por módulo, em números |
 | `audit_report.md` (`--markdown`) | Apontamentos do auditor, símbolo a símbolo |
 | Este arquivo | O que está comprovado, contra o quê, e o que ainda não está |
+| `doc/transpilation/FASES_A_B_C.md` | O que ainda **vai** ser feito nas Fases A, B e C, passo a passo |
 
 Regra de leitura: **"portado" e "funciona contra par real" são afirmações
 distintas.** Uma matriz de `canDial()` ou uma troca em loopback entre dois nós
