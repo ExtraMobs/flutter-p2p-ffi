@@ -28,7 +28,13 @@ abstract interface class ConnManager {
   TagInfo? getTagInfo(PeerId peer);
 
   /// Trims open connections according to the manager's policy.
-  void trimOpenConns();
+  ///
+  /// Go's `TrimOpenConns` (`core/connmgr/manager.go:53`) returns nothing but
+  /// documents that it "blocks until a trim is completed", and that a trim
+  /// already underway is awaited rather than restarted. In Dart that promise is
+  /// a `Future`, and it has to be: closing a connection is asynchronous here,
+  /// so a `void` return would drop both the completion signal and any error.
+  Future<void> trimOpenConns();
 
   /// Returns the network callback receiver used by this manager.
   Notifiee notifiee();

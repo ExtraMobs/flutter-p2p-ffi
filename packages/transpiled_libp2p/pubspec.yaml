@@ -19,6 +19,8 @@ dependencies:
     path: ../transpiled_base58
   transpiled_cid:
     path: ../transpiled_cid
+  transpiled_clock:
+    path: ../transpiled_clock
   transpiled_multiaddr:
     path: ../transpiled_multiaddr
   transpiled_multibase:

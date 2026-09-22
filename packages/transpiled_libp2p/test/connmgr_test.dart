@@ -113,7 +113,7 @@ class _DecayingManager implements ConnManager, Decayer {
   TagInfo? getTagInfo(PeerId peer) => null;
 
   @override
-  void trimOpenConns() {}
+  Future<void> trimOpenConns() async {}
 
   @override
   Notifiee notifiee() => globalNoopNotifiee;

@@ -22,7 +22,7 @@ final class NullConnMgr implements ConnManager {
   TagInfo getTagInfo(PeerId peer) => TagInfo();
 
   @override
-  void trimOpenConns() {}
+  Future<void> trimOpenConns() async {}
 
   @override
   Notifiee notifiee() => globalNoopNotifiee;
