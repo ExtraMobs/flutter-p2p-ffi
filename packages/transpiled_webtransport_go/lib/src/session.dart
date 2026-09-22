@@ -12,7 +12,7 @@ import 'dart:async';
 import 'dart:collection';
 import 'dart:typed_data';
 
-import 'package:transpiled_quic_go/transpiled_quic_go.dart' as quicgo;
+import 'package:transpiled_quic_go/transpiled_quic_go.dart' as quic_go;
 import 'package:transpiled_quic_go/transpiled_quic_go.dart'
     show appendVarInt, parseVarInt;
 
@@ -35,9 +35,9 @@ class Session {
   /// Wraps the QUIC connection [conn] as the session established by the
   /// CONNECT request that travelled on stream [sessionId].
   Session({
-    required quicgo.QuicConn conn,
+    required quic_go.QuicConn conn,
     required this.sessionId,
-    required quicgo.QuicStream requestStream,
+    required quic_go.QuicStream requestStream,
     this.applicationProtocol = '',
   }) : _conn = conn,
        _requestStream = requestStream,
@@ -57,8 +57,8 @@ class Session {
   /// The application protocol the server selected, empty when none was.
   final String applicationProtocol;
 
-  final quicgo.QuicConn _conn;
-  final quicgo.QuicStream _requestStream;
+  final quic_go.QuicConn _conn;
+  final quic_go.QuicStream _requestStream;
   final Uint8List _streamHeader;
   final Uint8List _uniStreamHeader;
 
@@ -72,7 +72,7 @@ class Session {
   bool get isClosed => _closed || _conn.isClosed;
 
   /// The QUIC connection carrying this session.
-  quicgo.QuicConn get conn => _conn;
+  quic_go.QuicConn get conn => _conn;
 
   /// Opens a bidirectional stream inside this session.
   ///
@@ -119,7 +119,7 @@ class Session {
     _accepting = true;
     unawaited(() async {
       while (!isClosed) {
-        final quicgo.QuicStream stream;
+        final quic_go.QuicStream stream;
         try {
           stream = await _conn.acceptStream();
         } catch (_) {
@@ -169,7 +169,7 @@ class Session {
 class SessionStream {
   SessionStream._(this._stream);
 
-  final quicgo.QuicStream _stream;
+  final quic_go.QuicStream _stream;
   final BytesBuilder _surplus = BytesBuilder(copy: false);
 
   /// The QUIC stream ID this stream runs on.
@@ -217,7 +217,7 @@ class SessionStream {
 /// The first byte's two most significant bits give the encoded length, per
 /// RFC 9000 section 16, so exactly the right number of bytes is consumed and
 /// nothing that follows the varint is swallowed.
-Future<int> _readVarIntFrom(quicgo.QuicStream stream) async {
+Future<int> _readVarIntFrom(quic_go.QuicStream stream) async {
   final first = await stream.readExactly(1);
   final length = 1 << (first[0] >> 6);
   if (length == 1) return first[0] & 0x3f;

@@ -5,7 +5,7 @@ import 'dart:typed_data';
 import 'package:boilerplate/fixed_types/golang.dart' as Golang;
 import 'package:transpiled_cid/transpiled_cid.dart';
 import 'package:transpiled_ipld_prime/transpiled_ipld_prime.dart';
-import 'package:transpiled_protobuf/protowire.dart' as wire;
+import 'package:transpiled_protobuf/protowire.dart' as protobuf;
 
 /// Decodes DAG-PB bytes into [a], corresponding to Go's `DecodeBytes`.
 void decodeBytes(NodeAssembler a, Uint8List b) {
@@ -13,8 +13,8 @@ void decodeBytes(NodeAssembler a, Uint8List b) {
   ListAssembler? ls;
   final m = a.beginMap(2);
   while (p < b.length) {
-    final t = wire.consumeTag(Uint8List.sublistView(b, p));
-    if (t.$3 < 0) throw wire.parseError(t.$3)!;
+    final t = protobuf.consumeTag(Uint8List.sublistView(b, p));
+    if (t.$3 < 0) throw protobuf.parseError(t.$3)!;
     p += t.$3;
     if (t.$2 != 2) {
       _bad('protobuf: (PBNode) invalid wireType, expected 2, got ${t.$2}');
@@ -88,30 +88,30 @@ Uint8List appendEncode(Uint8List p, Node n) {
   });
   for (final z in e) {
     final name = z.name == null ? null : Golang.String.fromDart(z.name!);
-    var size = wire.sizeTag(2) + wire.sizeBytes(z.hash.length);
+    var size = protobuf.sizeTag(2) + protobuf.sizeBytes(z.hash.length);
     if (name != null) {
-      size += wire.sizeTag(2) + wire.sizeBytes(name.length);
+      size += protobuf.sizeTag(2) + protobuf.sizeBytes(name.length);
     }
     if (z.size != null) {
-      size += wire.sizeTag(3) + wire.sizeVarint(Golang.Uint64(z.size!));
+      size += protobuf.sizeTag(3) + protobuf.sizeVarint(Golang.Uint64(z.size!));
     }
-    wire.appendTag(o, 2, 2);
-    wire.appendVarint(o, Golang.Uint64(size));
-    wire.appendTag(o, 1, 2);
-    wire.appendBytes(o, z.hash);
+    protobuf.appendTag(o, 2, 2);
+    protobuf.appendVarint(o, Golang.Uint64(size));
+    protobuf.appendTag(o, 1, 2);
+    protobuf.appendBytes(o, z.hash);
     if (name != null) {
-      wire.appendTag(o, 2, 2);
-      wire.appendString(o, name);
+      protobuf.appendTag(o, 2, 2);
+      protobuf.appendString(o, name);
     }
     if (z.size != null) {
-      wire.appendTag(o, 3, 0);
-      wire.appendVarint(o, Golang.Uint64(z.size!));
+      protobuf.appendTag(o, 3, 0);
+      protobuf.appendVarint(o, Golang.Uint64(z.size!));
     }
   }
   final d = _opt(n, 'Data');
   if (d != null) {
-    wire.appendTag(o, 1, 2);
-    wire.appendBytes(o, d.asBytes());
+    protobuf.appendTag(o, 1, 2);
+    protobuf.appendBytes(o, d.asBytes());
   }
   return Uint8List.fromList(o);
 }
@@ -120,8 +120,8 @@ void _link(NodeAssembler a, Uint8List b) {
   var p = 0, hash = false, name = false, tsize = false;
   final m = a.beginMap(3);
   while (p < b.length) {
-    final t = wire.consumeTag(Uint8List.sublistView(b, p));
-    if (t.$3 < 0) throw wire.parseError(t.$3)!;
+    final t = protobuf.consumeTag(Uint8List.sublistView(b, p));
+    if (t.$3 < 0) throw protobuf.parseError(t.$3)!;
     p += t.$3;
     final f = t.$1, w = t.$2;
     if (f < 1 || f > 3) {
@@ -201,15 +201,15 @@ int _cmp(String a, String b) {
 }
 
 (int, int) _v(Uint8List b, int p) {
-  final (v, n) = wire.consumeVarint(Uint8List.sublistView(b, p));
-  if (n < 0) throw wire.parseError(n)!;
+  final (v, n) = protobuf.consumeVarint(Uint8List.sublistView(b, p));
+  if (n < 0) throw protobuf.parseError(n)!;
   final native = Golang.Int64.fromUint64(v).toIntExact();
   return (native, p + n);
 }
 
 (Uint8List, int) _bytes(Uint8List b, int p) {
-  final (value, n) = wire.consumeBytes(Uint8List.sublistView(b, p));
-  if (n < 0) throw wire.parseError(n)!;
+  final (value, n) = protobuf.consumeBytes(Uint8List.sublistView(b, p));
+  if (n < 0) throw protobuf.parseError(n)!;
   return (value!, p + n);
 }
 

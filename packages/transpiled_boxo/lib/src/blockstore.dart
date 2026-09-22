@@ -2,10 +2,11 @@
 import 'dart:typed_data';
 
 import 'package:logging/logging.dart';
-import 'package:transpiled_block_format/transpiled_block_format.dart' as blocks;
+import 'package:transpiled_block_format/transpiled_block_format.dart'
+    as block_format;
 import 'package:transpiled_cid/transpiled_cid.dart';
 import 'package:transpiled_datastore/transpiled_datastore.dart';
-import 'package:transpiled_multihash/transpiled_multihash.dart' as mh;
+import 'package:transpiled_multihash/transpiled_multihash.dart' as multihash;
 
 import 'datastore/dshelp/key.dart' as dshelp;
 
@@ -53,9 +54,9 @@ final class Blockstore {
   Future<bool> has(Cid cid) => _datastore.has(_key(cid));
 
   /// Returns the stored block named by [cid].
-  Future<blocks.Block> get(Cid cid) async {
+  Future<block_format.Block> get(Cid cid) async {
     try {
-      return blocks.BasicBlock(
+      return block_format.BasicBlock(
         Uint8List.fromList(await _datastore.get(_key(cid))),
         cid,
       );
@@ -75,7 +76,7 @@ final class Blockstore {
 
   /// Stores [block], skipping the write when it is already present unless
   /// [writeThrough] is enabled.
-  Future<void> put(blocks.Block block) async {
+  Future<void> put(block_format.Block block) async {
     final key = _key(block.cid());
     if (!writeThrough) {
       try {
@@ -88,7 +89,7 @@ final class Blockstore {
   }
 
   /// Stores [values] using one datastore batch, including when it is empty.
-  Future<void> putMany(Iterable<blocks.Block> values) async {
+  Future<void> putMany(Iterable<block_format.Block> values) async {
     final blocksList = values.toList();
     if (blocksList.length == 1) return put(blocksList.single);
 
@@ -149,7 +150,7 @@ final class Blockstore {
           _log.warning('error parsing key from binary: $error');
           continue;
         }
-        yield Cid.v1('raw', mh.decode(bytes));
+        yield Cid.v1('raw', multihash.decode(bytes));
       }
     } finally {
       results.close();

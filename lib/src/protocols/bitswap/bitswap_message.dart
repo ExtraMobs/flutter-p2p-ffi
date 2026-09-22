@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
-import 'package:transpiled_block_format/transpiled_block_format.dart' as blocks;
+import 'package:transpiled_block_format/transpiled_block_format.dart'
+    as block_format;
 import 'package:transpiled_boxo/bitswap/message.dart';
 import 'package:transpiled_cid/transpiled_cid.dart';
 import 'package:transpiled_libp2p/transpiled_libp2p.dart';
@@ -44,7 +45,7 @@ Future<BitSwapMessage> readBitswapMessage(NetworkStream stream) async {
 }
 
 /// Extracts and validates a requested block from a decoded message.
-blocks.Block? blockFromMessage(BitSwapMessage message, Cid requested) {
+block_format.Block? blockFromMessage(BitSwapMessage message, Cid requested) {
   for (final block in message.blocks()) {
     if (block.cid() == requested) return block;
   }

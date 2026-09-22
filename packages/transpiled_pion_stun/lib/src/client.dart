@@ -40,7 +40,7 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:transpiled_pion_transport_v4/transpiled_pion_transport_v4.dart'
-    as transport;
+    as pion_transport_v4;
 
 import 'agent.dart';
 import 'message.dart';
@@ -66,7 +66,7 @@ final class DtlsNotSupportedException implements Exception {
 }
 
 /// See file-level doc comment: the TLS `DialUri` branch is not ported
-/// because `transpiled_pion_transport_v4`'s [transport.NetConn] has no
+/// because `transpiled_pion_transport_v4`'s [pion_transport_v4.NetConn] has no
 /// upgrade-to-TLS primitive.
 final class TlsNotSupportedException implements Exception {
   const TlsNotSupportedException();
@@ -259,7 +259,7 @@ final class Client {
     _readLoopDone = _readUntilClosed();
   }
 
-  transport.NetConn _conn;
+  pion_transport_v4.NetConn _conn;
   Clock _clock;
   Duration _rto;
   Duration _rtoRate;
@@ -292,7 +292,7 @@ final class Client {
     String address, {
     List<ClientOption> options = const [],
   }) async {
-    final conn = await transport.StdNet().dial(network, address);
+    final conn = await pion_transport_v4.StdNet().dial(network, address);
     return Client(conn, options: options);
   }
 
@@ -300,10 +300,10 @@ final class Client {
   /// comment for the DTLS/TLS scope cuts.
   static Future<Client> dialUri(
     StunUri uri, {
-    transport.Net? net,
+    pion_transport_v4.Net? net,
     List<ClientOption> options = const [],
   }) async {
-    final nw = net ?? transport.StdNet();
+    final nw = net ?? pion_transport_v4.StdNet();
     final addr = '${uri.host}:${uri.port}';
 
     switch (uri.scheme) {

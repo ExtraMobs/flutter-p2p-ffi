@@ -2,18 +2,19 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:logging/logging.dart';
-import 'package:transpiled_block_format/transpiled_block_format.dart' as blocks;
+import 'package:transpiled_block_format/transpiled_block_format.dart'
+    as block_format;
 import 'package:transpiled_boxo/transpiled_boxo.dart' hide Blockstore;
 import 'package:transpiled_cid/transpiled_cid.dart';
 import 'package:transpiled_datastore/transpiled_datastore.dart'
     show MapDatastore;
 import 'package:transpiled_go_car/transpiled_go_car.dart';
 import 'package:transpiled_libp2p/transpiled_libp2p.dart'
-    as observed
+    as libp2p
     show Manager;
 import 'package:transpiled_libp2p/transpiled_libp2p.dart';
 import 'package:transpiled_libp2p_kad_dht/transpiled_libp2p_kad_dht.dart';
-import 'package:transpiled_multiaddr/transpiled_multiaddr.dart' as core_ma;
+import 'package:transpiled_multiaddr/transpiled_multiaddr.dart' as multiaddr;
 
 import '../blockstore/blockstore.dart';
 import '../config/ipfs_runtime_config.dart';
@@ -133,14 +134,14 @@ final class IpfsNode {
     rollback.add(swarm.close);
 
     final listenAddrs = config.network.listenAddresses
-        .map(core_ma.Multiaddr.parse)
+        .map(multiaddr.Multiaddr.parse)
         .toList();
     await swarm.listen(listenAddrs);
 
     String? announcedIp;
     for (final a in config.network.announceAddresses) {
       try {
-        final parsed = core_ma.Multiaddr.parse(a);
+        final parsed = multiaddr.Multiaddr.parse(a);
         for (final c in parsed.components) {
           if (c.protocol.name == 'ip4') {
             announcedIp = c.value;
@@ -160,7 +161,7 @@ final class IpfsNode {
     await natManager.start();
 
     HolePunchService? holePunch;
-    final observedAddresses = observed.Manager(eventBus, swarm);
+    final observedAddresses = libp2p.Manager(eventBus, swarm);
     rollback.add(observedAddresses.close);
     observedAddresses.start(swarm);
     // Kubo's connection manager defaults (`kubo/config/init.go:79-93`): note
@@ -268,7 +269,7 @@ final class IpfsNode {
   final Duration _shutdownTimeout;
   Future<void>? _closeFuture;
   static final _log = Logger('ipfs.node');
-  observed.Manager? _observedAddresses;
+  libp2p.Manager? _observedAddresses;
   MdnsService? _mdns;
   _NodeDiscoveryHandler? _discoveryHandler;
   HolePunchService? _holePunch;
@@ -310,11 +311,11 @@ final class IpfsNode {
   }
 
   /// Stores a block in the local blockstore.
-  Future<void> putBlock(blocks.Block block) => blockstore.put(block);
+  Future<void> putBlock(block_format.Block block) => blockstore.put(block);
 
   /// Creates and stores a raw block from [bytes] and returns its Cid.
   Future<Cid> putRawBlock(Uint8List bytes) async {
-    final block = blocks.BasicBlock.fromData(bytes);
+    final block = block_format.BasicBlock.fromData(bytes);
     await blockstore.put(block);
     return block.cid();
   }
@@ -327,7 +328,7 @@ final class IpfsNode {
   }
 
   /// Retrieves and persists one block through Bitswap.
-  Future<blocks.Block> getBlock(Cid cid) {
+  Future<block_format.Block> getBlock(Cid cid) {
     final bitswap = _bitswap;
     if (bitswap == null) throw StateError('IPFS node is offline');
     return bitswap.getBlock(cid);
@@ -346,7 +347,7 @@ final class IpfsNode {
     if (dht == null) throw StateError('IPFS node is offline');
     final self = AddrInfo(
       id: peerId,
-      addrs: listenAddresses.map(core_ma.Multiaddr.parse).toList(),
+      addrs: listenAddresses.map(multiaddr.Multiaddr.parse).toList(),
     );
     await dht.provide(cid, self);
   }
@@ -358,7 +359,7 @@ final class IpfsNode {
   }
 
   /// Discovers providers and downloads the first valid Bitswap block.
-  Future<blocks.Block> getBlockFromDht(Cid cid) async {
+  Future<block_format.Block> getBlockFromDht(Cid cid) async {
     Object? lastError;
     await for (final provider in findProvidersAsync(cid, 0)) {
       if (provider.addrs.isEmpty) continue;
@@ -420,7 +421,7 @@ final class IpfsNode {
   Future<CarHeader> importCar(Object input) =>
       loadCar(input, (CarBlock block) => blockstore.put(block));
 
-  Future<blocks.Block> _getContentBlock(Cid cid) async {
+  Future<block_format.Block> _getContentBlock(Cid cid) async {
     if (await blockstore.has(cid)) return blockstore.get(cid);
     try {
       return await getBlock(cid);

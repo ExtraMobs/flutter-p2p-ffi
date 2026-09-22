@@ -4,8 +4,8 @@ import 'dart:convert';
 
 import 'package:transpiled_cid/transpiled_cid.dart';
 import 'package:transpiled_go_codec_dagpb/transpiled_go_codec_dagpb.dart'
-    as codec;
-import 'package:transpiled_ipld_prime/transpiled_ipld_prime.dart' as ipld;
+    as go_codec_dagpb;
+import 'package:transpiled_ipld_prime/transpiled_ipld_prime.dart' as ipld_prime;
 import 'package:transpiled_varint/transpiled_varint.dart';
 
 List<int> _field(int number, List<int> value) => <int>[
@@ -80,14 +80,14 @@ class DagPbNode {
   final List<DagPbLink> links;
 
   factory DagPbNode.fromBytes(Uint8List bytes) {
-    final builder = ipld.AnyBuilder();
-    codec.decodeBytes(builder, bytes);
+    final builder = ipld_prime.AnyBuilder();
+    go_codec_dagpb.decodeBytes(builder, bytes);
     final node = builder.build();
-    ipld.Node? optional(ipld.Node source, String key) {
+    ipld_prime.Node? optional(ipld_prime.Node source, String key) {
       try {
         final value = source.lookupByString(key);
         return value.isAbsent() ? null : value;
-      } on ipld.NotExistsException {
+      } on ipld_prime.NotExistsException {
         return null;
       }
     }
@@ -97,7 +97,8 @@ class DagPbNode {
     final encodedLinks = node.lookupByString('Links');
     for (var i = 0; i < encodedLinks.length(); i++) {
       final link = encodedLinks.lookupByIndex(i);
-      final cidLink = link.lookupByString('Hash').asLink() as ipld.CidLink;
+      final cidLink =
+          link.lookupByString('Hash').asLink() as ipld_prime.CidLink;
       links.add(
         DagPbLink.fromCid(
           cidLink.cid,
@@ -110,18 +111,20 @@ class DagPbNode {
   }
 
   Uint8List toBytes() {
-    return codec.appendEncode(
+    return go_codec_dagpb.appendEncode(
       Uint8List(0),
-      ipld.PlainMap({
-        'Links': ipld.PlainList([
+      ipld_prime.PlainMap({
+        'Links': ipld_prime.PlainList([
           for (final link in links)
-            ipld.PlainMap({
-              'Hash': ipld.PlainLink(ipld.CidLink(Cid.fromBytes(link.hash))),
-              'Name': ipld.PlainString(link.name),
-              'Tsize': ipld.PlainInt(link.tsize),
+            ipld_prime.PlainMap({
+              'Hash': ipld_prime.PlainLink(
+                ipld_prime.CidLink(Cid.fromBytes(link.hash)),
+              ),
+              'Name': ipld_prime.PlainString(link.name),
+              'Tsize': ipld_prime.PlainInt(link.tsize),
             }),
         ]),
-        if (data.isNotEmpty) 'Data': ipld.PlainBytes(data),
+        if (data.isNotEmpty) 'Data': ipld_prime.PlainBytes(data),
       }),
     );
   }

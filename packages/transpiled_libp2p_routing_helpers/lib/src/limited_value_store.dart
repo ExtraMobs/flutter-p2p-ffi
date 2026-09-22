@@ -8,7 +8,7 @@ import 'dart:typed_data';
 
 import 'package:transpiled_libp2p/transpiled_libp2p.dart';
 import 'package:transpiled_libp2p/transpiled_libp2p.dart'
-    as core_routing
+    as libp2p
     show getPublicKey;
 
 import 'bootstrap.dart';
@@ -45,7 +45,7 @@ class LimitedValueStore implements ValueStore, PubKeyFetcher, Bootstrap {
   @override
   Future<PubKey> getPublicKey(PeerId id) async {
     if (namespaces.contains('pk')) {
-      return core_routing.getPublicKey(valueStore, id);
+      return libp2p.getPublicKey(valueStore, id);
     }
     throw const RoutingNotFoundException();
   }

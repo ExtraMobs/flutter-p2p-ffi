@@ -7,7 +7,7 @@
 // listening for QUIC connections, routing ordinary HTTP/3 requests, origin
 // checking for browser clients -- none of which this project has a use for:
 // AGENTS.md puts the local HTTP surface out of scope, and libp2p hands this
-// port an already-accepted [quicgo.QuicConn] instead of asking it to listen.
+// port an already-accepted [quic_go.QuicConn] instead of asking it to listen.
 // What is ported is the part with no substitute: performing the server side
 // of the HTTP/3 + Extended CONNECT handshake (`Server.ServeQUICConn` +
 // `Server.Upgrade`, RFC 9220) and handing back the resulting [Session],
@@ -17,7 +17,7 @@ import 'dart:typed_data';
 
 import 'package:transpiled_qpack/transpiled_qpack.dart';
 import 'package:transpiled_quic_go/transpiled_quic_go.dart';
-import 'package:transpiled_quic_go/transpiled_quic_go.dart' as quicgo;
+import 'package:transpiled_quic_go/transpiled_quic_go.dart' as quic_go;
 
 import 'protocol.dart';
 import 'session.dart';
@@ -59,7 +59,7 @@ class Server {
   /// because this port has no `http.Server` request loop routing requests to
   /// a handler in between.
   Future<Session> accept({
-    required quicgo.QuicConn conn,
+    required quic_go.QuicConn conn,
     bool Function(String path) acceptPath = _acceptAnyPath,
   }) async {
     if (conn.negotiatedProtocol != null &&
@@ -170,7 +170,7 @@ class Server {
   /// order it likes, so unidirectional streams are accepted until the
   /// control stream turns up. Go: the `AcceptUniStream` loop feeding
   /// `http3Conn.HandleUnidirectionalStream` in `Server.ServeQUICConn`.
-  Future<Http3SettingsFrame> _readClientSettings(quicgo.QuicConn conn) async {
+  Future<Http3SettingsFrame> _readClientSettings(quic_go.QuicConn conn) async {
     while (true) {
       final stream = await conn.acceptUniStream();
       final streamType = await _readVarInt(stream);
@@ -200,7 +200,7 @@ class Server {
 
   /// Reads the HEADERS frame carrying the CONNECT request.
   Future<List<HeaderField>> _readRequestHeaders(
-    quicgo.QuicStream stream,
+    quic_go.QuicStream stream,
   ) async {
     final buffer = BytesBuilder(copy: false);
     while (true) {
@@ -239,7 +239,7 @@ class Server {
   /// [extra] header fields, mirroring the `w.WriteHeader` + `w.Header().Add`
   /// calls in Go's `Server.Upgrade`.
   void _respond(
-    quicgo.QuicStream stream, {
+    quic_go.QuicStream stream, {
     required String status,
     List<HeaderField> extra = const [],
   }) {
@@ -261,7 +261,7 @@ class Server {
 ///
 /// The first byte's two most significant bits give the encoded length, per
 /// RFC 9000 section 16, so nothing that follows the varint is consumed.
-Future<int> _readVarInt(quicgo.QuicStream stream) async {
+Future<int> _readVarInt(quic_go.QuicStream stream) async {
   final first = await stream.readExactly(1);
   final length = 1 << (first[0] >> 6);
   if (length == 1) return first[0] & 0x3f;

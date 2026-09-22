@@ -32,6 +32,7 @@
 | `RULE_PUBSPEC_DEPENDENCIES` | 22. Validação de Dependências em pubspec.yaml | `ERROR` | 0 | ✅ Conforme |
 | `RULE_EXPOSED_NON_PUBLIC_MEMBERS` | 23. Veto a Membros Públicos que Expõem Tipos Não-Públicos (Menor Permissão) | `ERROR` | 0 | ✅ Conforme |
 | `RULE_MISSING_ATOMIC_TESTS` | 24. Auditoria de Testes Atômicos 1 para 1 (test/atomic/<nivel>/<nome_modulo>_atomic_tests.dart) | `ERROR` | 0 | ✅ Conforme |
+| `RULE_IMPORT_PREFIX_NAMING` | 25. Prefixo de Import Nomeado pela Biblioteca (Colisão de Nomes) | `ERROR` | 0 | ✅ Conforme |
 
 ## 2. Detalhamento dos Apontamentos
 
@@ -2644,7 +2645,7 @@
 
 ### 19. Auditoria de Campos de Structs do Upstream Go Ausentes (23 ocorrências)
 
-- ℹ️ `[INFO]` **[`packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart:268`](packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart#L268)** — Classe 'Block' possui 2 campo(s) do Go pendente(s) no módulo 'boxo': From, Delay.
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart:270`](packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart#L270)** — Classe 'Block' possui 2 campo(s) do Go pendente(s) no módulo 'boxo': From, Delay.
   - *Sugestão:* `Avaliar implementação dos campos: From, Delay`
 - ℹ️ `[INFO]` **[`packages/transpiled_datastore/lib/src/datastore.dart:59`](packages/transpiled_datastore/lib/src/datastore.dart#L59)** — Classe 'Datastore' possui 3 campo(s) do Go pendente(s) no módulo 'go-datastore': TempErrFunc, Retries, Delay.
   - *Sugestão:* `Avaliar implementação dos campos: TempErrFunc, Retries, Delay`
@@ -2695,19 +2696,19 @@
 
 - ℹ️ `[INFO]` **[`packages/transpiled_block_format/lib/src/blocks.dart:33`](packages/transpiled_block_format/lib/src/blocks.dart#L33)** — Classe 'BasicBlock' possui 1 método(s) do Go pendente(s) no módulo 'go-block-format': String.
   - *Sugestão:* `Avaliar paridade e implementação de: String`
-- ℹ️ `[INFO]` **[`packages/transpiled_boxo/lib/src/blockstore.dart:36`](packages/transpiled_boxo/lib/src/blockstore.dart#L36)** — Classe 'Blockstore' possui 2 método(s) do Go pendente(s) no módulo 'boxo': DeleteBlock, DeleteBlock.
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo/lib/src/blockstore.dart:37`](packages/transpiled_boxo/lib/src/blockstore.dart#L37)** — Classe 'Blockstore' possui 2 método(s) do Go pendente(s) no módulo 'boxo': DeleteBlock, DeleteBlock.
   - *Sugestão:* `Avaliar paridade e implementação de: DeleteBlock, DeleteBlock`
 - ℹ️ `[INFO]` **[`packages/transpiled_boxo/lib/src/provider/provider.dart:27`](packages/transpiled_boxo/lib/src/provider/provider.dart#L27)** — Classe 'Reprovider' possui 5 método(s) do Go pendente(s) no módulo 'boxo': SetKeyProvider, Clear, Close, Provide....
   - *Sugestão:* `Avaliar paridade e implementação de: SetKeyProvider, Clear, Close, Provide, Stat`
-- ℹ️ `[INFO]` **[`packages/transpiled_boxo/lib/src/bitswap/client/client.dart:17`](packages/transpiled_boxo/lib/src/bitswap/client/client.dart#L17)** — Classe 'BlockGetter' possui 1 método(s) do Go pendente(s) no módulo 'boxo': GetBlocks.
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo/lib/src/bitswap/client/client.dart:18`](packages/transpiled_boxo/lib/src/bitswap/client/client.dart#L18)** — Classe 'BlockGetter' possui 1 método(s) do Go pendente(s) no módulo 'boxo': GetBlocks.
   - *Sugestão:* `Avaliar paridade e implementação de: GetBlocks`
-- ℹ️ `[INFO]` **[`packages/transpiled_boxo/lib/src/bitswap/client/client.dart:31`](packages/transpiled_boxo/lib/src/bitswap/client/client.dart#L31)** — Classe 'Client' possui 32 método(s) do Go pendente(s) no módulo 'boxo': GetLatest, GetCached, GetCachedOrRefresh, HasCachedConfig....
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo/lib/src/bitswap/client/client.dart:32`](packages/transpiled_boxo/lib/src/bitswap/client/client.dart#L32)** — Classe 'Client' possui 32 método(s) do Go pendente(s) no módulo 'boxo': GetLatest, GetCached, GetCachedOrRefresh, HasCachedConfig....
   - *Sugestão:* `Avaliar paridade e implementação de: GetLatest, GetCached, GetCachedOrRefresh, HasCachedConfig, Start, Stop, PutValue, GetValue, SearchValue, FindProviders, FindPeer, FindProvidersAsync, Provide, Ping, Bootstrap, FindProviders, ProvideBitswap, FindPeers, GetIPNS, PutIPNS, GetClosestPeers, Ls, GoLs, LsSync, LsBatchSync, Add, GetStatusByID, DeleteByID, Replace, NotifyNewBlocks, NewSession, Stat`
 - ℹ️ `[INFO]` **[`packages/transpiled_boxo/lib/src/bitswap/message/message.dart:301`](packages/transpiled_boxo/lib/src/bitswap/message/message.dart#L301)** — Classe 'Impl' possui 20 método(s) do Go pendente(s) no módulo 'boxo': Self, Ping, Latency, Host....
   - *Sugestão:* `Avaliar paridade e implementação de: Self, Ping, Latency, Host, SupportsHave, NewMessageSender, SendMessage, Start, Stop, Connect, DisconnectFrom, IsConnectedToPeer, TagPeer, UntagPeer, Protect, Unprotect, Stats, Publish, Shutdown, Subscribe`
-- ℹ️ `[INFO]` **[`packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart:195`](packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart#L195)** — Classe 'Wantlist' possui 1 método(s) do Go pendente(s) no módulo 'boxo': Len.
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart:197`](packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart#L197)** — Classe 'Wantlist' possui 1 método(s) do Go pendente(s) no módulo 'boxo': Len.
   - *Sugestão:* `Avaliar paridade e implementação de: Len`
-- ℹ️ `[INFO]` **[`packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart:413`](packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart#L413)** — Classe 'Message' possui 5 método(s) do Go pendente(s) no módulo 'boxo': Reset, String, ProtoMessage, ProtoReflect....
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart:417`](packages/transpiled_boxo/lib/src/bitswap/message/pb/message.dart#L417)** — Classe 'Message' possui 5 método(s) do Go pendente(s) no módulo 'boxo': Reset, String, ProtoMessage, ProtoReflect....
   - *Sugestão:* `Avaliar paridade e implementação de: Reset, String, ProtoMessage, ProtoReflect, Descriptor`
 - ℹ️ `[INFO]` **[`packages/transpiled_boxo/lib/src/bitswap/client/wantlist/wantlist.dart:40`](packages/transpiled_boxo/lib/src/bitswap/client/wantlist/wantlist.dart#L40)** — Classe 'Wantlist' possui 1 método(s) do Go pendente(s) no módulo 'boxo': Len.
   - *Sugestão:* `Avaliar paridade e implementação de: Len`

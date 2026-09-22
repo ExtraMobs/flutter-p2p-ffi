@@ -2,7 +2,8 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:synchronized/synchronized.dart';
-import 'package:transpiled_block_format/transpiled_block_format.dart' as blocks;
+import 'package:transpiled_block_format/transpiled_block_format.dart'
+    as block_format;
 import 'package:transpiled_boxo/bitswap/message.dart';
 import 'package:transpiled_cid/transpiled_cid.dart';
 import 'package:transpiled_libp2p/transpiled_libp2p.dart';
@@ -33,7 +34,7 @@ final class BitswapClient implements BlockGetter {
   /// Maximum time allowed for each provider request.
   final Duration timeout;
   final List<AddrInfo> _providers = [];
-  final Map<Cid, Completer<blocks.Block>> _pending = {};
+  final Map<Cid, Completer<block_format.Block>> _pending = {};
   final Map<String, NetworkStream> _outbound = {};
   final Map<String, Lock> _senderLocks = {};
 
@@ -56,11 +57,11 @@ final class BitswapClient implements BlockGetter {
   }
 
   @override
-  Future<blocks.Block> getBlock(Cid cid) async {
+  Future<block_format.Block> getBlock(Cid cid) async {
     if (await blockstore.has(cid)) return blockstore.get(cid);
     final existing = _pending[cid];
     if (existing != null) return existing.future;
-    final completer = Completer<blocks.Block>();
+    final completer = Completer<block_format.Block>();
     _pending[cid] = completer;
     Object? lastError;
     try {

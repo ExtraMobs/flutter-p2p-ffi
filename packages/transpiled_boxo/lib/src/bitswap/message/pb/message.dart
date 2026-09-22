@@ -5,7 +5,7 @@ import 'dart:typed_data';
 
 // ignore: library_prefixes
 import 'package:boilerplate/fixed_types/golang.dart' as Golang;
-import 'package:transpiled_protobuf/protowire.dart' as wire;
+import 'package:transpiled_protobuf/protowire.dart' as protobuf;
 
 /// WantType represents whether the client wants the block or just a HAVE.
 /// Equivalent to protobuf `Message.Wantlist.WantType`.
@@ -73,23 +73,25 @@ class Entry {
   int size() {
     var s = 0;
     if (block.isNotEmpty) {
-      s += wire.sizeTag(1) + wire.sizeBytes(block.length);
+      s += protobuf.sizeTag(1) + protobuf.sizeBytes(block.length);
     }
     if (priority != 0) {
       s +=
-          wire.sizeTag(2) +
-          wire.sizeVarint(
+          protobuf.sizeTag(2) +
+          protobuf.sizeVarint(
             Golang.Uint64.fromBigInt(Golang.Int32(priority).toBigInt()),
           );
     }
     if (cancel) {
-      s += wire.sizeTag(3) + wire.sizeVarint(Golang.Uint64(1));
+      s += protobuf.sizeTag(3) + protobuf.sizeVarint(Golang.Uint64(1));
     }
     if (wantType != WantType.block) {
-      s += wire.sizeTag(4) + wire.sizeVarint(Golang.Uint64(wantType.value));
+      s +=
+          protobuf.sizeTag(4) +
+          protobuf.sizeVarint(Golang.Uint64(wantType.value));
     }
     if (sendDontHave) {
-      s += wire.sizeTag(5) + wire.sizeVarint(Golang.Uint64(1));
+      s += protobuf.sizeTag(5) + protobuf.sizeVarint(Golang.Uint64(1));
     }
     return s;
   }
@@ -97,27 +99,27 @@ class Entry {
   Uint8List encode() {
     final buf = <int>[];
     if (block.isNotEmpty) {
-      wire.appendTag(buf, 1, 2);
-      wire.appendBytes(buf, block);
+      protobuf.appendTag(buf, 1, 2);
+      protobuf.appendBytes(buf, block);
     }
     if (priority != 0) {
-      wire.appendTag(buf, 2, 0);
-      wire.appendVarint(
+      protobuf.appendTag(buf, 2, 0);
+      protobuf.appendVarint(
         buf,
         Golang.Uint64.fromBigInt(Golang.Int32(priority).toBigInt()),
       );
     }
     if (cancel) {
-      wire.appendTag(buf, 3, 0);
-      wire.appendVarint(buf, Golang.Uint64(1));
+      protobuf.appendTag(buf, 3, 0);
+      protobuf.appendVarint(buf, Golang.Uint64(1));
     }
     if (wantType != WantType.block) {
-      wire.appendTag(buf, 4, 0);
-      wire.appendVarint(buf, Golang.Uint64(wantType.value));
+      protobuf.appendTag(buf, 4, 0);
+      protobuf.appendVarint(buf, Golang.Uint64(wantType.value));
     }
     if (sendDontHave) {
-      wire.appendTag(buf, 5, 0);
-      wire.appendVarint(buf, Golang.Uint64(1));
+      protobuf.appendTag(buf, 5, 0);
+      protobuf.appendVarint(buf, Golang.Uint64(1));
     }
     return Uint8List.fromList(buf);
   }
@@ -131,48 +133,48 @@ class Entry {
 
     var p = 0;
     while (p < b.length) {
-      final (num, type, n) = wire.consumeTag(Uint8List.sublistView(b, p));
-      if (n < 0) throw wire.parseError(n)!;
+      final (num, type, n) = protobuf.consumeTag(Uint8List.sublistView(b, p));
+      if (n < 0) throw protobuf.parseError(n)!;
       p += n;
       switch (num) {
         case 1:
           if (type != 2) throw const FormatException('invalid wire type');
-          final (val, consumed) = wire.consumeBytes(
+          final (val, consumed) = protobuf.consumeBytes(
             Uint8List.sublistView(b, p),
           );
-          if (consumed < 0) throw wire.parseError(consumed)!;
+          if (consumed < 0) throw protobuf.parseError(consumed)!;
           block = val!;
           p += consumed;
         case 2:
           if (type != 0) throw const FormatException('invalid wire type');
-          final (val, consumed) = wire.consumeVarint(
+          final (val, consumed) = protobuf.consumeVarint(
             Uint8List.sublistView(b, p),
           );
-          if (consumed < 0) throw wire.parseError(consumed)!;
+          if (consumed < 0) throw protobuf.parseError(consumed)!;
           priority = val.toBigInt().toSigned(32).toInt();
           p += consumed;
         case 3:
           if (type != 0) throw const FormatException('invalid wire type');
-          final (val, consumed) = wire.consumeVarint(
+          final (val, consumed) = protobuf.consumeVarint(
             Uint8List.sublistView(b, p),
           );
-          if (consumed < 0) throw wire.parseError(consumed)!;
+          if (consumed < 0) throw protobuf.parseError(consumed)!;
           cancel = val != Golang.Uint64(0);
           p += consumed;
         case 4:
           if (type != 0) throw const FormatException('invalid wire type');
-          final (val, consumed) = wire.consumeVarint(
+          final (val, consumed) = protobuf.consumeVarint(
             Uint8List.sublistView(b, p),
           );
-          if (consumed < 0) throw wire.parseError(consumed)!;
+          if (consumed < 0) throw protobuf.parseError(consumed)!;
           wantType = WantType.fromValue(val.toBigInt().toSigned(32).toInt());
           p += consumed;
         case 5:
           if (type != 0) throw const FormatException('invalid wire type');
-          final (val, consumed) = wire.consumeVarint(
+          final (val, consumed) = protobuf.consumeVarint(
             Uint8List.sublistView(b, p),
           );
-          if (consumed < 0) throw wire.parseError(consumed)!;
+          if (consumed < 0) throw protobuf.parseError(consumed)!;
           sendDontHave = val != Golang.Uint64(0);
           p += consumed;
         default:
@@ -206,10 +208,10 @@ class Wantlist {
     var s = 0;
     for (final e in entries) {
       final esize = e.size();
-      s += wire.sizeTag(1) + wire.sizeBytes(esize);
+      s += protobuf.sizeTag(1) + protobuf.sizeBytes(esize);
     }
     if (full) {
-      s += wire.sizeTag(2) + wire.sizeVarint(Golang.Uint64(1));
+      s += protobuf.sizeTag(2) + protobuf.sizeVarint(Golang.Uint64(1));
     }
     return s;
   }
@@ -218,12 +220,12 @@ class Wantlist {
     final buf = <int>[];
     for (final e in entries) {
       final eBytes = e.encode();
-      wire.appendTag(buf, 1, 2);
-      wire.appendBytes(buf, eBytes);
+      protobuf.appendTag(buf, 1, 2);
+      protobuf.appendBytes(buf, eBytes);
     }
     if (full) {
-      wire.appendTag(buf, 2, 0);
-      wire.appendVarint(buf, Golang.Uint64(1));
+      protobuf.appendTag(buf, 2, 0);
+      protobuf.appendVarint(buf, Golang.Uint64(1));
     }
     return Uint8List.fromList(buf);
   }
@@ -234,24 +236,24 @@ class Wantlist {
 
     var p = 0;
     while (p < b.length) {
-      final (num, type, n) = wire.consumeTag(Uint8List.sublistView(b, p));
-      if (n < 0) throw wire.parseError(n)!;
+      final (num, type, n) = protobuf.consumeTag(Uint8List.sublistView(b, p));
+      if (n < 0) throw protobuf.parseError(n)!;
       p += n;
       switch (num) {
         case 1:
           if (type != 2) throw const FormatException('invalid wire type');
-          final (val, consumed) = wire.consumeBytes(
+          final (val, consumed) = protobuf.consumeBytes(
             Uint8List.sublistView(b, p),
           );
-          if (consumed < 0) throw wire.parseError(consumed)!;
+          if (consumed < 0) throw protobuf.parseError(consumed)!;
           entries.add(Entry.decode(val!));
           p += consumed;
         case 2:
           if (type != 0) throw const FormatException('invalid wire type');
-          final (val, consumed) = wire.consumeVarint(
+          final (val, consumed) = protobuf.consumeVarint(
             Uint8List.sublistView(b, p),
           );
-          if (consumed < 0) throw wire.parseError(consumed)!;
+          if (consumed < 0) throw protobuf.parseError(consumed)!;
           full = val != Golang.Uint64(0);
           p += consumed;
         default:
@@ -279,10 +281,10 @@ class Block {
   int size() {
     var s = 0;
     if (prefix.isNotEmpty) {
-      s += wire.sizeTag(1) + wire.sizeBytes(prefix.length);
+      s += protobuf.sizeTag(1) + protobuf.sizeBytes(prefix.length);
     }
     if (data.isNotEmpty) {
-      s += wire.sizeTag(2) + wire.sizeBytes(data.length);
+      s += protobuf.sizeTag(2) + protobuf.sizeBytes(data.length);
     }
     return s;
   }
@@ -290,12 +292,12 @@ class Block {
   Uint8List encode() {
     final buf = <int>[];
     if (prefix.isNotEmpty) {
-      wire.appendTag(buf, 1, 2);
-      wire.appendBytes(buf, prefix);
+      protobuf.appendTag(buf, 1, 2);
+      protobuf.appendBytes(buf, prefix);
     }
     if (data.isNotEmpty) {
-      wire.appendTag(buf, 2, 2);
-      wire.appendBytes(buf, data);
+      protobuf.appendTag(buf, 2, 2);
+      protobuf.appendBytes(buf, data);
     }
     return Uint8List.fromList(buf);
   }
@@ -306,24 +308,24 @@ class Block {
 
     var p = 0;
     while (p < b.length) {
-      final (num, type, n) = wire.consumeTag(Uint8List.sublistView(b, p));
-      if (n < 0) throw wire.parseError(n)!;
+      final (num, type, n) = protobuf.consumeTag(Uint8List.sublistView(b, p));
+      if (n < 0) throw protobuf.parseError(n)!;
       p += n;
       switch (num) {
         case 1:
           if (type != 2) throw const FormatException('invalid wire type');
-          final (val, consumed) = wire.consumeBytes(
+          final (val, consumed) = protobuf.consumeBytes(
             Uint8List.sublistView(b, p),
           );
-          if (consumed < 0) throw wire.parseError(consumed)!;
+          if (consumed < 0) throw protobuf.parseError(consumed)!;
           prefix = val!;
           p += consumed;
         case 2:
           if (type != 2) throw const FormatException('invalid wire type');
-          final (val, consumed) = wire.consumeBytes(
+          final (val, consumed) = protobuf.consumeBytes(
             Uint8List.sublistView(b, p),
           );
-          if (consumed < 0) throw wire.parseError(consumed)!;
+          if (consumed < 0) throw protobuf.parseError(consumed)!;
           data = val!;
           p += consumed;
         default:
@@ -350,10 +352,10 @@ class BlockPresence {
   int size() {
     var s = 0;
     if (cid.isNotEmpty) {
-      s += wire.sizeTag(1) + wire.sizeBytes(cid.length);
+      s += protobuf.sizeTag(1) + protobuf.sizeBytes(cid.length);
     }
     if (type != BlockPresenceType.have) {
-      s += wire.sizeTag(2) + wire.sizeVarint(Golang.Uint64(type.value));
+      s += protobuf.sizeTag(2) + protobuf.sizeVarint(Golang.Uint64(type.value));
     }
     return s;
   }
@@ -361,12 +363,12 @@ class BlockPresence {
   Uint8List encode() {
     final buf = <int>[];
     if (cid.isNotEmpty) {
-      wire.appendTag(buf, 1, 2);
-      wire.appendBytes(buf, cid);
+      protobuf.appendTag(buf, 1, 2);
+      protobuf.appendBytes(buf, cid);
     }
     if (type != BlockPresenceType.have) {
-      wire.appendTag(buf, 2, 0);
-      wire.appendVarint(buf, Golang.Uint64(type.value));
+      protobuf.appendTag(buf, 2, 0);
+      protobuf.appendVarint(buf, Golang.Uint64(type.value));
     }
     return Uint8List.fromList(buf);
   }
@@ -377,24 +379,26 @@ class BlockPresence {
 
     var p = 0;
     while (p < b.length) {
-      final (num, typeWire, n) = wire.consumeTag(Uint8List.sublistView(b, p));
-      if (n < 0) throw wire.parseError(n)!;
+      final (num, typeWire, n) = protobuf.consumeTag(
+        Uint8List.sublistView(b, p),
+      );
+      if (n < 0) throw protobuf.parseError(n)!;
       p += n;
       switch (num) {
         case 1:
           if (typeWire != 2) throw const FormatException('invalid wire type');
-          final (val, consumed) = wire.consumeBytes(
+          final (val, consumed) = protobuf.consumeBytes(
             Uint8List.sublistView(b, p),
           );
-          if (consumed < 0) throw wire.parseError(consumed)!;
+          if (consumed < 0) throw protobuf.parseError(consumed)!;
           cid = val!;
           p += consumed;
         case 2:
           if (typeWire != 0) throw const FormatException('invalid wire type');
-          final (val, consumed) = wire.consumeVarint(
+          final (val, consumed) = protobuf.consumeVarint(
             Uint8List.sublistView(b, p),
           );
-          if (consumed < 0) throw wire.parseError(consumed)!;
+          if (consumed < 0) throw protobuf.parseError(consumed)!;
           type = BlockPresenceType.fromValue(
             val.toBigInt().toSigned(32).toInt(),
           );
@@ -437,23 +441,23 @@ class Message {
     var s = 0;
     if (wantlist != null) {
       final wlSize = wantlist!.size();
-      s += wire.sizeTag(1) + wire.sizeBytes(wlSize);
+      s += protobuf.sizeTag(1) + protobuf.sizeBytes(wlSize);
     }
     for (final blk in blocks) {
-      s += wire.sizeTag(2) + wire.sizeBytes(blk.length);
+      s += protobuf.sizeTag(2) + protobuf.sizeBytes(blk.length);
     }
     for (final p in payload) {
       final pSize = p.size();
-      s += wire.sizeTag(3) + wire.sizeBytes(pSize);
+      s += protobuf.sizeTag(3) + protobuf.sizeBytes(pSize);
     }
     for (final bp in blockPresences) {
       final bpSize = bp.size();
-      s += wire.sizeTag(4) + wire.sizeBytes(bpSize);
+      s += protobuf.sizeTag(4) + protobuf.sizeBytes(bpSize);
     }
     if (pendingBytes != 0) {
       s +=
-          wire.sizeTag(5) +
-          wire.sizeVarint(
+          protobuf.sizeTag(5) +
+          protobuf.sizeVarint(
             Golang.Uint64.fromBigInt(Golang.Int32(pendingBytes).toBigInt()),
           );
     }
@@ -464,26 +468,26 @@ class Message {
     final buf = <int>[];
     if (wantlist != null) {
       final wlBytes = wantlist!.encode();
-      wire.appendTag(buf, 1, 2);
-      wire.appendBytes(buf, wlBytes);
+      protobuf.appendTag(buf, 1, 2);
+      protobuf.appendBytes(buf, wlBytes);
     }
     for (final blk in blocks) {
-      wire.appendTag(buf, 2, 2);
-      wire.appendBytes(buf, blk);
+      protobuf.appendTag(buf, 2, 2);
+      protobuf.appendBytes(buf, blk);
     }
     for (final p in payload) {
       final pBytes = p.encode();
-      wire.appendTag(buf, 3, 2);
-      wire.appendBytes(buf, pBytes);
+      protobuf.appendTag(buf, 3, 2);
+      protobuf.appendBytes(buf, pBytes);
     }
     for (final bp in blockPresences) {
       final bpBytes = bp.encode();
-      wire.appendTag(buf, 4, 2);
-      wire.appendBytes(buf, bpBytes);
+      protobuf.appendTag(buf, 4, 2);
+      protobuf.appendBytes(buf, bpBytes);
     }
     if (pendingBytes != 0) {
-      wire.appendTag(buf, 5, 0);
-      wire.appendVarint(
+      protobuf.appendTag(buf, 5, 0);
+      protobuf.appendVarint(
         buf,
         Golang.Uint64.fromBigInt(Golang.Int32(pendingBytes).toBigInt()),
       );
@@ -500,48 +504,48 @@ class Message {
 
     var p = 0;
     while (p < b.length) {
-      final (num, type, n) = wire.consumeTag(Uint8List.sublistView(b, p));
-      if (n < 0) throw wire.parseError(n)!;
+      final (num, type, n) = protobuf.consumeTag(Uint8List.sublistView(b, p));
+      if (n < 0) throw protobuf.parseError(n)!;
       p += n;
       switch (num) {
         case 1:
           if (type != 2) throw const FormatException('invalid wire type');
-          final (val, consumed) = wire.consumeBytes(
+          final (val, consumed) = protobuf.consumeBytes(
             Uint8List.sublistView(b, p),
           );
-          if (consumed < 0) throw wire.parseError(consumed)!;
+          if (consumed < 0) throw protobuf.parseError(consumed)!;
           wantlist = Wantlist.decode(val!);
           p += consumed;
         case 2:
           if (type != 2) throw const FormatException('invalid wire type');
-          final (val, consumed) = wire.consumeBytes(
+          final (val, consumed) = protobuf.consumeBytes(
             Uint8List.sublistView(b, p),
           );
-          if (consumed < 0) throw wire.parseError(consumed)!;
+          if (consumed < 0) throw protobuf.parseError(consumed)!;
           blocks.add(val!);
           p += consumed;
         case 3:
           if (type != 2) throw const FormatException('invalid wire type');
-          final (val, consumed) = wire.consumeBytes(
+          final (val, consumed) = protobuf.consumeBytes(
             Uint8List.sublistView(b, p),
           );
-          if (consumed < 0) throw wire.parseError(consumed)!;
+          if (consumed < 0) throw protobuf.parseError(consumed)!;
           payload.add(Block.decode(val!));
           p += consumed;
         case 4:
           if (type != 2) throw const FormatException('invalid wire type');
-          final (val, consumed) = wire.consumeBytes(
+          final (val, consumed) = protobuf.consumeBytes(
             Uint8List.sublistView(b, p),
           );
-          if (consumed < 0) throw wire.parseError(consumed)!;
+          if (consumed < 0) throw protobuf.parseError(consumed)!;
           blockPresences.add(BlockPresence.decode(val!));
           p += consumed;
         case 5:
           if (type != 0) throw const FormatException('invalid wire type');
-          final (val, consumed) = wire.consumeVarint(
+          final (val, consumed) = protobuf.consumeVarint(
             Uint8List.sublistView(b, p),
           );
-          if (consumed < 0) throw wire.parseError(consumed)!;
+          if (consumed < 0) throw protobuf.parseError(consumed)!;
           pendingBytes = val.toBigInt().toSigned(32).toInt();
           p += consumed;
         default:
@@ -562,19 +566,19 @@ class Message {
 int _skipField(Uint8List b, int offset, int wireType) {
   switch (wireType) {
     case 0:
-      final (_, n) = wire.consumeVarint(Uint8List.sublistView(b, offset));
-      if (n < 0) throw wire.parseError(n)!;
+      final (_, n) = protobuf.consumeVarint(Uint8List.sublistView(b, offset));
+      if (n < 0) throw protobuf.parseError(n)!;
       return offset + n;
     case 1:
-      final (_, n) = wire.consumeFixed64(Uint8List.sublistView(b, offset));
+      final (_, n) = protobuf.consumeFixed64(Uint8List.sublistView(b, offset));
       if (n < 0) throw const FormatException('unexpected EOF');
       return offset + n;
     case 2:
-      final (_, n) = wire.consumeBytes(Uint8List.sublistView(b, offset));
-      if (n < 0) throw wire.parseError(n)!;
+      final (_, n) = protobuf.consumeBytes(Uint8List.sublistView(b, offset));
+      if (n < 0) throw protobuf.parseError(n)!;
       return offset + n;
     case 5:
-      final (_, n) = wire.consumeFixed32(Uint8List.sublistView(b, offset));
+      final (_, n) = protobuf.consumeFixed32(Uint8List.sublistView(b, offset));
       if (n < 0) throw const FormatException('unexpected EOF');
       return offset + n;
     default:

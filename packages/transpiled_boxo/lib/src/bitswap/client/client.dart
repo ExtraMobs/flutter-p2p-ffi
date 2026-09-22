@@ -1,6 +1,7 @@
 import 'dart:async';
 
-import 'package:transpiled_block_format/transpiled_block_format.dart' as blocks;
+import 'package:transpiled_block_format/transpiled_block_format.dart'
+    as block_format;
 import 'package:transpiled_cid/transpiled_cid.dart';
 import 'package:transpiled_libp2p/transpiled_libp2p.dart';
 import 'package:transpiled_boxo/bitswap/message.dart';
@@ -15,7 +16,7 @@ import 'internal/peermanager/peerwantmanager.dart';
 
 /// BlockGetter retrieves blocks from Bitswap or the local blockstore.
 abstract interface class BlockGetter {
-  Future<blocks.Block> getBlock(Cid cid);
+  Future<block_format.Block> getBlock(Cid cid);
 }
 
 /// A minimal no-op Gauge.
@@ -60,14 +61,14 @@ class Client implements Receiver, BlockGetter {
   bool _closed = false;
 
   @override
-  Future<blocks.Block> getBlock(Cid cid) async {
+  Future<block_format.Block> getBlock(Cid cid) async {
     if (await blockstore.has(cid)) {
       return blockstore.get(cid);
     }
     return syncGetBlock(cid, getBlocks).timeout(timeout);
   }
 
-  Future<Stream<blocks.Block>> getBlocks(List<Cid> keys) async {
+  Future<Stream<block_format.Block>> getBlocks(List<Cid> keys) async {
     return asyncGetBlocks(
       keys,
       notif,

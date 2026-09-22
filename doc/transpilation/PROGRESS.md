@@ -1093,6 +1093,34 @@ apenas a finalidade dos hooks (`shutdown.CloseWithCtx`).
   protobuf legado. `Int64.toIntExact()` é fronteira temporária para `Tsize`, até
   o datamodel IPLD migrar para `Uint64`.
 
+## Convenção de prefixo de import (Regra 25 do auditor)
+
+Colisão de nomes entre bibliotecas se resolve com **prefixo de import nomeado
+pela biblioteca**, nunca com apelido curto ad hoc nem com `hide`. A regra existe
+porque o porte mantém os nomes do upstream e o mesmo nome aparece em mais de um
+módulo Go: `Limit` e `Limiter` existem ao mesmo tempo em `golang.org/x/time/rate`,
+em `go-libp2p/x/rate` e em `go-libp2p/p2p/host/resource-manager`.
+
+O auditor ganhou `RULE_IMPORT_PREFIX_NAMING` e, com ela, um modelo de import que
+antes não existia: `dart_import_prefixes` (arquivo → `prefixo → biblioteca`),
+`dart_import_hides` e o método `resolve_prefixed_reference`, que separa
+`prefixo.Nome` e diz de que biblioteca o nome veio. Sem esse mapa, uma
+referência prefixada era indistinguível de uma declaração local.
+
+Aplicação: 25 arquivos tiveram o prefixo renomeado (`blocks` →
+`block_format`, `quicgo` → `quic_go`, `core` e `observed` → `libp2p`, `mh` →
+`multihash`, `core_ma` → `multiaddr`, `xtime` → `golang_x_time`, entre outros), e
+`bsnet/ipfs_impl.dart` trocou `hide Stats` por `as libp2p`, qualificando
+`AddrInfo`, `PeerId` e `ProtocolId`.
+
+**Onde `hide` continua certo, e a regra não se aplica:** quando o nome que fica
+vem de um arquivo local do próprio pacote, ou quando as duas bibliotecas em
+conflito pertencem ao mesmo pacote — o barril `transpiled_libp2p.dart` contra o
+seu próprio `resource_manager/limit.dart`, por exemplo. Nesses casos prefixar
+pelo nome da biblioteca não desambiguaria nada, porque o nome seria o mesmo dos
+dois lados. É por isso que `test/atomic/nivel_2/libp2p_part2_atomic_tests.dart`
+segue com `hide Limit, Limiter` e não é apontado.
+
 ## Lições de porte reutilizáveis
 
 - Todo `~` (complemento de bits) portado do Go precisa da máscara de largura

@@ -11,7 +11,7 @@ import 'dart:typed_data';
 import 'package:transpiled_cid/transpiled_cid.dart';
 import 'package:transpiled_libp2p/transpiled_libp2p.dart';
 import 'package:transpiled_libp2p/transpiled_libp2p.dart'
-    as core_routing
+    as libp2p
     show getPublicKey;
 
 import 'bootstrap.dart';
@@ -92,7 +92,7 @@ class Compose implements Routing, PubKeyFetcher, Bootstrap {
   Future<PubKey> getPublicKey(PeerId id) async {
     final store = valueStore;
     if (store == null) throw const RoutingNotFoundException();
-    return core_routing.getPublicKey(store, id);
+    return libp2p.getPublicKey(store, id);
   }
 
   @override

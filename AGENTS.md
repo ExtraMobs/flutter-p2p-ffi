@@ -54,7 +54,7 @@ shims e dependências externas via git:
 > segunda com um daemon Kubo de verdade na frente.
 
 - **Marco D.1 (Transpilação dos subsistemas de host e rede de `go-libp2p`)**:
-  Portar os subsistemas de host, rede e identificação (`BasicHost`, `RoutedHost`, `Network`, `Swarm`, `Identify`, `IdentifyPush`, `connmgr`), substituindo a dependência externa `ipfs_libp2p` e mantendo conformidade com as 24 regras do auditor AST e 100% de cobertura de testes atômicos (100% concluído para esse escopo).
+  Portar os subsistemas de host, rede e identificação (`BasicHost`, `RoutedHost`, `Network`, `Swarm`, `Identify`, `IdentifyPush`, `connmgr`), substituindo a dependência externa `ipfs_libp2p` e mantendo conformidade com as regras do auditor AST e 100% de cobertura de testes atômicos (100% concluído para esse escopo).
 - **Marco D.2 (NAT Traversal — AutoNAT e Circuit Relay v2)**:
   Implementar detecção autônoma de reachability (`AutoNAT` v1/v2), cliente `Circuit Relay v2` (`/libp2p/circuit/relay/0.2.0/stop` com handshake `RESERVE`) e gerenciamento autônomo de reservas (`AutoRelay`), publicando endereços `/p2p-circuit` no Swarm e na DHT (100% concluído).
 - **Marco D.3 (Otimizações de Acesso — Hole Punching DCUtR e UPnP)**:
@@ -554,7 +554,7 @@ agente deve validar seu código contra o auditor AST do projeto:
 
 A ferramenta compara o índice AST do Go (`go-ipfs-reference/*-index/`) e as
 definições de tipos upstream com as declarações Dart em `packages/` e `lib/`,
-auditando automaticamente as 24 regras contratuais:
+auditando automaticamente as 25 regras contratuais:
 
 1. **`RULE_ALL_CAPS`**: Tipos públicos em `UpperCamelCase` e membros/funções em
    `lowerCamelCase`, tratando acrônimos como palavras comuns (ex.: `Cid`, `IpfsNode`,
@@ -633,6 +633,29 @@ auditando automaticamente as 24 regras contratuais:
     (`test/atomic/<nivel>/<nome_modulo>_atomic_tests.dart`), exigindo que cada função,
     método, getter, setter e operador público possua um teste atômico correspondente.
     A ausência de teste é apontada como erro bloqueante (`ERROR`).
+25. **`RULE_IMPORT_PREFIX_NAMING`**: Colisão de nomes entre bibliotecas se
+    resolve com **prefixo de import nomeado pela biblioteca**, nunca com um
+    apelido curto ad hoc nem com `hide`. O porte mantém os nomes do upstream, e
+    o mesmo nome aparece em mais de um módulo Go — `Limit` e `Limiter` existem
+    ao mesmo tempo em `golang.org/x/time/rate`, em `go-libp2p/x/rate` e em
+    `go-libp2p/p2p/host/resource-manager` —, então o ponto de uso precisa dizer
+    de onde cada símbolo veio.
+
+    Prefixo aceito: o nome do pacote (`transpiled_golang_x_time`) ou o mesmo
+    nome sem o prefixo `transpiled_` (`golang_x_time`). Para
+    `packages/boilerplate/`, `Golang` também vale, porque é o que os esquemas
+    `fixed_types.Golang.<tipo>` já exigem.
+
+    `hide` só é apontado quando a colisão é **entre duas bibliotecas** — outro
+    pacote transpilado importado no mesmo arquivo declara o nome escondido.
+    Quando o nome que fica vem de um arquivo local do próprio pacote, ou quando
+    as duas bibliotecas em conflito pertencem ao **mesmo** pacote (o barril
+    contra um arquivo interno dele), o prefixo pelo nome da biblioteca não
+    desambiguaria nada, e `hide` continua sendo a ferramenta correta.
+
+    O auditor mantém, por arquivo, o mapa `prefixo → biblioteca`, exposto por
+    `resolve_prefixed_reference`, de modo que uma referência `foo.Bar` seja
+    atribuída ao pacote certo em vez de confundida com uma declaração local.
 
 ### Nível de visibilidade, permissão e tipos não-públicos
 

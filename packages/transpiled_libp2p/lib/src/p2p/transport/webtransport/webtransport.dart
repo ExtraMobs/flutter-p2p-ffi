@@ -10,9 +10,9 @@ import 'package:transpiled_multiaddr/transpiled_multiaddr.dart';
 import 'package:transpiled_multibase/transpiled_multibase.dart' as multibase;
 import 'package:transpiled_multihash/transpiled_multihash.dart' as multihash;
 import 'package:transpiled_quic_go/transpiled_quic_go.dart';
-import 'package:transpiled_quic_go/transpiled_quic_go.dart' as quicgo;
+import 'package:transpiled_quic_go/transpiled_quic_go.dart' as quic_go;
 import 'package:transpiled_webtransport_go/transpiled_webtransport_go.dart'
-    as webtransport;
+    as transpiled_webtransport_go;
 
 import '../../../core/connmgr/gater.dart';
 import '../../../core/crypto/key_types.dart';
@@ -194,9 +194,9 @@ class WebtransportTransport implements Transport {
     final manager = _certManager ??= await CertManager.create(privKey);
     final certificate = manager.current;
 
-    final server = quicgo.QuicServer(
+    final server = quic_go.QuicServer(
       socket: socket,
-      certificate: quicgo.QuicServerCertificate(
+      certificate: quic_go.QuicServerCertificate(
         der: certificate.certificateDer,
         sign: certificate.sign,
       ),
@@ -269,11 +269,11 @@ class WebtransportTransport implements Transport {
     );
 
     try {
-      final quicConn = await quicgo.dial(
+      final quicConn = await quic_go.dial(
         socket: socket,
         remoteAddress: remoteAddress,
         remotePort: port,
-        tlsConfig: quicgo.QuicTlsConfig(
+        tlsConfig: quic_go.QuicTlsConfig(
           // A WebTransport endpoint is an HTTP/3 endpoint, so ALPN is `h3`,
           // not `libp2p` -- Go appends `http3.NextProtoH3` in `transport.dial`.
           nextProtos: const [nextProtoH3],
@@ -291,7 +291,9 @@ class WebtransportTransport implements Transport {
       );
 
       final session =
-          await webtransport.Dialer(handshakeTimeout: handshakeTimeout).dial(
+          await transpiled_webtransport_go.Dialer(
+            handshakeTimeout: handshakeTimeout,
+          ).dial(
             conn: quicConn,
             authority: isIPv6 ? '[$host]:$port' : '$host:$port',
             path: '$_webtransportHttpEndpoint?type=noise',
@@ -335,7 +337,7 @@ class WebtransportTransport implements Transport {
   /// side dialled with must all be in it -- otherwise a server could hand out
   /// a multiaddr pinning a certificate it does not actually hold.
   Future<SecureConn> _upgrade({
-    required webtransport.Session session,
+    required transpiled_webtransport_go.Session session,
     required PeerId peer,
     required List<Uint8List> certHashes,
     required Multiaddr localAddr,
@@ -390,7 +392,7 @@ class _WebtransportListener implements Listener {
   _WebtransportListener({
     required WebtransportTransport transport,
     required RawDatagramSocket socket,
-    required quicgo.QuicServer server,
+    required quic_go.QuicServer server,
     required Multiaddr boundAddr,
     required CertManager certManager,
   }) : _transport = transport,
@@ -411,7 +413,7 @@ class _WebtransportListener implements Listener {
 
   final WebtransportTransport _transport;
   final RawDatagramSocket _socket;
-  final quicgo.QuicServer _server;
+  final quic_go.QuicServer _server;
   final Multiaddr _boundAddr;
   final CertManager _certManager;
 
@@ -440,7 +442,7 @@ class _WebtransportListener implements Listener {
       final quicConn = await _server.accept();
       try {
         final session =
-            await webtransport.Server(
+            await transpiled_webtransport_go.Server(
               handshakeTimeout: _transport.handshakeTimeout,
             ).accept(
               conn: quicConn,
@@ -467,8 +469,8 @@ class _WebtransportListener implements Listener {
   /// its own certificate hashes, which is what lets the dialling peer check
   /// the `/certhash/` it pinned.
   Future<CapableConn> _upgradeInbound(
-    webtransport.Session session,
-    quicgo.QuicConn quicConn,
+    transpiled_webtransport_go.Session session,
+    quic_go.QuicConn quicConn,
   ) async {
     final localAddr = _boundAddr;
     final remoteAddr = _remoteMultiaddrOf(quicConn);
@@ -510,7 +512,7 @@ class _WebtransportListener implements Listener {
     );
   }
 
-  Multiaddr _remoteMultiaddrOf(quicgo.QuicConn conn) {
+  Multiaddr _remoteMultiaddrOf(quic_go.QuicConn conn) {
     final address = conn.remoteAddress;
     final ip = address.type == InternetAddressType.IPv6 ? 'ip6' : 'ip4';
     return Multiaddr.parse(
@@ -663,11 +665,11 @@ String _hex(List<int> bytes) =>
 /// transport upgrades.
 ///
 /// Go: `webtransportStream` (`stream.go`), which adapts a
-/// `webtransport.Stream` to `net.Conn` so `noise.SecureOutbound` can run on it.
+/// `transpiled_webtransport_go.Stream` to `net.Conn` so `noise.SecureOutbound` can run on it.
 class _SessionRawConn implements RawConn {
   _SessionRawConn({
     required Transport transport,
-    required webtransport.SessionStream stream,
+    required transpiled_webtransport_go.SessionStream stream,
     required Multiaddr localMultiaddr,
     required Multiaddr remoteMultiaddr,
   }) : _transport = transport,
@@ -676,7 +678,7 @@ class _SessionRawConn implements RawConn {
        _remoteMultiaddr = remoteMultiaddr;
 
   final Transport _transport;
-  final webtransport.SessionStream _stream;
+  final transpiled_webtransport_go.SessionStream _stream;
   final Multiaddr _localMultiaddr;
   final Multiaddr _remoteMultiaddr;
   final BytesBuilder _surplus = BytesBuilder(copy: false);
@@ -729,7 +731,7 @@ class _SessionRawConn implements RawConn {
 class _WebtransportSessionConn implements CapableConn {
   _WebtransportSessionConn({
     required Transport transport,
-    required webtransport.Session session,
+    required transpiled_webtransport_go.Session session,
     required PeerId localPeer,
     required PeerId remotePeer,
     required PubKey remotePubKey,
@@ -747,7 +749,7 @@ class _WebtransportSessionConn implements CapableConn {
        _opened = DateTime.now();
 
   final Transport _transport;
-  final webtransport.Session _session;
+  final transpiled_webtransport_go.Session _session;
   final PeerId _localPeer;
   final PeerId _remotePeer;
   final PubKey _remotePubKey;
@@ -811,7 +813,7 @@ class _WebtransportSessionConn implements CapableConn {
   @override
   Future<void> close() => _session.close();
 
-  /// `webtransport.Session.close` (`transpiled_webtransport_go`'s
+  /// `transpiled_webtransport_go.Session.close` (`transpiled_webtransport_go`'s
   /// `session.dart:149-161`) always tears down the underlying QUIC
   /// connection with error code `0` and carries no parameter to send a
   /// different one, so there is nothing here to forward [errorCode] to; this
@@ -828,10 +830,11 @@ class _WebtransportSessionConn implements CapableConn {
 /// it, i.e. `SwarmStream`, exactly as upstream's `network.MuxedStream` has
 /// none of it either (`core/network/mux.go:33-71`).
 class _WebtransportSessionStream implements MuxedStream {
-  _WebtransportSessionStream({required webtransport.SessionStream stream})
-    : _stream = stream;
+  _WebtransportSessionStream({
+    required transpiled_webtransport_go.SessionStream stream,
+  }) : _stream = stream;
 
-  final webtransport.SessionStream _stream;
+  final transpiled_webtransport_go.SessionStream _stream;
   final BytesBuilder _surplus = BytesBuilder(copy: false);
   bool _closed = false;
 
@@ -844,11 +847,11 @@ class _WebtransportSessionStream implements MuxedStream {
       if (_closed) return Uint8List(0);
       try {
         _surplus.add(await _stream.read());
-      } on quicgo.ConnectionClosedException {
+      } on quic_go.ConnectionClosedException {
         return Uint8List(0);
-      } on quicgo.StreamResetException {
+      } on quic_go.StreamResetException {
         return Uint8List(0);
-      } on webtransport.SessionClosedException {
+      } on transpiled_webtransport_go.SessionClosedException {
         return Uint8List(0);
       }
     }

@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
-import 'package:transpiled_block_format/transpiled_block_format.dart' as blocks;
+import 'package:transpiled_block_format/transpiled_block_format.dart'
+    as block_format;
 import 'package:transpiled_boxo/transpiled_boxo.dart' as boxo;
 import 'package:transpiled_cid/transpiled_cid.dart';
 import 'package:transpiled_datastore/transpiled_datastore.dart';
@@ -37,29 +38,29 @@ final class Blockstore {
   Future<int> getSize(Cid cid) => _store.getSize(cid);
 
   /// Returns the block named by [cid], validating its bytes before returning.
-  Future<blocks.Block> get(Cid cid) async {
+  Future<block_format.Block> get(Cid cid) async {
     final value = await _store.get(cid);
     final data = Uint8List.fromList(value.rawData());
     _validate(cid, data);
-    return blocks.BasicBlock(data, cid);
+    return block_format.BasicBlock(data, cid);
   }
 
   /// Stores [block] after validating its Cid.
-  Future<void> put(blocks.Block block) async {
+  Future<void> put(block_format.Block block) async {
     final cid = block.cid();
     final data = Uint8List.fromList(block.rawData());
     _validate(cid, data);
-    await _store.put(blocks.BasicBlock(data, cid));
+    await _store.put(block_format.BasicBlock(data, cid));
   }
 
   /// Stores all [values], validating every Cid before any write.
-  Future<void> putMany(Iterable<blocks.Block> values) async {
-    final pending = <blocks.Block>[];
+  Future<void> putMany(Iterable<block_format.Block> values) async {
+    final pending = <block_format.Block>[];
     for (final block in values) {
       final cid = block.cid();
       final data = Uint8List.fromList(block.rawData());
       _validate(cid, data);
-      pending.add(blocks.BasicBlock(data, cid));
+      pending.add(block_format.BasicBlock(data, cid));
     }
     await _store.putMany(pending);
   }

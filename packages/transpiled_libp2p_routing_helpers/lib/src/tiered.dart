@@ -4,7 +4,7 @@ import 'dart:typed_data';
 import 'package:transpiled_cid/transpiled_cid.dart';
 import 'package:transpiled_libp2p/transpiled_libp2p.dart';
 import 'package:transpiled_libp2p/transpiled_libp2p.dart'
-    as core
+    as libp2p
     show getPublicKey;
 import 'package:transpiled_libp2p_record/transpiled_libp2p_record.dart';
 
@@ -59,7 +59,7 @@ class Tiered implements Routing, PubKeyFetcher, Bootstrap {
   }) => _parallel.searchValue(key, options: options);
   @override
   Future<PubKey> getPublicKey(PeerId id) =>
-      _get((router) => core.getPublicKey(router, id));
+      _get((router) => libp2p.getPublicKey(router, id));
   @override
   Future<AddrInfo> findPeer(PeerId id) => _get((router) => router.findPeer(id));
   @override

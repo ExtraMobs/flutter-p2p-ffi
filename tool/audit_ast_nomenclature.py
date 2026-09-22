@@ -268,6 +268,7 @@ RULE_TITLES = {
     'RULE_PUBSPEC_DEPENDENCIES': "22. Validação de Dependências em pubspec.yaml",
     'RULE_EXPOSED_NON_PUBLIC_MEMBERS': "23. Veto a Membros Públicos que Expõem Tipos Não-Públicos (Menor Permissão)",
     'RULE_MISSING_ATOMIC_TESTS': "24. Auditoria de Testes Atômicos 1 para 1 (test/atomic/<nivel>/<nome_modulo>_atomic_tests.dart)",
+    'RULE_IMPORT_PREFIX_NAMING': "25. Prefixo de Import Nomeado pela Biblioteca (Colisão de Nomes)",
 }
 
 RULE_DEFAULT_SEVERITIES = {
@@ -295,6 +296,7 @@ RULE_DEFAULT_SEVERITIES = {
     'RULE_PUBSPEC_DEPENDENCIES': 'ERROR',
     'RULE_EXPOSED_NON_PUBLIC_MEMBERS': 'ERROR',
     'RULE_MISSING_ATOMIC_TESTS': 'ERROR',
+    'RULE_IMPORT_PREFIX_NAMING': 'ERROR',
 }
 
 def split_words(s: str) -> List[str]:
@@ -484,6 +486,10 @@ class AstNomenclatureAuditor:
         self.go_symbols_by_module: Dict[str, List[GoAuditSymbol]] = {}
         self.violations: List[Dict] = []
         self.atomic_test_stats: Optional[Dict] = None
+        # rel_path -> {prefixo de import: nome do pacote/biblioteca importada}
+        self.dart_import_prefixes: Dict[str, Dict[str, str]] = {}
+        # rel_path -> [(nome escondido, pacote/biblioteca de origem)]
+        self.dart_import_hides: Dict[str, List[Tuple[str, str]]] = {}
 
     def _parse_member_sig(self, sig: str, class_name: str, rel_path: str, line_no: int, check_dep, char_pos: int = 0) -> Optional[DartAuditSymbol]:
         sig = " ".join(sig.split())
@@ -556,6 +562,8 @@ class AstNomenclatureAuditor:
 
         cleaned = clean_dart_source(content)
         self.dart_files.append((file_path, content, cleaned))
+        _rel = str(file_path.relative_to(self.root_dir)).replace(chr(92), '/')
+        self._parse_import_directives(_rel, content)
 
         # Encontra anotações @Deprecated com posições
         deprecated_spans: List[Tuple[int, int, str]] = []
@@ -721,6 +729,85 @@ class AstNomenclatureAuditor:
                                     self.dart_symbols.append(DartAuditSymbol('function', fn_name, rel_path, sig_line, is_deprecated=is_dep, deprecation_msg=msg))
                     sig_start = i + 1
             i += 1
+
+
+    # Diretivas de import: prefixos e cláusulas hide.
+    #
+    # O auditor precisa saber a que biblioteca um `foo.Bar` se refere, porque o
+    # porte mantém os nomes do upstream e o mesmo nome aparece em mais de um
+    # módulo Go (`Limit` e `Limiter` existem em x/time/rate, x/rate e
+    # resource-manager ao mesmo tempo). Sem isso, uma referência prefixada é
+    # indistinguível de uma declaração local.
+    RE_IMPORT_DIRECTIVE = re.compile(
+        r"import\s+'([^']+)'((?:\s*(?:as\s+[A-Za-z_][A-Za-z0-9_]*|show\s+[^;]*|hide\s+[^;]*))*)\s*;",
+        re.S,
+    )
+    RE_IMPORT_AS = re.compile(r"(?<![A-Za-z0-9_])as\s+([A-Za-z_][A-Za-z0-9_]*)")
+    RE_IMPORT_HIDE = re.compile(r"(?<![A-Za-z0-9_])hide\s+([^;]+)")
+
+    @staticmethod
+    def library_name_of_uri(uri: str) -> Optional[str]:
+        """Nome da biblioteca que `uri` designa, ou None para `dart:`."""
+        if uri.startswith('dart:'):
+            return None
+        if uri.startswith('package:'):
+            return uri[len('package:'):].split('/', 1)[0]
+        # Import relativo: a biblioteca é o próprio arquivo.
+        stem = uri.rsplit('/', 1)[-1]
+        return stem[:-5] if stem.endswith('.dart') else stem
+
+    @staticmethod
+    def allowed_prefixes_for(library: str) -> Set[str]:
+        """Prefixos que nomeiam `library` de forma reconhecível.
+
+        Aceita o nome do pacote e, para os pacotes transpilados, o mesmo nome
+        sem o prefixo `transpiled_`, que continua nomeando a biblioteca. Para
+        `boilerplate` aceita também `Golang`, que o próprio AGENTS.md manda usar
+        nos esquemas `fixed_types.Golang.<tipo>`.
+        """
+        allowed = {library}
+        if library.startswith('transpiled_'):
+            allowed.add(library[len('transpiled_'):])
+        if library == 'boilerplate':
+            allowed.add('Golang')
+        return allowed
+
+    def _parse_import_directives(self, rel_path: str, content: str) -> None:
+        prefixes: Dict[str, str] = {}
+        hides: List[Tuple[str, str]] = []
+        for m in self.RE_IMPORT_DIRECTIVE.finditer(content):
+            uri, combinators = m.group(1), m.group(2) or ''
+            library = self.library_name_of_uri(uri)
+            if library is None:
+                continue
+            m_as = self.RE_IMPORT_AS.search(combinators)
+            if m_as:
+                prefixes[m_as.group(1)] = library
+            m_hide = self.RE_IMPORT_HIDE.search(combinators)
+            if m_hide:
+                for name in m_hide.group(1).split(','):
+                    name = name.strip()
+                    if name:
+                        hides.append((name, library))
+        if prefixes:
+            self.dart_import_prefixes[rel_path] = prefixes
+        if hides:
+            self.dart_import_hides[rel_path] = hides
+
+    def resolve_prefixed_reference(self, rel_path: str, reference: str) -> Tuple[str, Optional[str]]:
+        """Separa `prefixo.Nome` e diz de que biblioteca o nome veio.
+
+        Devolve `(nome_simples, biblioteca_ou_None)`. Sem prefixo conhecido, a
+        biblioteca é None e o nome volta inteiro, que é o comportamento que as
+        regras já esperavam antes de os prefixos existirem.
+        """
+        if '.' not in reference:
+            return reference, None
+        head, _, tail = reference.partition('.')
+        library = self.dart_import_prefixes.get(rel_path, {}).get(head)
+        if library is None:
+            return reference, None
+        return tail, library
 
     def parse_go_index_dir(self, module_name: str, index_dir: Path):
         symbols = []
@@ -1925,6 +2012,91 @@ class AstNomenclatureAuditor:
                                 'symbol': mem_name,
                                 'suggested': f"Tipar com interface pública de menor permissão ou tornar o membro privado ('_{mem_name}')"
                             })
+
+        # REGRA 25: Prefixo de Import Nomeado pela Biblioteca (Colisão de Nomes)
+        #
+        # O porte mantém os nomes do upstream, então o mesmo nome aparece em
+        # mais de um módulo Go: `Limit` e `Limiter` existem em x/time/rate, em
+        # x/rate e em resource-manager ao mesmo tempo. Quem se ajusta é o ponto
+        # de importação, e o prefixo tem de nomear a biblioteca, para que o
+        # leitor -- e este auditor, via resolve_prefixed_reference -- saibam a
+        # qual delas um `Foo.Bar` se refere. Prefixo abreviado ad hoc e
+        # cláusula `hide` perdem essa informação.
+        if target_rule is None or target_rule == 'RULE_IMPORT_PREFIX_NAMING':
+            public_type_packages: Dict[str, Set[str]] = {}
+            for sym in self.dart_symbols:
+                if sym.kind in ('class', 'mixin', 'enum', 'extension_type') and sym.is_public():
+                    if sym.file_path.startswith('packages/'):
+                        pkg = sym.file_path.split('/')[1]
+                        public_type_packages.setdefault(sym.name, set()).add(pkg)
+            for file_path, content, cleaned in self.dart_files:
+                rel_path = str(file_path.relative_to(self.root_dir)).replace(chr(92), '/')
+                if target_package and target_package not in rel_path:
+                    continue
+
+                line_of = {}
+                for idx, line in enumerate(content.splitlines(), start=1):
+                    for m_as in self.RE_IMPORT_AS.finditer(line):
+                        line_of.setdefault(m_as.group(1), idx)
+                    m_h = self.RE_IMPORT_HIDE.search(line)
+                    if m_h:
+                        for nm in m_h.group(1).split(','):
+                            line_of.setdefault('hide:' + nm.strip(), idx)
+
+                for prefix, library in self.dart_import_prefixes.get(rel_path, {}).items():
+                    if not (library.startswith('transpiled_') or library == 'boilerplate'):
+                        continue
+                    allowed = self.allowed_prefixes_for(library)
+                    if prefix in allowed:
+                        continue
+                    self.violations.append({
+                        'rule': 'RULE_IMPORT_PREFIX_NAMING',
+                        'severity': 'ERROR',
+                        'message': (
+                            f"Import de '{library}' usa o prefixo '{prefix}', que não nomeia a biblioteca. "
+                            f"Conforme AGENTS.md, colisão de nomes entre pacotes transpilados se resolve com prefixo "
+                            f"nomeado pela biblioteca, para que a origem de cada símbolo seja legível no ponto de uso."
+                        ),
+                        'file': rel_path,
+                        'line': line_of.get(prefix, 1),
+                        'symbol': prefix,
+                        'suggested': f"Usar 'as {sorted(allowed)[0]}'",
+                    })
+
+                # `hide` só é apontado quando a colisão é entre DUAS bibliotecas:
+                # outro pacote transpilado importado no mesmo arquivo também
+                # declara o nome escondido. Quando o nome que fica vem de um
+                # arquivo local do próprio pacote, a origem continua legível --
+                # a declaração está ali ao lado -- e a regra não se aplica.
+                other_libs: Set[str] = set()
+                for m_imp in self.RE_IMPORT_DIRECTIVE.finditer(content):
+                    lib_i = self.library_name_of_uri(m_imp.group(1))
+                    if lib_i and (lib_i.startswith('transpiled_') or lib_i == 'boilerplate'):
+                        other_libs.add(lib_i)
+
+                for hidden, library in self.dart_import_hides.get(rel_path, []):
+                    if not (library.startswith('transpiled_') or library == 'boilerplate'):
+                        continue
+                    rivals = {
+                        pkg
+                        for pkg in public_type_packages.get(hidden, set())
+                        if pkg != library and pkg in other_libs
+                    }
+                    if not rivals:
+                        continue
+                    self.violations.append({
+                        'rule': 'RULE_IMPORT_PREFIX_NAMING',
+                        'severity': 'ERROR',
+                        'message': (
+                            f"Import de '{library}' esconde '{hidden}' com `hide`. Esconder resolve a colisão mas "
+                            f"apaga de onde veio o símbolo que ficou; o prefixo nomeado pela biblioteca preserva essa "
+                            f"informação e é o que o AGENTS.md exige."
+                        ),
+                        'file': rel_path,
+                        'line': line_of.get('hide:' + hidden, 1),
+                        'symbol': hidden,
+                        'suggested': f"Importar com 'as {sorted(self.allowed_prefixes_for(library))[0]}' em vez de 'hide {hidden}'",
+                    })
 
         # Filtro por severidade opcional
         if target_severity:

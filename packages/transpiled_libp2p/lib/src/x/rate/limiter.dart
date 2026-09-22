@@ -23,7 +23,7 @@ import 'package:boilerplate/net_netip/golang.dart';
 // names stay faithful to upstream and the collision is resolved here, at the
 // import, as `AGENTS.md` prescribes.
 import 'package:transpiled_golang_x_time/transpiled_golang_x_time.dart'
-    as xtime;
+    as golang_x_time;
 import 'package:transpiled_multiaddr/transpiled_multiaddr.dart';
 
 import '../../core/network/network.dart';
@@ -104,8 +104,8 @@ final class Limiter {
   final SubnetLimiter subnetRateLimiter;
 
   bool _initialised = false;
-  late xtime.Limiter _globalBucket;
-  late List<xtime.Limiter> _networkPrefixBuckets;
+  late golang_x_time.Limiter _globalBucket;
+  late List<golang_x_time.Limiter> _networkPrefixBuckets;
 
   /// Go: `init` (`limiter.go:56-75`), whose `sync.Once` is a plain flag here.
   void _init() {
@@ -113,18 +113,24 @@ final class Limiter {
     _initialised = true;
 
     _globalBucket = globalLimit.rps == 0
-        ? xtime.Limiter(xtime.Limit.inf, 0)
-        : xtime.Limiter(xtime.Limit(globalLimit.rps), globalLimit.burst);
+        ? golang_x_time.Limiter(golang_x_time.Limit.inf, 0)
+        : golang_x_time.Limiter(
+            golang_x_time.Limit(globalLimit.rps),
+            globalLimit.burst,
+          );
 
     // Sort such that the widest prefix (smallest bit count) is last.
     networkPrefixLimits.sort((a, b) => b.prefix.bits - a.prefix.bits);
 
-    _networkPrefixBuckets = <xtime.Limiter>[
+    _networkPrefixBuckets = <golang_x_time.Limiter>[
       for (final limit in networkPrefixLimits)
         if (limit.limit.rps == 0)
-          xtime.Limiter(xtime.Limit.inf, 0)
+          golang_x_time.Limiter(golang_x_time.Limit.inf, 0)
         else
-          xtime.Limiter(xtime.Limit(limit.limit.rps), limit.limit.burst),
+          golang_x_time.Limiter(
+            golang_x_time.Limit(limit.limit.rps),
+            limit.limit.burst,
+          ),
     ];
   }
 
@@ -243,7 +249,10 @@ final class SubnetLimiter {
       var bucket = heaps[i].get(prefix);
       bucket ??= _PrefixBucketWithExpiry(
         prefix: prefix,
-        bucket: xtime.Limiter(xtime.Limit(limit.limit.rps), limit.limit.burst),
+        bucket: golang_x_time.Limiter(
+          golang_x_time.Limit(limit.limit.rps),
+          limit.limit.burst,
+        ),
         expiry: now,
       );
 
@@ -277,12 +286,12 @@ final class SubnetLimiter {
 /// Go: `tokenBucket.FullAt` (`limiter.go:229-240`), a method on a struct that
 /// exists only to add this one behaviour to `*rate.Limiter`; here it is a
 /// private function over the limiter itself, since Dart has no embedding.
-DateTime _fullAt(xtime.Limiter bucket, DateTime now) {
+DateTime _fullAt(golang_x_time.Limiter bucket, DateTime now) {
   final tokensNeeded = bucket.burst.toDouble() - bucket.tokensAt(now);
   final refillRate = bucket.limit.value;
   final etaMicros =
       (tokensNeeded / refillRate) * Duration.microsecondsPerSecond;
-  if (!etaMicros.isFinite) return now.add(xtime.infDuration);
+  if (!etaMicros.isFinite) return now.add(golang_x_time.infDuration);
   return now.add(Duration(microseconds: etaMicros.truncate()));
 }
 
@@ -297,7 +306,7 @@ final class _PrefixBucketWithExpiry {
   });
 
   final Prefix prefix;
-  final xtime.Limiter bucket;
+  final golang_x_time.Limiter bucket;
   DateTime expiry;
 }
 

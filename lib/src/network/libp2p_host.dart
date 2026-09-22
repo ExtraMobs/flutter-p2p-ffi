@@ -1,4 +1,4 @@
-import 'package:transpiled_libp2p/transpiled_libp2p.dart' as core;
+import 'package:transpiled_libp2p/transpiled_libp2p.dart' as libp2p;
 import 'package:transpiled_multiaddr/transpiled_multiaddr.dart';
 
 /// Adapts the ported go-libp2p `AddrInfo` to the host.
@@ -7,10 +7,10 @@ final class Libp2pRouter {
   const Libp2pRouter(this.host);
 
   /// Host used for connections and streams.
-  final core.Host host;
+  final libp2p.Host host;
 
   /// Connects the host to the complete peer information in [peer].
-  Future<void> connect(core.AddrInfo peer) async {
+  Future<void> connect(libp2p.AddrInfo peer) async {
     host.peerstore.addAddrs(peer.id, peer.addrs, const Duration(minutes: 2));
     await host.connect(peer);
   }
@@ -19,8 +19,8 @@ final class Libp2pRouter {
   ///
   /// Matches go-libp2p-kad-dht's `maybeAddAddrs` behavior with `TempAddrTTL`.
   Future<void> addAddrs(
-    core.AddrInfo peer, [
-    Duration ttl = core.tempAddrTtl,
+    libp2p.AddrInfo peer, [
+    Duration ttl = libp2p.tempAddrTtl,
   ]) async {
     if (peer.addrs.isEmpty) return;
     if (peer.id == host.id) return;
@@ -28,7 +28,7 @@ final class Libp2pRouter {
   }
 
   /// Looks up addresses stored for [peerId] in the peerstore.
-  Future<List<Multiaddr>> getAddrs(core.PeerId peerId) async {
+  Future<List<Multiaddr>> getAddrs(libp2p.PeerId peerId) async {
     try {
       return host.peerstore.addrs(peerId);
     } catch (_) {
@@ -37,5 +37,5 @@ final class Libp2pRouter {
   }
 
   /// Returns peer ID for stream creation.
-  core.PeerId runtimePeerId(core.PeerId peer) => peer;
+  libp2p.PeerId runtimePeerId(libp2p.PeerId peer) => peer;
 }

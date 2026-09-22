@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:transpiled_libp2p/transpiled_libp2p.dart' hide Stats;
+import 'package:transpiled_libp2p/transpiled_libp2p.dart' as libp2p;
 import 'package:transpiled_boxo/bitswap/message.dart';
 
 import '../interface.dart';
@@ -18,12 +18,12 @@ class IpfsNetwork implements BitSwapNetwork {
   final P2pHost _host;
   ConnectEventManager? _connectEvtMgr;
 
-  final ProtocolId _protocolBitswapNoVers;
-  final ProtocolId _protocolBitswapOneZero;
-  final ProtocolId _protocolBitswapOneOne;
-  final ProtocolId _protocolBitswap;
+  final libp2p.ProtocolId _protocolBitswapNoVers;
+  final libp2p.ProtocolId _protocolBitswapOneZero;
+  final libp2p.ProtocolId _protocolBitswapOneOne;
+  final libp2p.ProtocolId _protocolBitswap;
 
-  final List<ProtocolId> _supportedProtocols;
+  final List<libp2p.ProtocolId> _supportedProtocols;
 
   List<Receiver> _receivers = [];
   final Stats _stats = Stats();
@@ -61,7 +61,7 @@ class IpfsNetwork implements BitSwapNetwork {
   }
 
   @override
-  Future<void> sendMessage(PeerId peer, BitSwapMessage message) async {
+  Future<void> sendMessage(libp2p.PeerId peer, BitSwapMessage message) async {
     final s = await _newStreamToPeer(peer);
     final timeout = _sendTimeout(message.size());
     try {
@@ -118,22 +118,22 @@ class IpfsNetwork implements BitSwapNetwork {
   }
 
   @override
-  Future<void> connect(AddrInfo peer) async {
+  Future<void> connect(libp2p.AddrInfo peer) async {
     if (peer.id == self()) return;
     await _host.connect(peer);
   }
 
   @override
-  Future<void> disconnectFrom(PeerId peer) async {}
+  Future<void> disconnectFrom(libp2p.PeerId peer) async {}
 
   @override
-  bool isConnectedToPeer(PeerId peer) {
+  bool isConnectedToPeer(libp2p.PeerId peer) {
     return _host.peers.contains(peer);
   }
 
   @override
   Future<MessageSender> newMessageSender(
-    PeerId peer,
+    libp2p.PeerId peer,
     MessageSenderOpts opts,
   ) async {
     opts = _setDefaultOpts(opts);
@@ -163,39 +163,40 @@ class IpfsNetwork implements BitSwapNetwork {
   Stats stats() => _stats;
 
   @override
-  PeerId self() => PeerId(value: Uint8List(0));
+  libp2p.PeerId self() => libp2p.PeerId(value: Uint8List(0));
 
   @override
-  Future<PingResult> ping(PeerId peer) async {
+  Future<PingResult> ping(libp2p.PeerId peer) async {
     return PingResult(Duration.zero);
   }
 
   @override
-  Duration latency(PeerId peer) {
+  Duration latency(libp2p.PeerId peer) {
     return Duration.zero;
   }
 
   /// Go: `TagPeer` (`ipfs_impl.go:529-534`). The Go nil check on `bsnet.host`
   /// has no counterpart here: [_host] is non-nullable.
   @override
-  void tagPeer(PeerId peer, String tag, int weight) =>
+  void tagPeer(libp2p.PeerId peer, String tag, int weight) =>
       _host.connManager.tagPeer(peer, tag, weight);
 
   /// Go: `UntagPeer` (`ipfs_impl.go:536-541`).
   @override
-  void untagPeer(PeerId peer, String tag) =>
+  void untagPeer(libp2p.PeerId peer, String tag) =>
       _host.connManager.untagPeer(peer, tag);
 
   /// Go: `Protect` (`ipfs_impl.go:543-548`).
   @override
-  void protect(PeerId peer, String tag) => _host.connManager.protect(peer, tag);
+  void protect(libp2p.PeerId peer, String tag) =>
+      _host.connManager.protect(peer, tag);
 
   /// Go: `Unprotect` (`ipfs_impl.go:550-555`).
   @override
-  bool unprotect(PeerId peer, String tag) =>
+  bool unprotect(libp2p.PeerId peer, String tag) =>
       _host.connManager.unprotect(peer, tag);
 
-  bool _supportsHave(ProtocolId proto) {
+  bool _supportsHave(libp2p.ProtocolId proto) {
     if (proto == _protocolBitswapOneOne ||
         proto == _protocolBitswapOneZero ||
         proto == _protocolBitswapNoVers) {
@@ -204,7 +205,7 @@ class IpfsNetwork implements BitSwapNetwork {
     return true;
   }
 
-  Future<P2pStream> _newStreamToPeer(PeerId p) {
+  Future<P2pStream> _newStreamToPeer(libp2p.PeerId p) {
     return _host.newStream(p, _supportedProtocols);
   }
 
@@ -243,7 +244,7 @@ class IpfsNetwork implements BitSwapNetwork {
         // For compilation to pass and conform to the request:
         final (msg, _) = fromNet(s);
 
-        final p = PeerId(value: Uint8List(0));
+        final p = libp2p.PeerId(value: Uint8List(0));
         _connectEvtMgr?.onMessage(p);
         _stats.messagesRecvd++;
         for (final v in _receivers) {
@@ -264,13 +265,13 @@ class _ReceiverWrapper implements ConnectionListener {
   _ReceiverWrapper(this._r);
 
   @override
-  void peerConnected(PeerId peer) => _r.peerConnected(peer);
+  void peerConnected(libp2p.PeerId peer) => _r.peerConnected(peer);
   @override
-  void peerDisconnected(PeerId peer) => _r.peerDisconnected(peer);
+  void peerDisconnected(libp2p.PeerId peer) => _r.peerDisconnected(peer);
 }
 
 class _StreamMessageSender implements MessageSender {
-  final PeerId to;
+  final libp2p.PeerId to;
   final IpfsNetwork bsnet;
   final MessageSenderOpts opts;
   P2pStream? stream;

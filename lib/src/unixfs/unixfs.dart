@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
-import 'package:transpiled_block_format/transpiled_block_format.dart' as blocks;
+import 'package:transpiled_block_format/transpiled_block_format.dart'
+    as block_format;
 import 'package:transpiled_boxo/transpiled_boxo.dart';
 import 'package:transpiled_cid/transpiled_cid.dart';
 
@@ -50,7 +51,7 @@ List<Cid> unixFsLinks(Cid cid, Uint8List data) {
 /// Streams file bytes in UnixFS link order without materializing the file.
 Stream<Uint8List> readUnixFs(
   Cid root,
-  Future<blocks.Block> Function(Cid cid) getBlock,
+  Future<block_format.Block> Function(Cid cid) getBlock,
 ) async* {
   final block = await getBlock(root);
   final bytes = block.rawData();
@@ -75,7 +76,7 @@ Stream<Uint8List> readUnixFs(
 /// Walks a UnixFS DAG depth-first, deduplicating blocks by Cid.
 Stream<Cid> walkUnixFs(
   Cid root,
-  Future<blocks.Block> Function(Cid cid) getBlock,
+  Future<block_format.Block> Function(Cid cid) getBlock,
 ) async* {
   final seen = <Cid>{};
   Stream<Cid> walk(Cid cid) async* {

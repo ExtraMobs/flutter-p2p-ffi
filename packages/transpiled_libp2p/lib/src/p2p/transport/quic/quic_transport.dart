@@ -5,7 +5,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:transpiled_multiaddr/transpiled_multiaddr.dart';
-import 'package:transpiled_quic_go/transpiled_quic_go.dart' as quicgo;
+import 'package:transpiled_quic_go/transpiled_quic_go.dart' as quic_go;
 
 import '../../../core/connmgr/gater.dart';
 import '../../../core/crypto/key_types.dart';
@@ -101,9 +101,9 @@ class QuicTransport implements Transport {
     );
 
     final cert = await identity.getCertificate();
-    final quicServer = quicgo.QuicServer(
+    final quicServer = quic_go.QuicServer(
       socket: socket,
-      certificate: quicgo.QuicServerCertificate(
+      certificate: quic_go.QuicServerCertificate(
         der: cert.certificateDer,
         sign: cert.privateKey.sign,
       ),
@@ -156,13 +156,13 @@ class QuicTransport implements Transport {
     PubKey? remotePubKey;
 
     try {
-      final session = await quicgo.dial(
+      final session = await quic_go.dial(
         socket: socket,
         remoteAddress: remoteAddress,
         remotePort: port,
-        tlsConfig: quicgo.QuicTlsConfig(
+        tlsConfig: quic_go.QuicTlsConfig(
           nextProtos: const [alpnLibp2p],
-          certificate: quicgo.QuicClientCertificate(
+          certificate: quic_go.QuicClientCertificate(
             der: certificate.certificateDer,
             sign: certificate.privateKey.sign,
           ),
@@ -246,7 +246,7 @@ class _QuicListener implements Listener {
   final QuicTransport transport;
   final RawDatagramSocket socket;
   final PeerId localPeer;
-  final quicgo.QuicServer quicServer;
+  final quic_go.QuicServer quicServer;
   final Multiaddr listenAddr;
 
   late final StreamSubscription<RawSocketEvent> _subscription;
@@ -269,10 +269,10 @@ class _QuicListener implements Listener {
   /// top of quic-go's generic `Accept`.
   Future<void> _acceptLoop() async {
     while (true) {
-      quicgo.QuicConn conn;
+      quic_go.QuicConn conn;
       try {
         conn = await quicServer.accept();
-      } on quicgo.QuicServerClosedException {
+      } on quic_go.QuicServerClosedException {
         return;
       }
       try {
@@ -348,7 +348,7 @@ class _QuicListener implements Listener {
 class _QuicConn implements CapableConn {
   _QuicConn({
     required Transport transport,
-    required quicgo.QuicConn session,
+    required quic_go.QuicConn session,
     required PeerId localPeer,
     required PeerId remotePeer,
     required PubKey remotePubKey,
@@ -366,7 +366,7 @@ class _QuicConn implements CapableConn {
        _opened = DateTime.now();
 
   final Transport _transport;
-  final quicgo.QuicConn _session;
+  final quic_go.QuicConn _session;
   final PeerId _localPeer;
   final PeerId _remotePeer;
   final PubKey _remotePubKey;
@@ -430,7 +430,7 @@ class _QuicConn implements CapableConn {
 
   /// QUIC carries an application error code on the wire in its
   /// CONNECTION_CLOSE frame, satisfying the "best effort" error signal
-  /// `core/network/conn.go:72-74` asks for. [quicgo.QuicConn.close]
+  /// `core/network/conn.go:72-74` asks for. [quic_go.QuicConn.close]
   /// (packages/transpiled_quic_go/lib/src/connection.dart:376) already
   /// accepts that code, so this delegates directly instead of degrading to
   /// a plain [close].
@@ -448,9 +448,9 @@ class _QuicConn implements CapableConn {
 /// `SwarmStream` -- exactly as in Go, where `network.MuxedStream`
 /// (`core/network/mux.go:33-71`) carries none of that either.
 class _QuicStream implements MuxedStream {
-  _QuicStream({required quicgo.QuicStream stream}) : _stream = stream;
+  _QuicStream({required quic_go.QuicStream stream}) : _stream = stream;
 
-  final quicgo.QuicStream _stream;
+  final quic_go.QuicStream _stream;
   final BytesBuilder _surplus = BytesBuilder(copy: false);
   bool _closed = false;
 
@@ -463,9 +463,9 @@ class _QuicStream implements MuxedStream {
       if (_closed) return Uint8List(0);
       try {
         _surplus.add(await _stream.read());
-      } on quicgo.ConnectionClosedException {
+      } on quic_go.ConnectionClosedException {
         return Uint8List(0);
-      } on quicgo.StreamResetException {
+      } on quic_go.StreamResetException {
         return Uint8List(0);
       }
     }

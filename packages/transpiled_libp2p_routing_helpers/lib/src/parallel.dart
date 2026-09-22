@@ -7,7 +7,7 @@ import 'dart:typed_data';
 import 'package:transpiled_cid/transpiled_cid.dart';
 import 'package:transpiled_libp2p/transpiled_libp2p.dart';
 import 'package:transpiled_libp2p/transpiled_libp2p.dart'
-    as core
+    as libp2p
     show getPublicKey;
 import 'package:transpiled_libp2p_record/transpiled_libp2p_record.dart';
 
@@ -148,7 +148,7 @@ class Parallel implements Routing, PubKeyFetcher, Bootstrap {
 
   @override
   Future<PubKey> getPublicKey(PeerId id) => _get(
-    (router) => core.getPublicKey(router, id),
+    (router) => libp2p.getPublicKey(router, id),
     _filter((router) => _supportsKey(router, keyForPublicKey(id))),
   );
 

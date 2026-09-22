@@ -18,7 +18,7 @@ import 'dart:typed_data';
 
 import 'package:transpiled_qpack/transpiled_qpack.dart';
 import 'package:transpiled_quic_go/transpiled_quic_go.dart';
-import 'package:transpiled_quic_go/transpiled_quic_go.dart' as quicgo;
+import 'package:transpiled_quic_go/transpiled_quic_go.dart' as quic_go;
 
 import 'protocol.dart';
 import 'session.dart';
@@ -53,7 +53,7 @@ class Dialer {
   /// [authority] is the `host:port` of the peer and [path] the request path,
   /// which for libp2p is `/.well-known/libp2p-webtransport?type=noise`.
   Future<Session> dial({
-    required quicgo.QuicConn conn,
+    required quic_go.QuicConn conn,
     required String authority,
     required String path,
   }) async {
@@ -154,7 +154,7 @@ class Dialer {
   /// The server opens its control stream and both QPACK streams in whatever
   /// order it likes, so unidirectional streams are accepted until the control
   /// stream turns up.
-  Future<Http3SettingsFrame> _readServerSettings(quicgo.QuicConn conn) async {
+  Future<Http3SettingsFrame> _readServerSettings(quic_go.QuicConn conn) async {
     while (true) {
       final stream = await conn.acceptUniStream();
       final buffer = BytesBuilder(copy: false);
@@ -184,7 +184,7 @@ class Dialer {
 
   /// Reads the HEADERS frame answering the CONNECT request.
   Future<List<HeaderField>> _readResponseHeaders(
-    quicgo.QuicStream stream,
+    quic_go.QuicStream stream,
   ) async {
     final buffer = BytesBuilder(copy: false);
     while (true) {
@@ -223,7 +223,7 @@ class Dialer {
 ///
 /// The first byte's two most significant bits give the encoded length, per
 /// RFC 9000 section 16, so nothing that follows the varint is consumed.
-Future<int> _readVarInt(quicgo.QuicStream stream) async {
+Future<int> _readVarInt(quic_go.QuicStream stream) async {
   final first = await stream.readExactly(1);
   final length = 1 << (first[0] >> 6);
   if (length == 1) return first[0] & 0x3f;
