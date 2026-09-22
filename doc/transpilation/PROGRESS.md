@@ -252,6 +252,87 @@ asserção que o torna útil.
 Registro exigido pelo `AGENTS.md` (`chamador Go → símbolo chamado →
 módulo/revisão → símbolo/pacote Dart`). As revisões estão em `UPSTREAM_LOCK.md`.
 
+### Gerenciador de conexões (`p2p/net/connmgr`)
+
+- `BasicConnMgr` (`connmgr.go:30-55`) → `BasicConnMgr` em
+  `packages/transpiled_libp2p/lib/src/p2p/net/connmgr/connmgr.dart`.
+  `NewConnManager` (`:111-151`) → factory que lança; `CMInfo` (`:614-629`) →
+  `CmInfo`, renomeado pela Regra 1 (acrônimos como palavras). `cmNotifee`
+  (`:653`) é uma conversão de tipo do Go sem equivalente em Dart, e virou a
+  classe privada `_CmNotifee` com referência de volta.
+
+  Os três arquivos upstream são um pacote Go só, compartilhando `config`,
+  `segments`, `peerInfo`, `decayer` e `decayingTag` não exportados. São uma
+  biblioteca Dart só, dividida com `part`, como já faz `transpiled_pion_sdp`.
+  Mantê-los como bibliotecas separadas obrigaria a tornar esses tipos públicos.
+
+  **As cinco famílias de trava foram omitidas, os 256 shards não.** `segment.Mutex`
+  (×256), `segments.bucketsMu`, `plk`, `trimMutex` e `lastTrimMu` disciplinam
+  threads preemptivas; um isolate Dart não preempta dentro de código síncrono, e
+  nenhuma das regiões que elas guardam tem `await`. O `bucketsMu` existe só para
+  impor ordem global de aquisição e evitar deadlock ABBA em
+  `SortByValueAndStreams` (`:276,289`), e some junto com o deadlock. Os buckets
+  em si foram portados literalmente, indexados por `peerId.value.last`.
+
+  **`trimMutex` + `trimCount` são a exceção, e sobreviveram.** Esse par não é
+  trava, é coalescedor (`:369-381`): N chamadas concorrentes produzem um trim.
+  Em Dart continua necessário por um motivo que o Go não tem — fechar conexão é
+  assíncrono, e o `await` é exatamente onde um segundo `trimOpenConns` entra.
+  Virou single-flight sobre o Future em voo, preservando a semântica observável;
+  o contador de gerações deixou de existir e `lastTrim` permanece, porque
+  `getInfo()` o lê.
+
+  **`TrimOpenConns` passou a devolver `Future<void>`**, contra o `void` do
+  upstream e o `void` que a interface `ConnManager` declarava. O Go documenta
+  que ele "blocks until a trim is completed" (`core/connmgr/manager.go:53`), e
+  em Dart isso se escreve com Future; com `void`, o chamador perderia tanto o
+  sinal de término quanto qualquer erro.
+
+  Outras adaptações: `background()` (`:344-367`) é goroutine e virou assinatura
+  do ticker do relógio injetado, com `refCount sync.WaitGroup` e o par
+  `ctx`/`cancel` colapsando no cancelamento dessa assinatura;
+  `connCount atomic.Int32` virou `int`; `CheckLimit` (`:240-249`) lança
+  `StateError` com a mensagem do upstream, porque não há tipo de erro nomeado
+  lá para portar e inventar um público violaria a Regra 12.
+
+  Omissão deliberada: `unregisterMemoryWatcher` (`:54`) é campo morto upstream —
+  nunca atribuído, lido só defensivamente em `Close` (`:186-188`).
+
+  **Bug do upstream reproduzido de propósito.** `getConnsToCloseEmergency:425`
+  compara `len(selected) >= target` com `target` já decrementado pelo laço
+  acima, de modo que a condição é quase sempre verdadeira e o segundo passo — o
+  único caminho em que uma conexão protegida é fechada — quase nunca roda.
+  Portar a intenção em vez do código mudaria o comportamento contra um par real.
+
+- `decayer` e `decayingTag` (`decay.go:32-52,288-299`) → `_Decayer` e
+  `_DecayingTag`, privados como no upstream; `DecayerCfg` (`:57-60`) e
+  `DefaultResolution` (`:16`) → `DecayerCfg` e `defaultResolution`, públicos.
+
+  O `process()` upstream é uma goroutine com `select` de cinco vias sobre um
+  tique e três canais de comando (`bumpTagCh`, `removeTagCh`, `closeTagCh`,
+  buffer 128 cada). Os canais existem para tirar trabalho da thread do chamador
+  e não bloquear em lock de segment; sem threads e sem locks, os comandos são
+  aplicados de forma síncrona e os canais desaparecem. Só o tique sobrevive,
+  como assinatura do ticker.
+
+  **Mudança observável a registrar:** `Bump` e `Remove` do upstream falham por
+  dois motivos, tag fechada *ou* fila cheia (`:322-326`, `:339-343`). Só o
+  primeiro resta aqui, e virou `StateError`.
+
+  Uma divergência de runtime que exigiu guarda: `NewDecayer` chega em
+  `time.NewTicker(cfg.Resolution)` (`:157`), que entra em panic com intervalo
+  não positivo. O `Timer.periodic` do Dart, em vez disso, giraria quente, então
+  o panic foi reproduzido como `ArgumentError`.
+
+  Armadilha preservada: `cfg.clock` e `cfg.decayer.Clock` são independentes e
+  `NewConnManager` não propaga um para o outro (`:76-78`).
+
+- `Option` (`options.go:21`) é `func(*config) error` sobre um `config` não
+  exportado. Dart não expressa typedef público sobre tipo privado sem vazá-lo
+  (Regra 23), então virou uma classe opaca que embrulha a função.
+  `DecayerConfig`, `WithClock`, `WithGracePeriod` e `WithSilencePeriod`
+  (`:24-63`) seguem funções livres, com os mesmos nomes em lowerCamelCase.
+
 ### Conexão de nível swarm e relógio injetável
 
 Pré-requisitos do `BasicConnMgr`, portados antes dele.
@@ -619,6 +700,7 @@ lacunas que um número não mostra.
 
 | Pacote Dart | Estado qualitativo e lacunas |
 | --- | --- |
+| `transpiled_libp2p` (connmgr) | `BasicConnMgr`, decayer e options portados sobre os 256 shards do upstream, com as travas omitidas e o coalescedor de trim preservado (ver rastreamento). Ainda **não ligado** ao `BasicHost` nem ao `IpfsNode`: sem isso o teto de conexões não vale. |
 | `transpiled_clock` | Porte de `benbjohnson/clock` v1.3.5, pré-requisito do `BasicConnMgr`, que injeta `clock.Clock` em todo `Now()` e `Ticker()`. `Clock`, `Mock`, `Timer` e `Ticker` portados; `WithDeadline`/`WithTimeout` e o alias `Duration` omitidos (ver rastreamento). `Mock.add`/`Mock.set` são assíncronos porque o `gosched()` do upstream virou cessão à fila de microtasks. |
 | `transpiled_cid` | Paridade comprovada em v0/v1, decode, `fromBytes`, `encode` e `Prefix`. `Defined()`/`Undef` omitidos: Dart usa exceção em vez de zero value. |
 | `transpiled_multiaddr` | Reescrito do zero — a dependência anterior tinha dois defeitos reais de wire em quic-v1/sni. 37 protocolos, todos os transcoders, parsing IPv4/IPv6 próprio sem `dart:io`. `FilterAddrs`/`Match` e `net` omitidos por falta de chamador. |
@@ -733,14 +815,16 @@ apenas a finalidade dos hooks (`shutdown.CloseWithCtx`).
   `core/connmgr/`. O `ResourceManager` não substitui: o piso do próprio Kubo
   para conexões de entrada é 800 (`config/init.go:100`).
 
-  Os dois pré-requisitos do porte já estão feitos e são o que faltava para ele
-  ser possível: o relógio injetável (`packages/transpiled_clock`), sem o qual
-  grace period, silence period e o tique de decaimento de tags não são
-  determinísticos em teste; e o `SwarmConn`, sem o qual o notifee do connmgr
-  receberia um `Conn` que não sabia dizer o próprio `stat()` nem fechar a
-  conexão. Falta o `p2p/net/connmgr/` em si (`connmgr.go` 732 linhas,
-  `decay.go` 358, `options.go` 63) e a fiação em `BasicHost`
-  (`basic_host.go:279`), `IpfsNode` e no bsnet do bitswap.
+  O `p2p/net/connmgr/` já está portado, com os dois pré-requisitos que o
+  tornaram possível — o relógio injetável (`packages/transpiled_clock`) e o
+  `SwarmConn`. **O teto de conexões, porém, continua não valendo na prática**,
+  porque o manager ainda não está ligado: `BasicHost` nunca chama
+  `network.notify(connManager.notifiee())` como o upstream faz
+  (`basic_host.go:279`), `IpfsNode` não passa o parâmetro e cai no
+  `NullConnMgr`, e os quatro métodos de tag e proteção do bsnet do bitswap
+  continuam com corpo vazio. Enquanto essa fiação não existir, "portado" e
+  "funciona" seguem sendo afirmações distintas, e a curva de sockets medida
+  acima continua de pé.
 
   A sobrevida medida hoje é de dezenas de minutos, não de dias, e não existe
   teste de soak no repositório que meça isso continuamente.
