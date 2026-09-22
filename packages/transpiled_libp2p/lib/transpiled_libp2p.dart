@@ -175,6 +175,7 @@ export 'src/p2p/host/autonat/autonat.dart';
 export 'src/p2p/protocol/identify/id.dart';
 export 'src/p2p/protocol/identify/pb/identify_message.dart';
 export 'src/p2p/protocol/multistream_select.dart';
+export 'src/p2p/net/swarm/swarm_conn.dart';
 export 'src/p2p/net/swarm/swarm_stream.dart';
 export 'src/p2p/transport/basic_upgrader.dart';
 export 'src/p2p/transport/tcp/tcp_transport.dart';

@@ -75,4 +75,10 @@ final class _Network implements Network {
   dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 }
 
-final class _Conn implements Conn {}
+final class _Conn implements Conn {
+  // Identity token only: these tests pass a Conn around without calling into
+  // it. Before `Conn` carried the shape of the upstream `network.Conn`, an
+  // empty class satisfied it.
+  @override
+  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
+}

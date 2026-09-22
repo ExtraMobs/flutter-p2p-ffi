@@ -11,7 +11,6 @@ import '../../../core/connmgr/gater.dart';
 import '../../../core/crypto/key_types.dart';
 import '../../../core/network/network.dart';
 import '../../../core/peer/peer_id.dart';
-import '../../../core/protocol/protocol.dart';
 import '../../../core/transport/transport.dart';
 import '../../security/tls/crypto.dart';
 import '../../security/tls/transport.dart' show Identity, tlsProtocolId;
@@ -419,54 +418,41 @@ class _QuicConn implements CapableConn {
   ConnScope scope() => const NullScope();
 
   @override
-  Future<NetworkStream> openStream() async =>
-      _QuicStream(conn: this, stream: _session.openStream());
+  Future<MuxedStream> openStream() async =>
+      _QuicStream(stream: _session.openStream());
 
   @override
-  Future<NetworkStream> acceptStream() async =>
-      _QuicStream(conn: this, stream: await _session.acceptStream());
+  Future<MuxedStream> acceptStream() async =>
+      _QuicStream(stream: await _session.acceptStream());
 
   @override
   Future<void> close() => _session.close();
+
+  /// QUIC carries an application error code on the wire in its
+  /// CONNECTION_CLOSE frame, satisfying the "best effort" error signal
+  /// `core/network/conn.go:72-74` asks for. [quicgo.QuicConn.close]
+  /// (packages/transpiled_quic_go/lib/src/connection.dart:376) already
+  /// accepts that code, so this delegates directly instead of degrading to
+  /// a plain [close].
+  @override
+  Future<void> closeWithError(ConnErrorCode errorCode) =>
+      _session.close(errorCode);
 }
 
-/// Adapts a QUIC stream to libp2p's [NetworkStream].
+/// Adapts a QUIC stream to libp2p's [MuxedStream].
 ///
 /// QUIC multiplexes natively, so a libp2p stream *is* a QUIC stream: no yamux
 /// frame sits in between, and this adapter only maps the two APIs onto each
-/// other.
-class _QuicStream implements NetworkStream {
-  _QuicStream({required _QuicConn conn, required quicgo.QuicStream stream})
-    : _conn = conn,
-      _stream = stream,
-      _opened = DateTime.now();
+/// other. The libp2p-level identity (id, protocol, stat, scope, owning
+/// [Conn]) belongs to the [NetworkStream] that wraps this one -- in practice
+/// `SwarmStream` -- exactly as in Go, where `network.MuxedStream`
+/// (`core/network/mux.go:33-71`) carries none of that either.
+class _QuicStream implements MuxedStream {
+  _QuicStream({required quicgo.QuicStream stream}) : _stream = stream;
 
-  final _QuicConn _conn;
   final quicgo.QuicStream _stream;
-  final DateTime _opened;
   final BytesBuilder _surplus = BytesBuilder(copy: false);
-  ProtocolId _protocol = '';
   bool _closed = false;
-
-  @override
-  String get id => _stream.id.toString();
-
-  @override
-  ProtocolId protocol() => _protocol;
-
-  @override
-  Future<void> setProtocol(ProtocolId id) async {
-    _protocol = id;
-  }
-
-  @override
-  Conn conn() => _conn;
-
-  @override
-  StreamScope scope() => const NullScope();
-
-  @override
-  Stats stat() => Stats(direction: _conn.stat().direction, opened: _opened);
 
   @override
   bool get isClosed => _closed;

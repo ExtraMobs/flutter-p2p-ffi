@@ -1,36 +1,48 @@
 // ignore_for_file: duplicate_ignore, public_member_api_docs, sort_constructors_first, directives_ordering, dangling_library_doc_comments, library_prefixes, constant_identifier_names, depend_on_referenced_packages
+// Port of go-libp2p's p2p/net/swarm/swarm_stream.go.
+
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:transpiled_go_yamux/transpiled_go_yamux.dart';
-
 import '../../../core/network/network.dart';
 import '../../../core/protocol/protocol.dart';
+import 'swarm_conn.dart';
 
-/// Network stream backed by an underlying Yamux stream.
+/// The libp2p stream the swarm hands out, wrapping one [MuxedStream].
+///
+/// Go: `swarm.Stream` (`swarm_stream.go:20-33`). Previously this class wrapped
+/// a `YamuxStream` directly and was built by the upgrader, which meant every
+/// transport had to invent its own copy of the libp2p-level stream identity.
+/// It now wraps whatever muxed stream a transport produced, exactly as
+/// upstream wraps a `network.MuxedStream`.
 class SwarmStream implements NetworkStream {
   SwarmStream({
-    required YamuxStream yamuxStream,
-    required Conn conn,
+    required MuxedStream muxedStream,
+    required SwarmConn conn,
     required Direction direction,
+    required int id,
     ProtocolId protocol = '',
-  }) : _yamuxStream = yamuxStream,
+  }) : _muxedStream = muxedStream,
        _conn = conn,
        _direction = direction,
+       _id = id,
        _protocol = protocol,
        _opened = DateTime.now();
 
-  final YamuxStream _yamuxStream;
-  final Conn _conn;
+  final MuxedStream _muxedStream;
+  final SwarmConn _conn;
   final Direction _direction;
   final DateTime _opened;
+  final int _id;
   ProtocolId _protocol;
   DateTime? _deadline;
   DateTime? _readDeadline;
   DateTime? _writeDeadline;
 
+  /// Go: `ID` (`swarm_stream.go:35-38`), formatted as
+  /// `<conn id>-<global stream ordinal>`.
   @override
-  String get id => _yamuxStream.id.toString();
+  String get id => '${_conn.id()}-$_id';
 
   @override
   ProtocolId protocol() => _protocol;
@@ -50,38 +62,46 @@ class SwarmStream implements NetworkStream {
   StreamScope scope() => const NullScope();
 
   @override
-  Future<void> resetWithError(StreamErrorCode errorCode) => reset();
+  Future<void> resetWithError(StreamErrorCode errorCode) async {
+    _conn.removeStream(this);
+    await _muxedStream.resetWithError(errorCode);
+  }
 
   @override
-  bool get isClosed => _yamuxStream.isClosed;
+  bool get isClosed => _muxedStream.isClosed;
 
   @override
   Future<Uint8List> read([int? maxLength]) {
     final effectiveDeadline = _readDeadline ?? _deadline;
-    final op = _yamuxStream
-        .read(maxLength ?? 65536)
-        .then((data) => data ?? Uint8List(0));
-    return _applyDeadline(op, effectiveDeadline);
+    return _applyDeadline(_muxedStream.read(maxLength), effectiveDeadline);
   }
 
   @override
   Future<void> write(Uint8List data) {
     final effectiveDeadline = _writeDeadline ?? _deadline;
-    final op = _yamuxStream.write(data);
-    return _applyDeadline(op, effectiveDeadline);
+    return _applyDeadline(_muxedStream.write(data), effectiveDeadline);
+  }
+
+  /// Go: `Close` (`swarm_stream.go:40-49`), which deregisters the stream from
+  /// its connection.
+  @override
+  Future<void> close() async {
+    _conn.removeStream(this);
+    await _muxedStream.close();
+  }
+
+  /// Go: `Reset` (`swarm_stream.go:66-75`).
+  @override
+  Future<void> reset() async {
+    _conn.removeStream(this);
+    await _muxedStream.reset();
   }
 
   @override
-  Future<void> close() => _yamuxStream.close();
+  Future<void> closeWrite() => _muxedStream.closeWrite();
 
   @override
-  Future<void> reset() => _yamuxStream.reset();
-
-  @override
-  Future<void> closeWrite() => _yamuxStream.closeWrite();
-
-  @override
-  Future<void> closeRead() => _yamuxStream.closeRead();
+  Future<void> closeRead() => _muxedStream.closeRead();
 
   @override
   Future<void> setDeadline(DateTime? time) async {

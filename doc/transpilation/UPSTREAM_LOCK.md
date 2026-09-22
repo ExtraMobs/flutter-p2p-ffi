@@ -8,6 +8,7 @@ dos clones só podem alterar esta tabela junto com a revalidação dos ports afe
 | `go-varint` (cache Go, v0.1.0) | `github.com/multiformats/go-varint` | `23576a8fddd196d6bc3b82014ae91d198e47d734` | <https://github.com/multiformats/go-varint.git> |
 | `go-base32` (v0.1.0) | `github.com/multiformats/go-base32` | `a16b66327f327428b32b919939b8c93482507e1f` | <https://github.com/multiformats/go-base32.git> |
 | `go-cid` | `github.com/ipfs/go-cid` | `707ffd0177069183ed529f6799b3c2e1d67372c5` | <https://github.com/ipfs/go-cid.git> |
+| `benbjohnson-clock` (v1.3.5) | `github.com/benbjohnson/clock` | `96c602caabb567343046c08a8fca8560b4f00bb4` | <https://github.com/benbjohnson/clock.git> |
 | `go-multiaddr` | `github.com/multiformats/go-multiaddr` | `7fae00adf671d9d4b931e591f2357a261567fee5` | <https://github.com/multiformats/go-multiaddr.git> |
 | `go-multihash` | `github.com/multiformats/go-multihash` | `b29af1cd12049b4d5fa9a81b0cb0b4a04703fa27` | <https://github.com/multiformats/go-multihash.git> |
 | `go-multibase` | `github.com/multiformats/go-multibase` | `e78390d81626c10f14be96ab51cbbcb90074bc86` | <https://github.com/multiformats/go-multibase.git> |
@@ -64,6 +65,15 @@ derivação própria — ainda que nenhum par verifique a origem da chave, só o
 hash do certificado, é o que mantém o certhash idêntico entre reinícios e o
 que a exigência de fidelidade do `AGENTS.md` pede. Até o clone existir, o
 certificado determinístico não pode ser dado como portado.
+
+O clone `benbjohnson-clock` foi acrescentado para o port de
+`packages/transpiled_clock`, pré-requisito do `BasicConnMgr`
+(`go-libp2p/p2p/net/connmgr`), que injeta `clock.Clock` em todo `Now()` e
+`Ticker()` para que grace period, silence period e o tick de decaimento de
+tags sejam determinísticos em teste. É um clone raso (`--depth 1`) da tag
+`v1.3.5`, que é a versão fixada pelo `go.mod` do `go-libp2p` (linha 11).
+Ainda não tem índice AST gerado; o auditor o cobre pela varredura direta de
+fontes Go (`scan_go_repo_sources`).
 
 Os clones correspondentes ficam em `go-ipfs-reference/<clone local>`, na raiz
 deste checkout, e os índices AST em `go-ipfs-reference/<clone local>-index`.

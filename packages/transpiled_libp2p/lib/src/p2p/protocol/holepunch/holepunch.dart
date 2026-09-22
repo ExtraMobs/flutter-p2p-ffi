@@ -64,15 +64,7 @@ class HolePunchService {
   /// Handles an inbound DCUtR stream from an initiator behind a relay.
   Future<void> handleStream(NetworkStream stream) async {
     try {
-      final remoteConn = stream.conn();
-      PeerId? remotePeer;
-      if (remoteConn case final ConnSecurity sec) {
-        remotePeer = sec.remotePeer();
-      }
-      if (remotePeer == null) {
-        await stream.reset();
-        return;
-      }
+      final remotePeer = stream.conn().remotePeer();
 
       // Step 1: Read CONNECT message from initiator
       final rawReq = await _readDelimited(stream);

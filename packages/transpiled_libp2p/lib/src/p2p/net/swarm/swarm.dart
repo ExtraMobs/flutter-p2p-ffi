@@ -11,6 +11,7 @@ import '../../../core/peerstore/peerstore.dart';
 import '../../../core/transport/transport.dart';
 import '../../host/eventbus/basic.dart';
 import '../../host/peerstore/pstoremem/peerstore.dart';
+import 'swarm_conn.dart';
 
 /// Standard libp2p network implementation managing transports, listeners,
 /// peer connections, and stream dispatch.
@@ -40,10 +41,19 @@ class Swarm implements TransportNetwork {
   final Bus eventBus;
   final List<Transport> _transports = [];
   final List<Listener> _listeners = [];
-  final Map<PeerId, List<CapableConn>> _connections = {};
+  final Map<PeerId, List<SwarmConn>> _connections = {};
   final List<Notifiee> _notifiees = [];
   StreamHandler? _streamHandler;
   bool _closed = false;
+
+  /// Go: `nextConnID` / `nextStreamID` (`swarm.go:154-155`).
+  int _nextConnId = 0;
+  int _nextStreamId = 0;
+
+  /// Hands out the next global stream ordinal.
+  ///
+  /// Go: `s.nextStreamID.Add(1)` (`swarm_conn.go:259`).
+  int nextStreamId() => ++_nextStreamId;
 
   @override
   void addTransport(Transport transport) {
@@ -92,9 +102,10 @@ class Swarm implements TransportNetwork {
     }
   }
 
-  void _addConnection(CapableConn conn) {
+  SwarmConn _addConnection(CapableConn capable) {
+    final conn = SwarmConn(conn: capable, swarm: this, id: ++_nextConnId);
     final remote = conn.remotePeer();
-    final list = _connections.putIfAbsent(remote, () => <CapableConn>[]);
+    final list = _connections.putIfAbsent(remote, () => <SwarmConn>[]);
     list.add(conn);
 
     peerstore.addAddrs(remote, [conn.remoteMultiaddr()], tempAddrTtl);
@@ -113,12 +124,14 @@ class Swarm implements TransportNetwork {
         );
 
     _startIncomingStreamsLoop(conn);
+    return conn;
   }
 
-  void _startIncomingStreamsLoop(CapableConn conn) async {
+  void _startIncomingStreamsLoop(SwarmConn conn) async {
     while (!_closed && !conn.isClosed) {
       try {
-        final stream = await conn.acceptStream();
+        final muxed = await conn.capableConn.acceptStream();
+        final stream = conn.adoptInboundStream(muxed);
         final handler = _streamHandler;
         if (handler != null) {
           unawaited(Future.sync(() => handler(stream)));
@@ -127,10 +140,15 @@ class Swarm implements TransportNetwork {
         break;
       }
     }
-    _removeConnection(conn);
+    removeConn(conn);
+    notifyDisconnected(conn);
   }
 
-  void _removeConnection(CapableConn conn) {
+  /// Deregisters [conn] and emits the connectedness change, without dispatching
+  /// the `Disconnected` notification -- [notifyDisconnected] does that.
+  ///
+  /// Go: `removeConn` (`swarm.go:702-720`), called from `Conn.doClose`.
+  void removeConn(SwarmConn conn) {
     final remote = conn.remotePeer();
     final list = _connections[remote];
     if (list != null) {
@@ -149,13 +167,19 @@ class Swarm implements TransportNetwork {
             );
       }
     }
+  }
+
+  /// Dispatches `Disconnected` to every notifiee.
+  ///
+  /// Go: the notification half of `Conn.doClose` (`swarm_conn.go:101-109`).
+  void notifyDisconnected(SwarmConn conn) {
     for (final n in _notifiees.toList()) {
       n.disconnected(this, conn);
     }
   }
 
   @override
-  Future<CapableConn> dialPeer(NetworkContext context, PeerId peer) async {
+  Future<SwarmConn> dialPeer(NetworkContext context, PeerId peer) async {
     if (_closed) throw StateError('Swarm is closed');
     final existing = _connections[peer];
     if (existing != null && existing.isNotEmpty) {
@@ -174,9 +198,8 @@ class Swarm implements TransportNetwork {
       for (final t in _transports) {
         if (!t.canDial(addr)) continue;
         try {
-          final conn = await t.dial(addr, peer);
-          _addConnection(conn);
-          return conn;
+          final capable = await t.dial(addr, peer);
+          return _addConnection(capable);
         } catch (err) {
           lastError = err;
         }
@@ -191,7 +214,7 @@ class Swarm implements TransportNetwork {
   Future<NetworkStream> newStream(NetworkContext context, PeerId peer) async {
     if (_closed) throw StateError('Swarm is closed');
     final conn = await dialPeer(context, peer);
-    return conn.openStream();
+    return conn.newStream();
   }
 
   @override

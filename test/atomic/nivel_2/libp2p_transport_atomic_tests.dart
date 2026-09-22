@@ -185,49 +185,34 @@ class _MockCapableConn implements CapableConn {
   ConnStats stat() =>
       ConnStats(direction: Direction.outbound, opened: DateTime.now());
 
-  @override
-  Future<NetworkStream> openStream() async => _DummyNetworkStream(this);
+  final Completer<void> _closedSignal = Completer<void>();
 
   @override
-  Future<NetworkStream> acceptStream() async => _DummyNetworkStream(this);
+  Future<MuxedStream> openStream() async => _DummyMuxedStream();
+
+  /// A real muxed connection blocks here until the peer opens a stream.
+  /// Returning a fresh stream on every call made the swarm's inbound-stream
+  /// loop spin without bound.
+  @override
+  Future<MuxedStream> acceptStream() async {
+    await _closedSignal.future;
+    throw StateError('connection closed');
+  }
 
   @override
   Future<void> close() async {
     _closed = true;
+    if (!_closedSignal.isCompleted) _closedSignal.complete();
   }
+
+  @override
+  Future<void> closeWithError(ConnErrorCode errorCode) => close();
 
   @override
   bool get isClosed => _closed;
 }
 
-class _DummyNetworkStream implements NetworkStream {
-  _DummyNetworkStream(this._conn);
-  final Conn _conn;
-  ProtocolId _proto = '';
-
-  @override
-  String get id => 'dummy-1';
-
-  @override
-  ProtocolId protocol() => _proto;
-
-  @override
-  Future<void> setProtocol(ProtocolId id) async {
-    _proto = id;
-  }
-
-  @override
-  Stats stat() => Stats(direction: Direction.outbound, opened: DateTime.now());
-
-  @override
-  Conn conn() => _conn;
-
-  @override
-  StreamScope scope() => const NullScope();
-
-  @override
-  Future<void> resetWithError(StreamErrorCode errorCode) async {}
-
+class _DummyMuxedStream implements MuxedStream {
   @override
   bool get isClosed => false;
 
@@ -244,10 +229,54 @@ class _DummyNetworkStream implements NetworkStream {
   Future<void> reset() async {}
 
   @override
+  Future<void> resetWithError(StreamErrorCode errorCode) async {}
+
+  @override
   Future<void> closeWrite() async {}
 
   @override
   Future<void> closeRead() async {}
+
+  @override
+  Future<void> setDeadline(DateTime? time) async {}
+
+  @override
+  Future<void> setReadDeadline(DateTime? time) async {}
+
+  @override
+  Future<void> setWriteDeadline(DateTime? time) async {}
+}
+
+/// Adapts a yamux stream to [MuxedStream], the way each transport does in
+/// production. `SwarmStream` wraps one of these.
+class _YamuxMuxedStream implements MuxedStream {
+  _YamuxMuxedStream(this._s);
+  final YamuxStream _s;
+
+  @override
+  bool get isClosed => _s.isClosed;
+
+  @override
+  Future<Uint8List> read([int? maxLength]) =>
+      _s.read(maxLength ?? 65536).then((d) => d ?? Uint8List(0));
+
+  @override
+  Future<void> write(Uint8List data) => _s.write(data);
+
+  @override
+  Future<void> close() => _s.close();
+
+  @override
+  Future<void> reset() => _s.reset();
+
+  @override
+  Future<void> resetWithError(StreamErrorCode errorCode) => _s.reset();
+
+  @override
+  Future<void> closeWrite() => _s.closeWrite();
+
+  @override
+  Future<void> closeRead() => _s.closeRead();
 
   @override
   Future<void> setDeadline(DateTime? time) async {}
@@ -296,10 +325,19 @@ class _MockListener implements Listener {
   final Transport _transport;
   final Multiaddr _addr;
   bool _closed = false;
+  bool _accepted = false;
+  final Completer<void> _closedSignal = Completer<void>();
 
   @override
   Future<CapableConn> accept() async {
     if (_closed) throw const ListenerClosedException();
+    // A real listener blocks until a peer dials. Returning a fresh connection
+    // on every call made the swarm's accept loop spin without bound.
+    if (_accepted) {
+      await _closedSignal.future;
+      throw const ListenerClosedException();
+    }
+    _accepted = true;
     return _MockCapableConn(
       transportInstance: _transport,
       local: PeerId(value: Uint8List.fromList([1])),
@@ -312,6 +350,7 @@ class _MockListener implements Listener {
   @override
   Future<void> close() async {
     _closed = true;
+    if (!_closedSignal.isCompleted) _closedSignal.complete();
   }
 
   @override
@@ -495,7 +534,14 @@ void main() async {
       final acceptFuture = serverSession.acceptStream();
 
       final conn = createTestConn(clientSession: clientSession);
-      final s = await conn.openStream();
+      // Direction is libp2p-level state, so it now lives on the SwarmStream
+      // that SwarmConn builds over the transport's MuxedStream.
+      final swarmConn = SwarmConn(
+        conn: conn,
+        swarm: Swarm(localPeer: localPeer),
+        id: 1,
+      );
+      final s = await swarmConn.newStream();
       final incoming = await acceptFuture;
       expect(s.stat().direction, equals(Direction.outbound));
 
@@ -512,10 +558,15 @@ void main() async {
 
       final openFuture = clientSession.openStream();
       final conn = createTestConn(clientSession: serverSession);
+      final swarmConn = SwarmConn(
+        conn: conn,
+        swarm: Swarm(localPeer: localPeer),
+        id: 1,
+      );
       final acceptFuture = conn.acceptStream();
 
       final yStream = await openFuture;
-      final accepted = await acceptFuture;
+      final accepted = swarmConn.adoptInboundStream(await acceptFuture);
       expect(accepted.stat().direction, equals(Direction.inbound));
 
       await yStream.close();
@@ -726,7 +777,12 @@ void main() async {
       ], tempAddrTtl);
 
       final stream = await swarm.newStream(NetworkContext.empty, remotePeer);
-      expect(stream.id, equals('dummy-1'));
+      // The swarm wraps the transport's MuxedStream in a SwarmStream, so the
+      // id is the upstream format and no longer the transport's own.
+      // Go: `<conn id>-<global stream ordinal>` (`swarm_stream.go:35-38`) over
+      // `<first 10 chars of peer id>-<conn ordinal>` (`swarm_conn.go:50-53`).
+      final connPrefix = remotePeer.toString().substring(0, 10);
+      expect(stream.id, equals('$connPrefix-1-1'));
       await swarm.close();
     });
 
@@ -886,16 +942,24 @@ void main() async {
         remoteAddr: Multiaddr.parse('/ip4/127.0.0.1/tcp/4002'),
       );
 
+      // SwarmStream now wraps a MuxedStream and belongs to a SwarmConn, the
+      // way upstream's swarm.Stream wraps a network.MuxedStream and belongs to
+      // a swarm.Conn.
+      final swarm = Swarm(localPeer: localPeer);
+      final swarmConn = SwarmConn(conn: mockConn, swarm: swarm, id: 1);
+
       final stream1 = SwarmStream(
-        yamuxStream: yStream,
-        conn: mockConn,
+        muxedStream: _YamuxMuxedStream(yStream),
+        conn: swarmConn,
         direction: Direction.outbound,
+        id: 1,
         protocol: '/test/1.0.0',
       );
       final stream2 = SwarmStream(
-        yamuxStream: incoming,
-        conn: mockConn,
+        muxedStream: _YamuxMuxedStream(incoming),
+        conn: swarmConn,
         direction: Direction.inbound,
+        id: 2,
         protocol: '/test/1.0.0',
       );
       return (stream1, stream2, clientSession, serverSession);

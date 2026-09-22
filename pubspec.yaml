@@ -59,6 +59,8 @@ dependencies:
     path: packages/transpiled_base58
   transpiled_cid:
     path: packages/transpiled_cid
+  transpiled_clock:
+    path: packages/transpiled_clock
   transpiled_block_format:
     path: packages/transpiled_block_format
   transpiled_boxo:

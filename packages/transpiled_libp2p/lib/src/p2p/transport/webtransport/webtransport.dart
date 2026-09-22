@@ -18,7 +18,6 @@ import '../../../core/connmgr/gater.dart';
 import '../../../core/crypto/key_types.dart';
 import '../../../core/network/network.dart';
 import '../../../core/peer/peer_id.dart';
-import '../../../core/protocol/protocol.dart';
 import '../../../core/sec/security.dart';
 import '../../../core/transport/transport.dart';
 import '../../security/noise/noise_handshake_payload.dart';
@@ -797,60 +796,44 @@ class _WebtransportSessionConn implements CapableConn {
   ConnScope scope() => const NullScope();
 
   @override
-  Future<NetworkStream> openStream() async {
+  Future<MuxedStream> openStream() async {
     _numStreams++;
-    return _WebtransportSessionStream(
-      conn: this,
-      stream: _session.openStream(),
-    );
+    return _WebtransportSessionStream(stream: _session.openStream());
   }
 
   @override
-  Future<NetworkStream> acceptStream() async {
+  Future<MuxedStream> acceptStream() async {
     final stream = await _session.acceptStream();
     _numStreams++;
-    return _WebtransportSessionStream(conn: this, stream: stream);
+    return _WebtransportSessionStream(stream: stream);
   }
 
   @override
   Future<void> close() => _session.close();
+
+  /// `webtransport.Session.close` (`transpiled_webtransport_go`'s
+  /// `session.dart:149-161`) always tears down the underlying QUIC
+  /// connection with error code `0` and carries no parameter to send a
+  /// different one, so there is nothing here to forward [errorCode] to; this
+  /// degrades to a plain close exactly as upstream's fallback describes for
+  /// transports that cannot signal an error code (`core/network/conn.go:72-74`).
+  @override
+  Future<void> closeWithError(ConnErrorCode errorCode) => close();
 }
 
-/// Adapts a WebTransport session stream to libp2p's [NetworkStream].
-class _WebtransportSessionStream implements NetworkStream {
-  _WebtransportSessionStream({
-    required _WebtransportSessionConn conn,
-    required webtransport.SessionStream stream,
-  }) : _conn = conn,
-       _stream = stream,
-       _opened = DateTime.now();
+/// Adapts a WebTransport session stream to libp2p's [MuxedStream].
+///
+/// The libp2p-level identity (id, protocol, stat, scope, owning [Conn]) is
+/// not this type's concern -- it belongs to the [NetworkStream] that wraps
+/// it, i.e. `SwarmStream`, exactly as upstream's `network.MuxedStream` has
+/// none of it either (`core/network/mux.go:33-71`).
+class _WebtransportSessionStream implements MuxedStream {
+  _WebtransportSessionStream({required webtransport.SessionStream stream})
+    : _stream = stream;
 
-  final _WebtransportSessionConn _conn;
   final webtransport.SessionStream _stream;
-  final DateTime _opened;
   final BytesBuilder _surplus = BytesBuilder(copy: false);
-  ProtocolId _protocol = '';
   bool _closed = false;
-
-  @override
-  String get id => _stream.id.toString();
-
-  @override
-  ProtocolId protocol() => _protocol;
-
-  @override
-  Future<void> setProtocol(ProtocolId id) async {
-    _protocol = id;
-  }
-
-  @override
-  Conn conn() => _conn;
-
-  @override
-  StreamScope scope() => const NullScope();
-
-  @override
-  Stats stat() => Stats(direction: _conn.stat().direction, opened: _opened);
 
   @override
   bool get isClosed => _closed;
