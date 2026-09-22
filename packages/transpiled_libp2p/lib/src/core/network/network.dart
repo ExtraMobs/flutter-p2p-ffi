@@ -386,19 +386,14 @@ abstract interface class StreamReadWriter {
   Future<void> write(Uint8List data);
 }
 
-/// A libp2p stream contract.
+/// A bidirectional stream handed out by a multiplexer, with no libp2p-level
+/// identity of its own.
 ///
-/// Named `NetworkStream` because Dart's own `Stream` is the native async
-/// stream type used throughout this package.
-abstract interface class NetworkStream implements StreamReadWriter {
-  String get id;
-  ProtocolId protocol();
-  Future<void> setProtocol(ProtocolId id);
-  Stats stat();
-  Conn conn();
-  StreamScope scope();
-  Future<void> resetWithError(StreamErrorCode errorCode);
-
+/// Go: `network.MuxedStream` (`core/network/mux.go:33-71`). It deliberately
+/// carries no `conn()`, `protocol()` or `scope()`: those belong to the
+/// swarm-level [NetworkStream] that wraps it, which is what keeps a transport
+/// from having to know about the swarm that owns it.
+abstract interface class MuxedStream implements StreamReadWriter {
   bool get isClosed;
   @override
   Future<Uint8List> read([int? maxLength]);
@@ -406,11 +401,28 @@ abstract interface class NetworkStream implements StreamReadWriter {
   Future<void> write(Uint8List data);
   Future<void> close();
   Future<void> reset();
+  Future<void> resetWithError(StreamErrorCode errorCode);
   Future<void> closeWrite();
   Future<void> closeRead();
   Future<void> setDeadline(DateTime? time);
   Future<void> setReadDeadline(DateTime? time);
   Future<void> setWriteDeadline(DateTime? time);
+}
+
+/// A libp2p stream contract.
+///
+/// Named `NetworkStream` because Dart's own `Stream` is the native async
+/// stream type used throughout this package.
+///
+/// Go: `network.Stream` (`core/network/stream.go:44-73`), which embeds
+/// `MuxedStream` and adds the libp2p identity of the stream.
+abstract interface class NetworkStream implements MuxedStream {
+  String get id;
+  ProtocolId protocol();
+  Future<void> setProtocol(ProtocolId id);
+  Stats stat();
+  Conn conn();
+  StreamScope scope();
 }
 
 typedef StreamHandler = void Function(NetworkStream stream);
@@ -461,7 +473,54 @@ abstract interface class Network implements Dialer {
   ResourceManager get resourceManager;
 }
 
-abstract interface class Conn {}
+/// A connection between two peers, as the swarm exposes it.
+///
+/// Go: `network.Conn` (`core/network/conn.go:64-104`). Note that a
+/// `transport.CapableConn` is deliberately *not* a [Conn] upstream: the
+/// swarm-level connection is what carries an id, the set of open streams and
+/// the ability to close with an error code. `SwarmConn` is the implementation.
+///
+/// Deliberate omissions, recorded in doc/transpilation/PROGRESS.md:
+///
+///  * `As(target any) bool` (`conn.go:103`), an experimental Go reflection
+///    escape hatch with no Dart equivalent and no consumer here.
+///  * `NewStream(ctx)` (`conn.go:82`) is spelled [newStream] without a
+///    context, matching how the rest of this port drops `context.Context`
+///    where nothing cancels.
+abstract interface class Conn
+    implements ConnSecurity, ConnMultiaddrs, ConnStat, ConnScoper {
+  /// Identifies this connection within this host, for this run. Ids may repeat
+  /// across restarts.
+  ///
+  /// Go: `ID()` (`conn.go:79`).
+  String id();
+
+  /// Opens a new stream over this connection.
+  ///
+  /// Go: `NewStream(ctx)` (`conn.go:82`).
+  Future<NetworkStream> newStream();
+
+  /// Every stream currently open over this connection.
+  ///
+  /// Go: `GetStreams()` (`conn.go:85`).
+  List<NetworkStream> getStreams();
+
+  /// Whether the connection is fully closed and can be collected.
+  ///
+  /// Go: `IsClosed()` (`conn.go:89`).
+  bool get isClosed;
+
+  /// Closes the connection.
+  ///
+  /// Go: `io.Closer` (`conn.go:65`).
+  Future<void> close();
+
+  /// Closes the connection, sending [errorCode] to the peer on a best-effort
+  /// basis. Transports that cannot carry an error code behave as [close].
+  ///
+  /// Go: `CloseWithError(errCode)` (`conn.go:75`).
+  Future<void> closeWithError(ConnErrorCode errorCode);
+}
 
 /// Security identity and negotiated state exposed by a connection.
 abstract interface class ConnSecurity {

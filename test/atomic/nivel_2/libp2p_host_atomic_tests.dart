@@ -45,7 +45,7 @@ class _FakeNetwork implements Network {
 
   @override
   Future<Conn> dialPeer(NetworkContext context, PeerId peer) async {
-    return _FakeConn(localPeer: localPeer, remotePeer: peer);
+    return _FakeConn(local: localPeer, remote: peer);
   }
 
   @override
@@ -81,9 +81,18 @@ class _FakeNetwork implements Network {
 }
 
 class _FakeConn implements Conn {
-  _FakeConn({required this.localPeer, required this.remotePeer});
-  final PeerId localPeer;
-  final PeerId remotePeer;
+  _FakeConn({required this.local, required this.remote});
+  final PeerId local;
+  final PeerId remote;
+
+  @override
+  PeerId localPeer() => local;
+
+  @override
+  PeerId remotePeer() => remote;
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 }
 
 class _FakeStream implements NetworkStream {
@@ -106,7 +115,7 @@ class _FakeStream implements NetworkStream {
   Stats stat() => Stats(direction: Direction.outbound, opened: DateTime.now());
 
   @override
-  Conn conn() => _FakeConn(localPeer: local, remotePeer: remote);
+  Conn conn() => _FakeConn(local: local, remote: remote);
 
   @override
   StreamScope scope() => const NullScope();

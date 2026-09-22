@@ -555,13 +555,20 @@ class _WebsocketCapableConn implements CapableConn {
   ConnStats stat() => _inner.stat();
 
   @override
-  Future<NetworkStream> openStream() => _inner.openStream();
+  Future<MuxedStream> openStream() => _inner.openStream();
 
   @override
-  Future<NetworkStream> acceptStream() => _inner.acceptStream();
+  Future<MuxedStream> acceptStream() => _inner.acceptStream();
 
   @override
   Future<void> close() => _inner.close();
+
+  /// WebSocket carries no connection-level error code (it runs over TCP with
+  /// yamux above it), so closing with an error code degrades to a plain
+  /// close, matching the fallback upstream documents for transports that
+  /// cannot signal it (`core/network/conn.go:72-74`).
+  @override
+  Future<void> closeWithError(ConnErrorCode errorCode) => close();
 
   @override
   bool get isClosed => _inner.isClosed;

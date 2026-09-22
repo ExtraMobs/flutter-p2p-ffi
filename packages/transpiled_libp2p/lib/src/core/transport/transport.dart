@@ -18,8 +18,11 @@ class ListenerClosedException implements Exception {
 const errListenerClosed = ListenerClosedException();
 
 /// A raw network connection before security and multiplexing upgrade.
-abstract interface class RawConn
-    implements Conn, ConnMultiaddrs, StreamReadWriter {
+///
+/// Go: `manet.Conn`, which is a `net.Conn` and deliberately *not* a
+/// `network.Conn` -- a raw socket has no libp2p identity, no streams and no
+/// scope.
+abstract interface class RawConn implements ConnMultiaddrs, StreamReadWriter {
   Transport transport();
   @override
   Future<Uint8List> read([int? maxLength]);
@@ -30,12 +33,24 @@ abstract interface class RawConn
 }
 
 /// A connection that offers basic security, multiplexing, and endpoint addressing.
+///
+/// Go: `transport.CapableConn` (`core/transport/transport.go:28-36`), which
+/// embeds `network.MuxedConn`, `ConnSecurity`, `ConnMultiaddrs` and
+/// `ConnScoper` -- and is *not* a `network.Conn`. The swarm-level connection
+/// is `SwarmConn`, which wraps one of these.
 abstract interface class CapableConn
-    implements Conn, ConnSecurity, ConnMultiaddrs, ConnScoper, ConnStat {
+    implements ConnSecurity, ConnMultiaddrs, ConnScoper, ConnStat {
   Transport transport();
-  Future<NetworkStream> openStream();
-  Future<NetworkStream> acceptStream();
+  Future<MuxedStream> openStream();
+  Future<MuxedStream> acceptStream();
   Future<void> close();
+
+  /// Closes the connection, sending [errorCode] to the peer where the
+  /// transport supports it; otherwise identical to [close].
+  ///
+  /// Go: `network.MuxedConn.CloseWithError` (`core/network/mux.go:20`).
+  Future<void> closeWithError(ConnErrorCode errorCode);
+
   bool get isClosed;
 }
 
@@ -105,7 +120,11 @@ abstract interface class DialUpdater {
 
 /// Upgrades an underlying raw network connection or listener into a full libp2p connection.
 abstract interface class Upgrader {
-  Future<CapableConn> upgrade(Conn conn, Direction dir, PeerId peer);
+  /// Upgrades a raw socket into a secured, multiplexed connection.
+  ///
+  /// Go: `Upgrader.Upgrade` (`core/transport/transport.go:168`), which takes a
+  /// `manet.Conn` -- a raw socket, never a `network.Conn`.
+  Future<CapableConn> upgrade(RawConn conn, Direction dir, PeerId peer);
 
   /// Wraps [listener] into a full libp2p [Listener] that negotiates inbound
   /// connections concurrently, with a timeout and bounded backpressure.

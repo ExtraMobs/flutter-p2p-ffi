@@ -252,6 +252,79 @@ asserção que o torna útil.
 Registro exigido pelo `AGENTS.md` (`chamador Go → símbolo chamado →
 módulo/revisão → símbolo/pacote Dart`). As revisões estão em `UPSTREAM_LOCK.md`.
 
+### Conexão de nível swarm e relógio injetável
+
+Pré-requisitos do `BasicConnMgr`, portados antes dele.
+
+- `clock.Clock` / `clock.New` / `clock.Mock` (`clock.go:18-35,75-88`,
+  benbjohnson/clock @ `96c602ca`, v1.3.5) → `Clock`, `Clock()` (factory) e
+  `Mock` em `packages/transpiled_clock/lib/src/clock.dart`. `Ticker` e `Timer`
+  idem. Pacote próprio por fronteira de `go.mod` (Regra 11).
+
+  Omissões deliberadas: `WithDeadline`/`WithTimeout` (`clock.go:28-29`,
+  `context.go`), porque este porte não modela `context.Context` e nenhum
+  consumidor os usa; e `type Duration = time.Duration` (`clock.go:11`), porque
+  `Duration` é nativo em Dart. `internalTimer`/`internalTicker`
+  (`clock.go:319,386`) são um idioma de Go — conversão de struct para um
+  segundo tipo nomeado só para trocar o method set — sem equivalente em Dart:
+  `Timer` e `Ticker` implementam o contrato privado `_ClockTimer` direto.
+  `gosched()` (`clock.go:410`), que dorme 1 ms para ceder a outras goroutines,
+  virou um `await Future.delayed(Duration.zero)`, que drena a fila de
+  microtasks — é o que faz um `StreamController` entregar aos ouvintes antes de
+  o mock avançar de novo. Isso torna `Mock.add`/`Mock.set` assíncronos, ao
+  contrário do upstream.
+
+  Armadilha preservada: `cfg.clock` e `cfg.decayer.Clock` são independentes no
+  upstream e `NewConnManager` não propaga um para o outro (`decay.go:76-78`).
+
+  **Não** foi unificado com o `Clock`/`RealClock` de
+  `p2p/host/peerstore/pstoreds/options.dart`: aquele é porte de uma interface
+  própria e não exportada do go-libp2p (`pstoreds/addr_book.go:153-165`), de
+  outro módulo. Fundir os dois seria violação de fronteira (Regra 11).
+
+- `swarm.Conn` (`p2p/net/swarm/swarm_conn.go:25-38`, go-libp2p) → `SwarmConn`
+  em `packages/transpiled_libp2p/lib/src/p2p/net/swarm/swarm_conn.dart`.
+  Renomeado porque `Conn` já nomeia o `network.Conn` que a classe implementa;
+  registrado em `DOCUMENTED_ADAPTATIONS` do auditor, como o `SwarmStream` já
+  estava. `ErrConnClosed` (`swarm_conn.go:20`) → `ConnClosedException`.
+  `doClose` (`:73-110`) → `_doClose`, com a guarda de `closeOnce` virando um
+  booleano. `As(target)` (`core/network/conn.go:103`) omitido: é escape de
+  reflexão do Go, sem equivalente e sem chamador.
+
+- `network.Conn` (`core/network/conn.go:64-104`) → `Conn`
+  (`core/network/network.dart`), que era **uma interface vazia**. A causa era
+  estrutural, não um esquecimento: `transport.CapableConn`
+  (`core/transport/transport.go:28-36`) não é um `network.Conn` no upstream, e
+  como o `swarm.Conn` nunca havia sido portado, não sobrava nada para `Conn`
+  declarar. Com o porte, `RawConn` e `CapableConn` deixaram de declarar
+  `implements Conn`.
+
+- `network.MuxedStream` (`core/network/mux.go:33-71`) → `MuxedStream`, separado
+  de `NetworkStream` (`core/network/stream.go:44-73`). Consequência direta do
+  item anterior: `CapableConn.openStream`/`acceptStream` passaram a devolver
+  `MuxedStream`, e a identidade de nível libp2p (id, protocolo, stat, scope,
+  conexão dona) ficou só no `SwarmStream`, que agora envolve um `MuxedStream`
+  em vez de um `YamuxStream` — como o `swarm.Stream` do Go envolve um
+  `network.MuxedStream`.
+
+- `Upgrader.Upgrade` (`core/transport/transport.go:168`) recebe um
+  `manet.Conn`, não um `network.Conn` → `Upgrader.upgrade` passou de
+  `Conn` para `RawConn`. Isso eliminou `_GenericRawConn`, um shim de 55 linhas
+  em `basic_upgrader.dart` que existia só para adaptar um `Conn` qualquer a
+  `RawConn`.
+
+- `network.Conn.CloseWithError` (`core/network/conn.go:75`) e
+  `network.MuxedConn.CloseWithError` (`core/network/mux.go:20`) →
+  `closeWithError` em `Conn` e `CapableConn`. Dos cinco transportes, só o QUIC
+  entrega o código ao par: `QuicConn.close([errorCode])`
+  (`packages/transpiled_quic_go/lib/src/connection.dart:375-389`) emite
+  `ConnectionCloseFrame` com `isApplicationError: true`. Yamux/TCP, WebSocket,
+  WebRTC e WebTransport degradam para `close()`, que é o que o contrato
+  upstream manda (`conn.go:72-74`). No WebTransport a limitação é do porte, não
+  do protocolo: `Session.close()`
+  (`packages/transpiled_webtransport_go/lib/src/session.dart:149-161`) não
+  aceita código para repassar.
+
 ### Roteamento e DHT
 
 - `IpfsDHT.GetClosestPeers` (`lookup.go`, go-libp2p-kad-dht) →
@@ -546,6 +619,7 @@ lacunas que um número não mostra.
 
 | Pacote Dart | Estado qualitativo e lacunas |
 | --- | --- |
+| `transpiled_clock` | Porte de `benbjohnson/clock` v1.3.5, pré-requisito do `BasicConnMgr`, que injeta `clock.Clock` em todo `Now()` e `Ticker()`. `Clock`, `Mock`, `Timer` e `Ticker` portados; `WithDeadline`/`WithTimeout` e o alias `Duration` omitidos (ver rastreamento). `Mock.add`/`Mock.set` são assíncronos porque o `gosched()` do upstream virou cessão à fila de microtasks. |
 | `transpiled_cid` | Paridade comprovada em v0/v1, decode, `fromBytes`, `encode` e `Prefix`. `Defined()`/`Undef` omitidos: Dart usa exceção em vez de zero value. |
 | `transpiled_multiaddr` | Reescrito do zero — a dependência anterior tinha dois defeitos reais de wire em quic-v1/sni. 37 protocolos, todos os transcoders, parsing IPv4/IPv6 próprio sem `dart:io`. `FilterAddrs`/`Match` e `net` omitidos por falta de chamador. |
 | `transpiled_multihash` | Apenas o subconjunto de `Sum()` em uso: identity, sha1, md5, sha2-256/512, dbl-sha2-256, sha3-*, keccak-*. Blake2/Blake3, shake, murmur3 e as variantes sha2-224/384/512-* estão deferidos. O registro dinâmico de hashers não foi replicado. |
@@ -658,6 +732,15 @@ apenas a finalidade dos hooks (`shutdown.CloseWithCtx`).
   (`config/init.go:80-92`), e dele só as interfaces estão portadas em
   `core/connmgr/`. O `ResourceManager` não substitui: o piso do próprio Kubo
   para conexões de entrada é 800 (`config/init.go:100`).
+
+  Os dois pré-requisitos do porte já estão feitos e são o que faltava para ele
+  ser possível: o relógio injetável (`packages/transpiled_clock`), sem o qual
+  grace period, silence period e o tique de decaimento de tags não são
+  determinísticos em teste; e o `SwarmConn`, sem o qual o notifee do connmgr
+  receberia um `Conn` que não sabia dizer o próprio `stat()` nem fechar a
+  conexão. Falta o `p2p/net/connmgr/` em si (`connmgr.go` 732 linhas,
+  `decay.go` 358, `options.go` 63) e a fiação em `BasicHost`
+  (`basic_host.go:279`), `IpfsNode` e no bsnet do bitswap.
 
   A sobrevida medida hoje é de dezenas de minutos, não de dias, e não existe
   teste de soak no repositório que meça isso continuamente.

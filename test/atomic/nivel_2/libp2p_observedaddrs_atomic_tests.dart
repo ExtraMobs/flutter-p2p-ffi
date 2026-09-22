@@ -115,7 +115,7 @@ class _PipeStream implements NetworkStream {
 /// duplex [_PipeStream] pair and delivers the remote end to [peerNetwork]'s
 /// registered incoming-stream handler -- modeling what a real Swarm does
 /// when the other side opens a stream on a connection.
-class _FakeCapableConn implements CapableConn {
+class _FakeCapableConn implements CapableConn, Conn {
   _FakeCapableConn({
     required this.local,
     required this.remote,
@@ -201,6 +201,21 @@ class _FakeCapableConn implements CapableConn {
 
   @override
   Future<NetworkStream> acceptStream() => throw UnimplementedError();
+
+  @override
+  Future<void> closeWithError(ConnErrorCode errorCode) => close();
+
+  // `Conn` members: this fake plays the role SwarmConn plays in production,
+  // wrapping this same CapableConn as the network.Conn other tests hand
+  // around directly.
+  @override
+  String id() => 'fake-capable-conn';
+
+  @override
+  Future<NetworkStream> newStream() => openStream();
+
+  @override
+  List<NetworkStream> getStreams() => const [];
 }
 
 /// Minimal [Network] fake: exposes fixed listen addrs, records the
@@ -776,11 +791,11 @@ void main() {
         final host = BasicHost(network: network);
         final idService = IdService(host: host);
 
-        // A ConnSecurity+ConnMultiaddrs conn that is not a CapableConn cannot
-        // be identified over the wire; identifyWait must still complete
-        // (matching id.go's IdentifyWait, which always closes its channel)
-        // with an empty observedAddr rather than throwing.
-        final conn = _NonCapableConn(local: peerA, remote: peerB);
+        // A connection that cannot open a stream cannot be identified over
+        // the wire; identifyWait must still complete (matching id.go's
+        // IdentifyWait, which always closes its channel) with an empty
+        // observedAddr rather than throwing.
+        final conn = _UnopenableConn(local: peerA, remote: peerB);
         final sub = host.eventBus.subscribe(EvtPeerIdentificationCompleted);
         final eventFuture = sub.out().first;
 
@@ -794,8 +809,9 @@ void main() {
   });
 }
 
-class _NonCapableConn implements Conn, ConnSecurity, ConnMultiaddrs {
-  _NonCapableConn({required this.local, required this.remote});
+class _UnopenableConn
+    implements Conn, ConnSecurity, ConnMultiaddrs, ConnStat, ConnScoper {
+  _UnopenableConn({required this.local, required this.remote});
   final PeerId local;
   final PeerId remote;
 
@@ -816,4 +832,30 @@ class _NonCapableConn implements Conn, ConnSecurity, ConnMultiaddrs {
 
   @override
   Multiaddr remoteMultiaddr() => Multiaddr.parse('/ip4/127.0.0.1/tcp/4002');
+
+  @override
+  ConnStats stat() =>
+      ConnStats(direction: Direction.outbound, opened: DateTime.now());
+
+  @override
+  ConnScope scope() => const NullScope();
+
+  @override
+  String id() => 'unopenable-conn';
+
+  @override
+  Future<NetworkStream> newStream() async =>
+      throw UnsupportedError('cannot open stream');
+
+  @override
+  List<NetworkStream> getStreams() => const [];
+
+  @override
+  bool get isClosed => false;
+
+  @override
+  Future<void> close() async {}
+
+  @override
+  Future<void> closeWithError(ConnErrorCode errorCode) async {}
 }

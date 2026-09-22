@@ -6,7 +6,8 @@ import 'package:test/test.dart';
 import 'package:transpiled_libp2p/transpiled_libp2p.dart';
 import 'package:transpiled_multiaddr/transpiled_multiaddr.dart';
 
-class _FakeConn implements Conn, ConnSecurity, ConnMultiaddrs, ConnScoper {
+class _FakeConn
+    implements Conn, ConnSecurity, ConnMultiaddrs, ConnScoper, ConnStat {
   _FakeConn({required this.local, required this.remote});
 
   final PeerId local;
@@ -32,6 +33,29 @@ class _FakeConn implements Conn, ConnSecurity, ConnMultiaddrs, ConnScoper {
 
   @override
   ConnScope scope() => const NullScope();
+
+  @override
+  ConnStats stat() =>
+      ConnStats(direction: Direction.outbound, opened: DateTime.now());
+
+  @override
+  String id() => 'fake-conn';
+
+  @override
+  Future<NetworkStream> newStream() async =>
+      throw UnsupportedError('newStream not supported by _FakeConn');
+
+  @override
+  List<NetworkStream> getStreams() => const [];
+
+  @override
+  bool get isClosed => false;
+
+  @override
+  Future<void> close() async {}
+
+  @override
+  Future<void> closeWithError(ConnErrorCode errorCode) async {}
 }
 
 class _FakeStream implements NetworkStream {
@@ -162,6 +186,11 @@ class _FakeCapableConn implements CapableConn {
 
   @override
   Future<void> close() async {
+    _closed = true;
+  }
+
+  @override
+  Future<void> closeWithError(ConnErrorCode errorCode) async {
     _closed = true;
   }
 
@@ -326,7 +355,7 @@ class _FakeDialUpdater implements DialUpdater {
 
 class _FakeUpgrader implements Upgrader {
   @override
-  Future<CapableConn> upgrade(Conn conn, Direction dir, PeerId peer) async {
+  Future<CapableConn> upgrade(RawConn conn, Direction dir, PeerId peer) async {
     return _FakeCapableConn(_FakeTransport(), peer, peer);
   }
 
@@ -846,7 +875,7 @@ void main() {
   group('Upgrader [Atomic Audit]', () {
     test('upgrade() - upgrades connection into CapableConn', () async {
       final upg = _FakeUpgrader();
-      final conn = _FakeConn(local: peerA, remote: peerB);
+      final conn = _FakeRawConn(_FakeTransport());
       final c = await upg.upgrade(conn, Direction.outbound, peerB);
       expect(c, isNotNull);
     });

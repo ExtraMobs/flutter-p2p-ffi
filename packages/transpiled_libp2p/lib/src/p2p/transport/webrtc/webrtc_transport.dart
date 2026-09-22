@@ -15,7 +15,6 @@ import '../../../core/crypto/key_codec.dart';
 import '../../../core/crypto/key_types.dart';
 import '../../../core/network/network.dart';
 import '../../../core/peer/peer_id.dart';
-import '../../../core/protocol/protocol.dart';
 import '../../../core/transport/transport.dart';
 
 /// Checks whether [addr] is a valid WebRTC Direct multiaddr and returns
@@ -451,8 +450,8 @@ class _WebRtcConn implements CapableConn {
   bool _closed = false;
   int _nextStreamId = 0;
   final Map<int, _WebRtcStream> _activeStreams = {};
-  final List<Completer<NetworkStream>> _acceptStreamQueue = [];
-  final List<NetworkStream> _pendingStreams = [];
+  final List<Completer<MuxedStream>> _acceptStreamQueue = [];
+  final List<MuxedStream> _pendingStreams = [];
 
   void _onEvent(RawSocketEvent event) {
     if (event == RawSocketEvent.read) {
@@ -573,7 +572,7 @@ class _WebRtcConn implements CapableConn {
   ConnScope scope() => const NullScope();
 
   @override
-  Future<NetworkStream> openStream() async {
+  Future<MuxedStream> openStream() async {
     if (_closed) throw StateError('Connection is closed');
     final streamId = _nextStreamId;
     _nextStreamId += 4;
@@ -591,12 +590,12 @@ class _WebRtcConn implements CapableConn {
   }
 
   @override
-  Future<NetworkStream> acceptStream() async {
+  Future<MuxedStream> acceptStream() async {
     if (_closed) throw StateError('Connection is closed');
     if (_pendingStreams.isNotEmpty) {
       return _pendingStreams.removeAt(0);
     }
-    final completer = Completer<NetworkStream>();
+    final completer = Completer<MuxedStream>();
     _acceptStreamQueue.add(completer);
     return completer.future;
   }
@@ -611,18 +610,28 @@ class _WebRtcConn implements CapableConn {
     }
     _closeStreams();
   }
+
+  /// This WebRTC transport does not carry a connection-level error code on
+  /// the wire, so per `core/network/conn.go:72-74` ("For transports that do
+  /// not support sending error codes on connection close, the behavior is
+  /// identical to calling Close") this is exactly [close].
+  @override
+  Future<void> closeWithError(ConnErrorCode errorCode) => close();
 }
 
-class _WebRtcStream implements NetworkStream {
+/// Adapts a WebRTC data channel stream to libp2p's [MuxedStream].
+///
+/// The libp2p-level identity (id, protocol, stat, scope, owning [Conn])
+/// belongs to the [NetworkStream] that wraps this one -- in practice
+/// `SwarmStream` -- exactly as in Go, where `network.MuxedStream`
+/// (`core/network/mux.go:33-71`) carries none of that either.
+class _WebRtcStream implements MuxedStream {
   _WebRtcStream({required _WebRtcConn conn, required int id})
     : _conn = conn,
-      _id = id,
-      _opened = DateTime.now();
+      _id = id;
 
   final _WebRtcConn _conn;
   final int _id;
-  final DateTime _opened;
-  ProtocolId _protocol = '';
   final BytesBuilder _readBuffer = BytesBuilder(copy: false);
   Completer<void>? _readCompleter;
   int _sendOffset = 0;
@@ -648,26 +657,6 @@ class _WebRtcStream implements NetworkStream {
       _readCompleter!.complete();
     }
   }
-
-  @override
-  String get id => _id.toString();
-
-  @override
-  ProtocolId protocol() => _protocol;
-
-  @override
-  Future<void> setProtocol(ProtocolId id) async {
-    _protocol = id;
-  }
-
-  @override
-  Conn conn() => _conn;
-
-  @override
-  StreamScope scope() => const NullScope();
-
-  @override
-  Stats stat() => Stats(direction: Direction.outbound, opened: _opened);
 
   @override
   bool get isClosed => _closed;

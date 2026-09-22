@@ -95,10 +95,22 @@ const _sampleRsaPublicDerHex =
     'cb8ac9dae9e3d818ebc1e58d3f42667865bfc22a9be1cd0203010001';
 
 class _TestConn implements Conn {
-  final PeerId? remotePeer;
-  final Multiaddr? localMultiaddr;
-  final Multiaddr? remoteMultiaddr;
-  _TestConn([this.remotePeer, this.localMultiaddr, this.remoteMultiaddr]);
+  final PeerId? remote;
+  final Multiaddr? localAddr;
+  final Multiaddr? remoteAddr;
+  _TestConn([this.remote, this.localAddr, this.remoteAddr]);
+
+  @override
+  PeerId remotePeer() => remote!;
+
+  @override
+  Multiaddr localMultiaddr() => localAddr!;
+
+  @override
+  Multiaddr remoteMultiaddr() => remoteAddr!;
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 }
 
 class _TestDecayingTag implements DecayingTag {

@@ -12,7 +12,6 @@ import '../../core/network/network.dart';
 import '../../core/peer/peer_id.dart';
 import '../../core/sec/security.dart';
 import '../../core/transport/transport.dart';
-import '../net/swarm/swarm_stream.dart';
 import '../protocol/multistream_select.dart';
 import '../security/noise/transport.dart';
 
@@ -113,30 +112,71 @@ class UpgradedCapableConn implements CapableConn {
   bool get isClosed => _session.isClosed;
 
   @override
-  Future<NetworkStream> openStream() async {
-    final yStream = await _session.openStream();
-    return SwarmStream(
-      yamuxStream: yStream,
-      conn: this,
-      direction: Direction.outbound,
-    );
-  }
+  Future<MuxedStream> openStream() async =>
+      _YamuxMuxedStream(await _session.openStream());
 
   @override
-  Future<NetworkStream> acceptStream() async {
-    final yStream = await _session.acceptStream();
-    return SwarmStream(
-      yamuxStream: yStream,
-      conn: this,
-      direction: Direction.inbound,
-    );
-  }
+  Future<MuxedStream> acceptStream() async =>
+      _YamuxMuxedStream(await _session.acceptStream());
 
   @override
   Future<void> close() async {
     await _session.close();
     await _bridge.close();
   }
+
+  /// Yamux carries no connection-level error code, so upstream's contract --
+  /// "for transports that do not support sending error codes on connection
+  /// close, the behavior is identical to calling Close"
+  /// (`core/network/conn.go:72-74`) -- makes this exactly [close].
+  @override
+  Future<void> closeWithError(ConnErrorCode errorCode) => close();
+}
+
+/// A yamux stream seen as a bare [MuxedStream].
+///
+/// The libp2p-level identity of a stream -- its id, protocol, stat, scope and
+/// owning connection -- belongs to `SwarmStream`, which wraps this.
+class _YamuxMuxedStream implements MuxedStream {
+  _YamuxMuxedStream(this._yamuxStream);
+
+  final YamuxStream _yamuxStream;
+
+  @override
+  bool get isClosed => _yamuxStream.isClosed;
+
+  @override
+  Future<Uint8List> read([int? maxLength]) => _yamuxStream
+      .read(maxLength ?? 65536)
+      .then((data) => data ?? Uint8List(0));
+
+  @override
+  Future<void> write(Uint8List data) => _yamuxStream.write(data);
+
+  @override
+  Future<void> close() => _yamuxStream.close();
+
+  @override
+  Future<void> reset() => _yamuxStream.reset();
+
+  @override
+  Future<void> resetWithError(StreamErrorCode errorCode) =>
+      _yamuxStream.reset();
+
+  @override
+  Future<void> closeWrite() => _yamuxStream.closeWrite();
+
+  @override
+  Future<void> closeRead() => _yamuxStream.closeRead();
+
+  @override
+  Future<void> setDeadline(DateTime? time) async {}
+
+  @override
+  Future<void> setReadDeadline(DateTime? time) async {}
+
+  @override
+  Future<void> setWriteDeadline(DateTime? time) async {}
 }
 
 /// Standard [Upgrader] implementing multistream-select, Noise security, and Yamux multiplexing.
@@ -169,11 +209,8 @@ class BasicUpgrader implements Upgrader {
   }
 
   @override
-  Future<CapableConn> upgrade(Conn conn, Direction dir, PeerId peer) async {
-    if (conn is CapableConn) {
-      return conn;
-    }
-    final rawConn = conn is RawConn ? conn : _GenericRawConn(conn);
+  Future<CapableConn> upgrade(RawConn conn, Direction dir, PeerId peer) async {
+    final rawConn = conn;
     final rawAdapter = _RawStreamAdapter(rawConn);
 
     // Upstream upgrader.setupSecurity negotiates the configured transports.
@@ -280,62 +317,6 @@ class _RawStreamAdapter implements StreamReadWriter {
 
   @override
   Future<void> write(Uint8List data) => _raw.write(data);
-}
-
-class _GenericRawConn implements RawConn {
-  _GenericRawConn(this._conn);
-  final Conn _conn;
-
-  @override
-  Transport transport() {
-    final conn = _conn;
-    if (conn is RawConn) return conn.transport();
-    if (conn is CapableConn) return conn.transport();
-    throw StateError('No transport associated with conn');
-  }
-
-  @override
-  Multiaddr localMultiaddr() {
-    final conn = _conn;
-    if (conn is RawConn) return conn.localMultiaddr();
-    if (conn is CapableConn) return conn.localMultiaddr();
-    return Multiaddr.empty;
-  }
-
-  @override
-  Multiaddr remoteMultiaddr() {
-    final conn = _conn;
-    if (conn is RawConn) return conn.remoteMultiaddr();
-    if (conn is CapableConn) return conn.remoteMultiaddr();
-    return Multiaddr.empty;
-  }
-
-  @override
-  Future<Uint8List> read([int? maxLength]) {
-    final conn = _conn;
-    if (conn is RawConn) return conn.read(maxLength);
-    return Future.value(Uint8List(0));
-  }
-
-  @override
-  Future<void> write(Uint8List data) {
-    final conn = _conn;
-    if (conn is RawConn) return conn.write(data);
-    return Future.value();
-  }
-
-  @override
-  Future<void> close() {
-    final conn = _conn;
-    if (conn is RawConn) return conn.close();
-    return Future.value();
-  }
-
-  @override
-  bool get isClosed {
-    final conn = _conn;
-    return conn is RawConn ? conn.isClosed : false;
-  }
 }
 
 /// A negotiated connection parked in the handoff queue, with the timer that

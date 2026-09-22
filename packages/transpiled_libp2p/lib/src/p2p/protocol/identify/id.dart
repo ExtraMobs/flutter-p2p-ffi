@@ -10,7 +10,6 @@ import '../../../core/event/identify.dart';
 import '../../../core/host/host.dart';
 import '../../../core/network/network.dart';
 import '../../../core/protocol/protocol.dart';
-import '../../../core/transport/transport.dart';
 import '../multistream_select.dart';
 import 'pb/identify_message.dart';
 
@@ -72,9 +71,7 @@ class _IdService implements IdService {
       // Observed address so the other side is informed of their "public"
       // address, at least in relation to us. id.go:638-649
       // (createBaseIdentifyResponse).
-      final connAddrs = stream.conn() is ConnMultiaddrs
-          ? stream.conn() as ConnMultiaddrs
-          : null;
+      final connAddrs = stream.conn();
 
       final msg = Identify(
         publicKey: pubKey,
@@ -82,9 +79,7 @@ class _IdService implements IdService {
         protocols: protocols,
         agentVersion: userAgent,
         protocolVersion: protocolVersion,
-        observedAddr: connAddrs != null
-            ? Uint8List.fromList(connAddrs.remoteMultiaddr().toBytes())
-            : null,
+        observedAddr: Uint8List.fromList(connAddrs.remoteMultiaddr().toBytes()),
       );
 
       final payload = msg.marshal();
@@ -118,24 +113,21 @@ class _IdService implements IdService {
     _identifying[c] = completer;
 
     try {
-      final sec = c is ConnSecurity ? (c as ConnSecurity) : null;
-      if (sec != null) {
-        final remote = sec.remotePeer();
-        final observedAddr = await _requestObservedAddr(c);
-        // Emit completed event when peer identification is observed
-        final em = await _getEmitter();
-        em.emit(
-          EvtPeerIdentificationCompleted(
-            peer: remote,
-            conn: c,
-            listenAddrs: host.peerstore.addrs(remote),
-            protocols: host.peerstore.getProtocols(remote),
-            agentVersion: userAgent,
-            protocolVersion: protocolVersion,
-            observedAddr: observedAddr,
-          ),
-        );
-      }
+      final remote = c.remotePeer();
+      final observedAddr = await _requestObservedAddr(c);
+      // Emit completed event when peer identification is observed
+      final em = await _getEmitter();
+      em.emit(
+        EvtPeerIdentificationCompleted(
+          peer: remote,
+          conn: c,
+          listenAddrs: host.peerstore.addrs(remote),
+          protocols: host.peerstore.getProtocols(remote),
+          agentVersion: userAgent,
+          protocolVersion: protocolVersion,
+          observedAddr: observedAddr,
+        ),
+      );
       completer.complete();
     } catch (e, st) {
       completer.completeError(e, st);
@@ -154,12 +146,9 @@ class _IdService implements IdService {
   /// or parse the reported address, so a malformed/missing report never
   /// fails identification itself, only observed-address collection.
   Future<Multiaddr> _requestObservedAddr(Conn c) async {
-    final capable = c is CapableConn ? c : null;
-    if (capable == null) return Multiaddr.empty;
-
     NetworkStream? stream;
     try {
-      stream = await capable.openStream();
+      stream = await c.newStream();
       await stream.setProtocol(id);
       await selectOutbound(stream, const [id]);
       final bytes = await _readDelimited(stream);

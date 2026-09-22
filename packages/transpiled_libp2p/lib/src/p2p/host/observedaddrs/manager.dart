@@ -12,7 +12,6 @@ import 'package:transpiled_multiaddr/transpiled_multiaddr.dart';
 import '../../../core/event/bus.dart';
 import '../../../core/event/identify.dart';
 import '../../../core/network/network.dart';
-import '../../../core/transport/transport.dart';
 import '../basic/basic_host.dart';
 
 /// Minimum number of distinct observers required for an observed address to
@@ -248,7 +247,7 @@ final class Manager implements ObservedAddrsManager {
 
   /// The last observed thin waist multiaddr reported on each connection.
   /// manager.go:149-150.
-  final Map<CapableConn, Multiaddr> _connObservedTwAddrs = {};
+  final Map<Conn, Multiaddr> _connObservedTwAddrs = {};
 
   Subscription? _identifySub;
   StreamSubscription<Object>? _identifyListener;
@@ -352,11 +351,9 @@ final class Manager implements ObservedAddrsManager {
   }
 
   void _maybeRecordObservation(Conn conn, Multiaddr observed) {
-    final c = conn is CapableConn ? conn : null;
-    if (c == null) return;
-    final decision = _shouldRecordObservation(c, observed);
+    final decision = _shouldRecordObservation(conn, observed);
     if (decision == null) return;
-    _recordObservationUnlocked(c, decision.$1, decision.$2);
+    _recordObservationUnlocked(conn, decision.$1, decision.$2);
   }
 
   /// Applies the same observation-acceptance conditional as Go's
@@ -366,7 +363,7 @@ final class Manager implements ObservedAddrsManager {
   /// requires the observed and local thin waists to share transport
   /// protocols.
   (_ThinWaist, _ThinWaist)? _shouldRecordObservation(
-    CapableConn conn,
+    Conn conn,
     Multiaddr observed,
   ) {
     if (observed.components.isEmpty) return null;
@@ -392,7 +389,7 @@ final class Manager implements ObservedAddrsManager {
 
   /// manager.go:434-458 (`recordObservationUnlocked`).
   void _recordObservationUnlocked(
-    CapableConn conn,
+    Conn conn,
     _ThinWaist localTw,
     _ThinWaist observedTw,
   ) {
@@ -459,8 +456,7 @@ final class Manager implements ObservedAddrsManager {
 
   /// manager.go:492-516 (`removeConn`), invoked on the disconnect notifee.
   void _removeConn(Conn conn) {
-    final c = conn is CapableConn ? conn : null;
-    if (c == null) return;
+    final c = conn;
     final observedTwAddr = _connObservedTwAddrs.remove(c);
     if (observedTwAddr == null) return;
 
