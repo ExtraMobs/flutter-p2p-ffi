@@ -46,6 +46,29 @@ abstract interface class Listener {
   Multiaddr multiaddr();
 }
 
+/// Hands out raw inbound connections that have already passed the connection
+/// gater, for an [Upgrader] to negotiate.
+///
+/// Go: `transport.GatedMaListener` (`core/transport/transport.go:171-183`).
+/// Its `Accept` returns a `network.ConnManagementScope` alongside the
+/// connection; that is dropped here, because this port does not open resource
+/// manager scopes on the listen path.
+///
+/// The point of the split is that accepting a socket and negotiating it are
+/// separate jobs. A listener that negotiates inside its own `accept` can only
+/// ever handle one handshake at a time, and a single peer that connects and
+/// then says nothing stalls every other inbound connection behind it.
+abstract interface class GatedMaListener {
+  /// The next raw inbound connection, unnegotiated.
+  Future<RawConn> accept();
+
+  /// Stops listening and releases the underlying socket.
+  Future<void> close();
+
+  /// The address being listened on.
+  Multiaddr multiaddr();
+}
+
 /// Represents any device or network protocol by which you can dial and accept connections.
 abstract interface class Transport {
   Future<CapableConn> dial(Multiaddr addr, PeerId peer);
@@ -83,4 +106,16 @@ abstract interface class DialUpdater {
 /// Upgrades an underlying raw network connection or listener into a full libp2p connection.
 abstract interface class Upgrader {
   Future<CapableConn> upgrade(Conn conn, Direction dir, PeerId peer);
+
+  /// Wraps [listener] into a full libp2p [Listener] that negotiates inbound
+  /// connections concurrently, with a timeout and bounded backpressure.
+  ///
+  /// Go: `Upgrader.UpgradeGatedMaListener`
+  /// (`core/transport/transport.go:165`), implemented by
+  /// `p2p/net/upgrader/listener.go`. Go's deprecated `UpgradeListener` is not
+  /// ported, since nothing here needs the ungated form.
+  Listener upgradeGatedMaListener(
+    Transport transport,
+    GatedMaListener listener,
+  );
 }

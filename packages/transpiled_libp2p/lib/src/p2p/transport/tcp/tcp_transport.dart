@@ -75,10 +75,14 @@ class TcpTransport implements Transport, DialUpdater {
 
     final (host, port) = endpoint;
     final serverSocket = await ServerSocket.bind(host, port);
-    final listener = _TcpListener(
-      serverSocket: serverSocket,
-      transport: this,
-      upgrader: upgrader,
+    // The socket listener only hands out raw connections; negotiating them is
+    // the upgrader's job, and it does so concurrently. Go wires it the same
+    // way -- `tcp.Transport.Listen` returns
+    // `upgrader.UpgradeGatedMaListener(t, upgrader.GateMaListener(list))`
+    // rather than negotiating inside its own `Accept`.
+    final listener = upgrader.upgradeGatedMaListener(
+      this,
+      _TcpListener(serverSocket: serverSocket, transport: this),
     );
     _listeners.add(listener);
     return listener;
@@ -236,14 +240,18 @@ class _TcpRawConn implements RawConn {
   bool get isClosed => _isClosed;
 }
 
-class _TcpListener implements Listener {
+/// Hands out raw inbound TCP connections, one per accepted socket.
+///
+/// Go: the `manet.Listener` that `tcp.Transport.Listen` wraps. It deliberately
+/// does **not** negotiate: doing that here would serialise every inbound
+/// connection behind the slowest handshake, which is what this port used to do
+/// (see `_UpgradedListener` in `basic_upgrader.dart`).
+class _TcpListener implements GatedMaListener {
   _TcpListener({
     required ServerSocket serverSocket,
     required Transport transport,
-    required Upgrader upgrader,
   }) : _serverSocket = serverSocket,
-       _transport = transport,
-       _upgrader = upgrader {
+       _transport = transport {
     _subscription = _serverSocket.listen(
       (socket) {
         _pendingSockets.add(socket);
@@ -271,14 +279,13 @@ class _TcpListener implements Listener {
 
   final ServerSocket _serverSocket;
   final Transport _transport;
-  final Upgrader _upgrader;
   StreamSubscription<Socket>? _subscription;
   final List<Socket> _pendingSockets = [];
   Completer<void>? _completer;
   bool _closed = false;
 
   @override
-  Future<CapableConn> accept() async {
+  Future<RawConn> accept() async {
     while (_pendingSockets.isEmpty && !_closed) {
       _completer = Completer<void>();
       await _completer!.future;
@@ -287,18 +294,10 @@ class _TcpListener implements Listener {
     if (_closed && _pendingSockets.isEmpty) {
       throw const ListenerClosedException();
     }
-    final socket = _pendingSockets.removeAt(0);
-    final rawConn = _TcpRawConn(socket: socket, transport: _transport);
-    try {
-      return await _upgrader.upgrade(
-        rawConn,
-        Direction.inbound,
-        PeerId(value: Uint8List(0)),
-      );
-    } catch (err) {
-      await rawConn.close();
-      rethrow;
-    }
+    return _TcpRawConn(
+      socket: _pendingSockets.removeAt(0),
+      transport: _transport,
+    );
   }
 
   @override

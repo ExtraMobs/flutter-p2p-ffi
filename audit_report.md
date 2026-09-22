@@ -1,7 +1,7 @@
 # Relatório de Auditoria de AST e Nomenclatura (Dart <-> Go)
 
 > Relatório gerado automaticamente por `tool/audit_ast_nomenclature.py`.
-> **Símbolos Dart Auditados:** 8974 | **Símbolos Go Indexados:** 52972
+> **Símbolos Dart Auditados:** 9007 | **Símbolos Go Indexados:** 52972
 > **Status Geral:** ❌ **0 Erros** | ⚠️ **0 Avisos** | ℹ️ **1463 Notas de Cobertura**
 
 ## 1. Resumo Executivo das 24 Regras
@@ -25,9 +25,9 @@
 | `RULE_RESTRICTED_PLATFORM_IMPORTS` | 15. Veto a dart:io em Pacotes de Codecs/Formatos Puros | `ERROR` | 0 | ✅ Conforme |
 | `RULE_NO_PRINT_IN_LIBRARIES` | 16. Veto a chamadas print(...) em Bibliotecas Reutilizáveis | `ERROR` | 0 | ✅ Conforme |
 | `RULE_NO_ARTIFICIAL_CONCURRENCY` | 17. Veto a Primitivas Artificiais de Concorrência Go | `ERROR` | 0 | ✅ Conforme |
-| `RULE_MISSING_GO_TYPES` | 18. Auditoria de Tipos e Interfaces do Upstream Go Ausentes | `INFO` | 1311 | ⚠️ Atenção |
+| `RULE_MISSING_GO_TYPES` | 18. Auditoria de Tipos e Interfaces do Upstream Go Ausentes | `INFO` | 1310 | ⚠️ Atenção |
 | `RULE_MISSING_GO_FIELDS` | 19. Auditoria de Campos de Structs do Upstream Go Ausentes | `INFO` | 23 | ⚠️ Atenção |
-| `RULE_MISSING_GO_METHODS` | 20. Auditoria de Métodos do Upstream Go Ausentes | `INFO` | 109 | ⚠️ Atenção |
+| `RULE_MISSING_GO_METHODS` | 20. Auditoria de Métodos do Upstream Go Ausentes | `INFO` | 110 | ⚠️ Atenção |
 | `RULE_MISSING_GO_FUNCTIONS` | 21. Auditoria de Funções Top-Level do Upstream Go Ausentes | `INFO` | 20 | ⚠️ Atenção |
 | `RULE_PUBSPEC_DEPENDENCIES` | 22. Validação de Dependências em pubspec.yaml | `ERROR` | 0 | ✅ Conforme |
 | `RULE_EXPOSED_NON_PUBLIC_MEMBERS` | 23. Veto a Membros Públicos que Expõem Tipos Não-Públicos (Menor Permissão) | `ERROR` | 0 | ✅ Conforme |
@@ -35,7 +35,7 @@
 
 ## 2. Detalhamento dos Apontamentos
 
-### 18. Auditoria de Tipos e Interfaces do Upstream Go Ausentes (1311 ocorrências)
+### 18. Auditoria de Tipos e Interfaces do Upstream Go Ausentes (1310 ocorrências)
 
 - ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Option' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
   - *Sugestão:* `Portar 'Option' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
@@ -1565,8 +1565,6 @@
   - *Sugestão:* `Portar 'Resolver' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'SkipResolver' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
   - *Sugestão:* `Portar 'SkipResolver' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
-- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'GatedMaListener' (interface) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
-  - *Sugestão:* `Portar 'GatedMaListener' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'DialUpdateKind' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
   - *Sugestão:* `Portar 'DialUpdateKind' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'PeerRecord_AddressInfo' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
@@ -2709,7 +2707,7 @@
 - ℹ️ `[INFO]` **[`packages/transpiled_multiaddr/lib/src/protocol.dart:41`](packages/transpiled_multiaddr/lib/src/protocol.dart#L41)** — Classe 'Protocol' possui 1 campo(s) do Go pendente(s) no módulo 'go-multiaddr': VCode.
   - *Sugestão:* `Avaliar implementação dos campos: VCode`
 
-### 20. Auditoria de Métodos do Upstream Go Ausentes (109 ocorrências)
+### 20. Auditoria de Métodos do Upstream Go Ausentes (110 ocorrências)
 
 - ℹ️ `[INFO]` **[`packages/transpiled_block_format/lib/src/blocks.dart:33`](packages/transpiled_block_format/lib/src/blocks.dart#L33)** — Classe 'BasicBlock' possui 1 método(s) do Go pendente(s) no módulo 'go-block-format': String.
   - *Sugestão:* `Avaliar paridade e implementação de: String`
@@ -2905,10 +2903,12 @@
   - *Sugestão:* `Avaliar paridade e implementação de: ConnState`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/transport/transport.dart:43`](packages/transpiled_libp2p/lib/src/core/transport/transport.dart#L43)** — Classe 'Listener' possui 7 método(s) do Go pendente(s) no módulo 'go-libp2p': Addr, Multiaddrs, ConnContext, ServeHTTP....
   - *Sugestão:* `Avaliar paridade e implementação de: Addr, Multiaddrs, ConnContext, ServeHTTP, Addr, String, Multiaddrs`
-- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/transport/transport.dart:50`](packages/transpiled_libp2p/lib/src/core/transport/transport.dart#L50)** — Classe 'Transport' possui 14 método(s) do Go pendente(s) no módulo 'go-libp2p': ListenOrder, String, Close, CloseVirtualListener....
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/transport/transport.dart:61`](packages/transpiled_libp2p/lib/src/core/transport/transport.dart#L61)** — Classe 'GatedMaListener' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p': Addr.
+  - *Sugestão:* `Avaliar paridade e implementação de: Addr`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/transport/transport.dart:73`](packages/transpiled_libp2p/lib/src/core/transport/transport.dart#L73)** — Classe 'Transport' possui 14 método(s) do Go pendente(s) no módulo 'go-libp2p': ListenOrder, String, Close, CloseVirtualListener....
   - *Sugestão:* `Avaliar paridade e implementação de: ListenOrder, String, Close, CloseVirtualListener, Resolve, AddCertHashes, LocalPeer, SecureInbound, SecureOutbound, ID, WithSessionOptions, DialContext, NewConn, Config`
-- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/transport/transport.dart:84`](packages/transpiled_libp2p/lib/src/core/transport/transport.dart#L84)** — Classe 'Upgrader' possui 6 método(s) do Go pendente(s) no módulo 'go-libp2p': UpgradeListener, GateMaListener, UpgradeGatedMaListener, UpgradeListener....
-  - *Sugestão:* `Avaliar paridade e implementação de: UpgradeListener, GateMaListener, UpgradeGatedMaListener, UpgradeListener, GateMaListener, UpgradeGatedMaListener`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/transport/transport.dart:107`](packages/transpiled_libp2p/lib/src/core/transport/transport.dart#L107)** — Classe 'Upgrader' possui 4 método(s) do Go pendente(s) no módulo 'go-libp2p': UpgradeListener, GateMaListener, UpgradeListener, GateMaListener.
+  - *Sugestão:* `Avaliar paridade e implementação de: UpgradeListener, GateMaListener, UpgradeListener, GateMaListener`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p_kbucket/lib/src/keyspace.dart:60`](packages/transpiled_libp2p_kbucket/lib/src/keyspace.dart#L60)** — Classe 'KeySpace' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p-kbucket': Equal.
   - *Sugestão:* `Avaliar paridade e implementação de: Equal`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p_kbucket/lib/src/sorting.dart:18`](packages/transpiled_libp2p_kbucket/lib/src/sorting.dart#L18)** — Classe 'PeerDistanceSorter' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p-kbucket': Len.

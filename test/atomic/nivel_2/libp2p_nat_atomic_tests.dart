@@ -329,6 +329,13 @@ class _FakeUpgrader implements Upgrader {
   Future<CapableConn> upgrade(Conn conn, Direction dir, PeerId peer) async {
     return _FakeCapableConn(_FakeTransport(), peer, peer);
   }
+
+  // Nothing in these tests listens, so the inbound pump is never built.
+  @override
+  Listener upgradeGatedMaListener(
+    Transport transport,
+    GatedMaListener listener,
+  ) => throw UnimplementedError();
 }
 
 /// Length-delimits a protobuf message the way the circuitv2 hop protocol
@@ -346,7 +353,8 @@ BlankHost _hostAnsweringWith(Uint8List response) {
 }
 
 BlankHost _newTestHost([PeerId? id]) {
-  final p = id ?? PeerId(value: Uint8List.fromList([1, 2, 3]));
+  // `id` is accepted for call-site readability; BlankHost derives its own
+  // identity from the network it is given, so there is nothing to pass it to.
   final ps = MemoryPeerstore();
   final net = _FakeTransportNetwork();
   return BlankHost(network: net, peerstore: ps);

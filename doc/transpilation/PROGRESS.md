@@ -574,44 +574,60 @@ apenas a finalidade dos hooks (`shutdown.CloseWithCtx`).
 
 ## Lacunas conhecidas ainda abertas
 
-- **O caminho de entrada trava o nó inteiro depois de alguns minutos na rede
-  pública, e isso invalida qualquer alegação de hospedagem sustentada.**
-  `_TcpListener.accept()`
-  (`packages/transpiled_libp2p/lib/src/p2p/transport/tcp/tcp_transport.dart:281`)
-  executa o upgrade completo — multistream-select, Noise/TLS e yamux — dentro
-  da própria chamada, e `Swarm._startAcceptLoop`
-  (`p2p/net/swarm/swarm.dart:79`) a chama **em série**. Um único par que abra
-  TCP e não fale nada bloqueia a fila para sempre, porque não há timeout de
-  accept; os sockets seguintes se acumulam num `List` sem limite, e o
-  `catch (_)` do laço engole o erro sem registrar nada.
+- **O caminho de entrada travava o nó inteiro depois de alguns minutos na rede
+  pública. Corrigido; a validação em rede real ainda não fechou.**
+  `_TcpListener.accept()` executava o upgrade completo — multistream-select,
+  Noise/TLS e yamux — dentro da própria chamada, e `Swarm._startAcceptLoop` a
+  chamava **em série**. Um único par que abrisse TCP sem falar nada bloqueava a
+  fila para sempre, porque não havia timeout de accept; os sockets seguintes se
+  acumulavam num `List` sem limite, e o `catch (_)` do laço engolia o erro.
 
-  Quatro desvios do upstream, todos em `go-libp2p/p2p/net/upgrader/listener.go`
-  e `upgrader.go`:
+  Comprovado em rede real antes do conserto: um nó recém-iniciado aceitava o
+  dial de um Kubo local pelo loopback; quarenta minutos depois, com ~200
+  sockets TCP estabelecidos vindos da DHT pública, o **mesmo** dial falhava com
+  `failed to negotiate security protocol: context deadline exceeded`. Nesse
+  estado o nó seguia anunciado e descoberto — o provider record na DHT,
+  `trustless-gateway.link` achando os providers — e respondia
+  `none were reachable`.
 
-  | Upstream | Este porte |
-  | --- | --- |
-  | `handleIncoming` dispara uma goroutine por conexão (`listener.go:106`) | série |
-  | `acceptTimeout` de 15 s por upgrade (`upgrader.go:31`, `listener.go:110`) | sem timeout |
-  | `threshold` limita a 16 conexões **já negociadas** à espera de `Accept` (`upgrader.go:28`) | fila crua sem limite |
-  | falha de upgrade é logada e a conexão fechada (`listener.go:117-123`) | erro engolido em silêncio |
+  O conserto porta `p2p/net/upgrader/listener.go`: os transportes deixaram de
+  negociar dentro do `accept()` e passaram a entregar um `GatedMaListener` a
+  `Upgrader.upgradeGatedMaListener`, que negocia em paralelo, com
+  `_defaultAcceptTimeout` de 15 s cobrindo negociação **e** entrega, fila de
+  entrega limitada a `acceptQueueLength` (16) e falha logada em vez de
+  propagada. Atinge TCP e WebSocket; **QUIC nunca foi atingido**, porque
+  `QuicServer.handleDatagram` já processa handshakes de forma assíncrona.
 
-  Comprovado em rede real: um nó recém-iniciado aceita o dial de um Kubo local
-  pelo loopback; quarenta minutos depois, com ~200 sockets TCP estabelecidos
-  vindos da DHT pública, o **mesmo** dial falha com
-  `failed to negotiate security protocol: context deadline exceeded`, em
-  loopback e na WAN. Nesse estado o nó continua anunciado e descoberto — o
-  provider record está na DHT e `trustless-gateway.link` acha os providers —,
-  mas responde `none were reachable`, porque nenhum handshake de entrada
-  completa.
+  A prova está em
+  `test/atomic/nivel_2/libp2p_upgrader_listener_atomic_tests.dart`: oito pares
+  que conectam e não falam nada, seguidos de um dial legítimo. Contra o código
+  anterior o teste falha com `TimeoutException`; contra o porte, passa —
+  verificado com a árvore antiga, não deduzido.
 
-  Atinge **TCP** e **WebSocket** (mesmo padrão em `websocket.dart`), e
-  parcialmente **WebTransport**, que ao menos tem `handshakeTimeout`. **QUIC
-  não é atingido**: `QuicServer.handleDatagram` processa handshakes de forma
-  assíncrona, e `_QuicListener.accept()` só entrega conexões já concluídas.
+  **O que ainda falta:** a validação ponta a ponta em rede pública não fechou.
+  Reiniciado com o conserto, o nó chegou a **784 sockets externos** em cinco
+  minutos (o antigo nunca passava disso enfileirado sem negociar) e então
+  **morreu**, pela lacuna do yamux logo abaixo.
 
-  Nenhum teste da suíte pega isso: todos usam um par único e bem-comportado
-  contra um nó recém-iniciado, que é exatamente a condição em que o defeito
-  não aparece.
+- **Uma escrita do yamux que falha derruba o processo inteiro.**
+  `YamuxSession._sendFrame` (`packages/transpiled_go_yamux/lib/src/yamux.dart:472`)
+  encadeia a escrita num `_writeTail` e devolve esse future sem tratar erro.
+  Quando um par reseta a conexão no meio de uma escrita, a exceção escapa para
+  a zona raiz:
+
+  ```
+  Unhandled exception:
+  SocketException: Write failed (OS Error: ... errno = 10054)
+    _TcpRawConn.write -> _TlsConn.write -> YamuxSession._sendFrame
+  ```
+
+  O defeito é anterior ao conserto do accept, mas era inofensivo enquanto o nó
+  mantinha efetivamente **uma** sessão de entrada por vez: quase nunca se
+  escrevia para um par morrendo. Com centenas de sessões reais simultâneas, um
+  reset no meio de uma escrita é rotina, e a primeira ocorrência mata o
+  processo. O Go trata isso no `sendLoop` de `go-yamux/session.go` com log e
+  `exitErr(err)`, encerrando **a sessão** — uma falha de um par nunca é uma
+  falha do nó.
 
 - **Sem recuperação de perda no emissor QUIC.**
   `packages/transpiled_quic_go/lib/src/connection.dart` não rastreia pacotes em

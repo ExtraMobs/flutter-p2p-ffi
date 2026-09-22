@@ -198,7 +198,7 @@ class WebsocketTransport implements Transport {
   /// upstream's `"cannot listen on wss address %s without a tls.Config"`.
   final SecurityContext? tlsSecurityContext;
 
-  final List<_WebsocketListener> _listeners = [];
+  final List<Listener> _listeners = [];
   bool _closed = false;
 
   @override
@@ -338,12 +338,18 @@ class WebsocketTransport implements Transport {
       sni: parsed.sni,
     );
 
-    final listener = _WebsocketListener(
-      server: server,
-      transportInstance: this,
-      upgrader: upgrader,
-      isWss: parsed.isWss,
-      multiaddr: boundMultiaddr,
+    // The socket listener yields raw connections; the upgrader negotiates
+    // them concurrently, with a timeout, exactly as it does for TCP.
+    final listener = _WebsocketUpgradedListener(
+      upgrader.upgradeGatedMaListener(
+        this,
+        _WebsocketListener(
+          server: server,
+          transportInstance: this,
+          isWss: parsed.isWss,
+          multiaddr: boundMultiaddr,
+        ),
+      ),
     );
     _listeners.add(listener);
     return listener;
@@ -556,16 +562,41 @@ class _WebsocketCapableConn implements CapableConn {
 /// [WebsocketTransport] for the latter. A slow (non-WebSocket-upgrading)
 /// client can hold an accepted TCP connection open past [handshakeTimeout]
 /// with this simplification; upstream bounds it explicitly.
-class _WebsocketListener implements Listener {
+/// Restores the transport label that [_WebsocketCapableConn] carries, on top
+/// of the generic listener the upgrader builds.
+///
+/// The upgrader's listener is transport-agnostic by design -- it is the same
+/// one TCP uses -- and Go has no equivalent because there the transport name
+/// is read off the transport itself rather than by wrapping the connection.
+class _WebsocketUpgradedListener implements Listener {
+  _WebsocketUpgradedListener(this._inner);
+
+  final Listener _inner;
+
+  @override
+  Future<CapableConn> accept() async =>
+      _WebsocketCapableConn(await _inner.accept());
+
+  @override
+  Future<void> close() => _inner.close();
+
+  @override
+  Multiaddr multiaddr() => _inner.multiaddr();
+}
+
+/// Hands out raw inbound WebSocket connections, one per accepted socket.
+///
+/// Like `_TcpListener`, it deliberately does not negotiate: that is the
+/// upgrader's job, and doing it here would serialise every inbound connection
+/// behind the slowest handshake.
+class _WebsocketListener implements GatedMaListener {
   _WebsocketListener({
     required HttpServer server,
     required Transport transportInstance,
-    required Upgrader upgrader,
     required bool isWss,
     required Multiaddr multiaddr,
   }) : _server = server,
        _transport = transportInstance,
-       _upgrader = upgrader,
        _isWss = isWss,
        _multiaddr = multiaddr {
     _subscription = _server.listen(
@@ -580,7 +611,6 @@ class _WebsocketListener implements Listener {
 
   final HttpServer _server;
   final Transport _transport;
-  final Upgrader _upgrader;
   final bool _isWss;
   final Multiaddr _multiaddr;
   StreamSubscription<HttpRequest>? _subscription;
@@ -626,25 +656,14 @@ class _WebsocketListener implements Listener {
   }
 
   @override
-  Future<CapableConn> accept() async {
+  Future<RawConn> accept() async {
     while (_pending.isEmpty && !_closed) {
       _completer = Completer<void>();
       await _completer!.future;
       _completer = null;
     }
     if (_pending.isEmpty) throw const ListenerClosedException();
-    final rawConn = _pending.removeAt(0);
-    try {
-      final upgraded = await _upgrader.upgrade(
-        rawConn,
-        Direction.inbound,
-        PeerId(value: Uint8List(0)),
-      );
-      return _WebsocketCapableConn(upgraded);
-    } catch (err) {
-      await rawConn.close();
-      rethrow;
-    }
+    return _pending.removeAt(0);
   }
 
   @override
