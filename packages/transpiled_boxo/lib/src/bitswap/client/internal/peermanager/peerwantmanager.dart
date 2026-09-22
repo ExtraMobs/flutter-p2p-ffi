@@ -5,6 +5,11 @@ import 'package:transpiled_libp2p/transpiled_libp2p.dart';
 
 import 'peermanager.dart';
 
+/// Go: `peering.ConnmgrTag` (`boxo/peering/peering.go:26`). Declared here
+/// because `boxo/peering` has no Dart port yet; it belongs to that package
+/// once it exists.
+const String _peeringConnmgrTag = 'ipfs-peering';
+
 abstract class Gauge {
   void inc();
   void dec();
@@ -22,8 +27,10 @@ class BroadcastControl {
     this.skipGauge,
   });
   bool enable;
-  dynamic
-  host; // host.Host is not available here, using dynamic or we can skip if not needed
+
+  /// Go: `BroadcastControl.Host` (`peerwantmanager.go:27-28`), the libp2p host
+  /// used to get peer information.
+  Host? host;
   int maxPeers;
   bool localPeers;
   bool peeredPeers;
@@ -181,12 +188,16 @@ class PeerWantManager {
       return false;
     }
 
+    // Broadcast to peers that are configured for peering if they are not
+    // subject to broadcast reduction. Go: `skipBroadcast`
+    // (`peerwantmanager.go:282-292`). The tag is `peering.ConnmgrTag`
+    // (`boxo/peering/peering.go:26`); `boxo/peering` itself is not ported.
     if (!_bcastControl.peeredPeers) {
-      // Assuming host has conn manager logic, simplified here since we can't fully mock it
-      // if (connMgr != null && connMgr.isProtected(peerID, 'peering')) {
-      //   _bcastTargets[peerID] = null;
-      //   return false;
-      // }
+      final connMgr = _bcastControl.host?.connManager;
+      if (connMgr != null && connMgr.isProtected(peerID, _peeringConnmgrTag)) {
+        _bcastTargets[peerID] = null;
+        return false;
+      }
     }
 
     if (_bcastControl.sendToPendingPeers && peerQueue.hasMessage()) {

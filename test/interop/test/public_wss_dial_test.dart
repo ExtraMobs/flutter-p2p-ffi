@@ -87,7 +87,7 @@ void main() {
             isNotEmpty,
             reason: 'connect() returned but no conn is recorded for $candidate',
           );
-          final conn = conns.first as CapableConn;
+          final conn = conns.first;
           expect(
             conn.connState().transport,
             equals('websocket'),

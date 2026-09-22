@@ -74,6 +74,11 @@ class BasicHost implements Host {
        _connManager = connManager ?? const NullConnMgr(),
        _mux = mux ?? MultistreamMuxer(),
        _addrsFactory = addrsFactory ?? ((addrs) => addrs) {
+    // Go: `basic_host.go:275-281` only subscribes the manager's notifee when
+    // one was supplied; the `NullConnMgr` fallback is never registered.
+    if (connManager != null) {
+      _network.notify(connManager.notifiee());
+    }
     _network.setStreamHandler(_handleIncomingStream);
   }
 
@@ -230,6 +235,9 @@ class BasicHost implements Host {
 
   @override
   Future<void> close() async {
+    // Go: `basic_host.go:639-641` closes the manager first, so its background
+    // trim stops before the swarm tears the connections down underneath it.
+    _connManager.close();
     await holePunchService?.close();
     await natManager?.close();
     await autoRelay?.close();

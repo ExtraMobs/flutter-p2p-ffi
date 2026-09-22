@@ -1,7 +1,7 @@
 # Relatório de Auditoria de AST e Nomenclatura (Dart <-> Go)
 
 > Relatório gerado automaticamente por `tool/audit_ast_nomenclature.py`.
-> **Símbolos Dart Auditados:** 9248 | **Símbolos Go Indexados:** 53053
+> **Símbolos Dart Auditados:** 9249 | **Símbolos Go Indexados:** 53053
 > **Status Geral:** ❌ **0 Erros** | ⚠️ **0 Avisos** | ℹ️ **1462 Notas de Cobertura**
 
 ## 1. Resumo Executivo das 24 Regras
@@ -2719,7 +2719,7 @@
   - *Sugestão:* `Avaliar paridade e implementação de: Len`
 - ℹ️ `[INFO]` **[`packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peermanager.dart:10`](packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peermanager.dart#L10)** — Classe 'Session' possui 5 método(s) do Go pendente(s) no módulo 'boxo': GetBlock, GetBlocks, Close, ReceiveFrom....
   - *Sugestão:* `Avaliar paridade e implementação de: GetBlock, GetBlocks, Close, ReceiveFrom, SetBaseTickDelay`
-- ℹ️ `[INFO]` **[`packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peerwantmanager.dart:39`](packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peerwantmanager.dart#L39)** — Classe 'PeerWantManager' possui 1 método(s) do Go pendente(s) no módulo 'boxo': String.
+- ℹ️ `[INFO]` **[`packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peerwantmanager.dart:46`](packages/transpiled_boxo/lib/src/bitswap/client/internal/peermanager/peerwantmanager.dart#L46)** — Classe 'PeerWantManager' possui 1 método(s) do Go pendente(s) no módulo 'boxo': String.
   - *Sugestão:* `Avaliar paridade e implementação de: String`
 - ℹ️ `[INFO]` **[`packages/transpiled_cid/lib/src/cid.dart:41`](packages/transpiled_cid/lib/src/cid.dart#L41)** — Classe 'Cid' possui 18 método(s) do Go pendente(s) no módulo 'go-cid': UnmarshalBinary, UnmarshalText, Version, Type....
   - *Sugestão:* `Avaliar paridade e implementação de: UnmarshalBinary, UnmarshalText, Version, Type, String, StringOfBase, Hash, ByteLen, WriteBytes, MarshalBinary, MarshalText, Equals, UnmarshalJSON, MarshalJSON, KeyString, Loggable, Multicodec, Multihash`

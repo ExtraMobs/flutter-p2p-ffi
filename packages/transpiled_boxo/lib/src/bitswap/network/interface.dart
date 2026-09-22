@@ -19,6 +19,11 @@ abstract interface class P2pHost {
   void removeStreamHandler(String protocol);
   Future<void> connect(AddrInfo peer);
   List<PeerId> get peers;
+
+  /// Go: `host.Host.ConnManager()` (`go-libp2p/core/host/host.go:60`), which
+  /// `bsnet` delegates peer tagging and protection to
+  /// (`bitswap/network/bsnet/ipfs_impl.go:529-555`).
+  ConnManager get connManager;
 }
 
 /// BitSwapNetwork provides network connectivity for Bitswap sessions.

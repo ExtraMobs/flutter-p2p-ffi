@@ -164,10 +164,17 @@ final class IpfsNode {
     final observedAddresses = observed.Manager(eventBus, swarm);
     rollback.add(observedAddresses.close);
     observedAddresses.start(swarm);
+    // Kubo's connection manager defaults (`kubo/config/init.go:79-93`): note
+    // its grace period is 20s, shorter than go-libp2p's own one minute.
+    final connManager = BasicConnMgr(32, 96, [
+      withGracePeriod(const Duration(seconds: 20)),
+      withSilencePeriod(const Duration(seconds: 10)),
+    ]);
     final host = BasicHost(
       network: swarm,
       peerstore: peerstore,
       eventBus: eventBus,
+      connManager: connManager,
       observedAddrsManager: observedAddresses,
       autoRelay: autoRelay,
       natManager: natManager,
