@@ -1,8 +1,8 @@
 # Relatório de Auditoria de AST e Nomenclatura (Dart <-> Go)
 
 > Relatório gerado automaticamente por `tool/audit_ast_nomenclature.py`.
-> **Símbolos Dart Auditados:** 9385 | **Símbolos Go Indexados:** 53105
-> **Status Geral:** ❌ **0 Erros** | ⚠️ **0 Avisos** | ℹ️ **1462 Notas de Cobertura**
+> **Símbolos Dart Auditados:** 9440 | **Símbolos Go Indexados:** 53105
+> **Status Geral:** ❌ **0 Erros** | ⚠️ **0 Avisos** | ℹ️ **1461 Notas de Cobertura**
 
 ## 1. Resumo Executivo das 24 Regras
 
@@ -25,9 +25,9 @@
 | `RULE_RESTRICTED_PLATFORM_IMPORTS` | 15. Veto a dart:io em Pacotes de Codecs/Formatos Puros | `ERROR` | 0 | ✅ Conforme |
 | `RULE_NO_PRINT_IN_LIBRARIES` | 16. Veto a chamadas print(...) em Bibliotecas Reutilizáveis | `ERROR` | 0 | ✅ Conforme |
 | `RULE_NO_ARTIFICIAL_CONCURRENCY` | 17. Veto a Primitivas Artificiais de Concorrência Go | `ERROR` | 0 | ✅ Conforme |
-| `RULE_MISSING_GO_TYPES` | 18. Auditoria de Tipos e Interfaces do Upstream Go Ausentes | `INFO` | 1305 | ⚠️ Atenção |
+| `RULE_MISSING_GO_TYPES` | 18. Auditoria de Tipos e Interfaces do Upstream Go Ausentes | `INFO` | 1302 | ⚠️ Atenção |
 | `RULE_MISSING_GO_FIELDS` | 19. Auditoria de Campos de Structs do Upstream Go Ausentes | `INFO` | 23 | ⚠️ Atenção |
-| `RULE_MISSING_GO_METHODS` | 20. Auditoria de Métodos do Upstream Go Ausentes | `INFO` | 113 | ⚠️ Atenção |
+| `RULE_MISSING_GO_METHODS` | 20. Auditoria de Métodos do Upstream Go Ausentes | `INFO` | 115 | ⚠️ Atenção |
 | `RULE_MISSING_GO_FUNCTIONS` | 21. Auditoria de Funções Top-Level do Upstream Go Ausentes | `INFO` | 21 | ⚠️ Atenção |
 | `RULE_PUBSPEC_DEPENDENCIES` | 22. Validação de Dependências em pubspec.yaml | `ERROR` | 0 | ✅ Conforme |
 | `RULE_EXPOSED_NON_PUBLIC_MEMBERS` | 23. Veto a Membros Públicos que Expõem Tipos Não-Públicos (Menor Permissão) | `ERROR` | 0 | ✅ Conforme |
@@ -35,7 +35,7 @@
 
 ## 2. Detalhamento dos Apontamentos
 
-### 18. Auditoria de Tipos e Interfaces do Upstream Go Ausentes (1305 ocorrências)
+### 18. Auditoria de Tipos e Interfaces do Upstream Go Ausentes (1302 ocorrências)
 
 - ℹ️ `[INFO]` **[`packages/transpiled_boxo:1`](packages/transpiled_boxo#L1)** — Tipo público Go 'Option' (type) do módulo 'boxo' ainda não foi portado para o pacote 'packages/transpiled_boxo'.
   - *Sugestão:* `Portar 'Option' para 'packages/transpiled_boxo' ou documentar se for omitido deliberadamente`
@@ -1157,12 +1157,6 @@
   - *Sugestão:* `Portar 'NATManagerC' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'RoutingC' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
   - *Sugestão:* `Portar 'RoutingC' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
-- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'PrefixLimit' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
-  - *Sugestão:* `Portar 'PrefixLimit' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
-- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'SubnetLimit' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
-  - *Sugestão:* `Portar 'SubnetLimit' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
-- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'SubnetLimiter' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
-  - *Sugestão:* `Portar 'SubnetLimiter' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'MockSourceIPSelector' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
   - *Sugestão:* `Portar 'MockSourceIPSelector' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'BlankHostOpts' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
@@ -2672,14 +2666,14 @@
   - *Sugestão:* `Avaliar implementação dos campos: Abbreviate, Indentation, StartingIndent, AlwaysMarkStrings, ElidePreludeTypeInfo, UseMapComplexStyleAlways, UseMapComplexStyleOnType, Ctx`
 - ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/traversal/traversal.dart:79`](packages/transpiled_ipld_prime/lib/src/traversal/traversal.dart#L79)** — Classe 'Progress' possui 1 campo(s) do Go pendente(s) no módulo 'go-ipld-prime': Link.
   - *Sugestão:* `Avaliar implementação dos campos: Link`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/x/rate/limiter.dart:36`](packages/transpiled_libp2p/lib/src/x/rate/limiter.dart#L36)** — Classe 'Limit' possui 2 campo(s) do Go pendente(s) no módulo 'go-libp2p': Duration, Data.
+  - *Sugestão:* `Avaliar implementação dos campos: Duration, Data`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/protocol/identify/id.dart:21`](packages/transpiled_libp2p/lib/src/p2p/protocol/identify/id.dart#L21)** — Classe 'IdService' possui 3 campo(s) do Go pendente(s) no módulo 'go-libp2p': Host, UserAgent, ProtocolVersion.
   - *Sugestão:* `Avaliar implementação dos campos: Host, UserAgent, ProtocolVersion`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/protocol/circuitv2/client/reservation.dart:20`](packages/transpiled_libp2p/lib/src/p2p/protocol/circuitv2/client/reservation.dart#L20)** — Classe 'Reservation' possui 1 campo(s) do Go pendente(s) no módulo 'go-libp2p': Expire.
   - *Sugestão:* `Avaliar implementação dos campos: Expire`
-- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/host/resource_manager/limit.dart:17`](packages/transpiled_libp2p/lib/src/p2p/host/resource_manager/limit.dart#L17)** — Classe 'Limit' possui 4 campo(s) do Go pendente(s) no módulo 'go-libp2p': RPS, Burst, Duration, Data.
-  - *Sugestão:* `Avaliar implementação dos campos: RPS, Burst, Duration, Data`
-- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/host/resource_manager/limit.dart:221`](packages/transpiled_libp2p/lib/src/p2p/host/resource_manager/limit.dart#L221)** — Classe 'Limiter' possui 3 campo(s) do Go pendente(s) no módulo 'go-libp2p': NetworkPrefixLimits, GlobalLimit, SubnetRateLimiter.
-  - *Sugestão:* `Avaliar implementação dos campos: NetworkPrefixLimits, GlobalLimit, SubnetRateLimiter`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/host/resource_manager/limit.dart:17`](packages/transpiled_libp2p/lib/src/p2p/host/resource_manager/limit.dart#L17)** — Classe 'Limit' possui 2 campo(s) do Go pendente(s) no módulo 'go-libp2p': Duration, Data.
+  - *Sugestão:* `Avaliar implementação dos campos: Duration, Data`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/host/peerstore/pstoreds/options.dart:20`](packages/transpiled_libp2p/lib/src/p2p/host/peerstore/pstoreds/options.dart#L20)** — Classe 'Options' possui 10 campo(s) do Go pendente(s) no módulo 'go-libp2p': ConnNum, StreamNum, MsgNum, MsgMin....
   - *Sugestão:* `Avaliar implementação dos campos: ConnNum, StreamNum, MsgNum, MsgMin, MsgMax, Ttl, Limit, Other, Expired, Offline`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/core/host/host.dart:24`](packages/transpiled_libp2p/lib/src/core/host/host.dart#L24)** — Classe 'Host' possui 10 campo(s) do Go pendente(s) no módulo 'go-libp2p': StreamHost, ListenAddrs, TLSConfig, InsecureAllowHTTP....
@@ -2697,7 +2691,7 @@
 - ℹ️ `[INFO]` **[`packages/transpiled_multiaddr/lib/src/protocol.dart:41`](packages/transpiled_multiaddr/lib/src/protocol.dart#L41)** — Classe 'Protocol' possui 1 campo(s) do Go pendente(s) no módulo 'go-multiaddr': VCode.
   - *Sugestão:* `Avaliar implementação dos campos: VCode`
 
-### 20. Auditoria de Métodos do Upstream Go Ausentes (113 ocorrências)
+### 20. Auditoria de Métodos do Upstream Go Ausentes (115 ocorrências)
 
 - ℹ️ `[INFO]` **[`packages/transpiled_block_format/lib/src/blocks.dart:33`](packages/transpiled_block_format/lib/src/blocks.dart#L33)** — Classe 'BasicBlock' possui 1 método(s) do Go pendente(s) no módulo 'go-block-format': String.
   - *Sugestão:* `Avaliar paridade e implementação de: String`
@@ -2795,6 +2789,10 @@
   - *Sugestão:* `Avaliar paridade e implementação de: Match`
 - ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime/lib/src/traversal/selector/selector.dart:392`](packages/transpiled_ipld_prime/lib/src/traversal/selector/selector.dart#L392)** — Classe 'ParseContext' possui 1 método(s) do Go pendente(s) no módulo 'go-ipld-prime': PushParent.
   - *Sugestão:* `Avaliar paridade e implementação de: PushParent`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/x/rate/limiter.dart:36`](packages/transpiled_libp2p/lib/src/x/rate/limiter.dart#L36)** — Classe 'Limit' possui 7 método(s) do Go pendente(s) no módulo 'go-libp2p': Reset, String, ProtoMessage, ProtoReflect....
+  - *Sugestão:* `Avaliar paridade e implementação de: Reset, String, ProtoMessage, ProtoReflect, Descriptor, GetDuration, GetData`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/x/rate/limiter.dart:81`](packages/transpiled_libp2p/lib/src/x/rate/limiter.dart#L81)** — Classe 'Limiter' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p': Limit.
+  - *Sugestão:* `Avaliar paridade e implementação de: Limit`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/transport/quic/quic_transport.dart:58`](packages/transpiled_libp2p/lib/src/p2p/transport/quic/quic_transport.dart#L58)** — Classe 'QuicTransport' possui 2 método(s) do Go pendente(s) no módulo 'go-libp2p': WriteTo, ReadNonQUICPacket.
   - *Sugestão:* `Avaliar paridade e implementação de: WriteTo, ReadNonQUICPacket`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/transport/tcp/tcp_transport.dart:13`](packages/transpiled_libp2p/lib/src/p2p/transport/tcp/tcp_transport.dart#L13)** — Classe 'TcpTransport' possui 2 método(s) do Go pendente(s) no módulo 'go-libp2p': UseReuseport, String.
@@ -2831,8 +2829,8 @@
   - *Sugestão:* `Avaliar paridade e implementação de: Reset, String, ProtoMessage, ProtoReflect, Descriptor, GetDuration, GetData`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/host/resource_manager/limit.dart:139`](packages/transpiled_libp2p/lib/src/p2p/host/resource_manager/limit.dart#L139)** — Classe 'ResourceLimits' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p': ToMaybeNilPtr.
   - *Sugestão:* `Avaliar paridade e implementação de: ToMaybeNilPtr`
-- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/host/resource_manager/limit.dart:221`](packages/transpiled_libp2p/lib/src/p2p/host/resource_manager/limit.dart#L221)** — Classe 'Limiter' possui 2 método(s) do Go pendente(s) no módulo 'go-libp2p': Limit, Allow.
-  - *Sugestão:* `Avaliar paridade e implementação de: Limit, Allow`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/host/resource_manager/limit.dart:221`](packages/transpiled_libp2p/lib/src/p2p/host/resource_manager/limit.dart#L221)** — Classe 'Limiter' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p': Limit.
+  - *Sugestão:* `Avaliar paridade e implementação de: Limit`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/host/peerstore/pstoreds/addr_book.dart:111`](packages/transpiled_libp2p/lib/src/p2p/host/peerstore/pstoreds/addr_book.dart#L111)** — Classe 'DsAddrBook' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p': Close.
   - *Sugestão:* `Avaliar paridade e implementação de: Close`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/host/peerstore/pstoreds/options.dart:20`](packages/transpiled_libp2p/lib/src/p2p/host/peerstore/pstoreds/options.dart#L20)** — Classe 'Options' possui 2 método(s) do Go pendente(s) no módulo 'go-libp2p': Apply, ToOption.

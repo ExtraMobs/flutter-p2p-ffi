@@ -572,6 +572,51 @@ Pré-requisitos do `BasicConnMgr`, portados antes dele.
   `ParseCIDR("10.0.0.0/8")` com endereço e máscara de **4** bytes,
   `n4.Contains(::ffff:10.1.2.3) == true` e `net.IP(nil).String() == "<nil>"`.
 
+### `x/rate` — limitador de taxa do go-libp2p
+
+- `go-libp2p/x/rate/limiter.go` (322 linhas) →
+  `packages/transpiled_libp2p/lib/src/x/rate/limiter.dart`. `x/rate` não tem
+  `go.mod` próprio, então pertence ao módulo `go-libp2p` e fica neste pacote.
+  Consumido por `identify/id.go:248` (`ids.rateLimiter.Limit(ids.handlePush)`)
+  e pelo `conn_rate_limiter.go` do rcmgr, que é a Fase D.
+
+  Símbolos: `Limit`, `PrefixLimit`, `SubnetLimit`, `Limiter` (`Allow` → `allow`,
+  `Limit` → **`limitHandler`**), `SubnetLimiter` (`Allow` → `allow`). Os
+  privados `tokenBucket.FullAt`, `prefixBucketWithExpiry` e `bucketHeap` viraram
+  `_fullAt`, `_PrefixBucketWithExpiry` e `_BucketHeap`.
+
+  **Renomeação registrada:** `Limiter.Limit` → `Limiter.limitHandler`, porque em
+  Dart um método não pode ter o mesmo nome da sua classe.
+
+  Adaptações: `sync.Once`/`sync.Mutex` omitidos pelo motivo já registrado no
+  `BasicConnMgr`; `container/heap` não existe em Dart, então `_BucketHeap` traz
+  o próprio sift-up/sift-down, preservando a tabela auxiliar `prefixToIndex` do
+  Go para que `upsert` conserte um elemento no lugar.
+
+  **Comportamento do upstream preservado de propósito, e ele surpreende:**
+  `SubnetLimiter.allow(addr, now)` usa `now` apenas para a expiração dos
+  buckets; o consumo de token roda contra o relógio real, porque
+  `rate.Limiter.Allow()` é `AllowN(time.Now(), 1)` (`x/time/rate/rate.go`).
+  Passar um `now` adiantado, portanto, **não** recarrega o bucket. Verificado
+  executando o próprio `x/rate`: com `RPS 1, Burst 1`, um segundo à frente no
+  parâmetro ainda devolve `false`. Preservado também o fato de que, quando um
+  bucket de sub-rede mais larga recusa, os tokens já gastos nas sub-redes mais
+  estreitas **não** são devolvidos.
+
+  **Colisão de nomes em três vias.** `Limit` e `Limiter` existem em
+  `x/time/rate`, em `x/rate` **e** em `p2p/host/resource-manager`. Os três nomes
+  são fiéis ao upstream; quem se ajusta é o ponto de importação, como o
+  `AGENTS.md` manda: `limiter.dart` importa o `x/time` com prefixo `xtime`, e
+  `test/atomic/nivel_2/libp2p_part2_atomic_tests.dart` esconde os do barril com
+  `hide Limit, Limiter` por querer os do resource-manager.
+
+  **Lacuna herdada:** `manet.ToIP` (`go-multiaddr/net/convert.go:138-152`)
+  continua sem porte em `transpiled_multiaddr`, e `limiter.dart` carrega o mesmo
+  stand-in privado que `p2p/host/observedaddrs/manager.dart` já tinha. Movê-lo
+  para o pacote certo não é trivial: devolver o `net.IP` do Go puxaria
+  `boilerplate/net` e, com ele, `dart:io` para um pacote que a Regra 15 mantém
+  agnóstico de plataforma para web e Wasm.
+
 ### Host, descoberta e persistência
 
 - `go-libp2p config.NewNode` → `observedaddrs.NewManager/Start/Close` →

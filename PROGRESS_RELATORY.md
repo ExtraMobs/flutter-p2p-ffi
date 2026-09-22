@@ -1,7 +1,7 @@
 # Relatório Sintético de Progresso e Cobertura da Árvore AST (Go <-> Dart)
 
 > Documento gerado automaticamente pela ferramenta `tool/audit_ast_nomenclature.py --progress`.
-> **Símbolos Dart Auditados:** 9385 | **Símbolos Go Indexados:** 53105
+> **Símbolos Dart Auditados:** 9440 | **Símbolos Go Indexados:** 53105
 
 ## 1. Visão Geral em Duas Perspectivas
 
@@ -15,16 +15,16 @@
 ### Perspectiva B: Cobertura Quantitativa da Árvore AST Total Upstream Go
 
 - **Total de Símbolos Go no Escopo:** 16,445
-- **Símbolos Implementados em Dart:** 2,109 (12.8%)
-- **Símbolos Restantes no Ecossistema:** 14,336 (87.2%)
+- **Símbolos Implementados em Dart:** 2,124 (12.9%)
+- **Símbolos Restantes no Ecossistema:** 14,321 (87.1%)
 
 | Categoria de Símbolo | Total no Upstream Go | Implementado em Dart | Falta Implementar | % Concluído | % Que Falta |
 | :--- | :---: | :---: | :---: | :---: | :---: |
-| **Tipos (Classes / Interfaces)** | 1,669 | 364 | 1,305 | 21.8% | **78.2%** |
-| **Métodos** | 8,981 | 1,214 | 7,767 | 13.5% | **86.5%** |
-| **Campos de Structs** | 3,035 | 284 | 2,751 | 9.4% | **90.6%** |
+| **Tipos (Classes / Interfaces)** | 1,669 | 367 | 1,302 | 22.0% | **78.0%** |
+| **Métodos** | 8,981 | 1,216 | 7,765 | 13.5% | **86.5%** |
+| **Campos de Structs** | 3,035 | 294 | 2,741 | 9.7% | **90.3%** |
 | **Funções Top-Level** | 2,760 | 247 | 2,513 | 8.9% | **91.1%** |
-| **TOTAL GERAL** | **16,445** | **2,109** | **14,336** | **12.8%** | **87.2%** |
+| **TOTAL GERAL** | **16,445** | **2,124** | **14,321** | **12.9%** | **87.1%** |
 
 ## 2. Detalhamento Quantitativo por Módulo Upstream Go
 
@@ -39,7 +39,7 @@
 | `go-libp2p-record` | `packages/transpiled_libp2p_record` | 31 | 15 | 16 | 48.4% | **51.6%** | 4/5 |
 | `go-datastore` | `packages/transpiled_datastore` | 530 | 171 | 359 | 32.3% | **67.7%** | 33/57 |
 | `go-multibase` | `packages/transpiled_multibase` | 11 | 3 | 8 | 27.3% | **72.7%** | 1/2 |
-| `go-libp2p` | `packages/transpiled_libp2p` | 3688 | 932 | 2756 | 25.3% | **74.7%** | 171/391 |
+| `go-libp2p` | `packages/transpiled_libp2p` | 3688 | 947 | 2741 | 25.7% | **74.3%** | 174/391 |
 | `go-multihash` | `packages/transpiled_multihash` | 67 | 14 | 53 | 20.9% | **79.1%** | 2/7 |
 | `go-cid` | `packages/transpiled_cid` | 99 | 15 | 84 | 15.2% | **84.8%** | 3/10 |
 | `go-multiaddr` | `packages/transpiled_multiaddr` | 188 | 20 | 168 | 10.6% | **89.4%** | 4/18 |

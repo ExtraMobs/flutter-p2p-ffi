@@ -9,7 +9,10 @@ import 'package:pointycastle/export.dart' as pc;
 import 'package:test/test.dart';
 import 'package:transpiled_cid/transpiled_cid.dart';
 import 'package:transpiled_multiaddr/transpiled_multiaddr.dart';
-import 'package:transpiled_libp2p/transpiled_libp2p.dart';
+// `Limit` e `Limiter` existem em tres pacotes Go distintos (x/time/rate,
+// x/rate e resource-manager). Este arquivo quer os do resource-manager,
+// importado adiante, entao os do barril ficam escondidos.
+import 'package:transpiled_libp2p/transpiled_libp2p.dart' hide Limit, Limiter;
 import 'package:transpiled_libp2p/src/core/connmgr/decay.dart';
 import 'package:transpiled_libp2p/src/core/connmgr/gater.dart';
 import 'package:transpiled_libp2p/src/core/connmgr/manager.dart';
