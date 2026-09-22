@@ -1113,13 +1113,37 @@ Aplicação: 25 arquivos tiveram o prefixo renomeado (`blocks` →
 `bsnet/ipfs_impl.dart` trocou `hide Stats` por `as libp2p`, qualificando
 `AddrInfo`, `PeerId` e `ProtocolId`.
 
-**Onde `hide` continua certo, e a regra não se aplica:** quando o nome que fica
-vem de um arquivo local do próprio pacote, ou quando as duas bibliotecas em
-conflito pertencem ao mesmo pacote — o barril `transpiled_libp2p.dart` contra o
-seu próprio `resource_manager/limit.dart`, por exemplo. Nesses casos prefixar
-pelo nome da biblioteca não desambiguaria nada, porque o nome seria o mesmo dos
-dois lados. É por isso que `test/atomic/nivel_2/libp2p_part2_atomic_tests.dart`
-segue com `hide Limit, Limiter` e não é apontado.
+**Segundo braço: import interno segue o pacote Go.** Quando a colisão é dentro
+do mesmo pacote Dart, o nome do pacote seria igual dos dois lados e não
+desambiguaria. O prefixo passa a ser o do **pacote Go**, que é o namespace que o
+próprio Go usa (`rate.Limit` contra `Limit`). O auditor lê a cláusula `package`
+do diretório Go, porque o diretório não basta: `resource-manager` declara
+`package rcmgr` e `basic` declara `package basichost`.
+
+Isso fechou a brecha que a primeira versão da regra deixara:
+`libp2p_part2_atomic_tests.dart` trocou `hide Limit, Limiter` por
+`as rcmgr` no import de `resource_manager/limit.dart`, com `BaseLimit`,
+`FixedLimiter` e `ResourceLimits` qualificados. Sem isso o arquivo compilava,
+mas passava a testar silenciosamente os `Limit`/`Limiter` do `x/rate` no lugar
+dos do resource-manager — um defeito que nenhum erro de compilação acusaria.
+
+Os outros quatro `hide` restantes eram colisão entre pacotes distintos e viraram
+prefixo: `boxo_blockstore_keys` (`as boxo`), `boxo_part2` e `record_atomic`
+(`as libp2p`), e `libp2p_pstoreds`, cujo `hide Key` era simplesmente
+desnecessário.
+
+**Onde `hide` continua certo:** quando o nome que fica vem de um arquivo local
+do próprio pacote. Aí a declaração está ao lado e nenhum prefixo acrescenta
+informação.
+
+**Armadilha registrada:** o prefixo exigido pode colidir com um identificador do
+arquivo. Aconteceu três vezes — uma variável `client`, uma variável `message` e
+um método `datastore()` que implementa interface. Nos dois primeiros a variável
+foi renomeada; no terceiro, como o método é contrato de interface, usou-se a
+forma longa `transpiled_datastore`, que a regra também aceita. Renomear
+mecanicamente prefixo e usos no mesmo passo **não funciona**: é preciso renomear
+o identificador local primeiro, enquanto o prefixo antigo ainda desambigua, e só
+então trocar o prefixo.
 
 ## Lições de porte reutilizáveis
 

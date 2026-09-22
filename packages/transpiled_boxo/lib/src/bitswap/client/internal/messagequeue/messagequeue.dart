@@ -5,7 +5,7 @@ import 'package:logging/logging.dart';
 import 'package:transpiled_cid/transpiled_cid.dart';
 import 'package:transpiled_libp2p/transpiled_libp2p.dart';
 import 'package:transpiled_boxo/bitswap/message.dart';
-import 'package:transpiled_boxo/src/bitswap/message/pb/message.dart' as boxo;
+import 'package:transpiled_boxo/src/bitswap/message/pb/message.dart' as pb;
 import 'package:transpiled_boxo/bitswap/network.dart';
 
 import 'donthavetimeoutmgr.dart';
@@ -118,7 +118,7 @@ class MessageQueue implements PeerQueue {
     if (wantHaves.isEmpty) return;
 
     for (final c in wantHaves) {
-      _bcstWants.add(c, priority, boxo.WantType.have);
+      _bcstWants.add(c, priority, pb.WantType.have);
       priority--;
       cancels.remove(c);
     }
@@ -130,12 +130,12 @@ class MessageQueue implements PeerQueue {
     if (wantBlocks.isEmpty && wantHaves.isEmpty) return;
 
     for (final c in wantHaves) {
-      _peerWants.add(c, priority, boxo.WantType.have);
+      _peerWants.add(c, priority, pb.WantType.have);
       priority--;
       cancels.remove(c);
     }
     for (final c in wantBlocks) {
-      _peerWants.add(c, priority, boxo.WantType.block);
+      _peerWants.add(c, priority, pb.WantType.block);
       priority--;
       cancels.remove(c);
     }
@@ -323,7 +323,7 @@ class MessageQueue implements PeerQueue {
     final wants = <Cid>[];
 
     for (final entry in wantlist) {
-      if (entry.wantType == boxo.WantType.block && entry.sendDontHave) {
+      if (entry.wantType == pb.WantType.block && entry.sendDontHave) {
         final c = entry.cid;
         if (_peerWants._sent.containsKey(c)) {
           wants.add(c);
@@ -380,16 +380,16 @@ class MessageQueue implements PeerQueue {
 
     if (!supportsHave) {
       peerEntries = peerEntries
-          .where((e) => e.wantType != boxo.WantType.have)
+          .where((e) => e.wantType != pb.WantType.have)
           .toList();
       // Wait, we also need to remove them from peerWants pending if they are removed?
       // "doing this here under the lock makes everything else simpler."
       final toRemove = _peerWants._pending.values
-          .where((e) => e.wantType == boxo.WantType.have)
+          .where((e) => e.wantType == pb.WantType.have)
           .map((e) => e.cid)
           .toList();
       for (final c in toRemove) {
-        _peerWants.removeType(c, boxo.WantType.have);
+        _peerWants.removeType(c, pb.WantType.have);
       }
     }
 
@@ -414,9 +414,9 @@ class MessageQueue implements PeerQueue {
 
     if (msgSize < maxMessageSize) {
       for (final e in bcstEntries) {
-        var wantType = boxo.WantType.have;
+        var wantType = pb.WantType.have;
         if (!supportsHave) {
-          wantType = boxo.WantType.block;
+          wantType = pb.WantType.block;
         }
         msgSize += msg.addEntry(e.cid, e.priority, wantType, false);
         sentBcstEntries++;
@@ -500,7 +500,7 @@ class _RecallWantlist {
   final Map<Cid, _WantEntry> _sent = {};
   final Map<Cid, DateTime> _sentAt = {};
 
-  void add(Cid c, int priority, boxo.WantType wtype) {
+  void add(Cid c, int priority, pb.WantType wtype) {
     _pending[c] = _WantEntry(c, priority, wtype);
   }
 
@@ -510,7 +510,7 @@ class _RecallWantlist {
     _sentAt.remove(c);
   }
 
-  void removeType(Cid c, boxo.WantType wtype) {
+  void removeType(Cid c, pb.WantType wtype) {
     if (_pending[c]?.wantType == wtype) {
       _pending.remove(c);
     }
@@ -565,7 +565,7 @@ class _RecallWantlist {
 class _WantEntry {
   final Cid cid;
   final int priority;
-  final boxo.WantType wantType;
+  final pb.WantType wantType;
 
   _WantEntry(this.cid, this.priority, this.wantType);
 }

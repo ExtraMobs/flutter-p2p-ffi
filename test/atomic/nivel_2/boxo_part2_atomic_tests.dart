@@ -3,11 +3,12 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:test/test.dart';
-import 'package:transpiled_block_format/transpiled_block_format.dart' as blocks;
+import 'package:transpiled_block_format/transpiled_block_format.dart'
+    as block_format;
 import 'package:transpiled_boxo/bitswap/client.dart';
-import 'package:transpiled_boxo/bitswap/message.dart' as msg;
+import 'package:transpiled_boxo/bitswap/message.dart' as boxo;
 import 'package:transpiled_boxo/bitswap/network.dart';
-import 'package:transpiled_boxo/src/bitswap/client/client.dart' as client_impl;
+import 'package:transpiled_boxo/src/bitswap/client/client.dart' as client;
 import 'package:transpiled_boxo/src/bitswap/client/internal/messagequeue/donthavetimeoutmgr.dart';
 import 'package:transpiled_boxo/src/bitswap/client/internal/messagequeue/messagequeue.dart';
 import 'package:transpiled_boxo/src/bitswap/client/internal/notifications/notifications.dart';
@@ -19,7 +20,7 @@ import 'package:transpiled_boxo/src/bitswap/network/bsnet/ipfs_impl.dart';
 import 'package:transpiled_boxo/src/bitswap/network/bsnet/options.dart';
 import 'package:transpiled_boxo/src/bitswap/network/connecteventmanager.dart';
 import 'package:transpiled_boxo/src/bitswap/network/interface.dart';
-import 'package:transpiled_boxo/src/bitswap/wantlist/forward.dart' as fwd;
+import 'package:transpiled_boxo/src/bitswap/wantlist/forward.dart' as wantlist;
 import 'package:transpiled_boxo/src/blockstore.dart';
 import 'package:transpiled_boxo/src/chunker.dart';
 import 'package:transpiled_boxo/src/dag_pb.dart';
@@ -30,7 +31,7 @@ import 'package:transpiled_boxo/src/util/time.dart';
 import 'package:transpiled_boxo/src/util/util.dart';
 import 'package:transpiled_cid/transpiled_cid.dart';
 import 'package:transpiled_datastore/transpiled_datastore.dart';
-import 'package:transpiled_libp2p/transpiled_libp2p.dart' hide Routing;
+import 'package:transpiled_libp2p/transpiled_libp2p.dart' as libp2p;
 
 extension on UnixFsDataType {
   int get wireValue => index;
@@ -52,35 +53,37 @@ class _DummyP2pStream implements P2pStream {
 }
 
 class _DummyP2pHost implements P2pHost {
-  _DummyP2pHost([this.connManager = const NullConnMgr()]);
+  _DummyP2pHost([this.connManager = const libp2p.NullConnMgr()]);
 
-  final List<PeerId> _peers = [];
+  final List<libp2p.PeerId> _peers = [];
 
   @override
-  final ConnManager connManager;
+  final libp2p.ConnManager connManager;
 
   @override
   void setStreamHandler(String protocol, void Function(P2pStream) handler) {}
   @override
-  Future<P2pStream> newStream(PeerId peer, List<String> protocols) async =>
-      _DummyP2pStream();
+  Future<P2pStream> newStream(
+    libp2p.PeerId peer,
+    List<String> protocols,
+  ) async => _DummyP2pStream();
   @override
   void removeStreamHandler(String protocol) {}
   @override
-  Future<void> connect(AddrInfo peer) async {}
+  Future<void> connect(libp2p.AddrInfo peer) async {}
   @override
-  List<PeerId> get peers => _peers;
+  List<libp2p.PeerId> get peers => _peers;
 }
 
 class _DummyReceiver implements Receiver, ConnectionListener {
   @override
-  void receiveMessage(PeerId sender, msg.BitSwapMessage incoming) {}
+  void receiveMessage(libp2p.PeerId sender, boxo.BitSwapMessage incoming) {}
   @override
   void receiveError(Exception error) {}
   @override
-  void peerConnected(PeerId peer) {}
+  void peerConnected(libp2p.PeerId peer) {}
   @override
-  void peerDisconnected(PeerId peer) {}
+  void peerDisconnected(libp2p.PeerId peer) {}
 }
 
 class _DummyPeerConn implements PeerConnection {
@@ -93,24 +96,26 @@ class _DummyPeerConn implements PeerConnection {
 
 class _DummyMessageNetwork implements MessageNetwork {
   @override
-  Future<void> connect(PeerId peer, {dynamic addrInfo}) async {}
+  Future<void> connect(libp2p.PeerId peer, {dynamic addrInfo}) async {}
   @override
   Future<MessageSender> newMessageSender(
-    PeerId peer,
+    libp2p.PeerId peer,
     MessageSenderOpts opts,
   ) async => _DummyMessageSender();
   @override
-  Duration latency(PeerId peer) => const Duration(milliseconds: 10);
+  Duration latency(libp2p.PeerId peer) => const Duration(milliseconds: 10);
   @override
-  Future<Duration> ping(PeerId peer) async => const Duration(milliseconds: 10);
+  Future<Duration> ping(libp2p.PeerId peer) async =>
+      const Duration(milliseconds: 10);
   @override
-  PeerId self() =>
-      PeerId.fromBytes(Uint8List.fromList([0x12, 0x20, ...List.filled(32, 9)]));
+  libp2p.PeerId self() => libp2p.PeerId.fromBytes(
+    Uint8List.fromList([0x12, 0x20, ...List.filled(32, 9)]),
+  );
 }
 
 class _DummyMessageSender implements MessageSender {
   @override
-  Future<void> sendMsg(msg.BitSwapMessage msg) async {}
+  Future<void> sendMsg(boxo.BitSwapMessage msg) async {}
   @override
   Future<void> reset() async {}
   @override
@@ -121,7 +126,7 @@ class _DummyRouting implements Routing {
   @override
   Future<void> provide(Cid key) async {}
   @override
-  Stream<AddrInfo> findProvidersAsync(Cid key, int count) =>
+  Stream<libp2p.AddrInfo> findProvidersAsync(Cid key, int count) =>
       const Stream.empty();
 }
 
@@ -137,17 +142,19 @@ class _TestSession implements Session {
   @override
   int id() => 1;
   @override
-  void signalAvailability(PeerId peer, bool isConnected) {}
+  void signalAvailability(libp2p.PeerId peer, bool isConnected) {}
 }
 
 void main() {
   final testCid = Cid.decode(
     'bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi',
   );
-  final testPeer = PeerId.fromBytes(
+  final testPeer = libp2p.PeerId.fromBytes(
     Uint8List.fromList([0x12, 0x20, ...List.filled(32, 7)]),
   );
-  final testBlock = blocks.BasicBlock.fromData(Uint8List.fromList([1, 2, 3]));
+  final testBlock = block_format.BasicBlock.fromData(
+    Uint8List.fromList([1, 2, 3]),
+  );
 
   group('FixedSizeChunker [Atomic Audit]', () {
     test(
@@ -267,12 +274,12 @@ void main() {
     });
 
     test('wantlist() - constroi wantlist vazia', () {
-      final w = fwd.wantlist();
+      final w = wantlist.wantlist();
       expect(w.length, equals(0));
     });
 
     test('refEntry() - constroi ref entry com prioridade', () {
-      final re = fwd.refEntry(testCid, 5);
+      final re = wantlist.refEntry(testCid, 5);
       expect(re.cid, equals(testCid));
     });
 
@@ -368,7 +375,7 @@ void main() {
       await bs.put(testBlock);
       final host = _DummyP2pHost();
       final net = IpfsNetwork.fromIpfsHost(host);
-      final BlockGetter bg = client_impl.Client(network: net, blockstore: bs);
+      final BlockGetter bg = client.Client(network: net, blockstore: bs);
       final blk = await bg.getBlock(testBlock.cid());
       expect(blk.cid(), equals(testBlock.cid()));
     });
@@ -389,7 +396,7 @@ void main() {
   });
 
   group('Client [Atomic Audit]', () {
-    late client_impl.Client client;
+    late client.Client bitswapClient;
     late Blockstore bs;
     setUp(() async {
       final host = _DummyP2pHost();
@@ -397,7 +404,7 @@ void main() {
       final ds = MapDatastore();
       bs = Blockstore(ds);
       await bs.put(testBlock);
-      client = client_impl.Client(
+      bitswapClient = client.Client(
         network: net,
         blockstore: bs,
         timeout: const Duration(milliseconds: 50),
@@ -405,59 +412,59 @@ void main() {
     });
 
     test('getBlock() - busca bloco via cliente', () async {
-      final blk = await client.getBlock(testBlock.cid());
+      final blk = await bitswapClient.getBlock(testBlock.cid());
       expect(blk.cid(), equals(testBlock.cid()));
     });
 
     test('getBlocks() - busca multiplos blocos via cliente', () async {
-      final stream = await client.getBlocks([testBlock.cid()]);
+      final stream = await bitswapClient.getBlocks([testBlock.cid()]);
       expect(stream, isNotNull);
     });
 
     test('receiveMessage() - processa mensagem bitswap recebida', () {
-      client.receiveMessage(testPeer, msg.BitSwapMessage(false));
-      expect(client, isNotNull);
+      bitswapClient.receiveMessage(testPeer, boxo.BitSwapMessage(false));
+      expect(bitswapClient, isNotNull);
     });
 
     test('receiveError() - registra erro de rede', () {
-      client.receiveError(Exception('net err'));
-      expect(client, isNotNull);
+      bitswapClient.receiveError(Exception('net err'));
+      expect(bitswapClient, isNotNull);
     });
 
     test('peerConnected() - callback de conexao de par', () {
-      client.peerConnected(testPeer);
-      expect(client, isNotNull);
+      bitswapClient.peerConnected(testPeer);
+      expect(bitswapClient, isNotNull);
     });
 
     test('peerDisconnected() - callback de desconexao de par', () {
-      client.peerDisconnected(testPeer);
-      expect(client, isNotNull);
+      bitswapClient.peerDisconnected(testPeer);
+      expect(bitswapClient, isNotNull);
     });
 
     test('getWantlist() - lista de cids solicitados', () {
-      expect(client.getWantlist(), isEmpty);
+      expect(bitswapClient.getWantlist(), isEmpty);
     });
 
     test('getWantBlocks() - lista de want blocks', () {
-      expect(client.getWantBlocks(), isEmpty);
+      expect(bitswapClient.getWantBlocks(), isEmpty);
     });
 
     test('getWantHaves() - lista de want haves', () {
-      expect(client.getWantHaves(), isEmpty);
+      expect(bitswapClient.getWantHaves(), isEmpty);
     });
 
     test('isOnline() - status de conectividade do cliente', () {
-      expect(client.isOnline(), isTrue);
+      expect(bitswapClient.isOnline(), isTrue);
     });
 
     test('close() - encerra cliente bitswap', () async {
-      await client.close();
-      expect(client, isNotNull);
+      await bitswapClient.close();
+      expect(bitswapClient, isNotNull);
     });
   });
 
   group('Exportable [Atomic Audit]', () {
-    final msg.Exportable exp = msg.BitSwapMessage(false);
+    final boxo.Exportable exp = boxo.BitSwapMessage(false);
 
     test('toProtoV0() - exporta representacao protobuf v0', () {
       expect(exp.toProtoV0(), isNotNull);
@@ -482,120 +489,120 @@ void main() {
 
   group('BitSwapMessage [Atomic Audit]', () {
     test('fillWantlist() - preenche lista externa de wants', () {
-      final msg.BitSwapMessage m = msg.BitSwapMessage(true);
-      final list = <msg.Entry>[];
+      final boxo.BitSwapMessage m = boxo.BitSwapMessage(true);
+      final list = <boxo.Entry>[];
       m.fillWantlist(list);
       expect(list, isEmpty);
     });
 
     test('wantlist() - retorna colecao de entradas da wantlist', () {
-      final msg.BitSwapMessage m = msg.BitSwapMessage(true);
+      final boxo.BitSwapMessage m = boxo.BitSwapMessage(true);
       expect(m.wantlist(), isEmpty);
     });
 
     test('blocks() - retorna blocos contidos na mensagem', () {
-      final msg.BitSwapMessage m = msg.BitSwapMessage(false);
+      final boxo.BitSwapMessage m = boxo.BitSwapMessage(false);
       expect(m.blocks(), isEmpty);
     });
 
     test('blockPresences() - lista presencas informadas', () {
-      final msg.BitSwapMessage m = msg.BitSwapMessage(false);
+      final boxo.BitSwapMessage m = boxo.BitSwapMessage(false);
       expect(m.blockPresences(), isEmpty);
     });
 
     test('haves() - filtra cids com presenca have', () {
-      final msg.BitSwapMessage m = msg.BitSwapMessage(false);
+      final boxo.BitSwapMessage m = boxo.BitSwapMessage(false);
       expect(m.haves(), isEmpty);
     });
 
     test('dontHaves() - filtra cids com presenca dontHave', () {
-      final msg.BitSwapMessage m = msg.BitSwapMessage(false);
+      final boxo.BitSwapMessage m = boxo.BitSwapMessage(false);
       expect(m.dontHaves(), isEmpty);
     });
 
     test('pendingBytes() - consulta bytes pendentes da mensagem', () {
-      final msg.BitSwapMessage m = msg.BitSwapMessage(false);
+      final boxo.BitSwapMessage m = boxo.BitSwapMessage(false);
       expect(m.pendingBytes(), equals(0));
     });
 
     test('addEntry() - adiciona solicitacao a wantlist', () {
-      final msg.BitSwapMessage m = msg.BitSwapMessage(false);
+      final boxo.BitSwapMessage m = boxo.BitSwapMessage(false);
       final size = m.addEntry(testCid, 1, pb.WantType.have, false);
       expect(size, greaterThan(0));
     });
 
     test('cancel() - cancela cid na mensagem', () {
-      final msg.BitSwapMessage m = msg.BitSwapMessage(false);
+      final boxo.BitSwapMessage m = boxo.BitSwapMessage(false);
       m.addEntry(testCid, 1, pb.WantType.have, false);
       final res = m.cancel(testCid);
       expect(res, greaterThanOrEqualTo(0));
     });
 
     test('remove() - remove cid da wantlist', () {
-      final msg.BitSwapMessage m = msg.BitSwapMessage(false);
+      final boxo.BitSwapMessage m = boxo.BitSwapMessage(false);
       m.addEntry(testCid, 1, pb.WantType.have, false);
       m.remove(testCid);
       expect(m.wantlist(), isEmpty);
     });
 
     test('empty() - avalia se a mensagem esta vazia', () {
-      final msg.BitSwapMessage m = msg.BitSwapMessage(false);
+      final boxo.BitSwapMessage m = boxo.BitSwapMessage(false);
       expect(m.empty(), isTrue);
     });
 
     test('size() - calcula tamanho em bytes da mensagem', () {
-      final msg.BitSwapMessage m = msg.BitSwapMessage(false);
+      final boxo.BitSwapMessage m = boxo.BitSwapMessage(false);
       expect(m.size(), greaterThanOrEqualTo(0));
     });
 
     test('full() - verifica se mensagem e wantlist completa', () {
-      final msg.BitSwapMessage m = msg.BitSwapMessage(true);
+      final boxo.BitSwapMessage m = boxo.BitSwapMessage(true);
       expect(m.full(), isTrue);
     });
 
     test('addBlock() - adiciona bloco de dados', () {
-      final msg.BitSwapMessage m = msg.BitSwapMessage(false);
+      final boxo.BitSwapMessage m = boxo.BitSwapMessage(false);
       m.addBlock(testBlock);
       expect(m.blocks(), contains(testBlock));
     });
 
     test('addBlockPresence() - adiciona presenca de bloco', () {
-      final msg.BitSwapMessage m = msg.BitSwapMessage(false);
+      final boxo.BitSwapMessage m = boxo.BitSwapMessage(false);
       m.addBlockPresence(testCid, pb.BlockPresenceType.have);
       expect(m.blockPresences(), isNotEmpty);
     });
 
     test('addHave() - adiciona presenca have diretamente', () {
-      final msg.BitSwapMessage m = msg.BitSwapMessage(false);
+      final boxo.BitSwapMessage m = boxo.BitSwapMessage(false);
       m.addHave(testCid);
       expect(m.haves(), contains(testCid));
     });
 
     test('addDontHave() - adiciona presenca dontHave diretamente', () {
-      final msg.BitSwapMessage m = msg.BitSwapMessage(false);
+      final boxo.BitSwapMessage m = boxo.BitSwapMessage(false);
       m.addDontHave(testCid);
       expect(m.dontHaves(), contains(testCid));
     });
 
     test('setPendingBytes() - define quantidade de bytes pendentes', () {
-      final msg.BitSwapMessage m = msg.BitSwapMessage(false);
+      final boxo.BitSwapMessage m = boxo.BitSwapMessage(false);
       m.setPendingBytes(42);
       expect(m.pendingBytes(), equals(42));
     });
 
     test('loggable() - mapa estruturado para logs', () {
-      final msg.BitSwapMessage m = msg.BitSwapMessage(false);
+      final boxo.BitSwapMessage m = boxo.BitSwapMessage(false);
       expect(m.loggable(), isA<Map>());
     });
 
     test('reset() - redefine estado interno da mensagem', () {
-      final msg.BitSwapMessage m = msg.BitSwapMessage(true);
+      final boxo.BitSwapMessage m = boxo.BitSwapMessage(true);
       m.reset(false);
       expect(m.full(), isFalse);
     });
 
     test('clone() - duplica mensagem de forma independente', () {
-      final msg.BitSwapMessage m = msg.BitSwapMessage(true);
+      final boxo.BitSwapMessage m = boxo.BitSwapMessage(true);
       final c = m.clone();
       expect(c, isNotNull);
       expect(c.full(), isTrue);
@@ -732,7 +739,7 @@ void main() {
     });
 
     test('connect() - conecta ao endereco de par', () async {
-      await host.connect(AddrInfo(id: testPeer));
+      await host.connect(libp2p.AddrInfo(id: testPeer));
       expect(host, isNotNull);
     });
 
@@ -741,7 +748,7 @@ void main() {
     });
 
     test('connManager - expoe o gerenciador de conexoes do host', () {
-      expect(host.connManager, isA<ConnManager>());
+      expect(host.connManager, isA<libp2p.ConnManager>());
     });
   });
 
@@ -752,7 +759,7 @@ void main() {
     });
 
     test('sendMessage() - despacha mensagem bitswap pela rede', () async {
-      await bsn.sendMessage(testPeer, msg.BitSwapMessage(false));
+      await bsn.sendMessage(testPeer, boxo.BitSwapMessage(false));
       expect(bsn, isNotNull);
     });
 
@@ -767,7 +774,7 @@ void main() {
     });
 
     test('connect() - estabelece sessao de rede com par', () async {
-      await bsn.connect(AddrInfo(id: testPeer));
+      await bsn.connect(libp2p.AddrInfo(id: testPeer));
       expect(bsn, isNotNull);
     });
 
@@ -831,16 +838,16 @@ void main() {
       expect(res, isFalse);
     });
 
-    test('protect() - delega ao ConnManager do host', () {
-      final cm = BasicConnMgr(1, 2);
+    test('protect() - delega ao libp2p.ConnManager do host', () {
+      final cm = libp2p.BasicConnMgr(1, 2);
       addTearDown(cm.close);
       final net = IpfsNetwork.fromIpfsHost(_DummyP2pHost(cm));
       net.protect(testPeer, 'tagA');
       expect(cm.isProtected(testPeer, 'tagA'), isTrue);
     });
 
-    test('unprotect() - delega ao ConnManager do host', () {
-      final cm = BasicConnMgr(1, 2);
+    test('unprotect() - delega ao libp2p.ConnManager do host', () {
+      final cm = libp2p.BasicConnMgr(1, 2);
       addTearDown(cm.close);
       final net = IpfsNetwork.fromIpfsHost(_DummyP2pHost(cm));
       net.protect(testPeer, 'tagA');
@@ -851,7 +858,7 @@ void main() {
     });
 
     test('unprotect() - devolve true enquanto restar outra marcacao', () {
-      final cm = BasicConnMgr(1, 2);
+      final cm = libp2p.BasicConnMgr(1, 2);
       addTearDown(cm.close);
       final net = IpfsNetwork.fromIpfsHost(_DummyP2pHost(cm));
       net.protect(testPeer, 'tagA');
@@ -860,16 +867,16 @@ void main() {
       expect(cm.isProtected(testPeer, 'tagB'), isTrue);
     });
 
-    test('tagPeer() - delega ao ConnManager do host', () {
-      final cm = BasicConnMgr(1, 2);
+    test('tagPeer() - delega ao libp2p.ConnManager do host', () {
+      final cm = libp2p.BasicConnMgr(1, 2);
       addTearDown(cm.close);
       final net = IpfsNetwork.fromIpfsHost(_DummyP2pHost(cm));
       net.tagPeer(testPeer, 'tagA', 10);
       expect(cm.getTagInfo(testPeer)?.tags['tagA'], 10);
     });
 
-    test('untagPeer() - delega ao ConnManager do host', () {
-      final cm = BasicConnMgr(1, 2);
+    test('untagPeer() - delega ao libp2p.ConnManager do host', () {
+      final cm = libp2p.BasicConnMgr(1, 2);
       addTearDown(cm.close);
       final net = IpfsNetwork.fromIpfsHost(_DummyP2pHost(cm));
       net.tagPeer(testPeer, 'tagA', 10);
@@ -885,7 +892,7 @@ void main() {
     });
 
     test('sendMsg() - envia mensagem pelo canal', () async {
-      await ms.sendMsg(msg.BitSwapMessage(false));
+      await ms.sendMsg(boxo.BitSwapMessage(false));
       expect(ms, isNotNull);
     });
 
@@ -906,7 +913,7 @@ void main() {
     });
 
     test('receiveMessage() - trata mensagem recebida da rede', () {
-      r.receiveMessage(testPeer, msg.BitSwapMessage(false));
+      r.receiveMessage(testPeer, boxo.BitSwapMessage(false));
       expect(r, isNotNull);
     });
 
@@ -959,7 +966,7 @@ void main() {
     });
 
     test('sendMessage() - envia mensagem bitswap pela rede', () async {
-      await net.sendMessage(testPeer, msg.BitSwapMessage(false));
+      await net.sendMessage(testPeer, boxo.BitSwapMessage(false));
       expect(net.stats().messagesSent, equals(1));
     });
 
@@ -974,7 +981,7 @@ void main() {
     });
 
     test('connect() - conecta ao par informado', () async {
-      await net.connect(AddrInfo(id: testPeer));
+      await net.connect(libp2p.AddrInfo(id: testPeer));
       expect(net, isNotNull);
     });
 

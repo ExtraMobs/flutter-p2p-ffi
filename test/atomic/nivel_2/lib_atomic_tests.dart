@@ -5,7 +5,8 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:test/test.dart';
-import 'package:transpiled_block_format/transpiled_block_format.dart' as blocks;
+import 'package:transpiled_block_format/transpiled_block_format.dart'
+    as block_format;
 import 'package:transpiled_boxo/bitswap/message.dart';
 import 'package:transpiled_cid/transpiled_cid.dart';
 import 'package:transpiled_ipfs/src/blockstore/blockstore.dart';
@@ -36,8 +37,8 @@ import 'package:transpiled_multihash/transpiled_multihash.dart';
 
 class _TestBlockGetter implements BlockGetter {
   @override
-  Future<blocks.Block> getBlock(Cid cid) async =>
-      blocks.BasicBlock(Uint8List.fromList([1, 2, 3]), cid);
+  Future<block_format.Block> getBlock(Cid cid) async =>
+      block_format.BasicBlock(Uint8List.fromList([1, 2, 3]), cid);
 }
 
 class _FakeNetwork implements libp2p.Network {
@@ -219,7 +220,7 @@ void main() {
   test('readUnixFs() - realiza streaming de bytes de arquivo unixfs', () async {
     final chunks = await readUnixFs(
       sampleCid,
-      (c) async => blocks.BasicBlock(sampleRawData, c),
+      (c) async => block_format.BasicBlock(sampleRawData, c),
     ).toList();
     expect(chunks, hasLength(1));
     expect(chunks.single, equals(sampleRawData));
@@ -228,7 +229,7 @@ void main() {
   test('walkUnixFs() - percorre dag unixfs em profundidade', () async {
     final walked = await walkUnixFs(
       sampleCid,
-      (c) async => blocks.BasicBlock(sampleRawData, c),
+      (c) async => block_format.BasicBlock(sampleRawData, c),
     ).toList();
     expect(walked, equals([sampleCid]));
   });
@@ -279,7 +280,7 @@ void main() {
 
   test('blockFromMessage() - extrai bloco correspondente da mensagem', () {
     final msg = BitSwapMessage(false);
-    final blk = blocks.BasicBlock(sampleRawData, sampleCid);
+    final blk = block_format.BasicBlock(sampleRawData, sampleCid);
     msg.addBlock(blk);
     final extracted = blockFromMessage(msg, sampleCid);
     expect(extracted?.rawData(), equals(sampleRawData));
@@ -360,14 +361,14 @@ void main() {
 
     test('getSize() - retorna tamanho em bytes do bloco', () async {
       final bs = Blockstore();
-      await bs.put(blocks.BasicBlock(sampleRawData, sampleCid));
+      await bs.put(block_format.BasicBlock(sampleRawData, sampleCid));
       expect(await bs.getSize(sampleCid), equals(sampleRawData.length));
       await bs.close();
     });
 
     test('get() - recupera bloco validando o hash', () async {
       final bs = Blockstore();
-      await bs.put(blocks.BasicBlock(sampleRawData, sampleCid));
+      await bs.put(block_format.BasicBlock(sampleRawData, sampleCid));
       final blk = await bs.get(sampleCid);
       expect(blk.rawData(), equals(sampleRawData));
       await bs.close();
@@ -375,7 +376,7 @@ void main() {
 
     test('put() - persiste bloco no storage', () async {
       final bs = Blockstore();
-      await bs.put(blocks.BasicBlock(sampleRawData, sampleCid));
+      await bs.put(block_format.BasicBlock(sampleRawData, sampleCid));
       expect(await bs.has(sampleCid), isTrue);
       await bs.close();
     });
@@ -385,8 +386,8 @@ void main() {
       final data2 = Uint8List.fromList([6, 7, 8]);
       final cid2 = Cid.v1('raw', MultihashUtils.sum('sha2-256', data2));
       await bs.putMany([
-        blocks.BasicBlock(sampleRawData, sampleCid),
-        blocks.BasicBlock(data2, cid2),
+        block_format.BasicBlock(sampleRawData, sampleCid),
+        block_format.BasicBlock(data2, cid2),
       ]);
       expect(await bs.has(sampleCid), isTrue);
       expect(await bs.has(cid2), isTrue);
@@ -494,7 +495,9 @@ void main() {
 
     test('getUnixFs() - le bytes de arquivo unixfs', () async {
       final node = await IpfsNode.fromBuildCfg(BuildCfg(online: false));
-      await node.blockstore.put(blocks.BasicBlock(sampleRawData, sampleCid));
+      await node.blockstore.put(
+        block_format.BasicBlock(sampleRawData, sampleCid),
+      );
       final chunks = await node.getUnixFs(sampleCid).toList();
       expect(chunks.single, equals(sampleRawData));
       await node.close();
@@ -502,7 +505,9 @@ void main() {
 
     test('statUnixFs() - retorna estatisticas do unixfs', () async {
       final node = await IpfsNode.fromBuildCfg(BuildCfg(online: false));
-      await node.blockstore.put(blocks.BasicBlock(sampleRawData, sampleCid));
+      await node.blockstore.put(
+        block_format.BasicBlock(sampleRawData, sampleCid),
+      );
       final stat = await node.statUnixFs(sampleCid);
       expect(stat.size, equals(sampleRawData.length));
       expect(stat.numBlocks, equals(1));
@@ -511,7 +516,9 @@ void main() {
 
     test('listUnixFsCids() - lista cids da arvore unixfs', () async {
       final node = await IpfsNode.fromBuildCfg(BuildCfg(online: false));
-      await node.blockstore.put(blocks.BasicBlock(sampleRawData, sampleCid));
+      await node.blockstore.put(
+        block_format.BasicBlock(sampleRawData, sampleCid),
+      );
       final cids = await node.listUnixFsCids(sampleCid).toList();
       expect(cids, equals([sampleCid]));
       await node.close();
@@ -519,7 +526,9 @@ void main() {
 
     test('exportCar() - exporta dag em formato car', () async {
       final node = await IpfsNode.fromBuildCfg(BuildCfg(online: false));
-      await node.blockstore.put(blocks.BasicBlock(sampleRawData, sampleCid));
+      await node.blockstore.put(
+        block_format.BasicBlock(sampleRawData, sampleCid),
+      );
       final carBytes = await node
           .exportCar(sampleCid)
           .fold<List<int>>([], (a, b) => [...a, ...b]);
@@ -529,7 +538,9 @@ void main() {
 
     test('importCar() - importa blocos de arquivo car', () async {
       final node = await IpfsNode.fromBuildCfg(BuildCfg(online: false));
-      await node.blockstore.put(blocks.BasicBlock(sampleRawData, sampleCid));
+      await node.blockstore.put(
+        block_format.BasicBlock(sampleRawData, sampleCid),
+      );
       final carBytes = await node
           .exportCar(sampleCid)
           .fold<List<int>>([], (a, b) => [...a, ...b]);
@@ -561,7 +572,7 @@ void main() {
 
     test('putBlock() - persiste bloco no blockstore local', () async {
       final node = await IpfsNode.fromBuildCfg(BuildCfg(online: false));
-      final blk = blocks.BasicBlock(sampleRawData, sampleCid);
+      final blk = block_format.BasicBlock(sampleRawData, sampleCid);
       await node.putBlock(blk);
       expect(await node.blockstore.has(sampleCid), isTrue);
       await node.close();
@@ -784,7 +795,7 @@ void main() {
       final host = _FakeHost();
       final router = Libp2pRouter(host);
       final bstore = Blockstore();
-      await bstore.put(blocks.BasicBlock(sampleRawData, sampleCid));
+      await bstore.put(block_format.BasicBlock(sampleRawData, sampleCid));
       final client = BitswapClient(
         router: router,
         blockstore: bstore,

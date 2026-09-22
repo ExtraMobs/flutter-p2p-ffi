@@ -5,18 +5,19 @@ import 'package:test/test.dart' hide Matcher;
 import 'package:transpiled_cid/transpiled_cid.dart';
 import 'package:transpiled_ipld_prime/fluent/qp.dart';
 import 'package:transpiled_ipld_prime/src/codec/dagjson/codec.dart' as dagjson;
-import 'package:transpiled_ipld_prime/src/codec/json/codec.dart' as json_codec;
-import 'package:transpiled_ipld_prime/src/codec/raw/codec.dart' as raw_codec;
+import 'package:transpiled_ipld_prime/src/codec/json/codec.dart' as json;
+import 'package:transpiled_ipld_prime/src/codec/raw/codec.dart' as raw;
 import 'package:transpiled_ipld_prime/src/linking/cid/cid_link.dart';
-import 'package:transpiled_ipld_prime/src/linking/cid/link_system.dart'
-    as cid_ls;
+import 'package:transpiled_ipld_prime/src/linking/cid/link_system.dart' as cid;
 import 'package:transpiled_ipld_prime/src/linking/linking.dart';
-import 'package:transpiled_ipld_prime/src/multicodec/registry.dart' as reg;
+import 'package:transpiled_ipld_prime/src/multicodec/registry.dart'
+    as multicodec;
 import 'package:transpiled_ipld_prime/src/storage/memstore.dart';
-import 'package:transpiled_ipld_prime/src/storage/storage.dart' as stor;
+import 'package:transpiled_ipld_prime/src/storage/storage.dart' as storage;
 import 'package:transpiled_ipld_prime/src/traversal/selector/selector.dart'
-    as sel;
-import 'package:transpiled_ipld_prime/src/traversal/traversal.dart' as trav;
+    as selector;
+import 'package:transpiled_ipld_prime/src/traversal/traversal.dart'
+    as traversal;
 import 'package:transpiled_ipld_prime/transpiled_ipld_prime.dart';
 
 class _TestByteSeeker implements ByteReadSeeker {
@@ -54,12 +55,12 @@ class _TestAmendPrototype implements NodePrototypeSupportingAmend {
 }
 
 class _TestStreamingWritableStore
-    implements stor.StreamingWritableStorage, stor.Storage {
+    implements storage.StreamingWritableStorage, storage.Storage {
   final Map<String, Uint8List> data = {};
   @override
   bool has(Object? context, String key) => data.containsKey(key);
   @override
-  (Sink<List<int>>, stor.WriteCommitter) putStream(Object? context) {
+  (Sink<List<int>>, storage.WriteCommitter) putStream(Object? context) {
     final bytes = <int>[];
     final sink = StreamControllerSink([bytes]);
     return (sink, (key) => data[key] = Uint8List.fromList(bytes));
@@ -67,7 +68,7 @@ class _TestStreamingWritableStore
 }
 
 class _TestVectorWritableStore
-    implements stor.VectorWritableStorage, stor.Storage {
+    implements storage.VectorWritableStorage, storage.Storage {
   final Map<String, Uint8List> data = {};
   @override
   bool has(Object? context, String key) => data.containsKey(key);
@@ -209,66 +210,66 @@ void main() {
     });
 
     test('registerEncoder() - registra encoder globalmente', () {
-      reg.registerEncoder(0x7777, (node, sink) => sink.add([1, 2]));
-      expect(reg.listEncoders(), contains(0x7777));
+      multicodec.registerEncoder(0x7777, (node, sink) => sink.add([1, 2]));
+      expect(multicodec.listEncoders(), contains(0x7777));
     });
 
     test('lookupEncoder() - busca encoder registrado globalmente', () {
-      final enc = reg.lookupEncoder(0x7777);
+      final enc = multicodec.lookupEncoder(0x7777);
       expect(enc, isNotNull);
     });
 
     test('listEncoders() - lista todos encoders registrados globalmente', () {
-      final list = reg.listEncoders();
+      final list = multicodec.listEncoders();
       expect(list, isNotEmpty);
     });
 
     test('registerDecoder() - registra decoder globalmente', () {
-      reg.registerDecoder(
+      multicodec.registerDecoder(
         0x7777,
         (assembler, reader) => assembler.assignInt(123),
       );
-      expect(reg.listDecoders(), contains(0x7777));
+      expect(multicodec.listDecoders(), contains(0x7777));
     });
 
     test('lookupDecoder() - busca decoder registrado globalmente', () {
-      final dec = reg.lookupDecoder(0x7777);
+      final dec = multicodec.lookupDecoder(0x7777);
       expect(dec, isNotNull);
     });
 
     test('listDecoders() - lista todos decoders registrados globalmente', () {
-      final list = reg.listDecoders();
+      final list = multicodec.listDecoders();
       expect(list, isNotEmpty);
     });
 
     test('has() - helper global de verificacao em storage', () {
       final ms = MemoryStore();
       ms.put(null, 'k1', Uint8List.fromList([1]));
-      expect(stor.has(null, ms, 'k1'), isTrue);
-      expect(stor.has(null, ms, 'unknown'), isFalse);
+      expect(storage.has(null, ms, 'k1'), isTrue);
+      expect(storage.has(null, ms, 'unknown'), isFalse);
     });
 
     test('get() - helper global de leitura de storage', () {
       final ms = MemoryStore();
       ms.put(null, 'k2', Uint8List.fromList([42]));
-      expect(stor.get(null, ms, 'k2'), equals(Uint8List.fromList([42])));
+      expect(storage.get(null, ms, 'k2'), equals(Uint8List.fromList([42])));
     });
 
     test('put() - helper global de gravacao em storage', () {
       final ms = MemoryStore();
-      stor.put(null, ms, 'k3', Uint8List.fromList([99]));
+      storage.put(null, ms, 'k3', Uint8List.fromList([99]));
       expect(ms.has(null, 'k3'), isTrue);
     });
 
     test('getStream() - helper global de leitura em stream', () {
       final ms = MemoryStore();
       ms.put(null, 'k4', Uint8List.fromList([1, 2, 3]));
-      expect(stor.getStream(null, ms, 'k4'), equals([1, 2, 3]));
+      expect(storage.getStream(null, ms, 'k4'), equals([1, 2, 3]));
     });
 
     test('putStream() - helper global de escrita em stream', () {
       final ms = MemoryStore();
-      final (sink, commit) = stor.putStream(null, ms);
+      final (sink, commit) = storage.putStream(null, ms);
       sink.add([7, 8]);
       commit('k5');
       expect(ms.get(null, 'k5'), equals(Uint8List.fromList([7, 8])));
@@ -276,7 +277,7 @@ void main() {
 
     test('putVec() - helper global de gravacao vetorial', () {
       final ms = MemoryStore();
-      stor.putVec(null, ms, 'k6', [
+      storage.putVec(null, ms, 'k6', [
         Uint8List.fromList([1, 2]),
         Uint8List.fromList([3, 4]),
       ]);
@@ -286,12 +287,12 @@ void main() {
     test('peek() - helper global de inspecao sem consumo', () {
       final ms = MemoryStore();
       ms.put(null, 'k7', Uint8List.fromList([55]));
-      expect(stor.peek(null, ms, 'k7'), equals(Uint8List.fromList([55])));
+      expect(storage.peek(null, ms, 'k7'), equals(Uint8List.fromList([55])));
     });
 
     test('walkLocal() - percorre localmente um no ipld', () {
       var visited = 0;
-      trav.walkLocal(const PlainInt(5), (progress, node) {
+      traversal.walkLocal(const PlainInt(5), (progress, node) {
         visited++;
         expect(node.asInt(), equals(5));
       });
@@ -300,7 +301,7 @@ void main() {
 
     test('walkMatching() - percorre no com seletor de correspondencia', () {
       var count = 0;
-      trav.walkMatching(const PlainInt(8), const sel.Matcher(), (
+      traversal.walkMatching(const PlainInt(8), const selector.Matcher(), (
         progress,
         node,
       ) {
@@ -312,21 +313,21 @@ void main() {
 
     test('walkAdv() - executa caminhada avancada com visit reason', () {
       var reasonSeen = false;
-      trav.walkAdv(const PlainInt(9), const sel.Matcher(), (
+      traversal.walkAdv(const PlainInt(9), const selector.Matcher(), (
         progress,
         node,
         reason,
       ) {
         reasonSeen = true;
-        expect(reason, equals(trav.VisitReason.selectionMatch));
+        expect(reason, equals(traversal.VisitReason.selectionMatch));
       });
       expect(reasonSeen, isTrue);
     });
 
     test('walkTransforming() - transforma valores durante caminhada', () {
-      final result = trav.walkTransforming(
+      final result = traversal.walkTransforming(
         const PlainInt(10),
-        const sel.Matcher(),
+        const selector.Matcher(),
         (progress, node) {
           return const PlainInt(20);
         },
@@ -339,7 +340,7 @@ void main() {
         mapEntry(ma, 'a', intValue(100));
       });
       var focused = false;
-      trav.focus(mapNode!, Path.parse('a'), (progress, node) {
+      traversal.focus(mapNode!, Path.parse('a'), (progress, node) {
         focused = true;
         expect(node.asInt(), equals(100));
       });
@@ -350,7 +351,7 @@ void main() {
       final (mapNode, _) = buildMap(const PrototypeMap(), 1, (ma) {
         mapEntry(ma, 'target', stringValue('hit'));
       });
-      final found = trav.get(mapNode!, Path.parse('target'));
+      final found = traversal.get(mapNode!, Path.parse('target'));
       expect(found.asString(), equals('hit'));
     });
 
@@ -358,12 +359,14 @@ void main() {
       final (mapNode, _) = buildMap(const PrototypeMap(), 1, (ma) {
         mapEntry(ma, 'val', intValue(1));
       });
-      final transformed = trav.focusedTransform(mapNode!, Path.parse('val'), (
-        prog,
-        node,
-      ) {
-        return const PlainInt(99);
-      }, false);
+      final transformed = traversal.focusedTransform(
+        mapNode!,
+        Path.parse('val'),
+        (prog, node) {
+          return const PlainInt(99);
+        },
+        false,
+      );
       expect(transformed.lookupByString('val').asInt(), equals(99));
     });
 
@@ -373,14 +376,14 @@ void main() {
         final (mapNode, _) = buildMap(const PrototypeMap(), 1, (ma) {
           mapEntry(ma, 'ln', link(testLink));
         });
-        final links = trav.selectLinks(mapNode!);
+        final links = traversal.selectLinks(mapNode!);
         expect(links, hasLength(1));
         expect(links.first, equals(testLink));
       },
     );
 
     test('defaultLinkSystem() - instancia sistema de links padrao', () {
-      final ls = cid_ls.defaultLinkSystem();
+      final ls = cid.defaultLinkSystem();
       expect(ls, isNotNull);
       expect(ls.encoderChooser, isNotNull);
     });
@@ -388,15 +391,15 @@ void main() {
     test(
       'linkSystemUsingMulticodecRegistry() - cria link system com registro customizado',
       () {
-        final r = reg.Registry();
-        raw_codec.registerRawCodec(r);
-        final ls = cid_ls.linkSystemUsingMulticodecRegistry(r);
+        final r = multicodec.Registry();
+        raw.registerRawCodec(r);
+        final ls = cid.linkSystemUsingMulticodecRegistry(r);
         expect(ls, isNotNull);
       },
     );
 
     test('registerDagJsonCodec() - registra dag-json no registro indicado', () {
-      final r = reg.Registry();
+      final r = multicodec.Registry();
       dagjson.registerDagJsonCodec(r);
       expect(r.listEncoders(), contains(0x0129));
       expect(r.listDecoders(), contains(0x0129));
@@ -442,14 +445,14 @@ void main() {
     });
 
     test('registerJsonCodec() - registra codec json puro', () {
-      final r = reg.Registry();
-      json_codec.registerJsonCodec(r);
+      final r = multicodec.Registry();
+      json.registerJsonCodec(r);
       expect(r.listEncoders(), contains(0x0200));
     });
 
     test('registerRawCodec() - registra codec raw de bytes puros', () {
-      final r = reg.Registry();
-      raw_codec.registerRawCodec(r);
+      final r = multicodec.Registry();
+      raw.registerRawCodec(r);
       expect(r.listEncoders(), contains(0x55));
     });
   });
@@ -459,7 +462,7 @@ void main() {
     late MemoryStore store;
 
     setUp(() {
-      ls = cid_ls.defaultLinkSystem();
+      ls = cid.defaultLinkSystem();
       store = MemoryStore();
       ls.setReadStorage(store);
       ls.setWriteStorage(store);
@@ -600,16 +603,16 @@ void main() {
 
   group('Progress [Atomic Audit]', () {
     test('walkMatching() - metodo de instancia do progresso', () {
-      final p = trav.Progress();
+      final p = traversal.Progress();
       var called = false;
-      p.walkMatching(const PlainInt(1), const sel.Matcher(), (prog, n) {
+      p.walkMatching(const PlainInt(1), const selector.Matcher(), (prog, n) {
         called = true;
       });
       expect(called, isTrue);
     });
 
     test('walkLocal() - metodo de instancia para varredura local', () {
-      final p = trav.Progress();
+      final p = traversal.Progress();
       var called = false;
       p.walkLocal(const PlainInt(2), (prog, n) {
         called = true;
@@ -618,19 +621,19 @@ void main() {
     });
 
     test('walkAdv() - metodo de instancia com visit reason', () {
-      final p = trav.Progress();
+      final p = traversal.Progress();
       var called = false;
-      p.walkAdv(const PlainInt(3), const sel.Matcher(), (prog, n, reason) {
+      p.walkAdv(const PlainInt(3), const selector.Matcher(), (prog, n, reason) {
         called = true;
       });
       expect(called, isTrue);
     });
 
     test('walkTransforming() - metodo de instancia para transformacao', () {
-      final p = trav.Progress();
+      final p = traversal.Progress();
       final n = p.walkTransforming(
         const PlainInt(4),
-        const sel.Matcher(),
+        const selector.Matcher(),
         (prog, node) => const PlainInt(40),
       );
       expect(n.asInt(), equals(40));
@@ -642,7 +645,7 @@ void main() {
         1,
         (ma) => mapEntry(ma, 'z', intValue(7)),
       );
-      final p = trav.Progress();
+      final p = traversal.Progress();
       var called = false;
       p.focus(mapNode!, Path.parse('z'), (prog, node) {
         called = true;
@@ -657,7 +660,7 @@ void main() {
         1,
         (ma) => mapEntry(ma, 'w', intValue(8)),
       );
-      final p = trav.Progress();
+      final p = traversal.Progress();
       expect(p.get(mapNode!, Path.parse('w')).asInt(), equals(8));
     });
 
@@ -669,7 +672,7 @@ void main() {
           1,
           (ma) => mapEntry(ma, 'v', intValue(9)),
         );
-        final p = trav.Progress();
+        final p = traversal.Progress();
         final res = p.focusedTransform(
           mapNode!,
           Path.parse('v'),
@@ -683,37 +686,37 @@ void main() {
 
   group('Registry [Atomic Audit]', () {
     test('registerEncoder() - armazena funcao de encoder', () {
-      final r = reg.Registry();
+      final r = multicodec.Registry();
       r.registerEncoder(1, (node, sink) {});
       expect(r.listEncoders(), contains(1));
     });
 
     test('lookupEncoder() - recupera funcao de encoder', () {
-      final r = reg.Registry();
+      final r = multicodec.Registry();
       r.registerEncoder(2, (node, sink) {});
       expect(r.lookupEncoder(2), isNotNull);
     });
 
     test('listEncoders() - lista chaves de encoders registrados', () {
-      final r = reg.Registry();
+      final r = multicodec.Registry();
       r.registerEncoder(3, (node, sink) {});
       expect(r.listEncoders(), equals([3]));
     });
 
     test('registerDecoder() - armazena funcao de decoder', () {
-      final r = reg.Registry();
+      final r = multicodec.Registry();
       r.registerDecoder(10, (assembler, reader) {});
       expect(r.listDecoders(), contains(10));
     });
 
     test('lookupDecoder() - recupera funcao de decoder', () {
-      final r = reg.Registry();
+      final r = multicodec.Registry();
       r.registerDecoder(20, (assembler, reader) {});
       expect(r.lookupDecoder(20), isNotNull);
     });
 
     test('listDecoders() - lista chaves de decoders registrados', () {
-      final r = reg.Registry();
+      final r = multicodec.Registry();
       r.registerDecoder(30, (assembler, reader) {});
       expect(r.listDecoders(), equals([30]));
     });
@@ -779,7 +782,7 @@ void main() {
   });
 
   group('Selector [Atomic Audit]', () {
-    final sel.Selector s = const sel.Matcher();
+    final selector.Selector s = const selector.Matcher();
 
     test('interests() - retorna lista de segmentos de interesse ou null', () {
       expect(s.interests(), isEmpty);
@@ -869,7 +872,7 @@ void main() {
     });
 
     test('Memory.openRead() - abre leitura em memoria', () {
-      final mem = cid_ls.Memory();
+      final mem = cid.Memory();
       final (sink, commit) = mem.openWrite(const LinkContext());
       sink.add([1, 2, 3]);
       commit(testLink);
@@ -878,7 +881,7 @@ void main() {
     });
 
     test('Memory.openWrite() - abre escrita e comita link em memoria', () {
-      final mem = cid_ls.Memory();
+      final mem = cid.Memory();
       final (sink, commit) = mem.openWrite(const LinkContext());
       expect(sink, isNotNull);
       expect(commit, isNotNull);
@@ -979,17 +982,17 @@ void main() {
     });
 
     test('Storage.has() - interface Storage', () {
-      final stor.Storage s = MemoryStore();
+      final storage.Storage s = MemoryStore();
       expect(s.has(null, 'k'), isFalse);
     });
 
     test('ReadableStorage.get() - interface ReadableStorage', () {
-      final stor.ReadableStorage rs = MemoryStore();
+      final storage.ReadableStorage rs = MemoryStore();
       expect(() => rs.get(null, 'k'), throwsA(isA<StateError>()));
     });
 
     test('WritableStorage.put() - interface WritableStorage', () {
-      final stor.WritableStorage ws = MemoryStore();
+      final storage.WritableStorage ws = MemoryStore();
       ws.put(null, 'k', Uint8List.fromList([1]));
       expect(ws.has(null, 'k'), isTrue);
     });
@@ -997,7 +1000,7 @@ void main() {
     test(
       'StreamingReadableStorage.getStream() - interface StreamingReadableStorage',
       () {
-        final stor.StreamingReadableStorage srs = MemoryStore()
+        final storage.StreamingReadableStorage srs = MemoryStore()
           ..put(null, 'k', Uint8List.fromList([1, 2]));
         expect(srs.getStream(null, 'k'), equals([1, 2]));
       },
@@ -1006,77 +1009,81 @@ void main() {
     test(
       'StreamingWritableStorage.putStream() - interface StreamingWritableStorage',
       () {
-        final stor.StreamingWritableStorage sws = _TestStreamingWritableStore();
+        final storage.StreamingWritableStorage sws =
+            _TestStreamingWritableStore();
         final (sink, commit) = sws.putStream(null);
         sink.add([1]);
         commit('k');
-        expect((sws as stor.Storage).has(null, 'k'), isTrue);
+        expect((sws as storage.Storage).has(null, 'k'), isTrue);
       },
     );
 
     test(
       'VectorWritableStorage.putVec() - interface VectorWritableStorage',
       () {
-        final stor.VectorWritableStorage vws = _TestVectorWritableStore();
+        final storage.VectorWritableStorage vws = _TestVectorWritableStore();
         vws.putVec(null, 'k', [
           Uint8List.fromList([1]),
         ]);
-        expect((vws as stor.Storage).has(null, 'k'), isTrue);
+        expect((vws as storage.Storage).has(null, 'k'), isTrue);
       },
     );
 
     test('PeekableStorage.peek() - interface PeekableStorage', () {
-      final stor.PeekableStorage ps = MemoryStore()
+      final storage.PeekableStorage ps = MemoryStore()
         ..put(null, 'k', Uint8List.fromList([9]));
       expect(ps.peek(null, 'k'), equals(Uint8List.fromList([9])));
     });
 
     test('Budget.clone() - clona orcamento', () {
-      final b = trav.Budget(nodeBudget: 10, linkBudget: 5);
+      final b = traversal.Budget(nodeBudget: 10, linkBudget: 5);
       final c = b.clone();
       expect(c.nodeBudget, equals(10));
       expect(c.linkBudget, equals(5));
     });
 
     test('LastBlock.copy() - copia ultimo bloco', () {
-      final lb = trav.LastBlock(path: Path.parse('a/b'), link: testLink);
+      final lb = traversal.LastBlock(path: Path.parse('a/b'), link: testLink);
       final c = lb.copy();
       expect(c.path.toString(), equals('a/b'));
       expect(c.link, equals(testLink));
     });
 
     test('SkipMeException.toString() - representacao em texto', () {
-      expect(const trav.SkipMeException().toString(), equals('skip'));
+      expect(const traversal.SkipMeException().toString(), equals('skip'));
     });
 
     test('BudgetExceededException.toString() - representacao em texto', () {
       expect(
-        const trav.BudgetExceededException('node', Path.empty).toString(),
+        const traversal.BudgetExceededException('node', Path.empty).toString(),
         contains('budget'),
       );
     });
 
     test('TraversalException.toString() - representacao em texto', () {
-      expect(const trav.TraversalException('msg').toString(), equals('msg'));
+      expect(
+        const traversal.TraversalException('msg').toString(),
+        equals('msg'),
+      );
     });
 
     test('Condition.applies() - avalia condicao em no', () {
-      final c = sel.Condition.link(PlainLink(testLink));
+      final c = selector.Condition.link(PlainLink(testLink));
       expect(c.applies(PlainLink(testLink)), isTrue);
       expect(c.applies(const PlainInt(1)), isFalse);
     });
 
     test('Reifiable.namedReifier - interface Reifiable', () {
-      final sel.Reifiable r = sel.ExploreInterpretAs(
+      final selector.Reifiable r = selector.ExploreInterpretAs(
         'custom',
-        const sel.Matcher(),
+        const selector.Matcher(),
       );
       expect(r.namedReifier, equals('custom'));
     });
 
     test('JsonCodecException.toString() - representacao em texto', () {
       expect(
-        const json_codec.JsonCodecException('json err').toString(),
+        const json.JsonCodecException('json err').toString(),
         contains('json err'),
       );
     });

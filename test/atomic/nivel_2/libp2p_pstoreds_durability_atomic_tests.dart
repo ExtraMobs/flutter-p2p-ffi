@@ -1,16 +1,16 @@
 import 'dart:typed_data';
 
 import 'package:test/test.dart';
-import 'package:transpiled_datastore/transpiled_datastore.dart' as ds;
+import 'package:transpiled_datastore/transpiled_datastore.dart' as datastore;
 import 'package:transpiled_libp2p/transpiled_libp2p.dart';
 import 'package:transpiled_multiaddr/transpiled_multiaddr.dart';
 
-class _FailFirstWrite extends ds.MapDatastore {
+class _FailFirstWrite extends datastore.MapDatastore {
   final failure = StateError('datastore write failed');
   int attempts = 0;
 
   @override
-  Future<void> put(ds.Key key, List<int> value) async {
+  Future<void> put(datastore.Key key, List<int> value) async {
     if (++attempts == 1) throw failure;
     await super.put(key, value);
   }
@@ -21,12 +21,14 @@ void main() {
     test(
       'open() - migrates legacy keys without resurrecting removed peers',
       () async {
-        final store = ds.MapDatastore();
+        final store = datastore.MapDatastore();
         final key = await generateEd25519KeyPair();
         final peer = PeerId.fromPubKey(key.getPublic());
-        final oldKey = ds.Key('/peers/keys/${peer.toBase58()}/priv');
-        final oldMeta = ds.Key('/peers/metadata/${peer.toBase58()}/agent');
-        final oldAddrs = ds.Key('/peers/addrs/${peer.toBase58()}');
+        final oldKey = datastore.Key('/peers/keys/${peer.toBase58()}/priv');
+        final oldMeta = datastore.Key(
+          '/peers/metadata/${peer.toBase58()}/agent',
+        );
+        final oldAddrs = datastore.Key('/peers/addrs/${peer.toBase58()}');
         await store.put(oldKey, marshalPrivateKey(key));
         await store.put(oldMeta, '"old-agent"'.codeUnits);
         await store.put(
@@ -72,7 +74,7 @@ void main() {
         store.attempts = 1;
         final key = await generateEd25519KeyPair();
         final peer = PeerId.fromPubKey(key.getPublic());
-        final legacy = ds.Key('/peers/keys/${peer.toBase58()}/priv');
+        final legacy = datastore.Key('/peers/keys/${peer.toBase58()}/priv');
         await store.put(legacy, marshalPrivateKey(key));
         store.attempts = 0;
         await expectLater(Pstoreds.open(store), throwsA(same(store.failure)));
@@ -82,7 +84,7 @@ void main() {
   });
   group('DsPeerMetadata [Atomic Audit]', () {
     test('put() - uses the upstream unpadded Base32 peer key', () async {
-      final store = ds.MapDatastore();
+      final store = datastore.MapDatastore();
       final peer = PeerId.fromBytes(
         Uint8List.fromList([18, 32, ...List.generate(32, (i) => i)]),
       );
@@ -92,7 +94,7 @@ void main() {
       const encodedPeer =
           'CIQAAAICAMCAKBQHBAEQUCYMBUHA6EARCIJRIFIWC4MBSGQ3DQOR4HY';
       expect(
-        await store.has(ds.Key('/peers/metadata/$encodedPeer/agent')),
+        await store.has(datastore.Key('/peers/metadata/$encodedPeer/agent')),
         isTrue,
       );
       final reopened = await DsPeerMetadata.open(store);
@@ -101,7 +103,7 @@ void main() {
   });
   group('DsAddrBook [Atomic Audit]', () {
     test('clearAddrs() - removes the canonical Base32 record', () async {
-      final store = ds.MapDatastore();
+      final store = datastore.MapDatastore();
       final peer = PeerId.fromBytes(
         Uint8List.fromList([18, 32, ...List.generate(32, (i) => i)]),
       );
@@ -112,7 +114,7 @@ void main() {
         const Duration(hours: 1),
       );
       await book.flush();
-      final key = ds.Key(
+      final key = datastore.Key(
         '/peers/addrs/CIQAAAICAMCAKBQHBAEQUCYMBUHA6EARCIJRIFIWC4MBSGQ3DQOR4HY',
       );
       expect(await store.has(key), isTrue);
@@ -162,7 +164,7 @@ void main() {
     );
 
     test('put() - encoding failure leaves previous value intact', () async {
-      final book = await DsPeerMetadata.open(ds.MapDatastore());
+      final book = await DsPeerMetadata.open(datastore.MapDatastore());
       final key = await generateEd25519KeyPair();
       final peer = PeerId.fromPubKey(key.getPublic());
       book.put(peer, 'agent', 'valid');

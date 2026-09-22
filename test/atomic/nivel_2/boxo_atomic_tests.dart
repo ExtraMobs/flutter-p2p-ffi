@@ -7,8 +7,8 @@ import 'package:transpiled_boxo/src/bitswap/client/internal/blockpresencemanager
 import 'package:transpiled_boxo/src/bitswap/client/internal/getter/getter.dart';
 import 'package:transpiled_boxo/src/bitswap/client/internal/notifications/notifications.dart';
 import 'package:transpiled_boxo/src/bitswap/client/wantlist/wantlist.dart'
-    as wl;
-import 'package:transpiled_boxo/src/bitswap/message/message.dart' as msg;
+    as wantlist;
+import 'package:transpiled_boxo/src/bitswap/message/message.dart' as message;
 import 'package:transpiled_boxo/src/bitswap/message/pb/message.dart' as pb;
 import 'package:transpiled_cid/transpiled_cid.dart';
 import 'package:transpiled_datastore/transpiled_datastore.dart';
@@ -34,7 +34,7 @@ void main() {
   final p = _peer(1);
   final q = _peer(2);
 
-  // bitswap/message/pb/message.proto and message.pb.go, resolved via
+  // bitswap/msgVar/pb/msgVar.proto and msgVar.pb.go, resolved via
   // bitswap_message_pb.md; codec delegates to transpiled_protobuf/protowire.
   group('Entry [Atomic Audit protobuf]', () {
     final entry = pb.Entry(
@@ -177,7 +177,7 @@ void main() {
     });
   });
   group('Message [Atomic Audit protobuf]', () {
-    final message = pb.Message(
+    final msgVar = pb.Message(
       wantlist: pb.Wantlist(full: true),
       blocks: [
         Uint8List.fromList([1]),
@@ -189,31 +189,31 @@ void main() {
       pendingBytes: 3,
     );
     test('getWantlist() - optional wantlist', () {
-      expect(message.getWantlist()!.full, isTrue);
+      expect(msgVar.getWantlist()!.full, isTrue);
       expect(pb.Message().getWantlist(), isNull);
     });
     test('getBlocks() - legacy raw blocks', () {
-      expect(message.getBlocks(), [
+      expect(msgVar.getBlocks(), [
         [1],
       ]);
     });
     test('getPayload() - prefixed payload blocks', () {
-      expect(message.getPayload().single.data, [2]);
+      expect(msgVar.getPayload().single.data, [2]);
     });
     test('getBlockPresences() - presence entries', () {
       expect(
-        message.getBlockPresences().single.type,
+        msgVar.getBlockPresences().single.type,
         pb.BlockPresenceType.dontHave,
       );
     });
     test('getPendingBytes() - byte count', () {
-      expect(message.getPendingBytes(), 3);
+      expect(msgVar.getPendingBytes(), 3);
     });
-    test('size() - known complete message length', () {
-      expect(message.size(), 18);
+    test('size() - known complete msgVar length', () {
+      expect(msgVar.size(), 18);
     });
     test('encode() - complete wire vector', () {
-      expect(message.encode(), [
+      expect(msgVar.encode(), [
         10,
         2,
         16,
@@ -285,7 +285,7 @@ void main() {
 
   group('ByteReader [Atomic Audit]', () {
     test('read() - partial reads and EOF preserve unused bytes', () {
-      final reader = msg.ByteReader(Uint8List.fromList([1, 2, 3]));
+      final reader = message.ByteReader(Uint8List.fromList([1, 2, 3]));
       final out = [9, 9];
       expect(reader.read(out), 2);
       expect(out, [1, 2]);
@@ -296,66 +296,66 @@ void main() {
   });
   group('Buffer [Atomic Audit]', () {
     test('read() - advances unread offset', () {
-      final buffer = msg.Buffer([1, 2]);
+      final buffer = message.Buffer([1, 2]);
       final out = [0];
       expect(buffer.read(out), 1);
       expect(out, [1]);
       expect(buffer.toBytes(), [2]);
     });
     test('write() - appends after partially consumed content', () {
-      final buffer = msg.Buffer([1, 2]);
+      final buffer = message.Buffer([1, 2]);
       buffer.read([0]);
       buffer.write([3]);
       expect(buffer.toBytes(), [2, 3]);
     });
     test('length - counts unread bytes only', () {
-      final buffer = msg.Buffer([1, 2]);
+      final buffer = message.Buffer([1, 2]);
       expect(buffer.length, 2);
       buffer.read([0]);
       expect(buffer.length, 1);
     });
     test('toBytes() - returns an independent unread copy', () {
-      final buffer = msg.Buffer([1, 2]);
+      final buffer = message.Buffer([1, 2]);
       buffer.toBytes()[0] = 99;
       expect(buffer.toBytes(), [1, 2]);
     });
     test('bytes() - follows unread offset', () {
-      final buffer = msg.Buffer([1, 2]);
+      final buffer = message.Buffer([1, 2]);
       buffer.read([0]);
       expect(buffer.bytes(), [2]);
     });
   });
   test('Reader.read() - interface consumes memory reader', () {
-    final msg.Reader reader = msg.ByteReader(Uint8List.fromList([3]));
+    final message.Reader reader = message.ByteReader(Uint8List.fromList([3]));
     final out = [0, 0];
     expect(reader.read(out), 1);
     expect(out, [3, 0]);
   });
   test('Writer.write() - interface writes bytes to buffer', () {
-    final buffer = msg.Buffer();
-    final msg.Writer writer = buffer;
+    final buffer = message.Buffer();
+    final message.Writer writer = buffer;
     writer.write([4, 5]);
     expect(buffer.bytes(), [4, 5]);
   });
   group('VarintReader [Atomic Audit]', () {
     test('readMsg() - consecutive and empty frames', () {
-      final reader = msg.VarintReader(msg.Buffer([2, 7, 8, 0]));
+      final reader = message.VarintReader(message.Buffer([2, 7, 8, 0]));
       expect(reader.readMsg(), [7, 8]);
       expect(reader.readMsg(), isEmpty);
       expect(reader.readMsg, throwsFormatException);
     });
     test('readMsg() - rejects oversized and truncated frames', () {
       expect(
-        msg.VarintReader(msg.Buffer([3, 1, 2, 3]), 2).readMsg,
+        message.VarintReader(message.Buffer([3, 1, 2, 3]), 2).readMsg,
         throwsFormatException,
       );
       expect(
-        msg.VarintReader(msg.Buffer([2, 1])).readMsg,
+        message.VarintReader(message.Buffer([2, 1])).readMsg,
         throwsFormatException,
       );
     });
     test('releaseMsg() - no-op does not alter payload or next frame', () {
-      final reader = msg.VarintReader(msg.Buffer([1, 7, 1, 8]));
+      final reader = message.VarintReader(message.Buffer([1, 7, 1, 8]));
       final payload = reader.readMsg();
       reader.releaseMsg(payload);
       expect(payload, [7]);
@@ -363,18 +363,22 @@ void main() {
     });
   });
   test('MsgReader.readMsg() - interface returns framed payload', () {
-    final msg.MsgReader reader = msg.VarintReader(msg.Buffer([1, 7]));
+    final message.MsgReader reader = message.VarintReader(
+      message.Buffer([1, 7]),
+    );
     expect(reader.readMsg(), [7]);
   });
   test('MsgReader.releaseMsg() - interface release preserves read cursor', () {
-    final msg.MsgReader reader = msg.VarintReader(msg.Buffer([1, 7, 0]));
+    final message.MsgReader reader = message.VarintReader(
+      message.Buffer([1, 7, 0]),
+    );
     reader.releaseMsg(reader.readMsg());
     expect(reader.readMsg(), isEmpty);
   });
   group('Entry [Atomic Audit]', () {
-    late msg.Entry entry;
+    late message.Entry entry;
     setUp(
-      () => entry = msg.Entry(
+      () => entry = message.Entry(
         cid: c,
         priority: -1,
         wantType: pb.WantType.have,
@@ -420,30 +424,30 @@ void main() {
   group('BlockPresence [Atomic Audit]', () {
     test('operator == - CID and type determine equality', () {
       expect(
-        msg.BlockPresence(c, pb.BlockPresenceType.have),
-        msg.BlockPresence(c, pb.BlockPresenceType.have),
+        message.BlockPresence(c, pb.BlockPresenceType.have),
+        message.BlockPresence(c, pb.BlockPresenceType.have),
       );
       expect(
-        msg.BlockPresence(c, pb.BlockPresenceType.have),
-        isNot(msg.BlockPresence(c, pb.BlockPresenceType.dontHave)),
+        message.BlockPresence(c, pb.BlockPresenceType.have),
+        isNot(message.BlockPresence(c, pb.BlockPresenceType.dontHave)),
       );
     });
     test('hashCode - equality-compatible hashing', () {
       expect(
-        msg.BlockPresence(c, pb.BlockPresenceType.have).hashCode,
-        msg.BlockPresence(c, pb.BlockPresenceType.have).hashCode,
+        message.BlockPresence(c, pb.BlockPresenceType.have).hashCode,
+        message.BlockPresence(c, pb.BlockPresenceType.have).hashCode,
       );
     });
     test('toString() - identifies block', () {
       expect(
-        msg.BlockPresence(c, pb.BlockPresenceType.have).toString(),
+        message.BlockPresence(c, pb.BlockPresenceType.have).toString(),
         contains(c.toString()),
       );
     });
   });
   test('blockPresenceSize() - serialized presence length', () {
     expect(
-      msg.blockPresenceSize(c),
+      message.blockPresenceSize(c),
       pb.BlockPresence(
         cid: c.toBytes(),
         type: pb.BlockPresenceType.have,
@@ -451,31 +455,33 @@ void main() {
     );
   });
   test('wantlistBlock() - validates expected content hash', () {
-    expect(msg.wantlistBlock(a.rawData(), c).cid(), c);
+    expect(message.wantlistBlock(a.rawData(), c).cid(), c);
     expect(
-      () => msg.wantlistBlock(b.rawData(), c),
+      () => message.wantlistBlock(b.rawData(), c),
       throwsA(isA<WrongHashException>()),
     );
-    expect(() => msg.wantlistBlock(a.rawData()), throwsArgumentError);
+    expect(() => message.wantlistBlock(a.rawData()), throwsArgumentError);
   });
   test('fromNet() - decodes byte list framing', () {
-    final message = msg.Impl()..addHave(c);
-    final buffer = msg.Buffer();
-    message.toNetV1(buffer);
-    expect(msg.fromNet(buffer.bytes()).$1.haves(), [c]);
-    expect(() => msg.fromNet(Object()), throwsArgumentError);
+    final msgVar = message.Impl()..addHave(c);
+    final buffer = message.Buffer();
+    msgVar.toNetV1(buffer);
+    expect(message.fromNet(buffer.bytes()).$1.haves(), [c]);
+    expect(() => message.fromNet(Object()), throwsArgumentError);
   });
   test('fromMsgReader() - returns protobuf payload byte count', () {
-    final message = msg.Impl()..addHave(c);
-    final buffer = msg.Buffer();
-    message.toNetV1(buffer);
-    final (decoded, size) = msg.fromMsgReader(msg.VarintReader(buffer));
+    final msgVar = message.Impl()..addHave(c);
+    final buffer = message.Buffer();
+    msgVar.toNetV1(buffer);
+    final (decoded, size) = message.fromMsgReader(message.VarintReader(buffer));
     expect(decoded.haves(), [c]);
-    expect(size, message.toProtoV1().encode().length);
+    expect(size, msgVar.toProtoV1().encode().length);
   });
-  test('BitSwapMessage.fromBytes() - decodes protobuf message', () {
-    final message = msg.Impl()..addBlock(a);
-    final decoded = msg.BitSwapMessage.fromBytes(message.toProtoV1().encode());
+  test('BitSwapMessage.fromBytes() - decodes protobuf msgVar', () {
+    final msgVar = message.Impl()..addBlock(a);
+    final decoded = message.BitSwapMessage.fromBytes(
+      msgVar.toProtoV1().encode(),
+    );
     expect(decoded.blocks().single.cid(), c);
     expect(decoded.blocks().single.rawData(), a.rawData());
   });
@@ -531,8 +537,8 @@ void main() {
   });
 
   group('Wantlist [Atomic Audit]', () {
-    late wl.Wantlist wants;
-    setUp(() => wants = wl.Wantlist());
+    late wantlist.Wantlist wants;
+    setUp(() => wants = wantlist.Wantlist());
     test('length - counts unique CIDs', () {
       wants.add(c, 1, pb.WantType.have);
       wants.add(c, 2, pb.WantType.block);
@@ -677,7 +683,7 @@ void main() {
       throwsA(
         isA<Exception>().having(
           (e) => e.toString(),
-          'message',
+          'msgVar',
           contains('promise channel was closed'),
         ),
       ),
@@ -709,170 +715,170 @@ void main() {
   });
 
   group('Impl [Atomic Audit]', () {
-    late msg.Impl message;
-    setUp(() => message = msg.Impl());
+    late message.Impl msgVar;
+    setUp(() => msgVar = message.Impl());
     test('full() - default and reset flag', () {
-      expect(message.full(), isFalse);
-      message.reset(true);
-      expect(message.full(), isTrue);
+      expect(msgVar.full(), isFalse);
+      msgVar.reset(true);
+      expect(msgVar.full(), isTrue);
     });
     test('empty() - pending bytes alone are not content', () {
-      message.setPendingBytes(9);
-      expect(message.empty(), isTrue);
-      message.addHave(c);
-      expect(message.empty(), isFalse);
+      msgVar.setPendingBytes(9);
+      expect(msgVar.empty(), isTrue);
+      msgVar.addHave(c);
+      expect(msgVar.empty(), isFalse);
     });
     test('addEntry() - merges without duplicate wire entries', () {
-      expect(message.addEntry(c, 7, pb.WantType.have, false), greaterThan(0));
-      expect(message.addEntry(c, 9, pb.WantType.block, true), 0);
-      expect(message.wantlist().single.wantType, pb.WantType.block);
-      expect(message.wantlist().single.sendDontHave, isTrue);
-      expect(message.wantlist().single.priority, 7);
+      expect(msgVar.addEntry(c, 7, pb.WantType.have, false), greaterThan(0));
+      expect(msgVar.addEntry(c, 9, pb.WantType.block, true), 0);
+      expect(msgVar.wantlist().single.wantType, pb.WantType.block);
+      expect(msgVar.wantlist().single.sendDontHave, isTrue);
+      expect(msgVar.wantlist().single.priority, 7);
     });
     test('addEntryRaw() - decoding preserves cancel flags', () {
-      message.addEntryRaw(c, 4, true, pb.WantType.have, true);
-      expect(message.wantlist().single.cancel, isTrue);
-      expect(message.wantlist().single.priority, 4);
+      msgVar.addEntryRaw(c, 4, true, pb.WantType.have, true);
+      expect(msgVar.wantlist().single.cancel, isTrue);
+      expect(msgVar.wantlist().single.priority, 4);
     });
     test('wantlist() - returned entries are copies', () {
-      message.addEntry(c, 7, pb.WantType.block, false);
-      message.wantlist().single.priority = 999;
-      expect(message.wantlist().single.priority, 7);
+      msgVar.addEntry(c, 7, pb.WantType.block, false);
+      msgVar.wantlist().single.priority = 999;
+      expect(msgVar.wantlist().single.priority, 7);
     });
     test('fillWantlist() - replaces reused output and copies entries', () {
-      message.addEntry(c, 7, pb.WantType.block, false);
-      final output = <msg.Entry>[
-        msg.Entry(cid: d, priority: 0, wantType: pb.WantType.have),
+      msgVar.addEntry(c, 7, pb.WantType.block, false);
+      final output = <message.Entry>[
+        message.Entry(cid: d, priority: 0, wantType: pb.WantType.have),
       ];
-      expect(message.fillWantlist(output), same(output));
+      expect(msgVar.fillWantlist(output), same(output));
       expect(output.single.cid, c);
       output.single.priority = 9;
-      expect(message.wantlist().single.priority, 7);
+      expect(msgVar.wantlist().single.priority, 7);
     });
     test('cancel() - marks existing request', () {
-      message.addEntry(c, 7, pb.WantType.block, false);
-      expect(message.cancel(c), 0);
-      expect(message.wantlist().single.cancel, isTrue);
+      msgVar.addEntry(c, 7, pb.WantType.block, false);
+      expect(msgVar.cancel(c), 0);
+      expect(msgVar.wantlist().single.cancel, isTrue);
     });
     test('remove() - removes request only', () {
-      message.addEntry(c, 7, pb.WantType.block, false);
-      message.addBlock(a);
-      message.remove(c);
-      expect(message.wantlist(), isEmpty);
-      expect(message.blocks(), [a]);
+      msgVar.addEntry(c, 7, pb.WantType.block, false);
+      msgVar.addBlock(a);
+      msgVar.remove(c);
+      expect(msgVar.wantlist(), isEmpty);
+      expect(msgVar.blocks(), [a]);
     });
     test('addBlock() - supersedes presence and deduplicates CID', () {
-      message.addHave(c);
-      message.addBlock(a);
-      message.addBlock(a);
-      expect(message.blockPresences(), isEmpty);
-      expect(message.blocks(), [a]);
+      msgVar.addHave(c);
+      msgVar.addBlock(a);
+      msgVar.addBlock(a);
+      expect(msgVar.blockPresences(), isEmpty);
+      expect(msgVar.blocks(), [a]);
     });
-    test('blocks() - returned list cannot change message membership', () {
-      message.addBlock(a);
-      message.blocks().clear();
-      expect(message.blocks(), [a]);
+    test('blocks() - returned list cannot change msgVar membership', () {
+      msgVar.addBlock(a);
+      msgVar.blocks().clear();
+      expect(msgVar.blocks(), [a]);
     });
     test('addBlockPresence() - cannot shadow a full block', () {
-      message.addBlock(a);
-      message.addBlockPresence(c, pb.BlockPresenceType.dontHave);
-      expect(message.blockPresences(), isEmpty);
+      msgVar.addBlock(a);
+      msgVar.addBlockPresence(c, pb.BlockPresenceType.dontHave);
+      expect(msgVar.blockPresences(), isEmpty);
     });
     test('blockPresences() - reports CID and kind', () {
-      message.addHave(c);
-      expect(message.blockPresences(), [
-        msg.BlockPresence(c, pb.BlockPresenceType.have),
+      msgVar.addHave(c);
+      expect(msgVar.blockPresences(), [
+        message.BlockPresence(c, pb.BlockPresenceType.have),
       ]);
     });
     test('addHave() - overwrites previous DONT_HAVE', () {
-      message.addDontHave(c);
-      message.addHave(c);
-      expect(message.haves(), [c]);
-      expect(message.dontHaves(), isEmpty);
+      msgVar.addDontHave(c);
+      msgVar.addHave(c);
+      expect(msgVar.haves(), [c]);
+      expect(msgVar.dontHaves(), isEmpty);
     });
     test('addDontHave() - overwrites previous HAVE', () {
-      message.addHave(c);
-      message.addDontHave(c);
-      expect(message.dontHaves(), [c]);
-      expect(message.haves(), isEmpty);
+      msgVar.addHave(c);
+      msgVar.addDontHave(c);
+      expect(msgVar.dontHaves(), [c]);
+      expect(msgVar.haves(), isEmpty);
     });
     test('haves() - filters presence kinds', () {
-      message.addHave(c);
-      message.addDontHave(d);
-      expect(message.haves(), [c]);
+      msgVar.addHave(c);
+      msgVar.addDontHave(d);
+      expect(msgVar.haves(), [c]);
     });
     test('dontHaves() - filters presence kinds', () {
-      message.addHave(c);
-      message.addDontHave(d);
-      expect(message.dontHaves(), [d]);
+      msgVar.addHave(c);
+      msgVar.addDontHave(d);
+      expect(msgVar.dontHaves(), [d]);
     });
     test('pendingBytes() - defaults to zero', () {
-      expect(message.pendingBytes(), 0);
+      expect(msgVar.pendingBytes(), 0);
     });
     test('setPendingBytes() - replaces byte count', () {
-      message.setPendingBytes(100);
-      message.setPendingBytes(20);
-      expect(message.pendingBytes(), 20);
+      msgVar.setPendingBytes(100);
+      msgVar.setPendingBytes(20);
+      expect(msgVar.pendingBytes(), 20);
     });
     test('size() - sums payload and presence sizes', () {
-      message.addBlock(a);
-      message.addHave(d);
-      expect(message.size(), a.rawData().length + msg.blockPresenceSize(d));
+      msgVar.addBlock(a);
+      msgVar.addHave(d);
+      expect(msgVar.size(), a.rawData().length + message.blockPresenceSize(d));
     });
     test('toProtoV0() - legacy raw blocks omit presence and pending bytes', () {
-      message.addBlock(a);
-      message.addHave(d);
-      message.setPendingBytes(12);
-      final proto = message.toProtoV0();
+      msgVar.addBlock(a);
+      msgVar.addHave(d);
+      msgVar.setPendingBytes(12);
+      final proto = msgVar.toProtoV0();
       expect(proto.blocks, [a.rawData()]);
       expect(proto.payload, isEmpty);
       expect(proto.blockPresences, isEmpty);
       expect(proto.pendingBytes, 0);
     });
     test('toProtoV1() - encodes payload prefix and presence', () {
-      message.addBlock(a);
-      message.addDontHave(d);
-      message.setPendingBytes(12);
-      final proto = message.toProtoV1();
+      msgVar.addBlock(a);
+      msgVar.addDontHave(d);
+      msgVar.setPendingBytes(12);
+      final proto = msgVar.toProtoV1();
       expect(proto.payload.single.data, a.rawData());
       expect(proto.payload.single.prefix, c.prefix.bytes());
       expect(proto.blockPresences.single.cid, d.toBytes());
       expect(proto.pendingBytes, 12);
     });
     test('toNetV0() - framed legacy block round trip', () {
-      message.addBlock(a);
-      final buffer = msg.Buffer();
-      message.toNetV0(buffer);
-      expect(msg.fromNet(buffer).$1.blocks().single.rawData(), a.rawData());
+      msgVar.addBlock(a);
+      final buffer = message.Buffer();
+      msgVar.toNetV0(buffer);
+      expect(message.fromNet(buffer).$1.blocks().single.rawData(), a.rawData());
     });
     test('toNetV1() - framed presence round trip', () {
-      message.addHave(c);
-      final buffer = msg.Buffer();
-      message.toNetV1(buffer);
-      expect(msg.fromNet(buffer).$1.haves(), [c]);
+      msgVar.addHave(c);
+      final buffer = message.Buffer();
+      msgVar.toNetV1(buffer);
+      expect(message.fromNet(buffer).$1.haves(), [c]);
     });
     test('loggable() - contains block CIDs and wants', () {
-      message.addBlock(a);
-      message.addEntry(d, 1, pb.WantType.have, false);
-      expect(message.loggable()['blocks'], [c.toString()]);
-      expect(message.loggable()['wants'], message.wantlist());
+      msgVar.addBlock(a);
+      msgVar.addEntry(d, 1, pb.WantType.have, false);
+      expect(msgVar.loggable()['blocks'], [c.toString()]);
+      expect(msgVar.loggable()['wants'], msgVar.wantlist());
     });
     test('reset() - clears every collection and pending count', () {
-      message.addBlock(a);
-      message.addHave(d);
-      message.addEntry(c, 1, pb.WantType.have, false);
-      message.setPendingBytes(12);
-      message.reset(true);
-      expect(message.empty(), isTrue);
-      expect(message.pendingBytes(), 0);
-      expect(message.full(), isTrue);
+      msgVar.addBlock(a);
+      msgVar.addHave(d);
+      msgVar.addEntry(c, 1, pb.WantType.have, false);
+      msgVar.setPendingBytes(12);
+      msgVar.reset(true);
+      expect(msgVar.empty(), isTrue);
+      expect(msgVar.pendingBytes(), 0);
+      expect(msgVar.full(), isTrue);
     });
     test('clone() - preserves contents with independent mutations', () {
-      message.addEntry(c, 1, pb.WantType.have, false);
-      message.addBlock(b);
-      message.setPendingBytes(12);
-      final copy = message.clone();
-      message.reset(true);
+      msgVar.addEntry(c, 1, pb.WantType.have, false);
+      msgVar.addBlock(b);
+      msgVar.setPendingBytes(12);
+      final copy = msgVar.clone();
+      msgVar.reset(true);
       expect(copy.wantlist().single.cid, c);
       expect(copy.blocks(), [b]);
       expect(copy.pendingBytes(), 12);

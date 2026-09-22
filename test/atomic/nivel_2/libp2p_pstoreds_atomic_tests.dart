@@ -10,7 +10,7 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:test/test.dart';
-import 'package:transpiled_datastore/transpiled_datastore.dart' hide Key;
+import 'package:transpiled_datastore/transpiled_datastore.dart';
 import 'package:transpiled_libp2p/transpiled_libp2p.dart';
 import 'package:transpiled_multiaddr/transpiled_multiaddr.dart';
 

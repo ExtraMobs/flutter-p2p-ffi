@@ -2,11 +2,12 @@ import 'dart:typed_data';
 
 import 'package:boilerplate/fixed_types/golang.dart' as Golang;
 import 'package:test/test.dart';
-import 'package:transpiled_block_format/transpiled_block_format.dart' as blocks;
-import 'package:transpiled_boxo/transpiled_boxo.dart' hide Entry;
+import 'package:transpiled_block_format/transpiled_block_format.dart'
+    as block_format;
+import 'package:transpiled_boxo/transpiled_boxo.dart' as boxo;
 import 'package:transpiled_cid/transpiled_cid.dart';
 import 'package:transpiled_datastore/transpiled_datastore.dart';
-import 'package:transpiled_multihash/transpiled_multihash.dart' as mh;
+import 'package:transpiled_multihash/transpiled_multihash.dart' as multihash;
 
 class _QueryDatastore extends MapDatastore {
   _QueryDatastore(this.rows, {this.creationError});
@@ -39,26 +40,28 @@ void main() {
     test(
       'keyFromBinary() - matches unpadded Base32 without normalizing bytes',
       () {
-        expect(keyFromBinary(raw).value, encoded);
-        expect(keyFromBinary(Uint8List(0)).value, '/');
+        expect(boxo.keyFromBinary(raw).value, encoded);
+        expect(boxo.keyFromBinary(Uint8List(0)).value, '/');
       },
     );
     test('binaryFromDsKey() - decodes bytes and rejects invalid alphabet', () {
-      expect(binaryFromDsKey(Key.raw(encoded)), raw);
-      expect(() => binaryFromDsKey(Key.raw('/!')), throwsA(anything));
+      expect(boxo.binaryFromDsKey(Key.raw(encoded)), raw);
+      expect(() => boxo.binaryFromDsKey(Key.raw('/!')), throwsA(anything));
     });
     test('multihashToDsKey() - delegates to binary key encoding', () {
-      expect(multihashToDsKey(raw).value, encoded);
+      expect(boxo.multihashToDsKey(raw).value, encoded);
     });
     test('dsKeyToMultihash() - validates the decoded multihash', () {
-      expect(dsKeyToMultihash(Key.raw(encoded)), raw);
+      expect(boxo.dsKeyToMultihash(Key.raw(encoded)), raw);
       expect(
-        () => dsKeyToMultihash(keyFromBinary(Uint8List.fromList([18, 32, 0]))),
+        () => boxo.dsKeyToMultihash(
+          boxo.keyFromBinary(Uint8List.fromList([18, 32, 0])),
+        ),
         throwsA(anything),
       );
     });
     test('dsKeyToCidV1() - preserves numeric codec and multihash', () {
-      final cid = dsKeyToCidV1(Key.raw(encoded), Golang.Uint64(0x300001));
+      final cid = boxo.dsKeyToCidV1(Key.raw(encoded), Golang.Uint64(0x300001));
       expect(cid.version, 1);
       expect(cid.codecCode, Golang.Uint64(0x300001));
       expect(cid.multihash.toBytes(), raw);
@@ -69,13 +72,13 @@ void main() {
       'allKeysChanWithErr() - enumerates only blocks as raw CIDv1',
       () async {
         final datastore = MapDatastore();
-        final blockstore = Blockstore(datastore);
+        final blockstore = boxo.Blockstore(datastore);
         final bytes = Uint8List.fromList([1, 2, 3]);
         final raw = await Cid.fromContent(bytes);
         final dag = Cid.v1('dag-pb', raw.multihash);
         await blockstore.putMany([
-          blocks.BasicBlock(bytes, raw),
-          blocks.BasicBlock(bytes, dag),
+          block_format.BasicBlock(bytes, raw),
+          block_format.BasicBlock(bytes, dag),
         ]);
         await datastore.put(Key('/provider/reprovide/lastreprovide'), [1]);
         await datastore.put(Key('/blocks-invalid/elsewhere'), [1]);
@@ -89,10 +92,10 @@ void main() {
       () async {
         final cid = await Cid.fromContent(Uint8List.fromList([4]));
         final row = QueryResult(
-          Entry(key: multihashToDsKey(cid.multihash.toBytes()).value),
+          Entry(key: boxo.multihashToDsKey(cid.multihash.toBytes()).value),
         );
         final datastore = _QueryDatastore([row, row]);
-        final keys = await (await Blockstore(
+        final keys = await (await boxo.Blockstore(
           datastore,
           noPrefix: true,
         ).allKeysChanWithErr()).take(1).toList();
@@ -107,7 +110,7 @@ void main() {
       () async {
         final error = StateError('query failed');
         final datastore = _QueryDatastore([QueryResult.error(error)]);
-        final stream = await Blockstore(datastore).allKeysChanWithErr();
+        final stream = await boxo.Blockstore(datastore).allKeysChanWithErr();
         await expectLater(
           stream.toList(),
           throwsA(predicate((e) => e.toString().contains('query failed'))),
@@ -122,7 +125,7 @@ void main() {
           QueryResult.error(StateError('failed')),
         ]);
         expect(
-          await (await Blockstore(datastore).allKeysChan()).toList(),
+          await (await boxo.Blockstore(datastore).allKeysChan()).toList(),
           isEmpty,
         );
         expect(datastore.closed, isTrue);
@@ -132,7 +135,7 @@ void main() {
       final error = StateError('cannot query');
       final datastore = _QueryDatastore([], creationError: error);
       await expectLater(
-        Blockstore(datastore).allKeysChan(),
+        boxo.Blockstore(datastore).allKeysChan(),
         throwsA(same(error)),
       );
     });
@@ -141,13 +144,13 @@ void main() {
       () async {
         final cid = Cid.v1(
           'raw',
-          mh.decode(Uint8List.fromList([18, 32, ...List.filled(32, 0)])),
+          multihash.decode(Uint8List.fromList([18, 32, ...List.filled(32, 0)])),
         );
         final datastore = _AsyncDatastore(
-          multihashToDsKey(cid.multihash.toBytes()).value,
+          boxo.multihashToDsKey(cid.multihash.toBytes()).value,
         );
         expect(
-          await (await Blockstore(
+          await (await boxo.Blockstore(
             datastore,
             noPrefix: true,
           ).allKeysChanWithErr()).toList(),

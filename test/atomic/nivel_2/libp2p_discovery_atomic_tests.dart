@@ -36,8 +36,7 @@ import 'package:transpiled_libp2p/src/core/peer/addr_info.dart';
 import 'package:transpiled_libp2p/src/core/peer/peer_id.dart';
 import 'package:transpiled_libp2p/src/core/peerstore/peerstore.dart';
 import 'package:transpiled_libp2p/src/core/protocol/protocol.dart';
-import 'package:transpiled_libp2p/src/core/routing/routing.dart'
-    as core_routing;
+import 'package:transpiled_libp2p/src/core/routing/routing.dart' as routing;
 import 'package:transpiled_libp2p/src/p2p/discovery/backoff/backoff.dart';
 import 'package:transpiled_libp2p/src/p2p/discovery/backoff/backoffcache.dart';
 import 'package:transpiled_libp2p/src/p2p/discovery/backoff/backoffconnector.dart';
@@ -54,7 +53,7 @@ AddrInfo _ai(int n, {List<String> addrs = const []}) =>
 // under test/, it only forbids them in lib/).
 // ---------------------------------------------------------------------
 
-class _FakeContentRouting implements core_routing.ContentRouting {
+class _FakeContentRouting implements routing.ContentRouting {
   final List<(Cid, bool)> provided = [];
   final Map<String, List<AddrInfo>> providers = {};
 

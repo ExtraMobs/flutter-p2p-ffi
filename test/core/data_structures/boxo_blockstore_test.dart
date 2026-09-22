@@ -1,14 +1,15 @@
 import 'dart:typed_data';
 
 import 'package:test/test.dart';
-import 'package:transpiled_block_format/transpiled_block_format.dart' as blocks;
+import 'package:transpiled_block_format/transpiled_block_format.dart'
+    as block_format;
 import 'package:transpiled_datastore/transpiled_datastore.dart';
 import 'package:transpiled_ipfs/transpiled_ipfs.dart';
 
 void main() {
   test('putMany validates every block before starting writes', () async {
     final store = Blockstore();
-    final first = blocks.BasicBlock.fromData(Uint8List.fromList([1]));
+    final first = block_format.BasicBlock.fromData(Uint8List.fromList([1]));
     final invalid = BasicBlock(Uint8List.fromList([2]), first.cid());
     await expectLater(
       store.putMany([first, invalid]),
@@ -21,7 +22,7 @@ void main() {
   test('get rejects corruption in the underlying datastore', () async {
     final datastore = MapDatastore();
     final store = Blockstore(datastore: datastore);
-    final block = blocks.BasicBlock.fromData(Uint8List.fromList([1, 2]));
+    final block = block_format.BasicBlock.fromData(Uint8List.fromList([1, 2]));
     await store.put(block);
     final results = await datastore.query(Query(keysOnly: true));
     final (entry, ok) = results.nextSync();
@@ -70,8 +71,10 @@ void main() {
 
   test('getSize and putMany preserve the blockstore contract', () async {
     final store = Blockstore();
-    final first = blocks.BasicBlock.fromData(Uint8List.fromList([1, 2, 3]));
-    final second = blocks.BasicBlock.fromData(Uint8List.fromList([4, 5]));
+    final first = block_format.BasicBlock.fromData(
+      Uint8List.fromList([1, 2, 3]),
+    );
+    final second = block_format.BasicBlock.fromData(Uint8List.fromList([4, 5]));
     await store.putMany([first, second]);
     expect(await store.getSize(first.cid()), 3);
     expect(await store.getSize(second.cid()), 2);

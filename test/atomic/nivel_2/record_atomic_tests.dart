@@ -4,7 +4,7 @@
 import 'dart:typed_data';
 
 import 'package:test/test.dart';
-import 'package:transpiled_libp2p/transpiled_libp2p.dart' hide Record;
+import 'package:transpiled_libp2p/transpiled_libp2p.dart' as libp2p;
 import 'package:transpiled_libp2p_record/transpiled_libp2p_record.dart';
 
 class _SimpleValidator implements Validator {
@@ -30,9 +30,9 @@ void main() {
       'validate() - valida chave publica ed25519 e rsa correspondentes ao peer id da chave',
       () async {
         const pkv = PublicKeyValidator();
-        final edPair = await generateEd25519KeyPair();
-        final edPub = marshalPublicKey(edPair.getPublic());
-        final edId = PeerId.fromPubKey(edPair.getPublic());
+        final edPair = await libp2p.generateEd25519KeyPair();
+        final edPub = libp2p.marshalPublicKey(edPair.getPublic());
+        final edId = libp2p.PeerId.fromPubKey(edPair.getPublic());
         final validKey = '/pk/${String.fromCharCodes(edId.value)}';
 
         expect(() => pkv.validate(validKey, edPub), returnsNormally);
@@ -40,8 +40,8 @@ void main() {
         final badNsKey = '/wrong/${String.fromCharCodes(edId.value)}';
         expect(() => pkv.validate(badNsKey, edPub), throwsArgumentError);
 
-        final otherPair = await generateEd25519KeyPair();
-        final otherPub = marshalPublicKey(otherPair.getPublic());
+        final otherPair = await libp2p.generateEd25519KeyPair();
+        final otherPub = libp2p.marshalPublicKey(otherPair.getPublic());
         expect(() => pkv.validate(validKey, otherPub), throwsArgumentError);
 
         final malformedKey = '/pk/not-a-valid-multihash';

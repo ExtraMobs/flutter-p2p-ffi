@@ -490,6 +490,11 @@ class AstNomenclatureAuditor:
         self.dart_import_prefixes: Dict[str, Dict[str, str]] = {}
         # rel_path -> [(nome escondido, pacote/biblioteca de origem)]
         self.dart_import_hides: Dict[str, List[Tuple[str, str]]] = {}
+        # diretório Go normalizado -> nome da cláusula `package` (ex.:
+        # 'p2p/host/resource_manager' -> 'rcmgr'). O diretório não basta: o Go
+        # chama de `rcmgr` o pacote em `resource-manager`, e de `basichost` o
+        # que está em `basic`.
+        self.go_package_clause: Dict[str, str] = {}
 
     def _parse_member_sig(self, sig: str, class_name: str, rel_path: str, line_no: int, check_dep, char_pos: int = 0) -> Optional[DartAuditSymbol]:
         sig = " ".join(sig.split())
@@ -794,6 +799,57 @@ class AstNomenclatureAuditor:
         if hides:
             self.dart_import_hides[rel_path] = hides
 
+
+    RE_GO_PACKAGE_CLAUSE = re.compile(r"^package\s+([A-Za-z_][A-Za-z0-9_]*)", re.M)
+
+    def scan_go_package_clauses(self, repo_dir: Path, dart_package: str) -> None:
+        """Mapeia cada diretório Go de `repo_dir` ao nome do seu `package`.
+
+        O nome da cláusula é o namespace que o próprio Go usa para qualificar
+        os símbolos daquele pacote, e é ele que este auditor exige como prefixo
+        quando duas bibliotecas do MESMO pacote Dart colidem -- caso em que o
+        nome do pacote Dart seria idêntico dos dois lados e não desambiguaria.
+        """
+        if not repo_dir.exists():
+            return
+        for go_file in repo_dir.rglob('*.go'):
+            rel = go_file.relative_to(repo_dir).as_posix()
+            if rel.endswith('_test.go') or rel.startswith(('examples/', 'test-plans/', 'scripts/')):
+                continue
+            parent = rel.rsplit('/', 1)[0] if '/' in rel else ''
+            key = f"{dart_package}:{parent.replace('-', '_')}"
+            if key in self.go_package_clause:
+                continue
+            try:
+                head = go_file.read_text(encoding='utf-8', errors='ignore')[:4096]
+            except Exception:
+                continue
+            m = self.RE_GO_PACKAGE_CLAUSE.search(head)
+            if m:
+                self.go_package_clause[key] = m.group(1)
+
+    def go_prefixes_for_library_path(self, uri: str) -> Set[str]:
+        """Prefixos aceitáveis para um import interno `package:<pkg>/src/<rest>`.
+
+        Aceita o nome da cláusula `package` do diretório Go correspondente e,
+        como alternativa legível, o último segmento do caminho Dart.
+        """
+        if not uri.startswith('package:'):
+            return set()
+        body = uri[len('package:'):]
+        pkg, _, path = body.partition('/')
+        if not path.startswith('src/'):
+            return set()
+        rest = path[len('src/'):]
+        directory = rest.rsplit('/', 1)[0] if '/' in rest else ''
+        candidates = set()
+        if directory:
+            candidates.add(directory.rsplit('/', 1)[-1])
+        clause = self.go_package_clause.get(f"{pkg}:{directory}")
+        if clause:
+            candidates.add(clause)
+        return candidates
+
     def resolve_prefixed_reference(self, rel_path: str, reference: str) -> Tuple[str, Optional[str]]:
         """Separa `prefixo.Nome` e diz de que biblioteca o nome veio.
 
@@ -998,6 +1054,9 @@ class AstNomenclatureAuditor:
                     elif not entry.name.endswith('-index') and not entry.name.endswith('_vectors'):
                         # Varre definições de tipos e membros no código-fonte Go diretamente
                         self.scan_go_repo_sources(entry)
+                        dart_pkg_path = GO_MODULE_TO_DART_PACKAGE.get(entry.name)
+                        if dart_pkg_path:
+                            self.scan_go_package_clauses(entry, dart_pkg_path.split('/')[-1])
 
         # 3. Deduplicar símbolos Go por módulo
         for mod, syms in self.go_symbols_by_module.items():
@@ -2029,7 +2088,32 @@ class AstNomenclatureAuditor:
                     if sym.file_path.startswith('packages/'):
                         pkg = sym.file_path.split('/')[1]
                         public_type_packages.setdefault(sym.name, set()).add(pkg)
-            for file_path, content, cleaned in self.dart_files:
+            declared_types_by_uri: Dict[str, Set[str]] = {}
+            for sym in self.dart_symbols:
+                if sym.kind in ('class', 'mixin', 'enum', 'extension_type') and sym.is_public():
+                    if sym.file_path.startswith('packages/'):
+                        parts = sym.file_path.split('/')
+                        if len(parts) > 3 and parts[2] == 'lib':
+                            uri = 'package:' + parts[1] + '/' + '/'.join(parts[3:])
+                            declared_types_by_uri.setdefault(uri, set()).add(sym.name)
+            # Esta é a única regra que também olha `test/`: ela trata de
+            # legibilidade de import, não de superfície de API, e um teste que
+            # resolve colisão com `hide` esconde a origem tanto quanto um
+            # arquivo de biblioteca. Os testes não entram em `dart_files` para
+            # não serem auditados pelas regras de nomenclatura de API.
+            scanned: List[Tuple[Path, str]] = [
+                (fp, content) for fp, content, _ in self.dart_files
+            ]
+            for tf in sorted(self.root_dir.glob('test/**/*.dart')):
+                try:
+                    tcontent = tf.read_text(encoding='utf-8', errors='ignore')
+                except Exception:
+                    continue
+                trel = str(tf.relative_to(self.root_dir)).replace(chr(92), '/')
+                self._parse_import_directives(trel, tcontent)
+                scanned.append((tf, tcontent))
+
+            for file_path, content in scanned:
                 rel_path = str(file_path.relative_to(self.root_dir)).replace(chr(92), '/')
                 if target_package and target_package not in rel_path:
                     continue
@@ -2043,10 +2127,29 @@ class AstNomenclatureAuditor:
                         for nm in m_h.group(1).split(','):
                             line_of.setdefault('hide:' + nm.strip(), idx)
 
+                # URI de cada prefixo deste arquivo, para distinguir import do
+                # barril (biblioteca pública do pacote) de import interno.
+                uri_of_prefix: Dict[str, str] = {}
+                for m_imp in self.RE_IMPORT_DIRECTIVE.finditer(content):
+                    m_a = self.RE_IMPORT_AS.search(m_imp.group(2) or '')
+                    if m_a:
+                        uri_of_prefix[m_a.group(1)] = m_imp.group(1)
+
                 for prefix, library in self.dart_import_prefixes.get(rel_path, {}).items():
                     if not (library.startswith('transpiled_') or library == 'boilerplate'):
                         continue
-                    allowed = self.allowed_prefixes_for(library)
+                    uri_p = uri_of_prefix.get(prefix, '')
+                    internal = '/src/' in uri_p
+                    if internal:
+                        # Import interno: cada biblioteca de `src/` corresponde a
+                        # um pacote Go distinto, e é o nome dele que separa os
+                        # símbolos -- usar o nome do pacote Dart aqui faria oito
+                        # bibliotecas diferentes disputarem o mesmo prefixo.
+                        allowed = self.go_prefixes_for_library_path(uri_p)
+                        if not allowed:
+                            continue
+                    else:
+                        allowed = self.allowed_prefixes_for(library)
                     if prefix in allowed:
                         continue
                     self.violations.append({
@@ -2060,7 +2163,7 @@ class AstNomenclatureAuditor:
                         'file': rel_path,
                         'line': line_of.get(prefix, 1),
                         'symbol': prefix,
-                        'suggested': f"Usar 'as {sorted(allowed)[0]}'",
+                        'suggested': f"Usar 'as {sorted(allowed, key=len)[0]}'",
                     })
 
                 # `hide` só é apontado quando a colisão é entre DUAS bibliotecas:
@@ -2074,9 +2177,49 @@ class AstNomenclatureAuditor:
                     if lib_i and (lib_i.startswith('transpiled_') or lib_i == 'boilerplate'):
                         other_libs.add(lib_i)
 
+                # Imports do MESMO pacote Dart feitos neste arquivo, com a URI
+                # de cada um, para achar colisões internas.
+                same_pkg_imports: Dict[str, List[str]] = {}
+                for m_imp in self.RE_IMPORT_DIRECTIVE.finditer(content):
+                    uri_i = m_imp.group(1)
+                    lib_i = self.library_name_of_uri(uri_i)
+                    if lib_i and (lib_i.startswith('transpiled_') or lib_i == 'boilerplate'):
+                        same_pkg_imports.setdefault(lib_i, []).append(uri_i)
+
                 for hidden, library in self.dart_import_hides.get(rel_path, []):
                     if not (library.startswith('transpiled_') or library == 'boilerplate'):
                         continue
+
+                    # Braço 2: colisão DENTRO do mesmo pacote Dart. O nome do
+                    # pacote seria igual dos dois lados, então o prefixo tem de
+                    # ser o do pacote Go -- que é o namespace que o próprio Go
+                    # usa para separar os dois (`rate.Limit` contra `Limit`).
+                    internal = [
+                        u for u in same_pkg_imports.get(library, [])
+                        if '/src/' in u and hidden in declared_types_by_uri.get(u, set())
+                    ]
+                    if internal:
+                        uri_i = internal[0]
+                        wanted = sorted(self.go_prefixes_for_library_path(uri_i))
+                        self.violations.append({
+                            'rule': 'RULE_IMPORT_PREFIX_NAMING',
+                            'severity': 'ERROR',
+                            'message': (
+                                f"Colisão de '{hidden}' dentro do pacote '{library}' resolvida com `hide`. "
+                                f"Aqui o nome do pacote seria o mesmo dos dois lados, então o prefixo deve ser o do "
+                                f"pacote Go correspondente, como o próprio Go faz ao qualificar."
+                            ),
+                            'file': rel_path,
+                            'line': line_of.get('hide:' + hidden, 1),
+                            'symbol': hidden,
+                            'suggested': (
+                                f"Importar '{uri_i}' com 'as {wanted[0]}' e qualificar os usos, em vez de 'hide {hidden}'"
+                                if wanted else
+                                f"Importar '{uri_i}' com prefixo do pacote Go e qualificar os usos"
+                            ),
+                        })
+                        continue
+
                     rivals = {
                         pkg
                         for pkg in public_type_packages.get(hidden, set())
@@ -2095,7 +2238,7 @@ class AstNomenclatureAuditor:
                         'file': rel_path,
                         'line': line_of.get('hide:' + hidden, 1),
                         'symbol': hidden,
-                        'suggested': f"Importar com 'as {sorted(self.allowed_prefixes_for(library))[0]}' em vez de 'hide {hidden}'",
+                        'suggested': f"Importar com 'as {sorted(self.allowed_prefixes_for(library), key=len)[0]}' em vez de 'hide {hidden}'",
                     })
 
         # Filtro por severidade opcional

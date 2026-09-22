@@ -9,10 +9,7 @@ import 'package:pointycastle/export.dart' as pc;
 import 'package:test/test.dart';
 import 'package:transpiled_cid/transpiled_cid.dart';
 import 'package:transpiled_multiaddr/transpiled_multiaddr.dart';
-// `Limit` e `Limiter` existem em tres pacotes Go distintos (x/time/rate,
-// x/rate e resource-manager). Este arquivo quer os do resource-manager,
-// importado adiante, entao os do barril ficam escondidos.
-import 'package:transpiled_libp2p/transpiled_libp2p.dart' hide Limit, Limiter;
+import 'package:transpiled_libp2p/transpiled_libp2p.dart';
 import 'package:transpiled_libp2p/src/core/connmgr/decay.dart';
 import 'package:transpiled_libp2p/src/core/connmgr/gater.dart';
 import 'package:transpiled_libp2p/src/core/connmgr/manager.dart';
@@ -37,7 +34,12 @@ import 'package:transpiled_libp2p/src/core/record/record.dart';
 import 'package:transpiled_libp2p/src/core/routing/options.dart';
 import 'package:transpiled_libp2p/src/core/routing/query.dart';
 import 'package:transpiled_libp2p/src/core/routing/routing.dart';
-import 'package:transpiled_libp2p/src/p2p/host/resource_manager/limit.dart';
+// `Limit` e `Limiter` existem em tres pacotes Go (x/time/rate, x/rate e
+// resource-manager); os dois ultimos moram no mesmo pacote Dart, onde o nome do
+// pacote seria igual dos dois lados. O prefixo e o do pacote Go, como o proprio
+// Go qualifica.
+import 'package:transpiled_libp2p/src/p2p/host/resource_manager/limit.dart'
+    as rcmgr;
 import 'package:transpiled_libp2p/src/p2p/host/resource_manager/resource_manager.dart';
 import 'package:transpiled_libp2p/src/p2p/security/noise/noise_framing.dart';
 import 'package:transpiled_libp2p/src/p2p/security/noise/noise_handshake_payload.dart';
@@ -695,7 +697,7 @@ void main() {
   });
 
   group('Limit [Atomic Audit]', () {
-    final Limit lim = const BaseLimit(
+    final rcmgr.Limit lim = const rcmgr.BaseLimit(
       streams: 10,
       streamsInbound: 6,
       streamsOutbound: 4,
@@ -750,7 +752,7 @@ void main() {
   });
 
   group('BaseLimit [Atomic Audit]', () {
-    const base = BaseLimit(
+    const base = rcmgr.BaseLimit(
       streams: 20,
       streamsInbound: 12,
       streamsOutbound: 8,
@@ -804,8 +806,11 @@ void main() {
     });
 
     test('apply() - merges with another BaseLimit prioritizing non zero', () {
-      const baseOther = BaseLimit(streams: 99, conns: 50);
-      final applied = const BaseLimit(streams: 0, conns: 10).apply(baseOther);
+      const baseOther = rcmgr.BaseLimit(streams: 99, conns: 50);
+      final applied = const rcmgr.BaseLimit(
+        streams: 0,
+        conns: 10,
+      ).apply(baseOther);
       expect(applied.streams, equals(99));
       expect(applied.conns, equals(10));
     });
@@ -819,85 +824,85 @@ void main() {
 
   group('ResourceLimits [Atomic Audit]', () {
     test('isDefault - returns true when untouched and false when changed', () {
-      const def = ResourceLimits();
+      const def = rcmgr.ResourceLimits();
       expect(def.isDefault, isTrue);
-      const custom = ResourceLimits(streams: 4);
+      const custom = rcmgr.ResourceLimits(streams: 4);
       expect(custom.isDefault, isFalse);
     });
 
     test('apply() - overlays defined limits onto another set', () {
-      const a = ResourceLimits(streams: 10);
-      const b = ResourceLimits(conns: 20);
+      const a = rcmgr.ResourceLimits(streams: 10);
+      const b = rcmgr.ResourceLimits(conns: 20);
       final c = a.apply(b);
       expect(c.streams, equals(10));
       expect(c.conns, equals(20));
     });
 
     test('build() - produces BaseLimit substituting fallbacks', () {
-      const rl = ResourceLimits(streams: 5);
-      final bl = rl.build(const BaseLimit(conns: 12));
+      const rl = rcmgr.ResourceLimits(streams: 5);
+      final bl = rl.build(const rcmgr.BaseLimit(conns: 12));
       expect(bl.streams, equals(5));
       expect(bl.conns, equals(12));
     });
   });
 
   group('Limiter [Atomic Audit]', () {
-    final Limiter lim = FixedLimiter();
+    final rcmgr.Limiter lim = rcmgr.FixedLimiter();
     final dummyPeer = PeerId(value: Uint8List.fromList([1, 2, 3]));
 
     test('getSystemLimits() - provides system limit contract', () {
-      expect(lim.getSystemLimits(), isA<Limit>());
+      expect(lim.getSystemLimits(), isA<rcmgr.Limit>());
     });
 
     test('getTransientLimits() - provides transient limit contract', () {
-      expect(lim.getTransientLimits(), isA<Limit>());
+      expect(lim.getTransientLimits(), isA<rcmgr.Limit>());
     });
 
     test(
       'getAllowlistedSystemLimits() - provides allowlisted system limits',
       () {
-        expect(lim.getAllowlistedSystemLimits(), isA<Limit>());
+        expect(lim.getAllowlistedSystemLimits(), isA<rcmgr.Limit>());
       },
     );
 
     test(
       'getAllowlistedTransientLimits() - provides allowlisted transient limits',
       () {
-        expect(lim.getAllowlistedTransientLimits(), isA<Limit>());
+        expect(lim.getAllowlistedTransientLimits(), isA<rcmgr.Limit>());
       },
     );
 
     test('getServiceLimits() - provides limits for named service', () {
-      expect(lim.getServiceLimits('test-svc'), isA<Limit>());
+      expect(lim.getServiceLimits('test-svc'), isA<rcmgr.Limit>());
     });
 
     test('getServicePeerLimits() - provides peer limits for service', () {
-      expect(lim.getServicePeerLimits('test-svc'), isA<Limit>());
+      expect(lim.getServicePeerLimits('test-svc'), isA<rcmgr.Limit>());
     });
 
     test('getProtocolLimits() - provides limits for protocol id', () {
-      expect(lim.getProtocolLimits('/test/1'), isA<Limit>());
+      expect(lim.getProtocolLimits('/test/1'), isA<rcmgr.Limit>());
     });
 
     test('getProtocolPeerLimits() - provides peer limits for protocol', () {
-      expect(lim.getProtocolPeerLimits('/test/1'), isA<Limit>());
+      expect(lim.getProtocolPeerLimits('/test/1'), isA<rcmgr.Limit>());
     });
 
     test('getPeerLimits() - provides limits for specific peer', () {
-      expect(lim.getPeerLimits(dummyPeer), isA<Limit>());
+      expect(lim.getPeerLimits(dummyPeer), isA<rcmgr.Limit>());
     });
 
     test('getStreamLimits() - provides stream limits for peer', () {
-      expect(lim.getStreamLimits(dummyPeer), isA<Limit>());
+      expect(lim.getStreamLimits(dummyPeer), isA<rcmgr.Limit>());
     });
 
     test('getConnLimits() - provides connection limits', () {
-      expect(lim.getConnLimits(), isA<Limit>());
+      expect(lim.getConnLimits(), isA<rcmgr.Limit>());
     });
   });
 
   group('FixedLimiter [Atomic Audit]', () {
-    final fl = FixedLimiter();
+    final fl = rcmgr.FixedLimiter();
     final dummyPeer = PeerId(value: Uint8List.fromList([1, 2, 3]));
 
     test('getSystemLimits() - returns system limits', () {

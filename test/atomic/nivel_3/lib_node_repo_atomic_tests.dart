@@ -4,9 +4,13 @@ import 'dart:typed_data';
 
 import 'package:hive/hive.dart' as hive;
 import 'package:test/test.dart';
-import 'package:transpiled_datastore/transpiled_datastore.dart' as ds;
+// O prefixo curto `datastore` colidiria com o metodo `datastore()` que esta
+// classe implementa, entao usa-se o nome completo do pacote, que a Regra 25
+// tambem aceita.
+import 'package:transpiled_datastore/transpiled_datastore.dart'
+    as transpiled_datastore;
 import 'package:transpiled_ipfs/transpiled_ipfs.dart';
-import 'package:transpiled_libp2p/transpiled_libp2p.dart' as p2p;
+import 'package:transpiled_libp2p/transpiled_libp2p.dart' as libp2p;
 import 'package:transpiled_multiaddr/transpiled_multiaddr.dart';
 
 import '../../interop/lib/local_kubo_harness.dart';
@@ -14,7 +18,7 @@ import '../../interop/lib/local_kubo_harness.dart';
 class _TestRepo implements Repo {
   _TestRepo(this.settings, this.store);
   final IpfsConfig settings;
-  final ds.Batching store;
+  final transpiled_datastore.Batching store;
   int closes = 0;
 
   @override
@@ -28,7 +32,7 @@ class _TestRepo implements Repo {
   );
 
   @override
-  ds.Batching datastore() => store;
+  transpiled_datastore.Batching datastore() => store;
 
   @override
   Future<void> close() async {
@@ -37,15 +41,16 @@ class _TestRepo implements Repo {
   }
 }
 
-class _FailWrites extends ds.MapDatastore {
+class _FailWrites extends transpiled_datastore.MapDatastore {
   final failure = StateError('storage unavailable');
   @override
-  Future<void> put(ds.Key key, List<int> value) async => throw failure;
+  Future<void> put(transpiled_datastore.Key key, List<int> value) async =>
+      throw failure;
 }
 
 // Application-side datastore adapter used to prove the Repo integration with
 // the installed Hive backend. No storage implementation is mocked here.
-class _DiskDatastore extends ds.MapDatastore {
+class _DiskDatastore extends transpiled_datastore.MapDatastore {
   _DiskDatastore(this.box);
   final hive.Box<dynamic> box;
 
@@ -55,29 +60,30 @@ class _DiskDatastore extends ds.MapDatastore {
     );
     for (final key in store.box.keys) {
       await store._load(
-        ds.Key(key as String),
+        transpiled_datastore.Key(key as String),
         List<int>.from(store.box.get(key) as List),
       );
     }
     return store;
   }
 
-  Future<void> _load(ds.Key key, List<int> value) => super.put(key, value);
+  Future<void> _load(transpiled_datastore.Key key, List<int> value) =>
+      super.put(key, value);
 
   @override
-  Future<void> put(ds.Key key, List<int> value) async {
+  Future<void> put(transpiled_datastore.Key key, List<int> value) async {
     await box.put(key.value, value);
     await super.put(key, value);
   }
 
   @override
-  Future<void> delete(ds.Key key) async {
+  Future<void> delete(transpiled_datastore.Key key) async {
     await box.delete(key.value);
     await super.delete(key);
   }
 
   @override
-  Future<void> sync(ds.Key prefix) => box.flush();
+  Future<void> sync(transpiled_datastore.Key prefix) => box.flush();
 
   @override
   Future<void> close() => box.close();
@@ -106,11 +112,11 @@ Future<_TestRepo> _openDiskRepo(Directory directory) async {
 }
 
 Future<IpfsConfig> _config() async {
-  final key = await p2p.generateEd25519KeyPair();
+  final key = await libp2p.generateEd25519KeyPair();
   return IpfsConfig(
     identity: Identity(
-      peerId: p2p.PeerId.fromPubKey(key.getPublic()).toString(),
-      privKey: base64.encode(p2p.marshalPrivateKey(key)),
+      peerId: libp2p.PeerId.fromPubKey(key.getPublic()).toString(),
+      privKey: base64.encode(libp2p.marshalPrivateKey(key)),
     ),
     network: const NetworkConfig(mdnsEnabled: false),
   );
@@ -121,7 +127,9 @@ void main() {
     test(
       'allKeysChanWithErr() - delegates persistent key enumeration',
       () async {
-        final store = Blockstore(datastore: ds.MapDatastore());
+        final store = Blockstore(
+          datastore: transpiled_datastore.MapDatastore(),
+        );
         final bytes = Uint8List.fromList([42]);
         final cid = await Cid.fromContent(bytes);
         await store.put(BasicBlock(bytes, cid));
@@ -177,7 +185,9 @@ void main() {
       expect(providers, contains(online.peerId.toString()));
       expect(await kubo.getRawBlock(cid.toString()), bytes);
       expect(
-        await repo.datastore().has(ds.Key('/provider/reprovide/lastreprovide')),
+        await repo.datastore().has(
+          transpiled_datastore.Key('/provider/reprovide/lastreprovide'),
+        ),
         isTrue,
       );
     },
@@ -187,7 +197,7 @@ void main() {
   group('Repo [Atomic Audit]', () {
     test('config() - returns a snapshot used by the node', () async {
       final config = await _config();
-      final Repo repo = _TestRepo(config, ds.MapDatastore());
+      final Repo repo = _TestRepo(config, transpiled_datastore.MapDatastore());
       final snapshot = await repo.config();
       expect(snapshot.identity!.peerId, config.identity!.peerId);
       snapshot.identity!.peerId = 'changed';
@@ -196,13 +206,16 @@ void main() {
     test(
       'datastore() - node stores blocks in the supplied datastore',
       () async {
-        final repo = _TestRepo(await _config(), ds.MapDatastore());
+        final repo = _TestRepo(
+          await _config(),
+          transpiled_datastore.MapDatastore(),
+        );
         final node = await IpfsNode.fromBuildCfg(BuildCfg(repo: repo));
         final cid = await node.putRawBlock(Uint8List.fromList([1, 2, 3]));
         expect(await node.blockstore.has(cid), isTrue);
         expect(
           (await repo.datastore().query(
-            const ds.Query(prefix: '/blocks'),
+            const transpiled_datastore.Query(prefix: '/blocks'),
           )).rest(),
           isNotEmpty,
         );
@@ -210,7 +223,10 @@ void main() {
       },
     );
     test('close() - node owns repository shutdown exactly once', () async {
-      final repo = _TestRepo(await _config(), ds.MapDatastore());
+      final repo = _TestRepo(
+        await _config(),
+        transpiled_datastore.MapDatastore(),
+      );
       final node = await IpfsNode.fromBuildCfg(BuildCfg(repo: repo));
       await Future.wait([node.close(), node.close()]);
       expect(repo.closes, 1);
@@ -234,7 +250,7 @@ void main() {
             ],
           ),
         );
-        final repo = _TestRepo(config, ds.MapDatastore());
+        final repo = _TestRepo(config, transpiled_datastore.MapDatastore());
         await expectLater(
           IpfsNode.fromBuildCfg(BuildCfg(online: true, repo: repo)),
           throwsA(isA<SocketException>()),
@@ -268,8 +284,8 @@ void main() {
           BuildCfg(online: true, repo: await _openDiskRepo(directory)),
         );
         addTearDown(first.close);
-        final remoteKey = await p2p.generateEd25519KeyPair();
-        final remote = p2p.PeerId.fromPubKey(remoteKey.getPublic());
+        final remoteKey = await libp2p.generateEd25519KeyPair();
+        final remote = libp2p.PeerId.fromPubKey(remoteKey.getPublic());
         final addr = Multiaddr.parse('/ip4/127.0.0.1/tcp/4001');
         first.peerHost!.peerstore.addAddr(
           remote,
@@ -298,14 +314,14 @@ void main() {
       'fromBuildCfg() - repository restores identity, peers and blocks',
       () async {
         final config = await _config();
-        final store = ds.MapDatastore();
+        final store = transpiled_datastore.MapDatastore();
         final repo = _TestRepo(config, store);
         final first = await IpfsNode.fromBuildCfg(
           BuildCfg(online: true, repo: repo),
         );
         final id = first.peerId;
-        final remoteKey = await p2p.generateEd25519KeyPair();
-        final remote = p2p.PeerId.fromPubKey(remoteKey.getPublic());
+        final remoteKey = await libp2p.generateEd25519KeyPair();
+        final remote = libp2p.PeerId.fromPubKey(remoteKey.getPublic());
         final addr = Multiaddr.parse('/ip4/127.0.0.1/tcp/4001');
         first.peerHost!.peerstore.addAddr(
           remote,
@@ -323,7 +339,7 @@ void main() {
         );
         addTearDown(second.close);
         expect(second.peerId, id);
-        expect(second.peerHost!.peerstore, isA<p2p.Pstoreds>());
+        expect(second.peerHost!.peerstore, isA<libp2p.Pstoreds>());
         expect(second.peerHost!.peerstore.addrs(remote), contains(addr));
         expect(
           second.peerHost!.peerstore.pubKey(remote)!.raw(),
@@ -335,7 +351,7 @@ void main() {
     test('fromBuildCfg() - rejects mismatched persisted identity', () async {
       final config = await _config();
       config.identity!.peerId = (await _config()).identity!.peerId;
-      final repo = _TestRepo(config, ds.MapDatastore());
+      final repo = _TestRepo(config, transpiled_datastore.MapDatastore());
       await expectLater(
         IpfsNode.fromBuildCfg(BuildCfg(online: true, repo: repo)),
         throwsA(
@@ -367,7 +383,10 @@ void main() {
   });
   group('BuildCfg [Atomic Audit]', () {
     test('repo - preserves the repository hook', () async {
-      final repo = _TestRepo(await _config(), ds.MapDatastore());
+      final repo = _TestRepo(
+        await _config(),
+        transpiled_datastore.MapDatastore(),
+      );
       expect(BuildCfg(repo: repo).repo, same(repo));
     });
   });
@@ -390,7 +409,7 @@ void main() {
         final identity = (await _config()).identity!;
         final key = await identity.decodePrivateKey('ignored upstream');
         expect(
-          p2p.PeerId.fromPubKey(key.getPublic()).toString(),
+          libp2p.PeerId.fromPubKey(key.getPublic()).toString(),
           identity.peerId,
         );
         identity.privKey = '!';
@@ -408,7 +427,7 @@ void main() {
         identity.privKey =
             '${encoded.substring(0, 4)}\r\n${encoded.substring(4)}';
         expect(
-          p2p.PeerId.fromPubKey(
+          libp2p.PeerId.fromPubKey(
             (await identity.decodePrivateKey('')).getPublic(),
           ).toString(),
           identity.peerId,

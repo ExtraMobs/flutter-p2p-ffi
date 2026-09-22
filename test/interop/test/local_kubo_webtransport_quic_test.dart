@@ -13,7 +13,7 @@ import 'package:transpiled_multibase/transpiled_multibase.dart' as multibase;
 import 'package:transpiled_multihash/transpiled_multihash.dart' as multihash;
 import 'package:transpiled_quic_go/src/client_handshake.dart' as quicgo;
 import 'package:transpiled_webtransport_go/transpiled_webtransport_go.dart'
-    as webtransport;
+    as webtransport_go;
 
 import '../lib/local_kubo_harness.dart';
 
@@ -107,7 +107,7 @@ void main() {
           // Layer two: the HTTP/3 Extended CONNECT that turns this QUIC
           // connection into a WebTransport session, exactly as go-libp2p's
           // `p2p/transport/webtransport/transport.go` dials it.
-          final session = await const webtransport.Dialer().dial(
+          final session = await const webtransport_go.Dialer().dial(
             conn: conn,
             authority: '127.0.0.1:$port',
             path: '/.well-known/libp2p-webtransport?type=noise',

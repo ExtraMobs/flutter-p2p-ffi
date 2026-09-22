@@ -646,12 +646,24 @@ auditando automaticamente as 25 regras contratuais:
     `packages/boilerplate/`, `Golang` também vale, porque é o que os esquemas
     `fixed_types.Golang.<tipo>` já exigem.
 
-    `hide` só é apontado quando a colisão é **entre duas bibliotecas** — outro
-    pacote transpilado importado no mesmo arquivo declara o nome escondido.
-    Quando o nome que fica vem de um arquivo local do próprio pacote, ou quando
-    as duas bibliotecas em conflito pertencem ao **mesmo** pacote (o barril
-    contra um arquivo interno dele), o prefixo pelo nome da biblioteca não
-    desambiguaria nada, e `hide` continua sendo a ferramenta correta.
+    **Import interno (`package:<pkg>/src/...`) segue o pacote Go, não o pacote
+    Dart.** Cada biblioteca sob `src/` corresponde a um pacote Go distinto, e é
+    o nome dele que separa os símbolos — exatamente como o Go faz ao qualificar
+    (`rate.Limit` contra `Limit`). Usar aqui o nome do pacote Dart faria várias
+    bibliotecas diferentes disputarem o mesmo prefixo. O auditor lê a cláusula
+    `package` do diretório Go correspondente, porque o diretório não basta: o Go
+    chama de `rcmgr` o pacote em `resource-manager` e de `basichost` o que está
+    em `basic`.
+
+    `hide` é apontado em dois casos: colisão **entre pacotes Dart distintos**, e
+    colisão **dentro do mesmo pacote** entre o barril e uma biblioteca interna —
+    esta última resolvida com o prefixo do pacote Go. Quando o nome que fica vem
+    de um arquivo local do próprio pacote, `hide` continua correto e a regra não
+    se aplica.
+
+    Quando o prefixo exigido colidir com um identificador do arquivo (uma
+    variável ou um método homônimo), use a forma longa que a regra também
+    aceita — o nome completo do pacote — em vez de abandonar a convenção.
 
     O auditor mantém, por arquivo, o mapa `prefixo → biblioteca`, exposto por
     `resolve_prefixed_reference`, de modo que uma referência `foo.Bar` seja
