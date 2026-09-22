@@ -818,13 +818,36 @@ apenas a finalidade dos hooks (`shutdown.CloseWithCtx`).
   O `p2p/net/connmgr/` já está portado, com os dois pré-requisitos que o
   tornaram possível — o relógio injetável (`packages/transpiled_clock`) e o
   `SwarmConn`. **O teto de conexões, porém, continua não valendo na prática**,
-  porque o manager ainda não está ligado: `BasicHost` nunca chama
-  `network.notify(connManager.notifiee())` como o upstream faz
-  (`basic_host.go:279`), `IpfsNode` não passa o parâmetro e cai no
-  `NullConnMgr`, e os quatro métodos de tag e proteção do bsnet do bitswap
-  continuam com corpo vazio. Enquanto essa fiação não existir, "portado" e
-  "funciona" seguem sendo afirmações distintas, e a curva de sockets medida
-  acima continua de pé.
+  porque o manager ainda não está ligado. Enquanto essa fiação não existir,
+  "portado" e "funciona" seguem sendo afirmações distintas, e a curva de
+  sockets medida acima continua de pé.
+
+  O que falta, com os três pontos de enganche e o critério de aceite:
+
+  1. `packages/transpiled_libp2p/lib/src/p2p/host/basic/basic_host.dart` —
+     registrar o notifee do manager no swarm, como o upstream faz em
+     `basic_host.go:279` (`n.Notify(h.cmgr.Notifee())`), e fechar o manager no
+     shutdown (`config/config.go:503-504`). O `BasicHost` já aceita o
+     parâmetro `connManager`; hoje ele só o guarda e nunca chama
+     `notifiee()`. Sem isso o manager nunca vê conexão nenhuma.
+  2. `lib/src/node/ipfs_node.dart` — construir o `BasicConnMgr` com os
+     defaults do Kubo e passá-lo ao `BasicHost`, que hoje cai no
+     `NullConnMgr`: `low: 32`, `high: 96`, `gracePeriod: 20s`,
+     `silencePeriod: 10s` (`kubo/config/init.go:79-96`). Note que o grace do
+     Kubo é **menor** que o default de 1 min do go-libp2p.
+  3. `packages/transpiled_boxo/lib/src/bitswap/network/bsnet/ipfs_impl.dart` —
+     `tagPeer`, `untagPeer`, `protect` e `unprotect` têm corpo vazio ali;
+     upstream eles delegam a `bsnet.host.ConnManager()`
+     (`boxo/bitswap/network/bsnet/ipfs_impl.go:529-548`). Há também um
+     `connMgr.isProtected(peerID, 'peering')` comentado em
+     `bitswap/client/internal/peermanager/peerwantmanager.dart`, à espera
+     dessa ligação.
+
+  **Critério de aceite**, e nada menos: subir o nó contra a rede e medir que a
+  contagem de sockets de entrada estabiliza perto da faixa 32–96, em vez de
+  seguir a curva 240→658 registrada acima. Teste atômico verde não comprova
+  este item — ele é sobre comportamento em rede real, pela mesma distinção
+  entre "portado" e "funciona contra par real" que o `AGENTS.md` cobra.
 
   A sobrevida medida hoje é de dezenas de minutos, não de dias, e não existe
   teste de soak no repositório que meça isso continuamente.
