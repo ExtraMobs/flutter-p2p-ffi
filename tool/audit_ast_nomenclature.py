@@ -102,6 +102,7 @@ COMMON_ACRONYMS = {
 GO_MODULE_TO_DART_PACKAGE = {
     'go-base32': 'packages/transpiled_base32',
     'go-cid': 'packages/transpiled_cid',
+    'benbjohnson-clock': 'packages/transpiled_clock',
     'go-multiaddr': 'packages/transpiled_multiaddr',
     'go-multihash': 'packages/transpiled_multihash',
     'go-multibase': 'packages/transpiled_multibase',
@@ -202,7 +203,8 @@ DOCUMENTED_ADAPTATIONS = {
     'QueryEventRegistration': 'PROGRESS.md - Registro de observador de eventos de busca no DHT',
     'UpgradedCapableConn': 'PROGRESS.md - Conexão CapableConn autenticada e multiplexada pós-upgrade (upgrader.capableConn do Go)',
     'BasicUpgrader': 'PROGRESS.md - Implementação padrão de Upgrader (p2p/net/upgrader.Upgrader do Go)',
-    'SwarmStream': 'PROGRESS.md - Implementação de NetworkStream sobre YamuxStream (swarm.Stream do Go)',
+    'SwarmStream': 'PROGRESS.md - Porte de swarm.Stream (p2p/net/swarm/swarm_stream.go); renomeado porque Stream é o tipo assincrono nativo do Dart',
+    'SwarmConn': 'PROGRESS.md - Porte de swarm.Conn (p2p/net/swarm/swarm_conn.go); renomeado porque Conn ja nomeia o network.Conn que esta classe implementa',
     'StreamReadWriter': 'PROGRESS.md - Interface para leitura e escrita binária de streams/conns (io.ReadWriter do Go)',
     'RawConn': 'PROGRESS.md - Interface para conexão bruta de transporte antes de upgrade (manet.Conn do Go)',
     'HolePunchService': 'PROGRESS.md - Serviço de coordenação de hole punching DCUtR (p2p/protocol/holepunch.Service do Go)',
