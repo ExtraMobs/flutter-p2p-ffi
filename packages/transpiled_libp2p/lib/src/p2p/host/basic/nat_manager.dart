@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:transpiled_multiaddr/transpiled_multiaddr.dart';
 
 import '../../../core/network/network.dart';
+import '../../net/nat/nat.dart' as nat;
 
 /// Interface for managing NAT devices (UPnP / NAT-PMP) and port mappings.
 abstract interface class NatManager {
@@ -40,6 +42,71 @@ abstract interface class NatGateway {
     required String protocol,
     required int internalPort,
   });
+
+  /// Closes the gateway connection and cleans up mappings.
+  Future<void> close();
+}
+
+/// Default NAT gateway client using the official libp2p NAT traversal (UPnP).
+class Libp2pNatGateway implements NatGateway {
+  Libp2pNatGateway({this.discoveryTimeout = const Duration(seconds: 4)});
+
+  final Duration discoveryTimeout;
+  nat.Nat? _nat;
+  InternetAddress? _extIp;
+
+  @override
+  Future<bool> discover() async {
+    try {
+      _nat = await nat.discoverNat(discoveryTimeout);
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  @override
+  Future<String?> getExternalIp() async {
+    if (_nat == null) return null;
+    return _extIp?.address;
+  }
+
+  @override
+  Future<int?> addPortMapping({
+    required String protocol,
+    required int internalPort,
+    int? externalPort,
+    Duration lifetime = const Duration(hours: 1),
+  }) async {
+    if (_nat == null) return null;
+    try {
+      final extPort = await _nat!.addMapping(protocol, internalPort);
+      final mapping = _nat!.getMapping(protocol, internalPort);
+      if (mapping != null) {
+        _extIp = mapping.$1;
+      }
+      return extPort;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  @override
+  Future<void> removePortMapping({
+    required String protocol,
+    required int internalPort,
+  }) async {
+    if (_nat == null) return;
+    try {
+      await _nat!.removeMapping(protocol, internalPort);
+    } catch (_) {}
+  }
+
+  @override
+  Future<void> close() async {
+    await _nat?.close();
+    _nat = null;
+  }
 }
 
 /// Default in-memory simulated gateway client for local networks and testing.
@@ -79,6 +146,11 @@ class SimulatedNatGateway implements NatGateway {
   }) async {
     _mappings.remove('$protocol:$internalPort');
   }
+
+  @override
+  Future<void> close() async {
+    _mappings.clear();
+  }
 }
 
 /// Standard NAT Manager listening to network changes and maintaining UPnP / NAT-PMP port mappings.
@@ -88,7 +160,7 @@ class BasicNatManager implements NatManager {
     NatGateway? gateway,
     this.syncInterval = const Duration(seconds: 30),
   }) : _network = network,
-       _gateway = gateway ?? SimulatedNatGateway();
+       _gateway = gateway ?? Libp2pNatGateway();
 
   final Network _network;
   final NatGateway _gateway;
@@ -138,6 +210,7 @@ class BasicNatManager implements NatManager {
       } catch (_) {}
     }
     _mappings.clear();
+    await _gateway.close();
   }
 
   Future<void> _sync() async {

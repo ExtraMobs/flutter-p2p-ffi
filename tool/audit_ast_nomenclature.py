@@ -212,6 +212,7 @@ DOCUMENTED_ADAPTATIONS = {
     'HolePunchMessage': 'PROGRESS.md - Representação protobuf de mensagem HolePunch (holepunch.pb do Go)',
     'NatGateway': 'PROGRESS.md - Interface de abstração de gateway UPnP/NAT-PMP para NATManager',
     'SimulatedNatGateway': 'PROGRESS.md - Implementação simulada de gateway UPnP/NAT-PMP para ambientes locais e testes',
+    'Libp2pNatGateway': 'PROGRESS.md - Implementação padrão de gateway NAT conectada a p2p/net/nat',
     'BasicNatManager': 'PROGRESS.md - Implementação padrão de gerenciador NAT com port mapping (p2p/host/basic.natManager do Go)',
     'TlsTransport': 'PROGRESS.md - Implementação de SecureTransport para TLS 1.3 (p2p/security/tls.Transport do Go renomeada para evitar colisão com core/transport.Transport)',
     'WebtransportTransport': 'PROGRESS.md - Implementação de Transport para WebTransport (p2p/transport/webtransport.transport do Go renomeada para evitar colisão com core/transport.Transport)',

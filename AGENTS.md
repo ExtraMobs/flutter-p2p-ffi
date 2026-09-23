@@ -298,25 +298,31 @@ Todo agente que atuar no projeto deve seguir a ordem e os critérios das checkli
 
 ## Diante de um problema ou impasse, consulte o repositório de referência
 
-**Sempre que houver um problema, um impasse, um defeito a diagnosticar ou uma
-decisão de desenho a tomar, a resposta se deriva lendo o Go em
-`go-ipfs-reference/` — não inspecionando o que já existe em Dart.** Esta regra
-vale para análise, diagnóstico e planejamento, e não apenas para o momento de
-escrever código portado, que a seção "Rastrear chamadas antes de implementar"
-já cobre.
+**Sempre que houver um problema, um impasse lógico, comportamental ou de
+arquitetura, um defeito a diagnosticar ou uma decisão de desenho a tomar — em
+ABSOLUTAMENTE QUALQUER subsistema do projeto (rede, blockstore, datastore,
+bitswap, DHT, unixfs, IPLD, repo, serialização, buffers, concorrência, etc.), e
+NÃO APENAS em questões de rede —, a resposta se deriva lendo o Go em
+`go-ipfs-reference/` — nunca especulando, improvisando ou inspecionando apenas
+o que já existe em Dart.** Esta regra vale para análise, diagnóstico, algoritmos,
+fluxos de controle e planejamento, e não apenas para o momento de escrever
+código portado, que a seção "Rastrear chamadas antes de implementar" já cobre.
 
 A razão é estrutural, não estilística. Este porte é incompleto por definição.
 Um inventário do que ele tem **não pode** revelar o que falta nele: subsistemas
-inteiros que o upstream considera obrigatórios ficam invisíveis simplesmente
-porque nada no Dart os referencia. Perguntar "o que está faltando aqui?" olhando
-para cá devolve, na melhor das hipóteses, a lista do que está quebrado — nunca
-a do que nunca existiu.
+e comportamentos inteiros que o upstream considera obrigatórios ficam invisíveis
+simplesmente porque nada no Dart os referencia. Perguntar "o que está faltando
+aqui ou como resolver essa lógica?" olhando apenas para cá devolve, na melhor
+das hipóteses, a lista do que já foi escrito e quebrou — nunca a do que nunca
+existiu ou de como o algoritmo upstream realmente opera.
 
-Na prática isso significa abrir o Go primeiro e deixar que o grafo de chamadas
-e a fiação de opções do upstream determinem o formato da resposta. Para saber
-que subsistemas um nó real executa, leia como o Kubo constrói o seu host
-(`kubo/core/node/groups.go`, `kubo/core/node/libp2p/`), em vez de ler o nó Dart
-e perguntar o que parece ausente.
+Na prática isso significa abrir o Go primeiro e deixar que a lógica de negócio,
+o grafo de chamadas e a fiação de opções do upstream determinem o formato da
+resposta para qualquer impasse. Para saber que subsistemas um nó real executa,
+leia como o Kubo constrói o seu host (`kubo/core/node/groups.go`,
+`kubo/core/node/libp2p/`), em vez de ler o nó Dart e perguntar o que parece
+ausente. Para saber como um algoritmo, cache ou estrutura de dados opera, leia
+o pacote correspondente em `go-ipfs-reference/`.
 
 Dois episódios reais deste repositório mostram o custo de inverter a ordem:
 

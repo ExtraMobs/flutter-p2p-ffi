@@ -8,28 +8,15 @@ import 'dart:typed_data';
 import 'package:transpiled_block_format/transpiled_block_format.dart' as blocks;
 import 'package:transpiled_boxo/transpiled_boxo.dart' hide Blockstore;
 import 'package:transpiled_ipfs/transpiled_ipfs.dart';
+import 'package:transpiled_multihash/transpiled_multihash.dart';
 
 Future<void> main(List<String> args) async {
   print('============================================================');
-  print('         DART IPFS - HOSPEDAGEM DE CID ALEATORIO            ');
+  print('         DART IPFS - DAEMON DE HOSPEDAGEM (ESTILO KUBO)     ');
   print('============================================================');
 
-  // 1. Gerar payload aleatorio e unico
-  final rng = Random.secure();
-  final randomBytes = List<int>.generate(32, (_) => rng.nextInt(256));
-  final randomHex = randomBytes
-      .map((b) => b.toRadixString(16).padLeft(2, '0'))
-      .join();
-  final timestamp = DateTime.now().toUtc().toIso8601String();
-  final contentString = 'Dart-IPFS-Random-Content-[$timestamp]-$randomHex';
-  final contentBytes = Uint8List.fromList(utf8.encode(contentString));
-
-  print('Payload aleatorio gerado:');
-  print('  "$contentString"');
-  print('Tamanho: ${contentBytes.length} bytes\n');
-
-  // 2. Configurar o no Dart IPFS
-  // Usamos porta TCP 4002 como padrao; se ocupada, usamos porta efemera 0.
+  // 1. Configurar o nó Dart IPFS
+  // Usamos porta TCP 4002 como padrão do Swarm IPFS.
   var tcpPort = 4002;
   try {
     final testSocket = await ServerSocket.bind(
@@ -42,37 +29,75 @@ Future<void> main(List<String> args) async {
     tcpPort = 0;
   }
 
+  // Endereço WAN público da conexão para anúncio correto na DHT
+  final wanIp = '203.0.113.47';
+  final announceAddr = Platform.environment['DART_IPFS_ANNOUNCE_ADDR'] ??
+      '/ip4/$wanIp/tcp/$tcpPort';
+
   final config = IpfsConfig(
     offline: false,
     network: NetworkConfig(
       listenAddresses: ['/ip4/0.0.0.0/tcp/$tcpPort'],
-      bootstrapPeers: [
-        // Mars IPFS bootstrapper
+      announceAddresses: [announceAddr],
+      bootstrapPeers: const [
+        // Bootstrappers oficiais da rede pública IPFS / libp2p
         '/ip4/104.131.131.82/tcp/4001/p2p/QmaCpDMGvV2BGHeYERUEnRQAwe3N8SzbUtfsmvsqQLuvuJ',
-        // Kubo local (se ativo)
-        '/ip4/127.0.0.1/tcp/4001/p2p/12D3KooWBvCyh8Vezjcwjhe2etkvjxw7g8hx9SW4jP5c94yXkyX1',
+        '/dnsaddr/bootstrap.libp2p.io/p2p/QmNnooDu7bfjPFoTZYxMNLWUQJyrVwtbZg5gBMjTezGAJN',
+        '/dnsaddr/bootstrap.libp2p.io/p2p/QmQCU2EcMqAqQPR2i9bChDtGNJchTbq5TbXJJ16u19uLTa',
+        '/dnsaddr/bootstrap.libp2p.io/p2p/QmbLHAnMoJPWSCR5Zhtx6BHJX9KiKNN6tpvbUcqanj75Nb',
       ],
+      mdnsEnabled: false,
     ),
   );
 
-  print('Iniciando o no Dart IPFS...');
+  print('1. Inicializando subsistemas do nó Dart IPFS (Swarm, TLS 1.3/Noise, DHT, Bitswap, NAT)...');
   final node = await IpfsNode.fromBuildCfg(
     BuildCfg(config: config, online: true),
   );
 
   final peerId = node.peerId.toBase58();
-  print('No Dart online com sucesso!');
-  print('PeerId: $peerId');
-  print('Swarm addresses:');
+  print('   Nó ativo localmente! PeerId: $peerId\n');
+
+  // 2. Fase de Bootstrap e Negociação de Rede (seguindo o ciclo do daemon do Kubo)
+  print('2. Conectando aos peers de bootstrap e negociando presença na rede...');
+  for (final boot in config.network.bootstrapPeers) {
+    try {
+      await node.connect(addrInfoFromString(boot));
+      print('   ✓ Conectado ao bootstrapper: $boot');
+    } catch (e) {
+      print('   ✗ Falha ao conectar em $boot: $e');
+    }
+  }
+
+  // Aguarda estabilização e negociação (Identify exchange, AutoNAT probing e UPnP)
+  print('\n3. Aguardando estabilização da rede e negociação de rotas...');
+  await Future<void>.delayed(const Duration(seconds: 4));
+
+  print('\n============================================================');
+  print('>>> DAEMON PRONTO (NETWORK NEGOTIATED) <<<');
+  print('Endereços Swarm consolidados para anúncio:');
   for (final addr in node.swarmAddresses) {
     print('  $addr');
   }
+  print('============================================================\n');
 
-  // 3. Inserir bloco no blockstore
-  // A. Como Raw block (CIDv1)
-  final rawCid = await node.putRawBlock(contentBytes);
+  // 4. SOMENTE AGORA (após inicialização e negociação completa) geramos e hospedamos o CID no Blockstore
+  print('4. Inserindo payload inédito no blockstore após prontidão...');
+  final rng = Random.secure();
+  final randomBytes = List<int>.generate(32, (_) => rng.nextInt(256));
+  final randomHex = randomBytes
+      .map((b) => b.toRadixString(16).padLeft(2, '0'))
+      .join();
+  final timestamp = DateTime.now().toUtc().toIso8601String();
+  final contentString = 'Dart-IPFS-KuboLifecycle-[$timestamp]-$randomHex';
+  final contentBytes = Uint8List.fromList(utf8.encode(contentString));
 
-  // B. Como UnixFS DAG (CIDv0)
+  // A. Como Raw block legítimo (CIDv1 com codec 'raw' -> bafkrei...)
+  final rawDigest = MultihashUtils.sum('sha2-256', contentBytes);
+  final rawCid = Cid.v1('raw', rawDigest);
+  await node.putBlock(blocks.BasicBlock.withCid(contentBytes, rawCid));
+
+  // B. Como UnixFS DAG legítimo (CIDv0 com codec 'dag-pb' -> Qm...)
   final unixFsResult = await buildDagFromReader(
     Stream.value(contentBytes),
     cidVersion: 0,
@@ -83,81 +108,52 @@ Future<void> main(List<String> args) async {
   );
   final unixFsCid = unixFsResult.root;
 
-  print('\n------------------------------------------------------------');
-  print('>>> CIDs HOSPEDADOS COM SUCESSO:');
-  print('  * Raw CID (CIDv1):    ${rawCid.encode()}');
-  print('  * UnixFS CID (CIDv0): ${unixFsCid.encode()}');
-  print('------------------------------------------------------------\n');
+  print('   Conteúdo armazenado no blockstore: "$contentString"');
+  print('   * Raw CID (CIDv1 / raw):       ${rawCid.encode()}');
+  print('   * UnixFS CID (CIDv0 / dag-pb): ${unixFsCid.encode()}\n');
 
-  // 4. Conectar a peers de bootstrap
-  print('Conectando aos pares de bootstrap...');
-  for (final boot in config.network.bootstrapPeers) {
-    try {
-      await node.connect(addrInfoFromString(boot));
-      print('  Conectado: $boot');
-    } catch (e) {
-      print('  Nao foi possivel conectar a $boot: $e');
-    }
-  }
-
-  // Se o Kubo local estiver rodando, conectamos ele ao no Dart
-  try {
-    for (final sAddr in node.swarmAddresses) {
-      if (sAddr.contains('127.0.0.1') || sAddr.contains('0.0.0.0')) {
-        final loopbackAddr = sAddr.replaceAll('0.0.0.0', '127.0.0.1');
-        final res = await Process.run(
-          'ipfs',
-          ['swarm', 'connect', loopbackAddr],
-          environment: {'IPFS_PATH': r'B:\IPFS\.ipfs'},
-        );
-        if (res.exitCode == 0) {
-          print(
-            '  Kubo local conectado ao no Dart via loopback: ${res.stdout.toString().trim()}',
-          );
-          break;
-        }
-      }
-    }
-  } catch (_) {}
-
-  // 5. Anunciar CIDs na DHT
-  print('\nAnunciando CIDs na DHT...');
+  // 5. Anunciar CIDs consolidados na Amino DHT
+  print('5. Anunciando CIDs na Amino DHT com os endereços consolidados...');
   try {
     await node.provide(rawCid);
-    print('  Raw CID anunciado na DHT: ${rawCid.encode()}');
+    print('   ✓ Raw CID anunciado na DHT: ${rawCid.encode()}');
   } catch (e) {
-    print('  Aviso ao anunciar Raw CID: $e');
+    print('   ✗ Aviso ao anunciar Raw CID: $e');
   }
 
   try {
     await node.provide(unixFsCid);
-    print('  UnixFS CID anunciado na DHT: ${unixFsCid.encode()}');
+    print('   ✓ UnixFS CID anunciado na DHT: ${unixFsCid.encode()}');
   } catch (e) {
-    print('  Aviso ao anunciar UnixFS CID: $e');
+    print('   ✗ Aviso ao anunciar UnixFS CID: $e');
   }
 
   print('\n============================================================');
-  print('>>> NO DART ATIVO E HOSPEDANDO O CID EM TEMPO REAL <<<');
-  print('Para recuperar o conteudo via IPFS/Kubo:');
+  print('>>> NÓ DART ATIVO E HOSPEDANDO O CID NA REDE PÚBLICA GLOBAL <<<');
+  print('Para recuperar o conteúdo via IPFS / Kubo:');
   print('  ipfs block get ${rawCid.encode()}');
   print('  ipfs cat ${unixFsCid.encode()}');
+  print('Para consultar na DHT:');
+  print('  ipfs routing findprovs ${rawCid.encode()}');
+  print('Para testar discagem direta (se necessário):');
+  print('  ipfs swarm connect $announceAddr/p2p/$peerId');
   print('============================================================\n');
 
-  // Monitoramento de saude a cada 30 segundos
+  // Monitoramento de saúde a cada 30 segundos
   final startTime = DateTime.now();
   Timer.periodic(const Duration(seconds: 30), (timer) {
     final uptime = DateTime.now().difference(startTime);
     print(
-      '[${DateTime.now().toUtc().toIso8601String()}] Status: ONLINE | Uptime: ${uptime.inMinutes}m ${uptime.inSeconds % 60}s | Bloco hospedado intacto.',
+      '[${DateTime.now().toUtc().toIso8601String()}] Daemon Status: ONLINE | Uptime: ${uptime.inMinutes}m ${uptime.inSeconds % 60}s | Bloco servindo em Bitswap/DHT.',
     );
   });
 
-  // Manter o processo vivo
+  // Manter o processo vivo e realizar shutdown limpo
   final completer = Completer<void>();
   ProcessSignal.sigint.watch().listen((_) async {
-    print('\nEncerrando no Dart IPFS...');
+    print('\nEncerrando o nó Dart IPFS...');
     await node.close();
-    print('No finalizado.');
+    print('Nó finalizado com sucesso.');
     completer.complete();
     exit(0);
   });

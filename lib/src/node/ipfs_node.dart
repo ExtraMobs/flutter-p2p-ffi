@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:logging/logging.dart';
@@ -153,9 +155,9 @@ final class IpfsNode {
 
     final autoRelay = AutoRelay();
     rollback.add(autoRelay.close);
-    final natGateway = announcedIp != null
+    final NatGateway natGateway = announcedIp != null
         ? SimulatedNatGateway(externalIp: announcedIp)
-        : null;
+        : Libp2pNatGateway();
     final natManager = BasicNatManager(network: swarm, gateway: natGateway);
     rollback.add(natManager.close);
     await natManager.start();

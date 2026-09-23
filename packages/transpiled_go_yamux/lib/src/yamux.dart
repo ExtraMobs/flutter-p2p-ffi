@@ -72,7 +72,7 @@ final class YamuxFrame {
 
   static YamuxFrame decode(Uint8List bytes) {
     if (bytes.length < yamuxHeaderSize) {
-      throw YamuxProtocolException('truncated Yamux header');
+      throw const YamuxProtocolException('truncated Yamux header');
     }
     final d = ByteData.sublistView(bytes);
     final version = d.getUint8(0);
@@ -87,7 +87,7 @@ final class YamuxFrame {
     final length = d.getUint32(8, Endian.big);
     if (type == YamuxMessageType.data &&
         bytes.length != yamuxHeaderSize + length) {
-      throw YamuxProtocolException('truncated data frame');
+      throw const YamuxProtocolException('truncated data frame');
     }
     return YamuxFrame(
       version: version,
@@ -300,27 +300,93 @@ final class YamuxConfigException implements Exception {
   String toString() => message;
 }
 
-final class YamuxProtocolException implements Exception {
-  YamuxProtocolException(this.message);
+enum YamuxStreamState {
+  init,
+  synSent,
+  synReceived,
+  established,
+  finished,
+}
+
+enum YamuxHalfStreamState {
+  open,
+  closed,
+  reset,
+}
+
+abstract class YamuxException implements Exception {
+  const YamuxException(this.message, {this.isTimeout = false, this.isTemporary = false});
   final String message;
+  final bool isTimeout;
+  final bool isTemporary;
+
   @override
   String toString() => message;
 }
 
-final class YamuxStreamResetException implements Exception {
-  YamuxStreamResetException({required this.remote, this.errorCode = 0});
-  final bool remote;
-  final int errorCode;
-  @override
-  String toString() =>
-      'stream reset (${remote ? 'remote' : 'local'}), error code: $errorCode';
+class YamuxSessionClosedException extends YamuxException {
+  const YamuxSessionClosedException([super.message = 'session shutdown']);
 }
 
-final class YamuxSessionClosedException implements Exception {
-  YamuxSessionClosedException([this.reason = 'session shutdown']);
-  final String reason;
-  @override
-  String toString() => reason;
+class YamuxProtocolException extends YamuxException {
+  const YamuxProtocolException(super.message);
+}
+
+class YamuxGoAwayException extends YamuxSessionClosedException {
+  const YamuxGoAwayException({required this.errorCode, required this.remote})
+      : super(remote ? 'remote sent go away, code: $errorCode' : 'sent go away, code: $errorCode');
+  final int errorCode;
+  final bool remote;
+}
+
+class YamuxStreamResetException extends YamuxException {
+  const YamuxStreamResetException({this.remote = false, this.errorCode = 0})
+      : super('stream reset (${remote ? 'remote' : 'local'}), error code: $errorCode');
+  final bool remote;
+  final int errorCode;
+}
+
+class YamuxStreamErrorException extends YamuxStreamResetException {
+  const YamuxStreamErrorException({required super.errorCode, required super.remote});
+}
+
+class YamuxStreamClosedException extends YamuxSessionClosedException {
+  const YamuxStreamClosedException([super.message = 'stream closed']);
+}
+
+class YamuxSessionShutdownException extends YamuxGoAwayException {
+  const YamuxSessionShutdownException([int errorCode = 0]) : super(errorCode: errorCode, remote: false);
+}
+
+class YamuxRemoteGoAwayException extends YamuxGoAwayException {
+  const YamuxRemoteGoAwayException([int errorCode = 0]) : super(errorCode: errorCode, remote: true);
+}
+
+class YamuxTimeoutException extends YamuxException {
+  const YamuxTimeoutException([super.message = 'i/o deadline reached'])
+      : super(isTimeout: true, isTemporary: true);
+}
+
+class YamuxConnectionWriteTimeoutException extends YamuxException {
+  const YamuxConnectionWriteTimeoutException([super.message = 'connection write timeout'])
+      : super(isTimeout: true);
+}
+
+class YamuxKeepAliveTimeoutException extends YamuxException {
+  const YamuxKeepAliveTimeoutException([super.message = 'keepalive timeout'])
+      : super(isTimeout: true);
+}
+
+class YamuxDuplicateStreamException extends YamuxProtocolException {
+  const YamuxDuplicateStreamException([super.message = 'duplicate stream initiated']);
+}
+
+class YamuxRecvWindowExceededException extends YamuxProtocolException {
+  const YamuxRecvWindowExceededException([super.message = 'recv window exceeded']);
+}
+
+class YamuxStreamsExhaustedException extends YamuxException {
+  const YamuxStreamsExhaustedException([super.message = 'streams exhausted']);
 }
 
 /// The small transport contract needed by Yamux. TCP/Noise adapters can wrap
@@ -329,17 +395,6 @@ abstract interface class YamuxTransport {
   Stream<List<int>> get input;
   Future<void> write(Uint8List bytes);
   Future<void> close();
-}
-
-/// Thrown into a session that stopped answering keepalives.
-///
-/// Go: `ErrKeepAliveTimeout` (`go-yamux/const.go:130-131`).
-class YamuxKeepAliveTimeoutException implements Exception {
-  /// Creates a [YamuxKeepAliveTimeoutException].
-  const YamuxKeepAliveTimeoutException();
-
-  @override
-  String toString() => 'YamuxKeepAliveTimeoutException: keepalive timeout';
 }
 
 final class YamuxSession {
@@ -357,7 +412,7 @@ final class YamuxSession {
       _onInput,
       onError: (Object error, StackTrace stack) => close(reason: error),
       onDone: () =>
-          close(reason: YamuxSessionClosedException('transport closed')),
+          close(reason: const YamuxSessionClosedException('transport closed')),
       cancelOnError: true,
     );
     _startKeepalive();
@@ -385,10 +440,10 @@ final class YamuxSession {
   Future<void>? _closeFuture;
   late final StreamSubscription<List<int>> _subscription;
   Future<void> _writeTail = Future<void>.value();
-  Object? _shutdownReason;
+  Object? _shutdownErr;
   int _nextStreamId = 1;
   int _incomingCount = 0;
-  int _inflight = 0;
+  final Set<int> _inflight = <int>{};
   bool _goAway = false;
 
   bool get isClosed => _closed.isCompleted;
@@ -396,47 +451,72 @@ final class YamuxSession {
   int get numStreams => _streams.length;
   int get numIncomingStreams => _incomingCount;
 
+  Object get _closedError => _shutdownErr ?? const YamuxSessionShutdownException();
+
   Future<YamuxStream> openStream({Duration? timeout}) async {
     if (isClosed || _goAway) throw _closedError;
     final end = timeout == null ? null : DateTime.now().add(timeout);
-    while (_inflight >= config.acceptBacklog) {
+    while (_inflight.length >= config.acceptBacklog) {
       if (isClosed) throw _closedError;
       final remaining = end == null ? null : end.difference(DateTime.now());
       if (remaining != null && remaining <= Duration.zero) {
-        throw TimeoutException('opening Yamux stream timed out');
+        throw const YamuxTimeoutException('opening Yamux stream timed out');
       }
       await Future.any<void>([
         _closed.future,
         Future<void>.delayed(remaining ?? const Duration(milliseconds: 10)),
       ]);
     }
-    if (_nextStreamId >= 0xfffffffe) throw YamuxStreamsExhaustedException();
+    if (_nextStreamId >= 0xfffffffe) throw const YamuxStreamsExhaustedException();
     final id = _nextStreamId;
     _nextStreamId += 2;
-    final stream = YamuxStream._(this, id, incoming: false);
+    final stream = YamuxStream._(this, id, YamuxStreamState.init);
     _streams[id] = stream;
-    _inflight++;
+    _inflight.add(id);
     await stream._sendWindowUpdate(syn: true);
     return stream;
   }
 
-  Future<YamuxStream> acceptStream() {
-    if (_acceptQueue.isNotEmpty) return _acceptOne();
-    if (isClosed) return Future<YamuxStream>.error(_closedError);
-    final waiter = Completer<YamuxStream>();
-    _acceptWaiters.add(waiter);
-    return waiter.future;
+  Future<YamuxStream> acceptStream() async {
+    while (true) {
+      if (isClosed) throw _closedError;
+
+      final YamuxStream stream;
+      if (_acceptQueue.isNotEmpty) {
+        stream = _acceptQueue.removeFirst();
+      } else {
+        final waiter = Completer<YamuxStream>();
+        _acceptWaiters.add(waiter);
+        try {
+          stream = await waiter.future;
+        } on Object {
+          if (isClosed) throw _closedError;
+          continue;
+        }
+      }
+
+      if (stream.isClosed) continue;
+
+      // Paridade com go-yamux (session.go:265-279):
+      // if err := stream.sendWindowUpdate(nil); err != nil {
+      //   // don't return accept errors.
+      //   s.logger.Printf("[WARN] error sending window update before accepting: %s", err)
+      //   continue
+      // }
+      try {
+        await stream._sendWindowUpdate(ack: true);
+        return stream;
+      } catch (error) {
+        stream._forceClose(error);
+        if (isClosed) throw _closedError;
+        continue;
+      }
+    }
   }
 
   Future<YamuxStream> open() => openStream();
 
   Future<YamuxStream> accept() => acceptStream();
-
-  Future<YamuxStream> _acceptOne() async {
-    final stream = _acceptQueue.removeFirst();
-    if (!stream.isClosed) await stream._sendWindowUpdate(ack: true);
-    return stream;
-  }
 
   Future<void> goAway() {
     _goAway = true;
@@ -451,7 +531,7 @@ final class YamuxSession {
       YamuxFrame(type: YamuxMessageType.goAway, length: errorCode),
     );
     await close(
-      reason: YamuxSessionClosedException('sent go away, code: $errorCode'),
+      reason: YamuxGoAwayException(errorCode: errorCode, remote: false),
     );
   }
 
@@ -459,12 +539,13 @@ final class YamuxSession {
 
   Future<void> _close(Object? reason) async {
     _stopKeepalive();
-    _shutdownReason = reason ?? YamuxSessionClosedException();
+    _shutdownErr = reason ?? const YamuxSessionShutdownException();
     _goAway = true;
     _closed.complete();
     await _subscription.cancel();
+
     for (final stream in List<YamuxStream>.from(_streams.values)) {
-      stream._forceClose(_shutdownReason!);
+      stream._forceClose(_shutdownErr!);
     }
     _streams.clear();
     while (_acceptWaiters.isNotEmpty) {
@@ -479,8 +560,6 @@ final class YamuxSession {
     } catch (_) {}
     await transport.close();
   }
-
-  Object get _closedError => _shutdownReason ?? YamuxSessionClosedException();
 
   /// Pings still waiting for their pong, keyed by the opaque value carried in
   /// the frame's length field.
@@ -515,11 +594,6 @@ final class YamuxSession {
   /// Go: `startKeepalive` (`go-yamux/session.go:446-473`) -- a timer that
   /// pings, reschedules itself, and closes the session with
   /// `ErrKeepAliveTimeout` when the ping fails.
-  ///
-  /// Without this a session whose peer vanished silently is never reaped: no
-  /// bytes arrive, nothing errors, and the socket sits open forever. On a
-  /// public DHT that is the difference between a connection count that
-  /// plateaus and one that only climbs.
   void _startKeepalive() {
     if (!config.enableKeepAlive || isClosed) return;
     _keepaliveTimer = Timer(config.keepAliveInterval, () async {
@@ -527,7 +601,6 @@ final class YamuxSession {
       try {
         await ping();
       } catch (_) {
-        // Go: `s.close(ErrKeepAliveTimeout, false, 0)` (`session.go:468-471`).
         unawaited(close(reason: const YamuxKeepAliveTimeoutException()));
         return;
       }
@@ -543,38 +616,22 @@ final class YamuxSession {
 
   /// Queues [frame] behind whatever is already being written.
   ///
-  /// A write that fails is fatal to this session and to nothing else. Go's
-  /// `send()` takes the error out of `sendLoop`, closes the connection and
-  /// calls `s.close(err, false, 0)` (`go-yamux/session.go:545-567`): the
-  /// goroutine ends, the process keeps running. A peer that resets the socket
-  /// mid-write is an ordinary event on a public network, not a fault of this
-  /// node.
-  ///
-  /// Two things follow, and both used to be wrong here. The error must not
-  /// escape as an unhandled asynchronous error -- several callers fire this
-  /// without awaiting, so it reached the root zone and killed the isolate on
-  /// the first peer that reset. And the tail must not stay poisoned: chaining
-  /// the next frame onto a rejected future made every later write fail too,
-  /// long after the session should simply have been closed.
+  /// Paridade com go-yamux (session.go:516-567):
+  /// sendLoop detecta erro no write do socket, registra shutdownErr e aciona close.
   Future<void> _sendFrame(YamuxFrame frame) {
+    if (isClosed) return Future<void>.error(_closedError);
     final bytes = frame.encode();
     final sent = _writeTail.then((_) async {
-      // Go's `sendLoop` puts `ConnectionWriteTimeout` on the connection before
-      // every write (`extendWriteDeadline`, `session.go:583-590`). Without a
-      // deadline, a peer that stops reading parks this write forever and the
-      // connection behind it is never released. The queue wait ahead of it is
-      // deliberately outside the clock: Go's deadline covers the write, not
-      // the time spent behind other frames.
       if (!isClosed) {
         await transport.write(bytes).timeout(config.connectionWriteTimeout);
       }
     });
-    // Registering the handler on `sent` is what makes it safe to ignore the
-    // returned future, and leaves the tail resolved rather than rejected.
+
     _writeTail = sent.then<void>(
       (_) {},
       onError: (Object error) => unawaited(close(reason: error)),
     );
+    sent.ignore();
     return sent;
   }
 
@@ -591,7 +648,12 @@ final class YamuxSession {
     if (frame.type == YamuxMessageType.goAway) {
       _goAway = true;
       unawaited(
-        close(reason: YamuxSessionClosedException('remote sent go away')),
+        close(
+          reason: YamuxGoAwayException(
+            errorCode: frame.length,
+            remote: true,
+          ),
+        ),
       );
       return;
     }
@@ -607,8 +669,6 @@ final class YamuxSession {
           ),
         );
       } else {
-        // The pong to one of our own keepalives; the length field echoes the
-        // opaque value we sent.
         final waiting = _pings.remove(frame.length);
         if (waiting != null && !waiting.isCompleted) waiting.complete();
       }
@@ -617,21 +677,20 @@ final class YamuxSession {
     final incoming = (frame.flags & yamuxSyn) != 0;
     if (incoming) {
       if (_streams.containsKey(frame.streamId)) {
-        throw YamuxProtocolException('duplicate stream initiated');
+        throw const YamuxDuplicateStreamException();
       }
       _newIncoming(frame.streamId);
     }
     final stream = _streams[frame.streamId];
     if (stream == null) return;
     if (frame.type == YamuxMessageType.windowUpdate) {
-      stream._window += frame.length;
+      stream._sendWindow += frame.length;
       stream._signalWindowWaiters();
-      if ((frame.flags & yamuxAck) != 0) _ack(stream);
       stream._processFlags(frame.flags, frame.length);
     } else {
       if (frame.payload.length > stream._recvWindow) {
         unawaited(
-          close(reason: YamuxProtocolException('receive window exceeded')),
+          close(reason: const YamuxRecvWindowExceededException()),
         );
         return;
       }
@@ -645,7 +704,7 @@ final class YamuxSession {
 
   void _newIncoming(int id) {
     if (isClient == id.isOdd) {
-      throw YamuxProtocolException('both yamux endpoints are clients');
+      throw const YamuxProtocolException('both yamux endpoints are clients');
     }
     if (_goAway ||
         _incomingCount >= config.maxIncomingStreams ||
@@ -661,68 +720,60 @@ final class YamuxSession {
       );
       return;
     }
-    final stream = YamuxStream._(this, id, incoming: true);
+    final stream = YamuxStream._(this, id, YamuxStreamState.synReceived);
     _streams[id] = stream;
     _incomingCount++;
     if (_acceptWaiters.isNotEmpty) {
       final waiter = _acceptWaiters.removeFirst();
-      unawaited(
-        stream
-            ._sendWindowUpdate(ack: true)
-            .then((_) => waiter.complete(stream)),
-      );
+      waiter.complete(stream);
     } else {
       _acceptQueue.add(stream);
     }
   }
 
   void _ack(YamuxStream stream) {
-    if (stream._acked) return;
-    stream._acked = true;
-    if (_inflight > 0) _inflight--;
+    _inflight.remove(stream.id);
   }
 
   void _remove(YamuxStream stream) {
     if (_streams.remove(stream.id) == null) return;
     _acceptQueue.remove(stream);
+    _inflight.remove(stream.id);
     if (stream.incoming && _incomingCount > 0) _incomingCount--;
-    if (!stream.incoming && _inflight > 0) _inflight--;
   }
 }
 
-final class YamuxStreamsExhaustedException implements Exception {
-  @override
-  String toString() => 'streams exhausted';
-}
-
 final class YamuxStream {
-  YamuxStream._(this.session, this.id, {required this.incoming})
-    : _recvWindow = yamuxInitialStreamWindow,
-      _window = yamuxInitialStreamWindow;
+  YamuxStream._(this.session, this.id, this._state)
+      : _recvWindow = session.config.initialStreamWindowSize,
+        _sendWindow = yamuxInitialStreamWindow;
 
   final YamuxSession session;
   final int id;
-  final bool incoming;
-  int _window;
+
+  YamuxStreamState _state;
+  YamuxHalfStreamState _readState = YamuxHalfStreamState.open;
+  YamuxHalfStreamState _writeState = YamuxHalfStreamState.open;
+
+  Object? _readErr;
+  Object? _writeErr;
+
+  int _sendWindow;
   int _recvWindow;
   final Queue<Uint8List> _received = Queue<Uint8List>();
   final Queue<({Completer<Uint8List?> completer, int maxBytes})> _readers =
       Queue<({Completer<Uint8List?> completer, int maxBytes})>();
   final Queue<Completer<void>> _windowWaiters = Queue<Completer<void>>();
-  bool _readClosed = false;
-  bool _readReset = false;
-  bool _resetRemote = false;
-  int _resetCode = 0;
-  bool _writeClosed = false;
-  bool _reset = false;
-  bool _acked = false;
-  bool _synSent = false;
   bool _cleaned = false;
   int _queuedBytes = 0;
 
   int get streamId => id;
   int get streamID => id;
-  bool get isClosed => _reset || (_readClosed && _writeClosed);
+  bool get incoming => id % 2 == (session.isClient ? 0 : 1);
+  bool get isClosed =>
+      _state == YamuxStreamState.finished ||
+      (_readState != YamuxHalfStreamState.open &&
+          _writeState != YamuxHalfStreamState.open);
   int get bufferedBytes => _queuedBytes;
 
   Future<int> write(Uint8List bytes) async {
@@ -730,20 +781,22 @@ final class YamuxStream {
     var offset = 0;
     while (offset < bytes.length) {
       _checkWritable();
-      while (_window == 0) {
+      while (_sendWindow == 0) {
         final waiter = Completer<void>();
         _windowWaiters.add(waiter);
-        if (_window != 0 || _reset || _writeClosed || session.isClosed) {
-          waiter.complete();
+        if (_sendWindow != 0 ||
+            _writeState != YamuxHalfStreamState.open ||
+            session.isClosed) {
+          if (!waiter.isCompleted) waiter.complete();
         }
         await waiter.future;
         _checkWritable();
       }
-      final max = _window < session.config.maxMessageSize - yamuxHeaderSize
-          ? _window
+      final max = _sendWindow < session.config.maxMessageSize - yamuxHeaderSize
+          ? _sendWindow
           : session.config.maxMessageSize - yamuxHeaderSize;
       final count = (bytes.length - offset) < max ? bytes.length - offset : max;
-      var flags = _sendFlags();
+      final flags = _sendFlags();
       await session._sendFrame(
         YamuxFrame(
           type: YamuxMessageType.data,
@@ -752,7 +805,7 @@ final class YamuxStream {
           payload: Uint8List.sublistView(bytes, offset, offset + count),
         ),
       );
-      _window -= count;
+      _sendWindow -= count;
       offset += count;
     }
     return offset;
@@ -760,15 +813,25 @@ final class YamuxStream {
 
   Future<Uint8List?> read([int maxBytes = 65536]) {
     if (maxBytes <= 0) throw RangeError('maxBytes must be positive');
-    if (_readReset) {
-      return Future<Uint8List?>.error(
-        YamuxStreamResetException(remote: _resetRemote, errorCode: _resetCode),
-      );
+
+    switch (_readState) {
+      case YamuxHalfStreamState.open:
+        break;
+      case YamuxHalfStreamState.closed:
+        if (_queuedBytes == 0) return Future<Uint8List?>.value(null);
+        break;
+      case YamuxHalfStreamState.reset:
+        return Future<Uint8List?>.error(
+          _readErr ?? const YamuxStreamResetException(),
+        );
     }
-    if (_received.isNotEmpty) return Future.value(_take(maxBytes));
-    if (_reset)
-      return Future<Uint8List?>.error(YamuxStreamResetException(remote: true));
-    if (_readClosed) return Future<Uint8List?>.value(null);
+
+    if (_received.isNotEmpty) {
+      final out = _take(maxBytes);
+      unawaited(_maybeSendWindowUpdate());
+      return Future<Uint8List?>.value(out);
+    }
+
     final c = Completer<Uint8List?>();
     _readers.add((completer: c, maxBytes: maxBytes));
     return c.future;
@@ -782,10 +845,19 @@ final class YamuxStream {
   }
 
   Future<void> closeWrite() async {
-    if (_writeClosed) return;
-    if (_reset) return;
-    _writeClosed = true;
-    _signalWindowWaiters();
+    if (_state == YamuxStreamState.finished ||
+        _writeState == YamuxHalfStreamState.closed) {
+      return;
+    }
+    if (_writeState == YamuxHalfStreamState.reset) {
+      return;
+    }
+    _writeState = YamuxHalfStreamState.closed;
+    final cleanup = _readState != YamuxHalfStreamState.open;
+    if (cleanup) {
+      _state = YamuxStreamState.finished;
+    }
+    _notifyWaiting();
     await session._sendFrame(
       YamuxFrame(
         type: YamuxMessageType.windowUpdate,
@@ -793,41 +865,53 @@ final class YamuxStream {
         streamId: id,
       ),
     );
-    _cleanupIfDone();
+    if (cleanup) {
+      _cleanup();
+    }
   }
 
   Future<void> closeRead() async {
-    if (_readClosed) return;
-    _readClosed = true;
-    _readReset = true;
-    _resetRemote = false;
-    while (_readers.isNotEmpty) {
-      _readers.removeFirst().completer.completeError(
-        YamuxStreamResetException(remote: false),
-      );
+    if (_state == YamuxStreamState.finished ||
+        _readState != YamuxHalfStreamState.open) {
+      return;
     }
-    _cleanupIfDone();
+    _readState = YamuxHalfStreamState.reset;
+    _readErr = const YamuxStreamResetException(remote: false);
+    final cleanup = _writeState != YamuxHalfStreamState.open;
+    if (cleanup) {
+      _state = YamuxStreamState.finished;
+    }
+    _notifyWaiting();
+    if (cleanup) {
+      _cleanup();
+    }
   }
 
   Future<void> close() async {
+    if (_state == YamuxStreamState.finished) return;
     await closeRead();
     await closeWrite();
   }
 
   Future<void> reset([int errorCode = 0]) async {
-    if (_reset || isClosed) return;
-    _reset = true;
-    _readClosed = true;
-    _readReset = true;
-    _resetRemote = false;
-    _resetCode = errorCode;
-    _writeClosed = true;
-    while (_readers.isNotEmpty) {
-      _readers.removeFirst().completer.completeError(
-        YamuxStreamResetException(remote: false, errorCode: errorCode),
-      );
+    if (_state == YamuxStreamState.finished) return;
+    final sendReset = _state == YamuxStreamState.synSent ||
+        _state == YamuxStreamState.synReceived ||
+        _state == YamuxStreamState.established;
+
+    final err = YamuxStreamErrorException(errorCode: errorCode, remote: false);
+    if (_writeState == YamuxHalfStreamState.open) {
+      _writeState = YamuxHalfStreamState.reset;
+      _writeErr = err;
     }
-    if (incoming || _synSent) {
+    if (_readState == YamuxHalfStreamState.open) {
+      _readState = YamuxHalfStreamState.reset;
+      _readErr = err;
+    }
+    _state = YamuxStreamState.finished;
+    _notifyWaiting();
+
+    if (sendReset) {
       await session._sendFrame(
         YamuxFrame(
           type: YamuxMessageType.windowUpdate,
@@ -837,32 +921,36 @@ final class YamuxStream {
         ),
       );
     }
-    _cleanupIfDone();
+    _cleanup();
   }
 
   Future<void> resetWithError(int errorCode) => reset(errorCode);
 
   int _sendFlags() {
-    if (!incoming && !_synSent) {
-      _synSent = true;
-      return yamuxSyn;
+    var flags = 0;
+    switch (_state) {
+      case YamuxStreamState.init:
+        flags |= yamuxSyn;
+        _state = YamuxStreamState.synSent;
+        break;
+      case YamuxStreamState.synReceived:
+        flags |= yamuxAck;
+        _state = YamuxStreamState.established;
+        break;
+      case YamuxStreamState.synSent:
+      case YamuxStreamState.established:
+      case YamuxStreamState.finished:
+        break;
     }
-    if (incoming && !_acked) {
-      _acked = true;
-      return yamuxAck;
-    }
-    return 0;
+    return flags;
   }
 
   Future<void> _sendWindowUpdate({bool syn = false, bool ack = false}) async {
     final delta =
         session.config.initialStreamWindowSize - yamuxInitialStreamWindow;
-    var flags = syn ? yamuxSyn : 0;
-    if (syn) _synSent = true;
-    if (ack) {
-      flags |= yamuxAck;
-      _acked = true;
-    }
+    var flags = _sendFlags();
+    if (syn) flags |= yamuxSyn;
+    if (ack) flags |= yamuxAck;
     _recvWindow += delta;
     await session._sendFrame(
       YamuxFrame(
@@ -875,27 +963,45 @@ final class YamuxStream {
   }
 
   void _processFlags(int flags, int errorCode) {
-    if ((flags & yamuxAck) != 0) session._ack(this);
-    if ((flags & yamuxFin) != 0) {
-      _readClosed = true;
-      while (_readers.isNotEmpty)
-        _readers.removeFirst().completer.complete(null);
-      _cleanupIfDone();
-    }
-    if ((flags & yamuxRst) != 0) {
-      _reset = true;
-      _readClosed = true;
-      _readReset = true;
-      _resetRemote = true;
-      _resetCode = errorCode;
-      _writeClosed = true;
-      _signalWindowWaiters();
-      while (_readers.isNotEmpty) {
-        _readers.removeFirst().completer.completeError(
-          YamuxStreamResetException(remote: true, errorCode: errorCode),
-        );
+    var closeStream = false;
+
+    if ((flags & yamuxAck) != 0) {
+      if (_state == YamuxStreamState.synSent) {
+        _state = YamuxStreamState.established;
       }
-      _cleanupIfDone();
+      session._ack(this);
+    }
+
+    if ((flags & yamuxFin) != 0) {
+      if (_readState == YamuxHalfStreamState.open) {
+        _readState = YamuxHalfStreamState.closed;
+        if (_writeState != YamuxHalfStreamState.open) {
+          closeStream = true;
+          _state = YamuxStreamState.finished;
+        }
+        _notifyWaiting();
+      }
+    }
+
+    if ((flags & yamuxRst) != 0) {
+      final err = errorCode != 0
+          ? YamuxStreamErrorException(errorCode: errorCode, remote: true)
+          : const YamuxStreamResetException(remote: true);
+      if (_readState == YamuxHalfStreamState.open) {
+        _readState = YamuxHalfStreamState.reset;
+        _readErr = err;
+      }
+      if (_writeState == YamuxHalfStreamState.open) {
+        _writeState = YamuxHalfStreamState.reset;
+        _writeErr = err;
+      }
+      _state = YamuxStreamState.finished;
+      closeStream = true;
+      _notifyWaiting();
+    }
+
+    if (closeStream) {
+      _cleanup();
     }
   }
 
@@ -906,6 +1012,7 @@ final class YamuxStream {
     while (_readers.isNotEmpty && _received.isNotEmpty) {
       final waiter = _readers.removeFirst();
       waiter.completer.complete(_take(waiter.maxBytes));
+      unawaited(_maybeSendWindowUpdate());
     }
   }
 
@@ -927,37 +1034,39 @@ final class YamuxStream {
         _received.addFirst(Uint8List.sublistView(head, count));
       }
     }
+    return out;
+  }
+
+  Future<void> _maybeSendWindowUpdate() async {
     final delta = session.config.initialStreamWindowSize - _recvWindow;
     if (delta > 0 &&
         _recvWindow < session.config.initialStreamWindowSize ~/ 2) {
       _recvWindow += delta;
-      unawaited(
-        session._sendFrame(
-          YamuxFrame(
-            type: YamuxMessageType.windowUpdate,
-            streamId: id,
-            length: delta,
-          ),
+      await session._sendFrame(
+        YamuxFrame(
+          type: YamuxMessageType.windowUpdate,
+          streamId: id,
+          length: delta,
         ),
       );
     }
-    return out;
   }
 
-  void _forceClose(Object reason) {
-    _reset = true;
-    _readClosed = true;
-    _readReset = true;
-    _resetRemote = false;
-    _writeClosed = true;
-    _signalWindowWaiters();
-    while (_readers.isNotEmpty) {
-      _readers.removeFirst().completer.completeError(reason);
+  void _forceClose(Object err) {
+    if (_readState == YamuxHalfStreamState.open) {
+      _readState = YamuxHalfStreamState.reset;
+      _readErr = err;
     }
+    if (_writeState == YamuxHalfStreamState.open) {
+      _writeState = YamuxHalfStreamState.reset;
+      _writeErr = err;
+    }
+    _state = YamuxStreamState.finished;
+    _notifyWaiting();
   }
 
-  void _cleanupIfDone() {
-    if (!_cleaned && isClosed) {
+  void _cleanup() {
+    if (!_cleaned) {
       _cleaned = true;
       session._remove(this);
     }
@@ -965,13 +1074,14 @@ final class YamuxStream {
 
   void _checkWritable() {
     if (session.isClosed) throw session._closedError;
-    if (_reset) {
-      throw YamuxStreamResetException(
-        remote: _resetRemote,
-        errorCode: _resetCode,
-      );
+    switch (_writeState) {
+      case YamuxHalfStreamState.open:
+        break;
+      case YamuxHalfStreamState.closed:
+        throw const YamuxStreamClosedException();
+      case YamuxHalfStreamState.reset:
+        throw _writeErr ?? const YamuxStreamResetException();
     }
-    if (_writeClosed) throw YamuxSessionClosedException('stream closed');
   }
 
   void _signalWindowWaiters() {
@@ -980,9 +1090,45 @@ final class YamuxStream {
       if (!waiter.isCompleted) waiter.complete();
     }
   }
+
+  void _notifyWaiting() {
+    _signalWindowWaiters();
+    while (_readers.isNotEmpty) {
+      final r = _readers.removeFirst();
+      if (_readErr != null) {
+        r.completer.completeError(_readErr!);
+      } else {
+        r.completer.complete(null);
+      }
+    }
+  }
 }
 
 // Go's exported names are retained as aliases while the Dart names remain
 // collision-free for callers importing dart:async.
 typedef Config = YamuxConfig;
 typedef Session = YamuxSession;
+
+/// Go: `DefaultConfig` (`yamux/config.go:88`).
+YamuxConfig defaultConfig() => YamuxConfig.defaults;
+const DefaultConfig = defaultConfig;
+
+/// Go: `VerifyConfig` (`yamux/config.go:107`).
+void verifyConfig(YamuxConfig config) => config.verify();
+const VerifyConfig = verifyConfig;
+
+/// Go: `Server` (`yamux/session.go:83`).
+YamuxSession server(YamuxTransport conn, [YamuxConfig? config]) {
+  final cfg = config ?? YamuxConfig.defaults;
+  cfg.verify();
+  return YamuxSession(conn, isClient: false, config: cfg);
+}
+const Server = server;
+
+/// Go: `Client` (`yamux/session.go:70`).
+YamuxSession client(YamuxTransport conn, [YamuxConfig? config]) {
+  final cfg = config ?? YamuxConfig.defaults;
+  cfg.verify();
+  return YamuxSession(conn, isClient: true, config: cfg);
+}
+const Client = client;
