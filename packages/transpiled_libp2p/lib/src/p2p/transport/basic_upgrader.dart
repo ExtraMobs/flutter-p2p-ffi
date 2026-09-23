@@ -7,6 +7,7 @@ import 'dart:typed_data';
 import 'package:transpiled_go_yamux/transpiled_go_yamux.dart';
 import 'package:transpiled_multiaddr/transpiled_multiaddr.dart';
 
+import '../../core/connmgr/gater.dart';
 import '../../core/crypto/key_types.dart';
 import '../../core/network/network.dart';
 import '../../core/peer/peer_id.dart';
@@ -185,12 +186,14 @@ class BasicUpgrader implements Upgrader {
     required this.localIdentityKey,
     this.resourceManager = const NullResourceManager(),
     List<SecureTransport>? security,
+    this.gater,
   }) : localPeerId = PeerId.fromPubKey(localIdentityKey.getPublic()),
        _security = security == null ? null : List.unmodifiable(security);
 
   final PrivKey localIdentityKey;
   final PeerId localPeerId;
   final ResourceManager resourceManager;
+  ConnectionGater? gater;
   final List<SecureTransport>? _security;
 
   @override
@@ -205,6 +208,7 @@ class BasicUpgrader implements Upgrader {
       upgrader: this,
       gated: listener,
       resourceManager: resourceManager,
+      gater: gater,
     );
   }
 
@@ -358,14 +362,17 @@ class _UpgradedListener implements Listener {
     required Upgrader upgrader,
     required GatedMaListener gated,
     required ResourceManager resourceManager,
+    ConnectionGater? gater,
   }) : _upgrader = upgrader,
        _gated = gated,
-       _resourceManager = resourceManager {
+       _resourceManager = resourceManager,
+       _gater = gater {
     unawaited(_handleIncoming());
   }
 
   final Upgrader _upgrader;
   final GatedMaListener _gated;
+  final ConnectionGater? _gater;
 
   /// Decides whether there is room for one more inbound connection.
   ///
@@ -447,6 +454,18 @@ class _UpgradedListener implements Listener {
   /// Negotiates one inbound connection and hands it over, on one clock that
   /// covers both. Go: the goroutine body at `listener.go:106-146`.
   Future<void> _negotiate(RawConn raw) async {
+    if (_gater != null) {
+      final allowed = _gater.interceptAccept(raw);
+      if (!allowed) {
+        dev.log(
+          'connection gater blocked accept of new connection',
+          name: 'upgrader',
+        );
+        await raw.close();
+        return;
+      }
+    }
+
     // Admission first, negotiation second. A connection this node has no room
     // for costs nothing beyond the close; negotiating it first would spend a
     // handshake to arrive at the same answer.

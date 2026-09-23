@@ -1,7 +1,7 @@
 # Relatório Sintético de Progresso e Cobertura da Árvore AST (Go <-> Dart)
 
 > Documento gerado automaticamente pela ferramenta `tool/audit_ast_nomenclature.py --progress`.
-> **Símbolos Dart Auditados:** 9440 | **Símbolos Go Indexados:** 53105
+> **Símbolos Dart Auditados:** 9686 | **Símbolos Go Indexados:** 53105
 
 ## 1. Visão Geral em Duas Perspectivas
 
@@ -15,16 +15,16 @@
 ### Perspectiva B: Cobertura Quantitativa da Árvore AST Total Upstream Go
 
 - **Total de Símbolos Go no Escopo:** 16,445
-- **Símbolos Implementados em Dart:** 2,124 (12.9%)
-- **Símbolos Restantes no Ecossistema:** 14,321 (87.1%)
+- **Símbolos Implementados em Dart:** 2,234 (13.6%)
+- **Símbolos Restantes no Ecossistema:** 14,211 (86.4%)
 
 | Categoria de Símbolo | Total no Upstream Go | Implementado em Dart | Falta Implementar | % Concluído | % Que Falta |
 | :--- | :---: | :---: | :---: | :---: | :---: |
-| **Tipos (Classes / Interfaces)** | 1,669 | 367 | 1,302 | 22.0% | **78.0%** |
-| **Métodos** | 8,981 | 1,216 | 7,765 | 13.5% | **86.5%** |
-| **Campos de Structs** | 3,035 | 294 | 2,741 | 9.7% | **90.3%** |
-| **Funções Top-Level** | 2,760 | 247 | 2,513 | 8.9% | **91.1%** |
-| **TOTAL GERAL** | **16,445** | **2,124** | **14,321** | **12.9%** | **87.1%** |
+| **Tipos (Classes / Interfaces)** | 1,669 | 375 | 1,294 | 22.5% | **77.5%** |
+| **Métodos** | 8,981 | 1,247 | 7,734 | 13.9% | **86.1%** |
+| **Campos de Structs** | 3,035 | 346 | 2,689 | 11.4% | **88.6%** |
+| **Funções Top-Level** | 2,760 | 266 | 2,494 | 9.6% | **90.4%** |
+| **TOTAL GERAL** | **16,445** | **2,234** | **14,211** | **13.6%** | **86.4%** |
 
 ## 2. Detalhamento Quantitativo por Módulo Upstream Go
 
@@ -38,11 +38,11 @@
 | `go-libp2p-kbucket` | `packages/transpiled_libp2p_kbucket` | 76 | 37 | 39 | 48.7% | **51.3%** | 3/10 |
 | `go-libp2p-record` | `packages/transpiled_libp2p_record` | 31 | 15 | 16 | 48.4% | **51.6%** | 4/5 |
 | `go-datastore` | `packages/transpiled_datastore` | 530 | 171 | 359 | 32.3% | **67.7%** | 33/57 |
+| `go-libp2p` | `packages/transpiled_libp2p` | 3688 | 1049 | 2639 | 28.4% | **71.6%** | 182/391 |
 | `go-multibase` | `packages/transpiled_multibase` | 11 | 3 | 8 | 27.3% | **72.7%** | 1/2 |
-| `go-libp2p` | `packages/transpiled_libp2p` | 3688 | 947 | 2741 | 25.7% | **74.3%** | 174/391 |
 | `go-multihash` | `packages/transpiled_multihash` | 67 | 14 | 53 | 20.9% | **79.1%** | 2/7 |
 | `go-cid` | `packages/transpiled_cid` | 99 | 15 | 84 | 15.2% | **84.8%** | 3/10 |
-| `go-multiaddr` | `packages/transpiled_multiaddr` | 188 | 20 | 168 | 10.6% | **89.4%** | 4/18 |
+| `go-multiaddr` | `packages/transpiled_multiaddr` | 188 | 28 | 160 | 14.9% | **85.1%** | 4/18 |
 | `boxo` | `packages/transpiled_boxo` | 3052 | 316 | 2736 | 10.4% | **89.6%** | 49/350 |
 | `go-ipld-prime` | `packages/transpiled_ipld_prime` | 3708 | 382 | 3326 | 10.3% | **89.7%** | 61/244 |
 | `go-multicodec` | `packages/transpiled_multicodec` | 16 | 1 | 15 | 6.2% | **93.8%** | 1/2 |

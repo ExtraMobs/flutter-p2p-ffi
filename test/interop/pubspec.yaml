@@ -18,6 +18,12 @@ dependencies:
   transpiled_multihash:
     path: ../../packages/transpiled_multihash
   crypto: ^3.0.7
+  boilerplate:
+    path: ../../packages/boilerplate
+  transpiled_libp2p:
+    path: ../../packages/transpiled_libp2p
+  transpiled_multiaddr:
+    path: ../../packages/transpiled_multiaddr
 
 dependency_overrides:
   xml: ^7.0.1

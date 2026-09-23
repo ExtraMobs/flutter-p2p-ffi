@@ -170,6 +170,10 @@ final class IpfsNode {
       withGracePeriod(const Duration(seconds: 20)),
       withSilencePeriod(const Duration(seconds: 10)),
     ]);
+    final autoNat = AmbientAutoNat();
+    swarm.notify(autoNat);
+    rollback.add(autoNat.close);
+
     final host = BasicHost(
       network: swarm,
       peerstore: peerstore,
@@ -179,7 +183,9 @@ final class IpfsNode {
       autoRelay: autoRelay,
       natManager: natManager,
       holePunchService: holePunch,
+      autoNat: autoNat,
     );
+    autoNat.host = host;
     // The host takes ownership of the peerstore, swarm, NAT and relay.
     // Keep the repository first so rollback closes it last.
     rollback.removeRange(1, rollback.length);

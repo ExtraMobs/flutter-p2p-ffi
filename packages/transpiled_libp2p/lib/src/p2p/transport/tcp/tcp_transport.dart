@@ -5,9 +5,11 @@ import 'dart:typed_data';
 
 import 'package:transpiled_multiaddr/transpiled_multiaddr.dart';
 
+import '../../../core/connmgr/gater.dart';
 import '../../../core/network/network.dart';
 import '../../../core/peer/peer_id.dart';
 import '../../../core/transport/transport.dart';
+import '../basic_upgrader.dart';
 
 /// TCP implementation of [Transport] and [DialUpdater].
 class TcpTransport implements Transport, DialUpdater {
@@ -15,11 +17,17 @@ class TcpTransport implements Transport, DialUpdater {
     required this.upgrader,
     this.resourceManager = const NullResourceManager(),
     this.connectTimeout = const Duration(seconds: 15),
-  });
+    this.gater,
+  }) {
+    if (gater != null && upgrader is BasicUpgrader) {
+      (upgrader as BasicUpgrader).gater ??= gater;
+    }
+  }
 
   final Upgrader upgrader;
   final ResourceManager resourceManager;
   final Duration connectTimeout;
+  final ConnectionGater? gater;
   final List<Listener> _listeners = [];
   bool _closed = false;
 
@@ -233,7 +241,7 @@ class _TcpRawConn implements RawConn {
 
   @override
   Multiaddr remoteMultiaddr() {
-    if (_targetRemoteAddr != null) return _targetRemoteAddr!;
+    if (_targetRemoteAddr != null) return _targetRemoteAddr;
     final ipProto = _socket.remoteAddress.type == InternetAddressType.IPv6
         ? 'ip6'
         : 'ip4';

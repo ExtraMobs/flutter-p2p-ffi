@@ -11,7 +11,6 @@ data: números de cobertura e de conformidade vêm dos relatórios gerados.
 | `PROGRESS_RELATORY.md` (`--progress`) | Cobertura por módulo, em números |
 | `audit_report.md` (`--markdown`) | Apontamentos do auditor, símbolo a símbolo |
 | Este arquivo | O que está comprovado, contra o quê, e o que ainda não está |
-| `doc/transpilation/FASES_A_B_C.md` | O que ainda **vai** ser feito nas Fases A, B e C, passo a passo |
 
 Regra de leitura: **"portado" e "funciona contra par real" são afirmações
 distintas.** Uma matriz de `canDial()` ou uma troca em loopback entre dois nós
@@ -1190,3 +1189,54 @@ registro aqui do rastreamento e das decisões.
 `dart test` na raiz cobre apenas o pacote raiz, e as tags `p0`, `p1`, `helia` e
 `network` são puladas por padrão: "All tests passed" com contagem de pulados não
 é prova de suíte verde.
+
+## Fases A, B e C — Conclusão e Rastreamento de Interoperabilidade
+
+As Fases A, B e C (originalmente planejadas em `FASES_A_B_C.md`) foram concluídas em estrita conformidade com o `AGENTS.md` e as fronteiras do `go.mod`.
+
+### Contexto e O Problema Resolvido (As 4 Defesas do Kubo)
+O Kubo em Go protege um nó IPFS com quatro defesas aplicadas na chegada de novas conexões (`upgrader/listener.go:178-203`):
+1. **`ModeAuto` da DHT:** Impede que o nó sirva a DHT enquanto o AutoNAT não confirmar que o nó é alcançável pela internet pública (`Public`).
+2. **ConnectionGater:** Recusa imediatamente conexões de IPs, PeerIDs ou subnets bloqueadas antes de alocar recursos caros.
+3. **Resource Manager (`rcmgr`):** Recusa conexões se a quantidade de conexões, streams, memória ou file descriptors exceder os limites escalonados.
+4. **`ConnManager`:** Fecha conexões antigas quando o número total ultrapassa o teto (ativo desde o commit `45231ad5`).
+
+A ausência das defesas 1, 2 e 3 causava acúmulo descontrolado de conexões de entrada na internet pública (de 240 conexões no primeiro minuto para 658 no nono minuto na WAN). As três fases prepararam e implementaram essas defesas.
+
+### Fase A — Limites Padrão do Resource Manager (Concluída)
+- **Origem Go:** `github.com/libp2p/go-libp2p/p2p/host/resource-manager/limit_defaults.go` (876 linhas) e `limit.go`.
+- **Destino Dart:** `packages/transpiled_libp2p/lib/src/p2p/host/resource_manager/limit_defaults.dart` e `limit.dart`.
+- **Símbolos:** `DefaultLimitConfig`, `ScalingLimitConfig`, `InfiniteLimits`, `PartialLimitConfig`, `BaseLimitIncrease`, `LimitVal`, `ResourceLimits`.
+- **Decisão Arquitetural:** Fórmulas de escalonamento computadas a partir da memória e contagem de file descriptors do host, sem telemetria (`metrics.go`, `trace.go`, `stats.go` omitidos por estarem fora do escopo de biblioteca).
+- **Testes Atômicos:** 18 testes 1:1 em `test/atomic/nivel_1/limit_defaults_atomic_tests.dart` (100% de cobertura), validando os valores exatos para 1 GiB de RAM e 256 FDs (`ConnsInbound = 64`, `Conns = 128`, `StreamsInbound = 1024`, `Memory = 128 MiB`, `FD = 256`).
+
+### Fase B — BasicConnectionGater (Concluída e Comprovada)
+- **Origem Go:** `github.com/libp2p/go-libp2p/p2p/net/conngater/conngater.go` (352 linhas).
+- **Destino Dart:** `packages/transpiled_libp2p/lib/src/p2p/net/conngater/conngater.dart`.
+- **Símbolos:** `BasicConnectionGater` implementando `ConnectionGater`.
+- **Decisão Arquitetural sobre Tipos de Endereço:** Uso estrito de `Ip` e `IpNet` (`package:boilerplate/net/golang.dart`) em vez de `Addr`/`Prefix`, pois o Go usa `net.IP` (onde `10.0.0.0/8` contém `::ffff:10.1.2.3`). Armazenamento de regras via `transpiled_datastore`.
+- **Integração:** Injetado em `BasicUpgrader` (`interceptAccept`) e repassado por `TcpTransport`, avaliado imediatamente antes de `_resourceManager.openConnection` para abortar precocemente conexões rejeitadas.
+- **Testes Atômicos:** 16 testes 1:1 em `test/atomic/nivel_2/libp2p_conngater_atomic_tests.dart` (100% de cobertura).
+- **Validação com Peer Real:** Comprovada em `test/interop/test/local_kubo_conngater_test.dart` contra daemon Kubo 0.43.0 real: bloqueio de IP loopback rejeita conexões de entrada com handshake abortado, e desbloqueio permite conexão e troca de identidade.
+
+### Fase C — AutoNAT v1 e Manet (Concluída e Comprovada)
+- **Origem Go:** `github.com/libp2p/go-libp2p/p2p/host/autonat/*` (~934 linhas) e `github.com/multiformats/go-multiaddr/net/*`.
+- **Destino Dart:**
+  - `packages/transpiled_multiaddr/lib/src/net/manet.dart` e `packages/transpiled_multiaddr/lib/net.dart` (respeitando estritamente a fronteira do módulo `go-multiaddr` conforme Regra 3 do `AGENTS.md`, sem pacotes artificiais).
+  - `packages/transpiled_libp2p/lib/src/p2p/host/autonat/autonat.dart` (`AmbientAutoNat`, `StaticAutoNat`).
+  - `packages/transpiled_libp2p/lib/src/p2p/host/autonat/interface.dart` (`AutoNat`, `Client`, `AddrFunc`).
+  - `packages/transpiled_libp2p/lib/src/p2p/host/autonat/client.dart` (`AutoNatException`, `_Client`).
+  - `packages/transpiled_libp2p/lib/src/p2p/host/autonat/dialpolicy.dart` (`DialPolicy`).
+  - `packages/transpiled_libp2p/lib/src/p2p/host/autonat/proto.dart` (`autoNatProto`, protobuf de AutoNAT v1).
+  - `packages/transpiled_libp2p/lib/src/p2p/host/autonat/options.dart` (`AutoNatConfig`, `AutoNatOption`).
+  - Exportação dedicada em `packages/transpiled_libp2p/lib/autonat.dart`.
+- **Decisão Arquitetural (AutoNAT v1 vs v2):** O AutoNAT v2 (`p2p/protocol/autonatv2`) não emite `EvtLocalReachabilityChanged` (zero ocorrências no pacote Go), servindo apenas para testar endereços avulsos sob demanda. O AutoNAT v1 é o único que mantém a máquina de estados de reachability do próprio nó com saturação de confiança (teto 3) e emite o evento que comuta o modo da DHT.
+- **Integração com Nó IPFS:** `AmbientAutoNat` instanciado no `IpfsNode` (`lib/src/node/ipfs_node.dart`), registrado como `Notifiee` no Swarm, associado ao `BasicHost` e encerrado no teardown do host/nó. O valor padrão de `DhtServer` permanece `ModeOpt.autoServer` (a comutação dinâmica é trabalho da Fase H).
+- **Testes Atômicos:** 42 testes 1:1 em `test/atomic/nivel_2/libp2p_autonat_atomic_tests.dart` e 35 testes em `test/atomic/nivel_1/multiaddr_atomic_tests.dart` (100% de cobertura).
+- **Validação com Peer Real:** Comprovada em `test/interop/test/local_kubo_autonat_test.dart` contra daemon Kubo 0.43.0 real: nó Dart conecta ao Kubo, verifica protocolo `/libp2p/autonat/1.0.0`, aciona `Client.dialBack`, e processa respostas de dial-back emitindo eventos `EvtLocalReachabilityChanged` (comprovando transições para `Public` e `Private`).
+
+### Auditoria e Portão Obrigatório
+- `python tool/audit_ast_nomenclature.py --tests --severity ERROR`: 0 erros, 100.0% de cobertura da árvore AST (3.488 / 3.488 símbolos executáveis públicos auditados).
+- `dart test -j 1`: 4.217 testes passando no pacote raiz.
+- `cd test/interop && dart test -j 1`: Todas as suítes contra Kubo real passando (com exatamente 1 falha deliberada em `/webrtc-direct` no `local_kubo_transport_matrix_test.dart` por ausência de DTLS, conforme previsto na matriz de transporte).
+- `dart test --preset network -j 1`: 4.225 testes passando, comprovando conectividade WAN real.

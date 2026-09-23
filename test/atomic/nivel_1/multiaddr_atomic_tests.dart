@@ -2,6 +2,7 @@
 // Testes atômicos 1 para 1 para o módulo multiaddr (transpiled_multiaddr).
 
 import 'dart:typed_data';
+import 'package:boilerplate/net/golang.dart';
 import 'package:test/test.dart';
 import 'package:transpiled_multiaddr/transpiled_multiaddr.dart';
 
@@ -204,6 +205,114 @@ void main() {
       expect(Protocols.byCode(Protocols.tcp)?.name, equals('tcp'));
       expect(Protocols.byCode(Protocols.ip4)?.name, equals('ip4'));
       expect(Protocols.byCode(999999), isNull);
+    });
+  });
+
+  group('toIp [Atomic Audit]', () {
+    test('toIp() - converts multiaddr to Ip', () {
+      final ip4 = toIp(Multiaddr.parse('/ip4/192.168.1.1/tcp/80'));
+      expect(ip4, isNotNull);
+      expect(ip4?.toString(), equals('192.168.1.1'));
+
+      final ip6 = toIp(Multiaddr.parse('/ip6/2001:db8::1/tcp/80'));
+      expect(ip6, isNotNull);
+      expect(ip6?.toString(), contains('2001:db8'));
+
+      final nonIp = toIp(Multiaddr.parse('/dns4/example.com/tcp/80'));
+      expect(nonIp, isNull);
+    });
+  });
+
+  group('fromIp [Atomic Audit]', () {
+    test('fromIp() - converts Ip to multiaddr', () {
+      final v4 = Ip.tryParse('1.2.3.4')!;
+      expect(fromIp(v4).toString(), equals('/ip4/1.2.3.4'));
+
+      final v6 = Ip.tryParse('2001:db8::1')!;
+      expect(fromIp(v6).toString(), contains('/ip6/'));
+    });
+  });
+
+  group('isThinWaist [Atomic Audit]', () {
+    test('isThinWaist() - identifies thin waist protocol stacks', () {
+      expect(isThinWaist(Multiaddr.parse('/ip4/1.2.3.4/tcp/80')), isTrue);
+      expect(isThinWaist(Multiaddr.parse('/ip6/::1/udp/1234')), isTrue);
+      expect(isThinWaist(Multiaddr.parse('/ip4/1.2.3.4')), isTrue);
+      expect(isThinWaist(Multiaddr.parse('/tcp/80')), isFalse);
+      expect(isThinWaist(Multiaddr.parse('/dns4/example.com/tcp/80')), isFalse);
+    });
+  });
+
+  group('isIpLoopback [Atomic Audit]', () {
+    test('isIpLoopback() - checks loopback multiaddresses', () {
+      expect(isIpLoopback(ip4Loopback), isTrue);
+      expect(isIpLoopback(ip6Loopback), isTrue);
+      expect(isIpLoopback(Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')), isTrue);
+      expect(isIpLoopback(Multiaddr.parse('/ip4/8.8.8.8/tcp/4001')), isFalse);
+    });
+  });
+
+  group('isIp6LinkLocal [Atomic Audit]', () {
+    test('isIp6LinkLocal() - checks IPv6 link local multiaddresses', () {
+      expect(isIp6LinkLocal(Multiaddr.parse('/ip6/fe80::1/tcp/4001')), isTrue);
+      expect(
+        isIp6LinkLocal(Multiaddr.parse('/ip6/2001:db8::1/tcp/4001')),
+        isFalse,
+      );
+      expect(
+        isIp6LinkLocal(Multiaddr.parse('/ip4/169.254.1.1/tcp/4001')),
+        isFalse,
+      );
+    });
+  });
+
+  group('isIpUnspecified [Atomic Audit]', () {
+    test('isIpUnspecified() - checks unspecified multiaddresses', () {
+      expect(isIpUnspecified(ip4Unspecified), isTrue);
+      expect(isIpUnspecified(ip6Unspecified), isTrue);
+      expect(
+        isIpUnspecified(Multiaddr.parse('/ip4/1.2.3.4/tcp/4001')),
+        isFalse,
+      );
+    });
+  });
+
+  group('isPublicAddr [Atomic Audit]', () {
+    test('isPublicAddr() - validates multiaddresses for public routability', () {
+      expect(isPublicAddr(Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')), isFalse);
+      expect(isPublicAddr(Multiaddr.parse('/ip4/10.0.0.1/tcp/4001')), isFalse);
+      expect(
+        isPublicAddr(Multiaddr.parse('/ip4/192.168.1.1/tcp/4001')),
+        isFalse,
+      );
+      expect(
+        isPublicAddr(
+          Multiaddr.parse(
+            '/p2p-circuit/p2p/12D3KooWDsMmX7axDC6HTTXUNe4upxEvFbNQjmE2FToVVbBzUK6f',
+          ),
+        ),
+        isFalse,
+      );
+      expect(
+        isPublicAddr(Multiaddr.parse('/ip4/203.0.113.47/tcp/4001')),
+        isTrue,
+      );
+      expect(isPublicAddr(Multiaddr.parse('/ip4/8.8.8.8/tcp/4001')), isTrue);
+      expect(isPublicAddr(Multiaddr.parse('/dns4/ipfs.io/tcp/443')), isTrue);
+      expect(isPublicAddr(Multiaddr.parse('/dns4/localhost/tcp/80')), isFalse);
+    });
+  });
+
+  group('isPrivateAddr [Atomic Audit]', () {
+    test('isPrivateAddr() - validates multiaddresses for private networks', () {
+      expect(isPrivateAddr(Multiaddr.parse('/ip4/127.0.0.1/tcp/4001')), isTrue);
+      expect(isPrivateAddr(Multiaddr.parse('/ip4/10.0.0.1/tcp/4001')), isTrue);
+      expect(
+        isPrivateAddr(Multiaddr.parse('/ip4/192.168.1.1/tcp/4001')),
+        isTrue,
+      );
+      expect(isPrivateAddr(Multiaddr.parse('/ip4/8.8.8.8/tcp/4001')), isFalse);
+      expect(isPrivateAddr(Multiaddr.parse('/dns4/localhost/tcp/80')), isTrue);
     });
   });
 }

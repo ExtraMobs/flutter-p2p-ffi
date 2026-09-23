@@ -135,6 +135,45 @@ final class BaseLimit implements Limit {
       : value;
 }
 
+/// BaseLimitIncrease is the increase per GiB of allowed memory.
+final class BaseLimitIncrease {
+  const BaseLimitIncrease({
+    this.streams = 0,
+    this.streamsInbound = 0,
+    this.streamsOutbound = 0,
+    this.conns = 0,
+    this.connsInbound = 0,
+    this.connsOutbound = 0,
+    this.fd = 0,
+    this.memory = 0,
+    this.fdFraction = 0.0,
+  });
+
+  final int streams;
+  final int streamsInbound;
+  final int streamsOutbound;
+  final int conns;
+  final int connsInbound;
+  final int connsOutbound;
+  final int fd;
+  final int memory;
+  final double fdFraction;
+
+  BaseLimitIncrease apply(BaseLimitIncrease other) => BaseLimitIncrease(
+    streams: streams == 0 ? other.streams : streams,
+    streamsInbound: streamsInbound == 0 ? other.streamsInbound : streamsInbound,
+    streamsOutbound: streamsOutbound == 0
+        ? other.streamsOutbound
+        : streamsOutbound,
+    conns: conns == 0 ? other.conns : conns,
+    connsInbound: connsInbound == 0 ? other.connsInbound : connsInbound,
+    connsOutbound: connsOutbound == 0 ? other.connsOutbound : connsOutbound,
+    fd: fd == 0 ? other.fd : fd,
+    memory: memory == 0 ? other.memory : memory,
+    fdFraction: fdFraction == 0.0 ? other.fdFraction : fdFraction,
+  );
+}
+
 /// A partially specified set of resource limits.
 final class ResourceLimits {
   const ResourceLimits({

@@ -18,6 +18,8 @@ dependencies:
     path: ../transpiled_multihash
   transpiled_varint:
     path: ../transpiled_varint
+  boilerplate:
+    path: ../boilerplate
 
 dev_dependencies:
   test: ^1.28.0

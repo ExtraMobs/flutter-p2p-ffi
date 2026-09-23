@@ -5,3 +5,4 @@ library;
 export 'src/multiaddr.dart' show Component, Multiaddr;
 export 'src/protocol.dart'
     show Protocol, Protocols, Transcoder, kLengthPrefixedVarSize;
+export 'net.dart';

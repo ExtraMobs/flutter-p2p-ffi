@@ -585,57 +585,6 @@ void main() {
     });
   });
 
-  group('AutoNat [Atomic Audit]', () {
-    test('status() - returns reachability status', () {
-      AutoNat nat = StaticAutoNat(reachability: Reachability.public_);
-      expect(nat.status(), equals(Reachability.public_));
-    });
-
-    test('close() - closes AutoNat instance', () async {
-      AutoNat nat = StaticAutoNat(reachability: Reachability.public_);
-      await nat.close();
-      expect(nat, isNotNull);
-    });
-  });
-
-  group('StaticAutoNat [Atomic Audit]', () {
-    test('status() - returns configured status', () {
-      final nat = StaticAutoNat(reachability: Reachability.private_);
-      expect(nat.status(), equals(Reachability.private_));
-    });
-
-    test('close() - completes without error', () async {
-      final nat = StaticAutoNat(reachability: Reachability.private_);
-      await nat.close();
-      expect(nat.status(), equals(Reachability.private_));
-    });
-  });
-
-  group('AmbientAutoNat [Atomic Audit]', () {
-    test('status() - returns ambient status', () {
-      final host = _newTestHost();
-      final nat = AmbientAutoNat(
-        host: host,
-        initialReachability: Reachability.unknown,
-      );
-      expect(nat.status(), equals(Reachability.unknown));
-    });
-
-    test('setReachability() - emits event and updates status', () async {
-      final host = _newTestHost();
-      final nat = AmbientAutoNat(host: host);
-      await nat.setReachability(Reachability.public_);
-      expect(nat.status(), equals(Reachability.public_));
-    });
-
-    test('close() - cleans up emitter and closes', () async {
-      final host = _newTestHost();
-      final nat = AmbientAutoNat(host: host);
-      await nat.close();
-      expect(nat.status(), equals(Reachability.unknown));
-    });
-  });
-
   group('AutoRelay [Atomic Audit]', () {
     test('host - gets and sets host', () {
       final host = _newTestHost();
