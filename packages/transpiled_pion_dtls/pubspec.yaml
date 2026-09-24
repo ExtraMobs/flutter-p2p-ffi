@@ -1,0 +1,25 @@
+name: transpiled_pion_dtls
+description: Port of github.com/pion/dtls/v3.
+version: 0.1.0
+publish_to: none
+homepage: https://github.com/pion/dtls
+
+environment:
+  sdk: ^3.10.0
+
+dependencies:
+  crypto: ^3.0.7
+  pointycastle: ^4.0.0
+  boilerplate:
+    path: ../boilerplate
+  transpiled_pion_logging:
+    path: ../transpiled_pion_logging
+  transpiled_pion_randutil:
+    path: ../transpiled_pion_randutil
+  transpiled_pion_transport_v4:
+    path: ../transpiled_pion_transport_v4
+
+dev_dependencies:
+  test: ^1.28.0
+  lints: ^6.1.0
+  very_good_analysis: ^10.1.0

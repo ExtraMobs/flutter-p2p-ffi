@@ -2,13 +2,13 @@
 import 'dart:io';
 
 import 'package:test/test.dart';
-import 'package:transpiled_libp2p/src/p2p/net/nat/internal/nat/nat.dart' as nat_package;
+import 'package:transpiled_libp2p/src/p2p/net/nat/internal/nat/nat.dart'
+    as nat_package;
 import 'package:transpiled_libp2p/src/p2p/net/nat/nat.dart';
 
 class _MockInternalNat implements nat_package.Nat {
-  _MockInternalNat({
-    InternetAddress? extAddr,
-  }) : _extAddr = extAddr ?? InternetAddress('203.0.113.88');
+  _MockInternalNat({InternetAddress? extAddr})
+    : _extAddr = extAddr ?? InternetAddress('203.0.113.88');
 
   final InternetAddress _extAddr;
   final Map<String, int> mappings = {};
@@ -17,13 +17,15 @@ class _MockInternalNat implements nat_package.Nat {
   String type() => 'mock-internal-nat';
 
   @override
-  Future<InternetAddress> getDeviceAddress() async => InternetAddress('192.168.1.1');
+  Future<InternetAddress> getDeviceAddress() async =>
+      InternetAddress('192.168.1.1');
 
   @override
   Future<InternetAddress> getExternalAddress() async => _extAddr;
 
   @override
-  Future<InternetAddress> getInternalAddress() async => InternetAddress('192.168.1.50');
+  Future<InternetAddress> getInternalAddress() async =>
+      InternetAddress('192.168.1.50');
 
   @override
   Future<int> addPortMapping(
@@ -83,18 +85,24 @@ void main() {
       await nat.addMapping('tcp', 4001);
       await nat.removeMapping('tcp', 4001);
 
-      expect(() => nat.removeMapping('tcp', 4001), throwsA(isA<NoMappingException>()));
+      expect(
+        () => nat.removeMapping('tcp', 4001),
+        throwsA(isA<NoMappingException>()),
+      );
     });
 
-    test('close() - shuts down active mappings and stops background renewal', () async {
-      final mock = _MockInternalNat();
-      final nat = Nat(mock);
+    test(
+      'close() - shuts down active mappings and stops background renewal',
+      () async {
+        final mock = _MockInternalNat();
+        final nat = Nat(mock);
 
-      await nat.addMapping('tcp', 4001);
-      await nat.close();
+        await nat.addMapping('tcp', 4001);
+        await nat.close();
 
-      expect(() => nat.addMapping('tcp', 4002), throwsA(isA<StateError>()));
-    });
+        expect(() => nat.addMapping('tcp', 4002), throwsA(isA<StateError>()));
+      },
+    );
   });
 
   group('Top-Level Functions [Atomic Audit]', () {

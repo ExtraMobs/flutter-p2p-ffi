@@ -125,6 +125,28 @@ dependencies:
     path: packages/transpiled_pion_transport
   transpiled_pion_transport_v4:
     path: packages/transpiled_pion_transport_v4
+  transpiled_pion_dtls:
+    path: packages/transpiled_pion_dtls
+  transpiled_pion_ice:
+    path: packages/transpiled_pion_ice
+  transpiled_pion_datachannel:
+    path: packages/transpiled_pion_datachannel
+  transpiled_pion_webrtc:
+    path: packages/transpiled_pion_webrtc
+  transpiled_pion_turn:
+    path: packages/transpiled_pion_turn
+  transpiled_pion_mdns:
+    path: packages/transpiled_pion_mdns
+  transpiled_pion_interceptor:
+    path: packages/transpiled_pion_interceptor
+  transpiled_pion_rtp:
+    path: packages/transpiled_pion_rtp
+  transpiled_pion_rtcp:
+    path: packages/transpiled_pion_rtcp
+  transpiled_pion_srtp:
+    path: packages/transpiled_pion_srtp
+  transpiled_golang_x_net:
+    path: packages/transpiled_golang_x_net
 
   # Common packages
   args: ^2.6.0

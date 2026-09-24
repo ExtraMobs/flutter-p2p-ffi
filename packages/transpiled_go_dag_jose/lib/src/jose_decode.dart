@@ -19,7 +19,9 @@ final class DecodeOptions {
   /// Deserializes data from [reader] and feeds it into [na]. Fits the
   /// [Decoder] interface.
   void decode(NodeAssembler na, Iterable<int> reader) {
-    final bytes = reader is Uint8List ? reader : Uint8List.fromList(reader.toList());
+    final bytes = reader is Uint8List
+        ? reader
+        : Uint8List.fromList(reader.toList());
     try {
       decodeJwe(na, bytes);
     } catch (_) {

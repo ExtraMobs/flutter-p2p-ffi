@@ -134,10 +134,9 @@ Node unflattenJwe(Node n) {
 
   final protected = lookupIgnoreAbsent('protected', n);
   if (protected != null) {
-    result['protected'] =
-        protected.kind() == Kind.bytes
-            ? protected.asBytes()
-            : protected.asString();
+    result['protected'] = protected.kind() == Kind.bytes
+        ? protected.asBytes()
+        : protected.asString();
   }
 
   final tag = lookupIgnoreAbsent('tag', n);
@@ -193,17 +192,15 @@ Node unflattenJws(Node n) {
     }
     final protected = lookupIgnoreNoSuchField('protected', n);
     if (protected != null) {
-      sigEntry['protected'] =
-          protected.kind() == Kind.bytes
-              ? protected.asBytes()
-              : protected.asString();
+      sigEntry['protected'] = protected.kind() == Kind.bytes
+          ? protected.asBytes()
+          : protected.asString();
     }
     final signature = lookupIgnoreNoSuchField('signature', n);
     if (signature != null) {
-      sigEntry['signature'] =
-          signature.kind() == Kind.bytes
-              ? signature.asBytes()
-              : signature.asString();
+      sigEntry['signature'] = signature.kind() == Kind.bytes
+          ? signature.asBytes()
+          : signature.asString();
     }
     result['signatures'] = [sigEntry];
   } else {

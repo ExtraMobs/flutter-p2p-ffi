@@ -68,7 +68,9 @@ Future<void> main(List<String> args) async {
     ),
   );
 
-  print('1. Inicializando subsistemas do nó Dart IPFS (Swarm, TLS/Noise, DHT, Bitswap)...');
+  print(
+    '1. Inicializando subsistemas do nó Dart IPFS (Swarm, TLS/Noise, DHT, Bitswap)...',
+  );
   final node = await IpfsNode.fromBuildCfg(
     BuildCfg(config: config, online: true),
   );
@@ -77,7 +79,9 @@ Future<void> main(List<String> args) async {
   print('   Nó ativo localmente! PeerId: $peerId\n');
 
   // 2. Conectar aos bootstrappers para estabilizar presença na DHT
-  print('2. Conectando aos peers de bootstrap e negociando presença na rede...');
+  print(
+    '2. Conectando aos peers de bootstrap e negociando presença na rede...',
+  );
   for (final boot in config.network.bootstrapPeers) {
     try {
       await node.connect(addrInfoFromString(boot));
@@ -111,7 +115,9 @@ Future<void> main(List<String> args) async {
   final hostedCids = <String, (Cid, String)>{};
 
   // 1. Raw (0x55)
-  final rawPayload = Uint8List.fromList(utf8.encode('$sampleText - raw data payload'));
+  final rawPayload = Uint8List.fromList(
+    utf8.encode('$sampleText - raw data payload'),
+  );
   final rawCid = Cid.computeForDataSync(rawPayload, codec: 'raw');
   await node.putBlock(blocks.BasicBlock.withCid(rawPayload, rawCid));
   hostedCids['raw (0x55)'] = (rawCid, 'Payload bruto em bytes');
@@ -170,7 +176,10 @@ Future<void> main(List<String> args) async {
   final dagJsonBytes = _encodeWithRegistry(0x0129, linkMapNode);
   final dagJsonCid = Cid.computeForDataSync(dagJsonBytes, codec: 'dag-json');
   await node.putBlock(blocks.BasicBlock.withCid(dagJsonBytes, dagJsonCid));
-  hostedCids['dag-json (0x0129)'] = (dagJsonCid, 'JSON com suporte a IPLD Links');
+  hostedCids['dag-json (0x0129)'] = (
+    dagJsonCid,
+    'JSON com suporte a IPLD Links',
+  );
 
   // 6. JSON (0x0200)
   final jsonBytes = _encodeWithRegistry(0x0200, plainMapNode);
@@ -179,7 +188,9 @@ Future<void> main(List<String> args) async {
   hostedCids['json (0x0200)'] = (jsonCid, 'JSON canônico puro');
 
   // 7. Git-Raw (0x78)
-  final gitContent = utf8.encode('blob git test payload for Dart IPFS at $timestamp');
+  final gitContent = utf8.encode(
+    'blob git test payload for Dart IPFS at $timestamp',
+  );
   final gitBlob = Uint8List.fromList([
     ...utf8.encode('blob ${gitContent.length}\x00'),
     ...gitContent,
@@ -187,7 +198,10 @@ Future<void> main(List<String> args) async {
   final gitSha = Uint8List.fromList(crypto.sha1.convert(gitBlob).bytes);
   final gitCid = go_ipld_git.shaToCid(gitSha);
   await node.putBlock(blocks.BasicBlock.withCid(gitBlob, gitCid));
-  hostedCids['git-raw (0x78)'] = (gitCid, 'Git Blob com hash SHA-1 de 20 bytes');
+  hostedCids['git-raw (0x78)'] = (
+    gitCid,
+    'Git Blob com hash SHA-1 de 20 bytes',
+  );
 
   // 8. DAG-JOSE (0x85)
   final josePayload = rawCid.bytes();
@@ -208,9 +222,14 @@ Future<void> main(List<String> args) async {
   final joseBytes = _encodeWithRegistry(0x85, jwsNode);
   final joseCid = Cid.computeForDataSync(joseBytes, codec: 'dag-jose');
   await node.putBlock(blocks.BasicBlock.withCid(joseBytes, joseCid));
-  hostedCids['dag-jose (0x85)'] = (joseCid, 'Envelope criptográfico JWS com link assinado');
+  hostedCids['dag-jose (0x85)'] = (
+    joseCid,
+    'Envelope criptográfico JWS com link assinado',
+  );
 
-  print('   ✓ Todos os 8 blocos foram gerados e armazenados com sucesso no blockstore!\n');
+  print(
+    '   ✓ Todos os 8 blocos foram gerados e armazenados com sucesso no blockstore!\n',
+  );
 
   print('============================================================');
   print('>>> NÓ DART ATIVO E HOSPEDANDO TODOS OS 8 CIDs NO SWARM <<<');

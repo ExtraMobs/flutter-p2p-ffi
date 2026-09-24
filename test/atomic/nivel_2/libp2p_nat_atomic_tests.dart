@@ -1231,14 +1231,24 @@ void main() {
 
     test('removePortMapping() - removes port mapping', () async {
       final gw = SimulatedNatGateway();
-      await gw.removePortMapping(protocol: 'tcp', internalPort: 4001);
-      expect(true, isTrue);
+      await gw.addPortMapping(protocol: 'tcp', internalPort: 4001);
+      await expectLater(
+        gw.removePortMapping(protocol: 'tcp', internalPort: 4001),
+        completes,
+      );
+      // Removing an already-removed mapping must stay safe (idempotent).
+      await expectLater(
+        gw.removePortMapping(protocol: 'tcp', internalPort: 4001),
+        completes,
+      );
     });
 
     test('close() - closes gateway', () async {
       final gw = SimulatedNatGateway();
+      await gw.addPortMapping(protocol: 'tcp', internalPort: 4001);
       await gw.close();
-      expect(true, isTrue);
+      // Closing again after mappings were already cleared must stay safe.
+      await expectLater(gw.close(), completes);
     });
   });
 
@@ -1271,50 +1281,76 @@ void main() {
 
     test('removePortMapping() - removes port mapping', () async {
       final gw = SimulatedNatGateway();
-      await gw.removePortMapping(protocol: 'tcp', internalPort: 4001);
-      expect(true, isTrue);
+      await gw.addPortMapping(protocol: 'tcp', internalPort: 4001);
+      await expectLater(
+        gw.removePortMapping(protocol: 'tcp', internalPort: 4001),
+        completes,
+      );
+      // Removing an already-removed mapping must stay safe (idempotent).
+      await expectLater(
+        gw.removePortMapping(protocol: 'tcp', internalPort: 4001),
+        completes,
+      );
     });
 
     test('close() - closes simulated gateway', () async {
       final gw = SimulatedNatGateway();
+      await gw.addPortMapping(protocol: 'tcp', internalPort: 4001);
       await gw.close();
-      expect(true, isTrue);
+      // Closing again after mappings were already cleared must stay safe.
+      await expectLater(gw.close(), completes);
     });
   });
 
   group('Libp2pNatGateway [Atomic Audit]', () {
     test('discover() - attempts discovery with short timeout', () async {
-      final gw = Libp2pNatGateway(discoveryTimeout: const Duration(milliseconds: 50));
+      final gw = Libp2pNatGateway(
+        discoveryTimeout: const Duration(milliseconds: 50),
+      );
       final discovered = await gw.discover();
       expect(discovered, isA<bool>());
       await gw.close();
     });
 
     test('getExternalIp() - returns external ip if discovered', () async {
-      final gw = Libp2pNatGateway(discoveryTimeout: const Duration(milliseconds: 50));
+      final gw = Libp2pNatGateway(
+        discoveryTimeout: const Duration(milliseconds: 50),
+      );
       final ip = await gw.getExternalIp();
       expect(ip, isNull);
       await gw.close();
     });
 
     test('addPortMapping() - fails gracefully if not discovered', () async {
-      final gw = Libp2pNatGateway(discoveryTimeout: const Duration(milliseconds: 50));
+      final gw = Libp2pNatGateway(
+        discoveryTimeout: const Duration(milliseconds: 50),
+      );
       final res = await gw.addPortMapping(protocol: 'tcp', internalPort: 4001);
       expect(res, isNull);
       await gw.close();
     });
 
     test('removePortMapping() - removes mapping safely', () async {
-      final gw = Libp2pNatGateway(discoveryTimeout: const Duration(milliseconds: 50));
-      await gw.removePortMapping(protocol: 'tcp', internalPort: 4001);
-      expect(true, isTrue);
+      final gw = Libp2pNatGateway(
+        discoveryTimeout: const Duration(milliseconds: 50),
+      );
+      // No underlying NAT was discovered, mirroring addPortMapping()'s
+      // graceful no-op above; removing must complete without throwing.
+      await expectLater(
+        gw.removePortMapping(protocol: 'tcp', internalPort: 4001),
+        completes,
+      );
       await gw.close();
     });
 
     test('close() - cleans up underlying NAT instance', () async {
-      final gw = Libp2pNatGateway(discoveryTimeout: const Duration(milliseconds: 50));
+      final gw = Libp2pNatGateway(
+        discoveryTimeout: const Duration(milliseconds: 50),
+      );
       await gw.close();
-      expect(true, isTrue);
+      // Closing again (already-null underlying NAT) must remain safe.
+      await expectLater(gw.close(), completes);
+      expect(await gw.getExternalIp(), isNull);
     });
   });
 }

@@ -162,7 +162,8 @@ class LocalKuboHarness {
   }
 
   /// Puts a block into Kubo via stdin and returns the resulting CID string.
-  Future<String> putBlock(List<int> bytes, {String? format, String? mhtype}) async {
+  Future<String> putBlock(List<int> bytes,
+      {String? format, String? mhtype}) async {
     final args = <String>['block', 'put'];
     if (format != null) args.add('--format=$format');
     if (mhtype != null) args.add('--mhtype=$mhtype');

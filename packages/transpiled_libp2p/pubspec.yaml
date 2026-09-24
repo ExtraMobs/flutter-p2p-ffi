@@ -41,6 +41,22 @@ dependencies:
     path: ../transpiled_quic_go
   transpiled_webtransport_go:
     path: ../transpiled_webtransport_go
+  transpiled_pion_dtls:
+    path: ../transpiled_pion_dtls
+  transpiled_pion_ice:
+    path: ../transpiled_pion_ice
+  transpiled_pion_sctp:
+    path: ../transpiled_pion_sctp
+  transpiled_pion_datachannel:
+    path: ../transpiled_pion_datachannel
+  transpiled_pion_stun:
+    path: ../transpiled_pion_stun
+  transpiled_pion_transport_v4:
+    path: ../transpiled_pion_transport_v4
+  transpiled_pion_logging:
+    path: ../transpiled_pion_logging
+  transpiled_pion_sdp:
+    path: ../transpiled_pion_sdp
 
 dev_dependencies:
   test: ^1.28.0

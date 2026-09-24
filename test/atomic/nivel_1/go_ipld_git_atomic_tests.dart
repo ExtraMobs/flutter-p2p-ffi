@@ -54,7 +54,9 @@ void main() {
 
     test('parsePersonInfo() - faz parsing de linha git author/committer', () {
       final line = Uint8List.fromList(
-        utf8.encode('author Linus Torvalds <torvalds@linux-foundation.org> 1113000000 -0700'),
+        utf8.encode(
+          'author Linus Torvalds <torvalds@linux-foundation.org> 1113000000 -0700',
+        ),
       );
       final pi = parsePersonInfo(line);
       expect(pi.name, equals('Linus Torvalds'));
@@ -63,12 +65,15 @@ void main() {
       expect(pi.timezone, equals('-0700'));
     });
 
-    test('registerGitCodec() - registra encoder e decoder git-raw 0x78 no registro multicodec', () {
-      final reg = ipld_prime.Registry();
-      registerGitCodec(reg);
-      expect(reg.lookupEncoder(0x78), isNotNull);
-      expect(reg.lookupDecoder(0x78), isNotNull);
-    });
+    test(
+      'registerGitCodec() - registra encoder e decoder git-raw 0x78 no registro multicodec',
+      () {
+        final reg = ipld_prime.Registry();
+        registerGitCodec(reg);
+        expect(reg.lookupEncoder(0x78), isNotNull);
+        expect(reg.lookupDecoder(0x78), isNotNull);
+      },
+    );
 
     test('decodeBlob() - decodifica dados de blob com header e body', () {
       final rawBlob = utf8.encode('blob 12\x00hello world\n');
@@ -144,24 +149,30 @@ void main() {
       expect(utf8.decode(sink.bytes.sublist(0, 5)), equals('tree '));
     });
 
-    test('decodeCommit() - decodifica objeto git commit com parents e personinfo', () {
-      final commitText =
-          'tree 0102030405060708090a0b0c0d0e0f1011121314\n'
-          'parent 0102030405060708090a0b0c0d0e0f1011121314\n'
-          'author Test <test@example.com> 1234567890 +0000\n'
-          'committer Test <test@example.com> 1234567890 +0000\n'
-          '\n'
-          'initial commit\n';
-      final rawCommit = <int>[
-        ...utf8.encode('commit ${utf8.encode(commitText).length}\x00'),
-        ...utf8.encode(commitText),
-      ];
-      final builder = AnyBuilder();
-      final end = decodeCommit(builder, Uint8List.fromList(rawCommit), 7);
-      expect(end, equals(rawCommit.length));
-      final node = builder.build();
-      expect(node.lookupByString('message').asString(), equals('initial commit\n'));
-    });
+    test(
+      'decodeCommit() - decodifica objeto git commit com parents e personinfo',
+      () {
+        final commitText =
+            'tree 0102030405060708090a0b0c0d0e0f1011121314\n'
+            'parent 0102030405060708090a0b0c0d0e0f1011121314\n'
+            'author Test <test@example.com> 1234567890 +0000\n'
+            'committer Test <test@example.com> 1234567890 +0000\n'
+            '\n'
+            'initial commit\n';
+        final rawCommit = <int>[
+          ...utf8.encode('commit ${utf8.encode(commitText).length}\x00'),
+          ...utf8.encode(commitText),
+        ];
+        final builder = AnyBuilder();
+        final end = decodeCommit(builder, Uint8List.fromList(rawCommit), 7);
+        expect(end, equals(rawCommit.length));
+        final node = builder.build();
+        expect(
+          node.lookupByString('message').asString(),
+          equals('initial commit\n'),
+        );
+      },
+    );
 
     test('encodeCommit() - serializa objeto git commit completo', () {
       final cid = shaToCid(sampleSha);
@@ -219,11 +230,14 @@ void main() {
       expect(node.asBytes(), equals(rawBlob));
     });
 
-    test('parseObjectFromBuffer() - decodifica a partir de Uint8List buffer', () {
-      final rawBlob = Uint8List.fromList(utf8.encode('blob 4\x00data'));
-      final node = parseObjectFromBuffer(rawBlob);
-      expect(node.asBytes(), equals(rawBlob));
-    });
+    test(
+      'parseObjectFromBuffer() - decodifica a partir de Uint8List buffer',
+      () {
+        final rawBlob = Uint8List.fromList(utf8.encode('blob 4\x00data'));
+        final node = parseObjectFromBuffer(rawBlob);
+        expect(node.asBytes(), equals(rawBlob));
+      },
+    );
 
     test('decodeBlock() - decodifica bloco IPFS com codec git-raw', () {
       final rawBlob = Uint8List.fromList(utf8.encode('blob 4\x00data'));
@@ -235,18 +249,23 @@ void main() {
   });
 
   group('PersonInfo', () {
-    test('PersonInfo.gitString() - formata identidade em formato padrao git', () {
-      const pi = PersonInfo(
-        name: 'Linus Torvalds',
-        email: 'torvalds@linux-foundation.org',
-        date: '1113000000',
-        timezone: '-0700',
-      );
-      expect(
-        pi.gitString(),
-        equals('Linus Torvalds <torvalds@linux-foundation.org> 1113000000 -0700'),
-      );
-    });
+    test(
+      'PersonInfo.gitString() - formata identidade em formato padrao git',
+      () {
+        const pi = PersonInfo(
+          name: 'Linus Torvalds',
+          email: 'torvalds@linux-foundation.org',
+          date: '1113000000',
+          timezone: '-0700',
+        );
+        expect(
+          pi.gitString(),
+          equals(
+            'Linus Torvalds <torvalds@linux-foundation.org> 1113000000 -0700',
+          ),
+        );
+      },
+    );
 
     test('PersonInfo.toNode() - converte para representacao em IPLD Map', () {
       const pi = PersonInfo(

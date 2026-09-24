@@ -6,13 +6,8 @@
 library;
 
 export 'src/jose_bytes.dart'
-    show
-        Base64Url,
-        Raw,
-        decodeBase64Url,
-        encodeBase64Url;
-export 'src/jose_decode.dart'
-    show DecodeOptions, decode, decodeJwe, decodeJws;
+    show Base64Url, Raw, decodeBase64Url, encodeBase64Url;
+export 'src/jose_decode.dart' show DecodeOptions, decode, decodeJwe, decodeJws;
 export 'src/jose_encode.dart' show encode, encodeJwe, encodeJws;
 export 'src/jose_utils.dart'
     show

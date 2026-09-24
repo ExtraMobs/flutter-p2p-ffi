@@ -95,7 +95,10 @@ class Nat {
     final existing = _mappings[entry];
     if (existing != null && existing > 0) return existing;
 
-    dev.log('Starting maintenance of port mapping for $protocol:$port', name: 'libp2p.nat');
+    dev.log(
+      'Starting maintenance of port mapping for $protocol:$port',
+      name: 'libp2p.nat',
+    );
     final extPort = await _establishMapping(protocol, port);
     _mappings[entry] = extPort;
     return extPort;
@@ -108,7 +111,10 @@ class Nat {
     }
     final entry = _NatEntry(protocol, port);
     if (_mappings.containsKey(entry)) {
-      dev.log('Stopping maintenance of port mapping for $protocol:$port', name: 'libp2p.nat');
+      dev.log(
+        'Stopping maintenance of port mapping for $protocol:$port',
+        name: 'libp2p.nat',
+      );
       _mappings.remove(entry);
       await _nat.deletePortMapping(protocol, port);
       return;
@@ -158,7 +164,10 @@ class Nat {
       );
       if (extPort > 0) {
         _consecutiveFailures = 0;
-        dev.log('NAT port mapping established: $protocol:$internalPort -> $extPort', name: 'libp2p.nat');
+        dev.log(
+          'NAT port mapping established: $protocol:$internalPort -> $extPort',
+          name: 'libp2p.nat',
+        );
         return extPort;
       }
     } catch (err) {
@@ -173,7 +182,10 @@ class Nat {
   }
 
   Future<void> _rediscoverNat() async {
-    dev.log('NAT rediscovery triggered due to repeated connection failures', name: 'libp2p.nat');
+    dev.log(
+      'NAT rediscovery triggered due to repeated connection failures',
+      name: 'libp2p.nat',
+    );
     try {
       final newNat = await inat.discoverGateway(discoveryTimeout);
       _nat = newNat;
@@ -190,9 +202,7 @@ class Nat {
 }
 
 /// Discovers a NAT gateway device on the local network and returns an active [Nat] manager.
-Future<Nat> discoverNat([
-  Duration timeout = discoveryTimeout,
-]) async {
+Future<Nat> discoverNat([Duration timeout = discoveryTimeout]) async {
   final natInstance = await inat.discoverGateway(timeout);
   return Nat(natInstance);
 }

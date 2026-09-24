@@ -187,17 +187,22 @@ void main() async {
       final bus = BasicBus();
       final sub = bus.subscribe(String);
       await sub.close();
-      expect(true, isTrue);
+      // Uma assinatura fechada não entrega mais eventos: seu stream
+      // (broadcast, já sem listener interno) termina vazio.
+      expect(await sub.out().isEmpty, isTrue);
     });
   });
 
   group('Emitter [Atomic Audit]', () {
     test('emit() - emits events', () async {
       final bus = BasicBus();
+      final sub = bus.subscribe(String);
       final emitter = await bus.emitter(String);
+      final received = sub.out().first;
       await emitter.emit('test');
+      expect(await received, equals('test'));
       await emitter.close();
-      expect(true, isTrue);
+      await sub.close();
     });
 
     test('close() - closes emitter', () async {

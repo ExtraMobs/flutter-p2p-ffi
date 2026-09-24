@@ -46,7 +46,9 @@ Uint8List? linkToSha(Link? l) {
     end++;
   }
   if (end >= bytes.length) {
-    throw const FormatException('unexpected EOF reading null-terminated number');
+    throw const FormatException(
+      'unexpected EOF reading null-terminated number',
+    );
   }
   final str = String.fromCharCodes(bytes.sublist(offset, end));
   final n = int.parse(str.trim());

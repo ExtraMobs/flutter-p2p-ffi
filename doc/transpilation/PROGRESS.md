@@ -50,7 +50,7 @@ G.3 WebSocket — independente (usa o TLS do dart:io)
 | G.2 TLS 1.3 | **comprovada** | **comprovada** | `local_kubo_tls_handshake_test.dart`; `/tls/1.0.0` volta à lista de segurança padrão |
 | G.3 WebSocket | **comprovada** contra bootstrapper público da libp2p (`public_wss_dial_test.dart`) | listener implementado | **marco fechado**; sem porte pendente, o que faltava era a prova |
 | G.4 WebTransport | **comprovada** (`local_kubo_webtransport_quic_test.dart`) | **comprovada** contra Kubo 0.43.0 (`local_kubo_webtransport_inbound_test.dart`) | ainda **aberto**: o critério do marco é um navegador Helia, que não foi exercitado |
-| G.5 WebRTC Direct | não | não | bloqueado por DTLS, que não está portado |
+| G.5 WebRTC Direct | não | não | em porte 1:1 sobre o fecho do `pion/webrtc`; ver abaixo |
 | G.6 mplex | descartado | — | depreciado na libp2p, removido dos padrões do Kubo |
 | G.7 matriz | — | — | `local_kubo_transport_matrix_test.dart` **falha de propósito** |
 
@@ -196,46 +196,73 @@ muda nada observável, porque `_maDial` lê o hostname do próprio componente
 `/dns*/` e o usa como host de conexão; passa a importar no dia em que o swarm
 resolver DNS por conta própria antes de discar.
 
-### G.5 — o que falta é DTLS, não WebRTC
+### G.5 — retomada 1:1 sobre o fecho público do `pion/webrtc`
 
-O `certhash` do multiaddr WebRTC Direct é o fingerprint do certificado **DTLS**.
-A cadeia que importa é ICE → DTLS → SCTP → DataChannel. A pilha Pion portada
-tem `sctp` (wire completo, runtime ausente), `stun`, `sdp`, `transport`,
-`transport_v4`, `logging` e `randutil`, e **não tem `dtls`** nem `ice` nem
-`datachannel`. O `WebRtcTransport` está registrado no Swarm, mas o handshake
-atual é framing inventado sobre UDP em claro: nenhum par real fala isso. Os
-módulos de mídia (`rtp`, `rtcp`, `srtp`, `interceptor`) ficaram deliberadamente
-fora, porque `/webrtc-direct` usa apenas data channels.
+O `certhash` do multiaddr WebRTC Direct é o fingerprint do certificado **DTLS**,
+e a cadeia é ICE → DTLS → SCTP → DataChannel. O `go-libp2p` não chega a DTLS nem
+a ICE diretamente: `p2p/transport/webrtc/*.go` importa só `pion/webrtc/v4`,
+`pion/datachannel`, `pion/sctp` e `pion/logging`, e é o `pion/webrtc`
+(`dtlstransport.go`, `icetransport.go`) que delega a DTLS e ICE. Por isso o
+`pion/webrtc` (módulo `github.com/pion/webrtc/v4`, `go-libp2p/go.mod:53`) ganha
+pacote próprio, `transpiled_pion_webrtc`.
 
-Dimensão medida do que falta, em linhas de Go de produção (`*.go` fora de
-teste, `examples/` e `e2e/`):
+**Estado encontrado em 2026-09-24, antes da retomada.** Uma primeira passagem,
+nunca commitada, deixou `transpiled_pion_dtls`, `transpiled_pion_ice`,
+`transpiled_pion_datachannel`, o runtime de `transpiled_pion_sctp` e arquivos
+novos em `transport/webrtc/`. Auditados contra o upstream, eram em grande parte
+esqueletos que fingiam funcionar:
 
-| Subsistema | Módulo Go | Falta portar |
-| --- | --- | --- |
-| `pion-sctp` | 8.245 | ≈4.850 — `association.go` (2.960), `stream.go` (514), `reassembly_queue.go` (383), `rtx_timer.go` (257), e as demais filas e timers |
-| `pion-dtls` | 15.163 | ≈12.570 — o núcleo; ≈2.595 são dispensáveis (ver abaixo) |
-| `pion-datachannel` | 716 | tudo (DCEP) |
-| `pion-ice` | 9.434 | ≈6.100 — ≈2.107 dispensáveis (ver abaixo) |
-| `pion-webrtc` | 22.602 | a cola; boa parte é mídia, fora de escopo |
-| `go-libp2p/p2p/transport/webrtc` | 3.252 | tudo; o transporte Dart atual é descartável |
+- `pion_dtls/conn.dart:233-291`: `client()`/`server()` fabricavam um `State` e
+  chamavam `completeHandshake()` sem trocar mensagem alguma; `handshaker.dart`
+  só percorria os enums do FSM; não havia flight handlers, `fragment_buffer`,
+  `handshake_cache`, `crypto.go` nem `pkg/crypto/*`; as suítes CBC eram no-op.
+- `pion_ice/agent.dart`: `dial`/`accept` marcavam o primeiro par como
+  `succeeded` sem checagem de conectividade STUN; faltavam `selection.go`,
+  `icecontrol.go` e `transport.go`.
+- `pion_sctp/association.dart`: cookie fixo, SACK recebido ignorado, sem T1/T3,
+  sem reassembly, `bufferedAmount()` sempre `0`.
+- `transport/webrtc/cert.dart` gerava DER inválido e "assinava" com zeros;
+  `sdp.dart` tinha o fingerprint fixo no template.
+- Os testes atômicos desses pacotes eram gerados por script e tautológicos
+  (`expect(true, isTrue)`).
 
-Da ordem de **27.500 linhas** sem contar a fatia aproveitável do `pion-webrtc`
-— a maior frente isolada que resta no projeto, comparável ou maior que todo o
-TLS 1.3 do G.2.
+**Por que o portão não pegou.** `GO_MODULE_TO_DART_PACKAGE` em
+`tool/audit_ast_nomenclature.py` não mapeava nenhum `pion-*` (nem `quic-go`,
+`qpack`, `webtransport-go`, `golang-x-time`), e as Regras 18–21 pulam módulo não
+mapeado — o auditor nunca mediu o Pion. O `--package` não filtrava as regras
+19–21, e a Regra 24 aceitava asserção com valor literal constante. Os três
+defeitos foram corrigidos no auditor antes de retomar o porte.
 
-Dispensável, verificado no código e não suposto: em `pion-dtls`, o
-`listener.go` e seu `internal/net/udp` (o libp2p chama `dtls.Client`/
-`dtls.Server` direto sobre o `net.Conn` que o ICE já demultiplexou), o
-Connection ID da RFC 9146, as mensagens `*_13` (código morto), e as suítes PSK,
-CCM e `ECDHE_RSA_*` — nenhum dos dois lados tem certificado RSA, porque o
-libp2p gera ECDSA P-256 em `webrtc/cert.go:105`. Em `pion-ice`, o ICE sobre
-TCP, o relay TURN, o mDNS, o mapeamento de IP externo e o parsing de URL de
-STUN: o `/webrtc-direct` usa só host candidates entregues por um UDP mux
-próprio do libp2p (`webrtc/udpmux/mux.go`), em modo ICE lite
-(`webrtc/listener.go:205-221`). **Não** é dispensável a extensão `use_srtp`,
-apesar de não haver mídia: `pion-webrtc/dtlstransport.go:326` seta
-`SRTPProtectionProfiles` incondicionalmente, então ela precisa ser negociada no
-wire para interoperar com nó Go.
+**Decisões do mantenedor para a retomada:**
+
+- Porte **1:1** de cada símbolo público e de tudo o que ele alcança, direta ou
+  indiretamente, com a mesma lógica do Go. Não há "recorte": PSK, CCM,
+  `ECDHE_RSA_*`, Connection ID, `*_13`, `listener.go` do DTLS, ICE sobre TCP,
+  TURN, mDNS e o caminho de mídia do `pion/webrtc` entram todos. A lista de
+  "dispensáveis" registrada antes aqui deixou de valer: cortar um ramo dentro de
+  uma função portada (por exemplo, `defaultCipherSuites` sem as suítes RSA) muda
+  o comportamento observável da função.
+- Cada módulo do fecho tem pacote próprio: `transpiled_pion_webrtc`,
+  `transpiled_pion_turn`, `transpiled_pion_mdns`, `transpiled_golang_x_net`
+  (os pacotes Go alcançados), `transpiled_pion_interceptor`,
+  `transpiled_pion_rtp`, `transpiled_pion_rtcp` e `transpiled_pion_srtp`.
+- A camada de fio já escrita (mensagens de handshake, extensões, record layer,
+  PRF e GCM do DTLS, chunks do SCTP, DCEP) é mantida depois de conferida contra o
+  índice AST; a lógica inventada é reescrita a partir do índice.
+
+Dimensão, em linhas de Go de produção (fora de teste, `examples/` e `e2e/`):
+`pion-webrtc` 22.602, `pion-dtls` 15.163, `pion-ice` 9.434, `pion-sctp` 8.245,
+`pion-turn` 5.754, `pion-mdns` 1.288, `pion-datachannel` 716, e
+`go-libp2p/p2p/transport/webrtc` 3.252, mais `interceptor`, `rtp`, `rtcp`,
+`srtp` e os pacotes alcançados de `golang.org/x/net`.
+
+Ordem de execução, por dependência de `go.mod`: folhas (`dtls`, runtime do
+`sctp`, `mdns`, `x/net`, `rtp`, `rtcp`) → `turn`, `srtp`, `datachannel`,
+`interceptor`, `ice` → `webrtc` → transporte do libp2p. Prova por camada contra
+par Go real (exemplos `pion-dtls/examples/*/selfsign` e
+`pion-sctp/examples/ping-pong`), e do marco contra Kubo 0.43 nas duas direções,
+mais `local_kubo_transport_matrix_test.dart` passando em `/webrtc-direct` sem
+alteração das asserções. O critério de navegador continua valendo como no G.4.
 
 ### G.3 — a prova voltou a rodar depois de um cast defasado
 

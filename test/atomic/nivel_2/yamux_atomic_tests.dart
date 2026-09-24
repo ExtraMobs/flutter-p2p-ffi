@@ -780,5 +780,74 @@ void main() {
         await server.close();
       },
     );
+
+    test(
+      'incoming - verdadeiro apenas do lado que recebeu a stream do par remoto',
+      () async {
+        final (clientTransport, serverTransport) = _MemoryTransport.pair();
+        final client = YamuxSession.client(clientTransport);
+        final server = YamuxSession.server(serverTransport);
+        final acceptFuture = server.acceptStream();
+        // Go: `Session.incomingStream` (session.go:846) exige
+        // `s.client == (id%2==0)`; o cliente sempre abre com IDs impares e o
+        // servidor sempre aceita esses mesmos IDs como stream recebida.
+        final opened = await client.openStream();
+        final accepted = await acceptFuture;
+        expect(opened.streamId.isOdd, isTrue);
+        expect(opened.incoming, isFalse);
+        expect(accepted.incoming, isTrue);
+        await opened.close();
+        await accepted.close();
+        await client.close();
+        await server.close();
+      },
+    );
+  });
+
+  group('YamuxException [Atomic Audit]', () {
+    test(
+      'toString() - retorna a mensagem crua da excecao base sem override',
+      () {
+        // YamuxTimeoutException nao sobrescreve toString(): exercita a
+        // implementacao de YamuxException.toString (yamux.dart:323-324).
+        const ex = YamuxTimeoutException('prazo de leitura excedido');
+        expect(ex.toString(), equals('prazo de leitura excedido'));
+        expect(ex.isTimeout, isTrue);
+        expect(ex.isTemporary, isTrue);
+      },
+    );
+  });
+
+  group('yamux config helpers [Atomic Audit]', () {
+    // Go: `DefaultConfig` (yamux/config.go:88).
+    test(
+      'defaultConfig() - equivale aos valores padrao expostos por YamuxConfig',
+      () {
+        final cfg = defaultConfig();
+        expect(cfg.acceptBacklog, equals(YamuxConfig.defaults.acceptBacklog));
+        expect(cfg.pingBacklog, equals(YamuxConfig.defaults.pingBacklog));
+        expect(cfg.maxMessageSize, equals(YamuxConfig.defaults.maxMessageSize));
+        expect(
+          cfg.initialStreamWindowSize,
+          equals(YamuxConfig.defaults.initialStreamWindowSize),
+        );
+      },
+    );
+
+    test('verifyConfig() - nao lanca excecao para a configuracao padrao', () {
+      expect(() => verifyConfig(defaultConfig()), returnsNormally);
+    });
+
+    // Go: `VerifyConfig` (yamux/config.go:107).
+    test(
+      'verifyConfig() - lanca YamuxConfigException para configuracao invalida',
+      () {
+        const invalid = YamuxConfig(acceptBacklog: -5);
+        expect(
+          () => verifyConfig(invalid),
+          throwsA(isA<YamuxConfigException>()),
+        );
+      },
+    );
   });
 }

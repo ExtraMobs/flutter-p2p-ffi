@@ -7,7 +7,8 @@ import 'package:transpiled_ipld_prime/codec.dart';
 import 'package:transpiled_ipld_prime/src/codec/cbor/codec.dart' as cbor;
 import 'package:transpiled_ipld_prime/src/codec/dagcbor/codec.dart' as dagcbor;
 import 'package:transpiled_ipld_prime/src/linking/cid/cid_link.dart';
-import 'package:transpiled_ipld_prime/src/multicodec/registry.dart' as multicodec;
+import 'package:transpiled_ipld_prime/src/multicodec/registry.dart'
+    as multicodec;
 import 'package:transpiled_ipld_prime/transpiled_ipld_prime.dart';
 
 class _SinkList implements Sink<List<int>> {
@@ -23,22 +24,30 @@ class _SinkList implements Sink<List<int>> {
 }
 
 void main() {
-  final testCid = Cid.decode('bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi');
+  final testCid = Cid.decode(
+    'bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi',
+  );
 
   group('Top-Level Functions [DAG-CBOR and CBOR]', () {
-    test('registerDagCborCodec() - registra encoder e decoder DAG-CBOR 0x71 no registro', () {
-      final reg = multicodec.Registry();
-      dagcbor.registerDagCborCodec(reg);
-      expect(reg.lookupEncoder(0x71), isNotNull);
-      expect(reg.lookupDecoder(0x71), isNotNull);
-    });
+    test(
+      'registerDagCborCodec() - registra encoder e decoder DAG-CBOR 0x71 no registro',
+      () {
+        final reg = multicodec.Registry();
+        dagcbor.registerDagCborCodec(reg);
+        expect(reg.lookupEncoder(0x71), isNotNull);
+        expect(reg.lookupDecoder(0x71), isNotNull);
+      },
+    );
 
-    test('registerCborCodec() - registra encoder e decoder CBOR 0x51 no registro', () {
-      final reg = multicodec.Registry();
-      cbor.registerCborCodec(reg);
-      expect(reg.lookupEncoder(0x51), isNotNull);
-      expect(reg.lookupDecoder(0x51), isNotNull);
-    });
+    test(
+      'registerCborCodec() - registra encoder e decoder CBOR 0x51 no registro',
+      () {
+        final reg = multicodec.Registry();
+        cbor.registerCborCodec(reg);
+        expect(reg.lookupEncoder(0x51), isNotNull);
+        expect(reg.lookupDecoder(0x51), isNotNull);
+      },
+    );
 
     test('uintLength() - calcula tamanho em bytes do inteiro', () {
       expect(dagcbor.uintLength(0), equals(1));
@@ -96,11 +105,7 @@ void main() {
     test('unmarshal() - decodifica com opcoes de DecodeOptions', () {
       final encoded = [0x05]; // int 5
       final builder = const PrototypeInt().newBuilder();
-      dagcbor.unmarshal(
-        builder,
-        encoded,
-        const dagcbor.DecodeOptions(),
-      );
+      dagcbor.unmarshal(builder, encoded, const dagcbor.DecodeOptions());
       final result = builder.build();
       expect(result.asInt(), equals(5));
     });
@@ -128,7 +133,12 @@ void main() {
       // Link tag 42 deve falhar no CBOR puro
       final cidBytes = testCid.bytes();
       final linkEncoded = <int>[
-        0xd8, 0x2a, 0x58, cidBytes.length + 1, 0x00, ...cidBytes,
+        0xd8,
+        0x2a,
+        0x58,
+        cidBytes.length + 1,
+        0x00,
+        ...cidBytes,
       ];
       final builderLink = const PrototypeAny().newBuilder();
       expect(
@@ -137,53 +147,62 @@ void main() {
       );
     });
 
-    test('DAG-CBOR Link Roundtrip - codifica e decodifica CID com Tag 42 e prefixo 0x00', () {
-      final b = const PrototypeMap().newBuilder();
-      final ma = b.beginMap(1);
-      ma.assembleEntry('link').assignLink(CidLink(testCid));
-      ma.finish();
-      final linkNode = b.build();
-      final sink = _SinkList();
-      dagcbor.encode(linkNode, sink);
+    test(
+      'DAG-CBOR Link Roundtrip - codifica e decodifica CID com Tag 42 e prefixo 0x00',
+      () {
+        final b = const PrototypeMap().newBuilder();
+        final ma = b.beginMap(1);
+        ma.assembleEntry('link').assignLink(CidLink(testCid));
+        ma.finish();
+        final linkNode = b.build();
+        final sink = _SinkList();
+        dagcbor.encode(linkNode, sink);
 
-      final builder = const PrototypeMap().newBuilder();
-      dagcbor.decode(builder, sink.bytes);
-      final decoded = builder.build();
+        final builder = const PrototypeMap().newBuilder();
+        dagcbor.decode(builder, sink.bytes);
+        final decoded = builder.build();
 
-      final retrievedLink = decoded.lookupByString('link').asLink();
-      expect(retrievedLink, isA<CidLink>());
-      expect((retrievedLink as CidLink).cid, equals(testCid));
-    });
+        final retrievedLink = decoded.lookupByString('link').asLink();
+        expect(retrievedLink, isA<CidLink>());
+        expect((retrievedLink as CidLink).cid, equals(testCid));
+      },
+    );
 
-    test('DAG-CBOR RFC 7049 Map Sorting - ordena por tamanho de chave e depois lexicograficamente', () {
-      final b = const PrototypeMap().newBuilder();
-      final ma = b.beginMap(3);
-      ma.assembleEntry('aa').assignInt(1);
-      ma.assembleEntry('b').assignInt(2);
-      ma.assembleEntry('a').assignInt(3);
-      ma.finish();
-      final mapNode = b.build();
-      final sink = _SinkList();
-      dagcbor.encode(mapNode, sink);
+    test(
+      'DAG-CBOR RFC 7049 Map Sorting - ordena por tamanho de chave e depois lexicograficamente',
+      () {
+        final b = const PrototypeMap().newBuilder();
+        final ma = b.beginMap(3);
+        ma.assembleEntry('aa').assignInt(1);
+        ma.assembleEntry('b').assignInt(2);
+        ma.assembleEntry('a').assignInt(3);
+        ma.finish();
+        final mapNode = b.build();
+        final sink = _SinkList();
+        dagcbor.encode(mapNode, sink);
 
-      expect(sink.bytes[0], equals(0xa3));
-      expect(sink.bytes[1], equals(0x61));
-      expect(sink.bytes[2], equals(0x61)); // 'a'
-      expect(sink.bytes[3], equals(0x03)); // 3
-      expect(sink.bytes[4], equals(0x61));
-      expect(sink.bytes[5], equals(0x62)); // 'b'
-      expect(sink.bytes[6], equals(0x02)); // 2
-      expect(sink.bytes[7], equals(0x62));
-      expect(sink.bytes[8], equals(0x61));
-      expect(sink.bytes[9], equals(0x61)); // 'aa'
-      expect(sink.bytes[10], equals(0x01)); // 1
-    });
+        expect(sink.bytes[0], equals(0xa3));
+        expect(sink.bytes[1], equals(0x61));
+        expect(sink.bytes[2], equals(0x61)); // 'a'
+        expect(sink.bytes[3], equals(0x03)); // 3
+        expect(sink.bytes[4], equals(0x61));
+        expect(sink.bytes[5], equals(0x62)); // 'b'
+        expect(sink.bytes[6], equals(0x02)); // 2
+        expect(sink.bytes[7], equals(0x62));
+        expect(sink.bytes[8], equals(0x61));
+        expect(sink.bytes[9], equals(0x61)); // 'aa'
+        expect(sink.bytes[10], equals(0x01)); // 1
+      },
+    );
 
     test('Constantes e Exceções do DAG-CBOR', () {
       expect(dagcbor.linkTag, equals(42));
       expect(dagcbor.lengthBoundaries.length, equals(5));
       expect(dagcbor.errInvalidMultibase.message, contains('multibase'));
-      expect(dagcbor.errAllocationBudgetExceeded.message, contains('resources'));
+      expect(
+        dagcbor.errAllocationBudgetExceeded.message,
+        contains('resources'),
+      );
       expect(dagcbor.errDecodeDepthExceeded.message, contains('depth'));
       expect(
         dagcbor.errTrailingBytes.message.contains('trailing') ||
@@ -194,50 +213,65 @@ void main() {
   });
 
   group('EncodeOptions', () {
-    test('EncodeOptions.encode() - executa serializacao com opcoes customizadas', () {
-      const opts = dagcbor.EncodeOptions(
-        allowLinks: true,
-        mapSortMode: MapSortMode.rfc7049,
-      );
-      const node = PlainString('test-encode');
-      final sink = _SinkList();
-      opts.encode(node, sink);
-      expect(sink.bytes, isNotEmpty);
-    });
+    test(
+      'EncodeOptions.encode() - executa serializacao com opcoes customizadas',
+      () {
+        const opts = dagcbor.EncodeOptions(
+          allowLinks: true,
+          mapSortMode: MapSortMode.rfc7049,
+        );
+        const node = PlainString('test-encode');
+        final sink = _SinkList();
+        opts.encode(node, sink);
+        expect(sink.bytes, isNotEmpty);
+      },
+    );
   });
 
   group('DecodeOptions', () {
-    test('DecodeOptions.effectiveBudget - retorna o orcamento de alocacao configurado ou padrao', () {
-      const optsDefault = dagcbor.DecodeOptions();
-      expect(optsDefault.effectiveBudget, equals(1048576 * 10));
+    test(
+      'DecodeOptions.effectiveBudget - retorna o orcamento de alocacao configurado ou padrao',
+      () {
+        const optsDefault = dagcbor.DecodeOptions();
+        expect(optsDefault.effectiveBudget, equals(1048576 * 10));
 
-      const optsCustom = dagcbor.DecodeOptions(allocationBudget: 500);
-      expect(optsCustom.effectiveBudget, equals(500));
-    });
+        const optsCustom = dagcbor.DecodeOptions(allocationBudget: 500);
+        expect(optsCustom.effectiveBudget, equals(500));
+      },
+    );
 
-    test('DecodeOptions.effectiveMaxPrealloc - retorna o limite maximo de prealocacao', () {
-      const optsDefault = dagcbor.DecodeOptions();
-      expect(optsDefault.effectiveMaxPrealloc, equals(1024));
+    test(
+      'DecodeOptions.effectiveMaxPrealloc - retorna o limite maximo de prealocacao',
+      () {
+        const optsDefault = dagcbor.DecodeOptions();
+        expect(optsDefault.effectiveMaxPrealloc, equals(1024));
 
-      const optsCustom = dagcbor.DecodeOptions(maxCollectionPrealloc: 64);
-      expect(optsCustom.effectiveMaxPrealloc, equals(64));
-    });
+        const optsCustom = dagcbor.DecodeOptions(maxCollectionPrealloc: 64);
+        expect(optsCustom.effectiveMaxPrealloc, equals(64));
+      },
+    );
 
-    test('DecodeOptions.effectiveMaxDepth - retorna a profundidade maxima de recursao', () {
-      const optsDefault = dagcbor.DecodeOptions();
-      expect(optsDefault.effectiveMaxDepth, equals(1024));
+    test(
+      'DecodeOptions.effectiveMaxDepth - retorna a profundidade maxima de recursao',
+      () {
+        const optsDefault = dagcbor.DecodeOptions();
+        expect(optsDefault.effectiveMaxDepth, equals(1024));
 
-      const optsCustom = dagcbor.DecodeOptions(maxDepth: 10);
-      expect(optsCustom.effectiveMaxDepth, equals(10));
-    });
+        const optsCustom = dagcbor.DecodeOptions(maxDepth: 10);
+        expect(optsCustom.effectiveMaxDepth, equals(10));
+      },
+    );
 
-    test('DecodeOptions.decode() - decodifica stream com opcoes especificadas', () {
-      const opts = dagcbor.DecodeOptions();
-      final builder = const PrototypeMap().newBuilder();
-      final encoded = [0xa1, 0x61, 0x61, 0x01]; // {"a": 1}
-      opts.decode(builder, encoded);
-      final result = builder.build();
-      expect(result.lookupByString('a').asInt(), equals(1));
-    });
+    test(
+      'DecodeOptions.decode() - decodifica stream com opcoes especificadas',
+      () {
+        const opts = dagcbor.DecodeOptions();
+        final builder = const PrototypeMap().newBuilder();
+        final encoded = [0xa1, 0x61, 0x61, 0x01]; // {"a": 1}
+        opts.decode(builder, encoded);
+        final result = builder.build();
+        expect(result.lookupByString('a').asInt(), equals(1));
+      },
+    );
   });
 }

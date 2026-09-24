@@ -50,11 +50,11 @@ class AddrsManager {
     this.natManager,
     List<Multiaddr> Function()? relayAddrs,
     InterfaceAddrsCache? interfaceAddrs,
-  })  : _listenAddrs = listenAddrs,
-        _addrsFactory = addrsFactory ?? ((addrs) => addrs),
-        _addCertHashes = addCertHashes ?? ((addrs) => addrs),
-        _relayAddrs = relayAddrs ?? (() => const []),
-        _interfaceAddrs = interfaceAddrs ?? InterfaceAddrsCache();
+  }) : _listenAddrs = listenAddrs,
+       _addrsFactory = addrsFactory ?? ((addrs) => addrs),
+       _addCertHashes = addCertHashes ?? ((addrs) => addrs),
+       _relayAddrs = relayAddrs ?? (() => const []),
+       _interfaceAddrs = interfaceAddrs ?? InterfaceAddrsCache();
 
   final List<Multiaddr> Function() _listenAddrs;
   final AddrsFactory _addrsFactory;

@@ -240,10 +240,7 @@ bool isPrivateAddr(Multiaddr a) {
 (Multiaddr?, Multiaddr?) splitFirstSlice(Multiaddr m) {
   if (m.components.isEmpty) return (null, null);
   if (m.components.length == 1) return (m, null);
-  return (
-    Multiaddr([m.components.first]),
-    Multiaddr(m.components.sublist(1)),
-  );
+  return (Multiaddr([m.components.first]), Multiaddr(m.components.sublist(1)));
 }
 
 /// Expands an unspecified ip address (/ip4/0.0.0.0, /ip6/::) to use the known local interfaces.

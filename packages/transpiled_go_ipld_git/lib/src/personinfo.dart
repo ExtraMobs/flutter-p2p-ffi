@@ -37,11 +37,11 @@ final class PersonInfo {
 
   /// Converts this PersonInfo to an IPLD Node representation.
   Node toNode() => PlainMap({
-        'name': PlainString(name),
-        'email': PlainString(email),
-        'date': PlainString(date),
-        'timezone': PlainString(timezone),
-      });
+    'name': PlainString(name),
+    'email': PlainString(email),
+    'date': PlainString(date),
+    'timezone': PlainString(timezone),
+  });
 
   /// Factory from an IPLD Node.
   factory PersonInfo.fromNode(Node n) {
@@ -113,10 +113,5 @@ PersonInfo parsePersonInfo(Uint8List line) {
     timezone = parts[at++];
   }
 
-  return PersonInfo(
-    name: name,
-    email: email,
-    date: date,
-    timezone: timezone,
-  );
+  return PersonInfo(name: name, email: email, date: date, timezone: timezone);
 }

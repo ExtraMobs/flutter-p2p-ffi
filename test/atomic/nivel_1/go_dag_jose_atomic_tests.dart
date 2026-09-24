@@ -41,7 +41,9 @@ void main() {
     });
 
     test('link()', () {
-      final cid = Cid.decode('bafkreigh2akiscaildcqabsyg3dfr6cvhpvdgahnpbtxdvqvue2whxuh35');
+      final cid = Cid.decode(
+        'bafkreigh2akiscaildcqabsyg3dfr6cvhpvdgahnpbtxdvqvue2whxuh35',
+      );
       final b64 = Base64Url(Uint8List.fromList(cid.bytes()));
       final link = b64.link();
       expect(link, isA<ipld_prime.CidLink>());
@@ -123,7 +125,9 @@ void main() {
     });
 
     test('decode()', () {
-      final cid = Cid.decode('bafkreigh2akiscaildcqabsyg3dfr6cvhpvdgahnpbtxdvqvue2whxuh35');
+      final cid = Cid.decode(
+        'bafkreigh2akiscaildcqabsyg3dfr6cvhpvdgahnpbtxdvqvue2whxuh35',
+      );
       final jwsMap = ipld_prime.prototype.map.newBuilder();
       final ma = jwsMap.beginMap(1);
       ma.assembleKey().assignString('payload');
@@ -144,7 +148,9 @@ void main() {
     });
 
     test('decodeJws()', () {
-      final cid = Cid.decode('bafkreigh2akiscaildcqabsyg3dfr6cvhpvdgahnpbtxdvqvue2whxuh35');
+      final cid = Cid.decode(
+        'bafkreigh2akiscaildcqabsyg3dfr6cvhpvdgahnpbtxdvqvue2whxuh35',
+      );
       final jwsMap = ipld_prime.prototype.map.newBuilder();
       final ma = jwsMap.beginMap(1);
       ma.assembleKey().assignString('payload');
@@ -250,7 +256,9 @@ void main() {
     });
 
     test('unflattenJws()', () {
-      final cid = Cid.decode('bafkreigh2akiscaildcqabsyg3dfr6cvhpvdgahnpbtxdvqvue2whxuh35');
+      final cid = Cid.decode(
+        'bafkreigh2akiscaildcqabsyg3dfr6cvhpvdgahnpbtxdvqvue2whxuh35',
+      );
       final map = ipld_prime.prototype.map.newBuilder();
       final ma = map.beginMap(2);
       ma.assembleKey().assignString('payload');
@@ -275,7 +283,9 @@ void main() {
     });
 
     test('validateLink()', () {
-      final cid = Cid.decode('bafkreigh2akiscaildcqabsyg3dfr6cvhpvdgahnpbtxdvqvue2whxuh35');
+      final cid = Cid.decode(
+        'bafkreigh2akiscaildcqabsyg3dfr6cvhpvdgahnpbtxdvqvue2whxuh35',
+      );
       final map = ipld_prime.prototype.map.newBuilder();
       final ma = map.beginMap(2);
       ma.assembleKey().assignString('payload');
@@ -287,7 +297,9 @@ void main() {
     });
 
     test('parseJose()', () {
-      final cid = Cid.decode('bafkreigh2akiscaildcqabsyg3dfr6cvhpvdgahnpbtxdvqvue2whxuh35');
+      final cid = Cid.decode(
+        'bafkreigh2akiscaildcqabsyg3dfr6cvhpvdgahnpbtxdvqvue2whxuh35',
+      );
       final jwsJson = jsonEncode({
         'payload': encodeBase64Url(cid.bytes()),
         'signature': encodeBase64Url(utf8.encode('sig')),
@@ -297,7 +309,9 @@ void main() {
     });
 
     test('encode()', () {
-      final cid = Cid.decode('bafkreigh2akiscaildcqabsyg3dfr6cvhpvdgahnpbtxdvqvue2whxuh35');
+      final cid = Cid.decode(
+        'bafkreigh2akiscaildcqabsyg3dfr6cvhpvdgahnpbtxdvqvue2whxuh35',
+      );
       final map = ipld_prime.prototype.map.newBuilder();
       final ma = map.beginMap(1);
       ma.assembleKey().assignString('payload');
@@ -308,7 +322,9 @@ void main() {
     });
 
     test('encodeJws()', () {
-      final cid = Cid.decode('bafkreigh2akiscaildcqabsyg3dfr6cvhpvdgahnpbtxdvqvue2whxuh35');
+      final cid = Cid.decode(
+        'bafkreigh2akiscaildcqabsyg3dfr6cvhpvdgahnpbtxdvqvue2whxuh35',
+      );
       final map = ipld_prime.prototype.map.newBuilder();
       final ma = map.beginMap(1);
       ma.assembleKey().assignString('payload');
@@ -329,7 +345,9 @@ void main() {
     });
 
     test('decode()', () {
-      final cid = Cid.decode('bafkreigh2akiscaildcqabsyg3dfr6cvhpvdgahnpbtxdvqvue2whxuh35');
+      final cid = Cid.decode(
+        'bafkreigh2akiscaildcqabsyg3dfr6cvhpvdgahnpbtxdvqvue2whxuh35',
+      );
       final map = ipld_prime.prototype.map.newBuilder();
       final ma = map.beginMap(1);
       ma.assembleKey().assignString('payload');
@@ -343,11 +361,16 @@ void main() {
 
       final builder = ipld_prime.prototype.any.newBuilder();
       decode(builder, bytes);
-      expect(builder.build().lookupByString('payload').asBytes(), equals(cid.bytes()));
+      expect(
+        builder.build().lookupByString('payload').asBytes(),
+        equals(cid.bytes()),
+      );
     });
 
     test('decodeJws()', () {
-      final cid = Cid.decode('bafkreigh2akiscaildcqabsyg3dfr6cvhpvdgahnpbtxdvqvue2whxuh35');
+      final cid = Cid.decode(
+        'bafkreigh2akiscaildcqabsyg3dfr6cvhpvdgahnpbtxdvqvue2whxuh35',
+      );
       final map = ipld_prime.prototype.map.newBuilder();
       final ma = map.beginMap(1);
       ma.assembleKey().assignString('payload');
@@ -361,7 +384,10 @@ void main() {
 
       final builder = ipld_prime.prototype.any.newBuilder();
       decodeJws(builder, bytes);
-      expect(builder.build().lookupByString('payload').asBytes(), equals(cid.bytes()));
+      expect(
+        builder.build().lookupByString('payload').asBytes(),
+        equals(cid.bytes()),
+      );
     });
 
     test('decodeJwe()', () {
@@ -378,7 +404,10 @@ void main() {
 
       final builder = ipld_prime.prototype.any.newBuilder();
       decodeJwe(builder, bytes);
-      expect(builder.build().lookupByString('ciphertext').asBytes(), equals([7, 8, 9]));
+      expect(
+        builder.build().lookupByString('ciphertext').asBytes(),
+        equals([7, 8, 9]),
+      );
     });
 
     test('dagJoseCodecCode', () {

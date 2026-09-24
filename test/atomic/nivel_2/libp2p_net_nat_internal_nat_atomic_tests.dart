@@ -104,14 +104,24 @@ void main() {
 
     test('addPortMapping() - creates port mapping', () async {
       final nat = _MockInternalNat();
-      final port = await nat.addPortMapping('tcp', 4001, 'test', const Duration(seconds: 30));
+      final port = await nat.addPortMapping(
+        'tcp',
+        4001,
+        'test',
+        const Duration(seconds: 30),
+      );
       expect(port, equals(4001));
       expect(nat.mappings['tcp:4001'], equals(4001));
     });
 
     test('deletePortMapping() - removes port mapping', () async {
       final nat = _MockInternalNat();
-      await nat.addPortMapping('tcp', 4001, 'test', const Duration(seconds: 30));
+      await nat.addPortMapping(
+        'tcp',
+        4001,
+        'test',
+        const Duration(seconds: 30),
+      );
       await nat.deletePortMapping('tcp', 4001);
       expect(nat.mappings.containsKey('tcp:4001'), isFalse);
     });
@@ -126,11 +136,16 @@ void main() {
       }
     });
 
-    test('discoverNats() - returns discovered NATs or empty without hanging', () async {
-      final (nats, errs) = await discoverNats(const Duration(milliseconds: 100));
-      expect(nats, isA<List<Nat>>());
-      expect(errs, isA<List<Exception>>());
-    });
+    test(
+      'discoverNats() - returns discovered NATs or empty without hanging',
+      () async {
+        final (nats, errs) = await discoverNats(
+          const Duration(milliseconds: 100),
+        );
+        expect(nats, isA<List<Nat>>());
+        expect(errs, isA<List<Exception>>());
+      },
+    );
 
     test('discoverGateway() - attempts discovery with short timeout', () async {
       try {

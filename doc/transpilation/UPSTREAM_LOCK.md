@@ -33,7 +33,7 @@ dos clones só podem alterar esta tabela junto com a revalidação dos ports afe
 | `quic-go` | `github.com/quic-go/quic-go` (v0.60.0) | `7612ad1036957cde45d672bebb8b9ec9c2e9b2a7` | <https://github.com/quic-go/quic-go.git> |
 | `qpack` | `github.com/quic-go/qpack` (v0.6.0) | `c415cad59091662a20b7b1c4505fbb177dbda0e3` | <https://github.com/quic-go/qpack.git> |
 | `webtransport-go` | `github.com/quic-go/webtransport-go` (v0.11.1) | `d03fbc34952e05e833ab2a3810ab55aeefe2bf30` | <https://github.com/quic-go/webtransport-go.git> |
-| `golang-x-net` | `golang.org/x/net` (v0.28.0) | `4542a42604cd159f1adb93c58368079ae37b3bf6` | <https://github.com/golang/net.git> |
+| `golang-x-net` | `golang.org/x/net` (v0.57.0) | `b8f09f6f062ceb4531b7af4bd17a5c8fe9c4b2b5` | <https://github.com/golang/net.git> |
 | `golang-x-time` | `golang.org/x/time` (v0.15.0) | `812b343c8714c317b0dad633efa6d103e554c006` | <https://github.com/golang/time.git> |
 | `zeroconf` | `github.com/libp2p/zeroconf/v2` (v2.2.0) | `586e7c571d106f842c8567012dacd28d73fcf966` | <https://github.com/libp2p/zeroconf.git> |
 | `go-stdlib` (sparse: `src/crypto/tls`, `src/crypto/internal`, `src/go.mod`) | `std` / `crypto/tls` (go1.25.1) | `56ebf80e57db9f61981fc0636fc6419dc6f68eda` | <https://go.googlesource.com/go> |
@@ -50,6 +50,10 @@ dos clones só podem alterar esta tabela junto com a revalidação dos ports afe
 | `pion-turn` | `github.com/pion/turn/v4` (v4.0.2) | `61a25e754f7a9c4e6ba5a4b8ee18579899985339` | <https://github.com/pion/turn.git> |
 | `pion-mdns` | `github.com/pion/mdns/v2` (v2.0.7) | `689cdb9fc66c6202b75bd96f17caf12078aa8c95` | <https://github.com/pion/mdns.git> |
 | `pion-webrtc` | `github.com/pion/webrtc/v4` (v4.1.2) | `f5d98ceac9537df6293b258ae99074125699b7a9` | <https://github.com/pion/webrtc.git> |
+| `pion-interceptor` | `github.com/pion/interceptor` (v0.1.40) | `149728f6855293c1b0d1346ffc6883f57815455c` | <https://github.com/pion/interceptor.git> |
+| `pion-rtp` | `github.com/pion/rtp` (v1.8.19) | `08c94399a8a757a92786f6d76000366ed2270e20` | <https://github.com/pion/rtp.git> |
+| `pion-rtcp` | `github.com/pion/rtcp` (v1.2.16) | `8aedb55aecbf2547f122f77767a43e2c3c54062e` | <https://github.com/pion/rtcp.git> |
+| `pion-srtp` | `github.com/pion/srtp/v3` (v3.0.6) | `30d3f149a27615b6b3a16b4d6b79bfad7958d0cd` | <https://github.com/pion/srtp.git> |
 | `go-ipld-git` | `github.com/ipfs/go-ipld-git` (v0.1.3) | `f8d7d2dc59e41575de43ca2bdc8be4959c559327` | <https://github.com/ipfs/go-ipld-git.git> |
 | `go-dag-jose` | `github.com/ceramicnetwork/go-dag-jose` (v0.1.1) | `61df42ed39ea8b72bcbdd5556beb94a4db0cdf4f` | <https://github.com/ceramicnetwork/go-dag-jose.git> |
 
@@ -94,20 +98,27 @@ restrito a `src/crypto/tls`, `src/crypto/internal` e `src/go.mod`, porque o `qui
 implementa TLS 1.3 — ele delega ao `crypto/tls` da biblioteca padrão do Go, que
 passa a ser o upstream autoritativo do Marco G.2.
 
-O `go-stdlib` **não tem índice AST e não pode ter com a ferramenta atual**: `go-ipfs-reference/go_module_index.exe` aborta com panic quando apontado para `go-stdlib/src`, a raiz de módulo (`module std`) da biblioteca padrão. Consequência prática: as Regras 18-21 do auditor não conseguem medir o que falta portar de `crypto/tls`, ao contrário do que acontece com os clones `pion-*`. A cobertura de 100% reportada para `transpiled_crypto_tls` vale apenas para a Regra 24 (teste atômico por símbolo portado), não para completude perante o upstream.
+O `go-stdlib` **não tem índice AST e não pode ter com a ferramenta atual**: `go-ipfs-reference/go_module_index.exe` aborta com panic quando apontado para `go-stdlib/src`, a raiz de módulo (`module std`) da biblioteca padrão. Consequência prática: as Regras 18-21 do auditor não conseguem medir o que falta portar de `crypto/tls`. A cobertura de 100% reportada para `transpiled_crypto_tls` vale apenas para a Regra 24 (teste atômico por símbolo portado), não para completude perante o upstream.
 
-Os treze clones `pion-*` foram acrescentados para o Marco G.5 (WebRTC Direct) e
-somam 88.543 linhas de Go fora de teste. Sete deles já têm índice AST gerado, um
-por módulo já portado: `pion-randutil-index`, `pion-logging-index`,
-`pion-sdp-index`, `pion-transport-index`, `pion-transport-v4-index`,
-`pion-stun-index` e `pion-sctp-index`. Os demais serão gerados quando cada
-módulo for portado.
-Duas observações sobre o recorte:
+Os dezessete clones `pion-*` foram acrescentados para o Marco G.5 (WebRTC
+Direct), e todos têm índice AST gerado (`go-ipfs-reference/pion-*-index/`). As
+versões fixadas conferem, uma a uma, com as que o `go-libp2p/go.mod` seleciona
+(verificado em 2026-09-24).
 
-- O `/webrtc-direct` do libp2p usa **apenas data channels**, então os módulos de
-  mídia (`pion/rtp`, `pion/rtcp`, `pion/srtp`, `pion/interceptor`) foram
-  deliberadamente deixados fora e não estão fixados aqui. A cadeia que importa é
-  ICE → DTLS → SCTP → DataChannel, mais STUN e SDP.
+Os módulos de mídia (`pion/interceptor`, `pion/rtp`, `pion/rtcp`,
+`pion/srtp/v3`) entraram em 2026-09-24 por decisão do mantenedor: o porte é 1:1
+sobre o fecho transitivo dos símbolos públicos, e o `pion/webrtc` os importa
+diretamente — `NewPeerConnection` monta os interceptors e
+`DTLSTransport.Start` sobe o SRTP —, ainda que o `/webrtc-direct` do libp2p
+trafegue só data channels.
+
+Até 2026-09-24 o `tool/audit_ast_nomenclature.py` não tinha nenhum `pion-*` em
+`GO_MODULE_TO_DART_PACKAGE`, e as Regras 18-21 pulam módulo não mapeado: o
+auditor **nunca mediu** o que faltava portar da pilha Pion. O mapeamento foi
+acrescentado nessa data.
+
+Uma observação sobre o recorte:
+
 - O `go.mod` do `go-libp2p` lista `github.com/pion/transport` em duas versões,
   `v3.0.7` e `v4.0.1`, ambas indiretas, e **as duas são de fato necessárias**:
   `pion/sctp` importa `transport/v3/deadline`, enquanto `pion/stun` e
@@ -115,3 +126,11 @@ Duas observações sobre o recorte:
   `stdnet`, `utils/xor`). Por isso as duas estão clonadas e fixadas
   separadamente. Não unifique as duas num único pacote Dart: são fronteiras de
   `go.mod` distintas.
+
+O `golang-x-net` foi refixado de v0.28.0 para v0.57.0 em 2026-09-24, a versão
+que o `go-libp2p/go.mod:63` seleciona. O clone é um checkout esparso: além de
+`http2`, contém os pacotes que o fecho Pion alcança em código de produção —
+`ipv4` e `ipv6` (via `pion/mdns` e `pion/ice`), `dns/dnsmessage` (via
+`pion/mdns`), `proxy` (via `pion/ice` e `pion/turn`) — e as dependências
+internas deles, `bpf`, `internal/iana`, `internal/socket` e `internal/socks`.
+`icmp`, `nettest` e `internal/sockstest` só aparecem em testes e ficaram fora.

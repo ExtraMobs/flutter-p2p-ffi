@@ -300,22 +300,16 @@ final class YamuxConfigException implements Exception {
   String toString() => message;
 }
 
-enum YamuxStreamState {
-  init,
-  synSent,
-  synReceived,
-  established,
-  finished,
-}
+enum YamuxStreamState { init, synSent, synReceived, established, finished }
 
-enum YamuxHalfStreamState {
-  open,
-  closed,
-  reset,
-}
+enum YamuxHalfStreamState { open, closed, reset }
 
 abstract class YamuxException implements Exception {
-  const YamuxException(this.message, {this.isTimeout = false, this.isTemporary = false});
+  const YamuxException(
+    this.message, {
+    this.isTimeout = false,
+    this.isTemporary = false,
+  });
   final String message;
   final bool isTimeout;
   final bool isTemporary;
@@ -334,20 +328,29 @@ class YamuxProtocolException extends YamuxException {
 
 class YamuxGoAwayException extends YamuxSessionClosedException {
   const YamuxGoAwayException({required this.errorCode, required this.remote})
-      : super(remote ? 'remote sent go away, code: $errorCode' : 'sent go away, code: $errorCode');
+    : super(
+        remote
+            ? 'remote sent go away, code: $errorCode'
+            : 'sent go away, code: $errorCode',
+      );
   final int errorCode;
   final bool remote;
 }
 
 class YamuxStreamResetException extends YamuxException {
   const YamuxStreamResetException({this.remote = false, this.errorCode = 0})
-      : super('stream reset (${remote ? 'remote' : 'local'}), error code: $errorCode');
+    : super(
+        'stream reset (${remote ? 'remote' : 'local'}), error code: $errorCode',
+      );
   final bool remote;
   final int errorCode;
 }
 
 class YamuxStreamErrorException extends YamuxStreamResetException {
-  const YamuxStreamErrorException({required super.errorCode, required super.remote});
+  const YamuxStreamErrorException({
+    required super.errorCode,
+    required super.remote,
+  });
 }
 
 class YamuxStreamClosedException extends YamuxSessionClosedException {
@@ -355,34 +358,41 @@ class YamuxStreamClosedException extends YamuxSessionClosedException {
 }
 
 class YamuxSessionShutdownException extends YamuxGoAwayException {
-  const YamuxSessionShutdownException([int errorCode = 0]) : super(errorCode: errorCode, remote: false);
+  const YamuxSessionShutdownException([int errorCode = 0])
+    : super(errorCode: errorCode, remote: false);
 }
 
 class YamuxRemoteGoAwayException extends YamuxGoAwayException {
-  const YamuxRemoteGoAwayException([int errorCode = 0]) : super(errorCode: errorCode, remote: true);
+  const YamuxRemoteGoAwayException([int errorCode = 0])
+    : super(errorCode: errorCode, remote: true);
 }
 
 class YamuxTimeoutException extends YamuxException {
   const YamuxTimeoutException([super.message = 'i/o deadline reached'])
-      : super(isTimeout: true, isTemporary: true);
+    : super(isTimeout: true, isTemporary: true);
 }
 
 class YamuxConnectionWriteTimeoutException extends YamuxException {
-  const YamuxConnectionWriteTimeoutException([super.message = 'connection write timeout'])
-      : super(isTimeout: true);
+  const YamuxConnectionWriteTimeoutException([
+    super.message = 'connection write timeout',
+  ]) : super(isTimeout: true);
 }
 
 class YamuxKeepAliveTimeoutException extends YamuxException {
   const YamuxKeepAliveTimeoutException([super.message = 'keepalive timeout'])
-      : super(isTimeout: true);
+    : super(isTimeout: true);
 }
 
 class YamuxDuplicateStreamException extends YamuxProtocolException {
-  const YamuxDuplicateStreamException([super.message = 'duplicate stream initiated']);
+  const YamuxDuplicateStreamException([
+    super.message = 'duplicate stream initiated',
+  ]);
 }
 
 class YamuxRecvWindowExceededException extends YamuxProtocolException {
-  const YamuxRecvWindowExceededException([super.message = 'recv window exceeded']);
+  const YamuxRecvWindowExceededException([
+    super.message = 'recv window exceeded',
+  ]);
 }
 
 class YamuxStreamsExhaustedException extends YamuxException {
@@ -451,7 +461,8 @@ final class YamuxSession {
   int get numStreams => _streams.length;
   int get numIncomingStreams => _incomingCount;
 
-  Object get _closedError => _shutdownErr ?? const YamuxSessionShutdownException();
+  Object get _closedError =>
+      _shutdownErr ?? const YamuxSessionShutdownException();
 
   Future<YamuxStream> openStream({Duration? timeout}) async {
     if (isClosed || _goAway) throw _closedError;
@@ -467,7 +478,8 @@ final class YamuxSession {
         Future<void>.delayed(remaining ?? const Duration(milliseconds: 10)),
       ]);
     }
-    if (_nextStreamId >= 0xfffffffe) throw const YamuxStreamsExhaustedException();
+    if (_nextStreamId >= 0xfffffffe)
+      throw const YamuxStreamsExhaustedException();
     final id = _nextStreamId;
     _nextStreamId += 2;
     final stream = YamuxStream._(this, id, YamuxStreamState.init);
@@ -649,10 +661,7 @@ final class YamuxSession {
       _goAway = true;
       unawaited(
         close(
-          reason: YamuxGoAwayException(
-            errorCode: frame.length,
-            remote: true,
-          ),
+          reason: YamuxGoAwayException(errorCode: frame.length, remote: true),
         ),
       );
       return;
@@ -689,9 +698,7 @@ final class YamuxSession {
       stream._processFlags(frame.flags, frame.length);
     } else {
       if (frame.payload.length > stream._recvWindow) {
-        unawaited(
-          close(reason: const YamuxRecvWindowExceededException()),
-        );
+        unawaited(close(reason: const YamuxRecvWindowExceededException()));
         return;
       }
       stream._recvWindow -= frame.payload.length;
@@ -745,8 +752,8 @@ final class YamuxSession {
 
 final class YamuxStream {
   YamuxStream._(this.session, this.id, this._state)
-      : _recvWindow = session.config.initialStreamWindowSize,
-        _sendWindow = yamuxInitialStreamWindow;
+    : _recvWindow = session.config.initialStreamWindowSize,
+      _sendWindow = yamuxInitialStreamWindow;
 
   final YamuxSession session;
   final int id;
@@ -895,7 +902,8 @@ final class YamuxStream {
 
   Future<void> reset([int errorCode = 0]) async {
     if (_state == YamuxStreamState.finished) return;
-    final sendReset = _state == YamuxStreamState.synSent ||
+    final sendReset =
+        _state == YamuxStreamState.synSent ||
         _state == YamuxStreamState.synReceived ||
         _state == YamuxStreamState.established;
 
@@ -1123,6 +1131,7 @@ YamuxSession server(YamuxTransport conn, [YamuxConfig? config]) {
   cfg.verify();
   return YamuxSession(conn, isClient: false, config: cfg);
 }
+
 const Server = server;
 
 /// Go: `Client` (`yamux/session.go:70`).
@@ -1131,4 +1140,5 @@ YamuxSession client(YamuxTransport conn, [YamuxConfig? config]) {
   cfg.verify();
   return YamuxSession(conn, isClient: true, config: cfg);
 }
+
 const Client = client;

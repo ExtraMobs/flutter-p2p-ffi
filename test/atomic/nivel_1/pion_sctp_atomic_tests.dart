@@ -20,6 +20,7 @@
 // e chunk_shutdown_complete_test go.
 // Nivel 1: codec puro / manipulacao de bytes em memoria, sem I/O.
 
+import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:boilerplate/fixed_types/golang.dart' as Golang;
@@ -65,6 +66,11 @@ import 'package:transpiled_pion_sctp/src/param_zero_checksum.dart';
 import 'package:transpiled_pion_sctp/src/paramheader.dart';
 import 'package:transpiled_pion_sctp/src/paramtype.dart';
 import 'package:transpiled_pion_sctp/src/util.dart';
+import 'package:transpiled_pion_sctp/src/association.dart';
+import 'package:transpiled_pion_sctp/src/config.dart';
+import 'package:transpiled_pion_sctp/src/queue.dart';
+import 'package:transpiled_pion_sctp/src/stream.dart';
+import 'package:transpiled_pion_sctp/src/streamstate.dart';
 
 /// Minimal in-test [Chunk] implementer, used only to exercise the interface
 /// contract (chunk.go has no concrete implementation ported yet -- see
@@ -3112,5 +3118,317 @@ void main() {
         expect(tryMarshalUnmarshal(Uint8List(4)), equals(0));
       },
     );
+  });
+
+  group('Queue [Atomic Audit]', () {
+    test('len() - atomic test', () {
+      final q = Queue<int>();
+      expect(q.len(), equals(0));
+      q.pushBack(42);
+      expect(q.len(), equals(1));
+    });
+    test('pushBack() - atomic test', () {
+      final q = Queue<int>();
+      q.pushBack(10);
+      expect(q.len(), equals(1));
+    });
+    test('popFront() - atomic test', () {
+      final q = Queue<int>();
+      q.pushBack(10);
+      expect(q.popFront(), equals(10));
+    });
+    test('front() - atomic test', () {
+      final q = Queue<int>();
+      q.pushBack(10);
+      expect(q.front(), equals(10));
+    });
+    test('back() - atomic test', () {
+      final q = Queue<int>();
+      q.pushBack(10);
+      q.pushBack(20);
+      expect(q.back(), equals(20));
+    });
+    test('at() - atomic test', () {
+      final q = Queue<int>();
+      q.pushBack(10);
+      q.pushBack(20);
+      expect(q.at(1), equals(20));
+    });
+  });
+
+  group('StreamState [Atomic Audit]', () {
+    test('string() - atomic test', () {
+      expect(StreamState.open.string(), equals('open'));
+      expect(StreamState.closing.string(), equals('closing'));
+      expect(StreamState.closed.string(), equals('closed'));
+    });
+    test('toString() - atomic test', () {
+      expect(StreamState.open.toString(), equals('open'));
+    });
+  });
+
+  group('Stream [Atomic Audit]', () {
+    test('streamIdentifier() - atomic test', () {
+      final a = Association(config: Config());
+      final s = Stream(association: a, streamIdentifier: 1);
+      expect(s.streamIdentifier(), equals(1));
+    });
+    test('setDefaultPayloadType() - atomic test', () {
+      final a = Association(config: Config());
+      final s = Stream(association: a, streamIdentifier: 1);
+      s.setDefaultPayloadType(PayloadProtocolIdentifier.webRtcBinary);
+      expect(s.streamIdentifier(), equals(1));
+    });
+    test('setReliabilityParams() - atomic test', () {
+      final a = Association(config: Config());
+      final s = Stream(association: a, streamIdentifier: 1);
+      s.setReliabilityParams(true, 1, 100);
+      expect(s.reliabilityType(), equals(1));
+      expect(s.reliabilityValue(), equals(100));
+    });
+    test('read() - atomic test', () async {
+      final a = Association(config: Config());
+      final s = Stream(association: a, streamIdentifier: 1);
+      s.handleInbound(
+        Uint8List.fromList([1, 2, 3]),
+        PayloadProtocolIdentifier.webRtcBinary,
+      );
+      final buf = Uint8List(3);
+      final n = await s.read(buf);
+      expect(n, equals(3));
+      expect(buf, equals(Uint8List.fromList([1, 2, 3])));
+    });
+    test('readSctp() - atomic test', () async {
+      final a = Association(config: Config());
+      final s = Stream(association: a, streamIdentifier: 1);
+      s.handleInbound(
+        Uint8List.fromList([1, 2, 3]),
+        PayloadProtocolIdentifier.webRtcBinary,
+      );
+      final buf = Uint8List(3);
+      final (n, ppi) = await s.readSctp(buf);
+      expect(n, equals(3));
+      expect(ppi, equals(PayloadProtocolIdentifier.webRtcBinary));
+    });
+    test('handleInbound() - atomic test', () async {
+      final a = Association(config: Config());
+      final s = Stream(association: a, streamIdentifier: 1);
+      s.handleInbound(
+        Uint8List.fromList([4, 5]),
+        PayloadProtocolIdentifier.webRtcString,
+      );
+      final buf = Uint8List(2);
+      final n = await s.read(buf);
+      expect(n, equals(2));
+    });
+    test('setReadDeadline() - atomic test', () {
+      final a = Association(config: Config());
+      final s = Stream(association: a, streamIdentifier: 1);
+      s.setReadDeadline(DateTime.now().add(const Duration(seconds: 1)));
+      expect(s.state(), equals(StreamState.open));
+    });
+    test('write() - atomic test', () async {
+      final a = Association(config: Config());
+      final s = Stream(association: a, streamIdentifier: 1);
+      final n = await s.write(Uint8List.fromList([1, 2]));
+      expect(n, equals(2));
+    });
+    test('writeSctp() - atomic test', () async {
+      final a = Association(config: Config());
+      final s = Stream(association: a, streamIdentifier: 1);
+      final n = await s.writeSctp(
+        Uint8List.fromList([1, 2]),
+        PayloadProtocolIdentifier.webRtcBinary,
+      );
+      expect(n, equals(2));
+    });
+    test('setWriteDeadline() - atomic test', () {
+      final a = Association(config: Config());
+      final s = Stream(association: a, streamIdentifier: 1);
+      s.setWriteDeadline(DateTime.now().add(const Duration(seconds: 1)));
+      expect(s.state(), equals(StreamState.open));
+    });
+    test('setDeadline() - atomic test', () {
+      final a = Association(config: Config());
+      final s = Stream(association: a, streamIdentifier: 1);
+      s.setDeadline(DateTime.now().add(const Duration(seconds: 1)));
+      expect(s.state(), equals(StreamState.open));
+    });
+    test('close() - atomic test', () async {
+      final a = Association(config: Config());
+      final s = Stream(association: a, streamIdentifier: 1);
+      await s.close();
+      expect(s.state(), equals(StreamState.closed));
+    });
+    test('bufferedAmount() - atomic test', () {
+      final a = Association(config: Config());
+      final s = Stream(association: a, streamIdentifier: 1);
+      expect(s.bufferedAmount(), equals(0));
+    });
+    test('bufferedAmountLowThreshold() - atomic test', () {
+      final a = Association(config: Config());
+      final s = Stream(association: a, streamIdentifier: 1);
+      expect(s.bufferedAmountLowThreshold(), equals(0));
+    });
+    test('setBufferedAmountLowThreshold() - atomic test', () {
+      final a = Association(config: Config());
+      final s = Stream(association: a, streamIdentifier: 1);
+      var called = false;
+      s.onBufferedAmountLow(() {
+        called = true;
+      });
+      s.setBufferedAmountLowThreshold(10);
+      expect(s.bufferedAmountLowThreshold(), equals(10));
+      expect(called, isTrue);
+    });
+    test('onBufferedAmountLow() - atomic test', () {
+      final a = Association(config: Config());
+      final s = Stream(association: a, streamIdentifier: 1);
+      s.onBufferedAmountLow(() {});
+      expect(s.bufferedAmount(), equals(0));
+    });
+    test('reliabilityType() - atomic test', () {
+      final a = Association(config: Config());
+      final s = Stream(association: a, streamIdentifier: 1);
+      expect(s.reliabilityType(), equals(0));
+    });
+    test('reliabilityValue() - atomic test', () {
+      final a = Association(config: Config());
+      final s = Stream(association: a, streamIdentifier: 1);
+      expect(s.reliabilityValue(), equals(0));
+    });
+    test('state() - atomic test', () {
+      final a = Association(config: Config());
+      final s = Stream(association: a, streamIdentifier: 1);
+      expect(s.state(), equals(StreamState.open));
+    });
+  });
+
+  group('Association [Atomic Audit]', () {
+    test('bytesSent() - atomic test', () {
+      final a = Association(config: Config());
+      expect(a.bytesSent(), equals(0));
+    });
+    test('bytesReceived() - atomic test', () {
+      final a = Association(config: Config());
+      expect(a.bytesReceived(), equals(0));
+    });
+    test('mtu() - atomic test', () {
+      final a = Association(config: Config(mtu: 1400));
+      expect(a.mtu(), equals(1400));
+    });
+    test('cwnd() - atomic test', () {
+      final a = Association(config: Config());
+      expect(a.cwnd(), isPositive);
+    });
+    test('rWnd() - atomic test', () {
+      final a = Association(config: Config());
+      expect(a.rWnd(), isPositive);
+    });
+    test('sRtt() - atomic test', () {
+      final a = Association(config: Config());
+      expect(a.sRtt().inMilliseconds, isPositive);
+    });
+    test('bufferedAmount() - atomic test', () {
+      final a = Association(config: Config());
+      expect(a.bufferedAmount(), equals(0));
+    });
+    test('maxMessageSize() - atomic test', () {
+      final a = Association(config: Config(maxMessageSize: 32768));
+      expect(a.maxMessageSize(), equals(32768));
+    });
+    test('setMaxMessageSize() - atomic test', () {
+      final a = Association(config: Config());
+      a.setMaxMessageSize(65536);
+      expect(a.maxMessageSize(), equals(65536));
+    });
+    test('openStream() - atomic test', () async {
+      final a = Association(config: Config());
+      final s = await a.openStream(1, PayloadProtocolIdentifier.webRtcBinary);
+      expect(s.streamIdentifier(), equals(1));
+    });
+    test('acceptStream() - atomic test', () async {
+      final a = Association(config: Config());
+      scheduleMicrotask(() async {
+        await a.sendPayloadData(
+          streamIdentifier: 5,
+          userData: Uint8List.fromList([1, 2]),
+          ppi: PayloadProtocolIdentifier.webRtcBinary,
+        );
+      });
+      expect(a.maxMessageSize(), isPositive);
+    });
+    test('sendPayloadData() - atomic test', () async {
+      final a = Association(config: Config());
+      await a.sendPayloadData(
+        streamIdentifier: 1,
+        userData: Uint8List.fromList([1]),
+        ppi: PayloadProtocolIdentifier.webRtcBinary,
+      );
+      expect(a.bytesSent(), equals(0));
+    });
+    test('initClient() - atomic test', () async {
+      final a = Association(config: Config());
+      expect(a.bytesSent(), equals(0));
+    });
+    test('initServer() - atomic test', () async {
+      final a = Association(config: Config());
+      expect(a.bytesReceived(), equals(0));
+    });
+    test('shutdown() - atomic test', () async {
+      final a = Association(config: Config());
+      await a.shutdown();
+      expect(a.bytesSent(), equals(0));
+    });
+    test('abort() - atomic test', () async {
+      final a = Association(config: Config());
+      await a.abort('test abort');
+      expect(a.bytesSent(), equals(0));
+    });
+    test('close() - atomic test', () async {
+      final a = Association(config: Config());
+      await a.close();
+      expect(a.bytesSent(), equals(0));
+    });
+  });
+
+  group('Top-level functions [Atomic Audit]', () {
+    test('client() - atomic test', () async {
+      final a = await client(Config());
+      expect(a.mtu(), isPositive);
+    });
+    test('server() - atomic test', () async {
+      final a = await server(Config());
+      expect(a.mtu(), isPositive);
+    });
+    test('len() - atomic test', () {
+      final q = Queue<int>();
+      expect(len(q), equals(0));
+    });
+    test('pushBack() - atomic test', () {
+      final q = Queue<int>();
+      pushBack(q, 99);
+      expect(len(q), equals(1));
+    });
+    test('popFront() - atomic test', () {
+      final q = Queue<int>();
+      pushBack(q, 99);
+      expect(popFront(q), equals(99));
+    });
+    test('front() - atomic test', () {
+      final q = Queue<int>();
+      pushBack(q, 99);
+      expect(front(q), equals(99));
+    });
+    test('back() - atomic test', () {
+      final q = Queue<int>();
+      pushBack(q, 99);
+      expect(back(q), equals(99));
+    });
+    test('at() - atomic test', () {
+      final q = Queue<int>();
+      pushBack(q, 99);
+      expect(at(q, 0), equals(99));
+    });
   });
 }

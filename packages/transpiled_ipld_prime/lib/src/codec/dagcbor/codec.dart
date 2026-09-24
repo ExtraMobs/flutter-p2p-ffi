@@ -325,12 +325,10 @@ final class DecodeOptions {
 
   int get effectiveBudget =>
       allocationBudget > 0 ? allocationBudget : _defaultAllocationBudget;
-  int get effectiveMaxPrealloc =>
-      maxCollectionPrealloc > 0
-          ? maxCollectionPrealloc
-          : _defaultMaxCollectionPrealloc;
-  int get effectiveMaxDepth =>
-      maxDepth > 0 ? maxDepth : _defaultMaxDepth;
+  int get effectiveMaxPrealloc => maxCollectionPrealloc > 0
+      ? maxCollectionPrealloc
+      : _defaultMaxCollectionPrealloc;
+  int get effectiveMaxDepth => maxDepth > 0 ? maxDepth : _defaultMaxDepth;
 
   /// Deserializes data from [r] into [na].
   void decode(NodeAssembler na, Iterable<int> r) {
@@ -354,11 +352,7 @@ void decode(NodeAssembler na, Iterable<int> r) {
 void decodeDagCbor(NodeAssembler na, Iterable<int> r) => decode(na, r);
 
 /// Deprecated function name matching Go's `Unmarshal`.
-void unmarshal(
-  NodeAssembler na,
-  Iterable<int> reader,
-  DecodeOptions options,
-) {
+void unmarshal(NodeAssembler na, Iterable<int> reader, DecodeOptions options) {
   options.decode(na, reader);
 }
 
@@ -480,7 +474,9 @@ final class _CborDecoder {
             );
           }
           if (kMajor != 3) {
-            throw const FormatException('unexpected token while expecting map key');
+            throw const FormatException(
+              'unexpected token while expecting map key',
+            );
           }
           final kLen = _readArgument(kAdd);
           _spend(kLen + _mapEntryCost);
@@ -555,7 +551,8 @@ final class _CborDecoder {
     if (additional < 24) return additional;
     switch (additional) {
       case 24:
-        if (offset >= bytes.length) throw const FormatException('unexpected EOF');
+        if (offset >= bytes.length)
+          throw const FormatException('unexpected EOF');
         final val = bytes[offset++];
         if (!options.relaxedDecode && val < 24) {
           throw const FormatException('non-minimal integer encoding in CBOR');
@@ -585,15 +582,18 @@ final class _CborDecoder {
   }
 
   int _readUint16() {
-    if (offset + 2 > bytes.length) throw const FormatException('unexpected EOF');
+    if (offset + 2 > bytes.length)
+      throw const FormatException('unexpected EOF');
     final val = (bytes[offset] << 8) | bytes[offset + 1];
     offset += 2;
     return val;
   }
 
   int _readUint32() {
-    if (offset + 4 > bytes.length) throw const FormatException('unexpected EOF');
-    final val = (bytes[offset] << 24) |
+    if (offset + 4 > bytes.length)
+      throw const FormatException('unexpected EOF');
+    final val =
+        (bytes[offset] << 24) |
         (bytes[offset + 1] << 16) |
         (bytes[offset + 2] << 8) |
         bytes[offset + 3];
@@ -602,7 +602,8 @@ final class _CborDecoder {
   }
 
   int _readUint64() {
-    if (offset + 8 > bytes.length) throw const FormatException('unexpected EOF');
+    if (offset + 8 > bytes.length)
+      throw const FormatException('unexpected EOF');
     var val = 0;
     for (var i = 0; i < 8; i++) {
       val = (val << 8) | bytes[offset + i];
@@ -612,14 +613,16 @@ final class _CborDecoder {
   }
 
   double _readFloat32() {
-    if (offset + 4 > bytes.length) throw const FormatException('unexpected EOF');
+    if (offset + 4 > bytes.length)
+      throw const FormatException('unexpected EOF');
     final bd = ByteData.sublistView(bytes, offset, offset + 4);
     offset += 4;
     return bd.getFloat32(0, Endian.big);
   }
 
   double _readFloat64() {
-    if (offset + 8 > bytes.length) throw const FormatException('unexpected EOF');
+    if (offset + 8 > bytes.length)
+      throw const FormatException('unexpected EOF');
     final bd = ByteData.sublistView(bytes, offset, offset + 8);
     offset += 8;
     return bd.getFloat64(0, Endian.big);

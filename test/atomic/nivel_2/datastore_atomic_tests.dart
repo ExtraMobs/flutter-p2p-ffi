@@ -52,6 +52,80 @@ class _TestTtlDatastore implements TtlDatastore {
   Future<void> sync(Key prefix) async {}
 }
 
+/// A minimal [Datastore] that records which methods were invoked on it, so
+/// tests can assert that a decorator (e.g. [LogDatastore]) actually
+/// delegated to its child instead of merely returning without throwing.
+class _RecordingDatastore
+    implements
+        Datastore,
+        Batching,
+        CheckedDatastore,
+        ScrubbedDatastore,
+        GcDatastore {
+  final List<String> calls = [];
+  final Map<Key, List<int>> _values = {};
+
+  @override
+  Future<void> put(Key key, List<int> value) async {
+    calls.add('put');
+    _values[key] = value;
+  }
+
+  @override
+  Future<void> sync(Key prefix) async {
+    calls.add('sync');
+  }
+
+  @override
+  Future<List<int>> get(Key key) async {
+    final value = _values[key];
+    if (value == null) throw const NotFoundException();
+    return value;
+  }
+
+  @override
+  Future<bool> has(Key key) async => _values.containsKey(key);
+
+  @override
+  Future<int> getSize(Key key) async {
+    final value = _values[key];
+    if (value == null) throw const NotFoundException();
+    return value.length;
+  }
+
+  @override
+  Future<void> delete(Key key) async {
+    calls.add('delete');
+    _values.remove(key);
+  }
+
+  @override
+  Future<Results> query(Query q) async => resultsWithEntries(q, const []);
+
+  @override
+  Future<Batch> batch() async => BasicBatch(this);
+
+  @override
+  Future<void> close() async {
+    calls.add('close');
+  }
+
+  @override
+  Future<void> check() async {
+    calls.add('check');
+  }
+
+  @override
+  Future<void> scrub() async {
+    calls.add('scrub');
+  }
+
+  @override
+  Future<void> collectGarbage() async {
+    calls.add('collectGarbage');
+  }
+}
+
 void main() {
   group('MapDatastore [Atomic Audit]', () {
     test('put(key, value) - armazena par chave e valor no datastore', () async {
@@ -121,8 +195,8 @@ void main() {
 
     test('close() - encerra datastore sem lancar excecoes', () async {
       final ds = MapDatastore();
-      await ds.close();
-      expect(true, isTrue);
+      await ds.put(Key('/a'), [1]);
+      await expectLater(ds.close(), completes);
     });
   });
 
@@ -152,10 +226,10 @@ void main() {
     );
 
     test('sync(prefix) - registra log e delega sincronizacao', () async {
-      final inner = MapDatastore();
+      final inner = _RecordingDatastore();
       final logDs = LogDatastore(inner);
       await logDs.sync(Key('/k'));
-      expect(true, isTrue);
+      expect(inner.calls, contains('sync'));
     });
 
     test('get(key) - registra log e delega leitura para filho', () async {
@@ -219,37 +293,37 @@ void main() {
     });
 
     test('close() - registra log e fecha o datastore filho', () async {
-      final inner = MapDatastore();
+      final inner = _RecordingDatastore();
       final logDs = LogDatastore(inner);
       await logDs.close();
-      expect(true, isTrue);
+      expect(inner.calls, contains('close'));
     });
 
     test(
       'check() - delega checagem caso o filho suporte CheckedDatastore',
       () async {
-        final inner = NullDatastore();
+        final inner = _RecordingDatastore();
         final logDs = LogDatastore(inner);
         await logDs.check();
-        expect(true, isTrue);
+        expect(inner.calls, contains('check'));
       },
     );
 
     test(
       'scrub() - delega limpeza caso o filho suporte ScrubbedDatastore',
       () async {
-        final inner = NullDatastore();
+        final inner = _RecordingDatastore();
         final logDs = LogDatastore(inner);
         await logDs.scrub();
-        expect(true, isTrue);
+        expect(inner.calls, contains('scrub'));
       },
     );
 
     test('collectGarbage() - delega coleta de lixo se suportada', () async {
-      final inner = NullDatastore();
+      final inner = _RecordingDatastore();
       final logDs = LogDatastore(inner);
       await logDs.collectGarbage();
-      expect(true, isTrue);
+      expect(inner.calls, contains('collectGarbage'));
     });
   });
 
@@ -370,15 +444,15 @@ void main() {
       'sync(prefix) - sincroniza dados atraves da interface Datastore',
       () async {
         final Datastore ds = MapDatastore();
+        await ds.put(Key('/test_sync'), [1]);
         await ds.sync(Key('/test_sync'));
-        expect(true, isTrue);
+        expect(await ds.has(Key('/test_sync')), isTrue);
       },
     );
 
     test('close() - libera recursos atraves da interface Datastore', () async {
       final Datastore ds = MapDatastore();
-      await ds.close();
-      expect(true, isTrue);
+      await expectLater(ds.close(), completes);
     });
   });
 
@@ -407,9 +481,10 @@ void main() {
     test(
       'check() - valida integridade atraves da interface CheckedDatastore',
       () async {
-        final CheckedDatastore cds = NullDatastore();
+        final rec = _RecordingDatastore();
+        final CheckedDatastore cds = rec;
         await cds.check();
-        expect(true, isTrue);
+        expect(rec.calls, contains('check'));
       },
     );
   });
@@ -418,9 +493,10 @@ void main() {
     test(
       'scrub() - executa higienizacao atraves da interface ScrubbedDatastore',
       () async {
-        final ScrubbedDatastore sds = NullDatastore();
+        final rec = _RecordingDatastore();
+        final ScrubbedDatastore sds = rec;
         await sds.scrub();
-        expect(true, isTrue);
+        expect(rec.calls, contains('scrub'));
       },
     );
   });
@@ -429,9 +505,10 @@ void main() {
     test(
       'collectGarbage() - coleta lixo atraves da interface GcDatastore',
       () async {
-        final GcDatastore gcds = NullDatastore();
+        final rec = _RecordingDatastore();
+        final GcDatastore gcds = rec;
         await gcds.collectGarbage();
-        expect(true, isTrue);
+        expect(rec.calls, contains('collectGarbage'));
       },
     );
   });
@@ -452,11 +529,13 @@ void main() {
       'putWithTtl(key, value, ttl) - armazena registro associado a prazo de expiracao',
       () async {
         final TtlDatastore ttlDs = _TestTtlDatastore();
+        final before = DateTime.now();
         await ttlDs.putWithTtl(Key('/temp'), [
           1,
           2,
         ], const Duration(minutes: 5));
-        expect(true, isTrue);
+        final exp = await ttlDs.getExpiration(Key('/temp'));
+        expect(exp.isAfter(before.add(const Duration(minutes: 4))), isTrue);
       },
     );
 
@@ -464,8 +543,10 @@ void main() {
       'setTtl(key, ttl) - atualiza tempo de vida para chave existente',
       () async {
         final TtlDatastore ttlDs = _TestTtlDatastore();
+        final before = DateTime.now();
         await ttlDs.setTtl(Key('/temp'), const Duration(minutes: 10));
-        expect(true, isTrue);
+        final exp = await ttlDs.getExpiration(Key('/temp'));
+        expect(exp.isAfter(before.add(const Duration(minutes: 9))), isTrue);
       },
     );
 
@@ -486,15 +567,13 @@ void main() {
     test('commit() - confirma operacoes realizadas na transacao', () async {
       final txnDs = NullDatastore();
       final Txn txn = await txnDs.newTransaction(readOnly: false);
-      await txn.commit();
-      expect(true, isTrue);
+      await expectLater(txn.commit(), completes);
     });
 
     test('discard() - cancela e descarta alteracoes da transacao', () async {
       final txnDs = NullDatastore();
       final Txn txn = await txnDs.newTransaction(readOnly: false);
-      await txn.discard();
-      expect(true, isTrue);
+      await expectLater(txn.discard(), completes);
     });
   });
 
@@ -708,14 +787,13 @@ void main() {
       () async {
         final nds = NullDatastore();
         await nds.put(Key('/a'), [1, 2]);
-        expect(true, isTrue);
+        expect(await nds.has(Key('/a')), isFalse);
       },
     );
 
     test('sync(prefix) - executa sincronizacao nula com sucesso', () async {
       final nds = NullDatastore();
-      await nds.sync(Key('/a'));
-      expect(true, isTrue);
+      await expectLater(nds.sync(Key('/a')), completes);
     });
 
     test(
@@ -741,20 +819,17 @@ void main() {
 
     test('delete(key) - executa remocao nula sem erros', () async {
       final nds = NullDatastore();
-      await nds.delete(Key('/a'));
-      expect(true, isTrue);
+      await expectLater(nds.delete(Key('/a')), completes);
     });
 
     test('scrub() - executa operacao de limpeza vazia com sucesso', () async {
       final nds = NullDatastore();
-      await nds.scrub();
-      expect(true, isTrue);
+      await expectLater(nds.scrub(), completes);
     });
 
     test('check() - executa checagem vazia com sucesso', () async {
       final nds = NullDatastore();
-      await nds.check();
-      expect(true, isTrue);
+      await expectLater(nds.check(), completes);
     });
 
     test(
@@ -779,8 +854,7 @@ void main() {
       'collectGarbage() - executa coleta de lixo no-op com sucesso',
       () async {
         final nds = NullDatastore();
-        await nds.collectGarbage();
-        expect(true, isTrue);
+        await expectLater(nds.collectGarbage(), completes);
       },
     );
 
@@ -791,8 +865,7 @@ void main() {
 
     test('close() - finaliza datastore nulo sem falhas', () async {
       final nds = NullDatastore();
-      await nds.close();
-      expect(true, isTrue);
+      await expectLater(nds.close(), completes);
     });
 
     test(
@@ -1086,12 +1159,12 @@ void main() {
 
     test(
       'close() - encerra prematuramente a iteracao e consumo de resultados',
-      () {
+      () async {
         final res = resultsWithEntries(const Query(), [
           const Entry(key: '/fechar'),
         ]);
         res.close();
-        expect(true, isTrue);
+        await expectLater(res.done, completes);
       },
     );
   });

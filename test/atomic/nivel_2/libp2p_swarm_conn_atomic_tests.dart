@@ -14,6 +14,7 @@ import 'dart:typed_data';
 
 import 'package:test/test.dart';
 import 'package:transpiled_go_yamux/transpiled_go_yamux.dart';
+import 'package:transpiled_libp2p/src/p2p/net/interface_addrs.dart';
 import 'package:transpiled_libp2p/transpiled_libp2p.dart';
 import 'package:transpiled_multiaddr/transpiled_multiaddr.dart';
 
@@ -71,6 +72,46 @@ class _PairTransport implements Transport {
 
   @override
   List<int> protocols() => const [4, 6];
+
+  @override
+  bool proxy() => false;
+}
+
+/// Listener falso que nunca aceita uma conexão e sempre devolve o mesmo
+/// endereço vinculado, para exercitar `Swarm.listen` sem socket real.
+class _FakeUnspecifiedListener implements Listener {
+  _FakeUnspecifiedListener(this._addr);
+  final Multiaddr _addr;
+
+  @override
+  Future<CapableConn> accept() => Completer<CapableConn>().future;
+
+  @override
+  Future<void> close() async {}
+
+  @override
+  Multiaddr multiaddr() => _addr;
+}
+
+/// Transporte que só sabe escutar (não discar), devolvendo sempre o mesmo
+/// endereço vinculado -- o suficiente para popular `Swarm._listeners`.
+class _ListenOnlyTransport implements Transport {
+  _ListenOnlyTransport(this._boundAddr);
+  final Multiaddr _boundAddr;
+
+  @override
+  bool canDial(Multiaddr a) => a.toString() == _boundAddr.toString();
+
+  @override
+  Future<CapableConn> dial(Multiaddr a, PeerId peer) =>
+      throw UnsupportedError('dial not used in these tests');
+
+  @override
+  Future<Listener> listen(Multiaddr a) async =>
+      _FakeUnspecifiedListener(_boundAddr);
+
+  @override
+  List<int> protocols() => const [6];
 
   @override
   bool proxy() => false;
@@ -608,6 +649,40 @@ void main() async {
 
         await conn.close();
         await b.close();
+      },
+    );
+
+    test(
+      'interfaceCache - expõe sempre a mesma instância de InterfaceAddrsCache do swarm',
+      () {
+        final swarm = Swarm(localPeer: localPeer);
+        expect(swarm.interfaceCache, isA<InterfaceAddrsCache>());
+        expect(identical(swarm.interfaceCache, swarm.interfaceCache), isTrue);
+      },
+    );
+
+    test(
+      'interfaceListenAddressesSync() - resolve enderecos nao especificados usando o cache que listen() ja atualizou',
+      () async {
+        final unspecified = Multiaddr.parse('/ip4/0.0.0.0/tcp/4003');
+        final swarm = Swarm(
+          localPeer: localPeer,
+          transports: [_ListenOnlyTransport(unspecified)],
+        );
+        // Go: `Swarm.Listen` atualiza `interfaceAddrsCache` antes de vincular
+        // (swarm.go), o que é o que torna a versão síncrona utilizável logo
+        // em seguida sem nova consulta de I/O.
+        await swarm.listen([unspecified]);
+
+        final resolved = swarm.interfaceListenAddressesSync();
+        expect(resolved, isNotEmpty);
+        expect(resolved.any((a) => a.toString().contains('0.0.0.0')), isFalse);
+        expect(
+          resolved.map((a) => a.toString()),
+          contains('/ip4/127.0.0.1/tcp/4003'),
+        );
+
+        await swarm.close();
       },
     );
   });

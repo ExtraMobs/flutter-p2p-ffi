@@ -1,0 +1,20 @@
+name: transpiled_pion_ice
+version: 0.1.0
+description: Port of github.com/pion/ice/v4.
+publish_to: 'none'
+
+environment:
+  sdk: ^3.10.0
+
+dependencies:
+  boilerplate:
+    path: ../boilerplate
+  transpiled_pion_logging:
+    path: ../transpiled_pion_logging
+  transpiled_pion_randutil:
+    path: ../transpiled_pion_randutil
+  transpiled_pion_stun:
+    path: ../transpiled_pion_stun
+  transpiled_pion_transport_v4:
+    path: ../transpiled_pion_transport_v4
+  async: ^2.13.0

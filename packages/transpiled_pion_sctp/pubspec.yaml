@@ -17,6 +17,8 @@ dependencies:
     path: ../transpiled_pion_randutil
   transpiled_pion_transport:
     path: ../transpiled_pion_transport
+  transpiled_pion_transport_v4:
+    path: ../transpiled_pion_transport_v4
 
 dev_dependencies:
   test: ^1.28.0

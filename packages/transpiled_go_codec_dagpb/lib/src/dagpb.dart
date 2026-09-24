@@ -4,7 +4,8 @@ import 'dart:typed_data';
 // ignore: library_prefixes
 import 'package:boilerplate/fixed_types/golang.dart' as Golang;
 import 'package:transpiled_cid/transpiled_cid.dart';
-import 'package:transpiled_ipld_prime/src/multicodec/registry.dart' as multicodec;
+import 'package:transpiled_ipld_prime/src/multicodec/registry.dart'
+    as multicodec;
 import 'package:transpiled_ipld_prime/transpiled_ipld_prime.dart';
 import 'package:transpiled_protobuf/protowire.dart' as protobuf;
 

@@ -116,7 +116,9 @@ class _Base64UrlBuilder extends BaseAssembler implements NodeBuilder {
   Node build() {
     final val = _value;
     if (val == null) {
-      throw StateError('cannot call build on an assembler that is not finished');
+      throw StateError(
+        'cannot call build on an assembler that is not finished',
+      );
     }
     return Base64Url(val);
   }
@@ -219,7 +221,9 @@ class _RawBuilder extends BaseAssembler implements NodeBuilder {
   Node build() {
     final val = _value;
     if (val == null) {
-      throw StateError('cannot call build on an assembler that is not finished');
+      throw StateError(
+        'cannot call build on an assembler that is not finished',
+      );
     }
     return Raw(val);
   }

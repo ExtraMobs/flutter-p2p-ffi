@@ -67,7 +67,8 @@ void main() {
           await kubo.swarmConnect(dartSwarmAddr);
 
           // 1. Raw (0x55)
-          final rawBytes = Uint8List.fromList(utf8.encode('interop raw test data'));
+          final rawBytes =
+              Uint8List.fromList(utf8.encode('interop raw test data'));
           final rawCid = Cid.computeForDataSync(rawBytes, codec: 'raw');
           await _verifyCodecRoundtrip(node, kubo, rawCid, rawBytes);
 
@@ -85,12 +86,14 @@ void main() {
 
           // 4. CBOR (0x51)
           final cborStdBytes = _encodeWithRegistry(0x51, sampleMapNode);
-          final cborStdCid = Cid.computeForDataSync(cborStdBytes, codec: 'cbor');
+          final cborStdCid =
+              Cid.computeForDataSync(cborStdBytes, codec: 'cbor');
           await _verifyCodecRoundtrip(node, kubo, cborStdCid, cborStdBytes);
 
           // 5. DAG-JSON (0x0129)
           final dagJsonBytes = _encodeWithRegistry(0x0129, sampleMapNode);
-          final dagJsonCid = Cid.computeForDataSync(dagJsonBytes, codec: 'dag-json');
+          final dagJsonCid =
+              Cid.computeForDataSync(dagJsonBytes, codec: 'dag-json');
           await _verifyCodecRoundtrip(node, kubo, dagJsonCid, dagJsonBytes);
 
           // 6. JSON (0x0200)
@@ -146,7 +149,8 @@ void main() {
           printOnFailure('  json (0x200):    $jsonCid');
           printOnFailure('  git-raw (0x78):  $gitCid');
           printOnFailure('  dag-jose (0x85): $joseCid');
-          printOnFailure('All 8 codecs successfully verified with Kubo $kuboVersion');
+          printOnFailure(
+              'All 8 codecs successfully verified with Kubo $kuboVersion');
         } finally {
           if (node != null) await node.close();
           await kubo?.dispose();
@@ -176,7 +180,8 @@ Future<void> _verifyCodecRoundtrip(
 
   // 2. Fetch block in Kubo via Bitswap
   final downloadedBytes = await kubo.getRawBlock(cid.toString());
-  expect(downloadedBytes, orderedEquals(blockBytes), reason: 'Kubo downloaded bytes for ${cid.codec}');
+  expect(downloadedBytes, orderedEquals(blockBytes),
+      reason: 'Kubo downloaded bytes for ${cid.codec}');
 
   // 3. Decode with Dart registered decoder
   final codecCode = Multicodec.code(cid.codec);

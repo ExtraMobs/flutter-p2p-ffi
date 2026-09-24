@@ -27,6 +27,7 @@
 /// unused. No symbol below pretends to be more complete than it is.
 library;
 
+export 'src/association.dart' show Association, client, server;
 export 'src/chunk.dart' show Chunk;
 export 'src/chunk_payload_data.dart' show PayloadProtocolIdentifier;
 export 'src/chunkheader.dart'
@@ -36,3 +37,7 @@ export 'src/chunkheader.dart'
         ChunkHeaderPaddingNonZeroException,
         ChunkHeaderTooSmallException;
 export 'src/chunktype.dart' show ChunkType;
+export 'src/config.dart' show Config;
+export 'src/queue.dart' show Queue;
+export 'src/stream.dart' show Stream;
+export 'src/streamstate.dart' show StreamState;

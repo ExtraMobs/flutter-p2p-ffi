@@ -67,7 +67,10 @@ class _UpnpNat implements Nat {
         }
       }
     } catch (e) {
-      dev.log('Error discovering internal interface: $e', name: 'libp2p.nat.upnp');
+      dev.log(
+        'Error discovering internal interface: $e',
+        name: 'libp2p.nat.upnp',
+      );
     }
 
     throw const NoInternalAddressException();
@@ -87,7 +90,9 @@ class _UpnpNat implements Nat {
   Future<InternetAddress> getExternalAddress() async {
     final client = HttpClient();
     try {
-      final req = await client.postUrl(Uri.parse(controlUrl)).timeout(httpTimeout);
+      final req = await client
+          .postUrl(Uri.parse(controlUrl))
+          .timeout(httpTimeout);
       final soap =
           '<?xml version="1.0"?>'
           '<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">'
@@ -193,7 +198,9 @@ class _UpnpNat implements Nat {
   }) async {
     final client = HttpClient();
     try {
-      final req = await client.postUrl(Uri.parse(controlUrl)).timeout(httpTimeout);
+      final req = await client
+          .postUrl(Uri.parse(controlUrl))
+          .timeout(httpTimeout);
       final soap =
           '<?xml version="1.0"?>'
           '<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">'
@@ -233,7 +240,9 @@ class _UpnpNat implements Nat {
     final externalPort = ports.remove(internalPort) ?? internalPort;
     final client = HttpClient();
     try {
-      final req = await client.postUrl(Uri.parse(controlUrl)).timeout(httpTimeout);
+      final req = await client
+          .postUrl(Uri.parse(controlUrl))
+          .timeout(httpTimeout);
       final soap =
           '<?xml version="1.0"?>'
           '<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">'
@@ -287,11 +296,7 @@ Future<(List<Nat>, List<Exception>)> _discoverUpnpIg2({
 Future<(List<Nat>, List<Exception>)> _discoverUpnpGenIgDev({
   Duration timeout = const Duration(seconds: 3),
 }) async {
-  return _discoverSsdpTarget(
-    'ssdp:all',
-    timeout: timeout,
-    typ: 'UPNP (GenIG)',
-  );
+  return _discoverSsdpTarget('ssdp:all', timeout: timeout, typ: 'UPNP (GenIG)');
 }
 
 Future<(List<Nat>, List<Exception>)> _discoverSsdpTarget(

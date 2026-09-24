@@ -51,12 +51,14 @@ class NoiseTransport implements SecureTransport {
     this.protocolId = ID,
     this.initiatorEarlyDataHandler,
     this.responderEarlyDataHandler,
+    this.prologue,
   }) : localPeer = PeerId.fromPubKey(privKey.getPublic());
 
   final PrivKey privKey;
   final PeerId localPeer;
   final List<String> muxers;
   final String protocolId;
+  final Uint8List? prologue;
 
   /// Early-data handler used when this transport is the handshake
   /// initiator, or `null` to send/expect no extensions. Mirrors
@@ -77,6 +79,7 @@ class NoiseTransport implements SecureTransport {
     final hs = await HandshakeState.initialize(
       initiator: true,
       staticKeyPair: localStatic,
+      prologue: prologue,
     );
 
     // msg 0: -> e
@@ -156,6 +159,7 @@ class NoiseTransport implements SecureTransport {
     final hs = await HandshakeState.initialize(
       initiator: false,
       staticKeyPair: localStatic,
+      prologue: prologue,
     );
 
     // msg 0: <- e

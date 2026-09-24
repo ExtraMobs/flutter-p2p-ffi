@@ -13,16 +13,19 @@
 /// re-exported from `transpiled_pion_sctp.dart` -- see that file's doc
 /// comment.
 ///
-/// **Declared gap, not silently dropped**: `chunkPayloadData` also carries
-/// retransmission/partial-reliability bookkeeping used only by the
-/// `association`/`stream`/queue subsystem this pass explicitly excludes
-/// (`acked`, `missIndicator`, `since time.Time`, `nSent`, `_abandoned`,
-/// `_allInflight`, `retransmit`, `head *chunkPayloadData`, plus the
-/// `abandoned`/`setAbandoned`/`setAllInflight`/`isFragmented` methods built
-/// on them -- chunk_payload_data.go:60-77,184-215). None of it is reachable
-/// from `packet.unmarshal`/`marshal` (the pure codec this pass ports); it
-/// belongs with that later, out-of-scope pass rather than being scaffolded
-/// here unused.
+/// **Runtime bookkeeping (chunk_payload_data.go:60-77,184-215)**: the
+/// retransmission/partial-reliability fields (`acked`, `missIndicator`,
+/// `since`, `nSent`, the private `_abandoned`/`_allInflight`, `retransmit`,
+/// `head`) and the `abandoned`/`setAbandoned`/`setAllInflight`/`isFragmented`
+/// methods built on them are ported here too, now that the
+/// `association`/`stream`/queue runtime that is their only reachable caller
+/// is itself ported (see `association.dart`, `stream.dart`,
+/// `payload_queue.dart`). None of it is reachable from
+/// `packet.unmarshal`/`marshal` (the pure codec ported earlier in this
+/// file); `since` uses Dart's `DateTime` in place of Go's `time.Time`
+/// (`null` standing in for the Go zero value, since nothing reads `since`
+/// before `movePendingDataChunkToInflightQueue` sets it, mirroring
+/// upstream's `since` only ever being read after that same assignment).
 library;
 
 import 'dart:typed_data';
@@ -121,6 +124,7 @@ final class ChunkPayloadData implements Chunk {
     this.streamSequenceNumber = 0,
     this.payloadType = PayloadProtocolIdentifier.unknown,
     Uint8List? userData,
+    this.head,
   }) : userData = userData ?? Uint8List(0),
        header = ChunkHeader(
          typ: ChunkType.payloadData,
@@ -157,6 +161,73 @@ final class ChunkPayloadData implements Chunk {
 
   /// Port of `chunkPayloadData.userData` (chunk_payload_data.go:56).
   Uint8List userData;
+
+  /// Port of `chunkPayloadData.acked` (chunk_payload_data.go:64): whether
+  /// this data chunk was acknowledged (received by peer).
+  bool acked = false;
+
+  /// Port of `chunkPayloadData.missIndicator` (chunk_payload_data.go:65).
+  int missIndicator = 0;
+
+  /// Port of `chunkPayloadData.since` (chunk_payload_data.go:68): set the
+  /// first time this chunk is sent, used to calculate RTT and partial
+  /// reliability's `ReliabilityTypeTimed`. `null` is this port's stand-in
+  /// for Go's `time.Time{}` zero value -- see this file's doc comment.
+  DateTime? since;
+
+  /// Port of `chunkPayloadData.nSent` (chunk_payload_data.go:69): number of
+  /// transmissions made for this chunk.
+  int nSent = 0;
+
+  /// Port of `chunkPayloadData._abandoned` (chunk_payload_data.go:70).
+  bool _abandonedFlag = false;
+
+  /// Port of `chunkPayloadData._allInflight` (chunk_payload_data.go:71):
+  /// valid only with the first fragment.
+  bool _allInflightFlag = false;
+
+  /// Port of `chunkPayloadData.retransmit` (chunk_payload_data.go:75): set
+  /// when the T1-RTX timeout occurred and this chunk is still in the
+  /// inflight queue.
+  bool retransmit = false;
+
+  /// Port of `chunkPayloadData.head` (chunk_payload_data.go:77): link to
+  /// the head of the fragment.
+  ChunkPayloadData? head;
+
+  /// Port of `chunkPayloadData.abandoned` (chunk_payload_data.go:186-192).
+  bool abandoned() {
+    final h = head;
+    if (h != null) {
+      return h._abandonedFlag && h._allInflightFlag;
+    }
+    return _abandonedFlag && _allInflightFlag;
+  }
+
+  /// Port of `chunkPayloadData.setAbandoned` (chunk_payload_data.go:194-201).
+  void setAbandoned(bool abandonedValue) {
+    final h = head;
+    if (h != null) {
+      h._abandonedFlag = abandonedValue;
+      return;
+    }
+    _abandonedFlag = abandonedValue;
+  }
+
+  /// Port of `chunkPayloadData.setAllInflight` (chunk_payload_data.go:203-211).
+  void setAllInflight() {
+    if (endingFragment) {
+      final h = head;
+      if (h != null) {
+        h._allInflightFlag = true;
+      } else {
+        _allInflightFlag = true;
+      }
+    }
+  }
+
+  /// Port of `chunkPayloadData.isFragmented` (chunk_payload_data.go:213-215).
+  bool isFragmented() => !(head == null && beginningFragment && endingFragment);
 
   /// Port of `chunkPayloadData.unmarshal` (chunk_payload_data.go:123-141).
   @override

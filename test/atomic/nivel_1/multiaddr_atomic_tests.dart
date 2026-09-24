@@ -293,10 +293,7 @@ void main() {
         ),
         isFalse,
       );
-      expect(
-        isPublicAddr(Multiaddr.parse('/ip4/1.1.1.1/tcp/4001')),
-        isTrue,
-      );
+      expect(isPublicAddr(Multiaddr.parse('/ip4/1.1.1.1/tcp/4001')), isTrue);
       expect(isPublicAddr(Multiaddr.parse('/ip4/8.8.8.8/tcp/4001')), isTrue);
       expect(isPublicAddr(Multiaddr.parse('/dns4/ipfs.io/tcp/443')), isTrue);
       expect(isPublicAddr(Multiaddr.parse('/dns4/localhost/tcp/80')), isFalse);
