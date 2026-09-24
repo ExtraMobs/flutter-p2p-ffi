@@ -188,11 +188,27 @@ class AddrsManager {
       }
     } catch (_) {}
 
-    // Inclui endereços observados com pelo menos 1 observador
-    final singleObserved = obsMgr.addrs(1);
-    dst.addAll(singleObserved);
-
     return dst;
+  }
+
+  /// Retorna todos os endereços públicos diretos do nó, alcançáveis ou não,
+  /// adequados para hole punching. Ao contrário de [addrs], inclui endereços
+  /// observados com apenas 1 observador (via `observedAddrsManager.addrs(1)`)
+  /// -- diferente do corte de [maxObservedAddrsPerListenAddr] usado em
+  /// [appendObservedAddrs], que serve a [addrs]/[getLocalAddrs].
+  /// Espelha `addrsManager.HolePunchAddrs` (addrs_manager.go:486-499).
+  List<Multiaddr> holePunchAddrs() {
+    var addrs = List<Multiaddr>.of(_addrsFactory(directAddrs()));
+    final obsMgr = observedAddrsManager;
+    if (obsMgr != null) {
+      addrs = [...addrs, ...obsMgr.addrs(1)];
+    }
+    final seen = <String>{};
+    final unique = <Multiaddr>[
+      for (final a in addrs)
+        if (seen.add(a.toString())) a,
+    ];
+    return unique.where(isPublicAddr).toList();
   }
 
   /// Retorna os endereços dialáveis combinando locais e relay addrs.

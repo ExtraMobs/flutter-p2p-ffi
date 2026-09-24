@@ -208,7 +208,7 @@ void main() {
 
     // Go: `addrsManager.appendObservedAddrs` (addrs_manager.go:588-614).
     test(
-      'appendObservedAddrs() - inclui observados por listen addr, resolvidos e com pelo menos 1 observador',
+      'appendObservedAddrs() - inclui observados por listen addr e deixa de fora os de 1 observador (só HolePunchAddrs os usa)',
       () {
         final observedWan = Multiaddr.parse('/ip4/203.0.113.47/tcp/4002');
         final observedSingle = Multiaddr.parse(
@@ -227,7 +227,9 @@ void main() {
         final dst = am.appendObservedAddrs(<Multiaddr>[], [lhtcp], const []);
         final strAddrs = dst.map((a) => a.toString()).toList();
         expect(strAddrs, contains(observedWan.toString()));
-        expect(strAddrs, contains(observedSingle.toString()));
+        // Go: `Addrs(1)` só é consultado por `HolePunchAddrs`
+        // (addrs_manager.go:495), nunca por `appendObservedAddrs`.
+        expect(strAddrs, isNot(contains(observedSingle.toString())));
       },
     );
 
@@ -249,6 +251,32 @@ void main() {
         );
         expect(localList, hasLength(1));
         expect(relayList, hasLength(1));
+      },
+    );
+
+    // Go: `addrsManager.HolePunchAddrs` (addrs_manager.go:486-499).
+    test(
+      'holePunchAddrs() - inclui observados com 1 observador, deduplica e filtra apenas públicos',
+      () {
+        final obsMgr = _MockObservedAddrs(
+          addrsFunc: (minObservers) =>
+              minObservers == 1 ? [publicTCP, publicTCP] : const [],
+        );
+        final am = AddrsManager(
+          listenAddrs: () => [lhtcp],
+          observedAddrsManager: obsMgr,
+        );
+        final result = am.holePunchAddrs().map((a) => a.toString()).toList();
+        expect(result, equals([publicTCP.toString()]));
+      },
+    );
+
+    test(
+      'holePunchAddrs() - sem ObservedAddrsManager retorna apenas os direct addrs públicos',
+      () {
+        final am = AddrsManager(listenAddrs: () => [lhtcp, publicTCP]);
+        final result = am.holePunchAddrs().map((a) => a.toString()).toSet();
+        expect(result, equals({publicTCP.toString()}));
       },
     );
   });

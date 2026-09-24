@@ -1337,6 +1337,19 @@ real. O porte guarda um `P2pHost`, adaptador que só existe no Dart, cujo
 ida e volta. Resolver pede trocar o `P2pHost` pelo `Host` portado, e isso fica
 pendente.
 
+**Correção: o limite de endereços observados por listen addr (Marco F.3).**
+- **O defeito.** O `AddrsManager.appendObservedAddrs` do Dart chamava
+  `observedAddrsManager.addrs(1)`, sem limite. Com isso o `BasicHost.addrs`
+  recebia endereços observados além do `maxObservedAddrsPerListenAddr = 3`
+  (`addrs_manager.go:25`, `588-614`). No Go, esse `Addrs(1)` só é chamado
+  por `HolePunchAddrs` (`addrs_manager.go:488-499`), que alimenta o DCUtR.
+- **A correção.** A chamada saiu do `appendObservedAddrs`, e o
+  `holePunchAddrs()` foi portado como método próprio. Ele ainda não tem
+  consumidor: nenhum `HolePunchService` é montado a partir do `AddrsManager`.
+- **O teste.** O teste atômico `appendObservedAddrs()` afirmava o comportamento
+  antigo. Com a aprovação do mantenedor, ele foi alinhado ao Go e passou a
+  exigir que o endereço de 1 observador fique **de fora**.
+
 ## Fases A, B e C — Conclusão e Rastreamento de Interoperabilidade
 
 As Fases A, B e C (originalmente planejadas em `FASES_A_B_C.md`) foram concluídas em estrita conformidade com o `AGENTS.md` e as fronteiras do `go.mod`.
