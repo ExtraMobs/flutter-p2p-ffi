@@ -10,10 +10,10 @@ import 'package:boilerplate/fixed_types/golang.dart' as Golang;
 
 /// Message_Flag represents the flag field of the WebRTC framing Message.
 enum Message_Flag {
-  FIN(0),
-  STOP_SENDING(1),
-  RESET(2),
-  FIN_ACK(3);
+  fin(0),
+  stopSending(1),
+  reset(2),
+  finAck(3);
 
   const Message_Flag(this.value);
   final int value;

@@ -517,16 +517,16 @@ void _memoryValidate(Uint8List b) {
 // ---------------------------------------------------------------------------
 
 /// Transcoder for `ip4` (4-byte dotted-decimal).
-const transcoderIP4 = Transcoder(_ip4StB, _ip4BtS);
+const transcoderIp4 = Transcoder(_ip4StB, _ip4BtS);
 
 /// Transcoder for `ip6` (16-byte RFC 5952 canonical text).
-const transcoderIP6 = Transcoder(_ip6StB, _ip6BtS);
+const transcoderIp6 = Transcoder(_ip6StB, _ip6BtS);
 
 /// Transcoder for `ip6zone` (UTF-8 zone id, no `/`).
-const transcoderIP6Zone = Transcoder(_ip6zoneStB, _ip6zoneBtS, _ip6zoneVal);
+const transcoderIp6Zone = Transcoder(_ip6zoneStB, _ip6zoneBtS, _ip6zoneVal);
 
 /// Transcoder for `ipcidr` (1-byte prefix length, 0-255).
-const transcoderIPCIDR = Transcoder(_ipcidrStB, _ipcidrBtS, _ipcidrValidate);
+const transcoderIpCidr = Transcoder(_ipcidrStB, _ipcidrBtS, _ipcidrValidate);
 
 /// Transcoder for `tcp`/`udp`/`dccp`/`sctp` (2-byte big-endian port).
 const transcoderPort = Transcoder(_portStB, _portBtS);
@@ -556,7 +556,7 @@ const transcoderGarlic32 = Transcoder(
 );
 
 /// Transcoder for `p2p` (a PeerId: base58 multihash, or a `libp2p-key` Cid).
-const transcoderP2P = Transcoder(_p2pStB, _p2pBtS, _p2pVal);
+const transcoderP2p = Transcoder(_p2pStB, _p2pBtS, _p2pVal);
 
 /// Transcoder for `unix` (UTF-8 filesystem path, must start with `/`).
 const transcoderUnix = Transcoder(_unixStB, _unixBtS, _unixValidate);
@@ -569,7 +569,7 @@ const transcoderCertHash = Transcoder(
 );
 
 /// Transcoder for `http-path` (a query-escaped URL path).
-const transcoderHTTPPath = Transcoder(
+const transcoderHttpPath = Transcoder(
   _httpPathStB,
   _httpPathBtS,
   _validateHTTPPath,

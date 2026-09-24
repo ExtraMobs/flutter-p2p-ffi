@@ -97,17 +97,14 @@ abstract interface class Routing implements ContentDiscovery {
   Future<void> provide(Cid key);
 }
 
-class PingResult {
-  final Duration rtt;
-  final Exception? error;
-
-  PingResult(this.rtt, [this.error]);
-}
-
 /// Pinger is an interface to ping a peer and get the average latency of all pings
 abstract interface class Pinger {
-  /// Ping a peer
-  Future<PingResult> ping(PeerId peer);
+  /// Ping a peer.
+  ///
+  /// Go: `Pinger.Ping(context.Context, peer.ID) ping.Result`
+  /// (`boxo/bitswap/network/interface.go:92`), returning the libp2p ping
+  /// protocol's own result type rather than an invented Bitswap-local one.
+  Future<Result> ping(PeerId peer);
 
   /// Get the average latency of all pings
   Duration latency(PeerId peer);

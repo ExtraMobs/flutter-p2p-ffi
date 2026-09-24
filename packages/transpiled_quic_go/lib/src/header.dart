@@ -5,7 +5,7 @@ import 'varint.dart';
 
 /// QUIC Packet Types for Long Headers (RFC 9000, Section 17.2).
 const int packetTypeInitial = 0x00;
-const int packetType0RTT = 0x01;
+const int packetType0Rtt = 0x01;
 const int packetTypeHandshake = 0x02;
 const int packetTypeRetry = 0x03;
 

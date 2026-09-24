@@ -99,7 +99,7 @@ abstract class UintNode implements Node {
   int asUint();
 }
 
-/// How a [ByteReadSeeker]'s [ByteReadSeeker.seek] offset is interpreted.
+/// How a [ReadSeeker]'s [ReadSeeker.seek] offset is interpreted.
 /// Equivalent to the constants Go's `io.Seeker` defines (`io.SeekStart`
 /// etc.), which [LargeBytesNode] uses via `io.ReadSeeker`.
 enum SeekOrigin {
@@ -113,10 +113,10 @@ enum SeekOrigin {
   end,
 }
 
-/// A minimal stand-in for Go's `io.ReadSeeker`, since Dart has no
-/// platform-generic seekable-byte-stream interface in `dart:core`/`dart:io`
-/// (`RandomAccessFile` is file-specific). Used by [LargeBytesNode].
-abstract class ByteReadSeeker {
+/// Equivalent to Go's `io.ReadSeeker`; Dart has no generic seekable reader
+/// in `dart:core`/`dart:io` (`RandomAccessFile` is file-specific). Used by
+/// [LargeBytesNode].
+abstract class ReadSeeker {
   /// Reads up to [buffer].length bytes into [buffer], returning the number
   /// actually read (0 at end-of-data).
   int read(Uint8List buffer);
@@ -127,14 +127,14 @@ abstract class ByteReadSeeker {
 }
 
 /// An optional interface extending a [Kind.bytes] node to allow its
-/// contents to be streamed via a [ByteReadSeeker] instead of a single
+/// contents to be streamed via a [ReadSeeker] instead of a single
 /// [Uint8List], avoiding a large up-front allocation. Equivalent to
 /// go-ipld-prime's `LargeBytesNode`.
 abstract class LargeBytesNode implements Node {
-  /// A [ByteReadSeeker] over this node's contents. Each call returns a
+  /// A [ReadSeeker] over this node's contents. Each call returns a
   /// separate, independent instance -- reading/seeking on one must not
   /// affect others.
-  ByteReadSeeker asLargeBytes();
+  ReadSeeker asLargeBytes();
 }
 
 /// Describes a [Node] implementation; every [Node] has one, and it can

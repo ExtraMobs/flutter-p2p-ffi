@@ -1257,6 +1257,86 @@ Tempo: o auditor antigo levava cerca de 12 s por execução. O novo leva cerca d
 16 s na primeira execução, sem cache (10,7 s são do analyzer e 2,5 s do
 `go/ast` em 49 módulos), e cerca de 2 s nas seguintes, com o cache válido.
 
+### Achados que o auditor novo expôs (2026-09-24)
+
+**Ferramenta.**
+- **Sugestões de renome.** O `split_words` reproduzia o regex antigo e
+  sugeria nomes quebrados: `sTOPSending`, `tLSECDHE...`, `transcoderIP6zOne`.
+  Agora ele segmenta por separador, termina uma corrida de maiúsculas antes da
+  maiúscula que abre palavra, e cola dígitos na palavra anterior (`IP6`,
+  `Type0`). Em `P2P`, a letra depois do dígito só entra na mesma palavra se não
+  vier seguida de minúscula.
+- **Efeito colateral dessa correção.** Apareceram `transcoderIP4` e
+  `transcoderIP6`. A sugestão antiga saía igual ao nome original, e a violação
+  era descartada. Foram renomeados para `transcoderIp4`/`transcoderIp6`.
+- **Camadas fora do escopo.** As declarações Go de CLI, gateway e RPC agora são
+  carregadas com a marca `out_of_scope`. Só a Regra 12 as aceita como
+  correspondência upstream; as regras 3, 4, 11, 14 e 18–21 e o relatório de
+  progresso continuam as ignorando (ver AGENTS.md, "Fora do escopo").
+- **Ressalva.** A Regra 12 casa por **nome**. Um símbolo com o mesmo nome de um
+  tipo da CLI passa, ainda que a origem real seja outra, como aconteceu com o
+  `PingResult` antes do porte do `ping`. Por isso, a origem Go de um símbolo
+  continua sendo rastreada à mão.
+
+**Renomes.** Todos para lowerCamel com siglas como palavras, e sem alias:
+- `pion_dtls`: as 14 constantes `TLS_*`, que viraram `tlsEcdheEcdsaWithAes128Ccm`
+  e similares, e `AlertDescription.unknownCA` → `unknownCa`;
+- `libp2p`: `noise.ID`/`tls.ID` → `id`, `Message_Flag`
+  (`fin`/`stopSending`/`reset`/`finAck`), `clientSdpTemplate`/`serverSdpTemplate`
+  e `deterministicCertHkdfInfo`;
+- `multiaddr`: `transcoderIp6Zone`, `transcoderIpCidr`, `transcoderP2p`,
+  `transcoderHttpPath`, `transcoderIp4` e `transcoderIp6`;
+- `quic_go`: `packetType0Rtt`.
+
+Os aliases do yamux (`DefaultConfig`, `VerifyConfig`, `Server`, `Client`) foram
+removidos. As strings de `String()` do DTLS continuam com o texto do Go.
+
+**Visibilidade.** `_BaseLimitConfig` → `BaseLimitConfig`. No Go,
+`limit_defaults.go:17` declara `baseLimitConfig`, que não é exportado mas
+aparece em campos exportados. O Dart dá ao tipo a visibilidade imediatamente
+abaixo da pública que ainda seja compatível: um nome público em `lib/src/`, fora
+do barril, já que `limit_defaults.dart` não é exportado (AGENTS.md, Cenário D).
+
+**Adaptações de stdlib documentadas** em `DOCUMENTED_ADAPTATIONS`:
+- `ReadSeeker` (ipld_prime) substitui o `io.ReadSeeker` que o
+  `AsLargeBytes()` devolve. Antes se chamava `ByteReadSeeker`, nome inventado
+  que coincidia com o `internal/io.ByteReadSeeker` do go-car e fazia a Regra 11
+  acusar vazamento de fronteira.
+- `TcpAddr` (pion_ice) substitui o `net.TCPAddr`, no mesmo precedente do
+  `UdpAddr`.
+
+**Máscaras de 32 bits.** O `& 0xFFFFFFFF` virou conversão `Golang.Uint32` em
+`dnsmessage/message.dart` (`SetEDNS0`, `_unpackUint32`) e em
+`message_channel_open.dart`. Isso cobra um custo conhecido: o `Uint32` do
+boilerplate converte via `BigInt`.
+
+**Porte de `go-libp2p/p2p/protocol/ping`** (`ping.go`, 204 linhas) em
+`transpiled_libp2p/lib/src/p2p/protocol/ping/ping.dart`:
+
+| Go | Dart | Nota |
+|---|---|---|
+| `PingSize` | `pingSize` | |
+| `ID` | `id` | fora do barril, porque colide com `identify.id`; importar com prefixo `ping` |
+| `ServiceName` | `serviceName` | fora do barril, mesmo motivo |
+| `pingTimeout`, `pingDuration` (privados) | `_pingTimeout`, `_pingDuration` | |
+| `Result{RTT, Error}` | `Result{rtt, error}` | |
+| `PingService{Host}` / `NewPingService` | `PingService(host)` | o construtor registra o handler, como no Go |
+| `(*PingService).PingHandler` | `PingService.pingHandler` | |
+| `(*PingService).Ping` e `Ping(ctx, h, p)` | `PingService.ping` e `ping(h, p, {context})` → `Stream<Result>` | os dois delegam a um `_pingStream` privado: no Dart, o método de instância esconde a função top-level de mesmo nome dentro da classe |
+| `ping(s, randReader)` | `_pingRoundTrip` | |
+| `pool.Get/Put` (go-buffer-pool) | `Uint8List` | sem efeito observável |
+
+O boxo trocou o `PingResult` inventado por `ping.Result`, como no
+`bitswap/network/interface.go:92`.
+
+**Lacuna aberta: o ping do Bitswap.** O `IpfsNetwork.ping()` e o
+`IpfsNetwork.latency()` do boxo continuam devolvendo zero. No Go,
+`bsnet.impl.Ping` (`ipfs_impl.go:266`) chama `ping.Ping` sobre o `host.Host`
+real. O porte guarda um `P2pHost`, adaptador que só existe no Dart, cujo
+`P2pStream` não tem `read()`, e com isso não consegue rodar protocolo nenhum de
+ida e volta. Resolver pede trocar o `P2pHost` pelo `Host` portado, e isso fica
+pendente.
+
 ## Fases A, B e C — Conclusão e Rastreamento de Interoperabilidade
 
 As Fases A, B e C (originalmente planejadas em `FASES_A_B_C.md`) foram concluídas em estrita conformidade com o `AGENTS.md` e as fronteiras do `go.mod`.

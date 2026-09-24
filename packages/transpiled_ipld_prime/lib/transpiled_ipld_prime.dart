@@ -66,7 +66,7 @@ export 'src/datamodel/kind.dart' show Kind, KindSet;
 export 'src/datamodel/link.dart' show Link, LinkPrototype;
 export 'src/datamodel/node.dart'
     show
-        ByteReadSeeker,
+        ReadSeeker,
         LargeBytesNode,
         ListIterator,
         MapIterator,

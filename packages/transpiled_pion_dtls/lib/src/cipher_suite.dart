@@ -8,20 +8,20 @@ import 'pkg/protocol/protocol.dart';
 import 'pkg/protocol/recordlayer/recordlayer.dart';
 
 // CipherSuite ID constants
-const int TLS_ECDHE_ECDSA_WITH_AES_128_CCM = 0xC0AC;
-const int TLS_ECDHE_ECDSA_WITH_AES_128_CCM_8 = 0xC0AE;
-const int TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 = 0xC02B;
-const int TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 = 0xC02F;
-const int TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 = 0xC02C;
-const int TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 = 0xC030;
-const int TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA = 0xC00A;
-const int TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA = 0xC014;
-const int TLS_PSK_WITH_AES_128_CCM = 0xC0A4;
-const int TLS_PSK_WITH_AES_128_CCM_8 = 0xC0A8;
-const int TLS_PSK_WITH_AES_256_CCM_8 = 0xC0A9;
-const int TLS_PSK_WITH_AES_128_GCM_SHA256 = 0x00A8;
-const int TLS_PSK_WITH_AES_128_CBC_SHA256 = 0x00AE;
-const int TLS_ECDHE_PSK_WITH_AES_128_CBC_SHA256 = 0xC035;
+const int tlsEcdheEcdsaWithAes128Ccm = 0xC0AC;
+const int tlsEcdheEcdsaWithAes128Ccm8 = 0xC0AE;
+const int tlsEcdheEcdsaWithAes128GcmSha256 = 0xC02B;
+const int tlsEcdheRsaWithAes128GcmSha256 = 0xC02F;
+const int tlsEcdheEcdsaWithAes256GcmSha384 = 0xC02C;
+const int tlsEcdheRsaWithAes256GcmSha384 = 0xC030;
+const int tlsEcdheEcdsaWithAes256CbcSha = 0xC00A;
+const int tlsEcdheRsaWithAes256CbcSha = 0xC014;
+const int tlsPskWithAes128Ccm = 0xC0A4;
+const int tlsPskWithAes128Ccm8 = 0xC0A8;
+const int tlsPskWithAes256Ccm8 = 0xC0A9;
+const int tlsPskWithAes128GcmSha256 = 0x00A8;
+const int tlsPskWithAes128CbcSha256 = 0x00AE;
+const int tlsEcdhePskWithAes128CbcSha256 = 0xC035;
 
 // Authentication types
 const int cipherSuiteAuthenticationTypeCertificate = 0;
@@ -40,23 +40,23 @@ const int clientCertificateTypeRsaSign = 1;
 /// String representation of CipherSuiteID.
 String cipherSuiteName(int id) {
   switch (id) {
-    case TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256:
+    case tlsEcdheEcdsaWithAes128GcmSha256:
       return 'TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256';
-    case TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384:
+    case tlsEcdheEcdsaWithAes256GcmSha384:
       return 'TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384';
-    case TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA:
+    case tlsEcdheEcdsaWithAes256CbcSha:
       return 'TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA';
-    case TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256:
+    case tlsEcdheRsaWithAes128GcmSha256:
       return 'TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256';
-    case TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384:
+    case tlsEcdheRsaWithAes256GcmSha384:
       return 'TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384';
-    case TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA:
+    case tlsEcdheRsaWithAes256CbcSha:
       return 'TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA';
-    case TLS_PSK_WITH_AES_128_GCM_SHA256:
+    case tlsPskWithAes128GcmSha256:
       return 'TLS_PSK_WITH_AES_128_GCM_SHA256';
-    case TLS_PSK_WITH_AES_128_CBC_SHA256:
+    case tlsPskWithAes128CbcSha256:
       return 'TLS_PSK_WITH_AES_128_CBC_SHA256';
-    case TLS_ECDHE_PSK_WITH_AES_128_CBC_SHA256:
+    case tlsEcdhePskWithAes128CbcSha256:
       return 'TLS_ECDHE_PSK_WITH_AES_128_CBC_SHA256';
     default:
       return '0x${id.toRadixString(16)}';
@@ -65,9 +65,9 @@ String cipherSuiteName(int id) {
 
 /// Returns default supported cipher suites.
 List<int> cipherSuites() => [
-  TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
-  TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,
-  TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA,
+  tlsEcdheEcdsaWithAes128GcmSha256,
+  tlsEcdheEcdsaWithAes256GcmSha384,
+  tlsEcdheEcdsaWithAes256CbcSha,
 ];
 
 /// Returns insecure cipher suites.

@@ -13,6 +13,17 @@ import 'package:transpiled_libp2p/src/p2p/host/resource_manager/limit_defaults.d
     as rcmgr;
 
 void main() {
+  group('BaseLimitConfig [Atomic Audit]', () {
+    test('BaseLimitConfig() - holds baseLimit and baseLimitIncrease', () {
+      const cfg = rcmgr.BaseLimitConfig(
+        baseLimit: rcmgr.BaseLimit(streams: 42),
+        baseLimitIncrease: rcmgr.BaseLimitIncrease(streams: 7),
+      );
+      expect(cfg.baseLimit.streams, equals(42));
+      expect(cfg.baseLimitIncrease.streams, equals(7));
+    });
+  });
+
   group('BaseLimitIncrease [Atomic Audit]', () {
     test('BaseLimitIncrease() - defaults to zero values', () {
       const inc = rcmgr.BaseLimitIncrease();

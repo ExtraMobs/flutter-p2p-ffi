@@ -14,10 +14,10 @@ import 'noise_handshake_payload.dart';
 import 'noise_state.dart';
 
 /// Multistream protocol ID for Noise security.
-const String ID = '/noise';
+const String id = '/noise';
 
 /// Multistream protocol ID for Noise security.
-const String noiseProtocolId = ID;
+const String noiseProtocolId = id;
 
 /// Defines the application payload smuggled as Noise handshake early data,
 /// and how to consume the other side's, per go-libp2p's
@@ -48,7 +48,7 @@ class NoiseTransport implements SecureTransport {
   NoiseTransport({
     required this.privKey,
     this.muxers = const ['/yamux/1.0.0'],
-    this.protocolId = ID,
+    this.protocolId = noiseProtocolId,
     this.initiatorEarlyDataHandler,
     this.responderEarlyDataHandler,
     this.prologue,

@@ -123,7 +123,7 @@ final class Slice {
   }
 }
 
-final class _MemoryReader implements ByteReadSeeker {
+final class _MemoryReader implements ReadSeeker {
   _MemoryReader(this.data);
   final Uint8List data;
   int _offset = 0;

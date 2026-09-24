@@ -1,46 +1,46 @@
 # Relatório de Auditoria de AST e Nomenclatura (Dart <-> Go)
 
 > Relatório gerado automaticamente por `tool/audit_ast_nomenclature.py`.
-> **Símbolos Dart Auditados:** 13762 | **Símbolos Go Indexados:** 58629
-> **Status Geral:** ❌ **139 Erros** | ⚠️ **7 Avisos** | ℹ️ **2605 Notas de Cobertura**
+> **Símbolos Dart Auditados:** 13775 | **Símbolos Go Indexados:** 60270
+> **Status Geral:** ❌ **85 Erros** | ⚠️ **0 Avisos** | ℹ️ **2604 Notas de Cobertura**
 
 ## 1. Resumo Executivo das 26 Regras
 
 | # | Regra | Severidade | Ocorrências | Status |
 | :---: | :--- | :---: | :---: | :---: |
-| `RULE_ALL_CAPS` | 1. Violação de UpperCamelCase / lowerCamelCase (Blocos em All-Caps) | `ERROR` | 37 | ❌ Pendente |
-| `RULE_LOWER_CAMEL` | 2. Violação de lowerCamelCase (PascalCase em membros públicos) | `ERROR` | 24 | ❌ Pendente |
+| `RULE_ALL_CAPS` | 1. Violação de UpperCamelCase / lowerCamelCase (Blocos em All-Caps) | `ERROR` | 26 | ❌ Pendente |
+| `RULE_LOWER_CAMEL` | 2. Violação de lowerCamelCase (PascalCase em membros públicos) | `ERROR` | 0 | ✅ Conforme |
 | `RULE_NO_TYPEDEF_SHIMS` | 3. Veto a Typedefs e Shims Artificiais | `ERROR` | 0 | ✅ Conforme |
 | `RULE_NO_UNAUTHORIZED_DEPRECATED` | 4. Veto a @Deprecated Não Existente no Upstream Go | `ERROR` | 0 | ✅ Conforme |
 | `RULE_NO_NEW_X_FUNCTIONS` | 5. Veto a Funções Livres newX(...) Artificiais | `ERROR` | 1 | ❌ Pendente |
-| `RULE_CONSTANT_CASING` | 6. Veto a Constantes em SCREAMING_SNAKE_CASE | `ERROR` | 16 | ❌ Pendente |
+| `RULE_CONSTANT_CASING` | 6. Veto a Constantes em SCREAMING_SNAKE_CASE | `ERROR` | 0 | ✅ Conforme |
 | `RULE_REDUNDANT_CONSTRUCTOR_NAMES` | 7. Veto a Construtores Nomeados Redundantes ou com Prefixo 'new' | `ERROR` | 0 | ✅ Conforme |
 | `RULE_NO_GO_STYLE_ERROR_TUPLES` | 8. Veto a Tuplas de Erro Go e Result Wrappers em APIs Públicas | `ERROR` | 0 | ✅ Conforme |
 | `RULE_NO_CLI_IN_LIBRARIES` | 9. Veto a Código de CLI em Pacotes de Bibliotecas | `ERROR` | 0 | ✅ Conforme |
-| `RULE_ENFORCE_BOILERPLATE_TYPES` | 10. Uso Obrigatório de fixed_types.Golang.* para Tipos Primitivos | `WARNING` | 2 | ⚠️ Atenção |
-| `RULE_MODULE_BOUNDARY_LEAK` | 11. Veto a Violação de Fronteira de Módulo (go.mod) | `ERROR` | 10 | ❌ Pendente |
-| `RULE_INVENTED_PUBLIC_SYMBOLS` | 12. Detecção de Símbolos Públicos Inventados (Sem Upstream Go) | `ERROR` | 43 | ❌ Pendente |
+| `RULE_ENFORCE_BOILERPLATE_TYPES` | 10. Uso Obrigatório de fixed_types.Golang.* para Tipos Primitivos | `ERROR` | 0 | ✅ Conforme |
+| `RULE_MODULE_BOUNDARY_LEAK` | 11. Veto a Violação de Fronteira de Módulo (go.mod) | `ERROR` | 9 | ❌ Pendente |
+| `RULE_INVENTED_PUBLIC_SYMBOLS` | 12. Detecção de Símbolos Públicos Inventados (Sem Upstream Go) | `ERROR` | 41 | ❌ Pendente |
 | `RULE_EXCEPTION_NAMING` | 13. Nomenclatura e Padrão de Exceções Dart (Veto a prefixo 'Err') | `ERROR` | 1 | ❌ Pendente |
 | `RULE_NO_PRODUCTION_MOCKS` | 14. Veto a Mocks, Dummies e Stubs em Código de Biblioteca | `ERROR` | 0 | ✅ Conforme |
 | `RULE_RESTRICTED_PLATFORM_IMPORTS` | 15. Veto a dart:io em Pacotes de Codecs/Formatos Puros | `ERROR` | 0 | ✅ Conforme |
 | `RULE_NO_PRINT_IN_LIBRARIES` | 16. Veto a chamadas print(...) em Bibliotecas Reutilizáveis | `ERROR` | 0 | ✅ Conforme |
 | `RULE_NO_ARTIFICIAL_CONCURRENCY` | 17. Veto a Primitivas Artificiais de Concorrência Go | `ERROR` | 0 | ✅ Conforme |
-| `RULE_MISSING_GO_TYPES` | 18. Auditoria de Tipos e Interfaces do Upstream Go Ausentes | `INFO` | 2320 | ⚠️ Atenção |
-| `RULE_MISSING_GO_FIELDS` | 19. Auditoria de Campos de Structs do Upstream Go Ausentes | `INFO` | 56 | ⚠️ Atenção |
+| `RULE_MISSING_GO_TYPES` | 18. Auditoria de Tipos e Interfaces do Upstream Go Ausentes | `INFO` | 2318 | ⚠️ Atenção |
+| `RULE_MISSING_GO_FIELDS` | 19. Auditoria de Campos de Structs do Upstream Go Ausentes | `INFO` | 57 | ⚠️ Atenção |
 | `RULE_MISSING_GO_METHODS` | 20. Auditoria de Métodos do Upstream Go Ausentes | `INFO` | 192 | ⚠️ Atenção |
 | `RULE_MISSING_GO_FUNCTIONS` | 21. Auditoria de Funções Top-Level do Upstream Go Ausentes | `INFO` | 37 | ⚠️ Atenção |
 | `RULE_PUBSPEC_DEPENDENCIES` | 22. Validação de Dependências em pubspec.yaml | `ERROR` | 0 | ✅ Conforme |
-| `RULE_EXPOSED_NON_PUBLIC_MEMBERS` | 23. Veto a Membros Públicos que Expõem Tipos Não-Públicos (Menor Permissão) | `WARNING` | 5 | ⚠️ Atenção |
+| `RULE_EXPOSED_NON_PUBLIC_MEMBERS` | 23. Veto a Membros Públicos que Expõem Tipos Não-Públicos (Menor Permissão) | `ERROR` | 0 | ✅ Conforme |
 | `RULE_MISSING_ATOMIC_TESTS` | 24. Auditoria de Testes Atômicos 1 para 1 (test/atomic/<nivel>/<nome_modulo>_atomic_tests.dart) | `ERROR` | 0 | ✅ Conforme |
 | `RULE_IMPORT_PREFIX_NAMING` | 25. Prefixo de Import Nomeado pela Biblioteca (Colisão de Nomes) | `ERROR` | 7 | ❌ Pendente |
 | `RULE_PARSE_ERROR` | 26. Erro de Sintaxe na Análise AST (package:analyzer) | `ERROR` | 0 | ✅ Conforme |
 
 ## 2. Detalhamento dos Apontamentos
 
-### 1. Violação de UpperCamelCase / lowerCamelCase (Blocos em All-Caps) (37 ocorrências)
+### 1. Violação de UpperCamelCase / lowerCamelCase (Blocos em All-Caps) (26 ocorrências)
 
-- ❌ `[ERRO]` **[`packages/transpiled_golang_x_net/lib/src/dns/dnsmessage/message.dart:1321`](packages/transpiled_golang_x_net/lib/src/dns/dnsmessage/message.dart#L1321)** — Method público 'setEDNS0' contém bloco em All-Caps 'EDNS'. Deve ser lowerCamelCase canônico: 'setEdnS0'.
-  - *Sugestão:* `setEdnS0`
+- ❌ `[ERRO]` **[`packages/transpiled_golang_x_net/lib/src/dns/dnsmessage/message.dart:1321`](packages/transpiled_golang_x_net/lib/src/dns/dnsmessage/message.dart#L1321)** — Method público 'setEDNS0' contém bloco em All-Caps 'EDNS'. Deve ser lowerCamelCase canônico: 'setEdns0'.
+  - *Sugestão:* `setEdns0`
 - ❌ `[ERRO]` **[`packages/transpiled_golang_x_net/lib/src/dns/dnsmessage/message.dart:1716`](packages/transpiled_golang_x_net/lib/src/dns/dnsmessage/message.dart#L1716)** — Tipo público 'CNAMEResource' contém bloco em All-Caps 'CNAMER'. Deve ser UpperCamelCase canônico: 'CnameResource'.
   - *Sugestão:* `CnameResource`
 - ❌ `[ERRO]` **[`packages/transpiled_golang_x_net/lib/src/dns/dnsmessage/message.dart:1740`](packages/transpiled_golang_x_net/lib/src/dns/dnsmessage/message.dart#L1740)** — Tipo público 'MXResource' contém bloco em All-Caps 'MXR'. Deve ser UpperCamelCase canônico: 'MxResource'.
@@ -71,12 +71,6 @@
   - *Sugestão:* `SvcParamKey`
 - ❌ `[ERRO]` **[`packages/transpiled_golang_x_net/lib/src/dns/dnsmessage/svcb.dart:220`](packages/transpiled_golang_x_net/lib/src/dns/dnsmessage/svcb.dart#L220)** — Field público 'noDefaultALPN' contém bloco em All-Caps 'ALPN'. Deve ser lowerCamelCase canônico: 'noDefaultAlpn'.
   - *Sugestão:* `noDefaultAlpn`
-- ❌ `[ERRO]` **[`packages/transpiled_libp2p/lib/src/p2p/transport/webrtc/cert.dart:14`](packages/transpiled_libp2p/lib/src/p2p/transport/webrtc/cert.dart#L14)** — Field público 'deterministicCertHKDFInfo' contém bloco em All-Caps 'HKDFI'. Deve ser lowerCamelCase canônico: 'deterministicCertHkdfInfo'.
-  - *Sugestão:* `deterministicCertHkdfInfo`
-- ❌ `[ERRO]` **[`packages/transpiled_libp2p/lib/src/p2p/transport/webrtc/sdp.dart:14`](packages/transpiled_libp2p/lib/src/p2p/transport/webrtc/sdp.dart#L14)** — Field público 'clientSDPTemplate' contém bloco em All-Caps 'SDPT'. Deve ser lowerCamelCase canônico: 'clientSdpTemplate'.
-  - *Sugestão:* `clientSdpTemplate`
-- ❌ `[ERRO]` **[`packages/transpiled_libp2p/lib/src/p2p/transport/webrtc/sdp.dart:31`](packages/transpiled_libp2p/lib/src/p2p/transport/webrtc/sdp.dart#L31)** — Field público 'serverSDPTemplate' contém bloco em All-Caps 'SDPT'. Deve ser lowerCamelCase canônico: 'serverSdpTemplate'.
-  - *Sugestão:* `serverSdpTemplate`
 - ❌ `[ERRO]` **[`packages/transpiled_libp2p/lib/src/p2p/transport/webrtc/sdp.dart:51`](packages/transpiled_libp2p/lib/src/p2p/transport/webrtc/sdp.dart#L51)** — Function público 'createClientSDP' contém bloco em All-Caps 'SDP'. Deve ser lowerCamelCase canônico: 'createClientSdp'.
   - *Sugestão:* `createClientSdp`
 - ❌ `[ERRO]` **[`packages/transpiled_libp2p/lib/src/p2p/transport/webrtc/sdp.dart:66`](packages/transpiled_libp2p/lib/src/p2p/transport/webrtc/sdp.dart#L66)** — Function público 'createServerSDP' contém bloco em All-Caps 'SDP'. Deve ser lowerCamelCase canônico: 'createServerSdp'.
@@ -85,20 +79,6 @@
   - *Sugestão:* `decodeInterspersedHexFromAsciiString`
 - ❌ `[ERRO]` **[`packages/transpiled_libp2p/lib/src/p2p/transport/webrtc/sdp.dart:120`](packages/transpiled_libp2p/lib/src/p2p/transport/webrtc/sdp.dart#L120)** — Function público 'encodeDTLSFingerprint' contém bloco em All-Caps 'DTLSF'. Deve ser lowerCamelCase canônico: 'encodeDtlsFingerprint'.
   - *Sugestão:* `encodeDtlsFingerprint`
-- ❌ `[ERRO]` **[`packages/transpiled_multiaddr/lib/src/transcoders.dart:526`](packages/transpiled_multiaddr/lib/src/transcoders.dart#L526)** — Field público 'transcoderIP6Zone' contém bloco em All-Caps 'IP'. Deve ser lowerCamelCase canônico: 'transcoderIP6zOne'.
-  - *Sugestão:* `transcoderIP6zOne`
-- ❌ `[ERRO]` **[`packages/transpiled_multiaddr/lib/src/transcoders.dart:529`](packages/transpiled_multiaddr/lib/src/transcoders.dart#L529)** — Field público 'transcoderIPCIDR' contém bloco em All-Caps 'IPCIDR'. Deve ser lowerCamelCase canônico: 'transcoderIpcidr'.
-  - *Sugestão:* `transcoderIpcidr`
-- ❌ `[ERRO]` **[`packages/transpiled_multiaddr/lib/src/transcoders.dart:559`](packages/transpiled_multiaddr/lib/src/transcoders.dart#L559)** — Field público 'transcoderP2P' contém bloco em All-Caps 'P2P'. Deve ser lowerCamelCase canônico: 'transcoderP2p'.
-  - *Sugestão:* `transcoderP2p`
-- ❌ `[ERRO]` **[`packages/transpiled_multiaddr/lib/src/transcoders.dart:572`](packages/transpiled_multiaddr/lib/src/transcoders.dart#L572)** — Field público 'transcoderHTTPPath' contém bloco em All-Caps 'HTTPP'. Deve ser lowerCamelCase canônico: 'transcoderHttpPath'.
-  - *Sugestão:* `transcoderHttpPath`
-- ❌ `[ERRO]` **[`packages/transpiled_pion_dtls/lib/src/pkg/protocol/alert/alert.dart:75`](packages/transpiled_pion_dtls/lib/src/pkg/protocol/alert/alert.dart#L75)** — Field público 'unknownCA' contém bloco em All-Caps 'CA'. Deve ser lowerCamelCase canônico: 'unknownCa'.
-  - *Sugestão:* `unknownCa`
-- ❌ `[ERRO]` **[`packages/transpiled_pion_sctp/lib/src/association_stats.dart:61`](packages/transpiled_pion_sctp/lib/src/association_stats.dart#L61)** — Method público 'incT3Timeouts' contém bloco em All-Caps 'T3T'. Deve ser lowerCamelCase canônico: 'incT3tImeouts'.
-  - *Sugestão:* `incT3tImeouts`
-- ❌ `[ERRO]` **[`packages/transpiled_pion_sctp/lib/src/association_stats.dart:64`](packages/transpiled_pion_sctp/lib/src/association_stats.dart#L64)** — Method público 'getNumT3Timeouts' contém bloco em All-Caps 'T3T'. Deve ser lowerCamelCase canônico: 'getNumT3tImeouts'.
-  - *Sugestão:* `getNumT3tImeouts`
 - ❌ `[ERRO]` **[`packages/transpiled_pion_sctp/lib/src/receive_payload_queue.dart:86`](packages/transpiled_pion_sctp/lib/src/receive_payload_queue.dart#L86)** — Field público 'maxTSNOffset' contém bloco em All-Caps 'TSNO'. Deve ser lowerCamelCase canônico: 'maxTsnOffset'.
   - *Sugestão:* `maxTsnOffset`
 - ❌ `[ERRO]` **[`packages/transpiled_pion_sctp/lib/src/receive_payload_queue.dart:259`](packages/transpiled_pion_sctp/lib/src/receive_payload_queue.dart#L259)** — Method público 'getLastTSNReceived' contém bloco em All-Caps 'TSNR'. Deve ser lowerCamelCase canônico: 'getLastTsnReceived'.
@@ -111,134 +91,35 @@
   - *Sugestão:* `getRto`
 - ❌ `[ERRO]` **[`packages/transpiled_pion_sctp/lib/src/rtx_timer.dart:113`](packages/transpiled_pion_sctp/lib/src/rtx_timer.dart#L113)** — Method público 'setRTO' contém bloco em All-Caps 'RTO'. Deve ser lowerCamelCase canônico: 'setRto'.
   - *Sugestão:* `setRto`
-- ❌ `[ERRO]` **[`packages/transpiled_quic_go/lib/src/header.dart:8`](packages/transpiled_quic_go/lib/src/header.dart#L8)** — Field público 'packetType0RTT' contém bloco em All-Caps 'RTT'. Deve ser lowerCamelCase canônico: 'packetType0Rtt'.
-  - *Sugestão:* `packetType0Rtt`
-
-### 2. Violação de lowerCamelCase (PascalCase em membros públicos) (24 ocorrências)
-
-- ❌ `[ERRO]` **[`packages/transpiled_go_yamux/lib/src/yamux.dart:1122`](packages/transpiled_go_yamux/lib/src/yamux.dart#L1122)** — Field público 'DefaultConfig' em 'top-level' usa PascalCase. Em Dart deve ser lowerCamelCase: 'defaultConfig'.
-  - *Sugestão:* `defaultConfig`
-- ❌ `[ERRO]` **[`packages/transpiled_go_yamux/lib/src/yamux.dart:1126`](packages/transpiled_go_yamux/lib/src/yamux.dart#L1126)** — Field público 'VerifyConfig' em 'top-level' usa PascalCase. Em Dart deve ser lowerCamelCase: 'verifyConfig'.
-  - *Sugestão:* `verifyConfig`
-- ❌ `[ERRO]` **[`packages/transpiled_go_yamux/lib/src/yamux.dart:1135`](packages/transpiled_go_yamux/lib/src/yamux.dart#L1135)** — Field público 'Server' em 'top-level' usa PascalCase. Em Dart deve ser lowerCamelCase: 'server'.
-  - *Sugestão:* `server`
-- ❌ `[ERRO]` **[`packages/transpiled_go_yamux/lib/src/yamux.dart:1144`](packages/transpiled_go_yamux/lib/src/yamux.dart#L1144)** — Field público 'Client' em 'top-level' usa PascalCase. Em Dart deve ser lowerCamelCase: 'client'.
-  - *Sugestão:* `client`
-- ❌ `[ERRO]` **[`packages/transpiled_libp2p/lib/src/p2p/security/noise/transport.dart:17`](packages/transpiled_libp2p/lib/src/p2p/security/noise/transport.dart#L17)** — Field público 'ID' em 'top-level' usa PascalCase. Em Dart deve ser lowerCamelCase: 'id'.
-  - *Sugestão:* `id`
-- ❌ `[ERRO]` **[`packages/transpiled_libp2p/lib/src/p2p/security/tls/transport.dart:21`](packages/transpiled_libp2p/lib/src/p2p/security/tls/transport.dart#L21)** — Field público 'ID' em 'top-level' usa PascalCase. Em Dart deve ser lowerCamelCase: 'id'.
-  - *Sugestão:* `id`
-- ❌ `[ERRO]` **[`packages/transpiled_libp2p/lib/src/p2p/transport/webrtc/pb/message.dart:13`](packages/transpiled_libp2p/lib/src/p2p/transport/webrtc/pb/message.dart#L13)** — Field público 'FIN' em 'Message_Flag' usa PascalCase. Em Dart deve ser lowerCamelCase: 'fin'.
-  - *Sugestão:* `fin`
-- ❌ `[ERRO]` **[`packages/transpiled_libp2p/lib/src/p2p/transport/webrtc/pb/message.dart:14`](packages/transpiled_libp2p/lib/src/p2p/transport/webrtc/pb/message.dart#L14)** — Field público 'STOP_SENDING' em 'Message_Flag' usa PascalCase. Em Dart deve ser lowerCamelCase: 'sTOPSending'.
-  - *Sugestão:* `sTOPSending`
-- ❌ `[ERRO]` **[`packages/transpiled_libp2p/lib/src/p2p/transport/webrtc/pb/message.dart:15`](packages/transpiled_libp2p/lib/src/p2p/transport/webrtc/pb/message.dart#L15)** — Field público 'RESET' em 'Message_Flag' usa PascalCase. Em Dart deve ser lowerCamelCase: 'reset'.
-  - *Sugestão:* `reset`
-- ❌ `[ERRO]` **[`packages/transpiled_libp2p/lib/src/p2p/transport/webrtc/pb/message.dart:16`](packages/transpiled_libp2p/lib/src/p2p/transport/webrtc/pb/message.dart#L16)** — Field público 'FIN_ACK' em 'Message_Flag' usa PascalCase. Em Dart deve ser lowerCamelCase: 'fINAck'.
-  - *Sugestão:* `fINAck`
-- ❌ `[ERRO]` **[`packages/transpiled_pion_dtls/lib/src/cipher_suite.dart:11`](packages/transpiled_pion_dtls/lib/src/cipher_suite.dart#L11)** — Field público 'TLS_ECDHE_ECDSA_WITH_AES_128_CCM' em 'top-level' usa PascalCase. Em Dart deve ser lowerCamelCase: 'tLSECDHEECDSAWITHAES128Ccm'.
-  - *Sugestão:* `tLSECDHEECDSAWITHAES128Ccm`
-- ❌ `[ERRO]` **[`packages/transpiled_pion_dtls/lib/src/cipher_suite.dart:12`](packages/transpiled_pion_dtls/lib/src/cipher_suite.dart#L12)** — Field público 'TLS_ECDHE_ECDSA_WITH_AES_128_CCM_8' em 'top-level' usa PascalCase. Em Dart deve ser lowerCamelCase: 'tLSECDHEECDSAWITHAES128CCM8'.
-  - *Sugestão:* `tLSECDHEECDSAWITHAES128CCM8`
-- ❌ `[ERRO]` **[`packages/transpiled_pion_dtls/lib/src/cipher_suite.dart:13`](packages/transpiled_pion_dtls/lib/src/cipher_suite.dart#L13)** — Field público 'TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256' em 'top-level' usa PascalCase. Em Dart deve ser lowerCamelCase: 'tLSECDHEECDSAWITHAES128GCMShA256'.
-  - *Sugestão:* `tLSECDHEECDSAWITHAES128GCMShA256`
-- ❌ `[ERRO]` **[`packages/transpiled_pion_dtls/lib/src/cipher_suite.dart:14`](packages/transpiled_pion_dtls/lib/src/cipher_suite.dart#L14)** — Field público 'TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256' em 'top-level' usa PascalCase. Em Dart deve ser lowerCamelCase: 'tLSECDHERSAWITHAES128GCMShA256'.
-  - *Sugestão:* `tLSECDHERSAWITHAES128GCMShA256`
-- ❌ `[ERRO]` **[`packages/transpiled_pion_dtls/lib/src/cipher_suite.dart:15`](packages/transpiled_pion_dtls/lib/src/cipher_suite.dart#L15)** — Field público 'TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384' em 'top-level' usa PascalCase. Em Dart deve ser lowerCamelCase: 'tLSECDHEECDSAWITHAES256GCMShA384'.
-  - *Sugestão:* `tLSECDHEECDSAWITHAES256GCMShA384`
-- ❌ `[ERRO]` **[`packages/transpiled_pion_dtls/lib/src/cipher_suite.dart:16`](packages/transpiled_pion_dtls/lib/src/cipher_suite.dart#L16)** — Field público 'TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384' em 'top-level' usa PascalCase. Em Dart deve ser lowerCamelCase: 'tLSECDHERSAWITHAES256GCMShA384'.
-  - *Sugestão:* `tLSECDHERSAWITHAES256GCMShA384`
-- ❌ `[ERRO]` **[`packages/transpiled_pion_dtls/lib/src/cipher_suite.dart:17`](packages/transpiled_pion_dtls/lib/src/cipher_suite.dart#L17)** — Field público 'TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA' em 'top-level' usa PascalCase. Em Dart deve ser lowerCamelCase: 'tLSECDHEECDSAWITHAES256CBCSha'.
-  - *Sugestão:* `tLSECDHEECDSAWITHAES256CBCSha`
-- ❌ `[ERRO]` **[`packages/transpiled_pion_dtls/lib/src/cipher_suite.dart:18`](packages/transpiled_pion_dtls/lib/src/cipher_suite.dart#L18)** — Field público 'TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA' em 'top-level' usa PascalCase. Em Dart deve ser lowerCamelCase: 'tLSECDHERSAWITHAES256CBCSha'.
-  - *Sugestão:* `tLSECDHERSAWITHAES256CBCSha`
-- ❌ `[ERRO]` **[`packages/transpiled_pion_dtls/lib/src/cipher_suite.dart:19`](packages/transpiled_pion_dtls/lib/src/cipher_suite.dart#L19)** — Field público 'TLS_PSK_WITH_AES_128_CCM' em 'top-level' usa PascalCase. Em Dart deve ser lowerCamelCase: 'tLSPSKWITHAES128Ccm'.
-  - *Sugestão:* `tLSPSKWITHAES128Ccm`
-- ❌ `[ERRO]` **[`packages/transpiled_pion_dtls/lib/src/cipher_suite.dart:20`](packages/transpiled_pion_dtls/lib/src/cipher_suite.dart#L20)** — Field público 'TLS_PSK_WITH_AES_128_CCM_8' em 'top-level' usa PascalCase. Em Dart deve ser lowerCamelCase: 'tLSPSKWITHAES128CCM8'.
-  - *Sugestão:* `tLSPSKWITHAES128CCM8`
-- ❌ `[ERRO]` **[`packages/transpiled_pion_dtls/lib/src/cipher_suite.dart:21`](packages/transpiled_pion_dtls/lib/src/cipher_suite.dart#L21)** — Field público 'TLS_PSK_WITH_AES_256_CCM_8' em 'top-level' usa PascalCase. Em Dart deve ser lowerCamelCase: 'tLSPSKWITHAES256CCM8'.
-  - *Sugestão:* `tLSPSKWITHAES256CCM8`
-- ❌ `[ERRO]` **[`packages/transpiled_pion_dtls/lib/src/cipher_suite.dart:22`](packages/transpiled_pion_dtls/lib/src/cipher_suite.dart#L22)** — Field público 'TLS_PSK_WITH_AES_128_GCM_SHA256' em 'top-level' usa PascalCase. Em Dart deve ser lowerCamelCase: 'tLSPSKWITHAES128GCMShA256'.
-  - *Sugestão:* `tLSPSKWITHAES128GCMShA256`
-- ❌ `[ERRO]` **[`packages/transpiled_pion_dtls/lib/src/cipher_suite.dart:23`](packages/transpiled_pion_dtls/lib/src/cipher_suite.dart#L23)** — Field público 'TLS_PSK_WITH_AES_128_CBC_SHA256' em 'top-level' usa PascalCase. Em Dart deve ser lowerCamelCase: 'tLSPSKWITHAES128CBCShA256'.
-  - *Sugestão:* `tLSPSKWITHAES128CBCShA256`
-- ❌ `[ERRO]` **[`packages/transpiled_pion_dtls/lib/src/cipher_suite.dart:24`](packages/transpiled_pion_dtls/lib/src/cipher_suite.dart#L24)** — Field público 'TLS_ECDHE_PSK_WITH_AES_128_CBC_SHA256' em 'top-level' usa PascalCase. Em Dart deve ser lowerCamelCase: 'tLSECDHEPSKWITHAES128CBCShA256'.
-  - *Sugestão:* `tLSECDHEPSKWITHAES128CBCShA256`
 
 ### 5. Veto a Funções Livres newX(...) Artificiais (1 ocorrências)
 
 - ❌ `[ERRO]` **[`packages/transpiled_libp2p/lib/src/p2p/transport/webrtc/cert.dart:40`](packages/transpiled_libp2p/lib/src/p2p/transport/webrtc/cert.dart#L40)** — Função livre artificial 'newDeterministicCertificate()'. Construtores NewX do Go devem virar construtores ou factories na classe 'DeterministicCertificate', sem funções livres 'newX' artificiais.
   - *Sugestão:* `Converter para construtor/factory 'DeterministicCertificate()' ou 'DeterministicCertificate.from*()'`
 
-### 6. Veto a Constantes em SCREAMING_SNAKE_CASE (16 ocorrências)
+### 11. Veto a Violação de Fronteira de Módulo (go.mod) (9 ocorrências)
 
-- ❌ `[ERRO]` **[`packages/transpiled_libp2p/lib/src/p2p/transport/webrtc/pb/message.dart:14`](packages/transpiled_libp2p/lib/src/p2p/transport/webrtc/pb/message.dart#L14)** — Constante/campo público 'STOP_SENDING' usa SCREAMING_SNAKE_CASE. Em Dart deve ser lowerCamelCase: 'sTOPSending'.
-  - *Sugestão:* `sTOPSending`
-- ❌ `[ERRO]` **[`packages/transpiled_libp2p/lib/src/p2p/transport/webrtc/pb/message.dart:16`](packages/transpiled_libp2p/lib/src/p2p/transport/webrtc/pb/message.dart#L16)** — Constante/campo público 'FIN_ACK' usa SCREAMING_SNAKE_CASE. Em Dart deve ser lowerCamelCase: 'fINAck'.
-  - *Sugestão:* `fINAck`
-- ❌ `[ERRO]` **[`packages/transpiled_pion_dtls/lib/src/cipher_suite.dart:11`](packages/transpiled_pion_dtls/lib/src/cipher_suite.dart#L11)** — Constante/campo público 'TLS_ECDHE_ECDSA_WITH_AES_128_CCM' usa SCREAMING_SNAKE_CASE. Em Dart deve ser lowerCamelCase: 'tLSECDHEECDSAWITHAES128Ccm'.
-  - *Sugestão:* `tLSECDHEECDSAWITHAES128Ccm`
-- ❌ `[ERRO]` **[`packages/transpiled_pion_dtls/lib/src/cipher_suite.dart:12`](packages/transpiled_pion_dtls/lib/src/cipher_suite.dart#L12)** — Constante/campo público 'TLS_ECDHE_ECDSA_WITH_AES_128_CCM_8' usa SCREAMING_SNAKE_CASE. Em Dart deve ser lowerCamelCase: 'tLSECDHEECDSAWITHAES128CCM8'.
-  - *Sugestão:* `tLSECDHEECDSAWITHAES128CCM8`
-- ❌ `[ERRO]` **[`packages/transpiled_pion_dtls/lib/src/cipher_suite.dart:13`](packages/transpiled_pion_dtls/lib/src/cipher_suite.dart#L13)** — Constante/campo público 'TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256' usa SCREAMING_SNAKE_CASE. Em Dart deve ser lowerCamelCase: 'tLSECDHEECDSAWITHAES128GCMShA256'.
-  - *Sugestão:* `tLSECDHEECDSAWITHAES128GCMShA256`
-- ❌ `[ERRO]` **[`packages/transpiled_pion_dtls/lib/src/cipher_suite.dart:14`](packages/transpiled_pion_dtls/lib/src/cipher_suite.dart#L14)** — Constante/campo público 'TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256' usa SCREAMING_SNAKE_CASE. Em Dart deve ser lowerCamelCase: 'tLSECDHERSAWITHAES128GCMShA256'.
-  - *Sugestão:* `tLSECDHERSAWITHAES128GCMShA256`
-- ❌ `[ERRO]` **[`packages/transpiled_pion_dtls/lib/src/cipher_suite.dart:15`](packages/transpiled_pion_dtls/lib/src/cipher_suite.dart#L15)** — Constante/campo público 'TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384' usa SCREAMING_SNAKE_CASE. Em Dart deve ser lowerCamelCase: 'tLSECDHEECDSAWITHAES256GCMShA384'.
-  - *Sugestão:* `tLSECDHEECDSAWITHAES256GCMShA384`
-- ❌ `[ERRO]` **[`packages/transpiled_pion_dtls/lib/src/cipher_suite.dart:16`](packages/transpiled_pion_dtls/lib/src/cipher_suite.dart#L16)** — Constante/campo público 'TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384' usa SCREAMING_SNAKE_CASE. Em Dart deve ser lowerCamelCase: 'tLSECDHERSAWITHAES256GCMShA384'.
-  - *Sugestão:* `tLSECDHERSAWITHAES256GCMShA384`
-- ❌ `[ERRO]` **[`packages/transpiled_pion_dtls/lib/src/cipher_suite.dart:17`](packages/transpiled_pion_dtls/lib/src/cipher_suite.dart#L17)** — Constante/campo público 'TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA' usa SCREAMING_SNAKE_CASE. Em Dart deve ser lowerCamelCase: 'tLSECDHEECDSAWITHAES256CBCSha'.
-  - *Sugestão:* `tLSECDHEECDSAWITHAES256CBCSha`
-- ❌ `[ERRO]` **[`packages/transpiled_pion_dtls/lib/src/cipher_suite.dart:18`](packages/transpiled_pion_dtls/lib/src/cipher_suite.dart#L18)** — Constante/campo público 'TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA' usa SCREAMING_SNAKE_CASE. Em Dart deve ser lowerCamelCase: 'tLSECDHERSAWITHAES256CBCSha'.
-  - *Sugestão:* `tLSECDHERSAWITHAES256CBCSha`
-- ❌ `[ERRO]` **[`packages/transpiled_pion_dtls/lib/src/cipher_suite.dart:19`](packages/transpiled_pion_dtls/lib/src/cipher_suite.dart#L19)** — Constante/campo público 'TLS_PSK_WITH_AES_128_CCM' usa SCREAMING_SNAKE_CASE. Em Dart deve ser lowerCamelCase: 'tLSPSKWITHAES128Ccm'.
-  - *Sugestão:* `tLSPSKWITHAES128Ccm`
-- ❌ `[ERRO]` **[`packages/transpiled_pion_dtls/lib/src/cipher_suite.dart:20`](packages/transpiled_pion_dtls/lib/src/cipher_suite.dart#L20)** — Constante/campo público 'TLS_PSK_WITH_AES_128_CCM_8' usa SCREAMING_SNAKE_CASE. Em Dart deve ser lowerCamelCase: 'tLSPSKWITHAES128CCM8'.
-  - *Sugestão:* `tLSPSKWITHAES128CCM8`
-- ❌ `[ERRO]` **[`packages/transpiled_pion_dtls/lib/src/cipher_suite.dart:21`](packages/transpiled_pion_dtls/lib/src/cipher_suite.dart#L21)** — Constante/campo público 'TLS_PSK_WITH_AES_256_CCM_8' usa SCREAMING_SNAKE_CASE. Em Dart deve ser lowerCamelCase: 'tLSPSKWITHAES256CCM8'.
-  - *Sugestão:* `tLSPSKWITHAES256CCM8`
-- ❌ `[ERRO]` **[`packages/transpiled_pion_dtls/lib/src/cipher_suite.dart:22`](packages/transpiled_pion_dtls/lib/src/cipher_suite.dart#L22)** — Constante/campo público 'TLS_PSK_WITH_AES_128_GCM_SHA256' usa SCREAMING_SNAKE_CASE. Em Dart deve ser lowerCamelCase: 'tLSPSKWITHAES128GCMShA256'.
-  - *Sugestão:* `tLSPSKWITHAES128GCMShA256`
-- ❌ `[ERRO]` **[`packages/transpiled_pion_dtls/lib/src/cipher_suite.dart:23`](packages/transpiled_pion_dtls/lib/src/cipher_suite.dart#L23)** — Constante/campo público 'TLS_PSK_WITH_AES_128_CBC_SHA256' usa SCREAMING_SNAKE_CASE. Em Dart deve ser lowerCamelCase: 'tLSPSKWITHAES128CBCShA256'.
-  - *Sugestão:* `tLSPSKWITHAES128CBCShA256`
-- ❌ `[ERRO]` **[`packages/transpiled_pion_dtls/lib/src/cipher_suite.dart:24`](packages/transpiled_pion_dtls/lib/src/cipher_suite.dart#L24)** — Constante/campo público 'TLS_ECDHE_PSK_WITH_AES_128_CBC_SHA256' usa SCREAMING_SNAKE_CASE. Em Dart deve ser lowerCamelCase: 'tLSECDHEPSKWITHAES128CBCShA256'.
-  - *Sugestão:* `tLSECDHEPSKWITHAES128CBCShA256`
-
-### 10. Uso Obrigatório de fixed_types.Golang.* para Tipos Primitivos (2 ocorrências)
-
-- ⚠️ `[AVISO]` **[`packages/transpiled_golang_x_net/lib/src/dns/dnsmessage/message.dart:1327`](packages/transpiled_golang_x_net/lib/src/dns/dnsmessage/message.dart#L1327)** — Uso de máscara binária de 32/64 bits ('0xFFFFFFFF') sem importar 'fixed_types.Golang.*'. AGENTS.md exige centralizar semântica de overflow e limites em packages/boilerplate/.
-  - *Sugestão:* `Importar 'package:boilerplate/fixed_types/golang.dart' e utilizar os tipos Golang correspondentes`
-- ⚠️ `[AVISO]` **[`packages/transpiled_pion_datachannel/lib/src/message_channel_open.dart:42`](packages/transpiled_pion_datachannel/lib/src/message_channel_open.dart#L42)** — Uso de máscara binária de 32/64 bits ('0xFFFFFFFF') sem importar 'fixed_types.Golang.*'. AGENTS.md exige centralizar semântica de overflow e limites em packages/boilerplate/.
-  - *Sugestão:* `Importar 'package:boilerplate/fixed_types/golang.dart' e utilizar os tipos Golang correspondentes`
-
-### 11. Veto a Violação de Fronteira de Módulo (go.mod) (10 ocorrências)
-
-- ❌ `[ERRO]` **[`packages/transpiled_ipld_prime/lib/src/datamodel/node.dart:119`](packages/transpiled_ipld_prime/lib/src/datamodel/node.dart#L119)** — Tipo público 'ByteReadSeeker' declarado em 'packages/transpiled_ipld_prime/lib/src/datamodel/node.dart', mas pertence ao módulo upstream 'go-car-v2' (packages/transpiled_go_car). AGENTS.md exige preservar fronteiras de go.mod e reutilizar o pacote proprietário.
-  - *Sugestão:* `Importar do pacote 'packages/transpiled_go_car' em vez de redeclarar`
-- ❌ `[ERRO]` **[`packages/transpiled_libp2p/lib/src/core/transport/transport.dart:25`](packages/transpiled_libp2p/lib/src/core/transport/transport.dart#L25)** — Tipo público 'RawConn' declarado em 'packages/transpiled_libp2p/lib/src/core/transport/transport.dart', mas pertence ao módulo upstream 'golang-x-net' (packages/transpiled_golang_x_net). AGENTS.md exige preservar fronteiras de go.mod e reutilizar o pacote proprietário.
-  - *Sugestão:* `Importar do pacote 'packages/transpiled_golang_x_net' em vez de redeclarar`
+- ❌ `[ERRO]` **[`packages/transpiled_libp2p/lib/src/core/transport/transport.dart:25`](packages/transpiled_libp2p/lib/src/core/transport/transport.dart#L25)** — Tipo público 'RawConn' declarado em 'packages/transpiled_libp2p/lib/src/core/transport/transport.dart', mas pertence ao módulo upstream 'quic-go' (packages/transpiled_quic_go). AGENTS.md exige preservar fronteiras de go.mod e reutilizar o pacote proprietário.
+  - *Sugestão:* `Importar do pacote 'packages/transpiled_quic_go' em vez de redeclarar`
 - ❌ `[ERRO]` **[`packages/transpiled_libp2p/lib/src/p2p/transport/webrtc/connection.dart:34`](packages/transpiled_libp2p/lib/src/p2p/transport/webrtc/connection.dart#L34)** — Tipo público 'Connection' declarado em 'packages/transpiled_libp2p/lib/src/p2p/transport/webrtc/connection.dart', mas pertence ao módulo upstream 'pion-stun' (packages/transpiled_pion_stun). AGENTS.md exige preservar fronteiras de go.mod e reutilizar o pacote proprietário.
   - *Sugestão:* `Importar do pacote 'packages/transpiled_pion_stun' em vez de redeclarar`
 - ❌ `[ERRO]` **[`packages/transpiled_libp2p/lib/src/p2p/transport/webrtc/logger.dart:26`](packages/transpiled_libp2p/lib/src/p2p/transport/webrtc/logger.dart#L26)** — Tipo público 'LoggerFactory' declarado em 'packages/transpiled_libp2p/lib/src/p2p/transport/webrtc/logger.dart', mas pertence ao módulo upstream 'pion-logging' (packages/transpiled_pion_logging). AGENTS.md exige preservar fronteiras de go.mod e reutilizar o pacote proprietário.
   - *Sugestão:* `Importar do pacote 'packages/transpiled_pion_logging' em vez de redeclarar`
 - ❌ `[ERRO]` **[`packages/transpiled_pion_datachannel/lib/src/message.dart:15`](packages/transpiled_pion_datachannel/lib/src/message.dart#L15)** — Tipo público 'MessageType' declarado em 'packages/transpiled_pion_datachannel/lib/src/message.dart', mas pertence ao módulo upstream 'pion-stun' (packages/transpiled_pion_stun). AGENTS.md exige preservar fronteiras de go.mod e reutilizar o pacote proprietário.
   - *Sugestão:* `Importar do pacote 'packages/transpiled_pion_stun' em vez de redeclarar`
-- ❌ `[ERRO]` **[`packages/transpiled_pion_sctp/lib/src/chunk.dart:30`](packages/transpiled_pion_sctp/lib/src/chunk.dart#L30)** — Tipo público 'Chunk' declarado em 'packages/transpiled_pion_sctp/lib/src/chunk.dart', mas pertence ao módulo upstream 'pion-transport-v4' (packages/transpiled_pion_transport_v4). AGENTS.md exige preservar fronteiras de go.mod e reutilizar o pacote proprietário.
-  - *Sugestão:* `Importar do pacote 'packages/transpiled_pion_transport_v4' em vez de redeclarar`
+- ❌ `[ERRO]` **[`packages/transpiled_pion_sctp/lib/src/chunk.dart:30`](packages/transpiled_pion_sctp/lib/src/chunk.dart#L30)** — Tipo público 'Chunk' declarado em 'packages/transpiled_pion_sctp/lib/src/chunk.dart', mas pertence ao módulo upstream 'pion-rtcp' (packages/transpiled_pion_rtcp). AGENTS.md exige preservar fronteiras de go.mod e reutilizar o pacote proprietário.
+  - *Sugestão:* `Importar do pacote 'packages/transpiled_pion_rtcp' em vez de redeclarar`
 - ❌ `[ERRO]` **[`packages/transpiled_pion_sctp/lib/src/chunktype.dart:18`](packages/transpiled_pion_sctp/lib/src/chunktype.dart#L18)** — Tipo público 'ChunkType' declarado em 'packages/transpiled_pion_sctp/lib/src/chunktype.dart', mas pertence ao módulo upstream 'pion-rtcp' (packages/transpiled_pion_rtcp). AGENTS.md exige preservar fronteiras de go.mod e reutilizar o pacote proprietário.
   - *Sugestão:* `Importar do pacote 'packages/transpiled_pion_rtcp' em vez de redeclarar`
-- ❌ `[ERRO]` **[`packages/transpiled_pion_sctp/lib/src/packet.dart:146`](packages/transpiled_pion_sctp/lib/src/packet.dart#L146)** — Tipo público 'Packet' declarado em 'packages/transpiled_pion_sctp/lib/src/packet.dart', mas pertence ao módulo upstream 'pion-rtp' (packages/transpiled_pion_rtp). AGENTS.md exige preservar fronteiras de go.mod e reutilizar o pacote proprietário.
-  - *Sugestão:* `Importar do pacote 'packages/transpiled_pion_rtp' em vez de redeclarar`
+- ❌ `[ERRO]` **[`packages/transpiled_pion_sctp/lib/src/packet.dart:146`](packages/transpiled_pion_sctp/lib/src/packet.dart#L146)** — Tipo público 'Packet' declarado em 'packages/transpiled_pion_sctp/lib/src/packet.dart', mas pertence ao módulo upstream 'pion-rtcp' (packages/transpiled_pion_rtcp). AGENTS.md exige preservar fronteiras de go.mod e reutilizar o pacote proprietário.
+  - *Sugestão:* `Importar do pacote 'packages/transpiled_pion_rtcp' em vez de redeclarar`
 - ❌ `[ERRO]` **[`packages/transpiled_pion_sctp/lib/src/queue.dart:28`](packages/transpiled_pion_sctp/lib/src/queue.dart#L28)** — Tipo público 'Queue' declarado em 'packages/transpiled_pion_sctp/lib/src/queue.dart', mas pertence ao módulo upstream 'pion-transport-v4' (packages/transpiled_pion_transport_v4). AGENTS.md exige preservar fronteiras de go.mod e reutilizar o pacote proprietário.
   - *Sugestão:* `Importar do pacote 'packages/transpiled_pion_transport_v4' em vez de redeclarar`
 - ❌ `[ERRO]` **[`packages/transpiled_pion_transport_v4/lib/src/net.dart:57`](packages/transpiled_pion_transport_v4/lib/src/net.dart#L57)** — Tipo público 'NetAddr' declarado em 'packages/transpiled_pion_transport_v4/lib/src/net.dart', mas pertence ao módulo upstream 'go-libp2p' (packages/transpiled_libp2p). AGENTS.md exige preservar fronteiras de go.mod e reutilizar o pacote proprietário.
   - *Sugestão:* `Importar do pacote 'packages/transpiled_libp2p' em vez de redeclarar`
 
-### 12. Detecção de Símbolos Públicos Inventados (Sem Upstream Go) (43 ocorrências)
+### 12. Detecção de Símbolos Públicos Inventados (Sem Upstream Go) (41 ocorrências)
 
-- ❌ `[ERRO]` **[`packages/transpiled_boxo/lib/src/bitswap/network/interface.dart:100`](packages/transpiled_boxo/lib/src/bitswap/network/interface.dart#L100)** — Tipo público 'PingResult' não possui símbolo exportado correspondente no módulo upstream 'boxo'. Conforme AGENTS.md, tipos auxiliares devem ser privados (prefixo '_') para não inventar superfícies de API pública.
-  - *Sugestão:* `Tornar privado com prefixo '_PingResult' ou documentar adaptação`
 - ❌ `[ERRO]` **[`packages/transpiled_golang_x_time/lib/src/rate.dart:122`](packages/transpiled_golang_x_time/lib/src/rate.dart#L122)** — Tipo público 'WaitBurstExceededException' não possui símbolo exportado correspondente no módulo upstream 'golang-x-time'. Conforme AGENTS.md, tipos auxiliares devem ser privados (prefixo '_') para não inventar superfícies de API pública.
   - *Sugestão:* `Tornar privado com prefixo '_WaitBurstExceededException' ou documentar adaptação`
 - ❌ `[ERRO]` **[`packages/transpiled_golang_x_time/lib/src/rate.dart:141`](packages/transpiled_golang_x_time/lib/src/rate.dart#L141)** — Tipo público 'WaitDeadlineExceededException' não possui símbolo exportado correspondente no módulo upstream 'golang-x-time'. Conforme AGENTS.md, tipos auxiliares devem ser privados (prefixo '_') para não inventar superfícies de API pública.
@@ -269,8 +150,6 @@
   - *Sugestão:* `Tornar privado com prefixo '_HandshakeType' ou documentar adaptação`
 - ❌ `[ERRO]` **[`packages/transpiled_pion_dtls/lib/src/state.dart:38`](packages/transpiled_pion_dtls/lib/src/state.dart#L38)** — Tipo público 'MemorySessionStore' não possui símbolo exportado correspondente no módulo upstream 'pion-dtls'. Conforme AGENTS.md, tipos auxiliares devem ser privados (prefixo '_') para não inventar superfícies de API pública.
   - *Sugestão:* `Tornar privado com prefixo '_MemorySessionStore' ou documentar adaptação`
-- ❌ `[ERRO]` **[`packages/transpiled_pion_ice/lib/src/addr.dart:9`](packages/transpiled_pion_ice/lib/src/addr.dart#L9)** — Tipo público 'TcpAddr' não possui símbolo exportado correspondente no módulo upstream 'pion-ice'. Conforme AGENTS.md, tipos auxiliares devem ser privados (prefixo '_') para não inventar superfícies de API pública.
-  - *Sugestão:* `Tornar privado com prefixo '_TcpAddr' ou documentar adaptação`
 - ❌ `[ERRO]` **[`packages/transpiled_pion_sctp/lib/src/reassembly_queue.dart:64`](packages/transpiled_pion_sctp/lib/src/reassembly_queue.dart#L64)** — Tipo público 'ShortBufferException' não possui símbolo exportado correspondente no módulo upstream 'pion-sctp'. Conforme AGENTS.md, tipos auxiliares devem ser privados (prefixo '_') para não inventar superfícies de API pública.
   - *Sugestão:* `Tornar privado com prefixo '_ShortBufferException' ou documentar adaptação`
 - ❌ `[ERRO]` **[`packages/transpiled_pion_sctp/lib/src/stream.dart:121`](packages/transpiled_pion_sctp/lib/src/stream.dart#L121)** — Tipo público 'EofException' não possui símbolo exportado correspondente no módulo upstream 'pion-sctp'. Conforme AGENTS.md, tipos auxiliares devem ser privados (prefixo '_') para não inventar superfícies de API pública.
@@ -329,7 +208,7 @@
 - ❌ `[ERRO]` **[`packages/transpiled_libp2p/lib/src/p2p/transport/webrtc/connection.dart:22`](packages/transpiled_libp2p/lib/src/p2p/transport/webrtc/connection.dart#L22)** — Classe de exceção 'ErrConnectionTimeout' usa o prefixo 'Err' idiomático do Go. Em Dart, classes de exceção devem usar sufixo 'Exception' e implementar 'Exception' (ex.: 'ConnectionTimeoutException').
   - *Sugestão:* `Renomear para 'ConnectionTimeoutException' e adicionar 'implements Exception'`
 
-### 18. Auditoria de Tipos e Interfaces do Upstream Go Ausentes (2320 ocorrências)
+### 18. Auditoria de Tipos e Interfaces do Upstream Go Ausentes (2318 ocorrências)
 
 - ℹ️ `[INFO]` **[`packages/transpiled_clock:1`](packages/transpiled_clock#L1)** — Tipo público Go 'Duration' (type) do módulo 'benbjohnson-clock' ainda não foi portado para o pacote 'packages/transpiled_clock'.
   - *Sugestão:* `Portar 'Duration' para 'packages/transpiled_clock' ou documentar se for omitido deliberadamente`
@@ -1937,8 +1816,6 @@
   - *Sugestão:* `Portar 'MockConnectionGater' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'StreamMuxer' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
   - *Sugestão:* `Portar 'StreamMuxer' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
-- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Result' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
-  - *Sugestão:* `Portar 'Result' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'DialStatus' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
   - *Sugestão:* `Portar 'DialStatus' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'DialResponse_ResponseStatus' (type) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
@@ -2011,8 +1888,6 @@
   - *Sugestão:* `Portar 'EndHolePunchEvt' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'HolePunchAttemptEvt' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
   - *Sugestão:* `Portar 'HolePunchAttemptEvt' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
-- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'PingService' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
-  - *Sugestão:* `Portar 'PingService' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'Exchange' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
   - *Sugestão:* `Portar 'Exchange' para 'packages/transpiled_libp2p' ou documentar se for omitido deliberadamente`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Tipo público Go 'NoiseHandshakePayload' (struct) do módulo 'go-libp2p' ainda não foi portado para o pacote 'packages/transpiled_libp2p'.
@@ -4972,7 +4847,7 @@
 - ℹ️ `[INFO]` **[`packages/transpiled_webtransport_go:1`](packages/transpiled_webtransport_go#L1)** — Tipo público Go 'Stream' (struct) do módulo 'webtransport-go' ainda não foi portado para o pacote 'packages/transpiled_webtransport_go'.
   - *Sugestão:* `Portar 'Stream' para 'packages/transpiled_webtransport_go' ou documentar se for omitido deliberadamente`
 
-### 19. Auditoria de Campos de Structs do Upstream Go Ausentes (56 ocorrências)
+### 19. Auditoria de Campos de Structs do Upstream Go Ausentes (57 ocorrências)
 
 - ℹ️ `[INFO]` **[`packages/transpiled_boxo/lib/src/bitswap/client/internal/blockpresencemanager/blockpresencemanager.dart:6`](packages/transpiled_boxo/lib/src/bitswap/client/internal/blockpresencemanager/blockpresencemanager.dart#L6)** — Classe 'BlockPresenceManager' possui 1 campo(s) do Go pendente(s) no módulo 'boxo': RWMutex.
   - *Sugestão:* `Avaliar implementação dos campos: RWMutex`
@@ -5036,6 +4911,8 @@
   - *Sugestão:* `Avaliar implementação dos campos: RWMutex`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/protocol/circuitv2/client/reservation.dart:20`](packages/transpiled_libp2p/lib/src/p2p/protocol/circuitv2/client/reservation.dart#L20)** — Classe 'Reservation' possui 1 campo(s) do Go pendente(s) no módulo 'go-libp2p': Expire.
   - *Sugestão:* `Avaliar implementação dos campos: Expire`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/protocol/ping/ping.dart:45`](packages/transpiled_libp2p/lib/src/p2p/protocol/ping/ping.dart#L45)** — Classe 'Result' possui 4 campo(s) do Go pendente(s) no módulo 'go-libp2p': Addr, Idx, Reachability, AllAddrsRefused.
+  - *Sugestão:* `Avaliar implementação dos campos: Addr, Idx, Reachability, AllAddrsRefused`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/p2p/transport/webrtc/pb/message.dart:31`](packages/transpiled_libp2p/lib/src/p2p/transport/webrtc/pb/message.dart#L31)** — Classe 'Message' possui 4 campo(s) do Go pendente(s) no módulo 'go-libp2p': Type, Dial, DialResponse, Msg.
   - *Sugestão:* `Avaliar implementação dos campos: Type, Dial, DialResponse, Msg`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/x/rate/limiter.dart:36`](packages/transpiled_libp2p/lib/src/x/rate/limiter.dart#L36)** — Classe 'Limit' possui 2 campo(s) do Go pendente(s) no módulo 'go-libp2p': Duration, Data.
@@ -5494,7 +5371,7 @@
   - *Sugestão:* `Avaliar porte das funções: ParseCompressedObject`
 - ℹ️ `[INFO]` **[`packages/transpiled_ipld_prime:1`](packages/transpiled_ipld_prime#L1)** — Pacote 'packages/transpiled_ipld_prime' possui 176 função(ões) livre(s) do Go pendente(s) no módulo 'go-ipld-prime': Reify, EncodeStreaming, DecodeStreaming, DecodeUsingPrototype, DecodeStreamingUsingPrototype....
   - *Sugestão:* `Avaliar porte das funções: Reify, EncodeStreaming, DecodeStreaming, DecodeUsingPrototype, DecodeStreamingUsingPrototype, MarshalStreaming, UnmarshalStreaming, Copy, NewPathNocopy, ParsePath...`
-- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Pacote 'packages/transpiled_libp2p' possui 312 função(ões) livre(s) do Go pendente(s) no módulo 'go-libp2p': PrivKeyToStatelessResetKey, PrivKeyToTokenGeneratorKey, GenerateECDSAKeyPairWithCurve, ECDSAKeyPairFromKey, ECDSAPublicKeyFromPubKey....
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p:1`](packages/transpiled_libp2p#L1)** — Pacote 'packages/transpiled_libp2p' possui 310 função(ões) livre(s) do Go pendente(s) no módulo 'go-libp2p': PrivKeyToStatelessResetKey, PrivKeyToTokenGeneratorKey, GenerateECDSAKeyPairWithCurve, ECDSAKeyPairFromKey, ECDSAPublicKeyFromPubKey....
   - *Sugestão:* `Avaliar porte das funções: PrivKeyToStatelessResetKey, PrivKeyToTokenGeneratorKey, GenerateECDSAKeyPairWithCurve, ECDSAKeyPairFromKey, ECDSAPublicKeyFromPubKey, MarshalECDSAPrivateKey, MarshalECDSAPublicKey, GenerateEd25519Key, GenerateKeyPair, GenerateKeyPairWithReader...`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p_kad_dht:1`](packages/transpiled_libp2p_kad_dht#L1)** — Pacote 'packages/transpiled_libp2p_kad_dht' possui 208 função(ões) livre(s) do Go pendente(s) no módulo 'go-libp2p-kad-dht': NewDefaultCrawler, WithProtocols, WithParallelism, WithMsgTimeout, WithConnectTimeout....
   - *Sugestão:* `Avaliar porte das funções: NewDefaultCrawler, WithProtocols, WithParallelism, WithMsgTimeout, WithConnectTimeout, WithCustomMessageSender, New, NewDHT, GetDefaultBootstrapPeerAddrInfos, PublicQueryFilter...`
@@ -5550,19 +5427,6 @@
   - *Sugestão:* `Avaliar porte das funções: DialAddr, DialAddrEarly, DialEarly, ParseCapsule, WriteCapsule, DefaultConnectionTracer, ConfigureTLSConfig, ListenAndServeQUIC, ListenAndServeTLS, GenerateCA...`
 - ℹ️ `[INFO]` **[`packages/transpiled_webtransport_go:1`](packages/transpiled_webtransport_go#L1)** — Pacote 'packages/transpiled_webtransport_go' possui 3 função(ões) livre(s) do Go pendente(s) no módulo 'webtransport-go': RunInteropClient, RunInteropServer, ConfigureHTTP3Server.
   - *Sugestão:* `Avaliar porte das funções: RunInteropClient, RunInteropServer, ConfigureHTTP3Server`
-
-### 23. Veto a Membros Públicos que Expõem Tipos Não-Públicos (Menor Permissão) (5 ocorrências)
-
-- ⚠️ `[AVISO]` **[`packages/transpiled_libp2p/lib/src/p2p/host/resource_manager/limit_defaults.dart:74`](packages/transpiled_libp2p/lib/src/p2p/host/resource_manager/limit_defaults.dart#L74)** — Membro público 'serviceLimits' expõe tipo não-público '_BaseLimitConfig'. AGENTS.md exige implementar seguindo o mesmo nível de visibilidade e permissão do Upstream Go, ou menor se não for possível.
-  - *Sugestão:* `Tipar com interface pública de menor permissão ou tornar o membro privado ('_serviceLimits')`
-- ⚠️ `[AVISO]` **[`packages/transpiled_libp2p/lib/src/p2p/host/resource_manager/limit_defaults.dart:78`](packages/transpiled_libp2p/lib/src/p2p/host/resource_manager/limit_defaults.dart#L78)** — Membro público 'servicePeerLimits' expõe tipo não-público '_BaseLimitConfig'. AGENTS.md exige implementar seguindo o mesmo nível de visibilidade e permissão do Upstream Go, ou menor se não for possível.
-  - *Sugestão:* `Tipar com interface pública de menor permissão ou tornar o membro privado ('_servicePeerLimits')`
-- ⚠️ `[AVISO]` **[`packages/transpiled_libp2p/lib/src/p2p/host/resource_manager/limit_defaults.dart:82`](packages/transpiled_libp2p/lib/src/p2p/host/resource_manager/limit_defaults.dart#L82)** — Membro público 'protocolLimits' expõe tipo não-público '_BaseLimitConfig'. AGENTS.md exige implementar seguindo o mesmo nível de visibilidade e permissão do Upstream Go, ou menor se não for possível.
-  - *Sugestão:* `Tipar com interface pública de menor permissão ou tornar o membro privado ('_protocolLimits')`
-- ⚠️ `[AVISO]` **[`packages/transpiled_libp2p/lib/src/p2p/host/resource_manager/limit_defaults.dart:86`](packages/transpiled_libp2p/lib/src/p2p/host/resource_manager/limit_defaults.dart#L86)** — Membro público 'protocolPeerLimits' expõe tipo não-público '_BaseLimitConfig'. AGENTS.md exige implementar seguindo o mesmo nível de visibilidade e permissão do Upstream Go, ou menor se não for possível.
-  - *Sugestão:* `Tipar com interface pública de menor permissão ou tornar o membro privado ('_protocolPeerLimits')`
-- ⚠️ `[AVISO]` **[`packages/transpiled_libp2p/lib/src/p2p/host/resource_manager/limit_defaults.dart:90`](packages/transpiled_libp2p/lib/src/p2p/host/resource_manager/limit_defaults.dart#L90)** — Membro público 'peerLimits' expõe tipo não-público '_BaseLimitConfig'. AGENTS.md exige implementar seguindo o mesmo nível de visibilidade e permissão do Upstream Go, ou menor se não for possível.
-  - *Sugestão:* `Tipar com interface pública de menor permissão ou tornar o membro privado ('_peerLimits')`
 
 ### 25. Prefixo de Import Nomeado pela Biblioteca (Colisão de Nomes) (7 ocorrências)
 

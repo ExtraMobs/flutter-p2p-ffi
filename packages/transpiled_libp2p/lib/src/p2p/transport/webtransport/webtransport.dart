@@ -783,7 +783,7 @@ class _WebtransportSessionConn implements CapableConn {
   @override
   ConnectionState connState() => const ConnectionState(
     streamMultiplexer: 'webtransport',
-    security: noise.ID,
+    security: noise.id,
     transport: 'webtransport',
   );
 

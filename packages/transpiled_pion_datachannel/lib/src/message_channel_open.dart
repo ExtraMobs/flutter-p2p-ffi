@@ -9,6 +9,8 @@ library;
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:boilerplate/fixed_types/golang.dart' as Golang;
+
 import 'channeltype.dart';
 import 'errors.dart';
 
@@ -39,7 +41,11 @@ class ChannelOpen {
     view.setUint8(0, dataChannelOpen);
     view.setUint8(1, channelType.value);
     view.setUint16(2, priority & 0xFFFF, Endian.big);
-    view.setUint32(4, reliabilityParameter & 0xFFFFFFFF, Endian.big);
+    view.setUint32(
+      4,
+      Golang.Uint32(reliabilityParameter).toBigInt().toInt(),
+      Endian.big,
+    );
     view.setUint16(8, label.length & 0xFFFF, Endian.big);
     view.setUint16(10, protocol.length & 0xFFFF, Endian.big);
 

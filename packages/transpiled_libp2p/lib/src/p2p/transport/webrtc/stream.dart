@@ -95,16 +95,16 @@ class Stream implements MuxedStream {
 
       if (msg.flag != null) {
         switch (msg.flag!) {
-          case Message_Flag.FIN:
+          case Message_Flag.fin:
             _readClosed = true;
-          case Message_Flag.STOP_SENDING:
+          case Message_Flag.stopSending:
             _writeClosed = true;
-          case Message_Flag.RESET:
+          case Message_Flag.reset:
             _closed = true;
             _readClosed = true;
             _writeClosed = true;
             _resetErrorCode = msg.errorCode;
-          case Message_Flag.FIN_ACK:
+          case Message_Flag.finAck:
             break;
         }
       }
@@ -173,7 +173,7 @@ class Stream implements MuxedStream {
     if (_readClosed) return;
     _readClosed = true;
     try {
-      final msg = Message(flag: Message_Flag.STOP_SENDING);
+      final msg = Message(flag: Message_Flag.stopSending);
       final raw = msg.marshal();
       final framed = BytesBuilder(copy: false);
       _encodeVarint(framed, raw.length);
@@ -187,7 +187,7 @@ class Stream implements MuxedStream {
     if (_writeClosed) return;
     _writeClosed = true;
     try {
-      final msg = Message(flag: Message_Flag.FIN);
+      final msg = Message(flag: Message_Flag.fin);
       final raw = msg.marshal();
       final framed = BytesBuilder(copy: false);
       _encodeVarint(framed, raw.length);
@@ -206,7 +206,7 @@ class Stream implements MuxedStream {
     _writeClosed = true;
     _resetErrorCode = err;
     try {
-      final msg = Message(flag: Message_Flag.RESET, errorCode: err);
+      final msg = Message(flag: Message_Flag.reset, errorCode: err);
       final raw = msg.marshal();
       final framed = BytesBuilder(copy: false);
       _encodeVarint(framed, raw.length);

@@ -1119,11 +1119,9 @@ typedef Session = YamuxSession;
 
 /// Go: `DefaultConfig` (`yamux/config.go:88`).
 YamuxConfig defaultConfig() => YamuxConfig.defaults;
-const DefaultConfig = defaultConfig;
 
 /// Go: `VerifyConfig` (`yamux/config.go:107`).
 void verifyConfig(YamuxConfig config) => config.verify();
-const VerifyConfig = verifyConfig;
 
 /// Go: `Server` (`yamux/session.go:83`).
 YamuxSession server(YamuxTransport conn, [YamuxConfig? config]) {
@@ -1132,13 +1130,9 @@ YamuxSession server(YamuxTransport conn, [YamuxConfig? config]) {
   return YamuxSession(conn, isClient: false, config: cfg);
 }
 
-const Server = server;
-
 /// Go: `Client` (`yamux/session.go:70`).
 YamuxSession client(YamuxTransport conn, [YamuxConfig? config]) {
   final cfg = config ?? YamuxConfig.defaults;
   cfg.verify();
   return YamuxSession(conn, isClient: true, config: cfg);
 }
-
-const Client = client;

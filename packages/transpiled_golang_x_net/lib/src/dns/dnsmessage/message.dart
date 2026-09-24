@@ -1324,7 +1324,7 @@ final class ResourceHeader {
       ..length = 1; // RFC 6891 section 6.1.2
     type = Type.opt;
     klass = Class(udpPayloadLen);
-    ttl = (extRCode.value >> 4 << 24) & 0xFFFFFFFF;
+    ttl = Golang.Uint32(extRCode.value >> 4 << 24).toBigInt().toInt();
     if (dnssecOK) ttl |= _edns0DNSSECOK;
   }
 
@@ -1425,7 +1425,7 @@ void _packUint32(List<int> msg, int field) {
       (msg[off + 1] << 16) |
       (msg[off + 2] << 8) |
       msg[off + 3];
-  return (v & 0xFFFFFFFF, off + _uint32Len);
+  return (Golang.Uint32(v).toBigInt().toInt(), off + _uint32Len);
 }
 
 int _skipUint32(List<int> msg, int off) {

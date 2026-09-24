@@ -1,4 +1,4 @@
-// ignore_for_file: duplicate_ignore, public_member_api_docs, sort_constructors_first, directives_ordering, dangling_library_doc_comments, library_prefixes, constant_identifier_names, depend_on_referenced_packages, library_private_types_in_public_api
+// ignore_for_file: duplicate_ignore, public_member_api_docs, sort_constructors_first, directives_ordering, dangling_library_doc_comments, library_prefixes, constant_identifier_names, depend_on_referenced_packages
 import 'dart:math';
 
 import '../../../core/peer/peer_id.dart';
@@ -7,8 +7,8 @@ import 'limit.dart';
 
 export 'limit.dart';
 
-final class _BaseLimitConfig {
-  const _BaseLimitConfig({
+final class BaseLimitConfig {
+  const BaseLimitConfig({
     required this.baseLimit,
     required this.baseLimitIncrease,
   });
@@ -30,19 +30,19 @@ final class ScalingLimitConfig {
     this.allowlistedTransientLimitIncrease = const BaseLimitIncrease(),
     this.serviceBaseLimit = const BaseLimit(),
     this.serviceLimitIncrease = const BaseLimitIncrease(),
-    Map<String, _BaseLimitConfig>? serviceLimits,
+    Map<String, BaseLimitConfig>? serviceLimits,
     this.servicePeerBaseLimit = const BaseLimit(),
     this.servicePeerLimitIncrease = const BaseLimitIncrease(),
-    Map<String, _BaseLimitConfig>? servicePeerLimits,
+    Map<String, BaseLimitConfig>? servicePeerLimits,
     this.protocolBaseLimit = const BaseLimit(),
     this.protocolLimitIncrease = const BaseLimitIncrease(),
-    Map<ProtocolId, _BaseLimitConfig>? protocolLimits,
+    Map<ProtocolId, BaseLimitConfig>? protocolLimits,
     this.protocolPeerBaseLimit = const BaseLimit(),
     this.protocolPeerLimitIncrease = const BaseLimitIncrease(),
-    Map<ProtocolId, _BaseLimitConfig>? protocolPeerLimits,
+    Map<ProtocolId, BaseLimitConfig>? protocolPeerLimits,
     this.peerBaseLimit = const BaseLimit(),
     this.peerLimitIncrease = const BaseLimitIncrease(),
-    Map<PeerId, _BaseLimitConfig>? peerLimits,
+    Map<PeerId, BaseLimitConfig>? peerLimits,
     this.connBaseLimit = const BaseLimit(),
     this.connLimitIncrease = const BaseLimitIncrease(),
     this.streamBaseLimit = const BaseLimit(),
@@ -71,23 +71,23 @@ final class ScalingLimitConfig {
 
   BaseLimit serviceBaseLimit;
   BaseLimitIncrease serviceLimitIncrease;
-  Map<String, _BaseLimitConfig>? serviceLimits;
+  Map<String, BaseLimitConfig>? serviceLimits;
 
   BaseLimit servicePeerBaseLimit;
   BaseLimitIncrease servicePeerLimitIncrease;
-  Map<String, _BaseLimitConfig>? servicePeerLimits;
+  Map<String, BaseLimitConfig>? servicePeerLimits;
 
   BaseLimit protocolBaseLimit;
   BaseLimitIncrease protocolLimitIncrease;
-  Map<ProtocolId, _BaseLimitConfig>? protocolLimits;
+  Map<ProtocolId, BaseLimitConfig>? protocolLimits;
 
   BaseLimit protocolPeerBaseLimit;
   BaseLimitIncrease protocolPeerLimitIncrease;
-  Map<ProtocolId, _BaseLimitConfig>? protocolPeerLimits;
+  Map<ProtocolId, BaseLimitConfig>? protocolPeerLimits;
 
   BaseLimit peerBaseLimit;
   BaseLimitIncrease peerLimitIncrease;
-  Map<PeerId, _BaseLimitConfig>? peerLimits;
+  Map<PeerId, BaseLimitConfig>? peerLimits;
 
   BaseLimit connBaseLimit;
   BaseLimitIncrease connLimitIncrease;
@@ -96,8 +96,8 @@ final class ScalingLimitConfig {
   BaseLimitIncrease streamLimitIncrease;
 
   void addServiceLimit(String svc, BaseLimit base, BaseLimitIncrease inc) {
-    serviceLimits ??= <String, _BaseLimitConfig>{};
-    serviceLimits![svc] = _BaseLimitConfig(
+    serviceLimits ??= <String, BaseLimitConfig>{};
+    serviceLimits![svc] = BaseLimitConfig(
       baseLimit: base,
       baseLimitIncrease: inc,
     );
@@ -108,21 +108,21 @@ final class ScalingLimitConfig {
     BaseLimit base,
     BaseLimitIncrease inc,
   ) {
-    protocolLimits ??= <ProtocolId, _BaseLimitConfig>{};
-    protocolLimits![proto] = _BaseLimitConfig(
+    protocolLimits ??= <ProtocolId, BaseLimitConfig>{};
+    protocolLimits![proto] = BaseLimitConfig(
       baseLimit: base,
       baseLimitIncrease: inc,
     );
   }
 
   void addPeerLimit(PeerId p, BaseLimit base, BaseLimitIncrease inc) {
-    peerLimits ??= <PeerId, _BaseLimitConfig>{};
-    peerLimits![p] = _BaseLimitConfig(baseLimit: base, baseLimitIncrease: inc);
+    peerLimits ??= <PeerId, BaseLimitConfig>{};
+    peerLimits![p] = BaseLimitConfig(baseLimit: base, baseLimitIncrease: inc);
   }
 
   void addServicePeerLimit(String svc, BaseLimit base, BaseLimitIncrease inc) {
-    servicePeerLimits ??= <String, _BaseLimitConfig>{};
-    servicePeerLimits![svc] = _BaseLimitConfig(
+    servicePeerLimits ??= <String, BaseLimitConfig>{};
+    servicePeerLimits![svc] = BaseLimitConfig(
       baseLimit: base,
       baseLimitIncrease: inc,
     );
@@ -133,8 +133,8 @@ final class ScalingLimitConfig {
     BaseLimit base,
     BaseLimitIncrease inc,
   ) {
-    protocolPeerLimits ??= <ProtocolId, _BaseLimitConfig>{};
-    protocolPeerLimits![proto] = _BaseLimitConfig(
+    protocolPeerLimits ??= <ProtocolId, BaseLimitConfig>{};
+    protocolPeerLimits![proto] = BaseLimitConfig(
       baseLimit: base,
       baseLimitIncrease: inc,
     );

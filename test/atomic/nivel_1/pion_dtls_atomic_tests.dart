@@ -14,7 +14,7 @@ void main() {
   group('Top-level functions [Atomic Audit]', () {
     test('cipherSuiteName() - atomic test', () async {
       expect(
-        cipherSuiteName(TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256),
+        cipherSuiteName(tlsEcdheEcdsaWithAes128GcmSha256),
         contains('AES_128_GCM'),
       );
     });
@@ -41,7 +41,7 @@ void main() {
     });
     test('withCipherSuites() - atomic test', () async {
       final cfg = Config();
-      withCipherSuites([TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256])(cfg);
+      withCipherSuites([tlsEcdheEcdsaWithAes128GcmSha256])(cfg);
       expect(cfg, isNotNull);
     });
     test('withCustomCipherSuites() - atomic test', () async {
@@ -1312,32 +1312,32 @@ void main() {
   group('MessageClientHello [Atomic Audit]', () {
     test('cipherSuites() - atomic test', () async {
       final m = MessageClientHello(
-        cipherSuites: [TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256],
+        cipherSuites: [tlsEcdheEcdsaWithAes128GcmSha256],
       );
       expect(m.cipherSuites, isNotEmpty);
     });
     test('cipherSuites() - atomic test', () async {
       final m = MessageClientHello(
-        cipherSuites: [TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256],
+        cipherSuites: [tlsEcdheEcdsaWithAes128GcmSha256],
       );
       m.cipherSuites = [1];
       expect(m.cipherSuites, equals([1]));
     });
     test('type() - atomic test', () async {
       final m = MessageClientHello(
-        cipherSuites: [TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256],
+        cipherSuites: [tlsEcdheEcdsaWithAes128GcmSha256],
       );
       expect(m.type, isNotNull);
     });
     test('marshal() - atomic test', () async {
       final m = MessageClientHello(
-        cipherSuites: [TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256],
+        cipherSuites: [tlsEcdheEcdsaWithAes128GcmSha256],
       );
       expect(m.marshal(), isNotNull);
     });
     test('unmarshal() - atomic test', () async {
       final m = MessageClientHello(
-        cipherSuites: [TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256],
+        cipherSuites: [tlsEcdheEcdsaWithAes128GcmSha256],
       );
       m.unmarshal(m.marshal());
       expect(m.type, isNotNull);
@@ -1397,32 +1397,32 @@ void main() {
   group('MessageServerHello [Atomic Audit]', () {
     test('cipherSuite() - atomic test', () async {
       final m = MessageServerHello(
-        cipherSuite: TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
+        cipherSuite: tlsEcdheEcdsaWithAes128GcmSha256,
       );
-      expect(m.cipherSuite, equals(TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256));
+      expect(m.cipherSuite, equals(tlsEcdheEcdsaWithAes128GcmSha256));
     });
     test('cipherSuite() - atomic test', () async {
       final m = MessageServerHello(
-        cipherSuite: TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
+        cipherSuite: tlsEcdheEcdsaWithAes128GcmSha256,
       );
       m.cipherSuite = 1;
       expect(m.cipherSuite, equals(1));
     });
     test('type() - atomic test', () async {
       final m = MessageServerHello(
-        cipherSuite: TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
+        cipherSuite: tlsEcdheEcdsaWithAes128GcmSha256,
       );
       expect(m.type, isNotNull);
     });
     test('marshal() - atomic test', () async {
       final m = MessageServerHello(
-        cipherSuite: TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
+        cipherSuite: tlsEcdheEcdsaWithAes128GcmSha256,
       );
       expect(m.marshal(), isNotNull);
     });
     test('unmarshal() - atomic test', () async {
       final m = MessageServerHello(
-        cipherSuite: TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
+        cipherSuite: tlsEcdheEcdsaWithAes128GcmSha256,
       );
       m.unmarshal(m.marshal());
       expect(m.type, isNotNull);
@@ -1655,7 +1655,7 @@ void main() {
     test('clone() - atomic test', () async {
       final st = State(
         localEpoch: 1,
-        cipherSuiteId: TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
+        cipherSuiteId: tlsEcdheEcdsaWithAes128GcmSha256,
         cipherSuite: TlsEcdheEcdsaWithAes128GcmSha256(),
       );
       final c = st.clone();
@@ -1664,7 +1664,7 @@ void main() {
     test('remoteRandomBytes() - atomic test', () async {
       final st = State(
         localEpoch: 1,
-        cipherSuiteId: TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
+        cipherSuiteId: tlsEcdheEcdsaWithAes128GcmSha256,
         cipherSuite: TlsEcdheEcdsaWithAes128GcmSha256(),
       );
       expect(st.remoteRandomBytes(), isNotNull);
@@ -1672,7 +1672,7 @@ void main() {
     test('marshalBinary() - atomic test', () async {
       final st = State(
         localEpoch: 1,
-        cipherSuiteId: TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
+        cipherSuiteId: tlsEcdheEcdsaWithAes128GcmSha256,
         cipherSuite: TlsEcdheEcdsaWithAes128GcmSha256(),
       );
       expect(st.marshalBinary(), isNotNull);
@@ -1680,16 +1680,16 @@ void main() {
     test('unmarshalBinary() - atomic test', () async {
       final st = State(
         localEpoch: 1,
-        cipherSuiteId: TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
+        cipherSuiteId: tlsEcdheEcdsaWithAes128GcmSha256,
         cipherSuite: TlsEcdheEcdsaWithAes128GcmSha256(),
       );
       st.unmarshalBinary(st.marshalBinary());
-      expect(st.cipherSuiteId, equals(TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256));
+      expect(st.cipherSuiteId, equals(tlsEcdheEcdsaWithAes128GcmSha256));
     });
     test('exportKeyingMaterial() - atomic test', () async {
       final st = State(
         localEpoch: 1,
-        cipherSuiteId: TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
+        cipherSuiteId: tlsEcdheEcdsaWithAes128GcmSha256,
         cipherSuite: TlsEcdheEcdsaWithAes128GcmSha256(),
       );
       final km = st.exportKeyingMaterial('test_label', Uint8List(0), 16);

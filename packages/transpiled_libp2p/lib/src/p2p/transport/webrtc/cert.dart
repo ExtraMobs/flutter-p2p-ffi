@@ -11,7 +11,7 @@ import 'package:cryptography/cryptography.dart';
 
 import '../../../core/crypto/key_types.dart';
 
-const String deterministicCertHKDFInfo =
+const String deterministicCertHkdfInfo =
     'libp2p webrtc-direct deterministic cert';
 
 final DateTime deterministicCertNotBefore = DateTime.utc(2020, 1, 1);
@@ -47,7 +47,7 @@ Future<Uint8List> newDeterministicCertificate(PrivKey key) async {
     secretKey: SecretKey(Uint8List(0)),
   );
 
-  final infoBytes = utf8.encode(deterministicCertHKDFInfo);
+  final infoBytes = utf8.encode(deterministicCertHkdfInfo);
   final okm = await hmac.calculateMac([
     ...infoBytes,
     0x01,

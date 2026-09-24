@@ -275,6 +275,10 @@ DOCUMENTED_ADAPTATIONS = {
     'PeerRejectedNoCapacityException': 'PROGRESS.md - Exceção para rejeição de peer por bucket cheio no kbucket',
     # packages/transpiled_libp2p_routing_helpers
     'Closable': 'PROGRESS.md - Interface para fechamento de recursos de roteamento paralelo (io.Closer do Go)',
+    # packages/transpiled_pion_ice
+    'TcpAddr': 'PROGRESS.md - Adaptação do tipo stdlib Go net.TCPAddr usado pelo pion-ice (Dart nao tem tipo de valor equivalente; precedente UdpAddr em transpiled_pion_transport_v4 porta net.UDPAddr)',
+    # packages/transpiled_ipld_prime
+    'ReadSeeker': 'PROGRESS.md - Adaptação do tipo stdlib Go io.ReadSeeker retornado por LargeBytesNode.AsLargeBytes() do go-ipld-prime (o SDK Dart nao tem leitor genérico seekable; RandomAccessFile é apenas-arquivo e dart:io)',
 }
 
 # Caminhos fora de escopo conforme AGENTS.md (CLI, benchmarks, etc.). Os
@@ -359,39 +363,55 @@ RULE_DEFAULT_SEVERITIES = {
 
 
 # ---------------------------------------------------------------------------
-# Helpers de string puros (sem `re`) -- validados byte a byte contra as
-# expressões regulares antigas rodando sobre >18000 identificadores reais do
-# repositório e >5000 nomes de group()/test() reais, sem nenhuma divergência.
+# Helpers de string puros (sem `re`).
 # ---------------------------------------------------------------------------
 
 def _match_upper_token(s: str, i: int, n: int) -> str:
-    """Reproduz, a partir da posição `i` (um caractere maiúsculo), a
-    alternação `[A-Z][0-9]+[A-Z]|[A-Z]+(?=[A-Z][a-z0-9]|$)|[A-Z][a-z0-9]*`.
+    """Segmenta uma palavra a partir da posição `i` (um caractere maiúsculo).
+
+    Regras, na ordem em que se aplicam:
+
+      1. `X<dígitos>Y` (ex.: `P2P`) é uma única palavra somente quando `Y` --
+         o maiúsculo que fecha a corrida de dígitos -- não é seguido de letra
+         minúscula. Quando essa condição falha, os dígitos (e qualquer
+         minúscula/dígito que vier imediatamente depois) ficam colados à
+         palavra-título iniciada em `X` (ex.: em `P2th`, o resultado é uma
+         única palavra `P2th`).
+      2. Uma corrida de maiúsculas com 2+ caracteres termina antes da última
+         maiúscula quando essa última é seguida de letra minúscula (ex.:
+         `HTTPPath` -> `HTTP`, `Path`).
+      3. Dígitos imediatamente após uma corrida de maiúsculas colam a ela
+         (ex.: `IP6`).
+      4. Um único maiúsculo seguido de minúscula (palavra-título, ex.:
+         `Type0Zone` -> `Type0`, `Zone`) consome minúsculas e dígitos
+         subsequentes.
     """
-    # Alt 1: [A-Z][0-9]+[A-Z], com backtrack no tamanho da corrida de dígitos.
     if i + 1 < n and s[i + 1].isdigit():
         d = i + 1
         while d < n and s[d].isdigit():
             d += 1
-        for end in range(d, i + 1, -1):
-            if end < n and s[end].isupper():
-                return s[i:end + 1]
+        if d < n and s[d].isupper() and not (d + 1 < n and s[d + 1].islower()):
+            return s[i:d + 1]
+        j = d
+        while j < n and (s[j].isdigit() or s[j].islower()):
+            j += 1
+        return s[i:j]
 
-    # Alt 2: [A-Z]+ seguido de lookahead [A-Z][a-z0-9] ou fim de string,
-    # com backtrack no tamanho da corrida de maiúsculas (igual ao motor de
-    # regex tentando o comprimento máximo primeiro).
     k = i
     while k < n and s[k].isupper():
         k += 1
-    for m in range(k, i, -1):
-        if m == n:
-            return s[i:m]
-        if s[m].isupper() and m + 1 < n and (s[m + 1].isdigit() or s[m + 1].islower()):
-            return s[i:m]
 
-    # Alt 3: [A-Z][a-z0-9]* (sempre casa, é o fallback).
-    j = i + 1
-    while j < n and (s[j].isdigit() or s[j].islower()):
+    if k - i >= 2 and k < n and s[k].islower():
+        return s[i:k - 1]
+
+    if k - i == 1 and k < n:
+        j = k
+        while j < n and (s[j].isdigit() or s[j].islower()):
+            j += 1
+        return s[i:j]
+
+    j = k
+    while j < n and s[j].isdigit():
         j += 1
     return s[i:j]
 
@@ -829,7 +849,8 @@ class DartAuditSymbol:
 class GoAuditSymbol:
     def __init__(self, kind: str, name: str, file_path: str,
                  parent_type: Optional[str] = None, doc: str = '',
-                 is_deprecated: bool = False, exported: Optional[bool] = None):
+                 is_deprecated: bool = False, exported: Optional[bool] = None,
+                 out_of_scope: bool = False):
         self.kind = kind  # struct, interface, type, method, field, func, var, const
         self.name = name
         self.file_path = file_path
@@ -842,6 +863,14 @@ class GoAuditSymbol:
         # go-datastore/scoped/impls.gen.go).
         if parent_type and not parent_type[:1].isupper():
             self.exported = False
+        # Declarado num arquivo Go fora do escopo do projeto (CLI, gateway,
+        # RPC -- ver `is_out_of_scope`/AGENTS.md, seção "Fora do escopo").
+        # Símbolo assim pode ser aceito como origem upstream válida quando um
+        # objeto do escopo (boxo, principalmente) precisar dele ponto a ponto
+        # (RULE_INVENTED_PUBLIC_SYMBOLS), mas nunca conta como lacuna: não
+        # portar a camada fora de escopo nunca é uma pendência
+        # (RULE_MODULE_BOUNDARY_LEAK e RULE_MISSING_GO_*).
+        self.out_of_scope = out_of_scope
 
     def is_exported(self) -> bool:
         return self.exported
@@ -1031,9 +1060,21 @@ class AstNomenclatureAuditor:
         for mod_key, mod_data in self.go_facts.items():
             syms: List[GoAuditSymbol] = []
             seen: Set[Tuple[str, str, str]] = set()
-            for d in mod_data.get('decls', []):
-                if is_out_of_scope(d.get('file', '')):
-                    continue
+
+            # Duas passagens -- decls dentro de escopo primeiro -- para que
+            # uma duplicata fora de escopo nunca sombreie (pelo dedup por
+            # kind/name/parent) uma declaração dentro de escopo com a mesma
+            # chave. Objetos que upstream só declara numa camada fora de
+            # escopo (CLI, gateway, RPC) continuam carregados e marcados
+            # `out_of_scope=True`, porque o boxo pode precisar deles ponto a
+            # ponto (AGENTS.md, seção "Fora do escopo"); o que nunca é
+            # verdade é o contrário -- uma decl fora de escopo tomar o lugar
+            # de uma dentro de escopo no índice.
+            decls = mod_data.get('decls', [])
+            in_scope_decls = [d for d in decls if not is_out_of_scope(d.get('file', ''))]
+            out_of_scope_decls = [d for d in decls if is_out_of_scope(d.get('file', ''))]
+
+            for d, oos in [(d, False) for d in in_scope_decls] + [(d, True) for d in out_of_scope_decls]:
                 key = (d['kind'], d['name'], d.get('parent') or '')
                 if key in seen:
                     continue
@@ -1043,6 +1084,7 @@ class AstNomenclatureAuditor:
                     parent_type=d.get('parent'), doc=d.get('doc', ''),
                     is_deprecated=d.get('deprecated', False),
                     exported=d.get('exported', False),
+                    out_of_scope=oos,
                 ))
             self.go_symbols_by_module[mod_key] = syms
 
@@ -1312,11 +1354,16 @@ class AstNomenclatureAuditor:
         pkg_to_mod = {pkg: mod for mod, pkg in GO_MODULE_TO_DART_PACKAGE.items()}
         mod_to_pkg = {mod: pkg for mod, pkg in GO_MODULE_TO_DART_PACKAGE.items()}
 
+        # `out_of_scope` fica de fora daqui: estas duas estruturas alimentam
+        # regras de LACUNA/fronteira (3, 4, 11, 14), e não portar uma camada
+        # fora de escopo nunca é lacuna nem cria fronteira alheia. Só a
+        # Regra 12 (abaixo, via `self.go_symbols_by_module` direto) aceita
+        # símbolo fora de escopo como origem upstream válida.
         all_go_symbols: Dict[str, List[GoAuditSymbol]] = {}
         type_to_origin_modules: Dict[str, Set[str]] = {}
         for mod, syms in self.go_symbols_by_module.items():
             for s in syms:
-                if s.is_exported():
+                if s.is_exported() and not s.out_of_scope:
                     all_go_symbols.setdefault(s.name.lower(), []).append(s)
                     if s.kind in ('struct', 'interface', 'type'):
                         type_to_origin_modules.setdefault(s.name.lower(), set()).add(mod)
@@ -1541,6 +1588,14 @@ class AstNomenclatureAuditor:
                             break
                     if my_pkg and not sym.file_path.startswith('lib/'):
                         my_mod = pkg_to_mod[my_pkg]
+                        # `go_syms` vem direto de `go_symbols_by_module`, sem
+                        # excluir `out_of_scope`: um objeto que upstream só
+                        # declara numa camada fora de escopo (CLI, gateway,
+                        # RPC) ainda conta como origem upstream válida aqui
+                        # quando o boxo precisa dele ponto a ponto (AGENTS.md,
+                        # seção "Fora do escopo") -- ex.: boxo `Ping` retorna
+                        # `ping.Result` do go-libp2p, não `PingResult` da CLI
+                        # do Kubo, mas o nome por si só não distingue os dois.
                         go_syms = self.go_symbols_by_module.get(my_mod, [])
                         if sym.name in DOCUMENTED_ADAPTATIONS:
                             pass
@@ -1686,6 +1741,11 @@ class AstNomenclatureAuditor:
                 pkg_dart_types = dart_types_by_pkg.get(pkg_dir, set())
                 for s in syms:
                     if s.kind in ('struct', 'interface', 'type'):
+                        # Camada fora de escopo nunca é lacuna: não portar o
+                        # que upstream só declara em CLI/gateway/RPC não é
+                        # pendência (AGENTS.md, seção "Fora do escopo").
+                        if s.out_of_scope:
+                            continue
                         if not include_non_public and not s.is_exported():
                             continue
                         if s.name.lower() not in pkg_dart_types:
@@ -1730,6 +1790,7 @@ class AstNomenclatureAuditor:
                         expected_fields = [
                             s.name for s in go_syms
                             if s.kind == 'field' and s.parent_type and s.parent_type.lower() == sym.name.lower()
+                            and not s.out_of_scope
                             and (include_non_public or s.is_exported())
                         ]
                         if expected_fields:
@@ -1776,6 +1837,7 @@ class AstNomenclatureAuditor:
                         expected_methods = [
                             s.name for s in go_syms
                             if s.kind == 'method' and s.parent_type and s.parent_type.lower() == sym.name.lower()
+                            and not s.out_of_scope
                             and (include_non_public or s.is_exported())
                         ]
                         if expected_methods:
@@ -1818,7 +1880,7 @@ class AstNomenclatureAuditor:
                 pkg_funcs = dart_funcs_by_pkg.get(pkg_dir, set())
                 pkg_types = dart_types_by_pkg2.get(pkg_dir, set())
 
-                go_funcs = [s for s in syms if s.kind == 'func' and (include_non_public or s.is_exported())]
+                go_funcs = [s for s in syms if s.kind == 'func' and not s.out_of_scope and (include_non_public or s.is_exported())]
                 missing = []
                 for gf in go_funcs:
                     gfn_lower = gf.name.lstrip('_').lower()
@@ -2425,10 +2487,10 @@ class AstNomenclatureAuditor:
             pkg_d_types = dart_types.get(pkg_dir, set())
             pkg_d_funcs = dart_funcs.get(pkg_dir, set())
 
-            mod_go_types = [s for s in syms if s.kind in ('struct', 'interface', 'type') and s.is_exported() and not is_out_of_scope(s.file_path)]
-            mod_go_methods = [s for s in syms if s.kind == 'method' and s.is_exported() and not is_out_of_scope(s.file_path)]
-            mod_go_fields = [s for s in syms if s.kind == 'field' and s.is_exported() and not is_out_of_scope(s.file_path)]
-            mod_go_funcs = [s for s in syms if s.kind == 'func' and s.is_exported() and not is_out_of_scope(s.file_path)]
+            mod_go_types = [s for s in syms if s.kind in ('struct', 'interface', 'type') and s.is_exported() and not s.out_of_scope]
+            mod_go_methods = [s for s in syms if s.kind == 'method' and s.is_exported() and not s.out_of_scope]
+            mod_go_fields = [s for s in syms if s.kind == 'field' and s.is_exported() and not s.out_of_scope]
+            mod_go_funcs = [s for s in syms if s.kind == 'func' and s.is_exported() and not s.out_of_scope]
 
             m_types_done = sum(1 for s in mod_go_types if s.name.lower() in pkg_d_types)
             m_methods_done = sum(1 for s in mod_go_methods if s.parent_type and s.name.lstrip('_').lower() in dart_members.get((pkg_dir, s.parent_type.lower()), set()))

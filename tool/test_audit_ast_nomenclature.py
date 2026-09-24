@@ -10,10 +10,15 @@ Sai com código 0 em sucesso, e levanta AssertionError (código != 0) na
 primeira falha. Duas partes:
 
   1. Os helpers de string puros (sem `re`) contra uma tabela fixa de
-     entradas/saídas -- essas expectativas foram calculadas rodando as
+     entradas/saídas. A maioria dessas expectativas foi calculada rodando as
      expressões regulares ORIGINAIS uma vez sobre cada entrada (ver
-     tool/audit_ast_nomenclature.py, seção "Helpers de string puros" para a
-     regex equivalente de cada helper), não rederivadas da nova implementação.
+     tool/audit_ast_nomenclature.py para a semântica de cada helper), não
+     rederivada da implementação atual. A exceção é `split_words` (e, por
+     extensão, `to_lower_camel`/`to_upper_camel`): a regex original tinha bugs
+     de segmentação documentados no AGENTS.md (ex.: `STOP_SENDING` ->
+     `sTOPSending`), e a tabela `test_to_camel_renames` abaixo encode os
+     resultados CORRETOS exigidos pela especificação da correção, não o
+     comportamento antigo.
   2. Um miniprojeto Dart temporário, processado pela ferramenta real
      tool/dart_ast_facts.dart (cwd = raiz real do repositório, para resolver
      package:analyzer via o pubspec/.dart_tool daqui), e auditado por um
@@ -65,6 +70,40 @@ def test_split_words():
     ]
     for input_, expected in cases:
         check(f"split_words({input_!r})", m.split_words(input_) == expected)
+
+
+def test_to_camel_renames():
+    """Tabela de correção da segmentação de `split_words` (usada por
+    `to_lower_camel`/`to_upper_camel`). Os valores esperados aqui são os
+    corretos exigidos pela especificação -- não os produzidos pela regex
+    antiga e bugada (`STOP_SENDING` -> `sTOPSending`,
+    `TLS_ECDHE_ECDSA_WITH_AES_128_CCM` -> `tLSECDHEECDSAWITHAES128Ccm`,
+    `transcoderIP6Zone` -> `transcoderIP6zOne`)."""
+    lower_cases = [
+        ('TLS_ECDHE_ECDSA_WITH_AES_128_CCM', 'tlsEcdheEcdsaWithAes128Ccm'),
+        ('TLS_PSK_WITH_AES_128_CCM_8', 'tlsPskWithAes128Ccm8'),
+        ('STOP_SENDING', 'stopSending'),
+        ('FIN_ACK', 'finAck'),
+        ('FIN', 'fin'),
+        ('transcoderIP6Zone', 'transcoderIp6Zone'),
+        ('transcoderHTTPPath', 'transcoderHttpPath'),
+        ('transcoderP2P', 'transcoderP2p'),
+        ('packetType0RTT', 'packetType0Rtt'),
+        ('clientSDPTemplate', 'clientSdpTemplate'),
+        ('deterministicCertHKDFInfo', 'deterministicCertHkdfInfo'),
+        ('unknownCA', 'unknownCa'),
+        ('ID', 'id'),
+        ('DefaultConfig', 'defaultConfig'),
+    ]
+    for input_, expected in lower_cases:
+        check(f"to_lower_camel({input_!r})", m.to_lower_camel(input_) == expected)
+
+    upper_cases = [
+        ('IPFSNode', 'IpfsNode'),
+        ('HTTPClient', 'HttpClient'),
+    ]
+    for input_, expected in upper_cases:
+        check(f"to_upper_camel({input_!r})", m.to_upper_camel(input_) == expected)
 
 
 def test_check_all_caps_block():
@@ -338,6 +377,7 @@ def run_mini_project_checks():
 
 def main():
     test_split_words()
+    test_to_camel_renames()
     test_check_all_caps_block()
     test_is_screaming_snake_case()
     test_has_new_prefix()

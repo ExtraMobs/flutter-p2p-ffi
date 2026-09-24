@@ -290,10 +290,10 @@ class PlainBytes extends BaseNode implements LargeBytesNode {
   @override
   NodePrototype prototype() => const PrototypeBytes();
   @override
-  ByteReadSeeker asLargeBytes() => _Uint8ListReadSeeker(_value);
+  ReadSeeker asLargeBytes() => _Uint8ListReadSeeker(_value);
 }
 
-class _Uint8ListReadSeeker implements ByteReadSeeker {
+class _Uint8ListReadSeeker implements ReadSeeker {
   _Uint8ListReadSeeker(this._data);
   final Uint8List _data;
   int _pos = 0;

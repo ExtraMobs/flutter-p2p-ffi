@@ -72,7 +72,7 @@ enum AlertDescription {
   certificateExpired(45),
   certificateUnknown(46),
   illegalParameter(47),
-  unknownCA(48),
+  unknownCa(48),
   accessDenied(49),
   decodeError(50),
   decryptError(51),
@@ -126,7 +126,7 @@ enum AlertDescription {
         return 'CertificateUnknown';
       case AlertDescription.illegalParameter:
         return 'IllegalParameter';
-      case AlertDescription.unknownCA:
+      case AlertDescription.unknownCa:
         return 'UnknownCA';
       case AlertDescription.accessDenied:
         return 'AccessDenied';

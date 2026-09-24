@@ -200,7 +200,7 @@ class Protocols {
   /// order. This is the single source of truth; [byName]/[byCode] are
   /// derived from it.
   static const List<Protocol> all = [
-    Protocol(name: 'ip4', code: ip4, size: 32, transcoder: transcoderIP4),
+    Protocol(name: 'ip4', code: ip4, size: 32, transcoder: transcoderIp4),
     Protocol(name: 'tcp', code: tcp, size: 16, transcoder: transcoderPort),
     Protocol(
       name: 'dns',
@@ -228,18 +228,18 @@ class Protocols {
     ),
     Protocol(name: 'udp', code: udp, size: 16, transcoder: transcoderPort),
     Protocol(name: 'dccp', code: dccp, size: 16, transcoder: transcoderPort),
-    Protocol(name: 'ip6', code: ip6, size: 128, transcoder: transcoderIP6),
+    Protocol(name: 'ip6', code: ip6, size: 128, transcoder: transcoderIp6),
     Protocol(
       name: 'ip6zone',
       code: ip6zone,
       size: kLengthPrefixedVarSize,
-      transcoder: transcoderIP6Zone,
+      transcoder: transcoderIp6Zone,
     ),
     Protocol(
       name: 'ipcidr',
       code: ipcidr,
       size: 8,
-      transcoder: transcoderIPCIDR,
+      transcoder: transcoderIpCidr,
     ),
     Protocol(name: 'sctp', code: sctp, size: 16, transcoder: transcoderPort),
     Protocol(name: 'p2p-circuit', code: circuit, size: 0),
@@ -278,14 +278,14 @@ class Protocols {
       name: 'http-path',
       code: httpPath,
       size: kLengthPrefixedVarSize,
-      transcoder: transcoderHTTPPath,
+      transcoder: transcoderHttpPath,
     ),
     Protocol(name: 'https', code: https, size: 0),
     Protocol(
       name: 'p2p',
       code: p2p,
       size: kLengthPrefixedVarSize,
-      transcoder: transcoderP2P,
+      transcoder: transcoderP2p,
     ),
     Protocol(
       name: 'unix',

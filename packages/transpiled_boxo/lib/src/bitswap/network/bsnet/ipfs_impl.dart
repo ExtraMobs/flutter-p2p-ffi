@@ -165,11 +165,24 @@ class IpfsNetwork implements BitSwapNetwork {
   @override
   libp2p.PeerId self() => libp2p.PeerId(value: Uint8List(0));
 
+  /// Go: `Ping` (`ipfs_impl.go:266-270`), which takes the first value off
+  /// `ping.Ping(ctx, bsnet.host, p)` and cancels, forcing the ping stream to
+  /// reset. That call needs the full `host.Host` (a working stream and its
+  /// resource-manager scope, plus the peerstore to record latency into);
+  /// [P2pHost] deliberately narrows the host down to what Bitswap's own
+  /// message send/receive path needs, and its [P2pStream] has no `read()`
+  /// at all. Until [P2pHost] is widened to carry (or wrap) a real
+  /// `libp2p.Host`, this cannot run the actual ping protocol and returns a
+  /// zero-RTT result, same as before this port -- flagged here rather than
+  /// silently left as an unexplained stub.
   @override
-  Future<PingResult> ping(libp2p.PeerId peer) async {
-    return PingResult(Duration.zero);
+  Future<libp2p.Result> ping(libp2p.PeerId peer) async {
+    return libp2p.Result();
   }
 
+  /// Go: `Latency` (`ipfs_impl.go:273-275`), `bsnet.host.Peerstore().LatencyEWMA(p)`.
+  /// Blocked on the same [P2pHost] gap as [ping]: no peerstore is reachable
+  /// from here.
   @override
   Duration latency(libp2p.PeerId peer) {
     return Duration.zero;

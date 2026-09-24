@@ -18,5 +18,7 @@ library;
 
 import 'dart:typed_data';
 
+import 'package:boilerplate/fixed_types/golang.dart' as Golang;
+
 part '../src/dns/dnsmessage/message.dart';
 part '../src/dns/dnsmessage/svcb.dart';

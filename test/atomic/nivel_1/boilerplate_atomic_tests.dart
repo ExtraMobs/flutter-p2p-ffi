@@ -84,6 +84,21 @@ void main() {
       expect(sum.imag.toDouble(), equals(6.0));
     });
 
+    test('operator - - binário: subtrai numeros complexos', () {
+      final a = Golang.Complex128.fromDoubles(3.0, 4.0);
+      final b = Golang.Complex128.fromDoubles(1.0, 1.5);
+      final diff = a - b;
+      expect(diff.real.toDouble(), equals(2.0));
+      expect(diff.imag.toDouble(), equals(2.5));
+    });
+
+    test('operator - - unário: nega numero complexo', () {
+      final a = Golang.Complex128.fromDoubles(1.0, -2.0);
+      final neg = -a;
+      expect(neg.real.toDouble(), equals(-1.0));
+      expect(neg.imag.toDouble(), equals(2.0));
+    });
+
     test('operator * - multiplica numeros complexos', () {
       final a = Golang.Complex128.fromDoubles(1.0, 2.0);
       final b = Golang.Complex128.fromDoubles(3.0, 4.0);
@@ -130,6 +145,24 @@ void main() {
       final sum = a + b;
       expect(sum.real.toDouble(), closeTo(4.0, 1e-5));
       expect(sum.imag.toDouble(), closeTo(6.0, 1e-5));
+    });
+
+    test(
+      'operator - - binário: subtrai numeros complexos em precisao 32-bit',
+      () {
+        final a = Golang.Complex64.fromDoubles(3.0, 4.0);
+        final b = Golang.Complex64.fromDoubles(1.0, 1.5);
+        final diff = a - b;
+        expect(diff.real.toDouble(), closeTo(2.0, 1e-5));
+        expect(diff.imag.toDouble(), closeTo(2.5, 1e-5));
+      },
+    );
+
+    test('operator - - unário: nega numero complexo em precisao 32-bit', () {
+      final a = Golang.Complex64.fromDoubles(1.0, -2.0);
+      final neg = -a;
+      expect(neg.real.toDouble(), closeTo(-1.0, 1e-5));
+      expect(neg.imag.toDouble(), closeTo(2.0, 1e-5));
     });
 
     test('operator * - multiplica numeros complexos em precisao 32-bit', () {
@@ -187,6 +220,17 @@ void main() {
       final a = Golang.Float32(1.5);
       final b = Golang.Float32(2.25);
       expect((a + b).toDouble(), closeTo(3.75, 1e-5));
+    });
+
+    test('operator - - binário: subtracao com arredondamento binary32', () {
+      final a = Golang.Float32(1.5);
+      final b = Golang.Float32(0.25);
+      expect((a - b).toDouble(), closeTo(1.25, 1e-5));
+    });
+
+    test('operator - - unário: negacao preserva magnitude binary32', () {
+      final a = Golang.Float32(4.5);
+      expect((-a).toDouble(), closeTo(-4.5, 1e-5));
     });
 
     test('operator * - multiplicacao com arredondamento binary32', () {
@@ -252,6 +296,17 @@ void main() {
       final a = Golang.Float64(1.25);
       final b = Golang.Float64(2.75);
       expect((a + b).toDouble(), equals(4.0));
+    });
+
+    test('operator - - binário: subtracao float64', () {
+      final a = Golang.Float64(1.5);
+      final b = Golang.Float64(0.25);
+      expect((a - b).toDouble(), equals(1.25));
+    });
+
+    test('operator - - unário: negacao preserva magnitude float64', () {
+      final a = Golang.Float64(4.5);
+      expect((-a).toDouble(), equals(-4.5));
     });
 
     test('operator * - multiplicacao float64', () {
@@ -324,6 +379,17 @@ void main() {
       final a = Golang.Int8(127);
       final b = Golang.Int8(1);
       expect((a + b).toBigInt(), equals(BigInt.from(-128)));
+    });
+
+    test('operator - - binário: subtracao com overflow signed', () {
+      final a = Golang.Int8(-128);
+      final b = Golang.Int8(1);
+      expect((a - b).toBigInt(), equals(BigInt.from(127)));
+    });
+
+    test('operator - - unário: negacao com wraparound de MinInt8', () {
+      final a = Golang.Int8(-128);
+      expect((-a).toBigInt(), equals(BigInt.from(-128)));
     });
 
     test('operator * - multiplicacao com overflow signed', () {
@@ -451,6 +517,17 @@ void main() {
       final a = Golang.Int16(32767);
       final b = Golang.Int16(1);
       expect((a + b).toBigInt(), equals(BigInt.from(-32768)));
+    });
+
+    test('operator - - binário: subtracao com overflow signed 16-bit', () {
+      final a = Golang.Int16(-32768);
+      final b = Golang.Int16(1);
+      expect((a - b).toBigInt(), equals(BigInt.from(32767)));
+    });
+
+    test('operator - - unário: negacao com wraparound de MinInt16', () {
+      final a = Golang.Int16(-32768);
+      expect((-a).toBigInt(), equals(BigInt.from(-32768)));
     });
 
     test('operator * - multiplicacao com overflow signed 16-bit', () {
@@ -586,6 +663,17 @@ void main() {
       final a = Golang.Int32(2147483647);
       final b = Golang.Int32(1);
       expect((a + b).toBigInt(), equals(BigInt.from(-2147483648)));
+    });
+
+    test('operator - - binário: subtracao com overflow signed 32-bit', () {
+      final a = Golang.Int32(-2147483648);
+      final b = Golang.Int32(1);
+      expect((a - b).toBigInt(), equals(BigInt.from(2147483647)));
+    });
+
+    test('operator - - unário: negacao com wraparound de MinInt32', () {
+      final a = Golang.Int32(-2147483648);
+      expect((-a).toBigInt(), equals(BigInt.from(-2147483648)));
     });
 
     test('operator * - multiplicacao com overflow signed 32-bit', () {
@@ -724,6 +812,20 @@ void main() {
       final a = Golang.Int64.fromBigInt(maxVal);
       final b = Golang.Int64(1);
       expect((a + b).toBigInt(), equals(minVal));
+    });
+
+    test('operator - - binário: subtracao com overflow signed 64-bit', () {
+      final minVal = BigInt.parse('-9223372036854775808');
+      final maxVal = BigInt.parse('9223372036854775807');
+      final a = Golang.Int64.fromBigInt(minVal);
+      final b = Golang.Int64(1);
+      expect((a - b).toBigInt(), equals(maxVal));
+    });
+
+    test('operator - - unário: negacao com wraparound de MinInt64', () {
+      final minVal = BigInt.parse('-9223372036854775808');
+      final a = Golang.Int64.fromBigInt(minVal);
+      expect((-a).toBigInt(), equals(minVal));
     });
 
     test('operator * - multiplicacao com overflow signed 64-bit', () {
@@ -955,6 +1057,17 @@ void main() {
       expect((a + b).toBigInt(), equals(BigInt.from(4)));
     });
 
+    test('operator - - binário: subtracao modulo 2^8', () {
+      final a = Golang.Uint8(0);
+      final b = Golang.Uint8(1);
+      expect((a - b).toBigInt(), equals(BigInt.from(255)));
+    });
+
+    test('operator - - unário: negacao modulo 2^8', () {
+      final a = Golang.Uint8(1);
+      expect((-a).toBigInt(), equals(BigInt.from(255)));
+    });
+
     test('operator * - multiplicacao modulo 2^8', () {
       final a = Golang.Uint8(16);
       final b = Golang.Uint8(16);
@@ -1076,6 +1189,17 @@ void main() {
       final a = Golang.Uint16(65530);
       final b = Golang.Uint16(10);
       expect((a + b).toBigInt(), equals(BigInt.from(4)));
+    });
+
+    test('operator - - binário: subtracao modulo 2^16', () {
+      final a = Golang.Uint16(0);
+      final b = Golang.Uint16(1);
+      expect((a - b).toBigInt(), equals(BigInt.from(65535)));
+    });
+
+    test('operator - - unário: negacao modulo 2^16', () {
+      final a = Golang.Uint16(1);
+      expect((-a).toBigInt(), equals(BigInt.from(65535)));
     });
 
     test('operator * - multiplicacao modulo 2^16', () {
@@ -1206,6 +1330,19 @@ void main() {
       expect((a + b).toBigInt(), equals(BigInt.zero));
     });
 
+    test('operator - - binário: subtracao modulo 2^32', () {
+      final maxVal = BigInt.parse('4294967295');
+      final a = Golang.Uint32(0);
+      final b = Golang.Uint32(1);
+      expect((a - b).toBigInt(), equals(maxVal));
+    });
+
+    test('operator - - unário: negacao modulo 2^32', () {
+      final maxVal = BigInt.parse('4294967295');
+      final a = Golang.Uint32(1);
+      expect((-a).toBigInt(), equals(maxVal));
+    });
+
     test('operator * - multiplicacao modulo 2^32', () {
       final a = Golang.Uint32(65536);
       final b = Golang.Uint32(65536);
@@ -1333,6 +1470,19 @@ void main() {
       final a = Golang.Uint64.fromBigInt(maxVal);
       final b = Golang.Uint64(1);
       expect((a + b).toBigInt(), equals(BigInt.zero));
+    });
+
+    test('operator - - binário: subtracao modulo 2^64', () {
+      final maxVal = BigInt.parse('18446744073709551615');
+      final a = Golang.Uint64(0);
+      final b = Golang.Uint64(1);
+      expect((a - b).toBigInt(), equals(maxVal));
+    });
+
+    test('operator - - unário: negacao modulo 2^64', () {
+      final maxVal = BigInt.parse('18446744073709551615');
+      final a = Golang.Uint64(1);
+      expect((-a).toBigInt(), equals(maxVal));
     });
 
     test('operator * - multiplicacao modulo 2^64', () {

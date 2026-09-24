@@ -18,10 +18,10 @@ import '../../../core/transport/transport.dart';
 import 'crypto.dart';
 
 /// Multistream protocol ID for TLS 1.3 security.
-const String ID = '/tls/1.0.0';
+const String id = '/tls/1.0.0';
 
 /// Multistream protocol ID for TLS 1.3 security.
-const String tlsProtocolId = ID;
+const String tlsProtocolId = id;
 
 /// `CurveID` for X25519 (`common.go`, RFC 8446 Section 4.2.7).
 const int _x25519Group = 0x001d;

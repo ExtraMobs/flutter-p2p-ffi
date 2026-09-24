@@ -11,7 +11,7 @@ import 'package:transpiled_multiaddr/transpiled_multiaddr.dart';
 import 'package:transpiled_multibase/transpiled_multibase.dart' as multibase;
 import 'package:transpiled_multihash/transpiled_multihash.dart' as multihash;
 
-const String clientSDPTemplate = '''v=0
+const String clientSdpTemplate = '''v=0
 o=- 0 0 IN %1 %2
 s=-
 c=IN %1 %2
@@ -28,7 +28,7 @@ a=sctp-port:5000
 a=max-message-size:16384
 ''';
 
-const String serverSDPTemplate = '''v=0
+const String serverSdpTemplate = '''v=0
 o=- 0 0 IN %1 %2
 s=-
 t=0 0
@@ -55,7 +55,7 @@ String createClientSDP(
   String pwd,
 ) {
   final ipVersion = addr.type == InternetAddressType.IPv6 ? 'IP6' : 'IP4';
-  return clientSDPTemplate
+  return clientSdpTemplate
       .replaceAll('%1', ipVersion)
       .replaceAll('%2', addr.address)
       .replaceAll('%3', port.toString())
@@ -72,7 +72,7 @@ String createServerSDP(
   final ipVersion = addr.type == InternetAddressType.IPv6 ? 'IP6' : 'IP4';
   final hexFp = encodeInterspersedHex(fingerprintDigest);
   final fpLine = 'sha-256 $hexFp';
-  return serverSDPTemplate
+  return serverSdpTemplate
       .replaceAll('%1', ipVersion)
       .replaceAll('%2', addr.address)
       .replaceAll('%3', port.toString())

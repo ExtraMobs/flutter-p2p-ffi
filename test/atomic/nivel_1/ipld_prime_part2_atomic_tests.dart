@@ -20,7 +20,7 @@ import 'package:transpiled_ipld_prime/src/traversal/traversal.dart'
     as traversal;
 import 'package:transpiled_ipld_prime/transpiled_ipld_prime.dart';
 
-class _TestByteSeeker implements ByteReadSeeker {
+class _TestByteSeeker implements ReadSeeker {
   _TestByteSeeker(this._data);
   final Uint8List _data;
   int _pos = 0;
@@ -720,6 +720,23 @@ void main() {
       r.registerDecoder(30, (assembler, reader) {});
       expect(r.listDecoders(), equals([30]));
     });
+
+    test('defaultRegistry - retorna sempre a mesma instancia singleton', () {
+      expect(multicodec.defaultRegistry, same(multicodec.defaultRegistry));
+    });
+
+    test(
+      'defaultRegistry - ja vem com os codecs padrao registrados na primeira leitura',
+      () {
+        // 0x55 = raw, 0x0200 = json (ver codec/raw/codec.dart e
+        // codec/json/codec.dart); ambos sao instalados lazily no primeiro
+        // acesso ao getter, sem inicializacao top-level eager do Dart.
+        expect(multicodec.defaultRegistry.listEncoders(), contains(0x55));
+        expect(multicodec.defaultRegistry.listEncoders(), contains(0x0200));
+        expect(multicodec.defaultRegistry.listDecoders(), contains(0x55));
+        expect(multicodec.defaultRegistry.listDecoders(), contains(0x0200));
+      },
+    );
   });
 
   group('StreamBytes [Atomic Audit]', () {
@@ -736,7 +753,7 @@ void main() {
       expect(sb.kind(), equals(Kind.bytes));
     });
 
-    test('asLargeBytes() - expoem ByteReadSeeker subjacente', () {
+    test('asLargeBytes() - expoem ReadSeeker subjacente', () {
       final seeker = sb.asLargeBytes();
       expect(seeker, isNotNull);
     });
@@ -852,21 +869,17 @@ void main() {
     });
   });
 
-  group('ByteReadSeeker and Memory [Atomic Audit]', () {
-    test('ByteReadSeeker.read() - le dados para buffer', () {
-      final ByteReadSeeker seeker = _TestByteSeeker(
-        Uint8List.fromList([1, 2, 3]),
-      );
+  group('ReadSeeker and Memory [Atomic Audit]', () {
+    test('ReadSeeker.read() - le dados para buffer', () {
+      final ReadSeeker seeker = _TestByteSeeker(Uint8List.fromList([1, 2, 3]));
       final buf = Uint8List(2);
       final n = seeker.read(buf);
       expect(n, equals(2));
       expect(buf, equals([1, 2]));
     });
 
-    test('ByteReadSeeker.seek() - altera posicao do cursor', () {
-      final ByteReadSeeker seeker = _TestByteSeeker(
-        Uint8List.fromList([1, 2, 3]),
-      );
+    test('ReadSeeker.seek() - altera posicao do cursor', () {
+      final ReadSeeker seeker = _TestByteSeeker(Uint8List.fromList([1, 2, 3]));
       final pos = seeker.seek(1, SeekOrigin.start);
       expect(pos, equals(1));
     });

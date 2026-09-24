@@ -164,7 +164,7 @@ export 'src/p2p/security/noise/noise_state.dart'
         SymmetricState,
         generateNoiseKeyPair,
         noiseProtocolName;
-export 'src/p2p/security/noise/transport.dart' hide ID;
+export 'src/p2p/security/noise/transport.dart' hide id;
 export 'src/core/transport/transport.dart';
 export 'src/p2p/protocol/circuitv2/proto/protocol.dart';
 export 'src/p2p/protocol/circuitv2/pb/circuit_message.dart';
@@ -186,12 +186,13 @@ export 'src/p2p/net/swarm/swarm.dart';
 export 'src/p2p/host/basic/nat_manager.dart';
 export 'src/p2p/protocol/holepunch/pb/holepunch_message.dart';
 export 'src/p2p/protocol/holepunch/holepunch.dart';
+export 'src/p2p/protocol/ping/ping.dart' hide id, serviceName;
 export 'src/p2p/host/basic/basic_host.dart';
 export 'src/p2p/host/observedaddrs/manager.dart';
 export 'src/p2p/discovery/mdns/mdns.dart';
 export 'src/p2p/security/tls/crypto.dart';
 export 'src/p2p/security/tls/extension.dart';
-export 'src/p2p/security/tls/transport.dart' hide ID;
+export 'src/p2p/security/tls/transport.dart' hide id;
 export 'src/p2p/discovery/routing/routing.dart';
 export 'src/p2p/discovery/backoff/backoff.dart';
 export 'src/p2p/discovery/backoff/backoffcache.dart';

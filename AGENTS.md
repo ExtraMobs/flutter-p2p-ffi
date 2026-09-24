@@ -412,6 +412,27 @@ não um produto a ser reproduzido. Ciclo de vida `create`/`start`/`stop`, config
 rede, armazenamento e protocolos P2P reutilizáveis são componentes de biblioteca
 que permanecem no escopo.
 
+Objetos que o upstream só declara numa camada fora de escopo (CLI, gateway, RPC)
+podem, ainda assim, ser portados ponto a ponto quando a estrutura dentro do
+escopo -- o Boxo, principalmente -- precisar deles. O que fica fora de escopo é
+a **camada** como produto (o comando, o endpoint, o fluxo de CLI inteiro), não
+qualquer tipo ou função que ela declare isoladamente; não portar essa camada
+nunca é lacuna. Um objeto assim portado segue todas as demais regras deste
+documento normalmente: fronteira de módulo `go.mod`, fidelidade de nome e
+membros, nível de visibilidade. O auditor reflete essa distinção: a
+Regra 12 (`RULE_INVENTED_PUBLIC_SYMBOLS`) aceita um símbolo declarado apenas
+numa camada fora de escopo como origem upstream válida; as Regras 18 a 21
+(tipos/campos/métodos/funções do Go ainda não portados) e o relatório de
+progresso continuam excluindo essa camada, porque medem lacuna, e não portá-la
+nunca é lacuna.
+
+Antes de aceitar um nome que bate com algo fora de escopo, rastreie a origem
+Go real em vez de confiar no nome sozinho -- o nome por si só não garante que
+a estrutura dentro do escopo veio de lá. Exemplo real deste repositório: o
+`Ping` do Boxo retorna `ping.Result`, do go-libp2p (`p2p/protocol/ping`), não
+o `PingResult` da CLI do Kubo (`kubo/core/commands/ping.go`), que só
+compartilha o nome por coincidência.
+
 Antes de trabalhar na transpilação, leia
 `doc/transpilation/PROGRESS.md`.
 
@@ -608,7 +629,9 @@ Com esses fatos, o auditor compara as declarações Go com as declarações Dart
     pacote dedicado próprio.
 12. **`RULE_INVENTED_PUBLIC_SYMBOLS`**: Alerta sobre tipos e abstrações públicas
     criadas em Dart sem símbolo exportado correspondente no upstream Go, orientando
-    torná-los privados (`_Nome`) ou documentar sua necessidade.
+    torná-los privados (`_Nome`) ou documentar sua necessidade. Um símbolo Go
+    declarado apenas numa camada fora de escopo (CLI, gateway, RPC) conta como
+    origem upstream válida aqui, conforme "Fora do escopo" acima.
 13. **`RULE_EXCEPTION_NAMING`**: Nomenclatura e padrão de exceções Dart. O gatilho
     é **estrutural**: toda classe pública que declara `implements Exception` (ou
     herda de uma exceção) precisa usar o sufixo `Exception`. O prefixo legado `Err`
@@ -734,6 +757,17 @@ Ao portar e adaptar código onde membros públicos interagem com tipos não-púb
    - **Cenário C: Estruturas Auxiliares Expostas Transitivamente (ex.: `ExploreRecursiveEdge` em `transpiled_ipld_prime`):**
      Promover a classe para pública (`ExploreRecursiveEdge`) ou expor apenas a
      interface necessária com campos imutáveis/somente-leitura.
+   - **Cenário D: Tipo Não Exportado Exposto por um Membro Exportado (ex.:
+     `ScalingLimitConfig.ServiceLimits map[string]baseLimitConfig` em
+     `go-libp2p` `rcmgr/limit_defaults.go`):** quando o próprio Go expõe um
+     tipo `unexported` (`baseLimitConfig`, minúsculo) através de um campo ou
+     método `exported` de um tipo público, o porte Dart preserva o nome e os
+     membros do Go e dá ao tipo o nível de visibilidade mais baixo compatível
+     com esse uso: um nome público (`BaseLimitConfig`) declarado sob `lib/src/`
+     e **não** reexportado pelo barril do pacote (visível dentro do pacote,
+     não fora dele) -- nunca um `_Tipo` privado de biblioteca numa assinatura
+     pública (Regra 23/`library_private_types_in_public_api` vetaria), e nunca
+     exportado mais amplamente do que o Go exporta.
 4. **Fidelidade Integral da Implementação Não-Pública:**
    Tudo o que for acessado ou exposto através de métodos não-públicos (ou da cadeia
    interna de execução de métodos públicos) **deve ser implementado com estrita

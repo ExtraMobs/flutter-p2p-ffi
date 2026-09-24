@@ -66,7 +66,7 @@ class FakeNetwork implements BitSwapNetwork {
   Duration latency(PeerId peer) => Duration.zero;
 
   @override
-  Future<PingResult> ping(PeerId peer) async => PingResult(Duration.zero);
+  Future<Result> ping(PeerId peer) async => Result();
 
   @override
   void protect(PeerId peer, String tag) {}

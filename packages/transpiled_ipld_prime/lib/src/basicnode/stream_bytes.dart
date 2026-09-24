@@ -11,20 +11,20 @@ import '../datamodel/node.dart';
 import 'base_node.dart';
 import 'scalars.dart' show PrototypeBytes;
 
-/// A bytes-kind [Node] backed by a [ByteReadSeeker]. Equivalent to
+/// A bytes-kind [Node] backed by a [ReadSeeker]. Equivalent to
 /// go-ipld-prime's `streamBytes`.
 class StreamBytes extends BaseNode implements LargeBytesNode {
   /// Creates the node.
   const StreamBytes(this._reader);
 
-  final ByteReadSeeker _reader;
+  final ReadSeeker _reader;
 
   @override
   String get typeName => 'bytes';
   @override
   Kind kind() => Kind.bytes;
   @override
-  ByteReadSeeker asLargeBytes() => _reader;
+  ReadSeeker asLargeBytes() => _reader;
 
   @override
   Uint8List asBytes() {
