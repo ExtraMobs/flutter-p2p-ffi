@@ -56,8 +56,33 @@ Future<void> main(List<String> args) async {
   print('          DART IPFS - P2P SERVING NODE DAEMON              ');
   print('============================================================');
 
-  // 1. UPnP Port Forwarding
-  await setupUpnpPortMapping(4002);
+  // 1. Verificar porta TCP disponível
+  var tcpPort = 4002;
+  try {
+    final testSocket = await ServerSocket.bind(
+      InternetAddress.anyIPv4,
+      tcpPort,
+    );
+    await testSocket.close();
+  } catch (_) {
+    try {
+      tcpPort = 4003;
+      final testSocket = await ServerSocket.bind(
+        InternetAddress.anyIPv4,
+        tcpPort,
+      );
+      await testSocket.close();
+      print('Porta 4002 em uso, usando porta 4003.');
+    } catch (_) {
+      print('Porta 4003 em uso, alocando porta dinamica.');
+      tcpPort = 0;
+    }
+  }
+
+  // UPnP Port Forwarding
+  if (tcpPort != 0) {
+    await setupUpnpPortMapping(tcpPort);
+  }
 
   // 2. Payload: texto passado por argumento, ou uma sequencia aleatoria seguramente
   // unica quando nenhum argumento e fornecido.
@@ -80,11 +105,11 @@ Future<void> main(List<String> args) async {
 
   final textBytes = utf8.encode(secretSequence);
 
-  // 3. Configure IPFS node on port 4002
-  const config = IpfsConfig(
+  // 3. Configure IPFS node
+  final config = IpfsConfig(
     offline: false,
     network: NetworkConfig(
-      listenAddresses: ['/ip4/0.0.0.0/tcp/4002'],
+      listenAddresses: ['/ip4/0.0.0.0/tcp/$tcpPort'],
       announceAddresses: ['/ip4/203.0.113.47/tcp/4002'],
       bootstrapPeers: [
         // Public IPFS bootstrapper (mars.i.ipfs.io)
