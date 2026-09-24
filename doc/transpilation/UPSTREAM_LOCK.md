@@ -50,6 +50,9 @@ dos clones só podem alterar esta tabela junto com a revalidação dos ports afe
 | `pion-turn` | `github.com/pion/turn/v4` (v4.0.2) | `61a25e754f7a9c4e6ba5a4b8ee18579899985339` | <https://github.com/pion/turn.git> |
 | `pion-mdns` | `github.com/pion/mdns/v2` (v2.0.7) | `689cdb9fc66c6202b75bd96f17caf12078aa8c95` | <https://github.com/pion/mdns.git> |
 | `pion-webrtc` | `github.com/pion/webrtc/v4` (v4.1.2) | `f5d98ceac9537df6293b258ae99074125699b7a9` | <https://github.com/pion/webrtc.git> |
+| `go-ipld-git` | `github.com/ipfs/go-ipld-git` (v0.1.3) | `f8d7d2dc59e41575de43ca2bdc8be4959c559327` | <https://github.com/ipfs/go-ipld-git.git> |
+| `go-dag-jose` | `github.com/ceramicnetwork/go-dag-jose` (v0.1.1) | `61df42ed39ea8b72bcbdd5556beb94a4db0cdf4f` | <https://github.com/ceramicnetwork/go-dag-jose.git> |
+
 
 `packages/transpiled_base58` (port de `github.com/mr-tron/base58`, consumido
 por `transpiled_libp2p` e `transpiled_boxo`) **não tem revisão fixada nesta

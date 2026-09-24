@@ -1,7 +1,7 @@
 # Relatório Sintético de Progresso e Cobertura da Árvore AST (Go <-> Dart)
 
 > Documento gerado automaticamente pela ferramenta `tool/audit_ast_nomenclature.py --progress`.
-> **Símbolos Dart Auditados:** 9686 | **Símbolos Go Indexados:** 53105
+> **Símbolos Dart Auditados:** 9974 | **Símbolos Go Indexados:** 60229
 
 ## 1. Visão Geral em Duas Perspectivas
 
@@ -14,17 +14,17 @@
 
 ### Perspectiva B: Cobertura Quantitativa da Árvore AST Total Upstream Go
 
-- **Total de Símbolos Go no Escopo:** 16,445
-- **Símbolos Implementados em Dart:** 2,234 (13.6%)
-- **Símbolos Restantes no Ecossistema:** 14,211 (86.4%)
+- **Total de Símbolos Go no Escopo:** 20,286
+- **Símbolos Implementados em Dart:** 2,295 (11.3%)
+- **Símbolos Restantes no Ecossistema:** 17,991 (88.7%)
 
 | Categoria de Símbolo | Total no Upstream Go | Implementado em Dart | Falta Implementar | % Concluído | % Que Falta |
 | :--- | :---: | :---: | :---: | :---: | :---: |
-| **Tipos (Classes / Interfaces)** | 1,669 | 375 | 1,294 | 22.5% | **77.5%** |
-| **Métodos** | 8,981 | 1,247 | 7,734 | 13.9% | **86.1%** |
-| **Campos de Structs** | 3,035 | 346 | 2,689 | 11.4% | **88.6%** |
-| **Funções Top-Level** | 2,760 | 266 | 2,494 | 9.6% | **90.4%** |
-| **TOTAL GERAL** | **16,445** | **2,234** | **14,211** | **13.6%** | **86.4%** |
+| **Tipos (Classes / Interfaces)** | 1,716 | 381 | 1,335 | 22.2% | **77.8%** |
+| **Métodos** | 11,800 | 1,270 | 10,530 | 10.8% | **89.2%** |
+| **Campos de Structs** | 3,108 | 355 | 2,753 | 11.4% | **88.6%** |
+| **Funções Top-Level** | 3,662 | 289 | 3,373 | 7.9% | **92.1%** |
+| **TOTAL GERAL** | **20,286** | **2,295** | **17,991** | **11.3%** | **88.7%** |
 
 ## 2. Detalhamento Quantitativo por Módulo Upstream Go
 
@@ -38,18 +38,20 @@
 | `go-libp2p-kbucket` | `packages/transpiled_libp2p_kbucket` | 76 | 37 | 39 | 48.7% | **51.3%** | 3/10 |
 | `go-libp2p-record` | `packages/transpiled_libp2p_record` | 31 | 15 | 16 | 48.4% | **51.6%** | 4/5 |
 | `go-datastore` | `packages/transpiled_datastore` | 530 | 171 | 359 | 32.3% | **67.7%** | 33/57 |
-| `go-libp2p` | `packages/transpiled_libp2p` | 3688 | 1049 | 2639 | 28.4% | **71.6%** | 182/391 |
+| `go-libp2p` | `packages/transpiled_libp2p` | 3688 | 1064 | 2624 | 28.9% | **71.1%** | 185/391 |
 | `go-multibase` | `packages/transpiled_multibase` | 11 | 3 | 8 | 27.3% | **72.7%** | 1/2 |
 | `go-multihash` | `packages/transpiled_multihash` | 67 | 14 | 53 | 20.9% | **79.1%** | 2/7 |
 | `go-cid` | `packages/transpiled_cid` | 99 | 15 | 84 | 15.2% | **84.8%** | 3/10 |
 | `go-multiaddr` | `packages/transpiled_multiaddr` | 188 | 28 | 160 | 14.9% | **85.1%** | 4/18 |
+| `go-ipld-prime` | `packages/transpiled_ipld_prime` | 3708 | 397 | 3311 | 10.7% | **89.3%** | 63/244 |
 | `boxo` | `packages/transpiled_boxo` | 3052 | 316 | 2736 | 10.4% | **89.6%** | 49/350 |
-| `go-ipld-prime` | `packages/transpiled_ipld_prime` | 3708 | 382 | 3326 | 10.3% | **89.7%** | 61/244 |
+| `go-yamux` | `packages/transpiled_go_yamux` | 82 | 6 | 76 | 7.3% | **92.7%** | 2/7 |
 | `go-multicodec` | `packages/transpiled_multicodec` | 16 | 1 | 15 | 6.2% | **93.8%** | 1/2 |
 | `go-car-v2` | `packages/transpiled_go_car` | 348 | 12 | 336 | 3.4% | **96.6%** | 2/41 |
-| `go-yamux` | `packages/transpiled_go_yamux` | 82 | 2 | 80 | 2.4% | **97.6%** | 2/7 |
 | `go-libp2p-pubsub` | `packages/transpiled_libp2p_pubsub` | 1014 | 23 | 991 | 2.3% | **97.7%** | 4/109 |
 | `kubo` | `lib` | 2666 | 20 | 2646 | 0.8% | **99.2%** | 4/326 |
+| `go-dag-jose` | `packages/transpiled_go_dag_jose` | 2392 | 17 | 2375 | 0.7% | **99.3%** | 1/29 |
+| `go-ipld-git` | `packages/transpiled_go_ipld_git` | 1449 | 10 | 1439 | 0.7% | **99.3%** | 0/18 |
 | `go-libp2p-kad-dht` | `lib/src/protocols/dht` | 656 | 0 | 656 | 0.0% | **100.0%** | 0/65 |
 
 ## 3. Diretriz Arquitetural (AGENTS.md)

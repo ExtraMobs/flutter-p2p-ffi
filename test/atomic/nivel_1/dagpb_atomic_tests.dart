@@ -151,5 +151,35 @@ void main() {
         );
       },
     );
+
+    test('registerDagPbCodec() - registra encoder e decoder DAG-PB 0x70 no registro multicodec', () {
+      registerDagPbCodec();
+      final node = PlainMap({
+        'Data': PlainBytes(Uint8List.fromList([1, 2, 3])),
+        'Links': const PlainList([]),
+      });
+      final out = <List<int>>[];
+      encode(node, StreamControllerSink(out));
+      expect(out.isNotEmpty, isTrue);
+
+      final builder = AnyBuilder();
+      decode(builder, out.expand((b) => b).toList());
+      final decoded = builder.build();
+      expect(decoded.lookupByString('Data').asBytes(), equals([1, 2, 3]));
+    });
   });
 }
+
+class StreamControllerSink implements Sink<List<int>> {
+  StreamControllerSink(this._out);
+  final List<List<int>> _out;
+
+  @override
+  void add(List<int> data) {
+    _out.add(data);
+  }
+
+  @override
+  void close() {}
+}
+

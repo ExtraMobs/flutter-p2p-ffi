@@ -120,6 +120,8 @@ GO_MODULE_TO_DART_PACKAGE = {
     'go-libp2p-routing-helpers': 'packages/transpiled_libp2p_routing_helpers',
     'go-varint': 'packages/transpiled_varint',
     'go-codec-dagpb': 'packages/transpiled_go_codec_dagpb',
+    'go-ipld-git': 'packages/transpiled_go_ipld_git',
+    'go-dag-jose': 'packages/transpiled_go_dag_jose',
     'protobuf': 'packages/transpiled_protobuf',
     'go-car-v2': 'packages/transpiled_go_car',
     'kubo': 'lib',
@@ -127,7 +129,7 @@ GO_MODULE_TO_DART_PACKAGE = {
 }
 
 # Prefixos e sufixos canônicos de módulos/pacotes para correspondência de tipos Go <-> Dart
-KNOWN_PREFIXES = ('Yamux', 'DagPb', 'UnixFs', 'Car', 'Cid', 'Ipfs', 'Basicnode', 'Noise', 'Ed25519', 'Rsa', 'Secp256k1', 'Filter')
+KNOWN_PREFIXES = ('Yamux', 'DagPb', 'UnixFs', 'Car', 'Cid', 'Ipfs', 'Basicnode', 'Noise', 'Ed25519', 'Rsa', 'Secp256k1', 'Filter', 'Git', 'Jose', 'DagJose')
 KNOWN_SUFFIXES = ('Impl', 'Options', 'Exception', 'Error', 'Chunker', 'Importer', 'Router')
 
 # Adaptações de arquitetura documentadas em PROGRESS.md conforme AGENTS.md ("ou documentar adaptação")
@@ -1808,6 +1810,7 @@ class AstNomenclatureAuditor:
                         dart_members_by_type.setdefault(key, set()).add(clean_name)
 
             for sym in self.dart_symbols:
+                in_boilerplate = 'packages/boilerplate/' in sym.file_path
                 if sym.kind in ('class', 'mixin') and sym.is_public() and not in_boilerplate:
                     my_pkg = None
                     for p_dir in pkg_to_mod:

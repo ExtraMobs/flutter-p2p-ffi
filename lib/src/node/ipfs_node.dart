@@ -186,6 +186,14 @@ final class IpfsNode {
       natManager: natManager,
       holePunchService: holePunch,
       autoNat: autoNat,
+      addrsFactory: (addrs) {
+        if (config.network.announceAddresses.isNotEmpty) {
+          return config.network.announceAddresses
+              .map(multiaddr.Multiaddr.parse)
+              .toList();
+        }
+        return addrs;
+      },
     );
     autoNat.host = host;
     // The host takes ownership of the peerstore, swarm, NAT and relay.
@@ -300,16 +308,22 @@ final class IpfsNode {
 
   /// Active listening multiaddresses for this node.
   List<String> get listenAddresses {
-    if (config.network.announceAddresses.isNotEmpty) {
-      return config.network.announceAddresses;
-    }
     final host = _host;
-    if (host == null) return const [];
+    if (host == null) {
+      if (config.network.announceAddresses.isNotEmpty) {
+        return config.network.announceAddresses;
+      }
+      return const [];
+    }
     final addrs = host.addrs;
     if (addrs.isNotEmpty) {
       return addrs.map((a) => a.toString()).toList();
     }
-    return host.network.listenAddresses().map((a) => a.toString()).toList();
+    return host.network
+        .listenAddresses()
+        .where((a) => !multiaddr.isIpUnspecified(a))
+        .map((a) => a.toString())
+        .toList();
   }
 
   /// Formatted multiaddresses including peer ID (e.g. `/ip4/127.0.0.1/tcp/xxxxx/p2p/<peerId>`).

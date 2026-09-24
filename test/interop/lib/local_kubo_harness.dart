@@ -161,6 +161,71 @@ class LocalKuboHarness {
     throw StateError('Unexpected stdout type: ${stdout.runtimeType}');
   }
 
+  /// Puts a block into Kubo via stdin and returns the resulting CID string.
+  Future<String> putBlock(List<int> bytes, {String? format, String? mhtype}) async {
+    final args = <String>['block', 'put'];
+    if (format != null) args.add('--format=$format');
+    if (mhtype != null) args.add('--mhtype=$mhtype');
+    final process = await Process.start(
+      executable,
+      args,
+      environment: {'IPFS_PATH': repository.path},
+      includeParentEnvironment: true,
+      runInShell: false,
+    );
+    process.stdin.add(bytes);
+    await process.stdin.close();
+    final stdoutFuture = process.stdout.transform(utf8.decoder).join();
+    final stderrFuture = process.stderr.transform(utf8.decoder).join();
+    final exitCode = await process.exitCode;
+    final stdout = (await stdoutFuture).trim();
+    final stderr = (await stderrFuture).trim();
+    if (exitCode != 0) {
+      throw ProcessException(executable, args, stderr, exitCode);
+    }
+    return stdout;
+  }
+
+  /// Puts a DAG node into Kubo via stdin and returns the resulting CID string.
+  Future<String> dagPut(
+    List<int> bytes, {
+    String inputCodec = 'dag-cbor',
+    String storeCodec = 'dag-cbor',
+    String hash = 'sha2-256',
+  }) async {
+    final args = <String>[
+      'dag',
+      'put',
+      '--input-codec=$inputCodec',
+      '--store-codec=$storeCodec',
+      '--hash=$hash',
+    ];
+    final process = await Process.start(
+      executable,
+      args,
+      environment: {'IPFS_PATH': repository.path},
+      includeParentEnvironment: true,
+      runInShell: false,
+    );
+    process.stdin.add(bytes);
+    await process.stdin.close();
+    final stdoutFuture = process.stdout.transform(utf8.decoder).join();
+    final stderrFuture = process.stderr.transform(utf8.decoder).join();
+    final exitCode = await process.exitCode;
+    final stdout = (await stdoutFuture).trim();
+    final stderr = (await stderrFuture).trim();
+    if (exitCode != 0) {
+      throw ProcessException(executable, args, stderr, exitCode);
+    }
+    return stdout;
+  }
+
+  /// Retrieves an IPLD node representation from Kubo via `ipfs dag get`.
+  Future<String> dagGet(String cid) async {
+    final result = await _run(['dag', 'get', cid]);
+    return '${result.stdout}'.trim();
+  }
+
   /// Adds a UnixFS file without using the HTTP gateway and returns its root
   /// Cid. Kubo receives the file path directly, so the file is never loaded
   /// into Dart memory.

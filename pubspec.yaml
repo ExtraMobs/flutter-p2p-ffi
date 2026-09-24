@@ -93,6 +93,10 @@ dependencies:
     path: packages/transpiled_ipld_prime
   transpiled_go_codec_dagpb:
     path: packages/transpiled_go_codec_dagpb
+  transpiled_go_ipld_git:
+    path: packages/transpiled_go_ipld_git
+  transpiled_go_dag_jose:
+    path: packages/transpiled_go_dag_jose
   transpiled_libp2p_record:
     path: packages/transpiled_libp2p_record
   transpiled_libp2p_pubsub:

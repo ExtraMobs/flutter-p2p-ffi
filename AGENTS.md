@@ -62,6 +62,9 @@ shims e dependências externas via git:
 - **Marco D.4 (Validação Global WAN Ponta a Ponta)**:
   Comprovar alcance e consumo P2P a partir de nós externos na internet pública (100% comprovado via `check.ipfs.network` oficial discando diretamente para `/ip4/203.0.113.47/tcp/4002` do nó Dart na WAN e recuperando blocos via Bitswap).
 
+  > [!NOTE]
+  > O endereço IP público `203.0.113.47` referenciado nesta documentação, nos scripts de exemplo e nos testes é um endereço reservado para documentação conforme a RFC 5737 (TEST-NET-3), substituindo o IP público real utilizado durante os testes reais na WAN para preservar a privacidade do autor.
+
 ### Objetivo 4 — Descoberta Global Autônoma na DHT (Concluído)
 
 Concluída a transição do estado "parcialmente público" (onde o nó já era diretamente discável e servia blocos via WAN, mas ainda dependia de encaminhamento de anúncio para a descoberta cega) para "totalmente público e autônomo", com o ciclo completo de Kademlia Content Routing na Amino DHT implementado e comprovado em rede real. A muleta de encaminhamento de anúncio (`Process.run('ipfs', ['routing', 'provide', ...])` em `bin/host_payload.dart`) foi removida:

@@ -441,7 +441,7 @@ void main() {
         final conn = _FakeConn(
           local: host.id,
           remote: PeerId(value: Uint8List.fromList([99])),
-          remoteMa: Multiaddr.parse('/ip4/203.0.113.47/tcp/12345'),
+          remoteMa: Multiaddr.parse('/ip4/1.1.1.1/tcp/12345'),
         );
         nat.onInboundPublicConn(conn);
         expect(nat.lastInbound, isNotNull);
@@ -475,7 +475,7 @@ void main() {
       final conn = _FakeConn(
         local: host.id,
         remote: PeerId(value: Uint8List.fromList([99])),
-        remoteMa: Multiaddr.parse('/ip4/203.0.113.47/tcp/4001'),
+        remoteMa: Multiaddr.parse('/ip4/1.1.1.1/tcp/4001'),
       );
       nat.connected(host.network, conn);
       expect(nat.lastInbound, isNotNull);
@@ -487,7 +487,7 @@ void main() {
       final conn = _FakeConn(
         local: host.id,
         remote: PeerId(value: Uint8List.fromList([99])),
-        remoteMa: Multiaddr.parse('/ip4/203.0.113.47/tcp/4001'),
+        remoteMa: Multiaddr.parse('/ip4/1.1.1.1/tcp/4001'),
       );
       nat.disconnected(host.network, conn);
       expect(nat.status(), equals(Reachability.unknown));
@@ -499,7 +499,7 @@ void main() {
       'skipDial() - filters out circuit relays, private, loopback, and local IPs',
       () {
         final host = _newTestHost(
-          addrs: [Multiaddr.parse('/ip4/203.0.113.47/tcp/4001')],
+          addrs: [Multiaddr.parse('/ip4/1.1.1.1/tcp/4001')],
         );
         final policy = DialPolicy(host: host);
 
@@ -528,7 +528,7 @@ void main() {
         );
         // Local node's own address -> skip
         expect(
-          policy.skipDial(Multiaddr.parse('/ip4/203.0.113.47/tcp/4001')),
+          policy.skipDial(Multiaddr.parse('/ip4/1.1.1.1/tcp/4001')),
           isTrue,
         );
         // Valid public external IP -> do not skip
@@ -543,7 +543,7 @@ void main() {
       'skipPeer() - excludes peers without valid public non-self addresses',
       () {
         final host = _newTestHost(
-          addrs: [Multiaddr.parse('/ip4/203.0.113.47/tcp/4001')],
+          addrs: [Multiaddr.parse('/ip4/1.1.1.1/tcp/4001')],
         );
         final policy = DialPolicy(host: host);
 
@@ -559,7 +559,7 @@ void main() {
         // Peer with our own public IP -> skip
         expect(
           policy.skipPeer([
-            Multiaddr.parse('/ip4/203.0.113.47/tcp/4001'),
+            Multiaddr.parse('/ip4/1.1.1.1/tcp/4001'),
             Multiaddr.parse('/ip4/8.8.8.8/tcp/4001'),
           ]),
           isTrue,
@@ -606,7 +606,7 @@ void main() {
         expect(isPublicAddr(fromIp(Ip.tryParse('fe80::1')!)), isFalse);
 
         expect(isPublicAddr(fromIp(Ip.tryParse('8.8.8.8')!)), isTrue);
-        expect(isPublicAddr(fromIp(Ip.tryParse('203.0.113.47')!)), isTrue);
+        expect(isPublicAddr(fromIp(Ip.tryParse('1.1.1.1')!)), isTrue);
         expect(isPublicAddr(fromIp(Ip.tryParse('2600::')!)), isTrue);
       },
     );

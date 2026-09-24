@@ -11,6 +11,7 @@ import '../../../core/peerstore/peerstore.dart';
 import '../../../core/transport/transport.dart';
 import '../../host/eventbus/basic.dart';
 import '../../host/peerstore/pstoremem/peerstore.dart';
+import '../interface_addrs.dart';
 import 'swarm_conn.dart';
 
 /// Standard libp2p network implementation managing transports, listeners,
@@ -70,6 +71,7 @@ class Swarm implements TransportNetwork {
   @override
   Future<void> listen(List<Multiaddr> addresses) async {
     if (_closed) throw StateError('Swarm is closed');
+    await _interfaceAddrs.update();
     for (final addr in addresses) {
       Transport? matchingTransport;
       for (final t in _transports) {
@@ -217,13 +219,39 @@ class Swarm implements TransportNetwork {
     return conn.newStream();
   }
 
+  final _interfaceAddrs = InterfaceAddrsCache();
+
+  /// Cached local interface addresses.
+  InterfaceAddrsCache get interfaceCache => _interfaceAddrs;
+
   @override
   List<Multiaddr> listenAddresses() => [
     for (final l in _listeners) l.multiaddr(),
   ];
 
   @override
-  Future<List<Multiaddr>> interfaceListenAddresses() async => listenAddresses();
+  Future<List<Multiaddr>> interfaceListenAddresses() async {
+    final listenAddrs = listenAddresses();
+    if (listenAddrs.isEmpty) return const [];
+    final ifaceAddrs = await _interfaceAddrs.all();
+    try {
+      return resolveUnspecifiedAddresses(listenAddrs, ifaceAddrs);
+    } catch (_) {
+      return listenAddrs;
+    }
+  }
+
+  /// Internal synchronous resolution of interface listen addresses using cached interfaces.
+  List<Multiaddr> interfaceListenAddressesSync() {
+    final listenAddrs = listenAddresses();
+    if (listenAddrs.isEmpty) return const [];
+    final ifaceAddrs = _interfaceAddrs.allSync();
+    try {
+      return resolveUnspecifiedAddresses(listenAddrs, ifaceAddrs);
+    } catch (_) {
+      return listenAddrs;
+    }
+  }
 
   @override
   Connectedness connectedness(PeerId peer) {

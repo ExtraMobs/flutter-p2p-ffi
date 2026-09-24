@@ -294,7 +294,7 @@ void main() {
         isFalse,
       );
       expect(
-        isPublicAddr(Multiaddr.parse('/ip4/203.0.113.47/tcp/4001')),
+        isPublicAddr(Multiaddr.parse('/ip4/1.1.1.1/tcp/4001')),
         isTrue,
       );
       expect(isPublicAddr(Multiaddr.parse('/ip4/8.8.8.8/tcp/4001')), isTrue);

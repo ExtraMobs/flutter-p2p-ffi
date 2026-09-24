@@ -16,7 +16,9 @@ export 'traversal_selector.dart';
 export 'traversal_selector_builder.dart';
 export 'traversal_selector_parse.dart';
 export 'traversal.dart';
-export 'codec_dagjson.dart';
+export 'codec_dagjson.dart' hide decode, encode;
+export 'codec_dagcbor.dart' hide decode, encode;
+export 'codec_cbor.dart' hide decode, encode;
 
 export 'src/basicnode/any_node.dart' show AnyBuilder, PrototypeAny;
 export 'src/basicnode/base_node.dart' show BaseAssembler, BaseNode;

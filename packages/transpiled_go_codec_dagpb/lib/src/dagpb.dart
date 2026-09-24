@@ -4,8 +4,16 @@ import 'dart:typed_data';
 // ignore: library_prefixes
 import 'package:boilerplate/fixed_types/golang.dart' as Golang;
 import 'package:transpiled_cid/transpiled_cid.dart';
+import 'package:transpiled_ipld_prime/src/multicodec/registry.dart' as multicodec;
 import 'package:transpiled_ipld_prime/transpiled_ipld_prime.dart';
 import 'package:transpiled_protobuf/protowire.dart' as protobuf;
+
+/// Registers DAG-PB (multicodec 0x70) in [registry] or [multicodec.defaultRegistry].
+void registerDagPbCodec([multicodec.Registry? registry]) {
+  final target = registry ?? multicodec.defaultRegistry;
+  target.registerEncoder(0x70, encode);
+  target.registerDecoder(0x70, decode);
+}
 
 /// Decodes DAG-PB bytes into [a], corresponding to Go's `DecodeBytes`.
 void decodeBytes(NodeAssembler a, Uint8List b) {

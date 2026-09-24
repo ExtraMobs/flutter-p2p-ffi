@@ -7,4 +7,6 @@ export 'src/codec/api.dart'
 export 'src/codec/json/codec.dart'
     show decode, encode, JsonCodecException, registerJsonCodec;
 export 'src/codec/raw/codec.dart' show registerRawCodec;
+export 'src/codec/dagcbor/codec.dart' hide decode, encode, marshal, unmarshal;
+export 'src/codec/cbor/codec.dart' hide decode, encode;
 export 'src/multicodec/registry.dart';

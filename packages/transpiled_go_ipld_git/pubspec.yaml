@@ -1,0 +1,23 @@
+name: transpiled_go_ipld_git
+description: Port of go-ipld-git IPLD codec for raw git objects.
+version: 0.1.0
+publish_to: none
+
+environment:
+  sdk: ^3.10.0
+
+dependencies:
+  boilerplate:
+    path: ../boilerplate
+  transpiled_cid:
+    path: ../transpiled_cid
+  transpiled_multihash:
+    path: ../transpiled_multihash
+  transpiled_ipld_prime:
+    path: ../transpiled_ipld_prime
+  transpiled_block_format:
+    path: ../transpiled_block_format
+
+dev_dependencies:
+  lints: ^6.0.0
+  test: ^1.28.0

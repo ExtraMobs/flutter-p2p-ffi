@@ -24,6 +24,16 @@ dependencies:
     path: ../../packages/transpiled_libp2p
   transpiled_multiaddr:
     path: ../../packages/transpiled_multiaddr
+  transpiled_go_dag_jose:
+    path: ../../packages/transpiled_go_dag_jose
+  transpiled_go_ipld_git:
+    path: ../../packages/transpiled_go_ipld_git
+  transpiled_go_codec_dagpb:
+    path: ../../packages/transpiled_go_codec_dagpb
+  transpiled_ipld_prime:
+    path: ../../packages/transpiled_ipld_prime
+  transpiled_block_format:
+    path: ../../packages/transpiled_block_format
 
 dependency_overrides:
   xml: ^7.0.1

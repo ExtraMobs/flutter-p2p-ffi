@@ -263,4 +263,50 @@ void main() {
       },
     );
   });
+
+  group('Cid Formats and Codecs [Atomic Audit]', () {
+    test('cria e decodifica CIDs validos para todos os formatos padrao', () {
+      final formats = <String, int>{
+        'raw': 0x55,
+        'dag-pb': 0x70,
+        'dag-cbor': 0x71,
+        'cbor': 0x51,
+        'dag-json': 0x0129,
+        'json': 0x0200,
+        'git-raw': 0x78,
+        'dag-jose': 0x85,
+      };
+
+      for (final entry in formats.entries) {
+        final codecName = entry.key;
+        final expectedCode = entry.value;
+
+        final cid = Cid.computeForDataSync(sampleData, codec: codecName);
+        expect(cid.version, equals(1));
+        expect(cid.codec, equals(codecName));
+        expect(cid.codecCode.toBigInt().toInt(), equals(expectedCode));
+        expect(cid.validate(), isTrue);
+
+        final encoded = cid.encode();
+        expect(encoded, isNotEmpty);
+
+        final decoded = Cid.decode(encoded);
+        expect(decoded, equals(cid));
+        expect(decoded.codec, equals(codecName));
+        expect(decoded.codecCode.toBigInt().toInt(), equals(expectedCode));
+      }
+    });
+
+    test('suporta criacao de Cid v0 especificamente para dag-pb', () {
+      final cidV0 = Cid.v0(Uint8List(32));
+      expect(cidV0.version, equals(0));
+      expect(cidV0.codec, equals('dag-pb'));
+      expect(cidV0.encode().startsWith('Qm'), isTrue);
+
+      final decodedV0 = Cid.decode(cidV0.encode());
+      expect(decodedV0.version, equals(0));
+      expect(decodedV0.codec, equals('dag-pb'));
+    });
+  });
 }
+

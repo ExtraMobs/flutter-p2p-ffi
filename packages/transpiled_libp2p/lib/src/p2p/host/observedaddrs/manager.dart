@@ -12,6 +12,7 @@ import 'package:transpiled_multiaddr/transpiled_multiaddr.dart';
 import '../../../core/event/bus.dart';
 import '../../../core/event/identify.dart';
 import '../../../core/network/network.dart';
+import '../../net/swarm/swarm.dart';
 import '../basic/basic_host.dart';
 
 /// Minimum number of distinct observers required for an observed address to
@@ -228,14 +229,16 @@ final class Manager implements ObservedAddrsManager {
 
   /// Builds a manager whose listen addresses come from [network].
   ///
-  /// manager.go:156-171 (`NewManager`). Go's `NewManager` also merges
-  /// `net.InterfaceListenAddresses()` into the listen-address closure; this
-  /// port's `Network.interfaceListenAddresses()` is asynchronous
-  /// (`core/network/network.dart`, outside this change's file scope), so
-  /// only the synchronous `listenAddresses()` is used -- the same
-  /// simplification `BasicHost.addrs` already makes for the same reason.
+  /// Matches Go's `NewManager` (manager.go:156-171) by merging
+  /// `network.listenAddresses()` with `network.interfaceListenAddressesSync()`.
   factory Manager(Bus eventBus, Network network) {
-    return Manager._(network.listenAddresses, eventBus);
+    return Manager._(() {
+      final base = network.listenAddresses();
+      if (network is Swarm) {
+        return [...base, ...network.interfaceListenAddressesSync()];
+      }
+      return base;
+    }, eventBus);
   }
 
   final List<Multiaddr> Function() _listenAddrs;

@@ -4,6 +4,8 @@ import '../codec/api.dart';
 import '../codec/json/codec.dart';
 import '../codec/raw/codec.dart';
 import '../codec/dagjson/codec.dart';
+import '../codec/dagcbor/codec.dart';
+import '../codec/cbor/codec.dart';
 
 /// Maps multicodec indicator numbers to codec functions.
 final class Registry {
@@ -55,6 +57,8 @@ Registry get defaultRegistry {
     registerRawCodec(registry);
     registerJsonCodec(registry);
     registerDagJsonCodec(registry);
+    registerDagCborCodec(registry);
+    registerCborCodec(registry);
   }
   return registry;
 }

@@ -234,3 +234,68 @@ bool isPrivateAddr(Multiaddr a) {
   }
   return false;
 }
+
+/// Splits a [Multiaddr] into its first component and the rest.
+/// Faithfully matches manet.splitFirstSlice from github.com/multiformats/go-multiaddr/net (ip.go:107-116).
+(Multiaddr?, Multiaddr?) splitFirstSlice(Multiaddr m) {
+  if (m.components.isEmpty) return (null, null);
+  if (m.components.length == 1) return (m, null);
+  return (
+    Multiaddr([m.components.first]),
+    Multiaddr(m.components.sublist(1)),
+  );
+}
+
+/// Expands an unspecified ip address (/ip4/0.0.0.0, /ip6/::) to use the known local interfaces.
+/// Faithfully matches manet.ResolveUnspecifiedAddress from github.com/multiformats/go-multiaddr/net (resolve.go:11-41).
+List<Multiaddr> resolveUnspecifiedAddress(
+  Multiaddr resolve,
+  List<Multiaddr> ifaceAddrs,
+) {
+  final (first, rest) = splitFirstSlice(resolve);
+  if (first == null || !isIpUnspecified(first)) {
+    return [resolve];
+  }
+
+  final resolveProto = first.components.first.protocol.code;
+  final out = <Multiaddr>[];
+  for (final ia in ifaceAddrs) {
+    final (iafirst, _) = splitFirstSlice(ia);
+    if (iafirst == null ||
+        iafirst.components.first.protocol.code != resolveProto) {
+      continue;
+    }
+
+    final joined = (rest != null && rest.components.isNotEmpty)
+        ? Multiaddr([...iafirst.components, ...rest.components])
+        : ia;
+    out.add(joined);
+  }
+
+  if (out.isEmpty) {
+    throw StateError('failed to resolve: $resolve');
+  }
+  return out;
+}
+
+/// Expands unspecified ip addresses (/ip4/0.0.0.0, /ip6/::) to use the known local interfaces.
+/// Faithfully matches manet.ResolveUnspecifiedAddresses from github.com/multiformats/go-multiaddr/net (resolve.go:45-69).
+List<Multiaddr> resolveUnspecifiedAddresses(
+  List<Multiaddr> unspecAddrs,
+  List<Multiaddr> ifaceAddrs,
+) {
+  final outputAddrs = <Multiaddr>[];
+  for (final a in unspecAddrs) {
+    try {
+      final resolved = resolveUnspecifiedAddress(a, ifaceAddrs);
+      outputAddrs.addAll(resolved);
+    } catch (_) {
+      // optimistic. if we can't resolve anything, we'll know at the bottom.
+    }
+  }
+
+  if (outputAddrs.isEmpty && unspecAddrs.isNotEmpty) {
+    throw StateError('failed to specify addrs: $unspecAddrs');
+  }
+  return outputAddrs;
+}
