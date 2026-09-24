@@ -907,7 +907,7 @@ lacunas que um número não mostra.
 | `transpiled_libp2p_pubsub` | O GossipSub em `lib/src/protocols/pubsub/` é implementação original **não auditada**. Do módulo Go só foram portados subpacotes autocontidos: `timecache` (paridade comprovada) e `partialmessages/bitmap` (divergência de `Set` documentada). |
 | `transpiled_go_yamux` | Portado sem teste de paridade. RTT/ping keepalive, write coalescing, pooling de buffers e memory manager externo seguem omitidos até haver consumidor. |
 | `transpiled_protobuf` | `AppendString` e `ConsumeString` omitidos enquanto strings Go com UTF-8 inválido não forem preservadas. Grupos e campos `fixed` não portados. |
-| `transpiled_crypto_tls` | `go-stdlib` **não tem índice AST e não pode ter** com a ferramenta atual (`go_module_index.exe` entra em panic na raiz `module std`). As regras 18–21 não medem o que falta; os 100% reportados valem só para a regra 24. |
+| `transpiled_crypto_tls` | Desde 2026-09-24 o `go-stdlib` entra nas regras 18–21 pelo JSON do `tool/go_module_index.go`. O antigo panic não vinha do `module std`: vinha de funções sem corpo (implementadas em assembly), passadas a `ast.Inspect` como nó nil, e foi corrigido. O `go-stdlib` fixado é um subconjunto: são os pacotes que o TLS usa, e não a stdlib inteira. |
 | `transpiled_pion_logging` | Portado integralmente. `LogLevel.Set/Get`, `WithXLogger` e `Lshortfile` omitidos deliberadamente. |
 | `transpiled_pion_sctp` | **Wire completo, runtime ausente.** 42 arquivos e 4.625 linhas cobrem todos os chunks concretos, todos os parâmetros, as error causes, `packet.dart`, `util` e CRC32C. O que falta é o motor: `association.go` (2.960 linhas), `stream.go`, as filas (`pending`, `payload`, `control`, `receive_payload`, `reassembly`) e os timers (`rtx_timer`, `ack_timer`) — ≈4.850 linhas de Go. O overflow `uint16` em `length - chunkHeaderSize` precisa ser preservado. |
 | `packages/boilerplate` | `internal_poll.Fd` e `FdMutex` estão portados e testados, **mas sem chamador de produção**: `_TcpRawConn` em `tcp_transport.dart` ainda usa o paliativo `_serialized`. Plugá-los muda o caminho de escrita de toda conexão TCP e exige decisão do mantenedor. |
@@ -1189,6 +1189,46 @@ registro aqui do rastreamento e das decisões.
 `dart test` na raiz cobre apenas o pacote raiz, e as tags `p0`, `p1`, `helia` e
 `network` são puladas por padrão: "All tests passed" com contagem de pulados não
 é prova de suíte verde.
+
+### Auditor sobre os parsers oficiais (2026-09-24)
+
+O `tool/audit_ast_nomenclature.py` deixou de ler código como texto. Antes eram
+78 chamadas `re.*` e contagem manual de chaves. Agora as fontes são:
+
+- **Dart:** `tool/dart_ast_facts.dart`, com o `parseString` do
+  `package:analyzer`, que já era dev_dependency.
+- **Go:** `tool/go_module_index.go -json`, com `go/ast`. O gerador veio de
+  `go-ipfs-reference/`, que o git ignora, e passou a ser versionado em `tool/`.
+
+O Python só lê o JSON, com cache em `.dart_tool/`, e o módulo `re` saiu do
+arquivo. Também passaram a usar parser estruturado, e não regex, o
+`pubspec.yaml` (`yaml.safe_load`), os padrões de caminho e a classificação de
+nomes (varredura de caracteres). O `tool/test_audit_ast_nomenclature.py`
+confere os helpers de nome contra os resultados do regex antigo e roda um
+miniprojeto real.
+
+Foram descartados: tree-sitter, que é gramática comunitária; o `dart2` do
+grammars-v4, que não tem Dart 3; e ANTLR, que exigiria Java para gerar o parser.
+
+**Comparação com a linha de base**, com os dois auditores sobre a mesma árvore
+(`--tests --json`). Cada diferença foi conferida no código-fonte:
+
+| Regra | Antes | Depois | Causa |
+|---|---:|---:|---|
+| `RULE_INVENTED_PUBLIC_SYMBOLS` | 119 | 43 | O regex de bloco Go `var (...)` parava no primeiro `)`, o de `errors.New(...)`, e perdia todas as entradas depois da primeira. Os erros sentinela Go pareciam inexistentes. Três casos novos são reais: `PingResult` vazava porque o filtro de CLI não casava com o caminho relativo do índice `.md`, e `DiversityFilter` e `TcpAddr` não existem no upstream. |
+| `RULE_LOWER_CAMEL` | 1 | 24 | O regex não enxergava variáveis e constantes top-level (`const DefaultConfig = ...`). |
+| `RULE_CONSTANT_CASING` | 0 | 16 | Constantes de enum com argumento (`FIN_ACK(...)`) eram lidas como métodos, e constantes top-level eram invisíveis. |
+| `RULE_ALL_CAPS` | 28 | 37 | Mesma causa: campos top-level invisíveis. |
+| `RULE_IMPORT_PREFIX_NAMING` | 8 | 7 | Saiu um falso positivo: um `import ... as dnsmessage` dentro de comentário `///`. Outros dois mudaram só de linha, e agora apontam o início do `import`. |
+| `RULE_MODULE_BOUNDARY_LEAK` | 9 | 10 | `ByteReadSeeker`, uma colisão real que a extração Go antiga escondia. |
+| `RULE_EXPOSED_NON_PUBLIC_MEMBERS` | 0 | 5 (WARNING) | Campos públicos `Map<..., _BaseLimitConfig>?` em `resource_manager/limit_defaults.dart`. A heurística linha a linha tropeçava no `?` depois do `>`. |
+| `RULE_MISSING_ATOMIC_TESTS` | 452 | 464 | O `operator -` nunca era extraído, porque faltava `-` na classe de caracteres do regex. Isso dá 12 tipos do boilerplate sem teste; o `-` unário e o binário contam uma vez só. Também o getter top-level `defaultRegistry` (ipld_prime), que o regex ignorava por não ter `(`. Saiu `Message_Flag.FIN_ACK`, uma constante de enum antes lida como método. |
+| `RULE_MISSING_GO_FUNCTIONS` | 42 | 37 | O índice `.md` sintetizava funções fantasma `Tipo.Metodo` para métodos de tipos não exportados. |
+| Regras 18–21 (INFO) e `PROGRESS_RELATORY.md` | | | Mudança de base. Um membro de tipo não exportado não conta mais como API pública Go, mesmo com nome exportado: são os campos `Datastore` dos structs gerados `dsN` em `go-datastore/scoped/impls.gen.go` e os métodos de receptores privados. Em compensação, entram declarações que o regex perdia. Os métodos no escopo foram de 15.961 para 9.331, e a cobertura total de 13,2% para 17,8%. |
+
+Tempo: o auditor antigo levava cerca de 12 s por execução. O novo leva cerca de
+16 s na primeira execução, sem cache (10,7 s são do analyzer e 2,5 s do
+`go/ast` em 49 módulos), e cerca de 2 s nas seguintes, com o cache válido.
 
 ## Fases A, B e C — Conclusão e Rastreamento de Interoperabilidade
 

@@ -561,9 +561,22 @@ Para garantir fidelidade contínua e prevenir regressões sintáticas ou de API,
 agente deve validar seu código contra o auditor AST do projeto:
 `tool/audit_ast_nomenclature.py`.
 
-A ferramenta compara o índice AST do Go (`go-ipfs-reference/*-index/`) e as
-definições de tipos upstream com as declarações Dart em `packages/` e `lib/`,
-auditando automaticamente as 25 regras contratuais:
+O auditor não lê código-fonte como texto: não usa regex, nem conta chaves à
+mão. Cada linguagem é lida pelo seu parser oficial, e o Python só consome o JSON
+que sai dele:
+
+- **Dart:** `tool/dart_ast_facts.dart`, com o `parseString` do
+  `package:analyzer`.
+- **Go:** `tool/go_module_index.go -json`, com `go/ast`. É o mesmo gerador dos
+  índices `.md` em `go-ipfs-reference/*-index/`, agora versionado em `tool/`.
+
+Os dois JSONs ficam em cache em `.dart_tool/`, e são regenerados sozinhos
+quando uma fonte muda. Por isso o auditor exige `dart` e `go` no PATH e
+`pip install -r tool/requirements.txt`. Se algum dos dois faltar, ele falha;
+nunca volta a ler texto.
+
+Com esses fatos, o auditor compara as declarações Go com as declarações Dart em
+`packages/` e `lib/` e aplica automaticamente as 26 regras contratuais:
 
 1. **`RULE_ALL_CAPS`**: Tipos públicos em `UpperCamelCase` e membros/funções em
    `lowerCamelCase`, tratando acrônimos como palavras comuns (ex.: `Cid`, `IpfsNode`,
@@ -688,6 +701,10 @@ auditando automaticamente as 25 regras contratuais:
     O auditor mantém, por arquivo, o mapa `prefixo → biblioteca`, exposto por
     `resolve_prefixed_reference`, de modo que uma referência `foo.Bar` seja
     atribuída ao pacote certo em vez de confundida com uma declaração local.
+26. **`RULE_PARSE_ERROR`**: Erro de sintaxe reportado pelo `package:analyzer`
+    em qualquer arquivo Dart auditado. Um arquivo que não parseia pode esconder
+    declarações em silêncio, então o erro é bloqueante (`ERROR`) e precisa ser
+    corrigido antes das demais regras terem valor.
 
 ### Nível de visibilidade, permissão e tipos não-públicos
 

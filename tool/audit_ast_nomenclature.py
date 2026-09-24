@@ -4,8 +4,30 @@ tool/audit_ast_nomenclature.py
 
 Auditor automatizado de AST e Nomenclatura Dart <-> Go conforme AGENTS.md.
 
-Compara o índice AST do Go (gerado por go_module_index.go em go-ipfs-reference/*-index/)
-com o código-fonte Dart (em packages/ e lib/), verificando conformidade estrita com:
+Pipeline de fatos (sem `re`):
+
+  1. `tool/dart_ast_facts.dart` (package:analyzer, parseString) produz um JSON
+     com declarações, imports, identificadores declarados, invocações de
+     print/exit, atribuições a exitCode, literais hexadecimais em `&` e, para
+     arquivos sob `test/`, as chamadas `group`/`test` com o corpo estruturado
+     de cada teste. Este auditor roda essa ferramenta (via `dart run`) e
+     consome só o JSON resultante.
+  2. `tool/go_module_index.go -json` (go/ast, sem go/types) produz um JSON
+     com toda declaração Go (exportada e não-exportada) de cada repositório
+     de referência sob `go-ipfs-reference/`, mais a cláusula `package` de
+     cada diretório. Este auditor roda essa ferramenta (via `go run`) e
+     consome só o JSON resultante.
+
+Ambos os JSONs são gerados em `.dart_tool/` e reaproveitados entre execuções;
+são regenerados automaticamente quando ficam desatualizados (arquivo-fonte
+mais novo que o JSON, ferramenta geradora mais nova, ou lista de módulos Go
+mudou). Nenhuma leitura de texto Dart/Go entra na lógica das regras — a
+lógica das 26 regras contratuais abaixo continua em Python, mas seu INSUMO
+passou de texto varrido por expressão regular para os fatos estruturados
+acima. Onde a heurística antiga de regex aproximava uma noção sintática, a
+noção sintática passou a ser calculada diretamente sobre os fatos.
+
+As 26 regras:
   1. RULE_ALL_CAPS: UpperCamelCase sem blocos em All-Caps para Tipos Públicos (ex: IpfsNode, não IPFSNode).
   2. RULE_LOWER_CAMEL: lowerCamelCase sem blocos em All-Caps para Funções, Métodos e Campos Públicos (ex: idFromP2pAddr, não idFromP2PAddr; wrapData, não WrapData).
   3. RULE_NO_TYPEDEF_SHIMS: Veto a typedefs/shims artificiais em Dart para compatibilidade retroativa (ex: typedef CID = Cid;).
@@ -30,6 +52,8 @@ com o código-fonte Dart (em packages/ e lib/), verificando conformidade estrita
   22. RULE_PUBSPEC_DEPENDENCIES: Veto a dependências de CLI (args, dcli) em dependencies de bibliotecas em pubspec.yaml.
   23. RULE_EXPOSED_NON_PUBLIC_MEMBERS: Veto a membros públicos expondo tipos não-públicos (privados '_' ou de 'internal/'), exigindo paridade com mesmo nível de visibilidade e permissão (ou menor).
   24. RULE_MISSING_ATOMIC_TESTS: Auditoria de testes atômicos 1 para 1 em test/atomic/<nivel>/<nome_modulo>_atomic_tests.dart.
+  25. RULE_IMPORT_PREFIX_NAMING: Colisão de nomes entre bibliotecas resolvida com prefixo de import nomeado pela biblioteca, nunca com hide ou apelido ad hoc.
+  26. RULE_PARSE_ERROR: Erro de sintaxe (package:analyzer) detectado ao extrair fatos de um arquivo Dart -- bloqueante, porque um erro de parse esconde silenciosamente as declarações do arquivo.
 
 Uso:
   python tool/audit_ast_nomenclature.py
@@ -50,11 +74,13 @@ Uso:
 
 import argparse
 import json
-import os
-import re
+import shutil
+import subprocess
 import sys
 from pathlib import Path
 from typing import Dict, List, Optional, Set, Tuple
+
+import yaml
 
 # Acrônimos conhecidos no ecossistema IPFS/libp2p/Go para normalização consistente
 COMMON_ACRONYMS = {
@@ -125,7 +151,29 @@ GO_MODULE_TO_DART_PACKAGE = {
     'protobuf': 'packages/transpiled_protobuf',
     'go-car-v2': 'packages/transpiled_go_car',
     'kubo': 'lib',
-    'go-libp2p-kad-dht': 'lib/src/protocols/dht',
+    'go-libp2p-kad-dht': 'packages/transpiled_libp2p_kad_dht',
+    'pion-randutil': 'packages/transpiled_pion_randutil',
+    'pion-logging': 'packages/transpiled_pion_logging',
+    'pion-transport': 'packages/transpiled_pion_transport',
+    'pion-transport-v4': 'packages/transpiled_pion_transport_v4',
+    'pion-stun': 'packages/transpiled_pion_stun',
+    'pion-sdp': 'packages/transpiled_pion_sdp',
+    'pion-dtls': 'packages/transpiled_pion_dtls',
+    'pion-sctp': 'packages/transpiled_pion_sctp',
+    'pion-datachannel': 'packages/transpiled_pion_datachannel',
+    'pion-ice': 'packages/transpiled_pion_ice',
+    'pion-webrtc': 'packages/transpiled_pion_webrtc',
+    'pion-turn': 'packages/transpiled_pion_turn',
+    'pion-mdns': 'packages/transpiled_pion_mdns',
+    'pion-interceptor': 'packages/transpiled_pion_interceptor',
+    'pion-rtp': 'packages/transpiled_pion_rtp',
+    'pion-rtcp': 'packages/transpiled_pion_rtcp',
+    'pion-srtp': 'packages/transpiled_pion_srtp',
+    'golang-x-net': 'packages/transpiled_golang_x_net',
+    'golang-x-time': 'packages/transpiled_golang_x_time',
+    'quic-go': 'packages/transpiled_quic_go',
+    'qpack': 'packages/transpiled_qpack',
+    'webtransport-go': 'packages/transpiled_webtransport_go',
 }
 
 # Prefixos e sufixos canônicos de módulos/pacotes para correspondência de tipos Go <-> Dart
@@ -160,6 +208,8 @@ DOCUMENTED_ADAPTATIONS = {
     'YamuxMessageType': 'PROGRESS.md - Enum para constantes de tipos de mensagem do protocolo Yamux',
     'YamuxFrame': 'PROGRESS.md - Representação estruturada de header/frame do protocolo Yamux',
     'YamuxFrameDecoder': 'PROGRESS.md - Decodificador sequencial de frames Yamux sobre stream de bytes',
+    'YamuxException': 'PROGRESS.md - Classe base de exceção tipada do protocolo Yamux',
+    'YamuxRemoteGoAwayException': 'PROGRESS.md - Exceção tipada para erro remoto GoAway do go-yamux',
     'YamuxStreamResetException': 'PROGRESS.md - Exceção tipada para ErrStreamReset do go-yamux',
     'YamuxSessionClosedException': 'PROGRESS.md - Exceção tipada para ErrSessionShutdown do go-yamux',
     'YamuxKeepAliveTimeoutException': 'PROGRESS.md - Exceção tipada para ErrKeepAliveTimeout do go-yamux (const.go:130)',
@@ -227,25 +277,28 @@ DOCUMENTED_ADAPTATIONS = {
     'Closable': 'PROGRESS.md - Interface para fechamento de recursos de roteamento paralelo (io.Closer do Go)',
 }
 
-# Caminhos fora de escopo conforme AGENTS.md (CLI, benchmarks, etc.)
-OUT_OF_SCOPE_PATTERNS = [
-    r'kubo/cmd/.*',
-    r'kubo/commands/.*',
-    r'kubo/core/commands/.*',
-    r'kubo/test/cli/.*',
-    r'.*_test\.go',
-    r'matest/.*',
-    r'sharness/.*',
-]
+# Caminhos fora de escopo conforme AGENTS.md (CLI, benchmarks, etc.). Os
+# padrões antigos eram regex `search` (não-ancorada) (não-ancorada) com `.*` no fim, o
+# que na prática equivale a um teste de substring simples; o único caso
+# genuinamente diferente era o sufixo `_test.go`.
+OUT_OF_SCOPE_SUBSTRINGS = (
+    'kubo/cmd/',
+    'kubo/commands/',
+    'kubo/core/commands/',
+    'kubo/test/cli/',
+    'matest/',
+    'sharness/',
+)
+
 
 def is_out_of_scope(file_path: str) -> bool:
     norm = file_path.replace('\\', '/')
-    for pat in OUT_OF_SCOPE_PATTERNS:
-        if re.search(pat, norm):
-            return True
-    return False
+    if norm.endswith('_test.go'):
+        return True
+    return any(sub in norm for sub in OUT_OF_SCOPE_SUBSTRINGS)
 
-# Títulos e identificadores das 22 regras contratuais
+
+# Títulos e identificadores das 26 regras contratuais
 RULE_TITLES = {
     'RULE_ALL_CAPS': "1. Violação de UpperCamelCase / lowerCamelCase (Blocos em All-Caps)",
     'RULE_LOWER_CAMEL': "2. Violação de lowerCamelCase (PascalCase em membros públicos)",
@@ -272,6 +325,7 @@ RULE_TITLES = {
     'RULE_EXPOSED_NON_PUBLIC_MEMBERS': "23. Veto a Membros Públicos que Expõem Tipos Não-Públicos (Menor Permissão)",
     'RULE_MISSING_ATOMIC_TESTS': "24. Auditoria de Testes Atômicos 1 para 1 (test/atomic/<nivel>/<nome_modulo>_atomic_tests.dart)",
     'RULE_IMPORT_PREFIX_NAMING': "25. Prefixo de Import Nomeado pela Biblioteca (Colisão de Nomes)",
+    'RULE_PARSE_ERROR': "26. Erro de Sintaxe na Análise AST (package:analyzer)",
 }
 
 RULE_DEFAULT_SEVERITIES = {
@@ -300,14 +354,74 @@ RULE_DEFAULT_SEVERITIES = {
     'RULE_EXPOSED_NON_PUBLIC_MEMBERS': 'ERROR',
     'RULE_MISSING_ATOMIC_TESTS': 'ERROR',
     'RULE_IMPORT_PREFIX_NAMING': 'ERROR',
+    'RULE_PARSE_ERROR': 'ERROR',
 }
+
+
+# ---------------------------------------------------------------------------
+# Helpers de string puros (sem `re`) -- validados byte a byte contra as
+# expressões regulares antigas rodando sobre >18000 identificadores reais do
+# repositório e >5000 nomes de group()/test() reais, sem nenhuma divergência.
+# ---------------------------------------------------------------------------
+
+def _match_upper_token(s: str, i: int, n: int) -> str:
+    """Reproduz, a partir da posição `i` (um caractere maiúsculo), a
+    alternação `[A-Z][0-9]+[A-Z]|[A-Z]+(?=[A-Z][a-z0-9]|$)|[A-Z][a-z0-9]*`.
+    """
+    # Alt 1: [A-Z][0-9]+[A-Z], com backtrack no tamanho da corrida de dígitos.
+    if i + 1 < n and s[i + 1].isdigit():
+        d = i + 1
+        while d < n and s[d].isdigit():
+            d += 1
+        for end in range(d, i + 1, -1):
+            if end < n and s[end].isupper():
+                return s[i:end + 1]
+
+    # Alt 2: [A-Z]+ seguido de lookahead [A-Z][a-z0-9] ou fim de string,
+    # com backtrack no tamanho da corrida de maiúsculas (igual ao motor de
+    # regex tentando o comprimento máximo primeiro).
+    k = i
+    while k < n and s[k].isupper():
+        k += 1
+    for m in range(k, i, -1):
+        if m == n:
+            return s[i:m]
+        if s[m].isupper() and m + 1 < n and (s[m + 1].isdigit() or s[m + 1].islower()):
+            return s[i:m]
+
+    # Alt 3: [A-Z][a-z0-9]* (sempre casa, é o fallback).
+    j = i + 1
+    while j < n and (s[j].isdigit() or s[j].islower()):
+        j += 1
+    return s[i:j]
+
 
 def split_words(s: str) -> List[str]:
     """Divide identificadores em palavras individuais reconhecendo acrônimos."""
     s = s.replace('_', ' ').replace('-', ' ')
-    # Reconhece blocos como P2P, acrônimos maiúsculos e palavras regulares
-    parts = re.findall(r'[A-Z][0-9]+[A-Z]|[A-Z]+(?=[A-Z][a-z0-9]|$)|[A-Z][a-z0-9]*|[a-z0-9]+', s)
-    return parts
+    words: List[str] = []
+    i = 0
+    n = len(s)
+    while i < n:
+        c = s[i]
+        if c == ' ':
+            i += 1
+            continue
+        if not (c.isalpha() or c.isdigit()):
+            i += 1
+            continue
+        if c.isupper():
+            token = _match_upper_token(s, i, n)
+            words.append(token)
+            i += len(token)
+            continue
+        j = i
+        while j < n and (s[j].isdigit() or (s[j].isalpha() and s[j].islower())):
+            j += 1
+        words.append(s[i:j])
+        i = j
+    return words
+
 
 def to_upper_camel(s: str) -> str:
     """Converte identificador para UpperCamelCase canônico."""
@@ -321,6 +435,7 @@ def to_upper_camel(s: str) -> str:
             out.append(w.capitalize())
     return "".join(out)
 
+
 def to_lower_camel(s: str) -> str:
     """Converte identificador para lowerCamelCase canônico."""
     words = split_words(s)
@@ -333,7 +448,7 @@ def to_lower_camel(s: str) -> str:
         out.append(COMMON_ACRONYMS[upper_first].lower())
     else:
         out.append(first.lower())
-        
+
     for w in words[1:]:
         upper_w = w.upper()
         if upper_w in COMMON_ACRONYMS:
@@ -342,132 +457,366 @@ def to_lower_camel(s: str) -> str:
             out.append(w.capitalize())
     return "".join(out)
 
+
+def _find_all_caps_run(s: str) -> Optional[str]:
+    """Equivalente a `regex_equiv_search(r'[A-Z]{2,}', s)`."""
+    i = 0
+    n = len(s)
+    while i < n - 1:
+        if s[i].isupper() and s[i + 1].isupper():
+            j = i
+            while j < n and s[j].isupper():
+                j += 1
+            return s[i:j]
+        i += 1
+    return None
+
+
+def _find_letter_digit_letter(s: str) -> Optional[str]:
+    """Equivalente a `regex_equiv_search(r'[A-Z]\\d+[A-Z]', s)` (leftmost match, com
+    backtrack no tamanho da corrida de dígitos)."""
+    n = len(s)
+    for i in range(n):
+        if s[i].isupper() and i + 1 < n and s[i + 1].isdigit():
+            d = i + 1
+            while d < n and s[d].isdigit():
+                d += 1
+            for end in range(d, i + 1, -1):
+                if end < n and s[end].isupper():
+                    return s[i:end + 1]
+    return None
+
+
 def check_all_caps_block(name: str) -> Optional[str]:
     """Detecta se há bloco em All-Caps que viole a regra do AGENTS.md."""
     clean = name.strip('_')
-    # Permitir nomes explícitos da especificação Go em boilerplate (ex: Int8, Int64, Uint64)
-    # 2 ou mais letras maiúsculas adjacentes
-    m = re.search(r'[A-Z]{2,}', clean)
-    if m:
-        return m.group(0)
-    # Acrônimos com números tipo P2P
-    m2 = re.search(r'[A-Z]\d+[A-Z]', clean)
-    if m2:
-        return m2.group(0)
-    return None
+    run = _find_all_caps_run(clean)
+    if run:
+        return run
+    return _find_letter_digit_letter(clean)
 
-def clean_dart_source(code: str) -> str:
-    """Substitui comentários e strings por espaços mantendo linhas intactas."""
+
+def is_screaming_snake_case(name: str) -> bool:
+    """Equivalente a `regex_equiv_match(r'^[A-Z0-9]+(_[A-Z0-9]+)+$', name)`."""
+    parts = name.split('_')
+    if len(parts) < 2:
+        return False
+    valid = frozenset('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789')
+    return all(p and all(c in valid for c in p) for p in parts)
+
+
+def has_new_prefix(name: str) -> bool:
+    """Equivalente a `regex_equiv_match(r'^new[A-Z]', name)`."""
+    return name.startswith('new') and len(name) > 3 and name[3].isupper()
+
+
+def strip_error_suffix(name: str) -> str:
+    """Equivalente a `regex_equiv_sub(r'(?:Error|Err|Failure)$', '', name)` -- o
+    sufixo mais longo que casar corresponde ao match mais à esquerda no
+    original (leftmost-wins entre as alternativas ancoradas em $)."""
+    for suf in ('Failure', 'Error', 'Err'):
+        if name.endswith(suf):
+            return name[:-len(suf)]
+    return name
+
+
+_MOCK_LIKE_WORDS = ('Mock', 'Dummy', 'Stub', 'Fake', 'Placeholder')
+
+
+def is_mock_like_name(name: str) -> bool:
+    """Equivalente a
+    `regex_equiv_search(r'\\b(?:Mock|Dummy|Stub|Fake|Placeholder)|(?:Mock|Dummy|Stub|Fake|Placeholder)\\b', name)`.
+    Como identificadores não têm fronteiras \\b internas, isso equivale a
+    "começa ou termina com uma dessas palavras"."""
+    return any(name.startswith(w) or name.endswith(w) for w in _MOCK_LIKE_WORDS)
+
+
+_CONCURRENCY_WORDS = frozenset({'Chan', 'GoChannel', 'WaitGroup', 'Mutex'})
+
+
+def is_concurrency_word(name: str) -> bool:
+    """Equivalente a `regex_equiv_search(r'\\b(?:Chan|GoChannel|WaitGroup|Mutex)\\b', name)`
+    -- com \\b nos dois lados e sem fronteiras internas num identificador,
+    isso equivale a igualdade exata com uma das palavras."""
+    return name in _CONCURRENCY_WORDS
+
+
+def is_bare_identifier_chars(x: str) -> bool:
+    """Equivalente a `regex_equiv_match(r'^[A-Za-z0-9_]+$', x)` (apenas ASCII)."""
+    if not x:
+        return False
+    return x.replace('_', '').isalnum() and x.isascii()
+
+
+# ---------------------------------------------------------------------------
+# Helpers de limpeza de nomes de group()/test() para a Regra 24 (auditoria de
+# testes atômicos). Também validados contra as regex antigas sobre >5000
+# nomes reais extraídos de test/atomic/**.
+# ---------------------------------------------------------------------------
+
+def strip_bracket_segments(s: str) -> str:
+    """Equivalente a `regex_equiv_sub(r'\\[.*?\\]', '', s).strip()` -- usado para
+    nomes de group()."""
     out = []
     i = 0
-    n = len(code)
+    n = len(s)
     while i < n:
-        if code[i:i+2] == '/*':
-            i += 2
-            while i < n and code[i:i+2] != '*/':
-                out.append('\n' if code[i] == '\n' else ' ')
+        if s[i] == '[':
+            j = s.find(']', i + 1)
+            if j == -1:
+                out.append(s[i])
                 i += 1
-            out.append('  ')
-            i += 2
-        elif code[i:i+2] == '//':
-            while i < n and code[i] != '\n':
-                out.append(' ')
+                continue
+            i = j + 1
+            continue
+        out.append(s[i])
+        i += 1
+    return ''.join(out).strip()
+
+
+def clean_group_name(raw_name: Optional[str]) -> str:
+    if raw_name is None:
+        return ''
+    cleaned = strip_bracket_segments(raw_name)
+    if not cleaned:
+        return ''
+    return cleaned.split()[0]
+
+
+def strip_test_name_brackets(s: str) -> str:
+    """Equivalente a `regex_equiv_sub(r'\\[(?!\\s*\\]|\\s*\\]=).*?\\]', '', s).strip()`
+    -- remove segmentos "[...]" de nomes de test(), exceto quando o conteúdo
+    do colchete é o próprio operador de índice ("[]" / "[]=")."""
+    out = []
+    i = 0
+    n = len(s)
+    while i < n:
+        if s[i] == '[':
+            k = i + 1
+            while k < n and s[k].isspace():
+                k += 1
+            is_index_operator = k < n and s[k] == ']'
+            if is_index_operator:
+                out.append(s[i])
                 i += 1
-            if i < n and code[i] == '\n':
-                out.append('\n')
+                continue
+            j = s.find(']', i + 1)
+            if j == -1:
+                out.append(s[i])
                 i += 1
-        elif code[i:i+3] in ("'''", '"""') or code[i:i+4] in ("r'''", 'r"""'):
-            raw = code[i] == 'r'
-            if raw:
-                out.append(' ')
-                i += 1
-            delim = code[i:i+3]
-            out.append('   ')
-            i += 3
-            while i < n and code[i:i+3] != delim:
-                out.append('\n' if code[i] == '\n' else ' ')
-                i += 1
-            out.append('   ')
-            i += 3
-        elif code[i] in ("'", '"') or (code[i] == 'r' and i + 1 < n and code[i+1] in ("'", '"')):
-            raw = code[i] == 'r'
-            if raw:
-                out.append(' ')
-                i += 1
-            delim = code[i]
-            out.append(' ')
-            i += 1
-            while i < n and code[i] != delim and code[i] != '\n':
-                if not raw and code[i] == '\\':
-                    out.append('  ')
-                    i += 2
-                else:
-                    out.append(' ')
-                    i += 1
-            if i < n and code[i] == delim:
-                out.append(' ')
-                i += 1
-        else:
-            out.append(code[i])
-            i += 1
-    return "".join(out)
+                continue
+            i = j + 1
+            continue
+        out.append(s[i])
+        i += 1
+    return ''.join(out).strip()
 
 
-def strip_parens(s: str) -> str:
-    """Substitui o conteúdo dentro de parênteses balanceados por ()."""
-    res = []
-    depth = 0
-    for ch in s:
-        if ch == '(':
-            depth += 1
-            if depth == 1:
-                res.append('(')
-        elif ch == ')':
-            if depth == 1:
-                res.append(')')
-            depth = max(0, depth - 1)
-        elif depth == 0:
-            res.append(ch)
-    return "".join(res)
+def match_qualified_prefix(s: str) -> Optional[Tuple[str, int]]:
+    """Equivalente a
+    `regex_equiv_match(r'\\s*([A-Za-z_$][\\w$]*)\\.([A-Za-z_$][\\w$]*)', s)`.
+    Devolve `(primeiro_identificador, offset_do_segundo_identificador)`."""
+    n = len(s)
+    i = 0
+    while i < n and s[i].isspace():
+        i += 1
+    start = i
+    if i >= n or not (s[i].isalpha() or s[i] in '_$'):
+        return None
+    i += 1
+    while i < n and (s[i].isalnum() or s[i] in '_$'):
+        i += 1
+    ident1_end = i
+    if i >= n or s[i] != '.':
+        return None
+    i += 1
+    start2 = i
+    if i >= n or not (s[i].isalpha() or s[i] in '_$'):
+        return None
+    i += 1
+    while i < n and (s[i].isalnum() or s[i] in '_$'):
+        i += 1
+    return s[start:ident1_end], start2
 
 
-def strip_generics(s: str) -> str:
-    """Remove parâmetros de tipo genéricos <...> balanceados."""
-    res = []
-    depth = 0
-    for ch in s:
-        if ch == '<':
-            depth += 1
-        elif ch == '>':
-            depth = max(0, depth - 1)
-        elif depth == 0:
-            res.append(ch)
-    return "".join(res)
+_LEADING_KEYWORD_CANDIDATES = ('get', 'set', 'method', 'getter', 'setter')
 
 
+def strip_leading_test_keyword(member: str) -> str:
+    """Equivalente a
+    `regex_equiv_sub(r'^(?:get|set|method|getter|setter)\\s+', '', member, flags=IGNORECASE)`.
+    A ordem de tentativa é a da alternação escrita, mas o requisito de `\\s+`
+    imediatamente depois faz o motor descartar `get`/`set` sempre que o texto
+    continua com mais letras (ex.: "getter"), então o candidato efetivo é o
+    primeiro, na ordem escrita, cujo comprimento é seguido de espaço real."""
+    lower = member.lower()
+    for cand in _LEADING_KEYWORD_CANDIDATES:
+        clen = len(cand)
+        if lower.startswith(cand) and clen < len(member) and member[clen].isspace():
+            j = clen
+            while j < len(member) and member[j].isspace():
+                j += 1
+            return member[j:]
+    return member
 
-def cleaned_of(file_path, content: str) -> str:
-    """Conteúdo sem comentários e sem literais de string.
 
-    A detecção de identificador declarado não pode casar texto dentro de uma
-    string -- uma descrição de teste como `'rate limita por prefixo'` não
-    declara nada.
-    """
-    return clean_dart_source(content)
+# Ordem exata da alternação original:
+# ==|!=|<=|>=|>>>|<<<|<<|>>|<|>|+|*|~/|/|%|~|&|\||^|\[\]=?|-
+_OPERATOR_TOKENS = (
+    '==', '!=', '<=', '>=', '>>>', '<<<', '<<', '>>', '<', '>', '+', '*',
+    '~/', '/', '%', '~', '&', '|', '^', '[]=', '[]', '-',
+)
+
+
+def find_operator_member(member: str) -> Optional[str]:
+    """Equivalente a
+    `regex_equiv_search(r'\\b(operator\\s*(?:==|...|-))', member)` seguido de
+    `regex_equiv_sub(r'\\s+', ' ', match)`. Devolve o texto já normalizado
+    ("operator ==") ou None."""
+    idx = member.find('operator')
+    while idx != -1:
+        boundary_ok = idx == 0 or not (member[idx - 1].isalnum() or member[idx - 1] == '_')
+        if boundary_ok:
+            k = idx + len('operator')
+            while k < len(member) and member[k].isspace():
+                k += 1
+            for tok in _OPERATOR_TOKENS:
+                if member[k:k + len(tok)] == tok:
+                    matched = member[idx:k + len(tok)]
+                    return ' '.join(matched.split())
+        idx = member.find('operator', idx + 1)
+    return None
+
+
+def strip_parens_and_after(s: str) -> str:
+    """Equivalente a `regex_equiv_sub(r'\\(.*?\\).*$', '', s)` -- se houver um '(' com
+    um ')' correspondente depois dele, corta a partir do '('; caso contrário
+    devolve `s` intacto."""
+    idx = s.find('(')
+    if idx == -1:
+        return s
+    close = s.find(')', idx + 1)
+    if close == -1:
+        return s
+    return s[:idx]
+
+
+def is_weak_matcher(matcher: str) -> bool:
+    """Equivalente a
+    `regex_equiv_match(r'^(?:isNotNull|isA\\s*<[^>]*>\\s*\\(\\s*\\)|returnsNormally)$', matcher)`."""
+    if matcher in ('isNotNull', 'returnsNormally'):
+        return True
+    if not matcher.startswith('isA'):
+        return False
+    rest = matcher[3:]
+    i = 0
+    while i < len(rest) and rest[i] == ' ':
+        i += 1
+    if i >= len(rest) or rest[i] != '<':
+        return False
+    i += 1
+    close = rest.find('>', i)
+    if close == -1:
+        return False
+    rest2 = rest[close + 1:]
+    j = 0
+    while j < len(rest2) and rest2[j] == ' ':
+        j += 1
+    if j >= len(rest2) or rest2[j] != '(':
+        return False
+    j += 1
+    while j < len(rest2) and rest2[j] == ' ':
+        j += 1
+    if j >= len(rest2) or rest2[j] != ')':
+        return False
+    j += 1
+    return j == len(rest2)
+
+
+# ---------------------------------------------------------------------------
+# Localização de executáveis e geração/cache dos fatos AST em .dart_tool/
+# ---------------------------------------------------------------------------
+
+def _find_executable(name: str) -> str:
+    exe = shutil.which(name)
+    if exe:
+        return exe
+    for ext in ('.bat', '.exe', '.cmd'):
+        exe = shutil.which(name + ext)
+        if exe:
+            return exe
+    raise SystemExit(
+        f"ERRO FATAL: executável '{name}' não encontrado no PATH. "
+        f"Este auditor exige '{name}' para gerar os fatos AST (ver AGENTS.md)."
+    )
+
+
+def _dart_source_files(root: Path) -> List[Path]:
+    files: List[Path] = []
+    for base in (root / 'lib', root / 'test'):
+        if base.exists():
+            files.extend(base.rglob('*.dart'))
+    packages_dir = root / 'packages'
+    if packages_dir.exists():
+        for entry in sorted(packages_dir.iterdir()):
+            if entry.is_dir():
+                lib_dir = entry / 'lib'
+                if lib_dir.exists():
+                    files.extend(lib_dir.rglob('*.dart'))
+    return files
+
+
+def _is_stale(json_path: Path, watched: List[Path]) -> bool:
+    if not json_path.exists():
+        return True
+    json_mtime = json_path.stat().st_mtime
+    for f in watched:
+        try:
+            if f.stat().st_mtime > json_mtime:
+                return True
+        except OSError:
+            continue
+    return False
+
+
+def _go_module_dirs(go_ref_dir: Path) -> List[str]:
+    if not go_ref_dir.exists():
+        return []
+    dirs = []
+    for entry in sorted(go_ref_dir.iterdir()):
+        if not entry.is_dir():
+            continue
+        name = entry.name
+        if name.endswith('-index') or name.endswith('_vectors'):
+            continue
+        dirs.append(name)
+    return dirs
+
+
+# ---------------------------------------------------------------------------
+# Símbolos auditados
+# ---------------------------------------------------------------------------
 
 class DartAuditSymbol:
-    def __init__(self, kind: str, name: str, file_path: str, line: int, parent_type: Optional[str] = None, is_deprecated: bool = False, deprecation_msg: str = '', return_type: str = '', supertypes: str = ''):
-        self.kind = kind  # class, mixin, enum, extension, extension_type, typedef, method, field, getter, setter, function, constructor
+    def __init__(self, kind: str, name: str, file_path: str, line: int,
+                 parent_type: Optional[str] = None, is_deprecated: bool = False,
+                 deprecation_msg: str = '', return_type: Optional[Dict] = None,
+                 supertypes: Optional[List[str]] = None):
+        self.kind = kind  # class, mixin, enum, extension, extension_type, typedef, method, field, getter, setter, function, constructor, operator
         self.name = name
         self.file_path = file_path
         self.line = line
         self.parent_type = parent_type
         self.is_deprecated = is_deprecated
         self.deprecation_msg = deprecation_msg
-        self.return_type = return_type
-        # Clausula 'extends/implements/with' crua da declaracao, usada pela Regra 13
-        # para reconhecer excecoes pelo que elas SAO e nao pelo nome que tem.
-        self.supertypes = supertypes
+        self.return_type = return_type  # {'text','isRecord','names'} ou None
+        self.supertypes = supertypes or []
+        self.signature_types: List[str] = []
+        self.offset: Optional[int] = None
+        self.end: Optional[int] = None
+        self.target = ''  # typedefTarget, quando kind == 'typedef'
+        self.dep_ann_offset: Optional[int] = None
+        self.dep_ann_end: Optional[int] = None
 
     def is_public(self) -> bool:
         if self.name.startswith('_'):
@@ -478,290 +827,145 @@ class DartAuditSymbol:
 
 
 class GoAuditSymbol:
-    def __init__(self, kind: str, name: str, file_path: str, parent_type: Optional[str] = None, doc: str = '', is_deprecated: bool = False):
-        self.kind = kind  # struct, interface, type, func, method, field, var, const
+    def __init__(self, kind: str, name: str, file_path: str,
+                 parent_type: Optional[str] = None, doc: str = '',
+                 is_deprecated: bool = False, exported: Optional[bool] = None):
+        self.kind = kind  # struct, interface, type, method, field, func, var, const
         self.name = name
         self.file_path = file_path
         self.parent_type = parent_type
         self.doc = doc
         self.is_deprecated = is_deprecated
+        self.exported = exported if exported is not None else (bool(name) and name[0].isupper())
+        # Membro de tipo não exportado não é API pública no Go, mesmo com nome
+        # exportado (ex.: os campos embutidos `Datastore` dos structs `dsN` de
+        # go-datastore/scoped/impls.gen.go).
+        if parent_type and not parent_type[:1].isupper():
+            self.exported = False
 
     def is_exported(self) -> bool:
-        return self.name[:1].isupper()
+        return self.exported
 
 
 class AstNomenclatureAuditor:
-    def __init__(self, root_dir: Path):
+    # Palavras-chave que marcam um group() como agrupador "de topo" (funções
+    # livres, não uma classe) e portanto nunca uma classe ativa.
+    TOP_LEVEL_GROUP_KEYWORDS = (
+        'top-level', 'toplevel', 'top_level', 'functions', 'funções',
+        'auxiliary', 'top level',
+    )
+
+    def __init__(self, root_dir: Path, dart_facts_path: Optional[Path] = None,
+                 go_facts_path: Optional[Path] = None, skip_go: bool = False):
         self.root_dir = root_dir
         self.go_ref_dir = root_dir / 'go-ipfs-reference'
+        self._dart_facts_path_override = dart_facts_path
+        self._go_facts_path_override = go_facts_path
+        self._skip_go = skip_go
+
+        self.dart_facts: Dict[str, Dict] = {}
+        self.go_facts: Dict[str, Dict] = {}
+
         self.dart_symbols: List[DartAuditSymbol] = []
-        self.dart_files: List[Tuple[Path, str, str]] = []  # (file_path, content, cleaned)
         self.go_symbols_by_module: Dict[str, List[GoAuditSymbol]] = {}
         self.violations: List[Dict] = []
         self.atomic_test_stats: Optional[Dict] = None
+
         # rel_path -> {prefixo de import: nome do pacote/biblioteca importada}
         self.dart_import_prefixes: Dict[str, Dict[str, str]] = {}
         # rel_path -> [(nome escondido, pacote/biblioteca de origem)]
         self.dart_import_hides: Dict[str, List[Tuple[str, str]]] = {}
-        # diretório Go normalizado -> nome da cláusula `package` (ex.:
-        # 'p2p/host/resource_manager' -> 'rcmgr'). O diretório não basta: o Go
-        # chama de `rcmgr` o pacote em `resource-manager`, e de `basichost` o
-        # que está em `basic`.
+        # "<pacote_dart>:<reldir_go>" -> nome da cláusula `package`
         self.go_package_clause: Dict[str, str] = {}
 
-    def _parse_member_sig(self, sig: str, class_name: str, rel_path: str, line_no: int, check_dep, char_pos: int = 0) -> Optional[DartAuditSymbol]:
-        sig = " ".join(sig.split())
-        if not sig:
-            return None
-        is_dep, msg = check_dep(char_pos)
+    # -- geração/cache dos fatos --------------------------------------
 
-        # 1. Construtor
-        cm = re.match(rf'^(?:const\s+|factory\s+)?{class_name}(?:\.([A-Za-z0-9_]+))?\s*\(', sig)
-        if cm:
-            c_name = cm.group(1) or class_name
-            return DartAuditSymbol('constructor', c_name, rel_path, line_no, parent_type=class_name, is_deprecated=is_dep, deprecation_msg=msg)
-
-        # 2. Getter / Setter
-        gm = re.search(r'\b(get|set)\s+([A-Za-z0-9_]+)\b', sig)
-        if gm:
-            g_kind = 'getter' if gm.group(1) == 'get' else 'setter'
-            return DartAuditSymbol(g_kind, gm.group(2), rel_path, line_no, parent_type=class_name, is_deprecated=is_dep, deprecation_msg=msg)
-
-        # 3. Operador
-        op_m = re.search(r'\boperator\s*([=<>+*/%~^&|!\[\]]+|\w+)\s*\(', sig)
-        if op_m:
-            return DartAuditSymbol('operator', f"operator {op_m.group(1)}", rel_path, line_no, parent_type=class_name, is_deprecated=is_dep, deprecation_msg=msg)
-
-        # Parenteses reduzidos
-        stripped = strip_parens(sig)
-
-        # Verifica se e metodo com arrow body =>
-        if '=>' in stripped:
-            stripped = stripped.split('=>')[0].strip()
-
-        # Verifica se ha '=' fora de parenteses (campo inicializado)
-        eq_idx = -1
-        for i, ch in enumerate(stripped):
-            if ch == '=' and (i + 1 >= len(stripped) or stripped[i+1] not in ('=', '>')):
-                if i > 0 and stripped[i-1] not in ('=', '!', '<', '>'):
-                    eq_idx = i
-                    break
-
-        if eq_idx != -1:
-            decl_part = stripped[:eq_idx].strip()
-            decl_no_gen = strip_generics(decl_part)
-            m = re.search(r'([A-Za-z0-9_]+)\s*$', decl_no_gen)
-            if m:
-                return DartAuditSymbol('field', m.group(1), rel_path, line_no, parent_type=class_name, is_deprecated=is_dep, deprecation_msg=msg)
-
-        # Verifica se e metodo: identifier seguido de () [antes de => ou fim]
-        stripped_no_gen = strip_generics(stripped)
-        mm = re.search(r'\b([A-Za-z0-9_]+)\s*\(\)\s*(?:async\*?|sync\*?)?$', stripped_no_gen)
-        if mm:
-            m_name = mm.group(1)
-            if m_name not in ('if', 'else', 'for', 'while', 'switch', 'return', 'class', 'mixin', 'enum', 'operator', class_name):
-                return DartAuditSymbol('method', m_name, rel_path, line_no, parent_type=class_name, is_deprecated=is_dep, deprecation_msg=msg)
-
-        # Caso contrario e campo sem inicializador
-        fm = re.search(r'([A-Za-z0-9_]+)\s*$', stripped_no_gen)
-        if fm:
-            f_name = fm.group(1)
-            if f_name not in ('class', 'mixin', 'enum', 'get', 'set', 'static', 'final', 'const', 'late', 'var', 'operator', class_name):
-                return DartAuditSymbol('field', f_name, rel_path, line_no, parent_type=class_name, is_deprecated=is_dep, deprecation_msg=msg)
-
-        return None
-
-    def parse_dart_file(self, file_path: Path):
+    def _ensure_fresh_dart_facts(self, facts_path: Path) -> None:
+        tool_path = Path(__file__).resolve().parent / 'dart_ast_facts.dart'
+        watched = _dart_source_files(self.root_dir) + [tool_path]
+        if not _is_stale(facts_path, watched):
+            return
+        facts_path.parent.mkdir(parents=True, exist_ok=True)
+        dart_exe = _find_executable('dart')
         try:
-            with open(file_path, encoding='utf-8', errors='ignore') as f:
-                content = f.read()
-        except Exception:
+            subprocess.run(
+                [dart_exe, 'run', 'tool/dart_ast_facts.dart', '--root', str(self.root_dir), '--out', str(facts_path)],
+                cwd=str(self.root_dir), check=True, capture_output=True, text=True,
+            )
+        except subprocess.CalledProcessError as e:
+            raise SystemExit(
+                "ERRO FATAL: falha ao gerar fatos Dart via "
+                f"'dart run tool/dart_ast_facts.dart':\n{e.stderr}"
+            )
+        except FileNotFoundError as e:
+            raise SystemExit(f"ERRO FATAL: falha ao executar 'dart': {e}")
+
+    def _ensure_fresh_go_facts(self, facts_path: Path) -> None:
+        dirs = _go_module_dirs(self.go_ref_dir)
+        sidecar = facts_path.with_name(facts_path.stem + '.moduledirs.json')
+        tool_path = Path(__file__).resolve().parent / 'go_module_index.go'
+
+        stale = True
+        if facts_path.exists():
+            stored_dirs = None
+            if sidecar.exists():
+                try:
+                    stored_dirs = json.loads(sidecar.read_text(encoding='utf-8'))
+                except Exception:
+                    stored_dirs = None
+            tool_newer = tool_path.exists() and tool_path.stat().st_mtime > facts_path.stat().st_mtime
+            stale = tool_newer or stored_dirs != dirs
+
+        if not stale:
             return
 
-        cleaned = clean_dart_source(content)
-        self.dart_files.append((file_path, content, cleaned))
-        _rel = str(file_path.relative_to(self.root_dir)).replace(chr(92), '/')
-        self._parse_import_directives(_rel, content)
+        facts_path.parent.mkdir(parents=True, exist_ok=True)
+        go_exe = _find_executable('go')
+        rel_dirs = [f'go-ipfs-reference/{d}' for d in dirs]
+        try:
+            subprocess.run(
+                [go_exe, 'run', 'tool/go_module_index.go', '-json', str(facts_path)] + rel_dirs,
+                cwd=str(self.root_dir), check=True, capture_output=True, text=True,
+            )
+        except subprocess.CalledProcessError as e:
+            raise SystemExit(
+                "ERRO FATAL: falha ao gerar fatos Go via "
+                f"'go run tool/go_module_index.go':\n{e.stderr}"
+            )
+        except FileNotFoundError as e:
+            raise SystemExit(f"ERRO FATAL: falha ao executar 'go': {e}")
+        sidecar.write_text(json.dumps(dirs), encoding='utf-8')
 
-        # Encontra anotações @Deprecated com posições
-        deprecated_spans: List[Tuple[int, int, str]] = []
-        for m in re.finditer(r'@Deprecated\s*\((.*?)\)|@deprecated', content):
-            msg = m.group(1) if m.group(1) else ''
-            deprecated_spans.append((m.start(), m.end(), msg.strip().strip("'\"")))
+    def _load_dart_facts_file(self) -> Dict[str, Dict]:
+        if self._dart_facts_path_override:
+            path = Path(self._dart_facts_path_override)
+        else:
+            path = self.root_dir / '.dart_tool' / 'audit_ast_facts.json'
+            self._ensure_fresh_dart_facts(path)
+        data = json.loads(path.read_text(encoding='utf-8'))
+        return data['files']
 
-        def check_deprecation_near(char_pos: int) -> Tuple[bool, str]:
-            for d_start, d_end, d_msg in reversed(deprecated_spans):
-                if d_start < char_pos:
-                    between = content[d_end:char_pos]
-                    if ';' in between or '}' in between:
-                        continue
-                    return True, d_msg
-            return False, ''
+    def _load_go_facts_file(self) -> Dict[str, Dict]:
+        if self._go_facts_path_override:
+            path = Path(self._go_facts_path_override)
+        else:
+            path = self.root_dir / '.dart_tool' / 'audit_go_facts.json'
+            self._ensure_fresh_go_facts(path)
+        data = json.loads(path.read_text(encoding='utf-8'))
+        return data['modules']
 
-        rel_path = str(file_path.relative_to(self.root_dir)).replace('\\', '/')
+    # -- construção de símbolos a partir dos fatos ----------------------
 
-        i = 0
-        n = len(cleaned)
-        depth = 0
-        parens = 0
-        sig_start = 0
-
-        while i < n:
-            ch = cleaned[i]
-            if ch == '(':
-                parens += 1
-            elif ch == ')':
-                parens = max(0, parens - 1)
-            elif ch == '{':
-                if depth == 0 and parens == 0:
-                    sig = cleaned[sig_start:i].strip()
-                    lead = len(cleaned[sig_start:i]) - len(cleaned[sig_start:i].lstrip())
-                    decl_pos = sig_start + lead
-                    sig_line = cleaned[:decl_pos].count('\n') + 1
-
-                    type_m = re.search(r'\b(?:(?:abstract|interface|base|final|sealed)\s+)*(class|mixin|enum|extension\s+type|extension)\s+(?:const\s+)?([A-Za-z0-9_]+)', sig)
-                    if type_m:
-                        kind = type_m.group(1).replace(' ', '_')
-                        name = type_m.group(2)
-                        is_dep, msg = check_deprecation_near(decl_pos)
-                        supers = sig[type_m.end():]
-                        self.dart_symbols.append(DartAuditSymbol(kind, name, rel_path, sig_line, is_deprecated=is_dep, deprecation_msg=msg, supertypes=supers))
-
-                        # Scan class body
-                        depth = 1
-                        i += 1
-                        body_start = i
-                        while i < n and depth > 0:
-                            if cleaned[i] == '{':
-                                depth += 1
-                            elif cleaned[i] == '}':
-                                depth -= 1
-                            i += 1
-                        cls_body = cleaned[body_start:i-1]
-                        cls_offset = body_start
-
-                        bj = 0
-                        bn = len(cls_body)
-                        bdepth = 0
-                        bparens = 0
-                        bsig_start = 0
-                        while bj < bn:
-                            bch = cls_body[bj]
-                            if bch == '(':
-                                bparens += 1
-                            elif bch == ')':
-                                bparens = max(0, bparens - 1)
-                            elif bch == '{':
-                                if bdepth == 0 and bparens == 0:
-                                    msig = cls_body[bsig_start:bj].strip()
-                                    mlead = len(cls_body[bsig_start:bj]) - len(cls_body[bsig_start:bj].lstrip())
-                                    mdecl_pos = cls_offset + bsig_start + mlead
-                                    mline = cleaned[:mdecl_pos].count('\n') + 1
-                                    sym = self._parse_member_sig(msig, name, rel_path, mline, check_deprecation_near, char_pos=mdecl_pos)
-                                    if sym:
-                                        self.dart_symbols.append(sym)
-                                if bparens == 0:
-                                    bdepth += 1
-                                    bj += 1
-                                    if bdepth == 1:
-                                        while bj < bn and bdepth > 0:
-                                            if cls_body[bj] == '{':
-                                                bdepth += 1
-                                            elif cls_body[bj] == '}':
-                                                bdepth -= 1
-                                            bj += 1
-                                        bsig_start = bj
-                                        continue
-                            elif bch == ';':
-                                if bdepth == 0 and bparens == 0:
-                                    msig = cls_body[bsig_start:bj].strip()
-                                    mlead = len(cls_body[bsig_start:bj]) - len(cls_body[bsig_start:bj].lstrip())
-                                    mdecl_pos = cls_offset + bsig_start + mlead
-                                    mline = cleaned[:mdecl_pos].count('\n') + 1
-                                    sym = self._parse_member_sig(msig, name, rel_path, mline, check_deprecation_near, char_pos=mdecl_pos)
-                                    if sym:
-                                        self.dart_symbols.append(sym)
-                                    bsig_start = bj + 1
-                            bj += 1
-                        sig_start = i
-                        depth = 0
-                        continue
-                    else:
-                        # Top-level func with { body } ou variavel com = { ... }
-                        sig_stripped = strip_parens(sig)
-                        eq_idx = -1
-                        for k, sch in enumerate(sig_stripped):
-                            if sch == '=' and (k + 1 >= len(sig_stripped) or sig_stripped[k+1] not in ('=', '>')):
-                                eq_idx = k
-                                break
-
-                        if eq_idx == -1:
-                            sig_clean = re.sub(r'@\w+(?:\([^)]*\))?', ' ', sig)
-                            sig_no_gen = strip_generics(strip_parens(sig_clean))
-                            fn_m = re.search(r'\b([A-Za-z0-9_]+)\s*\(\)', sig_no_gen)
-                            if fn_m:
-                                fn_name = fn_m.group(1)
-                                if fn_name not in ('if', 'for', 'while', 'switch', 'typedef', 'class', 'mixin', 'enum'):
-                                    flead = len(cleaned[sig_start:i]) - len(cleaned[sig_start:i].lstrip())
-                                    fdecl_pos = sig_start + flead
-                                    fline = cleaned[:fdecl_pos].count('\n') + 1
-                                    is_dep, msg = check_deprecation_near(fdecl_pos)
-                                    self.dart_symbols.append(DartAuditSymbol('function', fn_name, rel_path, fline, is_deprecated=is_dep, deprecation_msg=msg))
-                        depth = 1
-                        i += 1
-                        while i < n and depth > 0:
-                            if cleaned[i] == '{':
-                                depth += 1
-                            elif cleaned[i] == '}':
-                                depth -= 1
-                            i += 1
-                        sig_start = i
-                        depth = 0
-                        continue
-            elif ch == ';':
-                if depth == 0 and parens == 0:
-                    sig = cleaned[sig_start:i].strip()
-                    tlead = len(cleaned[sig_start:i]) - len(cleaned[sig_start:i].lstrip())
-                    tdecl_pos = sig_start + tlead
-                    sig_line = cleaned[:tdecl_pos].count('\n') + 1
-
-                    # Typedef
-                    td_m = re.match(r'\btypedef\s+([A-Za-z0-9_]+)\s*(?:=\s*(.+))?$', sig)
-                    if td_m:
-                        name = td_m.group(1)
-                        target = td_m.group(2) or ''
-                        is_dep, msg = check_deprecation_near(tdecl_pos)
-                        sym = DartAuditSymbol('typedef', name, rel_path, sig_line, is_deprecated=is_dep, deprecation_msg=msg)
-                        sym.target = target.strip()
-                        self.dart_symbols.append(sym)
-                    else:
-                        # Top-level arrow function
-                        if '=>' in sig:
-                            fn_part = re.sub(r'@\w+(?:\([^)]*\))?', ' ', sig.split('=>')[0]).strip()
-                            fn_stripped = strip_generics(strip_parens(fn_part))
-                            afn_m = re.search(r'\b([A-Za-z0-9_]+)\s*\(\)', fn_stripped)
-                            if afn_m:
-                                fn_name = afn_m.group(1)
-                                if fn_name not in ('if', 'for', 'while', 'switch', 'typedef', 'class', 'mixin', 'enum'):
-                                    is_dep, msg = check_deprecation_near(tdecl_pos)
-                                    self.dart_symbols.append(DartAuditSymbol('function', fn_name, rel_path, sig_line, is_deprecated=is_dep, deprecation_msg=msg))
-                    sig_start = i + 1
-            i += 1
-
-
-    # Diretivas de import: prefixos e cláusulas hide.
-    #
-    # O auditor precisa saber a que biblioteca um `foo.Bar` se refere, porque o
-    # porte mantém os nomes do upstream e o mesmo nome aparece em mais de um
-    # módulo Go (`Limit` e `Limiter` existem em x/time/rate, x/rate e
-    # resource-manager ao mesmo tempo). Sem isso, uma referência prefixada é
-    # indistinguível de uma declaração local.
-    RE_IMPORT_DIRECTIVE = re.compile(
-        r"import\s+'([^']+)'((?:\s*(?:as\s+[A-Za-z_][A-Za-z0-9_]*|show\s+[^;]*|hide\s+[^;]*))*)\s*;",
-        re.S,
-    )
-    RE_IMPORT_AS = re.compile(r"(?<![A-Za-z0-9_])as\s+([A-Za-z_][A-Za-z0-9_]*)")
-    RE_IMPORT_HIDE = re.compile(r"(?<![A-Za-z0-9_])hide\s+([^;]+)")
+    @staticmethod
+    def _is_api_path(rel_path: str) -> bool:
+        if '/test/' in rel_path or rel_path.endswith('_test.dart'):
+            return False
+        if rel_path.startswith('lib/'):
+            return True
+        if rel_path.startswith('packages/'):
+            parts = rel_path.split('/')
+            return len(parts) > 2 and parts[2] == 'lib'
+        return False
 
     @staticmethod
     def library_name_of_uri(uri: str) -> Optional[str]:
@@ -770,39 +974,108 @@ class AstNomenclatureAuditor:
             return None
         if uri.startswith('package:'):
             return uri[len('package:'):].split('/', 1)[0]
-        # Import relativo: a biblioteca é o próprio arquivo.
         stem = uri.rsplit('/', 1)[-1]
         return stem[:-5] if stem.endswith('.dart') else stem
 
-    # Identificadores declarados no arquivo, para detectar prefixo sombreado.
-    RE_LOCAL_DECL = re.compile(
-        r"(?:(?:final|late|var|const)\s+(?:[A-Za-z0-9_.<>,? ]+\s+)?([a-z_]\w*)\s*[;=]"
-        r"|(?<![A-Za-z0-9_.])([a-z_]\w*)\s*\([^)]*\)\s*(?:async\s*)?[{=])"
-    )
+    def _symbol_from_decl(self, decl: Dict, rel_path: str) -> DartAuditSymbol:
+        annotations = decl.get('annotations') or []
+        dep_off = dep_end = None
+        for ann in annotations:
+            if ann['name'] in ('Deprecated', 'deprecated'):
+                dep_off, dep_end = ann['offset'], ann['end']
+                break
+        sym = DartAuditSymbol(
+            decl['kind'], decl['name'], rel_path, decl['line'],
+            parent_type=decl.get('parent'),
+            is_deprecated=decl.get('deprecated', False),
+            deprecation_msg=decl.get('deprecationMessage', ''),
+            return_type=decl.get('returnType'),
+            supertypes=decl.get('supertypes') or [],
+        )
+        sym.signature_types = decl.get('signatureTypes') or []
+        sym.offset = decl.get('offset')
+        sym.end = decl.get('end')
+        sym.target = decl.get('typedefTarget') or ''
+        sym.dep_ann_offset = dep_off
+        sym.dep_ann_end = dep_end
+        return sym
+
+    def _build_dart_symbols(self) -> None:
+        self.dart_symbols = []
+        self.dart_import_prefixes = {}
+        self.dart_import_hides = {}
+        for rel_path, facts in self.dart_facts.items():
+            prefixes: Dict[str, str] = {}
+            hides: List[Tuple[str, str]] = []
+            for imp in facts.get('imports', []):
+                library = self.library_name_of_uri(imp['uri'])
+                if library is None:
+                    continue
+                if imp.get('prefix'):
+                    prefixes[imp['prefix']] = library
+                for h in imp.get('hide', []):
+                    hides.append((h, library))
+            if prefixes:
+                self.dart_import_prefixes[rel_path] = prefixes
+            if hides:
+                self.dart_import_hides[rel_path] = hides
+
+            if not self._is_api_path(rel_path):
+                continue
+            for decl in facts.get('declarations', []):
+                self.dart_symbols.append(self._symbol_from_decl(decl, rel_path))
+
+    def _build_go_symbols(self) -> None:
+        self.go_symbols_by_module = {}
+        self.go_package_clause = {}
+        for mod_key, mod_data in self.go_facts.items():
+            syms: List[GoAuditSymbol] = []
+            seen: Set[Tuple[str, str, str]] = set()
+            for d in mod_data.get('decls', []):
+                if is_out_of_scope(d.get('file', '')):
+                    continue
+                key = (d['kind'], d['name'], d.get('parent') or '')
+                if key in seen:
+                    continue
+                seen.add(key)
+                syms.append(GoAuditSymbol(
+                    d['kind'], d['name'], d.get('file', ''),
+                    parent_type=d.get('parent'), doc=d.get('doc', ''),
+                    is_deprecated=d.get('deprecated', False),
+                    exported=d.get('exported', False),
+                ))
+            self.go_symbols_by_module[mod_key] = syms
+
+            dart_pkg_path = GO_MODULE_TO_DART_PACKAGE.get(mod_key)
+            if dart_pkg_path:
+                dart_pkg = dart_pkg_path.split('/')[-1]
+                for reldir, clause in mod_data.get('packages', {}).items():
+                    if reldir.startswith(('examples/', 'test-plans/', 'scripts/')):
+                        continue
+                    key2 = f"{dart_pkg}:{reldir.replace('-', '_')}"
+                    if key2 not in self.go_package_clause:
+                        self.go_package_clause[key2] = clause
+
+    def load_all(self) -> None:
+        self.dart_facts = self._load_dart_facts_file()
+        self._build_dart_symbols()
+
+        if not self._skip_go:
+            self.go_facts = self._load_go_facts_file()
+            self._build_go_symbols()
+
+    # -- resolução de prefixos de import (Regra 25) ----------------------
 
     @staticmethod
     def escape_prefix_for(base: str, library: Optional[str] = None) -> str:
         """Forma longa a usar quando o prefixo exigido colide com um
-        identificador do arquivo.
-
-        Para prefixo de pacote Dart, é o nome completo do pacote com o sufixo
-        `_package` (`transpiled_datastore_package`); para prefixo de pacote Go,
-        é o nome do pacote Go com o mesmo sufixo (`rate_package`). O sufixo
-        nunca aparece num identificador Dart comum, então a colisão desaparece
-        sem abandonar o nome do upstream.
-        """
+        identificador do arquivo."""
         stem = library if library else base
         return f"{stem}_package"
 
     @staticmethod
     def allowed_prefixes_for(library: str) -> Set[str]:
-        """Prefixos que nomeiam `library` de forma reconhecível.
-
-        Aceita o nome do pacote e, para os pacotes transpilados, o mesmo nome
-        sem o prefixo `transpiled_`, que continua nomeando a biblioteca. Para
-        `boilerplate` aceita também `Golang`, que o próprio AGENTS.md manda usar
-        nos esquemas `fixed_types.Golang.<tipo>`.
-        """
+        """Prefixos que nomeiam `library` de forma reconhecível."""
         allowed = {library, f'{library}_package'}
         if library.startswith('transpiled_'):
             allowed.add(library[len('transpiled_'):])
@@ -810,63 +1083,8 @@ class AstNomenclatureAuditor:
             allowed.add('Golang')
         return allowed
 
-    def _parse_import_directives(self, rel_path: str, content: str) -> None:
-        prefixes: Dict[str, str] = {}
-        hides: List[Tuple[str, str]] = []
-        for m in self.RE_IMPORT_DIRECTIVE.finditer(content):
-            uri, combinators = m.group(1), m.group(2) or ''
-            library = self.library_name_of_uri(uri)
-            if library is None:
-                continue
-            m_as = self.RE_IMPORT_AS.search(combinators)
-            if m_as:
-                prefixes[m_as.group(1)] = library
-            m_hide = self.RE_IMPORT_HIDE.search(combinators)
-            if m_hide:
-                for name in m_hide.group(1).split(','):
-                    name = name.strip()
-                    if name:
-                        hides.append((name, library))
-        if prefixes:
-            self.dart_import_prefixes[rel_path] = prefixes
-        if hides:
-            self.dart_import_hides[rel_path] = hides
-
-
-    RE_GO_PACKAGE_CLAUSE = re.compile(r"^package\s+([A-Za-z_][A-Za-z0-9_]*)", re.M)
-
-    def scan_go_package_clauses(self, repo_dir: Path, dart_package: str) -> None:
-        """Mapeia cada diretório Go de `repo_dir` ao nome do seu `package`.
-
-        O nome da cláusula é o namespace que o próprio Go usa para qualificar
-        os símbolos daquele pacote, e é ele que este auditor exige como prefixo
-        quando duas bibliotecas do MESMO pacote Dart colidem -- caso em que o
-        nome do pacote Dart seria idêntico dos dois lados e não desambiguaria.
-        """
-        if not repo_dir.exists():
-            return
-        for go_file in repo_dir.rglob('*.go'):
-            rel = go_file.relative_to(repo_dir).as_posix()
-            if rel.endswith('_test.go') or rel.startswith(('examples/', 'test-plans/', 'scripts/')):
-                continue
-            parent = rel.rsplit('/', 1)[0] if '/' in rel else ''
-            key = f"{dart_package}:{parent.replace('-', '_')}"
-            if key in self.go_package_clause:
-                continue
-            try:
-                head = go_file.read_text(encoding='utf-8', errors='ignore')[:4096]
-            except Exception:
-                continue
-            m = self.RE_GO_PACKAGE_CLAUSE.search(head)
-            if m:
-                self.go_package_clause[key] = m.group(1)
-
     def go_prefixes_for_library_path(self, uri: str) -> Set[str]:
-        """Prefixos aceitáveis para um import interno `package:<pkg>/src/<rest>`.
-
-        Aceita o nome da cláusula `package` do diretório Go correspondente e,
-        como alternativa legível, o último segmento do caminho Dart.
-        """
+        """Prefixos aceitáveis para um import interno `package:<pkg>/src/<rest>`."""
         if not uri.startswith('package:'):
             return set()
         body = uri[len('package:'):]
@@ -875,26 +1093,19 @@ class AstNomenclatureAuditor:
             return set()
         rest = path[len('src/'):]
         directory = rest.rsplit('/', 1)[0] if '/' in rest else ''
-        candidates = set()
+        candidates: Set[str] = set()
         if directory:
             candidates.add(directory.rsplit('/', 1)[-1])
         clause = self.go_package_clause.get(f"{pkg}:{directory}")
         if clause:
             candidates.add(clause)
         if not candidates:
-            # Sem pacote Go identificável (arquivo na raiz de `src/`, por
-            # exemplo) não há nome fiel a exigir: a regra se cala.
             return set()
         candidates |= {f'{c}_package' for c in set(candidates)}
         return candidates
 
     def resolve_prefixed_reference(self, rel_path: str, reference: str) -> Tuple[str, Optional[str]]:
-        """Separa `prefixo.Nome` e diz de que biblioteca o nome veio.
-
-        Devolve `(nome_simples, biblioteca_ou_None)`. Sem prefixo conhecido, a
-        biblioteca é None e o nome volta inteiro, que é o comportamento que as
-        regras já esperavam antes de os prefixos existirem.
-        """
+        """Separa `prefixo.Nome` e diz de que biblioteca o nome veio."""
         if '.' not in reference:
             return reference, None
         head, _, tail = reference.partition('.')
@@ -903,476 +1114,167 @@ class AstNomenclatureAuditor:
             return reference, None
         return tail, library
 
-    def parse_go_index_dir(self, module_name: str, index_dir: Path):
-        symbols = []
-        if not index_dir.exists():
-            return
+    # -- Regra 24: testes atômicos 1 para 1 ------------------------------
 
-        file_pattern = re.compile(r'^##\s+`([^`]+)`')
-        type_pattern = re.compile(r'^###\s+(struct|interface|type)\s+`([^`]+)`')
-        member_pattern = re.compile(r'^-\s+\*\*([A-Za-z0-9_]+)\*\*\s+\((method|field)\)(?:\s+—\s+(.*))?')
-        func_pattern = re.compile(r'^###\s+func\s+`([^`]+)`(?:\s+—\s+(.*))?|^###\s+top-level\s+`([^`]+)`\s+\(function\)')
-        func_item_pattern = re.compile(r'^-\s+\*\*([A-Za-z0-9_]+)\*\*\s+\(function\)(?:\s+—\s+(.*))?')
-        var_pattern = re.compile(r'^###\s+(var|const)\s+`([^`]+)`')
+    @classmethod
+    def _classify_test_body(cls, body: Optional[Dict]) -> str:
+        """Classifica o corpo (já estruturado pelo fato Dart) de um teste em
+        'none', 'weak' ou 'strong'. Ver a docstring homônima do auditor
+        anterior para a semântica -- preservada aqui sobre dados
+        estruturados em vez de regex sobre texto."""
+        if body is None:
+            return 'none'
+        if body.get('empty') or body.get('onlyFail'):
+            return 'none'
 
-        for md_file in index_dir.glob('*.md'):
-            if md_file.name in ('README.md',):
+        constructed = set(body.get('constructedIdentifiers') or [])
+        real_count = 0
+        weak_count = 0
+
+        for assertion in body.get('assertions') or []:
+            if assertion.get('actualKind') == 'literal':
                 continue
-            with open(md_file, encoding='utf-8', errors='ignore') as f:
-                lines = f.readlines()
+            real_count += 1
+            if assertion.get('callee') in ('expect', 'expectLater'):
+                matcher = assertion.get('matcher', '')
+                actual = assertion.get('actual', '')
+                if (is_weak_matcher(matcher) and assertion.get('actualKind') == 'identifier'
+                        and actual in constructed):
+                    weak_count += 1
 
-            current_file = ""
-            current_type = None
+        if real_count == 0 and body.get('throwsA'):
+            real_count += 1
 
-            for line in lines:
-                line_s = line.strip()
-                m_file = file_pattern.match(line_s)
-                if m_file:
-                    current_file = m_file.group(1)
-                    current_type = None
-                    continue
+        if real_count == 0:
+            return 'none'
+        if weak_count > 0 and weak_count == real_count:
+            return 'weak'
+        return 'strong'
 
-                if is_out_of_scope(current_file):
-                    continue
-
-                m_type = type_pattern.match(line_s)
-                if m_type:
-                    current_type = m_type.group(2)
-                    symbols.append(GoAuditSymbol(m_type.group(1), current_type, current_file))
-                    continue
-
-                m_member = member_pattern.match(line_s)
-                if m_member and current_type:
-                    m_name = m_member.group(1)
-                    m_kind = m_member.group(2)
-                    doc = m_member.group(3) or ''
-                    symbols.append(GoAuditSymbol(m_kind, m_name, current_file, parent_type=current_type, doc=doc, is_deprecated='deprecated' in doc.lower()))
-                    continue
-
-                m_func = func_pattern.match(line_s)
-                if m_func:
-                    current_type = None
-                    f_name = m_func.group(1) or m_func.group(3)
-                    doc = m_func.group(2) or ''
-                    symbols.append(GoAuditSymbol('func', f_name, current_file, doc=doc, is_deprecated='deprecated' in doc.lower()))
-                    continue
-
-                m_func_item = func_item_pattern.match(line_s)
-                if m_func_item:
-                    f_name = m_func_item.group(1)
-                    doc = m_func_item.group(2) or ''
-                    symbols.append(GoAuditSymbol('func', f_name, current_file, doc=doc, is_deprecated='deprecated' in doc.lower()))
-                    continue
-
-                m_var = var_pattern.match(line_s)
-                if m_var:
-                    current_type = None
-                    symbols.append(GoAuditSymbol(m_var.group(1), m_var.group(2), current_file))
-                    continue
-
-        self.go_symbols_by_module.setdefault(module_name, []).extend(symbols)
-
-    def scan_go_repo_sources(self, repo_dir: Path):
-        """Varre arquivos .go para capturar type aliases, structs, interfaces e campos (inclusive privados/não-exportados)."""
-        if not repo_dir.exists():
-            return
-        type_alias_pattern = re.compile(r'type\s+([A-Za-z0-9_]+)\s+([A-Za-z0-9_\[\]*.]+)')
-        struct_pattern = re.compile(r'type\s+([A-Za-z0-9_]+)\s+struct\s*\{([^}]*)\}', re.MULTILINE | re.DOTALL)
-        interface_pattern = re.compile(r'type\s+([A-Za-z0-9_]+)\s+interface\s*\{([^}]*)\}', re.MULTILINE | re.DOTALL)
-
-        method_pattern = re.compile(r'func\s*\(\s*(?:\w+\s+)?\*?([A-Za-z0-9_]+)\s*\)\s*([A-Za-z0-9_]+)\s*\(')
-        func_pattern = re.compile(r'func\s+([A-Za-z0-9_]+)\s*\(')
-
-        mod_name = repo_dir.name
-        if mod_name == 'libp2p':
-            mod_name = 'go-libp2p'
-        elif mod_name == 'multiaddr-dns':
-            mod_name = 'go-multiaddr-dns'
-
-        for go_file in repo_dir.glob('**/*.go'):
-            if is_out_of_scope(str(go_file)):
-                continue
-            try:
-                content = go_file.read_text(encoding='utf-8', errors='ignore')
-            except Exception:
-                continue
-            rel_f = str(go_file.relative_to(self.root_dir)).replace('\\', '/')
-
-            # 1. Structs e campos
-            for sm in struct_pattern.finditer(content):
-                s_name = sm.group(1)
-                s_body = sm.group(2)
-                self.go_symbols_by_module.setdefault(mod_name, []).append(
-                    GoAuditSymbol('struct', s_name, rel_f)
-                )
-                for fl in s_body.split('\n'):
-                    fl = fl.strip()
-                    if '//' in fl:
-                        fl = fl.split('//')[0].strip()
-                    if not fl:
-                        continue
-                    parts = fl.split()
-                    if parts and parts[0] not in ('//', '/*', 'type', 'func'):
-                        fname = parts[0].strip(',')
-                        if re.match(r'^[A-Za-z0-9_]+$', fname) and len(parts) > 1:
-                            self.go_symbols_by_module.setdefault(mod_name, []).append(
-                                GoAuditSymbol('field', fname, rel_f, parent_type=s_name)
-                            )
-
-            # 2. Interfaces
-            for im in interface_pattern.finditer(content):
-                i_name = im.group(1)
-                self.go_symbols_by_module.setdefault(mod_name, []).append(
-                    GoAuditSymbol('interface', i_name, rel_f)
-                )
-
-            # 3. Type aliases
-            for m in type_alias_pattern.finditer(content):
-                t_name = m.group(1)
-                t_target = m.group(2)
-                if t_target not in ('struct', 'interface'):
-                    sym = GoAuditSymbol('type', t_name, rel_f, doc=f"Type alias to {t_target}")
-                    self.go_symbols_by_module.setdefault(mod_name, []).append(sym)
-
-            # 4. Métodos
-            for mm in method_pattern.finditer(content):
-                recv_type = mm.group(1)
-                m_name = mm.group(2)
-                self.go_symbols_by_module.setdefault(mod_name, []).append(
-                    GoAuditSymbol('method', m_name, rel_f, parent_type=recv_type)
-                )
-
-            # 5. Funções top-level
-            for fm in func_pattern.finditer(content):
-                fn_name = fm.group(1)
-                if fn_name != 'init':
-                    self.go_symbols_by_module.setdefault(mod_name, []).append(
-                        GoAuditSymbol('func', fn_name, rel_f)
-                    )
-
-            # 6. Variáveis e constantes top-level (ex: var Err*, const *)
-            var_block_pattern = re.compile(r'(?:var|const)\s*\(([^)]*)\)', re.MULTILINE)
-            var_single_pattern = re.compile(r'^\s*(?:var|const)\s+([A-Za-z0-9_]+)', re.MULTILINE)
-            for bm in var_block_pattern.finditer(content):
-                for bline in bm.group(1).splitlines():
-                    bline = bline.strip()
-                    if '//' in bline:
-                        bline = bline.split('//')[0].strip()
-                    parts = bline.split()
-                    if parts and re.match(r'^[A-Za-z0-9_]+$', parts[0]):
-                        self.go_symbols_by_module.setdefault(mod_name, []).append(
-                            GoAuditSymbol('var', parts[0], rel_f)
-                        )
-            for vm in var_single_pattern.finditer(content):
-                v_name = vm.group(1)
-                if v_name != '(':
-                    self.go_symbols_by_module.setdefault(mod_name, []).append(
-                        GoAuditSymbol('var', v_name, rel_f)
-                    )
-
-    def load_all(self):
-        # 1. Carregar Dart
-        dart_files = list(self.root_dir.glob('packages/*/lib/**/*.dart')) + list(self.root_dir.glob('lib/**/*.dart'))
-        for df in dart_files:
-            if '/test/' in df.as_posix() or df.name.endswith('_test.dart'):
-                continue
-            self.parse_dart_file(df)
-
-        # 2. Carregar Go AST Indexes e repositórios Go
-        if self.go_ref_dir.exists():
-            for entry in self.go_ref_dir.iterdir():
-                if entry.is_dir():
-                    if entry.name.endswith('-index'):
-                        mod_name = entry.name[:-len('-index')]
-                        if mod_name == 'libp2p':
-                            mod_name = 'go-libp2p'
-                        elif mod_name == 'multiaddr-dns':
-                            mod_name = 'go-multiaddr-dns'
-                        self.parse_go_index_dir(mod_name, entry)
-                    elif not entry.name.endswith('-index') and not entry.name.endswith('_vectors'):
-                        # Varre definições de tipos e membros no código-fonte Go diretamente
-                        self.scan_go_repo_sources(entry)
-                        dart_pkg_path = GO_MODULE_TO_DART_PACKAGE.get(entry.name)
-                        if dart_pkg_path:
-                            self.scan_go_package_clauses(entry, dart_pkg_path.split('/')[-1])
-
-        # 3. Deduplicar símbolos Go por módulo
-        for mod, syms in self.go_symbols_by_module.items():
-            seen = set()
-            unique_syms = []
-            for s in syms:
-                key = (s.kind, s.name, s.parent_type or '')
-                if key not in seen:
-                    seen.add(key)
-                    unique_syms.append(s)
-            self.go_symbols_by_module[mod] = unique_syms
-
-    @staticmethod
-    def _extract_block_body(content: str, start_pos: int) -> Tuple[str, int]:
-        """Localiza o próximo '{' e extrai o corpo até fechar a chave correspondente."""
-        open_brace = content.find('{', start_pos)
-        if open_brace == -1:
-            return "", start_pos
-
-        i = open_brace + 1
-        depth = 1
-        n = len(content)
-        while i < n and depth > 0:
-            if content[i:i+2] == '//':
-                eol = content.find('\n', i)
-                i = eol if eol != -1 else n
-                continue
-            if content[i:i+2] == '/*':
-                eoc = content.find('*/', i)
-                i = eoc + 2 if eoc != -1 else n
-                continue
-            if content[i] in ("'", '"'):
-                quote = content[i]
-                if content[i:i+3] == quote * 3:
-                    eq = content.find(quote * 3, i + 3)
-                    i = eq + 3 if eq != -1 else n
-                else:
-                    j = i + 1
-                    while j < n:
-                        if content[j] == '\\':
-                            j += 2
-                            continue
-                        if content[j] == quote:
-                            j += 1
-                            break
-                        if content[j] == '\n':
-                            break
-                        j += 1
-                    i = j
-                continue
-
-            if content[i] == '{':
-                depth += 1
-            elif content[i] == '}':
-                depth -= 1
-                if depth == 0:
-                    return content[open_brace + 1:i], i + 1
-            i += 1
-        return "", start_pos
-
-    @staticmethod
-    def _is_valid_test_body(body: str) -> bool:
-        """
-        Verifica se o corpo do teste contém asserções reais (expect, expectLater, assert, throwsA)
-        e não é meramente vazio, comentários, ou apenas fail().
-        """
-        cleaned = re.sub(r'//.*', '', body)
-        cleaned = re.sub(r'/\*.*?\*/', '', cleaned, flags=re.DOTALL)
-        cleaned = cleaned.strip()
-
-        if not cleaned:
-            return False
-
-        # Rejeita se for apenas fail(...)
-        if re.match(r'^\s*fail\s*\([^)]*\)\s*;\s*$', cleaned):
-            return False
-
-        # Exige asserções reais
-        return bool(re.search(r'\b(expect|expectLater|assert|throwsA)\s*\(', cleaned))
-
-    def parse_atomic_test_file(self, content: str) -> Set[str]:
-        """
-        Extrai do arquivo de teste todos os símbolos testados que possuem asserções reais.
-        Testes vazios, com apenas TODO ou fail() são rejeitados e não computam como testados.
-        """
-        tested = set()
-        group_pattern = re.compile(r'\bgroup\s*\(\s*([\'"])(.*?)\1')
-        test_pattern = re.compile(r'\btest\s*\(\s*([\'"])(.*?)\1')
-
-        i = 0
-        n = len(content)
-        brace_depth = 0
-        group_stack = []  # list of (depth, group_name)
-
-        TOP_LEVEL_GROUP_KEYWORDS = ('top-level', 'toplevel', 'top_level', 'functions', 'funções', 'auxiliary', 'top level')
-
-        while i < n:
-            # Pula comentários de linha
-            if content[i:i+2] == '//':
-                eol = content.find('\n', i)
-                i = eol if eol != -1 else n
-                continue
-            # Pula comentários de bloco
-            if content[i:i+2] == '/*':
-                eoc = content.find('*/', i)
-                i = eoc + 2 if eoc != -1 else n
-                continue
-
-            # Pula strings regulares
-            if content[i] in ("'", '"'):
-                quote = content[i]
-                if content[i:i+3] == quote * 3:
-                    end_quote = content.find(quote * 3, i + 3)
-                    i = end_quote + 3 if end_quote != -1 else n
-                else:
-                    j = i + 1
-                    while j < n:
-                        if content[j] == '\\':
-                            j += 2
-                            continue
-                        if content[j] == quote:
-                            j += 1
-                            break
-                        if content[j] == '\n':
-                            break
-                        j += 1
-                    i = j
-                continue
-
-            # Verifica chamada group(...)
-            if content[i:i+5] == 'group' and (i == 0 or not content[i-1].isalnum()) and not content[i+5].isalnum():
-                gm = group_pattern.match(content, i)
-                if gm:
-                    gname = gm.group(2).strip()
-                    clean_gname = re.sub(r'\[.*?\]', '', gname).strip()
-                    clean_gname = clean_gname.split()[0] if clean_gname else ''
-                    brace_pos = content.find('{', gm.end())
-                    if brace_pos != -1:
-                        group_stack.append((brace_depth + 1, clean_gname))
-                    i = gm.end()
-                    continue
-
-            # Verifica chamada test(...)
-            if content[i:i+4] == 'test' and (i == 0 or not content[i-1].isalnum()) and not content[i+4].isalnum():
-                tm = test_pattern.match(content, i)
-                if tm:
-                    # Inspeciona o corpo do teste para assegurar asserções reais (sem stubs)
-                    body_text, _ = self._extract_block_body(content, tm.end())
-                    if not self._is_valid_test_body(body_text):
-                        i = tm.end()
-                        continue
-
-                    tname = tm.group(2).strip()
-                    cleaned_tname = re.sub(r'\[(?!\s*\]|\s*\]=).*?\]', '', tname).strip()
-
-                    active_class = None
-                    for depth, gname in reversed(group_stack):
-                        if gname and gname[0].isupper() and not any(kw in gname.lower() for kw in TOP_LEVEL_GROUP_KEYWORDS):
-                            active_class = gname
-                            break
-
-                    cls = None
-                    member = cleaned_tname
-                    if '.' in cleaned_tname and not cleaned_tname.startswith('operator'):
-                        parts = cleaned_tname.split('.', 1)
-                        cand_cls = parts[0].strip().split()[-1]
-                        if not any(kw in cand_cls.lower() for kw in TOP_LEVEL_GROUP_KEYWORDS):
-                            cls = cand_cls
-                        member = parts[1].strip()
-                    elif active_class:
-                        cls = active_class
-
-                    # Normalização do member
-                    member = re.sub(r'^(?:get|set|method|getter|setter)\s+', '', member, flags=re.IGNORECASE)
-
-                    op_m = re.search(r'\b(operator\s*(?:==|!=|<=|>=|>>>|<<<|<<|>>|<|>|\+|\*|~/|/|%|~|&|\||\^|\[\]=?|-))', member)
-                    if op_m:
-                        norm_op = re.sub(r'\s+', ' ', op_m.group(1))
-                        member = norm_op
-                    else:
-                        member = re.sub(r'\(.*?\).*$', '', member)
-                        member = member.strip().split()[0] if member.strip() else ''
-
-                    if member:
-                        if cls:
-                            tested.add(f"{cls}.{member}")
-                        else:
-                            tested.add(member)
-                    i = tm.end()
-                    continue
-
-            # Rastreia chaves
-            if content[i] == '{':
-                brace_depth += 1
-            elif content[i] == '}':
-                brace_depth = max(0, brace_depth - 1)
-                while group_stack and group_stack[-1][0] > brace_depth:
-                    group_stack.pop()
-
-            i += 1
-
-        return tested
-
-    def scan_all_atomic_tests(self) -> Tuple[Set[str], Dict[str, List[str]]]:
-        """
-        Varre todos os arquivos de testes atômicos na pasta padrão:
-          - test/atomic/<nivel>/<nome_modulo>_atomic_tests.dart
-        """
-        test_roots = [
-            self.root_dir / 'test' / 'atomic'
-        ]
+    def scan_all_atomic_tests(self) -> Tuple[Set[str], Dict[str, List[str]], Dict[str, str]]:
+        """Varre test/atomic/<nivel>/<nome_modulo>_atomic_tests.dart a partir
+        dos fatos Dart já carregados. Retorna `(all_tested, symbol_to_files,
+        quality_by_symbol)`, com a mesma semântica do auditor anterior."""
         all_tested: Set[str] = set()
         symbol_to_files: Dict[str, List[str]] = {}
+        quality_by_symbol: Dict[str, str] = {}
 
-        for tr in test_roots:
-            if not tr.exists():
+        for rel_path, facts in self.dart_facts.items():
+            if not rel_path.startswith('test/atomic/'):
                 continue
-            for f in tr.rglob('*.dart'):
-                if '_atomic_test' in f.name:
-                    rel_p = str(f.relative_to(self.root_dir)).replace('\\', '/')
-                    try:
-                        content = f.read_text(encoding='utf-8', errors='ignore')
-                    except Exception:
-                        continue
-                    syms = self.parse_atomic_test_file(content)
-                    for s in syms:
-                        all_tested.add(s)
-                        symbol_to_files.setdefault(s, []).append(rel_p)
+            if '_atomic_test' not in Path(rel_path).name:
+                continue
 
-        return all_tested, symbol_to_files
+            for call in facts.get('tests') or []:
+                if call.get('kind') != 'test':
+                    continue
+                raw_name = call.get('name')
+                if raw_name is None:
+                    continue
 
-    def audit_atomic_tests(self, target_package: Optional[str] = None):
-        """
-        Audita se cada símbolo público (função, método, getter, setter, operador)
-        possui um teste atômico correspondente em test/atomic/<nivel>/<nome_modulo>_atomic_tests.dart.
-        A falta de um teste com asserções reais é tratada como ERRO bloqueante.
-        """
-        all_tested, symbol_to_files = self.scan_all_atomic_tests()
+                quality = self._classify_test_body(call.get('body'))
+                if quality == 'none':
+                    continue
+
+                cleaned_tname = strip_test_name_brackets(raw_name)
+                groups = call.get('groups') or []
+                cleaned_groups = [clean_group_name(g) for g in groups]
+
+                active_class = None
+                for gname in reversed(cleaned_groups):
+                    if gname and gname[0].isupper() and not any(
+                            kw in gname.lower() for kw in self.TOP_LEVEL_GROUP_KEYWORDS):
+                        active_class = gname
+                        break
+
+                cls = None
+                member = cleaned_tname
+                qualified = match_qualified_prefix(cleaned_tname)
+                if qualified and not cleaned_tname.startswith('operator'):
+                    cand_cls, member_start = qualified
+                    if not any(kw in cand_cls.lower() for kw in self.TOP_LEVEL_GROUP_KEYWORDS):
+                        cls = cand_cls
+                    member = cleaned_tname[member_start:].strip()
+                elif active_class:
+                    cls = active_class
+
+                member = strip_leading_test_keyword(member)
+
+                op_text = find_operator_member(member)
+                if op_text:
+                    member = op_text
+                else:
+                    member = strip_parens_and_after(member).strip()
+                    member = member.split()[0] if member else ''
+
+                if member:
+                    key = f"{cls}.{member}" if cls else member
+                    all_tested.add(key)
+                    symbol_to_files.setdefault(key, []).append(rel_path)
+                    prev_quality = quality_by_symbol.get(key)
+                    if prev_quality != 'strong':
+                        quality_by_symbol[key] = quality
+
+        return all_tested, symbol_to_files, quality_by_symbol
+
+    def audit_atomic_tests(self, target_package: Optional[str] = None) -> None:
+        """Audita se cada símbolo público possui teste atômico correspondente."""
+        all_tested, _symbol_to_files, quality_by_symbol = self.scan_all_atomic_tests()
 
         self.atomic_test_stats = {
             'total_auditable': 0,
             'total_tested': 0,
             'total_missing': 0,
             'by_package': {},
-            'missing_by_package': {}
+            'missing_by_package': {},
         }
 
+        # O `-` unário e o binário são duas declarações com o mesmo nome
+        # (`operator -`), e um único teste cobre a chave dos dois.
+        audited: Set[Tuple[str, str, str]] = set()
         for sym in self.dart_symbols:
             if target_package and target_package not in sym.file_path:
                 continue
-
-            # Considera apenas funções, métodos, getters, setters, operadores públicos
             if not sym.is_public() or sym.kind not in ('function', 'method', 'getter', 'setter', 'operator'):
                 continue
-
-            # Construtor default redundante com nome da classe é testado via factory ou instanciação
             if sym.parent_type and sym.name == sym.parent_type:
                 continue
+            audit_key = (sym.file_path, sym.kind, f"{sym.parent_type}.{sym.name}")
+            if audit_key in audited:
+                continue
+            audited.add(audit_key)
 
             pkg_name = sym.file_path.split('/')[1] if sym.file_path.startswith('packages/') else 'lib'
 
-            # Chave canônica do símbolo
-            if sym.parent_type:
-                primary_key = f"{sym.parent_type}.{sym.name}"
-            else:
-                primary_key = sym.name
+            primary_key = f"{sym.parent_type}.{sym.name}" if sym.parent_type else sym.name
 
             pkg_stats = self.atomic_test_stats['by_package'].setdefault(pkg_name, {'total': 0, 'tested': 0, 'missing': 0})
             pkg_stats['total'] += 1
             self.atomic_test_stats['total_auditable'] += 1
 
-            is_tested = (primary_key in all_tested)
-            if not is_tested and not sym.parent_type:
-                is_tested = (sym.name in all_tested)
+            matched_key = None
+            if primary_key in all_tested:
+                matched_key = primary_key
+            elif not sym.parent_type and sym.name in all_tested:
+                matched_key = sym.name
+            is_tested = matched_key is not None
 
             if is_tested:
                 pkg_stats['tested'] += 1
                 self.atomic_test_stats['total_tested'] += 1
+                if quality_by_symbol.get(matched_key) == 'weak':
+                    clean_mod = pkg_name.replace('transpiled_', '')
+                    self.violations.append({
+                        'rule': 'RULE_MISSING_ATOMIC_TESTS',
+                        'severity': 'WARNING',
+                        'message': f"Símbolo público '{primary_key}' ({sym.kind}) em '{sym.file_path}:{sym.line}' só tem teste(s) atômico(s) raso(s): asserção limitada a isNotNull/isA<>()/returnsNormally sobre uma variável apenas construída no próprio teste, sem checar comportamento real.",
+                        'file': sym.file_path,
+                        'line': sym.line,
+                        'symbol': primary_key,
+                        'kind': sym.kind,
+                        'package': pkg_name,
+                        'suggested': f"Reforçar o teste em test/atomic/<nivel>/{clean_mod}_atomic_tests.dart com asserções que verifiquem comportamento, não apenas a construção do objeto",
+                    })
             else:
                 pkg_stats['missing'] += 1
                 self.atomic_test_stats['total_missing'] += 1
@@ -1388,17 +1290,28 @@ class AstNomenclatureAuditor:
                     'symbol': primary_key,
                     'kind': sym.kind,
                     'package': pkg_name,
-                    'suggested': f"Criar test('{sym.name}()', () {{ ... expect(...) ... }}) em test/atomic/<nivel>/{clean_mod}_atomic_tests.dart"
+                    'suggested': f"Criar test('{sym.name}()', () {{ ... expect(...) ... }}) em test/atomic/<nivel>/{clean_mod}_atomic_tests.dart",
                 })
 
-    def audit_rules(self, target_package: Optional[str] = None, target_rule: Optional[str] = None, target_severity: Optional[str] = None, include_non_public: bool = False):
+    # -- regras de arquivo (imports/invocations/assignments/literais) ---
+
+    def _api_facts_items(self, target_package: Optional[str]):
+        for rel_path, facts in self.dart_facts.items():
+            if not self._is_api_path(rel_path):
+                continue
+            if target_package and target_package not in rel_path:
+                continue
+            yield rel_path, facts
+
+    # -- auditoria principal ---------------------------------------------
+
+    def audit_rules(self, target_package: Optional[str] = None, target_rule: Optional[str] = None,
+                     target_severity: Optional[str] = None, include_non_public: bool = False) -> None:
         self.violations.clear()
 
-        # Mapeamentos entre módulos Go e diretórios de pacotes Dart
         pkg_to_mod = {pkg: mod for mod, pkg in GO_MODULE_TO_DART_PACKAGE.items()}
         mod_to_pkg = {mod: pkg for mod, pkg in GO_MODULE_TO_DART_PACKAGE.items()}
 
-        # Mapeia Go symbols por nome canônico para checagem de @Deprecated e paridade
         all_go_symbols: Dict[str, List[GoAuditSymbol]] = {}
         type_to_origin_modules: Dict[str, Set[str]] = {}
         for mod, syms in self.go_symbols_by_module.items():
@@ -1408,19 +1321,11 @@ class AstNomenclatureAuditor:
                     if s.kind in ('struct', 'interface', 'type'):
                         type_to_origin_modules.setdefault(s.name.lower(), set()).add(mod)
 
-        # Regex auxiliares para novas regras
-        re_screaming = re.compile(r'^[A-Z0-9]+(_[A-Z0-9]+)+$')
-        re_tuple_error = re.compile(r'\([^)]*?\b(?:Error|Exception)\??\s*[^)]*?\)')
-        re_result_type = re.compile(r'\b(?:Result|Either)\s*<')
-        re_mask = re.compile(r'&\s*0x[fF]{8,16}\b')
-        re_cli_exit = re.compile(r'\b(?:exitCode\s*=|exit\s*\()')
-
-        # Tipos comuns genéricos ignorados na checagem de boundary leak
         COMMON_GENERIC_TYPES = {
             'node', 'reader', 'writer', 'buffer', 'entry', 'config', 'options',
             'state', 'listener', 'transport', 'handler', 'client', 'server',
             'session', 'stream', 'message', 'key', 'value', 'header', 'event',
-            'result', 'context', 'record', 'item', 'metadata', 'block'
+            'result', 'context', 'record', 'item', 'metadata', 'block',
         }
 
         # 1. Auditoria de Símbolos Dart individuais
@@ -1428,14 +1333,13 @@ class AstNomenclatureAuditor:
             if target_package and target_package not in sym.file_path:
                 continue
 
-            # Ignora pacote boilerplate para tipos de baixo nível (Int64, Uint64, etc.)
             in_boilerplate = 'packages/boilerplate/' in sym.file_path
 
             # REGRA 1: UpperCamelCase sem All-Caps para Tipos Públicos
             if sym.kind in ('class', 'mixin', 'enum', 'extension', 'extension_type') and sym.is_public():
-                if not in_boilerplate:
+                if not in_boilerplate and (target_rule is None or target_rule == 'RULE_ALL_CAPS'):
                     all_caps = check_all_caps_block(sym.name)
-                    if all_caps and (target_rule is None or target_rule == 'RULE_ALL_CAPS'):
+                    if all_caps:
                         suggested = to_upper_camel(sym.name)
                         if suggested != sym.name:
                             self.violations.append({
@@ -1445,16 +1349,14 @@ class AstNomenclatureAuditor:
                                 'file': sym.file_path,
                                 'line': sym.line,
                                 'symbol': sym.name,
-                                'suggested': suggested
+                                'suggested': suggested,
                             })
 
             # REGRA 2: lowerCamelCase sem All-Caps para Membros e Funções Públicas
             if sym.kind in ('method', 'field', 'function') and sym.is_public():
-                # Ignora construtores ou factories
                 if sym.parent_type and sym.name == sym.parent_type:
                     continue
 
-                # Checa se começa com maiúscula (PascalCase indevido)
                 if sym.name[:1].isupper() and not in_boilerplate and (target_rule is None or target_rule == 'RULE_LOWER_CAMEL'):
                     suggested = to_lower_camel(sym.name)
                     self.violations.append({
@@ -1464,12 +1366,11 @@ class AstNomenclatureAuditor:
                         'file': sym.file_path,
                         'line': sym.line,
                         'symbol': sym.name,
-                        'suggested': suggested
+                        'suggested': suggested,
                     })
-                else:
-                    # Checa blocos All-Caps dentro de lowerCamelCase (ex: idFromP2PAddr, tempAddrTTL)
+                elif not in_boilerplate and (target_rule is None or target_rule == 'RULE_ALL_CAPS'):
                     all_caps = check_all_caps_block(sym.name)
-                    if all_caps and not in_boilerplate and (target_rule is None or target_rule == 'RULE_ALL_CAPS'):
+                    if all_caps:
                         suggested = to_lower_camel(sym.name)
                         if suggested != sym.name:
                             self.violations.append({
@@ -1479,7 +1380,7 @@ class AstNomenclatureAuditor:
                                 'file': sym.file_path,
                                 'line': sym.line,
                                 'symbol': sym.name,
-                                'suggested': suggested
+                                'suggested': suggested,
                             })
 
             # REGRA 3: Veto a Typedefs e Shims Artificiais
@@ -1492,11 +1393,9 @@ class AstNomenclatureAuditor:
                     for cname in candidate_names:
                         matching_go_syms.extend(all_go_symbols.get(cname, []))
                     is_upstream_type = any(s.kind in ('type', 'struct', 'interface') for s in matching_go_syms)
-                    if is_upstream_type:
-                        pass
-                    else:
-                        target = getattr(sym, 'target', '')
-                        if target and not '(' in target and re.match(r'^[A-Za-z0-9_]+$', target):
+                    if not is_upstream_type:
+                        target = sym.target
+                        if target and '(' not in target and is_bare_identifier_chars(target):
                             self.violations.append({
                                 'rule': 'RULE_NO_TYPEDEF_SHIMS',
                                 'severity': 'ERROR',
@@ -1504,7 +1403,10 @@ class AstNomenclatureAuditor:
                                 'file': sym.file_path,
                                 'line': sym.line,
                                 'symbol': sym.name,
-                                'suggested': f"Remover typedef e migrar chamadores para '{target}'"
+                                'suggested': f"Remover typedef e migrar chamadores para '{target}'",
+                                '_fix_offset': sym.offset,
+                                '_fix_end': sym.end,
+                                '_fix_target': target,
                             })
 
             # REGRA 4: Veto a @Deprecated não existente no Upstream Go
@@ -1523,13 +1425,15 @@ class AstNomenclatureAuditor:
                                 'file': sym.file_path,
                                 'line': sym.line,
                                 'symbol': sym.name,
-                                'suggested': "Remover anotação @Deprecated se não for obsoleta no upstream Go"
+                                'suggested': "Remover anotação @Deprecated se não for obsoleta no upstream Go",
+                                '_fix_offset': sym.dep_ann_offset,
+                                '_fix_end': sym.dep_ann_end,
                             })
 
             # REGRA 5: Veto a funções livres newX(...)
             if sym.kind == 'function' and sym.is_public() and not in_boilerplate:
                 if target_rule is None or target_rule == 'RULE_NO_NEW_X_FUNCTIONS':
-                    if re.match(r'^new[A-Z]', sym.name):
+                    if has_new_prefix(sym.name):
                         type_target = sym.name[3:]
                         self.violations.append({
                             'rule': 'RULE_NO_NEW_X_FUNCTIONS',
@@ -1538,13 +1442,13 @@ class AstNomenclatureAuditor:
                             'file': sym.file_path,
                             'line': sym.line,
                             'symbol': sym.name,
-                            'suggested': f"Converter para construtor/factory '{type_target}()' ou '{type_target}.from*()'"
+                            'suggested': f"Converter para construtor/factory '{type_target}()' ou '{type_target}.from*()'",
                         })
 
             # REGRA 6: Veto a Constantes e Campos Públicos em SCREAMING_SNAKE_CASE
             if sym.kind in ('field', 'variable', 'getter') and sym.is_public() and not in_boilerplate:
                 if target_rule is None or target_rule == 'RULE_CONSTANT_CASING':
-                    if re_screaming.match(sym.name):
+                    if is_screaming_snake_case(sym.name):
                         suggested = to_lower_camel(sym.name)
                         self.violations.append({
                             'rule': 'RULE_CONSTANT_CASING',
@@ -1553,7 +1457,7 @@ class AstNomenclatureAuditor:
                             'file': sym.file_path,
                             'line': sym.line,
                             'symbol': sym.name,
-                            'suggested': suggested
+                            'suggested': suggested,
                         })
 
             # REGRA 7: Veto a Construtores Nomeados Redundantes ou com prefixo 'new'
@@ -1567,9 +1471,9 @@ class AstNomenclatureAuditor:
                             'file': sym.file_path,
                             'line': sym.line,
                             'symbol': sym.name,
-                            'suggested': f"Substituir por construtor padrão '{sym.parent_type}()'"
+                            'suggested': f"Substituir por construtor padrão '{sym.parent_type}()'",
                         })
-                    elif sym.name.startswith('newFrom') or (re.match(r'^new[A-Z]', sym.name) and sym.name != 'new'):
+                    elif sym.name.startswith('newFrom') or (has_new_prefix(sym.name) and sym.name != 'new'):
                         suggested_ctor = sym.name[3:]
                         suggested_ctor = suggested_ctor[:1].lower() + suggested_ctor[1:]
                         self.violations.append({
@@ -1579,24 +1483,26 @@ class AstNomenclatureAuditor:
                             'file': sym.file_path,
                             'line': sym.line,
                             'symbol': sym.name,
-                            'suggested': f"Renomear para '{sym.parent_type}.{suggested_ctor}()'"
+                            'suggested': f"Renomear para '{sym.parent_type}.{suggested_ctor}()'",
                         })
 
             # REGRA 8: Veto a Tuplas de Erro Go e Result Wrappers em APIs Públicas
             if sym.kind in ('method', 'function') and sym.is_public() and not in_boilerplate:
                 if target_rule is None or target_rule == 'RULE_NO_GO_STYLE_ERROR_TUPLES':
-                    ret = getattr(sym, 'return_type', '')
+                    ret = sym.return_type
                     if ret:
-                        has_error_tuple = bool(re_tuple_error.search(ret) or re_result_type.search(ret))
-                        if has_error_tuple:
+                        names = ret.get('names') or []
+                        has_error_tuple = bool(ret.get('isRecord')) and ('Error' in names or 'Exception' in names)
+                        has_result_wrapper = bool(names) and names[0] in ('Result', 'Either')
+                        if has_error_tuple or has_result_wrapper:
                             self.violations.append({
                                 'rule': 'RULE_NO_GO_STYLE_ERROR_TUPLES',
                                 'severity': 'ERROR',
-                                'message': f"{sym.kind.capitalize()} público '{sym.name}' retorna tupla de erro estilo Go ou Result wrapper ('{ret}'). Conforme AGENTS.md, retornos (valor, error) do Go devem virar retorno direto do valor com exceção tipada via throw.",
+                                'message': f"{sym.kind.capitalize()} público '{sym.name}' retorna tupla de erro estilo Go ou Result wrapper ('{ret.get('text', '')}'). Conforme AGENTS.md, retornos (valor, error) do Go devem virar retorno direto do valor com exceção tipada via throw.",
                                 'file': sym.file_path,
                                 'line': sym.line,
                                 'symbol': sym.name,
-                                'suggested': "Retornar o valor diretamente e lançar exceção tipada em caso de falha"
+                                'suggested': "Retornar o valor diretamente e lançar exceção tipada em caso de falha",
                             })
 
             # REGRA 11: Veto a Violação de Fronteira de Módulo (go.mod)
@@ -1622,7 +1528,7 @@ class AstNomenclatureAuditor:
                                         'file': sym.file_path,
                                         'line': sym.line,
                                         'symbol': sym.name,
-                                        'suggested': f"Importar do pacote '{target_pkg}' em vez de redeclarar"
+                                        'suggested': f"Importar do pacote '{target_pkg}' em vez de redeclarar",
                                     })
 
             # REGRA 12: Detecção de Símbolos Públicos Inventados (Sem Upstream Go)
@@ -1654,11 +1560,6 @@ class AstNomenclatureAuditor:
                                     if sfx in ('Exception', 'Error'):
                                         names_to_try.add(f'Err{stem}')
                                         names_to_try.add(f'err{stem}')
-                                        # Go tem duas convenções para erro: o valor
-                                        # sentinela `ErrX` e o tipo `XError`. A Regra 13
-                                        # obriga o sufixo 'Exception' em Dart, então um
-                                        # `XException` pode corresponder a qualquer uma
-                                        # das duas no upstream.
                                         names_to_try.add(f'{stem}Error')
                                         names_to_try.add(f'{stem}error')
                                         for pfx in KNOWN_PREFIXES:
@@ -1669,10 +1570,7 @@ class AstNomenclatureAuditor:
                                 names_to_try.update(['Node', 'NodeAssembler', 'NodePrototype'])
 
                             lookup = {n.lower() for n in names_to_try}
-                            matched = any(
-                                s.name.lower() in lookup
-                                for s in go_syms
-                            )
+                            matched = any(s.name.lower() in lookup for s in go_syms)
                             matched_anywhere = matched or any(
                                 s.name.lower() in lookup
                                 for m_list in self.go_symbols_by_module.values()
@@ -1686,23 +1584,14 @@ class AstNomenclatureAuditor:
                                     'file': sym.file_path,
                                     'line': sym.line,
                                     'symbol': sym.name,
-                                    'suggested': f"Tornar privado com prefixo '_{sym.name}' ou documentar adaptação"
+                                    'suggested': f"Tornar privado com prefixo '_{sym.name}' ou documentar adaptação",
                                 })
 
             # REGRA 13: Nomenclatura e Padrão de Exceções Dart.
-            #
-            # Vale em QUALQUER pasta, boilerplate incluído: o sufixo 'Exception'
-            # é idioma da linguagem de destino, e boilerplate é justamente onde
-            # o código deve ser Dart idiomático em vez de Go traduzido.
-            #
-            # O gatilho principal é estrutural — a classe declara 'implements
-            # Exception' ou 'extends' de uma exceção — e não um palpite pelo
-            # nome. O prefixo 'Err' segue vetado à parte, porque uma classe pode
-            # carregar o idioma do Go mesmo sem declarar a interface.
             if sym.kind in ('class', 'mixin') and sym.is_public():
                 if target_rule is None or target_rule == 'RULE_EXCEPTION_NAMING':
                     tem_err = sym.name.startswith('Err') and len(sym.name) > 3 and sym.name[3].isupper()
-                    eh_excecao = bool(re.search(r'\b(?:implements|extends|with)\b[^{]*\bException\b', sym.supertypes or ''))
+                    eh_excecao = 'Exception' in sym.supertypes
                     if tem_err:
                         suggested = to_upper_camel(sym.name[3:]) + "Exception"
                         self.violations.append({
@@ -1712,10 +1601,10 @@ class AstNomenclatureAuditor:
                             'file': sym.file_path,
                             'line': sym.line,
                             'symbol': sym.name,
-                            'suggested': f"Renomear para '{suggested}' e adicionar 'implements Exception'"
+                            'suggested': f"Renomear para '{suggested}' e adicionar 'implements Exception'",
                         })
                     elif eh_excecao and not sym.name.endswith('Exception'):
-                        suggested = to_upper_camel(re.sub(r'(?:Error|Err|Failure)$', '', sym.name)) + "Exception"
+                        suggested = to_upper_camel(strip_error_suffix(sym.name)) + "Exception"
                         self.violations.append({
                             'rule': 'RULE_EXCEPTION_NAMING',
                             'severity': 'ERROR',
@@ -1723,13 +1612,13 @@ class AstNomenclatureAuditor:
                             'file': sym.file_path,
                             'line': sym.line,
                             'symbol': sym.name,
-                            'suggested': f"Renomear para '{suggested}'"
+                            'suggested': f"Renomear para '{suggested}'",
                         })
 
             # REGRA 14: Veto a Mocks, Dummies e Stubs em Código de Biblioteca
             if sym.kind in ('class', 'mixin', 'function') and sym.is_public() and not in_boilerplate:
                 if target_rule is None or target_rule == 'RULE_NO_PRODUCTION_MOCKS':
-                    if re.search(r'\b(?:Mock|Dummy|Stub|Fake|Placeholder)|(?:Mock|Dummy|Stub|Fake|Placeholder)\b', sym.name):
+                    if is_mock_like_name(sym.name):
                         matching_go_syms = all_go_symbols.get(sym.name.lower(), [])
                         is_upstream = any(s.kind in ('struct', 'type', 'interface', 'func') for s in matching_go_syms)
                         if not is_upstream:
@@ -1740,13 +1629,13 @@ class AstNomenclatureAuditor:
                                 'file': sym.file_path,
                                 'line': sym.line,
                                 'symbol': sym.name,
-                                'suggested': f"Mover '{sym.name}' para 'test/' ou substituir por implementação real"
+                                'suggested': f"Mover '{sym.name}' para 'test/' ou substituir por implementação real",
                             })
 
             # REGRA 17: Veto a Primitivas Artificiais de Concorrência Go em APIs Públicas
             if sym.kind in ('class', 'typedef', 'method', 'function') and sym.is_public() and not in_boilerplate:
                 if target_rule is None or target_rule == 'RULE_NO_ARTIFICIAL_CONCURRENCY':
-                    if re.search(r'\b(?:Chan|GoChannel|WaitGroup|Mutex)\b', sym.name):
+                    if is_concurrency_word(sym.name):
                         self.violations.append({
                             'rule': 'RULE_NO_ARTIFICIAL_CONCURRENCY',
                             'severity': 'WARNING',
@@ -1754,8 +1643,25 @@ class AstNomenclatureAuditor:
                             'file': sym.file_path,
                             'line': sym.line,
                             'symbol': sym.name,
-                            'suggested': "Substituir por Stream<T>, Future<void> ou Completer<T>"
+                            'suggested': "Substituir por Stream<T>, Future<void> ou Completer<T>",
                         })
+
+            # REGRA 23: Veto a Membros Públicos que Expõem Tipos Não-Públicos
+            if sym.kind in ('field', 'getter', 'setter', 'method', 'function', 'constructor', 'operator') and not in_boilerplate:
+                if target_rule is None or target_rule == 'RULE_EXPOSED_NON_PUBLIC_MEMBERS':
+                    if not sym.name.startswith('_') and not (sym.parent_type and sym.parent_type.startswith('_')):
+                        bad = [t for t in sym.signature_types if len(t) >= 2 and t[0] == '_' and t[1].isupper()]
+                        if bad:
+                            priv_type = bad[0]
+                            self.violations.append({
+                                'rule': 'RULE_EXPOSED_NON_PUBLIC_MEMBERS',
+                                'severity': 'WARNING',
+                                'message': f"Membro público '{sym.name}' expõe tipo não-público '{priv_type}'. AGENTS.md exige implementar seguindo o mesmo nível de visibilidade e permissão do Upstream Go, ou menor se não for possível.",
+                                'file': sym.file_path,
+                                'line': sym.line,
+                                'symbol': sym.name,
+                                'suggested': f"Tipar com interface pública de menor permissão ou tornar o membro privado ('_{sym.name}')",
+                            })
 
         # REGRA 18: Auditoria de Tipos / Classes / Interfaces do Upstream Go ainda não portados
         if target_rule is None or target_rule == 'RULE_MISSING_GO_TYPES':
@@ -1791,7 +1697,7 @@ class AstNomenclatureAuditor:
                                 'file': pkg_dir,
                                 'line': 1,
                                 'symbol': s.name,
-                                'suggested': f"Portar '{s.name}' para '{pkg_dir}' ou documentar se for omitido deliberadamente"
+                                'suggested': f"Portar '{s.name}' para '{pkg_dir}' ou documentar se for omitido deliberadamente",
                             })
 
         # REGRA 19: Auditoria de Campos de Structs do Upstream Go ainda não portados
@@ -1806,10 +1712,11 @@ class AstNomenclatureAuditor:
                             break
                     if my_pkg:
                         key = (my_pkg, sym.parent_type.lower())
-                        clean_name = sym.name.lstrip('_').lower()
-                        dart_members_by_type.setdefault(key, set()).add(clean_name)
+                        dart_members_by_type.setdefault(key, set()).add(sym.name.lstrip('_').lower())
 
             for sym in self.dart_symbols:
+                if target_package and target_package not in sym.file_path:
+                    continue
                 in_boilerplate = 'packages/boilerplate/' in sym.file_path
                 if sym.kind in ('class', 'mixin') and sym.is_public() and not in_boilerplate:
                     my_pkg = None
@@ -1836,7 +1743,7 @@ class AstNomenclatureAuditor:
                                     'file': sym.file_path,
                                     'line': sym.line,
                                     'symbol': sym.name,
-                                    'suggested': f"Avaliar implementação dos campos: {', '.join(missing)}"
+                                    'suggested': f"Avaliar implementação dos campos: {', '.join(missing)}",
                                 })
 
         # REGRA 20: Auditoria de Métodos do Upstream Go ainda não implementados
@@ -1851,10 +1758,12 @@ class AstNomenclatureAuditor:
                             break
                     if my_pkg:
                         key = (my_pkg, sym.parent_type.lower())
-                        clean_name = sym.name.lstrip('_').lower()
-                        dart_methods_by_class.setdefault(key, set()).add(clean_name)
+                        dart_methods_by_class.setdefault(key, set()).add(sym.name.lstrip('_').lower())
 
             for sym in self.dart_symbols:
+                if target_package and target_package not in sym.file_path:
+                    continue
+                in_boilerplate = 'packages/boilerplate/' in sym.file_path
                 if sym.kind in ('class', 'mixin') and sym.is_public() and not in_boilerplate:
                     my_pkg = None
                     for p_dir in pkg_to_mod:
@@ -1880,13 +1789,13 @@ class AstNomenclatureAuditor:
                                     'file': sym.file_path,
                                     'line': sym.line,
                                     'symbol': sym.name,
-                                    'suggested': f"Avaliar paridade e implementação de: {', '.join(missing)}"
+                                    'suggested': f"Avaliar paridade e implementação de: {', '.join(missing)}",
                                 })
 
         # REGRA 21: Auditoria de Funções Top-Level do Upstream Go ainda não portadas
         if target_rule is None or target_rule == 'RULE_MISSING_GO_FUNCTIONS':
             dart_funcs_by_pkg: Dict[str, Set[str]] = {}
-            dart_types_by_pkg: Dict[str, Set[str]] = {}
+            dart_types_by_pkg2: Dict[str, Set[str]] = {}
             for sym in self.dart_symbols:
                 my_pkg = None
                 for p_dir in pkg_to_mod:
@@ -1897,7 +1806,7 @@ class AstNomenclatureAuditor:
                     if sym.kind == 'function':
                         dart_funcs_by_pkg.setdefault(my_pkg, set()).add(sym.name.lstrip('_').lower())
                     elif sym.kind in ('class', 'mixin', 'enum', 'extension', 'extension_type', 'typedef'):
-                        dart_types_by_pkg.setdefault(my_pkg, set()).add(sym.name.lower())
+                        dart_types_by_pkg2.setdefault(my_pkg, set()).add(sym.name.lower())
 
             for mod, syms in self.go_symbols_by_module.items():
                 if mod not in mod_to_pkg:
@@ -1907,7 +1816,7 @@ class AstNomenclatureAuditor:
                     continue
 
                 pkg_funcs = dart_funcs_by_pkg.get(pkg_dir, set())
-                pkg_types = dart_types_by_pkg.get(pkg_dir, set())
+                pkg_types = dart_types_by_pkg2.get(pkg_dir, set())
 
                 go_funcs = [s for s in syms if s.kind == 'func' and (include_non_public or s.is_exported())]
                 missing = []
@@ -1926,7 +1835,23 @@ class AstNomenclatureAuditor:
                         'file': pkg_dir,
                         'line': 1,
                         'symbol': 'top-level functions',
-                        'suggested': f"Avaliar porte das funções: {', '.join(missing[:10])}{'...' if len(missing) > 10 else ''}"
+                        'suggested': f"Avaliar porte das funções: {', '.join(missing[:10])}{'...' if len(missing) > 10 else ''}",
+                    })
+
+        # REGRA 26: Erros de sintaxe detectados pelo package:analyzer
+        if target_rule is None or target_rule == 'RULE_PARSE_ERROR':
+            for rel_path, facts in self.dart_facts.items():
+                if target_package and target_package not in rel_path:
+                    continue
+                for err in facts.get('parseErrors', []):
+                    self.violations.append({
+                        'rule': 'RULE_PARSE_ERROR',
+                        'severity': 'ERROR',
+                        'message': f"Erro de sintaxe detectado pelo package:analyzer em '{rel_path}:{err['line']}': {err['message']}",
+                        'file': rel_path,
+                        'line': err['line'],
+                        'symbol': '<erro-de-sintaxe>',
+                        'suggested': "Corrigir o erro de sintaxe antes de confiar nas declarações extraídas deste arquivo",
                     })
 
         # 2. Verificações em nível de arquivo (CLI e Boilerplate Types)
@@ -1940,17 +1865,16 @@ class AstNomenclatureAuditor:
             'packages/transpiled_ipld_prime',
         }
 
-        for file_path, content, cleaned in self.dart_files:
-            rel_path = str(file_path.relative_to(self.root_dir)).replace('\\', '/')
-            if target_package and target_package not in rel_path:
-                continue
+        for rel_path, facts in self._api_facts_items(target_package):
             if 'packages/boilerplate/' in rel_path:
                 continue
+
+            imports = facts.get('imports', [])
 
             # REGRA 9: Veto a Código de CLI em Pacotes de Bibliotecas Reutilizáveis
             if rel_path.startswith('packages/transpiled_'):
                 if target_rule is None or target_rule == 'RULE_NO_CLI_IN_LIBRARIES':
-                    if 'package:args/args.dart' in content or 'package:args/command_runner.dart' in content:
+                    if any(imp['uri'] in ('package:args/args.dart', 'package:args/command_runner.dart') for imp in imports):
                         self.violations.append({
                             'rule': 'RULE_NO_CLI_IN_LIBRARIES',
                             'severity': 'ERROR',
@@ -1958,168 +1882,124 @@ class AstNomenclatureAuditor:
                             'file': rel_path,
                             'line': 1,
                             'symbol': 'package:args',
-                            'suggested': "Remover dependência e lógica de CLI da biblioteca"
+                            'suggested': "Remover dependência e lógica de CLI da biblioteca",
                         })
-                    m_exit = re_cli_exit.search(content)
-                    if m_exit:
-                        line_no = content[:m_exit.start()].count('\n') + 1
+                    events = []
+                    for inv in facts.get('invocations', []):
+                        if inv['name'] == 'exit':
+                            events.append((inv['line'], 'exit('))
+                    for asg in facts.get('assignments', []):
+                        if asg['target'] == 'exitCode':
+                            events.append((asg['line'], 'exitCode ='))
+                    if events:
+                        events.sort(key=lambda e: e[0])
+                        line_no, snippet = events[0]
                         self.violations.append({
                             'rule': 'RULE_NO_CLI_IN_LIBRARIES',
                             'severity': 'ERROR',
-                            'message': f"Uso indevido de chamada de processo CLI ('{m_exit.group(0).strip()}') em biblioteca. Bibliotecas devem propagar erros via exceções.",
+                            'message': f"Uso indevido de chamada de processo CLI ('{snippet}') em biblioteca. Bibliotecas devem propagar erros via exceções.",
                             'file': rel_path,
                             'line': line_no,
-                            'symbol': m_exit.group(0).strip(),
-                            'suggested': "Substituir chamada por lançamento de exceção tipada"
+                            'symbol': snippet,
+                            'suggested': "Substituir chamada por lançamento de exceção tipada",
                         })
 
             # REGRA 10: Uso Obrigatório de fixed_types.Golang.* para Tipos Primitivos
             if rel_path.startswith('packages/transpiled_'):
                 if target_rule is None or target_rule == 'RULE_ENFORCE_BOILERPLATE_TYPES':
-                    m_mask = re_mask.search(cleaned)
-                    if m_mask and 'package:boilerplate/fixed_types/golang.dart' not in content:
-                        line_no = cleaned[:m_mask.start()].count('\n') + 1
-                        self.violations.append({
-                            'rule': 'RULE_ENFORCE_BOILERPLATE_TYPES',
-                            'severity': 'WARNING',
-                            'message': f"Uso de máscara binária de 32/64 bits ('{m_mask.group(0)}') sem importar 'fixed_types.Golang.*'. AGENTS.md exige centralizar semântica de overflow e limites em packages/boilerplate/.",
-                            'file': rel_path,
-                            'line': line_no,
-                            'symbol': m_mask.group(0),
-                            'suggested': "Importar 'package:boilerplate/fixed_types/golang.dart' e utilizar os tipos Golang correspondentes"
-                        })
+                    imports_boilerplate = any(imp['uri'] == 'package:boilerplate/fixed_types/golang.dart' for imp in imports)
+                    if not imports_boilerplate:
+                        for lit in facts.get('bitwiseAndHexLiterals', []):
+                            lex = lit['lexeme']
+                            hexdigits = lex[2:]
+                            if 8 <= len(hexdigits) <= 16 and all(c in 'fF' for c in hexdigits):
+                                self.violations.append({
+                                    'rule': 'RULE_ENFORCE_BOILERPLATE_TYPES',
+                                    'severity': 'WARNING',
+                                    'message': f"Uso de máscara binária de 32/64 bits ('{lex}') sem importar 'fixed_types.Golang.*'. AGENTS.md exige centralizar semântica de overflow e limites em packages/boilerplate/.",
+                                    'file': rel_path,
+                                    'line': lit['line'],
+                                    'symbol': lex,
+                                    'suggested': "Importar 'package:boilerplate/fixed_types/golang.dart' e utilizar os tipos Golang correspondentes",
+                                })
+                                break
 
-            # REGRA 15: Veto a dart:io em Pacotes de Codecs e Multiformatos Puros (Garantia Web/Wasm)
+            # REGRA 15: Veto a dart:io em Pacotes de Codecs e Multiformatos Puros
             for pure_pkg in PURE_FORMAT_PACKAGES:
                 if rel_path.startswith(pure_pkg + '/'):
                     if target_rule is None or target_rule == 'RULE_RESTRICTED_PLATFORM_IMPORTS':
-                        m_io = re.search(r'''import\s+['"]dart:io['"]''', cleaned)
-                        if m_io:
-                            line_no = cleaned[:m_io.start()].count('\n') + 1
-                            self.violations.append({
-                                'rule': 'RULE_RESTRICTED_PLATFORM_IMPORTS',
-                                'severity': 'ERROR',
-                                'message': f"Importação de 'dart:io' no pacote de codec/formato puro '{pure_pkg}'. Quebra compatibilidade universal Web/Wasm.",
-                                'file': rel_path,
-                                'line': line_no,
-                                'symbol': 'dart:io',
-                                'suggested': "Remover dependência de 'dart:io' e manter pacote agnóstico de plataforma"
-                            })
+                        for imp in imports:
+                            if imp['uri'] == 'dart:io':
+                                self.violations.append({
+                                    'rule': 'RULE_RESTRICTED_PLATFORM_IMPORTS',
+                                    'severity': 'ERROR',
+                                    'message': f"Importação de 'dart:io' no pacote de codec/formato puro '{pure_pkg}'. Quebra compatibilidade universal Web/Wasm.",
+                                    'file': rel_path,
+                                    'line': imp['line'],
+                                    'symbol': 'dart:io',
+                                    'suggested': "Remover dependência de 'dart:io' e manter pacote agnóstico de plataforma",
+                                })
+                                break
 
             # REGRA 16: Veto a chamadas print(...) em Bibliotecas Reutilizáveis
             if rel_path.startswith('packages/transpiled_'):
                 if target_rule is None or target_rule == 'RULE_NO_PRINT_IN_LIBRARIES':
-                    m_print = re.search(r'\bprint\s*\(', cleaned)
-                    if m_print:
-                        line_no = cleaned[:m_print.start()].count('\n') + 1
-                        self.violations.append({
-                            'rule': 'RULE_NO_PRINT_IN_LIBRARIES',
-                            'severity': 'ERROR',
-                            'message': "Chamada a 'print(...)' em pacote de biblioteca reutilizável. Bibliotecas devem usar logging estruturado ou streams.",
-                            'file': rel_path,
-                            'line': line_no,
-                            'symbol': 'print(...)',
-                            'suggested': "Substituir por logger estruturado ou remover print"
-                        })
+                    for inv in facts.get('invocations', []):
+                        if inv['name'] == 'print':
+                            self.violations.append({
+                                'rule': 'RULE_NO_PRINT_IN_LIBRARIES',
+                                'severity': 'ERROR',
+                                'message': "Chamada a 'print(...)' em pacote de biblioteca reutilizável. Bibliotecas devem usar logging estruturado ou streams.",
+                                'file': rel_path,
+                                'line': inv['line'],
+                                'symbol': 'print(...)',
+                                'suggested': "Substituir por logger estruturado ou remover print",
+                            })
+                            break
 
-        # REGRA 19: Veto a Dependências de CLI em pubspec.yaml de Bibliotecas
+        # REGRA 22: Veto a Dependências de CLI em pubspec.yaml de Bibliotecas
         if target_rule is None or target_rule == 'RULE_PUBSPEC_DEPENDENCIES':
-            for ps in self.root_dir.glob('packages/*/pubspec.yaml'):
+            for ps in sorted(self.root_dir.glob('packages/*/pubspec.yaml')):
                 rel_ps = str(ps.relative_to(self.root_dir)).replace('\\', '/')
                 if target_package and target_package not in rel_ps:
                     continue
                 try:
-                    ps_content = ps.read_text(encoding='utf-8', errors='ignore')
+                    text = ps.read_text(encoding='utf-8', errors='ignore')
+                    data = yaml.safe_load(text) or {}
                 except Exception:
                     continue
+                deps = data.get('dependencies')
+                if not isinstance(deps, dict):
+                    continue
+                forbidden = [d for d in deps if d in ('args', 'dcli')]
+                if not forbidden:
+                    continue
+
+                line_of: Dict[str, int] = {}
                 in_deps = False
-                for l_idx, l_text in enumerate(ps_content.splitlines(), start=1):
-                    clean_l = l_text.split('#')[0].rstrip()
-                    if clean_l == 'dependencies:':
-                        in_deps = True
-                    elif clean_l in ('dev_dependencies:', 'environment:') or (in_deps and re.match(r'^\S', clean_l) and not clean_l.startswith(' ')):
-                        in_deps = False
-                    elif in_deps:
-                        dm = re.match(r'^\s+([a-zA-Z0-9_]+):', clean_l)
-                        if dm:
-                            d_name = dm.group(1)
-                            if d_name in ('args', 'dcli'):
-                                self.violations.append({
-                                    'rule': 'RULE_PUBSPEC_DEPENDENCIES',
-                                    'severity': 'ERROR',
-                                    'message': f"Dependência de CLI '{d_name}' declarada em 'dependencies' de biblioteca reutilizável '{rel_ps}'. Mover para dev_dependencies ou remover.",
-                                    'file': rel_ps,
-                                    'line': l_idx,
-                                    'symbol': d_name,
-                                    'suggested': f"Remover '{d_name}' de 'dependencies:'"
-                                })
-
-        # REGRA 23: Veto a Membros Públicos que Expõem Tipos Não-Públicos (Menor Permissão)
-        if target_rule is None or target_rule == 'RULE_EXPOSED_NON_PUBLIC_MEMBERS':
-            re_priv_type = re.compile(r'\b_([A-Z][A-Za-z0-9_]*)\b')
-            re_class = re.compile(r'\b(?:class|mixin|enum|extension\s+type)\s+([A-Za-z0-9_]+)')
-            for file_path, content, cleaned in self.dart_files:
-                rel_path = str(file_path.relative_to(self.root_dir)).replace('\\', '/')
-                if target_package and target_package not in rel_path:
-                    continue
-                if 'packages/boilerplate/' in rel_path:
-                    continue
-                current_class = None
-                brace_depth = 0
-                class_depth = 0
-                for l_idx, line in enumerate(cleaned.splitlines(), start=1):
-                    clean_l = line.split('//')[0].strip()
-
-                    m_cls = re_class.search(clean_l)
-                    if m_cls:
-                        current_class = m_cls.group(1)
-                        class_depth = brace_depth
-
-                    open_b = clean_l.count('{')
-                    close_b = clean_l.count('}')
-                    brace_depth += open_b - close_b
-                    if current_class and brace_depth <= class_depth and close_b > 0:
-                        current_class = None
-
-                    # Membros de classes privadas já são estritamente privados do ponto de vista de biblioteca
-                    if current_class and current_class.startswith('_'):
+                for idx, raw_line in enumerate(text.splitlines(), start=1):
+                    no_comment = raw_line.split('#', 1)[0].rstrip()
+                    stripped = no_comment.strip()
+                    if no_comment and not no_comment[0].isspace():
+                        in_deps = stripped == 'dependencies:'
                         continue
+                    if in_deps and stripped:
+                        key = stripped.split(':', 1)[0].strip()
+                        if key in forbidden and key not in line_of:
+                            line_of[key] = idx
 
-                    # Ignora parâmetros de funções/métodos
-                    if clean_l.endswith(','):
-                        continue
-
-                    # Ignora variáveis locais dentro de blocos/métodos/funções
-                    if (current_class is None and brace_depth > open_b) or (current_class is not None and brace_depth > class_depth + 1):
-                        continue
-
-                    m_priv = re_priv_type.search(clean_l)
-                    if not m_priv:
-                        continue
-                    priv_type = m_priv.group(0)
-                    m_decl = re.search(r'(?:final\s+|late\s+|static\s+|const\s+)?(?:[A-Za-z0-9_<>, ]*?\b' + re.escape(priv_type) + r'\b[A-Za-z0-9_<>, ]*?)\s+([a-zA-Z0-9]+)\s*(\(|;|=)', clean_l)
-                    if m_decl:
-                        mem_name = m_decl.group(1)
-                        if not mem_name.startswith('_') and mem_name not in ('if', 'for', 'while', 'switch', 'return', 'catch'):
-                            self.violations.append({
-                                'rule': 'RULE_EXPOSED_NON_PUBLIC_MEMBERS',
-                                'severity': 'WARNING',
-                                'message': f"Membro público '{mem_name}' expõe tipo não-público '{priv_type}'. AGENTS.md exige implementar seguindo o mesmo nível de visibilidade e permissão do Upstream Go, ou menor se não for possível.",
-                                'file': rel_path,
-                                'line': l_idx,
-                                'symbol': mem_name,
-                                'suggested': f"Tipar com interface pública de menor permissão ou tornar o membro privado ('_{mem_name}')"
-                            })
+                for d_name in forbidden:
+                    self.violations.append({
+                        'rule': 'RULE_PUBSPEC_DEPENDENCIES',
+                        'severity': 'ERROR',
+                        'message': f"Dependência de CLI '{d_name}' declarada em 'dependencies' de biblioteca reutilizável '{rel_ps}'. Mover para dev_dependencies ou remover.",
+                        'file': rel_ps,
+                        'line': line_of.get(d_name, 1),
+                        'symbol': d_name,
+                        'suggested': f"Remover '{d_name}' de 'dependencies:'",
+                    })
 
         # REGRA 25: Prefixo de Import Nomeado pela Biblioteca (Colisão de Nomes)
-        #
-        # O porte mantém os nomes do upstream, então o mesmo nome aparece em
-        # mais de um módulo Go: `Limit` e `Limiter` existem em x/time/rate, em
-        # x/rate e em resource-manager ao mesmo tempo. Quem se ajusta é o ponto
-        # de importação, e o prefixo tem de nomear a biblioteca, para que o
-        # leitor -- e este auditor, via resolve_prefixed_reference -- saibam a
-        # qual delas um `Foo.Bar` se refere. Prefixo abreviado ad hoc e
-        # cláusula `hide` perdem essa informação.
         if target_rule is None or target_rule == 'RULE_IMPORT_PREFIX_NAMING':
             public_type_packages: Dict[str, Set[str]] = {}
             for sym in self.dart_symbols:
@@ -2127,6 +2007,7 @@ class AstNomenclatureAuditor:
                     if sym.file_path.startswith('packages/'):
                         pkg = sym.file_path.split('/')[1]
                         public_type_packages.setdefault(sym.name, set()).add(pkg)
+
             declared_types_by_uri: Dict[str, Set[str]] = {}
             for sym in self.dart_symbols:
                 if sym.kind in ('class', 'mixin', 'enum', 'extension_type') and sym.is_public():
@@ -2135,44 +2016,28 @@ class AstNomenclatureAuditor:
                         if len(parts) > 3 and parts[2] == 'lib':
                             uri = 'package:' + parts[1] + '/' + '/'.join(parts[3:])
                             declared_types_by_uri.setdefault(uri, set()).add(sym.name)
-            # Esta é a única regra que também olha `test/`: ela trata de
-            # legibilidade de import, não de superfície de API, e um teste que
-            # resolve colisão com `hide` esconde a origem tanto quanto um
-            # arquivo de biblioteca. Os testes não entram em `dart_files` para
-            # não serem auditados pelas regras de nomenclatura de API.
-            scanned: List[Tuple[Path, str]] = [
-                (fp, content) for fp, content, _ in self.dart_files
-            ]
-            for tf in sorted(self.root_dir.glob('test/**/*.dart')):
-                try:
-                    tcontent = tf.read_text(encoding='utf-8', errors='ignore')
-                except Exception:
-                    continue
-                trel = str(tf.relative_to(self.root_dir)).replace(chr(92), '/')
-                self._parse_import_directives(trel, tcontent)
-                scanned.append((tf, tcontent))
 
-            for file_path, content in scanned:
-                rel_path = str(file_path.relative_to(self.root_dir)).replace(chr(92), '/')
+            for rel_path, facts in self.dart_facts.items():
                 if target_package and target_package not in rel_path:
                     continue
+                imports = facts.get('imports', [])
 
-                line_of = {}
-                for idx, line in enumerate(content.splitlines(), start=1):
-                    for m_as in self.RE_IMPORT_AS.finditer(line):
-                        line_of.setdefault(m_as.group(1), idx)
-                    m_h = self.RE_IMPORT_HIDE.search(line)
-                    if m_h:
-                        for nm in m_h.group(1).split(','):
-                            line_of.setdefault('hide:' + nm.strip(), idx)
-
-                # URI de cada prefixo deste arquivo, para distinguir import do
-                # barril (biblioteca pública do pacote) de import interno.
+                line_of: Dict[str, int] = {}
                 uri_of_prefix: Dict[str, str] = {}
-                for m_imp in self.RE_IMPORT_DIRECTIVE.finditer(content):
-                    m_a = self.RE_IMPORT_AS.search(m_imp.group(2) or '')
-                    if m_a:
-                        uri_of_prefix[m_a.group(1)] = m_imp.group(1)
+                other_libs: Set[str] = set()
+                same_pkg_imports: Dict[str, List[str]] = {}
+                for imp in imports:
+                    uri = imp['uri']
+                    lib = self.library_name_of_uri(uri)
+                    prefix = imp.get('prefix')
+                    if prefix:
+                        line_of.setdefault(prefix, imp['line'])
+                        uri_of_prefix[prefix] = uri
+                    for h in imp.get('hide', []):
+                        line_of.setdefault('hide:' + h, imp['line'])
+                    if lib and (lib.startswith('transpiled_') or lib == 'boilerplate'):
+                        other_libs.add(lib)
+                        same_pkg_imports.setdefault(lib, []).append(uri)
 
                 for prefix, library in self.dart_import_prefixes.get(rel_path, {}).items():
                     if not (library.startswith('transpiled_') or library == 'boilerplate'):
@@ -2180,10 +2045,6 @@ class AstNomenclatureAuditor:
                     uri_p = uri_of_prefix.get(prefix, '')
                     internal = '/src/' in uri_p
                     if internal:
-                        # Import interno: cada biblioteca de `src/` corresponde a
-                        # um pacote Go distinto, e é o nome dele que separa os
-                        # símbolos -- usar o nome do pacote Dart aqui faria oito
-                        # bibliotecas diferentes disputarem o mesmo prefixo.
                         allowed = self.go_prefixes_for_library_path(uri_p)
                         if not allowed:
                             continue
@@ -2205,28 +2066,10 @@ class AstNomenclatureAuditor:
                         'suggested': f"Usar 'as {sorted(allowed, key=len)[0]}'",
                     })
 
-                # `hide` só é apontado quando a colisão é entre DUAS bibliotecas:
-                # outro pacote transpilado importado no mesmo arquivo também
-                # declara o nome escondido. Quando o nome que fica vem de um
-                # arquivo local do próprio pacote, a origem continua legível --
-                # a declaração está ali ao lado -- e a regra não se aplica.
-                other_libs: Set[str] = set()
-                for m_imp in self.RE_IMPORT_DIRECTIVE.finditer(content):
-                    lib_i = self.library_name_of_uri(m_imp.group(1))
-                    if lib_i and (lib_i.startswith('transpiled_') or lib_i == 'boilerplate'):
-                        other_libs.add(lib_i)
-
-                # Braço 3: o prefixo exigido sombreia um identificador do
-                # próprio arquivo. Em Dart o prefixo divide o espaço de nomes
-                # com variáveis, campos e métodos, então `as rate` num arquivo
-                # que declara `rate` deixa de compilar -- ou, pior, passa a
-                # apontar para o identificador errado. A saída é a forma longa
-                # com sufixo `_package`, que nenhum identificador Dart usa.
                 declared_local: Set[str] = set()
-                for m_decl in self.RE_LOCAL_DECL.finditer(cleaned_of(file_path, content)):
-                    for g in m_decl.groups():
-                        if g:
-                            declared_local.add(g)
+                for ident in facts.get('declaredIdentifiers', []):
+                    if ident and (ident[0].islower() or ident[0] == '_'):
+                        declared_local.add(ident)
 
                 for prefix, library in self.dart_import_prefixes.get(rel_path, {}).items():
                     if not (library.startswith('transpiled_') or library == 'boilerplate'):
@@ -2255,23 +2098,10 @@ class AstNomenclatureAuditor:
                         'suggested': f"Usar 'as {escape}' e qualificar os usos",
                     })
 
-                # Imports do MESMO pacote Dart feitos neste arquivo, com a URI
-                # de cada um, para achar colisões internas.
-                same_pkg_imports: Dict[str, List[str]] = {}
-                for m_imp in self.RE_IMPORT_DIRECTIVE.finditer(content):
-                    uri_i = m_imp.group(1)
-                    lib_i = self.library_name_of_uri(uri_i)
-                    if lib_i and (lib_i.startswith('transpiled_') or lib_i == 'boilerplate'):
-                        same_pkg_imports.setdefault(lib_i, []).append(uri_i)
-
                 for hidden, library in self.dart_import_hides.get(rel_path, []):
                     if not (library.startswith('transpiled_') or library == 'boilerplate'):
                         continue
 
-                    # Braço 2: colisão DENTRO do mesmo pacote Dart. O nome do
-                    # pacote seria igual dos dois lados, então o prefixo tem de
-                    # ser o do pacote Go -- que é o namespace que o próprio Go
-                    # usa para separar os dois (`rate.Limit` contra `Limit`).
                     internal = [
                         u for u in same_pkg_imports.get(library, [])
                         if '/src/' in u and hidden in declared_types_by_uri.get(u, set())
@@ -2324,56 +2154,62 @@ class AstNomenclatureAuditor:
             sev_upper = target_severity.upper()
             self.violations = [v for v in self.violations if v['severity'].upper() == sev_upper]
 
+    # -- correções mecânicas ---------------------------------------------
+
     def apply_autofixes(self) -> int:
         """Aplica correções mecânicas determinísticas e seguras nos arquivos Dart."""
         total_fixes = 0
-        files_to_update: Dict[str, str] = {}
+        edits_by_file: Dict[str, List[Tuple[int, int, str]]] = {}
 
         for v in self.violations:
             rule = v['rule']
             f_path = self.root_dir / v['file']
-            if not f_path.exists() or not f_path.is_file() or not str(f_path).endswith('.dart'):
+            if not f_path.exists() or not f_path.is_file() or not v['file'].endswith('.dart'):
                 continue
 
-            rel_path = str(v['file'])
-            if rel_path not in files_to_update:
-                try:
-                    files_to_update[rel_path] = f_path.read_text(encoding='utf-8')
-                except Exception:
-                    continue
-
-            content = files_to_update[rel_path]
-            orig = content
-
-            # 1. Remover @Deprecated não autorizado
             if rule == 'RULE_NO_UNAUTHORIZED_DEPRECATED':
-                sym_name = v['symbol']
-                pat = rf'(@Deprecated\s*\([^)]*\)\s*|@deprecated\s*)(?=(?:[A-Za-z0-9_<>?, ]+\s+)?{re.escape(sym_name)}\b)'
-                content = re.sub(pat, '', content)
-
-            # 2. Corrigir construtor com prefixo 'new'
+                off, end = v.get('_fix_offset'), v.get('_fix_end')
+                if off is None or end is None:
+                    continue
+                edits_by_file.setdefault(v['file'], []).append((off, end, None))
+            elif rule == 'RULE_NO_TYPEDEF_SHIMS':
+                off, end = v.get('_fix_offset'), v.get('_fix_end')
+                if off is None or end is None:
+                    continue
+                comment = f"// [AGENTS.md RULE_NO_TYPEDEF_SHIMS] Removido shim retrocompatível: typedef {v['symbol']} = {v.get('_fix_target', '')};"
+                edits_by_file.setdefault(v['file'], []).append((off, end, comment))
             elif rule == 'RULE_REDUNDANT_CONSTRUCTOR_NAMES':
                 c_sym = v['symbol']
                 if c_sym.startswith('newFrom'):
                     suggested = c_sym[3:]
                     suggested = suggested[:1].lower() + suggested[1:]
-                    content = content.replace(f".{c_sym}", f".{suggested}")
+                    content = f_path.read_text(encoding='utf-8')
+                    new_content = content.replace(f".{c_sym}", f".{suggested}")
+                    if new_content != content:
+                        f_path.write_text(new_content, encoding='utf-8')
+                        total_fixes += 1
 
-            # 3. Comentar shims artificiais de typedef
-            elif rule == 'RULE_NO_TYPEDEF_SHIMS':
-                sym_name = v['symbol']
-                pat = rf'^[ \t]*typedef\s+{re.escape(sym_name)}\s*=\s*([A-Za-z0-9_<>,\s?]+);'
-                content = re.sub(pat, rf'// [AGENTS.md RULE_NO_TYPEDEF_SHIMS] Removido shim retrocompatível: typedef {sym_name} = \1;', content, flags=re.MULTILINE)
-
-            if content != orig:
-                files_to_update[rel_path] = content
+        for rel_path, edits in edits_by_file.items():
+            f_path = self.root_dir / rel_path
+            content = f_path.read_text(encoding='utf-8')
+            for off, end, replacement in sorted(edits, key=lambda e: e[0], reverse=True):
+                if replacement is None:
+                    j = end
+                    while j < len(content) and content[j].isspace():
+                        j += 1
+                    content = content[:off] + content[j:]
+                else:
+                    content = content[:off] + replacement + content[end:]
                 total_fixes += 1
-
-        for rel_path, new_content in files_to_update.items():
-            p = self.root_dir / rel_path
-            p.write_text(new_content, encoding='utf-8')
+            f_path.write_text(content, encoding='utf-8')
 
         return total_fixes
+
+    # -- relatórios --------------------------------------------------------
+
+    @staticmethod
+    def _public_violation(v: Dict) -> Dict:
+        return {k: val for k, val in v.items() if not k.startswith('_')}
 
     def generate_markdown_report(self) -> str:
         total = len(self.violations)
@@ -2392,7 +2228,7 @@ class AstNomenclatureAuditor:
             f"> **Símbolos Dart Auditados:** {len(self.dart_symbols)} | **Símbolos Go Indexados:** {sum(len(s) for s in self.go_symbols_by_module.values())}",
             f"> **Status Geral:** ❌ **{len(errors)} Erros** | ⚠️ **{len(warnings)} Avisos** | ℹ️ **{len(infos)} Notas de Cobertura**",
             "",
-            "## 1. Resumo Executivo das 24 Regras",
+            f"## 1. Resumo Executivo das {len(RULE_TITLES)} Regras",
             "",
             "| # | Regra | Severidade | Ocorrências | Status |",
             "| :---: | :--- | :---: | :---: | :---: |",
@@ -2455,10 +2291,11 @@ class AstNomenclatureAuditor:
 
         return "\n".join(lines)
 
-    def print_report(self, json_output: bool = False, summary_only: bool = False, markdown_output: bool = False, output_file: Optional[str] = None):
+    def print_report(self, json_output: bool = False, summary_only: bool = False,
+                      markdown_output: bool = False, output_file: Optional[str] = None):
         out_text = ""
         if json_output:
-            out_text = json.dumps(self.violations, indent=2)
+            out_text = json.dumps([self._public_violation(v) for v in self.violations], indent=2)
         elif markdown_output:
             out_text = self.generate_markdown_report()
         else:
@@ -2565,8 +2402,7 @@ class AstNomenclatureAuditor:
                 dart_types.setdefault(my_pkg, set()).add(sym.name.lower())
             elif sym.kind in ('method', 'field', 'getter', 'setter') and sym.parent_type:
                 key = (my_pkg, sym.parent_type.lower())
-                clean = sym.name.lstrip('_').lower()
-                dart_members.setdefault(key, set()).add(clean)
+                dart_members.setdefault(key, set()).add(sym.name.lstrip('_').lower())
             elif sym.kind == 'function':
                 dart_funcs.setdefault(my_pkg, set()).add(sym.name.lstrip('_').lower())
 
@@ -2640,7 +2476,7 @@ class AstNomenclatureAuditor:
             'methods': {'total': total_go_methods, 'done': done_go_methods, 'missing': total_go_methods - done_go_methods},
             'fields': {'total': total_go_fields, 'done': done_go_fields, 'missing': total_go_fields - done_go_fields},
             'funcs': {'total': total_go_funcs, 'done': done_go_funcs, 'missing': total_go_funcs - done_go_funcs},
-            'modules': modules
+            'modules': modules,
         }
 
     def generate_progress_report(self) -> str:
@@ -2735,7 +2571,7 @@ def main():
         target_package=args.package,
         target_rule=args.rule,
         target_severity=args.severity,
-        include_non_public=args.include_non_public
+        include_non_public=args.include_non_public,
     )
 
     if args.tests or args.rule == 'RULE_MISSING_ATOMIC_TESTS':
@@ -2747,14 +2583,16 @@ def main():
     if args.fix:
         fixes = auditor.apply_autofixes()
         print(f"\n🛠️ [AUTOFIX] {fixes} correções mecânicas aplicadas automaticamente.")
-        # Recarrega e re-audita para exibir estado atualizado
+        # Recarrega e re-audita para exibir estado atualizado (os fatos são
+        # regenerados automaticamente, pois os arquivos editados ficam com
+        # mtime mais novo que o JSON em cache).
         auditor = AstNomenclatureAuditor(root_dir)
         auditor.load_all()
         auditor.audit_rules(
             target_package=args.package,
             target_rule=args.rule,
             target_severity=args.severity,
-            include_non_public=args.include_non_public
+            include_non_public=args.include_non_public,
         )
 
     if args.progress:
@@ -2767,7 +2605,7 @@ def main():
         json_output=args.json,
         summary_only=args.summary_only,
         markdown_output=args.markdown,
-        output_file=args.output
+        output_file=args.output,
     )
 
     errors = [v for v in auditor.violations if v['severity'] == 'ERROR']

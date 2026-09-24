@@ -1,0 +1,6 @@
+# Dependências Python de tool/audit_ast_nomenclature.py.
+#
+# O auditor também exige `dart` e `go` disponíveis no PATH: ele os invoca
+# (via subprocess) para gerar tool/dart_ast_facts.dart e
+# tool/go_module_index.go -json, cujo JSON é o único insumo das regras.
+PyYAML>=6.0
