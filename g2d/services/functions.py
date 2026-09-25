@@ -2,7 +2,7 @@
 
 from g2d.analysis.helpers import doc_comment, has_defer, has_recover, mutates_receiver, tuple_expr, uses_decl
 from g2d.engine.behavior import Service
-from g2d.engine.scope import FunctionScope
+from g2d.engine.scope import FunctionScope, TypeParams
 from g2d.model import Unsupported
 from g2d.services.naming import member_name
 
@@ -49,7 +49,8 @@ class Functions(Service):
                 # Várias por pacote, nunca referenciadas: chamadas por $goInit.
                 name = f"_init${len(self.facts.init_funcs)}"
                 self.facts.init_funcs.append(name)
-        tparams, dicts = self.type_params(d["type"]["typeParams"])
+        tps = self.type_params(d["type"]["typeParams"])
+        tparams, dicts = tps.decl, ", ".join(tps.dicts)
         params, boxes = self.params(d["type"]["params"], sig)
         self.scope.rd = None
         rd = ""
@@ -71,18 +72,16 @@ class Functions(Service):
         return f"{{{self.imports.qualify(None, 'Defers')}? $rd}}"
 
     def type_params(self, fields):
-        """`[T C, U any]` → (`<T extends Bound, U>`, `go.Elem<T> $T, ...`):
-        cada parâmetro de tipo recebe um dicionário (zero, tamanho, T(n))."""
+        """`[T C, U any]` → TypeParams: `<T extends Bound, U>` e um parâmetro
+        dicionário `go.Elem<T> $T` por parâmetro (zero, tamanho, T(n))."""
         idents = [i for f in ((fields or {}).get("list") or []) for i in f["names"]]
-        if not idents:
-            return "", ""
-        decl, dicts = [], []
+        names, bounds, dicts = [], [], []
         for ident in idents:
             tp = self.pkg.type_at(ident["$obj"]["type"])
-            bound = self.bound(tp)
-            decl.append(tp["name"] + (f" extends {bound}" if bound else ""))
+            names.append(tp["name"])
+            bounds.append(self.bound(tp))
             dicts.append(f"{self.imports.qualify(None, 'Elem')}<{tp['name']}> ${tp['name']}")
-        return "<" + ", ".join(decl) + ">", ", ".join(dicts)
+        return TypeParams(tuple(names), tuple(bounds), tuple(dicts))
 
     def bound(self, tp):
         """Bound Dart da constraint de um parâmetro de tipo: interface com
@@ -97,7 +96,7 @@ class Functions(Service):
             et = self.pkg.type_at(e)
             terms += [self.pkg.type_at(x["type"]) for x in et["terms"]] if et["kind"] == "union" else [et]
         if not terms:
-            return self.types.dart(c).rstrip("?") if u["methods"] else None
+            return self.types.dart(c).non_null() if u["methods"] else None
         cats = {self.typesys.basic(x).cat if self.typesys.basic(x) else None for x in terms}
         name = tp["name"]
         g = self.types.golang

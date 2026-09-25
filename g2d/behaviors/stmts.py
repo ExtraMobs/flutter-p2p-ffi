@@ -4,6 +4,7 @@ from g2d.analysis.helpers import is_blank, tuple_expr, uses_decl
 from g2d.engine.behavior import StmtBehavior
 from g2d.engine.precedence import DART_PREC, POSTFIX
 from g2d.model import Unsupported
+from g2d.services.dart_type import DartType
 
 
 class BlockStmt(StmtBehavior):
@@ -346,7 +347,7 @@ class TypeSwitchStmt(StmtBehavior):
                     if mode == "value":
                         value, vt = f"({subject} as {dt}).$copy()", t
                     elif mode == "pointer":
-                        value, vt = f"{self.imports.qualify(None, 'unNil')}<{dt.rstrip('?')}>({subject} as {dt})", t
+                        value, vt = f"{self.imports.qualify(None, 'unNil')}<{dt.non_null()}>({subject} as {dt})", t
                     else:
                         value, vt = f"{subject} as {dt}", t
                     vtype = self.types.dart(vt)
@@ -408,8 +409,8 @@ class DeferStmt(StmtBehavior):
             fnode = {"node": "G2DTemp", "text": tmp, "$type": fun.get("$type")}
             plain = self.expr(dict(call, fun=fnode, args=fixed))
             with_rd = self.expr(dict(call, fun=fnode, args=fixed, **{"$rdArg": d}))
-            ftype = self.types.func_type(self.pkg.type_of(fun))
-            ftype = ftype[:-1] + (", " if not ftype.endswith("()") else "") + self.functions.rd_param() + ")"
+            defers = DartType(self.imports.qualify(None, "Defers"), nullable=True)
+            ftype = self.types.func_type(self.pkg.type_of(fun)).with_named("$rd", defers)
             text = f"if ({tmp} is {ftype}) {{ {with_rd}; }} else {{ {plain}; }}"
             return ["{"] + pre + [f"{d}.defer(() {{ {text} }});", "}"]
         else:

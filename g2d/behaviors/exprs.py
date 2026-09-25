@@ -141,8 +141,7 @@ class UnaryExpr(ExprBehavior):
         if x["node"] == "CompositeLit" or self.typesys.is_value(self.pkg.type_of(x)):
             return self.expr_prec(x)
         if x["node"] == "Ident":
-            text = self.expr(x)
-            return text[: -len(".value")], POSTFIX  # a caixa (find_boxed garantiu)
+            return self.names.box_name(x["$obj"]), POSTFIX  # a caixa (BoxingAnalysis garantiu)
         if x["node"] == "IndexExpr" and self.typesys.underlying(self.pkg.type_of(x["x"]))["kind"] in ("slice", "array"):
             return f"{self.expr(x['x'], POSTFIX)}.addr({self.operands.to_int(x['index'])})", POSTFIX
         if x["node"] == "SelectorExpr" and x.get("$sel", {}).get("kind") == "field":

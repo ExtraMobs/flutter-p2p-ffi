@@ -1,7 +1,8 @@
 import unittest
 
 from g2d.graph import parse_go_list, topo_order
-from g2d.services.naming import lower_camel, member_name, type_name
+from g2d.services.dart_type import DartType
+from g2d.services.naming import local_name, lower_camel, member_name, type_name
 from g2d.model import parse_dump
 
 
@@ -37,6 +38,36 @@ class NamingTest(unittest.TestCase):
         self.assertEqual(member_name("New"), "new$")  # palavra reservada
         self.assertEqual(type_name("Greeter"), "Greeter")
         self.assertEqual(type_name("point"), "_point")
+
+
+class DartCoreNamesTest(unittest.TestCase):
+    def test_core_names_are_escaped(self):
+        self.assertEqual(type_name("Object"), "Object$")
+        self.assertEqual(type_name("Map"), "Map$")
+        self.assertEqual(member_name("Identical"), "identical$")
+        self.assertEqual(local_name("int"), "int$")
+        self.assertEqual(member_name("print"), "_print")  # privado: não colide
+
+
+class DartTypeTest(unittest.TestCase):
+    def test_render_and_nullability(self):
+        m = DartType("go.GoMap", (DartType("K"), DartType("Pair", (DartType("A"), DartType("B")))))
+        self.assertEqual(m, "go.GoMap<K, Pair<A, B>>")
+        self.assertEqual(m.as_nullable(), "go.GoMap<K, Pair<A, B>>?")
+        self.assertEqual(m.as_nullable().non_null(), m)
+        self.assertEqual(m.args[1].args, ("A", "B"))  # estrutura, não texto
+
+    def test_function_with_named_and_nested(self):
+        inner = DartType.function(DartType("void"), [DartType("int")], nullable=True)
+        f = DartType.function(DartType("R"), [inner, DartType("Map", ("K", "V"))])
+        self.assertEqual(f, "R Function(void Function(int)?, Map<K, V>)")
+        g = f.with_named("$rd", DartType("go.Defers", nullable=True))
+        self.assertEqual(g, "R Function(void Function(int)?, Map<K, V>, {go.Defers? $rd})")
+        self.assertEqual(DartType.function(DartType("void"), []).with_named("x", DartType("T")),
+                         "void Function({T x})")
+
+    def test_record(self):
+        self.assertEqual(DartType.of_record([DartType("A"), DartType("B", nullable=True)]), "(A, B?)")
 
 
 class ModelTest(unittest.TestCase):

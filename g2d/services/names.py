@@ -39,6 +39,12 @@ class Naming(Service):
         """Variável que mora num go.Box (endereço tomado): acesso via .value."""
         return ".value" if obj.get("decl") in self.facts.boxed and obj.get("pkg") == self.pkg.path else ""
 
+    def box_name(self, obj):
+        """Nome Dart da caixa (go.Box) de uma variável com `&x`."""
+        if obj.get("top"):
+            return self.top_name(obj["name"], obj["kind"])
+        return self.scope.locals[obj["decl"]]
+
     def local_decl(self, ident, t, init):
         """Declaração de uma variável local Go nova (com caixa se `&x`)."""
         name = self.declare_local(ident)

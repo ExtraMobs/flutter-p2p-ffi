@@ -3,7 +3,7 @@ inicialização do pacote e a cadeia de declarações de tipo nomeado."""
 
 from g2d.analysis.helpers import doc_comment
 from g2d.engine.behavior import Behavior, TypeDeclBehavior
-from g2d.engine.scope import FunctionScope
+from g2d.engine.scope import FunctionScope, TypeParams
 from g2d.model import Unsupported
 from g2d.services.naming import escape, lower_camel, member_name, type_name
 
@@ -113,16 +113,16 @@ class StructClass(TypeDeclBehavior):
         try:
             return self.struct_class(name, u, tidx)
         finally:
-            self.facts.class_tparams = ("", "")
+            self.facts.class_tparams = TypeParams()
 
     def struct_class(self, go_name, st, tidx):
         """struct Go → classe que estende go.GoStruct (semântica de valor),
         com os métodos promovidos por embedding (mixins) e `implements`."""
-        tdecl, tdicts = self.facts.class_tparams
+        tps = self.facts.class_tparams
         base_cls = type_name(go_name)
-        cls = base_cls + tdecl
+        cls = base_cls + tps.decl
         # Nome com os parâmetros aplicados (sem bounds): Stack<T>.
-        tnames = [p.split(" ")[0] for p in tdecl[1:-1].split(", ")] if tdecl else []
+        tnames = tps.names
         self_t = base_cls + (f"<{', '.join(tnames)}>" if tnames else "")
         t = self.pkg.type_at(tidx)
         params, inits, fields, copies, sets, values = [], [], [], [], [], []
@@ -138,7 +138,7 @@ class StructClass(TypeDeclBehavior):
             ft = self.pkg.type_at(f["type"])
             ftype = self.types.dart(ft)
             fields.append(f"{ftype} {fname};")
-            if ftype.endswith("?"):
+            if ftype.nullable:
                 params.append(f"{ftype} {pname}")
                 inits.append(f"{fname} = {pname}")
             else:
@@ -216,7 +216,7 @@ class InterfaceClass(TypeDeclBehavior):
             et = self.pkg.type_at(e)
             if et["kind"] != "named" or self.typesys.underlying(et)["kind"] != "interface":
                 return []
-            supers.append(self.types.dart(et).rstrip("?"))
+            supers.append(self.types.dart(et).non_null())
         head = f"abstract mixin class {type_name(go_name)}"
         if supers:
             head += " implements " + ", ".join(supers)

@@ -1,0 +1,2801 @@
+{
+  "schemaVersion": 5,
+  "tool": "goast",
+  "goVersion": "go1.25.7",
+  "packages": [
+    {
+      "path": "main",
+      "name": "main",
+      "files": [
+        {
+          "path": "corenames.go",
+          "ast": {
+            "node": "File",
+            "doc": {
+              "node": "CommentGroup",
+              "list": [
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "corenames.go",
+                    "line": 1,
+                    "column": 1,
+                    "offset": 0
+                  },
+                  "text": "// Package main usa nomes que coincidem com os do dart:core usados pelo"
+                },
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "corenames.go",
+                    "line": 2,
+                    "column": 1,
+                    "offset": 72
+                  },
+                  "text": "// código gerado (Object, Map, String, identical, int, bool): eles precisam"
+                },
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "corenames.go",
+                    "line": 3,
+                    "column": 1,
+                    "offset": 149
+                  },
+                  "text": "// ser renomeados para não sombrear o core."
+                }
+              ]
+            },
+            "package": {
+              "file": "corenames.go",
+              "line": 4,
+              "column": 1,
+              "offset": 194
+            },
+            "name": {
+              "node": "Ident",
+              "namePos": {
+                "file": "corenames.go",
+                "line": 4,
+                "column": 9,
+                "offset": 202
+              },
+              "name": "main",
+              "obj": null
+            },
+            "decls": [
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "corenames.go",
+                  "line": 6,
+                  "column": 1,
+                  "offset": 208
+                },
+                "tok": "import",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "ImportSpec",
+                    "doc": null,
+                    "name": null,
+                    "path": {
+                      "node": "BasicLit",
+                      "valuePos": {
+                        "file": "corenames.go",
+                        "line": 6,
+                        "column": 8,
+                        "offset": 215
+                      },
+                      "kind": "STRING",
+                      "value": "\"fmt\""
+                    },
+                    "comment": null,
+                    "endPos": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "corenames.go",
+                  "line": 8,
+                  "column": 1,
+                  "offset": 222
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "corenames.go",
+                        "line": 8,
+                        "column": 6,
+                        "offset": 227
+                      },
+                      "name": "Object",
+                      "obj": {
+                        "node": "Object",
+                        "name": "Object",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "Object",
+                        "kind": "type",
+                        "def": true,
+                        "type": 0,
+                        "decl": "corenames.go:227",
+                        "pkg": "main",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "StructType",
+                      "struct": {
+                        "file": "corenames.go",
+                        "line": 8,
+                        "column": 13,
+                        "offset": 234
+                      },
+                      "fields": {
+                        "node": "FieldList",
+                        "opening": {
+                          "file": "corenames.go",
+                          "line": 8,
+                          "column": 19,
+                          "offset": 240
+                        },
+                        "list": [
+                          {
+                            "node": "Field",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "corenames.go",
+                                  "line": 8,
+                                  "column": 21,
+                                  "offset": 242
+                                },
+                                "name": "Name",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "Name",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "Name",
+                                  "kind": "field",
+                                  "def": true,
+                                  "type": 2,
+                                  "decl": "corenames.go:242",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "corenames.go",
+                                "line": 8,
+                                "column": 26,
+                                "offset": 247
+                              },
+                              "name": "string",
+                              "obj": null,
+                              "$type": 2,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "string",
+                                "kind": "type",
+                                "type": 2
+                              }
+                            },
+                            "tag": null,
+                            "comment": null
+                          }
+                        ],
+                        "closing": {
+                          "file": "corenames.go",
+                          "line": 8,
+                          "column": 33,
+                          "offset": 254
+                        }
+                      },
+                      "incomplete": false,
+                      "$type": 1,
+                      "$isType": true
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "corenames.go",
+                  "line": 10,
+                  "column": 1,
+                  "offset": 257
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "corenames.go",
+                        "line": 10,
+                        "column": 6,
+                        "offset": 262
+                      },
+                      "name": "Map",
+                      "obj": {
+                        "node": "Object",
+                        "name": "Map",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "Map",
+                        "kind": "type",
+                        "def": true,
+                        "type": 3,
+                        "decl": "corenames.go:262",
+                        "pkg": "main",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "StructType",
+                      "struct": {
+                        "file": "corenames.go",
+                        "line": 10,
+                        "column": 10,
+                        "offset": 266
+                      },
+                      "fields": {
+                        "node": "FieldList",
+                        "opening": {
+                          "file": "corenames.go",
+                          "line": 10,
+                          "column": 16,
+                          "offset": 272
+                        },
+                        "list": [
+                          {
+                            "node": "Field",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "corenames.go",
+                                  "line": 10,
+                                  "column": 18,
+                                  "offset": 274
+                                },
+                                "name": "Size",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "Size",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "Size",
+                                  "kind": "field",
+                                  "def": true,
+                                  "type": 5,
+                                  "decl": "corenames.go:274",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "corenames.go",
+                                "line": 10,
+                                "column": 23,
+                                "offset": 279
+                              },
+                              "name": "int",
+                              "obj": null,
+                              "$type": 5,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "int",
+                                "kind": "type",
+                                "type": 5
+                              }
+                            },
+                            "tag": null,
+                            "comment": null
+                          }
+                        ],
+                        "closing": {
+                          "file": "corenames.go",
+                          "line": 10,
+                          "column": 27,
+                          "offset": 283
+                        }
+                      },
+                      "incomplete": false,
+                      "$type": 4,
+                      "$isType": true
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "corenames.go",
+                  "line": 12,
+                  "column": 1,
+                  "offset": 286
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "corenames.go",
+                        "line": 12,
+                        "column": 6,
+                        "offset": 291
+                      },
+                      "name": "String",
+                      "obj": {
+                        "node": "Object",
+                        "name": "String",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "String",
+                        "kind": "type",
+                        "def": true,
+                        "type": 6,
+                        "decl": "corenames.go:291",
+                        "pkg": "main",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "corenames.go",
+                        "line": 12,
+                        "column": 13,
+                        "offset": 298
+                      },
+                      "name": "int",
+                      "obj": null,
+                      "$type": 5,
+                      "$isType": true,
+                      "$obj": {
+                        "name": "int",
+                        "kind": "type",
+                        "type": 5
+                      }
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": {
+                  "node": "FieldList",
+                  "opening": {
+                    "file": "corenames.go",
+                    "line": 14,
+                    "column": 6,
+                    "offset": 308
+                  },
+                  "list": [
+                    {
+                      "node": "Field",
+                      "doc": null,
+                      "names": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "corenames.go",
+                            "line": 14,
+                            "column": 7,
+                            "offset": 309
+                          },
+                          "name": "s",
+                          "obj": {
+                            "node": "Object",
+                            "name": "s",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "s",
+                            "kind": "var",
+                            "def": true,
+                            "type": 6,
+                            "decl": "corenames.go:309",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "type": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "corenames.go",
+                          "line": 14,
+                          "column": 9,
+                          "offset": 311
+                        },
+                        "name": "String",
+                        "obj": {
+                          "node": "Object",
+                          "name": "String",
+                          "kind": "type"
+                        },
+                        "$type": 6,
+                        "$isType": true,
+                        "$obj": {
+                          "name": "String",
+                          "kind": "type",
+                          "type": 6,
+                          "decl": "corenames.go:291",
+                          "pkg": "main",
+                          "top": true
+                        }
+                      },
+                      "tag": null,
+                      "comment": null
+                    }
+                  ],
+                  "closing": {
+                    "file": "corenames.go",
+                    "line": 14,
+                    "column": 15,
+                    "offset": 317
+                  }
+                },
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "corenames.go",
+                    "line": 14,
+                    "column": 17,
+                    "offset": 319
+                  },
+                  "name": "Double",
+                  "obj": null,
+                  "$obj": {
+                    "name": "Double",
+                    "kind": "method",
+                    "def": true,
+                    "type": 7,
+                    "decl": "corenames.go:319",
+                    "pkg": "main"
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "corenames.go",
+                    "line": 14,
+                    "column": 1,
+                    "offset": 303
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "corenames.go",
+                      "line": 14,
+                      "column": 23,
+                      "offset": 325
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "corenames.go",
+                      "line": 14,
+                      "column": 24,
+                      "offset": 326
+                    }
+                  },
+                  "results": {
+                    "node": "FieldList",
+                    "opening": null,
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": null,
+                        "type": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "corenames.go",
+                            "line": 14,
+                            "column": 26,
+                            "offset": 328
+                          },
+                          "name": "String",
+                          "obj": {
+                            "node": "Object",
+                            "name": "String",
+                            "kind": "type"
+                          },
+                          "$type": 6,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "String",
+                            "kind": "type",
+                            "type": 6,
+                            "decl": "corenames.go:291",
+                            "pkg": "main",
+                            "top": true
+                          }
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": null
+                  }
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "corenames.go",
+                    "line": 14,
+                    "column": 33,
+                    "offset": 335
+                  },
+                  "list": [
+                    {
+                      "node": "ReturnStmt",
+                      "return": {
+                        "file": "corenames.go",
+                        "line": 14,
+                        "column": 35,
+                        "offset": 337
+                      },
+                      "results": [
+                        {
+                          "node": "BinaryExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "corenames.go",
+                              "line": 14,
+                              "column": 42,
+                              "offset": 344
+                            },
+                            "name": "s",
+                            "obj": {
+                              "node": "Object",
+                              "name": "s",
+                              "kind": "var"
+                            },
+                            "$type": 6,
+                            "$obj": {
+                              "name": "s",
+                              "kind": "var",
+                              "type": 6,
+                              "decl": "corenames.go:309",
+                              "pkg": "main"
+                            }
+                          },
+                          "opPos": {
+                            "file": "corenames.go",
+                            "line": 14,
+                            "column": 44,
+                            "offset": 346
+                          },
+                          "op": "*",
+                          "y": {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "corenames.go",
+                              "line": 14,
+                              "column": 46,
+                              "offset": 348
+                            },
+                            "kind": "INT",
+                            "value": "2",
+                            "$type": 6,
+                            "$value": {
+                              "kind": "int",
+                              "value": "2"
+                            }
+                          },
+                          "$type": 6
+                        }
+                      ]
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "corenames.go",
+                    "line": 14,
+                    "column": 48,
+                    "offset": 350
+                  }
+                }
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "corenames.go",
+                    "line": 16,
+                    "column": 6,
+                    "offset": 358
+                  },
+                  "name": "Identical",
+                  "obj": {
+                    "node": "Object",
+                    "name": "Identical",
+                    "kind": "func"
+                  },
+                  "$obj": {
+                    "name": "Identical",
+                    "kind": "func",
+                    "def": true,
+                    "type": 8,
+                    "decl": "corenames.go:358",
+                    "pkg": "main",
+                    "top": true
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "corenames.go",
+                    "line": 16,
+                    "column": 1,
+                    "offset": 353
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "corenames.go",
+                      "line": 16,
+                      "column": 15,
+                      "offset": 367
+                    },
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "corenames.go",
+                              "line": 16,
+                              "column": 16,
+                              "offset": 368
+                            },
+                            "name": "a",
+                            "obj": {
+                              "node": "Object",
+                              "name": "a",
+                              "kind": "var"
+                            },
+                            "$obj": {
+                              "name": "a",
+                              "kind": "var",
+                              "def": true,
+                              "type": 9,
+                              "decl": "corenames.go:368",
+                              "pkg": "main"
+                            }
+                          },
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "corenames.go",
+                              "line": 16,
+                              "column": 19,
+                              "offset": 371
+                            },
+                            "name": "b",
+                            "obj": {
+                              "node": "Object",
+                              "name": "b",
+                              "kind": "var"
+                            },
+                            "$obj": {
+                              "name": "b",
+                              "kind": "var",
+                              "def": true,
+                              "type": 9,
+                              "decl": "corenames.go:371",
+                              "pkg": "main"
+                            }
+                          }
+                        ],
+                        "type": {
+                          "node": "StarExpr",
+                          "star": {
+                            "file": "corenames.go",
+                            "line": 16,
+                            "column": 21,
+                            "offset": 373
+                          },
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "corenames.go",
+                              "line": 16,
+                              "column": 22,
+                              "offset": 374
+                            },
+                            "name": "Object",
+                            "obj": {
+                              "node": "Object",
+                              "name": "Object",
+                              "kind": "type"
+                            },
+                            "$type": 0,
+                            "$isType": true,
+                            "$obj": {
+                              "name": "Object",
+                              "kind": "type",
+                              "type": 0,
+                              "decl": "corenames.go:227",
+                              "pkg": "main",
+                              "top": true
+                            }
+                          },
+                          "$type": 9,
+                          "$isType": true
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": {
+                      "file": "corenames.go",
+                      "line": 16,
+                      "column": 28,
+                      "offset": 380
+                    }
+                  },
+                  "results": {
+                    "node": "FieldList",
+                    "opening": null,
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": null,
+                        "type": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "corenames.go",
+                            "line": 16,
+                            "column": 30,
+                            "offset": 382
+                          },
+                          "name": "bool",
+                          "obj": null,
+                          "$type": 10,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "bool",
+                            "kind": "type",
+                            "type": 10
+                          }
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": null
+                  }
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "corenames.go",
+                    "line": 16,
+                    "column": 35,
+                    "offset": 387
+                  },
+                  "list": [
+                    {
+                      "node": "ReturnStmt",
+                      "return": {
+                        "file": "corenames.go",
+                        "line": 16,
+                        "column": 37,
+                        "offset": 389
+                      },
+                      "results": [
+                        {
+                          "node": "BinaryExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "corenames.go",
+                              "line": 16,
+                              "column": 44,
+                              "offset": 396
+                            },
+                            "name": "a",
+                            "obj": {
+                              "node": "Object",
+                              "name": "a",
+                              "kind": "var"
+                            },
+                            "$type": 9,
+                            "$obj": {
+                              "name": "a",
+                              "kind": "var",
+                              "type": 9,
+                              "decl": "corenames.go:368",
+                              "pkg": "main"
+                            }
+                          },
+                          "opPos": {
+                            "file": "corenames.go",
+                            "line": 16,
+                            "column": 46,
+                            "offset": 398
+                          },
+                          "op": "==",
+                          "y": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "corenames.go",
+                              "line": 16,
+                              "column": 49,
+                              "offset": 401
+                            },
+                            "name": "b",
+                            "obj": {
+                              "node": "Object",
+                              "name": "b",
+                              "kind": "var"
+                            },
+                            "$type": 9,
+                            "$obj": {
+                              "name": "b",
+                              "kind": "var",
+                              "type": 9,
+                              "decl": "corenames.go:371",
+                              "pkg": "main"
+                            }
+                          },
+                          "$type": 10
+                        }
+                      ]
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "corenames.go",
+                    "line": 16,
+                    "column": 51,
+                    "offset": 403
+                  }
+                }
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "corenames.go",
+                    "line": 18,
+                    "column": 6,
+                    "offset": 411
+                  },
+                  "name": "Print",
+                  "obj": {
+                    "node": "Object",
+                    "name": "Print",
+                    "kind": "func"
+                  },
+                  "$obj": {
+                    "name": "Print",
+                    "kind": "func",
+                    "def": true,
+                    "type": 11,
+                    "decl": "corenames.go:411",
+                    "pkg": "main",
+                    "top": true
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "corenames.go",
+                    "line": 18,
+                    "column": 1,
+                    "offset": 406
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "corenames.go",
+                      "line": 18,
+                      "column": 11,
+                      "offset": 416
+                    },
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "corenames.go",
+                              "line": 18,
+                              "column": 12,
+                              "offset": 417
+                            },
+                            "name": "xs",
+                            "obj": {
+                              "node": "Object",
+                              "name": "xs",
+                              "kind": "var"
+                            },
+                            "$obj": {
+                              "name": "xs",
+                              "kind": "var",
+                              "def": true,
+                              "type": 12,
+                              "decl": "corenames.go:417",
+                              "pkg": "main"
+                            }
+                          }
+                        ],
+                        "type": {
+                          "node": "Ellipsis",
+                          "ellipsis": {
+                            "file": "corenames.go",
+                            "line": 18,
+                            "column": 15,
+                            "offset": 420
+                          },
+                          "elt": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "corenames.go",
+                              "line": 18,
+                              "column": 18,
+                              "offset": 423
+                            },
+                            "name": "any",
+                            "obj": null,
+                            "$type": 13,
+                            "$isType": true,
+                            "$obj": {
+                              "name": "any",
+                              "kind": "type",
+                              "type": 13
+                            }
+                          },
+                          "$type": 12,
+                          "$isType": true
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": {
+                      "file": "corenames.go",
+                      "line": 18,
+                      "column": 21,
+                      "offset": 426
+                    }
+                  },
+                  "results": null
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "corenames.go",
+                    "line": 18,
+                    "column": 23,
+                    "offset": 428
+                  },
+                  "list": [
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "corenames.go",
+                              "line": 18,
+                              "column": 25,
+                              "offset": 430
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "corenames.go",
+                              "line": 18,
+                              "column": 29,
+                              "offset": 434
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 14,
+                              "decl": "corenames.go:312",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 14
+                        },
+                        "lparen": {
+                          "file": "corenames.go",
+                          "line": 18,
+                          "column": 36,
+                          "offset": 441
+                        },
+                        "args": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "corenames.go",
+                              "line": 18,
+                              "column": 37,
+                              "offset": 442
+                            },
+                            "name": "xs",
+                            "obj": {
+                              "node": "Object",
+                              "name": "xs",
+                              "kind": "var"
+                            },
+                            "$type": 12,
+                            "$obj": {
+                              "name": "xs",
+                              "kind": "var",
+                              "type": 12,
+                              "decl": "corenames.go:417",
+                              "pkg": "main"
+                            }
+                          }
+                        ],
+                        "ellipsis": {
+                          "file": "corenames.go",
+                          "line": 18,
+                          "column": 39,
+                          "offset": 444
+                        },
+                        "rparen": {
+                          "file": "corenames.go",
+                          "line": 18,
+                          "column": 42,
+                          "offset": 447
+                        },
+                        "$type": 18
+                      }
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "corenames.go",
+                    "line": 18,
+                    "column": 44,
+                    "offset": 449
+                  }
+                }
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "corenames.go",
+                    "line": 20,
+                    "column": 6,
+                    "offset": 457
+                  },
+                  "name": "main",
+                  "obj": {
+                    "node": "Object",
+                    "name": "main",
+                    "kind": "func"
+                  },
+                  "$obj": {
+                    "name": "main",
+                    "kind": "func",
+                    "def": true,
+                    "type": 19,
+                    "decl": "corenames.go:457",
+                    "pkg": "main",
+                    "top": true
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "corenames.go",
+                    "line": 20,
+                    "column": 1,
+                    "offset": 452
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "corenames.go",
+                      "line": 20,
+                      "column": 10,
+                      "offset": 461
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "corenames.go",
+                      "line": 20,
+                      "column": 11,
+                      "offset": 462
+                    }
+                  },
+                  "results": null
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "corenames.go",
+                    "line": 20,
+                    "column": 13,
+                    "offset": 464
+                  },
+                  "list": [
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "corenames.go",
+                            "line": 21,
+                            "column": 2,
+                            "offset": 467
+                          },
+                          "name": "o",
+                          "obj": {
+                            "node": "Object",
+                            "name": "o",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "o",
+                            "kind": "var",
+                            "def": true,
+                            "type": 9,
+                            "decl": "corenames.go:467",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "corenames.go",
+                        "line": 21,
+                        "column": 4,
+                        "offset": 469
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "UnaryExpr",
+                          "opPos": {
+                            "file": "corenames.go",
+                            "line": 21,
+                            "column": 7,
+                            "offset": 472
+                          },
+                          "op": "\u0026",
+                          "x": {
+                            "node": "CompositeLit",
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "corenames.go",
+                                "line": 21,
+                                "column": 8,
+                                "offset": 473
+                              },
+                              "name": "Object",
+                              "obj": {
+                                "node": "Object",
+                                "name": "Object",
+                                "kind": "type"
+                              },
+                              "$type": 0,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "Object",
+                                "kind": "type",
+                                "type": 0,
+                                "decl": "corenames.go:227",
+                                "pkg": "main",
+                                "top": true
+                              }
+                            },
+                            "lbrace": {
+                              "file": "corenames.go",
+                              "line": 21,
+                              "column": 14,
+                              "offset": 479
+                            },
+                            "elts": [
+                              {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "corenames.go",
+                                  "line": 21,
+                                  "column": 15,
+                                  "offset": 480
+                                },
+                                "kind": "STRING",
+                                "value": "\"x\"",
+                                "$type": 2,
+                                "$value": {
+                                  "kind": "string",
+                                  "value": "x"
+                                }
+                              }
+                            ],
+                            "rbrace": {
+                              "file": "corenames.go",
+                              "line": 21,
+                              "column": 18,
+                              "offset": 483
+                            },
+                            "incomplete": false,
+                            "$type": 0
+                          },
+                          "$type": 9
+                        }
+                      ]
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "corenames.go",
+                            "line": 22,
+                            "column": 2,
+                            "offset": 486
+                          },
+                          "name": "int",
+                          "obj": {
+                            "node": "Object",
+                            "name": "int",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "int",
+                            "kind": "var",
+                            "def": true,
+                            "type": 5,
+                            "decl": "corenames.go:486",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "corenames.go",
+                        "line": 22,
+                        "column": 6,
+                        "offset": 490
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "BasicLit",
+                          "valuePos": {
+                            "file": "corenames.go",
+                            "line": 22,
+                            "column": 9,
+                            "offset": 493
+                          },
+                          "kind": "INT",
+                          "value": "3",
+                          "$type": 5,
+                          "$value": {
+                            "kind": "int",
+                            "value": "3"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "corenames.go",
+                            "line": 23,
+                            "column": 2,
+                            "offset": 496
+                          },
+                          "name": "bool",
+                          "obj": {
+                            "node": "Object",
+                            "name": "bool",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "bool",
+                            "kind": "var",
+                            "def": true,
+                            "type": 10,
+                            "decl": "corenames.go:496",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "corenames.go",
+                        "line": 23,
+                        "column": 7,
+                        "offset": 501
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "corenames.go",
+                            "line": 23,
+                            "column": 10,
+                            "offset": 504
+                          },
+                          "name": "true",
+                          "obj": null,
+                          "$type": 10,
+                          "$value": {
+                            "kind": "bool",
+                            "value": true
+                          },
+                          "$obj": {
+                            "name": "true",
+                            "kind": "const",
+                            "type": 20,
+                            "value": {
+                              "kind": "bool",
+                              "value": true
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "node": "DeclStmt",
+                      "decl": {
+                        "node": "GenDecl",
+                        "doc": null,
+                        "tokPos": {
+                          "file": "corenames.go",
+                          "line": 24,
+                          "column": 2,
+                          "offset": 510
+                        },
+                        "tok": "var",
+                        "lparen": null,
+                        "specs": [
+                          {
+                            "node": "ValueSpec",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "corenames.go",
+                                  "line": 24,
+                                  "column": 6,
+                                  "offset": 514
+                                },
+                                "name": "s",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "s",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "s",
+                                  "kind": "var",
+                                  "def": true,
+                                  "type": 6,
+                                  "decl": "corenames.go:514",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "corenames.go",
+                                "line": 24,
+                                "column": 8,
+                                "offset": 516
+                              },
+                              "name": "String",
+                              "obj": {
+                                "node": "Object",
+                                "name": "String",
+                                "kind": "type"
+                              },
+                              "$type": 6,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "String",
+                                "kind": "type",
+                                "type": 6,
+                                "decl": "corenames.go:291",
+                                "pkg": "main",
+                                "top": true
+                              }
+                            },
+                            "values": [
+                              {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "corenames.go",
+                                  "line": 24,
+                                  "column": 17,
+                                  "offset": 525
+                                },
+                                "kind": "INT",
+                                "value": "5",
+                                "$type": 6,
+                                "$value": {
+                                  "kind": "int",
+                                  "value": "5"
+                                }
+                              }
+                            ],
+                            "comment": null
+                          }
+                        ],
+                        "rparen": null
+                      }
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "corenames.go",
+                            "line": 25,
+                            "column": 2,
+                            "offset": 528
+                          },
+                          "name": "m",
+                          "obj": {
+                            "node": "Object",
+                            "name": "m",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "m",
+                            "kind": "var",
+                            "def": true,
+                            "type": 3,
+                            "decl": "corenames.go:528",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "corenames.go",
+                        "line": 25,
+                        "column": 4,
+                        "offset": 530
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "CompositeLit",
+                          "type": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "corenames.go",
+                              "line": 25,
+                              "column": 7,
+                              "offset": 533
+                            },
+                            "name": "Map",
+                            "obj": {
+                              "node": "Object",
+                              "name": "Map",
+                              "kind": "type"
+                            },
+                            "$type": 3,
+                            "$isType": true,
+                            "$obj": {
+                              "name": "Map",
+                              "kind": "type",
+                              "type": 3,
+                              "decl": "corenames.go:262",
+                              "pkg": "main",
+                              "top": true
+                            }
+                          },
+                          "lbrace": {
+                            "file": "corenames.go",
+                            "line": 25,
+                            "column": 10,
+                            "offset": 536
+                          },
+                          "elts": [
+                            {
+                              "node": "KeyValueExpr",
+                              "key": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "corenames.go",
+                                  "line": 25,
+                                  "column": 11,
+                                  "offset": 537
+                                },
+                                "name": "Size",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "Size",
+                                  "kind": "field",
+                                  "type": 5,
+                                  "decl": "corenames.go:274",
+                                  "pkg": "main"
+                                }
+                              },
+                              "colon": {
+                                "file": "corenames.go",
+                                "line": 25,
+                                "column": 15,
+                                "offset": 541
+                              },
+                              "value": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "corenames.go",
+                                  "line": 25,
+                                  "column": 17,
+                                  "offset": 543
+                                },
+                                "name": "int",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "int",
+                                  "kind": "var"
+                                },
+                                "$type": 5,
+                                "$obj": {
+                                  "name": "int",
+                                  "kind": "var",
+                                  "type": 5,
+                                  "decl": "corenames.go:486",
+                                  "pkg": "main"
+                                }
+                              }
+                            }
+                          ],
+                          "rbrace": {
+                            "file": "corenames.go",
+                            "line": 25,
+                            "column": 20,
+                            "offset": 546
+                          },
+                          "incomplete": false,
+                          "$type": 3
+                        }
+                      ]
+                    },
+                    {
+                      "node": "DeclStmt",
+                      "decl": {
+                        "node": "GenDecl",
+                        "doc": null,
+                        "tokPos": {
+                          "file": "corenames.go",
+                          "line": 26,
+                          "column": 2,
+                          "offset": 549
+                        },
+                        "tok": "var",
+                        "lparen": null,
+                        "specs": [
+                          {
+                            "node": "ValueSpec",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "corenames.go",
+                                  "line": 26,
+                                  "column": 6,
+                                  "offset": 553
+                                },
+                                "name": "anything",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "anything",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "anything",
+                                  "kind": "var",
+                                  "def": true,
+                                  "type": 13,
+                                  "decl": "corenames.go:553",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "corenames.go",
+                                "line": 26,
+                                "column": 15,
+                                "offset": 562
+                              },
+                              "name": "any",
+                              "obj": null,
+                              "$type": 13,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "any",
+                                "kind": "type",
+                                "type": 13
+                              }
+                            },
+                            "values": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "corenames.go",
+                                  "line": 26,
+                                  "column": 21,
+                                  "offset": 568
+                                },
+                                "name": "o",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "o",
+                                  "kind": "var"
+                                },
+                                "$type": 9,
+                                "$obj": {
+                                  "name": "o",
+                                  "kind": "var",
+                                  "type": 9,
+                                  "decl": "corenames.go:467",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "comment": null
+                          }
+                        ],
+                        "rparen": null
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "corenames.go",
+                              "line": 27,
+                              "column": 2,
+                              "offset": 571
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "corenames.go",
+                              "line": 27,
+                              "column": 6,
+                              "offset": 575
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 14,
+                              "decl": "corenames.go:312",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 14
+                        },
+                        "lparen": {
+                          "file": "corenames.go",
+                          "line": 27,
+                          "column": 13,
+                          "offset": 582
+                        },
+                        "args": [
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "corenames.go",
+                                "line": 27,
+                                "column": 14,
+                                "offset": 583
+                              },
+                              "name": "Identical",
+                              "obj": {
+                                "node": "Object",
+                                "name": "Identical",
+                                "kind": "func"
+                              },
+                              "$type": 8,
+                              "$obj": {
+                                "name": "Identical",
+                                "kind": "func",
+                                "type": 8,
+                                "decl": "corenames.go:358",
+                                "pkg": "main",
+                                "top": true
+                              }
+                            },
+                            "lparen": {
+                              "file": "corenames.go",
+                              "line": 27,
+                              "column": 23,
+                              "offset": 592
+                            },
+                            "args": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "corenames.go",
+                                  "line": 27,
+                                  "column": 24,
+                                  "offset": 593
+                                },
+                                "name": "o",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "o",
+                                  "kind": "var"
+                                },
+                                "$type": 9,
+                                "$obj": {
+                                  "name": "o",
+                                  "kind": "var",
+                                  "type": 9,
+                                  "decl": "corenames.go:467",
+                                  "pkg": "main"
+                                }
+                              },
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "corenames.go",
+                                  "line": 27,
+                                  "column": 27,
+                                  "offset": 596
+                                },
+                                "name": "o",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "o",
+                                  "kind": "var"
+                                },
+                                "$type": 9,
+                                "$obj": {
+                                  "name": "o",
+                                  "kind": "var",
+                                  "type": 9,
+                                  "decl": "corenames.go:467",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "corenames.go",
+                              "line": 27,
+                              "column": 28,
+                              "offset": 597
+                            },
+                            "$type": 10
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "corenames.go",
+                                "line": 27,
+                                "column": 31,
+                                "offset": 600
+                              },
+                              "name": "Identical",
+                              "obj": {
+                                "node": "Object",
+                                "name": "Identical",
+                                "kind": "func"
+                              },
+                              "$type": 8,
+                              "$obj": {
+                                "name": "Identical",
+                                "kind": "func",
+                                "type": 8,
+                                "decl": "corenames.go:358",
+                                "pkg": "main",
+                                "top": true
+                              }
+                            },
+                            "lparen": {
+                              "file": "corenames.go",
+                              "line": 27,
+                              "column": 40,
+                              "offset": 609
+                            },
+                            "args": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "corenames.go",
+                                  "line": 27,
+                                  "column": 41,
+                                  "offset": 610
+                                },
+                                "name": "o",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "o",
+                                  "kind": "var"
+                                },
+                                "$type": 9,
+                                "$obj": {
+                                  "name": "o",
+                                  "kind": "var",
+                                  "type": 9,
+                                  "decl": "corenames.go:467",
+                                  "pkg": "main"
+                                }
+                              },
+                              {
+                                "node": "UnaryExpr",
+                                "opPos": {
+                                  "file": "corenames.go",
+                                  "line": 27,
+                                  "column": 44,
+                                  "offset": 613
+                                },
+                                "op": "\u0026",
+                                "x": {
+                                  "node": "CompositeLit",
+                                  "type": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "corenames.go",
+                                      "line": 27,
+                                      "column": 45,
+                                      "offset": 614
+                                    },
+                                    "name": "Object",
+                                    "obj": {
+                                      "node": "Object",
+                                      "name": "Object",
+                                      "kind": "type"
+                                    },
+                                    "$type": 0,
+                                    "$isType": true,
+                                    "$obj": {
+                                      "name": "Object",
+                                      "kind": "type",
+                                      "type": 0,
+                                      "decl": "corenames.go:227",
+                                      "pkg": "main",
+                                      "top": true
+                                    }
+                                  },
+                                  "lbrace": {
+                                    "file": "corenames.go",
+                                    "line": 27,
+                                    "column": 51,
+                                    "offset": 620
+                                  },
+                                  "elts": [
+                                    {
+                                      "node": "BasicLit",
+                                      "valuePos": {
+                                        "file": "corenames.go",
+                                        "line": 27,
+                                        "column": 52,
+                                        "offset": 621
+                                      },
+                                      "kind": "STRING",
+                                      "value": "\"x\"",
+                                      "$type": 2,
+                                      "$value": {
+                                        "kind": "string",
+                                        "value": "x"
+                                      }
+                                    }
+                                  ],
+                                  "rbrace": {
+                                    "file": "corenames.go",
+                                    "line": 27,
+                                    "column": 55,
+                                    "offset": 624
+                                  },
+                                  "incomplete": false,
+                                  "$type": 0
+                                },
+                                "$type": 9
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "corenames.go",
+                              "line": 27,
+                              "column": 56,
+                              "offset": 625
+                            },
+                            "$type": 10
+                          },
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "corenames.go",
+                              "line": 27,
+                              "column": 59,
+                              "offset": 628
+                            },
+                            "name": "int",
+                            "obj": {
+                              "node": "Object",
+                              "name": "int",
+                              "kind": "var"
+                            },
+                            "$type": 5,
+                            "$obj": {
+                              "name": "int",
+                              "kind": "var",
+                              "type": 5,
+                              "decl": "corenames.go:486",
+                              "pkg": "main"
+                            }
+                          },
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "corenames.go",
+                              "line": 27,
+                              "column": 64,
+                              "offset": 633
+                            },
+                            "name": "bool",
+                            "obj": {
+                              "node": "Object",
+                              "name": "bool",
+                              "kind": "var"
+                            },
+                            "$type": 10,
+                            "$obj": {
+                              "name": "bool",
+                              "kind": "var",
+                              "type": 10,
+                              "decl": "corenames.go:496",
+                              "pkg": "main"
+                            }
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "corenames.go",
+                                  "line": 27,
+                                  "column": 70,
+                                  "offset": 639
+                                },
+                                "name": "s",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "s",
+                                  "kind": "var"
+                                },
+                                "$type": 6,
+                                "$obj": {
+                                  "name": "s",
+                                  "kind": "var",
+                                  "type": 6,
+                                  "decl": "corenames.go:514",
+                                  "pkg": "main"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "corenames.go",
+                                  "line": 27,
+                                  "column": 72,
+                                  "offset": 641
+                                },
+                                "name": "Double",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "Double",
+                                  "kind": "method",
+                                  "type": 7,
+                                  "decl": "corenames.go:319",
+                                  "pkg": "main"
+                                }
+                              },
+                              "$type": 7,
+                              "$sel": {
+                                "kind": "method",
+                                "recv": 6,
+                                "index": [
+                                  0
+                                ],
+                                "indirect": false
+                              }
+                            },
+                            "lparen": {
+                              "file": "corenames.go",
+                              "line": 27,
+                              "column": 78,
+                              "offset": 647
+                            },
+                            "args": null,
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "corenames.go",
+                              "line": 27,
+                              "column": 79,
+                              "offset": 648
+                            },
+                            "$type": 6
+                          },
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "corenames.go",
+                              "line": 27,
+                              "column": 82,
+                              "offset": 651
+                            },
+                            "name": "m",
+                            "obj": {
+                              "node": "Object",
+                              "name": "m",
+                              "kind": "var"
+                            },
+                            "$type": 3,
+                            "$obj": {
+                              "name": "m",
+                              "kind": "var",
+                              "type": 3,
+                              "decl": "corenames.go:528",
+                              "pkg": "main"
+                            }
+                          },
+                          {
+                            "node": "SelectorExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "corenames.go",
+                                "line": 27,
+                                "column": 85,
+                                "offset": 654
+                              },
+                              "name": "o",
+                              "obj": {
+                                "node": "Object",
+                                "name": "o",
+                                "kind": "var"
+                              },
+                              "$type": 9,
+                              "$obj": {
+                                "name": "o",
+                                "kind": "var",
+                                "type": 9,
+                                "decl": "corenames.go:467",
+                                "pkg": "main"
+                              }
+                            },
+                            "sel": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "corenames.go",
+                                "line": 27,
+                                "column": 87,
+                                "offset": 656
+                              },
+                              "name": "Name",
+                              "obj": null,
+                              "$obj": {
+                                "name": "Name",
+                                "kind": "field",
+                                "type": 2,
+                                "decl": "corenames.go:242",
+                                "pkg": "main"
+                              }
+                            },
+                            "$type": 2,
+                            "$sel": {
+                              "kind": "field",
+                              "recv": 9,
+                              "index": [
+                                0
+                              ],
+                              "indirect": true
+                            }
+                          },
+                          {
+                            "node": "BinaryExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "corenames.go",
+                                "line": 27,
+                                "column": 93,
+                                "offset": 662
+                              },
+                              "name": "anything",
+                              "obj": {
+                                "node": "Object",
+                                "name": "anything",
+                                "kind": "var"
+                              },
+                              "$type": 13,
+                              "$obj": {
+                                "name": "anything",
+                                "kind": "var",
+                                "type": 13,
+                                "decl": "corenames.go:553",
+                                "pkg": "main"
+                              }
+                            },
+                            "opPos": {
+                              "file": "corenames.go",
+                              "line": 27,
+                              "column": 102,
+                              "offset": 671
+                            },
+                            "op": "!=",
+                            "y": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "corenames.go",
+                                "line": 27,
+                                "column": 105,
+                                "offset": 674
+                              },
+                              "name": "nil",
+                              "obj": null,
+                              "$type": 21,
+                              "$obj": {
+                                "name": "nil",
+                                "kind": "nil",
+                                "type": 21
+                              }
+                            },
+                            "$type": 10
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "corenames.go",
+                          "line": 27,
+                          "column": 108,
+                          "offset": 677
+                        },
+                        "$type": 18
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "corenames.go",
+                            "line": 28,
+                            "column": 2,
+                            "offset": 680
+                          },
+                          "name": "Print",
+                          "obj": {
+                            "node": "Object",
+                            "name": "Print",
+                            "kind": "func"
+                          },
+                          "$type": 11,
+                          "$obj": {
+                            "name": "Print",
+                            "kind": "func",
+                            "type": 11,
+                            "decl": "corenames.go:411",
+                            "pkg": "main",
+                            "top": true
+                          }
+                        },
+                        "lparen": {
+                          "file": "corenames.go",
+                          "line": 28,
+                          "column": 7,
+                          "offset": 685
+                        },
+                        "args": [
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "corenames.go",
+                              "line": 28,
+                              "column": 8,
+                              "offset": 686
+                            },
+                            "kind": "STRING",
+                            "value": "\"print\"",
+                            "$type": 2,
+                            "$value": {
+                              "kind": "string",
+                              "value": "print"
+                            }
+                          },
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "corenames.go",
+                              "line": 28,
+                              "column": 17,
+                              "offset": 695
+                            },
+                            "name": "int",
+                            "obj": {
+                              "node": "Object",
+                              "name": "int",
+                              "kind": "var"
+                            },
+                            "$type": 5,
+                            "$obj": {
+                              "name": "int",
+                              "kind": "var",
+                              "type": 5,
+                              "decl": "corenames.go:486",
+                              "pkg": "main"
+                            }
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "corenames.go",
+                          "line": 28,
+                          "column": 20,
+                          "offset": 698
+                        },
+                        "$type": 22
+                      }
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "corenames.go",
+                    "line": 29,
+                    "column": 1,
+                    "offset": 700
+                  }
+                }
+              }
+            ],
+            "fileStart": {
+              "file": "corenames.go",
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "fileEnd": {
+              "file": "corenames.go",
+              "line": 29,
+              "column": 3,
+              "offset": 702
+            },
+            "scope": null,
+            "imports": [
+              {
+                "node": "ImportSpec",
+                "doc": null,
+                "name": null,
+                "path": {
+                  "node": "BasicLit",
+                  "valuePos": {
+                    "file": "corenames.go",
+                    "line": 6,
+                    "column": 8,
+                    "offset": 215
+                  },
+                  "kind": "STRING",
+                  "value": "\"fmt\""
+                },
+                "comment": null,
+                "endPos": null
+              }
+            ],
+            "unresolved": [
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "corenames.go",
+                  "line": 8,
+                  "column": 26,
+                  "offset": 247
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 2,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 2
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "corenames.go",
+                  "line": 10,
+                  "column": 23,
+                  "offset": 279
+                },
+                "name": "int",
+                "obj": null,
+                "$type": 5,
+                "$isType": true,
+                "$obj": {
+                  "name": "int",
+                  "kind": "type",
+                  "type": 5
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "corenames.go",
+                  "line": 12,
+                  "column": 13,
+                  "offset": 298
+                },
+                "name": "int",
+                "obj": null,
+                "$type": 5,
+                "$isType": true,
+                "$obj": {
+                  "name": "int",
+                  "kind": "type",
+                  "type": 5
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "corenames.go",
+                  "line": 16,
+                  "column": 30,
+                  "offset": 382
+                },
+                "name": "bool",
+                "obj": null,
+                "$type": 10,
+                "$isType": true,
+                "$obj": {
+                  "name": "bool",
+                  "kind": "type",
+                  "type": 10
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "corenames.go",
+                  "line": 18,
+                  "column": 18,
+                  "offset": 423
+                },
+                "name": "any",
+                "obj": null,
+                "$type": 13,
+                "$isType": true,
+                "$obj": {
+                  "name": "any",
+                  "kind": "type",
+                  "type": 13
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "corenames.go",
+                  "line": 18,
+                  "column": 25,
+                  "offset": 430
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "corenames.go",
+                  "line": 23,
+                  "column": 10,
+                  "offset": 504
+                },
+                "name": "true",
+                "obj": null,
+                "$type": 10,
+                "$value": {
+                  "kind": "bool",
+                  "value": true
+                },
+                "$obj": {
+                  "name": "true",
+                  "kind": "const",
+                  "type": 20,
+                  "value": {
+                    "kind": "bool",
+                    "value": true
+                  }
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "corenames.go",
+                  "line": 26,
+                  "column": 15,
+                  "offset": 562
+                },
+                "name": "any",
+                "obj": null,
+                "$type": 13,
+                "$isType": true,
+                "$obj": {
+                  "name": "any",
+                  "kind": "type",
+                  "type": 13
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "corenames.go",
+                  "line": 27,
+                  "column": 2,
+                  "offset": 571
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "corenames.go",
+                  "line": 27,
+                  "column": 105,
+                  "offset": 674
+                },
+                "name": "nil",
+                "obj": null,
+                "$type": 21,
+                "$obj": {
+                  "name": "nil",
+                  "kind": "nil",
+                  "type": 21
+                }
+              }
+            ],
+            "comments": [
+              {
+                "node": "CommentGroup",
+                "list": [
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "corenames.go",
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "text": "// Package main usa nomes que coincidem com os do dart:core usados pelo"
+                  },
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "corenames.go",
+                      "line": 2,
+                      "column": 1,
+                      "offset": 72
+                    },
+                    "text": "// código gerado (Object, Map, String, identical, int, bool): eles precisam"
+                  },
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "corenames.go",
+                      "line": 3,
+                      "column": 1,
+                      "offset": 149
+                    },
+                    "text": "// ser renomeados para não sombrear o core."
+                  }
+                ]
+              }
+            ],
+            "goVersion": ""
+          }
+        }
+      ],
+      "imports": [
+        {
+          "path": "fmt",
+          "name": "fmt"
+        }
+      ],
+      "typeTable": [
+        {
+          "kind": "named",
+          "pkg": "main",
+          "name": "Object",
+          "underlying": 1,
+          "methods": []
+        },
+        {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "Name",
+              "type": 2,
+              "embedded": false,
+              "tag": ""
+            }
+          ]
+        },
+        {
+          "kind": "basic",
+          "name": "string"
+        },
+        {
+          "kind": "named",
+          "pkg": "main",
+          "name": "Map",
+          "underlying": 4,
+          "methods": []
+        },
+        {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "Size",
+              "type": 5,
+              "embedded": false,
+              "tag": ""
+            }
+          ]
+        },
+        {
+          "kind": "basic",
+          "name": "int"
+        },
+        {
+          "kind": "named",
+          "pkg": "main",
+          "name": "String",
+          "underlying": 5,
+          "methods": [
+            {
+              "name": "Double",
+              "type": 7,
+              "index": [
+                0
+              ],
+              "ptr": false
+            }
+          ]
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            6
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            9,
+            9
+          ],
+          "results": [
+            10
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "pointer",
+          "elem": 0
+        },
+        {
+          "kind": "basic",
+          "name": "bool"
+        },
+        {
+          "kind": "func",
+          "params": [
+            12
+          ],
+          "results": [],
+          "variadic": true
+        },
+        {
+          "kind": "slice",
+          "elem": 13
+        },
+        {
+          "kind": "interface",
+          "methods": [],
+          "embeddeds": []
+        },
+        {
+          "kind": "func",
+          "params": [
+            12
+          ],
+          "results": [
+            5,
+            15
+          ],
+          "variadic": true
+        },
+        {
+          "kind": "named",
+          "pkg": "",
+          "name": "error",
+          "underlying": 16
+        },
+        {
+          "kind": "interface",
+          "methods": [
+            {
+              "name": "Error",
+              "type": 17
+            }
+          ],
+          "embeddeds": []
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            2
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "tuple",
+          "elems": [
+            5,
+            15
+          ]
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [],
+          "variadic": false
+        },
+        {
+          "kind": "basic",
+          "name": "untyped bool"
+        },
+        {
+          "kind": "basic",
+          "name": "untyped nil"
+        },
+        {
+          "kind": "tuple",
+          "elems": []
+        }
+      ],
+      "implements": null,
+      "initOrder": [],
+      "stdlibUsage": [
+        "fmt.Println"
+      ],
+      "reflectUsage": null
+    }
+  ]
+}

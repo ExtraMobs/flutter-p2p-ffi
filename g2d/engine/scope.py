@@ -3,6 +3,22 @@
 from dataclasses import dataclass, field
 
 
+@dataclass(frozen=True)
+class TypeParams:
+    """Parâmetros de tipo de uma função/struct genérica (estruturados)."""
+
+    names: tuple = ()  # T, U
+    bounds: tuple = ()  # bound Dart de cada um (ou None)
+    dicts: tuple = ()  # parâmetros dicionário: `go.Elem<T> $T`
+
+    @property
+    def decl(self):
+        """`<T extends B, U>` (vazio sem parâmetros)."""
+        if not self.names:
+            return ""
+        return "<" + ", ".join(n + (f" extends {b}" if b else "") for n, b in zip(self.names, self.bounds)) + ">"
+
+
 @dataclass
 class Facts:
     """Resultados das análises do pacote, lidos pelos comportamentos."""
@@ -14,7 +30,7 @@ class Facts:
     var_inits: dict = field(default_factory=dict)  # posição de var de pacote → (ValueSpec, índice)
     init_funcs: list = field(default_factory=list)  # nomes Dart das funções init, em ordem
     implements: dict = field(default_factory=dict)  # tipo nomeado → interfaces (índices)
-    class_tparams: tuple = ("", "")  # (<T extends B>, dicionários) da struct genérica corrente
+    class_tparams: TypeParams = TypeParams()  # parâmetros da struct genérica corrente
 
 
 @dataclass

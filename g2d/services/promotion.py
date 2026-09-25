@@ -37,7 +37,8 @@ class Promotion(Service):
                     and self.typesys.underlying(et)["kind"] != "interface":
                 if emethods:
                     name = self.promote_mixin(et, ptr, emethods)
-                    getter_t = self.types.dart(et).rstrip("?") + ("?" if ptr else "")
+                    et_dart = self.types.dart(et)
+                    getter_t = et_dart.as_nullable() if ptr else et_dart.non_null()
                     withs.append((name, f"{getter_t} get ${type_name(et['name'])} => {field};"))
             else:
                 recv = f"{field}!" if ptr or self.typesys.underlying(et)["kind"] == "interface" else field

@@ -1,6 +1,7 @@
 """Type assertion, comma-ok e testes de type switch."""
 
 from g2d.engine.behavior import Service
+from g2d.services.dart_type import DartType
 
 
 class Assertions(Service):
@@ -14,14 +15,14 @@ class Assertions(Service):
         t = self.pkg.type_at(n["type"]["$type"])
         u = self.typesys.underlying(t)
         if u["kind"] == "interface":
-            return "iface", self.types.dart(t).rstrip("?") if t["kind"] == "named" or u["methods"] else "Object", t
+            return "iface", self.types.dart(t).non_null() if t["kind"] == "named" or u["methods"] else DartType("Object"), t
         if self.typesys.is_value(t):
             return "value", self.types.dart(t), t
         if self.typesys.is_struct_pointer(t):
             return "pointer", self.types.dart(t), t  # T? (o zero do comma-ok é null)
         if t["kind"] == "pointer":
             return "plain", self.types.dart(t), t  # go.Ptr<E>? (nil tipado → null)
-        return "plain", self.types.dart(t).rstrip("?"), t
+        return "plain", self.types.dart(t).non_null(), t
 
     def comma_ok_assert(self, n):
         """`v, ok := x.(T)` → record (valor, ok)."""

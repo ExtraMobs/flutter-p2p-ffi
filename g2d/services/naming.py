@@ -14,8 +14,18 @@ throw true try var void while with
 """.split())
 
 
+# Nomes do dart:core que o código gerado usa sem prefixo. Uma declaração Go
+# com o mesmo nome (tipo `Object`, função `Identical` → `identical`, local
+# `int`) sombrearia o core na library; ela ganha `$`.
+DART_CORE_USED = frozenset("""
+Object String List Map BigInt Function Null Never Iterable Uint8List
+bool int double num dynamic identical print
+""".split())
+
+
 def escape(name):
-    return name + "$" if name in DART_RESERVED else name
+    """Palavra reservada ou nome do dart:core usado pelo código gerado → `$`."""
+    return name + "$" if name in DART_RESERVED or name in DART_CORE_USED else name
 
 
 def lower_camel(name):
@@ -51,7 +61,7 @@ def member_name(name):
 def type_name(name):
     """Tipos: exportado mantém o nome; não exportado ganha `_`. `Golang` é o
     prefixo dos tipos fixos."""
-    if name == GOLANG_PREFIX:
+    if name == GOLANG_PREFIX or name in DART_CORE_USED:
         return name + "$"
     return name if is_exported(name) else "_" + name
 

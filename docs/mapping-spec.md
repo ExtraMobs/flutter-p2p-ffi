@@ -91,6 +91,7 @@ Legenda: ✅ fiel · ⚠️ fiel no caso comum, com limite conhecido · ❌ não
 | idem não exportado `add` | `_add` (privado da library = do pacote) | |
 | local/parâmetro | nome Go; se repetido na função ou igual a um nome de library → `x$1` | |
 | palavra reservada Dart (`new`, `in`, ...) | sufixo `$` (`new$`) | |
+| nome do `dart:core` usado pelo código gerado (`Object`, `Map`, `String`, `List`, `Function`, `BigInt`, `identical`, `int`, `bool`, ...: `DART_CORE_USED`) | sufixo `$` (`Object$`, `identical$`, local `int$`), para não sombrear o core na library | |
 | temporários e descritores | `$tN`, `_$eN`, `_$zN` (Go não permite `$`) | |
 
 ## Tipos

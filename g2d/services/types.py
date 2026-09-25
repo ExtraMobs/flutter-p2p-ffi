@@ -3,6 +3,7 @@
 from g2d.config import GOLANG
 from g2d.engine.behavior import Service
 from g2d.model import Unsupported
+from g2d.services.dart_type import DartType
 from g2d.services.naming import type_name
 
 
@@ -21,41 +22,40 @@ class TypeMapper(Service):
         if k == "basic":
             b = self.typesys.basic(t)
             if b.cat == "bool":
-                return b.cat
+                return DartType("bool")
             if b.cat == "nil":
-                return "Null"
-            return self.golang(b.cls)
+                return DartType("Null")
+            return DartType(self.golang(b.cls))
         if k == "named":
             if t["pkg"] == "" and t["name"] == "error":
-                return self.imports.qualify(None, "GoError") + "?"
+                return DartType(self.imports.qualify(None, "GoError"), nullable=True)
             name = self.imports.qualify(t["pkg"], type_name(t["name"]))
-            if t.get("args"):
-                name += "<" + ", ".join(self.dart(a) for a in t["args"]) + ">"
-            return name + "?" if self.nilable(t) else name
+            args = tuple(self.dart(a) for a in t.get("args") or ())
+            return DartType(name, args, nullable=self.nilable(t))
         if k == "pointer":
             elem = self.pkg.type_at(t["elem"])
             if self.typesys.is_value(elem):
-                return self.dart(elem) + "?"  # struct/array é o próprio endereço
-            return f"{self.imports.qualify(None, 'Ptr')}<{self.dart(elem)}>?"
+                return self.dart(elem).as_nullable()  # struct/array é o próprio endereço
+            return DartType(self.imports.qualify(None, "Ptr"), (self.dart(elem),), nullable=True)
         if k == "slice":
-            return f"{self.imports.qualify(None, 'Slice')}<{self.dart(t['elem'])}>"
+            return DartType(self.imports.qualify(None, "Slice"), (self.dart(t["elem"]),))
         if k == "array":
-            return f"{self.imports.qualify(None, 'GoArray')}<{self.dart(t['elem'])}>"
+            return DartType(self.imports.qualify(None, "GoArray"), (self.dart(t["elem"]),))
         if k == "map":
             key = self.pkg.type_at(t["key"])
             if key["kind"] == "pointer" and self.typesys.is_struct_pointer(key):
                 raise Unsupported("map com chave ponteiro-para-struct")
-            return f"{self.imports.qualify(None, 'GoMap')}<{self.dart(key)}, {self.dart(t['elem'])}>"
+            return DartType(self.imports.qualify(None, "GoMap"), (self.dart(key), self.dart(t["elem"])))
         if k == "interface":
             if not t["methods"] and not t["embeddeds"]:
-                return "Object?"
+                return DartType("Object", nullable=True)
             raise Unsupported("interface anônima")
         if k == "func":
-            return self.func_type(t) + "?"
+            return self.func_type(t).as_nullable()
         if k == "tuple":
             return self.results(t["elems"])
         if k == "typeparam":
-            return t["name"]
+            return DartType(t["name"])
         raise Unsupported(f"tipo {k}")
 
     def cls(self, t):
@@ -72,15 +72,14 @@ class TypeMapper(Service):
 
     def results(self, elems):
         if not elems:
-            return "void"
+            return DartType("void")
         if len(elems) == 1:
             return self.dart(elems[0])
-        return "(" + ", ".join(self.dart(e) for e in elems) + ")"
+        return DartType.of_record([self.dart(e) for e in elems])
 
     def func_type(self, t):
         # Variádico ...T já vem como []T na assinatura → Slice<T>.
-        params = [self.dart(p) for p in t["params"]]
-        return f"{self.results(t['results'])} Function({', '.join(params)})"
+        return DartType.function(self.results(t["results"]), [self.dart(p) for p in t["params"]])
 
     def nilable(self, t):
         """Tipos Go cujo zero value é nil e que mapeiam para tipo Dart anulável."""
