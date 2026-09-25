@@ -34,7 +34,8 @@ Regras fundamentais:
 | `golib_dart/` | Core de adaptação: `fixed_types/` (tipos primitivos Go, origem `dart IPFS/packages/boilerplate`), shims da stdlib em `lib/<import path>.dart`, runtime em `lib/src/runtime/` exportado por `builtin.dart` (prefixo `go`) | Dart |
 | `out/` | Mono-repo Dart gerado (não editar à mão) | Dart (gerado) |
 | `tests/golden/<caso>/` | `<caso>.go` → `.goast.json` → `.dart` esperados (+ `.dartast.json` opcional) | — |
-| `tests/corpus/` | Pacotes reais de complexidade crescente | Go |
+| `tests/corpus/` | Pacotes reais de complexidade crescente (ainda não existe: `TODO/P0-infra-corpus-kubo.md`) | Go |
+| `TODO/` | Backlog: um artefato markdown por problema, com prova real (ver "Processo") | Markdown |
 | `docs/` | Documentos vivos (ver abaixo) | Markdown |
 
 ## Arquitetura do g2d
@@ -103,12 +104,25 @@ dart format out/ && dart analyze out/
 - Runtime do `golib_dart` não usa API exclusiva de uma plataforma (ex. `ByteData.getUint64`, bitwise acima de 32 bits no JS); o que depende de plataforma vai por import condicional (`src/runtime/output.dart`).
 - Código gerado em `out/` nunca é editado à mão — correções vão nas regras do `g2d`.
 
+## Processo (desafio kubo/boxo)
+
+O trabalho é guiado pelo backlog em `TODO/` (convenção em `TODO/README.md`):
+
+1. Todo problema encontrado vira **um artefato** `TODO/<P0|P1|P2>-<área>-<slug>.md`
+   com **prova real** (repro Go mínimo, comando executado e saída colada).
+   Candidato que não se reproduz não entra.
+2. Ataque em ordem de prioridade (`ls TODO/`), respeitando o "Depende de".
+3. O commit que resolve o problema **apaga o artefato** (a mensagem cita o
+   nome), traz o repro como fixture e atualiza as docs vivas.
+4. Problemas descobertos no caminho viram novos artefatos, provados antes
+   de serem escritos.
+
 ## Documentos vivos (atualizar no mesmo commit das mudanças)
 
 - `docs/mapping-spec.md` — tabela de correspondência semântica Go↔Dart.
 - `docs/stdlib-coverage.md` — inventário de símbolos stdlib usados × status do shim (gerado).
 - `docs/reflection-report.md` — usos de `reflect` resolvidos × pendentes (gerado).
-  (Os dois geradores ainda não existem; os dados brutos já saem em `stdlibUsage`/`reflectUsage` do goast.)
+  (Os dois geradores ainda não existem: `TODO/P0-docs-stdlib-coverage.md`, `TODO/P0-docs-reflection-report.md`.)
 - Este `AGENTS.md` — atualizar quando arquitetura ou convenções mudarem.
 
 ## Milestones
