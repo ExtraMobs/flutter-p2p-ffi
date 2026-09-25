@@ -1,0 +1,39 @@
+"""Configuração do motor: prefixos, shims da stdlib e interfaces dos shims.
+
+Constantes de módulo são os padrões; `EngineConfig` permite injetar outros
+(ex.: um plugin que adiciona shims) sem editar o núcleo.
+"""
+
+from dataclasses import dataclass, field
+
+
+# Prefixo do shim do universo Go (builtin.dart). `go` é palavra-chave em Go,
+# então nenhum pacote ou identificador Go colide com ele.
+BUILTIN_PREFIX = "go"
+
+BUILTIN_URI = "package:golib_dart/builtin.dart"
+
+# Tipos fixos do Go (golib_dart/fixed_types, origem: boilerplate do dart IPFS).
+# O sentinela não é um import path Go válido (`$`), então não colide.
+GOLANG = "$golang"
+
+GOLANG_PREFIX = "Golang"
+
+GOLANG_URI = "package:golib_dart/fixed_types/golang.dart"
+
+# Interfaces da stdlib que existem nos shims (podem ir em `implements`).
+SHIM_INTERFACES = {("fmt", "Stringer")}
+
+# Pacotes da stdlib com shim em golib_dart/.
+STDLIB_SHIMS = {
+    "fmt": "package:golib_dart/fmt.dart",
+    "math": "package:golib_dart/math.dart",
+}
+
+
+@dataclass
+class EngineConfig:
+    """Tabelas consultadas pelos serviços; plugins podem estendê-las."""
+
+    stdlib_shims: dict = field(default_factory=lambda: dict(STDLIB_SHIMS))
+    shim_interfaces: set = field(default_factory=lambda: set(SHIM_INTERFACES))

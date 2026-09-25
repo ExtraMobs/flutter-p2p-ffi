@@ -1,7 +1,9 @@
 # Mapping spec Go → Dart
 
-Correspondência semântica implementada pelo `g2d` (fontes: `g2d/mapping.py`,
-`g2d/emit.py`, runtime em `golib_dart/`). Toda construção fora destas tabelas
+Correspondência semântica implementada pelo `g2d`. As regras moram nos
+comportamentos (`g2d/behaviors/`: uma classe por nó Go, builtin e conversão)
+e nos serviços (`g2d/services/`: tipos, nomes, semântica de valor,
+descritores...). O runtime fica em `golib_dart/`. Toda construção fora destas tabelas
 levanta `Unsupported` com a posição no código Go. O transpilador nunca emite
 código aproximado em silêncio.
 

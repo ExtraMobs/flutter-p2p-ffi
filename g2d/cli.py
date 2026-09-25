@@ -5,73 +5,25 @@
 """
 
 import argparse
-import os
-import subprocess
 import sys
 
-from g2d.emit import Emitter
 from g2d.graph import go_list, topo_order
-from g2d.model import Unsupported, load_dump
-
-GOLIB = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "golib_dart")
+from g2d.pipeline import GOLIB, PUBSPEC, Pipeline, RunContext, dart_format, transpile_package
 
 
-def dart_format(source):
-    """Canonicaliza via `dart format` (stdin → stdout)."""
-    r = subprocess.run(
-        ["dart", "format"], input=source, capture_output=True, text=True, encoding="utf-8",
-        shell=sys.platform == "win32",  # dart é um .bat no Windows
-    )
-    if r.returncode != 0:
-        raise RuntimeError(f"dart format falhou:\n{r.stderr}\n--- fonte ---\n{source}")
-    return r.stdout
-
-
-def transpile_package(pkg):
-    return dart_format(Emitter(pkg).package())
-
-
-def lib_path(pkg_path):
-    return pkg_path + ".dart"
+__all__ = ["GOLIB", "PUBSPEC", "dart_format", "main", "transpile_package"]
 
 
 def cmd_transpile(args):
-    lib = os.path.join(args.out, "lib")
+    ctx = Pipeline().run(RunContext(dump=args.dump, out=args.out))
     failed = 0
-    for pkg in load_dump(args.dump):
-        try:
-            code = transpile_package(pkg)
-        except Unsupported as e:
-            print(f"{pkg.path}: {e}", file=sys.stderr)
+    for unit in ctx.units:
+        if unit.error is not None:
+            print(f"{unit.pkg.path}: {unit.error}", file=sys.stderr)
             failed += 1
-            continue
-        dest = os.path.join(lib, *lib_path(pkg.path).split("/"))
-        os.makedirs(os.path.dirname(dest), exist_ok=True)
-        with open(dest, "w", encoding="utf-8", newline="\n") as f:
-            f.write(code)
-        print(dest)
-    try:
-        golib = os.path.relpath(GOLIB, args.out)
-    except ValueError:  # Windows: drives diferentes
-        golib = GOLIB
-    golib = golib.replace(os.sep, "/")
-    with open(os.path.join(args.out, "pubspec.yaml"), "w", encoding="utf-8", newline="\n") as f:
-        f.write(PUBSPEC.format(golib=golib))
+        else:
+            print(unit.path)
     return 1 if failed else 0
-
-
-PUBSPEC = """\
-# Gerado pelo g2d. NÃO EDITE.
-name: out
-publish_to: none
-
-environment:
-  sdk: ^3.13.0
-
-dependencies:
-  golib_dart:
-    path: {golib}
-"""
 
 
 def cmd_graph(args):

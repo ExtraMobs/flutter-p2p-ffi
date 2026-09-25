@@ -1,7 +1,7 @@
 import unittest
 
 from g2d.graph import parse_go_list, topo_order
-from g2d.mapping import lower_camel, member_name, type_name
+from g2d.services.naming import lower_camel, member_name, type_name
 from g2d.model import parse_dump
 
 

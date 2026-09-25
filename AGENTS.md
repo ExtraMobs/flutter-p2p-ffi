@@ -30,12 +30,41 @@ Regras fundamentais:
 |---|---|---|
 | `tools/goast/` | Dumper de AST Go tipada → JSON | Go |
 | `tools/dartast/` | Dumper de AST Dart → JSON | Dart (`package:analyzer`) |
-| `g2d/` | Transpilador (model, graph, semantics, mapping, emit, cli) | Python (stdlib apenas) |
+| `g2d/` | Transpilador: motor (`engine/`), serviços (`services/`), análises (`analysis/`), comportamentos e plugins (`behaviors/`), `pipeline.py`, `cli.py` — ver "Arquitetura do g2d" | Python (stdlib apenas) |
 | `golib_dart/` | Core de adaptação: `fixed_types/` (tipos primitivos Go, origem `dart IPFS/packages/boilerplate`), shims da stdlib em `lib/<import path>.dart`, runtime em `lib/src/runtime/` exportado por `builtin.dart` (prefixo `go`) | Dart |
 | `out/` | Mono-repo Dart gerado (não editar à mão) | Dart (gerado) |
 | `tests/golden/<caso>/` | `<caso>.go` → `.goast.json` → `.dart` esperados (+ `.dartast.json` opcional) | — |
 | `tests/corpus/` | Pacotes reais de complexidade crescente | Go |
 | `docs/` | Documentos vivos (ver abaixo) | Markdown |
+
+## Arquitetura do g2d
+
+O g2d é um **motor** (`g2d/engine/Engine`) que despacha a AST Go tipada para
+**comportamentos injetáveis**. Uma classe por responsabilidade e por
+comportamento, com classes pais em `g2d/engine/behavior.py`:
+
+| Classe pai | Papel | Onde |
+|---|---|---|
+| `Service` | responsabilidade compartilhada, registrada por nome e substituível (`engine.services.replace`) | `services/`: `ImportTable`, `Naming`, `TypeSystem`, `TypeMapper`, `DescriptorRegistry`, `ValueSemantics`, `Literals`, `GoTypeInfo`, `Operands`, `Calls`, `Assertions`, `ControlFlow`, `Functions`, `VarDecls`, `Promotion` |
+| `Analysis` | pré-passo sobre as declarações; grava em `engine.facts` | `analysis/analyses.py` |
+| `ExprBehavior` / `StmtBehavior` | um por nó Go (`kinds`) | `behaviors/exprs.py`, `behaviors/stmts.py` |
+| `TypeDeclBehavior` | struct, interface ou nomeado, escolhido por `accepts(t, u)` | `behaviors/decls.py` |
+| `BuiltinBehavior` | um por builtin (`name`) | `behaviors/builtins.py` |
+| `ConversionBehavior` | uma regra por par de categorias (`accepts`) | `behaviors/conversions.py` |
+| `Plugin` | instala serviços, análises e comportamentos | `behaviors/plugins.py` (`DEFAULT_PLUGINS`) |
+| `Stage` | passo do pipeline (Load → Emit → Format → Write) | `pipeline.py` |
+
+**Injeção.** `HandlerRegistry` é uma pilha por chave: o último registrado é
+tentado primeiro, e quem devolve `NOT_HANDLED` passa a vez ao anterior. Um
+plugin pode **substituir** (sempre trata) ou **especializar** (trata só o
+seu caso). As cadeias (`accepts`) também preferem o último registrado.
+
+```python
+Engine(pkg, plugins=[*DEFAULT_PLUGINS, MeuPlugin()]).emit_package()
+```
+
+**Regra:** comportamento novo = classe nova + registro num plugin. Não se
+edita o `Engine` para isso. Exemplos em `tests/test_engine.py`.
 
 ## Comandos padrão
 

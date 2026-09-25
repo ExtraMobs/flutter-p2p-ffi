@@ -1,0 +1,71 @@
+"""Regras de nome Go → Dart (puras, sem estado).
+
+Regras documentadas em docs/mapping-spec.md.
+"""
+
+from g2d.config import GOLANG_PREFIX
+
+
+# Palavras reservadas do Dart (não podem ser identificadores).
+DART_RESERVED = frozenset("""
+assert break case catch class const continue default do else enum extends
+false final finally for if in is new null rethrow return super switch this
+throw true try var void while with
+""".split())
+
+
+def escape(name):
+    return name + "$" if name in DART_RESERVED else name
+
+
+def lower_camel(name):
+    """Primeira "palavra" em minúsculas, tratando siglas: URL→url,
+    HTTPServer→httpServer, MD5Sum→md5Sum."""
+    run = 0
+    while run < len(name) and name[run].isupper():
+        run += 1
+    if run == 0:
+        return name
+    if run == len(name) or not name[run].islower() or run == 1:
+        cut = run
+    else:
+        cut = run - 1  # a última maiúscula inicia a próxima palavra
+    return name[:cut].lower() + name[cut:]
+
+
+def is_exported(name):
+    return name[:1].isupper()
+
+
+def member_name(name):
+    """Funções, variáveis, constantes, campos e métodos (nível de pacote/tipo).
+
+    Exportado → lowerCamel; não exportado → `_` + nome (privado da library;
+    um pacote Go = uma library Dart).
+    """
+    if name == "_":
+        return name
+    return escape(lower_camel(name)) if is_exported(name) else "_" + name
+
+
+def type_name(name):
+    """Tipos: exportado mantém o nome; não exportado ganha `_`. `Golang` é o
+    prefixo dos tipos fixos."""
+    if name == GOLANG_PREFIX:
+        return name + "$"
+    return name if is_exported(name) else "_" + name
+
+
+def local_name(name):
+    """Variáveis locais e parâmetros: nome Go, escapando reservadas."""
+    return escape(name)
+
+
+class NamingRules:
+    """As regras acima agrupadas (para quem prefere injetar um objeto)."""
+
+    escape = staticmethod(escape)
+    lower_camel = staticmethod(lower_camel)
+    member_name = staticmethod(member_name)
+    type_name = staticmethod(type_name)
+    local_name = staticmethod(local_name)
