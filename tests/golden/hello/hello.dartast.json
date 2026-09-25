@@ -1,0 +1,991 @@
+{
+  "schemaVersion": 1,
+  "tool": "dartast",
+  "files": [
+    {
+      "path": "../../tests/golden/hello/hello.dart",
+      "errors": [],
+      "unit": {
+        "node": "CompilationUnit",
+        "offset": 0,
+        "length": 709,
+        "directives": [
+          {
+            "node": "ImportDirective",
+            "offset": 272,
+            "length": 44,
+            "metadata": [],
+            "importKeyword": {
+              "token": "import",
+              "type": "IMPORT"
+            },
+            "uri": {
+              "node": "SimpleStringLiteral",
+              "offset": 279,
+              "length": 29,
+              "staticType": null,
+              "literal": {
+                "token": "'package:golib_dart/fmt.dart'",
+                "type": "STRING"
+              }
+            },
+            "configurations": [],
+            "asKeyword": {
+              "token": "as",
+              "type": "AS"
+            },
+            "prefix": {
+              "node": "SimpleIdentifier",
+              "offset": 312,
+              "length": 3,
+              "staticType": null,
+              "resolved": null,
+              "token": {
+                "token": "fmt",
+                "type": "IDENTIFIER"
+              }
+            },
+            "combinators": [],
+            "semicolon": {
+              "token": ";",
+              "type": "SEMICOLON"
+            }
+          }
+        ],
+        "declarations": [
+          {
+            "node": "ClassDeclaration",
+            "offset": 318,
+            "length": 216,
+            "documentationComment": {
+              "node": "Comment",
+              "offset": 318,
+              "length": 41,
+              "references": [],
+              "tokens": [
+                {
+                  "token": "/// Greeter cumprimenta alguém pelo nome.",
+                  "type": "SINGLE_LINE_COMMENT"
+                }
+              ]
+            },
+            "metadata": [],
+            "classKeyword": {
+              "token": "class",
+              "type": "CLASS"
+            },
+            "namePart": {
+              "node": "NameWithTypeParameters",
+              "offset": 366,
+              "length": 7,
+              "typeName": {
+                "token": "Greeter",
+                "type": "IDENTIFIER"
+              }
+            },
+            "body": {
+              "node": "BlockClassBody",
+              "offset": 374,
+              "length": 160,
+              "leftBracket": {
+                "token": "{",
+                "type": "OPEN_CURLY_BRACKET"
+              },
+              "members": [
+                {
+                  "node": "ConstructorDeclaration",
+                  "offset": 378,
+                  "length": 44,
+                  "metadata": [],
+                  "typeName": {
+                    "node": "SimpleIdentifier",
+                    "offset": 378,
+                    "length": 7,
+                    "staticType": null,
+                    "resolved": null,
+                    "token": {
+                      "token": "Greeter",
+                      "type": "IDENTIFIER"
+                    }
+                  },
+                  "parameters": {
+                    "node": "FormalParameterList",
+                    "offset": 385,
+                    "length": 16,
+                    "leftParenthesis": {
+                      "token": "(",
+                      "type": "OPEN_PAREN"
+                    },
+                    "leftDelimiter": {
+                      "token": "{",
+                      "type": "OPEN_CURLY_BRACKET"
+                    },
+                    "parameter": {
+                      "node": "RegularFormalParameter",
+                      "offset": 387,
+                      "length": 12,
+                      "metadata": [],
+                      "type": {
+                        "node": "NamedType",
+                        "offset": 387,
+                        "length": 7,
+                        "name": {
+                          "token": "String",
+                          "type": "IDENTIFIER"
+                        },
+                        "question": {
+                          "token": "?",
+                          "type": "QUESTION"
+                        }
+                      },
+                      "name": {
+                        "token": "name",
+                        "type": "IDENTIFIER"
+                      }
+                    },
+                    "rightDelimiter": {
+                      "token": "}",
+                      "type": "CLOSE_CURLY_BRACKET"
+                    },
+                    "rightParenthesis": {
+                      "token": ")",
+                      "type": "CLOSE_PAREN"
+                    }
+                  },
+                  "separator": {
+                    "token": ":",
+                    "type": "COLON"
+                  },
+                  "initializers": [
+                    {
+                      "node": "ConstructorFieldInitializer",
+                      "offset": 404,
+                      "length": 17,
+                      "fieldName": {
+                        "node": "SimpleIdentifier",
+                        "offset": 404,
+                        "length": 4,
+                        "staticType": null,
+                        "resolved": null,
+                        "token": {
+                          "token": "name",
+                          "type": "IDENTIFIER"
+                        }
+                      },
+                      "equals": {
+                        "token": "=",
+                        "type": "EQ"
+                      },
+                      "expression": {
+                        "node": "BinaryExpression",
+                        "offset": 411,
+                        "length": 10,
+                        "staticType": null,
+                        "leftOperand": {
+                          "node": "SimpleIdentifier",
+                          "offset": 411,
+                          "length": 4,
+                          "staticType": null,
+                          "resolved": null,
+                          "token": {
+                            "token": "name",
+                            "type": "IDENTIFIER"
+                          }
+                        },
+                        "operator": {
+                          "token": "??",
+                          "type": "QUESTION_QUESTION"
+                        },
+                        "rightOperand": {
+                          "node": "SimpleStringLiteral",
+                          "offset": 419,
+                          "length": 2,
+                          "staticType": null,
+                          "literal": {
+                            "token": "''",
+                            "type": "STRING"
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "body": {
+                    "node": "EmptyFunctionBody",
+                    "offset": 421,
+                    "length": 1,
+                    "semicolon": {
+                      "token": ";",
+                      "type": "SEMICOLON"
+                    }
+                  }
+                },
+                {
+                  "node": "FieldDeclaration",
+                  "offset": 426,
+                  "length": 12,
+                  "metadata": [],
+                  "fields": {
+                    "node": "VariableDeclarationList",
+                    "offset": 426,
+                    "length": 11,
+                    "metadata": [],
+                    "type": {
+                      "node": "NamedType",
+                      "offset": 426,
+                      "length": 6,
+                      "name": {
+                        "token": "String",
+                        "type": "IDENTIFIER"
+                      }
+                    },
+                    "variables": [
+                      {
+                        "node": "VariableDeclaration",
+                        "offset": 433,
+                        "length": 4,
+                        "metadata": [],
+                        "name": {
+                          "token": "name",
+                          "type": "IDENTIFIER"
+                        }
+                      }
+                    ]
+                  },
+                  "semicolon": {
+                    "token": ";",
+                    "type": "SEMICOLON"
+                  }
+                },
+                {
+                  "node": "MethodDeclaration",
+                  "offset": 442,
+                  "length": 90,
+                  "documentationComment": {
+                    "node": "Comment",
+                    "offset": 442,
+                    "length": 27,
+                    "references": [],
+                    "tokens": [
+                      {
+                        "token": "/// Greet monta a saudação.",
+                        "type": "SINGLE_LINE_COMMENT"
+                      }
+                    ]
+                  },
+                  "metadata": [],
+                  "returnType": {
+                    "node": "NamedType",
+                    "offset": 472,
+                    "length": 6,
+                    "name": {
+                      "token": "String",
+                      "type": "IDENTIFIER"
+                    }
+                  },
+                  "name": {
+                    "token": "greet",
+                    "type": "IDENTIFIER"
+                  },
+                  "parameters": {
+                    "node": "FormalParameterList",
+                    "offset": 484,
+                    "length": 2,
+                    "leftParenthesis": {
+                      "token": "(",
+                      "type": "OPEN_PAREN"
+                    },
+                    "rightParenthesis": {
+                      "token": ")",
+                      "type": "CLOSE_PAREN"
+                    }
+                  },
+                  "body": {
+                    "node": "BlockFunctionBody",
+                    "offset": 487,
+                    "length": 45,
+                    "block": {
+                      "node": "Block",
+                      "offset": 487,
+                      "length": 45,
+                      "leftBracket": {
+                        "token": "{",
+                        "type": "OPEN_CURLY_BRACKET"
+                      },
+                      "statements": [
+                        {
+                          "node": "ReturnStatement",
+                          "offset": 493,
+                          "length": 35,
+                          "returnKeyword": {
+                            "token": "return",
+                            "type": "RETURN"
+                          },
+                          "expression": {
+                            "node": "BinaryExpression",
+                            "offset": 500,
+                            "length": 27,
+                            "staticType": null,
+                            "leftOperand": {
+                              "node": "BinaryExpression",
+                              "offset": 500,
+                              "length": 21,
+                              "staticType": null,
+                              "leftOperand": {
+                                "node": "SimpleStringLiteral",
+                                "offset": 500,
+                                "length": 9,
+                                "staticType": null,
+                                "literal": {
+                                  "token": "'Hello, '",
+                                  "type": "STRING"
+                                }
+                              },
+                              "operator": {
+                                "token": "+",
+                                "type": "PLUS"
+                              },
+                              "rightOperand": {
+                                "node": "PropertyAccess",
+                                "offset": 512,
+                                "length": 9,
+                                "staticType": null,
+                                "target": {
+                                  "node": "ThisExpression",
+                                  "offset": 512,
+                                  "length": 4,
+                                  "staticType": null,
+                                  "thisKeyword": {
+                                    "token": "this",
+                                    "type": "THIS"
+                                  }
+                                },
+                                "operator": {
+                                  "token": ".",
+                                  "type": "PERIOD"
+                                },
+                                "propertyName": {
+                                  "node": "SimpleIdentifier",
+                                  "offset": 517,
+                                  "length": 4,
+                                  "staticType": null,
+                                  "resolved": null,
+                                  "token": {
+                                    "token": "name",
+                                    "type": "IDENTIFIER"
+                                  }
+                                }
+                              }
+                            },
+                            "operator": {
+                              "token": "+",
+                              "type": "PLUS"
+                            },
+                            "rightOperand": {
+                              "node": "SimpleStringLiteral",
+                              "offset": 524,
+                              "length": 3,
+                              "staticType": null,
+                              "literal": {
+                                "token": "'!'",
+                                "type": "STRING"
+                              }
+                            }
+                          },
+                          "semicolon": {
+                            "token": ";",
+                            "type": "SEMICOLON"
+                          }
+                        }
+                      ],
+                      "rightBracket": {
+                        "token": "}",
+                        "type": "CLOSE_CURLY_BRACKET"
+                      }
+                    }
+                  }
+                }
+              ],
+              "rightBracket": {
+                "token": "}",
+                "type": "CLOSE_CURLY_BRACKET"
+              }
+            }
+          },
+          {
+            "node": "FunctionDeclaration",
+            "offset": 536,
+            "length": 42,
+            "metadata": [],
+            "returnType": {
+              "node": "NamedType",
+              "offset": 536,
+              "length": 3,
+              "name": {
+                "token": "int",
+                "type": "IDENTIFIER"
+              }
+            },
+            "name": {
+              "token": "_add",
+              "type": "IDENTIFIER"
+            },
+            "functionExpression": {
+              "node": "FunctionExpression",
+              "offset": 544,
+              "length": 34,
+              "staticType": null,
+              "parameters": {
+                "node": "FormalParameterList",
+                "offset": 544,
+                "length": 14,
+                "leftParenthesis": {
+                  "token": "(",
+                  "type": "OPEN_PAREN"
+                },
+                "parameter": {
+                  "node": "RegularFormalParameter",
+                  "offset": 552,
+                  "length": 5,
+                  "metadata": [],
+                  "type": {
+                    "node": "NamedType",
+                    "offset": 552,
+                    "length": 3,
+                    "name": {
+                      "token": "int",
+                      "type": "IDENTIFIER"
+                    }
+                  },
+                  "name": {
+                    "token": "b",
+                    "type": "IDENTIFIER"
+                  }
+                },
+                "rightParenthesis": {
+                  "token": ")",
+                  "type": "CLOSE_PAREN"
+                }
+              },
+              "body": {
+                "node": "BlockFunctionBody",
+                "offset": 559,
+                "length": 19,
+                "block": {
+                  "node": "Block",
+                  "offset": 559,
+                  "length": 19,
+                  "leftBracket": {
+                    "token": "{",
+                    "type": "OPEN_CURLY_BRACKET"
+                  },
+                  "statements": [
+                    {
+                      "node": "ReturnStatement",
+                      "offset": 563,
+                      "length": 13,
+                      "returnKeyword": {
+                        "token": "return",
+                        "type": "RETURN"
+                      },
+                      "expression": {
+                        "node": "BinaryExpression",
+                        "offset": 570,
+                        "length": 5,
+                        "staticType": null,
+                        "leftOperand": {
+                          "node": "SimpleIdentifier",
+                          "offset": 570,
+                          "length": 1,
+                          "staticType": null,
+                          "resolved": null,
+                          "token": {
+                            "token": "a",
+                            "type": "IDENTIFIER"
+                          }
+                        },
+                        "operator": {
+                          "token": "+",
+                          "type": "PLUS"
+                        },
+                        "rightOperand": {
+                          "node": "SimpleIdentifier",
+                          "offset": 574,
+                          "length": 1,
+                          "staticType": null,
+                          "resolved": null,
+                          "token": {
+                            "token": "b",
+                            "type": "IDENTIFIER"
+                          }
+                        }
+                      },
+                      "semicolon": {
+                        "token": ";",
+                        "type": "SEMICOLON"
+                      }
+                    }
+                  ],
+                  "rightBracket": {
+                    "token": "}",
+                    "type": "CLOSE_CURLY_BRACKET"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "node": "FunctionDeclaration",
+            "offset": 580,
+            "length": 128,
+            "metadata": [],
+            "returnType": {
+              "node": "NamedType",
+              "offset": 580,
+              "length": 4,
+              "name": {
+                "token": "void",
+                "type": "VOID"
+              }
+            },
+            "name": {
+              "token": "main",
+              "type": "IDENTIFIER"
+            },
+            "functionExpression": {
+              "node": "FunctionExpression",
+              "offset": 589,
+              "length": 119,
+              "staticType": null,
+              "parameters": {
+                "node": "FormalParameterList",
+                "offset": 589,
+                "length": 2,
+                "leftParenthesis": {
+                  "token": "(",
+                  "type": "OPEN_PAREN"
+                },
+                "rightParenthesis": {
+                  "token": ")",
+                  "type": "CLOSE_PAREN"
+                }
+              },
+              "body": {
+                "node": "BlockFunctionBody",
+                "offset": 592,
+                "length": 116,
+                "block": {
+                  "node": "Block",
+                  "offset": 592,
+                  "length": 116,
+                  "leftBracket": {
+                    "token": "{",
+                    "type": "OPEN_CURLY_BRACKET"
+                  },
+                  "statements": [
+                    {
+                      "node": "VariableDeclarationStatement",
+                      "offset": 596,
+                      "length": 35,
+                      "variables": {
+                        "node": "VariableDeclarationList",
+                        "offset": 596,
+                        "length": 34,
+                        "metadata": [],
+                        "type": {
+                          "node": "NamedType",
+                          "offset": 596,
+                          "length": 7,
+                          "name": {
+                            "token": "Greeter",
+                            "type": "IDENTIFIER"
+                          }
+                        },
+                        "variables": [
+                          {
+                            "node": "VariableDeclaration",
+                            "offset": 604,
+                            "length": 26,
+                            "metadata": [],
+                            "name": {
+                              "token": "g",
+                              "type": "IDENTIFIER"
+                            },
+                            "equals": {
+                              "token": "=",
+                              "type": "EQ"
+                            },
+                            "initializer": {
+                              "node": "MethodInvocation",
+                              "offset": 608,
+                              "length": 22,
+                              "staticType": null,
+                              "methodName": {
+                                "node": "SimpleIdentifier",
+                                "offset": 608,
+                                "length": 7,
+                                "staticType": null,
+                                "resolved": null,
+                                "token": {
+                                  "token": "Greeter",
+                                  "type": "IDENTIFIER"
+                                }
+                              },
+                              "argumentList": {
+                                "node": "ArgumentList",
+                                "offset": 615,
+                                "length": 15,
+                                "leftParenthesis": {
+                                  "token": "(",
+                                  "type": "OPEN_PAREN"
+                                },
+                                "arguments": [
+                                  {
+                                    "node": "NamedArgument",
+                                    "offset": 616,
+                                    "length": 13,
+                                    "name": {
+                                      "token": "name",
+                                      "type": "IDENTIFIER"
+                                    },
+                                    "colon": {
+                                      "token": ":",
+                                      "type": "COLON"
+                                    },
+                                    "argumentExpression": {
+                                      "node": "SimpleStringLiteral",
+                                      "offset": 622,
+                                      "length": 7,
+                                      "staticType": null,
+                                      "literal": {
+                                        "token": "'world'",
+                                        "type": "STRING"
+                                      }
+                                    }
+                                  }
+                                ],
+                                "rightParenthesis": {
+                                  "token": ")",
+                                  "type": "CLOSE_PAREN"
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      "semicolon": {
+                        "token": ";",
+                        "type": "SEMICOLON"
+                      }
+                    },
+                    {
+                      "node": "ExpressionStatement",
+                      "offset": 634,
+                      "length": 34,
+                      "expression": {
+                        "node": "MethodInvocation",
+                        "offset": 634,
+                        "length": 33,
+                        "staticType": null,
+                        "target": {
+                          "node": "SimpleIdentifier",
+                          "offset": 634,
+                          "length": 3,
+                          "staticType": null,
+                          "resolved": null,
+                          "token": {
+                            "token": "fmt",
+                            "type": "IDENTIFIER"
+                          }
+                        },
+                        "operator": {
+                          "token": ".",
+                          "type": "PERIOD"
+                        },
+                        "methodName": {
+                          "node": "SimpleIdentifier",
+                          "offset": 638,
+                          "length": 7,
+                          "staticType": null,
+                          "resolved": null,
+                          "token": {
+                            "token": "println",
+                            "type": "IDENTIFIER"
+                          }
+                        },
+                        "argumentList": {
+                          "node": "ArgumentList",
+                          "offset": 645,
+                          "length": 22,
+                          "leftParenthesis": {
+                            "token": "(",
+                            "type": "OPEN_PAREN"
+                          },
+                          "arguments": [
+                            {
+                              "node": "ListLiteral",
+                              "offset": 646,
+                              "length": 20,
+                              "staticType": null,
+                              "typeArguments": {
+                                "node": "TypeArgumentList",
+                                "offset": 646,
+                                "length": 9,
+                                "leftBracket": {
+                                  "token": "<",
+                                  "type": "LT"
+                                },
+                                "arguments": [
+                                  {
+                                    "node": "NamedType",
+                                    "offset": 647,
+                                    "length": 7,
+                                    "name": {
+                                      "token": "Object",
+                                      "type": "IDENTIFIER"
+                                    },
+                                    "question": {
+                                      "token": "?",
+                                      "type": "QUESTION"
+                                    }
+                                  }
+                                ],
+                                "rightBracket": {
+                                  "token": ">",
+                                  "type": "GT"
+                                }
+                              },
+                              "leftBracket": {
+                                "token": "[",
+                                "type": "OPEN_SQUARE_BRACKET"
+                              },
+                              "elements": [
+                                {
+                                  "node": "MethodInvocation",
+                                  "offset": 656,
+                                  "length": 9,
+                                  "staticType": null,
+                                  "target": {
+                                    "node": "SimpleIdentifier",
+                                    "offset": 656,
+                                    "length": 1,
+                                    "staticType": null,
+                                    "resolved": null,
+                                    "token": {
+                                      "token": "g",
+                                      "type": "IDENTIFIER"
+                                    }
+                                  },
+                                  "operator": {
+                                    "token": ".",
+                                    "type": "PERIOD"
+                                  },
+                                  "methodName": {
+                                    "node": "SimpleIdentifier",
+                                    "offset": 658,
+                                    "length": 5,
+                                    "staticType": null,
+                                    "resolved": null,
+                                    "token": {
+                                      "token": "greet",
+                                      "type": "IDENTIFIER"
+                                    }
+                                  },
+                                  "argumentList": {
+                                    "node": "ArgumentList",
+                                    "offset": 663,
+                                    "length": 2,
+                                    "leftParenthesis": {
+                                      "token": "(",
+                                      "type": "OPEN_PAREN"
+                                    },
+                                    "arguments": [],
+                                    "rightParenthesis": {
+                                      "token": ")",
+                                      "type": "CLOSE_PAREN"
+                                    }
+                                  }
+                                }
+                              ],
+                              "rightBracket": {
+                                "token": "]",
+                                "type": "CLOSE_SQUARE_BRACKET"
+                              }
+                            }
+                          ],
+                          "rightParenthesis": {
+                            "token": ")",
+                            "type": "CLOSE_PAREN"
+                          }
+                        }
+                      },
+                      "semicolon": {
+                        "token": ";",
+                        "type": "SEMICOLON"
+                      }
+                    },
+                    {
+                      "node": "ExpressionStatement",
+                      "offset": 671,
+                      "length": 35,
+                      "expression": {
+                        "node": "MethodInvocation",
+                        "offset": 671,
+                        "length": 34,
+                        "staticType": null,
+                        "target": {
+                          "node": "SimpleIdentifier",
+                          "offset": 671,
+                          "length": 3,
+                          "staticType": null,
+                          "resolved": null,
+                          "token": {
+                            "token": "fmt",
+                            "type": "IDENTIFIER"
+                          }
+                        },
+                        "operator": {
+                          "token": ".",
+                          "type": "PERIOD"
+                        },
+                        "methodName": {
+                          "node": "SimpleIdentifier",
+                          "offset": 675,
+                          "length": 7,
+                          "staticType": null,
+                          "resolved": null,
+                          "token": {
+                            "token": "println",
+                            "type": "IDENTIFIER"
+                          }
+                        },
+                        "argumentList": {
+                          "node": "ArgumentList",
+                          "offset": 682,
+                          "length": 23,
+                          "leftParenthesis": {
+                            "token": "(",
+                            "type": "OPEN_PAREN"
+                          },
+                          "arguments": [
+                            {
+                              "node": "ListLiteral",
+                              "offset": 683,
+                              "length": 21,
+                              "staticType": null,
+                              "typeArguments": {
+                                "node": "TypeArgumentList",
+                                "offset": 683,
+                                "length": 9,
+                                "leftBracket": {
+                                  "token": "<",
+                                  "type": "LT"
+                                },
+                                "arguments": [
+                                  {
+                                    "node": "NamedType",
+                                    "offset": 684,
+                                    "length": 7,
+                                    "name": {
+                                      "token": "Object",
+                                      "type": "IDENTIFIER"
+                                    },
+                                    "question": {
+                                      "token": "?",
+                                      "type": "QUESTION"
+                                    }
+                                  }
+                                ],
+                                "rightBracket": {
+                                  "token": ">",
+                                  "type": "GT"
+                                }
+                              },
+                              "leftBracket": {
+                                "token": "[",
+                                "type": "OPEN_SQUARE_BRACKET"
+                              },
+                              "elements": [
+                                {
+                                  "node": "MethodInvocation",
+                                  "offset": 693,
+                                  "length": 10,
+                                  "staticType": null,
+                                  "methodName": {
+                                    "node": "SimpleIdentifier",
+                                    "offset": 693,
+                                    "length": 4,
+                                    "staticType": null,
+                                    "resolved": null,
+                                    "token": {
+                                      "token": "_add",
+                                      "type": "IDENTIFIER"
+                                    }
+                                  },
+                                  "argumentList": {
+                                    "node": "ArgumentList",
+                                    "offset": 697,
+                                    "length": 6,
+                                    "leftParenthesis": {
+                                      "token": "(",
+                                      "type": "OPEN_PAREN"
+                                    },
+                                    "arguments": [
+                                      {
+                                        "node": "IntegerLiteral",
+                                        "offset": 698,
+                                        "length": 1,
+                                        "staticType": null,
+                                        "literal": {
+                                          "token": "1",
+                                          "type": "INT"
+                                        }
+                                      },
+                                      {
+                                        "node": "IntegerLiteral",
+                                        "offset": 701,
+                                        "length": 1,
+                                        "staticType": null,
+                                        "literal": {
+                                          "token": "2",
+                                          "type": "INT"
+                                        }
+                                      }
+                                    ],
+                                    "rightParenthesis": {
+                                      "token": ")",
+                                      "type": "CLOSE_PAREN"
+                                    }
+                                  }
+                                }
+                              ],
+                              "rightBracket": {
+                                "token": "]",
+                                "type": "CLOSE_SQUARE_BRACKET"
+                              }
+                            }
+                          ],
+                          "rightParenthesis": {
+                            "token": ")",
+                            "type": "CLOSE_PAREN"
+                          }
+                        }
+                      },
+                      "semicolon": {
+                        "token": ";",
+                        "type": "SEMICOLON"
+                      }
+                    }
+                  ],
+                  "rightBracket": {
+                    "token": "}",
+                    "type": "CLOSE_CURLY_BRACKET"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

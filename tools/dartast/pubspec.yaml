@@ -1,0 +1,16 @@
+name: dartast
+description: Dumper de AST Dart (package:analyzer) para JSON normalizado.
+version: 0.1.0
+publish_to: none
+
+environment:
+  sdk: ^3.13.0
+
+dependencies:
+  analyzer: ^14.0.0
+
+dev_dependencies:
+  test: ^1.26.0
+
+executables:
+  dartast: dartast
