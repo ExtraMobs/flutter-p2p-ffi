@@ -1,7 +1,7 @@
 # Relatório Sintético de Progresso e Cobertura da Árvore AST (Go <-> Dart)
 
 > Documento gerado automaticamente pela ferramenta `tool/audit_ast_nomenclature.py --progress`.
-> **Símbolos Dart Auditados:** 13775 | **Símbolos Go Indexados:** 60270
+> **Símbolos Dart Auditados:** 13975 | **Símbolos Go Indexados:** 60408
 
 ## 1. Visão Geral em Duas Perspectivas
 
@@ -14,29 +14,32 @@
 
 ### Perspectiva B: Cobertura Quantitativa da Árvore AST Total Upstream Go
 
-- **Total de Símbolos Go no Escopo:** 19,798
-- **Símbolos Implementados em Dart:** 3,526 (17.8%)
-- **Símbolos Restantes no Ecossistema:** 16,272 (82.2%)
+- **Total de Símbolos Go no Escopo:** 19,837
+- **Símbolos Implementados em Dart:** 3,579 (18.0%)
+- **Símbolos Restantes no Ecossistema:** 16,258 (82.0%)
 
 | Categoria de Símbolo | Total no Upstream Go | Implementado em Dart | Falta Implementar | % Concluído | % Que Falta |
 | :--- | :---: | :---: | :---: | :---: | :---: |
-| **Tipos (Classes / Interfaces)** | 3,011 | 693 | 2,318 | 23.0% | **77.0%** |
-| **Métodos** | 9,331 | 1,581 | 7,750 | 16.9% | **83.1%** |
-| **Campos de Structs** | 4,682 | 809 | 3,873 | 17.3% | **82.7%** |
-| **Funções Top-Level** | 2,774 | 443 | 2,331 | 16.0% | **84.0%** |
-| **TOTAL GERAL** | **19,798** | **3,526** | **16,272** | **17.8%** | **82.2%** |
+| **Tipos (Classes / Interfaces)** | 3,017 | 704 | 2,313 | 23.3% | **76.7%** |
+| **Métodos** | 9,354 | 1,608 | 7,746 | 17.2% | **82.8%** |
+| **Campos de Structs** | 4,684 | 816 | 3,868 | 17.4% | **82.6%** |
+| **Funções Top-Level** | 2,782 | 451 | 2,331 | 16.2% | **83.8%** |
+| **TOTAL GERAL** | **19,837** | **3,579** | **16,258** | **18.0%** | **82.0%** |
 
 ## 2. Detalhamento Quantitativo por Módulo Upstream Go
 
 | Módulo Go | Pacote Dart Correspondente | Total Símbolos | Implementados | Pendentes | % Feito | % Que Falta | Tipos (Feitos/Total) |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| `go-libp2p-asn-util` | `packages/transpiled_libp2p_asn_util` | 2 | 2 | 0 | 100.0% | **0.0%** | 0/0 |
 | `pion-datachannel` | `packages/transpiled_pion_datachannel` | 44 | 44 | 0 | 100.0% | **0.0%** | 9/9 |
 | `pion-randutil` | `packages/transpiled_pion_randutil` | 8 | 8 | 0 | 100.0% | **0.0%** | 1/1 |
 | `golang-x-time` | `packages/transpiled_golang_x_time` | 29 | 28 | 1 | 96.6% | **3.4%** | 4/4 |
 | `pion-sctp` | `packages/transpiled_pion_sctp` | 52 | 49 | 3 | 94.2% | **5.8%** | 5/5 |
 | `qpack` | `packages/transpiled_qpack` | 12 | 11 | 1 | 91.7% | **8.3%** | 3/4 |
 | `benbjohnson-clock` | `packages/transpiled_clock` | 38 | 32 | 6 | 84.2% | **15.8%** | 4/5 |
+| `go-cidranger` | `packages/transpiled_go_cidranger` | 37 | 30 | 7 | 81.1% | **18.9%** | 6/6 |
 | `pion-logging` | `packages/transpiled_pion_logging` | 42 | 33 | 9 | 78.6% | **21.4%** | 5/5 |
+| `go-libp2p-kbucket` | `packages/transpiled_libp2p_kbucket` | 71 | 55 | 16 | 77.5% | **22.5%** | 8/10 |
 | `go-libp2p-routing-helpers` | `packages/transpiled_libp2p_routing_helpers` | 85 | 65 | 20 | 76.5% | **23.5%** | 10/12 |
 | `go-block-format` | `packages/transpiled_block_format` | 14 | 10 | 4 | 71.4% | **28.6%** | 2/2 |
 | `pion-dtls` | `packages/transpiled_pion_dtls` | 681 | 484 | 197 | 71.1% | **28.9%** | 80/114 |
@@ -46,7 +49,6 @@
 | `pion-stun` | `packages/transpiled_pion_stun` | 272 | 164 | 108 | 60.3% | **39.7%** | 35/47 |
 | `go-libp2p-record` | `packages/transpiled_libp2p_record` | 28 | 15 | 13 | 53.6% | **46.4%** | 4/5 |
 | `pion-ice` | `packages/transpiled_pion_ice` | 361 | 175 | 186 | 48.5% | **51.5%** | 22/51 |
-| `go-libp2p-kbucket` | `packages/transpiled_libp2p_kbucket` | 71 | 34 | 37 | 47.9% | **52.1%** | 3/10 |
 | `go-datastore` | `packages/transpiled_datastore` | 342 | 162 | 180 | 47.4% | **52.6%** | 33/55 |
 | `go-libp2p` | `packages/transpiled_libp2p` | 2800 | 1026 | 1774 | 36.6% | **63.4%** | 204/404 |
 | `go-multibase` | `packages/transpiled_multibase` | 9 | 3 | 6 | 33.3% | **66.7%** | 1/2 |

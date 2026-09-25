@@ -28,6 +28,8 @@ dos clones só podem alterar esta tabela junto com a revalidação dos ports afe
 | `go-libp2p-pubsub` | `github.com/libp2p/go-libp2p-pubsub` | `892d7aaf6b8952c1ebfb540901b9a5656615d949` | <https://github.com/libp2p/go-libp2p-pubsub.git> |
 | `go-datastore` | `github.com/ipfs/go-datastore` | `3556410774ac30eb58d5a801db74f2f80f4205b2` | <https://github.com/ipfs/go-datastore.git> |
 | `go-libp2p-kbucket` | `github.com/libp2p/go-libp2p-kbucket` | `33968bdd5b757d33b0c667c71bddb92a91f528af` | <https://github.com/libp2p/go-libp2p-kbucket.git> |
+| `go-cidranger` (v1.1.0) | `github.com/libp2p/go-cidranger` | `1dec7f87b45b32e24d3f59548ad61647de34586d` | <https://github.com/libp2p/go-cidranger.git> |
+| `go-libp2p-asn-util` (v0.4.1) | `github.com/libp2p/go-libp2p-asn-util` | `3ec6bf02c86c57c28d29b2963a9d7b9d6d74bfb2` | <https://github.com/libp2p/go-libp2p-asn-util.git> |
 | `go-libp2p-record` | `github.com/libp2p/go-libp2p-record` | `24a25767ab0bae0d74df408199f554ce42977892` | <https://github.com/libp2p/go-libp2p-record.git> |
 | `go-libp2p-routing-helpers` | `github.com/libp2p/go-libp2p-routing-helpers` | `246b1c6f74307b0847842d72f2208b69d2b13790` | <https://github.com/libp2p/go-libp2p-routing-helpers.git> |
 | `quic-go` | `github.com/quic-go/quic-go` (v0.60.0) | `7612ad1036957cde45d672bebb8b9ec9c2e9b2a7` | <https://github.com/quic-go/quic-go.git> |

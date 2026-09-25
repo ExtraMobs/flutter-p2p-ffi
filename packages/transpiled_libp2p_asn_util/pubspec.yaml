@@ -1,0 +1,18 @@
+name: transpiled_libp2p_asn_util
+description: Port of libp2p/go-libp2p-asn-util.
+version: 0.1.0
+publish_to: none
+homepage: https://github.com/libp2p/go-libp2p-asn-util
+
+environment:
+  sdk: ^3.10.0
+
+dependencies:
+  boilerplate:
+    path: ../boilerplate
+
+dev_dependencies:
+  test: ^1.28.0
+  lints: ^6.1.0
+  very_good_analysis: ^10.1.0
+  analyzer: ^14.1.0 # AST parsing for tool/generate_module_index.dart

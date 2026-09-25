@@ -13,6 +13,12 @@ dependencies:
     path: ../transpiled_libp2p
   transpiled_multihash:
     path: ../transpiled_multihash
+  transpiled_go_cidranger:
+    path: ../transpiled_go_cidranger
+  transpiled_libp2p_asn_util:
+    path: ../transpiled_libp2p_asn_util
+  transpiled_multiaddr:
+    path: ../transpiled_multiaddr
 
 dev_dependencies:
   test: ^1.28.0

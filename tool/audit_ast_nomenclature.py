@@ -141,6 +141,8 @@ GO_MODULE_TO_DART_PACKAGE = {
     'go-ipld-prime': 'packages/transpiled_ipld_prime',
     'go-datastore': 'packages/transpiled_datastore',
     'go-libp2p-kbucket': 'packages/transpiled_libp2p_kbucket',
+    'go-cidranger': 'packages/transpiled_go_cidranger',
+    'go-libp2p-asn-util': 'packages/transpiled_libp2p_asn_util',
     'go-libp2p-record': 'packages/transpiled_libp2p_record',
     'go-libp2p-pubsub': 'packages/transpiled_libp2p_pubsub',
     'go-libp2p-routing-helpers': 'packages/transpiled_libp2p_routing_helpers',

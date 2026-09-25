@@ -2,9 +2,14 @@
 // Testes atômicos 1 para 1 para o módulo kbucket (transpiled_libp2p_kbucket).
 
 import 'dart:typed_data';
+
+import 'package:boilerplate/net/golang.dart';
 import 'package:test/test.dart';
 import 'package:transpiled_libp2p/transpiled_libp2p.dart';
+import 'package:transpiled_libp2p_kbucket/src/peerdiversity/filter.dart'
+    as peerdiversity;
 import 'package:transpiled_libp2p_kbucket/transpiled_libp2p_kbucket.dart';
+import 'package:transpiled_multiaddr/transpiled_multiaddr.dart';
 
 PeerId _makePeer(int seed) {
   final bytes = Uint8List(34);
@@ -23,22 +28,36 @@ class _TestPeerMetrics implements PeerMetrics {
   Duration latencyEwma(PeerId id) => latencies[id] ?? defaultLatency;
 }
 
-class _TestDiversityFilter implements DiversityFilter {
-  final Set<PeerId> admitted = {};
-  bool shouldAdmit = true;
+class _TestPeerGroupFilter implements peerdiversity.PeerIpGroupFilter {
+  final Set<PeerId> incremented = {};
+  final Set<PeerId> decremented = {};
+  bool Function(peerdiversity.PeerGroupInfo) allowFnc = (_) => true;
+  List<Multiaddr> Function(PeerId) peerAddressFunc = (_) => [
+    Multiaddr.parse('/ip4/127.0.0.1/tcp/0'),
+  ];
 
   @override
-  bool tryAdd(PeerId id) {
-    if (!shouldAdmit) return false;
-    admitted.add(id);
-    return true;
+  bool allow(peerdiversity.PeerGroupInfo group) => allowFnc(group);
+
+  @override
+  void increment(peerdiversity.PeerGroupInfo group) {
+    incremented.add(group.id);
   }
 
   @override
-  void remove(PeerId id) {
-    admitted.remove(id);
+  void decrement(peerdiversity.PeerGroupInfo group) {
+    decremented.add(group.id);
   }
+
+  @override
+  List<Multiaddr> peerAddresses(PeerId id) => peerAddressFunc(id);
 }
+
+peerdiversity.Filter _makeDiversityFilter({
+  required _TestPeerGroupFilter pgm,
+  int Function(PeerId)? cplFnc,
+}) =>
+    peerdiversity.Filter(pgm: pgm, logKey: 'test', cplFnc: cplFnc ?? (_) => 1);
 
 class _FakeKeySpace implements KeySpace {
   @override
@@ -58,7 +77,7 @@ RoutingTable _makeTable({
   Duration maxLatency = const Duration(seconds: 1),
   PeerMetrics? metrics,
   Duration usefulnessGracePeriod = const Duration(minutes: 1),
-  DiversityFilter? diversityFilter,
+  peerdiversity.Filter? diversityFilter,
 }) {
   return RoutingTable(
     bucketSize: bucketSize,
@@ -416,28 +435,184 @@ void main() {
     });
   });
 
-  group('DiversityFilter [Atomic Audit]', () {
-    test(
-      'tryAdd() - tenta registrar novo peer avaliando diversidade de rede',
-      () {
-        final filter = _TestDiversityFilter();
-        final p1 = _makePeer(1);
-        expect(filter.tryAdd(p1), isTrue);
-        expect(filter.admitted.contains(p1), isTrue);
+  group('Filter [Atomic Audit]', () {
+    test('tryAdd() - registra o peer e chama increment() quando permitido', () {
+      final pgm = _TestPeerGroupFilter();
+      final filter = _makeDiversityFilter(pgm: pgm);
+      final p1 = _makePeer(1);
+      expect(filter.tryAdd(p1), isTrue);
+      expect(pgm.incremented.contains(p1), isTrue);
+    });
 
-        filter.shouldAdmit = false;
-        expect(filter.tryAdd(_makePeer(2)), isFalse);
+    test('tryAdd() - rejeita quando allow() nega o grupo', () {
+      final pgm = _TestPeerGroupFilter()..allowFnc = (_) => false;
+      final filter = _makeDiversityFilter(pgm: pgm);
+      expect(filter.tryAdd(_makePeer(2)), isFalse);
+    });
+
+    test('tryAdd() - rejeita peer sem endereços', () {
+      final pgm = _TestPeerGroupFilter()..peerAddressFunc = (_) => [];
+      final filter = _makeDiversityFilter(pgm: pgm);
+      expect(filter.tryAdd(_makePeer(3)), isFalse);
+    });
+
+    test(
+      'remove() - desregistra peer previamente admitido, chama decrement()',
+      () {
+        final pgm = _TestPeerGroupFilter();
+        final filter = _makeDiversityFilter(pgm: pgm);
+        final p1 = _makePeer(1);
+        filter.tryAdd(p1);
+        filter.remove(p1);
+        expect(pgm.decremented.contains(p1), isTrue);
       },
     );
 
-    test('remove() - desregistra peer previamente admitido pelo filtro', () {
-      final filter = _TestDiversityFilter();
-      final p1 = _makePeer(1);
-      filter.tryAdd(p1);
-      expect(filter.admitted.contains(p1), isTrue);
-      filter.remove(p1);
-      expect(filter.admitted.contains(p1), isFalse);
+    test('whitelistPeers() - sempre permite peers na lista', () {
+      final pgm = _TestPeerGroupFilter()..allowFnc = (_) => false;
+      final filter = _makeDiversityFilter(pgm: pgm);
+      final p1 = _makePeer(4);
+      filter.whitelistPeers([p1]);
+      expect(filter.tryAdd(p1), isTrue);
+      expect(pgm.incremented.contains(p1), isFalse);
     });
+
+    test('getDiversityStats() - agrupa peers admitidos por cpl', () {
+      final pgm = _TestPeerGroupFilter();
+      final filter = _makeDiversityFilter(pgm: pgm, cplFnc: (_) => 3);
+      filter.tryAdd(_makePeer(5));
+      final stats = filter.getDiversityStats();
+      expect(stats, hasLength(1));
+      expect(stats.single.cpl, 3);
+    });
+  });
+
+  group('Top-Level Functions (peerdiversity) [Atomic Audit]', () {
+    test('ipGroupKey() - agrupa IPv4 pelo prefixo /16', () {
+      final ip = Ip.tryParse('192.168.1.1')!;
+      expect(peerdiversity.ipGroupKey(ip).value, '192.168.0.0');
+    });
+
+    test('ipGroupKey() - agrupa IPv4 legado Classe A pelo prefixo /8', () {
+      final ip = Ip.tryParse('17.111.0.1')!;
+      expect(peerdiversity.ipGroupKey(ip).value, '17.0.0.0');
+    });
+
+    test('ipGroupKey() - agrupa IPv6 pelo ASN quando conhecido', () {
+      final ip = Ip.tryParse('2001:4860:4860::8888')!;
+      expect(peerdiversity.ipGroupKey(ip).value, '15169');
+    });
+
+    test('ipGroupKey() - cai no fallback "unknown ASN" quando nao mapeado', () {
+      final ip = Ip.tryParse('2001:db8::1')!;
+      expect(peerdiversity.ipGroupKey(ip).value, startsWith('unknown ASN:'));
+    });
+  });
+
+  group('PeerGroupInfo [Atomic Audit]', () {
+    test('constructor - expoe id, cpl e ipGroupKey como passados', () {
+      final p1 = _makePeer(1);
+      final b = peerdiversity.PeerGroupInfo(
+        id: p1,
+        cpl: 1,
+        ipGroupKey: const peerdiversity.PeerIpGroupKey('k'),
+      );
+      expect(b.id, p1);
+      expect(b.cpl, 1);
+      expect(b.ipGroupKey.value, 'k');
+    });
+
+    test('operator == - igualdade por valor (id, cpl, ipGroupKey)', () {
+      final p1 = _makePeer(1);
+      final b = peerdiversity.PeerGroupInfo(
+        id: p1,
+        cpl: 1,
+        ipGroupKey: const peerdiversity.PeerIpGroupKey('k'),
+      );
+      final c = peerdiversity.PeerGroupInfo(
+        id: p1,
+        cpl: 1,
+        ipGroupKey: const peerdiversity.PeerIpGroupKey('k'),
+      );
+      final d = peerdiversity.PeerGroupInfo(
+        id: _makePeer(2),
+        cpl: 1,
+        ipGroupKey: const peerdiversity.PeerIpGroupKey('k'),
+      );
+      expect(b == c, isTrue);
+      expect(b == d, isFalse);
+    });
+
+    test('hashCode - valores iguais produzem o mesmo hash', () {
+      final p1 = _makePeer(1);
+      final b = peerdiversity.PeerGroupInfo(
+        id: p1,
+        cpl: 1,
+        ipGroupKey: const peerdiversity.PeerIpGroupKey('k'),
+      );
+      final c = peerdiversity.PeerGroupInfo(
+        id: p1,
+        cpl: 1,
+        ipGroupKey: const peerdiversity.PeerIpGroupKey('k'),
+      );
+      expect(b.hashCode, c.hashCode);
+    });
+  });
+
+  group('CplDiversityStats [Atomic Audit]', () {
+    test('constructor - expoe cpl e peers como passados', () {
+      final p1 = _makePeer(1);
+      final stats = peerdiversity.CplDiversityStats(2, {
+        p1: [const peerdiversity.PeerIpGroupKey('k')],
+      });
+      expect(stats.cpl, 2);
+      expect(stats.peers[p1], [const peerdiversity.PeerIpGroupKey('k')]);
+    });
+  });
+
+  group('PeerIpGroupFilter [Atomic Audit]', () {
+    test('allow() - delega para a implementacao fornecida', () {
+      final pgm = _TestPeerGroupFilter()..allowFnc = (g) => g.cpl == 5;
+      final group = peerdiversity.PeerGroupInfo(
+        id: _makePeer(1),
+        cpl: 5,
+        ipGroupKey: const peerdiversity.PeerIpGroupKey('k'),
+      );
+      expect(pgm.allow(group), isTrue);
+    });
+
+    test('increment() - registra o peer do grupo como incrementado', () {
+      final pgm = _TestPeerGroupFilter();
+      final p1 = _makePeer(1);
+      final group = peerdiversity.PeerGroupInfo(
+        id: p1,
+        cpl: 1,
+        ipGroupKey: const peerdiversity.PeerIpGroupKey('k'),
+      );
+      pgm.increment(group);
+      expect(pgm.incremented.contains(p1), isTrue);
+    });
+
+    test('decrement() - registra o peer do grupo como decrementado', () {
+      final pgm = _TestPeerGroupFilter();
+      final p1 = _makePeer(1);
+      final group = peerdiversity.PeerGroupInfo(
+        id: p1,
+        cpl: 1,
+        ipGroupKey: const peerdiversity.PeerIpGroupKey('k'),
+      );
+      pgm.decrement(group);
+      expect(pgm.decremented.contains(p1), isTrue);
+    });
+
+    test(
+      'peerAddresses() - devolve os multiaddrs configurados para o peer',
+      () {
+        final pgm = _TestPeerGroupFilter();
+        final p1 = _makePeer(1);
+        expect(pgm.peerAddresses(p1), isNotEmpty);
+      },
+    );
   });
 
   group('RoutingTable [Atomic Audit]', () {
@@ -652,6 +827,26 @@ void main() {
         expect(table.maxCommonPrefix(), equals(0));
         table.tryAddPeer(_makePeer(1), queryPeer: true, isReplaceable: false);
         expect(table.maxCommonPrefix(), greaterThanOrEqualTo(0));
+      },
+    );
+
+    test(
+      'getDiversityStats() - null sem filtro, delega ao diversityFilter quando presente',
+      () {
+        final withoutFilter = _makeTable(bucketSize: 5);
+        expect(withoutFilter.getDiversityStats(), isNull);
+
+        final pgm = _TestPeerGroupFilter();
+        final filter = _makeDiversityFilter(pgm: pgm, cplFnc: (_) => 0);
+        final withFilter = _makeTable(bucketSize: 5, diversityFilter: filter);
+        withFilter.tryAddPeer(
+          _makePeer(1),
+          queryPeer: true,
+          isReplaceable: false,
+        );
+        final stats = withFilter.getDiversityStats();
+        expect(stats, isNotNull);
+        expect(stats, hasLength(1));
       },
     );
   });

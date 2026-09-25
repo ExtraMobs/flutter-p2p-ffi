@@ -107,6 +107,10 @@ dependencies:
     path: packages/transpiled_libp2p_kad_dht
   transpiled_libp2p_kbucket:
     path: packages/transpiled_libp2p_kbucket
+  transpiled_go_cidranger:
+    path: packages/transpiled_go_cidranger
+  transpiled_libp2p_asn_util:
+    path: packages/transpiled_libp2p_asn_util
   transpiled_libp2p_routing_helpers:
     path: packages/transpiled_libp2p_routing_helpers
   transpiled_pion_randutil:

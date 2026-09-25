@@ -1,8 +1,8 @@
 # Relatório de Auditoria de AST e Nomenclatura (Dart <-> Go)
 
 > Relatório gerado automaticamente por `tool/audit_ast_nomenclature.py`.
-> **Símbolos Dart Auditados:** 13775 | **Símbolos Go Indexados:** 60270
-> **Status Geral:** ❌ **85 Erros** | ⚠️ **0 Avisos** | ℹ️ **2604 Notas de Cobertura**
+> **Símbolos Dart Auditados:** 13975 | **Símbolos Go Indexados:** 60408
+> **Status Geral:** ❌ **84 Erros** | ⚠️ **0 Avisos** | ℹ️ **2602 Notas de Cobertura**
 
 ## 1. Resumo Executivo das 26 Regras
 
@@ -19,15 +19,15 @@
 | `RULE_NO_CLI_IN_LIBRARIES` | 9. Veto a Código de CLI em Pacotes de Bibliotecas | `ERROR` | 0 | ✅ Conforme |
 | `RULE_ENFORCE_BOILERPLATE_TYPES` | 10. Uso Obrigatório de fixed_types.Golang.* para Tipos Primitivos | `ERROR` | 0 | ✅ Conforme |
 | `RULE_MODULE_BOUNDARY_LEAK` | 11. Veto a Violação de Fronteira de Módulo (go.mod) | `ERROR` | 9 | ❌ Pendente |
-| `RULE_INVENTED_PUBLIC_SYMBOLS` | 12. Detecção de Símbolos Públicos Inventados (Sem Upstream Go) | `ERROR` | 41 | ❌ Pendente |
+| `RULE_INVENTED_PUBLIC_SYMBOLS` | 12. Detecção de Símbolos Públicos Inventados (Sem Upstream Go) | `ERROR` | 40 | ❌ Pendente |
 | `RULE_EXCEPTION_NAMING` | 13. Nomenclatura e Padrão de Exceções Dart (Veto a prefixo 'Err') | `ERROR` | 1 | ❌ Pendente |
 | `RULE_NO_PRODUCTION_MOCKS` | 14. Veto a Mocks, Dummies e Stubs em Código de Biblioteca | `ERROR` | 0 | ✅ Conforme |
 | `RULE_RESTRICTED_PLATFORM_IMPORTS` | 15. Veto a dart:io em Pacotes de Codecs/Formatos Puros | `ERROR` | 0 | ✅ Conforme |
 | `RULE_NO_PRINT_IN_LIBRARIES` | 16. Veto a chamadas print(...) em Bibliotecas Reutilizáveis | `ERROR` | 0 | ✅ Conforme |
 | `RULE_NO_ARTIFICIAL_CONCURRENCY` | 17. Veto a Primitivas Artificiais de Concorrência Go | `ERROR` | 0 | ✅ Conforme |
-| `RULE_MISSING_GO_TYPES` | 18. Auditoria de Tipos e Interfaces do Upstream Go Ausentes | `INFO` | 2318 | ⚠️ Atenção |
+| `RULE_MISSING_GO_TYPES` | 18. Auditoria de Tipos e Interfaces do Upstream Go Ausentes | `INFO` | 2313 | ⚠️ Atenção |
 | `RULE_MISSING_GO_FIELDS` | 19. Auditoria de Campos de Structs do Upstream Go Ausentes | `INFO` | 57 | ⚠️ Atenção |
-| `RULE_MISSING_GO_METHODS` | 20. Auditoria de Métodos do Upstream Go Ausentes | `INFO` | 192 | ⚠️ Atenção |
+| `RULE_MISSING_GO_METHODS` | 20. Auditoria de Métodos do Upstream Go Ausentes | `INFO` | 195 | ⚠️ Atenção |
 | `RULE_MISSING_GO_FUNCTIONS` | 21. Auditoria de Funções Top-Level do Upstream Go Ausentes | `INFO` | 37 | ⚠️ Atenção |
 | `RULE_PUBSPEC_DEPENDENCIES` | 22. Validação de Dependências em pubspec.yaml | `ERROR` | 0 | ✅ Conforme |
 | `RULE_EXPOSED_NON_PUBLIC_MEMBERS` | 23. Veto a Membros Públicos que Expõem Tipos Não-Públicos (Menor Permissão) | `ERROR` | 0 | ✅ Conforme |
@@ -107,18 +107,18 @@
   - *Sugestão:* `Importar do pacote 'packages/transpiled_pion_logging' em vez de redeclarar`
 - ❌ `[ERRO]` **[`packages/transpiled_pion_datachannel/lib/src/message.dart:15`](packages/transpiled_pion_datachannel/lib/src/message.dart#L15)** — Tipo público 'MessageType' declarado em 'packages/transpiled_pion_datachannel/lib/src/message.dart', mas pertence ao módulo upstream 'pion-stun' (packages/transpiled_pion_stun). AGENTS.md exige preservar fronteiras de go.mod e reutilizar o pacote proprietário.
   - *Sugestão:* `Importar do pacote 'packages/transpiled_pion_stun' em vez de redeclarar`
-- ❌ `[ERRO]` **[`packages/transpiled_pion_sctp/lib/src/chunk.dart:30`](packages/transpiled_pion_sctp/lib/src/chunk.dart#L30)** — Tipo público 'Chunk' declarado em 'packages/transpiled_pion_sctp/lib/src/chunk.dart', mas pertence ao módulo upstream 'pion-rtcp' (packages/transpiled_pion_rtcp). AGENTS.md exige preservar fronteiras de go.mod e reutilizar o pacote proprietário.
-  - *Sugestão:* `Importar do pacote 'packages/transpiled_pion_rtcp' em vez de redeclarar`
+- ❌ `[ERRO]` **[`packages/transpiled_pion_sctp/lib/src/chunk.dart:30`](packages/transpiled_pion_sctp/lib/src/chunk.dart#L30)** — Tipo público 'Chunk' declarado em 'packages/transpiled_pion_sctp/lib/src/chunk.dart', mas pertence ao módulo upstream 'pion-transport' (packages/transpiled_pion_transport). AGENTS.md exige preservar fronteiras de go.mod e reutilizar o pacote proprietário.
+  - *Sugestão:* `Importar do pacote 'packages/transpiled_pion_transport' em vez de redeclarar`
 - ❌ `[ERRO]` **[`packages/transpiled_pion_sctp/lib/src/chunktype.dart:18`](packages/transpiled_pion_sctp/lib/src/chunktype.dart#L18)** — Tipo público 'ChunkType' declarado em 'packages/transpiled_pion_sctp/lib/src/chunktype.dart', mas pertence ao módulo upstream 'pion-rtcp' (packages/transpiled_pion_rtcp). AGENTS.md exige preservar fronteiras de go.mod e reutilizar o pacote proprietário.
   - *Sugestão:* `Importar do pacote 'packages/transpiled_pion_rtcp' em vez de redeclarar`
-- ❌ `[ERRO]` **[`packages/transpiled_pion_sctp/lib/src/packet.dart:146`](packages/transpiled_pion_sctp/lib/src/packet.dart#L146)** — Tipo público 'Packet' declarado em 'packages/transpiled_pion_sctp/lib/src/packet.dart', mas pertence ao módulo upstream 'pion-rtcp' (packages/transpiled_pion_rtcp). AGENTS.md exige preservar fronteiras de go.mod e reutilizar o pacote proprietário.
-  - *Sugestão:* `Importar do pacote 'packages/transpiled_pion_rtcp' em vez de redeclarar`
+- ❌ `[ERRO]` **[`packages/transpiled_pion_sctp/lib/src/packet.dart:146`](packages/transpiled_pion_sctp/lib/src/packet.dart#L146)** — Tipo público 'Packet' declarado em 'packages/transpiled_pion_sctp/lib/src/packet.dart', mas pertence ao módulo upstream 'pion-webrtc' (packages/transpiled_pion_webrtc). AGENTS.md exige preservar fronteiras de go.mod e reutilizar o pacote proprietário.
+  - *Sugestão:* `Importar do pacote 'packages/transpiled_pion_webrtc' em vez de redeclarar`
 - ❌ `[ERRO]` **[`packages/transpiled_pion_sctp/lib/src/queue.dart:28`](packages/transpiled_pion_sctp/lib/src/queue.dart#L28)** — Tipo público 'Queue' declarado em 'packages/transpiled_pion_sctp/lib/src/queue.dart', mas pertence ao módulo upstream 'pion-transport-v4' (packages/transpiled_pion_transport_v4). AGENTS.md exige preservar fronteiras de go.mod e reutilizar o pacote proprietário.
   - *Sugestão:* `Importar do pacote 'packages/transpiled_pion_transport_v4' em vez de redeclarar`
 - ❌ `[ERRO]` **[`packages/transpiled_pion_transport_v4/lib/src/net.dart:57`](packages/transpiled_pion_transport_v4/lib/src/net.dart#L57)** — Tipo público 'NetAddr' declarado em 'packages/transpiled_pion_transport_v4/lib/src/net.dart', mas pertence ao módulo upstream 'go-libp2p' (packages/transpiled_libp2p). AGENTS.md exige preservar fronteiras de go.mod e reutilizar o pacote proprietário.
   - *Sugestão:* `Importar do pacote 'packages/transpiled_libp2p' em vez de redeclarar`
 
-### 12. Detecção de Símbolos Públicos Inventados (Sem Upstream Go) (41 ocorrências)
+### 12. Detecção de Símbolos Públicos Inventados (Sem Upstream Go) (40 ocorrências)
 
 - ❌ `[ERRO]` **[`packages/transpiled_golang_x_time/lib/src/rate.dart:122`](packages/transpiled_golang_x_time/lib/src/rate.dart#L122)** — Tipo público 'WaitBurstExceededException' não possui símbolo exportado correspondente no módulo upstream 'golang-x-time'. Conforme AGENTS.md, tipos auxiliares devem ser privados (prefixo '_') para não inventar superfícies de API pública.
   - *Sugestão:* `Tornar privado com prefixo '_WaitBurstExceededException' ou documentar adaptação`
@@ -134,8 +134,6 @@
   - *Sugestão:* `Tornar privado com prefixo '_DhtResponse' ou documentar adaptação`
 - ❌ `[ERRO]` **[`packages/transpiled_libp2p_kad_dht/lib/src/dht_server.dart:50`](packages/transpiled_libp2p_kad_dht/lib/src/dht_server.dart#L50)** — Tipo público 'DhtServer' não possui símbolo exportado correspondente no módulo upstream 'go-libp2p-kad-dht'. Conforme AGENTS.md, tipos auxiliares devem ser privados (prefixo '_') para não inventar superfícies de API pública.
   - *Sugestão:* `Tornar privado com prefixo '_DhtServer' ou documentar adaptação`
-- ❌ `[ERRO]` **[`packages/transpiled_libp2p_kbucket/lib/src/table.dart:46`](packages/transpiled_libp2p_kbucket/lib/src/table.dart#L46)** — Tipo público 'DiversityFilter' não possui símbolo exportado correspondente no módulo upstream 'go-libp2p-kbucket'. Conforme AGENTS.md, tipos auxiliares devem ser privados (prefixo '_') para não inventar superfícies de API pública.
-  - *Sugestão:* `Tornar privado com prefixo '_DiversityFilter' ou documentar adaptação`
 - ❌ `[ERRO]` **[`packages/transpiled_pion_dtls/lib/src/cipher_suite.dart:117`](packages/transpiled_pion_dtls/lib/src/cipher_suite.dart#L117)** — Tipo público 'GcmCipher' não possui símbolo exportado correspondente no módulo upstream 'pion-dtls'. Conforme AGENTS.md, tipos auxiliares devem ser privados (prefixo '_') para não inventar superfícies de API pública.
   - *Sugestão:* `Tornar privado com prefixo '_GcmCipher' ou documentar adaptação`
 - ❌ `[ERRO]` **[`packages/transpiled_pion_dtls/lib/src/internal/ciphersuite/ciphersuite.dart:51`](packages/transpiled_pion_dtls/lib/src/internal/ciphersuite/ciphersuite.dart#L51)** — Tipo público 'CipherSuiteNotInitializedException' não possui símbolo exportado correspondente no módulo upstream 'pion-dtls'. Conforme AGENTS.md, tipos auxiliares devem ser privados (prefixo '_') para não inventar superfícies de API pública.
@@ -208,7 +206,7 @@
 - ❌ `[ERRO]` **[`packages/transpiled_libp2p/lib/src/p2p/transport/webrtc/connection.dart:22`](packages/transpiled_libp2p/lib/src/p2p/transport/webrtc/connection.dart#L22)** — Classe de exceção 'ErrConnectionTimeout' usa o prefixo 'Err' idiomático do Go. Em Dart, classes de exceção devem usar sufixo 'Exception' e implementar 'Exception' (ex.: 'ConnectionTimeoutException').
   - *Sugestão:* `Renomear para 'ConnectionTimeoutException' e adicionar 'implements Exception'`
 
-### 18. Auditoria de Tipos e Interfaces do Upstream Go Ausentes (2318 ocorrências)
+### 18. Auditoria de Tipos e Interfaces do Upstream Go Ausentes (2313 ocorrências)
 
 - ℹ️ `[INFO]` **[`packages/transpiled_clock:1`](packages/transpiled_clock#L1)** — Tipo público Go 'Duration' (type) do módulo 'benbjohnson-clock' ainda não foi portado para o pacote 'packages/transpiled_clock'.
   - *Sugestão:* `Portar 'Duration' para 'packages/transpiled_clock' ou documentar se for omitido deliberadamente`
@@ -2074,16 +2072,6 @@
   - *Sugestão:* `Portar 'RtRefreshManager' para 'packages/transpiled_libp2p_kad_dht' ou documentar se for omitido deliberadamente`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p_kbucket:1`](packages/transpiled_libp2p_kbucket#L1)** — Tipo público Go 'Key' (struct) do módulo 'go-libp2p-kbucket' ainda não foi portado para o pacote 'packages/transpiled_libp2p_kbucket'.
   - *Sugestão:* `Portar 'Key' para 'packages/transpiled_libp2p_kbucket' ou documentar se for omitido deliberadamente`
-- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_kbucket:1`](packages/transpiled_libp2p_kbucket#L1)** — Tipo público Go 'PeerIPGroupKey' (type) do módulo 'go-libp2p-kbucket' ainda não foi portado para o pacote 'packages/transpiled_libp2p_kbucket'.
-  - *Sugestão:* `Portar 'PeerIPGroupKey' para 'packages/transpiled_libp2p_kbucket' ou documentar se for omitido deliberadamente`
-- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_kbucket:1`](packages/transpiled_libp2p_kbucket#L1)** — Tipo público Go 'PeerGroupInfo' (struct) do módulo 'go-libp2p-kbucket' ainda não foi portado para o pacote 'packages/transpiled_libp2p_kbucket'.
-  - *Sugestão:* `Portar 'PeerGroupInfo' para 'packages/transpiled_libp2p_kbucket' ou documentar se for omitido deliberadamente`
-- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_kbucket:1`](packages/transpiled_libp2p_kbucket#L1)** — Tipo público Go 'PeerIPGroupFilter' (interface) do módulo 'go-libp2p-kbucket' ainda não foi portado para o pacote 'packages/transpiled_libp2p_kbucket'.
-  - *Sugestão:* `Portar 'PeerIPGroupFilter' para 'packages/transpiled_libp2p_kbucket' ou documentar se for omitido deliberadamente`
-- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_kbucket:1`](packages/transpiled_libp2p_kbucket#L1)** — Tipo público Go 'Filter' (struct) do módulo 'go-libp2p-kbucket' ainda não foi portado para o pacote 'packages/transpiled_libp2p_kbucket'.
-  - *Sugestão:* `Portar 'Filter' para 'packages/transpiled_libp2p_kbucket' ou documentar se for omitido deliberadamente`
-- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_kbucket:1`](packages/transpiled_libp2p_kbucket#L1)** — Tipo público Go 'CplDiversityStats' (struct) do módulo 'go-libp2p-kbucket' ainda não foi portado para o pacote 'packages/transpiled_libp2p_kbucket'.
-  - *Sugestão:* `Portar 'CplDiversityStats' para 'packages/transpiled_libp2p_kbucket' ou documentar se for omitido deliberadamente`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p_kbucket:1`](packages/transpiled_libp2p_kbucket#L1)** — Tipo público Go 'ID' (type) do módulo 'go-libp2p-kbucket' ainda não foi portado para o pacote 'packages/transpiled_libp2p_kbucket'.
   - *Sugestão:* `Portar 'ID' para 'packages/transpiled_libp2p_kbucket' ou documentar se for omitido deliberadamente`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Tipo público Go 'Blacklist' (interface) do módulo 'go-libp2p-pubsub' ainda não foi portado para o pacote 'packages/transpiled_libp2p_pubsub'.
@@ -4917,7 +4905,7 @@
   - *Sugestão:* `Avaliar implementação dos campos: Type, Dial, DialResponse, Msg`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p/lib/src/x/rate/limiter.dart:36`](packages/transpiled_libp2p/lib/src/x/rate/limiter.dart#L36)** — Classe 'Limit' possui 2 campo(s) do Go pendente(s) no módulo 'go-libp2p': Duration, Data.
   - *Sugestão:* `Avaliar implementação dos campos: Duration, Data`
-- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_kbucket/lib/src/table.dart:56`](packages/transpiled_libp2p_kbucket/lib/src/table.dart#L56)** — Classe 'RoutingTable' possui 2 campo(s) do Go pendente(s) no módulo 'go-libp2p-kbucket': PeerRemoved, PeerAdded.
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_kbucket/lib/src/table.dart:45`](packages/transpiled_libp2p_kbucket/lib/src/table.dart#L45)** — Classe 'RoutingTable' possui 2 campo(s) do Go pendente(s) no módulo 'go-libp2p-kbucket': PeerRemoved, PeerAdded.
   - *Sugestão:* `Avaliar implementação dos campos: PeerRemoved, PeerAdded`
 - ℹ️ `[INFO]` **[`packages/transpiled_multiaddr/lib/src/protocol.dart:41`](packages/transpiled_multiaddr/lib/src/protocol.dart#L41)** — Classe 'Protocol' possui 1 campo(s) do Go pendente(s) no módulo 'go-multiaddr': VCode.
   - *Sugestão:* `Avaliar implementação dos campos: VCode`
@@ -4964,7 +4952,7 @@
 - ℹ️ `[INFO]` **[`packages/transpiled_webtransport_go/lib/src/server.dart:44`](packages/transpiled_webtransport_go/lib/src/server.dart#L44)** — Classe 'Server' possui 4 campo(s) do Go pendente(s) no módulo 'webtransport-go': H3, ApplicationProtocols, ReorderingTimeout, CheckOrigin.
   - *Sugestão:* `Avaliar implementação dos campos: H3, ApplicationProtocols, ReorderingTimeout, CheckOrigin`
 
-### 20. Auditoria de Métodos do Upstream Go Ausentes (192 ocorrências)
+### 20. Auditoria de Métodos do Upstream Go Ausentes (195 ocorrências)
 
 - ℹ️ `[INFO]` **[`packages/transpiled_block_format/lib/src/blocks.dart:17`](packages/transpiled_block_format/lib/src/blocks.dart#L17)** — Classe 'Block' possui 1 método(s) do Go pendente(s) no módulo 'go-block-format': String.
   - *Sugestão:* `Avaliar paridade e implementação de: String`
@@ -5016,6 +5004,12 @@
   - *Sugestão:* `Avaliar paridade e implementação de: String`
 - ℹ️ `[INFO]` **[`packages/transpiled_datastore/lib/src/query/query.dart:21`](packages/transpiled_datastore/lib/src/query/query.dart#L21)** — Classe 'Query' possui 1 método(s) do Go pendente(s) no módulo 'go-datastore': String.
   - *Sugestão:* `Avaliar paridade e implementação de: String`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_cidranger/lib/src/net/network.dart:97`](packages/transpiled_go_cidranger/lib/src/net/network.dart#L97)** — Classe 'Network' possui 3 método(s) do Go pendente(s) no módulo 'go-cidranger': Equal, String, IPNet.
+  - *Sugestão:* `Avaliar paridade e implementação de: Equal, String, IPNet`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_cidranger/lib/src/net/network_number.dart:70`](packages/transpiled_go_cidranger/lib/src/net/network_number.dart#L70)** — Classe 'NetworkNumber' possui 1 método(s) do Go pendente(s) no módulo 'go-cidranger': Equal.
+  - *Sugestão:* `Avaliar paridade e implementação de: Equal`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_cidranger/lib/src/ranger.dart:65`](packages/transpiled_go_cidranger/lib/src/ranger.dart#L65)** — Classe 'Ranger' possui 1 método(s) do Go pendente(s) no módulo 'go-cidranger': Len.
+  - *Sugestão:* `Avaliar paridade e implementação de: Len`
 - ℹ️ `[INFO]` **[`packages/transpiled_go_dag_jose/lib/src/jose_bytes.dart:26`](packages/transpiled_go_dag_jose/lib/src/jose_bytes.dart#L26)** — Classe 'Base64Url' possui 15 método(s) do Go pendente(s) no módulo 'go-dag-jose': LookupByString, LookupByNode, LookupByIndex, LookupBySegment....
   - *Sugestão:* `Avaliar paridade e implementação de: LookupByString, LookupByNode, LookupByIndex, LookupBySegment, MapIterator, ListIterator, Length, IsAbsent, IsNull, AsBool, AsInt, AsFloat, AsLink, Type, Representation`
 - ℹ️ `[INFO]` **[`packages/transpiled_go_dag_jose/lib/src/jose_bytes.dart:136`](packages/transpiled_go_dag_jose/lib/src/jose_bytes.dart#L136)** — Classe 'Raw' possui 15 método(s) do Go pendente(s) no módulo 'go-dag-jose': LookupByString, LookupByNode, LookupByIndex, LookupBySegment....
@@ -5202,8 +5196,8 @@
   - *Sugestão:* `Avaliar paridade e implementação de: Close`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p_kbucket/lib/src/keyspace.dart:60`](packages/transpiled_libp2p_kbucket/lib/src/keyspace.dart#L60)** — Classe 'KeySpace' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p-kbucket': Equal.
   - *Sugestão:* `Avaliar paridade e implementação de: Equal`
-- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_kbucket/lib/src/table.dart:56`](packages/transpiled_libp2p_kbucket/lib/src/table.dart#L56)** — Classe 'RoutingTable' possui 6 método(s) do Go pendente(s) no módulo 'go-libp2p-kbucket': Print, GetDiversityStats, GetTrackedCplsForRefresh, GenRandPeerID....
-  - *Sugestão:* `Avaliar paridade e implementação de: Print, GetDiversityStats, GetTrackedCplsForRefresh, GenRandPeerID, GenRandomKey, ResetCplRefreshedAtForID`
+- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_kbucket/lib/src/table.dart:45`](packages/transpiled_libp2p_kbucket/lib/src/table.dart#L45)** — Classe 'RoutingTable' possui 5 método(s) do Go pendente(s) no módulo 'go-libp2p-kbucket': Print, GetTrackedCplsForRefresh, GenRandPeerID, GenRandomKey....
+  - *Sugestão:* `Avaliar paridade e implementação de: Print, GetTrackedCplsForRefresh, GenRandPeerID, GenRandomKey, ResetCplRefreshedAtForID`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p_record/lib/src/record.dart:15`](packages/transpiled_libp2p_record/lib/src/record.dart#L15)** — Classe 'Record' possui 8 método(s) do Go pendente(s) no módulo 'go-libp2p-record': Reset, String, ProtoMessage, ProtoReflect....
   - *Sugestão:* `Avaliar paridade e implementação de: Reset, String, ProtoMessage, ProtoReflect, Descriptor, GetKey, GetValue, GetTimeReceived`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p_routing_helpers/lib/src/limited_value_store.dart:19`](packages/transpiled_libp2p_routing_helpers/lib/src/limited_value_store.dart#L19)** — Classe 'LimitedValueStore' possui 1 método(s) do Go pendente(s) no módulo 'go-libp2p-routing-helpers': Close.
@@ -5365,6 +5359,8 @@
   - *Sugestão:* `Avaliar porte das funções: WriteCar, WriteCarWithWalker, DefaultWalkFunc, WithErrorOnEmptyRoots, NewCarReaderWithOptions, CompileCar, DebugCar, ConcatCar, CreateCar, DetachCar...`
 - ℹ️ `[INFO]` **[`packages/transpiled_cid:1`](packages/transpiled_cid#L1)** — Pacote 'packages/transpiled_cid' possui 17 função(ões) livre(s) do Go pendente(s) no módulo 'go-cid': NewCidStr, CidStrParse, CidStructParse, NewCidV0, NewCidV1....
   - *Sugestão:* `Avaliar porte das funções: NewCidStr, CidStrParse, CidStructParse, NewCidV0, NewCidV1, Parse, MustParse, Decode, ExtractEncoding, Cast...`
+- ℹ️ `[INFO]` **[`packages/transpiled_go_cidranger:1`](packages/transpiled_go_cidranger#L1)** — Pacote 'packages/transpiled_go_cidranger' possui 2 função(ões) livre(s) do Go pendente(s) no módulo 'go-cidranger': NewBasicRangerEntry, NewPCTrieRanger.
+  - *Sugestão:* `Avaliar porte das funções: NewBasicRangerEntry, NewPCTrieRanger`
 - ℹ️ `[INFO]` **[`packages/transpiled_datastore:1`](packages/transpiled_datastore#L1)** — Pacote 'packages/transpiled_datastore' possui 42 função(ões) livre(s) do Go pendente(s) no módulo 'go-datastore': NewAutoBatching, WithWrite, GetWrite, WithRead, GetRead....
   - *Sugestão:* `Avaliar porte das funções: NewAutoBatching, WithWrite, GetWrite, WithRead, GetRead, WrapDatastore, New, NewFailstore, AddOpener, Open...`
 - ℹ️ `[INFO]` **[`packages/transpiled_go_ipld_git:1`](packages/transpiled_go_ipld_git#L1)** — Pacote 'packages/transpiled_go_ipld_git' possui 1 função(ões) livre(s) do Go pendente(s) no módulo 'go-ipld-git': ParseCompressedObject.
@@ -5375,8 +5371,6 @@
   - *Sugestão:* `Avaliar porte das funções: PrivKeyToStatelessResetKey, PrivKeyToTokenGeneratorKey, GenerateECDSAKeyPairWithCurve, ECDSAKeyPairFromKey, ECDSAPublicKeyFromPubKey, MarshalECDSAPrivateKey, MarshalECDSAPublicKey, GenerateEd25519Key, GenerateKeyPair, GenerateKeyPairWithReader...`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p_kad_dht:1`](packages/transpiled_libp2p_kad_dht#L1)** — Pacote 'packages/transpiled_libp2p_kad_dht' possui 208 função(ões) livre(s) do Go pendente(s) no módulo 'go-libp2p-kad-dht': NewDefaultCrawler, WithProtocols, WithParallelism, WithMsgTimeout, WithConnectTimeout....
   - *Sugestão:* `Avaliar porte das funções: NewDefaultCrawler, WithProtocols, WithParallelism, WithMsgTimeout, WithConnectTimeout, WithCustomMessageSender, New, NewDHT, GetDefaultBootstrapPeerAddrInfos, PublicQueryFilter...`
-- ℹ️ `[INFO]` **[`packages/transpiled_libp2p_kbucket:1`](packages/transpiled_libp2p_kbucket#L1)** — Pacote 'packages/transpiled_libp2p_kbucket' possui 2 função(ões) livre(s) do Go pendente(s) no módulo 'go-libp2p-kbucket': NewFilter, IPGroupKey.
-  - *Sugestão:* `Avaliar porte das funções: NewFilter, IPGroupKey`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p_pubsub:1`](packages/transpiled_libp2p_pubsub#L1)** — Pacote 'packages/transpiled_libp2p_pubsub' possui 91 função(ões) livre(s) do Go pendente(s) no módulo 'go-libp2p-pubsub': NewMapBlacklist, NewTimeCachedBlacklist, MinTopicSize, WithDiscoveryOpts, WithDiscoverConnector....
   - *Sugestão:* `Avaliar porte das funções: NewMapBlacklist, NewTimeCachedBlacklist, MinTopicSize, WithDiscoveryOpts, WithDiscoverConnector, WithTestExtension, WithPartialMessagesExtension, PublishPartial, NewFloodsubWithProtocols, NewFloodSub...`
 - ℹ️ `[INFO]` **[`packages/transpiled_libp2p_record:1`](packages/transpiled_libp2p_record#L1)** — Pacote 'packages/transpiled_libp2p_record' possui 1 função(ões) livre(s) do Go pendente(s) no módulo 'go-libp2p-record': MakePutRecord.

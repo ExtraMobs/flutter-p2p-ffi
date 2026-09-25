@@ -9,14 +9,14 @@
 // critical sections ported here.
 //
 // The `peerdiversity.Filter` (IP/ASN-based peer diversity) integration
-// point is kept (`diversityFilter`), but no implementation is provided
-// yet -- it depends on go-cidranger and go-libp2p-asn-util, neither
-// cloned/ported yet (see doc/transpilation/PROGRESS.md). Passing `null`
-// (the default) matches Go's own `df != nil` optionality.
+// point (`diversityFilter`) is the real port now, see
+// peerdiversity/filter.dart. Passing `null` (the default) matches Go's
+// own `df != nil` optionality.
 import 'package:transpiled_libp2p/transpiled_libp2p.dart';
 
 import 'bucket.dart';
 import 'peer_metrics.dart';
+import 'peerdiversity/filter.dart' as peerdiversity;
 import 'sorting.dart';
 import 'util.dart';
 
@@ -38,17 +38,6 @@ class PeerRejectedNoCapacityException implements Exception {
   const PeerRejectedNoCapacityException();
   @override
   String toString() => 'peer rejected; insufficient capacity';
-}
-
-/// A diversity filter hook for [RoutingTable], matching go-libp2p-kbucket's
-/// `peerdiversity.Filter` interface at the call sites that use it. No
-/// concrete implementation is ported yet -- see this file's header.
-abstract class DiversityFilter {
-  /// Tries to admit [id]; returns `false` to reject it.
-  bool tryAdd(PeerId id);
-
-  /// Removes [id] from the filter's state.
-  void remove(PeerId id);
 }
 
 /// A Kademlia k-bucket routing table. Equivalent to go-libp2p-kbucket's
@@ -83,7 +72,7 @@ class RoutingTable {
   final Duration usefulnessGracePeriod;
 
   /// Optional IP/ASN diversity filter -- see this file's header comment.
-  final DiversityFilter? diversityFilter;
+  final peerdiversity.Filter? diversityFilter;
 
   /// Called whenever a peer is removed from the table.
   void Function(PeerId id) onPeerRemoved = (_) {};
@@ -336,6 +325,12 @@ class RoutingTable {
   /// All peer IDs in this table. Equivalent to go-libp2p-kbucket's
   /// `RoutingTable.ListPeers`.
   List<PeerId> listPeers() => [for (final b in _buckets) ...b.peerIds()];
+
+  /// The peer diversity stats for this table, if a [diversityFilter] is
+  /// configured; `null` otherwise. Equivalent to go-libp2p-kbucket's
+  /// `RoutingTable.GetDiversityStats`.
+  List<peerdiversity.CplDiversityStats>? getDiversityStats() =>
+      diversityFilter?.getDiversityStats();
 
   /// The bucket index for the given [id] under this table's current
   /// structure.
