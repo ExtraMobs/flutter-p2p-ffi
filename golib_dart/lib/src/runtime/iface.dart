@@ -21,7 +21,11 @@ T? unNil<T extends Object>(T? x) => x is GoValue && x.$nilPtr ? null : x;
 
 /// Ponteiro nil tipado guardado na interface (sentinela ou NilPtr) → null.
 Object? _unwrapNil(Object? x) =>
-    (x is GoValue && x.$nilPtr) || x is NilPtr ? null : x;
+    (x is GoValue && x.$nilPtr) ||
+        x is NilPtr ||
+        (x is PtrView && x.$p is NilPtr)
+    ? null
+    : x;
 
 /// O valor dinâmico em `x` tem o tipo concreto `T`?
 /// [struct]: `true` para struct por valor (`x.(T)`), `false` para ponteiro

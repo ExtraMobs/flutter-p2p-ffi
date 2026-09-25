@@ -29,8 +29,18 @@ abstract interface class Stringer {
   return (Golang.Int(bytes.length), null);
 }
 
+/// `fmt.Print`: como [sprint], escrito na saída padrão.
+(Golang.Int, GoError?) print(Slice<Object?> args) {
+  final bytes = _sprint(args);
+  writeStdout(bytes);
+  return (Golang.Int(bytes.length), null);
+}
+
 /// `fmt.Sprint`: espaço entre operandos quando nenhum dos dois é string.
-Golang.String sprint(Slice<Object?> args) {
+Golang.String sprint(Slice<Object?> args) =>
+    Golang.String.fromBytes(_sprint(args));
+
+Uint8List _sprint(Slice<Object?> args) {
   final a = args.items.toList();
   final b = BytesBuilder(copy: false);
   for (var i = 0; i < a.length; i++) {
@@ -39,7 +49,7 @@ Golang.String sprint(Slice<Object?> args) {
     }
     _appendV(b, a[i]);
   }
-  return Golang.String.fromBytes(b.takeBytes());
+  return b.takeBytes();
 }
 
 /// Formatação `%v` do Go. Os wrappers de `fixed_types` já formatam como o Go

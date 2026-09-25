@@ -21,11 +21,11 @@ via `go list`. Se o alvo não pertence a um módulo (ex. fixtures em
 `tests/golden/`), cai no fallback `load_loose.go` (`go/parser` + `go/types` +
 `importer.Default()`, só imports da stdlib).
 
-## Schema do JSON (`schemaVersion: 5`)
+## Schema do JSON (`schemaVersion: 6`)
 
 ```jsonc
 {
-  "schemaVersion": 5,
+  "schemaVersion": 6,
   "tool": "goast",
   "goVersion": "go1.25.7",
   "packages": [ ... ]  // ordenados por import path (determinístico)
@@ -89,12 +89,15 @@ decodificada; int em decimal exato; float em `%g` float64) ou
 `{"kind": "complex", "real", "imag"}`. String que não é UTF-8 válido traz
 também `"bytes": [...]` (o JSON trocaria os bytes inválidos por U+FFFD).
 
-`implements`: para cada tipo nomeado de nível de pacote, as interfaces
-nomeadas com métodos (do pacote, dos imports diretos e `error`) que `T` ou
-`*T` satisfaz (`types.Implements`).
+`implements`: para cada tipo nomeado de nível de pacote, as interfaces com
+métodos que `T` ou `*T` satisfaz (`types.Implements`): as nomeadas (do
+pacote, dos imports diretos e `error`) e as anônimas usadas no pacote
+(literais `interface{...}` com métodos fora de uma declaração de tipo, em
+ordem do fonte).
 
 Histórico: v2 moveu os tipos para dentro da AST; v3 adicionou `bytes`; v4
-adicionou `methods` e `implements`; v5 adicionou `initOrder`.
+adicionou `methods` e `implements`; v5 adicionou `initOrder`; v6 incluiu as
+interfaces anônimas no `implements`.
 
 ### Tabela de tipos
 

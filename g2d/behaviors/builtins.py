@@ -36,9 +36,10 @@ class Append(BuiltinBehavior):
         if n["ellipsis"] is not None:
             if self.typesys.basic(self.pkg.type_of(args[1])) is not None:
                 raise Unsupported("append([]byte, string...)", n)
-            return f"{s}.appendSlice({self.expr(args[1])})", POSTFIX
+            return self.types.wrap(self.pkg.type_of(n), f"{s}.appendSlice({self.expr(args[1])})"), POSTFIX
         et = self.pkg.type_at(self.typesys.underlying(self.pkg.type_of(n))["elem"])
-        return f"{s}.append([{', '.join(self.values.coerce(a, et) for a in args[1:])}])", POSTFIX
+        items = ", ".join(self.values.coerce(a, et) for a in args[1:])
+        return self.types.wrap(self.pkg.type_of(n), f"{s}.append([{items}])"), POSTFIX
 
 
 class Copy(BuiltinBehavior):
@@ -69,9 +70,9 @@ class Make(BuiltinBehavior):
         if u["kind"] == "slice":
             ln = self.operands.to_int(args[1])
             cp = self.operands.to_int(args[2]) if len(args) > 2 else ln
-            return f"{self.types.dart(t)}.make({ln}, {cp}, {self.descriptors.elem(u['elem'])})", POSTFIX
+            return self.types.wrap(t, f"{self.types.dart(u)}.make({ln}, {cp}, {self.descriptors.elem(u['elem'])})"), POSTFIX
         if u["kind"] == "map":
-            return f"{self.types.dart(t)}({self.descriptors.elem(u['elem'])})", POSTFIX
+            return self.types.wrap(t, f"{self.types.dart(u)}({self.descriptors.elem(u['elem'])}{self.typesys.map_args(t)})"), POSTFIX
         raise Unsupported(f"make de {u['kind']}", n)
 
 
@@ -84,8 +85,7 @@ class New(BuiltinBehavior):
         t = self.pkg.type_at(args[0]["$type"])
         if self.typesys.is_value(t):
             return self.types.zero(t), POSTFIX
-        box = self.imports.qualify(None, "Box")
-        return f"{box}<{self.types.dart(t)}>({self.types.zero(t)})", POSTFIX
+        return self.types.box(t, self.types.zero(t))[1], POSTFIX
 
 
 class PanicBuiltin(BuiltinBehavior):

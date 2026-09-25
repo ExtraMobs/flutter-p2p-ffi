@@ -53,9 +53,8 @@ class VarDecls(Service):
             if not top:
                 out.append(self.names.local_decl(ident, t, init))
             elif obj["decl"] in self.facts.boxed:
-                box = self.imports.qualify(None, "Box")
-                out.append(f"final {box}<{self.types.dart(t)}> {member_name(ident['name'])} = "
-                           f"{box}<{self.types.dart(t)}>({init});")
+                box_t, box = self.types.box(t, init)
+                out.append(f"final {box_t} {member_name(ident['name'])} = {box};")
             else:
                 out.append(f"{self.types.dart(t)} {member_name(ident['name'])} = {init};")
         return out

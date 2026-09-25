@@ -43,6 +43,18 @@ class Calls(Service):
             return fun["sel"].get("$obj", {}).get("decl") in self.facts.recoverers
         return False
 
+    def value_method(self, t, name):
+        """`name` é método de receptor valor declarado no tipo de valor t
+        (ou *t)? Então um method value liga uma cópia do receptor."""
+        if t["kind"] == "pointer":
+            t = self.pkg.type_at(t["elem"])
+        return self.typesys.is_value(t) and any(m["name"] == name and not m["ptr"] for m in t.get("methods") or [])
+
+    def ptr_method_of(self, t, name):
+        """`name` é método de receptor ponteiro de N (não-struct, valor
+        endereçável t = N)? A chamada `x.M()` usa `&x` (N$Ptr)."""
+        return self.typesys.ptr_class(t) and any(m["name"] == name and m["ptr"] for m in t["methods"])
+
     def ptr_method(self, t, name):
         """O método `name` de *T (t ponteiro) tem receptor ponteiro?"""
         elem = self.pkg.type_at(t["elem"])

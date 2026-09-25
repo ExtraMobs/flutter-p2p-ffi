@@ -37,6 +37,9 @@ class PackageBehavior(Behavior):
                 body += self.type_decl(d)
             elif d["tok"] in ("var", "const"):
                 body += [""] + self.vars.top_values(d)
+        for spec, name in self.facts.local_specs:
+            body += self.type_spec(spec, name, [])
+        body += self.synthetic_classes()
         body += self.init_behavior.emit()
         body += self.promoter.mixin_decls
         if self.descriptors.elem_decls:
@@ -49,19 +52,39 @@ class PackageBehavior(Behavior):
     def type_decl(self, gen):
         out = []
         for spec in gen["specs"]:
-            if spec["typeParams"] and self.typesys.underlying(self.pkg.type_at(spec["name"]["$obj"]["type"]))["kind"] != "struct":
-                raise Unsupported("tipo genérico não-struct", spec)
-            if spec["assign"]:
-                continue  # alias: resolvido pelo goast (tipos já expandidos)
-            tidx = spec["name"]["$obj"]["type"]
-            t = self.pkg.type_at(tidx)
-            u = self.typesys.underlying(t)
             doc = doc_comment(spec["doc"] or (gen["doc"] if len(gen["specs"]) == 1 else None))
-            name = spec["name"]["name"]
-            behavior = self.engine.type_decls.find(t, u)
-            if behavior is None:
-                raise Unsupported(f"tipo nomeado sobre {u['kind']}", spec)
-            out += [""] + doc + behavior.emit(spec, name, t, u, tidx)
+            out += self.type_spec(spec, spec["name"]["name"], doc)
+        return out
+
+    def type_spec(self, spec, name, doc):
+        """Um TypeSpec (de pacote ou içado de função, com `name`)."""
+        if spec["typeParams"] and self.typesys.underlying(self.pkg.type_at(spec["name"]["$obj"]["type"]))["kind"] != "struct":
+            raise Unsupported("tipo genérico não-struct", spec)
+        if spec["assign"]:
+            return []  # alias: resolvido pelo goast (tipos já expandidos)
+        tidx = spec["name"]["$obj"]["type"]
+        t = self.pkg.type_at(tidx)
+        u = self.typesys.underlying(t)
+        behavior = self.engine.type_decls.find(t, u)
+        if behavior is None:
+            raise Unsupported(f"tipo nomeado sobre {u['kind']}", spec)
+        return [""] + doc + behavior.emit(spec, name, t, u, tidx)
+
+    def synthetic_classes(self):
+        """Classes das structs/interfaces anônimas; emitir uma pode registrar
+        outras (campos), então repete até estabilizar. Ordem por índice."""
+        out, done = [], set()
+        while pending := sorted(set(self.facts.synthetic) - done):
+            for idx in pending:
+                done.add(idx)
+                t, name = self.pkg.type_at(idx), self.facts.synthetic[idx]
+                behavior = self.engine.type_decls.find(t, t)
+                if t["kind"] == "struct":
+                    out += ["", "/// `" + self.goinfo.go_type_name(t) + "` (struct anônima)."]
+                    out += behavior.struct_class(name, t, idx)
+                else:
+                    out += ["", "/// `" + self.goinfo.go_type_name(t) + "` (interface anônima)."]
+                    out += behavior.iface_class(name, t)
         return out
 
 
@@ -228,7 +251,84 @@ class InterfaceClass(TypeDeclBehavior):
         return lines + ["}"]
 
 
-class NamedClass(TypeDeclBehavior):
+class NonStructNamed(TypeDeclBehavior):
+    """Base dos tipos nomeados não-struct: a classe de N tem os métodos de
+    receptor valor; `*N` é a classe `N$Ptr` (go.PtrView) com os de receptor
+    ponteiro, forwarders dos de valor e as interfaces de *N."""
+
+    def split_methods(self, go_name):
+        ms = self.facts.methods.pop(go_name, [])
+        is_ptr = [self.pkg.type_at(m["recv"]["list"][0]["type"]["$type"])["kind"] == "pointer" for m in ms]
+        return [m for m, p in zip(ms, is_ptr) if not p], [m for m, p in zip(ms, is_ptr) if p]
+
+    def class_tail(self, t, tidx, value_methods):
+        """Membros GoTyped e métodos de receptor valor da classe de N."""
+        names = ", ".join(f"'{n}'" for n in self.goinfo.method_names(t, True))
+        lines = ["@override", f"String get $goType => '{self.goinfo.go_type_name(t)}';",
+                 "@override", f"List<String> get $methods => const [{names}];"]
+        for m in value_methods:
+            lines += [""] + self.functions.func_decl(m)
+        return lines + ["}"]
+
+    def value_implements(self, t, tidx):
+        return self.goinfo.implements_clause(tidx, self.goinfo.method_names(t, True))
+
+    def ptr_class(self, t, tidx, ptr_methods):
+        """`final class N$Ptr extends go.PtrView<N>`, se N tem métodos."""
+        if not self.typesys.ptr_class(t):
+            return []
+        n = self.types.dart(t).non_null()
+        cls = f"{n.name}$Ptr"
+        impl = self.goinfo.implements_clause(tidx)
+        head = f"final class {cls} extends {self.imports.qualify(None, 'PtrView')}<{n}>"
+        names = ", ".join(f"'{m}'" for m in self.goinfo.method_names(t, False))
+        lines = ["", "/// `*" + self.goinfo.go_type_name(t) + "`: vista sobre qualquer ponteiro para o valor.",
+                 head + (" implements " + ", ".join(impl) if impl else "") + " {",
+                 f"{cls}(super.$p);", "",
+                 "/// `(*N)(nil)` dentro de uma interface (não é nil no Go).",
+                 f"static final {cls} $nil = {cls}(const {self.imports.qualify(None, 'NilPtr')}<{n}>());", "",
+                 "@override", f"String get $goType => '*{self.goinfo.go_type_name(t)}';",
+                 "@override", f"List<String> get $methods => const [{names}];"]
+        for m in t["methods"]:
+            if m["ptr"]:
+                continue
+            sig = self.pkg.type_at(m["type"])
+            params = ", ".join(f"{self.types.dart(p)} p{i}" for i, p in enumerate(sig["params"]))
+            args = ", ".join(f"p{i}" for i in range(len(sig["params"])))
+            name = member_name(m["name"])
+            lines += ["", f"{self.types.results(sig['results'])} {name}({params}) => $p.value.{name}({args});"]
+        for m in ptr_methods:
+            lines += [""] + self.functions.func_decl(m)
+        return lines + ["}"]
+
+
+class NamedCompositeClass(NonStructNamed):
+    """Tipo nomeado sobre slice/map → subclasse de go.Slice/go.GoMap (mesmo
+    armazenamento na conversão); sobre func → classe chamável sobre `$f`."""
+
+    def accepts(self, t, u):
+        return self.typesys.named_composite(t)
+
+    def emit(self, spec, name, t, u, tidx):
+        cls, ud = type_name(name), self.types.dart(u)
+        value_ms, ptr_ms = self.split_methods(name)
+        impl = self.value_implements(t, tidx) + [self.types.golang("GoTyped")]
+        if u["kind"] == "func":
+            ft = ud.non_null()
+            params = ", ".join(f"{p} p{i}" for i, p in enumerate(ft.params))
+            args = ", ".join(f"p{i}" for i in range(len(ft.params)))
+            lines = [f"final class {cls} implements {', '.join(impl)} {{",
+                     f"{cls}(this.$f);", "",
+                     f"final {ft.as_nullable()} $f;", "",
+                     "/// `f == nil`.", "bool get isNil => $f == null;", "",
+                     f"{ft.returns} call({params}) => $f!({args});", ""]
+        else:
+            lines = [f"final class {cls} extends {ud} implements {', '.join(impl)} {{",
+                     f"{cls}({ud} v) : super.alias(v);", ""]
+        return lines + self.class_tail(t, tidx, value_ms) + self.ptr_class(t, tidx, ptr_ms)
+
+
+class NamedClass(NonStructNamed):
     """Tipo nomeado sobre básico → classe sobre a base de operadores."""
 
     def accepts(self, t, u):
@@ -266,15 +366,7 @@ class NamedClass(TypeDeclBehavior):
                     "@override", f"{cls} $wrapStr({store} s) => {cls}(s);"]
         else:
             raise Unsupported(f"tipo nomeado sobre {b.cat}")
-        if any(m["ptr"] for m in t.get("methods") or []):
-            raise Unsupported(f"método com receptor ponteiro em tipo não-struct {go_name}")
-        impl = self.goinfo.implements_clause(tidx)
+        value_ms, ptr_ms = self.split_methods(go_name)
+        impl = self.value_implements(t, tidx)
         head = f"final class {cls} extends {base}" + (" implements " + ", ".join(impl) if impl else "")
-        methods = ", ".join(f"'{n}'" for n in self.goinfo.method_names(t, True))
-        lines = [head + " {"] + body + [
-            "@override", f"String get $goType => '{self.goinfo.go_type_name(t)}';",
-            "@override", f"List<String> get $methods => const [{methods}];",
-        ]
-        for m in self.facts.methods.pop(go_name, []):
-            lines += [""] + self.functions.func_decl(m)
-        return lines + ["}"]
+        return [head + " {"] + body + self.class_tail(t, tidx, value_ms) + self.ptr_class(t, tidx, ptr_ms)

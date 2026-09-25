@@ -126,8 +126,9 @@ func printNode(fset *token.FileSet, n ast.Node) string {
 }
 
 // dumpImplements: para cada tipo nomeado (não-interface) de nível de pacote,
-// as interfaces nomeadas com métodos, alcançáveis (pacote, imports diretos e
-// o universo `error`), que T ou *T satisfaz. Ordem determinística.
+// as interfaces com métodos que T ou *T satisfaz: as nomeadas alcançáveis
+// (pacote, imports diretos e o universo `error`) e as anônimas usadas no
+// pacote (`interface{ M() }`, já na tabela de tipos). Ordem determinística.
 func dumpImplements(p *packages.Package, tt *typeTable) []jobject {
 	var ifaces []*types.Named
 	addScope := func(scope *types.Scope, exportedOnly bool) {
@@ -152,6 +153,32 @@ func dumpImplements(p *packages.Package, tt *typeTable) []jobject {
 	for _, imp := range imps {
 		addScope(imp.Scope(), true)
 	}
+	// Interfaces anônimas: literais `interface{...}` com métodos fora de uma
+	// declaração de tipo (o subjacente de `type I interface{...}` não conta).
+	var anon []*types.Interface
+	declared := map[ast.Expr]bool{}
+	for _, f := range p.Syntax {
+		ast.Inspect(f, func(n ast.Node) bool {
+			switch n := n.(type) {
+			case *ast.TypeSpec:
+				if !n.Assign.IsValid() {
+					declared[n.Type] = true
+				}
+			case *ast.InterfaceType:
+				it, ok := p.TypesInfo.TypeOf(n).(*types.Interface)
+				if declared[n] || !ok || !it.IsMethodSet() || it.NumMethods() == 0 {
+					break
+				}
+				for _, seen := range anon {
+					if types.Identical(seen, it) {
+						return true
+					}
+				}
+				anon = append(anon, it)
+			}
+			return true
+		})
+	}
 
 	var out []jobject
 	scope := p.Types.Scope()
@@ -172,6 +199,11 @@ func dumpImplements(p *packages.Package, tt *typeTable) []jobject {
 			iface := it.Underlying().(*types.Interface)
 			if types.Implements(named, iface) || types.Implements(types.NewPointer(named), iface) {
 				impl = append(impl, tt.ref(it))
+			}
+		}
+		for _, iface := range anon {
+			if types.Implements(named, iface) || types.Implements(types.NewPointer(named), iface) {
+				impl = append(impl, tt.ref(iface))
 			}
 		}
 		if len(impl) > 0 {

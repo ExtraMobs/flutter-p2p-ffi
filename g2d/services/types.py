@@ -29,27 +29,29 @@ class TypeMapper(Service):
         if k == "named":
             if t["pkg"] == "" and t["name"] == "error":
                 return DartType(self.imports.qualify(None, "GoError"), nullable=True)
-            name = self.imports.qualify(t["pkg"], type_name(t["name"]))
+            go_name = self.facts.local_types.get(id(t), t["name"])
+            name = self.imports.qualify(t["pkg"], type_name(go_name))
             args = tuple(self.dart(a) for a in t.get("args") or ())
             return DartType(name, args, nullable=self.nilable(t))
         if k == "pointer":
             elem = self.pkg.type_at(t["elem"])
             if self.typesys.is_value(elem):
                 return self.dart(elem).as_nullable()  # struct/array é o próprio endereço
+            if self.typesys.ptr_class(elem):
+                return DartType(self.dart(elem).name + "$Ptr", nullable=True)
             return DartType(self.imports.qualify(None, "Ptr"), (self.dart(elem),), nullable=True)
         if k == "slice":
             return DartType(self.imports.qualify(None, "Slice"), (self.dart(t["elem"]),))
         if k == "array":
             return DartType(self.imports.qualify(None, "GoArray"), (self.dart(t["elem"]),))
         if k == "map":
-            key = self.pkg.type_at(t["key"])
-            if key["kind"] == "pointer" and self.typesys.is_struct_pointer(key):
-                raise Unsupported("map com chave ponteiro-para-struct")
-            return DartType(self.imports.qualify(None, "GoMap"), (self.dart(key), self.dart(t["elem"])))
+            return DartType(self.imports.qualify(None, "GoMap"), (self.dart(t["key"]), self.dart(t["elem"])))
         if k == "interface":
             if not t["methods"] and not t["embeddeds"]:
                 return DartType("Object", nullable=True)
-            raise Unsupported("interface anônima")
+            return DartType(self.synthetic(t, "anonIface"), nullable=True)
+        if k == "struct":
+            return DartType(self.synthetic(t, "anon"))
         if k == "func":
             return self.func_type(t).as_nullable()
         if k == "tuple":
@@ -65,6 +67,27 @@ class TypeMapper(Service):
         if t["kind"] == "named":
             return self.dart(t)
         return self.golang(self.typesys.basic(t).cls)
+
+    def synthetic(self, t, prefix):
+        """Classe sintética de struct/interface anônima: uma por tipo (a
+        typeTable já deduplica por identidade), emitida no fim da library."""
+        idx = self.typesys.index_of(t)
+        return type_name(self.facts.synthetic.setdefault(idx, f"{prefix}${idx}"))
+
+    def wrap(self, t, text):
+        """Valor do subjacente (go.Slice, go.GoMap, função) visto como o tipo
+        nomeado t, se t for classe gerada sobre ele (mesmo armazenamento)."""
+        return f"{self.dart(t)}({text})" if self.typesys.named_composite(t) else text
+
+    def box(self, t, init):
+        """(tipo Dart, expressão) da caixa de uma variável com `&x`; `*N` com
+        métodos é `N$Ptr` sobre a go.Box."""
+        box = self.imports.qualify(None, "Box")
+        dt = self.dart(t)
+        text = f"{box}<{dt}>({init})"
+        if self.typesys.ptr_class(t):
+            return f"{dt.name}$Ptr", f"{dt.name}$Ptr({text})"
+        return f"{box}<{dt}>", text
 
     def golang(self, cls):
         """Nome qualificado de uma classe de fixed_types (registra o import)."""
@@ -83,7 +106,8 @@ class TypeMapper(Service):
 
     def nilable(self, t):
         """Tipos Go cujo zero value é nil e que mapeiam para tipo Dart anulável."""
-        return self.typesys.underlying(t)["kind"] in ("interface", "pointer", "func")
+        # Tipo nomeado sobre func é uma classe (nil = `$f` nulo), não anulável.
+        return self.typesys.underlying(t)["kind"] in ("interface", "pointer", "func") and not self.typesys.named_func(t)
 
     def zero(self, index_or_desc):
         """Expressão Dart do zero value do tipo."""
@@ -96,9 +120,11 @@ class TypeMapper(Service):
                 return "false"
             if b.cls:
                 return self.cls(t) + "()"
+        if self.typesys.named_composite(t):
+            return self.wrap(t, "null" if k == "func" else self.zero(u))
         if k in ("interface", "pointer", "func"):
             return "null"
-        if k == "struct" and t["kind"] == "named":
+        if k == "struct":
             # Struct genérica: o construtor recebe os dicionários dos argumentos.
             dicts = ", ".join(self.descriptors.elem(a) for a in t.get("args") or [])
             return f"{self.dart(t)}({dicts})"
@@ -107,5 +133,5 @@ class TypeMapper(Service):
         if k == "array":
             return f"{self.dart(u)}.zero({u['len']}, {self.descriptors.elem(u['elem'])})"
         if k in ("slice", "map"):  # nil
-            return f"{self.dart(t)}.nil({self.descriptors.elem(u['elem'])})"
+            return f"{self.dart(u)}.nil({self.descriptors.elem(u['elem'])})"
         raise Unsupported(f"zero value de {k}")

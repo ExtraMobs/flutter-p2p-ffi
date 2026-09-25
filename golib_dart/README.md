@@ -30,9 +30,9 @@ igual em VM, AOT, Wasm e JS. A tabela completa está em
 | `struct.dart` | `GoValue<T>` (base de valores com armazenamento: `$copy`, `$set` in-place, `$isValue`, `$ifaceCopy`), `GoStruct<T>` (`==` por `$fields`, method sets), `Addr` (ponteiro como valor) |
 | `array.dart` | `GoArray<T>` (`[N]T` por valor, fatias compartilhando o armazenamento) |
 | `iface.dart` | `assertType`/`assertIface`/`tryType`/`tryIface`/`isType`, `ifaceEq`, `goTypeName` (mensagens `interface conversion` do Go) |
-| `slice.dart` | `Slice<T>` (array compartilhado, `append` com o `growslice` do Go 1.25), `growCap` |
-| `map.dart` | `GoMap<K, V>` (nil, zero value, `lookup`, iteração tolerante a `delete`) |
-| `ptr.dart` | `Ptr<T>`: `Box`, `ElemPtr`, `FieldPtr`, `NilPtr` (ponteiro nil tipado em interface) |
+| `slice.dart` | `Slice<T>` (array compartilhado, `append` com o `growslice` do Go 1.25), `growCap`; `base` para os tipos nomeados sobre slice (`Slice.alias`) |
+| `map.dart` | `GoMap<K, V>` (nil, zero value, `lookup`, iteração tolerante a `delete`, `identity` para chave `*T`); `base` para os tipos nomeados sobre map (`GoMap.alias`) |
+| `ptr.dart` | `Ptr<T>`: `Box`, `ElemPtr`, `FieldPtr`, `NilPtr` (ponteiro nil tipado em interface), `PtrView` (base de `N$Ptr`, ponteiro para nomeado não-struct com métodos) |
 | `elem.dart` | `Elem<T>` (sizeof/ponteiros/zero de um tipo; `const`, um por tipo) |
 | `panic.dart` | `GoError`, `Panic`, `RuntimeError`, `nilDeref`, `panicValue` (erros do Dart → `runtime.Error` do Go) |
 | `defer.dart` | `Defers`, `recover(frame)` (só a chamada direta da função adiada recupera), `runMain` |
@@ -89,6 +89,10 @@ por `test/go_float_vectors_extra.go`):
    no JS, o que quebrava a paridade entre plataformas.
 6. **Formatação de float sem `ByteData.getUint64`**, que não existe no
    dart2js.
+7. **`String.decodeRune`, `String.runes()`, `String.fromRunes`**: novos. São o
+   `utf8.DecodeRune` do Go (sequência inválida, truncada, overlong, surrogate
+   ou acima de U+10FFFF → `(U+FFFD, 1)`) e o `string([]rune)` (runa inválida →
+   U+FFFD). Oráculo: o fixture e2e `tests/golden/runes`.
 
 Chaves de map `Float64` (NaN nunca encontrado, +0 ≡ −0) foram auditadas e já
 batiam com o Go.
@@ -102,7 +106,6 @@ dart test -p node $(grep -L "dart:io" test/*_test.dart)   # mesmos testes no JS
 
 ## Lacunas conhecidas
 
-- Não há iteração de runes nem conversão string ↔ `[]rune`.
 - A matriz de conversões não cobre todos os pares de tipos.
 - JS/Wasm: validados pelo e2e dos fixtures (Node) e pelos testes sem
   `dart:io`; os oráculos Go rodam só na VM (usam `Process`). Navegador: a

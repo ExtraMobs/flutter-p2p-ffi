@@ -3,7 +3,7 @@
 import json
 from dataclasses import dataclass
 
-SCHEMA_VERSION = 5
+SCHEMA_VERSION = 6
 
 
 class Unsupported(Exception):

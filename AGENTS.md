@@ -95,7 +95,7 @@ dart format out/ && dart analyze out/
 
 - **Sem novas dependências externas sem aprovação explícita do usuário.** As únicas permitidas hoje: `golang.org/x/tools` (goast), `package:analyzer` (dartast), shims Dart pontuais (`package:http`, `package:crypto`) quando um shim exigir.
 - Python: stdlib apenas (`json`, `dataclasses`, `argparse`, `unittest`).
-- Todo dump JSON carrega `schemaVersion`; bump ao mudar o schema. Atual: goast **5** (tipos inline na AST, `bytes`, method sets, `implements`, `$inst`, `initOrder`; ver `tools/goast/README.md`), dartast **1**.
+- Todo dump JSON carrega `schemaVersion`; bump ao mudar o schema. Atual: goast **6** (tipos inline na AST, `bytes`, method sets, `implements` com interfaces anônimas, `$inst`, `initOrder`; ver `tools/goast/README.md`), dartast **1**.
 - Ponteiros: `dart:ffi` não é usado (não existe no JS/Wasm). Identidade de tipo: uma classe Dart por tipo Go; testes de tipo sempre com `is T` (o `runtimeType` de coleções do core difere no JS).
 - `golib_dart/fixed_types` e os ports de `net`/`net/netip`/`internal/poll` vieram do boilerplate do `dart IPFS`; correções feitas aqui ficam listadas em `golib_dart/README.md` para devolver à origem.
 - Construção Go não coberta → `Unsupported` com posição; nunca emitir Dart aproximado em silêncio. Limites conhecidos ficam marcados ⚠️ em `docs/mapping-spec.md` e com `ponytail:` no código.
@@ -113,6 +113,6 @@ dart format out/ && dart analyze out/
 
 ## Milestones
 
-Status: M0 ✅ · M1 ✅ · M2 em andamento (✅ inicialização de pacote/`init`, `switch` com break/fallthrough; falta import entre pacotes do grafo, `goto`, method values/expressions, structs anônimas) · M3 ✅ no escopo de pacote único (structs por valor, slices, maps, ponteiros, defer/recover, tipos nomeados, interfaces, embedding, genéricos, arrays; ⚠️ interfaces entre pacotes dependem do M2). Detalhes em `docs/mapping-spec.md`.
+Status: M0 ✅ · M1 ✅ · M2 em andamento (✅ inicialização de pacote/`init`, `switch` com break/fallthrough, method values/expressions, `f(g())`, literais indexados, structs/interfaces anônimas, tipos locais, conversões `[]byte`/`[]rune` e range sobre string; falta import entre pacotes do grafo; `goto` fica ❌) · M3 ✅ no escopo de pacote único (structs por valor, slices, maps, ponteiros, defer/recover, tipos nomeados (sobre básico, slice, map e func; `N$Ptr` para receptor ponteiro), interfaces, embedding, genéricos, arrays; ⚠️ interfaces entre pacotes dependem do M2). Detalhes em `docs/mapping-spec.md`.
 
 M0 AGENTS.md · M1 fundação (dumpers + grafo + esqueleto g2d) · M2 MVP transpilador · M3 semântica avançada (interfaces, embedding, generics, ponteiros, defer) · M4 concorrência (async/await + Streams, `Chan<T>`) · M5 reflexão estática + shims stdlib · M6 grafo completo boxo + deps (cobertura ≥ 95% por etapa).

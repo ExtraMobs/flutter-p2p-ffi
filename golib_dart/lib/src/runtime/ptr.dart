@@ -1,6 +1,7 @@
 /// Ponteiros Go para valores que não são struct (`*int`, `*string`...).
 library;
 
+import '../../fixed_types/golang.dart' show GoTyped;
 import 'panic.dart';
 
 /// `*T` quando T não é struct (uma struct é o seu próprio endereço).
@@ -35,6 +36,28 @@ final class Box<T> implements Ptr<T> {
 
   @override
   T value;
+}
+
+/// `*N` para N nomeado não-struct com métodos (`type Counter int`): a classe
+/// gerada `N$Ptr` estende esta vista sobre qualquer [Ptr] (caixa, elemento,
+/// campo), com os métodos de receptor ponteiro e as interfaces de `*N`.
+/// Igualdade = mesmo endereço (o do [Ptr] envolvido).
+abstract base class PtrView<T> implements Ptr<T>, GoTyped {
+  PtrView(this.$p);
+
+  final Ptr<T> $p;
+
+  @override
+  T get value => $p.value;
+
+  @override
+  set value(T v) => $p.value = v;
+
+  @override
+  bool operator ==(Object other) => other is PtrView<T> && other.$p == $p;
+
+  @override
+  int get hashCode => $p.hashCode;
 }
 
 /// `&s[i]`: posição de um array compartilhado.

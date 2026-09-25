@@ -76,13 +76,54 @@ class TypeSystem(Service):
         return t
 
     def is_struct(self, t):
-        """Struct por valor (nomeada)."""
-        return t is not None and t["kind"] == "named" and self.underlying(t)["kind"] == "struct"
+        """Struct por valor (nomeada ou anônima)."""
+        return t is not None and t["kind"] in ("named", "struct") and self.underlying(t)["kind"] == "struct"
+
+    def index_of(self, t):
+        """Índice de um descritor na typeTable."""
+        if not hasattr(self, "_index"):
+            self._index = {id(d): i for i, d in enumerate(self.pkg.type_table)}
+        return self._index[id(t)]
 
     def is_value(self, t):
         """Valor com armazenamento próprio (struct nomeada ou array): o objeto Dart
         é o endereço; atribuir copia; `x = y` é in-place (go.GoValue)."""
         return t is not None and (self.is_struct(t) or self.underlying(t)["kind"] == "array")
+
+    def named_composite(self, t):
+        """Tipo nomeado (deste pacote) sobre slice/map/func: classe gerada —
+        subclasse de go.Slice/go.GoMap, ou função chamável (`$f`)."""
+        return (t is not None and t["kind"] == "named" and t["pkg"] == self.pkg.path and not t.get("args")
+                and self.underlying(t)["kind"] in ("slice", "map", "func"))
+
+    def named_func(self, t):
+        return self.named_composite(t) and self.underlying(t)["kind"] == "func"
+
+    def ptr_class(self, t):
+        """N nomeado (deste pacote) não-struct com métodos e `*N` usado no
+        pacote: `*N` é a classe gerada `N$Ptr` (go.PtrView com os métodos e
+        interfaces de *N)."""
+        return (t is not None and t["kind"] == "named" and t["pkg"] == self.pkg.path and bool(t.get("methods"))
+                and self.underlying(t)["kind"] not in ("struct", "interface", "array")
+                and id(t) in self.pointed_named)
+
+    @property
+    def pointed_named(self):
+        """ids dos descritores nomeados N para os quais `*N` está na typeTable."""
+        if not hasattr(self, "_pointed"):
+            self._pointed = {id(self.pkg.type_at(t["elem"])) for t in self.pkg.type_table
+                             if t["kind"] == "pointer"}
+        return self._pointed
+
+    def identity_keys(self, t):
+        """Map cuja chave é `*T` (T struct): a chave é o próprio objeto da
+        struct, então o go.GoMap compara por identidade."""
+        u = self.underlying(t)
+        return u["kind"] == "map" and self.is_struct_pointer(self.pkg.type_at(u["key"]))
+
+    def map_args(self, t):
+        """Argumentos extras dos construtores de go.GoMap para o tipo t."""
+        return ", identity: true" if self.identity_keys(t) else ""
 
     def is_struct_pointer(self, t):
         """`*T` com T struct/array: representado pelo próprio objeto (`T?`)."""

@@ -146,7 +146,60 @@ class IntToString(ConversionBehavior):
         return (f"{to_cls}({v})" if c.named_to else v), POSTFIX
 
 
+class Retype(ConversionBehavior):
+    """`IDs(s)`, `[]string(ids)`, `Op(fn)`: mesmo subjacente, classe nomeada
+    sobre slice/map/func de um dos lados."""
+
+    def accepts(self, c):
+        return self.values.retypes(c.frm_t, c.to_t)
+
+    def emit(self, c):
+        return self.values.retype(c.arg, c.frm_t, c.to_t)
+
+
+class FromNil(ConversionBehavior):
+    """`T(nil)` (slice, map, ponteiro, func, interface): o zero value de T."""
+
+    def accepts(self, c):
+        return c.frm is not None and c.frm.cat == "nil"
+
+    def emit(self, c):
+        return self.types.zero(c.to_t), POSTFIX
+
+
+class StringSlice(ConversionBehavior):
+    """`[]byte(s)`, `[]rune(s)`, `string(b)`, `string(rs)`: UTF-8 do Go
+    (decodificação inválida vira U+FFFD) nos helpers do runtime."""
+
+    FUNCS = {"Uint8": ("bytesOf", "stringOfByteSlice"), "Int32": ("runesOf", "stringOfRunes")}
+
+    def elem_cls(self, t):
+        """Classe do elemento de um slice de byte/rune (não nomeado), ou None."""
+        u = self.typesys.underlying(t)
+        if u["kind"] != "slice":
+            return None
+        e = self.pkg.type_at(u["elem"])
+        b = self.typesys.basic(e) if e["kind"] == "basic" else None
+        return b.cls if b is not None and b.cls in self.FUNCS else None
+
+    def accepts(self, c):
+        if c.to is not None and c.to.cat == "string":
+            return self.elem_cls(c.frm_t) is not None
+        return c.frm is not None and c.frm.cat == "string" and self.elem_cls(c.to_t) is not None
+
+    def emit(self, c):
+        go = lambda f: self.imports.qualify(None, f)  # noqa: E731
+        x = self.expr(c.arg, POSTFIX)
+        if c.to is not None:  # para string
+            v = f"{go(self.FUNCS[self.elem_cls(c.frm_t)][1])}({x})"
+            return (f"{self.types.cls(c.to_t)}({v})" if c.named_to else v), POSTFIX
+        if c.frm_t["kind"] == "named":
+            x += ".$str"
+        u = self.typesys.underlying(c.to_t)
+        return f"{go(self.FUNCS[self.elem_cls(c.to_t)][0])}({x}, {self.descriptors.elem(u['elem'])})", POSTFIX
+
+
 # Ordem de registro = prioridade crescente (a cadeia tenta do último ao
 # primeiro): a identidade vence tudo, como no emissor original.
-CONVERSIONS = [IntToString, StringToString, ComplexToComplex, FloatToFloat, FloatToInt,
+CONVERSIONS = [FromNil, StringSlice, Retype, IntToString, StringToString, ComplexToComplex, FloatToFloat, FloatToInt,
                IntToFloat, IntToInt, SameUnderlying, ToTypeParam, Identity]

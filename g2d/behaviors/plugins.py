@@ -31,7 +31,7 @@ class CorePlugin(Plugin):
                 Literals, GoTypeInfo, Operands, Calls, Assertions, ControlFlow, Functions,
                 VarDecls, Promotion]
     ANALYSES = [analyses.ImplementsAnalysis, analyses.MethodsAnalysis, analyses.TopNamesAnalysis,
-                analyses.BoxingAnalysis, analyses.RecoverAnalysis, analyses.InitVarsAnalysis]
+                analyses.BoxingAnalysis, analyses.LocalTypesAnalysis, analyses.RecoverAnalysis, analyses.InitVarsAnalysis]
     STMTS = [stmts.BlockStmt, stmts.ExprStmt, stmts.EmptyStmt, stmts.IncDecStmt, stmts.DeclStmt,
              stmts.ReturnStmt, stmts.AssignStmt, stmts.IfStmt, stmts.ForStmt, stmts.RangeStmt,
              stmts.BranchStmt, stmts.LabeledStmt, stmts.SwitchStmt]
@@ -52,6 +52,7 @@ class CorePlugin(Plugin):
             engine.register_conversion(conv)
         engine.register_type_decl(decls.StructClass)
         engine.register_type_decl(decls.NamedClass)
+        engine.register_type_decl(decls.NamedCompositeClass)
         engine.package_behavior = decls.PackageBehavior(engine)
 
 

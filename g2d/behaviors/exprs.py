@@ -112,7 +112,8 @@ class BinaryExpr(ExprBehavior):
         for a, b in (("x", "y"), ("y", "x")):
             ta, tb = self.pkg.type_of(n[a]), self.pkg.type_of(n[b])
             if (tb is not None and tb["kind"] == "basic" and tb["name"] == "untyped nil"
-                    and ta is not None and self.typesys.underlying(ta)["kind"] in ("slice", "map")):
+                    and ta is not None and (self.typesys.underlying(ta)["kind"] in ("slice", "map")
+                                            or self.typesys.named_func(ta))):
                 return n[a]
         return None
 
@@ -142,8 +143,10 @@ class UnaryExpr(ExprBehavior):
             return self.expr_prec(x)
         if x["node"] == "Ident":
             return self.names.box_name(x["$obj"]), POSTFIX  # a caixa (BoxingAnalysis garantiu)
+        xt = self.pkg.type_of(x)
+        view = (lambda p: f"{self.types.dart(xt).name}$Ptr({p})") if self.typesys.ptr_class(xt) else (lambda p: p)
         if x["node"] == "IndexExpr" and self.typesys.underlying(self.pkg.type_of(x["x"]))["kind"] in ("slice", "array"):
-            return f"{self.expr(x['x'], POSTFIX)}.addr({self.operands.to_int(x['index'])})", POSTFIX
+            return view(f"{self.expr(x['x'], POSTFIX)}.addr({self.operands.to_int(x['index'])})"), POSTFIX
         if x["node"] == "SelectorExpr" and x.get("$sel", {}).get("kind") == "field":
             owner_t = self.pkg.type_of(x["x"])
             owner = self.expr(x["x"], POSTFIX)
@@ -152,8 +155,8 @@ class UnaryExpr(ExprBehavior):
                 owner_t = self.pkg.type_at(owner_t["elem"])
             f = member_name(x["sel"]["name"])
             ot, ft = self.types.dart(owner_t), self.types.dart(self.pkg.type_of(x))
-            return (f"{self.imports.qualify(None, 'FieldPtr')}<{ot}, {ft}>({owner}, '{f}', "
-                    f"(o) => o.{f}, (o, v) => o.{f} = v)"), POSTFIX
+            return view(f"{self.imports.qualify(None, 'FieldPtr')}<{ot}, {ft}>({owner}, '{f}', "
+                        f"(o) => o.{f}, (o, v) => o.{f} = v)"), POSTFIX
         raise Unsupported("& de expressão", n)
 
 
@@ -163,7 +166,8 @@ class StarExpr(ExprBehavior):
     def emit(self, n):
         if self.typesys.is_struct_pointer(self.pkg.type_of(n["x"])):
             return f"{self.expr(n['x'], POSTFIX)}!", POSTFIX
-        return f"{self.expr(n['x'], POSTFIX)}!.value", POSTFIX
+        x = self.expr(n["x"], POSTFIX)
+        return f"{x}{'' if x == 'this' else '!'}.value", POSTFIX
 
 
 class SelectorExpr(ExprBehavior):
@@ -177,10 +181,17 @@ class SelectorExpr(ExprBehavior):
             name = type_name(sel) if obj["kind"] == "type" else member_name(sel)
             return self.imports.qualify(xobj["pkg"], name), POSTFIX + 1
         info = n.get("$sel")
-        if info is None or info["kind"] == "methodExpr":
+        if info is None:
             raise Unsupported("seletor", n)
-        recv = self.expr(x, POSTFIX)
+        if info["kind"] == "methodExpr":
+            return self.method_expr(n, info), 0
         t = self.pkg.type_of(x)
+        if info["kind"] == "method" and len(info["index"]) == 1 and self.calls.ptr_method_of(t, sel):
+            if self.scope and self.scope.recv and x.get("$obj", {}).get("decl") == self.scope.recv:
+                raise Unsupported("método de receptor ponteiro sobre o receptor valor", n)
+            recv = self.expr({"node": "UnaryExpr", "op": "&", "x": x}, POSTFIX)
+            return f"{recv}.{member_name(sel)}", POSTFIX
+        recv = self.expr(x, POSTFIX)
         if (recv != "this" and info["kind"] == "method" and len(info["index"]) == 1
                 and self.typesys.is_struct_pointer(t) and self.calls.ptr_method(t, sel)):
             # Método com receptor ponteiro aceita ponteiro nil: sentinela.
@@ -199,7 +210,21 @@ class SelectorExpr(ExprBehavior):
             t = self.pkg.type_at(f["type"])
             if t["kind"] == "pointer" or self.typesys.underlying(t)["kind"] == "interface":
                 recv += "!"
+        if info["kind"] == "method" and not n.get("$called") and self.calls.value_method(t, sel):
+            # Method value `x.M` (receptor valor): liga uma cópia de x feita agora.
+            recv += ".$copy()"
         return f"{recv}.{member_name(sel)}", POSTFIX
+
+    def method_expr(self, n, info):
+        """Method expression `T.M` / `(*T).M`: função com o receptor como
+        primeiro parâmetro, que chama o método pelo caminho normal de seleção
+        (nil sentinela, promoção por embedding)."""
+        ft = self.pkg.type_of(n)
+        params = [f"{self.types.dart(self.pkg.type_at(p))} ${i}" for i, p in enumerate(ft["params"])]
+        recv = {"node": "G2DTemp", "text": "$0", "$type": info["recv"]}
+        sel = dict(n, x=recv, **{"$sel": dict(info, kind="method"), "$called": True})
+        args = ", ".join(f"${i}" for i in range(1, len(params)))
+        return f"({', '.join(params)}) => {self.expr(sel, POSTFIX)}({args})"
 
 
 class IndexExpr(ExprBehavior):
@@ -235,7 +260,8 @@ class SliceExpr(ExprBehavior):
             args.append(self.operands.to_int(n["high"]) if n["high"] else "null")
         if n["max"]:
             args.append(self.operands.to_int(n["max"]))
-        return f"{self.expr(n['x'], POSTFIX)}{deref}.slice({', '.join(args)})", POSTFIX
+        text = f"{self.expr(n['x'], POSTFIX)}{deref}.slice({', '.join(args)})"
+        return self.types.wrap(self.pkg.type_of(n), text), POSTFIX
 
 
 class KeyValueExpr(ExprBehavior):
@@ -252,7 +278,7 @@ class CompositeLit(ExprBehavior):
         t = self.pkg.type_of(n)
         u = self.typesys.underlying(t)
         elts = n["elts"] or []
-        if u["kind"] == "struct" and t["kind"] == "named":
+        if u["kind"] == "struct":
             args = []
             fields = [f for f in u["fields"]]
             for i, e in enumerate(elts):
@@ -266,24 +292,30 @@ class CompositeLit(ExprBehavior):
                 args.append(f"{escape(lower_camel(fname.lstrip('_')))}: {self.values.coerce(val, ftype)}")
             args = [self.descriptors.elem(a) for a in t.get("args") or []] + args
             return f"{self.types.dart(t)}({', '.join(args)})", POSTFIX
-        if u["kind"] == "slice":
-            if any(e["node"] == "KeyValueExpr" for e in elts):
-                raise Unsupported("literal de slice indexado", n)
+        if u["kind"] in ("slice", "array"):
             elem = self.pkg.type_at(u["elem"])
-            items = ", ".join(self.values.coerce(e, elem) for e in elts)
-            return f"{self.types.dart(t)}.of([{items}], {self.descriptors.elem(elem)})", POSTFIX
-        if u["kind"] == "array":
-            if any(e["node"] == "KeyValueExpr" for e in elts):
-                raise Unsupported("literal de array indexado", n)
-            elem = self.pkg.type_at(u["elem"])
-            items = [self.values.coerce(e, elem) for e in elts]
-            items += [self.types.zero(elem)] * (u["len"] - len(items))
-            return f"{self.types.dart(t)}.of([{', '.join(items)}], {self.descriptors.elem(elem)})", POSTFIX
+            items = ", ".join(self.indexed(elts, elem, u.get("len")))
+            lit = f"{self.types.dart(t if u['kind'] == 'array' else u)}.of([{items}], {self.descriptors.elem(elem)})"
+            return self.types.wrap(t, lit), POSTFIX
         if u["kind"] == "map":
             kt, vt = self.pkg.type_at(u["key"]), self.pkg.type_at(u["elem"])
             items = ", ".join(f"{self.values.coerce(e['key'], kt)}: {self.values.coerce(e['value'], vt)}" for e in elts)
-            return f"{self.types.dart(t)}.of({{{items}}}, {self.descriptors.elem(vt)})", POSTFIX
+            lit = f"{self.types.dart(u)}.of({{{items}}}, {self.descriptors.elem(vt)}{self.typesys.map_args(t)})"
+            return self.types.wrap(t, lit), POSTFIX
         raise Unsupported(f"literal composto de {u['kind']}", n)
+
+    def indexed(self, elts, elem, length=None):
+        """Elementos de `[]T{...}`/`[N]T{...}` em ordem de índice: chaves
+        constantes (`{2: x, y}`) posicionam, lacunas e o fim do array recebem
+        o zero value."""
+        by_index, i = {}, 0
+        for e in elts:
+            if e["node"] == "KeyValueExpr":
+                i, e = int(e["key"]["$value"]["value"]), e["value"]
+            by_index[i] = self.values.coerce(e, elem)
+            i += 1
+        size = length if length is not None else max(by_index, default=-1) + 1
+        return [by_index[k] if k in by_index else self.types.zero(elem) for k in range(size)]
 
 
 class FuncLit(ExprBehavior):
@@ -313,11 +345,19 @@ class CallExpr(ExprBehavior):
             return self.engine.convert(n, fun, args[0])
         if fun.get("$builtin"):
             return self.engine.builtin(n, fun, args)
-        sig = self.pkg.type_of(fun)
+        fun_t = self.pkg.type_of(fun)
+        sig = self.typesys.underlying(fun_t) if fun_t is not None else None
         if sig is None or sig["kind"] != "func":
             raise Unsupported("chamada de valor não-função", n)
-        if len(args) == 1 and len(sig["params"]) > 1:
-            raise Unsupported("f(g()) com múltiplos retornos", n)
+        spread = self.pkg.type_of(args[0]) if len(args) == 1 else None
+        if spread is not None and spread["kind"] == "tuple":
+            # f(g()): o record de g() é desestruturado num switch expression
+            # (liga os temporários sem statement) e espalhado nos argumentos.
+            temps = [self.names.temp() for _ in spread["elems"]]
+            nodes = [{"node": "G2DTemp", "text": t, "$type": e} for t, e in zip(temps, spread["elems"])]
+            call, _ = self.emit(dict(n, args=nodes))
+            pattern = ", ".join(f"final {t}" for t in temps)
+            return f"(switch ({self.expr(args[0])}) {{ ({pattern}) => {call} }})", POSTFIX
         inst = self.calls.instantiation(fun)
         ptypes = [self.pkg.type_at(t) for t in sig["params"]]
         if sig["variadic"] and n["ellipsis"] is None:
@@ -329,8 +369,8 @@ class CallExpr(ExprBehavior):
             callee = self.expr(generic, POSTFIX) + "<" + ", ".join(self.types.dart(a) for a in targs) + ">"
             out = [self.descriptors.elem(a) for a in targs] + out
         else:
-            callee = self.expr(fun, POSTFIX)
-        if not inst and not self.calls.declared_func(fun):
+            callee = self.expr(dict(fun, **{"$called": True}), POSTFIX)
+        if not inst and not self.calls.declared_func(fun) and not self.typesys.named_func(fun_t):
             callee += "!"  # valor de função: anulável (zero value nil)
         if sig["variadic"] and n["ellipsis"] is None:
             fixed = len(sig["params"]) - 1 + (len(inst[1]) if inst else 0)

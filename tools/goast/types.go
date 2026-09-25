@@ -17,6 +17,7 @@ import (
 type typeTable struct {
 	index typeutil.Map
 	list  []jobject
+	types []types.Type // tipo de cada entrada de list (mesmo índice)
 }
 
 func (tt *typeTable) ref(t types.Type) any {
@@ -30,6 +31,7 @@ func (tt *typeTable) ref(t types.Type) any {
 	i := len(tt.list)
 	tt.index.Set(t, i)
 	tt.list = append(tt.list, nil)
+	tt.types = append(tt.types, t)
 	tt.list[i] = tt.describe(t)
 	return i
 }

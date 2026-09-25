@@ -47,6 +47,14 @@ class DartCoreNamesTest(unittest.TestCase):
         self.assertEqual(member_name("Identical"), "identical$")
         self.assertEqual(local_name("int"), "int$")
         self.assertEqual(member_name("print"), "_print")  # privado: não colide
+        self.assertEqual(member_name("Print"), "print")  # o gerado nunca usa o print do core
+
+    def test_base_members_are_escaped(self):
+        # Métodos Go que sobrescreveriam membros de go.Slice/go.GoMap/go.PtrView/Object.
+        self.assertEqual(member_name("Delete"), "delete$")
+        self.assertEqual(member_name("Value"), "value$")
+        self.assertEqual(member_name("ToString"), "toString$")
+        self.assertEqual(member_name("Len"), "len")
 
 
 class DartTypeTest(unittest.TestCase):

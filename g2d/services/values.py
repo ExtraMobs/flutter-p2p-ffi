@@ -24,7 +24,12 @@ class ValueSemantics(Service):
         que entram em interface."""
         src = self.pkg.type_of(n)
         to_iface = target is not None and self.typesys.underlying(target)["kind"] == "interface"
-        if self.typesys.is_value(src) and to_iface:
+        if self.retypes(src, target):
+            text, prec = self.retype(n, src, target)
+        elif (src is not None and src["kind"] == "basic" and src["name"] == "untyped nil"
+              and target is not None and not self.types.nilable(target)):
+            text, prec = self.types.zero(target), POSTFIX  # nil de slice/map/func nomeada
+        elif self.typesys.is_value(src) and to_iface:
             # Struct por valor numa interface: cópia marcada ($isValue); um
             # ponteiro entra como o próprio objeto (métodos chamáveis).
             text, prec = f"{self.expr(n, POSTFIX)}.$ifaceCopy()", POSTFIX
@@ -35,6 +40,8 @@ class ValueSemantics(Service):
             elem = self.pkg.type_at(src["elem"])
             if self.typesys.is_struct(elem) and not elem.get("args"):
                 nil = f"{self.types.dart(elem)}.$nil"
+            elif self.typesys.ptr_class(elem):
+                nil = f"{self.types.dart(src).non_null()}.$nil"
             elif not self.typesys.is_value(elem):
                 nil = f"const {self.imports.qualify(None, 'NilPtr')}<{self.types.dart(elem)}>()"
             else:
@@ -46,6 +53,24 @@ class ValueSemantics(Service):
         else:
             text, prec = self.expr_prec(n)
         return f"({text})" if prec < min_prec else text
+
+    def retypes(self, src, target):
+        """src flui para target com o mesmo subjacente e um deles é classe
+        nomeada sobre slice/map/func (Go permite atribuir se um não é nomeado)."""
+        return (src is not None and target is not None and src != target
+                and (self.typesys.named_composite(src) or self.typesys.named_composite(target))
+                and self.typesys.underlying(src) == self.typesys.underlying(target))
+
+    def retype(self, n, src, target):
+        """Mesmo valor visto como outro tipo com o mesmo subjacente: slice/map
+        compartilham o armazenamento; função nomeada desembrulha `$f`."""
+        if self.typesys.named_func(src):
+            text, prec = self.expr(n, POSTFIX) + ".$f", POSTFIX
+        else:
+            text, prec = self.expr_prec(n)
+        if self.typesys.named_composite(target):
+            return f"{self.types.dart(target)}({text})", POSTFIX
+        return text, prec
 
     def copy_text(self, text, t):
         """Cópia de um valor já emitido (ex. elemento em range)."""

@@ -63,9 +63,55 @@ class BoxingAnalysis(Analysis):
             obj = x.get("$obj") if x["node"] == "Ident" else None
             if obj and obj["kind"] == "var" and not self.typesys.is_value(self.pkg.type_of(x)):
                 self.facts.boxed.add(obj["decl"])
+        elif node.get("node") == "SelectorExpr" and (node.get("$sel") or {}).get("kind") == "method":
+            # Chamada/method value com receptor ponteiro sobre N endereçável: `&x`.
+            x = node["x"]
+            while x["node"] == "ParenExpr":
+                x = x["x"]
+            obj = x.get("$obj") if x["node"] == "Ident" else None
+            t = self.pkg.type_of(x)
+            if (obj and obj["kind"] == "var" and len(node["$sel"]["index"]) == 1
+                    and self.typesys.ptr_class(t)
+                    and any(m["name"] == node["sel"]["name"] and m["ptr"] for m in t["methods"])):
+                self.facts.boxed.add(obj["decl"])
         for v in node.values():
             if isinstance(v, (dict, list)):
                 self.visit(v)
+
+
+class LocalTypesAnalysis(Analysis):
+    """Tipos declarados dentro de funções: içados para a library com nome
+    único `<função>$<Tipo>` (o go/types já os distingue na typeTable)."""
+
+    def run(self, decls):
+        used = set()
+        for d in decls:
+            if d["node"] != "FuncDecl" or not d["body"]:
+                continue
+            owner = d["name"]["name"]
+            if d["recv"]:
+                recv_t = self.pkg.type_at(d["recv"]["list"][0]["type"]["$type"])
+                if recv_t["kind"] == "pointer":
+                    recv_t = self.pkg.type_at(recv_t["elem"])
+                owner = f"{recv_t['name']}_{owner}"
+            for spec in self.type_specs(d["body"]):
+                base = f"{owner[:1].lower()}{owner[1:]}${spec['name']['name']}"
+                name, n = base, 1
+                while name in used:
+                    n += 1
+                    name = f"{base}{n}"
+                used.add(name)
+                self.facts.local_types[id(self.pkg.type_at(spec["name"]["$obj"]["type"]))] = name
+                self.facts.local_specs.append((spec, name))
+
+    def type_specs(self, node):
+        if isinstance(node, list):
+            return [s for x in node for s in self.type_specs(x)]
+        if not isinstance(node, dict):
+            return []
+        if node.get("node") == "DeclStmt" and node["decl"]["tok"] == "type":
+            return [s for s in node["decl"]["specs"] if not s["assign"]]
+        return [s for v in node.values() if isinstance(v, (dict, list)) for s in self.type_specs(v)]
 
 
 class RecoverAnalysis(Analysis):

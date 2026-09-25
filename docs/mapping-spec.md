@@ -92,6 +92,8 @@ Legenda: ✅ fiel · ⚠️ fiel no caso comum, com limite conhecido · ❌ não
 | local/parâmetro | nome Go; se repetido na função ou igual a um nome de library → `x$1` | |
 | palavra reservada Dart (`new`, `in`, ...) | sufixo `$` (`new$`) | |
 | nome do `dart:core` usado pelo código gerado (`Object`, `Map`, `String`, `List`, `Function`, `BigInt`, `identical`, `int`, `bool`, ...: `DART_CORE_USED`) | sufixo `$` (`Object$`, `identical$`, local `int$`), para não sombrear o core na library | |
+| método/campo exportado com o nome de um membro das bases estendidas (`Delete`, `Append`, `Value`, `Length`, `Call`, `ToString`, ...: `DART_BASE_MEMBERS`) | sufixo `$` (`delete$`, `value$`, `toString$`), em todo lugar, inclusive nas interfaces (o despacho continua casando) | |
+| tipo declarado dentro de função | içado para a library como `_<função>$<Tipo>` (`_first$pair`; método: `_<Recv>_<Método>$<Tipo>`; repetido na função: sufixo numérico) | ⚠️ tipo local que usa parâmetro de tipo da função genérica não é suportado |
 | temporários e descritores | `$tN`, `_$eN`, `_$zN` (Go não permite `$`) | |
 
 ## Tipos
@@ -117,7 +119,12 @@ Legenda: ✅ fiel · ⚠️ fiel no caso comum, com limite conhecido · ❌ não
 | nomeado sobre básico (`type Celsius float64`) | `final class Celsius extends Golang.FloatBase<Celsius>` | `Celsius()` |
 | interface nomeada | `abstract mixin class I` (anulável: `I?`) | `null` |
 | parâmetro de tipo `T` | `T` (dicionário `go.Elem<T> $T`) | `$T.zero()` |
-| nomeado sobre slice/map/func/bool/complex, chans, interface anônima com métodos | — ❌ | |
+| nomeado sobre slice/map (`type IDs []string`) | `final class IDs extends go.Slice<Golang.String>` (idem `go.GoMap`); conversão/atribuição = `IDs(s)` via `Slice.alias` (mesmo array) | `IDs(go.Slice<...>.nil(_$eN))` |
+| nomeado sobre func (`type Op func(int) int`) | `final class Op` chamável: `$f` (anulável), `call(...)`, `isNil`; `Op(fn)` / `op.$f` nas atribuições entre nomeado e não nomeado | `Op(null)` |
+| `*N`, N nomeado não-struct com métodos e `*N` usado no pacote | `N$Ptr?`: `final class N$Ptr extends go.PtrView<N>` (vista sobre `go.Box`/`ElemPtr`/`FieldPtr`) com os métodos de receptor ponteiro, forwarders dos de valor e as interfaces de `*N` | `null` |
+| struct anônima (`struct{ X int }`, tabelas de teste) | classe sintética `_anon$<índice da typeTable>` (uma por tipo; `go.GoStruct`, igualdade e cópia como qualquer struct) | `_anon$N()` |
+| interface anônima com métodos (`interface{ Name() string }`) | `abstract mixin class _anonIface$<índice>`; o goast põe no `implements` os literais `interface{...}` usados fora de declaração de tipo | `null` |
+| nomeado sobre bool/complex, chans | — ❌ | |
 
 Constantes de tipo básico usam `final`, porque os construtores das classes não
 são `const`. Literais inteiros fora de ±2⁵³ vêm por
@@ -200,7 +207,8 @@ o crescimento de `cap`, e ele muda entre versões do Go.
 
 As chaves usam a igualdade das classes intermediárias: NaN nunca é
 encontrado, +0 ≡ −0, structs comparadas campo a campo. Chave
-ponteiro-para-struct é ❌.
+ponteiro-para-struct (`map[*T]V`) é o próprio objeto da struct; o map é
+criado com `identity: true` (`Map.identity()`), então compara endereços.
 
 ## Ponteiros para não-struct (`go.Ptr`)
 
@@ -211,6 +219,11 @@ ponteiro-para-struct é ❌.
 - `&x` → a caixa. `&s[i]` → `s.addr(i)`. `&o.f` →
   `go.FieldPtr<O, T>(o, 'f', get, set)`. `new(T)` → `go.Box<T>(zero)`.
 - `*p` → `p!.value`. `p == q` usa o `==` de `go.Ptr`, que compara endereços.
+- N nomeado não-struct com métodos: a caixa, `&s[i]`, `&o.f` e `new(N)` viram
+  `N$Ptr(...)`. `x.M()` com M de receptor ponteiro põe x na caixa e chama
+  `x.m()` sobre o `N$Ptr`. `(*N)(nil)` numa interface → `N$Ptr.$nil`.
+  ⚠️ Chamar método de receptor ponteiro sobre o próprio receptor valor dentro
+  de um método de valor é `Unsupported`.
 
 ## Valores e expressões
 
@@ -225,7 +238,13 @@ ponteiro-para-struct é ❌.
 | conversões numéricas | construtores das classes; float → inteiro pelas regras do gc/amd64 (`toInteger`) |
 | `len(s)`, `s[i]`, `s[a:b]` em string | `Golang.Int(s.length)`, `Golang.Uint8(s[i])`, `s.slice(a, b)` (bytes) |
 | `p.f` com `p *T` | `p!.f` (nil → `runtime error: invalid memory address or nil pointer dereference`) |
-| `f(x)` com `f` variável de função | `f!(x)` |
+| `f(x)` com `f` variável de função | `f!(x)` (função nomeada: `f(x)`, classe chamável) |
+| `f(g())` com g de vários resultados | `(switch (g()) { (final $t1, final $t2) => f($t1, $t2) })` |
+| method value `x.M` (receptor valor) | `x.$copy().m` (liga uma cópia feita agora, como o Go) |
+| method expression `T.M` / `(*T).M` | `(T $0, A $1) => $0.m($1)` (seleção normal: sentinela nil, promoção) |
+| literal indexado `[]T{2: x, y}`, `[...]T{5: z}` | elementos em ordem de índice, lacunas com o zero value |
+| `[]byte(s)`, `[]rune(s)`, `string(b)`, `string(rs)` | `go.bytesOf`, `go.runesOf`, `go.stringOfByteSlice`, `go.stringOfRunes` (decodificação UTF-8 do Go: inválido → U+FFFD, largura 1; runa inválida → U+FFFD) |
+| `T(nil)` | zero value de T |
 | `panic(v)` / `recover()` | `throw go.Panic(v)` / `go.recover()` |
 | precedência | parênteses onde a precedência Dart difere da Go |
 
@@ -239,11 +258,13 @@ ponteiro-para-struct é ❌.
 | resultados nomeados + `return` nu | locais inicializados no zero + `return (q, r);` |
 | `if init; cond`, `for`, `for cond`, `for {}` | `{ init; if }`, `for (...)`, `while (cond)`, `while (true)` |
 | `range` sobre slice / map / int | índice sobre a referência; `keysSnapshot` + `containsKey`; contador |
+| `range` sobre string | `for (var i = 0, w = 0; i < s.length; i += w)` com `s.decodeRune(i)` (runa, largura), igual ao `utf8.DecodeRune` |
 | `switch` / `switch {}` / type switch | cadeia `if/else` num bloco; `break` sem rótulo que sai do switch → `break $tN;` (bloco rotulado; a pilha de alvos distingue switch de laço) |
 | `fallthrough` | seleção do case (`$c`) seguida dos corpos em sequência (`if ($c == i)`); `fallthrough` → `$c = i + 1` na ordem do fonte, inclusive para o `default` no meio |
 | rótulos, `break L`, `continue L` | rótulo no laço Dart |
 | `defer f(a)` | `{ final $t = a; $d.defer(() { f($t); }); }`, com o corpo em `try`/`catch`/`finally` de `go.Defers` |
-| `go`, `select`, `goto`, range sobre string/chan/func | ❌ |
+| `go`, `select`, range sobre chan/func | ❌ (M4) |
+| `goto` | ❌ exigiria reescrever a função como máquina de estados; raro fora de código gerado |
 
 `defer`: os argumentos (e o receptor) são avaliados no `defer`. As chamadas
 rodam em ordem LIFO no `finally`, e um panic num defer substitui o anterior.
@@ -269,6 +290,7 @@ intervalo, nil pointer, escrita em map nil.
 | Símbolo | Shim |
 |---|---|
 | `fmt.Println` | `fmt.println(go.Slice<Object?>)` → `(Golang.Int, GoError?)`, com os bytes exatos |
+| `fmt.Print` | `fmt.print(go.Slice<Object?>)` → `(Golang.Int, GoError?)` (espaçamento do `Sprint`) |
 | `fmt.Sprint` | `fmt.sprint(go.Slice<Object?>)` → `Golang.String` |
 | `%v` | `<nil>`; wrappers pelo `toString` (floats = `FormatFloat 'g'`); structs `{a b}`; `&{...}`; slices `[a b]`; maps `map[k:v]` com chaves ordenadas; ponteiros aninhados como endereço |
 | `math.NaN`, `math.Copysign` | `math.naN()`, `math.copysign(f, s)`; as constantes de `math` são dobradas |

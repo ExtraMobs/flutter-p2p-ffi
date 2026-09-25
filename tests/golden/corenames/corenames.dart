@@ -83,7 +83,7 @@ bool identical$(Object$? a, Object$? b) {
   return identical(a, b);
 }
 
-void print$(go.Slice<Object?> xs) {
+void print(go.Slice<Object?> xs) {
   fmt.println(xs);
 }
 
@@ -108,7 +108,7 @@ void main() {
         anything != null,
       ], _$e0),
     );
-    print$(go.Slice<Object?>.of([Golang.String.fromDart('print'), int$], _$e0));
+    print(go.Slice<Object?>.of([Golang.String.fromDart('print'), int$], _$e0));
   });
 }
 

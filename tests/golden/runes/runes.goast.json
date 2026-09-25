@@ -1,0 +1,4791 @@
+{
+  "schemaVersion": 6,
+  "tool": "goast",
+  "goVersion": "go1.25.7",
+  "packages": [
+    {
+      "path": "main",
+      "name": "main",
+      "files": [
+        {
+          "path": "runes.go",
+          "ast": {
+            "node": "File",
+            "doc": {
+              "node": "CommentGroup",
+              "list": [
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "runes.go",
+                    "line": 1,
+                    "column": 1,
+                    "offset": 0
+                  },
+                  "text": "// Package main exercita conversões string ↔ []byte/[]rune e range sobre"
+                },
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "runes.go",
+                    "line": 2,
+                    "column": 1,
+                    "offset": 76
+                  },
+                  "text": "// string, incluindo UTF-8 inválido (U+FFFD com largura 1)."
+                }
+              ]
+            },
+            "package": {
+              "file": "runes.go",
+              "line": 3,
+              "column": 1,
+              "offset": 137
+            },
+            "name": {
+              "node": "Ident",
+              "namePos": {
+                "file": "runes.go",
+                "line": 3,
+                "column": 9,
+                "offset": 145
+              },
+              "name": "main",
+              "obj": null
+            },
+            "decls": [
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "runes.go",
+                  "line": 5,
+                  "column": 1,
+                  "offset": 151
+                },
+                "tok": "import",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "ImportSpec",
+                    "doc": null,
+                    "name": null,
+                    "path": {
+                      "node": "BasicLit",
+                      "valuePos": {
+                        "file": "runes.go",
+                        "line": 5,
+                        "column": 8,
+                        "offset": 158
+                      },
+                      "kind": "STRING",
+                      "value": "\"fmt\""
+                    },
+                    "comment": null,
+                    "endPos": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "runes.go",
+                  "line": 7,
+                  "column": 1,
+                  "offset": 165
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "runes.go",
+                        "line": 7,
+                        "column": 6,
+                        "offset": 170
+                      },
+                      "name": "Name",
+                      "obj": {
+                        "node": "Object",
+                        "name": "Name",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "Name",
+                        "kind": "type",
+                        "def": true,
+                        "type": 0,
+                        "decl": "runes.go:170",
+                        "pkg": "main",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "runes.go",
+                        "line": 7,
+                        "column": 11,
+                        "offset": 175
+                      },
+                      "name": "string",
+                      "obj": null,
+                      "$type": 1,
+                      "$isType": true,
+                      "$obj": {
+                        "name": "string",
+                        "kind": "type",
+                        "type": 1
+                      }
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "runes.go",
+                    "line": 9,
+                    "column": 6,
+                    "offset": 188
+                  },
+                  "name": "main",
+                  "obj": {
+                    "node": "Object",
+                    "name": "main",
+                    "kind": "func"
+                  },
+                  "$obj": {
+                    "name": "main",
+                    "kind": "func",
+                    "def": true,
+                    "type": 2,
+                    "decl": "runes.go:188",
+                    "pkg": "main",
+                    "top": true
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "runes.go",
+                    "line": 9,
+                    "column": 1,
+                    "offset": 183
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "runes.go",
+                      "line": 9,
+                      "column": 10,
+                      "offset": 192
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "runes.go",
+                      "line": 9,
+                      "column": 11,
+                      "offset": 193
+                    }
+                  },
+                  "results": null
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "runes.go",
+                    "line": 9,
+                    "column": 13,
+                    "offset": 195
+                  },
+                  "list": [
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "runes.go",
+                            "line": 10,
+                            "column": 2,
+                            "offset": 198
+                          },
+                          "name": "s",
+                          "obj": {
+                            "node": "Object",
+                            "name": "s",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "s",
+                            "kind": "var",
+                            "def": true,
+                            "type": 1,
+                            "decl": "runes.go:198",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "runes.go",
+                        "line": 10,
+                        "column": 4,
+                        "offset": 200
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "BasicLit",
+                          "valuePos": {
+                            "file": "runes.go",
+                            "line": 10,
+                            "column": 7,
+                            "offset": 203
+                          },
+                          "kind": "STRING",
+                          "value": "\"héllo, 世界 🌍\"",
+                          "$type": 1,
+                          "$value": {
+                            "kind": "string",
+                            "value": "héllo, 世界 🌍"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "runes.go",
+                            "line": 11,
+                            "column": 2,
+                            "offset": 226
+                          },
+                          "name": "b",
+                          "obj": {
+                            "node": "Object",
+                            "name": "b",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "b",
+                            "kind": "var",
+                            "def": true,
+                            "type": 3,
+                            "decl": "runes.go:226",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "runes.go",
+                        "line": 11,
+                        "column": 4,
+                        "offset": 228
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "CallExpr",
+                          "fun": {
+                            "node": "ArrayType",
+                            "lbrack": {
+                              "file": "runes.go",
+                              "line": 11,
+                              "column": 7,
+                              "offset": 231
+                            },
+                            "len": null,
+                            "elt": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "runes.go",
+                                "line": 11,
+                                "column": 9,
+                                "offset": 233
+                              },
+                              "name": "byte",
+                              "obj": null,
+                              "$type": 4,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "byte",
+                                "kind": "type",
+                                "type": 4
+                              }
+                            },
+                            "$type": 3,
+                            "$isType": true
+                          },
+                          "lparen": {
+                            "file": "runes.go",
+                            "line": 11,
+                            "column": 13,
+                            "offset": 237
+                          },
+                          "args": [
+                            {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "runes.go",
+                                "line": 11,
+                                "column": 14,
+                                "offset": 238
+                              },
+                              "name": "s",
+                              "obj": {
+                                "node": "Object",
+                                "name": "s",
+                                "kind": "var"
+                              },
+                              "$type": 1,
+                              "$obj": {
+                                "name": "s",
+                                "kind": "var",
+                                "type": 1,
+                                "decl": "runes.go:198",
+                                "pkg": "main"
+                              }
+                            }
+                          ],
+                          "ellipsis": null,
+                          "rparen": {
+                            "file": "runes.go",
+                            "line": 11,
+                            "column": 15,
+                            "offset": 239
+                          },
+                          "$type": 3
+                        }
+                      ]
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "IndexExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "runes.go",
+                              "line": 12,
+                              "column": 2,
+                              "offset": 242
+                            },
+                            "name": "b",
+                            "obj": {
+                              "node": "Object",
+                              "name": "b",
+                              "kind": "var"
+                            },
+                            "$type": 3,
+                            "$obj": {
+                              "name": "b",
+                              "kind": "var",
+                              "type": 3,
+                              "decl": "runes.go:226",
+                              "pkg": "main"
+                            }
+                          },
+                          "lbrack": {
+                            "file": "runes.go",
+                            "line": 12,
+                            "column": 3,
+                            "offset": 243
+                          },
+                          "index": {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "runes.go",
+                              "line": 12,
+                              "column": 4,
+                              "offset": 244
+                            },
+                            "kind": "INT",
+                            "value": "0",
+                            "$type": 5,
+                            "$value": {
+                              "kind": "int",
+                              "value": "0"
+                            }
+                          },
+                          "rbrack": {
+                            "file": "runes.go",
+                            "line": 12,
+                            "column": 5,
+                            "offset": 245
+                          },
+                          "$type": 4
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "runes.go",
+                        "line": 12,
+                        "column": 7,
+                        "offset": 247
+                      },
+                      "tok": "=",
+                      "rhs": [
+                        {
+                          "node": "BasicLit",
+                          "valuePos": {
+                            "file": "runes.go",
+                            "line": 12,
+                            "column": 9,
+                            "offset": 249
+                          },
+                          "kind": "CHAR",
+                          "value": "'H'",
+                          "$type": 4,
+                          "$value": {
+                            "kind": "int",
+                            "value": "72"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "runes.go",
+                              "line": 13,
+                              "column": 2,
+                              "offset": 254
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "runes.go",
+                              "line": 13,
+                              "column": 6,
+                              "offset": 258
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 6,
+                              "decl": "runes.go:312",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 6
+                        },
+                        "lparen": {
+                          "file": "runes.go",
+                          "line": 13,
+                          "column": 13,
+                          "offset": 265
+                        },
+                        "args": [
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "runes.go",
+                                "line": 13,
+                                "column": 14,
+                                "offset": 266
+                              },
+                              "name": "len",
+                              "obj": null,
+                              "$type": 12,
+                              "$builtin": true,
+                              "$obj": {
+                                "name": "len",
+                                "kind": "builtin",
+                                "type": 13
+                              }
+                            },
+                            "lparen": {
+                              "file": "runes.go",
+                              "line": 13,
+                              "column": 17,
+                              "offset": 269
+                            },
+                            "args": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "runes.go",
+                                  "line": 13,
+                                  "column": 18,
+                                  "offset": 270
+                                },
+                                "name": "b",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "b",
+                                  "kind": "var"
+                                },
+                                "$type": 3,
+                                "$obj": {
+                                  "name": "b",
+                                  "kind": "var",
+                                  "type": 3,
+                                  "decl": "runes.go:226",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "runes.go",
+                              "line": 13,
+                              "column": 19,
+                              "offset": 271
+                            },
+                            "$type": 5
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "runes.go",
+                                "line": 13,
+                                "column": 22,
+                                "offset": 274
+                              },
+                              "name": "string",
+                              "obj": null,
+                              "$type": 1,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "string",
+                                "kind": "type",
+                                "type": 1
+                              }
+                            },
+                            "lparen": {
+                              "file": "runes.go",
+                              "line": 13,
+                              "column": 28,
+                              "offset": 280
+                            },
+                            "args": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "runes.go",
+                                  "line": 13,
+                                  "column": 29,
+                                  "offset": 281
+                                },
+                                "name": "b",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "b",
+                                  "kind": "var"
+                                },
+                                "$type": 3,
+                                "$obj": {
+                                  "name": "b",
+                                  "kind": "var",
+                                  "type": 3,
+                                  "decl": "runes.go:226",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "runes.go",
+                              "line": 13,
+                              "column": 30,
+                              "offset": 282
+                            },
+                            "$type": 1
+                          },
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "runes.go",
+                              "line": 13,
+                              "column": 33,
+                              "offset": 285
+                            },
+                            "name": "s",
+                            "obj": {
+                              "node": "Object",
+                              "name": "s",
+                              "kind": "var"
+                            },
+                            "$type": 1,
+                            "$obj": {
+                              "name": "s",
+                              "kind": "var",
+                              "type": 1,
+                              "decl": "runes.go:198",
+                              "pkg": "main"
+                            }
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "runes.go",
+                          "line": 13,
+                          "column": 34,
+                          "offset": 286
+                        },
+                        "$type": 14
+                      }
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "runes.go",
+                            "line": 15,
+                            "column": 2,
+                            "offset": 290
+                          },
+                          "name": "rs",
+                          "obj": {
+                            "node": "Object",
+                            "name": "rs",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "rs",
+                            "kind": "var",
+                            "def": true,
+                            "type": 15,
+                            "decl": "runes.go:290",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "runes.go",
+                        "line": 15,
+                        "column": 5,
+                        "offset": 293
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "CallExpr",
+                          "fun": {
+                            "node": "ArrayType",
+                            "lbrack": {
+                              "file": "runes.go",
+                              "line": 15,
+                              "column": 8,
+                              "offset": 296
+                            },
+                            "len": null,
+                            "elt": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "runes.go",
+                                "line": 15,
+                                "column": 10,
+                                "offset": 298
+                              },
+                              "name": "rune",
+                              "obj": null,
+                              "$type": 16,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "rune",
+                                "kind": "type",
+                                "type": 16
+                              }
+                            },
+                            "$type": 15,
+                            "$isType": true
+                          },
+                          "lparen": {
+                            "file": "runes.go",
+                            "line": 15,
+                            "column": 14,
+                            "offset": 302
+                          },
+                          "args": [
+                            {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "runes.go",
+                                "line": 15,
+                                "column": 15,
+                                "offset": 303
+                              },
+                              "name": "s",
+                              "obj": {
+                                "node": "Object",
+                                "name": "s",
+                                "kind": "var"
+                              },
+                              "$type": 1,
+                              "$obj": {
+                                "name": "s",
+                                "kind": "var",
+                                "type": 1,
+                                "decl": "runes.go:198",
+                                "pkg": "main"
+                              }
+                            }
+                          ],
+                          "ellipsis": null,
+                          "rparen": {
+                            "file": "runes.go",
+                            "line": 15,
+                            "column": 16,
+                            "offset": 304
+                          },
+                          "$type": 15
+                        }
+                      ]
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "IndexExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "runes.go",
+                              "line": 16,
+                              "column": 2,
+                              "offset": 307
+                            },
+                            "name": "rs",
+                            "obj": {
+                              "node": "Object",
+                              "name": "rs",
+                              "kind": "var"
+                            },
+                            "$type": 15,
+                            "$obj": {
+                              "name": "rs",
+                              "kind": "var",
+                              "type": 15,
+                              "decl": "runes.go:290",
+                              "pkg": "main"
+                            }
+                          },
+                          "lbrack": {
+                            "file": "runes.go",
+                            "line": 16,
+                            "column": 4,
+                            "offset": 309
+                          },
+                          "index": {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "runes.go",
+                              "line": 16,
+                              "column": 5,
+                              "offset": 310
+                            },
+                            "kind": "INT",
+                            "value": "1",
+                            "$type": 5,
+                            "$value": {
+                              "kind": "int",
+                              "value": "1"
+                            }
+                          },
+                          "rbrack": {
+                            "file": "runes.go",
+                            "line": 16,
+                            "column": 6,
+                            "offset": 311
+                          },
+                          "$type": 16
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "runes.go",
+                        "line": 16,
+                        "column": 8,
+                        "offset": 313
+                      },
+                      "tok": "=",
+                      "rhs": [
+                        {
+                          "node": "BasicLit",
+                          "valuePos": {
+                            "file": "runes.go",
+                            "line": 16,
+                            "column": 10,
+                            "offset": 315
+                          },
+                          "kind": "CHAR",
+                          "value": "'e'",
+                          "$type": 16,
+                          "$value": {
+                            "kind": "int",
+                            "value": "101"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "runes.go",
+                              "line": 17,
+                              "column": 2,
+                              "offset": 320
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "runes.go",
+                              "line": 17,
+                              "column": 6,
+                              "offset": 324
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 6,
+                              "decl": "runes.go:312",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 6
+                        },
+                        "lparen": {
+                          "file": "runes.go",
+                          "line": 17,
+                          "column": 13,
+                          "offset": 331
+                        },
+                        "args": [
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "runes.go",
+                                "line": 17,
+                                "column": 14,
+                                "offset": 332
+                              },
+                              "name": "len",
+                              "obj": null,
+                              "$type": 17,
+                              "$builtin": true,
+                              "$obj": {
+                                "name": "len",
+                                "kind": "builtin",
+                                "type": 13
+                              }
+                            },
+                            "lparen": {
+                              "file": "runes.go",
+                              "line": 17,
+                              "column": 17,
+                              "offset": 335
+                            },
+                            "args": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "runes.go",
+                                  "line": 17,
+                                  "column": 18,
+                                  "offset": 336
+                                },
+                                "name": "rs",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "rs",
+                                  "kind": "var"
+                                },
+                                "$type": 15,
+                                "$obj": {
+                                  "name": "rs",
+                                  "kind": "var",
+                                  "type": 15,
+                                  "decl": "runes.go:290",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "runes.go",
+                              "line": 17,
+                              "column": 20,
+                              "offset": 338
+                            },
+                            "$type": 5
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "runes.go",
+                                "line": 17,
+                                "column": 23,
+                                "offset": 341
+                              },
+                              "name": "string",
+                              "obj": null,
+                              "$type": 1,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "string",
+                                "kind": "type",
+                                "type": 1
+                              }
+                            },
+                            "lparen": {
+                              "file": "runes.go",
+                              "line": 17,
+                              "column": 29,
+                              "offset": 347
+                            },
+                            "args": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "runes.go",
+                                  "line": 17,
+                                  "column": 30,
+                                  "offset": 348
+                                },
+                                "name": "rs",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "rs",
+                                  "kind": "var"
+                                },
+                                "$type": 15,
+                                "$obj": {
+                                  "name": "rs",
+                                  "kind": "var",
+                                  "type": 15,
+                                  "decl": "runes.go:290",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "runes.go",
+                              "line": 17,
+                              "column": 32,
+                              "offset": 350
+                            },
+                            "$type": 1
+                          },
+                          {
+                            "node": "IndexExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "runes.go",
+                                "line": 17,
+                                "column": 35,
+                                "offset": 353
+                              },
+                              "name": "rs",
+                              "obj": {
+                                "node": "Object",
+                                "name": "rs",
+                                "kind": "var"
+                              },
+                              "$type": 15,
+                              "$obj": {
+                                "name": "rs",
+                                "kind": "var",
+                                "type": 15,
+                                "decl": "runes.go:290",
+                                "pkg": "main"
+                              }
+                            },
+                            "lbrack": {
+                              "file": "runes.go",
+                              "line": 17,
+                              "column": 37,
+                              "offset": 355
+                            },
+                            "index": {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "runes.go",
+                                "line": 17,
+                                "column": 38,
+                                "offset": 356
+                              },
+                              "kind": "INT",
+                              "value": "7",
+                              "$type": 5,
+                              "$value": {
+                                "kind": "int",
+                                "value": "7"
+                              }
+                            },
+                            "rbrack": {
+                              "file": "runes.go",
+                              "line": 17,
+                              "column": 39,
+                              "offset": 357
+                            },
+                            "$type": 16
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "runes.go",
+                          "line": 17,
+                          "column": 40,
+                          "offset": 358
+                        },
+                        "$type": 14
+                      }
+                    },
+                    {
+                      "node": "RangeStmt",
+                      "for": {
+                        "file": "runes.go",
+                        "line": 19,
+                        "column": 2,
+                        "offset": 362
+                      },
+                      "key": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "runes.go",
+                          "line": 19,
+                          "column": 6,
+                          "offset": 366
+                        },
+                        "name": "i",
+                        "obj": {
+                          "node": "Object",
+                          "name": "i",
+                          "kind": "var"
+                        },
+                        "$obj": {
+                          "name": "i",
+                          "kind": "var",
+                          "def": true,
+                          "type": 5,
+                          "decl": "runes.go:366",
+                          "pkg": "main"
+                        }
+                      },
+                      "value": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "runes.go",
+                          "line": 19,
+                          "column": 9,
+                          "offset": 369
+                        },
+                        "name": "r",
+                        "obj": {
+                          "node": "Object",
+                          "name": "r",
+                          "kind": "var"
+                        },
+                        "$obj": {
+                          "name": "r",
+                          "kind": "var",
+                          "def": true,
+                          "type": 16,
+                          "decl": "runes.go:369",
+                          "pkg": "main"
+                        }
+                      },
+                      "tokPos": {
+                        "file": "runes.go",
+                        "line": 19,
+                        "column": 11,
+                        "offset": 371
+                      },
+                      "tok": ":=",
+                      "range": {
+                        "file": "runes.go",
+                        "line": 19,
+                        "column": 14,
+                        "offset": 374
+                      },
+                      "x": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "runes.go",
+                          "line": 19,
+                          "column": 20,
+                          "offset": 380
+                        },
+                        "name": "s",
+                        "obj": {
+                          "node": "Object",
+                          "name": "s",
+                          "kind": "var"
+                        },
+                        "$type": 1,
+                        "$obj": {
+                          "name": "s",
+                          "kind": "var",
+                          "type": 1,
+                          "decl": "runes.go:198",
+                          "pkg": "main"
+                        }
+                      },
+                      "body": {
+                        "node": "BlockStmt",
+                        "lbrace": {
+                          "file": "runes.go",
+                          "line": 19,
+                          "column": 22,
+                          "offset": 382
+                        },
+                        "list": [
+                          {
+                            "node": "ExprStmt",
+                            "x": {
+                              "node": "CallExpr",
+                              "fun": {
+                                "node": "SelectorExpr",
+                                "x": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "runes.go",
+                                    "line": 20,
+                                    "column": 3,
+                                    "offset": 386
+                                  },
+                                  "name": "fmt",
+                                  "obj": null,
+                                  "$obj": {
+                                    "name": "fmt",
+                                    "kind": "package",
+                                    "pkg": "fmt"
+                                  }
+                                },
+                                "sel": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "runes.go",
+                                    "line": 20,
+                                    "column": 7,
+                                    "offset": 390
+                                  },
+                                  "name": "Print",
+                                  "obj": null,
+                                  "$obj": {
+                                    "name": "Print",
+                                    "kind": "func",
+                                    "type": 6,
+                                    "decl": "runes.go:270",
+                                    "pkg": "fmt",
+                                    "top": true
+                                  }
+                                },
+                                "$type": 6
+                              },
+                              "lparen": {
+                                "file": "runes.go",
+                                "line": 20,
+                                "column": 12,
+                                "offset": 395
+                              },
+                              "args": [
+                                {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "runes.go",
+                                    "line": 20,
+                                    "column": 13,
+                                    "offset": 396
+                                  },
+                                  "name": "i",
+                                  "obj": {
+                                    "node": "Object",
+                                    "name": "i",
+                                    "kind": "var"
+                                  },
+                                  "$type": 5,
+                                  "$obj": {
+                                    "name": "i",
+                                    "kind": "var",
+                                    "type": 5,
+                                    "decl": "runes.go:366",
+                                    "pkg": "main"
+                                  }
+                                },
+                                {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "runes.go",
+                                    "line": 20,
+                                    "column": 16,
+                                    "offset": 399
+                                  },
+                                  "kind": "STRING",
+                                  "value": "\":\"",
+                                  "$type": 1,
+                                  "$value": {
+                                    "kind": "string",
+                                    "value": ":"
+                                  }
+                                },
+                                {
+                                  "node": "CallExpr",
+                                  "fun": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "runes.go",
+                                      "line": 20,
+                                      "column": 21,
+                                      "offset": 404
+                                    },
+                                    "name": "string",
+                                    "obj": null,
+                                    "$type": 1,
+                                    "$isType": true,
+                                    "$obj": {
+                                      "name": "string",
+                                      "kind": "type",
+                                      "type": 1
+                                    }
+                                  },
+                                  "lparen": {
+                                    "file": "runes.go",
+                                    "line": 20,
+                                    "column": 27,
+                                    "offset": 410
+                                  },
+                                  "args": [
+                                    {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "runes.go",
+                                        "line": 20,
+                                        "column": 28,
+                                        "offset": 411
+                                      },
+                                      "name": "r",
+                                      "obj": {
+                                        "node": "Object",
+                                        "name": "r",
+                                        "kind": "var"
+                                      },
+                                      "$type": 16,
+                                      "$obj": {
+                                        "name": "r",
+                                        "kind": "var",
+                                        "type": 16,
+                                        "decl": "runes.go:369",
+                                        "pkg": "main"
+                                      }
+                                    }
+                                  ],
+                                  "ellipsis": null,
+                                  "rparen": {
+                                    "file": "runes.go",
+                                    "line": 20,
+                                    "column": 29,
+                                    "offset": 412
+                                  },
+                                  "$type": 1
+                                },
+                                {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "runes.go",
+                                    "line": 20,
+                                    "column": 32,
+                                    "offset": 415
+                                  },
+                                  "kind": "STRING",
+                                  "value": "\" \"",
+                                  "$type": 1,
+                                  "$value": {
+                                    "kind": "string",
+                                    "value": " "
+                                  }
+                                }
+                              ],
+                              "ellipsis": null,
+                              "rparen": {
+                                "file": "runes.go",
+                                "line": 20,
+                                "column": 35,
+                                "offset": 418
+                              },
+                              "$type": 14
+                            }
+                          }
+                        ],
+                        "rbrace": {
+                          "file": "runes.go",
+                          "line": 21,
+                          "column": 2,
+                          "offset": 421
+                        }
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "runes.go",
+                              "line": 22,
+                              "column": 2,
+                              "offset": 424
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "runes.go",
+                              "line": 22,
+                              "column": 6,
+                              "offset": 428
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 6,
+                              "decl": "runes.go:312",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 6
+                        },
+                        "lparen": {
+                          "file": "runes.go",
+                          "line": 22,
+                          "column": 13,
+                          "offset": 435
+                        },
+                        "args": null,
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "runes.go",
+                          "line": 22,
+                          "column": 14,
+                          "offset": 436
+                        },
+                        "$type": 14
+                      }
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "runes.go",
+                            "line": 24,
+                            "column": 2,
+                            "offset": 440
+                          },
+                          "name": "bad",
+                          "obj": {
+                            "node": "Object",
+                            "name": "bad",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "bad",
+                            "kind": "var",
+                            "def": true,
+                            "type": 1,
+                            "decl": "runes.go:440",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "runes.go",
+                        "line": 24,
+                        "column": 6,
+                        "offset": 444
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "CallExpr",
+                          "fun": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "runes.go",
+                              "line": 24,
+                              "column": 9,
+                              "offset": 447
+                            },
+                            "name": "string",
+                            "obj": null,
+                            "$type": 1,
+                            "$isType": true,
+                            "$obj": {
+                              "name": "string",
+                              "kind": "type",
+                              "type": 1
+                            }
+                          },
+                          "lparen": {
+                            "file": "runes.go",
+                            "line": 24,
+                            "column": 15,
+                            "offset": 453
+                          },
+                          "args": [
+                            {
+                              "node": "CompositeLit",
+                              "type": {
+                                "node": "ArrayType",
+                                "lbrack": {
+                                  "file": "runes.go",
+                                  "line": 24,
+                                  "column": 16,
+                                  "offset": 454
+                                },
+                                "len": null,
+                                "elt": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "runes.go",
+                                    "line": 24,
+                                    "column": 18,
+                                    "offset": 456
+                                  },
+                                  "name": "byte",
+                                  "obj": null,
+                                  "$type": 4,
+                                  "$isType": true,
+                                  "$obj": {
+                                    "name": "byte",
+                                    "kind": "type",
+                                    "type": 4
+                                  }
+                                },
+                                "$type": 3,
+                                "$isType": true
+                              },
+                              "lbrace": {
+                                "file": "runes.go",
+                                "line": 24,
+                                "column": 22,
+                                "offset": 460
+                              },
+                              "elts": [
+                                {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "runes.go",
+                                    "line": 24,
+                                    "column": 23,
+                                    "offset": 461
+                                  },
+                                  "kind": "INT",
+                                  "value": "0x61",
+                                  "$type": 4,
+                                  "$value": {
+                                    "kind": "int",
+                                    "value": "97"
+                                  }
+                                },
+                                {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "runes.go",
+                                    "line": 24,
+                                    "column": 29,
+                                    "offset": 467
+                                  },
+                                  "kind": "INT",
+                                  "value": "0xff",
+                                  "$type": 4,
+                                  "$value": {
+                                    "kind": "int",
+                                    "value": "255"
+                                  }
+                                },
+                                {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "runes.go",
+                                    "line": 24,
+                                    "column": 35,
+                                    "offset": 473
+                                  },
+                                  "kind": "INT",
+                                  "value": "0xe4",
+                                  "$type": 4,
+                                  "$value": {
+                                    "kind": "int",
+                                    "value": "228"
+                                  }
+                                },
+                                {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "runes.go",
+                                    "line": 24,
+                                    "column": 41,
+                                    "offset": 479
+                                  },
+                                  "kind": "INT",
+                                  "value": "0xb8",
+                                  "$type": 4,
+                                  "$value": {
+                                    "kind": "int",
+                                    "value": "184"
+                                  }
+                                },
+                                {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "runes.go",
+                                    "line": 24,
+                                    "column": 47,
+                                    "offset": 485
+                                  },
+                                  "kind": "INT",
+                                  "value": "0x62",
+                                  "$type": 4,
+                                  "$value": {
+                                    "kind": "int",
+                                    "value": "98"
+                                  }
+                                },
+                                {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "runes.go",
+                                    "line": 24,
+                                    "column": 53,
+                                    "offset": 491
+                                  },
+                                  "kind": "INT",
+                                  "value": "0xed",
+                                  "$type": 4,
+                                  "$value": {
+                                    "kind": "int",
+                                    "value": "237"
+                                  }
+                                },
+                                {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "runes.go",
+                                    "line": 24,
+                                    "column": 59,
+                                    "offset": 497
+                                  },
+                                  "kind": "INT",
+                                  "value": "0xa0",
+                                  "$type": 4,
+                                  "$value": {
+                                    "kind": "int",
+                                    "value": "160"
+                                  }
+                                },
+                                {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "runes.go",
+                                    "line": 24,
+                                    "column": 65,
+                                    "offset": 503
+                                  },
+                                  "kind": "INT",
+                                  "value": "0x80",
+                                  "$type": 4,
+                                  "$value": {
+                                    "kind": "int",
+                                    "value": "128"
+                                  }
+                                },
+                                {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "runes.go",
+                                    "line": 24,
+                                    "column": 71,
+                                    "offset": 509
+                                  },
+                                  "kind": "INT",
+                                  "value": "0xf0",
+                                  "$type": 4,
+                                  "$value": {
+                                    "kind": "int",
+                                    "value": "240"
+                                  }
+                                },
+                                {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "runes.go",
+                                    "line": 24,
+                                    "column": 77,
+                                    "offset": 515
+                                  },
+                                  "kind": "INT",
+                                  "value": "0x9f",
+                                  "$type": 4,
+                                  "$value": {
+                                    "kind": "int",
+                                    "value": "159"
+                                  }
+                                },
+                                {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "runes.go",
+                                    "line": 24,
+                                    "column": 83,
+                                    "offset": 521
+                                  },
+                                  "kind": "INT",
+                                  "value": "0x8c",
+                                  "$type": 4,
+                                  "$value": {
+                                    "kind": "int",
+                                    "value": "140"
+                                  }
+                                }
+                              ],
+                              "rbrace": {
+                                "file": "runes.go",
+                                "line": 24,
+                                "column": 87,
+                                "offset": 525
+                              },
+                              "incomplete": false,
+                              "$type": 3
+                            }
+                          ],
+                          "ellipsis": null,
+                          "rparen": {
+                            "file": "runes.go",
+                            "line": 24,
+                            "column": 88,
+                            "offset": 526
+                          },
+                          "$type": 1
+                        }
+                      ]
+                    },
+                    {
+                      "node": "RangeStmt",
+                      "for": {
+                        "file": "runes.go",
+                        "line": 25,
+                        "column": 2,
+                        "offset": 529
+                      },
+                      "key": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "runes.go",
+                          "line": 25,
+                          "column": 6,
+                          "offset": 533
+                        },
+                        "name": "i",
+                        "obj": {
+                          "node": "Object",
+                          "name": "i",
+                          "kind": "var"
+                        },
+                        "$obj": {
+                          "name": "i",
+                          "kind": "var",
+                          "def": true,
+                          "type": 5,
+                          "decl": "runes.go:533",
+                          "pkg": "main"
+                        }
+                      },
+                      "value": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "runes.go",
+                          "line": 25,
+                          "column": 9,
+                          "offset": 536
+                        },
+                        "name": "r",
+                        "obj": {
+                          "node": "Object",
+                          "name": "r",
+                          "kind": "var"
+                        },
+                        "$obj": {
+                          "name": "r",
+                          "kind": "var",
+                          "def": true,
+                          "type": 16,
+                          "decl": "runes.go:536",
+                          "pkg": "main"
+                        }
+                      },
+                      "tokPos": {
+                        "file": "runes.go",
+                        "line": 25,
+                        "column": 11,
+                        "offset": 538
+                      },
+                      "tok": ":=",
+                      "range": {
+                        "file": "runes.go",
+                        "line": 25,
+                        "column": 14,
+                        "offset": 541
+                      },
+                      "x": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "runes.go",
+                          "line": 25,
+                          "column": 20,
+                          "offset": 547
+                        },
+                        "name": "bad",
+                        "obj": {
+                          "node": "Object",
+                          "name": "bad",
+                          "kind": "var"
+                        },
+                        "$type": 1,
+                        "$obj": {
+                          "name": "bad",
+                          "kind": "var",
+                          "type": 1,
+                          "decl": "runes.go:440",
+                          "pkg": "main"
+                        }
+                      },
+                      "body": {
+                        "node": "BlockStmt",
+                        "lbrace": {
+                          "file": "runes.go",
+                          "line": 25,
+                          "column": 24,
+                          "offset": 551
+                        },
+                        "list": [
+                          {
+                            "node": "ExprStmt",
+                            "x": {
+                              "node": "CallExpr",
+                              "fun": {
+                                "node": "SelectorExpr",
+                                "x": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "runes.go",
+                                    "line": 26,
+                                    "column": 3,
+                                    "offset": 555
+                                  },
+                                  "name": "fmt",
+                                  "obj": null,
+                                  "$obj": {
+                                    "name": "fmt",
+                                    "kind": "package",
+                                    "pkg": "fmt"
+                                  }
+                                },
+                                "sel": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "runes.go",
+                                    "line": 26,
+                                    "column": 7,
+                                    "offset": 559
+                                  },
+                                  "name": "Print",
+                                  "obj": null,
+                                  "$obj": {
+                                    "name": "Print",
+                                    "kind": "func",
+                                    "type": 6,
+                                    "decl": "runes.go:270",
+                                    "pkg": "fmt",
+                                    "top": true
+                                  }
+                                },
+                                "$type": 6
+                              },
+                              "lparen": {
+                                "file": "runes.go",
+                                "line": 26,
+                                "column": 12,
+                                "offset": 564
+                              },
+                              "args": [
+                                {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "runes.go",
+                                    "line": 26,
+                                    "column": 13,
+                                    "offset": 565
+                                  },
+                                  "name": "i",
+                                  "obj": {
+                                    "node": "Object",
+                                    "name": "i",
+                                    "kind": "var"
+                                  },
+                                  "$type": 5,
+                                  "$obj": {
+                                    "name": "i",
+                                    "kind": "var",
+                                    "type": 5,
+                                    "decl": "runes.go:533",
+                                    "pkg": "main"
+                                  }
+                                },
+                                {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "runes.go",
+                                    "line": 26,
+                                    "column": 16,
+                                    "offset": 568
+                                  },
+                                  "kind": "STRING",
+                                  "value": "\"=\"",
+                                  "$type": 1,
+                                  "$value": {
+                                    "kind": "string",
+                                    "value": "="
+                                  }
+                                },
+                                {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "runes.go",
+                                    "line": 26,
+                                    "column": 21,
+                                    "offset": 573
+                                  },
+                                  "name": "r",
+                                  "obj": {
+                                    "node": "Object",
+                                    "name": "r",
+                                    "kind": "var"
+                                  },
+                                  "$type": 16,
+                                  "$obj": {
+                                    "name": "r",
+                                    "kind": "var",
+                                    "type": 16,
+                                    "decl": "runes.go:536",
+                                    "pkg": "main"
+                                  }
+                                },
+                                {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "runes.go",
+                                    "line": 26,
+                                    "column": 24,
+                                    "offset": 576
+                                  },
+                                  "kind": "STRING",
+                                  "value": "\" \"",
+                                  "$type": 1,
+                                  "$value": {
+                                    "kind": "string",
+                                    "value": " "
+                                  }
+                                }
+                              ],
+                              "ellipsis": null,
+                              "rparen": {
+                                "file": "runes.go",
+                                "line": 26,
+                                "column": 27,
+                                "offset": 579
+                              },
+                              "$type": 14
+                            }
+                          }
+                        ],
+                        "rbrace": {
+                          "file": "runes.go",
+                          "line": 27,
+                          "column": 2,
+                          "offset": 582
+                        }
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "runes.go",
+                              "line": 28,
+                              "column": 2,
+                              "offset": 585
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "runes.go",
+                              "line": 28,
+                              "column": 6,
+                              "offset": 589
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 6,
+                              "decl": "runes.go:312",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 6
+                        },
+                        "lparen": {
+                          "file": "runes.go",
+                          "line": 28,
+                          "column": 13,
+                          "offset": 596
+                        },
+                        "args": [
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "runes.go",
+                                "line": 28,
+                                "column": 14,
+                                "offset": 597
+                              },
+                              "name": "len",
+                              "obj": null,
+                              "$type": 17,
+                              "$builtin": true,
+                              "$obj": {
+                                "name": "len",
+                                "kind": "builtin",
+                                "type": 13
+                              }
+                            },
+                            "lparen": {
+                              "file": "runes.go",
+                              "line": 28,
+                              "column": 17,
+                              "offset": 600
+                            },
+                            "args": [
+                              {
+                                "node": "CallExpr",
+                                "fun": {
+                                  "node": "ArrayType",
+                                  "lbrack": {
+                                    "file": "runes.go",
+                                    "line": 28,
+                                    "column": 18,
+                                    "offset": 601
+                                  },
+                                  "len": null,
+                                  "elt": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "runes.go",
+                                      "line": 28,
+                                      "column": 20,
+                                      "offset": 603
+                                    },
+                                    "name": "rune",
+                                    "obj": null,
+                                    "$type": 16,
+                                    "$isType": true,
+                                    "$obj": {
+                                      "name": "rune",
+                                      "kind": "type",
+                                      "type": 16
+                                    }
+                                  },
+                                  "$type": 15,
+                                  "$isType": true
+                                },
+                                "lparen": {
+                                  "file": "runes.go",
+                                  "line": 28,
+                                  "column": 24,
+                                  "offset": 607
+                                },
+                                "args": [
+                                  {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "runes.go",
+                                      "line": 28,
+                                      "column": 25,
+                                      "offset": 608
+                                    },
+                                    "name": "bad",
+                                    "obj": {
+                                      "node": "Object",
+                                      "name": "bad",
+                                      "kind": "var"
+                                    },
+                                    "$type": 1,
+                                    "$obj": {
+                                      "name": "bad",
+                                      "kind": "var",
+                                      "type": 1,
+                                      "decl": "runes.go:440",
+                                      "pkg": "main"
+                                    }
+                                  }
+                                ],
+                                "ellipsis": null,
+                                "rparen": {
+                                  "file": "runes.go",
+                                  "line": 28,
+                                  "column": 28,
+                                  "offset": 611
+                                },
+                                "$type": 15
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "runes.go",
+                              "line": 28,
+                              "column": 29,
+                              "offset": 612
+                            },
+                            "$type": 5
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "runes.go",
+                          "line": 28,
+                          "column": 30,
+                          "offset": 613
+                        },
+                        "$type": 14
+                      }
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "runes.go",
+                            "line": 30,
+                            "column": 2,
+                            "offset": 617
+                          },
+                          "name": "n",
+                          "obj": {
+                            "node": "Object",
+                            "name": "n",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "n",
+                            "kind": "var",
+                            "def": true,
+                            "type": 5,
+                            "decl": "runes.go:617",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "runes.go",
+                        "line": 30,
+                        "column": 4,
+                        "offset": 619
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "BasicLit",
+                          "valuePos": {
+                            "file": "runes.go",
+                            "line": 30,
+                            "column": 7,
+                            "offset": 622
+                          },
+                          "kind": "INT",
+                          "value": "0",
+                          "$type": 5,
+                          "$value": {
+                            "kind": "int",
+                            "value": "0"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "node": "RangeStmt",
+                      "for": {
+                        "file": "runes.go",
+                        "line": 31,
+                        "column": 2,
+                        "offset": 625
+                      },
+                      "key": null,
+                      "value": null,
+                      "tokPos": null,
+                      "tok": "ILLEGAL",
+                      "range": {
+                        "file": "runes.go",
+                        "line": 31,
+                        "column": 6,
+                        "offset": 629
+                      },
+                      "x": {
+                        "node": "BasicLit",
+                        "valuePos": {
+                          "file": "runes.go",
+                          "line": 31,
+                          "column": 12,
+                          "offset": 635
+                        },
+                        "kind": "STRING",
+                        "value": "\"abc\"",
+                        "$type": 18,
+                        "$value": {
+                          "kind": "string",
+                          "value": "abc"
+                        }
+                      },
+                      "body": {
+                        "node": "BlockStmt",
+                        "lbrace": {
+                          "file": "runes.go",
+                          "line": 31,
+                          "column": 18,
+                          "offset": 641
+                        },
+                        "list": [
+                          {
+                            "node": "IncDecStmt",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "runes.go",
+                                "line": 32,
+                                "column": 3,
+                                "offset": 645
+                              },
+                              "name": "n",
+                              "obj": {
+                                "node": "Object",
+                                "name": "n",
+                                "kind": "var"
+                              },
+                              "$type": 5,
+                              "$obj": {
+                                "name": "n",
+                                "kind": "var",
+                                "type": 5,
+                                "decl": "runes.go:617",
+                                "pkg": "main"
+                              }
+                            },
+                            "tokPos": {
+                              "file": "runes.go",
+                              "line": 32,
+                              "column": 4,
+                              "offset": 646
+                            },
+                            "tok": "++"
+                          }
+                        ],
+                        "rbrace": {
+                          "file": "runes.go",
+                          "line": 33,
+                          "column": 2,
+                          "offset": 650
+                        }
+                      }
+                    },
+                    {
+                      "node": "RangeStmt",
+                      "for": {
+                        "file": "runes.go",
+                        "line": 34,
+                        "column": 2,
+                        "offset": 653
+                      },
+                      "key": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "runes.go",
+                          "line": 34,
+                          "column": 6,
+                          "offset": 657
+                        },
+                        "name": "i",
+                        "obj": {
+                          "node": "Object",
+                          "name": "i",
+                          "kind": "var"
+                        },
+                        "$obj": {
+                          "name": "i",
+                          "kind": "var",
+                          "def": true,
+                          "type": 5,
+                          "decl": "runes.go:657",
+                          "pkg": "main"
+                        }
+                      },
+                      "value": null,
+                      "tokPos": {
+                        "file": "runes.go",
+                        "line": 34,
+                        "column": 8,
+                        "offset": 659
+                      },
+                      "tok": ":=",
+                      "range": {
+                        "file": "runes.go",
+                        "line": 34,
+                        "column": 11,
+                        "offset": 662
+                      },
+                      "x": {
+                        "node": "BasicLit",
+                        "valuePos": {
+                          "file": "runes.go",
+                          "line": 34,
+                          "column": 17,
+                          "offset": 668
+                        },
+                        "kind": "STRING",
+                        "value": "\"ab\"",
+                        "$type": 18,
+                        "$value": {
+                          "kind": "string",
+                          "value": "ab"
+                        }
+                      },
+                      "body": {
+                        "node": "BlockStmt",
+                        "lbrace": {
+                          "file": "runes.go",
+                          "line": 34,
+                          "column": 22,
+                          "offset": 673
+                        },
+                        "list": [
+                          {
+                            "node": "AssignStmt",
+                            "lhs": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "runes.go",
+                                  "line": 35,
+                                  "column": 3,
+                                  "offset": 677
+                                },
+                                "name": "n",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "n",
+                                  "kind": "var"
+                                },
+                                "$type": 5,
+                                "$obj": {
+                                  "name": "n",
+                                  "kind": "var",
+                                  "type": 5,
+                                  "decl": "runes.go:617",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "tokPos": {
+                              "file": "runes.go",
+                              "line": 35,
+                              "column": 5,
+                              "offset": 679
+                            },
+                            "tok": "+=",
+                            "rhs": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "runes.go",
+                                  "line": 35,
+                                  "column": 8,
+                                  "offset": 682
+                                },
+                                "name": "i",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "i",
+                                  "kind": "var"
+                                },
+                                "$type": 5,
+                                "$obj": {
+                                  "name": "i",
+                                  "kind": "var",
+                                  "type": 5,
+                                  "decl": "runes.go:657",
+                                  "pkg": "main"
+                                }
+                              }
+                            ]
+                          }
+                        ],
+                        "rbrace": {
+                          "file": "runes.go",
+                          "line": 36,
+                          "column": 2,
+                          "offset": 685
+                        }
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "runes.go",
+                              "line": 37,
+                              "column": 2,
+                              "offset": 688
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "runes.go",
+                              "line": 37,
+                              "column": 6,
+                              "offset": 692
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 6,
+                              "decl": "runes.go:312",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 6
+                        },
+                        "lparen": {
+                          "file": "runes.go",
+                          "line": 37,
+                          "column": 13,
+                          "offset": 699
+                        },
+                        "args": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "runes.go",
+                              "line": 37,
+                              "column": 14,
+                              "offset": 700
+                            },
+                            "name": "n",
+                            "obj": {
+                              "node": "Object",
+                              "name": "n",
+                              "kind": "var"
+                            },
+                            "$type": 5,
+                            "$obj": {
+                              "name": "n",
+                              "kind": "var",
+                              "type": 5,
+                              "decl": "runes.go:617",
+                              "pkg": "main"
+                            }
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "runes.go",
+                          "line": 37,
+                          "column": 15,
+                          "offset": 701
+                        },
+                        "$type": 14
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "runes.go",
+                              "line": 39,
+                              "column": 2,
+                              "offset": 705
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "runes.go",
+                              "line": 39,
+                              "column": 6,
+                              "offset": 709
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 6,
+                              "decl": "runes.go:312",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 6
+                        },
+                        "lparen": {
+                          "file": "runes.go",
+                          "line": 39,
+                          "column": 13,
+                          "offset": 716
+                        },
+                        "args": [
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "runes.go",
+                                "line": 39,
+                                "column": 14,
+                                "offset": 717
+                              },
+                              "name": "string",
+                              "obj": null,
+                              "$type": 1,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "string",
+                                "kind": "type",
+                                "type": 1
+                              }
+                            },
+                            "lparen": {
+                              "file": "runes.go",
+                              "line": 39,
+                              "column": 20,
+                              "offset": 723
+                            },
+                            "args": [
+                              {
+                                "node": "CompositeLit",
+                                "type": {
+                                  "node": "ArrayType",
+                                  "lbrack": {
+                                    "file": "runes.go",
+                                    "line": 39,
+                                    "column": 21,
+                                    "offset": 724
+                                  },
+                                  "len": null,
+                                  "elt": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "runes.go",
+                                      "line": 39,
+                                      "column": 23,
+                                      "offset": 726
+                                    },
+                                    "name": "rune",
+                                    "obj": null,
+                                    "$type": 16,
+                                    "$isType": true,
+                                    "$obj": {
+                                      "name": "rune",
+                                      "kind": "type",
+                                      "type": 16
+                                    }
+                                  },
+                                  "$type": 15,
+                                  "$isType": true
+                                },
+                                "lbrace": {
+                                  "file": "runes.go",
+                                  "line": 39,
+                                  "column": 27,
+                                  "offset": 730
+                                },
+                                "elts": [
+                                  {
+                                    "node": "BasicLit",
+                                    "valuePos": {
+                                      "file": "runes.go",
+                                      "line": 39,
+                                      "column": 28,
+                                      "offset": 731
+                                    },
+                                    "kind": "INT",
+                                    "value": "72",
+                                    "$type": 16,
+                                    "$value": {
+                                      "kind": "int",
+                                      "value": "72"
+                                    }
+                                  },
+                                  {
+                                    "node": "UnaryExpr",
+                                    "opPos": {
+                                      "file": "runes.go",
+                                      "line": 39,
+                                      "column": 32,
+                                      "offset": 735
+                                    },
+                                    "op": "-",
+                                    "x": {
+                                      "node": "BasicLit",
+                                      "valuePos": {
+                                        "file": "runes.go",
+                                        "line": 39,
+                                        "column": 33,
+                                        "offset": 736
+                                      },
+                                      "kind": "INT",
+                                      "value": "1",
+                                      "$type": 19,
+                                      "$value": {
+                                        "kind": "int",
+                                        "value": "1"
+                                      }
+                                    },
+                                    "$type": 16,
+                                    "$value": {
+                                      "kind": "int",
+                                      "value": "-1"
+                                    }
+                                  },
+                                  {
+                                    "node": "BasicLit",
+                                    "valuePos": {
+                                      "file": "runes.go",
+                                      "line": 39,
+                                      "column": 36,
+                                      "offset": 739
+                                    },
+                                    "kind": "INT",
+                                    "value": "0xD800",
+                                    "$type": 16,
+                                    "$value": {
+                                      "kind": "int",
+                                      "value": "55296"
+                                    }
+                                  },
+                                  {
+                                    "node": "BinaryExpr",
+                                    "x": {
+                                      "node": "BasicLit",
+                                      "valuePos": {
+                                        "file": "runes.go",
+                                        "line": 39,
+                                        "column": 44,
+                                        "offset": 747
+                                      },
+                                      "kind": "INT",
+                                      "value": "0x10FFFF",
+                                      "$type": 19,
+                                      "$value": {
+                                        "kind": "int",
+                                        "value": "1114111"
+                                      }
+                                    },
+                                    "opPos": {
+                                      "file": "runes.go",
+                                      "line": 39,
+                                      "column": 53,
+                                      "offset": 756
+                                    },
+                                    "op": "+",
+                                    "y": {
+                                      "node": "BasicLit",
+                                      "valuePos": {
+                                        "file": "runes.go",
+                                        "line": 39,
+                                        "column": 55,
+                                        "offset": 758
+                                      },
+                                      "kind": "INT",
+                                      "value": "1",
+                                      "$type": 19,
+                                      "$value": {
+                                        "kind": "int",
+                                        "value": "1"
+                                      }
+                                    },
+                                    "$type": 16,
+                                    "$value": {
+                                      "kind": "int",
+                                      "value": "1114112"
+                                    }
+                                  },
+                                  {
+                                    "node": "BasicLit",
+                                    "valuePos": {
+                                      "file": "runes.go",
+                                      "line": 39,
+                                      "column": 58,
+                                      "offset": 761
+                                    },
+                                    "kind": "INT",
+                                    "value": "0x4E16",
+                                    "$type": 16,
+                                    "$value": {
+                                      "kind": "int",
+                                      "value": "19990"
+                                    }
+                                  }
+                                ],
+                                "rbrace": {
+                                  "file": "runes.go",
+                                  "line": 39,
+                                  "column": 64,
+                                  "offset": 767
+                                },
+                                "incomplete": false,
+                                "$type": 15
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "runes.go",
+                              "line": 39,
+                              "column": 65,
+                              "offset": 768
+                            },
+                            "$type": 1
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "runes.go",
+                          "line": 39,
+                          "column": 66,
+                          "offset": 769
+                        },
+                        "$type": 14
+                      }
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "runes.go",
+                            "line": 40,
+                            "column": 2,
+                            "offset": 772
+                          },
+                          "name": "name",
+                          "obj": {
+                            "node": "Object",
+                            "name": "name",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "name",
+                            "kind": "var",
+                            "def": true,
+                            "type": 0,
+                            "decl": "runes.go:772",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "runes.go",
+                        "line": 40,
+                        "column": 7,
+                        "offset": 777
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "CallExpr",
+                          "fun": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "runes.go",
+                              "line": 40,
+                              "column": 10,
+                              "offset": 780
+                            },
+                            "name": "Name",
+                            "obj": {
+                              "node": "Object",
+                              "name": "Name",
+                              "kind": "type"
+                            },
+                            "$type": 0,
+                            "$isType": true,
+                            "$obj": {
+                              "name": "Name",
+                              "kind": "type",
+                              "type": 0,
+                              "decl": "runes.go:170",
+                              "pkg": "main",
+                              "top": true
+                            }
+                          },
+                          "lparen": {
+                            "file": "runes.go",
+                            "line": 40,
+                            "column": 14,
+                            "offset": 784
+                          },
+                          "args": [
+                            {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "runes.go",
+                                "line": 40,
+                                "column": 15,
+                                "offset": 785
+                              },
+                              "kind": "STRING",
+                              "value": "\"ñame\"",
+                              "$type": 0,
+                              "$value": {
+                                "kind": "string",
+                                "value": "ñame"
+                              }
+                            }
+                          ],
+                          "ellipsis": null,
+                          "rparen": {
+                            "file": "runes.go",
+                            "line": 40,
+                            "column": 22,
+                            "offset": 792
+                          },
+                          "$type": 0,
+                          "$value": {
+                            "kind": "string",
+                            "value": "ñame"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "runes.go",
+                              "line": 41,
+                              "column": 2,
+                              "offset": 795
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "runes.go",
+                              "line": 41,
+                              "column": 6,
+                              "offset": 799
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 6,
+                              "decl": "runes.go:312",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 6
+                        },
+                        "lparen": {
+                          "file": "runes.go",
+                          "line": 41,
+                          "column": 13,
+                          "offset": 806
+                        },
+                        "args": [
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "runes.go",
+                                "line": 41,
+                                "column": 14,
+                                "offset": 807
+                              },
+                              "name": "len",
+                              "obj": null,
+                              "$type": 17,
+                              "$builtin": true,
+                              "$obj": {
+                                "name": "len",
+                                "kind": "builtin",
+                                "type": 13
+                              }
+                            },
+                            "lparen": {
+                              "file": "runes.go",
+                              "line": 41,
+                              "column": 17,
+                              "offset": 810
+                            },
+                            "args": [
+                              {
+                                "node": "CallExpr",
+                                "fun": {
+                                  "node": "ArrayType",
+                                  "lbrack": {
+                                    "file": "runes.go",
+                                    "line": 41,
+                                    "column": 18,
+                                    "offset": 811
+                                  },
+                                  "len": null,
+                                  "elt": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "runes.go",
+                                      "line": 41,
+                                      "column": 20,
+                                      "offset": 813
+                                    },
+                                    "name": "rune",
+                                    "obj": null,
+                                    "$type": 16,
+                                    "$isType": true,
+                                    "$obj": {
+                                      "name": "rune",
+                                      "kind": "type",
+                                      "type": 16
+                                    }
+                                  },
+                                  "$type": 15,
+                                  "$isType": true
+                                },
+                                "lparen": {
+                                  "file": "runes.go",
+                                  "line": 41,
+                                  "column": 24,
+                                  "offset": 817
+                                },
+                                "args": [
+                                  {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "runes.go",
+                                      "line": 41,
+                                      "column": 25,
+                                      "offset": 818
+                                    },
+                                    "name": "name",
+                                    "obj": {
+                                      "node": "Object",
+                                      "name": "name",
+                                      "kind": "var"
+                                    },
+                                    "$type": 0,
+                                    "$obj": {
+                                      "name": "name",
+                                      "kind": "var",
+                                      "type": 0,
+                                      "decl": "runes.go:772",
+                                      "pkg": "main"
+                                    }
+                                  }
+                                ],
+                                "ellipsis": null,
+                                "rparen": {
+                                  "file": "runes.go",
+                                  "line": 41,
+                                  "column": 29,
+                                  "offset": 822
+                                },
+                                "$type": 15
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "runes.go",
+                              "line": 41,
+                              "column": 30,
+                              "offset": 823
+                            },
+                            "$type": 5
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "runes.go",
+                                "line": 41,
+                                "column": 33,
+                                "offset": 826
+                              },
+                              "name": "string",
+                              "obj": null,
+                              "$type": 1,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "string",
+                                "kind": "type",
+                                "type": 1
+                              }
+                            },
+                            "lparen": {
+                              "file": "runes.go",
+                              "line": 41,
+                              "column": 39,
+                              "offset": 832
+                            },
+                            "args": [
+                              {
+                                "node": "CallExpr",
+                                "fun": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "runes.go",
+                                    "line": 41,
+                                    "column": 40,
+                                    "offset": 833
+                                  },
+                                  "name": "Name",
+                                  "obj": {
+                                    "node": "Object",
+                                    "name": "Name",
+                                    "kind": "type"
+                                  },
+                                  "$type": 0,
+                                  "$isType": true,
+                                  "$obj": {
+                                    "name": "Name",
+                                    "kind": "type",
+                                    "type": 0,
+                                    "decl": "runes.go:170",
+                                    "pkg": "main",
+                                    "top": true
+                                  }
+                                },
+                                "lparen": {
+                                  "file": "runes.go",
+                                  "line": 41,
+                                  "column": 44,
+                                  "offset": 837
+                                },
+                                "args": [
+                                  {
+                                    "node": "CallExpr",
+                                    "fun": {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "runes.go",
+                                        "line": 41,
+                                        "column": 45,
+                                        "offset": 838
+                                      },
+                                      "name": "string",
+                                      "obj": null,
+                                      "$type": 1,
+                                      "$isType": true,
+                                      "$obj": {
+                                        "name": "string",
+                                        "kind": "type",
+                                        "type": 1
+                                      }
+                                    },
+                                    "lparen": {
+                                      "file": "runes.go",
+                                      "line": 41,
+                                      "column": 51,
+                                      "offset": 844
+                                    },
+                                    "args": [
+                                      {
+                                        "node": "CallExpr",
+                                        "fun": {
+                                          "node": "ArrayType",
+                                          "lbrack": {
+                                            "file": "runes.go",
+                                            "line": 41,
+                                            "column": 52,
+                                            "offset": 845
+                                          },
+                                          "len": null,
+                                          "elt": {
+                                            "node": "Ident",
+                                            "namePos": {
+                                              "file": "runes.go",
+                                              "line": 41,
+                                              "column": 54,
+                                              "offset": 847
+                                            },
+                                            "name": "byte",
+                                            "obj": null,
+                                            "$type": 4,
+                                            "$isType": true,
+                                            "$obj": {
+                                              "name": "byte",
+                                              "kind": "type",
+                                              "type": 4
+                                            }
+                                          },
+                                          "$type": 3,
+                                          "$isType": true
+                                        },
+                                        "lparen": {
+                                          "file": "runes.go",
+                                          "line": 41,
+                                          "column": 58,
+                                          "offset": 851
+                                        },
+                                        "args": [
+                                          {
+                                            "node": "Ident",
+                                            "namePos": {
+                                              "file": "runes.go",
+                                              "line": 41,
+                                              "column": 59,
+                                              "offset": 852
+                                            },
+                                            "name": "name",
+                                            "obj": {
+                                              "node": "Object",
+                                              "name": "name",
+                                              "kind": "var"
+                                            },
+                                            "$type": 0,
+                                            "$obj": {
+                                              "name": "name",
+                                              "kind": "var",
+                                              "type": 0,
+                                              "decl": "runes.go:772",
+                                              "pkg": "main"
+                                            }
+                                          }
+                                        ],
+                                        "ellipsis": null,
+                                        "rparen": {
+                                          "file": "runes.go",
+                                          "line": 41,
+                                          "column": 63,
+                                          "offset": 856
+                                        },
+                                        "$type": 3
+                                      }
+                                    ],
+                                    "ellipsis": null,
+                                    "rparen": {
+                                      "file": "runes.go",
+                                      "line": 41,
+                                      "column": 64,
+                                      "offset": 857
+                                    },
+                                    "$type": 1
+                                  }
+                                ],
+                                "ellipsis": null,
+                                "rparen": {
+                                  "file": "runes.go",
+                                  "line": 41,
+                                  "column": 65,
+                                  "offset": 858
+                                },
+                                "$type": 0
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "runes.go",
+                              "line": 41,
+                              "column": 66,
+                              "offset": 859
+                            },
+                            "$type": 1
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "runes.go",
+                          "line": 41,
+                          "column": 67,
+                          "offset": 860
+                        },
+                        "$type": 14
+                      }
+                    },
+                    {
+                      "node": "RangeStmt",
+                      "for": {
+                        "file": "runes.go",
+                        "line": 42,
+                        "column": 2,
+                        "offset": 863
+                      },
+                      "key": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "runes.go",
+                          "line": 42,
+                          "column": 6,
+                          "offset": 867
+                        },
+                        "name": "_",
+                        "obj": {
+                          "node": "Object",
+                          "name": "_",
+                          "kind": "var"
+                        },
+                        "$obj": {
+                          "name": "_",
+                          "kind": "var",
+                          "def": true,
+                          "type": 5,
+                          "decl": "runes.go:867",
+                          "pkg": "main"
+                        }
+                      },
+                      "value": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "runes.go",
+                          "line": 42,
+                          "column": 9,
+                          "offset": 870
+                        },
+                        "name": "r",
+                        "obj": {
+                          "node": "Object",
+                          "name": "r",
+                          "kind": "var"
+                        },
+                        "$obj": {
+                          "name": "r",
+                          "kind": "var",
+                          "def": true,
+                          "type": 16,
+                          "decl": "runes.go:870",
+                          "pkg": "main"
+                        }
+                      },
+                      "tokPos": {
+                        "file": "runes.go",
+                        "line": 42,
+                        "column": 11,
+                        "offset": 872
+                      },
+                      "tok": ":=",
+                      "range": {
+                        "file": "runes.go",
+                        "line": 42,
+                        "column": 14,
+                        "offset": 875
+                      },
+                      "x": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "runes.go",
+                          "line": 42,
+                          "column": 20,
+                          "offset": 881
+                        },
+                        "name": "name",
+                        "obj": {
+                          "node": "Object",
+                          "name": "name",
+                          "kind": "var"
+                        },
+                        "$type": 0,
+                        "$obj": {
+                          "name": "name",
+                          "kind": "var",
+                          "type": 0,
+                          "decl": "runes.go:772",
+                          "pkg": "main"
+                        }
+                      },
+                      "body": {
+                        "node": "BlockStmt",
+                        "lbrace": {
+                          "file": "runes.go",
+                          "line": 42,
+                          "column": 25,
+                          "offset": 886
+                        },
+                        "list": [
+                          {
+                            "node": "IfStmt",
+                            "if": {
+                              "file": "runes.go",
+                              "line": 43,
+                              "column": 3,
+                              "offset": 890
+                            },
+                            "init": null,
+                            "cond": {
+                              "node": "BinaryExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "runes.go",
+                                  "line": 43,
+                                  "column": 6,
+                                  "offset": 893
+                                },
+                                "name": "r",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "r",
+                                  "kind": "var"
+                                },
+                                "$type": 16,
+                                "$obj": {
+                                  "name": "r",
+                                  "kind": "var",
+                                  "type": 16,
+                                  "decl": "runes.go:870",
+                                  "pkg": "main"
+                                }
+                              },
+                              "opPos": {
+                                "file": "runes.go",
+                                "line": 43,
+                                "column": 8,
+                                "offset": 895
+                              },
+                              "op": "==",
+                              "y": {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "runes.go",
+                                  "line": 43,
+                                  "column": 11,
+                                  "offset": 898
+                                },
+                                "kind": "CHAR",
+                                "value": "'a'",
+                                "$type": 16,
+                                "$value": {
+                                  "kind": "int",
+                                  "value": "97"
+                                }
+                              },
+                              "$type": 20
+                            },
+                            "body": {
+                              "node": "BlockStmt",
+                              "lbrace": {
+                                "file": "runes.go",
+                                "line": 43,
+                                "column": 15,
+                                "offset": 902
+                              },
+                              "list": [
+                                {
+                                  "node": "BranchStmt",
+                                  "tokPos": {
+                                    "file": "runes.go",
+                                    "line": 44,
+                                    "column": 4,
+                                    "offset": 907
+                                  },
+                                  "tok": "continue",
+                                  "label": null
+                                }
+                              ],
+                              "rbrace": {
+                                "file": "runes.go",
+                                "line": 45,
+                                "column": 3,
+                                "offset": 918
+                              }
+                            },
+                            "else": null
+                          },
+                          {
+                            "node": "ExprStmt",
+                            "x": {
+                              "node": "CallExpr",
+                              "fun": {
+                                "node": "SelectorExpr",
+                                "x": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "runes.go",
+                                    "line": 46,
+                                    "column": 3,
+                                    "offset": 922
+                                  },
+                                  "name": "fmt",
+                                  "obj": null,
+                                  "$obj": {
+                                    "name": "fmt",
+                                    "kind": "package",
+                                    "pkg": "fmt"
+                                  }
+                                },
+                                "sel": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "runes.go",
+                                    "line": 46,
+                                    "column": 7,
+                                    "offset": 926
+                                  },
+                                  "name": "Print",
+                                  "obj": null,
+                                  "$obj": {
+                                    "name": "Print",
+                                    "kind": "func",
+                                    "type": 6,
+                                    "decl": "runes.go:270",
+                                    "pkg": "fmt",
+                                    "top": true
+                                  }
+                                },
+                                "$type": 6
+                              },
+                              "lparen": {
+                                "file": "runes.go",
+                                "line": 46,
+                                "column": 12,
+                                "offset": 931
+                              },
+                              "args": [
+                                {
+                                  "node": "CallExpr",
+                                  "fun": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "runes.go",
+                                      "line": 46,
+                                      "column": 13,
+                                      "offset": 932
+                                    },
+                                    "name": "string",
+                                    "obj": null,
+                                    "$type": 1,
+                                    "$isType": true,
+                                    "$obj": {
+                                      "name": "string",
+                                      "kind": "type",
+                                      "type": 1
+                                    }
+                                  },
+                                  "lparen": {
+                                    "file": "runes.go",
+                                    "line": 46,
+                                    "column": 19,
+                                    "offset": 938
+                                  },
+                                  "args": [
+                                    {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "runes.go",
+                                        "line": 46,
+                                        "column": 20,
+                                        "offset": 939
+                                      },
+                                      "name": "r",
+                                      "obj": {
+                                        "node": "Object",
+                                        "name": "r",
+                                        "kind": "var"
+                                      },
+                                      "$type": 16,
+                                      "$obj": {
+                                        "name": "r",
+                                        "kind": "var",
+                                        "type": 16,
+                                        "decl": "runes.go:870",
+                                        "pkg": "main"
+                                      }
+                                    }
+                                  ],
+                                  "ellipsis": null,
+                                  "rparen": {
+                                    "file": "runes.go",
+                                    "line": 46,
+                                    "column": 21,
+                                    "offset": 940
+                                  },
+                                  "$type": 1
+                                }
+                              ],
+                              "ellipsis": null,
+                              "rparen": {
+                                "file": "runes.go",
+                                "line": 46,
+                                "column": 22,
+                                "offset": 941
+                              },
+                              "$type": 14
+                            }
+                          }
+                        ],
+                        "rbrace": {
+                          "file": "runes.go",
+                          "line": 47,
+                          "column": 2,
+                          "offset": 944
+                        }
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "runes.go",
+                              "line": 48,
+                              "column": 2,
+                              "offset": 947
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "runes.go",
+                              "line": 48,
+                              "column": 6,
+                              "offset": 951
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 6,
+                              "decl": "runes.go:312",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 6
+                        },
+                        "lparen": {
+                          "file": "runes.go",
+                          "line": 48,
+                          "column": 13,
+                          "offset": 958
+                        },
+                        "args": null,
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "runes.go",
+                          "line": 48,
+                          "column": 14,
+                          "offset": 959
+                        },
+                        "$type": 14
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "runes.go",
+                              "line": 49,
+                              "column": 2,
+                              "offset": 962
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "runes.go",
+                              "line": 49,
+                              "column": 6,
+                              "offset": 966
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 6,
+                              "decl": "runes.go:312",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 6
+                        },
+                        "lparen": {
+                          "file": "runes.go",
+                          "line": 49,
+                          "column": 13,
+                          "offset": 973
+                        },
+                        "args": [
+                          {
+                            "node": "BinaryExpr",
+                            "x": {
+                              "node": "CallExpr",
+                              "fun": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "runes.go",
+                                  "line": 49,
+                                  "column": 14,
+                                  "offset": 974
+                                },
+                                "name": "string",
+                                "obj": null,
+                                "$type": 1,
+                                "$isType": true,
+                                "$obj": {
+                                  "name": "string",
+                                  "kind": "type",
+                                  "type": 1
+                                }
+                              },
+                              "lparen": {
+                                "file": "runes.go",
+                                "line": 49,
+                                "column": 20,
+                                "offset": 980
+                              },
+                              "args": [
+                                {
+                                  "node": "CallExpr",
+                                  "fun": {
+                                    "node": "ArrayType",
+                                    "lbrack": {
+                                      "file": "runes.go",
+                                      "line": 49,
+                                      "column": 21,
+                                      "offset": 981
+                                    },
+                                    "len": null,
+                                    "elt": {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "runes.go",
+                                        "line": 49,
+                                        "column": 23,
+                                        "offset": 983
+                                      },
+                                      "name": "byte",
+                                      "obj": null,
+                                      "$type": 4,
+                                      "$isType": true,
+                                      "$obj": {
+                                        "name": "byte",
+                                        "kind": "type",
+                                        "type": 4
+                                      }
+                                    },
+                                    "$type": 3,
+                                    "$isType": true
+                                  },
+                                  "lparen": {
+                                    "file": "runes.go",
+                                    "line": 49,
+                                    "column": 27,
+                                    "offset": 987
+                                  },
+                                  "args": [
+                                    {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "runes.go",
+                                        "line": 49,
+                                        "column": 28,
+                                        "offset": 988
+                                      },
+                                      "name": "nil",
+                                      "obj": null,
+                                      "$type": 21,
+                                      "$obj": {
+                                        "name": "nil",
+                                        "kind": "nil",
+                                        "type": 21
+                                      }
+                                    }
+                                  ],
+                                  "ellipsis": null,
+                                  "rparen": {
+                                    "file": "runes.go",
+                                    "line": 49,
+                                    "column": 31,
+                                    "offset": 991
+                                  },
+                                  "$type": 3
+                                }
+                              ],
+                              "ellipsis": null,
+                              "rparen": {
+                                "file": "runes.go",
+                                "line": 49,
+                                "column": 32,
+                                "offset": 992
+                              },
+                              "$type": 1
+                            },
+                            "opPos": {
+                              "file": "runes.go",
+                              "line": 49,
+                              "column": 34,
+                              "offset": 994
+                            },
+                            "op": "==",
+                            "y": {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "runes.go",
+                                "line": 49,
+                                "column": 37,
+                                "offset": 997
+                              },
+                              "kind": "STRING",
+                              "value": "\"\"",
+                              "$type": 1,
+                              "$value": {
+                                "kind": "string",
+                                "value": ""
+                              }
+                            },
+                            "$type": 22
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "runes.go",
+                                "line": 49,
+                                "column": 41,
+                                "offset": 1001
+                              },
+                              "name": "len",
+                              "obj": null,
+                              "$type": 12,
+                              "$builtin": true,
+                              "$obj": {
+                                "name": "len",
+                                "kind": "builtin",
+                                "type": 13
+                              }
+                            },
+                            "lparen": {
+                              "file": "runes.go",
+                              "line": 49,
+                              "column": 44,
+                              "offset": 1004
+                            },
+                            "args": [
+                              {
+                                "node": "CallExpr",
+                                "fun": {
+                                  "node": "ArrayType",
+                                  "lbrack": {
+                                    "file": "runes.go",
+                                    "line": 49,
+                                    "column": 45,
+                                    "offset": 1005
+                                  },
+                                  "len": null,
+                                  "elt": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "runes.go",
+                                      "line": 49,
+                                      "column": 47,
+                                      "offset": 1007
+                                    },
+                                    "name": "byte",
+                                    "obj": null,
+                                    "$type": 4,
+                                    "$isType": true,
+                                    "$obj": {
+                                      "name": "byte",
+                                      "kind": "type",
+                                      "type": 4
+                                    }
+                                  },
+                                  "$type": 3,
+                                  "$isType": true
+                                },
+                                "lparen": {
+                                  "file": "runes.go",
+                                  "line": 49,
+                                  "column": 51,
+                                  "offset": 1011
+                                },
+                                "args": [
+                                  {
+                                    "node": "BasicLit",
+                                    "valuePos": {
+                                      "file": "runes.go",
+                                      "line": 49,
+                                      "column": 52,
+                                      "offset": 1012
+                                    },
+                                    "kind": "STRING",
+                                    "value": "\"\"",
+                                    "$type": 1,
+                                    "$value": {
+                                      "kind": "string",
+                                      "value": ""
+                                    }
+                                  }
+                                ],
+                                "ellipsis": null,
+                                "rparen": {
+                                  "file": "runes.go",
+                                  "line": 49,
+                                  "column": 54,
+                                  "offset": 1014
+                                },
+                                "$type": 3
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "runes.go",
+                              "line": 49,
+                              "column": 55,
+                              "offset": 1015
+                            },
+                            "$type": 5
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "runes.go",
+                          "line": 49,
+                          "column": 56,
+                          "offset": 1016
+                        },
+                        "$type": 14
+                      }
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "runes.go",
+                    "line": 50,
+                    "column": 1,
+                    "offset": 1018
+                  }
+                }
+              }
+            ],
+            "fileStart": {
+              "file": "runes.go",
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "fileEnd": {
+              "file": "runes.go",
+              "line": 50,
+              "column": 3,
+              "offset": 1020
+            },
+            "scope": null,
+            "imports": [
+              {
+                "node": "ImportSpec",
+                "doc": null,
+                "name": null,
+                "path": {
+                  "node": "BasicLit",
+                  "valuePos": {
+                    "file": "runes.go",
+                    "line": 5,
+                    "column": 8,
+                    "offset": 158
+                  },
+                  "kind": "STRING",
+                  "value": "\"fmt\""
+                },
+                "comment": null,
+                "endPos": null
+              }
+            ],
+            "unresolved": [
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "runes.go",
+                  "line": 7,
+                  "column": 11,
+                  "offset": 175
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 1,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 1
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "runes.go",
+                  "line": 11,
+                  "column": 9,
+                  "offset": 233
+                },
+                "name": "byte",
+                "obj": null,
+                "$type": 4,
+                "$isType": true,
+                "$obj": {
+                  "name": "byte",
+                  "kind": "type",
+                  "type": 4
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "runes.go",
+                  "line": 13,
+                  "column": 2,
+                  "offset": 254
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "runes.go",
+                  "line": 13,
+                  "column": 14,
+                  "offset": 266
+                },
+                "name": "len",
+                "obj": null,
+                "$type": 12,
+                "$builtin": true,
+                "$obj": {
+                  "name": "len",
+                  "kind": "builtin",
+                  "type": 13
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "runes.go",
+                  "line": 13,
+                  "column": 22,
+                  "offset": 274
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 1,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 1
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "runes.go",
+                  "line": 15,
+                  "column": 10,
+                  "offset": 298
+                },
+                "name": "rune",
+                "obj": null,
+                "$type": 16,
+                "$isType": true,
+                "$obj": {
+                  "name": "rune",
+                  "kind": "type",
+                  "type": 16
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "runes.go",
+                  "line": 17,
+                  "column": 2,
+                  "offset": 320
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "runes.go",
+                  "line": 17,
+                  "column": 14,
+                  "offset": 332
+                },
+                "name": "len",
+                "obj": null,
+                "$type": 17,
+                "$builtin": true,
+                "$obj": {
+                  "name": "len",
+                  "kind": "builtin",
+                  "type": 13
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "runes.go",
+                  "line": 17,
+                  "column": 23,
+                  "offset": 341
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 1,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 1
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "runes.go",
+                  "line": 20,
+                  "column": 3,
+                  "offset": 386
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "runes.go",
+                  "line": 20,
+                  "column": 21,
+                  "offset": 404
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 1,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 1
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "runes.go",
+                  "line": 22,
+                  "column": 2,
+                  "offset": 424
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "runes.go",
+                  "line": 24,
+                  "column": 9,
+                  "offset": 447
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 1,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 1
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "runes.go",
+                  "line": 24,
+                  "column": 18,
+                  "offset": 456
+                },
+                "name": "byte",
+                "obj": null,
+                "$type": 4,
+                "$isType": true,
+                "$obj": {
+                  "name": "byte",
+                  "kind": "type",
+                  "type": 4
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "runes.go",
+                  "line": 26,
+                  "column": 3,
+                  "offset": 555
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "runes.go",
+                  "line": 28,
+                  "column": 2,
+                  "offset": 585
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "runes.go",
+                  "line": 28,
+                  "column": 14,
+                  "offset": 597
+                },
+                "name": "len",
+                "obj": null,
+                "$type": 17,
+                "$builtin": true,
+                "$obj": {
+                  "name": "len",
+                  "kind": "builtin",
+                  "type": 13
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "runes.go",
+                  "line": 28,
+                  "column": 20,
+                  "offset": 603
+                },
+                "name": "rune",
+                "obj": null,
+                "$type": 16,
+                "$isType": true,
+                "$obj": {
+                  "name": "rune",
+                  "kind": "type",
+                  "type": 16
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "runes.go",
+                  "line": 37,
+                  "column": 2,
+                  "offset": 688
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "runes.go",
+                  "line": 39,
+                  "column": 2,
+                  "offset": 705
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "runes.go",
+                  "line": 39,
+                  "column": 14,
+                  "offset": 717
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 1,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 1
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "runes.go",
+                  "line": 39,
+                  "column": 23,
+                  "offset": 726
+                },
+                "name": "rune",
+                "obj": null,
+                "$type": 16,
+                "$isType": true,
+                "$obj": {
+                  "name": "rune",
+                  "kind": "type",
+                  "type": 16
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "runes.go",
+                  "line": 41,
+                  "column": 2,
+                  "offset": 795
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "runes.go",
+                  "line": 41,
+                  "column": 14,
+                  "offset": 807
+                },
+                "name": "len",
+                "obj": null,
+                "$type": 17,
+                "$builtin": true,
+                "$obj": {
+                  "name": "len",
+                  "kind": "builtin",
+                  "type": 13
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "runes.go",
+                  "line": 41,
+                  "column": 20,
+                  "offset": 813
+                },
+                "name": "rune",
+                "obj": null,
+                "$type": 16,
+                "$isType": true,
+                "$obj": {
+                  "name": "rune",
+                  "kind": "type",
+                  "type": 16
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "runes.go",
+                  "line": 41,
+                  "column": 33,
+                  "offset": 826
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 1,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 1
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "runes.go",
+                  "line": 41,
+                  "column": 45,
+                  "offset": 838
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 1,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 1
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "runes.go",
+                  "line": 41,
+                  "column": 54,
+                  "offset": 847
+                },
+                "name": "byte",
+                "obj": null,
+                "$type": 4,
+                "$isType": true,
+                "$obj": {
+                  "name": "byte",
+                  "kind": "type",
+                  "type": 4
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "runes.go",
+                  "line": 46,
+                  "column": 3,
+                  "offset": 922
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "runes.go",
+                  "line": 46,
+                  "column": 13,
+                  "offset": 932
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 1,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 1
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "runes.go",
+                  "line": 48,
+                  "column": 2,
+                  "offset": 947
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "runes.go",
+                  "line": 49,
+                  "column": 2,
+                  "offset": 962
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "runes.go",
+                  "line": 49,
+                  "column": 14,
+                  "offset": 974
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 1,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 1
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "runes.go",
+                  "line": 49,
+                  "column": 23,
+                  "offset": 983
+                },
+                "name": "byte",
+                "obj": null,
+                "$type": 4,
+                "$isType": true,
+                "$obj": {
+                  "name": "byte",
+                  "kind": "type",
+                  "type": 4
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "runes.go",
+                  "line": 49,
+                  "column": 28,
+                  "offset": 988
+                },
+                "name": "nil",
+                "obj": null,
+                "$type": 21,
+                "$obj": {
+                  "name": "nil",
+                  "kind": "nil",
+                  "type": 21
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "runes.go",
+                  "line": 49,
+                  "column": 41,
+                  "offset": 1001
+                },
+                "name": "len",
+                "obj": null,
+                "$type": 12,
+                "$builtin": true,
+                "$obj": {
+                  "name": "len",
+                  "kind": "builtin",
+                  "type": 13
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "runes.go",
+                  "line": 49,
+                  "column": 47,
+                  "offset": 1007
+                },
+                "name": "byte",
+                "obj": null,
+                "$type": 4,
+                "$isType": true,
+                "$obj": {
+                  "name": "byte",
+                  "kind": "type",
+                  "type": 4
+                }
+              }
+            ],
+            "comments": [
+              {
+                "node": "CommentGroup",
+                "list": [
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "runes.go",
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "text": "// Package main exercita conversões string ↔ []byte/[]rune e range sobre"
+                  },
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "runes.go",
+                      "line": 2,
+                      "column": 1,
+                      "offset": 76
+                    },
+                    "text": "// string, incluindo UTF-8 inválido (U+FFFD com largura 1)."
+                  }
+                ]
+              }
+            ],
+            "goVersion": ""
+          }
+        }
+      ],
+      "imports": [
+        {
+          "path": "fmt",
+          "name": "fmt"
+        }
+      ],
+      "typeTable": [
+        {
+          "kind": "named",
+          "pkg": "main",
+          "name": "Name",
+          "underlying": 1,
+          "methods": []
+        },
+        {
+          "kind": "basic",
+          "name": "string"
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [],
+          "variadic": false
+        },
+        {
+          "kind": "slice",
+          "elem": 4
+        },
+        {
+          "kind": "basic",
+          "name": "byte"
+        },
+        {
+          "kind": "basic",
+          "name": "int"
+        },
+        {
+          "kind": "func",
+          "params": [
+            7
+          ],
+          "results": [
+            5,
+            9
+          ],
+          "variadic": true
+        },
+        {
+          "kind": "slice",
+          "elem": 8
+        },
+        {
+          "kind": "interface",
+          "methods": [],
+          "embeddeds": []
+        },
+        {
+          "kind": "named",
+          "pkg": "",
+          "name": "error",
+          "underlying": 10
+        },
+        {
+          "kind": "interface",
+          "methods": [
+            {
+              "name": "Error",
+              "type": 11
+            }
+          ],
+          "embeddeds": []
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            1
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            3
+          ],
+          "results": [
+            5
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "basic",
+          "name": "invalid type"
+        },
+        {
+          "kind": "tuple",
+          "elems": [
+            5,
+            9
+          ]
+        },
+        {
+          "kind": "slice",
+          "elem": 16
+        },
+        {
+          "kind": "basic",
+          "name": "rune"
+        },
+        {
+          "kind": "func",
+          "params": [
+            15
+          ],
+          "results": [
+            5
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "basic",
+          "name": "untyped string"
+        },
+        {
+          "kind": "basic",
+          "name": "untyped int"
+        },
+        {
+          "kind": "basic",
+          "name": "untyped bool"
+        },
+        {
+          "kind": "basic",
+          "name": "untyped nil"
+        },
+        {
+          "kind": "basic",
+          "name": "bool"
+        }
+      ],
+      "implements": null,
+      "initOrder": [],
+      "stdlibUsage": [
+        "fmt.Print",
+        "fmt.Println"
+      ],
+      "reflectUsage": null
+    }
+  ]
+}

@@ -19,7 +19,18 @@ throw true try var void while with
 # `int`) sombrearia o core na library; ela ganha `$`.
 DART_CORE_USED = frozenset("""
 Object String List Map BigInt Function Null Never Iterable Uint8List
-bool int double num dynamic identical print
+bool int double num dynamic identical
+""".split())
+
+
+# Membros das classes base que o código gerado estende ou implementa
+# (go.Slice, go.GoMap, go.PtrView, função nomeada, Object): um método/campo Go
+# com o mesmo nome (`func (s Set) Delete`) os sobrescreveria; ganha `$`. A
+# regra é global (vale também nas interfaces), então o despacho continua certo.
+DART_BASE_MEMBERS = frozenset("""
+isNil length capacity addr slice append appendSlice copyFrom items elem
+containsKey lookup delete keysSnapshot entries value call
+hashCode runtimeType toString noSuchMethod
 """.split())
 
 
@@ -55,7 +66,10 @@ def member_name(name):
     """
     if name == "_":
         return name
-    return escape(lower_camel(name)) if is_exported(name) else "_" + name
+    if not is_exported(name):
+        return "_" + name
+    dart = escape(lower_camel(name))
+    return dart + "$" if dart in DART_BASE_MEMBERS else dart
 
 
 def type_name(name):

@@ -50,6 +50,6 @@ class Naming(Service):
         name = self.declare_local(ident)
         dt = self.types.dart(t)
         if ident["$obj"]["decl"] in self.facts.boxed:
-            box = self.imports.qualify(None, "Box")
-            return f"final {box}<{dt}> {name} = {box}<{dt}>({init});"
+            box_t, box = self.types.box(t, init)
+            return f"final {box_t} {name} = {box};"
         return f"{dt} {name} = {init};"

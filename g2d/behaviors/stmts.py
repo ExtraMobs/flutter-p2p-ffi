@@ -46,6 +46,8 @@ class DeclStmt(StmtBehavior):
 
     def emit(self, s):
         d = s["decl"]
+        if d["tok"] == "type":
+            return []  # içado para a library (LocalTypesAnalysis)
         if d["tok"] not in ("var", "const"):
             raise Unsupported(f"declaração local {d['tok']}", s)
         return [ln for spec in d["specs"] for ln in self.vars.value_spec(spec, d["tok"])]
@@ -209,7 +211,15 @@ class RangeStmt(StmtBehavior):
             return f"{self.operands.lvalue(target)} = {value};"
 
         src = self.names.temp()
-        if u["kind"] == "basic":
+        if u["kind"] == "basic" and self.typesys.basic(u).cat == "string":
+            # Runas decodificadas como no Go: U+FFFD largura 1 se inválido.
+            i, r, w = self.names.temp(), self.names.temp(), self.names.temp()
+            s_text = self.expr(x, POSTFIX) + (".$str" if self.pkg.type_of(x)["kind"] == "named" else "")
+            head = [f"final {src} = {s_text};", f"for (var {i} = 0, {w} = 0; {i} < {src}.length; {i} += {w})"]
+            pre = [f"final {r} = {src}.decodeRune({i});", f"{w} = {r}.$2;"]
+            pre += ([bind(key, self.operands.from_int(i, self.pkg.type_at(key["$obj"]["type"])))] if key else []) + (
+                [bind(val, f"{self.types.golang('Rune')}({r}.$1)")] if val else [])
+        elif u["kind"] == "basic":
             i = self.names.temp()
             head = [f"final {src} = {self.operands.to_int(x)};", f"for (var {i} = 0; {i} < {src}; {i}++)"]
             pre = [bind(key, self.operands.from_int(i, self.pkg.type_of(x)))] if key else []

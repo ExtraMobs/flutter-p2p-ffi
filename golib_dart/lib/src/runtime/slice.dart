@@ -13,8 +13,15 @@ import 'struct.dart';
 /// crescimento do runtime Go (`growslice` + size classes), para que o aliasing
 /// observável seja o mesmo. Structs no array são atualizadas in-place
 /// (`$set`), então ponteiros para elementos continuam válidos.
-final class Slice<T> {
+///
+/// `base`: um tipo nomeado Go sobre slice (`type IDs []string`) é uma
+/// subclasse gerada, e a conversão entre eles é [Slice.alias].
+base class Slice<T> {
   Slice._(this._array, this._off, this._len, this._cap, this.elem);
+
+  /// Mesmo cabeçalho (array, offset, len, cap) de [s]: conversão entre tipos
+  /// de slice com o mesmo subjacente (`IDs(s)`, `[]string(ids)`).
+  Slice.alias(Slice<T> s) : this._(s._array, s._off, s._len, s._cap, s.elem);
 
   /// Janela sobre um array existente (`a[low:high:max]` de um array Go).
   Slice.view(List<T> array, int off, int len, int cap, Elem<T> elem)

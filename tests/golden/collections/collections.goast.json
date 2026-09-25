@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 5,
+  "schemaVersion": 6,
   "tool": "goast",
   "goVersion": "go1.25.7",
   "packages": [

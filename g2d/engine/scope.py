@@ -31,6 +31,9 @@ class Facts:
     init_funcs: list = field(default_factory=list)  # nomes Dart das funções init, em ordem
     implements: dict = field(default_factory=dict)  # tipo nomeado → interfaces (índices)
     class_tparams: TypeParams = TypeParams()  # parâmetros da struct genérica corrente
+    local_types: dict = field(default_factory=dict)  # id(descritor) → nome Go içado (`first$pair`)
+    local_specs: list = field(default_factory=list)  # [(TypeSpec, nome içado)] na ordem do fonte
+    synthetic: dict = field(default_factory=dict)  # índice da typeTable → nome Go da classe anônima
 
 
 @dataclass

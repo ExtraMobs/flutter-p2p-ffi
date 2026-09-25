@@ -45,6 +45,19 @@ final class String extends StringBase<String> {
     );
   }
 
+  /// Go string([]rune): each code point as UTF-8; invalid ones (negative,
+  /// surrogates, above U+10FFFF) become U+FFFD.
+  factory String.fromRunes(Iterable<int> codePoints) {
+    final text = StringBuffer();
+    for (final r in codePoints) {
+      text.writeCharCode(_isScalar(r) ? r : 0xfffd);
+    }
+    return String.fromDart(text.toString());
+  }
+
+  static bool _isScalar(int r) =>
+      r >= 0 && r <= 0x10ffff && !(r >= 0xd800 && r <= 0xdfff);
+
   /// Explicit boundary from Dart text to its UTF-8 representation.
   /// Dart unpaired surrogates follow the standard UTF-8 encoder's replacement.
   String.fromDart(core.String value)
@@ -63,6 +76,51 @@ final class String extends StringBase<String> {
       );
     }
     return _bytes[index];
+  }
+
+  /// Go utf8.DecodeRune at byte [index]: (rune, width). Invalid or
+  /// truncated UTF-8 (overlong, surrogate, above U+10FFFF) yields
+  /// (U+FFFD, 1), exactly as `range` over a string and `[]rune(s)` do.
+  (int, int) decodeRune(int index) {
+    const bad = (0xfffd, 1);
+    final b = _bytes;
+    final c0 = b[index];
+    if (c0 < 0x80) return (c0, 1);
+    int need, lo = 0x80, hi = 0xbf;
+    if (c0 >= 0xc2 && c0 <= 0xdf) {
+      need = 2;
+    } else if (c0 >= 0xe0 && c0 <= 0xef) {
+      need = 3;
+      if (c0 == 0xe0) lo = 0xa0;
+      if (c0 == 0xed) hi = 0x9f;
+    } else if (c0 >= 0xf0 && c0 <= 0xf4) {
+      need = 4;
+      if (c0 == 0xf0) lo = 0x90;
+      if (c0 == 0xf4) hi = 0x8f;
+    } else {
+      return bad;
+    }
+    if (b.length - index < need) return bad;
+    final c1 = b[index + 1];
+    if (c1 < lo || c1 > hi) return bad;
+    var r = (c0 & (0xff >> (need + 1))) << 6 | (c1 & 0x3f);
+    for (var k = 2; k < need; k++) {
+      final c = b[index + k];
+      if (c & 0xc0 != 0x80) return bad;
+      r = r << 6 | (c & 0x3f);
+    }
+    return (r, need);
+  }
+
+  /// Go []rune(s): the code points decoded as by [decodeRune].
+  List<int> runes() {
+    final out = <int>[];
+    for (var i = 0; i < _bytes.length;) {
+      final (r, n) = decodeRune(i);
+      out.add(r);
+      i += n;
+    }
+    return out;
   }
 
   /// Go []byte(s) returns an independent, mutable byte sequence.

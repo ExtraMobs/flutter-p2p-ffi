@@ -93,7 +93,7 @@ func Dump(target string) (*DumpDoc, error) {
 	sort.Slice(pkgs, func(i, j int) bool { return pkgs[i].PkgPath < pkgs[j].PkgPath })
 
 	doc := &DumpDoc{
-		SchemaVersion: 5,
+		SchemaVersion: 6,
 		Tool:          "goast",
 		GoVersion:     runtime.Version(),
 	}

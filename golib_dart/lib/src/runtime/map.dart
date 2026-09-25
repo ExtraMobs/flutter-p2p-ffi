@@ -15,15 +15,27 @@ import 'panic.dart';
 /// A igualdade das chaves vem das classes intermediárias (`Golang.*`,
 /// `GoStruct`, `Addr`, `Ptr`), que já seguem as regras do Go (NaN nunca é
 /// encontrado, +0 ≡ −0, structs campo a campo, ponteiros por endereço).
-final class GoMap<K, V> {
+/// Chave `*T` com T struct é o próprio objeto da struct: [identity] compara
+/// por endereço (identidade) em vez de campo a campo.
+///
+/// `base`: um tipo nomeado Go sobre map é uma subclasse gerada, e a conversão
+/// entre eles é [GoMap.alias] (mesmo armazenamento).
+base class GoMap<K, V> {
+  /// Mesmo map que [m] (tipos de map com o mesmo subjacente).
+  GoMap.alias(GoMap<K, V> m) : _m = m._m, elem = m.elem;
+
   /// `make(map[K]V)` / `map[K]V{}`.
-  GoMap(this.elem) : _m = <K, V>{};
+  GoMap(this.elem, {bool identity = false}) : _m = _new<K, V>(identity);
 
   /// Map nil (zero value).
   GoMap.nil(this.elem) : _m = null;
 
   /// Literal `map[K]V{k: v, ...}`.
-  GoMap.of(Map<K, V> entries, this.elem) : _m = Map<K, V>.of(entries);
+  GoMap.of(Map<K, V> entries, this.elem, {bool identity = false})
+    : _m = _new<K, V>(identity)..addAll(entries);
+
+  static Map<K, V> _new<K, V>(bool identity) =>
+      identity ? Map<K, V>.identity() : <K, V>{};
 
   final Map<K, V>? _m;
   final Elem<V> elem;
