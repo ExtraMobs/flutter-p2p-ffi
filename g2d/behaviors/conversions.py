@@ -102,7 +102,7 @@ class FloatToInt(ConversionBehavior):
     def emit(self, c):
         x = self.expr(c.arg, POSTFIX)
         bits = f"{x}.toInteger({c.to.width}, signed: {'true' if c.to.signed else 'false'})"
-        return f"{self.types.cls(c.to_t)}.fromBigInt({bits})", POSTFIX
+        return f"{self.types.cls(c.to_t)}.from({bits})", POSTFIX
 
 
 class FloatToFloat(ConversionBehavior):

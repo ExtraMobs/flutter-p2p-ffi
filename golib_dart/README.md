@@ -67,9 +67,14 @@ rodam contra o Go instalado (1.25.7 windows/amd64).
     produto em limbs de 16 bits e shifts entre palavras.
   - Invariante: nenhum intermediário passa de 2⁵³, e todo resultado bitwise é
     renormalizado (no JS esses operadores devolvem 32 bits sem sinal).
-  - `BigInt` só entra em `~/`/`%` de 64 bits com operando fora de ±2⁵³, em
-    `toString` fora de ±2⁵³, em float → inteiro (`toInteger`) e nas fronteiras
-    `fromBigInt`/`toBigInt`.
+  - `~/`/`%` de 64 bits: `int` quando os dois operandos cabem em ±2⁵³;
+    senão, divisão binária sobre as palavras (no máximo 64 passos). O
+    `toString` fora de ±2⁵³ usa uma divisão dessas por 10¹⁰.
+  - Float → inteiro (`toInteger`) devolve os 64 bits como `Int64`, calculados
+    em double (`T.from` trunca). Inteiro → float fora de ±2⁵³ arredonda direto
+    das palavras (guarda, sticky, par).
+  - `BigInt` só aparece nas fronteiras explícitas `fromBigInt`/`toBigInt`/
+    `toIntExact` (constantes enormes, testes).
   - `toInt()` é a saída para índices, contagens e runas (exata em ±2⁵³).
     `T.from(v)` é a conversão Go entre larguras (trunca `$hi`/`$lo`).
   - `~/` é o `/` inteiro do Go e `%` é o resto truncado do Go; `~` é o `^`
@@ -110,9 +115,12 @@ por `test/go_float_vectors_extra.go`):
 8. **Inteiros reescritos sem `BigInt`** (`src/ints.dart`). Na origem, cada
    valor guardava um `Uint8List` e toda operação passava por `BigInt`.
    `$wrap(BigInt)` saiu; entraram `$hi`/`$lo`/`$signed`, `toInt()` e
-   `T.from(v)`. `String.fromCodePoint` passou a receber `int`. Oráculo: as
-   matrizes `test/go_integer*_matrix*` (VM) e o fixture e2e
-   `tests/golden/widths` (VM, JS e Wasm). Laço de soma e indexação com
+   `T.from(v)`. `String.fromCodePoint` passou a receber `int`, e
+   `toInteger` devolve `IntBase` em vez de `BigInt`. Oráculo: as
+   matrizes `test/go_integer*_matrix*` (VM), o fixture e2e
+   `tests/golden/widths` (VM, JS e Wasm) e um diferencial contra o Go com
+   92.068 casos (operações, divisão fora de ±2⁵³, conversões, float ↔ int),
+   com 0 falhas nas três plataformas. Laço de soma e indexação com
    `Golang.Int` mais laço de `Golang.Uint8`, melhor de 3:
 
    | Plataforma | Antes | Depois | Ganho |

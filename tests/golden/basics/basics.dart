@@ -277,8 +277,8 @@ void main() {
       go.Slice<Object?>.of([
         Golang.Float64(3.5),
         Golang.Float64(3.5),
-        Golang.Int.fromBigInt(f$1.toInteger(64, signed: true)),
-        Golang.Int.fromBigInt((-f$1).toInteger(64, signed: true)),
+        Golang.Int.from(f$1.toInteger(64, signed: true)),
+        Golang.Int.from((-f$1).toInteger(64, signed: true)),
         Golang.Float64(1e+06),
         Golang.Float64(0.3),
       ], _$e1),

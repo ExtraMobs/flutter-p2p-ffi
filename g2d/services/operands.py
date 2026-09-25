@@ -14,7 +14,20 @@ class Operands(Service):
         v = n.get("$value")
         if v is not None:
             return v["value"]
-        return f"{self.expr(n, POSTFIX)}.toInt()"
+        return self.dart_length(n) or f"{self.expr(n, POSTFIX)}.toInt()"
+
+    def dart_length(self, n):
+        """`len(x)`/`cap(x)` como int Dart (sem passar por Golang.Int), ou
+        None se n não for um deles sobre slice/array/map/string."""
+        fun = n.get("fun") if n["node"] == "CallExpr" else None
+        if not (fun and fun.get("$builtin") and fun.get("name") in ("len", "cap")):
+            return None
+        x = n["args"][0]
+        kind = self.typesys.underlying(self.pkg.type_of(x))["kind"]
+        if kind not in ("slice", "array", "map", "basic"):
+            return None
+        attr = "capacity" if fun["name"] == "cap" and kind != "array" else "length"
+        return f"{self.expr(x, POSTFIX)}.{attr}"
 
     def from_int(self, dart_int, t):
         """int Dart → valor do tipo inteiro Go t."""

@@ -53,7 +53,7 @@ go.Slice<U> map<T, U>(
   go.Slice<T> xs,
   U Function(T)? f,
 ) {
-  go.Slice<U> out = go.Slice<U>.make(0, Golang.Int(xs.length).toInt(), $U);
+  go.Slice<U> out = go.Slice<U>.make(0, xs.length, $U);
   {
     final $t1 = xs;
     for (var $t2 = 0; $t2 < $t1.length; $t2++) {

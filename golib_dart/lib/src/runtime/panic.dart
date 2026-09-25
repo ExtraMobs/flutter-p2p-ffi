@@ -44,8 +44,9 @@ Never nilDeref() => throw Panic(
 /// que o Go produziria no mesmo ponto.
 Object? panicValue(Object e) => switch (e) {
   Panic(:final value) => value,
-  // BigInt (base dos inteiros de fixed_types) lança esta exceção na VM e no
-  // JS; o substituto sugerido (UnsupportedError) seria amplo demais.
+  // Os inteiros de fixed_types lançam esta exceção na divisão por zero, em
+  // todas as plataformas; o substituto sugerido (UnsupportedError) seria
+  // amplo demais.
   // ignore: deprecated_member_use
   IntegerDivisionByZeroException() => const RuntimeError(
     'runtime error: integer divide by zero',

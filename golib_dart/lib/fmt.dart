@@ -146,8 +146,10 @@ Uint8List formatV(Object? v) {
 int _compareKeys(Object? a, Object? b) {
   if (a == null || b == null) return a == null ? (b == null ? 0 : -1) : 1;
   final ta = _keyType(a), tb = _keyType(b);
-  // ponytail: o Go compara os endereços dos descritores de tipo; o nome do
-  // tipo só dá uma ordem determinística.
+  // Limite (⚠️ em docs/mapping-spec.md): o Go compara os endereços dos
+  // descritores de tipo, que seguem o layout do linker (nomeados de main,
+  // depois string, int8, int64, int, uint, ... no gc 1.25) e mudam com os
+  // pacotes linkados; o nome do tipo só dá uma ordem determinística.
   if (ta != tb) return ta.compareTo(tb);
   switch ((a, b)) {
     case (GoValue($nilPtr: true), _) || (_, GoValue($nilPtr: true)):

@@ -103,9 +103,9 @@ void main() {
     );
     fmt.println(
       go.Slice<Object?>.of([
-        Golang.Int.fromBigInt(f.toInteger(64, signed: true)),
-        Golang.Int8.fromBigInt((-f).toInteger(8, signed: true)),
-        Golang.Uint8.fromBigInt(
+        Golang.Int.from(f.toInteger(64, signed: true)),
+        Golang.Int8.from((-f).toInteger(8, signed: true)),
+        Golang.Uint8.from(
           (f * Golang.Float64(100.0)).toInteger(8, signed: false),
         ),
         Golang.Float64.fromInt64(Golang.Int64.from(n)) / Golang.Float64(7.0),

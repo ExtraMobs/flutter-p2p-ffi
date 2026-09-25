@@ -7,7 +7,6 @@ import 'src/ints.dart';
 import 'float64.dart';
 import 'int64.dart';
 import 'src/float_format.dart';
-import 'src/float_integer.dart';
 import 'src/integer_float.dart';
 import 'uint64.dart';
 
@@ -80,15 +79,9 @@ final class Float32 extends FloatBase<Float32> {
   /// Go `%v`: `strconv.FormatFloat(x, 'g', -1, 32)`.
   @override
   String toString() => formatGoFloat(toDouble(), 32);
-
-  /// Go T(x) para um inteiro de `width` bits (gc/amd64); passe o resultado
-  /// ao `fromBigInt` do destino, que mantém os bits baixos.
-  BigInt toInteger(int width, {required bool signed}) =>
-      floatToInteger(toDouble(), width, signed: signed);
 }
 
 /// Inteiro em ±2^53 já é exato como double (o construtor arredonda uma vez);
 /// fora disso, o arredondamento direto a `precision` bits.
-double _ofInteger(WideIntBase value, int precision) => value.$safe
-    ? value.toInt().toDouble()
-    : integerToFloat(value.toBigInt(), precision);
+double _ofInteger(WideIntBase value, int precision) =>
+    value.$safe ? value.toInt().toDouble() : integerToFloat(value, precision);

@@ -11,19 +11,26 @@ class Len(BuiltinBehavior):
     name = "len"
 
     def emit(self, n, args):
-        u = self.typesys.underlying(self.pkg.type_of(args[0]))
-        if u["kind"] in ("slice", "array", "map", "basic"):
-            return f"{self.types.golang('Int')}({self.expr(args[0], POSTFIX)}.length)", POSTFIX
-        raise Unsupported(f"len de {u['kind']}", n)
+        return length_of(self, n)
 
 
 class Cap(BuiltinBehavior):
+    """`cap(x)`: slice (capacidade) / array (tamanho) → Golang.Int."""
+
     name = "cap"
 
     def emit(self, n, args):
-        u = self.typesys.underlying(self.pkg.type_of(args[0]))
-        attr = "length" if u["kind"] == "array" else "capacity"
-        return f"{self.types.golang('Int')}({self.expr(args[0], POSTFIX)}.{attr})", POSTFIX
+        return length_of(self, n)
+
+
+def length_of(b, n):
+    """`len`/`cap` como Golang.Int; o int Dart vem de Operands.dart_length
+    (que também serve índices e contagens sem o embrulho)."""
+    d = b.operands.dart_length(n)
+    if d is None:
+        kind = b.typesys.underlying(b.pkg.type_of(n["args"][0]))["kind"]
+        raise Unsupported(f"{n['fun']['name']} de {kind}", n)
+    return f"{b.types.golang('Int')}({d})", POSTFIX
 
 
 class Append(BuiltinBehavior):

@@ -142,7 +142,7 @@ abstract base class FloatBase<S extends FloatBase<S>>
   bool operator >=(S o) => toDouble() >= o.toDouble();
 
   /// Go T(x) para um inteiro de `width` bits (gc/amd64).
-  BigInt toInteger(int width, {required bool signed}) =>
+  IntBase toInteger(int width, {required bool signed}) =>
       floatToInteger(toDouble(), width, signed: signed);
 
   @override

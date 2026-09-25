@@ -51,6 +51,37 @@ int _nonZero(int d) {
   return d;
 }
 
+// Saídas de [_udivmod]: sem alocação (o código é síncrono).
+int _qh = 0, _ql = 0, _rh = 0, _rl = 0;
+
+/// Divisão sem sinal de 64 bits por palavras: deslocar e subtrair, a partir
+/// do bit mais alto do dividendo (no máximo 64 passos). Quociente em
+/// `_qh`/`_ql`, resto em `_rh`/`_rl`.
+void _udivmod(int ah, int al, int bh, int bl) {
+  var qh = 0, ql = 0, rh = 0, rl = 0;
+  for (var i = (ah != 0 ? 32 + ah.bitLength : al.bitLength) - 1; i >= 0; i--) {
+    // r < b; se o bit 63 de r estiver ligado, 2r passa de 2^64 > b.
+    final carry = rh >= 0x80000000;
+    final bit = i >= 32 ? (ah >> (i - 32)) & 1 : (al >> i) & 1;
+    rh = ((rh << 1) | (rl >> 31)) & _m32;
+    rl = ((rl << 1) | bit) & _m32;
+    if (carry || rh > bh || (rh == bh && rl >= bl)) {
+      final lo = rl - bl;
+      rh = (rh - bh - (lo < 0 ? 1 : 0)) & _m32;
+      rl = lo & _m32;
+      if (i >= 32) {
+        qh |= 1 << (i - 32);
+      } else {
+        ql |= 1 << i;
+      }
+    }
+  }
+  _qh = qh;
+  _ql = ql;
+  _rh = rh;
+  _rl = rl;
+}
+
 void _checkShift(int n) {
   if (n < 0) throw ArgumentError.value(n, 'count', 'negative shift amount');
 }
@@ -168,7 +199,6 @@ abstract base class WideIntBase<S extends WideIntBase<S>> extends IntBase<S> {
   BigInt toBigInt() => (BigInt.from(_h) << 32) | BigInt.from($lo);
 
   S _ofInt(int v) => $make(_hiOf(v), v & _m32);
-  S _ofBig(BigInt v) => $make(_bigHi(v), _bigLo(v));
 
   @override
   Uint8List toLittleEndianBytes() => Uint8List.fromList([
@@ -219,10 +249,26 @@ abstract base class WideIntBase<S extends WideIntBase<S>> extends IntBase<S> {
       final a = toInt(), b = o.toInt();
       return _ofInt(remainder ? a.remainder(b) : a ~/ b);
     }
-    // ponytail: fora de ±2^53 a divisão vai por BigInt; divisão longa em
-    // palavras de 32 bits se isso aparecer num caminho quente.
-    final a = toBigInt(), b = o.toBigInt();
-    return _ofBig(remainder ? a.remainder(b) : a ~/ b);
+    // Magnitudes sem sinal; o quociente leva o XOR dos sinais e o resto o
+    // sinal do dividendo. |MinInt64| = 2^63 cabe sem sinal, e MinInt64 / -1
+    // volta a MinInt64 ao truncar, como no Go.
+    final an = _h < 0, bn = o._h < 0;
+    var ah = $hi, al = $lo, bh = o.$hi, bl = o.$lo;
+    if (an) {
+      ah = (-ah - (al != 0 ? 1 : 0)) & _m32;
+      al = -al & _m32;
+    }
+    if (bn) {
+      bh = (-bh - (bl != 0 ? 1 : 0)) & _m32;
+      bl = -bl & _m32;
+    }
+    _udivmod(ah, al, bh, bl);
+    var h = remainder ? _rh : _qh, l = remainder ? _rl : _ql;
+    if (remainder ? an : an != bn) {
+      h = (-h - (l != 0 ? 1 : 0)) & _m32;
+      l = -l & _m32;
+    }
+    return $make(h, l);
   }
 
   @override
@@ -283,7 +329,20 @@ abstract base class WideIntBase<S extends WideIntBase<S>> extends IntBase<S> {
   @override
   int get hashCode => $hi * 31 + $lo;
   @override
-  String toString() => $safe ? toInt().toString() : toBigInt().toString();
+  String toString() {
+    if ($safe) return toInt().toString();
+    // Uma divisão por 10^10 (0x2_540B_E400): o quociente fica abaixo de 2^31
+    // e o resto em ±2^53.
+    final neg = _h < 0;
+    var h = $hi, l = $lo;
+    if (neg) {
+      h = (-h - (l != 0 ? 1 : 0)) & _m32;
+      l = -l & _m32;
+    }
+    _udivmod(h, l, 2, 0x540BE400);
+    final low = (_rh * _p32 + _rl).toString().padLeft(10, '0');
+    return '${neg ? '-' : ''}$_ql$low';
+  }
 }
 
 // Uma base por largura: fixa largura e sinal e dá os construtores que os

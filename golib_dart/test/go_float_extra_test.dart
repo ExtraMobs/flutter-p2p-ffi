@@ -13,14 +13,14 @@ double fromBits(String hex) {
 }
 
 List<String> conv(Golang.Float64 x) => [
-  Golang.Int64.fromBigInt(x.toInteger(64, signed: true)).toString(),
-  Golang.Uint64.fromBigInt(x.toInteger(64, signed: false)).toString(),
-  Golang.Int32.fromBigInt(x.toInteger(32, signed: true)).toString(),
-  Golang.Uint32.fromBigInt(x.toInteger(32, signed: false)).toString(),
-  Golang.Int16.fromBigInt(x.toInteger(16, signed: true)).toString(),
-  Golang.Uint16.fromBigInt(x.toInteger(16, signed: false)).toString(),
-  Golang.Int8.fromBigInt(x.toInteger(8, signed: true)).toString(),
-  Golang.Uint8.fromBigInt(x.toInteger(8, signed: false)).toString(),
+  Golang.Int64.from(x.toInteger(64, signed: true)).toString(),
+  Golang.Uint64.from(x.toInteger(64, signed: false)).toString(),
+  Golang.Int32.from(x.toInteger(32, signed: true)).toString(),
+  Golang.Uint32.from(x.toInteger(32, signed: false)).toString(),
+  Golang.Int16.from(x.toInteger(16, signed: true)).toString(),
+  Golang.Uint16.from(x.toInteger(16, signed: false)).toString(),
+  Golang.Int8.from(x.toInteger(8, signed: true)).toString(),
+  Golang.Uint8.from(x.toInteger(8, signed: false)).toString(),
 ];
 
 void main() {

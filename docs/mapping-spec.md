@@ -235,8 +235,8 @@ criado com `identity: true` (`Map.identity()`), então compara endereços.
 | `a &^ b`, `^x` | `a.andNot(b)`, `~x` |
 | shift | a contagem vira `int` por `go.shiftCount` (negativa → panic) |
 | `x++`, `x op= y` | `x += Golang.T(1)`, `x op= y` (`/=` → `~/=`; `&^=` → `x = x.andNot(y)`) |
-| conversões numéricas | inteiro → inteiro `T.from(x)` (trunca os 64 bits `$hi`/`$lo`); inteiro → float `Float64.fromInt64(Int64.from(x))` (arredondamento único); float → inteiro pelas regras do gc/amd64 (`toInteger`) |
-| `len(s)`, `s[i]`, `s[a:b]` em string | `Golang.Int(s.length)`, `Golang.Uint8(s[i])`, `s.slice(a, b)` (bytes) |
+| conversões numéricas | inteiro → inteiro `T.from(x)` (trunca os 64 bits `$hi`/`$lo`); inteiro → float `Float64.fromInt64(Int64.from(x))` (arredondamento único); float → inteiro `T.from(f.toInteger(w, signed: s))` pelas regras do gc/amd64 (`toInteger`) |
+| `len(s)`, `s[i]`, `s[a:b]` em string | `Golang.Int(s.length)` (como índice ou contagem, só `s.length`: `Operands.dart_length`), `Golang.Uint8(s[i])`, `s.slice(a, b)` (bytes) |
 | `p.f` com `p *T` | `p!.f` (nil → `runtime error: invalid memory address or nil pointer dereference`) |
 | `f(x)` com `f` variável de função | `f!(x)` (função nomeada: `f(x)`, classe chamável) |
 | `f(g())` com g de vários resultados | `(switch (g()) { (final $t1, final $t2) => f($t1, $t2) })` |
@@ -292,7 +292,7 @@ intervalo, nil pointer, escrita em map nil.
 | `fmt.Println` | `fmt.println(go.Slice<Object?>)` → `(Golang.Int, GoError?)`, com os bytes exatos |
 | `fmt.Print` | `fmt.print(go.Slice<Object?>)` → `(Golang.Int, GoError?)` (espaçamento do `Sprint`) |
 | `fmt.Sprint` | `fmt.sprint(go.Slice<Object?>)` → `Golang.String` |
-| `%v` | `<nil>`; wrappers pelo `toString` (floats = `FormatFloat 'g'`); structs `{a b}`; `&{...}`; slices `[a b]`; maps `map[k:v]` com as chaves na ordem do `internal/fmtsort` (nil primeiro, números, strings, bool, complex, structs e arrays campo a campo); ⚠️ ponteiros ficam na ordem de inserção e chaves interface de tipos diferentes vão pelo nome do tipo, porque o Go ordena ambos por endereço de memória; ponteiros aninhados como endereço |
+| `%v` | `<nil>`; wrappers pelo `toString` (floats = `FormatFloat 'g'`); structs `{a b}`; `&{...}`; slices `[a b]`; maps `map[k:v]` com as chaves na ordem do `internal/fmtsort` (nil primeiro, números, strings, bool, complex, structs e arrays campo a campo); ⚠️ ponteiros ficam na ordem de inserção e chaves interface de tipos diferentes vão pelo nome do tipo, porque o Go ordena ambos por endereço de memória (para tipos, o layout de símbolos do linker, que muda com os pacotes linkados; medido no gc 1.25, não há regra reproduzível); ponteiros aninhados como endereço |
 | `math.NaN`, `math.Copysign` | `math.naN()`, `math.copysign(f, s)`; as constantes de `math` são dobradas |
 
 ## Tipos nomeados, interfaces, embedding, genéricos (M3)
