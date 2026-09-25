@@ -1,11 +1,31 @@
 /// Ponteiros Go para valores que não são struct (`*int`, `*string`...).
 library;
 
+import 'panic.dart';
+
 /// `*T` quando T não é struct (uma struct é o seu próprio endereço).
 /// Igualdade = mesmo endereço.
 abstract interface class Ptr<T> {
   T get value;
   set value(T v);
+}
+
+/// Ponteiro nil tipado (`(*int)(nil)`) dentro de uma interface, que no Go
+/// não é nil. Ler ou escrever dá o panic de nil pointer.
+final class NilPtr<T> implements Ptr<T> {
+  const NilPtr();
+
+  @override
+  T get value => nilDeref();
+
+  @override
+  set value(T v) => nilDeref();
+
+  @override
+  bool operator ==(Object other) => other is NilPtr<T>;
+
+  @override
+  int get hashCode => 0;
 }
 
 /// Variável cujo endereço é tomado (`&x`) ou criada por `new(T)`: ela passa

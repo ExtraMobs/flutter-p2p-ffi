@@ -60,11 +60,15 @@ final class Defers {
   }
 }
 
-/// `recover()`: interrompe o panic da função cujos defers estão executando.
-// ponytail: o Go só recupera se chamado *diretamente* pela função adiada;
-// aqui qualquer chamada durante a execução de um defer recupera.
-Object? recover() =>
-    Defers._running.isEmpty ? null : Defers._running.last._recover();
+/// `recover()`. [frame] é a pilha de defers que invocou *diretamente* a
+/// função que chama `recover` (o g2d a repassa pelo parâmetro oculto `$rd`,
+/// só na chamada feita pelo defer). Qualquer outra chamada, ou fora de um
+/// panic, devolve nil, como no Go.
+Object? recover([Defers? frame]) {
+  if (frame == null || Defers._running.isEmpty) return null;
+  if (!identical(Defers._running.last, frame)) return null;
+  return frame._recover();
+}
 
 /// Ponto de entrada do `main` Go: um panic não recuperado imprime
 /// `panic: ...` no stderr e encerra com código 2, como o runtime Go.

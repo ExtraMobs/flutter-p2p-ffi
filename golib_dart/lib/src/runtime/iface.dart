@@ -3,6 +3,7 @@ library;
 
 import '../../fixed_types/golang.dart' show GoTyped;
 import 'panic.dart';
+import 'ptr.dart';
 import 'struct.dart';
 
 /// Nome Go do tipo dinâmico de um valor em interface (mensagens de erro).
@@ -15,11 +16,19 @@ String goTypeName(Object? v) => switch (v) {
   _ => v.runtimeType.toString(),
 };
 
+/// Ponteiro para struct tirado de uma interface: a sentinela vira nil.
+T? unNil<T extends Object>(T? x) => x is GoValue && x.$nilPtr ? null : x;
+
+/// Ponteiro nil tipado guardado na interface (sentinela ou NilPtr) → null.
+Object? _unwrapNil(Object? x) =>
+    (x is GoValue && x.$nilPtr) || x is NilPtr ? null : x;
+
 /// O valor dinâmico em `x` tem o tipo concreto `T`?
 /// [struct]: `true` para struct por valor (`x.(T)`), `false` para ponteiro
 /// para struct (`x.(*T)`), `null` para os demais tipos.
 bool isType<T>(Object? x, {bool? struct}) {
-  if (x is! T) return false;
+  // Interface nil nunca satisfaz uma assertion (mesmo com T anulável).
+  if (x == null || x is! T) return false;
   if (struct == null) return true;
   return x is GoValue && x.$isValue == struct;
 }
@@ -27,7 +36,8 @@ bool isType<T>(Object? x, {bool? struct}) {
 /// `x.(T)` para T concreto. Struct por valor sai copiada.
 T assertType<T>(Object? x, String iface, String target, {bool? struct}) {
   if (isType<T>(x, struct: struct)) {
-    return (struct == true ? (x as GoValue).$copy() : x) as T;
+    if (struct == true) return (x as GoValue).$copy() as T;
+    return _unwrapNil(x) as T;
   }
   final dyn = x == null ? 'nil' : goTypeName(x);
   throw Panic(
@@ -38,7 +48,8 @@ T assertType<T>(Object? x, String iface, String target, {bool? struct}) {
 /// `v, ok := x.(T)` para T concreto.
 (T, bool) tryType<T>(Object? x, T zero, {bool? struct}) {
   if (!isType<T>(x, struct: struct)) return (zero, false);
-  return ((struct == true ? (x as GoValue).$copy() : x) as T, true);
+  if (struct == true) return ((x as GoValue).$copy() as T, true);
+  return (_unwrapNil(x) as T, true);
 }
 
 /// `x.(I)` para I interface; [methods] = method set de I (nomes Go

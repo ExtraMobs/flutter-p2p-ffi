@@ -48,6 +48,23 @@ void _appendV(BytesBuilder b, Object? v, {bool nested = false}) {
   switch (v) {
     case null:
       b.add(utf8.encode('<nil>'));
+    // Ponteiro nil tipado: o fmt chama String()/Error() (o método pode
+    // tratar nil); se ele entrar em panic, imprime <nil> (handleMethods).
+    case GoValue s when s.$nilPtr:
+      try {
+        final Object o = s;
+        if (o is GoError) {
+          b.add(o.error().toBytes());
+        } else if (o is Stringer) {
+          b.add(o.string().toBytes());
+        } else {
+          b.add(utf8.encode('<nil>'));
+        }
+      } catch (_) {
+        b.add(utf8.encode('<nil>'));
+      }
+    case NilPtr():
+      b.add(utf8.encode('<nil>'));
     // Como o fmt do Go: error, depois Stringer, antes da forma estrutural.
     case GoError e:
       b.add(e.error().toBytes());

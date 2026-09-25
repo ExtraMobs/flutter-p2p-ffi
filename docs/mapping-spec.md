@@ -246,8 +246,17 @@ erros de runtime do Dart viram os `runtime.Error` do Go com as mesmas
 mensagens (`go.panicValue`): divisão por zero, índice e fatia fora do
 intervalo, nil pointer, escrita em map nil.
 
-⚠️ `recover()` chamado *indiretamente* por uma função adiada também recupera
-(o Go devolveria nil).
+`recover()` só recupera quando chamado **diretamente** pela função adiada.
+
+- Toda função, método ou func literal que chama `recover()` no próprio
+  corpo ganha o parâmetro oculto opcional `{go.Defers? $rd}`, e o
+  `recover()` ali vira `go.recover($rd)`.
+- Só o `defer` repassa o frame: `f(args, $rd: $d)` quando o callee é
+  conhecido. Para uma variável de função, o teste em runtime é
+  `fv is R Function(A, {go.Defers? $rd})`.
+- Um helper chamado pela função adiada, ou uma closure aninhada, não recebe
+  o frame e devolve nil; o panic segue, como no Go.
+- O `main` não recebe o parâmetro, porque nunca é adiado.
 
 ## Stdlib (shims em `golib_dart/`)
 
@@ -284,8 +293,20 @@ métodos da classe. As conversões usam os construtores:
   `go.isType`/`is`, com a variável ligada por case.
 - `==` entre interfaces → `go.ifaceEq` (identidade para ponteiros).
 - `fmt` usa `error` e depois `Stringer` antes da forma estrutural.
-- ⚠️ Um ponteiro nil tipado dentro de uma interface com métodos fica igual a
-  nil (no Go é não-nil).
+- **Ponteiro nil tipado.** Cada struct tem a sentinela
+  `static final T $nil` (`$nilPtr = true`), que representa `(*T)(nil)`.
+  - Na conversão para interface: `p ?? T.$nil` (para `*int` etc.,
+    `const go.NilPtr<E>()`). Assim `i != nil`, e `i == p` compara via
+    `go.ifaceEq`.
+  - Métodos com receptor ponteiro ligam o receptor a
+    `final T? c = $nilPtr ? null : this;`: rodam com receptor nil, e
+    `c.x` dá o panic de nil.
+  - Métodos com receptor valor começam com `if ($nilPtr) go.nilDeref();`.
+  - A chamada direta `p.M()` com receptor ponteiro vira `(p ?? T.$nil).m()`,
+    válida com `p` nil, como no Go.
+  - `x.(*T)`, comma-ok e type switch devolvem `null` para a sentinela; o fmt
+    imprime `<nil>` (ou chama `String()`/`Error()`, e em caso de panic
+    imprime `<nil>`, como o `handleMethods`).
 
 **Embedding.**
 - O campo embutido é um campo comum.

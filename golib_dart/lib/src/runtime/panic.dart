@@ -32,6 +32,13 @@ final class RuntimeError implements GoError {
   String toString() => message;
 }
 
+/// Desreferência de ponteiro nil (receptor valor chamado sobre `(*T)(nil)`).
+Never nilDeref() => throw Panic(
+  const RuntimeError(
+    'runtime error: invalid memory address or nil pointer dereference',
+  ),
+);
+
 /// Valor de panic Go correspondente a uma exceção lançada no Dart: panics
 /// explícitos mantêm o valor; falhas do runtime Dart viram o `runtime.Error`
 /// que o Go produziria no mesmo ponto.

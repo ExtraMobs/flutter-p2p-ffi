@@ -32,10 +32,10 @@ igual em VM, AOT, Wasm e JS. A tabela completa está em
 | `iface.dart` | `assertType`/`assertIface`/`tryType`/`tryIface`/`isType`, `ifaceEq`, `goTypeName` (mensagens `interface conversion` do Go) |
 | `slice.dart` | `Slice<T>` (array compartilhado, `append` com o `growslice` do Go 1.25), `growCap` |
 | `map.dart` | `GoMap<K, V>` (nil, zero value, `lookup`, iteração tolerante a `delete`) |
-| `ptr.dart` | `Ptr<T>`: `Box`, `ElemPtr`, `FieldPtr` |
+| `ptr.dart` | `Ptr<T>`: `Box`, `ElemPtr`, `FieldPtr`, `NilPtr` (ponteiro nil tipado em interface) |
 | `elem.dart` | `Elem<T>` (sizeof/ponteiros/zero de um tipo; `const`, um por tipo) |
-| `panic.dart` | `GoError`, `Panic`, `RuntimeError`, `panicValue` (erros do Dart → `runtime.Error` do Go) |
-| `defer.dart` | `Defers`, `recover`, `runMain` |
+| `panic.dart` | `GoError`, `Panic`, `RuntimeError`, `nilDeref`, `panicValue` (erros do Dart → `runtime.Error` do Go) |
+| `defer.dart` | `Defers`, `recover(frame)` (só a chamada direta da função adiada recupera), `runMain` |
 | `output*.dart` | `writeStdout`/`writeStderr`/`exitProcess` por import condicional (io × js_interop) |
 
 ## fixed_types: bases de operadores e identidade

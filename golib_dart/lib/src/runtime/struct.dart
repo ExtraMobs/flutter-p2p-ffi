@@ -12,6 +12,10 @@ abstract class GoValue<T extends GoValue<T>> implements GoTyped {
   /// Distingue `x.(T)` de `x.(*T)` e `{...}` de `&{...}` no fmt.
   bool $isValue = false;
 
+  /// `true` só na sentinela `T.$nil`: o ponteiro nil tipado `(*T)(nil)`
+  /// guardado numa interface (que, no Go, não é nil). Nunca é mutada.
+  bool $nilPtr = false;
+
   /// Cópia de valor (aninhados copiados; ponteiros, slices, maps
   /// compartilhados, como no Go).
   T $copy();

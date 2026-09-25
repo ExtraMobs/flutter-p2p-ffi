@@ -65,4 +65,49 @@ func main() {
 		count = 1
 	}()
 	fmt.Println(count)
+	fmt.Println(indirect())
+	named()
+	method()
+	value()
 }
+
+// recover só funciona chamado diretamente pela função adiada.
+func helperRecover() any { return recover() }
+
+func deferredNamed() { fmt.Println("nomeada recupera:", recover()) }
+
+type R struct{ tag string }
+
+func (r R) deferredMethod() { fmt.Println("método recupera:", r.tag, recover()) }
+
+func indirect() (msg string) {
+	defer func() {
+		msg = fmt.Sprint("externo: ", recover())
+	}()
+	func() {
+		defer func() {
+			fmt.Println("helper devolve:", helperRecover())
+			inner := func() any { return recover() }
+			fmt.Println("closure aninhada devolve:", inner())
+		}()
+		panic("x")
+	}()
+	return "não chega"
+}
+
+func named() {
+	defer deferredNamed()
+	panic("y")
+}
+
+func method() {
+	defer R{"m"}.deferredMethod()
+	panic("z")
+}
+
+func value() {
+	fv := func() { fmt.Println("valor de função recupera:", recover()) }
+	defer fv()
+	panic("w")
+}
+

@@ -6324,13 +6324,2832 @@
                         },
                         "$type": 12
                       }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "defers.go",
+                              "line": 68,
+                              "column": 2,
+                              "offset": 1666
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "defers.go",
+                              "line": 68,
+                              "column": 6,
+                              "offset": 1670
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 5,
+                              "decl": "defers.go:312",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 5
+                        },
+                        "lparen": {
+                          "file": "defers.go",
+                          "line": 68,
+                          "column": 13,
+                          "offset": 1677
+                        },
+                        "args": [
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "defers.go",
+                                "line": 68,
+                                "column": 14,
+                                "offset": 1678
+                              },
+                              "name": "indirect",
+                              "obj": {
+                                "node": "Object",
+                                "name": "indirect",
+                                "kind": "func"
+                              },
+                              "$type": 10,
+                              "$obj": {
+                                "name": "indirect",
+                                "kind": "func",
+                                "type": 10,
+                                "decl": "defers.go:2022",
+                                "pkg": "main",
+                                "top": true
+                              }
+                            },
+                            "lparen": {
+                              "file": "defers.go",
+                              "line": 68,
+                              "column": 22,
+                              "offset": 1686
+                            },
+                            "args": null,
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "defers.go",
+                              "line": 68,
+                              "column": 23,
+                              "offset": 1687
+                            },
+                            "$type": 11
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "defers.go",
+                          "line": 68,
+                          "column": 24,
+                          "offset": 1688
+                        },
+                        "$type": 12
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "defers.go",
+                            "line": 69,
+                            "column": 2,
+                            "offset": 1691
+                          },
+                          "name": "named",
+                          "obj": {
+                            "node": "Object",
+                            "name": "named",
+                            "kind": "func"
+                          },
+                          "$type": 3,
+                          "$obj": {
+                            "name": "named",
+                            "kind": "func",
+                            "type": 3,
+                            "decl": "defers.go:2340",
+                            "pkg": "main",
+                            "top": true
+                          }
+                        },
+                        "lparen": {
+                          "file": "defers.go",
+                          "line": 69,
+                          "column": 7,
+                          "offset": 1696
+                        },
+                        "args": null,
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "defers.go",
+                          "line": 69,
+                          "column": 8,
+                          "offset": 1697
+                        },
+                        "$type": 14
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "defers.go",
+                            "line": 70,
+                            "column": 2,
+                            "offset": 1700
+                          },
+                          "name": "method",
+                          "obj": {
+                            "node": "Object",
+                            "name": "method",
+                            "kind": "func"
+                          },
+                          "$type": 3,
+                          "$obj": {
+                            "name": "method",
+                            "kind": "func",
+                            "type": 3,
+                            "decl": "defers.go:2393",
+                            "pkg": "main",
+                            "top": true
+                          }
+                        },
+                        "lparen": {
+                          "file": "defers.go",
+                          "line": 70,
+                          "column": 8,
+                          "offset": 1706
+                        },
+                        "args": null,
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "defers.go",
+                          "line": 70,
+                          "column": 9,
+                          "offset": 1707
+                        },
+                        "$type": 14
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "defers.go",
+                            "line": 71,
+                            "column": 2,
+                            "offset": 1710
+                          },
+                          "name": "value",
+                          "obj": {
+                            "node": "Object",
+                            "name": "value",
+                            "kind": "func"
+                          },
+                          "$type": 3,
+                          "$obj": {
+                            "name": "value",
+                            "kind": "func",
+                            "type": 3,
+                            "decl": "defers.go:2455",
+                            "pkg": "main",
+                            "top": true
+                          }
+                        },
+                        "lparen": {
+                          "file": "defers.go",
+                          "line": 71,
+                          "column": 7,
+                          "offset": 1715
+                        },
+                        "args": null,
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "defers.go",
+                          "line": 71,
+                          "column": 8,
+                          "offset": 1716
+                        },
+                        "$type": 14
+                      }
                     }
                   ],
                   "rbrace": {
                     "file": "defers.go",
-                    "line": 68,
+                    "line": 72,
                     "column": 1,
-                    "offset": 1665
+                    "offset": 1718
+                  }
+                }
+              },
+              {
+                "node": "FuncDecl",
+                "doc": {
+                  "node": "CommentGroup",
+                  "list": [
+                    {
+                      "node": "Comment",
+                      "slash": {
+                        "file": "defers.go",
+                        "line": 74,
+                        "column": 1,
+                        "offset": 1721
+                      },
+                      "text": "// recover só funciona chamado diretamente pela função adiada."
+                    }
+                  ]
+                },
+                "recv": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "defers.go",
+                    "line": 75,
+                    "column": 6,
+                    "offset": 1792
+                  },
+                  "name": "helperRecover",
+                  "obj": {
+                    "node": "Object",
+                    "name": "helperRecover",
+                    "kind": "func"
+                  },
+                  "$obj": {
+                    "name": "helperRecover",
+                    "kind": "func",
+                    "def": true,
+                    "type": 16,
+                    "decl": "defers.go:1792",
+                    "pkg": "main",
+                    "top": true
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "defers.go",
+                    "line": 75,
+                    "column": 1,
+                    "offset": 1787
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "defers.go",
+                      "line": 75,
+                      "column": 19,
+                      "offset": 1805
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "defers.go",
+                      "line": 75,
+                      "column": 20,
+                      "offset": 1806
+                    }
+                  },
+                  "results": {
+                    "node": "FieldList",
+                    "opening": null,
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": null,
+                        "type": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "defers.go",
+                            "line": 75,
+                            "column": 22,
+                            "offset": 1808
+                          },
+                          "name": "any",
+                          "obj": null,
+                          "$type": 7,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "any",
+                            "kind": "type",
+                            "type": 7
+                          }
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": null
+                  }
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "defers.go",
+                    "line": 75,
+                    "column": 26,
+                    "offset": 1812
+                  },
+                  "list": [
+                    {
+                      "node": "ReturnStmt",
+                      "return": {
+                        "file": "defers.go",
+                        "line": 75,
+                        "column": 28,
+                        "offset": 1814
+                      },
+                      "results": [
+                        {
+                          "node": "CallExpr",
+                          "fun": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "defers.go",
+                              "line": 75,
+                              "column": 35,
+                              "offset": 1821
+                            },
+                            "name": "recover",
+                            "obj": null,
+                            "$type": 16,
+                            "$builtin": true,
+                            "$obj": {
+                              "name": "recover",
+                              "kind": "builtin",
+                              "type": 17
+                            }
+                          },
+                          "lparen": {
+                            "file": "defers.go",
+                            "line": 75,
+                            "column": 42,
+                            "offset": 1828
+                          },
+                          "args": null,
+                          "ellipsis": null,
+                          "rparen": {
+                            "file": "defers.go",
+                            "line": 75,
+                            "column": 43,
+                            "offset": 1829
+                          },
+                          "$type": 7
+                        }
+                      ]
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "defers.go",
+                    "line": 75,
+                    "column": 45,
+                    "offset": 1831
+                  }
+                }
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "defers.go",
+                    "line": 77,
+                    "column": 6,
+                    "offset": 1839
+                  },
+                  "name": "deferredNamed",
+                  "obj": {
+                    "node": "Object",
+                    "name": "deferredNamed",
+                    "kind": "func"
+                  },
+                  "$obj": {
+                    "name": "deferredNamed",
+                    "kind": "func",
+                    "def": true,
+                    "type": 3,
+                    "decl": "defers.go:1839",
+                    "pkg": "main",
+                    "top": true
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "defers.go",
+                    "line": 77,
+                    "column": 1,
+                    "offset": 1834
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "defers.go",
+                      "line": 77,
+                      "column": 19,
+                      "offset": 1852
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "defers.go",
+                      "line": 77,
+                      "column": 20,
+                      "offset": 1853
+                    }
+                  },
+                  "results": null
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "defers.go",
+                    "line": 77,
+                    "column": 22,
+                    "offset": 1855
+                  },
+                  "list": [
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "defers.go",
+                              "line": 77,
+                              "column": 24,
+                              "offset": 1857
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "defers.go",
+                              "line": 77,
+                              "column": 28,
+                              "offset": 1861
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 5,
+                              "decl": "defers.go:312",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 5
+                        },
+                        "lparen": {
+                          "file": "defers.go",
+                          "line": 77,
+                          "column": 35,
+                          "offset": 1868
+                        },
+                        "args": [
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "defers.go",
+                              "line": 77,
+                              "column": 36,
+                              "offset": 1869
+                            },
+                            "kind": "STRING",
+                            "value": "\"nomeada recupera:\"",
+                            "$type": 11,
+                            "$value": {
+                              "kind": "string",
+                              "value": "nomeada recupera:"
+                            }
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "defers.go",
+                                "line": 77,
+                                "column": 57,
+                                "offset": 1890
+                              },
+                              "name": "recover",
+                              "obj": null,
+                              "$type": 16,
+                              "$builtin": true,
+                              "$obj": {
+                                "name": "recover",
+                                "kind": "builtin",
+                                "type": 17
+                              }
+                            },
+                            "lparen": {
+                              "file": "defers.go",
+                              "line": 77,
+                              "column": 64,
+                              "offset": 1897
+                            },
+                            "args": null,
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "defers.go",
+                              "line": 77,
+                              "column": 65,
+                              "offset": 1898
+                            },
+                            "$type": 7
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "defers.go",
+                          "line": 77,
+                          "column": 66,
+                          "offset": 1899
+                        },
+                        "$type": 12
+                      }
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "defers.go",
+                    "line": 77,
+                    "column": 68,
+                    "offset": 1901
+                  }
+                }
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "defers.go",
+                  "line": 79,
+                  "column": 1,
+                  "offset": 1904
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "defers.go",
+                        "line": 79,
+                        "column": 6,
+                        "offset": 1909
+                      },
+                      "name": "R",
+                      "obj": {
+                        "node": "Object",
+                        "name": "R",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "R",
+                        "kind": "type",
+                        "def": true,
+                        "type": 26,
+                        "decl": "defers.go:1909",
+                        "pkg": "main",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "StructType",
+                      "struct": {
+                        "file": "defers.go",
+                        "line": 79,
+                        "column": 8,
+                        "offset": 1911
+                      },
+                      "fields": {
+                        "node": "FieldList",
+                        "opening": {
+                          "file": "defers.go",
+                          "line": 79,
+                          "column": 14,
+                          "offset": 1917
+                        },
+                        "list": [
+                          {
+                            "node": "Field",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "defers.go",
+                                  "line": 79,
+                                  "column": 16,
+                                  "offset": 1919
+                                },
+                                "name": "tag",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "tag",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "tag",
+                                  "kind": "field",
+                                  "def": true,
+                                  "type": 11,
+                                  "decl": "defers.go:1919",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "defers.go",
+                                "line": 79,
+                                "column": 20,
+                                "offset": 1923
+                              },
+                              "name": "string",
+                              "obj": null,
+                              "$type": 11,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "string",
+                                "kind": "type",
+                                "type": 11
+                              }
+                            },
+                            "tag": null,
+                            "comment": null
+                          }
+                        ],
+                        "closing": {
+                          "file": "defers.go",
+                          "line": 79,
+                          "column": 27,
+                          "offset": 1930
+                        }
+                      },
+                      "incomplete": false,
+                      "$type": 27,
+                      "$isType": true
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": {
+                  "node": "FieldList",
+                  "opening": {
+                    "file": "defers.go",
+                    "line": 81,
+                    "column": 6,
+                    "offset": 1938
+                  },
+                  "list": [
+                    {
+                      "node": "Field",
+                      "doc": null,
+                      "names": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "defers.go",
+                            "line": 81,
+                            "column": 7,
+                            "offset": 1939
+                          },
+                          "name": "r",
+                          "obj": {
+                            "node": "Object",
+                            "name": "r",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "r",
+                            "kind": "var",
+                            "def": true,
+                            "type": 26,
+                            "decl": "defers.go:1939",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "type": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "defers.go",
+                          "line": 81,
+                          "column": 9,
+                          "offset": 1941
+                        },
+                        "name": "R",
+                        "obj": {
+                          "node": "Object",
+                          "name": "R",
+                          "kind": "type"
+                        },
+                        "$type": 26,
+                        "$isType": true,
+                        "$obj": {
+                          "name": "R",
+                          "kind": "type",
+                          "type": 26,
+                          "decl": "defers.go:1909",
+                          "pkg": "main",
+                          "top": true
+                        }
+                      },
+                      "tag": null,
+                      "comment": null
+                    }
+                  ],
+                  "closing": {
+                    "file": "defers.go",
+                    "line": 81,
+                    "column": 10,
+                    "offset": 1942
+                  }
+                },
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "defers.go",
+                    "line": 81,
+                    "column": 12,
+                    "offset": 1944
+                  },
+                  "name": "deferredMethod",
+                  "obj": null,
+                  "$obj": {
+                    "name": "deferredMethod",
+                    "kind": "method",
+                    "def": true,
+                    "type": 3,
+                    "decl": "defers.go:1944",
+                    "pkg": "main"
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "defers.go",
+                    "line": 81,
+                    "column": 1,
+                    "offset": 1933
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "defers.go",
+                      "line": 81,
+                      "column": 26,
+                      "offset": 1958
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "defers.go",
+                      "line": 81,
+                      "column": 27,
+                      "offset": 1959
+                    }
+                  },
+                  "results": null
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "defers.go",
+                    "line": 81,
+                    "column": 29,
+                    "offset": 1961
+                  },
+                  "list": [
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "defers.go",
+                              "line": 81,
+                              "column": 31,
+                              "offset": 1963
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "defers.go",
+                              "line": 81,
+                              "column": 35,
+                              "offset": 1967
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 5,
+                              "decl": "defers.go:312",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 5
+                        },
+                        "lparen": {
+                          "file": "defers.go",
+                          "line": 81,
+                          "column": 42,
+                          "offset": 1974
+                        },
+                        "args": [
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "defers.go",
+                              "line": 81,
+                              "column": 43,
+                              "offset": 1975
+                            },
+                            "kind": "STRING",
+                            "value": "\"método recupera:\"",
+                            "$type": 11,
+                            "$value": {
+                              "kind": "string",
+                              "value": "método recupera:"
+                            }
+                          },
+                          {
+                            "node": "SelectorExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "defers.go",
+                                "line": 81,
+                                "column": 64,
+                                "offset": 1996
+                              },
+                              "name": "r",
+                              "obj": {
+                                "node": "Object",
+                                "name": "r",
+                                "kind": "var"
+                              },
+                              "$type": 26,
+                              "$obj": {
+                                "name": "r",
+                                "kind": "var",
+                                "type": 26,
+                                "decl": "defers.go:1939",
+                                "pkg": "main"
+                              }
+                            },
+                            "sel": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "defers.go",
+                                "line": 81,
+                                "column": 66,
+                                "offset": 1998
+                              },
+                              "name": "tag",
+                              "obj": null,
+                              "$obj": {
+                                "name": "tag",
+                                "kind": "field",
+                                "type": 11,
+                                "decl": "defers.go:1919",
+                                "pkg": "main"
+                              }
+                            },
+                            "$type": 11,
+                            "$sel": {
+                              "kind": "field",
+                              "recv": 26,
+                              "index": [
+                                0
+                              ],
+                              "indirect": false
+                            }
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "defers.go",
+                                "line": 81,
+                                "column": 71,
+                                "offset": 2003
+                              },
+                              "name": "recover",
+                              "obj": null,
+                              "$type": 16,
+                              "$builtin": true,
+                              "$obj": {
+                                "name": "recover",
+                                "kind": "builtin",
+                                "type": 17
+                              }
+                            },
+                            "lparen": {
+                              "file": "defers.go",
+                              "line": 81,
+                              "column": 78,
+                              "offset": 2010
+                            },
+                            "args": null,
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "defers.go",
+                              "line": 81,
+                              "column": 79,
+                              "offset": 2011
+                            },
+                            "$type": 7
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "defers.go",
+                          "line": 81,
+                          "column": 80,
+                          "offset": 2012
+                        },
+                        "$type": 12
+                      }
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "defers.go",
+                    "line": 81,
+                    "column": 82,
+                    "offset": 2014
+                  }
+                }
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "defers.go",
+                    "line": 83,
+                    "column": 6,
+                    "offset": 2022
+                  },
+                  "name": "indirect",
+                  "obj": {
+                    "node": "Object",
+                    "name": "indirect",
+                    "kind": "func"
+                  },
+                  "$obj": {
+                    "name": "indirect",
+                    "kind": "func",
+                    "def": true,
+                    "type": 10,
+                    "decl": "defers.go:2022",
+                    "pkg": "main",
+                    "top": true
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "defers.go",
+                    "line": 83,
+                    "column": 1,
+                    "offset": 2017
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "defers.go",
+                      "line": 83,
+                      "column": 14,
+                      "offset": 2030
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "defers.go",
+                      "line": 83,
+                      "column": 15,
+                      "offset": 2031
+                    }
+                  },
+                  "results": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "defers.go",
+                      "line": 83,
+                      "column": 17,
+                      "offset": 2033
+                    },
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "defers.go",
+                              "line": 83,
+                              "column": 18,
+                              "offset": 2034
+                            },
+                            "name": "msg",
+                            "obj": {
+                              "node": "Object",
+                              "name": "msg",
+                              "kind": "var"
+                            },
+                            "$obj": {
+                              "name": "msg",
+                              "kind": "var",
+                              "def": true,
+                              "type": 11,
+                              "decl": "defers.go:2034",
+                              "pkg": "main"
+                            }
+                          }
+                        ],
+                        "type": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "defers.go",
+                            "line": 83,
+                            "column": 22,
+                            "offset": 2038
+                          },
+                          "name": "string",
+                          "obj": null,
+                          "$type": 11,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "string",
+                            "kind": "type",
+                            "type": 11
+                          }
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": {
+                      "file": "defers.go",
+                      "line": 83,
+                      "column": 28,
+                      "offset": 2044
+                    }
+                  }
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "defers.go",
+                    "line": 83,
+                    "column": 30,
+                    "offset": 2046
+                  },
+                  "list": [
+                    {
+                      "node": "DeferStmt",
+                      "defer": {
+                        "file": "defers.go",
+                        "line": 84,
+                        "column": 2,
+                        "offset": 2049
+                      },
+                      "call": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "FuncLit",
+                          "type": {
+                            "node": "FuncType",
+                            "func": {
+                              "file": "defers.go",
+                              "line": 84,
+                              "column": 8,
+                              "offset": 2055
+                            },
+                            "typeParams": null,
+                            "params": {
+                              "node": "FieldList",
+                              "opening": {
+                                "file": "defers.go",
+                                "line": 84,
+                                "column": 12,
+                                "offset": 2059
+                              },
+                              "list": null,
+                              "closing": {
+                                "file": "defers.go",
+                                "line": 84,
+                                "column": 13,
+                                "offset": 2060
+                              }
+                            },
+                            "results": null,
+                            "$type": 3,
+                            "$isType": true
+                          },
+                          "body": {
+                            "node": "BlockStmt",
+                            "lbrace": {
+                              "file": "defers.go",
+                              "line": 84,
+                              "column": 15,
+                              "offset": 2062
+                            },
+                            "list": [
+                              {
+                                "node": "AssignStmt",
+                                "lhs": [
+                                  {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "defers.go",
+                                      "line": 85,
+                                      "column": 3,
+                                      "offset": 2066
+                                    },
+                                    "name": "msg",
+                                    "obj": {
+                                      "node": "Object",
+                                      "name": "msg",
+                                      "kind": "var"
+                                    },
+                                    "$type": 11,
+                                    "$obj": {
+                                      "name": "msg",
+                                      "kind": "var",
+                                      "type": 11,
+                                      "decl": "defers.go:2034",
+                                      "pkg": "main"
+                                    }
+                                  }
+                                ],
+                                "tokPos": {
+                                  "file": "defers.go",
+                                  "line": 85,
+                                  "column": 7,
+                                  "offset": 2070
+                                },
+                                "tok": "=",
+                                "rhs": [
+                                  {
+                                    "node": "CallExpr",
+                                    "fun": {
+                                      "node": "SelectorExpr",
+                                      "x": {
+                                        "node": "Ident",
+                                        "namePos": {
+                                          "file": "defers.go",
+                                          "line": 85,
+                                          "column": 9,
+                                          "offset": 2072
+                                        },
+                                        "name": "fmt",
+                                        "obj": null,
+                                        "$obj": {
+                                          "name": "fmt",
+                                          "kind": "package",
+                                          "pkg": "fmt"
+                                        }
+                                      },
+                                      "sel": {
+                                        "node": "Ident",
+                                        "namePos": {
+                                          "file": "defers.go",
+                                          "line": 85,
+                                          "column": 13,
+                                          "offset": 2076
+                                        },
+                                        "name": "Sprint",
+                                        "obj": null,
+                                        "$obj": {
+                                          "name": "Sprint",
+                                          "kind": "func",
+                                          "type": 19,
+                                          "decl": "defers.go:276",
+                                          "pkg": "fmt",
+                                          "top": true
+                                        }
+                                      },
+                                      "$type": 19
+                                    },
+                                    "lparen": {
+                                      "file": "defers.go",
+                                      "line": 85,
+                                      "column": 19,
+                                      "offset": 2082
+                                    },
+                                    "args": [
+                                      {
+                                        "node": "BasicLit",
+                                        "valuePos": {
+                                          "file": "defers.go",
+                                          "line": 85,
+                                          "column": 20,
+                                          "offset": 2083
+                                        },
+                                        "kind": "STRING",
+                                        "value": "\"externo: \"",
+                                        "$type": 11,
+                                        "$value": {
+                                          "kind": "string",
+                                          "value": "externo: "
+                                        }
+                                      },
+                                      {
+                                        "node": "CallExpr",
+                                        "fun": {
+                                          "node": "Ident",
+                                          "namePos": {
+                                            "file": "defers.go",
+                                            "line": 85,
+                                            "column": 33,
+                                            "offset": 2096
+                                          },
+                                          "name": "recover",
+                                          "obj": null,
+                                          "$type": 16,
+                                          "$builtin": true,
+                                          "$obj": {
+                                            "name": "recover",
+                                            "kind": "builtin",
+                                            "type": 17
+                                          }
+                                        },
+                                        "lparen": {
+                                          "file": "defers.go",
+                                          "line": 85,
+                                          "column": 40,
+                                          "offset": 2103
+                                        },
+                                        "args": null,
+                                        "ellipsis": null,
+                                        "rparen": {
+                                          "file": "defers.go",
+                                          "line": 85,
+                                          "column": 41,
+                                          "offset": 2104
+                                        },
+                                        "$type": 7
+                                      }
+                                    ],
+                                    "ellipsis": null,
+                                    "rparen": {
+                                      "file": "defers.go",
+                                      "line": 85,
+                                      "column": 42,
+                                      "offset": 2105
+                                    },
+                                    "$type": 11
+                                  }
+                                ]
+                              }
+                            ],
+                            "rbrace": {
+                              "file": "defers.go",
+                              "line": 86,
+                              "column": 2,
+                              "offset": 2108
+                            }
+                          },
+                          "$type": 3
+                        },
+                        "lparen": {
+                          "file": "defers.go",
+                          "line": 86,
+                          "column": 3,
+                          "offset": 2109
+                        },
+                        "args": null,
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "defers.go",
+                          "line": 86,
+                          "column": 4,
+                          "offset": 2110
+                        },
+                        "$type": 14
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "FuncLit",
+                          "type": {
+                            "node": "FuncType",
+                            "func": {
+                              "file": "defers.go",
+                              "line": 87,
+                              "column": 2,
+                              "offset": 2113
+                            },
+                            "typeParams": null,
+                            "params": {
+                              "node": "FieldList",
+                              "opening": {
+                                "file": "defers.go",
+                                "line": 87,
+                                "column": 6,
+                                "offset": 2117
+                              },
+                              "list": null,
+                              "closing": {
+                                "file": "defers.go",
+                                "line": 87,
+                                "column": 7,
+                                "offset": 2118
+                              }
+                            },
+                            "results": null,
+                            "$type": 3,
+                            "$isType": true
+                          },
+                          "body": {
+                            "node": "BlockStmt",
+                            "lbrace": {
+                              "file": "defers.go",
+                              "line": 87,
+                              "column": 9,
+                              "offset": 2120
+                            },
+                            "list": [
+                              {
+                                "node": "DeferStmt",
+                                "defer": {
+                                  "file": "defers.go",
+                                  "line": 88,
+                                  "column": 3,
+                                  "offset": 2124
+                                },
+                                "call": {
+                                  "node": "CallExpr",
+                                  "fun": {
+                                    "node": "FuncLit",
+                                    "type": {
+                                      "node": "FuncType",
+                                      "func": {
+                                        "file": "defers.go",
+                                        "line": 88,
+                                        "column": 9,
+                                        "offset": 2130
+                                      },
+                                      "typeParams": null,
+                                      "params": {
+                                        "node": "FieldList",
+                                        "opening": {
+                                          "file": "defers.go",
+                                          "line": 88,
+                                          "column": 13,
+                                          "offset": 2134
+                                        },
+                                        "list": null,
+                                        "closing": {
+                                          "file": "defers.go",
+                                          "line": 88,
+                                          "column": 14,
+                                          "offset": 2135
+                                        }
+                                      },
+                                      "results": null,
+                                      "$type": 3,
+                                      "$isType": true
+                                    },
+                                    "body": {
+                                      "node": "BlockStmt",
+                                      "lbrace": {
+                                        "file": "defers.go",
+                                        "line": 88,
+                                        "column": 16,
+                                        "offset": 2137
+                                      },
+                                      "list": [
+                                        {
+                                          "node": "ExprStmt",
+                                          "x": {
+                                            "node": "CallExpr",
+                                            "fun": {
+                                              "node": "SelectorExpr",
+                                              "x": {
+                                                "node": "Ident",
+                                                "namePos": {
+                                                  "file": "defers.go",
+                                                  "line": 89,
+                                                  "column": 4,
+                                                  "offset": 2142
+                                                },
+                                                "name": "fmt",
+                                                "obj": null,
+                                                "$obj": {
+                                                  "name": "fmt",
+                                                  "kind": "package",
+                                                  "pkg": "fmt"
+                                                }
+                                              },
+                                              "sel": {
+                                                "node": "Ident",
+                                                "namePos": {
+                                                  "file": "defers.go",
+                                                  "line": 89,
+                                                  "column": 8,
+                                                  "offset": 2146
+                                                },
+                                                "name": "Println",
+                                                "obj": null,
+                                                "$obj": {
+                                                  "name": "Println",
+                                                  "kind": "func",
+                                                  "type": 5,
+                                                  "decl": "defers.go:312",
+                                                  "pkg": "fmt",
+                                                  "top": true
+                                                }
+                                              },
+                                              "$type": 5
+                                            },
+                                            "lparen": {
+                                              "file": "defers.go",
+                                              "line": 89,
+                                              "column": 15,
+                                              "offset": 2153
+                                            },
+                                            "args": [
+                                              {
+                                                "node": "BasicLit",
+                                                "valuePos": {
+                                                  "file": "defers.go",
+                                                  "line": 89,
+                                                  "column": 16,
+                                                  "offset": 2154
+                                                },
+                                                "kind": "STRING",
+                                                "value": "\"helper devolve:\"",
+                                                "$type": 11,
+                                                "$value": {
+                                                  "kind": "string",
+                                                  "value": "helper devolve:"
+                                                }
+                                              },
+                                              {
+                                                "node": "CallExpr",
+                                                "fun": {
+                                                  "node": "Ident",
+                                                  "namePos": {
+                                                    "file": "defers.go",
+                                                    "line": 89,
+                                                    "column": 35,
+                                                    "offset": 2173
+                                                  },
+                                                  "name": "helperRecover",
+                                                  "obj": {
+                                                    "node": "Object",
+                                                    "name": "helperRecover",
+                                                    "kind": "func"
+                                                  },
+                                                  "$type": 16,
+                                                  "$obj": {
+                                                    "name": "helperRecover",
+                                                    "kind": "func",
+                                                    "type": 16,
+                                                    "decl": "defers.go:1792",
+                                                    "pkg": "main",
+                                                    "top": true
+                                                  }
+                                                },
+                                                "lparen": {
+                                                  "file": "defers.go",
+                                                  "line": 89,
+                                                  "column": 48,
+                                                  "offset": 2186
+                                                },
+                                                "args": null,
+                                                "ellipsis": null,
+                                                "rparen": {
+                                                  "file": "defers.go",
+                                                  "line": 89,
+                                                  "column": 49,
+                                                  "offset": 2187
+                                                },
+                                                "$type": 7
+                                              }
+                                            ],
+                                            "ellipsis": null,
+                                            "rparen": {
+                                              "file": "defers.go",
+                                              "line": 89,
+                                              "column": 50,
+                                              "offset": 2188
+                                            },
+                                            "$type": 12
+                                          }
+                                        },
+                                        {
+                                          "node": "AssignStmt",
+                                          "lhs": [
+                                            {
+                                              "node": "Ident",
+                                              "namePos": {
+                                                "file": "defers.go",
+                                                "line": 90,
+                                                "column": 4,
+                                                "offset": 2193
+                                              },
+                                              "name": "inner",
+                                              "obj": {
+                                                "node": "Object",
+                                                "name": "inner",
+                                                "kind": "var"
+                                              },
+                                              "$obj": {
+                                                "name": "inner",
+                                                "kind": "var",
+                                                "def": true,
+                                                "type": 16,
+                                                "decl": "defers.go:2193",
+                                                "pkg": "main"
+                                              }
+                                            }
+                                          ],
+                                          "tokPos": {
+                                            "file": "defers.go",
+                                            "line": 90,
+                                            "column": 10,
+                                            "offset": 2199
+                                          },
+                                          "tok": ":=",
+                                          "rhs": [
+                                            {
+                                              "node": "FuncLit",
+                                              "type": {
+                                                "node": "FuncType",
+                                                "func": {
+                                                  "file": "defers.go",
+                                                  "line": 90,
+                                                  "column": 13,
+                                                  "offset": 2202
+                                                },
+                                                "typeParams": null,
+                                                "params": {
+                                                  "node": "FieldList",
+                                                  "opening": {
+                                                    "file": "defers.go",
+                                                    "line": 90,
+                                                    "column": 17,
+                                                    "offset": 2206
+                                                  },
+                                                  "list": null,
+                                                  "closing": {
+                                                    "file": "defers.go",
+                                                    "line": 90,
+                                                    "column": 18,
+                                                    "offset": 2207
+                                                  }
+                                                },
+                                                "results": {
+                                                  "node": "FieldList",
+                                                  "opening": null,
+                                                  "list": [
+                                                    {
+                                                      "node": "Field",
+                                                      "doc": null,
+                                                      "names": null,
+                                                      "type": {
+                                                        "node": "Ident",
+                                                        "namePos": {
+                                                          "file": "defers.go",
+                                                          "line": 90,
+                                                          "column": 20,
+                                                          "offset": 2209
+                                                        },
+                                                        "name": "any",
+                                                        "obj": null,
+                                                        "$type": 7,
+                                                        "$isType": true,
+                                                        "$obj": {
+                                                          "name": "any",
+                                                          "kind": "type",
+                                                          "type": 7
+                                                        }
+                                                      },
+                                                      "tag": null,
+                                                      "comment": null
+                                                    }
+                                                  ],
+                                                  "closing": null
+                                                },
+                                                "$type": 16,
+                                                "$isType": true
+                                              },
+                                              "body": {
+                                                "node": "BlockStmt",
+                                                "lbrace": {
+                                                  "file": "defers.go",
+                                                  "line": 90,
+                                                  "column": 24,
+                                                  "offset": 2213
+                                                },
+                                                "list": [
+                                                  {
+                                                    "node": "ReturnStmt",
+                                                    "return": {
+                                                      "file": "defers.go",
+                                                      "line": 90,
+                                                      "column": 26,
+                                                      "offset": 2215
+                                                    },
+                                                    "results": [
+                                                      {
+                                                        "node": "CallExpr",
+                                                        "fun": {
+                                                          "node": "Ident",
+                                                          "namePos": {
+                                                            "file": "defers.go",
+                                                            "line": 90,
+                                                            "column": 33,
+                                                            "offset": 2222
+                                                          },
+                                                          "name": "recover",
+                                                          "obj": null,
+                                                          "$type": 16,
+                                                          "$builtin": true,
+                                                          "$obj": {
+                                                            "name": "recover",
+                                                            "kind": "builtin",
+                                                            "type": 17
+                                                          }
+                                                        },
+                                                        "lparen": {
+                                                          "file": "defers.go",
+                                                          "line": 90,
+                                                          "column": 40,
+                                                          "offset": 2229
+                                                        },
+                                                        "args": null,
+                                                        "ellipsis": null,
+                                                        "rparen": {
+                                                          "file": "defers.go",
+                                                          "line": 90,
+                                                          "column": 41,
+                                                          "offset": 2230
+                                                        },
+                                                        "$type": 7
+                                                      }
+                                                    ]
+                                                  }
+                                                ],
+                                                "rbrace": {
+                                                  "file": "defers.go",
+                                                  "line": 90,
+                                                  "column": 43,
+                                                  "offset": 2232
+                                                }
+                                              },
+                                              "$type": 16
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "node": "ExprStmt",
+                                          "x": {
+                                            "node": "CallExpr",
+                                            "fun": {
+                                              "node": "SelectorExpr",
+                                              "x": {
+                                                "node": "Ident",
+                                                "namePos": {
+                                                  "file": "defers.go",
+                                                  "line": 91,
+                                                  "column": 4,
+                                                  "offset": 2237
+                                                },
+                                                "name": "fmt",
+                                                "obj": null,
+                                                "$obj": {
+                                                  "name": "fmt",
+                                                  "kind": "package",
+                                                  "pkg": "fmt"
+                                                }
+                                              },
+                                              "sel": {
+                                                "node": "Ident",
+                                                "namePos": {
+                                                  "file": "defers.go",
+                                                  "line": 91,
+                                                  "column": 8,
+                                                  "offset": 2241
+                                                },
+                                                "name": "Println",
+                                                "obj": null,
+                                                "$obj": {
+                                                  "name": "Println",
+                                                  "kind": "func",
+                                                  "type": 5,
+                                                  "decl": "defers.go:312",
+                                                  "pkg": "fmt",
+                                                  "top": true
+                                                }
+                                              },
+                                              "$type": 5
+                                            },
+                                            "lparen": {
+                                              "file": "defers.go",
+                                              "line": 91,
+                                              "column": 15,
+                                              "offset": 2248
+                                            },
+                                            "args": [
+                                              {
+                                                "node": "BasicLit",
+                                                "valuePos": {
+                                                  "file": "defers.go",
+                                                  "line": 91,
+                                                  "column": 16,
+                                                  "offset": 2249
+                                                },
+                                                "kind": "STRING",
+                                                "value": "\"closure aninhada devolve:\"",
+                                                "$type": 11,
+                                                "$value": {
+                                                  "kind": "string",
+                                                  "value": "closure aninhada devolve:"
+                                                }
+                                              },
+                                              {
+                                                "node": "CallExpr",
+                                                "fun": {
+                                                  "node": "Ident",
+                                                  "namePos": {
+                                                    "file": "defers.go",
+                                                    "line": 91,
+                                                    "column": 45,
+                                                    "offset": 2278
+                                                  },
+                                                  "name": "inner",
+                                                  "obj": {
+                                                    "node": "Object",
+                                                    "name": "inner",
+                                                    "kind": "var"
+                                                  },
+                                                  "$type": 16,
+                                                  "$obj": {
+                                                    "name": "inner",
+                                                    "kind": "var",
+                                                    "type": 16,
+                                                    "decl": "defers.go:2193",
+                                                    "pkg": "main"
+                                                  }
+                                                },
+                                                "lparen": {
+                                                  "file": "defers.go",
+                                                  "line": 91,
+                                                  "column": 50,
+                                                  "offset": 2283
+                                                },
+                                                "args": null,
+                                                "ellipsis": null,
+                                                "rparen": {
+                                                  "file": "defers.go",
+                                                  "line": 91,
+                                                  "column": 51,
+                                                  "offset": 2284
+                                                },
+                                                "$type": 7
+                                              }
+                                            ],
+                                            "ellipsis": null,
+                                            "rparen": {
+                                              "file": "defers.go",
+                                              "line": 91,
+                                              "column": 52,
+                                              "offset": 2285
+                                            },
+                                            "$type": 12
+                                          }
+                                        }
+                                      ],
+                                      "rbrace": {
+                                        "file": "defers.go",
+                                        "line": 92,
+                                        "column": 3,
+                                        "offset": 2289
+                                      }
+                                    },
+                                    "$type": 3
+                                  },
+                                  "lparen": {
+                                    "file": "defers.go",
+                                    "line": 92,
+                                    "column": 4,
+                                    "offset": 2290
+                                  },
+                                  "args": null,
+                                  "ellipsis": null,
+                                  "rparen": {
+                                    "file": "defers.go",
+                                    "line": 92,
+                                    "column": 5,
+                                    "offset": 2291
+                                  },
+                                  "$type": 14
+                                }
+                              },
+                              {
+                                "node": "ExprStmt",
+                                "x": {
+                                  "node": "CallExpr",
+                                  "fun": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "defers.go",
+                                      "line": 93,
+                                      "column": 3,
+                                      "offset": 2295
+                                    },
+                                    "name": "panic",
+                                    "obj": null,
+                                    "$type": 20,
+                                    "$builtin": true,
+                                    "$obj": {
+                                      "name": "panic",
+                                      "kind": "builtin",
+                                      "type": 17
+                                    }
+                                  },
+                                  "lparen": {
+                                    "file": "defers.go",
+                                    "line": 93,
+                                    "column": 8,
+                                    "offset": 2300
+                                  },
+                                  "args": [
+                                    {
+                                      "node": "BasicLit",
+                                      "valuePos": {
+                                        "file": "defers.go",
+                                        "line": 93,
+                                        "column": 9,
+                                        "offset": 2301
+                                      },
+                                      "kind": "STRING",
+                                      "value": "\"x\"",
+                                      "$type": 11,
+                                      "$value": {
+                                        "kind": "string",
+                                        "value": "x"
+                                      }
+                                    }
+                                  ],
+                                  "ellipsis": null,
+                                  "rparen": {
+                                    "file": "defers.go",
+                                    "line": 93,
+                                    "column": 12,
+                                    "offset": 2304
+                                  },
+                                  "$type": 14
+                                }
+                              }
+                            ],
+                            "rbrace": {
+                              "file": "defers.go",
+                              "line": 94,
+                              "column": 2,
+                              "offset": 2307
+                            }
+                          },
+                          "$type": 3
+                        },
+                        "lparen": {
+                          "file": "defers.go",
+                          "line": 94,
+                          "column": 3,
+                          "offset": 2308
+                        },
+                        "args": null,
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "defers.go",
+                          "line": 94,
+                          "column": 4,
+                          "offset": 2309
+                        },
+                        "$type": 14
+                      }
+                    },
+                    {
+                      "node": "ReturnStmt",
+                      "return": {
+                        "file": "defers.go",
+                        "line": 95,
+                        "column": 2,
+                        "offset": 2312
+                      },
+                      "results": [
+                        {
+                          "node": "BasicLit",
+                          "valuePos": {
+                            "file": "defers.go",
+                            "line": 95,
+                            "column": 9,
+                            "offset": 2319
+                          },
+                          "kind": "STRING",
+                          "value": "\"não chega\"",
+                          "$type": 11,
+                          "$value": {
+                            "kind": "string",
+                            "value": "não chega"
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "defers.go",
+                    "line": 96,
+                    "column": 1,
+                    "offset": 2332
+                  }
+                }
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "defers.go",
+                    "line": 98,
+                    "column": 6,
+                    "offset": 2340
+                  },
+                  "name": "named",
+                  "obj": {
+                    "node": "Object",
+                    "name": "named",
+                    "kind": "func"
+                  },
+                  "$obj": {
+                    "name": "named",
+                    "kind": "func",
+                    "def": true,
+                    "type": 3,
+                    "decl": "defers.go:2340",
+                    "pkg": "main",
+                    "top": true
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "defers.go",
+                    "line": 98,
+                    "column": 1,
+                    "offset": 2335
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "defers.go",
+                      "line": 98,
+                      "column": 11,
+                      "offset": 2345
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "defers.go",
+                      "line": 98,
+                      "column": 12,
+                      "offset": 2346
+                    }
+                  },
+                  "results": null
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "defers.go",
+                    "line": 98,
+                    "column": 14,
+                    "offset": 2348
+                  },
+                  "list": [
+                    {
+                      "node": "DeferStmt",
+                      "defer": {
+                        "file": "defers.go",
+                        "line": 99,
+                        "column": 2,
+                        "offset": 2351
+                      },
+                      "call": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "defers.go",
+                            "line": 99,
+                            "column": 8,
+                            "offset": 2357
+                          },
+                          "name": "deferredNamed",
+                          "obj": {
+                            "node": "Object",
+                            "name": "deferredNamed",
+                            "kind": "func"
+                          },
+                          "$type": 3,
+                          "$obj": {
+                            "name": "deferredNamed",
+                            "kind": "func",
+                            "type": 3,
+                            "decl": "defers.go:1839",
+                            "pkg": "main",
+                            "top": true
+                          }
+                        },
+                        "lparen": {
+                          "file": "defers.go",
+                          "line": 99,
+                          "column": 21,
+                          "offset": 2370
+                        },
+                        "args": null,
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "defers.go",
+                          "line": 99,
+                          "column": 22,
+                          "offset": 2371
+                        },
+                        "$type": 14
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "defers.go",
+                            "line": 100,
+                            "column": 2,
+                            "offset": 2374
+                          },
+                          "name": "panic",
+                          "obj": null,
+                          "$type": 20,
+                          "$builtin": true,
+                          "$obj": {
+                            "name": "panic",
+                            "kind": "builtin",
+                            "type": 17
+                          }
+                        },
+                        "lparen": {
+                          "file": "defers.go",
+                          "line": 100,
+                          "column": 7,
+                          "offset": 2379
+                        },
+                        "args": [
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "defers.go",
+                              "line": 100,
+                              "column": 8,
+                              "offset": 2380
+                            },
+                            "kind": "STRING",
+                            "value": "\"y\"",
+                            "$type": 11,
+                            "$value": {
+                              "kind": "string",
+                              "value": "y"
+                            }
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "defers.go",
+                          "line": 100,
+                          "column": 11,
+                          "offset": 2383
+                        },
+                        "$type": 14
+                      }
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "defers.go",
+                    "line": 101,
+                    "column": 1,
+                    "offset": 2385
+                  }
+                }
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "defers.go",
+                    "line": 103,
+                    "column": 6,
+                    "offset": 2393
+                  },
+                  "name": "method",
+                  "obj": {
+                    "node": "Object",
+                    "name": "method",
+                    "kind": "func"
+                  },
+                  "$obj": {
+                    "name": "method",
+                    "kind": "func",
+                    "def": true,
+                    "type": 3,
+                    "decl": "defers.go:2393",
+                    "pkg": "main",
+                    "top": true
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "defers.go",
+                    "line": 103,
+                    "column": 1,
+                    "offset": 2388
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "defers.go",
+                      "line": 103,
+                      "column": 12,
+                      "offset": 2399
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "defers.go",
+                      "line": 103,
+                      "column": 13,
+                      "offset": 2400
+                    }
+                  },
+                  "results": null
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "defers.go",
+                    "line": 103,
+                    "column": 15,
+                    "offset": 2402
+                  },
+                  "list": [
+                    {
+                      "node": "DeferStmt",
+                      "defer": {
+                        "file": "defers.go",
+                        "line": 104,
+                        "column": 2,
+                        "offset": 2405
+                      },
+                      "call": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "CompositeLit",
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "defers.go",
+                                "line": 104,
+                                "column": 8,
+                                "offset": 2411
+                              },
+                              "name": "R",
+                              "obj": {
+                                "node": "Object",
+                                "name": "R",
+                                "kind": "type"
+                              },
+                              "$type": 26,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "R",
+                                "kind": "type",
+                                "type": 26,
+                                "decl": "defers.go:1909",
+                                "pkg": "main",
+                                "top": true
+                              }
+                            },
+                            "lbrace": {
+                              "file": "defers.go",
+                              "line": 104,
+                              "column": 9,
+                              "offset": 2412
+                            },
+                            "elts": [
+                              {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "defers.go",
+                                  "line": 104,
+                                  "column": 10,
+                                  "offset": 2413
+                                },
+                                "kind": "STRING",
+                                "value": "\"m\"",
+                                "$type": 11,
+                                "$value": {
+                                  "kind": "string",
+                                  "value": "m"
+                                }
+                              }
+                            ],
+                            "rbrace": {
+                              "file": "defers.go",
+                              "line": 104,
+                              "column": 13,
+                              "offset": 2416
+                            },
+                            "incomplete": false,
+                            "$type": 26
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "defers.go",
+                              "line": 104,
+                              "column": 15,
+                              "offset": 2418
+                            },
+                            "name": "deferredMethod",
+                            "obj": null,
+                            "$obj": {
+                              "name": "deferredMethod",
+                              "kind": "method",
+                              "type": 3,
+                              "decl": "defers.go:1944",
+                              "pkg": "main"
+                            }
+                          },
+                          "$type": 3,
+                          "$sel": {
+                            "kind": "method",
+                            "recv": 26,
+                            "index": [
+                              0
+                            ],
+                            "indirect": false
+                          }
+                        },
+                        "lparen": {
+                          "file": "defers.go",
+                          "line": 104,
+                          "column": 29,
+                          "offset": 2432
+                        },
+                        "args": null,
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "defers.go",
+                          "line": 104,
+                          "column": 30,
+                          "offset": 2433
+                        },
+                        "$type": 14
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "defers.go",
+                            "line": 105,
+                            "column": 2,
+                            "offset": 2436
+                          },
+                          "name": "panic",
+                          "obj": null,
+                          "$type": 20,
+                          "$builtin": true,
+                          "$obj": {
+                            "name": "panic",
+                            "kind": "builtin",
+                            "type": 17
+                          }
+                        },
+                        "lparen": {
+                          "file": "defers.go",
+                          "line": 105,
+                          "column": 7,
+                          "offset": 2441
+                        },
+                        "args": [
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "defers.go",
+                              "line": 105,
+                              "column": 8,
+                              "offset": 2442
+                            },
+                            "kind": "STRING",
+                            "value": "\"z\"",
+                            "$type": 11,
+                            "$value": {
+                              "kind": "string",
+                              "value": "z"
+                            }
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "defers.go",
+                          "line": 105,
+                          "column": 11,
+                          "offset": 2445
+                        },
+                        "$type": 14
+                      }
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "defers.go",
+                    "line": 106,
+                    "column": 1,
+                    "offset": 2447
+                  }
+                }
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "defers.go",
+                    "line": 108,
+                    "column": 6,
+                    "offset": 2455
+                  },
+                  "name": "value",
+                  "obj": {
+                    "node": "Object",
+                    "name": "value",
+                    "kind": "func"
+                  },
+                  "$obj": {
+                    "name": "value",
+                    "kind": "func",
+                    "def": true,
+                    "type": 3,
+                    "decl": "defers.go:2455",
+                    "pkg": "main",
+                    "top": true
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "defers.go",
+                    "line": 108,
+                    "column": 1,
+                    "offset": 2450
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "defers.go",
+                      "line": 108,
+                      "column": 11,
+                      "offset": 2460
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "defers.go",
+                      "line": 108,
+                      "column": 12,
+                      "offset": 2461
+                    }
+                  },
+                  "results": null
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "defers.go",
+                    "line": 108,
+                    "column": 14,
+                    "offset": 2463
+                  },
+                  "list": [
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "defers.go",
+                            "line": 109,
+                            "column": 2,
+                            "offset": 2466
+                          },
+                          "name": "fv",
+                          "obj": {
+                            "node": "Object",
+                            "name": "fv",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "fv",
+                            "kind": "var",
+                            "def": true,
+                            "type": 3,
+                            "decl": "defers.go:2466",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "defers.go",
+                        "line": 109,
+                        "column": 5,
+                        "offset": 2469
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "FuncLit",
+                          "type": {
+                            "node": "FuncType",
+                            "func": {
+                              "file": "defers.go",
+                              "line": 109,
+                              "column": 8,
+                              "offset": 2472
+                            },
+                            "typeParams": null,
+                            "params": {
+                              "node": "FieldList",
+                              "opening": {
+                                "file": "defers.go",
+                                "line": 109,
+                                "column": 12,
+                                "offset": 2476
+                              },
+                              "list": null,
+                              "closing": {
+                                "file": "defers.go",
+                                "line": 109,
+                                "column": 13,
+                                "offset": 2477
+                              }
+                            },
+                            "results": null,
+                            "$type": 3,
+                            "$isType": true
+                          },
+                          "body": {
+                            "node": "BlockStmt",
+                            "lbrace": {
+                              "file": "defers.go",
+                              "line": 109,
+                              "column": 15,
+                              "offset": 2479
+                            },
+                            "list": [
+                              {
+                                "node": "ExprStmt",
+                                "x": {
+                                  "node": "CallExpr",
+                                  "fun": {
+                                    "node": "SelectorExpr",
+                                    "x": {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "defers.go",
+                                        "line": 109,
+                                        "column": 17,
+                                        "offset": 2481
+                                      },
+                                      "name": "fmt",
+                                      "obj": null,
+                                      "$obj": {
+                                        "name": "fmt",
+                                        "kind": "package",
+                                        "pkg": "fmt"
+                                      }
+                                    },
+                                    "sel": {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "defers.go",
+                                        "line": 109,
+                                        "column": 21,
+                                        "offset": 2485
+                                      },
+                                      "name": "Println",
+                                      "obj": null,
+                                      "$obj": {
+                                        "name": "Println",
+                                        "kind": "func",
+                                        "type": 5,
+                                        "decl": "defers.go:312",
+                                        "pkg": "fmt",
+                                        "top": true
+                                      }
+                                    },
+                                    "$type": 5
+                                  },
+                                  "lparen": {
+                                    "file": "defers.go",
+                                    "line": 109,
+                                    "column": 28,
+                                    "offset": 2492
+                                  },
+                                  "args": [
+                                    {
+                                      "node": "BasicLit",
+                                      "valuePos": {
+                                        "file": "defers.go",
+                                        "line": 109,
+                                        "column": 29,
+                                        "offset": 2493
+                                      },
+                                      "kind": "STRING",
+                                      "value": "\"valor de função recupera:\"",
+                                      "$type": 11,
+                                      "$value": {
+                                        "kind": "string",
+                                        "value": "valor de função recupera:"
+                                      }
+                                    },
+                                    {
+                                      "node": "CallExpr",
+                                      "fun": {
+                                        "node": "Ident",
+                                        "namePos": {
+                                          "file": "defers.go",
+                                          "line": 109,
+                                          "column": 60,
+                                          "offset": 2524
+                                        },
+                                        "name": "recover",
+                                        "obj": null,
+                                        "$type": 16,
+                                        "$builtin": true,
+                                        "$obj": {
+                                          "name": "recover",
+                                          "kind": "builtin",
+                                          "type": 17
+                                        }
+                                      },
+                                      "lparen": {
+                                        "file": "defers.go",
+                                        "line": 109,
+                                        "column": 67,
+                                        "offset": 2531
+                                      },
+                                      "args": null,
+                                      "ellipsis": null,
+                                      "rparen": {
+                                        "file": "defers.go",
+                                        "line": 109,
+                                        "column": 68,
+                                        "offset": 2532
+                                      },
+                                      "$type": 7
+                                    }
+                                  ],
+                                  "ellipsis": null,
+                                  "rparen": {
+                                    "file": "defers.go",
+                                    "line": 109,
+                                    "column": 69,
+                                    "offset": 2533
+                                  },
+                                  "$type": 12
+                                }
+                              }
+                            ],
+                            "rbrace": {
+                              "file": "defers.go",
+                              "line": 109,
+                              "column": 71,
+                              "offset": 2535
+                            }
+                          },
+                          "$type": 3
+                        }
+                      ]
+                    },
+                    {
+                      "node": "DeferStmt",
+                      "defer": {
+                        "file": "defers.go",
+                        "line": 110,
+                        "column": 2,
+                        "offset": 2538
+                      },
+                      "call": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "defers.go",
+                            "line": 110,
+                            "column": 8,
+                            "offset": 2544
+                          },
+                          "name": "fv",
+                          "obj": {
+                            "node": "Object",
+                            "name": "fv",
+                            "kind": "var"
+                          },
+                          "$type": 3,
+                          "$obj": {
+                            "name": "fv",
+                            "kind": "var",
+                            "type": 3,
+                            "decl": "defers.go:2466",
+                            "pkg": "main"
+                          }
+                        },
+                        "lparen": {
+                          "file": "defers.go",
+                          "line": 110,
+                          "column": 10,
+                          "offset": 2546
+                        },
+                        "args": null,
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "defers.go",
+                          "line": 110,
+                          "column": 11,
+                          "offset": 2547
+                        },
+                        "$type": 14
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "defers.go",
+                            "line": 111,
+                            "column": 2,
+                            "offset": 2550
+                          },
+                          "name": "panic",
+                          "obj": null,
+                          "$type": 20,
+                          "$builtin": true,
+                          "$obj": {
+                            "name": "panic",
+                            "kind": "builtin",
+                            "type": 17
+                          }
+                        },
+                        "lparen": {
+                          "file": "defers.go",
+                          "line": 111,
+                          "column": 7,
+                          "offset": 2555
+                        },
+                        "args": [
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "defers.go",
+                              "line": 111,
+                              "column": 8,
+                              "offset": 2556
+                            },
+                            "kind": "STRING",
+                            "value": "\"w\"",
+                            "$type": 11,
+                            "$value": {
+                              "kind": "string",
+                              "value": "w"
+                            }
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "defers.go",
+                          "line": 111,
+                          "column": 11,
+                          "offset": 2559
+                        },
+                        "$type": 14
+                      }
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "defers.go",
+                    "line": 112,
+                    "column": 1,
+                    "offset": 2561
                   }
                 }
               }
@@ -6343,9 +9162,9 @@
             },
             "fileEnd": {
               "file": "defers.go",
-              "line": 68,
-              "column": 3,
-              "offset": 1667
+              "line": 113,
+              "column": 2,
+              "offset": 2564
             },
             "scope": null,
             "imports": [
@@ -7077,6 +9896,370 @@
                   "kind": "package",
                   "pkg": "fmt"
                 }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "defers.go",
+                  "line": 68,
+                  "column": 2,
+                  "offset": 1666
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "defers.go",
+                  "line": 75,
+                  "column": 22,
+                  "offset": 1808
+                },
+                "name": "any",
+                "obj": null,
+                "$type": 7,
+                "$isType": true,
+                "$obj": {
+                  "name": "any",
+                  "kind": "type",
+                  "type": 7
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "defers.go",
+                  "line": 75,
+                  "column": 35,
+                  "offset": 1821
+                },
+                "name": "recover",
+                "obj": null,
+                "$type": 16,
+                "$builtin": true,
+                "$obj": {
+                  "name": "recover",
+                  "kind": "builtin",
+                  "type": 17
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "defers.go",
+                  "line": 77,
+                  "column": 24,
+                  "offset": 1857
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "defers.go",
+                  "line": 77,
+                  "column": 57,
+                  "offset": 1890
+                },
+                "name": "recover",
+                "obj": null,
+                "$type": 16,
+                "$builtin": true,
+                "$obj": {
+                  "name": "recover",
+                  "kind": "builtin",
+                  "type": 17
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "defers.go",
+                  "line": 79,
+                  "column": 20,
+                  "offset": 1923
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 11,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 11
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "defers.go",
+                  "line": 81,
+                  "column": 31,
+                  "offset": 1963
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "defers.go",
+                  "line": 81,
+                  "column": 71,
+                  "offset": 2003
+                },
+                "name": "recover",
+                "obj": null,
+                "$type": 16,
+                "$builtin": true,
+                "$obj": {
+                  "name": "recover",
+                  "kind": "builtin",
+                  "type": 17
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "defers.go",
+                  "line": 83,
+                  "column": 22,
+                  "offset": 2038
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 11,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 11
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "defers.go",
+                  "line": 85,
+                  "column": 9,
+                  "offset": 2072
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "defers.go",
+                  "line": 85,
+                  "column": 33,
+                  "offset": 2096
+                },
+                "name": "recover",
+                "obj": null,
+                "$type": 16,
+                "$builtin": true,
+                "$obj": {
+                  "name": "recover",
+                  "kind": "builtin",
+                  "type": 17
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "defers.go",
+                  "line": 89,
+                  "column": 4,
+                  "offset": 2142
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "defers.go",
+                  "line": 90,
+                  "column": 20,
+                  "offset": 2209
+                },
+                "name": "any",
+                "obj": null,
+                "$type": 7,
+                "$isType": true,
+                "$obj": {
+                  "name": "any",
+                  "kind": "type",
+                  "type": 7
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "defers.go",
+                  "line": 90,
+                  "column": 33,
+                  "offset": 2222
+                },
+                "name": "recover",
+                "obj": null,
+                "$type": 16,
+                "$builtin": true,
+                "$obj": {
+                  "name": "recover",
+                  "kind": "builtin",
+                  "type": 17
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "defers.go",
+                  "line": 91,
+                  "column": 4,
+                  "offset": 2237
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "defers.go",
+                  "line": 93,
+                  "column": 3,
+                  "offset": 2295
+                },
+                "name": "panic",
+                "obj": null,
+                "$type": 20,
+                "$builtin": true,
+                "$obj": {
+                  "name": "panic",
+                  "kind": "builtin",
+                  "type": 17
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "defers.go",
+                  "line": 100,
+                  "column": 2,
+                  "offset": 2374
+                },
+                "name": "panic",
+                "obj": null,
+                "$type": 20,
+                "$builtin": true,
+                "$obj": {
+                  "name": "panic",
+                  "kind": "builtin",
+                  "type": 17
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "defers.go",
+                  "line": 105,
+                  "column": 2,
+                  "offset": 2436
+                },
+                "name": "panic",
+                "obj": null,
+                "$type": 20,
+                "$builtin": true,
+                "$obj": {
+                  "name": "panic",
+                  "kind": "builtin",
+                  "type": 17
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "defers.go",
+                  "line": 109,
+                  "column": 17,
+                  "offset": 2481
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "defers.go",
+                  "line": 109,
+                  "column": 60,
+                  "offset": 2524
+                },
+                "name": "recover",
+                "obj": null,
+                "$type": 16,
+                "$builtin": true,
+                "$obj": {
+                  "name": "recover",
+                  "kind": "builtin",
+                  "type": 17
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "defers.go",
+                  "line": 111,
+                  "column": 2,
+                  "offset": 2550
+                },
+                "name": "panic",
+                "obj": null,
+                "$type": 20,
+                "$builtin": true,
+                "$obj": {
+                  "name": "panic",
+                  "kind": "builtin",
+                  "type": 17
+                }
               }
             ],
             "comments": [
@@ -7127,6 +10310,21 @@
                       "offset": 399
                     },
                     "text": "// avaliado agora"
+                  }
+                ]
+              },
+              {
+                "node": "CommentGroup",
+                "list": [
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "defers.go",
+                      "line": 74,
+                      "column": 1,
+                      "offset": 1721
+                    },
+                    "text": "// recover só funciona chamado diretamente pela função adiada."
                   }
                 ]
               }
@@ -7314,6 +10512,33 @@
         {
           "kind": "basic",
           "name": "byte"
+        },
+        {
+          "kind": "named",
+          "pkg": "main",
+          "name": "R",
+          "underlying": 27,
+          "methods": [
+            {
+              "name": "deferredMethod",
+              "type": 3,
+              "index": [
+                0
+              ],
+              "ptr": false
+            }
+          ]
+        },
+        {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "tag",
+              "type": 11,
+              "embedded": false,
+              "tag": ""
+            }
+          ]
         }
       ],
       "implements": null,
