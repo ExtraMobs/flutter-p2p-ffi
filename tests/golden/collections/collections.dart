@@ -66,6 +66,7 @@ Golang.Int _sum(go.Slice<Golang.Int> xs) {
 
 void main() {
   go.runMain(() {
+    $goInit();
     go.Slice<Golang.Int> base = go.Slice<Golang.Int>.make(3, 5, _$e1);
     go.Slice<Golang.Int> a = base.slice(0, 2);
     a = a.append([Golang.Int(7)]);
@@ -256,6 +257,14 @@ void main() {
     q!.value += Golang.Int(1);
     fmt.println(go.Slice<Object?>.of([np!.value, q!.value, np == q], _$e2));
   });
+}
+
+bool _$inited = false;
+
+/// Inicialização do pacote Go: variáveis em ordem de dependência, depois as funções init.
+void $goInit() {
+  if (_$inited) return;
+  _$inited = true;
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.

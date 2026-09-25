@@ -31,6 +31,7 @@ func dumpPackage(fset *token.FileSet, p *packages.Package) *PackageDump {
 	}
 
 	d.Implements = dumpImplements(p, w.tt)
+	d.InitOrder = dumpInitOrder(fset, p)
 	d.TypeTable = w.tt.list
 	d.Imports = dumpImports(p)
 	d.StdlibUsage = dumpStdlibUsage(p)
@@ -176,6 +177,22 @@ func dumpImplements(p *packages.Package, tt *typeTable) []jobject {
 		if len(impl) > 0 {
 			out = append(out, jobject{{"type", tt.ref(named)}, {"interfaces", impl}})
 		}
+	}
+	return out
+}
+
+// dumpInitOrder: ordem de inicialização das variáveis de pacote
+// (types.Info.InitOrder, já em ordem de dependência). Cada entrada lista o
+// decl ("arquivo:offset") das variáveis do lado esquerdo do inicializador.
+func dumpInitOrder(fset *token.FileSet, p *packages.Package) [][]string {
+	out := [][]string{}
+	for _, init := range p.TypesInfo.InitOrder {
+		var lhs []string
+		for _, v := range init.Lhs {
+			pos := fset.Position(v.Pos())
+			lhs = append(lhs, fmt.Sprintf("%s:%d", filepath.Base(pos.Filename), pos.Offset))
+		}
+		out = append(out, lhs)
 	}
 	return out
 }

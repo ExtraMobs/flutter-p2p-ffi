@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 4,
+  "schemaVersion": 5,
   "tool": "goast",
   "goVersion": "go1.25.7",
   "packages": [
@@ -9984,6 +9984,11 @@
         }
       ],
       "implements": null,
+      "initOrder": [
+        [
+          "widths.go:218"
+        ]
+      ],
       "stdlibUsage": [
         "fmt.Println",
         "math.Copysign",

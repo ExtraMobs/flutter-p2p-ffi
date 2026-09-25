@@ -49,12 +49,21 @@ Golang.Int _add(Golang.Int a, Golang.Int b) {
 
 void main() {
   go.runMain(() {
+    $goInit();
     Greeter g = Greeter(name: Golang.String.fromDart('world'));
     fmt.println(go.Slice<Object?>.of([g.greet()], _$e0));
     fmt.println(
       go.Slice<Object?>.of([_add(Golang.Int(1), Golang.Int(2))], _$e0),
     );
   });
+}
+
+bool _$inited = false;
+
+/// Inicialização do pacote Go: variáveis em ordem de dependência, depois as funções init.
+void $goInit() {
+  if (_$inited) return;
+  _$inited = true;
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.

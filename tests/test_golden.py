@@ -92,7 +92,9 @@ class GoldenTest(unittest.TestCase):
             run(["dart", "pub", "get", "--offline"], cwd=tmp)
             run(["dart", "analyze", "--fatal-infos"], cwd=tmp)
             for case in CASES:
-                want = run(["go", "run", case + ".go"], cwd=os.path.join(GOLDEN, case), binary=True)
+                case_dir = os.path.join(GOLDEN, case)
+                sources = sorted(f for f in os.listdir(case_dir) if f.endswith(".go"))
+                want = run(["go", "run", *sources], cwd=case_dir, binary=True)
                 src = os.path.join("lib", case + ".dart")
                 with self.subTest(case=case, platform="vm"):
                     self.assertEqual(want, run(["dart", "run", src], cwd=tmp, binary=True))

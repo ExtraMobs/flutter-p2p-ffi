@@ -179,9 +179,9 @@ go.GoError? _find(Golang.String k) {
 
 Golang.String _describe(Shape? s) {
   {
-    final $t1 = s;
-    if (go.isType<Rect>($t1, struct: true)) {
-      final Rect v = ($t1 as Rect).$copy();
+    final $t2 = s;
+    if (go.isType<Rect>($t2, struct: true)) {
+      final Rect v = ($t2 as Rect).$copy();
       return fmt.sprint(
         go.Slice<Object?>.of([
           Golang.String.fromDart('Rect '),
@@ -190,8 +190,8 @@ Golang.String _describe(Shape? s) {
           v.h,
         ], _$e0),
       );
-    } else if (go.isType<Circle?>($t1, struct: false)) {
-      final Circle? v$1 = go.unNil<Circle>($t1 as Circle?);
+    } else if (go.isType<Circle?>($t2, struct: false)) {
+      final Circle? v$1 = go.unNil<Circle>($t2 as Circle?);
       (v$1 ?? Circle.$nil).grow();
       return fmt.sprint(
         go.Slice<Object?>.of([
@@ -246,6 +246,7 @@ Golang.String _nilAssert() {
 
 void main() {
   go.runMain(() {
+    $goInit();
     final $t1 = go.Defers();
     try {
       Circle? c = Circle(r: Golang.Float64(1.0));
@@ -324,6 +325,14 @@ void main() {
       $t1.run();
     }
   });
+}
+
+bool _$inited = false;
+
+/// Inicialização do pacote Go: variáveis em ordem de dependência, depois as funções init.
+void $goInit() {
+  if (_$inited) return;
+  _$inited = true;
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.

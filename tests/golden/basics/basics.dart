@@ -100,10 +100,10 @@ Golang.String _classify(Golang.Int n) {
     }
   }
   {
-    final $t1 = n % Golang.Int(3);
-    if ($t1 == Golang.Int(0)) {
+    final $t3 = n % Golang.Int(3);
+    if ($t3 == Golang.Int(0)) {
       return Golang.String.fromDart('múltiplo de 3');
-    } else if ($t1 == Golang.Int(1) || $t1 == Golang.Int(2)) {
+    } else if ($t3 == Golang.Int(1) || $t3 == Golang.Int(2)) {
       return Golang.String.fromDart('resto ') +
           fmt.sprint(go.Slice<Object?>.of([n % Golang.Int(3)], _$e1));
     }
@@ -113,6 +113,7 @@ Golang.String _classify(Golang.Int n) {
 
 void main() {
   go.runMain(() {
+    $goInit();
     fmt.println(go.Slice<Object?>.of([zero, one, two, _greeting], _$e1));
     fmt.println(
       go.Slice<Object?>.of([
@@ -283,6 +284,14 @@ void main() {
       ], _$e1),
     );
   });
+}
+
+bool _$inited = false;
+
+/// Inicialização do pacote Go: variáveis em ordem de dependência, depois as funções init.
+void $goInit() {
+  if (_$inited) return;
+  _$inited = true;
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.

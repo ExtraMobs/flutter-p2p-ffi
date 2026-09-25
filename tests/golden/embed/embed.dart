@@ -148,6 +148,7 @@ Golang.String _show(Named? n) {
 
 void main() {
   go.runMain(() {
+    $goInit();
     final $t1 = go.Defers();
     try {
       Doc d = Doc(
@@ -211,6 +212,14 @@ void main() {
       $t1.run();
     }
   });
+}
+
+bool _$inited = false;
+
+/// Inicialização do pacote Go: variáveis em ordem de dependência, depois as funções init.
+void $goInit() {
+  if (_$inited) return;
+  _$inited = true;
 }
 
 /// Métodos de Logger promovidos por embedding (delegação).

@@ -162,6 +162,7 @@ Golang.String _repanic() {
 
 void main() {
   go.runMain(() {
+    $goInit();
     _order();
     fmt.println(
       go.Slice<Object?>.of([_double(Golang.Int(4)), go.recover()], _$e0),
@@ -453,6 +454,14 @@ void _value() {
   } finally {
     $t1.run();
   }
+}
+
+bool _$inited = false;
+
+/// Inicialização do pacote Go: variáveis em ordem de dependência, depois as funções init.
+void $goInit() {
+  if (_$inited) return;
+  _$inited = true;
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.

@@ -3,7 +3,7 @@
 import json
 from dataclasses import dataclass
 
-SCHEMA_VERSION = 4
+SCHEMA_VERSION = 5
 
 
 class Unsupported(Exception):
@@ -23,6 +23,7 @@ class Package:
     imports: list
     type_table: list
     implements: list  # [{"type": i, "interfaces": [j, ...]}]
+    init_order: list  # [[decl, ...], ...] (types.Info.InitOrder)
 
     def type_of(self, node):
         """Descritor do tipo ($type) de uma expressão, ou None."""
@@ -48,6 +49,6 @@ def parse_dump(doc):
         )
     return [
         Package(p["path"], p["name"], p["files"] or [], p["imports"] or [], p["typeTable"] or [],
-                p.get("implements") or [])
+                p.get("implements") or [], p.get("initOrder") or [])
         for p in doc["packages"]
     ]

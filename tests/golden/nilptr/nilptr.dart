@@ -123,6 +123,7 @@ void _try(Golang.String name, void Function()? f) {
 
 void main() {
   go.runMain(() {
+    $goInit();
     Node? p = null;
     Speaker? s = p ?? Node.$nil;
     fmt.println(
@@ -154,9 +155,9 @@ void main() {
     Object? a = p ?? Node.$nil;
     fmt.println(go.Slice<Object?>.of([a != null, a], _$e0));
     {
-      final $t1 = s;
-      if (go.isType<Node?>($t1, struct: false)) {
-        final Node? v = go.unNil<Node>($t1 as Node?);
+      final $t2 = s;
+      if (go.isType<Node?>($t2, struct: false)) {
+        final Node? v = go.unNil<Node>($t2 as Node?);
         fmt.println(
           go.Slice<Object?>.of([
             Golang.String.fromDart('case *Node, nil?'),
@@ -180,6 +181,14 @@ void main() {
     Speaker? empty = null;
     fmt.println(go.Slice<Object?>.of([empty == null], _$e0));
   });
+}
+
+bool _$inited = false;
+
+/// Inicialização do pacote Go: variáveis em ordem de dependência, depois as funções init.
+void $goInit() {
+  if (_$inited) return;
+  _$inited = true;
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.

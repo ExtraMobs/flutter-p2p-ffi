@@ -52,6 +52,7 @@ Golang.Int _sum(go.GoArray<Golang.Int> a) {
 
 void main() {
   go.runMain(() {
+    $goInit();
     go.GoArray<Golang.Int> a = go.GoArray<Golang.Int>.of([
       Golang.Int(1),
       Golang.Int(2),
@@ -123,6 +124,14 @@ void main() {
       go.Slice<Object?>.of([p1.$ifaceCopy(), p2.$ifaceCopy(), p1 == p2], _$e1),
     );
   });
+}
+
+bool _$inited = false;
+
+/// Inicialização do pacote Go: variáveis em ordem de dependência, depois as funções init.
+void $goInit() {
+  if (_$inited) return;
+  _$inited = true;
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.

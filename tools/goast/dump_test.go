@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"go/constant"
 	"sort"
+	"strings"
 	"testing"
 )
 
@@ -15,8 +16,8 @@ func TestDumpHello(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Dump: %v", err)
 	}
-	if doc.SchemaVersion != 4 {
-		t.Errorf("schemaVersion = %d, esperado 4", doc.SchemaVersion)
+	if doc.SchemaVersion != 5 {
+		t.Errorf("schemaVersion = %d, esperado 5", doc.SchemaVersion)
 	}
 	if len(doc.Packages) != 1 {
 		t.Fatalf("packages = %d, esperado 1", len(doc.Packages))
@@ -159,5 +160,32 @@ func TestConstValueInvalidUTF8(t *testing.T) {
 	want := "{\"kind\":\"string\",\"value\":\"a\\ufffd\",\"bytes\":[97,255]}"
 	if string(data) != want {
 		t.Errorf("constValue = %s, esperado %s", data, want)
+	}
+}
+
+func TestInitOrder(t *testing.T) {
+	doc, err := Dump("../../tests/golden/inits")
+	if err != nil {
+		t.Fatal(err)
+	}
+	order := doc.Packages[0].InitOrder
+	// x, y = pair() primeiro (pronta), total depois de base (dependência).
+	if len(order) < 4 || len(order[0]) != 2 {
+		t.Fatalf("initOrder inesperado: %v", order)
+	}
+	var names []string
+	for _, e := range order {
+		names = append(names, e[0])
+	}
+	idx := func(prefix string) int {
+		for i, n := range names {
+			if strings.HasPrefix(n, prefix) {
+				return i
+			}
+		}
+		return -1
+	}
+	if idx("b.go") < 0 {
+		t.Errorf("fromB (b.go) ausente: %v", names)
 	}
 }

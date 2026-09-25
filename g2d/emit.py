@@ -106,18 +106,9 @@ def has_defer(node):
     return any(has_defer(v) for v in node.values() if isinstance(v, (dict, list)))
 
 
-_BREAK_SCOPES = frozenset(["ForStmt", "RangeStmt", "SwitchStmt", "TypeSwitchStmt", "SelectStmt", "FuncLit"])
-
-
-def switch_break(node):
-    """Há `break`/`fallthrough` sem rótulo que sairia do switch corrente?"""
-    if isinstance(node, list):
-        return any(switch_break(x) for x in node)
-    if not isinstance(node, dict) or node.get("node") in _BREAK_SCOPES:
-        return False
-    if node.get("node") == "BranchStmt":
-        return node["tok"] == "fallthrough" or (node["tok"] == "break" and not node["label"])
-    return any(switch_break(v) for v in node.values() if isinstance(v, (dict, list)))
+def pos_key(pos):
+    """Chave "arquivo:offset" de uma posição (igual ao `decl` do goast)."""
+    return f"{pos['file']}:{pos['offset']}"
 
 
 class Emitter:
@@ -135,6 +126,8 @@ class Emitter:
         self.elem_decls = []  # declarações de nível de library (descritores)
         self.boxed = set()  # decl de variáveis não-struct cujo endereço é tomado
         self.recoverers = set()  # decl de funções/métodos que chamam recover() diretamente
+        self.var_inits = {}  # posição do nome de var de pacote → (ValueSpec, índice)
+        self.init_funcs = []  # nomes Dart das funções init, em ordem
         self.class_tparams = ("", "")  # (<T extends B>, dicionários) da struct genérica corrente
         self.mixins = {}  # (tipo embutido, ponteiro?) → nome do mixin de promoção
         self.mixin_decls = []
@@ -329,6 +322,12 @@ class Emitter:
         self.find_boxed(decls)
         self.recoverers = {d["name"]["$obj"]["decl"] for d in decls
                            if d["node"] == "FuncDecl" and d["body"] and has_recover(d["body"])}
+        for d in decls:
+            if d["node"] == "GenDecl" and d["tok"] == "var":
+                for spec in d["specs"]:
+                    if spec["values"]:
+                        for i, ident in enumerate(spec["names"]):
+                            self.var_inits[pos_key(ident["namePos"])] = (spec, i)
         body = []
         for d in decls:
             if d["node"] == "FuncDecl":
@@ -338,6 +337,7 @@ class Emitter:
                 body += self.type_decl(d)
             elif d["tok"] in ("var", "const"):
                 body += [""] + self.top_values(d)
+        body += self.package_init()
         body += self.mixin_decls
         if self.elem_decls:
             body += ["", "// Descritores de tipo (go.Elem) usados por slices, maps e ponteiros."]
@@ -345,6 +345,43 @@ class Emitter:
         head = [HEADER.format(path=self.pkg.path)]
         head += [f"import '{self.imports[p]}' as {p};" for p in sorted(self.imports)]
         return "\n".join(head + body) + "\n"
+
+    def package_init(self):
+        """`$goInit`: variáveis de pacote na ordem de types.Info.InitOrder
+        (dependências primeiro) e depois as funções init, em ordem de
+        arquivo/fonte, uma vez só. O `main` a chama antes do corpo."""
+        self.fn = self.new_fn()
+        lines = []
+        for entry in self.pkg.init_order:
+            spec, idx = self.var_inits[entry[0]]
+            names, values = spec["names"], spec["values"]
+            if len(values) == len(names):
+                lines += self.init_assign(names[idx], values[idx])
+            else:  # var a, b = f()
+                tmp = self.temp()
+                lines.append(f"final {tmp} = {self.expr(values[0])};")
+                for i, ident in enumerate(names):
+                    if ident["name"] != "_":
+                        lines.append(f"{self.top_var(ident)} = {tmp}.${i + 1};")
+        lines += [f"{name}();" for name in self.init_funcs]
+        self.fn = None
+        return ["", "bool _$inited = false;", "",
+                "/// Inicialização do pacote Go: variáveis em ordem de dependência, depois as funções init.",
+                "void $goInit() {", "if (_$inited) return;", "_$inited = true;"] + lines + ["}"]
+
+    def init_assign(self, ident, value):
+        if ident["name"] == "_":
+            return [f"{self.expr(value)};"]  # `var _ = f()`: só o efeito
+        t = self.pkg.type_at(ident["$obj"]["type"])
+        return [f"{self.top_var(ident)} = {self.coerce(value, t)};"]
+
+    def top_var(self, ident):
+        return member_name(ident["name"]) + self.box_suffix(ident["$obj"])
+
+    @staticmethod
+    def new_fn():
+        return {"used": set(), "locals": {}, "temps": 0, "recv": None, "results": None,
+                "sig": None, "defers": None, "rd": None, "breaks": [], "used_labels": set()}
 
     def type_decl(self, gen):
         out = []
@@ -724,7 +761,9 @@ class Emitter:
                 kw = "const" if basic(self.pkg, t).cat == "bool" else "final"
                 out.append(f"{kw} {self.types.dart(t)} {name} = {self.literal(obj['value'], t)};")
             return out
-        if values and len(values) != len(names):
+        if top:
+            values = []
+        elif values and len(values) != len(names):
             tmp = self.temp()
             out.append(f"final {tmp} = {self.expr(values[0])};")
             values = [f"{tmp}.${i + 1}" for i in range(len(names))]
@@ -737,7 +776,8 @@ class Emitter:
                 if values:
                     out.append(f"{values[i]};")
                 continue
-            init = values[i] if values else self.types.zero(obj["type"])
+            # Nível de pacote: declara com o zero; o inicializador roda em $goInit.
+            init = values[i] if values and not top else self.types.zero(obj["type"])
             t = self.pkg.type_at(obj["type"])
             if not top:
                 out.append(self.local_decl(ident, t, init))
@@ -751,8 +791,7 @@ class Emitter:
 
     def func_decl(self, d):
         sig = self.pkg.type_at(d["name"]["$obj"]["type"])
-        self.fn = {"used": set(), "locals": {}, "temps": 0, "recv": None, "results": None,
-                   "sig": None}
+        self.fn = self.new_fn()
         prologue = []
         if d["recv"]:
             names = d["recv"]["list"][0]["names"]
@@ -784,7 +823,9 @@ class Emitter:
         else:
             name = self.top_name(d["name"]["name"], "func")
             if d["name"]["name"] == "init":
-                raise Unsupported("func init", d)
+                # Várias por pacote, nunca referenciadas: chamadas por $goInit.
+                name = f"_init${len(self.init_funcs)}"
+                self.init_funcs.append(name)
         tparams, dicts = self.type_params(d["type"]["typeParams"])
         params, boxes = self.params(d["type"]["params"], sig)
         self.fn["rd"] = None
@@ -797,7 +838,7 @@ class Emitter:
         self.fn = None
         if name == "main" and not d["recv"]:
             # Panic não recuperado: mensagem no stderr e exit 2, como o Go.
-            body = [f"{self.qualify(None, 'runMain')}(() {{"] + prologue + boxes + body + ["});"]
+            body = [f"{self.qualify(None, 'runMain')}(() {{", "$goInit();"] + prologue + boxes + body + ["});"]
             prologue, boxes = [], []
         return doc_comment(d["doc"]) + [head + " {"] + prologue + boxes + body + ["}"]
 
@@ -1064,9 +1105,30 @@ class Emitter:
     def stmt_ForStmt(self, s):
         init = self.simple(s["init"])  # antes da condição: declara a variável
         cond = self.expr(s["cond"]) if s["cond"] else ""
+        post = self.simple(s["post"])
+        body = self.loop_body(s["body"])
         if not s["init"] and not s["post"]:
-            return [f"while ({cond or 'true'})"] + self.block(s["body"])
-        return [f"for ({init}; {cond}; {self.simple(s['post'])})"] + self.block(s["body"])
+            return [f"while ({cond or 'true'})"] + body
+        return [f"for ({init}; {cond}; {post})"] + body
+
+    def loop_body(self, body):
+        """Corpo de laço: `break` sem rótulo aqui é o break nativo do Dart."""
+        self.fn["breaks"].append(None)
+        try:
+            return self.block(body)
+        finally:
+            self.fn["breaks"].pop()
+
+    def switch_label(self):
+        """Rótulo do switch corrente para os `break` que o têm como alvo."""
+        label = self.temp()
+        self.fn["breaks"].append(label)
+        return label
+
+    def close_switch(self, label, lines):
+        """Desempilha o rótulo; só rotula o bloco se algum break o usou."""
+        self.fn["breaks"].pop()
+        return ([f"{label}:"] if label in self.fn["used_labels"] else []) + lines
 
     def stmt_RangeStmt(self, s, label=""):
         x = s["x"]
@@ -1107,7 +1169,7 @@ class Emitter:
                 [bind(val, self.copy_text(f"{src}[{k}]", elem_t))] if val else [])
         else:
             raise Unsupported(f"range sobre {u['kind']}", s)
-        body = self.block(s["body"])
+        body = self.loop_body(s["body"])
         head[-1] = label + head[-1]
         return ["{"] + head + ["{"] + pre + body + ["}", "}"]
 
@@ -1178,6 +1240,7 @@ class Emitter:
             ident, ta = guard["lhs"][0], guard["rhs"][0]
         else:
             ident, ta = None, guard["x"]
+        label = self.switch_label()
         out = ["{"] + (self.stmt(s["init"]) if s["init"] else [])
         subject = self.temp()
         static_t = self.pkg.type_of(ta["x"])
@@ -1186,8 +1249,6 @@ class Emitter:
         chain, default = [], None
         for clause in s["body"]["list"]:
             body = clause["body"] or []
-            if switch_break(body):
-                raise Unsupported("break/fallthrough em switch", clause)
             bind = []
             if ident is not None and self.uses_decl(body, decl):
                 types = clause["list"] or []
@@ -1215,7 +1276,7 @@ class Emitter:
             out += [("else " if i else "") + f"if ({cond})"] + lines
         if default:
             out += (["else"] if chain else []) + default
-        return out + ["}"]
+        return self.close_switch(label, out + ["}"])
 
     @staticmethod
     def uses_decl(node, decl):
@@ -1231,7 +1292,13 @@ class Emitter:
         tok = s["tok"]
         if tok not in ("break", "continue"):
             raise Unsupported(tok, s)
-        return [f"{tok} {s['label']['name']};" if s["label"] else f"{tok};"]
+        if s["label"]:
+            return [f"{tok} {s['label']['name']};"]
+        target = self.fn["breaks"][-1] if tok == "break" and self.fn["breaks"] else None
+        if target:  # break sem rótulo dentro de switch: sai só do switch
+            self.fn["used_labels"].add(target)
+            return [f"break {target};"]
+        return [f"{tok};"]
 
     def stmt_LabeledStmt(self, s):
         label = s["label"]["name"] + ":"
@@ -1240,29 +1307,55 @@ class Emitter:
         return [label] + self.stmt(s["stmt"])
 
     def stmt_SwitchStmt(self, s):
-        """switch → cadeia if/else (cases Go aceitam expressões arbitrárias)."""
+        """switch → cadeia if/else (cases Go aceitam expressões arbitrárias).
+        Com `fallthrough`: seleção do case + corpos em sequência. `break`
+        sai do bloco rotulado do switch."""
+        label = self.switch_label()
         out = ["{"] + (self.stmt(s["init"]) if s["init"] else [])
         tag = None
         if s["tag"]:
             tag = self.temp()
             out.append(f"final {tag} = {self.expr(s['tag'])};")
-        chain, default = [], None
-        for clause in s["body"]["list"]:
+        clauses = s["body"]["list"]
+
+        def cond(clause):
+            return " || ".join(
+                f"{tag} == {self.expr(e, _DART_PREC['=='] + 1)}" if tag else self.expr(e, _DART_PREC["||"] + 1)
+                for e in clause["list"])
+
+        def falls(clause):
             body = clause["body"] or []
-            if switch_break(body):
-                raise Unsupported("break/fallthrough em switch", clause)
-            lines = ["{"] + [ln for b in body for ln in self.stmt(b)] + ["}"]
+            return bool(body) and body[-1]["node"] == "BranchStmt" and body[-1]["tok"] == "fallthrough"
+
+        if any(falls(c) for c in clauses):
+            sel = self.temp()
+            out.append(f"var {sel} = -1;")
+            default = next((i for i, c in enumerate(clauses) if c["list"] is None), None)
+            chain = [(i, cond(c)) for i, c in enumerate(clauses) if c["list"] is not None]
+            for k, (i, cnd) in enumerate(chain):
+                out += [("else " if k else "") + f"if ({cnd})", "{", f"{sel} = {i};", "}"]
+            if default is not None:
+                out += (["else"] if chain else []) + ["{", f"{sel} = {default};", "}"]
+            for i, c in enumerate(clauses):
+                body = c["body"] or []
+                lines = [ln for st in (body[:-1] if falls(c) else body) for ln in self.stmt(st)]
+                if falls(c):
+                    lines.append(f"{sel} = {i + 1};")  # fallthrough: próximo case do fonte
+                out += [f"if ({sel} == {i})", "{"] + lines + ["}"]
+            return self.close_switch(label, out + ["}"])
+
+        chain, default = [], None
+        for clause in clauses:
+            lines = ["{"] + [ln for b in clause["body"] or [] for ln in self.stmt(b)] + ["}"]
             if clause["list"] is None:
                 default = lines
                 continue
-            conds = [f"{tag} == {self.expr(e, _DART_PREC['=='] + 1)}" if tag else self.expr(e, _DART_PREC["||"] + 1)
-                     for e in clause["list"]]
-            chain.append((" || ".join(conds), lines))
-        for i, (cond, lines) in enumerate(chain):
-            out += [("else " if i else "") + f"if ({cond})"] + lines
+            chain.append((cond(clause), lines))
+        for i, (cnd, lines) in enumerate(chain):
+            out += [("else " if i else "") + f"if ({cnd})"] + lines
         if default:
             out += (["else"] if chain else []) + default
-        return out + ["}"]
+        return self.close_switch(label, out + ["}"])
 
     # ------------------------------------------------------------ expressões
 
@@ -1619,12 +1712,13 @@ class Emitter:
             raise Unsupported("func literal em nível de pacote", n)
         sig = self.pkg.type_of(n)
         params, boxes = self.params(n["type"]["params"], sig)
-        saved_rd = self.fn.get("rd")
+        saved_rd, saved_breaks = self.fn.get("rd"), self.fn["breaks"]
+        self.fn["breaks"] = []
         self.fn["rd"] = "$rd" if has_recover(n["body"]) else None
         if self.fn["rd"]:
             params = ", ".join(p for p in (params, self.rd_param()) if p)
         body = self.func_body(n["type"], n["body"], sig)
-        self.fn["rd"] = saved_rd
+        self.fn["rd"], self.fn["breaks"] = saved_rd, saved_breaks
         return f"({params}) {{\n" + "\n".join(boxes + body) + "\n}", 0
 
     def expr_CallExpr(self, n):

@@ -21,11 +21,11 @@ via `go list`. Se o alvo não pertence a um módulo (ex. fixtures em
 `tests/golden/`), cai no fallback `load_loose.go` (`go/parser` + `go/types` +
 `importer.Default()`, só imports da stdlib).
 
-## Schema do JSON (`schemaVersion: 4`)
+## Schema do JSON (`schemaVersion: 5`)
 
 ```jsonc
 {
-  "schemaVersion": 4,
+  "schemaVersion": 5,
   "tool": "goast",
   "goVersion": "go1.25.7",
   "packages": [ ... ]  // ordenados por import path (determinístico)
@@ -42,6 +42,7 @@ Cada pacote:
   "imports": [ { "path": "fmt", "name": "fmt" } ],
   "typeTable": [ { "kind": "basic", "name": "int" }, ... ],
   "implements": [ { "type": 3, "interfaces": [7, 9] } ],  // tipo nomeado → interfaces satisfeitas
+  "initOrder": [ ["a.go:120", "a.go:123"], ... ],          // types.Info.InitOrder: decl das variáveis por inicializador
   "stdlibUsage":  [ "fmt.Println", ... ],   // ordenado alfabeticamente
   "reflectUsage": [ { "pos": "arquivo.go:linha:coluna", "expr": "reflect.ValueOf(x)" } ]
 }
@@ -93,7 +94,7 @@ nomeadas com métodos (do pacote, dos imports diretos e `error`) que `T` ou
 `*T` satisfaz (`types.Implements`).
 
 Histórico: v2 moveu os tipos para dentro da AST; v3 adicionou `bytes`; v4
-adicionou `methods` e `implements`.
+adicionou `methods` e `implements`; v5 adicionou `initOrder`.
 
 ### Tabela de tipos
 

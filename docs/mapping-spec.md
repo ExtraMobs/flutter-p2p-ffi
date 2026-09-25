@@ -73,7 +73,9 @@ Legenda: ✅ fiel · ⚠️ fiel no caso comum, com limite conhecido · ❌ não
 | `import "fmt"` | `import 'package:golib_dart/fmt.dart' as fmt;` (só se usado no Dart) | ✅ |
 | universo e runtime | `import 'package:golib_dart/builtin.dart' as go;` | ✅ |
 | tipos básicos | `import 'package:golib_dart/fixed_types/golang.dart' as Golang;` | ✅ |
-| `func main` | `void main() { go.runMain(() { ... }); }`: panic não recuperado vai para o stderr com exit 2 | ✅ |
+| `func main` | `void main() { go.runMain(() { $goInit(); ... }); }`: panic não recuperado (inclusive na inicialização) vai para o stderr com exit 2 | ✅ |
+| variáveis de pacote | declaradas com o zero; o inicializador roda em `$goInit`, na ordem de `types.Info.InitOrder` (dependências primeiro, não a ordem de declaração) | ✅ |
+| `func init` (várias, vários arquivos) | `void _init$N()`, chamadas por `$goInit` depois das variáveis, em ordem de arquivo/fonte | ✅ |
 | import de pacote não-stdlib | — | ❌ (M2: grafo) |
 | import `_` / `.` | — | ❌ |
 
@@ -234,7 +236,8 @@ ponteiro-para-struct é ❌.
 | resultados nomeados + `return` nu | locais inicializados no zero + `return (q, r);` |
 | `if init; cond`, `for`, `for cond`, `for {}` | `{ init; if }`, `for (...)`, `while (cond)`, `while (true)` |
 | `range` sobre slice / map / int | índice sobre a referência; `keysSnapshot` + `containsKey`; contador |
-| `switch` / `switch {}` | cadeia `if/else`; `break`/`fallthrough` ❌ |
+| `switch` / `switch {}` / type switch | cadeia `if/else` num bloco; `break` sem rótulo que sai do switch → `break $tN;` (bloco rotulado; a pilha de alvos distingue switch de laço) |
+| `fallthrough` | seleção do case (`$c`) seguida dos corpos em sequência (`if ($c == i)`); `fallthrough` → `$c = i + 1` na ordem do fonte, inclusive para o `default` no meio |
 | rótulos, `break L`, `continue L` | rótulo no laço Dart |
 | `defer f(a)` | `{ final $t = a; $d.defer(() { f($t); }); }`, com o corpo em `try`/`catch`/`finally` de `go.Defers` |
 | `go`, `select`, `goto`, range sobre string/chan/func | ❌ |

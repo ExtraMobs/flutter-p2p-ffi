@@ -91,22 +91,22 @@ final Celsius boiling = Celsius(100.0);
 
 Golang.String _kind(Object? v) {
   {
-    final $t1 = v;
-    if (go.isType<Golang.Int>($t1)) {
+    final $t2 = v;
+    if (go.isType<Golang.Int>($t2)) {
       return Golang.String.fromDart('int');
-    } else if (go.isType<Golang.Int64>($t1)) {
+    } else if (go.isType<Golang.Int64>($t2)) {
       return Golang.String.fromDart('int64');
-    } else if (go.isType<ID>($t1)) {
+    } else if (go.isType<ID>($t2)) {
       return Golang.String.fromDart('ID');
-    } else if (go.isType<Golang.Int32>($t1)) {
+    } else if (go.isType<Golang.Int32>($t2)) {
       return Golang.String.fromDart('int32');
-    } else if (go.isType<Celsius>($t1)) {
+    } else if (go.isType<Celsius>($t2)) {
       return Golang.String.fromDart('Celsius');
-    } else if (go.isType<Golang.Float64>($t1)) {
+    } else if (go.isType<Golang.Float64>($t2)) {
       return Golang.String.fromDart('float64');
-    } else if (go.isType<Name>($t1)) {
+    } else if (go.isType<Name>($t2)) {
       return Golang.String.fromDart('Name');
-    } else if (go.isType<Golang.String>($t1)) {
+    } else if (go.isType<Golang.String>($t2)) {
       return Golang.String.fromDart('string');
     }
   }
@@ -115,6 +115,7 @@ Golang.String _kind(Object? v) {
 
 void main() {
   go.runMain(() {
+    $goInit();
     Celsius c = Celsius(37.5);
     fmt.println(
       go.Slice<Object?>.of([
@@ -154,6 +155,14 @@ void main() {
     );
     fmt.println(go.Slice<Object?>.of([c == boiling, true, c + boiling], _$e0));
   });
+}
+
+bool _$inited = false;
+
+/// Inicialização do pacote Go: variáveis em ordem de dependência, depois as funções init.
+void $goInit() {
+  if (_$inited) return;
+  _$inited = true;
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.

@@ -104,6 +104,7 @@ Point _origin() {
 
 void main() {
   go.runMain(() {
+    $goInit();
     Point a = Point(x: Golang.Int(1), y: Golang.Int(2));
     Point b = a.$copy();
     b.x = Golang.Int(10);
@@ -196,6 +197,14 @@ void main() {
       go.Slice<Object?>.of([zero.$ifaceCopy(), zero.owner == null], _$e0),
     );
   });
+}
+
+bool _$inited = false;
+
+/// Inicialização do pacote Go: variáveis em ordem de dependência, depois as funções init.
+void $goInit() {
+  if (_$inited) return;
+  _$inited = true;
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.

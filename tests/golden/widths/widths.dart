@@ -12,9 +12,7 @@ final Golang.Uint64 _big = Golang.Uint64.fromBigInt(
   BigInt.parse('18446744073709551615'),
 );
 
-Golang.Int64 _minInt64 = Golang.Int64.fromBigInt(
-  BigInt.parse('-9223372036854775808'),
-);
+Golang.Int64 _minInt64 = Golang.Int64();
 
 Golang.Float32 _half(Golang.Float32 x) {
   return x / Golang.Float32(2.0);
@@ -22,6 +20,7 @@ Golang.Float32 _half(Golang.Float32 x) {
 
 void main() {
   go.runMain(() {
+    $goInit();
     Golang.Int64 a = Golang.Int64.fromBigInt(
       BigInt.parse('9223372036854775807'),
     );
@@ -207,6 +206,15 @@ void main() {
       ], _$e0),
     );
   });
+}
+
+bool _$inited = false;
+
+/// Inicialização do pacote Go: variáveis em ordem de dependência, depois as funções init.
+void $goInit() {
+  if (_$inited) return;
+  _$inited = true;
+  _minInt64 = Golang.Int64.fromBigInt(BigInt.parse('-9223372036854775808'));
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.

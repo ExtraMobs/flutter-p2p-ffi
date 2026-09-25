@@ -154,6 +154,7 @@ class Pair<K, V> extends go.GoStruct<Pair<K, V>> {
 
 void main() {
   go.runMain(() {
+    $goInit();
     fmt.println(
       go.Slice<Object?>.of([
         sum<Golang.Int>(
@@ -226,6 +227,14 @@ void main() {
     );
     fmt.println(go.Slice<Object?>.of([p.$ifaceCopy(), p.key], _$e3));
   });
+}
+
+bool _$inited = false;
+
+/// Inicialização do pacote Go: variáveis em ordem de dependência, depois as funções init.
+void $goInit() {
+  if (_$inited) return;
+  _$inited = true;
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
