@@ -31,19 +31,15 @@ final class String extends StringBase<String> {
   String._owned(this._bytes);
 
   /// Go string(runeValue), after the rune's int32 conversion has occurred.
-  factory String.fromRune(Rune value) => String.fromCodePoint(value.toBigInt());
+  factory String.fromRune(Rune value) => String.fromCodePoint(value.toInt());
 
   /// Go string(integer): UTF-8 for a Unicode scalar, U+FFFD otherwise.
   /// Pass the value after any source-type conversion, not its raw bits.
-  factory String.fromCodePoint(BigInt value) {
-    final valid =
-        value >= BigInt.zero &&
-        value <= BigInt.from(0x10ffff) &&
-        !(value >= BigInt.from(0xd800) && value <= BigInt.from(0xdfff));
-    return String.fromDart(
-      core.String.fromCharCode(valid ? value.toInt() : 0xfffd),
-    );
-  }
+  /// Recebe o `toInt()` do inteiro Go: fora de ±2^53 (ou uint64 acima de
+  /// 2^63 na VM) o valor nunca cai em [0, 0x10FFFF], então vira U+FFFD.
+  factory String.fromCodePoint(int value) => String.fromDart(
+    core.String.fromCharCode(_isScalar(value) ? value : 0xfffd),
+  );
 
   /// Go string([]rune): each code point as UTF-8; invalid ones (negative,
   /// surrogates, above U+10FFFF) become U+FFFD.

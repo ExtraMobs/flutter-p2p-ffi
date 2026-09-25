@@ -174,9 +174,5 @@ void $goInit() {
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
 const _$e0 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
-const _$e1 = go.Elem<Golang.Int>(
-  8,
-  Golang.Int.new,
-  ofInt: Golang.Int.fromBigInt,
-);
+const _$e1 = go.Elem<Golang.Int>(8, Golang.Int.new, ofInt: Golang.Int.from);
 const _$e2 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);

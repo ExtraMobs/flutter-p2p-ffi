@@ -14,9 +14,7 @@ class Operands(Service):
         v = n.get("$value")
         if v is not None:
             return v["value"]
-        # ponytail: via BigInt em toda indexação; acelerar dentro das classes
-        # (implementação por plataforma), não no mapeamento.
-        return f"{self.expr(n, POSTFIX)}.toBigInt().toInt()"
+        return f"{self.expr(n, POSTFIX)}.toInt()"
 
     def from_int(self, dart_int, t):
         """int Dart → valor do tipo inteiro Go t."""
@@ -28,7 +26,7 @@ class Operands(Service):
         v = y.get("$value")
         if v is not None:
             return v["value"]
-        return f"{self.imports.qualify(None, 'shiftCount')}({self.expr(y, POSTFIX)}.toBigInt())"
+        return f"{self.imports.qualify(None, 'shiftCount')}({self.expr(y)})"
 
     def lvalue(self, n):
         """Alvo de atribuição: `m[k]` sem o `?? zero` da leitura."""

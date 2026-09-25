@@ -298,8 +298,4 @@ void $goInit() {
 const _$e0 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);
 const _$e1 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
 const _$e2 = go.Elem<Golang.Int Function()?>(8, go.zeroNull, pointers: true);
-const _$e3 = go.Elem<Golang.Int>(
-  8,
-  Golang.Int.new,
-  ofInt: Golang.Int.fromBigInt,
-);
+const _$e3 = go.Elem<Golang.Int>(8, Golang.Int.new, ofInt: Golang.Int.from);

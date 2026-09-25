@@ -73,4 +73,29 @@ func main() {
 	ms["x"] += 10
 	ms["y"]++
 	fmt.Println(ms["x"], ms["y"], len(ms))
+
+	// 64 bits em duas palavras: carries, produtos acima de 2^53, shifts
+	// entre palavras, divisão fora de ±2^53; contagens e índices de todo tipo.
+	x := int64(1)<<32 - 1
+	y := uint64(1)<<63 + 5
+	fmt.Println(x+1, x*x, -x*x, y*3, y/7, y%7, int64(y)/3, int64(y)%1000)
+	fmt.Println(minInt64/-1, minInt64%-1, x<<31, x<<32, x<<33, y>>31, y>>32, y>>33, int64(y)>>40)
+	var sh uint64 = 1 << 40
+	var c8 uint8 = 33
+	fmt.Println(one<<c8, x>>c8, y<<sh, int32(-7)>>c8)
+	var w32 uint32 = 0xdeadbeef
+	var i32b int32 = -0x7ead
+	fmt.Println(w32*w32, i32b*i32b*i32b, w32>>31, i32b>>3, uint16(w32), int8(w32), int64(w32)*int64(i32b))
+	list := []string{"a", "b", "c", "d"}
+	var ix64 int64 = 3
+	var ix8 uint8 = 1
+	fmt.Println(list[ix64], list[ix8], list[ix8:ix64], string(rune(ix64+64)))
+
+	// %v ordena as chaves como o internal/fmtsort.
+	type pt struct{ x, y int }
+	mp := map[pt]string{{2, 1}: "c", {1, 5}: "b", {1, 2}: "a"}
+	ma := map[[2]int8]bool{{1, -1}: true, {-3, 0}: false, {1, -2}: true}
+	mc := map[complex128]int{complex(1, 2): 1, complex(0, 9): 2, complex(1, -1): 3}
+	mi := map[any]int{nil: 0, 3: 3, 1: 1, 2: 2}
+	fmt.Println(mp, ma, mc, mi)
 }

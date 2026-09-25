@@ -27,14 +27,14 @@ final class IDs extends go.Slice<Golang.String>
   }
 
   bool less(Golang.Int i, Golang.Int j) {
-    return this[i.toBigInt().toInt()] < this[j.toBigInt().toInt()];
+    return this[i.toInt()] < this[j.toInt()];
   }
 
   void swap(Golang.Int i, Golang.Int j) {
     IDs s = this;
-    final $t1 = (s[j.toBigInt().toInt()], s[i.toBigInt().toInt()]);
-    s[i.toBigInt().toInt()] = $t1.$1;
-    s[j.toBigInt().toInt()] = $t1.$2;
+    final $t1 = (s[j.toInt()], s[i.toInt()]);
+    s[i.toInt()] = $t1.$1;
+    s[j.toInt()] = $t1.$2;
   }
 }
 
@@ -111,14 +111,13 @@ final class Op implements Golang.GoTyped {
   }
 }
 
-final class Counter extends Golang.IntBase<Counter> implements fmt.Stringer {
-  Counter([int v = 0]) : _v = Golang.Int(v);
-  Counter.fromBigInt(BigInt v) : _v = Golang.Int.fromBigInt(v);
-  final Golang.Int _v;
+final class Counter extends Golang.Int64Base<Counter> implements fmt.Stringer {
+  Counter([int v = 0]) : super(v);
+  Counter.from(Golang.IntBase v) : super.from(v);
+  Counter.fromBigInt(BigInt v) : super.fromBigInt(v);
+  Counter._(super.$hi, super.$lo) : super.raw();
   @override
-  BigInt toBigInt() => _v.toBigInt();
-  @override
-  Counter $wrap(BigInt v) => Counter.fromBigInt(v);
+  Counter $make(int hi, int lo) => Counter._(hi, lo);
   @override
   String get $goType => 'main.Counter';
   @override
@@ -128,7 +127,7 @@ final class Counter extends Golang.IntBase<Counter> implements fmt.Stringer {
     return fmt.sprint(
       go.Slice<Object?>.of([
         Golang.String.fromDart('#'),
-        Golang.Int.fromBigInt(this.toBigInt()),
+        Golang.Int.from(this),
       ], _$e0),
     );
   }
@@ -360,9 +359,5 @@ void $goInit() {
 const _$e0 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
 const _$e1 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);
 const _$e2 = go.Elem<bool>(1, go.zeroBool);
-const _$e3 = go.Elem<Counter>(8, Counter.new, ofInt: Counter.fromBigInt);
-const _$e4 = go.Elem<Golang.Int>(
-  8,
-  Golang.Int.new,
-  ofInt: Golang.Int.fromBigInt,
-);
+const _$e3 = go.Elem<Counter>(8, Counter.new, ofInt: Counter.from);
+const _$e4 = go.Elem<Golang.Int>(8, Golang.Int.new, ofInt: Golang.Int.from);

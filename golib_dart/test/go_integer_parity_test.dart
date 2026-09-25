@@ -57,16 +57,19 @@ void main() {
         0x10ffff,
         0x110000,
       ]) {
-        actual.add(
-          hex(Golang.String.fromCodePoint(BigInt.from(code)).toBytes()),
-        );
+        actual.add(hex(Golang.String.fromCodePoint(code).toBytes()));
       }
-      actual.add(hex(Golang.String.fromCodePoint(u.toBigInt()).toBytes()));
+      actual.add(hex(Golang.String.fromCodePoint(u.toInt()).toBytes()));
       final wideRune = BigInt.parse('4294967361');
       actual.add(
         hex(Golang.String.fromRune(Golang.Rune.fromBigInt(wideRune)).toBytes()),
       );
-      actual.add(hex(Golang.String.fromCodePoint(wideRune).toBytes()));
+      actual.add(
+        hex(
+          Golang.String.fromCodePoint(Golang.Int64.fromBigInt(wideRune).toInt())
+              .toBytes(),
+        ),
+      );
       for (final a in [false, true]) {
         for (final b in [false, true]) {
           var calls = 0;

@@ -14,6 +14,10 @@ void main() {
     final wide = BigInt.parse('4294967361');
     expect(Golang.Rune.fromBigInt(wide), Golang.Int32(65));
     expect(Golang.String.fromRune(Golang.Rune.fromBigInt(wide)).toDart(), 'A');
-    expect(Golang.String.fromCodePoint(wide).toBytes(), [239, 191, 189]);
+    expect(
+      Golang.String.fromCodePoint(Golang.Int64.fromBigInt(wide).toInt())
+          .toBytes(),
+      [239, 191, 189],
+    );
   });
 }

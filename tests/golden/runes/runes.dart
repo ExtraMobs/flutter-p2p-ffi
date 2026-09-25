@@ -54,7 +54,7 @@ void main() {
             go.Slice<Object?>.of([
               i,
               Golang.String.fromDart(':'),
-              Golang.String.fromCodePoint(r.toBigInt()),
+              Golang.String.fromCodePoint(r.toInt()),
               Golang.String.fromDart(' '),
             ], _$e1),
           );
@@ -154,7 +154,7 @@ void main() {
           }
           fmt.print(
             go.Slice<Object?>.of([
-              Golang.String.fromCodePoint(r$2.toBigInt()),
+              Golang.String.fromCodePoint(r$2.toInt()),
             ], _$e1),
           );
         }
@@ -183,11 +183,11 @@ void $goInit() {
 const _$e0 = go.Elem<Golang.Uint8>(
   1,
   Golang.Uint8.new,
-  ofInt: Golang.Uint8.fromBigInt,
+  ofInt: Golang.Uint8.from,
 );
 const _$e1 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
 const _$e2 = go.Elem<Golang.Int32>(
   4,
   Golang.Int32.new,
-  ofInt: Golang.Int32.fromBigInt,
+  ofInt: Golang.Int32.from,
 );

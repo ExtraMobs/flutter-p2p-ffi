@@ -106,7 +106,7 @@ void main() {
     for (Golang.Int i = Golang.Int(0); i < Golang.Int(40); i += Golang.Int(1)) {
       grow.value = grow.value.append([Golang.String.fromDart('x')]);
       if (Golang.Int(caps.length) == Golang.Int(0) ||
-          caps[(Golang.Int(caps.length) - Golang.Int(1)).toBigInt().toInt()] !=
+          caps[(Golang.Int(caps.length) - Golang.Int(1)).toInt()] !=
               Golang.Int(grow.value.capacity)) {
         caps = caps.append([Golang.Int(grow.value.capacity)]);
       }
@@ -269,11 +269,7 @@ void $goInit() {
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
 const _$e0 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);
-const _$e1 = go.Elem<Golang.Int>(
-  8,
-  Golang.Int.new,
-  ofInt: Golang.Int.fromBigInt,
-);
+const _$e1 = go.Elem<Golang.Int>(8, Golang.Int.new, ofInt: Golang.Int.from);
 const _$e2 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
 const _$e3 = go.Elem<Counter>(32, Counter.new, pointers: true);
 go.Slice<Golang.String> _$z4_5() => go.Slice<Golang.String>.nil(_$e0);

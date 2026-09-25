@@ -29,7 +29,7 @@ void main() {
     fmt.println(
       go.Slice<Object?>.of([
         a,
-        _minInt64 ~/ Golang.Int64.fromBigInt((neg ~/ Golang.Int(7)).toBigInt()),
+        _minInt64 ~/ Golang.Int64.from(neg ~/ Golang.Int(7)),
         neg ~/ Golang.Int(2),
         neg % Golang.Int(3),
         Golang.Int(1),
@@ -42,8 +42,8 @@ void main() {
     fmt.println(
       go.Slice<Object?>.of([
         one << 63,
-        one << go.shiftCount(s.toBigInt()),
-        Golang.Int(-8) >> go.shiftCount(s.toBigInt()),
+        one << go.shiftCount(s),
+        Golang.Int(-8) >> go.shiftCount(s),
         Golang.Int(2),
       ], _$e0),
     );
@@ -93,12 +93,12 @@ void main() {
     Golang.Float64 f = Golang.Float64(3.99);
     fmt.println(
       go.Slice<Object?>.of([
-        Golang.Int8.fromBigInt(n.toBigInt()),
-        Golang.Uint8.fromBigInt(n.toBigInt()),
-        Golang.Int32.fromBigInt(u8.toBigInt()),
-        Golang.Int.fromBigInt(u8.toBigInt()),
-        Golang.Uint64.fromBigInt(neg.toBigInt()),
-        Golang.Int.fromBigInt((u - Golang.Uint64(2)).toBigInt()),
+        Golang.Int8.from(n),
+        Golang.Uint8.from(n),
+        Golang.Int32.from(u8),
+        Golang.Int.from(u8),
+        Golang.Uint64.from(neg),
+        Golang.Int.from(u - Golang.Uint64(2)),
       ], _$e0),
     );
     fmt.println(
@@ -108,18 +108,16 @@ void main() {
         Golang.Uint8.fromBigInt(
           (f * Golang.Float64(100.0)).toInteger(8, signed: false),
         ),
-        Golang.Float64.fromInt64(Golang.Int64.fromBigInt(n.toBigInt())) /
-            Golang.Float64(7.0),
+        Golang.Float64.fromInt64(Golang.Int64.from(n)) / Golang.Float64(7.0),
         Golang.Float32(f.toDouble()),
       ], _$e0),
     );
     fmt.println(
       go.Slice<Object?>.of([
         Golang.String.fromDart('A'),
-        Golang.String.fromCodePoint(r.toBigInt()),
-        Golang.Float64.fromUint64(Golang.Uint64.fromBigInt(u8.toBigInt())) +
-            Golang.Float64(0.5),
-        Golang.Uint32.fromBigInt(n.toBigInt()) * Golang.Uint32(20000000),
+        Golang.String.fromCodePoint(r.toInt()),
+        Golang.Float64.fromUint64(Golang.Uint64.from(u8)) + Golang.Float64(0.5),
+        Golang.Uint32.from(n) * Golang.Uint32(20000000),
       ], _$e0),
     );
     Golang.Float32 f32 = Golang.Float32(0.10000000149011612);
@@ -205,7 +203,134 @@ void main() {
         Golang.Int(ms.length),
       ], _$e0),
     );
+    Golang.Int64 x = Golang.Int64(4294967295);
+    Golang.Uint64 y = Golang.Uint64.fromBigInt(
+      BigInt.parse('9223372036854775813'),
+    );
+    fmt.println(
+      go.Slice<Object?>.of([
+        x + Golang.Int64(1),
+        x * x,
+        -x * x,
+        y * Golang.Uint64(3),
+        y ~/ Golang.Uint64(7),
+        y % Golang.Uint64(7),
+        Golang.Int64.from(y) ~/ Golang.Int64(3),
+        Golang.Int64.from(y) % Golang.Int64(1000),
+      ], _$e0),
+    );
+    fmt.println(
+      go.Slice<Object?>.of([
+        _minInt64 ~/ Golang.Int64(-1),
+        _minInt64 % Golang.Int64(-1),
+        x << 31,
+        x << 32,
+        x << 33,
+        y >> 31,
+        y >> 32,
+        y >> 33,
+        Golang.Int64.from(y) >> 40,
+      ], _$e0),
+    );
+    Golang.Uint64 sh = Golang.Uint64(1099511627776);
+    Golang.Uint8 c8 = Golang.Uint8(33);
+    fmt.println(
+      go.Slice<Object?>.of([
+        one << go.shiftCount(c8),
+        x >> go.shiftCount(c8),
+        y << go.shiftCount(sh),
+        Golang.Int32(-7) >> go.shiftCount(c8),
+      ], _$e0),
+    );
+    Golang.Uint32 w32 = Golang.Uint32(3735928559);
+    Golang.Int32 i32b = Golang.Int32(-32429);
+    fmt.println(
+      go.Slice<Object?>.of([
+        w32 * w32,
+        i32b * i32b * i32b,
+        w32 >> 31,
+        i32b >> 3,
+        Golang.Uint16.from(w32),
+        Golang.Int8.from(w32),
+        Golang.Int64.from(w32) * Golang.Int64.from(i32b),
+      ], _$e0),
+    );
+    go.Slice<Golang.String> list = go.Slice<Golang.String>.of([
+      Golang.String.fromDart('a'),
+      Golang.String.fromDart('b'),
+      Golang.String.fromDart('c'),
+      Golang.String.fromDart('d'),
+    ], _$e3);
+    Golang.Int64 ix64 = Golang.Int64(3);
+    Golang.Uint8 ix8 = Golang.Uint8(1);
+    fmt.println(
+      go.Slice<Object?>.of([
+        list[ix64.toInt()],
+        list[ix8.toInt()],
+        list.slice(ix8.toInt(), ix64.toInt()),
+        Golang.String.fromCodePoint(
+          Golang.Int32.from(ix64 + Golang.Int64(64)).toInt(),
+        ),
+      ], _$e0),
+    );
+    go.GoMap<_main$pt, Golang.String>
+    mp = go.GoMap<_main$pt, Golang.String>.of({
+      _main$pt(x: Golang.Int(2), y: Golang.Int(1)): Golang.String.fromDart('c'),
+      _main$pt(x: Golang.Int(1), y: Golang.Int(5)): Golang.String.fromDart('b'),
+      _main$pt(x: Golang.Int(1), y: Golang.Int(2)): Golang.String.fromDart('a'),
+    }, _$e3);
+    go.GoMap<go.GoArray<Golang.Int8>, bool>
+    ma = go.GoMap<go.GoArray<Golang.Int8>, bool>.of({
+      go.GoArray<Golang.Int8>.of([Golang.Int8(1), Golang.Int8(-1)], _$e4): true,
+      go.GoArray<Golang.Int8>.of([Golang.Int8(-3), Golang.Int8(0)], _$e4):
+          false,
+      go.GoArray<Golang.Int8>.of([Golang.Int8(1), Golang.Int8(-2)], _$e4): true,
+    }, _$e5);
+    go.GoMap<Golang.Complex128, Golang.Int> mc =
+        go.GoMap<Golang.Complex128, Golang.Int>.of({
+          Golang.Complex128.fromDoubles(1.0, 2.0): Golang.Int(1),
+          Golang.Complex128.fromDoubles(0.0, 9.0): Golang.Int(2),
+          Golang.Complex128.fromDoubles(1.0, -1.0): Golang.Int(3),
+        }, _$e1);
+    go.GoMap<Object?, Golang.Int> mi = go.GoMap<Object?, Golang.Int>.of({
+      null: Golang.Int(0),
+      Golang.Int(3): Golang.Int(3),
+      Golang.Int(1): Golang.Int(1),
+      Golang.Int(2): Golang.Int(2),
+    }, _$e1);
+    fmt.println(go.Slice<Object?>.of([mp, ma, mc, mi], _$e0));
   });
+}
+
+class _main$pt extends go.GoStruct<_main$pt> {
+  _main$pt({Golang.Int? x, Golang.Int? y})
+    : _x = x ?? Golang.Int(),
+      _y = y ?? Golang.Int();
+
+  /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
+  static final _main$pt $nil = _main$pt()..$nilPtr = true;
+
+  Golang.Int _x;
+  Golang.Int _y;
+
+  @override
+  String get $goType => 'main.pt';
+  @override
+  List<String> get $valueMethods => const [];
+  @override
+  List<String> get $ptrMethods => const [];
+
+  @override
+  _main$pt $copy() => _main$pt(x: _x, y: _y);
+
+  @override
+  void $set(_main$pt o) {
+    _x = o._x;
+    _y = o._y;
+  }
+
+  @override
+  List<Object?> get $fields => [_x, _y];
 }
 
 bool _$inited = false;
@@ -219,13 +344,12 @@ void $goInit() {
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
 const _$e0 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
-const _$e1 = go.Elem<Golang.Int>(
-  8,
-  Golang.Int.new,
-  ofInt: Golang.Int.fromBigInt,
-);
+const _$e1 = go.Elem<Golang.Int>(8, Golang.Int.new, ofInt: Golang.Int.from);
 const _$e2 = go.Elem<Golang.Uint8>(
   1,
   Golang.Uint8.new,
-  ofInt: Golang.Uint8.fromBigInt,
+  ofInt: Golang.Uint8.from,
 );
+const _$e3 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);
+const _$e4 = go.Elem<Golang.Int8>(1, Golang.Int8.new, ofInt: Golang.Int8.from);
+const _$e5 = go.Elem<bool>(1, go.zeroBool);

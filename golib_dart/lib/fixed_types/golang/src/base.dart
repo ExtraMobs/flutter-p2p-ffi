@@ -46,8 +46,10 @@ abstract interface class GoNumber<S> {
 /// `~int | ~float64` nos genéricos.
 abstract interface class GoReal<S> implements GoOrdered<S>, GoNumber<S> {}
 
-/// Inteiros de largura fixa: toda operação via o valor exato ([toBigInt]) e
-/// truncamento no construtor ([$wrap]).
+/// Inteiros de largura fixa. A representação fica em `ints.dart`
+/// ([SmallIntBase] até 32 bits, [WideIntBase] com 64), sem BigInt no caminho
+/// comum; esta interface expõe os 64 bits em complemento de dois
+/// ([$hi]/[$lo]), a moeda das conversões entre larguras (`T.from(v)`).
 abstract base class IntBase<S extends IntBase<S>>
     implements GoReal<S>, GoTyped {
   const IntBase();
@@ -55,63 +57,41 @@ abstract base class IntBase<S extends IntBase<S>>
   @override
   List<String> get $methods => const [];
 
-  /// Valor matemático exato.
+  /// Palavra alta dos 64 bits (estendida por sinal ou zero), em [0, 2^32).
+  int get $hi;
+
+  /// Palavra baixa dos 64 bits, em [0, 2^32).
+  int get $lo;
+
+  /// Tipo com sinal (int*) ou sem (uint*).
+  bool get $signed;
+
+  /// Valor como int Dart (índices, contagens, runas); exato em ±2^53.
+  int toInt();
+
+  /// Valor matemático exato (fronteira lenta: floats, testes).
   BigInt toBigInt();
 
-  /// Novo valor do tipo, truncado à largura (conversão Go).
-  S $wrap(BigInt v);
+  /// Cópia dos bytes em little-endian (não é formato de protocolo).
+  Uint8List toLittleEndianBytes();
 
-  @override
-  S operator +(S o) => $wrap(toBigInt() + o.toBigInt());
-  @override
-  S operator -(S o) => $wrap(toBigInt() - o.toBigInt());
-  @override
-  S operator *(S o) => $wrap(toBigInt() * o.toBigInt());
-  @override
-  S operator -() => $wrap(-toBigInt());
   @override
   S $quo(S o) => this ~/ o;
 
   /// `/` inteiro do Go: trunca para zero.
-  S operator ~/(S o) => $wrap(toBigInt() ~/ o.toBigInt());
+  S operator ~/(S o);
 
   /// `%` do Go: sinal do dividendo.
-  S operator %(S o) => $wrap(toBigInt().remainder(o.toBigInt()));
-  S operator &(S o) => $wrap(toBigInt() & o.toBigInt());
-  S operator |(S o) => $wrap(toBigInt() | o.toBigInt());
-  S operator ^(S o) => $wrap(toBigInt() ^ o.toBigInt());
-  S operator ~() => $wrap(~toBigInt());
+  S operator %(S o);
+  S operator &(S o);
+  S operator |(S o);
+  S operator ^(S o);
+  S operator ~();
 
   /// `&^` do Go.
-  S andNot(S o) => $wrap(toBigInt() & ~o.toBigInt());
-
-  S operator <<(int n) {
-    if (n < 0) throw ArgumentError.value(n, 'count', 'negative shift amount');
-    return $wrap(n >= 128 ? BigInt.zero : toBigInt() << n);
-  }
-
-  S operator >>(int n) {
-    if (n < 0) throw ArgumentError.value(n, 'count', 'negative shift amount');
-    return $wrap(toBigInt() >> (n >= 128 ? 128 : n));
-  }
-
-  @override
-  int compareTo(S o) => toBigInt().compareTo(o.toBigInt());
-  @override
-  bool operator <(S o) => compareTo(o) < 0;
-  @override
-  bool operator <=(S o) => compareTo(o) <= 0;
-  @override
-  bool operator >(S o) => compareTo(o) > 0;
-  @override
-  bool operator >=(S o) => compareTo(o) >= 0;
-
-  @override
-  bool operator ==(Object o) => o is S && toBigInt() == o.toBigInt();
-  @override
-  int get hashCode => toBigInt().hashCode;
-  @override
-  String toString() => toBigInt().toString();
+  S andNot(S o);
+  S operator <<(int n);
+  S operator >>(int n);
 }
 
 /// Floats IEEE: operações em binary64, arredondadas pelo construtor

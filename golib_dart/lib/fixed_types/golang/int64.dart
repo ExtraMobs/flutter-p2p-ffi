@@ -1,118 +1,41 @@
 // ignore_for_file: duplicate_ignore, public_member_api_docs, sort_constructors_first, directives_ordering, dangling_library_doc_comments, library_prefixes, constant_identifier_names, depend_on_referenced_packages
-import 'dart:typed_data';
-
 import 'src/base.dart';
+import 'src/ints.dart';
 
 import 'uint64.dart';
 
-/// Go int64 runtime value with an immutable eight-byte two's-complement payload.
-final class Int64 extends IntBase<Int64> {
+/// Go int64: duas palavras de 32 bits em complemento de dois.
+final class Int64 extends Int64Base<Int64> {
   @override
   String get $goType => 'int64';
 
-  @override
-  Int64 $wrap(BigInt v) => Int64.fromBigInt(v);
+  /// Converte mantendo os 64 bits baixos; zero por padrão.
+  Int64([int value = 0]) : super(value);
 
-  /// Converts a runtime integer; defaults to zero.
-  Int64([int value = 0]) : this.fromBigInt(BigInt.from(value));
+  /// Go int64(v): os 64 bits de qualquer inteiro Go.
+  Int64.from(IntBase value) : super.from(value);
 
-  /// Retains the low 64 bits, then interprets them as signed.
-  Int64.fromBigInt(BigInt value) : _bits = Uint64.fromBigInt(value);
+  /// Mantém os 64 bits baixos do valor exato.
+  Int64.fromBigInt(BigInt value) : super.fromBigInt(value);
 
-  /// Go int64(uint64Value), preserving the bit pattern.
-  Int64.fromUint64(Uint64 value) : _bits = value;
+  const Int64._(super.$hi, super.$lo) : super.raw();
 
-  final Uint64 _bits;
+  /// Go int64(uint64Value), preservando o padrão de bits.
+  Int64.fromUint64(Uint64 value) : super.raw(value.$hi, value.$lo);
 
-  /// Returns the exact signed mathematical value.
-  BigInt toBigInt() => _bits.toBigInt().toSigned(64);
+  /// Go uint64(int64Value), preservando o padrão de bits.
+  Uint64 toUint64() => Uint64.from(this);
 
-  /// Explicit Dart boundary, not a Go integer conversion.
-  /// Throws when the runtime's int cannot represent this value exactly.
+  /// Fronteira explícita com o Dart, não uma conversão Go: lança quando o
+  /// int da plataforma não representa o valor exatamente.
   int toIntExact() {
-    final value = toBigInt();
-    final result = value.toInt();
-    if (BigInt.from(result) != value) {
+    final result = toInt();
+    if (BigInt.from(result) != toBigInt()) {
       throw UnsupportedError('Dart int cannot represent this Int64 exactly');
     }
     return result;
   }
 
-  /// Go uint64(int64Value), preserving the bit pattern.
-  Uint64 toUint64() => _bits;
-
-  /// Returns a defensive copy; internal byte order is not a wire format.
-  Uint8List toLittleEndianBytes() => _bits.toLittleEndianBytes();
-
-  /// Signed addition with Go two's-complement overflow.
-  Int64 operator +(Int64 other) => Int64.fromUint64(_bits + other._bits);
-
-  /// Signed subtraction with Go two's-complement overflow.
-  Int64 operator -(Int64 other) => Int64.fromUint64(_bits - other._bits);
-
-  /// Signed negation, including MinInt64 wrapping to itself.
-  Int64 operator -() => Int64.fromUint64(-_bits);
-
-  /// Signed multiplication with Go two's-complement overflow.
-  Int64 operator *(Int64 other) => Int64.fromUint64(_bits * other._bits);
-
-  /// Go integer division truncates toward zero; MinInt64 / -1 wraps.
-  Int64 operator ~/(Int64 other) =>
-      Int64.fromBigInt(toBigInt() ~/ other.toBigInt());
-
-  /// Go remainder has the dividend's sign, unlike Dart's Euclidean modulo.
-  Int64 operator %(Int64 other) =>
-      Int64.fromBigInt(toBigInt().remainder(other.toBigInt()));
-
-  /// Bitwise AND.
-  Int64 operator &(Int64 other) => Int64.fromUint64(_bits & other._bits);
-
-  /// Bitwise OR.
-  Int64 operator |(Int64 other) => Int64.fromUint64(_bits | other._bits);
-
-  /// Bitwise XOR.
-  Int64 operator ^(Int64 other) => Int64.fromUint64(_bits ^ other._bits);
-
-  /// Go unary ^ is Dart unary ~.
-  Int64 operator ~() => Int64.fromUint64(~_bits);
-
-  /// Go &^ clears bits set in the right operand.
-  Int64 andNot(Int64 other) => this & ~other;
-
-  /// Left shift truncates to 64 bits.
-  Int64 operator <<(int count) => Int64.fromUint64(_bits << count);
-
-  /// Arithmetic right shift preserves the sign, including counts >= 64.
-  Int64 operator >>(int count) {
-    if (count < 0) {
-      throw ArgumentError.value(count, 'count', 'negative shift amount');
-    }
-    final value = toBigInt();
-    return Int64.fromBigInt(
-      count >= 64
-          ? (value.isNegative ? -BigInt.one : BigInt.zero)
-          : value >> count,
-    );
-  }
-
   @override
-  int compareTo(Int64 other) => toBigInt().compareTo(other.toBigInt());
-
-  /// Signed comparison.
-  bool operator <(Int64 other) => compareTo(other) < 0;
-
-  /// Signed comparison.
-  bool operator <=(Int64 other) => compareTo(other) <= 0;
-
-  /// Signed comparison.
-  bool operator >(Int64 other) => compareTo(other) > 0;
-
-  /// Signed comparison.
-  bool operator >=(Int64 other) => compareTo(other) >= 0;
-  @override
-  bool operator ==(Object other) => other is Int64 && _bits == other._bits;
-  @override
-  int get hashCode => toBigInt().hashCode;
-  @override
-  String toString() => toBigInt().toString();
+  Int64 $make(int hi, int lo) => Int64._(hi, lo);
 }

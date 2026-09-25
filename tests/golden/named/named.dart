@@ -52,14 +52,12 @@ final class Fahrenheit extends Golang.FloatBase<Fahrenheit> {
   List<String> get $methods => const [];
 }
 
-final class ID extends Golang.IntBase<ID> {
-  ID([int v = 0]) : _v = Golang.Int32(v);
-  ID.fromBigInt(BigInt v) : _v = Golang.Int32.fromBigInt(v);
-  final Golang.Int32 _v;
+final class ID extends Golang.Int32Base<ID> {
+  ID([int v = 0]) : super(v);
+  ID.from(Golang.IntBase v) : super.from(v);
+  ID.fromBigInt(BigInt v) : super.fromBigInt(v);
   @override
-  BigInt toBigInt() => _v.toBigInt();
-  @override
-  ID $wrap(BigInt v) => ID.fromBigInt(v);
+  ID $make(int v) => ID(v);
   @override
   String get $goType => 'main.ID';
   @override

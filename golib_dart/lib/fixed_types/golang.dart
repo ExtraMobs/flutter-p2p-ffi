@@ -4,6 +4,7 @@ library;
 
 export 'golang/bool.dart';
 export 'golang/src/base.dart';
+export 'golang/src/ints.dart';
 export 'golang/byte.dart';
 export 'golang/complex128.dart';
 export 'golang/complex64.dart';

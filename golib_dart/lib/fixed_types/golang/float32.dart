@@ -2,6 +2,7 @@
 import 'dart:typed_data';
 
 import 'src/base.dart';
+import 'src/ints.dart';
 
 import 'float64.dart';
 import 'int64.dart';
@@ -30,10 +31,10 @@ final class Float32 extends FloatBase<Float32> {
   Float32.fromFloat64(Float64 value) : this(value.toDouble());
 
   /// Go float32(int64Value), without an intermediate binary64 rounding.
-  Float32.fromInt64(Int64 value) : this(integerToFloat(value.toBigInt(), 24));
+  Float32.fromInt64(Int64 value) : this(_ofInteger(value, 24));
 
   /// Go float32(uint64Value), without an intermediate binary64 rounding.
-  Float32.fromUint64(Uint64 value) : this(integerToFloat(value.toBigInt(), 24));
+  Float32.fromUint64(Uint64 value) : this(_ofInteger(value, 24));
 
   final ByteData _data;
 
@@ -85,3 +86,9 @@ final class Float32 extends FloatBase<Float32> {
   BigInt toInteger(int width, {required bool signed}) =>
       floatToInteger(toDouble(), width, signed: signed);
 }
+
+/// Inteiro em ±2^53 já é exato como double (o construtor arredonda uma vez);
+/// fora disso, o arredondamento direto a `precision` bits.
+double _ofInteger(WideIntBase value, int precision) => value.$safe
+    ? value.toInt().toDouble()
+    : integerToFloat(value.toBigInt(), precision);

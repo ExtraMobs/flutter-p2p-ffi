@@ -345,12 +345,17 @@ class NamedClass(NonStructNamed):
         cls, store = type_name(go_name), self.types.golang(b.cls)
         g = self.types.golang
         if b.cat == "wint":
-            base = f"{g('IntBase')}<{cls}>"
-            body = [f"{cls}([int v = 0]) : _v = {store}(v);",
-                    f"{cls}.fromBigInt(BigInt v) : _v = {store}.fromBigInt(v);",
-                    f"final {store} _v;",
-                    "@override", "BigInt toBigInt() => _v.toBigInt();",
-                    "@override", f"{cls} $wrap(BigInt v) => {cls}.fromBigInt(v);"]
+            # Herda a representação da largura (Int32Base, Uint64Base...):
+            # mesmo caminho rápido do tipo subjacente, sem indireção.
+            base = f"{g(('' if b.signed else 'U') + f'Int{b.width}Base')}<{cls}>"
+            body = [f"{cls}([int v = 0]) : super(v);",
+                    f"{cls}.from({g('IntBase')} v) : super.from(v);",
+                    f"{cls}.fromBigInt(BigInt v) : super.fromBigInt(v);"]
+            if b.width == 64:
+                body += [f"{cls}._(super.$hi, super.$lo) : super.raw();",
+                         "@override", f"{cls} $make(int hi, int lo) => {cls}._(hi, lo);"]
+            else:
+                body += ["@override", f"{cls} $make(int v) => {cls}(v);"]
         elif b.cat == "float":
             base = f"{g('FloatBase')}<{cls}>"
             body = [f"{cls}([double v = 0.0]) : _v = {store}(v);",

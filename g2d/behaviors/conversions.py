@@ -67,7 +67,7 @@ class ToTypeParam(ConversionBehavior):
         return c.to_t["kind"] == "typeparam" and c.frm is not None and c.frm.integer
 
     def emit(self, c):
-        return f"{self.descriptors.elem(c.to_t)}.ofInt!({self.expr(c.arg, POSTFIX)}.toBigInt())", POSTFIX
+        return f"{self.descriptors.elem(c.to_t)}.ofInt!({self.expr(c.arg)})", POSTFIX
 
 
 class IntToInt(ConversionBehavior):
@@ -75,7 +75,7 @@ class IntToInt(ConversionBehavior):
         return c.basics and c.to.integer and c.frm.integer
 
     def emit(self, c):
-        return f"{self.types.cls(c.to_t)}.fromBigInt({self.expr(c.arg, POSTFIX)}.toBigInt())", POSTFIX
+        return f"{self.types.cls(c.to_t)}.from({self.expr(c.arg)})", POSTFIX
 
 
 class IntToFloat(ConversionBehavior):
@@ -89,7 +89,7 @@ class IntToFloat(ConversionBehavior):
         to_cls = self.types.cls(c.to_t)
         x = self.expr(c.arg, POSTFIX)
         src = "Int64" if c.frm.signed else "Uint64"
-        v = f"{g(c.to.cls)}.from{src}({g(src)}.fromBigInt({x}.toBigInt()))"
+        v = f"{g(c.to.cls)}.from{src}({g(src)}.from({x}))"
         return (f"{to_cls}({v}.toDouble())" if c.named_to else v), POSTFIX
 
 
@@ -142,7 +142,7 @@ class IntToString(ConversionBehavior):
     def emit(self, c):
         to_cls = self.types.cls(c.to_t)
         x = self.expr(c.arg, POSTFIX)
-        v = f"{self.types.golang('String')}.fromCodePoint({x}.toBigInt())"
+        v = f"{self.types.golang('String')}.fromCodePoint({x}.toInt())"
         return (f"{to_cls}({v})" if c.named_to else v), POSTFIX
 
 

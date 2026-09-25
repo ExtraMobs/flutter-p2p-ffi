@@ -1,6 +1,7 @@
 /// Descritor de tipo de elemento (slices, maps, ponteiros novos).
 library;
 
+import '../../fixed_types/golang.dart' as Golang;
 import 'struct.dart';
 
 /// O que o runtime precisa saber de um tipo Go T que ele guarda: tamanho e
@@ -13,7 +14,7 @@ final class Elem<T> {
 
   /// Conversão Go `T(n)` a partir de um inteiro, para tipos numéricos
   /// (dicionário de genéricos: `T(len(xs))` com T parâmetro de tipo).
-  final T Function(BigInt)? ofInt;
+  final T Function(Golang.IntBase)? ofInt;
 
   /// `unsafe.Sizeof(T)` em amd64.
   final int size;

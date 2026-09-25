@@ -43,6 +43,10 @@ igual em VM, AOT, Wasm e JS. A tabela completa está em
 - `src/base.dart`: `IntBase<S>`, `FloatBase<S>` e `StringBase<S>` (os
   operadores devolvem `S`), estendidas por todas as classes e pelos tipos
   nomeados gerados.
+- `src/ints.dart`: a representação dos inteiros (`SmallIntBase`,
+  `WideIntBase`) e uma base por largura (`Int8Base` … `Uint64Base`). Um tipo
+  nomeado gerado estende a base da sua largura e herda o mesmo caminho rápido
+  do tipo subjacente.
 - As interfaces `GoOrdered`, `GoNumber` e `GoReal` são os bounds de
   genéricos. `GoTyped` (`$goType`, `$methods`) é a identidade Go em runtime.
 - `Int`, `Uint` e `Uintptr` são **classes próprias**; eram `typedef` de
@@ -55,9 +59,19 @@ A autoridade é a [spec do Go](https://go.dev/ref/spec): *Numeric types*,
 *Integer operators*, *Integer overflow* e *Conversions*. Os testes diferenciais
 rodam contra o Go instalado (1.25.7 windows/amd64).
 
-- **Inteiros:** guardam 1, 2, 4 ou 8 bytes privados, conforme a largura.
-  - `BigInt` só aparece em aritmética intermediária exata.
-  - Conversões em tempo de execução truncam.
+- **Inteiros:** sem `BigInt` no caminho comum, com a mesma representação em
+  todas as plataformas.
+  - Até 32 bits: um `int` normalizado à largura. O `*` de 32 bits usa limbs de
+    16 bits, porque o produto passaria de 2⁵³ no JS.
+  - 64 bits: duas palavras de 32 bits sem sinal (`$hi`/`$lo`), com carry,
+    produto em limbs de 16 bits e shifts entre palavras.
+  - Invariante: nenhum intermediário passa de 2⁵³, e todo resultado bitwise é
+    renormalizado (no JS esses operadores devolvem 32 bits sem sinal).
+  - `BigInt` só entra em `~/`/`%` de 64 bits com operando fora de ±2⁵³, em
+    `toString` fora de ±2⁵³, em float → inteiro (`toInteger`) e nas fronteiras
+    `fromBigInt`/`toBigInt`.
+  - `toInt()` é a saída para índices, contagens e runas (exata em ±2⁵³).
+    `T.from(v)` é a conversão Go entre larguras (trunca `$hi`/`$lo`).
   - `~/` é o `/` inteiro do Go e `%` é o resto truncado do Go; `~` é o `^`
     unário, e `andNot` é o `&^`.
   - Shift negativo lança `ArgumentError`; divisão por zero lança
@@ -93,6 +107,20 @@ por `test/go_float_vectors_extra.go`):
    `utf8.DecodeRune` do Go (sequência inválida, truncada, overlong, surrogate
    ou acima de U+10FFFF → `(U+FFFD, 1)`) e o `string([]rune)` (runa inválida →
    U+FFFD). Oráculo: o fixture e2e `tests/golden/runes`.
+8. **Inteiros reescritos sem `BigInt`** (`src/ints.dart`). Na origem, cada
+   valor guardava um `Uint8List` e toda operação passava por `BigInt`.
+   `$wrap(BigInt)` saiu; entraram `$hi`/`$lo`/`$signed`, `toInt()` e
+   `T.from(v)`. `String.fromCodePoint` passou a receber `int`. Oráculo: as
+   matrizes `test/go_integer*_matrix*` (VM) e o fixture e2e
+   `tests/golden/widths` (VM, JS e Wasm). Laço de soma e indexação com
+   `Golang.Int` mais laço de `Golang.Uint8`, melhor de 3:
+
+   | Plataforma | Antes | Depois | Ganho |
+   |---|---|---|---|
+   | VM (JIT) | 620 ms | 19 ms | ~33× |
+   | AOT | 600 ms | 7 ms | ~86× |
+   | JS (dart2js -O2, Node) | 1916 ms | 40 ms | ~48× |
+   | Wasm (dart2wasm, Node) | 649 ms | 17 ms | ~38× |
 
 Chaves de map `Float64` (NaN nunca encontrado, +0 ≡ −0) foram auditadas e já
 batiam com o Go.

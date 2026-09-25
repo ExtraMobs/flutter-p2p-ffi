@@ -47,15 +47,16 @@ class DescriptorRegistry(Service):
         return self.elems[dt]
 
     def of_int_fn(self, t, b, dt):
-        """T(n) a partir de BigInt (conversão para parâmetro de tipo)."""
+        """T(n) a partir de um inteiro Go (conversão para parâmetro de tipo)."""
         if b.cat == "wint":
-            return f"{self.types.cls(t)}.fromBigInt"
+            return f"{self.types.cls(t)}.from"
         name = f"_$i{len(self.elem_decls)}_{len(self.elems)}"
         g = self.types.golang
-        v = f"{g(b.cls)}.fromInt64({g('Int64')}.fromBigInt(b))"
+        f = g(b.cls)
+        v = f"(n.$signed ? {f}.fromInt64({g('Int64')}.from(n)) : {f}.fromUint64({g('Uint64')}.from(n)))"
         if t["kind"] == "named":
             v = f"{dt}({v}.toDouble())"
-        self.elem_decls.append(f"{dt} {name}(BigInt b) => {v};")
+        self.elem_decls.append(f"{dt} {name}({g('IntBase')} n) => {v};")
         return name
 
     def zero_fn(self, t, dt):

@@ -32,7 +32,7 @@ Slice<Golang.Uint8> bytesOf(Golang.String s, Elem<Golang.Uint8> elem) =>
 /// `string(b)` com b `[]byte`: bytes copiados sem validar UTF-8.
 Golang.String stringOfByteSlice(Slice<Golang.Uint8> b) =>
     Golang.String.fromBytes(
-      Uint8List.fromList([for (final x in b.items) x.toBigInt().toInt()]),
+      Uint8List.fromList([for (final x in b.items) x.toInt()]),
     );
 
 /// `[]rune(s)`: decodificação UTF-8 do Go (inválido vira U+FFFD).
@@ -41,13 +41,13 @@ Slice<Golang.Rune> runesOf(Golang.String s, Elem<Golang.Rune> elem) =>
 
 /// `string(rs)` com rs `[]rune`.
 Golang.String stringOfRunes(Slice<Golang.Rune> rs) =>
-    Golang.String.fromRunes([for (final r in rs.items) r.toBigInt().toInt()]);
+    Golang.String.fromRunes([for (final r in rs.items) r.toInt()]);
 
-/// Contagem de shift com tipo inteiro wrapper → `int` Dart. Negativa: panic
+/// Contagem de shift com tipo inteiro Go → `int` Dart. Negativa: panic
 /// (spec Go). Qualquer contagem >= 64 dá o mesmo resultado; satura para caber.
-int shiftCount(BigInt count) {
-  if (count.isNegative) {
+int shiftCount(Golang.IntBase count) {
+  if (count.$signed && count.$hi >= 0x80000000) {
     throw Panic(const RuntimeError('runtime error: negative shift amount'));
   }
-  return count > BigInt.from(64) ? 64 : count.toInt();
+  return count.$hi != 0 || count.$lo > 64 ? 64 : count.$lo;
 }

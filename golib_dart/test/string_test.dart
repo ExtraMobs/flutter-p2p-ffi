@@ -7,22 +7,22 @@ import 'package:test/test.dart';
 
 void main() {
   test('integer conversion emits UTF8 or replacement for invalid scalars', () {
-    expect(Golang.String.fromCodePoint(BigInt.from(0x1f30d)).toBytes(), [
+    expect(Golang.String.fromCodePoint(0x1f30d).toBytes(), [
       240,
       159,
       140,
       141,
     ]);
     for (final code in [
-      BigInt.from(-1),
-      BigInt.from(0xd800),
-      BigInt.from(0xdfff),
-      BigInt.from(0x110000),
-      BigInt.one << 64,
+      -1,
+      0xd800,
+      0xdfff,
+      0x110000,
+      Golang.Uint64.fromBigInt((BigInt.one << 64) - BigInt.one).toInt(),
     ]) {
       expect(Golang.String.fromCodePoint(code).toBytes(), [239, 191, 189]);
     }
-    expect(Golang.String.fromCodePoint(BigInt.zero).toBytes(), [0]);
+    expect(Golang.String.fromCodePoint(0).toBytes(), [0]);
   });
 
   test('concatenation owns its output and preserves both operands', () {

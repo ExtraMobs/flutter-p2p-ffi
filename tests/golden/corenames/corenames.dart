@@ -61,14 +61,13 @@ class Map$ extends go.GoStruct<Map$> {
   List<Object?> get $fields => [size];
 }
 
-final class String$ extends Golang.IntBase<String$> {
-  String$([int v = 0]) : _v = Golang.Int(v);
-  String$.fromBigInt(BigInt v) : _v = Golang.Int.fromBigInt(v);
-  final Golang.Int _v;
+final class String$ extends Golang.Int64Base<String$> {
+  String$([int v = 0]) : super(v);
+  String$.from(Golang.IntBase v) : super.from(v);
+  String$.fromBigInt(BigInt v) : super.fromBigInt(v);
+  String$._(super.$hi, super.$lo) : super.raw();
   @override
-  BigInt toBigInt() => _v.toBigInt();
-  @override
-  String$ $wrap(BigInt v) => String$.fromBigInt(v);
+  String$ $make(int hi, int lo) => String$._(hi, lo);
   @override
   String get $goType => 'main.String';
   @override

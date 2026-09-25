@@ -29,7 +29,7 @@ Legenda: ✅ fiel · ⚠️ fiel no caso comum, com limite conhecido · ❌ não
 
 | Adaptação Go | Classe (golib_dart) | Milestone | Status |
 |---|---|---|---|
-| inteiros de largura fixa, `int`/`int64` | `Golang.Int8` … `Golang.Int64`, `Golang.Uint*` (`fixed_types`) | M2 | ✅ |
+| inteiros de largura fixa, `int`/`int64` | `Golang.Int8` … `Golang.Int64`, `Golang.Uint*` (`fixed_types`; até 32 bits um `int` normalizado, 64 bits duas palavras de 32; sem `BigInt` no caminho comum) | M2 | ✅ |
 | `float32`/`float64`, `complex*` | `Golang.Float32/64`, `Golang.Complex64/128` | M2 | ✅ |
 | `string` (bytes, UTF-8 inválido) | `Golang.String` | M2 | ✅ |
 | struct (valor, cópia, `==`) | `go.GoStruct<T>` (classe base) | M3 | ✅ |
@@ -41,7 +41,7 @@ Legenda: ✅ fiel · ⚠️ fiel no caso comum, com limite conhecido · ❌ não
 | `defer` / `recover` / `panic` / erros de runtime | `go.Defers`, `go.Panic`, `go.RuntimeError`, `go.runMain` | M3 | ✅ |
 | saída padrão em bytes | `writeStdout` (import condicional io/web) | M2 | ✅ |
 | identidade de tipo em runtime (`int` × `int64` × nomeado) | uma classe Dart por tipo Go (`Golang.Int` ≠ `Golang.Int64`) + `GoTyped` (`$goType`, `$methods`) | M3 | ✅ |
-| tipos nomeados sobre básicos | classe gerada sobre `Golang.IntBase/FloatBase/StringBase<S>` | M3 | ✅ |
+| tipos nomeados sobre básicos | classe gerada sobre `Golang.<Largura>Base/FloatBase/StringBase<S>` | M3 | ✅ |
 | interfaces, type assertion, type switch | `abstract mixin class` + `implements` (go/types) + `go.assertType/assertIface/tryType/isType` | M3 | ✅ |
 | embedding (promoção) | caminho `$sel.index` + `mixin E$Promote` (forwarders) | M3 | ✅ |
 | genéricos | parâmetros de tipo Dart + dicionário `go.Elem<T>` (`$T`) + bounds `IntBase/GoReal/GoOrdered/StringBase` | M3 | ✅ |
@@ -175,7 +175,7 @@ class Box extends go.GoStruct<Box> {
 |---|---|
 | `[]T{a, b}` | `go.Slice<T>.of([a, b], _$eN)` |
 | `make([]T, n, c)` | `go.Slice<T>.make(n, c, _$eN)` |
-| `s[i]`, `s[i] = v` | `s[i]`, `s[i] = v` (bounds → `runtime error: index out of range`) |
+| `s[i]`, `s[i] = v` | `s[i.toInt()]`, `s[i.toInt()] = v` (`toInt()`: saída exata em ±2⁵³ de qualquer inteiro Go; bounds → `runtime error: index out of range`) |
 | `s[a:b]`, `s[a:b:c]` | `s.slice(a, b)`, `s.slice(a, b, c)` (compartilha o array) |
 | `append(s, x, y)` / `append(s, t...)` | `s.append([x, y])` / `s.appendSlice(t)` |
 | `len`, `cap`, `copy(d, s)` | `Golang.Int(s.length)`, `Golang.Int(s.capacity)`, `Golang.Int(d.copyFrom(s))` |
@@ -235,7 +235,7 @@ criado com `identity: true` (`Map.identity()`), então compara endereços.
 | `a &^ b`, `^x` | `a.andNot(b)`, `~x` |
 | shift | a contagem vira `int` por `go.shiftCount` (negativa → panic) |
 | `x++`, `x op= y` | `x += Golang.T(1)`, `x op= y` (`/=` → `~/=`; `&^=` → `x = x.andNot(y)`) |
-| conversões numéricas | construtores das classes; float → inteiro pelas regras do gc/amd64 (`toInteger`) |
+| conversões numéricas | inteiro → inteiro `T.from(x)` (trunca os 64 bits `$hi`/`$lo`); inteiro → float `Float64.fromInt64(Int64.from(x))` (arredondamento único); float → inteiro pelas regras do gc/amd64 (`toInteger`) |
 | `len(s)`, `s[i]`, `s[a:b]` em string | `Golang.Int(s.length)`, `Golang.Uint8(s[i])`, `s.slice(a, b)` (bytes) |
 | `p.f` com `p *T` | `p!.f` (nil → `runtime error: invalid memory address or nil pointer dereference`) |
 | `f(x)` com `f` variável de função | `f!(x)` (função nomeada: `f(x)`, classe chamável) |
@@ -292,16 +292,18 @@ intervalo, nil pointer, escrita em map nil.
 | `fmt.Println` | `fmt.println(go.Slice<Object?>)` → `(Golang.Int, GoError?)`, com os bytes exatos |
 | `fmt.Print` | `fmt.print(go.Slice<Object?>)` → `(Golang.Int, GoError?)` (espaçamento do `Sprint`) |
 | `fmt.Sprint` | `fmt.sprint(go.Slice<Object?>)` → `Golang.String` |
-| `%v` | `<nil>`; wrappers pelo `toString` (floats = `FormatFloat 'g'`); structs `{a b}`; `&{...}`; slices `[a b]`; maps `map[k:v]` com chaves ordenadas; ponteiros aninhados como endereço |
+| `%v` | `<nil>`; wrappers pelo `toString` (floats = `FormatFloat 'g'`); structs `{a b}`; `&{...}`; slices `[a b]`; maps `map[k:v]` com as chaves na ordem do `internal/fmtsort` (nil primeiro, números, strings, bool, complex, structs e arrays campo a campo); ⚠️ ponteiros ficam na ordem de inserção e chaves interface de tipos diferentes vão pelo nome do tipo, porque o Go ordena ambos por endereço de memória; ponteiros aninhados como endereço |
 | `math.NaN`, `math.Copysign` | `math.naN()`, `math.copysign(f, s)`; as constantes de `math` são dobradas |
 
 ## Tipos nomeados, interfaces, embedding, genéricos (M3)
 
 **Tipos nomeados sobre básicos.** Uma classe gerada estende a base de
-`fixed_types` (`IntBase`/`FloatBase`/`StringBase<S>`). Os operadores herdados
+`fixed_types`: a base da largura para inteiros (`Int32Base<S>`,
+`Uint64Base<S>`...; o mesmo caminho rápido do subjacente), `FloatBase<S>` ou
+`StringBase<S>`. Os operadores herdados
 devolvem o próprio tipo (`c*9/5` continua `Celsius`), e os métodos Go viram
 métodos da classe. As conversões usam os construtores:
-`Celsius(x.toDouble())`, `ID.fromBigInt(x.toBigInt())`, `Name(s.$str)`.
+`Celsius(x.toDouble())`, `ID.from(x)`, `Name(s.$str)`.
 
 **Interfaces.**
 - Uma interface Go vira `abstract mixin class I { R m(A); }` (embutidas em

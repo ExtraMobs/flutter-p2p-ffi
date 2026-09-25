@@ -24,12 +24,14 @@ bool int double num dynamic identical
 
 
 # Membros das classes base que o código gerado estende ou implementa
-# (go.Slice, go.GoMap, go.PtrView, função nomeada, Object): um método/campo Go
+# (go.Slice, go.GoMap, go.PtrView, função nomeada, bases inteiras de
+# fixed_types, Object): um método/campo Go
 # com o mesmo nome (`func (s Set) Delete`) os sobrescreveria; ganha `$`. A
 # regra é global (vale também nas interfaces), então o despacho continua certo.
 DART_BASE_MEMBERS = frozenset("""
 isNil length capacity addr slice append appendSlice copyFrom items elem
 containsKey lookup delete keysSnapshot entries value call
+toInt toBigInt toLittleEndianBytes andNot compareTo from fromBigInt
 hashCode runtimeType toString noSuchMethod
 """.split())
 

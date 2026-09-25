@@ -1,4 +1,6 @@
 // ignore_for_file: duplicate_ignore, public_member_api_docs, sort_constructors_first, directives_ordering, dangling_library_doc_comments, library_prefixes, constant_identifier_names, depend_on_referenced_packages
+// ponytail: devolve BigInt (o destino usa `fromBigInt`); caminho int direto
+// se float → inteiro aparecer num laço quente.
 /// Conversão Go float → inteiro como o gc compila em amd64 (a spec deixa o
 /// resultado fora do intervalo a cargo da implementação). Devolve o valor
 /// exato antes do corte de largura; o construtor `fromBigInt` do destino
