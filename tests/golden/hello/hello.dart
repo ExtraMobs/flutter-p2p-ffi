@@ -3,26 +3,55 @@
 // tipos anuláveis promovidos pelo fluxo (`!` redundante).
 // ignore_for_file: unused_element, unused_field, dead_code, unnecessary_non_null_assertion
 
+import 'package:golib_dart/fixed_types/golang.dart' as Golang;
 import 'package:golib_dart/fmt.dart' as fmt;
+import 'package:golib_dart/builtin.dart' as go;
 
 /// Greeter cumprimenta alguém pelo nome.
-class Greeter {
-  Greeter({String? name}) : name = name ?? '';
+class Greeter extends go.GoStruct<Greeter> {
+  Greeter({Golang.String? name}) : name = name ?? Golang.String();
 
-  String name;
+  Golang.String name;
+
+  @override
+  String get $goType => 'main.Greeter';
+  @override
+  List<String> get $valueMethods => const ['Greet'];
+  @override
+  List<String> get $ptrMethods => const ['Greet'];
+
+  @override
+  Greeter $copy() => Greeter(name: name);
+
+  @override
+  void $set(Greeter o) {
+    name = o.name;
+  }
+
+  @override
+  List<Object?> get $fields => [name];
 
   /// Greet monta a saudação.
-  String greet() {
-    return 'Hello, ' + this.name + '!';
+  Golang.String greet() {
+    return Golang.String.fromDart('Hello, ') +
+        this.name +
+        Golang.String.fromDart('!');
   }
 }
 
-int _add(int a, int b) {
+Golang.Int _add(Golang.Int a, Golang.Int b) {
   return a + b;
 }
 
 void main() {
-  Greeter g = Greeter(name: 'world');
-  fmt.println(<Object?>[g.greet()]);
-  fmt.println(<Object?>[_add(1, 2)]);
+  go.runMain(() {
+    Greeter g = Greeter(name: Golang.String.fromDart('world'));
+    fmt.println(go.Slice<Object?>.of([g.greet()], _$e0));
+    fmt.println(
+      go.Slice<Object?>.of([_add(Golang.Int(1), Golang.Int(2))], _$e0),
+    );
+  });
 }
+
+// Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
+const _$e0 = go.Elem<Object?>(16, go.zeroNull, pointers: true);

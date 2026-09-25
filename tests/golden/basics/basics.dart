@@ -3,56 +3,82 @@
 // tipos anuláveis promovidos pelo fluxo (`!` redundante).
 // ignore_for_file: unused_element, unused_field, dead_code, unnecessary_non_null_assertion
 
+import 'package:golib_dart/fixed_types/golang.dart' as Golang;
 import 'package:golib_dart/fmt.dart' as fmt;
 import 'package:golib_dart/builtin.dart' as go;
 
-const int zero = 0;
-const int one = 1;
-const int two = 2;
+final Golang.Int zero = Golang.Int(0);
+final Golang.Int one = Golang.Int(1);
+final Golang.Int two = Golang.Int(2);
 
-const String _greeting = 'custa \$5\t"ok"\n';
+final Golang.String _greeting = Golang.String.fromDart('custa \$5\t"ok"\n');
 
-int _counter = 0;
+Golang.Int _counter = Golang.Int();
 
 /// Counter conta coisas.
-class Counter {
-  Counter({int? n, String? name, List<String>? tags, Counter? next})
-    : _n = n ?? 0,
-      name = name ?? '',
-      _tags = tags ?? <String>[],
-      _next = next;
+class Counter extends go.GoStruct<Counter> {
+  Counter({
+    Golang.Int? n,
+    Golang.String? name,
+    go.Slice<Golang.String>? tags,
+    Counter? next,
+  }) : _n = n ?? Golang.Int(),
+       name = name ?? Golang.String(),
+       _tags = tags ?? go.Slice<Golang.String>.nil(_$e0),
+       _next = next;
 
-  int _n;
-  String name;
-  List<String> _tags;
+  Golang.Int _n;
+  Golang.String name;
+  go.Slice<Golang.String> _tags;
   Counter? _next;
 
+  @override
+  String get $goType => 'main.Counter';
+  @override
+  List<String> get $valueMethods => const [];
+  @override
+  List<String> get $ptrMethods => const ['Inc'];
+
+  @override
+  Counter $copy() => Counter(n: _n, name: name, tags: _tags, next: _next);
+
+  @override
+  void $set(Counter o) {
+    _n = o._n;
+    name = o.name;
+    _tags = o._tags;
+    _next = o._next;
+  }
+
+  @override
+  List<Object?> get $fields => [_n, name, _tags, go.Addr(_next)];
+
   /// Inc incrementa e devolve o novo valor.
-  int inc() {
-    this._n++;
-    _counter++;
+  Golang.Int inc() {
+    this._n += Golang.Int(1);
+    _counter += Golang.Int(1);
     return this._n;
   }
 }
 
-(int, int) _divmod(int a, int b) {
-  int q = 0;
-  int r = 0;
+(Golang.Int, Golang.Int) _divmod(Golang.Int a, Golang.Int b) {
+  Golang.Int q = Golang.Int();
+  Golang.Int r = Golang.Int();
   q = a ~/ b;
-  r = a.remainder(b);
+  r = a % b;
   return (q, r);
 }
 
-(String, go.GoError?) _pair() {
-  return ('par', null);
+(Golang.String, go.GoError?) _pair() {
+  return (Golang.String.fromDart('par'), null);
 }
 
-int _sum(List<int> xs) {
-  int total = 0;
+Golang.Int _sum(go.Slice<Golang.Int> xs) {
+  Golang.Int total = Golang.Int(0);
   {
     final $t1 = xs;
     for (var $t2 = 0; $t2 < $t1.length; $t2++) {
-      int x = $t1[$t2];
+      Golang.Int x = $t1[$t2];
       {
         total += x;
       }
@@ -61,136 +87,206 @@ int _sum(List<int> xs) {
   return total;
 }
 
-String _classify(int n) {
+Golang.String _classify(Golang.Int n) {
   {
-    if (n < 0) {
-      return 'negativo';
-    } else if (n == 0) {
-      return 'zero';
+    if (n < Golang.Int(0)) {
+      return Golang.String.fromDart('negativo');
+    } else if (n == Golang.Int(0)) {
+      return Golang.String.fromDart('zero');
     }
   }
   {
-    final $t1 = n.remainder(3);
-    if ($t1 == 0) {
-      return 'múltiplo de 3';
-    } else if ($t1 == 1 || $t1 == 2) {
-      return 'resto ' + fmt.sprint(<Object?>[n.remainder(3)]);
+    final $t1 = n % Golang.Int(3);
+    if ($t1 == Golang.Int(0)) {
+      return Golang.String.fromDart('múltiplo de 3');
+    } else if ($t1 == Golang.Int(1) || $t1 == Golang.Int(2)) {
+      return Golang.String.fromDart('resto ') +
+          fmt.sprint(go.Slice<Object?>.of([n % Golang.Int(3)], _$e1));
     }
   }
-  return 'inalcançável';
+  return Golang.String.fromDart('inalcançável');
 }
 
 void main() {
-  fmt.println(<Object?>[zero, one, two, _greeting]);
-  fmt.println(<Object?>[3, -3, 1, -1, 3.5, 1024, 4]);
-  var (q, r) = _divmod(17, 5);
-  fmt.println(<Object?>[q, r]);
-  var (s, err) = _pair();
-  fmt.println(<Object?>[s, err]);
-  final $t1 = _pair();
-  String s2 = $t1.$1;
-  err = $t1.$2;
-  fmt.println(<Object?>[s2, err == null]);
-  int x = 10;
-  {
-    int x$1 = x + 1;
-    fmt.println(<Object?>['interno', x$1]);
-  }
-  fmt.println(<Object?>['externo', x]);
-  Counter? c = Counter(name: 'c1');
-  c!.inc();
-  c!.inc();
-  fmt.println(<Object?>[
-    c!.name,
-    c!.inc(),
-    _counter,
-    c!._next == null,
-    c!._tags.length,
-  ]);
-  List<int Function()?> funcs = <int Function()?>[];
-  for (int i = 0; i < 3; i++) {
-    funcs = <int Function()?>[
-      ...funcs,
-      () {
-        return i * i;
-      },
-    ];
-  }
-  {
-    final $t2 = funcs;
-    for (var $t3 = 0; $t3 < $t2.length; $t3++) {
-      int Function()? f = $t2[$t3];
-      {
-        fmt.println(<Object?>[f!()]);
-      }
+  go.runMain(() {
+    fmt.println(go.Slice<Object?>.of([zero, one, two, _greeting], _$e1));
+    fmt.println(
+      go.Slice<Object?>.of([
+        Golang.Int(3),
+        Golang.Int(-3),
+        Golang.Int(1),
+        Golang.Int(-1),
+        Golang.Float64(3.5),
+        Golang.Int(1024),
+        Golang.Int(4),
+      ], _$e1),
+    );
+    var (q, r) = _divmod(Golang.Int(17), Golang.Int(5));
+    fmt.println(go.Slice<Object?>.of([q, r], _$e1));
+    var (s, err) = _pair();
+    fmt.println(go.Slice<Object?>.of([s, err], _$e1));
+    final $t1 = _pair();
+    Golang.String s2 = $t1.$1;
+    err = $t1.$2;
+    fmt.println(go.Slice<Object?>.of([s2, err == null], _$e1));
+    Golang.Int x = Golang.Int(10);
+    {
+      Golang.Int x$1 = x + Golang.Int(1);
+      fmt.println(
+        go.Slice<Object?>.of([Golang.String.fromDart('interno'), x$1], _$e1),
+      );
     }
-  }
-  Map<String, int> m = <String, int>{'a': 1, 'b': 2, 'c': 3};
-  m['d'] = (m['d'] ?? 0) + 4;
-  m['a'] = (m['a'] ?? 0) + 1;
-  int total = 0;
-  {
-    final $t4 = m;
-    for (final $t5 in $t4.keys.toList()) {
-      if (!$t4.containsKey($t5)) continue;
-      String k = $t5;
-      int v = $t4[$t5] as int;
-      {
-        if (k == 'b') {
-          m.remove('c');
-        }
-        total += v;
-      }
+    fmt.println(
+      go.Slice<Object?>.of([Golang.String.fromDart('externo'), x], _$e1),
+    );
+    Counter? c = Counter(name: Golang.String.fromDart('c1'));
+    c!.inc();
+    c!.inc();
+    fmt.println(
+      go.Slice<Object?>.of([
+        c!.name,
+        c!.inc(),
+        _counter,
+        c!._next == null,
+        Golang.Int(c!._tags.length),
+      ], _$e1),
+    );
+    go.Slice<Golang.Int Function()?> funcs =
+        go.Slice<Golang.Int Function()?>.nil(_$e2);
+    for (Golang.Int i = Golang.Int(0); i < Golang.Int(3); i += Golang.Int(1)) {
+      funcs = funcs.append([
+        () {
+          return i * i;
+        },
+      ]);
     }
-  }
-  fmt.println(<Object?>[m.length, m['zz'] ?? 0, total >= 8]);
-  fmt.println(<Object?>[
-    _sum(<int>[]),
-    _sum(<int>[1, 2, 3]),
-    _sum(<int>[4, 5]),
-  ]);
-  int n = 0;
-  {
-    final $t6 = 5;
-    outer:
-    for (var $t7 = 0; $t7 < $t6; $t7++) {
-      int i$1 = $t7;
-      {
-        for (int j = 0; ; j++) {
-          if (j > i$1) {
-            continue outer;
-          }
-          if (i$1 == 4) {
-            break outer;
-          }
-          n += j;
+    {
+      final $t2 = funcs;
+      for (var $t3 = 0; $t3 < $t2.length; $t3++) {
+        Golang.Int Function()? f = $t2[$t3];
+        {
+          fmt.println(go.Slice<Object?>.of([f!()], _$e1));
         }
       }
     }
-  }
-  fmt.println(<Object?>['n', n]);
-  while (n > 0) {
-    n -= 3;
-  }
-  {
-    int y = n * 2;
-    if (y < 0) {
-      fmt.println(<Object?>['y negativo', y]);
-    } else if (y == 0) {
-      fmt.println(<Object?>['y zero']);
-    } else {
-      fmt.println(<Object?>['y positivo']);
-    }
-  }
-  {
-    final $t8 = <int>[-4, 0, 9, 10];
-    for (var $t9 = 0; $t9 < $t8.length; $t9++) {
-      int v$1 = $t8[$t9];
-      {
-        fmt.println(<Object?>[_classify(v$1)]);
+    go.GoMap<Golang.String, Golang.Int> m =
+        go.GoMap<Golang.String, Golang.Int>.of({
+          Golang.String.fromDart('a'): Golang.Int(1),
+          Golang.String.fromDart('b'): Golang.Int(2),
+          Golang.String.fromDart('c'): Golang.Int(3),
+        }, _$e3);
+    m[Golang.String.fromDart('d')] =
+        (m[Golang.String.fromDart('d')]) + Golang.Int(4);
+    m[Golang.String.fromDart('a')] =
+        (m[Golang.String.fromDart('a')]) + Golang.Int(1);
+    Golang.Int total = Golang.Int(0);
+    {
+      final $t4 = m;
+      for (final $t5 in $t4.keysSnapshot()) {
+        if (!$t4.containsKey($t5)) continue;
+        Golang.String k = $t5;
+        Golang.Int v = $t4[$t5];
+        {
+          if (k == Golang.String.fromDart('b')) {
+            m.delete(Golang.String.fromDart('c'));
+          }
+          total += v;
+        }
       }
     }
-  }
-  double f$1 = 3.99;
-  fmt.println(<Object?>[3.5, 3.5, f$1.toInt(), (-f$1).toInt(), 1e+06, 0.3]);
+    fmt.println(
+      go.Slice<Object?>.of([
+        Golang.Int(m.length),
+        m[Golang.String.fromDart('zz')],
+        total >= Golang.Int(8),
+      ], _$e1),
+    );
+    fmt.println(
+      go.Slice<Object?>.of([
+        _sum(go.Slice<Golang.Int>.nil(_$e3)),
+        _sum(
+          go.Slice<Golang.Int>.of([
+            Golang.Int(1),
+            Golang.Int(2),
+            Golang.Int(3),
+          ], _$e3),
+        ),
+        _sum(go.Slice<Golang.Int>.of([Golang.Int(4), Golang.Int(5)], _$e3)),
+      ], _$e1),
+    );
+    Golang.Int n = Golang.Int(0);
+    {
+      final $t6 = 5;
+      outer:
+      for (var $t7 = 0; $t7 < $t6; $t7++) {
+        Golang.Int i$1 = Golang.Int($t7);
+        {
+          for (Golang.Int j = Golang.Int(0); ; j += Golang.Int(1)) {
+            if (j > i$1) {
+              continue outer;
+            }
+            if (i$1 == Golang.Int(4)) {
+              break outer;
+            }
+            n += j;
+          }
+        }
+      }
+    }
+    fmt.println(go.Slice<Object?>.of([Golang.String.fromDart('n'), n], _$e1));
+    while (n > Golang.Int(0)) {
+      n -= Golang.Int(3);
+    }
+    {
+      Golang.Int y = n * Golang.Int(2);
+      if (y < Golang.Int(0)) {
+        fmt.println(
+          go.Slice<Object?>.of([Golang.String.fromDart('y negativo'), y], _$e1),
+        );
+      } else if (y == Golang.Int(0)) {
+        fmt.println(
+          go.Slice<Object?>.of([Golang.String.fromDart('y zero')], _$e1),
+        );
+      } else {
+        fmt.println(
+          go.Slice<Object?>.of([Golang.String.fromDart('y positivo')], _$e1),
+        );
+      }
+    }
+    {
+      final $t8 = go.Slice<Golang.Int>.of([
+        Golang.Int(-4),
+        Golang.Int(0),
+        Golang.Int(9),
+        Golang.Int(10),
+      ], _$e3);
+      for (var $t9 = 0; $t9 < $t8.length; $t9++) {
+        Golang.Int v$1 = $t8[$t9];
+        {
+          fmt.println(go.Slice<Object?>.of([_classify(v$1)], _$e1));
+        }
+      }
+    }
+    Golang.Float64 f$1 = Golang.Float64(3.99);
+    fmt.println(
+      go.Slice<Object?>.of([
+        Golang.Float64(3.5),
+        Golang.Float64(3.5),
+        Golang.Int.fromBigInt(f$1.toInteger(64, signed: true)),
+        Golang.Int.fromBigInt((-f$1).toInteger(64, signed: true)),
+        Golang.Float64(1e+06),
+        Golang.Float64(0.3),
+      ], _$e1),
+    );
+  });
 }
+
+// Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
+const _$e0 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);
+const _$e1 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
+const _$e2 = go.Elem<Golang.Int Function()?>(8, go.zeroNull, pointers: true);
+const _$e3 = go.Elem<Golang.Int>(
+  8,
+  Golang.Int.new,
+  ofInt: Golang.Int.fromBigInt,
+);

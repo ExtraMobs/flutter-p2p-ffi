@@ -27,6 +27,7 @@ type PackageDump struct {
 	Files        []*FileDump  `json:"files"`
 	Imports      []ImportDump `json:"imports"`
 	TypeTable    []jobject    `json:"typeTable"`
+	Implements   []jobject    `json:"implements"`
 	StdlibUsage  []string     `json:"stdlibUsage"`
 	ReflectUsage []ReflectUse `json:"reflectUsage"`
 }
@@ -91,7 +92,7 @@ func Dump(target string) (*DumpDoc, error) {
 	sort.Slice(pkgs, func(i, j int) bool { return pkgs[i].PkgPath < pkgs[j].PkgPath })
 
 	doc := &DumpDoc{
-		SchemaVersion: 2,
+		SchemaVersion: 4,
 		Tool:          "goast",
 		GoVersion:     runtime.Version(),
 	}

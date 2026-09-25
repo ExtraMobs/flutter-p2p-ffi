@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"go/constant"
 	"sort"
 	"testing"
 )
@@ -14,8 +15,8 @@ func TestDumpHello(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Dump: %v", err)
 	}
-	if doc.SchemaVersion != 2 {
-		t.Errorf("schemaVersion = %d, esperado 2", doc.SchemaVersion)
+	if doc.SchemaVersion != 4 {
+		t.Errorf("schemaVersion = %d, esperado 4", doc.SchemaVersion)
 	}
 	if len(doc.Packages) != 1 {
 		t.Fatalf("packages = %d, esperado 1", len(doc.Packages))
@@ -147,4 +148,16 @@ func sortedKeys(m map[string]any) []string {
 	}
 	sort.Strings(keys)
 	return keys
+}
+
+func TestConstValueInvalidUTF8(t *testing.T) {
+	data, err := json.Marshal(constValue(constant.MakeString("a\xff")))
+	if err != nil {
+		t.Fatal(err)
+	}
+	// "value" perde o byte inválido (U+FFFD); "bytes" preserva os originais.
+	want := "{\"kind\":\"string\",\"value\":\"a\\ufffd\",\"bytes\":[97,255]}"
+	if string(data) != want {
+		t.Errorf("constValue = %s, esperado %s", data, want)
+	}
 }

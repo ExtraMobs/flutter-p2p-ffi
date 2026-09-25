@@ -21,11 +21,11 @@ via `go list`. Se o alvo não pertence a um módulo (ex. fixtures em
 `tests/golden/`), cai no fallback `load_loose.go` (`go/parser` + `go/types` +
 `importer.Default()`, só imports da stdlib).
 
-## Schema do JSON (`schemaVersion: 2`)
+## Schema do JSON (`schemaVersion: 4`)
 
 ```jsonc
 {
-  "schemaVersion": 2,
+  "schemaVersion": 4,
   "tool": "goast",
   "goVersion": "go1.25.7",
   "packages": [ ... ]  // ordenados por import path (determinístico)
@@ -41,6 +41,7 @@ Cada pacote:
   "files": [ { "path": "arquivo.go", "ast": { "node": "File", ... } } ],
   "imports": [ { "path": "fmt", "name": "fmt" } ],
   "typeTable": [ { "kind": "basic", "name": "int" }, ... ],
+  "implements": [ { "type": 3, "interfaces": [7, 9] } ],  // tipo nomeado → interfaces satisfeitas
   "stdlibUsage":  [ "fmt.Println", ... ],   // ordenado alfabeticamente
   "reflectUsage": [ { "pos": "arquivo.go:linha:coluna", "expr": "reflect.ValueOf(x)" } ]
 }
@@ -72,6 +73,7 @@ aninhados compartilham offset inicial, ex. `g` e `g.Name`).
 | `$builtin` | expressões | `true` se denota um builtin (`len`, `append`, ...) |
 | `$value` | expressões constantes | valor constante (abaixo) |
 | `$obj` | `Ident` | objeto definido/usado (abaixo) |
+| `$inst` | `Ident` | argumentos de tipo de uma instanciação de genérico (índices), de `types.Info.Instances` |
 | `$sel` | `SelectorExpr` | `{kind: field\|method\|methodExpr, recv, index, indirect}` — `index` é o caminho pelos campos embutidos |
 
 `$obj`: `{name, kind, def?, type?, decl?, pkg?, top?, embedded?, value?}`
@@ -83,7 +85,15 @@ aninhados compartilham offset inicial, ex. `g` e `g.Name`).
 
 Valor constante: `{"kind": "string|bool|int|float", "value"}` (string já
 decodificada; int em decimal exato; float em `%g` float64) ou
-`{"kind": "complex", "real", "imag"}`.
+`{"kind": "complex", "real", "imag"}`. String que não é UTF-8 válido traz
+também `"bytes": [...]` (o JSON trocaria os bytes inválidos por U+FFFD).
+
+`implements`: para cada tipo nomeado de nível de pacote, as interfaces
+nomeadas com métodos (do pacote, dos imports diretos e `error`) que `T` ou
+`*T` satisfaz (`types.Implements`).
+
+Histórico: v2 moveu os tipos para dentro da AST; v3 adicionou `bytes`; v4
+adicionou `methods` e `implements`.
 
 ### Tabela de tipos
 
@@ -94,7 +104,7 @@ por índice (sem ciclos).
 | `kind` | Campos |
 |---|---|
 | `basic` | `name` (`int`, `string`, `untyped int`, ...) |
-| `named` | `pkg` (`""` = universo: `error`, `comparable`), `name`, `args?`, `underlying` |
+| `named` | `pkg` (`""` = universo: `error`, `comparable`), `name`, `args?`, `underlying`, `methods?` (não-interface: method set de `*T` — `{name, type, index, ptr}`; `index` = caminho de embedding; `ptr` = só em `*T`) |
 | `pointer` / `slice` | `elem` |
 | `array` | `len`, `elem` |
 | `map` | `key`, `elem` |

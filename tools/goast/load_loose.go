@@ -39,6 +39,7 @@ func loadLoose(fset *token.FileSet, target string) (*packages.Package, error) {
 		Defs:       map[*ast.Ident]types.Object{},
 		Uses:       map[*ast.Ident]types.Object{},
 		Selections: map[*ast.SelectorExpr]*types.Selection{},
+		Instances:  map[*ast.Ident]types.Instance{},
 	}
 	conf := types.Config{Importer: importer.Default()}
 	pkgPath := syntax[0].Name.Name

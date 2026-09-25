@@ -6,8 +6,10 @@ silêncio).
 """
 
 from g2d.mapping import (
-    BUILTIN_PREFIX, BUILTIN_URI, STDLIB_SHIMS, TypeMapper, escape, is_float, is_int,
-    local_name, lower_camel, member_name, type_name, underlying,
+    BUILTIN_PREFIX, BUILTIN_URI, GOLANG, GOLANG_PREFIX, GOLANG_URI, SHIM_INTERFACES, STDLIB_SHIMS,
+    TypeMapper,
+    basic, escape, is_struct, is_struct_pointer, is_value, layout, local_name, lower_camel, member_name,
+    type_name, underlying,
 )
 from g2d.model import Unsupported
 
@@ -31,6 +33,12 @@ _DART_PREC = {
 _NON_ASSOC = frozenset(["<", ">", "<=", ">=", "==", "!="])
 _POSTFIX = 16  # chamada, seletor, índice, `!`
 _UNARY = 15
+
+
+def _double(s):
+    """Literal double Dart a partir do %g do Go (1 → 1.0; 1e+06 é válido)."""
+    s = str(s)
+    return s if any(c in s for c in ".eE") else s + ".0"
 
 
 def dart_string(s):
@@ -70,6 +78,22 @@ def doc_comment(group):
     return lines
 
 
+def is_blank(n):
+    """O identificador em branco `_`."""
+    return n["node"] == "Ident" and n["name"] == "_"
+
+
+def has_defer(node):
+    """A função (sem contar func literals aninhadas) tem `defer`?"""
+    if isinstance(node, list):
+        return any(has_defer(x) for x in node)
+    if not isinstance(node, dict) or node.get("node") == "FuncLit":
+        return False
+    if node.get("node") == "DeferStmt":
+        return True
+    return any(has_defer(v) for v in node.values() if isinstance(v, (dict, list)))
+
+
 _BREAK_SCOPES = frozenset(["ForStmt", "RangeStmt", "SwitchStmt", "TypeSwitchStmt", "SelectStmt", "FuncLit"])
 
 
@@ -90,13 +114,21 @@ class Emitter:
         self.imports = {}  # prefixo → URI (só os realmente usados)
         self.prefixes = {}  # import path → prefixo
         for imp in pkg.imports:
-            if imp["name"] in ("_", "."):
+            if imp["name"] in ("_", ".", GOLANG_PREFIX):
                 raise Unsupported(f"import {imp['name']} {imp['path']}")
             self.prefixes.setdefault(imp["path"], escape(imp["name"]))
-        self.types = TypeMapper(pkg, self.qualify)
+        self.types = TypeMapper(pkg, self.qualify, self.elem)
         self.methods = {}  # nome do tipo Go → [FuncDecl]
+        self.elems = {}  # tipo Dart → nome do const go.Elem
+        self.elem_decls = []  # declarações de nível de library (descritores)
+        self.boxed = set()  # decl de variáveis não-struct cujo endereço é tomado
+        self.class_tparams = ("", "")  # (<T extends B>, dicionários) da struct genérica corrente
+        self.mixins = {}  # (tipo embutido, ponteiro?) → nome do mixin de promoção
+        self.mixin_decls = []
+        # tipo nomeado (índice) → interfaces que satisfaz (índices), do goast.
+        self.implements = {e["type"]: e["interfaces"] for e in pkg.implements}
         # Nomes de library que um local não pode sombrear.
-        self.top_names = set(self.prefixes.values()) | {BUILTIN_PREFIX}
+        self.top_names = set(self.prefixes.values()) | {BUILTIN_PREFIX, GOLANG_PREFIX}
         self.fn = None  # estado da função corrente
 
     # ------------------------------------------------------------------ nomes
@@ -106,6 +138,9 @@ class Emitter:
         if pkg_path is None:
             self.imports[BUILTIN_PREFIX] = BUILTIN_URI
             return f"{BUILTIN_PREFIX}.{name}"
+        if pkg_path == GOLANG:
+            self.imports[GOLANG_PREFIX] = GOLANG_URI
+            return f"{GOLANG_PREFIX}.{name}"
         if pkg_path == self.pkg.path:
             return name
         if pkg_path not in STDLIB_SHIMS:
@@ -149,16 +184,111 @@ class Emitter:
         if kind in ("var", "func", "const") and obj.get("top"):
             if obj["pkg"] != self.pkg.path:
                 return self.qualify(obj["pkg"], member_name(obj["name"]))
-            return self.top_name(obj["name"], kind)
+            return self.top_name(obj["name"], kind) + self.box_suffix(obj)
         if kind == "var":
             if self.fn and obj.get("decl") == self.fn["recv"]:
                 return "this"
             if self.fn and obj.get("decl") in self.fn["locals"]:
-                return self.fn["locals"][obj["decl"]]
+                return self.fn["locals"][obj["decl"]] + self.box_suffix(obj)
             raise Unsupported(f"variável local não declarada {n['name']}", n)
         if kind == "type":
             return self.types.dart(n["$type"])
         raise Unsupported(f"identificador {kind} {n['name']}", n)
+
+    def box_suffix(self, obj):
+        """Variável que mora num go.Box (endereço tomado): acesso via .value."""
+        return ".value" if obj.get("decl") in self.boxed and obj.get("pkg") == self.pkg.path else ""
+
+    def local_decl(self, ident, t, init):
+        """Declaração de uma variável local Go nova (com caixa se `&x`)."""
+        name = self.declare_local(ident)
+        dt = self.types.dart(t)
+        if ident["$obj"]["decl"] in self.boxed:
+            box = self.qualify(None, "Box")
+            return f"final {box}<{dt}> {name} = {box}<{dt}>({init});"
+        return f"{dt} {name} = {init};"
+
+    def find_boxed(self, node):
+        """Pré-passo: variáveis não-struct cujo endereço é tomado (`&x`)."""
+        if isinstance(node, list):
+            for x in node:
+                self.find_boxed(x)
+            return
+        if not isinstance(node, dict):
+            return
+        if node.get("node") == "UnaryExpr" and node["op"] == "&":
+            x = node["x"]
+            while x["node"] == "ParenExpr":
+                x = x["x"]
+            obj = x.get("$obj") if x["node"] == "Ident" else None
+            if obj and obj["kind"] == "var" and not is_value(self.pkg, self.pkg.type_of(x)):
+                self.boxed.add(obj["decl"])
+        for v in node.values():
+            if isinstance(v, (dict, list)):
+                self.find_boxed(v)
+
+    # ------------------------------------------------------- descritores
+
+    def has_tparam(self, t, seen=None):
+        t = self.pkg.type_at(t) if isinstance(t, int) else t
+        k = t["kind"]
+        if k == "typeparam":
+            return True
+        if k == "named":
+            return any(self.has_tparam(a) for a in t.get("args") or [])
+        return any(self.has_tparam(t[f]) for f in ("elem", "key") if f in t)
+
+    def elem(self, t):
+        """Descritor go.Elem<T> do tipo Go t: const registrado uma vez; para
+        um parâmetro de tipo, o dicionário `$T`; para tipos que dependem de
+        parâmetros de tipo, um Elem construído na hora."""
+        t = self.pkg.type_at(t) if isinstance(t, int) else t
+        if t["kind"] == "typeparam":
+            return f"${t['name']}"
+        dt = self.types.dart(t)
+        if self.has_tparam(t):
+            ptrs = ", pointers: true" if underlying(self.pkg, t)["kind"] != "basic" else ""
+            size = 24 if underlying(self.pkg, t)["kind"] == "slice" else 8
+            return f"{self.qualify(None, 'Elem')}<{dt}>({size}, () => {self.types.zero(t)}{ptrs})"
+        if dt not in self.elems:
+            name = f"_$e{len(self.elems)}"
+            self.elems[dt] = name
+            size, _, ptrs = layout(self.pkg, t)
+            zero = self.zero_fn(t, dt)
+            flag = ", pointers: true" if ptrs else ""
+            b = basic(self.pkg, t)
+            if b is not None and b.cat in ("wint", "float"):
+                flag += f", ofInt: {self.of_int_fn(t, b, dt)}"
+            self.elem_decls.append(f"const {name} = {self.qualify(None, 'Elem')}<{dt}>({size}, {zero}{flag});")
+        return self.elems[dt]
+
+    def of_int_fn(self, t, b, dt):
+        """T(n) a partir de BigInt (conversão para parâmetro de tipo)."""
+        if b.cat == "wint":
+            return f"{self.types.cls(t)}.fromBigInt"
+        name = f"_$i{len(self.elem_decls)}_{len(self.elems)}"
+        g = self.types.golang
+        v = f"{g(b.cls)}.fromInt64({g('Int64')}.fromBigInt(b))"
+        if t["kind"] == "named":
+            v = f"{dt}({v}.toDouble())"
+        self.elem_decls.append(f"{dt} {name}(BigInt b) => {v};")
+        return name
+
+    def zero_fn(self, t, dt):
+        """Função const que cria o zero value de t (tear-off)."""
+        u = underlying(self.pkg, t)
+        if u["kind"] == "basic":
+            b = basic(self.pkg, u)
+            if b.cat == "bool":
+                return self.qualify(None, "zeroBool")
+            return f"{self.types.cls(t)}.new"
+        if u["kind"] in ("interface", "pointer", "func", "chan"):
+            return self.qualify(None, "zeroNull")
+        if is_struct(self.pkg, t) and not t.get("args"):
+            return f"{dt}.new"
+        name = f"_$z{len(self.elem_decls)}_{len(self.elems)}"
+        self.elem_decls.append(f"{dt} {name}() => {self.types.zero(t)};")
+        return name
 
     def top_name(self, go_name, kind):
         if kind == "func" and go_name == "main" and self.pkg.name == "main":
@@ -183,6 +313,7 @@ class Emitter:
             elif d["node"] == "GenDecl" and d["tok"] == "type":
                 self.top_names.update(type_name(s["name"]["name"]) for s in d["specs"])
 
+        self.find_boxed(decls)
         body = []
         for d in decls:
             if d["node"] == "FuncDecl":
@@ -192,6 +323,10 @@ class Emitter:
                 body += self.type_decl(d)
             elif d["tok"] in ("var", "const"):
                 body += [""] + self.top_values(d)
+        body += self.mixin_decls
+        if self.elem_decls:
+            body += ["", "// Descritores de tipo (go.Elem) usados por slices, maps e ponteiros."]
+            body += self.elem_decls
         head = [HEADER.format(path=self.pkg.path)]
         head += [f"import '{self.imports[p]}' as {p};" for p in sorted(self.imports)]
         return "\n".join(head + body) + "\n"
@@ -199,31 +334,152 @@ class Emitter:
     def type_decl(self, gen):
         out = []
         for spec in gen["specs"]:
-            if spec["typeParams"]:
-                raise Unsupported("tipo genérico", spec)
+            if spec["typeParams"] and underlying(self.pkg, self.pkg.type_at(spec["name"]["$obj"]["type"]))["kind"] != "struct":
+                raise Unsupported("tipo genérico não-struct", spec)
             if spec["assign"]:
                 continue  # alias: resolvido pelo goast (tipos já expandidos)
-            t = self.pkg.type_at(spec["name"]["$obj"]["type"])
-            u = self.pkg.type_at(t["underlying"])
-            if u["kind"] != "struct":
+            tidx = spec["name"]["$obj"]["type"]
+            t = self.pkg.type_at(tidx)
+            u = underlying(self.pkg, t)
+            doc = doc_comment(spec["doc"] or (gen["doc"] if len(gen["specs"]) == 1 else None))
+            name = spec["name"]["name"]
+            if u["kind"] == "struct":
+                self.class_tparams = self.type_params(spec["typeParams"])
+                out += [""] + doc + self.struct_class(name, u, tidx)
+                self.class_tparams = ("", "")
+            elif u["kind"] == "interface":
+                out += [""] + doc + self.iface_class(name, u)
+            elif u["kind"] == "basic":
+                out += [""] + doc + self.named_class(name, t, u, tidx)
+            else:
                 raise Unsupported(f"tipo nomeado sobre {u['kind']}", spec)
-            doc = spec["doc"] or (gen["doc"] if len(gen["specs"]) == 1 else None)
-            out += [""] + doc_comment(doc) + self.struct_class(spec["name"]["name"], u)
         return out
 
-    def struct_class(self, go_name, st):
-        cls = type_name(go_name)
-        params, inits, fields = [], [], []
+    # ------------------------------------------------- tipos e identidade
+
+    def go_type_name(self, t):
+        """Nome Go de um tipo (como `%T`): `main.Point`, `*main.Point`, `[]int`."""
+        t = self.pkg.type_at(t) if isinstance(t, int) else t
+        k = t["kind"]
+        if k == "basic":
+            return t["name"].replace("untyped ", "")
+        if k == "named":
+            if not t["pkg"]:
+                return t["name"]
+            pkg = self.pkg.name if t["pkg"] == self.pkg.path else t["pkg"].rsplit("/", 1)[-1]
+            return f"{pkg}.{t['name']}"
+        if k == "pointer":
+            return "*" + self.go_type_name(t["elem"])
+        if k == "slice":
+            return "[]" + self.go_type_name(t["elem"])
+        if k == "map":
+            return f"map[{self.go_type_name(t['key'])}]{self.go_type_name(t['elem'])}"
+        if k == "interface" and not t["methods"]:
+            return "interface {}"
+        return k
+
+    def method_names(self, t, value):
+        """Method set (nomes Go ordenados) de T (value) ou *T."""
+        ms = t.get("methods") or []
+        return sorted(m["name"] for m in ms if not (value and m["ptr"]))
+
+    def implements_clause(self, tidx):
+        """`implements` com as interfaces que o go/types diz que T satisfaz."""
+        names = []
+        for i in self.implements.get(tidx, []):
+            it = self.pkg.type_at(i)
+            if it["pkg"] == "" and it["name"] == "error":
+                names.append(self.qualify(None, "GoError"))
+            elif it["pkg"] == self.pkg.path:
+                names.append(type_name(it["name"]))
+            elif (it["pkg"], it["name"]) in SHIM_INTERFACES:
+                names.append(self.qualify(it["pkg"], type_name(it["name"])))
+        return names
+
+    def iface_class(self, go_name, u):
+        """interface Go → `abstract mixin class` (métodos abstratos; interfaces
+        embutidas em `implements`). Interfaces de restrição (unions) só existem
+        como bound de genéricos: nada a emitir."""
+        supers = []
+        for e in u["embeddeds"]:
+            et = self.pkg.type_at(e)
+            if et["kind"] != "named" or underlying(self.pkg, et)["kind"] != "interface":
+                return []
+            supers.append(self.types.dart(et).rstrip("?"))
+        head = f"abstract mixin class {type_name(go_name)}"
+        if supers:
+            head += " implements " + ", ".join(supers)
+        lines = [head + " {"]
+        for m in u["methods"]:
+            sig = self.pkg.type_at(m["type"])
+            params = ", ".join(f"{self.types.dart(pt)} p{i}" for i, pt in enumerate(sig["params"]))
+            lines.append(f"{self.types.results(sig['results'])} {member_name(m['name'])}({params});")
+        return lines + ["}"]
+
+    def named_class(self, go_name, t, u, tidx):
+        """Tipo nomeado sobre básico → classe sobre a base de operadores de
+        fixed_types (identidade própria em runtime; operadores devolvem o
+        tipo nomeado)."""
+        b = basic(self.pkg, u)
+        cls, store = type_name(go_name), self.types.golang(b.cls)
+        g = self.types.golang
+        if b.cat == "wint":
+            base = f"{g('IntBase')}<{cls}>"
+            body = [f"{cls}([int v = 0]) : _v = {store}(v);",
+                    f"{cls}.fromBigInt(BigInt v) : _v = {store}.fromBigInt(v);",
+                    f"final {store} _v;",
+                    "@override", "BigInt toBigInt() => _v.toBigInt();",
+                    "@override", f"{cls} $wrap(BigInt v) => {cls}.fromBigInt(v);"]
+        elif b.cat == "float":
+            base = f"{g('FloatBase')}<{cls}>"
+            body = [f"{cls}([double v = 0.0]) : _v = {store}(v);",
+                    f"final {store} _v;",
+                    "@override", "double toDouble() => _v.toDouble();",
+                    "@override", f"{cls} $wrapDouble(double v) => {cls}(v);",
+                    "@override", f"int get $bits => {32 if b.cls == 'Float32' else 64};"]
+        elif b.cat == "string":
+            base = f"{g('StringBase')}<{cls}>"
+            body = [f"{cls}([{store}? v]) : _v = v ?? {store}();",
+                    f"final {store} _v;",
+                    "@override", f"{store} get $str => _v;",
+                    "@override", f"{cls} $wrapStr({store} s) => {cls}(s);"]
+        else:
+            raise Unsupported(f"tipo nomeado sobre {b.cat}")
+        if any(m["ptr"] for m in t.get("methods") or []):
+            raise Unsupported(f"método com receptor ponteiro em tipo não-struct {go_name}")
+        impl = self.implements_clause(tidx)
+        head = f"final class {cls} extends {base}" + (" implements " + ", ".join(impl) if impl else "")
+        methods = ", ".join(f"'{n}'" for n in self.method_names(t, True))
+        lines = [head + " {"] + body + [
+            "@override", f"String get $goType => '{self.go_type_name(t)}';",
+            "@override", f"List<String> get $methods => const [{methods}];",
+        ]
+        for m in self.methods.pop(go_name, []):
+            lines += [""] + self.func_decl(m)
+        return lines + ["}"]
+
+    def struct_class(self, go_name, st, tidx):
+        """struct Go → classe que estende go.GoStruct (semântica de valor),
+        com os métodos promovidos por embedding (mixins) e `implements`."""
+        tdecl, tdicts = self.class_tparams
+        base_cls = type_name(go_name)
+        cls = base_cls + tdecl
+        # Nome com os parâmetros aplicados (sem bounds): Stack<T>.
+        tnames = [p.split(" ")[0] for p in tdecl[1:-1].split(", ")] if tdecl else []
+        self_t = base_cls + (f"<{', '.join(tnames)}>" if tnames else "")
+        t = self.pkg.type_at(tidx)
+        params, inits, fields, copies, sets, values = [], [], [], [], [], []
         seen = set()
         for f in st["fields"]:
             if f["name"] == "_":
-                continue  # campo em branco: inacessível
+                continue  # campo em branco: inacessível e fora da igualdade
             fname = member_name(f["name"])
             pname = escape(lower_camel(f["name"].lstrip("_")))
             if not pname or pname in seen:
                 raise Unsupported(f"parâmetro de construtor ambíguo para campo {f['name']}")
             seen.add(pname)
-            ftype = self.types.dart(f["type"])
+            ft = self.pkg.type_at(f["type"])
+            ftype = self.types.dart(ft)
             fields.append(f"{ftype} {fname};")
             if ftype.endswith("?"):
                 params.append(f"{ftype} {pname}")
@@ -231,12 +487,189 @@ class Emitter:
             else:
                 params.append(f"{ftype}? {pname}")
                 inits.append(f"{fname} = {pname} ?? {self.types.zero(f['type'])}")
-        ctor = f"{cls}({{{', '.join(params)}}})" if params else f"{cls}()"
+            if self.is_struct(ft):
+                copies.append(f"{pname}: {fname}.$copy()")
+                sets.append(f"{fname}.$set(o.{fname});")
+                values.append(fname)
+            else:
+                copies.append(f"{pname}: {fname}")
+                sets.append(f"{fname} = o.{fname};")
+                values.append(f"{self.qualify(None, 'Addr')}({fname})" if is_struct_pointer(self.pkg, ft) else fname)
+        # Struct genérica: os dicionários vêm primeiro, posicionais.
+        dict_params = [f"this.${n}" for n in tnames]
+        named = f"{{{', '.join(params)}}}" if params else ""
+        ctor = f"{base_cls}({', '.join(p for p in (', '.join(dict_params), named) if p)})"
         ctor += (" : " + ", ".join(inits) if inits else "") + ";"
-        lines = [f"class {cls} {{", ctor, ""] + fields
+        fields = [f"final {self.qualify(None, 'Elem')}<{n}> ${n};" for n in tnames] + fields
+        dict_args = "".join(f"${n}, " for n in tnames)
+        base = self.qualify(None, "GoStruct")
+        withs, promoted = self.promotion(t, st)
+        impl = self.implements_clause(tidx)
+        head = f"class {cls} extends {base}<{self_t}>"
+        if withs:
+            head += " with " + ", ".join(w for w, _ in withs)
+        if impl:
+            head += " implements " + ", ".join(impl)
+        vm = ", ".join(f"'{n}'" for n in self.method_names(t, True))
+        pm = ", ".join(f"'{n}'" for n in self.method_names(t, False))
+        lines = [head + " {", ctor, ""] + fields + [
+            "",
+            "@override",
+            f"String get $goType => '{self.go_type_name(t)}';",
+            "@override",
+            f"List<String> get $valueMethods => const [{vm}];",
+            "@override",
+            f"List<String> get $ptrMethods => const [{pm}];",
+        ] + [ln for _, getter in withs for ln in ["@override", getter]] + promoted + [
+            "",
+            "@override",
+            f"{self_t} $copy() => {self_t}({dict_args}{', '.join(copies)});",
+            "",
+            "@override",
+            f"void $set({self_t} o) {{",
+        ] + sets + [
+            "}",
+            "",
+            "@override",
+            f"List<Object?> get $fields => [{', '.join(values)}];",
+        ]
         for m in self.methods.pop(go_name, []):
             lines += [""] + self.func_decl(m)
         return lines + ["}"]
+
+    def promotion(self, t, st):
+        """Métodos promovidos por campos embutidos. Se todo o method set do
+        tipo embutido E é promovido por aquele campo, a classe usa o mixin
+        reutilizável `E$Promote` (forwarders para o valor embutido); se há
+        sombreamento ou ambiguidade, os forwarders promovidos vão inline.
+        Devolve ([(mixin, getter)], linhas inline)."""
+        withs, inline = [], []
+        outer = t.get("methods") or []
+        for fi, f in enumerate(st["fields"]):
+            if not f["embedded"]:
+                continue
+            ft = self.pkg.type_at(f["type"])
+            ptr = ft["kind"] == "pointer"
+            et = self.pkg.type_at(ft["elem"]) if ptr else ft
+            if et["kind"] != "named":
+                continue
+            emethods = self.embedded_methods(et)
+            via = [m for m in outer if len(m["index"]) >= 2 and m["index"][0] == fi]
+            field = member_name(f["name"])
+            if {m["name"] for m in via} == {m["name"] for m in emethods} and et["pkg"] == self.pkg.path \
+                    and underlying(self.pkg, et)["kind"] != "interface":
+                if emethods:
+                    name = self.promote_mixin(et, ptr, emethods)
+                    getter_t = self.types.dart(et).rstrip("?") + ("?" if ptr else "")
+                    withs.append((name, f"{getter_t} get ${type_name(et['name'])} => {field};"))
+            else:
+                recv = f"{field}!" if ptr or underlying(self.pkg, et)["kind"] == "interface" else field
+                for m in via:
+                    inline += self.forwarder(m, recv)
+        return withs, inline
+
+    def embedded_methods(self, et):
+        """Method set de um tipo embutido (struct/básico: `methods` do goast;
+        interface: os métodos dela)."""
+        u = underlying(self.pkg, et)
+        if u["kind"] == "interface":
+            return [{"name": m["name"], "type": m["type"], "index": [0], "ptr": False} for m in u["methods"]]
+        return et.get("methods") or []
+
+    def forwarder(self, m, recv):
+        sig = self.pkg.type_at(m["type"])
+        params = [f"{self.types.dart(pt)} p{i}" for i, pt in enumerate(sig["params"])]
+        args = ", ".join(f"p{i}" for i in range(len(params)))
+        name = member_name(m["name"])
+        return [f"{self.types.results(sig['results'])} {name}({', '.join(params)}) => {recv}.{name}({args});"]
+
+    def promote_mixin(self, et, ptr, emethods):
+        """`mixin E$Promote` (uma vez por tipo embutido): forwarders do method
+        set de E para o valor embutido, que continua sendo o receptor."""
+        key = (et["name"], ptr)
+        if key not in self.mixins:
+            cls = type_name(et["name"])
+            name = f"{cls}$Promote" + ("Ptr" if ptr else "")
+            self.mixins[key] = name
+            getter = f"${cls}"
+            recv = getter + ("!" if ptr else "")
+            lines = ["", f"/// Métodos de {et['name']} promovidos por embedding (delegação).",
+                     f"mixin {name} {{", f"{cls}{'?' if ptr else ''} get {getter};"]
+            for m in emethods:
+                lines += self.forwarder(m, recv)
+            self.mixin_decls += lines + ["}"]
+        return self.mixins[key]
+
+    # ------------------------------------------------- semântica de valor
+
+    def is_struct(self, t):
+        """Valor com armazenamento próprio: struct ou array (go.GoValue)."""
+        return is_value(self.pkg, t)
+
+    @staticmethod
+    def fresh(n):
+        """Expressão que já produz um valor novo (não precisa de cópia)."""
+        while n["node"] == "ParenExpr":
+            n = n["x"]
+        if n["node"] == "CompositeLit":
+            return True
+        return n["node"] == "CallExpr" and not n["fun"].get("$isType")
+
+    def coerce(self, n, target, min_prec=0):
+        """Valor de n fluindo para um lugar do tipo target (atribuição,
+        argumento, retorno, elemento...): copia structs, embrulha ponteiros
+        que entram em interface."""
+        src = self.pkg.type_of(n)
+        to_iface = target is not None and underlying(self.pkg, target)["kind"] == "interface"
+        if self.is_struct(src) and to_iface:
+            # Struct por valor numa interface: cópia marcada ($isValue); um
+            # ponteiro entra como o próprio objeto (métodos chamáveis).
+            text, prec = f"{self.expr(n, _POSTFIX)}.$ifaceCopy()", _POSTFIX
+        elif self.is_struct(src) and not self.fresh(n):
+            text, prec = f"{self.expr(n, _POSTFIX)}.$copy()", _POSTFIX
+        else:
+            text, prec = self.expr_prec(n)
+        return f"({text})" if prec < min_prec else text
+
+    def copy_text(self, text, t):
+        """Cópia de um valor já emitido (ex. elemento em range)."""
+        return f"{text}.$copy()" if self.is_struct(t) else text
+
+    def assign(self, lhs, rhs):
+        """`lhs = rhs` com semântica Go: struct existente é sobrescrita
+        in-place (ponteiros para ela continuam válidos)."""
+        t = self.pkg.type_of(lhs)
+        if self.is_struct(t) and not self.is_map_index(lhs):
+            return f"{self.expr(lhs, _POSTFIX)}.$set({self.expr(rhs)});"
+        return f"{self.lvalue(lhs)} = {self.coerce(rhs, t)};"
+
+    def mutates_receiver(self, body, decl):
+        """O corpo pode mutar o receptor (valor)? Conservador: atribuição,
+        ++/--, & ou chamada de método com raiz no receptor."""
+        def root(n):
+            while n["node"] in ("SelectorExpr", "IndexExpr", "ParenExpr"):
+                if n["node"] == "SelectorExpr" and "$sel" not in n:
+                    return None
+                n = n["x"]
+            return n.get("$obj", {}).get("decl") if n["node"] == "Ident" else None
+
+        def visit(n):
+            if isinstance(n, list):
+                return any(visit(x) for x in n)
+            if not isinstance(n, dict):
+                return False
+            k = n.get("node")
+            if k == "AssignStmt" and any(root(x) == decl for x in n["lhs"]):
+                return True
+            if k == "IncDecStmt" and root(n["x"]) == decl:
+                return True
+            if k == "UnaryExpr" and n["op"] == "&" and root(n["x"]) == decl:
+                return True
+            if (k == "CallExpr" and n["fun"]["node"] == "SelectorExpr"
+                    and n["fun"].get("$sel", {}).get("kind") == "method" and root(n["fun"]["x"]) == decl):
+                return True
+            return any(visit(v) for v in n.values() if isinstance(v, (dict, list)))
+        return visit(body)
 
     def top_values(self, gen):
         out = doc_comment(gen["doc"])
@@ -254,76 +687,174 @@ class Emitter:
                 if ident["name"] == "_":
                     continue
                 obj = ident["$obj"]
+                t = self.pkg.type_at(obj["type"])
                 name = member_name(ident["name"]) if top else self.declare_local(ident)
-                out.append(f"const {self.types.dart(obj['type'])} {name} = "
-                           f"{self.literal(obj['value'], self.pkg.type_at(obj['type']))};")
+                # Construtores dos wrappers não são const.
+                kw = "const" if basic(self.pkg, t).cat == "bool" else "final"
+                out.append(f"{kw} {self.types.dart(t)} {name} = {self.literal(obj['value'], t)};")
             return out
         if values and len(values) != len(names):
             tmp = self.temp()
             out.append(f"final {tmp} = {self.expr(values[0])};")
             values = [f"{tmp}.${i + 1}" for i in range(len(names))]
         else:
-            values = [self.expr(v) for v in values]
+            values = [self.coerce(v, self.pkg.type_at(ident["$obj"]["type"]) if "$obj" in ident else None)
+                      for v, ident in zip(values, names)]
         for i, ident in enumerate(names):
             obj = ident["$obj"] if ident["name"] != "_" else None
             if obj is None:
                 if values:
                     out.append(f"{values[i]};")
                 continue
-            name = member_name(ident["name"]) if top else self.declare_local(ident)
             init = values[i] if values else self.types.zero(obj["type"])
-            out.append(f"{self.types.dart(obj['type'])} {name} = {init};")
+            t = self.pkg.type_at(obj["type"])
+            if not top:
+                out.append(self.local_decl(ident, t, init))
+            elif obj["decl"] in self.boxed:
+                box = self.qualify(None, "Box")
+                out.append(f"final {box}<{self.types.dart(t)}> {member_name(ident['name'])} = "
+                           f"{box}<{self.types.dart(t)}>({init});")
+            else:
+                out.append(f"{self.types.dart(t)} {member_name(ident['name'])} = {init};")
         return out
 
     def func_decl(self, d):
         sig = self.pkg.type_at(d["name"]["$obj"]["type"])
-        self.fn = {"used": set(), "locals": {}, "temps": 0, "recv": None, "results": None}
+        self.fn = {"used": set(), "locals": {}, "temps": 0, "recv": None, "results": None,
+                   "sig": None}
+        prologue = []
         if d["recv"]:
             names = d["recv"]["list"][0]["names"]
             if names and names[0]["name"] != "_":
-                self.fn["recv"] = names[0]["$obj"]["decl"]
+                ident = names[0]
+                recv_t = self.pkg.type_at(d["recv"]["list"][0]["type"]["$type"])
+                mutated = self.mutates_receiver(d["body"], ident["$obj"]["decl"])
+                if self.is_struct(recv_t) and mutated:
+                    # Receptor valor é uma cópia no Go: mutações não vazam.
+                    local = self.declare_local(ident)
+                    prologue.append(f"final {self.types.dart(recv_t)} {local} = this.$copy();")
+                elif mutated and recv_t["kind"] == "named":
+                    # Tipos básicos nomeados são imutáveis: basta uma variável.
+                    local = self.declare_local(ident)
+                    prologue.append(f"{self.types.dart(recv_t)} {local} = this;")
+                else:
+                    self.fn["recv"] = ident["$obj"]["decl"]
             name = member_name(d["name"]["name"])
         else:
             name = self.top_name(d["name"]["name"], "func")
             if d["name"]["name"] == "init":
                 raise Unsupported("func init", d)
-        if d["type"]["typeParams"]:
-            raise Unsupported("função genérica", d)
-        params = self.params(d["type"]["params"], sig)
-        head = f"{self.types.results(sig['results'])} {name}({params})"
-        body = self.func_body(d["type"], d["body"])
+        tparams, dicts = self.type_params(d["type"]["typeParams"])
+        params, boxes = self.params(d["type"]["params"], sig)
+        params = ", ".join(p for p in (dicts, params) if p)
+        head = f"{self.types.results(sig['results'])} {name}{tparams}({params})"
+        body = self.func_body(d["type"], d["body"], sig)
         self.fn = None
-        return doc_comment(d["doc"]) + [head + " {"] + body + ["}"]
+        if name == "main" and not d["recv"]:
+            # Panic não recuperado: mensagem no stderr e exit 2, como o Go.
+            body = [f"{self.qualify(None, 'runMain')}(() {{"] + prologue + boxes + body + ["});"]
+            prologue, boxes = [], []
+        return doc_comment(d["doc"]) + [head + " {"] + prologue + boxes + body + ["}"]
+
+    def type_params(self, fields):
+        """`[T C, U any]` → (`<T extends Bound, U>`, `go.Elem<T> $T, ...`):
+        cada parâmetro de tipo recebe um dicionário (zero, tamanho, T(n))."""
+        idents = [i for f in ((fields or {}).get("list") or []) for i in f["names"]]
+        if not idents:
+            return "", ""
+        decl, dicts = [], []
+        for ident in idents:
+            tp = self.pkg.type_at(ident["$obj"]["type"])
+            bound = self.bound(tp)
+            decl.append(tp["name"] + (f" extends {bound}" if bound else ""))
+            dicts.append(f"{self.qualify(None, 'Elem')}<{tp['name']}> ${tp['name']}")
+        return "<" + ", ".join(decl) + ">", ", ".join(dicts)
+
+    def bound(self, tp):
+        """Bound Dart da constraint de um parâmetro de tipo: interface com
+        métodos → a interface; união de tipos → a base comum de fixed_types
+        (IntBase, GoReal, GoOrdered, StringBase); any/comparable → nenhum."""
+        c = self.pkg.type_at(tp["constraint"])
+        u = underlying(self.pkg, c)
+        if u["kind"] != "interface":
+            return None
+        terms = []
+        for e in u["embeddeds"]:
+            et = self.pkg.type_at(e)
+            terms += [self.pkg.type_at(x["type"]) for x in et["terms"]] if et["kind"] == "union" else [et]
+        if not terms:
+            return self.types.dart(c).rstrip("?") if u["methods"] else None
+        cats = {basic(self.pkg, x).cat if basic(self.pkg, x) else None for x in terms}
+        name = tp["name"]
+        g = self.types.golang
+        if cats <= {"wint"}:
+            return f"{g('IntBase')}<{name}>"
+        if cats <= {"wint", "float"}:
+            return f"{g('GoReal')}<{name}>"
+        if cats <= {"wint", "float", "string"}:
+            return f"{g('GoOrdered')}<{name}>"
+        if cats == {"string"}:
+            return f"{g('StringBase')}<{name}>"
+        raise Unsupported("constraint de tipo não mapeada")
 
     def params(self, fields, sig):
+        """Lista de parâmetros Dart + prólogo (parâmetros com `&p` vão para
+        uma caixa local)."""
         idents = [i for f in (fields["list"] or []) for i in (f["names"] or [None])]
-        out = []
+        out, prologue = [], []
         for i, ident in enumerate(idents):
+            t = self.pkg.type_at(sig["params"][i])
             if ident is None or ident["name"] == "_":
                 name = "_"
+            elif ident["$obj"]["decl"] in self.boxed:
+                name = self.temp()
+                prologue.append(self.local_decl(ident, t, name))
             else:
                 name = self.declare_local(ident)
-            out.append(f"{self.types.dart(sig['params'][i])} {name}")
-        return ", ".join(out)
+            out.append(f"{self.types.dart(t)} {name}")
+        return ", ".join(out), prologue
 
-    def func_body(self, ftype, body):
-        """Corpo de função; resultados nomeados viram locais inicializados."""
+    def func_body(self, ftype, body, sig):
+        """Corpo de função; resultados nomeados viram locais inicializados.
+        Com `defer`: resultados sempre em variáveis (os defers podem alterá-los)
+        e o corpo roda sob go.Defers (try/catch/finally)."""
         out = []
         results = ftype["results"]
         named = results and results["list"] and results["list"][0]["names"]
-        saved = self.fn["results"]
-        self.fn["results"] = None
+        deferring = has_defer(body)
+        saved = self.fn["results"], self.fn["sig"], self.fn.get("defers")
+        self.fn["results"], self.fn["sig"], self.fn["defers"] = None, sig, None
+        if deferring and not named and sig["results"]:
+            self.fn["results"] = []
+            for rt in sig["results"]:
+                nm = self.temp()
+                out.append(f"{self.types.dart(rt)} {nm} = {self.types.zero(rt)};")
+                self.fn["results"].append(nm)
         if named:
             self.fn["results"] = []
             for f in results["list"]:
                 for ident in f["names"]:
                     obj = ident["$obj"]
-                    nm = self.declare_local(ident) if ident["name"] != "_" else self.temp()
+                    t = self.pkg.type_at(obj["type"])
+                    if ident["name"] == "_":
+                        nm = self.temp()
+                        out.append(f"{self.types.dart(t)} {nm} = {self.types.zero(t)};")
+                    else:
+                        out.append(self.local_decl(ident, t, self.types.zero(t)))
+                        nm = self.fn["locals"][obj["decl"]] + self.box_suffix(obj)
                     self.fn["results"].append(nm)
-                    out.append(f"{self.types.dart(obj['type'])} {nm} = {self.types.zero(obj['type'])};")
-        for s in body["list"] or []:
-            out += self.stmt(s)
-        self.fn["results"] = saved
+        if deferring:
+            d = self.fn["defers"] = self.temp()
+        stmts = [ln for s in body["list"] or [] for ln in self.stmt(s)]
+        if deferring:
+            e, st = self.temp(), self.temp()
+            finish = [f"return {self.tuple(self.fn['results'])};"] if self.fn["results"] else []
+            out += [f"final {d} = {self.qualify(None, 'Defers')}();", "try {"] + stmts + [
+                f"}} catch ({e}, {st}) {{", f"{d}.fail({e}, {st});", "} finally {", f"{d}.run();"
+            ] + finish + ["}"]
+        else:
+            out += stmts
+        self.fn["results"], self.fn["sig"], self.fn["defers"] = saved
         return out
 
     # ------------------------------------------------------------- statements
@@ -348,8 +879,12 @@ class Emitter:
         return []
 
     def stmt_IncDecStmt(self, s):
+        op = s["tok"][0]
+        one = self.literal({"kind": "int", "value": "1"}, self.pkg.type_of(s["x"]))
         if self.is_map_index(s["x"]):
-            return [f"{self.lvalue(s['x'])} = ({self.expr(s['x'])}) {s['tok'][0]} 1;"]
+            return [f"{self.lvalue(s['x'])} = ({self.expr(s['x'])}) {op} {one};"]
+        if one != "1":  # wrapper: `x += T(1)` avalia o alvo uma vez só
+            return [f"{self.lvalue(s['x'])} {op}= {one};"]
         return [self.lvalue(s["x"]) + s["tok"] + ";"]
 
     def stmt_DeclStmt(self, s):
@@ -364,7 +899,23 @@ class Emitter:
             if self.fn["results"]:
                 return [f"return {self.tuple(self.fn['results'])};"]
             return ["return;"]
-        return [f"return {self.tuple([self.expr(r) for r in res])};"]
+        rtypes = self.fn["sig"]["results"]
+        if len(res) != len(rtypes):  # return f() com múltiplos resultados
+            values = [self.expr(res[0])]
+        else:
+            values = [self.coerce(r, self.pkg.type_at(t)) for r, t in zip(res, rtypes)]
+        if not self.fn.get("defers"):
+            return [f"return {self.tuple(values)};"]
+        # Com defer: `return x` atribui aos resultados; os defers rodam no
+        # finally, que devolve os resultados (possivelmente alterados).
+        names = self.fn["results"]
+        if len(values) == 1 and len(names) > 1:
+            tmp = self.temp()
+            out = [f"final {tmp} = {values[0]};"]
+            out += [f"{nm} = {tmp}.${i + 1};" for i, nm in enumerate(names)]
+        else:
+            out = [f"{nm} = {v};" for nm, v in zip(names, values)]
+        return ["{"] + out + [f"return {self.tuple(names)};", "}"]
 
     @staticmethod
     def tuple(items):
@@ -378,19 +929,32 @@ class Emitter:
             if lhs[0]["node"] == "Ident" and lhs[0]["name"] == "_":
                 return [self.expr(rhs[0]) + ";"]
             if tok == ":=":
-                obj = lhs[0]["$obj"]
-                return [f"{self.types.dart(obj['type'])} {self.declare_local(lhs[0])} = {self.expr(rhs[0])};"]
-            return [f"{self.lvalue(lhs[0])} = {self.expr(rhs[0])};"]
+                t = self.pkg.type_at(lhs[0]["$obj"]["type"])
+                return [self.local_decl(lhs[0], t, self.coerce(rhs[0], t))]
+            return [self.assign(lhs[0], rhs[0])]
 
-        value = self.tuple([self.expr(r) for r in rhs])  # 1 chamada ou N exprs
-        idents = all(x["node"] == "Ident" for x in lhs)
-        news = [tok == ":=" and x["node"] == "Ident" and x["$obj"].get("def", False)
-                if x["name"] != "_" else None for x in lhs]
+        if len(rhs) == len(lhs):
+            value = self.tuple([self.coerce(r, self.pkg.type_of(x)) for r, x in zip(rhs, lhs)])
+        elif rhs[0]["node"] == "TypeAssertExpr":  # v, ok := x.(T)
+            value = self.comma_ok_assert(rhs[0])
+        elif self.is_map_index(rhs[0]):  # v, ok := m[k]
+            r = rhs[0]
+            value = f"{self.expr(r['x'], _POSTFIX)}.lookup({self.expr(r['index'])})"
+        else:
+            value = self.expr(rhs[0])  # 1 chamada com N resultados
+        # Alvos struct já existentes precisam de $set: caminho do temporário.
+        # ... e variáveis em caixa (`x.value` não é padrão de atribuição).
+        idents = all(x["node"] == "Ident" for x in lhs) and not any(
+            (self.is_struct(self.pkg.type_of(x)) and not (tok == ":=" and x["$obj"].get("def")))
+            or x["$obj"].get("decl") in self.boxed
+            for x in lhs if not is_blank(x))
+        news = [None if is_blank(x) else tok == ":=" and x["node"] == "Ident" and x["$obj"].get("def", False)
+                for x in lhs]
         if idents and all(n is not False for n in news) and any(news):
             names = [self.declare_local(x) if n else "_" for x, n in zip(lhs, news)]
             return [f"var ({', '.join(names)}) = {value};"]
         if idents and not any(news):
-            names = ["_" if x["name"] == "_" else self.expr(x) for x in lhs]
+            names = ["_" if is_blank(x) else self.expr(x) for x in lhs]
             return [f"({', '.join(names)}) = {value};"]
         tmp = self.temp()
         out = [f"final {tmp} = {value};"]
@@ -398,29 +962,29 @@ class Emitter:
             if new is None:
                 continue
             if new:
-                obj = x["$obj"]
-                out.append(f"{self.types.dart(obj['type'])} {self.declare_local(x)} = {tmp}.${i + 1};")
+                out.append(self.local_decl(x, self.pkg.type_at(x["$obj"]["type"]), f"{tmp}.${i + 1}"))
+            elif self.is_struct(self.pkg.type_of(x)) and not self.is_map_index(x):
+                out.append(f"{self.expr(x, _POSTFIX)}.$set({tmp}.${i + 1});")
             else:
                 out.append(f"{self.lvalue(x)} = {tmp}.${i + 1};")
         return out
 
     def op_assign(self, lhs, op, rhs):
-        t = self.pkg.type_of(lhs)
-        u = underlying(self.pkg, t) if t else None
+        b = basic(self.pkg, self.pkg.type_of(lhs))
         if self.is_map_index(lhs):
-            if op in ("/", "%", "&^"):
+            if op in ("/", "%", "&^", "<<", ">>"):
                 raise Unsupported(f"{op}= sobre índice de map", lhs)
             p = _DART_PREC[op]
             return f"{self.lvalue(lhs)} = ({self.expr(lhs)}) {op} {self.expr(rhs, p + 1)};"
-        if is_int(u) and op == "/":
+        if op in ("<<", ">>"):
+            return f"{self.lvalue(lhs)} {op}= {self.shift_count(rhs)};"
+        if b and b.integer and op == "/":
             return f"{self.lvalue(lhs)} ~/= {self.expr(rhs)};"
-        if is_int(u) and op == "%":
-            if lhs["node"] != "Ident":
-                raise Unsupported("%= sobre expressão não-identificador", lhs)
-            x = self.expr(lhs)
-            return f"{x} = {x}.remainder({self.expr(rhs)});"
         if op == "&^":
-            return f"{self.lvalue(lhs)} &= ~{self.expr(rhs, _UNARY)};"
+            if lhs["node"] != "Ident":
+                raise Unsupported("&^= sobre expressão não-identificador", lhs)
+            x = self.expr(lhs)
+            return f"{x} = {x}.andNot({self.expr(rhs)});"
         return f"{self.lvalue(lhs)} {op}= {self.expr(rhs)};"
 
     def stmt_IfStmt(self, s):
@@ -466,31 +1030,124 @@ class Emitter:
 
         def bind(target, value):
             if define:
-                obj = target["$obj"]
-                return f"{self.types.dart(obj['type'])} {self.declare_local(target)} = {value};"
+                return self.local_decl(target, self.pkg.type_at(target["$obj"]["type"]), value)
             return f"{self.lvalue(target)} = {value};"
 
         src = self.temp()
-        if u["kind"] == "basic" and is_int(u):
+        if u["kind"] == "basic":
             i = self.temp()
-            head = [f"final {src} = {self.expr(x)};", f"for (var {i} = 0; {i} < {src}; {i}++)"]
-            pre = [bind(key, i)] if key else []
+            head = [f"final {src} = {self.to_int(x)};", f"for (var {i} = 0; {i} < {src}; {i}++)"]
+            pre = [bind(key, self.from_int(i, self.pkg.type_of(x)))] if key else []
         elif u["kind"] in ("slice", "array"):
             i = self.temp()
-            head = [f"final {src} = {self.expr(x)};", f"for (var {i} = 0; {i} < {src}.length; {i}++)"]
-            pre = ([bind(key, i)] if key else []) + ([bind(val, f"{src}[{i}]")] if val else [])
+            rng = self.copy_text(self.expr(x, _POSTFIX), self.pkg.type_of(x)) if val else self.expr(x)
+            head = [f"final {src} = {rng};", f"for (var {i} = 0; {i} < {src}.length; {i}++)"]
+            key_t = self.pkg.type_of(key) if key else None
+            elem_t = self.pkg.type_at(u["elem"])
+            pre = ([bind(key, self.from_int(i, key_t))] if key else []) + (
+                [bind(val, self.copy_text(f"{src}[{i}]", elem_t))] if val else [])
         elif u["kind"] == "map":
             k = self.temp()
             # Go permite deletar durante o range; iterar sobre cópia das chaves
             # e pular as removidas preserva a semântica.
-            head = [f"final {src} = {self.expr(x)};", f"for (final {k} in {src}.keys.toList())"]
+            head = [f"final {src} = {self.expr(x)};", f"for (final {k} in {src}.keysSnapshot())"]
             pre = [f"if (!{src}.containsKey({k})) continue;"]
-            pre += ([bind(key, k)] if key else []) + ([bind(val, f"{src}[{k}] as {self.types.dart(u['elem'])}")] if val else [])
+            elem_t = self.pkg.type_at(u["elem"])
+            pre += ([bind(key, k)] if key else []) + (
+                [bind(val, self.copy_text(f"{src}[{k}]", elem_t))] if val else [])
         else:
             raise Unsupported(f"range sobre {u['kind']}", s)
         body = self.block(s["body"])
         head[-1] = label + head[-1]
         return ["{"] + head + ["{"] + pre + body + ["}", "}"]
+
+    def stmt_DeferStmt(self, s):
+        """`defer f(args)`: função e argumentos avaliados agora; a chamada fica
+        na pilha go.Defers da função."""
+        call = s["call"]
+        fun, args = call["fun"], call["args"] or []
+        pre = []
+        if fun.get("$builtin"):
+            raise Unsupported("defer de builtin", s)
+        # Avalia os argumentos agora, fixando-os em temporários.
+        fixed = []
+        for a in args:
+            if a.get("$value") is not None:
+                fixed.append(a)
+                continue
+            tmp = self.temp()
+            pre.append(f"final {tmp} = {self.coerce(a, self.pkg.type_of(a))};")
+            fixed.append({"node": "G2DTemp", "text": tmp, "$type": a.get("$type")})
+        callee_node = fun
+        if fun["node"] == "SelectorExpr" and fun.get("$sel", {}).get("kind") == "method":
+            recv = fun["x"]
+            tmp = self.temp()
+            pre.append(f"final {tmp} = {self.expr(recv)};")
+            callee_node = dict(fun, x={"node": "G2DTemp", "text": tmp, "$type": recv.get("$type")})
+        elif fun["node"] not in ("FuncLit", "Ident", "SelectorExpr"):
+            tmp = self.temp()
+            pre.append(f"final {tmp} = {self.expr(fun)};")
+            callee_node = {"node": "G2DTemp", "text": tmp, "$type": fun.get("$type")}
+        text = self.expr(dict(call, fun=callee_node, args=fixed))
+        return ["{"] + pre + [f"{self.fn['defers']}.defer(() {{ {text}; }});", "}"]
+
+    def expr_G2DTemp(self, n):
+        return n["text"], _POSTFIX + 1
+
+    def stmt_TypeSwitchStmt(self, s):
+        """type switch → cadeia de testes `is`, com a variável do case
+        ligada ao tipo do case (um tipo) ou ao da interface (vários/default)."""
+        guard = s["assign"]
+        if guard["node"] == "AssignStmt":
+            ident, ta = guard["lhs"][0], guard["rhs"][0]
+        else:
+            ident, ta = None, guard["x"]
+        out = ["{"] + (self.stmt(s["init"]) if s["init"] else [])
+        subject = self.temp()
+        static_t = self.pkg.type_of(ta["x"])
+        out.append(f"final {subject} = {self.expr(ta['x'])};")
+        decl = f"{ident['namePos']['file']}:{ident['namePos']['offset']}" if ident else None
+        chain, default = [], None
+        for clause in s["body"]["list"]:
+            body = clause["body"] or []
+            if switch_break(body):
+                raise Unsupported("break/fallthrough em switch", clause)
+            bind = []
+            if ident is not None and self.uses_decl(body, decl):
+                types = clause["list"] or []
+                single = len(types) == 1 and not (types[0]["node"] == "Ident" and types[0]["name"] == "nil")
+                if single:
+                    mode, dt, t = self.assert_parts({"type": types[0]})
+                    if mode == "value":
+                        value, vt = f"({subject} as {dt}).$copy()", t
+                    else:
+                        value, vt = f"{subject} as {dt}", t
+                    vtype = self.types.dart(vt)
+                else:
+                    value, vtype = subject, self.types.dart(static_t)
+                obj = {"name": ident["name"], "decl": decl}
+                name = self.declare_local({"$obj": obj})
+                bind = [f"final {vtype} {name} = {value};"]
+            lines = ["{"] + bind + [ln for b in body for ln in self.stmt(b)] + ["}"]
+            if clause["list"] is None:
+                default = lines
+                continue
+            chain.append((" || ".join(self.type_test(subject, e) for e in clause["list"]), lines))
+        for i, (cond, lines) in enumerate(chain):
+            out += [("else " if i else "") + f"if ({cond})"] + lines
+        if default:
+            out += (["else"] if chain else []) + default
+        return out + ["}"]
+
+    @staticmethod
+    def uses_decl(node, decl):
+        if isinstance(node, list):
+            return any(Emitter.uses_decl(x, decl) for x in node)
+        if not isinstance(node, dict):
+            return False
+        if node.get("node") == "Ident" and node.get("$obj", {}).get("decl") == decl:
+            return True
+        return any(Emitter.uses_decl(v, decl) for v in node.values() if isinstance(v, (dict, list)))
 
     def stmt_BranchStmt(self, s):
         tok = s["tok"]
@@ -552,20 +1209,36 @@ class Emitter:
         return obj is not None and obj["kind"] == "const" and obj.get("pkg") == self.pkg.path
 
     def literal(self, v, t):
-        u = underlying(self.pkg, t) if t else None
+        """Constante Go (valor exato do go/types) no tipo Dart de t."""
         k = v["kind"]
+        b = basic(self.pkg, t) if t else None
+        if b is None or b.cat == "nil":  # sem tipo útil: tipo padrão do valor
+            b = basic(self.pkg, {"kind": "basic", "name": "untyped " + k})
+        g = self.types.golang
+        named = t is not None and t["kind"] == "named"
+        cls = self.types.cls(t) if named else (g(b.cls) if b.cls else None)
         if k == "string":
-            return dart_string(v["value"])
+            if "bytes" in v:  # não é UTF-8 válido: bytes exatos
+                text = f"{self.qualify(None, 'stringOfBytes')}(const {v['bytes']})"
+            else:
+                text = f"{g('String')}.fromDart({dart_string(v['value'])})"
+            return f"{cls}({text})" if named else text
         if k == "bool":
             return "true" if v["value"] else "false"
-        if k == "int":
-            return v["value"] + (".0" if is_float(u) else "")
-        if k == "float":
-            s = v["value"]
-            if is_int(u):
-                return str(int(float(s)))
-            return s if any(c in s for c in ".eE") else s + ".0"
-        raise Unsupported(f"constante {k}")
+        if k == "complex":
+            re, im = v["real"], v["imag"]
+        else:
+            re, im = v["value"], "0"
+        if b.cat == "wint":
+            n = int(float(re)) if k == "float" else int(re)
+            if -(1 << 53) <= n <= (1 << 53):  # exato também no int do JS
+                return f"{cls}({n})"
+            return f"{cls}.fromBigInt(BigInt.parse('{n}'))"
+        if b.cat == "float":
+            return f"{cls}({_double(re)})"
+        if b.cat == "complex" and not named:
+            return f"{g(b.cls)}.fromDoubles({_double(re)}, {_double(im)})"
+        raise Unsupported(f"constante {k} como {b.cat}")
 
     def expr_Ident(self, n):
         return self.ident(n), _POSTFIX + 1
@@ -578,26 +1251,78 @@ class Emitter:
 
     def expr_BinaryExpr(self, n):
         op = n["op"]
-        xt = underlying(self.pkg, self.pkg.type_of(n["x"]))
-        if op == "/" and is_int(xt):
+        b = basic(self.pkg, self.pkg.type_of(n["x"]))
+        if op in ("<<", ">>"):
+            p = _DART_PREC[op]
+            return f"{self.expr(n['x'], p)} {op} {self.shift_count(n['y'])}", p
+        if op == "/" and self.pkg.type_of(n["x"])["kind"] == "typeparam":
+            return f"{self.expr(n['x'], _POSTFIX)}.$quo({self.expr(n['y'])})", _POSTFIX
+        if op == "/" and b is not None and b.integer:
             op = "~/"
-        if op == "%" and is_int(xt):
-            return f"{self.expr(n['x'], _POSTFIX)}.remainder({self.expr(n['y'])})", _POSTFIX
         if op == "&^":
-            p = _DART_PREC["&"]
-            return f"{self.expr(n['x'], p)} & ~{self.expr(n['y'], _UNARY)}", p
+            return f"{self.expr(n['x'], _POSTFIX)}.andNot({self.expr(n['y'])})", _POSTFIX
+        if op in ("==", "!=") and self.nil_compare(n) is not None:
+            text = f"{self.expr(self.nil_compare(n), _POSTFIX)}.isNil"
+            return (text, _POSTFIX) if op == "==" else (f"!{text}", _UNARY)
+        if op in ("==", "!=") and self.iface_compare(n):
+            eq = f"{self.qualify(None, 'ifaceEq')}({self.expr(n['x'])}, {self.expr(n['y'])})"
+            return (eq, _POSTFIX) if op == "==" else (f"!{eq}", _UNARY)
+        if op in ("==", "!=") and self.pointer_compare(n):
+            eq = f"identical({self.expr(n['x'])}, {self.expr(n['y'])})"
+            return (eq, _POSTFIX) if op == "==" else (f"!{eq}", _UNARY)
         if op not in _DART_PREC:
             raise Unsupported(f"operador {op}", n)
         p = _DART_PREC[op]
         left = p + 1 if op in _NON_ASSOC else p
         return f"{self.expr(n['x'], left)} {op} {self.expr(n['y'], p + 1)}", p
 
+    def pointer_compare(self, n):
+        """Ponteiros para struct (o próprio objeto): identidade, não o == estrutural.
+        go.Ptr já compara por endereço no ==."""
+        tx, ty = self.pkg.type_of(n["x"]), self.pkg.type_of(n["y"])
+        return is_struct_pointer(self.pkg, tx) and is_struct_pointer(self.pkg, ty)
+
+    def iface_compare(self, n):
+        """Comparação entre dois valores de interface (não-nil)."""
+        tx, ty = self.pkg.type_of(n["x"]), self.pkg.type_of(n["y"])
+        is_iface = [t is not None and t.get("kind") != "basic" and underlying(self.pkg, t)["kind"] == "interface"
+                    for t in (tx, ty)]
+        return all(is_iface)
+
+    def nil_compare(self, n):
+        """`s == nil` com slice/map: go.Slice/go.GoMap nunca são null."""
+        for a, b in (("x", "y"), ("y", "x")):
+            ta, tb = self.pkg.type_of(n[a]), self.pkg.type_of(n[b])
+            if (tb is not None and tb["kind"] == "basic" and tb["name"] == "untyped nil"
+                    and ta is not None and underlying(self.pkg, ta)["kind"] in ("slice", "map")):
+                return n[a]
+        return None
+
+    def shift_count(self, y):
+        """Contagem de shift como int Dart. Constante: literal; senão
+        go.shiftCount (negativa → panic; >= 64 satura)."""
+        v = y.get("$value")
+        if v is not None:
+            return v["value"]
+        return f"{self.qualify(None, 'shiftCount')}({self.expr(y, _POSTFIX)}.toBigInt())"
+
+    def to_int(self, n):
+        """Expressão inteira Go como int Dart (índices, contagens)."""
+        v = n.get("$value")
+        if v is not None:
+            return v["value"]
+        # ponytail: via BigInt em toda indexação; acelerar dentro das classes
+        # (implementação por plataforma), não no mapeamento.
+        return f"{self.expr(n, _POSTFIX)}.toBigInt().toInt()"
+
+    def from_int(self, dart_int, t):
+        """int Dart → valor do tipo inteiro Go t."""
+        return f"{self.types.cls(t)}({dart_int})"
+
     def expr_UnaryExpr(self, n):
         op = n["op"]
         if op == "&":
-            if n["x"]["node"] != "CompositeLit":
-                raise Unsupported("& de não-literal (ponteiro para variável)", n)
-            return self.expr_prec(n["x"])
+            return self.address_of(n)
         dart_op = {"-": "-", "+": "", "!": "!", "^": "~"}.get(op)
         if dart_op is None:
             raise Unsupported(f"operador unário {op}", n)
@@ -606,8 +1331,35 @@ class Emitter:
         sep = " " if dart_op == "-" and x.startswith("-") else ""
         return f"{dart_op}{sep}{x}", _UNARY
 
+    def address_of(self, n):
+        """`&x`: struct é o próprio endereço; variável em caixa é a caixa;
+        `&s[i]` e `&o.f` viram go.ElemPtr / go.FieldPtr."""
+        x = n["x"]
+        while x["node"] == "ParenExpr":
+            x = x["x"]
+        if x["node"] == "CompositeLit" or self.is_struct(self.pkg.type_of(x)):
+            return self.expr_prec(x)
+        if x["node"] == "Ident":
+            text = self.expr(x)
+            return text[: -len(".value")], _POSTFIX  # a caixa (find_boxed garantiu)
+        if x["node"] == "IndexExpr" and underlying(self.pkg, self.pkg.type_of(x["x"]))["kind"] in ("slice", "array"):
+            return f"{self.expr(x['x'], _POSTFIX)}.addr({self.to_int(x['index'])})", _POSTFIX
+        if x["node"] == "SelectorExpr" and x.get("$sel", {}).get("kind") == "field":
+            owner_t = self.pkg.type_of(x["x"])
+            owner = self.expr(x["x"], _POSTFIX)
+            if owner_t["kind"] == "pointer":
+                owner += "!"
+                owner_t = self.pkg.type_at(owner_t["elem"])
+            f = member_name(x["sel"]["name"])
+            ot, ft = self.types.dart(owner_t), self.types.dart(self.pkg.type_of(x))
+            return (f"{self.qualify(None, 'FieldPtr')}<{ot}, {ft}>({owner}, '{f}', "
+                    f"(o) => o.{f}, (o, v) => o.{f} = v)"), _POSTFIX
+        raise Unsupported("& de expressão", n)
+
     def expr_StarExpr(self, n):
-        return f"{self.expr(n['x'], _POSTFIX)}!", _POSTFIX
+        if is_struct_pointer(self.pkg, self.pkg.type_of(n["x"])):
+            return f"{self.expr(n['x'], _POSTFIX)}!", _POSTFIX
+        return f"{self.expr(n['x'], _POSTFIX)}!.value", _POSTFIX
 
     def expr_SelectorExpr(self, n):
         x, sel = n["x"], n["sel"]["name"]
@@ -619,21 +1371,49 @@ class Emitter:
         info = n.get("$sel")
         if info is None or info["kind"] == "methodExpr":
             raise Unsupported("seletor", n)
-        if len(info["index"]) > 1:
-            raise Unsupported("campo/método promovido por embedding", n)
         recv = self.expr(x, _POSTFIX)
-        if recv != "this" and self.pkg.type_of(x)["kind"] == "pointer":
+        t = self.pkg.type_of(x)
+        # Ponteiro ou interface nil → panic do Go (via `!`).
+        if recv != "this" and (t["kind"] == "pointer" or underlying(self.pkg, t)["kind"] == "interface"):
             recv += "!"
+        # Seleção promovida por embedding: caminho de campos do go/types.
+        for fi in info["index"][:-1]:
+            if t["kind"] == "pointer":
+                t = self.pkg.type_at(t["elem"])
+            f = underlying(self.pkg, t)["fields"][fi]
+            recv += "." + member_name(f["name"])
+            t = self.pkg.type_at(f["type"])
+            if t["kind"] == "pointer" or underlying(self.pkg, t)["kind"] == "interface":
+                recv += "!"
         return f"{recv}.{member_name(sel)}", _POSTFIX
 
     def expr_IndexExpr(self, n):
         u = underlying(self.pkg, self.pkg.type_of(n["x"]))
-        x, i = self.expr(n["x"], _POSTFIX), self.expr(n["index"])
+        x = self.expr(n["x"], _POSTFIX)
+        if u["kind"] == "pointer":  # p[i] com p *[N]T
+            u, x = underlying(self.pkg, self.pkg.type_at(u["elem"])), x + "!"
         if u["kind"] in ("slice", "array"):
-            return f"{x}[{i}]", _POSTFIX
+            return f"{x}[{self.to_int(n['index'])}]", _POSTFIX
+        if u["kind"] == "basic":  # string: o byte no índice
+            return f"{self.types.golang('Uint8')}({x}[{self.to_int(n['index'])}])", _POSTFIX
+        i = self.expr(n["index"])
         if u["kind"] == "map":
-            return f"{x}[{i}] ?? {self.types.zero(u['elem'])}", _DART_PREC["||"] - 1
+            return f"{x}[{i}]", _POSTFIX  # go.GoMap devolve o zero value
         raise Unsupported(f"índice sobre {u['kind']}", n)
+
+    def expr_SliceExpr(self, n):
+        u = underlying(self.pkg, self.pkg.type_of(n["x"]))
+        deref = ""
+        if u["kind"] == "pointer":  # p[a:b] com p *[N]T
+            u, deref = underlying(self.pkg, self.pkg.type_at(u["elem"])), "!"
+        if u["kind"] not in ("slice", "array", "basic"):
+            raise Unsupported(f"slicing de {u['kind']}", n)
+        args = [self.to_int(n["low"]) if n["low"] else "0"]
+        if n["high"] or n["max"]:
+            args.append(self.to_int(n["high"]) if n["high"] else "null")
+        if n["max"]:
+            args.append(self.to_int(n["max"]))
+        return f"{self.expr(n['x'], _POSTFIX)}{deref}.slice({', '.join(args)})", _POSTFIX
 
     def is_map_index(self, n):
         return n["node"] == "IndexExpr" and underlying(self.pkg, self.pkg.type_of(n["x"]))["kind"] == "map"
@@ -643,6 +1423,50 @@ class Emitter:
         if self.is_map_index(n):
             return f"{self.expr(n['x'], _POSTFIX)}[{self.expr(n['index'])}]"
         return self.expr(n, _POSTFIX)
+
+    def assert_parts(self, n):
+        """(tipo Dart, kwargs) de `x.(T)`: struct por valor/ponteiro, interface
+        ou tipo concreto."""
+        t = self.pkg.type_at(n["type"]["$type"])
+        u = underlying(self.pkg, t)
+        if u["kind"] == "interface":
+            return "iface", self.types.dart(t).rstrip("?") if t["kind"] == "named" or u["methods"] else "Object", t
+        if self.is_struct(t):
+            return "value", self.types.dart(t), t
+        if is_struct_pointer(self.pkg, t):
+            return "pointer", self.types.dart(t), t  # T? (o zero do comma-ok é null)
+        return "plain", self.types.dart(t).rstrip("?"), t
+
+    def expr_TypeAssertExpr(self, n):
+        mode, dt, t = self.assert_parts(n)
+        x = self.expr(n["x"])
+        target = self.go_type_name(t)
+        if mode == "iface":
+            names = ", ".join(f"'{m['name']}'" for m in sorted(underlying(self.pkg, t)["methods"],
+                                                                key=lambda m: m["name"]))
+            return f"{self.qualify(None, 'assertIface')}<{dt}>({x}, '{target}', const [{names}])", _POSTFIX
+        iface = self.go_type_name(self.pkg.type_of(n["x"]))
+        struct = {"value": ", struct: true", "pointer": ", struct: false"}.get(mode, "")
+        return f"{self.qualify(None, 'assertType')}<{dt}>({x}, '{iface}', '{target}'{struct})", _POSTFIX
+
+    def comma_ok_assert(self, n):
+        """`v, ok := x.(T)` → record (valor, ok)."""
+        mode, dt, t = self.assert_parts(n)
+        x = self.expr(n["x"])
+        if mode == "iface":
+            return f"{self.qualify(None, 'tryIface')}<{dt}>({x})"
+        struct = {"value": ", struct: true", "pointer": ", struct: false"}.get(mode, "")
+        return f"{self.qualify(None, 'tryType')}<{dt}>({x}, {self.types.zero(t)}{struct})"
+
+    def type_test(self, subject, texpr):
+        """Teste de um case de type switch sobre a variável `subject`."""
+        if texpr["node"] == "Ident" and texpr["name"] == "nil":
+            return f"{subject} == null"
+        mode, dt, _ = self.assert_parts({"type": texpr})
+        if mode == "iface":
+            return f"{subject} is {dt}"
+        struct = {"value": ", struct: true", "pointer": ", struct: false"}.get(mode, "")
+        return f"{self.qualify(None, 'isType')}<{dt}>({subject}{struct})"
 
     def expr_KeyValueExpr(self, n):
         raise Unsupported("KeyValueExpr fora de literal composto", n)
@@ -661,25 +1485,36 @@ class Emitter:
                     fname, val = fields[i]["name"], e
                 if fname == "_":
                     continue
-                args.append(f"{escape(lower_camel(fname.lstrip('_')))}: {self.expr(val)}")
+                ftype = next(self.pkg.type_at(f["type"]) for f in fields if f["name"] == fname)
+                args.append(f"{escape(lower_camel(fname.lstrip('_')))}: {self.coerce(val, ftype)}")
+            args = [self.elem(a) for a in t.get("args") or []] + args
             return f"{self.types.dart(t)}({', '.join(args)})", _POSTFIX
         if u["kind"] == "slice":
             if any(e["node"] == "KeyValueExpr" for e in elts):
                 raise Unsupported("literal de slice indexado", n)
-            items = ", ".join(self.expr(e) for e in elts)
-            return f"<{self.types.dart(u['elem'])}>[{items}]", _POSTFIX + 1
+            elem = self.pkg.type_at(u["elem"])
+            items = ", ".join(self.coerce(e, elem) for e in elts)
+            return f"{self.types.dart(t)}.of([{items}], {self.elem(elem)})", _POSTFIX
+        if u["kind"] == "array":
+            if any(e["node"] == "KeyValueExpr" for e in elts):
+                raise Unsupported("literal de array indexado", n)
+            elem = self.pkg.type_at(u["elem"])
+            items = [self.coerce(e, elem) for e in elts]
+            items += [self.types.zero(elem)] * (u["len"] - len(items))
+            return f"{self.types.dart(t)}.of([{', '.join(items)}], {self.elem(elem)})", _POSTFIX
         if u["kind"] == "map":
-            items = ", ".join(f"{self.expr(e['key'])}: {self.expr(e['value'])}" for e in elts)
-            return f"<{self.types.dart(u['key'])}, {self.types.dart(u['elem'])}>{{{items}}}", _POSTFIX + 1
+            kt, vt = self.pkg.type_at(u["key"]), self.pkg.type_at(u["elem"])
+            items = ", ".join(f"{self.coerce(e['key'], kt)}: {self.coerce(e['value'], vt)}" for e in elts)
+            return f"{self.types.dart(t)}.of({{{items}}}, {self.elem(vt)})", _POSTFIX
         raise Unsupported(f"literal composto de {u['kind']}", n)
 
     def expr_FuncLit(self, n):
         if self.fn is None:
             raise Unsupported("func literal em nível de pacote", n)
         sig = self.pkg.type_of(n)
-        params = self.params(n["type"]["params"], sig)
-        body = self.func_body(n["type"], n["body"])
-        return f"({params}) {{\n" + "\n".join(body) + "\n}", 0
+        params, boxes = self.params(n["type"]["params"], sig)
+        body = self.func_body(n["type"], n["body"], sig)
+        return f"({params}) {{\n" + "\n".join(boxes + body) + "\n}", 0
 
     def expr_CallExpr(self, n):
         fun, args = n["fun"], n["args"] or []
@@ -692,15 +1527,39 @@ class Emitter:
             raise Unsupported("chamada de valor não-função", n)
         if len(args) == 1 and len(sig["params"]) > 1:
             raise Unsupported("f(g()) com múltiplos retornos", n)
-        out = [self.expr(a) for a in args]
-        callee = self.expr(fun, _POSTFIX)
-        if not self.declared_func(fun):
+        inst = self.instantiation(fun)
+        ptypes = [self.pkg.type_at(t) for t in sig["params"]]
+        if sig["variadic"] and n["ellipsis"] is None:
+            elem = self.pkg.type_at(ptypes[-1]["elem"])
+            ptypes = ptypes[:-1] + [elem] * (len(args) - len(ptypes) + 1)
+        out = [self.coerce(a, t) for a, t in zip(args, ptypes)]
+        if inst:
+            generic, targs = inst
+            callee = self.expr(generic, _POSTFIX) + "<" + ", ".join(self.types.dart(a) for a in targs) + ">"
+            out = [self.elem(a) for a in targs] + out
+        else:
+            callee = self.expr(fun, _POSTFIX)
+        if not inst and not self.declared_func(fun):
             callee += "!"  # valor de função: anulável (zero value nil)
         if sig["variadic"] and n["ellipsis"] is None:
-            fixed = len(sig["params"]) - 1
-            elem = self.types.dart(self.pkg.type_at(sig["params"][-1])["elem"])
-            out = out[:fixed] + [f"<{elem}>[{', '.join(out[fixed:])}]"]
+            fixed = len(sig["params"]) - 1 + (len(inst[1]) if inst else 0)
+            st = self.pkg.type_at(sig["params"][-1])
+            e = self.elem(st["elem"])
+            rest = out[fixed:]
+            # f() sem argumentos variádicos recebe um slice nil (como no Go).
+            packed = f"{self.types.dart(st)}.of([{', '.join(rest)}], {e})" if rest else self.types.zero(st)
+            out = out[:fixed] + [packed]
         return f"{callee}({', '.join(out)})", _POSTFIX
+
+    @staticmethod
+    def instantiation(fun):
+        """Chamada de função genérica: (identificador, argumentos de tipo)."""
+        f = fun
+        if f["node"] in ("IndexExpr", "IndexListExpr"):
+            f = f["x"]
+        if f["node"] == "Ident" and f.get("$inst") and f.get("$obj", {}).get("kind") == "func":
+            return f, f["$inst"]
+        return None
 
     @staticmethod
     def declared_func(fun):
@@ -717,36 +1576,87 @@ class Emitter:
         return False
 
     def conversion(self, n, fun, arg):
-        to = underlying(self.pkg, self.pkg.type_at(fun["$type"]))
-        frm = underlying(self.pkg, self.pkg.type_of(arg))
+        """T(x) em tempo de execução (constantes já vêm dobradas em $value)."""
+        to_t, frm_t = self.pkg.type_at(fun["$type"]), self.pkg.type_of(arg)
+        to, frm = basic(self.pkg, to_t), basic(self.pkg, frm_t)
+        if to_t == frm_t:
+            return self.expr_prec(arg)
+        if to_t["kind"] == "typeparam" and frm is not None and frm.integer:
+            return f"{self.elem(to_t)}.ofInt!({self.expr(arg, _POSTFIX)}.toBigInt())", _POSTFIX
+        if to is None or frm is None:
+            if underlying(self.pkg, to_t) == underlying(self.pkg, frm_t) and not (
+                    to_t["kind"] == "named" or frm_t["kind"] == "named"):
+                return self.expr_prec(arg)
+            raise Unsupported("conversão de tipo não-básico", n)
+        g = self.types.golang
+        to_cls = self.types.cls(to_t)
+        named_to = to_t["kind"] == "named"
         x = self.expr(arg, _POSTFIX)
-        if is_int(to) and is_float(frm):
-            return f"{x}.toInt()", _POSTFIX
-        if is_float(to) and is_int(frm):
-            return f"{x}.toDouble()", _POSTFIX
-        if (is_int(to) and is_int(frm)) or (is_float(to) and is_float(frm)) or to == frm:
-            return self.expr_prec(arg)  # ponytail: sem truncamento de largura (int8, uint32...)
-        raise Unsupported(f"conversão {frm['kind']} → {to['kind']}", n)
+        if to.integer and frm.integer:
+            return f"{to_cls}.fromBigInt({x}.toBigInt())", _POSTFIX
+        if to.cat == "float" and frm.integer:
+            src = "Int64" if frm.signed else "Uint64"
+            v = f"{g(to.cls)}.from{src}({g(src)}.fromBigInt({x}.toBigInt()))"
+            return (f"{to_cls}({v}.toDouble())" if named_to else v), _POSTFIX
+        if to.integer and frm.cat == "float":
+            bits = f"{x}.toInteger({to.width}, signed: {'true' if to.signed else 'false'})"
+            return f"{to_cls}.fromBigInt({bits})", _POSTFIX
+        if to.cat == frm.cat == "float":
+            return f"{to_cls}({x}.toDouble())", _POSTFIX
+        if to.cat == frm.cat == "complex" and not named_to:
+            return f"{to_cls}.from{frm.cls}({x})", _POSTFIX
+        if to.cat == frm.cat == "string":
+            return (f"{to_cls}({x}.$str)" if named_to else f"{x}.$str"), _POSTFIX
+        if to.cat == "string" and frm.integer:
+            v = f"{g('String')}.fromCodePoint({x}.toBigInt())"
+            return (f"{to_cls}({v})" if named_to else v), _POSTFIX
+        raise Unsupported(f"conversão {frm.cat} → {to.cat}", n)
 
     def builtin(self, n, fun, args):
         name = fun["name"] if fun["node"] == "Ident" else None
         if name == "len":
             u = underlying(self.pkg, self.pkg.type_of(args[0]))
-            if u["kind"] in ("slice", "array", "map"):
-                return f"{self.expr(args[0], _POSTFIX)}.length", _POSTFIX
+            if u["kind"] in ("slice", "array", "map", "basic"):  # string: bytes
+                return f"{self.types.golang('Int')}({self.expr(args[0], _POSTFIX)}.length)", _POSTFIX
             raise Unsupported(f"len de {u['kind']}", n)
         if name == "append":
-            u = underlying(self.pkg, self.pkg.type_of(n))
-            items = [f"...{self.expr(args[0])}"]
+            s = self.expr(args[0], _POSTFIX)
             if n["ellipsis"] is not None:
-                items.append(f"...{self.expr(args[1])}")
-            else:
-                items += [self.expr(a) for a in args[1:]]
-            # ponytail: sempre copia (O(n) por append, sem aliasing de backing
-            # array); Slice<T> com cap resolve no M3.
-            return f"<{self.types.dart(u['elem'])}>[{', '.join(items)}]", _POSTFIX + 1
+                if basic(self.pkg, self.pkg.type_of(args[1])) is not None:
+                    raise Unsupported("append([]byte, string...)", n)
+                return f"{s}.appendSlice({self.expr(args[1])})", _POSTFIX
+            et = self.pkg.type_at(underlying(self.pkg, self.pkg.type_of(n))["elem"])
+            return f"{s}.append([{', '.join(self.coerce(a, et) for a in args[1:])}])", _POSTFIX
+        if name == "cap":
+            u = underlying(self.pkg, self.pkg.type_of(args[0]))
+            attr = "length" if u["kind"] == "array" else "capacity"
+            return f"{self.types.golang('Int')}({self.expr(args[0], _POSTFIX)}.{attr})", _POSTFIX
+        if name == "copy":
+            if basic(self.pkg, self.pkg.type_of(args[1])) is not None:
+                raise Unsupported("copy([]byte, string)", n)
+            dst, src = self.expr(args[0], _POSTFIX), self.expr(args[1])
+            return f"{self.types.golang('Int')}({dst}.copyFrom({src}))", _POSTFIX
         if name == "delete":
-            return f"{self.expr(args[0], _POSTFIX)}.remove({self.expr(args[1])})", _POSTFIX
+            return f"{self.expr(args[0], _POSTFIX)}.delete({self.expr(args[1])})", _POSTFIX
+        if name == "make":
+            t = self.pkg.type_at(args[0]["$type"])
+            u = underlying(self.pkg, t)
+            if u["kind"] == "slice":
+                ln = self.to_int(args[1])
+                cp = self.to_int(args[2]) if len(args) > 2 else ln
+                return f"{self.types.dart(t)}.make({ln}, {cp}, {self.elem(u['elem'])})", _POSTFIX
+            if u["kind"] == "map":
+                return f"{self.types.dart(t)}({self.elem(u['elem'])})", _POSTFIX
+            raise Unsupported(f"make de {u['kind']}", n)
+        if name == "new":
+            t = self.pkg.type_at(args[0]["$type"])
+            if self.is_struct(t):
+                return self.types.zero(t), _POSTFIX
+            box = self.qualify(None, "Box")
+            return f"{box}<{self.types.dart(t)}>({self.types.zero(t)})", _POSTFIX
         if name == "panic":
-            return f"throw {self.qualify(None, 'Panic')}({self.expr(args[0])})", 0
+            any_t = {"kind": "interface", "methods": [], "embeddeds": []}
+            return f"throw {self.qualify(None, 'Panic')}({self.coerce(args[0], any_t)})", 0
+        if name == "recover":
+            return f"{self.qualify(None, 'recover')}()", _POSTFIX
         raise Unsupported(f"builtin {name}", n)

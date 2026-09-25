@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 4,
   "tool": "goast",
   "goVersion": "go1.25.7",
   "packages": [
@@ -10265,7 +10265,17 @@
           "kind": "named",
           "pkg": "main",
           "name": "Counter",
-          "underlying": 4
+          "underlying": 4,
+          "methods": [
+            {
+              "name": "Inc",
+              "type": 8,
+              "index": [
+                0
+              ],
+              "ptr": true
+            }
+          ]
         },
         {
           "kind": "struct",
@@ -10520,6 +10530,7 @@
           "variadic": false
         }
       ],
+      "implements": null,
       "stdlibUsage": [
         "fmt.Println",
         "fmt.Sprint"

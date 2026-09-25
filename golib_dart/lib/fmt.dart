@@ -1,51 +1,133 @@
 /// Shim do pacote Go `fmt`.
+// ignore_for_file: library_prefixes
 library;
 
-import 'dart:io';
+import 'dart:convert';
+import 'dart:typed_data';
 
 import 'builtin.dart';
+import 'fixed_types/golang.dart' as Golang;
+import 'src/runtime/output.dart';
+
+/// `fmt.Stringer`.
+abstract interface class Stringer {
+  Golang.String string();
+}
 
 /// `fmt.Println`: operandos em `%v` separados por espaço, mais newline.
-(int, GoError?) println(List<Object?> a) {
-  final s = '${a.map(formatV).join(' ')}\n';
-  stdout.write(s);
-  return (
-    s.length,
-    null,
-  ); // ponytail: conta UTF-16, não bytes; UTF-8 quando []byte existir
+/// Escreve os bytes exatos (strings Go podem não ser UTF-8 válido).
+(Golang.Int, GoError?) println(Slice<Object?> args) {
+  final a = args.items.toList();
+  final b = BytesBuilder(copy: false);
+  for (var i = 0; i < a.length; i++) {
+    if (i > 0) b.addByte(0x20);
+    _appendV(b, a[i]);
+  }
+  b.addByte(0x0a);
+  final bytes = b.takeBytes();
+  writeStdout(bytes);
+  return (Golang.Int(bytes.length), null);
 }
 
 /// `fmt.Sprint`: espaço entre operandos quando nenhum dos dois é string.
-String sprint(List<Object?> a) {
-  final b = StringBuffer();
+Golang.String sprint(Slice<Object?> args) {
+  final a = args.items.toList();
+  final b = BytesBuilder(copy: false);
   for (var i = 0; i < a.length; i++) {
-    if (i > 0 && a[i] is! String && a[i - 1] is! String) b.write(' ');
-    b.write(formatV(a[i]));
+    if (i > 0 && a[i] is! Golang.String && a[i - 1] is! Golang.String) {
+      b.addByte(0x20);
+    }
+    _appendV(b, a[i]);
   }
-  return b.toString();
+  return Golang.String.fromBytes(b.takeBytes());
 }
 
-/// Formatação `%v` do Go para os valores que o runtime conhece.
-String formatV(Object? v) => switch (v) {
-  null => '<nil>',
-  double d => _formatFloat(d),
-  GoError e => e.error(),
-  _ => v.toString(),
-};
-
-/// `strconv.FormatFloat(d, 'g', -1, 64)`: dígitos mínimos, notação
-/// exponencial quando o expoente decimal é < -4 ou >= 6.
-String _formatFloat(double d) {
-  if (d.isNaN) return 'NaN';
-  if (d.isInfinite) return d > 0 ? '+Inf' : '-Inf';
-  if (d == 0) return d.isNegative ? '-0' : '0';
-  final exp = d.toStringAsExponential(); // mínimo único: "1.5e+7"
-  final i = exp.indexOf('e');
-  final e = int.parse(exp.substring(i + 1));
-  if (e < -4 || e >= 6) {
-    final sign = e < 0 ? '-' : '+';
-    return '${exp.substring(0, i)}e$sign${e.abs().toString().padLeft(2, '0')}';
+/// Formatação `%v` do Go. Os wrappers de `fixed_types` já formatam como o Go
+/// no `toString` (floats: `strconv.FormatFloat(x, 'g', -1, bits)`).
+void _appendV(BytesBuilder b, Object? v, {bool nested = false}) {
+  switch (v) {
+    case null:
+      b.add(utf8.encode('<nil>'));
+    // Como o fmt do Go: error, depois Stringer, antes da forma estrutural.
+    case GoError e:
+      b.add(e.error().toBytes());
+    case Stringer s:
+      b.add(s.string().toBytes());
+    case GoStruct s:
+      // Ponteiro para struct no nível de topo: &{...}; aninhado ou por valor: {...}.
+      if (!nested && !s.$isValue) b.addByte(0x26);
+      b.addByte(0x7b);
+      final fields = s.$fields;
+      for (var i = 0; i < fields.length; i++) {
+        if (i > 0) b.addByte(0x20);
+        _appendV(b, fields[i], nested: true);
+      }
+      b.addByte(0x7d);
+    case GoArray a:
+      _appendList(b, a.items);
+    case Slice s:
+      _appendList(b, s.items);
+    case GoMap m:
+      // Go ordena as chaves ao imprimir (internal/fmtsort).
+      final entries = m.entries.toList()
+        ..sort((x, y) => _compareKeys(x.key, y.key));
+      b.add(utf8.encode('map['));
+      for (var i = 0; i < entries.length; i++) {
+        if (i > 0) b.addByte(0x20);
+        _appendV(b, entries[i].key, nested: true);
+        b.addByte(0x3a); // :
+        _appendV(b, entries[i].value, nested: true);
+      }
+      b.addByte(0x5d);
+    case Addr(target: null):
+      b.add(utf8.encode('<nil>'));
+    case Addr(:final target) when !nested && target is GoStruct:
+      b.addByte(0x26); // &{...} no nível de topo
+      _appendV(b, target);
+    case Addr(:final target):
+      // Ponteiro aninhado: o Go imprime o endereço.
+      b.add(utf8.encode('0x${identityHashCode(target).toRadixString(16)}'));
+    case Golang.StringBase s:
+      b.add(s.toBytes());
+    default:
+      b.add(utf8.encode(v.toString()));
   }
-  final s = d.toString();
-  return s.endsWith('.0') ? s.substring(0, s.length - 2) : s;
+}
+
+/// `%v` de um único valor, como bytes.
+Uint8List formatV(Object? v) {
+  final b = BytesBuilder(copy: false);
+  _appendV(b, v);
+  return b.takeBytes();
+}
+
+/// Ordem do internal/fmtsort para chaves básicas: números por valor (NaN
+/// antes), strings por bytes, false antes de true.
+int _compareKeys(Object? a, Object? b) {
+  if (a is Golang.Float64 && b is Golang.Float64) {
+    return _compareFloat(a.toDouble(), b.toDouble());
+  }
+  if (a is Golang.Float32 && b is Golang.Float32) {
+    return _compareFloat(a.toDouble(), b.toDouble());
+  }
+  if (a is bool && b is bool) return a == b ? 0 : (a ? 1 : -1);
+  if (a is Comparable && b is Comparable) return a.compareTo(b);
+  return 0; // ponytail: structs/ponteiros/interfaces ficam na ordem de inserção
+}
+
+int _compareFloat(double a, double b) {
+  if (a.isNaN) return b.isNaN ? 0 : -1;
+  if (b.isNaN) return 1;
+  return a.compareTo(b);
+}
+
+void _appendList(BytesBuilder b, Iterable<Object?> items) {
+  b.addByte(0x5b); // [
+  var first = true;
+  for (final e in items) {
+    if (!first) b.addByte(0x20);
+    first = false;
+    _appendV(b, e, nested: true);
+  }
+  b.addByte(0x5d); // ]
 }

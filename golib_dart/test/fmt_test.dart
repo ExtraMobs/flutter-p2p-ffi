@@ -1,32 +1,35 @@
+// ignore_for_file: library_prefixes
+import 'dart:typed_data';
+
+import 'package:golib_dart/builtin.dart' as go;
+import 'package:golib_dart/fixed_types/golang.dart' as Golang;
 import 'package:golib_dart/fmt.dart';
 import 'package:test/test.dart';
 
+go.Slice<Object?> args(List<Object?> a) =>
+    go.Slice.of(a, const go.Elem(16, go.zeroNull, pointers: true));
+
 void main() {
-  test('formatV de floats segue o %v do Go', () {
-    // Saída de referência: fmt.Println em go1.25.
-    const cases = [
-      (1.0, '1'),
-      (100000.0, '100000'),
-      (1000000.0, '1e+06'),
-      (1234567.0, '1.234567e+06'),
-      (123456789.0, '1.23456789e+08'),
-      (1e20, '1e+20'),
-      (1e21, '1e+21'),
-      (0.0001, '0.0001'),
-      (0.00001, '1e-05'),
-      (1.5, '1.5'),
-      (3.14159, '3.14159'),
-      (1e-7, '1e-07'),
-      (2.5e25, '2.5e+25'),
-      (-0.0, '-0'),
-      (double.infinity, '+Inf'),
-    ];
-    for (final (v, want) in cases) {
-      expect(formatV(v), want, reason: '$v');
-    }
+  test('sprint segue as regras de espaço do Go', () {
+    final s = Golang.String.fromDart;
+    // Go: fmt.Sprint(1, 2, "a", 3, "b", "c") == "1 2a3bc"
+    expect(
+      sprint(args([1, 2, s('a'), 3, s('b'), s('c')])).toString(),
+      '1 2a3bc',
+    );
   });
 
-  test('formatV de outros valores', () {
-    expect([null, true, 's', 42].map(formatV), ['<nil>', 'true', 's', '42']);
+  test('%v de nil, bool, wrappers e floats', () {
+    String v(Object? x) => sprint(args([x])).toString();
+    expect([null, true, 42].map(v), ['<nil>', 'true', '42']);
+    expect(v(Golang.Int8(-128) - Golang.Int8(1)), '127');
+    expect(v(Golang.Float64(1e6)), '1e+06');
+    expect(v(Golang.Float32.fromFloat64(Golang.Float64(0.1))), '0.1');
+    expect(v(Golang.Complex128.fromDoubles(1, -2)), '(1-2i)');
+  });
+
+  test('strings Go preservam bytes inválidos', () {
+    final bad = Golang.String.fromBytes(Uint8List.fromList([0x61, 0xff]));
+    expect(formatV(bad), [0x61, 0xff]);
   });
 }

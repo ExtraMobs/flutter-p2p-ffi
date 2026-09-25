@@ -1,6 +1,8 @@
 """Golden tests: tests/golden/<caso>/<caso>.go → .goast.json → .dart.
 
-G2D_UPDATE_GOLDEN=1 regrava os arquivos esperados (revisar o diff!).
+G2D_UPDATE_GOLDEN=1 regrava os arquivos esperados (revisar o diff!). Os testes
+são numerados na ordem do pipeline (unittest ordena por nome), então o update
+de uma etapa já alimenta a seguinte.
 O teste end-to-end compara `go run` com `dart run` do código gerado.
 """
 
@@ -20,6 +22,8 @@ GOLDEN = os.path.join(ROOT, "tests", "golden")
 UPDATE = os.environ.get("G2D_UPDATE_GOLDEN") == "1"
 HAVE_GO = shutil.which("go") is not None
 HAVE_DART = shutil.which("dart") is not None
+HAVE_NODE = shutil.which("node") is not None  # JS e Wasm rodam no Node
+WASM_RUNNER = os.path.join(os.path.dirname(os.path.abspath(__file__)), "run_wasm.mjs")
 WIN = sys.platform == "win32"
 
 CASES = sorted(d for d in os.listdir(GOLDEN) if os.path.isdir(os.path.join(GOLDEN, d)))
@@ -29,11 +33,13 @@ def case_file(case, ext):
     return os.path.join(GOLDEN, case, case + ext)
 
 
-def run(cmd, cwd=None):
-    r = subprocess.run(cmd, cwd=cwd, capture_output=True, text=True, encoding="utf-8", shell=WIN)
+def run(cmd, cwd=None, binary=False):
+    """Roda cmd; stdout em texto, ou em bytes (strings Go podem não ser UTF-8)."""
+    r = subprocess.run(cmd, cwd=cwd, capture_output=True, shell=WIN)
     if r.returncode != 0:
-        raise AssertionError(f"{' '.join(cmd)} falhou ({r.returncode}):\n{r.stdout}\n{r.stderr}")
-    return r.stdout
+        err = r.stderr.decode("utf-8", "replace")
+        raise AssertionError(f"{' '.join(cmd)} falhou ({r.returncode}):\n{r.stdout!r}\n{err}")
+    return r.stdout if binary else r.stdout.decode("utf-8")
 
 
 def check_golden(test, path, actual):
@@ -47,7 +53,7 @@ def check_golden(test, path, actual):
 
 class GoldenTest(unittest.TestCase):
     @unittest.skipUnless(HAVE_GO, "go ausente")
-    def test_goast_dump(self):
+    def test_1_goast_dump(self):
         for case in CASES:
             with self.subTest(case=case):
                 out = run(["go", "run", ".", "dump", os.path.join(GOLDEN, case)],
@@ -55,7 +61,7 @@ class GoldenTest(unittest.TestCase):
                 check_golden(self, case_file(case, ".goast.json"), out)
 
     @unittest.skipUnless(HAVE_DART, "dart ausente")
-    def test_dartast_dump(self):
+    def test_3_dartast_dump(self):
         """Round-trip: o .dart esperado continua parseável e com a AST registrada."""
         for case in CASES:
             if not os.path.exists(case_file(case, ".dartast.json")):
@@ -66,7 +72,7 @@ class GoldenTest(unittest.TestCase):
                 check_golden(self, case_file(case, ".dartast.json"), out)
 
     @unittest.skipUnless(HAVE_DART, "dart ausente")
-    def test_transpile(self):
+    def test_2_transpile(self):
         for case in CASES:
             with self.subTest(case=case):
                 with open(case_file(case, ".goast.json"), encoding="utf-8") as f:
@@ -74,8 +80,9 @@ class GoldenTest(unittest.TestCase):
                 check_golden(self, case_file(case, ".dart"), transpile_package(pkg))
 
     @unittest.skipUnless(HAVE_GO and HAVE_DART, "go/dart ausentes")
-    def test_end_to_end(self):
-        """dart analyze sem issues e saída idêntica à do programa Go."""
+    def test_4_end_to_end(self):
+        """dart analyze sem issues e saída idêntica à do Go em todas as
+        plataformas Dart: VM, JS (dart2js/Node) e Wasm (dart2wasm/Node)."""
         with tempfile.TemporaryDirectory() as tmp:
             with open(os.path.join(tmp, "pubspec.yaml"), "w", encoding="utf-8") as f:
                 f.write(PUBSPEC.format(golib=GOLIB.replace(os.sep, "/")))
@@ -85,11 +92,20 @@ class GoldenTest(unittest.TestCase):
             run(["dart", "pub", "get", "--offline"], cwd=tmp)
             run(["dart", "analyze", "--fatal-infos"], cwd=tmp)
             for case in CASES:
-                with self.subTest(case=case):
-                    want = run(["go", "run", case + ".go"], cwd=os.path.join(GOLDEN, case))
-                    got = run(["dart", "run", os.path.join("lib", case + ".dart")], cwd=tmp)
-                    self.assertEqual(want, got)
-
+                want = run(["go", "run", case + ".go"], cwd=os.path.join(GOLDEN, case), binary=True)
+                src = os.path.join("lib", case + ".dart")
+                with self.subTest(case=case, platform="vm"):
+                    self.assertEqual(want, run(["dart", "run", src], cwd=tmp, binary=True))
+                if not HAVE_NODE:
+                    continue
+                js = os.path.join("out", case + ".js")
+                with self.subTest(case=case, platform="js"):
+                    run(["dart", "compile", "js", "-O1", "-o", js, src], cwd=tmp)
+                    self.assertEqual(want, run(["node", js], cwd=tmp, binary=True))
+                mjs, wasm = os.path.join("out", case + ".mjs"), os.path.join("out", case + ".wasm")
+                with self.subTest(case=case, platform="wasm"):
+                    run(["dart", "compile", "wasm", "-o", wasm, src], cwd=tmp)
+                    self.assertEqual(want, run(["node", WASM_RUNNER, mjs, wasm], cwd=tmp, binary=True))
 
 if __name__ == "__main__":
     unittest.main()

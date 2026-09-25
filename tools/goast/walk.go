@@ -171,6 +171,10 @@ func (w *walker) annotate(n ast.Node, obj jobject) jobject {
 	}
 	switch n := n.(type) {
 	case *ast.Ident:
+		// Instanciação de genérico (F[int], Stack[T]): argumentos de tipo.
+		if inst, ok := w.info.Instances[n]; ok && inst.TypeArgs != nil {
+			obj = append(obj, jpair{"$inst", w.tt.refs(inst.TypeArgs.Len(), inst.TypeArgs.At)})
+		}
 		if o := w.info.Defs[n]; o != nil {
 			obj = append(obj, jpair{"$obj", w.objInfo(o, true)})
 		} else if o := w.info.Uses[n]; o != nil {

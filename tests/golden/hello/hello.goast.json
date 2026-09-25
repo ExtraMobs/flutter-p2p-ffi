@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 4,
   "tool": "goast",
   "goVersion": "go1.25.7",
   "packages": [
@@ -1430,7 +1430,17 @@
           "kind": "named",
           "pkg": "main",
           "name": "Greeter",
-          "underlying": 1
+          "underlying": 1,
+          "methods": [
+            {
+              "name": "Greet",
+              "type": 3,
+              "index": [
+                0
+              ],
+              "ptr": false
+            }
+          ]
         },
         {
           "kind": "struct",
@@ -1520,6 +1530,7 @@
           ]
         }
       ],
+      "implements": null,
       "stdlibUsage": [
         "fmt.Println"
       ],

@@ -3,7 +3,7 @@
 import json
 from dataclasses import dataclass
 
-SCHEMA_VERSION = 2
+SCHEMA_VERSION = 4
 
 
 class Unsupported(Exception):
@@ -22,6 +22,7 @@ class Package:
     files: list  # [{"path", "ast"}]
     imports: list
     type_table: list
+    implements: list  # [{"type": i, "interfaces": [j, ...]}]
 
     def type_of(self, node):
         """Descritor do tipo ($type) de uma expressão, ou None."""
@@ -46,6 +47,7 @@ def parse_dump(doc):
             f"schemaVersion={doc.get('schemaVersion')!r} (esperado goast v{SCHEMA_VERSION})"
         )
     return [
-        Package(p["path"], p["name"], p["files"] or [], p["imports"] or [], p["typeTable"] or [])
+        Package(p["path"], p["name"], p["files"] or [], p["imports"] or [], p["typeTable"] or [],
+                p.get("implements") or [])
         for p in doc["packages"]
     ]

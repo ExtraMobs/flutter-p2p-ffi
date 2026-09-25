@@ -4,6 +4,7 @@ import (
 	"go/constant"
 	"go/types"
 	"strconv"
+	"unicode/utf8"
 
 	"golang.org/x/tools/go/types/typeutil"
 )
@@ -54,7 +55,11 @@ func (tt *typeTable) describe(t types.Type) jobject {
 		if args := t.TypeArgs(); args != nil {
 			d = append(d, jpair{"args", tt.refs(args.Len(), args.At)})
 		}
-		return append(d, jpair{"underlying", tt.ref(t.Underlying())})
+		d = append(d, jpair{"underlying", tt.ref(t.Underlying())})
+		if _, iface := t.Underlying().(*types.Interface); !iface {
+			d = append(d, jpair{"methods", tt.methodSet(t)})
+		}
+		return d
 	case *types.Pointer:
 		return jobject{{"kind", "pointer"}, {"elem", tt.ref(t.Elem())}}
 	case *types.Slice:
@@ -112,7 +117,17 @@ func pkgPath(p *types.Package) string {
 func constValue(v constant.Value) jobject {
 	switch v.Kind() {
 	case constant.String:
-		return jobject{{"kind", "string"}, {"value", constant.StringVal(v)}}
+		sv := constant.StringVal(v)
+		d := jobject{{"kind", "string"}, {"value", sv}}
+		if !utf8.ValidString(sv) {
+			// JSON troca bytes inválidos por U+FFFD; os bytes exatos vão à parte.
+			bs := make([]int, len(sv))
+			for i := range len(sv) {
+				bs[i] = int(sv[i])
+			}
+			d = append(d, jpair{"bytes", bs})
+		}
+		return d
 	case constant.Bool:
 		return jobject{{"kind", "bool"}, {"value", constant.BoolVal(v)}}
 	case constant.Int:
@@ -128,4 +143,25 @@ func constValue(v constant.Value) jobject {
 	default:
 		return jobject{{"kind", "unknown"}}
 	}
+}
+
+// methodSet lista o method set de *T (que contém o de T): nome, assinatura,
+// caminho de embedding (index) e se o método só existe em *T (ptr).
+func (tt *typeTable) methodSet(t *types.Named) []jobject {
+	vset := types.NewMethodSet(t)
+	pset := types.NewMethodSet(types.NewPointer(t))
+	out := make([]jobject, 0, pset.Len())
+	for i := 0; i < pset.Len(); i++ {
+		sel := pset.At(i)
+		m := sel.Obj()
+		index := make([]int, len(sel.Index()))
+		copy(index, sel.Index())
+		out = append(out, jobject{
+			{"name", m.Name()},
+			{"type", tt.ref(m.Type())},
+			{"index", index},
+			{"ptr", vset.Lookup(m.Pkg(), m.Name()) == nil},
+		})
+	}
+	return out
 }

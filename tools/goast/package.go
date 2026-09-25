@@ -30,6 +30,7 @@ func dumpPackage(fset *token.FileSet, p *packages.Package) *PackageDump {
 		d.Files = append(d.Files, &FileDump{Path: path, AST: w.walk(reflect.ValueOf(f))})
 	}
 
+	d.Implements = dumpImplements(p, w.tt)
 	d.TypeTable = w.tt.list
 	d.Imports = dumpImports(p)
 	d.StdlibUsage = dumpStdlibUsage(p)
@@ -121,4 +122,60 @@ func printNode(fset *token.FileSet, n ast.Node) string {
 		return ""
 	}
 	return b.String()
+}
+
+// dumpImplements: para cada tipo nomeado (não-interface) de nível de pacote,
+// as interfaces nomeadas com métodos, alcançáveis (pacote, imports diretos e
+// o universo `error`), que T ou *T satisfaz. Ordem determinística.
+func dumpImplements(p *packages.Package, tt *typeTable) []jobject {
+	var ifaces []*types.Named
+	addScope := func(scope *types.Scope, exportedOnly bool) {
+		for _, name := range scope.Names() {
+			tn, ok := scope.Lookup(name).(*types.TypeName)
+			if !ok || tn.IsAlias() || (exportedOnly && !tn.Exported()) {
+				continue
+			}
+			named, ok := tn.Type().(*types.Named)
+			if !ok || named.TypeParams().Len() > 0 {
+				continue
+			}
+			if it, ok := named.Underlying().(*types.Interface); ok && it.IsMethodSet() && it.NumMethods() > 0 {
+				ifaces = append(ifaces, named)
+			}
+		}
+	}
+	addScope(types.Universe, false)
+	addScope(p.Types.Scope(), false)
+	imps := p.Types.Imports()
+	sort.Slice(imps, func(i, j int) bool { return imps[i].Path() < imps[j].Path() })
+	for _, imp := range imps {
+		addScope(imp.Scope(), true)
+	}
+
+	var out []jobject
+	scope := p.Types.Scope()
+	for _, name := range scope.Names() {
+		tn, ok := scope.Lookup(name).(*types.TypeName)
+		if !ok || tn.IsAlias() {
+			continue
+		}
+		named, ok := tn.Type().(*types.Named)
+		if !ok || named.TypeParams().Len() > 0 {
+			continue
+		}
+		if _, iface := named.Underlying().(*types.Interface); iface {
+			continue
+		}
+		var impl []any
+		for _, it := range ifaces {
+			iface := it.Underlying().(*types.Interface)
+			if types.Implements(named, iface) || types.Implements(types.NewPointer(named), iface) {
+				impl = append(impl, tt.ref(it))
+			}
+		}
+		if len(impl) > 0 {
+			out = append(out, jobject{{"type", tt.ref(named)}, {"interfaces", impl}})
+		}
+	}
+	return out
 }
