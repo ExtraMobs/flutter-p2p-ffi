@@ -91,16 +91,14 @@ class Functions(Service):
         """Bound Dart da constraint de um parâmetro de tipo: interface com
         métodos → a interface; união de tipos → a base comum de fixed_types
         (IntBase, GoReal, GoOrdered, StringBase); any/comparable → nenhum."""
+        core = self.typesys.underlying(tp)
+        if core["kind"] in ("slice", "map", "array"):
+            return self.types.dart(core).non_null()  # `S ~[]E` → go.Slice<E>
         c = self.pkg.type_at(tp["constraint"])
         u = self.typesys.underlying(c)
         if u["kind"] != "interface":
             return None
-        terms = []
-        for e in u["embeddeds"]:
-            et = self.pkg.type_at(e)
-            if et["kind"] == "named" and et["pkg"] == "" and et["name"] == "comparable":
-                continue  # restrição de ==, sem bound Dart
-            terms += [self.pkg.type_at(x["type"]) for x in et["terms"]] if et["kind"] == "union" else [et]
+        terms = self.typesys.constraint_terms(u)
         if not terms:
             return self.types.dart(c).non_null() if u["methods"] else None
         cats = {self.typesys.basic(x).cat if self.typesys.basic(x) else None for x in terms}
@@ -114,7 +112,9 @@ class Functions(Service):
             return f"{g('GoOrdered')}<{name}>"
         if cats == {"string"}:
             return f"{g('StringBase')}<{name}>"
-        raise Unsupported("constraint", "constraint de tipo não mapeada")
+        kinds = {self.typesys.underlying(x)["kind"] for x in terms}
+        why = "ponteiro" if "pointer" in kinds else "func" if "func" in kinds else "mista"
+        raise Unsupported(f"constraint:{why}", f"constraint sem bound Dart comum ({why})")
 
     def params(self, fields, sig):
         """Lista de parâmetros Dart + prólogo (parâmetros com `&p` vão para

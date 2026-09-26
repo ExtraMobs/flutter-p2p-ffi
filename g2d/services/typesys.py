@@ -75,7 +75,51 @@ class TypeSystem(Service):
     def underlying(self, t):
         while t["kind"] == "named":
             t = self.pkg.type_at(t["underlying"])
+        if t["kind"] == "typeparam":  # `S ~[]E`: o core type composto
+            core = self.core(t)
+            if core is not None and core["kind"] in ("slice", "map", "array"):
+                return core
         return t
+
+    def constraint_terms(self, iface):
+        """Termos de tipo de uma constraint, expandindo interfaces embutidas
+        (`constraints.Integer` = `Signed | Unsigned`) e ignorando `comparable`
+        e as só de métodos."""
+        out = []
+        for e in iface["embeddeds"]:
+            et = self.pkg.type_at(e)
+            if et["kind"] == "named" and et["pkg"] == "" and et["name"] == "comparable":
+                continue
+            if et["kind"] == "union":
+                for x in et["terms"]:
+                    xt = self.pkg.type_at(x["type"])
+                    xu = xt
+                    while xu["kind"] == "named":
+                        xu = self.pkg.type_at(xu["underlying"])
+                    out += self.constraint_terms(xu) if xu["kind"] == "interface" else [xt]
+                continue
+            eu = et
+            while eu["kind"] == "named":
+                eu = self.pkg.type_at(eu["underlying"])
+            if eu["kind"] == "interface":
+                out += self.constraint_terms(eu)
+            else:
+                out.append(et)
+        return out
+
+    def core(self, tp):
+        """Core type de um parâmetro de tipo (todos os termos da constraint
+        com o mesmo subjacente), ou None."""
+        c = self.pkg.type_at(tp["constraint"])
+        while c["kind"] == "named":
+            c = self.pkg.type_at(c["underlying"])
+        if c["kind"] != "interface":
+            return None
+        terms = self.constraint_terms(c)
+        us = [self.underlying(x) if x["kind"] != "typeparam" else x for x in terms]
+        if not us or any(u != us[0] for u in us):
+            return None
+        return us[0]
 
     def is_struct(self, t):
         """Struct por valor (nomeada ou anônima)."""

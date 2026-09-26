@@ -40,6 +40,8 @@ class DescriptorRegistry(Service):
             size, _, ptrs = self.typesys.layout(t)
             zero = self.zero_fn(t, dt)
             flag = ", pointers: true" if ptrs else ""
+            if self.typesys.named_composite(t) and self.typesys.underlying(t)["kind"] != "func":
+                flag += f", rewrap: {self.rewrap_fn(t, dt)}"  # S ~[]E instanciado com o nomeado
             b = self.typesys.basic(t)
             if b is not None and b.cat in ("wint", "float"):
                 flag += f", ofInt: {self.of_int_fn(t, b, dt)}, ofFloat: {self.of_float_fn(t, b, dt)}"
@@ -57,6 +59,12 @@ class DescriptorRegistry(Service):
         if t["kind"] == "named":
             v = f"{dt}({v}.toDouble())"
         self.elem_decls.append(f"{dt} {name}({g('IntBase')} n) => {v};")
+        return name
+
+    def rewrap_fn(self, t, dt):
+        """Função que vê o subjacente como o nomeado (dicionário de `S ~[]E`)."""
+        name = f"_$w{len(self.elem_decls)}_{len(self.elems)}"
+        self.elem_decls.append(f"{dt} {name}(Object v) => {self.types.wrap(t, f'v as {self.types.dart(self.typesys.underlying(t))}')};")
         return name
 
     def of_float_fn(self, t, b, dt):

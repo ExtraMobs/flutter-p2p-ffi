@@ -13,6 +13,11 @@ class Literals(Service):
     def literal(self, v, t):
         """Constante Go (valor exato do go/types) no tipo Dart de t."""
         k = v["kind"]
+        if t is not None and t["kind"] == "typeparam" and k in ("int", "float"):
+            # `val - 1` com val do tipo T: a constante vira T pelo dicionário.
+            if k == "int":
+                return f"{self.descriptors.elem(t)}.ofInt!({self.literal(v, None)})"
+            return f"{self.descriptors.elem(t)}.ofFloat!({self.literal(v, None)})"
         b = self.typesys.basic(t) if t else None
         if b is None or b.cat == "nil":  # sem tipo útil: tipo padrão do valor
             b = self.typesys.basic({"kind": "basic", "name": "untyped " + k})

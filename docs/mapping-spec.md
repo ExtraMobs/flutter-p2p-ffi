@@ -415,7 +415,16 @@ métodos da classe. As conversões usam os construtores:
   `GoReal<T>`; `cmp.Ordered` → `GoOrdered<T>`; strings → `StringBase<T>`;
   interface com métodos → a interface (com `comparable` embutido também:
   o goast lista essas interfaces no `implements`, fixture `comparablekey`);
-  `any`/`comparable` → nenhum.
+  `any`/`comparable` → nenhum. Interfaces de constraint embutidas são
+  expandidas (`constraints.Integer` = `Signed | Unsigned`).
+- Core type composto (`S ~[]E`, `M ~map[K]V`): o subjacente de S é `[]E`
+  (índice, `len`, `range`, `append` e fatiamento direto) e o bound é
+  `go.Slice<E>`; o que produz um valor de S (`append(s, x)`, `s[a:b]`) passa
+  por `$S.rewrapOf(v)`, que reembrulha no slice nomeado (descritores de
+  composto nomeado geram `rewrap`). Constante num contexto de T vira
+  `$T.ofInt!(...)`/`$T.ofFloat!(...)`. Fixture `constraintcore`. Sem bound
+  comum (união mista, ponteiro no core, união de funcs) → `constraint:<forma>`
+  (`TODO/P1-construcao-constraint-sem-bound.md`).
 - `/` sobre `T` → `$quo` (truncado nos inteiros, IEEE nos floats).
 - A chamada instancia explicitamente, `f<Golang.Int>(_$e0, ...)`, com os
   argumentos de tipo vindos do goast (`$inst`), inclusive `f[int](x)` e

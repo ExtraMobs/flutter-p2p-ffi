@@ -77,6 +77,8 @@ class TypeMapper(Service):
     def wrap(self, t, text):
         """Valor do subjacente (go.Slice, go.GoMap, função) visto como o tipo
         nomeado t, se t for classe gerada sobre ele (mesmo armazenamento)."""
+        if t["kind"] == "typeparam" and self.typesys.underlying(t)["kind"] != "typeparam":
+            return f"{self.descriptors.elem(t)}.rewrapOf({text})"  # S ~[]E
         if not self.typesys.named_composite(t):
             return text
         # Genérico (`Set[string]`): os dicionários vêm antes, como nas structs.
@@ -122,6 +124,8 @@ class TypeMapper(Service):
     def zero(self, index_or_desc):
         """Expressão Dart do zero value do tipo."""
         t = self.pkg.type_at(index_or_desc) if isinstance(index_or_desc, int) else index_or_desc
+        if t["kind"] == "typeparam":
+            return f"${t['name']}.zero()"  # dicionário do parâmetro de tipo
         u = self.typesys.underlying(t)
         k = u["kind"]
         if k == "basic":

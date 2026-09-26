@@ -16,7 +16,15 @@ final class Elem<T> {
     this.pointers = false,
     this.ofInt,
     this.ofFloat,
+    this.rewrap,
   });
+
+  /// Slice/map/array visto como T (T de core type composto, `S ~[]E`):
+  /// o tipo nomeado reembrulha (`IDs(v)`); o sem nome é o próprio valor.
+  final T Function(Object)? rewrap;
+
+  /// `append(s, x)` com s do parâmetro de tipo S devolve S, como no Go.
+  T rewrapOf(Object v) => rewrap != null ? rewrap!(v) : v as T;
 
   /// Conversão Go `T(n)` a partir de um inteiro, para tipos numéricos
   /// (dicionário de genéricos: `T(len(xs))` com T parâmetro de tipo).
