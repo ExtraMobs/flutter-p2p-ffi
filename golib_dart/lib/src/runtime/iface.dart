@@ -4,6 +4,8 @@ library;
 import '../../fixed_types/golang.dart' show GoTyped;
 import 'panic.dart';
 import 'ptr.dart';
+import 'slice.dart';
+import 'map.dart';
 import 'struct.dart';
 
 /// Nome Go do tipo dinâmico de um valor em interface (mensagens de erro).
@@ -89,3 +91,22 @@ bool ifaceEq(Object? a, Object? b) {
   }
   return a == b;
 }
+
+/// O método está no method set do valor dinâmico? Struct por valor numa
+/// interface só tem os de receptor valor (`$valueMethods`).
+bool goHasMethod(Object v, String name) {
+  if (v is GoStruct) {
+    return (v.$isValue ? v.$valueMethods : v.$ptrMethods).contains(name);
+  }
+  if (v is GoTyped) return v.$methods.contains(name);
+  return true;
+}
+
+/// `reflectlite.TypeOf(v).Comparable()`: slice, map e func não são
+/// comparáveis, nem struct/array que os contenham.
+bool goComparable(Object? v) => switch (v) {
+  null => true,
+  Slice() || GoMap() || Function() => false,
+  GoStruct s when s.$isValue => s.$fields.every(goComparable),
+  _ => true,
+};

@@ -25,6 +25,12 @@ abstract class GoValue<T extends GoValue<T>> implements GoTyped {
 
   /// Cópia para guardar o valor numa interface.
   T $ifaceCopy() => $copy()..$isValue = true;
+
+  /// X é exatamente `T?` (a classe deste valor)? Distingue, num alvo
+  /// `*S` do `errors.As`, "ponteiro para esta struct" (não aceita um S por
+  /// valor) de "interface que S implementa". Genéricos reificados: vale em
+  /// VM, JS e Wasm.
+  bool $classIs<X>() => <T?>[] is List<X> && <X>[] is List<T?>;
 }
 
 /// Base de toda struct Go gerada pelo g2d.

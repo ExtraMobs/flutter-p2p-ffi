@@ -70,4 +70,39 @@ class GoTypeInfo(Service):
                 names.append(self.imports.qualify(None, "GoError"))
             elif self.imports.transpiled(it["pkg"]) or (it["pkg"], it["name"]) in SHIM_INTERFACES:
                 names.append(self.imports.qualify(it["pkg"], type_name(it["name"])))
+        t = self.pkg.type_at(tidx)
+        for m in t.get("methods") or []:
+            if methods is not None and m["name"] not in methods:
+                continue
+            iface = self.error_iface(m)
+            if iface is not None:
+                names.append(self.imports.qualify(None, iface))
         return names
+
+    def error_iface(self, m):
+        """Interface do runtime que o pacote `errors` usa para percorrer a
+        cadeia, se o método tem a assinatura exata: `Unwrap() error`,
+        `Unwrap() []error`, `Is(error) bool`, `As(any) bool`."""
+        sig = self.pkg.type_at(m["type"])
+        params = [self.pkg.type_at(p) for p in sig["params"]]
+        results = [self.pkg.type_at(r) for r in sig["results"]]
+
+        def is_error(x):
+            return x["kind"] == "named" and x["pkg"] == "" and x["name"] == "error"
+
+        def is_bool(x):
+            return x["kind"] == "basic" and x["name"] == "bool"
+
+        if m["name"] == "Unwrap" and not params and len(results) == 1:
+            r = results[0]
+            if is_error(r):
+                return "Unwrapper"
+            if r["kind"] == "slice" and is_error(self.pkg.type_at(r["elem"])):
+                return "MultiUnwrapper"
+        if len(params) == 1 and len(results) == 1 and is_bool(results[0]):
+            p = params[0]
+            if m["name"] == "Is" and is_error(p):
+                return "ErrorIs"
+            if m["name"] == "As" and p["kind"] == "interface" and not p["methods"]:
+                return "ErrorAs"
+        return None

@@ -29,7 +29,13 @@
       "littleEndian"
     ],
     "errors": [
-      "new$"
+      "as",
+      "asType",
+      "errUnsupported",
+      "is$",
+      "join",
+      "new$",
+      "unwrap"
     ],
     "fmt": [
       "Formatter",
