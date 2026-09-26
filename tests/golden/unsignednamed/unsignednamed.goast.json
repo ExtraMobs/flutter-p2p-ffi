@@ -1,0 +1,3752 @@
+{
+  "schemaVersion": 7,
+  "tool": "goast",
+  "goVersion": "go1.26.5",
+  "packages": [
+    {
+      "path": "main",
+      "name": "main",
+      "files": [
+        {
+          "path": "unsignednamed.go",
+          "ast": {
+            "node": "File",
+            "doc": {
+              "node": "CommentGroup",
+              "list": [
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "unsignednamed.go",
+                    "line": 1,
+                    "column": 1,
+                    "offset": 0
+                  },
+                  "text": "// Tipos nomeados sobre inteiros sem sinal (antes: base `UInt32Base`"
+                },
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "unsignednamed.go",
+                    "line": 2,
+                    "column": 1,
+                    "offset": 69
+                  },
+                  "text": "// inexistente, Dart inválido; audit do kubo: go-fuse ioctl, dtls, zap...)."
+                }
+              ]
+            },
+            "package": {
+              "file": "unsignednamed.go",
+              "line": 3,
+              "column": 1,
+              "offset": 146
+            },
+            "name": {
+              "node": "Ident",
+              "namePos": {
+                "file": "unsignednamed.go",
+                "line": 3,
+                "column": 9,
+                "offset": 154
+              },
+              "name": "main",
+              "obj": null
+            },
+            "decls": [
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "unsignednamed.go",
+                  "line": 5,
+                  "column": 1,
+                  "offset": 160
+                },
+                "tok": "import",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "ImportSpec",
+                    "doc": null,
+                    "name": null,
+                    "path": {
+                      "node": "BasicLit",
+                      "valuePos": {
+                        "file": "unsignednamed.go",
+                        "line": 5,
+                        "column": 8,
+                        "offset": 167
+                      },
+                      "valueEnd": {
+                        "file": "unsignednamed.go",
+                        "line": 5,
+                        "column": 13,
+                        "offset": 172
+                      },
+                      "kind": "STRING",
+                      "value": "\"fmt\""
+                    },
+                    "comment": null,
+                    "endPos": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "unsignednamed.go",
+                  "line": 7,
+                  "column": 1,
+                  "offset": 174
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "unsignednamed.go",
+                        "line": 7,
+                        "column": 6,
+                        "offset": 179
+                      },
+                      "name": "Command",
+                      "obj": {
+                        "node": "Object",
+                        "name": "Command",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "Command",
+                        "kind": "type",
+                        "def": true,
+                        "type": 0,
+                        "decl": "unsignednamed.go:179",
+                        "pkg": "main",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "unsignednamed.go",
+                        "line": 7,
+                        "column": 14,
+                        "offset": 187
+                      },
+                      "name": "uint32",
+                      "obj": null,
+                      "$type": 1,
+                      "$isType": true,
+                      "$obj": {
+                        "name": "uint32",
+                        "kind": "type",
+                        "type": 1
+                      }
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": {
+                  "node": "FieldList",
+                  "opening": {
+                    "file": "unsignednamed.go",
+                    "line": 9,
+                    "column": 6,
+                    "offset": 200
+                  },
+                  "list": [
+                    {
+                      "node": "Field",
+                      "doc": null,
+                      "names": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "unsignednamed.go",
+                            "line": 9,
+                            "column": 7,
+                            "offset": 201
+                          },
+                          "name": "c",
+                          "obj": {
+                            "node": "Object",
+                            "name": "c",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "c",
+                            "kind": "var",
+                            "def": true,
+                            "type": 0,
+                            "decl": "unsignednamed.go:201",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "type": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "unsignednamed.go",
+                          "line": 9,
+                          "column": 9,
+                          "offset": 203
+                        },
+                        "name": "Command",
+                        "obj": {
+                          "node": "Object",
+                          "name": "Command",
+                          "kind": "type"
+                        },
+                        "$type": 0,
+                        "$isType": true,
+                        "$obj": {
+                          "name": "Command",
+                          "kind": "type",
+                          "type": 0,
+                          "decl": "unsignednamed.go:179",
+                          "pkg": "main",
+                          "top": true
+                        }
+                      },
+                      "tag": null,
+                      "comment": null
+                    }
+                  ],
+                  "closing": {
+                    "file": "unsignednamed.go",
+                    "line": 9,
+                    "column": 16,
+                    "offset": 210
+                  }
+                },
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "unsignednamed.go",
+                    "line": 9,
+                    "column": 18,
+                    "offset": 212
+                  },
+                  "name": "Next",
+                  "obj": null,
+                  "$obj": {
+                    "name": "Next",
+                    "kind": "method",
+                    "def": true,
+                    "type": 2,
+                    "decl": "unsignednamed.go:212",
+                    "pkg": "main"
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "unsignednamed.go",
+                    "line": 9,
+                    "column": 1,
+                    "offset": 195
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "unsignednamed.go",
+                      "line": 9,
+                      "column": 22,
+                      "offset": 216
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "unsignednamed.go",
+                      "line": 9,
+                      "column": 23,
+                      "offset": 217
+                    }
+                  },
+                  "results": {
+                    "node": "FieldList",
+                    "opening": null,
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": null,
+                        "type": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "unsignednamed.go",
+                            "line": 9,
+                            "column": 25,
+                            "offset": 219
+                          },
+                          "name": "Command",
+                          "obj": {
+                            "node": "Object",
+                            "name": "Command",
+                            "kind": "type"
+                          },
+                          "$type": 0,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "Command",
+                            "kind": "type",
+                            "type": 0,
+                            "decl": "unsignednamed.go:179",
+                            "pkg": "main",
+                            "top": true
+                          }
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": null
+                  }
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "unsignednamed.go",
+                    "line": 9,
+                    "column": 33,
+                    "offset": 227
+                  },
+                  "list": [
+                    {
+                      "node": "ReturnStmt",
+                      "return": {
+                        "file": "unsignednamed.go",
+                        "line": 9,
+                        "column": 35,
+                        "offset": 229
+                      },
+                      "results": [
+                        {
+                          "node": "BinaryExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "unsignednamed.go",
+                              "line": 9,
+                              "column": 42,
+                              "offset": 236
+                            },
+                            "name": "c",
+                            "obj": {
+                              "node": "Object",
+                              "name": "c",
+                              "kind": "var"
+                            },
+                            "$type": 0,
+                            "$obj": {
+                              "name": "c",
+                              "kind": "var",
+                              "type": 0,
+                              "decl": "unsignednamed.go:201",
+                              "pkg": "main"
+                            }
+                          },
+                          "opPos": {
+                            "file": "unsignednamed.go",
+                            "line": 9,
+                            "column": 44,
+                            "offset": 238
+                          },
+                          "op": "+",
+                          "y": {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "unsignednamed.go",
+                              "line": 9,
+                              "column": 46,
+                              "offset": 240
+                            },
+                            "valueEnd": {
+                              "file": "unsignednamed.go",
+                              "line": 9,
+                              "column": 47,
+                              "offset": 241
+                            },
+                            "kind": "INT",
+                            "value": "1",
+                            "$type": 0,
+                            "$value": {
+                              "kind": "int",
+                              "value": "1"
+                            }
+                          },
+                          "$type": 0
+                        }
+                      ]
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "unsignednamed.go",
+                    "line": 9,
+                    "column": 48,
+                    "offset": 242
+                  }
+                }
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "unsignednamed.go",
+                  "line": 11,
+                  "column": 1,
+                  "offset": 245
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "unsignednamed.go",
+                        "line": 11,
+                        "column": 6,
+                        "offset": 250
+                      },
+                      "name": "Color",
+                      "obj": {
+                        "node": "Object",
+                        "name": "Color",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "Color",
+                        "kind": "type",
+                        "def": true,
+                        "type": 3,
+                        "decl": "unsignednamed.go:250",
+                        "pkg": "main",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "unsignednamed.go",
+                        "line": 11,
+                        "column": 12,
+                        "offset": 256
+                      },
+                      "name": "uint8",
+                      "obj": null,
+                      "$type": 4,
+                      "$isType": true,
+                      "$obj": {
+                        "name": "uint8",
+                        "kind": "type",
+                        "type": 4
+                      }
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": {
+                  "node": "FieldList",
+                  "opening": {
+                    "file": "unsignednamed.go",
+                    "line": 13,
+                    "column": 6,
+                    "offset": 268
+                  },
+                  "list": [
+                    {
+                      "node": "Field",
+                      "doc": null,
+                      "names": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "unsignednamed.go",
+                            "line": 13,
+                            "column": 7,
+                            "offset": 269
+                          },
+                          "name": "c",
+                          "obj": {
+                            "node": "Object",
+                            "name": "c",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "c",
+                            "kind": "var",
+                            "def": true,
+                            "type": 3,
+                            "decl": "unsignednamed.go:269",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "type": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "unsignednamed.go",
+                          "line": 13,
+                          "column": 9,
+                          "offset": 271
+                        },
+                        "name": "Color",
+                        "obj": {
+                          "node": "Object",
+                          "name": "Color",
+                          "kind": "type"
+                        },
+                        "$type": 3,
+                        "$isType": true,
+                        "$obj": {
+                          "name": "Color",
+                          "kind": "type",
+                          "type": 3,
+                          "decl": "unsignednamed.go:250",
+                          "pkg": "main",
+                          "top": true
+                        }
+                      },
+                      "tag": null,
+                      "comment": null
+                    }
+                  ],
+                  "closing": {
+                    "file": "unsignednamed.go",
+                    "line": 13,
+                    "column": 14,
+                    "offset": 276
+                  }
+                },
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "unsignednamed.go",
+                    "line": 13,
+                    "column": 16,
+                    "offset": 278
+                  },
+                  "name": "Invert",
+                  "obj": null,
+                  "$obj": {
+                    "name": "Invert",
+                    "kind": "method",
+                    "def": true,
+                    "type": 5,
+                    "decl": "unsignednamed.go:278",
+                    "pkg": "main"
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "unsignednamed.go",
+                    "line": 13,
+                    "column": 1,
+                    "offset": 263
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "unsignednamed.go",
+                      "line": 13,
+                      "column": 22,
+                      "offset": 284
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "unsignednamed.go",
+                      "line": 13,
+                      "column": 23,
+                      "offset": 285
+                    }
+                  },
+                  "results": {
+                    "node": "FieldList",
+                    "opening": null,
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": null,
+                        "type": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "unsignednamed.go",
+                            "line": 13,
+                            "column": 25,
+                            "offset": 287
+                          },
+                          "name": "Color",
+                          "obj": {
+                            "node": "Object",
+                            "name": "Color",
+                            "kind": "type"
+                          },
+                          "$type": 3,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "Color",
+                            "kind": "type",
+                            "type": 3,
+                            "decl": "unsignednamed.go:250",
+                            "pkg": "main",
+                            "top": true
+                          }
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": null
+                  }
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "unsignednamed.go",
+                    "line": 13,
+                    "column": 31,
+                    "offset": 293
+                  },
+                  "list": [
+                    {
+                      "node": "ReturnStmt",
+                      "return": {
+                        "file": "unsignednamed.go",
+                        "line": 13,
+                        "column": 33,
+                        "offset": 295
+                      },
+                      "results": [
+                        {
+                          "node": "UnaryExpr",
+                          "opPos": {
+                            "file": "unsignednamed.go",
+                            "line": 13,
+                            "column": 40,
+                            "offset": 302
+                          },
+                          "op": "^",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "unsignednamed.go",
+                              "line": 13,
+                              "column": 41,
+                              "offset": 303
+                            },
+                            "name": "c",
+                            "obj": {
+                              "node": "Object",
+                              "name": "c",
+                              "kind": "var"
+                            },
+                            "$type": 3,
+                            "$obj": {
+                              "name": "c",
+                              "kind": "var",
+                              "type": 3,
+                              "decl": "unsignednamed.go:269",
+                              "pkg": "main"
+                            }
+                          },
+                          "$type": 3
+                        }
+                      ]
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "unsignednamed.go",
+                    "line": 13,
+                    "column": 43,
+                    "offset": 305
+                  }
+                }
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "unsignednamed.go",
+                  "line": 15,
+                  "column": 1,
+                  "offset": 308
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "unsignednamed.go",
+                        "line": 15,
+                        "column": 6,
+                        "offset": 313
+                      },
+                      "name": "Port",
+                      "obj": {
+                        "node": "Object",
+                        "name": "Port",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "Port",
+                        "kind": "type",
+                        "def": true,
+                        "type": 6,
+                        "decl": "unsignednamed.go:313",
+                        "pkg": "main",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "unsignednamed.go",
+                        "line": 15,
+                        "column": 11,
+                        "offset": 318
+                      },
+                      "name": "uint16",
+                      "obj": null,
+                      "$type": 7,
+                      "$isType": true,
+                      "$obj": {
+                        "name": "uint16",
+                        "kind": "type",
+                        "type": 7
+                      }
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "unsignednamed.go",
+                  "line": 17,
+                  "column": 1,
+                  "offset": 326
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "unsignednamed.go",
+                        "line": 17,
+                        "column": 6,
+                        "offset": 331
+                      },
+                      "name": "Seq",
+                      "obj": {
+                        "node": "Object",
+                        "name": "Seq",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "Seq",
+                        "kind": "type",
+                        "def": true,
+                        "type": 8,
+                        "decl": "unsignednamed.go:331",
+                        "pkg": "main",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "unsignednamed.go",
+                        "line": 17,
+                        "column": 10,
+                        "offset": 335
+                      },
+                      "name": "uint64",
+                      "obj": null,
+                      "$type": 9,
+                      "$isType": true,
+                      "$obj": {
+                        "name": "uint64",
+                        "kind": "type",
+                        "type": 9
+                      }
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": {
+                  "node": "FieldList",
+                  "opening": {
+                    "file": "unsignednamed.go",
+                    "line": 19,
+                    "column": 6,
+                    "offset": 348
+                  },
+                  "list": [
+                    {
+                      "node": "Field",
+                      "doc": null,
+                      "names": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "unsignednamed.go",
+                            "line": 19,
+                            "column": 7,
+                            "offset": 349
+                          },
+                          "name": "s",
+                          "obj": {
+                            "node": "Object",
+                            "name": "s",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "s",
+                            "kind": "var",
+                            "def": true,
+                            "type": 11,
+                            "decl": "unsignednamed.go:349",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "type": {
+                        "node": "StarExpr",
+                        "star": {
+                          "file": "unsignednamed.go",
+                          "line": 19,
+                          "column": 9,
+                          "offset": 351
+                        },
+                        "x": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "unsignednamed.go",
+                            "line": 19,
+                            "column": 10,
+                            "offset": 352
+                          },
+                          "name": "Seq",
+                          "obj": {
+                            "node": "Object",
+                            "name": "Seq",
+                            "kind": "type"
+                          },
+                          "$type": 8,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "Seq",
+                            "kind": "type",
+                            "type": 8,
+                            "decl": "unsignednamed.go:331",
+                            "pkg": "main",
+                            "top": true
+                          }
+                        },
+                        "$type": 11,
+                        "$isType": true
+                      },
+                      "tag": null,
+                      "comment": null
+                    }
+                  ],
+                  "closing": {
+                    "file": "unsignednamed.go",
+                    "line": 19,
+                    "column": 13,
+                    "offset": 355
+                  }
+                },
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "unsignednamed.go",
+                    "line": 19,
+                    "column": 15,
+                    "offset": 357
+                  },
+                  "name": "Inc",
+                  "obj": null,
+                  "$obj": {
+                    "name": "Inc",
+                    "kind": "method",
+                    "def": true,
+                    "type": 10,
+                    "decl": "unsignednamed.go:357",
+                    "pkg": "main"
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "unsignednamed.go",
+                    "line": 19,
+                    "column": 1,
+                    "offset": 343
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "unsignednamed.go",
+                      "line": 19,
+                      "column": 18,
+                      "offset": 360
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "unsignednamed.go",
+                      "line": 19,
+                      "column": 19,
+                      "offset": 361
+                    }
+                  },
+                  "results": null
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "unsignednamed.go",
+                    "line": 19,
+                    "column": 21,
+                    "offset": 363
+                  },
+                  "list": [
+                    {
+                      "node": "IncDecStmt",
+                      "x": {
+                        "node": "StarExpr",
+                        "star": {
+                          "file": "unsignednamed.go",
+                          "line": 19,
+                          "column": 23,
+                          "offset": 365
+                        },
+                        "x": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "unsignednamed.go",
+                            "line": 19,
+                            "column": 24,
+                            "offset": 366
+                          },
+                          "name": "s",
+                          "obj": {
+                            "node": "Object",
+                            "name": "s",
+                            "kind": "var"
+                          },
+                          "$type": 11,
+                          "$obj": {
+                            "name": "s",
+                            "kind": "var",
+                            "type": 11,
+                            "decl": "unsignednamed.go:349",
+                            "pkg": "main"
+                          }
+                        },
+                        "$type": 8
+                      },
+                      "tokPos": {
+                        "file": "unsignednamed.go",
+                        "line": 19,
+                        "column": 25,
+                        "offset": 367
+                      },
+                      "tok": "++"
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "unsignednamed.go",
+                    "line": 19,
+                    "column": 28,
+                    "offset": 370
+                  }
+                }
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "unsignednamed.go",
+                  "line": 21,
+                  "column": 1,
+                  "offset": 373
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "unsignednamed.go",
+                        "line": 21,
+                        "column": 6,
+                        "offset": 378
+                      },
+                      "name": "Size",
+                      "obj": {
+                        "node": "Object",
+                        "name": "Size",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "Size",
+                        "kind": "type",
+                        "def": true,
+                        "type": 12,
+                        "decl": "unsignednamed.go:378",
+                        "pkg": "main",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "unsignednamed.go",
+                        "line": 21,
+                        "column": 11,
+                        "offset": 383
+                      },
+                      "name": "uint",
+                      "obj": null,
+                      "$type": 13,
+                      "$isType": true,
+                      "$obj": {
+                        "name": "uint",
+                        "kind": "type",
+                        "type": 13
+                      }
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "unsignednamed.go",
+                  "line": 23,
+                  "column": 1,
+                  "offset": 389
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "unsignednamed.go",
+                        "line": 23,
+                        "column": 6,
+                        "offset": 394
+                      },
+                      "name": "Addr",
+                      "obj": {
+                        "node": "Object",
+                        "name": "Addr",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "Addr",
+                        "kind": "type",
+                        "def": true,
+                        "type": 14,
+                        "decl": "unsignednamed.go:394",
+                        "pkg": "main",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "unsignednamed.go",
+                        "line": 23,
+                        "column": 11,
+                        "offset": 399
+                      },
+                      "name": "uintptr",
+                      "obj": null,
+                      "$type": 15,
+                      "$isType": true,
+                      "$obj": {
+                        "name": "uintptr",
+                        "kind": "type",
+                        "type": 15
+                      }
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "unsignednamed.go",
+                    "line": 25,
+                    "column": 6,
+                    "offset": 413
+                  },
+                  "name": "main",
+                  "obj": {
+                    "node": "Object",
+                    "name": "main",
+                    "kind": "func"
+                  },
+                  "$obj": {
+                    "name": "main",
+                    "kind": "func",
+                    "def": true,
+                    "type": 10,
+                    "decl": "unsignednamed.go:413",
+                    "pkg": "main",
+                    "top": true
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "unsignednamed.go",
+                    "line": 25,
+                    "column": 1,
+                    "offset": 408
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "unsignednamed.go",
+                      "line": 25,
+                      "column": 10,
+                      "offset": 417
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "unsignednamed.go",
+                      "line": 25,
+                      "column": 11,
+                      "offset": 418
+                    }
+                  },
+                  "results": null
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "unsignednamed.go",
+                    "line": 25,
+                    "column": 13,
+                    "offset": 420
+                  },
+                  "list": [
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "unsignednamed.go",
+                            "line": 26,
+                            "column": 2,
+                            "offset": 423
+                          },
+                          "name": "top",
+                          "obj": {
+                            "node": "Object",
+                            "name": "top",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "top",
+                            "kind": "var",
+                            "def": true,
+                            "type": 0,
+                            "decl": "unsignednamed.go:423",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "unsignednamed.go",
+                        "line": 26,
+                        "column": 6,
+                        "offset": 427
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "CallExpr",
+                          "fun": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "unsignednamed.go",
+                              "line": 26,
+                              "column": 9,
+                              "offset": 430
+                            },
+                            "name": "Command",
+                            "obj": {
+                              "node": "Object",
+                              "name": "Command",
+                              "kind": "type"
+                            },
+                            "$type": 0,
+                            "$isType": true,
+                            "$obj": {
+                              "name": "Command",
+                              "kind": "type",
+                              "type": 0,
+                              "decl": "unsignednamed.go:179",
+                              "pkg": "main",
+                              "top": true
+                            }
+                          },
+                          "lparen": {
+                            "file": "unsignednamed.go",
+                            "line": 26,
+                            "column": 16,
+                            "offset": 437
+                          },
+                          "args": [
+                            {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "unsignednamed.go",
+                                "line": 26,
+                                "column": 17,
+                                "offset": 438
+                              },
+                              "valueEnd": {
+                                "file": "unsignednamed.go",
+                                "line": 26,
+                                "column": 27,
+                                "offset": 448
+                              },
+                              "kind": "INT",
+                              "value": "0xFFFFFFFF",
+                              "$type": 0,
+                              "$value": {
+                                "kind": "int",
+                                "value": "4294967295"
+                              }
+                            }
+                          ],
+                          "ellipsis": null,
+                          "rparen": {
+                            "file": "unsignednamed.go",
+                            "line": 26,
+                            "column": 27,
+                            "offset": 448
+                          },
+                          "$type": 0,
+                          "$value": {
+                            "kind": "int",
+                            "value": "4294967295"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "unsignednamed.go",
+                              "line": 27,
+                              "column": 2,
+                              "offset": 451
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "unsignednamed.go",
+                              "line": 27,
+                              "column": 6,
+                              "offset": 455
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 16,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 16
+                        },
+                        "lparen": {
+                          "file": "unsignednamed.go",
+                          "line": 27,
+                          "column": 13,
+                          "offset": 462
+                        },
+                        "args": [
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "CallExpr",
+                                "fun": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "unsignednamed.go",
+                                    "line": 27,
+                                    "column": 14,
+                                    "offset": 463
+                                  },
+                                  "name": "Command",
+                                  "obj": {
+                                    "node": "Object",
+                                    "name": "Command",
+                                    "kind": "type"
+                                  },
+                                  "$type": 0,
+                                  "$isType": true,
+                                  "$obj": {
+                                    "name": "Command",
+                                    "kind": "type",
+                                    "type": 0,
+                                    "decl": "unsignednamed.go:179",
+                                    "pkg": "main",
+                                    "top": true
+                                  }
+                                },
+                                "lparen": {
+                                  "file": "unsignednamed.go",
+                                  "line": 27,
+                                  "column": 21,
+                                  "offset": 470
+                                },
+                                "args": [
+                                  {
+                                    "node": "BasicLit",
+                                    "valuePos": {
+                                      "file": "unsignednamed.go",
+                                      "line": 27,
+                                      "column": 22,
+                                      "offset": 471
+                                    },
+                                    "valueEnd": {
+                                      "file": "unsignednamed.go",
+                                      "line": 27,
+                                      "column": 23,
+                                      "offset": 472
+                                    },
+                                    "kind": "INT",
+                                    "value": "7",
+                                    "$type": 0,
+                                    "$value": {
+                                      "kind": "int",
+                                      "value": "7"
+                                    }
+                                  }
+                                ],
+                                "ellipsis": null,
+                                "rparen": {
+                                  "file": "unsignednamed.go",
+                                  "line": 27,
+                                  "column": 23,
+                                  "offset": 472
+                                },
+                                "$type": 0,
+                                "$value": {
+                                  "kind": "int",
+                                  "value": "7"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "unsignednamed.go",
+                                  "line": 27,
+                                  "column": 25,
+                                  "offset": 474
+                                },
+                                "name": "Next",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "Next",
+                                  "kind": "method",
+                                  "type": 2,
+                                  "decl": "unsignednamed.go:212",
+                                  "pkg": "main"
+                                }
+                              },
+                              "$type": 2,
+                              "$sel": {
+                                "kind": "method",
+                                "recv": 0,
+                                "index": [
+                                  0
+                                ],
+                                "indirect": false
+                              }
+                            },
+                            "lparen": {
+                              "file": "unsignednamed.go",
+                              "line": 27,
+                              "column": 29,
+                              "offset": 478
+                            },
+                            "args": null,
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "unsignednamed.go",
+                              "line": 27,
+                              "column": 30,
+                              "offset": 479
+                            },
+                            "$type": 0
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "unsignednamed.go",
+                                  "line": 27,
+                                  "column": 33,
+                                  "offset": 482
+                                },
+                                "name": "top",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "top",
+                                  "kind": "var"
+                                },
+                                "$type": 0,
+                                "$obj": {
+                                  "name": "top",
+                                  "kind": "var",
+                                  "type": 0,
+                                  "decl": "unsignednamed.go:423",
+                                  "pkg": "main"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "unsignednamed.go",
+                                  "line": 27,
+                                  "column": 37,
+                                  "offset": 486
+                                },
+                                "name": "Next",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "Next",
+                                  "kind": "method",
+                                  "type": 2,
+                                  "decl": "unsignednamed.go:212",
+                                  "pkg": "main"
+                                }
+                              },
+                              "$type": 2,
+                              "$sel": {
+                                "kind": "method",
+                                "recv": 0,
+                                "index": [
+                                  0
+                                ],
+                                "indirect": false
+                              }
+                            },
+                            "lparen": {
+                              "file": "unsignednamed.go",
+                              "line": 27,
+                              "column": 41,
+                              "offset": 490
+                            },
+                            "args": null,
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "unsignednamed.go",
+                              "line": 27,
+                              "column": 42,
+                              "offset": 491
+                            },
+                            "$type": 0
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "unsignednamed.go",
+                          "line": 27,
+                          "column": 43,
+                          "offset": 492
+                        },
+                        "$type": 24
+                      }
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "unsignednamed.go",
+                            "line": 28,
+                            "column": 2,
+                            "offset": 495
+                          },
+                          "name": "c",
+                          "obj": {
+                            "node": "Object",
+                            "name": "c",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "c",
+                            "kind": "var",
+                            "def": true,
+                            "type": 3,
+                            "decl": "unsignednamed.go:495",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "unsignednamed.go",
+                        "line": 28,
+                        "column": 4,
+                        "offset": 497
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "CallExpr",
+                          "fun": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "unsignednamed.go",
+                              "line": 28,
+                              "column": 7,
+                              "offset": 500
+                            },
+                            "name": "Color",
+                            "obj": {
+                              "node": "Object",
+                              "name": "Color",
+                              "kind": "type"
+                            },
+                            "$type": 3,
+                            "$isType": true,
+                            "$obj": {
+                              "name": "Color",
+                              "kind": "type",
+                              "type": 3,
+                              "decl": "unsignednamed.go:250",
+                              "pkg": "main",
+                              "top": true
+                            }
+                          },
+                          "lparen": {
+                            "file": "unsignednamed.go",
+                            "line": 28,
+                            "column": 12,
+                            "offset": 505
+                          },
+                          "args": [
+                            {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "unsignednamed.go",
+                                "line": 28,
+                                "column": 13,
+                                "offset": 506
+                              },
+                              "valueEnd": {
+                                "file": "unsignednamed.go",
+                                "line": 28,
+                                "column": 16,
+                                "offset": 509
+                              },
+                              "kind": "INT",
+                              "value": "200",
+                              "$type": 3,
+                              "$value": {
+                                "kind": "int",
+                                "value": "200"
+                              }
+                            }
+                          ],
+                          "ellipsis": null,
+                          "rparen": {
+                            "file": "unsignednamed.go",
+                            "line": 28,
+                            "column": 16,
+                            "offset": 509
+                          },
+                          "$type": 3,
+                          "$value": {
+                            "kind": "int",
+                            "value": "200"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "unsignednamed.go",
+                              "line": 29,
+                              "column": 2,
+                              "offset": 512
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "unsignednamed.go",
+                              "line": 29,
+                              "column": 6,
+                              "offset": 516
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 16,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 16
+                        },
+                        "lparen": {
+                          "file": "unsignednamed.go",
+                          "line": 29,
+                          "column": 13,
+                          "offset": 523
+                        },
+                        "args": [
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "CallExpr",
+                                "fun": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "unsignednamed.go",
+                                    "line": 29,
+                                    "column": 14,
+                                    "offset": 524
+                                  },
+                                  "name": "Color",
+                                  "obj": {
+                                    "node": "Object",
+                                    "name": "Color",
+                                    "kind": "type"
+                                  },
+                                  "$type": 3,
+                                  "$isType": true,
+                                  "$obj": {
+                                    "name": "Color",
+                                    "kind": "type",
+                                    "type": 3,
+                                    "decl": "unsignednamed.go:250",
+                                    "pkg": "main",
+                                    "top": true
+                                  }
+                                },
+                                "lparen": {
+                                  "file": "unsignednamed.go",
+                                  "line": 29,
+                                  "column": 19,
+                                  "offset": 529
+                                },
+                                "args": [
+                                  {
+                                    "node": "BasicLit",
+                                    "valuePos": {
+                                      "file": "unsignednamed.go",
+                                      "line": 29,
+                                      "column": 20,
+                                      "offset": 530
+                                    },
+                                    "valueEnd": {
+                                      "file": "unsignednamed.go",
+                                      "line": 29,
+                                      "column": 24,
+                                      "offset": 534
+                                    },
+                                    "kind": "INT",
+                                    "value": "0x0F",
+                                    "$type": 3,
+                                    "$value": {
+                                      "kind": "int",
+                                      "value": "15"
+                                    }
+                                  }
+                                ],
+                                "ellipsis": null,
+                                "rparen": {
+                                  "file": "unsignednamed.go",
+                                  "line": 29,
+                                  "column": 24,
+                                  "offset": 534
+                                },
+                                "$type": 3,
+                                "$value": {
+                                  "kind": "int",
+                                  "value": "15"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "unsignednamed.go",
+                                  "line": 29,
+                                  "column": 26,
+                                  "offset": 536
+                                },
+                                "name": "Invert",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "Invert",
+                                  "kind": "method",
+                                  "type": 5,
+                                  "decl": "unsignednamed.go:278",
+                                  "pkg": "main"
+                                }
+                              },
+                              "$type": 5,
+                              "$sel": {
+                                "kind": "method",
+                                "recv": 3,
+                                "index": [
+                                  0
+                                ],
+                                "indirect": false
+                              }
+                            },
+                            "lparen": {
+                              "file": "unsignednamed.go",
+                              "line": 29,
+                              "column": 32,
+                              "offset": 542
+                            },
+                            "args": null,
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "unsignednamed.go",
+                              "line": 29,
+                              "column": 33,
+                              "offset": 543
+                            },
+                            "$type": 3
+                          },
+                          {
+                            "node": "BinaryExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "unsignednamed.go",
+                                "line": 29,
+                                "column": 36,
+                                "offset": 546
+                              },
+                              "name": "c",
+                              "obj": {
+                                "node": "Object",
+                                "name": "c",
+                                "kind": "var"
+                              },
+                              "$type": 3,
+                              "$obj": {
+                                "name": "c",
+                                "kind": "var",
+                                "type": 3,
+                                "decl": "unsignednamed.go:495",
+                                "pkg": "main"
+                              }
+                            },
+                            "opPos": {
+                              "file": "unsignednamed.go",
+                              "line": 29,
+                              "column": 37,
+                              "offset": 547
+                            },
+                            "op": "+",
+                            "y": {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "unsignednamed.go",
+                                "line": 29,
+                                "column": 38,
+                                "offset": 548
+                              },
+                              "valueEnd": {
+                                "file": "unsignednamed.go",
+                                "line": 29,
+                                "column": 41,
+                                "offset": 551
+                              },
+                              "kind": "INT",
+                              "value": "100",
+                              "$type": 3,
+                              "$value": {
+                                "kind": "int",
+                                "value": "100"
+                              }
+                            },
+                            "$type": 3
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "unsignednamed.go",
+                          "line": 29,
+                          "column": 41,
+                          "offset": 551
+                        },
+                        "$type": 24
+                      }
+                    },
+                    {
+                      "node": "DeclStmt",
+                      "decl": {
+                        "node": "GenDecl",
+                        "doc": null,
+                        "tokPos": {
+                          "file": "unsignednamed.go",
+                          "line": 30,
+                          "column": 2,
+                          "offset": 554
+                        },
+                        "tok": "var",
+                        "lparen": null,
+                        "specs": [
+                          {
+                            "node": "ValueSpec",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "unsignednamed.go",
+                                  "line": 30,
+                                  "column": 6,
+                                  "offset": 558
+                                },
+                                "name": "p",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "p",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "p",
+                                  "kind": "var",
+                                  "def": true,
+                                  "type": 6,
+                                  "decl": "unsignednamed.go:558",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "unsignednamed.go",
+                                "line": 30,
+                                "column": 8,
+                                "offset": 560
+                              },
+                              "name": "Port",
+                              "obj": {
+                                "node": "Object",
+                                "name": "Port",
+                                "kind": "type"
+                              },
+                              "$type": 6,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "Port",
+                                "kind": "type",
+                                "type": 6,
+                                "decl": "unsignednamed.go:313",
+                                "pkg": "main",
+                                "top": true
+                              }
+                            },
+                            "values": [
+                              {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "unsignednamed.go",
+                                  "line": 30,
+                                  "column": 15,
+                                  "offset": 567
+                                },
+                                "valueEnd": {
+                                  "file": "unsignednamed.go",
+                                  "line": 30,
+                                  "column": 20,
+                                  "offset": 572
+                                },
+                                "kind": "INT",
+                                "value": "65535",
+                                "$type": 6,
+                                "$value": {
+                                  "kind": "int",
+                                  "value": "65535"
+                                }
+                              }
+                            ],
+                            "comment": null
+                          }
+                        ],
+                        "rparen": null
+                      }
+                    },
+                    {
+                      "node": "IncDecStmt",
+                      "x": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "unsignednamed.go",
+                          "line": 31,
+                          "column": 2,
+                          "offset": 574
+                        },
+                        "name": "p",
+                        "obj": {
+                          "node": "Object",
+                          "name": "p",
+                          "kind": "var"
+                        },
+                        "$type": 6,
+                        "$obj": {
+                          "name": "p",
+                          "kind": "var",
+                          "type": 6,
+                          "decl": "unsignednamed.go:558",
+                          "pkg": "main"
+                        }
+                      },
+                      "tokPos": {
+                        "file": "unsignednamed.go",
+                        "line": 31,
+                        "column": 3,
+                        "offset": 575
+                      },
+                      "tok": "++"
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "unsignednamed.go",
+                              "line": 32,
+                              "column": 2,
+                              "offset": 579
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "unsignednamed.go",
+                              "line": 32,
+                              "column": 6,
+                              "offset": 583
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 16,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 16
+                        },
+                        "lparen": {
+                          "file": "unsignednamed.go",
+                          "line": 32,
+                          "column": 13,
+                          "offset": 590
+                        },
+                        "args": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "unsignednamed.go",
+                              "line": 32,
+                              "column": 14,
+                              "offset": 591
+                            },
+                            "name": "p",
+                            "obj": {
+                              "node": "Object",
+                              "name": "p",
+                              "kind": "var"
+                            },
+                            "$type": 6,
+                            "$obj": {
+                              "name": "p",
+                              "kind": "var",
+                              "type": 6,
+                              "decl": "unsignednamed.go:558",
+                              "pkg": "main"
+                            }
+                          },
+                          {
+                            "node": "BinaryExpr",
+                            "x": {
+                              "node": "CallExpr",
+                              "fun": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "unsignednamed.go",
+                                  "line": 32,
+                                  "column": 17,
+                                  "offset": 594
+                                },
+                                "name": "Port",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "Port",
+                                  "kind": "type"
+                                },
+                                "$type": 6,
+                                "$isType": true,
+                                "$obj": {
+                                  "name": "Port",
+                                  "kind": "type",
+                                  "type": 6,
+                                  "decl": "unsignednamed.go:313",
+                                  "pkg": "main",
+                                  "top": true
+                                }
+                              },
+                              "lparen": {
+                                "file": "unsignednamed.go",
+                                "line": 32,
+                                "column": 21,
+                                "offset": 598
+                              },
+                              "args": [
+                                {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "unsignednamed.go",
+                                    "line": 32,
+                                    "column": 22,
+                                    "offset": 599
+                                  },
+                                  "valueEnd": {
+                                    "file": "unsignednamed.go",
+                                    "line": 32,
+                                    "column": 23,
+                                    "offset": 600
+                                  },
+                                  "kind": "INT",
+                                  "value": "1",
+                                  "$type": 6,
+                                  "$value": {
+                                    "kind": "int",
+                                    "value": "1"
+                                  }
+                                }
+                              ],
+                              "ellipsis": null,
+                              "rparen": {
+                                "file": "unsignednamed.go",
+                                "line": 32,
+                                "column": 23,
+                                "offset": 600
+                              },
+                              "$type": 6,
+                              "$value": {
+                                "kind": "int",
+                                "value": "1"
+                              }
+                            },
+                            "opPos": {
+                              "file": "unsignednamed.go",
+                              "line": 32,
+                              "column": 24,
+                              "offset": 601
+                            },
+                            "op": "\u003c\u003c",
+                            "y": {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "unsignednamed.go",
+                                "line": 32,
+                                "column": 26,
+                                "offset": 603
+                              },
+                              "valueEnd": {
+                                "file": "unsignednamed.go",
+                                "line": 32,
+                                "column": 28,
+                                "offset": 605
+                              },
+                              "kind": "INT",
+                              "value": "15",
+                              "$type": 25,
+                              "$value": {
+                                "kind": "int",
+                                "value": "15"
+                              }
+                            },
+                            "$type": 6,
+                            "$value": {
+                              "kind": "int",
+                              "value": "32768"
+                            }
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "unsignednamed.go",
+                          "line": 32,
+                          "column": 28,
+                          "offset": 605
+                        },
+                        "$type": 24
+                      }
+                    },
+                    {
+                      "node": "DeclStmt",
+                      "decl": {
+                        "node": "GenDecl",
+                        "doc": null,
+                        "tokPos": {
+                          "file": "unsignednamed.go",
+                          "line": 33,
+                          "column": 2,
+                          "offset": 608
+                        },
+                        "tok": "var",
+                        "lparen": null,
+                        "specs": [
+                          {
+                            "node": "ValueSpec",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "unsignednamed.go",
+                                  "line": 33,
+                                  "column": 6,
+                                  "offset": 612
+                                },
+                                "name": "s",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "s",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "s",
+                                  "kind": "var",
+                                  "def": true,
+                                  "type": 8,
+                                  "decl": "unsignednamed.go:612",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "unsignednamed.go",
+                                "line": 33,
+                                "column": 8,
+                                "offset": 614
+                              },
+                              "name": "Seq",
+                              "obj": {
+                                "node": "Object",
+                                "name": "Seq",
+                                "kind": "type"
+                              },
+                              "$type": 8,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "Seq",
+                                "kind": "type",
+                                "type": 8,
+                                "decl": "unsignednamed.go:331",
+                                "pkg": "main",
+                                "top": true
+                              }
+                            },
+                            "values": [
+                              {
+                                "node": "BinaryExpr",
+                                "x": {
+                                  "node": "BinaryExpr",
+                                  "x": {
+                                    "node": "BasicLit",
+                                    "valuePos": {
+                                      "file": "unsignednamed.go",
+                                      "line": 33,
+                                      "column": 14,
+                                      "offset": 620
+                                    },
+                                    "valueEnd": {
+                                      "file": "unsignednamed.go",
+                                      "line": 33,
+                                      "column": 15,
+                                      "offset": 621
+                                    },
+                                    "kind": "INT",
+                                    "value": "1",
+                                    "$type": 25,
+                                    "$value": {
+                                      "kind": "int",
+                                      "value": "1"
+                                    }
+                                  },
+                                  "opPos": {
+                                    "file": "unsignednamed.go",
+                                    "line": 33,
+                                    "column": 15,
+                                    "offset": 621
+                                  },
+                                  "op": "\u003c\u003c",
+                                  "y": {
+                                    "node": "BasicLit",
+                                    "valuePos": {
+                                      "file": "unsignednamed.go",
+                                      "line": 33,
+                                      "column": 17,
+                                      "offset": 623
+                                    },
+                                    "valueEnd": {
+                                      "file": "unsignednamed.go",
+                                      "line": 33,
+                                      "column": 19,
+                                      "offset": 625
+                                    },
+                                    "kind": "INT",
+                                    "value": "64",
+                                    "$type": 25,
+                                    "$value": {
+                                      "kind": "int",
+                                      "value": "64"
+                                    }
+                                  },
+                                  "$type": 25,
+                                  "$value": {
+                                    "kind": "int",
+                                    "value": "18446744073709551616"
+                                  }
+                                },
+                                "opPos": {
+                                  "file": "unsignednamed.go",
+                                  "line": 33,
+                                  "column": 20,
+                                  "offset": 626
+                                },
+                                "op": "-",
+                                "y": {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "unsignednamed.go",
+                                    "line": 33,
+                                    "column": 22,
+                                    "offset": 628
+                                  },
+                                  "valueEnd": {
+                                    "file": "unsignednamed.go",
+                                    "line": 33,
+                                    "column": 23,
+                                    "offset": 629
+                                  },
+                                  "kind": "INT",
+                                  "value": "1",
+                                  "$type": 25,
+                                  "$value": {
+                                    "kind": "int",
+                                    "value": "1"
+                                  }
+                                },
+                                "$type": 8,
+                                "$value": {
+                                  "kind": "int",
+                                  "value": "18446744073709551615"
+                                }
+                              }
+                            ],
+                            "comment": null
+                          }
+                        ],
+                        "rparen": null
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "unsignednamed.go",
+                              "line": 34,
+                              "column": 2,
+                              "offset": 631
+                            },
+                            "name": "s",
+                            "obj": {
+                              "node": "Object",
+                              "name": "s",
+                              "kind": "var"
+                            },
+                            "$type": 8,
+                            "$obj": {
+                              "name": "s",
+                              "kind": "var",
+                              "type": 8,
+                              "decl": "unsignednamed.go:612",
+                              "pkg": "main"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "unsignednamed.go",
+                              "line": 34,
+                              "column": 4,
+                              "offset": 633
+                            },
+                            "name": "Inc",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Inc",
+                              "kind": "method",
+                              "type": 10,
+                              "decl": "unsignednamed.go:357",
+                              "pkg": "main"
+                            }
+                          },
+                          "$type": 10,
+                          "$sel": {
+                            "kind": "method",
+                            "recv": 8,
+                            "index": [
+                              0
+                            ],
+                            "indirect": false
+                          }
+                        },
+                        "lparen": {
+                          "file": "unsignednamed.go",
+                          "line": 34,
+                          "column": 7,
+                          "offset": 636
+                        },
+                        "args": null,
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "unsignednamed.go",
+                          "line": 34,
+                          "column": 8,
+                          "offset": 637
+                        },
+                        "$type": 26
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "unsignednamed.go",
+                              "line": 35,
+                              "column": 2,
+                              "offset": 640
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "unsignednamed.go",
+                              "line": 35,
+                              "column": 6,
+                              "offset": 644
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 16,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 16
+                        },
+                        "lparen": {
+                          "file": "unsignednamed.go",
+                          "line": 35,
+                          "column": 13,
+                          "offset": 651
+                        },
+                        "args": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "unsignednamed.go",
+                              "line": 35,
+                              "column": 14,
+                              "offset": 652
+                            },
+                            "name": "s",
+                            "obj": {
+                              "node": "Object",
+                              "name": "s",
+                              "kind": "var"
+                            },
+                            "$type": 8,
+                            "$obj": {
+                              "name": "s",
+                              "kind": "var",
+                              "type": 8,
+                              "decl": "unsignednamed.go:612",
+                              "pkg": "main"
+                            }
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "unsignednamed.go",
+                          "line": 35,
+                          "column": 15,
+                          "offset": 653
+                        },
+                        "$type": 24
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "unsignednamed.go",
+                              "line": 36,
+                              "column": 2,
+                              "offset": 656
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "unsignednamed.go",
+                              "line": 36,
+                              "column": 6,
+                              "offset": 660
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 16,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 16
+                        },
+                        "lparen": {
+                          "file": "unsignednamed.go",
+                          "line": 36,
+                          "column": 13,
+                          "offset": 667
+                        },
+                        "args": [
+                          {
+                            "node": "BinaryExpr",
+                            "x": {
+                              "node": "CallExpr",
+                              "fun": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "unsignednamed.go",
+                                  "line": 36,
+                                  "column": 14,
+                                  "offset": 668
+                                },
+                                "name": "Size",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "Size",
+                                  "kind": "type"
+                                },
+                                "$type": 12,
+                                "$isType": true,
+                                "$obj": {
+                                  "name": "Size",
+                                  "kind": "type",
+                                  "type": 12,
+                                  "decl": "unsignednamed.go:378",
+                                  "pkg": "main",
+                                  "top": true
+                                }
+                              },
+                              "lparen": {
+                                "file": "unsignednamed.go",
+                                "line": 36,
+                                "column": 18,
+                                "offset": 672
+                              },
+                              "args": [
+                                {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "unsignednamed.go",
+                                    "line": 36,
+                                    "column": 19,
+                                    "offset": 673
+                                  },
+                                  "valueEnd": {
+                                    "file": "unsignednamed.go",
+                                    "line": 36,
+                                    "column": 20,
+                                    "offset": 674
+                                  },
+                                  "kind": "INT",
+                                  "value": "3",
+                                  "$type": 12,
+                                  "$value": {
+                                    "kind": "int",
+                                    "value": "3"
+                                  }
+                                }
+                              ],
+                              "ellipsis": null,
+                              "rparen": {
+                                "file": "unsignednamed.go",
+                                "line": 36,
+                                "column": 20,
+                                "offset": 674
+                              },
+                              "$type": 12,
+                              "$value": {
+                                "kind": "int",
+                                "value": "3"
+                              }
+                            },
+                            "opPos": {
+                              "file": "unsignednamed.go",
+                              "line": 36,
+                              "column": 21,
+                              "offset": 675
+                            },
+                            "op": "*",
+                            "y": {
+                              "node": "CallExpr",
+                              "fun": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "unsignednamed.go",
+                                  "line": 36,
+                                  "column": 22,
+                                  "offset": 676
+                                },
+                                "name": "Size",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "Size",
+                                  "kind": "type"
+                                },
+                                "$type": 12,
+                                "$isType": true,
+                                "$obj": {
+                                  "name": "Size",
+                                  "kind": "type",
+                                  "type": 12,
+                                  "decl": "unsignednamed.go:378",
+                                  "pkg": "main",
+                                  "top": true
+                                }
+                              },
+                              "lparen": {
+                                "file": "unsignednamed.go",
+                                "line": 36,
+                                "column": 26,
+                                "offset": 680
+                              },
+                              "args": [
+                                {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "unsignednamed.go",
+                                    "line": 36,
+                                    "column": 27,
+                                    "offset": 681
+                                  },
+                                  "valueEnd": {
+                                    "file": "unsignednamed.go",
+                                    "line": 36,
+                                    "column": 28,
+                                    "offset": 682
+                                  },
+                                  "kind": "INT",
+                                  "value": "4",
+                                  "$type": 12,
+                                  "$value": {
+                                    "kind": "int",
+                                    "value": "4"
+                                  }
+                                }
+                              ],
+                              "ellipsis": null,
+                              "rparen": {
+                                "file": "unsignednamed.go",
+                                "line": 36,
+                                "column": 28,
+                                "offset": 682
+                              },
+                              "$type": 12,
+                              "$value": {
+                                "kind": "int",
+                                "value": "4"
+                              }
+                            },
+                            "$type": 12,
+                            "$value": {
+                              "kind": "int",
+                              "value": "12"
+                            }
+                          },
+                          {
+                            "node": "BinaryExpr",
+                            "x": {
+                              "node": "CallExpr",
+                              "fun": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "unsignednamed.go",
+                                  "line": 36,
+                                  "column": 31,
+                                  "offset": 685
+                                },
+                                "name": "Addr",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "Addr",
+                                  "kind": "type"
+                                },
+                                "$type": 14,
+                                "$isType": true,
+                                "$obj": {
+                                  "name": "Addr",
+                                  "kind": "type",
+                                  "type": 14,
+                                  "decl": "unsignednamed.go:394",
+                                  "pkg": "main",
+                                  "top": true
+                                }
+                              },
+                              "lparen": {
+                                "file": "unsignednamed.go",
+                                "line": 36,
+                                "column": 35,
+                                "offset": 689
+                              },
+                              "args": [
+                                {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "unsignednamed.go",
+                                    "line": 36,
+                                    "column": 36,
+                                    "offset": 690
+                                  },
+                                  "valueEnd": {
+                                    "file": "unsignednamed.go",
+                                    "line": 36,
+                                    "column": 42,
+                                    "offset": 696
+                                  },
+                                  "kind": "INT",
+                                  "value": "0x1000",
+                                  "$type": 14,
+                                  "$value": {
+                                    "kind": "int",
+                                    "value": "4096"
+                                  }
+                                }
+                              ],
+                              "ellipsis": null,
+                              "rparen": {
+                                "file": "unsignednamed.go",
+                                "line": 36,
+                                "column": 42,
+                                "offset": 696
+                              },
+                              "$type": 14,
+                              "$value": {
+                                "kind": "int",
+                                "value": "4096"
+                              }
+                            },
+                            "opPos": {
+                              "file": "unsignednamed.go",
+                              "line": 36,
+                              "column": 43,
+                              "offset": 697
+                            },
+                            "op": "+",
+                            "y": {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "unsignednamed.go",
+                                "line": 36,
+                                "column": 44,
+                                "offset": 698
+                              },
+                              "valueEnd": {
+                                "file": "unsignednamed.go",
+                                "line": 36,
+                                "column": 45,
+                                "offset": 699
+                              },
+                              "kind": "INT",
+                              "value": "8",
+                              "$type": 14,
+                              "$value": {
+                                "kind": "int",
+                                "value": "8"
+                              }
+                            },
+                            "$type": 14,
+                            "$value": {
+                              "kind": "int",
+                              "value": "4104"
+                            }
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "unsignednamed.go",
+                          "line": 36,
+                          "column": 45,
+                          "offset": 699
+                        },
+                        "$type": 24
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "unsignednamed.go",
+                              "line": 37,
+                              "column": 2,
+                              "offset": 702
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "unsignednamed.go",
+                              "line": 37,
+                              "column": 6,
+                              "offset": 706
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 16,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 16
+                        },
+                        "lparen": {
+                          "file": "unsignednamed.go",
+                          "line": 37,
+                          "column": 13,
+                          "offset": 713
+                        },
+                        "args": [
+                          {
+                            "node": "BinaryExpr",
+                            "x": {
+                              "node": "CallExpr",
+                              "fun": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "unsignednamed.go",
+                                  "line": 37,
+                                  "column": 14,
+                                  "offset": 714
+                                },
+                                "name": "uint32",
+                                "obj": null,
+                                "$type": 1,
+                                "$isType": true,
+                                "$obj": {
+                                  "name": "uint32",
+                                  "kind": "type",
+                                  "type": 1
+                                }
+                              },
+                              "lparen": {
+                                "file": "unsignednamed.go",
+                                "line": 37,
+                                "column": 20,
+                                "offset": 720
+                              },
+                              "args": [
+                                {
+                                  "node": "CallExpr",
+                                  "fun": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "unsignednamed.go",
+                                      "line": 37,
+                                      "column": 21,
+                                      "offset": 721
+                                    },
+                                    "name": "Command",
+                                    "obj": {
+                                      "node": "Object",
+                                      "name": "Command",
+                                      "kind": "type"
+                                    },
+                                    "$type": 0,
+                                    "$isType": true,
+                                    "$obj": {
+                                      "name": "Command",
+                                      "kind": "type",
+                                      "type": 0,
+                                      "decl": "unsignednamed.go:179",
+                                      "pkg": "main",
+                                      "top": true
+                                    }
+                                  },
+                                  "lparen": {
+                                    "file": "unsignednamed.go",
+                                    "line": 37,
+                                    "column": 28,
+                                    "offset": 728
+                                  },
+                                  "args": [
+                                    {
+                                      "node": "BasicLit",
+                                      "valuePos": {
+                                        "file": "unsignednamed.go",
+                                        "line": 37,
+                                        "column": 29,
+                                        "offset": 729
+                                      },
+                                      "valueEnd": {
+                                        "file": "unsignednamed.go",
+                                        "line": 37,
+                                        "column": 30,
+                                        "offset": 730
+                                      },
+                                      "kind": "INT",
+                                      "value": "5",
+                                      "$type": 0,
+                                      "$value": {
+                                        "kind": "int",
+                                        "value": "5"
+                                      }
+                                    }
+                                  ],
+                                  "ellipsis": null,
+                                  "rparen": {
+                                    "file": "unsignednamed.go",
+                                    "line": 37,
+                                    "column": 30,
+                                    "offset": 730
+                                  },
+                                  "$type": 0,
+                                  "$value": {
+                                    "kind": "int",
+                                    "value": "5"
+                                  }
+                                }
+                              ],
+                              "ellipsis": null,
+                              "rparen": {
+                                "file": "unsignednamed.go",
+                                "line": 37,
+                                "column": 31,
+                                "offset": 731
+                              },
+                              "$type": 1,
+                              "$value": {
+                                "kind": "int",
+                                "value": "5"
+                              }
+                            },
+                            "opPos": {
+                              "file": "unsignednamed.go",
+                              "line": 37,
+                              "column": 33,
+                              "offset": 733
+                            },
+                            "op": "+",
+                            "y": {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "unsignednamed.go",
+                                "line": 37,
+                                "column": 35,
+                                "offset": 735
+                              },
+                              "valueEnd": {
+                                "file": "unsignednamed.go",
+                                "line": 37,
+                                "column": 36,
+                                "offset": 736
+                              },
+                              "kind": "INT",
+                              "value": "1",
+                              "$type": 1,
+                              "$value": {
+                                "kind": "int",
+                                "value": "1"
+                              }
+                            },
+                            "$type": 1,
+                            "$value": {
+                              "kind": "int",
+                              "value": "6"
+                            }
+                          },
+                          {
+                            "node": "BinaryExpr",
+                            "x": {
+                              "node": "CallExpr",
+                              "fun": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "unsignednamed.go",
+                                  "line": 37,
+                                  "column": 38,
+                                  "offset": 738
+                                },
+                                "name": "Command",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "Command",
+                                  "kind": "type"
+                                },
+                                "$type": 0,
+                                "$isType": true,
+                                "$obj": {
+                                  "name": "Command",
+                                  "kind": "type",
+                                  "type": 0,
+                                  "decl": "unsignednamed.go:179",
+                                  "pkg": "main",
+                                  "top": true
+                                }
+                              },
+                              "lparen": {
+                                "file": "unsignednamed.go",
+                                "line": 37,
+                                "column": 45,
+                                "offset": 745
+                              },
+                              "args": [
+                                {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "unsignednamed.go",
+                                    "line": 37,
+                                    "column": 46,
+                                    "offset": 746
+                                  },
+                                  "valueEnd": {
+                                    "file": "unsignednamed.go",
+                                    "line": 37,
+                                    "column": 47,
+                                    "offset": 747
+                                  },
+                                  "kind": "INT",
+                                  "value": "9",
+                                  "$type": 0,
+                                  "$value": {
+                                    "kind": "int",
+                                    "value": "9"
+                                  }
+                                }
+                              ],
+                              "ellipsis": null,
+                              "rparen": {
+                                "file": "unsignednamed.go",
+                                "line": 37,
+                                "column": 47,
+                                "offset": 747
+                              },
+                              "$type": 0,
+                              "$value": {
+                                "kind": "int",
+                                "value": "9"
+                              }
+                            },
+                            "opPos": {
+                              "file": "unsignednamed.go",
+                              "line": 37,
+                              "column": 49,
+                              "offset": 749
+                            },
+                            "op": "\u003e",
+                            "y": {
+                              "node": "CallExpr",
+                              "fun": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "unsignednamed.go",
+                                  "line": 37,
+                                  "column": 51,
+                                  "offset": 751
+                                },
+                                "name": "Command",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "Command",
+                                  "kind": "type"
+                                },
+                                "$type": 0,
+                                "$isType": true,
+                                "$obj": {
+                                  "name": "Command",
+                                  "kind": "type",
+                                  "type": 0,
+                                  "decl": "unsignednamed.go:179",
+                                  "pkg": "main",
+                                  "top": true
+                                }
+                              },
+                              "lparen": {
+                                "file": "unsignednamed.go",
+                                "line": 37,
+                                "column": 58,
+                                "offset": 758
+                              },
+                              "args": [
+                                {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "unsignednamed.go",
+                                    "line": 37,
+                                    "column": 59,
+                                    "offset": 759
+                                  },
+                                  "valueEnd": {
+                                    "file": "unsignednamed.go",
+                                    "line": 37,
+                                    "column": 60,
+                                    "offset": 760
+                                  },
+                                  "kind": "INT",
+                                  "value": "3",
+                                  "$type": 0,
+                                  "$value": {
+                                    "kind": "int",
+                                    "value": "3"
+                                  }
+                                }
+                              ],
+                              "ellipsis": null,
+                              "rparen": {
+                                "file": "unsignednamed.go",
+                                "line": 37,
+                                "column": 60,
+                                "offset": 760
+                              },
+                              "$type": 0,
+                              "$value": {
+                                "kind": "int",
+                                "value": "3"
+                              }
+                            },
+                            "$type": 27,
+                            "$value": {
+                              "kind": "bool",
+                              "value": true
+                            }
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "unsignednamed.go",
+                          "line": 37,
+                          "column": 61,
+                          "offset": 761
+                        },
+                        "$type": 24
+                      }
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "unsignednamed.go",
+                    "line": 38,
+                    "column": 1,
+                    "offset": 763
+                  }
+                }
+              }
+            ],
+            "fileStart": {
+              "file": "unsignednamed.go",
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "fileEnd": {
+              "file": "unsignednamed.go",
+              "line": 38,
+              "column": 3,
+              "offset": 765
+            },
+            "scope": null,
+            "imports": [
+              {
+                "node": "ImportSpec",
+                "doc": null,
+                "name": null,
+                "path": {
+                  "node": "BasicLit",
+                  "valuePos": {
+                    "file": "unsignednamed.go",
+                    "line": 5,
+                    "column": 8,
+                    "offset": 167
+                  },
+                  "valueEnd": {
+                    "file": "unsignednamed.go",
+                    "line": 5,
+                    "column": 13,
+                    "offset": 172
+                  },
+                  "kind": "STRING",
+                  "value": "\"fmt\""
+                },
+                "comment": null,
+                "endPos": null
+              }
+            ],
+            "unresolved": [
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "unsignednamed.go",
+                  "line": 7,
+                  "column": 14,
+                  "offset": 187
+                },
+                "name": "uint32",
+                "obj": null,
+                "$type": 1,
+                "$isType": true,
+                "$obj": {
+                  "name": "uint32",
+                  "kind": "type",
+                  "type": 1
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "unsignednamed.go",
+                  "line": 11,
+                  "column": 12,
+                  "offset": 256
+                },
+                "name": "uint8",
+                "obj": null,
+                "$type": 4,
+                "$isType": true,
+                "$obj": {
+                  "name": "uint8",
+                  "kind": "type",
+                  "type": 4
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "unsignednamed.go",
+                  "line": 15,
+                  "column": 11,
+                  "offset": 318
+                },
+                "name": "uint16",
+                "obj": null,
+                "$type": 7,
+                "$isType": true,
+                "$obj": {
+                  "name": "uint16",
+                  "kind": "type",
+                  "type": 7
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "unsignednamed.go",
+                  "line": 17,
+                  "column": 10,
+                  "offset": 335
+                },
+                "name": "uint64",
+                "obj": null,
+                "$type": 9,
+                "$isType": true,
+                "$obj": {
+                  "name": "uint64",
+                  "kind": "type",
+                  "type": 9
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "unsignednamed.go",
+                  "line": 21,
+                  "column": 11,
+                  "offset": 383
+                },
+                "name": "uint",
+                "obj": null,
+                "$type": 13,
+                "$isType": true,
+                "$obj": {
+                  "name": "uint",
+                  "kind": "type",
+                  "type": 13
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "unsignednamed.go",
+                  "line": 23,
+                  "column": 11,
+                  "offset": 399
+                },
+                "name": "uintptr",
+                "obj": null,
+                "$type": 15,
+                "$isType": true,
+                "$obj": {
+                  "name": "uintptr",
+                  "kind": "type",
+                  "type": 15
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "unsignednamed.go",
+                  "line": 27,
+                  "column": 2,
+                  "offset": 451
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "unsignednamed.go",
+                  "line": 29,
+                  "column": 2,
+                  "offset": 512
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "unsignednamed.go",
+                  "line": 32,
+                  "column": 2,
+                  "offset": 579
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "unsignednamed.go",
+                  "line": 35,
+                  "column": 2,
+                  "offset": 640
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "unsignednamed.go",
+                  "line": 36,
+                  "column": 2,
+                  "offset": 656
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "unsignednamed.go",
+                  "line": 37,
+                  "column": 2,
+                  "offset": 702
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "unsignednamed.go",
+                  "line": 37,
+                  "column": 14,
+                  "offset": 714
+                },
+                "name": "uint32",
+                "obj": null,
+                "$type": 1,
+                "$isType": true,
+                "$obj": {
+                  "name": "uint32",
+                  "kind": "type",
+                  "type": 1
+                }
+              }
+            ],
+            "comments": [
+              {
+                "node": "CommentGroup",
+                "list": [
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "unsignednamed.go",
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "text": "// Tipos nomeados sobre inteiros sem sinal (antes: base `UInt32Base`"
+                  },
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "unsignednamed.go",
+                      "line": 2,
+                      "column": 1,
+                      "offset": 69
+                    },
+                    "text": "// inexistente, Dart inválido; audit do kubo: go-fuse ioctl, dtls, zap...)."
+                  }
+                ]
+              }
+            ],
+            "goVersion": ""
+          }
+        }
+      ],
+      "imports": [
+        {
+          "path": "fmt",
+          "name": "fmt"
+        }
+      ],
+      "typeTable": [
+        {
+          "kind": "named",
+          "pkg": "main",
+          "name": "Command",
+          "underlying": 1,
+          "methods": [
+            {
+              "name": "Next",
+              "type": 2,
+              "index": [
+                0
+              ],
+              "ptr": false
+            }
+          ]
+        },
+        {
+          "kind": "basic",
+          "name": "uint32"
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            0
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "named",
+          "pkg": "main",
+          "name": "Color",
+          "underlying": 4,
+          "methods": [
+            {
+              "name": "Invert",
+              "type": 5,
+              "index": [
+                0
+              ],
+              "ptr": false
+            }
+          ]
+        },
+        {
+          "kind": "basic",
+          "name": "uint8"
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            3
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "named",
+          "pkg": "main",
+          "name": "Port",
+          "underlying": 7,
+          "methods": []
+        },
+        {
+          "kind": "basic",
+          "name": "uint16"
+        },
+        {
+          "kind": "named",
+          "pkg": "main",
+          "name": "Seq",
+          "underlying": 9,
+          "methods": [
+            {
+              "name": "Inc",
+              "type": 10,
+              "index": [
+                0
+              ],
+              "ptr": true
+            }
+          ]
+        },
+        {
+          "kind": "basic",
+          "name": "uint64"
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [],
+          "variadic": false
+        },
+        {
+          "kind": "pointer",
+          "elem": 8
+        },
+        {
+          "kind": "named",
+          "pkg": "main",
+          "name": "Size",
+          "underlying": 13,
+          "methods": []
+        },
+        {
+          "kind": "basic",
+          "name": "uint"
+        },
+        {
+          "kind": "named",
+          "pkg": "main",
+          "name": "Addr",
+          "underlying": 15,
+          "methods": []
+        },
+        {
+          "kind": "basic",
+          "name": "uintptr"
+        },
+        {
+          "kind": "func",
+          "params": [
+            17
+          ],
+          "results": [
+            19,
+            20
+          ],
+          "variadic": true
+        },
+        {
+          "kind": "slice",
+          "elem": 18
+        },
+        {
+          "kind": "interface",
+          "methods": [],
+          "embeddeds": []
+        },
+        {
+          "kind": "basic",
+          "name": "int"
+        },
+        {
+          "kind": "named",
+          "pkg": "",
+          "name": "error",
+          "underlying": 21
+        },
+        {
+          "kind": "interface",
+          "methods": [
+            {
+              "name": "Error",
+              "type": 22
+            }
+          ],
+          "embeddeds": []
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            23
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "basic",
+          "name": "string"
+        },
+        {
+          "kind": "tuple",
+          "elems": [
+            19,
+            20
+          ]
+        },
+        {
+          "kind": "basic",
+          "name": "untyped int"
+        },
+        {
+          "kind": "tuple",
+          "elems": []
+        },
+        {
+          "kind": "basic",
+          "name": "bool"
+        }
+      ],
+      "implements": null,
+      "initOrder": [],
+      "stdlibUsage": [
+        "fmt.Println"
+      ],
+      "reflectUsage": null
+    }
+  ]
+}

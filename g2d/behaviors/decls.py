@@ -367,7 +367,7 @@ class NamedClass(NonStructNamed):
         if b.cat == "wint":
             # Herda a representação da largura (Int32Base, Uint64Base...):
             # mesmo caminho rápido do tipo subjacente, sem indireção.
-            base = f"{g(('' if b.signed else 'U') + f'Int{b.width}Base')}<{cls}>"
+            base = f"{g(('Int' if b.signed else 'Uint') + f'{b.width}Base')}<{cls}>"
             body = [f"{cls}([int v = 0]) : super(v);",
                     f"{cls}.from({g('IntBase')} v) : super.from(v);",
                     f"{cls}.fromBigInt(BigInt v) : super.fromBigInt(v);"]
