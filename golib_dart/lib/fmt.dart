@@ -19,6 +19,16 @@ abstract interface class Stringer {
 /// `fmt.Println`: operandos em `%v` separados por espaço, mais newline.
 /// Escreve os bytes exatos (strings Go podem não ser UTF-8 válido).
 (Golang.Int, GoError?) println(Slice<Object?> args) {
+  final bytes = _sprintln(args);
+  writeStdout(bytes);
+  return (Golang.Int(bytes.length), null);
+}
+
+/// `fmt.Sprintln`: como [println], devolvido como string.
+Golang.String sprintln(Slice<Object?> args) =>
+    Golang.String.fromBytes(_sprintln(args));
+
+Uint8List _sprintln(Slice<Object?> args) {
   final a = args.items.toList();
   final b = BytesBuilder(copy: false);
   for (var i = 0; i < a.length; i++) {
@@ -26,9 +36,7 @@ abstract interface class Stringer {
     _appendV(b, a[i]);
   }
   b.addByte(0x0a);
-  final bytes = b.takeBytes();
-  writeStdout(bytes);
-  return (Golang.Int(bytes.length), null);
+  return b.takeBytes();
 }
 
 /// `fmt.Print`: como [sprint], escrito na saída padrão.

@@ -630,6 +630,22 @@ void main() {
       go.Slice<Object?>.of([Golang.String.fromDart('conta')], _$e0),
     );
     fmt.println(go.Slice<Object?>.of([written], _$e0));
+    Golang.String ln = fmt.sprintln(
+      go.Slice<Object?>.of([
+        Golang.String.fromDart('a'),
+        Golang.Int(1),
+        Golang.String.fromDart('b'),
+        Golang.Float64(2.5),
+        null,
+      ], _$e0),
+    );
+    fmt.printf(
+      Golang.String.fromDart('%q %q\n'),
+      go.Slice<Object?>.of([
+        ln,
+        fmt.sprintln(go.Slice<Object?>.nil(_$e0)),
+      ], _$e0),
+    );
   });
 }
 

@@ -34,7 +34,8 @@
       "printf",
       "println",
       "sprint",
-      "sprintf"
+      "sprintf",
+      "sprintln"
     ],
     "math": [
       "abs",

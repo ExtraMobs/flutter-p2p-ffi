@@ -125,4 +125,8 @@ func main() {
 
 	written, _ := fmt.Printf("%s\n", "conta")
 	fmt.Println(written)
+
+	// Sprintln: espaço entre todos os operandos (inclusive strings) e newline.
+	ln := fmt.Sprintln("a", 1, "b", 2.5, nil)
+	fmt.Printf("%q %q\n", ln, fmt.Sprintln())
 }
