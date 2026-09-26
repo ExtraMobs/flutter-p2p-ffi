@@ -1,7 +1,7 @@
 {
   "schemaVersion": 6,
   "tool": "goast",
-  "goVersion": "go1.25.7",
+  "goVersion": "go1.26.5",
   "packages": [
     {
       "path": "main",
@@ -87,6 +87,12 @@
                         "line": 6,
                         "column": 8,
                         "offset": 215
+                      },
+                      "valueEnd": {
+                        "file": "corenames.go",
+                        "line": 6,
+                        "column": 13,
+                        "offset": 220
                       },
                       "kind": "STRING",
                       "value": "\"fmt\""
@@ -627,6 +633,12 @@
                               "column": 46,
                               "offset": 348
                             },
+                            "valueEnd": {
+                              "file": "corenames.go",
+                              "line": 14,
+                              "column": 47,
+                              "offset": 349
+                            },
                             "kind": "INT",
                             "value": "2",
                             "$type": 6,
@@ -1072,7 +1084,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 14,
-                              "decl": "corenames.go:312",
+                              "decl": "corenames.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -1284,6 +1296,12 @@
                                   "column": 15,
                                   "offset": 480
                                 },
+                                "valueEnd": {
+                                  "file": "corenames.go",
+                                  "line": 21,
+                                  "column": 18,
+                                  "offset": 483
+                                },
                                 "kind": "STRING",
                                 "value": "\"x\"",
                                 "$type": 2,
@@ -1348,6 +1366,12 @@
                             "line": 22,
                             "column": 9,
                             "offset": 493
+                          },
+                          "valueEnd": {
+                            "file": "corenames.go",
+                            "line": 22,
+                            "column": 10,
+                            "offset": 494
                           },
                           "kind": "INT",
                           "value": "3",
@@ -1496,6 +1520,12 @@
                                   "line": 24,
                                   "column": 17,
                                   "offset": 525
+                                },
+                                "valueEnd": {
+                                  "file": "corenames.go",
+                                  "line": 24,
+                                  "column": 18,
+                                  "offset": 526
                                 },
                                 "kind": "INT",
                                 "value": "5",
@@ -1770,7 +1800,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 14,
-                              "decl": "corenames.go:312",
+                              "decl": "corenames.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -1979,6 +2009,12 @@
                                         "line": 27,
                                         "column": 52,
                                         "offset": 621
+                                      },
+                                      "valueEnd": {
+                                        "file": "corenames.go",
+                                        "line": 27,
+                                        "column": 55,
+                                        "offset": 624
                                       },
                                       "kind": "STRING",
                                       "value": "\"x\"",
@@ -2308,6 +2344,12 @@
                               "column": 8,
                               "offset": 686
                             },
+                            "valueEnd": {
+                              "file": "corenames.go",
+                              "line": 28,
+                              "column": 15,
+                              "offset": 693
+                            },
                             "kind": "STRING",
                             "value": "\"print\"",
                             "$type": 2,
@@ -2385,6 +2427,12 @@
                     "line": 6,
                     "column": 8,
                     "offset": 215
+                  },
+                  "valueEnd": {
+                    "file": "corenames.go",
+                    "line": 6,
+                    "column": 13,
+                    "offset": 220
                   },
                   "kind": "STRING",
                   "value": "\"fmt\""

@@ -57,7 +57,8 @@ igual em VM, AOT, Wasm e JS. A tabela completa está em
 
 A autoridade é a [spec do Go](https://go.dev/ref/spec): *Numeric types*,
 *Integer operators*, *Integer overflow* e *Conversions*. Os testes diferenciais
-rodam contra o Go instalado (1.25.7 windows/amd64).
+rodam contra o `go` do PATH; a versão de referência do projeto é a 1.26.5
+(`GOTOOLCHAIN=go1.26.5 dart test`), a mesma do goast e do corpus.
 
 - **Inteiros:** sem `BigInt` no caminho comum, com a mesma representação em
   todas as plataformas.

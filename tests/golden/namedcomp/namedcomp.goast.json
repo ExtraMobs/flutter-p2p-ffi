@@ -1,7 +1,7 @@
 {
   "schemaVersion": 6,
   "tool": "goast",
-  "goVersion": "go1.25.7",
+  "goVersion": "go1.26.5",
   "packages": [
     {
       "path": "main",
@@ -87,6 +87,12 @@
                         "line": 6,
                         "column": 8,
                         "offset": 221
+                      },
+                      "valueEnd": {
+                        "file": "namedcomp.go",
+                        "line": 6,
+                        "column": 13,
+                        "offset": 226
                       },
                       "kind": "STRING",
                       "value": "\"fmt\""
@@ -2349,6 +2355,12 @@
                               "column": 11,
                               "offset": 596
                             },
+                            "valueEnd": {
+                              "file": "namedcomp.go",
+                              "line": 23,
+                              "column": 12,
+                              "offset": 597
+                            },
                             "kind": "INT",
                             "value": "0",
                             "$type": 3,
@@ -2540,6 +2552,12 @@
                                       "line": 24,
                                       "column": 16,
                                       "offset": 627
+                                    },
+                                    "valueEnd": {
+                                      "file": "namedcomp.go",
+                                      "line": 24,
+                                      "column": 17,
+                                      "offset": 628
                                     },
                                     "kind": "INT",
                                     "value": "1",
@@ -2786,6 +2804,12 @@
                                             "column": 19,
                                             "offset": 661
                                           },
+                                          "valueEnd": {
+                                            "file": "namedcomp.go",
+                                            "line": 25,
+                                            "column": 20,
+                                            "offset": 662
+                                          },
                                           "kind": "INT",
                                           "value": "1",
                                           "$type": 3,
@@ -2941,6 +2965,12 @@
                                                   "line": 26,
                                                   "column": 17,
                                                   "offset": 682
+                                                },
+                                                "valueEnd": {
+                                                  "file": "namedcomp.go",
+                                                  "line": 26,
+                                                  "column": 18,
+                                                  "offset": 683
                                                 },
                                                 "kind": "INT",
                                                 "value": "1",
@@ -4685,6 +4715,12 @@
                                 "column": 54,
                                 "offset": 1016
                               },
+                              "valueEnd": {
+                                "file": "namedcomp.go",
+                                "line": 44,
+                                "column": 57,
+                                "offset": 1019
+                              },
                               "kind": "STRING",
                               "value": "\"#\"",
                               "$type": 9,
@@ -5351,6 +5387,12 @@
                               "column": 10,
                               "offset": 1147
                             },
+                            "valueEnd": {
+                              "file": "namedcomp.go",
+                              "line": 52,
+                              "column": 13,
+                              "offset": 1150
+                            },
                             "kind": "STRING",
                             "value": "\"c\"",
                             "$type": 9,
@@ -5441,6 +5483,12 @@
                               "line": 53,
                               "column": 10,
                               "offset": 1161
+                            },
+                            "valueEnd": {
+                              "file": "namedcomp.go",
+                              "line": 53,
+                              "column": 13,
+                              "offset": 1164
                             },
                             "kind": "STRING",
                             "value": "\"a\"",
@@ -5553,6 +5601,12 @@
                                 "line": 54,
                                 "column": 20,
                                 "offset": 1185
+                              },
+                              "valueEnd": {
+                                "file": "namedcomp.go",
+                                "line": 54,
+                                "column": 23,
+                                "offset": 1188
                               },
                               "kind": "STRING",
                               "value": "\"b\"",
@@ -5679,7 +5733,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 33,
-                              "decl": "namedcomp.go:312",
+                              "decl": "namedcomp.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -5814,6 +5868,12 @@
                                 "line": 56,
                                 "column": 33,
                                 "offset": 1235
+                              },
+                              "valueEnd": {
+                                "file": "namedcomp.go",
+                                "line": 56,
+                                "column": 34,
+                                "offset": 1236
                               },
                               "kind": "INT",
                               "value": "1",
@@ -6160,6 +6220,12 @@
                               "column": 14,
                               "offset": 1306
                             },
+                            "valueEnd": {
+                              "file": "namedcomp.go",
+                              "line": 58,
+                              "column": 15,
+                              "offset": 1307
+                            },
                             "kind": "INT",
                             "value": "1",
                             "$type": 3,
@@ -6223,6 +6289,12 @@
                               "column": 7,
                               "offset": 1316
                             },
+                            "valueEnd": {
+                              "file": "namedcomp.go",
+                              "line": 59,
+                              "column": 8,
+                              "offset": 1317
+                            },
                             "kind": "INT",
                             "value": "0",
                             "$type": 3,
@@ -6255,6 +6327,12 @@
                             "line": 59,
                             "column": 12,
                             "offset": 1321
+                          },
+                          "valueEnd": {
+                            "file": "namedcomp.go",
+                            "line": 59,
+                            "column": 15,
+                            "offset": 1324
                           },
                           "kind": "STRING",
                           "value": "\"z\"",
@@ -6302,7 +6380,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 33,
-                              "decl": "namedcomp.go:312",
+                              "decl": "namedcomp.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -6565,6 +6643,12 @@
                                 "column": 14,
                                 "offset": 1381
                               },
+                              "valueEnd": {
+                                "file": "namedcomp.go",
+                                "line": 61,
+                                "column": 17,
+                                "offset": 1384
+                              },
                               "kind": "STRING",
                               "value": "\"q\"",
                               "$type": 9,
@@ -6580,6 +6664,12 @@
                                 "line": 61,
                                 "column": 19,
                                 "offset": 1386
+                              },
+                              "valueEnd": {
+                                "file": "namedcomp.go",
+                                "line": 61,
+                                "column": 22,
+                                "offset": 1389
                               },
                               "kind": "STRING",
                               "value": "\"p\"",
@@ -6706,7 +6796,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 33,
-                              "decl": "namedcomp.go:312",
+                              "decl": "namedcomp.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -6806,6 +6896,12 @@
                                       "line": 63,
                                       "column": 30,
                                       "offset": 1434
+                                    },
+                                    "valueEnd": {
+                                      "file": "namedcomp.go",
+                                      "line": 63,
+                                      "column": 31,
+                                      "offset": 1435
                                     },
                                     "kind": "INT",
                                     "value": "2",
@@ -7032,6 +7128,12 @@
                               "column": 8,
                               "offset": 1464
                             },
+                            "valueEnd": {
+                              "file": "namedcomp.go",
+                              "line": 66,
+                              "column": 11,
+                              "offset": 1467
+                            },
                             "kind": "STRING",
                             "value": "\"x\"",
                             "$type": 9,
@@ -7087,7 +7189,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 33,
-                              "decl": "namedcomp.go:312",
+                              "decl": "namedcomp.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -7170,6 +7272,12 @@
                                   "line": 67,
                                   "column": 20,
                                   "offset": 1488
+                                },
+                                "valueEnd": {
+                                  "file": "namedcomp.go",
+                                  "line": 67,
+                                  "column": 23,
+                                  "offset": 1491
                                 },
                                 "kind": "STRING",
                                 "value": "\"x\"",
@@ -7258,6 +7366,12 @@
                                   "line": 67,
                                   "column": 32,
                                   "offset": 1500
+                                },
+                                "valueEnd": {
+                                  "file": "namedcomp.go",
+                                  "line": 67,
+                                  "column": 35,
+                                  "offset": 1503
                                 },
                                 "kind": "STRING",
                                 "value": "\"y\"",
@@ -7481,7 +7595,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 33,
-                              "decl": "namedcomp.go:312",
+                              "decl": "namedcomp.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -7564,6 +7678,12 @@
                                   "line": 69,
                                   "column": 23,
                                   "offset": 1553
+                                },
+                                "valueEnd": {
+                                  "file": "namedcomp.go",
+                                  "line": 69,
+                                  "column": 26,
+                                  "offset": 1556
                                 },
                                 "kind": "STRING",
                                 "value": "\"x\"",
@@ -7984,7 +8104,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 33,
-                              "decl": "namedcomp.go:312",
+                              "decl": "namedcomp.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -8038,6 +8158,12 @@
                                   "column": 18,
                                   "offset": 1638
                                 },
+                                "valueEnd": {
+                                  "file": "namedcomp.go",
+                                  "line": 72,
+                                  "column": 19,
+                                  "offset": 1639
+                                },
                                 "kind": "INT",
                                 "value": "2",
                                 "$type": 3,
@@ -8053,6 +8179,12 @@
                                   "line": 72,
                                   "column": 21,
                                   "offset": 1641
+                                },
+                                "valueEnd": {
+                                  "file": "namedcomp.go",
+                                  "line": 72,
+                                  "column": 22,
+                                  "offset": 1642
                                 },
                                 "kind": "INT",
                                 "value": "3",
@@ -8142,6 +8274,12 @@
                                   "column": 35,
                                   "offset": 1655
                                 },
+                                "valueEnd": {
+                                  "file": "namedcomp.go",
+                                  "line": 72,
+                                  "column": 36,
+                                  "offset": 1656
+                                },
                                 "kind": "INT",
                                 "value": "4",
                                 "$type": 3,
@@ -8157,6 +8295,12 @@
                                   "line": 72,
                                   "column": 38,
                                   "offset": 1658
+                                },
+                                "valueEnd": {
+                                  "file": "namedcomp.go",
+                                  "line": 72,
+                                  "column": 39,
+                                  "offset": 1659
                                 },
                                 "kind": "INT",
                                 "value": "5",
@@ -8726,7 +8870,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 33,
-                              "decl": "namedcomp.go:312",
+                              "decl": "namedcomp.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -8810,6 +8954,12 @@
                                   "column": 24,
                                   "offset": 1769
                                 },
+                                "valueEnd": {
+                                  "file": "namedcomp.go",
+                                  "line": 75,
+                                  "column": 25,
+                                  "offset": 1770
+                                },
                                 "kind": "INT",
                                 "value": "3",
                                 "$type": 3,
@@ -8825,6 +8975,12 @@
                                   "line": 75,
                                   "column": 27,
                                   "offset": 1772
+                                },
+                                "valueEnd": {
+                                  "file": "namedcomp.go",
+                                  "line": 75,
+                                  "column": 28,
+                                  "offset": 1773
                                 },
                                 "kind": "INT",
                                 "value": "4",
@@ -8884,6 +9040,12 @@
                                   "column": 35,
                                   "offset": 1780
                                 },
+                                "valueEnd": {
+                                  "file": "namedcomp.go",
+                                  "line": 75,
+                                  "column": 36,
+                                  "offset": 1781
+                                },
                                 "kind": "INT",
                                 "value": "5",
                                 "$type": 3,
@@ -8899,6 +9061,12 @@
                                   "line": 75,
                                   "column": 38,
                                   "offset": 1783
+                                },
+                                "valueEnd": {
+                                  "file": "namedcomp.go",
+                                  "line": 75,
+                                  "column": 39,
+                                  "offset": 1784
                                 },
                                 "kind": "INT",
                                 "value": "6",
@@ -9383,7 +9551,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 33,
-                              "decl": "namedcomp.go:312",
+                              "decl": "namedcomp.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -9856,7 +10024,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 33,
-                              "decl": "namedcomp.go:312",
+                              "decl": "namedcomp.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -10064,6 +10232,12 @@
                                 "column": 18,
                                 "offset": 1980
                               },
+                              "valueEnd": {
+                                "file": "namedcomp.go",
+                                "line": 87,
+                                "column": 19,
+                                "offset": 1981
+                              },
                               "kind": "INT",
                               "value": "1",
                               "$type": 23,
@@ -10079,6 +10253,12 @@
                                 "line": 87,
                                 "column": 21,
                                 "offset": 1983
+                              },
+                              "valueEnd": {
+                                "file": "namedcomp.go",
+                                "line": 87,
+                                "column": 22,
+                                "offset": 1984
                               },
                               "kind": "INT",
                               "value": "2",
@@ -10144,6 +10324,12 @@
                                 "line": 88,
                                 "column": 5,
                                 "offset": 1990
+                              },
+                              "valueEnd": {
+                                "file": "namedcomp.go",
+                                "line": 88,
+                                "column": 6,
+                                "offset": 1991
                               },
                               "kind": "INT",
                               "value": "1",
@@ -10289,6 +10475,12 @@
                                 "column": 11,
                                 "offset": 2009
                               },
+                              "valueEnd": {
+                                "file": "namedcomp.go",
+                                "line": 89,
+                                "column": 12,
+                                "offset": 2010
+                              },
                               "kind": "INT",
                               "value": "0",
                               "$type": 3,
@@ -10419,7 +10611,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 33,
-                              "decl": "namedcomp.go:312",
+                              "decl": "namedcomp.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -10671,7 +10863,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 33,
-                              "decl": "namedcomp.go:312",
+                              "decl": "namedcomp.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -12602,6 +12794,12 @@
                                   "column": 11,
                                   "offset": 2465
                                 },
+                                "valueEnd": {
+                                  "file": "namedcomp.go",
+                                  "line": 107,
+                                  "column": 14,
+                                  "offset": 2468
+                                },
                                 "kind": "STRING",
                                 "value": "\"a\"",
                                 "$type": 9,
@@ -12624,6 +12822,12 @@
                                   "column": 16,
                                   "offset": 2470
                                 },
+                                "valueEnd": {
+                                  "file": "namedcomp.go",
+                                  "line": 107,
+                                  "column": 17,
+                                  "offset": 2471
+                                },
                                 "kind": "INT",
                                 "value": "1",
                                 "$type": 3,
@@ -12642,6 +12846,12 @@
                                   "line": 107,
                                   "column": 19,
                                   "offset": 2473
+                                },
+                                "valueEnd": {
+                                  "file": "namedcomp.go",
+                                  "line": 107,
+                                  "column": 22,
+                                  "offset": 2476
                                 },
                                 "kind": "STRING",
                                 "value": "\"b\"",
@@ -12664,6 +12874,12 @@
                                   "line": 107,
                                   "column": 24,
                                   "offset": 2478
+                                },
+                                "valueEnd": {
+                                  "file": "namedcomp.go",
+                                  "line": 107,
+                                  "column": 25,
+                                  "offset": 2479
                                 },
                                 "kind": "INT",
                                 "value": "2",
@@ -12856,6 +13072,12 @@
                               "column": 11,
                               "offset": 2510
                             },
+                            "valueEnd": {
+                              "file": "namedcomp.go",
+                              "line": 109,
+                              "column": 14,
+                              "offset": 2513
+                            },
                             "kind": "STRING",
                             "value": "\"a\"",
                             "$type": 9,
@@ -12911,7 +13133,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 33,
-                              "decl": "namedcomp.go:312",
+                              "decl": "namedcomp.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -13065,6 +13287,12 @@
                                   "line": 110,
                                   "column": 34,
                                   "offset": 2548
+                                },
+                                "valueEnd": {
+                                  "file": "namedcomp.go",
+                                  "line": 110,
+                                  "column": 37,
+                                  "offset": 2551
                                 },
                                 "kind": "STRING",
                                 "value": "\"b\"",
@@ -13276,7 +13504,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 33,
-                              "decl": "namedcomp.go:312",
+                              "decl": "namedcomp.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -13458,6 +13686,12 @@
                     "line": 6,
                     "column": 8,
                     "offset": 221
+                  },
+                  "valueEnd": {
+                    "file": "namedcomp.go",
+                    "line": 6,
+                    "column": 13,
+                    "offset": 226
                   },
                   "kind": "STRING",
                   "value": "\"fmt\""

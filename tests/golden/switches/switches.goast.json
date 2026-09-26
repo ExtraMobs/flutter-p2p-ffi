@@ -1,7 +1,7 @@
 {
   "schemaVersion": 6,
   "tool": "goast",
-  "goVersion": "go1.25.7",
+  "goVersion": "go1.26.5",
   "packages": [
     {
       "path": "main",
@@ -87,6 +87,12 @@
                         "line": 6,
                         "column": 8,
                         "offset": 188
+                      },
+                      "valueEnd": {
+                        "file": "switches.go",
+                        "line": 6,
+                        "column": 13,
+                        "offset": 193
                       },
                       "kind": "STRING",
                       "value": "\"fmt\""
@@ -285,6 +291,12 @@
                             "column": 7,
                             "offset": 228
                           },
+                          "valueEnd": {
+                            "file": "switches.go",
+                            "line": 9,
+                            "column": 9,
+                            "offset": 230
+                          },
                           "kind": "STRING",
                           "value": "\"\"",
                           "$type": 2,
@@ -363,6 +375,12 @@
                                     "column": 12,
                                     "offset": 252
                                   },
+                                  "valueEnd": {
+                                    "file": "switches.go",
+                                    "line": 11,
+                                    "column": 14,
+                                    "offset": 254
+                                  },
                                   "kind": "INT",
                                   "value": "90",
                                   "$type": 1,
@@ -423,6 +441,12 @@
                                       "line": 12,
                                       "column": 8,
                                       "offset": 263
+                                    },
+                                    "valueEnd": {
+                                      "file": "switches.go",
+                                      "line": 12,
+                                      "column": 11,
+                                      "offset": 266
                                     },
                                     "kind": "STRING",
                                     "value": "\"A\"",
@@ -496,6 +520,12 @@
                                     "column": 12,
                                     "offset": 292
                                   },
+                                  "valueEnd": {
+                                    "file": "switches.go",
+                                    "line": 14,
+                                    "column": 14,
+                                    "offset": 294
+                                  },
                                   "kind": "INT",
                                   "value": "80",
                                   "$type": 1,
@@ -556,6 +586,12 @@
                                       "line": 15,
                                       "column": 8,
                                       "offset": 303
+                                    },
+                                    "valueEnd": {
+                                      "file": "switches.go",
+                                      "line": 15,
+                                      "column": 11,
+                                      "offset": 306
                                     },
                                     "kind": "STRING",
                                     "value": "\"B\"",
@@ -639,6 +675,12 @@
                                       "column": 8,
                                       "offset": 338
                                     },
+                                    "valueEnd": {
+                                      "file": "switches.go",
+                                      "line": 18,
+                                      "column": 11,
+                                      "offset": 341
+                                    },
                                     "kind": "STRING",
                                     "value": "\"!\"",
                                     "$type": 2,
@@ -700,6 +742,12 @@
                                     "column": 11,
                                     "offset": 352
                                   },
+                                  "valueEnd": {
+                                    "file": "switches.go",
+                                    "line": 19,
+                                    "column": 12,
+                                    "offset": 353
+                                  },
                                   "kind": "INT",
                                   "value": "0",
                                   "$type": 1,
@@ -760,6 +808,12 @@
                                       "line": 20,
                                       "column": 8,
                                       "offset": 362
+                                    },
+                                    "valueEnd": {
+                                      "file": "switches.go",
+                                      "line": 20,
+                                      "column": 13,
+                                      "offset": 367
                                     },
                                     "kind": "STRING",
                                     "value": "\"neg\"",
@@ -1028,6 +1082,12 @@
                                   "column": 7,
                                   "offset": 428
                                 },
+                                "valueEnd": {
+                                  "file": "switches.go",
+                                  "line": 27,
+                                  "column": 8,
+                                  "offset": 429
+                                },
                                 "kind": "INT",
                                 "value": "1",
                                 "$type": 1,
@@ -1060,6 +1120,12 @@
                                       "line": 28,
                                       "column": 10,
                                       "offset": 440
+                                    },
+                                    "valueEnd": {
+                                      "file": "switches.go",
+                                      "line": 28,
+                                      "column": 14,
+                                      "offset": 444
                                     },
                                     "kind": "STRING",
                                     "value": "\"um\"",
@@ -1106,6 +1172,12 @@
                                       "column": 10,
                                       "offset": 464
                                     },
+                                    "valueEnd": {
+                                      "file": "switches.go",
+                                      "line": 30,
+                                      "column": 17,
+                                      "offset": 471
+                                    },
                                     "kind": "STRING",
                                     "value": "\"outro\"",
                                     "$type": 2,
@@ -1135,6 +1207,12 @@
                                   "column": 7,
                                   "offset": 478
                                 },
+                                "valueEnd": {
+                                  "file": "switches.go",
+                                  "line": 31,
+                                  "column": 8,
+                                  "offset": 479
+                                },
                                 "kind": "INT",
                                 "value": "2",
                                 "$type": 1,
@@ -1150,6 +1228,12 @@
                                   "line": 31,
                                   "column": 10,
                                   "offset": 481
+                                },
+                                "valueEnd": {
+                                  "file": "switches.go",
+                                  "line": 31,
+                                  "column": 11,
+                                  "offset": 482
                                 },
                                 "kind": "INT",
                                 "value": "3",
@@ -1216,6 +1300,12 @@
                                       "column": 11,
                                       "offset": 494
                                     },
+                                    "valueEnd": {
+                                      "file": "switches.go",
+                                      "line": 32,
+                                      "column": 12,
+                                      "offset": 495
+                                    },
                                     "kind": "INT",
                                     "value": "3",
                                     "$type": 1,
@@ -1273,6 +1363,12 @@
                                       "column": 10,
                                       "offset": 520
                                     },
+                                    "valueEnd": {
+                                      "file": "switches.go",
+                                      "line": 35,
+                                      "column": 16,
+                                      "offset": 526
+                                    },
                                     "kind": "STRING",
                                     "value": "\"dois\"",
                                     "$type": 2,
@@ -1310,6 +1406,12 @@
                             "line": 37,
                             "column": 9,
                             "offset": 538
+                          },
+                          "valueEnd": {
+                            "file": "switches.go",
+                            "line": 37,
+                            "column": 24,
+                            "offset": 553
                           },
                           "kind": "STRING",
                           "value": "\"três (break)\"",
@@ -1725,6 +1827,12 @@
                                             "column": 11,
                                             "offset": 651
                                           },
+                                          "valueEnd": {
+                                            "file": "switches.go",
+                                            "line": 44,
+                                            "column": 12,
+                                            "offset": 652
+                                          },
                                           "kind": "INT",
                                           "value": "0",
                                           "$type": 1,
@@ -1780,7 +1888,7 @@
                                                     "name": "Println",
                                                     "kind": "func",
                                                     "type": 8,
-                                                    "decl": "switches.go:312",
+                                                    "decl": "switches.go:313",
                                                     "pkg": "fmt",
                                                     "top": true
                                                   }
@@ -1801,6 +1909,12 @@
                                                     "line": 45,
                                                     "column": 17,
                                                     "offset": 671
+                                                  },
+                                                  "valueEnd": {
+                                                    "file": "switches.go",
+                                                    "line": 45,
+                                                    "column": 38,
+                                                    "offset": 692
                                                   },
                                                   "kind": "STRING",
                                                   "value": "\"int negativo, break\"",
@@ -1878,7 +1992,7 @@
                                               "name": "Println",
                                               "kind": "func",
                                               "type": 8,
-                                              "decl": "switches.go:312",
+                                              "decl": "switches.go:313",
                                               "pkg": "fmt",
                                               "top": true
                                             }
@@ -1899,6 +2013,12 @@
                                               "line": 48,
                                               "column": 16,
                                               "offset": 724
+                                            },
+                                            "valueEnd": {
+                                              "file": "switches.go",
+                                              "line": 48,
+                                              "column": 21,
+                                              "offset": 729
                                             },
                                             "kind": "STRING",
                                             "value": "\"int\"",
@@ -2015,7 +2135,7 @@
                                               "name": "Println",
                                               "kind": "func",
                                               "type": 8,
-                                              "decl": "switches.go:312",
+                                              "decl": "switches.go:313",
                                               "pkg": "fmt",
                                               "top": true
                                             }
@@ -2036,6 +2156,12 @@
                                               "line": 50,
                                               "column": 16,
                                               "offset": 764
+                                            },
+                                            "valueEnd": {
+                                              "file": "switches.go",
+                                              "line": 50,
+                                              "column": 24,
+                                              "offset": 772
                                             },
                                             "kind": "STRING",
                                             "value": "\"string\"",
@@ -2286,6 +2412,12 @@
                               "column": 26,
                               "offset": 826
                             },
+                            "valueEnd": {
+                              "file": "switches.go",
+                              "line": 56,
+                              "column": 28,
+                              "offset": 828
+                            },
                             "kind": "INT",
                             "value": "95",
                             "$type": 1,
@@ -2302,6 +2434,12 @@
                               "column": 30,
                               "offset": 830
                             },
+                            "valueEnd": {
+                              "file": "switches.go",
+                              "line": 56,
+                              "column": 32,
+                              "offset": 832
+                            },
                             "kind": "INT",
                             "value": "85",
                             "$type": 1,
@@ -2317,6 +2455,12 @@
                               "line": 56,
                               "column": 34,
                               "offset": 834
+                            },
+                            "valueEnd": {
+                              "file": "switches.go",
+                              "line": 56,
+                              "column": 36,
+                              "offset": 836
                             },
                             "kind": "INT",
                             "value": "50",
@@ -2342,6 +2486,12 @@
                                 "line": 56,
                                 "column": 39,
                                 "offset": 839
+                              },
+                              "valueEnd": {
+                                "file": "switches.go",
+                                "line": 56,
+                                "column": 40,
+                                "offset": 840
                               },
                               "kind": "INT",
                               "value": "3",
@@ -2412,7 +2562,7 @@
                                     "name": "Println",
                                     "kind": "func",
                                     "type": 8,
-                                    "decl": "switches.go:312",
+                                    "decl": "switches.go:313",
                                     "pkg": "fmt",
                                     "top": true
                                   }
@@ -2571,7 +2721,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 8,
-                              "decl": "switches.go:312",
+                              "decl": "switches.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -2625,6 +2775,12 @@
                                   "line": 59,
                                   "column": 19,
                                   "offset": 892
+                                },
+                                "valueEnd": {
+                                  "file": "switches.go",
+                                  "line": 59,
+                                  "column": 20,
+                                  "offset": 893
                                 },
                                 "kind": "INT",
                                 "value": "1",
@@ -2685,6 +2841,12 @@
                                   "column": 28,
                                   "offset": 901
                                 },
+                                "valueEnd": {
+                                  "file": "switches.go",
+                                  "line": 59,
+                                  "column": 29,
+                                  "offset": 902
+                                },
                                 "kind": "INT",
                                 "value": "2",
                                 "$type": 1,
@@ -2744,6 +2906,12 @@
                                   "column": 37,
                                   "offset": 910
                                 },
+                                "valueEnd": {
+                                  "file": "switches.go",
+                                  "line": 59,
+                                  "column": 38,
+                                  "offset": 911
+                                },
                                 "kind": "INT",
                                 "value": "3",
                                 "$type": 1,
@@ -2802,6 +2970,12 @@
                                   "line": 59,
                                   "column": 46,
                                   "offset": 919
+                                },
+                                "valueEnd": {
+                                  "file": "switches.go",
+                                  "line": 59,
+                                  "column": 47,
+                                  "offset": 920
                                 },
                                 "kind": "INT",
                                 "value": "9",
@@ -2875,6 +3049,12 @@
                             "column": 11,
                             "offset": 934
                           },
+                          "valueEnd": {
+                            "file": "switches.go",
+                            "line": 61,
+                            "column": 12,
+                            "offset": 935
+                          },
                           "kind": "INT",
                           "value": "0",
                           "$type": 1,
@@ -2936,6 +3116,12 @@
                               "column": 11,
                               "offset": 946
                             },
+                            "valueEnd": {
+                              "file": "switches.go",
+                              "line": 62,
+                              "column": 12,
+                              "offset": 947
+                            },
                             "kind": "INT",
                             "value": "0",
                             "$type": 1,
@@ -2985,6 +3171,12 @@
                             "line": 62,
                             "column": 18,
                             "offset": 953
+                          },
+                          "valueEnd": {
+                            "file": "switches.go",
+                            "line": 62,
+                            "column": 19,
+                            "offset": 954
                           },
                           "kind": "INT",
                           "value": "6",
@@ -3106,6 +3298,12 @@
                                           "column": 13,
                                           "offset": 985
                                         },
+                                        "valueEnd": {
+                                          "file": "switches.go",
+                                          "line": 64,
+                                          "column": 14,
+                                          "offset": 986
+                                        },
                                         "kind": "INT",
                                         "value": "1",
                                         "$type": 1,
@@ -3188,6 +3386,12 @@
                                             "column": 10,
                                             "offset": 1009
                                           },
+                                          "valueEnd": {
+                                            "file": "switches.go",
+                                            "line": 66,
+                                            "column": 11,
+                                            "offset": 1010
+                                          },
                                           "kind": "INT",
                                           "value": "2",
                                           "$type": 1,
@@ -3212,6 +3416,12 @@
                                           "line": 66,
                                           "column": 15,
                                           "offset": 1014
+                                        },
+                                        "valueEnd": {
+                                          "file": "switches.go",
+                                          "line": 66,
+                                          "column": 16,
+                                          "offset": 1015
                                         },
                                         "kind": "INT",
                                         "value": "0",
@@ -3273,6 +3483,12 @@
                                             "line": 67,
                                             "column": 13,
                                             "offset": 1029
+                                          },
+                                          "valueEnd": {
+                                            "file": "switches.go",
+                                            "line": 67,
+                                            "column": 15,
+                                            "offset": 1031
                                           },
                                           "kind": "INT",
                                           "value": "10",
@@ -3384,7 +3600,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 8,
-                              "decl": "switches.go:312",
+                              "decl": "switches.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -3405,6 +3621,12 @@
                               "line": 72,
                               "column": 14,
                               "offset": 1071
+                            },
+                            "valueEnd": {
+                              "file": "switches.go",
+                              "line": 72,
+                              "column": 21,
+                              "offset": 1078
                             },
                             "kind": "STRING",
                             "value": "\"count\"",
@@ -3529,6 +3751,12 @@
                                 "column": 11,
                                 "offset": 1105
                               },
+                              "valueEnd": {
+                                "file": "switches.go",
+                                "line": 75,
+                                "column": 12,
+                                "offset": 1106
+                              },
                               "kind": "INT",
                               "value": "0",
                               "$type": 1,
@@ -3578,6 +3806,12 @@
                               "line": 75,
                               "column": 18,
                               "offset": 1112
+                            },
+                            "valueEnd": {
+                              "file": "switches.go",
+                              "line": 75,
+                              "column": 19,
+                              "offset": 1113
                             },
                             "kind": "INT",
                             "value": "5",
@@ -3714,6 +3948,12 @@
                                         "column": 19,
                                         "offset": 1139
                                       },
+                                      "valueEnd": {
+                                        "file": "switches.go",
+                                        "line": 76,
+                                        "column": 20,
+                                        "offset": 1140
+                                      },
                                       "kind": "INT",
                                       "value": "3",
                                       "$type": 1,
@@ -3785,6 +4025,12 @@
                                             "column": 12,
                                             "offset": 1155
                                           },
+                                          "valueEnd": {
+                                            "file": "switches.go",
+                                            "line": 77,
+                                            "column": 13,
+                                            "offset": 1156
+                                          },
                                           "kind": "INT",
                                           "value": "7",
                                           "$type": 1,
@@ -3839,7 +4085,7 @@
                                                 "name": "Println",
                                                 "kind": "func",
                                                 "type": 8,
-                                                "decl": "switches.go:312",
+                                                "decl": "switches.go:313",
                                                 "pkg": "fmt",
                                                 "top": true
                                               }
@@ -3860,6 +4106,12 @@
                                                 "line": 78,
                                                 "column": 16,
                                                 "offset": 1173
+                                              },
+                                              "valueEnd": {
+                                                "file": "switches.go",
+                                                "line": 78,
+                                                "column": 33,
+                                                "offset": 1190
                                               },
                                               "kind": "STRING",
                                               "value": "\"sai do laço em\"",
@@ -3985,6 +4237,12 @@
                                             "column": 13,
                                             "offset": 1222
                                           },
+                                          "valueEnd": {
+                                            "file": "switches.go",
+                                            "line": 80,
+                                            "column": 14,
+                                            "offset": 1223
+                                          },
                                           "kind": "INT",
                                           "value": "3",
                                           "$type": 1,
@@ -4039,7 +4297,7 @@
                                                 "name": "Println",
                                                 "kind": "func",
                                                 "type": 8,
-                                                "decl": "switches.go:312",
+                                                "decl": "switches.go:313",
                                                 "pkg": "fmt",
                                                 "top": true
                                               }
@@ -4060,6 +4318,12 @@
                                                 "line": 81,
                                                 "column": 16,
                                                 "offset": 1240
+                                              },
+                                              "valueEnd": {
+                                                "file": "switches.go",
+                                                "line": 81,
+                                                "column": 23,
+                                                "offset": 1247
                                               },
                                               "kind": "STRING",
                                               "value": "\"três\"",
@@ -4142,6 +4406,12 @@
                                             "column": 13,
                                             "offset": 1276
                                           },
+                                          "valueEnd": {
+                                            "file": "switches.go",
+                                            "line": 83,
+                                            "column": 16,
+                                            "offset": 1279
+                                          },
                                           "kind": "INT",
                                           "value": "100",
                                           "$type": 1,
@@ -4196,7 +4466,7 @@
                                                 "name": "Println",
                                                 "kind": "func",
                                                 "type": 8,
-                                                "decl": "switches.go:312",
+                                                "decl": "switches.go:313",
                                                 "pkg": "fmt",
                                                 "top": true
                                               }
@@ -4217,6 +4487,12 @@
                                                 "line": 84,
                                                 "column": 16,
                                                 "offset": 1296
+                                              },
+                                              "valueEnd": {
+                                                "file": "switches.go",
+                                                "line": 84,
+                                                "column": 34,
+                                                "offset": 1314
                                               },
                                               "kind": "STRING",
                                               "value": "\"caiu no seguinte\"",
@@ -4340,6 +4616,12 @@
                                   "column": 14,
                                   "offset": 1336
                                 },
+                                "valueEnd": {
+                                  "file": "switches.go",
+                                  "line": 87,
+                                  "column": 15,
+                                  "offset": 1337
+                                },
                                 "kind": "INT",
                                 "value": "1",
                                 "$type": 1,
@@ -4365,6 +4647,12 @@
                                     "column": 18,
                                     "offset": 1340
                                   },
+                                  "valueEnd": {
+                                    "file": "switches.go",
+                                    "line": 87,
+                                    "column": 19,
+                                    "offset": 1341
+                                  },
                                   "kind": "INT",
                                   "value": "2",
                                   "$type": 15,
@@ -4387,6 +4675,12 @@
                                   "column": 21,
                                   "offset": 1343
                                 },
+                                "valueEnd": {
+                                  "file": "switches.go",
+                                  "line": 87,
+                                  "column": 24,
+                                  "offset": 1346
+                                },
                                 "kind": "STRING",
                                 "value": "\"x\"",
                                 "$type": 2,
@@ -4402,6 +4696,12 @@
                                   "line": 87,
                                   "column": 26,
                                   "offset": 1348
+                                },
+                                "valueEnd": {
+                                  "file": "switches.go",
+                                  "line": 87,
+                                  "column": 29,
+                                  "offset": 1351
                                 },
                                 "kind": "FLOAT",
                                 "value": "3.5",
@@ -4467,6 +4767,12 @@
                     "line": 6,
                     "column": 8,
                     "offset": 188
+                  },
+                  "valueEnd": {
+                    "file": "switches.go",
+                    "line": 6,
+                    "column": 13,
+                    "offset": 193
                   },
                   "kind": "STRING",
                   "value": "\"fmt\""

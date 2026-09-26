@@ -1,7 +1,7 @@
 {
   "schemaVersion": 6,
   "tool": "goast",
-  "goVersion": "go1.25.7",
+  "goVersion": "go1.26.5",
   "packages": [
     {
       "path": "main",
@@ -87,6 +87,12 @@
                         "line": 6,
                         "column": 8,
                         "offset": 251
+                      },
+                      "valueEnd": {
+                        "file": "structs.go",
+                        "line": 6,
+                        "column": 13,
+                        "offset": 256
                       },
                       "kind": "STRING",
                       "value": "\"fmt\""
@@ -1811,6 +1817,12 @@
                             "column": 13,
                             "offset": 596
                           },
+                          "valueEnd": {
+                            "file": "structs.go",
+                            "line": 31,
+                            "column": 14,
+                            "offset": 597
+                          },
                           "kind": "INT",
                           "value": "2",
                           "$type": 2,
@@ -2170,6 +2182,12 @@
                                 "column": 13,
                                 "offset": 677
                               },
+                              "valueEnd": {
+                                "file": "structs.go",
+                                "line": 38,
+                                "column": 14,
+                                "offset": 678
+                              },
                               "kind": "INT",
                               "value": "1",
                               "$type": 2,
@@ -2185,6 +2203,12 @@
                                 "line": 38,
                                 "column": 16,
                                 "offset": 680
+                              },
+                              "valueEnd": {
+                                "file": "structs.go",
+                                "line": 38,
+                                "column": 17,
+                                "offset": 681
                               },
                               "kind": "INT",
                               "value": "2",
@@ -2339,6 +2363,12 @@
                             "column": 8,
                             "offset": 708
                           },
+                          "valueEnd": {
+                            "file": "structs.go",
+                            "line": 40,
+                            "column": 10,
+                            "offset": 710
+                          },
                           "kind": "INT",
                           "value": "10",
                           "$type": 2,
@@ -2385,7 +2415,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 13,
-                              "decl": "structs.go:312",
+                              "decl": "structs.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -2576,6 +2606,12 @@
                                     "column": 39,
                                     "offset": 749
                                   },
+                                  "valueEnd": {
+                                    "file": "structs.go",
+                                    "line": 41,
+                                    "column": 40,
+                                    "offset": 750
+                                  },
                                   "kind": "INT",
                                   "value": "1",
                                   "$type": 2,
@@ -2591,6 +2627,12 @@
                                     "line": 41,
                                     "column": 42,
                                     "offset": 752
+                                  },
+                                  "valueEnd": {
+                                    "file": "structs.go",
+                                    "line": 41,
+                                    "column": 43,
+                                    "offset": 753
                                   },
                                   "kind": "INT",
                                   "value": "2",
@@ -2771,6 +2813,12 @@
                                 "column": 12,
                                 "offset": 796
                               },
+                              "valueEnd": {
+                                "file": "structs.go",
+                                "line": 44,
+                                "column": 13,
+                                "offset": 797
+                              },
                               "kind": "INT",
                               "value": "7",
                               "$type": 2,
@@ -2786,6 +2834,12 @@
                                 "line": 44,
                                 "column": 15,
                                 "offset": 799
+                              },
+                              "valueEnd": {
+                                "file": "structs.go",
+                                "line": 44,
+                                "column": 16,
+                                "offset": 800
                               },
                               "kind": "INT",
                               "value": "8",
@@ -2843,7 +2897,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 13,
-                              "decl": "structs.go:312",
+                              "decl": "structs.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -3108,6 +3162,12 @@
                                 "column": 13,
                                 "offset": 845
                               },
+                              "valueEnd": {
+                                "file": "structs.go",
+                                "line": 46,
+                                "column": 14,
+                                "offset": 846
+                              },
                               "kind": "INT",
                               "value": "3",
                               "$type": 2,
@@ -3123,6 +3183,12 @@
                                 "line": 46,
                                 "column": 16,
                                 "offset": 848
+                              },
+                              "valueEnd": {
+                                "file": "structs.go",
+                                "line": 46,
+                                "column": 17,
+                                "offset": 849
                               },
                               "kind": "INT",
                               "value": "4",
@@ -3180,7 +3246,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 13,
-                              "decl": "structs.go:312",
+                              "decl": "structs.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -3333,6 +3399,12 @@
                                 "column": 15,
                                 "offset": 882
                               },
+                              "valueEnd": {
+                                "file": "structs.go",
+                                "line": 49,
+                                "column": 16,
+                                "offset": 883
+                              },
                               "kind": "INT",
                               "value": "5",
                               "$type": 2,
@@ -3389,7 +3461,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 13,
-                              "decl": "structs.go:312",
+                              "decl": "structs.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -3532,6 +3604,12 @@
                               "column": 9,
                               "offset": 912
                             },
+                            "valueEnd": {
+                              "file": "structs.go",
+                              "line": 51,
+                              "column": 12,
+                              "offset": 915
+                            },
                             "kind": "INT",
                             "value": "100",
                             "$type": 2,
@@ -3623,6 +3701,12 @@
                               "column": 9,
                               "offset": 925
                             },
+                            "valueEnd": {
+                              "file": "structs.go",
+                              "line": 52,
+                              "column": 10,
+                              "offset": 926
+                            },
                             "kind": "INT",
                             "value": "1",
                             "$type": 2,
@@ -3678,7 +3762,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 13,
-                              "decl": "structs.go:312",
+                              "decl": "structs.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -3829,6 +3913,12 @@
                                   "column": 19,
                                   "offset": 963
                                 },
+                                "valueEnd": {
+                                  "file": "structs.go",
+                                  "line": 55,
+                                  "column": 26,
+                                  "offset": 970
+                                },
                                 "kind": "STRING",
                                 "value": "\"caixa\"",
                                 "$type": 7,
@@ -3906,6 +3996,12 @@
                                       "column": 39,
                                       "offset": 983
                                     },
+                                    "valueEnd": {
+                                      "file": "structs.go",
+                                      "line": 55,
+                                      "column": 40,
+                                      "offset": 984
+                                    },
                                     "kind": "INT",
                                     "value": "0",
                                     "$type": 2,
@@ -3921,6 +4017,12 @@
                                       "line": 55,
                                       "column": 42,
                                       "offset": 986
+                                    },
+                                    "valueEnd": {
+                                      "file": "structs.go",
+                                      "line": 55,
+                                      "column": 43,
+                                      "offset": 987
                                     },
                                     "kind": "INT",
                                     "value": "0",
@@ -4009,6 +4111,12 @@
                                       "column": 57,
                                       "offset": 1001
                                     },
+                                    "valueEnd": {
+                                      "file": "structs.go",
+                                      "line": 55,
+                                      "column": 58,
+                                      "offset": 1002
+                                    },
                                     "kind": "INT",
                                     "value": "4",
                                     "$type": 2,
@@ -4024,6 +4132,12 @@
                                       "line": 55,
                                       "column": 60,
                                       "offset": 1004
+                                    },
+                                    "valueEnd": {
+                                      "file": "structs.go",
+                                      "line": 55,
+                                      "column": 61,
+                                      "offset": 1005
                                     },
                                     "kind": "INT",
                                     "value": "3",
@@ -4245,7 +4359,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 13,
-                              "decl": "structs.go:312",
+                              "decl": "structs.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -4738,6 +4852,12 @@
                             "column": 15,
                             "offset": 1135
                           },
+                          "valueEnd": {
+                            "file": "structs.go",
+                            "line": 58,
+                            "column": 16,
+                            "offset": 1136
+                          },
                           "kind": "INT",
                           "value": "9",
                           "$type": 2,
@@ -4784,7 +4904,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 13,
-                              "decl": "structs.go:312",
+                              "decl": "structs.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -5068,7 +5188,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 13,
-                              "decl": "structs.go:312",
+                              "decl": "structs.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -5353,6 +5473,12 @@
                                   "column": 22,
                                   "offset": 1259
                                 },
+                                "valueEnd": {
+                                  "file": "structs.go",
+                                  "line": 62,
+                                  "column": 23,
+                                  "offset": 1260
+                                },
                                 "kind": "INT",
                                 "value": "3",
                                 "$type": 2,
@@ -5368,6 +5494,12 @@
                                   "line": 62,
                                   "column": 25,
                                   "offset": 1262
+                                },
+                                "valueEnd": {
+                                  "file": "structs.go",
+                                  "line": 62,
+                                  "column": 26,
+                                  "offset": 1263
                                 },
                                 "kind": "INT",
                                 "value": "4",
@@ -5427,7 +5559,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 13,
-                              "decl": "structs.go:312",
+                              "decl": "structs.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -5854,6 +5986,12 @@
                                 "column": 18,
                                 "offset": 1355
                               },
+                              "valueEnd": {
+                                "file": "structs.go",
+                                "line": 66,
+                                "column": 20,
+                                "offset": 1357
+                              },
                               "kind": "INT",
                               "value": "50",
                               "$type": 2,
@@ -5869,6 +6007,12 @@
                                 "line": 66,
                                 "column": 22,
                                 "offset": 1359
+                              },
+                              "valueEnd": {
+                                "file": "structs.go",
+                                "line": 66,
+                                "column": 24,
+                                "offset": 1361
                               },
                               "kind": "INT",
                               "value": "60",
@@ -5926,7 +6070,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 13,
-                              "decl": "structs.go:312",
+                              "decl": "structs.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -6154,6 +6298,12 @@
                                     "column": 18,
                                     "offset": 1415
                                   },
+                                  "valueEnd": {
+                                    "file": "structs.go",
+                                    "line": 69,
+                                    "column": 19,
+                                    "offset": 1416
+                                  },
                                   "kind": "INT",
                                   "value": "1",
                                   "$type": 2,
@@ -6169,6 +6319,12 @@
                                     "line": 69,
                                     "column": 21,
                                     "offset": 1418
+                                  },
+                                  "valueEnd": {
+                                    "file": "structs.go",
+                                    "line": 69,
+                                    "column": 22,
+                                    "offset": 1419
                                   },
                                   "kind": "INT",
                                   "value": "1",
@@ -6206,6 +6362,12 @@
                                     "column": 26,
                                     "offset": 1423
                                   },
+                                  "valueEnd": {
+                                    "file": "structs.go",
+                                    "line": 69,
+                                    "column": 27,
+                                    "offset": 1424
+                                  },
                                   "kind": "INT",
                                   "value": "2",
                                   "$type": 2,
@@ -6221,6 +6383,12 @@
                                     "line": 69,
                                     "column": 29,
                                     "offset": 1426
+                                  },
+                                  "valueEnd": {
+                                    "file": "structs.go",
+                                    "line": 69,
+                                    "column": 30,
+                                    "offset": 1427
                                   },
                                   "kind": "INT",
                                   "value": "2",
@@ -6424,6 +6592,12 @@
                                   "column": 10,
                                   "offset": 1465
                                 },
+                                "valueEnd": {
+                                  "file": "structs.go",
+                                  "line": 71,
+                                  "column": 12,
+                                  "offset": 1467
+                                },
                                 "kind": "INT",
                                 "value": "99",
                                 "$type": 2,
@@ -6487,6 +6661,12 @@
                                 "column": 6,
                                 "offset": 1498
                               },
+                              "valueEnd": {
+                                "file": "structs.go",
+                                "line": 73,
+                                "column": 7,
+                                "offset": 1499
+                              },
                               "kind": "INT",
                               "value": "0",
                               "$type": 2,
@@ -6547,6 +6727,12 @@
                             "line": 73,
                             "column": 13,
                             "offset": 1505
+                          },
+                          "valueEnd": {
+                            "file": "structs.go",
+                            "line": 73,
+                            "column": 14,
+                            "offset": 1506
                           },
                           "kind": "INT",
                           "value": "7",
@@ -6631,6 +6817,12 @@
                               "line": 74,
                               "column": 11,
                               "offset": 1517
+                            },
+                            "valueEnd": {
+                              "file": "structs.go",
+                              "line": 74,
+                              "column": 12,
+                              "offset": 1518
                             },
                             "kind": "INT",
                             "value": "1",
@@ -6723,6 +6915,12 @@
                             "column": 8,
                             "offset": 1527
                           },
+                          "valueEnd": {
+                            "file": "structs.go",
+                            "line": 75,
+                            "column": 10,
+                            "offset": 1529
+                          },
                           "kind": "INT",
                           "value": "42",
                           "$type": 2,
@@ -6769,7 +6967,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 13,
-                              "decl": "structs.go:312",
+                              "decl": "structs.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -6958,6 +7156,12 @@
                                       "column": 28,
                                       "offset": 1579
                                     },
+                                    "valueEnd": {
+                                      "file": "structs.go",
+                                      "line": 78,
+                                      "column": 29,
+                                      "offset": 1580
+                                    },
                                     "kind": "INT",
                                     "value": "1",
                                     "$type": 2,
@@ -6973,6 +7177,12 @@
                                       "line": 78,
                                       "column": 31,
                                       "offset": 1582
+                                    },
+                                    "valueEnd": {
+                                      "file": "structs.go",
+                                      "line": 78,
+                                      "column": 32,
+                                      "offset": 1583
                                     },
                                     "kind": "INT",
                                     "value": "2",
@@ -7005,6 +7215,12 @@
                                   "line": 78,
                                   "column": 35,
                                   "offset": 1586
+                                },
+                                "valueEnd": {
+                                  "file": "structs.go",
+                                  "line": 78,
+                                  "column": 38,
+                                  "offset": 1589
                                 },
                                 "kind": "STRING",
                                 "value": "\"a\"",
@@ -7103,6 +7319,12 @@
                                   "column": 13,
                                   "offset": 1603
                                 },
+                                "valueEnd": {
+                                  "file": "structs.go",
+                                  "line": 79,
+                                  "column": 14,
+                                  "offset": 1604
+                                },
                                 "kind": "INT",
                                 "value": "3",
                                 "$type": 2,
@@ -7118,6 +7340,12 @@
                                   "line": 79,
                                   "column": 16,
                                   "offset": 1606
+                                },
+                                "valueEnd": {
+                                  "file": "structs.go",
+                                  "line": 79,
+                                  "column": 17,
+                                  "offset": 1607
                                 },
                                 "kind": "INT",
                                 "value": "4",
@@ -7161,6 +7389,12 @@
                             "line": 79,
                             "column": 22,
                             "offset": 1612
+                          },
+                          "valueEnd": {
+                            "file": "structs.go",
+                            "line": 79,
+                            "column": 25,
+                            "offset": 1615
                           },
                           "kind": "STRING",
                           "value": "\"b\"",
@@ -7208,7 +7442,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 13,
-                              "decl": "structs.go:312",
+                              "decl": "structs.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -7295,6 +7529,12 @@
                                     "column": 25,
                                     "offset": 1640
                                   },
+                                  "valueEnd": {
+                                    "file": "structs.go",
+                                    "line": 80,
+                                    "column": 26,
+                                    "offset": 1641
+                                  },
                                   "kind": "INT",
                                   "value": "1",
                                   "$type": 2,
@@ -7310,6 +7550,12 @@
                                     "line": 80,
                                     "column": 28,
                                     "offset": 1643
+                                  },
+                                  "valueEnd": {
+                                    "file": "structs.go",
+                                    "line": 80,
+                                    "column": 29,
+                                    "offset": 1644
                                   },
                                   "kind": "INT",
                                   "value": "2",
@@ -7410,6 +7656,12 @@
                                     "column": 44,
                                     "offset": 1659
                                   },
+                                  "valueEnd": {
+                                    "file": "structs.go",
+                                    "line": 80,
+                                    "column": 45,
+                                    "offset": 1660
+                                  },
                                   "kind": "INT",
                                   "value": "3",
                                   "$type": 2,
@@ -7425,6 +7677,12 @@
                                     "line": 80,
                                     "column": 47,
                                     "offset": 1662
+                                  },
+                                  "valueEnd": {
+                                    "file": "structs.go",
+                                    "line": 80,
+                                    "column": 48,
+                                    "offset": 1663
                                   },
                                   "kind": "INT",
                                   "value": "4",
@@ -7729,7 +7987,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 13,
-                              "decl": "structs.go:312",
+                              "decl": "structs.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -7893,6 +8151,12 @@
                     "line": 6,
                     "column": 8,
                     "offset": 251
+                  },
+                  "valueEnd": {
+                    "file": "structs.go",
+                    "line": 6,
+                    "column": 13,
+                    "offset": 256
                   },
                   "kind": "STRING",
                   "value": "\"fmt\""

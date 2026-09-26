@@ -1,7 +1,7 @@
 {
   "schemaVersion": 6,
   "tool": "goast",
-  "goVersion": "go1.25.7",
+  "goVersion": "go1.26.5",
   "packages": [
     {
       "path": "main",
@@ -87,6 +87,12 @@
                         "line": 6,
                         "column": 8,
                         "offset": 213
+                      },
+                      "valueEnd": {
+                        "file": "named.go",
+                        "line": 6,
+                        "column": 13,
+                        "offset": 218
                       },
                       "kind": "STRING",
                       "value": "\"fmt\""
@@ -609,6 +615,12 @@
                                       "column": 57,
                                       "offset": 353
                                     },
+                                    "valueEnd": {
+                                      "file": "named.go",
+                                      "line": 13,
+                                      "column": 58,
+                                      "offset": 354
+                                    },
                                     "kind": "INT",
                                     "value": "9",
                                     "$type": 0,
@@ -634,6 +646,12 @@
                                     "column": 59,
                                     "offset": 355
                                   },
+                                  "valueEnd": {
+                                    "file": "named.go",
+                                    "line": 13,
+                                    "column": 60,
+                                    "offset": 356
+                                  },
                                   "kind": "INT",
                                   "value": "5",
                                   "$type": 0,
@@ -658,6 +676,12 @@
                                   "line": 13,
                                   "column": 63,
                                   "offset": 359
+                                },
+                                "valueEnd": {
+                                  "file": "named.go",
+                                  "line": 13,
+                                  "column": 65,
+                                  "offset": 361
                                 },
                                 "kind": "INT",
                                 "value": "32",
@@ -977,6 +1001,12 @@
                                 "column": 66,
                                 "offset": 431
                               },
+                              "valueEnd": {
+                                "file": "named.go",
+                                "line": 15,
+                                "column": 71,
+                                "offset": 436
+                              },
                               "kind": "STRING",
                               "value": "\"°C\"",
                               "$type": 3,
@@ -1224,6 +1254,12 @@
                               "column": 38,
                               "offset": 478
                             },
+                            "valueEnd": {
+                              "file": "named.go",
+                              "line": 17,
+                              "column": 39,
+                              "offset": 479
+                            },
                             "kind": "INT",
                             "value": "1",
                             "$type": 6,
@@ -1426,6 +1462,12 @@
                               "column": 42,
                               "offset": 524
                             },
+                            "valueEnd": {
+                              "file": "named.go",
+                              "line": 19,
+                              "column": 50,
+                              "offset": 532
+                            },
                             "kind": "STRING",
                             "value": "\"olá, \"",
                             "$type": 3,
@@ -1592,6 +1634,12 @@
                           "line": 21,
                           "column": 25,
                           "offset": 572
+                        },
+                        "valueEnd": {
+                          "file": "named.go",
+                          "line": 21,
+                          "column": 28,
+                          "offset": 575
                         },
                         "kind": "INT",
                         "value": "100",
@@ -1864,6 +1912,12 @@
                                       "column": 10,
                                       "offset": 642
                                     },
+                                    "valueEnd": {
+                                      "file": "named.go",
+                                      "line": 26,
+                                      "column": 15,
+                                      "offset": 647
+                                    },
                                     "kind": "STRING",
                                     "value": "\"int\"",
                                     "$type": 3,
@@ -1927,6 +1981,12 @@
                                       "line": 28,
                                       "column": 10,
                                       "offset": 670
+                                    },
+                                    "valueEnd": {
+                                      "file": "named.go",
+                                      "line": 28,
+                                      "column": 17,
+                                      "offset": 677
                                     },
                                     "kind": "STRING",
                                     "value": "\"int64\"",
@@ -1999,6 +2059,12 @@
                                       "column": 10,
                                       "offset": 697
                                     },
+                                    "valueEnd": {
+                                      "file": "named.go",
+                                      "line": 30,
+                                      "column": 14,
+                                      "offset": 701
+                                    },
                                     "kind": "STRING",
                                     "value": "\"ID\"",
                                     "$type": 3,
@@ -2062,6 +2128,12 @@
                                       "line": 32,
                                       "column": 10,
                                       "offset": 724
+                                    },
+                                    "valueEnd": {
+                                      "file": "named.go",
+                                      "line": 32,
+                                      "column": 17,
+                                      "offset": 731
                                     },
                                     "kind": "STRING",
                                     "value": "\"int32\"",
@@ -2134,6 +2206,12 @@
                                       "column": 10,
                                       "offset": 756
                                     },
+                                    "valueEnd": {
+                                      "file": "named.go",
+                                      "line": 34,
+                                      "column": 19,
+                                      "offset": 765
+                                    },
                                     "kind": "STRING",
                                     "value": "\"Celsius\"",
                                     "$type": 3,
@@ -2197,6 +2275,12 @@
                                       "line": 36,
                                       "column": 10,
                                       "offset": 790
+                                    },
+                                    "valueEnd": {
+                                      "file": "named.go",
+                                      "line": 36,
+                                      "column": 19,
+                                      "offset": 799
                                     },
                                     "kind": "STRING",
                                     "value": "\"float64\"",
@@ -2269,6 +2353,12 @@
                                       "column": 10,
                                       "offset": 821
                                     },
+                                    "valueEnd": {
+                                      "file": "named.go",
+                                      "line": 38,
+                                      "column": 16,
+                                      "offset": 827
+                                    },
                                     "kind": "STRING",
                                     "value": "\"Name\"",
                                     "$type": 3,
@@ -2333,6 +2423,12 @@
                                       "column": 10,
                                       "offset": 851
                                     },
+                                    "valueEnd": {
+                                      "file": "named.go",
+                                      "line": 40,
+                                      "column": 18,
+                                      "offset": 859
+                                    },
                                     "kind": "STRING",
                                     "value": "\"string\"",
                                     "$type": 3,
@@ -2370,6 +2466,12 @@
                             "line": 42,
                             "column": 9,
                             "offset": 871
+                          },
+                          "valueEnd": {
+                            "file": "named.go",
+                            "line": 42,
+                            "column": 16,
+                            "offset": 878
                           },
                           "kind": "STRING",
                           "value": "\"outro\"",
@@ -2531,6 +2633,12 @@
                                 "column": 15,
                                 "offset": 910
                               },
+                              "valueEnd": {
+                                "file": "named.go",
+                                "line": 46,
+                                "column": 19,
+                                "offset": 914
+                              },
                               "kind": "FLOAT",
                               "value": "37.5",
                               "$type": 0,
@@ -2591,7 +2699,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 17,
-                              "decl": "named.go:312",
+                              "decl": "named.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -2856,6 +2964,12 @@
                                 "column": 52,
                                 "offset": 967
                               },
+                              "valueEnd": {
+                                "file": "named.go",
+                                "line": 47,
+                                "column": 55,
+                                "offset": 970
+                              },
                               "kind": "FLOAT",
                               "value": "0.5",
                               "$type": 1,
@@ -2952,6 +3066,12 @@
                                   "line": 48,
                                   "column": 14,
                                   "offset": 985
+                                },
+                                "valueEnd": {
+                                  "file": "named.go",
+                                  "line": 48,
+                                  "column": 24,
+                                  "offset": 995
                                 },
                                 "kind": "INT",
                                 "value": "2147483647",
@@ -3112,7 +3232,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 17,
-                              "decl": "named.go:312",
+                              "decl": "named.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -3260,6 +3380,12 @@
                                 "column": 34,
                                 "offset": 1066
                               },
+                              "valueEnd": {
+                                "file": "named.go",
+                                "line": 50,
+                                "column": 35,
+                                "offset": 1067
+                              },
                               "kind": "INT",
                               "value": "0",
                               "$type": 6,
@@ -3314,6 +3440,12 @@
                                     "column": 40,
                                     "offset": 1072
                                   },
+                                  "valueEnd": {
+                                    "file": "named.go",
+                                    "line": 50,
+                                    "column": 41,
+                                    "offset": 1073
+                                  },
                                   "kind": "INT",
                                   "value": "7",
                                   "$type": 6,
@@ -3350,6 +3482,12 @@
                                 "line": 50,
                                 "column": 43,
                                 "offset": 1075
+                              },
+                              "valueEnd": {
+                                "file": "named.go",
+                                "line": 50,
+                                "column": 44,
+                                "offset": 1076
                               },
                               "kind": "INT",
                               "value": "2",
@@ -3418,6 +3556,12 @@
                                       "column": 50,
                                       "offset": 1082
                                     },
+                                    "valueEnd": {
+                                      "file": "named.go",
+                                      "line": 50,
+                                      "column": 51,
+                                      "offset": 1083
+                                    },
                                     "kind": "INT",
                                     "value": "7",
                                     "$type": 22,
@@ -3460,6 +3604,12 @@
                                 "line": 50,
                                 "column": 53,
                                 "offset": 1085
+                              },
+                              "valueEnd": {
+                                "file": "named.go",
+                                "line": 50,
+                                "column": 54,
+                                "offset": 1086
                               },
                               "kind": "INT",
                               "value": "3",
@@ -3563,6 +3713,12 @@
                                 "column": 12,
                                 "offset": 1099
                               },
+                              "valueEnd": {
+                                "file": "named.go",
+                                "line": 51,
+                                "column": 19,
+                                "offset": 1106
+                              },
                               "kind": "STRING",
                               "value": "\"mundo\"",
                               "$type": 9,
@@ -3623,7 +3779,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 17,
-                              "decl": "named.go:312",
+                              "decl": "named.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -3808,6 +3964,12 @@
                                 "column": 38,
                                 "offset": 1145
                               },
+                              "valueEnd": {
+                                "file": "named.go",
+                                "line": 52,
+                                "column": 41,
+                                "offset": 1148
+                              },
                               "kind": "STRING",
                               "value": "\"!\"",
                               "$type": 9,
@@ -3857,6 +4019,12 @@
                                 "column": 45,
                                 "offset": 1152
                               },
+                              "valueEnd": {
+                                "file": "named.go",
+                                "line": 52,
+                                "column": 46,
+                                "offset": 1153
+                              },
                               "kind": "INT",
                               "value": "1",
                               "$type": 14,
@@ -3872,6 +4040,12 @@
                                 "line": 52,
                                 "column": 47,
                                 "offset": 1154
+                              },
+                              "valueEnd": {
+                                "file": "named.go",
+                                "line": 52,
+                                "column": 48,
+                                "offset": 1155
                               },
                               "kind": "INT",
                               "value": "3",
@@ -3931,6 +4105,12 @@
                                 "column": 55,
                                 "offset": 1162
                               },
+                              "valueEnd": {
+                                "file": "named.go",
+                                "line": 52,
+                                "column": 59,
+                                "offset": 1166
+                              },
                               "kind": "STRING",
                               "value": "\"zz\"",
                               "$type": 9,
@@ -3988,7 +4168,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 17,
-                              "decl": "named.go:312",
+                              "decl": "named.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -4042,6 +4222,12 @@
                                   "line": 53,
                                   "column": 19,
                                   "offset": 1186
+                                },
+                                "valueEnd": {
+                                  "file": "named.go",
+                                  "line": 53,
+                                  "column": 20,
+                                  "offset": 1187
                                 },
                                 "kind": "INT",
                                 "value": "1",
@@ -4128,6 +4314,12 @@
                                       "line": 53,
                                       "column": 34,
                                       "offset": 1201
+                                    },
+                                    "valueEnd": {
+                                      "file": "named.go",
+                                      "line": 53,
+                                      "column": 35,
+                                      "offset": 1202
                                     },
                                     "kind": "INT",
                                     "value": "1",
@@ -4236,6 +4428,12 @@
                                       "column": 47,
                                       "offset": 1214
                                     },
+                                    "valueEnd": {
+                                      "file": "named.go",
+                                      "line": 53,
+                                      "column": 48,
+                                      "offset": 1215
+                                    },
                                     "kind": "INT",
                                     "value": "1",
                                     "$type": 6,
@@ -4335,6 +4533,12 @@
                                       "line": 53,
                                       "column": 63,
                                       "offset": 1230
+                                    },
+                                    "valueEnd": {
+                                      "file": "named.go",
+                                      "line": 53,
+                                      "column": 64,
+                                      "offset": 1231
                                     },
                                     "kind": "INT",
                                     "value": "1",
@@ -4475,6 +4679,12 @@
                                   "column": 82,
                                   "offset": 1249
                                 },
+                                "valueEnd": {
+                                  "file": "named.go",
+                                  "line": 53,
+                                  "column": 85,
+                                  "offset": 1252
+                                },
                                 "kind": "FLOAT",
                                 "value": "1.5",
                                 "$type": 1,
@@ -4600,6 +4810,12 @@
                                   "column": 102,
                                   "offset": 1269
                                 },
+                                "valueEnd": {
+                                  "file": "named.go",
+                                  "line": 53,
+                                  "column": 105,
+                                  "offset": 1272
+                                },
                                 "kind": "STRING",
                                 "value": "\"s\"",
                                 "$type": 3,
@@ -4686,6 +4902,12 @@
                                       "column": 119,
                                       "offset": 1286
                                     },
+                                    "valueEnd": {
+                                      "file": "named.go",
+                                      "line": 53,
+                                      "column": 120,
+                                      "offset": 1287
+                                    },
                                     "kind": "INT",
                                     "value": "1",
                                     "$type": 25,
@@ -4765,7 +4987,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 17,
-                              "decl": "named.go:312",
+                              "decl": "named.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -4888,6 +5110,12 @@
                                     "line": 54,
                                     "column": 36,
                                     "offset": 1326
+                                  },
+                                  "valueEnd": {
+                                    "file": "named.go",
+                                    "line": 54,
+                                    "column": 39,
+                                    "offset": 1329
                                   },
                                   "kind": "INT",
                                   "value": "100",
@@ -5068,6 +5296,12 @@
                     "line": 6,
                     "column": 8,
                     "offset": 213
+                  },
+                  "valueEnd": {
+                    "file": "named.go",
+                    "line": 6,
+                    "column": 13,
+                    "offset": 218
                   },
                   "kind": "STRING",
                   "value": "\"fmt\""

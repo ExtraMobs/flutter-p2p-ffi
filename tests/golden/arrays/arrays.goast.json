@@ -1,7 +1,7 @@
 {
   "schemaVersion": 6,
   "tool": "goast",
-  "goVersion": "go1.25.7",
+  "goVersion": "go1.26.5",
   "packages": [
     {
       "path": "main",
@@ -87,6 +87,12 @@
                         "line": 6,
                         "column": 8,
                         "offset": 227
+                      },
+                      "valueEnd": {
+                        "file": "arrays.go",
+                        "line": 6,
+                        "column": 13,
+                        "offset": 232
                       },
                       "kind": "STRING",
                       "value": "\"fmt\""
@@ -198,6 +204,12 @@
                                   "line": 9,
                                   "column": 7,
                                   "offset": 257
+                                },
+                                "valueEnd": {
+                                  "file": "arrays.go",
+                                  "line": 9,
+                                  "column": 8,
+                                  "offset": 258
                                 },
                                 "kind": "INT",
                                 "value": "2",
@@ -338,6 +350,12 @@
                               "column": 13,
                               "offset": 278
                             },
+                            "valueEnd": {
+                              "file": "arrays.go",
+                              "line": 12,
+                              "column": 14,
+                              "offset": 279
+                            },
                             "kind": "INT",
                             "value": "4",
                             "$type": 4,
@@ -462,6 +480,12 @@
                             "line": 13,
                             "column": 7,
                             "offset": 297
+                          },
+                          "valueEnd": {
+                            "file": "arrays.go",
+                            "line": 13,
+                            "column": 8,
+                            "offset": 298
                           },
                           "kind": "INT",
                           "value": "0",
@@ -683,6 +707,12 @@
                               "column": 4,
                               "offset": 337
                             },
+                            "valueEnd": {
+                              "file": "arrays.go",
+                              "line": 17,
+                              "column": 5,
+                              "offset": 338
+                            },
                             "kind": "INT",
                             "value": "0",
                             "$type": 3,
@@ -715,6 +745,12 @@
                             "line": 17,
                             "column": 9,
                             "offset": 342
+                          },
+                          "valueEnd": {
+                            "file": "arrays.go",
+                            "line": 17,
+                            "column": 12,
+                            "offset": 345
                           },
                           "kind": "INT",
                           "value": "100",
@@ -886,6 +922,12 @@
                                 "column": 8,
                                 "offset": 396
                               },
+                              "valueEnd": {
+                                "file": "arrays.go",
+                                "line": 22,
+                                "column": 9,
+                                "offset": 397
+                              },
                               "kind": "INT",
                               "value": "4",
                               "$type": 4,
@@ -930,6 +972,12 @@
                                 "column": 14,
                                 "offset": 402
                               },
+                              "valueEnd": {
+                                "file": "arrays.go",
+                                "line": 22,
+                                "column": 15,
+                                "offset": 403
+                              },
                               "kind": "INT",
                               "value": "1",
                               "$type": 3,
@@ -946,6 +994,12 @@
                                 "column": 17,
                                 "offset": 405
                               },
+                              "valueEnd": {
+                                "file": "arrays.go",
+                                "line": 22,
+                                "column": 18,
+                                "offset": 406
+                              },
                               "kind": "INT",
                               "value": "2",
                               "$type": 3,
@@ -961,6 +1015,12 @@
                                 "line": 22,
                                 "column": 20,
                                 "offset": 408
+                              },
+                              "valueEnd": {
+                                "file": "arrays.go",
+                                "line": 22,
+                                "column": 21,
+                                "offset": 409
                               },
                               "kind": "INT",
                               "value": "3",
@@ -1084,6 +1144,12 @@
                               "column": 4,
                               "offset": 422
                             },
+                            "valueEnd": {
+                              "file": "arrays.go",
+                              "line": 24,
+                              "column": 5,
+                              "offset": 423
+                            },
                             "kind": "INT",
                             "value": "0",
                             "$type": 3,
@@ -1116,6 +1182,12 @@
                             "line": 24,
                             "column": 9,
                             "offset": 427
+                          },
+                          "valueEnd": {
+                            "file": "arrays.go",
+                            "line": 24,
+                            "column": 10,
+                            "offset": 428
                           },
                           "kind": "INT",
                           "value": "9",
@@ -1163,7 +1235,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 8,
-                              "decl": "arrays.go:312",
+                              "decl": "arrays.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -1449,6 +1521,12 @@
                                 "column": 46,
                                 "offset": 474
                               },
+                              "valueEnd": {
+                                "file": "arrays.go",
+                                "line": 25,
+                                "column": 47,
+                                "offset": 475
+                              },
                               "kind": "INT",
                               "value": "0",
                               "$type": 3,
@@ -1567,6 +1645,12 @@
                                 "column": 23,
                                 "offset": 500
                               },
+                              "valueEnd": {
+                                "file": "arrays.go",
+                                "line": 26,
+                                "column": 26,
+                                "offset": 503
+                              },
                               "kind": "STRING",
                               "value": "\"x\"",
                               "$type": 14,
@@ -1582,6 +1666,12 @@
                                 "line": 26,
                                 "column": 28,
                                 "offset": 505
+                              },
+                              "valueEnd": {
+                                "file": "arrays.go",
+                                "line": 26,
+                                "column": 31,
+                                "offset": 508
                               },
                               "kind": "STRING",
                               "value": "\"y\"",
@@ -1639,7 +1729,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 8,
-                              "decl": "arrays.go:312",
+                              "decl": "arrays.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -1790,6 +1880,12 @@
                                     "column": 43,
                                     "offset": 552
                                   },
+                                  "valueEnd": {
+                                    "file": "arrays.go",
+                                    "line": 27,
+                                    "column": 44,
+                                    "offset": 553
+                                  },
                                   "kind": "INT",
                                   "value": "2",
                                   "$type": 4,
@@ -1834,6 +1930,12 @@
                                     "column": 52,
                                     "offset": 561
                                   },
+                                  "valueEnd": {
+                                    "file": "arrays.go",
+                                    "line": 27,
+                                    "column": 55,
+                                    "offset": 564
+                                  },
                                   "kind": "STRING",
                                   "value": "\"x\"",
                                   "$type": 14,
@@ -1849,6 +1951,12 @@
                                     "line": 27,
                                     "column": 57,
                                     "offset": 566
+                                  },
+                                  "valueEnd": {
+                                    "file": "arrays.go",
+                                    "line": 27,
+                                    "column": 60,
+                                    "offset": 569
                                   },
                                   "kind": "STRING",
                                   "value": "\"y\"",
@@ -1955,6 +2063,12 @@
                               "column": 9,
                               "offset": 581
                             },
+                            "valueEnd": {
+                              "file": "arrays.go",
+                              "line": 29,
+                              "column": 10,
+                              "offset": 582
+                            },
                             "kind": "INT",
                             "value": "1",
                             "$type": 3,
@@ -1970,6 +2084,12 @@
                               "line": 29,
                               "column": 11,
                               "offset": 583
+                            },
+                            "valueEnd": {
+                              "file": "arrays.go",
+                              "line": 29,
+                              "column": 12,
+                              "offset": 584
                             },
                             "kind": "INT",
                             "value": "3",
@@ -2033,6 +2153,12 @@
                               "column": 4,
                               "offset": 589
                             },
+                            "valueEnd": {
+                              "file": "arrays.go",
+                              "line": 30,
+                              "column": 5,
+                              "offset": 590
+                            },
                             "kind": "INT",
                             "value": "0",
                             "$type": 3,
@@ -2065,6 +2191,12 @@
                             "line": 30,
                             "column": 9,
                             "offset": 594
+                          },
+                          "valueEnd": {
+                            "file": "arrays.go",
+                            "line": 30,
+                            "column": 11,
+                            "offset": 596
                           },
                           "kind": "INT",
                           "value": "50",
@@ -2169,6 +2301,12 @@
                                 "column": 16,
                                 "offset": 612
                               },
+                              "valueEnd": {
+                                "file": "arrays.go",
+                                "line": 31,
+                                "column": 18,
+                                "offset": 614
+                              },
                               "kind": "INT",
                               "value": "60",
                               "$type": 3,
@@ -2225,7 +2363,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 8,
-                              "decl": "arrays.go:312",
+                              "decl": "arrays.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -2439,6 +2577,12 @@
                                 "column": 10,
                                 "offset": 677
                               },
+                              "valueEnd": {
+                                "file": "arrays.go",
+                                "line": 33,
+                                "column": 11,
+                                "offset": 678
+                              },
                               "kind": "INT",
                               "value": "2",
                               "$type": 3,
@@ -2511,6 +2655,12 @@
                             "line": 34,
                             "column": 7,
                             "offset": 686
+                          },
+                          "valueEnd": {
+                            "file": "arrays.go",
+                            "line": 34,
+                            "column": 8,
+                            "offset": 687
                           },
                           "kind": "INT",
                           "value": "7",
@@ -2635,6 +2785,12 @@
                               "column": 5,
                               "offset": 702
                             },
+                            "valueEnd": {
+                              "file": "arrays.go",
+                              "line": 36,
+                              "column": 6,
+                              "offset": 703
+                            },
                             "kind": "INT",
                             "value": "0",
                             "$type": 3,
@@ -2676,6 +2832,12 @@
                               "line": 36,
                               "column": 11,
                               "offset": 708
+                            },
+                            "valueEnd": {
+                              "file": "arrays.go",
+                              "line": 36,
+                              "column": 12,
+                              "offset": 709
                             },
                             "kind": "INT",
                             "value": "1",
@@ -2729,7 +2891,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 8,
-                              "decl": "arrays.go:312",
+                              "decl": "arrays.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -2804,6 +2966,12 @@
                                 "line": 37,
                                 "column": 20,
                                 "offset": 729
+                              },
+                              "valueEnd": {
+                                "file": "arrays.go",
+                                "line": 37,
+                                "column": 21,
+                                "offset": 730
                               },
                               "kind": "INT",
                               "value": "3",
@@ -2893,6 +3061,12 @@
                                   "column": 15,
                                   "offset": 748
                                 },
+                                "valueEnd": {
+                                  "file": "arrays.go",
+                                  "line": 39,
+                                  "column": 16,
+                                  "offset": 749
+                                },
                                 "kind": "INT",
                                 "value": "2",
                                 "$type": 4,
@@ -2970,6 +3144,12 @@
                                       "column": 27,
                                       "offset": 760
                                     },
+                                    "valueEnd": {
+                                      "file": "arrays.go",
+                                      "line": 39,
+                                      "column": 28,
+                                      "offset": 761
+                                    },
                                     "kind": "INT",
                                     "value": "1",
                                     "$type": 3,
@@ -2985,6 +3165,12 @@
                                       "line": 39,
                                       "column": 30,
                                       "offset": 763
+                                    },
+                                    "valueEnd": {
+                                      "file": "arrays.go",
+                                      "line": 39,
+                                      "column": 31,
+                                      "offset": 764
                                     },
                                     "kind": "INT",
                                     "value": "2",
@@ -3084,7 +3270,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 8,
-                              "decl": "arrays.go:312",
+                              "decl": "arrays.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -3147,6 +3333,12 @@
                                     "column": 20,
                                     "offset": 792
                                   },
+                                  "valueEnd": {
+                                    "file": "arrays.go",
+                                    "line": 40,
+                                    "column": 21,
+                                    "offset": 793
+                                  },
                                   "kind": "INT",
                                   "value": "2",
                                   "$type": 4,
@@ -3191,6 +3383,12 @@
                                     "column": 26,
                                     "offset": 798
                                   },
+                                  "valueEnd": {
+                                    "file": "arrays.go",
+                                    "line": 40,
+                                    "column": 27,
+                                    "offset": 799
+                                  },
                                   "kind": "INT",
                                   "value": "1",
                                   "$type": 3,
@@ -3206,6 +3404,12 @@
                                     "line": 40,
                                     "column": 29,
                                     "offset": 801
+                                  },
+                                  "valueEnd": {
+                                    "file": "arrays.go",
+                                    "line": 40,
+                                    "column": 30,
+                                    "offset": 802
                                   },
                                   "kind": "INT",
                                   "value": "2",
@@ -3282,6 +3486,12 @@
                                     "column": 40,
                                     "offset": 812
                                   },
+                                  "valueEnd": {
+                                    "file": "arrays.go",
+                                    "line": 40,
+                                    "column": 41,
+                                    "offset": 813
+                                  },
                                   "kind": "INT",
                                   "value": "2",
                                   "$type": 4,
@@ -3326,6 +3536,12 @@
                                     "column": 46,
                                     "offset": 818
                                   },
+                                  "valueEnd": {
+                                    "file": "arrays.go",
+                                    "line": 40,
+                                    "column": 47,
+                                    "offset": 819
+                                  },
                                   "kind": "INT",
                                   "value": "2",
                                   "$type": 3,
@@ -3341,6 +3557,12 @@
                                     "line": 40,
                                     "column": 49,
                                     "offset": 821
+                                  },
+                                  "valueEnd": {
+                                    "file": "arrays.go",
+                                    "line": 40,
+                                    "column": 50,
+                                    "offset": 822
                                   },
                                   "kind": "INT",
                                   "value": "1",
@@ -3437,6 +3659,12 @@
                                   "column": 12,
                                   "offset": 838
                                 },
+                                "valueEnd": {
+                                  "file": "arrays.go",
+                                  "line": 42,
+                                  "column": 13,
+                                  "offset": 839
+                                },
                                 "kind": "INT",
                                 "value": "2",
                                 "$type": 4,
@@ -3460,6 +3688,12 @@
                                     "line": 42,
                                     "column": 15,
                                     "offset": 841
+                                  },
+                                  "valueEnd": {
+                                    "file": "arrays.go",
+                                    "line": 42,
+                                    "column": 16,
+                                    "offset": 842
                                   },
                                   "kind": "INT",
                                   "value": "3",
@@ -3544,6 +3778,12 @@
                                 "column": 7,
                                 "offset": 853
                               },
+                              "valueEnd": {
+                                "file": "arrays.go",
+                                "line": 43,
+                                "column": 8,
+                                "offset": 854
+                              },
                               "kind": "INT",
                               "value": "1",
                               "$type": 3,
@@ -3573,6 +3813,12 @@
                               "line": 43,
                               "column": 10,
                               "offset": 856
+                            },
+                            "valueEnd": {
+                              "file": "arrays.go",
+                              "line": 43,
+                              "column": 11,
+                              "offset": 857
                             },
                             "kind": "INT",
                             "value": "2",
@@ -3606,6 +3852,12 @@
                             "line": 43,
                             "column": 15,
                             "offset": 861
+                          },
+                          "valueEnd": {
+                            "file": "arrays.go",
+                            "line": 43,
+                            "column": 16,
+                            "offset": 862
                           },
                           "kind": "INT",
                           "value": "5",
@@ -3691,6 +3943,12 @@
                               "column": 14,
                               "offset": 876
                             },
+                            "valueEnd": {
+                              "file": "arrays.go",
+                              "line": 44,
+                              "column": 15,
+                              "offset": 877
+                            },
                             "kind": "INT",
                             "value": "1",
                             "$type": 3,
@@ -3751,6 +4009,12 @@
                               "column": 6,
                               "offset": 884
                             },
+                            "valueEnd": {
+                              "file": "arrays.go",
+                              "line": 45,
+                              "column": 7,
+                              "offset": 885
+                            },
                             "kind": "INT",
                             "value": "0",
                             "$type": 3,
@@ -3783,6 +4047,12 @@
                             "line": 45,
                             "column": 11,
                             "offset": 889
+                          },
+                          "valueEnd": {
+                            "file": "arrays.go",
+                            "line": 45,
+                            "column": 12,
+                            "offset": 890
                           },
                           "kind": "INT",
                           "value": "8",
@@ -3830,7 +4100,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 8,
-                              "decl": "arrays.go:312",
+                              "decl": "arrays.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -4014,6 +4284,12 @@
                                       "column": 17,
                                       "offset": 932
                                     },
+                                    "valueEnd": {
+                                      "file": "arrays.go",
+                                      "line": 48,
+                                      "column": 18,
+                                      "offset": 933
+                                    },
                                     "kind": "INT",
                                     "value": "2",
                                     "$type": 4,
@@ -4058,6 +4334,12 @@
                                       "column": 23,
                                       "offset": 938
                                     },
+                                    "valueEnd": {
+                                      "file": "arrays.go",
+                                      "line": 48,
+                                      "column": 24,
+                                      "offset": 939
+                                    },
                                     "kind": "INT",
                                     "value": "1",
                                     "$type": 3,
@@ -4073,6 +4355,12 @@
                                       "line": 48,
                                       "column": 26,
                                       "offset": 941
+                                    },
+                                    "valueEnd": {
+                                      "file": "arrays.go",
+                                      "line": 48,
+                                      "column": 27,
+                                      "offset": 942
                                     },
                                     "kind": "INT",
                                     "value": "2",
@@ -4237,6 +4525,12 @@
                               "column": 9,
                               "offset": 963
                             },
+                            "valueEnd": {
+                              "file": "arrays.go",
+                              "line": 50,
+                              "column": 10,
+                              "offset": 964
+                            },
                             "kind": "INT",
                             "value": "0",
                             "$type": 3,
@@ -4269,6 +4563,12 @@
                             "line": 50,
                             "column": 14,
                             "offset": 968
+                          },
+                          "valueEnd": {
+                            "file": "arrays.go",
+                            "line": 50,
+                            "column": 16,
+                            "offset": 970
                           },
                           "kind": "INT",
                           "value": "10",
@@ -4316,7 +4616,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 8,
-                              "decl": "arrays.go:312",
+                              "decl": "arrays.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -4479,6 +4779,12 @@
                     "line": 6,
                     "column": 8,
                     "offset": 227
+                  },
+                  "valueEnd": {
+                    "file": "arrays.go",
+                    "line": 6,
+                    "column": 13,
+                    "offset": 232
                   },
                   "kind": "STRING",
                   "value": "\"fmt\""

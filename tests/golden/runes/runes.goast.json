@@ -1,7 +1,7 @@
 {
   "schemaVersion": 6,
   "tool": "goast",
-  "goVersion": "go1.25.7",
+  "goVersion": "go1.26.5",
   "packages": [
     {
       "path": "main",
@@ -77,6 +77,12 @@
                         "line": 5,
                         "column": 8,
                         "offset": 158
+                      },
+                      "valueEnd": {
+                        "file": "runes.go",
+                        "line": 5,
+                        "column": 13,
+                        "offset": 163
                       },
                       "kind": "STRING",
                       "value": "\"fmt\""
@@ -258,6 +264,12 @@
                             "column": 7,
                             "offset": 203
                           },
+                          "valueEnd": {
+                            "file": "runes.go",
+                            "line": 10,
+                            "column": 28,
+                            "offset": 224
+                          },
                           "kind": "STRING",
                           "value": "\"héllo, 世界 🌍\"",
                           "$type": 1,
@@ -419,6 +431,12 @@
                               "column": 4,
                               "offset": 244
                             },
+                            "valueEnd": {
+                              "file": "runes.go",
+                              "line": 12,
+                              "column": 5,
+                              "offset": 245
+                            },
                             "kind": "INT",
                             "value": "0",
                             "$type": 5,
@@ -451,6 +469,12 @@
                             "line": 12,
                             "column": 9,
                             "offset": 249
+                          },
+                          "valueEnd": {
+                            "file": "runes.go",
+                            "line": 12,
+                            "column": 12,
+                            "offset": 252
                           },
                           "kind": "CHAR",
                           "value": "'H'",
@@ -498,7 +522,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 6,
-                              "decl": "runes.go:312",
+                              "decl": "runes.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -817,6 +841,12 @@
                               "column": 5,
                               "offset": 310
                             },
+                            "valueEnd": {
+                              "file": "runes.go",
+                              "line": 16,
+                              "column": 6,
+                              "offset": 311
+                            },
                             "kind": "INT",
                             "value": "1",
                             "$type": 5,
@@ -849,6 +879,12 @@
                             "line": 16,
                             "column": 10,
                             "offset": 315
+                          },
+                          "valueEnd": {
+                            "file": "runes.go",
+                            "line": 16,
+                            "column": 13,
+                            "offset": 318
                           },
                           "kind": "CHAR",
                           "value": "'e'",
@@ -896,7 +932,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 6,
-                              "decl": "runes.go:312",
+                              "decl": "runes.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -1068,6 +1104,12 @@
                                 "line": 17,
                                 "column": 38,
                                 "offset": 356
+                              },
+                              "valueEnd": {
+                                "file": "runes.go",
+                                "line": 17,
+                                "column": 39,
+                                "offset": 357
                               },
                               "kind": "INT",
                               "value": "7",
@@ -1276,6 +1318,12 @@
                                     "column": 16,
                                     "offset": 399
                                   },
+                                  "valueEnd": {
+                                    "file": "runes.go",
+                                    "line": 20,
+                                    "column": 19,
+                                    "offset": 402
+                                  },
                                   "kind": "STRING",
                                   "value": "\":\"",
                                   "$type": 1,
@@ -1352,6 +1400,12 @@
                                     "column": 32,
                                     "offset": 415
                                   },
+                                  "valueEnd": {
+                                    "file": "runes.go",
+                                    "line": 20,
+                                    "column": 35,
+                                    "offset": 418
+                                  },
                                   "kind": "STRING",
                                   "value": "\" \"",
                                   "$type": 1,
@@ -1416,7 +1470,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 6,
-                              "decl": "runes.go:312",
+                              "decl": "runes.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -1549,6 +1603,12 @@
                                     "column": 23,
                                     "offset": 461
                                   },
+                                  "valueEnd": {
+                                    "file": "runes.go",
+                                    "line": 24,
+                                    "column": 27,
+                                    "offset": 465
+                                  },
                                   "kind": "INT",
                                   "value": "0x61",
                                   "$type": 4,
@@ -1564,6 +1624,12 @@
                                     "line": 24,
                                     "column": 29,
                                     "offset": 467
+                                  },
+                                  "valueEnd": {
+                                    "file": "runes.go",
+                                    "line": 24,
+                                    "column": 33,
+                                    "offset": 471
                                   },
                                   "kind": "INT",
                                   "value": "0xff",
@@ -1581,6 +1647,12 @@
                                     "column": 35,
                                     "offset": 473
                                   },
+                                  "valueEnd": {
+                                    "file": "runes.go",
+                                    "line": 24,
+                                    "column": 39,
+                                    "offset": 477
+                                  },
                                   "kind": "INT",
                                   "value": "0xe4",
                                   "$type": 4,
@@ -1596,6 +1668,12 @@
                                     "line": 24,
                                     "column": 41,
                                     "offset": 479
+                                  },
+                                  "valueEnd": {
+                                    "file": "runes.go",
+                                    "line": 24,
+                                    "column": 45,
+                                    "offset": 483
                                   },
                                   "kind": "INT",
                                   "value": "0xb8",
@@ -1613,6 +1691,12 @@
                                     "column": 47,
                                     "offset": 485
                                   },
+                                  "valueEnd": {
+                                    "file": "runes.go",
+                                    "line": 24,
+                                    "column": 51,
+                                    "offset": 489
+                                  },
                                   "kind": "INT",
                                   "value": "0x62",
                                   "$type": 4,
@@ -1628,6 +1712,12 @@
                                     "line": 24,
                                     "column": 53,
                                     "offset": 491
+                                  },
+                                  "valueEnd": {
+                                    "file": "runes.go",
+                                    "line": 24,
+                                    "column": 57,
+                                    "offset": 495
                                   },
                                   "kind": "INT",
                                   "value": "0xed",
@@ -1645,6 +1735,12 @@
                                     "column": 59,
                                     "offset": 497
                                   },
+                                  "valueEnd": {
+                                    "file": "runes.go",
+                                    "line": 24,
+                                    "column": 63,
+                                    "offset": 501
+                                  },
                                   "kind": "INT",
                                   "value": "0xa0",
                                   "$type": 4,
@@ -1660,6 +1756,12 @@
                                     "line": 24,
                                     "column": 65,
                                     "offset": 503
+                                  },
+                                  "valueEnd": {
+                                    "file": "runes.go",
+                                    "line": 24,
+                                    "column": 69,
+                                    "offset": 507
                                   },
                                   "kind": "INT",
                                   "value": "0x80",
@@ -1677,6 +1779,12 @@
                                     "column": 71,
                                     "offset": 509
                                   },
+                                  "valueEnd": {
+                                    "file": "runes.go",
+                                    "line": 24,
+                                    "column": 75,
+                                    "offset": 513
+                                  },
                                   "kind": "INT",
                                   "value": "0xf0",
                                   "$type": 4,
@@ -1693,6 +1801,12 @@
                                     "column": 77,
                                     "offset": 515
                                   },
+                                  "valueEnd": {
+                                    "file": "runes.go",
+                                    "line": 24,
+                                    "column": 81,
+                                    "offset": 519
+                                  },
                                   "kind": "INT",
                                   "value": "0x9f",
                                   "$type": 4,
@@ -1708,6 +1822,12 @@
                                     "line": 24,
                                     "column": 83,
                                     "offset": 521
+                                  },
+                                  "valueEnd": {
+                                    "file": "runes.go",
+                                    "line": 24,
+                                    "column": 87,
+                                    "offset": 525
                                   },
                                   "kind": "INT",
                                   "value": "0x8c",
@@ -1919,6 +2039,12 @@
                                     "column": 16,
                                     "offset": 568
                                   },
+                                  "valueEnd": {
+                                    "file": "runes.go",
+                                    "line": 26,
+                                    "column": 19,
+                                    "offset": 571
+                                  },
                                   "kind": "STRING",
                                   "value": "\"=\"",
                                   "$type": 1,
@@ -1957,6 +2083,12 @@
                                     "line": 26,
                                     "column": 24,
                                     "offset": 576
+                                  },
+                                  "valueEnd": {
+                                    "file": "runes.go",
+                                    "line": 26,
+                                    "column": 27,
+                                    "offset": 579
                                   },
                                   "kind": "STRING",
                                   "value": "\" \"",
@@ -2022,7 +2154,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 6,
-                              "decl": "runes.go:312",
+                              "decl": "runes.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -2199,6 +2331,12 @@
                             "column": 7,
                             "offset": 622
                           },
+                          "valueEnd": {
+                            "file": "runes.go",
+                            "line": 30,
+                            "column": 8,
+                            "offset": 623
+                          },
                           "kind": "INT",
                           "value": "0",
                           "$type": 5,
@@ -2234,6 +2372,12 @@
                           "line": 31,
                           "column": 12,
                           "offset": 635
+                        },
+                        "valueEnd": {
+                          "file": "runes.go",
+                          "line": 31,
+                          "column": 17,
+                          "offset": 640
                         },
                         "kind": "STRING",
                         "value": "\"abc\"",
@@ -2346,6 +2490,12 @@
                           "line": 34,
                           "column": 17,
                           "offset": 668
+                        },
+                        "valueEnd": {
+                          "file": "runes.go",
+                          "line": 34,
+                          "column": 21,
+                          "offset": 672
                         },
                         "kind": "STRING",
                         "value": "\"ab\"",
@@ -2469,7 +2619,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 6,
-                              "decl": "runes.go:312",
+                              "decl": "runes.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -2553,7 +2703,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 6,
-                              "decl": "runes.go:312",
+                              "decl": "runes.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -2641,6 +2791,12 @@
                                       "column": 28,
                                       "offset": 731
                                     },
+                                    "valueEnd": {
+                                      "file": "runes.go",
+                                      "line": 39,
+                                      "column": 30,
+                                      "offset": 733
+                                    },
                                     "kind": "INT",
                                     "value": "72",
                                     "$type": 16,
@@ -2666,6 +2822,12 @@
                                         "column": 33,
                                         "offset": 736
                                       },
+                                      "valueEnd": {
+                                        "file": "runes.go",
+                                        "line": 39,
+                                        "column": 34,
+                                        "offset": 737
+                                      },
                                       "kind": "INT",
                                       "value": "1",
                                       "$type": 19,
@@ -2688,6 +2850,12 @@
                                       "column": 36,
                                       "offset": 739
                                     },
+                                    "valueEnd": {
+                                      "file": "runes.go",
+                                      "line": 39,
+                                      "column": 42,
+                                      "offset": 745
+                                    },
                                     "kind": "INT",
                                     "value": "0xD800",
                                     "$type": 16,
@@ -2705,6 +2873,12 @@
                                         "line": 39,
                                         "column": 44,
                                         "offset": 747
+                                      },
+                                      "valueEnd": {
+                                        "file": "runes.go",
+                                        "line": 39,
+                                        "column": 52,
+                                        "offset": 755
                                       },
                                       "kind": "INT",
                                       "value": "0x10FFFF",
@@ -2729,6 +2903,12 @@
                                         "column": 55,
                                         "offset": 758
                                       },
+                                      "valueEnd": {
+                                        "file": "runes.go",
+                                        "line": 39,
+                                        "column": 56,
+                                        "offset": 759
+                                      },
                                       "kind": "INT",
                                       "value": "1",
                                       "$type": 19,
@@ -2750,6 +2930,12 @@
                                       "line": 39,
                                       "column": 58,
                                       "offset": 761
+                                    },
+                                    "valueEnd": {
+                                      "file": "runes.go",
+                                      "line": 39,
+                                      "column": 64,
+                                      "offset": 767
                                     },
                                     "kind": "INT",
                                     "value": "0x4E16",
@@ -2867,6 +3053,12 @@
                                 "column": 15,
                                 "offset": 785
                               },
+                              "valueEnd": {
+                                "file": "runes.go",
+                                "line": 40,
+                                "column": 22,
+                                "offset": 792
+                              },
                               "kind": "STRING",
                               "value": "\"ñame\"",
                               "$type": 0,
@@ -2927,7 +3119,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 6,
-                              "decl": "runes.go:312",
+                              "decl": "runes.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -3399,6 +3591,12 @@
                                   "column": 11,
                                   "offset": 898
                                 },
+                                "valueEnd": {
+                                  "file": "runes.go",
+                                  "line": 43,
+                                  "column": 14,
+                                  "offset": 901
+                                },
                                 "kind": "CHAR",
                                 "value": "'a'",
                                 "$type": 16,
@@ -3605,7 +3803,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 6,
-                              "decl": "runes.go:312",
+                              "decl": "runes.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -3665,7 +3863,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 6,
-                              "decl": "runes.go:312",
+                              "decl": "runes.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -3799,6 +3997,12 @@
                                 "column": 37,
                                 "offset": 997
                               },
+                              "valueEnd": {
+                                "file": "runes.go",
+                                "line": 49,
+                                "column": 39,
+                                "offset": 999
+                              },
                               "kind": "STRING",
                               "value": "\"\"",
                               "$type": 1,
@@ -3883,6 +4087,12 @@
                                       "column": 52,
                                       "offset": 1012
                                     },
+                                    "valueEnd": {
+                                      "file": "runes.go",
+                                      "line": 49,
+                                      "column": 54,
+                                      "offset": 1014
+                                    },
                                     "kind": "STRING",
                                     "value": "\"\"",
                                     "$type": 1,
@@ -3957,6 +4167,12 @@
                     "line": 5,
                     "column": 8,
                     "offset": 158
+                  },
+                  "valueEnd": {
+                    "file": "runes.go",
+                    "line": 5,
+                    "column": 13,
+                    "offset": 163
                   },
                   "kind": "STRING",
                   "value": "\"fmt\""

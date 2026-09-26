@@ -1,7 +1,7 @@
 {
   "schemaVersion": 6,
   "tool": "goast",
-  "goVersion": "go1.25.7",
+  "goVersion": "go1.26.5",
   "packages": [
     {
       "path": "main",
@@ -93,6 +93,12 @@
                         "column": 2,
                         "offset": 224
                       },
+                      "valueEnd": {
+                        "file": "generics.go",
+                        "line": 7,
+                        "column": 7,
+                        "offset": 229
+                      },
                       "kind": "STRING",
                       "value": "\"cmp\""
                     },
@@ -110,6 +116,12 @@
                         "line": 8,
                         "column": 2,
                         "offset": 231
+                      },
+                      "valueEnd": {
+                        "file": "generics.go",
+                        "line": 8,
+                        "column": 7,
+                        "offset": 236
                       },
                       "kind": "STRING",
                       "value": "\"fmt\""
@@ -2291,6 +2303,12 @@
                                 "column": 19,
                                 "offset": 621
                               },
+                              "valueEnd": {
+                                "file": "generics.go",
+                                "line": 37,
+                                "column": 20,
+                                "offset": 622
+                              },
                               "kind": "INT",
                               "value": "0",
                               "$type": 3,
@@ -3751,6 +3769,12 @@
                             "column": 21,
                             "offset": 874
                           },
+                          "valueEnd": {
+                            "file": "generics.go",
+                            "line": 52,
+                            "column": 22,
+                            "offset": 875
+                          },
                           "kind": "INT",
                           "value": "0",
                           "$type": 3,
@@ -4042,6 +4066,12 @@
                                 "column": 28,
                                 "offset": 929
                               },
+                              "valueEnd": {
+                                "file": "generics.go",
+                                "line": 55,
+                                "column": 29,
+                                "offset": 930
+                              },
                               "kind": "INT",
                               "value": "1",
                               "$type": 3,
@@ -4295,6 +4325,12 @@
                                 "line": 56,
                                 "column": 34,
                                 "offset": 965
+                              },
+                              "valueEnd": {
+                                "file": "generics.go",
+                                "line": 56,
+                                "column": 35,
+                                "offset": 966
                               },
                               "kind": "INT",
                               "value": "1",
@@ -5155,6 +5191,12 @@
                                   "column": 18,
                                   "offset": 1128
                                 },
+                                "valueEnd": {
+                                  "file": "generics.go",
+                                  "line": 68,
+                                  "column": 19,
+                                  "offset": 1129
+                                },
                                 "kind": "INT",
                                 "value": "1",
                                 "$type": 3,
@@ -5171,6 +5213,12 @@
                                   "column": 21,
                                   "offset": 1131
                                 },
+                                "valueEnd": {
+                                  "file": "generics.go",
+                                  "line": 68,
+                                  "column": 22,
+                                  "offset": 1132
+                                },
                                 "kind": "INT",
                                 "value": "2",
                                 "$type": 3,
@@ -5186,6 +5234,12 @@
                                   "line": 68,
                                   "column": 24,
                                   "offset": 1134
+                                },
+                                "valueEnd": {
+                                  "file": "generics.go",
+                                  "line": 68,
+                                  "column": 25,
+                                  "offset": 1135
                                 },
                                 "kind": "INT",
                                 "value": "3",
@@ -5249,6 +5303,12 @@
                                   "column": 32,
                                   "offset": 1142
                                 },
+                                "valueEnd": {
+                                  "file": "generics.go",
+                                  "line": 68,
+                                  "column": 35,
+                                  "offset": 1145
+                                },
                                 "kind": "FLOAT",
                                 "value": "1.5",
                                 "$type": 5,
@@ -5264,6 +5324,12 @@
                                   "line": 68,
                                   "column": 37,
                                   "offset": 1147
+                                },
+                                "valueEnd": {
+                                  "file": "generics.go",
+                                  "line": 68,
+                                  "column": 41,
+                                  "offset": 1151
                                 },
                                 "kind": "FLOAT",
                                 "value": "2.25",
@@ -5368,6 +5434,12 @@
                                   "column": 56,
                                   "offset": 1166
                                 },
+                                "valueEnd": {
+                                  "file": "generics.go",
+                                  "line": 68,
+                                  "column": 57,
+                                  "offset": 1167
+                                },
                                 "kind": "INT",
                                 "value": "1",
                                 "$type": 10,
@@ -5383,6 +5455,12 @@
                                   "line": 68,
                                   "column": 59,
                                   "offset": 1169
+                                },
+                                "valueEnd": {
+                                  "file": "generics.go",
+                                  "line": 68,
+                                  "column": 60,
+                                  "offset": 1170
                                 },
                                 "kind": "INT",
                                 "value": "2",
@@ -5564,6 +5642,12 @@
                                       "column": 85,
                                       "offset": 1195
                                     },
+                                    "valueEnd": {
+                                      "file": "generics.go",
+                                      "line": 68,
+                                      "column": 86,
+                                      "offset": 1196
+                                    },
                                     "kind": "INT",
                                     "value": "7",
                                     "$type": 3,
@@ -5579,6 +5663,12 @@
                                       "line": 68,
                                       "column": 88,
                                       "offset": 1198
+                                    },
+                                    "valueEnd": {
+                                      "file": "generics.go",
+                                      "line": 68,
+                                      "column": 89,
+                                      "offset": 1199
                                     },
                                     "kind": "INT",
                                     "value": "8",
@@ -5712,6 +5802,12 @@
                                   "column": 18,
                                   "offset": 1220
                                 },
+                                "valueEnd": {
+                                  "file": "generics.go",
+                                  "line": 69,
+                                  "column": 19,
+                                  "offset": 1221
+                                },
                                 "kind": "INT",
                                 "value": "3",
                                 "$type": 3,
@@ -5727,6 +5823,12 @@
                                   "line": 69,
                                   "column": 21,
                                   "offset": 1223
+                                },
+                                "valueEnd": {
+                                  "file": "generics.go",
+                                  "line": 69,
+                                  "column": 22,
+                                  "offset": 1224
                                 },
                                 "kind": "INT",
                                 "value": "7",
@@ -5790,6 +5892,12 @@
                                   "column": 29,
                                   "offset": 1231
                                 },
+                                "valueEnd": {
+                                  "file": "generics.go",
+                                  "line": 69,
+                                  "column": 34,
+                                  "offset": 1236
+                                },
                                 "kind": "STRING",
                                 "value": "\"abc\"",
                                 "$type": 35,
@@ -5805,6 +5913,12 @@
                                   "line": 69,
                                   "column": 36,
                                   "offset": 1238
+                                },
+                                "valueEnd": {
+                                  "file": "generics.go",
+                                  "line": 69,
+                                  "column": 41,
+                                  "offset": 1243
                                 },
                                 "kind": "STRING",
                                 "value": "\"abd\"",
@@ -5868,6 +5982,12 @@
                                   "column": 48,
                                   "offset": 1250
                                 },
+                                "valueEnd": {
+                                  "file": "generics.go",
+                                  "line": 69,
+                                  "column": 51,
+                                  "offset": 1253
+                                },
                                 "kind": "FLOAT",
                                 "value": "2.5",
                                 "$type": 5,
@@ -5892,6 +6012,12 @@
                                     "line": 69,
                                     "column": 54,
                                     "offset": 1256
+                                  },
+                                  "valueEnd": {
+                                    "file": "generics.go",
+                                    "line": 69,
+                                    "column": 57,
+                                    "offset": 1259
                                   },
                                   "kind": "FLOAT",
                                   "value": "1.0",
@@ -6047,6 +6173,12 @@
                                     "column": 20,
                                     "offset": 1281
                                   },
+                                  "valueEnd": {
+                                    "file": "generics.go",
+                                    "line": 70,
+                                    "column": 21,
+                                    "offset": 1282
+                                  },
                                   "kind": "INT",
                                   "value": "1",
                                   "$type": 3,
@@ -6063,6 +6195,12 @@
                                     "column": 23,
                                     "offset": 1284
                                   },
+                                  "valueEnd": {
+                                    "file": "generics.go",
+                                    "line": 70,
+                                    "column": 24,
+                                    "offset": 1285
+                                  },
                                   "kind": "INT",
                                   "value": "2",
                                   "$type": 3,
@@ -6078,6 +6216,12 @@
                                     "line": 70,
                                     "column": 26,
                                     "offset": 1287
+                                  },
+                                  "valueEnd": {
+                                    "file": "generics.go",
+                                    "line": 70,
+                                    "column": 27,
+                                    "offset": 1288
                                   },
                                   "kind": "INT",
                                   "value": "3",
@@ -6281,6 +6425,12 @@
                                               "line": 70,
                                               "column": 69,
                                               "offset": 1330
+                                            },
+                                            "valueEnd": {
+                                              "file": "generics.go",
+                                              "line": 70,
+                                              "column": 72,
+                                              "offset": 1333
                                             },
                                             "kind": "STRING",
                                             "value": "\"n\"",
@@ -6674,6 +6824,12 @@
                               "column": 9,
                               "offset": 1400
                             },
+                            "valueEnd": {
+                              "file": "generics.go",
+                              "line": 73,
+                              "column": 12,
+                              "offset": 1403
+                            },
                             "kind": "STRING",
                             "value": "\"a\"",
                             "$type": 35,
@@ -6764,6 +6920,12 @@
                               "line": 74,
                               "column": 9,
                               "offset": 1413
+                            },
+                            "valueEnd": {
+                              "file": "generics.go",
+                              "line": 74,
+                              "column": 12,
+                              "offset": 1416
                             },
                             "kind": "STRING",
                             "value": "\"b\"",
@@ -7386,6 +7548,12 @@
                                 "column": 19,
                                 "offset": 1509
                               },
+                              "valueEnd": {
+                                "file": "generics.go",
+                                "line": 79,
+                                "column": 21,
+                                "offset": 1511
+                              },
                               "kind": "STRING",
                               "value": "\"\"",
                               "$type": 35,
@@ -7566,6 +7734,12 @@
                                 "column": 25,
                                 "offset": 1541
                               },
+                              "valueEnd": {
+                                "file": "generics.go",
+                                "line": 80,
+                                "column": 28,
+                                "offset": 1544
+                              },
                               "kind": "STRING",
                               "value": "\"k\"",
                               "$type": 35,
@@ -7581,6 +7755,12 @@
                                 "line": 80,
                                 "column": 30,
                                 "offset": 1546
+                              },
+                              "valueEnd": {
+                                "file": "generics.go",
+                                "line": 80,
+                                "column": 31,
+                                "offset": 1547
                               },
                               "kind": "INT",
                               "value": "1",
@@ -7774,6 +7954,12 @@
                     "column": 2,
                     "offset": 224
                   },
+                  "valueEnd": {
+                    "file": "generics.go",
+                    "line": 7,
+                    "column": 7,
+                    "offset": 229
+                  },
                   "kind": "STRING",
                   "value": "\"cmp\""
                 },
@@ -7791,6 +7977,12 @@
                     "line": 8,
                     "column": 2,
                     "offset": 231
+                  },
+                  "valueEnd": {
+                    "file": "generics.go",
+                    "line": 8,
+                    "column": 7,
+                    "offset": 236
                   },
                   "kind": "STRING",
                   "value": "\"fmt\""

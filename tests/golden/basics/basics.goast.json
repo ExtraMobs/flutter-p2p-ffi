@@ -1,7 +1,7 @@
 {
   "schemaVersion": 6,
   "tool": "goast",
-  "goVersion": "go1.25.7",
+  "goVersion": "go1.26.5",
   "packages": [
     {
       "path": "main",
@@ -77,6 +77,12 @@
                         "line": 5,
                         "column": 8,
                         "offset": 164
+                      },
+                      "valueEnd": {
+                        "file": "basics.go",
+                        "line": 5,
+                        "column": 13,
+                        "offset": 169
                       },
                       "kind": "STRING",
                       "value": "\"fmt\""
@@ -303,6 +309,12 @@
                           "line": 13,
                           "column": 18,
                           "offset": 222
+                        },
+                        "valueEnd": {
+                          "file": "basics.go",
+                          "line": 13,
+                          "column": 38,
+                          "offset": 242
                         },
                         "kind": "STRING",
                         "value": "\"custa $5\\t\\\"ok\\\"\\n\"",
@@ -1634,6 +1646,12 @@
                             "column": 9,
                             "offset": 575
                           },
+                          "valueEnd": {
+                            "file": "basics.go",
+                            "line": 39,
+                            "column": 14,
+                            "offset": 580
+                          },
                           "kind": "STRING",
                           "value": "\"par\"",
                           "$type": 5,
@@ -1868,6 +1886,12 @@
                             "line": 43,
                             "column": 11,
                             "offset": 625
+                          },
+                          "valueEnd": {
+                            "file": "basics.go",
+                            "line": 43,
+                            "column": 12,
+                            "offset": 626
                           },
                           "kind": "INT",
                           "value": "0",
@@ -2303,6 +2327,12 @@
                                     "column": 11,
                                     "offset": 734
                                   },
+                                  "valueEnd": {
+                                    "file": "basics.go",
+                                    "line": 52,
+                                    "column": 12,
+                                    "offset": 735
+                                  },
                                   "kind": "INT",
                                   "value": "0",
                                   "$type": 2,
@@ -2337,6 +2367,12 @@
                                       "line": 53,
                                       "column": 10,
                                       "offset": 746
+                                    },
+                                    "valueEnd": {
+                                      "file": "basics.go",
+                                      "line": 53,
+                                      "column": 20,
+                                      "offset": 756
                                     },
                                     "kind": "STRING",
                                     "value": "\"negativo\"",
@@ -2399,6 +2435,12 @@
                                     "column": 12,
                                     "offset": 768
                                   },
+                                  "valueEnd": {
+                                    "file": "basics.go",
+                                    "line": 54,
+                                    "column": 13,
+                                    "offset": 769
+                                  },
                                   "kind": "INT",
                                   "value": "0",
                                   "$type": 2,
@@ -2433,6 +2475,12 @@
                                       "line": 55,
                                       "column": 10,
                                       "offset": 780
+                                    },
+                                    "valueEnd": {
+                                      "file": "basics.go",
+                                      "line": 55,
+                                      "column": 16,
+                                      "offset": 786
                                     },
                                     "kind": "STRING",
                                     "value": "\"zero\"",
@@ -2504,6 +2552,12 @@
                             "column": 13,
                             "offset": 802
                           },
+                          "valueEnd": {
+                            "file": "basics.go",
+                            "line": 57,
+                            "column": 14,
+                            "offset": 803
+                          },
                           "kind": "INT",
                           "value": "3",
                           "$type": 2,
@@ -2540,6 +2594,12 @@
                                   "column": 7,
                                   "offset": 812
                                 },
+                                "valueEnd": {
+                                  "file": "basics.go",
+                                  "line": 58,
+                                  "column": 8,
+                                  "offset": 813
+                                },
                                 "kind": "INT",
                                 "value": "0",
                                 "$type": 2,
@@ -2573,6 +2633,12 @@
                                       "column": 10,
                                       "offset": 824
                                     },
+                                    "valueEnd": {
+                                      "file": "basics.go",
+                                      "line": 59,
+                                      "column": 26,
+                                      "offset": 840
+                                    },
                                     "kind": "STRING",
                                     "value": "\"múltiplo de 3\"",
                                     "$type": 5,
@@ -2602,6 +2668,12 @@
                                   "column": 7,
                                   "offset": 847
                                 },
+                                "valueEnd": {
+                                  "file": "basics.go",
+                                  "line": 60,
+                                  "column": 8,
+                                  "offset": 848
+                                },
                                 "kind": "INT",
                                 "value": "1",
                                 "$type": 2,
@@ -2617,6 +2689,12 @@
                                   "line": 60,
                                   "column": 10,
                                   "offset": 850
+                                },
+                                "valueEnd": {
+                                  "file": "basics.go",
+                                  "line": 60,
+                                  "column": 11,
+                                  "offset": 851
                                 },
                                 "kind": "INT",
                                 "value": "2",
@@ -2652,6 +2730,12 @@
                                         "line": 61,
                                         "column": 10,
                                         "offset": 862
+                                      },
+                                      "valueEnd": {
+                                        "file": "basics.go",
+                                        "line": 61,
+                                        "column": 18,
+                                        "offset": 870
                                       },
                                       "kind": "STRING",
                                       "value": "\"resto \"",
@@ -2756,6 +2840,12 @@
                                               "column": 34,
                                               "offset": 886
                                             },
+                                            "valueEnd": {
+                                              "file": "basics.go",
+                                              "line": 61,
+                                              "column": 35,
+                                              "offset": 887
+                                            },
                                             "kind": "INT",
                                             "value": "3",
                                             "$type": 2,
@@ -2807,6 +2897,12 @@
                             "line": 63,
                             "column": 9,
                             "offset": 900
+                          },
+                          "valueEnd": {
+                            "file": "basics.go",
+                            "line": 63,
+                            "column": 25,
+                            "offset": 916
                           },
                           "kind": "STRING",
                           "value": "\"inalcançável\"",
@@ -2927,7 +3023,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 23,
-                              "decl": "basics.go:312",
+                              "decl": "basics.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -3116,7 +3212,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 23,
-                              "decl": "basics.go:312",
+                              "decl": "basics.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -3140,6 +3236,12 @@
                                 "column": 14,
                                 "offset": 986
                               },
+                              "valueEnd": {
+                                "file": "basics.go",
+                                "line": 68,
+                                "column": 15,
+                                "offset": 987
+                              },
                               "kind": "INT",
                               "value": "7",
                               "$type": 0,
@@ -3162,6 +3264,12 @@
                                 "line": 68,
                                 "column": 16,
                                 "offset": 988
+                              },
+                              "valueEnd": {
+                                "file": "basics.go",
+                                "line": 68,
+                                "column": 17,
+                                "offset": 989
                               },
                               "kind": "INT",
                               "value": "2",
@@ -3196,6 +3304,12 @@
                                   "column": 20,
                                   "offset": 992
                                 },
+                                "valueEnd": {
+                                  "file": "basics.go",
+                                  "line": 68,
+                                  "column": 21,
+                                  "offset": 993
+                                },
                                 "kind": "INT",
                                 "value": "7",
                                 "$type": 0,
@@ -3225,6 +3339,12 @@
                                 "column": 22,
                                 "offset": 994
                               },
+                              "valueEnd": {
+                                "file": "basics.go",
+                                "line": 68,
+                                "column": 23,
+                                "offset": 995
+                              },
                               "kind": "INT",
                               "value": "2",
                               "$type": 0,
@@ -3249,6 +3369,12 @@
                                 "column": 25,
                                 "offset": 997
                               },
+                              "valueEnd": {
+                                "file": "basics.go",
+                                "line": 68,
+                                "column": 26,
+                                "offset": 998
+                              },
                               "kind": "INT",
                               "value": "7",
                               "$type": 0,
@@ -3271,6 +3397,12 @@
                                 "line": 68,
                                 "column": 27,
                                 "offset": 999
+                              },
+                              "valueEnd": {
+                                "file": "basics.go",
+                                "line": 68,
+                                "column": 28,
+                                "offset": 1000
                               },
                               "kind": "INT",
                               "value": "3",
@@ -3305,6 +3437,12 @@
                                   "column": 31,
                                   "offset": 1003
                                 },
+                                "valueEnd": {
+                                  "file": "basics.go",
+                                  "line": 68,
+                                  "column": 32,
+                                  "offset": 1004
+                                },
                                 "kind": "INT",
                                 "value": "7",
                                 "$type": 0,
@@ -3334,6 +3472,12 @@
                                 "column": 33,
                                 "offset": 1005
                               },
+                              "valueEnd": {
+                                "file": "basics.go",
+                                "line": 68,
+                                "column": 34,
+                                "offset": 1006
+                              },
                               "kind": "INT",
                               "value": "3",
                               "$type": 0,
@@ -3358,6 +3502,12 @@
                                 "column": 36,
                                 "offset": 1008
                               },
+                              "valueEnd": {
+                                "file": "basics.go",
+                                "line": 68,
+                                "column": 39,
+                                "offset": 1011
+                              },
                               "kind": "FLOAT",
                               "value": "7.0",
                               "$type": 25,
@@ -3380,6 +3530,12 @@
                                 "line": 68,
                                 "column": 40,
                                 "offset": 1012
+                              },
+                              "valueEnd": {
+                                "file": "basics.go",
+                                "line": 68,
+                                "column": 41,
+                                "offset": 1013
                               },
                               "kind": "INT",
                               "value": "2",
@@ -3405,6 +3561,12 @@
                                 "column": 43,
                                 "offset": 1015
                               },
+                              "valueEnd": {
+                                "file": "basics.go",
+                                "line": 68,
+                                "column": 44,
+                                "offset": 1016
+                              },
                               "kind": "INT",
                               "value": "1",
                               "$type": 0,
@@ -3427,6 +3589,12 @@
                                 "line": 68,
                                 "column": 46,
                                 "offset": 1018
+                              },
+                              "valueEnd": {
+                                "file": "basics.go",
+                                "line": 68,
+                                "column": 48,
+                                "offset": 1020
                               },
                               "kind": "INT",
                               "value": "10",
@@ -3452,6 +3620,12 @@
                                 "column": 50,
                                 "offset": 1022
                               },
+                              "valueEnd": {
+                                "file": "basics.go",
+                                "line": 68,
+                                "column": 51,
+                                "offset": 1023
+                              },
                               "kind": "INT",
                               "value": "6",
                               "$type": 0,
@@ -3474,6 +3648,12 @@
                                 "line": 68,
                                 "column": 53,
                                 "offset": 1025
+                              },
+                              "valueEnd": {
+                                "file": "basics.go",
+                                "line": 68,
+                                "column": 54,
+                                "offset": 1026
                               },
                               "kind": "INT",
                               "value": "3",
@@ -3599,6 +3779,12 @@
                                 "column": 17,
                                 "offset": 1045
                               },
+                              "valueEnd": {
+                                "file": "basics.go",
+                                "line": 70,
+                                "column": 19,
+                                "offset": 1047
+                              },
                               "kind": "INT",
                               "value": "17",
                               "$type": 2,
@@ -3614,6 +3800,12 @@
                                 "line": 70,
                                 "column": 21,
                                 "offset": 1049
+                              },
+                              "valueEnd": {
+                                "file": "basics.go",
+                                "line": 70,
+                                "column": 22,
+                                "offset": 1050
                               },
                               "kind": "INT",
                               "value": "5",
@@ -3671,7 +3863,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 23,
-                              "decl": "basics.go:312",
+                              "decl": "basics.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -3880,7 +4072,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 23,
-                              "decl": "basics.go:312",
+                              "decl": "basics.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -4088,7 +4280,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 23,
-                              "decl": "basics.go:312",
+                              "decl": "basics.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -4230,6 +4422,12 @@
                             "column": 7,
                             "offset": 1165
                           },
+                          "valueEnd": {
+                            "file": "basics.go",
+                            "line": 77,
+                            "column": 9,
+                            "offset": 1167
+                          },
                           "kind": "INT",
                           "value": "10",
                           "$type": 2,
@@ -4324,6 +4522,12 @@
                                   "column": 12,
                                   "offset": 1182
                                 },
+                                "valueEnd": {
+                                  "file": "basics.go",
+                                  "line": 79,
+                                  "column": 13,
+                                  "offset": 1183
+                                },
                                 "kind": "INT",
                                 "value": "1",
                                 "$type": 2,
@@ -4372,7 +4576,7 @@
                                   "name": "Println",
                                   "kind": "func",
                                   "type": 23,
-                                  "decl": "basics.go:312",
+                                  "decl": "basics.go:313",
                                   "pkg": "fmt",
                                   "top": true
                                 }
@@ -4393,6 +4597,12 @@
                                   "line": 80,
                                   "column": 15,
                                   "offset": 1198
+                                },
+                                "valueEnd": {
+                                  "file": "basics.go",
+                                  "line": 80,
+                                  "column": 24,
+                                  "offset": 1207
                                 },
                                 "kind": "STRING",
                                 "value": "\"interno\"",
@@ -4480,7 +4690,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 23,
-                              "decl": "basics.go:312",
+                              "decl": "basics.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -4501,6 +4711,12 @@
                               "line": 82,
                               "column": 14,
                               "offset": 1228
+                            },
+                            "valueEnd": {
+                              "file": "basics.go",
+                              "line": 82,
+                              "column": 23,
+                              "offset": 1237
                             },
                             "kind": "STRING",
                             "value": "\"externo\"",
@@ -4655,6 +4871,12 @@
                                     "line": 84,
                                     "column": 22,
                                     "offset": 1264
+                                  },
+                                  "valueEnd": {
+                                    "file": "basics.go",
+                                    "line": 84,
+                                    "column": 26,
+                                    "offset": 1268
                                   },
                                   "kind": "STRING",
                                   "value": "\"c1\"",
@@ -4863,7 +5085,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 23,
-                              "decl": "basics.go:312",
+                              "decl": "basics.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -5379,6 +5601,12 @@
                               "column": 11,
                               "offset": 1390
                             },
+                            "valueEnd": {
+                              "file": "basics.go",
+                              "line": 90,
+                              "column": 12,
+                              "offset": 1391
+                            },
                             "kind": "INT",
                             "value": "0",
                             "$type": 2,
@@ -5428,6 +5656,12 @@
                             "line": 90,
                             "column": 18,
                             "offset": 1397
+                          },
+                          "valueEnd": {
+                            "file": "basics.go",
+                            "line": 90,
+                            "column": 19,
+                            "offset": 1398
                           },
                           "kind": "INT",
                           "value": "3",
@@ -5871,7 +6105,7 @@
                                     "name": "Println",
                                     "kind": "func",
                                     "type": 23,
-                                    "decl": "basics.go:312",
+                                    "decl": "basics.go:313",
                                     "pkg": "fmt",
                                     "top": true
                                   }
@@ -6047,6 +6281,12 @@
                                   "column": 22,
                                   "offset": 1533
                                 },
+                                "valueEnd": {
+                                  "file": "basics.go",
+                                  "line": 97,
+                                  "column": 25,
+                                  "offset": 1536
+                                },
                                 "kind": "STRING",
                                 "value": "\"a\"",
                                 "$type": 5,
@@ -6069,6 +6309,12 @@
                                   "column": 27,
                                   "offset": 1538
                                 },
+                                "valueEnd": {
+                                  "file": "basics.go",
+                                  "line": 97,
+                                  "column": 28,
+                                  "offset": 1539
+                                },
                                 "kind": "INT",
                                 "value": "1",
                                 "$type": 2,
@@ -6087,6 +6333,12 @@
                                   "line": 97,
                                   "column": 30,
                                   "offset": 1541
+                                },
+                                "valueEnd": {
+                                  "file": "basics.go",
+                                  "line": 97,
+                                  "column": 33,
+                                  "offset": 1544
                                 },
                                 "kind": "STRING",
                                 "value": "\"b\"",
@@ -6110,6 +6362,12 @@
                                   "column": 35,
                                   "offset": 1546
                                 },
+                                "valueEnd": {
+                                  "file": "basics.go",
+                                  "line": 97,
+                                  "column": 36,
+                                  "offset": 1547
+                                },
                                 "kind": "INT",
                                 "value": "2",
                                 "$type": 2,
@@ -6128,6 +6386,12 @@
                                   "line": 97,
                                   "column": 38,
                                   "offset": 1549
+                                },
+                                "valueEnd": {
+                                  "file": "basics.go",
+                                  "line": 97,
+                                  "column": 41,
+                                  "offset": 1552
                                 },
                                 "kind": "STRING",
                                 "value": "\"c\"",
@@ -6150,6 +6414,12 @@
                                   "line": 97,
                                   "column": 43,
                                   "offset": 1554
+                                },
+                                "valueEnd": {
+                                  "file": "basics.go",
+                                  "line": 97,
+                                  "column": 44,
+                                  "offset": 1555
                                 },
                                 "kind": "INT",
                                 "value": "3",
@@ -6214,6 +6484,12 @@
                               "column": 4,
                               "offset": 1560
                             },
+                            "valueEnd": {
+                              "file": "basics.go",
+                              "line": 98,
+                              "column": 7,
+                              "offset": 1563
+                            },
                             "kind": "STRING",
                             "value": "\"d\"",
                             "$type": 5,
@@ -6246,6 +6522,12 @@
                             "line": 98,
                             "column": 12,
                             "offset": 1568
+                          },
+                          "valueEnd": {
+                            "file": "basics.go",
+                            "line": 98,
+                            "column": 13,
+                            "offset": 1569
                           },
                           "kind": "INT",
                           "value": "4",
@@ -6297,6 +6579,12 @@
                             "line": 99,
                             "column": 4,
                             "offset": 1573
+                          },
+                          "valueEnd": {
+                            "file": "basics.go",
+                            "line": 99,
+                            "column": 7,
+                            "offset": 1576
                           },
                           "kind": "STRING",
                           "value": "\"a\"",
@@ -6364,6 +6652,12 @@
                             "line": 100,
                             "column": 11,
                             "offset": 1590
+                          },
+                          "valueEnd": {
+                            "file": "basics.go",
+                            "line": 100,
+                            "column": 12,
+                            "offset": 1591
                           },
                           "kind": "INT",
                           "value": "0",
@@ -6523,6 +6817,12 @@
                                   "column": 11,
                                   "offset": 1625
                                 },
+                                "valueEnd": {
+                                  "file": "basics.go",
+                                  "line": 102,
+                                  "column": 14,
+                                  "offset": 1628
+                                },
                                 "kind": "STRING",
                                 "value": "\"b\"",
                                 "$type": 5,
@@ -6601,6 +6901,12 @@
                                           "line": 103,
                                           "column": 14,
                                           "offset": 1644
+                                        },
+                                        "valueEnd": {
+                                          "file": "basics.go",
+                                          "line": 103,
+                                          "column": 17,
+                                          "offset": 1647
                                         },
                                         "kind": "STRING",
                                         "value": "\"c\"",
@@ -6736,7 +7042,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 23,
-                              "decl": "basics.go:312",
+                              "decl": "basics.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -6849,6 +7155,12 @@
                                 "column": 24,
                                 "offset": 1692
                               },
+                              "valueEnd": {
+                                "file": "basics.go",
+                                "line": 107,
+                                "column": 28,
+                                "offset": 1696
+                              },
                               "kind": "STRING",
                               "value": "\"zz\"",
                               "$type": 5,
@@ -6904,6 +7216,12 @@
                                 "line": 107,
                                 "column": 40,
                                 "offset": 1708
+                              },
+                              "valueEnd": {
+                                "file": "basics.go",
+                                "line": 107,
+                                "column": 41,
+                                "offset": 1709
                               },
                               "kind": "INT",
                               "value": "8",
@@ -6962,7 +7280,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 23,
-                              "decl": "basics.go:312",
+                              "decl": "basics.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -7059,6 +7377,12 @@
                                   "column": 25,
                                   "offset": 1736
                                 },
+                                "valueEnd": {
+                                  "file": "basics.go",
+                                  "line": 109,
+                                  "column": 26,
+                                  "offset": 1737
+                                },
                                 "kind": "INT",
                                 "value": "1",
                                 "$type": 2,
@@ -7075,6 +7399,12 @@
                                   "column": 28,
                                   "offset": 1739
                                 },
+                                "valueEnd": {
+                                  "file": "basics.go",
+                                  "line": 109,
+                                  "column": 29,
+                                  "offset": 1740
+                                },
                                 "kind": "INT",
                                 "value": "2",
                                 "$type": 2,
@@ -7090,6 +7420,12 @@
                                   "line": 109,
                                   "column": 31,
                                   "offset": 1742
+                                },
+                                "valueEnd": {
+                                  "file": "basics.go",
+                                  "line": 109,
+                                  "column": 32,
+                                  "offset": 1743
                                 },
                                 "kind": "INT",
                                 "value": "3",
@@ -7189,6 +7525,12 @@
                                       "column": 45,
                                       "offset": 1756
                                     },
+                                    "valueEnd": {
+                                      "file": "basics.go",
+                                      "line": 109,
+                                      "column": 46,
+                                      "offset": 1757
+                                    },
                                     "kind": "INT",
                                     "value": "4",
                                     "$type": 2,
@@ -7204,6 +7546,12 @@
                                       "line": 109,
                                       "column": 48,
                                       "offset": 1759
+                                    },
+                                    "valueEnd": {
+                                      "file": "basics.go",
+                                      "line": 109,
+                                      "column": 49,
+                                      "offset": 1760
                                     },
                                     "kind": "INT",
                                     "value": "5",
@@ -7291,6 +7639,12 @@
                             "line": 111,
                             "column": 7,
                             "offset": 1774
+                          },
+                          "valueEnd": {
+                            "file": "basics.go",
+                            "line": 111,
+                            "column": 8,
+                            "offset": 1775
                           },
                           "kind": "INT",
                           "value": "0",
@@ -7385,6 +7739,12 @@
                             "column": 17,
                             "offset": 1799
                           },
+                          "valueEnd": {
+                            "file": "basics.go",
+                            "line": 113,
+                            "column": 18,
+                            "offset": 1800
+                          },
                           "kind": "INT",
                           "value": "5",
                           "$type": 2,
@@ -7452,6 +7812,12 @@
                                       "line": 114,
                                       "column": 12,
                                       "offset": 1814
+                                    },
+                                    "valueEnd": {
+                                      "file": "basics.go",
+                                      "line": 114,
+                                      "column": 13,
+                                      "offset": 1815
                                     },
                                     "kind": "INT",
                                     "value": "0",
@@ -7671,6 +8037,12 @@
                                           "column": 12,
                                           "offset": 1874
                                         },
+                                        "valueEnd": {
+                                          "file": "basics.go",
+                                          "line": 118,
+                                          "column": 13,
+                                          "offset": 1875
+                                        },
                                         "kind": "INT",
                                         "value": "4",
                                         "$type": 2,
@@ -7846,7 +8218,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 23,
-                              "decl": "basics.go:312",
+                              "decl": "basics.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -7867,6 +8239,12 @@
                               "line": 124,
                               "column": 14,
                               "offset": 1929
+                            },
+                            "valueEnd": {
+                              "file": "basics.go",
+                              "line": 124,
+                              "column": 17,
+                              "offset": 1932
                             },
                             "kind": "STRING",
                             "value": "\"n\"",
@@ -7959,6 +8337,12 @@
                             "column": 10,
                             "offset": 1947
                           },
+                          "valueEnd": {
+                            "file": "basics.go",
+                            "line": 126,
+                            "column": 11,
+                            "offset": 1948
+                          },
                           "kind": "INT",
                           "value": "0",
                           "$type": 2,
@@ -8021,6 +8405,12 @@
                                   "line": 127,
                                   "column": 8,
                                   "offset": 1958
+                                },
+                                "valueEnd": {
+                                  "file": "basics.go",
+                                  "line": 127,
+                                  "column": 9,
+                                  "offset": 1959
                                 },
                                 "kind": "INT",
                                 "value": "3",
@@ -8124,6 +8514,12 @@
                                 "column": 14,
                                 "offset": 1976
                               },
+                              "valueEnd": {
+                                "file": "basics.go",
+                                "line": 129,
+                                "column": 15,
+                                "offset": 1977
+                              },
                               "kind": "INT",
                               "value": "2",
                               "$type": 2,
@@ -8175,6 +8571,12 @@
                             "line": 129,
                             "column": 21,
                             "offset": 1983
+                          },
+                          "valueEnd": {
+                            "file": "basics.go",
+                            "line": 129,
+                            "column": 22,
+                            "offset": 1984
                           },
                           "kind": "INT",
                           "value": "0",
@@ -8231,7 +8633,7 @@
                                     "name": "Println",
                                     "kind": "func",
                                     "type": 23,
-                                    "decl": "basics.go:312",
+                                    "decl": "basics.go:313",
                                     "pkg": "fmt",
                                     "top": true
                                   }
@@ -8252,6 +8654,12 @@
                                     "line": 130,
                                     "column": 15,
                                     "offset": 2001
+                                  },
+                                  "valueEnd": {
+                                    "file": "basics.go",
+                                    "line": 130,
+                                    "column": 27,
+                                    "offset": 2013
                                   },
                                   "kind": "STRING",
                                   "value": "\"y negativo\"",
@@ -8352,6 +8760,12 @@
                               "column": 17,
                               "offset": 2034
                             },
+                            "valueEnd": {
+                              "file": "basics.go",
+                              "line": 131,
+                              "column": 18,
+                              "offset": 2035
+                            },
                             "kind": "INT",
                             "value": "0",
                             "$type": 2,
@@ -8407,7 +8821,7 @@
                                       "name": "Println",
                                       "kind": "func",
                                       "type": 23,
-                                      "decl": "basics.go:312",
+                                      "decl": "basics.go:313",
                                       "pkg": "fmt",
                                       "top": true
                                     }
@@ -8428,6 +8842,12 @@
                                       "line": 132,
                                       "column": 15,
                                       "offset": 2052
+                                    },
+                                    "valueEnd": {
+                                      "file": "basics.go",
+                                      "line": 132,
+                                      "column": 23,
+                                      "offset": 2060
                                     },
                                     "kind": "STRING",
                                     "value": "\"y zero\"",
@@ -8501,7 +8921,7 @@
                                       "name": "Println",
                                       "kind": "func",
                                       "type": 23,
-                                      "decl": "basics.go:312",
+                                      "decl": "basics.go:313",
                                       "pkg": "fmt",
                                       "top": true
                                     }
@@ -8522,6 +8942,12 @@
                                       "line": 134,
                                       "column": 15,
                                       "offset": 2086
+                                    },
+                                    "valueEnd": {
+                                      "file": "basics.go",
+                                      "line": 134,
+                                      "column": 27,
+                                      "offset": 2098
                                     },
                                     "kind": "STRING",
                                     "value": "\"y positivo\"",
@@ -8675,6 +9101,12 @@
                                 "column": 27,
                                 "offset": 2130
                               },
+                              "valueEnd": {
+                                "file": "basics.go",
+                                "line": 137,
+                                "column": 28,
+                                "offset": 2131
+                              },
                               "kind": "INT",
                               "value": "4",
                               "$type": 0,
@@ -8697,6 +9129,12 @@
                               "column": 30,
                               "offset": 2133
                             },
+                            "valueEnd": {
+                              "file": "basics.go",
+                              "line": 137,
+                              "column": 31,
+                              "offset": 2134
+                            },
                             "kind": "INT",
                             "value": "0",
                             "$type": 2,
@@ -8713,6 +9151,12 @@
                               "column": 33,
                               "offset": 2136
                             },
+                            "valueEnd": {
+                              "file": "basics.go",
+                              "line": 137,
+                              "column": 34,
+                              "offset": 2137
+                            },
                             "kind": "INT",
                             "value": "9",
                             "$type": 2,
@@ -8728,6 +9172,12 @@
                               "line": 137,
                               "column": 36,
                               "offset": 2139
+                            },
+                            "valueEnd": {
+                              "file": "basics.go",
+                              "line": 137,
+                              "column": 38,
+                              "offset": 2141
                             },
                             "kind": "INT",
                             "value": "10",
@@ -8792,7 +9242,7 @@
                                     "name": "Println",
                                     "kind": "func",
                                     "type": 23,
-                                    "decl": "basics.go:312",
+                                    "decl": "basics.go:313",
                                     "pkg": "fmt",
                                     "top": true
                                   }
@@ -8935,6 +9385,12 @@
                             "column": 7,
                             "offset": 2181
                           },
+                          "valueEnd": {
+                            "file": "basics.go",
+                            "line": 140,
+                            "column": 11,
+                            "offset": 2185
+                          },
                           "kind": "FLOAT",
                           "value": "3.99",
                           "$type": 26,
@@ -8981,7 +9437,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 23,
-                              "decl": "basics.go:312",
+                              "decl": "basics.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -9002,6 +9458,12 @@
                               "line": 141,
                               "column": 14,
                               "offset": 2199
+                            },
+                            "valueEnd": {
+                              "file": "basics.go",
+                              "line": 141,
+                              "column": 17,
+                              "offset": 2202
                             },
                             "kind": "FLOAT",
                             "value": "3.5",
@@ -9048,6 +9510,12 @@
                                     "column": 27,
                                     "offset": 2212
                                   },
+                                  "valueEnd": {
+                                    "file": "basics.go",
+                                    "line": 141,
+                                    "column": 28,
+                                    "offset": 2213
+                                  },
                                   "kind": "INT",
                                   "value": "7",
                                   "$type": 26,
@@ -9084,6 +9552,12 @@
                                 "line": 141,
                                 "column": 30,
                                 "offset": 2215
+                              },
+                              "valueEnd": {
+                                "file": "basics.go",
+                                "line": 141,
+                                "column": 31,
+                                "offset": 2216
                               },
                               "kind": "INT",
                               "value": "2",
@@ -9238,6 +9712,12 @@
                               "column": 50,
                               "offset": 2235
                             },
+                            "valueEnd": {
+                              "file": "basics.go",
+                              "line": 141,
+                              "column": 53,
+                              "offset": 2238
+                            },
                             "kind": "FLOAT",
                             "value": "1e6",
                             "$type": 26,
@@ -9255,6 +9735,12 @@
                                 "line": 141,
                                 "column": 55,
                                 "offset": 2240
+                              },
+                              "valueEnd": {
+                                "file": "basics.go",
+                                "line": 141,
+                                "column": 58,
+                                "offset": 2243
                               },
                               "kind": "FLOAT",
                               "value": "0.1",
@@ -9278,6 +9764,12 @@
                                 "line": 141,
                                 "column": 59,
                                 "offset": 2244
+                              },
+                              "valueEnd": {
+                                "file": "basics.go",
+                                "line": 141,
+                                "column": 62,
+                                "offset": 2247
                               },
                               "kind": "FLOAT",
                               "value": "0.2",
@@ -9339,6 +9831,12 @@
                     "line": 5,
                     "column": 8,
                     "offset": 164
+                  },
+                  "valueEnd": {
+                    "file": "basics.go",
+                    "line": 5,
+                    "column": 13,
+                    "offset": 169
                   },
                   "kind": "STRING",
                   "value": "\"fmt\""

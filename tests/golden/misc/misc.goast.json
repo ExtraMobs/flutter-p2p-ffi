@@ -1,7 +1,7 @@
 {
   "schemaVersion": 6,
   "tool": "goast",
-  "goVersion": "go1.25.7",
+  "goVersion": "go1.26.5",
   "packages": [
     {
       "path": "main",
@@ -77,6 +77,12 @@
                         "line": 5,
                         "column": 8,
                         "offset": 154
+                      },
+                      "valueEnd": {
+                        "file": "misc.go",
+                        "line": 5,
+                        "column": 13,
+                        "offset": 159
                       },
                       "kind": "STRING",
                       "value": "\"fmt\""
@@ -1585,6 +1591,12 @@
                             "column": 43,
                             "offset": 416
                           },
+                          "valueEnd": {
+                            "file": "misc.go",
+                            "line": 13,
+                            "column": 44,
+                            "offset": 417
+                          },
                           "kind": "INT",
                           "value": "7",
                           "$type": 2,
@@ -1600,6 +1612,12 @@
                             "line": 13,
                             "column": 46,
                             "offset": 419
+                          },
+                          "valueEnd": {
+                            "file": "misc.go",
+                            "line": 13,
+                            "column": 52,
+                            "offset": 425
                           },
                           "kind": "STRING",
                           "value": "\"sete\"",
@@ -1902,6 +1920,12 @@
                                 "column": 58,
                                 "offset": 485
                               },
+                              "valueEnd": {
+                                "file": "misc.go",
+                                "line": 14,
+                                "column": 61,
+                                "offset": 488
+                              },
                               "kind": "STRING",
                               "value": "\"=\"",
                               "$type": 8,
@@ -2126,6 +2150,12 @@
                             "column": 43,
                             "offset": 537
                           },
+                          "valueEnd": {
+                            "file": "misc.go",
+                            "line": 15,
+                            "column": 44,
+                            "offset": 538
+                          },
                           "kind": "INT",
                           "value": "1",
                           "$type": 2,
@@ -2142,6 +2172,12 @@
                             "column": 46,
                             "offset": 540
                           },
+                          "valueEnd": {
+                            "file": "misc.go",
+                            "line": 15,
+                            "column": 47,
+                            "offset": 541
+                          },
                           "kind": "INT",
                           "value": "2",
                           "$type": 2,
@@ -2157,6 +2193,12 @@
                             "line": 15,
                             "column": 49,
                             "offset": 543
+                          },
+                          "valueEnd": {
+                            "file": "misc.go",
+                            "line": 15,
+                            "column": 50,
+                            "offset": 544
                           },
                           "kind": "INT",
                           "value": "3",
@@ -2375,6 +2417,12 @@
                             "line": 17,
                             "column": 7,
                             "offset": 579
+                          },
+                          "valueEnd": {
+                            "file": "misc.go",
+                            "line": 17,
+                            "column": 8,
+                            "offset": 580
                           },
                           "kind": "INT",
                           "value": "0",
@@ -2697,7 +2745,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 17,
-                              "decl": "misc.go:312",
+                              "decl": "misc.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -2843,7 +2891,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 17,
-                              "decl": "misc.go:312",
+                              "decl": "misc.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -2946,7 +2994,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 17,
-                              "decl": "misc.go:312",
+                              "decl": "misc.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -3140,6 +3188,12 @@
                                   "column": 18,
                                   "offset": 738
                                 },
+                                "valueEnd": {
+                                  "file": "misc.go",
+                                  "line": 29,
+                                  "column": 19,
+                                  "offset": 739
+                                },
                                 "kind": "INT",
                                 "value": "2",
                                 "$type": 2,
@@ -3162,6 +3216,12 @@
                                   "column": 21,
                                   "offset": 741
                                 },
+                                "valueEnd": {
+                                  "file": "misc.go",
+                                  "line": 29,
+                                  "column": 22,
+                                  "offset": 742
+                                },
                                 "kind": "INT",
                                 "value": "5",
                                 "$type": 2,
@@ -3178,6 +3238,12 @@
                                 "line": 29,
                                 "column": 24,
                                 "offset": 744
+                              },
+                              "valueEnd": {
+                                "file": "misc.go",
+                                "line": 29,
+                                "column": 25,
+                                "offset": 745
                               },
                               "kind": "INT",
                               "value": "7",
@@ -3196,6 +3262,12 @@
                                   "line": 29,
                                   "column": 27,
                                   "offset": 747
+                                },
+                                "valueEnd": {
+                                  "file": "misc.go",
+                                  "line": 29,
+                                  "column": 28,
+                                  "offset": 748
                                 },
                                 "kind": "INT",
                                 "value": "0",
@@ -3218,6 +3290,12 @@
                                   "line": 29,
                                   "column": 30,
                                   "offset": 750
+                                },
+                                "valueEnd": {
+                                  "file": "misc.go",
+                                  "line": 29,
+                                  "column": 31,
+                                  "offset": 751
                                 },
                                 "kind": "INT",
                                 "value": "1",
@@ -3333,6 +3411,12 @@
                                   "column": 22,
                                   "offset": 774
                                 },
+                                "valueEnd": {
+                                  "file": "misc.go",
+                                  "line": 30,
+                                  "column": 23,
+                                  "offset": 775
+                                },
                                 "kind": "INT",
                                 "value": "3",
                                 "$type": 2,
@@ -3355,6 +3439,12 @@
                                   "column": 25,
                                   "offset": 777
                                 },
+                                "valueEnd": {
+                                  "file": "misc.go",
+                                  "line": 30,
+                                  "column": 30,
+                                  "offset": 782
+                                },
                                 "kind": "STRING",
                                 "value": "\"qua\"",
                                 "$type": 8,
@@ -3373,6 +3463,12 @@
                                   "line": 30,
                                   "column": 32,
                                   "offset": 784
+                                },
+                                "valueEnd": {
+                                  "file": "misc.go",
+                                  "line": 30,
+                                  "column": 33,
+                                  "offset": 785
                                 },
                                 "kind": "INT",
                                 "value": "1",
@@ -3395,6 +3491,12 @@
                                   "line": 30,
                                   "column": 35,
                                   "offset": 787
+                                },
+                                "valueEnd": {
+                                  "file": "misc.go",
+                                  "line": 30,
+                                  "column": 40,
+                                  "offset": 792
                                 },
                                 "kind": "STRING",
                                 "value": "\"seg\"",
@@ -3453,7 +3555,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 17,
-                              "decl": "misc.go:312",
+                              "decl": "misc.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -3937,6 +4039,12 @@
                                 "column": 13,
                                 "offset": 903
                               },
+                              "valueEnd": {
+                                "file": "misc.go",
+                                "line": 35,
+                                "column": 14,
+                                "offset": 904
+                              },
                               "kind": "INT",
                               "value": "1",
                               "$type": 2,
@@ -3952,6 +4060,12 @@
                                 "line": 35,
                                 "column": 16,
                                 "offset": 906
+                              },
+                              "valueEnd": {
+                                "file": "misc.go",
+                                "line": 35,
+                                "column": 17,
+                                "offset": 907
                               },
                               "kind": "INT",
                               "value": "2",
@@ -4048,6 +4162,12 @@
                               "line": 36,
                               "column": 12,
                               "offset": 920
+                            },
+                            "valueEnd": {
+                              "file": "misc.go",
+                              "line": 36,
+                              "column": 14,
+                              "offset": 922
                             },
                             "kind": "INT",
                             "value": "10",
@@ -4194,7 +4314,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 17,
-                              "decl": "misc.go:312",
+                              "decl": "misc.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -4370,6 +4490,12 @@
                                       "column": 37,
                                       "offset": 974
                                     },
+                                    "valueEnd": {
+                                      "file": "misc.go",
+                                      "line": 38,
+                                      "column": 38,
+                                      "offset": 975
+                                    },
                                     "kind": "INT",
                                     "value": "1",
                                     "$type": 2,
@@ -4385,6 +4511,12 @@
                                       "line": 38,
                                       "column": 40,
                                       "offset": 977
+                                    },
+                                    "valueEnd": {
+                                      "file": "misc.go",
+                                      "line": 38,
+                                      "column": 41,
+                                      "offset": 978
                                     },
                                     "kind": "INT",
                                     "value": "1",
@@ -4534,6 +4666,12 @@
                                   "column": 17,
                                   "offset": 999
                                 },
+                                "valueEnd": {
+                                  "file": "misc.go",
+                                  "line": 40,
+                                  "column": 18,
+                                  "offset": 1000
+                                },
                                 "kind": "INT",
                                 "value": "1",
                                 "$type": 2,
@@ -4549,6 +4687,12 @@
                                   "line": 40,
                                   "column": 20,
                                   "offset": 1002
+                                },
+                                "valueEnd": {
+                                  "file": "misc.go",
+                                  "line": 40,
+                                  "column": 21,
+                                  "offset": 1003
                                 },
                                 "kind": "INT",
                                 "value": "1",
@@ -4621,6 +4765,12 @@
                                   "column": 31,
                                   "offset": 1013
                                 },
+                                "valueEnd": {
+                                  "file": "misc.go",
+                                  "line": 40,
+                                  "column": 32,
+                                  "offset": 1014
+                                },
                                 "kind": "INT",
                                 "value": "1",
                                 "$type": 2,
@@ -4636,6 +4786,12 @@
                                   "line": 40,
                                   "column": 34,
                                   "offset": 1016
+                                },
+                                "valueEnd": {
+                                  "file": "misc.go",
+                                  "line": 40,
+                                  "column": 35,
+                                  "offset": 1017
                                 },
                                 "kind": "INT",
                                 "value": "1",
@@ -4807,6 +4963,12 @@
                                   "column": 31,
                                   "offset": 1049
                                 },
+                                "valueEnd": {
+                                  "file": "misc.go",
+                                  "line": 41,
+                                  "column": 34,
+                                  "offset": 1052
+                                },
                                 "kind": "STRING",
                                 "value": "\"a\"",
                                 "$type": 8,
@@ -4909,6 +5071,12 @@
                             "line": 42,
                             "column": 12,
                             "offset": 1065
+                          },
+                          "valueEnd": {
+                            "file": "misc.go",
+                            "line": 42,
+                            "column": 15,
+                            "offset": 1068
                           },
                           "kind": "STRING",
                           "value": "\"b\"",
@@ -5078,7 +5246,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 17,
-                              "decl": "misc.go:312",
+                              "decl": "misc.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -5509,7 +5677,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 17,
-                              "decl": "misc.go:312",
+                              "decl": "misc.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -5691,6 +5859,12 @@
                     "line": 5,
                     "column": 8,
                     "offset": 154
+                  },
+                  "valueEnd": {
+                    "file": "misc.go",
+                    "line": 5,
+                    "column": 13,
+                    "offset": 159
                   },
                   "kind": "STRING",
                   "value": "\"fmt\""

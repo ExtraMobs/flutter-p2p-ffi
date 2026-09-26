@@ -1,7 +1,7 @@
 {
   "schemaVersion": 6,
   "tool": "goast",
-  "goVersion": "go1.25.7",
+  "goVersion": "go1.26.5",
   "packages": [
     {
       "path": "main",
@@ -83,6 +83,12 @@
                         "column": 2,
                         "offset": 162
                       },
+                      "valueEnd": {
+                        "file": "widths.go",
+                        "line": 6,
+                        "column": 7,
+                        "offset": 167
+                      },
                       "kind": "STRING",
                       "value": "\"fmt\""
                     },
@@ -100,6 +106,12 @@
                         "line": 7,
                         "column": 2,
                         "offset": 169
+                      },
+                      "valueEnd": {
+                        "file": "widths.go",
+                        "line": 7,
+                        "column": 8,
+                        "offset": 175
                       },
                       "kind": "STRING",
                       "value": "\"math\""
@@ -537,6 +549,12 @@
                               "column": 43,
                               "offset": 292
                             },
+                            "valueEnd": {
+                              "file": "widths.go",
+                              "line": 14,
+                              "column": 44,
+                              "offset": 293
+                            },
                             "kind": "INT",
                             "value": "2",
                             "$type": 4,
@@ -831,6 +849,12 @@
                               "column": 10,
                               "offset": 428
                             },
+                            "valueEnd": {
+                              "file": "widths.go",
+                              "line": 20,
+                              "column": 11,
+                              "offset": 429
+                            },
                             "kind": "INT",
                             "value": "7",
                             "$type": 1,
@@ -883,7 +907,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "widths.go:312",
+                              "decl": "widths.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -1020,6 +1044,12 @@
                                       "column": 36,
                                       "offset": 465
                                     },
+                                    "valueEnd": {
+                                      "file": "widths.go",
+                                      "line": 21,
+                                      "column": 37,
+                                      "offset": 466
+                                    },
                                     "kind": "INT",
                                     "value": "7",
                                     "$type": 6,
@@ -1082,6 +1112,12 @@
                                 "column": 44,
                                 "offset": 473
                               },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 21,
+                                "column": 45,
+                                "offset": 474
+                              },
                               "kind": "INT",
                               "value": "2",
                               "$type": 6,
@@ -1132,6 +1168,12 @@
                                 "column": 51,
                                 "offset": 480
                               },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 21,
+                                "column": 52,
+                                "offset": 481
+                              },
                               "kind": "INT",
                               "value": "3",
                               "$type": 6,
@@ -1151,6 +1193,12 @@
                                 "line": 21,
                                 "column": 54,
                                 "offset": 483
+                              },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 21,
+                                "column": 55,
+                                "offset": 484
                               },
                               "kind": "INT",
                               "value": "7",
@@ -1184,6 +1232,12 @@
                                   "column": 57,
                                   "offset": 486
                                 },
+                                "valueEnd": {
+                                  "file": "widths.go",
+                                  "line": 21,
+                                  "column": 58,
+                                  "offset": 487
+                                },
                                 "kind": "INT",
                                 "value": "3",
                                 "$type": 1,
@@ -1214,6 +1268,12 @@
                                 "column": 60,
                                 "offset": 489
                               },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 21,
+                                "column": 61,
+                                "offset": 490
+                              },
                               "kind": "INT",
                               "value": "6",
                               "$type": 1,
@@ -1236,6 +1296,12 @@
                                 "line": 21,
                                 "column": 63,
                                 "offset": 492
+                              },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 21,
+                                "column": 64,
+                                "offset": 493
                               },
                               "kind": "INT",
                               "value": "3",
@@ -1267,6 +1333,12 @@
                                 "line": 21,
                                 "column": 67,
                                 "offset": 496
+                              },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 21,
+                                "column": 68,
+                                "offset": 497
                               },
                               "kind": "INT",
                               "value": "5",
@@ -1362,6 +1434,12 @@
                                   "column": 15,
                                   "offset": 513
                                 },
+                                "valueEnd": {
+                                  "file": "widths.go",
+                                  "line": 22,
+                                  "column": 17,
+                                  "offset": 515
+                                },
                                 "kind": "INT",
                                 "value": "70",
                                 "$type": 15,
@@ -1420,6 +1498,12 @@
                             "column": 9,
                             "offset": 524
                           },
+                          "valueEnd": {
+                            "file": "widths.go",
+                            "line": 23,
+                            "column": 10,
+                            "offset": 525
+                          },
                           "kind": "INT",
                           "value": "1",
                           "$type": 6,
@@ -1466,7 +1550,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "widths.go:312",
+                              "decl": "widths.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -1519,6 +1603,12 @@
                                 "line": 24,
                                 "column": 19,
                                 "offset": 544
+                              },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 24,
+                                "column": 21,
+                                "offset": 546
                               },
                               "kind": "INT",
                               "value": "63",
@@ -1606,6 +1696,12 @@
                                   "column": 32,
                                   "offset": 557
                                 },
+                                "valueEnd": {
+                                  "file": "widths.go",
+                                  "line": 24,
+                                  "column": 33,
+                                  "offset": 558
+                                },
                                 "kind": "INT",
                                 "value": "8",
                                 "$type": 1,
@@ -1662,6 +1758,12 @@
                                 "column": 38,
                                 "offset": 563
                               },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 24,
+                                "column": 39,
+                                "offset": 564
+                              },
                               "kind": "INT",
                               "value": "8",
                               "$type": 1,
@@ -1684,6 +1786,12 @@
                                 "line": 24,
                                 "column": 41,
                                 "offset": 566
+                              },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 24,
+                                "column": 42,
+                                "offset": 567
                               },
                               "kind": "INT",
                               "value": "2",
@@ -1792,6 +1900,12 @@
                                   "line": 27,
                                   "column": 16,
                                   "offset": 641
+                                },
+                                "valueEnd": {
+                                  "file": "widths.go",
+                                  "line": 27,
+                                  "column": 19,
+                                  "offset": 644
                                 },
                                 "kind": "INT",
                                 "value": "127",
@@ -1910,6 +2024,12 @@
                                   "column": 17,
                                   "offset": 667
                                 },
+                                "valueEnd": {
+                                  "file": "widths.go",
+                                  "line": 29,
+                                  "column": 18,
+                                  "offset": 668
+                                },
                                 "kind": "INT",
                                 "value": "0",
                                 "$type": 17,
@@ -2001,6 +2121,12 @@
                             "column": 8,
                             "offset": 682
                           },
+                          "valueEnd": {
+                            "file": "widths.go",
+                            "line": 31,
+                            "column": 10,
+                            "offset": 684
+                          },
                           "kind": "INT",
                           "value": "10",
                           "$type": 17,
@@ -2089,6 +2215,12 @@
                                     "column": 19,
                                     "offset": 703
                                   },
+                                  "valueEnd": {
+                                    "file": "widths.go",
+                                    "line": 32,
+                                    "column": 20,
+                                    "offset": 704
+                                  },
                                   "kind": "INT",
                                   "value": "7",
                                   "$type": 1,
@@ -2146,7 +2278,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "widths.go:312",
+                              "decl": "widths.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -2246,6 +2378,12 @@
                                 "column": 26,
                                 "offset": 730
                               },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 33,
+                                "column": 27,
+                                "offset": 731
+                              },
                               "kind": "INT",
                               "value": "2",
                               "$type": 18,
@@ -2295,6 +2433,12 @@
                                 "line": 33,
                                 "column": 33,
                                 "offset": 737
+                              },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 33,
+                                "column": 34,
+                                "offset": 738
                               },
                               "kind": "INT",
                               "value": "3",
@@ -2414,6 +2558,12 @@
                                 "column": 51,
                                 "offset": 755
                               },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 33,
+                                "column": 55,
+                                "offset": 759
+                              },
                               "kind": "INT",
                               "value": "0x0f",
                               "$type": 17,
@@ -2464,6 +2614,12 @@
                                 "column": 62,
                                 "offset": 766
                               },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 33,
+                                "column": 64,
+                                "offset": 768
+                              },
                               "kind": "INT",
                               "value": "28",
                               "$type": 1,
@@ -2513,6 +2669,12 @@
                                 "line": 33,
                                 "column": 70,
                                 "offset": 774
+                              },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 33,
+                                "column": 71,
+                                "offset": 775
                               },
                               "kind": "INT",
                               "value": "1",
@@ -2673,7 +2835,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "widths.go:312",
+                              "decl": "widths.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -2791,6 +2953,12 @@
                                 "column": 26,
                                 "offset": 817
                               },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 36,
+                                "column": 27,
+                                "offset": 818
+                              },
                               "kind": "INT",
                               "value": "3",
                               "$type": 0,
@@ -2854,6 +3022,12 @@
                                 "column": 33,
                                 "offset": 824
                               },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 36,
+                                "column": 35,
+                                "offset": 826
+                              },
                               "kind": "INT",
                               "value": "10",
                               "$type": 0,
@@ -2916,6 +3090,12 @@
                                 "line": 36,
                                 "column": 42,
                                 "offset": 833
+                              },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 36,
+                                "column": 44,
+                                "offset": 835
                               },
                               "kind": "INT",
                               "value": "60",
@@ -3010,6 +3190,12 @@
                                   "line": 37,
                                   "column": 19,
                                   "offset": 855
+                                },
+                                "valueEnd": {
+                                  "file": "widths.go",
+                                  "line": 37,
+                                  "column": 24,
+                                  "offset": 860
                                 },
                                 "kind": "INT",
                                 "value": "65535",
@@ -3129,6 +3315,12 @@
                             "column": 7,
                             "offset": 879
                           },
+                          "valueEnd": {
+                            "file": "widths.go",
+                            "line": 39,
+                            "column": 11,
+                            "offset": 883
+                          },
                           "kind": "CHAR",
                           "value": "'é'",
                           "$type": 18,
@@ -3175,7 +3367,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "widths.go:312",
+                              "decl": "widths.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -3275,6 +3467,12 @@
                                 "column": 24,
                                 "offset": 907
                               },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 40,
+                                "column": 25,
+                                "offset": 908
+                              },
                               "kind": "INT",
                               "value": "1",
                               "$type": 18,
@@ -3334,6 +3532,12 @@
                                   "column": 34,
                                   "offset": 917
                                 },
+                                "valueEnd": {
+                                  "file": "widths.go",
+                                  "line": 40,
+                                  "column": 37,
+                                  "offset": 920
+                                },
                                 "kind": "INT",
                                 "value": "128",
                                 "$type": 1,
@@ -3389,6 +3593,12 @@
                                 "line": 40,
                                 "column": 44,
                                 "offset": 927
+                              },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 40,
+                                "column": 46,
+                                "offset": 929
                               },
                               "kind": "INT",
                               "value": "20",
@@ -3454,6 +3664,12 @@
                             "column": 7,
                             "offset": 995
                           },
+                          "valueEnd": {
+                            "file": "widths.go",
+                            "line": 43,
+                            "column": 10,
+                            "offset": 998
+                          },
                           "kind": "INT",
                           "value": "300",
                           "$type": 6,
@@ -3507,6 +3723,12 @@
                             "column": 7,
                             "offset": 1005
                           },
+                          "valueEnd": {
+                            "file": "widths.go",
+                            "line": 44,
+                            "column": 11,
+                            "offset": 1009
+                          },
                           "kind": "FLOAT",
                           "value": "3.99",
                           "$type": 21,
@@ -3553,7 +3775,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "widths.go:312",
+                              "decl": "widths.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -3934,6 +4156,12 @@
                                     "column": 72,
                                     "offset": 1081
                                   },
+                                  "valueEnd": {
+                                    "file": "widths.go",
+                                    "line": 45,
+                                    "column": 73,
+                                    "offset": 1082
+                                  },
                                   "kind": "INT",
                                   "value": "2",
                                   "$type": 0,
@@ -4001,7 +4229,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "widths.go:312",
+                              "decl": "widths.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -4213,6 +4441,12 @@
                                     "column": 40,
                                     "offset": 1124
                                   },
+                                  "valueEnd": {
+                                    "file": "widths.go",
+                                    "line": 46,
+                                    "column": 43,
+                                    "offset": 1127
+                                  },
                                   "kind": "INT",
                                   "value": "100",
                                   "$type": 21,
@@ -4309,6 +4543,12 @@
                                 "line": 46,
                                 "column": 57,
                                 "offset": 1141
+                              },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 46,
+                                "column": 58,
+                                "offset": 1142
                               },
                               "kind": "INT",
                               "value": "7",
@@ -4427,7 +4667,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "widths.go:312",
+                              "decl": "widths.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -4502,6 +4742,12 @@
                                       "line": 47,
                                       "column": 26,
                                       "offset": 1181
+                                    },
+                                    "valueEnd": {
+                                      "file": "widths.go",
+                                      "line": 47,
+                                      "column": 28,
+                                      "offset": 1183
                                     },
                                     "kind": "INT",
                                     "value": "65",
@@ -4676,6 +4922,12 @@
                                 "column": 55,
                                 "offset": 1210
                               },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 47,
+                                "column": 58,
+                                "offset": 1213
+                              },
                               "kind": "FLOAT",
                               "value": "0.5",
                               "$type": 21,
@@ -4762,6 +5014,12 @@
                                 "line": 47,
                                 "column": 70,
                                 "offset": 1225
+                              },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 47,
+                                "column": 78,
+                                "offset": 1233
                               },
                               "kind": "INT",
                               "value": "20000000",
@@ -4867,6 +5125,12 @@
                                   "column": 20,
                                   "offset": 1286
                                 },
+                                "valueEnd": {
+                                  "file": "widths.go",
+                                  "line": 50,
+                                  "column": 23,
+                                  "offset": 1289
+                                },
                                 "kind": "FLOAT",
                                 "value": "0.1",
                                 "$type": 4,
@@ -4925,6 +5189,12 @@
                             "column": 9,
                             "offset": 1298
                           },
+                          "valueEnd": {
+                            "file": "widths.go",
+                            "line": 51,
+                            "column": 12,
+                            "offset": 1301
+                          },
                           "kind": "FLOAT",
                           "value": "0.1",
                           "$type": 21,
@@ -4971,7 +5241,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "widths.go:312",
+                              "decl": "widths.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -5071,6 +5341,12 @@
                                 "column": 28,
                                 "offset": 1329
                               },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 52,
+                                "column": 29,
+                                "offset": 1330
+                              },
                               "kind": "INT",
                               "value": "3",
                               "$type": 4,
@@ -5120,6 +5396,12 @@
                                 "line": 52,
                                 "column": 35,
                                 "offset": 1336
+                              },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 52,
+                                "column": 36,
+                                "offset": 1337
                               },
                               "kind": "INT",
                               "value": "3",
@@ -5171,6 +5453,12 @@
                                   "line": 52,
                                   "column": 43,
                                   "offset": 1344
+                                },
+                                "valueEnd": {
+                                  "file": "widths.go",
+                                  "line": 52,
+                                  "column": 44,
+                                  "offset": 1345
                                 },
                                 "kind": "INT",
                                 "value": "1",
@@ -5258,6 +5546,12 @@
                               "column": 61,
                               "offset": 1362
                             },
+                            "valueEnd": {
+                              "file": "widths.go",
+                              "line": 52,
+                              "column": 65,
+                              "offset": 1366
+                            },
                             "kind": "FLOAT",
                             "value": "1e21",
                             "$type": 21,
@@ -5282,6 +5576,12 @@
                                 "line": 52,
                                 "column": 68,
                                 "offset": 1369
+                              },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 52,
+                                "column": 71,
+                                "offset": 1372
                               },
                               "kind": "FLOAT",
                               "value": "0.0",
@@ -5351,6 +5651,12 @@
                             "column": 10,
                             "offset": 1383
                           },
+                          "valueEnd": {
+                            "file": "widths.go",
+                            "line": 53,
+                            "column": 13,
+                            "offset": 1386
+                          },
                           "kind": "FLOAT",
                           "value": "0.0",
                           "$type": 21,
@@ -5397,7 +5703,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "widths.go:312",
+                              "decl": "widths.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -5420,6 +5726,12 @@
                                 "line": 54,
                                 "column": 14,
                                 "offset": 1400
+                              },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 54,
+                                "column": 15,
+                                "offset": 1401
                               },
                               "kind": "INT",
                               "value": "1",
@@ -5479,6 +5791,12 @@
                                   "line": 54,
                                   "column": 23,
                                   "offset": 1409
+                                },
+                                "valueEnd": {
+                                  "file": "widths.go",
+                                  "line": 54,
+                                  "column": 24,
+                                  "offset": 1410
                                 },
                                 "kind": "INT",
                                 "value": "1",
@@ -5734,6 +6052,12 @@
                                     "column": 80,
                                     "offset": 1466
                                   },
+                                  "valueEnd": {
+                                    "file": "widths.go",
+                                    "line": 54,
+                                    "column": 81,
+                                    "offset": 1467
+                                  },
                                   "kind": "INT",
                                   "value": "1",
                                   "$type": 4,
@@ -5770,6 +6094,12 @@
                                 "line": 54,
                                 "column": 83,
                                 "offset": 1469
+                              },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 54,
+                                "column": 84,
+                                "offset": 1470
                               },
                               "kind": "INT",
                               "value": "3",
@@ -5866,6 +6196,12 @@
                                 "column": 15,
                                 "offset": 1486
                               },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 55,
+                                "column": 18,
+                                "offset": 1489
+                              },
                               "kind": "FLOAT",
                               "value": "1.5",
                               "$type": 23,
@@ -5890,6 +6226,12 @@
                                   "line": 55,
                                   "column": 21,
                                   "offset": 1492
+                                },
+                                "valueEnd": {
+                                  "file": "widths.go",
+                                  "line": 55,
+                                  "column": 22,
+                                  "offset": 1493
                                 },
                                 "kind": "INT",
                                 "value": "2",
@@ -5958,7 +6300,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "widths.go:312",
+                              "decl": "widths.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -6119,6 +6461,12 @@
                                     "column": 32,
                                     "offset": 1526
                                   },
+                                  "valueEnd": {
+                                    "file": "widths.go",
+                                    "line": 56,
+                                    "column": 33,
+                                    "offset": 1527
+                                  },
                                   "kind": "INT",
                                   "value": "0",
                                   "$type": 1,
@@ -6134,6 +6482,12 @@
                                     "line": 56,
                                     "column": 35,
                                     "offset": 1529
+                                  },
+                                  "valueEnd": {
+                                    "file": "widths.go",
+                                    "line": 56,
+                                    "column": 36,
+                                    "offset": 1530
                                   },
                                   "kind": "INT",
                                   "value": "1",
@@ -6274,6 +6628,12 @@
                             "column": 9,
                             "offset": 1633
                           },
+                          "valueEnd": {
+                            "file": "widths.go",
+                            "line": 59,
+                            "column": 22,
+                            "offset": 1646
+                          },
                           "kind": "STRING",
                           "value": "\"olá, mundo\"",
                           "$type": 13,
@@ -6327,6 +6687,12 @@
                             "column": 9,
                             "offset": 1655
                           },
+                          "valueEnd": {
+                            "file": "widths.go",
+                            "line": 60,
+                            "column": 17,
+                            "offset": 1663
+                          },
                           "kind": "STRING",
                           "value": "\"a\\xffb\"",
                           "$type": 13,
@@ -6378,7 +6744,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "widths.go:312",
+                              "decl": "widths.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -6491,6 +6857,12 @@
                                 "column": 28,
                                 "offset": 1691
                               },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 61,
+                                "column": 29,
+                                "offset": 1692
+                              },
                               "kind": "INT",
                               "value": "2",
                               "$type": 6,
@@ -6546,6 +6918,12 @@
                                 "column": 36,
                                 "offset": 1699
                               },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 61,
+                                "column": 37,
+                                "offset": 1700
+                              },
                               "kind": "INT",
                               "value": "3",
                               "$type": 6,
@@ -6600,6 +6978,12 @@
                                 "line": 61,
                                 "column": 44,
                                 "offset": 1707
+                              },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 61,
+                                "column": 45,
+                                "offset": 1708
                               },
                               "kind": "INT",
                               "value": "5",
@@ -6662,6 +7046,12 @@
                                   "column": 54,
                                   "offset": 1717
                                 },
+                                "valueEnd": {
+                                  "file": "widths.go",
+                                  "line": 61,
+                                  "column": 55,
+                                  "offset": 1718
+                                },
                                 "kind": "INT",
                                 "value": "3",
                                 "$type": 6,
@@ -6694,6 +7084,12 @@
                                 "line": 61,
                                 "column": 59,
                                 "offset": 1722
+                              },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 61,
+                                "column": 64,
+                                "offset": 1727
                               },
                               "kind": "STRING",
                               "value": "\"olb\"",
@@ -6804,6 +7200,12 @@
                                 "column": 80,
                                 "offset": 1743
                               },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 61,
+                                "column": 81,
+                                "offset": 1744
+                              },
                               "kind": "INT",
                               "value": "1",
                               "$type": 6,
@@ -6867,7 +7269,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "widths.go:312",
+                              "decl": "widths.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -6920,6 +7322,12 @@
                                 "line": 62,
                                 "column": 18,
                                 "offset": 1764
+                              },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 62,
+                                "column": 21,
+                                "offset": 1767
                               },
                               "kind": "STRING",
                               "value": "\"!\"",
@@ -6994,6 +7402,12 @@
                                 "column": 35,
                                 "offset": 1781
                               },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 62,
+                                "column": 48,
+                                "offset": 1794
+                              },
                               "kind": "STRING",
                               "value": "\"olá, mundo\"",
                               "$type": 13,
@@ -7045,6 +7459,12 @@
                                   "column": 54,
                                   "offset": 1800
                                 },
+                                "valueEnd": {
+                                  "file": "widths.go",
+                                  "line": 62,
+                                  "column": 55,
+                                  "offset": 1801
+                                },
                                 "kind": "INT",
                                 "value": "0",
                                 "$type": 6,
@@ -7060,6 +7480,12 @@
                                   "line": 62,
                                   "column": 56,
                                   "offset": 1802
+                                },
+                                "valueEnd": {
+                                  "file": "widths.go",
+                                  "line": 62,
+                                  "column": 57,
+                                  "offset": 1803
                                 },
                                 "kind": "INT",
                                 "value": "0",
@@ -7093,6 +7519,12 @@
                                 "line": 62,
                                 "column": 62,
                                 "offset": 1808
+                              },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 62,
+                                "column": 64,
+                                "offset": 1810
                               },
                               "kind": "STRING",
                               "value": "\"\"",
@@ -7392,6 +7824,12 @@
                             "column": 11,
                             "offset": 1944
                           },
+                          "valueEnd": {
+                            "file": "widths.go",
+                            "line": 67,
+                            "column": 12,
+                            "offset": 1945
+                          },
                           "kind": "INT",
                           "value": "1",
                           "$type": 6,
@@ -7484,6 +7922,12 @@
                             "column": 11,
                             "offset": 1956
                           },
+                          "valueEnd": {
+                            "file": "widths.go",
+                            "line": 68,
+                            "column": 12,
+                            "offset": 1957
+                          },
                           "kind": "INT",
                           "value": "2",
                           "$type": 6,
@@ -7536,6 +7980,12 @@
                               "column": 4,
                               "offset": 1961
                             },
+                            "valueEnd": {
+                              "file": "widths.go",
+                              "line": 69,
+                              "column": 7,
+                              "offset": 1964
+                            },
                             "kind": "FLOAT",
                             "value": "0.0",
                             "$type": 21,
@@ -7568,6 +8018,12 @@
                             "line": 69,
                             "column": 11,
                             "offset": 1968
+                          },
+                          "valueEnd": {
+                            "file": "widths.go",
+                            "line": 69,
+                            "column": 12,
+                            "offset": 1969
                           },
                           "kind": "INT",
                           "value": "3",
@@ -7668,6 +8124,12 @@
                                   "column": 18,
                                   "offset": 1987
                                 },
+                                "valueEnd": {
+                                  "file": "widths.go",
+                                  "line": 70,
+                                  "column": 19,
+                                  "offset": 1988
+                                },
                                 "kind": "INT",
                                 "value": "0",
                                 "$type": 21,
@@ -7692,6 +8154,12 @@
                                     "line": 70,
                                     "column": 22,
                                     "offset": 1991
+                                  },
+                                  "valueEnd": {
+                                    "file": "widths.go",
+                                    "line": 70,
+                                    "column": 23,
+                                    "offset": 1992
                                   },
                                   "kind": "INT",
                                   "value": "1",
@@ -7742,6 +8210,12 @@
                             "column": 28,
                             "offset": 1997
                           },
+                          "valueEnd": {
+                            "file": "widths.go",
+                            "line": 70,
+                            "column": 29,
+                            "offset": 1998
+                          },
                           "kind": "INT",
                           "value": "4",
                           "$type": 6,
@@ -7788,7 +8262,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "widths.go:312",
+                              "decl": "widths.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -7963,6 +8437,12 @@
                                 "column": 32,
                                 "offset": 2030
                               },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 71,
+                                "column": 33,
+                                "offset": 2031
+                              },
                               "kind": "INT",
                               "value": "0",
                               "$type": 21,
@@ -8091,6 +8571,12 @@
                                   "column": 25,
                                   "offset": 2058
                                 },
+                                "valueEnd": {
+                                  "file": "widths.go",
+                                  "line": 72,
+                                  "column": 28,
+                                  "offset": 2061
+                                },
                                 "kind": "STRING",
                                 "value": "\"x\"",
                                 "$type": 13,
@@ -8112,6 +8598,12 @@
                                   "line": 72,
                                   "column": 30,
                                   "offset": 2063
+                                },
+                                "valueEnd": {
+                                  "file": "widths.go",
+                                  "line": 72,
+                                  "column": 33,
+                                  "offset": 2066
                                 },
                                 "kind": "INT",
                                 "value": "250",
@@ -8176,6 +8668,12 @@
                               "column": 5,
                               "offset": 2072
                             },
+                            "valueEnd": {
+                              "file": "widths.go",
+                              "line": 73,
+                              "column": 8,
+                              "offset": 2075
+                            },
                             "kind": "STRING",
                             "value": "\"x\"",
                             "$type": 13,
@@ -8208,6 +8706,12 @@
                             "line": 73,
                             "column": 13,
                             "offset": 2080
+                          },
+                          "valueEnd": {
+                            "file": "widths.go",
+                            "line": 73,
+                            "column": 15,
+                            "offset": 2082
                           },
                           "kind": "INT",
                           "value": "10",
@@ -8259,6 +8763,12 @@
                             "line": 74,
                             "column": 5,
                             "offset": 2087
+                          },
+                          "valueEnd": {
+                            "file": "widths.go",
+                            "line": 74,
+                            "column": 8,
+                            "offset": 2090
                           },
                           "kind": "STRING",
                           "value": "\"y\"",
@@ -8320,7 +8830,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "widths.go:312",
+                              "decl": "widths.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -8372,6 +8882,12 @@
                                 "line": 75,
                                 "column": 17,
                                 "offset": 2110
+                              },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 75,
+                                "column": 20,
+                                "offset": 2113
                               },
                               "kind": "STRING",
                               "value": "\"x\"",
@@ -8427,6 +8943,12 @@
                                 "line": 75,
                                 "column": 26,
                                 "offset": 2119
+                              },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 75,
+                                "column": 29,
+                                "offset": 2122
                               },
                               "kind": "STRING",
                               "value": "\"y\"",
@@ -8589,6 +9111,12 @@
                                     "column": 13,
                                     "offset": 2297
                                   },
+                                  "valueEnd": {
+                                    "file": "widths.go",
+                                    "line": 79,
+                                    "column": 14,
+                                    "offset": 2298
+                                  },
                                   "kind": "INT",
                                   "value": "1",
                                   "$type": 2,
@@ -8626,6 +9154,12 @@
                                 "column": 17,
                                 "offset": 2301
                               },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 79,
+                                "column": 19,
+                                "offset": 2303
+                              },
                               "kind": "INT",
                               "value": "32",
                               "$type": 1,
@@ -8654,6 +9188,12 @@
                               "line": 79,
                               "column": 22,
                               "offset": 2306
+                            },
+                            "valueEnd": {
+                              "file": "widths.go",
+                              "line": 79,
+                              "column": 23,
+                              "offset": 2307
                             },
                             "kind": "INT",
                             "value": "1",
@@ -8745,6 +9285,12 @@
                                     "column": 14,
                                     "offset": 2321
                                   },
+                                  "valueEnd": {
+                                    "file": "widths.go",
+                                    "line": 80,
+                                    "column": 15,
+                                    "offset": 2322
+                                  },
                                   "kind": "INT",
                                   "value": "1",
                                   "$type": 0,
@@ -8782,6 +9328,12 @@
                                 "column": 18,
                                 "offset": 2325
                               },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 80,
+                                "column": 20,
+                                "offset": 2327
+                              },
                               "kind": "INT",
                               "value": "63",
                               "$type": 1,
@@ -8810,6 +9362,12 @@
                               "line": 80,
                               "column": 23,
                               "offset": 2330
+                            },
+                            "valueEnd": {
+                              "file": "widths.go",
+                              "line": 80,
+                              "column": 24,
+                              "offset": 2331
                             },
                             "kind": "INT",
                             "value": "5",
@@ -8863,7 +9421,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "widths.go:312",
+                              "decl": "widths.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -8916,6 +9474,12 @@
                                 "line": 81,
                                 "column": 16,
                                 "offset": 2347
+                              },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 81,
+                                "column": 17,
+                                "offset": 2348
                               },
                               "kind": "INT",
                               "value": "1",
@@ -9092,6 +9656,12 @@
                                 "column": 32,
                                 "offset": 2363
                               },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 81,
+                                "column": 33,
+                                "offset": 2364
+                              },
                               "kind": "INT",
                               "value": "3",
                               "$type": 0,
@@ -9142,6 +9712,12 @@
                                 "column": 37,
                                 "offset": 2368
                               },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 81,
+                                "column": 38,
+                                "offset": 2369
+                              },
                               "kind": "INT",
                               "value": "7",
                               "$type": 0,
@@ -9191,6 +9767,12 @@
                                 "line": 81,
                                 "column": 42,
                                 "offset": 2373
+                              },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 81,
+                                "column": 43,
+                                "offset": 2374
                               },
                               "kind": "INT",
                               "value": "7",
@@ -9279,6 +9861,12 @@
                                 "column": 54,
                                 "offset": 2385
                               },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 81,
+                                "column": 55,
+                                "offset": 2386
+                              },
                               "kind": "INT",
                               "value": "3",
                               "$type": 2,
@@ -9366,6 +9954,12 @@
                                 "column": 66,
                                 "offset": 2397
                               },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 81,
+                                "column": 70,
+                                "offset": 2401
+                              },
                               "kind": "INT",
                               "value": "1000",
                               "$type": 2,
@@ -9423,7 +10017,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "widths.go:312",
+                              "decl": "widths.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -9486,6 +10080,12 @@
                                   "line": 82,
                                   "column": 24,
                                   "offset": 2426
+                                },
+                                "valueEnd": {
+                                  "file": "widths.go",
+                                  "line": 82,
+                                  "column": 25,
+                                  "offset": 2427
                                 },
                                 "kind": "INT",
                                 "value": "1",
@@ -9553,6 +10153,12 @@
                                   "column": 37,
                                   "offset": 2439
                                 },
+                                "valueEnd": {
+                                  "file": "widths.go",
+                                  "line": 82,
+                                  "column": 38,
+                                  "offset": 2440
+                                },
                                 "kind": "INT",
                                 "value": "1",
                                 "$type": 1,
@@ -9609,6 +10215,12 @@
                                 "column": 43,
                                 "offset": 2445
                               },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 82,
+                                "column": 45,
+                                "offset": 2447
+                              },
                               "kind": "INT",
                               "value": "31",
                               "$type": 1,
@@ -9658,6 +10270,12 @@
                                 "line": 82,
                                 "column": 50,
                                 "offset": 2452
+                              },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 82,
+                                "column": 52,
+                                "offset": 2454
                               },
                               "kind": "INT",
                               "value": "32",
@@ -9709,6 +10327,12 @@
                                 "column": 57,
                                 "offset": 2459
                               },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 82,
+                                "column": 59,
+                                "offset": 2461
+                              },
                               "kind": "INT",
                               "value": "33",
                               "$type": 1,
@@ -9758,6 +10382,12 @@
                                 "line": 82,
                                 "column": 64,
                                 "offset": 2466
+                              },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 82,
+                                "column": 66,
+                                "offset": 2468
                               },
                               "kind": "INT",
                               "value": "31",
@@ -9809,6 +10439,12 @@
                                 "column": 71,
                                 "offset": 2473
                               },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 82,
+                                "column": 73,
+                                "offset": 2475
+                              },
                               "kind": "INT",
                               "value": "32",
                               "$type": 1,
@@ -9858,6 +10494,12 @@
                                 "line": 82,
                                 "column": 78,
                                 "offset": 2480
+                              },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 82,
+                                "column": 80,
+                                "offset": 2482
                               },
                               "kind": "INT",
                               "value": "33",
@@ -9945,6 +10587,12 @@
                                 "line": 82,
                                 "column": 92,
                                 "offset": 2494
+                              },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 82,
+                                "column": 94,
+                                "offset": 2496
                               },
                               "kind": "INT",
                               "value": "40",
@@ -10038,6 +10686,12 @@
                                     "column": 18,
                                     "offset": 2515
                                   },
+                                  "valueEnd": {
+                                    "file": "widths.go",
+                                    "line": 83,
+                                    "column": 19,
+                                    "offset": 2516
+                                  },
                                   "kind": "INT",
                                   "value": "1",
                                   "$type": 1,
@@ -10060,6 +10714,12 @@
                                     "line": 83,
                                     "column": 23,
                                     "offset": 2520
+                                  },
+                                  "valueEnd": {
+                                    "file": "widths.go",
+                                    "line": 83,
+                                    "column": 25,
+                                    "offset": 2522
                                   },
                                   "kind": "INT",
                                   "value": "40",
@@ -10151,6 +10811,12 @@
                                   "column": 17,
                                   "offset": 2539
                                 },
+                                "valueEnd": {
+                                  "file": "widths.go",
+                                  "line": 84,
+                                  "column": 19,
+                                  "offset": 2541
+                                },
                                 "kind": "INT",
                                 "value": "33",
                                 "$type": 17,
@@ -10202,7 +10868,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "widths.go:312",
+                              "decl": "widths.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -10433,6 +11099,12 @@
                                       "column": 44,
                                       "offset": 2585
                                     },
+                                    "valueEnd": {
+                                      "file": "widths.go",
+                                      "line": 85,
+                                      "column": 45,
+                                      "offset": 2586
+                                    },
                                     "kind": "INT",
                                     "value": "7",
                                     "$type": 1,
@@ -10573,6 +11245,12 @@
                                   "column": 19,
                                   "offset": 2611
                                 },
+                                "valueEnd": {
+                                  "file": "widths.go",
+                                  "line": 86,
+                                  "column": 29,
+                                  "offset": 2621
+                                },
                                 "kind": "INT",
                                 "value": "0xdeadbeef",
                                 "$type": 22,
@@ -10666,6 +11344,12 @@
                                     "column": 20,
                                     "offset": 2641
                                   },
+                                  "valueEnd": {
+                                    "file": "widths.go",
+                                    "line": 87,
+                                    "column": 26,
+                                    "offset": 2647
+                                  },
                                   "kind": "INT",
                                   "value": "0x7ead",
                                   "$type": 1,
@@ -10723,7 +11407,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "widths.go:312",
+                              "decl": "widths.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -10925,6 +11609,12 @@
                                 "column": 44,
                                 "offset": 2691
                               },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 88,
+                                "column": 46,
+                                "offset": 2693
+                              },
                               "kind": "INT",
                               "value": "31",
                               "$type": 1,
@@ -10974,6 +11664,12 @@
                                 "line": 88,
                                 "column": 54,
                                 "offset": 2701
+                              },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 88,
+                                "column": 55,
+                                "offset": 2702
                               },
                               "kind": "INT",
                               "value": "3",
@@ -11329,6 +12025,12 @@
                                 "column": 19,
                                 "offset": 2770
                               },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 89,
+                                "column": 22,
+                                "offset": 2773
+                              },
                               "kind": "STRING",
                               "value": "\"a\"",
                               "$type": 13,
@@ -11344,6 +12046,12 @@
                                 "line": 89,
                                 "column": 24,
                                 "offset": 2775
+                              },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 89,
+                                "column": 27,
+                                "offset": 2778
                               },
                               "kind": "STRING",
                               "value": "\"b\"",
@@ -11361,6 +12069,12 @@
                                 "column": 29,
                                 "offset": 2780
                               },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 89,
+                                "column": 32,
+                                "offset": 2783
+                              },
                               "kind": "STRING",
                               "value": "\"c\"",
                               "$type": 13,
@@ -11376,6 +12090,12 @@
                                 "line": 89,
                                 "column": 34,
                                 "offset": 2785
+                              },
+                              "valueEnd": {
+                                "file": "widths.go",
+                                "line": 89,
+                                "column": 37,
+                                "offset": 2788
                               },
                               "kind": "STRING",
                               "value": "\"d\"",
@@ -11466,6 +12186,12 @@
                                   "column": 19,
                                   "offset": 2808
                                 },
+                                "valueEnd": {
+                                  "file": "widths.go",
+                                  "line": 90,
+                                  "column": 20,
+                                  "offset": 2809
+                                },
                                 "kind": "INT",
                                 "value": "3",
                                 "$type": 2,
@@ -11550,6 +12276,12 @@
                                   "column": 18,
                                   "offset": 2827
                                 },
+                                "valueEnd": {
+                                  "file": "widths.go",
+                                  "line": 91,
+                                  "column": 19,
+                                  "offset": 2828
+                                },
                                 "kind": "INT",
                                 "value": "1",
                                 "$type": 17,
@@ -11601,7 +12333,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "widths.go:312",
+                              "decl": "widths.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -11919,6 +12651,12 @@
                                         "line": 92,
                                         "column": 70,
                                         "offset": 2898
+                                      },
+                                      "valueEnd": {
+                                        "file": "widths.go",
+                                        "line": 92,
+                                        "column": 72,
+                                        "offset": 2900
                                       },
                                       "kind": "INT",
                                       "value": "64",
@@ -12241,6 +12979,12 @@
                                       "column": 23,
                                       "offset": 3004
                                     },
+                                    "valueEnd": {
+                                      "file": "widths.go",
+                                      "line": 96,
+                                      "column": 24,
+                                      "offset": 3005
+                                    },
                                     "kind": "INT",
                                     "value": "2",
                                     "$type": 6,
@@ -12256,6 +13000,12 @@
                                       "line": 96,
                                       "column": 26,
                                       "offset": 3007
+                                    },
+                                    "valueEnd": {
+                                      "file": "widths.go",
+                                      "line": 96,
+                                      "column": 27,
+                                      "offset": 3008
                                     },
                                     "kind": "INT",
                                     "value": "1",
@@ -12289,6 +13039,12 @@
                                   "column": 30,
                                   "offset": 3011
                                 },
+                                "valueEnd": {
+                                  "file": "widths.go",
+                                  "line": 96,
+                                  "column": 33,
+                                  "offset": 3014
+                                },
                                 "kind": "STRING",
                                 "value": "\"c\"",
                                 "$type": 13,
@@ -12318,6 +13074,12 @@
                                       "column": 36,
                                       "offset": 3017
                                     },
+                                    "valueEnd": {
+                                      "file": "widths.go",
+                                      "line": 96,
+                                      "column": 37,
+                                      "offset": 3018
+                                    },
                                     "kind": "INT",
                                     "value": "1",
                                     "$type": 6,
@@ -12333,6 +13095,12 @@
                                       "line": 96,
                                       "column": 39,
                                       "offset": 3020
+                                    },
+                                    "valueEnd": {
+                                      "file": "widths.go",
+                                      "line": 96,
+                                      "column": 40,
+                                      "offset": 3021
                                     },
                                     "kind": "INT",
                                     "value": "5",
@@ -12366,6 +13134,12 @@
                                   "column": 43,
                                   "offset": 3024
                                 },
+                                "valueEnd": {
+                                  "file": "widths.go",
+                                  "line": 96,
+                                  "column": 46,
+                                  "offset": 3027
+                                },
                                 "kind": "STRING",
                                 "value": "\"b\"",
                                 "$type": 13,
@@ -12395,6 +13169,12 @@
                                       "column": 49,
                                       "offset": 3030
                                     },
+                                    "valueEnd": {
+                                      "file": "widths.go",
+                                      "line": 96,
+                                      "column": 50,
+                                      "offset": 3031
+                                    },
                                     "kind": "INT",
                                     "value": "1",
                                     "$type": 6,
@@ -12410,6 +13190,12 @@
                                       "line": 96,
                                       "column": 52,
                                       "offset": 3033
+                                    },
+                                    "valueEnd": {
+                                      "file": "widths.go",
+                                      "line": 96,
+                                      "column": 53,
+                                      "offset": 3034
                                     },
                                     "kind": "INT",
                                     "value": "2",
@@ -12442,6 +13228,12 @@
                                   "line": 96,
                                   "column": 56,
                                   "offset": 3037
+                                },
+                                "valueEnd": {
+                                  "file": "widths.go",
+                                  "line": 96,
+                                  "column": 59,
+                                  "offset": 3040
                                 },
                                 "kind": "STRING",
                                 "value": "\"a\"",
@@ -12525,6 +13317,12 @@
                                   "column": 13,
                                   "offset": 3054
                                 },
+                                "valueEnd": {
+                                  "file": "widths.go",
+                                  "line": 97,
+                                  "column": 14,
+                                  "offset": 3055
+                                },
                                 "kind": "INT",
                                 "value": "2",
                                 "$type": 1,
@@ -12602,6 +13400,12 @@
                                       "column": 26,
                                       "offset": 3067
                                     },
+                                    "valueEnd": {
+                                      "file": "widths.go",
+                                      "line": 97,
+                                      "column": 27,
+                                      "offset": 3068
+                                    },
                                     "kind": "INT",
                                     "value": "1",
                                     "$type": 16,
@@ -12626,6 +13430,12 @@
                                         "line": 97,
                                         "column": 30,
                                         "offset": 3071
+                                      },
+                                      "valueEnd": {
+                                        "file": "widths.go",
+                                        "line": 97,
+                                        "column": 31,
+                                        "offset": 3072
                                       },
                                       "kind": "INT",
                                       "value": "1",
@@ -12712,6 +13522,12 @@
                                         "column": 42,
                                         "offset": 3083
                                       },
+                                      "valueEnd": {
+                                        "file": "widths.go",
+                                        "line": 97,
+                                        "column": 43,
+                                        "offset": 3084
+                                      },
                                       "kind": "INT",
                                       "value": "3",
                                       "$type": 1,
@@ -12733,6 +13549,12 @@
                                       "line": 97,
                                       "column": 45,
                                       "offset": 3086
+                                    },
+                                    "valueEnd": {
+                                      "file": "widths.go",
+                                      "line": 97,
+                                      "column": 46,
+                                      "offset": 3087
                                     },
                                     "kind": "INT",
                                     "value": "0",
@@ -12804,6 +13626,12 @@
                                       "column": 57,
                                       "offset": 3098
                                     },
+                                    "valueEnd": {
+                                      "file": "widths.go",
+                                      "line": 97,
+                                      "column": 58,
+                                      "offset": 3099
+                                    },
                                     "kind": "INT",
                                     "value": "1",
                                     "$type": 16,
@@ -12828,6 +13656,12 @@
                                         "line": 97,
                                         "column": 61,
                                         "offset": 3102
+                                      },
+                                      "valueEnd": {
+                                        "file": "widths.go",
+                                        "line": 97,
+                                        "column": 62,
+                                        "offset": 3103
                                       },
                                       "kind": "INT",
                                       "value": "2",
@@ -13025,6 +13859,12 @@
                                       "column": 35,
                                       "offset": 3146
                                     },
+                                    "valueEnd": {
+                                      "file": "widths.go",
+                                      "line": 98,
+                                      "column": 36,
+                                      "offset": 3147
+                                    },
                                     "kind": "INT",
                                     "value": "1",
                                     "$type": 1,
@@ -13040,6 +13880,12 @@
                                       "line": 98,
                                       "column": 38,
                                       "offset": 3149
+                                    },
+                                    "valueEnd": {
+                                      "file": "widths.go",
+                                      "line": 98,
+                                      "column": 39,
+                                      "offset": 3150
                                     },
                                     "kind": "INT",
                                     "value": "2",
@@ -13077,6 +13923,12 @@
                                   "line": 98,
                                   "column": 42,
                                   "offset": 3153
+                                },
+                                "valueEnd": {
+                                  "file": "widths.go",
+                                  "line": 98,
+                                  "column": 43,
+                                  "offset": 3154
                                 },
                                 "kind": "INT",
                                 "value": "1",
@@ -13124,6 +13976,12 @@
                                       "column": 53,
                                       "offset": 3164
                                     },
+                                    "valueEnd": {
+                                      "file": "widths.go",
+                                      "line": 98,
+                                      "column": 54,
+                                      "offset": 3165
+                                    },
                                     "kind": "INT",
                                     "value": "0",
                                     "$type": 1,
@@ -13139,6 +13997,12 @@
                                       "line": 98,
                                       "column": 56,
                                       "offset": 3167
+                                    },
+                                    "valueEnd": {
+                                      "file": "widths.go",
+                                      "line": 98,
+                                      "column": 57,
+                                      "offset": 3168
                                     },
                                     "kind": "INT",
                                     "value": "9",
@@ -13176,6 +14040,12 @@
                                   "line": 98,
                                   "column": 60,
                                   "offset": 3171
+                                },
+                                "valueEnd": {
+                                  "file": "widths.go",
+                                  "line": 98,
+                                  "column": 61,
+                                  "offset": 3172
                                 },
                                 "kind": "INT",
                                 "value": "2",
@@ -13223,6 +14093,12 @@
                                       "column": 71,
                                       "offset": 3182
                                     },
+                                    "valueEnd": {
+                                      "file": "widths.go",
+                                      "line": 98,
+                                      "column": 72,
+                                      "offset": 3183
+                                    },
                                     "kind": "INT",
                                     "value": "1",
                                     "$type": 1,
@@ -13247,6 +14123,12 @@
                                         "line": 98,
                                         "column": 75,
                                         "offset": 3186
+                                      },
+                                      "valueEnd": {
+                                        "file": "widths.go",
+                                        "line": 98,
+                                        "column": 76,
+                                        "offset": 3187
                                       },
                                       "kind": "INT",
                                       "value": "1",
@@ -13290,6 +14172,12 @@
                                   "line": 98,
                                   "column": 79,
                                   "offset": 3190
+                                },
+                                "valueEnd": {
+                                  "file": "widths.go",
+                                  "line": 98,
+                                  "column": 80,
+                                  "offset": 3191
                                 },
                                 "kind": "INT",
                                 "value": "3",
@@ -13436,6 +14324,12 @@
                                   "column": 25,
                                   "offset": 3217
                                 },
+                                "valueEnd": {
+                                  "file": "widths.go",
+                                  "line": 99,
+                                  "column": 26,
+                                  "offset": 3218
+                                },
                                 "kind": "INT",
                                 "value": "0",
                                 "$type": 6,
@@ -13454,6 +14348,12 @@
                                   "line": 99,
                                   "column": 28,
                                   "offset": 3220
+                                },
+                                "valueEnd": {
+                                  "file": "widths.go",
+                                  "line": 99,
+                                  "column": 29,
+                                  "offset": 3221
                                 },
                                 "kind": "INT",
                                 "value": "3",
@@ -13477,6 +14377,12 @@
                                   "column": 31,
                                   "offset": 3223
                                 },
+                                "valueEnd": {
+                                  "file": "widths.go",
+                                  "line": 99,
+                                  "column": 32,
+                                  "offset": 3224
+                                },
                                 "kind": "INT",
                                 "value": "3",
                                 "$type": 6,
@@ -13495,6 +14401,12 @@
                                   "line": 99,
                                   "column": 34,
                                   "offset": 3226
+                                },
+                                "valueEnd": {
+                                  "file": "widths.go",
+                                  "line": 99,
+                                  "column": 35,
+                                  "offset": 3227
                                 },
                                 "kind": "INT",
                                 "value": "1",
@@ -13518,6 +14430,12 @@
                                   "column": 37,
                                   "offset": 3229
                                 },
+                                "valueEnd": {
+                                  "file": "widths.go",
+                                  "line": 99,
+                                  "column": 38,
+                                  "offset": 3230
+                                },
                                 "kind": "INT",
                                 "value": "1",
                                 "$type": 6,
@@ -13536,6 +14454,12 @@
                                   "line": 99,
                                   "column": 40,
                                   "offset": 3232
+                                },
+                                "valueEnd": {
+                                  "file": "widths.go",
+                                  "line": 99,
+                                  "column": 41,
+                                  "offset": 3233
                                 },
                                 "kind": "INT",
                                 "value": "2",
@@ -13558,6 +14482,12 @@
                                   "line": 99,
                                   "column": 43,
                                   "offset": 3235
+                                },
+                                "valueEnd": {
+                                  "file": "widths.go",
+                                  "line": 99,
+                                  "column": 44,
+                                  "offset": 3236
                                 },
                                 "kind": "INT",
                                 "value": "2",
@@ -13616,7 +14546,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "widths.go:312",
+                              "decl": "widths.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -13769,6 +14699,12 @@
                     "column": 2,
                     "offset": 162
                   },
+                  "valueEnd": {
+                    "file": "widths.go",
+                    "line": 6,
+                    "column": 7,
+                    "offset": 167
+                  },
                   "kind": "STRING",
                   "value": "\"fmt\""
                 },
@@ -13786,6 +14722,12 @@
                     "line": 7,
                     "column": 2,
                     "offset": 169
+                  },
+                  "valueEnd": {
+                    "file": "widths.go",
+                    "line": 7,
+                    "column": 8,
+                    "offset": 175
                   },
                   "kind": "STRING",
                   "value": "\"math\""

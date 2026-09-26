@@ -1,7 +1,7 @@
 {
   "schemaVersion": 6,
   "tool": "goast",
-  "goVersion": "go1.25.7",
+  "goVersion": "go1.26.5",
   "packages": [
     {
       "path": "main",
@@ -87,6 +87,12 @@
                         "line": 6,
                         "column": 8,
                         "offset": 227
+                      },
+                      "valueEnd": {
+                        "file": "ifaces.go",
+                        "line": 6,
+                        "column": 13,
+                        "offset": 232
                       },
                       "kind": "STRING",
                       "value": "\"fmt\""
@@ -1093,6 +1099,12 @@
                             "column": 41,
                             "offset": 449
                           },
+                          "valueEnd": {
+                            "file": "ifaces.go",
+                            "line": 18,
+                            "column": 47,
+                            "offset": 455
+                          },
                           "kind": "STRING",
                           "value": "\"rect\"",
                           "$type": 5,
@@ -1305,6 +1317,12 @@
                                 "line": 19,
                                 "column": 42,
                                 "offset": 499
+                              },
+                              "valueEnd": {
+                                "file": "ifaces.go",
+                                "line": 19,
+                                "column": 43,
+                                "offset": 500
                               },
                               "kind": "INT",
                               "value": "3",
@@ -1638,6 +1656,12 @@
                             "line": 20,
                             "column": 42,
                             "offset": 556
+                          },
+                          "valueEnd": {
+                            "file": "ifaces.go",
+                            "line": 20,
+                            "column": 50,
+                            "offset": 564
                           },
                           "kind": "STRING",
                           "value": "\"circle\"",
@@ -2177,6 +2201,12 @@
                               "column": 43,
                               "offset": 688
                             },
+                            "valueEnd": {
+                              "file": "ifaces.go",
+                              "line": 25,
+                              "column": 62,
+                              "offset": 707
+                            },
                             "kind": "STRING",
                             "value": "\"não encontrado: \"",
                             "$type": 5,
@@ -2632,6 +2662,12 @@
                                 "column": 52,
                                 "offset": 801
                               },
+                              "valueEnd": {
+                                "file": "ifaces.go",
+                                "line": 29,
+                                "column": 55,
+                                "offset": 804
+                              },
                               "kind": "STRING",
                               "value": "\"(\"",
                               "$type": 5,
@@ -2701,6 +2737,12 @@
                                 "column": 62,
                                 "offset": 811
                               },
+                              "valueEnd": {
+                                "file": "ifaces.go",
+                                "line": 29,
+                                "column": 65,
+                                "offset": 814
+                              },
                               "kind": "STRING",
                               "value": "\",\"",
                               "$type": 5,
@@ -2769,6 +2811,12 @@
                                 "line": 29,
                                 "column": 72,
                                 "offset": 821
+                              },
+                              "valueEnd": {
+                                "file": "ifaces.go",
+                                "line": 29,
+                                "column": 75,
+                                "offset": 824
                               },
                               "kind": "STRING",
                               "value": "\")\"",
@@ -2992,6 +3040,12 @@
                             "line": 32,
                             "column": 10,
                             "offset": 866
+                          },
+                          "valueEnd": {
+                            "file": "ifaces.go",
+                            "line": 32,
+                            "column": 13,
+                            "offset": 869
                           },
                           "kind": "STRING",
                           "value": "\"x\"",
@@ -3482,6 +3536,12 @@
                                           "column": 21,
                                           "offset": 999
                                         },
+                                        "valueEnd": {
+                                          "file": "ifaces.go",
+                                          "line": 41,
+                                          "column": 28,
+                                          "offset": 1006
+                                        },
                                         "kind": "STRING",
                                         "value": "\"Rect \"",
                                         "$type": 5,
@@ -3550,6 +3610,12 @@
                                           "line": 41,
                                           "column": 35,
                                           "offset": 1013
+                                        },
+                                        "valueEnd": {
+                                          "file": "ifaces.go",
+                                          "line": 41,
+                                          "column": 38,
+                                          "offset": 1016
                                         },
                                         "kind": "STRING",
                                         "value": "\"x\"",
@@ -3818,6 +3884,12 @@
                                           "column": 21,
                                           "offset": 1069
                                         },
+                                        "valueEnd": {
+                                          "file": "ifaces.go",
+                                          "line": 44,
+                                          "column": 32,
+                                          "offset": 1080
+                                        },
                                         "kind": "STRING",
                                         "value": "\"Circle r=\"",
                                         "$type": 5,
@@ -3925,6 +3997,12 @@
                                       "line": 46,
                                       "column": 10,
                                       "offset": 1106
+                                    },
+                                    "valueEnd": {
+                                      "file": "ifaces.go",
+                                      "line": 46,
+                                      "column": 13,
+                                      "offset": 1109
                                     },
                                     "kind": "STRING",
                                     "value": "\"?\"",
@@ -4162,6 +4240,12 @@
                             "line": 51,
                             "column": 7,
                             "offset": 1159
+                          },
+                          "valueEnd": {
+                            "file": "ifaces.go",
+                            "line": 51,
+                            "column": 10,
+                            "offset": 1162
                           },
                           "kind": "FLOAT",
                           "value": "0.0",
@@ -4942,6 +5026,12 @@
                             "column": 9,
                             "offset": 1348
                           },
+                          "valueEnd": {
+                            "file": "ifaces.go",
+                            "line": 62,
+                            "column": 20,
+                            "offset": 1359
+                          },
                           "kind": "STRING",
                           "value": "\"sem panic\"",
                           "$type": 5,
@@ -5137,6 +5227,12 @@
                                     "column": 18,
                                     "offset": 1394
                                   },
+                                  "valueEnd": {
+                                    "file": "ifaces.go",
+                                    "line": 66,
+                                    "column": 19,
+                                    "offset": 1395
+                                  },
                                   "kind": "INT",
                                   "value": "1",
                                   "$type": 3,
@@ -5283,6 +5379,12 @@
                                     "column": 25,
                                     "offset": 1421
                                   },
+                                  "valueEnd": {
+                                    "file": "ifaces.go",
+                                    "line": 67,
+                                    "column": 26,
+                                    "offset": 1422
+                                  },
                                   "kind": "INT",
                                   "value": "2",
                                   "$type": 3,
@@ -5298,6 +5400,12 @@
                                     "line": 67,
                                     "column": 28,
                                     "offset": 1424
+                                  },
+                                  "valueEnd": {
+                                    "file": "ifaces.go",
+                                    "line": 67,
+                                    "column": 29,
+                                    "offset": 1425
                                   },
                                   "kind": "INT",
                                   "value": "3",
@@ -5388,7 +5496,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 31,
-                              "decl": "ifaces.go:312",
+                              "decl": "ifaces.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -5511,6 +5619,12 @@
                                     "column": 36,
                                     "offset": 1466
                                   },
+                                  "valueEnd": {
+                                    "file": "ifaces.go",
+                                    "line": 68,
+                                    "column": 37,
+                                    "offset": 1467
+                                  },
                                   "kind": "INT",
                                   "value": "0",
                                   "$type": 16,
@@ -5613,6 +5727,12 @@
                                     "line": 68,
                                     "column": 54,
                                     "offset": 1484
+                                  },
+                                  "valueEnd": {
+                                    "file": "ifaces.go",
+                                    "line": 68,
+                                    "column": 55,
+                                    "offset": 1485
                                   },
                                   "kind": "INT",
                                   "value": "1",
@@ -5721,7 +5841,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 31,
-                              "decl": "ifaces.go:312",
+                              "decl": "ifaces.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -5806,6 +5926,12 @@
                                     "line": 69,
                                     "column": 30,
                                     "offset": 1524
+                                  },
+                                  "valueEnd": {
+                                    "file": "ifaces.go",
+                                    "line": 69,
+                                    "column": 31,
+                                    "offset": 1525
                                   },
                                   "kind": "INT",
                                   "value": "0",
@@ -5904,6 +6030,12 @@
                                     "line": 69,
                                     "column": 51,
                                     "offset": 1545
+                                  },
+                                  "valueEnd": {
+                                    "file": "ifaces.go",
+                                    "line": 69,
+                                    "column": 52,
+                                    "offset": 1546
                                   },
                                   "kind": "INT",
                                   "value": "1",
@@ -6105,6 +6237,12 @@
                                       "column": 21,
                                       "offset": 1576
                                     },
+                                    "valueEnd": {
+                                      "file": "ifaces.go",
+                                      "line": 71,
+                                      "column": 22,
+                                      "offset": 1577
+                                    },
                                     "kind": "INT",
                                     "value": "1",
                                     "$type": 3,
@@ -6120,6 +6258,12 @@
                                       "line": 71,
                                       "column": 24,
                                       "offset": 1579
+                                    },
+                                    "valueEnd": {
+                                      "file": "ifaces.go",
+                                      "line": 71,
+                                      "column": 25,
+                                      "offset": 1580
                                     },
                                     "kind": "INT",
                                     "value": "1",
@@ -6441,7 +6585,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 31,
-                              "decl": "ifaces.go:312",
+                              "decl": "ifaces.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -6641,6 +6785,12 @@
                                 "column": 14,
                                 "offset": 1675
                               },
+                              "valueEnd": {
+                                "file": "ifaces.go",
+                                "line": 76,
+                                "column": 17,
+                                "offset": 1678
+                              },
                               "kind": "STRING",
                               "value": "\"x\"",
                               "$type": 5,
@@ -6697,7 +6847,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 31,
-                              "decl": "ifaces.go:312",
+                              "decl": "ifaces.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -6827,6 +6977,12 @@
                                     "line": 77,
                                     "column": 36,
                                     "offset": 1715
+                                  },
+                                  "valueEnd": {
+                                    "file": "ifaces.go",
+                                    "line": 77,
+                                    "column": 39,
+                                    "offset": 1718
                                   },
                                   "kind": "STRING",
                                   "value": "\"y\"",
@@ -7043,7 +7199,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 31,
-                              "decl": "ifaces.go:312",
+                              "decl": "ifaces.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -7222,7 +7378,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 31,
-                              "decl": "ifaces.go:312",
+                              "decl": "ifaces.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -7278,6 +7434,12 @@
                                   "column": 20,
                                   "offset": 1816
                                 },
+                                "valueEnd": {
+                                  "file": "ifaces.go",
+                                  "line": 81,
+                                  "column": 21,
+                                  "offset": 1817
+                                },
                                 "kind": "INT",
                                 "value": "1",
                                 "$type": 16,
@@ -7293,6 +7455,12 @@
                                   "line": 81,
                                   "column": 23,
                                   "offset": 1819
+                                },
+                                "valueEnd": {
+                                  "file": "ifaces.go",
+                                  "line": 81,
+                                  "column": 24,
+                                  "offset": 1820
                                 },
                                 "kind": "INT",
                                 "value": "2",
@@ -7376,6 +7544,12 @@
                                       "column": 36,
                                       "offset": 1832
                                     },
+                                    "valueEnd": {
+                                      "file": "ifaces.go",
+                                      "line": 81,
+                                      "column": 37,
+                                      "offset": 1833
+                                    },
                                     "kind": "INT",
                                     "value": "3",
                                     "$type": 16,
@@ -7391,6 +7565,12 @@
                                       "line": 81,
                                       "column": 39,
                                       "offset": 1835
+                                    },
+                                    "valueEnd": {
+                                      "file": "ifaces.go",
+                                      "line": 81,
+                                      "column": 40,
+                                      "offset": 1836
                                     },
                                     "kind": "INT",
                                     "value": "4",
@@ -7534,6 +7714,12 @@
                                       "column": 27,
                                       "offset": 1867
                                     },
+                                    "valueEnd": {
+                                      "file": "ifaces.go",
+                                      "line": 83,
+                                      "column": 28,
+                                      "offset": 1868
+                                    },
                                     "kind": "INT",
                                     "value": "5",
                                     "$type": 16,
@@ -7549,6 +7735,12 @@
                                       "line": 83,
                                       "column": 30,
                                       "offset": 1870
+                                    },
+                                    "valueEnd": {
+                                      "file": "ifaces.go",
+                                      "line": 83,
+                                      "column": 31,
+                                      "offset": 1871
                                     },
                                     "kind": "INT",
                                     "value": "6",
@@ -7790,7 +7982,7 @@
                                     "name": "Println",
                                     "kind": "func",
                                     "type": 31,
-                                    "decl": "ifaces.go:312",
+                                    "decl": "ifaces.go:313",
                                     "pkg": "fmt",
                                     "top": true
                                   }
@@ -7811,6 +8003,12 @@
                                     "line": 85,
                                     "column": 15,
                                     "offset": 1931
+                                  },
+                                  "valueEnd": {
+                                    "file": "ifaces.go",
+                                    "line": 85,
+                                    "column": 26,
+                                    "offset": 1942
                                   },
                                   "kind": "STRING",
                                   "value": "\"stringer:\"",
@@ -7998,7 +8196,7 @@
                                         "name": "Println",
                                         "kind": "func",
                                         "type": 31,
-                                        "decl": "ifaces.go:312",
+                                        "decl": "ifaces.go:313",
                                         "pkg": "fmt",
                                         "top": true
                                       }
@@ -8019,6 +8217,12 @@
                                         "line": 87,
                                         "column": 29,
                                         "offset": 1988
+                                      },
+                                      "valueEnd": {
+                                        "file": "ifaces.go",
+                                        "line": 87,
+                                        "column": 42,
+                                        "offset": 2001
                                       },
                                       "kind": "STRING",
                                       "value": "\"recuperado:\"",
@@ -8274,6 +8478,12 @@
                     "line": 6,
                     "column": 8,
                     "offset": 227
+                  },
+                  "valueEnd": {
+                    "file": "ifaces.go",
+                    "line": 6,
+                    "column": 13,
+                    "offset": 232
                   },
                   "kind": "STRING",
                   "value": "\"fmt\""

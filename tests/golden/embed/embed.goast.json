@@ -1,7 +1,7 @@
 {
   "schemaVersion": 6,
   "tool": "goast",
-  "goVersion": "go1.25.7",
+  "goVersion": "go1.26.5",
   "packages": [
     {
       "path": "main",
@@ -87,6 +87,12 @@
                         "line": 6,
                         "column": 8,
                         "offset": 210
+                      },
+                      "valueEnd": {
+                        "file": "embed.go",
+                        "line": 6,
+                        "column": 13,
+                        "offset": 215
                       },
                       "kind": "STRING",
                       "value": "\"fmt\""
@@ -669,6 +675,12 @@
                                 "line": 15,
                                 "column": 52,
                                 "offset": 355
+                              },
+                              "valueEnd": {
+                                "file": "embed.go",
+                                "line": 15,
+                                "column": 59,
+                                "offset": 362
                               },
                               "kind": "STRING",
                               "value": "\"base#\"",
@@ -1360,6 +1372,12 @@
                                 "column": 53,
                                 "offset": 486
                               },
+                              "valueEnd": {
+                                "file": "embed.go",
+                                "line": 17,
+                                "column": 58,
+                                "offset": 491
+                              },
                               "kind": "STRING",
                               "value": "\"id=\"",
                               "$type": 3,
@@ -1428,6 +1446,12 @@
                                 "line": 17,
                                 "column": 66,
                                 "offset": 499
+                              },
+                              "valueEnd": {
+                                "file": "embed.go",
+                                "line": 17,
+                                "column": 74,
+                                "offset": 507
                               },
                               "kind": "STRING",
                               "value": "\" tags=\"",
@@ -2384,6 +2408,12 @@
                               "column": 41,
                               "offset": 718
                             },
+                            "valueEnd": {
+                              "file": "embed.go",
+                              "line": 29,
+                              "column": 48,
+                              "offset": 725
+                            },
                             "kind": "STRING",
                             "value": "\"doc: \"",
                             "$type": 3,
@@ -2989,6 +3019,12 @@
                                         "column": 26,
                                         "offset": 848
                                       },
+                                      "valueEnd": {
+                                        "file": "embed.go",
+                                        "line": 34,
+                                        "column": 27,
+                                        "offset": 849
+                                      },
                                       "kind": "INT",
                                       "value": "7",
                                       "$type": 6,
@@ -3117,6 +3153,12 @@
                                           "column": 54,
                                           "offset": 876
                                         },
+                                        "valueEnd": {
+                                          "file": "embed.go",
+                                          "line": 34,
+                                          "column": 58,
+                                          "offset": 880
+                                        },
                                         "kind": "STRING",
                                         "value": "\"\u003e \"",
                                         "$type": 3,
@@ -3172,6 +3214,12 @@
                                   "line": 34,
                                   "column": 67,
                                   "offset": 889
+                                },
+                                "valueEnd": {
+                                  "file": "embed.go",
+                                  "line": 34,
+                                  "column": 74,
+                                  "offset": 896
                                 },
                                 "kind": "STRING",
                                 "value": "\"texto\"",
@@ -3267,6 +3315,12 @@
                               "column": 8,
                               "offset": 905
                             },
+                            "valueEnd": {
+                              "file": "embed.go",
+                              "line": 35,
+                              "column": 11,
+                              "offset": 908
+                            },
                             "kind": "STRING",
                             "value": "\"a\"",
                             "$type": 3,
@@ -3358,6 +3412,12 @@
                               "line": 36,
                               "column": 8,
                               "offset": 917
+                            },
+                            "valueEnd": {
+                              "file": "embed.go",
+                              "line": 36,
+                              "column": 11,
+                              "offset": 920
                             },
                             "kind": "STRING",
                             "value": "\"b\"",
@@ -3478,7 +3538,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 25,
-                              "decl": "embed.go:312",
+                              "decl": "embed.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -3892,7 +3952,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 25,
-                              "decl": "embed.go:312",
+                              "decl": "embed.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -3976,6 +4036,12 @@
                                   "line": 39,
                                   "column": 20,
                                   "offset": 1020
+                                },
+                                "valueEnd": {
+                                  "file": "embed.go",
+                                  "line": 39,
+                                  "column": 24,
+                                  "offset": 1024
                                 },
                                 "kind": "STRING",
                                 "value": "\"oi\"",
@@ -4337,6 +4403,12 @@
                             "column": 9,
                             "offset": 1119
                           },
+                          "valueEnd": {
+                            "file": "embed.go",
+                            "line": 42,
+                            "column": 12,
+                            "offset": 1122
+                          },
                           "kind": "INT",
                           "value": "100",
                           "$type": 6,
@@ -4421,6 +4493,12 @@
                             "column": 13,
                             "offset": 1135
                           },
+                          "valueEnd": {
+                            "file": "embed.go",
+                            "line": 43,
+                            "column": 17,
+                            "offset": 1139
+                          },
                           "kind": "STRING",
                           "value": "\"# \"",
                           "$type": 3,
@@ -4467,7 +4545,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 25,
-                              "decl": "embed.go:312",
+                              "decl": "embed.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -4660,6 +4738,12 @@
                                   "column": 32,
                                   "offset": 1171
                                 },
+                                "valueEnd": {
+                                  "file": "embed.go",
+                                  "line": 44,
+                                  "column": 35,
+                                  "offset": 1174
+                                },
                                 "kind": "STRING",
                                 "value": "\"x\"",
                                 "$type": 3,
@@ -4748,6 +4832,12 @@
                                   "line": 44,
                                   "column": 44,
                                   "offset": 1183
+                                },
+                                "valueEnd": {
+                                  "file": "embed.go",
+                                  "line": 44,
+                                  "column": 47,
+                                  "offset": 1186
                                 },
                                 "kind": "STRING",
                                 "value": "\"y\"",
@@ -4938,7 +5028,7 @@
                                         "name": "Println",
                                         "kind": "func",
                                         "type": 25,
-                                        "decl": "embed.go:312",
+                                        "decl": "embed.go:313",
                                         "pkg": "fmt",
                                         "top": true
                                       }
@@ -4959,6 +5049,12 @@
                                         "line": 47,
                                         "column": 29,
                                         "offset": 1233
+                                      },
+                                      "valueEnd": {
+                                        "file": "embed.go",
+                                        "line": 47,
+                                        "column": 42,
+                                        "offset": 1246
                                       },
                                       "kind": "STRING",
                                       "value": "\"recuperado:\"",
@@ -5078,7 +5174,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 25,
-                              "decl": "embed.go:312",
+                              "decl": "embed.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -5211,7 +5307,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 25,
-                              "decl": "embed.go:312",
+                              "decl": "embed.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -5296,6 +5392,12 @@
                                   "column": 24,
                                   "offset": 1314
                                 },
+                                "valueEnd": {
+                                  "file": "embed.go",
+                                  "line": 49,
+                                  "column": 36,
+                                  "offset": 1326
+                                },
                                 "kind": "STRING",
                                 "value": "\"nil logger\"",
                                 "$type": 3,
@@ -5360,6 +5462,12 @@
                     "line": 6,
                     "column": 8,
                     "offset": 210
+                  },
+                  "valueEnd": {
+                    "file": "embed.go",
+                    "line": 6,
+                    "column": 13,
+                    "offset": 215
                   },
                   "kind": "STRING",
                   "value": "\"fmt\""

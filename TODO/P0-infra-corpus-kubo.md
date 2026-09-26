@@ -5,7 +5,7 @@
 
 ## Problema
 
-O `AGENTS.md` cita `tests/corpus/` (pacotes reais), que não existe. Falta um módulo que fixe o kubo (e por transitividade o boxo e todas as deps) numa versão, com contexto de build fixo (`CGO_ENABLED=0 GOOS=linux GOARCH=amd64`, Go 1.25.7).
+O `AGENTS.md` cita `tests/corpus/` (pacotes reais), que não existe. Falta um módulo que fixe o kubo (e por transitividade o boxo e todas as deps) numa versão, com contexto de build fixo (`CGO_ENABLED=0 GOOS=linux GOARCH=amd64`, Go 1.26.5, exigido pelo kubo v0.43.1).
 
 ## Prova
 

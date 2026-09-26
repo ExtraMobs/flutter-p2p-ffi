@@ -1,7 +1,7 @@
 {
   "schemaVersion": 6,
   "tool": "goast",
-  "goVersion": "go1.25.7",
+  "goVersion": "go1.26.5",
   "packages": [
     {
       "path": "main",
@@ -87,6 +87,12 @@
                         "line": 6,
                         "column": 8,
                         "offset": 242
+                      },
+                      "valueEnd": {
+                        "file": "defers.go",
+                        "line": 6,
+                        "column": 13,
+                        "offset": 247
                       },
                       "kind": "STRING",
                       "value": "\"fmt\""
@@ -336,6 +342,12 @@
                               "column": 11,
                               "offset": 302
                             },
+                            "valueEnd": {
+                              "file": "defers.go",
+                              "line": 11,
+                              "column": 12,
+                              "offset": 303
+                            },
                             "kind": "INT",
                             "value": "0",
                             "$type": 2,
@@ -385,6 +397,12 @@
                             "line": 11,
                             "column": 18,
                             "offset": 309
+                          },
+                          "valueEnd": {
+                            "file": "defers.go",
+                            "line": 11,
+                            "column": 19,
+                            "offset": 310
                           },
                           "kind": "INT",
                           "value": "3",
@@ -480,7 +498,7 @@
                                     "name": "Println",
                                     "kind": "func",
                                     "type": 5,
-                                    "decl": "defers.go:312",
+                                    "decl": "defers.go:313",
                                     "pkg": "fmt",
                                     "top": true
                                   }
@@ -501,6 +519,12 @@
                                     "line": 12,
                                     "column": 21,
                                     "offset": 338
+                                  },
+                                  "valueEnd": {
+                                    "file": "defers.go",
+                                    "line": 12,
+                                    "column": 28,
+                                    "offset": 345
                                   },
                                   "kind": "STRING",
                                   "value": "\"defer\"",
@@ -596,6 +620,12 @@
                             "column": 7,
                             "offset": 359
                           },
+                          "valueEnd": {
+                            "file": "defers.go",
+                            "line": 14,
+                            "column": 9,
+                            "offset": 361
+                          },
                           "kind": "INT",
                           "value": "10",
                           "$type": 2,
@@ -648,7 +678,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 5,
-                              "decl": "defers.go:312",
+                              "decl": "defers.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -669,6 +699,12 @@
                               "line": 15,
                               "column": 20,
                               "offset": 381
+                            },
+                            "valueEnd": {
+                              "file": "defers.go",
+                              "line": 15,
+                              "column": 33,
+                              "offset": 394
                             },
                             "kind": "STRING",
                             "value": "\"x no defer:\"",
@@ -755,6 +791,12 @@
                             "column": 6,
                             "offset": 422
                           },
+                          "valueEnd": {
+                            "file": "defers.go",
+                            "line": 16,
+                            "column": 8,
+                            "offset": 424
+                          },
                           "kind": "INT",
                           "value": "20",
                           "$type": 2,
@@ -801,7 +843,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 5,
-                              "decl": "defers.go:312",
+                              "decl": "defers.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -822,6 +864,12 @@
                               "line": 17,
                               "column": 14,
                               "offset": 438
+                            },
+                            "valueEnd": {
+                              "file": "defers.go",
+                              "line": 17,
+                              "column": 25,
+                              "offset": 449
                             },
                             "kind": "STRING",
                             "value": "\"x no fim:\"",
@@ -1146,6 +1194,12 @@
                                       "column": 22,
                                       "offset": 507
                                     },
+                                    "valueEnd": {
+                                      "file": "defers.go",
+                                      "line": 21,
+                                      "column": 23,
+                                      "offset": 508
+                                    },
                                     "kind": "INT",
                                     "value": "2",
                                     "$type": 2,
@@ -1231,6 +1285,12 @@
                               "line": 22,
                               "column": 13,
                               "offset": 525
+                            },
+                            "valueEnd": {
+                              "file": "defers.go",
+                              "line": 22,
+                              "column": 14,
+                              "offset": 526
                             },
                             "kind": "INT",
                             "value": "1",
@@ -1797,6 +1857,12 @@
                                                 "column": 27,
                                                 "offset": 652
                                               },
+                                              "valueEnd": {
+                                                "file": "defers.go",
+                                                "line": 28,
+                                                "column": 43,
+                                                "offset": 668
+                                              },
                                               "kind": "STRING",
                                               "value": "\": recuperado: \"",
                                               "$type": 11,
@@ -1969,6 +2035,12 @@
                               "line": 32,
                               "column": 16,
                               "offset": 702
+                            },
+                            "valueEnd": {
+                              "file": "defers.go",
+                              "line": 32,
+                              "column": 22,
+                              "offset": 708
                             },
                             "kind": "STRING",
                             "value": "\": ok\"",
@@ -2261,6 +2333,12 @@
                                           "column": 32,
                                           "offset": 771
                                         },
+                                        "valueEnd": {
+                                          "file": "defers.go",
+                                          "line": 36,
+                                          "column": 41,
+                                          "offset": 780
+                                        },
                                         "kind": "STRING",
                                         "value": "\"final: \"",
                                         "$type": 11,
@@ -2431,6 +2509,12 @@
                                         "column": 23,
                                         "offset": 819
                                       },
+                                      "valueEnd": {
+                                        "file": "defers.go",
+                                        "line": 37,
+                                        "column": 32,
+                                        "offset": 828
+                                      },
                                       "kind": "STRING",
                                       "value": "\"segundo\"",
                                       "$type": 11,
@@ -2513,6 +2597,12 @@
                               "line": 38,
                               "column": 8,
                               "offset": 841
+                            },
+                            "valueEnd": {
+                              "file": "defers.go",
+                              "line": 38,
+                              "column": 18,
+                              "offset": 851
                             },
                             "kind": "STRING",
                             "value": "\"primeiro\"",
@@ -2687,7 +2777,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 5,
-                              "decl": "defers.go:312",
+                              "decl": "defers.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -2741,6 +2831,12 @@
                                   "line": 43,
                                   "column": 21,
                                   "offset": 899
+                                },
+                                "valueEnd": {
+                                  "file": "defers.go",
+                                  "line": 43,
+                                  "column": 22,
+                                  "offset": 900
                                 },
                                 "kind": "INT",
                                 "value": "4",
@@ -2849,6 +2945,12 @@
                             "line": 45,
                             "column": 10,
                             "offset": 924
+                          },
+                          "valueEnd": {
+                            "file": "defers.go",
+                            "line": 45,
+                            "column": 11,
+                            "offset": 925
                           },
                           "kind": "INT",
                           "value": "0",
@@ -3123,6 +3225,12 @@
                                 "column": 14,
                                 "offset": 976
                               },
+                              "valueEnd": {
+                                "file": "defers.go",
+                                "line": 48,
+                                "column": 15,
+                                "offset": 977
+                              },
                               "kind": "INT",
                               "value": "1",
                               "$type": 2,
@@ -3139,6 +3247,12 @@
                                 "column": 17,
                                 "offset": 979
                               },
+                              "valueEnd": {
+                                "file": "defers.go",
+                                "line": 48,
+                                "column": 18,
+                                "offset": 980
+                              },
                               "kind": "INT",
                               "value": "2",
                               "$type": 2,
@@ -3154,6 +3268,12 @@
                                 "line": 48,
                                 "column": 20,
                                 "offset": 982
+                              },
+                              "valueEnd": {
+                                "file": "defers.go",
+                                "line": 48,
+                                "column": 21,
+                                "offset": 983
                               },
                               "kind": "INT",
                               "value": "3",
@@ -3244,6 +3364,12 @@
                                   "column": 17,
                                   "offset": 1001
                                 },
+                                "valueEnd": {
+                                  "file": "defers.go",
+                                  "line": 49,
+                                  "column": 22,
+                                  "offset": 1006
+                                },
                                 "kind": "STRING",
                                 "value": "\"abc\"",
                                 "$type": 11,
@@ -3295,7 +3421,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 5,
-                              "decl": "defers.go:312",
+                              "decl": "defers.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -3349,6 +3475,12 @@
                                   "line": 50,
                                   "column": 19,
                                   "offset": 1025
+                                },
+                                "valueEnd": {
+                                  "file": "defers.go",
+                                  "line": 50,
+                                  "column": 25,
+                                  "offset": 1031
                                 },
                                 "kind": "STRING",
                                 "value": "\"nada\"",
@@ -3464,7 +3596,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 5,
-                              "decl": "defers.go:312",
+                              "decl": "defers.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -3518,6 +3650,12 @@
                                   "line": 51,
                                   "column": 19,
                                   "offset": 1063
+                                },
+                                "valueEnd": {
+                                  "file": "defers.go",
+                                  "line": 51,
+                                  "column": 26,
+                                  "offset": 1070
                                 },
                                 "kind": "STRING",
                                 "value": "\"valor\"",
@@ -3603,6 +3741,12 @@
                                               "line": 51,
                                               "column": 43,
                                               "offset": 1087
+                                            },
+                                            "valueEnd": {
+                                              "file": "defers.go",
+                                              "line": 51,
+                                              "column": 45,
+                                              "offset": 1089
                                             },
                                             "kind": "INT",
                                             "value": "42",
@@ -3690,7 +3834,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 5,
-                              "decl": "defers.go:312",
+                              "decl": "defers.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -3744,6 +3888,12 @@
                                   "line": 52,
                                   "column": 19,
                                   "offset": 1113
+                                },
+                                "valueEnd": {
+                                  "file": "defers.go",
+                                  "line": 52,
+                                  "column": 24,
+                                  "offset": 1118
                                 },
                                 "kind": "STRING",
                                 "value": "\"div\"",
@@ -3829,7 +3979,7 @@
                                               "name": "Println",
                                               "kind": "func",
                                               "type": 5,
-                                              "decl": "defers.go:312",
+                                              "decl": "defers.go:313",
                                               "pkg": "fmt",
                                               "top": true
                                             }
@@ -3852,6 +4002,12 @@
                                                 "line": 52,
                                                 "column": 47,
                                                 "offset": 1141
+                                              },
+                                              "valueEnd": {
+                                                "file": "defers.go",
+                                                "line": 52,
+                                                "column": 48,
+                                                "offset": 1142
                                               },
                                               "kind": "INT",
                                               "value": "1",
@@ -3971,7 +4127,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 5,
-                              "decl": "defers.go:312",
+                              "decl": "defers.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -4025,6 +4181,12 @@
                                   "line": 53,
                                   "column": 19,
                                   "offset": 1173
+                                },
+                                "valueEnd": {
+                                  "file": "defers.go",
+                                  "line": 53,
+                                  "column": 24,
+                                  "offset": 1178
                                 },
                                 "kind": "STRING",
                                 "value": "\"map\"",
@@ -4116,6 +4278,12 @@
                                               "column": 38,
                                               "offset": 1192
                                             },
+                                            "valueEnd": {
+                                              "file": "defers.go",
+                                              "line": 53,
+                                              "column": 41,
+                                              "offset": 1195
+                                            },
                                             "kind": "STRING",
                                             "value": "\"a\"",
                                             "$type": 11,
@@ -4148,6 +4316,12 @@
                                             "line": 53,
                                             "column": 45,
                                             "offset": 1199
+                                          },
+                                          "valueEnd": {
+                                            "file": "defers.go",
+                                            "line": 53,
+                                            "column": 46,
+                                            "offset": 1200
                                           },
                                           "kind": "INT",
                                           "value": "1",
@@ -4226,7 +4400,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 5,
-                              "decl": "defers.go:312",
+                              "decl": "defers.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -4280,6 +4454,12 @@
                                   "line": 54,
                                   "column": 19,
                                   "offset": 1223
+                                },
+                                "valueEnd": {
+                                  "file": "defers.go",
+                                  "line": 54,
+                                  "column": 24,
+                                  "offset": 1228
                                 },
                                 "kind": "STRING",
                                 "value": "\"nil\"",
@@ -4365,7 +4545,7 @@
                                               "name": "Println",
                                               "kind": "func",
                                               "type": 5,
-                                              "decl": "defers.go:312",
+                                              "decl": "defers.go:313",
                                               "pkg": "fmt",
                                               "top": true
                                             }
@@ -4510,7 +4690,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 5,
-                              "decl": "defers.go:312",
+                              "decl": "defers.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -4564,6 +4744,12 @@
                                   "line": 55,
                                   "column": 19,
                                   "offset": 1278
+                                },
+                                "valueEnd": {
+                                  "file": "defers.go",
+                                  "line": 55,
+                                  "column": 27,
+                                  "offset": 1286
                                 },
                                 "kind": "STRING",
                                 "value": "\"indice\"",
@@ -4649,7 +4835,7 @@
                                               "name": "Println",
                                               "kind": "func",
                                               "type": 5,
-                                              "decl": "defers.go:312",
+                                              "decl": "defers.go:313",
                                               "pkg": "fmt",
                                               "top": true
                                             }
@@ -4771,6 +4957,12 @@
                                                   "column": 61,
                                                   "offset": 1320
                                                 },
+                                                "valueEnd": {
+                                                  "file": "defers.go",
+                                                  "line": 55,
+                                                  "column": 62,
+                                                  "offset": 1321
+                                                },
                                                 "kind": "INT",
                                                 "value": "2",
                                                 "$type": 2,
@@ -4867,7 +5059,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 5,
-                              "decl": "defers.go:312",
+                              "decl": "defers.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -4921,6 +5113,12 @@
                                   "line": 56,
                                   "column": 19,
                                   "offset": 1346
+                                },
+                                "valueEnd": {
+                                  "file": "defers.go",
+                                  "line": 56,
+                                  "column": 26,
+                                  "offset": 1353
                                 },
                                 "kind": "STRING",
                                 "value": "\"fatia\"",
@@ -5006,7 +5204,7 @@
                                               "name": "Println",
                                               "kind": "func",
                                               "type": 5,
-                                              "decl": "defers.go:312",
+                                              "decl": "defers.go:313",
                                               "pkg": "fmt",
                                               "top": true
                                             }
@@ -5059,6 +5257,12 @@
                                                 "column": 52,
                                                 "offset": 1379
                                               },
+                                              "valueEnd": {
+                                                "file": "defers.go",
+                                                "line": 56,
+                                                "column": 53,
+                                                "offset": 1380
+                                              },
                                               "kind": "INT",
                                               "value": "1",
                                               "$type": 2,
@@ -5074,6 +5278,12 @@
                                                 "line": 56,
                                                 "column": 54,
                                                 "offset": 1381
+                                              },
+                                              "valueEnd": {
+                                                "file": "defers.go",
+                                                "line": 56,
+                                                "column": 55,
+                                                "offset": 1382
                                               },
                                               "kind": "INT",
                                               "value": "5",
@@ -5171,7 +5381,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 5,
-                              "decl": "defers.go:312",
+                              "decl": "defers.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -5225,6 +5435,12 @@
                                   "line": 57,
                                   "column": 19,
                                   "offset": 1407
+                                },
+                                "valueEnd": {
+                                  "file": "defers.go",
+                                  "line": 57,
+                                  "column": 27,
+                                  "offset": 1415
                                 },
                                 "kind": "STRING",
                                 "value": "\"string\"",
@@ -5310,7 +5526,7 @@
                                               "name": "Println",
                                               "kind": "func",
                                               "type": 5,
-                                              "decl": "defers.go:312",
+                                              "decl": "defers.go:313",
                                               "pkg": "fmt",
                                               "top": true
                                             }
@@ -5362,6 +5578,12 @@
                                                 "line": 57,
                                                 "column": 52,
                                                 "offset": 1440
+                                              },
+                                              "valueEnd": {
+                                                "file": "defers.go",
+                                                "line": 57,
+                                                "column": 53,
+                                                "offset": 1441
                                               },
                                               "kind": "INT",
                                               "value": "7",
@@ -5457,7 +5679,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 5,
-                              "decl": "defers.go:312",
+                              "decl": "defers.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -5511,6 +5733,12 @@
                                   "line": 58,
                                   "column": 19,
                                   "offset": 1466
+                                },
+                                "valueEnd": {
+                                  "file": "defers.go",
+                                  "line": 58,
+                                  "column": 25,
+                                  "offset": 1472
                                 },
                                 "kind": "STRING",
                                 "value": "\"erro\"",
@@ -5645,6 +5873,12 @@
                                                   "column": 53,
                                                   "offset": 1500
                                                 },
+                                                "valueEnd": {
+                                                  "file": "defers.go",
+                                                  "line": 58,
+                                                  "column": 62,
+                                                  "offset": 1509
+                                                },
                                                 "kind": "STRING",
                                                 "value": "\"custom \"",
                                                 "$type": 11,
@@ -5660,6 +5894,12 @@
                                                   "line": 58,
                                                   "column": 64,
                                                   "offset": 1511
+                                                },
+                                                "valueEnd": {
+                                                  "file": "defers.go",
+                                                  "line": 58,
+                                                  "column": 65,
+                                                  "offset": 1512
                                                 },
                                                 "kind": "INT",
                                                 "value": "1",
@@ -5757,7 +5997,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 5,
-                              "decl": "defers.go:312",
+                              "decl": "defers.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -5866,6 +6106,12 @@
                             "line": 61,
                             "column": 11,
                             "offset": 1554
+                          },
+                          "valueEnd": {
+                            "file": "defers.go",
+                            "line": 61,
+                            "column": 12,
+                            "offset": 1555
                           },
                           "kind": "INT",
                           "value": "0",
@@ -6124,6 +6370,12 @@
                                                 "column": 27,
                                                 "offset": 1621
                                               },
+                                              "valueEnd": {
+                                                "file": "defers.go",
+                                                "line": 64,
+                                                "column": 29,
+                                                "offset": 1623
+                                              },
                                               "kind": "INT",
                                               "value": "10",
                                               "$type": 2,
@@ -6204,6 +6456,12 @@
                                       "column": 11,
                                       "offset": 1638
                                     },
+                                    "valueEnd": {
+                                      "file": "defers.go",
+                                      "line": 65,
+                                      "column": 12,
+                                      "offset": 1639
+                                    },
                                     "kind": "INT",
                                     "value": "1",
                                     "$type": 2,
@@ -6277,7 +6535,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 5,
-                              "decl": "defers.go:312",
+                              "decl": "defers.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -6361,7 +6619,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 5,
-                              "decl": "defers.go:312",
+                              "decl": "defers.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -6837,7 +7095,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 5,
-                              "decl": "defers.go:312",
+                              "decl": "defers.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -6858,6 +7116,12 @@
                               "line": 77,
                               "column": 36,
                               "offset": 1869
+                            },
+                            "valueEnd": {
+                              "file": "defers.go",
+                              "line": 77,
+                              "column": 55,
+                              "offset": 1888
                             },
                             "kind": "STRING",
                             "value": "\"nomeada recupera:\"",
@@ -7214,7 +7478,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 5,
-                              "decl": "defers.go:312",
+                              "decl": "defers.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -7235,6 +7499,12 @@
                               "line": 81,
                               "column": 43,
                               "offset": 1975
+                            },
+                            "valueEnd": {
+                              "file": "defers.go",
+                              "line": 81,
+                              "column": 62,
+                              "offset": 1994
                             },
                             "kind": "STRING",
                             "value": "\"método recupera:\"",
@@ -7623,6 +7893,12 @@
                                           "column": 20,
                                           "offset": 2083
                                         },
+                                        "valueEnd": {
+                                          "file": "defers.go",
+                                          "line": 85,
+                                          "column": 31,
+                                          "offset": 2094
+                                        },
                                         "kind": "STRING",
                                         "value": "\"externo: \"",
                                         "$type": 11,
@@ -7836,7 +8112,7 @@
                                                   "name": "Println",
                                                   "kind": "func",
                                                   "type": 5,
-                                                  "decl": "defers.go:312",
+                                                  "decl": "defers.go:313",
                                                   "pkg": "fmt",
                                                   "top": true
                                                 }
@@ -7857,6 +8133,12 @@
                                                   "line": 89,
                                                   "column": 16,
                                                   "offset": 2154
+                                                },
+                                                "valueEnd": {
+                                                  "file": "defers.go",
+                                                  "line": 89,
+                                                  "column": 33,
+                                                  "offset": 2171
                                                 },
                                                 "kind": "STRING",
                                                 "value": "\"helper devolve:\"",
@@ -8120,7 +8402,7 @@
                                                   "name": "Println",
                                                   "kind": "func",
                                                   "type": 5,
-                                                  "decl": "defers.go:312",
+                                                  "decl": "defers.go:313",
                                                   "pkg": "fmt",
                                                   "top": true
                                                 }
@@ -8141,6 +8423,12 @@
                                                   "line": 91,
                                                   "column": 16,
                                                   "offset": 2249
+                                                },
+                                                "valueEnd": {
+                                                  "file": "defers.go",
+                                                  "line": 91,
+                                                  "column": 43,
+                                                  "offset": 2276
                                                 },
                                                 "kind": "STRING",
                                                 "value": "\"closure aninhada devolve:\"",
@@ -8266,6 +8554,12 @@
                                         "column": 9,
                                         "offset": 2301
                                       },
+                                      "valueEnd": {
+                                        "file": "defers.go",
+                                        "line": 93,
+                                        "column": 12,
+                                        "offset": 2304
+                                      },
                                       "kind": "STRING",
                                       "value": "\"x\"",
                                       "$type": 11,
@@ -8328,6 +8622,12 @@
                             "line": 95,
                             "column": 9,
                             "offset": 2319
+                          },
+                          "valueEnd": {
+                            "file": "defers.go",
+                            "line": 95,
+                            "column": 21,
+                            "offset": 2331
                           },
                           "kind": "STRING",
                           "value": "\"não chega\"",
@@ -8500,6 +8800,12 @@
                               "column": 8,
                               "offset": 2380
                             },
+                            "valueEnd": {
+                              "file": "defers.go",
+                              "line": 100,
+                              "column": 11,
+                              "offset": 2383
+                            },
                             "kind": "STRING",
                             "value": "\"y\"",
                             "$type": 11,
@@ -8646,6 +8952,12 @@
                                   "column": 10,
                                   "offset": 2413
                                 },
+                                "valueEnd": {
+                                  "file": "defers.go",
+                                  "line": 104,
+                                  "column": 13,
+                                  "offset": 2416
+                                },
                                 "kind": "STRING",
                                 "value": "\"m\"",
                                 "$type": 11,
@@ -8745,6 +9057,12 @@
                               "line": 105,
                               "column": 8,
                               "offset": 2442
+                            },
+                            "valueEnd": {
+                              "file": "defers.go",
+                              "line": 105,
+                              "column": 11,
+                              "offset": 2445
                             },
                             "kind": "STRING",
                             "value": "\"z\"",
@@ -8949,7 +9267,7 @@
                                         "name": "Println",
                                         "kind": "func",
                                         "type": 5,
-                                        "decl": "defers.go:312",
+                                        "decl": "defers.go:313",
                                         "pkg": "fmt",
                                         "top": true
                                       }
@@ -8970,6 +9288,12 @@
                                         "line": 109,
                                         "column": 29,
                                         "offset": 2493
+                                      },
+                                      "valueEnd": {
+                                        "file": "defers.go",
+                                        "line": 109,
+                                        "column": 58,
+                                        "offset": 2522
                                       },
                                       "kind": "STRING",
                                       "value": "\"valor de função recupera:\"",
@@ -9125,6 +9449,12 @@
                               "column": 8,
                               "offset": 2556
                             },
+                            "valueEnd": {
+                              "file": "defers.go",
+                              "line": 111,
+                              "column": 11,
+                              "offset": 2559
+                            },
                             "kind": "STRING",
                             "value": "\"w\"",
                             "$type": 11,
@@ -9179,6 +9509,12 @@
                     "line": 6,
                     "column": 8,
                     "offset": 242
+                  },
+                  "valueEnd": {
+                    "file": "defers.go",
+                    "line": 6,
+                    "column": 13,
+                    "offset": 247
                   },
                   "kind": "STRING",
                   "value": "\"fmt\""

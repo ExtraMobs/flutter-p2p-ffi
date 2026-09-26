@@ -25,6 +25,8 @@ HAVE_DART = shutil.which("dart") is not None
 HAVE_NODE = shutil.which("node") is not None  # JS e Wasm rodam no Node
 WASM_RUNNER = os.path.join(os.path.dirname(os.path.abspath(__file__)), "run_wasm.mjs")
 WIN = sys.platform == "win32"
+# Oráculo no mesmo Go do corpus/goast (baixado pelo toolchain do go, se preciso).
+os.environ.setdefault("GOTOOLCHAIN", "go1.26.5")
 
 CASES = sorted(d for d in os.listdir(GOLDEN) if os.path.isdir(os.path.join(GOLDEN, d)))
 

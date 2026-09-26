@@ -183,12 +183,12 @@ class Box extends go.GoStruct<Box> {
 | `&s[i]` (não-struct) | `s.addr(i)` (`go.ElemPtr`) |
 
 O `append` escreve no array compartilhado quando cabe e realoca com o
-`growslice` do runtime Go 1.25: `nextslicecap` mais as size classes do
+`growslice` do runtime Go (1.25 e 1.26.5, verificado nos dois): `nextslicecap` mais as size classes do
 alocador, incluindo o header de malloc acima de 512 bytes em tipos com
 ponteiros. O tamanho vem de `go.Elem` (sizeof do amd64, calculado pelo
 `layout` do g2d). Testado contra oráculo para 10 tipos de elemento.
 
-⚠️ **Buffer de stack do Go 1.25.** Um slice que *não escapa* ganha um buffer
+⚠️ **Buffer de stack do Go (≥ 1.25).** Um slice que *não escapa* ganha um buffer
 de 32 bytes no stack no primeiro `append` (otimização do compilador, que
 depende da análise de escape do gc). O runtime modela o caminho de heap. O
 `cap` pode então diferir num slice local que nunca escapa. A spec não define

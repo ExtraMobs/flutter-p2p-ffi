@@ -1,7 +1,7 @@
 {
   "schemaVersion": 6,
   "tool": "goast",
-  "goVersion": "go1.25.7",
+  "goVersion": "go1.26.5",
   "packages": [
     {
       "path": "main",
@@ -87,6 +87,12 @@
                         "line": 6,
                         "column": 8,
                         "offset": 225
+                      },
+                      "valueEnd": {
+                        "file": "nilptr.go",
+                        "line": 6,
+                        "column": 13,
+                        "offset": 230
                       },
                       "kind": "STRING",
                       "value": "\"fmt\""
@@ -708,6 +714,12 @@
                                   "column": 10,
                                   "offset": 377
                                 },
+                                "valueEnd": {
+                                  "file": "nilptr.go",
+                                  "line": 17,
+                                  "column": 19,
+                                  "offset": 386
+                                },
                                 "kind": "STRING",
                                 "value": "\"nó nil\"",
                                 "$type": 3,
@@ -746,6 +758,12 @@
                               "line": 19,
                               "column": 9,
                               "offset": 398
+                            },
+                            "valueEnd": {
+                              "file": "nilptr.go",
+                              "line": 19,
+                              "column": 15,
+                              "offset": 404
                             },
                             "kind": "STRING",
                             "value": "\"nó \"",
@@ -1087,6 +1105,12 @@
                                   "column": 10,
                                   "offset": 468
                                 },
+                                "valueEnd": {
+                                  "file": "nilptr.go",
+                                  "line": 24,
+                                  "column": 11,
+                                  "offset": 469
+                                },
                                 "kind": "INT",
                                 "value": "0",
                                 "$type": 8,
@@ -1125,6 +1149,12 @@
                               "line": 26,
                               "column": 9,
                               "offset": 481
+                            },
+                            "valueEnd": {
+                              "file": "nilptr.go",
+                              "line": 26,
+                              "column": 10,
+                              "offset": 482
                             },
                             "kind": "INT",
                             "value": "1",
@@ -1605,6 +1635,12 @@
                                 "line": 31,
                                 "column": 49,
                                 "offset": 575
+                              },
+                              "valueEnd": {
+                                "file": "nilptr.go",
+                                "line": 31,
+                                "column": 55,
+                                "offset": 581
                               },
                               "kind": "STRING",
                               "value": "\"val \"",
@@ -2089,7 +2125,7 @@
                                               "name": "Println",
                                               "kind": "func",
                                               "type": 20,
-                                              "decl": "nilptr.go:312",
+                                              "decl": "nilptr.go:313",
                                               "pkg": "fmt",
                                               "top": true
                                             }
@@ -2133,6 +2169,12 @@
                                               "line": 36,
                                               "column": 22,
                                               "offset": 694
+                                            },
+                                            "valueEnd": {
+                                              "file": "nilptr.go",
+                                              "line": 36,
+                                              "column": 30,
+                                              "offset": 702
                                             },
                                             "kind": "STRING",
                                             "value": "\"panic:\"",
@@ -2549,7 +2591,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 20,
-                              "decl": "nilptr.go:312",
+                              "decl": "nilptr.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -2924,6 +2966,12 @@
                                   "column": 16,
                                   "offset": 839
                                 },
+                                "valueEnd": {
+                                  "file": "nilptr.go",
+                                  "line": 46,
+                                  "column": 19,
+                                  "offset": 842
+                                },
                                 "kind": "STRING",
                                 "value": "\"a\"",
                                 "$type": 3,
@@ -2982,6 +3030,12 @@
                                         "line": 46,
                                         "column": 27,
                                         "offset": 850
+                                      },
+                                      "valueEnd": {
+                                        "file": "nilptr.go",
+                                        "line": 46,
+                                        "column": 30,
+                                        "offset": 853
                                       },
                                       "kind": "STRING",
                                       "value": "\"b\"",
@@ -3070,7 +3124,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 20,
-                              "decl": "nilptr.go:312",
+                              "decl": "nilptr.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -3408,7 +3462,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 20,
-                              "decl": "nilptr.go:312",
+                              "decl": "nilptr.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -3691,7 +3745,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 20,
-                              "decl": "nilptr.go:312",
+                              "decl": "nilptr.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -3965,7 +4019,7 @@
                                         "name": "Println",
                                         "kind": "func",
                                         "type": 20,
-                                        "decl": "nilptr.go:312",
+                                        "decl": "nilptr.go:313",
                                         "pkg": "fmt",
                                         "top": true
                                       }
@@ -3986,6 +4040,12 @@
                                         "line": 55,
                                         "column": 15,
                                         "offset": 1054
+                                      },
+                                      "valueEnd": {
+                                        "file": "nilptr.go",
+                                        "line": 55,
+                                        "column": 33,
+                                        "offset": 1072
                                       },
                                       "kind": "STRING",
                                       "value": "\"case *Node, nil?\"",
@@ -4294,6 +4354,12 @@
                               "column": 6,
                               "offset": 1127
                             },
+                            "valueEnd": {
+                              "file": "nilptr.go",
+                              "line": 60,
+                              "column": 13,
+                              "offset": 1134
+                            },
                             "kind": "STRING",
                             "value": "\"valor\"",
                             "$type": 3,
@@ -4378,7 +4444,7 @@
                                           "name": "Println",
                                           "kind": "func",
                                           "type": 20,
-                                          "decl": "nilptr.go:312",
+                                          "decl": "nilptr.go:313",
                                           "pkg": "fmt",
                                           "top": true
                                         }
@@ -4538,6 +4604,12 @@
                               "column": 6,
                               "offset": 1177
                             },
+                            "valueEnd": {
+                              "file": "nilptr.go",
+                              "line": 61,
+                              "column": 13,
+                              "offset": 1184
+                            },
                             "kind": "STRING",
                             "value": "\"campo\"",
                             "$type": 3,
@@ -4622,7 +4694,7 @@
                                           "name": "Println",
                                           "kind": "func",
                                           "type": 20,
-                                          "decl": "nilptr.go:312",
+                                          "decl": "nilptr.go:313",
                                           "pkg": "fmt",
                                           "top": true
                                         }
@@ -5054,7 +5126,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 20,
-                              "decl": "nilptr.go:312",
+                              "decl": "nilptr.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -5314,7 +5386,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 20,
-                              "decl": "nilptr.go:312",
+                              "decl": "nilptr.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -5425,6 +5497,12 @@
                     "line": 6,
                     "column": 8,
                     "offset": 225
+                  },
+                  "valueEnd": {
+                    "file": "nilptr.go",
+                    "line": 6,
+                    "column": 13,
+                    "offset": 230
                   },
                   "kind": "STRING",
                   "value": "\"fmt\""

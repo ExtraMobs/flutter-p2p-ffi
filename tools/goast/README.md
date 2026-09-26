@@ -27,7 +27,7 @@ via `go list`. Se o alvo não pertence a um módulo (ex. fixtures em
 {
   "schemaVersion": 6,
   "tool": "goast",
-  "goVersion": "go1.25.7",
+  "goVersion": "go1.26.5",
   "packages": [ ... ]  // ordenados por import path (determinístico)
 }
 ```

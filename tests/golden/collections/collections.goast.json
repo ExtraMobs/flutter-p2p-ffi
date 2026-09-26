@@ -1,7 +1,7 @@
 {
   "schemaVersion": 6,
   "tool": "goast",
-  "goVersion": "go1.25.7",
+  "goVersion": "go1.26.5",
   "packages": [
     {
       "path": "main",
@@ -87,6 +87,12 @@
                         "line": 6,
                         "column": 8,
                         "offset": 218
+                      },
+                      "valueEnd": {
+                        "file": "collections.go",
+                        "line": 6,
+                        "column": 13,
+                        "offset": 223
                       },
                       "kind": "STRING",
                       "value": "\"fmt\""
@@ -1368,6 +1374,12 @@
                                 "column": 22,
                                 "offset": 545
                               },
+                              "valueEnd": {
+                                "file": "collections.go",
+                                "line": 28,
+                                "column": 23,
+                                "offset": 546
+                              },
                               "kind": "INT",
                               "value": "3",
                               "$type": 2,
@@ -1383,6 +1395,12 @@
                                 "line": 28,
                                 "column": 25,
                                 "offset": 548
+                              },
+                              "valueEnd": {
+                                "file": "collections.go",
+                                "line": 28,
+                                "column": 26,
+                                "offset": 549
                               },
                               "kind": "INT",
                               "value": "5",
@@ -1478,6 +1496,12 @@
                               "line": 29,
                               "column": 13,
                               "offset": 563
+                            },
+                            "valueEnd": {
+                              "file": "collections.go",
+                              "line": 29,
+                              "column": 14,
+                              "offset": 564
                             },
                             "kind": "INT",
                             "value": "2",
@@ -1592,6 +1616,12 @@
                                 "column": 16,
                                 "offset": 581
                               },
+                              "valueEnd": {
+                                "file": "collections.go",
+                                "line": 30,
+                                "column": 17,
+                                "offset": 582
+                              },
                               "kind": "INT",
                               "value": "7",
                               "$type": 2,
@@ -1705,6 +1735,12 @@
                                 "column": 20,
                                 "offset": 631
                               },
+                              "valueEnd": {
+                                "file": "collections.go",
+                                "line": 31,
+                                "column": 21,
+                                "offset": 632
+                              },
                               "kind": "INT",
                               "value": "8",
                               "$type": 2,
@@ -1720,6 +1756,12 @@
                                 "line": 31,
                                 "column": 23,
                                 "offset": 634
+                              },
+                              "valueEnd": {
+                                "file": "collections.go",
+                                "line": 31,
+                                "column": 24,
+                                "offset": 635
                               },
                               "kind": "INT",
                               "value": "9",
@@ -1834,6 +1876,12 @@
                                 "column": 20,
                                 "offset": 656
                               },
+                              "valueEnd": {
+                                "file": "collections.go",
+                                "line": 32,
+                                "column": 22,
+                                "offset": 658
+                              },
                               "kind": "INT",
                               "value": "10",
                               "$type": 2,
@@ -1850,6 +1898,12 @@
                                 "column": 24,
                                 "offset": 660
                               },
+                              "valueEnd": {
+                                "file": "collections.go",
+                                "line": 32,
+                                "column": 26,
+                                "offset": 662
+                              },
                               "kind": "INT",
                               "value": "11",
                               "$type": 2,
@@ -1865,6 +1919,12 @@
                                 "line": 32,
                                 "column": 28,
                                 "offset": 664
+                              },
+                              "valueEnd": {
+                                "file": "collections.go",
+                                "line": 32,
+                                "column": 30,
+                                "offset": 666
                               },
                               "kind": "INT",
                               "value": "12",
@@ -1928,6 +1988,12 @@
                               "column": 4,
                               "offset": 693
                             },
+                            "valueEnd": {
+                              "file": "collections.go",
+                              "line": 33,
+                              "column": 5,
+                              "offset": 694
+                            },
                             "kind": "INT",
                             "value": "0",
                             "$type": 2,
@@ -1960,6 +2026,12 @@
                             "line": 33,
                             "column": 9,
                             "offset": 698
+                          },
+                          "valueEnd": {
+                            "file": "collections.go",
+                            "line": 33,
+                            "column": 12,
+                            "offset": 701
                           },
                           "kind": "INT",
                           "value": "100",
@@ -2007,7 +2079,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 15,
-                              "decl": "collections.go:312",
+                              "decl": "collections.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -2378,6 +2450,12 @@
                               "column": 12,
                               "offset": 765
                             },
+                            "valueEnd": {
+                              "file": "collections.go",
+                              "line": 35,
+                              "column": 13,
+                              "offset": 766
+                            },
                             "kind": "INT",
                             "value": "1",
                             "$type": 2,
@@ -2394,6 +2472,12 @@
                               "column": 14,
                               "offset": 767
                             },
+                            "valueEnd": {
+                              "file": "collections.go",
+                              "line": 35,
+                              "column": 15,
+                              "offset": 768
+                            },
                             "kind": "INT",
                             "value": "2",
                             "$type": 2,
@@ -2409,6 +2493,12 @@
                               "line": 35,
                               "column": 16,
                               "offset": 769
+                            },
+                            "valueEnd": {
+                              "file": "collections.go",
+                              "line": 35,
+                              "column": 17,
+                              "offset": 770
                             },
                             "kind": "INT",
                             "value": "3",
@@ -2521,6 +2611,12 @@
                                 "line": 36,
                                 "column": 16,
                                 "offset": 787
+                              },
+                              "valueEnd": {
+                                "file": "collections.go",
+                                "line": 36,
+                                "column": 18,
+                                "offset": 789
                               },
                               "kind": "INT",
                               "value": "50",
@@ -2635,6 +2731,12 @@
                                 "column": 16,
                                 "offset": 843
                               },
+                              "valueEnd": {
+                                "file": "collections.go",
+                                "line": 37,
+                                "column": 18,
+                                "offset": 845
+                              },
                               "kind": "INT",
                               "value": "60",
                               "$type": 2,
@@ -2691,7 +2793,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 15,
-                              "decl": "collections.go:312",
+                              "decl": "collections.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -3203,6 +3305,12 @@
                               "column": 11,
                               "offset": 1184
                             },
+                            "valueEnd": {
+                              "file": "collections.go",
+                              "line": 46,
+                              "column": 12,
+                              "offset": 1185
+                            },
                             "kind": "INT",
                             "value": "0",
                             "$type": 2,
@@ -3252,6 +3360,12 @@
                             "line": 46,
                             "column": 18,
                             "offset": 1191
+                          },
+                          "valueEnd": {
+                            "file": "collections.go",
+                            "line": 46,
+                            "column": 20,
+                            "offset": 1193
                           },
                           "kind": "INT",
                           "value": "40",
@@ -3398,6 +3512,12 @@
                                       "column": 23,
                                       "offset": 1223
                                     },
+                                    "valueEnd": {
+                                      "file": "collections.go",
+                                      "line": 47,
+                                      "column": 26,
+                                      "offset": 1226
+                                    },
                                     "kind": "STRING",
                                     "value": "\"x\"",
                                     "$type": 4,
@@ -3505,6 +3625,12 @@
                                     "line": 48,
                                     "column": 19,
                                     "offset": 1246
+                                  },
+                                  "valueEnd": {
+                                    "file": "collections.go",
+                                    "line": 48,
+                                    "column": 20,
+                                    "offset": 1247
                                   },
                                   "kind": "INT",
                                   "value": "0",
@@ -3632,6 +3758,12 @@
                                         "line": 48,
                                         "column": 39,
                                         "offset": 1266
+                                      },
+                                      "valueEnd": {
+                                        "file": "collections.go",
+                                        "line": 48,
+                                        "column": 40,
+                                        "offset": 1267
                                       },
                                       "kind": "INT",
                                       "value": "1",
@@ -3943,7 +4075,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 15,
-                              "decl": "collections.go:312",
+                              "decl": "collections.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -4097,6 +4229,12 @@
                                     "column": 42,
                                     "offset": 1366
                                   },
+                                  "valueEnd": {
+                                    "file": "collections.go",
+                                    "line": 52,
+                                    "column": 43,
+                                    "offset": 1367
+                                  },
                                   "kind": "INT",
                                   "value": "5",
                                   "$type": 2,
@@ -4112,6 +4250,12 @@
                                     "line": 52,
                                     "column": 44,
                                     "offset": 1368
+                                  },
+                                  "valueEnd": {
+                                    "file": "collections.go",
+                                    "line": 52,
+                                    "column": 45,
+                                    "offset": 1369
                                   },
                                   "kind": "INT",
                                   "value": "9",
@@ -4234,6 +4378,12 @@
                                 "column": 13,
                                 "offset": 1427
                               },
+                              "valueEnd": {
+                                "file": "collections.go",
+                                "line": 55,
+                                "column": 14,
+                                "offset": 1428
+                              },
                               "kind": "INT",
                               "value": "1",
                               "$type": 2,
@@ -4249,6 +4399,12 @@
                                 "line": 55,
                                 "column": 16,
                                 "offset": 1430
+                              },
+                              "valueEnd": {
+                                "file": "collections.go",
+                                "line": 55,
+                                "column": 17,
+                                "offset": 1431
                               },
                               "kind": "INT",
                               "value": "2",
@@ -4266,6 +4422,12 @@
                                 "column": 19,
                                 "offset": 1433
                               },
+                              "valueEnd": {
+                                "file": "collections.go",
+                                "line": 55,
+                                "column": 20,
+                                "offset": 1434
+                              },
                               "kind": "INT",
                               "value": "3",
                               "$type": 2,
@@ -4282,6 +4444,12 @@
                                 "column": 22,
                                 "offset": 1436
                               },
+                              "valueEnd": {
+                                "file": "collections.go",
+                                "line": 55,
+                                "column": 23,
+                                "offset": 1437
+                              },
                               "kind": "INT",
                               "value": "4",
                               "$type": 2,
@@ -4297,6 +4465,12 @@
                                 "line": 55,
                                 "column": 25,
                                 "offset": 1439
+                              },
+                              "valueEnd": {
+                                "file": "collections.go",
+                                "line": 55,
+                                "column": 26,
+                                "offset": 1440
                               },
                               "kind": "INT",
                               "value": "5",
@@ -4418,6 +4592,12 @@
                                   "line": 56,
                                   "column": 14,
                                   "offset": 1455
+                                },
+                                "valueEnd": {
+                                  "file": "collections.go",
+                                  "line": 56,
+                                  "column": 15,
+                                  "offset": 1456
                                 },
                                 "kind": "INT",
                                 "value": "1",
@@ -4588,7 +4768,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 15,
-                              "decl": "collections.go:312",
+                              "decl": "collections.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -4936,6 +5116,12 @@
                                   "column": 84,
                                   "offset": 1566
                                 },
+                                "valueEnd": {
+                                  "file": "collections.go",
+                                  "line": 58,
+                                  "column": 85,
+                                  "offset": 1567
+                                },
                                 "kind": "INT",
                                 "value": "1",
                                 "$type": 2,
@@ -4951,6 +5137,12 @@
                                   "line": 58,
                                   "column": 87,
                                   "offset": 1569
+                                },
+                                "valueEnd": {
+                                  "file": "collections.go",
+                                  "line": 58,
+                                  "column": 88,
+                                  "offset": 1570
                                 },
                                 "kind": "INT",
                                 "value": "2",
@@ -5074,6 +5266,12 @@
                                 "column": 30,
                                 "offset": 1602
                               },
+                              "valueEnd": {
+                                "file": "collections.go",
+                                "line": 59,
+                                "column": 31,
+                                "offset": 1603
+                              },
                               "kind": "INT",
                               "value": "1",
                               "$type": 2,
@@ -5130,7 +5328,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 15,
-                              "decl": "collections.go:312",
+                              "decl": "collections.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -5414,6 +5612,12 @@
                                       "column": 25,
                                       "offset": 1740
                                     },
+                                    "valueEnd": {
+                                      "file": "collections.go",
+                                      "line": 63,
+                                      "column": 26,
+                                      "offset": 1741
+                                    },
                                     "kind": "INT",
                                     "value": "1",
                                     "$type": 2,
@@ -5476,6 +5680,12 @@
                                       "line": 63,
                                       "column": 36,
                                       "offset": 1751
+                                    },
+                                    "valueEnd": {
+                                      "file": "collections.go",
+                                      "line": 63,
+                                      "column": 37,
+                                      "offset": 1752
                                     },
                                     "kind": "INT",
                                     "value": "2",
@@ -5591,6 +5801,12 @@
                                 "column": 15,
                                 "offset": 1769
                               },
+                              "valueEnd": {
+                                "file": "collections.go",
+                                "line": 64,
+                                "column": 16,
+                                "offset": 1770
+                              },
                               "kind": "INT",
                               "value": "0",
                               "$type": 2,
@@ -5652,6 +5868,12 @@
                               "line": 65,
                               "column": 5,
                               "offset": 1776
+                            },
+                            "valueEnd": {
+                              "file": "collections.go",
+                              "line": 65,
+                              "column": 6,
+                              "offset": 1777
                             },
                             "kind": "INT",
                             "value": "0",
@@ -5746,6 +5968,12 @@
                                   "column": 24,
                                   "offset": 1795
                                 },
+                                "valueEnd": {
+                                  "file": "collections.go",
+                                  "line": 65,
+                                  "column": 26,
+                                  "offset": 1797
+                                },
                                 "kind": "INT",
                                 "value": "10",
                                 "$type": 2,
@@ -5827,6 +6055,12 @@
                                       "line": 65,
                                       "column": 43,
                                       "offset": 1814
+                                    },
+                                    "valueEnd": {
+                                      "file": "collections.go",
+                                      "line": 65,
+                                      "column": 46,
+                                      "offset": 1817
                                     },
                                     "kind": "STRING",
                                     "value": "\"t\"",
@@ -5958,7 +6192,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 15,
-                              "decl": "collections.go:312",
+                              "decl": "collections.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -6012,6 +6246,12 @@
                                   "line": 67,
                                   "column": 17,
                                   "offset": 1850
+                                },
+                                "valueEnd": {
+                                  "file": "collections.go",
+                                  "line": 67,
+                                  "column": 18,
+                                  "offset": 1851
                                 },
                                 "kind": "INT",
                                 "value": "0",
@@ -6124,6 +6364,12 @@
                                       "line": 67,
                                       "column": 33,
                                       "offset": 1866
+                                    },
+                                    "valueEnd": {
+                                      "file": "collections.go",
+                                      "line": 67,
+                                      "column": 34,
+                                      "offset": 1867
                                     },
                                     "kind": "INT",
                                     "value": "0",
@@ -6450,6 +6696,12 @@
                               "column": 14,
                               "offset": 1984
                             },
+                            "valueEnd": {
+                              "file": "collections.go",
+                              "line": 71,
+                              "column": 17,
+                              "offset": 1987
+                            },
                             "kind": "STRING",
                             "value": "\"x\"",
                             "$type": 4,
@@ -6504,7 +6756,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 15,
-                              "decl": "collections.go:312",
+                              "decl": "collections.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -6667,6 +6919,12 @@
                                 "line": 72,
                                 "column": 37,
                                 "offset": 2025
+                              },
+                              "valueEnd": {
+                                "file": "collections.go",
+                                "line": 72,
+                                "column": 40,
+                                "offset": 2028
                               },
                               "kind": "STRING",
                               "value": "\"x\"",
@@ -6842,6 +7100,12 @@
                                   "column": 22,
                                   "offset": 2059
                                 },
+                                "valueEnd": {
+                                  "file": "collections.go",
+                                  "line": 73,
+                                  "column": 25,
+                                  "offset": 2062
+                                },
                                 "kind": "STRING",
                                 "value": "\"a\"",
                                 "$type": 4,
@@ -6864,6 +7128,12 @@
                                   "column": 27,
                                   "offset": 2064
                                 },
+                                "valueEnd": {
+                                  "file": "collections.go",
+                                  "line": 73,
+                                  "column": 28,
+                                  "offset": 2065
+                                },
                                 "kind": "INT",
                                 "value": "1",
                                 "$type": 2,
@@ -6882,6 +7152,12 @@
                                   "line": 73,
                                   "column": 30,
                                   "offset": 2067
+                                },
+                                "valueEnd": {
+                                  "file": "collections.go",
+                                  "line": 73,
+                                  "column": 33,
+                                  "offset": 2070
                                 },
                                 "kind": "STRING",
                                 "value": "\"b\"",
@@ -6905,6 +7181,12 @@
                                   "column": 35,
                                   "offset": 2072
                                 },
+                                "valueEnd": {
+                                  "file": "collections.go",
+                                  "line": 73,
+                                  "column": 36,
+                                  "offset": 2073
+                                },
                                 "kind": "INT",
                                 "value": "2",
                                 "$type": 2,
@@ -6923,6 +7205,12 @@
                                   "line": 73,
                                   "column": 38,
                                   "offset": 2075
+                                },
+                                "valueEnd": {
+                                  "file": "collections.go",
+                                  "line": 73,
+                                  "column": 41,
+                                  "offset": 2078
                                 },
                                 "kind": "STRING",
                                 "value": "\"c\"",
@@ -6945,6 +7233,12 @@
                                   "line": 73,
                                   "column": 43,
                                   "offset": 2080
+                                },
+                                "valueEnd": {
+                                  "file": "collections.go",
+                                  "line": 73,
+                                  "column": 44,
+                                  "offset": 2081
                                 },
                                 "kind": "INT",
                                 "value": "3",
@@ -7064,6 +7358,12 @@
                               "column": 12,
                               "offset": 2094
                             },
+                            "valueEnd": {
+                              "file": "collections.go",
+                              "line": 74,
+                              "column": 15,
+                              "offset": 2097
+                            },
                             "kind": "STRING",
                             "value": "\"b\"",
                             "$type": 4,
@@ -7118,7 +7418,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 15,
-                              "decl": "collections.go:312",
+                              "decl": "collections.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -7426,6 +7726,12 @@
                               "column": 4,
                               "offset": 2163
                             },
+                            "valueEnd": {
+                              "file": "collections.go",
+                              "line": 79,
+                              "column": 7,
+                              "offset": 2166
+                            },
                             "kind": "STRING",
                             "value": "\"z\"",
                             "$type": 4,
@@ -7458,6 +7764,12 @@
                             "line": 79,
                             "column": 11,
                             "offset": 2170
+                          },
+                          "valueEnd": {
+                            "file": "collections.go",
+                            "line": 79,
+                            "column": 13,
+                            "offset": 2172
                           },
                           "kind": "INT",
                           "value": "26",
@@ -7505,7 +7817,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 15,
-                              "decl": "collections.go:312",
+                              "decl": "collections.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -7769,6 +8081,12 @@
                               "column": 9,
                               "offset": 2235
                             },
+                            "valueEnd": {
+                              "file": "collections.go",
+                              "line": 82,
+                              "column": 10,
+                              "offset": 2236
+                            },
                             "kind": "INT",
                             "value": "1",
                             "$type": 2,
@@ -7860,6 +8178,12 @@
                                   "column": 28,
                                   "offset": 2254
                                 },
+                                "valueEnd": {
+                                  "file": "collections.go",
+                                  "line": 82,
+                                  "column": 29,
+                                  "offset": 2255
+                                },
                                 "kind": "INT",
                                 "value": "1",
                                 "$type": 2,
@@ -7883,6 +8207,12 @@
                                 "line": 82,
                                 "column": 32,
                                 "offset": 2258
+                              },
+                              "valueEnd": {
+                                "file": "collections.go",
+                                "line": 82,
+                                "column": 36,
+                                "offset": 2262
                               },
                               "kind": "STRING",
                               "value": "\"um\"",
@@ -7945,6 +8275,12 @@
                               "line": 83,
                               "column": 9,
                               "offset": 2272
+                            },
+                            "valueEnd": {
+                              "file": "collections.go",
+                              "line": 83,
+                              "column": 10,
+                              "offset": 2273
                             },
                             "kind": "INT",
                             "value": "1",
@@ -8037,6 +8373,12 @@
                                   "column": 28,
                                   "offset": 2291
                                 },
+                                "valueEnd": {
+                                  "file": "collections.go",
+                                  "line": 83,
+                                  "column": 29,
+                                  "offset": 2292
+                                },
                                 "kind": "INT",
                                 "value": "1",
                                 "$type": 2,
@@ -8060,6 +8402,12 @@
                                 "line": 83,
                                 "column": 32,
                                 "offset": 2295
+                              },
+                              "valueEnd": {
+                                "file": "collections.go",
+                                "line": 83,
+                                "column": 37,
+                                "offset": 2300
                               },
                               "kind": "STRING",
                               "value": "\"uno\"",
@@ -8117,7 +8465,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 15,
-                              "decl": "collections.go:312",
+                              "decl": "collections.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -8219,6 +8567,12 @@
                                     "line": 84,
                                     "column": 33,
                                     "offset": 2334
+                                  },
+                                  "valueEnd": {
+                                    "file": "collections.go",
+                                    "line": 84,
+                                    "column": 34,
+                                    "offset": 2335
                                   },
                                   "kind": "INT",
                                   "value": "2",
@@ -8323,6 +8677,12 @@
                             "column": 10,
                             "offset": 2381
                           },
+                          "valueEnd": {
+                            "file": "collections.go",
+                            "line": 87,
+                            "column": 11,
+                            "offset": 2382
+                          },
                           "kind": "INT",
                           "value": "1",
                           "$type": 2,
@@ -8338,6 +8698,12 @@
                             "line": 87,
                             "column": 13,
                             "offset": 2384
+                          },
+                          "valueEnd": {
+                            "file": "collections.go",
+                            "line": 87,
+                            "column": 14,
+                            "offset": 2385
                           },
                           "kind": "INT",
                           "value": "2",
@@ -8719,7 +9085,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 15,
-                              "decl": "collections.go:312",
+                              "decl": "collections.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -9053,6 +9419,12 @@
                                 "column": 13,
                                 "offset": 2486
                               },
+                              "valueEnd": {
+                                "file": "collections.go",
+                                "line": 93,
+                                "column": 14,
+                                "offset": 2487
+                              },
                               "kind": "INT",
                               "value": "2",
                               "$type": 2,
@@ -9125,6 +9497,12 @@
                             "line": 94,
                             "column": 10,
                             "offset": 2498
+                          },
+                          "valueEnd": {
+                            "file": "collections.go",
+                            "line": 94,
+                            "column": 12,
+                            "offset": 2500
                           },
                           "kind": "INT",
                           "value": "99",
@@ -9370,6 +9748,12 @@
                             "column": 11,
                             "offset": 2548
                           },
+                          "valueEnd": {
+                            "file": "collections.go",
+                            "line": 97,
+                            "column": 12,
+                            "offset": 2549
+                          },
                           "kind": "INT",
                           "value": "5",
                           "$type": 2,
@@ -9416,7 +9800,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 15,
-                              "decl": "collections.go:312",
+                              "decl": "collections.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -9760,6 +10144,12 @@
                             "column": 8,
                             "offset": 2618
                           },
+                          "valueEnd": {
+                            "file": "collections.go",
+                            "line": 100,
+                            "column": 10,
+                            "offset": 2620
+                          },
                           "kind": "INT",
                           "value": "42",
                           "$type": 2,
@@ -9909,7 +10299,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 15,
-                              "decl": "collections.go:312",
+                              "decl": "collections.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -10092,6 +10482,12 @@
                     "line": 6,
                     "column": 8,
                     "offset": 218
+                  },
+                  "valueEnd": {
+                    "file": "collections.go",
+                    "line": 6,
+                    "column": 13,
+                    "offset": 223
                   },
                   "kind": "STRING",
                   "value": "\"fmt\""

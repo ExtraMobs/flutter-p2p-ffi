@@ -1,7 +1,7 @@
 {
   "schemaVersion": 6,
   "tool": "goast",
-  "goVersion": "go1.25.7",
+  "goVersion": "go1.26.5",
   "packages": [
     {
       "path": "main",
@@ -87,6 +87,12 @@
                         "line": 6,
                         "column": 8,
                         "offset": 193
+                      },
+                      "valueEnd": {
+                        "file": "anon.go",
+                        "line": 6,
+                        "column": 13,
+                        "offset": 198
                       },
                       "kind": "STRING",
                       "value": "\"fmt\""
@@ -447,6 +453,12 @@
                                 "line": 10,
                                 "column": 50,
                                 "offset": 277
+                              },
+                              "valueEnd": {
+                                "file": "anon.go",
+                                "line": 10,
+                                "column": 53,
+                                "offset": 280
                               },
                               "kind": "STRING",
                               "value": "\"n\"",
@@ -850,6 +862,12 @@
                                 "column": 12,
                                 "offset": 350
                               },
+                              "valueEnd": {
+                                "file": "anon.go",
+                                "line": 14,
+                                "column": 13,
+                                "offset": 351
+                              },
                               "kind": "INT",
                               "value": "1",
                               "$type": 2,
@@ -865,6 +883,12 @@
                                 "line": 14,
                                 "column": 15,
                                 "offset": 353
+                              },
+                              "valueEnd": {
+                                "file": "anon.go",
+                                "line": 14,
+                                "column": 16,
+                                "offset": 354
                               },
                               "kind": "INT",
                               "value": "2",
@@ -1018,6 +1042,12 @@
                             "line": 16,
                             "column": 8,
                             "offset": 371
+                          },
+                          "valueEnd": {
+                            "file": "anon.go",
+                            "line": 16,
+                            "column": 10,
+                            "offset": 373
                           },
                           "kind": "INT",
                           "value": "10",
@@ -1439,6 +1469,12 @@
                                   "column": 14,
                                   "offset": 461
                                 },
+                                "valueEnd": {
+                                  "file": "anon.go",
+                                  "line": 22,
+                                  "column": 20,
+                                  "offset": 467
+                                },
                                 "kind": "STRING",
                                 "value": "\"dois\"",
                                 "$type": 4,
@@ -1759,6 +1795,12 @@
                                 "column": 61,
                                 "offset": 534
                               },
+                              "valueEnd": {
+                                "file": "anon.go",
+                                "line": 25,
+                                "column": 64,
+                                "offset": 537
+                              },
                               "kind": "STRING",
                               "value": "\"\u003c\"",
                               "$type": 4,
@@ -1861,6 +1903,12 @@
                               "line": 25,
                               "column": 78,
                               "offset": 551
+                            },
+                            "valueEnd": {
+                              "file": "anon.go",
+                              "line": 25,
+                              "column": 81,
+                              "offset": 554
                             },
                             "kind": "STRING",
                             "value": "\"\u003e\"",
@@ -1983,7 +2031,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 16,
-                              "decl": "anon.go:312",
+                              "decl": "anon.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -2293,6 +2341,12 @@
                                     "column": 4,
                                     "offset": 658
                                   },
+                                  "valueEnd": {
+                                    "file": "anon.go",
+                                    "line": 34,
+                                    "column": 7,
+                                    "offset": 661
+                                  },
                                   "kind": "STRING",
                                   "value": "\"a\"",
                                   "$type": 4,
@@ -2308,6 +2362,12 @@
                                     "line": 34,
                                     "column": 9,
                                     "offset": 663
+                                  },
+                                  "valueEnd": {
+                                    "file": "anon.go",
+                                    "line": 34,
+                                    "column": 10,
+                                    "offset": 664
                                   },
                                   "kind": "INT",
                                   "value": "1",
@@ -2345,6 +2405,12 @@
                                     "column": 4,
                                     "offset": 670
                                   },
+                                  "valueEnd": {
+                                    "file": "anon.go",
+                                    "line": 35,
+                                    "column": 8,
+                                    "offset": 674
+                                  },
                                   "kind": "STRING",
                                   "value": "\"bb\"",
                                   "$type": 4,
@@ -2360,6 +2426,12 @@
                                     "line": 35,
                                     "column": 10,
                                     "offset": 676
+                                  },
+                                  "valueEnd": {
+                                    "file": "anon.go",
+                                    "line": 35,
+                                    "column": 11,
+                                    "offset": 677
                                   },
                                   "kind": "INT",
                                   "value": "2",
@@ -2423,6 +2495,12 @@
                                       "column": 8,
                                       "offset": 687
                                     },
+                                    "valueEnd": {
+                                      "file": "anon.go",
+                                      "line": 36,
+                                      "column": 13,
+                                      "offset": 692
+                                    },
                                     "kind": "STRING",
                                     "value": "\"ccc\"",
                                     "$type": 4,
@@ -2465,6 +2543,12 @@
                                       "line": 36,
                                       "column": 21,
                                       "offset": 700
+                                    },
+                                    "valueEnd": {
+                                      "file": "anon.go",
+                                      "line": 36,
+                                      "column": 22,
+                                      "offset": 701
                                     },
                                     "kind": "INT",
                                     "value": "3",
@@ -2632,7 +2716,7 @@
                                     "name": "Println",
                                     "kind": "func",
                                     "type": 16,
-                                    "decl": "anon.go:312",
+                                    "decl": "anon.go:313",
                                     "pkg": "fmt",
                                     "top": true
                                   }
@@ -3026,6 +3110,12 @@
                                 "column": 27,
                                 "offset": 809
                               },
+                              "valueEnd": {
+                                "file": "anon.go",
+                                "line": 42,
+                                "column": 28,
+                                "offset": 810
+                              },
                               "kind": "INT",
                               "value": "1",
                               "$type": 2,
@@ -3041,6 +3131,12 @@
                                 "line": 42,
                                 "column": 30,
                                 "offset": 812
+                              },
+                              "valueEnd": {
+                                "file": "anon.go",
+                                "line": 42,
+                                "column": 31,
+                                "offset": 813
                               },
                               "kind": "INT",
                               "value": "2",
@@ -3215,6 +3311,12 @@
                                 "column": 30,
                                 "offset": 844
                               },
+                              "valueEnd": {
+                                "file": "anon.go",
+                                "line": 43,
+                                "column": 31,
+                                "offset": 845
+                              },
                               "kind": "INT",
                               "value": "1",
                               "$type": 2,
@@ -3230,6 +3332,12 @@
                                 "line": 43,
                                 "column": 33,
                                 "offset": 847
+                              },
+                              "valueEnd": {
+                                "file": "anon.go",
+                                "line": 43,
+                                "column": 34,
+                                "offset": 848
                               },
                               "kind": "INT",
                               "value": "2",
@@ -3384,6 +3492,12 @@
                             "column": 9,
                             "offset": 868
                           },
+                          "valueEnd": {
+                            "file": "anon.go",
+                            "line": 45,
+                            "column": 10,
+                            "offset": 869
+                          },
                           "kind": "INT",
                           "value": "9",
                           "$type": 2,
@@ -3430,7 +3544,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 16,
-                              "decl": "anon.go:312",
+                              "decl": "anon.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -3899,6 +4013,12 @@
                                 "column": 32,
                                 "offset": 986
                               },
+                              "valueEnd": {
+                                "file": "anon.go",
+                                "line": 52,
+                                "column": 35,
+                                "offset": 989
+                              },
                               "kind": "STRING",
                               "value": "\"x\"",
                               "$type": 4,
@@ -4018,7 +4138,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 16,
-                              "decl": "anon.go:312",
+                              "decl": "anon.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -4266,6 +4386,12 @@
                                       "column": 47,
                                       "offset": 1069
                                     },
+                                    "valueEnd": {
+                                      "file": "anon.go",
+                                      "line": 56,
+                                      "column": 48,
+                                      "offset": 1070
+                                    },
                                     "kind": "INT",
                                     "value": "7",
                                     "$type": 2,
@@ -4327,7 +4453,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 16,
-                              "decl": "anon.go:312",
+                              "decl": "anon.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -4486,6 +4612,12 @@
                                       "line": 57,
                                       "column": 43,
                                       "offset": 1114
+                                    },
+                                    "valueEnd": {
+                                      "file": "anon.go",
+                                      "line": 57,
+                                      "column": 44,
+                                      "offset": 1115
                                     },
                                     "kind": "INT",
                                     "value": "8",
@@ -4694,6 +4826,12 @@
                                       "line": 58,
                                       "column": 23,
                                       "offset": 1158
+                                    },
+                                    "valueEnd": {
+                                      "file": "anon.go",
+                                      "line": 58,
+                                      "column": 24,
+                                      "offset": 1159
                                     },
                                     "kind": "INT",
                                     "value": "9",
@@ -5010,7 +5148,7 @@
                                     "name": "Println",
                                     "kind": "func",
                                     "type": 16,
-                                    "decl": "anon.go:312",
+                                    "decl": "anon.go:313",
                                     "pkg": "fmt",
                                     "top": true
                                   }
@@ -5461,6 +5599,12 @@
                                     "column": 19,
                                     "offset": 1341
                                   },
+                                  "valueEnd": {
+                                    "file": "anon.go",
+                                    "line": 68,
+                                    "column": 25,
+                                    "offset": 1347
+                                  },
                                   "kind": "STRING",
                                   "value": "\"sala\"",
                                   "$type": 4,
@@ -5476,6 +5620,12 @@
                                     "line": 68,
                                     "column": 27,
                                     "offset": 1349
+                                  },
+                                  "valueEnd": {
+                                    "file": "anon.go",
+                                    "line": 68,
+                                    "column": 31,
+                                    "offset": 1353
                                   },
                                   "kind": "FLOAT",
                                   "value": "21.5",
@@ -5513,6 +5663,12 @@
                                     "column": 35,
                                     "offset": 1357
                                   },
+                                  "valueEnd": {
+                                    "file": "anon.go",
+                                    "line": 68,
+                                    "column": 40,
+                                    "offset": 1362
+                                  },
                                   "kind": "STRING",
                                   "value": "\"rua\"",
                                   "$type": 4,
@@ -5537,6 +5693,12 @@
                                       "line": 68,
                                       "column": 43,
                                       "offset": 1365
+                                    },
+                                    "valueEnd": {
+                                      "file": "anon.go",
+                                      "line": 68,
+                                      "column": 44,
+                                      "offset": 1366
                                     },
                                     "kind": "INT",
                                     "value": "3",
@@ -5610,7 +5772,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 16,
-                              "decl": "anon.go:312",
+                              "decl": "anon.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -5690,6 +5852,12 @@
                                     "column": 21,
                                     "offset": 1389
                                   },
+                                  "valueEnd": {
+                                    "file": "anon.go",
+                                    "line": 69,
+                                    "column": 22,
+                                    "offset": 1390
+                                  },
                                   "kind": "INT",
                                   "value": "1",
                                   "$type": 2,
@@ -5749,6 +5917,12 @@
                                 "column": 29,
                                 "offset": 1397
                               },
+                              "valueEnd": {
+                                "file": "anon.go",
+                                "line": 69,
+                                "column": 30,
+                                "offset": 1398
+                              },
                               "kind": "INT",
                               "value": "1",
                               "$type": 30,
@@ -5805,6 +5979,12 @@
                     "line": 6,
                     "column": 8,
                     "offset": 193
+                  },
+                  "valueEnd": {
+                    "file": "anon.go",
+                    "line": 6,
+                    "column": 13,
+                    "offset": 198
                   },
                   "kind": "STRING",
                   "value": "\"fmt\""

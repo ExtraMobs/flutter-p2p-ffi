@@ -1,7 +1,7 @@
 {
   "schemaVersion": 6,
   "tool": "goast",
-  "goVersion": "go1.25.7",
+  "goVersion": "go1.26.5",
   "packages": [
     {
       "path": "main",
@@ -87,6 +87,12 @@
                         "line": 6,
                         "column": 8,
                         "offset": 254
+                      },
+                      "valueEnd": {
+                        "file": "a.go",
+                        "line": 6,
+                        "column": 13,
+                        "offset": 259
                       },
                       "kind": "STRING",
                       "value": "\"fmt\""
@@ -181,6 +187,12 @@
                               "column": 21,
                               "offset": 281
                             },
+                            "valueEnd": {
+                              "file": "a.go",
+                              "line": 8,
+                              "column": 28,
+                              "offset": 288
+                            },
                             "kind": "STRING",
                             "value": "\"total\"",
                             "$type": 2,
@@ -229,6 +241,12 @@
                                 "line": 8,
                                 "column": 35,
                                 "offset": 295
+                              },
+                              "valueEnd": {
+                                "file": "a.go",
+                                "line": 8,
+                                "column": 36,
+                                "offset": 296
                               },
                               "kind": "INT",
                               "value": "2",
@@ -354,6 +372,12 @@
                               "column": 20,
                               "offset": 354
                             },
+                            "valueEnd": {
+                              "file": "a.go",
+                              "line": 9,
+                              "column": 26,
+                              "offset": 360
+                            },
                             "kind": "STRING",
                             "value": "\"base\"",
                             "$type": 2,
@@ -369,6 +393,12 @@
                               "line": 9,
                               "column": 28,
                               "offset": 362
+                            },
+                            "valueEnd": {
+                              "file": "a.go",
+                              "line": 9,
+                              "column": 30,
+                              "offset": 364
                             },
                             "kind": "INT",
                             "value": "21",
@@ -901,6 +931,12 @@
                                       "column": 43,
                                       "offset": 478
                                     },
+                                    "valueEnd": {
+                                      "file": "a.go",
+                                      "line": 17,
+                                      "column": 44,
+                                      "offset": 479
+                                    },
                                     "kind": "INT",
                                     "value": "2",
                                     "$type": 0,
@@ -1193,7 +1229,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "a.go:312",
+                              "decl": "a.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -1214,6 +1250,12 @@
                               "line": 21,
                               "column": 14,
                               "offset": 546
+                            },
+                            "valueEnd": {
+                              "file": "a.go",
+                              "line": 21,
+                              "column": 24,
+                              "offset": 556
                             },
                             "kind": "STRING",
                             "value": "\"init var\"",
@@ -1513,7 +1555,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "a.go:312",
+                              "decl": "a.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -1534,6 +1576,12 @@
                               "line": 26,
                               "column": 14,
                               "offset": 627
+                            },
+                            "valueEnd": {
+                              "file": "a.go",
+                              "line": 26,
+                              "column": 20,
+                              "offset": 633
                             },
                             "kind": "STRING",
                             "value": "\"pair\"",
@@ -1571,6 +1619,12 @@
                             "column": 9,
                             "offset": 643
                           },
+                          "valueEnd": {
+                            "file": "a.go",
+                            "line": 27,
+                            "column": 10,
+                            "offset": 644
+                          },
                           "kind": "INT",
                           "value": "1",
                           "$type": 0,
@@ -1586,6 +1640,12 @@
                             "line": 27,
                             "column": 12,
                             "offset": 646
+                          },
+                          "valueEnd": {
+                            "file": "a.go",
+                            "line": 27,
+                            "column": 13,
+                            "offset": 647
                           },
                           "kind": "INT",
                           "value": "2",
@@ -1702,7 +1762,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "a.go:312",
+                              "decl": "a.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -1723,6 +1783,12 @@
                               "line": 31,
                               "column": 14,
                               "offset": 678
+                            },
+                            "valueEnd": {
+                              "file": "a.go",
+                              "line": 31,
+                              "column": 23,
+                              "offset": 687
                             },
                             "kind": "STRING",
                             "value": "\"init a1\"",
@@ -1878,6 +1944,12 @@
                               "column": 11,
                               "offset": 728
                             },
+                            "valueEnd": {
+                              "file": "a.go",
+                              "line": 32,
+                              "column": 14,
+                              "offset": 731
+                            },
                             "kind": "STRING",
                             "value": "\"a\"",
                             "$type": 2,
@@ -1910,6 +1982,12 @@
                             "line": 32,
                             "column": 18,
                             "offset": 735
+                          },
+                          "valueEnd": {
+                            "file": "a.go",
+                            "line": 32,
+                            "column": 19,
+                            "offset": 736
                           },
                           "kind": "INT",
                           "value": "1",
@@ -2026,7 +2104,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "a.go:312",
+                              "decl": "a.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -2047,6 +2125,12 @@
                               "line": 36,
                               "column": 14,
                               "offset": 767
+                            },
+                            "valueEnd": {
+                              "file": "a.go",
+                              "line": 36,
+                              "column": 23,
+                              "offset": 776
                             },
                             "kind": "STRING",
                             "value": "\"init a2\"",
@@ -2237,7 +2321,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "a.go:312",
+                              "decl": "a.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -2258,6 +2342,12 @@
                               "line": 40,
                               "column": 14,
                               "offset": 823
+                            },
+                            "valueEnd": {
+                              "file": "a.go",
+                              "line": 40,
+                              "column": 20,
+                              "offset": 829
                             },
                             "kind": "STRING",
                             "value": "\"main\"",
@@ -2508,6 +2598,12 @@
                                 "column": 81,
                                 "offset": 890
                               },
+                              "valueEnd": {
+                                "file": "a.go",
+                                "line": 40,
+                                "column": 84,
+                                "offset": 893
+                              },
                               "kind": "STRING",
                               "value": "\"b\"",
                               "$type": 2,
@@ -2564,6 +2660,12 @@
                                   "line": 40,
                                   "column": 94,
                                   "offset": 903
+                                },
+                                "valueEnd": {
+                                  "file": "a.go",
+                                  "line": 40,
+                                  "column": 95,
+                                  "offset": 904
                                 },
                                 "kind": "INT",
                                 "value": "5",
@@ -2629,6 +2731,12 @@
                     "line": 6,
                     "column": 8,
                     "offset": 254
+                  },
+                  "valueEnd": {
+                    "file": "a.go",
+                    "line": 6,
+                    "column": 13,
+                    "offset": 259
                   },
                   "kind": "STRING",
                   "value": "\"fmt\""
@@ -3077,6 +3185,12 @@
                         "column": 8,
                         "offset": 21
                       },
+                      "valueEnd": {
+                        "file": "b.go",
+                        "line": 3,
+                        "column": 13,
+                        "offset": 26
+                      },
                       "kind": "STRING",
                       "value": "\"fmt\""
                     },
@@ -3166,6 +3280,12 @@
                               "column": 21,
                               "offset": 48
                             },
+                            "valueEnd": {
+                              "file": "b.go",
+                              "line": 5,
+                              "column": 28,
+                              "offset": 55
+                            },
                             "kind": "STRING",
                             "value": "\"fromB\"",
                             "$type": 2,
@@ -3210,6 +3330,12 @@
                                 "line": 5,
                                 "column": 36,
                                 "offset": 63
+                              },
+                              "valueEnd": {
+                                "file": "b.go",
+                                "line": 5,
+                                "column": 37,
+                                "offset": 64
                               },
                               "kind": "INT",
                               "value": "1",
@@ -3347,7 +3473,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "a.go:312",
+                              "decl": "a.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -3368,6 +3494,12 @@
                               "line": 8,
                               "column": 14,
                               "offset": 123
+                            },
+                            "valueEnd": {
+                              "file": "b.go",
+                              "line": 8,
+                              "column": 22,
+                              "offset": 131
                             },
                             "kind": "STRING",
                             "value": "\"init b\"",
@@ -3427,6 +3559,12 @@
                               "column": 11,
                               "offset": 143
                             },
+                            "valueEnd": {
+                              "file": "b.go",
+                              "line": 9,
+                              "column": 14,
+                              "offset": 146
+                            },
                             "kind": "STRING",
                             "value": "\"b\"",
                             "$type": 2,
@@ -3459,6 +3597,12 @@
                             "line": 9,
                             "column": 18,
                             "offset": 150
+                          },
+                          "valueEnd": {
+                            "file": "b.go",
+                            "line": 9,
+                            "column": 19,
+                            "offset": 151
                           },
                           "kind": "INT",
                           "value": "2",
@@ -3505,6 +3649,12 @@
                     "line": 3,
                     "column": 8,
                     "offset": 21
+                  },
+                  "valueEnd": {
+                    "file": "b.go",
+                    "line": 3,
+                    "column": 13,
+                    "offset": 26
                   },
                   "kind": "STRING",
                   "value": "\"fmt\""

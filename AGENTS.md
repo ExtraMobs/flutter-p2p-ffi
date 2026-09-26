@@ -69,6 +69,10 @@ edita o `Engine` para isso. Exemplos em `tests/test_engine.py`.
 
 ## Comandos padrão
 
+Go de referência: **1.26.5** (exigido pelo kubo v0.43.1). O `tools/goast/go.mod`
+fixa a versão (o `go` baixa o toolchain via `GOTOOLCHAIN=auto`); o e2e fixa
+`GOTOOLCHAIN=go1.26.5` para o oráculo `go run`.
+
 ```bash
 # goast: build + test
 cd tools/goast && go build ./... && go test ./...
