@@ -109,7 +109,7 @@ class AssignStmt(StmtBehavior):
         # ... e variáveis em caixa (`x.value` não é padrão de atribuição).
         idents = all(x["node"] == "Ident" for x in lhs) and not any(
             (self.typesys.is_value(self.pkg.type_of(x)) and not (tok == ":=" and x["$obj"].get("def")))
-            or x["$obj"].get("decl") in self.facts.boxed
+            or self.names.boxed(x["$obj"])
             for x in lhs if not is_blank(x))
         news = [None if is_blank(x) else tok == ":=" and x["node"] == "Ident" and x["$obj"].get("def", False)
                 for x in lhs]

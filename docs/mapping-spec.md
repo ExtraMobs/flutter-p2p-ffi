@@ -78,7 +78,10 @@ Legenda: ✅ fiel · ⚠️ fiel no caso comum, com limite conhecido · ❌ não
 | `func main` | `void main() { go.runMain(() { $goInit(); ... }); }`: panic não recuperado (inclusive na inicialização) vai para o stderr com exit 2 | ✅ |
 | variáveis de pacote | declaradas com o zero; o inicializador roda em `$goInit`, na ordem de `types.Info.InitOrder` (dependências primeiro, não a ordem de declaração) | ✅ |
 | `func init` (várias, vários arquivos) | `void _init$N()`, chamadas por `$goInit` depois das variáveis, em ordem de arquivo/fonte | ✅ |
-| import de pacote não-stdlib | — | ❌ (M2: grafo) |
+| import de pacote não-stdlib (do grafo) | `import 'package:out/<import path>.dart' as <nome>;` (o mono-repo gerado); tipos, funções, constantes, métodos, tipos nomeados sobre slice/map/func e interfaces de outro pacote em `implements` | ✅ (fixture `multipkg`) |
+| var exportada de pacote importável | tipo não-valor mora sempre num `go.Box` (`a.x.value`; `&a.X` é a caixa): outro pacote pode tomar o endereço e o dono não sabe; ⚠️ custa uma indireção mesmo sem `&` | ✅ |
+| `*N` de tipo nomeado exportado não-struct com métodos | `N$Ptr` sempre gerado pelo dono (o consumidor pode usar `*N`); ⚠️ classe a mais quando ninguém usa | ✅ |
+| inicialização das dependências | — (o `main` só roda o `$goInit` do próprio pacote) | ❌ (`TODO/P0-infra-init-entre-pacotes.md`) |
 | import `_` / `.` | — | ❌ |
 
 ## Identificadores

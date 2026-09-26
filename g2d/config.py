@@ -21,6 +21,10 @@ GOLANG_PREFIX = "Golang"
 
 GOLANG_URI = "package:golib_dart/fixed_types/golang.dart"
 
+# Library de um pacote do grafo (não-stdlib): o mono-repo que o WriteStage
+# escreve (`name: out` no pubspec gerado, `lib/<import path>.dart`).
+GRAPH_URI = "package:out/{path}.dart"
+
 # Interfaces da stdlib que existem nos shims (podem ir em `implements`).
 SHIM_INTERFACES = {("fmt", "Stringer")}
 

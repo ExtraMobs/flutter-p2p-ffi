@@ -68,8 +68,6 @@ class GoTypeInfo(Service):
                 continue
             if it["pkg"] == "" and it["name"] == "error":
                 names.append(self.imports.qualify(None, "GoError"))
-            elif it["pkg"] == self.pkg.path:
-                names.append(type_name(it["name"]))
-            elif (it["pkg"], it["name"]) in SHIM_INTERFACES:
+            elif self.imports.transpiled(it["pkg"]) or (it["pkg"], it["name"]) in SHIM_INTERFACES:
                 names.append(self.imports.qualify(it["pkg"], type_name(it["name"])))
         return names

@@ -36,27 +36,10 @@ cgo/asm/unsafe/syscall), `docs`.
 
 - Pacote único: `goast dump <dir>` → `python -m g2d transpile` → se gerar
   Dart, `dart analyze` e `go run` × `dart run` (VM e JS).
-- Multi-pacote: módulo `go.mod` com os pacotes; o dump é `goast dump -C <módulo> ./...`
-  (ou `-outdir` para um JSON por pacote) e, para
-  expor a camada abaixo do import, um plugin de sonda que qualifica os
-  pacotes do módulo como `package:out/<import path>.dart`:
-
-  ```python
-  class ProbeImports(ImportTable):
-      def qualify(self, pkg_path, name):
-          if pkg_path and pkg_path.startswith("repro.local/"):
-              if pkg_path == self.pkg.path:
-                  return name
-              prefix = pkg_path.rsplit("/", 1)[-1]
-              self.used[prefix] = f"package:out/{pkg_path}.dart"
-              return f"{prefix}.{name}"
-          return super().qualify(pkg_path, name)
-
-  class ProbePlugin(Plugin):
-      def install(self, engine):
-          engine.services.replace(ProbeImports(engine))
-
-  Engine(pkg, plugins=[*DEFAULT_PLUGINS, ProbePlugin()]).emit_package()
-  ```
+- Multi-pacote: módulo `go.mod` com os pacotes; `goast dump -C <módulo> ./...
+  -o dump.json` → `python -m g2d transpile dump.json -o out` (os pacotes do
+  grafo viram `package:out/<import path>.dart`) → `dart analyze` e
+  `go run ./cmd` × `dart run out/lib/<módulo>/cmd.dart`.
+- Grafo real: `python -m g2d graph github.com/ipfs/kubo/cmd/ipfs -C tests/corpus/kubo`.
 - Limites decididos (ex.: `goto`, ordem de chaves por endereço) ficam em
   `docs/mapping-spec.md`, não aqui.

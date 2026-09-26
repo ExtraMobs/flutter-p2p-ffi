@@ -91,21 +91,28 @@ class TypeSystem(Service):
         return t is not None and (self.is_struct(t) or self.underlying(t)["kind"] == "array")
 
     def named_composite(self, t):
-        """Tipo nomeado (deste pacote) sobre slice/map/func: classe gerada —
-        subclasse de go.Slice/go.GoMap, ou função chamável (`$f`)."""
-        return (t is not None and t["kind"] == "named" and t["pkg"] == self.pkg.path and not t.get("args")
+        """Tipo nomeado (de pacote transpilado) sobre slice/map/func: classe
+        gerada — subclasse de go.Slice/go.GoMap, ou função chamável (`$f`)."""
+        return (t is not None and t["kind"] == "named" and self.imports.transpiled(t["pkg"]) and not t.get("args")
                 and self.underlying(t)["kind"] in ("slice", "map", "func"))
 
     def named_func(self, t):
         return self.named_composite(t) and self.underlying(t)["kind"] == "func"
 
     def ptr_class(self, t):
-        """N nomeado (deste pacote) não-struct com métodos e `*N` usado no
-        pacote: `*N` é a classe gerada `N$Ptr` (go.PtrView com os métodos e
-        interfaces de *N)."""
-        return (t is not None and t["kind"] == "named" and t["pkg"] == self.pkg.path and bool(t.get("methods"))
+        """N nomeado (de pacote transpilado) não-struct com métodos, com `*N`
+        usado no pacote ou exportado: `*N` é a classe gerada `N$Ptr`
+        (go.PtrView com os métodos e interfaces de *N). Exportado sempre tem
+        `N$Ptr`, porque o pacote dono não sabe se outro usa `*N`."""
+        return (t is not None and t["kind"] == "named" and self.imports.transpiled(t["pkg"])
+                and bool(t.get("methods"))
                 and self.underlying(t)["kind"] not in ("struct", "interface", "array")
-                and id(t) in self.pointed_named)
+                and (id(t) in self.pointed_named or self.exported(t["pkg"], t["name"])))
+
+    def exported(self, pkg_path, name):
+        """Nome visível de outro pacote: exportado e de pacote importável
+        (o `main` não é importado por ninguém)."""
+        return name[:1].isupper() and (pkg_path != self.pkg.path or self.pkg.name != "main")
 
     @property
     def pointed_named(self):

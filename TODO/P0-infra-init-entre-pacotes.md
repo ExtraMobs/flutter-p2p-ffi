@@ -1,7 +1,7 @@
 # Inicialização das dependências antes do pacote
 
 - **Prioridade:** P0 · **Área:** infra
-- **Depende de:** P0-infra-import-entre-pacotes
+- **Depende de:** —
 
 ## Problema
 
@@ -35,7 +35,7 @@ func main() {
 }
 ```
 
-Com a sonda de import (plugin que qualifica os pacotes do módulo como `package:out/<path>.dart`), para expor a camada abaixo do import:
+Reverificado com o import entre pacotes real (`goast dump -C` → `g2d transpile` → `dart analyze` / `dart run`):
 
 ```text
 $ dart analyze

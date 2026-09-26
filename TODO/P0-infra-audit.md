@@ -1,7 +1,7 @@
 # `g2d audit`: todos os problemas do grafo, não só o primeiro
 
 - **Prioridade:** P0 · **Área:** infra
-- **Depende de:** P0-infra-import-entre-pacotes
+- **Depende de:** —
 
 ## Problema
 

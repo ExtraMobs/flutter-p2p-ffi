@@ -52,7 +52,7 @@ class VarDecls(Service):
             t = self.pkg.type_at(obj["type"])
             if not top:
                 out.append(self.names.local_decl(ident, t, init))
-            elif obj["decl"] in self.facts.boxed:
+            elif self.names.boxed(obj):
                 box_t, box = self.types.box(t, init)
                 out.append(f"final {box_t} {member_name(ident['name'])} = {box};")
             else:

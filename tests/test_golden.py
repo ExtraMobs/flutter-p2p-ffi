@@ -1,5 +1,9 @@
 """Golden tests: tests/golden/<caso>/<caso>.go → .goast.json → .dart.
 
+Caso com `go.mod` é um módulo multi-pacote: um `<caso>.goast.json` com todos
+os pacotes (`goast dump -C <caso> ./...`), um `<caso>.<pacote>.dart` por
+pacote (import path relativo ao módulo, `/` → `.`) e o e2e roda `go run ./cmd`.
+
 G2D_UPDATE_GOLDEN=1 regrava os arquivos esperados (revisar o diff!). Os testes
 são numerados na ordem do pipeline (unittest ordena por nome), então o update
 de uma etapa já alimenta a seguinte.
@@ -35,6 +39,29 @@ def case_file(case, ext):
     return os.path.join(GOLDEN, case, case + ext)
 
 
+def is_module(case):
+    return os.path.exists(os.path.join(GOLDEN, case, "go.mod"))
+
+
+def case_packages(case):
+    """[(pacote, .dart esperado, caminho em lib/)] do dump esperado do caso."""
+    with open(case_file(case, ".goast.json"), encoding="utf-8") as f:
+        pkgs = parse_dump(json.load(f))
+    if not is_module(case):
+        (pkg,) = pkgs
+        return [(pkg, case_file(case, ".dart"), case + ".dart")]
+    out = []
+    for pkg in pkgs:
+        rel = pkg.path[len(pkg.module["path"]) + 1:]
+        out.append((pkg, case_file(case, "." + rel.replace("/", ".") + ".dart"), pkg.path + ".dart"))
+    return out
+
+
+def main_lib(case):
+    """Library Dart com o main do caso (em lib/)."""
+    return next(lib for pkg, _, lib in case_packages(case) if pkg.name == "main")
+
+
 def run(cmd, cwd=None, binary=False):
     """Roda cmd; stdout em texto, ou em bytes (strings Go podem não ser UTF-8)."""
     r = subprocess.run(cmd, cwd=cwd, capture_output=True, shell=WIN)
@@ -58,8 +85,8 @@ class GoldenTest(unittest.TestCase):
     def test_1_goast_dump(self):
         for case in CASES:
             with self.subTest(case=case):
-                out = run(["go", "run", ".", "dump", os.path.join(GOLDEN, case)],
-                          cwd=os.path.join(ROOT, "tools", "goast"))
+                target = ["-C", os.path.join(GOLDEN, case), "./..."] if is_module(case) else [os.path.join(GOLDEN, case)]
+                out = run(["go", "run", ".", "dump", *target], cwd=os.path.join(ROOT, "tools", "goast"))
                 check_golden(self, case_file(case, ".goast.json"), out)
 
     @unittest.skipUnless(HAVE_DART, "dart ausente")
@@ -76,10 +103,9 @@ class GoldenTest(unittest.TestCase):
     @unittest.skipUnless(HAVE_DART, "dart ausente")
     def test_2_transpile(self):
         for case in CASES:
-            with self.subTest(case=case):
-                with open(case_file(case, ".goast.json"), encoding="utf-8") as f:
-                    (pkg,) = parse_dump(json.load(f))
-                check_golden(self, case_file(case, ".dart"), transpile_package(pkg))
+            for pkg, golden, _ in case_packages(case):
+                with self.subTest(case=case, pkg=pkg.path):
+                    check_golden(self, golden, transpile_package(pkg))
 
     @unittest.skipUnless(HAVE_GO and HAVE_DART, "go/dart ausentes")
     def test_4_end_to_end(self):
@@ -90,14 +116,17 @@ class GoldenTest(unittest.TestCase):
                 f.write(PUBSPEC.format(golib=GOLIB.replace(os.sep, "/")))
             os.makedirs(os.path.join(tmp, "lib"))
             for case in CASES:
-                shutil.copy(case_file(case, ".dart"), os.path.join(tmp, "lib", case + ".dart"))
+                for _, golden, lib in case_packages(case):
+                    dst = os.path.join(tmp, "lib", *lib.split("/"))
+                    os.makedirs(os.path.dirname(dst), exist_ok=True)
+                    shutil.copy(golden, dst)
             run(["dart", "pub", "get", "--offline"], cwd=tmp)
             run(["dart", "analyze", "--fatal-infos"], cwd=tmp)
             for case in CASES:
                 case_dir = os.path.join(GOLDEN, case)
-                sources = sorted(f for f in os.listdir(case_dir) if f.endswith(".go"))
+                sources = ["./cmd"] if is_module(case) else sorted(f for f in os.listdir(case_dir) if f.endswith(".go"))
                 want = run(["go", "run", *sources], cwd=case_dir, binary=True)
-                src = os.path.join("lib", case + ".dart")
+                src = os.path.join("lib", *main_lib(case).split("/"))
                 with self.subTest(case=case, platform="vm"):
                     self.assertEqual(want, run(["dart", "run", src], cwd=tmp, binary=True))
                 if not HAVE_NODE:

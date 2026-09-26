@@ -35,9 +35,20 @@ class Naming(Service):
             return "main"
         return member_name(go_name)
 
+    def boxed(self, obj):
+        """Variável que mora num go.Box: endereço tomado no pacote, ou var
+        exportada de pacote importável e tipo não-valor (outro pacote pode
+        tomar `&a.X`; o dono não tem como saber)."""
+        if obj.get("kind") != "var":
+            return False
+        if obj.get("pkg") == self.pkg.path and obj.get("decl") in self.facts.boxed:
+            return True
+        return (bool(obj.get("top")) and self.typesys.exported(obj["pkg"], obj["name"])
+                and not self.typesys.is_value(self.pkg.type_at(obj["type"])))
+
     def box_suffix(self, obj):
-        """Variável que mora num go.Box (endereço tomado): acesso via .value."""
-        return ".value" if obj.get("decl") in self.facts.boxed and obj.get("pkg") == self.pkg.path else ""
+        """Variável em go.Box: acesso via .value."""
+        return ".value" if self.boxed(obj) else ""
 
     def box_name(self, obj):
         """Nome Dart da caixa (go.Box) de uma variável com `&x`."""
