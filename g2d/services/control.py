@@ -1,6 +1,28 @@
-"""Alvos de `break`: laços (break nativo) e switches (bloco rotulado)."""
+"""Alvos de `break`: laços (break nativo), switches (bloco rotulado) e o
+corpo de `range` sobre func (closure passada ao iterador)."""
+
+from dataclasses import dataclass, field
 
 from g2d.engine.behavior import Service
+
+
+@dataclass
+class RangeFuncFrame:
+    """Corpo de um `range` sobre func: vira a closure `yield`. `break` e
+    `continue` do próprio laço viram `return false/true`; o que sai da
+    closure (`return`, laço de fora) grava um código em `state` e é refeito
+    depois da chamada (`exits`)."""
+
+    label: str  # rótulo Go do laço (ou None)
+    state: str  # variável Dart com o código de saída
+    done: str  # a closure já devolveu false (yield depois disso → pânico)
+    rv: str  # valores do `return` de dentro
+    exits: list = field(default_factory=list)  # [(código, nó Go a refazer fora)]
+    inner_labels: set = field(default_factory=set)  # rótulos declarados no corpo
+
+    def exit(self, node):
+        self.exits.append((len(self.exits) + 1, node))
+        return len(self.exits)
 
 
 class ControlFlow(Service):

@@ -70,3 +70,10 @@ String describePanic(Object? v) => switch (v) {
   GoError e => e.error().toString(),
   _ => v.toString(),
 };
+
+/// `range` sobre func: o iterador chamou yield depois de o corpo sair.
+Never rangeFuncContinued() => throw Panic(
+  const RuntimeError(
+    'runtime error: range function continued iteration after function for loop body returned false',
+  ),
+);

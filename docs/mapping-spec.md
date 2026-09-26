@@ -298,6 +298,7 @@ criado com `identity: true` (`Map.identity()`), então compara endereços.
 | `switch` / `switch {}` / type switch | cadeia `if/else` num bloco; `break` sem rótulo que sai do switch → `break $tN;` (bloco rotulado; a pilha de alvos distingue switch de laço) |
 | `fallthrough` | seleção do case (`$c`) seguida dos corpos em sequência (`if ($c == i)`); `fallthrough` → `$c = i + 1` na ordem do fonte, inclusive para o `default` no meio |
 | rótulos, `break L`, `continue L` | rótulo no laço Dart |
+| `for k, v := range seq` (seq func, Go 1.23) | `seq((K k, V v) { if ($done) go.rangeFuncContinued(); corpo; return true; })`: `continue` → `return true`; `break` → `$done = true; return false`; `return`, `break L`/`continue L` para fora da closure gravam um código em `$st` (valores em `$rv`) e são refeitos depois da chamada; rótulos declarados no corpo ficam nativos; func literal dentro do corpo isola (fixture `rangefunc`) |
 | `defer f(a)` | `{ final $t = a; $d.defer(() { f($t); }); }`, com o corpo em `try`/`catch`/`finally` de `go.Defers` |
 | `defer f()` com f de tipo func nomeado | o closure em `f.$f` (pode receber `$rd` e recuperar); assinatura do subjacente (fixture `defernamed`) |
 | `defer delete(m, k)`, `defer panic(v)`, `defer clear(s)`... | mesmo caminho, com a chamada do builtin no closure (fixture `deferbuiltin`); `defer recover()` → `Unsupported` `defer-recover` (no Go não recupera) |

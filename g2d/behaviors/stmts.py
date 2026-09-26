@@ -4,6 +4,7 @@ from g2d.analysis.helpers import is_blank, tuple_expr, uses_decl
 from g2d.engine.behavior import StmtBehavior
 from g2d.engine.precedence import DART_PREC, POSTFIX
 from g2d.model import Unsupported
+from g2d.services.control import RangeFuncFrame
 from g2d.services.dart_type import DartType
 
 
@@ -59,6 +60,8 @@ class ReturnStmt(StmtBehavior):
     kinds = ("ReturnStmt",)
 
     def emit(self, s):
+        if self.scope.rangefuncs:
+            return self.from_range_func(s, self.scope.rangefuncs[-1])
         res = s["results"] or []
         if not res:
             if self.scope.results:
@@ -81,6 +84,28 @@ class ReturnStmt(StmtBehavior):
         else:
             out = [f"{nm} = {v};" for nm, v in zip(names, values)]
         return ["{"] + out + [f"return {tuple_expr(names)};", "}"]
+
+
+    def from_range_func(self, s, frame):
+        """`return` dentro de range sobre func: guarda os valores e sai da
+        closure; o `return` de verdade é refeito depois da chamada."""
+        res = s["results"] or []
+        if not res:
+            code = frame.exit(s)
+            return [f"{frame.state} = {code};", f"{frame.done} = true;", "return false;"]
+        rtypes = [self.pkg.type_at(t) for t in self.scope.sig["results"]]
+        if len(res) != len(rtypes):
+            value = self.expr(res[0])  # return f() com vários resultados
+        else:
+            value = tuple_expr([self.values.coerce(r, t) for r, t in zip(res, rtypes)])
+        dt = tuple_expr([str(self.types.dart(t)) for t in rtypes]) if len(rtypes) > 1 else str(self.types.dart(rtypes[0]))
+        if len(rtypes) > 1:
+            temps = [{"node": "G2DTemp", "text": f"({frame.rv} as {dt}).${i + 1}", "$type": t}
+                     for i, t in enumerate(self.scope.sig["results"])]
+        else:
+            temps = [{"node": "G2DTemp", "text": f"({frame.rv} as {dt})", "$type": self.scope.sig["results"][0]}]
+        code = frame.exit(dict(s, results=temps))
+        return [f"{frame.rv} = {value};", f"{frame.state} = {code};", f"{frame.done} = true;", "return false;"]
 
 
 class AssignStmt(StmtBehavior):
@@ -245,11 +270,43 @@ class RangeStmt(StmtBehavior):
             elem_t = self.pkg.type_at(u["elem"])
             pre += ([bind(key, k)] if key else []) + (
                 [bind(val, self.values.copy_text(f"{src}[{k}]", elem_t))] if val else [])
+        elif u["kind"] == "func":
+            return self.range_func(s, x, u, key, val, bind, label)
         else:
             raise Unsupported(f"range:{u['kind']}", f"range sobre {u['kind']}", s)
         body = self.control.loop_body(s["body"])
         head[-1] = label + head[-1]
         return ["{"] + head + ["{"] + pre + body + ["}", "}"]
+
+
+    def range_func(self, s, x, u, key, val, bind, label):
+        """`for k, v := range seq`: `seq((k, v) { corpo; return true; })`.
+        Saídas da closure voltam como código em `$st` e são refeitas fora."""
+        yield_t = self.typesys.underlying(self.pkg.type_at(u["params"][0]))
+        params = [self.pkg.type_at(p) for p in yield_t["params"]]
+        frame = RangeFuncFrame(label[:-1] if label else None, self.names.temp(), self.names.temp(), self.names.temp())
+        names = [self.names.temp() for _ in params]
+        pre = []
+        for target, name in zip((key, val), names):
+            if target is not None:
+                pre.append(bind(target, name))
+        self.scope.rangefuncs.append(frame)
+        self.scope.breaks.append(frame)
+        try:
+            body = [ln for st in s["body"]["list"] or [] for ln in self.stmt(st)]
+        finally:
+            self.scope.breaks.pop()
+            self.scope.rangefuncs.pop()
+        seq_t = self.pkg.type_of(x)
+        seq = self.expr(x, POSTFIX) + ("!" if self.types.nilable(seq_t) else "")
+        panic = self.imports.qualify(None, "rangeFuncContinued")
+        head = ", ".join(f"{self.types.dart(t)} {n}" for t, n in zip(params, names))
+        out = ["{", f"var {frame.state} = 0;", f"var {frame.done} = false;", f"Object? {frame.rv};",
+               f"{seq}(({head}) {{", f"if ({frame.done}) {panic}();"] + pre + body + ["return true;", "});"]
+        # O corpo terminou e o iterador seguiu chamando yield: pânico do Go.
+        for code, node in frame.exits:
+            out += [f"if ({frame.state} == {code})"] + ["{"] + self.stmt(node) + ["}"]
+        return out + ["}"]
 
 
 class BranchStmt(StmtBehavior):
@@ -259,13 +316,35 @@ class BranchStmt(StmtBehavior):
         tok = s["tok"]
         if tok not in ("break", "continue"):
             raise Unsupported(f"branch:{tok}", tok, s)
+        frame = self.scope.rangefuncs[-1] if self.scope.rangefuncs else None
         if s["label"]:
-            return [f"{tok} {s['label']['name']};"]
-        target = self.scope.breaks[-1] if tok == "break" and self.scope.breaks else None
+            name = s["label"]["name"]
+            if frame is None or name in frame.inner_labels:
+                return [f"{tok} {name};"]
+            if name == frame.label:  # o próprio range sobre func
+                return self.leave(frame, tok)
+            return self.escape(frame, s)  # laço de fora da closure
+        if tok == "break":
+            target = self.scope.breaks[-1] if self.scope.breaks else None
+        else:  # continue: o laço mais interno (switch não conta)
+            target = next((b for b in reversed(self.scope.breaks) if not isinstance(b, str)), None)
+        if isinstance(target, RangeFuncFrame):
+            return self.leave(target, tok)
         if target:  # break sem rótulo dentro de switch: sai só do switch
             self.scope.used_labels.add(target)
             return [f"break {target};"]
         return [f"{tok};"]
+
+    def leave(self, frame, tok):
+        """break/continue do próprio range sobre func: a closure devolve."""
+        if tok == "continue":
+            return ["return true;"]
+        return [f"{frame.done} = true;", "return false;"]
+
+    def escape(self, frame, node):
+        """Saída para fora da closure: código em `$st`, refeita depois."""
+        code = frame.exit(node)
+        return [f"{frame.state} = {code};", f"{frame.done} = true;", "return false;"]
 
 
 class LabeledStmt(StmtBehavior):
@@ -273,6 +352,8 @@ class LabeledStmt(StmtBehavior):
 
     def emit(self, s):
         label = s["label"]["name"] + ":"
+        if self.scope.rangefuncs:  # rótulo declarado dentro do corpo: nativo
+            self.scope.rangefuncs[-1].inner_labels.add(s["label"]["name"])
         if s["stmt"]["node"] == "RangeStmt":  # rótulo vai no laço, não no bloco
             return self.stmt(s["stmt"], label=label)
         return [label] + self.stmt(s["stmt"])

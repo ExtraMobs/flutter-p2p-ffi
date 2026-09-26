@@ -51,4 +51,5 @@ class FunctionScope:
     defers: str = None  # variável go.Defers da função (se tem defer)
     rd: str = None  # parâmetro `$rd` (se chama recover())
     breaks: list = field(default_factory=list)  # alvos de break: None (laço) ou rótulo (switch)
+    rangefuncs: list = field(default_factory=list)  # RangeFuncFrame dos `range` sobre func abertos
     used_labels: set = field(default_factory=set)

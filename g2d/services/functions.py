@@ -138,11 +138,15 @@ class Functions(Service):
         Com `defer`: resultados sempre em variáveis (os defers podem alterá-los)
         e o corpo roda sob go.Defers (try/catch/finally). O estado da função
         externa volta mesmo se o corpo levantar (func literal aninhada)."""
-        saved = self.scope.results, self.scope.sig, self.scope.defers
+        saved = self.scope.results, self.scope.sig, self.scope.defers, self.scope.breaks, self.scope.rangefuncs
+        # Func literal: `return`/`break` lá dentro são dela, não de um range
+        # sobre func que a contenha.
+        self.scope.breaks, self.scope.rangefuncs = [], []
         try:
             return self._func_body(ftype, body, sig)
         finally:
-            self.scope.results, self.scope.sig, self.scope.defers = saved
+            (self.scope.results, self.scope.sig, self.scope.defers,
+             self.scope.breaks, self.scope.rangefuncs) = saved
 
     def _func_body(self, ftype, body, sig):
         out = []
