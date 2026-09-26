@@ -271,7 +271,7 @@ criado com `identity: true` (`Map.identity()`), então compara endereços.
 | rótulos, `break L`, `continue L` | rótulo no laço Dart |
 | `defer f(a)` | `{ final $t = a; $d.defer(() { f($t); }); }`, com o corpo em `try`/`catch`/`finally` de `go.Defers` |
 | `go`, `select`, range sobre chan/func | ❌ (M4) |
-| `goto` | ❌ exigiria reescrever a função como máquina de estados; raro fora de código gerado |
+| `goto` | ❌ exigiria reescrever a função como máquina de estados. Medido no grafo do kubo (`docs/audit.md`, `branch:goto`): 54 ocorrências em 14 pacotes, 3 na fronteira (ex. gonum `mathext/internal/cephes`); decisão a rever se entrar no caminho |
 
 `defer`: os argumentos (e o receptor) são avaliados no `defer`. As chamadas
 rodam em ordem LIFO no `finally`, e um panic num defer substitui o anterior.
