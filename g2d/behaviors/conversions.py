@@ -262,6 +262,51 @@ class SliceToArray(ConversionBehavior):
         return self.types.wrap(c.to_t, arr), POSTFIX
 
 
+class SliceToArrayPtr(ConversionBehavior):
+    """`(*[N]T)(s)` (Go 1.17): um GoArray sobre o armazenamento do slice
+    (`go.sliceToArrayPtr`: escritas por um aparecem no outro; slice curto dá
+    o pânico do Go; slice nil dá ponteiro nil)."""
+
+    def accepts(self, c):
+        if c.to_t["kind"] != "pointer" or self.typesys.underlying(c.frm_t)["kind"] != "slice":
+            return False
+        return self.typesys.underlying(self.pkg.type_at(c.to_t["elem"]))["kind"] == "array"
+
+    def emit(self, c):
+        at = self.pkg.type_at(c.to_t["elem"])
+        if at["kind"] == "named":
+            raise Unsupported("conversao:slice-named-array-pointer", "conversão slice → ponteiro para array nomeado", c.n)
+        n = at["len"]
+        return f"{self.imports.qualify(None, 'sliceToArrayPtr')}({self.expr(c.arg)}, {n})", POSTFIX
+
+
+class PointerToPointer(ConversionBehavior):
+    """`(*U)(p)` com `*T` e `*U` de mesmo subjacente básico: a mesma variável
+    vista com outro tipo (`go.ConvPtr`, converte na leitura e na escrita;
+    nil continua nil). Structs e arrays são o próprio endereço, de classes
+    diferentes: sem aliasing possível, `Unsupported`."""
+
+    def accepts(self, c):
+        if c.to_t["kind"] != "pointer" or c.frm_t["kind"] != "pointer":
+            return False
+        return all(self.typesys.basic(self.pkg.type_at(t["elem"])) is not None for t in (c.to_t, c.frm_t))
+
+    def emit(self, c):
+        u, t = c.to_t["elem"], c.frm_t["elem"]
+
+        def conv(frm, to):  # o valor `v` de frm como to, pelas regras de conversão
+            fun, arg = {"$type": to, "$isType": True}, {"node": "G2DTemp", "text": "v", "$type": frm}
+            return self.engine.convert(c.n, fun, arg)[0]
+
+        ud, td = self.types.dart(u).non_null(), self.types.dart(t).non_null()
+        view = (f"{self.imports.qualify(None, 'convPtr')}<{ud}, {td}>({self.expr(c.arg)}, "
+                f"(v) => {conv(t, u)}, (v) => {conv(u, t)})")
+        ut = self.pkg.type_at(u)
+        if self.typesys.ptr_class(ut):  # *U com métodos: a vista U$Ptr
+            view = f"(switch ({view}) {{ final $cp? => {self.types.ptr_view(ut)}($cp), _ => null }})"
+        return view, POSTFIX
+
+
 class ToInterface(ConversionBehavior):
     """`any(x)`, `I(x)`: o mesmo que atribuir x a uma interface (`coerce`:
     struct/array por valor vai copiada, ponteiro nil tipado vira sentinela)."""
@@ -318,5 +363,5 @@ class StringSlice(ConversionBehavior):
 
 # Ordem de registro = prioridade crescente (a cadeia tenta do último ao
 # primeiro): a identidade vence tudo, como no emissor original.
-CONVERSIONS = [FromNil, BoolToBool, SliceToArray, ToInterface, StringSlice, StructToStruct, Retype, IntToString, StringToString, ComplexToComplex, FloatToFloat, FloatToInt,
+CONVERSIONS = [FromNil, BoolToBool, SliceToArray, SliceToArrayPtr, PointerToPointer, ToInterface, StringSlice, StructToStruct, Retype, IntToString, StringToString, ComplexToComplex, FloatToFloat, FloatToInt,
                IntToFloat, IntToInt, SameUnderlying, FromTypeParam, FloatToTypeParam, ToTypeParam, Identity]

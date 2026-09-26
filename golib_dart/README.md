@@ -132,6 +132,15 @@ por `test/go_float_vectors_extra.go`):
    | JS (dart2js -O2, Node) | 1916 ms | 40 ms | ~48× |
    | Wasm (dart2wasm, Node) | 649 ms | 17 ms | ~38× |
 
+9. **`toIndex()` e mensagens de limites** (`src/base.dart`, `src/ints.dart`,
+   `src/bounds.dart`, `string.dart`). Índice/contagem fora de ±2⁵³ vira um
+   sentinela ±2⁵⁴ que guarda o texto exato do valor (`indexText`); antes a
+   mensagem saía negativa na VM (uint64 ≥ 2⁶³) e arredondada no JS. Índice
+   negativo sai sem ` with length n` (`withBound`, o `boundsNegErrorFmt` do Go).
+10. **`ComplexBase`/`ComplexOps`** (`src/base.dart`, `complex64.dart`,
+   `complex128.dart`): base dos tipos nomeados sobre complex, que delegam as
+   operações ao valor do subjacente.
+
 Chaves de map `Float64` (NaN nunca encontrado, +0 ≡ −0) foram auditadas e já
 batiam com o Go.
 

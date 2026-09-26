@@ -88,6 +88,8 @@ class Operands(Service):
             return self.is_pure(n["x"])
         if k == "IndexExpr":
             return self.is_pure(n["x"]) and self.is_pure(n["index"])
+        if k == "CallExpr" and n["fun"].get("$isType"):  # conversão
+            return self.is_pure(n["args"][0])
         return False
 
     def is_map_index(self, n):

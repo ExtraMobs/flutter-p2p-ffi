@@ -169,3 +169,49 @@ final class FieldPtr<O extends Object, T> implements Ptr<T> {
   @override
   int get hashCode => Object.hash(identityHashCode(_owner), _field);
 }
+
+/// `(*U)(p)` com `*T` e `*U` de mesmo subjacente básico: a mesma variável
+/// vista como U, convertendo na leitura e na escrita. `==` é o da variável
+/// (o [$p] de origem).
+final class ConvPtr<U, T> implements Ptr<U> {
+  ConvPtr(this.$p, this._read, this._write);
+
+  final Ptr<T> $p;
+  final U Function(T) _read;
+  final T Function(U) _write;
+
+  @override
+  U get value => _read($p.value);
+
+  @override
+  set value(U v) => $p.value = _write(v);
+
+  @override
+  bool $assignIfIs(Object? v) {
+    if (!_accepts<U>(v)) return false;
+    value = v as U;
+    return true;
+  }
+
+  @override
+  bool $errorTargetOk() => _errorTarget<U>();
+
+  @override
+  bool operator ==(Object other) => other is ConvPtr && other.$p == $p;
+
+  @override
+  int get hashCode => $p.hashCode;
+}
+
+/// `(*U)(p)` (ver [ConvPtr]): nil continua nil; a vista `N$Ptr` é
+/// desembrulhada e voltar ao tipo de origem devolve o ponteiro original
+/// (`(*T)((*U)(p)) == p`).
+Ptr<U>? convPtr<U, T>(Ptr<T>? p, U Function(T) read, T Function(U) write) {
+  if (p == null) return null;
+  var q = p;
+  while (q is PtrView<T>) {
+    q = q.$p;
+  }
+  if (q case ConvPtr<T, U>(:final $p)) return $p;
+  return ConvPtr<U, T>(q, read, write);
+}

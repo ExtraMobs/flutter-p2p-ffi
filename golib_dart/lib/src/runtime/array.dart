@@ -1,6 +1,8 @@
 /// Arrays Go `[N]T`: valores de comprimento fixo.
 library;
 
+import 'dart:collection';
+
 import '../../fixed_types/golang/src/bounds.dart';
 import 'elem.dart';
 import 'panic.dart';
@@ -123,4 +125,39 @@ GoArray<T> sliceToArray<T>(Slice<T> s, int n) {
     );
   }
   return GoArray.of([for (var i = 0; i < n; i++) s.elem.copyOf(s[i])], s.elem);
+}
+
+/// `(*[N]T)(s)` (Go 1.17): um array sobre o armazenamento do slice (escritas
+/// por um aparecem no outro); slice curto dá o pânico do Go, slice nil dá
+/// ponteiro nil.
+GoArray<T>? sliceToArrayPtr<T>(Slice<T> s, int n) {
+  if (s.length < n) {
+    throw Panic(
+      RuntimeError(
+        'runtime error: cannot convert slice with length ${s.length} '
+        'to array or pointer to array with length $n',
+      ),
+    );
+  }
+  if (s.isNil) return null;
+  return GoArray._(_SliceItems(s, n), s.elem);
+}
+
+// Os n primeiros elementos de um slice como lista de tamanho fixo.
+final class _SliceItems<T> extends ListBase<T> {
+  _SliceItems(this._s, this.length);
+
+  final Slice<T> _s;
+
+  @override
+  final int length;
+
+  @override
+  set length(int _) => throw UnsupportedError('array Go tem tamanho fixo');
+
+  @override
+  T operator [](int i) => _s[i];
+
+  @override
+  void operator []=(int i, T v) => _s[i] = v;
 }
