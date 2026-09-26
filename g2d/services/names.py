@@ -2,7 +2,7 @@
 
 from g2d.engine.behavior import Service
 from g2d.model import Unsupported
-from g2d.services.naming import local_name, member_name
+from g2d.services.naming import local_name, top_member_name
 
 
 class Naming(Service):
@@ -30,10 +30,11 @@ class Naming(Service):
         self.scope.temps += 1
         return f"$t{self.scope.temps}"
 
-    def top_name(self, go_name, kind):
+    def top_name(self, go_name, kind, fold=False):
+        """Função, var ou const de nível de pacote (`fold`: do `$obj`)."""
         if kind == "func" and go_name == "main" and self.pkg.name == "main":
             return "main"
-        return member_name(go_name)
+        return top_member_name(go_name, fold)
 
     def boxed(self, obj):
         """Variável que mora num go.Box: endereço tomado no pacote, ou var
@@ -54,7 +55,7 @@ class Naming(Service):
     def box_name(self, obj):
         """Nome Dart da caixa (go.Box) de uma variável com `&x`."""
         if obj.get("top"):
-            return self.top_name(obj["name"], obj["kind"])
+            return self.top_name(obj["name"], obj["kind"], obj.get("fold"))
         return self.scope.locals[obj["decl"]]
 
     def local_decl(self, ident, t, init):

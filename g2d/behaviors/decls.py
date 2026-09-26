@@ -5,7 +5,7 @@ from g2d.analysis.helpers import doc_comment
 from g2d.engine.behavior import Behavior, TypeDeclBehavior
 from g2d.engine.scope import FunctionScope, TypeParams
 from g2d.model import Unsupported
-from g2d.services.naming import escape, lower_camel, member_name, type_name
+from g2d.services.naming import escape, lower_camel, member_name, top_member_name, type_name
 
 
 HEADER = (
@@ -65,7 +65,7 @@ class PackageBehavior(Behavior):
         """Um TypeSpec (de pacote ou içado de função, com `name`)."""
         if spec["typeParams"]:
             kind = self.typesys.underlying(self.pkg.type_at(spec["name"]["$obj"]["type"]))["kind"]
-            if kind not in ("struct", "slice", "map", "func"):
+            if kind not in ("struct", "slice", "map", "func", "interface"):
                 raise Unsupported(f"generico:{kind}", f"tipo genérico sobre {kind}", spec)
         if spec["assign"]:
             return []  # alias: resolvido pelo goast (tipos já expandidos)
@@ -145,7 +145,7 @@ class InitBehavior(Behavior):
         return [f"{self.top_var(ident)} = {self.values.coerce(value, t)};"]
 
     def top_var(self, ident):
-        return member_name(ident["name"]) + self.names.box_suffix(ident["$obj"])
+        return top_member_name(ident["name"], ident["$obj"].get("fold")) + self.names.box_suffix(ident["$obj"])
 
 
 class StructClass(TypeDeclBehavior):
@@ -260,12 +260,14 @@ class InterfaceClass(TypeDeclBehavior):
         return u["kind"] == "interface"
 
     def emit(self, spec, name, t, u, tidx):
-        return self.iface_class(name, u)
+        tparams = self.functions.type_params(spec["typeParams"] or self.facts.local_tparams.get(id(t)))
+        return self.iface_class(name, u, tparams.decl)
 
-    def iface_class(self, go_name, u):
+    def iface_class(self, go_name, u, tparams=""):
         """interface Go → `abstract mixin class` (métodos abstratos; interfaces
         embutidas em `implements`). Interfaces de restrição (unions) só existem
-        como bound de genéricos: nada a emitir."""
+        como bound de genéricos: nada a emitir. Genérica: `Key<K>` (sem
+        dicionários: quem implementa tem os seus)."""
         supers = []
         for e in u["embeddeds"]:
             et = self.pkg.type_at(e)
@@ -274,7 +276,7 @@ class InterfaceClass(TypeDeclBehavior):
             if et["kind"] != "named" or self.typesys.underlying(et)["kind"] != "interface":
                 return []
             supers.append(self.types.dart(et).non_null())
-        head = f"abstract mixin class {type_name(go_name)}"
+        head = f"abstract mixin class {type_name(go_name)}{tparams}"
         if supers:
             head += " implements " + ", ".join(supers)
         lines = [head + " {"]

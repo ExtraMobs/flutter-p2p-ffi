@@ -77,7 +77,7 @@ func Dump(dir string, targets ...string) (*DumpDoc, error) {
 }
 
 func newDoc() *DumpDoc {
-	return &DumpDoc{SchemaVersion: 7, Tool: "goast", GoVersion: runtime.Version()}
+	return &DumpDoc{SchemaVersion: 8, Tool: "goast", GoVersion: runtime.Version()}
 }
 
 // DumpEach é o Dump sem acumular: entrega cada pacote em ordem de import

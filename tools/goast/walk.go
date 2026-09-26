@@ -9,6 +9,7 @@ import (
 	"go/types"
 	"path/filepath"
 	"reflect"
+	"strings"
 	"unicode"
 	"unicode/utf8"
 )
@@ -60,6 +61,35 @@ type walker struct {
 	info *types.Info
 	pkg  *types.Package
 	tt   *typeTable
+	fold map[*types.Package]map[string]bool // exportados com gêmeo por caixa
+}
+
+// folded: o nome exportado de nível de pacote tem outro exportado igual a
+// ele sem diferenciar caixa (`BOOL` e `Bool`), no mesmo pacote.
+func (w *walker) folded(o types.Object) bool {
+	if !o.Exported() {
+		return false
+	}
+	set, ok := w.fold[o.Pkg()]
+	if !ok {
+		set = map[string]bool{}
+		seen := map[string]string{}
+		for _, n := range o.Pkg().Scope().Names() {
+			if !token.IsExported(n) {
+				continue
+			}
+			k := strings.ToLower(n)
+			if prev, dup := seen[k]; dup {
+				set[prev], set[n] = true, true
+			}
+			seen[k] = n
+		}
+		if w.fold == nil {
+			w.fold = map[*types.Package]map[string]bool{}
+		}
+		w.fold[o.Pkg()] = set
+	}
+	return set[o.Name()]
 }
 
 func (w *walker) walk(v reflect.Value) any {
@@ -246,6 +276,9 @@ func (w *walker) objInfo(o types.Object, def bool) jobject {
 		d = append(d, jpair{"pkg", o.Pkg().Path()})
 		if o.Parent() == o.Pkg().Scope() {
 			d = append(d, jpair{"top", true})
+			if w.folded(o) {
+				d = append(d, jpair{"fold", true})
+			}
 		}
 	}
 	if f, ok := o.(*types.Var); ok && f.Embedded() {

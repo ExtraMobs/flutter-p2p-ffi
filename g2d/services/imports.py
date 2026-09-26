@@ -6,20 +6,21 @@ from g2d.config import BUILTIN_PREFIX, BUILTIN_URI, GOLANG, GOLANG_PREFIX, GOLAN
 from g2d.engine.behavior import Service
 from g2d.graph import is_std
 from g2d.model import Unsupported
-from g2d.services.naming import escape, is_exported, member_name
+from g2d.services.naming import escape, is_exported, member_name, top_member_name
 
 
 def declared_names(pkg):
     """Nomes Dart exportados que a library declara: funções, vars e consts de
     pacote, e membros das classes dela (campos, métodos, promovidos). Um
     prefixo de import igual a um deles seria sombreado."""
-    names = set()
+    names, top = set(), set()
     for f in pkg.files:
         for d in f["ast"]["decls"] or []:
             if d["node"] == "FuncDecl" and not d["recv"]:
-                names.add(d["name"]["name"])
+                top.add(top_member_name(d["name"]["name"], d["name"]["$obj"].get("fold")))
             elif d["node"] == "GenDecl" and d["tok"] in ("var", "const"):
-                names.update(i["name"] for s in d["specs"] for i in s["names"])
+                top.update(top_member_name(i["name"], (i.get("$obj") or {}).get("fold"))
+                           for s in d["specs"] for i in s["names"])
     underlying = {t["underlying"] for t in pkg.type_table if t["kind"] == "named"}
     for i, t in enumerate(pkg.type_table):
         if t["kind"] == "named" and t["pkg"] == pkg.path:
@@ -28,7 +29,7 @@ def declared_names(pkg):
             names.update(x["name"] for x in u.get("fields") or u.get("methods") or [])
         elif t["kind"] == "struct" and i not in underlying:  # struct anônima
             names.update(x["name"] for x in t["fields"])
-    return {member_name(n) for n in names if is_exported(n)}
+    return top | {member_name(n) for n in names if is_exported(n)}
 
 
 class ImportTable(Service):

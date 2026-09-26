@@ -48,7 +48,7 @@ class Functions(Service):
                 # Receptor valor sobre `(*T)(nil)`: o auto-deref do Go dá panic.
                 prologue.insert(0, f"if ($nilPtr) {self.imports.qualify(None, 'nilDeref')}();")
         else:
-            name = self.names.top_name(d["name"]["name"], "func")
+            name = self.names.top_name(d["name"]["name"], "func", d["name"]["$obj"].get("fold"))
             if d["name"]["name"] == "init":
                 # Várias por pacote, nunca referenciadas: chamadas por $goInit.
                 name = f"_init${len(self.facts.init_funcs)}"

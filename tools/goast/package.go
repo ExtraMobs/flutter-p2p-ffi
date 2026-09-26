@@ -155,10 +155,13 @@ func methodsOrComparable(it *types.Interface) bool {
 
 // dumpImplements: para cada tipo nomeado (não-interface) de nível de pacote,
 // as interfaces com métodos que T ou *T satisfaz: as nomeadas alcançáveis
-// (pacote, imports diretos e o universo `error`) e as anônimas usadas no
-// pacote (`interface{ M() }`, já na tabela de tipos). Ordem determinística.
+// (pacote, imports diretos e o universo `error`), as instâncias de interfaces
+// genéricas alcançáveis cujos argumentos saem dos métodos de T (`Key[k8]`
+// para `Xor(k8) k8`) e as anônimas usadas no pacote (`interface{ M() }`, já
+// na tabela de tipos). Tipo genérico conta instanciado com os próprios
+// parâmetros (`KeyList[K]`). Ordem determinística.
 func dumpImplements(p *packages.Package, tt *typeTable) []jobject {
-	var ifaces []*types.Named
+	var ifaces, generic []*types.Named
 	addScope := func(scope *types.Scope, exportedOnly bool) {
 		for _, name := range scope.Names() {
 			tn, ok := scope.Lookup(name).(*types.TypeName)
@@ -166,11 +169,15 @@ func dumpImplements(p *packages.Package, tt *typeTable) []jobject {
 				continue
 			}
 			named, ok := tn.Type().(*types.Named)
-			if !ok || named.TypeParams().Len() > 0 {
+			if !ok {
 				continue
 			}
 			if it, ok := named.Underlying().(*types.Interface); ok && methodIface(it) {
-				ifaces = append(ifaces, named)
+				if named.TypeParams().Len() > 0 {
+					generic = append(generic, named)
+				} else {
+					ifaces = append(ifaces, named)
+				}
 			}
 		}
 	}
@@ -216,21 +223,40 @@ func dumpImplements(p *packages.Package, tt *typeTable) []jobject {
 			continue
 		}
 		named, ok := tn.Type().(*types.Named)
-		if !ok || named.TypeParams().Len() > 0 {
+		if !ok {
 			continue
 		}
 		if _, iface := named.Underlying().(*types.Interface); iface {
 			continue
 		}
+		var t types.Type = named
+		if tps := named.TypeParams(); tps.Len() > 0 {
+			args := make([]types.Type, tps.Len())
+			for i := range args {
+				args[i] = tps.At(i)
+			}
+			inst, err := types.Instantiate(nil, named, args, false)
+			if err != nil {
+				continue
+			}
+			t = inst
+		}
+		satisfies := func(iface *types.Interface) bool {
+			return types.Implements(t, iface) || types.Implements(types.NewPointer(t), iface)
+		}
 		var impl []any
 		for _, it := range ifaces {
-			iface := it.Underlying().(*types.Interface)
-			if types.Implements(named, iface) || types.Implements(types.NewPointer(named), iface) {
+			if satisfies(it.Underlying().(*types.Interface)) {
 				impl = append(impl, tt.ref(it))
 			}
 		}
+		for _, g := range generic {
+			if inst := instanceFor(g, t); inst != nil && satisfies(inst.Underlying().(*types.Interface)) {
+				impl = append(impl, tt.ref(inst))
+			}
+		}
 		for _, iface := range anon {
-			if types.Implements(named, iface) || types.Implements(types.NewPointer(named), iface) {
+			if satisfies(iface) {
 				impl = append(impl, tt.ref(iface))
 			}
 		}
@@ -239,6 +265,86 @@ func dumpImplements(p *packages.Package, tt *typeTable) []jobject {
 		}
 	}
 	return out
+}
+
+// instanceFor: a instância da interface genérica g que t pode satisfazer, com
+// os argumentos tirados dos métodos de t (o parâmetro de g na assinatura de
+// um método de g casa com o tipo na mesma posição no método de t), ou nil.
+func instanceFor(g *types.Named, t types.Type) *types.Named {
+	tps := g.TypeParams()
+	it := g.Underlying().(*types.Interface)
+	bind := make([]types.Type, tps.Len())
+	for i := 0; i < it.NumMethods(); i++ {
+		m := it.Method(i)
+		obj, _, _ := types.LookupFieldOrMethod(t, true, m.Pkg(), m.Name())
+		f, ok := obj.(*types.Func)
+		if !ok {
+			return nil
+		}
+		unify(m.Type(), f.Type(), tps, bind)
+	}
+	for _, b := range bind {
+		if b == nil {
+			return nil
+		}
+	}
+	inst, err := types.Instantiate(nil, g, bind, true)
+	if err != nil {
+		return nil
+	}
+	n, _ := inst.(*types.Named)
+	return n
+}
+
+// unify liga os parâmetros de tps que aparecem em p aos tipos de a na mesma
+// posição (o primeiro vínculo vale; a checagem final é do Implements).
+func unify(p, a types.Type, tps *types.TypeParamList, bind []types.Type) {
+	switch p := p.(type) {
+	case *types.TypeParam:
+		for i := 0; i < tps.Len(); i++ {
+			if tps.At(i) == p && bind[i] == nil {
+				bind[i] = a
+			}
+		}
+	case *types.Pointer:
+		if a, ok := a.(*types.Pointer); ok {
+			unify(p.Elem(), a.Elem(), tps, bind)
+		}
+	case *types.Slice:
+		if a, ok := a.(*types.Slice); ok {
+			unify(p.Elem(), a.Elem(), tps, bind)
+		}
+	case *types.Array:
+		if a, ok := a.(*types.Array); ok {
+			unify(p.Elem(), a.Elem(), tps, bind)
+		}
+	case *types.Map:
+		if a, ok := a.(*types.Map); ok {
+			unify(p.Key(), a.Key(), tps, bind)
+			unify(p.Elem(), a.Elem(), tps, bind)
+		}
+	case *types.Chan:
+		if a, ok := a.(*types.Chan); ok {
+			unify(p.Elem(), a.Elem(), tps, bind)
+		}
+	case *types.Signature:
+		if a, ok := a.(*types.Signature); ok {
+			unify(p.Params(), a.Params(), tps, bind)
+			unify(p.Results(), a.Results(), tps, bind)
+		}
+	case *types.Tuple:
+		if a, ok := a.(*types.Tuple); ok && a.Len() == p.Len() {
+			for i := 0; i < p.Len(); i++ {
+				unify(p.At(i).Type(), a.At(i).Type(), tps, bind)
+			}
+		}
+	case *types.Named:
+		if a, ok := a.(*types.Named); ok && a.Origin() == p.Origin() && a.TypeArgs().Len() == p.TypeArgs().Len() {
+			for i := 0; i < p.TypeArgs().Len(); i++ {
+				unify(p.TypeArgs().At(i), a.TypeArgs().At(i), tps, bind)
+			}
+		}
+	}
 }
 
 // dumpInitOrder: ordem de inicialização das variáveis de pacote

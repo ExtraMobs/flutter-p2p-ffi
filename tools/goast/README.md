@@ -21,11 +21,11 @@ via `go list`. Se o alvo não pertence a um módulo (ex. fixtures em
 `tests/golden/`), cai no fallback `load_loose.go` (`go/parser` + `go/types` +
 `importer.Default()`, só imports da stdlib).
 
-## Schema do JSON (`schemaVersion: 7`)
+## Schema do JSON (`schemaVersion: 8`)
 
 ```jsonc
 {
-  "schemaVersion": 7,
+  "schemaVersion": 8,
   "tool": "goast",
   "goVersion": "go1.26.5",
   "packages": [ ... ]  // ordenados por import path (determinístico)
@@ -79,11 +79,13 @@ aninhados compartilham offset inicial, ex. `g` e `g.Name`).
 | `$inst` | `Ident` | argumentos de tipo de uma instanciação de genérico (índices), de `types.Info.Instances` |
 | `$sel` | `SelectorExpr` | `{kind: field\|method\|methodExpr, recv, index, indirect}` — `index` é o caminho pelos campos embutidos |
 
-`$obj`: `{name, kind, def?, type?, decl?, pkg?, top?, embedded?, value?}`
+`$obj`: `{name, kind, def?, type?, decl?, pkg?, top?, fold?, embedded?, value?}`
 
 - `kind` ∈ `func | method | var | field | const | type | label | package | builtin | nil`;
 - `decl`: `"arquivo:offset"` da declaração — com `pkg`, identifica o objeto;
 - `def: true` na ocorrência que define; `top: true` para objetos de escopo de pacote;
+- `fold: true` no objeto exportado de escopo de pacote que tem outro exportado igual a ele sem
+  diferenciar caixa no mesmo pacote (`BOOL` e `Bool`: o g2d os distingue);
 - `pkg`: import path do pacote do objeto; para `kind: package`, o pacote importado.
 
 Valor constante: `{"kind": "string|bool|int|float", "value"}` (string já
@@ -94,15 +96,18 @@ também `"bytes": [...]` (o JSON trocaria os bytes inválidos por U+FFFD).
 `implements`: para cada tipo nomeado de nível de pacote, as interfaces com
 métodos (e no máximo `comparable` embutido; uniões não) que `T` ou `*T`
 satisfaz (`types.Implements`): as nomeadas (do
-pacote, dos imports diretos e `error`) e as anônimas usadas no pacote
-(literais `interface{...}` com métodos fora de uma declaração de tipo, em
-ordem do fonte).
+pacote, dos imports diretos e `error`), as instâncias de interfaces genéricas
+dos mesmos escopos cujos argumentos saem dos métodos de `T` (`Key[k8]` para
+`Xor(k8) k8`) e as anônimas usadas no pacote (literais `interface{...}` com
+métodos fora de uma declaração de tipo, em ordem do fonte). Tipo genérico
+entra instanciado com os próprios parâmetros (`KeyList[K]` → `sort.Interface`).
 
 Histórico: v2 moveu os tipos para dentro da AST; v3 adicionou `bytes`; v4
 adicionou `methods` e `implements`; v5 adicionou `initOrder`; v6 incluiu as
 interfaces anônimas no `implements`; v7 adicionou `otherFiles` e
 `module`, o campo `valueEnd` do `BasicLit` (go/ast 1.26) e corrigiu o `decl` de
-objetos importados no modo loose (antes caía num arquivo errado).
+objetos importados no modo loose (antes caía num arquivo errado); v8 adicionou `fold` e
+incluiu tipos genéricos e instâncias de interfaces genéricas no `implements`.
 
 ### Tabela de tipos
 

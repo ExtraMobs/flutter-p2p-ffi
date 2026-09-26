@@ -103,7 +103,7 @@ dart format out/ && dart analyze out/
 
 - **Sem novas dependências externas sem aprovação explícita do usuário.** As únicas permitidas hoje: `golang.org/x/tools` (goast), `package:analyzer` (dartast), shims Dart pontuais (`package:http`, `package:crypto`) quando um shim exigir.
 - Python: stdlib apenas (`json`, `dataclasses`, `argparse`, `unittest`).
-- Todo dump JSON carrega `schemaVersion`; bump ao mudar o schema. Atual: goast **7** (tipos inline na AST, `bytes`, method sets, `implements` com interfaces anônimas, `$inst`, `initOrder`, `otherFiles`/`module`; ver `tools/goast/README.md`), dartast **1**.
+- Todo dump JSON carrega `schemaVersion`; bump ao mudar o schema. Atual: goast **8** (tipos inline na AST, `bytes`, method sets, `implements` com interfaces anônimas e genéricas, `$inst`, `initOrder`, `otherFiles`/`module`, `fold`; ver `tools/goast/README.md`), dartast **1**.
 - Ponteiros: `dart:ffi` não é usado (não existe no JS/Wasm). Identidade de tipo: uma classe Dart por tipo Go; testes de tipo sempre com `is T` (o `runtimeType` de coleções do core difere no JS).
 - `golib_dart/fixed_types` e os ports de `net`/`net/netip`/`internal/poll` vieram do boilerplate do `dart IPFS`; correções feitas aqui ficam listadas em `golib_dart/README.md` para devolver à origem.
 - Construção Go não coberta → `Unsupported(código, mensagem, nó)` com código estável (`área` ou `área:detalhe`, ex. `range:func`, `shim-ausente:errors`) e posição (a do nó, ou a da declaração em emissão); nunca emitir Dart aproximado em silêncio. Limites conhecidos ficam marcados ⚠️ em `docs/mapping-spec.md` e com `ponytail:` no código.

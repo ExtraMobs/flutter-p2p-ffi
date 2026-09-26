@@ -4,7 +4,7 @@ gravam em `engine.facts`)."""
 from g2d.analysis.helpers import has_recover, pos_key
 from g2d.config import BUILTIN_PREFIX, GOLANG_PREFIX
 from g2d.engine.behavior import Analysis
-from g2d.services.naming import member_name, type_name
+from g2d.services.naming import top_member_name, type_name
 
 
 class ImplementsAnalysis(Analysis):
@@ -35,10 +35,10 @@ class TopNamesAnalysis(Analysis):
         names.update({BUILTIN_PREFIX, GOLANG_PREFIX})
         for d in decls:
             if d["node"] == "FuncDecl" and not d["recv"]:
-                names.add(self.names.top_name(d["name"]["name"], "func"))
+                names.add(self.names.top_name(d["name"]["name"], "func", d["name"]["$obj"].get("fold")))
             elif d["node"] == "GenDecl" and d["tok"] in ("var", "const"):
                 for spec in d["specs"]:
-                    names.update(member_name(i["name"]) for i in spec["names"])
+                    names.update(top_member_name(i["name"], (i.get("$obj") or {}).get("fold")) for i in spec["names"])
             elif d["node"] == "GenDecl" and d["tok"] == "type":
                 names.update(type_name(s["name"]["name"]) for s in d["specs"])
 

@@ -18,8 +18,8 @@ func TestDumpHello(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Dump: %v", err)
 	}
-	if doc.SchemaVersion != 7 {
-		t.Errorf("schemaVersion = %d, esperado 7", doc.SchemaVersion)
+	if doc.SchemaVersion != 8 {
+		t.Errorf("schemaVersion = %d, esperado 8", doc.SchemaVersion)
 	}
 	if len(doc.Packages) != 1 {
 		t.Fatalf("packages = %d, esperado 1", len(doc.Packages))

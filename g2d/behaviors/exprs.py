@@ -4,7 +4,7 @@ from g2d.analysis.helpers import has_recover
 from g2d.engine.behavior import NOT_HANDLED, ExprBehavior
 from g2d.engine.precedence import DART_PREC, NON_ASSOC, POSTFIX, UNARY
 from g2d.model import Unsupported
-from g2d.services.naming import escape, lower_camel, member_name, type_name
+from g2d.services.naming import escape, lower_camel, member_name, top_member_name, type_name
 
 
 class Ident(ExprBehavior):
@@ -22,8 +22,9 @@ class Ident(ExprBehavior):
             return "null"
         if kind in ("var", "func", "const") and obj.get("top"):
             if obj["pkg"] != self.pkg.path:
-                return self.imports.qualify(obj["pkg"], member_name(obj["name"])) + self.names.box_suffix(obj)
-            return self.names.top_name(obj["name"], kind) + self.names.box_suffix(obj)
+                return (self.imports.qualify(obj["pkg"], top_member_name(obj["name"], obj.get("fold")))
+                        + self.names.box_suffix(obj))
+            return self.names.top_name(obj["name"], kind, obj.get("fold")) + self.names.box_suffix(obj)
         if kind == "var":
             if self.scope and obj.get("decl") == self.scope.recv:
                 return "this"
@@ -155,7 +156,8 @@ class UnaryExpr(ExprBehavior):
             return self.names.box_name(x["$obj"]), POSTFIX  # a caixa (BoxingAnalysis garantiu)
         if x["node"] == "SelectorExpr" and (x["x"].get("$obj") or {}).get("kind") == "package":
             # `&a.X`: var exportada de outro pacote sempre mora numa caixa.
-            return self.imports.qualify(x["x"]["$obj"]["pkg"], member_name(x["sel"]["name"])), POSTFIX
+            sel = x["sel"]
+            return self.imports.qualify(x["x"]["$obj"]["pkg"], top_member_name(sel["name"], sel["$obj"].get("fold"))), POSTFIX
         xt = self.pkg.type_of(x)
         view = (lambda p: f"{self.types.ptr_view(xt)}({p})") if self.typesys.ptr_class(xt) else (lambda p: p)
         if x["node"] == "IndexExpr" and self.typesys.underlying(self.pkg.type_of(x["x"]))["kind"] in ("slice", "array"):
@@ -191,7 +193,7 @@ class SelectorExpr(ExprBehavior):
         xobj = x.get("$obj") if x["node"] == "Ident" else None
         if xobj and xobj["kind"] == "package":
             obj = n["sel"]["$obj"]
-            name = type_name(sel) if obj["kind"] == "type" else member_name(sel)
+            name = type_name(sel) if obj["kind"] == "type" else top_member_name(sel, obj.get("fold"))
             return self.imports.qualify(xobj["pkg"], name) + self.names.box_suffix(obj), POSTFIX + 1
         info = n.get("$sel")
         if info is None:

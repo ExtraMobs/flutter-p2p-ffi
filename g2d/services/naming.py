@@ -86,6 +86,17 @@ def member_name(name):
     return dart + "$" if dart in DART_BASE_MEMBERS else dart
 
 
+def top_member_name(name, fold=False):
+    """Função, var ou const de nível de pacote. `fold` (goast): o pacote
+    exporta outro nome igual a este sem diferenciar caixa (`BOOL` e `Bool`).
+    O que perderia a caixa de mais de uma letra no lowerCamel (`BOOL` →
+    `bool`, igual ao de `Bool`) mantém a grafia Go; dois nomes assim nunca
+    colidem entre si, nem com um lowerCamel (começa minúsculo)."""
+    if fold and is_exported(name) and lower_camel(name) != name[:1].lower() + name[1:]:
+        return ascii_name(name)
+    return member_name(name)
+
+
 def type_name(name):
     """Tipos: exportado mantém o nome; não exportado ganha `_` e `$`. `Golang`
     é o prefixo dos tipos fixos."""

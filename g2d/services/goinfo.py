@@ -69,7 +69,7 @@ class GoTypeInfo(Service):
             if it["pkg"] == "" and it["name"] == "error":
                 names.append(self.imports.qualify(None, "GoError"))
             elif self.imports.transpiled(it["pkg"]) or (it["pkg"], it["name"]) in SHIM_INTERFACES:
-                names.append(self.imports.qualify(it["pkg"], type_name(it["name"])))
+                names.append(self.types.dart(it).non_null())  # com argumentos: `Key<k8>`
         t = self.pkg.type_at(tidx)
         for m in t.get("methods") or []:
             if methods is not None and m["name"] not in methods:

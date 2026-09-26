@@ -106,7 +106,8 @@ Legenda: ✅ fiel · ⚠️ fiel no caso comum, com limite conhecido · ❌ não
 |---|---|---|
 | tipo exportado `Greeter` | `Greeter` (tipo `Golang` → `Golang$`) | |
 | tipo não exportado `point` | `_point$`: o `$` separa do membro não exportado `_point` (campo embutido, campo ou método com o nome do tipo sombreariam a classe; fixture `embedprivate`) | |
-| func/var/const/campo/método exportado `HTTPServer` | `httpServer` (lowerCamel ciente de siglas) | ⚠️ `FOO` e `Foo` no mesmo escopo colidem |
+| func/var/const/campo/método exportado `HTTPServer` | `httpServer` (lowerCamel ciente de siglas) | ✅ |
+| func/var/const de pacote exportados que só diferem por caixa (`BOOL`/`Bool`, `FOO`/`Foo`) | o goast marca `fold` nos dois (também quando usados de outro pacote); o que perde a caixa de mais de uma letra no lowerCamel mantém a grafia Go (`BOOL`), o outro segue a regra (`bool$`). Nomes assim nunca colidem entre si nem com um lowerCamel | ✅ (fixture `foldnames`). ⚠️ campos/métodos: sem ocorrência no grafo do kubo, colidiriam |
 | idem não exportado `add` | `_add` (privado da library = do pacote) | |
 | local/parâmetro | nome Go; se repetido na função ou igual a um nome de library → `x$1` | |
 | palavra reservada Dart (`new`, `in`, ...) | sufixo `$` (`new$`) | |
@@ -437,8 +438,15 @@ métodos da classe. As conversões usam os construtores:
   (`List<T> extends go.Slice<T>`, `Mapper<T>` chamável), construtor
   `Set($T, v)`; `*Set[T]` com métodos → `Set$Ptr<T>`, que lê os dicionários do
   valor apontado e cria a sentinela nil no uso (estático não vê `T`). Fixture
-  `genericnamed`. Genérico sobre básico/array/interface → `generico:<kind>`
-  (`TODO/P1-construcao-interface-generica.md`).
+  `genericnamed`. Genérico sobre básico/array → `generico:<kind>`.
+- Interfaces genéricas: `abstract mixin class Key<K>`; como constraint,
+  bound F-limitado (`K extends Key<K>`, `N extends NodeID<K>`). Quem
+  implementa declara a instância (`implements Key<k8>`), que o goast deduz
+  casando os métodos da interface com os do tipo (o parâmetro na assinatura
+  de `Xor(K) K` liga ao tipo na mesma posição de `Xor(k8) k8`) entre as
+  interfaces genéricas do pacote e dos imports diretos. Tipo genérico
+  implementa com os próprios parâmetros (`List<K> implements sort.Interface`,
+  `_lru$<K, V> implements Cache<K, V>`). Fixture `genericiface`.
 
 **Arrays.** `go.GoArray<T>` estende `go.GoValue`, como `GoStruct`: cópia em
 atribuição, argumento e range; `$set` in-place; `==`/hash elemento a elemento
