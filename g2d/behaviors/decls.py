@@ -63,8 +63,10 @@ class PackageBehavior(Behavior):
 
     def type_spec(self, spec, name, doc):
         """Um TypeSpec (de pacote ou içado de função, com `name`)."""
-        if spec["typeParams"] and self.typesys.underlying(self.pkg.type_at(spec["name"]["$obj"]["type"]))["kind"] != "struct":
-            raise Unsupported("generico-nao-struct", "tipo genérico não-struct", spec)
+        if spec["typeParams"]:
+            kind = self.typesys.underlying(self.pkg.type_at(spec["name"]["$obj"]["type"]))["kind"]
+            if kind not in ("struct", "slice", "map", "func"):
+                raise Unsupported(f"generico:{kind}", f"tipo genérico sobre {kind}", spec)
         if spec["assign"]:
             return []  # alias: resolvido pelo goast (tipos já expandidos)
         tidx = spec["name"]["$obj"]["type"]
@@ -308,18 +310,23 @@ class NonStructNamed(TypeDeclBehavior):
         """`final class N$Ptr extends go.PtrView<N>`, se N tem métodos."""
         if not self.typesys.ptr_class(t):
             return []
-        n = self.types.dart(t).non_null()
-        cls = f"{n.name}$Ptr"
+        tps = self.facts.class_tparams
+        base = self.types.dart(t).non_null().name
+        n = base + (f"<{', '.join(tps.names)}>" if tps.names else "")  # N ou N<T>
+        cls = f"{base}$Ptr"
         impl = self.goinfo.implements_clause(tidx)
-        head = f"final class {cls} extends {self.imports.qualify(None, 'PtrView')}<{n}>"
+        head = f"final class {cls}{tps.decl} extends {self.imports.qualify(None, 'PtrView')}<{n}>"
         names = ", ".join(f"'{m}'" for m in self.goinfo.method_names(t, False))
         lines = ["", "/// `*" + self.goinfo.go_type_name(t) + "`: vista sobre qualquer ponteiro para o valor.",
                  head + (" implements " + ", ".join(impl) if impl else "") + " {",
-                 f"{cls}(super.$p);", "",
-                 "/// `(*N)(nil)` dentro de uma interface (não é nil no Go).",
-                 f"static final {cls} $nil = {cls}(const {self.imports.qualify(None, 'NilPtr')}<{n}>());", "",
-                 "@override", f"String get $goType => '*{self.goinfo.go_type_name(t)}';",
-                 "@override", f"List<String> get $methods => const [{names}];"]
+                 f"{cls}(super.$p);", ""]
+        if not tps.names:  # genérico: estático não usa T; a sentinela é criada no uso
+            lines += ["/// `(*N)(nil)` dentro de uma interface (não é nil no Go).",
+                      f"static final {cls} $nil = {cls}(const {self.imports.qualify(None, 'NilPtr')}<{n}>());", ""]
+        # Dicionários do genérico: os do valor apontado (sempre um N, mesmo nil).
+        lines += [f"{self.imports.qualify(None, 'Elem')}<{tn}> get ${tn} => $p.value.${tn};" for tn in tps.names]
+        lines += ["@override", f"String get $goType => '*{self.goinfo.go_type_name(t)}';",
+                  "@override", f"List<String> get $methods => const [{names}];"]
         for m in t["methods"]:
             if m["ptr"]:
                 continue
@@ -341,21 +348,34 @@ class NamedCompositeClass(NonStructNamed):
         return self.typesys.named_composite(t)
 
     def emit(self, spec, name, t, u, tidx):
+        self.facts.class_tparams = self.functions.type_params(spec["typeParams"])
+        try:
+            return self.named_composite_class(spec, name, t, u, tidx)
+        finally:
+            self.facts.class_tparams = TypeParams()
+
+    def named_composite_class(self, spec, name, t, u, tidx):
+        """Genérico (`type Set[T comparable] map[T]struct{}`): `Set<T>` com os
+        dicionários `$T` como primeiros parâmetros do construtor."""
+        tps = self.facts.class_tparams
         cls, ud = type_name(name), self.types.dart(u)
+        dict_fields = [f"final {self.imports.qualify(None, 'Elem')}<{n}> ${n};" for n in tps.names]
+        dict_params = "".join(f"this.${n}, " for n in tps.names)
         value_ms, ptr_ms = self.split_methods(name)
         impl = self.value_implements(t, tidx) + [self.types.golang("GoTyped")]
+        head = cls + tps.decl
         if u["kind"] == "func":
             ft = ud.non_null()
             params = ", ".join(f"{p} p{i}" for i, p in enumerate(ft.params))
             args = ", ".join(f"p{i}" for i in range(len(ft.params)))
-            lines = [f"final class {cls} implements {', '.join(impl)} {{",
-                     f"{cls}(this.$f);", "",
+            lines = [f"final class {head} implements {', '.join(impl)} {{",
+                     f"{cls}({dict_params}this.$f);", ""] + dict_fields + [
                      f"final {ft.as_nullable()} $f;", "",
                      "/// `f == nil`.", "bool get isNil => $f == null;", "",
                      f"{ft.returns} call({params}) => $f!({args});", ""]
         else:
-            lines = [f"final class {cls} extends {ud} implements {', '.join(impl)} {{",
-                     f"{cls}({ud} v) : super.alias(v);", ""]
+            lines = [f"final class {head} extends {ud} implements {', '.join(impl)} {{",
+                     f"{cls}({dict_params}{ud} v) : super.alias(v);", ""] + dict_fields
         return lines + self.class_tail(t, tidx, value_ms) + self.ptr_class(t, tidx, ptr_ms)
 
 

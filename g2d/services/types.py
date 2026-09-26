@@ -38,7 +38,7 @@ class TypeMapper(Service):
             if self.typesys.is_value(elem):
                 return self.dart(elem).as_nullable()  # struct/array é o próprio endereço
             if self.typesys.ptr_class(elem):
-                return DartType(self.dart(elem).name + "$Ptr", nullable=True)
+                return self.ptr_view(elem).as_nullable()
             return DartType(self.imports.qualify(None, "Ptr"), (self.dart(elem),), nullable=True)
         if k == "slice":
             return DartType(self.imports.qualify(None, "Slice"), (self.dart(t["elem"]),))
@@ -77,7 +77,11 @@ class TypeMapper(Service):
     def wrap(self, t, text):
         """Valor do subjacente (go.Slice, go.GoMap, função) visto como o tipo
         nomeado t, se t for classe gerada sobre ele (mesmo armazenamento)."""
-        return f"{self.dart(t)}({text})" if self.typesys.named_composite(t) else text
+        if not self.typesys.named_composite(t):
+            return text
+        # Genérico (`Set[string]`): os dicionários vêm antes, como nas structs.
+        dicts = "".join(f"{self.descriptors.elem(a)}, " for a in t.get("args") or [])
+        return f"{self.dart(t)}({dicts}{text})"
 
     def box(self, t, init):
         """(tipo Dart, expressão) da caixa de uma variável com `&x`; `*N` com
@@ -86,8 +90,14 @@ class TypeMapper(Service):
         dt = self.dart(t)
         text = f"{box}<{dt}>({init})"
         if self.typesys.ptr_class(t):
-            return f"{dt.name}$Ptr", f"{dt.name}$Ptr({text})"
+            pv = self.ptr_view(t)
+            return pv, f"{pv}({text})"
         return f"{box}<{dt}>", text
+
+    def ptr_view(self, t):
+        """`N$Ptr` (com os argumentos de tipo de N, se genérico)."""
+        dt = self.dart(t)
+        return DartType(dt.name + "$Ptr", dt.args)
 
     def golang(self, cls):
         """Nome qualificado de uma classe de fixed_types (registra o import)."""

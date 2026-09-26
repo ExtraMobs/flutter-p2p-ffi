@@ -40,8 +40,10 @@ class ValueSemantics(Service):
             elem = self.pkg.type_at(src["elem"])
             if self.typesys.is_struct(elem) and not elem.get("args"):
                 nil = f"{self.types.dart(elem)}.$nil"
-            elif self.typesys.ptr_class(elem):
+            elif self.typesys.ptr_class(elem) and not elem.get("args"):
                 nil = f"{self.types.dart(src).non_null()}.$nil"
+            elif self.typesys.ptr_class(elem):  # genérico: sem estático, instância nova
+                nil = f"{self.types.ptr_view(elem)}(const {self.imports.qualify(None, 'NilPtr')}<{self.types.dart(elem)}>())"
             elif not self.typesys.is_value(elem):
                 nil = f"const {self.imports.qualify(None, 'NilPtr')}<{self.types.dart(elem)}>()"
             else:
@@ -69,7 +71,7 @@ class ValueSemantics(Service):
         else:
             text, prec = self.expr_prec(n)
         if self.typesys.named_composite(target):
-            return f"{self.types.dart(target)}({text})", POSTFIX
+            return self.types.wrap(target, text), POSTFIX
         return text, prec
 
     def copy_text(self, text, t):

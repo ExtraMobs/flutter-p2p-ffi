@@ -396,6 +396,12 @@ métodos da classe. As conversões usam os construtores:
   `((Golang.Int p0) => f<Golang.Int>(_$e0, p0))` (fixture `explicitinst`).
 - Structs genéricas: `class Stack<T> extends go.GoStruct<Stack<T>>`, com os
   dicionários como primeiros parâmetros do construtor.
+- Genéricos sobre slice/map/func: `final class Set<T> extends go.GoMap<T, ...>`
+  (`List<T> extends go.Slice<T>`, `Mapper<T>` chamável), construtor
+  `Set($T, v)`; `*Set[T]` com métodos → `Set$Ptr<T>`, que lê os dicionários do
+  valor apontado e cria a sentinela nil no uso (estático não vê `T`). Fixture
+  `genericnamed`. Genérico sobre básico/array/interface → `generico:<kind>`
+  (`TODO/P1-construcao-interface-generica.md`).
 
 **Arrays.** `go.GoArray<T>` estende `go.GoValue`, como `GoStruct`: cópia em
 atribuição, argumento e range; `$set` in-place; `==`/hash elemento a elemento

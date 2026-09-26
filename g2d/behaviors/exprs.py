@@ -147,7 +147,7 @@ class UnaryExpr(ExprBehavior):
             # `&a.X`: var exportada de outro pacote sempre mora numa caixa.
             return self.imports.qualify(x["x"]["$obj"]["pkg"], member_name(x["sel"]["name"])), POSTFIX
         xt = self.pkg.type_of(x)
-        view = (lambda p: f"{self.types.dart(xt).name}$Ptr({p})") if self.typesys.ptr_class(xt) else (lambda p: p)
+        view = (lambda p: f"{self.types.ptr_view(xt)}({p})") if self.typesys.ptr_class(xt) else (lambda p: p)
         if x["node"] == "IndexExpr" and self.typesys.underlying(self.pkg.type_of(x["x"]))["kind"] in ("slice", "array"):
             return view(f"{self.expr(x['x'], POSTFIX)}.addr({self.operands.to_int(x['index'])})"), POSTFIX
         if x["node"] == "SelectorExpr" and x.get("$sel", {}).get("kind") == "field":

@@ -93,7 +93,7 @@ class TypeSystem(Service):
     def named_composite(self, t):
         """Tipo nomeado (de pacote transpilado) sobre slice/map/func: classe
         gerada — subclasse de go.Slice/go.GoMap, ou função chamável (`$f`)."""
-        return (t is not None and t["kind"] == "named" and self.imports.transpiled(t["pkg"]) and not t.get("args")
+        return (t is not None and t["kind"] == "named" and self.imports.transpiled(t["pkg"])
                 and self.underlying(t)["kind"] in ("slice", "map", "func"))
 
     def named_func(self, t):
@@ -107,7 +107,7 @@ class TypeSystem(Service):
         return (t is not None and t["kind"] == "named" and self.imports.transpiled(t["pkg"])
                 and bool(t.get("methods"))
                 and self.underlying(t)["kind"] not in ("struct", "interface", "array")
-                and (id(t) in self.pointed_named or self.exported(t["pkg"], t["name"])))
+                and ((t["pkg"], t["name"]) in self.pointed_named or self.exported(t["pkg"], t["name"])))
 
     def exported(self, pkg_path, name):
         """Nome visível de outro pacote: exportado e de pacote importável
@@ -116,10 +116,12 @@ class TypeSystem(Service):
 
     @property
     def pointed_named(self):
-        """ids dos descritores nomeados N para os quais `*N` está na typeTable."""
+        """(pacote, nome) dos N para os quais `*N` está na typeTable (por nome:
+        as instâncias de um genérico são descritores distintos)."""
         if not hasattr(self, "_pointed"):
-            self._pointed = {id(self.pkg.type_at(t["elem"])) for t in self.pkg.type_table
-                             if t["kind"] == "pointer"}
+            self._pointed = {(e.get("pkg"), e.get("name")) for e in
+                             (self.pkg.type_at(t["elem"]) for t in self.pkg.type_table if t["kind"] == "pointer")
+                             if e["kind"] == "named"}
         return self._pointed
 
     def identity_keys(self, t):
