@@ -125,6 +125,7 @@ Legenda: ✅ fiel · ⚠️ fiel no caso comum, com limite conhecido · ❌ não
 | nomeado sobre básico (`type Celsius float64`) | `final class Celsius extends Golang.FloatBase<Celsius>` | `Celsius()` |
 | interface nomeada | `abstract mixin class I` (anulável: `I?`) | `null` |
 | parâmetro de tipo `T` | `T` (dicionário `go.Elem<T> $T`) | `$T.zero()` |
+| nomeado sobre array (`type Hash [32]byte`) | `final class Hash extends go.GoArray<Golang.Uint8>` (`Hash(go.GoArray...)` via `alias`); array é valor como struct, então os métodos de receptor ponteiro também ficam na classe e `Hash.$nil` é a sentinela; `[32]byte(h)` → `go.GoArray<...>.alias(h)` (tipo dinâmico sem nome). Fixture `namedarray` | `Hash(go.GoArray<...>.zero(32, _$eN))` |
 | nomeado sobre slice/map (`type IDs []string`) | `final class IDs extends go.Slice<Golang.String>` (idem `go.GoMap`); conversão/atribuição = `IDs(s)` via `Slice.alias` (mesmo array) | `IDs(go.Slice<...>.nil(_$eN))` |
 | nomeado sobre func (`type Op func(int) int`) | `final class Op` chamável: `$f` (anulável), `call(...)`, `isNil`; `Op(fn)` / `op.$f` nas atribuições entre nomeado e não nomeado | `Op(null)` |
 | `*N`, N nomeado não-struct com métodos e `*N` usado no pacote | `N$Ptr?`: `final class N$Ptr extends go.PtrView<N>` (vista sobre `go.Box`/`ElemPtr`/`FieldPtr`) com os métodos de receptor ponteiro, forwarders dos de valor e as interfaces de `*N` | `null` |
@@ -252,6 +253,7 @@ criado com `identity: true` (`Map.identity()`), então compara endereços.
 | shift | a contagem vira `int` por `go.shiftCount` (negativa → panic) |
 | `x++`, `x op= y` | `x += Golang.T(1)`, `x op= y` (`/=` → `~/=`; `&^=` → `x = x.andNot(y)`) |
 | `m[k] op= y`, `s[i] &^= y`, `x.f &^= y` (sem operador Dart equivalente) | leitura e escrita: `m[k] = m[k] << n`, `s[i] = s[i].andNot(y)`; só com alvo puro (identificadores, constantes, campos, índices), senão `Unsupported` `opassign-impuro` (o Go avalia o alvo uma vez). Fixture `opassign` |
+| `any(x)`, `I(x)` (conversão explícita para interface) | o mesmo `coerce` da atribuição a interface |
 | `B(a)` com structs de mesmos campos (tags não contam; nomeadas ou anônimas) | `switch (<cópia de a>) { final $t => B(x: $t._x, ...) }`. Fixture `structconv`. Conversão não suportada: `Unsupported` `conversao:<de>-<para>` (categoria básica ou kind do subjacente, `named-` se nomeado) |
 | conversões numéricas | inteiro → inteiro `T.from(x)` (trunca os 64 bits `$hi`/`$lo`); inteiro → float `Float64.fromInt64(Int64.from(x))` (arredondamento único); float → inteiro `T.from(f.toInteger(w, signed: s))` pelas regras do gc/amd64 (`toInteger`) |
 | `len(s)`, `s[i]`, `s[a:b]` em string | `Golang.Int(s.length)` (como índice ou contagem, só `s.length`: `Operands.dart_length`), `Golang.Uint8(s[i])`, `s.slice(a, b)` (bytes) |

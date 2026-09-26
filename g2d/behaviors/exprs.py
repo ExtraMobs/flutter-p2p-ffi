@@ -301,7 +301,7 @@ class CompositeLit(ExprBehavior):
         if u["kind"] in ("slice", "array"):
             elem = self.pkg.type_at(u["elem"])
             items = ", ".join(self.indexed(elts, elem, u.get("len")))
-            lit = f"{self.types.dart(t if u['kind'] == 'array' else u)}.of([{items}], {self.descriptors.elem(elem)})"
+            lit = f"{self.types.dart(u)}.of([{items}], {self.descriptors.elem(elem)})"
             return self.types.wrap(t, lit), POSTFIX
         if u["kind"] == "map":
             kt, vt = self.pkg.type_at(u["key"]), self.pkg.type_at(u["elem"])

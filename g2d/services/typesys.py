@@ -91,10 +91,11 @@ class TypeSystem(Service):
         return t is not None and (self.is_struct(t) or self.underlying(t)["kind"] == "array")
 
     def named_composite(self, t):
-        """Tipo nomeado (de pacote transpilado) sobre slice/map/func: classe
-        gerada — subclasse de go.Slice/go.GoMap, ou função chamável (`$f`)."""
+        """Tipo nomeado (de pacote transpilado) sobre slice/map/func/array:
+        classe gerada — subclasse de go.Slice/go.GoMap/go.GoArray, ou função
+        chamável (`$f`)."""
         return (t is not None and t["kind"] == "named" and self.imports.transpiled(t["pkg"])
-                and self.underlying(t)["kind"] in ("slice", "map", "func"))
+                and self.underlying(t)["kind"] in ("slice", "map", "func", "array"))
 
     def named_func(self, t):
         return self.named_composite(t) and self.underlying(t)["kind"] == "func"

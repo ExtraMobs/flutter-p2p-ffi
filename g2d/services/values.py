@@ -72,6 +72,9 @@ class ValueSemantics(Service):
             text, prec = self.expr_prec(n)
         if self.typesys.named_composite(target):
             return self.types.wrap(target, text), POSTFIX
+        if self.typesys.underlying(target)["kind"] == "array":
+            # `[4]byte(h)`: o tipo dinâmico deixa de ser Hash (interface, %T).
+            return f"{self.types.dart(target)}.alias({text})", POSTFIX
         return text, prec
 
     def copy_text(self, text, t):

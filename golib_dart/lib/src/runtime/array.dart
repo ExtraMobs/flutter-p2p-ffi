@@ -12,8 +12,14 @@ import 'struct.dart';
 /// Atribuir/passar copia os elementos ([$copy]); `a = b` sobrescreve in-place
 /// ([$set]); `==` compara elemento a elemento (serve de chave de map);
 /// `a[i:j]` devolve um [Slice] que compartilha o armazenamento do array.
-final class GoArray<T> extends GoValue<GoArray<T>> {
+///
+/// Tipo nomeado sobre array (`type Hash [32]byte`) é uma subclasse gerada:
+/// `final class Hash extends GoArray<Uint8>`, construída com [GoArray.alias].
+base class GoArray<T> extends GoValue<GoArray<T>> {
   GoArray._(this._items, this.elem);
+
+  /// Mesmo armazenamento de [v] (o tipo nomeado embrulha o array).
+  GoArray.alias(GoArray<T> v) : _items = v._items, elem = v.elem;
 
   /// Zero value: N zeros.
   GoArray.zero(int n, this.elem)
@@ -88,8 +94,11 @@ final class GoArray<T> extends GoValue<GoArray<T>> {
 
   @override
   bool operator ==(Object other) {
-    if (other is! GoArray<T> || other._items.length != _items.length)
-      return false;
+    if (other is! GoArray<T> ||
+        other._items.length != _items.length ||
+        other.$goType != $goType) {
+      return false; // tipos nomeados distintos numa interface não são iguais
+    }
     for (var i = 0; i < _items.length; i++) {
       if (_items[i] != other._items[i]) return false;
     }

@@ -195,6 +195,17 @@ class StructToStruct(ConversionBehavior):
         return f"switch ({src}) {{ final {tmp} => {self.types.dart(c.to_t).non_null()}({', '.join(args)}) }}", POSTFIX
 
 
+class ToInterface(ConversionBehavior):
+    """`any(x)`, `I(x)`: o mesmo que atribuir x a uma interface (`coerce`:
+    struct/array por valor vai copiada, ponteiro nil tipado vira sentinela)."""
+
+    def accepts(self, c):
+        return self.typesys.underlying(c.to_t)["kind"] == "interface" and (c.frm is None or c.frm.cat != "nil")
+
+    def emit(self, c):
+        return self.values.coerce(c.arg, c.to_t), POSTFIX
+
+
 class FromNil(ConversionBehavior):
     """`T(nil)` (slice, map, ponteiro, func, interface): o zero value de T."""
 
@@ -240,5 +251,5 @@ class StringSlice(ConversionBehavior):
 
 # Ordem de registro = prioridade crescente (a cadeia tenta do último ao
 # primeiro): a identidade vence tudo, como no emissor original.
-CONVERSIONS = [FromNil, StringSlice, StructToStruct, Retype, IntToString, StringToString, ComplexToComplex, FloatToFloat, FloatToInt,
+CONVERSIONS = [FromNil, ToInterface, StringSlice, StructToStruct, Retype, IntToString, StringToString, ComplexToComplex, FloatToFloat, FloatToInt,
                IntToFloat, IntToInt, SameUnderlying, ToTypeParam, Identity]

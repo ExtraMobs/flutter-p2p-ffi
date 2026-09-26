@@ -120,7 +120,8 @@ class FmtVerbCheck(ExprBehavior):
         if k == "pointer":
             return "struct*" if self.typesys.is_struct(self.pkg.type_at(u["elem"])) else "ponteiro"
         if k in ("slice", "array", "map"):
-            return "composto"
+            # Classe nomeada gerada tem `$goType` (%T, %!(EXTRA ...) funcionam).
+            return "nomeado" if self.typesys.named_composite(t) else "composto"
         if k in ("func", "chan", "struct"):
             return k
         return None  # interface, typeparam

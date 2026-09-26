@@ -359,6 +359,8 @@ class NamedCompositeClass(NonStructNamed):
         dicionários `$T` como primeiros parâmetros do construtor."""
         tps = self.facts.class_tparams
         cls, ud = type_name(name), self.types.dart(u)
+        if u["kind"] == "array":
+            return self.named_array_class(spec, name, t, u, tidx, cls, ud)
         dict_fields = [f"final {self.imports.qualify(None, 'Elem')}<{n}> ${n};" for n in tps.names]
         dict_params = "".join(f"this.${n}, " for n in tps.names)
         value_ms, ptr_ms = self.split_methods(name)
@@ -377,6 +379,28 @@ class NamedCompositeClass(NonStructNamed):
             lines = [f"final class {head} extends {ud} implements {', '.join(impl)} {{",
                      f"{cls}({dict_params}{ud} v) : super.alias(v);", ""] + dict_fields
         return lines + self.class_tail(t, tidx, value_ms) + self.ptr_class(t, tidx, ptr_ms)
+
+
+    def named_array_class(self, spec, name, t, u, tidx, cls, ud):
+        """`type Hash [32]byte` → `final class Hash extends go.GoArray<Uint8>`
+        (mesmo armazenamento via `alias`). Array é valor, como struct: o
+        objeto é o próprio endereço, então os métodos de receptor ponteiro
+        também ficam na classe (sem `N$Ptr`)."""
+        if self.facts.class_tparams.names:
+            raise Unsupported("generico:array", "tipo genérico sobre array", spec)
+        ms = self.facts.methods.pop(name, [])
+        impl = self.goinfo.implements_clause(tidx)
+        vm = ", ".join(f"'{n}'" for n in self.goinfo.method_names(t, True))
+        lines = [f"final class {cls} extends {ud}" + (" implements " + ", ".join(impl) if impl else "") + " {",
+                 f"{cls}({ud} v) : super.alias(v);", "",
+                 "/// `(*T)(nil)` dentro de uma interface (não é nil no Go).",
+                 f"static final {cls} $nil = {cls}({self.types.zero(u)})..$nilPtr = true;", "",
+                 "@override", f"{cls} $copy() => {cls}(super.$copy());", "",
+                 "@override", f"String get $goType => '{self.goinfo.go_type_name(t)}';",
+                 "@override", f"List<String> get $methods => const [{vm}];"]
+        for m in ms:
+            lines += [""] + self.functions.func_decl(m)
+        return lines + ["}"]
 
 
 class NamedClass(NonStructNamed):
