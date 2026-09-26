@@ -209,7 +209,7 @@ class SelectorExpr(ExprBehavior):
                 and self.typesys.is_struct_pointer(t) and self.calls.ptr_method(t, sel)):
             # Método com receptor ponteiro aceita ponteiro nil: sentinela.
             elem = self.pkg.type_at(t["elem"])
-            if not elem.get("args"):
+            if not self.typesys.type_args(elem):
                 return f"({recv} ?? {self.types.dart(elem)}.$nil).{member_name(sel)}", POSTFIX
         # Ponteiro ou interface nil → panic do Go (via `!`).
         if recv != "this" and (t["kind"] == "pointer" or self.typesys.underlying(t)["kind"] == "interface"):
@@ -306,7 +306,7 @@ class CompositeLit(ExprBehavior):
                     continue
                 ftype = next(self.pkg.type_at(f["type"]) for f in fields if f["name"] == fname)
                 args.append(f"{escape(lower_camel(fname.lstrip('_')))}: {self.values.coerce(val, ftype)}")
-            args = [self.descriptors.elem(a) for a in t.get("args") or []] + args
+            args = [self.descriptors.elem(a) for a in self.typesys.type_args(t)] + args
             return f"{self.types.dart(t)}({', '.join(args)})", POSTFIX
         if u["kind"] in ("slice", "array"):
             elem = self.pkg.type_at(u["elem"])

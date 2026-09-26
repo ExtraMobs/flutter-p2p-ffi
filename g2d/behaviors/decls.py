@@ -155,7 +155,8 @@ class StructClass(TypeDeclBehavior):
         return u["kind"] == "struct"
 
     def emit(self, spec, name, t, u, tidx):
-        self.facts.class_tparams = self.functions.type_params(spec["typeParams"])
+        tparams = spec["typeParams"] or self.facts.local_tparams.get(id(t))
+        self.facts.class_tparams = self.functions.type_params(tparams)
         try:
             return self.struct_class(name, u, tidx)
         finally:
@@ -348,7 +349,8 @@ class NamedCompositeClass(NonStructNamed):
         return self.typesys.named_composite(t)
 
     def emit(self, spec, name, t, u, tidx):
-        self.facts.class_tparams = self.functions.type_params(spec["typeParams"])
+        tparams = spec["typeParams"] or self.facts.local_tparams.get(id(t))
+        self.facts.class_tparams = self.functions.type_params(tparams)
         try:
             return self.named_composite_class(spec, name, t, u, tidx)
         finally:

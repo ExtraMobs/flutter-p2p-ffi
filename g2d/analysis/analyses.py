@@ -101,8 +101,15 @@ class LocalTypesAnalysis(Analysis):
                     n += 1
                     name = f"{base}{n}"
                 used.add(name)
-                self.facts.local_types[id(self.pkg.type_at(spec["name"]["$obj"]["type"]))] = name
+                lt = id(self.pkg.type_at(spec["name"]["$obj"]["type"]))
+                self.facts.local_types[lt] = name
                 self.facts.local_specs.append((spec, name))
+                tparams = d["type"].get("typeParams")
+                if tparams and tparams.get("list"):
+                    # Tipo local de função genérica: vira classe genérica nos
+                    # parâmetros da função (`Wrap[T]` → `_wrap$box$<T>`).
+                    self.facts.local_tparams[lt] = tparams
+                    self.facts.local_targs[lt] = [i["$obj"]["type"] for f in tparams["list"] for i in f["names"]]
 
     def type_specs(self, node):
         if isinstance(node, list):

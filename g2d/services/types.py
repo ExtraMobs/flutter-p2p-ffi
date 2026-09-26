@@ -31,7 +31,7 @@ class TypeMapper(Service):
                 return DartType(self.imports.qualify(None, "GoError"), nullable=True)
             go_name = self.facts.local_types.get(id(t), t["name"])
             name = self.imports.qualify(t["pkg"], type_name(go_name))
-            args = tuple(self.dart(a) for a in t.get("args") or ())
+            args = tuple(self.dart(a) for a in self.typesys.type_args(t))
             return DartType(name, args, nullable=self.nilable(t))
         if k == "pointer":
             elem = self.pkg.type_at(t["elem"])
@@ -80,7 +80,7 @@ class TypeMapper(Service):
         if not self.typesys.named_composite(t):
             return text
         # Genérico (`Set[string]`): os dicionários vêm antes, como nas structs.
-        dicts = "".join(f"{self.descriptors.elem(a)}, " for a in t.get("args") or [])
+        dicts = "".join(f"{self.descriptors.elem(a)}, " for a in self.typesys.type_args(t))
         return f"{self.dart(t)}({dicts}{text})"
 
     def box(self, t, init):
@@ -136,7 +136,7 @@ class TypeMapper(Service):
             return "null"
         if k == "struct":
             # Struct genérica: o construtor recebe os dicionários dos argumentos.
-            dicts = ", ".join(self.descriptors.elem(a) for a in t.get("args") or [])
+            dicts = ", ".join(self.descriptors.elem(a) for a in self.typesys.type_args(t))
             return f"{self.dart(t)}({dicts})"
         if k == "typeparam":
             return f"${t['name']}.zero()"  # dicionário do parâmetro de tipo

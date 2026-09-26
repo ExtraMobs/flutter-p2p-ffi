@@ -19,7 +19,7 @@ class DescriptorRegistry(Service):
         if k == "typeparam":
             return True
         if k == "named":
-            return any(self.has_tparam(a) for a in t.get("args") or [])
+            return any(self.has_tparam(a) for a in self.typesys.type_args(t))
         return any(self.has_tparam(t[f]) for f in ("elem", "key") if f in t)
 
     def elem(self, t):
@@ -69,7 +69,7 @@ class DescriptorRegistry(Service):
             return f"{self.types.cls(t)}.new"
         if u["kind"] in ("interface", "pointer", "func", "chan") and not self.typesys.named_func(t):
             return self.imports.qualify(None, "zeroNull")  # (func nomeado é classe, não anulável)
-        if self.typesys.is_struct(t) and not t.get("args"):
+        if self.typesys.is_struct(t) and not self.typesys.type_args(t):
             return f"{dt}.new"
         name = f"_$z{len(self.elem_decls)}_{len(self.elems)}"
         self.elem_decls.append(f"{dt} {name}() => {self.types.zero(t)};")

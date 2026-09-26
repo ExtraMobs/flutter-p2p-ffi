@@ -41,9 +41,9 @@ class ValueSemantics(Service):
         elif to_iface and src is not None and src["kind"] == "pointer":
             # `(*T)(nil)` numa interface não é nil: sentinela do tipo.
             elem = self.pkg.type_at(src["elem"])
-            if self.typesys.is_struct(elem) and not elem.get("args"):
+            if self.typesys.is_struct(elem) and not self.typesys.type_args(elem):
                 nil = f"{self.types.dart(elem)}.$nil"
-            elif self.typesys.ptr_class(elem) and not elem.get("args"):
+            elif self.typesys.ptr_class(elem) and not self.typesys.type_args(elem):
                 nil = f"{self.types.dart(src).non_null()}.$nil"
             elif self.typesys.ptr_class(elem):  # genérico: sem estático, instância nova
                 nil = f"{self.types.ptr_view(elem)}(const {self.imports.qualify(None, 'NilPtr')}<{self.types.dart(elem)}>())"

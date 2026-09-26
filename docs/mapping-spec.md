@@ -98,7 +98,7 @@ Legenda: ✅ fiel · ⚠️ fiel no caso comum, com limite conhecido · ❌ não
 | palavra reservada Dart (`new`, `in`, ...) | sufixo `$` (`new$`) | |
 | nome do `dart:core` usado pelo código gerado (`Object`, `Map`, `String`, `List`, `Function`, `BigInt`, `identical`, `int`, `bool`, ...: `DART_CORE_USED`) | sufixo `$` (`Object$`, `identical$`, local `int$`), para não sombrear o core na library | |
 | método/campo exportado com o nome de um membro das bases estendidas (`Delete`, `Append`, `Value`, `Length`, `Call`, `ToString`, ...: `DART_BASE_MEMBERS`) | sufixo `$` (`delete$`, `value$`, `toString$`), em todo lugar, inclusive nas interfaces (o despacho continua casando) | |
-| tipo declarado dentro de função | içado para a library como `_<função>$<Tipo>$` (`_first$pair$`; método: `_<Recv>_<Método>$<Tipo>$`; repetido na função: sufixo numérico) | ⚠️ tipo local que usa parâmetro de tipo da função genérica não é suportado |
+| tipo declarado dentro de função | içado para a library como `_<função>$<Tipo>$` (`_first$pair$`; método: `_<Recv>_<Método>$<Tipo>$`; repetido na função: sufixo numérico) | em função genérica, a classe içada é genérica nos parâmetros da função (`_wrap$box$<T>`, dicionários no construtor; fixture `localgeneric`) |
 | letra não-ASCII (`Δ`, `Ωmega`) | `$uXXXX` (BMP) ou `$UXXXXXXXX`, largura fixa como no C (`Δ` → `$u0394`, `Δ0` → `$u03940`); o Go decide exportado por `unicode.IsUpper` (`Δx` → `$u03b4x`, `δx` → `_$u03b4x`) | ✅ (fixture `mathshim`) |
 | temporários e descritores | `$tN`, `_$eN`, `_$zN` (Go não permite `$`) | |
 

@@ -33,6 +33,8 @@ class Facts:
     class_tparams: TypeParams = TypeParams()  # parâmetros da struct genérica corrente
     local_types: dict = field(default_factory=dict)  # id(descritor) → nome Go içado (`first$pair`)
     local_specs: list = field(default_factory=list)  # [(TypeSpec, nome içado)] na ordem do fonte
+    local_targs: dict = field(default_factory=dict)  # id(tipo local) → parâmetros de tipo da função genérica
+    local_tparams: dict = field(default_factory=dict)  # id(tipo local) → campos typeParams da função
     synthetic: dict = field(default_factory=dict)  # índice da typeTable → nome Go da classe anônima
 
 

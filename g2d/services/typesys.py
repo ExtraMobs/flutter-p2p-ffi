@@ -97,6 +97,11 @@ class TypeSystem(Service):
         return (t is not None and t["kind"] == "named" and self.imports.transpiled(t["pkg"])
                 and self.underlying(t)["kind"] in ("slice", "map", "func", "array"))
 
+    def type_args(self, t):
+        """Argumentos de tipo de uma instância; tipo local de função genérica
+        usa os parâmetros da função."""
+        return t.get("args") or self.facts.local_targs.get(id(t)) or []
+
     def named_bool(self, t):
         """Tipo nomeado (de pacote transpilado) sobre bool: classe go.GoBool,
         desembrulhada com `.$b` onde o Dart exige bool."""

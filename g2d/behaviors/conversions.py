@@ -190,7 +190,7 @@ class StructToStruct(ConversionBehavior):
 
     def emit(self, c):
         tmp = self.names.temp()
-        args = [self.descriptors.elem(a) for a in c.to_t.get("args") or []]
+        args = [self.descriptors.elem(a) for a in self.typesys.type_args(c.to_t)]
         args += [f"{escape(lower_camel(name.lstrip('_')))}: {tmp}.{member_name(name)}"
                  for name, _ in self.fields(c.to_t) if name != "_"]
         src = self.values.coerce(c.arg, c.frm_t)
