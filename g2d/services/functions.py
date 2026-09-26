@@ -1,7 +1,7 @@
 """Funções e métodos: cabeçalho, receptor, parâmetros (tipo, `$rd`), corpo com defers."""
 
-from g2d.analysis.helpers import (doc_comment, has_bare_return, has_defer, has_recover, mutates_receiver,
-                                  tuple_expr, uses_decl)
+from g2d.analysis.helpers import (assigns_var, doc_comment, has_bare_return, has_defer, has_recover,
+                                  mutates_receiver, tuple_expr, uses_decl)
 from g2d.engine.behavior import Service
 from g2d.engine.scope import FunctionScope, TypeParams
 from g2d.model import Unsupported
@@ -30,7 +30,9 @@ class Functions(Service):
                     # interface, ou chamada direta sobre ponteiro nil).
                     if uses_decl(d["body"], ident["$obj"]["decl"]):
                         local = self.names.declare_local(ident)
-                        prologue.append(f"final {self.types.dart(recv_t)} {local} = $nilPtr ? null : this;")
+                        # `if s == nil { s = &T{} }`: o corpo pode reatribuir.
+                        kw = "" if assigns_var(d["body"], ident["$obj"]["decl"]) else "final "
+                        prologue.append(f"{kw}{self.types.dart(recv_t)} {local} = $nilPtr ? null : this;")
                 elif self.typesys.is_value(recv_t) and mutated:
                     # Receptor valor é uma cópia no Go: mutações não vazam.
                     local = self.names.declare_local(ident)

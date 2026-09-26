@@ -6,8 +6,8 @@
 ## Problema
 
 O shim `io` existe com parte dos símbolos (`ByteReader`, `ByteWriter`, `Reader`, `StringWriter`, `Writer`, `eof`, `errClosedPipe`, `errNoProgress`, `errShortBuffer`, `errShortWrite`, `errUnexpectedEOF`); os que faltam viram
-`Unsupported` `shim-simbolo:io.<nome>`. Somando as linhas abaixo: 204 ocorrências de pacote,
-27 na fronteira (367 pacotes do grafo usam `io`).
+`Unsupported` `shim-simbolo:io.<nome>`. Somando as linhas abaixo: 209 ocorrências de pacote,
+30 na fronteira (367 pacotes do grafo usam `io`).
 
 ## Prova
 
@@ -17,8 +17,8 @@ $ python -m g2d audit github.com/ipfs/kubo/cmd/ipfs -C tests/corpus/kubo
 docs/audit.md (ranking):
 | código | ocorrências | pacotes | na fronteira | exemplo |
 | `shim-simbolo:io.readFull` | 49 | 30 | 6 | `github.com/ipld/go-car/v2/internal/io` converter.go:18:1: símbolo sem shim: io.readFull |
-| `shim-simbolo:io.ReadSeeker` | 21 | 11 | 3 | `github.com/ipld/go-car/v2/internal/io` converter.go:62:6: símbolo sem shim: io.ReadSeeker |
-| `shim-simbolo:io.writeString` | 5 | 5 | 3 | `github.com/go-logfmt/logfmt` encode.go:239:6: símbolo sem shim: io.writeString |
+| `shim-simbolo:io.writeString` | 16 | 9 | 5 | `github.com/go-logfmt/logfmt` encode.go:239:6: símbolo sem shim: io.writeString |
+| `shim-simbolo:io.ReadSeeker` | 22 | 12 | 4 | `github.com/ipld/go-car/v2/internal/io` converter.go:62:6: símbolo sem shim: io.ReadSeeker |
 | `shim-simbolo:io.Closer` | 81 | 51 | 2 | `github.com/libp2p/go-msgio` msgio.go:30:1: símbolo sem shim: io.Closer |
 | `shim-simbolo:io.WriteCloser` | 21 | 15 | 2 | `github.com/multiformats/go-base32` base32.go:255:6: símbolo sem shim: io.WriteCloser |
 | `shim-simbolo:io.ReaderAt` | 17 | 8 | 2 | `github.com/ipld/go-car/v2/internal/io` converter.go:72:6: símbolo sem shim: io.ReaderAt |

@@ -16,7 +16,7 @@ $ python -m g2d audit github.com/ipfs/kubo/cmd/ipfs -C tests/corpus/kubo
 
 docs/audit.md (ranking):
 | código | ocorrências | pacotes | na fronteira | exemplo |
-| `shim-simbolo:bytes.Reader` | 58 | 27 | 6 | `github.com/ipfs/go-ipld-cbor/encoding` unmarshaller.go:32:1: símbolo sem shim: bytes.Reader |
+| `shim-simbolo:bytes.Reader` | 59 | 27 | 6 | `github.com/ipfs/go-ipld-cbor/encoding` unmarshaller.go:32:1: símbolo sem shim: bytes.Reader |
 | `shim-simbolo:bytes.trimSuffix` | 5 | 3 | 1 | `github.com/klauspost/compress/s2` index.go:547:6: símbolo sem shim: bytes.trimSuffix |
 | `shim-simbolo:bytes.trimSpace` | 3 | 3 | 1 | `github.com/kr/text` wrap.go:23:6: símbolo sem shim: bytes.trimSpace |
 | `shim-simbolo:bytes.join` | 4 | 2 | 1 | `golang.org/x/text/internal/language` parse.go:351:6: símbolo sem shim: bytes.join |

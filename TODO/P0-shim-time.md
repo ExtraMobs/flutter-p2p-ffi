@@ -7,7 +7,7 @@
 
 O shim `time` existe com parte dos símbolos (`Duration`); os que faltam viram
 `Unsupported` `shim-simbolo:time.<nome>`. Somando as linhas abaixo: 273 ocorrências de pacote,
-55 na fronteira (368 pacotes do grafo usam `time`).
+56 na fronteira (368 pacotes do grafo usam `time`).
 
 ## Prova
 
@@ -16,7 +16,7 @@ $ python -m g2d audit github.com/ipfs/kubo/cmd/ipfs -C tests/corpus/kubo
 
 docs/audit.md (ranking):
 | código | ocorrências | pacotes | na fronteira | exemplo |
-| `shim-simbolo:time.Time` | 524 | 161 | 32 | `github.com/cenkalti/backoff/v4` exponential.go:54:1: símbolo sem shim: time.Time |
+| `shim-simbolo:time.Time` | 525 | 161 | 33 | `github.com/cenkalti/backoff/v4` exponential.go:54:1: símbolo sem shim: time.Time |
 | `shim-simbolo:time.now` | 70 | 53 | 6 | `github.com/cockroachdb/crlib/crtime` monotonic.go:59:5: símbolo sem shim: time.now |
 | `shim-simbolo:time.Timer` | 13 | 11 | 5 | `github.com/cenkalti/backoff/v4` timer.go:12:1: símbolo sem shim: time.Timer |
 | `shim-simbolo:time.unix` | 10 | 7 | 4 | `github.com/benbjohnson/clock` clock.go:87:6: símbolo sem shim: time.unix |

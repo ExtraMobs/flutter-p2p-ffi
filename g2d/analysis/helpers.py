@@ -76,6 +76,28 @@ def uses_decl(node, decl):
     return any(uses_decl(v, decl) for v in node.values() if isinstance(v, (dict, list)))
 
 
+def assigns_var(node, decl):
+    """Atribuição direta à variável (`s = x`, `s, err = f()`, `s++`, `for s =
+    range`), inclusive em func literais do corpo."""
+    def is_var(n):
+        while n and n.get("node") == "ParenExpr":
+            n = n["x"]
+        return bool(n) and n.get("node") == "Ident" and n.get("$obj", {}).get("decl") == decl
+
+    if isinstance(node, list):
+        return any(assigns_var(x, decl) for x in node)
+    if not isinstance(node, dict):
+        return False
+    k = node.get("node")
+    if k == "AssignStmt" and any(is_var(x) for x in node["lhs"]):
+        return True
+    if k == "IncDecStmt" and is_var(node["x"]):
+        return True
+    if k == "RangeStmt" and node.get("tok") == "=" and (is_var(node.get("key")) or is_var(node.get("value"))):
+        return True
+    return any(assigns_var(v, decl) for v in node.values() if isinstance(v, (dict, list)))
+
+
 def mutates_receiver(body, decl):
     """O corpo pode mutar o receptor (valor)? Conservador: atribuição,
     ++/--, & ou chamada de método com raiz no receptor."""

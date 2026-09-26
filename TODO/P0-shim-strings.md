@@ -6,7 +6,7 @@
 ## Problema
 
 O shim `strings` existe com parte dos símbolos (`Builder`, `contains`, `containsRune`, `count`, `hasPrefix`, `hasSuffix`, `index`, `indexByte`, `join`, `lastIndex`, `split`, `splitN`, `trimFunc`, `trimLeftFunc`, `trimPrefix`, `trimRightFunc`, `trimSuffix`); os que faltam viram
-`Unsupported` `shim-simbolo:strings.<nome>`. Somando as linhas abaixo: 199 ocorrências de pacote,
+`Unsupported` `shim-simbolo:strings.<nome>`. Somando as linhas abaixo: 207 ocorrências de pacote,
 39 na fronteira (334 pacotes do grafo usam `strings`).
 
 ## Prova
@@ -16,12 +16,12 @@ $ python -m g2d audit github.com/ipfs/kubo/cmd/ipfs -C tests/corpus/kubo
 
 docs/audit.md (ranking):
 | código | ocorrências | pacotes | na fronteira | exemplo |
-| `shim-simbolo:strings.trimSpace` | 46 | 32 | 9 | `github.com/blang/semver/v4` semver.go:240:6: símbolo sem shim: strings.trimSpace |
+| `shim-simbolo:strings.trimSpace` | 47 | 33 | 9 | `github.com/blang/semver/v4` semver.go:240:6: símbolo sem shim: strings.trimSpace |
 | `shim-simbolo:strings.equalFold` | 20 | 14 | 7 | `github.com/pion/webrtc/v4/internal/fmtp` fmtp.go:92:6: símbolo sem shim: strings.equalFold |
-| `shim-simbolo:strings.toLower` | 46 | 35 | 4 | `github.com/gabriel-vasile/mimetype/internal/charset` charset.go:163:6: símbolo sem shim: strings.toLower |
+| `shim-simbolo:strings.toLower` | 47 | 35 | 4 | `github.com/gabriel-vasile/mimetype/internal/charset` charset.go:163:6: símbolo sem shim: strings.toLower |
 | `shim-simbolo:strings.map` | 4 | 4 | 3 | `github.com/go-logfmt/logfmt` encode.go:179:6: símbolo sem shim: strings.map |
-| `shim-simbolo:strings.trim` | 15 | 12 | 2 | `github.com/klauspost/cpuid/v2` cpuid.go:991:6: símbolo sem shim: strings.trim |
-| `shim-simbolo:strings.replaceAll` | 9 | 7 | 2 | `github.com/pion/rtcp` compound_packet.go:23:1: símbolo sem shim: strings.replaceAll |
+| `shim-simbolo:strings.trim` | 16 | 13 | 2 | `github.com/klauspost/cpuid/v2` cpuid.go:991:6: símbolo sem shim: strings.trim |
+| `shim-simbolo:strings.replaceAll` | 10 | 8 | 2 | `github.com/pion/rtcp` compound_packet.go:23:1: símbolo sem shim: strings.replaceAll |
 | `shim-simbolo:strings.Reader` | 7 | 6 | 2 | `github.com/anmitsu/go-shlex` shlex.go:74:6: símbolo sem shim: strings.Reader |
 | `shim-simbolo:strings.fieldsFunc` | 5 | 4 | 2 | `github.com/ipld/go-ipld-prime/datamodel` path.go:113:6: símbolo sem shim: strings.fieldsFunc |
 | `shim-simbolo:strings.replace` | 11 | 10 | 1 | `github.com/blang/semver/v4` range.go:205:6: símbolo sem shim: strings.replace |

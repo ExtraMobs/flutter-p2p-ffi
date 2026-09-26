@@ -1,0 +1,1858 @@
+{
+  "schemaVersion": 8,
+  "tool": "goast",
+  "goVersion": "go1.26.5",
+  "packages": [
+    {
+      "path": "main",
+      "name": "main",
+      "files": [
+        {
+          "path": "recvassign.go",
+          "ast": {
+            "node": "File",
+            "doc": {
+              "node": "CommentGroup",
+              "list": [
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "recvassign.go",
+                    "line": 1,
+                    "column": 1,
+                    "offset": 0
+                  },
+                  "text": "// Receptor ponteiro reatribuído no corpo (`if s == nil { s = \u0026T{} }`, de"
+                },
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "recvassign.go",
+                    "line": 2,
+                    "column": 1,
+                    "offset": 75
+                  },
+                  "text": "// github.com/klauspost/compress/fse): a local do receptor não é final."
+                }
+              ]
+            },
+            "package": {
+              "file": "recvassign.go",
+              "line": 3,
+              "column": 1,
+              "offset": 149
+            },
+            "name": {
+              "node": "Ident",
+              "namePos": {
+                "file": "recvassign.go",
+                "line": 3,
+                "column": 9,
+                "offset": 157
+              },
+              "name": "main",
+              "obj": null
+            },
+            "decls": [
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "recvassign.go",
+                  "line": 5,
+                  "column": 1,
+                  "offset": 163
+                },
+                "tok": "import",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "ImportSpec",
+                    "doc": null,
+                    "name": null,
+                    "path": {
+                      "node": "BasicLit",
+                      "valuePos": {
+                        "file": "recvassign.go",
+                        "line": 5,
+                        "column": 8,
+                        "offset": 170
+                      },
+                      "valueEnd": {
+                        "file": "recvassign.go",
+                        "line": 5,
+                        "column": 13,
+                        "offset": 175
+                      },
+                      "kind": "STRING",
+                      "value": "\"fmt\""
+                    },
+                    "comment": null,
+                    "endPos": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "recvassign.go",
+                  "line": 7,
+                  "column": 1,
+                  "offset": 177
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "recvassign.go",
+                        "line": 7,
+                        "column": 6,
+                        "offset": 182
+                      },
+                      "name": "Scratch",
+                      "obj": {
+                        "node": "Object",
+                        "name": "Scratch",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "Scratch",
+                        "kind": "type",
+                        "def": true,
+                        "type": 0,
+                        "decl": "recvassign.go:182",
+                        "pkg": "main",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "StructType",
+                      "struct": {
+                        "file": "recvassign.go",
+                        "line": 7,
+                        "column": 14,
+                        "offset": 190
+                      },
+                      "fields": {
+                        "node": "FieldList",
+                        "opening": {
+                          "file": "recvassign.go",
+                          "line": 7,
+                          "column": 20,
+                          "offset": 196
+                        },
+                        "list": [
+                          {
+                            "node": "Field",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "recvassign.go",
+                                  "line": 7,
+                                  "column": 22,
+                                  "offset": 198
+                                },
+                                "name": "n",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "n",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "n",
+                                  "kind": "field",
+                                  "def": true,
+                                  "type": 2,
+                                  "decl": "recvassign.go:198",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "recvassign.go",
+                                "line": 7,
+                                "column": 24,
+                                "offset": 200
+                              },
+                              "name": "int",
+                              "obj": null,
+                              "$type": 2,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "int",
+                                "kind": "type",
+                                "type": 2
+                              }
+                            },
+                            "tag": null,
+                            "comment": null
+                          }
+                        ],
+                        "closing": {
+                          "file": "recvassign.go",
+                          "line": 7,
+                          "column": 28,
+                          "offset": 204
+                        }
+                      },
+                      "incomplete": false,
+                      "$type": 1,
+                      "$isType": true
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "FuncDecl",
+                "doc": {
+                  "node": "CommentGroup",
+                  "list": [
+                    {
+                      "node": "Comment",
+                      "slash": {
+                        "file": "recvassign.go",
+                        "line": 9,
+                        "column": 1,
+                        "offset": 207
+                      },
+                      "text": "// Receptor ponteiro reatribuído no corpo (klauspost/compress/fse)."
+                    }
+                  ]
+                },
+                "recv": {
+                  "node": "FieldList",
+                  "opening": {
+                    "file": "recvassign.go",
+                    "line": 10,
+                    "column": 6,
+                    "offset": 281
+                  },
+                  "list": [
+                    {
+                      "node": "Field",
+                      "doc": null,
+                      "names": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "recvassign.go",
+                            "line": 10,
+                            "column": 7,
+                            "offset": 282
+                          },
+                          "name": "s",
+                          "obj": {
+                            "node": "Object",
+                            "name": "s",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "s",
+                            "kind": "var",
+                            "def": true,
+                            "type": 4,
+                            "decl": "recvassign.go:282",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "type": {
+                        "node": "StarExpr",
+                        "star": {
+                          "file": "recvassign.go",
+                          "line": 10,
+                          "column": 9,
+                          "offset": 284
+                        },
+                        "x": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "recvassign.go",
+                            "line": 10,
+                            "column": 10,
+                            "offset": 285
+                          },
+                          "name": "Scratch",
+                          "obj": {
+                            "node": "Object",
+                            "name": "Scratch",
+                            "kind": "type"
+                          },
+                          "$type": 0,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "Scratch",
+                            "kind": "type",
+                            "type": 0,
+                            "decl": "recvassign.go:182",
+                            "pkg": "main",
+                            "top": true
+                          }
+                        },
+                        "$type": 4,
+                        "$isType": true
+                      },
+                      "tag": null,
+                      "comment": null
+                    }
+                  ],
+                  "closing": {
+                    "file": "recvassign.go",
+                    "line": 10,
+                    "column": 17,
+                    "offset": 292
+                  }
+                },
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "recvassign.go",
+                    "line": 10,
+                    "column": 19,
+                    "offset": 294
+                  },
+                  "name": "prepare",
+                  "obj": null,
+                  "$obj": {
+                    "name": "prepare",
+                    "kind": "method",
+                    "def": true,
+                    "type": 3,
+                    "decl": "recvassign.go:294",
+                    "pkg": "main"
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "recvassign.go",
+                    "line": 10,
+                    "column": 1,
+                    "offset": 276
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "recvassign.go",
+                      "line": 10,
+                      "column": 26,
+                      "offset": 301
+                    },
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "recvassign.go",
+                              "line": 10,
+                              "column": 27,
+                              "offset": 302
+                            },
+                            "name": "n",
+                            "obj": {
+                              "node": "Object",
+                              "name": "n",
+                              "kind": "var"
+                            },
+                            "$obj": {
+                              "name": "n",
+                              "kind": "var",
+                              "def": true,
+                              "type": 2,
+                              "decl": "recvassign.go:302",
+                              "pkg": "main"
+                            }
+                          }
+                        ],
+                        "type": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "recvassign.go",
+                            "line": 10,
+                            "column": 29,
+                            "offset": 304
+                          },
+                          "name": "int",
+                          "obj": null,
+                          "$type": 2,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "int",
+                            "kind": "type",
+                            "type": 2
+                          }
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": {
+                      "file": "recvassign.go",
+                      "line": 10,
+                      "column": 32,
+                      "offset": 307
+                    }
+                  },
+                  "results": {
+                    "node": "FieldList",
+                    "opening": null,
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": null,
+                        "type": {
+                          "node": "StarExpr",
+                          "star": {
+                            "file": "recvassign.go",
+                            "line": 10,
+                            "column": 34,
+                            "offset": 309
+                          },
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "recvassign.go",
+                              "line": 10,
+                              "column": 35,
+                              "offset": 310
+                            },
+                            "name": "Scratch",
+                            "obj": {
+                              "node": "Object",
+                              "name": "Scratch",
+                              "kind": "type"
+                            },
+                            "$type": 0,
+                            "$isType": true,
+                            "$obj": {
+                              "name": "Scratch",
+                              "kind": "type",
+                              "type": 0,
+                              "decl": "recvassign.go:182",
+                              "pkg": "main",
+                              "top": true
+                            }
+                          },
+                          "$type": 4,
+                          "$isType": true
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": null
+                  }
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "recvassign.go",
+                    "line": 10,
+                    "column": 43,
+                    "offset": 318
+                  },
+                  "list": [
+                    {
+                      "node": "IfStmt",
+                      "if": {
+                        "file": "recvassign.go",
+                        "line": 11,
+                        "column": 2,
+                        "offset": 321
+                      },
+                      "init": null,
+                      "cond": {
+                        "node": "BinaryExpr",
+                        "x": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "recvassign.go",
+                            "line": 11,
+                            "column": 5,
+                            "offset": 324
+                          },
+                          "name": "s",
+                          "obj": {
+                            "node": "Object",
+                            "name": "s",
+                            "kind": "var"
+                          },
+                          "$type": 4,
+                          "$obj": {
+                            "name": "s",
+                            "kind": "var",
+                            "type": 4,
+                            "decl": "recvassign.go:282",
+                            "pkg": "main"
+                          }
+                        },
+                        "opPos": {
+                          "file": "recvassign.go",
+                          "line": 11,
+                          "column": 7,
+                          "offset": 326
+                        },
+                        "op": "==",
+                        "y": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "recvassign.go",
+                            "line": 11,
+                            "column": 10,
+                            "offset": 329
+                          },
+                          "name": "nil",
+                          "obj": null,
+                          "$type": 5,
+                          "$obj": {
+                            "name": "nil",
+                            "kind": "nil",
+                            "type": 5
+                          }
+                        },
+                        "$type": 6
+                      },
+                      "body": {
+                        "node": "BlockStmt",
+                        "lbrace": {
+                          "file": "recvassign.go",
+                          "line": 11,
+                          "column": 14,
+                          "offset": 333
+                        },
+                        "list": [
+                          {
+                            "node": "AssignStmt",
+                            "lhs": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "recvassign.go",
+                                  "line": 12,
+                                  "column": 3,
+                                  "offset": 337
+                                },
+                                "name": "s",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "s",
+                                  "kind": "var"
+                                },
+                                "$type": 4,
+                                "$obj": {
+                                  "name": "s",
+                                  "kind": "var",
+                                  "type": 4,
+                                  "decl": "recvassign.go:282",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "tokPos": {
+                              "file": "recvassign.go",
+                              "line": 12,
+                              "column": 5,
+                              "offset": 339
+                            },
+                            "tok": "=",
+                            "rhs": [
+                              {
+                                "node": "UnaryExpr",
+                                "opPos": {
+                                  "file": "recvassign.go",
+                                  "line": 12,
+                                  "column": 7,
+                                  "offset": 341
+                                },
+                                "op": "\u0026",
+                                "x": {
+                                  "node": "CompositeLit",
+                                  "type": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "recvassign.go",
+                                      "line": 12,
+                                      "column": 8,
+                                      "offset": 342
+                                    },
+                                    "name": "Scratch",
+                                    "obj": {
+                                      "node": "Object",
+                                      "name": "Scratch",
+                                      "kind": "type"
+                                    },
+                                    "$type": 0,
+                                    "$isType": true,
+                                    "$obj": {
+                                      "name": "Scratch",
+                                      "kind": "type",
+                                      "type": 0,
+                                      "decl": "recvassign.go:182",
+                                      "pkg": "main",
+                                      "top": true
+                                    }
+                                  },
+                                  "lbrace": {
+                                    "file": "recvassign.go",
+                                    "line": 12,
+                                    "column": 15,
+                                    "offset": 349
+                                  },
+                                  "elts": null,
+                                  "rbrace": {
+                                    "file": "recvassign.go",
+                                    "line": 12,
+                                    "column": 16,
+                                    "offset": 350
+                                  },
+                                  "incomplete": false,
+                                  "$type": 0
+                                },
+                                "$type": 4
+                              }
+                            ]
+                          }
+                        ],
+                        "rbrace": {
+                          "file": "recvassign.go",
+                          "line": 13,
+                          "column": 2,
+                          "offset": 353
+                        }
+                      },
+                      "else": null
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "recvassign.go",
+                              "line": 14,
+                              "column": 2,
+                              "offset": 356
+                            },
+                            "name": "s",
+                            "obj": {
+                              "node": "Object",
+                              "name": "s",
+                              "kind": "var"
+                            },
+                            "$type": 4,
+                            "$obj": {
+                              "name": "s",
+                              "kind": "var",
+                              "type": 4,
+                              "decl": "recvassign.go:282",
+                              "pkg": "main"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "recvassign.go",
+                              "line": 14,
+                              "column": 4,
+                              "offset": 358
+                            },
+                            "name": "n",
+                            "obj": null,
+                            "$obj": {
+                              "name": "n",
+                              "kind": "field",
+                              "type": 2,
+                              "decl": "recvassign.go:198",
+                              "pkg": "main"
+                            }
+                          },
+                          "$type": 2,
+                          "$sel": {
+                            "kind": "field",
+                            "recv": 4,
+                            "index": [
+                              0
+                            ],
+                            "indirect": true
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "recvassign.go",
+                        "line": 14,
+                        "column": 6,
+                        "offset": 360
+                      },
+                      "tok": "+=",
+                      "rhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "recvassign.go",
+                            "line": 14,
+                            "column": 9,
+                            "offset": 363
+                          },
+                          "name": "n",
+                          "obj": {
+                            "node": "Object",
+                            "name": "n",
+                            "kind": "var"
+                          },
+                          "$type": 2,
+                          "$obj": {
+                            "name": "n",
+                            "kind": "var",
+                            "type": 2,
+                            "decl": "recvassign.go:302",
+                            "pkg": "main"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "node": "ReturnStmt",
+                      "return": {
+                        "file": "recvassign.go",
+                        "line": 15,
+                        "column": 2,
+                        "offset": 366
+                      },
+                      "results": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "recvassign.go",
+                            "line": 15,
+                            "column": 9,
+                            "offset": 373
+                          },
+                          "name": "s",
+                          "obj": {
+                            "node": "Object",
+                            "name": "s",
+                            "kind": "var"
+                          },
+                          "$type": 4,
+                          "$obj": {
+                            "name": "s",
+                            "kind": "var",
+                            "type": 4,
+                            "decl": "recvassign.go:282",
+                            "pkg": "main"
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "recvassign.go",
+                    "line": 16,
+                    "column": 1,
+                    "offset": 375
+                  }
+                }
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "recvassign.go",
+                    "line": 18,
+                    "column": 6,
+                    "offset": 383
+                  },
+                  "name": "main",
+                  "obj": {
+                    "node": "Object",
+                    "name": "main",
+                    "kind": "func"
+                  },
+                  "$obj": {
+                    "name": "main",
+                    "kind": "func",
+                    "def": true,
+                    "type": 7,
+                    "decl": "recvassign.go:383",
+                    "pkg": "main",
+                    "top": true
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "recvassign.go",
+                    "line": 18,
+                    "column": 1,
+                    "offset": 378
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "recvassign.go",
+                      "line": 18,
+                      "column": 10,
+                      "offset": 387
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "recvassign.go",
+                      "line": 18,
+                      "column": 11,
+                      "offset": 388
+                    }
+                  },
+                  "results": null
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "recvassign.go",
+                    "line": 18,
+                    "column": 13,
+                    "offset": 390
+                  },
+                  "list": [
+                    {
+                      "node": "DeclStmt",
+                      "decl": {
+                        "node": "GenDecl",
+                        "doc": null,
+                        "tokPos": {
+                          "file": "recvassign.go",
+                          "line": 19,
+                          "column": 2,
+                          "offset": 393
+                        },
+                        "tok": "var",
+                        "lparen": null,
+                        "specs": [
+                          {
+                            "node": "ValueSpec",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "recvassign.go",
+                                  "line": 19,
+                                  "column": 6,
+                                  "offset": 397
+                                },
+                                "name": "p",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "p",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "p",
+                                  "kind": "var",
+                                  "def": true,
+                                  "type": 4,
+                                  "decl": "recvassign.go:397",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "StarExpr",
+                              "star": {
+                                "file": "recvassign.go",
+                                "line": 19,
+                                "column": 8,
+                                "offset": 399
+                              },
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "recvassign.go",
+                                  "line": 19,
+                                  "column": 9,
+                                  "offset": 400
+                                },
+                                "name": "Scratch",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "Scratch",
+                                  "kind": "type"
+                                },
+                                "$type": 0,
+                                "$isType": true,
+                                "$obj": {
+                                  "name": "Scratch",
+                                  "kind": "type",
+                                  "type": 0,
+                                  "decl": "recvassign.go:182",
+                                  "pkg": "main",
+                                  "top": true
+                                }
+                              },
+                              "$type": 4,
+                              "$isType": true
+                            },
+                            "values": null,
+                            "comment": null
+                          }
+                        ],
+                        "rparen": null
+                      }
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "recvassign.go",
+                            "line": 20,
+                            "column": 2,
+                            "offset": 409
+                          },
+                          "name": "q",
+                          "obj": {
+                            "node": "Object",
+                            "name": "q",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "q",
+                            "kind": "var",
+                            "def": true,
+                            "type": 4,
+                            "decl": "recvassign.go:409",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "recvassign.go",
+                        "line": 20,
+                        "column": 4,
+                        "offset": 411
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "CallExpr",
+                          "fun": {
+                            "node": "SelectorExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "recvassign.go",
+                                "line": 20,
+                                "column": 7,
+                                "offset": 414
+                              },
+                              "name": "p",
+                              "obj": {
+                                "node": "Object",
+                                "name": "p",
+                                "kind": "var"
+                              },
+                              "$type": 4,
+                              "$obj": {
+                                "name": "p",
+                                "kind": "var",
+                                "type": 4,
+                                "decl": "recvassign.go:397",
+                                "pkg": "main"
+                              }
+                            },
+                            "sel": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "recvassign.go",
+                                "line": 20,
+                                "column": 9,
+                                "offset": 416
+                              },
+                              "name": "prepare",
+                              "obj": null,
+                              "$obj": {
+                                "name": "prepare",
+                                "kind": "method",
+                                "type": 3,
+                                "decl": "recvassign.go:294",
+                                "pkg": "main"
+                              }
+                            },
+                            "$type": 3,
+                            "$sel": {
+                              "kind": "method",
+                              "recv": 4,
+                              "index": [
+                                0
+                              ],
+                              "indirect": true
+                            }
+                          },
+                          "lparen": {
+                            "file": "recvassign.go",
+                            "line": 20,
+                            "column": 16,
+                            "offset": 423
+                          },
+                          "args": [
+                            {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "recvassign.go",
+                                "line": 20,
+                                "column": 17,
+                                "offset": 424
+                              },
+                              "valueEnd": {
+                                "file": "recvassign.go",
+                                "line": 20,
+                                "column": 18,
+                                "offset": 425
+                              },
+                              "kind": "INT",
+                              "value": "2",
+                              "$type": 2,
+                              "$value": {
+                                "kind": "int",
+                                "value": "2"
+                              }
+                            }
+                          ],
+                          "ellipsis": null,
+                          "rparen": {
+                            "file": "recvassign.go",
+                            "line": 20,
+                            "column": 18,
+                            "offset": 425
+                          },
+                          "$type": 4
+                        }
+                      ]
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "recvassign.go",
+                              "line": 21,
+                              "column": 2,
+                              "offset": 428
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "recvassign.go",
+                              "line": 21,
+                              "column": 6,
+                              "offset": 432
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 8,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 8
+                        },
+                        "lparen": {
+                          "file": "recvassign.go",
+                          "line": 21,
+                          "column": 13,
+                          "offset": 439
+                        },
+                        "args": [
+                          {
+                            "node": "BinaryExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "recvassign.go",
+                                "line": 21,
+                                "column": 14,
+                                "offset": 440
+                              },
+                              "name": "p",
+                              "obj": {
+                                "node": "Object",
+                                "name": "p",
+                                "kind": "var"
+                              },
+                              "$type": 4,
+                              "$obj": {
+                                "name": "p",
+                                "kind": "var",
+                                "type": 4,
+                                "decl": "recvassign.go:397",
+                                "pkg": "main"
+                              }
+                            },
+                            "opPos": {
+                              "file": "recvassign.go",
+                              "line": 21,
+                              "column": 16,
+                              "offset": 442
+                            },
+                            "op": "==",
+                            "y": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "recvassign.go",
+                                "line": 21,
+                                "column": 19,
+                                "offset": 445
+                              },
+                              "name": "nil",
+                              "obj": null,
+                              "$type": 5,
+                              "$obj": {
+                                "name": "nil",
+                                "kind": "nil",
+                                "type": 5
+                              }
+                            },
+                            "$type": 15
+                          },
+                          {
+                            "node": "SelectorExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "recvassign.go",
+                                "line": 21,
+                                "column": 24,
+                                "offset": 450
+                              },
+                              "name": "q",
+                              "obj": {
+                                "node": "Object",
+                                "name": "q",
+                                "kind": "var"
+                              },
+                              "$type": 4,
+                              "$obj": {
+                                "name": "q",
+                                "kind": "var",
+                                "type": 4,
+                                "decl": "recvassign.go:409",
+                                "pkg": "main"
+                              }
+                            },
+                            "sel": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "recvassign.go",
+                                "line": 21,
+                                "column": 26,
+                                "offset": 452
+                              },
+                              "name": "n",
+                              "obj": null,
+                              "$obj": {
+                                "name": "n",
+                                "kind": "field",
+                                "type": 2,
+                                "decl": "recvassign.go:198",
+                                "pkg": "main"
+                              }
+                            },
+                            "$type": 2,
+                            "$sel": {
+                              "kind": "field",
+                              "recv": 4,
+                              "index": [
+                                0
+                              ],
+                              "indirect": true
+                            }
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "recvassign.go",
+                          "line": 21,
+                          "column": 27,
+                          "offset": 453
+                        },
+                        "$type": 16
+                      }
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "recvassign.go",
+                            "line": 22,
+                            "column": 2,
+                            "offset": 456
+                          },
+                          "name": "r",
+                          "obj": {
+                            "node": "Object",
+                            "name": "r",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "r",
+                            "kind": "var",
+                            "def": true,
+                            "type": 4,
+                            "decl": "recvassign.go:456",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "recvassign.go",
+                        "line": 22,
+                        "column": 4,
+                        "offset": 458
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "CallExpr",
+                          "fun": {
+                            "node": "SelectorExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "recvassign.go",
+                                "line": 22,
+                                "column": 7,
+                                "offset": 461
+                              },
+                              "name": "q",
+                              "obj": {
+                                "node": "Object",
+                                "name": "q",
+                                "kind": "var"
+                              },
+                              "$type": 4,
+                              "$obj": {
+                                "name": "q",
+                                "kind": "var",
+                                "type": 4,
+                                "decl": "recvassign.go:409",
+                                "pkg": "main"
+                              }
+                            },
+                            "sel": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "recvassign.go",
+                                "line": 22,
+                                "column": 9,
+                                "offset": 463
+                              },
+                              "name": "prepare",
+                              "obj": null,
+                              "$obj": {
+                                "name": "prepare",
+                                "kind": "method",
+                                "type": 3,
+                                "decl": "recvassign.go:294",
+                                "pkg": "main"
+                              }
+                            },
+                            "$type": 3,
+                            "$sel": {
+                              "kind": "method",
+                              "recv": 4,
+                              "index": [
+                                0
+                              ],
+                              "indirect": true
+                            }
+                          },
+                          "lparen": {
+                            "file": "recvassign.go",
+                            "line": 22,
+                            "column": 16,
+                            "offset": 470
+                          },
+                          "args": [
+                            {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "recvassign.go",
+                                "line": 22,
+                                "column": 17,
+                                "offset": 471
+                              },
+                              "valueEnd": {
+                                "file": "recvassign.go",
+                                "line": 22,
+                                "column": 18,
+                                "offset": 472
+                              },
+                              "kind": "INT",
+                              "value": "3",
+                              "$type": 2,
+                              "$value": {
+                                "kind": "int",
+                                "value": "3"
+                              }
+                            }
+                          ],
+                          "ellipsis": null,
+                          "rparen": {
+                            "file": "recvassign.go",
+                            "line": 22,
+                            "column": 18,
+                            "offset": 472
+                          },
+                          "$type": 4
+                        }
+                      ]
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "recvassign.go",
+                              "line": 23,
+                              "column": 2,
+                              "offset": 475
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "recvassign.go",
+                              "line": 23,
+                              "column": 6,
+                              "offset": 479
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 8,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 8
+                        },
+                        "lparen": {
+                          "file": "recvassign.go",
+                          "line": 23,
+                          "column": 13,
+                          "offset": 486
+                        },
+                        "args": [
+                          {
+                            "node": "BinaryExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "recvassign.go",
+                                "line": 23,
+                                "column": 14,
+                                "offset": 487
+                              },
+                              "name": "r",
+                              "obj": {
+                                "node": "Object",
+                                "name": "r",
+                                "kind": "var"
+                              },
+                              "$type": 4,
+                              "$obj": {
+                                "name": "r",
+                                "kind": "var",
+                                "type": 4,
+                                "decl": "recvassign.go:456",
+                                "pkg": "main"
+                              }
+                            },
+                            "opPos": {
+                              "file": "recvassign.go",
+                              "line": 23,
+                              "column": 16,
+                              "offset": 489
+                            },
+                            "op": "==",
+                            "y": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "recvassign.go",
+                                "line": 23,
+                                "column": 19,
+                                "offset": 492
+                              },
+                              "name": "q",
+                              "obj": {
+                                "node": "Object",
+                                "name": "q",
+                                "kind": "var"
+                              },
+                              "$type": 4,
+                              "$obj": {
+                                "name": "q",
+                                "kind": "var",
+                                "type": 4,
+                                "decl": "recvassign.go:409",
+                                "pkg": "main"
+                              }
+                            },
+                            "$type": 15
+                          },
+                          {
+                            "node": "SelectorExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "recvassign.go",
+                                "line": 23,
+                                "column": 22,
+                                "offset": 495
+                              },
+                              "name": "r",
+                              "obj": {
+                                "node": "Object",
+                                "name": "r",
+                                "kind": "var"
+                              },
+                              "$type": 4,
+                              "$obj": {
+                                "name": "r",
+                                "kind": "var",
+                                "type": 4,
+                                "decl": "recvassign.go:456",
+                                "pkg": "main"
+                              }
+                            },
+                            "sel": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "recvassign.go",
+                                "line": 23,
+                                "column": 24,
+                                "offset": 497
+                              },
+                              "name": "n",
+                              "obj": null,
+                              "$obj": {
+                                "name": "n",
+                                "kind": "field",
+                                "type": 2,
+                                "decl": "recvassign.go:198",
+                                "pkg": "main"
+                              }
+                            },
+                            "$type": 2,
+                            "$sel": {
+                              "kind": "field",
+                              "recv": 4,
+                              "index": [
+                                0
+                              ],
+                              "indirect": true
+                            }
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "recvassign.go",
+                          "line": 23,
+                          "column": 25,
+                          "offset": 498
+                        },
+                        "$type": 16
+                      }
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "recvassign.go",
+                    "line": 24,
+                    "column": 1,
+                    "offset": 500
+                  }
+                }
+              }
+            ],
+            "fileStart": {
+              "file": "recvassign.go",
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "fileEnd": {
+              "file": "recvassign.go",
+              "line": 24,
+              "column": 3,
+              "offset": 502
+            },
+            "scope": null,
+            "imports": [
+              {
+                "node": "ImportSpec",
+                "doc": null,
+                "name": null,
+                "path": {
+                  "node": "BasicLit",
+                  "valuePos": {
+                    "file": "recvassign.go",
+                    "line": 5,
+                    "column": 8,
+                    "offset": 170
+                  },
+                  "valueEnd": {
+                    "file": "recvassign.go",
+                    "line": 5,
+                    "column": 13,
+                    "offset": 175
+                  },
+                  "kind": "STRING",
+                  "value": "\"fmt\""
+                },
+                "comment": null,
+                "endPos": null
+              }
+            ],
+            "unresolved": [
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "recvassign.go",
+                  "line": 7,
+                  "column": 24,
+                  "offset": 200
+                },
+                "name": "int",
+                "obj": null,
+                "$type": 2,
+                "$isType": true,
+                "$obj": {
+                  "name": "int",
+                  "kind": "type",
+                  "type": 2
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "recvassign.go",
+                  "line": 10,
+                  "column": 29,
+                  "offset": 304
+                },
+                "name": "int",
+                "obj": null,
+                "$type": 2,
+                "$isType": true,
+                "$obj": {
+                  "name": "int",
+                  "kind": "type",
+                  "type": 2
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "recvassign.go",
+                  "line": 11,
+                  "column": 10,
+                  "offset": 329
+                },
+                "name": "nil",
+                "obj": null,
+                "$type": 5,
+                "$obj": {
+                  "name": "nil",
+                  "kind": "nil",
+                  "type": 5
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "recvassign.go",
+                  "line": 21,
+                  "column": 2,
+                  "offset": 428
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "recvassign.go",
+                  "line": 21,
+                  "column": 19,
+                  "offset": 445
+                },
+                "name": "nil",
+                "obj": null,
+                "$type": 5,
+                "$obj": {
+                  "name": "nil",
+                  "kind": "nil",
+                  "type": 5
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "recvassign.go",
+                  "line": 23,
+                  "column": 2,
+                  "offset": 475
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              }
+            ],
+            "comments": [
+              {
+                "node": "CommentGroup",
+                "list": [
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "recvassign.go",
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "text": "// Receptor ponteiro reatribuído no corpo (`if s == nil { s = \u0026T{} }`, de"
+                  },
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "recvassign.go",
+                      "line": 2,
+                      "column": 1,
+                      "offset": 75
+                    },
+                    "text": "// github.com/klauspost/compress/fse): a local do receptor não é final."
+                  }
+                ]
+              },
+              {
+                "node": "CommentGroup",
+                "list": [
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "recvassign.go",
+                      "line": 9,
+                      "column": 1,
+                      "offset": 207
+                    },
+                    "text": "// Receptor ponteiro reatribuído no corpo (klauspost/compress/fse)."
+                  }
+                ]
+              }
+            ],
+            "goVersion": ""
+          }
+        }
+      ],
+      "imports": [
+        {
+          "path": "fmt",
+          "name": "fmt"
+        }
+      ],
+      "typeTable": [
+        {
+          "kind": "named",
+          "pkg": "main",
+          "name": "Scratch",
+          "underlying": 1,
+          "methods": [
+            {
+              "name": "prepare",
+              "type": 3,
+              "index": [
+                0
+              ],
+              "ptr": true
+            }
+          ]
+        },
+        {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "n",
+              "type": 2,
+              "embedded": false,
+              "tag": ""
+            }
+          ]
+        },
+        {
+          "kind": "basic",
+          "name": "int"
+        },
+        {
+          "kind": "func",
+          "params": [
+            2
+          ],
+          "results": [
+            4
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "pointer",
+          "elem": 0
+        },
+        {
+          "kind": "basic",
+          "name": "untyped nil"
+        },
+        {
+          "kind": "basic",
+          "name": "untyped bool"
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            9
+          ],
+          "results": [
+            2,
+            11
+          ],
+          "variadic": true
+        },
+        {
+          "kind": "slice",
+          "elem": 10
+        },
+        {
+          "kind": "interface",
+          "methods": [],
+          "embeddeds": []
+        },
+        {
+          "kind": "named",
+          "pkg": "",
+          "name": "error",
+          "underlying": 12
+        },
+        {
+          "kind": "interface",
+          "methods": [
+            {
+              "name": "Error",
+              "type": 13
+            }
+          ],
+          "embeddeds": []
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            14
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "basic",
+          "name": "string"
+        },
+        {
+          "kind": "basic",
+          "name": "bool"
+        },
+        {
+          "kind": "tuple",
+          "elems": [
+            2,
+            11
+          ]
+        }
+      ],
+      "implements": null,
+      "initOrder": [],
+      "stdlibUsage": [
+        "fmt.Println"
+      ],
+      "reflectUsage": null
+    }
+  ]
+}
