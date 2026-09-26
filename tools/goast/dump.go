@@ -65,6 +65,39 @@ type ReflectUse struct {
 // Com dir, os alvos são padrões resolvidos no módulo de dir; sem dir, um
 // alvo único pode ser um diretório (ver resolveTarget).
 func Dump(dir string, targets ...string) (*DumpDoc, error) {
+	doc := newDoc()
+	err := DumpEach(dir, targets, func(p *PackageDump) error {
+		doc.Packages = append(doc.Packages, p)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return doc, nil
+}
+
+func newDoc() *DumpDoc {
+	return &DumpDoc{SchemaVersion: 7, Tool: "goast", GoVersion: runtime.Version()}
+}
+
+// DumpEach é o Dump sem acumular: entrega cada pacote em ordem de import
+// path e libera a AST dele. O grafo inteiro do corpus não cabe na memória
+// como um documento só.
+func DumpEach(dir string, targets []string, emit func(*PackageDump) error) error {
+	fset, pkgs, err := load(dir, targets)
+	if err != nil {
+		return err
+	}
+	for _, p := range pkgs {
+		if err := emit(dumpPackage(fset, p)); err != nil {
+			return err
+		}
+		p.Syntax, p.TypesInfo = nil, nil
+	}
+	return nil
+}
+
+func load(dir string, targets []string) (*token.FileSet, []*packages.Package, error) {
 	fset := token.NewFileSet()
 	cfg := &packages.Config{
 		Mode: packages.NeedName | packages.NeedFiles | packages.NeedSyntax |
@@ -74,11 +107,14 @@ func Dump(dir string, targets ...string) (*DumpDoc, error) {
 		Dir:  dir,
 	}
 	target := strings.Join(targets, " ")
+	if len(targets) > 3 {
+		target = fmt.Sprintf("%s ... (%d alvos)", targets[0], len(targets))
+	}
 	patterns := targets
 	if dir == "" && len(targets) == 1 {
 		pattern, err := resolveTarget(cfg, targets[0])
 		if err != nil {
-			return nil, err
+			return nil, nil, err
 		}
 		patterns = []string{pattern}
 	}
@@ -103,25 +139,16 @@ func Dump(dir string, targets ...string) (*DumpDoc, error) {
 		// simples que só importam a stdlib).
 		loose, looseErr := loadLoose(fset, target)
 		if looseErr != nil {
-			return nil, fmt.Errorf("carregando %q: %w (fallback loose: %v)", target, loadErr, looseErr)
+			return nil, nil, fmt.Errorf("carregando %q: %w (fallback loose: %v)", target, loadErr, looseErr)
 		}
 		pkgs = []*packages.Package{loose}
 	} else if loadErr != nil {
-		return nil, fmt.Errorf("carregando %q: %w", target, loadErr)
+		return nil, nil, fmt.Errorf("carregando %q: %w", target, loadErr)
 	}
 
 	// Ordem determinística: import path alfabético.
 	sort.Slice(pkgs, func(i, j int) bool { return pkgs[i].PkgPath < pkgs[j].PkgPath })
-
-	doc := &DumpDoc{
-		SchemaVersion: 7,
-		Tool:          "goast",
-		GoVersion:     runtime.Version(),
-	}
-	for _, p := range pkgs {
-		doc.Packages = append(doc.Packages, dumpPackage(fset, p))
-	}
-	return doc, nil
+	return fset, pkgs, nil
 }
 
 // resolveTarget interpreta o alvo: diretório vira pattern "." com Dir

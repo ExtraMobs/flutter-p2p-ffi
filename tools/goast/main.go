@@ -50,22 +50,27 @@ func main() {
 		os.Exit(2)
 	}
 
-	doc, err := Dump(*dir, targets...)
-	if err != nil {
-		fail(err)
-	}
 	if *outDir == "" {
-		writeDoc(*out, doc)
-		return
-	}
-	for _, p := range doc.Packages {
-		one := *doc
-		one.Packages = []*PackageDump{p}
-		path := filepath.Join(*outDir, filepath.FromSlash(p.Path)+".json")
-		if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
+		doc, err := Dump(*dir, targets...)
+		if err != nil {
 			fail(err)
 		}
-		writeDoc(path, &one)
+		writeDoc(*out, doc, true)
+		return
+	}
+	// Grafo: um documento compacto por pacote, gravado assim que despejado.
+	err = DumpEach(*dir, targets, func(p *PackageDump) error {
+		doc := newDoc()
+		doc.Packages = []*PackageDump{p}
+		path := filepath.Join(*outDir, filepath.FromSlash(p.Path)+".json")
+		if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
+			return err
+		}
+		writeDoc(path, doc, false)
+		return nil
+	})
+	if err != nil {
+		fail(err)
 	}
 }
 
@@ -90,8 +95,11 @@ func expandTargets(targets []string) ([]string, error) {
 	return out, nil
 }
 
-func writeDoc(path string, doc *DumpDoc) {
-	data, err := json.MarshalIndent(doc, "", "  ")
+func writeDoc(path string, doc *DumpDoc, indent bool) {
+	data, err := json.Marshal(doc)
+	if indent {
+		data, err = json.MarshalIndent(doc, "", "  ")
+	}
 	if err != nil {
 		fail(err)
 	}
