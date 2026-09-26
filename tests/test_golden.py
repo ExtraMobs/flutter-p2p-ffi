@@ -33,6 +33,8 @@ WIN = sys.platform == "win32"
 os.environ.setdefault("GOTOOLCHAIN", "go1.26.5")
 
 CASES = sorted(d for d in os.listdir(GOLDEN) if os.path.isdir(os.path.join(GOLDEN, d)))
+if os.environ.get("G2D_CASES"):  # G2D_CASES=a,b: só esses casos (iteração local)
+    CASES = [c for c in CASES if c in os.environ["G2D_CASES"].split(",")]
 
 
 def case_file(case, ext):

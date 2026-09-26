@@ -1,10 +1,34 @@
 """Imports Dart usados e prefixos (qualificação de símbolos)."""
 
+import re
+
 from g2d.config import BUILTIN_PREFIX, BUILTIN_URI, GOLANG, GOLANG_PREFIX, GOLANG_URI, GRAPH_URI, STDLIB_SHIMS
 from g2d.engine.behavior import Service
 from g2d.graph import is_std
 from g2d.model import Unsupported
-from g2d.services.naming import escape
+from g2d.services.naming import escape, is_exported, member_name
+
+
+def declared_names(pkg):
+    """Nomes Dart exportados que a library declara: funções, vars e consts de
+    pacote, e membros das classes dela (campos, métodos, promovidos). Um
+    prefixo de import igual a um deles seria sombreado."""
+    names = set()
+    for f in pkg.files:
+        for d in f["ast"]["decls"] or []:
+            if d["node"] == "FuncDecl" and not d["recv"]:
+                names.add(d["name"]["name"])
+            elif d["node"] == "GenDecl" and d["tok"] in ("var", "const"):
+                names.update(i["name"] for s in d["specs"] for i in s["names"])
+    underlying = {t["underlying"] for t in pkg.type_table if t["kind"] == "named"}
+    for i, t in enumerate(pkg.type_table):
+        if t["kind"] == "named" and t["pkg"] == pkg.path:
+            names.update(m["name"] for m in t.get("methods") or [])
+            u = pkg.type_at(t["underlying"])
+            names.update(x["name"] for x in u.get("fields") or u.get("methods") or [])
+        elif t["kind"] == "struct" and i not in underlying:  # struct anônima
+            names.update(x["name"] for x in t["fields"])
+    return {member_name(n) for n in names if is_exported(n)}
 
 
 class ImportTable(Service):
@@ -16,6 +40,7 @@ class ImportTable(Service):
         super().__init__(engine)
         self.used = {}  # prefixo → URI (só os realmente usados)
         self.prefixes = {}  # import path → prefixo
+        self.taken = declared_names(self.pkg)
         for imp in self.pkg.imports:
             if imp["name"] == ".":
                 # `import .`: os identificadores já trazem o pacote do objeto
@@ -31,7 +56,17 @@ class ImportTable(Service):
             if imp["name"] == GOLANG_PREFIX:
                 raise Unsupported(f"import:{imp['name']}", f"import {imp['name']} {imp['path']}",
                                   self.import_spec(imp["path"]))
-            self.prefixes.setdefault(imp["path"], escape(imp["name"]))
+            if imp["path"] not in self.prefixes:
+                self.prefixes[imp["path"]] = self.free_prefix(escape(imp["name"]))
+
+    def free_prefix(self, prefix):
+        """Prefixo que nenhum nome declarado na library sombreia (campo
+        `time` numa classe esconde o prefixo `time` no corpo dela) e que não
+        é de outro import (arquivos diferentes podem importar `crypto/rand`
+        e `math/rand` como `rand`)."""
+        while prefix in self.taken or prefix in self.prefixes.values():
+            prefix += "_"
+        return prefix
 
     def import_spec(self, path):
         """ImportSpec da AST com esse import path (posição dos erros)."""
@@ -80,9 +115,7 @@ class ImportTable(Service):
             self.shim_symbol(pkg_path, name)
         prefix = self.prefixes.get(pkg_path)
         if prefix is None:  # tipo alcançado sem import direto
-            prefix = escape(pkg_path.rsplit("/", 1)[-1])
-            while prefix in self.used and self.used[prefix] != uri:
-                prefix += "_"
+            prefix = self.free_prefix(escape(re.sub(r"\W", "_", pkg_path.rsplit("/", 1)[-1])))
             self.prefixes[pkg_path] = prefix
         self.used[prefix] = uri
         return f"{prefix}.{name}"

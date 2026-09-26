@@ -86,6 +86,7 @@ Legenda: ✅ fiel · ⚠️ fiel no caso comum, com limite conhecido · ❌ não
 |---|---|---|
 | pacote (todos os arquivos) | uma library `lib/<import path>.dart` | ✅ |
 | `import "fmt"` | `import 'package:golib_dart/fmt.dart' as fmt;` (só se usado no Dart) | ✅ |
+| prefixo igual a um nome Dart da library (campo/método `Time` → `time`, função `Fmt`) | o prefixo ganha `_` (`as time_;`): um membro `time` sombrearia o prefixo no corpo e no construtor da classe. Dois imports de arquivos diferentes com o mesmo nome (`crypto/rand`, `math/rand`) também se distinguem | ✅ (fixture `importprefix`) |
 | universo e runtime | `import 'package:golib_dart/builtin.dart' as go;` | ✅ |
 | tipos básicos | `import 'package:golib_dart/fixed_types/golang.dart' as Golang;` | ✅ |
 | `func main` | `void main() { go.runMain(() { $goInit(); ... }); }`: panic não recuperado (inclusive na inicialização) vai para o stderr com exit 2 | ✅ |
