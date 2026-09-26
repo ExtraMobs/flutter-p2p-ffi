@@ -110,7 +110,7 @@ void main() {
     for (Golang.Int i = Golang.Int(0); i < Golang.Int(40); i += Golang.Int(1)) {
       grow.value = grow.value.append([Golang.String.fromDart('x')]);
       if (Golang.Int(caps.length) == Golang.Int(0) ||
-          caps[(Golang.Int(caps.length) - Golang.Int(1)).toInt()] !=
+          caps[(Golang.Int(caps.length) - Golang.Int(1)).toIndex()] !=
               Golang.Int(grow.value.capacity)) {
         caps = caps.append([Golang.Int(grow.value.capacity)]);
       }

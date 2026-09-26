@@ -49,7 +49,7 @@ go.Slice<Object?> pairs<K, V>(
       Golang.Int i = Golang.Int($t4);
       _pairs$pair$<K, V> p = $t3[$t4].$copy();
       {
-        res[i.toInt()] = p.$ifaceCopy();
+        res[i.toIndex()] = p.$ifaceCopy();
       }
     }
   }

@@ -55,7 +55,8 @@ Object? panicValue(Object e) => switch (e) {
     'runtime error: $goMessage',
   ),
   IndexError(:final invalidValue, :final length) => RuntimeError(
-    'runtime error: index out of range [$invalidValue] with length $length',
+    'runtime error: index out of range [${Golang.indexText(invalidValue)}]'
+    '${Golang.withBound(invalidValue, 'length', length)}',
   ),
   // `p!` com p nil: desreferência de ponteiro nil.
   TypeError() => const RuntimeError(

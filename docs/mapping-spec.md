@@ -201,8 +201,8 @@ class Box extends go.GoStruct<Box> {
 | Go | Dart |
 |---|---|
 | `[]T{a, b}` | `go.Slice<T>.of([a, b], _$eN)` |
-| `make([]T, n, c)` | `go.Slice<T>.make(n, c, _$eN)` |
-| `s[i]`, `s[i] = v` | `s[i.toInt()]`, `s[i.toInt()] = v` (`toInt()`: saída exata em ±2⁵³ de qualquer inteiro Go; bounds → `runtime error: index out of range`) |
+| `make([]T, n, c)` | `go.Slice<T>.make(n, c, _$eN)`, com as checagens do `makeslice` (acima de `maxAlloc` = 2⁴⁸ bytes: `len out of range` se o len já estoura, senão `cap`). ⚠️ `len > cap` com cap constante e slice que não escapa dá `cap out of range` no gc (checagem inline do compilador); aqui dá `len` se o len estoura o `maxAlloc` |
+| `s[i]`, `s[i] = v` | `s[i.toIndex()]`, `s[i.toIndex()] = v` (`toIndex()`: exato em ±2⁵³; fora disso, um sentinela ±2⁵⁴, sempre fora do intervalo, que guarda o texto exato do valor para a mensagem: `index out of range [9223372036854775808] with length 1` em VM, JS e Wasm; negativo sem o `with length`, como o `boundsNegErrorFmt` do Go). Fixture `bigindex` |
 | `s[a:b]`, `s[a:b:c]` | `s.slice(a, b)`, `s.slice(a, b, c)` (compartilha o array) |
 | `append(s, x, y)` / `append(s, t...)` | `s.append([x, y])` / `s.appendSlice(t)` |
 | `append(b, str...)`, `copy(b, str)` | `b.appendSlice(go.bytesOf(str, _$eN))` / `b.copyFrom(go.bytesOf(str, _$eN))` (os bytes de `[]byte(str)`; string nomeada via `.$str`). Fixture `stringbytes` |

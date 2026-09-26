@@ -68,7 +68,8 @@ final class String extends StringBase<String> {
   int operator [](int index) {
     if (index < 0 || index >= _bytes.length) {
       throw BoundsError(
-        'index out of range [$index] with length ${_bytes.length}',
+        'index out of range [${indexText(index)}]'
+        '${withBound(index, 'length', _bytes.length)}',
       );
     }
     return _bytes[index];
@@ -130,11 +131,12 @@ final class String extends StringBase<String> {
     final end = high ?? length;
     if (end < 0 || end > length) {
       throw BoundsError(
-        'slice bounds out of range [:$end] with length $length',
+        'slice bounds out of range [:${indexText(end)}]'
+        '${withBound(end, 'length', length)}',
       );
     }
     if (low < 0 || low > end) {
-      throw BoundsError('slice bounds out of range [$low:$end]');
+      throw BoundsError('slice bounds out of range ${lowHigh(low, end)}');
     }
     return String.fromBytes(Uint8List.sublistView(_bytes, low, end));
   }

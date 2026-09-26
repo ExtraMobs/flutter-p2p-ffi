@@ -151,14 +151,14 @@ final class List$<K extends Key<K>> extends go.Slice<K>
 
   bool less(Golang.Int i, Golang.Int j) {
     List$<K> l = this;
-    return l[i.toInt()].compare(l[j.toInt()]) < Golang.Int(0);
+    return l[i.toIndex()].compare(l[j.toIndex()]) < Golang.Int(0);
   }
 
   void swap(Golang.Int i, Golang.Int j) {
     List$<K> l = this;
-    final $t1 = (l[j.toInt()], l[i.toInt()]);
-    l[i.toInt()] = $t1.$1;
-    l[j.toInt()] = $t1.$2;
+    final $t1 = (l[j.toIndex()], l[i.toIndex()]);
+    l[i.toIndex()] = $t1.$1;
+    l[j.toIndex()] = $t1.$2;
   }
 }
 

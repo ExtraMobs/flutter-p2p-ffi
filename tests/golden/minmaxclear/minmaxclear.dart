@@ -90,7 +90,7 @@ class Ring<T> extends go.GoStruct<Ring<T>> {
 
   void init(Golang.Int size) {
     final Ring<T>? r = $nilPtr ? null : this;
-    r!._ring = go.Slice<T>.make(0, size.toInt(), $T);
+    r!._ring = go.Slice<T>.make(0, size.toIndex(), $T);
   }
 
   void push(T t) {
@@ -127,9 +127,9 @@ class Ring<T> extends go.GoStruct<Ring<T>> {
       bit < Golang.Int(8);
       bit += Golang.Int(1)
     ) {
-      data[i.toInt()] ^= (Golang.Uint8(1) << go.shiftCount(bit));
+      data[i.toIndex()] ^= (Golang.Uint8(1) << go.shiftCount(bit));
       Golang.Uint32 got = sum!(data);
-      data[i.toInt()] ^= (Golang.Uint8(1) << go.shiftCount(bit));
+      data[i.toIndex()] ^= (Golang.Uint8(1) << go.shiftCount(bit));
       if (got == want) {
         return (true, i, bit);
       }

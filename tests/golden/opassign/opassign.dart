@@ -47,7 +47,7 @@ void main() {
     ], _$e0);
     s[0] = s[0].andNot(Golang.Uint8(15));
     Golang.Int i = Golang.Int(1);
-    s[i.toInt()] = s[i.toInt()].andNot(Golang.Uint8(48));
+    s[i.toIndex()] = s[i.toIndex()].andNot(Golang.Uint8(48));
     _flags$ x = _flags$();
     x._f = Golang.Uint16(65535);
     x._f = x._f.andNot(Golang.Uint16(240));

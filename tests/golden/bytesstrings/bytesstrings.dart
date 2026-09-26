@@ -63,8 +63,8 @@ final class Index extends Golang.StringBase<Index> {
     ) {
       return _cmp(
             this.slice(
-              (i * Golang.Int(4)).toInt(),
-              (i * Golang.Int(4) + n).toInt(),
+              (i * Golang.Int(4)).toIndex(),
+              (i * Golang.Int(4) + n).toIndex(),
             ),
             key,
           ) !=
@@ -72,7 +72,7 @@ final class Index extends Golang.StringBase<Index> {
     });
     Golang.Int i$1 = index * Golang.Int(4);
     if (_cmp(
-          this.slice(i$1.toInt(), (i$1 + Golang.Int(key.length)).toInt()),
+          this.slice(i$1.toIndex(), (i$1 + Golang.Int(key.length)).toIndex()),
           key,
         ) !=
         Golang.Int(0)) {
@@ -88,15 +88,15 @@ Golang.Int _cmp(Index a, go.Slice<Golang.Uint8> b) {
     n = Golang.Int(b.length);
   }
   {
-    final $t1 = b.slice(0, n.toInt());
+    final $t1 = b.slice(0, n.toIndex());
     for (var $t2 = 0; $t2 < $t1.length; $t2++) {
       Golang.Int i = Golang.Int($t2);
       Golang.Uint8 c = $t1[$t2];
       {
         {
-          if (Golang.Uint8(a[i.toInt()]) > c) {
+          if (Golang.Uint8(a[i.toIndex()]) > c) {
             return Golang.Int(1);
-          } else if (Golang.Uint8(a[i.toInt()]) < c) {
+          } else if (Golang.Uint8(a[i.toIndex()]) < c) {
             return Golang.Int(-1);
           }
         }
@@ -127,10 +127,13 @@ Golang.Int _cmp(Index a, go.Slice<Golang.Uint8> b) {
     n,
   ], (a, b) => a < b);
   {
-    Golang.Int i = strings.indexByte(s.slice(0, end.toInt()), Golang.Uint8(44));
+    Golang.Int i = strings.indexByte(
+      s.slice(0, end.toIndex()),
+      Golang.Uint8(44),
+    );
     if (i != Golang.Int(-1)) {
-      after = s.slice((i + Golang.Int(1)).toInt());
-      return (s.slice(0, i.toInt()), after, true);
+      after = s.slice((i + Golang.Int(1)).toIndex());
+      return (s.slice(0, i.toIndex()), after, true);
     }
   }
   return (s, Golang.String.fromDart(''), false);

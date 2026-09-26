@@ -266,9 +266,9 @@ void main() {
     Golang.Uint8 ix8 = Golang.Uint8(1);
     fmt.println(
       go.Slice<Object?>.of([
-        list[ix64.toInt()],
-        list[ix8.toInt()],
-        list.slice(ix8.toInt(), ix64.toInt()),
+        list[ix64.toIndex()],
+        list[ix8.toIndex()],
+        list.slice(ix8.toIndex(), ix64.toIndex()),
         Golang.String.fromCodePoint(
           Golang.Int32.from(ix64 + Golang.Int64(64)).toInt(),
         ),

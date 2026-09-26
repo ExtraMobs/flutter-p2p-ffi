@@ -20,7 +20,7 @@ Golang.Int index<S extends go.Slice<E>, E>(
     for (var $t2 = 0; $t2 < $t1.length; $t2++) {
       Golang.Int i = Golang.Int($t2);
       {
-        if (v == s[i.toInt()]) {
+        if (v == s[i.toIndex()]) {
           return i;
         }
       }
@@ -47,7 +47,7 @@ bool equal<S extends go.Slice<E>, E>(go.Elem<S> $S, go.Elem<E> $E, S s1, S s2) {
     for (var $t2 = 0; $t2 < $t1.length; $t2++) {
       Golang.Int i = Golang.Int($t2);
       {
-        if (s1[i.toInt()] != s2[i.toInt()]) {
+        if (s1[i.toIndex()] != s2[i.toIndex()]) {
           return false;
         }
       }
@@ -70,8 +70,10 @@ S insert<S extends go.Slice<E>, E>(
   Golang.Int i,
   go.Slice<E> v,
 ) {
-  S tail = $S.rewrapOf($S.zero().appendSlice($S.rewrapOf(s.slice(i.toInt()))));
-  s = $S.rewrapOf($S.rewrapOf(s.slice(0, i.toInt())).appendSlice(v));
+  S tail = $S.rewrapOf(
+    $S.zero().appendSlice($S.rewrapOf(s.slice(i.toIndex()))),
+  );
+  s = $S.rewrapOf($S.rewrapOf(s.slice(0, i.toIndex())).appendSlice(v));
   return $S.rewrapOf(s.appendSlice(tail));
 }
 
@@ -84,8 +86,8 @@ S delete$<S extends go.Slice<E>, E>(
 ) {
   return $S.rewrapOf(
     $S
-        .rewrapOf(s.slice(0, i.toInt()))
-        .appendSlice($S.rewrapOf(s.slice(j.toInt()))),
+        .rewrapOf(s.slice(0, i.toIndex()))
+        .appendSlice($S.rewrapOf(s.slice(j.toIndex()))),
   );
 }
 
@@ -95,9 +97,9 @@ void reverse<S extends go.Slice<E>, E>(go.Elem<S> $S, go.Elem<E> $E, S s) {
     i < j;
     (i, j) = (i + Golang.Int(1), j - Golang.Int(1))
   ) {
-    final $t1 = (s[j.toInt()], s[i.toInt()]);
-    s[i.toInt()] = $t1.$1;
-    s[j.toInt()] = $t1.$2;
+    final $t1 = (s[j.toIndex()], s[i.toIndex()]);
+    s[i.toIndex()] = $t1.$1;
+    s[j.toIndex()] = $t1.$2;
   }
 }
 

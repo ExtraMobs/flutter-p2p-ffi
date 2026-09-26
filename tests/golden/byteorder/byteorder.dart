@@ -30,7 +30,7 @@ Golang.Uint32 load32<I extends Golang.IntBase<I>>(
   go.Slice<Golang.Uint8> b,
   I i,
 ) {
-  return binary.littleEndian.uint32(b.slice(i.toInt()));
+  return binary.littleEndian.uint32(b.slice(i.toIndex()));
 }
 
 void store64<I extends Golang.IntBase<I>>(
@@ -39,7 +39,7 @@ void store64<I extends Golang.IntBase<I>>(
   I i,
   Golang.Uint64 v,
 ) {
-  binary.littleEndian.putUint64(b.slice(i.toInt()), v);
+  binary.littleEndian.putUint64(b.slice(i.toIndex()), v);
 }
 
 Golang.Int xorBytes(

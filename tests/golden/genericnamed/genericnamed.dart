@@ -138,12 +138,12 @@ final class Heap<K extends Golang.GoOrdered<K>, V>
     Heap<K, V> h = this;
     while (i > Golang.Int(0)) {
       Golang.Int p = (i - Golang.Int(1)) ~/ Golang.Int(2);
-      if (h[p.toInt()]._key <= h[i.toInt()]._key) {
+      if (h[p.toIndex()]._key <= h[i.toIndex()]._key) {
         return;
       }
-      final $t1 = (h[i.toInt()].$copy(), h[p.toInt()].$copy());
-      h[p.toInt()].$set($t1.$1);
-      h[i.toInt()].$set($t1.$2);
+      final $t1 = (h[i.toIndex()].$copy(), h[p.toIndex()].$copy());
+      h[p.toIndex()].$set($t1.$1);
+      h[i.toIndex()].$set($t1.$2);
       i = p;
     }
   }
@@ -156,18 +156,20 @@ final class Heap<K extends Golang.GoOrdered<K>, V>
         Golang.Int(2) * i + Golang.Int(2),
         i,
       );
-      if (l < Golang.Int(h.length) && h[l.toInt()]._key < h[m.toInt()]._key) {
+      if (l < Golang.Int(h.length) &&
+          h[l.toIndex()]._key < h[m.toIndex()]._key) {
         m = l;
       }
-      if (r < Golang.Int(h.length) && h[r.toInt()]._key < h[m.toInt()]._key) {
+      if (r < Golang.Int(h.length) &&
+          h[r.toIndex()]._key < h[m.toIndex()]._key) {
         m = r;
       }
       if (m == i) {
         return;
       }
-      final $t1 = (h[i.toInt()].$copy(), h[m.toInt()].$copy());
-      h[m.toInt()].$set($t1.$1);
-      h[i.toInt()].$set($t1.$2);
+      final $t1 = (h[i.toIndex()].$copy(), h[m.toIndex()].$copy());
+      h[m.toIndex()].$set($t1.$1);
+      h[i.toIndex()].$set($t1.$2);
       i = m;
     }
   }
@@ -213,10 +215,10 @@ final class Heap$Ptr<K extends Golang.GoOrdered<K>, V>
     Heap<K, V> values = this.value;
     Golang.Int last = Golang.Int(values.length) - Golang.Int(1);
     _entry$<K, V> v = values[0].$copy();
-    values[0].$set(values[last.toInt()]);
+    values[0].$set(values[last.toIndex()]);
     _entry$<K, V> zero = _entry$<K, V>($K, $V);
-    values[last.toInt()].$set(zero);
-    values = Heap<K, V>($K, $V, values.slice(0, last.toInt()));
+    values[last.toIndex()].$set(zero);
+    values = Heap<K, V>($K, $V, values.slice(0, last.toIndex()));
     if (last > Golang.Int(0)) {
       values._down(Golang.Int(0));
     }

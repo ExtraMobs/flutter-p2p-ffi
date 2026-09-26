@@ -47,7 +47,7 @@ final class Hash extends go.GoArray<Golang.Uint8> {
 
   void set(Golang.Int i, Golang.Uint8 b) {
     final Hash? h = $nilPtr ? null : this;
-    h![i.toInt()] = b;
+    h![i.toIndex()] = b;
   }
 }
 

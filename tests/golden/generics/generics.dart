@@ -105,10 +105,10 @@ class Stack<T> extends go.GoStruct<Stack<T>> {
     if (Golang.Int(s!._items.length) == Golang.Int(0)) {
       return (zero, false);
     }
-    T v = s!._items[(Golang.Int(s!._items.length) - Golang.Int(1)).toInt()];
+    T v = s!._items[(Golang.Int(s!._items.length) - Golang.Int(1)).toIndex()];
     s!._items = s!._items.slice(
       0,
-      (Golang.Int(s!._items.length) - Golang.Int(1)).toInt(),
+      (Golang.Int(s!._items.length) - Golang.Int(1)).toIndex(),
     );
     return (v, true);
   }

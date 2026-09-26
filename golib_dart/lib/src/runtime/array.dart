@@ -1,6 +1,7 @@
 /// Arrays Go `[N]T`: valores de comprimento fixo.
 library;
 
+import '../../fixed_types/golang/src/bounds.dart';
 import 'elem.dart';
 import 'panic.dart';
 import 'ptr.dart';
@@ -37,7 +38,8 @@ base class GoArray<T> extends GoValue<GoArray<T>> {
     if (i < 0 || i >= _items.length) {
       throw Panic(
         RuntimeError(
-          'runtime error: index out of range [$i] with length ${_items.length}',
+          'runtime error: index out of range [${indexText(i)}]'
+          '${withBound(i, 'length', _items.length)}',
         ),
       );
     }

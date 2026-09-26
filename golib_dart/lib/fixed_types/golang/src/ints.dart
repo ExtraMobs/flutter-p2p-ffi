@@ -15,6 +15,7 @@ library;
 import 'dart:typed_data';
 
 import 'base.dart';
+import 'bounds.dart';
 
 const int _m32 = 0xFFFFFFFF;
 const int _p32 = 0x100000000;
@@ -194,6 +195,9 @@ abstract base class WideIntBase<S extends WideIntBase<S>> extends IntBase<S> {
   /// intervalo).
   @override
   int toInt() => _h * _p32 + $lo;
+
+  @override
+  int toIndex() => $safe ? toInt() : bigIndex(toString(), negative: _h < 0);
 
   @override
   BigInt toBigInt() => (BigInt.from(_h) << 32) | BigInt.from($lo);

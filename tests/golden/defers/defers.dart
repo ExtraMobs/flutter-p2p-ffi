@@ -219,7 +219,7 @@ void main() {
         _safe(Golang.String.fromDart('indice'), () {
           fmt.println(
             go.Slice<Object?>.of([
-              xs[(Golang.Int(xs.length) + Golang.Int(2)).toInt()],
+              xs[(Golang.Int(xs.length) + Golang.Int(2)).toIndex()],
             ], _$e0),
           );
         }),

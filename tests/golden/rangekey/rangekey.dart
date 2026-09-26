@@ -62,7 +62,7 @@ void main() {
       for (var $t2 = 0; $t2 < $t1.length; $t2++) {
         Golang.Int i = Golang.Int($t2);
         {
-          fmt.println(go.Slice<Object?>.of([i, xs[i.toInt()]._n], _$e1));
+          fmt.println(go.Slice<Object?>.of([i, xs[i.toIndex()]._n], _$e1));
         }
       }
     }
@@ -89,7 +89,7 @@ void main() {
       for (var $t6 = 0; $t6 < $t5.length; $t6++) {
         Golang.Int i$2 = Golang.Int($t6);
         {
-          arr[i$2.toInt()] *= Golang.Uint8(2);
+          arr[i$2.toIndex()] *= Golang.Uint8(2);
         }
       }
     }

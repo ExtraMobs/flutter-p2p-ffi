@@ -23,14 +23,14 @@ final class Uint64Slice extends go.Slice<Golang.Uint64>
   }
 
   bool less(Golang.Int i, Golang.Int j) {
-    return this[i.toInt()] < this[j.toInt()];
+    return this[i.toIndex()] < this[j.toIndex()];
   }
 
   void swap(Golang.Int i, Golang.Int j) {
     Uint64Slice p = this;
-    final $t1 = (p[j.toInt()], p[i.toInt()]);
-    p[i.toInt()] = $t1.$1;
-    p[j.toInt()] = $t1.$2;
+    final $t1 = (p[j.toIndex()], p[i.toIndex()]);
+    p[i.toIndex()] = $t1.$1;
+    p[j.toIndex()] = $t1.$2;
   }
 }
 
@@ -48,14 +48,14 @@ final class BoolSlice extends go.Slice<bool>
   }
 
   bool less(Golang.Int i, Golang.Int j) {
-    return this[j.toInt()];
+    return this[j.toIndex()];
   }
 
   void swap(Golang.Int i, Golang.Int j) {
     BoolSlice p = this;
-    final $t1 = (p[j.toInt()], p[i.toInt()]);
-    p[i.toInt()] = $t1.$1;
-    p[j.toInt()] = $t1.$2;
+    final $t1 = (p[j.toIndex()], p[i.toIndex()]);
+    p[i.toIndex()] = $t1.$1;
+    p[j.toIndex()] = $t1.$2;
   }
 }
 
@@ -150,20 +150,20 @@ class _traced$ extends go.GoStruct<_traced$> implements sort.Interface {
   bool less(Golang.Int i, Golang.Int j) {
     final _traced$? t = $nilPtr ? null : this;
     (t ?? _traced$.$nil)._mix(Golang.Int(1), i, j);
-    return t!._xs[i.toInt()]._key < t!._xs[j.toInt()]._key;
+    return t!._xs[i.toIndex()]._key < t!._xs[j.toIndex()]._key;
   }
 
   void swap(Golang.Int i, Golang.Int j) {
     final _traced$? t = $nilPtr ? null : this;
     (t ?? _traced$.$nil)._mix(Golang.Int(2), i, j);
-    final $t1 = (t!._xs[j.toInt()].$copy(), t!._xs[i.toInt()].$copy());
-    t!._xs[i.toInt()].$set($t1.$1);
-    t!._xs[j.toInt()].$set($t1.$2);
+    final $t1 = (t!._xs[j.toIndex()].$copy(), t!._xs[i.toIndex()].$copy());
+    t!._xs[i.toIndex()].$set($t1.$1);
+    t!._xs[j.toIndex()].$set($t1.$2);
   }
 }
 
 go.Slice<_item$> _gen(Golang.Int n, Golang.Int pattern, Golang.Int mod) {
-  go.Slice<_item$> xs = go.Slice<_item$>.make(n.toInt(), n.toInt(), _$e0);
+  go.Slice<_item$> xs = go.Slice<_item$>.make(n.toIndex(), n.toIndex(), _$e0);
   Golang.Uint32 seed = Golang.Uint32.from(n * Golang.Int(31) + pattern);
   {
     final $t1 = xs;
@@ -191,7 +191,7 @@ go.Slice<_item$> _gen(Golang.Int n, Golang.Int pattern, Golang.Int mod) {
             }
           }
         }
-        xs[i.toInt()].$set(_item$(key: k, id: i));
+        xs[i.toIndex()].$set(_item$(key: k, id: i));
       }
     }
   }
@@ -272,11 +272,11 @@ void main() {
         {
           go.Slice<_item$> xs = _gen(n$1, Golang.Int(0), Golang.Int(5));
           sort.slice$(xs, (Golang.Int i, Golang.Int j) {
-            return xs[i.toInt()]._key < xs[j.toInt()]._key;
+            return xs[i.toIndex()]._key < xs[j.toIndex()]._key;
           });
           go.Slice<_item$> ys = _gen(n$1, Golang.Int(0), Golang.Int(5));
           sort.sliceStable(ys, (Golang.Int i$1, Golang.Int j$1) {
-            return ys[i$1.toInt()]._key < ys[j$1.toInt()]._key;
+            return ys[i$1.toIndex()]._key < ys[j$1.toIndex()]._key;
           });
           fmt.println(
             go.Slice<Object?>.of([

@@ -10,11 +10,13 @@ class Operands(Service):
     name = "operands"
 
     def to_int(self, n):
-        """Expressão inteira Go como int Dart (índices, contagens)."""
+        """Expressão inteira Go como int Dart (índices, contagens). `toIndex`:
+        fora de ±2^53 dá um sentinela fora do intervalo que guarda o valor
+        exato para a mensagem do panic."""
         v = n.get("$value")
         if v is not None:
             return v["value"]
-        return self.dart_length(n) or f"{self.expr(n, POSTFIX)}.toInt()"
+        return self.dart_length(n) or f"{self.expr(n, POSTFIX)}.toIndex()"
 
     def dart_length(self, n):
         """`len(x)`/`cap(x)` como int Dart (sem passar por Golang.Int), ou

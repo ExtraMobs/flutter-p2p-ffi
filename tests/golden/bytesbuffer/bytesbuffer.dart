@@ -54,11 +54,11 @@ class _chunks$ extends go.GoStruct<_chunks$> implements io.Reader {
           go.minOf<Golang.Int>([
             Golang.Int(3),
             Golang.Int(c!._data.length),
-          ], (a, b) => a < b).toInt(),
+          ], (a, b) => a < b).toIndex(),
         ),
       ),
     );
-    c!._data = c!._data.slice(n.toInt());
+    c!._data = c!._data.slice(n.toIndex());
     return (n, null);
   }
 }

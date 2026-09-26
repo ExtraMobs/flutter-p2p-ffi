@@ -69,6 +69,11 @@ abstract base class IntBase<S extends IntBase<S>>
   /// Valor como int Dart (índices, contagens, runas); exato em ±2^53.
   int toInt();
 
+  /// Índice ou contagem: exato em ±2^53; fora disso, um sentinela de
+  /// `bounds.dart` (±2^54, sempre fora do intervalo) que guarda o texto exato
+  /// para a mensagem do panic.
+  int toIndex() => toInt();
+
   /// Valor matemático exato (fronteira lenta: floats, testes).
   BigInt toBigInt();
 
@@ -213,8 +218,10 @@ abstract interface class ComplexOps<C extends ComplexOps<C>> {
 /// Tipos nomeados sobre complex (`type Z complex128`): guardam o valor do
 /// subjacente ([$c], um [ComplexOps]) e delegam a ele as operações, que
 /// devolvem o próprio tipo nomeado.
-abstract base class ComplexBase<S extends ComplexBase<S, C>,
-        C extends ComplexOps<C>>
+abstract base class ComplexBase<
+  S extends ComplexBase<S, C>,
+  C extends ComplexOps<C>
+>
     implements GoTyped {
   const ComplexBase();
 

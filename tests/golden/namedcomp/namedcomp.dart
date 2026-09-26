@@ -28,14 +28,14 @@ final class IDs extends go.Slice<Golang.String>
   }
 
   bool less(Golang.Int i, Golang.Int j) {
-    return this[i.toInt()] < this[j.toInt()];
+    return this[i.toIndex()] < this[j.toIndex()];
   }
 
   void swap(Golang.Int i, Golang.Int j) {
     IDs s = this;
-    final $t1 = (s[j.toInt()], s[i.toInt()]);
-    s[i.toInt()] = $t1.$1;
-    s[j.toInt()] = $t1.$2;
+    final $t1 = (s[j.toIndex()], s[i.toIndex()]);
+    s[i.toIndex()] = $t1.$1;
+    s[j.toIndex()] = $t1.$2;
   }
 }
 

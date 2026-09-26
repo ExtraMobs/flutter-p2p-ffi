@@ -1,6 +1,7 @@
 /// Slices Go: janela (offset, len, cap) sobre um array compartilhado.
 library;
 
+import '../../fixed_types/golang/src/bounds.dart';
 import 'elem.dart';
 import 'panic.dart';
 import 'ptr.dart';
@@ -37,12 +38,18 @@ base class Slice<T> {
       _len = items.length,
       _cap = items.length;
 
-  /// `make([]T, len, cap)`.
+  /// `make([]T, len, cap)`, com as checagens do `makeslice` do Go (tamanho
+  /// em bytes acima de `maxAlloc`, 2^48 no amd64: "len" se o len já
+  /// estoura, senão "cap").
   factory Slice.make(int len, int cap, Elem<T> elem) {
-    if (len < 0)
-      throw Panic(RuntimeError('runtime error: makeslice: len out of range'));
-    if (cap < len)
-      throw Panic(RuntimeError('runtime error: makeslice: cap out of range'));
+    bool over(int n) => n < 0 || n * elem.size > 281474976710656;
+    if (over(cap) || len > cap) {
+      throw Panic(
+        RuntimeError(
+          'runtime error: makeslice: ${over(len) ? 'len' : 'cap'} out of range',
+        ),
+      );
+    }
     return Slice._(
       List<T>.generate(cap, (_) => elem.zero()),
       0,
@@ -66,7 +73,8 @@ base class Slice<T> {
     if (i < 0 || i >= _len) {
       throw Panic(
         RuntimeError(
-          'runtime error: index out of range [$i] with length $_len',
+          'runtime error: index out of range [${indexText(i)}]'
+          '${withBound(i, 'length', _len)}',
         ),
       );
     }
@@ -102,20 +110,24 @@ base class Slice<T> {
     if (m < 0 || m > _cap) {
       throw Panic(
         RuntimeError(
-          'runtime error: slice bounds out of range [::$m] with capacity $_cap',
+          'runtime error: slice bounds out of range [::${indexText(m)}]'
+          '${withBound(m, 'capacity', _cap)}',
         ),
       );
     }
     if (h < 0 || h > m) {
       throw Panic(
         RuntimeError(
-          'runtime error: slice bounds out of range [:$h] with capacity $m',
+          'runtime error: slice bounds out of range [:${indexText(h)}]'
+          '${withBound(h, 'capacity', m)}',
         ),
       );
     }
     if (low < 0 || low > h) {
       throw Panic(
-        RuntimeError('runtime error: slice bounds out of range [$low:$h]'),
+        RuntimeError(
+          'runtime error: slice bounds out of range ${lowHigh(low, h)}',
+        ),
       );
     }
     final array = _array;
