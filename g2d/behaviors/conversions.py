@@ -57,7 +57,9 @@ class Identity(ConversionBehavior):
     """Mesmo tipo: nada a fazer."""
 
     def accepts(self, c):
-        return c.to_t == c.frm_t
+        # `Flag(i < 2)`: o go/types tipa a comparação como Flag, mas ela é
+        # `bool` nativo; a regra BoolToBool embrulha.
+        return c.to_t == c.frm_t and not (self.typesys.named_bool(c.to_t) and not self.operands.flag_object(c.arg))
 
     def emit(self, c):
         return self.expr_prec(c.arg)
@@ -195,6 +197,19 @@ class StructToStruct(ConversionBehavior):
         return f"switch ({src}) {{ final {tmp} => {self.types.dart(c.to_t).non_null()}({', '.join(args)}) }}", POSTFIX
 
 
+class BoolToBool(ConversionBehavior):
+    """`Flag(b)`, `bool(f)`, `Flag(g)`: via o `bool` Dart (`$b` do nomeado)."""
+
+    def accepts(self, c):
+        return c.basics and c.to.cat == c.frm.cat == "bool"
+
+    def emit(self, c):
+        v = self.operands.cond(c.arg)
+        if self.typesys.named_bool(c.to_t):
+            return f"{self.types.dart(c.to_t)}({v})", POSTFIX
+        return v, (POSTFIX if self.typesys.named_bool(c.frm_t) else 0)
+
+
 class ToInterface(ConversionBehavior):
     """`any(x)`, `I(x)`: o mesmo que atribuir x a uma interface (`coerce`:
     struct/array por valor vai copiada, ponteiro nil tipado vira sentinela)."""
@@ -251,5 +266,5 @@ class StringSlice(ConversionBehavior):
 
 # Ordem de registro = prioridade crescente (a cadeia tenta do último ao
 # primeiro): a identidade vence tudo, como no emissor original.
-CONVERSIONS = [FromNil, ToInterface, StringSlice, StructToStruct, Retype, IntToString, StringToString, ComplexToComplex, FloatToFloat, FloatToInt,
+CONVERSIONS = [FromNil, BoolToBool, ToInterface, StringSlice, StructToStruct, Retype, IntToString, StringToString, ComplexToComplex, FloatToFloat, FloatToInt,
                IntToFloat, IntToInt, SameUnderlying, ToTypeParam, Identity]

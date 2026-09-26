@@ -417,9 +417,14 @@ class NamedClass(NonStructNamed):
         fixed_types (identidade própria em runtime; operadores devolvem o
         tipo nomeado)."""
         b = self.typesys.basic(u)
-        cls, store = type_name(go_name), self.types.golang(b.cls)
+        cls = type_name(go_name)
+        store = self.types.golang(b.cls) if b.cls else None
         g = self.types.golang
-        if b.cat == "wint":
+        if b.cat == "bool":
+            # bool nativo não carrega métodos: classe sobre go.GoBool (`$b`).
+            base = self.imports.qualify(None, "GoBool")
+            body = [f"const {cls}([bool v = false]) : super(v);"]
+        elif b.cat == "wint":
             # Herda a representação da largura (Int32Base, Uint64Base...):
             # mesmo caminho rápido do tipo subjacente, sem indireção.
             base = f"{g(('Int' if b.signed else 'Uint') + f'{b.width}Base')}<{cls}>"

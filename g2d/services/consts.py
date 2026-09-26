@@ -26,7 +26,8 @@ class Literals(Service):
                 text = f"{g('String')}.fromDart({dart_string(v['value'])})"
             return f"{cls}({text})" if named else text
         if k == "bool":
-            return "true" if v["value"] else "false"
+            text = "true" if v["value"] else "false"
+            return f"{cls}({text})" if named and self.typesys.named_bool(t) else text
         if k == "complex":
             re, im = v["real"], v["imag"]
         else:

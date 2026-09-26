@@ -47,6 +47,23 @@ class Operands(Service):
             return f"{self.expr(n['x'], POSTFIX)}[{self.expr(n['index'])}]"
         return self.expr(n, POSTFIX)
 
+    def flag_object(self, n):
+        """n é um objeto de bool nomeado (`Flag`) no Dart? O go/types dá o
+        tipo do contexto a uma comparação (`return a < b` num `Flag`), mas o
+        Dart produz `bool` nativo; `!`, `&&`, `||` e constantes nomeados já
+        saem embrulhados."""
+        if not self.typesys.named_bool(self.pkg.type_of(n)):
+            return False
+        while n["node"] == "ParenExpr":
+            n = n["x"]
+        return not (n["node"] == "BinaryExpr" and n["op"] in ("==", "!=", "<", "<=", ">", ">="))
+
+    def cond(self, n, min_prec=0):
+        """Expressão Go booleana como `bool` Dart: bool nomeado desembrulha `$b`."""
+        if self.flag_object(n):
+            return f"{self.expr(n, POSTFIX)}.$b"
+        return self.expr(n, min_prec)
+
     def multi_value(self, n):
         """Expressão única com vários valores como record Dart: `x.(T)` e
         `m[k]` em comma-ok, ou chamada com N resultados."""

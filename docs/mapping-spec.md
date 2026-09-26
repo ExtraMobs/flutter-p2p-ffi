@@ -125,6 +125,7 @@ Legenda: ✅ fiel · ⚠️ fiel no caso comum, com limite conhecido · ❌ não
 | nomeado sobre básico (`type Celsius float64`) | `final class Celsius extends Golang.FloatBase<Celsius>` | `Celsius()` |
 | interface nomeada | `abstract mixin class I` (anulável: `I?`) | `null` |
 | parâmetro de tipo `T` | `T` (dicionário `go.Elem<T> $T`) | `$T.zero()` |
+| nomeado sobre bool (`type Flag bool`) | `final class Flag extends go.GoBool` (`$b`, `==` com o tipo, `toString`); condições (`if`, `for`, `switch` sem tag, `&&`/`||`) usam `.$b`; `!f`, `f && g` com resultado Flag e comparações que fluem para Flag (o go/types dá o tipo do contexto a `a < b`) são embrulhados; `Flag(b)`/`bool(f)` por `$b`. Fixture `namedbool` | `Flag()` |
 | nomeado sobre array (`type Hash [32]byte`) | `final class Hash extends go.GoArray<Golang.Uint8>` (`Hash(go.GoArray...)` via `alias`); array é valor como struct, então os métodos de receptor ponteiro também ficam na classe e `Hash.$nil` é a sentinela; `[32]byte(h)` → `go.GoArray<...>.alias(h)` (tipo dinâmico sem nome). Fixture `namedarray` | `Hash(go.GoArray<...>.zero(32, _$eN))` |
 | nomeado sobre slice/map (`type IDs []string`) | `final class IDs extends go.Slice<Golang.String>` (idem `go.GoMap`); conversão/atribuição = `IDs(s)` via `Slice.alias` (mesmo array) | `IDs(go.Slice<...>.nil(_$eN))` |
 | nomeado sobre func (`type Op func(int) int`) | `final class Op` chamável: `$f` (anulável), `call(...)`, `isNil`; `Op(fn)` / `op.$f` nas atribuições entre nomeado e não nomeado | `Op(null)` |

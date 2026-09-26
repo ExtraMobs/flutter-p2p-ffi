@@ -64,7 +64,7 @@ class DescriptorRegistry(Service):
         u = self.typesys.underlying(t)
         if u["kind"] == "basic":
             b = self.typesys.basic(u)
-            if b.cat == "bool":
+            if b.cat == "bool" and not self.typesys.named_bool(t):
                 return self.imports.qualify(None, "zeroBool")
             return f"{self.types.cls(t)}.new"
         if u["kind"] in ("interface", "pointer", "func", "chan") and not self.typesys.named_func(t):

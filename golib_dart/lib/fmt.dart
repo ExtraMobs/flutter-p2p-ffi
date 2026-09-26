@@ -510,7 +510,8 @@ final class _Printf {
     }
     if (_handleMethods(verb)) return;
     switch (arg) {
-      case bool b:
+      case bool() || GoBool():
+        final b = arg is GoBool ? arg.$b : arg as bool;
         if (verb == 0x74 || verb == 0x76) {
           _pad(_ascii(b ? 'true' : 'false'));
         } else {

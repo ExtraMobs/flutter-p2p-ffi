@@ -17,6 +17,7 @@ export 'src/runtime/elem.dart';
 export 'src/runtime/errors.dart';
 export 'src/runtime/iface.dart';
 export 'src/runtime/map.dart';
+export 'src/runtime/named_bool.dart';
 export 'src/runtime/order.dart';
 export 'src/runtime/panic.dart';
 export 'src/runtime/ptr.dart';

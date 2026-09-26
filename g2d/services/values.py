@@ -24,7 +24,10 @@ class ValueSemantics(Service):
         que entram em interface."""
         src = self.pkg.type_of(n)
         to_iface = target is not None and self.typesys.underlying(target)["kind"] == "interface"
-        if self.retypes(src, target):
+        if self.typesys.named_bool(target) and not self.operands.flag_object(n) and n.get("$value") is None:
+            # bool sem nome (comparação, &&...) num lugar do tipo `Flag`.
+            text, prec = f"{self.types.dart(target)}({self.operands.cond(n)})", POSTFIX
+        elif self.retypes(src, target):
             text, prec = self.retype(n, src, target)
         elif (src is not None and src["kind"] == "basic" and src["name"] == "untyped nil"
               and target is not None and not self.types.nilable(target)):

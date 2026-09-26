@@ -127,7 +127,7 @@ class TypeMapper(Service):
         if k == "basic":
             b = self.typesys.basic(u)
             if b.cat == "bool":
-                return "false"
+                return f"{self.dart(t)}()" if self.typesys.named_bool(t) else "false"
             if b.cls:
                 return self.cls(t) + "()"
         if self.typesys.named_composite(t):

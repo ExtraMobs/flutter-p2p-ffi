@@ -166,7 +166,7 @@ class IfStmt(StmtBehavior):
         return self.if_chain(s)
 
     def if_chain(self, s):
-        out = [f"if ({self.expr(s['cond'])})"] + self.block(s["body"])
+        out = [f"if ({self.operands.cond(s['cond'])})"] + self.block(s["body"])
         e = s["else"]
         if e is None:
             return out
@@ -180,7 +180,7 @@ class ForStmt(StmtBehavior):
 
     def emit(self, s):
         init = self.simple(s["init"])  # antes da condição: declara a variável
-        cond = self.expr(s["cond"]) if s["cond"] else ""
+        cond = self.operands.cond(s["cond"]) if s["cond"] else ""
         post = self.simple(s["post"])
         body = self.control.loop_body(s["body"])
         if not s["init"] and not s["post"]:
@@ -295,7 +295,7 @@ class SwitchStmt(StmtBehavior):
 
         def cond(clause):
             return " || ".join(
-                f"{tag} == {self.expr(e, DART_PREC['=='] + 1)}" if tag else self.expr(e, DART_PREC["||"] + 1)
+                f"{tag} == {self.expr(e, DART_PREC['=='] + 1)}" if tag else self.operands.cond(e, DART_PREC["||"] + 1)
                 for e in clause["list"])
 
         def falls(clause):

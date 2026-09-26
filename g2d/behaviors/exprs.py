@@ -83,6 +83,13 @@ class BinaryExpr(ExprBehavior):
             raise Unsupported(f"operador:{op}", f"operador {op}", n)
         p = DART_PREC[op]
         left = p + 1 if op in NON_ASSOC else p
+        t = self.pkg.type_of(n)
+        if op in ("&&", "||") and self.typesys.named_bool(t):
+            # Flag && Flag: desembrulha e devolve o tipo nomeado.
+            text = f"{self.operands.cond(n['x'], left)} {op} {self.operands.cond(n['y'], p + 1)}"
+            return f"{self.types.dart(t)}({text})", POSTFIX
+        if op in ("&&", "||"):
+            return f"{self.operands.cond(n['x'], left)} {op} {self.operands.cond(n['y'], p + 1)}", p
         return f"{self.expr(n['x'], left)} {op} {self.expr(n['y'], p + 1)}", p
 
     def pointer_compare(self, n):
@@ -128,6 +135,9 @@ class UnaryExpr(ExprBehavior):
         dart_op = {"-": "-", "+": "", "!": "!", "^": "~"}.get(op)
         if dart_op is None:
             raise Unsupported(f"operador-unario:{op}", f"operador unário {op}", n)
+        t = self.pkg.type_of(n)
+        if op == "!" and self.typesys.named_bool(t):
+            return f"{self.types.dart(t)}(!{self.operands.cond(n['x'], UNARY)})", POSTFIX
         x = self.expr(n["x"], UNARY)
         # "- -x" → evita "--x" (decremento).
         sep = " " if dart_op == "-" and x.startswith("-") else ""

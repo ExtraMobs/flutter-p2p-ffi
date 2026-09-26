@@ -97,6 +97,14 @@ class TypeSystem(Service):
         return (t is not None and t["kind"] == "named" and self.imports.transpiled(t["pkg"])
                 and self.underlying(t)["kind"] in ("slice", "map", "func", "array"))
 
+    def named_bool(self, t):
+        """Tipo nomeado (de pacote transpilado) sobre bool: classe go.GoBool,
+        desembrulhada com `.$b` onde o Dart exige bool."""
+        if t is None or t["kind"] != "named" or not self.imports.transpiled(t["pkg"]):
+            return False
+        u = self.underlying(t)
+        return u["kind"] == "basic" and (self.basic(u) is not None and self.basic(u).cat == "bool")
+
     def named_func(self, t):
         return self.named_composite(t) and self.underlying(t)["kind"] == "func"
 
