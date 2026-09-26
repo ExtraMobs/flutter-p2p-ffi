@@ -1,6 +1,6 @@
 # Shim do pacote `errors`
 
-- **Prioridade:** P1 · **Área:** shim
+- **Prioridade:** P0 · **Área:** shim
 - **Depende de:** —
 
 ## Problema
@@ -24,6 +24,15 @@ func main() {
 ```text
 $ goast dump <dir> > dump.json && python -m g2d transpile dump.json
 não suportado: pacote sem shim/transpilação: errors
+```
+
+Medido no grafo do kubo:
+
+```text
+$ python -m g2d audit github.com/ipfs/kubo/cmd/ipfs -C tests/corpus/kubo
+
+| código | ocorrências | pacotes | na fronteira | exemplo |
+| `shim-ausente:errors` | 1516 | 305 | 54 | `github.com/hashicorp/golang-lru/simplelru` lru.go:26:6: pacote sem shim/transpilação: errors |
 ```
 
 ## Critério de pronto

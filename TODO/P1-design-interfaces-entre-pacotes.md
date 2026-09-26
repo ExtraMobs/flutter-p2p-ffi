@@ -1,6 +1,6 @@
 # Interface satisfeita por tipo de outro pacote
 
-- **Prioridade:** P0 · **Área:** design
+- **Prioridade:** P1 · **Área:** design
 - **Depende de:** —
 
 ## Problema
@@ -66,4 +66,9 @@ hi anon
 
 ## Notas
 
-Caminho provável: `implements` calculado sobre o grafo inteiro (o Dart aceita imports cíclicos). A parte da interface anônima também depende de `P0-design-anonimas-canonicas`.
+Caminho provável: `implements` calculado sobre o grafo inteiro (o Dart aceita imports cíclicos). A parte da interface anônima também depende de `P1-design-anonimas-canonicas`.
+
+## Nota de prioridade
+
+Ainda invisível no `docs/audit.md`: os pacotes que expõem o problema param antes num shim
+ausente. Volta a P0 quando o audit mostrar `dart-invalido` com este padrão na fronteira.

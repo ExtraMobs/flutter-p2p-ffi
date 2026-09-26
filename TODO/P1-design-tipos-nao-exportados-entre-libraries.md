@@ -1,6 +1,6 @@
 # Tipo não exportado nomeado por outra library
 
-- **Prioridade:** P0 · **Área:** design
+- **Prioridade:** P1 · **Área:** design
 - **Depende de:** —
 
 ## Problema
@@ -57,3 +57,8 @@ $ go run ./cmd
 ## Notas
 
 Nome Dart público para tipos não exportados (a privacidade já é garantida pelo compilador Go), sem colidir com os membros exportados em lowerCamel (`type foo` × `func Foo` → `foo`).
+
+## Nota de prioridade
+
+Ainda invisível no `docs/audit.md`: os pacotes que expõem o problema param antes num shim
+ausente. Volta a P0 quando o audit mostrar `dart-invalido` com este padrão na fronteira.

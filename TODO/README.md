@@ -8,11 +8,18 @@ de commit cita o nome). O histórico fica no git.
 
 `<prioridade>-<área>-<slug>.md` — `ls` já lista na ordem de ataque.
 
+A prioridade vem de `docs/audit.md` (grafo real do kubo), coluna **na fronteira**
+(pacotes com as deps todas verdes que o problema bloqueia):
+
 | Prioridade | Significado |
 |---|---|
-| `P0` | pré-requisito da auditoria do kubo/boxo ou de qualquer código multi-pacote |
-| `P1` | construção/shim comum em código real |
-| `P2` | raro, ou limite com contorno |
+| `P0` | bloqueia ≥ 10 pacotes da fronteira, ou é pré-requisito de infraestrutura |
+| `P1` | bloqueia pacotes da fronteira ou ≥ 5 pacotes do grafo; Dart inválido em silêncio |
+| `P2` | raro no grafo (< 5 pacotes, fora da fronteira), ou limite com contorno |
+
+Reclassificar quando o audit regerado mudar a coluna. Shim de pacote da stdlib
+abaixo de P0 não precisa de artefato: a fila dele é `docs/stdlib-coverage.md`
+com o ranking do `docs/audit.md`.
 
 Áreas: `construcao` (Go → Dart no g2d), `shim` (stdlib em `golib_dart`),
 `runtime` (classes de `golib_dart`), `design` (decisão de mapeamento),

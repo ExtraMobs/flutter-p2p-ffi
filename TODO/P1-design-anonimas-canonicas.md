@@ -1,6 +1,6 @@
 # Structs/interfaces anônimas idênticas entre pacotes
 
-- **Prioridade:** P0 · **Área:** design
+- **Prioridade:** P1 · **Área:** design
 - **Depende de:** —
 
 ## Problema
@@ -64,3 +64,8 @@ $ go run ./cmd
 ## Notas
 
 Classe canônica (nome derivado da estrutura) numa library compartilhada; a com campo não exportado fica na library do pacote dono, com nome público.
+
+## Nota de prioridade
+
+Ainda invisível no `docs/audit.md`: os pacotes que expõem o problema param antes num shim
+ausente. Volta a P0 quando o audit mostrar `dart-invalido` com este padrão na fronteira.

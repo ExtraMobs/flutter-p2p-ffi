@@ -1,6 +1,6 @@
 # Embedding de tipo de outro pacote (métodos promovidos)
 
-- **Prioridade:** P0 · **Área:** design
+- **Prioridade:** P1 · **Área:** design
 - **Depende de:** —
 
 ## Problema
@@ -73,3 +73,8 @@ hi w s:w
 ## Notas
 
 Caminho provável: o pacote de origem sempre emite o mixin `T$Promote` (ele carrega os membros privados da própria library); a classe externa usa o mixin.
+
+## Nota de prioridade
+
+Ainda invisível no `docs/audit.md`: os pacotes que expõem o problema param antes num shim
+ausente. Volta a P0 quando o audit mostrar `dart-invalido` com este padrão na fronteira.

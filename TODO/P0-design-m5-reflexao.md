@@ -1,6 +1,6 @@
 # M5: reflexão estática (`reflect`)
 
-- **Prioridade:** P1 · **Área:** design
+- **Prioridade:** P0 · **Área:** design
 - **Depende de:** — (dados em `docs/reflection-report.md`)
 
 ## Problema
@@ -26,6 +26,17 @@ func main() {
 $ goast dump <dir> > dump.json && python -m g2d transpile dump.json
 não suportado: pacote sem shim/transpilação: reflect
 ```
+
+Medido no grafo do kubo:
+
+```text
+$ python -m g2d audit github.com/ipfs/kubo/cmd/ipfs -C tests/corpus/kubo
+
+| código | ocorrências | pacotes | na fronteira | exemplo |
+| `shim-ausente:reflect` | 585 | 110 | 13 | `github.com/cockroachdb/redact/internal/rfmt/fmtsort` sort.go:23:1: pacote sem shim/transpilação: reflect |
+```
+
+Usos por símbolo e por pacote: `docs/reflection-report.md`.
 
 ## Critério de pronto
 

@@ -237,7 +237,7 @@ def render_reflection(uses, command):
     lines = ["# Uso de `reflect`", "",
              f"Gerado por `{command}`. **Não edite**.", "",
              "Toda seleção que toca o pacote `reflect` nos pacotes do grafo. Status: todas pendentes",
-             "até o M5 (reflexão estática, `TODO/P1-design-m5-reflexao.md`).", "",
+             "até o M5 (reflexão estática, `TODO/P0-design-m5-reflexao.md`).", "",
              f"{len(uses)} usos em {len({p for p, _, _ in uses})} pacotes.", "",
              "## Por símbolo", "", "| símbolo | usos | pacotes |", "|---|---:|---:|"]
     for n in sorted(by_name, key=lambda n: (-len(pkgs[n]), -by_name[n], n)):

@@ -1,6 +1,6 @@
 # Shim do pacote `strings`
 
-- **Prioridade:** P1 · **Área:** shim
+- **Prioridade:** P0 · **Área:** shim
 - **Depende de:** —
 
 ## Problema
@@ -24,6 +24,15 @@ func main() {
 ```text
 $ goast dump <dir> > dump.json && python -m g2d transpile dump.json
 não suportado: pacote sem shim/transpilação: strings
+```
+
+Medido no grafo do kubo:
+
+```text
+$ python -m g2d audit github.com/ipfs/kubo/cmd/ipfs -C tests/corpus/kubo
+
+| código | ocorrências | pacotes | na fronteira | exemplo |
+| `shim-ausente:strings` | 570 | 204 | 45 | `github.com/anmitsu/go-shlex` shlex.go:74:6: pacote sem shim/transpilação: strings |
 ```
 
 ## Critério de pronto

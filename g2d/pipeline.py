@@ -89,6 +89,7 @@ class WriteStage(Stage):
 
     def run(self, ctx):
         lib = os.path.join(ctx.out, "lib")
+        os.makedirs(ctx.out, exist_ok=True)  # mesmo sem nenhum pacote emitido
         for unit in ctx.units:
             if unit.source is None:
                 continue

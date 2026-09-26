@@ -32,6 +32,17 @@ $ go run main.go
 [1] falhou: %!w(<nil>)
 ```
 
+Medido no grafo do kubo:
+
+```text
+$ python -m g2d audit github.com/ipfs/kubo/cmd/ipfs -C tests/corpus/kubo
+
+| código | ocorrências | pacotes | na fronteira | exemplo |
+| `dart:undefined_function` | 33 | 9 | 9 | `github.com/klauspost/compress` 49:34: error: The function 'pow' isn't defined. |
+```
+
+Os `dart:undefined_function` de `sprintf`/`errorf` do audit (rtcerr, digerror, grpclog, otlptrace...) são este artefato; ver `P1-shim-math-completo` para a correção comum (símbolo de shim inexistente → Unsupported).
+
 ## Critério de pronto
 
 - Verbos do `fmt` com oráculo Go (incl. `%w`, `%!verbo(...)`, largura/precisão); e2e VM × JS × Wasm.

@@ -3,7 +3,7 @@
 Gerado por `python -m g2d audit github.com/ipfs/kubo/cmd/ipfs -C tests/corpus/kubo`. **Não edite**.
 
 Toda seleção que toca o pacote `reflect` nos pacotes do grafo. Status: todas pendentes
-até o M5 (reflexão estática, `TODO/P1-design-m5-reflexao.md`).
+até o M5 (reflexão estática, `TODO/P0-design-m5-reflexao.md`).
 
 9666 usos em 134 pacotes.
 
