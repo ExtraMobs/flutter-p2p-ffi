@@ -36,6 +36,9 @@ class Counter extends go.GoStruct<Counter> {
 
   @override
   List<Object?> get $fields => [hits, tags];
+
+  @override
+  List<String> get $fieldNames => const ['Hits', 'Tags'];
 }
 
 Object? _sink = null;

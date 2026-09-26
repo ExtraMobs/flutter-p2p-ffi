@@ -56,6 +56,9 @@ class Counter extends go.GoStruct<Counter> {
   @override
   List<Object?> get $fields => [_n, name, _tags, go.Addr(_next)];
 
+  @override
+  List<String> get $fieldNames => const ['n', 'Name', 'tags', 'next'];
+
   /// Inc incrementa e devolve o novo valor.
   Golang.Int inc() {
     final Counter? c = $nilPtr ? null : this;

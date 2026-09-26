@@ -331,6 +331,9 @@ class _main$pt extends go.GoStruct<_main$pt> {
 
   @override
   List<Object?> get $fields => [_x, _y];
+
+  @override
+  List<String> get $fieldNames => const ['x', 'y'];
 }
 
 bool _$inited = false;

@@ -41,6 +41,9 @@ class Node extends go.GoStruct<Node> implements Speaker {
   @override
   List<Object?> get $fields => [name, go.Addr(next)];
 
+  @override
+  List<String> get $fieldNames => const ['Name', 'Next'];
+
   Golang.String speak() {
     final Node? n = $nilPtr ? null : this;
     if (n == null) {
@@ -83,6 +86,9 @@ class Val extends go.GoStruct<Val> implements Speaker {
 
   @override
   List<Object?> get $fields => [x];
+
+  @override
+  List<String> get $fieldNames => const ['X'];
 
   Golang.String speak() {
     if ($nilPtr) go.nilDeref();

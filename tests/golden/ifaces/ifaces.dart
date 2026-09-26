@@ -42,6 +42,9 @@ class Rect extends go.GoStruct<Rect> implements Shape {
   @override
   List<Object?> get $fields => [w, h];
 
+  @override
+  List<String> get $fieldNames => const ['W', 'H'];
+
   Golang.Float64 area() {
     if ($nilPtr) go.nilDeref();
     return this.w * this.h;
@@ -78,6 +81,9 @@ class Circle extends go.GoStruct<Circle> implements Shape {
 
   @override
   List<Object?> get $fields => [r];
+
+  @override
+  List<String> get $fieldNames => const ['R'];
 
   Golang.Float64 area() {
     final Circle? c = $nilPtr ? null : this;
@@ -120,6 +126,9 @@ class NotFound extends go.GoStruct<NotFound> implements go.GoError {
   @override
   List<Object?> get $fields => [key];
 
+  @override
+  List<String> get $fieldNames => const ['Key'];
+
   Golang.String error() {
     if ($nilPtr) go.nilDeref();
     return Golang.String.fromDart('não encontrado: ') + this.key;
@@ -155,6 +164,9 @@ class Point extends go.GoStruct<Point> implements fmt.Stringer {
 
   @override
   List<Object?> get $fields => [x, y];
+
+  @override
+  List<String> get $fieldNames => const ['X', 'Y'];
 
   Golang.String string() {
     if ($nilPtr) go.nilDeref();

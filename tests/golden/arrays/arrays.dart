@@ -33,6 +33,9 @@ class Pt extends go.GoStruct<Pt> {
 
   @override
   List<Object?> get $fields => [pos];
+
+  @override
+  List<String> get $fieldNames => const ['Pos'];
 }
 
 Golang.Int _sum(go.GoArray<Golang.Int> a) {

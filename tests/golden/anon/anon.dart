@@ -33,6 +33,9 @@ class Named extends go.GoStruct<Named> implements _anonIface$14 {
   @override
   List<Object?> get $fields => [n];
 
+  @override
+  List<String> get $fieldNames => const ['N'];
+
   Golang.String name() {
     if ($nilPtr) go.nilDeref();
     return fmt.sprint(
@@ -154,6 +157,9 @@ class _first$pair extends go.GoStruct<_first$pair> {
 
   @override
   List<Object?> get $fields => [_a, _b];
+
+  @override
+  List<String> get $fieldNames => const ['a', 'b'];
 }
 
 class _second$pair extends go.GoStruct<_second$pair> {
@@ -181,6 +187,9 @@ class _second$pair extends go.GoStruct<_second$pair> {
 
   @override
   List<Object?> get $fields => [_s];
+
+  @override
+  List<String> get $fieldNames => const ['s'];
 }
 
 final class _main$celsius extends Golang.FloatBase<_main$celsius> {
@@ -227,6 +236,9 @@ class _main$reading extends go.GoStruct<_main$reading> {
 
   @override
   List<Object?> get $fields => [_where, _temp];
+
+  @override
+  List<String> get $fieldNames => const ['where', 'temp'];
 }
 
 /// `interface { Name() string }` (interface anônima).
@@ -264,6 +276,9 @@ class _anon$21 extends go.GoStruct<_anon$21> {
 
   @override
   List<Object?> get $fields => [_in, _want];
+
+  @override
+  List<String> get $fieldNames => const ['in', 'want'];
 }
 
 /// `struct { X int; Y int }` (struct anônima).
@@ -296,6 +311,9 @@ class _anon$25 extends go.GoStruct<_anon$25> {
 
   @override
   List<Object?> get $fields => [x, y];
+
+  @override
+  List<String> get $fieldNames => const ['X', 'Y'];
 }
 
 /// `struct { Items []string; Count int }` (struct anônima).
@@ -328,6 +346,9 @@ class _anon$26 extends go.GoStruct<_anon$26> {
 
   @override
   List<Object?> get $fields => [items$, count];
+
+  @override
+  List<String> get $fieldNames => const ['Items', 'Count'];
 }
 
 bool _$inited = false;

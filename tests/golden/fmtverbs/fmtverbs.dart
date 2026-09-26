@@ -73,6 +73,49 @@ class P extends go.GoStruct<P> {
 
   @override
   List<Object?> get $fields => [x, y, name];
+
+  @override
+  List<String> get $fieldNames => const ['X', 'Y', 'Name'];
+}
+
+class Box extends go.GoStruct<Box> {
+  Box({P? p, Golang.String? tag, _anon$14? inner, P? ptr})
+    : p = p ?? P(),
+      tag = tag ?? Golang.String(),
+      inner = inner ?? _anon$14(),
+      ptr = ptr;
+
+  /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
+  static final Box $nil = Box()..$nilPtr = true;
+
+  P p;
+  Golang.String tag;
+  _anon$14 inner;
+  P? ptr;
+
+  @override
+  String get $goType => 'main.Box';
+  @override
+  List<String> get $valueMethods => const [];
+  @override
+  List<String> get $ptrMethods => const [];
+
+  @override
+  Box $copy() => Box(p: p.$copy(), tag: tag, inner: inner.$copy(), ptr: ptr);
+
+  @override
+  void $set(Box o) {
+    p.$set(o.p);
+    tag = o.tag;
+    inner.$set(o.inner);
+    ptr = o.ptr;
+  }
+
+  @override
+  List<Object?> get $fields => [p, tag, inner, go.Addr(ptr)];
+
+  @override
+  List<String> get $fieldNames => const ['P', 'Tag', 'Inner', 'Ptr'];
 }
 
 class _myErr extends go.GoStruct<_myErr> implements go.GoError {
@@ -100,6 +143,9 @@ class _myErr extends go.GoStruct<_myErr> implements go.GoError {
 
   @override
   List<Object?> get $fields => [_code];
+
+  @override
+  List<String> get $fieldNames => const ['code'];
 
   Golang.String error() {
     final _myErr? e = $nilPtr ? null : this;
@@ -470,12 +516,158 @@ void main() {
         ),
       ], _$e0),
     );
+    Box bx = Box(
+      p: P(
+        x: Golang.Int(1),
+        y: Golang.Int(2),
+        name: Golang.String.fromDart('a'),
+      ),
+      tag: Golang.String.fromDart('t'),
+    );
+    bx.inner.a = Golang.Int(5);
+    fmt.printf(
+      Golang.String.fromDart('%+v|%+v|%v\n'),
+      go.Slice<Object?>.of([
+        bx.$ifaceCopy(),
+        p ?? P.$nil,
+        bx.$ifaceCopy(),
+      ], _$e0),
+    );
+    fmt.printf(
+      Golang.String.fromDart('%+v|%+v|%+v|%+d|%+v\n'),
+      go.Slice<Object?>.of([
+        go.Slice<P>.of([
+          P(
+            x: Golang.Int(3),
+            y: Golang.Int(4),
+            name: Golang.String.fromDart('b'),
+          ),
+        ], _$e6),
+        go.GoMap<Golang.String, P>.of({
+          Golang.String.fromDart('k'): P(
+            x: Golang.Int(5),
+            y: Golang.Int(6),
+            name: Golang.String.fromDart('c'),
+          ),
+        }, _$e6),
+        Golang.Int(7),
+        Golang.Int(7),
+        err,
+      ], _$e0),
+    );
+    fmt.printf(
+      Golang.String.fromDart('%+v|%+v\n'),
+      go.Slice<Object?>.of([
+        _anon$46(n: Golang.Int(9)).$ifaceCopy(),
+        Box().ptr ?? P.$nil,
+      ], _$e0),
+    );
+    fmt.printf(
+      Golang.String.fromDart(
+        '%[2]d %[1]d|%[1]d %d|%[3]*.[2]*[1]f|%d %d %#[1]x %#x\n',
+      ),
+      go.Slice<Object?>.of([
+        Golang.Int(16),
+        Golang.Int(17),
+        Golang.Int(8),
+        Golang.Int(18),
+      ], _$e0),
+    );
+    fmt.printf(
+      Golang.String.fromDart('%[3]d|%[0]d|%[x]d|%[1]2d|%[1].2d|%[2]s\n'),
+      go.Slice<Object?>.of([
+        Golang.Int(1),
+        Golang.String.fromDart('dois'),
+      ], _$e0),
+    );
+    fmt.printf(
+      Golang.String.fromDart('%[1]d %[1]q\n'),
+      go.Slice<Object?>.of([
+        Golang.Int(65),
+        Golang.String.fromDart('sobra'),
+      ], _$e0),
+    );
+    fmt.println(
+      go.Slice<Object?>.of([
+        fmt.errorf(
+          Golang.String.fromDart('%[2]w e %[1]w e %[2]w'),
+          go.Slice<Object?>.of([e1, e2], _$e0),
+        ),
+      ], _$e0),
+    );
+    fmt.printf(Golang.String.fromDart('%.\n'), go.Slice<Object?>.nil(_$e0));
     var (written, _) = fmt.printf(
       Golang.String.fromDart('%s\n'),
       go.Slice<Object?>.of([Golang.String.fromDart('conta')], _$e0),
     );
     fmt.println(go.Slice<Object?>.of([written], _$e0));
   });
+}
+
+/// `struct { A int; B int }` (struct anônima).
+class _anon$14 extends go.GoStruct<_anon$14> {
+  _anon$14({Golang.Int? a, Golang.Int? b})
+    : a = a ?? Golang.Int(),
+      b = b ?? Golang.Int();
+
+  /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
+  static final _anon$14 $nil = _anon$14()..$nilPtr = true;
+
+  Golang.Int a;
+  Golang.Int b;
+
+  @override
+  String get $goType => 'struct { A int; B int }';
+  @override
+  List<String> get $valueMethods => const [];
+  @override
+  List<String> get $ptrMethods => const [];
+
+  @override
+  _anon$14 $copy() => _anon$14(a: a, b: b);
+
+  @override
+  void $set(_anon$14 o) {
+    a = o.a;
+    b = o.b;
+  }
+
+  @override
+  List<Object?> get $fields => [a, b];
+
+  @override
+  List<String> get $fieldNames => const ['A', 'B'];
+}
+
+/// `struct { N int }` (struct anônima).
+class _anon$46 extends go.GoStruct<_anon$46> {
+  _anon$46({Golang.Int? n}) : n = n ?? Golang.Int();
+
+  /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
+  static final _anon$46 $nil = _anon$46()..$nilPtr = true;
+
+  Golang.Int n;
+
+  @override
+  String get $goType => 'struct { N int }';
+  @override
+  List<String> get $valueMethods => const [];
+  @override
+  List<String> get $ptrMethods => const [];
+
+  @override
+  _anon$46 $copy() => _anon$46(n: n);
+
+  @override
+  void $set(_anon$46 o) {
+    n = o.n;
+  }
+
+  @override
+  List<Object?> get $fields => [n];
+
+  @override
+  List<String> get $fieldNames => const ['N'];
 }
 
 bool _$inited = false;
@@ -501,3 +693,4 @@ const _$e5 = go.Elem<Golang.Uint16>(
   Golang.Uint16.new,
   ofInt: Golang.Uint16.from,
 );
+const _$e6 = go.Elem<P>(32, P.new, pointers: true);

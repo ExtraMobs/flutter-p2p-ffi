@@ -32,6 +32,9 @@ class Point extends go.GoStruct<Point> {
 
   @override
   List<Object?> get $fields => [x];
+
+  @override
+  List<String> get $fieldNames => const ['X'];
 }
 
 void _order() {
@@ -322,6 +325,9 @@ class R extends go.GoStruct<R> {
 
   @override
   List<Object?> get $fields => [_tag];
+
+  @override
+  List<String> get $fieldNames => const ['tag'];
 
   void _deferredMethod({go.Defers? $rd}) {
     if ($nilPtr) go.nilDeref();

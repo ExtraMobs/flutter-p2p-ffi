@@ -8,7 +8,7 @@
       "unit": {
         "node": "CompilationUnit",
         "offset": 0,
-        "length": 1982,
+        "length": 2045,
         "directives": [
           {
             "node": "ImportDirective",
@@ -138,7 +138,7 @@
           {
             "node": "ClassDeclaration",
             "offset": 486,
-            "length": 843,
+            "length": 906,
             "documentationComment": {
               "node": "Comment",
               "offset": 486,
@@ -223,7 +223,7 @@
             "body": {
               "node": "BlockClassBody",
               "offset": 571,
-              "length": 758,
+              "length": 821,
               "leftBracket": {
                 "token": "{",
                 "type": "OPEN_CURLY_BRACKET"
@@ -1276,10 +1276,121 @@
                 {
                   "node": "MethodDeclaration",
                   "offset": 1134,
+                  "length": 59,
+                  "metadata": [
+                    {
+                      "node": "Annotation",
+                      "offset": 1134,
+                      "length": 9,
+                      "atSign": {
+                        "token": "@",
+                        "type": "AT"
+                      },
+                      "name": {
+                        "node": "SimpleIdentifier",
+                        "offset": 1135,
+                        "length": 8,
+                        "staticType": null,
+                        "resolved": null,
+                        "token": {
+                          "token": "override",
+                          "type": "IDENTIFIER"
+                        }
+                      }
+                    }
+                  ],
+                  "returnType": {
+                    "node": "NamedType",
+                    "offset": 1146,
+                    "length": 12,
+                    "name": {
+                      "token": "List",
+                      "type": "IDENTIFIER"
+                    },
+                    "typeArguments": {
+                      "node": "TypeArgumentList",
+                      "offset": 1150,
+                      "length": 8,
+                      "leftBracket": {
+                        "token": "<",
+                        "type": "LT"
+                      },
+                      "arguments": [
+                        {
+                          "node": "NamedType",
+                          "offset": 1151,
+                          "length": 6,
+                          "name": {
+                            "token": "String",
+                            "type": "IDENTIFIER"
+                          }
+                        }
+                      ],
+                      "rightBracket": {
+                        "token": ">",
+                        "type": "GT"
+                      }
+                    }
+                  },
+                  "propertyKeyword": {
+                    "token": "get",
+                    "type": "GET"
+                  },
+                  "name": {
+                    "token": "$fieldNames",
+                    "type": "IDENTIFIER"
+                  },
+                  "body": {
+                    "node": "ExpressionFunctionBody",
+                    "offset": 1175,
+                    "length": 18,
+                    "functionDefinition": {
+                      "token": "=>",
+                      "type": "FUNCTION"
+                    },
+                    "expression": {
+                      "node": "ListLiteral",
+                      "offset": 1178,
+                      "length": 14,
+                      "staticType": null,
+                      "constKeyword": {
+                        "token": "const",
+                        "type": "CONST"
+                      },
+                      "leftBracket": {
+                        "token": "[",
+                        "type": "OPEN_SQUARE_BRACKET"
+                      },
+                      "elements": [
+                        {
+                          "node": "SimpleStringLiteral",
+                          "offset": 1185,
+                          "length": 6,
+                          "staticType": null,
+                          "literal": {
+                            "token": "'Name'",
+                            "type": "STRING"
+                          }
+                        }
+                      ],
+                      "rightBracket": {
+                        "token": "]",
+                        "type": "CLOSE_SQUARE_BRACKET"
+                      }
+                    },
+                    "semicolon": {
+                      "token": ";",
+                      "type": "SEMICOLON"
+                    }
+                  }
+                },
+                {
+                  "node": "MethodDeclaration",
+                  "offset": 1197,
                   "length": 193,
                   "documentationComment": {
                     "node": "Comment",
-                    "offset": 1134,
+                    "offset": 1197,
                     "length": 27,
                     "references": [],
                     "tokens": [
@@ -1292,11 +1403,11 @@
                   "metadata": [],
                   "returnType": {
                     "node": "NamedType",
-                    "offset": 1164,
+                    "offset": 1227,
                     "length": 13,
                     "importPrefix": {
                       "node": "ImportPrefixReference",
-                      "offset": 1164,
+                      "offset": 1227,
                       "length": 7,
                       "name": {
                         "token": "Golang",
@@ -1318,7 +1429,7 @@
                   },
                   "parameters": {
                     "node": "FormalParameterList",
-                    "offset": 1183,
+                    "offset": 1246,
                     "length": 2,
                     "leftParenthesis": {
                       "token": "(",
@@ -1331,11 +1442,11 @@
                   },
                   "body": {
                     "node": "BlockFunctionBody",
-                    "offset": 1186,
+                    "offset": 1249,
                     "length": 141,
                     "block": {
                       "node": "Block",
-                      "offset": 1186,
+                      "offset": 1249,
                       "length": 141,
                       "leftBracket": {
                         "token": "{",
@@ -1344,7 +1455,7 @@
                       "statements": [
                         {
                           "node": "IfStatement",
-                          "offset": 1192,
+                          "offset": 1255,
                           "length": 27,
                           "ifKeyword": {
                             "token": "if",
@@ -1356,7 +1467,7 @@
                           },
                           "expression": {
                             "node": "SimpleIdentifier",
-                            "offset": 1196,
+                            "offset": 1259,
                             "length": 7,
                             "staticType": null,
                             "resolved": null,
@@ -1371,16 +1482,16 @@
                           },
                           "thenStatement": {
                             "node": "ExpressionStatement",
-                            "offset": 1205,
+                            "offset": 1268,
                             "length": 14,
                             "expression": {
                               "node": "MethodInvocation",
-                              "offset": 1205,
+                              "offset": 1268,
                               "length": 13,
                               "staticType": null,
                               "target": {
                                 "node": "SimpleIdentifier",
-                                "offset": 1205,
+                                "offset": 1268,
                                 "length": 2,
                                 "staticType": null,
                                 "resolved": null,
@@ -1395,7 +1506,7 @@
                               },
                               "methodName": {
                                 "node": "SimpleIdentifier",
-                                "offset": 1208,
+                                "offset": 1271,
                                 "length": 8,
                                 "staticType": null,
                                 "resolved": null,
@@ -1406,7 +1517,7 @@
                               },
                               "argumentList": {
                                 "node": "ArgumentList",
-                                "offset": 1216,
+                                "offset": 1279,
                                 "length": 2,
                                 "leftParenthesis": {
                                   "token": "(",
@@ -1427,7 +1538,7 @@
                         },
                         {
                           "node": "ReturnStatement",
-                          "offset": 1224,
+                          "offset": 1287,
                           "length": 99,
                           "returnKeyword": {
                             "token": "return",
@@ -1435,27 +1546,27 @@
                           },
                           "expression": {
                             "node": "BinaryExpression",
-                            "offset": 1231,
+                            "offset": 1294,
                             "length": 91,
                             "staticType": null,
                             "leftOperand": {
                               "node": "BinaryExpression",
-                              "offset": 1231,
+                              "offset": 1294,
                               "length": 53,
                               "staticType": null,
                               "leftOperand": {
                                 "node": "MethodInvocation",
-                                "offset": 1231,
+                                "offset": 1294,
                                 "length": 33,
                                 "staticType": null,
                                 "target": {
                                   "node": "PrefixedIdentifier",
-                                  "offset": 1231,
+                                  "offset": 1294,
                                   "length": 13,
                                   "staticType": null,
                                   "prefix": {
                                     "node": "SimpleIdentifier",
-                                    "offset": 1231,
+                                    "offset": 1294,
                                     "length": 6,
                                     "staticType": null,
                                     "resolved": null,
@@ -1470,7 +1581,7 @@
                                   },
                                   "identifier": {
                                     "node": "SimpleIdentifier",
-                                    "offset": 1238,
+                                    "offset": 1301,
                                     "length": 6,
                                     "staticType": null,
                                     "resolved": null,
@@ -1486,7 +1597,7 @@
                                 },
                                 "methodName": {
                                   "node": "SimpleIdentifier",
-                                  "offset": 1245,
+                                  "offset": 1308,
                                   "length": 8,
                                   "staticType": null,
                                   "resolved": null,
@@ -1497,7 +1608,7 @@
                                 },
                                 "argumentList": {
                                   "node": "ArgumentList",
-                                  "offset": 1253,
+                                  "offset": 1316,
                                   "length": 11,
                                   "leftParenthesis": {
                                     "token": "(",
@@ -1506,7 +1617,7 @@
                                   "arguments": [
                                     {
                                       "node": "SimpleStringLiteral",
-                                      "offset": 1254,
+                                      "offset": 1317,
                                       "length": 9,
                                       "staticType": null,
                                       "literal": {
@@ -1527,12 +1638,12 @@
                               },
                               "rightOperand": {
                                 "node": "PropertyAccess",
-                                "offset": 1275,
+                                "offset": 1338,
                                 "length": 9,
                                 "staticType": null,
                                 "target": {
                                   "node": "ThisExpression",
-                                  "offset": 1275,
+                                  "offset": 1338,
                                   "length": 4,
                                   "staticType": null,
                                   "thisKeyword": {
@@ -1546,7 +1657,7 @@
                                 },
                                 "propertyName": {
                                   "node": "SimpleIdentifier",
-                                  "offset": 1280,
+                                  "offset": 1343,
                                   "length": 4,
                                   "staticType": null,
                                   "resolved": null,
@@ -1563,17 +1674,17 @@
                             },
                             "rightOperand": {
                               "node": "MethodInvocation",
-                              "offset": 1295,
+                              "offset": 1358,
                               "length": 27,
                               "staticType": null,
                               "target": {
                                 "node": "PrefixedIdentifier",
-                                "offset": 1295,
+                                "offset": 1358,
                                 "length": 13,
                                 "staticType": null,
                                 "prefix": {
                                   "node": "SimpleIdentifier",
-                                  "offset": 1295,
+                                  "offset": 1358,
                                   "length": 6,
                                   "staticType": null,
                                   "resolved": null,
@@ -1588,7 +1699,7 @@
                                 },
                                 "identifier": {
                                   "node": "SimpleIdentifier",
-                                  "offset": 1302,
+                                  "offset": 1365,
                                   "length": 6,
                                   "staticType": null,
                                   "resolved": null,
@@ -1604,7 +1715,7 @@
                               },
                               "methodName": {
                                 "node": "SimpleIdentifier",
-                                "offset": 1309,
+                                "offset": 1372,
                                 "length": 8,
                                 "staticType": null,
                                 "resolved": null,
@@ -1615,7 +1726,7 @@
                               },
                               "argumentList": {
                                 "node": "ArgumentList",
-                                "offset": 1317,
+                                "offset": 1380,
                                 "length": 5,
                                 "leftParenthesis": {
                                   "token": "(",
@@ -1624,7 +1735,7 @@
                                 "arguments": [
                                   {
                                     "node": "SimpleStringLiteral",
-                                    "offset": 1318,
+                                    "offset": 1381,
                                     "length": 3,
                                     "staticType": null,
                                     "literal": {
@@ -1662,16 +1773,16 @@
           },
           {
             "node": "FunctionDeclaration",
-            "offset": 1331,
+            "offset": 1394,
             "length": 63,
             "metadata": [],
             "returnType": {
               "node": "NamedType",
-              "offset": 1331,
+              "offset": 1394,
               "length": 10,
               "importPrefix": {
                 "node": "ImportPrefixReference",
-                "offset": 1331,
+                "offset": 1394,
                 "length": 7,
                 "name": {
                   "token": "Golang",
@@ -1693,12 +1804,12 @@
             },
             "functionExpression": {
               "node": "FunctionExpression",
-              "offset": 1346,
+              "offset": 1409,
               "length": 48,
               "staticType": null,
               "parameters": {
                 "node": "FormalParameterList",
-                "offset": 1346,
+                "offset": 1409,
                 "length": 28,
                 "leftParenthesis": {
                   "token": "(",
@@ -1706,16 +1817,16 @@
                 },
                 "parameter": {
                   "node": "RegularFormalParameter",
-                  "offset": 1361,
+                  "offset": 1424,
                   "length": 12,
                   "metadata": [],
                   "type": {
                     "node": "NamedType",
-                    "offset": 1361,
+                    "offset": 1424,
                     "length": 10,
                     "importPrefix": {
                       "node": "ImportPrefixReference",
-                      "offset": 1361,
+                      "offset": 1424,
                       "length": 7,
                       "name": {
                         "token": "Golang",
@@ -1743,11 +1854,11 @@
               },
               "body": {
                 "node": "BlockFunctionBody",
-                "offset": 1375,
+                "offset": 1438,
                 "length": 19,
                 "block": {
                   "node": "Block",
-                  "offset": 1375,
+                  "offset": 1438,
                   "length": 19,
                   "leftBracket": {
                     "token": "{",
@@ -1756,7 +1867,7 @@
                   "statements": [
                     {
                       "node": "ReturnStatement",
-                      "offset": 1379,
+                      "offset": 1442,
                       "length": 13,
                       "returnKeyword": {
                         "token": "return",
@@ -1764,12 +1875,12 @@
                       },
                       "expression": {
                         "node": "BinaryExpression",
-                        "offset": 1386,
+                        "offset": 1449,
                         "length": 5,
                         "staticType": null,
                         "leftOperand": {
                           "node": "SimpleIdentifier",
-                          "offset": 1386,
+                          "offset": 1449,
                           "length": 1,
                           "staticType": null,
                           "resolved": null,
@@ -1784,7 +1895,7 @@
                         },
                         "rightOperand": {
                           "node": "SimpleIdentifier",
-                          "offset": 1390,
+                          "offset": 1453,
                           "length": 1,
                           "staticType": null,
                           "resolved": null,
@@ -1810,12 +1921,12 @@
           },
           {
             "node": "FunctionDeclaration",
-            "offset": 1396,
+            "offset": 1459,
             "length": 272,
             "metadata": [],
             "returnType": {
               "node": "NamedType",
-              "offset": 1396,
+              "offset": 1459,
               "length": 4,
               "name": {
                 "token": "void",
@@ -1828,12 +1939,12 @@
             },
             "functionExpression": {
               "node": "FunctionExpression",
-              "offset": 1405,
+              "offset": 1468,
               "length": 263,
               "staticType": null,
               "parameters": {
                 "node": "FormalParameterList",
-                "offset": 1405,
+                "offset": 1468,
                 "length": 2,
                 "leftParenthesis": {
                   "token": "(",
@@ -1846,11 +1957,11 @@
               },
               "body": {
                 "node": "BlockFunctionBody",
-                "offset": 1408,
+                "offset": 1471,
                 "length": 260,
                 "block": {
                   "node": "Block",
-                  "offset": 1408,
+                  "offset": 1471,
                   "length": 260,
                   "leftBracket": {
                     "token": "{",
@@ -1859,16 +1970,16 @@
                   "statements": [
                     {
                       "node": "ExpressionStatement",
-                      "offset": 1412,
+                      "offset": 1475,
                       "length": 254,
                       "expression": {
                         "node": "MethodInvocation",
-                        "offset": 1412,
+                        "offset": 1475,
                         "length": 253,
                         "staticType": null,
                         "target": {
                           "node": "SimpleIdentifier",
-                          "offset": 1412,
+                          "offset": 1475,
                           "length": 2,
                           "staticType": null,
                           "resolved": null,
@@ -1883,7 +1994,7 @@
                         },
                         "methodName": {
                           "node": "SimpleIdentifier",
-                          "offset": 1415,
+                          "offset": 1478,
                           "length": 7,
                           "staticType": null,
                           "resolved": null,
@@ -1894,7 +2005,7 @@
                         },
                         "argumentList": {
                           "node": "ArgumentList",
-                          "offset": 1422,
+                          "offset": 1485,
                           "length": 243,
                           "leftParenthesis": {
                             "token": "(",
@@ -1903,12 +2014,12 @@
                           "arguments": [
                             {
                               "node": "FunctionExpression",
-                              "offset": 1423,
+                              "offset": 1486,
                               "length": 241,
                               "staticType": null,
                               "parameters": {
                                 "node": "FormalParameterList",
-                                "offset": 1423,
+                                "offset": 1486,
                                 "length": 2,
                                 "leftParenthesis": {
                                   "token": "(",
@@ -1921,11 +2032,11 @@
                               },
                               "body": {
                                 "node": "BlockFunctionBody",
-                                "offset": 1426,
+                                "offset": 1489,
                                 "length": 238,
                                 "block": {
                                   "node": "Block",
-                                  "offset": 1426,
+                                  "offset": 1489,
                                   "length": 238,
                                   "leftBracket": {
                                     "token": "{",
@@ -1934,16 +2045,16 @@
                                   "statements": [
                                     {
                                       "node": "ExpressionStatement",
-                                      "offset": 1432,
+                                      "offset": 1495,
                                       "length": 10,
                                       "expression": {
                                         "node": "MethodInvocation",
-                                        "offset": 1432,
+                                        "offset": 1495,
                                         "length": 9,
                                         "staticType": null,
                                         "methodName": {
                                           "node": "SimpleIdentifier",
-                                          "offset": 1432,
+                                          "offset": 1495,
                                           "length": 7,
                                           "staticType": null,
                                           "resolved": null,
@@ -1954,7 +2065,7 @@
                                         },
                                         "argumentList": {
                                           "node": "ArgumentList",
-                                          "offset": 1439,
+                                          "offset": 1502,
                                           "length": 2,
                                           "leftParenthesis": {
                                             "token": "(",
@@ -1974,16 +2085,16 @@
                                     },
                                     {
                                       "node": "VariableDeclarationStatement",
-                                      "offset": 1447,
+                                      "offset": 1510,
                                       "length": 59,
                                       "variables": {
                                         "node": "VariableDeclarationList",
-                                        "offset": 1447,
+                                        "offset": 1510,
                                         "length": 58,
                                         "metadata": [],
                                         "type": {
                                           "node": "NamedType",
-                                          "offset": 1447,
+                                          "offset": 1510,
                                           "length": 7,
                                           "name": {
                                             "token": "Greeter",
@@ -1993,7 +2104,7 @@
                                         "variables": [
                                           {
                                             "node": "VariableDeclaration",
-                                            "offset": 1455,
+                                            "offset": 1518,
                                             "length": 50,
                                             "metadata": [],
                                             "name": {
@@ -2006,12 +2117,12 @@
                                             },
                                             "initializer": {
                                               "node": "MethodInvocation",
-                                              "offset": 1459,
+                                              "offset": 1522,
                                               "length": 46,
                                               "staticType": null,
                                               "methodName": {
                                                 "node": "SimpleIdentifier",
-                                                "offset": 1459,
+                                                "offset": 1522,
                                                 "length": 7,
                                                 "staticType": null,
                                                 "resolved": null,
@@ -2022,7 +2133,7 @@
                                               },
                                               "argumentList": {
                                                 "node": "ArgumentList",
-                                                "offset": 1466,
+                                                "offset": 1529,
                                                 "length": 39,
                                                 "leftParenthesis": {
                                                   "token": "(",
@@ -2031,7 +2142,7 @@
                                                 "arguments": [
                                                   {
                                                     "node": "NamedArgument",
-                                                    "offset": 1467,
+                                                    "offset": 1530,
                                                     "length": 37,
                                                     "name": {
                                                       "token": "name",
@@ -2043,17 +2154,17 @@
                                                     },
                                                     "argumentExpression": {
                                                       "node": "MethodInvocation",
-                                                      "offset": 1473,
+                                                      "offset": 1536,
                                                       "length": 31,
                                                       "staticType": null,
                                                       "target": {
                                                         "node": "PrefixedIdentifier",
-                                                        "offset": 1473,
+                                                        "offset": 1536,
                                                         "length": 13,
                                                         "staticType": null,
                                                         "prefix": {
                                                           "node": "SimpleIdentifier",
-                                                          "offset": 1473,
+                                                          "offset": 1536,
                                                           "length": 6,
                                                           "staticType": null,
                                                           "resolved": null,
@@ -2068,7 +2179,7 @@
                                                         },
                                                         "identifier": {
                                                           "node": "SimpleIdentifier",
-                                                          "offset": 1480,
+                                                          "offset": 1543,
                                                           "length": 6,
                                                           "staticType": null,
                                                           "resolved": null,
@@ -2084,7 +2195,7 @@
                                                       },
                                                       "methodName": {
                                                         "node": "SimpleIdentifier",
-                                                        "offset": 1487,
+                                                        "offset": 1550,
                                                         "length": 8,
                                                         "staticType": null,
                                                         "resolved": null,
@@ -2095,7 +2206,7 @@
                                                       },
                                                       "argumentList": {
                                                         "node": "ArgumentList",
-                                                        "offset": 1495,
+                                                        "offset": 1558,
                                                         "length": 9,
                                                         "leftParenthesis": {
                                                           "token": "(",
@@ -2104,7 +2215,7 @@
                                                         "arguments": [
                                                           {
                                                             "node": "SimpleStringLiteral",
-                                                            "offset": 1496,
+                                                            "offset": 1559,
                                                             "length": 7,
                                                             "staticType": null,
                                                             "literal": {
@@ -2137,16 +2248,16 @@
                                     },
                                     {
                                       "node": "ExpressionStatement",
-                                      "offset": 1511,
+                                      "offset": 1574,
                                       "length": 53,
                                       "expression": {
                                         "node": "MethodInvocation",
-                                        "offset": 1511,
+                                        "offset": 1574,
                                         "length": 52,
                                         "staticType": null,
                                         "target": {
                                           "node": "SimpleIdentifier",
-                                          "offset": 1511,
+                                          "offset": 1574,
                                           "length": 3,
                                           "staticType": null,
                                           "resolved": null,
@@ -2161,7 +2272,7 @@
                                         },
                                         "methodName": {
                                           "node": "SimpleIdentifier",
-                                          "offset": 1515,
+                                          "offset": 1578,
                                           "length": 7,
                                           "staticType": null,
                                           "resolved": null,
@@ -2172,7 +2283,7 @@
                                         },
                                         "argumentList": {
                                           "node": "ArgumentList",
-                                          "offset": 1522,
+                                          "offset": 1585,
                                           "length": 41,
                                           "leftParenthesis": {
                                             "token": "(",
@@ -2181,20 +2292,20 @@
                                           "arguments": [
                                             {
                                               "node": "InstanceCreationExpression",
-                                              "offset": 1523,
+                                              "offset": 1586,
                                               "length": 39,
                                               "staticType": null,
                                               "constructorName": {
                                                 "node": "ConstructorName",
-                                                "offset": 1523,
+                                                "offset": 1586,
                                                 "length": 20,
                                                 "type": {
                                                   "node": "NamedType",
-                                                  "offset": 1523,
+                                                  "offset": 1586,
                                                   "length": 17,
                                                   "importPrefix": {
                                                     "node": "ImportPrefixReference",
-                                                    "offset": 1523,
+                                                    "offset": 1586,
                                                     "length": 3,
                                                     "name": {
                                                       "token": "go",
@@ -2211,7 +2322,7 @@
                                                   },
                                                   "typeArguments": {
                                                     "node": "TypeArgumentList",
-                                                    "offset": 1531,
+                                                    "offset": 1594,
                                                     "length": 9,
                                                     "leftBracket": {
                                                       "token": "<",
@@ -2220,7 +2331,7 @@
                                                     "arguments": [
                                                       {
                                                         "node": "NamedType",
-                                                        "offset": 1532,
+                                                        "offset": 1595,
                                                         "length": 7,
                                                         "name": {
                                                           "token": "Object",
@@ -2244,7 +2355,7 @@
                                                 },
                                                 "name": {
                                                   "node": "SimpleIdentifier",
-                                                  "offset": 1541,
+                                                  "offset": 1604,
                                                   "length": 2,
                                                   "staticType": null,
                                                   "resolved": null,
@@ -2256,7 +2367,7 @@
                                               },
                                               "argumentList": {
                                                 "node": "ArgumentList",
-                                                "offset": 1543,
+                                                "offset": 1606,
                                                 "length": 19,
                                                 "leftParenthesis": {
                                                   "token": "(",
@@ -2265,7 +2376,7 @@
                                                 "arguments": [
                                                   {
                                                     "node": "ListLiteral",
-                                                    "offset": 1544,
+                                                    "offset": 1607,
                                                     "length": 11,
                                                     "staticType": null,
                                                     "leftBracket": {
@@ -2275,12 +2386,12 @@
                                                     "elements": [
                                                       {
                                                         "node": "MethodInvocation",
-                                                        "offset": 1545,
+                                                        "offset": 1608,
                                                         "length": 9,
                                                         "staticType": null,
                                                         "target": {
                                                           "node": "SimpleIdentifier",
-                                                          "offset": 1545,
+                                                          "offset": 1608,
                                                           "length": 1,
                                                           "staticType": null,
                                                           "resolved": null,
@@ -2295,7 +2406,7 @@
                                                         },
                                                         "methodName": {
                                                           "node": "SimpleIdentifier",
-                                                          "offset": 1547,
+                                                          "offset": 1610,
                                                           "length": 5,
                                                           "staticType": null,
                                                           "resolved": null,
@@ -2306,7 +2417,7 @@
                                                         },
                                                         "argumentList": {
                                                           "node": "ArgumentList",
-                                                          "offset": 1552,
+                                                          "offset": 1615,
                                                           "length": 2,
                                                           "leftParenthesis": {
                                                             "token": "(",
@@ -2327,7 +2438,7 @@
                                                   },
                                                   {
                                                     "node": "SimpleIdentifier",
-                                                    "offset": 1557,
+                                                    "offset": 1620,
                                                     "length": 4,
                                                     "staticType": null,
                                                     "resolved": null,
@@ -2357,16 +2468,16 @@
                                     },
                                     {
                                       "node": "ExpressionStatement",
-                                      "offset": 1569,
+                                      "offset": 1632,
                                       "length": 91,
                                       "expression": {
                                         "node": "MethodInvocation",
-                                        "offset": 1569,
+                                        "offset": 1632,
                                         "length": 90,
                                         "staticType": null,
                                         "target": {
                                           "node": "SimpleIdentifier",
-                                          "offset": 1569,
+                                          "offset": 1632,
                                           "length": 3,
                                           "staticType": null,
                                           "resolved": null,
@@ -2381,7 +2492,7 @@
                                         },
                                         "methodName": {
                                           "node": "SimpleIdentifier",
-                                          "offset": 1573,
+                                          "offset": 1636,
                                           "length": 7,
                                           "staticType": null,
                                           "resolved": null,
@@ -2392,7 +2503,7 @@
                                         },
                                         "argumentList": {
                                           "node": "ArgumentList",
-                                          "offset": 1580,
+                                          "offset": 1643,
                                           "length": 79,
                                           "leftParenthesis": {
                                             "token": "(",
@@ -2401,20 +2512,20 @@
                                           "arguments": [
                                             {
                                               "node": "InstanceCreationExpression",
-                                              "offset": 1588,
+                                              "offset": 1651,
                                               "length": 64,
                                               "staticType": null,
                                               "constructorName": {
                                                 "node": "ConstructorName",
-                                                "offset": 1588,
+                                                "offset": 1651,
                                                 "length": 20,
                                                 "type": {
                                                   "node": "NamedType",
-                                                  "offset": 1588,
+                                                  "offset": 1651,
                                                   "length": 17,
                                                   "importPrefix": {
                                                     "node": "ImportPrefixReference",
-                                                    "offset": 1588,
+                                                    "offset": 1651,
                                                     "length": 3,
                                                     "name": {
                                                       "token": "go",
@@ -2431,7 +2542,7 @@
                                                   },
                                                   "typeArguments": {
                                                     "node": "TypeArgumentList",
-                                                    "offset": 1596,
+                                                    "offset": 1659,
                                                     "length": 9,
                                                     "leftBracket": {
                                                       "token": "<",
@@ -2440,7 +2551,7 @@
                                                     "arguments": [
                                                       {
                                                         "node": "NamedType",
-                                                        "offset": 1597,
+                                                        "offset": 1660,
                                                         "length": 7,
                                                         "name": {
                                                           "token": "Object",
@@ -2464,7 +2575,7 @@
                                                 },
                                                 "name": {
                                                   "node": "SimpleIdentifier",
-                                                  "offset": 1606,
+                                                  "offset": 1669,
                                                   "length": 2,
                                                   "staticType": null,
                                                   "resolved": null,
@@ -2476,7 +2587,7 @@
                                               },
                                               "argumentList": {
                                                 "node": "ArgumentList",
-                                                "offset": 1608,
+                                                "offset": 1671,
                                                 "length": 44,
                                                 "leftParenthesis": {
                                                   "token": "(",
@@ -2485,7 +2596,7 @@
                                                 "arguments": [
                                                   {
                                                     "node": "ListLiteral",
-                                                    "offset": 1609,
+                                                    "offset": 1672,
                                                     "length": 36,
                                                     "staticType": null,
                                                     "leftBracket": {
@@ -2495,12 +2606,12 @@
                                                     "elements": [
                                                       {
                                                         "node": "MethodInvocation",
-                                                        "offset": 1610,
+                                                        "offset": 1673,
                                                         "length": 34,
                                                         "staticType": null,
                                                         "methodName": {
                                                           "node": "SimpleIdentifier",
-                                                          "offset": 1610,
+                                                          "offset": 1673,
                                                           "length": 4,
                                                           "staticType": null,
                                                           "resolved": null,
@@ -2511,7 +2622,7 @@
                                                         },
                                                         "argumentList": {
                                                           "node": "ArgumentList",
-                                                          "offset": 1614,
+                                                          "offset": 1677,
                                                           "length": 30,
                                                           "leftParenthesis": {
                                                             "token": "(",
@@ -2520,12 +2631,12 @@
                                                           "arguments": [
                                                             {
                                                               "node": "MethodInvocation",
-                                                              "offset": 1615,
+                                                              "offset": 1678,
                                                               "length": 13,
                                                               "staticType": null,
                                                               "target": {
                                                                 "node": "SimpleIdentifier",
-                                                                "offset": 1615,
+                                                                "offset": 1678,
                                                                 "length": 6,
                                                                 "staticType": null,
                                                                 "resolved": null,
@@ -2540,7 +2651,7 @@
                                                               },
                                                               "methodName": {
                                                                 "node": "SimpleIdentifier",
-                                                                "offset": 1622,
+                                                                "offset": 1685,
                                                                 "length": 3,
                                                                 "staticType": null,
                                                                 "resolved": null,
@@ -2551,7 +2662,7 @@
                                                               },
                                                               "argumentList": {
                                                                 "node": "ArgumentList",
-                                                                "offset": 1625,
+                                                                "offset": 1688,
                                                                 "length": 3,
                                                                 "leftParenthesis": {
                                                                   "token": "(",
@@ -2560,7 +2671,7 @@
                                                                 "arguments": [
                                                                   {
                                                                     "node": "IntegerLiteral",
-                                                                    "offset": 1626,
+                                                                    "offset": 1689,
                                                                     "length": 1,
                                                                     "staticType": null,
                                                                     "literal": {
@@ -2577,12 +2688,12 @@
                                                             },
                                                             {
                                                               "node": "MethodInvocation",
-                                                              "offset": 1630,
+                                                              "offset": 1693,
                                                               "length": 13,
                                                               "staticType": null,
                                                               "target": {
                                                                 "node": "SimpleIdentifier",
-                                                                "offset": 1630,
+                                                                "offset": 1693,
                                                                 "length": 6,
                                                                 "staticType": null,
                                                                 "resolved": null,
@@ -2597,7 +2708,7 @@
                                                               },
                                                               "methodName": {
                                                                 "node": "SimpleIdentifier",
-                                                                "offset": 1637,
+                                                                "offset": 1700,
                                                                 "length": 3,
                                                                 "staticType": null,
                                                                 "resolved": null,
@@ -2608,7 +2719,7 @@
                                                               },
                                                               "argumentList": {
                                                                 "node": "ArgumentList",
-                                                                "offset": 1640,
+                                                                "offset": 1703,
                                                                 "length": 3,
                                                                 "leftParenthesis": {
                                                                   "token": "(",
@@ -2617,7 +2728,7 @@
                                                                 "arguments": [
                                                                   {
                                                                     "node": "IntegerLiteral",
-                                                                    "offset": 1641,
+                                                                    "offset": 1704,
                                                                     "length": 1,
                                                                     "staticType": null,
                                                                     "literal": {
@@ -2647,7 +2758,7 @@
                                                   },
                                                   {
                                                     "node": "SimpleIdentifier",
-                                                    "offset": 1647,
+                                                    "offset": 1710,
                                                     "length": 4,
                                                     "staticType": null,
                                                     "resolved": null,
@@ -2706,17 +2817,17 @@
           },
           {
             "node": "TopLevelVariableDeclaration",
-            "offset": 1670,
+            "offset": 1733,
             "length": 22,
             "metadata": [],
             "variables": {
               "node": "VariableDeclarationList",
-              "offset": 1670,
+              "offset": 1733,
               "length": 21,
               "metadata": [],
               "type": {
                 "node": "NamedType",
-                "offset": 1670,
+                "offset": 1733,
                 "length": 4,
                 "name": {
                   "token": "bool",
@@ -2726,7 +2837,7 @@
               "variables": [
                 {
                   "node": "VariableDeclaration",
-                  "offset": 1675,
+                  "offset": 1738,
                   "length": 16,
                   "metadata": [],
                   "name": {
@@ -2739,7 +2850,7 @@
                   },
                   "initializer": {
                     "node": "BooleanLiteral",
-                    "offset": 1686,
+                    "offset": 1749,
                     "length": 5,
                     "staticType": null,
                     "literal": {
@@ -2757,11 +2868,11 @@
           },
           {
             "node": "FunctionDeclaration",
-            "offset": 1694,
+            "offset": 1757,
             "length": 152,
             "documentationComment": {
               "node": "Comment",
-              "offset": 1694,
+              "offset": 1757,
               "length": 90,
               "references": [],
               "tokens": [
@@ -2774,7 +2885,7 @@
             "metadata": [],
             "returnType": {
               "node": "NamedType",
-              "offset": 1785,
+              "offset": 1848,
               "length": 4,
               "name": {
                 "token": "void",
@@ -2787,12 +2898,12 @@
             },
             "functionExpression": {
               "node": "FunctionExpression",
-              "offset": 1797,
+              "offset": 1860,
               "length": 49,
               "staticType": null,
               "parameters": {
                 "node": "FormalParameterList",
-                "offset": 1797,
+                "offset": 1860,
                 "length": 2,
                 "leftParenthesis": {
                   "token": "(",
@@ -2805,11 +2916,11 @@
               },
               "body": {
                 "node": "BlockFunctionBody",
-                "offset": 1800,
+                "offset": 1863,
                 "length": 46,
                 "block": {
                   "node": "Block",
-                  "offset": 1800,
+                  "offset": 1863,
                   "length": 46,
                   "leftBracket": {
                     "token": "{",
@@ -2818,7 +2929,7 @@
                   "statements": [
                     {
                       "node": "IfStatement",
-                      "offset": 1804,
+                      "offset": 1867,
                       "length": 21,
                       "ifKeyword": {
                         "token": "if",
@@ -2830,7 +2941,7 @@
                       },
                       "expression": {
                         "node": "SimpleIdentifier",
-                        "offset": 1808,
+                        "offset": 1871,
                         "length": 8,
                         "staticType": null,
                         "resolved": null,
@@ -2845,7 +2956,7 @@
                       },
                       "thenStatement": {
                         "node": "ReturnStatement",
-                        "offset": 1818,
+                        "offset": 1881,
                         "length": 7,
                         "returnKeyword": {
                           "token": "return",
@@ -2859,16 +2970,16 @@
                     },
                     {
                       "node": "ExpressionStatement",
-                      "offset": 1828,
+                      "offset": 1891,
                       "length": 16,
                       "expression": {
                         "node": "AssignmentExpression",
-                        "offset": 1828,
+                        "offset": 1891,
                         "length": 15,
                         "staticType": null,
                         "leftHandSide": {
                           "node": "SimpleIdentifier",
-                          "offset": 1828,
+                          "offset": 1891,
                           "length": 8,
                           "staticType": null,
                           "resolved": null,
@@ -2883,7 +2994,7 @@
                         },
                         "rightHandSide": {
                           "node": "BooleanLiteral",
-                          "offset": 1839,
+                          "offset": 1902,
                           "length": 4,
                           "staticType": null,
                           "literal": {
@@ -2908,12 +3019,12 @@
           },
           {
             "node": "TopLevelVariableDeclaration",
-            "offset": 1918,
+            "offset": 1981,
             "length": 63,
             "metadata": [],
             "variables": {
               "node": "VariableDeclarationList",
-              "offset": 1918,
+              "offset": 1981,
               "length": 62,
               "metadata": [],
               "keyword": {
@@ -2923,7 +3034,7 @@
               "variables": [
                 {
                   "node": "VariableDeclaration",
-                  "offset": 1924,
+                  "offset": 1987,
                   "length": 56,
                   "metadata": [],
                   "name": {
@@ -2936,12 +3047,12 @@
                   },
                   "initializer": {
                     "node": "MethodInvocation",
-                    "offset": 1931,
+                    "offset": 1994,
                     "length": 49,
                     "staticType": null,
                     "target": {
                       "node": "SimpleIdentifier",
-                      "offset": 1931,
+                      "offset": 1994,
                       "length": 2,
                       "staticType": null,
                       "resolved": null,
@@ -2956,7 +3067,7 @@
                     },
                     "methodName": {
                       "node": "SimpleIdentifier",
-                      "offset": 1934,
+                      "offset": 1997,
                       "length": 4,
                       "staticType": null,
                       "resolved": null,
@@ -2967,7 +3078,7 @@
                     },
                     "typeArguments": {
                       "node": "TypeArgumentList",
-                      "offset": 1938,
+                      "offset": 2001,
                       "length": 9,
                       "leftBracket": {
                         "token": "<",
@@ -2976,7 +3087,7 @@
                       "arguments": [
                         {
                           "node": "NamedType",
-                          "offset": 1939,
+                          "offset": 2002,
                           "length": 7,
                           "name": {
                             "token": "Object",
@@ -2995,7 +3106,7 @@
                     },
                     "argumentList": {
                       "node": "ArgumentList",
-                      "offset": 1947,
+                      "offset": 2010,
                       "length": 33,
                       "leftParenthesis": {
                         "token": "(",
@@ -3004,7 +3115,7 @@
                       "arguments": [
                         {
                           "node": "IntegerLiteral",
-                          "offset": 1948,
+                          "offset": 2011,
                           "length": 2,
                           "staticType": null,
                           "literal": {
@@ -3014,12 +3125,12 @@
                         },
                         {
                           "node": "PrefixedIdentifier",
-                          "offset": 1952,
+                          "offset": 2015,
                           "length": 11,
                           "staticType": null,
                           "prefix": {
                             "node": "SimpleIdentifier",
-                            "offset": 1952,
+                            "offset": 2015,
                             "length": 2,
                             "staticType": null,
                             "resolved": null,
@@ -3034,7 +3145,7 @@
                           },
                           "identifier": {
                             "node": "SimpleIdentifier",
-                            "offset": 1955,
+                            "offset": 2018,
                             "length": 8,
                             "staticType": null,
                             "resolved": null,
@@ -3046,7 +3157,7 @@
                         },
                         {
                           "node": "NamedArgument",
-                          "offset": 1965,
+                          "offset": 2028,
                           "length": 14,
                           "name": {
                             "token": "pointers",
@@ -3058,7 +3169,7 @@
                           },
                           "argumentExpression": {
                             "node": "BooleanLiteral",
-                            "offset": 1975,
+                            "offset": 2038,
                             "length": 4,
                             "staticType": null,
                             "literal": {

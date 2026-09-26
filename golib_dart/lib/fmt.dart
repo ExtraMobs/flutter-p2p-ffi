@@ -221,14 +221,16 @@ GoError? errorf(Golang.String format, Slice<Object?> a) {
   final args = a.items.toList();
   final p = _Printf(args, wrapErrs: true);
   final s = Golang.String.fromBytes(p.run(format.toBytes()));
+  if (p.reordered) p.wrapped.sort();
   if (p.wrapped.isEmpty) return ErrorString(s);
   if (p.wrapped.length == 1) {
     final e = args[p.wrapped[0]];
     return WrapError(s, e is GoError ? e : null);
   }
   return WrapErrors(s, [
-    for (final i in p.wrapped)
-      if (args[i] case final GoError e) e,
+    for (var k = 0; k < p.wrapped.length; k++)
+      if (k == 0 || p.wrapped[k - 1] != p.wrapped[k])
+        if (args[p.wrapped[k]] case final GoError e) e,
   ]);
 }
 
@@ -253,6 +255,8 @@ final class _Printf {
   int wid = 0, prec = 0;
   bool widPresent = false, precPresent = false;
   bool _erroring = false;
+  bool goodArgNum = true;
+  bool reordered = false;
   Object? _arg;
 
   void _clearFlags() {
@@ -293,9 +297,9 @@ final class _Printf {
             break flags;
         }
       }
-      if (i < end && f[i] == 0x5b) {
-        throw UnimplementedError('fmt: índice de argumento explícito ([n])');
-      }
+      goodArgNum = true;
+      var afterIndex = false;
+      (argNum, i, afterIndex) = _argNumber(argNum, f, i);
       if (i < end && f[i] == 0x2a) {
         i++;
         final (w, ok, n) = _intFromArg(argNum);
@@ -308,14 +312,18 @@ final class _Printf {
           minus = true;
           zero = false;
         }
+        afterIndex = false;
       } else {
         final (w, ok, n) = _parseNum(f, i, end);
         wid = w;
         widPresent = ok;
         i = n;
+        if (afterIndex && widPresent) goodArgNum = false; // "%[3]2d"
       }
-      if (i < end && f[i] == 0x2e) {
+      if (i + 1 < end && f[i] == 0x2e) {
         i++;
+        if (afterIndex) goodArgNum = false; // "%[3].2d"
+        (argNum, i, afterIndex) = _argNumber(argNum, f, i);
         if (i < end && f[i] == 0x2a) {
           i++;
           final (w, ok, n) = _intFromArg(argNum);
@@ -327,6 +335,7 @@ final class _Printf {
             precPresent = false;
           }
           if (!precPresent) _b.add(_ascii('%!(BADPREC)'));
+          afterIndex = false;
         } else {
           final (w, ok, n) = _parseNum(f, i, end);
           prec = w;
@@ -338,6 +347,7 @@ final class _Printf {
           }
         }
       }
+      if (!afterIndex) (argNum, i, afterIndex) = _argNumber(argNum, f, i);
       if (i >= end) {
         _b.add(_ascii('%!(NOVERB)'));
         break;
@@ -346,6 +356,12 @@ final class _Printf {
       i += size;
       if (verb == 0x25) {
         _b.addByte(0x25); // `%%` não consome operando nem usa largura
+        continue;
+      }
+      if (!goodArgNum) {
+        _b.add(_ascii('%!'));
+        _writeRune(verb);
+        _b.add(_ascii('(BADINDEX)'));
         continue;
       }
       if (argNum >= args.length) {
@@ -364,7 +380,8 @@ final class _Printf {
       _printArg(args[argNum], verb, 0);
       argNum++;
     }
-    if (argNum < args.length) {
+    // Com índice explícito o Go não confere operandos sobrando.
+    if (!reordered && argNum < args.length) {
       _clearFlags();
       _b.add(_ascii('%!(EXTRA '));
       for (var k = argNum; k < args.length; k++) {
@@ -381,6 +398,29 @@ final class _Printf {
       _b.addByte(0x29);
     }
     return _b.takeBytes();
+  }
+
+  /// `argNumber` do Go: `[n]` em `f[i]` escolhe o operando (base 1).
+  (int, int, bool) _argNumber(int argNum, Uint8List f, int i) {
+    if (i >= f.length || f[i] != 0x5b) return (argNum, i, false);
+    reordered = true;
+    final (index, wid, ok) = _parseArgNumber(f, i);
+    if (ok && index >= 0 && index < args.length) return (index, i + wid, true);
+    goodArgNum = false;
+    return (argNum, i + wid, ok);
+  }
+
+  /// `parseArgNumber` do Go: (índice base 0, bytes consumidos, ok).
+  static (int, int, bool) _parseArgNumber(Uint8List f, int start) {
+    if (f.length - start < 3) return (0, 1, false);
+    for (var i = start + 1; i < f.length; i++) {
+      if (f[i] == 0x5d) {
+        final (width, ok, newi) = _parseNum(f, start + 1, i);
+        if (!ok || newi != i) return (0, i - start + 1, false);
+        return (width - 1, i - start + 1, true);
+      }
+    }
+    return (0, 1, false);
   }
 
   (int, bool, int) _intFromArg(int argNum) {
@@ -458,14 +498,17 @@ final class _Printf {
       case GoMap m:
         _printMap(m, verb, depth);
       case GoStruct s:
-        if (plusV || sharpV) {
-          throw UnimplementedError('fmt: %+v/%#v de struct');
-        }
+        if (sharpV) throw UnimplementedError('fmt: %#v de struct');
         if (depth == 0 && !s.$isValue) _b.addByte(0x26);
         _b.addByte(0x7b);
         final fields = s.$fields;
+        final names = plusV ? s.$fieldNames : const <String>[];
         for (var i = 0; i < fields.length; i++) {
           if (i > 0) _b.addByte(0x20);
+          if (plusV) {
+            _b.add(utf8.encode(names[i]));
+            _b.addByte(0x3a);
+          }
           _printArg(fields[i], verb, depth + 1);
         }
         _b.addByte(0x7d);

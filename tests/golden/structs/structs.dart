@@ -37,6 +37,9 @@ class Point extends go.GoStruct<Point> {
   @override
   List<Object?> get $fields => [x, y];
 
+  @override
+  List<String> get $fieldNames => const ['X', 'Y'];
+
   Point moved(Golang.Int dx) {
     if ($nilPtr) go.nilDeref();
     final Point p = this.$copy();
@@ -86,6 +89,9 @@ class Box extends go.GoStruct<Box> {
 
   @override
   List<Object?> get $fields => [name, min, max, go.Addr(owner)];
+
+  @override
+  List<String> get $fieldNames => const ['Name', 'Min', 'Max', 'Owner'];
 
   Golang.Int width() {
     if ($nilPtr) go.nilDeref();

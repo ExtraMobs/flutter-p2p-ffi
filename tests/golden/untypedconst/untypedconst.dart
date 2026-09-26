@@ -58,6 +58,9 @@ class Unwrapper extends go.GoStruct<Unwrapper> {
   @override
   List<Object?> get $fields => [_init, _lastRaw, _lastExt];
 
+  @override
+  List<String> get $fieldNames => const ['init', 'lastRaw', 'lastExt'];
+
   Golang.Int64 unwrap(Golang.Uint16 i) {
     final Unwrapper? u = $nilPtr ? null : this;
     if (!u!._init) {

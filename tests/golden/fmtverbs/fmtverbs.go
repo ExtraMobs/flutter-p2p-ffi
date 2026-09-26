@@ -17,6 +17,13 @@ type P struct {
 	Name string
 }
 
+type Box struct {
+	P
+	Tag   string
+	Inner struct{ A, B int }
+	Ptr   *P
+}
+
 type myErr struct{ code int }
 
 func (e *myErr) Error() string { return fmt.Sprintf("erro %d", e.code) }
@@ -93,6 +100,20 @@ func main() {
 	fmt.Println(e1, "|", e2, "|", e3, "|", e4, "|", e5)
 	fmt.Printf("%T %T %T %T\n", e1, e2, e3, e4)
 	fmt.Println(e1 == e1, e1 != fmt.Errorf("falhou: %d", 5))
+
+	// %+v: nomes dos campos (embutido = nome do tipo), também aninhados
+	bx := Box{P: P{1, 2, "a"}, Tag: "t"}
+	bx.Inner.A = 5
+	fmt.Printf("%+v|%+v|%v\n", bx, &p, bx)
+	fmt.Printf("%+v|%+v|%+v|%+d|%+v\n", []P{{3, 4, "b"}}, map[string]P{"k": {5, 6, "c"}}, 7, 7, err)
+	fmt.Printf("%+v|%+v\n", struct{ N int }{9}, Box{}.Ptr)
+
+	// Índice explícito [n]
+	fmt.Printf("%[2]d %[1]d|%[1]d %d|%[3]*.[2]*[1]f|%d %d %#[1]x %#x\n", 16, 17, 8, 18)
+	fmt.Printf("%[3]d|%[0]d|%[x]d|%[1]2d|%[1].2d|%[2]s\n", 1, "dois")
+	fmt.Printf("%[1]d %[1]q\n", 65, "sobra")
+	fmt.Println(fmt.Errorf("%[2]w e %[1]w e %[2]w", e1, e2))
+	fmt.Printf("%.\n")
 
 	written, _ := fmt.Printf("%s\n", "conta")
 	fmt.Println(written)

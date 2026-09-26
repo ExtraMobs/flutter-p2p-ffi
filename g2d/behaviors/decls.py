@@ -168,7 +168,7 @@ class StructClass(TypeDeclBehavior):
         tnames = tps.names
         self_t = base_cls + (f"<{', '.join(tnames)}>" if tnames else "")
         t = self.pkg.type_at(tidx)
-        params, inits, fields, copies, sets, values = [], [], [], [], [], []
+        params, inits, fields, copies, sets, values, names = [], [], [], [], [], [], []
         seen = set()
         for f in st["fields"]:
             if f["name"] == "_":
@@ -181,6 +181,7 @@ class StructClass(TypeDeclBehavior):
             ft = self.pkg.type_at(f["type"])
             ftype = self.types.dart(ft)
             fields.append(f"{ftype} {fname};")
+            names.append(f"'{f['name']}'")
             if ftype.nullable:
                 params.append(f"{ftype} {pname}")
                 inits.append(f"{fname} = {pname}")
@@ -235,6 +236,9 @@ class StructClass(TypeDeclBehavior):
             "",
             "@override",
             f"List<Object?> get $fields => [{', '.join(values)}];",
+            "",
+            "@override",
+            f"List<String> get $fieldNames => const [{', '.join(names)}];",
         ]
         for m in self.facts.methods.pop(go_name, []):
             lines += [""] + self.functions.func_decl(m)

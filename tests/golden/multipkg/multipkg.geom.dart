@@ -39,6 +39,9 @@ class Point extends go.GoStruct<Point> implements fmt.Stringer {
   @override
   List<Object?> get $fields => [x, y];
 
+  @override
+  List<String> get $fieldNames => const ['X', 'Y'];
+
   Point add(Point q) {
     if ($nilPtr) go.nilDeref();
     return Point(x: this.x + q.x, y: this.y + q.y);
@@ -123,6 +126,9 @@ class Rect extends go.GoStruct<Rect> implements Shape {
 
   @override
   List<Object?> get $fields => [min, max];
+
+  @override
+  List<String> get $fieldNames => const ['Min', 'Max'];
 
   Golang.Int area() {
     if ($nilPtr) go.nilDeref();

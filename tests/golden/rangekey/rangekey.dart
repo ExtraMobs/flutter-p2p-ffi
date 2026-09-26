@@ -32,6 +32,9 @@ class _node extends go.GoStruct<_node> {
 
   @override
   List<Object?> get $fields => [_n];
+
+  @override
+  List<String> get $fieldNames => const ['n'];
 }
 
 final class _info extends go.Slice<_node> implements Golang.GoTyped {

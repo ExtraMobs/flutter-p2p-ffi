@@ -32,6 +32,9 @@ class Object$ extends go.GoStruct<Object$> {
 
   @override
   List<Object?> get $fields => [name];
+
+  @override
+  List<String> get $fieldNames => const ['Name'];
 }
 
 class Map$ extends go.GoStruct<Map$> {
@@ -59,6 +62,9 @@ class Map$ extends go.GoStruct<Map$> {
 
   @override
   List<Object?> get $fields => [size];
+
+  @override
+  List<String> get $fieldNames => const ['Size'];
 }
 
 final class String$ extends Golang.Int64Base<String$> {

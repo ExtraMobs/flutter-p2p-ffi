@@ -34,6 +34,9 @@ class Greeter extends go.GoStruct<Greeter> {
   @override
   List<Object?> get $fields => [name];
 
+  @override
+  List<String> get $fieldNames => const ['Name'];
+
   /// Greet monta a saudação.
   Golang.String greet() {
     if ($nilPtr) go.nilDeref();

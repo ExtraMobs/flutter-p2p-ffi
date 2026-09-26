@@ -37,6 +37,9 @@ class Point extends go.GoStruct<Point> {
   @override
   List<Object?> get $fields => [x, y];
 
+  @override
+  List<String> get $fieldNames => const ['X', 'Y'];
+
   Golang.Int sum() {
     if ($nilPtr) go.nilDeref();
     return this.x + this.y;

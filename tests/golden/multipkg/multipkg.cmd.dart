@@ -34,6 +34,9 @@ class Square extends go.GoStruct<Square> implements geom.Shape {
   @override
   List<Object?> get $fields => [side];
 
+  @override
+  List<String> get $fieldNames => const ['Side'];
+
   Golang.Int area() {
     if ($nilPtr) go.nilDeref();
     return this.side * this.side;

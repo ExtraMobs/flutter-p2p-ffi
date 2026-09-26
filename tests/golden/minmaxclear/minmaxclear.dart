@@ -50,6 +50,9 @@ class P extends go.GoStruct<P> {
 
   @override
   List<Object?> get $fields => [x, y];
+
+  @override
+  List<String> get $fieldNames => const ['X', 'Y'];
 }
 
 /// Anel genérico como o ringbuffer do quic-go.
@@ -80,6 +83,9 @@ class Ring<T> extends go.GoStruct<Ring<T>> {
 
   @override
   List<Object?> get $fields => [_ring, _headPos];
+
+  @override
+  List<String> get $fieldNames => const ['ring', 'headPos'];
 
   void init(Golang.Int size) {
     final Ring<T>? r = $nilPtr ? null : this;

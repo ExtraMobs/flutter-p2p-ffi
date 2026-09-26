@@ -42,6 +42,9 @@ abstract class GoStruct<T extends GoStruct<T>> extends GoValue<T> {
   /// Campos em ordem de declaração (ponteiros embrulhados em [Addr]).
   List<Object?> get $fields;
 
+  /// Nomes Go dos campos de [$fields] (`%+v`; embutido = nome do tipo).
+  List<String> get $fieldNames;
+
   @override
   bool operator ==(Object other) {
     if (other is! GoStruct<T> || other.runtimeType != runtimeType) return false;
