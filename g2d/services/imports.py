@@ -17,7 +17,11 @@ class ImportTable(Service):
         self.used = {}  # prefixo → URI (só os realmente usados)
         self.prefixes = {}  # import path → prefixo
         for imp in self.pkg.imports:
-            if imp["name"] in ("_", ".", GOLANG_PREFIX):
+            if imp["name"] == ".":
+                # `import .`: os identificadores já trazem o pacote do objeto
+                # e são qualificados pelo prefixo derivado do import path.
+                continue
+            if imp["name"] in ("_", GOLANG_PREFIX):
                 raise Unsupported(f"import:{imp['name']}", f"import {imp['name']} {imp['path']}",
                                   self.import_spec(imp["path"]))
             self.prefixes.setdefault(imp["path"], escape(imp["name"]))

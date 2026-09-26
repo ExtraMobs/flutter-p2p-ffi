@@ -1,0 +1,4594 @@
+{
+  "schemaVersion": 7,
+  "tool": "goast",
+  "goVersion": "go1.26.5",
+  "packages": [
+    {
+      "path": "g2d.test/dotimport/cmd",
+      "name": "main",
+      "files": [
+        {
+          "path": "main.go",
+          "ast": {
+            "node": "File",
+            "doc": {
+              "node": "CommentGroup",
+              "list": [
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "main.go",
+                    "line": 1,
+                    "column": 1,
+                    "offset": 0
+                  },
+                  "text": "// Repro de github.com/polydawn/refmt/pretty e refmt/shared: `import .` de"
+                },
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "main.go",
+                    "line": 2,
+                    "column": 1,
+                    "offset": 75
+                  },
+                  "text": "// um pacote do grafo (tipo, constante, função, variável e método)."
+                }
+              ]
+            },
+            "package": {
+              "file": "main.go",
+              "line": 3,
+              "column": 1,
+              "offset": 147
+            },
+            "name": {
+              "node": "Ident",
+              "namePos": {
+                "file": "main.go",
+                "line": 3,
+                "column": 9,
+                "offset": 155
+              },
+              "name": "main",
+              "obj": null
+            },
+            "decls": [
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "main.go",
+                  "line": 5,
+                  "column": 1,
+                  "offset": 161
+                },
+                "tok": "import",
+                "lparen": {
+                  "file": "main.go",
+                  "line": 5,
+                  "column": 8,
+                  "offset": 168
+                },
+                "specs": [
+                  {
+                    "node": "ImportSpec",
+                    "doc": null,
+                    "name": null,
+                    "path": {
+                      "node": "BasicLit",
+                      "valuePos": {
+                        "file": "main.go",
+                        "line": 6,
+                        "column": 2,
+                        "offset": 171
+                      },
+                      "valueEnd": {
+                        "file": "main.go",
+                        "line": 6,
+                        "column": 7,
+                        "offset": 176
+                      },
+                      "kind": "STRING",
+                      "value": "\"fmt\""
+                    },
+                    "comment": null,
+                    "endPos": null
+                  },
+                  {
+                    "node": "ImportSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "main.go",
+                        "line": 8,
+                        "column": 2,
+                        "offset": 179
+                      },
+                      "name": ".",
+                      "obj": null,
+                      "$obj": {
+                        "name": ".",
+                        "kind": "package",
+                        "def": true,
+                        "pkg": "g2d.test/dotimport/tok"
+                      }
+                    },
+                    "path": {
+                      "node": "BasicLit",
+                      "valuePos": {
+                        "file": "main.go",
+                        "line": 8,
+                        "column": 4,
+                        "offset": 181
+                      },
+                      "valueEnd": {
+                        "file": "main.go",
+                        "line": 8,
+                        "column": 28,
+                        "offset": 205
+                      },
+                      "kind": "STRING",
+                      "value": "\"g2d.test/dotimport/tok\""
+                    },
+                    "comment": null,
+                    "endPos": null
+                  }
+                ],
+                "rparen": {
+                  "file": "main.go",
+                  "line": 9,
+                  "column": 1,
+                  "offset": 206
+                }
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "main.go",
+                  "line": 11,
+                  "column": 1,
+                  "offset": 209
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "main.go",
+                        "line": 11,
+                        "column": 6,
+                        "offset": 214
+                      },
+                      "name": "pump",
+                      "obj": {
+                        "node": "Object",
+                        "name": "pump",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "pump",
+                        "kind": "type",
+                        "def": true,
+                        "type": 0,
+                        "decl": "main.go:214",
+                        "pkg": "g2d.test/dotimport/cmd",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "StructType",
+                      "struct": {
+                        "file": "main.go",
+                        "line": 11,
+                        "column": 11,
+                        "offset": 219
+                      },
+                      "fields": {
+                        "node": "FieldList",
+                        "opening": {
+                          "file": "main.go",
+                          "line": 11,
+                          "column": 17,
+                          "offset": 225
+                        },
+                        "list": [
+                          {
+                            "node": "Field",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "main.go",
+                                  "line": 11,
+                                  "column": 19,
+                                  "offset": 227
+                                },
+                                "name": "toks",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "toks",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "toks",
+                                  "kind": "field",
+                                  "def": true,
+                                  "type": 2,
+                                  "decl": "main.go:227",
+                                  "pkg": "g2d.test/dotimport/cmd"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "ArrayType",
+                              "lbrack": {
+                                "file": "main.go",
+                                "line": 11,
+                                "column": 24,
+                                "offset": 232
+                              },
+                              "len": null,
+                              "elt": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "main.go",
+                                  "line": 11,
+                                  "column": 26,
+                                  "offset": 234
+                                },
+                                "name": "Token",
+                                "obj": null,
+                                "$type": 3,
+                                "$isType": true,
+                                "$obj": {
+                                  "name": "Token",
+                                  "kind": "type",
+                                  "type": 3,
+                                  "decl": "tok.go:268",
+                                  "pkg": "g2d.test/dotimport/tok",
+                                  "top": true
+                                }
+                              },
+                              "$type": 2,
+                              "$isType": true
+                            },
+                            "tag": null,
+                            "comment": null
+                          }
+                        ],
+                        "closing": {
+                          "file": "main.go",
+                          "line": 11,
+                          "column": 32,
+                          "offset": 240
+                        }
+                      },
+                      "incomplete": false,
+                      "$type": 1,
+                      "$isType": true
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": {
+                  "node": "FieldList",
+                  "opening": {
+                    "file": "main.go",
+                    "line": 13,
+                    "column": 6,
+                    "offset": 248
+                  },
+                  "list": [
+                    {
+                      "node": "Field",
+                      "doc": null,
+                      "names": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "main.go",
+                            "line": 13,
+                            "column": 7,
+                            "offset": 249
+                          },
+                          "name": "p",
+                          "obj": {
+                            "node": "Object",
+                            "name": "p",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "p",
+                            "kind": "var",
+                            "def": true,
+                            "type": 10,
+                            "decl": "main.go:249",
+                            "pkg": "g2d.test/dotimport/cmd"
+                          }
+                        }
+                      ],
+                      "type": {
+                        "node": "StarExpr",
+                        "star": {
+                          "file": "main.go",
+                          "line": 13,
+                          "column": 9,
+                          "offset": 251
+                        },
+                        "x": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "main.go",
+                            "line": 13,
+                            "column": 10,
+                            "offset": 252
+                          },
+                          "name": "pump",
+                          "obj": {
+                            "node": "Object",
+                            "name": "pump",
+                            "kind": "type"
+                          },
+                          "$type": 0,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "pump",
+                            "kind": "type",
+                            "type": 0,
+                            "decl": "main.go:214",
+                            "pkg": "g2d.test/dotimport/cmd",
+                            "top": true
+                          }
+                        },
+                        "$type": 10,
+                        "$isType": true
+                      },
+                      "tag": null,
+                      "comment": null
+                    }
+                  ],
+                  "closing": {
+                    "file": "main.go",
+                    "line": 13,
+                    "column": 14,
+                    "offset": 256
+                  }
+                },
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "main.go",
+                    "line": 13,
+                    "column": 16,
+                    "offset": 258
+                  },
+                  "name": "step",
+                  "obj": null,
+                  "$obj": {
+                    "name": "step",
+                    "kind": "method",
+                    "def": true,
+                    "type": 9,
+                    "decl": "main.go:258",
+                    "pkg": "g2d.test/dotimport/cmd"
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "main.go",
+                    "line": 13,
+                    "column": 1,
+                    "offset": 243
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "main.go",
+                      "line": 13,
+                      "column": 20,
+                      "offset": 262
+                    },
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "main.go",
+                              "line": 13,
+                              "column": 21,
+                              "offset": 263
+                            },
+                            "name": "tt",
+                            "obj": {
+                              "node": "Object",
+                              "name": "tt",
+                              "kind": "var"
+                            },
+                            "$obj": {
+                              "name": "tt",
+                              "kind": "var",
+                              "def": true,
+                              "type": 5,
+                              "decl": "main.go:263",
+                              "pkg": "g2d.test/dotimport/cmd"
+                            }
+                          }
+                        ],
+                        "type": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "main.go",
+                            "line": 13,
+                            "column": 24,
+                            "offset": 266
+                          },
+                          "name": "TokenType",
+                          "obj": null,
+                          "$type": 5,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "TokenType",
+                            "kind": "type",
+                            "type": 5,
+                            "decl": "tok.go:155",
+                            "pkg": "g2d.test/dotimport/tok",
+                            "top": true
+                          }
+                        },
+                        "tag": null,
+                        "comment": null
+                      },
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "main.go",
+                              "line": 13,
+                              "column": 35,
+                              "offset": 277
+                            },
+                            "name": "s",
+                            "obj": {
+                              "node": "Object",
+                              "name": "s",
+                              "kind": "var"
+                            },
+                            "$obj": {
+                              "name": "s",
+                              "kind": "var",
+                              "def": true,
+                              "type": 7,
+                              "decl": "main.go:277",
+                              "pkg": "g2d.test/dotimport/cmd"
+                            }
+                          }
+                        ],
+                        "type": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "main.go",
+                            "line": 13,
+                            "column": 37,
+                            "offset": 279
+                          },
+                          "name": "string",
+                          "obj": null,
+                          "$type": 7,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "string",
+                            "kind": "type",
+                            "type": 7
+                          }
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": {
+                      "file": "main.go",
+                      "line": 13,
+                      "column": 43,
+                      "offset": 285
+                    }
+                  },
+                  "results": null
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "main.go",
+                    "line": 13,
+                    "column": 45,
+                    "offset": 287
+                  },
+                  "list": [
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "main.go",
+                              "line": 14,
+                              "column": 2,
+                              "offset": 290
+                            },
+                            "name": "p",
+                            "obj": {
+                              "node": "Object",
+                              "name": "p",
+                              "kind": "var"
+                            },
+                            "$type": 10,
+                            "$obj": {
+                              "name": "p",
+                              "kind": "var",
+                              "type": 10,
+                              "decl": "main.go:249",
+                              "pkg": "g2d.test/dotimport/cmd"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "main.go",
+                              "line": 14,
+                              "column": 4,
+                              "offset": 292
+                            },
+                            "name": "toks",
+                            "obj": null,
+                            "$obj": {
+                              "name": "toks",
+                              "kind": "field",
+                              "type": 2,
+                              "decl": "main.go:227",
+                              "pkg": "g2d.test/dotimport/cmd"
+                            }
+                          },
+                          "$type": 2,
+                          "$sel": {
+                            "kind": "field",
+                            "recv": 10,
+                            "index": [
+                              0
+                            ],
+                            "indirect": true
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "main.go",
+                        "line": 14,
+                        "column": 9,
+                        "offset": 297
+                      },
+                      "tok": "=",
+                      "rhs": [
+                        {
+                          "node": "CallExpr",
+                          "fun": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "main.go",
+                              "line": 14,
+                              "column": 11,
+                              "offset": 299
+                            },
+                            "name": "append",
+                            "obj": null,
+                            "$type": 11,
+                            "$builtin": true,
+                            "$obj": {
+                              "name": "append",
+                              "kind": "builtin",
+                              "type": 12
+                            }
+                          },
+                          "lparen": {
+                            "file": "main.go",
+                            "line": 14,
+                            "column": 17,
+                            "offset": 305
+                          },
+                          "args": [
+                            {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "main.go",
+                                  "line": 14,
+                                  "column": 18,
+                                  "offset": 306
+                                },
+                                "name": "p",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "p",
+                                  "kind": "var"
+                                },
+                                "$type": 10,
+                                "$obj": {
+                                  "name": "p",
+                                  "kind": "var",
+                                  "type": 10,
+                                  "decl": "main.go:249",
+                                  "pkg": "g2d.test/dotimport/cmd"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "main.go",
+                                  "line": 14,
+                                  "column": 20,
+                                  "offset": 308
+                                },
+                                "name": "toks",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "toks",
+                                  "kind": "field",
+                                  "type": 2,
+                                  "decl": "main.go:227",
+                                  "pkg": "g2d.test/dotimport/cmd"
+                                }
+                              },
+                              "$type": 2,
+                              "$sel": {
+                                "kind": "field",
+                                "recv": 10,
+                                "index": [
+                                  0
+                                ],
+                                "indirect": true
+                              }
+                            },
+                            {
+                              "node": "CompositeLit",
+                              "type": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "main.go",
+                                  "line": 14,
+                                  "column": 26,
+                                  "offset": 314
+                                },
+                                "name": "Token",
+                                "obj": null,
+                                "$type": 3,
+                                "$isType": true,
+                                "$obj": {
+                                  "name": "Token",
+                                  "kind": "type",
+                                  "type": 3,
+                                  "decl": "tok.go:268",
+                                  "pkg": "g2d.test/dotimport/tok",
+                                  "top": true
+                                }
+                              },
+                              "lbrace": {
+                                "file": "main.go",
+                                "line": 14,
+                                "column": 31,
+                                "offset": 319
+                              },
+                              "elts": [
+                                {
+                                  "node": "KeyValueExpr",
+                                  "key": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "main.go",
+                                      "line": 14,
+                                      "column": 32,
+                                      "offset": 320
+                                    },
+                                    "name": "Type",
+                                    "obj": null,
+                                    "$obj": {
+                                      "name": "Type",
+                                      "kind": "field",
+                                      "type": 5,
+                                      "decl": "tok.go:284",
+                                      "pkg": "g2d.test/dotimport/tok"
+                                    }
+                                  },
+                                  "colon": {
+                                    "file": "main.go",
+                                    "line": 14,
+                                    "column": 36,
+                                    "offset": 324
+                                  },
+                                  "value": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "main.go",
+                                      "line": 14,
+                                      "column": 38,
+                                      "offset": 326
+                                    },
+                                    "name": "tt",
+                                    "obj": {
+                                      "node": "Object",
+                                      "name": "tt",
+                                      "kind": "var"
+                                    },
+                                    "$type": 5,
+                                    "$obj": {
+                                      "name": "tt",
+                                      "kind": "var",
+                                      "type": 5,
+                                      "decl": "main.go:263",
+                                      "pkg": "g2d.test/dotimport/cmd"
+                                    }
+                                  }
+                                },
+                                {
+                                  "node": "KeyValueExpr",
+                                  "key": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "main.go",
+                                      "line": 14,
+                                      "column": 42,
+                                      "offset": 330
+                                    },
+                                    "name": "Str",
+                                    "obj": null,
+                                    "$obj": {
+                                      "name": "Str",
+                                      "kind": "field",
+                                      "type": 7,
+                                      "decl": "tok.go:300",
+                                      "pkg": "g2d.test/dotimport/tok"
+                                    }
+                                  },
+                                  "colon": {
+                                    "file": "main.go",
+                                    "line": 14,
+                                    "column": 45,
+                                    "offset": 333
+                                  },
+                                  "value": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "main.go",
+                                      "line": 14,
+                                      "column": 47,
+                                      "offset": 335
+                                    },
+                                    "name": "s",
+                                    "obj": {
+                                      "node": "Object",
+                                      "name": "s",
+                                      "kind": "var"
+                                    },
+                                    "$type": 7,
+                                    "$obj": {
+                                      "name": "s",
+                                      "kind": "var",
+                                      "type": 7,
+                                      "decl": "main.go:277",
+                                      "pkg": "g2d.test/dotimport/cmd"
+                                    }
+                                  }
+                                }
+                              ],
+                              "rbrace": {
+                                "file": "main.go",
+                                "line": 14,
+                                "column": 48,
+                                "offset": 336
+                              },
+                              "incomplete": false,
+                              "$type": 3
+                            }
+                          ],
+                          "ellipsis": null,
+                          "rparen": {
+                            "file": "main.go",
+                            "line": 14,
+                            "column": 49,
+                            "offset": 337
+                          },
+                          "$type": 2
+                        }
+                      ]
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "main.go",
+                    "line": 15,
+                    "column": 1,
+                    "offset": 339
+                  }
+                }
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "main.go",
+                    "line": 17,
+                    "column": 6,
+                    "offset": 347
+                  },
+                  "name": "main",
+                  "obj": {
+                    "node": "Object",
+                    "name": "main",
+                    "kind": "func"
+                  },
+                  "$obj": {
+                    "name": "main",
+                    "kind": "func",
+                    "def": true,
+                    "type": 13,
+                    "decl": "main.go:347",
+                    "pkg": "g2d.test/dotimport/cmd",
+                    "top": true
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "main.go",
+                    "line": 17,
+                    "column": 1,
+                    "offset": 342
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "main.go",
+                      "line": 17,
+                      "column": 10,
+                      "offset": 351
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "main.go",
+                      "line": 17,
+                      "column": 11,
+                      "offset": 352
+                    }
+                  },
+                  "results": null
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "main.go",
+                    "line": 17,
+                    "column": 13,
+                    "offset": 354
+                  },
+                  "list": [
+                    {
+                      "node": "DeclStmt",
+                      "decl": {
+                        "node": "GenDecl",
+                        "doc": null,
+                        "tokPos": {
+                          "file": "main.go",
+                          "line": 18,
+                          "column": 2,
+                          "offset": 357
+                        },
+                        "tok": "var",
+                        "lparen": null,
+                        "specs": [
+                          {
+                            "node": "ValueSpec",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "main.go",
+                                  "line": 18,
+                                  "column": 6,
+                                  "offset": 361
+                                },
+                                "name": "p",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "p",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "p",
+                                  "kind": "var",
+                                  "def": true,
+                                  "type": 0,
+                                  "decl": "main.go:361",
+                                  "pkg": "g2d.test/dotimport/cmd"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "main.go",
+                                "line": 18,
+                                "column": 8,
+                                "offset": 363
+                              },
+                              "name": "pump",
+                              "obj": {
+                                "node": "Object",
+                                "name": "pump",
+                                "kind": "type"
+                              },
+                              "$type": 0,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "pump",
+                                "kind": "type",
+                                "type": 0,
+                                "decl": "main.go:214",
+                                "pkg": "g2d.test/dotimport/cmd",
+                                "top": true
+                              }
+                            },
+                            "values": null,
+                            "comment": null
+                          }
+                        ],
+                        "rparen": null
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "main.go",
+                              "line": 19,
+                              "column": 2,
+                              "offset": 369
+                            },
+                            "name": "p",
+                            "obj": {
+                              "node": "Object",
+                              "name": "p",
+                              "kind": "var"
+                            },
+                            "$type": 0,
+                            "$obj": {
+                              "name": "p",
+                              "kind": "var",
+                              "type": 0,
+                              "decl": "main.go:361",
+                              "pkg": "g2d.test/dotimport/cmd"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "main.go",
+                              "line": 19,
+                              "column": 4,
+                              "offset": 371
+                            },
+                            "name": "step",
+                            "obj": null,
+                            "$obj": {
+                              "name": "step",
+                              "kind": "method",
+                              "type": 9,
+                              "decl": "main.go:258",
+                              "pkg": "g2d.test/dotimport/cmd"
+                            }
+                          },
+                          "$type": 9,
+                          "$sel": {
+                            "kind": "method",
+                            "recv": 0,
+                            "index": [
+                              0
+                            ],
+                            "indirect": false
+                          }
+                        },
+                        "lparen": {
+                          "file": "main.go",
+                          "line": 19,
+                          "column": 8,
+                          "offset": 375
+                        },
+                        "args": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "main.go",
+                              "line": 19,
+                              "column": 9,
+                              "offset": 376
+                            },
+                            "name": "TMapOpen",
+                            "obj": null,
+                            "$type": 5,
+                            "$value": {
+                              "kind": "int",
+                              "value": "123"
+                            },
+                            "$obj": {
+                              "name": "TMapOpen",
+                              "kind": "const",
+                              "type": 5,
+                              "decl": "tok.go:180",
+                              "pkg": "g2d.test/dotimport/tok",
+                              "top": true,
+                              "value": {
+                                "kind": "int",
+                                "value": "123"
+                              }
+                            }
+                          },
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "main.go",
+                              "line": 19,
+                              "column": 19,
+                              "offset": 386
+                            },
+                            "valueEnd": {
+                              "file": "main.go",
+                              "line": 19,
+                              "column": 21,
+                              "offset": 388
+                            },
+                            "kind": "STRING",
+                            "value": "\"\"",
+                            "$type": 7,
+                            "$value": {
+                              "kind": "string",
+                              "value": ""
+                            }
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "main.go",
+                          "line": 19,
+                          "column": 21,
+                          "offset": 388
+                        },
+                        "$type": 14
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "main.go",
+                              "line": 20,
+                              "column": 2,
+                              "offset": 391
+                            },
+                            "name": "p",
+                            "obj": {
+                              "node": "Object",
+                              "name": "p",
+                              "kind": "var"
+                            },
+                            "$type": 0,
+                            "$obj": {
+                              "name": "p",
+                              "kind": "var",
+                              "type": 0,
+                              "decl": "main.go:361",
+                              "pkg": "g2d.test/dotimport/cmd"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "main.go",
+                              "line": 20,
+                              "column": 4,
+                              "offset": 393
+                            },
+                            "name": "step",
+                            "obj": null,
+                            "$obj": {
+                              "name": "step",
+                              "kind": "method",
+                              "type": 9,
+                              "decl": "main.go:258",
+                              "pkg": "g2d.test/dotimport/cmd"
+                            }
+                          },
+                          "$type": 9,
+                          "$sel": {
+                            "kind": "method",
+                            "recv": 0,
+                            "index": [
+                              0
+                            ],
+                            "indirect": false
+                          }
+                        },
+                        "lparen": {
+                          "file": "main.go",
+                          "line": 20,
+                          "column": 8,
+                          "offset": 397
+                        },
+                        "args": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "main.go",
+                              "line": 20,
+                              "column": 9,
+                              "offset": 398
+                            },
+                            "name": "TString",
+                            "obj": null,
+                            "$type": 5,
+                            "$value": {
+                              "kind": "int",
+                              "value": "115"
+                            },
+                            "$obj": {
+                              "name": "TString",
+                              "kind": "const",
+                              "type": 5,
+                              "decl": "tok.go:234",
+                              "pkg": "g2d.test/dotimport/tok",
+                              "top": true,
+                              "value": {
+                                "kind": "int",
+                                "value": "115"
+                              }
+                            }
+                          },
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "main.go",
+                              "line": 20,
+                              "column": 18,
+                              "offset": 407
+                            },
+                            "valueEnd": {
+                              "file": "main.go",
+                              "line": 20,
+                              "column": 21,
+                              "offset": 410
+                            },
+                            "kind": "STRING",
+                            "value": "\"k\"",
+                            "$type": 7,
+                            "$value": {
+                              "kind": "string",
+                              "value": "k"
+                            }
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "main.go",
+                          "line": 20,
+                          "column": 21,
+                          "offset": 410
+                        },
+                        "$type": 14
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "main.go",
+                              "line": 21,
+                              "column": 2,
+                              "offset": 413
+                            },
+                            "name": "p",
+                            "obj": {
+                              "node": "Object",
+                              "name": "p",
+                              "kind": "var"
+                            },
+                            "$type": 0,
+                            "$obj": {
+                              "name": "p",
+                              "kind": "var",
+                              "type": 0,
+                              "decl": "main.go:361",
+                              "pkg": "g2d.test/dotimport/cmd"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "main.go",
+                              "line": 21,
+                              "column": 4,
+                              "offset": 415
+                            },
+                            "name": "step",
+                            "obj": null,
+                            "$obj": {
+                              "name": "step",
+                              "kind": "method",
+                              "type": 9,
+                              "decl": "main.go:258",
+                              "pkg": "g2d.test/dotimport/cmd"
+                            }
+                          },
+                          "$type": 9,
+                          "$sel": {
+                            "kind": "method",
+                            "recv": 0,
+                            "index": [
+                              0
+                            ],
+                            "indirect": false
+                          }
+                        },
+                        "lparen": {
+                          "file": "main.go",
+                          "line": 21,
+                          "column": 8,
+                          "offset": 419
+                        },
+                        "args": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "main.go",
+                              "line": 21,
+                              "column": 9,
+                              "offset": 420
+                            },
+                            "name": "TMapClose",
+                            "obj": null,
+                            "$type": 5,
+                            "$value": {
+                              "kind": "int",
+                              "value": "125"
+                            },
+                            "$obj": {
+                              "name": "TMapClose",
+                              "kind": "const",
+                              "type": 5,
+                              "decl": "tok.go:207",
+                              "pkg": "g2d.test/dotimport/tok",
+                              "top": true,
+                              "value": {
+                                "kind": "int",
+                                "value": "125"
+                              }
+                            }
+                          },
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "main.go",
+                              "line": 21,
+                              "column": 20,
+                              "offset": 431
+                            },
+                            "valueEnd": {
+                              "file": "main.go",
+                              "line": 21,
+                              "column": 22,
+                              "offset": 433
+                            },
+                            "kind": "STRING",
+                            "value": "\"\"",
+                            "$type": 7,
+                            "$value": {
+                              "kind": "string",
+                              "value": ""
+                            }
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "main.go",
+                          "line": 21,
+                          "column": 22,
+                          "offset": 433
+                        },
+                        "$type": 14
+                      }
+                    },
+                    {
+                      "node": "RangeStmt",
+                      "for": {
+                        "file": "main.go",
+                        "line": 22,
+                        "column": 2,
+                        "offset": 436
+                      },
+                      "key": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "main.go",
+                          "line": 22,
+                          "column": 6,
+                          "offset": 440
+                        },
+                        "name": "_",
+                        "obj": {
+                          "node": "Object",
+                          "name": "_",
+                          "kind": "var"
+                        },
+                        "$obj": {
+                          "name": "_",
+                          "kind": "var",
+                          "def": true,
+                          "type": 15,
+                          "decl": "main.go:440",
+                          "pkg": "g2d.test/dotimport/cmd"
+                        }
+                      },
+                      "value": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "main.go",
+                          "line": 22,
+                          "column": 9,
+                          "offset": 443
+                        },
+                        "name": "t",
+                        "obj": {
+                          "node": "Object",
+                          "name": "t",
+                          "kind": "var"
+                        },
+                        "$obj": {
+                          "name": "t",
+                          "kind": "var",
+                          "def": true,
+                          "type": 3,
+                          "decl": "main.go:443",
+                          "pkg": "g2d.test/dotimport/cmd"
+                        }
+                      },
+                      "tokPos": {
+                        "file": "main.go",
+                        "line": 22,
+                        "column": 11,
+                        "offset": 445
+                      },
+                      "tok": ":=",
+                      "range": {
+                        "file": "main.go",
+                        "line": 22,
+                        "column": 14,
+                        "offset": 448
+                      },
+                      "x": {
+                        "node": "SelectorExpr",
+                        "x": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "main.go",
+                            "line": 22,
+                            "column": 20,
+                            "offset": 454
+                          },
+                          "name": "p",
+                          "obj": {
+                            "node": "Object",
+                            "name": "p",
+                            "kind": "var"
+                          },
+                          "$type": 0,
+                          "$obj": {
+                            "name": "p",
+                            "kind": "var",
+                            "type": 0,
+                            "decl": "main.go:361",
+                            "pkg": "g2d.test/dotimport/cmd"
+                          }
+                        },
+                        "sel": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "main.go",
+                            "line": 22,
+                            "column": 22,
+                            "offset": 456
+                          },
+                          "name": "toks",
+                          "obj": null,
+                          "$obj": {
+                            "name": "toks",
+                            "kind": "field",
+                            "type": 2,
+                            "decl": "main.go:227",
+                            "pkg": "g2d.test/dotimport/cmd"
+                          }
+                        },
+                        "$type": 2,
+                        "$sel": {
+                          "kind": "field",
+                          "recv": 0,
+                          "index": [
+                            0
+                          ],
+                          "indirect": false
+                        }
+                      },
+                      "body": {
+                        "node": "BlockStmt",
+                        "lbrace": {
+                          "file": "main.go",
+                          "line": 22,
+                          "column": 27,
+                          "offset": 461
+                        },
+                        "list": [
+                          {
+                            "node": "ExprStmt",
+                            "x": {
+                              "node": "CallExpr",
+                              "fun": {
+                                "node": "SelectorExpr",
+                                "x": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "main.go",
+                                    "line": 23,
+                                    "column": 3,
+                                    "offset": 465
+                                  },
+                                  "name": "fmt",
+                                  "obj": null,
+                                  "$obj": {
+                                    "name": "fmt",
+                                    "kind": "package",
+                                    "pkg": "fmt"
+                                  }
+                                },
+                                "sel": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "main.go",
+                                    "line": 23,
+                                    "column": 7,
+                                    "offset": 469
+                                  },
+                                  "name": "Println",
+                                  "obj": null,
+                                  "$obj": {
+                                    "name": "Println",
+                                    "kind": "func",
+                                    "type": 16,
+                                    "decl": "print.go:313",
+                                    "pkg": "fmt",
+                                    "top": true
+                                  }
+                                },
+                                "$type": 16
+                              },
+                              "lparen": {
+                                "file": "main.go",
+                                "line": 23,
+                                "column": 14,
+                                "offset": 476
+                              },
+                              "args": [
+                                {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "main.go",
+                                    "line": 23,
+                                    "column": 15,
+                                    "offset": 477
+                                  },
+                                  "name": "t",
+                                  "obj": {
+                                    "node": "Object",
+                                    "name": "t",
+                                    "kind": "var"
+                                  },
+                                  "$type": 3,
+                                  "$obj": {
+                                    "name": "t",
+                                    "kind": "var",
+                                    "type": 3,
+                                    "decl": "main.go:443",
+                                    "pkg": "g2d.test/dotimport/cmd"
+                                  }
+                                },
+                                {
+                                  "node": "CallExpr",
+                                  "fun": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "main.go",
+                                      "line": 23,
+                                      "column": 18,
+                                      "offset": 480
+                                    },
+                                    "name": "IsValue",
+                                    "obj": null,
+                                    "$type": 21,
+                                    "$obj": {
+                                      "name": "IsValue",
+                                      "kind": "func",
+                                      "type": 21,
+                                      "decl": "tok.go:481",
+                                      "pkg": "g2d.test/dotimport/tok",
+                                      "top": true
+                                    }
+                                  },
+                                  "lparen": {
+                                    "file": "main.go",
+                                    "line": 23,
+                                    "column": 25,
+                                    "offset": 487
+                                  },
+                                  "args": [
+                                    {
+                                      "node": "SelectorExpr",
+                                      "x": {
+                                        "node": "Ident",
+                                        "namePos": {
+                                          "file": "main.go",
+                                          "line": 23,
+                                          "column": 26,
+                                          "offset": 488
+                                        },
+                                        "name": "t",
+                                        "obj": {
+                                          "node": "Object",
+                                          "name": "t",
+                                          "kind": "var"
+                                        },
+                                        "$type": 3,
+                                        "$obj": {
+                                          "name": "t",
+                                          "kind": "var",
+                                          "type": 3,
+                                          "decl": "main.go:443",
+                                          "pkg": "g2d.test/dotimport/cmd"
+                                        }
+                                      },
+                                      "sel": {
+                                        "node": "Ident",
+                                        "namePos": {
+                                          "file": "main.go",
+                                          "line": 23,
+                                          "column": 28,
+                                          "offset": 490
+                                        },
+                                        "name": "Type",
+                                        "obj": null,
+                                        "$obj": {
+                                          "name": "Type",
+                                          "kind": "field",
+                                          "type": 5,
+                                          "decl": "tok.go:284",
+                                          "pkg": "g2d.test/dotimport/tok"
+                                        }
+                                      },
+                                      "$type": 5,
+                                      "$sel": {
+                                        "kind": "field",
+                                        "recv": 3,
+                                        "index": [
+                                          0
+                                        ],
+                                        "indirect": false
+                                      }
+                                    }
+                                  ],
+                                  "ellipsis": null,
+                                  "rparen": {
+                                    "file": "main.go",
+                                    "line": 23,
+                                    "column": 32,
+                                    "offset": 494
+                                  },
+                                  "$type": 22
+                                },
+                                {
+                                  "node": "CallExpr",
+                                  "fun": {
+                                    "node": "SelectorExpr",
+                                    "x": {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "main.go",
+                                        "line": 23,
+                                        "column": 35,
+                                        "offset": 497
+                                      },
+                                      "name": "t",
+                                      "obj": {
+                                        "node": "Object",
+                                        "name": "t",
+                                        "kind": "var"
+                                      },
+                                      "$type": 3,
+                                      "$obj": {
+                                        "name": "t",
+                                        "kind": "var",
+                                        "type": 3,
+                                        "decl": "main.go:443",
+                                        "pkg": "g2d.test/dotimport/cmd"
+                                      }
+                                    },
+                                    "sel": {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "main.go",
+                                        "line": 23,
+                                        "column": 37,
+                                        "offset": 499
+                                      },
+                                      "name": "String",
+                                      "obj": null,
+                                      "$obj": {
+                                        "name": "String",
+                                        "kind": "method",
+                                        "type": 8,
+                                        "decl": "tok.go:330",
+                                        "pkg": "g2d.test/dotimport/tok"
+                                      }
+                                    },
+                                    "$type": 8,
+                                    "$sel": {
+                                      "kind": "method",
+                                      "recv": 3,
+                                      "index": [
+                                        0
+                                      ],
+                                      "indirect": false
+                                    }
+                                  },
+                                  "lparen": {
+                                    "file": "main.go",
+                                    "line": 23,
+                                    "column": 43,
+                                    "offset": 505
+                                  },
+                                  "args": null,
+                                  "ellipsis": null,
+                                  "rparen": {
+                                    "file": "main.go",
+                                    "line": 23,
+                                    "column": 44,
+                                    "offset": 506
+                                  },
+                                  "$type": 7
+                                }
+                              ],
+                              "ellipsis": null,
+                              "rparen": {
+                                "file": "main.go",
+                                "line": 23,
+                                "column": 45,
+                                "offset": 507
+                              },
+                              "$type": 23
+                            }
+                          }
+                        ],
+                        "rbrace": {
+                          "file": "main.go",
+                          "line": 24,
+                          "column": 2,
+                          "offset": 510
+                        }
+                      }
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "main.go",
+                            "line": 25,
+                            "column": 2,
+                            "offset": 513
+                          },
+                          "name": "Count",
+                          "obj": null,
+                          "$type": 15,
+                          "$obj": {
+                            "name": "Count",
+                            "kind": "var",
+                            "type": 15,
+                            "decl": "tok.go:465",
+                            "pkg": "g2d.test/dotimport/tok",
+                            "top": true
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "main.go",
+                        "line": 25,
+                        "column": 8,
+                        "offset": 519
+                      },
+                      "tok": "+=",
+                      "rhs": [
+                        {
+                          "node": "BasicLit",
+                          "valuePos": {
+                            "file": "main.go",
+                            "line": 25,
+                            "column": 11,
+                            "offset": 522
+                          },
+                          "valueEnd": {
+                            "file": "main.go",
+                            "line": 25,
+                            "column": 13,
+                            "offset": 524
+                          },
+                          "kind": "INT",
+                          "value": "10",
+                          "$type": 15,
+                          "$value": {
+                            "kind": "int",
+                            "value": "10"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "main.go",
+                              "line": 26,
+                              "column": 2,
+                              "offset": 526
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "main.go",
+                              "line": 26,
+                              "column": 6,
+                              "offset": 530
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 16,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 16
+                        },
+                        "lparen": {
+                          "file": "main.go",
+                          "line": 26,
+                          "column": 13,
+                          "offset": 537
+                        },
+                        "args": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "main.go",
+                              "line": 26,
+                              "column": 14,
+                              "offset": 538
+                            },
+                            "name": "Count",
+                            "obj": null,
+                            "$type": 15,
+                            "$obj": {
+                              "name": "Count",
+                              "kind": "var",
+                              "type": 15,
+                              "decl": "tok.go:465",
+                              "pkg": "g2d.test/dotimport/tok",
+                              "top": true
+                            }
+                          },
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "main.go",
+                              "line": 26,
+                              "column": 21,
+                              "offset": 545
+                            },
+                            "name": "TString",
+                            "obj": null,
+                            "$type": 5,
+                            "$value": {
+                              "kind": "int",
+                              "value": "115"
+                            },
+                            "$obj": {
+                              "name": "TString",
+                              "kind": "const",
+                              "type": 5,
+                              "decl": "tok.go:234",
+                              "pkg": "g2d.test/dotimport/tok",
+                              "top": true,
+                              "value": {
+                                "kind": "int",
+                                "value": "115"
+                              }
+                            }
+                          },
+                          {
+                            "node": "CompositeLit",
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "main.go",
+                                "line": 26,
+                                "column": 30,
+                                "offset": 554
+                              },
+                              "name": "Token",
+                              "obj": null,
+                              "$type": 3,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "Token",
+                                "kind": "type",
+                                "type": 3,
+                                "decl": "tok.go:268",
+                                "pkg": "g2d.test/dotimport/tok",
+                                "top": true
+                              }
+                            },
+                            "lbrace": {
+                              "file": "main.go",
+                              "line": 26,
+                              "column": 35,
+                              "offset": 559
+                            },
+                            "elts": [
+                              {
+                                "node": "KeyValueExpr",
+                                "key": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "main.go",
+                                    "line": 26,
+                                    "column": 36,
+                                    "offset": 560
+                                  },
+                                  "name": "Type",
+                                  "obj": null,
+                                  "$obj": {
+                                    "name": "Type",
+                                    "kind": "field",
+                                    "type": 5,
+                                    "decl": "tok.go:284",
+                                    "pkg": "g2d.test/dotimport/tok"
+                                  }
+                                },
+                                "colon": {
+                                  "file": "main.go",
+                                  "line": 26,
+                                  "column": 40,
+                                  "offset": 564
+                                },
+                                "value": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "main.go",
+                                    "line": 26,
+                                    "column": 42,
+                                    "offset": 566
+                                  },
+                                  "name": "TMapClose",
+                                  "obj": null,
+                                  "$type": 5,
+                                  "$value": {
+                                    "kind": "int",
+                                    "value": "125"
+                                  },
+                                  "$obj": {
+                                    "name": "TMapClose",
+                                    "kind": "const",
+                                    "type": 5,
+                                    "decl": "tok.go:207",
+                                    "pkg": "g2d.test/dotimport/tok",
+                                    "top": true,
+                                    "value": {
+                                      "kind": "int",
+                                      "value": "125"
+                                    }
+                                  }
+                                }
+                              }
+                            ],
+                            "rbrace": {
+                              "file": "main.go",
+                              "line": 26,
+                              "column": 51,
+                              "offset": 575
+                            },
+                            "incomplete": false,
+                            "$type": 3
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "main.go",
+                          "line": 26,
+                          "column": 52,
+                          "offset": 576
+                        },
+                        "$type": 23
+                      }
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "main.go",
+                    "line": 27,
+                    "column": 1,
+                    "offset": 578
+                  }
+                }
+              }
+            ],
+            "fileStart": {
+              "file": "main.go",
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "fileEnd": {
+              "file": "main.go",
+              "line": 27,
+              "column": 3,
+              "offset": 580
+            },
+            "scope": null,
+            "imports": [
+              {
+                "node": "ImportSpec",
+                "doc": null,
+                "name": null,
+                "path": {
+                  "node": "BasicLit",
+                  "valuePos": {
+                    "file": "main.go",
+                    "line": 6,
+                    "column": 2,
+                    "offset": 171
+                  },
+                  "valueEnd": {
+                    "file": "main.go",
+                    "line": 6,
+                    "column": 7,
+                    "offset": 176
+                  },
+                  "kind": "STRING",
+                  "value": "\"fmt\""
+                },
+                "comment": null,
+                "endPos": null
+              },
+              {
+                "node": "ImportSpec",
+                "doc": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "main.go",
+                    "line": 8,
+                    "column": 2,
+                    "offset": 179
+                  },
+                  "name": ".",
+                  "obj": null,
+                  "$obj": {
+                    "name": ".",
+                    "kind": "package",
+                    "def": true,
+                    "pkg": "g2d.test/dotimport/tok"
+                  }
+                },
+                "path": {
+                  "node": "BasicLit",
+                  "valuePos": {
+                    "file": "main.go",
+                    "line": 8,
+                    "column": 4,
+                    "offset": 181
+                  },
+                  "valueEnd": {
+                    "file": "main.go",
+                    "line": 8,
+                    "column": 28,
+                    "offset": 205
+                  },
+                  "kind": "STRING",
+                  "value": "\"g2d.test/dotimport/tok\""
+                },
+                "comment": null,
+                "endPos": null
+              }
+            ],
+            "unresolved": [
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "main.go",
+                  "line": 11,
+                  "column": 26,
+                  "offset": 234
+                },
+                "name": "Token",
+                "obj": null,
+                "$type": 3,
+                "$isType": true,
+                "$obj": {
+                  "name": "Token",
+                  "kind": "type",
+                  "type": 3,
+                  "decl": "tok.go:268",
+                  "pkg": "g2d.test/dotimport/tok",
+                  "top": true
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "main.go",
+                  "line": 13,
+                  "column": 24,
+                  "offset": 266
+                },
+                "name": "TokenType",
+                "obj": null,
+                "$type": 5,
+                "$isType": true,
+                "$obj": {
+                  "name": "TokenType",
+                  "kind": "type",
+                  "type": 5,
+                  "decl": "tok.go:155",
+                  "pkg": "g2d.test/dotimport/tok",
+                  "top": true
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "main.go",
+                  "line": 13,
+                  "column": 37,
+                  "offset": 279
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 7,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 7
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "main.go",
+                  "line": 14,
+                  "column": 11,
+                  "offset": 299
+                },
+                "name": "append",
+                "obj": null,
+                "$type": 11,
+                "$builtin": true,
+                "$obj": {
+                  "name": "append",
+                  "kind": "builtin",
+                  "type": 12
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "main.go",
+                  "line": 14,
+                  "column": 26,
+                  "offset": 314
+                },
+                "name": "Token",
+                "obj": null,
+                "$type": 3,
+                "$isType": true,
+                "$obj": {
+                  "name": "Token",
+                  "kind": "type",
+                  "type": 3,
+                  "decl": "tok.go:268",
+                  "pkg": "g2d.test/dotimport/tok",
+                  "top": true
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "main.go",
+                  "line": 19,
+                  "column": 9,
+                  "offset": 376
+                },
+                "name": "TMapOpen",
+                "obj": null,
+                "$type": 5,
+                "$value": {
+                  "kind": "int",
+                  "value": "123"
+                },
+                "$obj": {
+                  "name": "TMapOpen",
+                  "kind": "const",
+                  "type": 5,
+                  "decl": "tok.go:180",
+                  "pkg": "g2d.test/dotimport/tok",
+                  "top": true,
+                  "value": {
+                    "kind": "int",
+                    "value": "123"
+                  }
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "main.go",
+                  "line": 20,
+                  "column": 9,
+                  "offset": 398
+                },
+                "name": "TString",
+                "obj": null,
+                "$type": 5,
+                "$value": {
+                  "kind": "int",
+                  "value": "115"
+                },
+                "$obj": {
+                  "name": "TString",
+                  "kind": "const",
+                  "type": 5,
+                  "decl": "tok.go:234",
+                  "pkg": "g2d.test/dotimport/tok",
+                  "top": true,
+                  "value": {
+                    "kind": "int",
+                    "value": "115"
+                  }
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "main.go",
+                  "line": 21,
+                  "column": 9,
+                  "offset": 420
+                },
+                "name": "TMapClose",
+                "obj": null,
+                "$type": 5,
+                "$value": {
+                  "kind": "int",
+                  "value": "125"
+                },
+                "$obj": {
+                  "name": "TMapClose",
+                  "kind": "const",
+                  "type": 5,
+                  "decl": "tok.go:207",
+                  "pkg": "g2d.test/dotimport/tok",
+                  "top": true,
+                  "value": {
+                    "kind": "int",
+                    "value": "125"
+                  }
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "main.go",
+                  "line": 23,
+                  "column": 3,
+                  "offset": 465
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "main.go",
+                  "line": 23,
+                  "column": 18,
+                  "offset": 480
+                },
+                "name": "IsValue",
+                "obj": null,
+                "$type": 21,
+                "$obj": {
+                  "name": "IsValue",
+                  "kind": "func",
+                  "type": 21,
+                  "decl": "tok.go:481",
+                  "pkg": "g2d.test/dotimport/tok",
+                  "top": true
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "main.go",
+                  "line": 25,
+                  "column": 2,
+                  "offset": 513
+                },
+                "name": "Count",
+                "obj": null,
+                "$type": 15,
+                "$obj": {
+                  "name": "Count",
+                  "kind": "var",
+                  "type": 15,
+                  "decl": "tok.go:465",
+                  "pkg": "g2d.test/dotimport/tok",
+                  "top": true
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "main.go",
+                  "line": 26,
+                  "column": 2,
+                  "offset": 526
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "main.go",
+                  "line": 26,
+                  "column": 14,
+                  "offset": 538
+                },
+                "name": "Count",
+                "obj": null,
+                "$type": 15,
+                "$obj": {
+                  "name": "Count",
+                  "kind": "var",
+                  "type": 15,
+                  "decl": "tok.go:465",
+                  "pkg": "g2d.test/dotimport/tok",
+                  "top": true
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "main.go",
+                  "line": 26,
+                  "column": 21,
+                  "offset": 545
+                },
+                "name": "TString",
+                "obj": null,
+                "$type": 5,
+                "$value": {
+                  "kind": "int",
+                  "value": "115"
+                },
+                "$obj": {
+                  "name": "TString",
+                  "kind": "const",
+                  "type": 5,
+                  "decl": "tok.go:234",
+                  "pkg": "g2d.test/dotimport/tok",
+                  "top": true,
+                  "value": {
+                    "kind": "int",
+                    "value": "115"
+                  }
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "main.go",
+                  "line": 26,
+                  "column": 30,
+                  "offset": 554
+                },
+                "name": "Token",
+                "obj": null,
+                "$type": 3,
+                "$isType": true,
+                "$obj": {
+                  "name": "Token",
+                  "kind": "type",
+                  "type": 3,
+                  "decl": "tok.go:268",
+                  "pkg": "g2d.test/dotimport/tok",
+                  "top": true
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "main.go",
+                  "line": 26,
+                  "column": 42,
+                  "offset": 566
+                },
+                "name": "TMapClose",
+                "obj": null,
+                "$type": 5,
+                "$value": {
+                  "kind": "int",
+                  "value": "125"
+                },
+                "$obj": {
+                  "name": "TMapClose",
+                  "kind": "const",
+                  "type": 5,
+                  "decl": "tok.go:207",
+                  "pkg": "g2d.test/dotimport/tok",
+                  "top": true,
+                  "value": {
+                    "kind": "int",
+                    "value": "125"
+                  }
+                }
+              }
+            ],
+            "comments": [
+              {
+                "node": "CommentGroup",
+                "list": [
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "main.go",
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "text": "// Repro de github.com/polydawn/refmt/pretty e refmt/shared: `import .` de"
+                  },
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "main.go",
+                      "line": 2,
+                      "column": 1,
+                      "offset": 75
+                    },
+                    "text": "// um pacote do grafo (tipo, constante, função, variável e método)."
+                  }
+                ]
+              }
+            ],
+            "goVersion": ""
+          }
+        }
+      ],
+      "imports": [
+        {
+          "path": "fmt",
+          "name": "fmt"
+        },
+        {
+          "path": "g2d.test/dotimport/tok",
+          "name": "."
+        }
+      ],
+      "typeTable": [
+        {
+          "kind": "named",
+          "pkg": "g2d.test/dotimport/cmd",
+          "name": "pump",
+          "underlying": 1,
+          "methods": [
+            {
+              "name": "step",
+              "type": 9,
+              "index": [
+                0
+              ],
+              "ptr": true
+            }
+          ]
+        },
+        {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "toks",
+              "type": 2,
+              "embedded": false,
+              "tag": ""
+            }
+          ]
+        },
+        {
+          "kind": "slice",
+          "elem": 3
+        },
+        {
+          "kind": "named",
+          "pkg": "g2d.test/dotimport/tok",
+          "name": "Token",
+          "underlying": 4,
+          "methods": [
+            {
+              "name": "String",
+              "type": 8,
+              "index": [
+                0
+              ],
+              "ptr": false
+            }
+          ]
+        },
+        {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "Type",
+              "type": 5,
+              "embedded": false,
+              "tag": ""
+            },
+            {
+              "name": "Str",
+              "type": 7,
+              "embedded": false,
+              "tag": ""
+            }
+          ]
+        },
+        {
+          "kind": "named",
+          "pkg": "g2d.test/dotimport/tok",
+          "name": "TokenType",
+          "underlying": 6,
+          "methods": []
+        },
+        {
+          "kind": "basic",
+          "name": "byte"
+        },
+        {
+          "kind": "basic",
+          "name": "string"
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            7
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            5,
+            7
+          ],
+          "results": [],
+          "variadic": false
+        },
+        {
+          "kind": "pointer",
+          "elem": 0
+        },
+        {
+          "kind": "func",
+          "params": [
+            2,
+            2
+          ],
+          "results": [
+            2
+          ],
+          "variadic": true
+        },
+        {
+          "kind": "basic",
+          "name": "invalid type"
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [],
+          "variadic": false
+        },
+        {
+          "kind": "tuple",
+          "elems": []
+        },
+        {
+          "kind": "basic",
+          "name": "int"
+        },
+        {
+          "kind": "func",
+          "params": [
+            17
+          ],
+          "results": [
+            15,
+            19
+          ],
+          "variadic": true
+        },
+        {
+          "kind": "slice",
+          "elem": 18
+        },
+        {
+          "kind": "interface",
+          "methods": [],
+          "embeddeds": []
+        },
+        {
+          "kind": "named",
+          "pkg": "",
+          "name": "error",
+          "underlying": 20
+        },
+        {
+          "kind": "interface",
+          "methods": [
+            {
+              "name": "Error",
+              "type": 8
+            }
+          ],
+          "embeddeds": []
+        },
+        {
+          "kind": "func",
+          "params": [
+            5
+          ],
+          "results": [
+            22
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "basic",
+          "name": "bool"
+        },
+        {
+          "kind": "tuple",
+          "elems": [
+            15,
+            19
+          ]
+        }
+      ],
+      "implements": null,
+      "initOrder": [],
+      "stdlibUsage": [
+        "fmt.Println"
+      ],
+      "reflectUsage": null,
+      "module": {
+        "path": "g2d.test/dotimport"
+      }
+    },
+    {
+      "path": "g2d.test/dotimport/tok",
+      "name": "tok",
+      "files": [
+        {
+          "path": "tok.go",
+          "ast": {
+            "node": "File",
+            "doc": {
+              "node": "CommentGroup",
+              "list": [
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "tok.go",
+                    "line": 1,
+                    "column": 1,
+                    "offset": 0
+                  },
+                  "text": "// Package tok imita github.com/polydawn/refmt/tok: tipos e constantes que"
+                },
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "tok.go",
+                    "line": 2,
+                    "column": 1,
+                    "offset": 75
+                  },
+                  "text": "// os pacotes de refmt importam com `import .`."
+                }
+              ]
+            },
+            "package": {
+              "file": "tok.go",
+              "line": 3,
+              "column": 1,
+              "offset": 123
+            },
+            "name": {
+              "node": "Ident",
+              "namePos": {
+                "file": "tok.go",
+                "line": 3,
+                "column": 9,
+                "offset": 131
+              },
+              "name": "tok",
+              "obj": null
+            },
+            "decls": [
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "tok.go",
+                  "line": 5,
+                  "column": 1,
+                  "offset": 136
+                },
+                "tok": "import",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "ImportSpec",
+                    "doc": null,
+                    "name": null,
+                    "path": {
+                      "node": "BasicLit",
+                      "valuePos": {
+                        "file": "tok.go",
+                        "line": 5,
+                        "column": 8,
+                        "offset": 143
+                      },
+                      "valueEnd": {
+                        "file": "tok.go",
+                        "line": 5,
+                        "column": 13,
+                        "offset": 148
+                      },
+                      "kind": "STRING",
+                      "value": "\"fmt\""
+                    },
+                    "comment": null,
+                    "endPos": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "tok.go",
+                  "line": 7,
+                  "column": 1,
+                  "offset": 150
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "tok.go",
+                        "line": 7,
+                        "column": 6,
+                        "offset": 155
+                      },
+                      "name": "TokenType",
+                      "obj": {
+                        "node": "Object",
+                        "name": "TokenType",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "TokenType",
+                        "kind": "type",
+                        "def": true,
+                        "type": 0,
+                        "decl": "tok.go:155",
+                        "pkg": "g2d.test/dotimport/tok",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "tok.go",
+                        "line": 7,
+                        "column": 16,
+                        "offset": 165
+                      },
+                      "name": "byte",
+                      "obj": null,
+                      "$type": 1,
+                      "$isType": true,
+                      "$obj": {
+                        "name": "byte",
+                        "kind": "type",
+                        "type": 1
+                      }
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "tok.go",
+                  "line": 9,
+                  "column": 1,
+                  "offset": 171
+                },
+                "tok": "const",
+                "lparen": {
+                  "file": "tok.go",
+                  "line": 9,
+                  "column": 7,
+                  "offset": 177
+                },
+                "specs": [
+                  {
+                    "node": "ValueSpec",
+                    "doc": null,
+                    "names": [
+                      {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "tok.go",
+                          "line": 10,
+                          "column": 2,
+                          "offset": 180
+                        },
+                        "name": "TMapOpen",
+                        "obj": {
+                          "node": "Object",
+                          "name": "TMapOpen",
+                          "kind": "const"
+                        },
+                        "$obj": {
+                          "name": "TMapOpen",
+                          "kind": "const",
+                          "def": true,
+                          "type": 0,
+                          "decl": "tok.go:180",
+                          "pkg": "g2d.test/dotimport/tok",
+                          "top": true,
+                          "value": {
+                            "kind": "int",
+                            "value": "123"
+                          }
+                        }
+                      }
+                    ],
+                    "type": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "tok.go",
+                        "line": 10,
+                        "column": 12,
+                        "offset": 190
+                      },
+                      "name": "TokenType",
+                      "obj": {
+                        "node": "Object",
+                        "name": "TokenType",
+                        "kind": "type"
+                      },
+                      "$type": 0,
+                      "$isType": true,
+                      "$obj": {
+                        "name": "TokenType",
+                        "kind": "type",
+                        "type": 0,
+                        "decl": "tok.go:155",
+                        "pkg": "g2d.test/dotimport/tok",
+                        "top": true
+                      }
+                    },
+                    "values": [
+                      {
+                        "node": "BasicLit",
+                        "valuePos": {
+                          "file": "tok.go",
+                          "line": 10,
+                          "column": 24,
+                          "offset": 202
+                        },
+                        "valueEnd": {
+                          "file": "tok.go",
+                          "line": 10,
+                          "column": 27,
+                          "offset": 205
+                        },
+                        "kind": "CHAR",
+                        "value": "'{'",
+                        "$type": 0,
+                        "$value": {
+                          "kind": "int",
+                          "value": "123"
+                        }
+                      }
+                    ],
+                    "comment": null
+                  },
+                  {
+                    "node": "ValueSpec",
+                    "doc": null,
+                    "names": [
+                      {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "tok.go",
+                          "line": 11,
+                          "column": 2,
+                          "offset": 207
+                        },
+                        "name": "TMapClose",
+                        "obj": {
+                          "node": "Object",
+                          "name": "TMapClose",
+                          "kind": "const"
+                        },
+                        "$obj": {
+                          "name": "TMapClose",
+                          "kind": "const",
+                          "def": true,
+                          "type": 0,
+                          "decl": "tok.go:207",
+                          "pkg": "g2d.test/dotimport/tok",
+                          "top": true,
+                          "value": {
+                            "kind": "int",
+                            "value": "125"
+                          }
+                        }
+                      }
+                    ],
+                    "type": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "tok.go",
+                        "line": 11,
+                        "column": 12,
+                        "offset": 217
+                      },
+                      "name": "TokenType",
+                      "obj": {
+                        "node": "Object",
+                        "name": "TokenType",
+                        "kind": "type"
+                      },
+                      "$type": 0,
+                      "$isType": true,
+                      "$obj": {
+                        "name": "TokenType",
+                        "kind": "type",
+                        "type": 0,
+                        "decl": "tok.go:155",
+                        "pkg": "g2d.test/dotimport/tok",
+                        "top": true
+                      }
+                    },
+                    "values": [
+                      {
+                        "node": "BasicLit",
+                        "valuePos": {
+                          "file": "tok.go",
+                          "line": 11,
+                          "column": 24,
+                          "offset": 229
+                        },
+                        "valueEnd": {
+                          "file": "tok.go",
+                          "line": 11,
+                          "column": 27,
+                          "offset": 232
+                        },
+                        "kind": "CHAR",
+                        "value": "'}'",
+                        "$type": 0,
+                        "$value": {
+                          "kind": "int",
+                          "value": "125"
+                        }
+                      }
+                    ],
+                    "comment": null
+                  },
+                  {
+                    "node": "ValueSpec",
+                    "doc": null,
+                    "names": [
+                      {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "tok.go",
+                          "line": 12,
+                          "column": 2,
+                          "offset": 234
+                        },
+                        "name": "TString",
+                        "obj": {
+                          "node": "Object",
+                          "name": "TString",
+                          "kind": "const"
+                        },
+                        "$obj": {
+                          "name": "TString",
+                          "kind": "const",
+                          "def": true,
+                          "type": 0,
+                          "decl": "tok.go:234",
+                          "pkg": "g2d.test/dotimport/tok",
+                          "top": true,
+                          "value": {
+                            "kind": "int",
+                            "value": "115"
+                          }
+                        }
+                      }
+                    ],
+                    "type": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "tok.go",
+                        "line": 12,
+                        "column": 12,
+                        "offset": 244
+                      },
+                      "name": "TokenType",
+                      "obj": {
+                        "node": "Object",
+                        "name": "TokenType",
+                        "kind": "type"
+                      },
+                      "$type": 0,
+                      "$isType": true,
+                      "$obj": {
+                        "name": "TokenType",
+                        "kind": "type",
+                        "type": 0,
+                        "decl": "tok.go:155",
+                        "pkg": "g2d.test/dotimport/tok",
+                        "top": true
+                      }
+                    },
+                    "values": [
+                      {
+                        "node": "BasicLit",
+                        "valuePos": {
+                          "file": "tok.go",
+                          "line": 12,
+                          "column": 24,
+                          "offset": 256
+                        },
+                        "valueEnd": {
+                          "file": "tok.go",
+                          "line": 12,
+                          "column": 27,
+                          "offset": 259
+                        },
+                        "kind": "CHAR",
+                        "value": "'s'",
+                        "$type": 0,
+                        "$value": {
+                          "kind": "int",
+                          "value": "115"
+                        }
+                      }
+                    ],
+                    "comment": null
+                  }
+                ],
+                "rparen": {
+                  "file": "tok.go",
+                  "line": 13,
+                  "column": 1,
+                  "offset": 260
+                }
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "tok.go",
+                  "line": 15,
+                  "column": 1,
+                  "offset": 263
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "tok.go",
+                        "line": 15,
+                        "column": 6,
+                        "offset": 268
+                      },
+                      "name": "Token",
+                      "obj": {
+                        "node": "Object",
+                        "name": "Token",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "Token",
+                        "kind": "type",
+                        "def": true,
+                        "type": 2,
+                        "decl": "tok.go:268",
+                        "pkg": "g2d.test/dotimport/tok",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "StructType",
+                      "struct": {
+                        "file": "tok.go",
+                        "line": 15,
+                        "column": 12,
+                        "offset": 274
+                      },
+                      "fields": {
+                        "node": "FieldList",
+                        "opening": {
+                          "file": "tok.go",
+                          "line": 15,
+                          "column": 19,
+                          "offset": 281
+                        },
+                        "list": [
+                          {
+                            "node": "Field",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "tok.go",
+                                  "line": 16,
+                                  "column": 2,
+                                  "offset": 284
+                                },
+                                "name": "Type",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "Type",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "Type",
+                                  "kind": "field",
+                                  "def": true,
+                                  "type": 0,
+                                  "decl": "tok.go:284",
+                                  "pkg": "g2d.test/dotimport/tok"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "tok.go",
+                                "line": 16,
+                                "column": 7,
+                                "offset": 289
+                              },
+                              "name": "TokenType",
+                              "obj": {
+                                "node": "Object",
+                                "name": "TokenType",
+                                "kind": "type"
+                              },
+                              "$type": 0,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "TokenType",
+                                "kind": "type",
+                                "type": 0,
+                                "decl": "tok.go:155",
+                                "pkg": "g2d.test/dotimport/tok",
+                                "top": true
+                              }
+                            },
+                            "tag": null,
+                            "comment": null
+                          },
+                          {
+                            "node": "Field",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "tok.go",
+                                  "line": 17,
+                                  "column": 2,
+                                  "offset": 300
+                                },
+                                "name": "Str",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "Str",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "Str",
+                                  "kind": "field",
+                                  "def": true,
+                                  "type": 4,
+                                  "decl": "tok.go:300",
+                                  "pkg": "g2d.test/dotimport/tok"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "tok.go",
+                                "line": 17,
+                                "column": 7,
+                                "offset": 305
+                              },
+                              "name": "string",
+                              "obj": null,
+                              "$type": 4,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "string",
+                                "kind": "type",
+                                "type": 4
+                              }
+                            },
+                            "tag": null,
+                            "comment": null
+                          }
+                        ],
+                        "closing": {
+                          "file": "tok.go",
+                          "line": 18,
+                          "column": 1,
+                          "offset": 312
+                        }
+                      },
+                      "incomplete": false,
+                      "$type": 3,
+                      "$isType": true
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": {
+                  "node": "FieldList",
+                  "opening": {
+                    "file": "tok.go",
+                    "line": 20,
+                    "column": 6,
+                    "offset": 320
+                  },
+                  "list": [
+                    {
+                      "node": "Field",
+                      "doc": null,
+                      "names": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "tok.go",
+                            "line": 20,
+                            "column": 7,
+                            "offset": 321
+                          },
+                          "name": "t",
+                          "obj": {
+                            "node": "Object",
+                            "name": "t",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "t",
+                            "kind": "var",
+                            "def": true,
+                            "type": 2,
+                            "decl": "tok.go:321",
+                            "pkg": "g2d.test/dotimport/tok"
+                          }
+                        }
+                      ],
+                      "type": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "tok.go",
+                          "line": 20,
+                          "column": 9,
+                          "offset": 323
+                        },
+                        "name": "Token",
+                        "obj": {
+                          "node": "Object",
+                          "name": "Token",
+                          "kind": "type"
+                        },
+                        "$type": 2,
+                        "$isType": true,
+                        "$obj": {
+                          "name": "Token",
+                          "kind": "type",
+                          "type": 2,
+                          "decl": "tok.go:268",
+                          "pkg": "g2d.test/dotimport/tok",
+                          "top": true
+                        }
+                      },
+                      "tag": null,
+                      "comment": null
+                    }
+                  ],
+                  "closing": {
+                    "file": "tok.go",
+                    "line": 20,
+                    "column": 14,
+                    "offset": 328
+                  }
+                },
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "tok.go",
+                    "line": 20,
+                    "column": 16,
+                    "offset": 330
+                  },
+                  "name": "String",
+                  "obj": null,
+                  "$obj": {
+                    "name": "String",
+                    "kind": "method",
+                    "def": true,
+                    "type": 5,
+                    "decl": "tok.go:330",
+                    "pkg": "g2d.test/dotimport/tok"
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "tok.go",
+                    "line": 20,
+                    "column": 1,
+                    "offset": 315
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "tok.go",
+                      "line": 20,
+                      "column": 22,
+                      "offset": 336
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "tok.go",
+                      "line": 20,
+                      "column": 23,
+                      "offset": 337
+                    }
+                  },
+                  "results": {
+                    "node": "FieldList",
+                    "opening": null,
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": null,
+                        "type": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "tok.go",
+                            "line": 20,
+                            "column": 25,
+                            "offset": 339
+                          },
+                          "name": "string",
+                          "obj": null,
+                          "$type": 4,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "string",
+                            "kind": "type",
+                            "type": 4
+                          }
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": null
+                  }
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "tok.go",
+                    "line": 20,
+                    "column": 32,
+                    "offset": 346
+                  },
+                  "list": [
+                    {
+                      "node": "IfStmt",
+                      "if": {
+                        "file": "tok.go",
+                        "line": 21,
+                        "column": 2,
+                        "offset": 349
+                      },
+                      "init": null,
+                      "cond": {
+                        "node": "BinaryExpr",
+                        "x": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "tok.go",
+                              "line": 21,
+                              "column": 5,
+                              "offset": 352
+                            },
+                            "name": "t",
+                            "obj": {
+                              "node": "Object",
+                              "name": "t",
+                              "kind": "var"
+                            },
+                            "$type": 2,
+                            "$obj": {
+                              "name": "t",
+                              "kind": "var",
+                              "type": 2,
+                              "decl": "tok.go:321",
+                              "pkg": "g2d.test/dotimport/tok"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "tok.go",
+                              "line": 21,
+                              "column": 7,
+                              "offset": 354
+                            },
+                            "name": "Type",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Type",
+                              "kind": "field",
+                              "type": 0,
+                              "decl": "tok.go:284",
+                              "pkg": "g2d.test/dotimport/tok"
+                            }
+                          },
+                          "$type": 0,
+                          "$sel": {
+                            "kind": "field",
+                            "recv": 2,
+                            "index": [
+                              0
+                            ],
+                            "indirect": false
+                          }
+                        },
+                        "opPos": {
+                          "file": "tok.go",
+                          "line": 21,
+                          "column": 12,
+                          "offset": 359
+                        },
+                        "op": "==",
+                        "y": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "tok.go",
+                            "line": 21,
+                            "column": 15,
+                            "offset": 362
+                          },
+                          "name": "TString",
+                          "obj": {
+                            "node": "Object",
+                            "name": "TString",
+                            "kind": "const"
+                          },
+                          "$type": 0,
+                          "$value": {
+                            "kind": "int",
+                            "value": "115"
+                          },
+                          "$obj": {
+                            "name": "TString",
+                            "kind": "const",
+                            "type": 0,
+                            "decl": "tok.go:234",
+                            "pkg": "g2d.test/dotimport/tok",
+                            "top": true,
+                            "value": {
+                              "kind": "int",
+                              "value": "115"
+                            }
+                          }
+                        },
+                        "$type": 6
+                      },
+                      "body": {
+                        "node": "BlockStmt",
+                        "lbrace": {
+                          "file": "tok.go",
+                          "line": 21,
+                          "column": 23,
+                          "offset": 370
+                        },
+                        "list": [
+                          {
+                            "node": "ReturnStmt",
+                            "return": {
+                              "file": "tok.go",
+                              "line": 22,
+                              "column": 3,
+                              "offset": 374
+                            },
+                            "results": [
+                              {
+                                "node": "CallExpr",
+                                "fun": {
+                                  "node": "SelectorExpr",
+                                  "x": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "tok.go",
+                                      "line": 22,
+                                      "column": 10,
+                                      "offset": 381
+                                    },
+                                    "name": "fmt",
+                                    "obj": null,
+                                    "$obj": {
+                                      "name": "fmt",
+                                      "kind": "package",
+                                      "pkg": "fmt"
+                                    }
+                                  },
+                                  "sel": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "tok.go",
+                                      "line": 22,
+                                      "column": 14,
+                                      "offset": 385
+                                    },
+                                    "name": "Sprintf",
+                                    "obj": null,
+                                    "$obj": {
+                                      "name": "Sprintf",
+                                      "kind": "func",
+                                      "type": 7,
+                                      "decl": "print.go:236",
+                                      "pkg": "fmt",
+                                      "top": true
+                                    }
+                                  },
+                                  "$type": 7
+                                },
+                                "lparen": {
+                                  "file": "tok.go",
+                                  "line": 22,
+                                  "column": 21,
+                                  "offset": 392
+                                },
+                                "args": [
+                                  {
+                                    "node": "BasicLit",
+                                    "valuePos": {
+                                      "file": "tok.go",
+                                      "line": 22,
+                                      "column": 22,
+                                      "offset": 393
+                                    },
+                                    "valueEnd": {
+                                      "file": "tok.go",
+                                      "line": 22,
+                                      "column": 31,
+                                      "offset": 402
+                                    },
+                                    "kind": "STRING",
+                                    "value": "\"\u003c%c:%s\u003e\"",
+                                    "$type": 4,
+                                    "$value": {
+                                      "kind": "string",
+                                      "value": "\u003c%c:%s\u003e"
+                                    }
+                                  },
+                                  {
+                                    "node": "SelectorExpr",
+                                    "x": {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "tok.go",
+                                        "line": 22,
+                                        "column": 33,
+                                        "offset": 404
+                                      },
+                                      "name": "t",
+                                      "obj": {
+                                        "node": "Object",
+                                        "name": "t",
+                                        "kind": "var"
+                                      },
+                                      "$type": 2,
+                                      "$obj": {
+                                        "name": "t",
+                                        "kind": "var",
+                                        "type": 2,
+                                        "decl": "tok.go:321",
+                                        "pkg": "g2d.test/dotimport/tok"
+                                      }
+                                    },
+                                    "sel": {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "tok.go",
+                                        "line": 22,
+                                        "column": 35,
+                                        "offset": 406
+                                      },
+                                      "name": "Type",
+                                      "obj": null,
+                                      "$obj": {
+                                        "name": "Type",
+                                        "kind": "field",
+                                        "type": 0,
+                                        "decl": "tok.go:284",
+                                        "pkg": "g2d.test/dotimport/tok"
+                                      }
+                                    },
+                                    "$type": 0,
+                                    "$sel": {
+                                      "kind": "field",
+                                      "recv": 2,
+                                      "index": [
+                                        0
+                                      ],
+                                      "indirect": false
+                                    }
+                                  },
+                                  {
+                                    "node": "SelectorExpr",
+                                    "x": {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "tok.go",
+                                        "line": 22,
+                                        "column": 41,
+                                        "offset": 412
+                                      },
+                                      "name": "t",
+                                      "obj": {
+                                        "node": "Object",
+                                        "name": "t",
+                                        "kind": "var"
+                                      },
+                                      "$type": 2,
+                                      "$obj": {
+                                        "name": "t",
+                                        "kind": "var",
+                                        "type": 2,
+                                        "decl": "tok.go:321",
+                                        "pkg": "g2d.test/dotimport/tok"
+                                      }
+                                    },
+                                    "sel": {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "tok.go",
+                                        "line": 22,
+                                        "column": 43,
+                                        "offset": 414
+                                      },
+                                      "name": "Str",
+                                      "obj": null,
+                                      "$obj": {
+                                        "name": "Str",
+                                        "kind": "field",
+                                        "type": 4,
+                                        "decl": "tok.go:300",
+                                        "pkg": "g2d.test/dotimport/tok"
+                                      }
+                                    },
+                                    "$type": 4,
+                                    "$sel": {
+                                      "kind": "field",
+                                      "recv": 2,
+                                      "index": [
+                                        1
+                                      ],
+                                      "indirect": false
+                                    }
+                                  }
+                                ],
+                                "ellipsis": null,
+                                "rparen": {
+                                  "file": "tok.go",
+                                  "line": 22,
+                                  "column": 46,
+                                  "offset": 417
+                                },
+                                "$type": 4
+                              }
+                            ]
+                          }
+                        ],
+                        "rbrace": {
+                          "file": "tok.go",
+                          "line": 23,
+                          "column": 2,
+                          "offset": 420
+                        }
+                      },
+                      "else": null
+                    },
+                    {
+                      "node": "ReturnStmt",
+                      "return": {
+                        "file": "tok.go",
+                        "line": 24,
+                        "column": 2,
+                        "offset": 423
+                      },
+                      "results": [
+                        {
+                          "node": "CallExpr",
+                          "fun": {
+                            "node": "SelectorExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "tok.go",
+                                "line": 24,
+                                "column": 9,
+                                "offset": 430
+                              },
+                              "name": "fmt",
+                              "obj": null,
+                              "$obj": {
+                                "name": "fmt",
+                                "kind": "package",
+                                "pkg": "fmt"
+                              }
+                            },
+                            "sel": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "tok.go",
+                                "line": 24,
+                                "column": 13,
+                                "offset": 434
+                              },
+                              "name": "Sprintf",
+                              "obj": null,
+                              "$obj": {
+                                "name": "Sprintf",
+                                "kind": "func",
+                                "type": 7,
+                                "decl": "print.go:236",
+                                "pkg": "fmt",
+                                "top": true
+                              }
+                            },
+                            "$type": 7
+                          },
+                          "lparen": {
+                            "file": "tok.go",
+                            "line": 24,
+                            "column": 20,
+                            "offset": 441
+                          },
+                          "args": [
+                            {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "tok.go",
+                                "line": 24,
+                                "column": 21,
+                                "offset": 442
+                              },
+                              "valueEnd": {
+                                "file": "tok.go",
+                                "line": 24,
+                                "column": 27,
+                                "offset": 448
+                              },
+                              "kind": "STRING",
+                              "value": "\"\u003c%c\u003e\"",
+                              "$type": 4,
+                              "$value": {
+                                "kind": "string",
+                                "value": "\u003c%c\u003e"
+                              }
+                            },
+                            {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "tok.go",
+                                  "line": 24,
+                                  "column": 29,
+                                  "offset": 450
+                                },
+                                "name": "t",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "t",
+                                  "kind": "var"
+                                },
+                                "$type": 2,
+                                "$obj": {
+                                  "name": "t",
+                                  "kind": "var",
+                                  "type": 2,
+                                  "decl": "tok.go:321",
+                                  "pkg": "g2d.test/dotimport/tok"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "tok.go",
+                                  "line": 24,
+                                  "column": 31,
+                                  "offset": 452
+                                },
+                                "name": "Type",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "Type",
+                                  "kind": "field",
+                                  "type": 0,
+                                  "decl": "tok.go:284",
+                                  "pkg": "g2d.test/dotimport/tok"
+                                }
+                              },
+                              "$type": 0,
+                              "$sel": {
+                                "kind": "field",
+                                "recv": 2,
+                                "index": [
+                                  0
+                                ],
+                                "indirect": false
+                              }
+                            }
+                          ],
+                          "ellipsis": null,
+                          "rparen": {
+                            "file": "tok.go",
+                            "line": 24,
+                            "column": 35,
+                            "offset": 456
+                          },
+                          "$type": 4
+                        }
+                      ]
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "tok.go",
+                    "line": 25,
+                    "column": 1,
+                    "offset": 458
+                  }
+                }
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "tok.go",
+                  "line": 27,
+                  "column": 1,
+                  "offset": 461
+                },
+                "tok": "var",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "ValueSpec",
+                    "doc": null,
+                    "names": [
+                      {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "tok.go",
+                          "line": 27,
+                          "column": 5,
+                          "offset": 465
+                        },
+                        "name": "Count",
+                        "obj": {
+                          "node": "Object",
+                          "name": "Count",
+                          "kind": "var"
+                        },
+                        "$obj": {
+                          "name": "Count",
+                          "kind": "var",
+                          "def": true,
+                          "type": 10,
+                          "decl": "tok.go:465",
+                          "pkg": "g2d.test/dotimport/tok",
+                          "top": true
+                        }
+                      }
+                    ],
+                    "type": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "tok.go",
+                        "line": 27,
+                        "column": 11,
+                        "offset": 471
+                      },
+                      "name": "int",
+                      "obj": null,
+                      "$type": 10,
+                      "$isType": true,
+                      "$obj": {
+                        "name": "int",
+                        "kind": "type",
+                        "type": 10
+                      }
+                    },
+                    "values": null,
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "tok.go",
+                    "line": 29,
+                    "column": 6,
+                    "offset": 481
+                  },
+                  "name": "IsValue",
+                  "obj": {
+                    "node": "Object",
+                    "name": "IsValue",
+                    "kind": "func"
+                  },
+                  "$obj": {
+                    "name": "IsValue",
+                    "kind": "func",
+                    "def": true,
+                    "type": 11,
+                    "decl": "tok.go:481",
+                    "pkg": "g2d.test/dotimport/tok",
+                    "top": true
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "tok.go",
+                    "line": 29,
+                    "column": 1,
+                    "offset": 476
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "tok.go",
+                      "line": 29,
+                      "column": 13,
+                      "offset": 488
+                    },
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "tok.go",
+                              "line": 29,
+                              "column": 14,
+                              "offset": 489
+                            },
+                            "name": "t",
+                            "obj": {
+                              "node": "Object",
+                              "name": "t",
+                              "kind": "var"
+                            },
+                            "$obj": {
+                              "name": "t",
+                              "kind": "var",
+                              "def": true,
+                              "type": 0,
+                              "decl": "tok.go:489",
+                              "pkg": "g2d.test/dotimport/tok"
+                            }
+                          }
+                        ],
+                        "type": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "tok.go",
+                            "line": 29,
+                            "column": 16,
+                            "offset": 491
+                          },
+                          "name": "TokenType",
+                          "obj": {
+                            "node": "Object",
+                            "name": "TokenType",
+                            "kind": "type"
+                          },
+                          "$type": 0,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "TokenType",
+                            "kind": "type",
+                            "type": 0,
+                            "decl": "tok.go:155",
+                            "pkg": "g2d.test/dotimport/tok",
+                            "top": true
+                          }
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": {
+                      "file": "tok.go",
+                      "line": 29,
+                      "column": 25,
+                      "offset": 500
+                    }
+                  },
+                  "results": {
+                    "node": "FieldList",
+                    "opening": null,
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": null,
+                        "type": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "tok.go",
+                            "line": 29,
+                            "column": 27,
+                            "offset": 502
+                          },
+                          "name": "bool",
+                          "obj": null,
+                          "$type": 12,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "bool",
+                            "kind": "type",
+                            "type": 12
+                          }
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": null
+                  }
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "tok.go",
+                    "line": 29,
+                    "column": 32,
+                    "offset": 507
+                  },
+                  "list": [
+                    {
+                      "node": "IncDecStmt",
+                      "x": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "tok.go",
+                          "line": 30,
+                          "column": 2,
+                          "offset": 510
+                        },
+                        "name": "Count",
+                        "obj": {
+                          "node": "Object",
+                          "name": "Count",
+                          "kind": "var"
+                        },
+                        "$type": 10,
+                        "$obj": {
+                          "name": "Count",
+                          "kind": "var",
+                          "type": 10,
+                          "decl": "tok.go:465",
+                          "pkg": "g2d.test/dotimport/tok",
+                          "top": true
+                        }
+                      },
+                      "tokPos": {
+                        "file": "tok.go",
+                        "line": 30,
+                        "column": 7,
+                        "offset": 515
+                      },
+                      "tok": "++"
+                    },
+                    {
+                      "node": "ReturnStmt",
+                      "return": {
+                        "file": "tok.go",
+                        "line": 31,
+                        "column": 2,
+                        "offset": 519
+                      },
+                      "results": [
+                        {
+                          "node": "BinaryExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "tok.go",
+                              "line": 31,
+                              "column": 9,
+                              "offset": 526
+                            },
+                            "name": "t",
+                            "obj": {
+                              "node": "Object",
+                              "name": "t",
+                              "kind": "var"
+                            },
+                            "$type": 0,
+                            "$obj": {
+                              "name": "t",
+                              "kind": "var",
+                              "type": 0,
+                              "decl": "tok.go:489",
+                              "pkg": "g2d.test/dotimport/tok"
+                            }
+                          },
+                          "opPos": {
+                            "file": "tok.go",
+                            "line": 31,
+                            "column": 11,
+                            "offset": 528
+                          },
+                          "op": "==",
+                          "y": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "tok.go",
+                              "line": 31,
+                              "column": 14,
+                              "offset": 531
+                            },
+                            "name": "TString",
+                            "obj": {
+                              "node": "Object",
+                              "name": "TString",
+                              "kind": "const"
+                            },
+                            "$type": 0,
+                            "$value": {
+                              "kind": "int",
+                              "value": "115"
+                            },
+                            "$obj": {
+                              "name": "TString",
+                              "kind": "const",
+                              "type": 0,
+                              "decl": "tok.go:234",
+                              "pkg": "g2d.test/dotimport/tok",
+                              "top": true,
+                              "value": {
+                                "kind": "int",
+                                "value": "115"
+                              }
+                            }
+                          },
+                          "$type": 12
+                        }
+                      ]
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "tok.go",
+                    "line": 32,
+                    "column": 1,
+                    "offset": 539
+                  }
+                }
+              }
+            ],
+            "fileStart": {
+              "file": "tok.go",
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "fileEnd": {
+              "file": "tok.go",
+              "line": 32,
+              "column": 3,
+              "offset": 541
+            },
+            "scope": null,
+            "imports": [
+              {
+                "node": "ImportSpec",
+                "doc": null,
+                "name": null,
+                "path": {
+                  "node": "BasicLit",
+                  "valuePos": {
+                    "file": "tok.go",
+                    "line": 5,
+                    "column": 8,
+                    "offset": 143
+                  },
+                  "valueEnd": {
+                    "file": "tok.go",
+                    "line": 5,
+                    "column": 13,
+                    "offset": 148
+                  },
+                  "kind": "STRING",
+                  "value": "\"fmt\""
+                },
+                "comment": null,
+                "endPos": null
+              }
+            ],
+            "unresolved": [
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "tok.go",
+                  "line": 7,
+                  "column": 16,
+                  "offset": 165
+                },
+                "name": "byte",
+                "obj": null,
+                "$type": 1,
+                "$isType": true,
+                "$obj": {
+                  "name": "byte",
+                  "kind": "type",
+                  "type": 1
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "tok.go",
+                  "line": 17,
+                  "column": 7,
+                  "offset": 305
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 4,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 4
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "tok.go",
+                  "line": 20,
+                  "column": 25,
+                  "offset": 339
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 4,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 4
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "tok.go",
+                  "line": 22,
+                  "column": 10,
+                  "offset": 381
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "tok.go",
+                  "line": 24,
+                  "column": 9,
+                  "offset": 430
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "tok.go",
+                  "line": 27,
+                  "column": 11,
+                  "offset": 471
+                },
+                "name": "int",
+                "obj": null,
+                "$type": 10,
+                "$isType": true,
+                "$obj": {
+                  "name": "int",
+                  "kind": "type",
+                  "type": 10
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "tok.go",
+                  "line": 29,
+                  "column": 27,
+                  "offset": 502
+                },
+                "name": "bool",
+                "obj": null,
+                "$type": 12,
+                "$isType": true,
+                "$obj": {
+                  "name": "bool",
+                  "kind": "type",
+                  "type": 12
+                }
+              }
+            ],
+            "comments": [
+              {
+                "node": "CommentGroup",
+                "list": [
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "tok.go",
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "text": "// Package tok imita github.com/polydawn/refmt/tok: tipos e constantes que"
+                  },
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "tok.go",
+                      "line": 2,
+                      "column": 1,
+                      "offset": 75
+                    },
+                    "text": "// os pacotes de refmt importam com `import .`."
+                  }
+                ]
+              }
+            ],
+            "goVersion": ""
+          }
+        }
+      ],
+      "imports": [
+        {
+          "path": "fmt",
+          "name": "fmt"
+        }
+      ],
+      "typeTable": [
+        {
+          "kind": "named",
+          "pkg": "g2d.test/dotimport/tok",
+          "name": "TokenType",
+          "underlying": 1,
+          "methods": []
+        },
+        {
+          "kind": "basic",
+          "name": "byte"
+        },
+        {
+          "kind": "named",
+          "pkg": "g2d.test/dotimport/tok",
+          "name": "Token",
+          "underlying": 3,
+          "methods": [
+            {
+              "name": "String",
+              "type": 5,
+              "index": [
+                0
+              ],
+              "ptr": false
+            }
+          ]
+        },
+        {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "Type",
+              "type": 0,
+              "embedded": false,
+              "tag": ""
+            },
+            {
+              "name": "Str",
+              "type": 4,
+              "embedded": false,
+              "tag": ""
+            }
+          ]
+        },
+        {
+          "kind": "basic",
+          "name": "string"
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            4
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "basic",
+          "name": "untyped bool"
+        },
+        {
+          "kind": "func",
+          "params": [
+            4,
+            8
+          ],
+          "results": [
+            4
+          ],
+          "variadic": true
+        },
+        {
+          "kind": "slice",
+          "elem": 9
+        },
+        {
+          "kind": "interface",
+          "methods": [],
+          "embeddeds": []
+        },
+        {
+          "kind": "basic",
+          "name": "int"
+        },
+        {
+          "kind": "func",
+          "params": [
+            0
+          ],
+          "results": [
+            12
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "basic",
+          "name": "bool"
+        },
+        {
+          "kind": "named",
+          "pkg": "fmt",
+          "name": "Stringer",
+          "underlying": 14
+        },
+        {
+          "kind": "interface",
+          "methods": [
+            {
+              "name": "String",
+              "type": 5
+            }
+          ],
+          "embeddeds": []
+        }
+      ],
+      "implements": [
+        {
+          "type": 2,
+          "interfaces": [
+            13
+          ]
+        }
+      ],
+      "initOrder": [],
+      "stdlibUsage": [
+        "fmt.Sprintf"
+      ],
+      "reflectUsage": null,
+      "module": {
+        "path": "g2d.test/dotimport"
+      }
+    }
+  ]
+}

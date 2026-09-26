@@ -6,8 +6,8 @@
 ## Problema
 
 O shim `strings` existe com parte dos símbolos (`contains`, `containsRune`, `count`, `hasPrefix`, `hasSuffix`, `index`, `indexByte`, `join`, `lastIndex`, `split`, `splitN`, `trimFunc`, `trimLeftFunc`, `trimPrefix`, `trimRightFunc`, `trimSuffix`); os que faltam viram
-`Unsupported` `shim-simbolo:strings.<nome>`. Somando as linhas abaixo: 202 ocorrências de pacote,
-43 na fronteira (334 pacotes do grafo usam `strings`).
+`Unsupported` `shim-simbolo:strings.<nome>`. Somando as linhas abaixo: 206 ocorrências de pacote,
+44 na fronteira (334 pacotes do grafo usam `strings`).
 
 ## Prova
 
@@ -19,8 +19,8 @@ docs/audit.md (ranking):
 | `shim-simbolo:strings.Builder` | 82 | 33 | 12 | `github.com/ucarion/urlpath` urlpath.go:14:1: símbolo sem shim: strings.Builder |
 | `shim-simbolo:strings.trimSpace` | 43 | 29 | 8 | `github.com/blang/semver/v4` semver.go:240:6: símbolo sem shim: strings.trimSpace |
 | `shim-simbolo:strings.equalFold` | 20 | 14 | 7 | `github.com/pion/webrtc/v4/internal/fmtp` fmtp.go:92:6: símbolo sem shim: strings.equalFold |
-| `shim-simbolo:strings.toLower` | 39 | 31 | 3 | `github.com/gabriel-vasile/mimetype/internal/charset` charset.go:163:6: símbolo sem shim: strings.toLower |
-| `shim-simbolo:strings.trim` | 13 | 11 | 2 | `github.com/klauspost/cpuid/v2` cpuid.go:991:6: símbolo sem shim: strings.trim |
+| `shim-simbolo:strings.toLower` | 40 | 32 | 3 | `github.com/gabriel-vasile/mimetype/internal/charset` charset.go:163:6: símbolo sem shim: strings.toLower |
+| `shim-simbolo:strings.trim` | 14 | 12 | 2 | `github.com/klauspost/cpuid/v2` cpuid.go:991:6: símbolo sem shim: strings.trim |
 | `shim-simbolo:strings.fieldsFunc` | 3 | 2 | 2 | `github.com/ipld/go-ipld-prime/datamodel` path.go:113:6: símbolo sem shim: strings.fieldsFunc |
 | `shim-simbolo:strings.map` | 2 | 2 | 2 | `github.com/prometheus/otlptranslator` unit_namer.go:123:6: símbolo sem shim: strings.map |
 | `shim-simbolo:strings.replace` | 10 | 9 | 1 | `github.com/blang/semver/v4` range.go:205:6: símbolo sem shim: strings.replace |

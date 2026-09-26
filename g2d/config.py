@@ -38,6 +38,7 @@ STDLIB_SHIMS = {
     "math": "package:golib_dart/math.dart",
     "math/bits": "package:golib_dart/math/bits.dart",
     "sort": "package:golib_dart/sort.dart",
+    "strconv": "package:golib_dart/strconv.dart",
     "strings": "package:golib_dart/strings.dart",
 }
 

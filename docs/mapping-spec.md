@@ -82,7 +82,8 @@ Legenda: ✅ fiel · ⚠️ fiel no caso comum, com limite conhecido · ❌ não
 | var exportada de pacote importável | tipo não-valor mora sempre num `go.Box` (`a.x.value`; `&a.X` é a caixa): outro pacote pode tomar o endereço e o dono não sabe; ⚠️ custa uma indireção mesmo sem `&` | ✅ |
 | `*N` de tipo nomeado exportado não-struct com métodos | `N$Ptr` sempre gerado pelo dono (o consumidor pode usar `*N`); ⚠️ classe a mais quando ninguém usa | ✅ |
 | inicialização das dependências | o `$goInit` do `main` chama antes o `$goInit` de cada pacote do grafo, na ordem global do Go ≥ 1.21 (o menor import path cujos imports já inicializaram; `g2d.graph.topo_order`), não recursivamente por importador; main sem o grafo no dump → `Unsupported` (`init-grafo-incompleto`); shims da stdlib não têm init | ✅ (fixture `multiinit`) |
-| import `_` / `.` | — | ❌ |
+| import `.` | nenhum prefixo próprio: identificadores e tipos já trazem o pacote do objeto e saem qualificados pelo prefixo derivado do import path (`tok.Token`) | ✅ (fixture `dotimport`) |
+| import `_` | — (`TODO/P1-construcao-import-blank.md`) | ❌ |
 | função sem corpo (assembly, `go:linkname`) | — (`Unsupported` `func-sem-corpo`: o pacote vai para substituição) | ❌ |
 
 ## Identificadores
@@ -311,6 +312,7 @@ intervalo, nil pointer, escrita em map nil.
 | `crypto/subtle` | `xorBytes` (pânicos `dst too short` / `invalid overlap`, via `go.inexactOverlap`), `constantTimeCompare` |
 | `bytes` | `equal`, `compare`, `indexByte`, `index`, `count`, `hasPrefix`, `hasSuffix`, `split` (pedaços com cap limitado, `s[:m:m]`), `trimLeft` (vazio → nil) |
 | `strings` | `contains`, `containsRune`, `index`, `indexByte`, `lastIndex`, `count`, `hasPrefix`/`hasSuffix`, `trimPrefix`/`trimSuffix`, `trimFunc`/`trimLeftFunc`/`trimRightFunc`, `join`, `split`/`splitN` (cap do resultado igual ao Go); UTF-8 inválido decodifica como o Go. ❌ `Builder`, `Reader` (`TODO/P1-design-structs-de-shim.md`) |
+| `strconv` | inteiros: `itoa`, `formatInt`, `formatUint`, `parseInt`, `parseUint`, `atoi` (porta de `internal/strconv`, `(valor, GoError?)`), erros `*strconv.NumError` (classe privada: `Error()` com `%q` do `fmt`, `Unwrap()`), `errRange`/`errSyntax`; oráculo com ~2500 casos. ❌ floats, `Quote`/`Unquote`, `Append*` |
 | `sort` | `Interface` (interface de shim: tipo gerado que a satisfaz declara `implements sort.Interface`), `sort`, `stable`, `isSorted`, `slice$`, `sliceStable`, `search`, `ints`, `strings`, `float64s`: porta exata do pdqsort/stable do Go (mesmas chamadas a `Less`/`Swap`, mesmo resultado para iguais); swap de slice via `go.swapElems` (copia struct/array antes) |
 
 ## Tipos nomeados, interfaces, embedding, genéricos (M3)

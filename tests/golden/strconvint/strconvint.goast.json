@@ -1,0 +1,4527 @@
+{
+  "schemaVersion": 7,
+  "tool": "goast",
+  "goVersion": "go1.26.5",
+  "packages": [
+    {
+      "path": "main",
+      "name": "main",
+      "files": [
+        {
+          "path": "strconvint.go",
+          "ast": {
+            "node": "File",
+            "doc": {
+              "node": "CommentGroup",
+              "list": [
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "strconvint.go",
+                    "line": 1,
+                    "column": 1,
+                    "offset": 0
+                  },
+                  "text": "// Repros de strconv (inteiros) no grafo do kubo: github.com/multiformats/go-multicodec"
+                },
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "strconvint.go",
+                    "line": 2,
+                    "column": 1,
+                    "offset": 88
+                  },
+                  "text": "// (ParseUint base 0, FormatInt), go-multiaddr/x/meg e hanwen/go-fuse/v2/internal (Itoa)."
+                }
+              ]
+            },
+            "package": {
+              "file": "strconvint.go",
+              "line": 3,
+              "column": 1,
+              "offset": 178
+            },
+            "name": {
+              "node": "Ident",
+              "namePos": {
+                "file": "strconvint.go",
+                "line": 3,
+                "column": 9,
+                "offset": 186
+              },
+              "name": "main",
+              "obj": null
+            },
+            "decls": [
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "strconvint.go",
+                  "line": 5,
+                  "column": 1,
+                  "offset": 192
+                },
+                "tok": "import",
+                "lparen": {
+                  "file": "strconvint.go",
+                  "line": 5,
+                  "column": 8,
+                  "offset": 199
+                },
+                "specs": [
+                  {
+                    "node": "ImportSpec",
+                    "doc": null,
+                    "name": null,
+                    "path": {
+                      "node": "BasicLit",
+                      "valuePos": {
+                        "file": "strconvint.go",
+                        "line": 6,
+                        "column": 2,
+                        "offset": 202
+                      },
+                      "valueEnd": {
+                        "file": "strconvint.go",
+                        "line": 6,
+                        "column": 7,
+                        "offset": 207
+                      },
+                      "kind": "STRING",
+                      "value": "\"fmt\""
+                    },
+                    "comment": null,
+                    "endPos": null
+                  },
+                  {
+                    "node": "ImportSpec",
+                    "doc": null,
+                    "name": null,
+                    "path": {
+                      "node": "BasicLit",
+                      "valuePos": {
+                        "file": "strconvint.go",
+                        "line": 7,
+                        "column": 2,
+                        "offset": 209
+                      },
+                      "valueEnd": {
+                        "file": "strconvint.go",
+                        "line": 7,
+                        "column": 11,
+                        "offset": 218
+                      },
+                      "kind": "STRING",
+                      "value": "\"strconv\""
+                    },
+                    "comment": null,
+                    "endPos": null
+                  }
+                ],
+                "rparen": {
+                  "file": "strconvint.go",
+                  "line": 8,
+                  "column": 1,
+                  "offset": 219
+                }
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "strconvint.go",
+                  "line": 10,
+                  "column": 1,
+                  "offset": 222
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "strconvint.go",
+                        "line": 10,
+                        "column": 6,
+                        "offset": 227
+                      },
+                      "name": "Code",
+                      "obj": {
+                        "node": "Object",
+                        "name": "Code",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "Code",
+                        "kind": "type",
+                        "def": true,
+                        "type": 0,
+                        "decl": "strconvint.go:227",
+                        "pkg": "main",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "strconvint.go",
+                        "line": 10,
+                        "column": 11,
+                        "offset": 232
+                      },
+                      "name": "uint64",
+                      "obj": null,
+                      "$type": 1,
+                      "$isType": true,
+                      "$obj": {
+                        "name": "uint64",
+                        "kind": "type",
+                        "type": 1
+                      }
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": {
+                  "node": "FieldList",
+                  "opening": {
+                    "file": "strconvint.go",
+                    "line": 12,
+                    "column": 6,
+                    "offset": 245
+                  },
+                  "list": [
+                    {
+                      "node": "Field",
+                      "doc": null,
+                      "names": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "strconvint.go",
+                            "line": 12,
+                            "column": 7,
+                            "offset": 246
+                          },
+                          "name": "c",
+                          "obj": {
+                            "node": "Object",
+                            "name": "c",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "c",
+                            "kind": "var",
+                            "def": true,
+                            "type": 7,
+                            "decl": "strconvint.go:246",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "type": {
+                        "node": "StarExpr",
+                        "star": {
+                          "file": "strconvint.go",
+                          "line": 12,
+                          "column": 9,
+                          "offset": 248
+                        },
+                        "x": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "strconvint.go",
+                            "line": 12,
+                            "column": 10,
+                            "offset": 249
+                          },
+                          "name": "Code",
+                          "obj": {
+                            "node": "Object",
+                            "name": "Code",
+                            "kind": "type"
+                          },
+                          "$type": 0,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "Code",
+                            "kind": "type",
+                            "type": 0,
+                            "decl": "strconvint.go:227",
+                            "pkg": "main",
+                            "top": true
+                          }
+                        },
+                        "$type": 7,
+                        "$isType": true
+                      },
+                      "tag": null,
+                      "comment": null
+                    }
+                  ],
+                  "closing": {
+                    "file": "strconvint.go",
+                    "line": 12,
+                    "column": 14,
+                    "offset": 253
+                  }
+                },
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "strconvint.go",
+                    "line": 12,
+                    "column": 16,
+                    "offset": 255
+                  },
+                  "name": "Set",
+                  "obj": null,
+                  "$obj": {
+                    "name": "Set",
+                    "kind": "method",
+                    "def": true,
+                    "type": 2,
+                    "decl": "strconvint.go:255",
+                    "pkg": "main"
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "strconvint.go",
+                    "line": 12,
+                    "column": 1,
+                    "offset": 240
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "strconvint.go",
+                      "line": 12,
+                      "column": 19,
+                      "offset": 258
+                    },
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "strconvint.go",
+                              "line": 12,
+                              "column": 20,
+                              "offset": 259
+                            },
+                            "name": "text",
+                            "obj": {
+                              "node": "Object",
+                              "name": "text",
+                              "kind": "var"
+                            },
+                            "$obj": {
+                              "name": "text",
+                              "kind": "var",
+                              "def": true,
+                              "type": 3,
+                              "decl": "strconvint.go:259",
+                              "pkg": "main"
+                            }
+                          }
+                        ],
+                        "type": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "strconvint.go",
+                            "line": 12,
+                            "column": 25,
+                            "offset": 264
+                          },
+                          "name": "string",
+                          "obj": null,
+                          "$type": 3,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "string",
+                            "kind": "type",
+                            "type": 3
+                          }
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": {
+                      "file": "strconvint.go",
+                      "line": 12,
+                      "column": 31,
+                      "offset": 270
+                    }
+                  },
+                  "results": {
+                    "node": "FieldList",
+                    "opening": null,
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": null,
+                        "type": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "strconvint.go",
+                            "line": 12,
+                            "column": 33,
+                            "offset": 272
+                          },
+                          "name": "error",
+                          "obj": null,
+                          "$type": 4,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "error",
+                            "kind": "type",
+                            "type": 4
+                          }
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": null
+                  }
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "strconvint.go",
+                    "line": 12,
+                    "column": 39,
+                    "offset": 278
+                  },
+                  "list": [
+                    {
+                      "node": "IfStmt",
+                      "if": {
+                        "file": "strconvint.go",
+                        "line": 13,
+                        "column": 2,
+                        "offset": 281
+                      },
+                      "init": {
+                        "node": "AssignStmt",
+                        "lhs": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "strconvint.go",
+                              "line": 13,
+                              "column": 5,
+                              "offset": 284
+                            },
+                            "name": "n",
+                            "obj": {
+                              "node": "Object",
+                              "name": "n",
+                              "kind": "var"
+                            },
+                            "$obj": {
+                              "name": "n",
+                              "kind": "var",
+                              "def": true,
+                              "type": 1,
+                              "decl": "strconvint.go:284",
+                              "pkg": "main"
+                            }
+                          },
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "strconvint.go",
+                              "line": 13,
+                              "column": 8,
+                              "offset": 287
+                            },
+                            "name": "err",
+                            "obj": {
+                              "node": "Object",
+                              "name": "err",
+                              "kind": "var"
+                            },
+                            "$obj": {
+                              "name": "err",
+                              "kind": "var",
+                              "def": true,
+                              "type": 4,
+                              "decl": "strconvint.go:287",
+                              "pkg": "main"
+                            }
+                          }
+                        ],
+                        "tokPos": {
+                          "file": "strconvint.go",
+                          "line": 13,
+                          "column": 12,
+                          "offset": 291
+                        },
+                        "tok": ":=",
+                        "rhs": [
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "strconvint.go",
+                                  "line": 13,
+                                  "column": 15,
+                                  "offset": 294
+                                },
+                                "name": "strconv",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "strconv",
+                                  "kind": "package",
+                                  "pkg": "strconv"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "strconvint.go",
+                                  "line": 13,
+                                  "column": 23,
+                                  "offset": 302
+                                },
+                                "name": "ParseUint",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "ParseUint",
+                                  "kind": "func",
+                                  "type": 8,
+                                  "decl": "number.go:103",
+                                  "pkg": "strconv",
+                                  "top": true
+                                }
+                              },
+                              "$type": 8
+                            },
+                            "lparen": {
+                              "file": "strconvint.go",
+                              "line": 13,
+                              "column": 32,
+                              "offset": 311
+                            },
+                            "args": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "strconvint.go",
+                                  "line": 13,
+                                  "column": 33,
+                                  "offset": 312
+                                },
+                                "name": "text",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "text",
+                                  "kind": "var"
+                                },
+                                "$type": 3,
+                                "$obj": {
+                                  "name": "text",
+                                  "kind": "var",
+                                  "type": 3,
+                                  "decl": "strconvint.go:259",
+                                  "pkg": "main"
+                                }
+                              },
+                              {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "strconvint.go",
+                                  "line": 13,
+                                  "column": 39,
+                                  "offset": 318
+                                },
+                                "valueEnd": {
+                                  "file": "strconvint.go",
+                                  "line": 13,
+                                  "column": 40,
+                                  "offset": 319
+                                },
+                                "kind": "INT",
+                                "value": "0",
+                                "$type": 9,
+                                "$value": {
+                                  "kind": "int",
+                                  "value": "0"
+                                }
+                              },
+                              {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "strconvint.go",
+                                  "line": 13,
+                                  "column": 42,
+                                  "offset": 321
+                                },
+                                "valueEnd": {
+                                  "file": "strconvint.go",
+                                  "line": 13,
+                                  "column": 44,
+                                  "offset": 323
+                                },
+                                "kind": "INT",
+                                "value": "64",
+                                "$type": 9,
+                                "$value": {
+                                  "kind": "int",
+                                  "value": "64"
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "strconvint.go",
+                              "line": 13,
+                              "column": 44,
+                              "offset": 323
+                            },
+                            "$type": 10
+                          }
+                        ]
+                      },
+                      "cond": {
+                        "node": "BinaryExpr",
+                        "x": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "strconvint.go",
+                            "line": 13,
+                            "column": 47,
+                            "offset": 326
+                          },
+                          "name": "err",
+                          "obj": {
+                            "node": "Object",
+                            "name": "err",
+                            "kind": "var"
+                          },
+                          "$type": 4,
+                          "$obj": {
+                            "name": "err",
+                            "kind": "var",
+                            "type": 4,
+                            "decl": "strconvint.go:287",
+                            "pkg": "main"
+                          }
+                        },
+                        "opPos": {
+                          "file": "strconvint.go",
+                          "line": 13,
+                          "column": 51,
+                          "offset": 330
+                        },
+                        "op": "==",
+                        "y": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "strconvint.go",
+                            "line": 13,
+                            "column": 54,
+                            "offset": 333
+                          },
+                          "name": "nil",
+                          "obj": null,
+                          "$type": 11,
+                          "$obj": {
+                            "name": "nil",
+                            "kind": "nil",
+                            "type": 11
+                          }
+                        },
+                        "$type": 12
+                      },
+                      "body": {
+                        "node": "BlockStmt",
+                        "lbrace": {
+                          "file": "strconvint.go",
+                          "line": 13,
+                          "column": 58,
+                          "offset": 337
+                        },
+                        "list": [
+                          {
+                            "node": "AssignStmt",
+                            "lhs": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "strconvint.go",
+                                  "line": 14,
+                                  "column": 3,
+                                  "offset": 341
+                                },
+                                "name": "code",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "code",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "code",
+                                  "kind": "var",
+                                  "def": true,
+                                  "type": 0,
+                                  "decl": "strconvint.go:341",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "tokPos": {
+                              "file": "strconvint.go",
+                              "line": 14,
+                              "column": 8,
+                              "offset": 346
+                            },
+                            "tok": ":=",
+                            "rhs": [
+                              {
+                                "node": "CallExpr",
+                                "fun": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "strconvint.go",
+                                    "line": 14,
+                                    "column": 11,
+                                    "offset": 349
+                                  },
+                                  "name": "Code",
+                                  "obj": {
+                                    "node": "Object",
+                                    "name": "Code",
+                                    "kind": "type"
+                                  },
+                                  "$type": 0,
+                                  "$isType": true,
+                                  "$obj": {
+                                    "name": "Code",
+                                    "kind": "type",
+                                    "type": 0,
+                                    "decl": "strconvint.go:227",
+                                    "pkg": "main",
+                                    "top": true
+                                  }
+                                },
+                                "lparen": {
+                                  "file": "strconvint.go",
+                                  "line": 14,
+                                  "column": 15,
+                                  "offset": 353
+                                },
+                                "args": [
+                                  {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "strconvint.go",
+                                      "line": 14,
+                                      "column": 16,
+                                      "offset": 354
+                                    },
+                                    "name": "n",
+                                    "obj": {
+                                      "node": "Object",
+                                      "name": "n",
+                                      "kind": "var"
+                                    },
+                                    "$type": 1,
+                                    "$obj": {
+                                      "name": "n",
+                                      "kind": "var",
+                                      "type": 1,
+                                      "decl": "strconvint.go:284",
+                                      "pkg": "main"
+                                    }
+                                  }
+                                ],
+                                "ellipsis": null,
+                                "rparen": {
+                                  "file": "strconvint.go",
+                                  "line": 14,
+                                  "column": 17,
+                                  "offset": 355
+                                },
+                                "$type": 0
+                              }
+                            ]
+                          },
+                          {
+                            "node": "IfStmt",
+                            "if": {
+                              "file": "strconvint.go",
+                              "line": 15,
+                              "column": 3,
+                              "offset": 359
+                            },
+                            "init": null,
+                            "cond": {
+                              "node": "BinaryExpr",
+                              "x": {
+                                "node": "BinaryExpr",
+                                "x": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "strconvint.go",
+                                    "line": 15,
+                                    "column": 6,
+                                    "offset": 362
+                                  },
+                                  "name": "code",
+                                  "obj": {
+                                    "node": "Object",
+                                    "name": "code",
+                                    "kind": "var"
+                                  },
+                                  "$type": 0,
+                                  "$obj": {
+                                    "name": "code",
+                                    "kind": "var",
+                                    "type": 0,
+                                    "decl": "strconvint.go:341",
+                                    "pkg": "main"
+                                  }
+                                },
+                                "opPos": {
+                                  "file": "strconvint.go",
+                                  "line": 15,
+                                  "column": 11,
+                                  "offset": 367
+                                },
+                                "op": "\u003e=",
+                                "y": {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "strconvint.go",
+                                    "line": 15,
+                                    "column": 14,
+                                    "offset": 370
+                                  },
+                                  "valueEnd": {
+                                    "file": "strconvint.go",
+                                    "line": 15,
+                                    "column": 22,
+                                    "offset": 378
+                                  },
+                                  "kind": "INT",
+                                  "value": "0x300000",
+                                  "$type": 0,
+                                  "$value": {
+                                    "kind": "int",
+                                    "value": "3145728"
+                                  }
+                                },
+                                "$type": 12
+                              },
+                              "opPos": {
+                                "file": "strconvint.go",
+                                "line": 15,
+                                "column": 23,
+                                "offset": 379
+                              },
+                              "op": "\u0026\u0026",
+                              "y": {
+                                "node": "BinaryExpr",
+                                "x": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "strconvint.go",
+                                    "line": 15,
+                                    "column": 26,
+                                    "offset": 382
+                                  },
+                                  "name": "code",
+                                  "obj": {
+                                    "node": "Object",
+                                    "name": "code",
+                                    "kind": "var"
+                                  },
+                                  "$type": 0,
+                                  "$obj": {
+                                    "name": "code",
+                                    "kind": "var",
+                                    "type": 0,
+                                    "decl": "strconvint.go:341",
+                                    "pkg": "main"
+                                  }
+                                },
+                                "opPos": {
+                                  "file": "strconvint.go",
+                                  "line": 15,
+                                  "column": 31,
+                                  "offset": 387
+                                },
+                                "op": "\u003c=",
+                                "y": {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "strconvint.go",
+                                    "line": 15,
+                                    "column": 34,
+                                    "offset": 390
+                                  },
+                                  "valueEnd": {
+                                    "file": "strconvint.go",
+                                    "line": 15,
+                                    "column": 42,
+                                    "offset": 398
+                                  },
+                                  "kind": "INT",
+                                  "value": "0x3FFFFF",
+                                  "$type": 0,
+                                  "$value": {
+                                    "kind": "int",
+                                    "value": "4194303"
+                                  }
+                                },
+                                "$type": 12
+                              },
+                              "$type": 12
+                            },
+                            "body": {
+                              "node": "BlockStmt",
+                              "lbrace": {
+                                "file": "strconvint.go",
+                                "line": 15,
+                                "column": 43,
+                                "offset": 399
+                              },
+                              "list": [
+                                {
+                                  "node": "AssignStmt",
+                                  "lhs": [
+                                    {
+                                      "node": "StarExpr",
+                                      "star": {
+                                        "file": "strconvint.go",
+                                        "line": 16,
+                                        "column": 4,
+                                        "offset": 404
+                                      },
+                                      "x": {
+                                        "node": "Ident",
+                                        "namePos": {
+                                          "file": "strconvint.go",
+                                          "line": 16,
+                                          "column": 5,
+                                          "offset": 405
+                                        },
+                                        "name": "c",
+                                        "obj": {
+                                          "node": "Object",
+                                          "name": "c",
+                                          "kind": "var"
+                                        },
+                                        "$type": 7,
+                                        "$obj": {
+                                          "name": "c",
+                                          "kind": "var",
+                                          "type": 7,
+                                          "decl": "strconvint.go:246",
+                                          "pkg": "main"
+                                        }
+                                      },
+                                      "$type": 0
+                                    }
+                                  ],
+                                  "tokPos": {
+                                    "file": "strconvint.go",
+                                    "line": 16,
+                                    "column": 7,
+                                    "offset": 407
+                                  },
+                                  "tok": "=",
+                                  "rhs": [
+                                    {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "strconvint.go",
+                                        "line": 16,
+                                        "column": 9,
+                                        "offset": 409
+                                      },
+                                      "name": "code",
+                                      "obj": {
+                                        "node": "Object",
+                                        "name": "code",
+                                        "kind": "var"
+                                      },
+                                      "$type": 0,
+                                      "$obj": {
+                                        "name": "code",
+                                        "kind": "var",
+                                        "type": 0,
+                                        "decl": "strconvint.go:341",
+                                        "pkg": "main"
+                                      }
+                                    }
+                                  ]
+                                },
+                                {
+                                  "node": "ReturnStmt",
+                                  "return": {
+                                    "file": "strconvint.go",
+                                    "line": 17,
+                                    "column": 4,
+                                    "offset": 417
+                                  },
+                                  "results": [
+                                    {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "strconvint.go",
+                                        "line": 17,
+                                        "column": 11,
+                                        "offset": 424
+                                      },
+                                      "name": "nil",
+                                      "obj": null,
+                                      "$type": 11,
+                                      "$obj": {
+                                        "name": "nil",
+                                        "kind": "nil",
+                                        "type": 11
+                                      }
+                                    }
+                                  ]
+                                }
+                              ],
+                              "rbrace": {
+                                "file": "strconvint.go",
+                                "line": 18,
+                                "column": 3,
+                                "offset": 430
+                              }
+                            },
+                            "else": null
+                          },
+                          {
+                            "node": "ReturnStmt",
+                            "return": {
+                              "file": "strconvint.go",
+                              "line": 19,
+                              "column": 3,
+                              "offset": 434
+                            },
+                            "results": [
+                              {
+                                "node": "CallExpr",
+                                "fun": {
+                                  "node": "SelectorExpr",
+                                  "x": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "strconvint.go",
+                                      "line": 19,
+                                      "column": 10,
+                                      "offset": 441
+                                    },
+                                    "name": "fmt",
+                                    "obj": null,
+                                    "$obj": {
+                                      "name": "fmt",
+                                      "kind": "package",
+                                      "pkg": "fmt"
+                                    }
+                                  },
+                                  "sel": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "strconvint.go",
+                                      "line": 19,
+                                      "column": 14,
+                                      "offset": 445
+                                    },
+                                    "name": "Errorf",
+                                    "obj": null,
+                                    "$obj": {
+                                      "name": "Errorf",
+                                      "kind": "func",
+                                      "type": 13,
+                                      "decl": "errors.go:22",
+                                      "pkg": "fmt",
+                                      "top": true
+                                    }
+                                  },
+                                  "$type": 13
+                                },
+                                "lparen": {
+                                  "file": "strconvint.go",
+                                  "line": 19,
+                                  "column": 20,
+                                  "offset": 451
+                                },
+                                "args": [
+                                  {
+                                    "node": "BasicLit",
+                                    "valuePos": {
+                                      "file": "strconvint.go",
+                                      "line": 19,
+                                      "column": 21,
+                                      "offset": 452
+                                    },
+                                    "valueEnd": {
+                                      "file": "strconvint.go",
+                                      "line": 19,
+                                      "column": 50,
+                                      "offset": 481
+                                    },
+                                    "kind": "STRING",
+                                    "value": "\"unknown multicodec code: %s\"",
+                                    "$type": 3,
+                                    "$value": {
+                                      "kind": "string",
+                                      "value": "unknown multicodec code: %s"
+                                    }
+                                  },
+                                  {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "strconvint.go",
+                                      "line": 19,
+                                      "column": 52,
+                                      "offset": 483
+                                    },
+                                    "name": "text",
+                                    "obj": {
+                                      "node": "Object",
+                                      "name": "text",
+                                      "kind": "var"
+                                    },
+                                    "$type": 3,
+                                    "$obj": {
+                                      "name": "text",
+                                      "kind": "var",
+                                      "type": 3,
+                                      "decl": "strconvint.go:259",
+                                      "pkg": "main"
+                                    }
+                                  }
+                                ],
+                                "ellipsis": null,
+                                "rparen": {
+                                  "file": "strconvint.go",
+                                  "line": 19,
+                                  "column": 56,
+                                  "offset": 487
+                                },
+                                "$type": 4
+                              }
+                            ]
+                          }
+                        ],
+                        "rbrace": {
+                          "file": "strconvint.go",
+                          "line": 20,
+                          "column": 2,
+                          "offset": 490
+                        }
+                      },
+                      "else": {
+                        "node": "BlockStmt",
+                        "lbrace": {
+                          "file": "strconvint.go",
+                          "line": 20,
+                          "column": 9,
+                          "offset": 497
+                        },
+                        "list": [
+                          {
+                            "node": "ReturnStmt",
+                            "return": {
+                              "file": "strconvint.go",
+                              "line": 21,
+                              "column": 3,
+                              "offset": 501
+                            },
+                            "results": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "strconvint.go",
+                                  "line": 21,
+                                  "column": 10,
+                                  "offset": 508
+                                },
+                                "name": "err",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "err",
+                                  "kind": "var"
+                                },
+                                "$type": 4,
+                                "$obj": {
+                                  "name": "err",
+                                  "kind": "var",
+                                  "type": 4,
+                                  "decl": "strconvint.go:287",
+                                  "pkg": "main"
+                                }
+                              }
+                            ]
+                          }
+                        ],
+                        "rbrace": {
+                          "file": "strconvint.go",
+                          "line": 22,
+                          "column": 2,
+                          "offset": 513
+                        }
+                      }
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "strconvint.go",
+                    "line": 23,
+                    "column": 1,
+                    "offset": 515
+                  }
+                }
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": {
+                  "node": "FieldList",
+                  "opening": {
+                    "file": "strconvint.go",
+                    "line": 25,
+                    "column": 6,
+                    "offset": 523
+                  },
+                  "list": [
+                    {
+                      "node": "Field",
+                      "doc": null,
+                      "names": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "strconvint.go",
+                            "line": 25,
+                            "column": 7,
+                            "offset": 524
+                          },
+                          "name": "i",
+                          "obj": {
+                            "node": "Object",
+                            "name": "i",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "i",
+                            "kind": "var",
+                            "def": true,
+                            "type": 0,
+                            "decl": "strconvint.go:524",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "type": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "strconvint.go",
+                          "line": 25,
+                          "column": 9,
+                          "offset": 526
+                        },
+                        "name": "Code",
+                        "obj": {
+                          "node": "Object",
+                          "name": "Code",
+                          "kind": "type"
+                        },
+                        "$type": 0,
+                        "$isType": true,
+                        "$obj": {
+                          "name": "Code",
+                          "kind": "type",
+                          "type": 0,
+                          "decl": "strconvint.go:227",
+                          "pkg": "main",
+                          "top": true
+                        }
+                      },
+                      "tag": null,
+                      "comment": null
+                    }
+                  ],
+                  "closing": {
+                    "file": "strconvint.go",
+                    "line": 25,
+                    "column": 13,
+                    "offset": 530
+                  }
+                },
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "strconvint.go",
+                    "line": 25,
+                    "column": 15,
+                    "offset": 532
+                  },
+                  "name": "String",
+                  "obj": null,
+                  "$obj": {
+                    "name": "String",
+                    "kind": "method",
+                    "def": true,
+                    "type": 6,
+                    "decl": "strconvint.go:532",
+                    "pkg": "main"
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "strconvint.go",
+                    "line": 25,
+                    "column": 1,
+                    "offset": 518
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "strconvint.go",
+                      "line": 25,
+                      "column": 21,
+                      "offset": 538
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "strconvint.go",
+                      "line": 25,
+                      "column": 22,
+                      "offset": 539
+                    }
+                  },
+                  "results": {
+                    "node": "FieldList",
+                    "opening": null,
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": null,
+                        "type": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "strconvint.go",
+                            "line": 25,
+                            "column": 24,
+                            "offset": 541
+                          },
+                          "name": "string",
+                          "obj": null,
+                          "$type": 3,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "string",
+                            "kind": "type",
+                            "type": 3
+                          }
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": null
+                  }
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "strconvint.go",
+                    "line": 25,
+                    "column": 31,
+                    "offset": 548
+                  },
+                  "list": [
+                    {
+                      "node": "IfStmt",
+                      "if": {
+                        "file": "strconvint.go",
+                        "line": 26,
+                        "column": 2,
+                        "offset": 551
+                      },
+                      "init": null,
+                      "cond": {
+                        "node": "BinaryExpr",
+                        "x": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "strconvint.go",
+                            "line": 26,
+                            "column": 5,
+                            "offset": 554
+                          },
+                          "name": "i",
+                          "obj": {
+                            "node": "Object",
+                            "name": "i",
+                            "kind": "var"
+                          },
+                          "$type": 0,
+                          "$obj": {
+                            "name": "i",
+                            "kind": "var",
+                            "type": 0,
+                            "decl": "strconvint.go:524",
+                            "pkg": "main"
+                          }
+                        },
+                        "opPos": {
+                          "file": "strconvint.go",
+                          "line": 26,
+                          "column": 7,
+                          "offset": 556
+                        },
+                        "op": "==",
+                        "y": {
+                          "node": "BasicLit",
+                          "valuePos": {
+                            "file": "strconvint.go",
+                            "line": 26,
+                            "column": 10,
+                            "offset": 559
+                          },
+                          "valueEnd": {
+                            "file": "strconvint.go",
+                            "line": 26,
+                            "column": 14,
+                            "offset": 563
+                          },
+                          "kind": "INT",
+                          "value": "0x55",
+                          "$type": 0,
+                          "$value": {
+                            "kind": "int",
+                            "value": "85"
+                          }
+                        },
+                        "$type": 12
+                      },
+                      "body": {
+                        "node": "BlockStmt",
+                        "lbrace": {
+                          "file": "strconvint.go",
+                          "line": 26,
+                          "column": 15,
+                          "offset": 564
+                        },
+                        "list": [
+                          {
+                            "node": "ReturnStmt",
+                            "return": {
+                              "file": "strconvint.go",
+                              "line": 27,
+                              "column": 3,
+                              "offset": 568
+                            },
+                            "results": [
+                              {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "strconvint.go",
+                                  "line": 27,
+                                  "column": 10,
+                                  "offset": 575
+                                },
+                                "valueEnd": {
+                                  "file": "strconvint.go",
+                                  "line": 27,
+                                  "column": 15,
+                                  "offset": 580
+                                },
+                                "kind": "STRING",
+                                "value": "\"raw\"",
+                                "$type": 3,
+                                "$value": {
+                                  "kind": "string",
+                                  "value": "raw"
+                                }
+                              }
+                            ]
+                          }
+                        ],
+                        "rbrace": {
+                          "file": "strconvint.go",
+                          "line": 28,
+                          "column": 2,
+                          "offset": 582
+                        }
+                      },
+                      "else": null
+                    },
+                    {
+                      "node": "ReturnStmt",
+                      "return": {
+                        "file": "strconvint.go",
+                        "line": 29,
+                        "column": 2,
+                        "offset": 585
+                      },
+                      "results": [
+                        {
+                          "node": "BinaryExpr",
+                          "x": {
+                            "node": "BinaryExpr",
+                            "x": {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "strconvint.go",
+                                "line": 29,
+                                "column": 9,
+                                "offset": 592
+                              },
+                              "valueEnd": {
+                                "file": "strconvint.go",
+                                "line": 29,
+                                "column": 16,
+                                "offset": 599
+                              },
+                              "kind": "STRING",
+                              "value": "\"Code(\"",
+                              "$type": 3,
+                              "$value": {
+                                "kind": "string",
+                                "value": "Code("
+                              }
+                            },
+                            "opPos": {
+                              "file": "strconvint.go",
+                              "line": 29,
+                              "column": 17,
+                              "offset": 600
+                            },
+                            "op": "+",
+                            "y": {
+                              "node": "CallExpr",
+                              "fun": {
+                                "node": "SelectorExpr",
+                                "x": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "strconvint.go",
+                                    "line": 29,
+                                    "column": 19,
+                                    "offset": 602
+                                  },
+                                  "name": "strconv",
+                                  "obj": null,
+                                  "$obj": {
+                                    "name": "strconv",
+                                    "kind": "package",
+                                    "pkg": "strconv"
+                                  }
+                                },
+                                "sel": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "strconvint.go",
+                                    "line": 29,
+                                    "column": 27,
+                                    "offset": 610
+                                  },
+                                  "name": "FormatInt",
+                                  "obj": null,
+                                  "$obj": {
+                                    "name": "FormatInt",
+                                    "kind": "func",
+                                    "type": 16,
+                                    "decl": "number.go:208",
+                                    "pkg": "strconv",
+                                    "top": true
+                                  }
+                                },
+                                "$type": 16
+                              },
+                              "lparen": {
+                                "file": "strconvint.go",
+                                "line": 29,
+                                "column": 36,
+                                "offset": 619
+                              },
+                              "args": [
+                                {
+                                  "node": "CallExpr",
+                                  "fun": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "strconvint.go",
+                                      "line": 29,
+                                      "column": 37,
+                                      "offset": 620
+                                    },
+                                    "name": "int64",
+                                    "obj": null,
+                                    "$type": 17,
+                                    "$isType": true,
+                                    "$obj": {
+                                      "name": "int64",
+                                      "kind": "type",
+                                      "type": 17
+                                    }
+                                  },
+                                  "lparen": {
+                                    "file": "strconvint.go",
+                                    "line": 29,
+                                    "column": 42,
+                                    "offset": 625
+                                  },
+                                  "args": [
+                                    {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "strconvint.go",
+                                        "line": 29,
+                                        "column": 43,
+                                        "offset": 626
+                                      },
+                                      "name": "i",
+                                      "obj": {
+                                        "node": "Object",
+                                        "name": "i",
+                                        "kind": "var"
+                                      },
+                                      "$type": 0,
+                                      "$obj": {
+                                        "name": "i",
+                                        "kind": "var",
+                                        "type": 0,
+                                        "decl": "strconvint.go:524",
+                                        "pkg": "main"
+                                      }
+                                    }
+                                  ],
+                                  "ellipsis": null,
+                                  "rparen": {
+                                    "file": "strconvint.go",
+                                    "line": 29,
+                                    "column": 44,
+                                    "offset": 627
+                                  },
+                                  "$type": 17
+                                },
+                                {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "strconvint.go",
+                                    "line": 29,
+                                    "column": 47,
+                                    "offset": 630
+                                  },
+                                  "valueEnd": {
+                                    "file": "strconvint.go",
+                                    "line": 29,
+                                    "column": 49,
+                                    "offset": 632
+                                  },
+                                  "kind": "INT",
+                                  "value": "10",
+                                  "$type": 9,
+                                  "$value": {
+                                    "kind": "int",
+                                    "value": "10"
+                                  }
+                                }
+                              ],
+                              "ellipsis": null,
+                              "rparen": {
+                                "file": "strconvint.go",
+                                "line": 29,
+                                "column": 49,
+                                "offset": 632
+                              },
+                              "$type": 3
+                            },
+                            "$type": 3
+                          },
+                          "opPos": {
+                            "file": "strconvint.go",
+                            "line": 29,
+                            "column": 51,
+                            "offset": 634
+                          },
+                          "op": "+",
+                          "y": {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "strconvint.go",
+                              "line": 29,
+                              "column": 53,
+                              "offset": 636
+                            },
+                            "valueEnd": {
+                              "file": "strconvint.go",
+                              "line": 29,
+                              "column": 56,
+                              "offset": 639
+                            },
+                            "kind": "STRING",
+                            "value": "\")\"",
+                            "$type": 3,
+                            "$value": {
+                              "kind": "string",
+                              "value": ")"
+                            }
+                          },
+                          "$type": 3
+                        }
+                      ]
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "strconvint.go",
+                    "line": 30,
+                    "column": 1,
+                    "offset": 640
+                  }
+                }
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "strconvint.go",
+                    "line": 32,
+                    "column": 6,
+                    "offset": 648
+                  },
+                  "name": "main",
+                  "obj": {
+                    "node": "Object",
+                    "name": "main",
+                    "kind": "func"
+                  },
+                  "$obj": {
+                    "name": "main",
+                    "kind": "func",
+                    "def": true,
+                    "type": 18,
+                    "decl": "strconvint.go:648",
+                    "pkg": "main",
+                    "top": true
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "strconvint.go",
+                    "line": 32,
+                    "column": 1,
+                    "offset": 643
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "strconvint.go",
+                      "line": 32,
+                      "column": 10,
+                      "offset": 652
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "strconvint.go",
+                      "line": 32,
+                      "column": 11,
+                      "offset": 653
+                    }
+                  },
+                  "results": null
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "strconvint.go",
+                    "line": 32,
+                    "column": 13,
+                    "offset": 655
+                  },
+                  "list": [
+                    {
+                      "node": "RangeStmt",
+                      "for": {
+                        "file": "strconvint.go",
+                        "line": 33,
+                        "column": 2,
+                        "offset": 658
+                      },
+                      "key": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "strconvint.go",
+                          "line": 33,
+                          "column": 6,
+                          "offset": 662
+                        },
+                        "name": "_",
+                        "obj": {
+                          "node": "Object",
+                          "name": "_",
+                          "kind": "var"
+                        },
+                        "$obj": {
+                          "name": "_",
+                          "kind": "var",
+                          "def": true,
+                          "type": 9,
+                          "decl": "strconvint.go:662",
+                          "pkg": "main"
+                        }
+                      },
+                      "value": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "strconvint.go",
+                          "line": 33,
+                          "column": 9,
+                          "offset": 665
+                        },
+                        "name": "s",
+                        "obj": {
+                          "node": "Object",
+                          "name": "s",
+                          "kind": "var"
+                        },
+                        "$obj": {
+                          "name": "s",
+                          "kind": "var",
+                          "def": true,
+                          "type": 3,
+                          "decl": "strconvint.go:665",
+                          "pkg": "main"
+                        }
+                      },
+                      "tokPos": {
+                        "file": "strconvint.go",
+                        "line": 33,
+                        "column": 11,
+                        "offset": 667
+                      },
+                      "tok": ":=",
+                      "range": {
+                        "file": "strconvint.go",
+                        "line": 33,
+                        "column": 14,
+                        "offset": 670
+                      },
+                      "x": {
+                        "node": "CompositeLit",
+                        "type": {
+                          "node": "ArrayType",
+                          "lbrack": {
+                            "file": "strconvint.go",
+                            "line": 33,
+                            "column": 20,
+                            "offset": 676
+                          },
+                          "len": null,
+                          "elt": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "strconvint.go",
+                              "line": 33,
+                              "column": 22,
+                              "offset": 678
+                            },
+                            "name": "string",
+                            "obj": null,
+                            "$type": 3,
+                            "$isType": true,
+                            "$obj": {
+                              "name": "string",
+                              "kind": "type",
+                              "type": 3
+                            }
+                          },
+                          "$type": 19,
+                          "$isType": true
+                        },
+                        "lbrace": {
+                          "file": "strconvint.go",
+                          "line": 33,
+                          "column": 28,
+                          "offset": 684
+                        },
+                        "elts": [
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "strconvint.go",
+                              "line": 33,
+                              "column": 29,
+                              "offset": 685
+                            },
+                            "valueEnd": {
+                              "file": "strconvint.go",
+                              "line": 33,
+                              "column": 39,
+                              "offset": 695
+                            },
+                            "kind": "STRING",
+                            "value": "\"0x300001\"",
+                            "$type": 3,
+                            "$value": {
+                              "kind": "string",
+                              "value": "0x300001"
+                            }
+                          },
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "strconvint.go",
+                              "line": 33,
+                              "column": 41,
+                              "offset": 697
+                            },
+                            "valueEnd": {
+                              "file": "strconvint.go",
+                              "line": 33,
+                              "column": 53,
+                              "offset": 709
+                            },
+                            "kind": "STRING",
+                            "value": "\"0o14000001\"",
+                            "$type": 3,
+                            "$value": {
+                              "kind": "string",
+                              "value": "0o14000001"
+                            }
+                          },
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "strconvint.go",
+                              "line": 33,
+                              "column": 55,
+                              "offset": 711
+                            },
+                            "valueEnd": {
+                              "file": "strconvint.go",
+                              "line": 33,
+                              "column": 64,
+                              "offset": 720
+                            },
+                            "kind": "STRING",
+                            "value": "\"3145729\"",
+                            "$type": 3,
+                            "$value": {
+                              "kind": "string",
+                              "value": "3145729"
+                            }
+                          },
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "strconvint.go",
+                              "line": 33,
+                              "column": 66,
+                              "offset": 722
+                            },
+                            "valueEnd": {
+                              "file": "strconvint.go",
+                              "line": 33,
+                              "column": 72,
+                              "offset": 728
+                            },
+                            "kind": "STRING",
+                            "value": "\"0x55\"",
+                            "$type": 3,
+                            "$value": {
+                              "kind": "string",
+                              "value": "0x55"
+                            }
+                          },
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "strconvint.go",
+                              "line": 33,
+                              "column": 74,
+                              "offset": 730
+                            },
+                            "valueEnd": {
+                              "file": "strconvint.go",
+                              "line": 33,
+                              "column": 86,
+                              "offset": 742
+                            },
+                            "kind": "STRING",
+                            "value": "\"0x3_00_002\"",
+                            "$type": 3,
+                            "$value": {
+                              "kind": "string",
+                              "value": "0x3_00_002"
+                            }
+                          },
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "strconvint.go",
+                              "line": 33,
+                              "column": 88,
+                              "offset": 744
+                            },
+                            "valueEnd": {
+                              "file": "strconvint.go",
+                              "line": 33,
+                              "column": 99,
+                              "offset": 755
+                            },
+                            "kind": "STRING",
+                            "value": "\"0x_300001\"",
+                            "$type": 3,
+                            "$value": {
+                              "kind": "string",
+                              "value": "0x_300001"
+                            }
+                          },
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "strconvint.go",
+                              "line": 33,
+                              "column": 101,
+                              "offset": 757
+                            },
+                            "valueEnd": {
+                              "file": "strconvint.go",
+                              "line": 33,
+                              "column": 104,
+                              "offset": 760
+                            },
+                            "kind": "STRING",
+                            "value": "\"x\"",
+                            "$type": 3,
+                            "$value": {
+                              "kind": "string",
+                              "value": "x"
+                            }
+                          },
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "strconvint.go",
+                              "line": 33,
+                              "column": 106,
+                              "offset": 762
+                            },
+                            "valueEnd": {
+                              "file": "strconvint.go",
+                              "line": 33,
+                              "column": 108,
+                              "offset": 764
+                            },
+                            "kind": "STRING",
+                            "value": "\"\"",
+                            "$type": 3,
+                            "$value": {
+                              "kind": "string",
+                              "value": ""
+                            }
+                          },
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "strconvint.go",
+                              "line": 33,
+                              "column": 110,
+                              "offset": 766
+                            },
+                            "valueEnd": {
+                              "file": "strconvint.go",
+                              "line": 33,
+                              "column": 132,
+                              "offset": 788
+                            },
+                            "kind": "STRING",
+                            "value": "\"99999999999999999999\"",
+                            "$type": 3,
+                            "$value": {
+                              "kind": "string",
+                              "value": "99999999999999999999"
+                            }
+                          }
+                        ],
+                        "rbrace": {
+                          "file": "strconvint.go",
+                          "line": 33,
+                          "column": 132,
+                          "offset": 788
+                        },
+                        "incomplete": false,
+                        "$type": 19
+                      },
+                      "body": {
+                        "node": "BlockStmt",
+                        "lbrace": {
+                          "file": "strconvint.go",
+                          "line": 33,
+                          "column": 134,
+                          "offset": 790
+                        },
+                        "list": [
+                          {
+                            "node": "DeclStmt",
+                            "decl": {
+                              "node": "GenDecl",
+                              "doc": null,
+                              "tokPos": {
+                                "file": "strconvint.go",
+                                "line": 34,
+                                "column": 3,
+                                "offset": 794
+                              },
+                              "tok": "var",
+                              "lparen": null,
+                              "specs": [
+                                {
+                                  "node": "ValueSpec",
+                                  "doc": null,
+                                  "names": [
+                                    {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "strconvint.go",
+                                        "line": 34,
+                                        "column": 7,
+                                        "offset": 798
+                                      },
+                                      "name": "c",
+                                      "obj": {
+                                        "node": "Object",
+                                        "name": "c",
+                                        "kind": "var"
+                                      },
+                                      "$obj": {
+                                        "name": "c",
+                                        "kind": "var",
+                                        "def": true,
+                                        "type": 0,
+                                        "decl": "strconvint.go:798",
+                                        "pkg": "main"
+                                      }
+                                    }
+                                  ],
+                                  "type": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "strconvint.go",
+                                      "line": 34,
+                                      "column": 9,
+                                      "offset": 800
+                                    },
+                                    "name": "Code",
+                                    "obj": {
+                                      "node": "Object",
+                                      "name": "Code",
+                                      "kind": "type"
+                                    },
+                                    "$type": 0,
+                                    "$isType": true,
+                                    "$obj": {
+                                      "name": "Code",
+                                      "kind": "type",
+                                      "type": 0,
+                                      "decl": "strconvint.go:227",
+                                      "pkg": "main",
+                                      "top": true
+                                    }
+                                  },
+                                  "values": null,
+                                  "comment": null
+                                }
+                              ],
+                              "rparen": null
+                            }
+                          },
+                          {
+                            "node": "AssignStmt",
+                            "lhs": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "strconvint.go",
+                                  "line": 35,
+                                  "column": 3,
+                                  "offset": 807
+                                },
+                                "name": "err",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "err",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "err",
+                                  "kind": "var",
+                                  "def": true,
+                                  "type": 4,
+                                  "decl": "strconvint.go:807",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "tokPos": {
+                              "file": "strconvint.go",
+                              "line": 35,
+                              "column": 7,
+                              "offset": 811
+                            },
+                            "tok": ":=",
+                            "rhs": [
+                              {
+                                "node": "CallExpr",
+                                "fun": {
+                                  "node": "SelectorExpr",
+                                  "x": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "strconvint.go",
+                                      "line": 35,
+                                      "column": 10,
+                                      "offset": 814
+                                    },
+                                    "name": "c",
+                                    "obj": {
+                                      "node": "Object",
+                                      "name": "c",
+                                      "kind": "var"
+                                    },
+                                    "$type": 0,
+                                    "$obj": {
+                                      "name": "c",
+                                      "kind": "var",
+                                      "type": 0,
+                                      "decl": "strconvint.go:798",
+                                      "pkg": "main"
+                                    }
+                                  },
+                                  "sel": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "strconvint.go",
+                                      "line": 35,
+                                      "column": 12,
+                                      "offset": 816
+                                    },
+                                    "name": "Set",
+                                    "obj": null,
+                                    "$obj": {
+                                      "name": "Set",
+                                      "kind": "method",
+                                      "type": 2,
+                                      "decl": "strconvint.go:255",
+                                      "pkg": "main"
+                                    }
+                                  },
+                                  "$type": 2,
+                                  "$sel": {
+                                    "kind": "method",
+                                    "recv": 0,
+                                    "index": [
+                                      0
+                                    ],
+                                    "indirect": false
+                                  }
+                                },
+                                "lparen": {
+                                  "file": "strconvint.go",
+                                  "line": 35,
+                                  "column": 15,
+                                  "offset": 819
+                                },
+                                "args": [
+                                  {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "strconvint.go",
+                                      "line": 35,
+                                      "column": 16,
+                                      "offset": 820
+                                    },
+                                    "name": "s",
+                                    "obj": {
+                                      "node": "Object",
+                                      "name": "s",
+                                      "kind": "var"
+                                    },
+                                    "$type": 3,
+                                    "$obj": {
+                                      "name": "s",
+                                      "kind": "var",
+                                      "type": 3,
+                                      "decl": "strconvint.go:665",
+                                      "pkg": "main"
+                                    }
+                                  }
+                                ],
+                                "ellipsis": null,
+                                "rparen": {
+                                  "file": "strconvint.go",
+                                  "line": 35,
+                                  "column": 17,
+                                  "offset": 821
+                                },
+                                "$type": 4
+                              }
+                            ]
+                          },
+                          {
+                            "node": "ExprStmt",
+                            "x": {
+                              "node": "CallExpr",
+                              "fun": {
+                                "node": "SelectorExpr",
+                                "x": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "strconvint.go",
+                                    "line": 36,
+                                    "column": 3,
+                                    "offset": 825
+                                  },
+                                  "name": "fmt",
+                                  "obj": null,
+                                  "$obj": {
+                                    "name": "fmt",
+                                    "kind": "package",
+                                    "pkg": "fmt"
+                                  }
+                                },
+                                "sel": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "strconvint.go",
+                                    "line": 36,
+                                    "column": 7,
+                                    "offset": 829
+                                  },
+                                  "name": "Println",
+                                  "obj": null,
+                                  "$obj": {
+                                    "name": "Println",
+                                    "kind": "func",
+                                    "type": 20,
+                                    "decl": "print.go:313",
+                                    "pkg": "fmt",
+                                    "top": true
+                                  }
+                                },
+                                "$type": 20
+                              },
+                              "lparen": {
+                                "file": "strconvint.go",
+                                "line": 36,
+                                "column": 14,
+                                "offset": 836
+                              },
+                              "args": [
+                                {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "strconvint.go",
+                                    "line": 36,
+                                    "column": 15,
+                                    "offset": 837
+                                  },
+                                  "name": "s",
+                                  "obj": {
+                                    "node": "Object",
+                                    "name": "s",
+                                    "kind": "var"
+                                  },
+                                  "$type": 3,
+                                  "$obj": {
+                                    "name": "s",
+                                    "kind": "var",
+                                    "type": 3,
+                                    "decl": "strconvint.go:665",
+                                    "pkg": "main"
+                                  }
+                                },
+                                {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "strconvint.go",
+                                    "line": 36,
+                                    "column": 18,
+                                    "offset": 840
+                                  },
+                                  "name": "c",
+                                  "obj": {
+                                    "node": "Object",
+                                    "name": "c",
+                                    "kind": "var"
+                                  },
+                                  "$type": 0,
+                                  "$obj": {
+                                    "name": "c",
+                                    "kind": "var",
+                                    "type": 0,
+                                    "decl": "strconvint.go:798",
+                                    "pkg": "main"
+                                  }
+                                },
+                                {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "strconvint.go",
+                                    "line": 36,
+                                    "column": 21,
+                                    "offset": 843
+                                  },
+                                  "name": "err",
+                                  "obj": {
+                                    "node": "Object",
+                                    "name": "err",
+                                    "kind": "var"
+                                  },
+                                  "$type": 4,
+                                  "$obj": {
+                                    "name": "err",
+                                    "kind": "var",
+                                    "type": 4,
+                                    "decl": "strconvint.go:807",
+                                    "pkg": "main"
+                                  }
+                                }
+                              ],
+                              "ellipsis": null,
+                              "rparen": {
+                                "file": "strconvint.go",
+                                "line": 36,
+                                "column": 24,
+                                "offset": 846
+                              },
+                              "$type": 21
+                            }
+                          }
+                        ],
+                        "rbrace": {
+                          "file": "strconvint.go",
+                          "line": 37,
+                          "column": 2,
+                          "offset": 849
+                        }
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "strconvint.go",
+                              "line": 38,
+                              "column": 2,
+                              "offset": 852
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "strconvint.go",
+                              "line": 38,
+                              "column": 6,
+                              "offset": 856
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 20,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 20
+                        },
+                        "lparen": {
+                          "file": "strconvint.go",
+                          "line": 38,
+                          "column": 13,
+                          "offset": 863
+                        },
+                        "args": [
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "strconvint.go",
+                                "line": 38,
+                                "column": 14,
+                                "offset": 864
+                              },
+                              "name": "Code",
+                              "obj": {
+                                "node": "Object",
+                                "name": "Code",
+                                "kind": "type"
+                              },
+                              "$type": 0,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "Code",
+                                "kind": "type",
+                                "type": 0,
+                                "decl": "strconvint.go:227",
+                                "pkg": "main",
+                                "top": true
+                              }
+                            },
+                            "lparen": {
+                              "file": "strconvint.go",
+                              "line": 38,
+                              "column": 18,
+                              "offset": 868
+                            },
+                            "args": [
+                              {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "strconvint.go",
+                                  "line": 38,
+                                  "column": 19,
+                                  "offset": 869
+                                },
+                                "valueEnd": {
+                                  "file": "strconvint.go",
+                                  "line": 38,
+                                  "column": 23,
+                                  "offset": 873
+                                },
+                                "kind": "INT",
+                                "value": "0x55",
+                                "$type": 0,
+                                "$value": {
+                                  "kind": "int",
+                                  "value": "85"
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "strconvint.go",
+                              "line": 38,
+                              "column": 23,
+                              "offset": 873
+                            },
+                            "$type": 0,
+                            "$value": {
+                              "kind": "int",
+                              "value": "85"
+                            }
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "strconvint.go",
+                                "line": 38,
+                                "column": 26,
+                                "offset": 876
+                              },
+                              "name": "Code",
+                              "obj": {
+                                "node": "Object",
+                                "name": "Code",
+                                "kind": "type"
+                              },
+                              "$type": 0,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "Code",
+                                "kind": "type",
+                                "type": 0,
+                                "decl": "strconvint.go:227",
+                                "pkg": "main",
+                                "top": true
+                              }
+                            },
+                            "lparen": {
+                              "file": "strconvint.go",
+                              "line": 38,
+                              "column": 30,
+                              "offset": 880
+                            },
+                            "args": [
+                              {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "strconvint.go",
+                                  "line": 38,
+                                  "column": 31,
+                                  "offset": 881
+                                },
+                                "valueEnd": {
+                                  "file": "strconvint.go",
+                                  "line": 38,
+                                  "column": 32,
+                                  "offset": 882
+                                },
+                                "kind": "INT",
+                                "value": "7",
+                                "$type": 0,
+                                "$value": {
+                                  "kind": "int",
+                                  "value": "7"
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "strconvint.go",
+                              "line": 38,
+                              "column": 32,
+                              "offset": 882
+                            },
+                            "$type": 0,
+                            "$value": {
+                              "kind": "int",
+                              "value": "7"
+                            }
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "strconvint.go",
+                                  "line": 38,
+                                  "column": 35,
+                                  "offset": 885
+                                },
+                                "name": "strconv",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "strconv",
+                                  "kind": "package",
+                                  "pkg": "strconv"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "strconvint.go",
+                                  "line": 38,
+                                  "column": 43,
+                                  "offset": 893
+                                },
+                                "name": "Itoa",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "Itoa",
+                                  "kind": "func",
+                                  "type": 22,
+                                  "decl": "number.go:213",
+                                  "pkg": "strconv",
+                                  "top": true
+                                }
+                              },
+                              "$type": 22
+                            },
+                            "lparen": {
+                              "file": "strconvint.go",
+                              "line": 38,
+                              "column": 47,
+                              "offset": 897
+                            },
+                            "args": [
+                              {
+                                "node": "UnaryExpr",
+                                "opPos": {
+                                  "file": "strconvint.go",
+                                  "line": 38,
+                                  "column": 48,
+                                  "offset": 898
+                                },
+                                "op": "-",
+                                "x": {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "strconvint.go",
+                                    "line": 38,
+                                    "column": 49,
+                                    "offset": 899
+                                  },
+                                  "valueEnd": {
+                                    "file": "strconvint.go",
+                                    "line": 38,
+                                    "column": 51,
+                                    "offset": 901
+                                  },
+                                  "kind": "INT",
+                                  "value": "12",
+                                  "$type": 23,
+                                  "$value": {
+                                    "kind": "int",
+                                    "value": "12"
+                                  }
+                                },
+                                "$type": 9,
+                                "$value": {
+                                  "kind": "int",
+                                  "value": "-12"
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "strconvint.go",
+                              "line": 38,
+                              "column": 51,
+                              "offset": 901
+                            },
+                            "$type": 3
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "strconvint.go",
+                                  "line": 38,
+                                  "column": 54,
+                                  "offset": 904
+                                },
+                                "name": "strconv",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "strconv",
+                                  "kind": "package",
+                                  "pkg": "strconv"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "strconvint.go",
+                                  "line": 38,
+                                  "column": 62,
+                                  "offset": 912
+                                },
+                                "name": "Itoa",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "Itoa",
+                                  "kind": "func",
+                                  "type": 22,
+                                  "decl": "number.go:213",
+                                  "pkg": "strconv",
+                                  "top": true
+                                }
+                              },
+                              "$type": 22
+                            },
+                            "lparen": {
+                              "file": "strconvint.go",
+                              "line": 38,
+                              "column": 66,
+                              "offset": 916
+                            },
+                            "args": [
+                              {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "strconvint.go",
+                                  "line": 38,
+                                  "column": 67,
+                                  "offset": 917
+                                },
+                                "valueEnd": {
+                                  "file": "strconvint.go",
+                                  "line": 38,
+                                  "column": 68,
+                                  "offset": 918
+                                },
+                                "kind": "INT",
+                                "value": "0",
+                                "$type": 9,
+                                "$value": {
+                                  "kind": "int",
+                                  "value": "0"
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "strconvint.go",
+                              "line": 38,
+                              "column": 68,
+                              "offset": 918
+                            },
+                            "$type": 3
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "strconvint.go",
+                                  "line": 38,
+                                  "column": 71,
+                                  "offset": 921
+                                },
+                                "name": "strconv",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "strconv",
+                                  "kind": "package",
+                                  "pkg": "strconv"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "strconvint.go",
+                                  "line": 38,
+                                  "column": 79,
+                                  "offset": 929
+                                },
+                                "name": "FormatUint",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "FormatUint",
+                                  "kind": "func",
+                                  "type": 24,
+                                  "decl": "number.go:201",
+                                  "pkg": "strconv",
+                                  "top": true
+                                }
+                              },
+                              "$type": 24
+                            },
+                            "lparen": {
+                              "file": "strconvint.go",
+                              "line": 38,
+                              "column": 89,
+                              "offset": 939
+                            },
+                            "args": [
+                              {
+                                "node": "BinaryExpr",
+                                "x": {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "strconvint.go",
+                                    "line": 38,
+                                    "column": 90,
+                                    "offset": 940
+                                  },
+                                  "valueEnd": {
+                                    "file": "strconvint.go",
+                                    "line": 38,
+                                    "column": 91,
+                                    "offset": 941
+                                  },
+                                  "kind": "INT",
+                                  "value": "1",
+                                  "$type": 23,
+                                  "$value": {
+                                    "kind": "int",
+                                    "value": "1"
+                                  }
+                                },
+                                "opPos": {
+                                  "file": "strconvint.go",
+                                  "line": 38,
+                                  "column": 91,
+                                  "offset": 941
+                                },
+                                "op": "\u003c\u003c",
+                                "y": {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "strconvint.go",
+                                    "line": 38,
+                                    "column": 93,
+                                    "offset": 943
+                                  },
+                                  "valueEnd": {
+                                    "file": "strconvint.go",
+                                    "line": 38,
+                                    "column": 95,
+                                    "offset": 945
+                                  },
+                                  "kind": "INT",
+                                  "value": "63",
+                                  "$type": 23,
+                                  "$value": {
+                                    "kind": "int",
+                                    "value": "63"
+                                  }
+                                },
+                                "$type": 1,
+                                "$value": {
+                                  "kind": "int",
+                                  "value": "9223372036854775808"
+                                }
+                              },
+                              {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "strconvint.go",
+                                  "line": 38,
+                                  "column": 97,
+                                  "offset": 947
+                                },
+                                "valueEnd": {
+                                  "file": "strconvint.go",
+                                  "line": 38,
+                                  "column": 99,
+                                  "offset": 949
+                                },
+                                "kind": "INT",
+                                "value": "16",
+                                "$type": 9,
+                                "$value": {
+                                  "kind": "int",
+                                  "value": "16"
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "strconvint.go",
+                              "line": 38,
+                              "column": 99,
+                              "offset": 949
+                            },
+                            "$type": 3
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "strconvint.go",
+                                  "line": 38,
+                                  "column": 102,
+                                  "offset": 952
+                                },
+                                "name": "strconv",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "strconv",
+                                  "kind": "package",
+                                  "pkg": "strconv"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "strconvint.go",
+                                  "line": 38,
+                                  "column": 110,
+                                  "offset": 960
+                                },
+                                "name": "FormatInt",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "FormatInt",
+                                  "kind": "func",
+                                  "type": 16,
+                                  "decl": "number.go:208",
+                                  "pkg": "strconv",
+                                  "top": true
+                                }
+                              },
+                              "$type": 16
+                            },
+                            "lparen": {
+                              "file": "strconvint.go",
+                              "line": 38,
+                              "column": 119,
+                              "offset": 969
+                            },
+                            "args": [
+                              {
+                                "node": "UnaryExpr",
+                                "opPos": {
+                                  "file": "strconvint.go",
+                                  "line": 38,
+                                  "column": 120,
+                                  "offset": 970
+                                },
+                                "op": "-",
+                                "x": {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "strconvint.go",
+                                    "line": 38,
+                                    "column": 121,
+                                    "offset": 971
+                                  },
+                                  "valueEnd": {
+                                    "file": "strconvint.go",
+                                    "line": 38,
+                                    "column": 124,
+                                    "offset": 974
+                                  },
+                                  "kind": "INT",
+                                  "value": "255",
+                                  "$type": 23,
+                                  "$value": {
+                                    "kind": "int",
+                                    "value": "255"
+                                  }
+                                },
+                                "$type": 17,
+                                "$value": {
+                                  "kind": "int",
+                                  "value": "-255"
+                                }
+                              },
+                              {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "strconvint.go",
+                                  "line": 38,
+                                  "column": 126,
+                                  "offset": 976
+                                },
+                                "valueEnd": {
+                                  "file": "strconvint.go",
+                                  "line": 38,
+                                  "column": 127,
+                                  "offset": 977
+                                },
+                                "kind": "INT",
+                                "value": "2",
+                                "$type": 9,
+                                "$value": {
+                                  "kind": "int",
+                                  "value": "2"
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "strconvint.go",
+                              "line": 38,
+                              "column": 127,
+                              "offset": 977
+                            },
+                            "$type": 3
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "strconvint.go",
+                          "line": 38,
+                          "column": 128,
+                          "offset": 978
+                        },
+                        "$type": 21
+                      }
+                    },
+                    {
+                      "node": "RangeStmt",
+                      "for": {
+                        "file": "strconvint.go",
+                        "line": 39,
+                        "column": 2,
+                        "offset": 981
+                      },
+                      "key": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "strconvint.go",
+                          "line": 39,
+                          "column": 6,
+                          "offset": 985
+                        },
+                        "name": "_",
+                        "obj": {
+                          "node": "Object",
+                          "name": "_",
+                          "kind": "var"
+                        },
+                        "$obj": {
+                          "name": "_",
+                          "kind": "var",
+                          "def": true,
+                          "type": 9,
+                          "decl": "strconvint.go:985",
+                          "pkg": "main"
+                        }
+                      },
+                      "value": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "strconvint.go",
+                          "line": 39,
+                          "column": 9,
+                          "offset": 988
+                        },
+                        "name": "s",
+                        "obj": {
+                          "node": "Object",
+                          "name": "s",
+                          "kind": "var"
+                        },
+                        "$obj": {
+                          "name": "s",
+                          "kind": "var",
+                          "def": true,
+                          "type": 3,
+                          "decl": "strconvint.go:988",
+                          "pkg": "main"
+                        }
+                      },
+                      "tokPos": {
+                        "file": "strconvint.go",
+                        "line": 39,
+                        "column": 11,
+                        "offset": 990
+                      },
+                      "tok": ":=",
+                      "range": {
+                        "file": "strconvint.go",
+                        "line": 39,
+                        "column": 14,
+                        "offset": 993
+                      },
+                      "x": {
+                        "node": "CompositeLit",
+                        "type": {
+                          "node": "ArrayType",
+                          "lbrack": {
+                            "file": "strconvint.go",
+                            "line": 39,
+                            "column": 20,
+                            "offset": 999
+                          },
+                          "len": null,
+                          "elt": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "strconvint.go",
+                              "line": 39,
+                              "column": 22,
+                              "offset": 1001
+                            },
+                            "name": "string",
+                            "obj": null,
+                            "$type": 3,
+                            "$isType": true,
+                            "$obj": {
+                              "name": "string",
+                              "kind": "type",
+                              "type": 3
+                            }
+                          },
+                          "$type": 19,
+                          "$isType": true
+                        },
+                        "lbrace": {
+                          "file": "strconvint.go",
+                          "line": 39,
+                          "column": 28,
+                          "offset": 1007
+                        },
+                        "elts": [
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "strconvint.go",
+                              "line": 39,
+                              "column": 29,
+                              "offset": 1008
+                            },
+                            "valueEnd": {
+                              "file": "strconvint.go",
+                              "line": 39,
+                              "column": 33,
+                              "offset": 1012
+                            },
+                            "kind": "STRING",
+                            "value": "\"12\"",
+                            "$type": 3,
+                            "$value": {
+                              "kind": "string",
+                              "value": "12"
+                            }
+                          },
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "strconvint.go",
+                              "line": 39,
+                              "column": 35,
+                              "offset": 1014
+                            },
+                            "valueEnd": {
+                              "file": "strconvint.go",
+                              "line": 39,
+                              "column": 57,
+                              "offset": 1036
+                            },
+                            "kind": "STRING",
+                            "value": "\"-9223372036854775808\"",
+                            "$type": 3,
+                            "$value": {
+                              "kind": "string",
+                              "value": "-9223372036854775808"
+                            }
+                          },
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "strconvint.go",
+                              "line": 39,
+                              "column": 59,
+                              "offset": 1038
+                            },
+                            "valueEnd": {
+                              "file": "strconvint.go",
+                              "line": 39,
+                              "column": 80,
+                              "offset": 1059
+                            },
+                            "kind": "STRING",
+                            "value": "\"9223372036854775808\"",
+                            "$type": 3,
+                            "$value": {
+                              "kind": "string",
+                              "value": "9223372036854775808"
+                            }
+                          },
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "strconvint.go",
+                              "line": 39,
+                              "column": 82,
+                              "offset": 1061
+                            },
+                            "valueEnd": {
+                              "file": "strconvint.go",
+                              "line": 39,
+                              "column": 86,
+                              "offset": 1065
+                            },
+                            "kind": "STRING",
+                            "value": "\"+7\"",
+                            "$type": 3,
+                            "$value": {
+                              "kind": "string",
+                              "value": "+7"
+                            }
+                          },
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "strconvint.go",
+                              "line": 39,
+                              "column": 88,
+                              "offset": 1067
+                            },
+                            "valueEnd": {
+                              "file": "strconvint.go",
+                              "line": 39,
+                              "column": 93,
+                              "offset": 1072
+                            },
+                            "kind": "STRING",
+                            "value": "\"1e3\"",
+                            "$type": 3,
+                            "$value": {
+                              "kind": "string",
+                              "value": "1e3"
+                            }
+                          }
+                        ],
+                        "rbrace": {
+                          "file": "strconvint.go",
+                          "line": 39,
+                          "column": 93,
+                          "offset": 1072
+                        },
+                        "incomplete": false,
+                        "$type": 19
+                      },
+                      "body": {
+                        "node": "BlockStmt",
+                        "lbrace": {
+                          "file": "strconvint.go",
+                          "line": 39,
+                          "column": 95,
+                          "offset": 1074
+                        },
+                        "list": [
+                          {
+                            "node": "AssignStmt",
+                            "lhs": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "strconvint.go",
+                                  "line": 40,
+                                  "column": 3,
+                                  "offset": 1078
+                                },
+                                "name": "n",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "n",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "n",
+                                  "kind": "var",
+                                  "def": true,
+                                  "type": 9,
+                                  "decl": "strconvint.go:1078",
+                                  "pkg": "main"
+                                }
+                              },
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "strconvint.go",
+                                  "line": 40,
+                                  "column": 6,
+                                  "offset": 1081
+                                },
+                                "name": "err",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "err",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "err",
+                                  "kind": "var",
+                                  "def": true,
+                                  "type": 4,
+                                  "decl": "strconvint.go:1081",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "tokPos": {
+                              "file": "strconvint.go",
+                              "line": 40,
+                              "column": 10,
+                              "offset": 1085
+                            },
+                            "tok": ":=",
+                            "rhs": [
+                              {
+                                "node": "CallExpr",
+                                "fun": {
+                                  "node": "SelectorExpr",
+                                  "x": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "strconvint.go",
+                                      "line": 40,
+                                      "column": 13,
+                                      "offset": 1088
+                                    },
+                                    "name": "strconv",
+                                    "obj": null,
+                                    "$obj": {
+                                      "name": "strconv",
+                                      "kind": "package",
+                                      "pkg": "strconv"
+                                    }
+                                  },
+                                  "sel": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "strconvint.go",
+                                      "line": 40,
+                                      "column": 21,
+                                      "offset": 1096
+                                    },
+                                    "name": "Atoi",
+                                    "obj": null,
+                                    "$obj": {
+                                      "name": "Atoi",
+                                      "kind": "func",
+                                      "type": 25,
+                                      "decl": "number.go:145",
+                                      "pkg": "strconv",
+                                      "top": true
+                                    }
+                                  },
+                                  "$type": 25
+                                },
+                                "lparen": {
+                                  "file": "strconvint.go",
+                                  "line": 40,
+                                  "column": 25,
+                                  "offset": 1100
+                                },
+                                "args": [
+                                  {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "strconvint.go",
+                                      "line": 40,
+                                      "column": 26,
+                                      "offset": 1101
+                                    },
+                                    "name": "s",
+                                    "obj": {
+                                      "node": "Object",
+                                      "name": "s",
+                                      "kind": "var"
+                                    },
+                                    "$type": 3,
+                                    "$obj": {
+                                      "name": "s",
+                                      "kind": "var",
+                                      "type": 3,
+                                      "decl": "strconvint.go:988",
+                                      "pkg": "main"
+                                    }
+                                  }
+                                ],
+                                "ellipsis": null,
+                                "rparen": {
+                                  "file": "strconvint.go",
+                                  "line": 40,
+                                  "column": 27,
+                                  "offset": 1102
+                                },
+                                "$type": 21
+                              }
+                            ]
+                          },
+                          {
+                            "node": "AssignStmt",
+                            "lhs": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "strconvint.go",
+                                  "line": 41,
+                                  "column": 3,
+                                  "offset": 1106
+                                },
+                                "name": "i",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "i",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "i",
+                                  "kind": "var",
+                                  "def": true,
+                                  "type": 17,
+                                  "decl": "strconvint.go:1106",
+                                  "pkg": "main"
+                                }
+                              },
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "strconvint.go",
+                                  "line": 41,
+                                  "column": 6,
+                                  "offset": 1109
+                                },
+                                "name": "err2",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "err2",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "err2",
+                                  "kind": "var",
+                                  "def": true,
+                                  "type": 4,
+                                  "decl": "strconvint.go:1109",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "tokPos": {
+                              "file": "strconvint.go",
+                              "line": 41,
+                              "column": 11,
+                              "offset": 1114
+                            },
+                            "tok": ":=",
+                            "rhs": [
+                              {
+                                "node": "CallExpr",
+                                "fun": {
+                                  "node": "SelectorExpr",
+                                  "x": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "strconvint.go",
+                                      "line": 41,
+                                      "column": 14,
+                                      "offset": 1117
+                                    },
+                                    "name": "strconv",
+                                    "obj": null,
+                                    "$obj": {
+                                      "name": "strconv",
+                                      "kind": "package",
+                                      "pkg": "strconv"
+                                    }
+                                  },
+                                  "sel": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "strconvint.go",
+                                      "line": 41,
+                                      "column": 22,
+                                      "offset": 1125
+                                    },
+                                    "name": "ParseInt",
+                                    "obj": null,
+                                    "$obj": {
+                                      "name": "ParseInt",
+                                      "kind": "func",
+                                      "type": 26,
+                                      "decl": "number.go:136",
+                                      "pkg": "strconv",
+                                      "top": true
+                                    }
+                                  },
+                                  "$type": 26
+                                },
+                                "lparen": {
+                                  "file": "strconvint.go",
+                                  "line": 41,
+                                  "column": 30,
+                                  "offset": 1133
+                                },
+                                "args": [
+                                  {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "strconvint.go",
+                                      "line": 41,
+                                      "column": 31,
+                                      "offset": 1134
+                                    },
+                                    "name": "s",
+                                    "obj": {
+                                      "node": "Object",
+                                      "name": "s",
+                                      "kind": "var"
+                                    },
+                                    "$type": 3,
+                                    "$obj": {
+                                      "name": "s",
+                                      "kind": "var",
+                                      "type": 3,
+                                      "decl": "strconvint.go:988",
+                                      "pkg": "main"
+                                    }
+                                  },
+                                  {
+                                    "node": "BasicLit",
+                                    "valuePos": {
+                                      "file": "strconvint.go",
+                                      "line": 41,
+                                      "column": 34,
+                                      "offset": 1137
+                                    },
+                                    "valueEnd": {
+                                      "file": "strconvint.go",
+                                      "line": 41,
+                                      "column": 36,
+                                      "offset": 1139
+                                    },
+                                    "kind": "INT",
+                                    "value": "10",
+                                    "$type": 9,
+                                    "$value": {
+                                      "kind": "int",
+                                      "value": "10"
+                                    }
+                                  },
+                                  {
+                                    "node": "BasicLit",
+                                    "valuePos": {
+                                      "file": "strconvint.go",
+                                      "line": 41,
+                                      "column": 38,
+                                      "offset": 1141
+                                    },
+                                    "valueEnd": {
+                                      "file": "strconvint.go",
+                                      "line": 41,
+                                      "column": 39,
+                                      "offset": 1142
+                                    },
+                                    "kind": "INT",
+                                    "value": "8",
+                                    "$type": 9,
+                                    "$value": {
+                                      "kind": "int",
+                                      "value": "8"
+                                    }
+                                  }
+                                ],
+                                "ellipsis": null,
+                                "rparen": {
+                                  "file": "strconvint.go",
+                                  "line": 41,
+                                  "column": 39,
+                                  "offset": 1142
+                                },
+                                "$type": 27
+                              }
+                            ]
+                          },
+                          {
+                            "node": "ExprStmt",
+                            "x": {
+                              "node": "CallExpr",
+                              "fun": {
+                                "node": "SelectorExpr",
+                                "x": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "strconvint.go",
+                                    "line": 42,
+                                    "column": 3,
+                                    "offset": 1146
+                                  },
+                                  "name": "fmt",
+                                  "obj": null,
+                                  "$obj": {
+                                    "name": "fmt",
+                                    "kind": "package",
+                                    "pkg": "fmt"
+                                  }
+                                },
+                                "sel": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "strconvint.go",
+                                    "line": 42,
+                                    "column": 7,
+                                    "offset": 1150
+                                  },
+                                  "name": "Println",
+                                  "obj": null,
+                                  "$obj": {
+                                    "name": "Println",
+                                    "kind": "func",
+                                    "type": 20,
+                                    "decl": "print.go:313",
+                                    "pkg": "fmt",
+                                    "top": true
+                                  }
+                                },
+                                "$type": 20
+                              },
+                              "lparen": {
+                                "file": "strconvint.go",
+                                "line": 42,
+                                "column": 14,
+                                "offset": 1157
+                              },
+                              "args": [
+                                {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "strconvint.go",
+                                    "line": 42,
+                                    "column": 15,
+                                    "offset": 1158
+                                  },
+                                  "name": "n",
+                                  "obj": {
+                                    "node": "Object",
+                                    "name": "n",
+                                    "kind": "var"
+                                  },
+                                  "$type": 9,
+                                  "$obj": {
+                                    "name": "n",
+                                    "kind": "var",
+                                    "type": 9,
+                                    "decl": "strconvint.go:1078",
+                                    "pkg": "main"
+                                  }
+                                },
+                                {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "strconvint.go",
+                                    "line": 42,
+                                    "column": 18,
+                                    "offset": 1161
+                                  },
+                                  "name": "err",
+                                  "obj": {
+                                    "node": "Object",
+                                    "name": "err",
+                                    "kind": "var"
+                                  },
+                                  "$type": 4,
+                                  "$obj": {
+                                    "name": "err",
+                                    "kind": "var",
+                                    "type": 4,
+                                    "decl": "strconvint.go:1081",
+                                    "pkg": "main"
+                                  }
+                                },
+                                {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "strconvint.go",
+                                    "line": 42,
+                                    "column": 23,
+                                    "offset": 1166
+                                  },
+                                  "name": "i",
+                                  "obj": {
+                                    "node": "Object",
+                                    "name": "i",
+                                    "kind": "var"
+                                  },
+                                  "$type": 17,
+                                  "$obj": {
+                                    "name": "i",
+                                    "kind": "var",
+                                    "type": 17,
+                                    "decl": "strconvint.go:1106",
+                                    "pkg": "main"
+                                  }
+                                },
+                                {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "strconvint.go",
+                                    "line": 42,
+                                    "column": 26,
+                                    "offset": 1169
+                                  },
+                                  "name": "err2",
+                                  "obj": {
+                                    "node": "Object",
+                                    "name": "err2",
+                                    "kind": "var"
+                                  },
+                                  "$type": 4,
+                                  "$obj": {
+                                    "name": "err2",
+                                    "kind": "var",
+                                    "type": 4,
+                                    "decl": "strconvint.go:1109",
+                                    "pkg": "main"
+                                  }
+                                }
+                              ],
+                              "ellipsis": null,
+                              "rparen": {
+                                "file": "strconvint.go",
+                                "line": 42,
+                                "column": 30,
+                                "offset": 1173
+                              },
+                              "$type": 21
+                            }
+                          }
+                        ],
+                        "rbrace": {
+                          "file": "strconvint.go",
+                          "line": 43,
+                          "column": 2,
+                          "offset": 1176
+                        }
+                      }
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "strconvint.go",
+                    "line": 44,
+                    "column": 1,
+                    "offset": 1178
+                  }
+                }
+              }
+            ],
+            "fileStart": {
+              "file": "strconvint.go",
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "fileEnd": {
+              "file": "strconvint.go",
+              "line": 44,
+              "column": 3,
+              "offset": 1180
+            },
+            "scope": null,
+            "imports": [
+              {
+                "node": "ImportSpec",
+                "doc": null,
+                "name": null,
+                "path": {
+                  "node": "BasicLit",
+                  "valuePos": {
+                    "file": "strconvint.go",
+                    "line": 6,
+                    "column": 2,
+                    "offset": 202
+                  },
+                  "valueEnd": {
+                    "file": "strconvint.go",
+                    "line": 6,
+                    "column": 7,
+                    "offset": 207
+                  },
+                  "kind": "STRING",
+                  "value": "\"fmt\""
+                },
+                "comment": null,
+                "endPos": null
+              },
+              {
+                "node": "ImportSpec",
+                "doc": null,
+                "name": null,
+                "path": {
+                  "node": "BasicLit",
+                  "valuePos": {
+                    "file": "strconvint.go",
+                    "line": 7,
+                    "column": 2,
+                    "offset": 209
+                  },
+                  "valueEnd": {
+                    "file": "strconvint.go",
+                    "line": 7,
+                    "column": 11,
+                    "offset": 218
+                  },
+                  "kind": "STRING",
+                  "value": "\"strconv\""
+                },
+                "comment": null,
+                "endPos": null
+              }
+            ],
+            "unresolved": [
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "strconvint.go",
+                  "line": 10,
+                  "column": 11,
+                  "offset": 232
+                },
+                "name": "uint64",
+                "obj": null,
+                "$type": 1,
+                "$isType": true,
+                "$obj": {
+                  "name": "uint64",
+                  "kind": "type",
+                  "type": 1
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "strconvint.go",
+                  "line": 12,
+                  "column": 25,
+                  "offset": 264
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 3,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 3
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "strconvint.go",
+                  "line": 12,
+                  "column": 33,
+                  "offset": 272
+                },
+                "name": "error",
+                "obj": null,
+                "$type": 4,
+                "$isType": true,
+                "$obj": {
+                  "name": "error",
+                  "kind": "type",
+                  "type": 4
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "strconvint.go",
+                  "line": 13,
+                  "column": 15,
+                  "offset": 294
+                },
+                "name": "strconv",
+                "obj": null,
+                "$obj": {
+                  "name": "strconv",
+                  "kind": "package",
+                  "pkg": "strconv"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "strconvint.go",
+                  "line": 13,
+                  "column": 54,
+                  "offset": 333
+                },
+                "name": "nil",
+                "obj": null,
+                "$type": 11,
+                "$obj": {
+                  "name": "nil",
+                  "kind": "nil",
+                  "type": 11
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "strconvint.go",
+                  "line": 17,
+                  "column": 11,
+                  "offset": 424
+                },
+                "name": "nil",
+                "obj": null,
+                "$type": 11,
+                "$obj": {
+                  "name": "nil",
+                  "kind": "nil",
+                  "type": 11
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "strconvint.go",
+                  "line": 19,
+                  "column": 10,
+                  "offset": 441
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "strconvint.go",
+                  "line": 25,
+                  "column": 24,
+                  "offset": 541
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 3,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 3
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "strconvint.go",
+                  "line": 29,
+                  "column": 19,
+                  "offset": 602
+                },
+                "name": "strconv",
+                "obj": null,
+                "$obj": {
+                  "name": "strconv",
+                  "kind": "package",
+                  "pkg": "strconv"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "strconvint.go",
+                  "line": 29,
+                  "column": 37,
+                  "offset": 620
+                },
+                "name": "int64",
+                "obj": null,
+                "$type": 17,
+                "$isType": true,
+                "$obj": {
+                  "name": "int64",
+                  "kind": "type",
+                  "type": 17
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "strconvint.go",
+                  "line": 33,
+                  "column": 22,
+                  "offset": 678
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 3,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 3
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "strconvint.go",
+                  "line": 36,
+                  "column": 3,
+                  "offset": 825
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "strconvint.go",
+                  "line": 38,
+                  "column": 2,
+                  "offset": 852
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "strconvint.go",
+                  "line": 38,
+                  "column": 35,
+                  "offset": 885
+                },
+                "name": "strconv",
+                "obj": null,
+                "$obj": {
+                  "name": "strconv",
+                  "kind": "package",
+                  "pkg": "strconv"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "strconvint.go",
+                  "line": 38,
+                  "column": 54,
+                  "offset": 904
+                },
+                "name": "strconv",
+                "obj": null,
+                "$obj": {
+                  "name": "strconv",
+                  "kind": "package",
+                  "pkg": "strconv"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "strconvint.go",
+                  "line": 38,
+                  "column": 71,
+                  "offset": 921
+                },
+                "name": "strconv",
+                "obj": null,
+                "$obj": {
+                  "name": "strconv",
+                  "kind": "package",
+                  "pkg": "strconv"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "strconvint.go",
+                  "line": 38,
+                  "column": 102,
+                  "offset": 952
+                },
+                "name": "strconv",
+                "obj": null,
+                "$obj": {
+                  "name": "strconv",
+                  "kind": "package",
+                  "pkg": "strconv"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "strconvint.go",
+                  "line": 39,
+                  "column": 22,
+                  "offset": 1001
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 3,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 3
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "strconvint.go",
+                  "line": 40,
+                  "column": 13,
+                  "offset": 1088
+                },
+                "name": "strconv",
+                "obj": null,
+                "$obj": {
+                  "name": "strconv",
+                  "kind": "package",
+                  "pkg": "strconv"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "strconvint.go",
+                  "line": 41,
+                  "column": 14,
+                  "offset": 1117
+                },
+                "name": "strconv",
+                "obj": null,
+                "$obj": {
+                  "name": "strconv",
+                  "kind": "package",
+                  "pkg": "strconv"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "strconvint.go",
+                  "line": 42,
+                  "column": 3,
+                  "offset": 1146
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              }
+            ],
+            "comments": [
+              {
+                "node": "CommentGroup",
+                "list": [
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "strconvint.go",
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "text": "// Repros de strconv (inteiros) no grafo do kubo: github.com/multiformats/go-multicodec"
+                  },
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "strconvint.go",
+                      "line": 2,
+                      "column": 1,
+                      "offset": 88
+                    },
+                    "text": "// (ParseUint base 0, FormatInt), go-multiaddr/x/meg e hanwen/go-fuse/v2/internal (Itoa)."
+                  }
+                ]
+              }
+            ],
+            "goVersion": ""
+          }
+        }
+      ],
+      "imports": [
+        {
+          "path": "fmt",
+          "name": "fmt"
+        },
+        {
+          "path": "strconv",
+          "name": "strconv"
+        }
+      ],
+      "typeTable": [
+        {
+          "kind": "named",
+          "pkg": "main",
+          "name": "Code",
+          "underlying": 1,
+          "methods": [
+            {
+              "name": "Set",
+              "type": 2,
+              "index": [
+                0
+              ],
+              "ptr": true
+            },
+            {
+              "name": "String",
+              "type": 6,
+              "index": [
+                1
+              ],
+              "ptr": false
+            }
+          ]
+        },
+        {
+          "kind": "basic",
+          "name": "uint64"
+        },
+        {
+          "kind": "func",
+          "params": [
+            3
+          ],
+          "results": [
+            4
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "basic",
+          "name": "string"
+        },
+        {
+          "kind": "named",
+          "pkg": "",
+          "name": "error",
+          "underlying": 5
+        },
+        {
+          "kind": "interface",
+          "methods": [
+            {
+              "name": "Error",
+              "type": 6
+            }
+          ],
+          "embeddeds": []
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            3
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "pointer",
+          "elem": 0
+        },
+        {
+          "kind": "func",
+          "params": [
+            3,
+            9,
+            9
+          ],
+          "results": [
+            1,
+            4
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "basic",
+          "name": "int"
+        },
+        {
+          "kind": "tuple",
+          "elems": [
+            1,
+            4
+          ]
+        },
+        {
+          "kind": "basic",
+          "name": "untyped nil"
+        },
+        {
+          "kind": "basic",
+          "name": "untyped bool"
+        },
+        {
+          "kind": "func",
+          "params": [
+            3,
+            14
+          ],
+          "results": [
+            4
+          ],
+          "variadic": true
+        },
+        {
+          "kind": "slice",
+          "elem": 15
+        },
+        {
+          "kind": "interface",
+          "methods": [],
+          "embeddeds": []
+        },
+        {
+          "kind": "func",
+          "params": [
+            17,
+            9
+          ],
+          "results": [
+            3
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "basic",
+          "name": "int64"
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [],
+          "variadic": false
+        },
+        {
+          "kind": "slice",
+          "elem": 3
+        },
+        {
+          "kind": "func",
+          "params": [
+            14
+          ],
+          "results": [
+            9,
+            4
+          ],
+          "variadic": true
+        },
+        {
+          "kind": "tuple",
+          "elems": [
+            9,
+            4
+          ]
+        },
+        {
+          "kind": "func",
+          "params": [
+            9
+          ],
+          "results": [
+            3
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "basic",
+          "name": "untyped int"
+        },
+        {
+          "kind": "func",
+          "params": [
+            1,
+            9
+          ],
+          "results": [
+            3
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            3
+          ],
+          "results": [
+            9,
+            4
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            3,
+            9,
+            9
+          ],
+          "results": [
+            17,
+            4
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "tuple",
+          "elems": [
+            17,
+            4
+          ]
+        },
+        {
+          "kind": "named",
+          "pkg": "fmt",
+          "name": "Stringer",
+          "underlying": 29
+        },
+        {
+          "kind": "interface",
+          "methods": [
+            {
+              "name": "String",
+              "type": 6
+            }
+          ],
+          "embeddeds": []
+        }
+      ],
+      "implements": [
+        {
+          "type": 0,
+          "interfaces": [
+            28
+          ]
+        }
+      ],
+      "initOrder": [],
+      "stdlibUsage": [
+        "fmt.Errorf",
+        "fmt.Println",
+        "strconv.Atoi",
+        "strconv.FormatInt",
+        "strconv.FormatUint",
+        "strconv.Itoa",
+        "strconv.ParseInt",
+        "strconv.ParseUint"
+      ],
+      "reflectUsage": null
+    }
+  ]
+}

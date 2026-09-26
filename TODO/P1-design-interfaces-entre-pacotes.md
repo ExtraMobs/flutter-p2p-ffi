@@ -59,9 +59,34 @@ hi t
 hi anon
 ```
 
+### Variante silenciosa: `fmt.Stringer`
+
+Tipo com `String() string` num pacote que **não importa `fmt`**: o goast não lista `fmt.Stringer`
+no `implements`, a classe não declara `implements fmt.Stringer` e o `fmt.Println` de outro pacote
+formata os campos em vez de chamar `String()`. Não é Dart inválido: saída errada em silêncio.
+
+```go
+// tok/tok.go (sem import "fmt")
+type Token struct{ Type byte; Str string }
+
+func (t Token) String() string { return "<" + string(t.Type) + ">" }
+
+// cmd/main.go
+fmt.Println(tok.Token{Type: '{'})
+```
+
+```text
+$ go run ./cmd                     →  <{>
+$ dart run (g2d, VM/JS/Wasm)       →  {123 }
+```
+
+(Achado no fixture `tests/golden/dotimport`, cujo `tok` passou a importar `fmt` como o
+`github.com/polydawn/refmt/tok` real.)
+
 ## Critério de pronto
 
 - Repro vira fixture multi-pacote em `tests/golden/`; e2e idêntico em VM × JS × Wasm; `dart analyze --fatal-infos` limpo.
+- Inclui a variante `fmt.Stringer` (e as demais interfaces de shim, como `sort.Interface`).
 - `docs/mapping-spec.md` atualizado.
 
 ## Notas

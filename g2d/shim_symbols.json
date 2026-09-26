@@ -91,6 +91,16 @@
       "stable",
       "strings"
     ],
+    "strconv": [
+      "atoi",
+      "errRange",
+      "errSyntax",
+      "formatInt",
+      "formatUint",
+      "itoa",
+      "parseInt",
+      "parseUint"
+    ],
     "strings": [
       "contains",
       "containsRune",
