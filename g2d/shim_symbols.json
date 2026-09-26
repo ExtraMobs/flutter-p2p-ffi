@@ -144,6 +144,20 @@
       "trimRightFunc",
       "trimSuffix"
     ],
+    "sync": [
+      "Cond",
+      "Locker",
+      "Map$",
+      "Mutex",
+      "Once",
+      "Pool",
+      "RWMutex",
+      "WaitGroup",
+      "newCond",
+      "onceFunc",
+      "onceValue",
+      "onceValues"
+    ],
     "sync/atomic": [
       "Bool",
       "Int32",

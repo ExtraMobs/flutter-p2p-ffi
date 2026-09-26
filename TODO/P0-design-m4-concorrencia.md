@@ -48,3 +48,11 @@ $ python -m g2d audit github.com/ipfs/kubo/cmd/ipfs -C tests/corpus/kubo
 ## Notas
 
 Artefato guarda-chuva: quebrar em artefatos menores ao começar o M4.
+
+## Notas do shim `sync` (já existe, sem goroutines)
+
+`golib_dart/lib/sync.dart` implementa `Mutex`, `RWMutex`, `Once`, `WaitGroup`, `Pool`, `Map`, `Cond` e
+`OnceFunc`/`OnceValue(s)` para uma goroutine só: esperas que só outra goroutine resolveria são o
+deadlock do Go (`go.fatal`). Com goroutines, `Lock`/`Wait`/`Cond.Wait` precisam suspender (async) em vez
+de encerrar, e `WaitGroup.Go` (ausente hoje) passa a existir.
+

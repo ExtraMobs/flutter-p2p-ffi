@@ -27,7 +27,7 @@ GRAPH_URI = "package:out/{path}.dart"
 
 # Interfaces da stdlib que existem nos shims (podem ir em `implements`).
 SHIM_INTERFACES = {("fmt", "Stringer"), ("sort", "Interface"), ("io", "Reader"), ("io", "Writer"),
-                   ("io", "ByteReader"), ("io", "ByteWriter"), ("io", "StringWriter")}
+                   ("io", "ByteReader"), ("io", "ByteWriter"), ("io", "StringWriter"), ("sync", "Locker")}
 
 # Pacotes da stdlib com shim em golib_dart/.
 STDLIB_SHIMS = {
@@ -42,6 +42,7 @@ STDLIB_SHIMS = {
     "sort": "package:golib_dart/sort.dart",
     "strconv": "package:golib_dart/strconv.dart",
     "strings": "package:golib_dart/strings.dart",
+    "sync": "package:golib_dart/sync.dart",
     "sync/atomic": "package:golib_dart/sync/atomic.dart",
 }
 
