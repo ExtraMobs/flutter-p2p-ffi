@@ -6,8 +6,8 @@
 ## Problema
 
 O shim `strconv` existe com parte dos símbolos (`atoi`, `errRange`, `errSyntax`, `formatInt`, `formatUint`, `itoa`, `parseInt`, `parseUint`); os que faltam viram
-`Unsupported` `shim-simbolo:strconv.<nome>`. Somando as linhas abaixo: 35 ocorrências de pacote,
-10 na fronteira (190 pacotes do grafo usam `strconv`).
+`Unsupported` `shim-simbolo:strconv.<nome>`. Somando as linhas abaixo: 52 ocorrências de pacote,
+13 na fronteira (190 pacotes do grafo usam `strconv`).
 
 ## Prova
 
@@ -16,15 +16,16 @@ $ python -m g2d audit github.com/ipfs/kubo/cmd/ipfs -C tests/corpus/kubo
 
 docs/audit.md (ranking):
 | código | ocorrências | pacotes | na fronteira | exemplo |
-| `shim-simbolo:strconv.parseFloat` | 14 | 11 | 6 | `github.com/munnerz/goautoneg` autoneg.go:93:6: símbolo sem shim: strconv.parseFloat |
-| `shim-simbolo:strconv.formatFloat` | 10 | 6 | 2 | `go.opentelemetry.io/otel/attribute` value.go:745:6: símbolo sem shim: strconv.formatFloat |
-| `shim-simbolo:strconv.appendInt` | 8 | 6 | 1 | `github.com/hashicorp/go-version` version.go:70:1: símbolo sem shim: strconv.appendInt |
-| `shim-simbolo:strconv.quote` | 4 | 4 | 1 | `go.opencensus.io/resource` resource.go:43:6: símbolo sem shim: strconv.quote |
-| `shim-simbolo:strconv.appendFloat` | 3 | 2 | 0 | `github.com/prometheus/common/expfmt` openmetrics_create.go:655:6: símbolo sem shim: strconv.appendFloat |
-| `shim-simbolo:strconv.appendUint` | 3 | 2 | 0 | `github.com/pion/sdp/v3` session_description.go:186:1: símbolo sem shim: strconv.appendUint |
+| `shim-simbolo:strconv.parseFloat` | 15 | 12 | 6 | `github.com/munnerz/goautoneg` autoneg.go:93:6: símbolo sem shim: strconv.parseFloat |
+| `shim-simbolo:strconv.appendInt` | 16 | 12 | 3 | `go.uber.org/zap/buffer` buffer.go:35:1: símbolo sem shim: strconv.appendInt |
+| `shim-simbolo:strconv.formatFloat` | 11 | 6 | 2 | `go.opentelemetry.io/otel/attribute` value.go:745:6: símbolo sem shim: strconv.formatFloat |
+| `shim-simbolo:strconv.quote` | 7 | 5 | 1 | `go.opencensus.io/resource` resource.go:43:6: símbolo sem shim: strconv.quote |
+| `shim-simbolo:strconv.appendUint` | 6 | 3 | 1 | `github.com/whyrusleeping/chunker` polynomials.go:12:1: símbolo sem shim: strconv.appendUint |
+| `shim-simbolo:strconv.appendFloat` | 6 | 5 | 0 | `go.opentelemetry.io/otel/attribute` value.go:800:6: símbolo sem shim: strconv.appendFloat |
+| `shim-simbolo:strconv.formatBool` | 3 | 3 | 0 | `go.opentelemetry.io/otel/attribute` value.go:29:1: símbolo sem shim: strconv.formatBool |
 | `shim-simbolo:strconv.isPrint` | 2 | 2 | 0 | `github.com/go-logr/logr/funcr` funcr.go:702:6: símbolo sem shim: strconv.isPrint |
+| `shim-simbolo:strconv.quoteToASCII` | 2 | 2 | 0 | `github.com/miekg/dns` scan.go:69:1: símbolo sem shim: strconv.quoteToASCII |
 | `shim-simbolo:strconv.parseBool` | 2 | 1 | 0 | `github.com/grpc-ecosystem/grpc-gateway/v2/runtime` convert.go:28:6: símbolo sem shim: strconv.parseBool |
-| `shim-simbolo:strconv.quoteToASCII` | 1 | 1 | 0 | `github.com/pion/sdp/v3` base_lexer.go:16:1: símbolo sem shim: strconv.quoteToASCII |
 ```
 
 ```text

@@ -187,6 +187,9 @@
       "swapInt64",
       "swapUint32",
       "swapUint64"
+    ],
+    "time": [
+      "Duration"
     ]
   }
 }

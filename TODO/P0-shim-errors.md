@@ -6,8 +6,8 @@
 ## Problema
 
 O shim `errors` existe com parte dos símbolos (`new$`); os que faltam viram
-`Unsupported` `shim-simbolo:errors.<nome>`. Somando as linhas abaixo: 49 ocorrências de pacote,
-8 na fronteira (425 pacotes do grafo usam `errors`).
+`Unsupported` `shim-simbolo:errors.<nome>`. Somando as linhas abaixo: 59 ocorrências de pacote,
+9 na fronteira (425 pacotes do grafo usam `errors`).
 
 ## Prova
 
@@ -16,11 +16,11 @@ $ python -m g2d audit github.com/ipfs/kubo/cmd/ipfs -C tests/corpus/kubo
 
 docs/audit.md (ranking):
 | código | ocorrências | pacotes | na fronteira | exemplo |
-| `shim-simbolo:errors.as` | 21 | 17 | 3 | `github.com/jbenet/go-temp-err-catcher` temp_err_catcher.go:26:6: símbolo sem shim: errors.as |
-| `shim-simbolo:errors.is$` | 22 | 15 | 3 | `github.com/pkg/errors` go113.go:16:6: símbolo sem shim: errors.is$ |
+| `shim-simbolo:errors.is$` | 31 | 20 | 4 | `github.com/pkg/errors` go113.go:16:6: símbolo sem shim: errors.is$ |
+| `shim-simbolo:errors.as` | 23 | 19 | 3 | `github.com/jbenet/go-temp-err-catcher` temp_err_catcher.go:26:6: símbolo sem shim: errors.as |
 | `shim-simbolo:errors.unwrap` | 4 | 3 | 2 | `github.com/pkg/errors` go113.go:36:6: símbolo sem shim: errors.unwrap |
-| `shim-simbolo:errors.join` | 16 | 11 | 0 | `go.opentelemetry.io/otel/baggage` baggage.go:436:6: símbolo sem shim: errors.join |
-| `shim-simbolo:errors.asType` | 4 | 3 | 0 | `github.com/quic-go/quic-go` sys_conn_helper_linux.go:98:6: símbolo sem shim: errors.asType |
+| `shim-simbolo:errors.join` | 18 | 13 | 0 | `github.com/pion/interceptor/pkg/flexfec` encoder_interceptor.go:22:1: símbolo sem shim: errors.join |
+| `shim-simbolo:errors.asType` | 5 | 4 | 0 | `github.com/quic-go/quic-go/internal/handshake` crypto_setup.go:688:6: símbolo sem shim: errors.asType |
 ```
 
 ```text

@@ -6,8 +6,8 @@
 ## Problema
 
 O shim `encoding/binary` existe com parte dos símbolos (`ByteOrder`, `bigEndian`, `littleEndian`); os que faltam viram
-`Unsupported` `shim-simbolo:encoding/binary.<nome>`. Somando as linhas abaixo: 27 ocorrências de pacote,
-8 na fronteira (142 pacotes do grafo usam `encoding/binary`).
+`Unsupported` `shim-simbolo:encoding/binary.<nome>`. Somando as linhas abaixo: 41 ocorrências de pacote,
+9 na fronteira (142 pacotes do grafo usam `encoding/binary`).
 
 ## Prova
 
@@ -16,11 +16,15 @@ $ python -m g2d audit github.com/ipfs/kubo/cmd/ipfs -C tests/corpus/kubo
 
 docs/audit.md (ranking):
 | código | ocorrências | pacotes | na fronteira | exemplo |
-| `shim-simbolo:encoding/binary.putUvarint` | 26 | 13 | 5 | `github.com/golang/snappy` encode.go:20:6: símbolo sem shim: encoding/binary.putUvarint |
-| `shim-simbolo:encoding/binary.uvarint` | 13 | 10 | 3 | `github.com/golang/snappy` decode.go:32:6: símbolo sem shim: encoding/binary.uvarint |
-| `shim-simbolo:encoding/binary._bigEndian` | 2 | 2 | 0 | `github.com/libp2p/go-msgio` num.go:9:1: símbolo sem shim: encoding/binary._bigEndian |
+| `shim-simbolo:encoding/binary.putUvarint` | 31 | 16 | 5 | `github.com/golang/snappy` encode.go:20:6: símbolo sem shim: encoding/binary.putUvarint |
+| `shim-simbolo:encoding/binary.uvarint` | 14 | 11 | 3 | `github.com/golang/snappy` decode.go:32:6: símbolo sem shim: encoding/binary.uvarint |
+| `shim-simbolo:encoding/binary.putVarint` | 2 | 2 | 1 | `github.com/klauspost/compress/s2` index.go:25:1: símbolo sem shim: encoding/binary.putVarint |
+| `shim-simbolo:encoding/binary.write` | 5 | 3 | 0 | `github.com/libp2p/go-msgio` num.go:12:6: símbolo sem shim: encoding/binary.write |
+| `shim-simbolo:encoding/binary.appendUvarint` | 4 | 3 | 0 | `github.com/libp2p/go-libp2p/core/record` envelope.go:268:6: símbolo sem shim: encoding/binary.appendUvarint |
+| `shim-simbolo:encoding/binary._bigEndian$` | 2 | 2 | 0 | `github.com/libp2p/go-msgio` num.go:9:1: símbolo sem shim: encoding/binary._bigEndian$ |
+| `shim-simbolo:encoding/binary.readUvarint` | 2 | 2 | 0 | `github.com/cockroachdb/pebble/v2/objstorage/objstorageprovider/remoteobjcat` version_edit.go:217:6: símbolo sem shim: encoding/binary.readUvarint |
 | `shim-simbolo:encoding/binary.nativeEndian` | 4 | 1 | 0 | `golang.org/x/net/ipv6` control_rfc3542_unix.go:20:6: símbolo sem shim: encoding/binary.nativeEndian |
-| `shim-simbolo:encoding/binary.appendUvarint` | 1 | 1 | 0 | `github.com/libp2p/go-libp2p/core/record` envelope.go:268:6: símbolo sem shim: encoding/binary.appendUvarint |
+| `shim-simbolo:encoding/binary.read` | 1 | 1 | 0 | `github.com/klauspost/compress/zstd` fse_decoder.go:34:1: símbolo sem shim: encoding/binary.read |
 ```
 
 ```text

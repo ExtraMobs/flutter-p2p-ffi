@@ -44,6 +44,7 @@ STDLIB_SHIMS = {
     "strings": "package:golib_dart/strings.dart",
     "sync": "package:golib_dart/sync.dart",
     "sync/atomic": "package:golib_dart/sync/atomic.dart",
+    "time": "package:golib_dart/time.dart",
 }
 
 
