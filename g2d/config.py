@@ -27,7 +27,15 @@ GRAPH_URI = "package:out/{path}.dart"
 
 # Interfaces da stdlib que existem nos shims (podem ir em `implements`).
 SHIM_INTERFACES = {("fmt", "Stringer"), ("fmt", "Formatter"), ("fmt", "State"), ("sort", "Interface"), ("io", "Reader"), ("io", "Writer"),
-                   ("io", "ByteReader"), ("io", "ByteWriter"), ("io", "StringWriter"), ("sync", "Locker")}
+                   ("io", "ByteReader"), ("io", "ByteWriter"), ("io", "StringWriter"), ("io", "Closer"),
+                   ("io", "Seeker"), ("io", "ReaderAt"), ("io", "WriterAt"), ("io", "ReadCloser"), ("io", "WriteCloser"),
+                   ("io", "ReadWriter"), ("io", "ReadWriteCloser"), ("io", "ReadSeeker"), ("io", "WriteSeeker"),
+                   ("io", "ReadWriteSeeker"), ("sync", "Locker")}
+
+# Tipos não exportados da stdlib que o código do grafo recebe por inferência
+# (`var NBO = binary.BigEndian`): a classe pública do shim que os representa.
+SHIM_TYPES = {("encoding/binary", "bigEndian"): "BigEndian", ("encoding/binary", "littleEndian"): "LittleEndian",
+              ("encoding/binary", "nativeEndian"): "NativeEndian"}
 
 # Pacotes da stdlib com shim em golib_dart/.
 STDLIB_SHIMS = {

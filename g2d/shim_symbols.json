@@ -24,9 +24,23 @@
       "xorBytes"
     ],
     "encoding/binary": [
+      "BigEndian",
       "ByteOrder",
+      "LittleEndian",
+      "NativeEndian",
+      "appendUvarint",
+      "appendVarint",
       "bigEndian",
-      "littleEndian"
+      "littleEndian",
+      "nativeEndian",
+      "putUvarint",
+      "putVarint",
+      "read",
+      "readUvarint",
+      "readVarint",
+      "uvarint",
+      "varint",
+      "write"
     ],
     "errors": [
       "as",
@@ -56,15 +70,31 @@
     "io": [
       "ByteReader",
       "ByteWriter",
+      "Closer",
+      "ReadCloser",
+      "ReadSeeker",
+      "ReadWriteCloser",
+      "ReadWriteSeeker",
+      "ReadWriter",
       "Reader",
+      "ReaderAt",
+      "Seeker",
       "StringWriter",
+      "WriteCloser",
+      "WriteSeeker",
       "Writer",
+      "WriterAt",
+      "discard",
       "eof",
       "errClosedPipe",
       "errNoProgress",
       "errShortBuffer",
       "errShortWrite",
-      "errUnexpectedEOF"
+      "errUnexpectedEOF",
+      "readAll",
+      "readAtLeast",
+      "readFull",
+      "writeString"
     ],
     "math": [
       "abs",

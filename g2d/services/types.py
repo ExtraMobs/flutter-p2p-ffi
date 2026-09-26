@@ -1,6 +1,6 @@
 """Mapeamento de tipos Go → tipos Dart (e zero values)."""
 
-from g2d.config import GOLANG
+from g2d.config import GOLANG, SHIM_TYPES
 from g2d.engine.behavior import Service
 from g2d.model import Unsupported
 from g2d.services.dart_type import DartType
@@ -30,7 +30,8 @@ class TypeMapper(Service):
             if t["pkg"] == "" and t["name"] == "error":
                 return DartType(self.imports.qualify(None, "GoError"), nullable=True)
             go_name = self.facts.local_types.get(id(t), t["name"])
-            name = self.imports.qualify(t["pkg"], type_name(go_name))
+            shim = SHIM_TYPES.get((t["pkg"], t["name"]))
+            name = self.imports.qualify(t["pkg"], shim or type_name(go_name))
             args = tuple(self.dart(a) for a in self.typesys.type_args(t))
             return DartType(name, args, nullable=self.nilable(t))
         if k == "pointer":

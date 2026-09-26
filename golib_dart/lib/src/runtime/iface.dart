@@ -15,6 +15,8 @@ String goTypeName(Object? v) => switch (v) {
   GoValue s when !s.$isValue => '*${s.$goType}',
   GoTyped t => t.$goType,
   bool() => 'bool',
+  // Ponteiro para não-struct: o tipo do alvo (o nil tipado não o tem).
+  Ptr p when p is! NilPtr => '*${goTypeName(p.value)}',
   _ => v.runtimeType.toString(),
 };
 
