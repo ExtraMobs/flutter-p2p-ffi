@@ -20,8 +20,8 @@ class Assertions(Service):
             return "value", self.types.dart(t), t
         if self.typesys.is_struct_pointer(t):
             return "pointer", self.types.dart(t), t  # T? (o zero do comma-ok é null)
-        if t["kind"] == "pointer":
-            return "plain", self.types.dart(t), t  # go.Ptr<E>? (nil tipado → null)
+        if t["kind"] == "pointer" or u["kind"] == "func" and t["kind"] != "named":
+            return "plain", self.types.dart(t), t  # go.Ptr<E>?, F? (o zero do comma-ok é null)
         return "plain", self.types.dart(t).non_null(), t
 
     def comma_ok_assert(self, n):

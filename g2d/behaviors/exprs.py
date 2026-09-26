@@ -56,6 +56,8 @@ class BinaryExpr(ExprBehavior):
     def emit(self, n):
         op = n["op"]
         b = self.typesys.basic(self.pkg.type_of(n["x"]))
+        if op not in ("==", "!=", "&&", "||") and self.functions.loose(self.pkg.type_of(n["x"])):
+            raise Unsupported("constraint:operador", f"operador {op} sobre parâmetro de tipo sem bound comum", n)
         if op in ("<<", ">>"):
             p = DART_PREC[op]
             return f"{self.expr(n['x'], p)} {op} {self.operands.shift_count(n['y'])}", p
@@ -136,6 +138,8 @@ class UnaryExpr(ExprBehavior):
         dart_op = {"-": "-", "+": "", "!": "!", "^": "~"}.get(op)
         if dart_op is None:
             raise Unsupported(f"operador-unario:{op}", f"operador unário {op}", n)
+        if self.functions.loose(self.pkg.type_of(n["x"])):
+            raise Unsupported("constraint:operador", f"operador {op} sobre parâmetro de tipo sem bound comum", n)
         t = self.pkg.type_of(n)
         if op == "!" and self.typesys.named_bool(t):
             return f"{self.types.dart(t)}(!{self.operands.cond(n['x'], UNARY)})", POSTFIX
@@ -214,7 +218,8 @@ class SelectorExpr(ExprBehavior):
             if not self.typesys.type_args(elem):
                 return f"({recv} ?? {self.types.dart(elem)}.$nil).{member_name(sel)}", POSTFIX
         # Ponteiro ou interface nil → panic do Go (via `!`).
-        if recv != "this" and (t["kind"] == "pointer" or self.typesys.underlying(t)["kind"] == "interface"):
+        if recv != "this" and (t["kind"] == "pointer" or self.typesys.underlying(t)["kind"] == "interface"
+                               or self.functions.pointer_tparam(t)):
             recv += "!"
         # Seleção promovida por embedding: caminho de campos do go/types.
         for fi in info["index"][:-1]:

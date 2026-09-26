@@ -37,7 +37,7 @@ class ValueSemantics(Service):
             # ponteiro entra como o próprio objeto (métodos chamáveis).
             text, prec = f"{self.expr(n, POSTFIX)}.$ifaceCopy()", POSTFIX
         elif self.typesys.is_value(src) and not self.fresh(n):
-            text, prec = f"{self.expr(n, POSTFIX)}.$copy()", POSTFIX
+            text, prec = self.copy_text(self.expr(n, POSTFIX), src), POSTFIX
         elif to_iface and src is not None and src["kind"] == "pointer":
             # `(*T)(nil)` numa interface não é nil: sentinela do tipo.
             elem = self.pkg.type_at(src["elem"])
@@ -81,8 +81,14 @@ class ValueSemantics(Service):
         return text, prec
 
     def copy_text(self, text, t):
-        """Cópia de um valor já emitido (ex. elemento em range)."""
-        return f"{text}.$copy()" if self.typesys.is_value(t) else text
+        """Cópia de um valor já emitido (ex. elemento em range). Parâmetro de
+        tipo com core de array (`[3]int | [4]int`) copia pelo dicionário
+        (`$copy()` devolveria o GoArray, não o T)."""
+        if not self.typesys.is_value(t):
+            return text
+        if t["kind"] == "typeparam":
+            return f"{self.descriptors.elem(t)}.copyOf({text})"
+        return f"{text}.$copy()"
 
     def assign(self, lhs, rhs):
         """`lhs = rhs` com semântica Go: struct existente é sobrescrita

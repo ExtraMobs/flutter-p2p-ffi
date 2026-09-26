@@ -42,7 +42,7 @@ Legenda: ✅ fiel · ⚠️ fiel no caso comum, com limite conhecido · ❌ não
 | saída padrão em bytes | `writeStdout` (import condicional io/web) | M2 | ✅ |
 | identidade de tipo em runtime (`int` × `int64` × nomeado) | uma classe Dart por tipo Go (`Golang.Int` ≠ `Golang.Int64`) + `GoTyped` (`$goType`, `$methods`) | M3 | ✅ |
 | tipos nomeados sobre básicos | classe gerada sobre `Golang.<Largura>Base/FloatBase/StringBase<S>` | M3 | ✅ |
-| interfaces, type assertion, type switch | `abstract mixin class` + `implements` (go/types) + `go.assertType/assertIface/tryType/isType` | M3 | ✅ |
+| interfaces, type assertion, type switch | `abstract mixin class` + `implements` (go/types) + `go.assertType/assertIface/tryType/isType`; `x.(func(...))` comma-ok com o tipo anulável (o zero é nil). ⚠️ tipo func sem nome é testado por subtipo do Dart (`func() error` casa com `case func():`, `func(any)` com `case func(int):`; `TODO/P2-runtime-type-switch-func.md`) | M3 | ✅ |
 | embedding (promoção) | caminho `$sel.index` + `mixin E$Promote` (forwarders) | M3 | ✅ |
 | genéricos | parâmetros de tipo Dart + dicionário `go.Elem<T>` (`$T`) + bounds `IntBase/GoReal/GoOrdered/StringBase` | M3 | ✅ |
 | arrays `[N]T` (valor) | `go.GoArray<T>` (base `go.GoValue`, como `GoStruct`) | M3 | ✅ |
@@ -428,8 +428,15 @@ métodos da classe. As conversões usam os construtores:
   por `$S.rewrapOf(v)`, que reembrulha no slice nomeado (descritores de
   composto nomeado geram `rewrap`). Constante num contexto de T vira
   `$T.ofInt!(...)`/`$T.ofFloat!(...)`. Fixture `constraintcore`. Sem bound
-  comum (união mista, ponteiro no core, união de funcs) → `constraint:<forma>`
-  (`TODO/P1-construcao-constraint-sem-bound.md`).
+  Dart comum: `[3]int | [4]int` (mesmo elemento) usa `go.GoArray<E>` como
+  core (índice, len, range; cópia pelo dicionário, `$E.copyOf`); união mista
+  (`bool | int64 | string`, `[]byte | string`) e de funcs ficam sem bound,
+  e o corpo só move e compara valores: operador sobre T →
+  `constraint:operador`, índice/len/range/chamada já recusam
+  (`indice:typeparam`...); `P interface{ *T; M }` tem bound `M?` (a
+  interface de métodos embutida; P pode ser nil, então `p!.m()`), com
+  métodos próprios na constraint → `constraint:ponteiro`. Fixture
+  `constraintloose`.
 - `/` sobre `T` → `$quo` (truncado nos inteiros, IEEE nos floats).
 - A chamada instancia explicitamente, `f<Golang.Int>(_$e0, ...)`, com os
   argumentos de tipo vindos do goast (`$inst`), inclusive `f[int](x)` e

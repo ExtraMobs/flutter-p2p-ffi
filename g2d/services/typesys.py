@@ -59,6 +59,10 @@ class TypeSystem(Service):
 
     name = "typesys"
 
+    def __init__(self, engine):
+        super().__init__(engine)
+        self._array_cores = {}  # constraint → core sintético de `[3]int | [4]int`
+
     def basic(self, t):
         """Basic do tipo subjacente, ou None se não for tipo básico."""
         if t is None:
@@ -117,7 +121,13 @@ class TypeSystem(Service):
             return None
         terms = self.constraint_terms(c)
         us = [self.underlying(x) if x["kind"] != "typeparam" else x for x in terms]
-        if not us or any(u != us[0] for u in us):
+        if not us:
+            return None
+        if all(u["kind"] == "array" and u["elem"] == us[0]["elem"] for u in us) and len(us) > 1:
+            # `[3]int | [4]int`: sem core type no Go, mas o mesmo go.GoArray<E>
+            # no Dart (índice, len e range valem para todos os termos).
+            return self._array_cores.setdefault(tp["constraint"], {"kind": "array", "elem": us[0]["elem"], "len": None})
+        if any(u != us[0] for u in us):
             return None
         return us[0]
 

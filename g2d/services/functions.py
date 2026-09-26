@@ -114,9 +114,42 @@ class Functions(Service):
             return f"{g('GoOrdered')}<{name}>"
         if cats == {"string"}:
             return f"{g('StringBase')}<{name}>"
-        kinds = {self.typesys.underlying(x)["kind"] for x in terms}
-        why = "ponteiro" if "pointer" in kinds else "func" if "func" in kinds else "mista"
-        raise Unsupported(f"constraint:{why}", f"constraint sem bound Dart comum ({why})")
+        if any(self.typesys.underlying(x)["kind"] == "pointer" for x in terms):
+            return self.pointer_bound(u)
+        # União mista (`bool | int64 | string`, `[]byte | string`) ou de
+        # funcs: sem bound comum. O corpo só move e compara valores; operador
+        # sobre T é recusado (`loose`), índice/len/range/chamada já recusam.
+        return None
+
+    def pointer_bound(self, u):
+        """`P interface{ *T; M }`: P é o ponteiro, cujo objeto implementa a
+        interface de métodos M embutida; ela é o bound."""
+        ms = [et for et in (self.pkg.type_at(e) for e in u["embeddeds"])
+              if et["kind"] == "named" and self.typesys.underlying(et)["kind"] == "interface"
+              and self.typesys.underlying(et)["methods"]]
+        if len(ms) == 1 and ({m["name"] for m in u["methods"]}
+                             == {m["name"] for m in self.typesys.underlying(ms[0])["methods"]}):
+            return self.types.dart(ms[0]).as_nullable()  # ponteiro: pode ser nil
+        if not u["methods"]:
+            return None
+        raise Unsupported("constraint:ponteiro", "constraint com ponteiro e métodos próprios (sem interface Dart comum)")
+
+    def pointer_tparam(self, t):
+        """Parâmetro de tipo cujos termos são ponteiros (`P interface{ *T; M }`):
+        o valor pode ser nil (bound anulável)."""
+        if t is None or t["kind"] != "typeparam":
+            return False
+        c = self.typesys.underlying(self.pkg.type_at(t["constraint"]))
+        return c["kind"] == "interface" and any(
+            self.typesys.underlying(x)["kind"] == "pointer" for x in self.typesys.constraint_terms(c))
+
+    def loose(self, t):
+        """Parâmetro de tipo com termos na constraint mas sem bound Dart comum
+        (união mista ou de funcs): operadores sobre ele não têm tradução."""
+        if t is None or t["kind"] != "typeparam" or self.typesys.core(t) is not None:
+            return False
+        c = self.typesys.underlying(self.pkg.type_at(t["constraint"]))
+        return c["kind"] == "interface" and bool(self.typesys.constraint_terms(c)) and self.bound(t) is None
 
     def params(self, fields, sig):
         """Lista de parâmetros Dart + prólogo (parâmetros com `&p` vão para
