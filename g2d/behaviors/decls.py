@@ -109,7 +109,7 @@ class InitBehavior(Behavior):
         (dependências primeiro) e depois as funções init, em ordem de
         arquivo/fonte, uma vez só. O `main` a chama antes do corpo."""
         self.scope = FunctionScope()
-        lines = []
+        lines = self.deps_init()
         for entry in self.pkg.init_order:
             spec, idx = self.facts.var_inits[entry[0]]
             lines += located(self.init_entry, spec, idx)
@@ -118,6 +118,18 @@ class InitBehavior(Behavior):
         return ["", "bool _$inited = false;", "",
                 "/// Inicialização do pacote Go: variáveis em ordem de dependência, depois as funções init.",
                 "void $goInit() {", "if (_$inited) return;", "_$inited = true;"] + lines + ["}"]
+
+    def deps_init(self):
+        """No main, os pacotes do grafo antes (ordem de inicialização do Go:
+        global, não por importador). Cada library só se inicializa."""
+        if self.pkg.name != "main" or not self.pkg.graph_imports():
+            return []
+        if self.pkg.init_deps is None:
+            spec = self.imports.import_spec(self.pkg.graph_imports()[0])
+            raise Unsupported("init-grafo-incompleto",
+                              "main sem o grafo de imports no dump: a inicialização das dependências ficaria incompleta",
+                              spec)
+        return [f"{self.imports.qualify(dep, '$goInit')}();" for dep in self.pkg.init_deps]
 
     def init_entry(self, spec, idx):
         """Um inicializador de variável de pacote (`var a, b = f()` é um só)."""

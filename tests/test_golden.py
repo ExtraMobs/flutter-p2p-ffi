@@ -19,7 +19,7 @@ import tempfile
 import unittest
 
 from g2d.cli import GOLIB, PUBSPEC, transpile_package
-from g2d.model import parse_dump
+from g2d.model import link_packages, parse_dump
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 GOLDEN = os.path.join(ROOT, "tests", "golden")
@@ -46,7 +46,7 @@ def is_module(case):
 def case_packages(case):
     """[(pacote, .dart esperado, caminho em lib/)] do dump esperado do caso."""
     with open(case_file(case, ".goast.json"), encoding="utf-8") as f:
-        pkgs = parse_dump(json.load(f))
+        pkgs = link_packages(parse_dump(json.load(f)))
     if not is_module(case):
         (pkg,) = pkgs
         return [(pkg, case_file(case, ".dart"), case + ".dart")]

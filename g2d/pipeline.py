@@ -13,7 +13,7 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 
 from g2d.engine import Engine
-from g2d.model import Unsupported, load_dump
+from g2d.model import Unsupported, link_packages, load_dump
 
 
 GOLIB = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "golib_dart")
@@ -60,7 +60,7 @@ class LoadStage(Stage):
     """Lê o dump do goast (um Unit por pacote)."""
 
     def run(self, ctx):
-        ctx.units = [Unit(pkg) for pkg in load_dump(ctx.dump)]
+        ctx.units = [Unit(pkg) for pkg in link_packages(load_dump(ctx.dump))]
 
 
 class EmitStage(Stage):

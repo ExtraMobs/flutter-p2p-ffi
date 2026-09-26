@@ -97,6 +97,7 @@ bool _$inited = false;
 void $goInit() {
   if (_$inited) return;
   _$inited = true;
+  geom.$goInit();
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.

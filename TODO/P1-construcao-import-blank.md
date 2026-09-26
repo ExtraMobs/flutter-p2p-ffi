@@ -1,7 +1,7 @@
 # Import `_` (só pelos efeitos do `init`)
 
 - **Prioridade:** P1 · **Área:** construcao
-- **Depende de:** P0-infra-init-entre-pacotes
+- **Depende de:** —
 
 ## Problema
 

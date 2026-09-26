@@ -1,6 +1,6 @@
 import unittest
 
-from g2d.graph import parse_go_list, topo_order
+from g2d.graph import init_deps, parse_go_list, topo_order
 from g2d.services.dart_type import DartType
 from g2d.services.naming import local_name, lower_camel, member_name, type_name
 from g2d.model import parse_dump
@@ -23,6 +23,17 @@ class GraphTest(unittest.TestCase):
             "c": {"imports": []},
         }
         self.assertEqual(topo_order(pkgs), ["c", "a", "b", "app"])
+
+    def test_topo_order_is_go_init_order(self):
+        # Go ≥ 1.21: um pacote por vez, o menor pronto. Em lotes sairia a, z, b.
+        pkgs = {"a": {"imports": []}, "b": {"imports": ["a"]}, "z": {"imports": []}}
+        self.assertEqual(topo_order(pkgs), ["a", "b", "z"])
+
+    def test_init_deps(self):
+        imports = {"x.io/cmd": ["fmt", "x.io/z", "x.io/a"], "x.io/a": ["x.io/b"],
+                   "x.io/b": ["os"], "x.io/z": []}
+        self.assertEqual(init_deps("x.io/cmd", imports), ["x.io/b", "x.io/a", "x.io/z"])
+        self.assertIsNone(init_deps("x.io/cmd", {"x.io/cmd": ["x.io/falta"]}))
 
 
 class NamingTest(unittest.TestCase):

@@ -1,5 +1,6 @@
 """Grafo de pacotes Go (via `go list -deps -json`) em ordem topológica."""
 
+import heapq
 import json
 import os
 import subprocess
@@ -44,19 +45,44 @@ def parse_go_list(text):
         }
 
 
-def topo_order(pkgs):
-    """Import paths em ordem topológica (dependências primeiro).
+def is_std(path):
+    """Pacote da stdlib: primeiro segmento do import path sem ponto (a regra
+    do goast; `C` e `unsafe` também caem aqui)."""
+    return "." not in path.split("/", 1)[0]
 
-    Desempate alfabético entre pacotes prontos ao mesmo tempo: a ordem é
-    determinística. Imports fora do grafo (ex. "C", "unsafe") são ignorados.
+
+def topo_order(pkgs):
+    """Import paths na ordem de inicialização do Go (spec ≥ 1.21): a cada
+    passo, o menor import path cujos imports já vieram todos. Dependências
+    primeiro e determinística. Imports fora do grafo (ex. "C", "unsafe") são
+    ignorados.
     """
     ts = TopologicalSorter()
     for path in sorted(pkgs):
         ts.add(path, *sorted(d for d in pkgs[path]["imports"] if d in pkgs))
     ts.prepare()
+    ready = list(ts.get_ready())
+    heapq.heapify(ready)
     order = []
-    while ts.is_active():
-        ready = sorted(ts.get_ready())
-        order.extend(ready)
-        ts.done(*ready)
+    while ready:
+        path = heapq.heappop(ready)
+        order.append(path)
+        ts.done(path)
+        for p in ts.get_ready():
+            heapq.heappush(ready, p)
     return order
+
+
+def init_deps(path, imports):
+    """Pacotes do grafo que o programa de `path` inicializa antes dele, na
+    ordem do Go. `imports`: {import path: [imports diretos]} dos pacotes
+    carregados. None se falta algum pacote do grafo (dump incompleto)."""
+    closure, stack = set(), [path]
+    while stack:
+        for d in imports.get(stack.pop(), ()):
+            if not is_std(d) and d not in closure:
+                if d not in imports:
+                    return None
+                closure.add(d)
+                stack.append(d)
+    return topo_order({p: {"imports": imports[p]} for p in closure})

@@ -2,6 +2,7 @@
 
 from g2d.config import BUILTIN_PREFIX, BUILTIN_URI, GOLANG, GOLANG_PREFIX, GOLANG_URI, GRAPH_URI, STDLIB_SHIMS
 from g2d.engine.behavior import Service
+from g2d.graph import is_std
 from g2d.model import Unsupported
 from g2d.services.naming import escape
 
@@ -31,9 +32,8 @@ class ImportTable(Service):
         return [f"import '{self.used[p]}' as {p};" for p in sorted(self.used)]
 
     def transpiled(self, pkg_path):
-        """Pacote transpilado pelo g2d: o próprio ou outro do grafo (fora da
-        stdlib = primeiro segmento do import path com ponto, como no goast)."""
-        return pkg_path == self.pkg.path or (bool(pkg_path) and "." in pkg_path.split("/", 1)[0])
+        """Pacote transpilado pelo g2d: o próprio ou outro do grafo (fora da stdlib)."""
+        return pkg_path == self.pkg.path or (bool(pkg_path) and not is_std(pkg_path))
 
     def uri(self, pkg_path):
         """Library Dart de outro pacote: shim da stdlib ou library do grafo."""

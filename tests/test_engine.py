@@ -13,7 +13,7 @@ from g2d.engine import Engine
 from g2d.engine.behavior import NOT_HANDLED, BuiltinBehavior, ExprBehavior, Plugin
 from g2d.engine.precedence import POSTFIX
 from g2d.engine.registry import ChainRegistry, HandlerRegistry
-from g2d.model import Unsupported, parse_dump
+from g2d.model import Unsupported, link_packages, parse_dump
 from g2d.services.names import Naming
 
 GOLDEN = os.path.join(os.path.dirname(os.path.abspath(__file__)), "golden")
@@ -152,6 +152,17 @@ class UnsupportedTest(unittest.TestCase):
     def test_import_spec_position(self):
         src = 'package main\n\nimport _ "fmt"\n\nfunc main() {}\n'
         self.assertEqual(self.emit_error(src), ("import:_", ("main.go", 3, 8)))
+
+    def test_main_without_graph(self):
+        """main transpilado sem as dependências no dump: init incompleto
+        vira erro explícito, não Dart que pula inicialização."""
+        with open(os.path.join(GOLDEN, "multiinit", "multiinit.goast.json"), encoding="utf-8") as f:
+            pkgs = parse_dump(json.load(f))
+        (main,) = link_packages([p for p in pkgs if p.name == "main"])
+        with self.assertRaises(Unsupported) as cm:
+            Engine(main).emit_package()
+        self.assertEqual(cm.exception.code, "init-grafo-incompleto")
+        self.assertEqual(cm.exception.pos["line"], 8)  # import de .../a
 
 
 if __name__ == "__main__":

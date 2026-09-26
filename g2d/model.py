@@ -3,6 +3,8 @@
 import json
 from dataclasses import dataclass
 
+from g2d.graph import init_deps, is_std
+
 SCHEMA_VERSION = 7
 
 
@@ -59,6 +61,13 @@ class Package:
     init_order: list  # [[decl, ...], ...] (types.Info.InitOrder)
     other_files: list = ()  # não-Go no contexto de build (.s = assembly)
     module: dict = None  # {"path", "version"?}; None no modo loose
+    # main: pacotes do grafo a inicializar antes dele, na ordem do Go
+    # (link_packages); None = grafo desconhecido.
+    init_deps: list = None
+
+    def graph_imports(self):
+        """Imports diretos que são pacotes do grafo (fora da stdlib)."""
+        return sorted({i["path"] for i in self.imports if not is_std(i["path"])})
 
     def type_of(self, node):
         """Descritor do tipo ($type) de uma expressão, ou None."""
@@ -74,6 +83,16 @@ def load_dump(path):
     with open(path, encoding="utf-8") as f:
         doc = json.load(f)
     return parse_dump(doc)
+
+
+def link_packages(pkgs):
+    """Liga os pacotes carregados juntos: cada `main` recebe `init_deps`
+    (None se o grafo dele não está todo aqui)."""
+    imports = {p.path: [i["path"] for i in p.imports] for p in pkgs}
+    for p in pkgs:
+        if p.name == "main":
+            p.init_deps = init_deps(p.path, imports)
+    return pkgs
 
 
 def parse_dump(doc):
