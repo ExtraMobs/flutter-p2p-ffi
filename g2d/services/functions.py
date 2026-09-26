@@ -13,6 +13,8 @@ class Functions(Service):
     name = "functions"
 
     def func_decl(self, d):
+        if d["body"] is None:
+            raise Unsupported("func-sem-corpo", "função sem corpo (assembly ou go:linkname): substituição", d)
         sig = self.pkg.type_at(d["name"]["$obj"]["type"])
         self.scope = FunctionScope()
         prologue = []
@@ -130,12 +132,19 @@ class Functions(Service):
     def func_body(self, ftype, body, sig):
         """Corpo de função; resultados nomeados viram locais inicializados.
         Com `defer`: resultados sempre em variáveis (os defers podem alterá-los)
-        e o corpo roda sob go.Defers (try/catch/finally)."""
+        e o corpo roda sob go.Defers (try/catch/finally). O estado da função
+        externa volta mesmo se o corpo levantar (func literal aninhada)."""
+        saved = self.scope.results, self.scope.sig, self.scope.defers
+        try:
+            return self._func_body(ftype, body, sig)
+        finally:
+            self.scope.results, self.scope.sig, self.scope.defers = saved
+
+    def _func_body(self, ftype, body, sig):
         out = []
         results = ftype["results"]
         named = results and results["list"] and results["list"][0]["names"]
         deferring = has_defer(body)
-        saved = self.scope.results, self.scope.sig, self.scope.defers
         self.scope.results, self.scope.sig, self.scope.defers = None, sig, None
         if deferring and not named and sig["results"]:
             self.scope.results = []
@@ -167,5 +176,4 @@ class Functions(Service):
             ] + finish + ["}"]
         else:
             out += stmts
-        self.scope.results, self.scope.sig, self.scope.defers = saved
         return out

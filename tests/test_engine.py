@@ -153,6 +153,16 @@ class UnsupportedTest(unittest.TestCase):
         src = 'package main\n\nimport "errors"\n\n// F documenta.\nfunc F() error { return errors.New("x") }\n\nfunc main() {}\n'
         self.assertEqual(self.emit_error(src), ("shim-ausente:errors", ("main.go", 6, 6)))  # nome de F
 
+    def test_error_inside_closure_in_loop(self):
+        """O erro real sobe; antes o escopo trocado pela closure virava IndexError."""
+        src = ('package main\n\nimport "strings"\n\nfunc main() {\n\tfor _, s := range []string{"a"} {\n'
+               '\t\tf := func() string { return strings.ToUpper(s) }\n\t\t_ = f\n\t}\n}\n')
+        self.assertEqual(self.emit_error(src), ("shim-ausente:strings", ("main.go", 5, 6)))  # decl de main
+
+    def test_bodyless_func(self):
+        src = "package main\n\nfunc fastrand() uint64\n\nfunc main() {}\n"
+        self.assertEqual(self.emit_error(src), ("func-sem-corpo", ("main.go", 3, 6)))
+
     def test_import_spec_position(self):
         src = 'package main\n\nimport _ "fmt"\n\nfunc main() {}\n'
         self.assertEqual(self.emit_error(src), ("import:_", ("main.go", 3, 8)))

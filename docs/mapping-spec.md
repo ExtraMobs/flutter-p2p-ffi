@@ -83,6 +83,7 @@ Legenda: ✅ fiel · ⚠️ fiel no caso comum, com limite conhecido · ❌ não
 | `*N` de tipo nomeado exportado não-struct com métodos | `N$Ptr` sempre gerado pelo dono (o consumidor pode usar `*N`); ⚠️ classe a mais quando ninguém usa | ✅ |
 | inicialização das dependências | o `$goInit` do `main` chama antes o `$goInit` de cada pacote do grafo, na ordem global do Go ≥ 1.21 (o menor import path cujos imports já inicializaram; `g2d.graph.topo_order`), não recursivamente por importador; main sem o grafo no dump → `Unsupported` (`init-grafo-incompleto`); shims da stdlib não têm init | ✅ (fixture `multiinit`) |
 | import `_` / `.` | — | ❌ |
+| função sem corpo (assembly, `go:linkname`) | — (`Unsupported` `func-sem-corpo`: o pacote vai para substituição) | ❌ |
 
 ## Identificadores
 

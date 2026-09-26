@@ -332,10 +332,12 @@ class FuncLit(ExprBehavior):
         saved_rd, saved_breaks = self.scope.rd, self.scope.breaks
         self.scope.breaks = []
         self.scope.rd = "$rd" if has_recover(n["body"]) else None
-        if self.scope.rd:
-            params = ", ".join(p for p in (params, self.functions.rd_param()) if p)
-        body = self.functions.func_body(n["type"], n["body"], sig)
-        self.scope.rd, self.scope.breaks = saved_rd, saved_breaks
+        try:
+            if self.scope.rd:
+                params = ", ".join(p for p in (params, self.functions.rd_param()) if p)
+            body = self.functions.func_body(n["type"], n["body"], sig)
+        finally:  # Unsupported no corpo não pode deixar trocado o estado da função externa
+            self.scope.rd, self.scope.breaks = saved_rd, saved_breaks
         return f"({params}) {{\n" + "\n".join(boxes + body) + "\n}", 0
 
 

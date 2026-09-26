@@ -84,8 +84,14 @@ class Package:
         return sorted({i["path"] for i in self.imports if not is_std(i["path"])})
 
     def type_of(self, node):
-        """Descritor do tipo ($type) de uma expressão, ou None."""
-        i = node.get("$type") if node else None
+        """Descritor do tipo de uma expressão, ou None. Como o
+        `types.Info.TypeOf`: sem `$type` (identificador que define, ex. a
+        chave de `for i := range`), vale o tipo do objeto."""
+        if not node:
+            return None
+        i = node.get("$type")
+        if i is None:
+            i = (node.get("$obj") or {}).get("type")
         return None if i is None else self.type_table[i]
 
     def type_at(self, index):
