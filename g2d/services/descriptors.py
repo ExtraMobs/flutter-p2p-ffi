@@ -67,8 +67,8 @@ class DescriptorRegistry(Service):
             if b.cat == "bool":
                 return self.imports.qualify(None, "zeroBool")
             return f"{self.types.cls(t)}.new"
-        if u["kind"] in ("interface", "pointer", "func", "chan"):
-            return self.imports.qualify(None, "zeroNull")
+        if u["kind"] in ("interface", "pointer", "func", "chan") and not self.typesys.named_func(t):
+            return self.imports.qualify(None, "zeroNull")  # (func nomeado é classe, não anulável)
         if self.typesys.is_struct(t) and not t.get("args"):
             return f"{dt}.new"
         name = f"_$z{len(self.elem_decls)}_{len(self.elems)}"

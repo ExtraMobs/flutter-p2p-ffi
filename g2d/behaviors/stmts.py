@@ -100,13 +100,8 @@ class AssignStmt(StmtBehavior):
 
         if len(rhs) == len(lhs):
             value = tuple_expr([self.values.coerce(r, self.pkg.type_of(x)) for r, x in zip(rhs, lhs)])
-        elif rhs[0]["node"] == "TypeAssertExpr":  # v, ok := x.(T)
-            value = self.asserts.comma_ok_assert(rhs[0])
-        elif self.operands.is_map_index(rhs[0]):  # v, ok := m[k]
-            r = rhs[0]
-            value = f"{self.expr(r['x'], POSTFIX)}.lookup({self.expr(r['index'])})"
-        else:
-            value = self.expr(rhs[0])  # 1 chamada com N resultados
+        else:  # v, ok := x.(T) / m[k], ou 1 chamada com N resultados
+            value = self.operands.multi_value(rhs[0])
         # Alvos struct já existentes precisam de $set: caminho do temporário.
         # ... e variáveis em caixa (`x.value` não é padrão de atribuição).
         idents = all(x["node"] == "Ident" for x in lhs) and not any(
@@ -431,12 +426,19 @@ class DeferStmt(StmtBehavior):
             # Valor de função: só em runtime se sabe se aceita `$rd`.
             tmp = self.names.temp()
             pre.append(f"final {tmp} = {self.expr(callee_node)};")
-            fnode = {"node": "G2DTemp", "text": tmp, "$type": fun.get("$type")}
+            sig, fn = fun.get("$type"), tmp
+            while self.pkg.type_at(sig)["kind"] == "named":  # assinatura do subjacente
+                sig = self.pkg.type_at(sig)["underlying"]
+            if self.typesys.named_func(self.pkg.type_of(fun)):
+                # Func nomeado é uma classe: o closure (talvez com `$rd`) fica em `$f`.
+                fn = self.names.temp()
+                pre.append(f"final {fn} = {tmp}.$f;")  # local: o `is` promove
+            fnode = {"node": "G2DTemp", "text": fn, "$type": sig}
             plain = self.expr(dict(call, fun=fnode, args=fixed))
             with_rd = self.expr(dict(call, fun=fnode, args=fixed, **{"$rdArg": d}))
             defers = DartType(self.imports.qualify(None, "Defers"), nullable=True)
-            ftype = self.types.func_type(self.pkg.type_of(fun)).with_named("$rd", defers)
-            text = f"if ({tmp} is {ftype}) {{ {with_rd}; }} else {{ {plain}; }}"
+            ftype = self.types.func_type(self.pkg.type_at(sig)).with_named("$rd", defers)
+            text = f"if ({fn} is {ftype}) {{ {with_rd}; }} else {{ {plain}; }}"
             return ["{"] + pre + [f"{d}.defer(() {{ {text} }});", "}"]
         else:
             text = self.expr(dict(call, fun=callee_node, args=fixed))

@@ -33,6 +33,16 @@ def length_of(b, n):
     return f"{b.types.golang('Int')}({d})", POSTFIX
 
 
+def string_bytes(b, s_node, slice_t):
+    """Bytes de uma string como `[]byte` novo, para `append(b, s...)` e
+    `copy(b, s)` (`go.bytesOf`, o mesmo de `[]byte(s)`)."""
+    x = b.expr(s_node, POSTFIX)
+    if b.pkg.type_of(s_node)["kind"] == "named":
+        x += ".$str"
+    elem = b.descriptors.elem(b.typesys.underlying(slice_t)["elem"])
+    return f"{b.imports.qualify(None, 'bytesOf')}({x}, {elem})"
+
+
 class Append(BuiltinBehavior):
     """`append(s, xs...)` → go.Slice.append (growslice do Go)."""
 
@@ -41,9 +51,11 @@ class Append(BuiltinBehavior):
     def emit(self, n, args):
         s = self.expr(args[0], POSTFIX)
         if n["ellipsis"] is not None:
-            if self.typesys.basic(self.pkg.type_of(args[1])) is not None:
-                raise Unsupported("append-string", "append([]byte, string...)", n)
-            return self.types.wrap(self.pkg.type_of(n), f"{s}.appendSlice({self.expr(args[1])})"), POSTFIX
+            if self.typesys.basic(self.pkg.type_of(args[1])) is not None:  # append(b, s...)
+                src = string_bytes(self, args[1], self.pkg.type_of(n))
+            else:
+                src = self.expr(args[1])
+            return self.types.wrap(self.pkg.type_of(n), f"{s}.appendSlice({src})"), POSTFIX
         et = self.pkg.type_at(self.typesys.underlying(self.pkg.type_of(n))["elem"])
         items = ", ".join(self.values.coerce(a, et) for a in args[1:])
         return self.types.wrap(self.pkg.type_of(n), f"{s}.append([{items}])"), POSTFIX
@@ -53,9 +65,11 @@ class Copy(BuiltinBehavior):
     name = "copy"
 
     def emit(self, n, args):
-        if self.typesys.basic(self.pkg.type_of(args[1])) is not None:
-            raise Unsupported("copy-string", "copy([]byte, string)", n)
-        dst, src = self.expr(args[0], POSTFIX), self.expr(args[1])
+        dst = self.expr(args[0], POSTFIX)
+        if self.typesys.basic(self.pkg.type_of(args[1])) is not None:  # copy(b, s)
+            src = string_bytes(self, args[1], self.pkg.type_of(args[0]))
+        else:
+            src = self.expr(args[1])
         return f"{self.types.golang('Int')}({dst}.copyFrom({src}))", POSTFIX
 
 

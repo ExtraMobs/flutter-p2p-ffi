@@ -1,0 +1,2947 @@
+{
+  "schemaVersion": 7,
+  "tool": "goast",
+  "goVersion": "go1.26.5",
+  "packages": [
+    {
+      "path": "main",
+      "name": "main",
+      "files": [
+        {
+          "path": "stringbytes.go",
+          "ast": {
+            "node": "File",
+            "doc": {
+              "node": "CommentGroup",
+              "list": [
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "stringbytes.go",
+                    "line": 1,
+                    "column": 1,
+                    "offset": 0
+                  },
+                  "text": "// append([]byte, string...) e copy([]byte, string) (golang.org/x/net/dns/dnsmessage),"
+                },
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "stringbytes.go",
+                    "line": 2,
+                    "column": 1,
+                    "offset": 87
+                  },
+                  "text": "// com string nomeada, UTF-8 inválido e slice nomeado."
+                }
+              ]
+            },
+            "package": {
+              "file": "stringbytes.go",
+              "line": 3,
+              "column": 1,
+              "offset": 143
+            },
+            "name": {
+              "node": "Ident",
+              "namePos": {
+                "file": "stringbytes.go",
+                "line": 3,
+                "column": 9,
+                "offset": 151
+              },
+              "name": "main",
+              "obj": null
+            },
+            "decls": [
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "stringbytes.go",
+                  "line": 5,
+                  "column": 1,
+                  "offset": 157
+                },
+                "tok": "import",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "ImportSpec",
+                    "doc": null,
+                    "name": null,
+                    "path": {
+                      "node": "BasicLit",
+                      "valuePos": {
+                        "file": "stringbytes.go",
+                        "line": 5,
+                        "column": 8,
+                        "offset": 164
+                      },
+                      "valueEnd": {
+                        "file": "stringbytes.go",
+                        "line": 5,
+                        "column": 13,
+                        "offset": 169
+                      },
+                      "kind": "STRING",
+                      "value": "\"fmt\""
+                    },
+                    "comment": null,
+                    "endPos": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "stringbytes.go",
+                  "line": 7,
+                  "column": 1,
+                  "offset": 171
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "stringbytes.go",
+                        "line": 7,
+                        "column": 6,
+                        "offset": 176
+                      },
+                      "name": "Name",
+                      "obj": {
+                        "node": "Object",
+                        "name": "Name",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "Name",
+                        "kind": "type",
+                        "def": true,
+                        "type": 0,
+                        "decl": "stringbytes.go:176",
+                        "pkg": "main",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "stringbytes.go",
+                        "line": 7,
+                        "column": 11,
+                        "offset": 181
+                      },
+                      "name": "string",
+                      "obj": null,
+                      "$type": 1,
+                      "$isType": true,
+                      "$obj": {
+                        "name": "string",
+                        "kind": "type",
+                        "type": 1
+                      }
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "stringbytes.go",
+                  "line": 9,
+                  "column": 1,
+                  "offset": 189
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "stringbytes.go",
+                        "line": 9,
+                        "column": 6,
+                        "offset": 194
+                      },
+                      "name": "Buf",
+                      "obj": {
+                        "node": "Object",
+                        "name": "Buf",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "Buf",
+                        "kind": "type",
+                        "def": true,
+                        "type": 2,
+                        "decl": "stringbytes.go:194",
+                        "pkg": "main",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "ArrayType",
+                      "lbrack": {
+                        "file": "stringbytes.go",
+                        "line": 9,
+                        "column": 10,
+                        "offset": 198
+                      },
+                      "len": null,
+                      "elt": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "stringbytes.go",
+                          "line": 9,
+                          "column": 12,
+                          "offset": 200
+                        },
+                        "name": "byte",
+                        "obj": null,
+                        "$type": 4,
+                        "$isType": true,
+                        "$obj": {
+                          "name": "byte",
+                          "kind": "type",
+                          "type": 4
+                        }
+                      },
+                      "$type": 3,
+                      "$isType": true
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "stringbytes.go",
+                    "line": 11,
+                    "column": 6,
+                    "offset": 211
+                  },
+                  "name": "main",
+                  "obj": {
+                    "node": "Object",
+                    "name": "main",
+                    "kind": "func"
+                  },
+                  "$obj": {
+                    "name": "main",
+                    "kind": "func",
+                    "def": true,
+                    "type": 5,
+                    "decl": "stringbytes.go:211",
+                    "pkg": "main",
+                    "top": true
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "stringbytes.go",
+                    "line": 11,
+                    "column": 1,
+                    "offset": 206
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "stringbytes.go",
+                      "line": 11,
+                      "column": 10,
+                      "offset": 215
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "stringbytes.go",
+                      "line": 11,
+                      "column": 11,
+                      "offset": 216
+                    }
+                  },
+                  "results": null
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "stringbytes.go",
+                    "line": 11,
+                    "column": 13,
+                    "offset": 218
+                  },
+                  "list": [
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "stringbytes.go",
+                            "line": 12,
+                            "column": 2,
+                            "offset": 221
+                          },
+                          "name": "b",
+                          "obj": {
+                            "node": "Object",
+                            "name": "b",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "b",
+                            "kind": "var",
+                            "def": true,
+                            "type": 3,
+                            "decl": "stringbytes.go:221",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "stringbytes.go",
+                        "line": 12,
+                        "column": 4,
+                        "offset": 223
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "CallExpr",
+                          "fun": {
+                            "node": "ArrayType",
+                            "lbrack": {
+                              "file": "stringbytes.go",
+                              "line": 12,
+                              "column": 7,
+                              "offset": 226
+                            },
+                            "len": null,
+                            "elt": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "stringbytes.go",
+                                "line": 12,
+                                "column": 9,
+                                "offset": 228
+                              },
+                              "name": "byte",
+                              "obj": null,
+                              "$type": 4,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "byte",
+                                "kind": "type",
+                                "type": 4
+                              }
+                            },
+                            "$type": 3,
+                            "$isType": true
+                          },
+                          "lparen": {
+                            "file": "stringbytes.go",
+                            "line": 12,
+                            "column": 13,
+                            "offset": 232
+                          },
+                          "args": [
+                            {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "stringbytes.go",
+                                "line": 12,
+                                "column": 14,
+                                "offset": 233
+                              },
+                              "valueEnd": {
+                                "file": "stringbytes.go",
+                                "line": 12,
+                                "column": 18,
+                                "offset": 237
+                              },
+                              "kind": "STRING",
+                              "value": "\"ab\"",
+                              "$type": 1,
+                              "$value": {
+                                "kind": "string",
+                                "value": "ab"
+                              }
+                            }
+                          ],
+                          "ellipsis": null,
+                          "rparen": {
+                            "file": "stringbytes.go",
+                            "line": 12,
+                            "column": 18,
+                            "offset": 237
+                          },
+                          "$type": 3
+                        }
+                      ]
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "stringbytes.go",
+                            "line": 13,
+                            "column": 2,
+                            "offset": 240
+                          },
+                          "name": "b",
+                          "obj": {
+                            "node": "Object",
+                            "name": "b",
+                            "kind": "var"
+                          },
+                          "$type": 3,
+                          "$obj": {
+                            "name": "b",
+                            "kind": "var",
+                            "type": 3,
+                            "decl": "stringbytes.go:221",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "stringbytes.go",
+                        "line": 13,
+                        "column": 4,
+                        "offset": 242
+                      },
+                      "tok": "=",
+                      "rhs": [
+                        {
+                          "node": "CallExpr",
+                          "fun": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "stringbytes.go",
+                              "line": 13,
+                              "column": 6,
+                              "offset": 244
+                            },
+                            "name": "append",
+                            "obj": null,
+                            "$type": 6,
+                            "$builtin": true,
+                            "$obj": {
+                              "name": "append",
+                              "kind": "builtin",
+                              "type": 7
+                            }
+                          },
+                          "lparen": {
+                            "file": "stringbytes.go",
+                            "line": 13,
+                            "column": 12,
+                            "offset": 250
+                          },
+                          "args": [
+                            {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "stringbytes.go",
+                                "line": 13,
+                                "column": 13,
+                                "offset": 251
+                              },
+                              "name": "b",
+                              "obj": {
+                                "node": "Object",
+                                "name": "b",
+                                "kind": "var"
+                              },
+                              "$type": 3,
+                              "$obj": {
+                                "name": "b",
+                                "kind": "var",
+                                "type": 3,
+                                "decl": "stringbytes.go:221",
+                                "pkg": "main"
+                              }
+                            },
+                            {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "stringbytes.go",
+                                "line": 13,
+                                "column": 16,
+                                "offset": 254
+                              },
+                              "valueEnd": {
+                                "file": "stringbytes.go",
+                                "line": 13,
+                                "column": 20,
+                                "offset": 258
+                              },
+                              "kind": "STRING",
+                              "value": "\"cd\"",
+                              "$type": 8,
+                              "$value": {
+                                "kind": "string",
+                                "value": "cd"
+                              }
+                            }
+                          ],
+                          "ellipsis": {
+                            "file": "stringbytes.go",
+                            "line": 13,
+                            "column": 20,
+                            "offset": 258
+                          },
+                          "rparen": {
+                            "file": "stringbytes.go",
+                            "line": 13,
+                            "column": 23,
+                            "offset": 261
+                          },
+                          "$type": 3
+                        }
+                      ]
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "stringbytes.go",
+                            "line": 14,
+                            "column": 2,
+                            "offset": 264
+                          },
+                          "name": "s",
+                          "obj": {
+                            "node": "Object",
+                            "name": "s",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "s",
+                            "kind": "var",
+                            "def": true,
+                            "type": 1,
+                            "decl": "stringbytes.go:264",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "stringbytes.go",
+                        "line": 14,
+                        "column": 4,
+                        "offset": 266
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "BasicLit",
+                          "valuePos": {
+                            "file": "stringbytes.go",
+                            "line": 14,
+                            "column": 7,
+                            "offset": 269
+                          },
+                          "valueEnd": {
+                            "file": "stringbytes.go",
+                            "line": 14,
+                            "column": 14,
+                            "offset": 276
+                          },
+                          "kind": "STRING",
+                          "value": "\"ção\"",
+                          "$type": 1,
+                          "$value": {
+                            "kind": "string",
+                            "value": "ção"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "stringbytes.go",
+                            "line": 15,
+                            "column": 2,
+                            "offset": 278
+                          },
+                          "name": "b",
+                          "obj": {
+                            "node": "Object",
+                            "name": "b",
+                            "kind": "var"
+                          },
+                          "$type": 3,
+                          "$obj": {
+                            "name": "b",
+                            "kind": "var",
+                            "type": 3,
+                            "decl": "stringbytes.go:221",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "stringbytes.go",
+                        "line": 15,
+                        "column": 4,
+                        "offset": 280
+                      },
+                      "tok": "=",
+                      "rhs": [
+                        {
+                          "node": "CallExpr",
+                          "fun": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "stringbytes.go",
+                              "line": 15,
+                              "column": 6,
+                              "offset": 282
+                            },
+                            "name": "append",
+                            "obj": null,
+                            "$type": 6,
+                            "$builtin": true,
+                            "$obj": {
+                              "name": "append",
+                              "kind": "builtin",
+                              "type": 7
+                            }
+                          },
+                          "lparen": {
+                            "file": "stringbytes.go",
+                            "line": 15,
+                            "column": 12,
+                            "offset": 288
+                          },
+                          "args": [
+                            {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "stringbytes.go",
+                                "line": 15,
+                                "column": 13,
+                                "offset": 289
+                              },
+                              "name": "b",
+                              "obj": {
+                                "node": "Object",
+                                "name": "b",
+                                "kind": "var"
+                              },
+                              "$type": 3,
+                              "$obj": {
+                                "name": "b",
+                                "kind": "var",
+                                "type": 3,
+                                "decl": "stringbytes.go:221",
+                                "pkg": "main"
+                              }
+                            },
+                            {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "stringbytes.go",
+                                "line": 15,
+                                "column": 16,
+                                "offset": 292
+                              },
+                              "name": "s",
+                              "obj": {
+                                "node": "Object",
+                                "name": "s",
+                                "kind": "var"
+                              },
+                              "$type": 1,
+                              "$obj": {
+                                "name": "s",
+                                "kind": "var",
+                                "type": 1,
+                                "decl": "stringbytes.go:264",
+                                "pkg": "main"
+                              }
+                            }
+                          ],
+                          "ellipsis": {
+                            "file": "stringbytes.go",
+                            "line": 15,
+                            "column": 17,
+                            "offset": 293
+                          },
+                          "rparen": {
+                            "file": "stringbytes.go",
+                            "line": 15,
+                            "column": 20,
+                            "offset": 296
+                          },
+                          "$type": 3
+                        }
+                      ]
+                    },
+                    {
+                      "node": "DeclStmt",
+                      "decl": {
+                        "node": "GenDecl",
+                        "doc": null,
+                        "tokPos": {
+                          "file": "stringbytes.go",
+                          "line": 16,
+                          "column": 2,
+                          "offset": 299
+                        },
+                        "tok": "var",
+                        "lparen": null,
+                        "specs": [
+                          {
+                            "node": "ValueSpec",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "stringbytes.go",
+                                  "line": 16,
+                                  "column": 6,
+                                  "offset": 303
+                                },
+                                "name": "n",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "n",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "n",
+                                  "kind": "var",
+                                  "def": true,
+                                  "type": 0,
+                                  "decl": "stringbytes.go:303",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "stringbytes.go",
+                                "line": 16,
+                                "column": 8,
+                                "offset": 305
+                              },
+                              "name": "Name",
+                              "obj": {
+                                "node": "Object",
+                                "name": "Name",
+                                "kind": "type"
+                              },
+                              "$type": 0,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "Name",
+                                "kind": "type",
+                                "type": 0,
+                                "decl": "stringbytes.go:176",
+                                "pkg": "main",
+                                "top": true
+                              }
+                            },
+                            "values": [
+                              {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "stringbytes.go",
+                                  "line": 16,
+                                  "column": 15,
+                                  "offset": 312
+                                },
+                                "valueEnd": {
+                                  "file": "stringbytes.go",
+                                  "line": 16,
+                                  "column": 22,
+                                  "offset": 319
+                                },
+                                "kind": "STRING",
+                                "value": "\"!\\xff\"",
+                                "$type": 0,
+                                "$value": {
+                                  "kind": "string",
+                                  "value": "!\ufffd",
+                                  "bytes": [
+                                    33,
+                                    255
+                                  ]
+                                }
+                              }
+                            ],
+                            "comment": null
+                          }
+                        ],
+                        "rparen": null
+                      }
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "stringbytes.go",
+                            "line": 17,
+                            "column": 2,
+                            "offset": 321
+                          },
+                          "name": "b",
+                          "obj": {
+                            "node": "Object",
+                            "name": "b",
+                            "kind": "var"
+                          },
+                          "$type": 3,
+                          "$obj": {
+                            "name": "b",
+                            "kind": "var",
+                            "type": 3,
+                            "decl": "stringbytes.go:221",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "stringbytes.go",
+                        "line": 17,
+                        "column": 4,
+                        "offset": 323
+                      },
+                      "tok": "=",
+                      "rhs": [
+                        {
+                          "node": "CallExpr",
+                          "fun": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "stringbytes.go",
+                              "line": 17,
+                              "column": 6,
+                              "offset": 325
+                            },
+                            "name": "append",
+                            "obj": null,
+                            "$type": 9,
+                            "$builtin": true,
+                            "$obj": {
+                              "name": "append",
+                              "kind": "builtin",
+                              "type": 7
+                            }
+                          },
+                          "lparen": {
+                            "file": "stringbytes.go",
+                            "line": 17,
+                            "column": 12,
+                            "offset": 331
+                          },
+                          "args": [
+                            {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "stringbytes.go",
+                                "line": 17,
+                                "column": 13,
+                                "offset": 332
+                              },
+                              "name": "b",
+                              "obj": {
+                                "node": "Object",
+                                "name": "b",
+                                "kind": "var"
+                              },
+                              "$type": 3,
+                              "$obj": {
+                                "name": "b",
+                                "kind": "var",
+                                "type": 3,
+                                "decl": "stringbytes.go:221",
+                                "pkg": "main"
+                              }
+                            },
+                            {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "stringbytes.go",
+                                "line": 17,
+                                "column": 16,
+                                "offset": 335
+                              },
+                              "name": "n",
+                              "obj": {
+                                "node": "Object",
+                                "name": "n",
+                                "kind": "var"
+                              },
+                              "$type": 0,
+                              "$obj": {
+                                "name": "n",
+                                "kind": "var",
+                                "type": 0,
+                                "decl": "stringbytes.go:303",
+                                "pkg": "main"
+                              }
+                            }
+                          ],
+                          "ellipsis": {
+                            "file": "stringbytes.go",
+                            "line": 17,
+                            "column": 17,
+                            "offset": 336
+                          },
+                          "rparen": {
+                            "file": "stringbytes.go",
+                            "line": 17,
+                            "column": 20,
+                            "offset": 339
+                          },
+                          "$type": 3
+                        }
+                      ]
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "stringbytes.go",
+                              "line": 18,
+                              "column": 2,
+                              "offset": 342
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "stringbytes.go",
+                              "line": 18,
+                              "column": 6,
+                              "offset": 346
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 10,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 10
+                        },
+                        "lparen": {
+                          "file": "stringbytes.go",
+                          "line": 18,
+                          "column": 13,
+                          "offset": 353
+                        },
+                        "args": [
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "stringbytes.go",
+                                "line": 18,
+                                "column": 14,
+                                "offset": 354
+                              },
+                              "name": "string",
+                              "obj": null,
+                              "$type": 1,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "string",
+                                "kind": "type",
+                                "type": 1
+                              }
+                            },
+                            "lparen": {
+                              "file": "stringbytes.go",
+                              "line": 18,
+                              "column": 20,
+                              "offset": 360
+                            },
+                            "args": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "stringbytes.go",
+                                  "line": 18,
+                                  "column": 21,
+                                  "offset": 361
+                                },
+                                "name": "b",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "b",
+                                  "kind": "var"
+                                },
+                                "$type": 3,
+                                "$obj": {
+                                  "name": "b",
+                                  "kind": "var",
+                                  "type": 3,
+                                  "decl": "stringbytes.go:221",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "stringbytes.go",
+                              "line": 18,
+                              "column": 22,
+                              "offset": 362
+                            },
+                            "$type": 1
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "stringbytes.go",
+                                "line": 18,
+                                "column": 25,
+                                "offset": 365
+                              },
+                              "name": "len",
+                              "obj": null,
+                              "$type": 17,
+                              "$builtin": true,
+                              "$obj": {
+                                "name": "len",
+                                "kind": "builtin",
+                                "type": 7
+                              }
+                            },
+                            "lparen": {
+                              "file": "stringbytes.go",
+                              "line": 18,
+                              "column": 28,
+                              "offset": 368
+                            },
+                            "args": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "stringbytes.go",
+                                  "line": 18,
+                                  "column": 29,
+                                  "offset": 369
+                                },
+                                "name": "b",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "b",
+                                  "kind": "var"
+                                },
+                                "$type": 3,
+                                "$obj": {
+                                  "name": "b",
+                                  "kind": "var",
+                                  "type": 3,
+                                  "decl": "stringbytes.go:221",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "stringbytes.go",
+                              "line": 18,
+                              "column": 30,
+                              "offset": 370
+                            },
+                            "$type": 13
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "stringbytes.go",
+                          "line": 18,
+                          "column": 31,
+                          "offset": 371
+                        },
+                        "$type": 18
+                      }
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "stringbytes.go",
+                            "line": 20,
+                            "column": 2,
+                            "offset": 375
+                          },
+                          "name": "dst",
+                          "obj": {
+                            "node": "Object",
+                            "name": "dst",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "dst",
+                            "kind": "var",
+                            "def": true,
+                            "type": 3,
+                            "decl": "stringbytes.go:375",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "stringbytes.go",
+                        "line": 20,
+                        "column": 6,
+                        "offset": 379
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "CallExpr",
+                          "fun": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "stringbytes.go",
+                              "line": 20,
+                              "column": 9,
+                              "offset": 382
+                            },
+                            "name": "make",
+                            "obj": null,
+                            "$type": 19,
+                            "$builtin": true,
+                            "$obj": {
+                              "name": "make",
+                              "kind": "builtin",
+                              "type": 7
+                            }
+                          },
+                          "lparen": {
+                            "file": "stringbytes.go",
+                            "line": 20,
+                            "column": 13,
+                            "offset": 386
+                          },
+                          "args": [
+                            {
+                              "node": "ArrayType",
+                              "lbrack": {
+                                "file": "stringbytes.go",
+                                "line": 20,
+                                "column": 14,
+                                "offset": 387
+                              },
+                              "len": null,
+                              "elt": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "stringbytes.go",
+                                  "line": 20,
+                                  "column": 16,
+                                  "offset": 389
+                                },
+                                "name": "byte",
+                                "obj": null,
+                                "$type": 4,
+                                "$isType": true,
+                                "$obj": {
+                                  "name": "byte",
+                                  "kind": "type",
+                                  "type": 4
+                                }
+                              },
+                              "$type": 3,
+                              "$isType": true
+                            },
+                            {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "stringbytes.go",
+                                "line": 20,
+                                "column": 22,
+                                "offset": 395
+                              },
+                              "valueEnd": {
+                                "file": "stringbytes.go",
+                                "line": 20,
+                                "column": 23,
+                                "offset": 396
+                              },
+                              "kind": "INT",
+                              "value": "3",
+                              "$type": 13,
+                              "$value": {
+                                "kind": "int",
+                                "value": "3"
+                              }
+                            }
+                          ],
+                          "ellipsis": null,
+                          "rparen": {
+                            "file": "stringbytes.go",
+                            "line": 20,
+                            "column": 23,
+                            "offset": 396
+                          },
+                          "$type": 3
+                        }
+                      ]
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "stringbytes.go",
+                            "line": 21,
+                            "column": 2,
+                            "offset": 399
+                          },
+                          "name": "k",
+                          "obj": {
+                            "node": "Object",
+                            "name": "k",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "k",
+                            "kind": "var",
+                            "def": true,
+                            "type": 13,
+                            "decl": "stringbytes.go:399",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "stringbytes.go",
+                        "line": 21,
+                        "column": 4,
+                        "offset": 401
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "CallExpr",
+                          "fun": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "stringbytes.go",
+                              "line": 21,
+                              "column": 7,
+                              "offset": 404
+                            },
+                            "name": "copy",
+                            "obj": null,
+                            "$type": 20,
+                            "$builtin": true,
+                            "$obj": {
+                              "name": "copy",
+                              "kind": "builtin",
+                              "type": 7
+                            }
+                          },
+                          "lparen": {
+                            "file": "stringbytes.go",
+                            "line": 21,
+                            "column": 11,
+                            "offset": 408
+                          },
+                          "args": [
+                            {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "stringbytes.go",
+                                "line": 21,
+                                "column": 12,
+                                "offset": 409
+                              },
+                              "name": "dst",
+                              "obj": {
+                                "node": "Object",
+                                "name": "dst",
+                                "kind": "var"
+                              },
+                              "$type": 3,
+                              "$obj": {
+                                "name": "dst",
+                                "kind": "var",
+                                "type": 3,
+                                "decl": "stringbytes.go:375",
+                                "pkg": "main"
+                              }
+                            },
+                            {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "stringbytes.go",
+                                "line": 21,
+                                "column": 17,
+                                "offset": 414
+                              },
+                              "valueEnd": {
+                                "file": "stringbytes.go",
+                                "line": 21,
+                                "column": 23,
+                                "offset": 420
+                              },
+                              "kind": "STRING",
+                              "value": "\"xyz!\"",
+                              "$type": 8,
+                              "$value": {
+                                "kind": "string",
+                                "value": "xyz!"
+                              }
+                            }
+                          ],
+                          "ellipsis": null,
+                          "rparen": {
+                            "file": "stringbytes.go",
+                            "line": 21,
+                            "column": 23,
+                            "offset": 420
+                          },
+                          "$type": 13
+                        }
+                      ]
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "stringbytes.go",
+                              "line": 22,
+                              "column": 2,
+                              "offset": 423
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "stringbytes.go",
+                              "line": 22,
+                              "column": 6,
+                              "offset": 427
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 10,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 10
+                        },
+                        "lparen": {
+                          "file": "stringbytes.go",
+                          "line": 22,
+                          "column": 13,
+                          "offset": 434
+                        },
+                        "args": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "stringbytes.go",
+                              "line": 22,
+                              "column": 14,
+                              "offset": 435
+                            },
+                            "name": "k",
+                            "obj": {
+                              "node": "Object",
+                              "name": "k",
+                              "kind": "var"
+                            },
+                            "$type": 13,
+                            "$obj": {
+                              "name": "k",
+                              "kind": "var",
+                              "type": 13,
+                              "decl": "stringbytes.go:399",
+                              "pkg": "main"
+                            }
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "stringbytes.go",
+                                "line": 22,
+                                "column": 17,
+                                "offset": 438
+                              },
+                              "name": "string",
+                              "obj": null,
+                              "$type": 1,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "string",
+                                "kind": "type",
+                                "type": 1
+                              }
+                            },
+                            "lparen": {
+                              "file": "stringbytes.go",
+                              "line": 22,
+                              "column": 23,
+                              "offset": 444
+                            },
+                            "args": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "stringbytes.go",
+                                  "line": 22,
+                                  "column": 24,
+                                  "offset": 445
+                                },
+                                "name": "dst",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "dst",
+                                  "kind": "var"
+                                },
+                                "$type": 3,
+                                "$obj": {
+                                  "name": "dst",
+                                  "kind": "var",
+                                  "type": 3,
+                                  "decl": "stringbytes.go:375",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "stringbytes.go",
+                              "line": 22,
+                              "column": 27,
+                              "offset": 448
+                            },
+                            "$type": 1
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "stringbytes.go",
+                          "line": 22,
+                          "column": 28,
+                          "offset": 449
+                        },
+                        "$type": 18
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "stringbytes.go",
+                              "line": 23,
+                              "column": 2,
+                              "offset": 452
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "stringbytes.go",
+                              "line": 23,
+                              "column": 6,
+                              "offset": 456
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 10,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 10
+                        },
+                        "lparen": {
+                          "file": "stringbytes.go",
+                          "line": 23,
+                          "column": 13,
+                          "offset": 463
+                        },
+                        "args": [
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "stringbytes.go",
+                                "line": 23,
+                                "column": 14,
+                                "offset": 464
+                              },
+                              "name": "copy",
+                              "obj": null,
+                              "$type": 20,
+                              "$builtin": true,
+                              "$obj": {
+                                "name": "copy",
+                                "kind": "builtin",
+                                "type": 7
+                              }
+                            },
+                            "lparen": {
+                              "file": "stringbytes.go",
+                              "line": 23,
+                              "column": 18,
+                              "offset": 468
+                            },
+                            "args": [
+                              {
+                                "node": "SliceExpr",
+                                "x": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "stringbytes.go",
+                                    "line": 23,
+                                    "column": 19,
+                                    "offset": 469
+                                  },
+                                  "name": "dst",
+                                  "obj": {
+                                    "node": "Object",
+                                    "name": "dst",
+                                    "kind": "var"
+                                  },
+                                  "$type": 3,
+                                  "$obj": {
+                                    "name": "dst",
+                                    "kind": "var",
+                                    "type": 3,
+                                    "decl": "stringbytes.go:375",
+                                    "pkg": "main"
+                                  }
+                                },
+                                "lbrack": {
+                                  "file": "stringbytes.go",
+                                  "line": 23,
+                                  "column": 22,
+                                  "offset": 472
+                                },
+                                "low": {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "stringbytes.go",
+                                    "line": 23,
+                                    "column": 23,
+                                    "offset": 473
+                                  },
+                                  "valueEnd": {
+                                    "file": "stringbytes.go",
+                                    "line": 23,
+                                    "column": 24,
+                                    "offset": 474
+                                  },
+                                  "kind": "INT",
+                                  "value": "1",
+                                  "$type": 13,
+                                  "$value": {
+                                    "kind": "int",
+                                    "value": "1"
+                                  }
+                                },
+                                "high": null,
+                                "max": null,
+                                "slice3": false,
+                                "rbrack": {
+                                  "file": "stringbytes.go",
+                                  "line": 23,
+                                  "column": 25,
+                                  "offset": 475
+                                },
+                                "$type": 3
+                              },
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "stringbytes.go",
+                                  "line": 23,
+                                  "column": 28,
+                                  "offset": 478
+                                },
+                                "name": "s",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "s",
+                                  "kind": "var"
+                                },
+                                "$type": 1,
+                                "$obj": {
+                                  "name": "s",
+                                  "kind": "var",
+                                  "type": 1,
+                                  "decl": "stringbytes.go:264",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "stringbytes.go",
+                              "line": 23,
+                              "column": 29,
+                              "offset": 479
+                            },
+                            "$type": 13
+                          },
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "stringbytes.go",
+                              "line": 23,
+                              "column": 32,
+                              "offset": 482
+                            },
+                            "name": "dst",
+                            "obj": {
+                              "node": "Object",
+                              "name": "dst",
+                              "kind": "var"
+                            },
+                            "$type": 3,
+                            "$obj": {
+                              "name": "dst",
+                              "kind": "var",
+                              "type": 3,
+                              "decl": "stringbytes.go:375",
+                              "pkg": "main"
+                            }
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "stringbytes.go",
+                          "line": 23,
+                          "column": 35,
+                          "offset": 485
+                        },
+                        "$type": 18
+                      }
+                    },
+                    {
+                      "node": "DeclStmt",
+                      "decl": {
+                        "node": "GenDecl",
+                        "doc": null,
+                        "tokPos": {
+                          "file": "stringbytes.go",
+                          "line": 24,
+                          "column": 2,
+                          "offset": 488
+                        },
+                        "tok": "var",
+                        "lparen": null,
+                        "specs": [
+                          {
+                            "node": "ValueSpec",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "stringbytes.go",
+                                  "line": 24,
+                                  "column": 6,
+                                  "offset": 492
+                                },
+                                "name": "bb",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "bb",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "bb",
+                                  "kind": "var",
+                                  "def": true,
+                                  "type": 2,
+                                  "decl": "stringbytes.go:492",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "stringbytes.go",
+                                "line": 24,
+                                "column": 9,
+                                "offset": 495
+                              },
+                              "name": "Buf",
+                              "obj": {
+                                "node": "Object",
+                                "name": "Buf",
+                                "kind": "type"
+                              },
+                              "$type": 2,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "Buf",
+                                "kind": "type",
+                                "type": 2,
+                                "decl": "stringbytes.go:194",
+                                "pkg": "main",
+                                "top": true
+                              }
+                            },
+                            "values": null,
+                            "comment": null
+                          }
+                        ],
+                        "rparen": null
+                      }
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "stringbytes.go",
+                            "line": 25,
+                            "column": 2,
+                            "offset": 500
+                          },
+                          "name": "bb",
+                          "obj": {
+                            "node": "Object",
+                            "name": "bb",
+                            "kind": "var"
+                          },
+                          "$type": 2,
+                          "$obj": {
+                            "name": "bb",
+                            "kind": "var",
+                            "type": 2,
+                            "decl": "stringbytes.go:492",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "stringbytes.go",
+                        "line": 25,
+                        "column": 5,
+                        "offset": 503
+                      },
+                      "tok": "=",
+                      "rhs": [
+                        {
+                          "node": "CallExpr",
+                          "fun": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "stringbytes.go",
+                              "line": 25,
+                              "column": 7,
+                              "offset": 505
+                            },
+                            "name": "append",
+                            "obj": null,
+                            "$type": 21,
+                            "$builtin": true,
+                            "$obj": {
+                              "name": "append",
+                              "kind": "builtin",
+                              "type": 7
+                            }
+                          },
+                          "lparen": {
+                            "file": "stringbytes.go",
+                            "line": 25,
+                            "column": 13,
+                            "offset": 511
+                          },
+                          "args": [
+                            {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "stringbytes.go",
+                                "line": 25,
+                                "column": 14,
+                                "offset": 512
+                              },
+                              "name": "bb",
+                              "obj": {
+                                "node": "Object",
+                                "name": "bb",
+                                "kind": "var"
+                              },
+                              "$type": 2,
+                              "$obj": {
+                                "name": "bb",
+                                "kind": "var",
+                                "type": 2,
+                                "decl": "stringbytes.go:492",
+                                "pkg": "main"
+                              }
+                            },
+                            {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "stringbytes.go",
+                                "line": 25,
+                                "column": 18,
+                                "offset": 516
+                              },
+                              "valueEnd": {
+                                "file": "stringbytes.go",
+                                "line": 25,
+                                "column": 22,
+                                "offset": 520
+                              },
+                              "kind": "STRING",
+                              "value": "\"hi\"",
+                              "$type": 8,
+                              "$value": {
+                                "kind": "string",
+                                "value": "hi"
+                              }
+                            }
+                          ],
+                          "ellipsis": {
+                            "file": "stringbytes.go",
+                            "line": 25,
+                            "column": 22,
+                            "offset": 520
+                          },
+                          "rparen": {
+                            "file": "stringbytes.go",
+                            "line": 25,
+                            "column": 25,
+                            "offset": 523
+                          },
+                          "$type": 2
+                        }
+                      ]
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "stringbytes.go",
+                              "line": 26,
+                              "column": 2,
+                              "offset": 526
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "stringbytes.go",
+                              "line": 26,
+                              "column": 6,
+                              "offset": 530
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 10,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 10
+                        },
+                        "lparen": {
+                          "file": "stringbytes.go",
+                          "line": 26,
+                          "column": 13,
+                          "offset": 537
+                        },
+                        "args": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "stringbytes.go",
+                              "line": 26,
+                              "column": 14,
+                              "offset": 538
+                            },
+                            "name": "bb",
+                            "obj": {
+                              "node": "Object",
+                              "name": "bb",
+                              "kind": "var"
+                            },
+                            "$type": 2,
+                            "$obj": {
+                              "name": "bb",
+                              "kind": "var",
+                              "type": 2,
+                              "decl": "stringbytes.go:492",
+                              "pkg": "main"
+                            }
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "stringbytes.go",
+                                "line": 26,
+                                "column": 18,
+                                "offset": 542
+                              },
+                              "name": "copy",
+                              "obj": null,
+                              "$type": 22,
+                              "$builtin": true,
+                              "$obj": {
+                                "name": "copy",
+                                "kind": "builtin",
+                                "type": 7
+                              }
+                            },
+                            "lparen": {
+                              "file": "stringbytes.go",
+                              "line": 26,
+                              "column": 22,
+                              "offset": 546
+                            },
+                            "args": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "stringbytes.go",
+                                  "line": 26,
+                                  "column": 23,
+                                  "offset": 547
+                                },
+                                "name": "bb",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "bb",
+                                  "kind": "var"
+                                },
+                                "$type": 2,
+                                "$obj": {
+                                  "name": "bb",
+                                  "kind": "var",
+                                  "type": 2,
+                                  "decl": "stringbytes.go:492",
+                                  "pkg": "main"
+                                }
+                              },
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "stringbytes.go",
+                                  "line": 26,
+                                  "column": 27,
+                                  "offset": 551
+                                },
+                                "name": "n",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "n",
+                                  "kind": "var"
+                                },
+                                "$type": 0,
+                                "$obj": {
+                                  "name": "n",
+                                  "kind": "var",
+                                  "type": 0,
+                                  "decl": "stringbytes.go:303",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "stringbytes.go",
+                              "line": 26,
+                              "column": 28,
+                              "offset": 552
+                            },
+                            "$type": 13
+                          },
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "stringbytes.go",
+                              "line": 26,
+                              "column": 31,
+                              "offset": 555
+                            },
+                            "name": "bb",
+                            "obj": {
+                              "node": "Object",
+                              "name": "bb",
+                              "kind": "var"
+                            },
+                            "$type": 2,
+                            "$obj": {
+                              "name": "bb",
+                              "kind": "var",
+                              "type": 2,
+                              "decl": "stringbytes.go:492",
+                              "pkg": "main"
+                            }
+                          },
+                          {
+                            "node": "BinaryExpr",
+                            "x": {
+                              "node": "CallExpr",
+                              "fun": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "stringbytes.go",
+                                  "line": 26,
+                                  "column": 35,
+                                  "offset": 559
+                                },
+                                "name": "append",
+                                "obj": null,
+                                "$type": 6,
+                                "$builtin": true,
+                                "$obj": {
+                                  "name": "append",
+                                  "kind": "builtin",
+                                  "type": 7
+                                }
+                              },
+                              "lparen": {
+                                "file": "stringbytes.go",
+                                "line": 26,
+                                "column": 41,
+                                "offset": 565
+                              },
+                              "args": [
+                                {
+                                  "node": "CallExpr",
+                                  "fun": {
+                                    "node": "ArrayType",
+                                    "lbrack": {
+                                      "file": "stringbytes.go",
+                                      "line": 26,
+                                      "column": 42,
+                                      "offset": 566
+                                    },
+                                    "len": null,
+                                    "elt": {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "stringbytes.go",
+                                        "line": 26,
+                                        "column": 44,
+                                        "offset": 568
+                                      },
+                                      "name": "byte",
+                                      "obj": null,
+                                      "$type": 4,
+                                      "$isType": true,
+                                      "$obj": {
+                                        "name": "byte",
+                                        "kind": "type",
+                                        "type": 4
+                                      }
+                                    },
+                                    "$type": 3,
+                                    "$isType": true
+                                  },
+                                  "lparen": {
+                                    "file": "stringbytes.go",
+                                    "line": 26,
+                                    "column": 48,
+                                    "offset": 572
+                                  },
+                                  "args": [
+                                    {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "stringbytes.go",
+                                        "line": 26,
+                                        "column": 49,
+                                        "offset": 573
+                                      },
+                                      "name": "nil",
+                                      "obj": null,
+                                      "$type": 23,
+                                      "$obj": {
+                                        "name": "nil",
+                                        "kind": "nil",
+                                        "type": 23
+                                      }
+                                    }
+                                  ],
+                                  "ellipsis": null,
+                                  "rparen": {
+                                    "file": "stringbytes.go",
+                                    "line": 26,
+                                    "column": 52,
+                                    "offset": 576
+                                  },
+                                  "$type": 3
+                                },
+                                {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "stringbytes.go",
+                                    "line": 26,
+                                    "column": 55,
+                                    "offset": 579
+                                  },
+                                  "valueEnd": {
+                                    "file": "stringbytes.go",
+                                    "line": 26,
+                                    "column": 57,
+                                    "offset": 581
+                                  },
+                                  "kind": "STRING",
+                                  "value": "\"\"",
+                                  "$type": 8,
+                                  "$value": {
+                                    "kind": "string",
+                                    "value": ""
+                                  }
+                                }
+                              ],
+                              "ellipsis": {
+                                "file": "stringbytes.go",
+                                "line": 26,
+                                "column": 57,
+                                "offset": 581
+                              },
+                              "rparen": {
+                                "file": "stringbytes.go",
+                                "line": 26,
+                                "column": 60,
+                                "offset": 584
+                              },
+                              "$type": 3
+                            },
+                            "opPos": {
+                              "file": "stringbytes.go",
+                              "line": 26,
+                              "column": 62,
+                              "offset": 586
+                            },
+                            "op": "==",
+                            "y": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "stringbytes.go",
+                                "line": 26,
+                                "column": 65,
+                                "offset": 589
+                              },
+                              "name": "nil",
+                              "obj": null,
+                              "$type": 23,
+                              "$obj": {
+                                "name": "nil",
+                                "kind": "nil",
+                                "type": 23
+                              }
+                            },
+                            "$type": 24
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "stringbytes.go",
+                          "line": 26,
+                          "column": 68,
+                          "offset": 592
+                        },
+                        "$type": 18
+                      }
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "stringbytes.go",
+                    "line": 27,
+                    "column": 1,
+                    "offset": 594
+                  }
+                }
+              }
+            ],
+            "fileStart": {
+              "file": "stringbytes.go",
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "fileEnd": {
+              "file": "stringbytes.go",
+              "line": 27,
+              "column": 3,
+              "offset": 596
+            },
+            "scope": null,
+            "imports": [
+              {
+                "node": "ImportSpec",
+                "doc": null,
+                "name": null,
+                "path": {
+                  "node": "BasicLit",
+                  "valuePos": {
+                    "file": "stringbytes.go",
+                    "line": 5,
+                    "column": 8,
+                    "offset": 164
+                  },
+                  "valueEnd": {
+                    "file": "stringbytes.go",
+                    "line": 5,
+                    "column": 13,
+                    "offset": 169
+                  },
+                  "kind": "STRING",
+                  "value": "\"fmt\""
+                },
+                "comment": null,
+                "endPos": null
+              }
+            ],
+            "unresolved": [
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "stringbytes.go",
+                  "line": 7,
+                  "column": 11,
+                  "offset": 181
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 1,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 1
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "stringbytes.go",
+                  "line": 9,
+                  "column": 12,
+                  "offset": 200
+                },
+                "name": "byte",
+                "obj": null,
+                "$type": 4,
+                "$isType": true,
+                "$obj": {
+                  "name": "byte",
+                  "kind": "type",
+                  "type": 4
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "stringbytes.go",
+                  "line": 12,
+                  "column": 9,
+                  "offset": 228
+                },
+                "name": "byte",
+                "obj": null,
+                "$type": 4,
+                "$isType": true,
+                "$obj": {
+                  "name": "byte",
+                  "kind": "type",
+                  "type": 4
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "stringbytes.go",
+                  "line": 13,
+                  "column": 6,
+                  "offset": 244
+                },
+                "name": "append",
+                "obj": null,
+                "$type": 6,
+                "$builtin": true,
+                "$obj": {
+                  "name": "append",
+                  "kind": "builtin",
+                  "type": 7
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "stringbytes.go",
+                  "line": 15,
+                  "column": 6,
+                  "offset": 282
+                },
+                "name": "append",
+                "obj": null,
+                "$type": 6,
+                "$builtin": true,
+                "$obj": {
+                  "name": "append",
+                  "kind": "builtin",
+                  "type": 7
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "stringbytes.go",
+                  "line": 17,
+                  "column": 6,
+                  "offset": 325
+                },
+                "name": "append",
+                "obj": null,
+                "$type": 9,
+                "$builtin": true,
+                "$obj": {
+                  "name": "append",
+                  "kind": "builtin",
+                  "type": 7
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "stringbytes.go",
+                  "line": 18,
+                  "column": 2,
+                  "offset": 342
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "stringbytes.go",
+                  "line": 18,
+                  "column": 14,
+                  "offset": 354
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 1,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 1
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "stringbytes.go",
+                  "line": 18,
+                  "column": 25,
+                  "offset": 365
+                },
+                "name": "len",
+                "obj": null,
+                "$type": 17,
+                "$builtin": true,
+                "$obj": {
+                  "name": "len",
+                  "kind": "builtin",
+                  "type": 7
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "stringbytes.go",
+                  "line": 20,
+                  "column": 9,
+                  "offset": 382
+                },
+                "name": "make",
+                "obj": null,
+                "$type": 19,
+                "$builtin": true,
+                "$obj": {
+                  "name": "make",
+                  "kind": "builtin",
+                  "type": 7
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "stringbytes.go",
+                  "line": 20,
+                  "column": 16,
+                  "offset": 389
+                },
+                "name": "byte",
+                "obj": null,
+                "$type": 4,
+                "$isType": true,
+                "$obj": {
+                  "name": "byte",
+                  "kind": "type",
+                  "type": 4
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "stringbytes.go",
+                  "line": 21,
+                  "column": 7,
+                  "offset": 404
+                },
+                "name": "copy",
+                "obj": null,
+                "$type": 20,
+                "$builtin": true,
+                "$obj": {
+                  "name": "copy",
+                  "kind": "builtin",
+                  "type": 7
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "stringbytes.go",
+                  "line": 22,
+                  "column": 2,
+                  "offset": 423
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "stringbytes.go",
+                  "line": 22,
+                  "column": 17,
+                  "offset": 438
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 1,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 1
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "stringbytes.go",
+                  "line": 23,
+                  "column": 2,
+                  "offset": 452
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "stringbytes.go",
+                  "line": 23,
+                  "column": 14,
+                  "offset": 464
+                },
+                "name": "copy",
+                "obj": null,
+                "$type": 20,
+                "$builtin": true,
+                "$obj": {
+                  "name": "copy",
+                  "kind": "builtin",
+                  "type": 7
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "stringbytes.go",
+                  "line": 25,
+                  "column": 7,
+                  "offset": 505
+                },
+                "name": "append",
+                "obj": null,
+                "$type": 21,
+                "$builtin": true,
+                "$obj": {
+                  "name": "append",
+                  "kind": "builtin",
+                  "type": 7
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "stringbytes.go",
+                  "line": 26,
+                  "column": 2,
+                  "offset": 526
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "stringbytes.go",
+                  "line": 26,
+                  "column": 18,
+                  "offset": 542
+                },
+                "name": "copy",
+                "obj": null,
+                "$type": 22,
+                "$builtin": true,
+                "$obj": {
+                  "name": "copy",
+                  "kind": "builtin",
+                  "type": 7
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "stringbytes.go",
+                  "line": 26,
+                  "column": 35,
+                  "offset": 559
+                },
+                "name": "append",
+                "obj": null,
+                "$type": 6,
+                "$builtin": true,
+                "$obj": {
+                  "name": "append",
+                  "kind": "builtin",
+                  "type": 7
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "stringbytes.go",
+                  "line": 26,
+                  "column": 44,
+                  "offset": 568
+                },
+                "name": "byte",
+                "obj": null,
+                "$type": 4,
+                "$isType": true,
+                "$obj": {
+                  "name": "byte",
+                  "kind": "type",
+                  "type": 4
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "stringbytes.go",
+                  "line": 26,
+                  "column": 49,
+                  "offset": 573
+                },
+                "name": "nil",
+                "obj": null,
+                "$type": 23,
+                "$obj": {
+                  "name": "nil",
+                  "kind": "nil",
+                  "type": 23
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "stringbytes.go",
+                  "line": 26,
+                  "column": 65,
+                  "offset": 589
+                },
+                "name": "nil",
+                "obj": null,
+                "$type": 23,
+                "$obj": {
+                  "name": "nil",
+                  "kind": "nil",
+                  "type": 23
+                }
+              }
+            ],
+            "comments": [
+              {
+                "node": "CommentGroup",
+                "list": [
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "stringbytes.go",
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "text": "// append([]byte, string...) e copy([]byte, string) (golang.org/x/net/dns/dnsmessage),"
+                  },
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "stringbytes.go",
+                      "line": 2,
+                      "column": 1,
+                      "offset": 87
+                    },
+                    "text": "// com string nomeada, UTF-8 inválido e slice nomeado."
+                  }
+                ]
+              }
+            ],
+            "goVersion": ""
+          }
+        }
+      ],
+      "imports": [
+        {
+          "path": "fmt",
+          "name": "fmt"
+        }
+      ],
+      "typeTable": [
+        {
+          "kind": "named",
+          "pkg": "main",
+          "name": "Name",
+          "underlying": 1,
+          "methods": []
+        },
+        {
+          "kind": "basic",
+          "name": "string"
+        },
+        {
+          "kind": "named",
+          "pkg": "main",
+          "name": "Buf",
+          "underlying": 3,
+          "methods": []
+        },
+        {
+          "kind": "slice",
+          "elem": 4
+        },
+        {
+          "kind": "basic",
+          "name": "byte"
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            3,
+            1
+          ],
+          "results": [
+            3
+          ],
+          "variadic": true
+        },
+        {
+          "kind": "basic",
+          "name": "invalid type"
+        },
+        {
+          "kind": "basic",
+          "name": "untyped string"
+        },
+        {
+          "kind": "func",
+          "params": [
+            3,
+            0
+          ],
+          "results": [
+            3
+          ],
+          "variadic": true
+        },
+        {
+          "kind": "func",
+          "params": [
+            11
+          ],
+          "results": [
+            13,
+            14
+          ],
+          "variadic": true
+        },
+        {
+          "kind": "slice",
+          "elem": 12
+        },
+        {
+          "kind": "interface",
+          "methods": [],
+          "embeddeds": []
+        },
+        {
+          "kind": "basic",
+          "name": "int"
+        },
+        {
+          "kind": "named",
+          "pkg": "",
+          "name": "error",
+          "underlying": 15
+        },
+        {
+          "kind": "interface",
+          "methods": [
+            {
+              "name": "Error",
+              "type": 16
+            }
+          ],
+          "embeddeds": []
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            1
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            3
+          ],
+          "results": [
+            13
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "tuple",
+          "elems": [
+            13,
+            14
+          ]
+        },
+        {
+          "kind": "func",
+          "params": [
+            3,
+            13
+          ],
+          "results": [
+            3
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            3,
+            1
+          ],
+          "results": [
+            13
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            2,
+            1
+          ],
+          "results": [
+            2
+          ],
+          "variadic": true
+        },
+        {
+          "kind": "func",
+          "params": [
+            2,
+            0
+          ],
+          "results": [
+            13
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "basic",
+          "name": "untyped nil"
+        },
+        {
+          "kind": "basic",
+          "name": "bool"
+        }
+      ],
+      "implements": null,
+      "initOrder": [],
+      "stdlibUsage": [
+        "fmt.Println"
+      ],
+      "reflectUsage": null
+    }
+  ]
+}

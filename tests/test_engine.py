@@ -142,8 +142,8 @@ class UnsupportedTest(unittest.TestCase):
         return e.code, (e.pos["file"], e.pos["line"], e.pos["column"]) if e.pos else None
 
     def test_node_position(self):
-        src = 'package main\n\nfunc main() {\n\tb := []byte{}\n\tb = append(b, "x"...)\n\t_ = b\n}\n'
-        self.assertEqual(self.emit_error(src), ("append-string", ("main.go", 5, 6)))
+        src = 'package main\n\nfunc main() {\n\tm := map[string]int{}\n\tm[g()] += 1\n}\n\nfunc g() string { return "" }\n'
+        self.assertEqual(self.emit_error(src), ("opassign-impuro", ("main.go", 5, 2)))
 
     def test_falls_back_to_declaration(self):
         src = 'package main\n\nimport "unicode/utf8"\n\nvar E = utf8.RuneLen(120)\n\nfunc main() { _ = E }\n'
@@ -204,8 +204,8 @@ class UnsupportedTest(unittest.TestCase):
         Engine(dump_source(src)).emit_package()
 
     def test_import_spec_position(self):
-        src = 'package main\n\nimport _ "fmt"\n\nfunc main() {}\n'
-        self.assertEqual(self.emit_error(src), ("import:_", ("main.go", 3, 8)))
+        src = 'package main\n\nimport _ "embed"\n\nfunc main() {}\n'
+        self.assertEqual(self.emit_error(src), ("go:embed", ("main.go", 3, 8)))
 
     def test_main_without_graph(self):
         """main transpilado sem as dependências no dump: init incompleto

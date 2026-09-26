@@ -83,7 +83,7 @@ Legenda: ✅ fiel · ⚠️ fiel no caso comum, com limite conhecido · ❌ não
 | `*N` de tipo nomeado exportado não-struct com métodos | `N$Ptr` sempre gerado pelo dono (o consumidor pode usar `*N`); ⚠️ classe a mais quando ninguém usa | ✅ |
 | inicialização das dependências | o `$goInit` do `main` chama antes o `$goInit` de cada pacote do grafo, na ordem global do Go ≥ 1.21 (o menor import path cujos imports já inicializaram; `g2d.graph.topo_order`), não recursivamente por importador; main sem o grafo no dump → `Unsupported` (`init-grafo-incompleto`); shims da stdlib não têm init | ✅ (fixture `multiinit`) |
 | import `.` | nenhum prefixo próprio: identificadores e tipos já trazem o pacote do objeto e saem qualificados pelo prefixo derivado do import path (`tok.Token`) | ✅ (fixture `dotimport`) |
-| import `_` | — (`TODO/P1-construcao-import-blank.md`) | ❌ |
+| import `_` | nenhum import Dart: o pacote do grafo inicializa pela ordem global do `$goInit` do main; shim da stdlib não tem init. `_ "embed"` (só existe para `//go:embed`) → `Unsupported` `go:embed` | ✅ (fixture `blankimport`) |
 | função sem corpo (assembly, `go:linkname`) | — (`Unsupported` `func-sem-corpo`: o pacote vai para substituição) | ❌ |
 
 ## Identificadores
@@ -187,6 +187,7 @@ class Box extends go.GoStruct<Box> {
 | `s[i]`, `s[i] = v` | `s[i.toInt()]`, `s[i.toInt()] = v` (`toInt()`: saída exata em ±2⁵³ de qualquer inteiro Go; bounds → `runtime error: index out of range`) |
 | `s[a:b]`, `s[a:b:c]` | `s.slice(a, b)`, `s.slice(a, b, c)` (compartilha o array) |
 | `append(s, x, y)` / `append(s, t...)` | `s.append([x, y])` / `s.appendSlice(t)` |
+| `append(b, str...)`, `copy(b, str)` | `b.appendSlice(go.bytesOf(str, _$eN))` / `b.copyFrom(go.bytesOf(str, _$eN))` (os bytes de `[]byte(str)`; string nomeada via `.$str`). Fixture `stringbytes` |
 | `len`, `cap`, `copy(d, s)` | `Golang.Int(s.length)`, `Golang.Int(s.capacity)`, `Golang.Int(d.copyFrom(s))` |
 | `clear(s)` | `s.clear()`: zera os elementos da janela; struct/array in-place (`&s[i]` guardado vê o zero) |
 | `s == nil`, variádico vazio `f()` | `s.isNil`; `f` recebe um slice nil |
@@ -210,7 +211,8 @@ o crescimento de `cap`, e ele muda entre versões do Go.
 |---|---|
 | `map[K]V{k: v}` / `make(map[K]V)` | `go.GoMap<K, V>.of({k: v}, _$eN)` / `go.GoMap<K, V>(_$eN)` |
 | `m[k]` | `m[k]` (zero value se ausente; também em map nil) |
-| `v, ok := m[k]` | `var (v, ok) = m.lookup(k);` |
+| `[]*P{{1, 2}}` (`&P` elidido em literal de slice/array/map) | o literal de `P` (struct/array é o próprio endereço); ponteiro para slice/map elidido continua `literal-composto:pointer`. Fixture `elidedptr` |
+| `v, ok := m[k]` | `var (v, ok) = m.lookup(k);` (também em `var v, ok = m[k]` / `x.(T)` de pacote e locais, fixture `varcommaok`) |
 | `m[k] = v` em map nil | `panic: assignment to entry in nil map` |
 | `delete(m, k)`, `len(m)`, `m == nil` | `m.delete(k)`, `Golang.Int(m.length)`, `m.isNil` |
 | `clear(m)` | `m.clear()` (map nil: nada) |
@@ -279,6 +281,7 @@ criado com `identity: true` (`Map.identity()`), então compara endereços.
 | `fallthrough` | seleção do case (`$c`) seguida dos corpos em sequência (`if ($c == i)`); `fallthrough` → `$c = i + 1` na ordem do fonte, inclusive para o `default` no meio |
 | rótulos, `break L`, `continue L` | rótulo no laço Dart |
 | `defer f(a)` | `{ final $t = a; $d.defer(() { f($t); }); }`, com o corpo em `try`/`catch`/`finally` de `go.Defers` |
+| `defer f()` com f de tipo func nomeado | o closure em `f.$f` (pode receber `$rd` e recuperar); assinatura do subjacente (fixture `defernamed`) |
 | `defer delete(m, k)`, `defer panic(v)`, `defer clear(s)`... | mesmo caminho, com a chamada do builtin no closure (fixture `deferbuiltin`); `defer recover()` → `Unsupported` `defer-recover` (no Go não recupera) |
 | `go`, `select`, range sobre chan/func | ❌ (M4) |
 | `goto` | ❌ exigiria reescrever a função como máquina de estados. Medido no grafo do kubo (`docs/audit.md`, `branch:goto`): 54 ocorrências em 14 pacotes, 3 na fronteira (ex. gonum `mathext/internal/cephes`); decisão a rever se entrar no caminho |
@@ -388,7 +391,9 @@ métodos da classe. As conversões usam os construtores:
   `any`/`comparable` → nenhum.
 - `/` sobre `T` → `$quo` (truncado nos inteiros, IEEE nos floats).
 - A chamada instancia explicitamente, `f<Golang.Int>(_$e0, ...)`, com os
-  argumentos de tipo vindos do goast (`$inst`).
+  argumentos de tipo vindos do goast (`$inst`), inclusive `f[int](x)` e
+  `pkg.New[K, V](...)` escritos no Go. `f[int]` como valor (sem chamada) vira
+  `((Golang.Int p0) => f<Golang.Int>(_$e0, p0))` (fixture `explicitinst`).
 - Structs genéricas: `class Stack<T> extends go.GoStruct<Stack<T>>`, com os
   dicionários como primeiros parâmetros do construtor.
 

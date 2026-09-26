@@ -17,6 +17,10 @@ class Calls(Service):
             f = f["x"]
         if f["node"] == "Ident" and f.get("$inst") and f.get("$obj", {}).get("kind") == "func":
             return f, f["$inst"]
+        # `pkg.F[T]`: o `$inst` fica no identificador selecionado.
+        if (f["node"] == "SelectorExpr" and (f["x"].get("$obj") or {}).get("kind") == "package"
+                and f["sel"].get("$inst") and f["sel"].get("$obj", {}).get("kind") == "func"):
+            return f, f["sel"]["$inst"]
         return None
 
     @staticmethod

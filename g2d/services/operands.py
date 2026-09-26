@@ -47,6 +47,15 @@ class Operands(Service):
             return f"{self.expr(n['x'], POSTFIX)}[{self.expr(n['index'])}]"
         return self.expr(n, POSTFIX)
 
+    def multi_value(self, n):
+        """Expressão única com vários valores como record Dart: `x.(T)` e
+        `m[k]` em comma-ok, ou chamada com N resultados."""
+        if n["node"] == "TypeAssertExpr":
+            return self.asserts.comma_ok_assert(n)
+        if self.is_map_index(n):
+            return f"{self.expr(n['x'], POSTFIX)}.lookup({self.expr(n['index'])})"
+        return self.expr(n)
+
     def is_pure(self, n):
         """Avaliar n duas vezes dá o mesmo valor e nenhum efeito: constantes,
         identificadores, campos, índices, parênteses e `*p` sobre puros

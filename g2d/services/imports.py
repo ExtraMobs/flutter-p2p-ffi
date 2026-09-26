@@ -21,7 +21,14 @@ class ImportTable(Service):
                 # `import .`: os identificadores já trazem o pacote do objeto
                 # e são qualificados pelo prefixo derivado do import path.
                 continue
-            if imp["name"] in ("_", GOLANG_PREFIX):
+            if imp["name"] == "_":
+                # Só pelo init: os pacotes do grafo inicializam pela ordem
+                # global do Go (`$goInit` do main); shims não têm init.
+                # `_ "embed"` só existe para `//go:embed` (dados do arquivo).
+                if imp["path"] == "embed":
+                    raise Unsupported("go:embed", "//go:embed (import _ embed)", self.import_spec(imp["path"]))
+                continue
+            if imp["name"] == GOLANG_PREFIX:
                 raise Unsupported(f"import:{imp['name']}", f"import {imp['name']} {imp['path']}",
                                   self.import_spec(imp["path"]))
             self.prefixes.setdefault(imp["path"], escape(imp["name"]))

@@ -1,7 +1,7 @@
 """Um comportamento por expressão Go."""
 
 from g2d.analysis.helpers import has_recover
-from g2d.engine.behavior import ExprBehavior
+from g2d.engine.behavior import NOT_HANDLED, ExprBehavior
 from g2d.engine.precedence import DART_PREC, NON_ASSOC, POSTFIX, UNARY
 from g2d.model import Unsupported
 from g2d.services.naming import escape, lower_camel, member_name, type_name
@@ -279,6 +279,9 @@ class CompositeLit(ExprBehavior):
 
     def emit(self, n):
         t = self.pkg.type_of(n)
+        if t["kind"] == "pointer" and self.typesys.is_value(self.pkg.type_at(t["elem"])):
+            # `[]*P{{1, 2}}`: `&P{1, 2}` elidido; struct/array é o próprio endereço.
+            return self.emit(dict(n, **{"$type": t["elem"]}))
         u = self.typesys.underlying(t)
         elts = n["elts"] or []
         if u["kind"] == "struct":
@@ -404,6 +407,25 @@ class TypeAssertExpr(ExprBehavior):
         iface = self.goinfo.go_type_name(self.pkg.type_of(n["x"]))
         struct = {"value": ", struct: true", "pointer": ", struct: false"}.get(mode, "")
         return f"{self.imports.qualify(None, 'assertType')}<{dt}>({x}, '{iface}', '{target}'{struct})", POSTFIX
+
+
+class FuncInstance(ExprBehavior):
+    """`f[int]` / `pkg.New[K, V]` usado como valor (sem chamada): closure que
+    instancia e passa os dicionários, `(p0) => f<Golang.Int>(_$e0, p0)`.
+    A chamada direta `f[int](x)` é tratada no CallExpr."""
+
+    kinds = ("IndexExpr", "IndexListExpr")
+
+    def emit(self, n):
+        inst = self.calls.instantiation(n)
+        if inst is None:
+            return NOT_HANDLED
+        generic, targs = inst
+        sig = self.pkg.type_of(n)
+        params = [f"{self.types.dart(p)} p{i}" for i, p in enumerate(sig["params"])]
+        args = [self.descriptors.elem(a) for a in targs] + [f"p{i}" for i in range(len(sig["params"]))]
+        callee = self.expr(generic, POSTFIX) + "<" + ", ".join(self.types.dart(a) for a in targs) + ">"
+        return f"(({', '.join(params)}) => {callee}({', '.join(args)}))", POSTFIX
 
 
 class G2DTemp(ExprBehavior):

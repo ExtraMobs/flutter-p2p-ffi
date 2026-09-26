@@ -61,6 +61,7 @@ class CollectionsPlugin(Plugin):
 
     def install(self, engine):
         engine.register_expr(exprs.IndexExpr)
+        engine.register_expr(exprs.FuncInstance)  # antes do IndexExpr na cadeia
         engine.register_expr(exprs.SliceExpr)
         for b in (builtins.Len, builtins.Cap, builtins.Append, builtins.Copy,
                   builtins.Delete, builtins.Make, builtins.Min, builtins.Max, builtins.Clear):

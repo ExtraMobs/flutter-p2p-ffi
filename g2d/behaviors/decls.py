@@ -129,8 +129,8 @@ class InitBehavior(Behavior):
         names, values = spec["names"], spec["values"]
         if len(values) == len(names):
             return self.init_assign(names[idx], values[idx])
-        tmp = self.names.temp()  # var a, b = f()
-        lines = [f"final {tmp} = {self.expr(values[0])};"]
+        tmp = self.names.temp()  # var a, b = f() / m[k] / x.(T)
+        lines = [f"final {tmp} = {self.operands.multi_value(values[0])};"]
         for i, ident in enumerate(names):
             if ident["name"] != "_":
                 lines.append(f"{self.top_var(ident)} = {tmp}.${i + 1};")

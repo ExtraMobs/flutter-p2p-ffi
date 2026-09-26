@@ -1,0 +1,1718 @@
+{
+  "schemaVersion": 7,
+  "tool": "goast",
+  "goVersion": "go1.26.5",
+  "packages": [
+    {
+      "path": "g2d.test/blankimport/cmd",
+      "name": "main",
+      "files": [
+        {
+          "path": "main.go",
+          "ast": {
+            "node": "File",
+            "doc": {
+              "node": "CommentGroup",
+              "list": [
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "main.go",
+                    "line": 1,
+                    "column": 1,
+                    "offset": 0
+                  },
+                  "text": "// import _: pacote do grafo importado só pelo init, e pacote da stdlib"
+                },
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "main.go",
+                    "line": 2,
+                    "column": 1,
+                    "offset": 73
+                  },
+                  "text": "// (golang.org/x/crypto/ocsp: _ \"crypto/sha256\")."
+                }
+              ]
+            },
+            "package": {
+              "file": "main.go",
+              "line": 3,
+              "column": 1,
+              "offset": 123
+            },
+            "name": {
+              "node": "Ident",
+              "namePos": {
+                "file": "main.go",
+                "line": 3,
+                "column": 9,
+                "offset": 131
+              },
+              "name": "main",
+              "obj": null
+            },
+            "decls": [
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "main.go",
+                  "line": 5,
+                  "column": 1,
+                  "offset": 137
+                },
+                "tok": "import",
+                "lparen": {
+                  "file": "main.go",
+                  "line": 5,
+                  "column": 8,
+                  "offset": 144
+                },
+                "specs": [
+                  {
+                    "node": "ImportSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "main.go",
+                        "line": 6,
+                        "column": 2,
+                        "offset": 147
+                      },
+                      "name": "_",
+                      "obj": null,
+                      "$obj": {
+                        "name": "_",
+                        "kind": "package",
+                        "def": true,
+                        "pkg": "crypto/sha256"
+                      }
+                    },
+                    "path": {
+                      "node": "BasicLit",
+                      "valuePos": {
+                        "file": "main.go",
+                        "line": 6,
+                        "column": 4,
+                        "offset": 149
+                      },
+                      "valueEnd": {
+                        "file": "main.go",
+                        "line": 6,
+                        "column": 19,
+                        "offset": 164
+                      },
+                      "kind": "STRING",
+                      "value": "\"crypto/sha256\""
+                    },
+                    "comment": null,
+                    "endPos": null
+                  },
+                  {
+                    "node": "ImportSpec",
+                    "doc": null,
+                    "name": null,
+                    "path": {
+                      "node": "BasicLit",
+                      "valuePos": {
+                        "file": "main.go",
+                        "line": 7,
+                        "column": 2,
+                        "offset": 166
+                      },
+                      "valueEnd": {
+                        "file": "main.go",
+                        "line": 7,
+                        "column": 7,
+                        "offset": 171
+                      },
+                      "kind": "STRING",
+                      "value": "\"fmt\""
+                    },
+                    "comment": null,
+                    "endPos": null
+                  },
+                  {
+                    "node": "ImportSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "main.go",
+                        "line": 9,
+                        "column": 2,
+                        "offset": 174
+                      },
+                      "name": "_",
+                      "obj": null,
+                      "$obj": {
+                        "name": "_",
+                        "kind": "package",
+                        "def": true,
+                        "pkg": "g2d.test/blankimport/plug"
+                      }
+                    },
+                    "path": {
+                      "node": "BasicLit",
+                      "valuePos": {
+                        "file": "main.go",
+                        "line": 9,
+                        "column": 4,
+                        "offset": 176
+                      },
+                      "valueEnd": {
+                        "file": "main.go",
+                        "line": 9,
+                        "column": 31,
+                        "offset": 203
+                      },
+                      "kind": "STRING",
+                      "value": "\"g2d.test/blankimport/plug\""
+                    },
+                    "comment": null,
+                    "endPos": null
+                  },
+                  {
+                    "node": "ImportSpec",
+                    "doc": null,
+                    "name": null,
+                    "path": {
+                      "node": "BasicLit",
+                      "valuePos": {
+                        "file": "main.go",
+                        "line": 10,
+                        "column": 2,
+                        "offset": 205
+                      },
+                      "valueEnd": {
+                        "file": "main.go",
+                        "line": 10,
+                        "column": 33,
+                        "offset": 236
+                      },
+                      "kind": "STRING",
+                      "value": "\"g2d.test/blankimport/registry\""
+                    },
+                    "comment": null,
+                    "endPos": null
+                  }
+                ],
+                "rparen": {
+                  "file": "main.go",
+                  "line": 11,
+                  "column": 1,
+                  "offset": 237
+                }
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "main.go",
+                    "line": 13,
+                    "column": 6,
+                    "offset": 245
+                  },
+                  "name": "init",
+                  "obj": null,
+                  "$obj": {
+                    "name": "init",
+                    "kind": "func",
+                    "def": true,
+                    "type": 0,
+                    "decl": "main.go:245",
+                    "pkg": "g2d.test/blankimport/cmd",
+                    "top": true
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "main.go",
+                    "line": 13,
+                    "column": 1,
+                    "offset": 240
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "main.go",
+                      "line": 13,
+                      "column": 10,
+                      "offset": 249
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "main.go",
+                      "line": 13,
+                      "column": 11,
+                      "offset": 250
+                    }
+                  },
+                  "results": null
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "main.go",
+                    "line": 13,
+                    "column": 13,
+                    "offset": 252
+                  },
+                  "list": [
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "main.go",
+                              "line": 13,
+                              "column": 15,
+                              "offset": 254
+                            },
+                            "name": "registry",
+                            "obj": null,
+                            "$obj": {
+                              "name": "registry",
+                              "kind": "package",
+                              "pkg": "g2d.test/blankimport/registry"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "main.go",
+                              "line": 13,
+                              "column": 24,
+                              "offset": 263
+                            },
+                            "name": "Register",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Register",
+                              "kind": "func",
+                              "type": 1,
+                              "decl": "registry.go:114",
+                              "pkg": "g2d.test/blankimport/registry",
+                              "top": true
+                            }
+                          },
+                          "$type": 1
+                        },
+                        "lparen": {
+                          "file": "main.go",
+                          "line": 13,
+                          "column": 32,
+                          "offset": 271
+                        },
+                        "args": [
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "main.go",
+                              "line": 13,
+                              "column": 33,
+                              "offset": 272
+                            },
+                            "valueEnd": {
+                              "file": "main.go",
+                              "line": 13,
+                              "column": 39,
+                              "offset": 278
+                            },
+                            "kind": "STRING",
+                            "value": "\"main\"",
+                            "$type": 2,
+                            "$value": {
+                              "kind": "string",
+                              "value": "main"
+                            }
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "main.go",
+                          "line": 13,
+                          "column": 39,
+                          "offset": 278
+                        },
+                        "$type": 3
+                      }
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "main.go",
+                    "line": 13,
+                    "column": 41,
+                    "offset": 280
+                  }
+                }
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "main.go",
+                    "line": 15,
+                    "column": 6,
+                    "offset": 288
+                  },
+                  "name": "main",
+                  "obj": {
+                    "node": "Object",
+                    "name": "main",
+                    "kind": "func"
+                  },
+                  "$obj": {
+                    "name": "main",
+                    "kind": "func",
+                    "def": true,
+                    "type": 0,
+                    "decl": "main.go:288",
+                    "pkg": "g2d.test/blankimport/cmd",
+                    "top": true
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "main.go",
+                    "line": 15,
+                    "column": 1,
+                    "offset": 283
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "main.go",
+                      "line": 15,
+                      "column": 10,
+                      "offset": 292
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "main.go",
+                      "line": 15,
+                      "column": 11,
+                      "offset": 293
+                    }
+                  },
+                  "results": null
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "main.go",
+                    "line": 15,
+                    "column": 13,
+                    "offset": 295
+                  },
+                  "list": [
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "main.go",
+                              "line": 16,
+                              "column": 2,
+                              "offset": 298
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "main.go",
+                              "line": 16,
+                              "column": 6,
+                              "offset": 302
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 4,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 4
+                        },
+                        "lparen": {
+                          "file": "main.go",
+                          "line": 16,
+                          "column": 13,
+                          "offset": 309
+                        },
+                        "args": [
+                          {
+                            "node": "SelectorExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "main.go",
+                                "line": 16,
+                                "column": 14,
+                                "offset": 310
+                              },
+                              "name": "registry",
+                              "obj": null,
+                              "$obj": {
+                                "name": "registry",
+                                "kind": "package",
+                                "pkg": "g2d.test/blankimport/registry"
+                              }
+                            },
+                            "sel": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "main.go",
+                                "line": 16,
+                                "column": 23,
+                                "offset": 319
+                              },
+                              "name": "Names",
+                              "obj": null,
+                              "$obj": {
+                                "name": "Names",
+                                "kind": "var",
+                                "type": 11,
+                                "decl": "registry.go:93",
+                                "pkg": "g2d.test/blankimport/registry",
+                                "top": true
+                              }
+                            },
+                            "$type": 11
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "main.go",
+                          "line": 16,
+                          "column": 28,
+                          "offset": 324
+                        },
+                        "$type": 12
+                      }
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "main.go",
+                    "line": 17,
+                    "column": 1,
+                    "offset": 326
+                  }
+                }
+              }
+            ],
+            "fileStart": {
+              "file": "main.go",
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "fileEnd": {
+              "file": "main.go",
+              "line": 17,
+              "column": 3,
+              "offset": 328
+            },
+            "scope": null,
+            "imports": [
+              {
+                "node": "ImportSpec",
+                "doc": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "main.go",
+                    "line": 6,
+                    "column": 2,
+                    "offset": 147
+                  },
+                  "name": "_",
+                  "obj": null,
+                  "$obj": {
+                    "name": "_",
+                    "kind": "package",
+                    "def": true,
+                    "pkg": "crypto/sha256"
+                  }
+                },
+                "path": {
+                  "node": "BasicLit",
+                  "valuePos": {
+                    "file": "main.go",
+                    "line": 6,
+                    "column": 4,
+                    "offset": 149
+                  },
+                  "valueEnd": {
+                    "file": "main.go",
+                    "line": 6,
+                    "column": 19,
+                    "offset": 164
+                  },
+                  "kind": "STRING",
+                  "value": "\"crypto/sha256\""
+                },
+                "comment": null,
+                "endPos": null
+              },
+              {
+                "node": "ImportSpec",
+                "doc": null,
+                "name": null,
+                "path": {
+                  "node": "BasicLit",
+                  "valuePos": {
+                    "file": "main.go",
+                    "line": 7,
+                    "column": 2,
+                    "offset": 166
+                  },
+                  "valueEnd": {
+                    "file": "main.go",
+                    "line": 7,
+                    "column": 7,
+                    "offset": 171
+                  },
+                  "kind": "STRING",
+                  "value": "\"fmt\""
+                },
+                "comment": null,
+                "endPos": null
+              },
+              {
+                "node": "ImportSpec",
+                "doc": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "main.go",
+                    "line": 9,
+                    "column": 2,
+                    "offset": 174
+                  },
+                  "name": "_",
+                  "obj": null,
+                  "$obj": {
+                    "name": "_",
+                    "kind": "package",
+                    "def": true,
+                    "pkg": "g2d.test/blankimport/plug"
+                  }
+                },
+                "path": {
+                  "node": "BasicLit",
+                  "valuePos": {
+                    "file": "main.go",
+                    "line": 9,
+                    "column": 4,
+                    "offset": 176
+                  },
+                  "valueEnd": {
+                    "file": "main.go",
+                    "line": 9,
+                    "column": 31,
+                    "offset": 203
+                  },
+                  "kind": "STRING",
+                  "value": "\"g2d.test/blankimport/plug\""
+                },
+                "comment": null,
+                "endPos": null
+              },
+              {
+                "node": "ImportSpec",
+                "doc": null,
+                "name": null,
+                "path": {
+                  "node": "BasicLit",
+                  "valuePos": {
+                    "file": "main.go",
+                    "line": 10,
+                    "column": 2,
+                    "offset": 205
+                  },
+                  "valueEnd": {
+                    "file": "main.go",
+                    "line": 10,
+                    "column": 33,
+                    "offset": 236
+                  },
+                  "kind": "STRING",
+                  "value": "\"g2d.test/blankimport/registry\""
+                },
+                "comment": null,
+                "endPos": null
+              }
+            ],
+            "unresolved": [
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "main.go",
+                  "line": 13,
+                  "column": 15,
+                  "offset": 254
+                },
+                "name": "registry",
+                "obj": null,
+                "$obj": {
+                  "name": "registry",
+                  "kind": "package",
+                  "pkg": "g2d.test/blankimport/registry"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "main.go",
+                  "line": 16,
+                  "column": 2,
+                  "offset": 298
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "main.go",
+                  "line": 16,
+                  "column": 14,
+                  "offset": 310
+                },
+                "name": "registry",
+                "obj": null,
+                "$obj": {
+                  "name": "registry",
+                  "kind": "package",
+                  "pkg": "g2d.test/blankimport/registry"
+                }
+              }
+            ],
+            "comments": [
+              {
+                "node": "CommentGroup",
+                "list": [
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "main.go",
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "text": "// import _: pacote do grafo importado só pelo init, e pacote da stdlib"
+                  },
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "main.go",
+                      "line": 2,
+                      "column": 1,
+                      "offset": 73
+                    },
+                    "text": "// (golang.org/x/crypto/ocsp: _ \"crypto/sha256\")."
+                  }
+                ]
+              }
+            ],
+            "goVersion": ""
+          }
+        }
+      ],
+      "imports": [
+        {
+          "path": "crypto/sha256",
+          "name": "_"
+        },
+        {
+          "path": "fmt",
+          "name": "fmt"
+        },
+        {
+          "path": "g2d.test/blankimport/plug",
+          "name": "_"
+        },
+        {
+          "path": "g2d.test/blankimport/registry",
+          "name": "registry"
+        }
+      ],
+      "typeTable": [
+        {
+          "kind": "func",
+          "params": [],
+          "results": [],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            2
+          ],
+          "results": [],
+          "variadic": false
+        },
+        {
+          "kind": "basic",
+          "name": "string"
+        },
+        {
+          "kind": "tuple",
+          "elems": []
+        },
+        {
+          "kind": "func",
+          "params": [
+            5
+          ],
+          "results": [
+            7,
+            8
+          ],
+          "variadic": true
+        },
+        {
+          "kind": "slice",
+          "elem": 6
+        },
+        {
+          "kind": "interface",
+          "methods": [],
+          "embeddeds": []
+        },
+        {
+          "kind": "basic",
+          "name": "int"
+        },
+        {
+          "kind": "named",
+          "pkg": "",
+          "name": "error",
+          "underlying": 9
+        },
+        {
+          "kind": "interface",
+          "methods": [
+            {
+              "name": "Error",
+              "type": 10
+            }
+          ],
+          "embeddeds": []
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            2
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "slice",
+          "elem": 2
+        },
+        {
+          "kind": "tuple",
+          "elems": [
+            7,
+            8
+          ]
+        }
+      ],
+      "implements": null,
+      "initOrder": [],
+      "stdlibUsage": [
+        "fmt.Println"
+      ],
+      "reflectUsage": null,
+      "module": {
+        "path": "g2d.test/blankimport"
+      }
+    },
+    {
+      "path": "g2d.test/blankimport/plug",
+      "name": "plug",
+      "files": [
+        {
+          "path": "plug.go",
+          "ast": {
+            "node": "File",
+            "doc": {
+              "node": "CommentGroup",
+              "list": [
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "plug.go",
+                    "line": 1,
+                    "column": 1,
+                    "offset": 0
+                  },
+                  "text": "// Package plug só existe pelo efeito do init (padrão de plugins/codecs do kubo)."
+                }
+              ]
+            },
+            "package": {
+              "file": "plug.go",
+              "line": 2,
+              "column": 1,
+              "offset": 84
+            },
+            "name": {
+              "node": "Ident",
+              "namePos": {
+                "file": "plug.go",
+                "line": 2,
+                "column": 9,
+                "offset": 92
+              },
+              "name": "plug",
+              "obj": null
+            },
+            "decls": [
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "plug.go",
+                  "line": 4,
+                  "column": 1,
+                  "offset": 98
+                },
+                "tok": "import",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "ImportSpec",
+                    "doc": null,
+                    "name": null,
+                    "path": {
+                      "node": "BasicLit",
+                      "valuePos": {
+                        "file": "plug.go",
+                        "line": 4,
+                        "column": 8,
+                        "offset": 105
+                      },
+                      "valueEnd": {
+                        "file": "plug.go",
+                        "line": 4,
+                        "column": 39,
+                        "offset": 136
+                      },
+                      "kind": "STRING",
+                      "value": "\"g2d.test/blankimport/registry\""
+                    },
+                    "comment": null,
+                    "endPos": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "plug.go",
+                    "line": 6,
+                    "column": 6,
+                    "offset": 143
+                  },
+                  "name": "init",
+                  "obj": null,
+                  "$obj": {
+                    "name": "init",
+                    "kind": "func",
+                    "def": true,
+                    "type": 0,
+                    "decl": "plug.go:143",
+                    "pkg": "g2d.test/blankimport/plug",
+                    "top": true
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "plug.go",
+                    "line": 6,
+                    "column": 1,
+                    "offset": 138
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "plug.go",
+                      "line": 6,
+                      "column": 10,
+                      "offset": 147
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "plug.go",
+                      "line": 6,
+                      "column": 11,
+                      "offset": 148
+                    }
+                  },
+                  "results": null
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "plug.go",
+                    "line": 6,
+                    "column": 13,
+                    "offset": 150
+                  },
+                  "list": [
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "plug.go",
+                              "line": 6,
+                              "column": 15,
+                              "offset": 152
+                            },
+                            "name": "registry",
+                            "obj": null,
+                            "$obj": {
+                              "name": "registry",
+                              "kind": "package",
+                              "pkg": "g2d.test/blankimport/registry"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "plug.go",
+                              "line": 6,
+                              "column": 24,
+                              "offset": 161
+                            },
+                            "name": "Register",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Register",
+                              "kind": "func",
+                              "type": 1,
+                              "decl": "registry.go:114",
+                              "pkg": "g2d.test/blankimport/registry",
+                              "top": true
+                            }
+                          },
+                          "$type": 1
+                        },
+                        "lparen": {
+                          "file": "plug.go",
+                          "line": 6,
+                          "column": 32,
+                          "offset": 169
+                        },
+                        "args": [
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "plug.go",
+                              "line": 6,
+                              "column": 33,
+                              "offset": 170
+                            },
+                            "valueEnd": {
+                              "file": "plug.go",
+                              "line": 6,
+                              "column": 39,
+                              "offset": 176
+                            },
+                            "kind": "STRING",
+                            "value": "\"plug\"",
+                            "$type": 2,
+                            "$value": {
+                              "kind": "string",
+                              "value": "plug"
+                            }
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "plug.go",
+                          "line": 6,
+                          "column": 39,
+                          "offset": 176
+                        },
+                        "$type": 3
+                      }
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "plug.go",
+                    "line": 6,
+                    "column": 41,
+                    "offset": 178
+                  }
+                }
+              }
+            ],
+            "fileStart": {
+              "file": "plug.go",
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "fileEnd": {
+              "file": "plug.go",
+              "line": 6,
+              "column": 43,
+              "offset": 180
+            },
+            "scope": null,
+            "imports": [
+              {
+                "node": "ImportSpec",
+                "doc": null,
+                "name": null,
+                "path": {
+                  "node": "BasicLit",
+                  "valuePos": {
+                    "file": "plug.go",
+                    "line": 4,
+                    "column": 8,
+                    "offset": 105
+                  },
+                  "valueEnd": {
+                    "file": "plug.go",
+                    "line": 4,
+                    "column": 39,
+                    "offset": 136
+                  },
+                  "kind": "STRING",
+                  "value": "\"g2d.test/blankimport/registry\""
+                },
+                "comment": null,
+                "endPos": null
+              }
+            ],
+            "unresolved": [
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "plug.go",
+                  "line": 6,
+                  "column": 15,
+                  "offset": 152
+                },
+                "name": "registry",
+                "obj": null,
+                "$obj": {
+                  "name": "registry",
+                  "kind": "package",
+                  "pkg": "g2d.test/blankimport/registry"
+                }
+              }
+            ],
+            "comments": [
+              {
+                "node": "CommentGroup",
+                "list": [
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "plug.go",
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "text": "// Package plug só existe pelo efeito do init (padrão de plugins/codecs do kubo)."
+                  }
+                ]
+              }
+            ],
+            "goVersion": ""
+          }
+        }
+      ],
+      "imports": [
+        {
+          "path": "g2d.test/blankimport/registry",
+          "name": "registry"
+        }
+      ],
+      "typeTable": [
+        {
+          "kind": "func",
+          "params": [],
+          "results": [],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            2
+          ],
+          "results": [],
+          "variadic": false
+        },
+        {
+          "kind": "basic",
+          "name": "string"
+        },
+        {
+          "kind": "tuple",
+          "elems": []
+        }
+      ],
+      "implements": null,
+      "initOrder": [],
+      "stdlibUsage": [],
+      "reflectUsage": null,
+      "module": {
+        "path": "g2d.test/blankimport"
+      }
+    },
+    {
+      "path": "g2d.test/blankimport/registry",
+      "name": "registry",
+      "files": [
+        {
+          "path": "registry.go",
+          "ast": {
+            "node": "File",
+            "doc": {
+              "node": "CommentGroup",
+              "list": [
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "registry.go",
+                    "line": 1,
+                    "column": 1,
+                    "offset": 0
+                  },
+                  "text": "// Package registry recebe registros feitos no init de outros pacotes."
+                }
+              ]
+            },
+            "package": {
+              "file": "registry.go",
+              "line": 2,
+              "column": 1,
+              "offset": 71
+            },
+            "name": {
+              "node": "Ident",
+              "namePos": {
+                "file": "registry.go",
+                "line": 2,
+                "column": 9,
+                "offset": 79
+              },
+              "name": "registry",
+              "obj": null
+            },
+            "decls": [
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "registry.go",
+                  "line": 4,
+                  "column": 1,
+                  "offset": 89
+                },
+                "tok": "var",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "ValueSpec",
+                    "doc": null,
+                    "names": [
+                      {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "registry.go",
+                          "line": 4,
+                          "column": 5,
+                          "offset": 93
+                        },
+                        "name": "Names",
+                        "obj": {
+                          "node": "Object",
+                          "name": "Names",
+                          "kind": "var"
+                        },
+                        "$obj": {
+                          "name": "Names",
+                          "kind": "var",
+                          "def": true,
+                          "type": 0,
+                          "decl": "registry.go:93",
+                          "pkg": "g2d.test/blankimport/registry",
+                          "top": true
+                        }
+                      }
+                    ],
+                    "type": {
+                      "node": "ArrayType",
+                      "lbrack": {
+                        "file": "registry.go",
+                        "line": 4,
+                        "column": 11,
+                        "offset": 99
+                      },
+                      "len": null,
+                      "elt": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "registry.go",
+                          "line": 4,
+                          "column": 13,
+                          "offset": 101
+                        },
+                        "name": "string",
+                        "obj": null,
+                        "$type": 1,
+                        "$isType": true,
+                        "$obj": {
+                          "name": "string",
+                          "kind": "type",
+                          "type": 1
+                        }
+                      },
+                      "$type": 0,
+                      "$isType": true
+                    },
+                    "values": null,
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "registry.go",
+                    "line": 6,
+                    "column": 6,
+                    "offset": 114
+                  },
+                  "name": "Register",
+                  "obj": {
+                    "node": "Object",
+                    "name": "Register",
+                    "kind": "func"
+                  },
+                  "$obj": {
+                    "name": "Register",
+                    "kind": "func",
+                    "def": true,
+                    "type": 2,
+                    "decl": "registry.go:114",
+                    "pkg": "g2d.test/blankimport/registry",
+                    "top": true
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "registry.go",
+                    "line": 6,
+                    "column": 1,
+                    "offset": 109
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "registry.go",
+                      "line": 6,
+                      "column": 14,
+                      "offset": 122
+                    },
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "registry.go",
+                              "line": 6,
+                              "column": 15,
+                              "offset": 123
+                            },
+                            "name": "name",
+                            "obj": {
+                              "node": "Object",
+                              "name": "name",
+                              "kind": "var"
+                            },
+                            "$obj": {
+                              "name": "name",
+                              "kind": "var",
+                              "def": true,
+                              "type": 1,
+                              "decl": "registry.go:123",
+                              "pkg": "g2d.test/blankimport/registry"
+                            }
+                          }
+                        ],
+                        "type": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "registry.go",
+                            "line": 6,
+                            "column": 20,
+                            "offset": 128
+                          },
+                          "name": "string",
+                          "obj": null,
+                          "$type": 1,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "string",
+                            "kind": "type",
+                            "type": 1
+                          }
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": {
+                      "file": "registry.go",
+                      "line": 6,
+                      "column": 26,
+                      "offset": 134
+                    }
+                  },
+                  "results": null
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "registry.go",
+                    "line": 6,
+                    "column": 28,
+                    "offset": 136
+                  },
+                  "list": [
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "registry.go",
+                            "line": 6,
+                            "column": 30,
+                            "offset": 138
+                          },
+                          "name": "Names",
+                          "obj": {
+                            "node": "Object",
+                            "name": "Names",
+                            "kind": "var"
+                          },
+                          "$type": 0,
+                          "$obj": {
+                            "name": "Names",
+                            "kind": "var",
+                            "type": 0,
+                            "decl": "registry.go:93",
+                            "pkg": "g2d.test/blankimport/registry",
+                            "top": true
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "registry.go",
+                        "line": 6,
+                        "column": 36,
+                        "offset": 144
+                      },
+                      "tok": "=",
+                      "rhs": [
+                        {
+                          "node": "CallExpr",
+                          "fun": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "registry.go",
+                              "line": 6,
+                              "column": 38,
+                              "offset": 146
+                            },
+                            "name": "append",
+                            "obj": null,
+                            "$type": 3,
+                            "$builtin": true,
+                            "$obj": {
+                              "name": "append",
+                              "kind": "builtin",
+                              "type": 4
+                            }
+                          },
+                          "lparen": {
+                            "file": "registry.go",
+                            "line": 6,
+                            "column": 44,
+                            "offset": 152
+                          },
+                          "args": [
+                            {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "registry.go",
+                                "line": 6,
+                                "column": 45,
+                                "offset": 153
+                              },
+                              "name": "Names",
+                              "obj": {
+                                "node": "Object",
+                                "name": "Names",
+                                "kind": "var"
+                              },
+                              "$type": 0,
+                              "$obj": {
+                                "name": "Names",
+                                "kind": "var",
+                                "type": 0,
+                                "decl": "registry.go:93",
+                                "pkg": "g2d.test/blankimport/registry",
+                                "top": true
+                              }
+                            },
+                            {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "registry.go",
+                                "line": 6,
+                                "column": 52,
+                                "offset": 160
+                              },
+                              "name": "name",
+                              "obj": {
+                                "node": "Object",
+                                "name": "name",
+                                "kind": "var"
+                              },
+                              "$type": 1,
+                              "$obj": {
+                                "name": "name",
+                                "kind": "var",
+                                "type": 1,
+                                "decl": "registry.go:123",
+                                "pkg": "g2d.test/blankimport/registry"
+                              }
+                            }
+                          ],
+                          "ellipsis": null,
+                          "rparen": {
+                            "file": "registry.go",
+                            "line": 6,
+                            "column": 56,
+                            "offset": 164
+                          },
+                          "$type": 0
+                        }
+                      ]
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "registry.go",
+                    "line": 6,
+                    "column": 58,
+                    "offset": 166
+                  }
+                }
+              }
+            ],
+            "fileStart": {
+              "file": "registry.go",
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "fileEnd": {
+              "file": "registry.go",
+              "line": 6,
+              "column": 60,
+              "offset": 168
+            },
+            "scope": null,
+            "imports": null,
+            "unresolved": [
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "registry.go",
+                  "line": 4,
+                  "column": 13,
+                  "offset": 101
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 1,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 1
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "registry.go",
+                  "line": 6,
+                  "column": 20,
+                  "offset": 128
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 1,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 1
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "registry.go",
+                  "line": 6,
+                  "column": 38,
+                  "offset": 146
+                },
+                "name": "append",
+                "obj": null,
+                "$type": 3,
+                "$builtin": true,
+                "$obj": {
+                  "name": "append",
+                  "kind": "builtin",
+                  "type": 4
+                }
+              }
+            ],
+            "comments": [
+              {
+                "node": "CommentGroup",
+                "list": [
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "registry.go",
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "text": "// Package registry recebe registros feitos no init de outros pacotes."
+                  }
+                ]
+              }
+            ],
+            "goVersion": ""
+          }
+        }
+      ],
+      "imports": null,
+      "typeTable": [
+        {
+          "kind": "slice",
+          "elem": 1
+        },
+        {
+          "kind": "basic",
+          "name": "string"
+        },
+        {
+          "kind": "func",
+          "params": [
+            1
+          ],
+          "results": [],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            0,
+            0
+          ],
+          "results": [
+            0
+          ],
+          "variadic": true
+        },
+        {
+          "kind": "basic",
+          "name": "invalid type"
+        }
+      ],
+      "implements": null,
+      "initOrder": [],
+      "stdlibUsage": [],
+      "reflectUsage": null,
+      "module": {
+        "path": "g2d.test/blankimport"
+      }
+    }
+  ]
+}
