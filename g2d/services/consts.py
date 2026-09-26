@@ -44,7 +44,12 @@ class Literals(Service):
 
     def named_const(self, n):
         """Constante de nível de pacote do próprio pacote referenciada por nome
-        (mantém o nome). Constante local vira o literal exato em cada uso."""
+        (mantém o nome). Constante local vira o literal exato em cada uso, e
+        também a sem tipo usada noutro tipo (`[]uint32{IV0}`: declarada no
+        tipo padrão, o Go a converte no uso)."""
         obj = n.get("$obj") if n["node"] == "Ident" else None
-        return (obj is not None and obj["kind"] == "const" and obj.get("pkg") == self.pkg.path
-                and bool(obj.get("top")))
+        if not (obj is not None and obj["kind"] == "const" and obj.get("pkg") == self.pkg.path
+                and obj.get("top")):
+            return False
+        use, decl = self.pkg.type_of(n), self.pkg.type_at(obj["type"])
+        return use is None or self.types.dart(use) == self.types.dart(decl)

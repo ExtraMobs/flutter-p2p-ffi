@@ -236,7 +236,7 @@ criado com `identity: true` (`Map.identity()`), então compara endereços.
 | Go | Dart |
 |---|---|
 | `min(x, y, ...)`, `max(...)` | constantes: literal dobrado pelo `go/types`; inteiros e strings: `go.minOf<T>([..], (a, b) => a < b)` / `go.maxOf`; floats: `go.minFloat<T>([..], (v) => v.toDouble())` / `go.maxFloat` (qualquer NaN → NaN; `-0.0` < `+0.0`), devolvendo o próprio operando (tipo nomeado preservado) |
-| expressão constante (incl. `iota`, constantes importadas e constantes locais de função) | literal do valor exato calculado pelo `go/types`; `const` local não gera declaração (cada uso já é o literal) |
+| expressão constante (incl. `iota`, constantes importadas e constantes locais de função) | literal do valor exato calculado pelo `go/types`; `const` local não gera declaração (cada uso já é o literal); constante de pacote sem tipo mantém o nome só onde o uso tem o tipo padrão dela, senão vira o literal no tipo do uso (`[...]uint32{IV0}`) |
 | literal string | `Golang.String.fromDart('...')`; UTF-8 inválido → `go.stringOfBytes(const [...])` |
 | `a / b`, `a % b` inteiros | `a ~/ b`, `a % b` (as classes implementam o truncamento do Go) |
 | `a &^ b`, `^x` | `a.andNot(b)`, `~x` |
