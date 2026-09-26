@@ -9,6 +9,7 @@ import 'builtin.dart';
 import 'fixed_types/golang.dart' as Golang;
 import 'fixed_types/golang/src/float_format.dart' show formatGoFloatFmt;
 import 'src/runtime/output.dart';
+import 'src/unicode/isprint.dart';
 
 /// `fmt.Stringer`.
 abstract interface class Stringer {
@@ -739,7 +740,7 @@ final class _Printf {
     var s = 'U+$hex';
     if (sharp && !v.isNegative && v <= BigInt.from(0x10ffff)) {
       final r = v.toInt();
-      if (_isPrint(r)) s = "$s '${String.fromCharCode(r)}'";
+      if (isPrint(r)) s = "$s '${String.fromCharCode(r)}'";
     }
     final oldZero = zero;
     zero = false;
@@ -916,7 +917,7 @@ List<int> _quote(List<int> s, int quote, bool ascii) {
     i += w;
     if (r == quote || r == 0x5c) {
       out.addAll([0x5c, r]);
-    } else if (ascii ? r < 0x80 && _isPrint(r) : _isPrint(r)) {
+    } else if (ascii ? r < 0x80 && isPrint(r) : isPrint(r)) {
       out.addAll(utf8.encode(String.fromCharCode(r)));
     } else {
       switch (r) {
@@ -960,26 +961,4 @@ bool _canBackquote(List<int> s) {
     }
   }
   return true;
-}
-
-/// `strconv.IsPrint`. ⚠️ Fora do ASCII é aproximado, sem as tabelas Unicode:
-/// exclui controles, espaços (fora U+0020), separadores, formatação comum,
-/// substitutos, uso privado e não-caracteres; código não atribuído conta
-/// como imprimível.
-bool _isPrint(int r) {
-  if (r < 0x80) return r >= 0x20 && r < 0x7f;
-  if (r <= 0xa0 || r == 0xad || r == 0x1680 || r == 0x180e) return false;
-  if ((r >= 0x2000 && r <= 0x200f) || (r >= 0x2028 && r <= 0x202f)) {
-    return false;
-  }
-  if ((r >= 0x205f && r <= 0x206f) || r == 0x3000 || r == 0xfeff) return false;
-  if ((r >= 0x600 && r <= 0x605) || r == 0x61c || r == 0x6dd || r == 0x70f) {
-    return false;
-  }
-  if (r >= 0xfff9 && r <= 0xfffb) return false;
-  if (r >= 0xd800 && r <= 0xf8ff) return false; // substitutos e uso privado
-  if (r >= 0xfdd0 && r <= 0xfdef) return false;
-  if ((r & 0xfffe) == 0xfffe) return false;
-  if (r >= 0xf0000) return false; // planos de uso privado
-  return r <= 0x10ffff;
 }

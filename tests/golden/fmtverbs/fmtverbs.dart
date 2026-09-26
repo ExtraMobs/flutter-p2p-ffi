@@ -596,6 +596,34 @@ void main() {
       ], _$e0),
     );
     fmt.printf(Golang.String.fromDart('%.\n'), go.Slice<Object?>.nil(_$e0));
+    Golang.String u = Golang.String.fromDart('a b­ćd😀͸� ​é؀ℵ');
+    fmt.printf(
+      Golang.String.fromDart('%q\n%+q\n'),
+      go.Slice<Object?>.of([u, u], _$e0),
+    );
+    {
+      final $t1 = go.Slice<Golang.Int32>.of([
+        Golang.Int32(160),
+        Golang.Int32(173),
+        Golang.Int32(769),
+        Golang.Int32(128512),
+        Golang.Int32(57344),
+        Golang.Int32(888),
+        Golang.Int32(8232),
+        Golang.Int32(1114111),
+        Golang.Int32(8501),
+      ], _$e7);
+      for (var $t2 = 0; $t2 < $t1.length; $t2++) {
+        Golang.Int32 r = $t1[$t2];
+        {
+          fmt.printf(
+            Golang.String.fromDart('%q %+q %#U|'),
+            go.Slice<Object?>.of([r, r, r], _$e0),
+          );
+        }
+      }
+    }
+    fmt.println(go.Slice<Object?>.nil(_$e0));
     var (written, _) = fmt.printf(
       Golang.String.fromDart('%s\n'),
       go.Slice<Object?>.of([Golang.String.fromDart('conta')], _$e0),
@@ -694,3 +722,8 @@ const _$e5 = go.Elem<Golang.Uint16>(
   ofInt: Golang.Uint16.from,
 );
 const _$e6 = go.Elem<P>(32, P.new, pointers: true);
+const _$e7 = go.Elem<Golang.Int32>(
+  4,
+  Golang.Int32.new,
+  ofInt: Golang.Int32.from,
+);

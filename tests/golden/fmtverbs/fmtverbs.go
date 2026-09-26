@@ -115,6 +115,14 @@ func main() {
 	fmt.Println(fmt.Errorf("%[2]w e %[1]w e %[2]w", e1, e2))
 	fmt.Printf("%.\n")
 
+	// %q/%+q/%#U com Unicode: IsPrint exato (tabela gerada do Go)
+	u := "a b­ćd😀͸� ​é؀ℵ"
+	fmt.Printf("%q\n%+q\n", u, u)
+	for _, r := range []rune{0xa0, 0xad, 0x301, 0x1F600, 0xe000, 0x378, 0x2028, 0x10FFFF, 'ℵ'} {
+		fmt.Printf("%q %+q %#U|", r, r, r)
+	}
+	fmt.Println()
+
 	written, _ := fmt.Printf("%s\n", "conta")
 	fmt.Println(written)
 }

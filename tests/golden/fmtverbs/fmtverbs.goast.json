@@ -14210,158 +14210,55 @@
                           "node": "Ident",
                           "namePos": {
                             "file": "fmtverbs.go",
-                            "line": 118,
+                            "line": 119,
                             "column": 2,
-                            "offset": 4502
+                            "offset": 4566
                           },
-                          "name": "written",
+                          "name": "u",
                           "obj": {
                             "node": "Object",
-                            "name": "written",
+                            "name": "u",
                             "kind": "var"
                           },
                           "$obj": {
-                            "name": "written",
+                            "name": "u",
                             "kind": "var",
                             "def": true,
-                            "type": 11,
-                            "decl": "fmtverbs.go:4502",
-                            "pkg": "main"
-                          }
-                        },
-                        {
-                          "node": "Ident",
-                          "namePos": {
-                            "file": "fmtverbs.go",
-                            "line": 118,
-                            "column": 11,
-                            "offset": 4511
-                          },
-                          "name": "_",
-                          "obj": {
-                            "node": "Object",
-                            "name": "_",
-                            "kind": "var"
-                          },
-                          "$obj": {
-                            "name": "_",
-                            "kind": "var",
-                            "def": true,
-                            "type": 22,
-                            "decl": "fmtverbs.go:4511",
+                            "type": 5,
+                            "decl": "fmtverbs.go:4566",
                             "pkg": "main"
                           }
                         }
                       ],
                       "tokPos": {
                         "file": "fmtverbs.go",
-                        "line": 118,
-                        "column": 13,
-                        "offset": 4513
+                        "line": 119,
+                        "column": 4,
+                        "offset": 4568
                       },
                       "tok": ":=",
                       "rhs": [
                         {
-                          "node": "CallExpr",
-                          "fun": {
-                            "node": "SelectorExpr",
-                            "x": {
-                              "node": "Ident",
-                              "namePos": {
-                                "file": "fmtverbs.go",
-                                "line": 118,
-                                "column": 16,
-                                "offset": 4516
-                              },
-                              "name": "fmt",
-                              "obj": null,
-                              "$obj": {
-                                "name": "fmt",
-                                "kind": "package",
-                                "pkg": "fmt"
-                              }
-                            },
-                            "sel": {
-                              "node": "Ident",
-                              "namePos": {
-                                "file": "fmtverbs.go",
-                                "line": 118,
-                                "column": 20,
-                                "offset": 4520
-                              },
-                              "name": "Printf",
-                              "obj": null,
-                              "$obj": {
-                                "name": "Printf",
-                                "kind": "func",
-                                "type": 21,
-                                "decl": "print.go:231",
-                                "pkg": "fmt",
-                                "top": true
-                              }
-                            },
-                            "$type": 21
-                          },
-                          "lparen": {
+                          "node": "BasicLit",
+                          "valuePos": {
                             "file": "fmtverbs.go",
-                            "line": 118,
-                            "column": 26,
-                            "offset": 4526
+                            "line": 119,
+                            "column": 7,
+                            "offset": 4571
                           },
-                          "args": [
-                            {
-                              "node": "BasicLit",
-                              "valuePos": {
-                                "file": "fmtverbs.go",
-                                "line": 118,
-                                "column": 27,
-                                "offset": 4527
-                              },
-                              "valueEnd": {
-                                "file": "fmtverbs.go",
-                                "line": 118,
-                                "column": 33,
-                                "offset": 4533
-                              },
-                              "kind": "STRING",
-                              "value": "\"%s\\n\"",
-                              "$type": 5,
-                              "$value": {
-                                "kind": "string",
-                                "value": "%s\n"
-                              }
-                            },
-                            {
-                              "node": "BasicLit",
-                              "valuePos": {
-                                "file": "fmtverbs.go",
-                                "line": 118,
-                                "column": 35,
-                                "offset": 4535
-                              },
-                              "valueEnd": {
-                                "file": "fmtverbs.go",
-                                "line": 118,
-                                "column": 42,
-                                "offset": 4542
-                              },
-                              "kind": "STRING",
-                              "value": "\"conta\"",
-                              "$type": 5,
-                              "$value": {
-                                "kind": "string",
-                                "value": "conta"
-                              }
-                            }
-                          ],
-                          "ellipsis": null,
-                          "rparen": {
+                          "valueEnd": {
                             "file": "fmtverbs.go",
-                            "line": 118,
-                            "column": 42,
-                            "offset": 4542
+                            "line": 119,
+                            "column": 44,
+                            "offset": 4608
                           },
-                          "$type": 24
+                          "kind": "STRING",
+                          "value": "\"a b­ćd😀͸�\u2028​é؀ℵ\"",
+                          "$type": 5,
+                          "$value": {
+                            "kind": "string",
+                            "value": "a b­ćd😀͸�\u2028​é؀ℵ"
+                          }
                         }
                       ]
                     },
@@ -14375,9 +14272,9 @@
                             "node": "Ident",
                             "namePos": {
                               "file": "fmtverbs.go",
-                              "line": 119,
+                              "line": 120,
                               "column": 2,
-                              "offset": 4545
+                              "offset": 4610
                             },
                             "name": "fmt",
                             "obj": null,
@@ -14391,9 +14288,622 @@
                             "node": "Ident",
                             "namePos": {
                               "file": "fmtverbs.go",
-                              "line": 119,
+                              "line": 120,
                               "column": 6,
-                              "offset": 4549
+                              "offset": 4614
+                            },
+                            "name": "Printf",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Printf",
+                              "kind": "func",
+                              "type": 21,
+                              "decl": "print.go:231",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 21
+                        },
+                        "lparen": {
+                          "file": "fmtverbs.go",
+                          "line": 120,
+                          "column": 12,
+                          "offset": 4620
+                        },
+                        "args": [
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "fmtverbs.go",
+                              "line": 120,
+                              "column": 13,
+                              "offset": 4621
+                            },
+                            "valueEnd": {
+                              "file": "fmtverbs.go",
+                              "line": 120,
+                              "column": 24,
+                              "offset": 4632
+                            },
+                            "kind": "STRING",
+                            "value": "\"%q\\n%+q\\n\"",
+                            "$type": 5,
+                            "$value": {
+                              "kind": "string",
+                              "value": "%q\n%+q\n"
+                            }
+                          },
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtverbs.go",
+                              "line": 120,
+                              "column": 26,
+                              "offset": 4634
+                            },
+                            "name": "u",
+                            "obj": {
+                              "node": "Object",
+                              "name": "u",
+                              "kind": "var"
+                            },
+                            "$type": 5,
+                            "$obj": {
+                              "name": "u",
+                              "kind": "var",
+                              "type": 5,
+                              "decl": "fmtverbs.go:4566",
+                              "pkg": "main"
+                            }
+                          },
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtverbs.go",
+                              "line": 120,
+                              "column": 29,
+                              "offset": 4637
+                            },
+                            "name": "u",
+                            "obj": {
+                              "node": "Object",
+                              "name": "u",
+                              "kind": "var"
+                            },
+                            "$type": 5,
+                            "$obj": {
+                              "name": "u",
+                              "kind": "var",
+                              "type": 5,
+                              "decl": "fmtverbs.go:4566",
+                              "pkg": "main"
+                            }
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "fmtverbs.go",
+                          "line": 120,
+                          "column": 30,
+                          "offset": 4638
+                        },
+                        "$type": 24
+                      }
+                    },
+                    {
+                      "node": "RangeStmt",
+                      "for": {
+                        "file": "fmtverbs.go",
+                        "line": 121,
+                        "column": 2,
+                        "offset": 4641
+                      },
+                      "key": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "fmtverbs.go",
+                          "line": 121,
+                          "column": 6,
+                          "offset": 4645
+                        },
+                        "name": "_",
+                        "obj": {
+                          "node": "Object",
+                          "name": "_",
+                          "kind": "var"
+                        },
+                        "$obj": {
+                          "name": "_",
+                          "kind": "var",
+                          "def": true,
+                          "type": 11,
+                          "decl": "fmtverbs.go:4645",
+                          "pkg": "main"
+                        }
+                      },
+                      "value": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "fmtverbs.go",
+                          "line": 121,
+                          "column": 9,
+                          "offset": 4648
+                        },
+                        "name": "r",
+                        "obj": {
+                          "node": "Object",
+                          "name": "r",
+                          "kind": "var"
+                        },
+                        "$obj": {
+                          "name": "r",
+                          "kind": "var",
+                          "def": true,
+                          "type": 27,
+                          "decl": "fmtverbs.go:4648",
+                          "pkg": "main"
+                        }
+                      },
+                      "tokPos": {
+                        "file": "fmtverbs.go",
+                        "line": 121,
+                        "column": 11,
+                        "offset": 4650
+                      },
+                      "tok": ":=",
+                      "range": {
+                        "file": "fmtverbs.go",
+                        "line": 121,
+                        "column": 14,
+                        "offset": 4653
+                      },
+                      "x": {
+                        "node": "CompositeLit",
+                        "type": {
+                          "node": "ArrayType",
+                          "lbrack": {
+                            "file": "fmtverbs.go",
+                            "line": 121,
+                            "column": 20,
+                            "offset": 4659
+                          },
+                          "len": null,
+                          "elt": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtverbs.go",
+                              "line": 121,
+                              "column": 22,
+                              "offset": 4661
+                            },
+                            "name": "rune",
+                            "obj": null,
+                            "$type": 27,
+                            "$isType": true,
+                            "$obj": {
+                              "name": "rune",
+                              "kind": "type",
+                              "type": 27
+                            }
+                          },
+                          "$type": 47,
+                          "$isType": true
+                        },
+                        "lbrace": {
+                          "file": "fmtverbs.go",
+                          "line": 121,
+                          "column": 26,
+                          "offset": 4665
+                        },
+                        "elts": [
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "fmtverbs.go",
+                              "line": 121,
+                              "column": 27,
+                              "offset": 4666
+                            },
+                            "valueEnd": {
+                              "file": "fmtverbs.go",
+                              "line": 121,
+                              "column": 31,
+                              "offset": 4670
+                            },
+                            "kind": "INT",
+                            "value": "0xa0",
+                            "$type": 27,
+                            "$value": {
+                              "kind": "int",
+                              "value": "160"
+                            }
+                          },
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "fmtverbs.go",
+                              "line": 121,
+                              "column": 33,
+                              "offset": 4672
+                            },
+                            "valueEnd": {
+                              "file": "fmtverbs.go",
+                              "line": 121,
+                              "column": 37,
+                              "offset": 4676
+                            },
+                            "kind": "INT",
+                            "value": "0xad",
+                            "$type": 27,
+                            "$value": {
+                              "kind": "int",
+                              "value": "173"
+                            }
+                          },
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "fmtverbs.go",
+                              "line": 121,
+                              "column": 39,
+                              "offset": 4678
+                            },
+                            "valueEnd": {
+                              "file": "fmtverbs.go",
+                              "line": 121,
+                              "column": 44,
+                              "offset": 4683
+                            },
+                            "kind": "INT",
+                            "value": "0x301",
+                            "$type": 27,
+                            "$value": {
+                              "kind": "int",
+                              "value": "769"
+                            }
+                          },
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "fmtverbs.go",
+                              "line": 121,
+                              "column": 46,
+                              "offset": 4685
+                            },
+                            "valueEnd": {
+                              "file": "fmtverbs.go",
+                              "line": 121,
+                              "column": 53,
+                              "offset": 4692
+                            },
+                            "kind": "INT",
+                            "value": "0x1F600",
+                            "$type": 27,
+                            "$value": {
+                              "kind": "int",
+                              "value": "128512"
+                            }
+                          },
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "fmtverbs.go",
+                              "line": 121,
+                              "column": 55,
+                              "offset": 4694
+                            },
+                            "valueEnd": {
+                              "file": "fmtverbs.go",
+                              "line": 121,
+                              "column": 61,
+                              "offset": 4700
+                            },
+                            "kind": "INT",
+                            "value": "0xe000",
+                            "$type": 27,
+                            "$value": {
+                              "kind": "int",
+                              "value": "57344"
+                            }
+                          },
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "fmtverbs.go",
+                              "line": 121,
+                              "column": 63,
+                              "offset": 4702
+                            },
+                            "valueEnd": {
+                              "file": "fmtverbs.go",
+                              "line": 121,
+                              "column": 68,
+                              "offset": 4707
+                            },
+                            "kind": "INT",
+                            "value": "0x378",
+                            "$type": 27,
+                            "$value": {
+                              "kind": "int",
+                              "value": "888"
+                            }
+                          },
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "fmtverbs.go",
+                              "line": 121,
+                              "column": 70,
+                              "offset": 4709
+                            },
+                            "valueEnd": {
+                              "file": "fmtverbs.go",
+                              "line": 121,
+                              "column": 76,
+                              "offset": 4715
+                            },
+                            "kind": "INT",
+                            "value": "0x2028",
+                            "$type": 27,
+                            "$value": {
+                              "kind": "int",
+                              "value": "8232"
+                            }
+                          },
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "fmtverbs.go",
+                              "line": 121,
+                              "column": 78,
+                              "offset": 4717
+                            },
+                            "valueEnd": {
+                              "file": "fmtverbs.go",
+                              "line": 121,
+                              "column": 86,
+                              "offset": 4725
+                            },
+                            "kind": "INT",
+                            "value": "0x10FFFF",
+                            "$type": 27,
+                            "$value": {
+                              "kind": "int",
+                              "value": "1114111"
+                            }
+                          },
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "fmtverbs.go",
+                              "line": 121,
+                              "column": 88,
+                              "offset": 4727
+                            },
+                            "valueEnd": {
+                              "file": "fmtverbs.go",
+                              "line": 121,
+                              "column": 93,
+                              "offset": 4732
+                            },
+                            "kind": "CHAR",
+                            "value": "'ℵ'",
+                            "$type": 27,
+                            "$value": {
+                              "kind": "int",
+                              "value": "8501"
+                            }
+                          }
+                        ],
+                        "rbrace": {
+                          "file": "fmtverbs.go",
+                          "line": 121,
+                          "column": 93,
+                          "offset": 4732
+                        },
+                        "incomplete": false,
+                        "$type": 47
+                      },
+                      "body": {
+                        "node": "BlockStmt",
+                        "lbrace": {
+                          "file": "fmtverbs.go",
+                          "line": 121,
+                          "column": 95,
+                          "offset": 4734
+                        },
+                        "list": [
+                          {
+                            "node": "ExprStmt",
+                            "x": {
+                              "node": "CallExpr",
+                              "fun": {
+                                "node": "SelectorExpr",
+                                "x": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "fmtverbs.go",
+                                    "line": 122,
+                                    "column": 3,
+                                    "offset": 4738
+                                  },
+                                  "name": "fmt",
+                                  "obj": null,
+                                  "$obj": {
+                                    "name": "fmt",
+                                    "kind": "package",
+                                    "pkg": "fmt"
+                                  }
+                                },
+                                "sel": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "fmtverbs.go",
+                                    "line": 122,
+                                    "column": 7,
+                                    "offset": 4742
+                                  },
+                                  "name": "Printf",
+                                  "obj": null,
+                                  "$obj": {
+                                    "name": "Printf",
+                                    "kind": "func",
+                                    "type": 21,
+                                    "decl": "print.go:231",
+                                    "pkg": "fmt",
+                                    "top": true
+                                  }
+                                },
+                                "$type": 21
+                              },
+                              "lparen": {
+                                "file": "fmtverbs.go",
+                                "line": 122,
+                                "column": 13,
+                                "offset": 4748
+                              },
+                              "args": [
+                                {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "fmtverbs.go",
+                                    "line": 122,
+                                    "column": 14,
+                                    "offset": 4749
+                                  },
+                                  "valueEnd": {
+                                    "file": "fmtverbs.go",
+                                    "line": 122,
+                                    "column": 27,
+                                    "offset": 4762
+                                  },
+                                  "kind": "STRING",
+                                  "value": "\"%q %+q %#U|\"",
+                                  "$type": 5,
+                                  "$value": {
+                                    "kind": "string",
+                                    "value": "%q %+q %#U|"
+                                  }
+                                },
+                                {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "fmtverbs.go",
+                                    "line": 122,
+                                    "column": 29,
+                                    "offset": 4764
+                                  },
+                                  "name": "r",
+                                  "obj": {
+                                    "node": "Object",
+                                    "name": "r",
+                                    "kind": "var"
+                                  },
+                                  "$type": 27,
+                                  "$obj": {
+                                    "name": "r",
+                                    "kind": "var",
+                                    "type": 27,
+                                    "decl": "fmtverbs.go:4648",
+                                    "pkg": "main"
+                                  }
+                                },
+                                {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "fmtverbs.go",
+                                    "line": 122,
+                                    "column": 32,
+                                    "offset": 4767
+                                  },
+                                  "name": "r",
+                                  "obj": {
+                                    "node": "Object",
+                                    "name": "r",
+                                    "kind": "var"
+                                  },
+                                  "$type": 27,
+                                  "$obj": {
+                                    "name": "r",
+                                    "kind": "var",
+                                    "type": 27,
+                                    "decl": "fmtverbs.go:4648",
+                                    "pkg": "main"
+                                  }
+                                },
+                                {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "fmtverbs.go",
+                                    "line": 122,
+                                    "column": 35,
+                                    "offset": 4770
+                                  },
+                                  "name": "r",
+                                  "obj": {
+                                    "node": "Object",
+                                    "name": "r",
+                                    "kind": "var"
+                                  },
+                                  "$type": 27,
+                                  "$obj": {
+                                    "name": "r",
+                                    "kind": "var",
+                                    "type": 27,
+                                    "decl": "fmtverbs.go:4648",
+                                    "pkg": "main"
+                                  }
+                                }
+                              ],
+                              "ellipsis": null,
+                              "rparen": {
+                                "file": "fmtverbs.go",
+                                "line": 122,
+                                "column": 36,
+                                "offset": 4771
+                              },
+                              "$type": 24
+                            }
+                          }
+                        ],
+                        "rbrace": {
+                          "file": "fmtverbs.go",
+                          "line": 123,
+                          "column": 2,
+                          "offset": 4774
+                        }
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtverbs.go",
+                              "line": 124,
+                              "column": 2,
+                              "offset": 4777
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtverbs.go",
+                              "line": 124,
+                              "column": 6,
+                              "offset": 4781
                             },
                             "name": "Println",
                             "obj": null,
@@ -14410,18 +14920,240 @@
                         },
                         "lparen": {
                           "file": "fmtverbs.go",
-                          "line": 119,
+                          "line": 124,
                           "column": 13,
-                          "offset": 4556
+                          "offset": 4788
+                        },
+                        "args": null,
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "fmtverbs.go",
+                          "line": 124,
+                          "column": 14,
+                          "offset": 4789
+                        },
+                        "$type": 24
+                      }
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "fmtverbs.go",
+                            "line": 126,
+                            "column": 2,
+                            "offset": 4793
+                          },
+                          "name": "written",
+                          "obj": {
+                            "node": "Object",
+                            "name": "written",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "written",
+                            "kind": "var",
+                            "def": true,
+                            "type": 11,
+                            "decl": "fmtverbs.go:4793",
+                            "pkg": "main"
+                          }
+                        },
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "fmtverbs.go",
+                            "line": 126,
+                            "column": 11,
+                            "offset": 4802
+                          },
+                          "name": "_",
+                          "obj": {
+                            "node": "Object",
+                            "name": "_",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "_",
+                            "kind": "var",
+                            "def": true,
+                            "type": 22,
+                            "decl": "fmtverbs.go:4802",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "fmtverbs.go",
+                        "line": 126,
+                        "column": 13,
+                        "offset": 4804
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "CallExpr",
+                          "fun": {
+                            "node": "SelectorExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "fmtverbs.go",
+                                "line": 126,
+                                "column": 16,
+                                "offset": 4807
+                              },
+                              "name": "fmt",
+                              "obj": null,
+                              "$obj": {
+                                "name": "fmt",
+                                "kind": "package",
+                                "pkg": "fmt"
+                              }
+                            },
+                            "sel": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "fmtverbs.go",
+                                "line": 126,
+                                "column": 20,
+                                "offset": 4811
+                              },
+                              "name": "Printf",
+                              "obj": null,
+                              "$obj": {
+                                "name": "Printf",
+                                "kind": "func",
+                                "type": 21,
+                                "decl": "print.go:231",
+                                "pkg": "fmt",
+                                "top": true
+                              }
+                            },
+                            "$type": 21
+                          },
+                          "lparen": {
+                            "file": "fmtverbs.go",
+                            "line": 126,
+                            "column": 26,
+                            "offset": 4817
+                          },
+                          "args": [
+                            {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "fmtverbs.go",
+                                "line": 126,
+                                "column": 27,
+                                "offset": 4818
+                              },
+                              "valueEnd": {
+                                "file": "fmtverbs.go",
+                                "line": 126,
+                                "column": 33,
+                                "offset": 4824
+                              },
+                              "kind": "STRING",
+                              "value": "\"%s\\n\"",
+                              "$type": 5,
+                              "$value": {
+                                "kind": "string",
+                                "value": "%s\n"
+                              }
+                            },
+                            {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "fmtverbs.go",
+                                "line": 126,
+                                "column": 35,
+                                "offset": 4826
+                              },
+                              "valueEnd": {
+                                "file": "fmtverbs.go",
+                                "line": 126,
+                                "column": 42,
+                                "offset": 4833
+                              },
+                              "kind": "STRING",
+                              "value": "\"conta\"",
+                              "$type": 5,
+                              "$value": {
+                                "kind": "string",
+                                "value": "conta"
+                              }
+                            }
+                          ],
+                          "ellipsis": null,
+                          "rparen": {
+                            "file": "fmtverbs.go",
+                            "line": 126,
+                            "column": 42,
+                            "offset": 4833
+                          },
+                          "$type": 24
+                        }
+                      ]
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtverbs.go",
+                              "line": 127,
+                              "column": 2,
+                              "offset": 4836
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtverbs.go",
+                              "line": 127,
+                              "column": 6,
+                              "offset": 4840
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 40,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 40
+                        },
+                        "lparen": {
+                          "file": "fmtverbs.go",
+                          "line": 127,
+                          "column": 13,
+                          "offset": 4847
                         },
                         "args": [
                           {
                             "node": "Ident",
                             "namePos": {
                               "file": "fmtverbs.go",
-                              "line": 119,
+                              "line": 127,
                               "column": 14,
-                              "offset": 4557
+                              "offset": 4848
                             },
                             "name": "written",
                             "obj": {
@@ -14434,7 +15166,7 @@
                               "name": "written",
                               "kind": "var",
                               "type": 11,
-                              "decl": "fmtverbs.go:4502",
+                              "decl": "fmtverbs.go:4793",
                               "pkg": "main"
                             }
                           }
@@ -14442,9 +15174,9 @@
                         "ellipsis": null,
                         "rparen": {
                           "file": "fmtverbs.go",
-                          "line": 119,
+                          "line": 127,
                           "column": 21,
-                          "offset": 4564
+                          "offset": 4855
                         },
                         "$type": 24
                       }
@@ -14452,9 +15184,9 @@
                   ],
                   "rbrace": {
                     "file": "fmtverbs.go",
-                    "line": 120,
+                    "line": 128,
                     "column": 1,
-                    "offset": 4566
+                    "offset": 4857
                   }
                 }
               }
@@ -14467,9 +15199,9 @@
             },
             "fileEnd": {
               "file": "fmtverbs.go",
-              "line": 120,
+              "line": 128,
               "column": 3,
-              "offset": 4568
+              "offset": 4859
             },
             "scope": null,
             "imports": [
@@ -16178,9 +16910,9 @@
                 "node": "Ident",
                 "namePos": {
                   "file": "fmtverbs.go",
-                  "line": 118,
-                  "column": 16,
-                  "offset": 4516
+                  "line": 120,
+                  "column": 2,
+                  "offset": 4610
                 },
                 "name": "fmt",
                 "obj": null,
@@ -16194,9 +16926,75 @@
                 "node": "Ident",
                 "namePos": {
                   "file": "fmtverbs.go",
-                  "line": 119,
+                  "line": 121,
+                  "column": 22,
+                  "offset": 4661
+                },
+                "name": "rune",
+                "obj": null,
+                "$type": 27,
+                "$isType": true,
+                "$obj": {
+                  "name": "rune",
+                  "kind": "type",
+                  "type": 27
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "fmtverbs.go",
+                  "line": 122,
+                  "column": 3,
+                  "offset": 4738
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "fmtverbs.go",
+                  "line": 124,
                   "column": 2,
-                  "offset": 4545
+                  "offset": 4777
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "fmtverbs.go",
+                  "line": 126,
+                  "column": 16,
+                  "offset": 4807
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "fmtverbs.go",
+                  "line": 127,
+                  "column": 2,
+                  "offset": 4836
                 },
                 "name": "fmt",
                 "obj": null,
@@ -16400,6 +17198,21 @@
                       "offset": 4202
                     },
                     "text": "// Índice explícito [n]"
+                  }
+                ]
+              },
+              {
+                "node": "CommentGroup",
+                "list": [
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "fmtverbs.go",
+                      "line": 118,
+                      "column": 2,
+                      "offset": 4502
+                    },
+                    "text": "// %q/%+q/%#U com Unicode: IsPrint exato (tabela gerada do Go)"
                   }
                 ]
               }
@@ -16764,10 +17577,14 @@
           ]
         },
         {
+          "kind": "slice",
+          "elem": 27
+        },
+        {
           "kind": "named",
           "pkg": "fmt",
           "name": "Stringer",
-          "underlying": 48
+          "underlying": 49
         },
         {
           "kind": "interface",
@@ -16784,7 +17601,7 @@
         {
           "type": 2,
           "interfaces": [
-            47
+            48
           ]
         },
         {
