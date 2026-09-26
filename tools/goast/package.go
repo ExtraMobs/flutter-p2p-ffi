@@ -36,6 +36,13 @@ func dumpPackage(fset *token.FileSet, p *packages.Package) *PackageDump {
 	d.Imports = dumpImports(p)
 	d.StdlibUsage = dumpStdlibUsage(p)
 	d.ReflectUsage = dumpReflectUsage(fset, p)
+	for _, f := range p.OtherFiles {
+		d.OtherFiles = append(d.OtherFiles, filepath.Base(f))
+	}
+	sort.Strings(d.OtherFiles)
+	if m := p.Module; m != nil {
+		d.Module = &ModuleDump{Path: m.Path, Version: m.Version}
+	}
 	return d
 }
 

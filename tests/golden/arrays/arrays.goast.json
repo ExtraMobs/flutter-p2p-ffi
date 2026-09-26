@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 6,
+  "schemaVersion": 7,
   "tool": "goast",
   "goVersion": "go1.26.5",
   "packages": [
@@ -1235,7 +1235,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 8,
-                              "decl": "arrays.go:313",
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -1729,7 +1729,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 8,
-                              "decl": "arrays.go:313",
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -2363,7 +2363,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 8,
-                              "decl": "arrays.go:313",
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -2891,7 +2891,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 8,
-                              "decl": "arrays.go:313",
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -3270,7 +3270,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 8,
-                              "decl": "arrays.go:313",
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -4100,7 +4100,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 8,
-                              "decl": "arrays.go:313",
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -4616,7 +4616,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 8,
-                              "decl": "arrays.go:313",
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }

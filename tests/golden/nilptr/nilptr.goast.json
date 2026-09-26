@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 6,
+  "schemaVersion": 7,
   "tool": "goast",
   "goVersion": "go1.26.5",
   "packages": [
@@ -1614,7 +1614,7 @@
                                 "name": "Sprint",
                                 "kind": "func",
                                 "type": 13,
-                                "decl": "nilptr.go:276",
+                                "decl": "print.go:276",
                                 "pkg": "fmt",
                                 "top": true
                               }
@@ -2125,7 +2125,7 @@
                                               "name": "Println",
                                               "kind": "func",
                                               "type": 20,
-                                              "decl": "nilptr.go:313",
+                                              "decl": "print.go:313",
                                               "pkg": "fmt",
                                               "top": true
                                             }
@@ -2591,7 +2591,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 20,
-                              "decl": "nilptr.go:313",
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -3124,7 +3124,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 20,
-                              "decl": "nilptr.go:313",
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -3462,7 +3462,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 20,
-                              "decl": "nilptr.go:313",
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -3745,7 +3745,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 20,
-                              "decl": "nilptr.go:313",
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -4019,7 +4019,7 @@
                                         "name": "Println",
                                         "kind": "func",
                                         "type": 20,
-                                        "decl": "nilptr.go:313",
+                                        "decl": "print.go:313",
                                         "pkg": "fmt",
                                         "top": true
                                       }
@@ -4444,7 +4444,7 @@
                                           "name": "Println",
                                           "kind": "func",
                                           "type": 20,
-                                          "decl": "nilptr.go:313",
+                                          "decl": "print.go:313",
                                           "pkg": "fmt",
                                           "top": true
                                         }
@@ -4694,7 +4694,7 @@
                                           "name": "Println",
                                           "kind": "func",
                                           "type": 20,
-                                          "decl": "nilptr.go:313",
+                                          "decl": "print.go:313",
                                           "pkg": "fmt",
                                           "top": true
                                         }
@@ -5126,7 +5126,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 20,
-                              "decl": "nilptr.go:313",
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -5386,7 +5386,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 20,
-                              "decl": "nilptr.go:313",
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }

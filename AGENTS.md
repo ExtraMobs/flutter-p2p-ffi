@@ -89,6 +89,7 @@ G2D_UPDATE_GOLDEN=1 python -m unittest discover -s tests   # regrava goldens; re
 
 # g2d: uso
 (cd tools/goast && go run . dump <dir-do-pacote> -o dump.json)
+(cd tools/goast && go run . dump -C <módulo> @pacotes.txt -outdir dumps/)   # grafo: um JSON por pacote
 python -m g2d transpile dump.json -o out                 # out/lib/<import path>.dart + pubspec
 python -m g2d graph ./... -C <módulo Go>                 # pacotes não-stdlib em ordem topológica
 
@@ -100,7 +101,7 @@ dart format out/ && dart analyze out/
 
 - **Sem novas dependências externas sem aprovação explícita do usuário.** As únicas permitidas hoje: `golang.org/x/tools` (goast), `package:analyzer` (dartast), shims Dart pontuais (`package:http`, `package:crypto`) quando um shim exigir.
 - Python: stdlib apenas (`json`, `dataclasses`, `argparse`, `unittest`).
-- Todo dump JSON carrega `schemaVersion`; bump ao mudar o schema. Atual: goast **6** (tipos inline na AST, `bytes`, method sets, `implements` com interfaces anônimas, `$inst`, `initOrder`; ver `tools/goast/README.md`), dartast **1**.
+- Todo dump JSON carrega `schemaVersion`; bump ao mudar o schema. Atual: goast **7** (tipos inline na AST, `bytes`, method sets, `implements` com interfaces anônimas, `$inst`, `initOrder`, `otherFiles`/`module`; ver `tools/goast/README.md`), dartast **1**.
 - Ponteiros: `dart:ffi` não é usado (não existe no JS/Wasm). Identidade de tipo: uma classe Dart por tipo Go; testes de tipo sempre com `is T` (o `runtimeType` de coleções do core difere no JS).
 - `golib_dart/fixed_types` e os ports de `net`/`net/netip`/`internal/poll` vieram do boilerplate do `dart IPFS`; correções feitas aqui ficam listadas em `golib_dart/README.md` para devolver à origem.
 - Construção Go não coberta → `Unsupported` com posição; nunca emitir Dart aproximado em silêncio. Limites conhecidos ficam marcados ⚠️ em `docs/mapping-spec.md` e com `ponytail:` no código.

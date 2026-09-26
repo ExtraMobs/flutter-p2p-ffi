@@ -1,7 +1,7 @@
 # Fixture e pipeline multi-pacote
 
 - **Prioridade:** P0 · **Área:** infra
-- **Depende de:** P0-infra-goast-padrao-windows
+- **Depende de:** —
 
 ## Problema
 

@@ -21,11 +21,11 @@ via `go list`. Se o alvo não pertence a um módulo (ex. fixtures em
 `tests/golden/`), cai no fallback `load_loose.go` (`go/parser` + `go/types` +
 `importer.Default()`, só imports da stdlib).
 
-## Schema do JSON (`schemaVersion: 6`)
+## Schema do JSON (`schemaVersion: 7`)
 
 ```jsonc
 {
-  "schemaVersion": 6,
+  "schemaVersion": 7,
   "tool": "goast",
   "goVersion": "go1.26.5",
   "packages": [ ... ]  // ordenados por import path (determinístico)
@@ -44,7 +44,9 @@ Cada pacote:
   "implements": [ { "type": 3, "interfaces": [7, 9] } ],  // tipo nomeado → interfaces satisfeitas
   "initOrder": [ ["a.go:120", "a.go:123"], ... ],          // types.Info.InitOrder: decl das variáveis por inicializador
   "stdlibUsage":  [ "fmt.Println", ... ],   // ordenado alfabeticamente
-  "reflectUsage": [ { "pos": "arquivo.go:linha:coluna", "expr": "reflect.ValueOf(x)" } ]
+  "reflectUsage": [ { "pos": "arquivo.go:linha:coluna", "expr": "reflect.ValueOf(x)" } ],
+  "otherFiles": [ "asm_amd64.s" ],          // omitido se vazio: não-Go do contexto de build (.s = assembly)
+  "module": { "path": "exemplo.com/mod", "version": "v1.2.3" }  // omitido no modo loose; version vazia no módulo principal
 }
 ```
 
@@ -97,7 +99,9 @@ ordem do fonte).
 
 Histórico: v2 moveu os tipos para dentro da AST; v3 adicionou `bytes`; v4
 adicionou `methods` e `implements`; v5 adicionou `initOrder`; v6 incluiu as
-interfaces anônimas no `implements`.
+interfaces anônimas no `implements`; v7 adicionou `otherFiles` e
+`module`, o campo `valueEnd` do `BasicLit` (go/ast 1.26) e corrigiu o `decl` de
+objetos importados no modo loose (antes caía num arquivo errado).
 
 ### Tabela de tipos
 

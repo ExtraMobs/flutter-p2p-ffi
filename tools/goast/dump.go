@@ -31,6 +31,16 @@ type PackageDump struct {
 	InitOrder    [][]string   `json:"initOrder"`
 	StdlibUsage  []string     `json:"stdlibUsage"`
 	ReflectUsage []ReflectUse `json:"reflectUsage"`
+	// OtherFiles: arquivos não-Go do pacote no contexto de build (.s =
+	// assembly: funções sem corpo em Go, pedem substituição).
+	OtherFiles []string    `json:"otherFiles,omitempty"`
+	Module     *ModuleDump `json:"module,omitempty"`
+}
+
+// ModuleDump identifica o módulo Go do pacote (nil no modo loose e na stdlib).
+type ModuleDump struct {
+	Path    string `json:"path"`
+	Version string `json:"version,omitempty"` // vazio no módulo principal
 }
 
 // FileDump associa o caminho do arquivo-fonte à sua AST.
@@ -51,19 +61,28 @@ type ReflectUse struct {
 	Expr string `json:"expr"`
 }
 
-// Dump carrega o(s) pacote(s) indicados por target e produz o documento JSON.
-func Dump(target string) (*DumpDoc, error) {
+// Dump carrega os pacotes indicados pelos alvos e produz o documento JSON.
+// Com dir, os alvos são padrões resolvidos no módulo de dir; sem dir, um
+// alvo único pode ser um diretório (ver resolveTarget).
+func Dump(dir string, targets ...string) (*DumpDoc, error) {
 	fset := token.NewFileSet()
 	cfg := &packages.Config{
 		Mode: packages.NeedName | packages.NeedFiles | packages.NeedSyntax |
-			packages.NeedTypes | packages.NeedTypesInfo | packages.NeedImports,
+			packages.NeedTypes | packages.NeedTypesInfo | packages.NeedImports |
+			packages.NeedModule,
 		Fset: fset,
+		Dir:  dir,
 	}
-	pattern, err := resolveTarget(cfg, target)
-	if err != nil {
-		return nil, err
+	target := strings.Join(targets, " ")
+	patterns := targets
+	if dir == "" && len(targets) == 1 {
+		pattern, err := resolveTarget(cfg, targets[0])
+		if err != nil {
+			return nil, err
+		}
+		patterns = []string{pattern}
 	}
-	pkgs, loadErr := packages.Load(cfg, pattern)
+	pkgs, loadErr := packages.Load(cfg, patterns...)
 	if loadErr == nil {
 		if len(pkgs) == 0 {
 			loadErr = fmt.Errorf("nenhum pacote encontrado para %q", target)
@@ -79,7 +98,7 @@ func Dump(target string) (*DumpDoc, error) {
 			}
 		}
 	}
-	if loadErr != nil {
+	if loadErr != nil && dir == "" && len(targets) == 1 {
 		// Fallback: arquivos .go soltos fora de módulo (fixtures, casos
 		// simples que só importam a stdlib).
 		loose, looseErr := loadLoose(fset, target)
@@ -87,13 +106,15 @@ func Dump(target string) (*DumpDoc, error) {
 			return nil, fmt.Errorf("carregando %q: %w (fallback loose: %v)", target, loadErr, looseErr)
 		}
 		pkgs = []*packages.Package{loose}
+	} else if loadErr != nil {
+		return nil, fmt.Errorf("carregando %q: %w", target, loadErr)
 	}
 
 	// Ordem determinística: import path alfabético.
 	sort.Slice(pkgs, func(i, j int) bool { return pkgs[i].PkgPath < pkgs[j].PkgPath })
 
 	doc := &DumpDoc{
-		SchemaVersion: 6,
+		SchemaVersion: 7,
 		Tool:          "goast",
 		GoVersion:     runtime.Version(),
 	}

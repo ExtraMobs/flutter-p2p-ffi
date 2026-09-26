@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 6,
+  "schemaVersion": 7,
   "tool": "goast",
   "goVersion": "go1.26.5",
   "packages": [
@@ -223,6 +223,7 @@
                             "name": "MaxUint64",
                             "kind": "const",
                             "type": 1,
+                            "decl": "const.go:55",
                             "pkg": "math",
                             "top": true,
                             "value": {
@@ -335,6 +336,7 @@
                             "name": "MinInt64",
                             "kind": "const",
                             "type": 1,
+                            "decl": "const.go:50",
                             "pkg": "math",
                             "top": true,
                             "value": {
@@ -734,6 +736,7 @@
                                   "name": "MaxInt64",
                                   "kind": "const",
                                   "type": 1,
+                                  "decl": "const.go:49",
                                   "pkg": "math",
                                   "top": true,
                                   "value": {
@@ -907,7 +910,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "widths.go:313",
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -1550,7 +1553,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "widths.go:313",
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -2278,7 +2281,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "widths.go:313",
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -2835,7 +2838,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "widths.go:313",
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -3367,7 +3370,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "widths.go:313",
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -3775,7 +3778,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "widths.go:313",
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -4229,7 +4232,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "widths.go:313",
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -4667,7 +4670,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "widths.go:313",
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -5241,7 +5244,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "widths.go:313",
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -5703,7 +5706,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "widths.go:313",
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -6001,6 +6004,7 @@
                                 "name": "MaxFloat32",
                                 "kind": "const",
                                 "type": 23,
+                                "decl": "const.go:30",
                                 "pkg": "math",
                                 "top": true,
                                 "value": {
@@ -6300,7 +6304,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "widths.go:313",
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -6744,7 +6748,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "widths.go:313",
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -7269,7 +7273,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "widths.go:313",
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -7718,6 +7722,7 @@
                                 "name": "NaN",
                                 "kind": "func",
                                 "type": 29,
+                                "decl": "bits.go:30",
                                 "pkg": "math",
                                 "top": true
                               }
@@ -8103,6 +8108,7 @@
                                   "name": "Copysign",
                                   "kind": "func",
                                   "type": 30,
+                                  "decl": "copysign.go:8",
                                   "pkg": "math",
                                   "top": true
                                 }
@@ -8262,7 +8268,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "widths.go:313",
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -8830,7 +8836,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "widths.go:313",
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -9421,7 +9427,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "widths.go:313",
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -10017,7 +10023,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "widths.go:313",
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -10868,7 +10874,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "widths.go:313",
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -11407,7 +11413,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "widths.go:313",
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -12333,7 +12339,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "widths.go:313",
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -14546,7 +14552,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 7,
-                              "decl": "widths.go:313",
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }

@@ -36,8 +36,8 @@ cgo/asm/unsafe/syscall), `docs`.
 
 - Pacote único: `goast dump <dir>` → `python -m g2d transpile` → se gerar
   Dart, `dart analyze` e `go run` × `dart run` (VM e JS).
-- Multi-pacote: módulo `go.mod` com os pacotes; hoje o dump precisa ser por
-  import path dentro do módulo (ver `P0-infra-goast-padrao-windows`) e, para
+- Multi-pacote: módulo `go.mod` com os pacotes; o dump é `goast dump -C <módulo> ./...`
+  (ou `-outdir` para um JSON por pacote) e, para
   expor a camada abaixo do import, um plugin de sonda que qualifica os
   pacotes do módulo como `package:out/<import path>.dart`:
 

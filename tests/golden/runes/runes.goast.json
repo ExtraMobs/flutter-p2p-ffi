@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 6,
+  "schemaVersion": 7,
   "tool": "goast",
   "goVersion": "go1.26.5",
   "packages": [
@@ -522,7 +522,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 6,
-                              "decl": "runes.go:313",
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -932,7 +932,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 6,
-                              "decl": "runes.go:313",
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -1273,7 +1273,7 @@
                                     "name": "Print",
                                     "kind": "func",
                                     "type": 6,
-                                    "decl": "runes.go:270",
+                                    "decl": "print.go:270",
                                     "pkg": "fmt",
                                     "top": true
                                   }
@@ -1470,7 +1470,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 6,
-                              "decl": "runes.go:313",
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -1994,7 +1994,7 @@
                                     "name": "Print",
                                     "kind": "func",
                                     "type": 6,
-                                    "decl": "runes.go:270",
+                                    "decl": "print.go:270",
                                     "pkg": "fmt",
                                     "top": true
                                   }
@@ -2154,7 +2154,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 6,
-                              "decl": "runes.go:313",
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -2619,7 +2619,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 6,
-                              "decl": "runes.go:313",
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -2703,7 +2703,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 6,
-                              "decl": "runes.go:313",
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -3119,7 +3119,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 6,
-                              "decl": "runes.go:313",
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -3673,7 +3673,7 @@
                                     "name": "Print",
                                     "kind": "func",
                                     "type": 6,
-                                    "decl": "runes.go:270",
+                                    "decl": "print.go:270",
                                     "pkg": "fmt",
                                     "top": true
                                   }
@@ -3803,7 +3803,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 6,
-                              "decl": "runes.go:313",
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -3863,7 +3863,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 6,
-                              "decl": "runes.go:313",
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }

@@ -3,7 +3,7 @@
 import json
 from dataclasses import dataclass
 
-SCHEMA_VERSION = 6
+SCHEMA_VERSION = 7
 
 
 class Unsupported(Exception):
@@ -24,6 +24,8 @@ class Package:
     type_table: list
     implements: list  # [{"type": i, "interfaces": [j, ...]}]
     init_order: list  # [[decl, ...], ...] (types.Info.InitOrder)
+    other_files: list = ()  # não-Go no contexto de build (.s = assembly)
+    module: dict = None  # {"path", "version"?}; None no modo loose
 
     def type_of(self, node):
         """Descritor do tipo ($type) de uma expressão, ou None."""
@@ -49,6 +51,7 @@ def parse_dump(doc):
         )
     return [
         Package(p["path"], p["name"], p["files"] or [], p["imports"] or [], p["typeTable"] or [],
-                p.get("implements") or [], p.get("initOrder") or [])
+                p.get("implements") or [], p.get("initOrder") or [],
+                p.get("otherFiles") or [], p.get("module"))
         for p in doc["packages"]
     ]

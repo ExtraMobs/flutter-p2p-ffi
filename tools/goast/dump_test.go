@@ -14,12 +14,12 @@ import (
 // TestDumpHello roda o dump sobre o fixture tests/golden/hello.go e valida
 // os pontos essenciais do schema consumido pelo transpilador Python.
 func TestDumpHello(t *testing.T) {
-	doc, err := Dump("../../tests/golden/hello")
+	doc, err := Dump("", "../../tests/golden/hello")
 	if err != nil {
 		t.Fatalf("Dump: %v", err)
 	}
-	if doc.SchemaVersion != 6 {
-		t.Errorf("schemaVersion = %d, esperado 6", doc.SchemaVersion)
+	if doc.SchemaVersion != 7 {
+		t.Errorf("schemaVersion = %d, esperado 7", doc.SchemaVersion)
 	}
 	if len(doc.Packages) != 1 {
 		t.Fatalf("packages = %d, esperado 1", len(doc.Packages))
@@ -166,7 +166,7 @@ func TestConstValueInvalidUTF8(t *testing.T) {
 }
 
 func TestInitOrder(t *testing.T) {
-	doc, err := Dump("../../tests/golden/inits")
+	doc, err := Dump("", "../../tests/golden/inits")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -192,13 +192,15 @@ func TestInitOrder(t *testing.T) {
 	}
 }
 
-// TestDumpPatternDir cobre "dir/..." e "./..." num módulo sem .go na raiz
-// (no Windows, os.Stat("dir\...") devolvia o próprio dir).
-func TestDumpPatternDir(t *testing.T) {
+// writeModule cria o módulo repro.local/mp num diretório temporário:
+// pacotes a (com um .s) e cmd, sem .go na raiz.
+func writeModule(t *testing.T) string {
+	t.Helper()
 	dir := t.TempDir()
 	files := map[string]string{
 		"go.mod":      "module repro.local/mp\n\ngo 1.26\n",
 		"a/a.go":      "package a\n\nvar X = 1\n",
+		"a/stub.s":    "// vazio\n",
 		"cmd/main.go": "package main\n\nimport \"repro.local/mp/a\"\n\nfunc main() { println(a.X) }\n",
 	}
 	for name, src := range files {
@@ -210,10 +212,17 @@ func TestDumpPatternDir(t *testing.T) {
 			t.Fatal(err)
 		}
 	}
+	return dir
+}
+
+// TestDumpPatternDir cobre "dir/..." e "./..." num módulo sem .go na raiz
+// (no Windows, os.Stat("dir\...") devolvia o próprio dir).
+func TestDumpPatternDir(t *testing.T) {
+	dir := writeModule(t)
 	want := []string{"repro.local/mp/a", "repro.local/mp/cmd"}
 	check := func(target string) {
 		t.Helper()
-		doc, err := Dump(target)
+		doc, err := Dump("", target)
 		if err != nil {
 			t.Fatalf("Dump(%q): %v", target, err)
 		}
@@ -228,4 +237,29 @@ func TestDumpPatternDir(t *testing.T) {
 	check(filepath.ToSlash(dir) + "/...")
 	t.Chdir(dir)
 	check("./...")
+}
+
+// TestDumpModuleTargets cobre -C com vários alvos e os metadados de build.
+func TestDumpModuleTargets(t *testing.T) {
+	dir := writeModule(t)
+	doc, err := Dump(dir, "repro.local/mp/cmd", "repro.local/mp/a")
+	if err != nil {
+		t.Fatalf("Dump: %v", err)
+	}
+	if len(doc.Packages) != 2 {
+		t.Fatalf("packages = %d, esperado 2", len(doc.Packages))
+	}
+	a, cmd := doc.Packages[0], doc.Packages[1]
+	if a.Path != "repro.local/mp/a" || cmd.Path != "repro.local/mp/cmd" {
+		t.Fatalf("ordem = %s, %s", a.Path, cmd.Path)
+	}
+	if strings.Join(a.OtherFiles, " ") != "stub.s" || cmd.OtherFiles != nil {
+		t.Errorf("otherFiles = %v / %v, esperado [stub.s] / []", a.OtherFiles, cmd.OtherFiles)
+	}
+	if a.Module == nil || a.Module.Path != "repro.local/mp" || a.Module.Version != "" {
+		t.Errorf("module = %+v, esperado repro.local/mp (principal)", a.Module)
+	}
+	if _, err := Dump(dir, "repro.local/mp/nada"); err == nil {
+		t.Errorf("alvo inexistente com -C: esperado erro (sem fallback loose)")
+	}
 }

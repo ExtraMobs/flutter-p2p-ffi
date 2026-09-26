@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 6,
+  "schemaVersion": 7,
   "tool": "goast",
   "goVersion": "go1.26.5",
   "packages": [
@@ -1475,7 +1475,7 @@
                               "name": "Ordered",
                               "kind": "type",
                               "type": 22,
-                              "decl": "generics.go:17",
+                              "decl": "cmp.go:17",
                               "pkg": "cmp",
                               "top": true
                             }
@@ -5134,6 +5134,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 83,
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -5745,6 +5746,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 83,
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -6405,6 +6407,7 @@
                                               "name": "Sprint",
                                               "kind": "func",
                                               "type": 103,
+                                              "decl": "print.go:276",
                                               "pkg": "fmt",
                                               "top": true
                                             }
@@ -6533,6 +6536,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 83,
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -7113,6 +7117,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 83,
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -7495,6 +7500,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 83,
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }
@@ -7818,6 +7824,7 @@
                               "name": "Println",
                               "kind": "func",
                               "type": 83,
+                              "decl": "print.go:313",
                               "pkg": "fmt",
                               "top": true
                             }

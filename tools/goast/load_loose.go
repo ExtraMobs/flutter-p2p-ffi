@@ -41,7 +41,8 @@ func loadLoose(fset *token.FileSet, target string) (*packages.Package, error) {
 		Selections: map[*ast.SelectorExpr]*types.Selection{},
 		Instances:  map[*ast.Ident]types.Instance{},
 	}
-	conf := types.Config{Importer: importer.Default()}
+	// fset compartilhado: posições (decl) de objetos importados no arquivo certo.
+	conf := types.Config{Importer: importer.ForCompiler(fset, "gc", nil)}
 	pkgPath := syntax[0].Name.Name
 	typesPkg, err := conf.Check(pkgPath, fset, syntax, info)
 	if err != nil {
