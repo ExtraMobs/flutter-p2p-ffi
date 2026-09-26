@@ -236,3 +236,7 @@ void swapElems<T>(Slice<T> s, int i, int j) {
 /// `hashCode` de `&s[0]` (`ElemPtr`). Para `%p` de slice.
 int sliceAddr<T>(Slice<T> s) =>
     s._array == null ? 0 : Object.hash(identityHashCode(s._array), s._off);
+
+/// Bytes alocados para um pedido de `size` bytes (classe de tamanho do
+/// alocador do Go, `roundupsize`): o cap de `bytealg.MakeNoZero`.
+int allocBytes(int size) => _roundupsize(size, true);

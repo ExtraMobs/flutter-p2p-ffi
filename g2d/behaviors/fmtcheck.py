@@ -10,7 +10,7 @@ se descobrem em runtime (lá continua o erro explícito).
 from g2d.engine.behavior import NOT_HANDLED, ExprBehavior
 from g2d.model import Unsupported
 
-PRINTF = {"Printf", "Sprintf", "Errorf"}
+PRINTF = {"Printf", "Sprintf", "Errorf", "Fprintf"}  # Fprintf: formato no 2º argumento
 FLAGS = "#0+- "
 
 
@@ -88,6 +88,8 @@ class FmtVerbCheck(ExprBehavior):
                 and fun["x"]["$obj"].get("pkg") == "fmt"):
             return NOT_HANDLED
         args = n["args"] or []
+        if fun["sel"]["name"] == "Fprintf":
+            args = args[1:]  # o io.Writer vem antes do formato
         fmt_node = args[0] if args else None
         value = (fmt_node or {}).get("$value") or {}
         if value.get("kind") != "string" or "bytes" in value:

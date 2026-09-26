@@ -44,6 +44,7 @@ class Naming(Service):
         if obj.get("pkg") == self.pkg.path and obj.get("decl") in self.facts.boxed:
             return True
         return (bool(obj.get("top")) and self.typesys.exported(obj["pkg"], obj["name"])
+                and self.imports.transpiled(obj["pkg"])  # var de shim (io.EOF) é um final Dart
                 and not self.typesys.is_value(self.pkg.type_at(obj["type"])))
 
     def box_suffix(self, obj):

@@ -6,6 +6,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'builtin.dart';
+import 'io.dart' as io;
 import 'fixed_types/golang.dart' as Golang;
 import 'fixed_types/golang/src/float_format.dart' show formatGoFloatFmt;
 import 'src/runtime/output.dart';
@@ -62,6 +63,18 @@ Uint8List _sprint(Slice<Object?> args) {
   return b.takeBytes();
 }
 
+/// O método está no method set do valor impresso? Struct por valor (na
+/// interface ou campo aninhado) só tem os de receptor valor: `String()` de
+/// `*T` não vale para `T`, como no Go.
+bool _hasMethod(Object v, String name, bool nested) {
+  if (v is GoStruct) {
+    return (nested || v.$isValue ? v.$valueMethods : v.$ptrMethods).contains(
+      name,
+    );
+  }
+  return true;
+}
+
 /// Endereço de um valor com endereço no Go (ponteiro, slice, map, func), 0
 /// para nil, ou null se v não tem endereço. ⚠️ Estável por objeto, não o
 /// endereço do Go (que nem o Go reproduz entre execuções).
@@ -107,9 +120,9 @@ void _appendV(BytesBuilder b, Object? v, {bool nested = false}) {
     case NilPtr():
       b.add(utf8.encode('<nil>'));
     // Como o fmt do Go: error, depois Stringer, antes da forma estrutural.
-    case GoError e:
+    case GoError e when _hasMethod(e, 'Error', nested):
       b.add(e.error().toBytes());
-    case Stringer s:
+    case Stringer s when _hasMethod(s, 'String', nested):
       b.add(s.string().toBytes());
     case GoStruct s:
       // Ponteiro para struct no nível de topo: &{...}; aninhado ou por valor: {...}.
@@ -248,6 +261,30 @@ Golang.String sprintf(Golang.String format, Slice<Object?> a) =>
   writeStdout(bytes);
   return (Golang.Int(bytes.length), null);
 }
+
+(Golang.Int, GoError?) _fwrite(io.Writer? w, Uint8List bytes) =>
+    w!.write(Slice.of([for (final b in bytes) Golang.Uint8(b)], _fbyte));
+
+const _fbyte = Elem<Golang.Uint8>(
+  1,
+  Golang.Uint8.new,
+  ofInt: Golang.Uint8.from,
+);
+
+/// `fmt.Fprint(w, a...)`: como [sprint], escrito em w (um só `Write`).
+(Golang.Int, GoError?) fprint(io.Writer? w, Slice<Object?> args) =>
+    _fwrite(w, _sprint(args));
+
+/// `fmt.Fprintln(w, a...)`.
+(Golang.Int, GoError?) fprintln(io.Writer? w, Slice<Object?> args) =>
+    _fwrite(w, _sprintln(args));
+
+/// `fmt.Fprintf(w, format, a...)`.
+(Golang.Int, GoError?) fprintf(
+  io.Writer? w,
+  Golang.String format,
+  Slice<Object?> a,
+) => _fwrite(w, _Printf(a.items.toList()).run(format.toBytes()));
 
 /// `fmt.Errorf`: sem `%w`, `*errors.errorString`; com um, `*fmt.wrapError`
 /// (Unwrap devolve o operando); com vários, `*fmt.wrapErrors`.
@@ -508,7 +545,7 @@ final class _Printf {
       }
       return;
     }
-    if (_handleMethods(verb)) return;
+    if (_handleMethods(verb, depth > 0)) return;
     switch (arg) {
       case bool() || GoBool():
         final b = arg is GoBool ? arg.$b : arg as bool;
@@ -607,7 +644,7 @@ final class _Printf {
   }
 
   /// `Error()`/`String()` nos verbos de string (o `handleMethods` do Go).
-  bool _handleMethods(int verb) {
+  bool _handleMethods(int verb, bool nested) {
     if (_erroring) return false;
     final arg = _arg;
     if (verb == 0x77) {
@@ -627,10 +664,10 @@ final class _Printf {
     }
     final String kind;
     final Golang.String Function() call;
-    if (arg is GoError) {
+    if (arg is GoError && _hasMethod(arg, 'Error', nested)) {
       kind = 'Error';
       call = arg.error;
-    } else if (arg is Stringer) {
+    } else if (arg is Stringer && _hasMethod(arg, 'String', nested)) {
       kind = 'String';
       call = arg.string;
     } else {

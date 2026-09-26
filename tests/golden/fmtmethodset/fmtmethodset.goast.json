@@ -1,0 +1,1138 @@
+{
+  "schemaVersion": 7,
+  "tool": "goast",
+  "goVersion": "go1.26.5",
+  "packages": [
+    {
+      "path": "main",
+      "name": "main",
+      "files": [
+        {
+          "path": "fmtmethodset.go",
+          "ast": {
+            "node": "File",
+            "doc": {
+              "node": "CommentGroup",
+              "list": [
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "fmtmethodset.go",
+                    "line": 1,
+                    "column": 1,
+                    "offset": 0
+                  },
+                  "text": "// String() de receptor ponteiro não vale para o valor (method set do Go)."
+                }
+              ]
+            },
+            "package": {
+              "file": "fmtmethodset.go",
+              "line": 2,
+              "column": 1,
+              "offset": 76
+            },
+            "name": {
+              "node": "Ident",
+              "namePos": {
+                "file": "fmtmethodset.go",
+                "line": 2,
+                "column": 9,
+                "offset": 84
+              },
+              "name": "main",
+              "obj": null
+            },
+            "decls": [
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "fmtmethodset.go",
+                  "line": 4,
+                  "column": 1,
+                  "offset": 90
+                },
+                "tok": "import",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "ImportSpec",
+                    "doc": null,
+                    "name": null,
+                    "path": {
+                      "node": "BasicLit",
+                      "valuePos": {
+                        "file": "fmtmethodset.go",
+                        "line": 4,
+                        "column": 8,
+                        "offset": 97
+                      },
+                      "valueEnd": {
+                        "file": "fmtmethodset.go",
+                        "line": 4,
+                        "column": 13,
+                        "offset": 102
+                      },
+                      "kind": "STRING",
+                      "value": "\"fmt\""
+                    },
+                    "comment": null,
+                    "endPos": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "fmtmethodset.go",
+                  "line": 6,
+                  "column": 1,
+                  "offset": 104
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "fmtmethodset.go",
+                        "line": 6,
+                        "column": 6,
+                        "offset": 109
+                      },
+                      "name": "T",
+                      "obj": {
+                        "node": "Object",
+                        "name": "T",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "T",
+                        "kind": "type",
+                        "def": true,
+                        "type": 0,
+                        "decl": "fmtmethodset.go:109",
+                        "pkg": "main",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "StructType",
+                      "struct": {
+                        "file": "fmtmethodset.go",
+                        "line": 6,
+                        "column": 8,
+                        "offset": 111
+                      },
+                      "fields": {
+                        "node": "FieldList",
+                        "opening": {
+                          "file": "fmtmethodset.go",
+                          "line": 6,
+                          "column": 14,
+                          "offset": 117
+                        },
+                        "list": [
+                          {
+                            "node": "Field",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "fmtmethodset.go",
+                                  "line": 6,
+                                  "column": 16,
+                                  "offset": 119
+                                },
+                                "name": "n",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "n",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "n",
+                                  "kind": "field",
+                                  "def": true,
+                                  "type": 2,
+                                  "decl": "fmtmethodset.go:119",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "fmtmethodset.go",
+                                "line": 6,
+                                "column": 18,
+                                "offset": 121
+                              },
+                              "name": "int",
+                              "obj": null,
+                              "$type": 2,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "int",
+                                "kind": "type",
+                                "type": 2
+                              }
+                            },
+                            "tag": null,
+                            "comment": null
+                          }
+                        ],
+                        "closing": {
+                          "file": "fmtmethodset.go",
+                          "line": 6,
+                          "column": 22,
+                          "offset": 125
+                        }
+                      },
+                      "incomplete": false,
+                      "$type": 1,
+                      "$isType": true
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": {
+                  "node": "FieldList",
+                  "opening": {
+                    "file": "fmtmethodset.go",
+                    "line": 8,
+                    "column": 6,
+                    "offset": 133
+                  },
+                  "list": [
+                    {
+                      "node": "Field",
+                      "doc": null,
+                      "names": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "fmtmethodset.go",
+                            "line": 8,
+                            "column": 7,
+                            "offset": 134
+                          },
+                          "name": "t",
+                          "obj": {
+                            "node": "Object",
+                            "name": "t",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "t",
+                            "kind": "var",
+                            "def": true,
+                            "type": 5,
+                            "decl": "fmtmethodset.go:134",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "type": {
+                        "node": "StarExpr",
+                        "star": {
+                          "file": "fmtmethodset.go",
+                          "line": 8,
+                          "column": 9,
+                          "offset": 136
+                        },
+                        "x": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "fmtmethodset.go",
+                            "line": 8,
+                            "column": 10,
+                            "offset": 137
+                          },
+                          "name": "T",
+                          "obj": {
+                            "node": "Object",
+                            "name": "T",
+                            "kind": "type"
+                          },
+                          "$type": 0,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "T",
+                            "kind": "type",
+                            "type": 0,
+                            "decl": "fmtmethodset.go:109",
+                            "pkg": "main",
+                            "top": true
+                          }
+                        },
+                        "$type": 5,
+                        "$isType": true
+                      },
+                      "tag": null,
+                      "comment": null
+                    }
+                  ],
+                  "closing": {
+                    "file": "fmtmethodset.go",
+                    "line": 8,
+                    "column": 11,
+                    "offset": 138
+                  }
+                },
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "fmtmethodset.go",
+                    "line": 8,
+                    "column": 13,
+                    "offset": 140
+                  },
+                  "name": "String",
+                  "obj": null,
+                  "$obj": {
+                    "name": "String",
+                    "kind": "method",
+                    "def": true,
+                    "type": 3,
+                    "decl": "fmtmethodset.go:140",
+                    "pkg": "main"
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "fmtmethodset.go",
+                    "line": 8,
+                    "column": 1,
+                    "offset": 128
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "fmtmethodset.go",
+                      "line": 8,
+                      "column": 19,
+                      "offset": 146
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "fmtmethodset.go",
+                      "line": 8,
+                      "column": 20,
+                      "offset": 147
+                    }
+                  },
+                  "results": {
+                    "node": "FieldList",
+                    "opening": null,
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": null,
+                        "type": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "fmtmethodset.go",
+                            "line": 8,
+                            "column": 22,
+                            "offset": 149
+                          },
+                          "name": "string",
+                          "obj": null,
+                          "$type": 4,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "string",
+                            "kind": "type",
+                            "type": 4
+                          }
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": null
+                  }
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "fmtmethodset.go",
+                    "line": 8,
+                    "column": 29,
+                    "offset": 156
+                  },
+                  "list": [
+                    {
+                      "node": "ReturnStmt",
+                      "return": {
+                        "file": "fmtmethodset.go",
+                        "line": 8,
+                        "column": 31,
+                        "offset": 158
+                      },
+                      "results": [
+                        {
+                          "node": "BasicLit",
+                          "valuePos": {
+                            "file": "fmtmethodset.go",
+                            "line": 8,
+                            "column": 38,
+                            "offset": 165
+                          },
+                          "valueEnd": {
+                            "file": "fmtmethodset.go",
+                            "line": 8,
+                            "column": 42,
+                            "offset": 169
+                          },
+                          "kind": "STRING",
+                          "value": "\"T!\"",
+                          "$type": 4,
+                          "$value": {
+                            "kind": "string",
+                            "value": "T!"
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "fmtmethodset.go",
+                    "line": 8,
+                    "column": 43,
+                    "offset": 170
+                  }
+                }
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "fmtmethodset.go",
+                    "line": 10,
+                    "column": 6,
+                    "offset": 178
+                  },
+                  "name": "main",
+                  "obj": {
+                    "node": "Object",
+                    "name": "main",
+                    "kind": "func"
+                  },
+                  "$obj": {
+                    "name": "main",
+                    "kind": "func",
+                    "def": true,
+                    "type": 6,
+                    "decl": "fmtmethodset.go:178",
+                    "pkg": "main",
+                    "top": true
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "fmtmethodset.go",
+                    "line": 10,
+                    "column": 1,
+                    "offset": 173
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "fmtmethodset.go",
+                      "line": 10,
+                      "column": 10,
+                      "offset": 182
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "fmtmethodset.go",
+                      "line": 10,
+                      "column": 11,
+                      "offset": 183
+                    }
+                  },
+                  "results": null
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "fmtmethodset.go",
+                    "line": 10,
+                    "column": 13,
+                    "offset": 185
+                  },
+                  "list": [
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "fmtmethodset.go",
+                            "line": 11,
+                            "column": 2,
+                            "offset": 188
+                          },
+                          "name": "t",
+                          "obj": {
+                            "node": "Object",
+                            "name": "t",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "t",
+                            "kind": "var",
+                            "def": true,
+                            "type": 0,
+                            "decl": "fmtmethodset.go:188",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "fmtmethodset.go",
+                        "line": 11,
+                        "column": 4,
+                        "offset": 190
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "CompositeLit",
+                          "type": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtmethodset.go",
+                              "line": 11,
+                              "column": 7,
+                              "offset": 193
+                            },
+                            "name": "T",
+                            "obj": {
+                              "node": "Object",
+                              "name": "T",
+                              "kind": "type"
+                            },
+                            "$type": 0,
+                            "$isType": true,
+                            "$obj": {
+                              "name": "T",
+                              "kind": "type",
+                              "type": 0,
+                              "decl": "fmtmethodset.go:109",
+                              "pkg": "main",
+                              "top": true
+                            }
+                          },
+                          "lbrace": {
+                            "file": "fmtmethodset.go",
+                            "line": 11,
+                            "column": 8,
+                            "offset": 194
+                          },
+                          "elts": [
+                            {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "fmtmethodset.go",
+                                "line": 11,
+                                "column": 9,
+                                "offset": 195
+                              },
+                              "valueEnd": {
+                                "file": "fmtmethodset.go",
+                                "line": 11,
+                                "column": 10,
+                                "offset": 196
+                              },
+                              "kind": "INT",
+                              "value": "1",
+                              "$type": 2,
+                              "$value": {
+                                "kind": "int",
+                                "value": "1"
+                              }
+                            }
+                          ],
+                          "rbrace": {
+                            "file": "fmtmethodset.go",
+                            "line": 11,
+                            "column": 10,
+                            "offset": 196
+                          },
+                          "incomplete": false,
+                          "$type": 0
+                        }
+                      ]
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtmethodset.go",
+                              "line": 12,
+                              "column": 2,
+                              "offset": 199
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtmethodset.go",
+                              "line": 12,
+                              "column": 6,
+                              "offset": 203
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 7,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 7
+                        },
+                        "lparen": {
+                          "file": "fmtmethodset.go",
+                          "line": 12,
+                          "column": 13,
+                          "offset": 210
+                        },
+                        "args": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtmethodset.go",
+                              "line": 12,
+                              "column": 14,
+                              "offset": 211
+                            },
+                            "name": "t",
+                            "obj": {
+                              "node": "Object",
+                              "name": "t",
+                              "kind": "var"
+                            },
+                            "$type": 0,
+                            "$obj": {
+                              "name": "t",
+                              "kind": "var",
+                              "type": 0,
+                              "decl": "fmtmethodset.go:188",
+                              "pkg": "main"
+                            }
+                          },
+                          {
+                            "node": "UnaryExpr",
+                            "opPos": {
+                              "file": "fmtmethodset.go",
+                              "line": 12,
+                              "column": 17,
+                              "offset": 214
+                            },
+                            "op": "\u0026",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "fmtmethodset.go",
+                                "line": 12,
+                                "column": 18,
+                                "offset": 215
+                              },
+                              "name": "t",
+                              "obj": {
+                                "node": "Object",
+                                "name": "t",
+                                "kind": "var"
+                              },
+                              "$type": 0,
+                              "$obj": {
+                                "name": "t",
+                                "kind": "var",
+                                "type": 0,
+                                "decl": "fmtmethodset.go:188",
+                                "pkg": "main"
+                              }
+                            },
+                            "$type": 5
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "fmtmethodset.go",
+                          "line": 12,
+                          "column": 19,
+                          "offset": 216
+                        },
+                        "$type": 12
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtmethodset.go",
+                              "line": 13,
+                              "column": 2,
+                              "offset": 219
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtmethodset.go",
+                              "line": 13,
+                              "column": 6,
+                              "offset": 223
+                            },
+                            "name": "Printf",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Printf",
+                              "kind": "func",
+                              "type": 13,
+                              "decl": "print.go:231",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 13
+                        },
+                        "lparen": {
+                          "file": "fmtmethodset.go",
+                          "line": 13,
+                          "column": 12,
+                          "offset": 229
+                        },
+                        "args": [
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "fmtmethodset.go",
+                              "line": 13,
+                              "column": 13,
+                              "offset": 230
+                            },
+                            "valueEnd": {
+                              "file": "fmtmethodset.go",
+                              "line": 13,
+                              "column": 22,
+                              "offset": 239
+                            },
+                            "kind": "STRING",
+                            "value": "\"%v %v\\n\"",
+                            "$type": 4,
+                            "$value": {
+                              "kind": "string",
+                              "value": "%v %v\n"
+                            }
+                          },
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtmethodset.go",
+                              "line": 13,
+                              "column": 24,
+                              "offset": 241
+                            },
+                            "name": "t",
+                            "obj": {
+                              "node": "Object",
+                              "name": "t",
+                              "kind": "var"
+                            },
+                            "$type": 0,
+                            "$obj": {
+                              "name": "t",
+                              "kind": "var",
+                              "type": 0,
+                              "decl": "fmtmethodset.go:188",
+                              "pkg": "main"
+                            }
+                          },
+                          {
+                            "node": "UnaryExpr",
+                            "opPos": {
+                              "file": "fmtmethodset.go",
+                              "line": 13,
+                              "column": 27,
+                              "offset": 244
+                            },
+                            "op": "\u0026",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "fmtmethodset.go",
+                                "line": 13,
+                                "column": 28,
+                                "offset": 245
+                              },
+                              "name": "t",
+                              "obj": {
+                                "node": "Object",
+                                "name": "t",
+                                "kind": "var"
+                              },
+                              "$type": 0,
+                              "$obj": {
+                                "name": "t",
+                                "kind": "var",
+                                "type": 0,
+                                "decl": "fmtmethodset.go:188",
+                                "pkg": "main"
+                              }
+                            },
+                            "$type": 5
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "fmtmethodset.go",
+                          "line": 13,
+                          "column": 29,
+                          "offset": 246
+                        },
+                        "$type": 12
+                      }
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "fmtmethodset.go",
+                    "line": 14,
+                    "column": 1,
+                    "offset": 248
+                  }
+                }
+              }
+            ],
+            "fileStart": {
+              "file": "fmtmethodset.go",
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "fileEnd": {
+              "file": "fmtmethodset.go",
+              "line": 14,
+              "column": 3,
+              "offset": 250
+            },
+            "scope": null,
+            "imports": [
+              {
+                "node": "ImportSpec",
+                "doc": null,
+                "name": null,
+                "path": {
+                  "node": "BasicLit",
+                  "valuePos": {
+                    "file": "fmtmethodset.go",
+                    "line": 4,
+                    "column": 8,
+                    "offset": 97
+                  },
+                  "valueEnd": {
+                    "file": "fmtmethodset.go",
+                    "line": 4,
+                    "column": 13,
+                    "offset": 102
+                  },
+                  "kind": "STRING",
+                  "value": "\"fmt\""
+                },
+                "comment": null,
+                "endPos": null
+              }
+            ],
+            "unresolved": [
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "fmtmethodset.go",
+                  "line": 6,
+                  "column": 18,
+                  "offset": 121
+                },
+                "name": "int",
+                "obj": null,
+                "$type": 2,
+                "$isType": true,
+                "$obj": {
+                  "name": "int",
+                  "kind": "type",
+                  "type": 2
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "fmtmethodset.go",
+                  "line": 8,
+                  "column": 22,
+                  "offset": 149
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 4,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 4
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "fmtmethodset.go",
+                  "line": 12,
+                  "column": 2,
+                  "offset": 199
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "fmtmethodset.go",
+                  "line": 13,
+                  "column": 2,
+                  "offset": 219
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              }
+            ],
+            "comments": [
+              {
+                "node": "CommentGroup",
+                "list": [
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "fmtmethodset.go",
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "text": "// String() de receptor ponteiro não vale para o valor (method set do Go)."
+                  }
+                ]
+              }
+            ],
+            "goVersion": ""
+          }
+        }
+      ],
+      "imports": [
+        {
+          "path": "fmt",
+          "name": "fmt"
+        }
+      ],
+      "typeTable": [
+        {
+          "kind": "named",
+          "pkg": "main",
+          "name": "T",
+          "underlying": 1,
+          "methods": [
+            {
+              "name": "String",
+              "type": 3,
+              "index": [
+                0
+              ],
+              "ptr": true
+            }
+          ]
+        },
+        {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "n",
+              "type": 2,
+              "embedded": false,
+              "tag": ""
+            }
+          ]
+        },
+        {
+          "kind": "basic",
+          "name": "int"
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            4
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "basic",
+          "name": "string"
+        },
+        {
+          "kind": "pointer",
+          "elem": 0
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            8
+          ],
+          "results": [
+            2,
+            10
+          ],
+          "variadic": true
+        },
+        {
+          "kind": "slice",
+          "elem": 9
+        },
+        {
+          "kind": "interface",
+          "methods": [],
+          "embeddeds": []
+        },
+        {
+          "kind": "named",
+          "pkg": "",
+          "name": "error",
+          "underlying": 11
+        },
+        {
+          "kind": "interface",
+          "methods": [
+            {
+              "name": "Error",
+              "type": 3
+            }
+          ],
+          "embeddeds": []
+        },
+        {
+          "kind": "tuple",
+          "elems": [
+            2,
+            10
+          ]
+        },
+        {
+          "kind": "func",
+          "params": [
+            4,
+            8
+          ],
+          "results": [
+            2,
+            10
+          ],
+          "variadic": true
+        },
+        {
+          "kind": "named",
+          "pkg": "fmt",
+          "name": "Stringer",
+          "underlying": 15
+        },
+        {
+          "kind": "interface",
+          "methods": [
+            {
+              "name": "String",
+              "type": 3
+            }
+          ],
+          "embeddeds": []
+        }
+      ],
+      "implements": [
+        {
+          "type": 0,
+          "interfaces": [
+            14
+          ]
+        }
+      ],
+      "initOrder": [],
+      "stdlibUsage": [
+        "fmt.Printf",
+        "fmt.Println"
+      ],
+      "reflectUsage": null
+    }
+  ]
+}

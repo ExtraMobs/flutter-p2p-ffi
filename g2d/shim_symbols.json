@@ -2,14 +2,19 @@
   "schemaVersion": 1,
   "shims": {
     "bytes": [
+      "Buffer",
       "compare",
       "count",
       "equal",
+      "errTooLarge",
       "hasPrefix",
       "hasSuffix",
       "index",
       "indexByte",
       "lastIndexByte",
+      "minRead",
+      "newBuffer",
+      "newBufferString",
       "split",
       "trimLeft",
       "trimRight"
@@ -30,12 +35,28 @@
       "Stringer",
       "errorf",
       "formatV",
+      "fprint",
+      "fprintf",
+      "fprintln",
       "print",
       "printf",
       "println",
       "sprint",
       "sprintf",
       "sprintln"
+    ],
+    "io": [
+      "ByteReader",
+      "ByteWriter",
+      "Reader",
+      "StringWriter",
+      "Writer",
+      "eof",
+      "errClosedPipe",
+      "errNoProgress",
+      "errShortBuffer",
+      "errShortWrite",
+      "errUnexpectedEOF"
     ],
     "math": [
       "abs",
@@ -105,6 +126,7 @@
       "parseUint"
     ],
     "strings": [
+      "Builder",
       "contains",
       "containsRune",
       "count",
