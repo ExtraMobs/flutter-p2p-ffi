@@ -3,7 +3,7 @@ comportamentos no motor. Para injetar comportamento, acrescente um plugin
 (ou substitua um destes) na lista passada ao Engine."""
 
 from g2d.analysis import analyses
-from g2d.behaviors import builtins, decls, exprs, stmts
+from g2d.behaviors import builtins, decls, exprs, fmtcheck, stmts
 from g2d.behaviors.conversions import CONVERSIONS
 from g2d.engine.behavior import Plugin
 from g2d.services.assertions import Assertions
@@ -93,5 +93,12 @@ class DeferPlugin(Plugin):
         engine.register_builtin(builtins.Recover)
 
 
+class FmtPlugin(Plugin):
+    """Recusa na transpilação os verbos que o shim `fmt` não formata."""
+
+    def install(self, engine):
+        engine.register_expr(fmtcheck.FmtVerbCheck)
+
+
 DEFAULT_PLUGINS = [CorePlugin(), CollectionsPlugin(), PointersPlugin(), InterfacesPlugin(),
-                   DeferPlugin()]
+                   DeferPlugin(), FmtPlugin()]
