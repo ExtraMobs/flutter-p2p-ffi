@@ -117,6 +117,9 @@ contexto de build fixo do g2d (`g2d/graph.py` `BUILD_ENV`: `CGO_ENABLED=0
 GOOS=linux GOARCH=amd64`), Go 1.26.5. Medido em 2026-09: **1114 pacotes fora da
 stdlib** (24 com assembly `.s`) sobre **246 pacotes da stdlib**. Os maiores
 módulos: boxo (93), go-libp2p (82), kubo (66), pebble (58).
+O `go.mod` do corpus replica o `replace` de go-libp2p do kubo (replace de
+dependência não vale para quem importa). Despejar o grafo inteiro
+(`goast dump -outdir`) leva ~3 min, ~2,3 GB de pico e ~1,2 GB de JSON.
 
 O trabalho é guiado pelo backlog em `TODO/` (convenção em `TODO/README.md`):
 

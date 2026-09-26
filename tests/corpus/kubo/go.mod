@@ -257,3 +257,8 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	lukechampine.com/blake3 v1.4.1 // indirect
 )
+
+// Copiado do go.mod do kubo v0.43.1: replace de dependência não vale para
+// quem a importa, e sem ele o go-libp2p v0.49.0 não compila com o
+// webtransport-go v0.13.0 que o kubo seleciona.
+replace github.com/libp2p/go-libp2p => github.com/lidel/go-libp2p v0.0.0-20260914191659-9c4ee60cf924
