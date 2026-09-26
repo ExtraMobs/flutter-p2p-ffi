@@ -67,7 +67,7 @@ class TypeSystem(Service):
         if u["kind"] != "basic":
             return None
         if u["name"] not in _BASICS:
-            raise Unsupported(f"tipo básico {u['name']}")
+            raise Unsupported(f"tipo-basico:{u['name']}", f"tipo básico {u['name']}")
         return _BASICS[u["name"]]
 
     def underlying(self, t):
@@ -140,7 +140,7 @@ class TypeSystem(Service):
             name = {"int": "int", "float": "float64", "rune": "rune", "string": "string",
                     "bool": "bool", "complex": "complex128"}.get(name, name) if u["name"].startswith("untyped") else name
             if name not in _BASIC_LAYOUT:
-                raise Unsupported(f"layout de {u['name']}")
+                raise Unsupported(f"layout:{u['name']}", f"layout de {u['name']}")
             return _BASIC_LAYOUT[name]
         if k in ("pointer", "map", "chan", "func"):
             return 8, 8, True
@@ -160,4 +160,4 @@ class TypeSystem(Service):
             if u["fields"] and last == 0 and off > 0:
                 off += 1  # campo final de tamanho zero ganha padding (cmd/compile)
             return (off + maxalign - 1) // maxalign * maxalign, maxalign, ptrs
-        raise Unsupported(f"layout de {k}")
+        raise Unsupported(f"layout:{k}", f"layout de {k}")

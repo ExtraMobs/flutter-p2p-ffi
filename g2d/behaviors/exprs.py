@@ -16,7 +16,7 @@ class Ident(ExprBehavior):
     def ident(self, n):
         obj = n.get("$obj")
         if obj is None:
-            raise Unsupported(f"identificador sem objeto {n['name']}", n)
+            raise Unsupported("ident-sem-objeto", f"identificador sem objeto {n['name']}", n)
         kind = obj["kind"]
         if kind == "nil":
             return "null"
@@ -29,10 +29,10 @@ class Ident(ExprBehavior):
                 return "this"
             if self.scope and obj.get("decl") in self.scope.locals:
                 return self.scope.locals[obj["decl"]] + self.names.box_suffix(obj)
-            raise Unsupported(f"variável local não declarada {n['name']}", n)
+            raise Unsupported("local-nao-declarada", f"variável local não declarada {n['name']}", n)
         if kind == "type":
             return self.types.dart(n["$type"])
-        raise Unsupported(f"identificador {kind} {n['name']}", n)
+        raise Unsupported(f"ident:{kind}", f"identificador {kind} {n['name']}", n)
 
 
 class ParenExpr(ExprBehavior):
@@ -46,7 +46,7 @@ class BasicLit(ExprBehavior):
     kinds = ("BasicLit",)
 
     def emit(self, n):
-        raise Unsupported("literal sem valor constante", n)
+        raise Unsupported("literal-sem-valor", "literal sem valor constante", n)
 
 
 class BinaryExpr(ExprBehavior):
@@ -80,7 +80,7 @@ class BinaryExpr(ExprBehavior):
             eq = f"identical({self.expr(n['x'])}, {self.expr(n['y'])})"
             return (eq, POSTFIX) if op == "==" else (f"!{eq}", UNARY)
         if op not in DART_PREC:
-            raise Unsupported(f"operador {op}", n)
+            raise Unsupported(f"operador:{op}", f"operador {op}", n)
         p = DART_PREC[op]
         left = p + 1 if op in NON_ASSOC else p
         return f"{self.expr(n['x'], left)} {op} {self.expr(n['y'], p + 1)}", p
@@ -127,7 +127,7 @@ class UnaryExpr(ExprBehavior):
             return self.address_of(n)
         dart_op = {"-": "-", "+": "", "!": "!", "^": "~"}.get(op)
         if dart_op is None:
-            raise Unsupported(f"operador unário {op}", n)
+            raise Unsupported(f"operador-unario:{op}", f"operador unário {op}", n)
         x = self.expr(n["x"], UNARY)
         # "- -x" → evita "--x" (decremento).
         sep = " " if dart_op == "-" and x.startswith("-") else ""
@@ -157,7 +157,7 @@ class UnaryExpr(ExprBehavior):
             ot, ft = self.types.dart(owner_t), self.types.dart(self.pkg.type_of(x))
             return view(f"{self.imports.qualify(None, 'FieldPtr')}<{ot}, {ft}>({owner}, '{f}', "
                         f"(o) => o.{f}, (o, v) => o.{f} = v)"), POSTFIX
-        raise Unsupported("& de expressão", n)
+        raise Unsupported("endereco-expr", "& de expressão", n)
 
 
 class StarExpr(ExprBehavior):
@@ -182,13 +182,13 @@ class SelectorExpr(ExprBehavior):
             return self.imports.qualify(xobj["pkg"], name), POSTFIX + 1
         info = n.get("$sel")
         if info is None:
-            raise Unsupported("seletor", n)
+            raise Unsupported("seletor", "seletor", n)
         if info["kind"] == "methodExpr":
             return self.method_expr(n, info), 0
         t = self.pkg.type_of(x)
         if info["kind"] == "method" and len(info["index"]) == 1 and self.calls.ptr_method_of(t, sel):
             if self.scope and self.scope.recv and x.get("$obj", {}).get("decl") == self.scope.recv:
-                raise Unsupported("método de receptor ponteiro sobre o receptor valor", n)
+                raise Unsupported("metodo-ptr-receptor-valor", "método de receptor ponteiro sobre o receptor valor", n)
             recv = self.expr({"node": "UnaryExpr", "op": "&", "x": x}, POSTFIX)
             return f"{recv}.{member_name(sel)}", POSTFIX
         recv = self.expr(x, POSTFIX)
@@ -242,7 +242,7 @@ class IndexExpr(ExprBehavior):
         i = self.expr(n["index"])
         if u["kind"] == "map":
             return f"{x}[{i}]", POSTFIX  # go.GoMap devolve o zero value
-        raise Unsupported(f"índice sobre {u['kind']}", n)
+        raise Unsupported(f"indice:{u['kind']}", f"índice sobre {u['kind']}", n)
 
 
 class SliceExpr(ExprBehavior):
@@ -254,7 +254,7 @@ class SliceExpr(ExprBehavior):
         if u["kind"] == "pointer":  # p[a:b] com p *[N]T
             u, deref = self.typesys.underlying(self.pkg.type_at(u["elem"])), "!"
         if u["kind"] not in ("slice", "array", "basic"):
-            raise Unsupported(f"slicing de {u['kind']}", n)
+            raise Unsupported(f"slicing:{u['kind']}", f"slicing de {u['kind']}", n)
         args = [self.operands.to_int(n["low"]) if n["low"] else "0"]
         if n["high"] or n["max"]:
             args.append(self.operands.to_int(n["high"]) if n["high"] else "null")
@@ -268,7 +268,7 @@ class KeyValueExpr(ExprBehavior):
     kinds = ("KeyValueExpr",)
 
     def emit(self, n):
-        raise Unsupported("KeyValueExpr fora de literal composto", n)
+        raise Unsupported("keyvalue-fora-literal", "KeyValueExpr fora de literal composto", n)
 
 
 class CompositeLit(ExprBehavior):
@@ -302,7 +302,7 @@ class CompositeLit(ExprBehavior):
             items = ", ".join(f"{self.values.coerce(e['key'], kt)}: {self.values.coerce(e['value'], vt)}" for e in elts)
             lit = f"{self.types.dart(u)}.of({{{items}}}, {self.descriptors.elem(vt)}{self.typesys.map_args(t)})"
             return self.types.wrap(t, lit), POSTFIX
-        raise Unsupported(f"literal composto de {u['kind']}", n)
+        raise Unsupported(f"literal-composto:{u['kind']}", f"literal composto de {u['kind']}", n)
 
     def indexed(self, elts, elem, length=None):
         """Elementos de `[]T{...}`/`[N]T{...}` em ordem de índice: chaves
@@ -323,7 +323,7 @@ class FuncLit(ExprBehavior):
 
     def emit(self, n):
         if self.scope is None:
-            raise Unsupported("func literal em nível de pacote", n)
+            raise Unsupported("func-literal-pacote", "func literal em nível de pacote", n)
         sig = self.pkg.type_of(n)
         params, boxes = self.functions.params(n["type"]["params"], sig)
         saved_rd, saved_breaks = self.scope.rd, self.scope.breaks
@@ -348,7 +348,7 @@ class CallExpr(ExprBehavior):
         fun_t = self.pkg.type_of(fun)
         sig = self.typesys.underlying(fun_t) if fun_t is not None else None
         if sig is None or sig["kind"] != "func":
-            raise Unsupported("chamada de valor não-função", n)
+            raise Unsupported("chamada-nao-funcao", "chamada de valor não-função", n)
         spread = self.pkg.type_of(args[0]) if len(args) == 1 else None
         if spread is not None and spread["kind"] == "tuple":
             # f(g()): o record de g() é desestruturado num switch expression

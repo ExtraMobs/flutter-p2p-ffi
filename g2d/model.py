@@ -7,12 +7,45 @@ SCHEMA_VERSION = 7
 
 
 class Unsupported(Exception):
-    """Construção Go ainda não coberta pelo transpilador."""
+    """Construção Go ainda não coberta pelo transpilador.
 
-    def __init__(self, what, node=None):
-        pos = node.get("pos") if isinstance(node, dict) else None
-        where = f" em {pos['file']}:{pos['line']}:{pos['column']}" if pos else ""
-        super().__init__(f"não suportado: {what}{where}")
+    `code` é estável por caso (`área` ou `área:detalhe`, ex. `range:func`,
+    `shim-ausente:errors`): é por ele que a auditoria agrupa. `pos` é a
+    posição do nó; sem nó, quem emite a declaração a completa (`locate`).
+    """
+
+    def __init__(self, code, what, node=None):
+        super().__init__(code, what)
+        self.code, self.what, self.pos = code, what, None
+        self.locate(node)
+
+    def locate(self, node):
+        """Completa a posição com a do nó (se ainda não houver)."""
+        if self.pos is None:
+            self.pos = first_pos(node)
+        return self
+
+    def __str__(self):
+        where = f" em {self.pos['file']}:{self.pos['line']}:{self.pos['column']}" if self.pos else ""
+        return f"não suportado [{self.code}]: {self.what}{where}"
+
+
+def first_pos(node):
+    """Primeira posição (`token.Pos` do goast) na travessia do nó, em ordem
+    de campos: o início da construção no fonte. Anotações `$` não contam."""
+    if isinstance(node, dict):
+        if "line" in node and "column" in node and "file" in node:
+            return node
+        values = (v for k, v in node.items() if not k.startswith("$"))
+    elif isinstance(node, list):
+        values = node
+    else:
+        return None
+    for v in values:
+        pos = first_pos(v)
+        if pos is not None:
+            return pos
+    return None
 
 
 @dataclass

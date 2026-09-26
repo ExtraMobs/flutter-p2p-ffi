@@ -26,7 +26,7 @@ class Naming(Service):
 
     def temp(self):
         if self.scope is None:
-            raise Unsupported("temporário em inicializador de nível de pacote")
+            raise Unsupported("temp-pacote", "temporário em inicializador de nível de pacote")
         self.scope.temps += 1
         return f"$t{self.scope.temps}"
 

@@ -49,7 +49,7 @@ class DeclStmt(StmtBehavior):
         if d["tok"] == "type":
             return []  # içado para a library (LocalTypesAnalysis)
         if d["tok"] not in ("var", "const"):
-            raise Unsupported(f"declaração local {d['tok']}", s)
+            raise Unsupported(f"decl-local:{d['tok']}", f"declaração local {d['tok']}", s)
         return [ln for spec in d["specs"] for ln in self.vars.value_spec(spec, d["tok"])]
 
 
@@ -136,7 +136,7 @@ class AssignStmt(StmtBehavior):
         b = self.typesys.basic(self.pkg.type_of(lhs))
         if self.operands.is_map_index(lhs):
             if op in ("/", "%", "&^", "<<", ">>"):
-                raise Unsupported(f"{op}= sobre índice de map", lhs)
+                raise Unsupported(f"map-opassign:{op}", f"{op}= sobre índice de map", lhs)
             p = DART_PREC[op]
             return f"{self.operands.lvalue(lhs)} = ({self.expr(lhs)}) {op} {self.expr(rhs, p + 1)};"
         if op in ("<<", ">>"):
@@ -145,7 +145,7 @@ class AssignStmt(StmtBehavior):
             return f"{self.operands.lvalue(lhs)} ~/= {self.expr(rhs)};"
         if op == "&^":
             if lhs["node"] != "Ident":
-                raise Unsupported("&^= sobre expressão não-identificador", lhs)
+                raise Unsupported("andnot-nao-ident", "&^= sobre expressão não-identificador", lhs)
             x = self.expr(lhs)
             return f"{x} = {x}.andNot({self.expr(rhs)});"
         return f"{self.operands.lvalue(lhs)} {op}= {self.expr(rhs)};"
@@ -188,7 +188,7 @@ class ForStmt(StmtBehavior):
             return ""
         lines = self.stmt(s)
         if len(lines) != 1:
-            raise Unsupported("cláusula de for com múltiplas atribuições", s)
+            raise Unsupported("for-multi-atribuicao", "cláusula de for com múltiplas atribuições", s)
         return lines[0].rstrip(";")
 
 
@@ -241,7 +241,7 @@ class RangeStmt(StmtBehavior):
             pre += ([bind(key, k)] if key else []) + (
                 [bind(val, self.values.copy_text(f"{src}[{k}]", elem_t))] if val else [])
         else:
-            raise Unsupported(f"range sobre {u['kind']}", s)
+            raise Unsupported(f"range:{u['kind']}", f"range sobre {u['kind']}", s)
         body = self.control.loop_body(s["body"])
         head[-1] = label + head[-1]
         return ["{"] + head + ["{"] + pre + body + ["}", "}"]
@@ -253,7 +253,7 @@ class BranchStmt(StmtBehavior):
     def emit(self, s):
         tok = s["tok"]
         if tok not in ("break", "continue"):
-            raise Unsupported(tok, s)
+            raise Unsupported(f"branch:{tok}", tok, s)
         if s["label"]:
             return [f"{tok} {s['label']['name']};"]
         target = self.scope.breaks[-1] if tok == "break" and self.scope.breaks else None
@@ -388,7 +388,7 @@ class DeferStmt(StmtBehavior):
         fun, args = call["fun"], call["args"] or []
         pre = []
         if fun.get("$builtin"):
-            raise Unsupported("defer de builtin", s)
+            raise Unsupported("defer-builtin", "defer de builtin", s)
         # Avalia os argumentos agora, fixando-os em temporários.
         fixed = []
         for a in args:

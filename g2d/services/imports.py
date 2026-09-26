@@ -17,8 +17,14 @@ class ImportTable(Service):
         self.prefixes = {}  # import path → prefixo
         for imp in self.pkg.imports:
             if imp["name"] in ("_", ".", GOLANG_PREFIX):
-                raise Unsupported(f"import {imp['name']} {imp['path']}")
+                raise Unsupported(f"import:{imp['name']}", f"import {imp['name']} {imp['path']}",
+                                  self.import_spec(imp["path"]))
             self.prefixes.setdefault(imp["path"], escape(imp["name"]))
+
+    def import_spec(self, path):
+        """ImportSpec da AST com esse import path (posição dos erros)."""
+        return next((s for f in self.pkg.files for s in f["ast"]["imports"] or []
+                     if s["path"]["value"].strip('"`') == path), None)
 
     def directives(self):
         """`import '...' as p;` dos imports usados, em ordem."""
@@ -35,7 +41,7 @@ class ImportTable(Service):
         if pkg_path == self.pkg.path:
             return name
         if pkg_path not in STDLIB_SHIMS:
-            raise Unsupported(f"pacote sem shim/transpilação: {pkg_path}")
+            raise Unsupported(f"shim-ausente:{pkg_path}", f"pacote sem shim/transpilação: {pkg_path}")
         prefix = self.prefixes.get(pkg_path)
         if prefix is None:  # tipo alcançado sem import direto
             prefix = escape(pkg_path.rsplit("/", 1)[-1])

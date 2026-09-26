@@ -29,7 +29,7 @@ def length_of(b, n):
     d = b.operands.dart_length(n)
     if d is None:
         kind = b.typesys.underlying(b.pkg.type_of(n["args"][0]))["kind"]
-        raise Unsupported(f"{n['fun']['name']} de {kind}", n)
+        raise Unsupported(f"{n['fun']['name']}:{kind}", f"{n['fun']['name']} de {kind}", n)
     return f"{b.types.golang('Int')}({d})", POSTFIX
 
 
@@ -42,7 +42,7 @@ class Append(BuiltinBehavior):
         s = self.expr(args[0], POSTFIX)
         if n["ellipsis"] is not None:
             if self.typesys.basic(self.pkg.type_of(args[1])) is not None:
-                raise Unsupported("append([]byte, string...)", n)
+                raise Unsupported("append-string", "append([]byte, string...)", n)
             return self.types.wrap(self.pkg.type_of(n), f"{s}.appendSlice({self.expr(args[1])})"), POSTFIX
         et = self.pkg.type_at(self.typesys.underlying(self.pkg.type_of(n))["elem"])
         items = ", ".join(self.values.coerce(a, et) for a in args[1:])
@@ -54,7 +54,7 @@ class Copy(BuiltinBehavior):
 
     def emit(self, n, args):
         if self.typesys.basic(self.pkg.type_of(args[1])) is not None:
-            raise Unsupported("copy([]byte, string)", n)
+            raise Unsupported("copy-string", "copy([]byte, string)", n)
         dst, src = self.expr(args[0], POSTFIX), self.expr(args[1])
         return f"{self.types.golang('Int')}({dst}.copyFrom({src}))", POSTFIX
 
@@ -80,7 +80,7 @@ class Make(BuiltinBehavior):
             return self.types.wrap(t, f"{self.types.dart(u)}.make({ln}, {cp}, {self.descriptors.elem(u['elem'])})"), POSTFIX
         if u["kind"] == "map":
             return self.types.wrap(t, f"{self.types.dart(u)}({self.descriptors.elem(u['elem'])}{self.typesys.map_args(t)})"), POSTFIX
-        raise Unsupported(f"make de {u['kind']}", n)
+        raise Unsupported(f"make:{u['kind']}", f"make de {u['kind']}", n)
 
 
 class New(BuiltinBehavior):

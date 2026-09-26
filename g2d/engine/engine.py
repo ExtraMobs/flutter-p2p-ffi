@@ -85,13 +85,13 @@ class Engine:
             return text, (UNARY if text.startswith("-") else POSTFIX + 1)
         result = self.exprs.dispatch(n["node"], n)
         if result is NOT_HANDLED:
-            raise Unsupported(f"expressão {n['node']}", n)
+            raise Unsupported(f"expr:{n['node']}", f"expressão {n['node']}", n)
         return result
 
     def stmt(self, s, **kw):
         result = self.stmts.dispatch(s["node"], s, **kw)
         if result is NOT_HANDLED:
-            raise Unsupported(f"statement {s['node']}", s)
+            raise Unsupported(f"stmt:{s['node']}", f"statement {s['node']}", s)
         return result
 
     def block(self, b):
@@ -101,7 +101,7 @@ class Engine:
         name = fun["name"] if fun["node"] == "Ident" else None
         result = self.builtins.dispatch(name, n, args)
         if result is NOT_HANDLED:
-            raise Unsupported(f"builtin {name}", n)
+            raise Unsupported(f"builtin:{name}", f"builtin {name}", n)
         return result
 
     def convert(self, n, fun, arg):

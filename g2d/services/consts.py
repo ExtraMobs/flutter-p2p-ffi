@@ -40,7 +40,7 @@ class Literals(Service):
             return f"{cls}({double_literal(re)})"
         if b.cat == "complex" and not named:
             return f"{g(b.cls)}.fromDoubles({double_literal(re)}, {double_literal(im)})"
-        raise Unsupported(f"constante {k} como {b.cat}")
+        raise Unsupported(f"constante:{k}-{b.cat}", f"constante {k} como {b.cat}")
 
     def named_const(self, n):
         """Constante do próprio pacote referenciada por nome (mantém o nome)."""

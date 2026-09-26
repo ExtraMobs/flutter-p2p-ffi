@@ -108,7 +108,7 @@ class Functions(Service):
             return f"{g('GoOrdered')}<{name}>"
         if cats == {"string"}:
             return f"{g('StringBase')}<{name}>"
-        raise Unsupported("constraint de tipo não mapeada")
+        raise Unsupported("constraint", "constraint de tipo não mapeada")
 
     def params(self, fields, sig):
         """Lista de parâmetros Dart + prólogo (parâmetros com `&p` vão para

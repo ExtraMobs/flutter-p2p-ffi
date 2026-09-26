@@ -35,8 +35,8 @@ class Conversion:
 
     def unsupported(self):
         if not self.basics:
-            return Unsupported("conversão de tipo não-básico", self.n)
-        return Unsupported(f"conversão {self.frm.cat} → {self.to.cat}", self.n)
+            return Unsupported("conversao:nao-basico", "conversão de tipo não-básico", self.n)
+        return Unsupported(f"conversao:{self.frm.cat}-{self.to.cat}", f"conversão {self.frm.cat} → {self.to.cat}", self.n)
 
 
 class Identity(ConversionBehavior):

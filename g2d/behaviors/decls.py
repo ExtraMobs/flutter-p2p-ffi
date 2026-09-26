@@ -16,6 +16,14 @@ HEADER = (
 )
 
 
+def located(fn, node, *args):
+    """`fn(node, *args)`; um Unsupported sem posição ganha a de `node`."""
+    try:
+        return fn(node, *args)
+    except Unsupported as e:
+        raise e.locate(node)
+
+
 class PackageBehavior(Behavior):
     """Pacote Go → library Dart: roda as análises, emite as declarações na
     ordem do fonte e junta as seções (init, mixins, descritores, imports)."""
@@ -30,15 +38,9 @@ class PackageBehavior(Behavior):
             analysis.run(decls)
         body = []
         for d in decls:
-            if d["node"] == "FuncDecl":
-                if not d["recv"]:
-                    body += [""] + self.functions.func_decl(d)
-            elif d["tok"] == "type":
-                body += self.type_decl(d)
-            elif d["tok"] in ("var", "const"):
-                body += [""] + self.vars.top_values(d)
+            body += located(self.decl, d)
         for spec, name in self.facts.local_specs:
-            body += self.type_spec(spec, name, [])
+            body += located(self.type_spec, spec, name, [])
         body += self.synthetic_classes()
         body += self.init_behavior.emit()
         body += self.promoter.mixin_decls
@@ -48,6 +50,16 @@ class PackageBehavior(Behavior):
         head = [HEADER.format(path=self.pkg.path)]
         head += self.imports.directives()
         return "\n".join(head + body) + "\n"
+
+    def decl(self, d):
+        """Uma declaração de nível de pacote (métodos saem com o tipo)."""
+        if d["node"] == "FuncDecl":
+            return [] if d["recv"] else [""] + self.functions.func_decl(d)
+        if d["tok"] == "type":
+            return self.type_decl(d)
+        if d["tok"] in ("var", "const"):
+            return [""] + self.vars.top_values(d)
+        return []
 
     def type_decl(self, gen):
         out = []
@@ -59,7 +71,7 @@ class PackageBehavior(Behavior):
     def type_spec(self, spec, name, doc):
         """Um TypeSpec (de pacote ou içado de função, com `name`)."""
         if spec["typeParams"] and self.typesys.underlying(self.pkg.type_at(spec["name"]["$obj"]["type"]))["kind"] != "struct":
-            raise Unsupported("tipo genérico não-struct", spec)
+            raise Unsupported("generico-nao-struct", "tipo genérico não-struct", spec)
         if spec["assign"]:
             return []  # alias: resolvido pelo goast (tipos já expandidos)
         tidx = spec["name"]["$obj"]["type"]
@@ -67,7 +79,7 @@ class PackageBehavior(Behavior):
         u = self.typesys.underlying(t)
         behavior = self.engine.type_decls.find(t, u)
         if behavior is None:
-            raise Unsupported(f"tipo nomeado sobre {u['kind']}", spec)
+            raise Unsupported(f"tipo-nomeado:{u['kind']}", f"tipo nomeado sobre {u['kind']}", spec)
         return [""] + doc + behavior.emit(spec, name, t, u, tidx)
 
     def synthetic_classes(self):
@@ -100,20 +112,24 @@ class InitBehavior(Behavior):
         lines = []
         for entry in self.pkg.init_order:
             spec, idx = self.facts.var_inits[entry[0]]
-            names, values = spec["names"], spec["values"]
-            if len(values) == len(names):
-                lines += self.init_assign(names[idx], values[idx])
-            else:  # var a, b = f()
-                tmp = self.names.temp()
-                lines.append(f"final {tmp} = {self.expr(values[0])};")
-                for i, ident in enumerate(names):
-                    if ident["name"] != "_":
-                        lines.append(f"{self.top_var(ident)} = {tmp}.${i + 1};")
+            lines += located(self.init_entry, spec, idx)
         lines += [f"{name}();" for name in self.facts.init_funcs]
         self.scope = None
         return ["", "bool _$inited = false;", "",
                 "/// Inicialização do pacote Go: variáveis em ordem de dependência, depois as funções init.",
                 "void $goInit() {", "if (_$inited) return;", "_$inited = true;"] + lines + ["}"]
+
+    def init_entry(self, spec, idx):
+        """Um inicializador de variável de pacote (`var a, b = f()` é um só)."""
+        names, values = spec["names"], spec["values"]
+        if len(values) == len(names):
+            return self.init_assign(names[idx], values[idx])
+        tmp = self.names.temp()  # var a, b = f()
+        lines = [f"final {tmp} = {self.expr(values[0])};"]
+        for i, ident in enumerate(names):
+            if ident["name"] != "_":
+                lines.append(f"{self.top_var(ident)} = {tmp}.${i + 1};")
+        return lines
 
     def init_assign(self, ident, value):
         if ident["name"] == "_":
@@ -156,7 +172,7 @@ class StructClass(TypeDeclBehavior):
             fname = member_name(f["name"])
             pname = escape(lower_camel(f["name"].lstrip("_")))
             if not pname or pname in seen:
-                raise Unsupported(f"parâmetro de construtor ambíguo para campo {f['name']}")
+                raise Unsupported("construtor-ambiguo", f"parâmetro de construtor ambíguo para campo {f['name']}")
             seen.add(pname)
             ft = self.pkg.type_at(f["type"])
             ftype = self.types.dart(ft)
@@ -370,7 +386,7 @@ class NamedClass(NonStructNamed):
                     "@override", f"{store} get $str => _v;",
                     "@override", f"{cls} $wrapStr({store} s) => {cls}(s);"]
         else:
-            raise Unsupported(f"tipo nomeado sobre {b.cat}")
+            raise Unsupported(f"tipo-nomeado:{b.cat}", f"tipo nomeado sobre {b.cat}")
         value_ms, ptr_ms = self.split_methods(go_name)
         impl = self.value_implements(t, tidx)
         head = f"final class {cls} extends {base}" + (" implements " + ", ".join(impl) if impl else "")

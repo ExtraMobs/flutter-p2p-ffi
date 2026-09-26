@@ -58,7 +58,7 @@ class TypeMapper(Service):
             return self.results(t["elems"])
         if k == "typeparam":
             return DartType(t["name"])
-        raise Unsupported(f"tipo {k}")
+        raise Unsupported(f"tipo:{k}", f"tipo {k}")
 
     def cls(self, t):
         """Classe Dart de um tipo básico ou nomeado sobre básico (construtores
@@ -134,4 +134,4 @@ class TypeMapper(Service):
             return f"{self.dart(u)}.zero({u['len']}, {self.descriptors.elem(u['elem'])})"
         if k in ("slice", "map"):  # nil
             return f"{self.dart(u)}.nil({self.descriptors.elem(u['elem'])})"
-        raise Unsupported(f"zero value de {k}")
+        raise Unsupported(f"zero-value:{k}", f"zero value de {k}")

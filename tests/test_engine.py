@@ -2,6 +2,10 @@
 
 import json
 import os
+import shutil
+import subprocess
+import sys
+import tempfile
 import unittest
 
 from g2d.behaviors.plugins import DEFAULT_PLUGINS, CollectionsPlugin
@@ -13,11 +17,23 @@ from g2d.model import Unsupported, parse_dump
 from g2d.services.names import Naming
 
 GOLDEN = os.path.join(os.path.dirname(os.path.abspath(__file__)), "golden")
+GOAST = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "tools", "goast")
 
 
 def load(case):
     with open(os.path.join(GOLDEN, case, case + ".goast.json"), encoding="utf-8") as f:
         (pkg,) = parse_dump(json.load(f))
+    return pkg
+
+
+def dump_source(src):
+    """Pacote de um fonte Go avulso, via goast (modo loose)."""
+    with tempfile.TemporaryDirectory() as tmp:
+        with open(os.path.join(tmp, "main.go"), "w", encoding="utf-8") as f:
+            f.write(src)
+        out = subprocess.run(["go", "run", ".", "dump", tmp], cwd=GOAST, capture_output=True,
+                             text=True, encoding="utf-8", check=True).stdout
+    (pkg,) = parse_dump(json.loads(out))
     return pkg
 
 
@@ -113,6 +129,29 @@ class InjectionTest(unittest.TestCase):
         out = engine.emit_package()
         self.assertIn("$tmp1", out)
         self.assertNotIn("$t1 ", out)
+
+
+@unittest.skipUnless(shutil.which("go"), "go ausente")
+class UnsupportedTest(unittest.TestCase):
+    """Código estável e posição real (a auditoria agrupa e localiza por eles)."""
+
+    def emit_error(self, src):
+        with self.assertRaises(Unsupported) as cm:
+            Engine(dump_source(src)).emit_package()
+        e = cm.exception
+        return e.code, (e.pos["file"], e.pos["line"], e.pos["column"]) if e.pos else None
+
+    def test_node_position(self):
+        src = 'package main\n\nfunc main() {\n\tb := []byte{}\n\tb = append(b, "x"...)\n\t_ = b\n}\n'
+        self.assertEqual(self.emit_error(src), ("append-string", ("main.go", 5, 6)))
+
+    def test_falls_back_to_declaration(self):
+        src = 'package main\n\nimport "errors"\n\nvar E = errors.New("x")\n\nfunc main() { _ = E }\n'
+        self.assertEqual(self.emit_error(src), ("shim-ausente:errors", ("main.go", 5, 5)))
+
+    def test_import_spec_position(self):
+        src = 'package main\n\nimport _ "fmt"\n\nfunc main() {}\n'
+        self.assertEqual(self.emit_error(src), ("import:_", ("main.go", 3, 8)))
 
 
 if __name__ == "__main__":
