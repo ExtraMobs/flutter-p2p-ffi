@@ -32,6 +32,8 @@
       "new$"
     ],
     "fmt": [
+      "Formatter",
+      "State",
       "Stringer",
       "errorf",
       "formatV",

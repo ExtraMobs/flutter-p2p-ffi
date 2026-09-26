@@ -26,7 +26,7 @@ GOLANG_URI = "package:golib_dart/fixed_types/golang.dart"
 GRAPH_URI = "package:out/{path}.dart"
 
 # Interfaces da stdlib que existem nos shims (podem ir em `implements`).
-SHIM_INTERFACES = {("fmt", "Stringer"), ("sort", "Interface"), ("io", "Reader"), ("io", "Writer"),
+SHIM_INTERFACES = {("fmt", "Stringer"), ("fmt", "Formatter"), ("fmt", "State"), ("sort", "Interface"), ("io", "Reader"), ("io", "Writer"),
                    ("io", "ByteReader"), ("io", "ByteWriter"), ("io", "StringWriter"), ("sync", "Locker")}
 
 # Pacotes da stdlib com shim em golib_dart/.

@@ -1,0 +1,5255 @@
+{
+  "schemaVersion": 7,
+  "tool": "goast",
+  "goVersion": "go1.26.5",
+  "packages": [
+    {
+      "path": "main",
+      "name": "main",
+      "files": [
+        {
+          "path": "fmtformatter.go",
+          "ast": {
+            "node": "File",
+            "doc": {
+              "node": "CommentGroup",
+              "list": [
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "fmtformatter.go",
+                    "line": 1,
+                    "column": 1,
+                    "offset": 0
+                  },
+                  "text": "// fmt.Formatter/fmt.State (github.com/cockroachdb/redact): Format chamado para"
+                },
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "fmtformatter.go",
+                    "line": 2,
+                    "column": 1,
+                    "offset": 80
+                  },
+                  "text": "// todo verbo, com flags/largura/precisão, receptor nil e pânico no método."
+                }
+              ]
+            },
+            "package": {
+              "file": "fmtformatter.go",
+              "line": 3,
+              "column": 1,
+              "offset": 159
+            },
+            "name": {
+              "node": "Ident",
+              "namePos": {
+                "file": "fmtformatter.go",
+                "line": 3,
+                "column": 9,
+                "offset": 167
+              },
+              "name": "main",
+              "obj": null
+            },
+            "decls": [
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "fmtformatter.go",
+                  "line": 5,
+                  "column": 1,
+                  "offset": 173
+                },
+                "tok": "import",
+                "lparen": {
+                  "file": "fmtformatter.go",
+                  "line": 5,
+                  "column": 8,
+                  "offset": 180
+                },
+                "specs": [
+                  {
+                    "node": "ImportSpec",
+                    "doc": null,
+                    "name": null,
+                    "path": {
+                      "node": "BasicLit",
+                      "valuePos": {
+                        "file": "fmtformatter.go",
+                        "line": 6,
+                        "column": 2,
+                        "offset": 183
+                      },
+                      "valueEnd": {
+                        "file": "fmtformatter.go",
+                        "line": 6,
+                        "column": 7,
+                        "offset": 188
+                      },
+                      "kind": "STRING",
+                      "value": "\"fmt\""
+                    },
+                    "comment": null,
+                    "endPos": null
+                  },
+                  {
+                    "node": "ImportSpec",
+                    "doc": null,
+                    "name": null,
+                    "path": {
+                      "node": "BasicLit",
+                      "valuePos": {
+                        "file": "fmtformatter.go",
+                        "line": 7,
+                        "column": 2,
+                        "offset": 190
+                      },
+                      "valueEnd": {
+                        "file": "fmtformatter.go",
+                        "line": 7,
+                        "column": 11,
+                        "offset": 199
+                      },
+                      "kind": "STRING",
+                      "value": "\"strings\""
+                    },
+                    "comment": null,
+                    "endPos": null
+                  }
+                ],
+                "rparen": {
+                  "file": "fmtformatter.go",
+                  "line": 8,
+                  "column": 1,
+                  "offset": 200
+                }
+              },
+              {
+                "node": "GenDecl",
+                "doc": {
+                  "node": "CommentGroup",
+                  "list": [
+                    {
+                      "node": "Comment",
+                      "slash": {
+                        "file": "fmtformatter.go",
+                        "line": 10,
+                        "column": 1,
+                        "offset": 203
+                      },
+                      "text": "// Safe imita as SafeString/RedactableString de github.com/cockroachdb/redact."
+                    }
+                  ]
+                },
+                "tokPos": {
+                  "file": "fmtformatter.go",
+                  "line": 11,
+                  "column": 1,
+                  "offset": 282
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "fmtformatter.go",
+                        "line": 11,
+                        "column": 6,
+                        "offset": 287
+                      },
+                      "name": "Safe",
+                      "obj": {
+                        "node": "Object",
+                        "name": "Safe",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "Safe",
+                        "kind": "type",
+                        "def": true,
+                        "type": 0,
+                        "decl": "fmtformatter.go:287",
+                        "pkg": "main",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "fmtformatter.go",
+                        "line": 11,
+                        "column": 11,
+                        "offset": 292
+                      },
+                      "name": "string",
+                      "obj": null,
+                      "$type": 1,
+                      "$isType": true,
+                      "$obj": {
+                        "name": "string",
+                        "kind": "type",
+                        "type": 1
+                      }
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": {
+                  "node": "FieldList",
+                  "opening": {
+                    "file": "fmtformatter.go",
+                    "line": 13,
+                    "column": 6,
+                    "offset": 305
+                  },
+                  "list": [
+                    {
+                      "node": "Field",
+                      "doc": null,
+                      "names": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "fmtformatter.go",
+                            "line": 13,
+                            "column": 7,
+                            "offset": 306
+                          },
+                          "name": "s",
+                          "obj": {
+                            "node": "Object",
+                            "name": "s",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "s",
+                            "kind": "var",
+                            "def": true,
+                            "type": 0,
+                            "decl": "fmtformatter.go:306",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "type": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "fmtformatter.go",
+                          "line": 13,
+                          "column": 9,
+                          "offset": 308
+                        },
+                        "name": "Safe",
+                        "obj": {
+                          "node": "Object",
+                          "name": "Safe",
+                          "kind": "type"
+                        },
+                        "$type": 0,
+                        "$isType": true,
+                        "$obj": {
+                          "name": "Safe",
+                          "kind": "type",
+                          "type": 0,
+                          "decl": "fmtformatter.go:287",
+                          "pkg": "main",
+                          "top": true
+                        }
+                      },
+                      "tag": null,
+                      "comment": null
+                    }
+                  ],
+                  "closing": {
+                    "file": "fmtformatter.go",
+                    "line": 13,
+                    "column": 13,
+                    "offset": 312
+                  }
+                },
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "fmtformatter.go",
+                    "line": 13,
+                    "column": 15,
+                    "offset": 314
+                  },
+                  "name": "Format",
+                  "obj": null,
+                  "$obj": {
+                    "name": "Format",
+                    "kind": "method",
+                    "def": true,
+                    "type": 2,
+                    "decl": "fmtformatter.go:314",
+                    "pkg": "main"
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "fmtformatter.go",
+                    "line": 13,
+                    "column": 1,
+                    "offset": 300
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "fmtformatter.go",
+                      "line": 13,
+                      "column": 21,
+                      "offset": 320
+                    },
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtformatter.go",
+                              "line": 13,
+                              "column": 22,
+                              "offset": 321
+                            },
+                            "name": "f",
+                            "obj": {
+                              "node": "Object",
+                              "name": "f",
+                              "kind": "var"
+                            },
+                            "$obj": {
+                              "name": "f",
+                              "kind": "var",
+                              "def": true,
+                              "type": 3,
+                              "decl": "fmtformatter.go:321",
+                              "pkg": "main"
+                            }
+                          }
+                        ],
+                        "type": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtformatter.go",
+                              "line": 13,
+                              "column": 24,
+                              "offset": 323
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtformatter.go",
+                              "line": 13,
+                              "column": 28,
+                              "offset": 327
+                            },
+                            "name": "State",
+                            "obj": null,
+                            "$obj": {
+                              "name": "State",
+                              "kind": "type",
+                              "type": 3,
+                              "decl": "print.go:38",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 3,
+                          "$isType": true
+                        },
+                        "tag": null,
+                        "comment": null
+                      },
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtformatter.go",
+                              "line": 13,
+                              "column": 35,
+                              "offset": 334
+                            },
+                            "name": "verb",
+                            "obj": {
+                              "node": "Object",
+                              "name": "verb",
+                              "kind": "var"
+                            },
+                            "$obj": {
+                              "name": "verb",
+                              "kind": "var",
+                              "def": true,
+                              "type": 15,
+                              "decl": "fmtformatter.go:334",
+                              "pkg": "main"
+                            }
+                          }
+                        ],
+                        "type": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "fmtformatter.go",
+                            "line": 13,
+                            "column": 40,
+                            "offset": 339
+                          },
+                          "name": "rune",
+                          "obj": null,
+                          "$type": 15,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "rune",
+                            "kind": "type",
+                            "type": 15
+                          }
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": {
+                      "file": "fmtformatter.go",
+                      "line": 13,
+                      "column": 44,
+                      "offset": 343
+                    }
+                  },
+                  "results": null
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "fmtformatter.go",
+                    "line": 13,
+                    "column": 46,
+                    "offset": 345
+                  },
+                  "list": [
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "fmtformatter.go",
+                            "line": 14,
+                            "column": 2,
+                            "offset": 348
+                          },
+                          "name": "w",
+                          "obj": {
+                            "node": "Object",
+                            "name": "w",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "w",
+                            "kind": "var",
+                            "def": true,
+                            "type": 6,
+                            "decl": "fmtformatter.go:348",
+                            "pkg": "main"
+                          }
+                        },
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "fmtformatter.go",
+                            "line": 14,
+                            "column": 5,
+                            "offset": 351
+                          },
+                          "name": "ok",
+                          "obj": {
+                            "node": "Object",
+                            "name": "ok",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "ok",
+                            "kind": "var",
+                            "def": true,
+                            "type": 7,
+                            "decl": "fmtformatter.go:351",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "fmtformatter.go",
+                        "line": 14,
+                        "column": 8,
+                        "offset": 354
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "CallExpr",
+                          "fun": {
+                            "node": "SelectorExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "fmtformatter.go",
+                                "line": 14,
+                                "column": 11,
+                                "offset": 357
+                              },
+                              "name": "f",
+                              "obj": {
+                                "node": "Object",
+                                "name": "f",
+                                "kind": "var"
+                              },
+                              "$type": 3,
+                              "$obj": {
+                                "name": "f",
+                                "kind": "var",
+                                "type": 3,
+                                "decl": "fmtformatter.go:321",
+                                "pkg": "main"
+                              }
+                            },
+                            "sel": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "fmtformatter.go",
+                                "line": 14,
+                                "column": 13,
+                                "offset": 359
+                              },
+                              "name": "Width",
+                              "obj": null,
+                              "$obj": {
+                                "name": "Width",
+                                "kind": "method",
+                                "type": 8,
+                                "decl": "print.go:42",
+                                "pkg": "fmt"
+                              }
+                            },
+                            "$type": 8,
+                            "$sel": {
+                              "kind": "method",
+                              "recv": 3,
+                              "index": [
+                                2
+                              ],
+                              "indirect": false
+                            }
+                          },
+                          "lparen": {
+                            "file": "fmtformatter.go",
+                            "line": 14,
+                            "column": 18,
+                            "offset": 364
+                          },
+                          "args": null,
+                          "ellipsis": null,
+                          "rparen": {
+                            "file": "fmtformatter.go",
+                            "line": 14,
+                            "column": 19,
+                            "offset": 365
+                          },
+                          "$type": 16
+                        }
+                      ]
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "fmtformatter.go",
+                            "line": 15,
+                            "column": 2,
+                            "offset": 368
+                          },
+                          "name": "p",
+                          "obj": {
+                            "node": "Object",
+                            "name": "p",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "p",
+                            "kind": "var",
+                            "def": true,
+                            "type": 6,
+                            "decl": "fmtformatter.go:368",
+                            "pkg": "main"
+                          }
+                        },
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "fmtformatter.go",
+                            "line": 15,
+                            "column": 5,
+                            "offset": 371
+                          },
+                          "name": "pok",
+                          "obj": {
+                            "node": "Object",
+                            "name": "pok",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "pok",
+                            "kind": "var",
+                            "def": true,
+                            "type": 7,
+                            "decl": "fmtformatter.go:371",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "fmtformatter.go",
+                        "line": 15,
+                        "column": 9,
+                        "offset": 375
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "CallExpr",
+                          "fun": {
+                            "node": "SelectorExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "fmtformatter.go",
+                                "line": 15,
+                                "column": 12,
+                                "offset": 378
+                              },
+                              "name": "f",
+                              "obj": {
+                                "node": "Object",
+                                "name": "f",
+                                "kind": "var"
+                              },
+                              "$type": 3,
+                              "$obj": {
+                                "name": "f",
+                                "kind": "var",
+                                "type": 3,
+                                "decl": "fmtformatter.go:321",
+                                "pkg": "main"
+                              }
+                            },
+                            "sel": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "fmtformatter.go",
+                                "line": 15,
+                                "column": 14,
+                                "offset": 380
+                              },
+                              "name": "Precision",
+                              "obj": null,
+                              "$obj": {
+                                "name": "Precision",
+                                "kind": "method",
+                                "type": 8,
+                                "decl": "print.go:44",
+                                "pkg": "fmt"
+                              }
+                            },
+                            "$type": 8,
+                            "$sel": {
+                              "kind": "method",
+                              "recv": 3,
+                              "index": [
+                                1
+                              ],
+                              "indirect": false
+                            }
+                          },
+                          "lparen": {
+                            "file": "fmtformatter.go",
+                            "line": 15,
+                            "column": 23,
+                            "offset": 389
+                          },
+                          "args": null,
+                          "ellipsis": null,
+                          "rparen": {
+                            "file": "fmtformatter.go",
+                            "line": 15,
+                            "column": 24,
+                            "offset": 390
+                          },
+                          "$type": 16
+                        }
+                      ]
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtformatter.go",
+                              "line": 16,
+                              "column": 2,
+                              "offset": 393
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtformatter.go",
+                              "line": 16,
+                              "column": 6,
+                              "offset": 397
+                            },
+                            "name": "Fprintf",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Fprintf",
+                              "kind": "func",
+                              "type": 17,
+                              "decl": "print.go:221",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 17
+                        },
+                        "lparen": {
+                          "file": "fmtformatter.go",
+                          "line": 16,
+                          "column": 13,
+                          "offset": 404
+                        },
+                        "args": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtformatter.go",
+                              "line": 16,
+                              "column": 14,
+                              "offset": 405
+                            },
+                            "name": "f",
+                            "obj": {
+                              "node": "Object",
+                              "name": "f",
+                              "kind": "var"
+                            },
+                            "$type": 3,
+                            "$obj": {
+                              "name": "f",
+                              "kind": "var",
+                              "type": 3,
+                              "decl": "fmtformatter.go:321",
+                              "pkg": "main"
+                            }
+                          },
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "fmtformatter.go",
+                              "line": 16,
+                              "column": 17,
+                              "offset": 408
+                            },
+                            "valueEnd": {
+                              "file": "fmtformatter.go",
+                              "line": 16,
+                              "column": 44,
+                              "offset": 435
+                            },
+                            "kind": "STRING",
+                            "value": "\"\u003c%s|%c|%d|%v|%d|%v|%v|%v\u003e\"",
+                            "$type": 1,
+                            "$value": {
+                              "kind": "string",
+                              "value": "\u003c%s|%c|%d|%v|%d|%v|%v|%v\u003e"
+                            }
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "fmtformatter.go",
+                                "line": 16,
+                                "column": 46,
+                                "offset": 437
+                              },
+                              "name": "string",
+                              "obj": null,
+                              "$type": 1,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "string",
+                                "kind": "type",
+                                "type": 1
+                              }
+                            },
+                            "lparen": {
+                              "file": "fmtformatter.go",
+                              "line": 16,
+                              "column": 52,
+                              "offset": 443
+                            },
+                            "args": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "fmtformatter.go",
+                                  "line": 16,
+                                  "column": 53,
+                                  "offset": 444
+                                },
+                                "name": "s",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "s",
+                                  "kind": "var"
+                                },
+                                "$type": 0,
+                                "$obj": {
+                                  "name": "s",
+                                  "kind": "var",
+                                  "type": 0,
+                                  "decl": "fmtformatter.go:306",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "fmtformatter.go",
+                              "line": 16,
+                              "column": 54,
+                              "offset": 445
+                            },
+                            "$type": 1
+                          },
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtformatter.go",
+                              "line": 16,
+                              "column": 57,
+                              "offset": 448
+                            },
+                            "name": "verb",
+                            "obj": {
+                              "node": "Object",
+                              "name": "verb",
+                              "kind": "var"
+                            },
+                            "$type": 15,
+                            "$obj": {
+                              "name": "verb",
+                              "kind": "var",
+                              "type": 15,
+                              "decl": "fmtformatter.go:334",
+                              "pkg": "main"
+                            }
+                          },
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtformatter.go",
+                              "line": 16,
+                              "column": 63,
+                              "offset": 454
+                            },
+                            "name": "w",
+                            "obj": {
+                              "node": "Object",
+                              "name": "w",
+                              "kind": "var"
+                            },
+                            "$type": 6,
+                            "$obj": {
+                              "name": "w",
+                              "kind": "var",
+                              "type": 6,
+                              "decl": "fmtformatter.go:348",
+                              "pkg": "main"
+                            }
+                          },
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtformatter.go",
+                              "line": 16,
+                              "column": 66,
+                              "offset": 457
+                            },
+                            "name": "ok",
+                            "obj": {
+                              "node": "Object",
+                              "name": "ok",
+                              "kind": "var"
+                            },
+                            "$type": 7,
+                            "$obj": {
+                              "name": "ok",
+                              "kind": "var",
+                              "type": 7,
+                              "decl": "fmtformatter.go:351",
+                              "pkg": "main"
+                            }
+                          },
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtformatter.go",
+                              "line": 16,
+                              "column": 70,
+                              "offset": 461
+                            },
+                            "name": "p",
+                            "obj": {
+                              "node": "Object",
+                              "name": "p",
+                              "kind": "var"
+                            },
+                            "$type": 6,
+                            "$obj": {
+                              "name": "p",
+                              "kind": "var",
+                              "type": 6,
+                              "decl": "fmtformatter.go:368",
+                              "pkg": "main"
+                            }
+                          },
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtformatter.go",
+                              "line": 16,
+                              "column": 73,
+                              "offset": 464
+                            },
+                            "name": "pok",
+                            "obj": {
+                              "node": "Object",
+                              "name": "pok",
+                              "kind": "var"
+                            },
+                            "$type": 7,
+                            "$obj": {
+                              "name": "pok",
+                              "kind": "var",
+                              "type": 7,
+                              "decl": "fmtformatter.go:371",
+                              "pkg": "main"
+                            }
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "fmtformatter.go",
+                                  "line": 16,
+                                  "column": 78,
+                                  "offset": 469
+                                },
+                                "name": "f",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "f",
+                                  "kind": "var"
+                                },
+                                "$type": 3,
+                                "$obj": {
+                                  "name": "f",
+                                  "kind": "var",
+                                  "type": 3,
+                                  "decl": "fmtformatter.go:321",
+                                  "pkg": "main"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "fmtformatter.go",
+                                  "line": 16,
+                                  "column": 80,
+                                  "offset": 471
+                                },
+                                "name": "Flag",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "Flag",
+                                  "kind": "method",
+                                  "type": 5,
+                                  "decl": "print.go:47",
+                                  "pkg": "fmt"
+                                }
+                              },
+                              "$type": 5,
+                              "$sel": {
+                                "kind": "method",
+                                "recv": 3,
+                                "index": [
+                                  0
+                                ],
+                                "indirect": false
+                              }
+                            },
+                            "lparen": {
+                              "file": "fmtformatter.go",
+                              "line": 16,
+                              "column": 84,
+                              "offset": 475
+                            },
+                            "args": [
+                              {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "fmtformatter.go",
+                                  "line": 16,
+                                  "column": 85,
+                                  "offset": 476
+                                },
+                                "valueEnd": {
+                                  "file": "fmtformatter.go",
+                                  "line": 16,
+                                  "column": 88,
+                                  "offset": 479
+                                },
+                                "kind": "CHAR",
+                                "value": "'+'",
+                                "$type": 6,
+                                "$value": {
+                                  "kind": "int",
+                                  "value": "43"
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "fmtformatter.go",
+                              "line": 16,
+                              "column": 88,
+                              "offset": 479
+                            },
+                            "$type": 7
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "fmtformatter.go",
+                                  "line": 16,
+                                  "column": 91,
+                                  "offset": 482
+                                },
+                                "name": "f",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "f",
+                                  "kind": "var"
+                                },
+                                "$type": 3,
+                                "$obj": {
+                                  "name": "f",
+                                  "kind": "var",
+                                  "type": 3,
+                                  "decl": "fmtformatter.go:321",
+                                  "pkg": "main"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "fmtformatter.go",
+                                  "line": 16,
+                                  "column": 93,
+                                  "offset": 484
+                                },
+                                "name": "Flag",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "Flag",
+                                  "kind": "method",
+                                  "type": 5,
+                                  "decl": "print.go:47",
+                                  "pkg": "fmt"
+                                }
+                              },
+                              "$type": 5,
+                              "$sel": {
+                                "kind": "method",
+                                "recv": 3,
+                                "index": [
+                                  0
+                                ],
+                                "indirect": false
+                              }
+                            },
+                            "lparen": {
+                              "file": "fmtformatter.go",
+                              "line": 16,
+                              "column": 97,
+                              "offset": 488
+                            },
+                            "args": [
+                              {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "fmtformatter.go",
+                                  "line": 16,
+                                  "column": 98,
+                                  "offset": 489
+                                },
+                                "valueEnd": {
+                                  "file": "fmtformatter.go",
+                                  "line": 16,
+                                  "column": 101,
+                                  "offset": 492
+                                },
+                                "kind": "CHAR",
+                                "value": "'#'",
+                                "$type": 6,
+                                "$value": {
+                                  "kind": "int",
+                                  "value": "35"
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "fmtformatter.go",
+                              "line": 16,
+                              "column": 101,
+                              "offset": 492
+                            },
+                            "$type": 7
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "fmtformatter.go",
+                          "line": 16,
+                          "column": 102,
+                          "offset": 493
+                        },
+                        "$type": 22
+                      }
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "fmtformatter.go",
+                    "line": 17,
+                    "column": 1,
+                    "offset": 495
+                  }
+                }
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "fmtformatter.go",
+                  "line": 19,
+                  "column": 1,
+                  "offset": 498
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "fmtformatter.go",
+                        "line": 19,
+                        "column": 6,
+                        "offset": 503
+                      },
+                      "name": "Pt",
+                      "obj": {
+                        "node": "Object",
+                        "name": "Pt",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "Pt",
+                        "kind": "type",
+                        "def": true,
+                        "type": 23,
+                        "decl": "fmtformatter.go:503",
+                        "pkg": "main",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "StructType",
+                      "struct": {
+                        "file": "fmtformatter.go",
+                        "line": 19,
+                        "column": 9,
+                        "offset": 506
+                      },
+                      "fields": {
+                        "node": "FieldList",
+                        "opening": {
+                          "file": "fmtformatter.go",
+                          "line": 19,
+                          "column": 15,
+                          "offset": 512
+                        },
+                        "list": [
+                          {
+                            "node": "Field",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "fmtformatter.go",
+                                  "line": 19,
+                                  "column": 17,
+                                  "offset": 514
+                                },
+                                "name": "X",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "X",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "X",
+                                  "kind": "field",
+                                  "def": true,
+                                  "type": 6,
+                                  "decl": "fmtformatter.go:514",
+                                  "pkg": "main"
+                                }
+                              },
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "fmtformatter.go",
+                                  "line": 19,
+                                  "column": 20,
+                                  "offset": 517
+                                },
+                                "name": "Y",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "Y",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "Y",
+                                  "kind": "field",
+                                  "def": true,
+                                  "type": 6,
+                                  "decl": "fmtformatter.go:517",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "fmtformatter.go",
+                                "line": 19,
+                                "column": 22,
+                                "offset": 519
+                              },
+                              "name": "int",
+                              "obj": null,
+                              "$type": 6,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "int",
+                                "kind": "type",
+                                "type": 6
+                              }
+                            },
+                            "tag": null,
+                            "comment": null
+                          }
+                        ],
+                        "closing": {
+                          "file": "fmtformatter.go",
+                          "line": 19,
+                          "column": 26,
+                          "offset": 523
+                        }
+                      },
+                      "incomplete": false,
+                      "$type": 24,
+                      "$isType": true
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": {
+                  "node": "FieldList",
+                  "opening": {
+                    "file": "fmtformatter.go",
+                    "line": 21,
+                    "column": 6,
+                    "offset": 531
+                  },
+                  "list": [
+                    {
+                      "node": "Field",
+                      "doc": null,
+                      "names": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "fmtformatter.go",
+                            "line": 21,
+                            "column": 7,
+                            "offset": 532
+                          },
+                          "name": "p",
+                          "obj": {
+                            "node": "Object",
+                            "name": "p",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "p",
+                            "kind": "var",
+                            "def": true,
+                            "type": 25,
+                            "decl": "fmtformatter.go:532",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "type": {
+                        "node": "StarExpr",
+                        "star": {
+                          "file": "fmtformatter.go",
+                          "line": 21,
+                          "column": 9,
+                          "offset": 534
+                        },
+                        "x": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "fmtformatter.go",
+                            "line": 21,
+                            "column": 10,
+                            "offset": 535
+                          },
+                          "name": "Pt",
+                          "obj": {
+                            "node": "Object",
+                            "name": "Pt",
+                            "kind": "type"
+                          },
+                          "$type": 23,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "Pt",
+                            "kind": "type",
+                            "type": 23,
+                            "decl": "fmtformatter.go:503",
+                            "pkg": "main",
+                            "top": true
+                          }
+                        },
+                        "$type": 25,
+                        "$isType": true
+                      },
+                      "tag": null,
+                      "comment": null
+                    }
+                  ],
+                  "closing": {
+                    "file": "fmtformatter.go",
+                    "line": 21,
+                    "column": 12,
+                    "offset": 537
+                  }
+                },
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "fmtformatter.go",
+                    "line": 21,
+                    "column": 14,
+                    "offset": 539
+                  },
+                  "name": "Format",
+                  "obj": null,
+                  "$obj": {
+                    "name": "Format",
+                    "kind": "method",
+                    "def": true,
+                    "type": 2,
+                    "decl": "fmtformatter.go:539",
+                    "pkg": "main"
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "fmtformatter.go",
+                    "line": 21,
+                    "column": 1,
+                    "offset": 526
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "fmtformatter.go",
+                      "line": 21,
+                      "column": 20,
+                      "offset": 545
+                    },
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtformatter.go",
+                              "line": 21,
+                              "column": 21,
+                              "offset": 546
+                            },
+                            "name": "f",
+                            "obj": {
+                              "node": "Object",
+                              "name": "f",
+                              "kind": "var"
+                            },
+                            "$obj": {
+                              "name": "f",
+                              "kind": "var",
+                              "def": true,
+                              "type": 3,
+                              "decl": "fmtformatter.go:546",
+                              "pkg": "main"
+                            }
+                          }
+                        ],
+                        "type": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtformatter.go",
+                              "line": 21,
+                              "column": 23,
+                              "offset": 548
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtformatter.go",
+                              "line": 21,
+                              "column": 27,
+                              "offset": 552
+                            },
+                            "name": "State",
+                            "obj": null,
+                            "$obj": {
+                              "name": "State",
+                              "kind": "type",
+                              "type": 3,
+                              "decl": "print.go:38",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 3,
+                          "$isType": true
+                        },
+                        "tag": null,
+                        "comment": null
+                      },
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtformatter.go",
+                              "line": 21,
+                              "column": 34,
+                              "offset": 559
+                            },
+                            "name": "verb",
+                            "obj": {
+                              "node": "Object",
+                              "name": "verb",
+                              "kind": "var"
+                            },
+                            "$obj": {
+                              "name": "verb",
+                              "kind": "var",
+                              "def": true,
+                              "type": 15,
+                              "decl": "fmtformatter.go:559",
+                              "pkg": "main"
+                            }
+                          }
+                        ],
+                        "type": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "fmtformatter.go",
+                            "line": 21,
+                            "column": 39,
+                            "offset": 564
+                          },
+                          "name": "rune",
+                          "obj": null,
+                          "$type": 15,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "rune",
+                            "kind": "type",
+                            "type": 15
+                          }
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": {
+                      "file": "fmtformatter.go",
+                      "line": 21,
+                      "column": 43,
+                      "offset": 568
+                    }
+                  },
+                  "results": null
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "fmtformatter.go",
+                    "line": 21,
+                    "column": 45,
+                    "offset": 570
+                  },
+                  "list": [
+                    {
+                      "node": "IfStmt",
+                      "if": {
+                        "file": "fmtformatter.go",
+                        "line": 22,
+                        "column": 2,
+                        "offset": 573
+                      },
+                      "init": null,
+                      "cond": {
+                        "node": "BinaryExpr",
+                        "x": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "fmtformatter.go",
+                            "line": 22,
+                            "column": 5,
+                            "offset": 576
+                          },
+                          "name": "p",
+                          "obj": {
+                            "node": "Object",
+                            "name": "p",
+                            "kind": "var"
+                          },
+                          "$type": 25,
+                          "$obj": {
+                            "name": "p",
+                            "kind": "var",
+                            "type": 25,
+                            "decl": "fmtformatter.go:532",
+                            "pkg": "main"
+                          }
+                        },
+                        "opPos": {
+                          "file": "fmtformatter.go",
+                          "line": 22,
+                          "column": 7,
+                          "offset": 578
+                        },
+                        "op": "==",
+                        "y": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "fmtformatter.go",
+                            "line": 22,
+                            "column": 10,
+                            "offset": 581
+                          },
+                          "name": "nil",
+                          "obj": null,
+                          "$type": 26,
+                          "$obj": {
+                            "name": "nil",
+                            "kind": "nil",
+                            "type": 26
+                          }
+                        },
+                        "$type": 27
+                      },
+                      "body": {
+                        "node": "BlockStmt",
+                        "lbrace": {
+                          "file": "fmtformatter.go",
+                          "line": 22,
+                          "column": 14,
+                          "offset": 585
+                        },
+                        "list": [
+                          {
+                            "node": "ExprStmt",
+                            "x": {
+                              "node": "CallExpr",
+                              "fun": {
+                                "node": "SelectorExpr",
+                                "x": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "fmtformatter.go",
+                                    "line": 23,
+                                    "column": 3,
+                                    "offset": 589
+                                  },
+                                  "name": "f",
+                                  "obj": {
+                                    "node": "Object",
+                                    "name": "f",
+                                    "kind": "var"
+                                  },
+                                  "$type": 3,
+                                  "$obj": {
+                                    "name": "f",
+                                    "kind": "var",
+                                    "type": 3,
+                                    "decl": "fmtformatter.go:546",
+                                    "pkg": "main"
+                                  }
+                                },
+                                "sel": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "fmtformatter.go",
+                                    "line": 23,
+                                    "column": 5,
+                                    "offset": 591
+                                  },
+                                  "name": "Write",
+                                  "obj": null,
+                                  "$obj": {
+                                    "name": "Write",
+                                    "kind": "method",
+                                    "type": 9,
+                                    "decl": "print.go:40",
+                                    "pkg": "fmt"
+                                  }
+                                },
+                                "$type": 9,
+                                "$sel": {
+                                  "kind": "method",
+                                  "recv": 3,
+                                  "index": [
+                                    3
+                                  ],
+                                  "indirect": false
+                                }
+                              },
+                              "lparen": {
+                                "file": "fmtformatter.go",
+                                "line": 23,
+                                "column": 10,
+                                "offset": 596
+                              },
+                              "args": [
+                                {
+                                  "node": "CallExpr",
+                                  "fun": {
+                                    "node": "ArrayType",
+                                    "lbrack": {
+                                      "file": "fmtformatter.go",
+                                      "line": 23,
+                                      "column": 11,
+                                      "offset": 597
+                                    },
+                                    "len": null,
+                                    "elt": {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "fmtformatter.go",
+                                        "line": 23,
+                                        "column": 13,
+                                        "offset": 599
+                                      },
+                                      "name": "byte",
+                                      "obj": null,
+                                      "$type": 11,
+                                      "$isType": true,
+                                      "$obj": {
+                                        "name": "byte",
+                                        "kind": "type",
+                                        "type": 11
+                                      }
+                                    },
+                                    "$type": 10,
+                                    "$isType": true
+                                  },
+                                  "lparen": {
+                                    "file": "fmtformatter.go",
+                                    "line": 23,
+                                    "column": 17,
+                                    "offset": 603
+                                  },
+                                  "args": [
+                                    {
+                                      "node": "BasicLit",
+                                      "valuePos": {
+                                        "file": "fmtformatter.go",
+                                        "line": 23,
+                                        "column": 18,
+                                        "offset": 604
+                                      },
+                                      "valueEnd": {
+                                        "file": "fmtformatter.go",
+                                        "line": 23,
+                                        "column": 26,
+                                        "offset": 612
+                                      },
+                                      "kind": "STRING",
+                                      "value": "\"nil-pt\"",
+                                      "$type": 1,
+                                      "$value": {
+                                        "kind": "string",
+                                        "value": "nil-pt"
+                                      }
+                                    }
+                                  ],
+                                  "ellipsis": null,
+                                  "rparen": {
+                                    "file": "fmtformatter.go",
+                                    "line": 23,
+                                    "column": 26,
+                                    "offset": 612
+                                  },
+                                  "$type": 10
+                                }
+                              ],
+                              "ellipsis": null,
+                              "rparen": {
+                                "file": "fmtformatter.go",
+                                "line": 23,
+                                "column": 27,
+                                "offset": 613
+                              },
+                              "$type": 22
+                            }
+                          },
+                          {
+                            "node": "ReturnStmt",
+                            "return": {
+                              "file": "fmtformatter.go",
+                              "line": 24,
+                              "column": 3,
+                              "offset": 617
+                            },
+                            "results": null
+                          }
+                        ],
+                        "rbrace": {
+                          "file": "fmtformatter.go",
+                          "line": 25,
+                          "column": 2,
+                          "offset": 625
+                        }
+                      },
+                      "else": null
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtformatter.go",
+                              "line": 26,
+                              "column": 2,
+                              "offset": 628
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtformatter.go",
+                              "line": 26,
+                              "column": 6,
+                              "offset": 632
+                            },
+                            "name": "Fprintf",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Fprintf",
+                              "kind": "func",
+                              "type": 17,
+                              "decl": "print.go:221",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 17
+                        },
+                        "lparen": {
+                          "file": "fmtformatter.go",
+                          "line": 26,
+                          "column": 13,
+                          "offset": 639
+                        },
+                        "args": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtformatter.go",
+                              "line": 26,
+                              "column": 14,
+                              "offset": 640
+                            },
+                            "name": "f",
+                            "obj": {
+                              "node": "Object",
+                              "name": "f",
+                              "kind": "var"
+                            },
+                            "$type": 3,
+                            "$obj": {
+                              "name": "f",
+                              "kind": "var",
+                              "type": 3,
+                              "decl": "fmtformatter.go:546",
+                              "pkg": "main"
+                            }
+                          },
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "fmtformatter.go",
+                              "line": 26,
+                              "column": 17,
+                              "offset": 643
+                            },
+                            "valueEnd": {
+                              "file": "fmtformatter.go",
+                              "line": 26,
+                              "column": 26,
+                              "offset": 652
+                            },
+                            "kind": "STRING",
+                            "value": "\"(%d,%d)\"",
+                            "$type": 1,
+                            "$value": {
+                              "kind": "string",
+                              "value": "(%d,%d)"
+                            }
+                          },
+                          {
+                            "node": "SelectorExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "fmtformatter.go",
+                                "line": 26,
+                                "column": 28,
+                                "offset": 654
+                              },
+                              "name": "p",
+                              "obj": {
+                                "node": "Object",
+                                "name": "p",
+                                "kind": "var"
+                              },
+                              "$type": 25,
+                              "$obj": {
+                                "name": "p",
+                                "kind": "var",
+                                "type": 25,
+                                "decl": "fmtformatter.go:532",
+                                "pkg": "main"
+                              }
+                            },
+                            "sel": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "fmtformatter.go",
+                                "line": 26,
+                                "column": 30,
+                                "offset": 656
+                              },
+                              "name": "X",
+                              "obj": null,
+                              "$obj": {
+                                "name": "X",
+                                "kind": "field",
+                                "type": 6,
+                                "decl": "fmtformatter.go:514",
+                                "pkg": "main"
+                              }
+                            },
+                            "$type": 6,
+                            "$sel": {
+                              "kind": "field",
+                              "recv": 25,
+                              "index": [
+                                0
+                              ],
+                              "indirect": true
+                            }
+                          },
+                          {
+                            "node": "SelectorExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "fmtformatter.go",
+                                "line": 26,
+                                "column": 33,
+                                "offset": 659
+                              },
+                              "name": "p",
+                              "obj": {
+                                "node": "Object",
+                                "name": "p",
+                                "kind": "var"
+                              },
+                              "$type": 25,
+                              "$obj": {
+                                "name": "p",
+                                "kind": "var",
+                                "type": 25,
+                                "decl": "fmtformatter.go:532",
+                                "pkg": "main"
+                              }
+                            },
+                            "sel": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "fmtformatter.go",
+                                "line": 26,
+                                "column": 35,
+                                "offset": 661
+                              },
+                              "name": "Y",
+                              "obj": null,
+                              "$obj": {
+                                "name": "Y",
+                                "kind": "field",
+                                "type": 6,
+                                "decl": "fmtformatter.go:517",
+                                "pkg": "main"
+                              }
+                            },
+                            "$type": 6,
+                            "$sel": {
+                              "kind": "field",
+                              "recv": 25,
+                              "index": [
+                                1
+                              ],
+                              "indirect": true
+                            }
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "fmtformatter.go",
+                          "line": 26,
+                          "column": 36,
+                          "offset": 662
+                        },
+                        "$type": 22
+                      }
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "fmtformatter.go",
+                    "line": 27,
+                    "column": 1,
+                    "offset": 664
+                  }
+                }
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "fmtformatter.go",
+                  "line": 29,
+                  "column": 1,
+                  "offset": 667
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "fmtformatter.go",
+                        "line": 29,
+                        "column": 6,
+                        "offset": 672
+                      },
+                      "name": "bomb",
+                      "obj": {
+                        "node": "Object",
+                        "name": "bomb",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "bomb",
+                        "kind": "type",
+                        "def": true,
+                        "type": 28,
+                        "decl": "fmtformatter.go:672",
+                        "pkg": "main",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "StructType",
+                      "struct": {
+                        "file": "fmtformatter.go",
+                        "line": 29,
+                        "column": 11,
+                        "offset": 677
+                      },
+                      "fields": {
+                        "node": "FieldList",
+                        "opening": {
+                          "file": "fmtformatter.go",
+                          "line": 29,
+                          "column": 17,
+                          "offset": 683
+                        },
+                        "list": null,
+                        "closing": {
+                          "file": "fmtformatter.go",
+                          "line": 29,
+                          "column": 18,
+                          "offset": 684
+                        }
+                      },
+                      "incomplete": false,
+                      "$type": 29,
+                      "$isType": true
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": {
+                  "node": "FieldList",
+                  "opening": {
+                    "file": "fmtformatter.go",
+                    "line": 31,
+                    "column": 6,
+                    "offset": 692
+                  },
+                  "list": [
+                    {
+                      "node": "Field",
+                      "doc": null,
+                      "names": null,
+                      "type": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "fmtformatter.go",
+                          "line": 31,
+                          "column": 7,
+                          "offset": 693
+                        },
+                        "name": "bomb",
+                        "obj": {
+                          "node": "Object",
+                          "name": "bomb",
+                          "kind": "type"
+                        },
+                        "$type": 28,
+                        "$isType": true,
+                        "$obj": {
+                          "name": "bomb",
+                          "kind": "type",
+                          "type": 28,
+                          "decl": "fmtformatter.go:672",
+                          "pkg": "main",
+                          "top": true
+                        }
+                      },
+                      "tag": null,
+                      "comment": null
+                    }
+                  ],
+                  "closing": {
+                    "file": "fmtformatter.go",
+                    "line": 31,
+                    "column": 11,
+                    "offset": 697
+                  }
+                },
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "fmtformatter.go",
+                    "line": 31,
+                    "column": 13,
+                    "offset": 699
+                  },
+                  "name": "Format",
+                  "obj": null,
+                  "$obj": {
+                    "name": "Format",
+                    "kind": "method",
+                    "def": true,
+                    "type": 2,
+                    "decl": "fmtformatter.go:699",
+                    "pkg": "main"
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "fmtformatter.go",
+                    "line": 31,
+                    "column": 1,
+                    "offset": 687
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "fmtformatter.go",
+                      "line": 31,
+                      "column": 19,
+                      "offset": 705
+                    },
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtformatter.go",
+                              "line": 31,
+                              "column": 20,
+                              "offset": 706
+                            },
+                            "name": "f",
+                            "obj": {
+                              "node": "Object",
+                              "name": "f",
+                              "kind": "var"
+                            },
+                            "$obj": {
+                              "name": "f",
+                              "kind": "var",
+                              "def": true,
+                              "type": 3,
+                              "decl": "fmtformatter.go:706",
+                              "pkg": "main"
+                            }
+                          }
+                        ],
+                        "type": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtformatter.go",
+                              "line": 31,
+                              "column": 22,
+                              "offset": 708
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtformatter.go",
+                              "line": 31,
+                              "column": 26,
+                              "offset": 712
+                            },
+                            "name": "State",
+                            "obj": null,
+                            "$obj": {
+                              "name": "State",
+                              "kind": "type",
+                              "type": 3,
+                              "decl": "print.go:38",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 3,
+                          "$isType": true
+                        },
+                        "tag": null,
+                        "comment": null
+                      },
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtformatter.go",
+                              "line": 31,
+                              "column": 33,
+                              "offset": 719
+                            },
+                            "name": "verb",
+                            "obj": {
+                              "node": "Object",
+                              "name": "verb",
+                              "kind": "var"
+                            },
+                            "$obj": {
+                              "name": "verb",
+                              "kind": "var",
+                              "def": true,
+                              "type": 15,
+                              "decl": "fmtformatter.go:719",
+                              "pkg": "main"
+                            }
+                          }
+                        ],
+                        "type": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "fmtformatter.go",
+                            "line": 31,
+                            "column": 38,
+                            "offset": 724
+                          },
+                          "name": "rune",
+                          "obj": null,
+                          "$type": 15,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "rune",
+                            "kind": "type",
+                            "type": 15
+                          }
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": {
+                      "file": "fmtformatter.go",
+                      "line": 31,
+                      "column": 42,
+                      "offset": 728
+                    }
+                  },
+                  "results": null
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "fmtformatter.go",
+                    "line": 31,
+                    "column": 44,
+                    "offset": 730
+                  },
+                  "list": [
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "fmtformatter.go",
+                            "line": 31,
+                            "column": 46,
+                            "offset": 732
+                          },
+                          "name": "panic",
+                          "obj": null,
+                          "$type": 30,
+                          "$builtin": true,
+                          "$obj": {
+                            "name": "panic",
+                            "kind": "builtin",
+                            "type": 31
+                          }
+                        },
+                        "lparen": {
+                          "file": "fmtformatter.go",
+                          "line": 31,
+                          "column": 51,
+                          "offset": 737
+                        },
+                        "args": [
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "fmtformatter.go",
+                              "line": 31,
+                              "column": 52,
+                              "offset": 738
+                            },
+                            "valueEnd": {
+                              "file": "fmtformatter.go",
+                              "line": 31,
+                              "column": 60,
+                              "offset": 746
+                            },
+                            "kind": "STRING",
+                            "value": "\"kaboom\"",
+                            "$type": 1,
+                            "$value": {
+                              "kind": "string",
+                              "value": "kaboom"
+                            }
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "fmtformatter.go",
+                          "line": 31,
+                          "column": 60,
+                          "offset": 746
+                        },
+                        "$type": 32
+                      }
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "fmtformatter.go",
+                    "line": 31,
+                    "column": 62,
+                    "offset": 748
+                  }
+                }
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "fmtformatter.go",
+                    "line": 33,
+                    "column": 6,
+                    "offset": 756
+                  },
+                  "name": "main",
+                  "obj": {
+                    "node": "Object",
+                    "name": "main",
+                    "kind": "func"
+                  },
+                  "$obj": {
+                    "name": "main",
+                    "kind": "func",
+                    "def": true,
+                    "type": 33,
+                    "decl": "fmtformatter.go:756",
+                    "pkg": "main",
+                    "top": true
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "fmtformatter.go",
+                    "line": 33,
+                    "column": 1,
+                    "offset": 751
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "fmtformatter.go",
+                      "line": 33,
+                      "column": 10,
+                      "offset": 760
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "fmtformatter.go",
+                      "line": 33,
+                      "column": 11,
+                      "offset": 761
+                    }
+                  },
+                  "results": null
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "fmtformatter.go",
+                    "line": 33,
+                    "column": 13,
+                    "offset": 763
+                  },
+                  "list": [
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtformatter.go",
+                              "line": 34,
+                              "column": 2,
+                              "offset": 766
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtformatter.go",
+                              "line": 34,
+                              "column": 6,
+                              "offset": 770
+                            },
+                            "name": "Printf",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Printf",
+                              "kind": "func",
+                              "type": 34,
+                              "decl": "print.go:231",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 34
+                        },
+                        "lparen": {
+                          "file": "fmtformatter.go",
+                          "line": 34,
+                          "column": 12,
+                          "offset": 776
+                        },
+                        "args": [
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "fmtformatter.go",
+                              "line": 34,
+                              "column": 13,
+                              "offset": 777
+                            },
+                            "valueEnd": {
+                              "file": "fmtformatter.go",
+                              "line": 34,
+                              "column": 33,
+                              "offset": 797
+                            },
+                            "kind": "STRING",
+                            "value": "\"%v %+8s %.3d %#x\\n\"",
+                            "$type": 1,
+                            "$value": {
+                              "kind": "string",
+                              "value": "%v %+8s %.3d %#x\n"
+                            }
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "fmtformatter.go",
+                                "line": 34,
+                                "column": 35,
+                                "offset": 799
+                              },
+                              "name": "Safe",
+                              "obj": {
+                                "node": "Object",
+                                "name": "Safe",
+                                "kind": "type"
+                              },
+                              "$type": 0,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "Safe",
+                                "kind": "type",
+                                "type": 0,
+                                "decl": "fmtformatter.go:287",
+                                "pkg": "main",
+                                "top": true
+                              }
+                            },
+                            "lparen": {
+                              "file": "fmtformatter.go",
+                              "line": 34,
+                              "column": 39,
+                              "offset": 803
+                            },
+                            "args": [
+                              {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "fmtformatter.go",
+                                  "line": 34,
+                                  "column": 40,
+                                  "offset": 804
+                                },
+                                "valueEnd": {
+                                  "file": "fmtformatter.go",
+                                  "line": 34,
+                                  "column": 43,
+                                  "offset": 807
+                                },
+                                "kind": "STRING",
+                                "value": "\"a\"",
+                                "$type": 0,
+                                "$value": {
+                                  "kind": "string",
+                                  "value": "a"
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "fmtformatter.go",
+                              "line": 34,
+                              "column": 43,
+                              "offset": 807
+                            },
+                            "$type": 0,
+                            "$value": {
+                              "kind": "string",
+                              "value": "a"
+                            }
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "fmtformatter.go",
+                                "line": 34,
+                                "column": 46,
+                                "offset": 810
+                              },
+                              "name": "Safe",
+                              "obj": {
+                                "node": "Object",
+                                "name": "Safe",
+                                "kind": "type"
+                              },
+                              "$type": 0,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "Safe",
+                                "kind": "type",
+                                "type": 0,
+                                "decl": "fmtformatter.go:287",
+                                "pkg": "main",
+                                "top": true
+                              }
+                            },
+                            "lparen": {
+                              "file": "fmtformatter.go",
+                              "line": 34,
+                              "column": 50,
+                              "offset": 814
+                            },
+                            "args": [
+                              {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "fmtformatter.go",
+                                  "line": 34,
+                                  "column": 51,
+                                  "offset": 815
+                                },
+                                "valueEnd": {
+                                  "file": "fmtformatter.go",
+                                  "line": 34,
+                                  "column": 54,
+                                  "offset": 818
+                                },
+                                "kind": "STRING",
+                                "value": "\"b\"",
+                                "$type": 0,
+                                "$value": {
+                                  "kind": "string",
+                                  "value": "b"
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "fmtformatter.go",
+                              "line": 34,
+                              "column": 54,
+                              "offset": 818
+                            },
+                            "$type": 0,
+                            "$value": {
+                              "kind": "string",
+                              "value": "b"
+                            }
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "fmtformatter.go",
+                                "line": 34,
+                                "column": 57,
+                                "offset": 821
+                              },
+                              "name": "Safe",
+                              "obj": {
+                                "node": "Object",
+                                "name": "Safe",
+                                "kind": "type"
+                              },
+                              "$type": 0,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "Safe",
+                                "kind": "type",
+                                "type": 0,
+                                "decl": "fmtformatter.go:287",
+                                "pkg": "main",
+                                "top": true
+                              }
+                            },
+                            "lparen": {
+                              "file": "fmtformatter.go",
+                              "line": 34,
+                              "column": 61,
+                              "offset": 825
+                            },
+                            "args": [
+                              {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "fmtformatter.go",
+                                  "line": 34,
+                                  "column": 62,
+                                  "offset": 826
+                                },
+                                "valueEnd": {
+                                  "file": "fmtformatter.go",
+                                  "line": 34,
+                                  "column": 65,
+                                  "offset": 829
+                                },
+                                "kind": "STRING",
+                                "value": "\"c\"",
+                                "$type": 0,
+                                "$value": {
+                                  "kind": "string",
+                                  "value": "c"
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "fmtformatter.go",
+                              "line": 34,
+                              "column": 65,
+                              "offset": 829
+                            },
+                            "$type": 0,
+                            "$value": {
+                              "kind": "string",
+                              "value": "c"
+                            }
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "fmtformatter.go",
+                                "line": 34,
+                                "column": 68,
+                                "offset": 832
+                              },
+                              "name": "Safe",
+                              "obj": {
+                                "node": "Object",
+                                "name": "Safe",
+                                "kind": "type"
+                              },
+                              "$type": 0,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "Safe",
+                                "kind": "type",
+                                "type": 0,
+                                "decl": "fmtformatter.go:287",
+                                "pkg": "main",
+                                "top": true
+                              }
+                            },
+                            "lparen": {
+                              "file": "fmtformatter.go",
+                              "line": 34,
+                              "column": 72,
+                              "offset": 836
+                            },
+                            "args": [
+                              {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "fmtformatter.go",
+                                  "line": 34,
+                                  "column": 73,
+                                  "offset": 837
+                                },
+                                "valueEnd": {
+                                  "file": "fmtformatter.go",
+                                  "line": 34,
+                                  "column": 76,
+                                  "offset": 840
+                                },
+                                "kind": "STRING",
+                                "value": "\"d\"",
+                                "$type": 0,
+                                "$value": {
+                                  "kind": "string",
+                                  "value": "d"
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "fmtformatter.go",
+                              "line": 34,
+                              "column": 76,
+                              "offset": 840
+                            },
+                            "$type": 0,
+                            "$value": {
+                              "kind": "string",
+                              "value": "d"
+                            }
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "fmtformatter.go",
+                          "line": 34,
+                          "column": 77,
+                          "offset": 841
+                        },
+                        "$type": 22
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtformatter.go",
+                              "line": 35,
+                              "column": 2,
+                              "offset": 844
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtformatter.go",
+                              "line": 35,
+                              "column": 6,
+                              "offset": 848
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 35,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 35
+                        },
+                        "lparen": {
+                          "file": "fmtformatter.go",
+                          "line": 35,
+                          "column": 13,
+                          "offset": 855
+                        },
+                        "args": [
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "fmtformatter.go",
+                                "line": 35,
+                                "column": 14,
+                                "offset": 856
+                              },
+                              "name": "Safe",
+                              "obj": {
+                                "node": "Object",
+                                "name": "Safe",
+                                "kind": "type"
+                              },
+                              "$type": 0,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "Safe",
+                                "kind": "type",
+                                "type": 0,
+                                "decl": "fmtformatter.go:287",
+                                "pkg": "main",
+                                "top": true
+                              }
+                            },
+                            "lparen": {
+                              "file": "fmtformatter.go",
+                              "line": 35,
+                              "column": 18,
+                              "offset": 860
+                            },
+                            "args": [
+                              {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "fmtformatter.go",
+                                  "line": 35,
+                                  "column": 19,
+                                  "offset": 861
+                                },
+                                "valueEnd": {
+                                  "file": "fmtformatter.go",
+                                  "line": 35,
+                                  "column": 22,
+                                  "offset": 864
+                                },
+                                "kind": "STRING",
+                                "value": "\"e\"",
+                                "$type": 0,
+                                "$value": {
+                                  "kind": "string",
+                                  "value": "e"
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "fmtformatter.go",
+                              "line": 35,
+                              "column": 22,
+                              "offset": 864
+                            },
+                            "$type": 0,
+                            "$value": {
+                              "kind": "string",
+                              "value": "e"
+                            }
+                          },
+                          {
+                            "node": "CompositeLit",
+                            "type": {
+                              "node": "ArrayType",
+                              "lbrack": {
+                                "file": "fmtformatter.go",
+                                "line": 35,
+                                "column": 25,
+                                "offset": 867
+                              },
+                              "len": null,
+                              "elt": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "fmtformatter.go",
+                                  "line": 35,
+                                  "column": 27,
+                                  "offset": 869
+                                },
+                                "name": "Safe",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "Safe",
+                                  "kind": "type"
+                                },
+                                "$type": 0,
+                                "$isType": true,
+                                "$obj": {
+                                  "name": "Safe",
+                                  "kind": "type",
+                                  "type": 0,
+                                  "decl": "fmtformatter.go:287",
+                                  "pkg": "main",
+                                  "top": true
+                                }
+                              },
+                              "$type": 36,
+                              "$isType": true
+                            },
+                            "lbrace": {
+                              "file": "fmtformatter.go",
+                              "line": 35,
+                              "column": 31,
+                              "offset": 873
+                            },
+                            "elts": [
+                              {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "fmtformatter.go",
+                                  "line": 35,
+                                  "column": 32,
+                                  "offset": 874
+                                },
+                                "valueEnd": {
+                                  "file": "fmtformatter.go",
+                                  "line": 35,
+                                  "column": 35,
+                                  "offset": 877
+                                },
+                                "kind": "STRING",
+                                "value": "\"f\"",
+                                "$type": 0,
+                                "$value": {
+                                  "kind": "string",
+                                  "value": "f"
+                                }
+                              }
+                            ],
+                            "rbrace": {
+                              "file": "fmtformatter.go",
+                              "line": 35,
+                              "column": 35,
+                              "offset": 877
+                            },
+                            "incomplete": false,
+                            "$type": 36
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "fmtformatter.go",
+                          "line": 35,
+                          "column": 36,
+                          "offset": 878
+                        },
+                        "$type": 22
+                      }
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "fmtformatter.go",
+                            "line": 36,
+                            "column": 2,
+                            "offset": 881
+                          },
+                          "name": "p",
+                          "obj": {
+                            "node": "Object",
+                            "name": "p",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "p",
+                            "kind": "var",
+                            "def": true,
+                            "type": 25,
+                            "decl": "fmtformatter.go:881",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "fmtformatter.go",
+                        "line": 36,
+                        "column": 4,
+                        "offset": 883
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "UnaryExpr",
+                          "opPos": {
+                            "file": "fmtformatter.go",
+                            "line": 36,
+                            "column": 7,
+                            "offset": 886
+                          },
+                          "op": "\u0026",
+                          "x": {
+                            "node": "CompositeLit",
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "fmtformatter.go",
+                                "line": 36,
+                                "column": 8,
+                                "offset": 887
+                              },
+                              "name": "Pt",
+                              "obj": {
+                                "node": "Object",
+                                "name": "Pt",
+                                "kind": "type"
+                              },
+                              "$type": 23,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "Pt",
+                                "kind": "type",
+                                "type": 23,
+                                "decl": "fmtformatter.go:503",
+                                "pkg": "main",
+                                "top": true
+                              }
+                            },
+                            "lbrace": {
+                              "file": "fmtformatter.go",
+                              "line": 36,
+                              "column": 10,
+                              "offset": 889
+                            },
+                            "elts": [
+                              {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "fmtformatter.go",
+                                  "line": 36,
+                                  "column": 11,
+                                  "offset": 890
+                                },
+                                "valueEnd": {
+                                  "file": "fmtformatter.go",
+                                  "line": 36,
+                                  "column": 12,
+                                  "offset": 891
+                                },
+                                "kind": "INT",
+                                "value": "1",
+                                "$type": 6,
+                                "$value": {
+                                  "kind": "int",
+                                  "value": "1"
+                                }
+                              },
+                              {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "fmtformatter.go",
+                                  "line": 36,
+                                  "column": 14,
+                                  "offset": 893
+                                },
+                                "valueEnd": {
+                                  "file": "fmtformatter.go",
+                                  "line": 36,
+                                  "column": 15,
+                                  "offset": 894
+                                },
+                                "kind": "INT",
+                                "value": "2",
+                                "$type": 6,
+                                "$value": {
+                                  "kind": "int",
+                                  "value": "2"
+                                }
+                              }
+                            ],
+                            "rbrace": {
+                              "file": "fmtformatter.go",
+                              "line": 36,
+                              "column": 15,
+                              "offset": 894
+                            },
+                            "incomplete": false,
+                            "$type": 23
+                          },
+                          "$type": 25
+                        }
+                      ]
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtformatter.go",
+                              "line": 37,
+                              "column": 2,
+                              "offset": 897
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtformatter.go",
+                              "line": 37,
+                              "column": 6,
+                              "offset": 901
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 35,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 35
+                        },
+                        "lparen": {
+                          "file": "fmtformatter.go",
+                          "line": 37,
+                          "column": 13,
+                          "offset": 908
+                        },
+                        "args": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtformatter.go",
+                              "line": 37,
+                              "column": 14,
+                              "offset": 909
+                            },
+                            "name": "p",
+                            "obj": {
+                              "node": "Object",
+                              "name": "p",
+                              "kind": "var"
+                            },
+                            "$type": 25,
+                            "$obj": {
+                              "name": "p",
+                              "kind": "var",
+                              "type": 25,
+                              "decl": "fmtformatter.go:881",
+                              "pkg": "main"
+                            }
+                          },
+                          {
+                            "node": "StarExpr",
+                            "star": {
+                              "file": "fmtformatter.go",
+                              "line": 37,
+                              "column": 17,
+                              "offset": 912
+                            },
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "fmtformatter.go",
+                                "line": 37,
+                                "column": 18,
+                                "offset": 913
+                              },
+                              "name": "p",
+                              "obj": {
+                                "node": "Object",
+                                "name": "p",
+                                "kind": "var"
+                              },
+                              "$type": 25,
+                              "$obj": {
+                                "name": "p",
+                                "kind": "var",
+                                "type": 25,
+                                "decl": "fmtformatter.go:881",
+                                "pkg": "main"
+                              }
+                            },
+                            "$type": 23
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "fmtformatter.go",
+                          "line": 37,
+                          "column": 19,
+                          "offset": 914
+                        },
+                        "$type": 22
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtformatter.go",
+                              "line": 38,
+                              "column": 2,
+                              "offset": 917
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtformatter.go",
+                              "line": 38,
+                              "column": 6,
+                              "offset": 921
+                            },
+                            "name": "Printf",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Printf",
+                              "kind": "func",
+                              "type": 34,
+                              "decl": "print.go:231",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 34
+                        },
+                        "lparen": {
+                          "file": "fmtformatter.go",
+                          "line": 38,
+                          "column": 12,
+                          "offset": 927
+                        },
+                        "args": [
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "fmtformatter.go",
+                              "line": 38,
+                              "column": 13,
+                              "offset": 928
+                            },
+                            "valueEnd": {
+                              "file": "fmtformatter.go",
+                              "line": 38,
+                              "column": 22,
+                              "offset": 937
+                            },
+                            "kind": "STRING",
+                            "value": "\"%v|%s\\n\"",
+                            "$type": 1,
+                            "$value": {
+                              "kind": "string",
+                              "value": "%v|%s\n"
+                            }
+                          },
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtformatter.go",
+                              "line": 38,
+                              "column": 24,
+                              "offset": 939
+                            },
+                            "name": "p",
+                            "obj": {
+                              "node": "Object",
+                              "name": "p",
+                              "kind": "var"
+                            },
+                            "$type": 25,
+                            "$obj": {
+                              "name": "p",
+                              "kind": "var",
+                              "type": 25,
+                              "decl": "fmtformatter.go:881",
+                              "pkg": "main"
+                            }
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "fmtformatter.go",
+                                  "line": 38,
+                                  "column": 27,
+                                  "offset": 942
+                                },
+                                "name": "fmt",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "fmt",
+                                  "kind": "package",
+                                  "pkg": "fmt"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "fmtformatter.go",
+                                  "line": 38,
+                                  "column": 31,
+                                  "offset": 946
+                                },
+                                "name": "Sprint",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "Sprint",
+                                  "kind": "func",
+                                  "type": 37,
+                                  "decl": "print.go:276",
+                                  "pkg": "fmt",
+                                  "top": true
+                                }
+                              },
+                              "$type": 37
+                            },
+                            "lparen": {
+                              "file": "fmtformatter.go",
+                              "line": 38,
+                              "column": 37,
+                              "offset": 952
+                            },
+                            "args": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "fmtformatter.go",
+                                  "line": 38,
+                                  "column": 38,
+                                  "offset": 953
+                                },
+                                "name": "p",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "p",
+                                  "kind": "var"
+                                },
+                                "$type": 25,
+                                "$obj": {
+                                  "name": "p",
+                                  "kind": "var",
+                                  "type": 25,
+                                  "decl": "fmtformatter.go:881",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "fmtformatter.go",
+                              "line": 38,
+                              "column": 39,
+                              "offset": 954
+                            },
+                            "$type": 1
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "fmtformatter.go",
+                          "line": 38,
+                          "column": 40,
+                          "offset": 955
+                        },
+                        "$type": 22
+                      }
+                    },
+                    {
+                      "node": "DeclStmt",
+                      "decl": {
+                        "node": "GenDecl",
+                        "doc": null,
+                        "tokPos": {
+                          "file": "fmtformatter.go",
+                          "line": 39,
+                          "column": 2,
+                          "offset": 958
+                        },
+                        "tok": "var",
+                        "lparen": null,
+                        "specs": [
+                          {
+                            "node": "ValueSpec",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "fmtformatter.go",
+                                  "line": 39,
+                                  "column": 6,
+                                  "offset": 962
+                                },
+                                "name": "np",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "np",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "np",
+                                  "kind": "var",
+                                  "def": true,
+                                  "type": 25,
+                                  "decl": "fmtformatter.go:962",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "StarExpr",
+                              "star": {
+                                "file": "fmtformatter.go",
+                                "line": 39,
+                                "column": 9,
+                                "offset": 965
+                              },
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "fmtformatter.go",
+                                  "line": 39,
+                                  "column": 10,
+                                  "offset": 966
+                                },
+                                "name": "Pt",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "Pt",
+                                  "kind": "type"
+                                },
+                                "$type": 23,
+                                "$isType": true,
+                                "$obj": {
+                                  "name": "Pt",
+                                  "kind": "type",
+                                  "type": 23,
+                                  "decl": "fmtformatter.go:503",
+                                  "pkg": "main",
+                                  "top": true
+                                }
+                              },
+                              "$type": 25,
+                              "$isType": true
+                            },
+                            "values": null,
+                            "comment": null
+                          }
+                        ],
+                        "rparen": null
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtformatter.go",
+                              "line": 40,
+                              "column": 2,
+                              "offset": 970
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtformatter.go",
+                              "line": 40,
+                              "column": 6,
+                              "offset": 974
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 35,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 35
+                        },
+                        "lparen": {
+                          "file": "fmtformatter.go",
+                          "line": 40,
+                          "column": 13,
+                          "offset": 981
+                        },
+                        "args": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtformatter.go",
+                              "line": 40,
+                              "column": 14,
+                              "offset": 982
+                            },
+                            "name": "np",
+                            "obj": {
+                              "node": "Object",
+                              "name": "np",
+                              "kind": "var"
+                            },
+                            "$type": 25,
+                            "$obj": {
+                              "name": "np",
+                              "kind": "var",
+                              "type": 25,
+                              "decl": "fmtformatter.go:962",
+                              "pkg": "main"
+                            }
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "fmtformatter.go",
+                          "line": 40,
+                          "column": 16,
+                          "offset": 984
+                        },
+                        "$type": 22
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtformatter.go",
+                              "line": 41,
+                              "column": 2,
+                              "offset": 987
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtformatter.go",
+                              "line": 41,
+                              "column": 6,
+                              "offset": 991
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 35,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 35
+                        },
+                        "lparen": {
+                          "file": "fmtformatter.go",
+                          "line": 41,
+                          "column": 13,
+                          "offset": 998
+                        },
+                        "args": [
+                          {
+                            "node": "CompositeLit",
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "fmtformatter.go",
+                                "line": 41,
+                                "column": 14,
+                                "offset": 999
+                              },
+                              "name": "bomb",
+                              "obj": {
+                                "node": "Object",
+                                "name": "bomb",
+                                "kind": "type"
+                              },
+                              "$type": 28,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "bomb",
+                                "kind": "type",
+                                "type": 28,
+                                "decl": "fmtformatter.go:672",
+                                "pkg": "main",
+                                "top": true
+                              }
+                            },
+                            "lbrace": {
+                              "file": "fmtformatter.go",
+                              "line": 41,
+                              "column": 18,
+                              "offset": 1003
+                            },
+                            "elts": null,
+                            "rbrace": {
+                              "file": "fmtformatter.go",
+                              "line": 41,
+                              "column": 19,
+                              "offset": 1004
+                            },
+                            "incomplete": false,
+                            "$type": 28
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "fmtformatter.go",
+                          "line": 41,
+                          "column": 20,
+                          "offset": 1005
+                        },
+                        "$type": 22
+                      }
+                    },
+                    {
+                      "node": "DeclStmt",
+                      "decl": {
+                        "node": "GenDecl",
+                        "doc": null,
+                        "tokPos": {
+                          "file": "fmtformatter.go",
+                          "line": 42,
+                          "column": 2,
+                          "offset": 1008
+                        },
+                        "tok": "var",
+                        "lparen": null,
+                        "specs": [
+                          {
+                            "node": "ValueSpec",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "fmtformatter.go",
+                                  "line": 42,
+                                  "column": 6,
+                                  "offset": 1012
+                                },
+                                "name": "sb",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "sb",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "sb",
+                                  "kind": "var",
+                                  "def": true,
+                                  "type": 38,
+                                  "decl": "fmtformatter.go:1012",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "fmtformatter.go",
+                                  "line": 42,
+                                  "column": 9,
+                                  "offset": 1015
+                                },
+                                "name": "strings",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "strings",
+                                  "kind": "package",
+                                  "pkg": "strings"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "fmtformatter.go",
+                                  "line": 42,
+                                  "column": 17,
+                                  "offset": 1023
+                                },
+                                "name": "Builder",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "Builder",
+                                  "kind": "type",
+                                  "type": 38,
+                                  "decl": "builder.go:16",
+                                  "pkg": "strings",
+                                  "top": true
+                                }
+                              },
+                              "$type": 38,
+                              "$isType": true
+                            },
+                            "values": null,
+                            "comment": null
+                          }
+                        ],
+                        "rparen": null
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtformatter.go",
+                              "line": 43,
+                              "column": 2,
+                              "offset": 1032
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtformatter.go",
+                              "line": 43,
+                              "column": 6,
+                              "offset": 1036
+                            },
+                            "name": "Fprintf",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Fprintf",
+                              "kind": "func",
+                              "type": 17,
+                              "decl": "print.go:221",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 17
+                        },
+                        "lparen": {
+                          "file": "fmtformatter.go",
+                          "line": 43,
+                          "column": 13,
+                          "offset": 1043
+                        },
+                        "args": [
+                          {
+                            "node": "UnaryExpr",
+                            "opPos": {
+                              "file": "fmtformatter.go",
+                              "line": 43,
+                              "column": 14,
+                              "offset": 1044
+                            },
+                            "op": "\u0026",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "fmtformatter.go",
+                                "line": 43,
+                                "column": 15,
+                                "offset": 1045
+                              },
+                              "name": "sb",
+                              "obj": {
+                                "node": "Object",
+                                "name": "sb",
+                                "kind": "var"
+                              },
+                              "$type": 38,
+                              "$obj": {
+                                "name": "sb",
+                                "kind": "var",
+                                "type": 38,
+                                "decl": "fmtformatter.go:1012",
+                                "pkg": "main"
+                              }
+                            },
+                            "$type": 40
+                          },
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "fmtformatter.go",
+                              "line": 43,
+                              "column": 19,
+                              "offset": 1049
+                            },
+                            "valueEnd": {
+                              "file": "fmtformatter.go",
+                              "line": 43,
+                              "column": 23,
+                              "offset": 1053
+                            },
+                            "kind": "STRING",
+                            "value": "\"%v\"",
+                            "$type": 1,
+                            "$value": {
+                              "kind": "string",
+                              "value": "%v"
+                            }
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "fmtformatter.go",
+                                "line": 43,
+                                "column": 25,
+                                "offset": 1055
+                              },
+                              "name": "Safe",
+                              "obj": {
+                                "node": "Object",
+                                "name": "Safe",
+                                "kind": "type"
+                              },
+                              "$type": 0,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "Safe",
+                                "kind": "type",
+                                "type": 0,
+                                "decl": "fmtformatter.go:287",
+                                "pkg": "main",
+                                "top": true
+                              }
+                            },
+                            "lparen": {
+                              "file": "fmtformatter.go",
+                              "line": 43,
+                              "column": 29,
+                              "offset": 1059
+                            },
+                            "args": [
+                              {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "fmtformatter.go",
+                                  "line": 43,
+                                  "column": 30,
+                                  "offset": 1060
+                                },
+                                "valueEnd": {
+                                  "file": "fmtformatter.go",
+                                  "line": 43,
+                                  "column": 33,
+                                  "offset": 1063
+                                },
+                                "kind": "STRING",
+                                "value": "\"g\"",
+                                "$type": 0,
+                                "$value": {
+                                  "kind": "string",
+                                  "value": "g"
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "fmtformatter.go",
+                              "line": 43,
+                              "column": 33,
+                              "offset": 1063
+                            },
+                            "$type": 0,
+                            "$value": {
+                              "kind": "string",
+                              "value": "g"
+                            }
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "fmtformatter.go",
+                          "line": 43,
+                          "column": 34,
+                          "offset": 1064
+                        },
+                        "$type": 22
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtformatter.go",
+                              "line": 44,
+                              "column": 2,
+                              "offset": 1067
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "fmtformatter.go",
+                              "line": 44,
+                              "column": 6,
+                              "offset": 1071
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 35,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 35
+                        },
+                        "lparen": {
+                          "file": "fmtformatter.go",
+                          "line": 44,
+                          "column": 13,
+                          "offset": 1078
+                        },
+                        "args": [
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "fmtformatter.go",
+                                  "line": 44,
+                                  "column": 14,
+                                  "offset": 1079
+                                },
+                                "name": "sb",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "sb",
+                                  "kind": "var"
+                                },
+                                "$type": 38,
+                                "$obj": {
+                                  "name": "sb",
+                                  "kind": "var",
+                                  "type": 38,
+                                  "decl": "fmtformatter.go:1012",
+                                  "pkg": "main"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "fmtformatter.go",
+                                  "line": 44,
+                                  "column": 17,
+                                  "offset": 1082
+                                },
+                                "name": "String",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "String",
+                                  "kind": "method",
+                                  "type": 14,
+                                  "decl": "builder.go:45",
+                                  "pkg": "strings"
+                                }
+                              },
+                              "$type": 14,
+                              "$sel": {
+                                "kind": "method",
+                                "recv": 38,
+                                "index": [
+                                  1
+                                ],
+                                "indirect": false
+                              }
+                            },
+                            "lparen": {
+                              "file": "fmtformatter.go",
+                              "line": 44,
+                              "column": 23,
+                              "offset": 1088
+                            },
+                            "args": null,
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "fmtformatter.go",
+                              "line": 44,
+                              "column": 24,
+                              "offset": 1089
+                            },
+                            "$type": 1
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "fmtformatter.go",
+                          "line": 44,
+                          "column": 25,
+                          "offset": 1090
+                        },
+                        "$type": 22
+                      }
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "fmtformatter.go",
+                    "line": 45,
+                    "column": 1,
+                    "offset": 1092
+                  }
+                }
+              }
+            ],
+            "fileStart": {
+              "file": "fmtformatter.go",
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "fileEnd": {
+              "file": "fmtformatter.go",
+              "line": 45,
+              "column": 3,
+              "offset": 1094
+            },
+            "scope": null,
+            "imports": [
+              {
+                "node": "ImportSpec",
+                "doc": null,
+                "name": null,
+                "path": {
+                  "node": "BasicLit",
+                  "valuePos": {
+                    "file": "fmtformatter.go",
+                    "line": 6,
+                    "column": 2,
+                    "offset": 183
+                  },
+                  "valueEnd": {
+                    "file": "fmtformatter.go",
+                    "line": 6,
+                    "column": 7,
+                    "offset": 188
+                  },
+                  "kind": "STRING",
+                  "value": "\"fmt\""
+                },
+                "comment": null,
+                "endPos": null
+              },
+              {
+                "node": "ImportSpec",
+                "doc": null,
+                "name": null,
+                "path": {
+                  "node": "BasicLit",
+                  "valuePos": {
+                    "file": "fmtformatter.go",
+                    "line": 7,
+                    "column": 2,
+                    "offset": 190
+                  },
+                  "valueEnd": {
+                    "file": "fmtformatter.go",
+                    "line": 7,
+                    "column": 11,
+                    "offset": 199
+                  },
+                  "kind": "STRING",
+                  "value": "\"strings\""
+                },
+                "comment": null,
+                "endPos": null
+              }
+            ],
+            "unresolved": [
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "fmtformatter.go",
+                  "line": 11,
+                  "column": 11,
+                  "offset": 292
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 1,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 1
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "fmtformatter.go",
+                  "line": 13,
+                  "column": 24,
+                  "offset": 323
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "fmtformatter.go",
+                  "line": 13,
+                  "column": 40,
+                  "offset": 339
+                },
+                "name": "rune",
+                "obj": null,
+                "$type": 15,
+                "$isType": true,
+                "$obj": {
+                  "name": "rune",
+                  "kind": "type",
+                  "type": 15
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "fmtformatter.go",
+                  "line": 16,
+                  "column": 2,
+                  "offset": 393
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "fmtformatter.go",
+                  "line": 16,
+                  "column": 46,
+                  "offset": 437
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 1,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 1
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "fmtformatter.go",
+                  "line": 19,
+                  "column": 22,
+                  "offset": 519
+                },
+                "name": "int",
+                "obj": null,
+                "$type": 6,
+                "$isType": true,
+                "$obj": {
+                  "name": "int",
+                  "kind": "type",
+                  "type": 6
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "fmtformatter.go",
+                  "line": 21,
+                  "column": 23,
+                  "offset": 548
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "fmtformatter.go",
+                  "line": 21,
+                  "column": 39,
+                  "offset": 564
+                },
+                "name": "rune",
+                "obj": null,
+                "$type": 15,
+                "$isType": true,
+                "$obj": {
+                  "name": "rune",
+                  "kind": "type",
+                  "type": 15
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "fmtformatter.go",
+                  "line": 22,
+                  "column": 10,
+                  "offset": 581
+                },
+                "name": "nil",
+                "obj": null,
+                "$type": 26,
+                "$obj": {
+                  "name": "nil",
+                  "kind": "nil",
+                  "type": 26
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "fmtformatter.go",
+                  "line": 23,
+                  "column": 13,
+                  "offset": 599
+                },
+                "name": "byte",
+                "obj": null,
+                "$type": 11,
+                "$isType": true,
+                "$obj": {
+                  "name": "byte",
+                  "kind": "type",
+                  "type": 11
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "fmtformatter.go",
+                  "line": 26,
+                  "column": 2,
+                  "offset": 628
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "fmtformatter.go",
+                  "line": 31,
+                  "column": 22,
+                  "offset": 708
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "fmtformatter.go",
+                  "line": 31,
+                  "column": 38,
+                  "offset": 724
+                },
+                "name": "rune",
+                "obj": null,
+                "$type": 15,
+                "$isType": true,
+                "$obj": {
+                  "name": "rune",
+                  "kind": "type",
+                  "type": 15
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "fmtformatter.go",
+                  "line": 31,
+                  "column": 46,
+                  "offset": 732
+                },
+                "name": "panic",
+                "obj": null,
+                "$type": 30,
+                "$builtin": true,
+                "$obj": {
+                  "name": "panic",
+                  "kind": "builtin",
+                  "type": 31
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "fmtformatter.go",
+                  "line": 34,
+                  "column": 2,
+                  "offset": 766
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "fmtformatter.go",
+                  "line": 35,
+                  "column": 2,
+                  "offset": 844
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "fmtformatter.go",
+                  "line": 37,
+                  "column": 2,
+                  "offset": 897
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "fmtformatter.go",
+                  "line": 38,
+                  "column": 2,
+                  "offset": 917
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "fmtformatter.go",
+                  "line": 38,
+                  "column": 27,
+                  "offset": 942
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "fmtformatter.go",
+                  "line": 40,
+                  "column": 2,
+                  "offset": 970
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "fmtformatter.go",
+                  "line": 41,
+                  "column": 2,
+                  "offset": 987
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "fmtformatter.go",
+                  "line": 42,
+                  "column": 9,
+                  "offset": 1015
+                },
+                "name": "strings",
+                "obj": null,
+                "$obj": {
+                  "name": "strings",
+                  "kind": "package",
+                  "pkg": "strings"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "fmtformatter.go",
+                  "line": 43,
+                  "column": 2,
+                  "offset": 1032
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "fmtformatter.go",
+                  "line": 44,
+                  "column": 2,
+                  "offset": 1067
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              }
+            ],
+            "comments": [
+              {
+                "node": "CommentGroup",
+                "list": [
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "fmtformatter.go",
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "text": "// fmt.Formatter/fmt.State (github.com/cockroachdb/redact): Format chamado para"
+                  },
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "fmtformatter.go",
+                      "line": 2,
+                      "column": 1,
+                      "offset": 80
+                    },
+                    "text": "// todo verbo, com flags/largura/precisão, receptor nil e pânico no método."
+                  }
+                ]
+              },
+              {
+                "node": "CommentGroup",
+                "list": [
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "fmtformatter.go",
+                      "line": 10,
+                      "column": 1,
+                      "offset": 203
+                    },
+                    "text": "// Safe imita as SafeString/RedactableString de github.com/cockroachdb/redact."
+                  }
+                ]
+              }
+            ],
+            "goVersion": ""
+          }
+        }
+      ],
+      "imports": [
+        {
+          "path": "fmt",
+          "name": "fmt"
+        },
+        {
+          "path": "strings",
+          "name": "strings"
+        }
+      ],
+      "typeTable": [
+        {
+          "kind": "named",
+          "pkg": "main",
+          "name": "Safe",
+          "underlying": 1,
+          "methods": [
+            {
+              "name": "Format",
+              "type": 2,
+              "index": [
+                0
+              ],
+              "ptr": false
+            }
+          ]
+        },
+        {
+          "kind": "basic",
+          "name": "string"
+        },
+        {
+          "kind": "func",
+          "params": [
+            3,
+            15
+          ],
+          "results": [],
+          "variadic": false
+        },
+        {
+          "kind": "named",
+          "pkg": "fmt",
+          "name": "State",
+          "underlying": 4
+        },
+        {
+          "kind": "interface",
+          "methods": [
+            {
+              "name": "Flag",
+              "type": 5
+            },
+            {
+              "name": "Precision",
+              "type": 8
+            },
+            {
+              "name": "Width",
+              "type": 8
+            },
+            {
+              "name": "Write",
+              "type": 9
+            }
+          ],
+          "embeddeds": []
+        },
+        {
+          "kind": "func",
+          "params": [
+            6
+          ],
+          "results": [
+            7
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "basic",
+          "name": "int"
+        },
+        {
+          "kind": "basic",
+          "name": "bool"
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            6,
+            7
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            10
+          ],
+          "results": [
+            6,
+            12
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "slice",
+          "elem": 11
+        },
+        {
+          "kind": "basic",
+          "name": "byte"
+        },
+        {
+          "kind": "named",
+          "pkg": "",
+          "name": "error",
+          "underlying": 13
+        },
+        {
+          "kind": "interface",
+          "methods": [
+            {
+              "name": "Error",
+              "type": 14
+            }
+          ],
+          "embeddeds": []
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            1
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "basic",
+          "name": "rune"
+        },
+        {
+          "kind": "tuple",
+          "elems": [
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "func",
+          "params": [
+            18,
+            1,
+            20
+          ],
+          "results": [
+            6,
+            12
+          ],
+          "variadic": true
+        },
+        {
+          "kind": "named",
+          "pkg": "io",
+          "name": "Writer",
+          "underlying": 19
+        },
+        {
+          "kind": "interface",
+          "methods": [
+            {
+              "name": "Write",
+              "type": 9
+            }
+          ],
+          "embeddeds": []
+        },
+        {
+          "kind": "slice",
+          "elem": 21
+        },
+        {
+          "kind": "interface",
+          "methods": [],
+          "embeddeds": []
+        },
+        {
+          "kind": "tuple",
+          "elems": [
+            6,
+            12
+          ]
+        },
+        {
+          "kind": "named",
+          "pkg": "main",
+          "name": "Pt",
+          "underlying": 24,
+          "methods": [
+            {
+              "name": "Format",
+              "type": 2,
+              "index": [
+                0
+              ],
+              "ptr": true
+            }
+          ]
+        },
+        {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "X",
+              "type": 6,
+              "embedded": false,
+              "tag": ""
+            },
+            {
+              "name": "Y",
+              "type": 6,
+              "embedded": false,
+              "tag": ""
+            }
+          ]
+        },
+        {
+          "kind": "pointer",
+          "elem": 23
+        },
+        {
+          "kind": "basic",
+          "name": "untyped nil"
+        },
+        {
+          "kind": "basic",
+          "name": "untyped bool"
+        },
+        {
+          "kind": "named",
+          "pkg": "main",
+          "name": "bomb",
+          "underlying": 29,
+          "methods": [
+            {
+              "name": "Format",
+              "type": 2,
+              "index": [
+                0
+              ],
+              "ptr": false
+            }
+          ]
+        },
+        {
+          "kind": "struct",
+          "fields": []
+        },
+        {
+          "kind": "func",
+          "params": [
+            21
+          ],
+          "results": [],
+          "variadic": false
+        },
+        {
+          "kind": "basic",
+          "name": "invalid type"
+        },
+        {
+          "kind": "tuple",
+          "elems": []
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            1,
+            20
+          ],
+          "results": [
+            6,
+            12
+          ],
+          "variadic": true
+        },
+        {
+          "kind": "func",
+          "params": [
+            20
+          ],
+          "results": [
+            6,
+            12
+          ],
+          "variadic": true
+        },
+        {
+          "kind": "slice",
+          "elem": 0
+        },
+        {
+          "kind": "func",
+          "params": [
+            20
+          ],
+          "results": [
+            1
+          ],
+          "variadic": true
+        },
+        {
+          "kind": "named",
+          "pkg": "strings",
+          "name": "Builder",
+          "underlying": 39,
+          "methods": [
+            {
+              "name": "Cap",
+              "type": 41,
+              "index": [
+                3
+              ],
+              "ptr": true
+            },
+            {
+              "name": "Grow",
+              "type": 42,
+              "index": [
+                6
+              ],
+              "ptr": true
+            },
+            {
+              "name": "Len",
+              "type": 41,
+              "index": [
+                2
+              ],
+              "ptr": true
+            },
+            {
+              "name": "Reset",
+              "type": 33,
+              "index": [
+                4
+              ],
+              "ptr": true
+            },
+            {
+              "name": "String",
+              "type": 14,
+              "index": [
+                1
+              ],
+              "ptr": true
+            },
+            {
+              "name": "Write",
+              "type": 9,
+              "index": [
+                7
+              ],
+              "ptr": true
+            },
+            {
+              "name": "WriteByte",
+              "type": 43,
+              "index": [
+                8
+              ],
+              "ptr": true
+            },
+            {
+              "name": "WriteRune",
+              "type": 44,
+              "index": [
+                9
+              ],
+              "ptr": true
+            },
+            {
+              "name": "WriteString",
+              "type": 45,
+              "index": [
+                10
+              ],
+              "ptr": true
+            },
+            {
+              "name": "copyCheck",
+              "type": 33,
+              "index": [
+                0
+              ],
+              "ptr": true
+            },
+            {
+              "name": "grow",
+              "type": 42,
+              "index": [
+                5
+              ],
+              "ptr": true
+            }
+          ]
+        },
+        {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "addr",
+              "type": 40,
+              "embedded": false,
+              "tag": ""
+            },
+            {
+              "name": "buf",
+              "type": 10,
+              "embedded": false,
+              "tag": ""
+            }
+          ]
+        },
+        {
+          "kind": "pointer",
+          "elem": 38
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            6
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            6
+          ],
+          "results": [],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            11
+          ],
+          "results": [
+            12
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            15
+          ],
+          "results": [
+            6,
+            12
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            1
+          ],
+          "results": [
+            6,
+            12
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "named",
+          "pkg": "fmt",
+          "name": "Formatter",
+          "underlying": 47
+        },
+        {
+          "kind": "interface",
+          "methods": [
+            {
+              "name": "Format",
+              "type": 2
+            }
+          ],
+          "embeddeds": []
+        }
+      ],
+      "implements": [
+        {
+          "type": 23,
+          "interfaces": [
+            46
+          ]
+        },
+        {
+          "type": 0,
+          "interfaces": [
+            46
+          ]
+        },
+        {
+          "type": 28,
+          "interfaces": [
+            46
+          ]
+        }
+      ],
+      "initOrder": [],
+      "stdlibUsage": [
+        "fmt.Flag",
+        "fmt.Fprintf",
+        "fmt.Precision",
+        "fmt.Printf",
+        "fmt.Println",
+        "fmt.Sprint",
+        "fmt.State",
+        "fmt.Width",
+        "fmt.Write",
+        "strings.Builder",
+        "strings.String"
+      ],
+      "reflectUsage": null
+    }
+  ]
+}

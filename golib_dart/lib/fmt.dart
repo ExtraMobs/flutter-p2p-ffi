@@ -17,6 +17,20 @@ abstract interface class Stringer {
   Golang.String string();
 }
 
+/// `fmt.State`: o printer visto pelo método `Format` (flags, largura,
+/// precisão e a saída).
+abstract interface class State implements io.Writer {
+  (Golang.Int, bool) width();
+  (Golang.Int, bool) precision();
+  bool flag(Golang.Int c);
+}
+
+/// `fmt.Formatter`: `Format(f State, verb rune)` troca a formatação de
+/// todos os verbos (menos `%T` e `%p`), como no Go.
+abstract interface class Formatter {
+  void format(State? f, Golang.Rune verb);
+}
+
 /// `fmt.Println`: operandos em `%v` separados por espaço, mais newline.
 /// Escreve os bytes exatos (strings Go podem não ser UTF-8 válido).
 (Golang.Int, GoError?) println(Slice<Object?> args) {
@@ -107,7 +121,11 @@ void _appendV(BytesBuilder b, Object? v, {bool nested = false}) {
     case GoValue s when s.$nilPtr:
       try {
         final Object o = s;
-        if (o is GoError) {
+        if (o is Formatter) {
+          final p = _Printf(const []);
+          p._printArg(o, 0x76, nested ? 1 : 0);
+          b.add(p._b.takeBytes());
+        } else if (o is GoError) {
           b.add(o.error().toBytes());
         } else if (o is Stringer) {
           b.add(o.string().toBytes());
@@ -120,6 +138,10 @@ void _appendV(BytesBuilder b, Object? v, {bool nested = false}) {
     case NilPtr():
       b.add(utf8.encode('<nil>'));
     // Como o fmt do Go: error, depois Stringer, antes da forma estrutural.
+    case Formatter _ when _hasMethod(v, 'Format', nested):
+      final p = _Printf(const []);
+      p._printArg(v, 0x76, nested ? 1 : 0);
+      b.add(p._b.takeBytes());
     case GoError e when _hasMethod(e, 'Error', nested):
       b.add(e.error().toBytes());
     case Stringer s when _hasMethod(s, 'String', nested):
@@ -313,7 +335,7 @@ List<int> _ascii(String s) => s.codeUnits;
 /// Um `pp` do Go: flags do verbo corrente e o buffer de saída. Porte de
 /// `fmt/print.go` e `fmt/format.go`; o que não está portado lança
 /// [UnimplementedError] (nunca formata diferente do Go em silêncio).
-final class _Printf {
+final class _Printf implements State {
   _Printf(this.args, {this.wrapErrs = false});
 
   final List<Object?> args;
@@ -336,6 +358,28 @@ final class _Printf {
     wid = prec = 0;
     widPresent = precPresent = false;
   }
+
+  @override
+  (Golang.Int, GoError?) write(Slice<Golang.Uint8> p) {
+    _b.add(Uint8List.fromList([for (final x in p.items) x.toInt()]));
+    return (Golang.Int(p.length), null);
+  }
+
+  @override
+  (Golang.Int, bool) width() => (Golang.Int(wid), widPresent);
+
+  @override
+  (Golang.Int, bool) precision() => (Golang.Int(prec), precPresent);
+
+  @override
+  bool flag(Golang.Int c) => switch (c.toInt()) {
+    0x2d => minus,
+    0x2b => plus || plusV,
+    0x23 => sharp || sharpV,
+    0x20 => space,
+    0x30 => zero,
+    _ => false,
+  };
 
   Uint8List run(Uint8List f) {
     final end = f.length;
@@ -653,6 +697,21 @@ final class _Printf {
         return true;
       }
       verb = 0x76;
+    }
+    if (arg is Formatter && _hasMethod(arg, 'Format', nested)) {
+      try {
+        arg.format(this, Golang.Rune(verb));
+      } on Panic catch (p) {
+        final Object o = arg;
+        if (o is GoValue && o.$nilPtr) {
+          _pad(_ascii('<nil>'));
+          return true;
+        }
+        _b.add(_ascii('%!'));
+        _writeRune(verb);
+        _b.add(utf8.encode('(PANIC=Format method: ${describePanic(p.value)})'));
+      }
+      return true;
     }
     if (sharpV) throw UnimplementedError('fmt: %#v (GoStringer)');
     if (verb != 0x76 &&
