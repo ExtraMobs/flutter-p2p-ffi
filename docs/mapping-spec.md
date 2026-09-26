@@ -172,8 +172,9 @@ class Box extends go.GoStruct<Box> {
   ponteiro é `this`.
 - **Interfaces.** Um ponteiro-para-struct que entra numa interface vira
   `go.Addr(p)`: `*T` nil numa interface não é nil, como no Go.
-- Campos em branco (`_`) ficam fora do construtor e da igualdade. Embedding é
-  tratado como campo comum; a promoção é ❌.
+- Campos em branco (`_`) ficam fora do construtor e da igualdade. Campo
+  embutido é um campo com o nome do tipo; a promoção de campos e métodos está
+  em **Embedding** (seção M3, fixture `embed`).
 
 ## Slices (`go.Slice`)
 
