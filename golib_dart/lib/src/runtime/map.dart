@@ -73,6 +73,9 @@ base class GoMap<K, V> {
   /// `delete(m, k)`.
   void delete(K k) => _m?.remove(k);
 
+  /// `clear(m)`: remove todas as entradas (map nil: nada).
+  void clear() => _m?.clear();
+
   /// Chaves no início de um `range`.
   List<K> keysSnapshot() => _m?.keys.toList() ?? <K>[];
 

@@ -82,6 +82,14 @@ base class Slice<T> {
     _store(_array!, _off + i, v);
   }
 
+  /// `clear(s)`: zera os elementos da janela (struct/array in-place, como o
+  /// `[]=`: ponteiros para os elementos veem o zero).
+  void clear() {
+    for (var i = 0; i < _len; i++) {
+      _store(_array!, _off + i, elem.zero());
+    }
+  }
+
   /// `&s[i]`.
   Ptr<T> addr(int i) {
     _check(i);

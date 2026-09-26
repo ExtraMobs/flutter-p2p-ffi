@@ -45,6 +45,17 @@ def has_defer(node):
     return any(has_defer(v) for v in node.values() if isinstance(v, (dict, list)))
 
 
+def has_bare_return(node):
+    """A função (sem contar func literals aninhadas) tem `return` sem valores?"""
+    if isinstance(node, list):
+        return any(has_bare_return(x) for x in node)
+    if not isinstance(node, dict) or node.get("node") == "FuncLit":
+        return False
+    if node.get("node") == "ReturnStmt" and not node["results"]:
+        return True
+    return any(has_bare_return(v) for v in node.values() if isinstance(v, (dict, list)))
+
+
 def pos_key(pos):
     """Chave "arquivo:offset" de uma posição (igual ao `decl` do goast)."""
     return f"{pos['file']}:{pos['offset']}"

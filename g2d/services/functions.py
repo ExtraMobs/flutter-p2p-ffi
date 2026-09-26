@@ -1,6 +1,7 @@
 """Funções e métodos: cabeçalho, receptor, parâmetros (tipo, `$rd`), corpo com defers."""
 
-from g2d.analysis.helpers import doc_comment, has_defer, has_recover, mutates_receiver, tuple_expr, uses_decl
+from g2d.analysis.helpers import (doc_comment, has_bare_return, has_defer, has_recover, mutates_receiver,
+                                  tuple_expr, uses_decl)
 from g2d.engine.behavior import Service
 from g2d.engine.scope import FunctionScope, TypeParams
 from g2d.model import Unsupported
@@ -145,6 +146,10 @@ class Functions(Service):
         results = ftype["results"]
         named = results and results["list"] and results["list"][0]["names"]
         deferring = has_defer(body)
+        # Resultado nomeado só vira local se algo o usa (o Go aceita nunca
+        # lê-lo; o Dart acusaria local não usada).
+        named = named and (deferring or has_bare_return(body) or any(
+            uses_decl(body, ident["$obj"]["decl"]) for f in results["list"] for ident in f["names"]))
         self.scope.results, self.scope.sig, self.scope.defers = None, sig, None
         if deferring and not named and sig["results"]:
             self.scope.results = []

@@ -66,6 +66,45 @@ class Delete(BuiltinBehavior):
         return f"{self.expr(args[0], POSTFIX)}.delete({self.expr(args[1])})", POSTFIX
 
 
+class Min(BuiltinBehavior):
+    """`min(x, y, ...)` (Go 1.21) → go.minOf / go.minFloat (NaN e ±0 do Go).
+    Só chega aqui com operando não constante (constantes vêm dobradas)."""
+
+    name = "min"
+    helper = "min"
+
+    def emit(self, n, args):
+        t = self.pkg.type_of(n)
+        b = self.typesys.basic(t)
+        if b is None or b.cat not in ("wint", "float", "string"):
+            cat = b.cat if b else self.typesys.underlying(t)["kind"]
+            raise Unsupported(f"{self.name}:{cat}", f"{self.name} de {cat}", n)
+        items = ", ".join(self.values.coerce(a, t) for a in args)
+        dt = self.types.dart(t)
+        if b.cat == "float":
+            fn = self.imports.qualify(None, self.helper + "Float")
+            return f"{fn}<{dt}>([{items}], (v) => v.toDouble())", POSTFIX
+        fn = self.imports.qualify(None, self.helper + "Of")
+        return f"{fn}<{dt}>([{items}], (a, b) => a < b)", POSTFIX
+
+
+class Max(Min):
+    name = "max"
+    helper = "max"
+
+
+class Clear(BuiltinBehavior):
+    """`clear(m)` esvazia o map; `clear(s)` zera os elementos do slice."""
+
+    name = "clear"
+
+    def emit(self, n, args):
+        kind = self.typesys.underlying(self.pkg.type_of(args[0]))["kind"]
+        if kind not in ("map", "slice"):
+            raise Unsupported(f"clear:{kind}", f"clear de {kind}", n)
+        return f"{self.expr(args[0], POSTFIX)}.clear()", POSTFIX
+
+
 class Make(BuiltinBehavior):
     """`make([]T, n, c)` / `make(map[K]V)`."""
 

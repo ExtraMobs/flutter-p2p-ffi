@@ -63,7 +63,7 @@ class CollectionsPlugin(Plugin):
         engine.register_expr(exprs.IndexExpr)
         engine.register_expr(exprs.SliceExpr)
         for b in (builtins.Len, builtins.Cap, builtins.Append, builtins.Copy,
-                  builtins.Delete, builtins.Make):
+                  builtins.Delete, builtins.Make, builtins.Min, builtins.Max, builtins.Clear):
             engine.register_builtin(b)
 
 

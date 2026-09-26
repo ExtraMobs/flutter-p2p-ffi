@@ -16,6 +16,7 @@ export 'src/runtime/defer.dart';
 export 'src/runtime/elem.dart';
 export 'src/runtime/iface.dart';
 export 'src/runtime/map.dart';
+export 'src/runtime/order.dart';
 export 'src/runtime/panic.dart';
 export 'src/runtime/ptr.dart';
 export 'src/runtime/slice.dart';

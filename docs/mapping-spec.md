@@ -183,6 +183,7 @@ class Box extends go.GoStruct<Box> {
 | `s[a:b]`, `s[a:b:c]` | `s.slice(a, b)`, `s.slice(a, b, c)` (compartilha o array) |
 | `append(s, x, y)` / `append(s, t...)` | `s.append([x, y])` / `s.appendSlice(t)` |
 | `len`, `cap`, `copy(d, s)` | `Golang.Int(s.length)`, `Golang.Int(s.capacity)`, `Golang.Int(d.copyFrom(s))` |
+| `clear(s)` | `s.clear()`: zera os elementos da janela; struct/array in-place (`&s[i]` guardado vê o zero) |
 | `s == nil`, variádico vazio `f()` | `s.isNil`; `f` recebe um slice nil |
 | `&s[i]` (não-struct) | `s.addr(i)` (`go.ElemPtr`) |
 
@@ -207,6 +208,7 @@ o crescimento de `cap`, e ele muda entre versões do Go.
 | `v, ok := m[k]` | `var (v, ok) = m.lookup(k);` |
 | `m[k] = v` em map nil | `panic: assignment to entry in nil map` |
 | `delete(m, k)`, `len(m)`, `m == nil` | `m.delete(k)`, `Golang.Int(m.length)`, `m.isNil` |
+| `clear(m)` | `m.clear()` (map nil: nada) |
 | `for k, v := range m` | `for (k in m.keysSnapshot()) { if (!m.containsKey(k)) continue; ... }` |
 
 As chaves usam a igualdade das classes intermediárias: NaN nunca é
@@ -233,6 +235,7 @@ criado com `identity: true` (`Map.identity()`), então compara endereços.
 
 | Go | Dart |
 |---|---|
+| `min(x, y, ...)`, `max(...)` | constantes: literal dobrado pelo `go/types`; inteiros e strings: `go.minOf<T>([..], (a, b) => a < b)` / `go.maxOf`; floats: `go.minFloat<T>([..], (v) => v.toDouble())` / `go.maxFloat` (qualquer NaN → NaN; `-0.0` < `+0.0`), devolvendo o próprio operando (tipo nomeado preservado) |
 | expressão constante (incl. `iota`, constantes importadas e constantes locais de função) | literal do valor exato calculado pelo `go/types`; `const` local não gera declaração (cada uso já é o literal) |
 | literal string | `Golang.String.fromDart('...')`; UTF-8 inválido → `go.stringOfBytes(const [...])` |
 | `a / b`, `a % b` inteiros | `a ~/ b`, `a % b` (as classes implementam o truncamento do Go) |
@@ -259,7 +262,7 @@ criado com `identity: true` (`Map.identity()`), então compara endereços.
 | `x := e` / `var x T = e` / `var x T` | `T x = e;` (tipo sempre explícito) / `T x = <zero>;` |
 | `a, b := f()` (todas novas) / `a, b = b, a` | `var (a, b) = f();` / `(a, b) = (b, a);` |
 | declaração mista, alvos não-identificador, struct existente, variável em caixa | `final $t = ...; a = $t.$1; ...` (com `$set` para structs) |
-| resultados nomeados + `return` nu | locais inicializados no zero + `return (q, r);` |
+| resultados nomeados + `return` nu | locais inicializados no zero + `return (q, r);`; resultado nomeado que o corpo nunca usa (sem `return` nu nem `defer`) não vira local (o Go aceita; o Dart acusaria local não usada) |
 | `if init; cond`, `for`, `for cond`, `for {}` | `{ init; if }`, `for (...)`, `while (cond)`, `while (true)` |
 | `range` sobre slice / map / int | índice sobre a referência; `keysSnapshot` + `containsKey`; contador |
 | `range` sobre string | `for (var i = 0, w = 0; i < s.length; i += w)` com `s.decodeRune(i)` (runa, largura), igual ao `utf8.DecodeRune` |
