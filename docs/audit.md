@@ -11,13 +11,13 @@ Gerado por `python -m g2d audit github.com/ipfs/kubo/cmd/ipfs -C tests/corpus/ku
 
 | status | pacotes | % |
 |---|---:|---:|
-| verde | 62 | 5.6 |
+| verde | 63 | 5.7 |
 | dart-invalido | 1 | 0.1 |
 | bloqueado | 88 | 7.9 |
-| unsupported | 954 | 85.8 |
+| unsupported | 953 | 85.7 |
 | substituicao | 7 | 0.6 |
 
-**Verde: 62 de 1112 (5.6%).**
+**Verde: 63 de 1112 (5.7%).**
 
 ## Ranking de códigos
 
@@ -28,7 +28,7 @@ Ordem: pacotes da fronteira afetados, pacotes afetados, ocorrências.
 | `shim-ausente:io` | 966 | 232 | 43 | `github.com/ipld/go-car/v2/internal/io` converter.go:18:1: pacote sem shim/transpilação: io |
 | `shim-ausente:time` | 1456 | 279 | 42 | `github.com/cenkalti/backoff/v4` backoff.go:16:1: pacote sem shim/transpilação: time |
 | `shim-ausente:sync` | 692 | 305 | 37 | `github.com/cockroachdb/pebble/v2/internal/intern` intern.go:9:1: pacote sem shim/transpilação: sync |
-| `shim-ausente:os` | 267 | 114 | 29 | `github.com/cockroachdb/redact/internal/rfmt` print.go:220:6: pacote sem shim/transpilação: os |
+| `shim-ausente:os` | 268 | 114 | 29 | `github.com/cockroachdb/redact/internal/rfmt` print.go:220:6: pacote sem shim/transpilação: os |
 | `shim-ausente:context` | 1557 | 311 | 26 | `github.com/cenkalti/backoff/v4` context.go:10:1: pacote sem shim/transpilação: context |
 | `shim-ausente:net` | 624 | 111 | 17 | `github.com/google/gopacket/routing` common.go:16:1: pacote sem shim/transpilação: net |
 | `shim-simbolo:bytes.Buffer` | 97 | 59 | 16 | `github.com/cockroachdb/pebble/v2/internal/treeprinter` tree_printer.go:23:1: símbolo sem shim: bytes.Buffer |
@@ -45,7 +45,7 @@ Ordem: pacotes da fronteira afetados, pacotes afetados, ocorrências.
 | `shim-simbolo:strings.trimSpace` | 43 | 29 | 8 | `github.com/blang/semver/v4` semver.go:240:6: símbolo sem shim: strings.trimSpace |
 | `tipo-nomeado:array` | 35 | 27 | 8 | `google.golang.org/protobuf/internal/pragma` pragma.go:22:6: tipo nomeado sobre array |
 | `make:chan` | 81 | 57 | 7 | `github.com/cskr/pubsub` pubsub.go:43:16: make de chan |
-| `shim-ausente:unicode/utf8` | 71 | 29 | 7 | `github.com/rivo/uniseg` grapheme.go:215:6: pacote sem shim/transpilação: unicode/utf8 |
+| `shim-ausente:unicode/utf8` | 72 | 30 | 7 | `github.com/rivo/uniseg` grapheme.go:215:6: pacote sem shim/transpilação: unicode/utf8 |
 | `append-string` | 39 | 21 | 7 | `golang.org/x/net/dns/dnsmessage` message.go:1889:8: append([]byte, string...) |
 | `shim-ausente:math/big` | 80 | 17 | 7 | `github.com/dustin/go-humanize` big.go:8:6: pacote sem shim/transpilação: math/big |
 | `shim-simbolo:strings.equalFold` | 20 | 14 | 7 | `github.com/pion/webrtc/v4/internal/fmtp` fmtp.go:92:6: símbolo sem shim: strings.equalFold |
@@ -127,8 +127,6 @@ Ordem: pacotes da fronteira afetados, pacotes afetados, ocorrências.
 | `shim-ausente:crypto/elliptic` | 8 | 3 | 1 | `filippo.io/keygen` ecdsa.go:32:6: pacote sem shim/transpilação: crypto/elliptic |
 | `shim-ausente:crypto/rsa` | 5 | 3 | 1 | `filippo.io/keygen` rsa.go:30:6: pacote sem shim/transpilação: crypto/rsa |
 | `shim-simbolo:bytes.trimSuffix` | 5 | 3 | 1 | `github.com/klauspost/compress/s2` index.go:547:6: símbolo sem shim: bytes.trimSuffix |
-| `shim-simbolo:bytes.lastIndexByte` | 3 | 3 | 1 | `github.com/getsentry/sentry-go/internal/traceparser` parser.go:165:1: símbolo sem shim: bytes.lastIndexByte |
-| `shim-simbolo:bytes.trimRight` | 3 | 3 | 1 | `github.com/getsentry/sentry-go/internal/traceparser` parser.go:22:1: símbolo sem shim: bytes.trimRight |
 | `shim-simbolo:bytes.trimSpace` | 3 | 3 | 1 | `github.com/kr/text` wrap.go:23:6: símbolo sem shim: bytes.trimSpace |
 | `shim-simbolo:fmt.sprintln` | 3 | 3 | 1 | `github.com/fatih/color` color.go:683:6: símbolo sem shim: fmt.sprintln |
 | `shim-simbolo:math.exp` | 3 | 3 | 1 | `gonum.org/v1/gonum/mathext/internal/gonum` beta.go:24:6: símbolo sem shim: math.exp |
@@ -256,8 +254,8 @@ Ordem: pacotes da fronteira afetados, pacotes afetados, ocorrências.
 
 | área | ocorrências | pacotes |
 |---|---:|---:|
-| `shim-ausente` | 8972 | 873 |
-| `shim-simbolo` | 824 | 285 |
+| `shim-ausente` | 8974 | 873 |
+| `shim-simbolo` | 818 | 284 |
 | `tipo` | 200 | 92 |
 | `tipo-basico` | 357 | 68 |
 | `conversao` | 335 | 58 |
@@ -289,7 +287,7 @@ Ordem: pacotes da fronteira afetados, pacotes afetados, ocorrências.
 | `len` | 1 | 1 |
 | `min` | 1 | 1 |
 
-## Fronteira (238 pacotes)
+## Fronteira (237 pacotes)
 
 Não verdes com todas as dependências do grafo verdes: o próximo trabalho.
 
@@ -328,7 +326,6 @@ Não verdes com todas as dependências do grafo verdes: o próximo trabalho.
 | `google.golang.org/protobuf/internal/pragma` | unsupported | `tipo-nomeado:array`×2 |
 | `github.com/gabriel-vasile/mimetype/internal/json` | unsupported | `shim-ausente:sync`×2, `branch:goto` |
 | `github.com/gabriel-vasile/mimetype/internal/mp3` | unsupported | `tipo-nomeado:array` |
-| `github.com/getsentry/sentry-go/internal/traceparser` | unsupported | `shim-simbolo:bytes.lastIndexByte`, `shim-simbolo:bytes.trimRight` |
 | `github.com/ipld/go-car/v2/internal/io` | unsupported | `shim-ausente:io`×10 |
 | `github.com/kr/text` | unsupported | `shim-ausente:io`×2, `shim-simbolo:bytes.trimSpace` |
 | `github.com/multiformats/go-base32` | unsupported | `shim-ausente:io`×5 |
@@ -623,7 +620,7 @@ Não verdes com todas as dependências do grafo verdes: o próximo trabalho.
 | 83 | `google.golang.org/protobuf/internal/pragma` | unsupported | `tipo-nomeado:array`×2 |
 | 84 | `github.com/gabriel-vasile/mimetype/internal/json` | unsupported | `shim-ausente:sync`×2, `branch:goto` |
 | 85 | `github.com/gabriel-vasile/mimetype/internal/mp3` | unsupported | `tipo-nomeado:array` |
-| 86 | `github.com/getsentry/sentry-go/internal/traceparser` | unsupported | `shim-simbolo:bytes.lastIndexByte`, `shim-simbolo:bytes.trimRight` |
+| 86 | `github.com/getsentry/sentry-go/internal/traceparser` | verde |  |
 | 87 | `github.com/ipld/go-car/v2/internal/io` | unsupported | `shim-ausente:io`×10 |
 | 88 | `github.com/kr/text` | unsupported | `shim-ausente:io`×2, `shim-simbolo:bytes.trimSpace` |
 | 89 | `github.com/multiformats/go-base32` | unsupported | `shim-ausente:io`×5 |
@@ -900,8 +897,8 @@ Não verdes com todas as dependências do grafo verdes: o próximo trabalho.
 | 360 | `google.golang.org/protobuf/internal/genid` | bloqueado | `dart:uri_does_not_exist`×2 |
 | 361 | `google.golang.org/protobuf/internal/order` | unsupported | `shim-ausente:sync`×4 |
 | 362 | `google.golang.org/protobuf/internal/strs` | unsupported | `shim-ausente:unicode`×4, `builtin:None`×2, `append-string` |
-| 363 | `google.golang.org/protobuf/internal/encoding/json` | unsupported | `append-string`×3, `shim-ausente:regexp`×3, `shim-ausente:io`, `shim-simbolo:bytes.trimRight`, `shim-simbolo:strconv.parseFloat` (+1) |
-| 364 | `google.golang.org/protobuf/internal/encoding/text` | unsupported | `append-string`×4, `shim-ausente:io`, `shim-simbolo:bytes.lastIndexByte`, `shim-simbolo:strings.toLower`, `shim-simbolo:strings.trim` |
+| 363 | `google.golang.org/protobuf/internal/encoding/json` | unsupported | `append-string`×3, `shim-ausente:regexp`×3, `shim-ausente:io`, `shim-simbolo:strconv.parseFloat`, `shim-simbolo:strings.trim` |
+| 364 | `google.golang.org/protobuf/internal/encoding/text` | unsupported | `append-string`×4, `shim-ausente:io`, `shim-ausente:unicode/utf8`, `shim-simbolo:strings.toLower`, `shim-simbolo:strings.trim` |
 | 365 | `google.golang.org/protobuf/internal/encoding/defval` | unsupported | `append-string`, `shim-simbolo:strconv.formatFloat`, `shim-simbolo:strconv.parseFloat` |
 | 366 | `google.golang.org/protobuf/reflect/protoregistry` | unsupported | `shim-ausente:os`, `shim-ausente:sync`, `shim-simbolo:strings.lastIndexByte`, `shim-simbolo:strings.replace` |
 | 367 | `google.golang.org/protobuf/runtime/protoiface` | bloqueado |  |
@@ -1161,7 +1158,7 @@ Não verdes com todas as dependências do grafo verdes: o próximo trabalho.
 | 621 | `github.com/pion/transport/v4` | unsupported | `shim-ausente:net`×7, `shim-ausente:context` |
 | 622 | `github.com/pion/transport/v4/netctx` | unsupported | `shim-ausente:context`×5, `shim-ausente:net`×5, `shim-ausente:io`×2, `shim-ausente:time`×2 |
 | 623 | `github.com/pion/turn/v4/internal/ipnet` | unsupported | `shim-ausente:net`×3 |
-| 624 | `github.com/prometheus/procfs` | unsupported | `shim-ausente:regexp`×36, `shim-ausente:io`×21, `shim-simbolo:bytes.Reader`×15, `shim-ausente:os`×10, `shim-simbolo:strings.fields`×9 (+12) |
+| 624 | `github.com/prometheus/procfs` | unsupported | `shim-ausente:regexp`×36, `shim-ausente:io`×21, `shim-simbolo:bytes.Reader`×15, `shim-ausente:os`×11, `shim-simbolo:strings.fields`×9 (+11) |
 | 625 | `github.com/whyrusleeping/multiaddr-filter` | unsupported | `shim-ausente:net`×2 |
 | 626 | `github.com/wlynxg/anet` | unsupported | `shim-ausente:net`×3 |
 | 627 | `github.com/pion/transport/v3/stdnet` | unsupported | `shim-ausente:net`×3 |
@@ -1568,7 +1565,7 @@ Não verdes com todas as dependências do grafo verdes: o próximo trabalho.
 | 1028 | `github.com/cockroachdb/pebble/v2/internal/rangekey` | unsupported | `shim-simbolo:encoding/binary.putUvarint`×4, `shim-simbolo:encoding/binary.uvarint`×2, `shim-ausente:slices` |
 | 1029 | `github.com/cockroachdb/pebble/v2/internal/sstableinternal` | bloqueado | `dart:uri_does_not_exist`×2 |
 | 1030 | `github.com/cockroachdb/pebble/v2/internal/strparse` | unsupported | `shim-ausente:regexp`, `shim-simbolo:strings.fields` |
-| 1031 | `github.com/cockroachdb/pebble/v2/internal/testkeys` | unsupported | `shim-ausente:regexp`×3, `shim-simbolo:bytes.trimSuffix`×3, `branch:goto`, `shim-ausente:math/rand/v2`, `shim-simbolo:bytes.lastIndexByte` (+1) |
+| 1031 | `github.com/cockroachdb/pebble/v2/internal/testkeys` | unsupported | `shim-ausente:regexp`×3, `shim-simbolo:bytes.trimSuffix`×3, `branch:goto`, `shim-ausente:math/rand/v2`, `shim-simbolo:strconv.appendInt` |
 | 1032 | `github.com/cockroachdb/pebble/v2/objstorage/remote` | unsupported | `shim-ausente:sync` |
 | 1033 | `github.com/cockroachdb/pebble/v2/objstorage/objstorageprovider/sharedcache` | unsupported | `shim-ausente:sync` |
 | 1034 | `github.com/cockroachdb/pebble/v2/objstorage` | unsupported | `shim-ausente:context`×5, `shim-simbolo:bytes.Buffer`×2 |

@@ -15518,6 +15518,1207 @@
                       }
                     },
                     {
+                      "node": "RangeStmt",
+                      "for": {
+                        "file": "bytesstrings.go",
+                        "line": 123,
+                        "column": 2,
+                        "offset": 4539
+                      },
+                      "key": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "bytesstrings.go",
+                          "line": 123,
+                          "column": 6,
+                          "offset": 4543
+                        },
+                        "name": "_",
+                        "obj": {
+                          "node": "Object",
+                          "name": "_",
+                          "kind": "var"
+                        },
+                        "$obj": {
+                          "name": "_",
+                          "kind": "var",
+                          "def": true,
+                          "type": 5,
+                          "decl": "bytesstrings.go:4543",
+                          "pkg": "main"
+                        }
+                      },
+                      "value": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "bytesstrings.go",
+                          "line": 123,
+                          "column": 9,
+                          "offset": 4546
+                        },
+                        "name": "in",
+                        "obj": {
+                          "node": "Object",
+                          "name": "in",
+                          "kind": "var"
+                        },
+                        "$obj": {
+                          "name": "in",
+                          "kind": "var",
+                          "def": true,
+                          "type": 3,
+                          "decl": "bytesstrings.go:4546",
+                          "pkg": "main"
+                        }
+                      },
+                      "tokPos": {
+                        "file": "bytesstrings.go",
+                        "line": 123,
+                        "column": 12,
+                        "offset": 4549
+                      },
+                      "tok": ":=",
+                      "range": {
+                        "file": "bytesstrings.go",
+                        "line": 123,
+                        "column": 15,
+                        "offset": 4552
+                      },
+                      "x": {
+                        "node": "CompositeLit",
+                        "type": {
+                          "node": "ArrayType",
+                          "lbrack": {
+                            "file": "bytesstrings.go",
+                            "line": 123,
+                            "column": 21,
+                            "offset": 4558
+                          },
+                          "len": null,
+                          "elt": {
+                            "node": "ArrayType",
+                            "lbrack": {
+                              "file": "bytesstrings.go",
+                              "line": 123,
+                              "column": 23,
+                              "offset": 4560
+                            },
+                            "len": null,
+                            "elt": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "bytesstrings.go",
+                                "line": 123,
+                                "column": 25,
+                                "offset": 4562
+                              },
+                              "name": "byte",
+                              "obj": null,
+                              "$type": 4,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "byte",
+                                "kind": "type",
+                                "type": 4
+                              }
+                            },
+                            "$type": 3,
+                            "$isType": true
+                          },
+                          "$type": 30,
+                          "$isType": true
+                        },
+                        "lbrace": {
+                          "file": "bytesstrings.go",
+                          "line": 123,
+                          "column": 29,
+                          "offset": 4566
+                        },
+                        "elts": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "bytesstrings.go",
+                              "line": 123,
+                              "column": 30,
+                              "offset": 4567
+                            },
+                            "name": "nil",
+                            "obj": null,
+                            "$type": 31,
+                            "$obj": {
+                              "name": "nil",
+                              "kind": "nil",
+                              "type": 31
+                            }
+                          },
+                          {
+                            "node": "CompositeLit",
+                            "type": null,
+                            "lbrace": {
+                              "file": "bytesstrings.go",
+                              "line": 123,
+                              "column": 35,
+                              "offset": 4572
+                            },
+                            "elts": null,
+                            "rbrace": {
+                              "file": "bytesstrings.go",
+                              "line": 123,
+                              "column": 36,
+                              "offset": 4573
+                            },
+                            "incomplete": false,
+                            "$type": 3
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "ArrayType",
+                              "lbrack": {
+                                "file": "bytesstrings.go",
+                                "line": 123,
+                                "column": 39,
+                                "offset": 4576
+                              },
+                              "len": null,
+                              "elt": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "bytesstrings.go",
+                                  "line": 123,
+                                  "column": 41,
+                                  "offset": 4578
+                                },
+                                "name": "byte",
+                                "obj": null,
+                                "$type": 4,
+                                "$isType": true,
+                                "$obj": {
+                                  "name": "byte",
+                                  "kind": "type",
+                                  "type": 4
+                                }
+                              },
+                              "$type": 3,
+                              "$isType": true
+                            },
+                            "lparen": {
+                              "file": "bytesstrings.go",
+                              "line": 123,
+                              "column": 45,
+                              "offset": 4582
+                            },
+                            "args": [
+                              {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "bytesstrings.go",
+                                  "line": 123,
+                                  "column": 46,
+                                  "offset": 4583
+                                },
+                                "valueEnd": {
+                                  "file": "bytesstrings.go",
+                                  "line": 123,
+                                  "column": 52,
+                                  "offset": 4589
+                                },
+                                "kind": "STRING",
+                                "value": "\"\\n\\n\"",
+                                "$type": 7,
+                                "$value": {
+                                  "kind": "string",
+                                  "value": "\n\n"
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "bytesstrings.go",
+                              "line": 123,
+                              "column": 52,
+                              "offset": 4589
+                            },
+                            "$type": 3
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "ArrayType",
+                              "lbrack": {
+                                "file": "bytesstrings.go",
+                                "line": 123,
+                                "column": 55,
+                                "offset": 4592
+                              },
+                              "len": null,
+                              "elt": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "bytesstrings.go",
+                                  "line": 123,
+                                  "column": 57,
+                                  "offset": 4594
+                                },
+                                "name": "byte",
+                                "obj": null,
+                                "$type": 4,
+                                "$isType": true,
+                                "$obj": {
+                                  "name": "byte",
+                                  "kind": "type",
+                                  "type": 4
+                                }
+                              },
+                              "$type": 3,
+                              "$isType": true
+                            },
+                            "lparen": {
+                              "file": "bytesstrings.go",
+                              "line": 123,
+                              "column": 61,
+                              "offset": 4598
+                            },
+                            "args": [
+                              {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "bytesstrings.go",
+                                  "line": 123,
+                                  "column": 62,
+                                  "offset": 4599
+                                },
+                                "valueEnd": {
+                                  "file": "bytesstrings.go",
+                                  "line": 123,
+                                  "column": 70,
+                                  "offset": 4607
+                                },
+                                "kind": "STRING",
+                                "value": "\"ab\\n\\n\"",
+                                "$type": 7,
+                                "$value": {
+                                  "kind": "string",
+                                  "value": "ab\n\n"
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "bytesstrings.go",
+                              "line": 123,
+                              "column": 70,
+                              "offset": 4607
+                            },
+                            "$type": 3
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "ArrayType",
+                              "lbrack": {
+                                "file": "bytesstrings.go",
+                                "line": 123,
+                                "column": 73,
+                                "offset": 4610
+                              },
+                              "len": null,
+                              "elt": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "bytesstrings.go",
+                                  "line": 123,
+                                  "column": 75,
+                                  "offset": 4612
+                                },
+                                "name": "byte",
+                                "obj": null,
+                                "$type": 4,
+                                "$isType": true,
+                                "$obj": {
+                                  "name": "byte",
+                                  "kind": "type",
+                                  "type": 4
+                                }
+                              },
+                              "$type": 3,
+                              "$isType": true
+                            },
+                            "lparen": {
+                              "file": "bytesstrings.go",
+                              "line": 123,
+                              "column": 79,
+                              "offset": 4616
+                            },
+                            "args": [
+                              {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "bytesstrings.go",
+                                  "line": 123,
+                                  "column": 80,
+                                  "offset": 4617
+                                },
+                                "valueEnd": {
+                                  "file": "bytesstrings.go",
+                                  "line": 123,
+                                  "column": 89,
+                                  "offset": 4626
+                                },
+                                "kind": "STRING",
+                                "value": "\"xé\\xff\"",
+                                "$type": 7,
+                                "$value": {
+                                  "kind": "string",
+                                  "value": "xé\ufffd",
+                                  "bytes": [
+                                    120,
+                                    195,
+                                    169,
+                                    255
+                                  ]
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "bytesstrings.go",
+                              "line": 123,
+                              "column": 89,
+                              "offset": 4626
+                            },
+                            "$type": 3
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "ArrayType",
+                              "lbrack": {
+                                "file": "bytesstrings.go",
+                                "line": 123,
+                                "column": 92,
+                                "offset": 4629
+                              },
+                              "len": null,
+                              "elt": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "bytesstrings.go",
+                                  "line": 123,
+                                  "column": 94,
+                                  "offset": 4631
+                                },
+                                "name": "byte",
+                                "obj": null,
+                                "$type": 4,
+                                "$isType": true,
+                                "$obj": {
+                                  "name": "byte",
+                                  "kind": "type",
+                                  "type": 4
+                                }
+                              },
+                              "$type": 3,
+                              "$isType": true
+                            },
+                            "lparen": {
+                              "file": "bytesstrings.go",
+                              "line": 123,
+                              "column": 98,
+                              "offset": 4635
+                            },
+                            "args": [
+                              {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "bytesstrings.go",
+                                  "line": 123,
+                                  "column": 99,
+                                  "offset": 4636
+                                },
+                                "valueEnd": {
+                                  "file": "bytesstrings.go",
+                                  "line": 123,
+                                  "column": 106,
+                                  "offset": 4643
+                                },
+                                "kind": "STRING",
+                                "value": "\"é!é\"",
+                                "$type": 7,
+                                "$value": {
+                                  "kind": "string",
+                                  "value": "é!é"
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "bytesstrings.go",
+                              "line": 123,
+                              "column": 106,
+                              "offset": 4643
+                            },
+                            "$type": 3
+                          }
+                        ],
+                        "rbrace": {
+                          "file": "bytesstrings.go",
+                          "line": 123,
+                          "column": 107,
+                          "offset": 4644
+                        },
+                        "incomplete": false,
+                        "$type": 30
+                      },
+                      "body": {
+                        "node": "BlockStmt",
+                        "lbrace": {
+                          "file": "bytesstrings.go",
+                          "line": 123,
+                          "column": 109,
+                          "offset": 4646
+                        },
+                        "list": [
+                          {
+                            "node": "ExprStmt",
+                            "x": {
+                              "node": "CallExpr",
+                              "fun": {
+                                "node": "SelectorExpr",
+                                "x": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "bytesstrings.go",
+                                    "line": 124,
+                                    "column": 3,
+                                    "offset": 4650
+                                  },
+                                  "name": "fmt",
+                                  "obj": null,
+                                  "$obj": {
+                                    "name": "fmt",
+                                    "kind": "package",
+                                    "pkg": "fmt"
+                                  }
+                                },
+                                "sel": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "bytesstrings.go",
+                                    "line": 124,
+                                    "column": 7,
+                                    "offset": 4654
+                                  },
+                                  "name": "Printf",
+                                  "obj": null,
+                                  "$obj": {
+                                    "name": "Printf",
+                                    "kind": "func",
+                                    "type": 41,
+                                    "decl": "print.go:231",
+                                    "pkg": "fmt",
+                                    "top": true
+                                  }
+                                },
+                                "$type": 41
+                              },
+                              "lparen": {
+                                "file": "bytesstrings.go",
+                                "line": 124,
+                                "column": 13,
+                                "offset": 4660
+                              },
+                              "args": [
+                                {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "bytesstrings.go",
+                                    "line": 124,
+                                    "column": 14,
+                                    "offset": 4661
+                                  },
+                                  "valueEnd": {
+                                    "file": "bytesstrings.go",
+                                    "line": 124,
+                                    "column": 35,
+                                    "offset": 4682
+                                  },
+                                  "kind": "STRING",
+                                  "value": "\"%q %v %q %q %q %d\\n\"",
+                                  "$type": 7,
+                                  "$value": {
+                                    "kind": "string",
+                                    "value": "%q %v %q %q %q %d\n"
+                                  }
+                                },
+                                {
+                                  "node": "CallExpr",
+                                  "fun": {
+                                    "node": "SelectorExpr",
+                                    "x": {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "bytesstrings.go",
+                                        "line": 124,
+                                        "column": 37,
+                                        "offset": 4684
+                                      },
+                                      "name": "bytes",
+                                      "obj": null,
+                                      "$obj": {
+                                        "name": "bytes",
+                                        "kind": "package",
+                                        "pkg": "bytes"
+                                      }
+                                    },
+                                    "sel": {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "bytesstrings.go",
+                                        "line": 124,
+                                        "column": 43,
+                                        "offset": 4690
+                                      },
+                                      "name": "TrimRight",
+                                      "obj": null,
+                                      "$obj": {
+                                        "name": "TrimRight",
+                                        "kind": "func",
+                                        "type": 51,
+                                        "decl": "bytes.go:1057",
+                                        "pkg": "bytes",
+                                        "top": true
+                                      }
+                                    },
+                                    "$type": 51
+                                  },
+                                  "lparen": {
+                                    "file": "bytesstrings.go",
+                                    "line": 124,
+                                    "column": 52,
+                                    "offset": 4699
+                                  },
+                                  "args": [
+                                    {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "bytesstrings.go",
+                                        "line": 124,
+                                        "column": 53,
+                                        "offset": 4700
+                                      },
+                                      "name": "in",
+                                      "obj": {
+                                        "node": "Object",
+                                        "name": "in",
+                                        "kind": "var"
+                                      },
+                                      "$type": 3,
+                                      "$obj": {
+                                        "name": "in",
+                                        "kind": "var",
+                                        "type": 3,
+                                        "decl": "bytesstrings.go:4546",
+                                        "pkg": "main"
+                                      }
+                                    },
+                                    {
+                                      "node": "BasicLit",
+                                      "valuePos": {
+                                        "file": "bytesstrings.go",
+                                        "line": 124,
+                                        "column": 57,
+                                        "offset": 4704
+                                      },
+                                      "valueEnd": {
+                                        "file": "bytesstrings.go",
+                                        "line": 124,
+                                        "column": 61,
+                                        "offset": 4708
+                                      },
+                                      "kind": "STRING",
+                                      "value": "\"\\n\"",
+                                      "$type": 7,
+                                      "$value": {
+                                        "kind": "string",
+                                        "value": "\n"
+                                      }
+                                    }
+                                  ],
+                                  "ellipsis": null,
+                                  "rparen": {
+                                    "file": "bytesstrings.go",
+                                    "line": 124,
+                                    "column": 61,
+                                    "offset": 4708
+                                  },
+                                  "$type": 3
+                                },
+                                {
+                                  "node": "BinaryExpr",
+                                  "x": {
+                                    "node": "CallExpr",
+                                    "fun": {
+                                      "node": "SelectorExpr",
+                                      "x": {
+                                        "node": "Ident",
+                                        "namePos": {
+                                          "file": "bytesstrings.go",
+                                          "line": 124,
+                                          "column": 64,
+                                          "offset": 4711
+                                        },
+                                        "name": "bytes",
+                                        "obj": null,
+                                        "$obj": {
+                                          "name": "bytes",
+                                          "kind": "package",
+                                          "pkg": "bytes"
+                                        }
+                                      },
+                                      "sel": {
+                                        "node": "Ident",
+                                        "namePos": {
+                                          "file": "bytesstrings.go",
+                                          "line": 124,
+                                          "column": 70,
+                                          "offset": 4717
+                                        },
+                                        "name": "TrimRight",
+                                        "obj": null,
+                                        "$obj": {
+                                          "name": "TrimRight",
+                                          "kind": "func",
+                                          "type": 51,
+                                          "decl": "bytes.go:1057",
+                                          "pkg": "bytes",
+                                          "top": true
+                                        }
+                                      },
+                                      "$type": 51
+                                    },
+                                    "lparen": {
+                                      "file": "bytesstrings.go",
+                                      "line": 124,
+                                      "column": 79,
+                                      "offset": 4726
+                                    },
+                                    "args": [
+                                      {
+                                        "node": "Ident",
+                                        "namePos": {
+                                          "file": "bytesstrings.go",
+                                          "line": 124,
+                                          "column": 80,
+                                          "offset": 4727
+                                        },
+                                        "name": "in",
+                                        "obj": {
+                                          "node": "Object",
+                                          "name": "in",
+                                          "kind": "var"
+                                        },
+                                        "$type": 3,
+                                        "$obj": {
+                                          "name": "in",
+                                          "kind": "var",
+                                          "type": 3,
+                                          "decl": "bytesstrings.go:4546",
+                                          "pkg": "main"
+                                        }
+                                      },
+                                      {
+                                        "node": "BasicLit",
+                                        "valuePos": {
+                                          "file": "bytesstrings.go",
+                                          "line": 124,
+                                          "column": 84,
+                                          "offset": 4731
+                                        },
+                                        "valueEnd": {
+                                          "file": "bytesstrings.go",
+                                          "line": 124,
+                                          "column": 88,
+                                          "offset": 4735
+                                        },
+                                        "kind": "STRING",
+                                        "value": "\"\\n\"",
+                                        "$type": 7,
+                                        "$value": {
+                                          "kind": "string",
+                                          "value": "\n"
+                                        }
+                                      }
+                                    ],
+                                    "ellipsis": null,
+                                    "rparen": {
+                                      "file": "bytesstrings.go",
+                                      "line": 124,
+                                      "column": 88,
+                                      "offset": 4735
+                                    },
+                                    "$type": 3
+                                  },
+                                  "opPos": {
+                                    "file": "bytesstrings.go",
+                                    "line": 124,
+                                    "column": 90,
+                                    "offset": 4737
+                                  },
+                                  "op": "==",
+                                  "y": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "bytesstrings.go",
+                                      "line": 124,
+                                      "column": 93,
+                                      "offset": 4740
+                                    },
+                                    "name": "nil",
+                                    "obj": null,
+                                    "$type": 31,
+                                    "$obj": {
+                                      "name": "nil",
+                                      "kind": "nil",
+                                      "type": 31
+                                    }
+                                  },
+                                  "$type": 12
+                                },
+                                {
+                                  "node": "CallExpr",
+                                  "fun": {
+                                    "node": "SelectorExpr",
+                                    "x": {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "bytesstrings.go",
+                                        "line": 125,
+                                        "column": 4,
+                                        "offset": 4748
+                                      },
+                                      "name": "bytes",
+                                      "obj": null,
+                                      "$obj": {
+                                        "name": "bytes",
+                                        "kind": "package",
+                                        "pkg": "bytes"
+                                      }
+                                    },
+                                    "sel": {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "bytesstrings.go",
+                                        "line": 125,
+                                        "column": 10,
+                                        "offset": 4754
+                                      },
+                                      "name": "TrimRight",
+                                      "obj": null,
+                                      "$obj": {
+                                        "name": "TrimRight",
+                                        "kind": "func",
+                                        "type": 51,
+                                        "decl": "bytes.go:1057",
+                                        "pkg": "bytes",
+                                        "top": true
+                                      }
+                                    },
+                                    "$type": 51
+                                  },
+                                  "lparen": {
+                                    "file": "bytesstrings.go",
+                                    "line": 125,
+                                    "column": 19,
+                                    "offset": 4763
+                                  },
+                                  "args": [
+                                    {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "bytesstrings.go",
+                                        "line": 125,
+                                        "column": 20,
+                                        "offset": 4764
+                                      },
+                                      "name": "in",
+                                      "obj": {
+                                        "node": "Object",
+                                        "name": "in",
+                                        "kind": "var"
+                                      },
+                                      "$type": 3,
+                                      "$obj": {
+                                        "name": "in",
+                                        "kind": "var",
+                                        "type": 3,
+                                        "decl": "bytesstrings.go:4546",
+                                        "pkg": "main"
+                                      }
+                                    },
+                                    {
+                                      "node": "BasicLit",
+                                      "valuePos": {
+                                        "file": "bytesstrings.go",
+                                        "line": 125,
+                                        "column": 24,
+                                        "offset": 4768
+                                      },
+                                      "valueEnd": {
+                                        "file": "bytesstrings.go",
+                                        "line": 125,
+                                        "column": 31,
+                                        "offset": 4775
+                                      },
+                                      "kind": "STRING",
+                                      "value": "\"é�\"",
+                                      "$type": 7,
+                                      "$value": {
+                                        "kind": "string",
+                                        "value": "é�"
+                                      }
+                                    }
+                                  ],
+                                  "ellipsis": null,
+                                  "rparen": {
+                                    "file": "bytesstrings.go",
+                                    "line": 125,
+                                    "column": 31,
+                                    "offset": 4775
+                                  },
+                                  "$type": 3
+                                },
+                                {
+                                  "node": "CallExpr",
+                                  "fun": {
+                                    "node": "SelectorExpr",
+                                    "x": {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "bytesstrings.go",
+                                        "line": 125,
+                                        "column": 34,
+                                        "offset": 4778
+                                      },
+                                      "name": "bytes",
+                                      "obj": null,
+                                      "$obj": {
+                                        "name": "bytes",
+                                        "kind": "package",
+                                        "pkg": "bytes"
+                                      }
+                                    },
+                                    "sel": {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "bytesstrings.go",
+                                        "line": 125,
+                                        "column": 40,
+                                        "offset": 4784
+                                      },
+                                      "name": "TrimRight",
+                                      "obj": null,
+                                      "$obj": {
+                                        "name": "TrimRight",
+                                        "kind": "func",
+                                        "type": 51,
+                                        "decl": "bytes.go:1057",
+                                        "pkg": "bytes",
+                                        "top": true
+                                      }
+                                    },
+                                    "$type": 51
+                                  },
+                                  "lparen": {
+                                    "file": "bytesstrings.go",
+                                    "line": 125,
+                                    "column": 49,
+                                    "offset": 4793
+                                  },
+                                  "args": [
+                                    {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "bytesstrings.go",
+                                        "line": 125,
+                                        "column": 50,
+                                        "offset": 4794
+                                      },
+                                      "name": "in",
+                                      "obj": {
+                                        "node": "Object",
+                                        "name": "in",
+                                        "kind": "var"
+                                      },
+                                      "$type": 3,
+                                      "$obj": {
+                                        "name": "in",
+                                        "kind": "var",
+                                        "type": 3,
+                                        "decl": "bytesstrings.go:4546",
+                                        "pkg": "main"
+                                      }
+                                    },
+                                    {
+                                      "node": "BasicLit",
+                                      "valuePos": {
+                                        "file": "bytesstrings.go",
+                                        "line": 125,
+                                        "column": 54,
+                                        "offset": 4798
+                                      },
+                                      "valueEnd": {
+                                        "file": "bytesstrings.go",
+                                        "line": 125,
+                                        "column": 59,
+                                        "offset": 4803
+                                      },
+                                      "kind": "STRING",
+                                      "value": "\"!é\"",
+                                      "$type": 7,
+                                      "$value": {
+                                        "kind": "string",
+                                        "value": "!é"
+                                      }
+                                    }
+                                  ],
+                                  "ellipsis": null,
+                                  "rparen": {
+                                    "file": "bytesstrings.go",
+                                    "line": 125,
+                                    "column": 59,
+                                    "offset": 4803
+                                  },
+                                  "$type": 3
+                                },
+                                {
+                                  "node": "CallExpr",
+                                  "fun": {
+                                    "node": "SelectorExpr",
+                                    "x": {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "bytesstrings.go",
+                                        "line": 125,
+                                        "column": 62,
+                                        "offset": 4806
+                                      },
+                                      "name": "bytes",
+                                      "obj": null,
+                                      "$obj": {
+                                        "name": "bytes",
+                                        "kind": "package",
+                                        "pkg": "bytes"
+                                      }
+                                    },
+                                    "sel": {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "bytesstrings.go",
+                                        "line": 125,
+                                        "column": 68,
+                                        "offset": 4812
+                                      },
+                                      "name": "TrimRight",
+                                      "obj": null,
+                                      "$obj": {
+                                        "name": "TrimRight",
+                                        "kind": "func",
+                                        "type": 51,
+                                        "decl": "bytes.go:1057",
+                                        "pkg": "bytes",
+                                        "top": true
+                                      }
+                                    },
+                                    "$type": 51
+                                  },
+                                  "lparen": {
+                                    "file": "bytesstrings.go",
+                                    "line": 125,
+                                    "column": 77,
+                                    "offset": 4821
+                                  },
+                                  "args": [
+                                    {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "bytesstrings.go",
+                                        "line": 125,
+                                        "column": 78,
+                                        "offset": 4822
+                                      },
+                                      "name": "in",
+                                      "obj": {
+                                        "node": "Object",
+                                        "name": "in",
+                                        "kind": "var"
+                                      },
+                                      "$type": 3,
+                                      "$obj": {
+                                        "name": "in",
+                                        "kind": "var",
+                                        "type": 3,
+                                        "decl": "bytesstrings.go:4546",
+                                        "pkg": "main"
+                                      }
+                                    },
+                                    {
+                                      "node": "BasicLit",
+                                      "valuePos": {
+                                        "file": "bytesstrings.go",
+                                        "line": 125,
+                                        "column": 82,
+                                        "offset": 4826
+                                      },
+                                      "valueEnd": {
+                                        "file": "bytesstrings.go",
+                                        "line": 125,
+                                        "column": 84,
+                                        "offset": 4828
+                                      },
+                                      "kind": "STRING",
+                                      "value": "\"\"",
+                                      "$type": 7,
+                                      "$value": {
+                                        "kind": "string",
+                                        "value": ""
+                                      }
+                                    }
+                                  ],
+                                  "ellipsis": null,
+                                  "rparen": {
+                                    "file": "bytesstrings.go",
+                                    "line": 125,
+                                    "column": 84,
+                                    "offset": 4828
+                                  },
+                                  "$type": 3
+                                },
+                                {
+                                  "node": "CallExpr",
+                                  "fun": {
+                                    "node": "SelectorExpr",
+                                    "x": {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "bytesstrings.go",
+                                        "line": 125,
+                                        "column": 87,
+                                        "offset": 4831
+                                      },
+                                      "name": "bytes",
+                                      "obj": null,
+                                      "$obj": {
+                                        "name": "bytes",
+                                        "kind": "package",
+                                        "pkg": "bytes"
+                                      }
+                                    },
+                                    "sel": {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "bytesstrings.go",
+                                        "line": 125,
+                                        "column": 93,
+                                        "offset": 4837
+                                      },
+                                      "name": "LastIndexByte",
+                                      "obj": null,
+                                      "$obj": {
+                                        "name": "LastIndexByte",
+                                        "kind": "func",
+                                        "type": 33,
+                                        "decl": "bytes.go:129",
+                                        "pkg": "bytes",
+                                        "top": true
+                                      }
+                                    },
+                                    "$type": 33
+                                  },
+                                  "lparen": {
+                                    "file": "bytesstrings.go",
+                                    "line": 125,
+                                    "column": 106,
+                                    "offset": 4850
+                                  },
+                                  "args": [
+                                    {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "bytesstrings.go",
+                                        "line": 125,
+                                        "column": 107,
+                                        "offset": 4851
+                                      },
+                                      "name": "in",
+                                      "obj": {
+                                        "node": "Object",
+                                        "name": "in",
+                                        "kind": "var"
+                                      },
+                                      "$type": 3,
+                                      "$obj": {
+                                        "name": "in",
+                                        "kind": "var",
+                                        "type": 3,
+                                        "decl": "bytesstrings.go:4546",
+                                        "pkg": "main"
+                                      }
+                                    },
+                                    {
+                                      "node": "BasicLit",
+                                      "valuePos": {
+                                        "file": "bytesstrings.go",
+                                        "line": 125,
+                                        "column": 111,
+                                        "offset": 4855
+                                      },
+                                      "valueEnd": {
+                                        "file": "bytesstrings.go",
+                                        "line": 125,
+                                        "column": 115,
+                                        "offset": 4859
+                                      },
+                                      "kind": "CHAR",
+                                      "value": "'\\n'",
+                                      "$type": 4,
+                                      "$value": {
+                                        "kind": "int",
+                                        "value": "10"
+                                      }
+                                    }
+                                  ],
+                                  "ellipsis": null,
+                                  "rparen": {
+                                    "file": "bytesstrings.go",
+                                    "line": 125,
+                                    "column": 115,
+                                    "offset": 4859
+                                  },
+                                  "$type": 5
+                                }
+                              ],
+                              "ellipsis": null,
+                              "rparen": {
+                                "file": "bytesstrings.go",
+                                "line": 125,
+                                "column": 116,
+                                "offset": 4860
+                              },
+                              "$type": 29
+                            }
+                          }
+                        ],
+                        "rbrace": {
+                          "file": "bytesstrings.go",
+                          "line": 126,
+                          "column": 2,
+                          "offset": 4863
+                        }
+                      }
+                    },
+                    {
                       "node": "ExprStmt",
                       "x": {
                         "node": "CallExpr",
@@ -15527,9 +16728,9 @@
                             "node": "Ident",
                             "namePos": {
                               "file": "bytesstrings.go",
-                              "line": 122,
+                              "line": 127,
                               "column": 2,
-                              "offset": 4478
+                              "offset": 4866
                             },
                             "name": "fmt",
                             "obj": null,
@@ -15543,9 +16744,9 @@
                             "node": "Ident",
                             "namePos": {
                               "file": "bytesstrings.go",
-                              "line": 122,
+                              "line": 127,
                               "column": 6,
-                              "offset": 4482
+                              "offset": 4870
                             },
                             "name": "Println",
                             "obj": null,
@@ -15562,9 +16763,9 @@
                         },
                         "lparen": {
                           "file": "bytesstrings.go",
-                          "line": 122,
+                          "line": 127,
                           "column": 13,
-                          "offset": 4489
+                          "offset": 4877
                         },
                         "args": [
                           {
@@ -15575,9 +16776,9 @@
                                 "node": "Ident",
                                 "namePos": {
                                   "file": "bytesstrings.go",
-                                  "line": 122,
+                                  "line": 127,
                                   "column": 14,
-                                  "offset": 4490
+                                  "offset": 4878
                                 },
                                 "name": "subtle",
                                 "obj": null,
@@ -15591,9 +16792,9 @@
                                 "node": "Ident",
                                 "namePos": {
                                   "file": "bytesstrings.go",
-                                  "line": 122,
+                                  "line": 127,
                                   "column": 21,
-                                  "offset": 4497
+                                  "offset": 4885
                                 },
                                 "name": "ConstantTimeCompare",
                                 "obj": null,
@@ -15610,9 +16811,9 @@
                             },
                             "lparen": {
                               "file": "bytesstrings.go",
-                              "line": 122,
+                              "line": 127,
                               "column": 40,
-                              "offset": 4516
+                              "offset": 4904
                             },
                             "args": [
                               {
@@ -15621,18 +16822,18 @@
                                   "node": "ArrayType",
                                   "lbrack": {
                                     "file": "bytesstrings.go",
-                                    "line": 122,
+                                    "line": 127,
                                     "column": 41,
-                                    "offset": 4517
+                                    "offset": 4905
                                   },
                                   "len": null,
                                   "elt": {
                                     "node": "Ident",
                                     "namePos": {
                                       "file": "bytesstrings.go",
-                                      "line": 122,
+                                      "line": 127,
                                       "column": 43,
-                                      "offset": 4519
+                                      "offset": 4907
                                     },
                                     "name": "byte",
                                     "obj": null,
@@ -15649,24 +16850,24 @@
                                 },
                                 "lparen": {
                                   "file": "bytesstrings.go",
-                                  "line": 122,
+                                  "line": 127,
                                   "column": 47,
-                                  "offset": 4523
+                                  "offset": 4911
                                 },
                                 "args": [
                                   {
                                     "node": "BasicLit",
                                     "valuePos": {
                                       "file": "bytesstrings.go",
-                                      "line": 122,
+                                      "line": 127,
                                       "column": 48,
-                                      "offset": 4524
+                                      "offset": 4912
                                     },
                                     "valueEnd": {
                                       "file": "bytesstrings.go",
-                                      "line": 122,
+                                      "line": 127,
                                       "column": 53,
-                                      "offset": 4529
+                                      "offset": 4917
                                     },
                                     "kind": "STRING",
                                     "value": "\"abc\"",
@@ -15680,9 +16881,9 @@
                                 "ellipsis": null,
                                 "rparen": {
                                   "file": "bytesstrings.go",
-                                  "line": 122,
+                                  "line": 127,
                                   "column": 53,
-                                  "offset": 4529
+                                  "offset": 4917
                                 },
                                 "$type": 3
                               },
@@ -15692,18 +16893,18 @@
                                   "node": "ArrayType",
                                   "lbrack": {
                                     "file": "bytesstrings.go",
-                                    "line": 122,
+                                    "line": 127,
                                     "column": 56,
-                                    "offset": 4532
+                                    "offset": 4920
                                   },
                                   "len": null,
                                   "elt": {
                                     "node": "Ident",
                                     "namePos": {
                                       "file": "bytesstrings.go",
-                                      "line": 122,
+                                      "line": 127,
                                       "column": 58,
-                                      "offset": 4534
+                                      "offset": 4922
                                     },
                                     "name": "byte",
                                     "obj": null,
@@ -15720,24 +16921,24 @@
                                 },
                                 "lparen": {
                                   "file": "bytesstrings.go",
-                                  "line": 122,
+                                  "line": 127,
                                   "column": 62,
-                                  "offset": 4538
+                                  "offset": 4926
                                 },
                                 "args": [
                                   {
                                     "node": "BasicLit",
                                     "valuePos": {
                                       "file": "bytesstrings.go",
-                                      "line": 122,
+                                      "line": 127,
                                       "column": 63,
-                                      "offset": 4539
+                                      "offset": 4927
                                     },
                                     "valueEnd": {
                                       "file": "bytesstrings.go",
-                                      "line": 122,
+                                      "line": 127,
                                       "column": 68,
-                                      "offset": 4544
+                                      "offset": 4932
                                     },
                                     "kind": "STRING",
                                     "value": "\"abc\"",
@@ -15751,9 +16952,9 @@
                                 "ellipsis": null,
                                 "rparen": {
                                   "file": "bytesstrings.go",
-                                  "line": 122,
+                                  "line": 127,
                                   "column": 68,
-                                  "offset": 4544
+                                  "offset": 4932
                                 },
                                 "$type": 3
                               }
@@ -15761,9 +16962,9 @@
                             "ellipsis": null,
                             "rparen": {
                               "file": "bytesstrings.go",
-                              "line": 122,
+                              "line": 127,
                               "column": 69,
-                              "offset": 4545
+                              "offset": 4933
                             },
                             "$type": 5
                           },
@@ -15775,9 +16976,9 @@
                                 "node": "Ident",
                                 "namePos": {
                                   "file": "bytesstrings.go",
-                                  "line": 122,
+                                  "line": 127,
                                   "column": 72,
-                                  "offset": 4548
+                                  "offset": 4936
                                 },
                                 "name": "subtle",
                                 "obj": null,
@@ -15791,9 +16992,9 @@
                                 "node": "Ident",
                                 "namePos": {
                                   "file": "bytesstrings.go",
-                                  "line": 122,
+                                  "line": 127,
                                   "column": 79,
-                                  "offset": 4555
+                                  "offset": 4943
                                 },
                                 "name": "ConstantTimeCompare",
                                 "obj": null,
@@ -15810,9 +17011,9 @@
                             },
                             "lparen": {
                               "file": "bytesstrings.go",
-                              "line": 122,
+                              "line": 127,
                               "column": 98,
-                              "offset": 4574
+                              "offset": 4962
                             },
                             "args": [
                               {
@@ -15821,18 +17022,18 @@
                                   "node": "ArrayType",
                                   "lbrack": {
                                     "file": "bytesstrings.go",
-                                    "line": 122,
+                                    "line": 127,
                                     "column": 99,
-                                    "offset": 4575
+                                    "offset": 4963
                                   },
                                   "len": null,
                                   "elt": {
                                     "node": "Ident",
                                     "namePos": {
                                       "file": "bytesstrings.go",
-                                      "line": 122,
+                                      "line": 127,
                                       "column": 101,
-                                      "offset": 4577
+                                      "offset": 4965
                                     },
                                     "name": "byte",
                                     "obj": null,
@@ -15849,24 +17050,24 @@
                                 },
                                 "lparen": {
                                   "file": "bytesstrings.go",
-                                  "line": 122,
+                                  "line": 127,
                                   "column": 105,
-                                  "offset": 4581
+                                  "offset": 4969
                                 },
                                 "args": [
                                   {
                                     "node": "BasicLit",
                                     "valuePos": {
                                       "file": "bytesstrings.go",
-                                      "line": 122,
+                                      "line": 127,
                                       "column": 106,
-                                      "offset": 4582
+                                      "offset": 4970
                                     },
                                     "valueEnd": {
                                       "file": "bytesstrings.go",
-                                      "line": 122,
+                                      "line": 127,
                                       "column": 111,
-                                      "offset": 4587
+                                      "offset": 4975
                                     },
                                     "kind": "STRING",
                                     "value": "\"abc\"",
@@ -15880,9 +17081,9 @@
                                 "ellipsis": null,
                                 "rparen": {
                                   "file": "bytesstrings.go",
-                                  "line": 122,
+                                  "line": 127,
                                   "column": 111,
-                                  "offset": 4587
+                                  "offset": 4975
                                 },
                                 "$type": 3
                               },
@@ -15892,18 +17093,18 @@
                                   "node": "ArrayType",
                                   "lbrack": {
                                     "file": "bytesstrings.go",
-                                    "line": 122,
+                                    "line": 127,
                                     "column": 114,
-                                    "offset": 4590
+                                    "offset": 4978
                                   },
                                   "len": null,
                                   "elt": {
                                     "node": "Ident",
                                     "namePos": {
                                       "file": "bytesstrings.go",
-                                      "line": 122,
+                                      "line": 127,
                                       "column": 116,
-                                      "offset": 4592
+                                      "offset": 4980
                                     },
                                     "name": "byte",
                                     "obj": null,
@@ -15920,24 +17121,24 @@
                                 },
                                 "lparen": {
                                   "file": "bytesstrings.go",
-                                  "line": 122,
+                                  "line": 127,
                                   "column": 120,
-                                  "offset": 4596
+                                  "offset": 4984
                                 },
                                 "args": [
                                   {
                                     "node": "BasicLit",
                                     "valuePos": {
                                       "file": "bytesstrings.go",
-                                      "line": 122,
+                                      "line": 127,
                                       "column": 121,
-                                      "offset": 4597
+                                      "offset": 4985
                                     },
                                     "valueEnd": {
                                       "file": "bytesstrings.go",
-                                      "line": 122,
+                                      "line": 127,
                                       "column": 126,
-                                      "offset": 4602
+                                      "offset": 4990
                                     },
                                     "kind": "STRING",
                                     "value": "\"abd\"",
@@ -15951,9 +17152,9 @@
                                 "ellipsis": null,
                                 "rparen": {
                                   "file": "bytesstrings.go",
-                                  "line": 122,
+                                  "line": 127,
                                   "column": 126,
-                                  "offset": 4602
+                                  "offset": 4990
                                 },
                                 "$type": 3
                               }
@@ -15961,9 +17162,9 @@
                             "ellipsis": null,
                             "rparen": {
                               "file": "bytesstrings.go",
-                              "line": 122,
+                              "line": 127,
                               "column": 127,
-                              "offset": 4603
+                              "offset": 4991
                             },
                             "$type": 5
                           },
@@ -15975,9 +17176,9 @@
                                 "node": "Ident",
                                 "namePos": {
                                   "file": "bytesstrings.go",
-                                  "line": 123,
+                                  "line": 128,
                                   "column": 3,
-                                  "offset": 4608
+                                  "offset": 4996
                                 },
                                 "name": "subtle",
                                 "obj": null,
@@ -15991,9 +17192,9 @@
                                 "node": "Ident",
                                 "namePos": {
                                   "file": "bytesstrings.go",
-                                  "line": 123,
+                                  "line": 128,
                                   "column": 10,
-                                  "offset": 4615
+                                  "offset": 5003
                                 },
                                 "name": "ConstantTimeCompare",
                                 "obj": null,
@@ -16010,18 +17211,18 @@
                             },
                             "lparen": {
                               "file": "bytesstrings.go",
-                              "line": 123,
+                              "line": 128,
                               "column": 29,
-                              "offset": 4634
+                              "offset": 5022
                             },
                             "args": [
                               {
                                 "node": "Ident",
                                 "namePos": {
                                   "file": "bytesstrings.go",
-                                  "line": 123,
+                                  "line": 128,
                                   "column": 30,
-                                  "offset": 4635
+                                  "offset": 5023
                                 },
                                 "name": "nil",
                                 "obj": null,
@@ -16038,18 +17239,18 @@
                                   "node": "ArrayType",
                                   "lbrack": {
                                     "file": "bytesstrings.go",
-                                    "line": 123,
+                                    "line": 128,
                                     "column": 35,
-                                    "offset": 4640
+                                    "offset": 5028
                                   },
                                   "len": null,
                                   "elt": {
                                     "node": "Ident",
                                     "namePos": {
                                       "file": "bytesstrings.go",
-                                      "line": 123,
+                                      "line": 128,
                                       "column": 37,
-                                      "offset": 4642
+                                      "offset": 5030
                                     },
                                     "name": "byte",
                                     "obj": null,
@@ -16066,16 +17267,16 @@
                                 },
                                 "lbrace": {
                                   "file": "bytesstrings.go",
-                                  "line": 123,
+                                  "line": 128,
                                   "column": 41,
-                                  "offset": 4646
+                                  "offset": 5034
                                 },
                                 "elts": null,
                                 "rbrace": {
                                   "file": "bytesstrings.go",
-                                  "line": 123,
+                                  "line": 128,
                                   "column": 42,
-                                  "offset": 4647
+                                  "offset": 5035
                                 },
                                 "incomplete": false,
                                 "$type": 3
@@ -16084,9 +17285,9 @@
                             "ellipsis": null,
                             "rparen": {
                               "file": "bytesstrings.go",
-                              "line": 123,
+                              "line": 128,
                               "column": 43,
-                              "offset": 4648
+                              "offset": 5036
                             },
                             "$type": 5
                           },
@@ -16098,9 +17299,9 @@
                                 "node": "Ident",
                                 "namePos": {
                                   "file": "bytesstrings.go",
-                                  "line": 123,
+                                  "line": 128,
                                   "column": 46,
-                                  "offset": 4651
+                                  "offset": 5039
                                 },
                                 "name": "subtle",
                                 "obj": null,
@@ -16114,9 +17315,9 @@
                                 "node": "Ident",
                                 "namePos": {
                                   "file": "bytesstrings.go",
-                                  "line": 123,
+                                  "line": 128,
                                   "column": 53,
-                                  "offset": 4658
+                                  "offset": 5046
                                 },
                                 "name": "ConstantTimeCompare",
                                 "obj": null,
@@ -16133,9 +17334,9 @@
                             },
                             "lparen": {
                               "file": "bytesstrings.go",
-                              "line": 123,
+                              "line": 128,
                               "column": 72,
-                              "offset": 4677
+                              "offset": 5065
                             },
                             "args": [
                               {
@@ -16144,18 +17345,18 @@
                                   "node": "ArrayType",
                                   "lbrack": {
                                     "file": "bytesstrings.go",
-                                    "line": 123,
+                                    "line": 128,
                                     "column": 73,
-                                    "offset": 4678
+                                    "offset": 5066
                                   },
                                   "len": null,
                                   "elt": {
                                     "node": "Ident",
                                     "namePos": {
                                       "file": "bytesstrings.go",
-                                      "line": 123,
+                                      "line": 128,
                                       "column": 75,
-                                      "offset": 4680
+                                      "offset": 5068
                                     },
                                     "name": "byte",
                                     "obj": null,
@@ -16172,24 +17373,24 @@
                                 },
                                 "lparen": {
                                   "file": "bytesstrings.go",
-                                  "line": 123,
+                                  "line": 128,
                                   "column": 79,
-                                  "offset": 4684
+                                  "offset": 5072
                                 },
                                 "args": [
                                   {
                                     "node": "BasicLit",
                                     "valuePos": {
                                       "file": "bytesstrings.go",
-                                      "line": 123,
+                                      "line": 128,
                                       "column": 80,
-                                      "offset": 4685
+                                      "offset": 5073
                                     },
                                     "valueEnd": {
                                       "file": "bytesstrings.go",
-                                      "line": 123,
+                                      "line": 128,
                                       "column": 83,
-                                      "offset": 4688
+                                      "offset": 5076
                                     },
                                     "kind": "STRING",
                                     "value": "\"a\"",
@@ -16203,9 +17404,9 @@
                                 "ellipsis": null,
                                 "rparen": {
                                   "file": "bytesstrings.go",
-                                  "line": 123,
+                                  "line": 128,
                                   "column": 83,
-                                  "offset": 4688
+                                  "offset": 5076
                                 },
                                 "$type": 3
                               },
@@ -16213,9 +17414,9 @@
                                 "node": "Ident",
                                 "namePos": {
                                   "file": "bytesstrings.go",
-                                  "line": 123,
+                                  "line": 128,
                                   "column": 86,
-                                  "offset": 4691
+                                  "offset": 5079
                                 },
                                 "name": "nil",
                                 "obj": null,
@@ -16230,9 +17431,9 @@
                             "ellipsis": null,
                             "rparen": {
                               "file": "bytesstrings.go",
-                              "line": 123,
+                              "line": 128,
                               "column": 89,
-                              "offset": 4694
+                              "offset": 5082
                             },
                             "$type": 5
                           }
@@ -16240,9 +17441,9 @@
                         "ellipsis": null,
                         "rparen": {
                           "file": "bytesstrings.go",
-                          "line": 123,
+                          "line": 128,
                           "column": 90,
-                          "offset": 4695
+                          "offset": 5083
                         },
                         "$type": 29
                       }
@@ -16250,9 +17451,9 @@
                   ],
                   "rbrace": {
                     "file": "bytesstrings.go",
-                    "line": 124,
+                    "line": 129,
                     "column": 1,
-                    "offset": 4697
+                    "offset": 5085
                   }
                 }
               }
@@ -16265,9 +17466,9 @@
             },
             "fileEnd": {
               "file": "bytesstrings.go",
-              "line": 124,
+              "line": 129,
               "column": 3,
-              "offset": 4699
+              "offset": 5087
             },
             "scope": null,
             "imports": [
@@ -18635,136 +19836,18 @@
                 "node": "Ident",
                 "namePos": {
                   "file": "bytesstrings.go",
-                  "line": 122,
-                  "column": 2,
-                  "offset": 4478
-                },
-                "name": "fmt",
-                "obj": null,
-                "$obj": {
-                  "name": "fmt",
-                  "kind": "package",
-                  "pkg": "fmt"
-                }
-              },
-              {
-                "node": "Ident",
-                "namePos": {
-                  "file": "bytesstrings.go",
-                  "line": 122,
-                  "column": 14,
-                  "offset": 4490
-                },
-                "name": "subtle",
-                "obj": null,
-                "$obj": {
-                  "name": "subtle",
-                  "kind": "package",
-                  "pkg": "crypto/subtle"
-                }
-              },
-              {
-                "node": "Ident",
-                "namePos": {
-                  "file": "bytesstrings.go",
-                  "line": 122,
-                  "column": 43,
-                  "offset": 4519
-                },
-                "name": "byte",
-                "obj": null,
-                "$type": 4,
-                "$isType": true,
-                "$obj": {
-                  "name": "byte",
-                  "kind": "type",
-                  "type": 4
-                }
-              },
-              {
-                "node": "Ident",
-                "namePos": {
-                  "file": "bytesstrings.go",
-                  "line": 122,
-                  "column": 58,
-                  "offset": 4534
-                },
-                "name": "byte",
-                "obj": null,
-                "$type": 4,
-                "$isType": true,
-                "$obj": {
-                  "name": "byte",
-                  "kind": "type",
-                  "type": 4
-                }
-              },
-              {
-                "node": "Ident",
-                "namePos": {
-                  "file": "bytesstrings.go",
-                  "line": 122,
-                  "column": 72,
-                  "offset": 4548
-                },
-                "name": "subtle",
-                "obj": null,
-                "$obj": {
-                  "name": "subtle",
-                  "kind": "package",
-                  "pkg": "crypto/subtle"
-                }
-              },
-              {
-                "node": "Ident",
-                "namePos": {
-                  "file": "bytesstrings.go",
-                  "line": 122,
-                  "column": 101,
-                  "offset": 4577
-                },
-                "name": "byte",
-                "obj": null,
-                "$type": 4,
-                "$isType": true,
-                "$obj": {
-                  "name": "byte",
-                  "kind": "type",
-                  "type": 4
-                }
-              },
-              {
-                "node": "Ident",
-                "namePos": {
-                  "file": "bytesstrings.go",
-                  "line": 122,
-                  "column": 116,
-                  "offset": 4592
-                },
-                "name": "byte",
-                "obj": null,
-                "$type": 4,
-                "$isType": true,
-                "$obj": {
-                  "name": "byte",
-                  "kind": "type",
-                  "type": 4
-                }
-              },
-              {
-                "node": "Ident",
-                "namePos": {
-                  "file": "bytesstrings.go",
                   "line": 123,
-                  "column": 3,
-                  "offset": 4608
+                  "column": 25,
+                  "offset": 4562
                 },
-                "name": "subtle",
+                "name": "byte",
                 "obj": null,
+                "$type": 4,
+                "$isType": true,
                 "$obj": {
-                  "name": "subtle",
-                  "kind": "package",
-                  "pkg": "crypto/subtle"
+                  "name": "byte",
+                  "kind": "type",
+                  "type": 4
                 }
               },
               {
@@ -18773,7 +19856,7 @@
                   "file": "bytesstrings.go",
                   "line": 123,
                   "column": 30,
-                  "offset": 4635
+                  "offset": 4567
                 },
                 "name": "nil",
                 "obj": null,
@@ -18789,8 +19872,8 @@
                 "namePos": {
                   "file": "bytesstrings.go",
                   "line": 123,
-                  "column": 37,
-                  "offset": 4642
+                  "column": 41,
+                  "offset": 4578
                 },
                 "name": "byte",
                 "obj": null,
@@ -18807,8 +19890,207 @@
                 "namePos": {
                   "file": "bytesstrings.go",
                   "line": 123,
-                  "column": 46,
-                  "offset": 4651
+                  "column": 57,
+                  "offset": 4594
+                },
+                "name": "byte",
+                "obj": null,
+                "$type": 4,
+                "$isType": true,
+                "$obj": {
+                  "name": "byte",
+                  "kind": "type",
+                  "type": 4
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "bytesstrings.go",
+                  "line": 123,
+                  "column": 75,
+                  "offset": 4612
+                },
+                "name": "byte",
+                "obj": null,
+                "$type": 4,
+                "$isType": true,
+                "$obj": {
+                  "name": "byte",
+                  "kind": "type",
+                  "type": 4
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "bytesstrings.go",
+                  "line": 123,
+                  "column": 94,
+                  "offset": 4631
+                },
+                "name": "byte",
+                "obj": null,
+                "$type": 4,
+                "$isType": true,
+                "$obj": {
+                  "name": "byte",
+                  "kind": "type",
+                  "type": 4
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "bytesstrings.go",
+                  "line": 124,
+                  "column": 3,
+                  "offset": 4650
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "bytesstrings.go",
+                  "line": 124,
+                  "column": 37,
+                  "offset": 4684
+                },
+                "name": "bytes",
+                "obj": null,
+                "$obj": {
+                  "name": "bytes",
+                  "kind": "package",
+                  "pkg": "bytes"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "bytesstrings.go",
+                  "line": 124,
+                  "column": 64,
+                  "offset": 4711
+                },
+                "name": "bytes",
+                "obj": null,
+                "$obj": {
+                  "name": "bytes",
+                  "kind": "package",
+                  "pkg": "bytes"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "bytesstrings.go",
+                  "line": 124,
+                  "column": 93,
+                  "offset": 4740
+                },
+                "name": "nil",
+                "obj": null,
+                "$type": 31,
+                "$obj": {
+                  "name": "nil",
+                  "kind": "nil",
+                  "type": 31
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "bytesstrings.go",
+                  "line": 125,
+                  "column": 4,
+                  "offset": 4748
+                },
+                "name": "bytes",
+                "obj": null,
+                "$obj": {
+                  "name": "bytes",
+                  "kind": "package",
+                  "pkg": "bytes"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "bytesstrings.go",
+                  "line": 125,
+                  "column": 34,
+                  "offset": 4778
+                },
+                "name": "bytes",
+                "obj": null,
+                "$obj": {
+                  "name": "bytes",
+                  "kind": "package",
+                  "pkg": "bytes"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "bytesstrings.go",
+                  "line": 125,
+                  "column": 62,
+                  "offset": 4806
+                },
+                "name": "bytes",
+                "obj": null,
+                "$obj": {
+                  "name": "bytes",
+                  "kind": "package",
+                  "pkg": "bytes"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "bytesstrings.go",
+                  "line": 125,
+                  "column": 87,
+                  "offset": 4831
+                },
+                "name": "bytes",
+                "obj": null,
+                "$obj": {
+                  "name": "bytes",
+                  "kind": "package",
+                  "pkg": "bytes"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "bytesstrings.go",
+                  "line": 127,
+                  "column": 2,
+                  "offset": 4866
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "bytesstrings.go",
+                  "line": 127,
+                  "column": 14,
+                  "offset": 4878
                 },
                 "name": "subtle",
                 "obj": null,
@@ -18822,9 +20104,9 @@
                 "node": "Ident",
                 "namePos": {
                   "file": "bytesstrings.go",
-                  "line": 123,
-                  "column": 75,
-                  "offset": 4680
+                  "line": 127,
+                  "column": 43,
+                  "offset": 4907
                 },
                 "name": "byte",
                 "obj": null,
@@ -18840,9 +20122,164 @@
                 "node": "Ident",
                 "namePos": {
                   "file": "bytesstrings.go",
-                  "line": 123,
+                  "line": 127,
+                  "column": 58,
+                  "offset": 4922
+                },
+                "name": "byte",
+                "obj": null,
+                "$type": 4,
+                "$isType": true,
+                "$obj": {
+                  "name": "byte",
+                  "kind": "type",
+                  "type": 4
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "bytesstrings.go",
+                  "line": 127,
+                  "column": 72,
+                  "offset": 4936
+                },
+                "name": "subtle",
+                "obj": null,
+                "$obj": {
+                  "name": "subtle",
+                  "kind": "package",
+                  "pkg": "crypto/subtle"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "bytesstrings.go",
+                  "line": 127,
+                  "column": 101,
+                  "offset": 4965
+                },
+                "name": "byte",
+                "obj": null,
+                "$type": 4,
+                "$isType": true,
+                "$obj": {
+                  "name": "byte",
+                  "kind": "type",
+                  "type": 4
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "bytesstrings.go",
+                  "line": 127,
+                  "column": 116,
+                  "offset": 4980
+                },
+                "name": "byte",
+                "obj": null,
+                "$type": 4,
+                "$isType": true,
+                "$obj": {
+                  "name": "byte",
+                  "kind": "type",
+                  "type": 4
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "bytesstrings.go",
+                  "line": 128,
+                  "column": 3,
+                  "offset": 4996
+                },
+                "name": "subtle",
+                "obj": null,
+                "$obj": {
+                  "name": "subtle",
+                  "kind": "package",
+                  "pkg": "crypto/subtle"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "bytesstrings.go",
+                  "line": 128,
+                  "column": 30,
+                  "offset": 5023
+                },
+                "name": "nil",
+                "obj": null,
+                "$type": 31,
+                "$obj": {
+                  "name": "nil",
+                  "kind": "nil",
+                  "type": 31
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "bytesstrings.go",
+                  "line": 128,
+                  "column": 37,
+                  "offset": 5030
+                },
+                "name": "byte",
+                "obj": null,
+                "$type": 4,
+                "$isType": true,
+                "$obj": {
+                  "name": "byte",
+                  "kind": "type",
+                  "type": 4
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "bytesstrings.go",
+                  "line": 128,
+                  "column": 46,
+                  "offset": 5039
+                },
+                "name": "subtle",
+                "obj": null,
+                "$obj": {
+                  "name": "subtle",
+                  "kind": "package",
+                  "pkg": "crypto/subtle"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "bytesstrings.go",
+                  "line": 128,
+                  "column": 75,
+                  "offset": 5068
+                },
+                "name": "byte",
+                "obj": null,
+                "$type": 4,
+                "$isType": true,
+                "$obj": {
+                  "name": "byte",
+                  "kind": "type",
+                  "type": 4
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "bytesstrings.go",
+                  "line": 128,
                   "column": 86,
-                  "offset": 4691
+                  "offset": 5079
                 },
                 "name": "nil",
                 "obj": null,
@@ -19012,6 +20449,21 @@
                       "offset": 4065
                     },
                     "text": "// cap limitado: não sobrescreve o '\\n'"
+                  }
+                ]
+              },
+              {
+                "node": "CommentGroup",
+                "list": [
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "bytesstrings.go",
+                      "line": 122,
+                      "column": 2,
+                      "offset": 4478
+                    },
+                    "text": "// traceparser: TrimRight(\"\\n\") nos blocos e LastIndexByte."
                   }
                 ]
               }
@@ -19511,8 +20963,10 @@
         "bytes.HasSuffix",
         "bytes.Index",
         "bytes.IndexByte",
+        "bytes.LastIndexByte",
         "bytes.Split",
         "bytes.TrimLeft",
+        "bytes.TrimRight",
         "crypto/subtle.ConstantTimeCompare",
         "fmt.Print",
         "fmt.Printf",

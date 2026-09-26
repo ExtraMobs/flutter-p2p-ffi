@@ -119,6 +119,11 @@ func main() {
 	fmt.Println(bytes.TrimLeft(nil, "x") == nil, bytes.TrimLeft([]byte("xx"), "x") == nil, bytes.TrimLeft([]byte("\xffé!"), "é�"))
 	fmt.Printf("%q %q\n", bytes.Split([]byte(bad), nil), bytes.Split([]byte("a,b"), []byte(",")))
 	fmt.Println(bytes.Index(line, []byte("main")), bytes.Index(line, nil), bytes.Index(nil, []byte("x")))
+	// traceparser: TrimRight("\n") nos blocos e LastIndexByte.
+	for _, in := range [][]byte{nil, {}, []byte("\n\n"), []byte("ab\n\n"), []byte("xé\xff"), []byte("é!é")} {
+		fmt.Printf("%q %v %q %q %q %d\n", bytes.TrimRight(in, "\n"), bytes.TrimRight(in, "\n") == nil,
+			bytes.TrimRight(in, "é�"), bytes.TrimRight(in, "!é"), bytes.TrimRight(in, ""), bytes.LastIndexByte(in, '\n'))
+	}
 	fmt.Println(subtle.ConstantTimeCompare([]byte("abc"), []byte("abc")), subtle.ConstantTimeCompare([]byte("abc"), []byte("abd")),
 		subtle.ConstantTimeCompare(nil, []byte{}), subtle.ConstantTimeCompare([]byte("a"), nil))
 }

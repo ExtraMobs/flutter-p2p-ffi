@@ -9,8 +9,10 @@
       "hasSuffix",
       "index",
       "indexByte",
+      "lastIndexByte",
       "split",
-      "trimLeft"
+      "trimLeft",
+      "trimRight"
     ],
     "crypto/subtle": [
       "constantTimeCompare",

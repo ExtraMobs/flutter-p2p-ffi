@@ -429,6 +429,32 @@ void main() {
         ),
       ], _$e0),
     );
+    {
+      final $t21 = go.Slice<go.Slice<Golang.Uint8>>.of([
+        go.Slice<Golang.Uint8>.nil(_$e1),
+        go.Slice<Golang.Uint8>.of([], _$e1),
+        go.bytesOf(Golang.String.fromDart('\n\n'), _$e1),
+        go.bytesOf(Golang.String.fromDart('ab\n\n'), _$e1),
+        go.bytesOf(go.stringOfBytes(const [120, 195, 169, 255]), _$e1),
+        go.bytesOf(Golang.String.fromDart('é!é'), _$e1),
+      ], _$e2);
+      for (var $t22 = 0; $t22 < $t21.length; $t22++) {
+        go.Slice<Golang.Uint8> in$$2 = $t21[$t22];
+        {
+          fmt.printf(
+            Golang.String.fromDart('%q %v %q %q %q %d\n'),
+            go.Slice<Object?>.of([
+              bytes.trimRight(in$$2, Golang.String.fromDart('\n')),
+              bytes.trimRight(in$$2, Golang.String.fromDart('\n')).isNil,
+              bytes.trimRight(in$$2, Golang.String.fromDart('é�')),
+              bytes.trimRight(in$$2, Golang.String.fromDart('!é')),
+              bytes.trimRight(in$$2, Golang.String.fromDart('')),
+              bytes.lastIndexByte(in$$2, Golang.Uint8(10)),
+            ], _$e0),
+          );
+        }
+      }
+    }
     fmt.println(
       go.Slice<Object?>.of([
         subtle.constantTimeCompare(

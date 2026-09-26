@@ -5,6 +5,7 @@ library;
 
 import 'builtin.dart';
 import 'fixed_types/golang.dart' as Golang;
+import 'src/unicode/utf8.dart';
 
 const _strElem = Elem<Golang.String>(16, Golang.String.new, pointers: true);
 
@@ -107,7 +108,7 @@ Golang.String trimLeftFunc(Golang.String s, bool Function(Golang.Rune)? f) {
 /// (`utf8.DecodeLastRuneInString`).
 Golang.String trimRightFunc(Golang.String s, bool Function(Golang.Rune)? f) {
   for (var i = s.length; i > 0;) {
-    final (r, n) = _decodeLastRune(s, i);
+    final (r, n) = decodeLastRune(s, i);
     i -= n;
     if (!f!(Golang.Rune(r))) return s.slice(0, i + s.decodeRune(i).$2);
   }
@@ -171,17 +172,4 @@ Slice<Golang.String> _explode(Golang.String s, int n) {
   }
   if (n > 0) a[n - 1] = s;
   return a;
-}
-
-// `utf8.DecodeLastRuneInString(s[:end])`: (rune, largura).
-(int, int) _decodeLastRune(Golang.String s, int end) {
-  var start = end - 1;
-  if (s[start] < 0x80) return (s[start], 1);
-  final lim = end - 4 < 0 ? 0 : end - 4;
-  for (start--; start >= lim; start--) {
-    if (s[start] & 0xc0 != 0x80) break;
-  }
-  if (start < 0) start = 0;
-  final (r, size) = s.slice(0, end).decodeRune(start);
-  return start + size != end ? (0xfffd, 1) : (r, size);
 }

@@ -5,9 +5,9 @@
 
 ## Problema
 
-O shim `bytes` existe com parte dos símbolos (`compare`, `count`, `equal`, `hasPrefix`, `hasSuffix`, `index`, `indexByte`, `split`, `trimLeft`); os que faltam viram
-`Unsupported` `shim-simbolo:bytes.<nome>`. Somando as linhas abaixo: 126 ocorrências de pacote,
-33 na fronteira (224 pacotes do grafo usam `bytes`).
+O shim `bytes` existe com parte dos símbolos (`compare`, `count`, `equal`, `hasPrefix`, `hasSuffix`, `index`, `indexByte`, `lastIndexByte`, `split`, `trimLeft`, `trimRight`); os que faltam viram
+`Unsupported` `shim-simbolo:bytes.<nome>`. Somando as linhas abaixo: 120 ocorrências de pacote,
+31 na fronteira (224 pacotes do grafo usam `bytes`).
 
 ## Prova
 
@@ -19,13 +19,13 @@ docs/audit.md (ranking):
 | `shim-simbolo:bytes.Buffer` | 97 | 59 | 16 | `github.com/cockroachdb/pebble/v2/internal/treeprinter` tree_printer.go:23:1: símbolo sem shim: bytes.Buffer |
 | `shim-simbolo:bytes.Reader` | 50 | 23 | 6 | `github.com/quic-go/quic-go/quicvarint` io.go:14:5: símbolo sem shim: bytes.Reader |
 | `shim-simbolo:bytes.trimSuffix` | 5 | 3 | 1 | `github.com/klauspost/compress/s2` index.go:547:6: símbolo sem shim: bytes.trimSuffix |
-| `shim-simbolo:bytes.lastIndexByte` | 3 | 3 | 1 | `github.com/getsentry/sentry-go/internal/traceparser` parser.go:165:1: símbolo sem shim: bytes.lastIndexByte |
-| `shim-simbolo:bytes.trimRight` | 3 | 3 | 1 | `github.com/getsentry/sentry-go/internal/traceparser` parser.go:22:1: símbolo sem shim: bytes.trimRight |
 | `shim-simbolo:bytes.trimSpace` | 3 | 3 | 1 | `github.com/kr/text` wrap.go:23:6: símbolo sem shim: bytes.trimSpace |
 | `shim-simbolo:bytes.join` | 4 | 2 | 1 | `golang.org/x/text/internal/language` parse.go:351:6: símbolo sem shim: bytes.join |
 | `shim-simbolo:bytes.errTooLarge` | 2 | 1 | 1 | `github.com/syndtr/goleveldb/leveldb/util` buffer.go:21:1: símbolo sem shim: bytes.errTooLarge |
 | `shim-simbolo:bytes.repeat` | 2 | 1 | 1 | `github.com/decred/dcrd/dcrec/secp256k1/v4` nonce.go:31:2: símbolo sem shim: bytes.repeat |
 | `shim-simbolo:bytes.runes` | 2 | 1 | 1 | `golang.org/x/text/unicode/bidi` bidi.go:76:1: símbolo sem shim: bytes.runes |
+| `shim-simbolo:bytes.equalFold` | 1 | 1 | 1 | `github.com/google/uuid` uuid.go:120:6: símbolo sem shim: bytes.equalFold |
+| `shim-simbolo:bytes.indexAny` | 1 | 1 | 1 | `github.com/gorilla/mux` regexp.go:242:6: símbolo sem shim: bytes.indexAny |
 ```
 
 ```text

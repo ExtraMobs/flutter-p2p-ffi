@@ -7,6 +7,7 @@ import 'dart:typed_data';
 
 import 'builtin.dart';
 import 'fixed_types/golang.dart' as Golang;
+import 'src/unicode/utf8.dart';
 
 typedef _Bytes = Slice<Golang.Uint8>;
 
@@ -143,4 +144,33 @@ _Bytes trimLeft(_Bytes s, Golang.String cutset) {
     }
   }
   return s.length == 0 ? _nilBytes() : s;
+}
+
+/// `bytes.TrimRight(s, cutset)`: tira do fim os bytes (cutset ASCII) ou
+/// runas de cutset; ao contrário do `TrimLeft`, vazio não vira nil.
+_Bytes trimRight(_Bytes s, Golang.String cutset) {
+  if (s.length == 0 || cutset.length == 0) return s;
+  final set = cutset.runes().toSet();
+  var ascii = true;
+  for (var i = 0; i < cutset.length; i++) {
+    if (cutset[i] >= 0x80) ascii = false;
+  }
+  while (s.length > 0) {
+    var (r, n) = (s[s.length - 1].toInt(), 1);
+    if (r >= 0x80) {
+      if (ascii) break;
+      (r, n) = decodeLastRune(_str(s), s.length);
+    }
+    if (!set.contains(r)) break;
+    s = s.slice(0, s.length - n);
+  }
+  return s;
+}
+
+/// `bytes.LastIndexByte(s, c)`: último índice de c em s, ou -1.
+Golang.Int lastIndexByte(_Bytes s, Golang.Uint8 c) {
+  for (var i = s.length - 1; i >= 0; i--) {
+    if (s[i] == c) return Golang.Int(i);
+  }
+  return Golang.Int(-1);
 }
