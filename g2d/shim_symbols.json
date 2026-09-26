@@ -251,6 +251,23 @@
     ],
     "time": [
       "Duration"
+    ],
+    "unicode/utf8": [
+      "appendRune",
+      "decodeLastRune",
+      "decodeLastRuneInString",
+      "decodeRune",
+      "decodeRuneInString",
+      "encodeRune",
+      "fullRune",
+      "fullRuneInString",
+      "runeCount",
+      "runeCountInString",
+      "runeLen",
+      "runeStart",
+      "valid",
+      "validRune",
+      "validString"
     ]
   }
 }

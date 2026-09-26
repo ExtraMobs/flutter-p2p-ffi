@@ -53,6 +53,7 @@ STDLIB_SHIMS = {
     "sync": "package:golib_dart/sync.dart",
     "sync/atomic": "package:golib_dart/sync/atomic.dart",
     "time": "package:golib_dart/time.dart",
+    "unicode/utf8": "package:golib_dart/unicode/utf8.dart",
 }
 
 
