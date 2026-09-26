@@ -200,3 +200,45 @@ abstract base class StringBase<S extends StringBase<S>>
   @override
   String toString() => utf8.decode($str.toBytes(), allowMalformed: true);
 }
+
+/// Operações de complex64/complex128 (as de [ComplexBase] delegam a elas).
+abstract interface class ComplexOps<C extends ComplexOps<C>> {
+  C operator +(C o);
+  C operator -(C o);
+  C operator *(C o);
+  C operator /(C o);
+  C operator -();
+}
+
+/// Tipos nomeados sobre complex (`type Z complex128`): guardam o valor do
+/// subjacente ([$c], um [ComplexOps]) e delegam a ele as operações, que
+/// devolvem o próprio tipo nomeado.
+abstract base class ComplexBase<S extends ComplexBase<S, C>,
+        C extends ComplexOps<C>>
+    implements GoTyped {
+  const ComplexBase();
+
+  @override
+  List<String> get $methods => const [];
+
+  /// O valor como complex64/complex128.
+  C get $c;
+
+  /// Novo valor do tipo nomeado.
+  S $wrapC(C v);
+
+  S operator +(S o) => $wrapC($c + o.$c);
+  S operator -(S o) => $wrapC($c - o.$c);
+  S operator *(S o) => $wrapC($c * o.$c);
+  S operator /(S o) => $wrapC($c / o.$c);
+  S operator -() => $wrapC(-$c);
+
+  @override
+  bool operator ==(Object o) => o is S && $c == o.$c;
+  @override
+  int get hashCode => $c.hashCode;
+
+  /// Go `%v`: o do subjacente (`(1+2i)`).
+  @override
+  String toString() => $c.toString();
+}

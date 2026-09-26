@@ -92,6 +92,9 @@ class DeferPlugin(Plugin):
         engine.register_stmt(stmts.DeferStmt)
         engine.register_builtin(builtins.PanicBuiltin)
         engine.register_builtin(builtins.Recover)
+        engine.register_builtin(builtins.Real)
+        engine.register_builtin(builtins.Imag)
+        engine.register_builtin(builtins.ComplexBuiltin)
 
 
 class FmtPlugin(Plugin):

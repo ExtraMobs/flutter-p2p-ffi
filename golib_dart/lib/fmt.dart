@@ -232,6 +232,8 @@ int _compareKeys(Object? a, Object? b) {
     case (final Golang.Complex64 x, final Golang.Complex64 y):
       final c = x.real.compareTo(y.real);
       return c != 0 ? c : x.imag.compareTo(y.imag);
+    case (final Golang.ComplexBase x, final Golang.ComplexBase y):
+      return _compareKeys(x.$c, y.$c);
     case (final GoStruct x, final GoStruct y):
       return _compareAll(x.$fields, y.$fields);
     case (final GoArray x, final GoArray y):

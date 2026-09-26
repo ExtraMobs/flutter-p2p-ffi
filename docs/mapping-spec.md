@@ -30,7 +30,7 @@ Legenda: ✅ fiel · ⚠️ fiel no caso comum, com limite conhecido · ❌ não
 | Adaptação Go | Classe (golib_dart) | Milestone | Status |
 |---|---|---|---|
 | inteiros de largura fixa, `int`/`int64` | `Golang.Int8` … `Golang.Int64`, `Golang.Uint*` (`fixed_types`; até 32 bits um `int` normalizado, 64 bits duas palavras de 32; sem `BigInt` no caminho comum) | M2 | ✅ |
-| `float32`/`float64`, `complex*` | `Golang.Float32/64`, `Golang.Complex64/128` | M2 | ✅ |
+| `float32`/`float64`, `complex*` | `Golang.Float32/64`, `Golang.Complex64/128`; `real(z)`/`imag(z)` → `z.real`/`z.imag`, `complex(r, i)` → `Golang.Complex128.fromDoubles(...)` | M2 | ✅ |
 | `string` (bytes, UTF-8 inválido) | `Golang.String` | M2 | ✅ |
 | struct (valor, cópia, `==`) | `go.GoStruct<T>` (classe base) | M3 | ✅ |
 | ponteiro como valor (identidade, `*T` nil em interface) | `go.Addr` | M3 | ✅ |
@@ -147,7 +147,8 @@ Legenda: ✅ fiel · ⚠️ fiel no caso comum, com limite conhecido · ❌ não
 | `*N`, N nomeado não-struct com métodos e `*N` usado no pacote | `N$Ptr?`: `final class N$Ptr extends go.PtrView<N>` (vista sobre `go.Box`/`ElemPtr`/`FieldPtr`) com os métodos de receptor ponteiro, forwarders dos de valor e as interfaces de `*N` | `null` |
 | struct anônima (`struct{ X int }`, tabelas de teste) | classe sintética `_anon$<índice da typeTable>$` (uma por tipo; `go.GoStruct`, igualdade e cópia como qualquer struct) | `_anon$N$()` |
 | interface anônima com métodos (`interface{ Name() string }`) | `abstract mixin class _anonIface$<índice>$`; o goast põe no `implements` os literais `interface{...}` usados fora de declaração de tipo | `null` |
-| nomeado sobre bool/complex, chans | — ❌ | |
+| nomeado sobre complex (`type Z complex128`) | `final class Z extends Golang.ComplexBase<Z, Golang.Complex128>`: guarda o valor em `$c` e delega `+ - * /`, `==`, `%v` a ele (`Complex64/128` implementam `Golang.ComplexOps`); conversões por `$c` (`Z(c)`, `complex128(z)` → `z.$c`); chaves de map ordenadas como complex no `%v`. Fixture `namedcomplex` | `Z()` |
+| nomeado sobre chan | — ❌ | |
 
 Constantes de tipo básico usam `final`, porque os construtores das classes não
 são `const`. Literais inteiros fora de ±2⁵³ vêm por

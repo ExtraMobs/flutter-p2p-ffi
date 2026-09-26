@@ -164,3 +164,38 @@ class Recover(BuiltinBehavior):
     def emit(self, n, args):
         rd = (self.scope.rd if self.scope else None) or ""
         return f"{self.imports.qualify(None, 'recover')}({rd})", POSTFIX
+
+
+def complex_value(b, x):
+    """complex64/complex128 de uma expressão complex (nomeada: `.$c`)."""
+    text = b.expr(x, POSTFIX)
+    return text + ".$c" if b.pkg.type_of(x)["kind"] == "named" else text
+
+
+class Real(BuiltinBehavior):
+    """`real(z)` → a parte real (Float64/Float32 do complex)."""
+
+    name = "real"
+
+    def emit(self, n, args):
+        return f"{complex_value(self, args[0])}.real", POSTFIX
+
+
+class Imag(BuiltinBehavior):
+    """`imag(z)` → a parte imaginária."""
+
+    name = "imag"
+
+    def emit(self, n, args):
+        return f"{complex_value(self, args[0])}.imag", POSTFIX
+
+
+class ComplexBuiltin(BuiltinBehavior):
+    """`complex(r, i)` → complex128/complex64 (partes float, nomeadas ou não)."""
+
+    name = "complex"
+
+    def emit(self, n, args):
+        cls = self.types.golang(self.typesys.basic(self.pkg.type_of(n)).cls)
+        r, i = (f"{self.expr(a, POSTFIX)}.toDouble()" for a in args)
+        return f"{cls}.fromDoubles({r}, {i})", POSTFIX

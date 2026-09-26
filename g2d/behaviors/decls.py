@@ -453,6 +453,12 @@ class NamedClass(NonStructNamed):
                     f"final {store} _v;",
                     "@override", f"{store} get $str => _v;",
                     "@override", f"{cls} $wrapStr({store} s) => {cls}(s);"]
+        elif b.cat == "complex":
+            # Guarda o complex64/complex128 e delega as operações a ele.
+            base = f"{g('ComplexBase')}<{cls}, {store}>"
+            body = [f"{cls}([{store}? v]) : $c = v ?? {store}();",
+                    "@override", f"final {store} $c;",
+                    "@override", f"{cls} $wrapC({store} v) => {cls}(v);"]
         else:
             raise Unsupported(f"tipo-nomeado:{b.cat}", f"tipo nomeado sobre {b.cat}")
         value_ms, ptr_ms = self.split_methods(go_name)

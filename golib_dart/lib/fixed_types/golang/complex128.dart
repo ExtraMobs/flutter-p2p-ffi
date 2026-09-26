@@ -1,9 +1,10 @@
 // ignore_for_file: duplicate_ignore, public_member_api_docs, sort_constructors_first, directives_ordering, dangling_library_doc_comments, library_prefixes, constant_identifier_names, depend_on_referenced_packages
 import 'complex64.dart';
 import 'float64.dart';
+import 'src/base.dart';
 
 /// Go complex128 runtime value with float64 real and imaginary parts.
-final class Complex128 {
+final class Complex128 implements ComplexOps<Complex128> {
   /// Constructs a complex128 value; defaults to (0+0i).
   Complex128([Float64? real, Float64? imag])
     : real = real ?? Float64(),

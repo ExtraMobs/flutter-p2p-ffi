@@ -160,11 +160,19 @@ class FloatToFloat(ConversionBehavior):
 
 
 class ComplexToComplex(ConversionBehavior):
+    """Entre complex64/complex128 e tipos nomeados sobre eles (`$c` guarda o
+    valor do subjacente)."""
+
     def accepts(self, c):
-        return c.basics and c.to.cat == c.frm.cat == "complex" and not c.named_to
+        return c.basics and c.to.cat == c.frm.cat == "complex"
 
     def emit(self, c):
-        return f"{self.types.cls(c.to_t)}.from{c.frm.cls}({self.expr(c.arg, POSTFIX)})", POSTFIX
+        x = self.expr(c.arg, POSTFIX)
+        if c.frm_t["kind"] == "named":
+            x += ".$c"
+        if c.frm.cls != c.to.cls:
+            x = f"{self.types.golang(c.to.cls)}.from{c.frm.cls}({x})"
+        return (f"{self.types.cls(c.to_t)}({x})" if c.named_to else x), POSTFIX
 
 
 class StringToString(ConversionBehavior):

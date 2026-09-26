@@ -2,9 +2,10 @@
 import 'complex128.dart';
 import 'float32.dart';
 import 'float64.dart';
+import 'src/base.dart';
 
 /// Go complex64 runtime value with float32 real and imaginary parts.
-final class Complex64 {
+final class Complex64 implements ComplexOps<Complex64> {
   /// Constructs a complex64 value; defaults to (0+0i).
   Complex64([Float32? real, Float32? imag])
     : real = real ?? Float32(),

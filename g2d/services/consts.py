@@ -44,8 +44,9 @@ class Literals(Service):
             return f"{cls}.fromBigInt(BigInt.parse('{n}'))"
         if b.cat == "float":
             return f"{cls}({double_literal(re)})"
-        if b.cat == "complex" and not named:
-            return f"{g(b.cls)}.fromDoubles({double_literal(re)}, {double_literal(im)})"
+        if b.cat == "complex":
+            text = f"{g(b.cls)}.fromDoubles({double_literal(re)}, {double_literal(im)})"
+            return f"{cls}({text})" if named else text
         raise Unsupported(f"constante:{k}-{b.cat}", f"constante {k} como {b.cat}")
 
     def named_const(self, n):
