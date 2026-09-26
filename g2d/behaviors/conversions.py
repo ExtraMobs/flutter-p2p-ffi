@@ -210,6 +210,20 @@ class BoolToBool(ConversionBehavior):
         return v, (POSTFIX if self.typesys.named_bool(c.frm_t) else 0)
 
 
+class SliceToArray(ConversionBehavior):
+    """`[N]T(s)` (Go 1.20): cópia dos N primeiros (`go.sliceToArray`, com o
+    pânico do Go se o slice for curto)."""
+
+    def accepts(self, c):
+        return (self.typesys.underlying(c.to_t)["kind"] == "array"
+                and self.typesys.underlying(c.frm_t)["kind"] == "slice")
+
+    def emit(self, c):
+        n = self.typesys.underlying(c.to_t)["len"]
+        arr = f"{self.imports.qualify(None, 'sliceToArray')}({self.expr(c.arg)}, {n})"
+        return self.types.wrap(c.to_t, arr), POSTFIX
+
+
 class ToInterface(ConversionBehavior):
     """`any(x)`, `I(x)`: o mesmo que atribuir x a uma interface (`coerce`:
     struct/array por valor vai copiada, ponteiro nil tipado vira sentinela)."""
@@ -266,5 +280,5 @@ class StringSlice(ConversionBehavior):
 
 # Ordem de registro = prioridade crescente (a cadeia tenta do último ao
 # primeiro): a identidade vence tudo, como no emissor original.
-CONVERSIONS = [FromNil, BoolToBool, ToInterface, StringSlice, StructToStruct, Retype, IntToString, StringToString, ComplexToComplex, FloatToFloat, FloatToInt,
+CONVERSIONS = [FromNil, BoolToBool, SliceToArray, ToInterface, StringSlice, StructToStruct, Retype, IntToString, StringToString, ComplexToComplex, FloatToFloat, FloatToInt,
                IntToFloat, IntToInt, SameUnderlying, ToTypeParam, Identity]

@@ -66,6 +66,8 @@ class TypeSystem(Service):
         u = self.underlying(t)
         if u["kind"] != "basic":
             return None
+        if u["name"] == "Pointer":
+            raise Unsupported("unsafe:Pointer", "unsafe.Pointer (sem memória crua fora do dart:ffi)")
         if u["name"] not in _BASICS:
             raise Unsupported(f"tipo-basico:{u['name']}", f"tipo básico {u['name']}")
         return _BASICS[u["name"]]

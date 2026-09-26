@@ -108,3 +108,17 @@ base class GoArray<T> extends GoValue<GoArray<T>> {
   @override
   int get hashCode => Object.hashAll(_items);
 }
+
+/// `[N]T(s)` (Go 1.20): cópia dos N primeiros elementos; `len(s) < N` →
+/// pânico do Go.
+GoArray<T> sliceToArray<T>(Slice<T> s, int n) {
+  if (s.length < n) {
+    throw Panic(
+      RuntimeError(
+        'runtime error: cannot convert slice with length ${s.length} '
+        'to array or pointer to array with length $n',
+      ),
+    );
+  }
+  return GoArray.of([for (var i = 0; i < n; i++) s.elem.copyOf(s[i])], s.elem);
+}

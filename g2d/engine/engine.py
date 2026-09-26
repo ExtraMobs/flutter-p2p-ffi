@@ -101,7 +101,10 @@ class Engine:
         return ["{"] + [ln for s in b["list"] or [] for ln in self.stmt(s)] + ["}"]
 
     def builtin(self, n, fun, args):
-        name = fun["name"] if fun["node"] == "Ident" else None
+        if fun["node"] == "SelectorExpr":  # unsafe.Slice, unsafe.String, unsafe.Add...
+            name = fun["sel"]["name"]
+            raise Unsupported(f"unsafe:{name}", f"unsafe.{name} (sem memória crua fora do dart:ffi)", n)
+        name = fun["name"]
         result = self.builtins.dispatch(name, n, args)
         if result is NOT_HANDLED:
             raise Unsupported(f"builtin:{name}", f"builtin {name}", n)

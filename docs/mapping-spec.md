@@ -66,6 +66,19 @@ Legenda: ✅ fiel · ⚠️ fiel no caso comum, com limite conhecido · ❌ não
   `int` × `int64` e os tipos nomeados. ⚠️ O `runtimeType` de coleções do
   core **difere no JS** (`<T>[].runtimeType != List<T>`), então os testes de
   tipo usam sempre `is T`, nunca `runtimeType` de tipos do core.
+- **`unsafe`.** Sem memória crua (nem `dart:ffi`, que não existe no JS/Wasm),
+  `unsafe.Pointer` e os builtins de memória recusam com o nome real:
+  `unsafe:Pointer`, `unsafe:Slice`, `unsafe:String`, `unsafe:StringData`,
+  `unsafe:SliceData`, `unsafe:Add`. Decisão:
+  - `unsafe.Sizeof`/`Alignof`/`Offsetof` são constantes do `go/types`
+    (layout amd64), já dobradas;
+  - traduzível com equivalente seguro (a fazer): `unsafe.String(&b[0], n)` /
+    `unsafe.String(unsafe.SliceData(b), n)` → `string(b[:n])`, e
+    `unsafe.Slice(unsafe.StringData(s), len(s))` → os bytes de `s` (cópia; o
+    Go só permite ler);
+  - o resto (aritmética de ponteiro, reinterpretar memória entre tipos,
+    `(*[N]T)(unsafe.Pointer(p))`) marca o pacote para **substituição** manual,
+    como assembly.
 
 ## Unidade de compilação
 
@@ -255,6 +268,7 @@ criado com `identity: true` (`Map.identity()`), então compara endereços.
 | `x++`, `x op= y` | `x += Golang.T(1)`, `x op= y` (`/=` → `~/=`; `&^=` → `x = x.andNot(y)`) |
 | `m[k] op= y`, `s[i] &^= y`, `x.f &^= y` (sem operador Dart equivalente) | leitura e escrita: `m[k] = m[k] << n`, `s[i] = s[i].andNot(y)`; só com alvo puro (identificadores, constantes, campos, índices), senão `Unsupported` `opassign-impuro` (o Go avalia o alvo uma vez). Fixture `opassign` |
 | `any(x)`, `I(x)` (conversão explícita para interface) | o mesmo `coerce` da atribuição a interface |
+| `[N]T(s)` (Go 1.20) | `go.sliceToArray(s, N)`: cópia, pânico do Go se `len(s) < N` (fixture `slicetoarray`) |
 | `B(a)` com structs de mesmos campos (tags não contam; nomeadas ou anônimas) | `switch (<cópia de a>) { final $t => B(x: $t._x, ...) }`. Fixture `structconv`. Conversão não suportada: `Unsupported` `conversao:<de>-<para>` (categoria básica ou kind do subjacente, `named-` se nomeado) |
 | conversões numéricas | inteiro → inteiro `T.from(x)` (trunca os 64 bits `$hi`/`$lo`); inteiro → float `Float64.fromInt64(Int64.from(x))` (arredondamento único); float → inteiro `T.from(f.toInteger(w, signed: s))` pelas regras do gc/amd64 (`toInteger`) |
 | `len(s)`, `s[i]`, `s[a:b]` em string | `Golang.Int(s.length)` (como índice ou contagem, só `s.length`: `Operands.dart_length`), `Golang.Uint8(s[i])`, `s.slice(a, b)` (bytes) |

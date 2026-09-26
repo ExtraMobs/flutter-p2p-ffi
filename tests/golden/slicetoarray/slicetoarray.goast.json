@@ -1,0 +1,2828 @@
+{
+  "schemaVersion": 7,
+  "tool": "goast",
+  "goVersion": "go1.26.5",
+  "packages": [
+    {
+      "path": "main",
+      "name": "main",
+      "files": [
+        {
+          "path": "slicetoarray.go",
+          "ast": {
+            "node": "File",
+            "doc": {
+              "node": "CommentGroup",
+              "list": [
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "slicetoarray.go",
+                    "line": 1,
+                    "column": 1,
+                    "offset": 0
+                  },
+                  "text": "// [N]T(s) (Go 1.20; go.opentelemetry.io/otel/attribute: [1]KeyValue(kvs)):"
+                },
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "slicetoarray.go",
+                    "line": 2,
+                    "column": 1,
+                    "offset": 76
+                  },
+                  "text": "// cópia dos N primeiros, pânico se o slice for curto."
+                }
+              ]
+            },
+            "package": {
+              "file": "slicetoarray.go",
+              "line": 3,
+              "column": 1,
+              "offset": 133
+            },
+            "name": {
+              "node": "Ident",
+              "namePos": {
+                "file": "slicetoarray.go",
+                "line": 3,
+                "column": 9,
+                "offset": 141
+              },
+              "name": "main",
+              "obj": null
+            },
+            "decls": [
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "slicetoarray.go",
+                  "line": 5,
+                  "column": 1,
+                  "offset": 147
+                },
+                "tok": "import",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "ImportSpec",
+                    "doc": null,
+                    "name": null,
+                    "path": {
+                      "node": "BasicLit",
+                      "valuePos": {
+                        "file": "slicetoarray.go",
+                        "line": 5,
+                        "column": 8,
+                        "offset": 154
+                      },
+                      "valueEnd": {
+                        "file": "slicetoarray.go",
+                        "line": 5,
+                        "column": 13,
+                        "offset": 159
+                      },
+                      "kind": "STRING",
+                      "value": "\"fmt\""
+                    },
+                    "comment": null,
+                    "endPos": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "slicetoarray.go",
+                  "line": 7,
+                  "column": 1,
+                  "offset": 161
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "slicetoarray.go",
+                        "line": 7,
+                        "column": 6,
+                        "offset": 166
+                      },
+                      "name": "KV",
+                      "obj": {
+                        "node": "Object",
+                        "name": "KV",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "KV",
+                        "kind": "type",
+                        "def": true,
+                        "type": 0,
+                        "decl": "slicetoarray.go:166",
+                        "pkg": "main",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "StructType",
+                      "struct": {
+                        "file": "slicetoarray.go",
+                        "line": 7,
+                        "column": 9,
+                        "offset": 169
+                      },
+                      "fields": {
+                        "node": "FieldList",
+                        "opening": {
+                          "file": "slicetoarray.go",
+                          "line": 7,
+                          "column": 15,
+                          "offset": 175
+                        },
+                        "list": [
+                          {
+                            "node": "Field",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "slicetoarray.go",
+                                  "line": 7,
+                                  "column": 17,
+                                  "offset": 177
+                                },
+                                "name": "K",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "K",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "K",
+                                  "kind": "field",
+                                  "def": true,
+                                  "type": 2,
+                                  "decl": "slicetoarray.go:177",
+                                  "pkg": "main"
+                                }
+                              },
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "slicetoarray.go",
+                                  "line": 7,
+                                  "column": 20,
+                                  "offset": 180
+                                },
+                                "name": "V",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "V",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "V",
+                                  "kind": "field",
+                                  "def": true,
+                                  "type": 2,
+                                  "decl": "slicetoarray.go:180",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "slicetoarray.go",
+                                "line": 7,
+                                "column": 22,
+                                "offset": 182
+                              },
+                              "name": "string",
+                              "obj": null,
+                              "$type": 2,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "string",
+                                "kind": "type",
+                                "type": 2
+                              }
+                            },
+                            "tag": null,
+                            "comment": null
+                          }
+                        ],
+                        "closing": {
+                          "file": "slicetoarray.go",
+                          "line": 7,
+                          "column": 29,
+                          "offset": 189
+                        }
+                      },
+                      "incomplete": false,
+                      "$type": 1,
+                      "$isType": true
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "slicetoarray.go",
+                  "line": 9,
+                  "column": 1,
+                  "offset": 192
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "slicetoarray.go",
+                        "line": 9,
+                        "column": 6,
+                        "offset": 197
+                      },
+                      "name": "Pair",
+                      "obj": {
+                        "node": "Object",
+                        "name": "Pair",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "Pair",
+                        "kind": "type",
+                        "def": true,
+                        "type": 3,
+                        "decl": "slicetoarray.go:197",
+                        "pkg": "main",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "ArrayType",
+                      "lbrack": {
+                        "file": "slicetoarray.go",
+                        "line": 9,
+                        "column": 11,
+                        "offset": 202
+                      },
+                      "len": {
+                        "node": "BasicLit",
+                        "valuePos": {
+                          "file": "slicetoarray.go",
+                          "line": 9,
+                          "column": 12,
+                          "offset": 203
+                        },
+                        "valueEnd": {
+                          "file": "slicetoarray.go",
+                          "line": 9,
+                          "column": 13,
+                          "offset": 204
+                        },
+                        "kind": "INT",
+                        "value": "2",
+                        "$type": 5,
+                        "$value": {
+                          "kind": "int",
+                          "value": "2"
+                        }
+                      },
+                      "elt": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "slicetoarray.go",
+                          "line": 9,
+                          "column": 14,
+                          "offset": 205
+                        },
+                        "name": "KV",
+                        "obj": {
+                          "node": "Object",
+                          "name": "KV",
+                          "kind": "type"
+                        },
+                        "$type": 0,
+                        "$isType": true,
+                        "$obj": {
+                          "name": "KV",
+                          "kind": "type",
+                          "type": 0,
+                          "decl": "slicetoarray.go:166",
+                          "pkg": "main",
+                          "top": true
+                        }
+                      },
+                      "$type": 4,
+                      "$isType": true
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "slicetoarray.go",
+                    "line": 11,
+                    "column": 6,
+                    "offset": 214
+                  },
+                  "name": "try",
+                  "obj": {
+                    "node": "Object",
+                    "name": "try",
+                    "kind": "func"
+                  },
+                  "$obj": {
+                    "name": "try",
+                    "kind": "func",
+                    "def": true,
+                    "type": 6,
+                    "decl": "slicetoarray.go:214",
+                    "pkg": "main",
+                    "top": true
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "slicetoarray.go",
+                    "line": 11,
+                    "column": 1,
+                    "offset": 209
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "slicetoarray.go",
+                      "line": 11,
+                      "column": 9,
+                      "offset": 217
+                    },
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "slicetoarray.go",
+                              "line": 11,
+                              "column": 10,
+                              "offset": 218
+                            },
+                            "name": "f",
+                            "obj": {
+                              "node": "Object",
+                              "name": "f",
+                              "kind": "var"
+                            },
+                            "$obj": {
+                              "name": "f",
+                              "kind": "var",
+                              "def": true,
+                              "type": 7,
+                              "decl": "slicetoarray.go:218",
+                              "pkg": "main"
+                            }
+                          }
+                        ],
+                        "type": {
+                          "node": "FuncType",
+                          "func": {
+                            "file": "slicetoarray.go",
+                            "line": 11,
+                            "column": 12,
+                            "offset": 220
+                          },
+                          "typeParams": null,
+                          "params": {
+                            "node": "FieldList",
+                            "opening": {
+                              "file": "slicetoarray.go",
+                              "line": 11,
+                              "column": 16,
+                              "offset": 224
+                            },
+                            "list": null,
+                            "closing": {
+                              "file": "slicetoarray.go",
+                              "line": 11,
+                              "column": 17,
+                              "offset": 225
+                            }
+                          },
+                          "results": null,
+                          "$type": 7,
+                          "$isType": true
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": {
+                      "file": "slicetoarray.go",
+                      "line": 11,
+                      "column": 18,
+                      "offset": 226
+                    }
+                  },
+                  "results": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "slicetoarray.go",
+                      "line": 11,
+                      "column": 20,
+                      "offset": 228
+                    },
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "slicetoarray.go",
+                              "line": 11,
+                              "column": 21,
+                              "offset": 229
+                            },
+                            "name": "r",
+                            "obj": {
+                              "node": "Object",
+                              "name": "r",
+                              "kind": "var"
+                            },
+                            "$obj": {
+                              "name": "r",
+                              "kind": "var",
+                              "def": true,
+                              "type": 8,
+                              "decl": "slicetoarray.go:229",
+                              "pkg": "main"
+                            }
+                          }
+                        ],
+                        "type": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "slicetoarray.go",
+                            "line": 11,
+                            "column": 23,
+                            "offset": 231
+                          },
+                          "name": "any",
+                          "obj": null,
+                          "$type": 8,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "any",
+                            "kind": "type",
+                            "type": 8
+                          }
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": {
+                      "file": "slicetoarray.go",
+                      "line": 11,
+                      "column": 26,
+                      "offset": 234
+                    }
+                  }
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "slicetoarray.go",
+                    "line": 11,
+                    "column": 28,
+                    "offset": 236
+                  },
+                  "list": [
+                    {
+                      "node": "DeferStmt",
+                      "defer": {
+                        "file": "slicetoarray.go",
+                        "line": 12,
+                        "column": 2,
+                        "offset": 239
+                      },
+                      "call": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "FuncLit",
+                          "type": {
+                            "node": "FuncType",
+                            "func": {
+                              "file": "slicetoarray.go",
+                              "line": 12,
+                              "column": 8,
+                              "offset": 245
+                            },
+                            "typeParams": null,
+                            "params": {
+                              "node": "FieldList",
+                              "opening": {
+                                "file": "slicetoarray.go",
+                                "line": 12,
+                                "column": 12,
+                                "offset": 249
+                              },
+                              "list": null,
+                              "closing": {
+                                "file": "slicetoarray.go",
+                                "line": 12,
+                                "column": 13,
+                                "offset": 250
+                              }
+                            },
+                            "results": null,
+                            "$type": 7,
+                            "$isType": true
+                          },
+                          "body": {
+                            "node": "BlockStmt",
+                            "lbrace": {
+                              "file": "slicetoarray.go",
+                              "line": 12,
+                              "column": 15,
+                              "offset": 252
+                            },
+                            "list": [
+                              {
+                                "node": "AssignStmt",
+                                "lhs": [
+                                  {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "slicetoarray.go",
+                                      "line": 12,
+                                      "column": 17,
+                                      "offset": 254
+                                    },
+                                    "name": "r",
+                                    "obj": {
+                                      "node": "Object",
+                                      "name": "r",
+                                      "kind": "var"
+                                    },
+                                    "$type": 8,
+                                    "$obj": {
+                                      "name": "r",
+                                      "kind": "var",
+                                      "type": 8,
+                                      "decl": "slicetoarray.go:229",
+                                      "pkg": "main"
+                                    }
+                                  }
+                                ],
+                                "tokPos": {
+                                  "file": "slicetoarray.go",
+                                  "line": 12,
+                                  "column": 19,
+                                  "offset": 256
+                                },
+                                "tok": "=",
+                                "rhs": [
+                                  {
+                                    "node": "CallExpr",
+                                    "fun": {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "slicetoarray.go",
+                                        "line": 12,
+                                        "column": 21,
+                                        "offset": 258
+                                      },
+                                      "name": "recover",
+                                      "obj": null,
+                                      "$type": 9,
+                                      "$builtin": true,
+                                      "$obj": {
+                                        "name": "recover",
+                                        "kind": "builtin",
+                                        "type": 10
+                                      }
+                                    },
+                                    "lparen": {
+                                      "file": "slicetoarray.go",
+                                      "line": 12,
+                                      "column": 28,
+                                      "offset": 265
+                                    },
+                                    "args": null,
+                                    "ellipsis": null,
+                                    "rparen": {
+                                      "file": "slicetoarray.go",
+                                      "line": 12,
+                                      "column": 29,
+                                      "offset": 266
+                                    },
+                                    "$type": 8
+                                  }
+                                ]
+                              }
+                            ],
+                            "rbrace": {
+                              "file": "slicetoarray.go",
+                              "line": 12,
+                              "column": 31,
+                              "offset": 268
+                            }
+                          },
+                          "$type": 7
+                        },
+                        "lparen": {
+                          "file": "slicetoarray.go",
+                          "line": 12,
+                          "column": 32,
+                          "offset": 269
+                        },
+                        "args": null,
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "slicetoarray.go",
+                          "line": 12,
+                          "column": 33,
+                          "offset": 270
+                        },
+                        "$type": 11
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "slicetoarray.go",
+                            "line": 13,
+                            "column": 2,
+                            "offset": 273
+                          },
+                          "name": "f",
+                          "obj": {
+                            "node": "Object",
+                            "name": "f",
+                            "kind": "var"
+                          },
+                          "$type": 7,
+                          "$obj": {
+                            "name": "f",
+                            "kind": "var",
+                            "type": 7,
+                            "decl": "slicetoarray.go:218",
+                            "pkg": "main"
+                          }
+                        },
+                        "lparen": {
+                          "file": "slicetoarray.go",
+                          "line": 13,
+                          "column": 3,
+                          "offset": 274
+                        },
+                        "args": null,
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "slicetoarray.go",
+                          "line": 13,
+                          "column": 4,
+                          "offset": 275
+                        },
+                        "$type": 11
+                      }
+                    },
+                    {
+                      "node": "ReturnStmt",
+                      "return": {
+                        "file": "slicetoarray.go",
+                        "line": 14,
+                        "column": 2,
+                        "offset": 278
+                      },
+                      "results": null
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "slicetoarray.go",
+                    "line": 15,
+                    "column": 1,
+                    "offset": 285
+                  }
+                }
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "slicetoarray.go",
+                    "line": 17,
+                    "column": 6,
+                    "offset": 293
+                  },
+                  "name": "main",
+                  "obj": {
+                    "node": "Object",
+                    "name": "main",
+                    "kind": "func"
+                  },
+                  "$obj": {
+                    "name": "main",
+                    "kind": "func",
+                    "def": true,
+                    "type": 7,
+                    "decl": "slicetoarray.go:293",
+                    "pkg": "main",
+                    "top": true
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "slicetoarray.go",
+                    "line": 17,
+                    "column": 1,
+                    "offset": 288
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "slicetoarray.go",
+                      "line": 17,
+                      "column": 10,
+                      "offset": 297
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "slicetoarray.go",
+                      "line": 17,
+                      "column": 11,
+                      "offset": 298
+                    }
+                  },
+                  "results": null
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "slicetoarray.go",
+                    "line": 17,
+                    "column": 13,
+                    "offset": 300
+                  },
+                  "list": [
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "slicetoarray.go",
+                            "line": 18,
+                            "column": 2,
+                            "offset": 303
+                          },
+                          "name": "kvs",
+                          "obj": {
+                            "node": "Object",
+                            "name": "kvs",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "kvs",
+                            "kind": "var",
+                            "def": true,
+                            "type": 12,
+                            "decl": "slicetoarray.go:303",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "slicetoarray.go",
+                        "line": 18,
+                        "column": 6,
+                        "offset": 307
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "CompositeLit",
+                          "type": {
+                            "node": "ArrayType",
+                            "lbrack": {
+                              "file": "slicetoarray.go",
+                              "line": 18,
+                              "column": 9,
+                              "offset": 310
+                            },
+                            "len": null,
+                            "elt": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "slicetoarray.go",
+                                "line": 18,
+                                "column": 11,
+                                "offset": 312
+                              },
+                              "name": "KV",
+                              "obj": {
+                                "node": "Object",
+                                "name": "KV",
+                                "kind": "type"
+                              },
+                              "$type": 0,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "KV",
+                                "kind": "type",
+                                "type": 0,
+                                "decl": "slicetoarray.go:166",
+                                "pkg": "main",
+                                "top": true
+                              }
+                            },
+                            "$type": 12,
+                            "$isType": true
+                          },
+                          "lbrace": {
+                            "file": "slicetoarray.go",
+                            "line": 18,
+                            "column": 13,
+                            "offset": 314
+                          },
+                          "elts": [
+                            {
+                              "node": "CompositeLit",
+                              "type": null,
+                              "lbrace": {
+                                "file": "slicetoarray.go",
+                                "line": 18,
+                                "column": 14,
+                                "offset": 315
+                              },
+                              "elts": [
+                                {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "slicetoarray.go",
+                                    "line": 18,
+                                    "column": 15,
+                                    "offset": 316
+                                  },
+                                  "valueEnd": {
+                                    "file": "slicetoarray.go",
+                                    "line": 18,
+                                    "column": 18,
+                                    "offset": 319
+                                  },
+                                  "kind": "STRING",
+                                  "value": "\"a\"",
+                                  "$type": 2,
+                                  "$value": {
+                                    "kind": "string",
+                                    "value": "a"
+                                  }
+                                },
+                                {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "slicetoarray.go",
+                                    "line": 18,
+                                    "column": 20,
+                                    "offset": 321
+                                  },
+                                  "valueEnd": {
+                                    "file": "slicetoarray.go",
+                                    "line": 18,
+                                    "column": 23,
+                                    "offset": 324
+                                  },
+                                  "kind": "STRING",
+                                  "value": "\"1\"",
+                                  "$type": 2,
+                                  "$value": {
+                                    "kind": "string",
+                                    "value": "1"
+                                  }
+                                }
+                              ],
+                              "rbrace": {
+                                "file": "slicetoarray.go",
+                                "line": 18,
+                                "column": 23,
+                                "offset": 324
+                              },
+                              "incomplete": false,
+                              "$type": 0
+                            },
+                            {
+                              "node": "CompositeLit",
+                              "type": null,
+                              "lbrace": {
+                                "file": "slicetoarray.go",
+                                "line": 18,
+                                "column": 26,
+                                "offset": 327
+                              },
+                              "elts": [
+                                {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "slicetoarray.go",
+                                    "line": 18,
+                                    "column": 27,
+                                    "offset": 328
+                                  },
+                                  "valueEnd": {
+                                    "file": "slicetoarray.go",
+                                    "line": 18,
+                                    "column": 30,
+                                    "offset": 331
+                                  },
+                                  "kind": "STRING",
+                                  "value": "\"b\"",
+                                  "$type": 2,
+                                  "$value": {
+                                    "kind": "string",
+                                    "value": "b"
+                                  }
+                                },
+                                {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "slicetoarray.go",
+                                    "line": 18,
+                                    "column": 32,
+                                    "offset": 333
+                                  },
+                                  "valueEnd": {
+                                    "file": "slicetoarray.go",
+                                    "line": 18,
+                                    "column": 35,
+                                    "offset": 336
+                                  },
+                                  "kind": "STRING",
+                                  "value": "\"2\"",
+                                  "$type": 2,
+                                  "$value": {
+                                    "kind": "string",
+                                    "value": "2"
+                                  }
+                                }
+                              ],
+                              "rbrace": {
+                                "file": "slicetoarray.go",
+                                "line": 18,
+                                "column": 35,
+                                "offset": 336
+                              },
+                              "incomplete": false,
+                              "$type": 0
+                            },
+                            {
+                              "node": "CompositeLit",
+                              "type": null,
+                              "lbrace": {
+                                "file": "slicetoarray.go",
+                                "line": 18,
+                                "column": 38,
+                                "offset": 339
+                              },
+                              "elts": [
+                                {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "slicetoarray.go",
+                                    "line": 18,
+                                    "column": 39,
+                                    "offset": 340
+                                  },
+                                  "valueEnd": {
+                                    "file": "slicetoarray.go",
+                                    "line": 18,
+                                    "column": 42,
+                                    "offset": 343
+                                  },
+                                  "kind": "STRING",
+                                  "value": "\"c\"",
+                                  "$type": 2,
+                                  "$value": {
+                                    "kind": "string",
+                                    "value": "c"
+                                  }
+                                },
+                                {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "slicetoarray.go",
+                                    "line": 18,
+                                    "column": 44,
+                                    "offset": 345
+                                  },
+                                  "valueEnd": {
+                                    "file": "slicetoarray.go",
+                                    "line": 18,
+                                    "column": 47,
+                                    "offset": 348
+                                  },
+                                  "kind": "STRING",
+                                  "value": "\"3\"",
+                                  "$type": 2,
+                                  "$value": {
+                                    "kind": "string",
+                                    "value": "3"
+                                  }
+                                }
+                              ],
+                              "rbrace": {
+                                "file": "slicetoarray.go",
+                                "line": 18,
+                                "column": 47,
+                                "offset": 348
+                              },
+                              "incomplete": false,
+                              "$type": 0
+                            }
+                          ],
+                          "rbrace": {
+                            "file": "slicetoarray.go",
+                            "line": 18,
+                            "column": 48,
+                            "offset": 349
+                          },
+                          "incomplete": false,
+                          "$type": 12
+                        }
+                      ]
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "slicetoarray.go",
+                            "line": 19,
+                            "column": 2,
+                            "offset": 352
+                          },
+                          "name": "one",
+                          "obj": {
+                            "node": "Object",
+                            "name": "one",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "one",
+                            "kind": "var",
+                            "def": true,
+                            "type": 13,
+                            "decl": "slicetoarray.go:352",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "slicetoarray.go",
+                        "line": 19,
+                        "column": 6,
+                        "offset": 356
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "CallExpr",
+                          "fun": {
+                            "node": "ArrayType",
+                            "lbrack": {
+                              "file": "slicetoarray.go",
+                              "line": 19,
+                              "column": 9,
+                              "offset": 359
+                            },
+                            "len": {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "slicetoarray.go",
+                                "line": 19,
+                                "column": 10,
+                                "offset": 360
+                              },
+                              "valueEnd": {
+                                "file": "slicetoarray.go",
+                                "line": 19,
+                                "column": 11,
+                                "offset": 361
+                              },
+                              "kind": "INT",
+                              "value": "1",
+                              "$type": 5,
+                              "$value": {
+                                "kind": "int",
+                                "value": "1"
+                              }
+                            },
+                            "elt": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "slicetoarray.go",
+                                "line": 19,
+                                "column": 12,
+                                "offset": 362
+                              },
+                              "name": "KV",
+                              "obj": {
+                                "node": "Object",
+                                "name": "KV",
+                                "kind": "type"
+                              },
+                              "$type": 0,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "KV",
+                                "kind": "type",
+                                "type": 0,
+                                "decl": "slicetoarray.go:166",
+                                "pkg": "main",
+                                "top": true
+                              }
+                            },
+                            "$type": 13,
+                            "$isType": true
+                          },
+                          "lparen": {
+                            "file": "slicetoarray.go",
+                            "line": 19,
+                            "column": 14,
+                            "offset": 364
+                          },
+                          "args": [
+                            {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "slicetoarray.go",
+                                "line": 19,
+                                "column": 15,
+                                "offset": 365
+                              },
+                              "name": "kvs",
+                              "obj": {
+                                "node": "Object",
+                                "name": "kvs",
+                                "kind": "var"
+                              },
+                              "$type": 12,
+                              "$obj": {
+                                "name": "kvs",
+                                "kind": "var",
+                                "type": 12,
+                                "decl": "slicetoarray.go:303",
+                                "pkg": "main"
+                              }
+                            }
+                          ],
+                          "ellipsis": null,
+                          "rparen": {
+                            "file": "slicetoarray.go",
+                            "line": 19,
+                            "column": 18,
+                            "offset": 368
+                          },
+                          "$type": 13
+                        }
+                      ]
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "IndexExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "slicetoarray.go",
+                                "line": 20,
+                                "column": 2,
+                                "offset": 371
+                              },
+                              "name": "kvs",
+                              "obj": {
+                                "node": "Object",
+                                "name": "kvs",
+                                "kind": "var"
+                              },
+                              "$type": 12,
+                              "$obj": {
+                                "name": "kvs",
+                                "kind": "var",
+                                "type": 12,
+                                "decl": "slicetoarray.go:303",
+                                "pkg": "main"
+                              }
+                            },
+                            "lbrack": {
+                              "file": "slicetoarray.go",
+                              "line": 20,
+                              "column": 5,
+                              "offset": 374
+                            },
+                            "index": {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "slicetoarray.go",
+                                "line": 20,
+                                "column": 6,
+                                "offset": 375
+                              },
+                              "valueEnd": {
+                                "file": "slicetoarray.go",
+                                "line": 20,
+                                "column": 7,
+                                "offset": 376
+                              },
+                              "kind": "INT",
+                              "value": "0",
+                              "$type": 14,
+                              "$value": {
+                                "kind": "int",
+                                "value": "0"
+                              }
+                            },
+                            "rbrack": {
+                              "file": "slicetoarray.go",
+                              "line": 20,
+                              "column": 7,
+                              "offset": 376
+                            },
+                            "$type": 0
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "slicetoarray.go",
+                              "line": 20,
+                              "column": 9,
+                              "offset": 378
+                            },
+                            "name": "V",
+                            "obj": null,
+                            "$obj": {
+                              "name": "V",
+                              "kind": "field",
+                              "type": 2,
+                              "decl": "slicetoarray.go:180",
+                              "pkg": "main"
+                            }
+                          },
+                          "$type": 2,
+                          "$sel": {
+                            "kind": "field",
+                            "recv": 0,
+                            "index": [
+                              1
+                            ],
+                            "indirect": false
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "slicetoarray.go",
+                        "line": 20,
+                        "column": 11,
+                        "offset": 380
+                      },
+                      "tok": "=",
+                      "rhs": [
+                        {
+                          "node": "BasicLit",
+                          "valuePos": {
+                            "file": "slicetoarray.go",
+                            "line": 20,
+                            "column": 13,
+                            "offset": 382
+                          },
+                          "valueEnd": {
+                            "file": "slicetoarray.go",
+                            "line": 20,
+                            "column": 16,
+                            "offset": 385
+                          },
+                          "kind": "STRING",
+                          "value": "\"x\"",
+                          "$type": 2,
+                          "$value": {
+                            "kind": "string",
+                            "value": "x"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "slicetoarray.go",
+                            "line": 21,
+                            "column": 2,
+                            "offset": 408
+                          },
+                          "name": "p",
+                          "obj": {
+                            "node": "Object",
+                            "name": "p",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "p",
+                            "kind": "var",
+                            "def": true,
+                            "type": 3,
+                            "decl": "slicetoarray.go:408",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "slicetoarray.go",
+                        "line": 21,
+                        "column": 4,
+                        "offset": 410
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "CallExpr",
+                          "fun": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "slicetoarray.go",
+                              "line": 21,
+                              "column": 7,
+                              "offset": 413
+                            },
+                            "name": "Pair",
+                            "obj": {
+                              "node": "Object",
+                              "name": "Pair",
+                              "kind": "type"
+                            },
+                            "$type": 3,
+                            "$isType": true,
+                            "$obj": {
+                              "name": "Pair",
+                              "kind": "type",
+                              "type": 3,
+                              "decl": "slicetoarray.go:197",
+                              "pkg": "main",
+                              "top": true
+                            }
+                          },
+                          "lparen": {
+                            "file": "slicetoarray.go",
+                            "line": 21,
+                            "column": 11,
+                            "offset": 417
+                          },
+                          "args": [
+                            {
+                              "node": "SliceExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "slicetoarray.go",
+                                  "line": 21,
+                                  "column": 12,
+                                  "offset": 418
+                                },
+                                "name": "kvs",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "kvs",
+                                  "kind": "var"
+                                },
+                                "$type": 12,
+                                "$obj": {
+                                  "name": "kvs",
+                                  "kind": "var",
+                                  "type": 12,
+                                  "decl": "slicetoarray.go:303",
+                                  "pkg": "main"
+                                }
+                              },
+                              "lbrack": {
+                                "file": "slicetoarray.go",
+                                "line": 21,
+                                "column": 15,
+                                "offset": 421
+                              },
+                              "low": {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "slicetoarray.go",
+                                  "line": 21,
+                                  "column": 16,
+                                  "offset": 422
+                                },
+                                "valueEnd": {
+                                  "file": "slicetoarray.go",
+                                  "line": 21,
+                                  "column": 17,
+                                  "offset": 423
+                                },
+                                "kind": "INT",
+                                "value": "1",
+                                "$type": 14,
+                                "$value": {
+                                  "kind": "int",
+                                  "value": "1"
+                                }
+                              },
+                              "high": null,
+                              "max": null,
+                              "slice3": false,
+                              "rbrack": {
+                                "file": "slicetoarray.go",
+                                "line": 21,
+                                "column": 18,
+                                "offset": 424
+                              },
+                              "$type": 12
+                            }
+                          ],
+                          "ellipsis": null,
+                          "rparen": {
+                            "file": "slicetoarray.go",
+                            "line": 21,
+                            "column": 19,
+                            "offset": 425
+                          },
+                          "$type": 3
+                        }
+                      ]
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "slicetoarray.go",
+                              "line": 22,
+                              "column": 2,
+                              "offset": 428
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "slicetoarray.go",
+                              "line": 22,
+                              "column": 6,
+                              "offset": 432
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 15,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 15
+                        },
+                        "lparen": {
+                          "file": "slicetoarray.go",
+                          "line": 22,
+                          "column": 13,
+                          "offset": 439
+                        },
+                        "args": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "slicetoarray.go",
+                              "line": 22,
+                              "column": 14,
+                              "offset": 440
+                            },
+                            "name": "one",
+                            "obj": {
+                              "node": "Object",
+                              "name": "one",
+                              "kind": "var"
+                            },
+                            "$type": 13,
+                            "$obj": {
+                              "name": "one",
+                              "kind": "var",
+                              "type": 13,
+                              "decl": "slicetoarray.go:352",
+                              "pkg": "main"
+                            }
+                          },
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "slicetoarray.go",
+                              "line": 22,
+                              "column": 19,
+                              "offset": 445
+                            },
+                            "name": "p",
+                            "obj": {
+                              "node": "Object",
+                              "name": "p",
+                              "kind": "var"
+                            },
+                            "$type": 3,
+                            "$obj": {
+                              "name": "p",
+                              "kind": "var",
+                              "type": 3,
+                              "decl": "slicetoarray.go:408",
+                              "pkg": "main"
+                            }
+                          },
+                          {
+                            "node": "IndexExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "slicetoarray.go",
+                                "line": 22,
+                                "column": 22,
+                                "offset": 448
+                              },
+                              "name": "kvs",
+                              "obj": {
+                                "node": "Object",
+                                "name": "kvs",
+                                "kind": "var"
+                              },
+                              "$type": 12,
+                              "$obj": {
+                                "name": "kvs",
+                                "kind": "var",
+                                "type": 12,
+                                "decl": "slicetoarray.go:303",
+                                "pkg": "main"
+                              }
+                            },
+                            "lbrack": {
+                              "file": "slicetoarray.go",
+                              "line": 22,
+                              "column": 25,
+                              "offset": 451
+                            },
+                            "index": {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "slicetoarray.go",
+                                "line": 22,
+                                "column": 26,
+                                "offset": 452
+                              },
+                              "valueEnd": {
+                                "file": "slicetoarray.go",
+                                "line": 22,
+                                "column": 27,
+                                "offset": 453
+                              },
+                              "kind": "INT",
+                              "value": "0",
+                              "$type": 14,
+                              "$value": {
+                                "kind": "int",
+                                "value": "0"
+                              }
+                            },
+                            "rbrack": {
+                              "file": "slicetoarray.go",
+                              "line": 22,
+                              "column": 27,
+                              "offset": 453
+                            },
+                            "$type": 0
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "slicetoarray.go",
+                          "line": 22,
+                          "column": 28,
+                          "offset": 454
+                        },
+                        "$type": 20
+                      }
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "slicetoarray.go",
+                            "line": 23,
+                            "column": 2,
+                            "offset": 457
+                          },
+                          "name": "b",
+                          "obj": {
+                            "node": "Object",
+                            "name": "b",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "b",
+                            "kind": "var",
+                            "def": true,
+                            "type": 21,
+                            "decl": "slicetoarray.go:457",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "slicetoarray.go",
+                        "line": 23,
+                        "column": 4,
+                        "offset": 459
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "CallExpr",
+                          "fun": {
+                            "node": "ArrayType",
+                            "lbrack": {
+                              "file": "slicetoarray.go",
+                              "line": 23,
+                              "column": 7,
+                              "offset": 462
+                            },
+                            "len": null,
+                            "elt": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "slicetoarray.go",
+                                "line": 23,
+                                "column": 9,
+                                "offset": 464
+                              },
+                              "name": "byte",
+                              "obj": null,
+                              "$type": 22,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "byte",
+                                "kind": "type",
+                                "type": 22
+                              }
+                            },
+                            "$type": 21,
+                            "$isType": true
+                          },
+                          "lparen": {
+                            "file": "slicetoarray.go",
+                            "line": 23,
+                            "column": 13,
+                            "offset": 468
+                          },
+                          "args": [
+                            {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "slicetoarray.go",
+                                "line": 23,
+                                "column": 14,
+                                "offset": 469
+                              },
+                              "valueEnd": {
+                                "file": "slicetoarray.go",
+                                "line": 23,
+                                "column": 21,
+                                "offset": 476
+                              },
+                              "kind": "STRING",
+                              "value": "\"hello\"",
+                              "$type": 2,
+                              "$value": {
+                                "kind": "string",
+                                "value": "hello"
+                              }
+                            }
+                          ],
+                          "ellipsis": null,
+                          "rparen": {
+                            "file": "slicetoarray.go",
+                            "line": 23,
+                            "column": 21,
+                            "offset": 476
+                          },
+                          "$type": 21
+                        }
+                      ]
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "slicetoarray.go",
+                              "line": 24,
+                              "column": 2,
+                              "offset": 479
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "slicetoarray.go",
+                              "line": 24,
+                              "column": 6,
+                              "offset": 483
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 15,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 15
+                        },
+                        "lparen": {
+                          "file": "slicetoarray.go",
+                          "line": 24,
+                          "column": 13,
+                          "offset": 490
+                        },
+                        "args": [
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "ArrayType",
+                              "lbrack": {
+                                "file": "slicetoarray.go",
+                                "line": 24,
+                                "column": 14,
+                                "offset": 491
+                              },
+                              "len": {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "slicetoarray.go",
+                                  "line": 24,
+                                  "column": 15,
+                                  "offset": 492
+                                },
+                                "valueEnd": {
+                                  "file": "slicetoarray.go",
+                                  "line": 24,
+                                  "column": 16,
+                                  "offset": 493
+                                },
+                                "kind": "INT",
+                                "value": "4",
+                                "$type": 5,
+                                "$value": {
+                                  "kind": "int",
+                                  "value": "4"
+                                }
+                              },
+                              "elt": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "slicetoarray.go",
+                                  "line": 24,
+                                  "column": 17,
+                                  "offset": 494
+                                },
+                                "name": "byte",
+                                "obj": null,
+                                "$type": 22,
+                                "$isType": true,
+                                "$obj": {
+                                  "name": "byte",
+                                  "kind": "type",
+                                  "type": 22
+                                }
+                              },
+                              "$type": 23,
+                              "$isType": true
+                            },
+                            "lparen": {
+                              "file": "slicetoarray.go",
+                              "line": 24,
+                              "column": 21,
+                              "offset": 498
+                            },
+                            "args": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "slicetoarray.go",
+                                  "line": 24,
+                                  "column": 22,
+                                  "offset": 499
+                                },
+                                "name": "b",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "b",
+                                  "kind": "var"
+                                },
+                                "$type": 21,
+                                "$obj": {
+                                  "name": "b",
+                                  "kind": "var",
+                                  "type": 21,
+                                  "decl": "slicetoarray.go:457",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "slicetoarray.go",
+                              "line": 24,
+                              "column": 23,
+                              "offset": 500
+                            },
+                            "$type": 23
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "ArrayType",
+                              "lbrack": {
+                                "file": "slicetoarray.go",
+                                "line": 24,
+                                "column": 26,
+                                "offset": 503
+                              },
+                              "len": {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "slicetoarray.go",
+                                  "line": 24,
+                                  "column": 27,
+                                  "offset": 504
+                                },
+                                "valueEnd": {
+                                  "file": "slicetoarray.go",
+                                  "line": 24,
+                                  "column": 28,
+                                  "offset": 505
+                                },
+                                "kind": "INT",
+                                "value": "0",
+                                "$type": 5,
+                                "$value": {
+                                  "kind": "int",
+                                  "value": "0"
+                                }
+                              },
+                              "elt": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "slicetoarray.go",
+                                  "line": 24,
+                                  "column": 29,
+                                  "offset": 506
+                                },
+                                "name": "int",
+                                "obj": null,
+                                "$type": 14,
+                                "$isType": true,
+                                "$obj": {
+                                  "name": "int",
+                                  "kind": "type",
+                                  "type": 14
+                                }
+                              },
+                              "$type": 24,
+                              "$isType": true
+                            },
+                            "lparen": {
+                              "file": "slicetoarray.go",
+                              "line": 24,
+                              "column": 32,
+                              "offset": 509
+                            },
+                            "args": [
+                              {
+                                "node": "CallExpr",
+                                "fun": {
+                                  "node": "ArrayType",
+                                  "lbrack": {
+                                    "file": "slicetoarray.go",
+                                    "line": 24,
+                                    "column": 33,
+                                    "offset": 510
+                                  },
+                                  "len": null,
+                                  "elt": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "slicetoarray.go",
+                                      "line": 24,
+                                      "column": 35,
+                                      "offset": 512
+                                    },
+                                    "name": "int",
+                                    "obj": null,
+                                    "$type": 14,
+                                    "$isType": true,
+                                    "$obj": {
+                                      "name": "int",
+                                      "kind": "type",
+                                      "type": 14
+                                    }
+                                  },
+                                  "$type": 25,
+                                  "$isType": true
+                                },
+                                "lparen": {
+                                  "file": "slicetoarray.go",
+                                  "line": 24,
+                                  "column": 38,
+                                  "offset": 515
+                                },
+                                "args": [
+                                  {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "slicetoarray.go",
+                                      "line": 24,
+                                      "column": 39,
+                                      "offset": 516
+                                    },
+                                    "name": "nil",
+                                    "obj": null,
+                                    "$type": 26,
+                                    "$obj": {
+                                      "name": "nil",
+                                      "kind": "nil",
+                                      "type": 26
+                                    }
+                                  }
+                                ],
+                                "ellipsis": null,
+                                "rparen": {
+                                  "file": "slicetoarray.go",
+                                  "line": 24,
+                                  "column": 42,
+                                  "offset": 519
+                                },
+                                "$type": 25
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "slicetoarray.go",
+                              "line": 24,
+                              "column": 43,
+                              "offset": 520
+                            },
+                            "$type": 24
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "slicetoarray.go",
+                          "line": 24,
+                          "column": 44,
+                          "offset": 521
+                        },
+                        "$type": 20
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "slicetoarray.go",
+                              "line": 25,
+                              "column": 2,
+                              "offset": 524
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "slicetoarray.go",
+                              "line": 25,
+                              "column": 6,
+                              "offset": 528
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 15,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 15
+                        },
+                        "lparen": {
+                          "file": "slicetoarray.go",
+                          "line": 25,
+                          "column": 13,
+                          "offset": 535
+                        },
+                        "args": [
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "slicetoarray.go",
+                                "line": 25,
+                                "column": 14,
+                                "offset": 536
+                              },
+                              "name": "try",
+                              "obj": {
+                                "node": "Object",
+                                "name": "try",
+                                "kind": "func"
+                              },
+                              "$type": 6,
+                              "$obj": {
+                                "name": "try",
+                                "kind": "func",
+                                "type": 6,
+                                "decl": "slicetoarray.go:214",
+                                "pkg": "main",
+                                "top": true
+                              }
+                            },
+                            "lparen": {
+                              "file": "slicetoarray.go",
+                              "line": 25,
+                              "column": 17,
+                              "offset": 539
+                            },
+                            "args": [
+                              {
+                                "node": "FuncLit",
+                                "type": {
+                                  "node": "FuncType",
+                                  "func": {
+                                    "file": "slicetoarray.go",
+                                    "line": 25,
+                                    "column": 18,
+                                    "offset": 540
+                                  },
+                                  "typeParams": null,
+                                  "params": {
+                                    "node": "FieldList",
+                                    "opening": {
+                                      "file": "slicetoarray.go",
+                                      "line": 25,
+                                      "column": 22,
+                                      "offset": 544
+                                    },
+                                    "list": null,
+                                    "closing": {
+                                      "file": "slicetoarray.go",
+                                      "line": 25,
+                                      "column": 23,
+                                      "offset": 545
+                                    }
+                                  },
+                                  "results": null,
+                                  "$type": 7,
+                                  "$isType": true
+                                },
+                                "body": {
+                                  "node": "BlockStmt",
+                                  "lbrace": {
+                                    "file": "slicetoarray.go",
+                                    "line": 25,
+                                    "column": 25,
+                                    "offset": 547
+                                  },
+                                  "list": [
+                                    {
+                                      "node": "AssignStmt",
+                                      "lhs": [
+                                        {
+                                          "node": "Ident",
+                                          "namePos": {
+                                            "file": "slicetoarray.go",
+                                            "line": 25,
+                                            "column": 27,
+                                            "offset": 549
+                                          },
+                                          "name": "_",
+                                          "obj": null
+                                        }
+                                      ],
+                                      "tokPos": {
+                                        "file": "slicetoarray.go",
+                                        "line": 25,
+                                        "column": 29,
+                                        "offset": 551
+                                      },
+                                      "tok": "=",
+                                      "rhs": [
+                                        {
+                                          "node": "CallExpr",
+                                          "fun": {
+                                            "node": "ArrayType",
+                                            "lbrack": {
+                                              "file": "slicetoarray.go",
+                                              "line": 25,
+                                              "column": 31,
+                                              "offset": 553
+                                            },
+                                            "len": {
+                                              "node": "BasicLit",
+                                              "valuePos": {
+                                                "file": "slicetoarray.go",
+                                                "line": 25,
+                                                "column": 32,
+                                                "offset": 554
+                                              },
+                                              "valueEnd": {
+                                                "file": "slicetoarray.go",
+                                                "line": 25,
+                                                "column": 33,
+                                                "offset": 555
+                                              },
+                                              "kind": "INT",
+                                              "value": "4",
+                                              "$type": 5,
+                                              "$value": {
+                                                "kind": "int",
+                                                "value": "4"
+                                              }
+                                            },
+                                            "elt": {
+                                              "node": "Ident",
+                                              "namePos": {
+                                                "file": "slicetoarray.go",
+                                                "line": 25,
+                                                "column": 34,
+                                                "offset": 556
+                                              },
+                                              "name": "KV",
+                                              "obj": {
+                                                "node": "Object",
+                                                "name": "KV",
+                                                "kind": "type"
+                                              },
+                                              "$type": 0,
+                                              "$isType": true,
+                                              "$obj": {
+                                                "name": "KV",
+                                                "kind": "type",
+                                                "type": 0,
+                                                "decl": "slicetoarray.go:166",
+                                                "pkg": "main",
+                                                "top": true
+                                              }
+                                            },
+                                            "$type": 27,
+                                            "$isType": true
+                                          },
+                                          "lparen": {
+                                            "file": "slicetoarray.go",
+                                            "line": 25,
+                                            "column": 36,
+                                            "offset": 558
+                                          },
+                                          "args": [
+                                            {
+                                              "node": "Ident",
+                                              "namePos": {
+                                                "file": "slicetoarray.go",
+                                                "line": 25,
+                                                "column": 37,
+                                                "offset": 559
+                                              },
+                                              "name": "kvs",
+                                              "obj": {
+                                                "node": "Object",
+                                                "name": "kvs",
+                                                "kind": "var"
+                                              },
+                                              "$type": 12,
+                                              "$obj": {
+                                                "name": "kvs",
+                                                "kind": "var",
+                                                "type": 12,
+                                                "decl": "slicetoarray.go:303",
+                                                "pkg": "main"
+                                              }
+                                            }
+                                          ],
+                                          "ellipsis": null,
+                                          "rparen": {
+                                            "file": "slicetoarray.go",
+                                            "line": 25,
+                                            "column": 40,
+                                            "offset": 562
+                                          },
+                                          "$type": 27
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "rbrace": {
+                                    "file": "slicetoarray.go",
+                                    "line": 25,
+                                    "column": 42,
+                                    "offset": 564
+                                  }
+                                },
+                                "$type": 7
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "slicetoarray.go",
+                              "line": 25,
+                              "column": 43,
+                              "offset": 565
+                            },
+                            "$type": 8
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "slicetoarray.go",
+                          "line": 25,
+                          "column": 44,
+                          "offset": 566
+                        },
+                        "$type": 20
+                      }
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "slicetoarray.go",
+                    "line": 26,
+                    "column": 1,
+                    "offset": 568
+                  }
+                }
+              }
+            ],
+            "fileStart": {
+              "file": "slicetoarray.go",
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "fileEnd": {
+              "file": "slicetoarray.go",
+              "line": 26,
+              "column": 3,
+              "offset": 570
+            },
+            "scope": null,
+            "imports": [
+              {
+                "node": "ImportSpec",
+                "doc": null,
+                "name": null,
+                "path": {
+                  "node": "BasicLit",
+                  "valuePos": {
+                    "file": "slicetoarray.go",
+                    "line": 5,
+                    "column": 8,
+                    "offset": 154
+                  },
+                  "valueEnd": {
+                    "file": "slicetoarray.go",
+                    "line": 5,
+                    "column": 13,
+                    "offset": 159
+                  },
+                  "kind": "STRING",
+                  "value": "\"fmt\""
+                },
+                "comment": null,
+                "endPos": null
+              }
+            ],
+            "unresolved": [
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "slicetoarray.go",
+                  "line": 7,
+                  "column": 22,
+                  "offset": 182
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 2,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 2
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "slicetoarray.go",
+                  "line": 11,
+                  "column": 23,
+                  "offset": 231
+                },
+                "name": "any",
+                "obj": null,
+                "$type": 8,
+                "$isType": true,
+                "$obj": {
+                  "name": "any",
+                  "kind": "type",
+                  "type": 8
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "slicetoarray.go",
+                  "line": 12,
+                  "column": 21,
+                  "offset": 258
+                },
+                "name": "recover",
+                "obj": null,
+                "$type": 9,
+                "$builtin": true,
+                "$obj": {
+                  "name": "recover",
+                  "kind": "builtin",
+                  "type": 10
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "slicetoarray.go",
+                  "line": 22,
+                  "column": 2,
+                  "offset": 428
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "slicetoarray.go",
+                  "line": 23,
+                  "column": 9,
+                  "offset": 464
+                },
+                "name": "byte",
+                "obj": null,
+                "$type": 22,
+                "$isType": true,
+                "$obj": {
+                  "name": "byte",
+                  "kind": "type",
+                  "type": 22
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "slicetoarray.go",
+                  "line": 24,
+                  "column": 2,
+                  "offset": 479
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "slicetoarray.go",
+                  "line": 24,
+                  "column": 17,
+                  "offset": 494
+                },
+                "name": "byte",
+                "obj": null,
+                "$type": 22,
+                "$isType": true,
+                "$obj": {
+                  "name": "byte",
+                  "kind": "type",
+                  "type": 22
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "slicetoarray.go",
+                  "line": 24,
+                  "column": 29,
+                  "offset": 506
+                },
+                "name": "int",
+                "obj": null,
+                "$type": 14,
+                "$isType": true,
+                "$obj": {
+                  "name": "int",
+                  "kind": "type",
+                  "type": 14
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "slicetoarray.go",
+                  "line": 24,
+                  "column": 35,
+                  "offset": 512
+                },
+                "name": "int",
+                "obj": null,
+                "$type": 14,
+                "$isType": true,
+                "$obj": {
+                  "name": "int",
+                  "kind": "type",
+                  "type": 14
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "slicetoarray.go",
+                  "line": 24,
+                  "column": 39,
+                  "offset": 516
+                },
+                "name": "nil",
+                "obj": null,
+                "$type": 26,
+                "$obj": {
+                  "name": "nil",
+                  "kind": "nil",
+                  "type": 26
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "slicetoarray.go",
+                  "line": 25,
+                  "column": 2,
+                  "offset": 524
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              }
+            ],
+            "comments": [
+              {
+                "node": "CommentGroup",
+                "list": [
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "slicetoarray.go",
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "text": "// [N]T(s) (Go 1.20; go.opentelemetry.io/otel/attribute: [1]KeyValue(kvs)):"
+                  },
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "slicetoarray.go",
+                      "line": 2,
+                      "column": 1,
+                      "offset": 76
+                    },
+                    "text": "// cópia dos N primeiros, pânico se o slice for curto."
+                  }
+                ]
+              },
+              {
+                "node": "CommentGroup",
+                "list": [
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "slicetoarray.go",
+                      "line": 20,
+                      "column": 17,
+                      "offset": 386
+                    },
+                    "text": "// o array é cópia"
+                  }
+                ]
+              }
+            ],
+            "goVersion": ""
+          }
+        }
+      ],
+      "imports": [
+        {
+          "path": "fmt",
+          "name": "fmt"
+        }
+      ],
+      "typeTable": [
+        {
+          "kind": "named",
+          "pkg": "main",
+          "name": "KV",
+          "underlying": 1,
+          "methods": []
+        },
+        {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "K",
+              "type": 2,
+              "embedded": false,
+              "tag": ""
+            },
+            {
+              "name": "V",
+              "type": 2,
+              "embedded": false,
+              "tag": ""
+            }
+          ]
+        },
+        {
+          "kind": "basic",
+          "name": "string"
+        },
+        {
+          "kind": "named",
+          "pkg": "main",
+          "name": "Pair",
+          "underlying": 4,
+          "methods": []
+        },
+        {
+          "kind": "array",
+          "len": 2,
+          "elem": 0
+        },
+        {
+          "kind": "basic",
+          "name": "untyped int"
+        },
+        {
+          "kind": "func",
+          "params": [
+            7
+          ],
+          "results": [
+            8
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [],
+          "variadic": false
+        },
+        {
+          "kind": "interface",
+          "methods": [],
+          "embeddeds": []
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            8
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "basic",
+          "name": "invalid type"
+        },
+        {
+          "kind": "tuple",
+          "elems": []
+        },
+        {
+          "kind": "slice",
+          "elem": 0
+        },
+        {
+          "kind": "array",
+          "len": 1,
+          "elem": 0
+        },
+        {
+          "kind": "basic",
+          "name": "int"
+        },
+        {
+          "kind": "func",
+          "params": [
+            16
+          ],
+          "results": [
+            14,
+            17
+          ],
+          "variadic": true
+        },
+        {
+          "kind": "slice",
+          "elem": 8
+        },
+        {
+          "kind": "named",
+          "pkg": "",
+          "name": "error",
+          "underlying": 18
+        },
+        {
+          "kind": "interface",
+          "methods": [
+            {
+              "name": "Error",
+              "type": 19
+            }
+          ],
+          "embeddeds": []
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            2
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "tuple",
+          "elems": [
+            14,
+            17
+          ]
+        },
+        {
+          "kind": "slice",
+          "elem": 22
+        },
+        {
+          "kind": "basic",
+          "name": "byte"
+        },
+        {
+          "kind": "array",
+          "len": 4,
+          "elem": 22
+        },
+        {
+          "kind": "array",
+          "len": 0,
+          "elem": 14
+        },
+        {
+          "kind": "slice",
+          "elem": 14
+        },
+        {
+          "kind": "basic",
+          "name": "untyped nil"
+        },
+        {
+          "kind": "array",
+          "len": 4,
+          "elem": 0
+        }
+      ],
+      "implements": null,
+      "initOrder": [],
+      "stdlibUsage": [
+        "fmt.Println"
+      ],
+      "reflectUsage": null
+    }
+  ]
+}
