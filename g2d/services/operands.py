@@ -47,5 +47,20 @@ class Operands(Service):
             return f"{self.expr(n['x'], POSTFIX)}[{self.expr(n['index'])}]"
         return self.expr(n, POSTFIX)
 
+    def is_pure(self, n):
+        """Avaliar n duas vezes dá o mesmo valor e nenhum efeito: constantes,
+        identificadores, campos, índices, parênteses e `*p` sobre puros
+        (leitura-escrita de `x op= y` sem operador Dart)."""
+        if n.get("$value") is not None:
+            return True
+        k = n["node"]
+        if k == "Ident":
+            return True
+        if k in ("ParenExpr", "SelectorExpr", "StarExpr"):
+            return self.is_pure(n["x"])
+        if k == "IndexExpr":
+            return self.is_pure(n["x"]) and self.is_pure(n["index"])
+        return False
+
     def is_map_index(self, n):
         return n["node"] == "IndexExpr" and self.typesys.underlying(self.pkg.type_of(n["x"]))["kind"] == "map"

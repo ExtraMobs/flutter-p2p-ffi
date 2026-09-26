@@ -163,6 +163,12 @@ class UnsupportedTest(unittest.TestCase):
         src = "package main\n\nfunc fastrand() uint64\n\nfunc main() {}\n"
         self.assertEqual(self.emit_error(src), ("func-sem-corpo", ("main.go", 3, 6)))
 
+    def test_opassign_impure_target(self):
+        """`m[f()] += 1` leria e escreveria chamando f duas vezes: recusado."""
+        src = ('package main\n\nfunc f() string { return "a" }\n\n'
+               'func main() {\n\tm := map[string]int{}\n\tm[f()] += 1\n}\n')
+        self.assertEqual(self.emit_error(src), ("opassign-impuro", ("main.go", 7, 2)))
+
     def test_missing_shim_symbol(self):
         """Símbolo que o shim não tem é recusado (antes: chamada Dart inexistente)."""
         src = 'package main\n\nimport "math"\n\nfunc main() { _ = math.Cbrt(2) }\n'

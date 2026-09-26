@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from g2d.engine.behavior import ConversionBehavior
 from g2d.engine.precedence import POSTFIX
 from g2d.model import Unsupported
+from g2d.services.naming import escape, lower_camel, member_name
 
 
 @dataclass
@@ -18,12 +19,24 @@ class Conversion:
     frm_t: dict
     to: object  # Basic ou None
     frm: object  # Basic ou None
+    to_cat: str = ""  # categoria para o código do Unsupported
+    frm_cat: str = ""
 
     @classmethod
     def of(cls, engine, n, fun, arg):
         typesys = engine.services["typesys"]
         to_t, frm_t = engine.pkg.type_at(fun["$type"]), engine.pkg.type_of(arg)
-        return cls(n, arg, to_t, frm_t, typesys.basic(to_t), typesys.basic(frm_t))
+        to, frm = typesys.basic(to_t), typesys.basic(frm_t)
+        return cls(n, arg, to_t, frm_t, to, frm, cls.category(typesys, to_t, to), cls.category(typesys, frm_t, frm))
+
+    @staticmethod
+    def category(typesys, t, basic):
+        """`int`, `string`... para básicos; senão o kind do subjacente
+        (`pointer`, `func`, `struct`...), com `named-` quando T é nomeado."""
+        if basic is not None:
+            return basic.cat
+        kind = typesys.underlying(t)["kind"]
+        return f"named-{kind}" if t["kind"] == "named" else kind
 
     @property
     def named_to(self):
@@ -35,7 +48,8 @@ class Conversion:
 
     def unsupported(self):
         if not self.basics:
-            return Unsupported("conversao:nao-basico", "conversão de tipo não-básico", self.n)
+            return Unsupported(f"conversao:{self.frm_cat}-{self.to_cat}",
+                               f"conversão {self.frm_cat} → {self.to_cat}", self.n)
         return Unsupported(f"conversao:{self.frm.cat}-{self.to.cat}", f"conversão {self.frm.cat} → {self.to.cat}", self.n)
 
 
@@ -157,6 +171,30 @@ class Retype(ConversionBehavior):
         return self.values.retype(c.arg, c.frm_t, c.to_t)
 
 
+class StructToStruct(ConversionBehavior):
+    """`B(a)` entre structs com os mesmos campos (nomes e tipos; tags não
+    contam): um B novo com os campos de uma cópia de a, numa expressão
+    (`switch (a) { final $t => B(x: $t._x) }`, a avaliada uma vez)."""
+
+    def fields(self, t):
+        u = self.typesys.underlying(t)
+        if u["kind"] != "struct":
+            return None
+        return [(f["name"], self.pkg.type_at(f["type"])) for f in u["fields"]]
+
+    def accepts(self, c):
+        a, b = self.fields(c.frm_t), self.fields(c.to_t)
+        return a is not None and a == b
+
+    def emit(self, c):
+        tmp = self.names.temp()
+        args = [self.descriptors.elem(a) for a in c.to_t.get("args") or []]
+        args += [f"{escape(lower_camel(name.lstrip('_')))}: {tmp}.{member_name(name)}"
+                 for name, _ in self.fields(c.to_t) if name != "_"]
+        src = self.values.coerce(c.arg, c.frm_t)
+        return f"switch ({src}) {{ final {tmp} => {self.types.dart(c.to_t).non_null()}({', '.join(args)}) }}", POSTFIX
+
+
 class FromNil(ConversionBehavior):
     """`T(nil)` (slice, map, ponteiro, func, interface): o zero value de T."""
 
@@ -201,5 +239,5 @@ class StringSlice(ConversionBehavior):
 
 # Ordem de registro = prioridade crescente (a cadeia tenta do último ao
 # primeiro): a identidade vence tudo, como no emissor original.
-CONVERSIONS = [FromNil, StringSlice, Retype, IntToString, StringToString, ComplexToComplex, FloatToFloat, FloatToInt,
+CONVERSIONS = [FromNil, StringSlice, StructToStruct, Retype, IntToString, StringToString, ComplexToComplex, FloatToFloat, FloatToInt,
                IntToFloat, IntToInt, SameUnderlying, ToTypeParam, Identity]

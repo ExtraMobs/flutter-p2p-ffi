@@ -173,7 +173,11 @@ class StructClass(TypeDeclBehavior):
         seen = set()
         for f in st["fields"]:
             if f["name"] == "_":
-                continue  # campo em branco: inacessível e fora da igualdade
+                # Campo em branco: sem armazenamento (inacessível); sempre zero,
+                # então no `$fields` ele só aparece para o `%v`/`%+v` do Go.
+                values.append(self.types.zero(f["type"]))
+                names.append("'_'")
+                continue
             fname = member_name(f["name"])
             pname = escape(lower_camel(f["name"].lstrip("_")))
             if not pname or pname in seen:
@@ -262,6 +266,8 @@ class InterfaceClass(TypeDeclBehavior):
         supers = []
         for e in u["embeddeds"]:
             et = self.pkg.type_at(e)
+            if et["kind"] == "named" and et["pkg"] == "" and et["name"] == "comparable":
+                continue  # só restrição (== do Dart); não tem métodos
             if et["kind"] != "named" or self.typesys.underlying(et)["kind"] != "interface":
                 return []
             supers.append(self.types.dart(et).non_null())

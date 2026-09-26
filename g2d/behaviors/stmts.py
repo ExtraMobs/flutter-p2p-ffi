@@ -136,18 +136,26 @@ class AssignStmt(StmtBehavior):
 
     def op_assign(self, lhs, op, rhs):
         b = self.typesys.basic(self.pkg.type_of(lhs))
-        if self.operands.is_map_index(lhs):
-            if op in ("/", "%", "&^", "<<", ">>"):
-                raise Unsupported(f"map-opassign:{op}", f"{op}= sobre índice de map", lhs)
-            p = DART_PREC[op]
-            return f"{self.operands.lvalue(lhs)} = ({self.expr(lhs)}) {op} {self.expr(rhs, p + 1)};"
+        # Sem operador composto Dart equivalente: lê e escreve o alvo (map
+        # guarda sem `??`; `&^` é o método andNot).
+        if self.operands.is_map_index(lhs) or (op == "&^" and lhs["node"] != "Ident"):
+            if not self.operands.is_pure(lhs):
+                raise Unsupported("opassign-impuro", f"{op}= sobre alvo com efeito (avaliado duas vezes)", lhs)
+            read = self.expr(lhs, POSTFIX)
+            if op == "&^":
+                value = f"{read}.andNot({self.expr(rhs)})"
+            elif op in ("<<", ">>"):
+                value = f"{read} {op} {self.operands.shift_count(rhs)}"
+            elif b and b.integer and op == "/":
+                value = f"{read} ~/ {self.expr(rhs, DART_PREC['~/'] + 1)}"
+            else:
+                value = f"{read} {op} {self.expr(rhs, DART_PREC[op] + 1)}"
+            return f"{self.operands.lvalue(lhs)} = {value};"
         if op in ("<<", ">>"):
             return f"{self.operands.lvalue(lhs)} {op}= {self.operands.shift_count(rhs)};"
         if b and b.integer and op == "/":
             return f"{self.operands.lvalue(lhs)} ~/= {self.expr(rhs)};"
         if op == "&^":
-            if lhs["node"] != "Ident":
-                raise Unsupported("andnot-nao-ident", "&^= sobre expressão não-identificador", lhs)
             x = self.expr(lhs)
             return f"{x} = {x}.andNot({self.expr(rhs)});"
         return f"{self.operands.lvalue(lhs)} {op}= {self.expr(rhs)};"
@@ -389,8 +397,10 @@ class DeferStmt(StmtBehavior):
         call = s["call"]
         fun, args = call["fun"], call["args"] or []
         pre = []
-        if fun.get("$builtin"):
-            raise Unsupported("defer-builtin", "defer de builtin", s)
+        if fun.get("$builtin") and fun.get("name") == "recover":
+            # `defer recover()` não recupera no Go (recover não é chamado por
+            # uma função adiada); raro demais para modelar.
+            raise Unsupported("defer-recover", "defer recover()", s)
         # Avalia os argumentos agora, fixando-os em temporários.
         fixed = []
         for a in args:
@@ -411,6 +421,9 @@ class DeferStmt(StmtBehavior):
             pre.append(f"final {tmp} = {self.expr(fun)};")
             callee_node = {"node": "G2DTemp", "text": tmp, "$type": fun.get("$type")}
         d = self.scope.defers
+        if fun.get("$builtin"):  # delete, panic, print...: sem `$rd`
+            text = self.expr(dict(call, args=fixed))
+            return ["{"] + pre + [f"{d}.defer(() {{ {text}; }});", "}"]
         if self.calls.known_recoverer(fun):
             # Chamada direta de quem chama recover(): repassa o frame.
             text = self.expr(dict(call, fun=callee_node, args=fixed, **{"$rdArg": d}))

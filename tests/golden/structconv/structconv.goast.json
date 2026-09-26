@@ -1,0 +1,3641 @@
+{
+  "schemaVersion": 7,
+  "tool": "goast",
+  "goVersion": "go1.26.5",
+  "packages": [
+    {
+      "path": "main",
+      "name": "main",
+      "files": [
+        {
+          "path": "structconv.go",
+          "ast": {
+            "node": "File",
+            "doc": {
+              "node": "CommentGroup",
+              "list": [
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "structconv.go",
+                    "line": 1,
+                    "column": 1,
+                    "offset": 0
+                  },
+                  "text": "// Conversão entre structs de mesmo subjacente (tags ignoradas), nomeadas e"
+                },
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "structconv.go",
+                    "line": 2,
+                    "column": 1,
+                    "offset": 77
+                  },
+                  "text": "// anônimas: o resultado é uma cópia."
+                }
+              ]
+            },
+            "package": {
+              "file": "structconv.go",
+              "line": 3,
+              "column": 1,
+              "offset": 118
+            },
+            "name": {
+              "node": "Ident",
+              "namePos": {
+                "file": "structconv.go",
+                "line": 3,
+                "column": 9,
+                "offset": 126
+              },
+              "name": "main",
+              "obj": null
+            },
+            "decls": [
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "structconv.go",
+                  "line": 5,
+                  "column": 1,
+                  "offset": 132
+                },
+                "tok": "import",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "ImportSpec",
+                    "doc": null,
+                    "name": null,
+                    "path": {
+                      "node": "BasicLit",
+                      "valuePos": {
+                        "file": "structconv.go",
+                        "line": 5,
+                        "column": 8,
+                        "offset": 139
+                      },
+                      "valueEnd": {
+                        "file": "structconv.go",
+                        "line": 5,
+                        "column": 13,
+                        "offset": 144
+                      },
+                      "kind": "STRING",
+                      "value": "\"fmt\""
+                    },
+                    "comment": null,
+                    "endPos": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "structconv.go",
+                  "line": 7,
+                  "column": 1,
+                  "offset": 146
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "structconv.go",
+                        "line": 7,
+                        "column": 6,
+                        "offset": 151
+                      },
+                      "name": "Inner",
+                      "obj": {
+                        "node": "Object",
+                        "name": "Inner",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "Inner",
+                        "kind": "type",
+                        "def": true,
+                        "type": 0,
+                        "decl": "structconv.go:151",
+                        "pkg": "main",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "StructType",
+                      "struct": {
+                        "file": "structconv.go",
+                        "line": 7,
+                        "column": 12,
+                        "offset": 157
+                      },
+                      "fields": {
+                        "node": "FieldList",
+                        "opening": {
+                          "file": "structconv.go",
+                          "line": 7,
+                          "column": 18,
+                          "offset": 163
+                        },
+                        "list": [
+                          {
+                            "node": "Field",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "structconv.go",
+                                  "line": 7,
+                                  "column": 20,
+                                  "offset": 165
+                                },
+                                "name": "N",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "N",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "N",
+                                  "kind": "field",
+                                  "def": true,
+                                  "type": 2,
+                                  "decl": "structconv.go:165",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "structconv.go",
+                                "line": 7,
+                                "column": 22,
+                                "offset": 167
+                              },
+                              "name": "int",
+                              "obj": null,
+                              "$type": 2,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "int",
+                                "kind": "type",
+                                "type": 2
+                              }
+                            },
+                            "tag": null,
+                            "comment": null
+                          }
+                        ],
+                        "closing": {
+                          "file": "structconv.go",
+                          "line": 7,
+                          "column": 26,
+                          "offset": 171
+                        }
+                      },
+                      "incomplete": false,
+                      "$type": 1,
+                      "$isType": true
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "structconv.go",
+                  "line": 9,
+                  "column": 1,
+                  "offset": 174
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "structconv.go",
+                        "line": 9,
+                        "column": 6,
+                        "offset": 179
+                      },
+                      "name": "A",
+                      "obj": {
+                        "node": "Object",
+                        "name": "A",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "A",
+                        "kind": "type",
+                        "def": true,
+                        "type": 3,
+                        "decl": "structconv.go:179",
+                        "pkg": "main",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "StructType",
+                      "struct": {
+                        "file": "structconv.go",
+                        "line": 9,
+                        "column": 8,
+                        "offset": 181
+                      },
+                      "fields": {
+                        "node": "FieldList",
+                        "opening": {
+                          "file": "structconv.go",
+                          "line": 9,
+                          "column": 15,
+                          "offset": 188
+                        },
+                        "list": [
+                          {
+                            "node": "Field",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "structconv.go",
+                                  "line": 10,
+                                  "column": 2,
+                                  "offset": 191
+                                },
+                                "name": "X",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "X",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "X",
+                                  "kind": "field",
+                                  "def": true,
+                                  "type": 2,
+                                  "decl": "structconv.go:191",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "structconv.go",
+                                "line": 10,
+                                "column": 8,
+                                "offset": 197
+                              },
+                              "name": "int",
+                              "obj": null,
+                              "$type": 2,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "int",
+                                "kind": "type",
+                                "type": 2
+                              }
+                            },
+                            "tag": null,
+                            "comment": null
+                          },
+                          {
+                            "node": "Field",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "structconv.go",
+                                  "line": 11,
+                                  "column": 2,
+                                  "offset": 202
+                                },
+                                "name": "In",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "In",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "In",
+                                  "kind": "field",
+                                  "def": true,
+                                  "type": 0,
+                                  "decl": "structconv.go:202",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "structconv.go",
+                                "line": 11,
+                                "column": 8,
+                                "offset": 208
+                              },
+                              "name": "Inner",
+                              "obj": {
+                                "node": "Object",
+                                "name": "Inner",
+                                "kind": "type"
+                              },
+                              "$type": 0,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "Inner",
+                                "kind": "type",
+                                "type": 0,
+                                "decl": "structconv.go:151",
+                                "pkg": "main",
+                                "top": true
+                              }
+                            },
+                            "tag": null,
+                            "comment": null
+                          },
+                          {
+                            "node": "Field",
+                            "doc": null,
+                            "names": null,
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "structconv.go",
+                                "line": 12,
+                                "column": 2,
+                                "offset": 215
+                              },
+                              "name": "Inner",
+                              "obj": {
+                                "node": "Object",
+                                "name": "Inner",
+                                "kind": "type"
+                              },
+                              "$type": 0,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "Inner",
+                                "kind": "field",
+                                "def": true,
+                                "type": 0,
+                                "decl": "structconv.go:215",
+                                "pkg": "main",
+                                "embedded": true
+                              }
+                            },
+                            "tag": null,
+                            "comment": {
+                              "node": "CommentGroup",
+                              "list": [
+                                {
+                                  "node": "Comment",
+                                  "slash": {
+                                    "file": "structconv.go",
+                                    "line": 12,
+                                    "column": 15,
+                                    "offset": 228
+                                  },
+                                  "text": "// embutido"
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "node": "Field",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "structconv.go",
+                                  "line": 13,
+                                  "column": 2,
+                                  "offset": 241
+                                },
+                                "name": "tag",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "tag",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "tag",
+                                  "kind": "field",
+                                  "def": true,
+                                  "type": 5,
+                                  "decl": "structconv.go:241",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "structconv.go",
+                                "line": 13,
+                                "column": 8,
+                                "offset": 247
+                              },
+                              "name": "string",
+                              "obj": null,
+                              "$type": 5,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "string",
+                                "kind": "type",
+                                "type": 5
+                              }
+                            },
+                            "tag": {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "structconv.go",
+                                "line": 13,
+                                "column": 15,
+                                "offset": 254
+                              },
+                              "valueEnd": {
+                                "file": "structconv.go",
+                                "line": 13,
+                                "column": 25,
+                                "offset": 264
+                              },
+                              "kind": "STRING",
+                              "value": "`json:\"t\"`"
+                            },
+                            "comment": null
+                          }
+                        ],
+                        "closing": {
+                          "file": "structconv.go",
+                          "line": 14,
+                          "column": 1,
+                          "offset": 265
+                        }
+                      },
+                      "incomplete": false,
+                      "$type": 4,
+                      "$isType": true
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "structconv.go",
+                  "line": 16,
+                  "column": 1,
+                  "offset": 268
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "structconv.go",
+                        "line": 16,
+                        "column": 6,
+                        "offset": 273
+                      },
+                      "name": "B",
+                      "obj": {
+                        "node": "Object",
+                        "name": "B",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "B",
+                        "kind": "type",
+                        "def": true,
+                        "type": 6,
+                        "decl": "structconv.go:273",
+                        "pkg": "main",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "StructType",
+                      "struct": {
+                        "file": "structconv.go",
+                        "line": 16,
+                        "column": 8,
+                        "offset": 275
+                      },
+                      "fields": {
+                        "node": "FieldList",
+                        "opening": {
+                          "file": "structconv.go",
+                          "line": 16,
+                          "column": 15,
+                          "offset": 282
+                        },
+                        "list": [
+                          {
+                            "node": "Field",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "structconv.go",
+                                  "line": 17,
+                                  "column": 2,
+                                  "offset": 285
+                                },
+                                "name": "X",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "X",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "X",
+                                  "kind": "field",
+                                  "def": true,
+                                  "type": 2,
+                                  "decl": "structconv.go:285",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "structconv.go",
+                                "line": 17,
+                                "column": 8,
+                                "offset": 291
+                              },
+                              "name": "int",
+                              "obj": null,
+                              "$type": 2,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "int",
+                                "kind": "type",
+                                "type": 2
+                              }
+                            },
+                            "tag": null,
+                            "comment": null
+                          },
+                          {
+                            "node": "Field",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "structconv.go",
+                                  "line": 18,
+                                  "column": 2,
+                                  "offset": 296
+                                },
+                                "name": "In",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "In",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "In",
+                                  "kind": "field",
+                                  "def": true,
+                                  "type": 0,
+                                  "decl": "structconv.go:296",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "structconv.go",
+                                "line": 18,
+                                "column": 8,
+                                "offset": 302
+                              },
+                              "name": "Inner",
+                              "obj": {
+                                "node": "Object",
+                                "name": "Inner",
+                                "kind": "type"
+                              },
+                              "$type": 0,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "Inner",
+                                "kind": "type",
+                                "type": 0,
+                                "decl": "structconv.go:151",
+                                "pkg": "main",
+                                "top": true
+                              }
+                            },
+                            "tag": null,
+                            "comment": null
+                          },
+                          {
+                            "node": "Field",
+                            "doc": null,
+                            "names": null,
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "structconv.go",
+                                "line": 19,
+                                "column": 2,
+                                "offset": 309
+                              },
+                              "name": "Inner",
+                              "obj": {
+                                "node": "Object",
+                                "name": "Inner",
+                                "kind": "type"
+                              },
+                              "$type": 0,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "Inner",
+                                "kind": "field",
+                                "def": true,
+                                "type": 0,
+                                "decl": "structconv.go:309",
+                                "pkg": "main",
+                                "embedded": true
+                              }
+                            },
+                            "tag": null,
+                            "comment": null
+                          },
+                          {
+                            "node": "Field",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "structconv.go",
+                                  "line": 20,
+                                  "column": 2,
+                                  "offset": 316
+                                },
+                                "name": "tag",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "tag",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "tag",
+                                  "kind": "field",
+                                  "def": true,
+                                  "type": 5,
+                                  "decl": "structconv.go:316",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "structconv.go",
+                                "line": 20,
+                                "column": 8,
+                                "offset": 322
+                              },
+                              "name": "string",
+                              "obj": null,
+                              "$type": 5,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "string",
+                                "kind": "type",
+                                "type": 5
+                              }
+                            },
+                            "tag": null,
+                            "comment": null
+                          }
+                        ],
+                        "closing": {
+                          "file": "structconv.go",
+                          "line": 21,
+                          "column": 1,
+                          "offset": 329
+                        }
+                      },
+                      "incomplete": false,
+                      "$type": 7,
+                      "$isType": true
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": {
+                  "node": "FieldList",
+                  "opening": {
+                    "file": "structconv.go",
+                    "line": 23,
+                    "column": 6,
+                    "offset": 337
+                  },
+                  "list": [
+                    {
+                      "node": "Field",
+                      "doc": null,
+                      "names": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "structconv.go",
+                            "line": 23,
+                            "column": 7,
+                            "offset": 338
+                          },
+                          "name": "b",
+                          "obj": {
+                            "node": "Object",
+                            "name": "b",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "b",
+                            "kind": "var",
+                            "def": true,
+                            "type": 6,
+                            "decl": "structconv.go:338",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "type": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "structconv.go",
+                          "line": 23,
+                          "column": 9,
+                          "offset": 340
+                        },
+                        "name": "B",
+                        "obj": {
+                          "node": "Object",
+                          "name": "B",
+                          "kind": "type"
+                        },
+                        "$type": 6,
+                        "$isType": true,
+                        "$obj": {
+                          "name": "B",
+                          "kind": "type",
+                          "type": 6,
+                          "decl": "structconv.go:273",
+                          "pkg": "main",
+                          "top": true
+                        }
+                      },
+                      "tag": null,
+                      "comment": null
+                    }
+                  ],
+                  "closing": {
+                    "file": "structconv.go",
+                    "line": 23,
+                    "column": 10,
+                    "offset": 341
+                  }
+                },
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "structconv.go",
+                    "line": 23,
+                    "column": 12,
+                    "offset": 343
+                  },
+                  "name": "Sum",
+                  "obj": null,
+                  "$obj": {
+                    "name": "Sum",
+                    "kind": "method",
+                    "def": true,
+                    "type": 8,
+                    "decl": "structconv.go:343",
+                    "pkg": "main"
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "structconv.go",
+                    "line": 23,
+                    "column": 1,
+                    "offset": 332
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "structconv.go",
+                      "line": 23,
+                      "column": 15,
+                      "offset": 346
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "structconv.go",
+                      "line": 23,
+                      "column": 16,
+                      "offset": 347
+                    }
+                  },
+                  "results": {
+                    "node": "FieldList",
+                    "opening": null,
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": null,
+                        "type": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "structconv.go",
+                            "line": 23,
+                            "column": 18,
+                            "offset": 349
+                          },
+                          "name": "int",
+                          "obj": null,
+                          "$type": 2,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "int",
+                            "kind": "type",
+                            "type": 2
+                          }
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": null
+                  }
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "structconv.go",
+                    "line": 23,
+                    "column": 22,
+                    "offset": 353
+                  },
+                  "list": [
+                    {
+                      "node": "ReturnStmt",
+                      "return": {
+                        "file": "structconv.go",
+                        "line": 23,
+                        "column": 24,
+                        "offset": 355
+                      },
+                      "results": [
+                        {
+                          "node": "BinaryExpr",
+                          "x": {
+                            "node": "BinaryExpr",
+                            "x": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "structconv.go",
+                                  "line": 23,
+                                  "column": 31,
+                                  "offset": 362
+                                },
+                                "name": "b",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "b",
+                                  "kind": "var"
+                                },
+                                "$type": 6,
+                                "$obj": {
+                                  "name": "b",
+                                  "kind": "var",
+                                  "type": 6,
+                                  "decl": "structconv.go:338",
+                                  "pkg": "main"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "structconv.go",
+                                  "line": 23,
+                                  "column": 33,
+                                  "offset": 364
+                                },
+                                "name": "X",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "X",
+                                  "kind": "field",
+                                  "type": 2,
+                                  "decl": "structconv.go:285",
+                                  "pkg": "main"
+                                }
+                              },
+                              "$type": 2,
+                              "$sel": {
+                                "kind": "field",
+                                "recv": 6,
+                                "index": [
+                                  0
+                                ],
+                                "indirect": false
+                              }
+                            },
+                            "opPos": {
+                              "file": "structconv.go",
+                              "line": 23,
+                              "column": 35,
+                              "offset": 366
+                            },
+                            "op": "+",
+                            "y": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "SelectorExpr",
+                                "x": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "structconv.go",
+                                    "line": 23,
+                                    "column": 37,
+                                    "offset": 368
+                                  },
+                                  "name": "b",
+                                  "obj": {
+                                    "node": "Object",
+                                    "name": "b",
+                                    "kind": "var"
+                                  },
+                                  "$type": 6,
+                                  "$obj": {
+                                    "name": "b",
+                                    "kind": "var",
+                                    "type": 6,
+                                    "decl": "structconv.go:338",
+                                    "pkg": "main"
+                                  }
+                                },
+                                "sel": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "structconv.go",
+                                    "line": 23,
+                                    "column": 39,
+                                    "offset": 370
+                                  },
+                                  "name": "In",
+                                  "obj": null,
+                                  "$obj": {
+                                    "name": "In",
+                                    "kind": "field",
+                                    "type": 0,
+                                    "decl": "structconv.go:296",
+                                    "pkg": "main"
+                                  }
+                                },
+                                "$type": 0,
+                                "$sel": {
+                                  "kind": "field",
+                                  "recv": 6,
+                                  "index": [
+                                    1
+                                  ],
+                                  "indirect": false
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "structconv.go",
+                                  "line": 23,
+                                  "column": 42,
+                                  "offset": 373
+                                },
+                                "name": "N",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "N",
+                                  "kind": "field",
+                                  "type": 2,
+                                  "decl": "structconv.go:165",
+                                  "pkg": "main"
+                                }
+                              },
+                              "$type": 2,
+                              "$sel": {
+                                "kind": "field",
+                                "recv": 0,
+                                "index": [
+                                  0
+                                ],
+                                "indirect": false
+                              }
+                            },
+                            "$type": 2
+                          },
+                          "opPos": {
+                            "file": "structconv.go",
+                            "line": 23,
+                            "column": 44,
+                            "offset": 375
+                          },
+                          "op": "+",
+                          "y": {
+                            "node": "SelectorExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "structconv.go",
+                                "line": 23,
+                                "column": 46,
+                                "offset": 377
+                              },
+                              "name": "b",
+                              "obj": {
+                                "node": "Object",
+                                "name": "b",
+                                "kind": "var"
+                              },
+                              "$type": 6,
+                              "$obj": {
+                                "name": "b",
+                                "kind": "var",
+                                "type": 6,
+                                "decl": "structconv.go:338",
+                                "pkg": "main"
+                              }
+                            },
+                            "sel": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "structconv.go",
+                                "line": 23,
+                                "column": 48,
+                                "offset": 379
+                              },
+                              "name": "N",
+                              "obj": null,
+                              "$obj": {
+                                "name": "N",
+                                "kind": "field",
+                                "type": 2,
+                                "decl": "structconv.go:165",
+                                "pkg": "main"
+                              }
+                            },
+                            "$type": 2,
+                            "$sel": {
+                              "kind": "field",
+                              "recv": 6,
+                              "index": [
+                                2,
+                                0
+                              ],
+                              "indirect": false
+                            }
+                          },
+                          "$type": 2
+                        }
+                      ]
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "structconv.go",
+                    "line": 23,
+                    "column": 50,
+                    "offset": 381
+                  }
+                }
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "structconv.go",
+                  "line": 25,
+                  "column": 1,
+                  "offset": 384
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "structconv.go",
+                        "line": 25,
+                        "column": 6,
+                        "offset": 389
+                      },
+                      "name": "P",
+                      "obj": {
+                        "node": "Object",
+                        "name": "P",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "P",
+                        "kind": "type",
+                        "def": true,
+                        "type": 9,
+                        "decl": "structconv.go:389",
+                        "pkg": "main",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "StructType",
+                      "struct": {
+                        "file": "structconv.go",
+                        "line": 25,
+                        "column": 8,
+                        "offset": 391
+                      },
+                      "fields": {
+                        "node": "FieldList",
+                        "opening": {
+                          "file": "structconv.go",
+                          "line": 25,
+                          "column": 14,
+                          "offset": 397
+                        },
+                        "list": [
+                          {
+                            "node": "Field",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "structconv.go",
+                                  "line": 25,
+                                  "column": 16,
+                                  "offset": 399
+                                },
+                                "name": "Lat",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "Lat",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "Lat",
+                                  "kind": "field",
+                                  "def": true,
+                                  "type": 11,
+                                  "decl": "structconv.go:399",
+                                  "pkg": "main"
+                                }
+                              },
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "structconv.go",
+                                  "line": 25,
+                                  "column": 21,
+                                  "offset": 404
+                                },
+                                "name": "Lng",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "Lng",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "Lng",
+                                  "kind": "field",
+                                  "def": true,
+                                  "type": 11,
+                                  "decl": "structconv.go:404",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "structconv.go",
+                                "line": 25,
+                                "column": 25,
+                                "offset": 408
+                              },
+                              "name": "float64",
+                              "obj": null,
+                              "$type": 11,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "float64",
+                                "kind": "type",
+                                "type": 11
+                              }
+                            },
+                            "tag": null,
+                            "comment": null
+                          }
+                        ],
+                        "closing": {
+                          "file": "structconv.go",
+                          "line": 25,
+                          "column": 33,
+                          "offset": 416
+                        }
+                      },
+                      "incomplete": false,
+                      "$type": 10,
+                      "$isType": true
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "structconv.go",
+                    "line": 27,
+                    "column": 6,
+                    "offset": 424
+                  },
+                  "name": "main",
+                  "obj": {
+                    "node": "Object",
+                    "name": "main",
+                    "kind": "func"
+                  },
+                  "$obj": {
+                    "name": "main",
+                    "kind": "func",
+                    "def": true,
+                    "type": 12,
+                    "decl": "structconv.go:424",
+                    "pkg": "main",
+                    "top": true
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "structconv.go",
+                    "line": 27,
+                    "column": 1,
+                    "offset": 419
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "structconv.go",
+                      "line": 27,
+                      "column": 10,
+                      "offset": 428
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "structconv.go",
+                      "line": 27,
+                      "column": 11,
+                      "offset": 429
+                    }
+                  },
+                  "results": null
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "structconv.go",
+                    "line": 27,
+                    "column": 13,
+                    "offset": 431
+                  },
+                  "list": [
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "structconv.go",
+                            "line": 28,
+                            "column": 2,
+                            "offset": 434
+                          },
+                          "name": "a",
+                          "obj": {
+                            "node": "Object",
+                            "name": "a",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "a",
+                            "kind": "var",
+                            "def": true,
+                            "type": 3,
+                            "decl": "structconv.go:434",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "structconv.go",
+                        "line": 28,
+                        "column": 4,
+                        "offset": 436
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "CompositeLit",
+                          "type": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "structconv.go",
+                              "line": 28,
+                              "column": 7,
+                              "offset": 439
+                            },
+                            "name": "A",
+                            "obj": {
+                              "node": "Object",
+                              "name": "A",
+                              "kind": "type"
+                            },
+                            "$type": 3,
+                            "$isType": true,
+                            "$obj": {
+                              "name": "A",
+                              "kind": "type",
+                              "type": 3,
+                              "decl": "structconv.go:179",
+                              "pkg": "main",
+                              "top": true
+                            }
+                          },
+                          "lbrace": {
+                            "file": "structconv.go",
+                            "line": 28,
+                            "column": 8,
+                            "offset": 440
+                          },
+                          "elts": [
+                            {
+                              "node": "KeyValueExpr",
+                              "key": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "structconv.go",
+                                  "line": 28,
+                                  "column": 9,
+                                  "offset": 441
+                                },
+                                "name": "X",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "X",
+                                  "kind": "field",
+                                  "type": 2,
+                                  "decl": "structconv.go:191",
+                                  "pkg": "main"
+                                }
+                              },
+                              "colon": {
+                                "file": "structconv.go",
+                                "line": 28,
+                                "column": 10,
+                                "offset": 442
+                              },
+                              "value": {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "structconv.go",
+                                  "line": 28,
+                                  "column": 12,
+                                  "offset": 444
+                                },
+                                "valueEnd": {
+                                  "file": "structconv.go",
+                                  "line": 28,
+                                  "column": 13,
+                                  "offset": 445
+                                },
+                                "kind": "INT",
+                                "value": "1",
+                                "$type": 2,
+                                "$value": {
+                                  "kind": "int",
+                                  "value": "1"
+                                }
+                              }
+                            },
+                            {
+                              "node": "KeyValueExpr",
+                              "key": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "structconv.go",
+                                  "line": 28,
+                                  "column": 15,
+                                  "offset": 447
+                                },
+                                "name": "In",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "In",
+                                  "kind": "field",
+                                  "type": 0,
+                                  "decl": "structconv.go:202",
+                                  "pkg": "main"
+                                }
+                              },
+                              "colon": {
+                                "file": "structconv.go",
+                                "line": 28,
+                                "column": 17,
+                                "offset": 449
+                              },
+                              "value": {
+                                "node": "CompositeLit",
+                                "type": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "structconv.go",
+                                    "line": 28,
+                                    "column": 19,
+                                    "offset": 451
+                                  },
+                                  "name": "Inner",
+                                  "obj": {
+                                    "node": "Object",
+                                    "name": "Inner",
+                                    "kind": "type"
+                                  },
+                                  "$type": 0,
+                                  "$isType": true,
+                                  "$obj": {
+                                    "name": "Inner",
+                                    "kind": "type",
+                                    "type": 0,
+                                    "decl": "structconv.go:151",
+                                    "pkg": "main",
+                                    "top": true
+                                  }
+                                },
+                                "lbrace": {
+                                  "file": "structconv.go",
+                                  "line": 28,
+                                  "column": 24,
+                                  "offset": 456
+                                },
+                                "elts": [
+                                  {
+                                    "node": "BasicLit",
+                                    "valuePos": {
+                                      "file": "structconv.go",
+                                      "line": 28,
+                                      "column": 25,
+                                      "offset": 457
+                                    },
+                                    "valueEnd": {
+                                      "file": "structconv.go",
+                                      "line": 28,
+                                      "column": 26,
+                                      "offset": 458
+                                    },
+                                    "kind": "INT",
+                                    "value": "2",
+                                    "$type": 2,
+                                    "$value": {
+                                      "kind": "int",
+                                      "value": "2"
+                                    }
+                                  }
+                                ],
+                                "rbrace": {
+                                  "file": "structconv.go",
+                                  "line": 28,
+                                  "column": 26,
+                                  "offset": 458
+                                },
+                                "incomplete": false,
+                                "$type": 0
+                              }
+                            },
+                            {
+                              "node": "KeyValueExpr",
+                              "key": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "structconv.go",
+                                  "line": 28,
+                                  "column": 29,
+                                  "offset": 461
+                                },
+                                "name": "Inner",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "Inner",
+                                  "kind": "type"
+                                },
+                                "$obj": {
+                                  "name": "Inner",
+                                  "kind": "field",
+                                  "type": 0,
+                                  "decl": "structconv.go:215",
+                                  "pkg": "main",
+                                  "embedded": true
+                                }
+                              },
+                              "colon": {
+                                "file": "structconv.go",
+                                "line": 28,
+                                "column": 34,
+                                "offset": 466
+                              },
+                              "value": {
+                                "node": "CompositeLit",
+                                "type": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "structconv.go",
+                                    "line": 28,
+                                    "column": 36,
+                                    "offset": 468
+                                  },
+                                  "name": "Inner",
+                                  "obj": {
+                                    "node": "Object",
+                                    "name": "Inner",
+                                    "kind": "type"
+                                  },
+                                  "$type": 0,
+                                  "$isType": true,
+                                  "$obj": {
+                                    "name": "Inner",
+                                    "kind": "type",
+                                    "type": 0,
+                                    "decl": "structconv.go:151",
+                                    "pkg": "main",
+                                    "top": true
+                                  }
+                                },
+                                "lbrace": {
+                                  "file": "structconv.go",
+                                  "line": 28,
+                                  "column": 41,
+                                  "offset": 473
+                                },
+                                "elts": [
+                                  {
+                                    "node": "BasicLit",
+                                    "valuePos": {
+                                      "file": "structconv.go",
+                                      "line": 28,
+                                      "column": 42,
+                                      "offset": 474
+                                    },
+                                    "valueEnd": {
+                                      "file": "structconv.go",
+                                      "line": 28,
+                                      "column": 43,
+                                      "offset": 475
+                                    },
+                                    "kind": "INT",
+                                    "value": "3",
+                                    "$type": 2,
+                                    "$value": {
+                                      "kind": "int",
+                                      "value": "3"
+                                    }
+                                  }
+                                ],
+                                "rbrace": {
+                                  "file": "structconv.go",
+                                  "line": 28,
+                                  "column": 43,
+                                  "offset": 475
+                                },
+                                "incomplete": false,
+                                "$type": 0
+                              }
+                            },
+                            {
+                              "node": "KeyValueExpr",
+                              "key": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "structconv.go",
+                                  "line": 28,
+                                  "column": 46,
+                                  "offset": 478
+                                },
+                                "name": "tag",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "tag",
+                                  "kind": "field",
+                                  "type": 5,
+                                  "decl": "structconv.go:241",
+                                  "pkg": "main"
+                                }
+                              },
+                              "colon": {
+                                "file": "structconv.go",
+                                "line": 28,
+                                "column": 49,
+                                "offset": 481
+                              },
+                              "value": {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "structconv.go",
+                                  "line": 28,
+                                  "column": 51,
+                                  "offset": 483
+                                },
+                                "valueEnd": {
+                                  "file": "structconv.go",
+                                  "line": 28,
+                                  "column": 54,
+                                  "offset": 486
+                                },
+                                "kind": "STRING",
+                                "value": "\"a\"",
+                                "$type": 5,
+                                "$value": {
+                                  "kind": "string",
+                                  "value": "a"
+                                }
+                              }
+                            }
+                          ],
+                          "rbrace": {
+                            "file": "structconv.go",
+                            "line": 28,
+                            "column": 54,
+                            "offset": 486
+                          },
+                          "incomplete": false,
+                          "$type": 3
+                        }
+                      ]
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "structconv.go",
+                            "line": 29,
+                            "column": 2,
+                            "offset": 489
+                          },
+                          "name": "b",
+                          "obj": {
+                            "node": "Object",
+                            "name": "b",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "b",
+                            "kind": "var",
+                            "def": true,
+                            "type": 6,
+                            "decl": "structconv.go:489",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "structconv.go",
+                        "line": 29,
+                        "column": 4,
+                        "offset": 491
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "CallExpr",
+                          "fun": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "structconv.go",
+                              "line": 29,
+                              "column": 7,
+                              "offset": 494
+                            },
+                            "name": "B",
+                            "obj": {
+                              "node": "Object",
+                              "name": "B",
+                              "kind": "type"
+                            },
+                            "$type": 6,
+                            "$isType": true,
+                            "$obj": {
+                              "name": "B",
+                              "kind": "type",
+                              "type": 6,
+                              "decl": "structconv.go:273",
+                              "pkg": "main",
+                              "top": true
+                            }
+                          },
+                          "lparen": {
+                            "file": "structconv.go",
+                            "line": 29,
+                            "column": 8,
+                            "offset": 495
+                          },
+                          "args": [
+                            {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "structconv.go",
+                                "line": 29,
+                                "column": 9,
+                                "offset": 496
+                              },
+                              "name": "a",
+                              "obj": {
+                                "node": "Object",
+                                "name": "a",
+                                "kind": "var"
+                              },
+                              "$type": 3,
+                              "$obj": {
+                                "name": "a",
+                                "kind": "var",
+                                "type": 3,
+                                "decl": "structconv.go:434",
+                                "pkg": "main"
+                              }
+                            }
+                          ],
+                          "ellipsis": null,
+                          "rparen": {
+                            "file": "structconv.go",
+                            "line": 29,
+                            "column": 10,
+                            "offset": 497
+                          },
+                          "$type": 6
+                        }
+                      ]
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "SelectorExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "structconv.go",
+                                "line": 30,
+                                "column": 2,
+                                "offset": 500
+                              },
+                              "name": "a",
+                              "obj": {
+                                "node": "Object",
+                                "name": "a",
+                                "kind": "var"
+                              },
+                              "$type": 3,
+                              "$obj": {
+                                "name": "a",
+                                "kind": "var",
+                                "type": 3,
+                                "decl": "structconv.go:434",
+                                "pkg": "main"
+                              }
+                            },
+                            "sel": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "structconv.go",
+                                "line": 30,
+                                "column": 4,
+                                "offset": 502
+                              },
+                              "name": "In",
+                              "obj": null,
+                              "$obj": {
+                                "name": "In",
+                                "kind": "field",
+                                "type": 0,
+                                "decl": "structconv.go:202",
+                                "pkg": "main"
+                              }
+                            },
+                            "$type": 0,
+                            "$sel": {
+                              "kind": "field",
+                              "recv": 3,
+                              "index": [
+                                1
+                              ],
+                              "indirect": false
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "structconv.go",
+                              "line": 30,
+                              "column": 7,
+                              "offset": 505
+                            },
+                            "name": "N",
+                            "obj": null,
+                            "$obj": {
+                              "name": "N",
+                              "kind": "field",
+                              "type": 2,
+                              "decl": "structconv.go:165",
+                              "pkg": "main"
+                            }
+                          },
+                          "$type": 2,
+                          "$sel": {
+                            "kind": "field",
+                            "recv": 0,
+                            "index": [
+                              0
+                            ],
+                            "indirect": false
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "structconv.go",
+                        "line": 30,
+                        "column": 9,
+                        "offset": 507
+                      },
+                      "tok": "=",
+                      "rhs": [
+                        {
+                          "node": "BasicLit",
+                          "valuePos": {
+                            "file": "structconv.go",
+                            "line": 30,
+                            "column": 11,
+                            "offset": 509
+                          },
+                          "valueEnd": {
+                            "file": "structconv.go",
+                            "line": 30,
+                            "column": 14,
+                            "offset": 512
+                          },
+                          "kind": "INT",
+                          "value": "100",
+                          "$type": 2,
+                          "$value": {
+                            "kind": "int",
+                            "value": "100"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "structconv.go",
+                              "line": 31,
+                              "column": 2,
+                              "offset": 529
+                            },
+                            "name": "a",
+                            "obj": {
+                              "node": "Object",
+                              "name": "a",
+                              "kind": "var"
+                            },
+                            "$type": 3,
+                            "$obj": {
+                              "name": "a",
+                              "kind": "var",
+                              "type": 3,
+                              "decl": "structconv.go:434",
+                              "pkg": "main"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "structconv.go",
+                              "line": 31,
+                              "column": 4,
+                              "offset": 531
+                            },
+                            "name": "N",
+                            "obj": null,
+                            "$obj": {
+                              "name": "N",
+                              "kind": "field",
+                              "type": 2,
+                              "decl": "structconv.go:165",
+                              "pkg": "main"
+                            }
+                          },
+                          "$type": 2,
+                          "$sel": {
+                            "kind": "field",
+                            "recv": 3,
+                            "index": [
+                              2,
+                              0
+                            ],
+                            "indirect": false
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "structconv.go",
+                        "line": 31,
+                        "column": 6,
+                        "offset": 533
+                      },
+                      "tok": "=",
+                      "rhs": [
+                        {
+                          "node": "BasicLit",
+                          "valuePos": {
+                            "file": "structconv.go",
+                            "line": 31,
+                            "column": 8,
+                            "offset": 535
+                          },
+                          "valueEnd": {
+                            "file": "structconv.go",
+                            "line": 31,
+                            "column": 11,
+                            "offset": 538
+                          },
+                          "kind": "INT",
+                          "value": "200",
+                          "$type": 2,
+                          "$value": {
+                            "kind": "int",
+                            "value": "200"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "structconv.go",
+                              "line": 32,
+                              "column": 2,
+                              "offset": 540
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "structconv.go",
+                              "line": 32,
+                              "column": 6,
+                              "offset": 544
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 13,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 13
+                        },
+                        "lparen": {
+                          "file": "structconv.go",
+                          "line": 32,
+                          "column": 13,
+                          "offset": 551
+                        },
+                        "args": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "structconv.go",
+                              "line": 32,
+                              "column": 14,
+                              "offset": 552
+                            },
+                            "name": "b",
+                            "obj": {
+                              "node": "Object",
+                              "name": "b",
+                              "kind": "var"
+                            },
+                            "$type": 6,
+                            "$obj": {
+                              "name": "b",
+                              "kind": "var",
+                              "type": 6,
+                              "decl": "structconv.go:489",
+                              "pkg": "main"
+                            }
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "structconv.go",
+                                  "line": 32,
+                                  "column": 17,
+                                  "offset": 555
+                                },
+                                "name": "b",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "b",
+                                  "kind": "var"
+                                },
+                                "$type": 6,
+                                "$obj": {
+                                  "name": "b",
+                                  "kind": "var",
+                                  "type": 6,
+                                  "decl": "structconv.go:489",
+                                  "pkg": "main"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "structconv.go",
+                                  "line": 32,
+                                  "column": 19,
+                                  "offset": 557
+                                },
+                                "name": "Sum",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "Sum",
+                                  "kind": "method",
+                                  "type": 8,
+                                  "decl": "structconv.go:343",
+                                  "pkg": "main"
+                                }
+                              },
+                              "$type": 8,
+                              "$sel": {
+                                "kind": "method",
+                                "recv": 6,
+                                "index": [
+                                  0
+                                ],
+                                "indirect": false
+                              }
+                            },
+                            "lparen": {
+                              "file": "structconv.go",
+                              "line": 32,
+                              "column": 22,
+                              "offset": 560
+                            },
+                            "args": null,
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "structconv.go",
+                              "line": 32,
+                              "column": 23,
+                              "offset": 561
+                            },
+                            "$type": 2
+                          },
+                          {
+                            "node": "SelectorExpr",
+                            "x": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "structconv.go",
+                                  "line": 32,
+                                  "column": 26,
+                                  "offset": 564
+                                },
+                                "name": "a",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "a",
+                                  "kind": "var"
+                                },
+                                "$type": 3,
+                                "$obj": {
+                                  "name": "a",
+                                  "kind": "var",
+                                  "type": 3,
+                                  "decl": "structconv.go:434",
+                                  "pkg": "main"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "structconv.go",
+                                  "line": 32,
+                                  "column": 28,
+                                  "offset": 566
+                                },
+                                "name": "In",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "In",
+                                  "kind": "field",
+                                  "type": 0,
+                                  "decl": "structconv.go:202",
+                                  "pkg": "main"
+                                }
+                              },
+                              "$type": 0,
+                              "$sel": {
+                                "kind": "field",
+                                "recv": 3,
+                                "index": [
+                                  1
+                                ],
+                                "indirect": false
+                              }
+                            },
+                            "sel": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "structconv.go",
+                                "line": 32,
+                                "column": 31,
+                                "offset": 569
+                              },
+                              "name": "N",
+                              "obj": null,
+                              "$obj": {
+                                "name": "N",
+                                "kind": "field",
+                                "type": 2,
+                                "decl": "structconv.go:165",
+                                "pkg": "main"
+                              }
+                            },
+                            "$type": 2,
+                            "$sel": {
+                              "kind": "field",
+                              "recv": 0,
+                              "index": [
+                                0
+                              ],
+                              "indirect": false
+                            }
+                          },
+                          {
+                            "node": "SelectorExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "structconv.go",
+                                "line": 32,
+                                "column": 34,
+                                "offset": 572
+                              },
+                              "name": "b",
+                              "obj": {
+                                "node": "Object",
+                                "name": "b",
+                                "kind": "var"
+                              },
+                              "$type": 6,
+                              "$obj": {
+                                "name": "b",
+                                "kind": "var",
+                                "type": 6,
+                                "decl": "structconv.go:489",
+                                "pkg": "main"
+                              }
+                            },
+                            "sel": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "structconv.go",
+                                "line": 32,
+                                "column": 36,
+                                "offset": 574
+                              },
+                              "name": "tag",
+                              "obj": null,
+                              "$obj": {
+                                "name": "tag",
+                                "kind": "field",
+                                "type": 5,
+                                "decl": "structconv.go:316",
+                                "pkg": "main"
+                              }
+                            },
+                            "$type": 5,
+                            "$sel": {
+                              "kind": "field",
+                              "recv": 6,
+                              "index": [
+                                3
+                              ],
+                              "indirect": false
+                            }
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "structconv.go",
+                          "line": 32,
+                          "column": 39,
+                          "offset": 577
+                        },
+                        "$type": 19
+                      }
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "structconv.go",
+                            "line": 33,
+                            "column": 2,
+                            "offset": 580
+                          },
+                          "name": "p",
+                          "obj": {
+                            "node": "Object",
+                            "name": "p",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "p",
+                            "kind": "var",
+                            "def": true,
+                            "type": 9,
+                            "decl": "structconv.go:580",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "structconv.go",
+                        "line": 33,
+                        "column": 4,
+                        "offset": 582
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "CallExpr",
+                          "fun": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "structconv.go",
+                              "line": 33,
+                              "column": 7,
+                              "offset": 585
+                            },
+                            "name": "P",
+                            "obj": {
+                              "node": "Object",
+                              "name": "P",
+                              "kind": "type"
+                            },
+                            "$type": 9,
+                            "$isType": true,
+                            "$obj": {
+                              "name": "P",
+                              "kind": "type",
+                              "type": 9,
+                              "decl": "structconv.go:389",
+                              "pkg": "main",
+                              "top": true
+                            }
+                          },
+                          "lparen": {
+                            "file": "structconv.go",
+                            "line": 33,
+                            "column": 8,
+                            "offset": 586
+                          },
+                          "args": [
+                            {
+                              "node": "CompositeLit",
+                              "type": {
+                                "node": "StructType",
+                                "struct": {
+                                  "file": "structconv.go",
+                                  "line": 33,
+                                  "column": 9,
+                                  "offset": 587
+                                },
+                                "fields": {
+                                  "node": "FieldList",
+                                  "opening": {
+                                    "file": "structconv.go",
+                                    "line": 33,
+                                    "column": 15,
+                                    "offset": 593
+                                  },
+                                  "list": [
+                                    {
+                                      "node": "Field",
+                                      "doc": null,
+                                      "names": [
+                                        {
+                                          "node": "Ident",
+                                          "namePos": {
+                                            "file": "structconv.go",
+                                            "line": 33,
+                                            "column": 17,
+                                            "offset": 595
+                                          },
+                                          "name": "Lat",
+                                          "obj": {
+                                            "node": "Object",
+                                            "name": "Lat",
+                                            "kind": "var"
+                                          },
+                                          "$obj": {
+                                            "name": "Lat",
+                                            "kind": "field",
+                                            "def": true,
+                                            "type": 11,
+                                            "decl": "structconv.go:595",
+                                            "pkg": "main"
+                                          }
+                                        },
+                                        {
+                                          "node": "Ident",
+                                          "namePos": {
+                                            "file": "structconv.go",
+                                            "line": 33,
+                                            "column": 22,
+                                            "offset": 600
+                                          },
+                                          "name": "Lng",
+                                          "obj": {
+                                            "node": "Object",
+                                            "name": "Lng",
+                                            "kind": "var"
+                                          },
+                                          "$obj": {
+                                            "name": "Lng",
+                                            "kind": "field",
+                                            "def": true,
+                                            "type": 11,
+                                            "decl": "structconv.go:600",
+                                            "pkg": "main"
+                                          }
+                                        }
+                                      ],
+                                      "type": {
+                                        "node": "Ident",
+                                        "namePos": {
+                                          "file": "structconv.go",
+                                          "line": 33,
+                                          "column": 26,
+                                          "offset": 604
+                                        },
+                                        "name": "float64",
+                                        "obj": null,
+                                        "$type": 11,
+                                        "$isType": true,
+                                        "$obj": {
+                                          "name": "float64",
+                                          "kind": "type",
+                                          "type": 11
+                                        }
+                                      },
+                                      "tag": null,
+                                      "comment": null
+                                    }
+                                  ],
+                                  "closing": {
+                                    "file": "structconv.go",
+                                    "line": 33,
+                                    "column": 34,
+                                    "offset": 612
+                                  }
+                                },
+                                "incomplete": false,
+                                "$type": 10,
+                                "$isType": true
+                              },
+                              "lbrace": {
+                                "file": "structconv.go",
+                                "line": 33,
+                                "column": 35,
+                                "offset": 613
+                              },
+                              "elts": [
+                                {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "structconv.go",
+                                    "line": 33,
+                                    "column": 36,
+                                    "offset": 614
+                                  },
+                                  "valueEnd": {
+                                    "file": "structconv.go",
+                                    "line": 33,
+                                    "column": 39,
+                                    "offset": 617
+                                  },
+                                  "kind": "FLOAT",
+                                  "value": "1.5",
+                                  "$type": 11,
+                                  "$value": {
+                                    "kind": "float",
+                                    "value": "1.5"
+                                  }
+                                },
+                                {
+                                  "node": "UnaryExpr",
+                                  "opPos": {
+                                    "file": "structconv.go",
+                                    "line": 33,
+                                    "column": 41,
+                                    "offset": 619
+                                  },
+                                  "op": "-",
+                                  "x": {
+                                    "node": "BasicLit",
+                                    "valuePos": {
+                                      "file": "structconv.go",
+                                      "line": 33,
+                                      "column": 42,
+                                      "offset": 620
+                                    },
+                                    "valueEnd": {
+                                      "file": "structconv.go",
+                                      "line": 33,
+                                      "column": 43,
+                                      "offset": 621
+                                    },
+                                    "kind": "INT",
+                                    "value": "2",
+                                    "$type": 20,
+                                    "$value": {
+                                      "kind": "int",
+                                      "value": "2"
+                                    }
+                                  },
+                                  "$type": 11,
+                                  "$value": {
+                                    "kind": "float",
+                                    "value": "-2"
+                                  }
+                                }
+                              ],
+                              "rbrace": {
+                                "file": "structconv.go",
+                                "line": 33,
+                                "column": 43,
+                                "offset": 621
+                              },
+                              "incomplete": false,
+                              "$type": 10
+                            }
+                          ],
+                          "ellipsis": null,
+                          "rparen": {
+                            "file": "structconv.go",
+                            "line": 33,
+                            "column": 44,
+                            "offset": 622
+                          },
+                          "$type": 9
+                        }
+                      ]
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "structconv.go",
+                            "line": 34,
+                            "column": 2,
+                            "offset": 625
+                          },
+                          "name": "q",
+                          "obj": {
+                            "node": "Object",
+                            "name": "q",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "q",
+                            "kind": "var",
+                            "def": true,
+                            "type": 10,
+                            "decl": "structconv.go:625",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "structconv.go",
+                        "line": 34,
+                        "column": 4,
+                        "offset": 627
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "CallExpr",
+                          "fun": {
+                            "node": "StructType",
+                            "struct": {
+                              "file": "structconv.go",
+                              "line": 34,
+                              "column": 7,
+                              "offset": 630
+                            },
+                            "fields": {
+                              "node": "FieldList",
+                              "opening": {
+                                "file": "structconv.go",
+                                "line": 34,
+                                "column": 13,
+                                "offset": 636
+                              },
+                              "list": [
+                                {
+                                  "node": "Field",
+                                  "doc": null,
+                                  "names": [
+                                    {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "structconv.go",
+                                        "line": 34,
+                                        "column": 15,
+                                        "offset": 638
+                                      },
+                                      "name": "Lat",
+                                      "obj": {
+                                        "node": "Object",
+                                        "name": "Lat",
+                                        "kind": "var"
+                                      },
+                                      "$obj": {
+                                        "name": "Lat",
+                                        "kind": "field",
+                                        "def": true,
+                                        "type": 11,
+                                        "decl": "structconv.go:638",
+                                        "pkg": "main"
+                                      }
+                                    },
+                                    {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "structconv.go",
+                                        "line": 34,
+                                        "column": 20,
+                                        "offset": 643
+                                      },
+                                      "name": "Lng",
+                                      "obj": {
+                                        "node": "Object",
+                                        "name": "Lng",
+                                        "kind": "var"
+                                      },
+                                      "$obj": {
+                                        "name": "Lng",
+                                        "kind": "field",
+                                        "def": true,
+                                        "type": 11,
+                                        "decl": "structconv.go:643",
+                                        "pkg": "main"
+                                      }
+                                    }
+                                  ],
+                                  "type": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "structconv.go",
+                                      "line": 34,
+                                      "column": 24,
+                                      "offset": 647
+                                    },
+                                    "name": "float64",
+                                    "obj": null,
+                                    "$type": 11,
+                                    "$isType": true,
+                                    "$obj": {
+                                      "name": "float64",
+                                      "kind": "type",
+                                      "type": 11
+                                    }
+                                  },
+                                  "tag": null,
+                                  "comment": null
+                                }
+                              ],
+                              "closing": {
+                                "file": "structconv.go",
+                                "line": 34,
+                                "column": 32,
+                                "offset": 655
+                              }
+                            },
+                            "incomplete": false,
+                            "$type": 10,
+                            "$isType": true
+                          },
+                          "lparen": {
+                            "file": "structconv.go",
+                            "line": 34,
+                            "column": 33,
+                            "offset": 656
+                          },
+                          "args": [
+                            {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "structconv.go",
+                                "line": 34,
+                                "column": 34,
+                                "offset": 657
+                              },
+                              "name": "p",
+                              "obj": {
+                                "node": "Object",
+                                "name": "p",
+                                "kind": "var"
+                              },
+                              "$type": 9,
+                              "$obj": {
+                                "name": "p",
+                                "kind": "var",
+                                "type": 9,
+                                "decl": "structconv.go:580",
+                                "pkg": "main"
+                              }
+                            }
+                          ],
+                          "ellipsis": null,
+                          "rparen": {
+                            "file": "structconv.go",
+                            "line": 34,
+                            "column": 35,
+                            "offset": 658
+                          },
+                          "$type": 10
+                        }
+                      ]
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "structconv.go",
+                              "line": 35,
+                              "column": 2,
+                              "offset": 661
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "structconv.go",
+                              "line": 35,
+                              "column": 6,
+                              "offset": 665
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 13,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 13
+                        },
+                        "lparen": {
+                          "file": "structconv.go",
+                          "line": 35,
+                          "column": 13,
+                          "offset": 672
+                        },
+                        "args": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "structconv.go",
+                              "line": 35,
+                              "column": 14,
+                              "offset": 673
+                            },
+                            "name": "p",
+                            "obj": {
+                              "node": "Object",
+                              "name": "p",
+                              "kind": "var"
+                            },
+                            "$type": 9,
+                            "$obj": {
+                              "name": "p",
+                              "kind": "var",
+                              "type": 9,
+                              "decl": "structconv.go:580",
+                              "pkg": "main"
+                            }
+                          },
+                          {
+                            "node": "SelectorExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "structconv.go",
+                                "line": 35,
+                                "column": 17,
+                                "offset": 676
+                              },
+                              "name": "q",
+                              "obj": {
+                                "node": "Object",
+                                "name": "q",
+                                "kind": "var"
+                              },
+                              "$type": 10,
+                              "$obj": {
+                                "name": "q",
+                                "kind": "var",
+                                "type": 10,
+                                "decl": "structconv.go:625",
+                                "pkg": "main"
+                              }
+                            },
+                            "sel": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "structconv.go",
+                                "line": 35,
+                                "column": 19,
+                                "offset": 678
+                              },
+                              "name": "Lat",
+                              "obj": null,
+                              "$obj": {
+                                "name": "Lat",
+                                "kind": "field",
+                                "type": 11,
+                                "decl": "structconv.go:638",
+                                "pkg": "main"
+                              }
+                            },
+                            "$type": 11,
+                            "$sel": {
+                              "kind": "field",
+                              "recv": 10,
+                              "index": [
+                                0
+                              ],
+                              "indirect": false
+                            }
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "CallExpr",
+                                "fun": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "structconv.go",
+                                    "line": 35,
+                                    "column": 24,
+                                    "offset": 683
+                                  },
+                                  "name": "B",
+                                  "obj": {
+                                    "node": "Object",
+                                    "name": "B",
+                                    "kind": "type"
+                                  },
+                                  "$type": 6,
+                                  "$isType": true,
+                                  "$obj": {
+                                    "name": "B",
+                                    "kind": "type",
+                                    "type": 6,
+                                    "decl": "structconv.go:273",
+                                    "pkg": "main",
+                                    "top": true
+                                  }
+                                },
+                                "lparen": {
+                                  "file": "structconv.go",
+                                  "line": 35,
+                                  "column": 25,
+                                  "offset": 684
+                                },
+                                "args": [
+                                  {
+                                    "node": "CompositeLit",
+                                    "type": {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "structconv.go",
+                                        "line": 35,
+                                        "column": 26,
+                                        "offset": 685
+                                      },
+                                      "name": "A",
+                                      "obj": {
+                                        "node": "Object",
+                                        "name": "A",
+                                        "kind": "type"
+                                      },
+                                      "$type": 3,
+                                      "$isType": true,
+                                      "$obj": {
+                                        "name": "A",
+                                        "kind": "type",
+                                        "type": 3,
+                                        "decl": "structconv.go:179",
+                                        "pkg": "main",
+                                        "top": true
+                                      }
+                                    },
+                                    "lbrace": {
+                                      "file": "structconv.go",
+                                      "line": 35,
+                                      "column": 27,
+                                      "offset": 686
+                                    },
+                                    "elts": [
+                                      {
+                                        "node": "KeyValueExpr",
+                                        "key": {
+                                          "node": "Ident",
+                                          "namePos": {
+                                            "file": "structconv.go",
+                                            "line": 35,
+                                            "column": 28,
+                                            "offset": 687
+                                          },
+                                          "name": "X",
+                                          "obj": null,
+                                          "$obj": {
+                                            "name": "X",
+                                            "kind": "field",
+                                            "type": 2,
+                                            "decl": "structconv.go:191",
+                                            "pkg": "main"
+                                          }
+                                        },
+                                        "colon": {
+                                          "file": "structconv.go",
+                                          "line": 35,
+                                          "column": 29,
+                                          "offset": 688
+                                        },
+                                        "value": {
+                                          "node": "BasicLit",
+                                          "valuePos": {
+                                            "file": "structconv.go",
+                                            "line": 35,
+                                            "column": 31,
+                                            "offset": 690
+                                          },
+                                          "valueEnd": {
+                                            "file": "structconv.go",
+                                            "line": 35,
+                                            "column": 32,
+                                            "offset": 691
+                                          },
+                                          "kind": "INT",
+                                          "value": "9",
+                                          "$type": 2,
+                                          "$value": {
+                                            "kind": "int",
+                                            "value": "9"
+                                          }
+                                        }
+                                      }
+                                    ],
+                                    "rbrace": {
+                                      "file": "structconv.go",
+                                      "line": 35,
+                                      "column": 32,
+                                      "offset": 691
+                                    },
+                                    "incomplete": false,
+                                    "$type": 3
+                                  }
+                                ],
+                                "ellipsis": null,
+                                "rparen": {
+                                  "file": "structconv.go",
+                                  "line": 35,
+                                  "column": 33,
+                                  "offset": 692
+                                },
+                                "$type": 6
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "structconv.go",
+                                  "line": 35,
+                                  "column": 35,
+                                  "offset": 694
+                                },
+                                "name": "Sum",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "Sum",
+                                  "kind": "method",
+                                  "type": 8,
+                                  "decl": "structconv.go:343",
+                                  "pkg": "main"
+                                }
+                              },
+                              "$type": 8,
+                              "$sel": {
+                                "kind": "method",
+                                "recv": 6,
+                                "index": [
+                                  0
+                                ],
+                                "indirect": false
+                              }
+                            },
+                            "lparen": {
+                              "file": "structconv.go",
+                              "line": 35,
+                              "column": 38,
+                              "offset": 697
+                            },
+                            "args": null,
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "structconv.go",
+                              "line": 35,
+                              "column": 39,
+                              "offset": 698
+                            },
+                            "$type": 2
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "structconv.go",
+                          "line": 35,
+                          "column": 40,
+                          "offset": 699
+                        },
+                        "$type": 19
+                      }
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "structconv.go",
+                    "line": 36,
+                    "column": 1,
+                    "offset": 701
+                  }
+                }
+              }
+            ],
+            "fileStart": {
+              "file": "structconv.go",
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "fileEnd": {
+              "file": "structconv.go",
+              "line": 36,
+              "column": 3,
+              "offset": 703
+            },
+            "scope": null,
+            "imports": [
+              {
+                "node": "ImportSpec",
+                "doc": null,
+                "name": null,
+                "path": {
+                  "node": "BasicLit",
+                  "valuePos": {
+                    "file": "structconv.go",
+                    "line": 5,
+                    "column": 8,
+                    "offset": 139
+                  },
+                  "valueEnd": {
+                    "file": "structconv.go",
+                    "line": 5,
+                    "column": 13,
+                    "offset": 144
+                  },
+                  "kind": "STRING",
+                  "value": "\"fmt\""
+                },
+                "comment": null,
+                "endPos": null
+              }
+            ],
+            "unresolved": [
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "structconv.go",
+                  "line": 7,
+                  "column": 22,
+                  "offset": 167
+                },
+                "name": "int",
+                "obj": null,
+                "$type": 2,
+                "$isType": true,
+                "$obj": {
+                  "name": "int",
+                  "kind": "type",
+                  "type": 2
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "structconv.go",
+                  "line": 10,
+                  "column": 8,
+                  "offset": 197
+                },
+                "name": "int",
+                "obj": null,
+                "$type": 2,
+                "$isType": true,
+                "$obj": {
+                  "name": "int",
+                  "kind": "type",
+                  "type": 2
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "structconv.go",
+                  "line": 13,
+                  "column": 8,
+                  "offset": 247
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 5,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 5
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "structconv.go",
+                  "line": 17,
+                  "column": 8,
+                  "offset": 291
+                },
+                "name": "int",
+                "obj": null,
+                "$type": 2,
+                "$isType": true,
+                "$obj": {
+                  "name": "int",
+                  "kind": "type",
+                  "type": 2
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "structconv.go",
+                  "line": 20,
+                  "column": 8,
+                  "offset": 322
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 5,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 5
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "structconv.go",
+                  "line": 23,
+                  "column": 18,
+                  "offset": 349
+                },
+                "name": "int",
+                "obj": null,
+                "$type": 2,
+                "$isType": true,
+                "$obj": {
+                  "name": "int",
+                  "kind": "type",
+                  "type": 2
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "structconv.go",
+                  "line": 25,
+                  "column": 25,
+                  "offset": 408
+                },
+                "name": "float64",
+                "obj": null,
+                "$type": 11,
+                "$isType": true,
+                "$obj": {
+                  "name": "float64",
+                  "kind": "type",
+                  "type": 11
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "structconv.go",
+                  "line": 32,
+                  "column": 2,
+                  "offset": 540
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "structconv.go",
+                  "line": 33,
+                  "column": 26,
+                  "offset": 604
+                },
+                "name": "float64",
+                "obj": null,
+                "$type": 11,
+                "$isType": true,
+                "$obj": {
+                  "name": "float64",
+                  "kind": "type",
+                  "type": 11
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "structconv.go",
+                  "line": 34,
+                  "column": 24,
+                  "offset": 647
+                },
+                "name": "float64",
+                "obj": null,
+                "$type": 11,
+                "$isType": true,
+                "$obj": {
+                  "name": "float64",
+                  "kind": "type",
+                  "type": 11
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "structconv.go",
+                  "line": 35,
+                  "column": 2,
+                  "offset": 661
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              }
+            ],
+            "comments": [
+              {
+                "node": "CommentGroup",
+                "list": [
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "structconv.go",
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "text": "// Conversão entre structs de mesmo subjacente (tags ignoradas), nomeadas e"
+                  },
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "structconv.go",
+                      "line": 2,
+                      "column": 1,
+                      "offset": 77
+                    },
+                    "text": "// anônimas: o resultado é uma cópia."
+                  }
+                ]
+              },
+              {
+                "node": "CommentGroup",
+                "list": [
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "structconv.go",
+                      "line": 12,
+                      "column": 15,
+                      "offset": 228
+                    },
+                    "text": "// embutido"
+                  }
+                ]
+              },
+              {
+                "node": "CommentGroup",
+                "list": [
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "structconv.go",
+                      "line": 30,
+                      "column": 15,
+                      "offset": 513
+                    },
+                    "text": "// b é cópia"
+                  }
+                ]
+              }
+            ],
+            "goVersion": ""
+          }
+        }
+      ],
+      "imports": [
+        {
+          "path": "fmt",
+          "name": "fmt"
+        }
+      ],
+      "typeTable": [
+        {
+          "kind": "named",
+          "pkg": "main",
+          "name": "Inner",
+          "underlying": 1,
+          "methods": []
+        },
+        {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "N",
+              "type": 2,
+              "embedded": false,
+              "tag": ""
+            }
+          ]
+        },
+        {
+          "kind": "basic",
+          "name": "int"
+        },
+        {
+          "kind": "named",
+          "pkg": "main",
+          "name": "A",
+          "underlying": 4,
+          "methods": []
+        },
+        {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "X",
+              "type": 2,
+              "embedded": false,
+              "tag": ""
+            },
+            {
+              "name": "In",
+              "type": 0,
+              "embedded": false,
+              "tag": ""
+            },
+            {
+              "name": "Inner",
+              "type": 0,
+              "embedded": true,
+              "tag": ""
+            },
+            {
+              "name": "tag",
+              "type": 5,
+              "embedded": false,
+              "tag": "json:\"t\""
+            }
+          ]
+        },
+        {
+          "kind": "basic",
+          "name": "string"
+        },
+        {
+          "kind": "named",
+          "pkg": "main",
+          "name": "B",
+          "underlying": 7,
+          "methods": [
+            {
+              "name": "Sum",
+              "type": 8,
+              "index": [
+                0
+              ],
+              "ptr": false
+            }
+          ]
+        },
+        {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "X",
+              "type": 2,
+              "embedded": false,
+              "tag": ""
+            },
+            {
+              "name": "In",
+              "type": 0,
+              "embedded": false,
+              "tag": ""
+            },
+            {
+              "name": "Inner",
+              "type": 0,
+              "embedded": true,
+              "tag": ""
+            },
+            {
+              "name": "tag",
+              "type": 5,
+              "embedded": false,
+              "tag": ""
+            }
+          ]
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            2
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "named",
+          "pkg": "main",
+          "name": "P",
+          "underlying": 10,
+          "methods": []
+        },
+        {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "Lat",
+              "type": 11,
+              "embedded": false,
+              "tag": ""
+            },
+            {
+              "name": "Lng",
+              "type": 11,
+              "embedded": false,
+              "tag": ""
+            }
+          ]
+        },
+        {
+          "kind": "basic",
+          "name": "float64"
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            14
+          ],
+          "results": [
+            2,
+            16
+          ],
+          "variadic": true
+        },
+        {
+          "kind": "slice",
+          "elem": 15
+        },
+        {
+          "kind": "interface",
+          "methods": [],
+          "embeddeds": []
+        },
+        {
+          "kind": "named",
+          "pkg": "",
+          "name": "error",
+          "underlying": 17
+        },
+        {
+          "kind": "interface",
+          "methods": [
+            {
+              "name": "Error",
+              "type": 18
+            }
+          ],
+          "embeddeds": []
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            5
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "tuple",
+          "elems": [
+            2,
+            16
+          ]
+        },
+        {
+          "kind": "basic",
+          "name": "untyped int"
+        }
+      ],
+      "implements": null,
+      "initOrder": [],
+      "stdlibUsage": [
+        "fmt.Println"
+      ],
+      "reflectUsage": null
+    }
+  ]
+}

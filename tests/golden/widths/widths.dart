@@ -194,7 +194,7 @@ void main() {
           Golang.String.fromDart('x'): Golang.Uint8(250),
         }, _$e2);
     ms[Golang.String.fromDart('x')] =
-        (ms[Golang.String.fromDart('x')]) + Golang.Uint8(10);
+        ms[Golang.String.fromDart('x')] + Golang.Uint8(10);
     ms[Golang.String.fromDart('y')] =
         (ms[Golang.String.fromDart('y')]) + Golang.Uint8(1);
     fmt.println(

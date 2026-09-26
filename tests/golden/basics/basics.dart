@@ -185,7 +185,7 @@ void main() {
           Golang.String.fromDart('c'): Golang.Int(3),
         }, _$e3);
     m[Golang.String.fromDart('d')] =
-        (m[Golang.String.fromDart('d')]) + Golang.Int(4);
+        m[Golang.String.fromDart('d')] + Golang.Int(4);
     m[Golang.String.fromDart('a')] =
         (m[Golang.String.fromDart('a')]) + Golang.Int(1);
     Golang.Int total = Golang.Int(0);

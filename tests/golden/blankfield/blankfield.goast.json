@@ -1,0 +1,2417 @@
+{
+  "schemaVersion": 7,
+  "tool": "goast",
+  "goVersion": "go1.26.5",
+  "packages": [
+    {
+      "path": "main",
+      "name": "main",
+      "files": [
+        {
+          "path": "blankfield.go",
+          "ast": {
+            "node": "File",
+            "doc": {
+              "node": "CommentGroup",
+              "list": [
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "blankfield.go",
+                    "line": 1,
+                    "column": 1,
+                    "offset": 0
+                  },
+                  "text": "// Campo em branco: sempre zero, aparece no %v/%+v (_:0) como no Go, e não"
+                },
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "blankfield.go",
+                    "line": 2,
+                    "column": 1,
+                    "offset": 76
+                  },
+                  "text": "// muda igualdade nem chave de map (P2-runtime-fmt-campo-branco)."
+                }
+              ]
+            },
+            "package": {
+              "file": "blankfield.go",
+              "line": 3,
+              "column": 1,
+              "offset": 142
+            },
+            "name": {
+              "node": "Ident",
+              "namePos": {
+                "file": "blankfield.go",
+                "line": 3,
+                "column": 9,
+                "offset": 150
+              },
+              "name": "main",
+              "obj": null
+            },
+            "decls": [
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "blankfield.go",
+                  "line": 5,
+                  "column": 1,
+                  "offset": 156
+                },
+                "tok": "import",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "ImportSpec",
+                    "doc": null,
+                    "name": null,
+                    "path": {
+                      "node": "BasicLit",
+                      "valuePos": {
+                        "file": "blankfield.go",
+                        "line": 5,
+                        "column": 8,
+                        "offset": 163
+                      },
+                      "valueEnd": {
+                        "file": "blankfield.go",
+                        "line": 5,
+                        "column": 13,
+                        "offset": 168
+                      },
+                      "kind": "STRING",
+                      "value": "\"fmt\""
+                    },
+                    "comment": null,
+                    "endPos": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "blankfield.go",
+                  "line": 7,
+                  "column": 1,
+                  "offset": 170
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "blankfield.go",
+                        "line": 7,
+                        "column": 6,
+                        "offset": 175
+                      },
+                      "name": "Pad",
+                      "obj": {
+                        "node": "Object",
+                        "name": "Pad",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "Pad",
+                        "kind": "type",
+                        "def": true,
+                        "type": 0,
+                        "decl": "blankfield.go:175",
+                        "pkg": "main",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "StructType",
+                      "struct": {
+                        "file": "blankfield.go",
+                        "line": 7,
+                        "column": 10,
+                        "offset": 179
+                      },
+                      "fields": {
+                        "node": "FieldList",
+                        "opening": {
+                          "file": "blankfield.go",
+                          "line": 7,
+                          "column": 17,
+                          "offset": 186
+                        },
+                        "list": [
+                          {
+                            "node": "Field",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "blankfield.go",
+                                  "line": 8,
+                                  "column": 2,
+                                  "offset": 189
+                                },
+                                "name": "A",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "A",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "A",
+                                  "kind": "field",
+                                  "def": true,
+                                  "type": 2,
+                                  "decl": "blankfield.go:189",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "blankfield.go",
+                                "line": 8,
+                                "column": 4,
+                                "offset": 191
+                              },
+                              "name": "int",
+                              "obj": null,
+                              "$type": 2,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "int",
+                                "kind": "type",
+                                "type": 2
+                              }
+                            },
+                            "tag": null,
+                            "comment": null
+                          },
+                          {
+                            "node": "Field",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "blankfield.go",
+                                  "line": 9,
+                                  "column": 2,
+                                  "offset": 196
+                                },
+                                "name": "_",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "_",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "_",
+                                  "kind": "field",
+                                  "def": true,
+                                  "type": 2,
+                                  "decl": "blankfield.go:196",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "blankfield.go",
+                                "line": 9,
+                                "column": 4,
+                                "offset": 198
+                              },
+                              "name": "int",
+                              "obj": null,
+                              "$type": 2,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "int",
+                                "kind": "type",
+                                "type": 2
+                              }
+                            },
+                            "tag": null,
+                            "comment": null
+                          },
+                          {
+                            "node": "Field",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "blankfield.go",
+                                  "line": 10,
+                                  "column": 2,
+                                  "offset": 203
+                                },
+                                "name": "B",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "B",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "B",
+                                  "kind": "field",
+                                  "def": true,
+                                  "type": 2,
+                                  "decl": "blankfield.go:203",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "blankfield.go",
+                                "line": 10,
+                                "column": 4,
+                                "offset": 205
+                              },
+                              "name": "int",
+                              "obj": null,
+                              "$type": 2,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "int",
+                                "kind": "type",
+                                "type": 2
+                              }
+                            },
+                            "tag": null,
+                            "comment": null
+                          },
+                          {
+                            "node": "Field",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "blankfield.go",
+                                  "line": 11,
+                                  "column": 2,
+                                  "offset": 210
+                                },
+                                "name": "_",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "_",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "_",
+                                  "kind": "field",
+                                  "def": true,
+                                  "type": 3,
+                                  "decl": "blankfield.go:210",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "ArrayType",
+                              "lbrack": {
+                                "file": "blankfield.go",
+                                "line": 11,
+                                "column": 4,
+                                "offset": 212
+                              },
+                              "len": {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "blankfield.go",
+                                  "line": 11,
+                                  "column": 5,
+                                  "offset": 213
+                                },
+                                "valueEnd": {
+                                  "file": "blankfield.go",
+                                  "line": 11,
+                                  "column": 6,
+                                  "offset": 214
+                                },
+                                "kind": "INT",
+                                "value": "0",
+                                "$type": 5,
+                                "$value": {
+                                  "kind": "int",
+                                  "value": "0"
+                                }
+                              },
+                              "elt": {
+                                "node": "FuncType",
+                                "func": {
+                                  "file": "blankfield.go",
+                                  "line": 11,
+                                  "column": 7,
+                                  "offset": 215
+                                },
+                                "typeParams": null,
+                                "params": {
+                                  "node": "FieldList",
+                                  "opening": {
+                                    "file": "blankfield.go",
+                                    "line": 11,
+                                    "column": 11,
+                                    "offset": 219
+                                  },
+                                  "list": null,
+                                  "closing": {
+                                    "file": "blankfield.go",
+                                    "line": 11,
+                                    "column": 12,
+                                    "offset": 220
+                                  }
+                                },
+                                "results": null,
+                                "$type": 4,
+                                "$isType": true
+                              },
+                              "$type": 3,
+                              "$isType": true
+                            },
+                            "tag": null,
+                            "comment": {
+                              "node": "CommentGroup",
+                              "list": [
+                                {
+                                  "node": "Comment",
+                                  "slash": {
+                                    "file": "blankfield.go",
+                                    "line": 11,
+                                    "column": 14,
+                                    "offset": 222
+                                  },
+                                  "text": "// não comparável (padrão do protobuf pragma)"
+                                }
+                              ]
+                            }
+                          }
+                        ],
+                        "closing": {
+                          "file": "blankfield.go",
+                          "line": 12,
+                          "column": 1,
+                          "offset": 271
+                        }
+                      },
+                      "incomplete": false,
+                      "$type": 1,
+                      "$isType": true
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "blankfield.go",
+                  "line": 14,
+                  "column": 1,
+                  "offset": 274
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "blankfield.go",
+                        "line": 14,
+                        "column": 6,
+                        "offset": 279
+                      },
+                      "name": "Q",
+                      "obj": {
+                        "node": "Object",
+                        "name": "Q",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "Q",
+                        "kind": "type",
+                        "def": true,
+                        "type": 6,
+                        "decl": "blankfield.go:279",
+                        "pkg": "main",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "StructType",
+                      "struct": {
+                        "file": "blankfield.go",
+                        "line": 14,
+                        "column": 8,
+                        "offset": 281
+                      },
+                      "fields": {
+                        "node": "FieldList",
+                        "opening": {
+                          "file": "blankfield.go",
+                          "line": 14,
+                          "column": 15,
+                          "offset": 288
+                        },
+                        "list": [
+                          {
+                            "node": "Field",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "blankfield.go",
+                                  "line": 15,
+                                  "column": 2,
+                                  "offset": 291
+                                },
+                                "name": "_",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "_",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "_",
+                                  "kind": "field",
+                                  "def": true,
+                                  "type": 8,
+                                  "decl": "blankfield.go:291",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "StructType",
+                              "struct": {
+                                "file": "blankfield.go",
+                                "line": 15,
+                                "column": 4,
+                                "offset": 293
+                              },
+                              "fields": {
+                                "node": "FieldList",
+                                "opening": {
+                                  "file": "blankfield.go",
+                                  "line": 15,
+                                  "column": 10,
+                                  "offset": 299
+                                },
+                                "list": [
+                                  {
+                                    "node": "Field",
+                                    "doc": null,
+                                    "names": [
+                                      {
+                                        "node": "Ident",
+                                        "namePos": {
+                                          "file": "blankfield.go",
+                                          "line": 15,
+                                          "column": 12,
+                                          "offset": 301
+                                        },
+                                        "name": "X",
+                                        "obj": {
+                                          "node": "Object",
+                                          "name": "X",
+                                          "kind": "var"
+                                        },
+                                        "$obj": {
+                                          "name": "X",
+                                          "kind": "field",
+                                          "def": true,
+                                          "type": 2,
+                                          "decl": "blankfield.go:301",
+                                          "pkg": "main"
+                                        }
+                                      },
+                                      {
+                                        "node": "Ident",
+                                        "namePos": {
+                                          "file": "blankfield.go",
+                                          "line": 15,
+                                          "column": 15,
+                                          "offset": 304
+                                        },
+                                        "name": "Y",
+                                        "obj": {
+                                          "node": "Object",
+                                          "name": "Y",
+                                          "kind": "var"
+                                        },
+                                        "$obj": {
+                                          "name": "Y",
+                                          "kind": "field",
+                                          "def": true,
+                                          "type": 2,
+                                          "decl": "blankfield.go:304",
+                                          "pkg": "main"
+                                        }
+                                      }
+                                    ],
+                                    "type": {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "blankfield.go",
+                                        "line": 15,
+                                        "column": 17,
+                                        "offset": 306
+                                      },
+                                      "name": "int",
+                                      "obj": null,
+                                      "$type": 2,
+                                      "$isType": true,
+                                      "$obj": {
+                                        "name": "int",
+                                        "kind": "type",
+                                        "type": 2
+                                      }
+                                    },
+                                    "tag": null,
+                                    "comment": null
+                                  }
+                                ],
+                                "closing": {
+                                  "file": "blankfield.go",
+                                  "line": 15,
+                                  "column": 21,
+                                  "offset": 310
+                                }
+                              },
+                              "incomplete": false,
+                              "$type": 8,
+                              "$isType": true
+                            },
+                            "tag": null,
+                            "comment": null
+                          },
+                          {
+                            "node": "Field",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "blankfield.go",
+                                  "line": 16,
+                                  "column": 2,
+                                  "offset": 313
+                                },
+                                "name": "S",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "S",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "S",
+                                  "kind": "field",
+                                  "def": true,
+                                  "type": 9,
+                                  "decl": "blankfield.go:313",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "blankfield.go",
+                                "line": 16,
+                                "column": 4,
+                                "offset": 315
+                              },
+                              "name": "string",
+                              "obj": null,
+                              "$type": 9,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "string",
+                                "kind": "type",
+                                "type": 9
+                              }
+                            },
+                            "tag": null,
+                            "comment": null
+                          },
+                          {
+                            "node": "Field",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "blankfield.go",
+                                  "line": 17,
+                                  "column": 2,
+                                  "offset": 323
+                                },
+                                "name": "_",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "_",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "_",
+                                  "kind": "field",
+                                  "def": true,
+                                  "type": 10,
+                                  "decl": "blankfield.go:323",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "StarExpr",
+                              "star": {
+                                "file": "blankfield.go",
+                                "line": 17,
+                                "column": 4,
+                                "offset": 325
+                              },
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "blankfield.go",
+                                  "line": 17,
+                                  "column": 5,
+                                  "offset": 326
+                                },
+                                "name": "int",
+                                "obj": null,
+                                "$type": 2,
+                                "$isType": true,
+                                "$obj": {
+                                  "name": "int",
+                                  "kind": "type",
+                                  "type": 2
+                                }
+                              },
+                              "$type": 10,
+                              "$isType": true
+                            },
+                            "tag": null,
+                            "comment": null
+                          }
+                        ],
+                        "closing": {
+                          "file": "blankfield.go",
+                          "line": 18,
+                          "column": 1,
+                          "offset": 330
+                        }
+                      },
+                      "incomplete": false,
+                      "$type": 7,
+                      "$isType": true
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "blankfield.go",
+                    "line": 20,
+                    "column": 6,
+                    "offset": 338
+                  },
+                  "name": "main",
+                  "obj": {
+                    "node": "Object",
+                    "name": "main",
+                    "kind": "func"
+                  },
+                  "$obj": {
+                    "name": "main",
+                    "kind": "func",
+                    "def": true,
+                    "type": 4,
+                    "decl": "blankfield.go:338",
+                    "pkg": "main",
+                    "top": true
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "blankfield.go",
+                    "line": 20,
+                    "column": 1,
+                    "offset": 333
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "blankfield.go",
+                      "line": 20,
+                      "column": 10,
+                      "offset": 342
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "blankfield.go",
+                      "line": 20,
+                      "column": 11,
+                      "offset": 343
+                    }
+                  },
+                  "results": null
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "blankfield.go",
+                    "line": 20,
+                    "column": 13,
+                    "offset": 345
+                  },
+                  "list": [
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "blankfield.go",
+                            "line": 21,
+                            "column": 2,
+                            "offset": 348
+                          },
+                          "name": "p",
+                          "obj": {
+                            "node": "Object",
+                            "name": "p",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "p",
+                            "kind": "var",
+                            "def": true,
+                            "type": 0,
+                            "decl": "blankfield.go:348",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "blankfield.go",
+                        "line": 21,
+                        "column": 4,
+                        "offset": 350
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "CompositeLit",
+                          "type": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "blankfield.go",
+                              "line": 21,
+                              "column": 7,
+                              "offset": 353
+                            },
+                            "name": "Pad",
+                            "obj": {
+                              "node": "Object",
+                              "name": "Pad",
+                              "kind": "type"
+                            },
+                            "$type": 0,
+                            "$isType": true,
+                            "$obj": {
+                              "name": "Pad",
+                              "kind": "type",
+                              "type": 0,
+                              "decl": "blankfield.go:175",
+                              "pkg": "main",
+                              "top": true
+                            }
+                          },
+                          "lbrace": {
+                            "file": "blankfield.go",
+                            "line": 21,
+                            "column": 10,
+                            "offset": 356
+                          },
+                          "elts": [
+                            {
+                              "node": "KeyValueExpr",
+                              "key": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "blankfield.go",
+                                  "line": 21,
+                                  "column": 11,
+                                  "offset": 357
+                                },
+                                "name": "A",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "A",
+                                  "kind": "field",
+                                  "type": 2,
+                                  "decl": "blankfield.go:189",
+                                  "pkg": "main"
+                                }
+                              },
+                              "colon": {
+                                "file": "blankfield.go",
+                                "line": 21,
+                                "column": 12,
+                                "offset": 358
+                              },
+                              "value": {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "blankfield.go",
+                                  "line": 21,
+                                  "column": 14,
+                                  "offset": 360
+                                },
+                                "valueEnd": {
+                                  "file": "blankfield.go",
+                                  "line": 21,
+                                  "column": 15,
+                                  "offset": 361
+                                },
+                                "kind": "INT",
+                                "value": "1",
+                                "$type": 2,
+                                "$value": {
+                                  "kind": "int",
+                                  "value": "1"
+                                }
+                              }
+                            },
+                            {
+                              "node": "KeyValueExpr",
+                              "key": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "blankfield.go",
+                                  "line": 21,
+                                  "column": 17,
+                                  "offset": 363
+                                },
+                                "name": "B",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "B",
+                                  "kind": "field",
+                                  "type": 2,
+                                  "decl": "blankfield.go:203",
+                                  "pkg": "main"
+                                }
+                              },
+                              "colon": {
+                                "file": "blankfield.go",
+                                "line": 21,
+                                "column": 18,
+                                "offset": 364
+                              },
+                              "value": {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "blankfield.go",
+                                  "line": 21,
+                                  "column": 20,
+                                  "offset": 366
+                                },
+                                "valueEnd": {
+                                  "file": "blankfield.go",
+                                  "line": 21,
+                                  "column": 21,
+                                  "offset": 367
+                                },
+                                "kind": "INT",
+                                "value": "2",
+                                "$type": 2,
+                                "$value": {
+                                  "kind": "int",
+                                  "value": "2"
+                                }
+                              }
+                            }
+                          ],
+                          "rbrace": {
+                            "file": "blankfield.go",
+                            "line": 21,
+                            "column": 21,
+                            "offset": 367
+                          },
+                          "incomplete": false,
+                          "$type": 0
+                        }
+                      ]
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "blankfield.go",
+                              "line": 22,
+                              "column": 2,
+                              "offset": 370
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "blankfield.go",
+                              "line": 22,
+                              "column": 6,
+                              "offset": 374
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 11,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 11
+                        },
+                        "lparen": {
+                          "file": "blankfield.go",
+                          "line": 22,
+                          "column": 13,
+                          "offset": 381
+                        },
+                        "args": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "blankfield.go",
+                              "line": 22,
+                              "column": 14,
+                              "offset": 382
+                            },
+                            "name": "p",
+                            "obj": {
+                              "node": "Object",
+                              "name": "p",
+                              "kind": "var"
+                            },
+                            "$type": 0,
+                            "$obj": {
+                              "name": "p",
+                              "kind": "var",
+                              "type": 0,
+                              "decl": "blankfield.go:348",
+                              "pkg": "main"
+                            }
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "blankfield.go",
+                          "line": 22,
+                          "column": 15,
+                          "offset": 383
+                        },
+                        "$type": 17
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "blankfield.go",
+                              "line": 23,
+                              "column": 2,
+                              "offset": 386
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "blankfield.go",
+                              "line": 23,
+                              "column": 6,
+                              "offset": 390
+                            },
+                            "name": "Printf",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Printf",
+                              "kind": "func",
+                              "type": 18,
+                              "decl": "print.go:231",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 18
+                        },
+                        "lparen": {
+                          "file": "blankfield.go",
+                          "line": 23,
+                          "column": 12,
+                          "offset": 396
+                        },
+                        "args": [
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "blankfield.go",
+                              "line": 23,
+                              "column": 13,
+                              "offset": 397
+                            },
+                            "valueEnd": {
+                              "file": "blankfield.go",
+                              "line": 23,
+                              "column": 23,
+                              "offset": 407
+                            },
+                            "kind": "STRING",
+                            "value": "\"%v %+v\\n\"",
+                            "$type": 9,
+                            "$value": {
+                              "kind": "string",
+                              "value": "%v %+v\n"
+                            }
+                          },
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "blankfield.go",
+                              "line": 23,
+                              "column": 25,
+                              "offset": 409
+                            },
+                            "name": "p",
+                            "obj": {
+                              "node": "Object",
+                              "name": "p",
+                              "kind": "var"
+                            },
+                            "$type": 0,
+                            "$obj": {
+                              "name": "p",
+                              "kind": "var",
+                              "type": 0,
+                              "decl": "blankfield.go:348",
+                              "pkg": "main"
+                            }
+                          },
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "blankfield.go",
+                              "line": 23,
+                              "column": 28,
+                              "offset": 412
+                            },
+                            "name": "p",
+                            "obj": {
+                              "node": "Object",
+                              "name": "p",
+                              "kind": "var"
+                            },
+                            "$type": 0,
+                            "$obj": {
+                              "name": "p",
+                              "kind": "var",
+                              "type": 0,
+                              "decl": "blankfield.go:348",
+                              "pkg": "main"
+                            }
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "blankfield.go",
+                          "line": 23,
+                          "column": 29,
+                          "offset": 413
+                        },
+                        "$type": 17
+                      }
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "blankfield.go",
+                            "line": 24,
+                            "column": 2,
+                            "offset": 416
+                          },
+                          "name": "q",
+                          "obj": {
+                            "node": "Object",
+                            "name": "q",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "q",
+                            "kind": "var",
+                            "def": true,
+                            "type": 6,
+                            "decl": "blankfield.go:416",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "blankfield.go",
+                        "line": 24,
+                        "column": 4,
+                        "offset": 418
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "CompositeLit",
+                          "type": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "blankfield.go",
+                              "line": 24,
+                              "column": 7,
+                              "offset": 421
+                            },
+                            "name": "Q",
+                            "obj": {
+                              "node": "Object",
+                              "name": "Q",
+                              "kind": "type"
+                            },
+                            "$type": 6,
+                            "$isType": true,
+                            "$obj": {
+                              "name": "Q",
+                              "kind": "type",
+                              "type": 6,
+                              "decl": "blankfield.go:279",
+                              "pkg": "main",
+                              "top": true
+                            }
+                          },
+                          "lbrace": {
+                            "file": "blankfield.go",
+                            "line": 24,
+                            "column": 8,
+                            "offset": 422
+                          },
+                          "elts": [
+                            {
+                              "node": "KeyValueExpr",
+                              "key": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "blankfield.go",
+                                  "line": 24,
+                                  "column": 9,
+                                  "offset": 423
+                                },
+                                "name": "S",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "S",
+                                  "kind": "field",
+                                  "type": 9,
+                                  "decl": "blankfield.go:313",
+                                  "pkg": "main"
+                                }
+                              },
+                              "colon": {
+                                "file": "blankfield.go",
+                                "line": 24,
+                                "column": 10,
+                                "offset": 424
+                              },
+                              "value": {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "blankfield.go",
+                                  "line": 24,
+                                  "column": 12,
+                                  "offset": 426
+                                },
+                                "valueEnd": {
+                                  "file": "blankfield.go",
+                                  "line": 24,
+                                  "column": 15,
+                                  "offset": 429
+                                },
+                                "kind": "STRING",
+                                "value": "\"s\"",
+                                "$type": 9,
+                                "$value": {
+                                  "kind": "string",
+                                  "value": "s"
+                                }
+                              }
+                            }
+                          ],
+                          "rbrace": {
+                            "file": "blankfield.go",
+                            "line": 24,
+                            "column": 15,
+                            "offset": 429
+                          },
+                          "incomplete": false,
+                          "$type": 6
+                        }
+                      ]
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "blankfield.go",
+                              "line": 25,
+                              "column": 2,
+                              "offset": 432
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "blankfield.go",
+                              "line": 25,
+                              "column": 6,
+                              "offset": 436
+                            },
+                            "name": "Printf",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Printf",
+                              "kind": "func",
+                              "type": 18,
+                              "decl": "print.go:231",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 18
+                        },
+                        "lparen": {
+                          "file": "blankfield.go",
+                          "line": 25,
+                          "column": 12,
+                          "offset": 442
+                        },
+                        "args": [
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "blankfield.go",
+                              "line": 25,
+                              "column": 13,
+                              "offset": 443
+                            },
+                            "valueEnd": {
+                              "file": "blankfield.go",
+                              "line": 25,
+                              "column": 23,
+                              "offset": 453
+                            },
+                            "kind": "STRING",
+                            "value": "\"%v %+v\\n\"",
+                            "$type": 9,
+                            "$value": {
+                              "kind": "string",
+                              "value": "%v %+v\n"
+                            }
+                          },
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "blankfield.go",
+                              "line": 25,
+                              "column": 25,
+                              "offset": 455
+                            },
+                            "name": "q",
+                            "obj": {
+                              "node": "Object",
+                              "name": "q",
+                              "kind": "var"
+                            },
+                            "$type": 6,
+                            "$obj": {
+                              "name": "q",
+                              "kind": "var",
+                              "type": 6,
+                              "decl": "blankfield.go:416",
+                              "pkg": "main"
+                            }
+                          },
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "blankfield.go",
+                              "line": 25,
+                              "column": 28,
+                              "offset": 458
+                            },
+                            "name": "q",
+                            "obj": {
+                              "node": "Object",
+                              "name": "q",
+                              "kind": "var"
+                            },
+                            "$type": 6,
+                            "$obj": {
+                              "name": "q",
+                              "kind": "var",
+                              "type": 6,
+                              "decl": "blankfield.go:416",
+                              "pkg": "main"
+                            }
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "blankfield.go",
+                          "line": 25,
+                          "column": 29,
+                          "offset": 459
+                        },
+                        "$type": 17
+                      }
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "blankfield.go",
+                            "line": 26,
+                            "column": 2,
+                            "offset": 462
+                          },
+                          "name": "m",
+                          "obj": {
+                            "node": "Object",
+                            "name": "m",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "m",
+                            "kind": "var",
+                            "def": true,
+                            "type": 19,
+                            "decl": "blankfield.go:462",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "blankfield.go",
+                        "line": 26,
+                        "column": 4,
+                        "offset": 464
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "CompositeLit",
+                          "type": {
+                            "node": "MapType",
+                            "map": {
+                              "file": "blankfield.go",
+                              "line": 26,
+                              "column": 7,
+                              "offset": 467
+                            },
+                            "key": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "blankfield.go",
+                                "line": 26,
+                                "column": 11,
+                                "offset": 471
+                              },
+                              "name": "Q",
+                              "obj": {
+                                "node": "Object",
+                                "name": "Q",
+                                "kind": "type"
+                              },
+                              "$type": 6,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "Q",
+                                "kind": "type",
+                                "type": 6,
+                                "decl": "blankfield.go:279",
+                                "pkg": "main",
+                                "top": true
+                              }
+                            },
+                            "value": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "blankfield.go",
+                                "line": 26,
+                                "column": 13,
+                                "offset": 473
+                              },
+                              "name": "int",
+                              "obj": null,
+                              "$type": 2,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "int",
+                                "kind": "type",
+                                "type": 2
+                              }
+                            },
+                            "$type": 19,
+                            "$isType": true
+                          },
+                          "lbrace": {
+                            "file": "blankfield.go",
+                            "line": 26,
+                            "column": 16,
+                            "offset": 476
+                          },
+                          "elts": [
+                            {
+                              "node": "KeyValueExpr",
+                              "key": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "blankfield.go",
+                                  "line": 26,
+                                  "column": 17,
+                                  "offset": 477
+                                },
+                                "name": "q",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "q",
+                                  "kind": "var"
+                                },
+                                "$type": 6,
+                                "$obj": {
+                                  "name": "q",
+                                  "kind": "var",
+                                  "type": 6,
+                                  "decl": "blankfield.go:416",
+                                  "pkg": "main"
+                                }
+                              },
+                              "colon": {
+                                "file": "blankfield.go",
+                                "line": 26,
+                                "column": 18,
+                                "offset": 478
+                              },
+                              "value": {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "blankfield.go",
+                                  "line": 26,
+                                  "column": 20,
+                                  "offset": 480
+                                },
+                                "valueEnd": {
+                                  "file": "blankfield.go",
+                                  "line": 26,
+                                  "column": 21,
+                                  "offset": 481
+                                },
+                                "kind": "INT",
+                                "value": "1",
+                                "$type": 2,
+                                "$value": {
+                                  "kind": "int",
+                                  "value": "1"
+                                }
+                              }
+                            },
+                            {
+                              "node": "KeyValueExpr",
+                              "key": {
+                                "node": "CompositeLit",
+                                "type": null,
+                                "lbrace": {
+                                  "file": "blankfield.go",
+                                  "line": 26,
+                                  "column": 23,
+                                  "offset": 483
+                                },
+                                "elts": [
+                                  {
+                                    "node": "KeyValueExpr",
+                                    "key": {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "blankfield.go",
+                                        "line": 26,
+                                        "column": 24,
+                                        "offset": 484
+                                      },
+                                      "name": "S",
+                                      "obj": null,
+                                      "$obj": {
+                                        "name": "S",
+                                        "kind": "field",
+                                        "type": 9,
+                                        "decl": "blankfield.go:313",
+                                        "pkg": "main"
+                                      }
+                                    },
+                                    "colon": {
+                                      "file": "blankfield.go",
+                                      "line": 26,
+                                      "column": 25,
+                                      "offset": 485
+                                    },
+                                    "value": {
+                                      "node": "BasicLit",
+                                      "valuePos": {
+                                        "file": "blankfield.go",
+                                        "line": 26,
+                                        "column": 27,
+                                        "offset": 487
+                                      },
+                                      "valueEnd": {
+                                        "file": "blankfield.go",
+                                        "line": 26,
+                                        "column": 30,
+                                        "offset": 490
+                                      },
+                                      "kind": "STRING",
+                                      "value": "\"a\"",
+                                      "$type": 9,
+                                      "$value": {
+                                        "kind": "string",
+                                        "value": "a"
+                                      }
+                                    }
+                                  }
+                                ],
+                                "rbrace": {
+                                  "file": "blankfield.go",
+                                  "line": 26,
+                                  "column": 30,
+                                  "offset": 490
+                                },
+                                "incomplete": false,
+                                "$type": 6
+                              },
+                              "colon": {
+                                "file": "blankfield.go",
+                                "line": 26,
+                                "column": 31,
+                                "offset": 491
+                              },
+                              "value": {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "blankfield.go",
+                                  "line": 26,
+                                  "column": 33,
+                                  "offset": 493
+                                },
+                                "valueEnd": {
+                                  "file": "blankfield.go",
+                                  "line": 26,
+                                  "column": 34,
+                                  "offset": 494
+                                },
+                                "kind": "INT",
+                                "value": "2",
+                                "$type": 2,
+                                "$value": {
+                                  "kind": "int",
+                                  "value": "2"
+                                }
+                              }
+                            }
+                          ],
+                          "rbrace": {
+                            "file": "blankfield.go",
+                            "line": 26,
+                            "column": 34,
+                            "offset": 494
+                          },
+                          "incomplete": false,
+                          "$type": 19
+                        }
+                      ]
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "blankfield.go",
+                              "line": 27,
+                              "column": 2,
+                              "offset": 497
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "blankfield.go",
+                              "line": 27,
+                              "column": 6,
+                              "offset": 501
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 11,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 11
+                        },
+                        "lparen": {
+                          "file": "blankfield.go",
+                          "line": 27,
+                          "column": 13,
+                          "offset": 508
+                        },
+                        "args": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "blankfield.go",
+                              "line": 27,
+                              "column": 14,
+                              "offset": 509
+                            },
+                            "name": "m",
+                            "obj": {
+                              "node": "Object",
+                              "name": "m",
+                              "kind": "var"
+                            },
+                            "$type": 19,
+                            "$obj": {
+                              "name": "m",
+                              "kind": "var",
+                              "type": 19,
+                              "decl": "blankfield.go:462",
+                              "pkg": "main"
+                            }
+                          },
+                          {
+                            "node": "BinaryExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "blankfield.go",
+                                "line": 27,
+                                "column": 17,
+                                "offset": 512
+                              },
+                              "name": "q",
+                              "obj": {
+                                "node": "Object",
+                                "name": "q",
+                                "kind": "var"
+                              },
+                              "$type": 6,
+                              "$obj": {
+                                "name": "q",
+                                "kind": "var",
+                                "type": 6,
+                                "decl": "blankfield.go:416",
+                                "pkg": "main"
+                              }
+                            },
+                            "opPos": {
+                              "file": "blankfield.go",
+                              "line": 27,
+                              "column": 19,
+                              "offset": 514
+                            },
+                            "op": "==",
+                            "y": {
+                              "node": "CompositeLit",
+                              "type": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "blankfield.go",
+                                  "line": 27,
+                                  "column": 22,
+                                  "offset": 517
+                                },
+                                "name": "Q",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "Q",
+                                  "kind": "type"
+                                },
+                                "$type": 6,
+                                "$isType": true,
+                                "$obj": {
+                                  "name": "Q",
+                                  "kind": "type",
+                                  "type": 6,
+                                  "decl": "blankfield.go:279",
+                                  "pkg": "main",
+                                  "top": true
+                                }
+                              },
+                              "lbrace": {
+                                "file": "blankfield.go",
+                                "line": 27,
+                                "column": 23,
+                                "offset": 518
+                              },
+                              "elts": [
+                                {
+                                  "node": "KeyValueExpr",
+                                  "key": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "blankfield.go",
+                                      "line": 27,
+                                      "column": 24,
+                                      "offset": 519
+                                    },
+                                    "name": "S",
+                                    "obj": null,
+                                    "$obj": {
+                                      "name": "S",
+                                      "kind": "field",
+                                      "type": 9,
+                                      "decl": "blankfield.go:313",
+                                      "pkg": "main"
+                                    }
+                                  },
+                                  "colon": {
+                                    "file": "blankfield.go",
+                                    "line": 27,
+                                    "column": 25,
+                                    "offset": 520
+                                  },
+                                  "value": {
+                                    "node": "BasicLit",
+                                    "valuePos": {
+                                      "file": "blankfield.go",
+                                      "line": 27,
+                                      "column": 27,
+                                      "offset": 522
+                                    },
+                                    "valueEnd": {
+                                      "file": "blankfield.go",
+                                      "line": 27,
+                                      "column": 30,
+                                      "offset": 525
+                                    },
+                                    "kind": "STRING",
+                                    "value": "\"s\"",
+                                    "$type": 9,
+                                    "$value": {
+                                      "kind": "string",
+                                      "value": "s"
+                                    }
+                                  }
+                                }
+                              ],
+                              "rbrace": {
+                                "file": "blankfield.go",
+                                "line": 27,
+                                "column": 30,
+                                "offset": 525
+                              },
+                              "incomplete": false,
+                              "$type": 6
+                            },
+                            "$type": 20
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "blankfield.go",
+                          "line": 27,
+                          "column": 31,
+                          "offset": 526
+                        },
+                        "$type": 17
+                      }
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "blankfield.go",
+                    "line": 28,
+                    "column": 1,
+                    "offset": 528
+                  }
+                }
+              }
+            ],
+            "fileStart": {
+              "file": "blankfield.go",
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "fileEnd": {
+              "file": "blankfield.go",
+              "line": 28,
+              "column": 3,
+              "offset": 530
+            },
+            "scope": null,
+            "imports": [
+              {
+                "node": "ImportSpec",
+                "doc": null,
+                "name": null,
+                "path": {
+                  "node": "BasicLit",
+                  "valuePos": {
+                    "file": "blankfield.go",
+                    "line": 5,
+                    "column": 8,
+                    "offset": 163
+                  },
+                  "valueEnd": {
+                    "file": "blankfield.go",
+                    "line": 5,
+                    "column": 13,
+                    "offset": 168
+                  },
+                  "kind": "STRING",
+                  "value": "\"fmt\""
+                },
+                "comment": null,
+                "endPos": null
+              }
+            ],
+            "unresolved": [
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "blankfield.go",
+                  "line": 8,
+                  "column": 4,
+                  "offset": 191
+                },
+                "name": "int",
+                "obj": null,
+                "$type": 2,
+                "$isType": true,
+                "$obj": {
+                  "name": "int",
+                  "kind": "type",
+                  "type": 2
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "blankfield.go",
+                  "line": 9,
+                  "column": 4,
+                  "offset": 198
+                },
+                "name": "int",
+                "obj": null,
+                "$type": 2,
+                "$isType": true,
+                "$obj": {
+                  "name": "int",
+                  "kind": "type",
+                  "type": 2
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "blankfield.go",
+                  "line": 10,
+                  "column": 4,
+                  "offset": 205
+                },
+                "name": "int",
+                "obj": null,
+                "$type": 2,
+                "$isType": true,
+                "$obj": {
+                  "name": "int",
+                  "kind": "type",
+                  "type": 2
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "blankfield.go",
+                  "line": 15,
+                  "column": 17,
+                  "offset": 306
+                },
+                "name": "int",
+                "obj": null,
+                "$type": 2,
+                "$isType": true,
+                "$obj": {
+                  "name": "int",
+                  "kind": "type",
+                  "type": 2
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "blankfield.go",
+                  "line": 16,
+                  "column": 4,
+                  "offset": 315
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 9,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 9
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "blankfield.go",
+                  "line": 17,
+                  "column": 5,
+                  "offset": 326
+                },
+                "name": "int",
+                "obj": null,
+                "$type": 2,
+                "$isType": true,
+                "$obj": {
+                  "name": "int",
+                  "kind": "type",
+                  "type": 2
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "blankfield.go",
+                  "line": 22,
+                  "column": 2,
+                  "offset": 370
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "blankfield.go",
+                  "line": 23,
+                  "column": 2,
+                  "offset": 386
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "blankfield.go",
+                  "line": 25,
+                  "column": 2,
+                  "offset": 432
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "blankfield.go",
+                  "line": 26,
+                  "column": 13,
+                  "offset": 473
+                },
+                "name": "int",
+                "obj": null,
+                "$type": 2,
+                "$isType": true,
+                "$obj": {
+                  "name": "int",
+                  "kind": "type",
+                  "type": 2
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "blankfield.go",
+                  "line": 27,
+                  "column": 2,
+                  "offset": 497
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              }
+            ],
+            "comments": [
+              {
+                "node": "CommentGroup",
+                "list": [
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "blankfield.go",
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "text": "// Campo em branco: sempre zero, aparece no %v/%+v (_:0) como no Go, e não"
+                  },
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "blankfield.go",
+                      "line": 2,
+                      "column": 1,
+                      "offset": 76
+                    },
+                    "text": "// muda igualdade nem chave de map (P2-runtime-fmt-campo-branco)."
+                  }
+                ]
+              },
+              {
+                "node": "CommentGroup",
+                "list": [
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "blankfield.go",
+                      "line": 11,
+                      "column": 14,
+                      "offset": 222
+                    },
+                    "text": "// não comparável (padrão do protobuf pragma)"
+                  }
+                ]
+              }
+            ],
+            "goVersion": ""
+          }
+        }
+      ],
+      "imports": [
+        {
+          "path": "fmt",
+          "name": "fmt"
+        }
+      ],
+      "typeTable": [
+        {
+          "kind": "named",
+          "pkg": "main",
+          "name": "Pad",
+          "underlying": 1,
+          "methods": []
+        },
+        {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "A",
+              "type": 2,
+              "embedded": false,
+              "tag": ""
+            },
+            {
+              "name": "_",
+              "type": 2,
+              "embedded": false,
+              "tag": ""
+            },
+            {
+              "name": "B",
+              "type": 2,
+              "embedded": false,
+              "tag": ""
+            },
+            {
+              "name": "_",
+              "type": 3,
+              "embedded": false,
+              "tag": ""
+            }
+          ]
+        },
+        {
+          "kind": "basic",
+          "name": "int"
+        },
+        {
+          "kind": "array",
+          "len": 0,
+          "elem": 4
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [],
+          "variadic": false
+        },
+        {
+          "kind": "basic",
+          "name": "untyped int"
+        },
+        {
+          "kind": "named",
+          "pkg": "main",
+          "name": "Q",
+          "underlying": 7,
+          "methods": []
+        },
+        {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "_",
+              "type": 8,
+              "embedded": false,
+              "tag": ""
+            },
+            {
+              "name": "S",
+              "type": 9,
+              "embedded": false,
+              "tag": ""
+            },
+            {
+              "name": "_",
+              "type": 10,
+              "embedded": false,
+              "tag": ""
+            }
+          ]
+        },
+        {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "X",
+              "type": 2,
+              "embedded": false,
+              "tag": ""
+            },
+            {
+              "name": "Y",
+              "type": 2,
+              "embedded": false,
+              "tag": ""
+            }
+          ]
+        },
+        {
+          "kind": "basic",
+          "name": "string"
+        },
+        {
+          "kind": "pointer",
+          "elem": 2
+        },
+        {
+          "kind": "func",
+          "params": [
+            12
+          ],
+          "results": [
+            2,
+            14
+          ],
+          "variadic": true
+        },
+        {
+          "kind": "slice",
+          "elem": 13
+        },
+        {
+          "kind": "interface",
+          "methods": [],
+          "embeddeds": []
+        },
+        {
+          "kind": "named",
+          "pkg": "",
+          "name": "error",
+          "underlying": 15
+        },
+        {
+          "kind": "interface",
+          "methods": [
+            {
+              "name": "Error",
+              "type": 16
+            }
+          ],
+          "embeddeds": []
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            9
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "tuple",
+          "elems": [
+            2,
+            14
+          ]
+        },
+        {
+          "kind": "func",
+          "params": [
+            9,
+            12
+          ],
+          "results": [
+            2,
+            14
+          ],
+          "variadic": true
+        },
+        {
+          "kind": "map",
+          "key": 6,
+          "elem": 2
+        },
+        {
+          "kind": "basic",
+          "name": "bool"
+        }
+      ],
+      "implements": null,
+      "initOrder": [],
+      "stdlibUsage": [
+        "fmt.Printf",
+        "fmt.Println"
+      ],
+      "reflectUsage": null
+    }
+  ]
+}

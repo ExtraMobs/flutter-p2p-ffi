@@ -1,0 +1,3036 @@
+{
+  "schemaVersion": 7,
+  "tool": "goast",
+  "goVersion": "go1.26.5",
+  "packages": [
+    {
+      "path": "main",
+      "name": "main",
+      "files": [
+        {
+          "path": "recvaddr.go",
+          "ast": {
+            "node": "File",
+            "doc": {
+              "node": "CommentGroup",
+              "list": [
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "recvaddr.go",
+                    "line": 1,
+                    "column": 1,
+                    "offset": 0
+                  },
+                  "text": "// Método de valor de tipo nomeado não-struct que toma o endereço do"
+                },
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "recvaddr.go",
+                    "line": 2,
+                    "column": 1,
+                    "offset": 72
+                  },
+                  "text": "// receptor (c.inc() com receptor ponteiro, \u0026c): o receptor vira caixa local."
+                }
+              ]
+            },
+            "package": {
+              "file": "recvaddr.go",
+              "line": 3,
+              "column": 1,
+              "offset": 150
+            },
+            "name": {
+              "node": "Ident",
+              "namePos": {
+                "file": "recvaddr.go",
+                "line": 3,
+                "column": 9,
+                "offset": 158
+              },
+              "name": "main",
+              "obj": null
+            },
+            "decls": [
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "recvaddr.go",
+                  "line": 5,
+                  "column": 1,
+                  "offset": 164
+                },
+                "tok": "import",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "ImportSpec",
+                    "doc": null,
+                    "name": null,
+                    "path": {
+                      "node": "BasicLit",
+                      "valuePos": {
+                        "file": "recvaddr.go",
+                        "line": 5,
+                        "column": 8,
+                        "offset": 171
+                      },
+                      "valueEnd": {
+                        "file": "recvaddr.go",
+                        "line": 5,
+                        "column": 13,
+                        "offset": 176
+                      },
+                      "kind": "STRING",
+                      "value": "\"fmt\""
+                    },
+                    "comment": null,
+                    "endPos": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "recvaddr.go",
+                  "line": 7,
+                  "column": 1,
+                  "offset": 178
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "recvaddr.go",
+                        "line": 7,
+                        "column": 6,
+                        "offset": 183
+                      },
+                      "name": "Counter",
+                      "obj": {
+                        "node": "Object",
+                        "name": "Counter",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "Counter",
+                        "kind": "type",
+                        "def": true,
+                        "type": 0,
+                        "decl": "recvaddr.go:183",
+                        "pkg": "main",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "recvaddr.go",
+                        "line": 7,
+                        "column": 14,
+                        "offset": 191
+                      },
+                      "name": "int",
+                      "obj": null,
+                      "$type": 1,
+                      "$isType": true,
+                      "$obj": {
+                        "name": "int",
+                        "kind": "type",
+                        "type": 1
+                      }
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": {
+                  "node": "FieldList",
+                  "opening": {
+                    "file": "recvaddr.go",
+                    "line": 9,
+                    "column": 6,
+                    "offset": 201
+                  },
+                  "list": [
+                    {
+                      "node": "Field",
+                      "doc": null,
+                      "names": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "recvaddr.go",
+                            "line": 9,
+                            "column": 7,
+                            "offset": 202
+                          },
+                          "name": "c",
+                          "obj": {
+                            "node": "Object",
+                            "name": "c",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "c",
+                            "kind": "var",
+                            "def": true,
+                            "type": 4,
+                            "decl": "recvaddr.go:202",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "type": {
+                        "node": "StarExpr",
+                        "star": {
+                          "file": "recvaddr.go",
+                          "line": 9,
+                          "column": 9,
+                          "offset": 204
+                        },
+                        "x": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "recvaddr.go",
+                            "line": 9,
+                            "column": 10,
+                            "offset": 205
+                          },
+                          "name": "Counter",
+                          "obj": {
+                            "node": "Object",
+                            "name": "Counter",
+                            "kind": "type"
+                          },
+                          "$type": 0,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "Counter",
+                            "kind": "type",
+                            "type": 0,
+                            "decl": "recvaddr.go:183",
+                            "pkg": "main",
+                            "top": true
+                          }
+                        },
+                        "$type": 4,
+                        "$isType": true
+                      },
+                      "tag": null,
+                      "comment": null
+                    }
+                  ],
+                  "closing": {
+                    "file": "recvaddr.go",
+                    "line": 9,
+                    "column": 17,
+                    "offset": 212
+                  }
+                },
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "recvaddr.go",
+                    "line": 9,
+                    "column": 19,
+                    "offset": 214
+                  },
+                  "name": "inc",
+                  "obj": null,
+                  "$obj": {
+                    "name": "inc",
+                    "kind": "method",
+                    "def": true,
+                    "type": 3,
+                    "decl": "recvaddr.go:214",
+                    "pkg": "main"
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "recvaddr.go",
+                    "line": 9,
+                    "column": 1,
+                    "offset": 196
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "recvaddr.go",
+                      "line": 9,
+                      "column": 22,
+                      "offset": 217
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "recvaddr.go",
+                      "line": 9,
+                      "column": 23,
+                      "offset": 218
+                    }
+                  },
+                  "results": null
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "recvaddr.go",
+                    "line": 9,
+                    "column": 25,
+                    "offset": 220
+                  },
+                  "list": [
+                    {
+                      "node": "IncDecStmt",
+                      "x": {
+                        "node": "StarExpr",
+                        "star": {
+                          "file": "recvaddr.go",
+                          "line": 9,
+                          "column": 27,
+                          "offset": 222
+                        },
+                        "x": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "recvaddr.go",
+                            "line": 9,
+                            "column": 28,
+                            "offset": 223
+                          },
+                          "name": "c",
+                          "obj": {
+                            "node": "Object",
+                            "name": "c",
+                            "kind": "var"
+                          },
+                          "$type": 4,
+                          "$obj": {
+                            "name": "c",
+                            "kind": "var",
+                            "type": 4,
+                            "decl": "recvaddr.go:202",
+                            "pkg": "main"
+                          }
+                        },
+                        "$type": 0
+                      },
+                      "tokPos": {
+                        "file": "recvaddr.go",
+                        "line": 9,
+                        "column": 29,
+                        "offset": 224
+                      },
+                      "tok": "++"
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "recvaddr.go",
+                    "line": 9,
+                    "column": 32,
+                    "offset": 227
+                  }
+                }
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": {
+                  "node": "FieldList",
+                  "opening": {
+                    "file": "recvaddr.go",
+                    "line": 11,
+                    "column": 6,
+                    "offset": 235
+                  },
+                  "list": [
+                    {
+                      "node": "Field",
+                      "doc": null,
+                      "names": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "recvaddr.go",
+                            "line": 11,
+                            "column": 7,
+                            "offset": 236
+                          },
+                          "name": "c",
+                          "obj": {
+                            "node": "Object",
+                            "name": "c",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "c",
+                            "kind": "var",
+                            "def": true,
+                            "type": 0,
+                            "decl": "recvaddr.go:236",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "type": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "recvaddr.go",
+                          "line": 11,
+                          "column": 9,
+                          "offset": 238
+                        },
+                        "name": "Counter",
+                        "obj": {
+                          "node": "Object",
+                          "name": "Counter",
+                          "kind": "type"
+                        },
+                        "$type": 0,
+                        "$isType": true,
+                        "$obj": {
+                          "name": "Counter",
+                          "kind": "type",
+                          "type": 0,
+                          "decl": "recvaddr.go:183",
+                          "pkg": "main",
+                          "top": true
+                        }
+                      },
+                      "tag": null,
+                      "comment": null
+                    }
+                  ],
+                  "closing": {
+                    "file": "recvaddr.go",
+                    "line": 11,
+                    "column": 16,
+                    "offset": 245
+                  }
+                },
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "recvaddr.go",
+                    "line": 11,
+                    "column": 18,
+                    "offset": 247
+                  },
+                  "name": "Twice",
+                  "obj": null,
+                  "$obj": {
+                    "name": "Twice",
+                    "kind": "method",
+                    "def": true,
+                    "type": 2,
+                    "decl": "recvaddr.go:247",
+                    "pkg": "main"
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "recvaddr.go",
+                    "line": 11,
+                    "column": 1,
+                    "offset": 230
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "recvaddr.go",
+                      "line": 11,
+                      "column": 23,
+                      "offset": 252
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "recvaddr.go",
+                      "line": 11,
+                      "column": 24,
+                      "offset": 253
+                    }
+                  },
+                  "results": {
+                    "node": "FieldList",
+                    "opening": null,
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": null,
+                        "type": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "recvaddr.go",
+                            "line": 11,
+                            "column": 26,
+                            "offset": 255
+                          },
+                          "name": "Counter",
+                          "obj": {
+                            "node": "Object",
+                            "name": "Counter",
+                            "kind": "type"
+                          },
+                          "$type": 0,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "Counter",
+                            "kind": "type",
+                            "type": 0,
+                            "decl": "recvaddr.go:183",
+                            "pkg": "main",
+                            "top": true
+                          }
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": null
+                  }
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "recvaddr.go",
+                    "line": 11,
+                    "column": 34,
+                    "offset": 263
+                  },
+                  "list": [
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "recvaddr.go",
+                              "line": 12,
+                              "column": 2,
+                              "offset": 266
+                            },
+                            "name": "c",
+                            "obj": {
+                              "node": "Object",
+                              "name": "c",
+                              "kind": "var"
+                            },
+                            "$type": 0,
+                            "$obj": {
+                              "name": "c",
+                              "kind": "var",
+                              "type": 0,
+                              "decl": "recvaddr.go:236",
+                              "pkg": "main"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "recvaddr.go",
+                              "line": 12,
+                              "column": 4,
+                              "offset": 268
+                            },
+                            "name": "inc",
+                            "obj": null,
+                            "$obj": {
+                              "name": "inc",
+                              "kind": "method",
+                              "type": 3,
+                              "decl": "recvaddr.go:214",
+                              "pkg": "main"
+                            }
+                          },
+                          "$type": 3,
+                          "$sel": {
+                            "kind": "method",
+                            "recv": 0,
+                            "index": [
+                              0
+                            ],
+                            "indirect": false
+                          }
+                        },
+                        "lparen": {
+                          "file": "recvaddr.go",
+                          "line": 12,
+                          "column": 7,
+                          "offset": 271
+                        },
+                        "args": null,
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "recvaddr.go",
+                          "line": 12,
+                          "column": 8,
+                          "offset": 272
+                        },
+                        "$type": 5
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "recvaddr.go",
+                              "line": 13,
+                              "column": 2,
+                              "offset": 275
+                            },
+                            "name": "c",
+                            "obj": {
+                              "node": "Object",
+                              "name": "c",
+                              "kind": "var"
+                            },
+                            "$type": 0,
+                            "$obj": {
+                              "name": "c",
+                              "kind": "var",
+                              "type": 0,
+                              "decl": "recvaddr.go:236",
+                              "pkg": "main"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "recvaddr.go",
+                              "line": 13,
+                              "column": 4,
+                              "offset": 277
+                            },
+                            "name": "inc",
+                            "obj": null,
+                            "$obj": {
+                              "name": "inc",
+                              "kind": "method",
+                              "type": 3,
+                              "decl": "recvaddr.go:214",
+                              "pkg": "main"
+                            }
+                          },
+                          "$type": 3,
+                          "$sel": {
+                            "kind": "method",
+                            "recv": 0,
+                            "index": [
+                              0
+                            ],
+                            "indirect": false
+                          }
+                        },
+                        "lparen": {
+                          "file": "recvaddr.go",
+                          "line": 13,
+                          "column": 7,
+                          "offset": 280
+                        },
+                        "args": null,
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "recvaddr.go",
+                          "line": 13,
+                          "column": 8,
+                          "offset": 281
+                        },
+                        "$type": 5
+                      }
+                    },
+                    {
+                      "node": "ReturnStmt",
+                      "return": {
+                        "file": "recvaddr.go",
+                        "line": 14,
+                        "column": 2,
+                        "offset": 284
+                      },
+                      "results": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "recvaddr.go",
+                            "line": 14,
+                            "column": 9,
+                            "offset": 291
+                          },
+                          "name": "c",
+                          "obj": {
+                            "node": "Object",
+                            "name": "c",
+                            "kind": "var"
+                          },
+                          "$type": 0,
+                          "$obj": {
+                            "name": "c",
+                            "kind": "var",
+                            "type": 0,
+                            "decl": "recvaddr.go:236",
+                            "pkg": "main"
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "recvaddr.go",
+                    "line": 15,
+                    "column": 1,
+                    "offset": 293
+                  }
+                }
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": {
+                  "node": "FieldList",
+                  "opening": {
+                    "file": "recvaddr.go",
+                    "line": 17,
+                    "column": 6,
+                    "offset": 301
+                  },
+                  "list": [
+                    {
+                      "node": "Field",
+                      "doc": null,
+                      "names": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "recvaddr.go",
+                            "line": 17,
+                            "column": 7,
+                            "offset": 302
+                          },
+                          "name": "c",
+                          "obj": {
+                            "node": "Object",
+                            "name": "c",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "c",
+                            "kind": "var",
+                            "def": true,
+                            "type": 0,
+                            "decl": "recvaddr.go:302",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "type": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "recvaddr.go",
+                          "line": 17,
+                          "column": 9,
+                          "offset": 304
+                        },
+                        "name": "Counter",
+                        "obj": {
+                          "node": "Object",
+                          "name": "Counter",
+                          "kind": "type"
+                        },
+                        "$type": 0,
+                        "$isType": true,
+                        "$obj": {
+                          "name": "Counter",
+                          "kind": "type",
+                          "type": 0,
+                          "decl": "recvaddr.go:183",
+                          "pkg": "main",
+                          "top": true
+                        }
+                      },
+                      "tag": null,
+                      "comment": null
+                    }
+                  ],
+                  "closing": {
+                    "file": "recvaddr.go",
+                    "line": 17,
+                    "column": 16,
+                    "offset": 311
+                  }
+                },
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "recvaddr.go",
+                    "line": 17,
+                    "column": 18,
+                    "offset": 313
+                  },
+                  "name": "Addr",
+                  "obj": null,
+                  "$obj": {
+                    "name": "Addr",
+                    "kind": "method",
+                    "def": true,
+                    "type": 2,
+                    "decl": "recvaddr.go:313",
+                    "pkg": "main"
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "recvaddr.go",
+                    "line": 17,
+                    "column": 1,
+                    "offset": 296
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "recvaddr.go",
+                      "line": 17,
+                      "column": 22,
+                      "offset": 317
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "recvaddr.go",
+                      "line": 17,
+                      "column": 23,
+                      "offset": 318
+                    }
+                  },
+                  "results": {
+                    "node": "FieldList",
+                    "opening": null,
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": null,
+                        "type": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "recvaddr.go",
+                            "line": 17,
+                            "column": 25,
+                            "offset": 320
+                          },
+                          "name": "Counter",
+                          "obj": {
+                            "node": "Object",
+                            "name": "Counter",
+                            "kind": "type"
+                          },
+                          "$type": 0,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "Counter",
+                            "kind": "type",
+                            "type": 0,
+                            "decl": "recvaddr.go:183",
+                            "pkg": "main",
+                            "top": true
+                          }
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": null
+                  }
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "recvaddr.go",
+                    "line": 17,
+                    "column": 33,
+                    "offset": 328
+                  },
+                  "list": [
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "recvaddr.go",
+                            "line": 18,
+                            "column": 2,
+                            "offset": 331
+                          },
+                          "name": "p",
+                          "obj": {
+                            "node": "Object",
+                            "name": "p",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "p",
+                            "kind": "var",
+                            "def": true,
+                            "type": 4,
+                            "decl": "recvaddr.go:331",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "recvaddr.go",
+                        "line": 18,
+                        "column": 4,
+                        "offset": 333
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "UnaryExpr",
+                          "opPos": {
+                            "file": "recvaddr.go",
+                            "line": 18,
+                            "column": 7,
+                            "offset": 336
+                          },
+                          "op": "\u0026",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "recvaddr.go",
+                              "line": 18,
+                              "column": 8,
+                              "offset": 337
+                            },
+                            "name": "c",
+                            "obj": {
+                              "node": "Object",
+                              "name": "c",
+                              "kind": "var"
+                            },
+                            "$type": 0,
+                            "$obj": {
+                              "name": "c",
+                              "kind": "var",
+                              "type": 0,
+                              "decl": "recvaddr.go:302",
+                              "pkg": "main"
+                            }
+                          },
+                          "$type": 4
+                        }
+                      ]
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "StarExpr",
+                          "star": {
+                            "file": "recvaddr.go",
+                            "line": 19,
+                            "column": 2,
+                            "offset": 340
+                          },
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "recvaddr.go",
+                              "line": 19,
+                              "column": 3,
+                              "offset": 341
+                            },
+                            "name": "p",
+                            "obj": {
+                              "node": "Object",
+                              "name": "p",
+                              "kind": "var"
+                            },
+                            "$type": 4,
+                            "$obj": {
+                              "name": "p",
+                              "kind": "var",
+                              "type": 4,
+                              "decl": "recvaddr.go:331",
+                              "pkg": "main"
+                            }
+                          },
+                          "$type": 0
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "recvaddr.go",
+                        "line": 19,
+                        "column": 5,
+                        "offset": 343
+                      },
+                      "tok": "+=",
+                      "rhs": [
+                        {
+                          "node": "BasicLit",
+                          "valuePos": {
+                            "file": "recvaddr.go",
+                            "line": 19,
+                            "column": 8,
+                            "offset": 346
+                          },
+                          "valueEnd": {
+                            "file": "recvaddr.go",
+                            "line": 19,
+                            "column": 10,
+                            "offset": 348
+                          },
+                          "kind": "INT",
+                          "value": "10",
+                          "$type": 0,
+                          "$value": {
+                            "kind": "int",
+                            "value": "10"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "node": "ReturnStmt",
+                      "return": {
+                        "file": "recvaddr.go",
+                        "line": 20,
+                        "column": 2,
+                        "offset": 350
+                      },
+                      "results": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "recvaddr.go",
+                            "line": 20,
+                            "column": 9,
+                            "offset": 357
+                          },
+                          "name": "c",
+                          "obj": {
+                            "node": "Object",
+                            "name": "c",
+                            "kind": "var"
+                          },
+                          "$type": 0,
+                          "$obj": {
+                            "name": "c",
+                            "kind": "var",
+                            "type": 0,
+                            "decl": "recvaddr.go:302",
+                            "pkg": "main"
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "recvaddr.go",
+                    "line": 21,
+                    "column": 1,
+                    "offset": 359
+                  }
+                }
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "recvaddr.go",
+                  "line": 23,
+                  "column": 1,
+                  "offset": 362
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "recvaddr.go",
+                        "line": 23,
+                        "column": 6,
+                        "offset": 367
+                      },
+                      "name": "Stack",
+                      "obj": {
+                        "node": "Object",
+                        "name": "Stack",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "Stack",
+                        "kind": "type",
+                        "def": true,
+                        "type": 6,
+                        "decl": "recvaddr.go:367",
+                        "pkg": "main",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "ArrayType",
+                      "lbrack": {
+                        "file": "recvaddr.go",
+                        "line": 23,
+                        "column": 12,
+                        "offset": 373
+                      },
+                      "len": null,
+                      "elt": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "recvaddr.go",
+                          "line": 23,
+                          "column": 14,
+                          "offset": 375
+                        },
+                        "name": "int",
+                        "obj": null,
+                        "$type": 1,
+                        "$isType": true,
+                        "$obj": {
+                          "name": "int",
+                          "kind": "type",
+                          "type": 1
+                        }
+                      },
+                      "$type": 7,
+                      "$isType": true
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": {
+                  "node": "FieldList",
+                  "opening": {
+                    "file": "recvaddr.go",
+                    "line": 25,
+                    "column": 6,
+                    "offset": 385
+                  },
+                  "list": [
+                    {
+                      "node": "Field",
+                      "doc": null,
+                      "names": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "recvaddr.go",
+                            "line": 25,
+                            "column": 7,
+                            "offset": 386
+                          },
+                          "name": "s",
+                          "obj": {
+                            "node": "Object",
+                            "name": "s",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "s",
+                            "kind": "var",
+                            "def": true,
+                            "type": 10,
+                            "decl": "recvaddr.go:386",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "type": {
+                        "node": "StarExpr",
+                        "star": {
+                          "file": "recvaddr.go",
+                          "line": 25,
+                          "column": 9,
+                          "offset": 388
+                        },
+                        "x": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "recvaddr.go",
+                            "line": 25,
+                            "column": 10,
+                            "offset": 389
+                          },
+                          "name": "Stack",
+                          "obj": {
+                            "node": "Object",
+                            "name": "Stack",
+                            "kind": "type"
+                          },
+                          "$type": 6,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "Stack",
+                            "kind": "type",
+                            "type": 6,
+                            "decl": "recvaddr.go:367",
+                            "pkg": "main",
+                            "top": true
+                          }
+                        },
+                        "$type": 10,
+                        "$isType": true
+                      },
+                      "tag": null,
+                      "comment": null
+                    }
+                  ],
+                  "closing": {
+                    "file": "recvaddr.go",
+                    "line": 25,
+                    "column": 15,
+                    "offset": 394
+                  }
+                },
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "recvaddr.go",
+                    "line": 25,
+                    "column": 17,
+                    "offset": 396
+                  },
+                  "name": "push",
+                  "obj": null,
+                  "$obj": {
+                    "name": "push",
+                    "kind": "method",
+                    "def": true,
+                    "type": 9,
+                    "decl": "recvaddr.go:396",
+                    "pkg": "main"
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "recvaddr.go",
+                    "line": 25,
+                    "column": 1,
+                    "offset": 380
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "recvaddr.go",
+                      "line": 25,
+                      "column": 21,
+                      "offset": 400
+                    },
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "recvaddr.go",
+                              "line": 25,
+                              "column": 22,
+                              "offset": 401
+                            },
+                            "name": "v",
+                            "obj": {
+                              "node": "Object",
+                              "name": "v",
+                              "kind": "var"
+                            },
+                            "$obj": {
+                              "name": "v",
+                              "kind": "var",
+                              "def": true,
+                              "type": 1,
+                              "decl": "recvaddr.go:401",
+                              "pkg": "main"
+                            }
+                          }
+                        ],
+                        "type": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "recvaddr.go",
+                            "line": 25,
+                            "column": 24,
+                            "offset": 403
+                          },
+                          "name": "int",
+                          "obj": null,
+                          "$type": 1,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "int",
+                            "kind": "type",
+                            "type": 1
+                          }
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": {
+                      "file": "recvaddr.go",
+                      "line": 25,
+                      "column": 27,
+                      "offset": 406
+                    }
+                  },
+                  "results": null
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "recvaddr.go",
+                    "line": 25,
+                    "column": 29,
+                    "offset": 408
+                  },
+                  "list": [
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "StarExpr",
+                          "star": {
+                            "file": "recvaddr.go",
+                            "line": 25,
+                            "column": 31,
+                            "offset": 410
+                          },
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "recvaddr.go",
+                              "line": 25,
+                              "column": 32,
+                              "offset": 411
+                            },
+                            "name": "s",
+                            "obj": {
+                              "node": "Object",
+                              "name": "s",
+                              "kind": "var"
+                            },
+                            "$type": 10,
+                            "$obj": {
+                              "name": "s",
+                              "kind": "var",
+                              "type": 10,
+                              "decl": "recvaddr.go:386",
+                              "pkg": "main"
+                            }
+                          },
+                          "$type": 6
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "recvaddr.go",
+                        "line": 25,
+                        "column": 34,
+                        "offset": 413
+                      },
+                      "tok": "=",
+                      "rhs": [
+                        {
+                          "node": "CallExpr",
+                          "fun": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "recvaddr.go",
+                              "line": 25,
+                              "column": 36,
+                              "offset": 415
+                            },
+                            "name": "append",
+                            "obj": null,
+                            "$type": 11,
+                            "$builtin": true,
+                            "$obj": {
+                              "name": "append",
+                              "kind": "builtin",
+                              "type": 12
+                            }
+                          },
+                          "lparen": {
+                            "file": "recvaddr.go",
+                            "line": 25,
+                            "column": 42,
+                            "offset": 421
+                          },
+                          "args": [
+                            {
+                              "node": "StarExpr",
+                              "star": {
+                                "file": "recvaddr.go",
+                                "line": 25,
+                                "column": 43,
+                                "offset": 422
+                              },
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "recvaddr.go",
+                                  "line": 25,
+                                  "column": 44,
+                                  "offset": 423
+                                },
+                                "name": "s",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "s",
+                                  "kind": "var"
+                                },
+                                "$type": 10,
+                                "$obj": {
+                                  "name": "s",
+                                  "kind": "var",
+                                  "type": 10,
+                                  "decl": "recvaddr.go:386",
+                                  "pkg": "main"
+                                }
+                              },
+                              "$type": 6
+                            },
+                            {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "recvaddr.go",
+                                "line": 25,
+                                "column": 47,
+                                "offset": 426
+                              },
+                              "name": "v",
+                              "obj": {
+                                "node": "Object",
+                                "name": "v",
+                                "kind": "var"
+                              },
+                              "$type": 1,
+                              "$obj": {
+                                "name": "v",
+                                "kind": "var",
+                                "type": 1,
+                                "decl": "recvaddr.go:401",
+                                "pkg": "main"
+                              }
+                            }
+                          ],
+                          "ellipsis": null,
+                          "rparen": {
+                            "file": "recvaddr.go",
+                            "line": 25,
+                            "column": 48,
+                            "offset": 427
+                          },
+                          "$type": 6
+                        }
+                      ]
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "recvaddr.go",
+                    "line": 25,
+                    "column": 50,
+                    "offset": 429
+                  }
+                }
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": {
+                  "node": "FieldList",
+                  "opening": {
+                    "file": "recvaddr.go",
+                    "line": 27,
+                    "column": 6,
+                    "offset": 437
+                  },
+                  "list": [
+                    {
+                      "node": "Field",
+                      "doc": null,
+                      "names": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "recvaddr.go",
+                            "line": 27,
+                            "column": 7,
+                            "offset": 438
+                          },
+                          "name": "s",
+                          "obj": {
+                            "node": "Object",
+                            "name": "s",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "s",
+                            "kind": "var",
+                            "def": true,
+                            "type": 6,
+                            "decl": "recvaddr.go:438",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "type": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "recvaddr.go",
+                          "line": 27,
+                          "column": 9,
+                          "offset": 440
+                        },
+                        "name": "Stack",
+                        "obj": {
+                          "node": "Object",
+                          "name": "Stack",
+                          "kind": "type"
+                        },
+                        "$type": 6,
+                        "$isType": true,
+                        "$obj": {
+                          "name": "Stack",
+                          "kind": "type",
+                          "type": 6,
+                          "decl": "recvaddr.go:367",
+                          "pkg": "main",
+                          "top": true
+                        }
+                      },
+                      "tag": null,
+                      "comment": null
+                    }
+                  ],
+                  "closing": {
+                    "file": "recvaddr.go",
+                    "line": 27,
+                    "column": 14,
+                    "offset": 445
+                  }
+                },
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "recvaddr.go",
+                    "line": 27,
+                    "column": 16,
+                    "offset": 447
+                  },
+                  "name": "With",
+                  "obj": null,
+                  "$obj": {
+                    "name": "With",
+                    "kind": "method",
+                    "def": true,
+                    "type": 8,
+                    "decl": "recvaddr.go:447",
+                    "pkg": "main"
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "recvaddr.go",
+                    "line": 27,
+                    "column": 1,
+                    "offset": 432
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "recvaddr.go",
+                      "line": 27,
+                      "column": 20,
+                      "offset": 451
+                    },
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "recvaddr.go",
+                              "line": 27,
+                              "column": 21,
+                              "offset": 452
+                            },
+                            "name": "v",
+                            "obj": {
+                              "node": "Object",
+                              "name": "v",
+                              "kind": "var"
+                            },
+                            "$obj": {
+                              "name": "v",
+                              "kind": "var",
+                              "def": true,
+                              "type": 1,
+                              "decl": "recvaddr.go:452",
+                              "pkg": "main"
+                            }
+                          }
+                        ],
+                        "type": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "recvaddr.go",
+                            "line": 27,
+                            "column": 23,
+                            "offset": 454
+                          },
+                          "name": "int",
+                          "obj": null,
+                          "$type": 1,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "int",
+                            "kind": "type",
+                            "type": 1
+                          }
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": {
+                      "file": "recvaddr.go",
+                      "line": 27,
+                      "column": 26,
+                      "offset": 457
+                    }
+                  },
+                  "results": {
+                    "node": "FieldList",
+                    "opening": null,
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": null,
+                        "type": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "recvaddr.go",
+                            "line": 27,
+                            "column": 28,
+                            "offset": 459
+                          },
+                          "name": "Stack",
+                          "obj": {
+                            "node": "Object",
+                            "name": "Stack",
+                            "kind": "type"
+                          },
+                          "$type": 6,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "Stack",
+                            "kind": "type",
+                            "type": 6,
+                            "decl": "recvaddr.go:367",
+                            "pkg": "main",
+                            "top": true
+                          }
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": null
+                  }
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "recvaddr.go",
+                    "line": 27,
+                    "column": 34,
+                    "offset": 465
+                  },
+                  "list": [
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "recvaddr.go",
+                              "line": 28,
+                              "column": 2,
+                              "offset": 468
+                            },
+                            "name": "s",
+                            "obj": {
+                              "node": "Object",
+                              "name": "s",
+                              "kind": "var"
+                            },
+                            "$type": 6,
+                            "$obj": {
+                              "name": "s",
+                              "kind": "var",
+                              "type": 6,
+                              "decl": "recvaddr.go:438",
+                              "pkg": "main"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "recvaddr.go",
+                              "line": 28,
+                              "column": 4,
+                              "offset": 470
+                            },
+                            "name": "push",
+                            "obj": null,
+                            "$obj": {
+                              "name": "push",
+                              "kind": "method",
+                              "type": 9,
+                              "decl": "recvaddr.go:396",
+                              "pkg": "main"
+                            }
+                          },
+                          "$type": 9,
+                          "$sel": {
+                            "kind": "method",
+                            "recv": 6,
+                            "index": [
+                              0
+                            ],
+                            "indirect": false
+                          }
+                        },
+                        "lparen": {
+                          "file": "recvaddr.go",
+                          "line": 28,
+                          "column": 8,
+                          "offset": 474
+                        },
+                        "args": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "recvaddr.go",
+                              "line": 28,
+                              "column": 9,
+                              "offset": 475
+                            },
+                            "name": "v",
+                            "obj": {
+                              "node": "Object",
+                              "name": "v",
+                              "kind": "var"
+                            },
+                            "$type": 1,
+                            "$obj": {
+                              "name": "v",
+                              "kind": "var",
+                              "type": 1,
+                              "decl": "recvaddr.go:452",
+                              "pkg": "main"
+                            }
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "recvaddr.go",
+                          "line": 28,
+                          "column": 10,
+                          "offset": 476
+                        },
+                        "$type": 5
+                      }
+                    },
+                    {
+                      "node": "ReturnStmt",
+                      "return": {
+                        "file": "recvaddr.go",
+                        "line": 29,
+                        "column": 2,
+                        "offset": 479
+                      },
+                      "results": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "recvaddr.go",
+                            "line": 29,
+                            "column": 9,
+                            "offset": 486
+                          },
+                          "name": "s",
+                          "obj": {
+                            "node": "Object",
+                            "name": "s",
+                            "kind": "var"
+                          },
+                          "$type": 6,
+                          "$obj": {
+                            "name": "s",
+                            "kind": "var",
+                            "type": 6,
+                            "decl": "recvaddr.go:438",
+                            "pkg": "main"
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "recvaddr.go",
+                    "line": 30,
+                    "column": 1,
+                    "offset": 488
+                  }
+                }
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "recvaddr.go",
+                    "line": 32,
+                    "column": 6,
+                    "offset": 496
+                  },
+                  "name": "main",
+                  "obj": {
+                    "node": "Object",
+                    "name": "main",
+                    "kind": "func"
+                  },
+                  "$obj": {
+                    "name": "main",
+                    "kind": "func",
+                    "def": true,
+                    "type": 3,
+                    "decl": "recvaddr.go:496",
+                    "pkg": "main",
+                    "top": true
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "recvaddr.go",
+                    "line": 32,
+                    "column": 1,
+                    "offset": 491
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "recvaddr.go",
+                      "line": 32,
+                      "column": 10,
+                      "offset": 500
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "recvaddr.go",
+                      "line": 32,
+                      "column": 11,
+                      "offset": 501
+                    }
+                  },
+                  "results": null
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "recvaddr.go",
+                    "line": 32,
+                    "column": 13,
+                    "offset": 503
+                  },
+                  "list": [
+                    {
+                      "node": "DeclStmt",
+                      "decl": {
+                        "node": "GenDecl",
+                        "doc": null,
+                        "tokPos": {
+                          "file": "recvaddr.go",
+                          "line": 33,
+                          "column": 2,
+                          "offset": 506
+                        },
+                        "tok": "var",
+                        "lparen": null,
+                        "specs": [
+                          {
+                            "node": "ValueSpec",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "recvaddr.go",
+                                  "line": 33,
+                                  "column": 6,
+                                  "offset": 510
+                                },
+                                "name": "l",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "l",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "l",
+                                  "kind": "var",
+                                  "def": true,
+                                  "type": 0,
+                                  "decl": "recvaddr.go:510",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "recvaddr.go",
+                                "line": 33,
+                                "column": 8,
+                                "offset": 512
+                              },
+                              "name": "Counter",
+                              "obj": {
+                                "node": "Object",
+                                "name": "Counter",
+                                "kind": "type"
+                              },
+                              "$type": 0,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "Counter",
+                                "kind": "type",
+                                "type": 0,
+                                "decl": "recvaddr.go:183",
+                                "pkg": "main",
+                                "top": true
+                              }
+                            },
+                            "values": [
+                              {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "recvaddr.go",
+                                  "line": 33,
+                                  "column": 18,
+                                  "offset": 522
+                                },
+                                "valueEnd": {
+                                  "file": "recvaddr.go",
+                                  "line": 33,
+                                  "column": 19,
+                                  "offset": 523
+                                },
+                                "kind": "INT",
+                                "value": "5",
+                                "$type": 0,
+                                "$value": {
+                                  "kind": "int",
+                                  "value": "5"
+                                }
+                              }
+                            ],
+                            "comment": null
+                          }
+                        ],
+                        "rparen": null
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "recvaddr.go",
+                              "line": 34,
+                              "column": 2,
+                              "offset": 525
+                            },
+                            "name": "l",
+                            "obj": {
+                              "node": "Object",
+                              "name": "l",
+                              "kind": "var"
+                            },
+                            "$type": 0,
+                            "$obj": {
+                              "name": "l",
+                              "kind": "var",
+                              "type": 0,
+                              "decl": "recvaddr.go:510",
+                              "pkg": "main"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "recvaddr.go",
+                              "line": 34,
+                              "column": 4,
+                              "offset": 527
+                            },
+                            "name": "inc",
+                            "obj": null,
+                            "$obj": {
+                              "name": "inc",
+                              "kind": "method",
+                              "type": 3,
+                              "decl": "recvaddr.go:214",
+                              "pkg": "main"
+                            }
+                          },
+                          "$type": 3,
+                          "$sel": {
+                            "kind": "method",
+                            "recv": 0,
+                            "index": [
+                              0
+                            ],
+                            "indirect": false
+                          }
+                        },
+                        "lparen": {
+                          "file": "recvaddr.go",
+                          "line": 34,
+                          "column": 7,
+                          "offset": 530
+                        },
+                        "args": null,
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "recvaddr.go",
+                          "line": 34,
+                          "column": 8,
+                          "offset": 531
+                        },
+                        "$type": 5
+                      }
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "recvaddr.go",
+                            "line": 35,
+                            "column": 2,
+                            "offset": 534
+                          },
+                          "name": "st",
+                          "obj": {
+                            "node": "Object",
+                            "name": "st",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "st",
+                            "kind": "var",
+                            "def": true,
+                            "type": 6,
+                            "decl": "recvaddr.go:534",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "recvaddr.go",
+                        "line": 35,
+                        "column": 5,
+                        "offset": 537
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "CompositeLit",
+                          "type": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "recvaddr.go",
+                              "line": 35,
+                              "column": 8,
+                              "offset": 540
+                            },
+                            "name": "Stack",
+                            "obj": {
+                              "node": "Object",
+                              "name": "Stack",
+                              "kind": "type"
+                            },
+                            "$type": 6,
+                            "$isType": true,
+                            "$obj": {
+                              "name": "Stack",
+                              "kind": "type",
+                              "type": 6,
+                              "decl": "recvaddr.go:367",
+                              "pkg": "main",
+                              "top": true
+                            }
+                          },
+                          "lbrace": {
+                            "file": "recvaddr.go",
+                            "line": 35,
+                            "column": 13,
+                            "offset": 545
+                          },
+                          "elts": [
+                            {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "recvaddr.go",
+                                "line": 35,
+                                "column": 14,
+                                "offset": 546
+                              },
+                              "valueEnd": {
+                                "file": "recvaddr.go",
+                                "line": 35,
+                                "column": 15,
+                                "offset": 547
+                              },
+                              "kind": "INT",
+                              "value": "1",
+                              "$type": 1,
+                              "$value": {
+                                "kind": "int",
+                                "value": "1"
+                              }
+                            }
+                          ],
+                          "rbrace": {
+                            "file": "recvaddr.go",
+                            "line": 35,
+                            "column": 15,
+                            "offset": 547
+                          },
+                          "incomplete": false,
+                          "$type": 6
+                        }
+                      ]
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "recvaddr.go",
+                            "line": 36,
+                            "column": 2,
+                            "offset": 550
+                          },
+                          "name": "st2",
+                          "obj": {
+                            "node": "Object",
+                            "name": "st2",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "st2",
+                            "kind": "var",
+                            "def": true,
+                            "type": 6,
+                            "decl": "recvaddr.go:550",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "recvaddr.go",
+                        "line": 36,
+                        "column": 6,
+                        "offset": 554
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "CallExpr",
+                          "fun": {
+                            "node": "SelectorExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "recvaddr.go",
+                                "line": 36,
+                                "column": 9,
+                                "offset": 557
+                              },
+                              "name": "st",
+                              "obj": {
+                                "node": "Object",
+                                "name": "st",
+                                "kind": "var"
+                              },
+                              "$type": 6,
+                              "$obj": {
+                                "name": "st",
+                                "kind": "var",
+                                "type": 6,
+                                "decl": "recvaddr.go:534",
+                                "pkg": "main"
+                              }
+                            },
+                            "sel": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "recvaddr.go",
+                                "line": 36,
+                                "column": 12,
+                                "offset": 560
+                              },
+                              "name": "With",
+                              "obj": null,
+                              "$obj": {
+                                "name": "With",
+                                "kind": "method",
+                                "type": 8,
+                                "decl": "recvaddr.go:447",
+                                "pkg": "main"
+                              }
+                            },
+                            "$type": 8,
+                            "$sel": {
+                              "kind": "method",
+                              "recv": 6,
+                              "index": [
+                                1
+                              ],
+                              "indirect": false
+                            }
+                          },
+                          "lparen": {
+                            "file": "recvaddr.go",
+                            "line": 36,
+                            "column": 16,
+                            "offset": 564
+                          },
+                          "args": [
+                            {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "recvaddr.go",
+                                "line": 36,
+                                "column": 17,
+                                "offset": 565
+                              },
+                              "valueEnd": {
+                                "file": "recvaddr.go",
+                                "line": 36,
+                                "column": 18,
+                                "offset": 566
+                              },
+                              "kind": "INT",
+                              "value": "2",
+                              "$type": 1,
+                              "$value": {
+                                "kind": "int",
+                                "value": "2"
+                              }
+                            }
+                          ],
+                          "ellipsis": null,
+                          "rparen": {
+                            "file": "recvaddr.go",
+                            "line": 36,
+                            "column": 18,
+                            "offset": 566
+                          },
+                          "$type": 6
+                        }
+                      ]
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "recvaddr.go",
+                              "line": 37,
+                              "column": 2,
+                              "offset": 569
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "recvaddr.go",
+                              "line": 37,
+                              "column": 6,
+                              "offset": 573
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 13,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 13
+                        },
+                        "lparen": {
+                          "file": "recvaddr.go",
+                          "line": 37,
+                          "column": 13,
+                          "offset": 580
+                        },
+                        "args": [
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "CallExpr",
+                                "fun": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "recvaddr.go",
+                                    "line": 37,
+                                    "column": 14,
+                                    "offset": 581
+                                  },
+                                  "name": "Counter",
+                                  "obj": {
+                                    "node": "Object",
+                                    "name": "Counter",
+                                    "kind": "type"
+                                  },
+                                  "$type": 0,
+                                  "$isType": true,
+                                  "$obj": {
+                                    "name": "Counter",
+                                    "kind": "type",
+                                    "type": 0,
+                                    "decl": "recvaddr.go:183",
+                                    "pkg": "main",
+                                    "top": true
+                                  }
+                                },
+                                "lparen": {
+                                  "file": "recvaddr.go",
+                                  "line": 37,
+                                  "column": 21,
+                                  "offset": 588
+                                },
+                                "args": [
+                                  {
+                                    "node": "BasicLit",
+                                    "valuePos": {
+                                      "file": "recvaddr.go",
+                                      "line": 37,
+                                      "column": 22,
+                                      "offset": 589
+                                    },
+                                    "valueEnd": {
+                                      "file": "recvaddr.go",
+                                      "line": 37,
+                                      "column": 23,
+                                      "offset": 590
+                                    },
+                                    "kind": "INT",
+                                    "value": "1",
+                                    "$type": 0,
+                                    "$value": {
+                                      "kind": "int",
+                                      "value": "1"
+                                    }
+                                  }
+                                ],
+                                "ellipsis": null,
+                                "rparen": {
+                                  "file": "recvaddr.go",
+                                  "line": 37,
+                                  "column": 23,
+                                  "offset": 590
+                                },
+                                "$type": 0,
+                                "$value": {
+                                  "kind": "int",
+                                  "value": "1"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "recvaddr.go",
+                                  "line": 37,
+                                  "column": 25,
+                                  "offset": 592
+                                },
+                                "name": "Twice",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "Twice",
+                                  "kind": "method",
+                                  "type": 2,
+                                  "decl": "recvaddr.go:247",
+                                  "pkg": "main"
+                                }
+                              },
+                              "$type": 2,
+                              "$sel": {
+                                "kind": "method",
+                                "recv": 0,
+                                "index": [
+                                  1
+                                ],
+                                "indirect": false
+                              }
+                            },
+                            "lparen": {
+                              "file": "recvaddr.go",
+                              "line": 37,
+                              "column": 30,
+                              "offset": 597
+                            },
+                            "args": null,
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "recvaddr.go",
+                              "line": 37,
+                              "column": 31,
+                              "offset": 598
+                            },
+                            "$type": 0
+                          },
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "recvaddr.go",
+                              "line": 37,
+                              "column": 34,
+                              "offset": 601
+                            },
+                            "name": "l",
+                            "obj": {
+                              "node": "Object",
+                              "name": "l",
+                              "kind": "var"
+                            },
+                            "$type": 0,
+                            "$obj": {
+                              "name": "l",
+                              "kind": "var",
+                              "type": 0,
+                              "decl": "recvaddr.go:510",
+                              "pkg": "main"
+                            }
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "recvaddr.go",
+                                  "line": 37,
+                                  "column": 37,
+                                  "offset": 604
+                                },
+                                "name": "l",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "l",
+                                  "kind": "var"
+                                },
+                                "$type": 0,
+                                "$obj": {
+                                  "name": "l",
+                                  "kind": "var",
+                                  "type": 0,
+                                  "decl": "recvaddr.go:510",
+                                  "pkg": "main"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "recvaddr.go",
+                                  "line": 37,
+                                  "column": 39,
+                                  "offset": 606
+                                },
+                                "name": "Addr",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "Addr",
+                                  "kind": "method",
+                                  "type": 2,
+                                  "decl": "recvaddr.go:313",
+                                  "pkg": "main"
+                                }
+                              },
+                              "$type": 2,
+                              "$sel": {
+                                "kind": "method",
+                                "recv": 0,
+                                "index": [
+                                  2
+                                ],
+                                "indirect": false
+                              }
+                            },
+                            "lparen": {
+                              "file": "recvaddr.go",
+                              "line": 37,
+                              "column": 43,
+                              "offset": 610
+                            },
+                            "args": null,
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "recvaddr.go",
+                              "line": 37,
+                              "column": 44,
+                              "offset": 611
+                            },
+                            "$type": 0
+                          },
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "recvaddr.go",
+                              "line": 37,
+                              "column": 47,
+                              "offset": 614
+                            },
+                            "name": "l",
+                            "obj": {
+                              "node": "Object",
+                              "name": "l",
+                              "kind": "var"
+                            },
+                            "$type": 0,
+                            "$obj": {
+                              "name": "l",
+                              "kind": "var",
+                              "type": 0,
+                              "decl": "recvaddr.go:510",
+                              "pkg": "main"
+                            }
+                          },
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "recvaddr.go",
+                              "line": 37,
+                              "column": 50,
+                              "offset": 617
+                            },
+                            "name": "st",
+                            "obj": {
+                              "node": "Object",
+                              "name": "st",
+                              "kind": "var"
+                            },
+                            "$type": 6,
+                            "$obj": {
+                              "name": "st",
+                              "kind": "var",
+                              "type": 6,
+                              "decl": "recvaddr.go:534",
+                              "pkg": "main"
+                            }
+                          },
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "recvaddr.go",
+                              "line": 37,
+                              "column": 54,
+                              "offset": 621
+                            },
+                            "name": "st2",
+                            "obj": {
+                              "node": "Object",
+                              "name": "st2",
+                              "kind": "var"
+                            },
+                            "$type": 6,
+                            "$obj": {
+                              "name": "st2",
+                              "kind": "var",
+                              "type": 6,
+                              "decl": "recvaddr.go:550",
+                              "pkg": "main"
+                            }
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "recvaddr.go",
+                          "line": 37,
+                          "column": 57,
+                          "offset": 624
+                        },
+                        "$type": 20
+                      }
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "recvaddr.go",
+                    "line": 38,
+                    "column": 1,
+                    "offset": 626
+                  }
+                }
+              }
+            ],
+            "fileStart": {
+              "file": "recvaddr.go",
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "fileEnd": {
+              "file": "recvaddr.go",
+              "line": 38,
+              "column": 3,
+              "offset": 628
+            },
+            "scope": null,
+            "imports": [
+              {
+                "node": "ImportSpec",
+                "doc": null,
+                "name": null,
+                "path": {
+                  "node": "BasicLit",
+                  "valuePos": {
+                    "file": "recvaddr.go",
+                    "line": 5,
+                    "column": 8,
+                    "offset": 171
+                  },
+                  "valueEnd": {
+                    "file": "recvaddr.go",
+                    "line": 5,
+                    "column": 13,
+                    "offset": 176
+                  },
+                  "kind": "STRING",
+                  "value": "\"fmt\""
+                },
+                "comment": null,
+                "endPos": null
+              }
+            ],
+            "unresolved": [
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "recvaddr.go",
+                  "line": 7,
+                  "column": 14,
+                  "offset": 191
+                },
+                "name": "int",
+                "obj": null,
+                "$type": 1,
+                "$isType": true,
+                "$obj": {
+                  "name": "int",
+                  "kind": "type",
+                  "type": 1
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "recvaddr.go",
+                  "line": 23,
+                  "column": 14,
+                  "offset": 375
+                },
+                "name": "int",
+                "obj": null,
+                "$type": 1,
+                "$isType": true,
+                "$obj": {
+                  "name": "int",
+                  "kind": "type",
+                  "type": 1
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "recvaddr.go",
+                  "line": 25,
+                  "column": 24,
+                  "offset": 403
+                },
+                "name": "int",
+                "obj": null,
+                "$type": 1,
+                "$isType": true,
+                "$obj": {
+                  "name": "int",
+                  "kind": "type",
+                  "type": 1
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "recvaddr.go",
+                  "line": 25,
+                  "column": 36,
+                  "offset": 415
+                },
+                "name": "append",
+                "obj": null,
+                "$type": 11,
+                "$builtin": true,
+                "$obj": {
+                  "name": "append",
+                  "kind": "builtin",
+                  "type": 12
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "recvaddr.go",
+                  "line": 27,
+                  "column": 23,
+                  "offset": 454
+                },
+                "name": "int",
+                "obj": null,
+                "$type": 1,
+                "$isType": true,
+                "$obj": {
+                  "name": "int",
+                  "kind": "type",
+                  "type": 1
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "recvaddr.go",
+                  "line": 37,
+                  "column": 2,
+                  "offset": 569
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              }
+            ],
+            "comments": [
+              {
+                "node": "CommentGroup",
+                "list": [
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "recvaddr.go",
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "text": "// Método de valor de tipo nomeado não-struct que toma o endereço do"
+                  },
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "recvaddr.go",
+                      "line": 2,
+                      "column": 1,
+                      "offset": 72
+                    },
+                    "text": "// receptor (c.inc() com receptor ponteiro, \u0026c): o receptor vira caixa local."
+                  }
+                ]
+              }
+            ],
+            "goVersion": ""
+          }
+        }
+      ],
+      "imports": [
+        {
+          "path": "fmt",
+          "name": "fmt"
+        }
+      ],
+      "typeTable": [
+        {
+          "kind": "named",
+          "pkg": "main",
+          "name": "Counter",
+          "underlying": 1,
+          "methods": [
+            {
+              "name": "Addr",
+              "type": 2,
+              "index": [
+                2
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Twice",
+              "type": 2,
+              "index": [
+                1
+              ],
+              "ptr": false
+            },
+            {
+              "name": "inc",
+              "type": 3,
+              "index": [
+                0
+              ],
+              "ptr": true
+            }
+          ]
+        },
+        {
+          "kind": "basic",
+          "name": "int"
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            0
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [],
+          "variadic": false
+        },
+        {
+          "kind": "pointer",
+          "elem": 0
+        },
+        {
+          "kind": "tuple",
+          "elems": []
+        },
+        {
+          "kind": "named",
+          "pkg": "main",
+          "name": "Stack",
+          "underlying": 7,
+          "methods": [
+            {
+              "name": "With",
+              "type": 8,
+              "index": [
+                1
+              ],
+              "ptr": false
+            },
+            {
+              "name": "push",
+              "type": 9,
+              "index": [
+                0
+              ],
+              "ptr": true
+            }
+          ]
+        },
+        {
+          "kind": "slice",
+          "elem": 1
+        },
+        {
+          "kind": "func",
+          "params": [
+            1
+          ],
+          "results": [
+            6
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            1
+          ],
+          "results": [],
+          "variadic": false
+        },
+        {
+          "kind": "pointer",
+          "elem": 6
+        },
+        {
+          "kind": "func",
+          "params": [
+            6,
+            7
+          ],
+          "results": [
+            6
+          ],
+          "variadic": true
+        },
+        {
+          "kind": "basic",
+          "name": "invalid type"
+        },
+        {
+          "kind": "func",
+          "params": [
+            14
+          ],
+          "results": [
+            1,
+            16
+          ],
+          "variadic": true
+        },
+        {
+          "kind": "slice",
+          "elem": 15
+        },
+        {
+          "kind": "interface",
+          "methods": [],
+          "embeddeds": []
+        },
+        {
+          "kind": "named",
+          "pkg": "",
+          "name": "error",
+          "underlying": 17
+        },
+        {
+          "kind": "interface",
+          "methods": [
+            {
+              "name": "Error",
+              "type": 18
+            }
+          ],
+          "embeddeds": []
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            19
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "basic",
+          "name": "string"
+        },
+        {
+          "kind": "tuple",
+          "elems": [
+            1,
+            16
+          ]
+        }
+      ],
+      "implements": null,
+      "initOrder": [],
+      "stdlibUsage": [
+        "fmt.Println"
+      ],
+      "reflectUsage": null
+    }
+  ]
+}

@@ -132,6 +132,27 @@ func printNode(fset *token.FileSet, n ast.Node) string {
 	return b.String()
 }
 
+// methodIface: interface com métodos cuja única restrição além deles é
+// `comparable` (`interface{ comparable; M() }` serve de bound com métodos).
+// Uniões de tipos ficam de fora: não viram `implements` no Dart.
+func methodIface(it *types.Interface) bool {
+	return it.NumMethods() > 0 && methodsOrComparable(it)
+}
+
+func methodsOrComparable(it *types.Interface) bool {
+	for i := 0; i < it.NumEmbeddeds(); i++ {
+		e := it.EmbeddedType(i)
+		if e == types.Universe.Lookup("comparable").Type() {
+			continue
+		}
+		ei, ok := e.Underlying().(*types.Interface)
+		if !ok || !methodsOrComparable(ei) {
+			return false
+		}
+	}
+	return true
+}
+
 // dumpImplements: para cada tipo nomeado (não-interface) de nível de pacote,
 // as interfaces com métodos que T ou *T satisfaz: as nomeadas alcançáveis
 // (pacote, imports diretos e o universo `error`) e as anônimas usadas no
@@ -148,7 +169,7 @@ func dumpImplements(p *packages.Package, tt *typeTable) []jobject {
 			if !ok || named.TypeParams().Len() > 0 {
 				continue
 			}
-			if it, ok := named.Underlying().(*types.Interface); ok && it.IsMethodSet() && it.NumMethods() > 0 {
+			if it, ok := named.Underlying().(*types.Interface); ok && methodIface(it) {
 				ifaces = append(ifaces, named)
 			}
 		}
@@ -173,7 +194,7 @@ func dumpImplements(p *packages.Package, tt *typeTable) []jobject {
 				}
 			case *ast.InterfaceType:
 				it, ok := p.TypesInfo.TypeOf(n).(*types.Interface)
-				if declared[n] || !ok || !it.IsMethodSet() || it.NumMethods() == 0 {
+				if declared[n] || !ok || !methodIface(it) {
 					break
 				}
 				for _, seen := range anon {

@@ -172,7 +172,9 @@ class Box extends go.GoStruct<Box> {
   ponteiro é `this`.
 - **Interfaces.** Um ponteiro-para-struct que entra numa interface vira
   `go.Addr(p)`: `*T` nil numa interface não é nil, como no Go.
-- Campos em branco (`_`) ficam fora do construtor e da igualdade. Campo
+- Campos em branco (`_`) ficam fora do construtor e da igualdade; no
+  `$fields`/`$fieldNames` entram como zero (`_`), para o `%v`/`%+v` do Go
+  (fixture `blankfield`). Campo
   embutido é um campo com o nome do tipo; a promoção de campos e métodos está
   em **Embedding** (seção M3, fixture `embed`).
 
@@ -231,8 +233,10 @@ criado com `identity: true` (`Map.identity()`), então compara endereços.
 - N nomeado não-struct com métodos: a caixa, `&s[i]`, `&o.f` e `new(N)` viram
   `N$Ptr(...)`. `x.M()` com M de receptor ponteiro põe x na caixa e chama
   `x.m()` sobre o `N$Ptr`. `(*N)(nil)` numa interface → `N$Ptr.$nil`.
-  ⚠️ Chamar método de receptor ponteiro sobre o próprio receptor valor dentro
-  de um método de valor é `Unsupported`.
+  Num método de valor que toma o endereço do receptor (`c.inc()` com
+  receptor ponteiro, `&c`), o receptor vira uma caixa local inicializada com
+  `this` (a cópia do Go): `final N$Ptr c = N$Ptr(go.Box<N>(this));` (fixture
+  `recvaddr`).
 
 ## Valores e expressões
 
@@ -245,6 +249,8 @@ criado com `identity: true` (`Map.identity()`), então compara endereços.
 | `a &^ b`, `^x` | `a.andNot(b)`, `~x` |
 | shift | a contagem vira `int` por `go.shiftCount` (negativa → panic) |
 | `x++`, `x op= y` | `x += Golang.T(1)`, `x op= y` (`/=` → `~/=`; `&^=` → `x = x.andNot(y)`) |
+| `m[k] op= y`, `s[i] &^= y`, `x.f &^= y` (sem operador Dart equivalente) | leitura e escrita: `m[k] = m[k] << n`, `s[i] = s[i].andNot(y)`; só com alvo puro (identificadores, constantes, campos, índices), senão `Unsupported` `opassign-impuro` (o Go avalia o alvo uma vez). Fixture `opassign` |
+| `B(a)` com structs de mesmos campos (tags não contam; nomeadas ou anônimas) | `switch (<cópia de a>) { final $t => B(x: $t._x, ...) }`. Fixture `structconv`. Conversão não suportada: `Unsupported` `conversao:<de>-<para>` (categoria básica ou kind do subjacente, `named-` se nomeado) |
 | conversões numéricas | inteiro → inteiro `T.from(x)` (trunca os 64 bits `$hi`/`$lo`); inteiro → float `Float64.fromInt64(Int64.from(x))` (arredondamento único); float → inteiro `T.from(f.toInteger(w, signed: s))` pelas regras do gc/amd64 (`toInteger`) |
 | `len(s)`, `s[i]`, `s[a:b]` em string | `Golang.Int(s.length)` (como índice ou contagem, só `s.length`: `Operands.dart_length`), `Golang.Uint8(s[i])`, `s.slice(a, b)` (bytes) |
 | `p.f` com `p *T` | `p!.f` (nil → `runtime error: invalid memory address or nil pointer dereference`) |
@@ -273,6 +279,7 @@ criado com `identity: true` (`Map.identity()`), então compara endereços.
 | `fallthrough` | seleção do case (`$c`) seguida dos corpos em sequência (`if ($c == i)`); `fallthrough` → `$c = i + 1` na ordem do fonte, inclusive para o `default` no meio |
 | rótulos, `break L`, `continue L` | rótulo no laço Dart |
 | `defer f(a)` | `{ final $t = a; $d.defer(() { f($t); }); }`, com o corpo em `try`/`catch`/`finally` de `go.Defers` |
+| `defer delete(m, k)`, `defer panic(v)`, `defer clear(s)`... | mesmo caminho, com a chamada do builtin no closure (fixture `deferbuiltin`); `defer recover()` → `Unsupported` `defer-recover` (no Go não recupera) |
 | `go`, `select`, range sobre chan/func | ❌ (M4) |
 | `goto` | ❌ exigiria reescrever a função como máquina de estados. Medido no grafo do kubo (`docs/audit.md`, `branch:goto`): 54 ocorrências em 14 pacotes, 3 na fronteira (ex. gonum `mathext/internal/cephes`); decisão a rever se entrar no caminho |
 
@@ -376,7 +383,9 @@ métodos da classe. As conversões usam os construtores:
   `T(n)` (`ofInt`).
 - Bounds: união só de inteiros → `IntBase<T>`; inteiros|floats →
   `GoReal<T>`; `cmp.Ordered` → `GoOrdered<T>`; strings → `StringBase<T>`;
-  interface com métodos → a interface; `any`/`comparable` → nenhum.
+  interface com métodos → a interface (com `comparable` embutido também:
+  o goast lista essas interfaces no `implements`, fixture `comparablekey`);
+  `any`/`comparable` → nenhum.
 - `/` sobre `T` → `$quo` (truncado nos inteiros, IEEE nos floats).
 - A chamada instancia explicitamente, `f<Golang.Int>(_$e0, ...)`, com os
   argumentos de tipo vindos do goast (`$inst`).

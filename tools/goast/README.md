@@ -92,7 +92,8 @@ decodificada; int em decimal exato; float em `%g` float64) ou
 também `"bytes": [...]` (o JSON trocaria os bytes inválidos por U+FFFD).
 
 `implements`: para cada tipo nomeado de nível de pacote, as interfaces com
-métodos que `T` ou `*T` satisfaz (`types.Implements`): as nomeadas (do
+métodos (e no máximo `comparable` embutido; uniões não) que `T` ou `*T`
+satisfaz (`types.Implements`): as nomeadas (do
 pacote, dos imports diretos e `error`) e as anônimas usadas no pacote
 (literais `interface{...}` com métodos fora de uma declaração de tipo, em
 ordem do fonte).

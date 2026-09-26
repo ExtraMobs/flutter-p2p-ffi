@@ -35,10 +35,11 @@ class Functions(Service):
                     # Receptor valor é uma cópia no Go: mutações não vazam.
                     local = self.names.declare_local(ident)
                     prologue.append(f"final {self.types.dart(recv_t)} {local} = this.$copy();")
-                elif mutated and recv_t["kind"] == "named":
-                    # Tipos básicos nomeados são imutáveis: basta uma variável.
-                    local = self.names.declare_local(ident)
-                    prologue.append(f"{self.types.dart(recv_t)} {local} = this;")
+                elif (mutated or ident["$obj"]["decl"] in self.facts.boxed) and recv_t["kind"] == "named":
+                    # Tipos básicos nomeados são imutáveis: basta uma variável
+                    # (em caixa se o método toma o endereço, ex. `c.inc()` com
+                    # receptor ponteiro).
+                    prologue.append(self.names.local_decl(ident, recv_t, "this"))
                 else:
                     self.scope.recv = ident["$obj"]["decl"]
             name = member_name(d["name"]["name"])
@@ -97,6 +98,8 @@ class Functions(Service):
         terms = []
         for e in u["embeddeds"]:
             et = self.pkg.type_at(e)
+            if et["kind"] == "named" and et["pkg"] == "" and et["name"] == "comparable":
+                continue  # restrição de ==, sem bound Dart
             terms += [self.pkg.type_at(x["type"]) for x in et["terms"]] if et["kind"] == "union" else [et]
         if not terms:
             return self.types.dart(c).non_null() if u["methods"] else None
