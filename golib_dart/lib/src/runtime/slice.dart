@@ -212,3 +212,22 @@ int _roundupsize(int size, bool noscan) {
   }
   return (req + 8191) ~/ 8192 * 8192;
 }
+
+/// `alias.InexactOverlap(x, y)` do Go: x e y dividem memória em algum índice
+/// não correspondente (o que passa do `len` não conta).
+bool inexactOverlap<T>(Slice<T> x, Slice<T> y) {
+  if (x._len == 0 || y._len == 0) return false;
+  if (!identical(x._array, y._array) || x._off == y._off) return false;
+  return x._off <= y._off + y._len - 1 && y._off <= x._off + x._len - 1;
+}
+
+/// `s[i], s[j] = s[j], s[i]` (o `reflectlite.Swapper` do Go): struct/array
+/// copiam o valor antes, porque `[]=` sobrescreve o elemento in-place.
+void swapElems<T>(Slice<T> s, int i, int j) {
+  s._check(i);
+  s._check(j);
+  final a = s._array![s._off + i];
+  final t = a is GoValue ? a.$copy() as T : a;
+  s[i] = s._array[s._off + j];
+  s[j] = t;
+}

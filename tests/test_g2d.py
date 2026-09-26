@@ -45,6 +45,15 @@ class NamingTest(unittest.TestCase):
         for go, dart in cases.items():
             self.assertEqual(lower_camel(go), dart)
 
+    def test_non_ascii(self):
+        self.assertEqual(local_name("Δ"), "$u0394")
+        self.assertEqual(local_name("Δ0"), "$u03940")  # largura fixa: não é U+3940
+        self.assertEqual(local_name("x𝔸"), "x$U0001d538")
+        self.assertEqual(member_name("Δx"), "$u03b4x")  # exportado (IsUpper) → lowerCamel
+        self.assertEqual(member_name("δx"), "_$u03b4x")
+        self.assertEqual(type_name("Ωmega"), "$u03a9mega")
+        self.assertEqual(type_name("ωmega"), "_$u03c9mega")
+
     def test_member_and_type_names(self):
         self.assertEqual(member_name("Greet"), "greet")
         self.assertEqual(member_name("add"), "_add")

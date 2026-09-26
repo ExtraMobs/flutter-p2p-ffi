@@ -1,6 +1,29 @@
 {
   "schemaVersion": 1,
   "shims": {
+    "bytes": [
+      "compare",
+      "count",
+      "equal",
+      "hasPrefix",
+      "hasSuffix",
+      "index",
+      "indexByte",
+      "split",
+      "trimLeft"
+    ],
+    "crypto/subtle": [
+      "constantTimeCompare",
+      "xorBytes"
+    ],
+    "encoding/binary": [
+      "ByteOrder",
+      "bigEndian",
+      "littleEndian"
+    ],
+    "errors": [
+      "new$"
+    ],
     "fmt": [
       "Stringer",
       "errorf",
@@ -12,9 +35,79 @@
       "sprintf"
     ],
     "math": [
+      "abs",
+      "ceil",
       "copysign",
+      "float32bits",
+      "float32frombits",
+      "float64bits",
+      "float64frombits",
+      "floor",
+      "inf",
+      "isInf",
+      "isNaN",
+      "max",
+      "min",
       "naN",
-      "sqrt"
+      "signbit",
+      "sqrt",
+      "trunc"
+    ],
+    "math/bits": [
+      "add",
+      "add64",
+      "div",
+      "div64",
+      "leadingZeros64",
+      "leadingZeros8",
+      "len",
+      "len32",
+      "len64",
+      "mul",
+      "mul64",
+      "onesCount32",
+      "onesCount64",
+      "onesCount8",
+      "reverseBytes16",
+      "reverseBytes32",
+      "reverseBytes64",
+      "rotateLeft32",
+      "rotateLeft64",
+      "sub",
+      "sub64",
+      "trailingZeros",
+      "trailingZeros32",
+      "trailingZeros64"
+    ],
+    "sort": [
+      "Interface",
+      "float64s",
+      "ints",
+      "isSorted",
+      "search",
+      "slice$",
+      "sliceStable",
+      "sort",
+      "stable",
+      "strings"
+    ],
+    "strings": [
+      "contains",
+      "containsRune",
+      "count",
+      "hasPrefix",
+      "hasSuffix",
+      "index",
+      "indexByte",
+      "join",
+      "lastIndex",
+      "split",
+      "splitN",
+      "trimFunc",
+      "trimLeftFunc",
+      "trimPrefix",
+      "trimRightFunc",
+      "trimSuffix"
     ]
   }
 }

@@ -36,8 +36,20 @@ hashCode runtimeType toString noSuchMethod
 """.split())
 
 
+def ascii_name(name):
+    """Letra não-ASCII (Go aceita Unicode; Dart só `[A-Za-z0-9_$]`) → `$uXXXX`
+    (BMP) ou `$UXXXXXXXX`, largura fixa como no C: sem ambiguidade com os
+    dígitos seguintes, e nome Go não tem `$`, então não colide."""
+    if name.isascii():
+        return name
+    return "".join(c if c.isascii() else f"$u{ord(c):04x}" if ord(c) <= 0xFFFF else f"$U{ord(c):08x}"
+                   for c in name)
+
+
 def escape(name):
-    """Palavra reservada ou nome do dart:core usado pelo código gerado → `$`."""
+    """Palavra reservada ou nome do dart:core usado pelo código gerado → `$`;
+    letra não-ASCII → `ascii_name`."""
+    name = ascii_name(name)
     return name + "$" if name in DART_RESERVED or name in DART_CORE_USED else name
 
 
@@ -69,7 +81,7 @@ def member_name(name):
     if name == "_":
         return name
     if not is_exported(name):
-        return "_" + name
+        return "_" + ascii_name(name)
     dart = escape(lower_camel(name))
     return dart + "$" if dart in DART_BASE_MEMBERS else dart
 
@@ -79,7 +91,7 @@ def type_name(name):
     prefixo dos tipos fixos."""
     if name == GOLANG_PREFIX or name in DART_CORE_USED:
         return name + "$"
-    return name if is_exported(name) else "_" + name
+    return ascii_name(name) if is_exported(name) else "_" + ascii_name(name)
 
 
 def local_name(name):
