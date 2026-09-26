@@ -30,7 +30,7 @@ gonum.org/v1/gonum/mathext/internal/gonum.dart 40:11 The function 'isInf' isn't 
 
 ## Critério de pronto
 
-- Símbolo de shim inexistente vira `Unsupported` (`shim-simbolo:<pkg>.<Nome>`), não chamada Dart
-  inválida: o g2d precisa saber o que cada shim exporta (lista gerada a partir do dartast do shim,
-  nunca parse em Python).
+- ~~Símbolo de shim inexistente vira `Unsupported`~~: feito junto com `P1-shim-fmt-printf`
+  (`shim-simbolo:<pkg>.<nome>`, `g2d/shim_symbols.json`). Agora o audit lista cada função de `math`
+  que falta (`shim-simbolo:math.float64bits`, `math.log`, `math.inf`, `math.pow`...).
 - Funções da linha `math` de `docs/stdlib-coverage.md` com oráculo Go (bits exatos de float64).

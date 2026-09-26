@@ -163,6 +163,11 @@ class UnsupportedTest(unittest.TestCase):
         src = "package main\n\nfunc fastrand() uint64\n\nfunc main() {}\n"
         self.assertEqual(self.emit_error(src), ("func-sem-corpo", ("main.go", 3, 6)))
 
+    def test_missing_shim_symbol(self):
+        """Símbolo que o shim não tem é recusado (antes: chamada Dart inexistente)."""
+        src = 'package main\n\nimport "math"\n\nfunc main() { _ = math.Sqrt(2) }\n'
+        self.assertEqual(self.emit_error(src)[0], "shim-simbolo:math.sqrt")
+
     def test_import_spec_position(self):
         src = 'package main\n\nimport _ "fmt"\n\nfunc main() {}\n'
         self.assertEqual(self.emit_error(src), ("import:_", ("main.go", 3, 8)))

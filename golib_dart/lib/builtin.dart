@@ -14,6 +14,7 @@ import 'src/runtime/slice.dart';
 export 'src/runtime/array.dart';
 export 'src/runtime/defer.dart';
 export 'src/runtime/elem.dart';
+export 'src/runtime/errors.dart';
 export 'src/runtime/iface.dart';
 export 'src/runtime/map.dart';
 export 'src/runtime/order.dart';

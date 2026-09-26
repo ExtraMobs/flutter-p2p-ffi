@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "shims": {
+    "fmt": [
+      "Stringer",
+      "errorf",
+      "formatV",
+      "print",
+      "printf",
+      "println",
+      "sprint",
+      "sprintf"
+    ],
+    "math": [
+      "copysign",
+      "naN"
+    ]
+  }
+}

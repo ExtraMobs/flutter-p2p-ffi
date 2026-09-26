@@ -140,5 +140,14 @@ class GoldenTest(unittest.TestCase):
                     run(["dart", "compile", "wasm", "-o", wasm, src], cwd=tmp)
                     self.assertEqual(want, run(["node", WASM_RUNNER, mjs, wasm], cwd=tmp, binary=True))
 
+class ShimSymbolsTest(unittest.TestCase):
+    @unittest.skipUnless(HAVE_DART, "dart ausente")
+    def test_shim_symbols_up_to_date(self):
+        """g2d/shim_symbols.json bate com os shims (python -m g2d shims)."""
+        from g2d import shims
+
+        check_golden(self, shims.SYMBOLS_PATH, shims.render(shims.generate()))
+
+
 if __name__ == "__main__":
     unittest.main()

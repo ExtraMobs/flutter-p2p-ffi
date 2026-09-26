@@ -35,6 +35,17 @@ class ImportTable(Service):
         """Pacote transpilado pelo g2d: o próprio ou outro do grafo (fora da stdlib)."""
         return pkg_path == self.pkg.path or (bool(pkg_path) and not is_std(pkg_path))
 
+    _shim_symbols = None
+
+    def shim_symbol(self, pkg_path, name):
+        """Símbolo de shim: existe no arquivo (lista do dartast), ou Unsupported."""
+        if ImportTable._shim_symbols is None:
+            from g2d import shims
+
+            ImportTable._shim_symbols = shims.load()
+        if name not in ImportTable._shim_symbols.get(pkg_path, ()):
+            raise Unsupported(f"shim-simbolo:{pkg_path}.{name}", f"símbolo sem shim: {pkg_path}.{name}")
+
     def uri(self, pkg_path):
         """Library Dart de outro pacote: shim da stdlib ou library do grafo."""
         if pkg_path in STDLIB_SHIMS:
@@ -54,6 +65,8 @@ class ImportTable(Service):
         if pkg_path == self.pkg.path:
             return name
         uri = self.uri(pkg_path)
+        if pkg_path in STDLIB_SHIMS:
+            self.shim_symbol(pkg_path, name)
         prefix = self.prefixes.get(pkg_path)
         if prefix is None:  # tipo alcançado sem import direto
             prefix = escape(pkg_path.rsplit("/", 1)[-1])

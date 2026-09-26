@@ -89,3 +89,91 @@ String _trimZeros(String digits) {
     }
   }
 }
+
+/// Go `strconv.FormatFloat(x, fmt, prec, bits)` para `fmt` ∈ e E f F g G
+/// (`prec` < 0: menor quantidade de dígitos que reconstrói o valor). Os
+/// dígitos saem do valor binário exato, arredondado meio-para-par.
+String formatGoFloatFmt(double x, String fmt, int prec, int bits) {
+  if (x.isNaN) return 'NaN';
+  if (x.isInfinite) return x > 0 ? '+Inf' : '-Inf';
+  final sign = x.isNegative ? '-' : '';
+  final a = x.abs();
+  final upper = fmt == 'E' || fmt == 'G';
+  final e = upper ? 'E' : 'e';
+  switch (fmt) {
+    case 'f' || 'F':
+      if (prec < 0) {
+        final (d, exp) = a == 0 ? ('0', 0) : _shortest(a, bits);
+        return sign + _fDigits(d, exp, (d.length - exp - 1).clamp(0, 1 << 30));
+      }
+      return sign + _fixed(a, prec);
+    case 'e' || 'E':
+      final (d, exp) = a == 0
+          ? ('0' * (prec < 0 ? 1 : prec + 1), 0)
+          : prec < 0
+          ? _shortest(a, bits)
+          : _roundDecimal(a, prec + 1);
+      return sign + _eDigits(d, exp, prec < 0 ? d.length - 1 : prec, e);
+    case 'g' || 'G':
+      var p = prec;
+      if (p == 0) p = 1;
+      var (d, exp) = a == 0
+          ? ('0', 0)
+          : prec < 0
+          ? _shortest(a, bits)
+          : _roundDecimal(a, p);
+      d = _trimZeros(d);
+      var eprec = prec < 0 ? 6 : p;
+      final nd = d.length, dp = exp + 1;
+      if (prec >= 0 && eprec > nd && nd >= dp) eprec = nd;
+      if (exp < -4 || exp >= eprec) return sign + _eDigits(d, exp, nd - 1, e);
+      return sign + _fDigits(d, exp, (nd - dp).clamp(0, 1 << 30));
+  }
+  throw UnsupportedError('strconv.FormatFloat: formato $fmt');
+}
+
+/// `d.ddde±XX` a partir de dígitos significativos e do expoente decimal.
+String _eDigits(String d, int exp, int frac, String e) {
+  final digits = d.padRight(frac + 1, '0').substring(0, frac + 1);
+  final m = frac == 0 ? digits : '${digits[0]}.${digits.substring(1)}';
+  final ex = exp.abs().toString().padLeft(2, '0');
+  return '$m$e${exp < 0 ? '-' : '+'}$ex';
+}
+
+/// Notação fixa com `frac` casas a partir de dígitos exatos (sem arredondar).
+String _fDigits(String d, int exp, int frac) {
+  final intPart = exp < 0
+      ? '0'
+      : d.padRight(exp + 1, '0').substring(0, exp + 1);
+  final rest = exp < 0
+      ? '0' * (-exp - 1) + d
+      : (d.length > exp + 1 ? d.substring(exp + 1) : '');
+  final f = rest.padRight(frac, '0').substring(0, frac);
+  return frac == 0 ? intPart : '$intPart.$f';
+}
+
+/// `x` (≥ 0) com exatamente `prec` casas decimais, meio-para-par exato.
+String _fixed(double x, int prec) {
+  var q = BigInt.zero;
+  if (x != 0) {
+    final b = ByteData(8)..setFloat64(0, x);
+    final hi = b.getUint32(0), lo = b.getUint32(4);
+    final field = (hi >> 20) & 0x7ff;
+    final frac = (BigInt.from(hi & 0xfffff) << 32) | BigInt.from(lo);
+    final mant = field == 0 ? frac : frac | (BigInt.one << 52);
+    final e2 = field == 0 ? -1074 : field - 1075;
+    var num = mant * BigInt.from(10).pow(prec), den = BigInt.one;
+    if (e2 >= 0) {
+      num <<= e2;
+    } else {
+      den <<= -e2;
+    }
+    q = num ~/ den;
+    final twice = (num - q * den) * BigInt.two;
+    if (twice > den || (twice == den && q.isOdd)) q += BigInt.one;
+  }
+  final s = q.toString().padLeft(prec + 1, '0');
+  return prec == 0
+      ? s
+      : '${s.substring(0, s.length - prec)}.${s.substring(s.length - prec)}';
+}

@@ -3,6 +3,7 @@
   python -m g2d transpile <dump.json> -o <dir>   # Dart em <dir>/lib/<pkg>.dart
   python -m g2d graph <alvo Go> [-C dir]         # pacotes em ordem topológica
   python -m g2d audit <alvo Go> -C dir [-o docs] # mede o grafo; gera docs/*.md
+  python -m g2d shims                            # regera g2d/shim_symbols.json
 """
 
 import argparse
@@ -45,6 +46,15 @@ def cmd_audit(args):
     return 0
 
 
+def cmd_shims(args):
+    from g2d import shims
+
+    with open(shims.SYMBOLS_PATH, "w", encoding="utf-8", newline="\n") as f:
+        f.write(shims.render(shims.generate()))
+    print(shims.SYMBOLS_PATH)
+    return 0
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(prog="g2d", description="Transpilador Go → Dart.")
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -62,5 +72,7 @@ def main(argv=None):
     a.add_argument("-o", "--out", default="docs", help="onde gravar audit.md, stdlib-coverage.md, reflection-report.md")
     a.add_argument("--cache", default=".g2d-cache", help="dumps do goast e Dart emitido")
     a.set_defaults(fn=cmd_audit)
+    s = sub.add_parser("shims", help="símbolos públicos dos shims da stdlib (dartast)")
+    s.set_defaults(fn=cmd_shims)
     args = ap.parse_args(argv)
     return args.fn(args)
