@@ -40,6 +40,8 @@ cgo/asm/unsafe/syscall), `docs`.
   -o dump.json` → `python -m g2d transpile dump.json -o out` (os pacotes do
   grafo viram `package:out/<import path>.dart`) → `dart analyze` e
   `go run ./cmd` × `dart run out/lib/<módulo>/cmd.dart`.
-- Grafo real: `python -m g2d graph github.com/ipfs/kubo/cmd/ipfs -C tests/corpus/kubo`.
+- Grafo real: `python -m g2d audit github.com/ipfs/kubo/cmd/ipfs -C tests/corpus/kubo`
+  e a linha do código em `docs/audit.md` (ocorrências, pacotes, exemplo com
+  posição) são prova; o repro mínimo sai do exemplo.
 - Limites decididos (ex.: `goto`, ordem de chaves por endereço) ficam em
   `docs/mapping-spec.md`, não aqui.

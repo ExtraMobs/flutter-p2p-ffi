@@ -1,7 +1,7 @@
 # M5: reflexão estática (`reflect`)
 
 - **Prioridade:** P1 · **Área:** design
-- **Depende de:** P0-docs-reflection-report
+- **Depende de:** — (dados em `docs/reflection-report.md`)
 
 ## Problema
 

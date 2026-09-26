@@ -32,4 +32,4 @@ não suportado: pacote sem shim/transpilação: errors
 
 ## Notas
 
-Símbolos exatos a cobrir virão de `P0-docs-stdlib-coverage`.
+Símbolos exatos a cobrir: linha `errors` de `docs/stdlib-coverage.md`.

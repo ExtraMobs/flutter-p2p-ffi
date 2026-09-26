@@ -2,6 +2,7 @@
 
   python -m g2d transpile <dump.json> -o <dir>   # Dart em <dir>/lib/<pkg>.dart
   python -m g2d graph <alvo Go> [-C dir]         # pacotes em ordem topológica
+  python -m g2d audit <alvo Go> -C dir [-o docs] # mede o grafo; gera docs/*.md
 """
 
 import argparse
@@ -35,6 +36,15 @@ def cmd_graph(args):
     return 0
 
 
+def cmd_audit(args):
+    from g2d.audit import audit
+
+    reports, order = audit(args.target, args.C, args.out, args.cache, log=lambda m: print(m, file=sys.stderr))
+    green = sum(1 for p in order if reports[p].status == "verde")
+    print(f"verde: {green}/{len(order)}; docs em {args.out}")
+    return 0
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(prog="g2d", description="Transpilador Go → Dart.")
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -46,5 +56,11 @@ def main(argv=None):
     g.add_argument("target")
     g.add_argument("-C", help="diretório do módulo Go")
     g.set_defaults(fn=cmd_graph)
+    a = sub.add_parser("audit", help="mede o grafo real: status por pacote, ranking, docs")
+    a.add_argument("target")
+    a.add_argument("-C", required=True, help="diretório do módulo Go (corpus)")
+    a.add_argument("-o", "--out", default="docs", help="onde gravar audit.md, stdlib-coverage.md, reflection-report.md")
+    a.add_argument("--cache", default=".g2d-cache", help="dumps do goast e Dart emitido")
+    a.set_defaults(fn=cmd_audit)
     args = ap.parse_args(argv)
     return args.fn(args)

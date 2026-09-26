@@ -34,6 +34,9 @@ class Engine:
         self.conversions = ChainRegistry()
         self.type_decls = ChainRegistry()
         self.package_behavior = None
+        # Modo coleta (auditoria): lista em vez de None; cada declaração que
+        # falha é registrada e a emissão segue para a próxima.
+        self.errors = None
         for plugin in DEFAULT_PLUGINS if plugins is None else plugins:
             plugin.install(self)
 
@@ -113,6 +116,25 @@ class Engine:
         if behavior is None:
             raise c.unsupported()
         return behavior.emit(c)
+
+    def guard(self, fn, node, *args):
+        """`fn(node, *args)` de uma declaração: um Unsupported sem posição
+        ganha a de `node`. Em modo coleta, o erro (ou uma exceção interna,
+        como `erro-interno:<Tipo>`) é registrado e a declaração vira []."""
+        scope = self.scope
+        try:
+            return fn(node, *args)
+        except Unsupported as e:
+            e.locate(node)
+            if self.errors is None:
+                raise
+            self.errors.append(e)
+        except Exception as e:  # noqa: BLE001 — só em modo coleta: bug do g2d
+            if self.errors is None:
+                raise
+            self.errors.append(Unsupported.internal(e, node))
+        self.scope = scope
+        return []
 
     def emit_package(self):
         """Library Dart (não formatada) do pacote."""

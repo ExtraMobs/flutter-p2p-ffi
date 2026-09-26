@@ -28,4 +28,4 @@ não suportado: pacote sem shim/transpilação: strings
 
 ## Critério de pronto
 
-- Símbolos usados pelo corpus (ver `P0-docs-stdlib-coverage`) com oráculo Go; fixture e2e.
+- Símbolos usados pelo corpus (linha `strings` de `docs/stdlib-coverage.md`) com oráculo Go; fixture e2e.

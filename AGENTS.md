@@ -93,6 +93,7 @@ G2D_UPDATE_GOLDEN=1 python -m unittest discover -s tests   # regrava goldens; re
 python -m g2d transpile dump.json -o out                 # out/lib/<import path>.dart + pubspec
 python -m g2d graph ./... -C <módulo Go>                 # pacotes não-stdlib em ordem topológica
 python -m g2d graph github.com/ipfs/kubo/cmd/ipfs -C tests/corpus/kubo   # grafo do corpus
+python -m g2d audit github.com/ipfs/kubo/cmd/ipfs -C tests/corpus/kubo   # mede o grafo → docs/audit.md, stdlib-coverage.md, reflection-report.md
 
 # Validação de Dart gerado
 dart format out/ && dart analyze out/
@@ -114,12 +115,19 @@ dart format out/ && dart analyze out/
 
 Caso real: o grafo de `github.com/ipfs/kubo/cmd/ipfs` em `tests/corpus/kubo`, no
 contexto de build fixo do g2d (`g2d/graph.py` `BUILD_ENV`: `CGO_ENABLED=0
-GOOS=linux GOARCH=amd64`), Go 1.26.5. Medido em 2026-09: **1114 pacotes fora da
-stdlib** (24 com assembly `.s`) sobre **246 pacotes da stdlib**. Os maiores
+GOOS=linux GOARCH=amd64 GOFLAGS=-tags=purego,noasm`), Go 1.26.5. Medido em
+2026-09: **1112 pacotes fora da stdlib** (7 com assembly `.s`; 24 sem as tags)
+sobre **244 pacotes da stdlib**. Os maiores
 módulos: boxo (93), go-libp2p (82), kubo (66), pebble (58).
 O `go.mod` do corpus replica o `replace` de go-libp2p do kubo (replace de
 dependência não vale para quem importa). Despejar o grafo inteiro
 (`goast dump -outdir`) leva ~3 min, ~2,3 GB de pico e ~1,2 GB de JSON.
+O `BUILD_ENV` inclui `-tags=purego,noasm`: pacotes com assembly e versão Go pura
+usam a pura (sobram 7 com assembly, status `substituicao` no audit).
+
+**Medição (`docs/audit.md`)** é o que ordena o trabalho: a fronteira são os
+pacotes não verdes com as dependências todas verdes, e o ranking diz qual
+problema destrava mais pacotes dela.
 
 O trabalho é guiado pelo backlog em `TODO/` (convenção em `TODO/README.md`):
 
@@ -135,9 +143,12 @@ O trabalho é guiado pelo backlog em `TODO/` (convenção em `TODO/README.md`):
 ## Documentos vivos (atualizar no mesmo commit das mudanças)
 
 - `docs/mapping-spec.md` — tabela de correspondência semântica Go↔Dart.
-- `docs/stdlib-coverage.md` — inventário de símbolos stdlib usados × status do shim (gerado).
-- `docs/reflection-report.md` — usos de `reflect` resolvidos × pendentes (gerado).
-  (Os dois geradores ainda não existem: `TODO/P0-docs-stdlib-coverage.md`, `TODO/P0-docs-reflection-report.md`.)
+- `docs/audit.md` — status de cada pacote do grafo real, ranking de problemas e fronteira (gerado).
+- `docs/stdlib-coverage.md` — pacotes/símbolos da stdlib usados pelo grafo × shim (gerado).
+- `docs/reflection-report.md` — usos de `reflect` no grafo × pendentes (gerado).
+  Os três saem de `python -m g2d audit github.com/ipfs/kubo/cmd/ipfs -C tests/corpus/kubo`
+  (~2 min com os dumps em `.g2d-cache/`; ~6 min sem). Regerar e commitar junto com
+  toda mudança que altere o resultado.
 - Este `AGENTS.md` — atualizar quando arquitetura ou convenções mudarem.
 
 ## Milestones

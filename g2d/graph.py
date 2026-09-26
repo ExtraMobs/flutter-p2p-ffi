@@ -7,8 +7,9 @@ import subprocess
 from graphlib import TopologicalSorter
 
 # Contexto de build fixo do g2d (determinismo; o Dart gerado não usa cgo
-# nem código específico de SO/arquitetura).
-BUILD_ENV = {"CGO_ENABLED": "0", "GOOS": "linux", "GOARCH": "amd64"}
+# nem código específico de SO/arquitetura). `purego,noasm`: as versões Go
+# puras dos pacotes que têm assembly (o Dart não roda assembly).
+BUILD_ENV = {"CGO_ENABLED": "0", "GOOS": "linux", "GOARCH": "amd64", "GOFLAGS": "-tags=purego,noasm"}
 
 
 def build_env():

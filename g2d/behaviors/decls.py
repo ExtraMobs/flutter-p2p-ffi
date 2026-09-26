@@ -16,14 +16,6 @@ HEADER = (
 )
 
 
-def located(fn, node, *args):
-    """`fn(node, *args)`; um Unsupported sem posição ganha a de `node`."""
-    try:
-        return fn(node, *args)
-    except Unsupported as e:
-        raise e.locate(node)
-
-
 class PackageBehavior(Behavior):
     """Pacote Go → library Dart: roda as análises, emite as declarações na
     ordem do fonte e junta as seções (init, mixins, descritores, imports)."""
@@ -38,9 +30,9 @@ class PackageBehavior(Behavior):
             analysis.run(decls)
         body = []
         for d in decls:
-            body += located(self.decl, d)
+            body += self.engine.guard(self.decl, d)
         for spec, name in self.facts.local_specs:
-            body += located(self.type_spec, spec, name, [])
+            body += self.engine.guard(self.type_spec, spec, name, [])
         body += self.synthetic_classes()
         body += self.init_behavior.emit()
         body += self.promoter.mixin_decls
@@ -112,7 +104,7 @@ class InitBehavior(Behavior):
         lines = self.deps_init()
         for entry in self.pkg.init_order:
             spec, idx = self.facts.var_inits[entry[0]]
-            lines += located(self.init_entry, spec, idx)
+            lines += self.engine.guard(self.init_entry, spec, idx)
         lines += [f"{name}();" for name in self.facts.init_funcs]
         self.scope = None
         return ["", "bool _$inited = false;", "",

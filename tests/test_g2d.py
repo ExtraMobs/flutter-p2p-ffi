@@ -1,5 +1,7 @@
+import os
 import unittest
 
+from g2d.audit import Finding, PackageReport, classify, frontier, parse_machine, ranked_findings, render_audit
 from g2d.graph import init_deps, parse_go_list, topo_order
 from g2d.services.dart_type import DartType
 from g2d.services.naming import local_name, lower_camel, member_name, type_name
@@ -93,6 +95,57 @@ class ModelTest(unittest.TestCase):
     def test_rejects_other_schema(self):
         with self.assertRaises(ValueError):
             parse_dump({"tool": "goast", "schemaVersion": 1, "packages": []})
+
+
+class AuditTest(unittest.TestCase):
+    """Classificação e agrupamento do `g2d audit` sobre registros sintéticos."""
+
+    def reports(self):
+        f = Finding
+        reports = {
+            "x.io/asm": PackageReport("x.io/asm", [], asm=["a_amd64.s"]),
+            "x.io/bad": PackageReport("x.io/bad", [], findings=[f("shim-ausente:errors", "e", "a.go:1:1"),
+                                                                f("shim-ausente:errors", "e", "a.go:9:1")]),
+            "x.io/leaf": PackageReport("x.io/leaf", []),
+            "x.io/dart": PackageReport("x.io/dart", ["x.io/leaf"], dart=[f("dart:undefined_function", "error: pow", "3:4")]),
+            "x.io/own": PackageReport("x.io/own", ["x.io/asm"], findings=[f("range:func", "r", "b.go:2:3")]),
+            "x.io/top": PackageReport("x.io/top", ["x.io/bad", "x.io/leaf"], dart=[f("dart:eco", "eco", "1:1")]),
+        }
+        order = ["x.io/asm", "x.io/bad", "x.io/leaf", "x.io/dart", "x.io/own", "x.io/top"]
+        classify(reports, order)
+        return reports, order
+
+    def test_status_precedence(self):
+        reports, _ = self.reports()
+        self.assertEqual({p: r.status for p, r in reports.items()}, {
+            "x.io/asm": "substituicao", "x.io/bad": "unsupported", "x.io/leaf": "verde",
+            "x.io/dart": "dart-invalido",
+            "x.io/own": "unsupported",  # os próprios problemas contam mesmo com dep não verde
+            "x.io/top": "bloqueado",
+        })
+
+    def test_frontier_and_echo(self):
+        reports, order = self.reports()
+        self.assertEqual(frontier(reports, order), ["x.io/bad", "x.io/dart"])
+        self.assertEqual(ranked_findings(reports["x.io/top"]), [])  # eco da dep bloqueada
+
+    def test_render_ranking_is_deterministic(self):
+        reports, order = self.reports()
+        meta = {"command": "c", "target": "x.io/top", "module": "m", "go": "go"}
+        text = render_audit(reports, order, meta)
+        self.assertEqual(text, render_audit(reports, order, meta))
+        ranking = [ln.split("`")[1] for ln in text.split("## Ranking de códigos")[1].split("## Ranking por área")[0]
+                   .splitlines() if ln.startswith("| `")]
+        # fronteira primeiro; empate em pacotes → ocorrências (errors×2); range:func fora da fronteira
+        self.assertEqual(ranking, ["shim-ausente:errors", "dart:undefined_function", "range:func"])
+        self.assertIn("| verde | 1 | 16.7 |", text)
+
+    def test_parse_machine(self):
+        lib = os.path.join(os.sep, "tmp", "out", "lib")
+        path = os.path.join(lib, "x.io", "a.dart").replace("\\", "\\\\")
+        text = f"ERROR|COMPILE_TIME_ERROR|INVALID_ASSIGNMENT|{path}|3|7|1|a \| b\nlixo\n"
+        got = parse_machine(text, lib)
+        self.assertEqual(dict(got), {"x.io/a.dart": [Finding("dart:invalid_assignment", "error: a | b", "3:7")]})
 
 
 if __name__ == "__main__":

@@ -149,6 +149,10 @@ class UnsupportedTest(unittest.TestCase):
         src = 'package main\n\nimport "errors"\n\nvar E = errors.New("x")\n\nfunc main() { _ = E }\n'
         self.assertEqual(self.emit_error(src), ("shim-ausente:errors", ("main.go", 5, 5)))
 
+    def test_doc_comment_is_not_the_position(self):
+        src = 'package main\n\nimport "errors"\n\n// F documenta.\nfunc F() error { return errors.New("x") }\n\nfunc main() {}\n'
+        self.assertEqual(self.emit_error(src), ("shim-ausente:errors", ("main.go", 6, 6)))  # nome de F
+
     def test_import_spec_position(self):
         src = 'package main\n\nimport _ "fmt"\n\nfunc main() {}\n'
         self.assertEqual(self.emit_error(src), ("import:_", ("main.go", 3, 8)))

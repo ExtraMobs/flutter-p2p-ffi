@@ -21,6 +21,16 @@ class Unsupported(Exception):
         self.code, self.what, self.pos = code, what, None
         self.locate(node)
 
+    @classmethod
+    def internal(cls, exc, node=None):
+        """Exceção inesperada do g2d como registro (`erro-interno:<Tipo>`),
+        com o ponto do g2d que falhou na mensagem."""
+        import traceback
+
+        tb = traceback.extract_tb(exc.__traceback__)[-1]
+        where = f"{tb.filename.replace(chr(92), '/').rsplit('/g2d/', 1)[-1]}:{tb.lineno}"
+        return cls(f"erro-interno:{type(exc).__name__}", f"{where}: {exc}", node)
+
     def locate(self, node):
         """Completa a posição com a do nó (se ainda não houver)."""
         if self.pos is None:
@@ -34,11 +44,12 @@ class Unsupported(Exception):
 
 def first_pos(node):
     """Primeira posição (`token.Pos` do goast) na travessia do nó, em ordem
-    de campos: o início da construção no fonte. Anotações `$` não contam."""
+    de campos: o início da construção no fonte. Anotações `$` e comentários
+    (`doc`/`comment`, que vêm antes da declaração) não contam."""
     if isinstance(node, dict):
         if "line" in node and "column" in node and "file" in node:
             return node
-        values = (v for k, v in node.items() if not k.startswith("$"))
+        values = (v for k, v in node.items() if not k.startswith("$") and k not in ("doc", "comment"))
     elif isinstance(node, list):
         values = node
     else:
@@ -61,6 +72,9 @@ class Package:
     init_order: list  # [[decl, ...], ...] (types.Info.InitOrder)
     other_files: list = ()  # não-Go no contexto de build (.s = assembly)
     module: dict = None  # {"path", "version"?}; None no modo loose
+    stdlib_usage: list = ()  # "pacote.Símbolo" da stdlib usados
+    reflect_usage: list = ()  # [{"pos", "expr"}]
+    go_version: str = ""
     # main: pacotes do grafo a inicializar antes dele, na ordem do Go
     # (link_packages); None = grafo desconhecido.
     init_deps: list = None
@@ -104,6 +118,7 @@ def parse_dump(doc):
     return [
         Package(p["path"], p["name"], p["files"] or [], p["imports"] or [], p["typeTable"] or [],
                 p.get("implements") or [], p.get("initOrder") or [],
-                p.get("otherFiles") or [], p.get("module"))
+                p.get("otherFiles") or [], p.get("module"), p.get("stdlibUsage") or [],
+                p.get("reflectUsage") or [], doc.get("goVersion", ""))
         for p in doc["packages"]
     ]
