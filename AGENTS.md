@@ -34,7 +34,7 @@ Regras fundamentais:
 | `golib_dart/` | Core de adaptação: `fixed_types/` (tipos primitivos Go, origem `dart IPFS/packages/boilerplate`), shims da stdlib em `lib/<import path>.dart`, runtime em `lib/src/runtime/` exportado por `builtin.dart` (prefixo `go`) | Dart |
 | `out/` | Mono-repo Dart gerado (não editar à mão) | Dart (gerado) |
 | `tests/golden/<caso>/` | `<caso>.go` → `.goast.json` → `.dart` esperados (+ `.dartast.json` opcional) | — |
-| `tests/corpus/` | Pacotes reais de complexidade crescente (ainda não existe: `TODO/P0-infra-corpus-kubo.md`) | Go |
+| `tests/corpus/kubo/` | Corpus real fixado: módulo que só declara `tool github.com/ipfs/kubo/cmd/ipfs` (kubo **v0.43.1**, boxo v0.42.x); `go.mod`/`go.sum` fixam o grafo inteiro | Go |
 | `TODO/` | Backlog: um artefato markdown por problema, com prova real (ver "Processo") | Markdown |
 | `docs/` | Documentos vivos (ver abaixo) | Markdown |
 
@@ -92,6 +92,7 @@ G2D_UPDATE_GOLDEN=1 python -m unittest discover -s tests   # regrava goldens; re
 (cd tools/goast && go run . dump -C <módulo> @pacotes.txt -outdir dumps/)   # grafo: um JSON por pacote
 python -m g2d transpile dump.json -o out                 # out/lib/<import path>.dart + pubspec
 python -m g2d graph ./... -C <módulo Go>                 # pacotes não-stdlib em ordem topológica
+python -m g2d graph github.com/ipfs/kubo/cmd/ipfs -C tests/corpus/kubo   # grafo do corpus
 
 # Validação de Dart gerado
 dart format out/ && dart analyze out/
@@ -110,6 +111,12 @@ dart format out/ && dart analyze out/
 - Código gerado em `out/` nunca é editado à mão — correções vão nas regras do `g2d`.
 
 ## Processo (desafio kubo/boxo)
+
+Caso real: o grafo de `github.com/ipfs/kubo/cmd/ipfs` em `tests/corpus/kubo`, no
+contexto de build fixo do g2d (`g2d/graph.py` `BUILD_ENV`: `CGO_ENABLED=0
+GOOS=linux GOARCH=amd64`), Go 1.26.5. Medido em 2026-09: **1114 pacotes fora da
+stdlib** (24 com assembly `.s`) sobre **246 pacotes da stdlib**. Os maiores
+módulos: boxo (93), go-libp2p (82), kubo (66), pebble (58).
 
 O trabalho é guiado pelo backlog em `TODO/` (convenção em `TODO/README.md`):
 

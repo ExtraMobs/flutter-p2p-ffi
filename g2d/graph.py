@@ -1,8 +1,18 @@
 """Grafo de pacotes Go (via `go list -deps -json`) em ordem topológica."""
 
 import json
+import os
 import subprocess
 from graphlib import TopologicalSorter
+
+# Contexto de build fixo do g2d (determinismo; o Dart gerado não usa cgo
+# nem código específico de SO/arquitetura).
+BUILD_ENV = {"CGO_ENABLED": "0", "GOOS": "linux", "GOARCH": "amd64"}
+
+
+def build_env():
+    """Ambiente do processo com o contexto de build do g2d."""
+    return {**os.environ, **BUILD_ENV}
 
 
 def go_list(target, cwd=None):
@@ -12,7 +22,7 @@ def go_list(target, cwd=None):
     """
     out = subprocess.run(
         ["go", "list", "-deps", "-json", target],
-        cwd=cwd, capture_output=True, text=True, encoding="utf-8", check=True,
+        cwd=cwd, env=build_env(), capture_output=True, text=True, encoding="utf-8", check=True,
     ).stdout
     return parse_go_list(out)
 
