@@ -234,7 +234,8 @@ class StringSlice(ConversionBehavior):
         if c.frm_t["kind"] == "named":
             x += ".$str"
         u = self.typesys.underlying(c.to_t)
-        return f"{go(self.FUNCS[self.elem_cls(c.to_t)][0])}({x}, {self.descriptors.elem(u['elem'])})", POSTFIX
+        v = f"{go(self.FUNCS[self.elem_cls(c.to_t)][0])}({x}, {self.descriptors.elem(u['elem'])})"
+        return self.types.wrap(c.to_t, v), POSTFIX  # `buf("x")`: slice nomeado
 
 
 # Ordem de registro = prioridade crescente (a cadeia tenta do último ao

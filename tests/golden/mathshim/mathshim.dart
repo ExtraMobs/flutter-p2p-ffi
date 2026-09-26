@@ -10,14 +10,14 @@ import 'package:golib_dart/fmt.dart' as fmt;
 import 'package:golib_dart/builtin.dart' as go;
 import 'package:golib_dart/math.dart' as math;
 
-class _avgVar extends go.GoStruct<_avgVar> {
-  _avgVar({Golang.Int64? count, Golang.Float64? sum, Golang.Float64? sumsq})
+class _avgVar$ extends go.GoStruct<_avgVar$> {
+  _avgVar$({Golang.Int64? count, Golang.Float64? sum, Golang.Float64? sumsq})
     : _count = count ?? Golang.Int64(),
       _sum = sum ?? Golang.Float64(),
       _sumsq = sumsq ?? Golang.Float64();
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _avgVar $nil = _avgVar()..$nilPtr = true;
+  static final _avgVar$ $nil = _avgVar$()..$nilPtr = true;
 
   Golang.Int64 _count;
   Golang.Float64 _sum;
@@ -36,10 +36,10 @@ class _avgVar extends go.GoStruct<_avgVar> {
   ];
 
   @override
-  _avgVar $copy() => _avgVar(count: _count, sum: _sum, sumsq: _sumsq);
+  _avgVar$ $copy() => _avgVar$(count: _count, sum: _sum, sumsq: _sumsq);
 
   @override
-  void $set(_avgVar o) {
+  void $set(_avgVar$ o) {
     _count = o._count;
     _sum = o._sum;
     _sumsq = o._sumsq;
@@ -52,28 +52,28 @@ class _avgVar extends go.GoStruct<_avgVar> {
   List<String> get $fieldNames => const ['count', 'sum', 'sumsq'];
 
   void add(Golang.Float64 sample) {
-    final _avgVar? av = $nilPtr ? null : this;
+    final _avgVar$? av = $nilPtr ? null : this;
     av!._count += Golang.Int64(1);
     av!._sum += sample;
     av!._sumsq += sample * sample;
   }
 
   Golang.Float64 getAvg() {
-    final _avgVar? av = $nilPtr ? null : this;
+    final _avgVar$? av = $nilPtr ? null : this;
     return av!._sum / Golang.Float64.fromInt64(Golang.Int64.from(av!._count));
   }
 
   Golang.Float64 getVar() {
-    final _avgVar? av = $nilPtr ? null : this;
-    Golang.Float64 a = (av ?? _avgVar.$nil).getAvg();
+    final _avgVar$? av = $nilPtr ? null : this;
+    Golang.Float64 a = (av ?? _avgVar$.$nil).getAvg();
     return av!._sumsq /
             Golang.Float64.fromInt64(Golang.Int64.from(av!._count)) -
         a * a;
   }
 
   Golang.Float64 getStdDev() {
-    final _avgVar? av = $nilPtr ? null : this;
-    return math.sqrt((av ?? _avgVar.$nil).getVar());
+    final _avgVar$? av = $nilPtr ? null : this;
+    return math.sqrt((av ?? _avgVar$.$nil).getVar());
   }
 }
 
@@ -91,11 +91,11 @@ class _avgVar extends go.GoStruct<_avgVar> {
   return (a, b, c, d);
 }
 
-class _int64Set extends go.GoStruct<_int64Set> {
-  _int64Set({Golang.Uint64? lo}) : _lo = lo ?? Golang.Uint64();
+class _int64Set$ extends go.GoStruct<_int64Set$> {
+  _int64Set$({Golang.Uint64? lo}) : _lo = lo ?? Golang.Uint64();
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _int64Set $nil = _int64Set()..$nilPtr = true;
+  static final _int64Set$ $nil = _int64Set$()..$nilPtr = true;
 
   Golang.Uint64 _lo;
 
@@ -107,10 +107,10 @@ class _int64Set extends go.GoStruct<_int64Set> {
   List<String> get $ptrMethods => const ['Len', 'Set'];
 
   @override
-  _int64Set $copy() => _int64Set(lo: _lo);
+  _int64Set$ $copy() => _int64Set$(lo: _lo);
 
   @override
-  void $set(_int64Set o) {
+  void $set(_int64Set$ o) {
     _lo = o._lo;
   }
 
@@ -121,12 +121,12 @@ class _int64Set extends go.GoStruct<_int64Set> {
   List<String> get $fieldNames => const ['lo'];
 
   Golang.Int len() {
-    final _int64Set? s = $nilPtr ? null : this;
+    final _int64Set$? s = $nilPtr ? null : this;
     return bits.onesCount64(s!._lo);
   }
 
   void set(Golang.Uint64 i) {
-    final _int64Set? s = $nilPtr ? null : this;
+    final _int64Set$? s = $nilPtr ? null : this;
     s!._lo |= Golang.Uint64(1) << go.shiftCount(i);
   }
 }
@@ -212,7 +212,7 @@ Golang.String _divPanic(Golang.Uint64 hi, Golang.Uint64 lo, Golang.Uint64 y) {
 void main() {
   go.runMain(() {
     $goInit();
-    _avgVar av = _avgVar();
+    _avgVar$ av = _avgVar$();
     {
       final $t1 = go.Slice<Golang.Float64>.of([
         Golang.Float64(2.0),
@@ -315,7 +315,7 @@ void main() {
         go.Slice<Object?>.of([$t5, $t6, $t7, $t8], _$e0),
       ),
     });
-    _int64Set set = _int64Set();
+    _int64Set$ set = _int64Set$();
     {
       final $t9 = go.Slice<Golang.Uint64>.of([
         Golang.Uint64(0),

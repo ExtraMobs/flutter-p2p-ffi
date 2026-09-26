@@ -12,11 +12,11 @@ import 'package:golib_dart/sort.dart' as sort;
 import 'package:golib_dart/strings.dart' as strings;
 import 'package:golib_dart/crypto/subtle.dart' as subtle;
 
-class _bytesComparer extends go.GoStruct<_bytesComparer> {
-  _bytesComparer();
+class _bytesComparer$ extends go.GoStruct<_bytesComparer$> {
+  _bytesComparer$();
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _bytesComparer $nil = _bytesComparer()..$nilPtr = true;
+  static final _bytesComparer$ $nil = _bytesComparer$()..$nilPtr = true;
 
   @override
   String get $goType => 'main.bytesComparer';
@@ -26,10 +26,10 @@ class _bytesComparer extends go.GoStruct<_bytesComparer> {
   List<String> get $ptrMethods => const ['Compare'];
 
   @override
-  _bytesComparer $copy() => _bytesComparer();
+  _bytesComparer$ $copy() => _bytesComparer$();
 
   @override
-  void $set(_bytesComparer o) {}
+  void $set(_bytesComparer$ o) {}
 
   @override
   List<Object?> get $fields => [];
@@ -149,7 +149,7 @@ void main() {
         go.Slice<Object?>.of([$t4, $t5, $t6], _$e0),
       ),
     });
-    _bytesComparer c = _bytesComparer();
+    _bytesComparer$ c = _bytesComparer$();
     go.Slice<go.Slice<Golang.Uint8>> bs = go.Slice<go.Slice<Golang.Uint8>>.of([
       go.Slice<Golang.Uint8>.nil(_$e1),
       go.Slice<Golang.Uint8>.of([], _$e1),

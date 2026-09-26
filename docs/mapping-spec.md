@@ -91,14 +91,14 @@ Legenda: ✅ fiel · ⚠️ fiel no caso comum, com limite conhecido · ❌ não
 | Go | Dart | Limite |
 |---|---|---|
 | tipo exportado `Greeter` | `Greeter` (tipo `Golang` → `Golang$`) | |
-| tipo não exportado `point` | `_point` | |
+| tipo não exportado `point` | `_point$`: o `$` separa do membro não exportado `_point` (campo embutido, campo ou método com o nome do tipo sombreariam a classe; fixture `embedprivate`) | |
 | func/var/const/campo/método exportado `HTTPServer` | `httpServer` (lowerCamel ciente de siglas) | ⚠️ `FOO` e `Foo` no mesmo escopo colidem |
 | idem não exportado `add` | `_add` (privado da library = do pacote) | |
 | local/parâmetro | nome Go; se repetido na função ou igual a um nome de library → `x$1` | |
 | palavra reservada Dart (`new`, `in`, ...) | sufixo `$` (`new$`) | |
 | nome do `dart:core` usado pelo código gerado (`Object`, `Map`, `String`, `List`, `Function`, `BigInt`, `identical`, `int`, `bool`, ...: `DART_CORE_USED`) | sufixo `$` (`Object$`, `identical$`, local `int$`), para não sombrear o core na library | |
 | método/campo exportado com o nome de um membro das bases estendidas (`Delete`, `Append`, `Value`, `Length`, `Call`, `ToString`, ...: `DART_BASE_MEMBERS`) | sufixo `$` (`delete$`, `value$`, `toString$`), em todo lugar, inclusive nas interfaces (o despacho continua casando) | |
-| tipo declarado dentro de função | içado para a library como `_<função>$<Tipo>` (`_first$pair`; método: `_<Recv>_<Método>$<Tipo>`; repetido na função: sufixo numérico) | ⚠️ tipo local que usa parâmetro de tipo da função genérica não é suportado |
+| tipo declarado dentro de função | içado para a library como `_<função>$<Tipo>$` (`_first$pair$`; método: `_<Recv>_<Método>$<Tipo>$`; repetido na função: sufixo numérico) | ⚠️ tipo local que usa parâmetro de tipo da função genérica não é suportado |
 | letra não-ASCII (`Δ`, `Ωmega`) | `$uXXXX` (BMP) ou `$UXXXXXXXX`, largura fixa como no C (`Δ` → `$u0394`, `Δ0` → `$u03940`); o Go decide exportado por `unicode.IsUpper` (`Δx` → `$u03b4x`, `δx` → `_$u03b4x`) | ✅ (fixture `mathshim`) |
 | temporários e descritores | `$tN`, `_$eN`, `_$zN` (Go não permite `$`) | |
 
@@ -128,8 +128,8 @@ Legenda: ✅ fiel · ⚠️ fiel no caso comum, com limite conhecido · ❌ não
 | nomeado sobre slice/map (`type IDs []string`) | `final class IDs extends go.Slice<Golang.String>` (idem `go.GoMap`); conversão/atribuição = `IDs(s)` via `Slice.alias` (mesmo array) | `IDs(go.Slice<...>.nil(_$eN))` |
 | nomeado sobre func (`type Op func(int) int`) | `final class Op` chamável: `$f` (anulável), `call(...)`, `isNil`; `Op(fn)` / `op.$f` nas atribuições entre nomeado e não nomeado | `Op(null)` |
 | `*N`, N nomeado não-struct com métodos e `*N` usado no pacote | `N$Ptr?`: `final class N$Ptr extends go.PtrView<N>` (vista sobre `go.Box`/`ElemPtr`/`FieldPtr`) com os métodos de receptor ponteiro, forwarders dos de valor e as interfaces de `*N` | `null` |
-| struct anônima (`struct{ X int }`, tabelas de teste) | classe sintética `_anon$<índice da typeTable>` (uma por tipo; `go.GoStruct`, igualdade e cópia como qualquer struct) | `_anon$N()` |
-| interface anônima com métodos (`interface{ Name() string }`) | `abstract mixin class _anonIface$<índice>`; o goast põe no `implements` os literais `interface{...}` usados fora de declaração de tipo | `null` |
+| struct anônima (`struct{ X int }`, tabelas de teste) | classe sintética `_anon$<índice da typeTable>$` (uma por tipo; `go.GoStruct`, igualdade e cópia como qualquer struct) | `_anon$N$()` |
+| interface anônima com métodos (`interface{ Name() string }`) | `abstract mixin class _anonIface$<índice>$`; o goast põe no `implements` os literais `interface{...}` usados fora de declaração de tipo | `null` |
 | nomeado sobre bool/complex, chans | — ❌ | |
 
 Constantes de tipo básico usam `final`, porque os construtores das classes não

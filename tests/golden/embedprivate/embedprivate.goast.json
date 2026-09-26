@@ -1,0 +1,2830 @@
+{
+  "schemaVersion": 7,
+  "tool": "goast",
+  "goVersion": "go1.26.5",
+  "packages": [
+    {
+      "path": "main",
+      "name": "main",
+      "files": [
+        {
+          "path": "embedprivate.go",
+          "ast": {
+            "node": "File",
+            "doc": {
+              "node": "CommentGroup",
+              "list": [
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "embedprivate.go",
+                    "line": 1,
+                    "column": 1,
+                    "offset": 0
+                  },
+                  "text": "// Membro com o nome de um tipo não exportado (golang.org/x/crypto/internal/poly1305:"
+                },
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "embedprivate.go",
+                    "line": 2,
+                    "column": 1,
+                    "offset": 87
+                  },
+                  "text": "// type mac struct{ macGeneric }): o tipo vira `_t$`, o membro `_t`."
+                }
+              ]
+            },
+            "package": {
+              "file": "embedprivate.go",
+              "line": 3,
+              "column": 1,
+              "offset": 156
+            },
+            "name": {
+              "node": "Ident",
+              "namePos": {
+                "file": "embedprivate.go",
+                "line": 3,
+                "column": 9,
+                "offset": 164
+              },
+              "name": "main",
+              "obj": null
+            },
+            "decls": [
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "embedprivate.go",
+                  "line": 5,
+                  "column": 1,
+                  "offset": 170
+                },
+                "tok": "import",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "ImportSpec",
+                    "doc": null,
+                    "name": null,
+                    "path": {
+                      "node": "BasicLit",
+                      "valuePos": {
+                        "file": "embedprivate.go",
+                        "line": 5,
+                        "column": 8,
+                        "offset": 177
+                      },
+                      "valueEnd": {
+                        "file": "embedprivate.go",
+                        "line": 5,
+                        "column": 13,
+                        "offset": 182
+                      },
+                      "kind": "STRING",
+                      "value": "\"fmt\""
+                    },
+                    "comment": null,
+                    "endPos": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "embedprivate.go",
+                  "line": 7,
+                  "column": 1,
+                  "offset": 184
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "embedprivate.go",
+                        "line": 7,
+                        "column": 6,
+                        "offset": 189
+                      },
+                      "name": "macGeneric",
+                      "obj": {
+                        "node": "Object",
+                        "name": "macGeneric",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "macGeneric",
+                        "kind": "type",
+                        "def": true,
+                        "type": 0,
+                        "decl": "embedprivate.go:189",
+                        "pkg": "main",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "StructType",
+                      "struct": {
+                        "file": "embedprivate.go",
+                        "line": 7,
+                        "column": 17,
+                        "offset": 200
+                      },
+                      "fields": {
+                        "node": "FieldList",
+                        "opening": {
+                          "file": "embedprivate.go",
+                          "line": 7,
+                          "column": 23,
+                          "offset": 206
+                        },
+                        "list": [
+                          {
+                            "node": "Field",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "embedprivate.go",
+                                  "line": 7,
+                                  "column": 25,
+                                  "offset": 208
+                                },
+                                "name": "n",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "n",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "n",
+                                  "kind": "field",
+                                  "def": true,
+                                  "type": 2,
+                                  "decl": "embedprivate.go:208",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "embedprivate.go",
+                                "line": 7,
+                                "column": 27,
+                                "offset": 210
+                              },
+                              "name": "int",
+                              "obj": null,
+                              "$type": 2,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "int",
+                                "kind": "type",
+                                "type": 2
+                              }
+                            },
+                            "tag": null,
+                            "comment": null
+                          }
+                        ],
+                        "closing": {
+                          "file": "embedprivate.go",
+                          "line": 7,
+                          "column": 31,
+                          "offset": 214
+                        }
+                      },
+                      "incomplete": false,
+                      "$type": 1,
+                      "$isType": true
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": {
+                  "node": "FieldList",
+                  "opening": {
+                    "file": "embedprivate.go",
+                    "line": 9,
+                    "column": 6,
+                    "offset": 222
+                  },
+                  "list": [
+                    {
+                      "node": "Field",
+                      "doc": null,
+                      "names": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "embedprivate.go",
+                            "line": 9,
+                            "column": 7,
+                            "offset": 223
+                          },
+                          "name": "h",
+                          "obj": {
+                            "node": "Object",
+                            "name": "h",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "h",
+                            "kind": "var",
+                            "def": true,
+                            "type": 6,
+                            "decl": "embedprivate.go:223",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "type": {
+                        "node": "StarExpr",
+                        "star": {
+                          "file": "embedprivate.go",
+                          "line": 9,
+                          "column": 9,
+                          "offset": 225
+                        },
+                        "x": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "embedprivate.go",
+                            "line": 9,
+                            "column": 10,
+                            "offset": 226
+                          },
+                          "name": "macGeneric",
+                          "obj": {
+                            "node": "Object",
+                            "name": "macGeneric",
+                            "kind": "type"
+                          },
+                          "$type": 0,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "macGeneric",
+                            "kind": "type",
+                            "type": 0,
+                            "decl": "embedprivate.go:189",
+                            "pkg": "main",
+                            "top": true
+                          }
+                        },
+                        "$type": 6,
+                        "$isType": true
+                      },
+                      "tag": null,
+                      "comment": null
+                    }
+                  ],
+                  "closing": {
+                    "file": "embedprivate.go",
+                    "line": 9,
+                    "column": 20,
+                    "offset": 236
+                  }
+                },
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "embedprivate.go",
+                    "line": 9,
+                    "column": 22,
+                    "offset": 238
+                  },
+                  "name": "Write",
+                  "obj": null,
+                  "$obj": {
+                    "name": "Write",
+                    "kind": "method",
+                    "def": true,
+                    "type": 3,
+                    "decl": "embedprivate.go:238",
+                    "pkg": "main"
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "embedprivate.go",
+                    "line": 9,
+                    "column": 1,
+                    "offset": 217
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "embedprivate.go",
+                      "line": 9,
+                      "column": 27,
+                      "offset": 243
+                    },
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "embedprivate.go",
+                              "line": 9,
+                              "column": 28,
+                              "offset": 244
+                            },
+                            "name": "p",
+                            "obj": {
+                              "node": "Object",
+                              "name": "p",
+                              "kind": "var"
+                            },
+                            "$obj": {
+                              "name": "p",
+                              "kind": "var",
+                              "def": true,
+                              "type": 4,
+                              "decl": "embedprivate.go:244",
+                              "pkg": "main"
+                            }
+                          }
+                        ],
+                        "type": {
+                          "node": "ArrayType",
+                          "lbrack": {
+                            "file": "embedprivate.go",
+                            "line": 9,
+                            "column": 30,
+                            "offset": 246
+                          },
+                          "len": null,
+                          "elt": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "embedprivate.go",
+                              "line": 9,
+                              "column": 32,
+                              "offset": 248
+                            },
+                            "name": "byte",
+                            "obj": null,
+                            "$type": 5,
+                            "$isType": true,
+                            "$obj": {
+                              "name": "byte",
+                              "kind": "type",
+                              "type": 5
+                            }
+                          },
+                          "$type": 4,
+                          "$isType": true
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": {
+                      "file": "embedprivate.go",
+                      "line": 9,
+                      "column": 36,
+                      "offset": 252
+                    }
+                  },
+                  "results": {
+                    "node": "FieldList",
+                    "opening": null,
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": null,
+                        "type": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "embedprivate.go",
+                            "line": 9,
+                            "column": 38,
+                            "offset": 254
+                          },
+                          "name": "int",
+                          "obj": null,
+                          "$type": 2,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "int",
+                            "kind": "type",
+                            "type": 2
+                          }
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": null
+                  }
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "embedprivate.go",
+                    "line": 9,
+                    "column": 42,
+                    "offset": 258
+                  },
+                  "list": [
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "embedprivate.go",
+                              "line": 9,
+                              "column": 44,
+                              "offset": 260
+                            },
+                            "name": "h",
+                            "obj": {
+                              "node": "Object",
+                              "name": "h",
+                              "kind": "var"
+                            },
+                            "$type": 6,
+                            "$obj": {
+                              "name": "h",
+                              "kind": "var",
+                              "type": 6,
+                              "decl": "embedprivate.go:223",
+                              "pkg": "main"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "embedprivate.go",
+                              "line": 9,
+                              "column": 46,
+                              "offset": 262
+                            },
+                            "name": "n",
+                            "obj": null,
+                            "$obj": {
+                              "name": "n",
+                              "kind": "field",
+                              "type": 2,
+                              "decl": "embedprivate.go:208",
+                              "pkg": "main"
+                            }
+                          },
+                          "$type": 2,
+                          "$sel": {
+                            "kind": "field",
+                            "recv": 6,
+                            "index": [
+                              0
+                            ],
+                            "indirect": true
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "embedprivate.go",
+                        "line": 9,
+                        "column": 48,
+                        "offset": 264
+                      },
+                      "tok": "+=",
+                      "rhs": [
+                        {
+                          "node": "CallExpr",
+                          "fun": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "embedprivate.go",
+                              "line": 9,
+                              "column": 51,
+                              "offset": 267
+                            },
+                            "name": "len",
+                            "obj": null,
+                            "$type": 3,
+                            "$builtin": true,
+                            "$obj": {
+                              "name": "len",
+                              "kind": "builtin",
+                              "type": 7
+                            }
+                          },
+                          "lparen": {
+                            "file": "embedprivate.go",
+                            "line": 9,
+                            "column": 54,
+                            "offset": 270
+                          },
+                          "args": [
+                            {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "embedprivate.go",
+                                "line": 9,
+                                "column": 55,
+                                "offset": 271
+                              },
+                              "name": "p",
+                              "obj": {
+                                "node": "Object",
+                                "name": "p",
+                                "kind": "var"
+                              },
+                              "$type": 4,
+                              "$obj": {
+                                "name": "p",
+                                "kind": "var",
+                                "type": 4,
+                                "decl": "embedprivate.go:244",
+                                "pkg": "main"
+                              }
+                            }
+                          ],
+                          "ellipsis": null,
+                          "rparen": {
+                            "file": "embedprivate.go",
+                            "line": 9,
+                            "column": 56,
+                            "offset": 272
+                          },
+                          "$type": 2
+                        }
+                      ]
+                    },
+                    {
+                      "node": "ReturnStmt",
+                      "return": {
+                        "file": "embedprivate.go",
+                        "line": 9,
+                        "column": 59,
+                        "offset": 275
+                      },
+                      "results": [
+                        {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "embedprivate.go",
+                              "line": 9,
+                              "column": 66,
+                              "offset": 282
+                            },
+                            "name": "h",
+                            "obj": {
+                              "node": "Object",
+                              "name": "h",
+                              "kind": "var"
+                            },
+                            "$type": 6,
+                            "$obj": {
+                              "name": "h",
+                              "kind": "var",
+                              "type": 6,
+                              "decl": "embedprivate.go:223",
+                              "pkg": "main"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "embedprivate.go",
+                              "line": 9,
+                              "column": 68,
+                              "offset": 284
+                            },
+                            "name": "n",
+                            "obj": null,
+                            "$obj": {
+                              "name": "n",
+                              "kind": "field",
+                              "type": 2,
+                              "decl": "embedprivate.go:208",
+                              "pkg": "main"
+                            }
+                          },
+                          "$type": 2,
+                          "$sel": {
+                            "kind": "field",
+                            "recv": 6,
+                            "index": [
+                              0
+                            ],
+                            "indirect": true
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "embedprivate.go",
+                    "line": 9,
+                    "column": 70,
+                    "offset": 286
+                  }
+                }
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "embedprivate.go",
+                  "line": 11,
+                  "column": 1,
+                  "offset": 289
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "embedprivate.go",
+                        "line": 11,
+                        "column": 6,
+                        "offset": 294
+                      },
+                      "name": "mac",
+                      "obj": {
+                        "node": "Object",
+                        "name": "mac",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "mac",
+                        "kind": "type",
+                        "def": true,
+                        "type": 8,
+                        "decl": "embedprivate.go:294",
+                        "pkg": "main",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "StructType",
+                      "struct": {
+                        "file": "embedprivate.go",
+                        "line": 11,
+                        "column": 10,
+                        "offset": 298
+                      },
+                      "fields": {
+                        "node": "FieldList",
+                        "opening": {
+                          "file": "embedprivate.go",
+                          "line": 11,
+                          "column": 16,
+                          "offset": 304
+                        },
+                        "list": [
+                          {
+                            "node": "Field",
+                            "doc": null,
+                            "names": null,
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "embedprivate.go",
+                                "line": 11,
+                                "column": 18,
+                                "offset": 306
+                              },
+                              "name": "macGeneric",
+                              "obj": {
+                                "node": "Object",
+                                "name": "macGeneric",
+                                "kind": "type"
+                              },
+                              "$type": 0,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "macGeneric",
+                                "kind": "field",
+                                "def": true,
+                                "type": 0,
+                                "decl": "embedprivate.go:306",
+                                "pkg": "main",
+                                "embedded": true
+                              }
+                            },
+                            "tag": null,
+                            "comment": null
+                          }
+                        ],
+                        "closing": {
+                          "file": "embedprivate.go",
+                          "line": 11,
+                          "column": 29,
+                          "offset": 317
+                        }
+                      },
+                      "incomplete": false,
+                      "$type": 9,
+                      "$isType": true
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "embedprivate.go",
+                  "line": 13,
+                  "column": 1,
+                  "offset": 320
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "embedprivate.go",
+                        "line": 13,
+                        "column": 6,
+                        "offset": 325
+                      },
+                      "name": "buf",
+                      "obj": {
+                        "node": "Object",
+                        "name": "buf",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "buf",
+                        "kind": "type",
+                        "def": true,
+                        "type": 10,
+                        "decl": "embedprivate.go:325",
+                        "pkg": "main",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "ArrayType",
+                      "lbrack": {
+                        "file": "embedprivate.go",
+                        "line": 13,
+                        "column": 10,
+                        "offset": 329
+                      },
+                      "len": null,
+                      "elt": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "embedprivate.go",
+                          "line": 13,
+                          "column": 12,
+                          "offset": 331
+                        },
+                        "name": "byte",
+                        "obj": null,
+                        "$type": 5,
+                        "$isType": true,
+                        "$obj": {
+                          "name": "byte",
+                          "kind": "type",
+                          "type": 5
+                        }
+                      },
+                      "$type": 4,
+                      "$isType": true
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "embedprivate.go",
+                  "line": 15,
+                  "column": 1,
+                  "offset": 337
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "embedprivate.go",
+                        "line": 15,
+                        "column": 6,
+                        "offset": 342
+                      },
+                      "name": "state",
+                      "obj": {
+                        "node": "Object",
+                        "name": "state",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "state",
+                        "kind": "type",
+                        "def": true,
+                        "type": 11,
+                        "decl": "embedprivate.go:342",
+                        "pkg": "main",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "StructType",
+                      "struct": {
+                        "file": "embedprivate.go",
+                        "line": 15,
+                        "column": 12,
+                        "offset": 348
+                      },
+                      "fields": {
+                        "node": "FieldList",
+                        "opening": {
+                          "file": "embedprivate.go",
+                          "line": 15,
+                          "column": 19,
+                          "offset": 355
+                        },
+                        "list": [
+                          {
+                            "node": "Field",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "embedprivate.go",
+                                  "line": 16,
+                                  "column": 2,
+                                  "offset": 358
+                                },
+                                "name": "buf",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "buf",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "buf",
+                                  "kind": "field",
+                                  "def": true,
+                                  "type": 10,
+                                  "decl": "embedprivate.go:358",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "embedprivate.go",
+                                "line": 16,
+                                "column": 6,
+                                "offset": 362
+                              },
+                              "name": "buf",
+                              "obj": {
+                                "node": "Object",
+                                "name": "buf",
+                                "kind": "type"
+                              },
+                              "$type": 10,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "buf",
+                                "kind": "type",
+                                "type": 10,
+                                "decl": "embedprivate.go:325",
+                                "pkg": "main",
+                                "top": true
+                              }
+                            },
+                            "tag": null,
+                            "comment": {
+                              "node": "CommentGroup",
+                              "list": [
+                                {
+                                  "node": "Comment",
+                                  "slash": {
+                                    "file": "embedprivate.go",
+                                    "line": 16,
+                                    "column": 10,
+                                    "offset": 366
+                                  },
+                                  "text": "// campo com o nome do tipo"
+                                }
+                              ]
+                            }
+                          }
+                        ],
+                        "closing": {
+                          "file": "embedprivate.go",
+                          "line": 17,
+                          "column": 1,
+                          "offset": 394
+                        }
+                      },
+                      "incomplete": false,
+                      "$type": 12,
+                      "$isType": true
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": {
+                  "node": "FieldList",
+                  "opening": {
+                    "file": "embedprivate.go",
+                    "line": 19,
+                    "column": 6,
+                    "offset": 402
+                  },
+                  "list": [
+                    {
+                      "node": "Field",
+                      "doc": null,
+                      "names": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "embedprivate.go",
+                            "line": 19,
+                            "column": 7,
+                            "offset": 403
+                          },
+                          "name": "s",
+                          "obj": {
+                            "node": "Object",
+                            "name": "s",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "s",
+                            "kind": "var",
+                            "def": true,
+                            "type": 14,
+                            "decl": "embedprivate.go:403",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "type": {
+                        "node": "StarExpr",
+                        "star": {
+                          "file": "embedprivate.go",
+                          "line": 19,
+                          "column": 9,
+                          "offset": 405
+                        },
+                        "x": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "embedprivate.go",
+                            "line": 19,
+                            "column": 10,
+                            "offset": 406
+                          },
+                          "name": "state",
+                          "obj": {
+                            "node": "Object",
+                            "name": "state",
+                            "kind": "type"
+                          },
+                          "$type": 11,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "state",
+                            "kind": "type",
+                            "type": 11,
+                            "decl": "embedprivate.go:342",
+                            "pkg": "main",
+                            "top": true
+                          }
+                        },
+                        "$type": 14,
+                        "$isType": true
+                      },
+                      "tag": null,
+                      "comment": null
+                    }
+                  ],
+                  "closing": {
+                    "file": "embedprivate.go",
+                    "line": 19,
+                    "column": 15,
+                    "offset": 411
+                  }
+                },
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "embedprivate.go",
+                    "line": 19,
+                    "column": 17,
+                    "offset": 413
+                  },
+                  "name": "state",
+                  "obj": null,
+                  "$obj": {
+                    "name": "state",
+                    "kind": "method",
+                    "def": true,
+                    "type": 13,
+                    "decl": "embedprivate.go:413",
+                    "pkg": "main"
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "embedprivate.go",
+                    "line": 19,
+                    "column": 1,
+                    "offset": 397
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "embedprivate.go",
+                      "line": 19,
+                      "column": 22,
+                      "offset": 418
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "embedprivate.go",
+                      "line": 19,
+                      "column": 23,
+                      "offset": 419
+                    }
+                  },
+                  "results": {
+                    "node": "FieldList",
+                    "opening": null,
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": null,
+                        "type": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "embedprivate.go",
+                            "line": 19,
+                            "column": 25,
+                            "offset": 421
+                          },
+                          "name": "int",
+                          "obj": null,
+                          "$type": 2,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "int",
+                            "kind": "type",
+                            "type": 2
+                          }
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": null
+                  }
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "embedprivate.go",
+                    "line": 19,
+                    "column": 29,
+                    "offset": 425
+                  },
+                  "list": [
+                    {
+                      "node": "ReturnStmt",
+                      "return": {
+                        "file": "embedprivate.go",
+                        "line": 19,
+                        "column": 31,
+                        "offset": 427
+                      },
+                      "results": [
+                        {
+                          "node": "CallExpr",
+                          "fun": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "embedprivate.go",
+                              "line": 19,
+                              "column": 38,
+                              "offset": 434
+                            },
+                            "name": "len",
+                            "obj": null,
+                            "$type": 15,
+                            "$builtin": true,
+                            "$obj": {
+                              "name": "len",
+                              "kind": "builtin",
+                              "type": 7
+                            }
+                          },
+                          "lparen": {
+                            "file": "embedprivate.go",
+                            "line": 19,
+                            "column": 41,
+                            "offset": 437
+                          },
+                          "args": [
+                            {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "embedprivate.go",
+                                  "line": 19,
+                                  "column": 42,
+                                  "offset": 438
+                                },
+                                "name": "s",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "s",
+                                  "kind": "var"
+                                },
+                                "$type": 14,
+                                "$obj": {
+                                  "name": "s",
+                                  "kind": "var",
+                                  "type": 14,
+                                  "decl": "embedprivate.go:403",
+                                  "pkg": "main"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "embedprivate.go",
+                                  "line": 19,
+                                  "column": 44,
+                                  "offset": 440
+                                },
+                                "name": "buf",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "buf",
+                                  "kind": "field",
+                                  "type": 10,
+                                  "decl": "embedprivate.go:358",
+                                  "pkg": "main"
+                                }
+                              },
+                              "$type": 10,
+                              "$sel": {
+                                "kind": "field",
+                                "recv": 14,
+                                "index": [
+                                  0
+                                ],
+                                "indirect": true
+                              }
+                            }
+                          ],
+                          "ellipsis": null,
+                          "rparen": {
+                            "file": "embedprivate.go",
+                            "line": 19,
+                            "column": 47,
+                            "offset": 443
+                          },
+                          "$type": 2
+                        }
+                      ]
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "embedprivate.go",
+                    "line": 19,
+                    "column": 49,
+                    "offset": 445
+                  }
+                }
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "embedprivate.go",
+                    "line": 21,
+                    "column": 6,
+                    "offset": 483
+                  },
+                  "name": "main",
+                  "obj": {
+                    "node": "Object",
+                    "name": "main",
+                    "kind": "func"
+                  },
+                  "$obj": {
+                    "name": "main",
+                    "kind": "func",
+                    "def": true,
+                    "type": 16,
+                    "decl": "embedprivate.go:483",
+                    "pkg": "main",
+                    "top": true
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "embedprivate.go",
+                    "line": 21,
+                    "column": 1,
+                    "offset": 478
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "embedprivate.go",
+                      "line": 21,
+                      "column": 10,
+                      "offset": 487
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "embedprivate.go",
+                      "line": 21,
+                      "column": 11,
+                      "offset": 488
+                    }
+                  },
+                  "results": null
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "embedprivate.go",
+                    "line": 21,
+                    "column": 13,
+                    "offset": 490
+                  },
+                  "list": [
+                    {
+                      "node": "DeclStmt",
+                      "decl": {
+                        "node": "GenDecl",
+                        "doc": null,
+                        "tokPos": {
+                          "file": "embedprivate.go",
+                          "line": 22,
+                          "column": 2,
+                          "offset": 493
+                        },
+                        "tok": "var",
+                        "lparen": null,
+                        "specs": [
+                          {
+                            "node": "ValueSpec",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "embedprivate.go",
+                                  "line": 22,
+                                  "column": 6,
+                                  "offset": 497
+                                },
+                                "name": "m",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "m",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "m",
+                                  "kind": "var",
+                                  "def": true,
+                                  "type": 8,
+                                  "decl": "embedprivate.go:497",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "embedprivate.go",
+                                "line": 22,
+                                "column": 8,
+                                "offset": 499
+                              },
+                              "name": "mac",
+                              "obj": {
+                                "node": "Object",
+                                "name": "mac",
+                                "kind": "type"
+                              },
+                              "$type": 8,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "mac",
+                                "kind": "type",
+                                "type": 8,
+                                "decl": "embedprivate.go:294",
+                                "pkg": "main",
+                                "top": true
+                              }
+                            },
+                            "values": null,
+                            "comment": null
+                          }
+                        ],
+                        "rparen": null
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "embedprivate.go",
+                              "line": 23,
+                              "column": 2,
+                              "offset": 504
+                            },
+                            "name": "m",
+                            "obj": {
+                              "node": "Object",
+                              "name": "m",
+                              "kind": "var"
+                            },
+                            "$type": 8,
+                            "$obj": {
+                              "name": "m",
+                              "kind": "var",
+                              "type": 8,
+                              "decl": "embedprivate.go:497",
+                              "pkg": "main"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "embedprivate.go",
+                              "line": 23,
+                              "column": 4,
+                              "offset": 506
+                            },
+                            "name": "Write",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Write",
+                              "kind": "method",
+                              "type": 3,
+                              "decl": "embedprivate.go:238",
+                              "pkg": "main"
+                            }
+                          },
+                          "$type": 3,
+                          "$sel": {
+                            "kind": "method",
+                            "recv": 8,
+                            "index": [
+                              0,
+                              0
+                            ],
+                            "indirect": false
+                          }
+                        },
+                        "lparen": {
+                          "file": "embedprivate.go",
+                          "line": 23,
+                          "column": 9,
+                          "offset": 511
+                        },
+                        "args": [
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "ArrayType",
+                              "lbrack": {
+                                "file": "embedprivate.go",
+                                "line": 23,
+                                "column": 10,
+                                "offset": 512
+                              },
+                              "len": null,
+                              "elt": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "embedprivate.go",
+                                  "line": 23,
+                                  "column": 12,
+                                  "offset": 514
+                                },
+                                "name": "byte",
+                                "obj": null,
+                                "$type": 5,
+                                "$isType": true,
+                                "$obj": {
+                                  "name": "byte",
+                                  "kind": "type",
+                                  "type": 5
+                                }
+                              },
+                              "$type": 4,
+                              "$isType": true
+                            },
+                            "lparen": {
+                              "file": "embedprivate.go",
+                              "line": 23,
+                              "column": 16,
+                              "offset": 518
+                            },
+                            "args": [
+                              {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "embedprivate.go",
+                                  "line": 23,
+                                  "column": 17,
+                                  "offset": 519
+                                },
+                                "valueEnd": {
+                                  "file": "embedprivate.go",
+                                  "line": 23,
+                                  "column": 22,
+                                  "offset": 524
+                                },
+                                "kind": "STRING",
+                                "value": "\"abc\"",
+                                "$type": 17,
+                                "$value": {
+                                  "kind": "string",
+                                  "value": "abc"
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "embedprivate.go",
+                              "line": 23,
+                              "column": 22,
+                              "offset": 524
+                            },
+                            "$type": 4
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "embedprivate.go",
+                          "line": 23,
+                          "column": 23,
+                          "offset": 525
+                        },
+                        "$type": 2
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "embedprivate.go",
+                              "line": 24,
+                              "column": 2,
+                              "offset": 528
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "embedprivate.go",
+                              "line": 24,
+                              "column": 6,
+                              "offset": 532
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 18,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 18
+                        },
+                        "lparen": {
+                          "file": "embedprivate.go",
+                          "line": 24,
+                          "column": 13,
+                          "offset": 539
+                        },
+                        "args": [
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "embedprivate.go",
+                                  "line": 24,
+                                  "column": 14,
+                                  "offset": 540
+                                },
+                                "name": "m",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "m",
+                                  "kind": "var"
+                                },
+                                "$type": 8,
+                                "$obj": {
+                                  "name": "m",
+                                  "kind": "var",
+                                  "type": 8,
+                                  "decl": "embedprivate.go:497",
+                                  "pkg": "main"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "embedprivate.go",
+                                  "line": 24,
+                                  "column": 16,
+                                  "offset": 542
+                                },
+                                "name": "Write",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "Write",
+                                  "kind": "method",
+                                  "type": 3,
+                                  "decl": "embedprivate.go:238",
+                                  "pkg": "main"
+                                }
+                              },
+                              "$type": 3,
+                              "$sel": {
+                                "kind": "method",
+                                "recv": 8,
+                                "index": [
+                                  0,
+                                  0
+                                ],
+                                "indirect": false
+                              }
+                            },
+                            "lparen": {
+                              "file": "embedprivate.go",
+                              "line": 24,
+                              "column": 21,
+                              "offset": 547
+                            },
+                            "args": [
+                              {
+                                "node": "CallExpr",
+                                "fun": {
+                                  "node": "ArrayType",
+                                  "lbrack": {
+                                    "file": "embedprivate.go",
+                                    "line": 24,
+                                    "column": 22,
+                                    "offset": 548
+                                  },
+                                  "len": null,
+                                  "elt": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "embedprivate.go",
+                                      "line": 24,
+                                      "column": 24,
+                                      "offset": 550
+                                    },
+                                    "name": "byte",
+                                    "obj": null,
+                                    "$type": 5,
+                                    "$isType": true,
+                                    "$obj": {
+                                      "name": "byte",
+                                      "kind": "type",
+                                      "type": 5
+                                    }
+                                  },
+                                  "$type": 4,
+                                  "$isType": true
+                                },
+                                "lparen": {
+                                  "file": "embedprivate.go",
+                                  "line": 24,
+                                  "column": 28,
+                                  "offset": 554
+                                },
+                                "args": [
+                                  {
+                                    "node": "BasicLit",
+                                    "valuePos": {
+                                      "file": "embedprivate.go",
+                                      "line": 24,
+                                      "column": 29,
+                                      "offset": 555
+                                    },
+                                    "valueEnd": {
+                                      "file": "embedprivate.go",
+                                      "line": 24,
+                                      "column": 33,
+                                      "offset": 559
+                                    },
+                                    "kind": "STRING",
+                                    "value": "\"de\"",
+                                    "$type": 17,
+                                    "$value": {
+                                      "kind": "string",
+                                      "value": "de"
+                                    }
+                                  }
+                                ],
+                                "ellipsis": null,
+                                "rparen": {
+                                  "file": "embedprivate.go",
+                                  "line": 24,
+                                  "column": 33,
+                                  "offset": 559
+                                },
+                                "$type": 4
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "embedprivate.go",
+                              "line": 24,
+                              "column": 34,
+                              "offset": 560
+                            },
+                            "$type": 2
+                          },
+                          {
+                            "node": "SelectorExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "embedprivate.go",
+                                "line": 24,
+                                "column": 37,
+                                "offset": 563
+                              },
+                              "name": "m",
+                              "obj": {
+                                "node": "Object",
+                                "name": "m",
+                                "kind": "var"
+                              },
+                              "$type": 8,
+                              "$obj": {
+                                "name": "m",
+                                "kind": "var",
+                                "type": 8,
+                                "decl": "embedprivate.go:497",
+                                "pkg": "main"
+                              }
+                            },
+                            "sel": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "embedprivate.go",
+                                "line": 24,
+                                "column": 39,
+                                "offset": 565
+                              },
+                              "name": "n",
+                              "obj": null,
+                              "$obj": {
+                                "name": "n",
+                                "kind": "field",
+                                "type": 2,
+                                "decl": "embedprivate.go:208",
+                                "pkg": "main"
+                              }
+                            },
+                            "$type": 2,
+                            "$sel": {
+                              "kind": "field",
+                              "recv": 8,
+                              "index": [
+                                0,
+                                0
+                              ],
+                              "indirect": false
+                            }
+                          },
+                          {
+                            "node": "SelectorExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "embedprivate.go",
+                                "line": 24,
+                                "column": 42,
+                                "offset": 568
+                              },
+                              "name": "m",
+                              "obj": {
+                                "node": "Object",
+                                "name": "m",
+                                "kind": "var"
+                              },
+                              "$type": 8,
+                              "$obj": {
+                                "name": "m",
+                                "kind": "var",
+                                "type": 8,
+                                "decl": "embedprivate.go:497",
+                                "pkg": "main"
+                              }
+                            },
+                            "sel": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "embedprivate.go",
+                                "line": 24,
+                                "column": 44,
+                                "offset": 570
+                              },
+                              "name": "macGeneric",
+                              "obj": null,
+                              "$obj": {
+                                "name": "macGeneric",
+                                "kind": "field",
+                                "type": 0,
+                                "decl": "embedprivate.go:306",
+                                "pkg": "main",
+                                "embedded": true
+                              }
+                            },
+                            "$type": 0,
+                            "$sel": {
+                              "kind": "field",
+                              "recv": 8,
+                              "index": [
+                                0
+                              ],
+                              "indirect": false
+                            }
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "embedprivate.go",
+                          "line": 24,
+                          "column": 54,
+                          "offset": 580
+                        },
+                        "$type": 24
+                      }
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "embedprivate.go",
+                            "line": 25,
+                            "column": 2,
+                            "offset": 583
+                          },
+                          "name": "s",
+                          "obj": {
+                            "node": "Object",
+                            "name": "s",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "s",
+                            "kind": "var",
+                            "def": true,
+                            "type": 11,
+                            "decl": "embedprivate.go:583",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "embedprivate.go",
+                        "line": 25,
+                        "column": 4,
+                        "offset": 585
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "CompositeLit",
+                          "type": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "embedprivate.go",
+                              "line": 25,
+                              "column": 7,
+                              "offset": 588
+                            },
+                            "name": "state",
+                            "obj": {
+                              "node": "Object",
+                              "name": "state",
+                              "kind": "type"
+                            },
+                            "$type": 11,
+                            "$isType": true,
+                            "$obj": {
+                              "name": "state",
+                              "kind": "type",
+                              "type": 11,
+                              "decl": "embedprivate.go:342",
+                              "pkg": "main",
+                              "top": true
+                            }
+                          },
+                          "lbrace": {
+                            "file": "embedprivate.go",
+                            "line": 25,
+                            "column": 12,
+                            "offset": 593
+                          },
+                          "elts": [
+                            {
+                              "node": "KeyValueExpr",
+                              "key": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "embedprivate.go",
+                                  "line": 25,
+                                  "column": 13,
+                                  "offset": 594
+                                },
+                                "name": "buf",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "buf",
+                                  "kind": "type"
+                                },
+                                "$obj": {
+                                  "name": "buf",
+                                  "kind": "field",
+                                  "type": 10,
+                                  "decl": "embedprivate.go:358",
+                                  "pkg": "main"
+                                }
+                              },
+                              "colon": {
+                                "file": "embedprivate.go",
+                                "line": 25,
+                                "column": 16,
+                                "offset": 597
+                              },
+                              "value": {
+                                "node": "CallExpr",
+                                "fun": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "embedprivate.go",
+                                    "line": 25,
+                                    "column": 18,
+                                    "offset": 599
+                                  },
+                                  "name": "buf",
+                                  "obj": {
+                                    "node": "Object",
+                                    "name": "buf",
+                                    "kind": "type"
+                                  },
+                                  "$type": 10,
+                                  "$isType": true,
+                                  "$obj": {
+                                    "name": "buf",
+                                    "kind": "type",
+                                    "type": 10,
+                                    "decl": "embedprivate.go:325",
+                                    "pkg": "main",
+                                    "top": true
+                                  }
+                                },
+                                "lparen": {
+                                  "file": "embedprivate.go",
+                                  "line": 25,
+                                  "column": 21,
+                                  "offset": 602
+                                },
+                                "args": [
+                                  {
+                                    "node": "BasicLit",
+                                    "valuePos": {
+                                      "file": "embedprivate.go",
+                                      "line": 25,
+                                      "column": 22,
+                                      "offset": 603
+                                    },
+                                    "valueEnd": {
+                                      "file": "embedprivate.go",
+                                      "line": 25,
+                                      "column": 27,
+                                      "offset": 608
+                                    },
+                                    "kind": "STRING",
+                                    "value": "\"xyz\"",
+                                    "$type": 17,
+                                    "$value": {
+                                      "kind": "string",
+                                      "value": "xyz"
+                                    }
+                                  }
+                                ],
+                                "ellipsis": null,
+                                "rparen": {
+                                  "file": "embedprivate.go",
+                                  "line": 25,
+                                  "column": 27,
+                                  "offset": 608
+                                },
+                                "$type": 10
+                              }
+                            }
+                          ],
+                          "rbrace": {
+                            "file": "embedprivate.go",
+                            "line": 25,
+                            "column": 28,
+                            "offset": 609
+                          },
+                          "incomplete": false,
+                          "$type": 11
+                        }
+                      ]
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "embedprivate.go",
+                              "line": 26,
+                              "column": 2,
+                              "offset": 612
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "embedprivate.go",
+                              "line": 26,
+                              "column": 6,
+                              "offset": 616
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 18,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 18
+                        },
+                        "lparen": {
+                          "file": "embedprivate.go",
+                          "line": 26,
+                          "column": 13,
+                          "offset": 623
+                        },
+                        "args": [
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "embedprivate.go",
+                                  "line": 26,
+                                  "column": 14,
+                                  "offset": 624
+                                },
+                                "name": "s",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "s",
+                                  "kind": "var"
+                                },
+                                "$type": 11,
+                                "$obj": {
+                                  "name": "s",
+                                  "kind": "var",
+                                  "type": 11,
+                                  "decl": "embedprivate.go:583",
+                                  "pkg": "main"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "embedprivate.go",
+                                  "line": 26,
+                                  "column": 16,
+                                  "offset": 626
+                                },
+                                "name": "state",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "state",
+                                  "kind": "method",
+                                  "type": 13,
+                                  "decl": "embedprivate.go:413",
+                                  "pkg": "main"
+                                }
+                              },
+                              "$type": 13,
+                              "$sel": {
+                                "kind": "method",
+                                "recv": 11,
+                                "index": [
+                                  0
+                                ],
+                                "indirect": false
+                              }
+                            },
+                            "lparen": {
+                              "file": "embedprivate.go",
+                              "line": 26,
+                              "column": 21,
+                              "offset": 631
+                            },
+                            "args": null,
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "embedprivate.go",
+                              "line": 26,
+                              "column": 22,
+                              "offset": 632
+                            },
+                            "$type": 2
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "embedprivate.go",
+                                "line": 26,
+                                "column": 25,
+                                "offset": 635
+                              },
+                              "name": "string",
+                              "obj": null,
+                              "$type": 17,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "string",
+                                "kind": "type",
+                                "type": 17
+                              }
+                            },
+                            "lparen": {
+                              "file": "embedprivate.go",
+                              "line": 26,
+                              "column": 31,
+                              "offset": 641
+                            },
+                            "args": [
+                              {
+                                "node": "SelectorExpr",
+                                "x": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "embedprivate.go",
+                                    "line": 26,
+                                    "column": 32,
+                                    "offset": 642
+                                  },
+                                  "name": "s",
+                                  "obj": {
+                                    "node": "Object",
+                                    "name": "s",
+                                    "kind": "var"
+                                  },
+                                  "$type": 11,
+                                  "$obj": {
+                                    "name": "s",
+                                    "kind": "var",
+                                    "type": 11,
+                                    "decl": "embedprivate.go:583",
+                                    "pkg": "main"
+                                  }
+                                },
+                                "sel": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "embedprivate.go",
+                                    "line": 26,
+                                    "column": 34,
+                                    "offset": 644
+                                  },
+                                  "name": "buf",
+                                  "obj": null,
+                                  "$obj": {
+                                    "name": "buf",
+                                    "kind": "field",
+                                    "type": 10,
+                                    "decl": "embedprivate.go:358",
+                                    "pkg": "main"
+                                  }
+                                },
+                                "$type": 10,
+                                "$sel": {
+                                  "kind": "field",
+                                  "recv": 11,
+                                  "index": [
+                                    0
+                                  ],
+                                  "indirect": false
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "embedprivate.go",
+                              "line": 26,
+                              "column": 37,
+                              "offset": 647
+                            },
+                            "$type": 17
+                          },
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "embedprivate.go",
+                              "line": 26,
+                              "column": 40,
+                              "offset": 650
+                            },
+                            "name": "s",
+                            "obj": {
+                              "node": "Object",
+                              "name": "s",
+                              "kind": "var"
+                            },
+                            "$type": 11,
+                            "$obj": {
+                              "name": "s",
+                              "kind": "var",
+                              "type": 11,
+                              "decl": "embedprivate.go:583",
+                              "pkg": "main"
+                            }
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "embedprivate.go",
+                          "line": 26,
+                          "column": 41,
+                          "offset": 651
+                        },
+                        "$type": 24
+                      }
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "embedprivate.go",
+                    "line": 27,
+                    "column": 1,
+                    "offset": 653
+                  }
+                }
+              }
+            ],
+            "fileStart": {
+              "file": "embedprivate.go",
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "fileEnd": {
+              "file": "embedprivate.go",
+              "line": 27,
+              "column": 3,
+              "offset": 655
+            },
+            "scope": null,
+            "imports": [
+              {
+                "node": "ImportSpec",
+                "doc": null,
+                "name": null,
+                "path": {
+                  "node": "BasicLit",
+                  "valuePos": {
+                    "file": "embedprivate.go",
+                    "line": 5,
+                    "column": 8,
+                    "offset": 177
+                  },
+                  "valueEnd": {
+                    "file": "embedprivate.go",
+                    "line": 5,
+                    "column": 13,
+                    "offset": 182
+                  },
+                  "kind": "STRING",
+                  "value": "\"fmt\""
+                },
+                "comment": null,
+                "endPos": null
+              }
+            ],
+            "unresolved": [
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "embedprivate.go",
+                  "line": 7,
+                  "column": 27,
+                  "offset": 210
+                },
+                "name": "int",
+                "obj": null,
+                "$type": 2,
+                "$isType": true,
+                "$obj": {
+                  "name": "int",
+                  "kind": "type",
+                  "type": 2
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "embedprivate.go",
+                  "line": 9,
+                  "column": 32,
+                  "offset": 248
+                },
+                "name": "byte",
+                "obj": null,
+                "$type": 5,
+                "$isType": true,
+                "$obj": {
+                  "name": "byte",
+                  "kind": "type",
+                  "type": 5
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "embedprivate.go",
+                  "line": 9,
+                  "column": 38,
+                  "offset": 254
+                },
+                "name": "int",
+                "obj": null,
+                "$type": 2,
+                "$isType": true,
+                "$obj": {
+                  "name": "int",
+                  "kind": "type",
+                  "type": 2
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "embedprivate.go",
+                  "line": 9,
+                  "column": 51,
+                  "offset": 267
+                },
+                "name": "len",
+                "obj": null,
+                "$type": 3,
+                "$builtin": true,
+                "$obj": {
+                  "name": "len",
+                  "kind": "builtin",
+                  "type": 7
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "embedprivate.go",
+                  "line": 13,
+                  "column": 12,
+                  "offset": 331
+                },
+                "name": "byte",
+                "obj": null,
+                "$type": 5,
+                "$isType": true,
+                "$obj": {
+                  "name": "byte",
+                  "kind": "type",
+                  "type": 5
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "embedprivate.go",
+                  "line": 19,
+                  "column": 25,
+                  "offset": 421
+                },
+                "name": "int",
+                "obj": null,
+                "$type": 2,
+                "$isType": true,
+                "$obj": {
+                  "name": "int",
+                  "kind": "type",
+                  "type": 2
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "embedprivate.go",
+                  "line": 19,
+                  "column": 38,
+                  "offset": 434
+                },
+                "name": "len",
+                "obj": null,
+                "$type": 15,
+                "$builtin": true,
+                "$obj": {
+                  "name": "len",
+                  "kind": "builtin",
+                  "type": 7
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "embedprivate.go",
+                  "line": 23,
+                  "column": 12,
+                  "offset": 514
+                },
+                "name": "byte",
+                "obj": null,
+                "$type": 5,
+                "$isType": true,
+                "$obj": {
+                  "name": "byte",
+                  "kind": "type",
+                  "type": 5
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "embedprivate.go",
+                  "line": 24,
+                  "column": 2,
+                  "offset": 528
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "embedprivate.go",
+                  "line": 24,
+                  "column": 24,
+                  "offset": 550
+                },
+                "name": "byte",
+                "obj": null,
+                "$type": 5,
+                "$isType": true,
+                "$obj": {
+                  "name": "byte",
+                  "kind": "type",
+                  "type": 5
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "embedprivate.go",
+                  "line": 26,
+                  "column": 2,
+                  "offset": 612
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "embedprivate.go",
+                  "line": 26,
+                  "column": 25,
+                  "offset": 635
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 17,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 17
+                }
+              }
+            ],
+            "comments": [
+              {
+                "node": "CommentGroup",
+                "list": [
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "embedprivate.go",
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "text": "// Membro com o nome de um tipo não exportado (golang.org/x/crypto/internal/poly1305:"
+                  },
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "embedprivate.go",
+                      "line": 2,
+                      "column": 1,
+                      "offset": 87
+                    },
+                    "text": "// type mac struct{ macGeneric }): o tipo vira `_t$`, o membro `_t`."
+                  }
+                ]
+              },
+              {
+                "node": "CommentGroup",
+                "list": [
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "embedprivate.go",
+                      "line": 16,
+                      "column": 10,
+                      "offset": 366
+                    },
+                    "text": "// campo com o nome do tipo"
+                  }
+                ]
+              },
+              {
+                "node": "CommentGroup",
+                "list": [
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "embedprivate.go",
+                      "line": 19,
+                      "column": 51,
+                      "offset": 447
+                    },
+                    "text": "// método com o nome do tipo"
+                  }
+                ]
+              }
+            ],
+            "goVersion": ""
+          }
+        }
+      ],
+      "imports": [
+        {
+          "path": "fmt",
+          "name": "fmt"
+        }
+      ],
+      "typeTable": [
+        {
+          "kind": "named",
+          "pkg": "main",
+          "name": "macGeneric",
+          "underlying": 1,
+          "methods": [
+            {
+              "name": "Write",
+              "type": 3,
+              "index": [
+                0
+              ],
+              "ptr": true
+            }
+          ]
+        },
+        {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "n",
+              "type": 2,
+              "embedded": false,
+              "tag": ""
+            }
+          ]
+        },
+        {
+          "kind": "basic",
+          "name": "int"
+        },
+        {
+          "kind": "func",
+          "params": [
+            4
+          ],
+          "results": [
+            2
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "slice",
+          "elem": 5
+        },
+        {
+          "kind": "basic",
+          "name": "byte"
+        },
+        {
+          "kind": "pointer",
+          "elem": 0
+        },
+        {
+          "kind": "basic",
+          "name": "invalid type"
+        },
+        {
+          "kind": "named",
+          "pkg": "main",
+          "name": "mac",
+          "underlying": 9,
+          "methods": [
+            {
+              "name": "Write",
+              "type": 3,
+              "index": [
+                0,
+                0
+              ],
+              "ptr": true
+            }
+          ]
+        },
+        {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "macGeneric",
+              "type": 0,
+              "embedded": true,
+              "tag": ""
+            }
+          ]
+        },
+        {
+          "kind": "named",
+          "pkg": "main",
+          "name": "buf",
+          "underlying": 4,
+          "methods": []
+        },
+        {
+          "kind": "named",
+          "pkg": "main",
+          "name": "state",
+          "underlying": 12,
+          "methods": [
+            {
+              "name": "state",
+              "type": 13,
+              "index": [
+                0
+              ],
+              "ptr": true
+            }
+          ]
+        },
+        {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "buf",
+              "type": 10,
+              "embedded": false,
+              "tag": ""
+            }
+          ]
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            2
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "pointer",
+          "elem": 11
+        },
+        {
+          "kind": "func",
+          "params": [
+            10
+          ],
+          "results": [
+            2
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [],
+          "variadic": false
+        },
+        {
+          "kind": "basic",
+          "name": "string"
+        },
+        {
+          "kind": "func",
+          "params": [
+            19
+          ],
+          "results": [
+            2,
+            21
+          ],
+          "variadic": true
+        },
+        {
+          "kind": "slice",
+          "elem": 20
+        },
+        {
+          "kind": "interface",
+          "methods": [],
+          "embeddeds": []
+        },
+        {
+          "kind": "named",
+          "pkg": "",
+          "name": "error",
+          "underlying": 22
+        },
+        {
+          "kind": "interface",
+          "methods": [
+            {
+              "name": "Error",
+              "type": 23
+            }
+          ],
+          "embeddeds": []
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            17
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "tuple",
+          "elems": [
+            2,
+            21
+          ]
+        }
+      ],
+      "implements": null,
+      "initOrder": [],
+      "stdlibUsage": [
+        "fmt.Println"
+      ],
+      "reflectUsage": null
+    }
+  ]
+}

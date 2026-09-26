@@ -87,11 +87,13 @@ def member_name(name):
 
 
 def type_name(name):
-    """Tipos: exportado mantém o nome; não exportado ganha `_`. `Golang` é o
-    prefixo dos tipos fixos."""
+    """Tipos: exportado mantém o nome; não exportado ganha `_` e `$`. `Golang`
+    é o prefixo dos tipos fixos."""
     if name == GOLANG_PREFIX or name in DART_CORE_USED:
         return name + "$"
-    return ascii_name(name) if is_exported(name) else "_" + ascii_name(name)
+    # Não exportado: `_t$`, nunca igual a um membro não exportado `_t` (um
+    # campo embutido `t` ou método `t` dentro da classe sombrearia o tipo).
+    return ascii_name(name) if is_exported(name) else "_" + ascii_name(name) + "$"
 
 
 def local_name(name):
