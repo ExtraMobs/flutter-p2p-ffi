@@ -106,28 +106,25 @@ func Dump(target string) (*DumpDoc, error) {
 // resolveTarget interpreta o alvo: diretório vira pattern "." com Dir
 // ajustado; "dir/..." vira pattern "./..." com Dir = dir; o restante é
 // tratado como padrão de pacote (import path ou ./...).
+//
+// O sufixo "/..." é testado antes do diretório: no Windows, os.Stat("dir\...")
+// normaliza o componente "..." e devolve o próprio dir.
 func resolveTarget(cfg *packages.Config, target string) (string, error) {
-	if st, err := os.Stat(filepath.FromSlash(target)); err == nil && st.IsDir() {
-		abs, err := filepath.Abs(filepath.FromSlash(target))
+	pattern := "."
+	dir := target
+	if strings.HasSuffix(target, "/...") {
+		pattern, dir = "./...", strings.TrimSuffix(target, "/...")
+		if dir == "" || dir == "." {
+			return pattern, nil
+		}
+	}
+	if st, err := os.Stat(filepath.FromSlash(dir)); err == nil && st.IsDir() {
+		abs, err := filepath.Abs(filepath.FromSlash(dir))
 		if err != nil {
 			return "", err
 		}
 		cfg.Dir = abs
-		return ".", nil
-	}
-	if strings.HasSuffix(target, "/...") {
-		dir := strings.TrimSuffix(target, "/...")
-		if dir == "" || dir == "." {
-			return "./...", nil
-		}
-		if st, err := os.Stat(filepath.FromSlash(dir)); err == nil && st.IsDir() {
-			abs, err := filepath.Abs(filepath.FromSlash(dir))
-			if err != nil {
-				return "", err
-			}
-			cfg.Dir = abs
-			return "./...", nil
-		}
+		return pattern, nil
 	}
 	return target, nil
 }

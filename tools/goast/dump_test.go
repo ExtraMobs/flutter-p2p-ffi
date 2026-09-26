@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"go/constant"
+	"os"
+	"path/filepath"
 	"sort"
 	"strings"
 	"testing"
@@ -188,4 +190,42 @@ func TestInitOrder(t *testing.T) {
 	if idx("b.go") < 0 {
 		t.Errorf("fromB (b.go) ausente: %v", names)
 	}
+}
+
+// TestDumpPatternDir cobre "dir/..." e "./..." num módulo sem .go na raiz
+// (no Windows, os.Stat("dir\...") devolvia o próprio dir).
+func TestDumpPatternDir(t *testing.T) {
+	dir := t.TempDir()
+	files := map[string]string{
+		"go.mod":      "module repro.local/mp\n\ngo 1.26\n",
+		"a/a.go":      "package a\n\nvar X = 1\n",
+		"cmd/main.go": "package main\n\nimport \"repro.local/mp/a\"\n\nfunc main() { println(a.X) }\n",
+	}
+	for name, src := range files {
+		path := filepath.Join(dir, filepath.FromSlash(name))
+		if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
+			t.Fatal(err)
+		}
+		if err := os.WriteFile(path, []byte(src), 0o644); err != nil {
+			t.Fatal(err)
+		}
+	}
+	want := []string{"repro.local/mp/a", "repro.local/mp/cmd"}
+	check := func(target string) {
+		t.Helper()
+		doc, err := Dump(target)
+		if err != nil {
+			t.Fatalf("Dump(%q): %v", target, err)
+		}
+		var got []string
+		for _, p := range doc.Packages {
+			got = append(got, p.Path)
+		}
+		if strings.Join(got, " ") != strings.Join(want, " ") {
+			t.Errorf("Dump(%q) = %v, esperado %v", target, got, want)
+		}
+	}
+	check(filepath.ToSlash(dir) + "/...")
+	t.Chdir(dir)
+	check("./...")
 }
