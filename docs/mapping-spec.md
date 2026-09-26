@@ -233,7 +233,7 @@ criado com `identity: true` (`Map.identity()`), então compara endereços.
 
 | Go | Dart |
 |---|---|
-| expressão constante (incl. `iota` e constantes importadas) | literal do valor exato calculado pelo `go/types` |
+| expressão constante (incl. `iota`, constantes importadas e constantes locais de função) | literal do valor exato calculado pelo `go/types`; `const` local não gera declaração (cada uso já é o literal) |
 | literal string | `Golang.String.fromDart('...')`; UTF-8 inválido → `go.stringOfBytes(const [...])` |
 | `a / b`, `a % b` inteiros | `a ~/ b`, `a % b` (as classes implementam o truncamento do Go) |
 | `a &^ b`, `^x` | `a.andNot(b)`, `~x` |

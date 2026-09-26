@@ -48,6 +48,8 @@ class DeclStmt(StmtBehavior):
         d = s["decl"]
         if d["tok"] == "type":
             return []  # içado para a library (LocalTypesAnalysis)
+        if d["tok"] == "const":
+            return []  # cada uso já é o literal exato do go/types
         if d["tok"] not in ("var", "const"):
             raise Unsupported(f"decl-local:{d['tok']}", f"declaração local {d['tok']}", s)
         return [ln for spec in d["specs"] for ln in self.vars.value_spec(spec, d["tok"])]

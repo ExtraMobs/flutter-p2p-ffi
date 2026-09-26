@@ -1,0 +1,3024 @@
+{
+  "schemaVersion": 7,
+  "tool": "goast",
+  "goVersion": "go1.26.5",
+  "packages": [
+    {
+      "path": "main",
+      "name": "main",
+      "files": [
+        {
+          "path": "localconst.go",
+          "ast": {
+            "node": "File",
+            "doc": {
+              "node": "CommentGroup",
+              "list": [
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "localconst.go",
+                    "line": 1,
+                    "column": 1,
+                    "offset": 0
+                  },
+                  "text": "// Constantes declaradas dentro de função (ident:const: 58 pacotes no audit"
+                },
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "localconst.go",
+                    "line": 2,
+                    "column": 1,
+                    "offset": 78
+                  },
+                  "text": "// do kubo, ex. gonum/mathext EllipticRF)."
+                }
+              ]
+            },
+            "package": {
+              "file": "localconst.go",
+              "line": 3,
+              "column": 1,
+              "offset": 121
+            },
+            "name": {
+              "node": "Ident",
+              "namePos": {
+                "file": "localconst.go",
+                "line": 3,
+                "column": 9,
+                "offset": 129
+              },
+              "name": "main",
+              "obj": null
+            },
+            "decls": [
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "localconst.go",
+                  "line": 5,
+                  "column": 1,
+                  "offset": 135
+                },
+                "tok": "import",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "ImportSpec",
+                    "doc": null,
+                    "name": null,
+                    "path": {
+                      "node": "BasicLit",
+                      "valuePos": {
+                        "file": "localconst.go",
+                        "line": 5,
+                        "column": 8,
+                        "offset": 142
+                      },
+                      "valueEnd": {
+                        "file": "localconst.go",
+                        "line": 5,
+                        "column": 13,
+                        "offset": 147
+                      },
+                      "kind": "STRING",
+                      "value": "\"fmt\""
+                    },
+                    "comment": null,
+                    "endPos": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "localconst.go",
+                  "line": 7,
+                  "column": 1,
+                  "offset": 149
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "localconst.go",
+                        "line": 7,
+                        "column": 6,
+                        "offset": 154
+                      },
+                      "name": "Level",
+                      "obj": {
+                        "node": "Object",
+                        "name": "Level",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "Level",
+                        "kind": "type",
+                        "def": true,
+                        "type": 0,
+                        "decl": "localconst.go:154",
+                        "pkg": "main",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "localconst.go",
+                        "line": 7,
+                        "column": 12,
+                        "offset": 160
+                      },
+                      "name": "int8",
+                      "obj": null,
+                      "$type": 1,
+                      "$isType": true,
+                      "$obj": {
+                        "name": "int8",
+                        "kind": "type",
+                        "type": 1
+                      }
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "localconst.go",
+                  "line": 9,
+                  "column": 1,
+                  "offset": 166
+                },
+                "tok": "const",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "ValueSpec",
+                    "doc": null,
+                    "names": [
+                      {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "localconst.go",
+                          "line": 9,
+                          "column": 7,
+                          "offset": 172
+                        },
+                        "name": "limit",
+                        "obj": {
+                          "node": "Object",
+                          "name": "limit",
+                          "kind": "const"
+                        },
+                        "$obj": {
+                          "name": "limit",
+                          "kind": "const",
+                          "def": true,
+                          "type": 2,
+                          "decl": "localconst.go:172",
+                          "pkg": "main",
+                          "top": true,
+                          "value": {
+                            "kind": "int",
+                            "value": "1"
+                          }
+                        }
+                      }
+                    ],
+                    "type": null,
+                    "values": [
+                      {
+                        "node": "BasicLit",
+                        "valuePos": {
+                          "file": "localconst.go",
+                          "line": 9,
+                          "column": 15,
+                          "offset": 180
+                        },
+                        "valueEnd": {
+                          "file": "localconst.go",
+                          "line": 9,
+                          "column": 16,
+                          "offset": 181
+                        },
+                        "kind": "INT",
+                        "value": "1",
+                        "$type": 2,
+                        "$value": {
+                          "kind": "int",
+                          "value": "1"
+                        }
+                      }
+                    ],
+                    "comment": {
+                      "node": "CommentGroup",
+                      "list": [
+                        {
+                          "node": "Comment",
+                          "slash": {
+                            "file": "localconst.go",
+                            "line": 9,
+                            "column": 17,
+                            "offset": 182
+                          },
+                          "text": "// de pacote, sombreada abaixo"
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "localconst.go",
+                    "line": 11,
+                    "column": 6,
+                    "offset": 219
+                  },
+                  "name": "main",
+                  "obj": {
+                    "node": "Object",
+                    "name": "main",
+                    "kind": "func"
+                  },
+                  "$obj": {
+                    "name": "main",
+                    "kind": "func",
+                    "def": true,
+                    "type": 3,
+                    "decl": "localconst.go:219",
+                    "pkg": "main",
+                    "top": true
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "localconst.go",
+                    "line": 11,
+                    "column": 1,
+                    "offset": 214
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "localconst.go",
+                      "line": 11,
+                      "column": 10,
+                      "offset": 223
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "localconst.go",
+                      "line": 11,
+                      "column": 11,
+                      "offset": 224
+                    }
+                  },
+                  "results": null
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "localconst.go",
+                    "line": 11,
+                    "column": 13,
+                    "offset": 226
+                  },
+                  "list": [
+                    {
+                      "node": "DeclStmt",
+                      "decl": {
+                        "node": "GenDecl",
+                        "doc": null,
+                        "tokPos": {
+                          "file": "localconst.go",
+                          "line": 12,
+                          "column": 2,
+                          "offset": 229
+                        },
+                        "tok": "const",
+                        "lparen": {
+                          "file": "localconst.go",
+                          "line": 12,
+                          "column": 8,
+                          "offset": 235
+                        },
+                        "specs": [
+                          {
+                            "node": "ValueSpec",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "localconst.go",
+                                  "line": 13,
+                                  "column": 3,
+                                  "offset": 239
+                                },
+                                "name": "lower",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "lower",
+                                  "kind": "const"
+                                },
+                                "$obj": {
+                                  "name": "lower",
+                                  "kind": "const",
+                                  "def": true,
+                                  "type": 4,
+                                  "decl": "localconst.go:239",
+                                  "pkg": "main",
+                                  "value": {
+                                    "kind": "float",
+                                    "value": "1.1125369292536007e-307"
+                                  }
+                                }
+                              }
+                            ],
+                            "type": null,
+                            "values": [
+                              {
+                                "node": "BinaryExpr",
+                                "x": {
+                                  "node": "BinaryExpr",
+                                  "x": {
+                                    "node": "BinaryExpr",
+                                    "x": {
+                                      "node": "BinaryExpr",
+                                      "x": {
+                                        "node": "BasicLit",
+                                        "valuePos": {
+                                          "file": "localconst.go",
+                                          "line": 13,
+                                          "column": 11,
+                                          "offset": 247
+                                        },
+                                        "valueEnd": {
+                                          "file": "localconst.go",
+                                          "line": 13,
+                                          "column": 14,
+                                          "offset": 250
+                                        },
+                                        "kind": "FLOAT",
+                                        "value": "5.0",
+                                        "$type": 4,
+                                        "$value": {
+                                          "kind": "float",
+                                          "value": "5"
+                                        }
+                                      },
+                                      "opPos": {
+                                        "file": "localconst.go",
+                                        "line": 13,
+                                        "column": 15,
+                                        "offset": 251
+                                      },
+                                      "op": "/",
+                                      "y": {
+                                        "node": "ParenExpr",
+                                        "lparen": {
+                                          "file": "localconst.go",
+                                          "line": 13,
+                                          "column": 17,
+                                          "offset": 253
+                                        },
+                                        "x": {
+                                          "node": "BinaryExpr",
+                                          "x": {
+                                            "node": "BasicLit",
+                                            "valuePos": {
+                                              "file": "localconst.go",
+                                              "line": 13,
+                                              "column": 18,
+                                              "offset": 254
+                                            },
+                                            "valueEnd": {
+                                              "file": "localconst.go",
+                                              "line": 13,
+                                              "column": 19,
+                                              "offset": 255
+                                            },
+                                            "kind": "INT",
+                                            "value": "1",
+                                            "$type": 2,
+                                            "$value": {
+                                              "kind": "int",
+                                              "value": "1"
+                                            }
+                                          },
+                                          "opPos": {
+                                            "file": "localconst.go",
+                                            "line": 13,
+                                            "column": 20,
+                                            "offset": 256
+                                          },
+                                          "op": "\u003c\u003c",
+                                          "y": {
+                                            "node": "BasicLit",
+                                            "valuePos": {
+                                              "file": "localconst.go",
+                                              "line": 13,
+                                              "column": 23,
+                                              "offset": 259
+                                            },
+                                            "valueEnd": {
+                                              "file": "localconst.go",
+                                              "line": 13,
+                                              "column": 26,
+                                              "offset": 262
+                                            },
+                                            "kind": "INT",
+                                            "value": "256",
+                                            "$type": 2,
+                                            "$value": {
+                                              "kind": "int",
+                                              "value": "256"
+                                            }
+                                          },
+                                          "$type": 4,
+                                          "$value": {
+                                            "kind": "int",
+                                            "value": "115792089237316195423570985008687907853269984665640564039457584007913129639936"
+                                          }
+                                        },
+                                        "rparen": {
+                                          "file": "localconst.go",
+                                          "line": 13,
+                                          "column": 26,
+                                          "offset": 262
+                                        },
+                                        "$type": 4,
+                                        "$value": {
+                                          "kind": "int",
+                                          "value": "115792089237316195423570985008687907853269984665640564039457584007913129639936"
+                                        }
+                                      },
+                                      "$type": 4,
+                                      "$value": {
+                                        "kind": "float",
+                                        "value": "4.318084277547222e-77"
+                                      }
+                                    },
+                                    "opPos": {
+                                      "file": "localconst.go",
+                                      "line": 13,
+                                      "column": 28,
+                                      "offset": 264
+                                    },
+                                    "op": "/",
+                                    "y": {
+                                      "node": "ParenExpr",
+                                      "lparen": {
+                                        "file": "localconst.go",
+                                        "line": 13,
+                                        "column": 30,
+                                        "offset": 266
+                                      },
+                                      "x": {
+                                        "node": "BinaryExpr",
+                                        "x": {
+                                          "node": "BasicLit",
+                                          "valuePos": {
+                                            "file": "localconst.go",
+                                            "line": 13,
+                                            "column": 31,
+                                            "offset": 267
+                                          },
+                                          "valueEnd": {
+                                            "file": "localconst.go",
+                                            "line": 13,
+                                            "column": 32,
+                                            "offset": 268
+                                          },
+                                          "kind": "INT",
+                                          "value": "1",
+                                          "$type": 2,
+                                          "$value": {
+                                            "kind": "int",
+                                            "value": "1"
+                                          }
+                                        },
+                                        "opPos": {
+                                          "file": "localconst.go",
+                                          "line": 13,
+                                          "column": 33,
+                                          "offset": 269
+                                        },
+                                        "op": "\u003c\u003c",
+                                        "y": {
+                                          "node": "BasicLit",
+                                          "valuePos": {
+                                            "file": "localconst.go",
+                                            "line": 13,
+                                            "column": 36,
+                                            "offset": 272
+                                          },
+                                          "valueEnd": {
+                                            "file": "localconst.go",
+                                            "line": 13,
+                                            "column": 39,
+                                            "offset": 275
+                                          },
+                                          "kind": "INT",
+                                          "value": "256",
+                                          "$type": 2,
+                                          "$value": {
+                                            "kind": "int",
+                                            "value": "256"
+                                          }
+                                        },
+                                        "$type": 4,
+                                        "$value": {
+                                          "kind": "int",
+                                          "value": "115792089237316195423570985008687907853269984665640564039457584007913129639936"
+                                        }
+                                      },
+                                      "rparen": {
+                                        "file": "localconst.go",
+                                        "line": 13,
+                                        "column": 39,
+                                        "offset": 275
+                                      },
+                                      "$type": 4,
+                                      "$value": {
+                                        "kind": "int",
+                                        "value": "115792089237316195423570985008687907853269984665640564039457584007913129639936"
+                                      }
+                                    },
+                                    "$type": 4,
+                                    "$value": {
+                                      "kind": "float",
+                                      "value": "3.7291703656001034e-154"
+                                    }
+                                  },
+                                  "opPos": {
+                                    "file": "localconst.go",
+                                    "line": 13,
+                                    "column": 41,
+                                    "offset": 277
+                                  },
+                                  "op": "/",
+                                  "y": {
+                                    "node": "ParenExpr",
+                                    "lparen": {
+                                      "file": "localconst.go",
+                                      "line": 13,
+                                      "column": 43,
+                                      "offset": 279
+                                    },
+                                    "x": {
+                                      "node": "BinaryExpr",
+                                      "x": {
+                                        "node": "BasicLit",
+                                        "valuePos": {
+                                          "file": "localconst.go",
+                                          "line": 13,
+                                          "column": 44,
+                                          "offset": 280
+                                        },
+                                        "valueEnd": {
+                                          "file": "localconst.go",
+                                          "line": 13,
+                                          "column": 45,
+                                          "offset": 281
+                                        },
+                                        "kind": "INT",
+                                        "value": "1",
+                                        "$type": 2,
+                                        "$value": {
+                                          "kind": "int",
+                                          "value": "1"
+                                        }
+                                      },
+                                      "opPos": {
+                                        "file": "localconst.go",
+                                        "line": 13,
+                                        "column": 46,
+                                        "offset": 282
+                                      },
+                                      "op": "\u003c\u003c",
+                                      "y": {
+                                        "node": "BasicLit",
+                                        "valuePos": {
+                                          "file": "localconst.go",
+                                          "line": 13,
+                                          "column": 49,
+                                          "offset": 285
+                                        },
+                                        "valueEnd": {
+                                          "file": "localconst.go",
+                                          "line": 13,
+                                          "column": 52,
+                                          "offset": 288
+                                        },
+                                        "kind": "INT",
+                                        "value": "256",
+                                        "$type": 2,
+                                        "$value": {
+                                          "kind": "int",
+                                          "value": "256"
+                                        }
+                                      },
+                                      "$type": 4,
+                                      "$value": {
+                                        "kind": "int",
+                                        "value": "115792089237316195423570985008687907853269984665640564039457584007913129639936"
+                                      }
+                                    },
+                                    "rparen": {
+                                      "file": "localconst.go",
+                                      "line": 13,
+                                      "column": 52,
+                                      "offset": 288
+                                    },
+                                    "$type": 4,
+                                    "$value": {
+                                      "kind": "int",
+                                      "value": "115792089237316195423570985008687907853269984665640564039457584007913129639936"
+                                    }
+                                  },
+                                  "$type": 4,
+                                  "$value": {
+                                    "kind": "float",
+                                    "value": "3.2205743847985667e-231"
+                                  }
+                                },
+                                "opPos": {
+                                  "file": "localconst.go",
+                                  "line": 13,
+                                  "column": 54,
+                                  "offset": 290
+                                },
+                                "op": "/",
+                                "y": {
+                                  "node": "ParenExpr",
+                                  "lparen": {
+                                    "file": "localconst.go",
+                                    "line": 13,
+                                    "column": 56,
+                                    "offset": 292
+                                  },
+                                  "x": {
+                                    "node": "BinaryExpr",
+                                    "x": {
+                                      "node": "BasicLit",
+                                      "valuePos": {
+                                        "file": "localconst.go",
+                                        "line": 13,
+                                        "column": 57,
+                                        "offset": 293
+                                      },
+                                      "valueEnd": {
+                                        "file": "localconst.go",
+                                        "line": 13,
+                                        "column": 58,
+                                        "offset": 294
+                                      },
+                                      "kind": "INT",
+                                      "value": "1",
+                                      "$type": 2,
+                                      "$value": {
+                                        "kind": "int",
+                                        "value": "1"
+                                      }
+                                    },
+                                    "opPos": {
+                                      "file": "localconst.go",
+                                      "line": 13,
+                                      "column": 59,
+                                      "offset": 295
+                                    },
+                                    "op": "\u003c\u003c",
+                                    "y": {
+                                      "node": "BasicLit",
+                                      "valuePos": {
+                                        "file": "localconst.go",
+                                        "line": 13,
+                                        "column": 62,
+                                        "offset": 298
+                                      },
+                                      "valueEnd": {
+                                        "file": "localconst.go",
+                                        "line": 13,
+                                        "column": 65,
+                                        "offset": 301
+                                      },
+                                      "kind": "INT",
+                                      "value": "254",
+                                      "$type": 2,
+                                      "$value": {
+                                        "kind": "int",
+                                        "value": "254"
+                                      }
+                                    },
+                                    "$type": 4,
+                                    "$value": {
+                                      "kind": "int",
+                                      "value": "28948022309329048855892746252171976963317496166410141009864396001978282409984"
+                                    }
+                                  },
+                                  "rparen": {
+                                    "file": "localconst.go",
+                                    "line": 13,
+                                    "column": 65,
+                                    "offset": 301
+                                  },
+                                  "$type": 4,
+                                  "$value": {
+                                    "kind": "int",
+                                    "value": "28948022309329048855892746252171976963317496166410141009864396001978282409984"
+                                  }
+                                },
+                                "$type": 4,
+                                "$value": {
+                                  "kind": "float",
+                                  "value": "1.1125369292536007e-307"
+                                }
+                              }
+                            ],
+                            "comment": null
+                          },
+                          {
+                            "node": "ValueSpec",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "localconst.go",
+                                  "line": 14,
+                                  "column": 3,
+                                  "offset": 305
+                                },
+                                "name": "upper",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "upper",
+                                  "kind": "const"
+                                },
+                                "$obj": {
+                                  "name": "upper",
+                                  "kind": "const",
+                                  "def": true,
+                                  "type": 4,
+                                  "decl": "localconst.go:305",
+                                  "pkg": "main",
+                                  "value": {
+                                    "kind": "float",
+                                    "value": "8.98846567431158e+306"
+                                  }
+                                }
+                              }
+                            ],
+                            "type": null,
+                            "values": [
+                              {
+                                "node": "BinaryExpr",
+                                "x": {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "localconst.go",
+                                    "line": 14,
+                                    "column": 11,
+                                    "offset": 313
+                                  },
+                                  "valueEnd": {
+                                    "file": "localconst.go",
+                                    "line": 14,
+                                    "column": 12,
+                                    "offset": 314
+                                  },
+                                  "kind": "INT",
+                                  "value": "1",
+                                  "$type": 4,
+                                  "$value": {
+                                    "kind": "int",
+                                    "value": "1"
+                                  }
+                                },
+                                "opPos": {
+                                  "file": "localconst.go",
+                                  "line": 14,
+                                  "column": 13,
+                                  "offset": 315
+                                },
+                                "op": "/",
+                                "y": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "localconst.go",
+                                    "line": 14,
+                                    "column": 15,
+                                    "offset": 317
+                                  },
+                                  "name": "lower",
+                                  "obj": {
+                                    "node": "Object",
+                                    "name": "lower",
+                                    "kind": "const"
+                                  },
+                                  "$type": 4,
+                                  "$value": {
+                                    "kind": "float",
+                                    "value": "1.1125369292536007e-307"
+                                  },
+                                  "$obj": {
+                                    "name": "lower",
+                                    "kind": "const",
+                                    "type": 4,
+                                    "decl": "localconst.go:239",
+                                    "pkg": "main",
+                                    "value": {
+                                      "kind": "float",
+                                      "value": "1.1125369292536007e-307"
+                                    }
+                                  }
+                                },
+                                "$type": 4,
+                                "$value": {
+                                  "kind": "float",
+                                  "value": "8.98846567431158e+306"
+                                }
+                              }
+                            ],
+                            "comment": null
+                          }
+                        ],
+                        "rparen": {
+                          "file": "localconst.go",
+                          "line": 15,
+                          "column": 2,
+                          "offset": 324
+                        }
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "localconst.go",
+                              "line": 16,
+                              "column": 2,
+                              "offset": 327
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "localconst.go",
+                              "line": 16,
+                              "column": 6,
+                              "offset": 331
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 5,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 5
+                        },
+                        "lparen": {
+                          "file": "localconst.go",
+                          "line": 16,
+                          "column": 13,
+                          "offset": 338
+                        },
+                        "args": [
+                          {
+                            "node": "BinaryExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "localconst.go",
+                                "line": 16,
+                                "column": 14,
+                                "offset": 339
+                              },
+                              "name": "upper",
+                              "obj": {
+                                "node": "Object",
+                                "name": "upper",
+                                "kind": "const"
+                              },
+                              "$type": 4,
+                              "$value": {
+                                "kind": "float",
+                                "value": "8.98846567431158e+306"
+                              },
+                              "$obj": {
+                                "name": "upper",
+                                "kind": "const",
+                                "type": 4,
+                                "decl": "localconst.go:305",
+                                "pkg": "main",
+                                "value": {
+                                  "kind": "float",
+                                  "value": "8.98846567431158e+306"
+                                }
+                              }
+                            },
+                            "opPos": {
+                              "file": "localconst.go",
+                              "line": 16,
+                              "column": 20,
+                              "offset": 345
+                            },
+                            "op": "\u003e",
+                            "y": {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "localconst.go",
+                                "line": 16,
+                                "column": 22,
+                                "offset": 347
+                              },
+                              "valueEnd": {
+                                "file": "localconst.go",
+                                "line": 16,
+                                "column": 27,
+                                "offset": 352
+                              },
+                              "kind": "FLOAT",
+                              "value": "1e300",
+                              "$type": 4,
+                              "$value": {
+                                "kind": "float",
+                                "value": "1e+300"
+                              }
+                            },
+                            "$type": 13,
+                            "$value": {
+                              "kind": "bool",
+                              "value": true
+                            }
+                          },
+                          {
+                            "node": "BinaryExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "localconst.go",
+                                "line": 16,
+                                "column": 29,
+                                "offset": 354
+                              },
+                              "name": "lower",
+                              "obj": {
+                                "node": "Object",
+                                "name": "lower",
+                                "kind": "const"
+                              },
+                              "$type": 4,
+                              "$value": {
+                                "kind": "float",
+                                "value": "1.1125369292536007e-307"
+                              },
+                              "$obj": {
+                                "name": "lower",
+                                "kind": "const",
+                                "type": 4,
+                                "decl": "localconst.go:239",
+                                "pkg": "main",
+                                "value": {
+                                  "kind": "float",
+                                  "value": "1.1125369292536007e-307"
+                                }
+                              }
+                            },
+                            "opPos": {
+                              "file": "localconst.go",
+                              "line": 16,
+                              "column": 35,
+                              "offset": 360
+                            },
+                            "op": "\u003c",
+                            "y": {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "localconst.go",
+                                "line": 16,
+                                "column": 37,
+                                "offset": 362
+                              },
+                              "valueEnd": {
+                                "file": "localconst.go",
+                                "line": 16,
+                                "column": 43,
+                                "offset": 368
+                              },
+                              "kind": "FLOAT",
+                              "value": "1e-300",
+                              "$type": 4,
+                              "$value": {
+                                "kind": "float",
+                                "value": "1e-300"
+                              }
+                            },
+                            "$type": 13,
+                            "$value": {
+                              "kind": "bool",
+                              "value": true
+                            }
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "localconst.go",
+                          "line": 16,
+                          "column": 43,
+                          "offset": 368
+                        },
+                        "$type": 14
+                      }
+                    },
+                    {
+                      "node": "DeclStmt",
+                      "decl": {
+                        "node": "GenDecl",
+                        "doc": null,
+                        "tokPos": {
+                          "file": "localconst.go",
+                          "line": 18,
+                          "column": 2,
+                          "offset": 372
+                        },
+                        "tok": "const",
+                        "lparen": null,
+                        "specs": [
+                          {
+                            "node": "ValueSpec",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "localconst.go",
+                                  "line": 18,
+                                  "column": 8,
+                                  "offset": 378
+                                },
+                                "name": "limit",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "limit",
+                                  "kind": "const"
+                                },
+                                "$obj": {
+                                  "name": "limit",
+                                  "kind": "const",
+                                  "def": true,
+                                  "type": 2,
+                                  "decl": "localconst.go:378",
+                                  "pkg": "main",
+                                  "value": {
+                                    "kind": "int",
+                                    "value": "10"
+                                  }
+                                }
+                              }
+                            ],
+                            "type": null,
+                            "values": [
+                              {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "localconst.go",
+                                  "line": 18,
+                                  "column": 16,
+                                  "offset": 386
+                                },
+                                "valueEnd": {
+                                  "file": "localconst.go",
+                                  "line": 18,
+                                  "column": 18,
+                                  "offset": 388
+                                },
+                                "kind": "INT",
+                                "value": "10",
+                                "$type": 2,
+                                "$value": {
+                                  "kind": "int",
+                                  "value": "10"
+                                }
+                              }
+                            ],
+                            "comment": null
+                          }
+                        ],
+                        "rparen": null
+                      }
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "localconst.go",
+                            "line": 19,
+                            "column": 2,
+                            "offset": 390
+                          },
+                          "name": "x",
+                          "obj": {
+                            "node": "Object",
+                            "name": "x",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "x",
+                            "kind": "var",
+                            "def": true,
+                            "type": 8,
+                            "decl": "localconst.go:390",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "localconst.go",
+                        "line": 19,
+                        "column": 4,
+                        "offset": 392
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "BasicLit",
+                          "valuePos": {
+                            "file": "localconst.go",
+                            "line": 19,
+                            "column": 7,
+                            "offset": 395
+                          },
+                          "valueEnd": {
+                            "file": "localconst.go",
+                            "line": 19,
+                            "column": 8,
+                            "offset": 396
+                          },
+                          "kind": "INT",
+                          "value": "3",
+                          "$type": 8,
+                          "$value": {
+                            "kind": "int",
+                            "value": "3"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "localconst.go",
+                              "line": 20,
+                              "column": 2,
+                              "offset": 398
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "localconst.go",
+                              "line": 20,
+                              "column": 6,
+                              "offset": 402
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 5,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 5
+                        },
+                        "lparen": {
+                          "file": "localconst.go",
+                          "line": 20,
+                          "column": 13,
+                          "offset": 409
+                        },
+                        "args": [
+                          {
+                            "node": "BinaryExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "localconst.go",
+                                "line": 20,
+                                "column": 14,
+                                "offset": 410
+                              },
+                              "name": "x",
+                              "obj": {
+                                "node": "Object",
+                                "name": "x",
+                                "kind": "var"
+                              },
+                              "$type": 8,
+                              "$obj": {
+                                "name": "x",
+                                "kind": "var",
+                                "type": 8,
+                                "decl": "localconst.go:390",
+                                "pkg": "main"
+                              }
+                            },
+                            "opPos": {
+                              "file": "localconst.go",
+                              "line": 20,
+                              "column": 16,
+                              "offset": 412
+                            },
+                            "op": "\u003c",
+                            "y": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "localconst.go",
+                                "line": 20,
+                                "column": 18,
+                                "offset": 414
+                              },
+                              "name": "limit",
+                              "obj": {
+                                "node": "Object",
+                                "name": "limit",
+                                "kind": "const"
+                              },
+                              "$type": 8,
+                              "$value": {
+                                "kind": "int",
+                                "value": "10"
+                              },
+                              "$obj": {
+                                "name": "limit",
+                                "kind": "const",
+                                "type": 2,
+                                "decl": "localconst.go:378",
+                                "pkg": "main",
+                                "value": {
+                                  "kind": "int",
+                                  "value": "10"
+                                }
+                              }
+                            },
+                            "$type": 13
+                          },
+                          {
+                            "node": "BinaryExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "localconst.go",
+                                "line": 20,
+                                "column": 25,
+                                "offset": 421
+                              },
+                              "name": "limit",
+                              "obj": {
+                                "node": "Object",
+                                "name": "limit",
+                                "kind": "const"
+                              },
+                              "$type": 2,
+                              "$value": {
+                                "kind": "int",
+                                "value": "10"
+                              },
+                              "$obj": {
+                                "name": "limit",
+                                "kind": "const",
+                                "type": 2,
+                                "decl": "localconst.go:378",
+                                "pkg": "main",
+                                "value": {
+                                  "kind": "int",
+                                  "value": "10"
+                                }
+                              }
+                            },
+                            "opPos": {
+                              "file": "localconst.go",
+                              "line": 20,
+                              "column": 30,
+                              "offset": 426
+                            },
+                            "op": "*",
+                            "y": {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "localconst.go",
+                                "line": 20,
+                                "column": 31,
+                                "offset": 427
+                              },
+                              "valueEnd": {
+                                "file": "localconst.go",
+                                "line": 20,
+                                "column": 32,
+                                "offset": 428
+                              },
+                              "kind": "INT",
+                              "value": "2",
+                              "$type": 2,
+                              "$value": {
+                                "kind": "int",
+                                "value": "2"
+                              }
+                            },
+                            "$type": 8,
+                            "$value": {
+                              "kind": "int",
+                              "value": "20"
+                            }
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "localconst.go",
+                          "line": 20,
+                          "column": 32,
+                          "offset": 428
+                        },
+                        "$type": 14
+                      }
+                    },
+                    {
+                      "node": "DeclStmt",
+                      "decl": {
+                        "node": "GenDecl",
+                        "doc": null,
+                        "tokPos": {
+                          "file": "localconst.go",
+                          "line": 22,
+                          "column": 2,
+                          "offset": 432
+                        },
+                        "tok": "const",
+                        "lparen": {
+                          "file": "localconst.go",
+                          "line": 22,
+                          "column": 8,
+                          "offset": 438
+                        },
+                        "specs": [
+                          {
+                            "node": "ValueSpec",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "localconst.go",
+                                  "line": 23,
+                                  "column": 3,
+                                  "offset": 442
+                                },
+                                "name": "a",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "a",
+                                  "kind": "const"
+                                },
+                                "$obj": {
+                                  "name": "a",
+                                  "kind": "const",
+                                  "def": true,
+                                  "type": 0,
+                                  "decl": "localconst.go:442",
+                                  "pkg": "main",
+                                  "value": {
+                                    "kind": "int",
+                                    "value": "1"
+                                  }
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "localconst.go",
+                                "line": 23,
+                                "column": 5,
+                                "offset": 444
+                              },
+                              "name": "Level",
+                              "obj": {
+                                "node": "Object",
+                                "name": "Level",
+                                "kind": "type"
+                              },
+                              "$type": 0,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "Level",
+                                "kind": "type",
+                                "type": 0,
+                                "decl": "localconst.go:154",
+                                "pkg": "main",
+                                "top": true
+                              }
+                            },
+                            "values": [
+                              {
+                                "node": "BinaryExpr",
+                                "x": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "localconst.go",
+                                    "line": 23,
+                                    "column": 13,
+                                    "offset": 452
+                                  },
+                                  "name": "iota",
+                                  "obj": null,
+                                  "$type": 2,
+                                  "$value": {
+                                    "kind": "int",
+                                    "value": "2"
+                                  },
+                                  "$obj": {
+                                    "name": "iota",
+                                    "kind": "const",
+                                    "type": 2,
+                                    "value": {
+                                      "kind": "int",
+                                      "value": "0"
+                                    }
+                                  }
+                                },
+                                "opPos": {
+                                  "file": "localconst.go",
+                                  "line": 23,
+                                  "column": 18,
+                                  "offset": 457
+                                },
+                                "op": "+",
+                                "y": {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "localconst.go",
+                                    "line": 23,
+                                    "column": 20,
+                                    "offset": 459
+                                  },
+                                  "valueEnd": {
+                                    "file": "localconst.go",
+                                    "line": 23,
+                                    "column": 21,
+                                    "offset": 460
+                                  },
+                                  "kind": "INT",
+                                  "value": "1",
+                                  "$type": 2,
+                                  "$value": {
+                                    "kind": "int",
+                                    "value": "1"
+                                  }
+                                },
+                                "$type": 0,
+                                "$value": {
+                                  "kind": "int",
+                                  "value": "3"
+                                }
+                              }
+                            ],
+                            "comment": null
+                          },
+                          {
+                            "node": "ValueSpec",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "localconst.go",
+                                  "line": 24,
+                                  "column": 3,
+                                  "offset": 463
+                                },
+                                "name": "b",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "b",
+                                  "kind": "const"
+                                },
+                                "$obj": {
+                                  "name": "b",
+                                  "kind": "const",
+                                  "def": true,
+                                  "type": 0,
+                                  "decl": "localconst.go:463",
+                                  "pkg": "main",
+                                  "value": {
+                                    "kind": "int",
+                                    "value": "2"
+                                  }
+                                }
+                              }
+                            ],
+                            "type": null,
+                            "values": null,
+                            "comment": null
+                          },
+                          {
+                            "node": "ValueSpec",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "localconst.go",
+                                  "line": 25,
+                                  "column": 3,
+                                  "offset": 467
+                                },
+                                "name": "c",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "c",
+                                  "kind": "const"
+                                },
+                                "$obj": {
+                                  "name": "c",
+                                  "kind": "const",
+                                  "def": true,
+                                  "type": 0,
+                                  "decl": "localconst.go:467",
+                                  "pkg": "main",
+                                  "value": {
+                                    "kind": "int",
+                                    "value": "3"
+                                  }
+                                }
+                              }
+                            ],
+                            "type": null,
+                            "values": null,
+                            "comment": null
+                          }
+                        ],
+                        "rparen": {
+                          "file": "localconst.go",
+                          "line": 26,
+                          "column": 2,
+                          "offset": 470
+                        }
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "localconst.go",
+                              "line": 27,
+                              "column": 2,
+                              "offset": 473
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "localconst.go",
+                              "line": 27,
+                              "column": 6,
+                              "offset": 477
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 5,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 5
+                        },
+                        "lparen": {
+                          "file": "localconst.go",
+                          "line": 27,
+                          "column": 13,
+                          "offset": 484
+                        },
+                        "args": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "localconst.go",
+                              "line": 27,
+                              "column": 14,
+                              "offset": 485
+                            },
+                            "name": "a",
+                            "obj": {
+                              "node": "Object",
+                              "name": "a",
+                              "kind": "const"
+                            },
+                            "$type": 0,
+                            "$value": {
+                              "kind": "int",
+                              "value": "1"
+                            },
+                            "$obj": {
+                              "name": "a",
+                              "kind": "const",
+                              "type": 0,
+                              "decl": "localconst.go:442",
+                              "pkg": "main",
+                              "value": {
+                                "kind": "int",
+                                "value": "1"
+                              }
+                            }
+                          },
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "localconst.go",
+                              "line": 27,
+                              "column": 17,
+                              "offset": 488
+                            },
+                            "name": "b",
+                            "obj": {
+                              "node": "Object",
+                              "name": "b",
+                              "kind": "const"
+                            },
+                            "$type": 0,
+                            "$value": {
+                              "kind": "int",
+                              "value": "2"
+                            },
+                            "$obj": {
+                              "name": "b",
+                              "kind": "const",
+                              "type": 0,
+                              "decl": "localconst.go:463",
+                              "pkg": "main",
+                              "value": {
+                                "kind": "int",
+                                "value": "2"
+                              }
+                            }
+                          },
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "localconst.go",
+                              "line": 27,
+                              "column": 20,
+                              "offset": 491
+                            },
+                            "name": "c",
+                            "obj": {
+                              "node": "Object",
+                              "name": "c",
+                              "kind": "const"
+                            },
+                            "$type": 0,
+                            "$value": {
+                              "kind": "int",
+                              "value": "3"
+                            },
+                            "$obj": {
+                              "name": "c",
+                              "kind": "const",
+                              "type": 0,
+                              "decl": "localconst.go:467",
+                              "pkg": "main",
+                              "value": {
+                                "kind": "int",
+                                "value": "3"
+                              }
+                            }
+                          },
+                          {
+                            "node": "BinaryExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "localconst.go",
+                                "line": 27,
+                                "column": 23,
+                                "offset": 494
+                              },
+                              "name": "c",
+                              "obj": {
+                                "node": "Object",
+                                "name": "c",
+                                "kind": "const"
+                              },
+                              "$type": 0,
+                              "$value": {
+                                "kind": "int",
+                                "value": "3"
+                              },
+                              "$obj": {
+                                "name": "c",
+                                "kind": "const",
+                                "type": 0,
+                                "decl": "localconst.go:467",
+                                "pkg": "main",
+                                "value": {
+                                  "kind": "int",
+                                  "value": "3"
+                                }
+                              }
+                            },
+                            "opPos": {
+                              "file": "localconst.go",
+                              "line": 27,
+                              "column": 24,
+                              "offset": 495
+                            },
+                            "op": "-",
+                            "y": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "localconst.go",
+                                "line": 27,
+                                "column": 25,
+                                "offset": 496
+                              },
+                              "name": "a",
+                              "obj": {
+                                "node": "Object",
+                                "name": "a",
+                                "kind": "const"
+                              },
+                              "$type": 0,
+                              "$value": {
+                                "kind": "int",
+                                "value": "1"
+                              },
+                              "$obj": {
+                                "name": "a",
+                                "kind": "const",
+                                "type": 0,
+                                "decl": "localconst.go:442",
+                                "pkg": "main",
+                                "value": {
+                                  "kind": "int",
+                                  "value": "1"
+                                }
+                              }
+                            },
+                            "$type": 0,
+                            "$value": {
+                              "kind": "int",
+                              "value": "2"
+                            }
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "localconst.go",
+                          "line": 27,
+                          "column": 26,
+                          "offset": 497
+                        },
+                        "$type": 14
+                      }
+                    },
+                    {
+                      "node": "DeclStmt",
+                      "decl": {
+                        "node": "GenDecl",
+                        "doc": null,
+                        "tokPos": {
+                          "file": "localconst.go",
+                          "line": 29,
+                          "column": 2,
+                          "offset": 501
+                        },
+                        "tok": "const",
+                        "lparen": null,
+                        "specs": [
+                          {
+                            "node": "ValueSpec",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "localconst.go",
+                                  "line": 29,
+                                  "column": 8,
+                                  "offset": 507
+                                },
+                                "name": "greeting",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "greeting",
+                                  "kind": "const"
+                                },
+                                "$obj": {
+                                  "name": "greeting",
+                                  "kind": "const",
+                                  "def": true,
+                                  "type": 12,
+                                  "decl": "localconst.go:507",
+                                  "pkg": "main",
+                                  "value": {
+                                    "kind": "string",
+                                    "value": "olá"
+                                  }
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "localconst.go",
+                                "line": 29,
+                                "column": 17,
+                                "offset": 516
+                              },
+                              "name": "string",
+                              "obj": null,
+                              "$type": 12,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "string",
+                                "kind": "type",
+                                "type": 12
+                              }
+                            },
+                            "values": [
+                              {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "localconst.go",
+                                  "line": 29,
+                                  "column": 26,
+                                  "offset": 525
+                                },
+                                "valueEnd": {
+                                  "file": "localconst.go",
+                                  "line": 29,
+                                  "column": 32,
+                                  "offset": 531
+                                },
+                                "kind": "STRING",
+                                "value": "\"olá\"",
+                                "$type": 12,
+                                "$value": {
+                                  "kind": "string",
+                                  "value": "olá"
+                                }
+                              }
+                            ],
+                            "comment": null
+                          }
+                        ],
+                        "rparen": null
+                      }
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "localconst.go",
+                            "line": 30,
+                            "column": 2,
+                            "offset": 533
+                          },
+                          "name": "f",
+                          "obj": {
+                            "node": "Object",
+                            "name": "f",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "f",
+                            "kind": "var",
+                            "def": true,
+                            "type": 11,
+                            "decl": "localconst.go:533",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "localconst.go",
+                        "line": 30,
+                        "column": 4,
+                        "offset": 535
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "FuncLit",
+                          "type": {
+                            "node": "FuncType",
+                            "func": {
+                              "file": "localconst.go",
+                              "line": 30,
+                              "column": 7,
+                              "offset": 538
+                            },
+                            "typeParams": null,
+                            "params": {
+                              "node": "FieldList",
+                              "opening": {
+                                "file": "localconst.go",
+                                "line": 30,
+                                "column": 11,
+                                "offset": 542
+                              },
+                              "list": null,
+                              "closing": {
+                                "file": "localconst.go",
+                                "line": 30,
+                                "column": 12,
+                                "offset": 543
+                              }
+                            },
+                            "results": {
+                              "node": "FieldList",
+                              "opening": null,
+                              "list": [
+                                {
+                                  "node": "Field",
+                                  "doc": null,
+                                  "names": null,
+                                  "type": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "localconst.go",
+                                      "line": 30,
+                                      "column": 14,
+                                      "offset": 545
+                                    },
+                                    "name": "string",
+                                    "obj": null,
+                                    "$type": 12,
+                                    "$isType": true,
+                                    "$obj": {
+                                      "name": "string",
+                                      "kind": "type",
+                                      "type": 12
+                                    }
+                                  },
+                                  "tag": null,
+                                  "comment": null
+                                }
+                              ],
+                              "closing": null
+                            },
+                            "$type": 11,
+                            "$isType": true
+                          },
+                          "body": {
+                            "node": "BlockStmt",
+                            "lbrace": {
+                              "file": "localconst.go",
+                              "line": 30,
+                              "column": 21,
+                              "offset": 552
+                            },
+                            "list": [
+                              {
+                                "node": "ReturnStmt",
+                                "return": {
+                                  "file": "localconst.go",
+                                  "line": 30,
+                                  "column": 23,
+                                  "offset": 554
+                                },
+                                "results": [
+                                  {
+                                    "node": "BinaryExpr",
+                                    "x": {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "localconst.go",
+                                        "line": 30,
+                                        "column": 30,
+                                        "offset": 561
+                                      },
+                                      "name": "greeting",
+                                      "obj": {
+                                        "node": "Object",
+                                        "name": "greeting",
+                                        "kind": "const"
+                                      },
+                                      "$type": 12,
+                                      "$value": {
+                                        "kind": "string",
+                                        "value": "olá"
+                                      },
+                                      "$obj": {
+                                        "name": "greeting",
+                                        "kind": "const",
+                                        "type": 12,
+                                        "decl": "localconst.go:507",
+                                        "pkg": "main",
+                                        "value": {
+                                          "kind": "string",
+                                          "value": "olá"
+                                        }
+                                      }
+                                    },
+                                    "opPos": {
+                                      "file": "localconst.go",
+                                      "line": 30,
+                                      "column": 39,
+                                      "offset": 570
+                                    },
+                                    "op": "+",
+                                    "y": {
+                                      "node": "BasicLit",
+                                      "valuePos": {
+                                        "file": "localconst.go",
+                                        "line": 30,
+                                        "column": 41,
+                                        "offset": 572
+                                      },
+                                      "valueEnd": {
+                                        "file": "localconst.go",
+                                        "line": 30,
+                                        "column": 44,
+                                        "offset": 575
+                                      },
+                                      "kind": "STRING",
+                                      "value": "\"!\"",
+                                      "$type": 12,
+                                      "$value": {
+                                        "kind": "string",
+                                        "value": "!"
+                                      }
+                                    },
+                                    "$type": 12,
+                                    "$value": {
+                                      "kind": "string",
+                                      "value": "olá!"
+                                    }
+                                  }
+                                ]
+                              }
+                            ],
+                            "rbrace": {
+                              "file": "localconst.go",
+                              "line": 30,
+                              "column": 45,
+                              "offset": 576
+                            }
+                          },
+                          "$type": 11
+                        }
+                      ]
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "localconst.go",
+                              "line": 31,
+                              "column": 2,
+                              "offset": 579
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "localconst.go",
+                              "line": 31,
+                              "column": 6,
+                              "offset": 583
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 5,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 5
+                        },
+                        "lparen": {
+                          "file": "localconst.go",
+                          "line": 31,
+                          "column": 13,
+                          "offset": 590
+                        },
+                        "args": [
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "localconst.go",
+                                "line": 31,
+                                "column": 14,
+                                "offset": 591
+                              },
+                              "name": "f",
+                              "obj": {
+                                "node": "Object",
+                                "name": "f",
+                                "kind": "var"
+                              },
+                              "$type": 11,
+                              "$obj": {
+                                "name": "f",
+                                "kind": "var",
+                                "type": 11,
+                                "decl": "localconst.go:533",
+                                "pkg": "main"
+                              }
+                            },
+                            "lparen": {
+                              "file": "localconst.go",
+                              "line": 31,
+                              "column": 15,
+                              "offset": 592
+                            },
+                            "args": null,
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "localconst.go",
+                              "line": 31,
+                              "column": 16,
+                              "offset": 593
+                            },
+                            "$type": 12
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "localconst.go",
+                                "line": 31,
+                                "column": 19,
+                                "offset": 596
+                              },
+                              "name": "len",
+                              "obj": null,
+                              "$type": 15,
+                              "$builtin": true,
+                              "$obj": {
+                                "name": "len",
+                                "kind": "builtin",
+                                "type": 15
+                              }
+                            },
+                            "lparen": {
+                              "file": "localconst.go",
+                              "line": 31,
+                              "column": 22,
+                              "offset": 599
+                            },
+                            "args": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "localconst.go",
+                                  "line": 31,
+                                  "column": 23,
+                                  "offset": 600
+                                },
+                                "name": "greeting",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "greeting",
+                                  "kind": "const"
+                                },
+                                "$type": 12,
+                                "$value": {
+                                  "kind": "string",
+                                  "value": "olá"
+                                },
+                                "$obj": {
+                                  "name": "greeting",
+                                  "kind": "const",
+                                  "type": 12,
+                                  "decl": "localconst.go:507",
+                                  "pkg": "main",
+                                  "value": {
+                                    "kind": "string",
+                                    "value": "olá"
+                                  }
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "localconst.go",
+                              "line": 31,
+                              "column": 31,
+                              "offset": 608
+                            },
+                            "$type": 8,
+                            "$value": {
+                              "kind": "int",
+                              "value": "4"
+                            }
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "localconst.go",
+                          "line": 31,
+                          "column": 32,
+                          "offset": 609
+                        },
+                        "$type": 14
+                      }
+                    },
+                    {
+                      "node": "DeclStmt",
+                      "decl": {
+                        "node": "GenDecl",
+                        "doc": null,
+                        "tokPos": {
+                          "file": "localconst.go",
+                          "line": 33,
+                          "column": 2,
+                          "offset": 613
+                        },
+                        "tok": "var",
+                        "lparen": null,
+                        "specs": [
+                          {
+                            "node": "ValueSpec",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "localconst.go",
+                                  "line": 33,
+                                  "column": 6,
+                                  "offset": 617
+                                },
+                                "name": "u",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "u",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "u",
+                                  "kind": "var",
+                                  "def": true,
+                                  "type": 16,
+                                  "decl": "localconst.go:617",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "localconst.go",
+                                "line": 33,
+                                "column": 8,
+                                "offset": 619
+                              },
+                              "name": "uint16",
+                              "obj": null,
+                              "$type": 16,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "uint16",
+                                "kind": "type",
+                                "type": 16
+                              }
+                            },
+                            "values": [
+                              {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "localconst.go",
+                                  "line": 33,
+                                  "column": 17,
+                                  "offset": 628
+                                },
+                                "valueEnd": {
+                                  "file": "localconst.go",
+                                  "line": 33,
+                                  "column": 22,
+                                  "offset": 633
+                                },
+                                "kind": "INT",
+                                "value": "40000",
+                                "$type": 16,
+                                "$value": {
+                                  "kind": "int",
+                                  "value": "40000"
+                                }
+                              }
+                            ],
+                            "comment": null
+                          }
+                        ],
+                        "rparen": null
+                      }
+                    },
+                    {
+                      "node": "DeclStmt",
+                      "decl": {
+                        "node": "GenDecl",
+                        "doc": null,
+                        "tokPos": {
+                          "file": "localconst.go",
+                          "line": 34,
+                          "column": 2,
+                          "offset": 635
+                        },
+                        "tok": "const",
+                        "lparen": null,
+                        "specs": [
+                          {
+                            "node": "ValueSpec",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "localconst.go",
+                                  "line": 34,
+                                  "column": 8,
+                                  "offset": 641
+                                },
+                                "name": "half",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "half",
+                                  "kind": "const"
+                                },
+                                "$obj": {
+                                  "name": "half",
+                                  "kind": "const",
+                                  "def": true,
+                                  "type": 2,
+                                  "decl": "localconst.go:641",
+                                  "pkg": "main",
+                                  "value": {
+                                    "kind": "int",
+                                    "value": "32768"
+                                  }
+                                }
+                              }
+                            ],
+                            "type": null,
+                            "values": [
+                              {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "localconst.go",
+                                  "line": 34,
+                                  "column": 15,
+                                  "offset": 648
+                                },
+                                "valueEnd": {
+                                  "file": "localconst.go",
+                                  "line": 34,
+                                  "column": 20,
+                                  "offset": 653
+                                },
+                                "kind": "INT",
+                                "value": "32768",
+                                "$type": 2,
+                                "$value": {
+                                  "kind": "int",
+                                  "value": "32768"
+                                }
+                              }
+                            ],
+                            "comment": null
+                          }
+                        ],
+                        "rparen": null
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "localconst.go",
+                              "line": 35,
+                              "column": 2,
+                              "offset": 655
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "localconst.go",
+                              "line": 35,
+                              "column": 6,
+                              "offset": 659
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 5,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 5
+                        },
+                        "lparen": {
+                          "file": "localconst.go",
+                          "line": 35,
+                          "column": 13,
+                          "offset": 666
+                        },
+                        "args": [
+                          {
+                            "node": "BinaryExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "localconst.go",
+                                "line": 35,
+                                "column": 14,
+                                "offset": 667
+                              },
+                              "name": "u",
+                              "obj": {
+                                "node": "Object",
+                                "name": "u",
+                                "kind": "var"
+                              },
+                              "$type": 16,
+                              "$obj": {
+                                "name": "u",
+                                "kind": "var",
+                                "type": 16,
+                                "decl": "localconst.go:617",
+                                "pkg": "main"
+                              }
+                            },
+                            "opPos": {
+                              "file": "localconst.go",
+                              "line": 35,
+                              "column": 16,
+                              "offset": 669
+                            },
+                            "op": "\u003e",
+                            "y": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "localconst.go",
+                                "line": 35,
+                                "column": 18,
+                                "offset": 671
+                              },
+                              "name": "half",
+                              "obj": {
+                                "node": "Object",
+                                "name": "half",
+                                "kind": "const"
+                              },
+                              "$type": 16,
+                              "$value": {
+                                "kind": "int",
+                                "value": "32768"
+                              },
+                              "$obj": {
+                                "name": "half",
+                                "kind": "const",
+                                "type": 2,
+                                "decl": "localconst.go:641",
+                                "pkg": "main",
+                                "value": {
+                                  "kind": "int",
+                                  "value": "32768"
+                                }
+                              }
+                            },
+                            "$type": 13
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "localconst.go",
+                          "line": 35,
+                          "column": 22,
+                          "offset": 675
+                        },
+                        "$type": 14
+                      }
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "localconst.go",
+                    "line": 36,
+                    "column": 1,
+                    "offset": 677
+                  }
+                }
+              }
+            ],
+            "fileStart": {
+              "file": "localconst.go",
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "fileEnd": {
+              "file": "localconst.go",
+              "line": 36,
+              "column": 3,
+              "offset": 679
+            },
+            "scope": null,
+            "imports": [
+              {
+                "node": "ImportSpec",
+                "doc": null,
+                "name": null,
+                "path": {
+                  "node": "BasicLit",
+                  "valuePos": {
+                    "file": "localconst.go",
+                    "line": 5,
+                    "column": 8,
+                    "offset": 142
+                  },
+                  "valueEnd": {
+                    "file": "localconst.go",
+                    "line": 5,
+                    "column": 13,
+                    "offset": 147
+                  },
+                  "kind": "STRING",
+                  "value": "\"fmt\""
+                },
+                "comment": null,
+                "endPos": null
+              }
+            ],
+            "unresolved": [
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "localconst.go",
+                  "line": 7,
+                  "column": 12,
+                  "offset": 160
+                },
+                "name": "int8",
+                "obj": null,
+                "$type": 1,
+                "$isType": true,
+                "$obj": {
+                  "name": "int8",
+                  "kind": "type",
+                  "type": 1
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "localconst.go",
+                  "line": 16,
+                  "column": 2,
+                  "offset": 327
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "localconst.go",
+                  "line": 20,
+                  "column": 2,
+                  "offset": 398
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "localconst.go",
+                  "line": 23,
+                  "column": 13,
+                  "offset": 452
+                },
+                "name": "iota",
+                "obj": null,
+                "$type": 2,
+                "$value": {
+                  "kind": "int",
+                  "value": "2"
+                },
+                "$obj": {
+                  "name": "iota",
+                  "kind": "const",
+                  "type": 2,
+                  "value": {
+                    "kind": "int",
+                    "value": "0"
+                  }
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "localconst.go",
+                  "line": 27,
+                  "column": 2,
+                  "offset": 473
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "localconst.go",
+                  "line": 29,
+                  "column": 17,
+                  "offset": 516
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 12,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 12
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "localconst.go",
+                  "line": 30,
+                  "column": 14,
+                  "offset": 545
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 12,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 12
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "localconst.go",
+                  "line": 31,
+                  "column": 2,
+                  "offset": 579
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "localconst.go",
+                  "line": 31,
+                  "column": 19,
+                  "offset": 596
+                },
+                "name": "len",
+                "obj": null,
+                "$type": 15,
+                "$builtin": true,
+                "$obj": {
+                  "name": "len",
+                  "kind": "builtin",
+                  "type": 15
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "localconst.go",
+                  "line": 33,
+                  "column": 8,
+                  "offset": 619
+                },
+                "name": "uint16",
+                "obj": null,
+                "$type": 16,
+                "$isType": true,
+                "$obj": {
+                  "name": "uint16",
+                  "kind": "type",
+                  "type": 16
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "localconst.go",
+                  "line": 35,
+                  "column": 2,
+                  "offset": 655
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              }
+            ],
+            "comments": [
+              {
+                "node": "CommentGroup",
+                "list": [
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "localconst.go",
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "text": "// Constantes declaradas dentro de função (ident:const: 58 pacotes no audit"
+                  },
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "localconst.go",
+                      "line": 2,
+                      "column": 1,
+                      "offset": 78
+                    },
+                    "text": "// do kubo, ex. gonum/mathext EllipticRF)."
+                  }
+                ]
+              },
+              {
+                "node": "CommentGroup",
+                "list": [
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "localconst.go",
+                      "line": 9,
+                      "column": 17,
+                      "offset": 182
+                    },
+                    "text": "// de pacote, sombreada abaixo"
+                  }
+                ]
+              }
+            ],
+            "goVersion": ""
+          }
+        }
+      ],
+      "imports": [
+        {
+          "path": "fmt",
+          "name": "fmt"
+        }
+      ],
+      "typeTable": [
+        {
+          "kind": "named",
+          "pkg": "main",
+          "name": "Level",
+          "underlying": 1,
+          "methods": []
+        },
+        {
+          "kind": "basic",
+          "name": "int8"
+        },
+        {
+          "kind": "basic",
+          "name": "untyped int"
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [],
+          "variadic": false
+        },
+        {
+          "kind": "basic",
+          "name": "untyped float"
+        },
+        {
+          "kind": "func",
+          "params": [
+            6
+          ],
+          "results": [
+            8,
+            9
+          ],
+          "variadic": true
+        },
+        {
+          "kind": "slice",
+          "elem": 7
+        },
+        {
+          "kind": "interface",
+          "methods": [],
+          "embeddeds": []
+        },
+        {
+          "kind": "basic",
+          "name": "int"
+        },
+        {
+          "kind": "named",
+          "pkg": "",
+          "name": "error",
+          "underlying": 10
+        },
+        {
+          "kind": "interface",
+          "methods": [
+            {
+              "name": "Error",
+              "type": 11
+            }
+          ],
+          "embeddeds": []
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            12
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "basic",
+          "name": "string"
+        },
+        {
+          "kind": "basic",
+          "name": "bool"
+        },
+        {
+          "kind": "tuple",
+          "elems": [
+            8,
+            9
+          ]
+        },
+        {
+          "kind": "basic",
+          "name": "invalid type"
+        },
+        {
+          "kind": "basic",
+          "name": "uint16"
+        }
+      ],
+      "implements": null,
+      "initOrder": [],
+      "stdlibUsage": [
+        "fmt.Println"
+      ],
+      "reflectUsage": null
+    }
+  ]
+}

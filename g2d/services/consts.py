@@ -43,6 +43,8 @@ class Literals(Service):
         raise Unsupported(f"constante:{k}-{b.cat}", f"constante {k} como {b.cat}")
 
     def named_const(self, n):
-        """Constante do próprio pacote referenciada por nome (mantém o nome)."""
+        """Constante de nível de pacote do próprio pacote referenciada por nome
+        (mantém o nome). Constante local vira o literal exato em cada uso."""
         obj = n.get("$obj") if n["node"] == "Ident" else None
-        return obj is not None and obj["kind"] == "const" and obj.get("pkg") == self.pkg.path
+        return (obj is not None and obj["kind"] == "const" and obj.get("pkg") == self.pkg.path
+                and bool(obj.get("top")))
