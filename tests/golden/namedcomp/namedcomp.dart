@@ -360,5 +360,19 @@ void $goInit() {
 const _$e0 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
 const _$e1 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);
 const _$e2 = go.Elem<bool>(1, go.zeroBool);
-const _$e3 = go.Elem<Counter>(8, Counter.new, ofInt: Counter.from);
-const _$e4 = go.Elem<Golang.Int>(8, Golang.Int.new, ofInt: Golang.Int.from);
+Counter _$f3_4(Golang.FloatBase f) =>
+    Counter.from(f.toInteger(64, signed: true));
+const _$e3 = go.Elem<Counter>(
+  8,
+  Counter.new,
+  ofInt: Counter.from,
+  ofFloat: _$f3_4,
+);
+Golang.Int _$f5_5(Golang.FloatBase f) =>
+    Golang.Int.from(f.toInteger(64, signed: true));
+const _$e4 = go.Elem<Golang.Int>(
+  8,
+  Golang.Int.new,
+  ofInt: Golang.Int.from,
+  ofFloat: _$f5_5,
+);

@@ -116,11 +116,14 @@ void $goInit() {
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
+Golang.Uint8 _$f0_1(Golang.FloatBase f) =>
+    Golang.Uint8.from(f.toInteger(8, signed: false));
 const _$e0 = go.Elem<Golang.Uint8>(
   1,
   Golang.Uint8.new,
   ofInt: Golang.Uint8.from,
+  ofFloat: _$f0_1,
 );
-go.Slice<Golang.Uint8> _$z1_2() => go.Slice<Golang.Uint8>.nil(_$e0);
-const _$e1 = go.Elem<go.Slice<Golang.Uint8>>(24, _$z1_2, pointers: true);
+go.Slice<Golang.Uint8> _$z2_2() => go.Slice<Golang.Uint8>.nil(_$e0);
+const _$e1 = go.Elem<go.Slice<Golang.Uint8>>(24, _$z2_2, pointers: true);
 const _$e2 = go.Elem<Object?>(16, go.zeroNull, pointers: true);

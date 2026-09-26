@@ -86,6 +86,36 @@ class ToTypeParam(ConversionBehavior):
         return f"{self.descriptors.elem(c.to_t)}.ofInt!({self.expr(c.arg)})", POSTFIX
 
 
+class FloatToTypeParam(ConversionBehavior):
+    """`T(f)` com T parâmetro de tipo e f float: dicionário `$T.ofFloat`."""
+
+    def accepts(self, c):
+        return c.to_t["kind"] == "typeparam" and c.frm is not None and c.frm.cat == "float"
+
+    def emit(self, c):
+        return f"{self.descriptors.elem(c.to_t)}.ofFloat!({self.expr(c.arg)})", POSTFIX
+
+
+class FromTypeParam(ConversionBehavior):
+    """`int64(x)`, `float64(x)` com x de parâmetro de tipo numérico: o valor
+    em runtime é inteiro ou float (`go.realToInt` / `go.realToFloat`)."""
+
+    def accepts(self, c):
+        return (c.frm_t["kind"] == "typeparam" and c.to is not None
+                and (c.to.integer or c.to.cat == "float"))
+
+    def emit(self, c):
+        go = lambda f: self.imports.qualify(None, f)  # noqa: E731
+        x = self.expr(c.arg)
+        cls = self.types.cls(c.to_t)
+        if c.to.integer:
+            signed = "true" if c.to.signed else "false"
+            return f"{cls}.from({go('realToInt')}({x}, {c.to.width}, {signed}))", POSTFIX
+        f = self.types.golang(c.to.cls)
+        v = f"{go('realToFloat')}({x}, {f}.fromInt64, {f}.fromUint64, {f}.new)"
+        return (f"{cls}({v}.toDouble())" if c.named_to else v), POSTFIX
+
+
 class IntToInt(ConversionBehavior):
     def accepts(self, c):
         return c.basics and c.to.integer and c.frm.integer
@@ -281,4 +311,4 @@ class StringSlice(ConversionBehavior):
 # Ordem de registro = prioridade crescente (a cadeia tenta do último ao
 # primeiro): a identidade vence tudo, como no emissor original.
 CONVERSIONS = [FromNil, BoolToBool, SliceToArray, ToInterface, StringSlice, StructToStruct, Retype, IntToString, StringToString, ComplexToComplex, FloatToFloat, FloatToInt,
-               IntToFloat, IntToInt, SameUnderlying, ToTypeParam, Identity]
+               IntToFloat, IntToInt, SameUnderlying, FromTypeParam, FloatToTypeParam, ToTypeParam, Identity]

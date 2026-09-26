@@ -83,3 +83,10 @@ void runMain(void Function() main) {
     exitProcess(2);
   }
 }
+
+/// `fatal error` do runtime Go (deadlock, unlock de mutex destravado...):
+/// não passa por `recover` nem roda defers; imprime no stderr e sai com 2.
+Never fatal(String message) {
+  writeStderr('fatal error: $message\n\ngoroutine 1 [running]:\n');
+  exitProcess(2);
+}

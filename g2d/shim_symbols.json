@@ -143,6 +143,36 @@
       "trimPrefix",
       "trimRightFunc",
       "trimSuffix"
+    ],
+    "sync/atomic": [
+      "Bool",
+      "Int32",
+      "Int64",
+      "Pointer",
+      "Uint32",
+      "Uint64",
+      "Uintptr",
+      "Value",
+      "addInt32",
+      "addInt64",
+      "addUint32",
+      "addUint64",
+      "compareAndSwapInt32",
+      "compareAndSwapInt64",
+      "compareAndSwapUint32",
+      "compareAndSwapUint64",
+      "loadInt32",
+      "loadInt64",
+      "loadUint32",
+      "loadUint64",
+      "storeInt32",
+      "storeInt64",
+      "storeUint32",
+      "storeUint64",
+      "swapInt32",
+      "swapInt64",
+      "swapUint32",
+      "swapUint64"
     ]
   }
 }

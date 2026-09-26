@@ -42,7 +42,7 @@ class DescriptorRegistry(Service):
             flag = ", pointers: true" if ptrs else ""
             b = self.typesys.basic(t)
             if b is not None and b.cat in ("wint", "float"):
-                flag += f", ofInt: {self.of_int_fn(t, b, dt)}"
+                flag += f", ofInt: {self.of_int_fn(t, b, dt)}, ofFloat: {self.of_float_fn(t, b, dt)}"
             self.elem_decls.append(f"const {name} = {self.imports.qualify(None, 'Elem')}<{dt}>({size}, {zero}{flag});")
         return self.elems[dt]
 
@@ -57,6 +57,18 @@ class DescriptorRegistry(Service):
         if t["kind"] == "named":
             v = f"{dt}({v}.toDouble())"
         self.elem_decls.append(f"{dt} {name}({g('IntBase')} n) => {v};")
+        return name
+
+    def of_float_fn(self, t, b, dt):
+        """T(f) a partir de um float Go (conversão para parâmetro de tipo):
+        as regras de FloatToInt/FloatToFloat."""
+        name = f"_$f{len(self.elem_decls)}_{len(self.elems)}"
+        g = self.types.golang
+        if b.cat == "wint":
+            v = f"{self.types.cls(t)}.from(f.toInteger({b.width}, signed: {'true' if b.signed else 'false'}))"
+        else:
+            v = f"{self.types.cls(t)}(f.toDouble())"
+        self.elem_decls.append(f"{dt} {name}({g('FloatBase')} f) => {v};")
         return name
 
     def zero_fn(self, t, dt):

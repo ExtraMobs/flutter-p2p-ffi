@@ -390,14 +390,26 @@ const _$e0 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
 Golang.Float64 _$i1_2(Golang.IntBase n) => (n.$signed
     ? Golang.Float64.fromInt64(Golang.Int64.from(n))
     : Golang.Float64.fromUint64(Golang.Uint64.from(n)));
-const _$e1 = go.Elem<Golang.Float64>(8, Golang.Float64.new, ofInt: _$i1_2);
+Golang.Float64 _$f2_2(Golang.FloatBase f) => Golang.Float64(f.toDouble());
+const _$e1 = go.Elem<Golang.Float64>(
+  8,
+  Golang.Float64.new,
+  ofInt: _$i1_2,
+  ofFloat: _$f2_2,
+);
+Golang.Uint64 _$f4_3(Golang.FloatBase f) =>
+    Golang.Uint64.from(f.toInteger(64, signed: false));
 const _$e2 = go.Elem<Golang.Uint64>(
   8,
   Golang.Uint64.new,
   ofInt: Golang.Uint64.from,
+  ofFloat: _$f4_3,
 );
+Golang.Uint8 _$f6_4(Golang.FloatBase f) =>
+    Golang.Uint8.from(f.toInteger(8, signed: false));
 const _$e3 = go.Elem<Golang.Uint8>(
   1,
   Golang.Uint8.new,
   ofInt: Golang.Uint8.from,
+  ofFloat: _$f6_4,
 );

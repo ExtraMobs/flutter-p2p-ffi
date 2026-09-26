@@ -118,8 +118,11 @@ void $goInit() {
 const _$e0 = go.Elem<_node$>(8, _node$.new);
 const _$e1 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
 const _$e2 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);
+Golang.Uint8 _$f3_4(Golang.FloatBase f) =>
+    Golang.Uint8.from(f.toInteger(8, signed: false));
 const _$e3 = go.Elem<Golang.Uint8>(
   1,
   Golang.Uint8.new,
   ofInt: Golang.Uint8.from,
+  ofFloat: _$f3_4,
 );

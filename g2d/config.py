@@ -42,6 +42,7 @@ STDLIB_SHIMS = {
     "sort": "package:golib_dart/sort.dart",
     "strconv": "package:golib_dart/strconv.dart",
     "strings": "package:golib_dart/strings.dart",
+    "sync/atomic": "package:golib_dart/sync/atomic.dart",
 }
 
 

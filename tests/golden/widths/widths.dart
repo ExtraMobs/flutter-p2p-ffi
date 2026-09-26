@@ -354,12 +354,29 @@ void $goInit() {
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
 const _$e0 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
-const _$e1 = go.Elem<Golang.Int>(8, Golang.Int.new, ofInt: Golang.Int.from);
+Golang.Int _$f1_2(Golang.FloatBase f) =>
+    Golang.Int.from(f.toInteger(64, signed: true));
+const _$e1 = go.Elem<Golang.Int>(
+  8,
+  Golang.Int.new,
+  ofInt: Golang.Int.from,
+  ofFloat: _$f1_2,
+);
+Golang.Uint8 _$f3_3(Golang.FloatBase f) =>
+    Golang.Uint8.from(f.toInteger(8, signed: false));
 const _$e2 = go.Elem<Golang.Uint8>(
   1,
   Golang.Uint8.new,
   ofInt: Golang.Uint8.from,
+  ofFloat: _$f3_3,
 );
 const _$e3 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);
-const _$e4 = go.Elem<Golang.Int8>(1, Golang.Int8.new, ofInt: Golang.Int8.from);
+Golang.Int8 _$f6_5(Golang.FloatBase f) =>
+    Golang.Int8.from(f.toInteger(8, signed: true));
+const _$e4 = go.Elem<Golang.Int8>(
+  1,
+  Golang.Int8.new,
+  ofInt: Golang.Int8.from,
+  ofFloat: _$f6_5,
+);
 const _$e5 = go.Elem<bool>(1, go.zeroBool);
