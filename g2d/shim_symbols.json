@@ -13,7 +13,8 @@
     ],
     "math": [
       "copysign",
-      "naN"
+      "naN",
+      "sqrt"
     ]
   }
 }

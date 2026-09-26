@@ -34,3 +34,5 @@ gonum.org/v1/gonum/mathext/internal/gonum.dart 40:11 The function 'isInf' isn't 
   (`shim-simbolo:<pkg>.<nome>`, `g2d/shim_symbols.json`). Agora o audit lista cada função de `math`
   que falta (`shim-simbolo:math.float64bits`, `math.log`, `math.inf`, `math.pow`...).
 - Funções da linha `math` de `docs/stdlib-coverage.md` com oráculo Go (bits exatos de float64).
+  Feito: `Sqrt` (oráculo em `golib_dart/test/math_test.dart`, fixture `tests/golden/mathsqrt`;
+  `github.com/petar/GoLLRB/llrb` verde).

@@ -165,8 +165,8 @@ class UnsupportedTest(unittest.TestCase):
 
     def test_missing_shim_symbol(self):
         """Símbolo que o shim não tem é recusado (antes: chamada Dart inexistente)."""
-        src = 'package main\n\nimport "math"\n\nfunc main() { _ = math.Sqrt(2) }\n'
-        self.assertEqual(self.emit_error(src)[0], "shim-simbolo:math.sqrt")
+        src = 'package main\n\nimport "math"\n\nfunc main() { _ = math.Cbrt(2) }\n'
+        self.assertEqual(self.emit_error(src)[0], "shim-simbolo:math.cbrt")
 
     def test_fmt_verbs_refused_at_transpile_time(self):
         """Verbo que o shim fmt não formata vira Unsupported na transpilação

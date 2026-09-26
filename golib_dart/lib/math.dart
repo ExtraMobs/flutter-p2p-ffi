@@ -2,6 +2,7 @@
 // ignore_for_file: library_prefixes
 library;
 
+import 'dart:math' as dart_math;
 import 'dart:typed_data';
 
 import 'fixed_types/golang.dart' as Golang;
@@ -18,3 +19,8 @@ Golang.Float64 copysign(Golang.Float64 f, Golang.Float64 sign) {
   b.setUint8(0, (b.getUint8(0) & 0x7f) | (b.getUint8(8) & 0x80));
   return Golang.Float64(b.getFloat64(0));
 }
+
+/// `math.Sqrt(x)`: raiz quadrada IEEE 754, com arredondamento correto no Go,
+/// na VM, no JS (`Math.sqrt`) e no Wasm (`f64.sqrt`).
+Golang.Float64 sqrt(Golang.Float64 x) =>
+    Golang.Float64(dart_math.sqrt(x.toDouble()));
