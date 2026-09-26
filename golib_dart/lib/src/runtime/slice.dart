@@ -231,3 +231,8 @@ void swapElems<T>(Slice<T> s, int i, int j) {
   s[i] = s._array[s._off + j];
   s[j] = t;
 }
+
+/// Endereço (estável, não o do Go) do primeiro elemento de s: o mesmo
+/// `hashCode` de `&s[0]` (`ElemPtr`). Para `%p` de slice.
+int sliceAddr<T>(Slice<T> s) =>
+    s._array == null ? 0 : Object.hash(identityHashCode(s._array), s._off);

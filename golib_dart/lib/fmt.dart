@@ -62,6 +62,27 @@ Uint8List _sprint(Slice<Object?> args) {
   return b.takeBytes();
 }
 
+/// Endereço de um valor com endereço no Go (ponteiro, slice, map, func), 0
+/// para nil, ou null se v não tem endereço. ⚠️ Estável por objeto, não o
+/// endereço do Go (que nem o Go reproduz entre execuções).
+int? _pointerOf(Object? v) => switch (v) {
+  NilPtr() => 0,
+  PtrView(:final $p) when $p is NilPtr => 0,
+  Ptr p => p.hashCode, // Box: identidade; ElemPtr/FieldPtr: dono + posição
+  Addr(target: null) => 0,
+  Addr(:final target) => identityHashCode(target),
+  GoValue s when s.$nilPtr => 0,
+  GoValue s when !s.$isValue => identityHashCode(s), // *T de struct/array
+  Slice s => sliceAddr(s),
+  GoMap m => m.isNil ? 0 : identityHashCode(m),
+  Function f => identityHashCode(f),
+  _ => null,
+};
+
+/// Hex do endereço na forma do Go (`c0` + 8 dígitos, como 0xc00000a0a8).
+String _hexAddr(int a) =>
+    a == 0 ? '0' : 'c0${(a & 0x7fffffff).toRadixString(16).padLeft(8, '0')}';
+
 /// Formatação `%v` do Go. Os wrappers de `fixed_types` já formatam como o Go
 /// no `toString` (floats: `strconv.FormatFloat(x, 'g', -1, bits)`).
 void _appendV(BytesBuilder b, Object? v, {bool nested = false}) {
@@ -131,7 +152,11 @@ void _appendV(BytesBuilder b, Object? v, {bool nested = false}) {
       _appendV(b, target);
     case Addr(:final target):
       // Ponteiro aninhado: o Go imprime o endereço.
-      b.add(utf8.encode('0x${identityHashCode(target).toRadixString(16)}'));
+      b.add(utf8.encode('0x${_hexAddr(identityHashCode(target))}'));
+    // *T (T não-struct) e func: o endereço, como o Go.
+    case Ptr() || Function():
+      final a = _pointerOf(v)!;
+      b.add(utf8.encode(a == 0 ? '<nil>' : '0x${_hexAddr(a)}'));
     case Golang.StringBase s:
       b.add(s.toBytes());
     default:
@@ -473,7 +498,16 @@ final class _Printf {
       _pad(utf8.encode(_typeName(arg))); // %T
       return;
     }
-    if (verb == 0x70) throw UnimplementedError('fmt: %p (endereço)');
+    if (verb == 0x70) {
+      // %p (antes dos métodos, como o Go): 0x + hex; %#p sem o 0x.
+      final a = _pointerOf(arg);
+      if (a == null) {
+        _badVerb(verb);
+      } else {
+        _pad(_ascii(sharp ? _hexAddr(a) : '0x${_hexAddr(a)}'));
+      }
+      return;
+    }
     if (_handleMethods(verb)) return;
     switch (arg) {
       case bool b:

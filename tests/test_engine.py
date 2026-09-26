@@ -179,7 +179,6 @@ class UnsupportedTest(unittest.TestCase):
         (antes: UnimplementedError só em runtime, audit verde)."""
         cases = {
             'fmt.Printf("%#v", 1)': "fmt-verbo:%#v",
-            'x := 1; fmt.Printf("%p", &x)': "fmt-verbo:%p",
             'fmt.Printf("%x", 1.5)': "fmt-verbo:%x-float",
             'f := 2.5; fmt.Printf("%#.3g", f)': "fmt-verbo:#-float",
             'c := complex(1, 2); fmt.Printf("%d", c)': "fmt-verbo:%d-complex",
