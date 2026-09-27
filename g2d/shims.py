@@ -8,10 +8,9 @@ regerada com `python -m g2d shims`; o teste de golden confere se está em dia.
 
 import json
 import os
-import subprocess
-import sys
 
 from g2d.config import STDLIB_SHIMS
+from g2d.pipeline import run_dart
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SYMBOLS_PATH = os.path.join(ROOT, "g2d", "shim_symbols.json")
@@ -40,9 +39,8 @@ def generate():
     """Roda o dartast sobre os shims e devolve o documento de símbolos."""
     pkgs = sorted(STDLIB_SHIMS)
     files = [os.path.relpath(shim_file(STDLIB_SHIMS[p]), os.path.join(ROOT, "tools", "dartast")) for p in pkgs]
-    out = subprocess.run(["dart", "run", "bin/dartast.dart", *files], cwd=os.path.join(ROOT, "tools", "dartast"),
-                         capture_output=True, text=True, encoding="utf-8", check=True,
-                         shell=sys.platform == "win32").stdout
+    out = run_dart(["run", "bin/dartast.dart", *files], cwd=os.path.join(ROOT, "tools", "dartast"),
+                   capture_output=True, text=True, encoding="utf-8", check=True).stdout
     doc = json.loads(out)
     return {"schemaVersion": SCHEMA_VERSION,
             "shims": {p: sorted(declared_names(f["unit"])) for p, f in zip(pkgs, doc["files"])}}

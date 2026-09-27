@@ -18,7 +18,7 @@ import sys
 import tempfile
 import unittest
 
-from g2d.pipeline import GOLIB, PUBSPEC, transpile_package
+from g2d.pipeline import transpile_package, write_tree
 from g2d.model import link_packages, parse_dump
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -114,14 +114,12 @@ class GoldenTest(unittest.TestCase):
         """dart analyze sem issues e saída idêntica à do Go em todas as
         plataformas Dart: VM, JS (dart2js/Node) e Wasm (dart2wasm/Node)."""
         with tempfile.TemporaryDirectory() as tmp:
-            with open(os.path.join(tmp, "pubspec.yaml"), "w", encoding="utf-8") as f:
-                f.write(PUBSPEC.format(golib=GOLIB.replace(os.sep, "/")))
-            os.makedirs(os.path.join(tmp, "lib"))
+            sources = {}
             for case in CASES:
                 for _, golden, lib in case_packages(case):
-                    dst = os.path.join(tmp, "lib", *lib.split("/"))
-                    os.makedirs(os.path.dirname(dst), exist_ok=True)
-                    shutil.copy(golden, dst)
+                    with open(golden, encoding="utf-8") as f:
+                        sources[lib[:-len(".dart")]] = f.read()
+            write_tree(tmp, sources)
             run(["dart", "pub", "get", "--offline"], cwd=tmp)
             run(["dart", "analyze", "--fatal-infos"], cwd=tmp)
             for case in CASES:

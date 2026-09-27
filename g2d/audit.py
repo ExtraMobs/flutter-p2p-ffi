@@ -30,7 +30,7 @@ from g2d.config import STDLIB_SHIMS
 from g2d.engine import Engine
 from g2d.graph import BUILD_ENV, build_env, go_list, init_deps, topo_order
 from g2d.model import Unsupported, load_dump
-from g2d.pipeline import GOLIB, PUBSPEC
+from g2d.pipeline import run_dart, write_tree
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 GOAST = os.path.join(ROOT, "tools", "goast")
@@ -288,19 +288,11 @@ def dump_graph(order, corpus, dumps):
 
 def analyze(out, sources):
     """Escreve o mono-repo com os pacotes emitidos e roda o dart analyze."""
-    lib = os.path.join(out, "lib")
     shutil.rmtree(out, ignore_errors=True)
-    for path, source in sources.items():
-        dst = os.path.join(lib, *(path + ".dart").split("/"))
-        os.makedirs(os.path.dirname(dst), exist_ok=True)
-        with open(dst, "w", encoding="utf-8", newline="\n") as f:
-            f.write(source)
-    with open(os.path.join(out, "pubspec.yaml"), "w", encoding="utf-8", newline="\n") as f:
-        f.write(PUBSPEC.format(golib=GOLIB.replace(os.sep, "/")))
-    subprocess.run(["dart", "pub", "get", "--offline"], cwd=out, capture_output=True, check=True, shell=WIN)
-    r = subprocess.run(["dart", "analyze", "--format=machine", "lib"], cwd=out, capture_output=True,
-                       text=True, encoding="utf-8", shell=WIN)
-    by_file = parse_machine(r.stdout + r.stderr, os.path.abspath(lib))
+    write_tree(out, sources)
+    run_dart(["pub", "get", "--offline"], cwd=out, capture_output=True, check=True)
+    r = run_dart(["analyze", "--format=machine", "lib"], cwd=out, capture_output=True, text=True, encoding="utf-8")
+    by_file = parse_machine(r.stdout + r.stderr, os.path.abspath(os.path.join(out, "lib")))
     return {rel[:-len(".dart")]: fs for rel, fs in by_file.items()}
 
 

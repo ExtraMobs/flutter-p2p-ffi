@@ -88,21 +88,10 @@ class WriteStage(Stage):
     """Escreve `<out>/lib/<import path>.dart` e o pubspec do mono-repo."""
 
     def run(self, ctx):
-        lib = os.path.join(ctx.out, "lib")
-        os.makedirs(ctx.out, exist_ok=True)  # mesmo sem nenhum pacote emitido
-        for unit in ctx.units:
-            if unit.source is None:
-                continue
-            unit.path = os.path.join(lib, *(unit.pkg.path + ".dart").split("/"))
-            os.makedirs(os.path.dirname(unit.path), exist_ok=True)
-            with open(unit.path, "w", encoding="utf-8", newline="\n") as f:
-                f.write(unit.source)
-        try:
-            golib = os.path.relpath(GOLIB, ctx.out)
-        except ValueError:  # Windows: drives diferentes
-            golib = GOLIB
-        with open(os.path.join(ctx.out, "pubspec.yaml"), "w", encoding="utf-8", newline="\n") as f:
-            f.write(PUBSPEC.format(golib=golib.replace(os.sep, "/")))
+        units = [u for u in ctx.units if u.source is not None]
+        paths = write_tree(ctx.out, {u.pkg.path: u.source for u in units})
+        for u in units:
+            u.path = paths[u.pkg.path]
 
 
 class Pipeline:
@@ -117,12 +106,34 @@ class Pipeline:
         return ctx
 
 
+def run_dart(args, **kw):
+    """`dart <args>` (no Windows o `dart` é um .bat: precisa do shell)."""
+    return subprocess.run(["dart", *args], shell=sys.platform == "win32", **kw)
+
+
+def write_tree(out, sources):
+    """Mono-repo Dart: `<out>/lib/<import path>.dart` de cada fonte e o pubspec
+    apontando para o golib_dart. Devolve {import path: arquivo escrito}."""
+    lib = os.path.join(out, "lib")
+    os.makedirs(out, exist_ok=True)  # mesmo sem nenhum pacote
+    paths = {}
+    for path, source in sources.items():
+        dst = paths[path] = os.path.join(lib, *(path + ".dart").split("/"))
+        os.makedirs(os.path.dirname(dst), exist_ok=True)
+        with open(dst, "w", encoding="utf-8", newline="\n") as f:
+            f.write(source)
+    try:
+        golib = os.path.relpath(GOLIB, out)
+    except ValueError:  # Windows: drives diferentes
+        golib = GOLIB
+    with open(os.path.join(out, "pubspec.yaml"), "w", encoding="utf-8", newline="\n") as f:
+        f.write(PUBSPEC.format(golib=golib.replace(os.sep, "/")))
+    return paths
+
+
 def dart_format(source):
     """Canonicaliza via `dart format` (stdin → stdout)."""
-    r = subprocess.run(
-        ["dart", "format"], input=source, capture_output=True, text=True, encoding="utf-8",
-        shell=sys.platform == "win32",  # dart é um .bat no Windows
-    )
+    r = run_dart(["format"], input=source, capture_output=True, text=True, encoding="utf-8")
     if r.returncode != 0:
         raise RuntimeError(f"dart format falhou:\n{r.stderr}\n--- fonte ---\n{source}")
     return r.stdout
