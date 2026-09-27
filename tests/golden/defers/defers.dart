@@ -256,27 +256,27 @@ void main() {
     fmt.println(go.Slice<Object?>.of([_repanic()], _$e0));
     Golang.Int count = Golang.Int(0);
     (() {
-      final $t1 = go.Defers();
+      final $t12 = go.Defers();
       try {
         {
-          $t1.defer(() {
+          $t12.defer(() {
             (() {
               count += Golang.Int(1);
             })();
           });
         }
         {
-          $t1.defer(() {
+          $t12.defer(() {
             (() {
               count *= Golang.Int(10);
             })();
           });
         }
         count = Golang.Int(1);
-      } catch ($t2, $t3) {
-        $t1.fail($t2, $t3);
+      } catch ($t13, $t14) {
+        $t12.fail($t13, $t14);
       } finally {
-        $t1.run();
+        $t12.run();
       }
     })();
     fmt.println(go.Slice<Object?>.of([count], _$e0));
@@ -383,8 +383,8 @@ Golang.String _indirect() {
           });
         }
         throw go.Panic(Golang.String.fromDart('x'));
-      } catch ($t3, $t4) {
-        $t2.fail($t3, $t4);
+      } catch ($t5, $t6) {
+        $t2.fail($t5, $t6);
       } finally {
         $t2.run();
       }
@@ -393,8 +393,8 @@ Golang.String _indirect() {
       msg = Golang.String.fromDart('não chega');
       return msg;
     }
-  } catch ($t5, $t6) {
-    $t1.fail($t5, $t6);
+  } catch ($t7, $t8) {
+    $t1.fail($t7, $t8);
   } finally {
     $t1.run();
     return msg;

@@ -25,20 +25,13 @@ final class Safe extends Golang.StringBase<Safe> implements fmt.Formatter {
   void format(fmt.State? f, Golang.Int32 verb) {
     var (w, ok) = f!.width();
     var (p, pok) = f!.precision();
-    fmt.fprintf(
-      f,
-      Golang.String.fromDart('<%s|%c|%d|%v|%d|%v|%v|%v>'),
-      go.Slice<Object?>.of([
-        this.$str,
-        verb,
-        w,
-        ok,
-        p,
-        pok,
-        f!.flag(Golang.Int(43)),
-        f!.flag(Golang.Int(35)),
-      ], _$e0),
-    );
+    (switch ((f!.flag(Golang.Int(43)), f!.flag(Golang.Int(35)))) {
+      (final $t1, final $t2) => fmt.fprintf(
+        f,
+        Golang.String.fromDart('<%s|%c|%d|%v|%d|%v|%v|%v>'),
+        go.Slice<Object?>.of([this.$str, verb, w, ok, p, pok, $t1, $t2], _$e0),
+      ),
+    });
   }
 }
 
@@ -140,13 +133,12 @@ void main() {
     );
     Pt? p = Pt(x: Golang.Int(1), y: Golang.Int(2));
     fmt.println(go.Slice<Object?>.of([p ?? Pt.$nil, p!.$ifaceCopy()], _$e0));
-    fmt.printf(
-      Golang.String.fromDart('%v|%s\n'),
-      go.Slice<Object?>.of([
-        p ?? Pt.$nil,
-        fmt.sprint(go.Slice<Object?>.of([p ?? Pt.$nil], _$e0)),
-      ], _$e0),
-    );
+    (switch (fmt.sprint(go.Slice<Object?>.of([p ?? Pt.$nil], _$e0))) {
+      final $t1 => fmt.printf(
+        Golang.String.fromDart('%v|%s\n'),
+        go.Slice<Object?>.of([p ?? Pt.$nil, $t1], _$e0),
+      ),
+    });
     Pt? np = null;
     fmt.println(go.Slice<Object?>.of([np ?? Pt.$nil], _$e0));
     fmt.println(go.Slice<Object?>.of([_bomb$().$ifaceCopy()], _$e0));

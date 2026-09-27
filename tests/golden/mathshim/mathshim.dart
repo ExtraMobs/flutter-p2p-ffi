@@ -252,7 +252,7 @@ void main() {
       ], _$e0),
     );
     {
-      final $t3 = go.Slice<Golang.Float64>.of([
+      final $t15 = go.Slice<Golang.Float64>.of([
         Golang.Float64(-2.5),
         Golang.Float64(-0.5),
         math.copysign(Golang.Float64(0.0), Golang.Float64(-1.0)),
@@ -262,21 +262,40 @@ void main() {
         math.inf(Golang.Int(-1)),
         math.naN(),
       ], _$e1);
-      for (var $t4 = 0; $t4 < $t3.length; $t4++) {
-        Golang.Float64 f = $t3[$t4];
+      for (var $t16 = 0; $t16 < $t15.length; $t16++) {
+        Golang.Float64 f = $t15[$t16];
         {
-          fmt.println(
-            go.Slice<Object?>.of([
-              f,
-              math.floor(f),
-              math.ceil(f),
-              math.trunc(f),
-              math.abs(f),
-              math.signbit(f),
-              math.isNaN(f),
-              math.isInf(f, Golang.Int(-1)),
-            ], _$e0),
-          );
+          (switch ((
+            math.floor(f),
+            math.ceil(f),
+            math.trunc(f),
+            math.abs(f),
+            math.signbit(f),
+            math.isNaN(f),
+            math.isInf(f, Golang.Int(-1)),
+          )) {
+            (
+              final $t17,
+              final $t18,
+              final $t19,
+              final $t20,
+              final $t21,
+              final $t22,
+              final $t23,
+            ) =>
+              fmt.println(
+                go.Slice<Object?>.of([
+                  f,
+                  $t17,
+                  $t18,
+                  $t19,
+                  $t20,
+                  $t21,
+                  $t22,
+                  $t23,
+                ], _$e0),
+              ),
+          });
         }
       }
     }
@@ -311,20 +330,20 @@ void main() {
       Golang.Uint32(3),
       Golang.Uint32(4294967295),
     )) {
-      (final $t5, final $t6, final $t7, final $t8) => fmt.println(
-        go.Slice<Object?>.of([$t5, $t6, $t7, $t8], _$e0),
+      (final $t37, final $t38, final $t39, final $t40) => fmt.println(
+        go.Slice<Object?>.of([$t37, $t38, $t39, $t40], _$e0),
       ),
     });
     _int64Set$ set = _int64Set$();
     {
-      final $t9 = go.Slice<Golang.Uint64>.of([
+      final $t41 = go.Slice<Golang.Uint64>.of([
         Golang.Uint64(0),
         Golang.Uint64(5),
         Golang.Uint64(63),
         Golang.Uint64(5),
       ], _$e2);
-      for (var $t10 = 0; $t10 < $t9.length; $t10++) {
-        Golang.Uint64 i = $t9[$t10];
+      for (var $t42 = 0; $t42 < $t41.length; $t42++) {
+        Golang.Uint64 i = $t41[$t42];
         {
           set.set(i);
         }

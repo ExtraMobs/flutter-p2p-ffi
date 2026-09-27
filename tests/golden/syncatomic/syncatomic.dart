@@ -138,14 +138,16 @@ void main() {
       ], _$e1),
     );
     _cfg$? c1 = _cfg$(name: Golang.String.fromDart('a'));
-    fmt.println(
-      go.Slice<Object?>.of([
-        s._cur.load() == null,
-        s._cur.compareAndSwap(null, c1),
-        s._cur.load()!._name,
-        s._cur.compareAndSwap(null, c1),
-      ], _$e1),
-    );
+    (switch ((
+      s._cur.load(),
+      s._cur.compareAndSwap(null, c1),
+      s._cur.load(),
+      s._cur.compareAndSwap(null, c1),
+    )) {
+      (final $t8, final $t9, final $t10, final $t11) => fmt.println(
+        go.Slice<Object?>.of([$t8 == null, $t9, $t10!._name, $t11], _$e1),
+      ),
+    });
     s._last.store(Golang.String.fromDart('x'));
     fmt.println(
       go.Slice<Object?>.of([
@@ -170,25 +172,27 @@ void main() {
     );
     final go.Box<Golang.Int32> n32 = go.Box<Golang.Int32>(Golang.Int32(5));
     final go.Box<Golang.Uint64> u64 = go.Box<Golang.Uint64>(Golang.Uint64());
-    fmt.println(
-      go.Slice<Object?>.of([
-        atomic.addInt32(n32, Golang.Int32(-2)),
-        atomic.loadInt32(n32),
-        atomic.compareAndSwapInt32(n32, Golang.Int32(3), Golang.Int32(9)),
-        n32.value,
-      ], _$e1),
-    );
+    (switch ((
+      atomic.addInt32(n32, Golang.Int32(-2)),
+      atomic.loadInt32(n32),
+      atomic.compareAndSwapInt32(n32, Golang.Int32(3), Golang.Int32(9)),
+    )) {
+      (final $t18, final $t19, final $t20) => fmt.println(
+        go.Slice<Object?>.of([$t18, $t19, $t20, n32.value], _$e1),
+      ),
+    });
     atomic.storeUint64(
       u64,
       Golang.Uint64.fromBigInt(BigInt.parse('9223372036854775808')),
     );
-    fmt.println(
-      go.Slice<Object?>.of([
-        atomic.addUint64(u64, Golang.Uint64(1)),
-        atomic.swapUint64(u64, Golang.Uint64(7)),
-        u64.value,
-      ], _$e1),
-    );
+    (switch ((
+      atomic.addUint64(u64, Golang.Uint64(1)),
+      atomic.swapUint64(u64, Golang.Uint64(7)),
+    )) {
+      (final $t21, final $t22) => fmt.println(
+        go.Slice<Object?>.of([$t21, $t22, u64.value], _$e1),
+      ),
+    });
     atomic.Int32 i32 = atomic.Int32();
     i32.store(Golang.Int32(-1));
     fmt.println(
@@ -203,10 +207,12 @@ void main() {
     fmt.println(
       go.Slice<Object?>.of([a.$ifaceCopy(), identical(s._hits, s._hits)], _$e1),
     );
-    fmt.printf(
-      Golang.String.fromDart('%+v %v\n'),
-      go.Slice<Object?>.of([s._closed.$ifaceCopy(), s._last.load()], _$e1),
-    );
+    (switch (s._last.load()) {
+      final $t26 => fmt.printf(
+        Golang.String.fromDart('%+v %v\n'),
+        go.Slice<Object?>.of([s._closed.$ifaceCopy(), $t26], _$e1),
+      ),
+    });
   });
 }
 

@@ -116,29 +116,35 @@ void main() {
   go.runMain(() {
     $goInit();
     Celsius c = Celsius(37.5);
-    fmt.println(
-      go.Slice<Object?>.of([
-        c,
-        c.toF(),
-        boiling.toF(),
-        Golang.Float64(c.toDouble()) + Golang.Float64(0.5),
-      ], _$e0),
-    );
+    (switch ((c.toF(), boiling.toF())) {
+      (final $t1, final $t2) => fmt.println(
+        go.Slice<Object?>.of([
+          c,
+          $t1,
+          $t2,
+          Golang.Float64(c.toDouble()) + Golang.Float64(0.5),
+        ], _$e0),
+      ),
+    });
     ID id = ID(2147483647);
     id = id.next();
-    fmt.println(
-      go.Slice<Object?>.of([id, id.next(), id < ID(0), ID(3), ID(-1)], _$e0),
-    );
+    (switch (id.next()) {
+      final $t3 => fmt.println(
+        go.Slice<Object?>.of([id, $t3, id < ID(0), ID(3), ID(-1)], _$e0),
+      ),
+    });
     Name n = Name(Golang.String.fromDart('mundo'));
-    fmt.println(
-      go.Slice<Object?>.of([
-        n.greeting(),
-        Golang.Int(n.length),
-        n + Name(Golang.String.fromDart('!')),
-        n.slice(1, 3),
-        n < Name(Golang.String.fromDart('zz')),
-      ], _$e0),
-    );
+    (switch (n.greeting()) {
+      final $t4 => fmt.println(
+        go.Slice<Object?>.of([
+          $t4,
+          Golang.Int(n.length),
+          n + Name(Golang.String.fromDart('!')),
+          n.slice(1, 3),
+          n < Name(Golang.String.fromDart('zz')),
+        ], _$e0),
+      ),
+    });
     fmt.println(
       go.Slice<Object?>.of([
         _kind(Golang.Int(1)),

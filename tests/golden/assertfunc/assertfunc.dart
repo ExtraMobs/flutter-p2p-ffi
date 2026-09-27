@@ -31,21 +31,25 @@ void main() {
       return n * Golang.Int(2);
     };
     var (f, ok) = go.tryType<Golang.Int Function(Golang.Int)?>(x, null);
-    fmt.println(go.Slice<Object?>.of([ok, f!(Golang.Int(4))], _$e0));
-    final $t1 = go.tryType<void Function(Golang.String)?>(x, null);
-    void Function(Golang.String)? g = $t1.$1;
-    ok = $t1.$2;
+    (switch (f!(Golang.Int(4))) {
+      final $t1 => fmt.println(go.Slice<Object?>.of([ok, $t1], _$e0)),
+    });
+    final $t2 = go.tryType<void Function(Golang.String)?>(x, null);
+    void Function(Golang.String)? g = $t2.$1;
+    ok = $t2.$2;
     fmt.println(go.Slice<Object?>.of([ok, g == null], _$e0));
     Object? y = Op((Golang.Int n$1) {
       return n$1 + Golang.Int(1);
     });
-    final $t2 = go.tryType<Op>(y, Op(null));
-    Op o = $t2.$1;
-    ok = $t2.$2;
-    fmt.println(go.Slice<Object?>.of([ok, o(Golang.Int(1))], _$e0));
-    final $t3 = go.tryType<Golang.Int Function(Golang.Int)?>(y, null);
-    Golang.Int Function(Golang.Int)? h = $t3.$1;
+    final $t3 = go.tryType<Op>(y, Op(null));
+    Op o = $t3.$1;
     ok = $t3.$2;
+    (switch (o(Golang.Int(1))) {
+      final $t4 => fmt.println(go.Slice<Object?>.of([ok, $t4], _$e0)),
+    });
+    final $t5 = go.tryType<Golang.Int Function(Golang.Int)?>(y, null);
+    Golang.Int Function(Golang.Int)? h = $t5.$1;
+    ok = $t5.$2;
     fmt.println(go.Slice<Object?>.of([ok, h == null], _$e0));
   });
 }

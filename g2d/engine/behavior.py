@@ -67,6 +67,7 @@ class Component:
     functions = property(lambda self: self.service("functions"))
     vars = property(lambda self: self.service("vars"))
     promoter = property(lambda self: self.service("promoter"))
+    evalorder = property(lambda self: self.service("evalorder"))
 
     # --- despacho
     def expr(self, n, min_prec=0):

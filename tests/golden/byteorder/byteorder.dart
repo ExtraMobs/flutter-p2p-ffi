@@ -146,8 +146,12 @@ void main() {
       ], _$e0),
     );
     go.Slice<Golang.Uint8> dst = go.Slice<Golang.Uint8>.make(4, 4, _$e0);
-    fmt.println(go.Slice<Object?>.of([xorBytes(dst, x, y), dst], _$e2));
-    fmt.println(go.Slice<Object?>.of([xorBytes(x, x, y), x], _$e2));
+    (switch (xorBytes(dst, x, y)) {
+      final $t11 => fmt.println(go.Slice<Object?>.of([$t11, dst], _$e2)),
+    });
+    (switch (xorBytes(x, x, y)) {
+      final $t12 => fmt.println(go.Slice<Object?>.of([$t12, x], _$e2)),
+    });
     fmt.println(
       go.Slice<Object?>.of([
         xorBytes(

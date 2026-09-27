@@ -203,8 +203,8 @@ void main() {
       }, _$e2),
     );
     (switch ((ca ?? _cache$.$nil)._get(Golang.Int(1))) {
-      (final $t1, final $t2) => fmt.println(
-        go.Slice<Object?>.of([$t1, $t2], _$e3),
+      (final $t4, final $t5) => fmt.println(
+        go.Slice<Object?>.of([$t4, $t5], _$e3),
       ),
     });
     fmt.println(
@@ -226,7 +226,11 @@ void main() {
       calls += Golang.Int(1);
       return Golang.Int(42);
     });
-    fmt.println(go.Slice<Object?>.of([v!(), v!(), calls], _$e3));
+    (switch ((v!(), v!())) {
+      (final $t9, final $t10) => fmt.println(
+        go.Slice<Object?>.of([$t9, $t10, calls], _$e3),
+      ),
+    });
     void Function()? f = sync.onceFunc(() {
       throw go.Panic(Golang.String.fromDart('boom'));
     });
@@ -236,10 +240,10 @@ void main() {
       i$1 += Golang.Int(1)
     ) {
       (() {
-        final $t3 = go.Defers();
+        final $t11 = go.Defers();
         try {
           {
-            $t3.defer(() {
+            $t11.defer(() {
               (({go.Defers? $rd}) {
                 fmt.println(
                   go.Slice<Object?>.of([
@@ -247,14 +251,14 @@ void main() {
                     go.recover($rd),
                   ], _$e3),
                 );
-              })($rd: $t3);
+              })($rd: $t11);
             });
           }
           f!();
-        } catch ($t4, $t5) {
-          $t3.fail($t4, $t5);
+        } catch ($t12, $t13) {
+          $t11.fail($t12, $t13);
         } finally {
-          $t3.run();
+          $t11.run();
         }
       })();
     }
@@ -282,16 +286,13 @@ void main() {
     );
     m.delete$(Golang.String.fromDart('a'));
     var (_, ok) = m.load(Golang.String.fromDart('a'));
-    fmt.println(
-      go.Slice<Object?>.of([
-        ok,
-        m.compareAndSwap(
-          Golang.String.fromDart('b'),
-          Golang.Int(2),
-          Golang.Int(3),
-        ),
-      ], _$e3),
-    );
+    (switch (m.compareAndSwap(
+      Golang.String.fromDart('b'),
+      Golang.Int(2),
+      Golang.Int(3),
+    )) {
+      final $t14 => fmt.println(go.Slice<Object?>.of([ok, $t14], _$e3)),
+    });
     var (x, _) = m.load(Golang.String.fromDart('b'));
     fmt.println(go.Slice<Object?>.of([x], _$e3));
     sync.Mutex mu = sync.Mutex();

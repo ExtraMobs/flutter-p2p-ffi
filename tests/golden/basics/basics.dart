@@ -151,15 +151,17 @@ void main() {
     Counter? c = Counter(name: Golang.String.fromDart('c1'));
     (c ?? Counter.$nil).inc();
     (c ?? Counter.$nil).inc();
-    fmt.println(
-      go.Slice<Object?>.of([
-        c!.name,
-        (c ?? Counter.$nil).inc(),
-        _counter,
-        c!._next == null,
-        Golang.Int(c!._tags.length),
-      ], _$e1),
-    );
+    (switch ((c ?? Counter.$nil).inc()) {
+      final $t2 => fmt.println(
+        go.Slice<Object?>.of([
+          c!.name,
+          $t2,
+          _counter,
+          c!._next == null,
+          Golang.Int(c!._tags.length),
+        ], _$e1),
+      ),
+    });
     go.Slice<Golang.Int Function()?> funcs =
         go.Slice<Golang.Int Function()?>.nil(_$e2);
     for (Golang.Int i = Golang.Int(0); i < Golang.Int(3); i += Golang.Int(1)) {
@@ -170,9 +172,9 @@ void main() {
       ]);
     }
     {
-      final $t2 = funcs;
-      for (var $t3 = 0; $t3 < $t2.length; $t3++) {
-        Golang.Int Function()? f = $t2[$t3];
+      final $t3 = funcs;
+      for (var $t4 = 0; $t4 < $t3.length; $t4++) {
+        Golang.Int Function()? f = $t3[$t4];
         {
           fmt.println(go.Slice<Object?>.of([f!()], _$e1));
         }
@@ -190,11 +192,11 @@ void main() {
         (m[Golang.String.fromDart('a')]) + Golang.Int(1);
     Golang.Int total = Golang.Int(0);
     {
-      final $t4 = m;
-      for (final $t5 in $t4.keysSnapshot()) {
-        if (!$t4.containsKey($t5)) continue;
-        Golang.String k = $t5;
-        Golang.Int v = $t4[$t5];
+      final $t6 = m;
+      for (final $t7 in $t6.keysSnapshot()) {
+        if (!$t6.containsKey($t7)) continue;
+        Golang.String k = $t7;
+        Golang.Int v = $t6[$t7];
         {
           if (k == Golang.String.fromDart('b')) {
             m.delete(Golang.String.fromDart('c'));
@@ -225,10 +227,10 @@ void main() {
     );
     Golang.Int n = Golang.Int(0);
     {
-      final $t6 = 5;
+      final $t11 = 5;
       outer:
-      for (var $t7 = 0; $t7 < $t6; $t7++) {
-        Golang.Int i$1 = Golang.Int($t7);
+      for (var $t12 = 0; $t12 < $t11; $t12++) {
+        Golang.Int i$1 = Golang.Int($t12);
         {
           for (Golang.Int j = Golang.Int(0); ; j += Golang.Int(1)) {
             if (j > i$1) {
@@ -263,14 +265,14 @@ void main() {
       }
     }
     {
-      final $t8 = go.Slice<Golang.Int>.of([
+      final $t13 = go.Slice<Golang.Int>.of([
         Golang.Int(-4),
         Golang.Int(0),
         Golang.Int(9),
         Golang.Int(10),
       ], _$e3);
-      for (var $t9 = 0; $t9 < $t8.length; $t9++) {
-        Golang.Int v$1 = $t8[$t9];
+      for (var $t14 = 0; $t14 < $t13.length; $t14++) {
+        Golang.Int v$1 = $t13[$t14];
         {
           fmt.println(go.Slice<Object?>.of([_classify(v$1)], _$e1));
         }

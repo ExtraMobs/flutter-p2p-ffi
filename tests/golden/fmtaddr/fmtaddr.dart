@@ -215,17 +215,23 @@ void main() {
       Golang.String.fromDart('%#p'),
       go.Slice<Object?>.of([t ?? T.$nil], _$e1),
     );
-    fmt.println(
-      go.Slice<Object?>.of([
-        !strings.hasPrefix(h, Golang.String.fromDart('0x')),
-        Golang.Int(h.length) > Golang.Int(0),
-        fmt.sprint(go.Slice<Object?>.of([t ?? T.$nil], _$e1)),
-        fmt.sprintf(
-          Golang.String.fromDart('%v'),
-          go.Slice<Object?>.of([pn!.value], _$e1),
-        ),
-      ], _$e1),
-    );
+    (switch ((
+      strings.hasPrefix(h, Golang.String.fromDart('0x')),
+      fmt.sprint(go.Slice<Object?>.of([t ?? T.$nil], _$e1)),
+      fmt.sprintf(
+        Golang.String.fromDart('%v'),
+        go.Slice<Object?>.of([pn!.value], _$e1),
+      ),
+    )) {
+      (final $t12, final $t13, final $t14) => fmt.println(
+        go.Slice<Object?>.of([
+          !$t12,
+          Golang.Int(h.length) > Golang.Int(0),
+          $t13,
+          $t14,
+        ], _$e1),
+      ),
+    });
   });
 }
 

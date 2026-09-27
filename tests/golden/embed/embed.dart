@@ -169,34 +169,31 @@ void main() {
       d.base.tag(Golang.String.fromDart('a'));
       d.base.tag(Golang.String.fromDart('b'));
       d.base.id += Golang.Int(1);
-      fmt.println(
-        go.Slice<Object?>.of([
-          d.base.id,
-          d.base.tags,
-          d.base.title(),
-          d.describe(),
-          d.base.describe(),
-        ], _$e1),
-      );
-      fmt.println(
-        go.Slice<Object?>.of([
-          d.logger!.log(Golang.String.fromDart('oi')),
-          d.logger!.prefix,
-          _show(d.$ifaceCopy()),
-          _show(d ?? Doc.$nil),
-        ], _$e1),
-      );
+      (switch ((d.base.title(), d.describe(), d.base.describe())) {
+        (final $t2, final $t3, final $t4) => fmt.println(
+          go.Slice<Object?>.of([d.base.id, d.base.tags, $t2, $t3, $t4], _$e1),
+        ),
+      });
+      (switch ((
+        d.logger!.log(Golang.String.fromDart('oi')),
+        _show(d.$ifaceCopy()),
+        _show(d ?? Doc.$nil),
+      )) {
+        (final $t5, final $t6, final $t7) => fmt.println(
+          go.Slice<Object?>.of([$t5, d.logger!.prefix, $t6, $t7], _$e1),
+        ),
+      });
       Doc e = d.$copy();
       e.base.id = Golang.Int(100);
       e.logger!.prefix = Golang.String.fromDart('# ');
-      fmt.println(
-        go.Slice<Object?>.of([
-          d.base.id,
-          e.base.id,
-          d.logger!.log(Golang.String.fromDart('x')),
-          e.logger!.log(Golang.String.fromDart('y')),
-        ], _$e1),
-      );
+      (switch ((
+        d.logger!.log(Golang.String.fromDart('x')),
+        e.logger!.log(Golang.String.fromDart('y')),
+      )) {
+        (final $t8, final $t9) => fmt.println(
+          go.Slice<Object?>.of([d.base.id, e.base.id, $t8, $t9], _$e1),
+        ),
+      });
       Doc empty = Doc();
       {
         $t1.defer(() {
@@ -216,8 +213,8 @@ void main() {
           empty.logger!.log(Golang.String.fromDart('nil logger')),
         ], _$e1),
       );
-    } catch ($t2, $t3) {
-      $t1.fail($t2, $t3);
+    } catch ($t12, $t13) {
+      $t1.fail($t12, $t13);
     } finally {
       $t1.run();
     }

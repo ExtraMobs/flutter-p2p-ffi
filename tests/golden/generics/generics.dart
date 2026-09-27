@@ -213,7 +213,9 @@ void main() {
     s.push(Golang.String.fromDart('a'));
     s.push(Golang.String.fromDart('b'));
     var (v, ok) = s.pop();
-    fmt.println(go.Slice<Object?>.of([v, ok, s.len()], _$e3));
+    (switch (s.len()) {
+      final $t9 => fmt.println(go.Slice<Object?>.of([v, ok, $t9], _$e3)),
+    });
     s.pop();
     (v, ok) = s.pop();
     fmt.println(

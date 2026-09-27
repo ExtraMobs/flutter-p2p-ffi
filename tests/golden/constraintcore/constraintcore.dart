@@ -207,18 +207,18 @@ void main() {
     );
     IDs c = clone<IDs, Golang.String>(_$e1, _$e0, ids);
     c[0] = Golang.String.fromDart('x');
-    fmt.println(
-      go.Slice<Object?>.of([
-        ids,
-        c,
-        c.join(),
-        clone<IDs, Golang.String>(
-          _$e1,
-          _$e0,
-          IDs(go.Slice<Golang.String>.nil(_$e0)),
-        ).isNil,
-      ], _$e2),
-    );
+    (switch ((
+      c.join(),
+      clone<IDs, Golang.String>(
+        _$e1,
+        _$e0,
+        IDs(go.Slice<Golang.String>.nil(_$e0)),
+      ),
+    )) {
+      (final $t4, final $t5) => fmt.println(
+        go.Slice<Object?>.of([ids, c, $t4, $t5.isNil], _$e2),
+      ),
+    });
     IDs ins = insert<IDs, Golang.String>(
       _$e1,
       _$e0,
@@ -229,9 +229,11 @@ void main() {
         Golang.String.fromDart('q'),
       ], _$e0),
     );
-    fmt.println(
-      go.Slice<Object?>.of([ins, ins.join(), Golang.Int(ins.length)], _$e2),
-    );
+    (switch (ins.join()) {
+      final $t6 => fmt.println(
+        go.Slice<Object?>.of([ins, $t6, Golang.Int(ins.length)], _$e2),
+      ),
+    });
     go.Slice<Golang.Int> d = delete$<go.Slice<Golang.Int>, Golang.Int>(
       _$e4,
       _$e3,
@@ -246,27 +248,28 @@ void main() {
     );
     fmt.println(go.Slice<Object?>.of([d], _$e2));
     reverse<IDs, Golang.String>(_$e1, _$e0, ids);
-    fmt.println(
-      go.Slice<Object?>.of([
-        ids,
-        keys<Set, Golang.String, bool>(
-          _$e6,
-          _$e0,
-          _$e5,
-          Set(
-            go.GoMap<Golang.String, bool>.of({
-              Golang.String.fromDart('a'): true,
-            }, _$e5),
-          ),
+    (switch ((
+      keys<Set, Golang.String, bool>(
+        _$e6,
+        _$e0,
+        _$e5,
+        Set(
+          go.GoMap<Golang.String, bool>.of({
+            Golang.String.fromDart('a'): true,
+          }, _$e5),
         ),
-        keys<go.GoMap<Golang.Int, Golang.Int>, Golang.Int, Golang.Int>(
-          _$e7,
-          _$e3,
-          _$e3,
-          go.GoMap<Golang.Int, Golang.Int>.of({}, _$e3),
-        ),
-      ], _$e2),
-    );
+      ),
+      keys<go.GoMap<Golang.Int, Golang.Int>, Golang.Int, Golang.Int>(
+        _$e7,
+        _$e3,
+        _$e3,
+        go.GoMap<Golang.Int, Golang.Int>.of({}, _$e3),
+      ),
+    )) {
+      (final $t7, final $t8) => fmt.println(
+        go.Slice<Object?>.of([ids, $t7, $t8], _$e2),
+      ),
+    });
     fmt.println(
       go.Slice<Object?>.of([
         _align<Golang.Int>(_$e3, Golang.Int(13), Golang.Int(8)),

@@ -74,13 +74,15 @@ void main() {
         z / Z(Golang.Complex128.fromDoubles(1.0, 1.0)),
       ], _$e0),
     );
-    fmt.println(
-      go.Slice<Object?>.of([
-        z.conj(),
-        z == Z(Golang.Complex128.fromDoubles(1.0, 2.0)),
-        z != Z(Golang.Complex128.fromDoubles(0.0, 0.0)),
-      ], _$e0),
-    );
+    (switch (z.conj()) {
+      final $t1 => fmt.println(
+        go.Slice<Object?>.of([
+          $t1,
+          z == Z(Golang.Complex128.fromDoubles(1.0, 2.0)),
+          z != Z(Golang.Complex128.fromDoubles(0.0, 0.0)),
+        ], _$e0),
+      ),
+    });
     Golang.Complex128 c = z.$c;
     fmt.println(go.Slice<Object?>.of([c, c.real, c.imag], _$e0));
     Z64 w = Z64(Golang.Complex64.fromComplex128(z.$c));
@@ -114,12 +116,9 @@ void main() {
       Z(Golang.Complex128.fromDoubles(0.0, 1.0)),
     ], _$e2);
     zs = zs.append([z]);
-    fmt.println(
-      go.Slice<Object?>.of([
-        zs,
-        fmt.sprint(go.Slice<Object?>.of([zs[2]], _$e0)),
-      ], _$e0),
-    );
+    (switch (fmt.sprint(go.Slice<Object?>.of([zs[2]], _$e0))) {
+      final $t2 => fmt.println(go.Slice<Object?>.of([zs, $t2], _$e0)),
+    });
     go.GoMap<P, Golang.String> mp = go.GoMap<P, Golang.String>.of({
       P(Golang.Complex128.fromDoubles(2.0, 1.0)): Golang.String.fromDart('b'),
       P(Golang.Complex128.fromDoubles(1.0, 5.0)): Golang.String.fromDart('a'),

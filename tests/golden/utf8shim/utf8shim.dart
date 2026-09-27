@@ -68,30 +68,47 @@ void main() {
             var (slr, sln) = utf8.decodeLastRuneInString(
               go.stringOfByteSlice(b),
             );
-            fmt.println(
-              go.Slice<Object?>.of([
-                b,
-                r,
-                n,
-                lr,
-                ln,
-                sr,
-                sn,
-                slr,
-                sln,
-                utf8.runeCount(b),
-                utf8.runeCountInString(go.stringOfByteSlice(b)),
-                utf8.valid(b),
-                utf8.validString(go.stringOfByteSlice(b)),
-                utf8.fullRune(b),
-                utf8.fullRuneInString(go.stringOfByteSlice(b)),
-              ], _$e2),
-            );
+            (switch ((
+              utf8.runeCount(b),
+              utf8.runeCountInString(go.stringOfByteSlice(b)),
+              utf8.valid(b),
+              utf8.validString(go.stringOfByteSlice(b)),
+              utf8.fullRune(b),
+              utf8.fullRuneInString(go.stringOfByteSlice(b)),
+            )) {
+              (
+                final $t4,
+                final $t5,
+                final $t6,
+                final $t7,
+                final $t8,
+                final $t9,
+              ) =>
+                fmt.println(
+                  go.Slice<Object?>.of([
+                    b,
+                    r,
+                    n,
+                    lr,
+                    ln,
+                    sr,
+                    sn,
+                    slr,
+                    sln,
+                    $t4,
+                    $t5,
+                    $t6,
+                    $t7,
+                    $t8,
+                    $t9,
+                  ], _$e2),
+                ),
+            });
           }
         }
       }
       {
-        final $t4 = go.Slice<Golang.Int32>.of([
+        final $t10 = go.Slice<Golang.Int32>.of([
           Golang.Int32(0),
           Golang.Int32(97),
           Golang.Int32(127),
@@ -109,8 +126,8 @@ void main() {
           Golang.Int32(1114112),
           Golang.Int32(-1),
         ], _$e3);
-        for (var $t5 = 0; $t5 < $t4.length; $t5++) {
-          Golang.Int32 r$1 = $t4[$t5];
+        for (var $t11 = 0; $t11 < $t10.length; $t11++) {
+          Golang.Int32 r$1 = $t10[$t11];
           {
             go.Slice<Golang.Uint8> buf = go.Slice<Golang.Uint8>.make(
               4,
@@ -118,19 +135,25 @@ void main() {
               _$e0,
             );
             Golang.Int n$1 = utf8.encodeRune(buf, r$1);
-            fmt.println(
-              go.Slice<Object?>.of([
+            (switch ((
+              utf8.runeLen(r$1),
+              utf8.validRune(r$1),
+              utf8.appendRune(
+                go.bytesOf(Golang.String.fromDart('x'), _$e0),
                 r$1,
-                utf8.runeLen(r$1),
-                utf8.validRune(r$1),
-                n$1,
-                buf.slice(0, n$1.toIndex()),
-                utf8.appendRune(
-                  go.bytesOf(Golang.String.fromDart('x'), _$e0),
+              ),
+            )) {
+              (final $t12, final $t13, final $t14) => fmt.println(
+                go.Slice<Object?>.of([
                   r$1,
-                ),
-              ], _$e2),
-            );
+                  $t12,
+                  $t13,
+                  n$1,
+                  buf.slice(0, n$1.toIndex()),
+                  $t14,
+                ], _$e2),
+              ),
+            });
           }
         }
       }
@@ -165,8 +188,8 @@ void main() {
         go.Slice<Golang.Uint8>.make(2, 2, _$e0),
         Golang.Int32(8364),
       );
-    } catch ($t6, $t7) {
-      $t1.fail($t6, $t7);
+    } catch ($t18, $t19) {
+      $t1.fail($t18, $t19);
     } finally {
       $t1.run();
     }

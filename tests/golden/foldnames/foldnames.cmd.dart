@@ -28,21 +28,23 @@ void main() {
       go.Slice<Object?>.of([FOO, foo, HTTPServer(), httpServer()], _$e0),
     );
     {
-      final $t1 = go.Slice<attr.KeyValue>.of([
+      final $t3 = go.Slice<attr.KeyValue>.of([
         attr.bool$(Golang.String.fromDart('b'), true),
         attr.int64(Golang.String.fromDart('i'), Golang.Int64(7)),
         attr.string(Golang.String.fromDart('s'), Golang.String.fromDart('x')),
       ], _$e1);
-      for (var $t2 = 0; $t2 < $t1.length; $t2++) {
-        attr.KeyValue kv = $t1[$t2].$copy();
+      for (var $t4 = 0; $t4 < $t3.length; $t4++) {
+        attr.KeyValue kv = $t3[$t4].$copy();
         {
-          fmt.println(
-            go.Slice<Object?>.of([
-              kv.describe(),
-              kv.type == attr.Type(1),
-              kv.type == attr.Type(3),
-            ], _$e0),
-          );
+          (switch (kv.describe()) {
+            final $t5 => fmt.println(
+              go.Slice<Object?>.of([
+                $t5,
+                kv.type == attr.Type(1),
+                kv.type == attr.Type(3),
+              ], _$e0),
+            ),
+          });
         }
       }
     }

@@ -114,14 +114,18 @@ N closest<K extends Key<K>, N extends NodeID<K>>(
       {
         if (Golang.Uint8.from(
               go.assertType<_k8$>(
-                n.key().xor(target),
+                (switch (n.key()) {
+                  final $t3 => $t3.xor(target),
+                }),
                 'interface {}',
                 'main.k8',
               ),
             ) <
             Golang.Uint8.from(
               go.assertType<_k8$>(
-                best.key().xor(target),
+                (switch (best.key()) {
+                  final $t4 => $t4.xor(target),
+                }),
                 'interface {}',
                 'main.k8',
               ),
@@ -213,8 +217,8 @@ class _lru$<K, V> extends go.GoStruct<_lru$<K, V>> implements Cache<K, V> {
 void _use<K, V>(go.Elem<K> $K, go.Elem<V> $V, Cache<K, V>? c, K k, V v) {
   fmt.println(go.Slice<Object?>.of([c!.add(k, v), c!.add(k, v)], _$e0));
   (switch (c!.get(k)) {
-    (final $t1, final $t2) => fmt.println(
-      go.Slice<Object?>.of([$t1, $t2], _$e0),
+    (final $t3, final $t4) => fmt.println(
+      go.Slice<Object?>.of([$t3, $t4], _$e0),
     ),
   });
 }
@@ -246,7 +250,9 @@ void main() {
       go.Slice<_k8$>.of([_k8$(3), _k8$(1), _k8$(2)], _$e1),
     );
     sort.sort(l);
-    fmt.println(go.Slice<Object?>.of([l, sort.isSorted(l)], _$e0));
+    (switch (sort.isSorted(l)) {
+      final $t5 => fmt.println(go.Slice<Object?>.of([l, $t5], _$e0)),
+    });
     _use<Golang.String, Golang.Int>(
       _$e4,
       _$e3,

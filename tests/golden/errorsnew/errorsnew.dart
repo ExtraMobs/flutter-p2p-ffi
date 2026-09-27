@@ -85,13 +85,15 @@ void main() {
       errors.new$(Golang.String.fromDart('x')),
       errors.new$(Golang.String.fromDart('x')),
     );
-    fmt.println(
-      go.Slice<Object?>.of([
-        go.ifaceEq(a, b),
-        go.ifaceEq(a, a),
-        a!.error() == b!.error(),
-      ], _$e2),
-    );
+    (switch ((a!.error(), b!.error())) {
+      (final $t3, final $t4) => fmt.println(
+        go.Slice<Object?>.of([
+          go.ifaceEq(a, b),
+          go.ifaceEq(a, a),
+          $t3 == $t4,
+        ], _$e2),
+      ),
+    });
     go.GoError? w = fmt.errorf(
       Golang.String.fromDart('unmarshal: %w'),
       go.Slice<Object?>.of([_errShortPacket], _$e2),

@@ -140,15 +140,17 @@ void main() {
       owner: p,
     );
     Box box2 = _grow(box.$copy());
-    fmt.println(
-      go.Slice<Object?>.of([
-        box.width(),
-        box2.width(),
-        box.max.$ifaceCopy(),
-        box2.max.$ifaceCopy(),
-        identical(box2.owner, box.owner),
-      ], _$e0),
-    );
+    (switch ((box.width(), box2.width())) {
+      (final $t1, final $t2) => fmt.println(
+        go.Slice<Object?>.of([
+          $t1,
+          $t2,
+          box.max.$ifaceCopy(),
+          box2.max.$ifaceCopy(),
+          identical(box2.owner, box.owner),
+        ], _$e0),
+      ),
+    });
     box2.min.y = Golang.Int(9);
     fmt.println(
       go.Slice<Object?>.of([
@@ -167,15 +169,19 @@ void main() {
     );
     Point? inner = box.max;
     box.max.$set(Point(x: Golang.Int(50), y: Golang.Int(60)));
-    fmt.println(go.Slice<Object?>.of([inner!.$ifaceCopy(), box.width()], _$e0));
+    (switch (box.width()) {
+      final $t3 => fmt.println(
+        go.Slice<Object?>.of([inner!.$ifaceCopy(), $t3], _$e0),
+      ),
+    });
     go.Slice<Point> pts = go.Slice<Point>.of([
       Point(x: Golang.Int(1), y: Golang.Int(1)),
       Point(x: Golang.Int(2), y: Golang.Int(2)),
     ], _$e1);
     {
-      final $t1 = pts;
-      for (var $t2 = 0; $t2 < $t1.length; $t2++) {
-        Point pt = $t1[$t2].$copy();
+      final $t4 = pts;
+      for (var $t5 = 0; $t5 < $t4.length; $t5++) {
+        Point pt = $t4[$t5].$copy();
         {
           pt.x = Golang.Int(99);
         }
@@ -191,14 +197,16 @@ void main() {
     seen[Point(x: Golang.Int(3), y: Golang.Int(4))] = Golang.String.fromDart(
       'b',
     );
-    fmt.println(
-      go.Slice<Object?>.of([
-        seen[Point(x: Golang.Int(1), y: Golang.Int(2))],
-        seen[Point(x: Golang.Int(3), y: Golang.Int(4))],
-        Golang.Int(seen.length),
-        _origin() == Point(),
-      ], _$e0),
-    );
+    (switch (_origin()) {
+      final $t6 => fmt.println(
+        go.Slice<Object?>.of([
+          seen[Point(x: Golang.Int(1), y: Golang.Int(2))],
+          seen[Point(x: Golang.Int(3), y: Golang.Int(4))],
+          Golang.Int(seen.length),
+          $t6 == Point(),
+        ], _$e0),
+      ),
+    });
     Box zero = Box();
     fmt.println(
       go.Slice<Object?>.of([zero.$ifaceCopy(), zero.owner == null], _$e0),

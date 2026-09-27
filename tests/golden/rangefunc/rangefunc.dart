@@ -176,37 +176,37 @@ void main() {
       ], _$e0),
     );
     {
-      var $t16 = 0;
-      var $t17 = false;
-      Object? $t18;
-      _seq(Golang.Int(3))!((Golang.Int $t19) {
-        if ($t17) go.rangeFuncContinued();
-        Golang.Int i$2 = $t19;
+      var $t18 = 0;
+      var $t19 = false;
+      Object? $t20;
+      _seq(Golang.Int(3))!((Golang.Int $t21) {
+        if ($t19) go.rangeFuncContinued();
+        Golang.Int i$2 = $t21;
         {
-          var $t21 = 0;
-          var $t22 = false;
-          Object? $t23;
-          _seq(Golang.Int(3))!((Golang.Int $t24) {
-            if ($t22) go.rangeFuncContinued();
-            Golang.Int j = $t24;
+          var $t23 = 0;
+          var $t24 = false;
+          Object? $t25;
+          _seq(Golang.Int(3))!((Golang.Int $t26) {
+            if ($t24) go.rangeFuncContinued();
+            Golang.Int j = $t26;
             if (j == Golang.Int(1)) {
-              $t21 = 1;
-              $t22 = true;
+              $t23 = 1;
+              $t24 = true;
               return false;
             }
             if (i$2 == Golang.Int(2)) {
-              $t21 = 2;
-              $t22 = true;
+              $t23 = 2;
+              $t24 = true;
               return false;
             }
             fmt.println(go.Slice<Object?>.of([i$2, j], _$e0));
             return true;
           });
-          if ($t21 == 1) {
+          if ($t23 == 1) {
             return true;
           }
-          if ($t21 == 2) {
-            $t17 = true;
+          if ($t23 == 2) {
+            $t19 = true;
             return false;
           }
         }
@@ -214,25 +214,25 @@ void main() {
       });
     }
     {
-      var $t26 = 0;
-      var $t27 = false;
-      Object? $t28;
+      var $t28 = 0;
+      var $t29 = false;
+      Object? $t30;
       _pairs(
         go.Slice<Golang.String>.of([
           Golang.String.fromDart('x'),
           Golang.String.fromDart('y'),
         ], _$e1),
-      )!((Golang.Int $t29, Golang.String $t30) {
-        if ($t27) go.rangeFuncContinued();
-        Golang.String s = $t30;
-        $t31:
+      )!((Golang.Int $t31, Golang.String $t32) {
+        if ($t29) go.rangeFuncContinued();
+        Golang.String s = $t32;
+        $t33:
         {
-          final $t32 = s;
-          if ($t32 == Golang.String.fromDart('x')) {
+          final $t34 = s;
+          if ($t34 == Golang.String.fromDart('x')) {
             fmt.println(
               go.Slice<Object?>.of([Golang.String.fromDart('switch x')], _$e0),
             );
-            break $t31;
+            break $t33;
           }
         }
         fmt.println(
@@ -243,11 +243,11 @@ void main() {
     }
     Golang.Int count = Golang.Int(0);
     {
-      var $t34 = 0;
-      var $t35 = false;
-      Object? $t36;
-      _seq(Golang.Int(4))!((Golang.Int $t37) {
-        if ($t35) go.rangeFuncContinued();
+      var $t36 = 0;
+      var $t37 = false;
+      Object? $t38;
+      _seq(Golang.Int(4))!((Golang.Int $t39) {
+        if ($t37) go.rangeFuncContinued();
         count += Golang.Int(1);
         return true;
       });
@@ -256,10 +256,10 @@ void main() {
       go.Slice<Object?>.of([Golang.String.fromDart('count'), count], _$e0),
     );
     (() {
-      final $t38 = go.Defers();
+      final $t40 = go.Defers();
       try {
         {
-          $t38.defer(() {
+          $t40.defer(() {
             (({go.Defers? $rd}) {
               fmt.println(
                 go.Slice<Object?>.of([
@@ -267,28 +267,28 @@ void main() {
                   go.recover($rd),
                 ], _$e0),
               );
-            })($rd: $t38);
+            })($rd: $t40);
           });
         }
         {
-          var $t40 = 0;
-          var $t41 = false;
-          Object? $t42;
-          _bad!((Golang.Int $t43) {
-            if ($t41) go.rangeFuncContinued();
-            Golang.Int x = $t43;
+          var $t42 = 0;
+          var $t43 = false;
+          Object? $t44;
+          _bad!((Golang.Int $t45) {
+            if ($t43) go.rangeFuncContinued();
+            Golang.Int x = $t45;
             fmt.println(
               go.Slice<Object?>.of([Golang.String.fromDart('bad'), x], _$e0),
             );
-            $t41 = true;
+            $t43 = true;
             return false;
             return true;
           });
         }
-      } catch ($t44, $t45) {
-        $t38.fail($t44, $t45);
+      } catch ($t46, $t47) {
+        $t40.fail($t46, $t47);
       } finally {
-        $t38.run();
+        $t40.run();
       }
     })();
   });

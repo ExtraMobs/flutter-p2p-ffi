@@ -92,20 +92,20 @@ void main() {
     fmt.println(
       go.Slice<Object?>.of([
         (switch (_pair()) {
-          (final $t1, final $t2) => _show($t1, $t2),
+          (final $t2, final $t3) => _show($t2, $t3),
         }),
       ], _$e0),
     );
     (switch (_pair()) {
-      (final $t3, final $t4) => fmt.println(
-        go.Slice<Object?>.of([$t3, $t4], _$e0),
+      (final $t4, final $t5) => fmt.println(
+        go.Slice<Object?>.of([$t4, $t5], _$e0),
       ),
     });
     fmt.println(
       go.Slice<Object?>.of([
         (switch (_triple()) {
-          (final $t5, final $t6, final $t7) => _sum(
-            go.Slice<Golang.Int>.of([$t5, $t6, $t7], _$e1),
+          (final $t7, final $t8, final $t9) => _sum(
+            go.Slice<Golang.Int>.of([$t7, $t8, $t9], _$e1),
           ),
         }),
       ], _$e0),
@@ -136,13 +136,14 @@ void main() {
     Point p = Point(x: Golang.Int(1), y: Golang.Int(2));
     scale!(p, Golang.Int(10));
     Point Function(Point)? add = p.$copy().add;
-    fmt.println(
-      go.Slice<Object?>.of([
-        sumOf!(p.$copy()),
-        p.$ifaceCopy(),
-        add!(Point(x: Golang.Int(1), y: Golang.Int(1))).$ifaceCopy(),
-      ], _$e0),
-    );
+    (switch ((
+      sumOf!(p.$copy()),
+      add!(Point(x: Golang.Int(1), y: Golang.Int(1))),
+    )) {
+      (final $t10, final $t11) => fmt.println(
+        go.Slice<Object?>.of([$t10, p.$ifaceCopy(), $t11.$ifaceCopy()], _$e0),
+      ),
+    });
     var (a, b) = (
       Point(x: Golang.Int(1), y: Golang.Int(1)),
       Point(x: Golang.Int(1), y: Golang.Int(1)),

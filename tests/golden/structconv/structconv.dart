@@ -171,32 +171,27 @@ void main() {
     }.$copy();
     a.in$.n = Golang.Int(100);
     a.inner.n = Golang.Int(200);
-    fmt.println(
-      go.Slice<Object?>.of([b.$ifaceCopy(), b.sum(), a.in$.n, b._tag], _$e0),
-    );
+    (switch (b.sum()) {
+      final $t2 => fmt.println(
+        go.Slice<Object?>.of([b.$ifaceCopy(), $t2, a.in$.n, b._tag], _$e0),
+      ),
+    });
     P p = switch (_anon$10$(
       lat: Golang.Float64(1.5),
       lng: Golang.Float64(-2.0),
     )) {
-      final $t2 => P(lat: $t2.lat, lng: $t2.lng),
+      final $t3 => P(lat: $t3.lat, lng: $t3.lng),
     }.$copy();
     _anon$10$ q = switch (p.$copy()) {
-      final $t3 => _anon$10$(lat: $t3.lat, lng: $t3.lng),
+      final $t4 => _anon$10$(lat: $t4.lat, lng: $t4.lng),
     }.$copy();
-    fmt.println(
-      go.Slice<Object?>.of([
-        p.$ifaceCopy(),
-        q.lat,
-        switch (A(x: Golang.Int(9))) {
-          final $t4 => B(
-            x: $t4.x,
-            in$: $t4.in$,
-            inner: $t4.inner,
-            tag: $t4._tag,
-          ),
-        }.sum(),
-      ], _$e0),
-    );
+    (switch (switch (A(x: Golang.Int(9))) {
+      final $t6 => B(x: $t6.x, in$: $t6.in$, inner: $t6.inner, tag: $t6._tag),
+    }.sum()) {
+      final $t5 => fmt.println(
+        go.Slice<Object?>.of([p.$ifaceCopy(), q.lat, $t5], _$e0),
+      ),
+    });
   });
 }
 

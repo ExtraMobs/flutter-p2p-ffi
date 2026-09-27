@@ -123,18 +123,20 @@ void main() {
     );
     Golang.Float32 f32 = Golang.Float32(0.10000000149011612);
     Golang.Float64 f64 = Golang.Float64(0.1);
-    fmt.println(
-      go.Slice<Object?>.of([
-        f32,
-        f64,
-        f32 * Golang.Float32(3.0),
-        f64 * Golang.Float64(3.0),
-        _half(Golang.Float32(1.0)),
-        Golang.Float64(f32.toDouble()),
-        Golang.Float64(1e+21),
-        Golang.Float64(0.0),
-      ], _$e0),
-    );
+    (switch (_half(Golang.Float32(1.0))) {
+      final $t1 => fmt.println(
+        go.Slice<Object?>.of([
+          f32,
+          f64,
+          f32 * Golang.Float32(3.0),
+          f64 * Golang.Float64(3.0),
+          $t1,
+          Golang.Float64(f32.toDouble()),
+          Golang.Float64(1e+21),
+          Golang.Float64(0.0),
+        ], _$e0),
+      ),
+    });
     Golang.Float64 zero = Golang.Float64(0.0);
     fmt.println(
       go.Slice<Object?>.of([

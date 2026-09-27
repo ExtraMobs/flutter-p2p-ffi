@@ -109,29 +109,29 @@ void main() {
       Golang.Int(3),
     ], _$e1);
     (() {
-      final $t1 = go.Defers();
+      final $t2 = go.Defers();
       try {
         {
-          final $t2 = s;
-          $t1.defer(() {
-            $t2.clear();
+          final $t3 = s;
+          $t2.defer(() {
+            $t3.clear();
           });
         }
         {
-          final $t3 = s;
-          $t1.defer(() {
+          final $t4 = s;
+          $t2.defer(() {
             fmt.println(
               go.Slice<Object?>.of([
                 Golang.String.fromDart('clear depois'),
-                $t3,
+                $t4,
               ], _$e0),
             );
           });
         }
-      } catch ($t4, $t5) {
-        $t1.fail($t4, $t5);
+      } catch ($t5, $t6) {
+        $t2.fail($t5, $t6);
       } finally {
-        $t1.run();
+        $t2.run();
       }
     })();
     fmt.println(go.Slice<Object?>.of([s], _$e0));

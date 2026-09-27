@@ -281,21 +281,31 @@ void main() {
       Golang.String.fromDart('load: %w'),
       go.Slice<Object?>.of([pe ?? PathError.$nil], _$e0),
     );
-    fmt.println(
-      go.Slice<Object?>.of([
-        errors.is$(wrapped, errNotFound),
-        errors.is$(wrapped, errors.new$(Golang.String.fromDart('not found'))),
-        go.ifaceEq(errors.unwrap(wrapped), pe ?? PathError.$nil),
-      ], _$e0),
-    );
+    (switch ((
+      errors.is$(wrapped, errNotFound),
+      (switch (errors.new$(Golang.String.fromDart('not found'))) {
+        final $t4 => errors.is$(wrapped, $t4),
+      }),
+      errors.unwrap(wrapped),
+    )) {
+      (final $t1, final $t2, final $t3) => fmt.println(
+        go.Slice<Object?>.of([
+          $t1,
+          $t2,
+          go.ifaceEq($t3, pe ?? PathError.$nil),
+        ], _$e0),
+      ),
+    });
     final go.Box<PathError?> target = go.Box<PathError?>(null);
-    fmt.println(
-      go.Slice<Object?>.of([
-        errors.as(wrapped, target ?? const go.NilPtr<PathError?>()),
-        identical(target.value, pe),
-        target.value!.path,
-      ], _$e0),
-    );
+    (switch (errors.as(wrapped, target ?? const go.NilPtr<PathError?>())) {
+      final $t5 => fmt.println(
+        go.Slice<Object?>.of([
+          $t5,
+          identical(target.value, pe),
+          target.value!.path,
+        ], _$e0),
+      ),
+    });
     fmt.println(
       go.Slice<Object?>.of([
         errors.is$(Code(404), Code(400)),
@@ -310,69 +320,60 @@ void main() {
       ], _$e0),
     );
     final Code$Ptr c = Code$Ptr(go.Box<Code>(Code()));
-    fmt.println(
-      go.Slice<Object?>.of([
-        errors.as(
-          fmt.errorf(
-            Golang.String.fromDart('w: %w'),
-            go.Slice<Object?>.of([Code(502)], _$e0),
-          ),
-          c ?? Code$Ptr.$nil,
-        ),
-        c.value,
-      ], _$e0),
-    );
+    (switch (errors.as(
+      fmt.errorf(
+        Golang.String.fromDart('w: %w'),
+        go.Slice<Object?>.of([Code(502)], _$e0),
+      ),
+      c ?? Code$Ptr.$nil,
+    )) {
+      final $t10 => fmt.println(go.Slice<Object?>.of([$t10, c.value], _$e0)),
+    });
     final go.Box<_temporary$?> tmp = go.Box<_temporary$?>(null);
-    fmt.println(
-      go.Slice<Object?>.of([
-        errors.as(
-          fmt.errorf(
-            Golang.String.fromDart('n: %w'),
-            go.Slice<Object?>.of([
-              _netErr$(msg: Golang.String.fromDart('timeout')).$ifaceCopy(),
-            ], _$e0),
-          ),
-          tmp ?? const go.NilPtr<_temporary$?>(),
+    (switch ((
+      errors.as(
+        fmt.errorf(
+          Golang.String.fromDart('n: %w'),
+          go.Slice<Object?>.of([
+            _netErr$(msg: Golang.String.fromDart('timeout')).$ifaceCopy(),
+          ], _$e0),
         ),
-        tmp.value!.temporary(),
-        tmp.value,
-      ], _$e0),
-    );
+        tmp ?? const go.NilPtr<_temporary$?>(),
+      ),
+      tmp.value!.temporary(),
+    )) {
+      (final $t12, final $t13) => fmt.println(
+        go.Slice<Object?>.of([$t12, $t13, tmp.value], _$e0),
+      ),
+    });
     _netErr$ ne = _netErr$();
-    fmt.println(
-      go.Slice<Object?>.of([
-        errors.as(
-          _netErr$(msg: Golang.String.fromDart('v')).$ifaceCopy(),
-          ne ?? _netErr$.$nil,
-        ),
-        ne._msg,
-      ], _$e0),
-    );
+    (switch (errors.as(
+      _netErr$(msg: Golang.String.fromDart('v')).$ifaceCopy(),
+      ne ?? _netErr$.$nil,
+    )) {
+      final $t15 => fmt.println(go.Slice<Object?>.of([$t15, ne._msg], _$e0)),
+    });
     final go.Box<_netErr$?> pne = go.Box<_netErr$?>(null);
-    fmt.println(
-      go.Slice<Object?>.of([
-        errors.as(
-          _netErr$(msg: Golang.String.fromDart('v')).$ifaceCopy(),
-          pne ?? const go.NilPtr<_netErr$?>(),
-        ),
-        pne.value == null,
-      ], _$e0),
-    );
+    (switch (errors.as(
+      _netErr$(msg: Golang.String.fromDart('v')).$ifaceCopy(),
+      pne ?? const go.NilPtr<_netErr$?>(),
+    )) {
+      final $t16 => fmt.println(
+        go.Slice<Object?>.of([$t16, pne.value == null], _$e0),
+      ),
+    });
     _netErr$ viaAs = _netErr$();
-    fmt.println(
-      go.Slice<Object?>.of([
-        errors.as(
-          fmt.errorf(
-            Golang.String.fromDart('a: %w'),
-            go.Slice<Object?>.of([
-              _named$(name: Golang.String.fromDart('zed')) ?? _named$.$nil,
-            ], _$e0),
-          ),
-          viaAs ?? _netErr$.$nil,
-        ),
-        viaAs._msg,
-      ], _$e0),
-    );
+    (switch (errors.as(
+      fmt.errorf(
+        Golang.String.fromDart('a: %w'),
+        go.Slice<Object?>.of([
+          _named$(name: Golang.String.fromDart('zed')) ?? _named$.$nil,
+        ], _$e0),
+      ),
+      viaAs ?? _netErr$.$nil,
+    )) {
+      final $t17 => fmt.println(go.Slice<Object?>.of([$t17, viaAs._msg], _$e0)),
+    });
     final go.Box<Golang.String> s = go.Box<Golang.String>(Golang.String());
     fmt.println(
       go.Slice<Object?>.of([
@@ -406,14 +407,15 @@ void main() {
       go.Slice<Object?>.of([errNotFound, pe ?? PathError.$nil], _$e0),
     );
     final go.Box<PathError?> t2 = go.Box<PathError?>(null);
-    fmt.println(
-      go.Slice<Object?>.of([
-        errors.is$(two, errNotFound),
-        errors.as(two, t2 ?? const go.NilPtr<PathError?>()),
-        t2.value!.op,
-        errors.unwrap(two) == null,
-      ], _$e0),
-    );
+    (switch ((
+      errors.is$(two, errNotFound),
+      errors.as(two, t2 ?? const go.NilPtr<PathError?>()),
+      errors.unwrap(two),
+    )) {
+      (final $t25, final $t26, final $t27) => fmt.println(
+        go.Slice<Object?>.of([$t25, $t26, t2.value!.op, $t27 == null], _$e0),
+      ),
+    });
     _multi$ m = _multi$(
       errs: go.Slice<go.GoError?>.of([Code(200), pe ?? PathError.$nil], _$e1),
     );
@@ -453,14 +455,15 @@ void main() {
         }),
       ], _$e0),
     );
-    fmt.println(
-      go.Slice<Object?>.of([
-        errors.as(null, target ?? const go.NilPtr<PathError?>()),
-        errors.is$(null, null),
-        errors.is$(null, errNotFound),
-        errors.errUnsupported,
-      ], _$e0),
-    );
+    (switch ((
+      errors.as(null, target ?? const go.NilPtr<PathError?>()),
+      errors.is$(null, null),
+      errors.is$(null, errNotFound),
+    )) {
+      (final $t34, final $t35, final $t36) => fmt.println(
+        go.Slice<Object?>.of([$t34, $t35, $t36, errors.errUnsupported], _$e0),
+      ),
+    });
   });
 }
 

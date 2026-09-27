@@ -161,14 +161,11 @@ void main() {
     bs.set(Golang.Uint64(3));
     bs.set(Golang.Uint64(5));
     bs.clear(Golang.Uint64(3));
-    fmt.println(
-      go.Slice<Object?>.of([
-        bs.value,
-        bs.len(),
-        bs.has(Golang.Uint64(5)),
-        bs.has(Golang.Uint64(3)),
-      ], _$e0),
-    );
+    (switch ((bs.len(), bs.has(Golang.Uint64(5)), bs.has(Golang.Uint64(3)))) {
+      (final $t1, final $t2, final $t3) => fmt.println(
+        go.Slice<Object?>.of([bs.value, $t1, $t2, $t3], _$e0),
+      ),
+    });
     Ints s = Ints();
     _int64s$$Ptr(
       go.FieldPtr<Ints, _int64s$>(s, '_lo', (o) => o._lo, (o, v) => o._lo = v),

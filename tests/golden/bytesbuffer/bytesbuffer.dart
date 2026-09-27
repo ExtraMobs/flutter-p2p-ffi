@@ -122,52 +122,69 @@ void main() {
       go.Slice<Object?>.of([line, err], _$e2),
     );
     var (c, _) = b.readByte();
-    fmt.println(
-      go.Slice<Object?>.of([
-        Golang.String.fromCodePoint(c.toInt()),
-        b.unreadByte(),
-        b.unreadByte() != null,
-      ], _$e2),
-    );
+    (switch ((b.unreadByte(), b.unreadByte())) {
+      (final $t7, final $t8) => fmt.println(
+        go.Slice<Object?>.of([
+          Golang.String.fromCodePoint(c.toInt()),
+          $t7,
+          $t8 != null,
+        ], _$e2),
+      ),
+    });
     var (r, size, _) = b.readRune();
-    fmt.println(
-      go.Slice<Object?>.of([
-        Golang.String.fromCodePoint(r.toInt()),
-        size,
-        b.unreadRune(),
-      ], _$e2),
-    );
-    final $t1 = b.readBytes(Golang.Uint8(33));
-    go.Slice<Golang.Uint8> rest = $t1.$1;
-    err = $t1.$2;
+    (switch (b.unreadRune()) {
+      final $t9 => fmt.println(
+        go.Slice<Object?>.of([
+          Golang.String.fromCodePoint(r.toInt()),
+          size,
+          $t9,
+        ], _$e2),
+      ),
+    });
+    final $t10 = b.readBytes(Golang.Uint8(33));
+    go.Slice<Golang.Uint8> rest = $t10.$1;
+    err = $t10.$2;
     fmt.printf(
       Golang.String.fromDart('%q %v %v\n'),
       go.Slice<Object?>.of([rest, err, go.ifaceEq(err, io.eof)], _$e2),
     );
     (_, err) = b.readByte();
-    fmt.println(go.Slice<Object?>.of([go.ifaceEq(err, io.eof), b.len()], _$e2));
+    (switch (b.len()) {
+      final $t11 => fmt.println(
+        go.Slice<Object?>.of([go.ifaceEq(err, io.eof), $t11], _$e2),
+      ),
+    });
     b.grow(Golang.Int(200));
     fmt.println(go.Slice<Object?>.of([b.cap()], _$e2));
-    final $t2 = b.readFrom(
+    final $t13 = b.readFrom(
       _chunks$(data: go.bytesOf(Golang.String.fromDart('abcdefgh'), _$e0)) ??
           _chunks$.$nil,
     );
-    Golang.Int64 n = $t2.$1;
-    err = $t2.$2;
-    fmt.println(go.Slice<Object?>.of([n, err, b.string(), b.cap()], _$e2));
+    Golang.Int64 n = $t13.$1;
+    err = $t13.$2;
+    (switch ((b.string(), b.cap())) {
+      (final $t14, final $t15) => fmt.println(
+        go.Slice<Object?>.of([n, err, $t14, $t15], _$e2),
+      ),
+    });
     _sink$? s = _sink$();
-    final $t3 = b.writeTo(s ?? _sink$.$nil);
-    Golang.Int64 m = $t3.$1;
-    err = $t3.$2;
-    fmt.println(go.Slice<Object?>.of([m, err, s!._got, b.len()], _$e2));
+    final $t16 = b.writeTo(s ?? _sink$.$nil);
+    Golang.Int64 m = $t16.$1;
+    err = $t16.$2;
+    (switch (b.len()) {
+      final $t17 => fmt.println(
+        go.Slice<Object?>.of([m, err, s!._got, $t17], _$e2),
+      ),
+    });
     bytes.Buffer? nb = bytes.newBufferString(Golang.String.fromDart('xyz'));
-    fmt.println(
-      go.Slice<Object?>.of([
-        nb ?? bytes.Buffer.$nil,
-        (nb ?? bytes.Buffer.$nil).next(Golang.Int(2)),
-        (nb ?? bytes.Buffer.$nil).string(),
-      ], _$e2),
-    );
+    (switch ((
+      (nb ?? bytes.Buffer.$nil).next(Golang.Int(2)),
+      (nb ?? bytes.Buffer.$nil).string(),
+    )) {
+      (final $t18, final $t19) => fmt.println(
+        go.Slice<Object?>.of([nb ?? bytes.Buffer.$nil, $t18, $t19], _$e2),
+      ),
+    });
     (nb ?? bytes.Buffer.$nil).truncate(Golang.Int(0));
     fmt.println(
       go.Slice<Object?>.of([

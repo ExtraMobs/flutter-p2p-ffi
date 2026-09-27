@@ -505,18 +505,14 @@ void main() {
       Golang.String.fromDart('%T %T %T %T\n'),
       go.Slice<Object?>.of([e1, e2, e3, e4], _$e0),
     );
-    fmt.println(
-      go.Slice<Object?>.of([
-        go.ifaceEq(e1, e1),
-        !go.ifaceEq(
-          e1,
-          fmt.errorf(
-            Golang.String.fromDart('falhou: %d'),
-            go.Slice<Object?>.of([Golang.Int(5)], _$e0),
-          ),
-        ),
-      ], _$e0),
-    );
+    (switch (fmt.errorf(
+      Golang.String.fromDart('falhou: %d'),
+      go.Slice<Object?>.of([Golang.Int(5)], _$e0),
+    )) {
+      final $t3 => fmt.println(
+        go.Slice<Object?>.of([go.ifaceEq(e1, e1), !go.ifaceEq(e1, $t3)], _$e0),
+      ),
+    });
     Box bx = Box(
       p: P(
         x: Golang.Int(1),
@@ -603,7 +599,7 @@ void main() {
       go.Slice<Object?>.of([u, u], _$e0),
     );
     {
-      final $t1 = go.Slice<Golang.Int32>.of([
+      final $t5 = go.Slice<Golang.Int32>.of([
         Golang.Int32(160),
         Golang.Int32(173),
         Golang.Int32(769),
@@ -614,8 +610,8 @@ void main() {
         Golang.Int32(1114111),
         Golang.Int32(8501),
       ], _$e7);
-      for (var $t2 = 0; $t2 < $t1.length; $t2++) {
-        Golang.Int32 r = $t1[$t2];
+      for (var $t6 = 0; $t6 < $t5.length; $t6++) {
+        Golang.Int32 r = $t5[$t6];
         {
           fmt.printf(
             Golang.String.fromDart('%q %+q %#U|'),
@@ -639,13 +635,12 @@ void main() {
         null,
       ], _$e0),
     );
-    fmt.printf(
-      Golang.String.fromDart('%q %q\n'),
-      go.Slice<Object?>.of([
-        ln,
-        fmt.sprintln(go.Slice<Object?>.nil(_$e0)),
-      ], _$e0),
-    );
+    (switch (fmt.sprintln(go.Slice<Object?>.nil(_$e0))) {
+      final $t7 => fmt.printf(
+        Golang.String.fromDart('%q %q\n'),
+        go.Slice<Object?>.of([ln, $t7], _$e0),
+      ),
+    });
   });
 }
 

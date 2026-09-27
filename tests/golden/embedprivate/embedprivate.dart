@@ -126,23 +126,29 @@ void main() {
     $goInit();
     _mac$ m = _mac$();
     m._macGeneric.write(go.bytesOf(Golang.String.fromDart('abc'), _$e0));
-    fmt.println(
-      go.Slice<Object?>.of([
-        m._macGeneric.write(go.bytesOf(Golang.String.fromDart('de'), _$e0)),
-        m._macGeneric._n,
-        m._macGeneric.$ifaceCopy(),
-      ], _$e1),
-    );
+    (switch (m._macGeneric.write(
+      go.bytesOf(Golang.String.fromDart('de'), _$e0),
+    )) {
+      final $t1 => fmt.println(
+        go.Slice<Object?>.of([
+          $t1,
+          m._macGeneric._n,
+          m._macGeneric.$ifaceCopy(),
+        ], _$e1),
+      ),
+    });
     _state$ s = _state$(
       buf: _buf$(go.bytesOf(Golang.String.fromDart('xyz'), _$e0)),
     );
-    fmt.println(
-      go.Slice<Object?>.of([
-        s._state(),
-        go.stringOfByteSlice(s._buf),
-        s.$ifaceCopy(),
-      ], _$e1),
-    );
+    (switch (s._state()) {
+      final $t2 => fmt.println(
+        go.Slice<Object?>.of([
+          $t2,
+          go.stringOfByteSlice(s._buf),
+          s.$ifaceCopy(),
+        ], _$e1),
+      ),
+    });
   });
 }
 

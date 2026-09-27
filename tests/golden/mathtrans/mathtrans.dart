@@ -42,16 +42,11 @@ void main() {
           var (s, c) = math.sincos(x);
           var (fr, e) = math.frexp(x);
           var (i, f) = math.modf(x);
-          fmt.println(
-            go.Slice<Object?>.of([
-              x,
-              math.sin(x),
-              math.cos(x),
-              math.tan(x),
-              s,
-              c,
-            ], _$e1),
-          );
+          (switch ((math.sin(x), math.cos(x), math.tan(x))) {
+            (final $t3, final $t4, final $t5) => fmt.println(
+              go.Slice<Object?>.of([x, $t3, $t4, $t5, s, c], _$e1),
+            ),
+          });
           fmt.println(
             go.Slice<Object?>.of([
               Golang.String.fromDart(' '),
@@ -61,17 +56,19 @@ void main() {
               math.expm1(x),
             ], _$e1),
           );
-          fmt.println(
-            go.Slice<Object?>.of([
-              Golang.String.fromDart(' '),
-              math.round(x),
-              math.roundToEven(x),
-              fr,
-              e,
-              i,
-              f,
-            ], _$e1),
-          );
+          (switch ((math.round(x), math.roundToEven(x))) {
+            (final $t10, final $t11) => fmt.println(
+              go.Slice<Object?>.of([
+                Golang.String.fromDart(' '),
+                $t10,
+                $t11,
+                fr,
+                e,
+                i,
+                f,
+              ], _$e1),
+            ),
+          });
           fmt.println(
             go.Slice<Object?>.of([
               Golang.String.fromDart(' '),
@@ -92,16 +89,16 @@ void main() {
               math.erfc(x),
             ], _$e1),
           );
-          fmt.printf(
-            Golang.String.fromDart('  %.12g %.12g %.12g %d %.12g\n'),
-            go.Slice<Object?>.of([
-              math.pow(x, Golang.Float64(1.5)),
-              math.pow(x, Golang.Float64(3.0)),
-              lg,
-              sg,
-              math.gamma(x),
-            ], _$e1),
-          );
+          (switch ((
+            math.pow(x, Golang.Float64(1.5)),
+            math.pow(x, Golang.Float64(3.0)),
+            math.gamma(x),
+          )) {
+            (final $t21, final $t22, final $t23) => fmt.printf(
+              Golang.String.fromDart('  %.12g %.12g %.12g %d %.12g\n'),
+              go.Slice<Object?>.of([$t21, $t22, lg, sg, $t23], _$e1),
+            ),
+          });
         }
       }
     }

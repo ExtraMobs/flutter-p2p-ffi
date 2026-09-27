@@ -65,16 +65,18 @@ void main() {
     ], _$e0);
     go.GoArray<Golang.Int> b = a.$copy();
     b[0] = Golang.Int(9);
-    fmt.println(
-      go.Slice<Object?>.of([
-        a.$ifaceCopy(),
-        b.$ifaceCopy(),
-        a == b,
-        Golang.Int(4),
-        _sum(a.$copy()),
-        a[0],
-      ], _$e1),
-    );
+    (switch (_sum(a.$copy())) {
+      final $t1 => fmt.println(
+        go.Slice<Object?>.of([
+          a.$ifaceCopy(),
+          b.$ifaceCopy(),
+          a == b,
+          Golang.Int(4),
+          $t1,
+          a[0],
+        ], _$e1),
+      ),
+    });
     go.GoArray<Golang.String> names = go.GoArray<Golang.String>.of([
       Golang.String.fromDart('x'),
       Golang.String.fromDart('y'),

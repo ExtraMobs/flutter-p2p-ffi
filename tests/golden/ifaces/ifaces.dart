@@ -274,13 +274,11 @@ void main() {
           shapes[1]!.name(),
         ], _$e0),
       );
-      fmt.println(
-        go.Slice<Object?>.of([
-          _describe(shapes[0]),
-          _describe(shapes[1]),
-          c!.r,
-        ], _$e0),
-      );
+      (switch ((_describe(shapes[0]), _describe(shapes[1]))) {
+        (final $t5, final $t6) => fmt.println(
+          go.Slice<Object?>.of([$t5, $t6, c!.r], _$e0),
+        ),
+      });
       Shape? s = Rect(
         w: Golang.Float64(1.0),
         h: Golang.Float64(1.0),
@@ -289,15 +287,17 @@ void main() {
       var (_, isCircle) = go.tryType<Circle?>(s, null, struct: false);
       fmt.println(go.Slice<Object?>.of([r.w, ok, isCircle], _$e0));
       go.GoError? err = _find(Golang.String.fromDart('x'));
-      fmt.println(
-        go.Slice<Object?>.of([
-          err,
-          err != null,
-          _find(Golang.String.fromDart('y')) == null,
-        ], _$e0),
-      );
+      (switch (_find(Golang.String.fromDart('y'))) {
+        final $t7 => fmt.println(
+          go.Slice<Object?>.of([err, err != null, $t7 == null], _$e0),
+        ),
+      });
       var (nf, isNF) = go.tryType<NotFound>(err, NotFound(), struct: true);
-      fmt.println(go.Slice<Object?>.of([isNF, nf.key, _nilAssert()], _$e0));
+      (switch (_nilAssert()) {
+        final $t8 => fmt.println(
+          go.Slice<Object?>.of([isNF, nf.key, $t8], _$e0),
+        ),
+      });
       fmt.println(
         go.Slice<Object?>.of([
           Point(x: Golang.Int(1), y: Golang.Int(2)).$ifaceCopy(),
@@ -332,8 +332,8 @@ void main() {
         'Area',
         'Name',
       ])!.area();
-    } catch ($t2, $t3) {
-      $t1.fail($t2, $t3);
+    } catch ($t10, $t11) {
+      $t1.fail($t10, $t11);
     } finally {
       $t1.run();
     }

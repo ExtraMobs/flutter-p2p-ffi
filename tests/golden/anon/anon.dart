@@ -70,9 +70,9 @@ void main() {
       _anon$21$(in$: Golang.String.fromDart('ccc'), want: Golang.Int(3)),
     ], _$e1);
     {
-      final $t1 = tests;
-      for (var $t2 = 0; $t2 < $t1.length; $t2++) {
-        _anon$21$ tc = $t1[$t2].$copy();
+      final $t3 = tests;
+      for (var $t4 = 0; $t4 < $t3.length; $t4++) {
+        _anon$21$ tc = $t3[$t4].$copy();
         {
           fmt.println(
             go.Slice<Object?>.of([
