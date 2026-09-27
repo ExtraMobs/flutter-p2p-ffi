@@ -13,3 +13,4 @@ import 'src/unicode/utf8.dart';
 
 part 'src/strings/funcs.dart';
 part 'src/strings/builder.dart';
+part 'src/strings/replace.dart';
