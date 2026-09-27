@@ -142,6 +142,21 @@ O trabalho é guiado pelo backlog em `TODO/` (convenção em `TODO/README.md`):
 4. Problemas descobertos no caminho viram novos artefatos, provados antes
    de serem escritos.
 
+## Multiagentes
+
+**Sempre que puder, use multiagentes**: divida o trabalho em partes
+independentes e rode subagentes em paralelo, em vez de um agente fazendo tudo
+em sequência. O agente principal planeja, integra e faz a verificação final.
+
+- Bons cortes: explorar áreas diferentes (`g2d`, `goast`, `dartast`,
+  `golib_dart`) ao mesmo tempo; um artefato de `TODO/` ou um shim por agente;
+  revisão independente do diff; medir (audit, e2e) enquanto outro agente
+  trabalha.
+- Agente que edita arquivos em paralelo com outro trabalha numa worktree git
+  própria (no Claude Code, `isolation: "worktree"`); o principal integra.
+- O e2e e o audit leem `g2d/` e `golib_dart/` ao vivo: não edite esses
+  diretórios na mesma worktree enquanto eles rodam.
+
 ## Documentos vivos (atualizar no mesmo commit das mudanças)
 
 - `docs/mapping-spec.md` — tabela de correspondência semântica Go↔Dart.
