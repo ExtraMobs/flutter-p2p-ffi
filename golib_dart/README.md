@@ -11,6 +11,7 @@ representações dos tipos primitivos Go.
 | `lib/<import path Go>.dart` | Shim de um pacote da stdlib (`fmt.dart`, `math.dart`, `net.dart`, `net/netip.dart`, `internal/poll.dart`). O que é interno fica em `lib/src/<import path>/`: as partes (`part`) de uma library grande, como `src/fmt/print.dart` (o `pp` do Go) e `src/fmt/format.dart` (o `fmt`), e libraries auxiliares. |
 | `lib/builtin.dart` | Universo Go e runtime do g2d; importado como `go`. Exporta `lib/src/runtime/`. |
 | `lib/src/unicode/isprint.dart` | `unicode.IsPrint` do Go (faixas geradas por `go run tool/gen_isprint.go \| dart format`; `test/isprint_test.dart` confere com o Go instalado). |
+| `lib/unicode.dart` (+ `lib/src/unicode/range_table.dart`, `predicates.dart`, `tables.g.dart`) | Shim do pacote `unicode`: `RangeTable`/`Range16`/`Range32`/`CaseRange` (structs de shim), predicados e conversões de caixa. `tables.g.dart` é gerado por `tool/gen_unicode*.go` a partir do `unicode` do **Go 1.26.5** (`GOTOOLCHAIN=go1.26.5`, a referência do projeto — difere do Go local em `Cn`/`LC`, mesmo relatando o mesmo `unicode.Version`); `test/unicode_tables_test.dart` confere o gerado em dia e varre 0..0x10FFFF contra `tool/oracle_unicode.go`. |
 
 `fixed_types`, `net`, `net/netip` e `internal/poll` vêm de
 `dart IPFS/packages/boilerplate`, mas a divisão em arquivos já não é a da
