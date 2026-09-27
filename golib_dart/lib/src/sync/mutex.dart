@@ -6,6 +6,15 @@ abstract interface class Locker {
   void unlock();
 }
 
+/// [Locker] que também sabe travar de forma suspensiva. Usado por
+/// [Cond.wait$async] para retravar `L` sem cair no limite síncrono do g2d
+/// quando `L` está contendido. Um `Locker` Go arbitrário (implementado só
+/// com `Lock`/`Unlock`, sem versão async) não implementa isto — `wait$async`
+/// então cai para `lock()` síncrono nele.
+abstract interface class AsyncLocker implements Locker {
+  Future<void> lock$async();
+}
+
 /// `internal/sync.Mutex` (`{state sema}` no `%v`).
 final class _MuState extends GoStruct<_MuState> {
   _MuState(this.state);
@@ -23,13 +32,14 @@ final class _MuState extends GoStruct<_MuState> {
 }
 
 /// `sync.Mutex`.
-final class Mutex extends GoStruct<Mutex> implements Locker {
+final class Mutex extends GoStruct<Mutex> implements AsyncLocker {
   Mutex();
 
   /// `(*Mutex)(nil)` dentro de uma interface.
   static final Mutex $nil = Mutex()..$nilPtr = true;
 
   bool _locked = false;
+  final _waiters = Queue<Completer<void>>();
 
   @override
   String get $goType => 'sync.Mutex';
@@ -44,11 +54,36 @@ final class Mutex extends GoStruct<Mutex> implements Locker {
   @override
   List<String> get $fieldNames => const ['_', 'mu'];
 
-  /// `Lock()`: já travado → deadlock (ninguém mais pode destravar).
+  /// `Lock()`: já travado, sem outra goroutine viva → deadlock (ninguém mais
+  /// destravaria); com outras vivas → limite do g2d (só `lock$async`
+  /// esperaria por elas de verdade).
   @override
   void lock() {
-    if (_locked) fatal(_deadlock);
-    _locked = true;
+    if (!_locked) {
+      _locked = true;
+      return;
+    }
+    if (aliveGoroutines <= 1) fatal(_deadlock);
+    fatal(
+      'g2d: Lock síncrono com mutex já travado por outra goroutine '
+      '(contexto que não pode suspender); era preciso lock\$async aqui',
+    );
+  }
+
+  /// `Lock()` suspensivo: entra na fila (FIFO) se já travado.
+  Future<void> lock$async() async {
+    if (!_locked) {
+      _locked = true;
+      return;
+    }
+    final c = Completer<void>();
+    _waiters.add(c);
+    goroutineBlocked();
+    try {
+      await c.future;
+    } finally {
+      goroutineUnblocked();
+    }
   }
 
   /// `TryLock()`.
@@ -58,16 +93,21 @@ final class Mutex extends GoStruct<Mutex> implements Locker {
     return true;
   }
 
-  /// `Unlock()`.
+  /// `Unlock()`: com alguém na fila, a posse passa direto a ele (handoff,
+  /// sem destravar de verdade); senão destrava.
   @override
   void unlock() {
     if (!_locked) fatal('sync: unlock of unlocked mutex');
+    if (_waiters.isNotEmpty) {
+      _waiters.removeFirst().complete();
+      return;
+    }
     _locked = false;
   }
 }
 
 /// `sync.RWMutex`.
-final class RWMutex extends GoStruct<RWMutex> implements Locker {
+final class RWMutex extends GoStruct<RWMutex> implements AsyncLocker {
   RWMutex();
 
   /// `(*RWMutex)(nil)` dentro de uma interface.
@@ -75,6 +115,14 @@ final class RWMutex extends GoStruct<RWMutex> implements Locker {
 
   bool _w = false;
   int _readers = 0;
+
+  /// Escritores esperando a trava ficar livre (nenhum leitor, nenhum
+  /// escritor). Não vazio ⟹ preferência de escritor: leitor novo (síncrono
+  /// ou não) também espera, em vez de furar a fila.
+  final _writerQ = Queue<Completer<void>>();
+
+  /// Leitores esperando por causa de um escritor ativo ou preferido.
+  final _readerQ = Queue<Completer<void>>();
 
   static const _maxReaders = 1 << 30;
 
@@ -120,8 +168,32 @@ final class RWMutex extends GoStruct<RWMutex> implements Locker {
   /// `Lock()`.
   @override
   void lock() {
-    if (_w || _readers > 0) fatal(_deadlock);
-    _w = true;
+    if (!_w && _readers == 0) {
+      _w = true;
+      return;
+    }
+    if (aliveGoroutines <= 1) fatal(_deadlock);
+    fatal(
+      'g2d: Lock síncrono com RWMutex contendido (contexto que não pode '
+      'suspender); era preciso lock\$async aqui',
+    );
+  }
+
+  /// `Lock()` suspensivo: preferência de escritor (some com leitores novos
+  /// enquanto um escritor espera).
+  Future<void> lock$async() async {
+    if (!_w && _readers == 0 && _writerQ.isEmpty) {
+      _w = true;
+      return;
+    }
+    final c = Completer<void>();
+    _writerQ.add(c);
+    goroutineBlocked();
+    try {
+      await c.future;
+    } finally {
+      goroutineUnblocked();
+    }
   }
 
   /// `TryLock()`.
@@ -131,41 +203,79 @@ final class RWMutex extends GoStruct<RWMutex> implements Locker {
     return true;
   }
 
-  /// `Unlock()`.
+  /// `Unlock()`: passa a posse a um escritor esperando; senão libera todos
+  /// os leitores esperando.
   @override
   void unlock() {
     if (!_w) fatal('sync: Unlock of unlocked RWMutex');
+    if (_writerQ.isNotEmpty) {
+      _writerQ.removeFirst().complete();
+      return;
+    }
     _w = false;
+    while (_readerQ.isNotEmpty) {
+      _readers++;
+      _readerQ.removeFirst().complete();
+    }
   }
 
   /// `RLock()`.
   void rLock() {
-    if (_w) fatal(_deadlock);
-    _readers++;
+    if (!_w && _writerQ.isEmpty) {
+      _readers++;
+      return;
+    }
+    if (aliveGoroutines <= 1) fatal(_deadlock);
+    fatal(
+      'g2d: RLock síncrono bloqueado por escritor (contexto que não pode '
+      'suspender); era preciso rLock\$async aqui',
+    );
+  }
+
+  /// `RLock()` suspensivo.
+  Future<void> rLock$async() async {
+    if (!_w && _writerQ.isEmpty) {
+      _readers++;
+      return;
+    }
+    final c = Completer<void>();
+    _readerQ.add(c);
+    goroutineBlocked();
+    try {
+      await c.future;
+    } finally {
+      goroutineUnblocked();
+    }
   }
 
   /// `TryRLock()`.
   bool tryRLock() {
-    if (_w) return false;
+    if (_w || _writerQ.isNotEmpty) return false;
     _readers++;
     return true;
   }
 
-  /// `RUnlock()`.
+  /// `RUnlock()`: último leitor libera um escritor esperando, se houver.
   void rUnlock() {
     if (_readers == 0) fatal('sync: RUnlock of unlocked RWMutex');
     _readers--;
+    if (_readers == 0 && _writerQ.isNotEmpty) {
+      _w = true;
+      _writerQ.removeFirst().complete();
+    }
   }
 
   /// `RLocker()`: Locker que chama RLock/RUnlock.
   Locker? rLocker() => _RLocker(this);
 }
 
-final class _RLocker implements Locker {
+final class _RLocker implements AsyncLocker {
   _RLocker(this._rw);
   final RWMutex _rw;
   @override
   void lock() => _rw.rLock();
   @override
   void unlock() => _rw.rUnlock();
+  @override
+  Future<void> lock$async() => _rw.rLock$async();
 }
