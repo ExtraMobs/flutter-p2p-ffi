@@ -51,9 +51,8 @@ class Functions(Service):
         else:
             name = self.names.top_name(d["name"]["name"], "func", d["name"]["$obj"].get("fold"))
             if d["name"]["name"] == "init":
-                # Várias por pacote, nunca referenciadas: chamadas por $goInit.
-                name = f"_init${len(self.facts.init_funcs)}"
-                self.facts.init_funcs.append(name)
+                # Várias por pacote, nunca referenciadas: o $goInit as chama.
+                name = self.facts.init_funcs[d["name"]["$obj"]["decl"]]
         tps = self.type_params(d["type"]["typeParams"])
         tparams, dicts = tps.decl, ", ".join(tps.dicts)
         params, boxes = self.params(d["type"]["params"], sig)

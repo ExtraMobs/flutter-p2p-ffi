@@ -31,7 +31,8 @@ class CorePlugin(Plugin):
                 Literals, GoTypeInfo, Operands, Calls, Assertions, ControlFlow, Functions,
                 VarDecls, Promotion]
     ANALYSES = [analyses.ImplementsAnalysis, analyses.MethodsAnalysis, analyses.TopNamesAnalysis,
-                analyses.BoxingAnalysis, analyses.LocalTypesAnalysis, analyses.RecoverAnalysis, analyses.InitVarsAnalysis]
+                analyses.BoxingAnalysis, analyses.LocalTypesAnalysis, analyses.RecoverAnalysis, analyses.InitVarsAnalysis,
+                analyses.InitFuncsAnalysis]
     STMTS = [stmts.BlockStmt, stmts.ExprStmt, stmts.EmptyStmt, stmts.IncDecStmt, stmts.DeclStmt,
              stmts.ReturnStmt, stmts.AssignStmt, stmts.IfStmt, stmts.ForStmt, stmts.RangeStmt,
              stmts.BranchStmt, stmts.LabeledStmt, stmts.SwitchStmt]

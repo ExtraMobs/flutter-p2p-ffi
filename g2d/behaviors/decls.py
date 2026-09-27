@@ -81,10 +81,10 @@ class PackageBehavior(Behavior):
         """Classes das structs/interfaces anônimas; emitir uma pode registrar
         outras (campos), então repete até estabilizar. Ordem por índice."""
         out, done = [], set()
-        while pending := sorted(set(self.facts.synthetic) - done):
+        while pending := sorted(set(self.types.synthetics) - done):
             for idx in pending:
                 done.add(idx)
-                t, name = self.pkg.type_at(idx), self.facts.synthetic[idx]
+                t, name = self.pkg.type_at(idx), self.types.synthetics[idx]
                 behavior = self.engine.type_decls.find(t, t)
                 if t["kind"] == "struct":
                     out += ["", "/// `" + self.goinfo.go_type_name(t) + "` (struct anônima)."]
@@ -108,7 +108,7 @@ class InitBehavior(Behavior):
         for entry in self.pkg.init_order:
             spec, idx = self.facts.var_inits[entry[0]]
             lines += self.engine.guard(self.init_entry, spec, idx)
-        lines += [f"{name}();" for name in self.facts.init_funcs]
+        lines += [f"{name}();" for name in self.facts.init_funcs.values()]
         self.scope = None
         return ["", "bool _$inited = false;", "",
                 "/// Inicialização do pacote Go: variáveis em ordem de dependência, depois as funções init.",
@@ -156,16 +156,11 @@ class StructClass(TypeDeclBehavior):
 
     def emit(self, spec, name, t, u, tidx):
         tparams = spec["typeParams"] or self.facts.local_tparams.get(id(t))
-        self.facts.class_tparams = self.functions.type_params(tparams)
-        try:
-            return self.struct_class(name, u, tidx)
-        finally:
-            self.facts.class_tparams = TypeParams()
+        return self.struct_class(name, u, tidx, self.functions.type_params(tparams))
 
-    def struct_class(self, go_name, st, tidx):
+    def struct_class(self, go_name, st, tidx, tps=TypeParams()):
         """struct Go → classe que estende go.GoStruct (semântica de valor),
         com os métodos promovidos por embedding (mixins) e `implements`."""
-        tps = self.facts.class_tparams
         base_cls = type_name(go_name)
         cls = base_cls + tps.decl
         # Nome com os parâmetros aplicados (sem bounds): Stack<T>.
@@ -248,7 +243,7 @@ class StructClass(TypeDeclBehavior):
             "@override",
             f"List<String> get $fieldNames => const [{', '.join(names)}];",
         ]
-        for m in self.facts.methods.pop(go_name, []):
+        for m in self.facts.methods.get(go_name, []):
             lines += [""] + self.functions.func_decl(m)
         return lines + ["}"]
 
@@ -293,7 +288,7 @@ class NonStructNamed(TypeDeclBehavior):
     ponteiro, forwarders dos de valor e as interfaces de *N."""
 
     def split_methods(self, go_name):
-        ms = self.facts.methods.pop(go_name, [])
+        ms = self.facts.methods.get(go_name, [])
         is_ptr = [self.pkg.recv_type(m)["kind"] == "pointer" for m in ms]
         return [m for m, p in zip(ms, is_ptr) if not p], [m for m, p in zip(ms, is_ptr) if p]
 
@@ -309,11 +304,10 @@ class NonStructNamed(TypeDeclBehavior):
     def value_implements(self, t, tidx):
         return self.goinfo.implements_clause(tidx, self.goinfo.method_names(t, True))
 
-    def ptr_class(self, t, tidx, ptr_methods):
+    def ptr_class(self, t, tidx, ptr_methods, tps=TypeParams()):
         """`final class N$Ptr extends go.PtrView<N>`, se N tem métodos."""
         if not self.typesys.ptr_class(t):
             return []
-        tps = self.facts.class_tparams
         base = self.types.dart(t).non_null().name
         n = base + (f"<{', '.join(tps.names)}>" if tps.names else "")  # N ou N<T>
         cls = f"{base}$Ptr"
@@ -352,19 +346,14 @@ class NamedCompositeClass(NonStructNamed):
 
     def emit(self, spec, name, t, u, tidx):
         tparams = spec["typeParams"] or self.facts.local_tparams.get(id(t))
-        self.facts.class_tparams = self.functions.type_params(tparams)
-        try:
-            return self.named_composite_class(spec, name, t, u, tidx)
-        finally:
-            self.facts.class_tparams = TypeParams()
+        return self.named_composite_class(spec, name, t, u, tidx, self.functions.type_params(tparams))
 
-    def named_composite_class(self, spec, name, t, u, tidx):
+    def named_composite_class(self, spec, name, t, u, tidx, tps):
         """Genérico (`type Set[T comparable] map[T]struct{}`): `Set<T>` com os
         dicionários `$T` como primeiros parâmetros do construtor."""
-        tps = self.facts.class_tparams
         cls, ud = type_name(name), self.types.dart(u)
         if u["kind"] == "array":
-            return self.named_array_class(spec, name, t, u, tidx, cls, ud)
+            return self.named_array_class(spec, name, t, u, tidx, cls, ud, tps)
         dict_fields = [f"final {self.imports.qualify(None, 'Elem')}<{n}> ${n};" for n in tps.names]
         dict_params = "".join(f"this.${n}, " for n in tps.names)
         value_ms, ptr_ms = self.split_methods(name)
@@ -382,17 +371,16 @@ class NamedCompositeClass(NonStructNamed):
         else:
             lines = [f"final class {head} extends {ud} implements {', '.join(impl)} {{",
                      f"{cls}({dict_params}{ud} v) : super.alias(v);", ""] + dict_fields
-        return lines + self.class_tail(t, tidx, value_ms) + self.ptr_class(t, tidx, ptr_ms)
+        return lines + self.class_tail(t, tidx, value_ms) + self.ptr_class(t, tidx, ptr_ms, tps)
 
-
-    def named_array_class(self, spec, name, t, u, tidx, cls, ud):
+    def named_array_class(self, spec, name, t, u, tidx, cls, ud, tps):
         """`type Hash [32]byte` → `final class Hash extends go.GoArray<Uint8>`
         (mesmo armazenamento via `alias`). Array é valor, como struct: o
         objeto é o próprio endereço, então os métodos de receptor ponteiro
         também ficam na classe (sem `N$Ptr`)."""
-        if self.facts.class_tparams.names:
+        if tps.names:
             raise Unsupported("generico:array", "tipo genérico sobre array", spec)
-        ms = self.facts.methods.pop(name, [])
+        ms = self.facts.methods.get(name, [])
         impl = self.goinfo.implements_clause(tidx)
         vm = ", ".join(f"'{n}'" for n in self.goinfo.method_names(t, True))
         lines = [f"final class {cls} extends {ud}" + (" implements " + ", ".join(impl) if impl else "") + " {",

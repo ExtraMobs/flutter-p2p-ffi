@@ -16,6 +16,10 @@ class TypeMapper(Service):
 
     name = "types"
 
+    def __init__(self, engine):
+        super().__init__(engine)
+        self.synthetics = {}  # índice da typeTable → nome Go da classe anônima
+
     def dart(self, index_or_desc):
         t = self.pkg.type_at(index_or_desc)
         k = t["kind"]
@@ -73,7 +77,7 @@ class TypeMapper(Service):
         """Classe sintética de struct/interface anônima: uma por tipo (a
         typeTable já deduplica por identidade), emitida no fim da library."""
         idx = self.typesys.index_of(t)
-        return type_name(self.facts.synthetic.setdefault(idx, f"{prefix}${idx}"))
+        return type_name(self.synthetics.setdefault(idx, f"{prefix}${idx}"))
 
     def wrap(self, t, text):
         """Valor do subjacente (go.Slice, go.GoMap, função) visto como o tipo

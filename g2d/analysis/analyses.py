@@ -111,6 +111,16 @@ class RecoverAnalysis(Analysis):
                                  if d["node"] == "FuncDecl" and d["body"] and has_recover(d["body"])}
 
 
+class InitFuncsAnalysis(Analysis):
+    """Funções `init` (várias por pacote, nunca referenciadas) → `_init$N`, na
+    ordem do fonte, que é a ordem em que o `$goInit` as chama."""
+
+    def run(self, decls):
+        for d in decls:
+            if d["node"] == "FuncDecl" and not d["recv"] and d["name"]["name"] == "init":
+                self.facts.init_funcs[d["name"]["$obj"]["decl"]] = f"_init${len(self.facts.init_funcs)}"
+
+
 class InitVarsAnalysis(Analysis):
     """Posição do nome de cada var de pacote com inicializador → (spec, índice)."""
 
