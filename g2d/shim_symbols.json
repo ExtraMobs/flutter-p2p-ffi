@@ -209,6 +209,7 @@
     "strings": [
       "Builder",
       "Reader",
+      "Replacer",
       "clone",
       "compare",
       "contains",
@@ -230,6 +231,7 @@
       "lastIndexByte",
       "map",
       "newReader",
+      "newReplacer",
       "repeat",
       "replace",
       "replaceAll",
