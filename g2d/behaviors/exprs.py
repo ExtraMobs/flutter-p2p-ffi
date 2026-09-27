@@ -2,8 +2,8 @@
 
 from g2d.engine.behavior import NOT_HANDLED, ExprBehavior
 from g2d.engine.precedence import DART_PREC, NON_ASSOC, POSTFIX, UNARY
-from g2d.model import Unsupported, has_recover
-from g2d.services.naming import escape, lower_camel, member_name, top_member_name, type_name
+from g2d.model import Unsupported, has_recover, unparen
+from g2d.services.naming import member_name, param_name, top_member_name, type_name
 
 
 class Ident(ExprBehavior):
@@ -150,9 +150,7 @@ class UnaryExpr(ExprBehavior):
     def address_of(self, n):
         """`&x`: struct é o próprio endereço; variável em caixa é a caixa;
         `&s[i]` e `&o.f` viram go.ElemPtr / go.FieldPtr."""
-        x = n["x"]
-        while x["node"] == "ParenExpr":
-            x = x["x"]
+        x = unparen(n["x"])
         if x["node"] == "CompositeLit" or self.typesys.is_value(self.pkg.type_of(x)):
             return self.expr_prec(x)
         if x["node"] == "Ident":
@@ -311,7 +309,7 @@ class CompositeLit(ExprBehavior):
                 if fname == "_":
                     continue
                 ftype = next(self.pkg.type_at(f["type"]) for f in fields if f["name"] == fname)
-                args.append(f"{escape(lower_camel(fname.lstrip('_')))}: {self.values.coerce(val, ftype)}")
+                args.append(f"{param_name(fname)}: {self.values.coerce(val, ftype)}")
             args = [self.descriptors.elem(a) for a in self.typesys.type_args(t)] + args
             return f"{self.types.dart(t)}({', '.join(args)})", POSTFIX
         if u["kind"] in ("slice", "array"):
@@ -421,7 +419,7 @@ class TypeAssertExpr(ExprBehavior):
                                                                 key=lambda m: m["name"]))
             return f"{self.imports.qualify(None, 'assertIface')}<{dt}>({x}, '{target}', const [{names}])", POSTFIX
         iface = self.goinfo.go_type_name(self.pkg.type_of(n["x"]))
-        struct = {"value": ", struct: true", "pointer": ", struct: false"}.get(mode, "")
+        struct = self.asserts.struct_flag(mode)
         return f"{self.imports.qualify(None, 'assertType')}<{dt}>({x}, '{iface}', '{target}'{struct})", POSTFIX
 
 

@@ -2,6 +2,7 @@
 
 from g2d.engine.behavior import Service
 from g2d.engine.precedence import POSTFIX
+from g2d.model import unparen
 
 
 class Operands(Service):
@@ -56,8 +57,7 @@ class Operands(Service):
         saem embrulhados."""
         if not self.typesys.named_bool(self.pkg.type_of(n)):
             return False
-        while n["node"] == "ParenExpr":
-            n = n["x"]
+        n = unparen(n)
         return not (n["node"] == "BinaryExpr" and n["op"] in ("==", "!=", "<", "<=", ">", ">="))
 
     def cond(self, n, min_prec=0):

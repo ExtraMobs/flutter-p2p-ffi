@@ -6,7 +6,7 @@ from dataclasses import dataclass
 from g2d.engine.behavior import ConversionBehavior
 from g2d.engine.precedence import POSTFIX
 from g2d.model import Unsupported
-from g2d.services.naming import escape, lower_camel, member_name
+from g2d.services.naming import member_name, param_name
 
 
 @dataclass
@@ -229,7 +229,7 @@ class StructToStruct(ConversionBehavior):
     def emit(self, c):
         tmp = self.names.temp()
         args = [self.descriptors.elem(a) for a in self.typesys.type_args(c.to_t)]
-        args += [f"{escape(lower_camel(name.lstrip('_')))}: {tmp}.{member_name(name)}"
+        args += [f"{param_name(name)}: {tmp}.{member_name(name)}"
                  for name, _ in self.fields(c.to_t) if name != "_"]
         src = self.values.coerce(c.arg, c.frm_t)
         return f"switch ({src}) {{ final {tmp} => {self.types.dart(c.to_t).non_null()}({', '.join(args)}) }}", POSTFIX

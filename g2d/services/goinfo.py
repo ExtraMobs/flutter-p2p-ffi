@@ -12,7 +12,7 @@ class GoTypeInfo(Service):
 
     def go_type_name(self, t):
         """Nome Go de um tipo (como `%T`): `main.Point`, `*main.Point`, `[]int`."""
-        t = self.pkg.type_at(t) if isinstance(t, int) else t
+        t = self.pkg.type_at(t)
         k = t["kind"]
         if k == "basic":
             return t["name"].replace("untyped ", "")
@@ -66,7 +66,7 @@ class GoTypeInfo(Service):
             if it["kind"] == "interface":  # interface anônima: classe sintética
                 names.append(self.types.dart(it).non_null())
                 continue
-            if it["pkg"] == "" and it["name"] == "error":
+            if self.typesys.is_universe(it, "error"):
                 names.append(self.imports.qualify(None, "GoError"))
             elif self.imports.transpiled(it["pkg"]) or (it["pkg"], it["name"]) in SHIM_INTERFACES:
                 names.append(self.types.dart(it).non_null())  # com argumentos: `Key<k8>`
@@ -88,7 +88,7 @@ class GoTypeInfo(Service):
         results = [self.pkg.type_at(r) for r in sig["results"]]
 
         def is_error(x):
-            return x["kind"] == "named" and x["pkg"] == "" and x["name"] == "error"
+            return self.typesys.is_universe(x, "error")
 
         def is_bool(x):
             return x["kind"] == "basic" and x["name"] == "bool"

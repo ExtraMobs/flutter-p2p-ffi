@@ -24,13 +24,19 @@ class Assertions(Service):
             return "plain", self.types.dart(t), t  # go.Ptr<E>?, F? (o zero do comma-ok é null)
         return "plain", self.types.dart(t).non_null(), t
 
+    @staticmethod
+    def struct_flag(mode):
+        """Argumento `struct:` dos helpers do runtime (`tryType`, `isType`...):
+        struct por valor ou ponteiro para struct."""
+        return {"value": ", struct: true", "pointer": ", struct: false"}.get(mode, "")
+
     def comma_ok_assert(self, n):
         """`v, ok := x.(T)` → record (valor, ok)."""
         mode, dt, t = self.assert_parts(n)
         x = self.expr(n["x"])
         if mode == "iface":
             return f"{self.imports.qualify(None, 'tryIface')}<{dt}>({x})"
-        struct = {"value": ", struct: true", "pointer": ", struct: false"}.get(mode, "")
+        struct = self.struct_flag(mode)
         return f"{self.imports.qualify(None, 'tryType')}<{dt}>({x}, {self.types.zero(t)}{struct})"
 
     def type_test(self, subject, texpr):
@@ -40,5 +46,5 @@ class Assertions(Service):
         mode, dt, _ = self.assert_parts({"type": texpr})
         if mode == "iface":
             return f"{subject} is {dt}"
-        struct = {"value": ", struct: true", "pointer": ", struct: false"}.get(mode, "")
+        struct = self.struct_flag(mode)
         return f"{self.imports.qualify(None, 'isType')}<{dt}>({subject}{struct})"

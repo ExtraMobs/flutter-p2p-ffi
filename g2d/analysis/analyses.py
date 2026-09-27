@@ -3,7 +3,7 @@ gravam em `engine.facts`)."""
 
 from g2d.config import BUILTIN_PREFIX, GOLANG_PREFIX
 from g2d.engine.behavior import Analysis
-from g2d.model import has_recover, pos_key
+from g2d.model import has_recover, pos_key, unparen
 from g2d.services.naming import top_member_name, type_name
 
 
@@ -20,7 +20,7 @@ class MethodsAnalysis(Analysis):
     def run(self, decls):
         for d in decls:
             if d["node"] == "FuncDecl" and d["recv"]:
-                recv_t = self.pkg.type_at(d["recv"]["list"][0]["type"]["$type"])
+                recv_t = self.pkg.recv_type(d)
                 if recv_t["kind"] == "pointer":
                     recv_t = self.pkg.type_at(recv_t["elem"])
                 self.facts.methods.setdefault(recv_t["name"], []).append(d)
@@ -57,17 +57,13 @@ class BoxingAnalysis(Analysis):
         if not isinstance(node, dict):
             return
         if node.get("node") == "UnaryExpr" and node["op"] == "&":
-            x = node["x"]
-            while x["node"] == "ParenExpr":
-                x = x["x"]
+            x = unparen(node["x"])
             obj = x.get("$obj") if x["node"] == "Ident" else None
             if obj and obj["kind"] == "var" and not self.typesys.is_value(self.pkg.type_of(x)):
                 self.facts.boxed.add(obj["decl"])
         elif node.get("node") == "SelectorExpr" and (node.get("$sel") or {}).get("kind") == "method":
             # Chamada/method value com receptor ponteiro sobre N endereçável: `&x`.
-            x = node["x"]
-            while x["node"] == "ParenExpr":
-                x = x["x"]
+            x = unparen(node["x"])
             obj = x.get("$obj") if x["node"] == "Ident" else None
             t = self.pkg.type_of(x)
             if (obj and obj["kind"] == "var" and len(node["$sel"]["index"]) == 1
@@ -90,7 +86,7 @@ class LocalTypesAnalysis(Analysis):
                 continue
             owner = d["name"]["name"]
             if d["recv"]:
-                recv_t = self.pkg.type_at(d["recv"]["list"][0]["type"]["$type"])
+                recv_t = self.pkg.recv_type(d)
                 if recv_t["kind"] == "pointer":
                     recv_t = self.pkg.type_at(recv_t["elem"])
                 owner = f"{recv_t['name']}_{owner}"

@@ -5,7 +5,7 @@ from g2d.engine.behavior import Behavior, TypeDeclBehavior
 from g2d.engine.scope import FunctionScope, TypeParams
 from g2d.model import Unsupported
 from g2d.services.literals import doc_comment
-from g2d.services.naming import escape, lower_camel, member_name, top_member_name, type_name
+from g2d.services.naming import member_name, param_name, top_member_name, type_name
 
 
 HEADER = (
@@ -182,7 +182,7 @@ class StructClass(TypeDeclBehavior):
                 names.append("'_'")
                 continue
             fname = member_name(f["name"])
-            pname = escape(lower_camel(f["name"].lstrip("_")))
+            pname = param_name(f["name"])
             if not pname or pname in seen:
                 raise Unsupported("construtor-ambiguo", f"parâmetro de construtor ambíguo para campo {f['name']}")
             seen.add(pname)
@@ -271,7 +271,7 @@ class InterfaceClass(TypeDeclBehavior):
         supers = []
         for e in u["embeddeds"]:
             et = self.pkg.type_at(e)
-            if et["kind"] == "named" and et["pkg"] == "" and et["name"] == "comparable":
+            if self.typesys.is_universe(et, "comparable"):
                 continue  # só restrição (== do Dart); não tem métodos
             if et["kind"] != "named" or self.typesys.underlying(et)["kind"] != "interface":
                 return []
@@ -294,7 +294,7 @@ class NonStructNamed(TypeDeclBehavior):
 
     def split_methods(self, go_name):
         ms = self.facts.methods.pop(go_name, [])
-        is_ptr = [self.pkg.type_at(m["recv"]["list"][0]["type"]["$type"])["kind"] == "pointer" for m in ms]
+        is_ptr = [self.pkg.recv_type(m)["kind"] == "pointer" for m in ms]
         return [m for m, p in zip(ms, is_ptr) if not p], [m for m, p in zip(ms, is_ptr) if p]
 
     def class_tail(self, t, tidx, value_methods):

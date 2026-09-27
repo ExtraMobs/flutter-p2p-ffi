@@ -2,6 +2,7 @@
 
 from g2d.engine.behavior import Service
 from g2d.engine.precedence import DART_PREC, POSTFIX
+from g2d.model import unparen
 
 
 class ValueSemantics(Service):
@@ -12,8 +13,7 @@ class ValueSemantics(Service):
     @staticmethod
     def fresh(n):
         """Expressão que já produz um valor novo (não precisa de cópia)."""
-        while n["node"] == "ParenExpr":
-            n = n["x"]
+        n = unparen(n)
         if n["node"] == "CompositeLit":
             return True
         return n["node"] == "CallExpr" and not n["fun"].get("$isType")

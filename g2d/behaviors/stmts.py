@@ -2,7 +2,7 @@
 
 from g2d.engine.behavior import StmtBehavior
 from g2d.engine.precedence import DART_PREC, POSTFIX
-from g2d.model import Unsupported, is_blank, uses_decl
+from g2d.model import Unsupported, is_blank, pos_key, uses_decl
 from g2d.services.control import RangeFuncFrame
 from g2d.services.dart_type import DartType
 from g2d.services.literals import tuple_expr
@@ -430,7 +430,7 @@ class TypeSwitchStmt(StmtBehavior):
         subject = self.names.temp()
         static_t = self.pkg.type_of(ta["x"])
         out.append(f"final {subject} = {self.expr(ta['x'])};")
-        decl = f"{ident['namePos']['file']}:{ident['namePos']['offset']}" if ident else None
+        decl = pos_key(ident["namePos"]) if ident else None
         chain, default = [], None
         for clause in s["body"]["list"]:
             body = clause["body"] or []

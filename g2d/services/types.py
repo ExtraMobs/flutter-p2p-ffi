@@ -17,7 +17,7 @@ class TypeMapper(Service):
     name = "types"
 
     def dart(self, index_or_desc):
-        t = self.pkg.type_at(index_or_desc) if isinstance(index_or_desc, int) else index_or_desc
+        t = self.pkg.type_at(index_or_desc)
         k = t["kind"]
         if k == "basic":
             b = self.typesys.basic(t)
@@ -27,7 +27,7 @@ class TypeMapper(Service):
                 return DartType("Null")
             return DartType(self.golang(b.cls))
         if k == "named":
-            if t["pkg"] == "" and t["name"] == "error":
+            if self.typesys.is_universe(t, "error"):
                 return DartType(self.imports.qualify(None, "GoError"), nullable=True)
             go_name = self.facts.local_types.get(id(t), t["name"])
             shim = SHIM_TYPES.get((t["pkg"], t["name"]))
@@ -64,7 +64,7 @@ class TypeMapper(Service):
     def cls(self, t):
         """Classe Dart de um tipo básico ou nomeado sobre básico (construtores
         `C(v)`, `C.fromBigInt`, `C.new`)."""
-        t = self.pkg.type_at(t) if isinstance(t, int) else t
+        t = self.pkg.type_at(t)
         if t["kind"] == "named":
             return self.dart(t)
         return self.golang(self.typesys.basic(t).cls)
@@ -124,7 +124,7 @@ class TypeMapper(Service):
 
     def zero(self, index_or_desc):
         """Expressão Dart do zero value do tipo."""
-        t = self.pkg.type_at(index_or_desc) if isinstance(index_or_desc, int) else index_or_desc
+        t = self.pkg.type_at(index_or_desc)
         if t["kind"] == "typeparam":
             return f"${t['name']}.zero()"  # dicionário do parâmetro de tipo
         u = self.typesys.underlying(t)

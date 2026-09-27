@@ -14,7 +14,7 @@ class DescriptorRegistry(Service):
         self.elem_decls = []  # declarações de nível de library
 
     def has_tparam(self, t):
-        t = self.pkg.type_at(t) if isinstance(t, int) else t
+        t = self.pkg.type_at(t)
         k = t["kind"]
         if k == "typeparam":
             return True
@@ -26,7 +26,7 @@ class DescriptorRegistry(Service):
         """Descritor go.Elem<T> do tipo Go t: const registrado uma vez; para
         um parâmetro de tipo, o dicionário `$T`; para tipos que dependem de
         parâmetros de tipo, um Elem construído na hora."""
-        t = self.pkg.type_at(t) if isinstance(t, int) else t
+        t = self.pkg.type_at(t)
         if t["kind"] == "typeparam":
             return f"${t['name']}"
         dt = self.types.dart(t)

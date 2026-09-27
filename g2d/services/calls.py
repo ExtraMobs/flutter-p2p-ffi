@@ -1,7 +1,7 @@
 """Classificação de chamadas: função declarada, instanciação genérica, recover, receptor ponteiro."""
 
 from g2d.engine.behavior import Service
-from g2d.model import has_recover
+from g2d.model import has_recover, unparen
 
 
 class Calls(Service):
@@ -26,8 +26,7 @@ class Calls(Service):
     @staticmethod
     def declared_func(fun):
         """Callee é função/método declarado (nunca nil) ou literal?"""
-        while fun["node"] == "ParenExpr":
-            fun = fun["x"]
+        fun = unparen(fun)
         if fun["node"] == "FuncLit":
             return True
         if fun["node"] == "Ident":

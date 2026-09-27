@@ -67,6 +67,13 @@ def is_blank(n):
     return n["node"] == "Ident" and n["name"] == "_"
 
 
+def unparen(n):
+    """A expressão sem os parênteses em volta."""
+    while n and n.get("node") == "ParenExpr":
+        n = n["x"]
+    return n
+
+
 def pos_key(pos):
     """Chave "arquivo:offset" de uma posição (igual ao `decl` do goast)."""
     return f"{pos['file']}:{pos['offset']}"
@@ -120,8 +127,7 @@ def assigns_var(node, decl):
     """Atribuição direta à variável (`s = x`, `s, err = f()`, `s++`, `for s =
     range`), inclusive em func literais do corpo."""
     def is_var(n):
-        while n and n.get("node") == "ParenExpr":
-            n = n["x"]
+        n = unparen(n)
         return bool(n) and n.get("node") == "Ident" and n.get("$obj", {}).get("decl") == decl
 
     if isinstance(node, list):
@@ -201,8 +207,13 @@ class Package:
             i = (node.get("$obj") or {}).get("type")
         return None if i is None else self.type_table[i]
 
-    def type_at(self, index):
-        return self.type_table[index]
+    def type_at(self, t):
+        """Descritor da typeTable pelo índice; um descritor passa direto."""
+        return self.type_table[t] if isinstance(t, int) else t
+
+    def recv_type(self, d):
+        """Tipo do receptor de um método (FuncDecl): `T` ou `*T`."""
+        return self.type_at(d["recv"]["list"][0]["type"]["$type"])
 
 
 def load_dump(path):

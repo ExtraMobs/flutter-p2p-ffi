@@ -108,6 +108,12 @@ def type_name(name):
     return ascii_name(name) if is_exported(name) else "_" + ascii_name(name) + "$"
 
 
+def param_name(name):
+    """Parâmetro nomeado do construtor de struct para o campo `name` (sem os
+    `_` iniciais: parâmetro nomeado do Dart não pode ser privado)."""
+    return escape(lower_camel(name.lstrip("_")))
+
+
 def local_name(name):
     """Variáveis locais e parâmetros: nome Go, escapando reservadas."""
     return escape(name)

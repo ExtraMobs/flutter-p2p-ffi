@@ -20,10 +20,10 @@ class Functions(Service):
         self.scope = FunctionScope()
         prologue = []
         if d["recv"]:
+            recv_t = self.pkg.recv_type(d)
             names = d["recv"]["list"][0]["names"]
             if names and names[0]["name"] != "_":
                 ident = names[0]
-                recv_t = self.pkg.type_at(d["recv"]["list"][0]["type"]["$type"])
                 mutated = mutates_receiver(d["body"], ident["$obj"]["decl"])
                 if self.typesys.is_struct_pointer(recv_t):
                     # Receptor ponteiro: pode ser nil (sentinela `$nil` numa
@@ -45,7 +45,6 @@ class Functions(Service):
                 else:
                     self.scope.recv = ident["$obj"]["decl"]
             name = member_name(d["name"]["name"])
-            recv_t = self.pkg.type_at(d["recv"]["list"][0]["type"]["$type"])
             if self.typesys.is_value(recv_t):
                 # Receptor valor sobre `(*T)(nil)`: o auto-deref do Go dá panic.
                 prologue.insert(0, f"if ($nilPtr) {self.imports.qualify(None, 'nilDeref')}();")

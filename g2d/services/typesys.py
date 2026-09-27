@@ -92,7 +92,7 @@ class TypeSystem(Service):
         out = []
         for e in iface["embeddeds"]:
             et = self.pkg.type_at(e)
-            if et["kind"] == "named" and et["pkg"] == "" and et["name"] == "comparable":
+            if self.is_universe(et, "comparable"):
                 continue
             if et["kind"] == "union":
                 for x in et["terms"]:
@@ -130,6 +130,11 @@ class TypeSystem(Service):
         if any(u != us[0] for u in us):
             return None
         return us[0]
+
+    @staticmethod
+    def is_universe(t, name):
+        """Tipo nomeado predeclarado do universo (`error`, `comparable`)."""
+        return t["kind"] == "named" and t["pkg"] == "" and t["name"] == name
 
     def is_struct(self, t):
         """Struct por valor (nomeada ou anônima)."""
@@ -211,7 +216,7 @@ class TypeSystem(Service):
     def layout(self, t):
         """(unsafe.Sizeof, unsafe.Alignof, contém ponteiros) em amd64 — decide o
         cap do append (growslice) no runtime."""
-        t = self.pkg.type_at(t) if isinstance(t, int) else t
+        t = self.pkg.type_at(t)
         u = self.underlying(t)
         k = u["kind"]
         if k == "basic":
