@@ -9,19 +9,17 @@ import (
 	"path/filepath"
 	"sort"
 	"strings"
-
-	"golang.org/x/tools/go/packages"
 )
 
-// dumpStdlibUsage lista "<importpath>.<Símbolo>" de todo símbolo da stdlib
+// stdlibUsage lista "<importpath>.<Símbolo>" de todo símbolo da stdlib
 // usado. Stdlib = primeiro segmento do import path sem ponto.
-func dumpStdlibUsage(p *packages.Package) []string {
+func (d *packageDumper) stdlibUsage() []string {
 	set := map[string]bool{}
-	for _, obj := range p.TypesInfo.Uses {
+	for _, obj := range d.p.TypesInfo.Uses {
 		pkg := obj.Pkg()
 		// Objetos do próprio pacote (inclusive PkgName de imports e locais)
 		// nunca são stdlib, mesmo com path sem ponto (command-line-arguments).
-		if pkg == nil || pkg == p.Types {
+		if pkg == nil || pkg == d.p.Types {
 			continue
 		}
 		path := pkg.Path()
@@ -39,23 +37,23 @@ func dumpStdlibUsage(p *packages.Package) []string {
 	return out
 }
 
-// dumpReflectUsage registra toda seleção x.Sel que toca o pacote reflect.
-func dumpReflectUsage(fset *token.FileSet, p *packages.Package) []ReflectUse {
+// reflectUsage registra toda seleção x.Sel que toca o pacote reflect.
+func (d *packageDumper) reflectUsage() []ReflectUse {
 	var out []ReflectUse
-	for _, f := range p.Syntax {
+	for _, f := range d.p.Syntax {
 		ast.Inspect(f, func(n ast.Node) bool {
 			sel, ok := n.(*ast.SelectorExpr)
 			if !ok {
 				return true
 			}
-			obj := p.TypesInfo.Uses[sel.Sel]
+			obj := d.p.TypesInfo.Uses[sel.Sel]
 			if obj == nil || obj.Pkg() == nil || obj.Pkg().Path() != "reflect" {
 				return true
 			}
-			pos := fset.Position(sel.Pos())
+			pos := d.fset.Position(sel.Pos())
 			out = append(out, ReflectUse{
 				Pos:  fmt.Sprintf("%s:%d:%d", filepath.Base(pos.Filename), pos.Line, pos.Column),
-				Expr: printNode(fset, sel),
+				Expr: printNode(d.fset, sel),
 			})
 			return true
 		})

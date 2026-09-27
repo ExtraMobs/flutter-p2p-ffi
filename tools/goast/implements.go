@@ -29,44 +29,54 @@ func methodsOrComparable(it *types.Interface) bool {
 	return true
 }
 
-// dumpImplements: para cada tipo nomeado (não-interface) de nível de pacote,
-// as interfaces com métodos que T ou *T satisfaz: as nomeadas alcançáveis
-// (pacote, imports diretos e o universo `error`), as instâncias de interfaces
-// genéricas alcançáveis cujos argumentos saem dos métodos de T (`Key[k8]`
-// para `Xor(k8) k8`) e as anônimas usadas no pacote (`interface{ M() }`, já
-// na tabela de tipos). Tipo genérico conta instanciado com os próprios
-// parâmetros (`KeyList[K]`). Ordem determinística.
-func dumpImplements(p *packages.Package, tt *typeTable) []jobject {
-	var ifaces, generic []*types.Named
-	addScope := func(scope *types.Scope, exportedOnly bool) {
-		for _, name := range scope.Names() {
-			tn, ok := scope.Lookup(name).(*types.TypeName)
-			if !ok || tn.IsAlias() || (exportedOnly && !tn.Exported()) {
-				continue
-			}
-			named, ok := tn.Type().(*types.Named)
-			if !ok {
-				continue
-			}
-			if it, ok := named.Underlying().(*types.Interface); ok && methodIface(it) {
-				if named.TypeParams().Len() > 0 {
-					generic = append(generic, named)
-				} else {
-					ifaces = append(ifaces, named)
-				}
-			}
-		}
-	}
-	addScope(types.Universe, false)
-	addScope(p.Types.Scope(), false)
+// ifaceIndex: as interfaces com métodos que um tipo do pacote pode
+// satisfazer. As nomeadas alcançáveis (universo `error`, pacote e as
+// exportadas dos imports diretos), as genéricas (instanciadas por tipo, ver
+// instanceFor) e as anônimas usadas no pacote (`interface{ M() }`, já na
+// tabela de tipos).
+type ifaceIndex struct {
+	named, generic []*types.Named
+	anon           []*types.Interface
+}
+
+func newIfaceIndex(p *packages.Package) *ifaceIndex {
+	ix := &ifaceIndex{}
+	ix.addScope(types.Universe, false)
+	ix.addScope(p.Types.Scope(), false)
 	imps := p.Types.Imports()
 	sort.Slice(imps, func(i, j int) bool { return imps[i].Path() < imps[j].Path() })
 	for _, imp := range imps {
-		addScope(imp.Scope(), true)
+		ix.addScope(imp.Scope(), true)
 	}
-	// Interfaces anônimas: literais `interface{...}` com métodos fora de uma
-	// declaração de tipo (o subjacente de `type I interface{...}` não conta).
-	var anon []*types.Interface
+	ix.addAnon(p)
+	return ix
+}
+
+// addScope registra as interfaces nomeadas com métodos de um escopo.
+func (ix *ifaceIndex) addScope(scope *types.Scope, exportedOnly bool) {
+	for _, name := range scope.Names() {
+		tn, ok := scope.Lookup(name).(*types.TypeName)
+		if !ok || tn.IsAlias() || (exportedOnly && !tn.Exported()) {
+			continue
+		}
+		named, ok := tn.Type().(*types.Named)
+		if !ok {
+			continue
+		}
+		if it, ok := named.Underlying().(*types.Interface); ok && methodIface(it) {
+			if named.TypeParams().Len() > 0 {
+				ix.generic = append(ix.generic, named)
+			} else {
+				ix.named = append(ix.named, named)
+			}
+		}
+	}
+}
+
+// addAnon registra as interfaces anônimas: literais `interface{...}` com
+// métodos fora de uma declaração de tipo (o subjacente de `type I
+// interface{...}` não conta), sem repetir tipos idênticos.
+func (ix *ifaceIndex) addAnon(p *packages.Package) {
 	declared := map[ast.Expr]bool{}
 	for _, f := range p.Syntax {
 		ast.Inspect(f, func(n ast.Node) bool {
@@ -80,19 +90,51 @@ func dumpImplements(p *packages.Package, tt *typeTable) []jobject {
 				if declared[n] || !ok || !methodIface(it) {
 					break
 				}
-				for _, seen := range anon {
+				for _, seen := range ix.anon {
 					if types.Identical(seen, it) {
 						return true
 					}
 				}
-				anon = append(anon, it)
+				ix.anon = append(ix.anon, it)
 			}
 			return true
 		})
 	}
+}
 
+// implementedBy: as interfaces que t ou *t satisfaz, como índices da tabela
+// de tipos, na ordem nomeadas, instâncias genéricas e anônimas.
+func (ix *ifaceIndex) implementedBy(t types.Type, tt *typeTable) []any {
+	satisfies := func(iface *types.Interface) bool {
+		return types.Implements(t, iface) || types.Implements(types.NewPointer(t), iface)
+	}
+	var impl []any
+	for _, it := range ix.named {
+		if satisfies(it.Underlying().(*types.Interface)) {
+			impl = append(impl, tt.ref(it))
+		}
+	}
+	for _, g := range ix.generic {
+		if inst := instanceFor(g, t); inst != nil && satisfies(inst.Underlying().(*types.Interface)) {
+			impl = append(impl, tt.ref(inst))
+		}
+	}
+	for _, iface := range ix.anon {
+		if satisfies(iface) {
+			impl = append(impl, tt.ref(iface))
+		}
+	}
+	return impl
+}
+
+// implements: para cada tipo nomeado (não-interface) de nível de pacote, as
+// interfaces do ifaceIndex que T ou *T satisfaz. Tipo genérico conta
+// instanciado com os próprios parâmetros (`KeyList[K]`). Ordem
+// determinística.
+func (d *packageDumper) implements() []jobject {
+	ix := newIfaceIndex(d.p)
 	var out []jobject
-	scope := p.Types.Scope()
+	scope := d.p.Types.Scope()
 	for _, name := range scope.Names() {
 		tn, ok := scope.Lookup(name).(*types.TypeName)
 		if !ok || tn.IsAlias() {
@@ -117,27 +159,8 @@ func dumpImplements(p *packages.Package, tt *typeTable) []jobject {
 			}
 			t = inst
 		}
-		satisfies := func(iface *types.Interface) bool {
-			return types.Implements(t, iface) || types.Implements(types.NewPointer(t), iface)
-		}
-		var impl []any
-		for _, it := range ifaces {
-			if satisfies(it.Underlying().(*types.Interface)) {
-				impl = append(impl, tt.ref(it))
-			}
-		}
-		for _, g := range generic {
-			if inst := instanceFor(g, t); inst != nil && satisfies(inst.Underlying().(*types.Interface)) {
-				impl = append(impl, tt.ref(inst))
-			}
-		}
-		for _, iface := range anon {
-			if satisfies(iface) {
-				impl = append(impl, tt.ref(iface))
-			}
-		}
-		if len(impl) > 0 {
-			out = append(out, jobject{{"type", tt.ref(named)}, {"interfaces", impl}})
+		if impl := ix.implementedBy(t, d.w.tt); len(impl) > 0 {
+			out = append(out, jobject{{"type", d.w.tt.ref(named)}, {"interfaces", impl}})
 		}
 	}
 	return out
