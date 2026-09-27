@@ -76,9 +76,10 @@ final class Addr {
 
   final Object? target;
 
-  /// Nome Go do tipo apontado (`main.P`), só para `%#v` de [target] nulo (não
-  /// nulo usa `target.$goType`); `null` nos poucos lugares escritos à mão que
-  /// ainda não passam o nome — `%#v` desse ponteiro nulo não é suportado.
+  /// Nome Go do tipo apontado, sem o `*` (`main.P`), só para `%#v` de
+  /// [target] nulo (não nulo usa `target.$goType`, que já é o alvo, não o
+  /// ponteiro); `null` nos poucos lugares escritos à mão que ainda não
+  /// passam o nome — `%#v` desse ponteiro nulo não é suportado.
   final String? goType;
 
   @override

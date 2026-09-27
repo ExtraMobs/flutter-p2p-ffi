@@ -275,38 +275,77 @@ final class _Printer implements State {
           verb,
         );
       case GoValue v when v.$nilPtr:
-        _fmt.pad(_ascii('<nil>'));
+        if (_fmt.sharpV) {
+          _fmt.pad(_ascii('(*${v.$goType})(nil)'));
+        } else {
+          _fmt.pad(_ascii('<nil>'));
+        }
       case Slice s:
-        _printList(s.items, verb, depth);
+        _printList(s, s.items, verb, depth, s.elem);
       case GoArray a:
-        _printList(a.items, verb, depth);
+        _printList(a, a.items, verb, depth, a.elem);
       case GoMap m:
         _printMap(m, verb, depth);
       case GoStruct s:
-        if (_fmt.sharpV) throw UnimplementedError('fmt: %#v de struct');
+        final sharp = _fmt.sharpV;
         if (depth == 0 && !s.$isValue) _b.addByte(0x26);
+        if (sharp) _b.add(utf8.encode(s.$goType));
         _b.addByte(0x7b);
         final fields = s.$fields;
-        final names = _fmt.plusV ? s.$fieldNames : const <String>[];
+        final showNames = _fmt.plusV || sharp;
+        final names = showNames ? s.$fieldNames : const <String>[];
         for (var i = 0; i < fields.length; i++) {
-          if (i > 0) _b.addByte(0x20);
-          if (_fmt.plusV) {
+          if (i > 0) _b.add(sharp ? _ascii(', ') : _ascii(' '));
+          if (showNames) {
             _b.add(utf8.encode(names[i]));
             _b.addByte(0x3a);
           }
           _printArg(fields[i], verb, depth + 1);
         }
         _b.addByte(0x7d);
-      case Addr(target: null):
-        _fmt.pad(_ascii('<nil>'));
+      case GoOpaqueStruct s:
+        _printOpaque(s, depth);
+      case Addr(target: null, :final goType):
+        if (_fmt.sharpV) {
+          if (goType == null) {
+            throw UnimplementedError('fmt: %#v de ponteiro nulo sem nome de tipo');
+          }
+          _fmt.pad(_ascii('(*$goType)(nil)'));
+        } else {
+          _fmt.pad(_ascii('<nil>'));
+        }
       case Addr(:final target) when depth == 0 && target is GoStruct:
         _b.addByte(0x26);
         _printArg(target, verb, depth + 1);
+      case Addr(:final target):
+        // Ponteiro aninhado (ou de topo para algo que não é GoStruct): o
+        // endereço, como o Go; `%#v` acrescenta o nome do tipo entre parênteses.
+        final hex = identityHashCode(target);
+        if (_fmt.sharpV) {
+          final name = target is Golang.GoTyped ? target.$goType : null;
+          if (name == null) {
+            throw UnimplementedError('fmt: %#v de ponteiro sem nome de tipo');
+          }
+          _fmt.pad(_ascii('(*$name)(0x${_hexAddr(hex)})'));
+        } else {
+          _fmt.pad(_ascii('0x${_hexAddr(hex)}'));
+        }
       default:
         if (verb != 0x76) {
           throw UnimplementedError(
             'fmt: %${String.fromCharCode(verb)} de ${arg.runtimeType}',
           );
+        }
+        if (_fmt.sharpV) {
+          if (arg is Ptr && arg is Golang.GoTyped) {
+            final hex = _pointerOf(arg) ?? 0;
+            final name = (arg as Golang.GoTyped).$goType;
+            _fmt.pad(_ascii('($name)(${hex == 0 ? 'nil' : '0x${_hexAddr(hex)}'})'));
+            return;
+          }
+          if (arg is! Golang.ComplexBase) {
+            throw UnimplementedError('fmt: %#v de ${arg.runtimeType}');
+          }
         }
         final b = BytesBuilder(copy: false);
         _appendV(b, arg, nested: depth > 0);
@@ -317,34 +356,113 @@ final class _Printer implements State {
   static bool _bytesVerb(int verb) =>
       verb == 0x73 || verb == 0x71 || verb == 0x78 || verb == 0x58; // s q x X
 
-  void _printList(Iterable<Object?> items, int verb, int depth) {
-    if (_fmt.sharpV) throw UnimplementedError('fmt: %#v de slice/array');
-    _b.addByte(0x5b);
+  /// Struct opaca do runtime (erros): sempre ponteiro no Go (`&tipo{...}` no
+  /// topo, `(*tipo)(0x...)` aninhado); `%v`/`%+v` não chegam aqui
+  /// (`_handleMethods` já resolveu via `Error()`).
+  void _printOpaque(GoOpaqueStruct s, int depth) {
+    final name = s.$goType.startsWith('*') ? s.$goType.substring(1) : s.$goType;
+    if (depth > 0) {
+      _fmt.pad(_ascii('(*$name)(0x${_hexAddr(identityHashCode(s))})'));
+      return;
+    }
+    if (s.$goType.startsWith('*')) _b.addByte(0x26);
+    _b.add(utf8.encode(name));
+    _b.addByte(0x7b);
+    final fields = s.$fields, names = s.$fieldNames;
+    for (var i = 0; i < fields.length; i++) {
+      if (i > 0) _b.add(_ascii(', '));
+      _b.add(utf8.encode(names[i]));
+      _b.addByte(0x3a);
+      _printArg(fields[i], 0x76, depth + 1);
+    }
+    _b.addByte(0x7d);
+  }
+
+  /// Nome Go do tipo de um slice/array/map (nomeado ou não), para `%#v`;
+  /// `'?'` no nome (dicionário de genérico ou descritor de shim escrito à
+  /// mão sem o metadado) nunca vira saída — lança em vez de adivinhar.
+  static String _containerGoType(Object v) {
+    final name = switch (v) {
+      Golang.GoTyped t => t.$goType,
+      Slice s => s.goType,
+      GoMap m => m.goType,
+      _ => throw UnimplementedError('fmt: nome do tipo de ${v.runtimeType}'),
+    };
+    if (name.contains('?')) {
+      throw UnimplementedError('fmt: %#v de tipo sem nome (genérico ou shim)');
+    }
+    return name;
+  }
+
+  /// Elemento nulo de um slice/array/map/campo de contêiner sob `%#v`: como
+  /// o Go, `(*T)(nil)` para ponteiro/func, `T(nil)` para os demais (interface
+  /// — o único outro caso onde um elemento é `null`).
+  String _nilElemText(String goType) {
+    if (goType == '?') {
+      throw UnimplementedError('fmt: %#v de elemento nulo sem nome de tipo');
+    }
+    if (goType.startsWith('*') || goType.startsWith('func(') || goType.startsWith('func ')) {
+      return '($goType)(nil)';
+    }
+    return '$goType(nil)';
+  }
+
+  void _printElem(Object? e, int verb, int depth, Elem elem, bool sharp) {
+    if (sharp && e == null) {
+      _b.add(_ascii(_nilElemText(elem.goType)));
+      return;
+    }
+    _printArg(e, verb, depth);
+  }
+
+  void _printList(Object container, Iterable<Object?> items, int verb, int depth, Elem elem) {
+    final sharp = _fmt.sharpV;
+    if (sharp) {
+      _b.add(utf8.encode(_containerGoType(container)));
+      if (container is Slice && container.isNil) {
+        _b.add(_ascii('(nil)'));
+        return;
+      }
+      _b.addByte(0x7b);
+    } else {
+      _b.addByte(0x5b);
+    }
     var first = true;
     for (final e in items) {
-      if (!first) _b.addByte(0x20);
+      if (!first) _b.add(sharp ? _ascii(', ') : _ascii(' '));
       first = false;
-      _printArg(e, verb, depth + 1);
+      _printElem(e, verb, depth + 1, elem, sharp);
     }
-    _b.addByte(0x5d);
+    _b.addByte(sharp ? 0x7d : 0x5d);
   }
 
   void _printMap(GoMap m, int verb, int depth) {
-    if (_fmt.sharpV) throw UnimplementedError('fmt: %#v de map');
+    final sharp = _fmt.sharpV;
+    if (sharp) {
+      _b.add(utf8.encode(_containerGoType(m)));
+      if (m.isNil) {
+        _b.add(_ascii('(nil)'));
+        return;
+      }
+    }
     final all = m.entries.toList();
     final order = List.generate(all.length, (i) => i)
       ..sort((x, y) {
         final c = m.identity ? 0 : _compareKeys(all[x].key, all[y].key);
         return c != 0 ? c : x - y;
       });
-    _b.add(_ascii('map['));
-    for (var i = 0; i < order.length; i++) {
-      if (i > 0) _b.addByte(0x20);
-      _printArg(all[order[i]].key, verb, depth + 1);
-      _b.addByte(0x3a);
-      _printArg(all[order[i]].value, verb, depth + 1);
+    if (sharp) {
+      _b.addByte(0x7b);
+    } else {
+      _b.add(_ascii('map['));
     }
-    _b.addByte(0x5d);
+    for (var i = 0; i < order.length; i++) {
+      if (i > 0) _b.add(sharp ? _ascii(', ') : _ascii(' '));
+      _printElem(all[order[i]].key, verb, depth + 1, m.keyElem, sharp);
+      _b.addByte(0x3a);
+      _printElem(all[order[i]].value, verb, depth + 1, m.elem, sharp);
+    }
+    _b.addByte(sharp ? 0x7d : 0x5d);
   }
 
   /// `Error()`/`String()` nos verbos de string (o `handleMethods` do Go).
