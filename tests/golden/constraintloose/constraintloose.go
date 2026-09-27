@@ -48,7 +48,9 @@ func wrap[T Callable](x T) string {
 	if x == nil {
 		return "nil"
 	}
-	// Só um case func: o Dart testa subtipo (TODO/P2-runtime-type-switch-func.md).
+	// T é parâmetro de tipo: any(x) não carrega o nome Go do tipo concreto de
+	// T em runtime (só cada instanciação sabe), então cai no teste de subtipo
+	// do Dart mesmo com go.Func (docs/mapping-spec.md).
 	if fn, ok := any(x).(func() error); ok {
 		return fmt.Sprint("err:", fn())
 	}

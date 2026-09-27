@@ -59,7 +59,7 @@ Golang.String _wrap<T>(go.Elem<T> $T, T x) {
     return Golang.String.fromDart('nil');
   }
   {
-    var (fn, ok) = go.tryType<go.GoError? Function()?>(x, null);
+    var (fn, ok) = go.tryFunc<go.GoError? Function()?>(x, null, 'func() error');
     if (ok) {
       return fmt.sprint(
         go.Slice<Object?>.of([Golang.String.fromDart('err:'), fn!()], _$e0),
