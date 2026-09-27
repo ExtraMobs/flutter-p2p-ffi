@@ -5,7 +5,7 @@ Gerado por `python -m g2d audit github.com/ipfs/kubo/cmd/ipfs -C tests/corpus/ku
 Pacotes da stdlib usados pelo grafo, por número de pacotes do grafo que os usam.
 Símbolos com o número de pacotes que usam cada um. Shim = `golib_dart/lib/<pacote>.dart`.
 
-112 pacotes da stdlib; 14 com shim.
+112 pacotes da stdlib; 15 com shim.
 
 | pacote | pacotes do grafo | shim | símbolos |
 |---|---:|---|---|
@@ -34,7 +34,7 @@ Símbolos com o número de pacotes que usam cada um. Shim = `golib_dart/lib/<pac
 | `path/filepath` | 57 | ❌ | Join(34), Base(18), Dir(17), IsAbs(10), Clean(7), Walk(6), Abs(5), ToSlash(5), FromSlash(4), Ext(3), Rel(3), EvalSymlinks(2), Separator(2), SkipDir(2), WalkDir(2), Glob(1), HasPrefix(1), Split(1) |
 | `log/slog` | 53 | ❌ | Debug(33), Error(26), Warn(22), Info(12), Any(11), Logger(11), String(11), Value(10), Attr(9), Level(9), New(9), Handler(8), LevelError(8), Group(7), Key(7), LevelDebug(7), LevelWarn(7), LevelInfo(6), Record(5), Attrs(4), Enabled(4), Kind(4), KindGroup(4), Message(4), NumAttrs(4), Resolve(4), Time(4), With(4), WithAttrs(4), AddSource(3), Bool(3), Default(3), GroupValue(3), Handle(3), HandlerOptions(3), Int(3), NewTextHandler(3), StringValue(3), Add(2), Duration(2), Float64(2), Int64(2), KindBool(2), KindDuration(2), KindFloat64(2), KindInt64(2), KindString(2), KindTime(2), KindUint64(2), LevelKey(2), Log(2), NewJSONHandler(2), NewRecord(2), PC(2), ReplaceAttr(2), SetDefault(2), TimeKey(2), Uint64(2), UnmarshalText(2), AddAttrs(1), Equal(1), KindAny(1), KindLogValuer(1), LogAttrs(1), LogValuer(1), NewLogLogger(1), WithGroup(1) |
 | `math/bits` | 53 | ✅ | Len64(13), TrailingZeros64(10), Len32(8), OnesCount64(7), RotateLeft32(6), Len(5), RotateLeft64(5), UintSize(4), Add64(3), LeadingZeros64(3), Mul64(3), TrailingZeros(3), Sub(2), TrailingZeros32(2), Add(1), Div(1), Div64(1), LeadingZeros8(1), Mul(1), OnesCount32(1), OnesCount8(1), ReverseBytes16(1), ReverseBytes32(1), ReverseBytes64(1), Sub64(1) |
-| `unicode/utf8` | 51 | ❌ | DecodeRuneInString(26), RuneSelf(22), RuneError(20), DecodeRune(14), ValidString(14), EncodeRune(7), MaxRune(5), RuneCountInString(5), UTFMax(5), RuneCount(4), RuneLen(4), Valid(4), FullRune(3), RuneStart(3), DecodeLastRune(2), DecodeLastRuneInString(1), ValidRune(1) |
+| `unicode/utf8` | 51 | ✅ | DecodeRuneInString(26), RuneSelf(22), RuneError(20), DecodeRune(14), ValidString(14), EncodeRune(7), MaxRune(5), RuneCountInString(5), UTFMax(5), RuneCount(4), RuneLen(4), Valid(4), FullRune(3), RuneStart(3), DecodeLastRune(2), DecodeLastRuneInString(1), ValidRune(1) |
 | `bufio` | 50 | ❌ | NewReader(24), Reader(15), Flush(13), Writer(11), NewWriter(10), NewScanner(6), ReadString(6), Reset(6), Scan(6), Buffered(5), Err(5), NewReaderSize(5), Text(5), Write(5), NewWriterSize(4), ReadByte(4), ReadWriter(4), Available(3), Discard(3), Read(3), ReadBytes(3), WriteString(3), Buffer(2), Bytes(2), Peek(2), Scanner(2), AvailableBuffer(1), ErrFinalToken(1), ErrInvalidUnreadByte(1), ReadLine(1), ReadRune(1), Size(1), UnreadByte(1), UnreadRune(1), WriteByte(1), WriteRune(1), WriteTo(1) |
 | `crypto/rand` | 49 | ❌ | Reader(29), Read(22), Int(4) |
 | `hash` | 47 | ❌ | Sum(30), Hash(29), Reset(12), Size(8), Hash64(3), Sum32(2), Sum64(2), BlockSize(1), Hash32(1) |
