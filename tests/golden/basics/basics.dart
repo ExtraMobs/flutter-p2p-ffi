@@ -192,11 +192,11 @@ void main() {
         (m[Golang.String.fromDart('a')]) + Golang.Int(1);
     Golang.Int total = Golang.Int(0);
     {
-      final $t6 = m;
-      for (final $t7 in $t6.keysSnapshot()) {
-        if (!$t6.containsKey($t7)) continue;
-        Golang.String k = $t7;
-        Golang.Int v = $t6[$t7];
+      final $t5 = m;
+      for (final $t6 in $t5.keysSnapshot()) {
+        if (!$t5.containsKey($t6)) continue;
+        Golang.String k = $t6;
+        Golang.Int v = $t5[$t6];
         {
           if (k == Golang.String.fromDart('b')) {
             m.delete(Golang.String.fromDart('c'));
@@ -227,10 +227,10 @@ void main() {
     );
     Golang.Int n = Golang.Int(0);
     {
-      final $t11 = 5;
+      final $t7 = 5;
       outer:
-      for (var $t12 = 0; $t12 < $t11; $t12++) {
-        Golang.Int i$1 = Golang.Int($t12);
+      for (var $t8 = 0; $t8 < $t7; $t8++) {
+        Golang.Int i$1 = Golang.Int($t8);
         {
           for (Golang.Int j = Golang.Int(0); ; j += Golang.Int(1)) {
             if (j > i$1) {
@@ -265,14 +265,14 @@ void main() {
       }
     }
     {
-      final $t13 = go.Slice<Golang.Int>.of([
+      final $t9 = go.Slice<Golang.Int>.of([
         Golang.Int(-4),
         Golang.Int(0),
         Golang.Int(9),
         Golang.Int(10),
       ], _$e3);
-      for (var $t14 = 0; $t14 < $t13.length; $t14++) {
-        Golang.Int v$1 = $t13[$t14];
+      for (var $t10 = 0; $t10 < $t9.length; $t10++) {
+        Golang.Int v$1 = $t9[$t10];
         {
           fmt.println(go.Slice<Object?>.of([_classify(v$1)], _$e1));
         }

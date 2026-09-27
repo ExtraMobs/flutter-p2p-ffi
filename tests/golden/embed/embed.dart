@@ -213,8 +213,8 @@ void main() {
           empty.logger!.log(Golang.String.fromDart('nil logger')),
         ], _$e1),
       );
-    } catch ($t12, $t13) {
-      $t1.fail($t12, $t13);
+    } catch ($t10, $t11) {
+      $t1.fail($t10, $t11);
     } finally {
       $t1.run();
     }

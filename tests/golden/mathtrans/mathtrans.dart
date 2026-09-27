@@ -57,11 +57,11 @@ void main() {
             ], _$e1),
           );
           (switch ((math.round(x), math.roundToEven(x))) {
-            (final $t10, final $t11) => fmt.println(
+            (final $t6, final $t7) => fmt.println(
               go.Slice<Object?>.of([
                 Golang.String.fromDart(' '),
-                $t10,
-                $t11,
+                $t6,
+                $t7,
                 fr,
                 e,
                 i,
@@ -94,9 +94,9 @@ void main() {
             math.pow(x, Golang.Float64(3.0)),
             math.gamma(x),
           )) {
-            (final $t21, final $t22, final $t23) => fmt.printf(
+            (final $t8, final $t9, final $t10) => fmt.printf(
               Golang.String.fromDart('  %.12g %.12g %.12g %d %.12g\n'),
-              go.Slice<Object?>.of([$t21, $t22, lg, sg, $t23], _$e1),
+              go.Slice<Object?>.of([$t8, $t9, lg, sg, $t10], _$e1),
             ),
           });
         }

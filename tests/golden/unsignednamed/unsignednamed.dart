@@ -115,8 +115,8 @@ void main() {
     fmt.println(go.Slice<Object?>.of([Command(7).next(), top.next()], _$e0));
     Color c = Color(200);
     (switch (Color(15).invert()) {
-      final $t3 => fmt.println(
-        go.Slice<Object?>.of([$t3, c + Color(100)], _$e0),
+      final $t1 => fmt.println(
+        go.Slice<Object?>.of([$t1, c + Color(100)], _$e0),
       ),
     });
     Port p = Port(65535);

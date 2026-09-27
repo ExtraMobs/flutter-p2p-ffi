@@ -116,15 +116,15 @@ void main() {
     );
     Unwrapper u = Unwrapper();
     {
-      final $t4 = go.Slice<Golang.Uint16>.of([
+      final $t1 = go.Slice<Golang.Uint16>.of([
         Golang.Uint16(65534),
         Golang.Uint16(65535),
         Golang.Uint16(0),
         Golang.Uint16(1),
         Golang.Uint16(65530),
       ], _$e2);
-      for (var $t5 = 0; $t5 < $t4.length; $t5++) {
-        Golang.Uint16 s = $t4[$t5];
+      for (var $t2 = 0; $t2 < $t1.length; $t2++) {
+        Golang.Uint16 s = $t1[$t2];
         {
           fmt.print(
             go.Slice<Object?>.of([

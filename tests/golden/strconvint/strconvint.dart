@@ -103,15 +103,15 @@ void main() {
       ], _$e0),
     );
     {
-      final $t7 = go.Slice<Golang.String>.of([
+      final $t3 = go.Slice<Golang.String>.of([
         Golang.String.fromDart('12'),
         Golang.String.fromDart('-9223372036854775808'),
         Golang.String.fromDart('9223372036854775808'),
         Golang.String.fromDart('+7'),
         Golang.String.fromDart('1e3'),
       ], _$e1);
-      for (var $t8 = 0; $t8 < $t7.length; $t8++) {
-        Golang.String s$1 = $t7[$t8];
+      for (var $t4 = 0; $t4 < $t3.length; $t4++) {
+        Golang.String s$1 = $t3[$t4];
         {
           var (n, err$1) = strconv.atoi(s$1);
           var (i, err2) = strconv.parseInt(s$1, Golang.Int(10), Golang.Int(8));

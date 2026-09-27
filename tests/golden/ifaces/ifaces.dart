@@ -275,8 +275,8 @@ void main() {
         ], _$e0),
       );
       (switch ((_describe(shapes[0]), _describe(shapes[1]))) {
-        (final $t5, final $t6) => fmt.println(
-          go.Slice<Object?>.of([$t5, $t6, c!.r], _$e0),
+        (final $t2, final $t3) => fmt.println(
+          go.Slice<Object?>.of([$t2, $t3, c!.r], _$e0),
         ),
       });
       Shape? s = Rect(
@@ -288,14 +288,14 @@ void main() {
       fmt.println(go.Slice<Object?>.of([r.w, ok, isCircle], _$e0));
       go.GoError? err = _find(Golang.String.fromDart('x'));
       (switch (_find(Golang.String.fromDart('y'))) {
-        final $t7 => fmt.println(
-          go.Slice<Object?>.of([err, err != null, $t7 == null], _$e0),
+        final $t4 => fmt.println(
+          go.Slice<Object?>.of([err, err != null, $t4 == null], _$e0),
         ),
       });
       var (nf, isNF) = go.tryType<NotFound>(err, NotFound(), struct: true);
       (switch (_nilAssert()) {
-        final $t8 => fmt.println(
-          go.Slice<Object?>.of([isNF, nf.key, $t8], _$e0),
+        final $t5 => fmt.println(
+          go.Slice<Object?>.of([isNF, nf.key, $t5], _$e0),
         ),
       });
       fmt.println(
@@ -332,8 +332,8 @@ void main() {
         'Area',
         'Name',
       ])!.area();
-    } catch ($t10, $t11) {
-      $t1.fail($t10, $t11);
+    } catch ($t6, $t7) {
+      $t1.fail($t6, $t7);
     } finally {
       $t1.run();
     }

@@ -327,7 +327,7 @@ void main() {
       ),
       c ?? Code$Ptr.$nil,
     )) {
-      final $t10 => fmt.println(go.Slice<Object?>.of([$t10, c.value], _$e0)),
+      final $t6 => fmt.println(go.Slice<Object?>.of([$t6, c.value], _$e0)),
     });
     final go.Box<_temporary$?> tmp = go.Box<_temporary$?>(null);
     (switch ((
@@ -342,8 +342,8 @@ void main() {
       ),
       tmp.value!.temporary(),
     )) {
-      (final $t12, final $t13) => fmt.println(
-        go.Slice<Object?>.of([$t12, $t13, tmp.value], _$e0),
+      (final $t7, final $t8) => fmt.println(
+        go.Slice<Object?>.of([$t7, $t8, tmp.value], _$e0),
       ),
     });
     _netErr$ ne = _netErr$();
@@ -351,15 +351,15 @@ void main() {
       _netErr$(msg: Golang.String.fromDart('v')).$ifaceCopy(),
       ne ?? _netErr$.$nil,
     )) {
-      final $t15 => fmt.println(go.Slice<Object?>.of([$t15, ne._msg], _$e0)),
+      final $t9 => fmt.println(go.Slice<Object?>.of([$t9, ne._msg], _$e0)),
     });
     final go.Box<_netErr$?> pne = go.Box<_netErr$?>(null);
     (switch (errors.as(
       _netErr$(msg: Golang.String.fromDart('v')).$ifaceCopy(),
       pne ?? const go.NilPtr<_netErr$?>(),
     )) {
-      final $t16 => fmt.println(
-        go.Slice<Object?>.of([$t16, pne.value == null], _$e0),
+      final $t10 => fmt.println(
+        go.Slice<Object?>.of([$t10, pne.value == null], _$e0),
       ),
     });
     _netErr$ viaAs = _netErr$();
@@ -372,7 +372,7 @@ void main() {
       ),
       viaAs ?? _netErr$.$nil,
     )) {
-      final $t17 => fmt.println(go.Slice<Object?>.of([$t17, viaAs._msg], _$e0)),
+      final $t11 => fmt.println(go.Slice<Object?>.of([$t11, viaAs._msg], _$e0)),
     });
     final go.Box<Golang.String> s = go.Box<Golang.String>(Golang.String());
     fmt.println(
@@ -412,8 +412,8 @@ void main() {
       errors.as(two, t2 ?? const go.NilPtr<PathError?>()),
       errors.unwrap(two),
     )) {
-      (final $t25, final $t26, final $t27) => fmt.println(
-        go.Slice<Object?>.of([$t25, $t26, t2.value!.op, $t27 == null], _$e0),
+      (final $t12, final $t13, final $t14) => fmt.println(
+        go.Slice<Object?>.of([$t12, $t13, t2.value!.op, $t14 == null], _$e0),
       ),
     });
     _multi$ m = _multi$(
@@ -460,8 +460,8 @@ void main() {
       errors.is$(null, null),
       errors.is$(null, errNotFound),
     )) {
-      (final $t34, final $t35, final $t36) => fmt.println(
-        go.Slice<Object?>.of([$t34, $t35, $t36, errors.errUnsupported], _$e0),
+      (final $t15, final $t16, final $t17) => fmt.println(
+        go.Slice<Object?>.of([$t15, $t16, $t17, errors.errUnsupported], _$e0),
       ),
     });
   });

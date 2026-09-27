@@ -192,7 +192,7 @@ void main() {
       }
     }
     {
-      final $t15 = go.Slice<Golang.String>.of([
+      final $t11 = go.Slice<Golang.String>.of([
         Golang.String.fromDart(''),
         Golang.String.fromDart('go'),
         Golang.String.fromDart('devel'),
@@ -200,8 +200,8 @@ void main() {
         Golang.String.fromDart('dev'),
         Golang.String.fromDart('ação-devel'),
       ], _$e3);
-      for (var $t16 = 0; $t16 < $t15.length; $t16++) {
-        Golang.String s = $t15[$t16];
+      for (var $t12 = 0; $t12 < $t11.length; $t12++) {
+        Golang.String s = $t11[$t12];
         {
           fmt.println(
             go.Slice<Object?>.of([
@@ -218,7 +218,7 @@ void main() {
     }
     Index idx = Index(Golang.String.fromDart('aa  bb  cc  dd  ee  '));
     {
-      final $t23 = go.Slice<Golang.String>.of([
+      final $t13 = go.Slice<Golang.String>.of([
         Golang.String.fromDart('aa'),
         Golang.String.fromDart('cc'),
         Golang.String.fromDart('ee'),
@@ -226,8 +226,8 @@ void main() {
         Golang.String.fromDart('dd  '),
         Golang.String.fromDart(''),
       ], _$e3);
-      for (var $t24 = 0; $t24 < $t23.length; $t24++) {
-        Golang.String k = $t23[$t24];
+      for (var $t14 = 0; $t14 < $t13.length; $t14++) {
+        Golang.String k = $t13[$t14];
         {
           fmt.print(
             go.Slice<Object?>.of([
@@ -244,28 +244,28 @@ void main() {
       return i >= Golang.Int(37);
     });
     (switch (sort.search(Golang.Int(0), null)) {
-      final $t26 => fmt.println(go.Slice<Object?>.of([i$1, calls, $t26], _$e0)),
+      final $t15 => fmt.println(go.Slice<Object?>.of([i$1, calls, $t15], _$e0)),
     });
     Golang.String bad = go.stringOfBytes(const [97, 255, 195, 169, 226, 130]);
     {
-      final $t27 = go.Slice<Golang.String>.of([
+      final $t16 = go.Slice<Golang.String>.of([
         Golang.String.fromDart(','),
         Golang.String.fromDart(''),
         Golang.String.fromDart('é'),
         Golang.String.fromDart(',,'),
       ], _$e3);
-      for (var $t28 = 0; $t28 < $t27.length; $t28++) {
-        Golang.String sep = $t27[$t28];
+      for (var $t17 = 0; $t17 < $t16.length; $t17++) {
+        Golang.String sep = $t16[$t17];
         {
           {
-            final $t29 = go.Slice<Golang.String>.of([
+            final $t18 = go.Slice<Golang.String>.of([
               Golang.String.fromDart(''),
               Golang.String.fromDart('a,b,,c,'),
               Golang.String.fromDart('é,x'),
               bad,
             ], _$e3);
-            for (var $t30 = 0; $t30 < $t29.length; $t30++) {
-              Golang.String in$ = $t29[$t30];
+            for (var $t19 = 0; $t19 < $t18.length; $t19++) {
+              Golang.String in$ = $t18[$t19];
               {
                 go.Slice<Golang.String> p = strings.split(in$, sep);
                 go.Slice<Golang.String> q = strings.splitN(
@@ -322,15 +322,15 @@ void main() {
           r == Golang.Int32(65533);
     };
     {
-      final $t34 = go.Slice<Golang.String>.of([
+      final $t20 = go.Slice<Golang.String>.of([
         Golang.String.fromDart(''),
         Golang.String.fromDart('  '),
         Golang.String.fromDart(' a; b ;'),
         go.stringOfBytes(const [255, 32, 120, 32, 226, 130]),
         Golang.String.fromDart('é é'),
       ], _$e3);
-      for (var $t35 = 0; $t35 < $t34.length; $t35++) {
-        Golang.String in$$1 = $t34[$t35];
+      for (var $t21 = 0; $t21 < $t20.length; $t21++) {
+        Golang.String in$$1 = $t20[$t21];
         {
           fmt.printf(
             Golang.String.fromDart('%q %q %q\n'),
@@ -371,13 +371,13 @@ void main() {
       ),
       bytes.hasSuffix(line, go.bytesOf(Golang.String.fromDart('\n'), _$e1)),
     )) {
-      (final $t48, final $t49) => fmt.println(
+      (final $t22, final $t23) => fmt.println(
         go.Slice<Object?>.of([
           Golang.Int(parts.length),
           Golang.Int(parts.capacity),
           Golang.Int(parts[0].capacity),
-          $t48,
-          $t49,
+          $t22,
+          $t23,
         ], _$e0),
       ),
     });
@@ -434,7 +434,7 @@ void main() {
       ], _$e0),
     );
     {
-      final $t60 = go.Slice<go.Slice<Golang.Uint8>>.of([
+      final $t24 = go.Slice<go.Slice<Golang.Uint8>>.of([
         go.Slice<Golang.Uint8>.nil(_$e1),
         go.Slice<Golang.Uint8>.of([], _$e1),
         go.bytesOf(Golang.String.fromDart('\n\n'), _$e1),
@@ -442,8 +442,8 @@ void main() {
         go.bytesOf(go.stringOfBytes(const [120, 195, 169, 255]), _$e1),
         go.bytesOf(Golang.String.fromDart('é!é'), _$e1),
       ], _$e2);
-      for (var $t61 = 0; $t61 < $t60.length; $t61++) {
-        go.Slice<Golang.Uint8> in$$2 = $t60[$t61];
+      for (var $t25 = 0; $t25 < $t24.length; $t25++) {
+        go.Slice<Golang.Uint8> in$$2 = $t24[$t25];
         {
           fmt.printf(
             Golang.String.fromDart('%q %v %q %q %q %d\n'),

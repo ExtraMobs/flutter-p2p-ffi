@@ -215,8 +215,8 @@ void main() {
         IDs(go.Slice<Golang.String>.nil(_$e0)),
       ),
     )) {
-      (final $t4, final $t5) => fmt.println(
-        go.Slice<Object?>.of([ids, c, $t4, $t5.isNil], _$e2),
+      (final $t1, final $t2) => fmt.println(
+        go.Slice<Object?>.of([ids, c, $t1, $t2.isNil], _$e2),
       ),
     });
     IDs ins = insert<IDs, Golang.String>(
@@ -230,8 +230,8 @@ void main() {
       ], _$e0),
     );
     (switch (ins.join()) {
-      final $t6 => fmt.println(
-        go.Slice<Object?>.of([ins, $t6, Golang.Int(ins.length)], _$e2),
+      final $t3 => fmt.println(
+        go.Slice<Object?>.of([ins, $t3, Golang.Int(ins.length)], _$e2),
       ),
     });
     go.Slice<Golang.Int> d = delete$<go.Slice<Golang.Int>, Golang.Int>(
@@ -266,8 +266,8 @@ void main() {
         go.GoMap<Golang.Int, Golang.Int>.of({}, _$e3),
       ),
     )) {
-      (final $t7, final $t8) => fmt.println(
-        go.Slice<Object?>.of([ids, $t7, $t8], _$e2),
+      (final $t4, final $t5) => fmt.println(
+        go.Slice<Object?>.of([ids, $t4, $t5], _$e2),
       ),
     });
     fmt.println(

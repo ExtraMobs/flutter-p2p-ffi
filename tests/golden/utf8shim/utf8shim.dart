@@ -188,8 +188,8 @@ void main() {
         go.Slice<Golang.Uint8>.make(2, 2, _$e0),
         Golang.Int32(8364),
       );
-    } catch ($t18, $t19) {
-      $t1.fail($t18, $t19);
+    } catch ($t15, $t16) {
+      $t1.fail($t15, $t16);
     } finally {
       $t1.run();
     }

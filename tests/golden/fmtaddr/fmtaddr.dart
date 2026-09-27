@@ -223,12 +223,12 @@ void main() {
         go.Slice<Object?>.of([pn!.value], _$e1),
       ),
     )) {
-      (final $t12, final $t13, final $t14) => fmt.println(
+      (final $t3, final $t4, final $t5) => fmt.println(
         go.Slice<Object?>.of([
-          !$t12,
+          !$t3,
           Golang.Int(h.length) > Golang.Int(0),
-          $t13,
-          $t14,
+          $t4,
+          $t5,
         ], _$e1),
       ),
     });

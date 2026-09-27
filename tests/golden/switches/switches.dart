@@ -123,13 +123,13 @@ void main() {
     );
     Golang.Int count = Golang.Int(0);
     for (Golang.Int i = Golang.Int(0); i < Golang.Int(6); i += Golang.Int(1)) {
-      $t8:
+      $t4:
       {
         if (i == Golang.Int(1)) {
           continue;
         } else if (i % Golang.Int(2) == Golang.Int(0)) {
           count += Golang.Int(10);
-          break $t8;
+          break $t4;
         }
       }
       count += Golang.Int(1);
@@ -145,15 +145,15 @@ void main() {
     ) {
       {
         Golang.Int x = i$1 * Golang.Int(3);
-        var $t10 = -1;
+        var $t6 = -1;
         if (x > Golang.Int(7)) {
-          $t10 = 0;
+          $t6 = 0;
         } else if (x == Golang.Int(3)) {
-          $t10 = 1;
+          $t6 = 1;
         } else if (x == Golang.Int(100)) {
-          $t10 = 2;
+          $t6 = 2;
         }
-        if ($t10 == 0) {
+        if ($t6 == 0) {
           fmt.println(
             go.Slice<Object?>.of([
               Golang.String.fromDart('sai do laço em'),
@@ -162,13 +162,13 @@ void main() {
           );
           break outer;
         }
-        if ($t10 == 1) {
+        if ($t6 == 1) {
           fmt.println(
             go.Slice<Object?>.of([Golang.String.fromDart('três')], _$e0),
           );
-          $t10 = 2;
+          $t6 = 2;
         }
-        if ($t10 == 2) {
+        if ($t6 == 2) {
           fmt.println(
             go.Slice<Object?>.of([
               Golang.String.fromDart('caiu no seguinte'),

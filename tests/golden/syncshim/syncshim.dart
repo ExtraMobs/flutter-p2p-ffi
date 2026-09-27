@@ -203,8 +203,8 @@ void main() {
       }, _$e2),
     );
     (switch ((ca ?? _cache$.$nil)._get(Golang.Int(1))) {
-      (final $t4, final $t5) => fmt.println(
-        go.Slice<Object?>.of([$t4, $t5], _$e3),
+      (final $t1, final $t2) => fmt.println(
+        go.Slice<Object?>.of([$t1, $t2], _$e3),
       ),
     });
     fmt.println(
@@ -227,8 +227,8 @@ void main() {
       return Golang.Int(42);
     });
     (switch ((v!(), v!())) {
-      (final $t9, final $t10) => fmt.println(
-        go.Slice<Object?>.of([$t9, $t10, calls], _$e3),
+      (final $t3, final $t4) => fmt.println(
+        go.Slice<Object?>.of([$t3, $t4, calls], _$e3),
       ),
     });
     void Function()? f = sync.onceFunc(() {
@@ -240,10 +240,10 @@ void main() {
       i$1 += Golang.Int(1)
     ) {
       (() {
-        final $t11 = go.Defers();
+        final $t5 = go.Defers();
         try {
           {
-            $t11.defer(() {
+            $t5.defer(() {
               (({go.Defers? $rd}) {
                 fmt.println(
                   go.Slice<Object?>.of([
@@ -251,14 +251,14 @@ void main() {
                     go.recover($rd),
                   ], _$e3),
                 );
-              })($rd: $t11);
+              })($rd: $t5);
             });
           }
           f!();
-        } catch ($t12, $t13) {
-          $t11.fail($t12, $t13);
+        } catch ($t6, $t7) {
+          $t5.fail($t6, $t7);
         } finally {
-          $t11.run();
+          $t5.run();
         }
       })();
     }
@@ -291,7 +291,7 @@ void main() {
       Golang.Int(2),
       Golang.Int(3),
     )) {
-      final $t14 => fmt.println(go.Slice<Object?>.of([ok, $t14], _$e3)),
+      final $t8 => fmt.println(go.Slice<Object?>.of([ok, $t8], _$e3)),
     });
     var (x, _) = m.load(Golang.String.fromDart('b'));
     fmt.println(go.Slice<Object?>.of([x], _$e3));

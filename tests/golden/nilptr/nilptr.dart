@@ -159,9 +159,9 @@ void main() {
     Object? a = p ?? Node.$nil;
     fmt.println(go.Slice<Object?>.of([a != null, a], _$e0));
     {
-      final $t7 = s;
-      if (go.isType<Node?>($t7, struct: false)) {
-        final Node? v = go.unNil<Node>($t7 as Node?);
+      final $t5 = s;
+      if (go.isType<Node?>($t5, struct: false)) {
+        final Node? v = go.unNil<Node>($t5 as Node?);
         fmt.println(
           go.Slice<Object?>.of([
             Golang.String.fromDart('case *Node, nil?'),

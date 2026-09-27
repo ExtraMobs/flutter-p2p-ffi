@@ -26,16 +26,22 @@ class EvalOrder(Service):
         `G2DTemp` que referencia o temporário; `risky` diz se sobrou, em
         algum item, um operando simples (variável, campo, índice ou deref)
         que uma dessas chamadas poderia ter alterado — só nesse caso vale a
-        pena usar `rewritten` (ver `wrap`/`pre`)."""
+        pena usar `rewritten` (ver `wrap`/`pre`).
+
+        Faz uma varredura barata antes (`_scan`, sem nomear nada) para só
+        gastar `names.temp()` — e mudar a numeração dos temporários depois
+        dele na função — quando a lista realmente vai ser reordenada."""
         if self.scope is None:  # inicializador de pacote: sem temporário
             return [], list(nodes), False
-        calls, risky = [], False
-        rewritten = []
+        found_call, risky = False, False
         for n in nodes:
-            r, has_risk = self._walk(n, calls)
-            rewritten.append(r)
-            risky = risky or has_risk
-        return calls, rewritten, risky
+            c, r = self._scan(n)
+            found_call, risky = found_call or c, risky or r
+        if not (found_call and risky):
+            return [], list(nodes), False
+        calls = []
+        rewritten = [self._walk(n, calls)[0] for n in nodes]
+        return calls, rewritten, True
 
     def wrap(self, calls, text):
         """`text` (já montado com os temporários de `calls`) embrulhado num
@@ -58,6 +64,62 @@ class EvalOrder(Service):
         return [f"final {tmp} = {self.expr(node)};" for tmp, node in calls]
 
     # ------------------------------------------------------------ percurso
+    def _scan(self, n):
+        """(achou chamada real?, achou operando arriscado?): mesmas regras e
+        fronteiras de `_walk` (a mesma árvore veria as mesmas chamadas e o
+        mesmo risco), só que sem nomear temporário nem copiar nó — o
+        resultado de `gather` não muda se `n` já tem `risky=True`."""
+        if n.get("$value") is not None:
+            return False, False
+        k = n["node"]
+        if k == "ParenExpr":
+            return self._scan(n["x"])
+        if k == "UnaryExpr":
+            if n["op"] == "&":
+                return False, False
+            return self._scan(n["x"])
+        if k == "StarExpr":
+            c, _ = self._scan(n["x"])
+            return c, True
+        if k == "BinaryExpr":
+            cx, rx = self._scan(n["x"])
+            if n["op"] in ("&&", "||"):
+                return cx, rx
+            cy, ry = self._scan(n["y"])
+            return cx or cy, rx or ry
+        if k == "IndexExpr":
+            cx, _ = self._scan(n["x"])
+            ci, _ = self._scan(n["index"])
+            return cx or ci, True
+        if k == "SliceExpr":
+            found, _ = self._scan(n["x"])
+            for key in ("low", "high", "max"):
+                if n.get(key) is not None:
+                    c, _ = self._scan(n[key])
+                    found = found or c
+            return found, True
+        if k == "SelectorExpr":
+            xobj = n["x"].get("$obj") if n["x"]["node"] == "Ident" else None
+            if xobj and xobj.get("kind") == "package":
+                sel_obj = n["sel"].get("$obj") or {}
+                return False, sel_obj.get("kind") == "var"
+            cx, rx = self._scan(n["x"])
+            info = n.get("$sel")
+            return cx, rx or (info is not None and info["kind"] == "field")
+        if k == "CallExpr":
+            fun = n["fun"]
+            if fun.get("$isType") or fun.get("$builtin"):
+                found, risky = False, False
+                for a in n["args"] or []:
+                    c, r = self._scan(a)
+                    found, risky = found or c, risky or r
+                return found, risky
+            return True, False
+        if k == "Ident":
+            obj = n.get("$obj")
+            return False, bool(obj and obj.get("kind") == "var")
+        return False, False
+
     def _walk(self, n, calls):
         """(nó reescrito, achou operando arriscado?). Desce por combinadores
         puros — parênteses, unário (exceto `&`, que tem lógica própria),

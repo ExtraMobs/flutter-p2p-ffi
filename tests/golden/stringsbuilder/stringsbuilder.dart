@@ -96,8 +96,8 @@ void main() {
     b.writeRune(Golang.Int32(-1));
     b.write(go.Slice<Golang.Uint8>.of([Golang.Uint8(33)], _$e1));
     (switch ((b.len(), b.cap(), b.string())) {
-      (final $t4, final $t5, final $t6) => fmt.println(
-        go.Slice<Object?>.of([n, err, $t4, $t5, $t6], _$e0),
+      (final $t1, final $t2, final $t3) => fmt.println(
+        go.Slice<Object?>.of([n, err, $t1, $t2, $t3], _$e0),
       ),
     });
     b.grow(Golang.Int(100));

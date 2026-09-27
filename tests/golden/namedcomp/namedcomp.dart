@@ -232,8 +232,8 @@ void main() {
       mul.apply(Golang.Int(3), Golang.Int(4)),
       raw!(Golang.Int(5), Golang.Int(6)),
     )) {
-      (final $t9, final $t10) => fmt.println(
-        go.Slice<Object?>.of([$t9, $t10, !mul.isNil], _$e0),
+      (final $t7, final $t8) => fmt.println(
+        go.Slice<Object?>.of([$t7, $t8, !mul.isNil], _$e0),
       ),
     });
     final Counter$Ptr c = Counter$Ptr(go.Box<Counter>(Counter()));
@@ -242,15 +242,15 @@ void main() {
     Counter$Ptr? p = c;
     p!.inc();
     (switch (p!.string()) {
-      final $t11 => fmt.println(
-        go.Slice<Object?>.of([c.value, p!.value, $t11], _$e0),
+      final $t9 => fmt.println(
+        go.Slice<Object?>.of([c.value, p!.value, $t9], _$e0),
       ),
     });
     Incer? i = p ?? Counter$Ptr.$nil;
     i!.inc();
     fmt.Stringer? st = c.value;
     (switch (st!.string()) {
-      final $t12 => fmt.println(go.Slice<Object?>.of([c.value, $t12], _$e0)),
+      final $t10 => fmt.println(go.Slice<Object?>.of([c.value, $t10], _$e0)),
     });
     go.Slice<Counter> cs = go.Slice<Counter>.of([Counter(1), Counter(2)], _$e3);
     Counter$Ptr(cs.addr(1)).inc();
@@ -350,7 +350,7 @@ void _init$0() {
   );
   b.reset();
   (switch (b.value.length$()) {
-    final $t4 => fmt.println(go.Slice<Object?>.of([$t4, b.value.isNil], _$e0)),
+    final $t1 => fmt.println(go.Slice<Object?>.of([$t1, b.value.isNil], _$e0)),
   });
 }
 

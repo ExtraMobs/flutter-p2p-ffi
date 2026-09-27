@@ -144,8 +144,8 @@ void main() {
       s._cur.load(),
       s._cur.compareAndSwap(null, c1),
     )) {
-      (final $t8, final $t9, final $t10, final $t11) => fmt.println(
-        go.Slice<Object?>.of([$t8 == null, $t9, $t10!._name, $t11], _$e1),
+      (final $t1, final $t2, final $t3, final $t4) => fmt.println(
+        go.Slice<Object?>.of([$t1 == null, $t2, $t3!._name, $t4], _$e1),
       ),
     });
     s._last.store(Golang.String.fromDart('x'));
@@ -177,8 +177,8 @@ void main() {
       atomic.loadInt32(n32),
       atomic.compareAndSwapInt32(n32, Golang.Int32(3), Golang.Int32(9)),
     )) {
-      (final $t18, final $t19, final $t20) => fmt.println(
-        go.Slice<Object?>.of([$t18, $t19, $t20, n32.value], _$e1),
+      (final $t5, final $t6, final $t7) => fmt.println(
+        go.Slice<Object?>.of([$t5, $t6, $t7, n32.value], _$e1),
       ),
     });
     atomic.storeUint64(
@@ -189,8 +189,8 @@ void main() {
       atomic.addUint64(u64, Golang.Uint64(1)),
       atomic.swapUint64(u64, Golang.Uint64(7)),
     )) {
-      (final $t21, final $t22) => fmt.println(
-        go.Slice<Object?>.of([$t21, $t22, u64.value], _$e1),
+      (final $t8, final $t9) => fmt.println(
+        go.Slice<Object?>.of([$t8, $t9, u64.value], _$e1),
       ),
     });
     atomic.Int32 i32 = atomic.Int32();
@@ -208,9 +208,9 @@ void main() {
       go.Slice<Object?>.of([a.$ifaceCopy(), identical(s._hits, s._hits)], _$e1),
     );
     (switch (s._last.load()) {
-      final $t26 => fmt.printf(
+      final $t10 => fmt.printf(
         Golang.String.fromDart('%+v %v\n'),
-        go.Slice<Object?>.of([s._closed.$ifaceCopy(), $t26], _$e1),
+        go.Slice<Object?>.of([s._closed.$ifaceCopy(), $t10], _$e1),
       ),
     });
   });

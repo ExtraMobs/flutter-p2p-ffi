@@ -254,8 +254,8 @@ void main() {
       nbo.$ifaceCopy(),
       got ?? const go.NilPtr<Golang.Uint32>(),
     )) {
-      final $t25 => fmt.println(
-        go.Slice<Object?>.of([$t25, got.value == ul.value], _$e3),
+      final $t10 => fmt.println(
+        go.Slice<Object?>.of([$t10, got.value == ul.value], _$e3),
       ),
     });
     (switch (binary.read(
@@ -263,8 +263,8 @@ void main() {
       binary.littleEndian.$ifaceCopy(),
       pair.slice(0),
     )) {
-      final $t26 => fmt.println(
-        go.Slice<Object?>.of([$t26, pair.$ifaceCopy()], _$e3),
+      final $t11 => fmt.println(
+        go.Slice<Object?>.of([$t11, pair.$ifaceCopy()], _$e3),
       ),
     });
     go.GoArray<_decSymbol$> dt = go.GoArray<_decSymbol$>.zero(3, _$e6);
@@ -306,8 +306,8 @@ void main() {
       binary.littleEndian.$ifaceCopy(),
       dt,
     )) {
-      final $t27 => fmt.println(
-        go.Slice<Object?>.of([$t27, dt.$ifaceCopy()], _$e3),
+      final $t12 => fmt.println(
+        go.Slice<Object?>.of([$t12, dt.$ifaceCopy()], _$e3),
       ),
     });
     (switch (binary.read(
@@ -315,21 +315,21 @@ void main() {
       binary.littleEndian.$ifaceCopy(),
       sl ?? const go.NilPtr<Golang.Uint16>(),
     )) {
-      final $t28 => fmt.println(go.Slice<Object?>.of([$t28, sl.value], _$e3)),
+      final $t13 => fmt.println(go.Slice<Object?>.of([$t13, sl.value], _$e3)),
     });
     (switch (binary.read(
       r2 ?? bytes.Buffer.$nil,
       binary.littleEndian.$ifaceCopy(),
       tl ?? const go.NilPtr<Golang.Uint8>(),
     )) {
-      final $t29 => fmt.println(go.Slice<Object?>.of([$t29, tl.value], _$e3)),
+      final $t14 => fmt.println(go.Slice<Object?>.of([$t14, tl.value], _$e3)),
     });
     (switch (binary.read(
       r2 ?? bytes.Buffer.$nil,
       binary.littleEndian.$ifaceCopy(),
       tl ?? const go.NilPtr<Golang.Uint8>(),
     )) {
-      final $t30 => fmt.println(go.Slice<Object?>.of([$t30, tl.value], _$e3)),
+      final $t15 => fmt.println(go.Slice<Object?>.of([$t15, tl.value], _$e3)),
     });
     final go.Box<Golang.Float32> f32 = go.Box<Golang.Float32>(Golang.Float32());
     (switch ((switch (bytes.newBuffer(
@@ -340,13 +340,13 @@ void main() {
         Golang.Uint8(63),
       ], _$e1),
     )) {
-      final $t32 => binary.read(
-        $t32 ?? bytes.Buffer.$nil,
+      final $t17 => binary.read(
+        $t17 ?? bytes.Buffer.$nil,
         binary.littleEndian.$ifaceCopy(),
         f32 ?? const go.NilPtr<Golang.Float32>(),
       ),
     })) {
-      final $t31 => fmt.println(go.Slice<Object?>.of([$t31, f32.value], _$e3)),
+      final $t16 => fmt.println(go.Slice<Object?>.of([$t16, f32.value], _$e3)),
     });
     final go.Box<Golang.Int> n$1 = go.Box<Golang.Int>(Golang.Int());
     fmt.println(
@@ -354,8 +354,8 @@ void main() {
         (switch (bytes.newBuffer(
           go.Slice<Golang.Uint8>.of([Golang.Uint8(1)], _$e1),
         )) {
-          final $t34 => binary.read(
-            $t34 ?? bytes.Buffer.$nil,
+          final $t18 => binary.read(
+            $t18 ?? bytes.Buffer.$nil,
             binary.littleEndian.$ifaceCopy(),
             n$1 ?? const go.NilPtr<Golang.Int>(),
           ),
@@ -363,13 +363,13 @@ void main() {
       ], _$e3),
     );
     go.Slice<Golang.Uint8> b4 = go.Slice<Golang.Uint8>.make(4, 4, _$e1);
-    final $t36 = (switch (bytes.newBuffer(
+    final $t20 = (switch (bytes.newBuffer(
       go.Slice<Golang.Uint8>.of([Golang.Uint8(1), Golang.Uint8(2)], _$e1),
     )) {
-      final $t35 => io.readFull($t35 ?? bytes.Buffer.$nil, b4),
+      final $t19 => io.readFull($t19 ?? bytes.Buffer.$nil, b4),
     });
-    Golang.Int k = $t36.$1;
-    err = $t36.$2;
+    Golang.Int k = $t20.$1;
+    err = $t20.$2;
     fmt.println(go.Slice<Object?>.of([k, err, b4], _$e3));
     (k, err) = (switch (bytes.newBuffer(
       go.Slice<Golang.Uint8>.of([
@@ -378,26 +378,26 @@ void main() {
         Golang.Uint8(3),
       ], _$e1),
     )) {
-      final $t37 => io.readAtLeast(
-        $t37 ?? bytes.Buffer.$nil,
+      final $t21 => io.readAtLeast(
+        $t21 ?? bytes.Buffer.$nil,
         b4,
         Golang.Int(2),
       ),
     });
     fmt.println(go.Slice<Object?>.of([k, err], _$e3));
     (_, err) = (switch (bytes.newBuffer(go.Slice<Golang.Uint8>.nil(_$e1))) {
-      final $t38 => io.readAtLeast(
-        $t38 ?? bytes.Buffer.$nil,
+      final $t22 => io.readAtLeast(
+        $t22 ?? bytes.Buffer.$nil,
         b4,
         Golang.Int(5),
       ),
     });
     fmt.println(go.Slice<Object?>.of([err], _$e3));
-    final $t41 = io.readAll(
+    final $t23 = io.readAll(
       bytes.newBuffer(_ff(Golang.Int(1000))) ?? bytes.Buffer.$nil,
     );
-    go.Slice<Golang.Uint8> all = $t41.$1;
-    err = $t41.$2;
+    go.Slice<Golang.Uint8> all = $t23.$1;
+    err = $t23.$2;
     fmt.println(
       go.Slice<Object?>.of([
         Golang.Int(all.length),
@@ -410,7 +410,7 @@ void main() {
       Golang.String.fromDart('xyz'),
     );
     (switch (w.len()) {
-      final $t42 => fmt.println(go.Slice<Object?>.of([k, err, $t42], _$e3)),
+      final $t24 => fmt.println(go.Slice<Object?>.of([k, err, $t24], _$e3)),
     });
     (k, err) = io.writeString(io.discard, Golang.String.fromDart('abc'));
     fmt.println(go.Slice<Object?>.of([k, err], _$e3));

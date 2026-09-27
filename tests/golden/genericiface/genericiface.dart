@@ -217,8 +217,8 @@ class _lru$<K, V> extends go.GoStruct<_lru$<K, V>> implements Cache<K, V> {
 void _use<K, V>(go.Elem<K> $K, go.Elem<V> $V, Cache<K, V>? c, K k, V v) {
   fmt.println(go.Slice<Object?>.of([c!.add(k, v), c!.add(k, v)], _$e0));
   (switch (c!.get(k)) {
-    (final $t3, final $t4) => fmt.println(
-      go.Slice<Object?>.of([$t3, $t4], _$e0),
+    (final $t1, final $t2) => fmt.println(
+      go.Slice<Object?>.of([$t1, $t2], _$e0),
     ),
   });
 }
@@ -251,7 +251,7 @@ void main() {
     );
     sort.sort(l);
     (switch (sort.isSorted(l)) {
-      final $t5 => fmt.println(go.Slice<Object?>.of([l, $t5], _$e0)),
+      final $t1 => fmt.println(go.Slice<Object?>.of([l, $t1], _$e0)),
     });
     _use<Golang.String, Golang.Int>(
       _$e4,
