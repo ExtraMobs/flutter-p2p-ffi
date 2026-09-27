@@ -31,7 +31,7 @@ Regras fundamentais:
 | `tools/goast/` | Dumper de AST Go tipada → JSON | Go |
 | `tools/dartast/` | Dumper de AST Dart → JSON | Dart (`package:analyzer`) |
 | `g2d/` | Transpilador: motor (`engine/`), serviços (`services/`), análises (`analysis/`), comportamentos e plugins (`behaviors/`), dump do goast e consultas à AST (`model.py`), `pipeline.py`, `cli.py` — ver "Arquitetura do g2d" | Python (stdlib apenas) |
-| `golib_dart/` | Core de adaptação: `fixed_types/` (tipos primitivos Go, origem `dart IPFS/packages/boilerplate`), shims da stdlib em `lib/<import path>.dart`, runtime em `lib/src/runtime/` exportado por `builtin.dart` (prefixo `go`) | Dart |
+| `golib_dart/` | Core de adaptação: `fixed_types/` (tipos primitivos Go, origem `dart IPFS/packages/boilerplate`), shims da stdlib em `lib/<import path>.dart` (partes em `lib/src/<import path>/`), runtime em `lib/src/runtime/` exportado por `builtin.dart` (prefixo `go`) | Dart |
 | `out/` | Mono-repo Dart gerado (não editar à mão) | Dart (gerado) |
 | `tests/golden/<caso>/` | `<caso>.go` → `.goast.json` → `.dart` esperados (+ `.dartast.json` opcional) | — |
 | `tests/corpus/kubo/` | Corpus real fixado: módulo que só declara `tool github.com/ipfs/kubo/cmd/ipfs` (kubo **v0.43.1**, boxo v0.42.x); `go.mod`/`go.sum` fixam o grafo inteiro | Go |
@@ -108,7 +108,8 @@ dart format out/ && dart analyze out/
 - `golib_dart/fixed_types` e os ports de `net`/`net/netip`/`internal/poll` vieram do boilerplate do `dart IPFS`; correções feitas aqui ficam listadas em `golib_dart/README.md` para devolver à origem.
 - Construção Go não coberta → `Unsupported(código, mensagem, nó)` com código estável (`área` ou `área:detalhe`, ex. `range:func`, `shim-ausente:errors`) e posição (a do nó, ou a da declaração em emissão); nunca emitir Dart aproximado em silêncio. Limites conhecidos ficam marcados ⚠️ em `docs/mapping-spec.md` e com `ponytail:` no código.
 - Novo caso de teste = novo diretório em `tests/golden/` (pode ter vários `.go`; o e2e roda `go run` com todos). Caso com `go.mod` é um módulo multi-pacote (`module g2d.test/<caso>`, main em `cmd/`): um `<caso>.goast.json` com o grafo e um `<caso>.<pacote>.dart` por pacote, e o e2e roda `go run ./cmd`; o e2e exige saída idêntica (em bytes) entre `go run` e o Dart gerado na VM, no JS (dart2js/Node) e no Wasm (dart2wasm/Node, via `tests/run_wasm.mjs`), e `dart analyze --fatal-infos` limpo.
-- Shim novo ou símbolo novo num shim: rodar `python -m g2d shims` (regera `g2d/shim_symbols.json`, a lista do que o g2d pode chamar; o resto vira `Unsupported` `shim-simbolo:`).
+- Shim novo ou símbolo novo num shim: rodar `python -m g2d shims` (regera `g2d/shim_symbols.json`, a lista do que o g2d pode chamar, somando as partes `part` de cada shim; o resto vira `Unsupported` `shim-simbolo:`).
+- Arquivo escrito à mão acima de ~300 linhas é dividido por responsabilidade: no Go, um arquivo por responsabilidade (métodos de um tipo podem se espalhar por arquivos); no Dart, a library vira partes (`part`, em `lib/src/<import path>/`), com a mesma API e privacidade. Uma classe não é fatiada entre arquivos; arquivo gerado não se divide.
 - Runtime do `golib_dart` não usa API exclusiva de uma plataforma (ex. `ByteData.getUint64`, bitwise acima de 32 bits no JS); o que depende de plataforma vai por import condicional (`src/runtime/output.dart`).
 - Código gerado em `out/` nunca é editado à mão — correções vão nas regras do `g2d`.
 

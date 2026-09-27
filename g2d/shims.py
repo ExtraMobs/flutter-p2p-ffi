@@ -2,8 +2,9 @@
 
 O g2d não emite chamada a símbolo que o shim não tem (seria Dart inválido
 em silêncio): `ImportTable` recusa com `shim-simbolo:<pkg>.<nome>`. A lista
-sai do dartast sobre os arquivos dos shims (Python não parseia Dart) e é
-regerada com `python -m g2d shims`; o teste de golden confere se está em dia.
+sai do dartast sobre os arquivos dos shims e das partes (`part`) deles
+(Python não parseia Dart) e é regerada com `python -m g2d shims`; o teste de
+golden confere se está em dia.
 """
 
 import json
@@ -35,15 +36,33 @@ def declared_names(unit):
     return {n for n in names if not n.startswith("_")}
 
 
-def generate():
-    """Roda o dartast sobre os shims e devolve o documento de símbolos."""
-    pkgs = sorted(STDLIB_SHIMS)
-    files = [os.path.relpath(shim_file(STDLIB_SHIMS[p]), os.path.join(ROOT, "tools", "dartast")) for p in pkgs]
-    out = run_dart(["run", "bin/dartast.dart", *files], cwd=os.path.join(ROOT, "tools", "dartast"),
+def part_files(path, unit):
+    """Arquivos `part` de uma library (URIs relativas ao arquivo dela)."""
+    return [os.path.normpath(os.path.join(os.path.dirname(path), d["uri"]["literal"]["token"].strip("'\"")))
+            for d in unit["directives"] if d["node"] == "PartDirective"]
+
+
+def dump_units(paths):
+    """{arquivo: CompilationUnit do dartast}, numa chamada só."""
+    if not paths:
+        return {}
+    dartast = os.path.join(ROOT, "tools", "dartast")
+    out = run_dart(["run", "bin/dartast.dart", *(os.path.relpath(p, dartast) for p in paths)], cwd=dartast,
                    capture_output=True, text=True, encoding="utf-8", check=True).stdout
-    doc = json.loads(out)
+    return {p: f["unit"] for p, f in zip(paths, json.loads(out)["files"])}
+
+
+def generate():
+    """Roda o dartast sobre os shims e as partes deles e devolve o documento
+    de símbolos."""
+    pkgs = sorted(STDLIB_SHIMS)
+    libs = {p: shim_file(STDLIB_SHIMS[p]) for p in pkgs}
+    units = dump_units(list(libs.values()))
+    parts = {p: part_files(libs[p], units[libs[p]]) for p in pkgs}
+    units.update(dump_units([f for p in pkgs for f in parts[p]]))
     return {"schemaVersion": SCHEMA_VERSION,
-            "shims": {p: sorted(declared_names(f["unit"])) for p, f in zip(pkgs, doc["files"])}}
+            "shims": {p: sorted(set().union(*(declared_names(units[f]) for f in [libs[p], *parts[p]])))
+                      for p in pkgs}}
 
 
 def render(doc):
