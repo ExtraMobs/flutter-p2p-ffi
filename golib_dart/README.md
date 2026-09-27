@@ -13,8 +13,12 @@ representações dos tipos primitivos Go.
 | `lib/src/unicode/isprint.dart` | `unicode.IsPrint` do Go (faixas geradas por `go run tool/gen_isprint.go \| dart format`; `test/isprint_test.dart` confere com o Go instalado). |
 
 `fixed_types`, `net`, `net/netip` e `internal/poll` vêm de
-`dart IPFS/packages/boilerplate`. Para sincronizar, copie de novo e reaplique as
-correções abaixo, ou leve-as para a origem.
+`dart IPFS/packages/boilerplate`, mas a divisão em arquivos já não é a da
+origem: `src/ints.dart` virou library + partes (`src/ints/`), e a espera de I/O
+saiu do `Fd` para o `PollDesc` (`src/internal/poll/poll_desc.dart`, o
+`pollDesc` do Go). A sincronização é por conteúdo, não por cópia de arquivo:
+leve as correções abaixo para a origem, ou traga as de lá para os arquivos
+correspondentes.
 
 Os ports de `net`, `net/netip` e `internal/poll` mantêm a API Dart idiomática
 da origem (`Ip`, `tryParse`...). Eles ainda não estão ligados ao g2d
@@ -44,10 +48,11 @@ igual em VM, AOT, Wasm e JS. A tabela completa está em
 - `src/base.dart`: `IntBase<S>`, `FloatBase<S>` e `StringBase<S>` (os
   operadores devolvem `S`), estendidas por todas as classes e pelos tipos
   nomeados gerados.
-- `src/ints.dart`: a representação dos inteiros (`SmallIntBase`,
-  `WideIntBase`) e uma base por largura (`Int8Base` … `Uint64Base`). Um tipo
-  nomeado gerado estende a base da sua largura e herda o mesmo caminho rápido
-  do tipo subjacente.
+- `src/ints.dart` (helpers de palavra) e as partes em `src/ints/`: a
+  representação dos inteiros (`SmallIntBase` em `small_int.dart`,
+  `WideIntBase` em `wide_int.dart`) e uma base por largura (`Int8Base` …
+  `Uint64Base`, em `width_bases.dart`). Um tipo nomeado gerado estende a base
+  da sua largura e herda o mesmo caminho rápido do tipo subjacente.
 - As interfaces `GoOrdered`, `GoNumber` e `GoReal` são os bounds de
   genéricos. `GoTyped` (`$goType`, `$methods`) é a identidade Go em runtime.
 - `Int`, `Uint` e `Uintptr` são **classes próprias**; eram `typedef` de

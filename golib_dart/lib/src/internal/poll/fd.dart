@@ -5,6 +5,7 @@ import 'dart:typed_data';
 
 import 'errors.dart';
 import 'fd_mutex.dart';
+import 'poll_desc.dart';
 
 /// Descritor de rede não-bloqueante com a semântica de tempo de vida do Go.
 ///
@@ -47,36 +48,18 @@ import 'fd_mutex.dart';
 /// construção e só o religa ao efetivamente parar para esperar, que é o que o
 /// netpoller do Go faz — registrar interesse apenas quando bloquearia. Esquecer
 /// de religar produz uma escrita presa para sempre; religar sem necessidade
-/// produz eventos espúrios.
+/// produz eventos espúrios. Isso, os eventos e as esperas vivem no
+/// [PollDesc], como o `pollDesc` do Go.
 final class Fd {
-  Fd(this._socket, {bool isFile = false}) : _isFile = isFile {
-    // Interesse em escrita é registrado sob demanda, em `_waitWrite`.
-    _socket.writeEventsEnabled = false;
-    _subscription = _socket.listen(
-      _onEvent,
-      onError: _onError,
-      onDone: _onDone,
-      cancelOnError: false,
-    );
-  }
+  Fd(this._socket, {bool isFile = false})
+    : _isFile = isFile,
+      _pd = PollDesc(_socket);
 
   final RawSocket _socket;
   final bool _isFile;
   final FdMutex _fdmu = FdMutex();
-
-  late final StreamSubscription<RawSocketEvent> _subscription;
+  final PollDesc _pd;
   final Completer<void> _destroyed = Completer<void>();
-
-  Completer<void>? _readWaiter;
-  Completer<void>? _writeWaiter;
-
-  bool _readClosed = false;
-
-  /// Prontidão de leitura anunciada por `RawSocketEvent.read` e ainda não
-  /// consumida. Faz o papel que, no Go, cabe ao retorno do próprio `read(2)`.
-  bool _readable = false;
-  bool _evicted = false;
-  Object? _ioError;
 
   /// Se o descritor já foi marcado como fechado.
   ///
@@ -85,7 +68,7 @@ final class Fd {
   bool get isClosed => _fdmu.isClosed;
 
   /// Se o par já sinalizou fim de leitura (`RawSocketEvent.readClosed`).
-  bool get isReadClosed => _readClosed;
+  bool get isReadClosed => _pd.readClosed;
 
   /// Completa quando o descritor foi realmente destruído, isto é, quando as
   /// operações em voo assentaram e o socket subjacente foi fechado.
@@ -119,7 +102,7 @@ final class Fd {
           // estacionar: um isolate é single-threaded, nada pode fechar entre a
           // linha acima e esta, e um fechamento posterior desperta a espera via
           // eviction. Só ao acordar é que o estado pode ter mudado.
-          await _waitWrite();
+          await _pd.waitWrite();
           _throwIfBroken();
         }
       }
@@ -153,7 +136,7 @@ final class Fd {
         //    `read | readClosed | <leitura extra> | ERRO | closed | DONE`.
         //    Uma leitura inofensiva em aparência transforma um EOF limpo em
         //    falha de conexão.
-        if (_readClosed) return Uint8List(0);
+        if (_pd.readClosed) return Uint8List(0);
         // Só toca no socket quando a prontidão foi anunciada. O `FD.Read` do Go
         // pode chamar a syscall a seco porque um `read(2)` sem dado devolve
         // EAGAIN e nada mais acontece; aqui não é assim. Uma leitura
@@ -161,13 +144,13 @@ final class Fd {
         // mesmo evento de erro que uma leitura após o EOF — devolve `null` e
         // ainda assim envenena o descritor. A prontidão, neste port, chega por
         // evento, e é ela que faz o papel do retorno do syscall.
-        if (_readable) {
+        if (_pd.readable) {
           final data = _socket.read(len);
           if (data != null && data.isNotEmpty) return data;
-          _readable = false;
+          _pd.readable = false;
         }
         _throwIfBroken();
-        await _waitRead();
+        await _pd.waitRead();
         // Sem reavaliação aqui de propósito: o laço volta ao topo e refaz a
         // ordem correta. Checar erro logo após acordar reintroduziria o mesmo
         // defeito, mascarando o EOF de quem foi acordado justamente pelo
@@ -228,7 +211,7 @@ final class Fd {
       // [isClosed] antes.
       return _destroyed.future;
     }
-    _evict();
+    _pd.evict();
     await _destroy();
     // Esta espera é o que sustenta a promessa de que nada desta conexão dispara
     // depois do retorno, e ela NÃO é redundante: `_destroy` completa
@@ -247,82 +230,19 @@ final class Fd {
     _socket.shutdown(direction);
   }
 
-  // --- Equivalente do pollDesc do upstream -------------------------------
-
-  Future<void> _waitWrite() {
-    final waiter = Completer<void>();
-    _writeWaiter = waiter;
-    // One-shot: precisa ser religado a cada espera.
-    _socket.writeEventsEnabled = true;
-    return waiter.future;
-  }
-
-  Future<void> _waitRead() {
-    final waiter = Completer<void>();
-    _readWaiter = waiter;
-    return waiter.future;
-  }
-
-  void _onEvent(RawSocketEvent event) {
-    switch (event) {
-      case RawSocketEvent.read:
-        _readable = true;
-        _wakeRead();
-      case RawSocketEvent.write:
-        _wakeWrite();
-      case RawSocketEvent.readClosed:
-        _readClosed = true;
-        _wakeRead();
-      case RawSocketEvent.closed:
-        // O par encerrou por completo: equivale à eviction do poller.
-        _evict();
-    }
-  }
-
-  void _onError(Object error, StackTrace stack) {
-    _ioError = error;
-    _evict();
-  }
-
-  void _onDone() {
-    _readClosed = true;
-    _evict();
-  }
-
-  void _wakeRead() {
-    final waiter = _readWaiter;
-    _readWaiter = null;
-    if (waiter != null && !waiter.isCompleted) waiter.complete();
-  }
-
-  void _wakeWrite() {
-    final waiter = _writeWaiter;
-    _writeWaiter = null;
-    if (waiter != null && !waiter.isCompleted) waiter.complete();
-  }
-
-  /// Desbloqueia toda espera de I/O pendente.
-  ///
-  /// Port de `pollDesc.evict`. Quem acorda reavalia o estado em
-  /// [_throwIfBroken] e desiste com o sentinela, exatamente como no Go, onde
-  /// "any attempts to block in the pollDesc will return errClosing".
-  void _evict() {
-    _evicted = true;
-    _wakeRead();
-    _wakeWrite();
-  }
-
+  /// Quem acordou de uma espera ([PollDesc.evict], erro do socket ou fechado)
+  /// desiste com o erro ou o sentinela.
   void _throwIfBroken() {
-    final error = _ioError;
+    final error = _pd.ioError;
     if (error != null) throw error;
-    if (_evicted || _fdmu.isClosed) throw errClosing(isFile: _isFile);
+    if (_pd.evicted || _fdmu.isClosed) throw errClosing(isFile: _isFile);
   }
 
   Future<void> _destroy() async {
     if (_destroyed.isCompleted) return;
     // Go desregistra do poller antes de fechar: `fd.pd.close()` precede o
     // fechamento em `FD.destroy`.
-    await _subscription.cancel();
+    await _pd.close();
     // O doc do SDK garante que este close nunca lança e é idempotente.
     await _socket.close();
     if (!_destroyed.isCompleted) _destroyed.complete();
