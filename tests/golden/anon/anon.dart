@@ -360,6 +360,12 @@ void $goInit() {
   _$inited = true;
 }
 
+/// Métodos de Named promovidos por embedding (delegação).
+mixin Named$Promote {
+  Named? get $Named;
+  Golang.String name() => $Named!.name();
+}
+
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
 const _$e0 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
 const _$e1 = go.Elem<$_anon$21>(24, $_anon$21.new, pointers: true);

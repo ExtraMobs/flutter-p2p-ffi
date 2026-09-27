@@ -297,6 +297,12 @@ void $goInit() {
   _$inited = true;
 }
 
+/// Métodos de IDs promovidos por embedding (delegação).
+mixin IDs$Promote {
+  IDs? get $IDs;
+  Golang.String join() => $IDs!.join();
+}
+
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
 const _$e0 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);
 IDs _$z1_2() => IDs(go.Slice<Golang.String>.nil(_$e0));

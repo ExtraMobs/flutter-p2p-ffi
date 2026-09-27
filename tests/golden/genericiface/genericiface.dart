@@ -276,6 +276,21 @@ void $goInit() {
   _$inited = true;
 }
 
+/// Métodos de k8 promovidos por embedding (delegação).
+mixin $_k8$Promote {
+  $_k8? get $$_k8;
+  Golang.Int bitLen() => $$_k8!.bitLen();
+  Golang.Int compare($_k8 p0) => $$_k8!.compare(p0);
+  $_k8 xor($_k8 p0) => $$_k8!.xor(p0);
+}
+
+/// Métodos de node promovidos por embedding (delegação).
+mixin $_node$Promote {
+  $_node? get $$_node;
+  $_k8 key() => $$_node!.key();
+  Golang.String string() => $$_node!.string();
+}
+
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
 const _$e0 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
 $_k8 _$f1_2(Golang.FloatBase f) => $_k8.from(f.toInteger(8, signed: false));

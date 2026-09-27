@@ -723,6 +723,18 @@ void $goInit() {
   _$inited = true;
 }
 
+/// Métodos de Celsius promovidos por embedding (delegação).
+mixin Celsius$Promote {
+  Celsius? get $Celsius;
+  Golang.String string() => $Celsius!.string();
+}
+
+/// Métodos de myErr promovidos por embedding (delegação).
+mixin $_myErr$Promote {
+  $_myErr? get $$_myErr;
+  Golang.String error() => $$_myErr!.error();
+}
+
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
 const _$e0 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
 Golang.Uint8 _$f1_2(Golang.FloatBase f) =>

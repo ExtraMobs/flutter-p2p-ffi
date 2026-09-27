@@ -214,6 +214,19 @@ void $goInit() {
   _$inited = true;
 }
 
+/// Métodos de Point promovidos por embedding (delegação).
+mixin Point$Promote {
+  Point? get $Point;
+  void move(Golang.Int p0) => $Point!.move(p0);
+  Point moved(Golang.Int p0) => $Point!.moved(p0);
+}
+
+/// Métodos de Box promovidos por embedding (delegação).
+mixin Box$Promote {
+  Box? get $Box;
+  Golang.Int width() => $Box!.width();
+}
+
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
 const _$e0 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
 const _$e1 = go.Elem<Point>(16, Point.new);

@@ -156,6 +156,12 @@ void $goInit() {
   ], _$e0);
 }
 
+/// Métodos de Unwrapper promovidos por embedding (delegação).
+mixin Unwrapper$Promote {
+  Unwrapper? get $Unwrapper;
+  Golang.Int64 unwrap(Golang.Uint16 p0) => $Unwrapper!.unwrap(p0);
+}
+
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
 Golang.Uint32 _$f0_1(Golang.FloatBase f) =>
     Golang.Uint32.from(f.toInteger(32, signed: false));

@@ -156,8 +156,20 @@ void $goInit() {
 
 /// Métodos de macGeneric promovidos por embedding (delegação).
 mixin $_macGeneric$Promote {
-  $_macGeneric get $$_macGeneric;
-  Golang.Int write(go.Slice<Golang.Uint8> p0) => $$_macGeneric.write(p0);
+  $_macGeneric? get $$_macGeneric;
+  Golang.Int write(go.Slice<Golang.Uint8> p0) => $$_macGeneric!.write(p0);
+}
+
+/// Métodos de mac promovidos por embedding (delegação).
+mixin $_mac$Promote {
+  $_mac? get $$_mac;
+  Golang.Int write(go.Slice<Golang.Uint8> p0) => $$_mac!.write(p0);
+}
+
+/// Métodos de state promovidos por embedding (delegação).
+mixin $_state$Promote {
+  $_state? get $$_state;
+  Golang.Int _state() => $$_state!._state();
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.

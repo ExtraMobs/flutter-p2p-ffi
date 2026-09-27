@@ -187,5 +187,30 @@ void $goInit() {
   _$inited = true;
 }
 
+/// Métodos de Point promovidos por embedding (delegação).
+mixin Point$Promote {
+  Point? get $Point;
+  Point add(Point p0) => $Point!.add(p0);
+  void grow(Golang.Int p0) => $Point!.grow(p0);
+  Golang.String string() => $Point!.string();
+}
+
+/// Métodos de Path promovidos por embedding (delegação).
+mixin Path$Promote {
+  Path? get $Path;
+  Golang.Int len() => $Path!.len();
+}
+
+/// Métodos de Rect promovidos por embedding (delegação).
+mixin Rect$Promote {
+  Rect? get $Rect;
+  Golang.Int area() => $Rect!.area();
+}
+
+/// Métodos de Counter promovidos por embedding (delegação).
+mixin Counter$Promote {
+  Counter? get $Counter;
+}
+
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
 const _$e0 = go.Elem<Object?>(16, go.zeroNull, pointers: true);

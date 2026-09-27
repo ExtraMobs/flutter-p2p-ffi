@@ -104,6 +104,12 @@ void $goInit() {
   geom.$goInit();
 }
 
+/// Métodos de Square promovidos por embedding (delegação).
+mixin Square$Promote {
+  Square? get $Square;
+  Golang.Int area() => $Square!.area();
+}
+
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
 const _$e0 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
 const _$e1 = go.Elem<geom.Point>(16, geom.Point.new);

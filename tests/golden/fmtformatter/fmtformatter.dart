@@ -168,6 +168,24 @@ void $goInit() {
   _$inited = true;
 }
 
+/// Métodos de Safe promovidos por embedding (delegação).
+mixin Safe$Promote {
+  Safe? get $Safe;
+  void format(fmt.State? p0, Golang.Int32 p1) => $Safe!.format(p0, p1);
+}
+
+/// Métodos de Pt promovidos por embedding (delegação).
+mixin Pt$Promote {
+  Pt? get $Pt;
+  void format(fmt.State? p0, Golang.Int32 p1) => $Pt!.format(p0, p1);
+}
+
+/// Métodos de bomb promovidos por embedding (delegação).
+mixin $_bomb$Promote {
+  $_bomb? get $$_bomb;
+  void format(fmt.State? p0, Golang.Int32 p1) => $$_bomb!.format(p0, p1);
+}
+
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
 const _$e0 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
 Golang.Uint8 _$f1_2(Golang.FloatBase f) =>

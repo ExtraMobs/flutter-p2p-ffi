@@ -196,5 +196,24 @@ void $goInit() {
   _$inited = true;
 }
 
+/// Métodos de impl promovidos por embedding (delegação).
+mixin $_impl$Promote {
+  $_impl? get $$_impl;
+  Golang.Int get() => $$_impl!.get();
+  void set(Golang.Int p0) => $$_impl!.set(p0);
+}
+
+/// Métodos de pair promovidos por embedding (delegação).
+mixin $_pair$Promote {
+  $_pair? get $$_pair;
+  Golang.Int sum() => $$_pair!.sum();
+}
+
+/// Métodos de counter promovidos por embedding (delegação).
+mixin $_counter$Promote {
+  $_counter? get $$_counter;
+  Golang.Int value$() => $$_counter!.value$();
+}
+
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
 const _$e0 = go.Elem<$_impl?>(8, go.zeroNull, pointers: true);

@@ -255,6 +255,11 @@ void $goInit() {
   _$inited = true;
 }
 
+/// Métodos de int64s promovidos por embedding (delegação).
+mixin $_int64s$Promote {
+  $_int64s? get $$_int64s;
+}
+
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
 const _$e0 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
 Golang.Uint8 _$f1_2(Golang.FloatBase f) =>

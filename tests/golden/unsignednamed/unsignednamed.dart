@@ -138,5 +138,22 @@ void $goInit() {
   _$inited = true;
 }
 
+/// Métodos de Command promovidos por embedding (delegação).
+mixin Command$Promote {
+  Command? get $Command;
+  Command next() => $Command!.next();
+}
+
+/// Métodos de Color promovidos por embedding (delegação).
+mixin Color$Promote {
+  Color? get $Color;
+  Color invert() => $Color!.invert();
+}
+
+/// Métodos de Seq promovidos por embedding (delegação).
+mixin Seq$Promote {
+  Seq? get $Seq;
+}
+
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
 const _$e0 = go.Elem<Object?>(16, go.zeroNull, pointers: true);

@@ -489,6 +489,19 @@ void $goInit() {
   _$inited = true;
 }
 
+/// Métodos de bytesComparer promovidos por embedding (delegação).
+mixin $_bytesComparer$Promote {
+  $_bytesComparer? get $$_bytesComparer;
+  Golang.Int compare(go.Slice<Golang.Uint8> p0, go.Slice<Golang.Uint8> p1) =>
+      $$_bytesComparer!.compare(p0, p1);
+}
+
+/// Métodos de Index promovidos por embedding (delegação).
+mixin Index$Promote {
+  Index? get $Index;
+  Golang.Int index(go.Slice<Golang.Uint8> p0) => $Index!.index(p0);
+}
+
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
 const _$e0 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
 Golang.Uint8 _$f1_2(Golang.FloatBase f) =>

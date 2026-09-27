@@ -347,6 +347,32 @@ void $goInit() {
   _$inited = true;
 }
 
+/// Métodos de Uint64Slice promovidos por embedding (delegação).
+mixin Uint64Slice$Promote {
+  Uint64Slice? get $Uint64Slice;
+  Golang.Int len() => $Uint64Slice!.len();
+  bool less(Golang.Int p0, Golang.Int p1) => $Uint64Slice!.less(p0, p1);
+  void swap(Golang.Int p0, Golang.Int p1) => $Uint64Slice!.swap(p0, p1);
+}
+
+/// Métodos de BoolSlice promovidos por embedding (delegação).
+mixin BoolSlice$Promote {
+  BoolSlice? get $BoolSlice;
+  Golang.Int len() => $BoolSlice!.len();
+  bool less(Golang.Int p0, Golang.Int p1) => $BoolSlice!.less(p0, p1);
+  void swap(Golang.Int p0, Golang.Int p1) => $BoolSlice!.swap(p0, p1);
+}
+
+/// Métodos de traced promovidos por embedding (delegação).
+mixin $_traced$Promote {
+  $_traced? get $$_traced;
+  Golang.Int len() => $$_traced!.len();
+  bool less(Golang.Int p0, Golang.Int p1) => $$_traced!.less(p0, p1);
+  void swap(Golang.Int p0, Golang.Int p1) => $$_traced!.swap(p0, p1);
+  void _mix(Golang.Int p0, Golang.Int p1, Golang.Int p2) =>
+      $$_traced!._mix(p0, p1, p2);
+}
+
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
 const _$e0 = go.Elem<$_item>(16, $_item.new);
 Golang.Int _$f1_2(Golang.FloatBase f) =>

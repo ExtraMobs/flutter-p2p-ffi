@@ -209,6 +209,20 @@ void $goInit() {
   _$inited = true;
 }
 
+/// Métodos de chunks promovidos por embedding (delegação).
+mixin $_chunks$Promote {
+  $_chunks? get $$_chunks;
+  (Golang.Int, go.GoError?) read(go.Slice<Golang.Uint8> p0) =>
+      $$_chunks!.read(p0);
+}
+
+/// Métodos de sink promovidos por embedding (delegação).
+mixin $_sink$Promote {
+  $_sink? get $$_sink;
+  (Golang.Int, go.GoError?) write(go.Slice<Golang.Uint8> p0) =>
+      $$_sink!.write(p0);
+}
+
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
 Golang.Uint8 _$f0_1(Golang.FloatBase f) =>
     Golang.Uint8.from(f.toInteger(8, signed: false));

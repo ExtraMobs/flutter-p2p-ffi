@@ -473,6 +473,41 @@ void $goInit() {
   errNotFound = errors.new$(Golang.String.fromDart('not found'));
 }
 
+/// Métodos de PathError promovidos por embedding (delegação).
+mixin PathError$Promote {
+  PathError? get $PathError;
+  Golang.String error() => $PathError!.error();
+  go.GoError? unwrap() => $PathError!.unwrap();
+}
+
+/// Métodos de Code promovidos por embedding (delegação).
+mixin Code$Promote {
+  Code? get $Code;
+  Golang.String error() => $Code!.error();
+  bool is$(go.GoError? p0) => $Code!.is$(p0);
+}
+
+/// Métodos de netErr promovidos por embedding (delegação).
+mixin $_netErr$Promote {
+  $_netErr? get $$_netErr;
+  Golang.String error() => $$_netErr!.error();
+  bool temporary() => $$_netErr!.temporary();
+}
+
+/// Métodos de named promovidos por embedding (delegação).
+mixin $_named$Promote {
+  $_named? get $$_named;
+  bool as(Object? p0) => $$_named!.as(p0);
+  Golang.String error() => $$_named!.error();
+}
+
+/// Métodos de multi promovidos por embedding (delegação).
+mixin $_multi$Promote {
+  $_multi? get $$_multi;
+  Golang.String error() => $$_multi!.error();
+  go.Slice<go.GoError?> unwrap() => $$_multi!.unwrap();
+}
+
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
 const _$e0 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
 const _$e1 = go.Elem<go.GoError?>(16, go.zeroNull, pointers: true);

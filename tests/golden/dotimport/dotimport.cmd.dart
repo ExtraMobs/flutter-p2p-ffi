@@ -87,6 +87,12 @@ void $goInit() {
   tok.$goInit();
 }
 
+/// Métodos de pump promovidos por embedding (delegação).
+mixin $_pump$Promote {
+  $_pump? get $$_pump;
+  void _step(tok.TokenType p0, Golang.String p1) => $$_pump!._step(p0, p1);
+}
+
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
 const _$e0 = go.Elem<tok.Token>(24, tok.Token.new, pointers: true);
 const _$e1 = go.Elem<Object?>(16, go.zeroNull, pointers: true);

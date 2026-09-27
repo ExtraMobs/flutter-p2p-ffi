@@ -385,6 +385,28 @@ void $goInit() {
   _$inited = true;
 }
 
+/// Métodos de avgVar promovidos por embedding (delegação).
+mixin $_avgVar$Promote {
+  $_avgVar? get $$_avgVar;
+  void add(Golang.Float64 p0) => $$_avgVar!.add(p0);
+  Golang.Float64 getAvg() => $$_avgVar!.getAvg();
+  Golang.Float64 getStdDev() => $$_avgVar!.getStdDev();
+  Golang.Float64 getVar() => $$_avgVar!.getVar();
+}
+
+/// Métodos de int64Set promovidos por embedding (delegação).
+mixin $_int64Set$Promote {
+  $_int64Set? get $$_int64Set;
+  Golang.Int len() => $$_int64Set!.len();
+  void set(Golang.Uint64 p0) => $$_int64Set!.set(p0);
+}
+
+/// Métodos de Bitfield promovidos por embedding (delegação).
+mixin Bitfield$Promote {
+  Bitfield? get $Bitfield;
+  Golang.Int onesCount() => $Bitfield!.onesCount();
+}
+
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
 const _$e0 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
 Golang.Float64 _$i1_2(Golang.IntBase n) => (n.$signed

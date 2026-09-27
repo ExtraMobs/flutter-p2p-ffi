@@ -322,6 +322,18 @@ void $goInit() {
   );
 }
 
+/// Métodos de counter promovidos por embedding (delegação).
+mixin $_counter$Promote {
+  $_counter? get $$_counter;
+  Golang.Int _inc(Golang.String p0) => $$_counter!._inc(p0);
+}
+
+/// Métodos de cache promovidos por embedding (delegação).
+mixin $_cache$Promote {
+  $_cache? get $$_cache;
+  (Golang.String, bool) _get(Golang.Int p0) => $$_cache!._get(p0);
+}
+
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
 const _$e0 = go.Elem<sync.Mutex>(8, sync.Mutex.new);
 Golang.Int _$f1_2(Golang.FloatBase f) =>

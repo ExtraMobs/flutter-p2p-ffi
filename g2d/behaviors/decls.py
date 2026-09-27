@@ -167,6 +167,8 @@ class StructClass(TypeDeclBehavior):
         tnames = tps.names
         self_t = base_cls + (f"<{', '.join(tnames)}>" if tnames else "")
         t = self.pkg.type_at(tidx)
+        if not tnames:  # genérico: sem mixin (o forwarder citaria o parâmetro de tipo à toa)
+            self.promoter.declare(t, t.get("methods") or [])
         params, inits, fields, copies, sets, values, names = [], [], [], [], [], [], []
         seen = set()
         for f in st["fields"]:
@@ -354,6 +356,8 @@ class NamedCompositeClass(NonStructNamed):
         cls, ud = type_name(name), self.types.dart(u)
         if u["kind"] == "array":
             return self.named_array_class(spec, name, t, u, tidx, cls, ud, tps)
+        if not tps.names:  # genérico: sem mixin (o forwarder citaria o parâmetro de tipo à toa)
+            self.promoter.declare(t, t.get("methods") or [])
         dict_fields = [f"final {self.imports.qualify(None, 'Elem')}<{n}> ${n};" for n in tps.names]
         dict_params = "".join(f"this.${n}, " for n in tps.names)
         value_ms, ptr_ms = self.split_methods(name)
@@ -380,6 +384,7 @@ class NamedCompositeClass(NonStructNamed):
         também ficam na classe (sem `N$Ptr`)."""
         if tps.names:
             raise Unsupported("generico:array", "tipo genérico sobre array", spec)
+        self.promoter.declare(t, t.get("methods") or [])
         ms = self.facts.methods.get(name, [])
         impl = self.goinfo.implements_clause(tidx)
         vm = ", ".join(f"'{n}'" for n in self.goinfo.method_names(t, True))
@@ -408,6 +413,7 @@ class NamedClass(NonStructNamed):
         """Tipo nomeado sobre básico → classe sobre a base de operadores de
         fixed_types (identidade própria em runtime; operadores devolvem o
         tipo nomeado)."""
+        self.promoter.declare(t, t.get("methods") or [])
         b = self.typesys.basic(u)
         cls = type_name(go_name)
         store = self.types.golang(b.cls) if b.cls else None

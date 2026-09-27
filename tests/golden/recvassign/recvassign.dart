@@ -67,5 +67,11 @@ void $goInit() {
   _$inited = true;
 }
 
+/// Métodos de Scratch promovidos por embedding (delegação).
+mixin Scratch$Promote {
+  Scratch? get $Scratch;
+  Scratch? _prepare(Golang.Int p0) => $Scratch!._prepare(p0);
+}
+
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
 const _$e0 = go.Elem<Object?>(16, go.zeroNull, pointers: true);

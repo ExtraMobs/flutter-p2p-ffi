@@ -176,6 +176,14 @@ void $goInit() {
   _$inited = true;
 }
 
+/// Métodos de Point promovidos por embedding (delegação).
+mixin Point$Promote {
+  Point? get $Point;
+  Point add(Point p0) => $Point!.add(p0);
+  void scale(Golang.Int p0) => $Point!.scale(p0);
+  Golang.Int sum() => $Point!.sum();
+}
+
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
 const _$e0 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
 Golang.Int _$f1_2(Golang.FloatBase f) =>

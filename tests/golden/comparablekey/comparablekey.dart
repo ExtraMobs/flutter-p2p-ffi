@@ -91,6 +91,12 @@ void $goInit() {
   _$inited = true;
 }
 
+/// Métodos de id promovidos por embedding (delegação).
+mixin $_id$Promote {
+  $_id? get $$_id;
+  Golang.Int shard(Golang.Int p0) => $$_id!.shard(p0);
+}
+
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
 $_id _$f0_1(Golang.FloatBase f) => $_id.from(f.toInteger(64, signed: true));
 const _$e0 = go.Elem<$_id>(8, $_id.new, ofInt: $_id.from, ofFloat: _$f0_1);
