@@ -1,9 +1,8 @@
 """Um comportamento por expressão Go."""
 
-from g2d.analysis.helpers import has_recover
 from g2d.engine.behavior import NOT_HANDLED, ExprBehavior
 from g2d.engine.precedence import DART_PREC, NON_ASSOC, POSTFIX, UNARY
-from g2d.model import Unsupported
+from g2d.model import Unsupported, has_recover
 from g2d.services.naming import escape, lower_camel, member_name, top_member_name, type_name
 
 

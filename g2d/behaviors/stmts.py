@@ -1,11 +1,11 @@
 """Um comportamento por statement Go."""
 
-from g2d.analysis.helpers import is_blank, tuple_expr, uses_decl
 from g2d.engine.behavior import StmtBehavior
 from g2d.engine.precedence import DART_PREC, POSTFIX
-from g2d.model import Unsupported
+from g2d.model import Unsupported, is_blank, uses_decl
 from g2d.services.control import RangeFuncFrame
 from g2d.services.dart_type import DartType
+from g2d.services.literals import tuple_expr
 
 
 class BlockStmt(StmtBehavior):

@@ -1,9 +1,9 @@
 """Pré-passos sobre as declarações do pacote (rodam antes da emissão e
 gravam em `engine.facts`)."""
 
-from g2d.analysis.helpers import has_recover, pos_key
 from g2d.config import BUILTIN_PREFIX, GOLANG_PREFIX
 from g2d.engine.behavior import Analysis
+from g2d.model import has_recover, pos_key
 from g2d.services.naming import top_member_name, type_name
 
 

@@ -1,7 +1,7 @@
 """Declarações var/const (pacote e locais)."""
 
-from g2d.analysis.helpers import doc_comment
 from g2d.engine.behavior import Service
+from g2d.services.literals import doc_comment
 from g2d.services.naming import top_member_name
 
 

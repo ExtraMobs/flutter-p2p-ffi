@@ -1,1 +1,1 @@
-"""Análises (pré-passos) e consultas puras sobre a AST Go."""
+"""Análises: pré-passos sobre as declarações do pacote (gravam em `engine.facts`)."""

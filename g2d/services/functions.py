@@ -1,10 +1,10 @@
 """Funções e métodos: cabeçalho, receptor, parâmetros (tipo, `$rd`), corpo com defers."""
 
-from g2d.analysis.helpers import (assigns_var, doc_comment, has_bare_return, has_defer, has_recover,
-                                  mutates_receiver, tuple_expr, uses_decl)
 from g2d.engine.behavior import Service
 from g2d.engine.scope import FunctionScope, TypeParams
-from g2d.model import Unsupported
+from g2d.model import (Unsupported, assigns_var, has_bare_return, has_defer, has_recover, mutates_receiver,
+                       uses_decl)
+from g2d.services.literals import doc_comment, tuple_expr
 from g2d.services.naming import member_name
 
 

@@ -1,10 +1,10 @@
 """Declarações: o pacote (orquestra análises e seções da library), a
 inicialização do pacote e a cadeia de declarações de tipo nomeado."""
 
-from g2d.analysis.helpers import doc_comment
 from g2d.engine.behavior import Behavior, TypeDeclBehavior
 from g2d.engine.scope import FunctionScope, TypeParams
 from g2d.model import Unsupported
+from g2d.services.literals import doc_comment
 from g2d.services.naming import escape, lower_camel, member_name, top_member_name, type_name
 
 

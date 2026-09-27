@@ -14,7 +14,7 @@ from g2d.engine.behavior import NOT_HANDLED, BuiltinBehavior, ExprBehavior, Plug
 from g2d.engine.precedence import POSTFIX
 from g2d.engine.registry import ChainRegistry, HandlerRegistry
 from g2d.model import Unsupported, link_packages, parse_dump
-from g2d.services.names import Naming
+from g2d.services.naming import Naming
 
 GOLDEN = os.path.join(os.path.dirname(os.path.abspath(__file__)), "golden")
 GOAST = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "tools", "goast")

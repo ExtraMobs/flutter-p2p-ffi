@@ -30,7 +30,7 @@ Regras fundamentais:
 |---|---|---|
 | `tools/goast/` | Dumper de AST Go tipada → JSON | Go |
 | `tools/dartast/` | Dumper de AST Dart → JSON | Dart (`package:analyzer`) |
-| `g2d/` | Transpilador: motor (`engine/`), serviços (`services/`), análises (`analysis/`), comportamentos e plugins (`behaviors/`), `pipeline.py`, `cli.py` — ver "Arquitetura do g2d" | Python (stdlib apenas) |
+| `g2d/` | Transpilador: motor (`engine/`), serviços (`services/`), análises (`analysis/`), comportamentos e plugins (`behaviors/`), dump do goast e consultas à AST (`model.py`), `pipeline.py`, `cli.py` — ver "Arquitetura do g2d" | Python (stdlib apenas) |
 | `golib_dart/` | Core de adaptação: `fixed_types/` (tipos primitivos Go, origem `dart IPFS/packages/boilerplate`), shims da stdlib em `lib/<import path>.dart`, runtime em `lib/src/runtime/` exportado por `builtin.dart` (prefixo `go`) | Dart |
 | `out/` | Mono-repo Dart gerado (não editar à mão) | Dart (gerado) |
 | `tests/golden/<caso>/` | `<caso>.go` → `.goast.json` → `.dart` esperados (+ `.dartast.json` opcional) | — |

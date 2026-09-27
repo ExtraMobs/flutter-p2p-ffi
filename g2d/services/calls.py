@@ -1,7 +1,7 @@
 """Classificação de chamadas: função declarada, instanciação genérica, recover, receptor ponteiro."""
 
-from g2d.analysis.helpers import has_recover
 from g2d.engine.behavior import Service
+from g2d.model import has_recover
 
 
 class Calls(Service):

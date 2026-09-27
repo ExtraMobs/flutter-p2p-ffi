@@ -8,13 +8,13 @@ from g2d.behaviors.conversions import CONVERSIONS
 from g2d.engine.behavior import Plugin
 from g2d.services.assertions import Assertions
 from g2d.services.calls import Calls
-from g2d.services.consts import Literals
 from g2d.services.control import ControlFlow
 from g2d.services.descriptors import DescriptorRegistry
 from g2d.services.functions import Functions
 from g2d.services.goinfo import GoTypeInfo
 from g2d.services.imports import ImportTable
-from g2d.services.names import Naming
+from g2d.services.literals import Literals
+from g2d.services.naming import Naming
 from g2d.services.operands import Operands
 from g2d.services.promotion import Promotion
 from g2d.services.types import TypeMapper
@@ -24,8 +24,8 @@ from g2d.services.vardecls import VarDecls
 
 
 class CorePlugin(Plugin):
-    """Serviços, análises, pacote, structs, tipos nomeados, conversões e o
-    núcleo de expressões e statements."""
+    """Serviços, análises, pacote, structs, tipos nomeados, conversões, o
+    núcleo de expressões e statements e os builtins numéricos."""
 
     SERVICES = [ImportTable, Naming, TypeSystem, TypeMapper, DescriptorRegistry, ValueSemantics,
                 Literals, GoTypeInfo, Operands, Calls, Assertions, ControlFlow, Functions,
@@ -38,6 +38,7 @@ class CorePlugin(Plugin):
     EXPRS = [exprs.Ident, exprs.ParenExpr, exprs.BasicLit, exprs.BinaryExpr, exprs.UnaryExpr,
              exprs.SelectorExpr, exprs.KeyValueExpr, exprs.CompositeLit, exprs.FuncLit,
              exprs.CallExpr, exprs.G2DTemp]
+    BUILTINS = [builtins.Min, builtins.Max, builtins.Real, builtins.Imag, builtins.ComplexBuiltin]
 
     def install(self, engine):
         for service in self.SERVICES:
@@ -48,6 +49,8 @@ class CorePlugin(Plugin):
             engine.register_stmt(s)
         for e in self.EXPRS:
             engine.register_expr(e)
+        for b in self.BUILTINS:
+            engine.register_builtin(b)
         for conv in CONVERSIONS:
             engine.register_conversion(conv)
         engine.register_type_decl(decls.StructClass)
@@ -57,14 +60,15 @@ class CorePlugin(Plugin):
 
 
 class CollectionsPlugin(Plugin):
-    """Slices, arrays, maps e strings indexáveis: índice, slicing e builtins."""
+    """Slices, arrays, maps e strings indexáveis: índice, slicing e os builtins
+    deles."""
 
     def install(self, engine):
         engine.register_expr(exprs.IndexExpr)
         engine.register_expr(exprs.FuncInstance)  # antes do IndexExpr na cadeia
         engine.register_expr(exprs.SliceExpr)
         for b in (builtins.Len, builtins.Cap, builtins.Append, builtins.Copy,
-                  builtins.Delete, builtins.Make, builtins.Min, builtins.Max, builtins.Clear):
+                  builtins.Delete, builtins.Make, builtins.Clear):
             engine.register_builtin(b)
 
 
@@ -92,9 +96,6 @@ class DeferPlugin(Plugin):
         engine.register_stmt(stmts.DeferStmt)
         engine.register_builtin(builtins.PanicBuiltin)
         engine.register_builtin(builtins.Recover)
-        engine.register_builtin(builtins.Real)
-        engine.register_builtin(builtins.Imag)
-        engine.register_builtin(builtins.ComplexBuiltin)
 
 
 class FmtPlugin(Plugin):
