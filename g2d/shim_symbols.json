@@ -3,6 +3,7 @@
   "shims": {
     "bytes": [
       "Buffer",
+      "Reader",
       "clone",
       "compare",
       "contains",
@@ -26,6 +27,7 @@
       "minRead",
       "newBuffer",
       "newBufferString",
+      "newReader",
       "repeat",
       "replace",
       "replaceAll",
