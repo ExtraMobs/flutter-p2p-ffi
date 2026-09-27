@@ -116,7 +116,7 @@ final class _Fmt {
       zero = oldZero;
       return;
     }
-    if (sharp) throw UnimplementedError('fmt: # em float');
+    if (sharp && fmt != 'b') num = _sharpenFloat(num, fmt, p);
     if (plus || num[0] != '+') {
       if (zero && !minus && widPresent && wid > num.length) {
         _b.addByte(num.codeUnitAt(0));
@@ -128,6 +128,37 @@ final class _Fmt {
       return;
     }
     pad(_ascii(num.substring(1)));
+  }
+
+  /// `#` em float (`fmt.fmt.fmtFloat` do Go): força o ponto decimal e, em
+  /// `v`/`g`/`G`/`x`, completa com zeros até 6 dígitos significativos (ou a
+  /// precisão pedida). `num` já tem o sinal em `num[0]`.
+  static String _sharpenFloat(String num, String fmt, int prec) {
+    var digits = fmt == 'v' || fmt == 'g' || fmt == 'G' || fmt == 'x' ? (prec < 0 ? 6 : prec) : 0;
+    var end = num.length;
+    var tail = '';
+    var hasDecimalPoint = false;
+    var sawNonzeroDigit = false;
+    for (var i = 1; i < end; i++) {
+      final c = num[i];
+      if (c == '.') {
+        hasDecimalPoint = true;
+      } else if (c == 'p' || c == 'P' || c == 'e' || c == 'E') {
+        tail = num.substring(i);
+        end = i;
+        break;
+      } else {
+        if (c != '0') sawNonzeroDigit = true;
+        if (sawNonzeroDigit) digits--;
+      }
+    }
+    var head = num.substring(0, end);
+    if (!hasDecimalPoint) {
+      if (head.length == 2 && head[1] == '0') digits--;
+      head += '.';
+    }
+    if (digits > 0) head += '0' * digits;
+    return head + tail;
   }
 
   // -------------------------------------------------------------- strings

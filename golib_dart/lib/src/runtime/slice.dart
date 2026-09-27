@@ -69,6 +69,10 @@ base class Slice<T> {
   int get length => _len;
   int get capacity => _cap;
 
+  /// Nome Go do tipo (`[]int`), para `%#v`/`%T` de slices sem nome (um tipo
+  /// nomeado sobre slice sobrescreve com `$goType`, a classe gerada).
+  String get goType => '[]${elem.goType}';
+
   void _check(int i) {
     if (i < 0 || i >= _len) {
       throw Panic(

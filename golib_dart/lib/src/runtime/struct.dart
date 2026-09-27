@@ -72,9 +72,14 @@ abstract class GoStruct<T extends GoStruct<T>> extends GoValue<T> {
 /// `Addr(null)` é um ponteiro nil tipado: uma interface que o contém não é
 /// nil, como no Go.
 final class Addr {
-  const Addr(this.target);
+  const Addr(this.target, {this.goType});
 
   final Object? target;
+
+  /// Nome Go do tipo apontado (`main.P`), só para `%#v` de [target] nulo (não
+  /// nulo usa `target.$goType`); `null` nos poucos lugares escritos à mão que
+  /// ainda não passam o nome — `%#v` desse ponteiro nulo não é suportado.
+  final String? goType;
 
   @override
   bool operator ==(Object other) =>
@@ -82,4 +87,12 @@ final class Addr {
 
   @override
   int get hashCode => identityHashCode(target);
+}
+
+/// Structs opacas do runtime (os erros concretos de `errors`/`fmt`) que não
+/// são [GoStruct] — igualdade por identidade, como o ponteiro do Go, em vez
+/// de campo a campo — mas têm campos para `%#v`.
+abstract interface class GoOpaqueStruct implements GoTyped {
+  List<Object?> get $fields;
+  List<String> get $fieldNames;
 }

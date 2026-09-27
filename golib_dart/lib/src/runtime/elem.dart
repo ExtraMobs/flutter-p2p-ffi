@@ -17,7 +17,16 @@ final class Elem<T> {
     this.ofInt,
     this.ofFloat,
     this.rewrap,
+    this.goType = '?',
   });
+
+  /// Nome Go de T (`int`, `main.P`, `[]string`...), para `%#v`/`%T` de
+  /// slices, maps, arrays e ponteiros sem nome (o próprio T, quando nomeado,
+  /// tem `$goType`; isto é o nome do *elemento* que o descritor descreve).
+  /// `'?'`: descritor sem o metadado (dicionário de genérico, shim interno
+  /// escrito à mão) — `%#v` que precisar dele lança `UnimplementedError` em
+  /// vez de adivinhar (ponytail: `docs/mapping-spec.md`).
+  final String goType;
 
   /// Slice/map/array visto como T (T de core type composto, `S ~[]E`):
   /// o tipo nomeado reembrulha (`IDs(v)`); o sem nome é o próprio valor.

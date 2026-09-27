@@ -23,6 +23,12 @@ abstract interface class Stringer {
   Golang.String string();
 }
 
+/// `fmt.GoStringer`: `%#v` chama `GoString()` (sem aspas/escape) quando o
+/// tipo o implementa, em vez da sintaxe Go estrutural.
+abstract interface class GoStringer {
+  Golang.String goString();
+}
+
 /// `fmt.State`: o printer visto pelo método `Format` (flags, largura,
 /// precisão e a saída).
 abstract interface class State implements io.Writer {

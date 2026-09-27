@@ -91,7 +91,7 @@ base class GoArray<T> extends GoValue<GoArray<T>> {
   }
 
   @override
-  String get $goType => '[${_items.length}]';
+  String get $goType => '[${_items.length}]${elem.goType}';
 
   @override
   List<String> get $methods => const [];

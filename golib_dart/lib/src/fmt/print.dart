@@ -373,7 +373,26 @@ final class _Printer implements State {
       }
       return true;
     }
-    if (_fmt.sharpV) throw UnimplementedError('fmt: %#v (GoStringer)');
+    if (_fmt.sharpV) {
+      // `%#v`: só `GoStringer` (o Go não tenta `error`/`Stringer` aqui —
+      // sem `GoString`, cai na representação estrutural/de sintaxe Go).
+      if (arg is GoStringer && _hasMethod(arg, 'GoString', nested)) {
+        try {
+          _fmt.pad(_fmt.truncate(arg.goString().toBytes()));
+        } on Panic catch (p) {
+          final Object o = arg;
+          if (o is GoValue && o.$nilPtr) {
+            _fmt.pad(_ascii('<nil>'));
+            return true;
+          }
+          _b.add(_ascii('%!'));
+          _writeRune(verb);
+          _b.add(utf8.encode('(PANIC=GoString method: ${describePanic(p.value)})'));
+        }
+        return true;
+      }
+      return false;
+    }
     if (verb != 0x76 &&
         verb != 0x73 &&
         verb != 0x78 &&
@@ -439,8 +458,15 @@ final class _Printer implements State {
     final v = n.toBigInt();
     switch (verb) {
       case 0x76 || 0x64: // v d
-        if (_fmt.sharpV) throw UnimplementedError('fmt: %#v de inteiro');
-        _fmt.fmtInteger(v, 10, verb, _hexLower);
+        if (_fmt.sharpV && !n.$signed) {
+          // `%#v` de inteiro sem sinal: hex com `0x` (fmt0x64 do Go), como %p.
+          final oldSharp = _fmt.sharp;
+          _fmt.sharp = true;
+          _fmt.fmtInteger(v, 16, verb, _hexLower);
+          _fmt.sharp = oldSharp;
+        } else {
+          _fmt.fmtInteger(v, 10, verb, _hexLower);
+        }
       case 0x62: // b
         _fmt.fmtInteger(v, 2, verb, _hexLower);
       case 0x6f || 0x4f: // o O
@@ -452,7 +478,7 @@ final class _Printer implements State {
       case 0x63: // c
         _fmt.pad(utf8.encode(String.fromCharCode(_runeOf(v))));
       case 0x71: // q
-        if (_fmt.sharp) throw UnimplementedError('fmt: %#q de runa');
+        // `#` não faz diferença no `%q`/`%#v` de runa no Go (só em string).
         final r = utf8.encode(String.fromCharCode(_runeOf(v)));
         _fmt.pad(_quote(r, 0x27, _fmt.plus));
       case 0x55: // U
@@ -469,7 +495,7 @@ final class _Printer implements State {
   void _fmtFloatVerb(double v, int bits, int verb) {
     switch (verb) {
       case 0x76: // v
-        if (_fmt.sharpV) throw UnimplementedError('fmt: %#v de float');
+        // `%#v` de float é igual a `%v` no Go (sem prefixo, sem dígitos extras).
         _fmt.fmtFloat(v, bits, 'g', -1);
       case 0x67 || 0x47: // g G
         _fmt.fmtFloat(v, bits, String.fromCharCode(verb), -1);
@@ -487,8 +513,13 @@ final class _Printer implements State {
   void _fmtStringVerb(Uint8List s, int verb) {
     switch (verb) {
       case 0x76: // v
-        if (_fmt.sharpV) throw UnimplementedError('fmt: %#v de string');
-        _fmt.pad(_fmt.truncate(s));
+        if (_fmt.sharpV) {
+          // `%#v` de string é `%q` sem a forma com aspas simples (`sharp` já
+          // virou `sharpV`, então nunca entra em backquote aqui).
+          _fmt.pad(_quote(_fmt.truncate(s), 0x22, _fmt.plus));
+        } else {
+          _fmt.pad(_fmt.truncate(s));
+        }
       case 0x73: // s
         _fmt.pad(_fmt.truncate(s));
       case 0x78: // x

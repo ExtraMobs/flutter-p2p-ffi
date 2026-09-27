@@ -22,10 +22,17 @@ void main() {
   });
 
   test('GoMap.clear e Slice.clear', () {
-    final m = go.GoMap<int, int>.of({1: 2}, const go.Elem<int>(8, _zero));
+    final m = go.GoMap<int, int>.of(
+      {1: 2},
+      const go.Elem<int>(8, _zero),
+      const go.Elem<int>(8, _zero),
+    );
     m.clear();
     expect(m.length, 0);
-    go.GoMap<int, int>.nil(const go.Elem<int>(8, _zero)).clear();
+    go.GoMap<int, int>.nil(
+      const go.Elem<int>(8, _zero),
+      const go.Elem<int>(8, _zero),
+    ).clear();
     final s = go.Slice<int>.of([1, 2, 3], const go.Elem<int>(8, _zero)).slice(1);
     s.clear();
     expect(s.items.toList(), [0, 0]);

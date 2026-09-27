@@ -22,16 +22,21 @@ import 'panic.dart';
 /// entre eles é [GoMap.alias] (mesmo armazenamento).
 base class GoMap<K, V> {
   /// Mesmo map que [m] (tipos de map com o mesmo subjacente).
-  GoMap.alias(GoMap<K, V> m) : _m = m._m, elem = m.elem, identity = m.identity;
+  GoMap.alias(GoMap<K, V> m)
+    : _m = m._m,
+      elem = m.elem,
+      keyElem = m.keyElem,
+      identity = m.identity;
 
   /// `make(map[K]V)` / `map[K]V{}`.
-  GoMap(this.elem, {this.identity = false}) : _m = _new<K, V>(identity);
+  GoMap(this.elem, this.keyElem, {this.identity = false})
+    : _m = _new<K, V>(identity);
 
   /// Map nil (zero value).
-  GoMap.nil(this.elem) : _m = null, identity = false;
+  GoMap.nil(this.elem, this.keyElem) : _m = null, identity = false;
 
   /// Literal `map[K]V{k: v, ...}`.
-  GoMap.of(Map<K, V> entries, this.elem, {this.identity = false})
+  GoMap.of(Map<K, V> entries, this.elem, this.keyElem, {this.identity = false})
     : _m = _new<K, V>(identity)..addAll(entries);
 
   static Map<K, V> _new<K, V>(bool identity) =>
@@ -40,11 +45,19 @@ base class GoMap<K, V> {
   final Map<K, V>? _m;
   final Elem<V> elem;
 
+  /// Descritor da chave: só o nome Go (`%#v` de map sem nome); zero/tamanho
+  /// não são usados (uma chave sempre existe antes de ser lida).
+  final Elem<K> keyElem;
+
   /// Chaves `*T` (struct): comparadas por endereço.
   final bool identity;
 
   bool get isNil => _m == null;
   int get length => _m?.length ?? 0;
+
+  /// Nome Go do tipo (`map[string]int`), para `%#v`/`%T` de maps sem nome (um
+  /// tipo nomeado sobre map sobrescreve com `$goType`, a classe gerada).
+  String get goType => 'map[${keyElem.goType}]${elem.goType}';
 
   bool containsKey(K k) => _m?.containsKey(k) ?? false;
 
