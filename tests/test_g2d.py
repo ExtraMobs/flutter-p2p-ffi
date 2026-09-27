@@ -5,7 +5,7 @@ from g2d.audit import Finding, PackageReport, classify, frontier, parse_machine,
 from g2d.graph import init_deps, parse_go_list, topo_order
 from g2d.services.dart_type import DartType
 from g2d.services.naming import local_name, lower_camel, member_name, type_name
-from g2d.model import parse_dump
+from g2d.model import parse_dump, walk
 
 
 class GraphTest(unittest.TestCase):
@@ -104,6 +104,13 @@ class ModelTest(unittest.TestCase):
     def test_rejects_other_schema(self):
         with self.assertRaises(ValueError):
             parse_dump({"tool": "goast", "schemaVersion": 1, "packages": []})
+
+    def test_walk_preorder_and_funclit_cut(self):
+        # A ordem do fonte importa: LocalTypesAnalysis nomeia os tipos locais por ela.
+        lit = {"node": "FuncLit", "body": {"node": "DeferStmt"}}
+        tree = {"node": "BlockStmt", "list": [{"node": "A", "x": {"node": "B"}}, lit, {"node": "C"}]}
+        self.assertEqual([n["node"] for n in walk(tree)], ["BlockStmt", "A", "B", "FuncLit", "DeferStmt", "C"])
+        self.assertEqual([n["node"] for n in walk(tree, funclits=False)], ["BlockStmt", "A", "B", "C"])
 
 
 class AuditTest(unittest.TestCase):

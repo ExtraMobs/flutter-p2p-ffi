@@ -3,7 +3,7 @@ gravam em `engine.facts`)."""
 
 from g2d.config import BUILTIN_PREFIX, GOLANG_PREFIX
 from g2d.engine.behavior import Analysis
-from g2d.model import has_recover, pos_key, unparen
+from g2d.model import has_recover, pos_key, unparen, walk
 from g2d.services.naming import top_member_name, type_name
 
 
@@ -47,32 +47,21 @@ class BoxingAnalysis(Analysis):
     """Variáveis não-struct cujo endereço é tomado (`&x`): moram numa go.Box."""
 
     def run(self, decls):
-        self.visit(decls)
-
-    def visit(self, node):
-        if isinstance(node, list):
-            for x in node:
-                self.visit(x)
-            return
-        if not isinstance(node, dict):
-            return
-        if node.get("node") == "UnaryExpr" and node["op"] == "&":
-            x = unparen(node["x"])
-            obj = x.get("$obj") if x["node"] == "Ident" else None
-            if obj and obj["kind"] == "var" and not self.typesys.is_value(self.pkg.type_of(x)):
-                self.facts.boxed.add(obj["decl"])
-        elif node.get("node") == "SelectorExpr" and (node.get("$sel") or {}).get("kind") == "method":
-            # Chamada/method value com receptor ponteiro sobre N endereçável: `&x`.
-            x = unparen(node["x"])
-            obj = x.get("$obj") if x["node"] == "Ident" else None
-            t = self.pkg.type_of(x)
-            if (obj and obj["kind"] == "var" and len(node["$sel"]["index"]) == 1
-                    and self.typesys.ptr_class(t)
-                    and any(m["name"] == node["sel"]["name"] and m["ptr"] for m in t["methods"])):
-                self.facts.boxed.add(obj["decl"])
-        for v in node.values():
-            if isinstance(v, (dict, list)):
-                self.visit(v)
+        for node in walk(decls):
+            if node.get("node") == "UnaryExpr" and node["op"] == "&":
+                x = unparen(node["x"])
+                obj = x.get("$obj") if x["node"] == "Ident" else None
+                if obj and obj["kind"] == "var" and not self.typesys.is_value(self.pkg.type_of(x)):
+                    self.facts.boxed.add(obj["decl"])
+            elif node.get("node") == "SelectorExpr" and (node.get("$sel") or {}).get("kind") == "method":
+                # Chamada/method value com receptor ponteiro sobre N endereçável: `&x`.
+                x = unparen(node["x"])
+                obj = x.get("$obj") if x["node"] == "Ident" else None
+                t = self.pkg.type_of(x)
+                if (obj and obj["kind"] == "var" and len(node["$sel"]["index"]) == 1
+                        and self.typesys.ptr_class(t)
+                        and any(m["name"] == node["sel"]["name"] and m["ptr"] for m in t["methods"])):
+                    self.facts.boxed.add(obj["decl"])
 
 
 class LocalTypesAnalysis(Analysis):
@@ -107,14 +96,11 @@ class LocalTypesAnalysis(Analysis):
                     self.facts.local_tparams[lt] = tparams
                     self.facts.local_targs[lt] = [i["$obj"]["type"] for f in tparams["list"] for i in f["names"]]
 
-    def type_specs(self, node):
-        if isinstance(node, list):
-            return [s for x in node for s in self.type_specs(x)]
-        if not isinstance(node, dict):
-            return []
-        if node.get("node") == "DeclStmt" and node["decl"]["tok"] == "type":
-            return [s for s in node["decl"]["specs"] if not s["assign"]]
-        return [s for v in node.values() if isinstance(v, (dict, list)) for s in self.type_specs(v)]
+    @staticmethod
+    def type_specs(body):
+        """TypeSpecs locais (sem alias), na ordem do fonte: ela define os nomes."""
+        return [s for n in walk(body) if n.get("node") == "DeclStmt" and n["decl"]["tok"] == "type"
+                for s in n["decl"]["specs"] if not s["assign"]]
 
 
 class RecoverAnalysis(Analysis):
