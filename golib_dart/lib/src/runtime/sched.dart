@@ -46,6 +46,7 @@ void goroutineFinished() {
 
 /// A goroutine atual bloqueou numa operação suspensiva do runtime.
 void goroutineBlocked() {
+  ensureAsyncScheduling();
   _blocked++;
   _scheduleDeadlockCheck();
 }
@@ -103,6 +104,7 @@ Never fatal(String message) {
 /// Um panic que sai de [body] sem `recover` imprime e encerra o processo com
 /// código 2, como o Go faz para qualquer goroutine (não só a `main`).
 void spawn(FutureOr<void> Function() body) {
+  ensureAsyncScheduling();
   goroutineStarted();
   final n = ++_goroutineSeq;
   scheduleMicrotask(() async {
