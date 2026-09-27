@@ -13,6 +13,7 @@ import 'src/unicode/utf8.dart';
 
 part 'src/bytes/funcs.dart';
 part 'src/bytes/buffer.dart';
+part 'src/bytes/more.dart';
 
 typedef _Bytes = Slice<Golang.Uint8>;
 
