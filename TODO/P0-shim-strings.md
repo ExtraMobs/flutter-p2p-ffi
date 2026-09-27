@@ -48,3 +48,29 @@ dependem de tabelas Unicode do Go (gerar como `src/unicode/isprint.dart`, confer
 `SplitSeq`/`FieldsSeq` dependem de `iter` (range-over-func). O resto (`Replace`/`ReplaceAll`, `Cut`,
 `Trim`/`TrimLeft`/`TrimRight`, `Repeat`, `Compare`, `LastIndexByte`, `IndexAny`, `ContainsAny`,
 `CutPrefix`, `Map`...) é barato: porta do fonte do Go, fixture em `tests/golden/bytesstrings`.
+
+**Feito (2026-09, agente paralelo ao de caixa/espaço):** `Map`, `Trim`, `TrimLeft`, `TrimRight`,
+`Replace`, `ReplaceAll`, `Repeat`, `Cut`, `CutPrefix`, `CutSuffix`, `Compare`, `LastIndexByte`,
+`LastIndexAny`, `IndexAny`, `IndexRune`, `ContainsAny`, `SplitAfter`, `SplitAfterN`, `Clone`, e os
+tipos struct de shim `Reader`/`NewReader` (`Len`, `Size`, `Read`, `ReadAt`, `ReadByte`,
+`UnreadByte`, `ReadRune`, `UnreadRune`, `Seek`, `WriteTo`, `Reset`) e `Replacer`/`NewReplacer`
+(`Replace`, `WriteString`, só o algoritmo genérico de `strings/replace.go` — correto para
+qualquer entrada, sem as otimizações de par único/byte-a-byte que o Go escolhe conforme os
+argumentos). Partes novas: `lib/src/strings/replace.dart`, `lib/src/strings/replacer.dart`,
+`lib/src/strings/reader.dart`. Fixture `tests/golden/stringsmore` (e2e VM×JS×Wasm×`go run`
+idêntico). `Reader` implementa `io.Reader`/`ReaderAt`/`ByteReader`/`Seeker` (o que `io.dart` já
+tinha); faltam `io.RuneReader`/`RuneScanner`/`ByteScanner`/`WriterTo` no shim de `io` — os métodos
+(`ReadRune`, `UnreadRune`, `WriteTo`) existem na classe, só não entram no `implements` (marcado
+`ponytail:` no código).
+
+**Não feito, ainda pendente:**
+- Caixa/espaço Unicode (`ToLower`, `ToUpper`, `ToTitle`, `EqualFold`, `TrimSpace`, `Fields`,
+  `FieldsFunc`, `Title`, `ToValidUTF8`, `IndexFunc`, `LastIndexFunc`, `ContainsFunc`, `Runes`):
+  agente paralelo em `lib/src/strings/case.dart` (fora do escopo deste artefato/commit).
+- `SplitSeq`/`Lines`: dependem de `iter.Seq` (range-over-func). O `RangeStmt` do g2d já trata
+  `range` sobre um valor de tipo `func` genericamente (`g2d/behaviors/stmts.py`, `range_func`),
+  então dá para expor `splitSeq`/`lines` como uma função Dart de assinatura estrutural equivalente
+  a `func(yield func(V) bool)` sem precisar de um shim do pacote `iter` (o `RangeStmt` nunca
+  qualifica o tipo `iter.Seq[T]` em si, só a função subjacente); não cheguei a implementar por
+  tempo — candidato a próximo artefato pequeno, não a P0 novo (baixa ocorrência: `SplitSeq(16)`,
+  `Lines(1)`).

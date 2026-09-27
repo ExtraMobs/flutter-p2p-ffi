@@ -47,3 +47,25 @@ docs/stdlib-coverage.md:
 tabelas Unicode do Go (gerar como `src/unicode/isprint.dart`, conferidas por teste). O resto
 (`LastIndexByte`, `TrimRight`, `TrimPrefix`/`TrimSuffix`, `CutPrefix`, `Join`, `Contains`, `Repeat`,
 `Clone`...) é barato: porta do fonte do Go, fixture em `tests/golden/bytesstrings`.
+
+**Feito (2026-09, agente paralelo ao de caixa/espaço):** `TrimSuffix`, `TrimPrefix`, `Join`,
+`Repeat`, `IndexAny`, `LastIndex`, `Contains`, `ContainsAny`, `ContainsRune`, `Clone`, `CutPrefix`,
+`CutSuffix`, `Cut`, `Replace`, `ReplaceAll`, `SplitN`, `Trim`, `Map`, e o tipo struct de shim
+`Reader`/`NewReader` (`Len`, `Size`, `Read`, `ReadAt`, `ReadByte`, `UnreadByte`, `ReadRune`,
+`UnreadRune`, `Seek`, `WriteTo`, `Reset`). `Buffer` já tinha `AvailableBuffer`/`ReadFrom`/
+`WriteTo`/`Truncate`/`Grow`/`Next`/`ReadByte`/`UnreadByte`/`ReadRune`/`WriteRune` (nada faltava
+nela). Partes novas: `lib/src/bytes/more.dart`, `lib/src/bytes/reader.dart`. Fixture
+`tests/golden/bytesmore` (e2e VM×JS×Wasm×`go run` idêntico). `Reader`
+implementa `io.Reader`/`ReaderAt`/`ByteReader`/`Seeker` (o que `io.dart` já tinha); faltam
+`io.RuneReader`/`RuneScanner`/`ByteScanner`/`WriterTo` no shim de `io` — os métodos (`ReadRune`,
+`UnreadRune`, `WriteTo`) existem na classe, só não entram no `implements` (marcado `ponytail:` no
+código).
+
+**Não feito, ainda pendente:**
+- Caixa/espaço Unicode (`ToLower`, `ToUpper`, `ToTitle`, `EqualFold`, `TrimSpace`, `Fields`,
+  `FieldsFunc`, `Title`, `ToValidUTF8`, `IndexFunc`, `LastIndexFunc`, `ContainsFunc`, `Runes`):
+  agente paralelo em `lib/src/bytes/case.dart` (fora do escopo deste artefato/commit).
+- `SplitSeq`: mesma situação de `strings.SplitSeq` (`TODO/P0-shim-strings.md`) — depende de
+  `iter.Seq`/range-over-func; o `RangeStmt` do g2d já suporta range sobre um valor `func`
+  genericamente, então dá para expor sem shim de `iter`, mas não coube neste commit (ocorrência
+  baixa: `SplitSeq(1)`).
