@@ -1,13 +1,25 @@
-/// Shim do pacote Go `io` (parcial: erros sentinela, interfaces, ReadFull,
-/// ReadAll, WriteString, Discard; o resto em `TODO/P0-shim-io.md`).
+/// Shim do pacote Go `io`: porta de `io.go`/`multi.go` do Go 1.26
+/// (`io.Pipe`/`PipeReader`/`PipeWriter` dependem de goroutines — ver
+/// `TODO/P0-design-m4-concorrencia.md`, seção "io.Pipe").
 ///
 /// As interfaces entram em `SHIM_INTERFACES` (`g2d/config.py`): um tipo
 /// gerado com `Write([]byte) (int, error)` declara `implements io.Writer`.
+///
+/// `io.SeekStart`/`io.SeekCurrent`/`io.SeekEnd` são constantes inteiras sem
+/// tipo: o g2d as dobra no valor literal em cada uso (como `math.Pi`), então
+/// não precisam de símbolo aqui.
 // ignore_for_file: library_prefixes
 library;
 
 import 'builtin.dart';
 import 'fixed_types/golang.dart' as Golang;
+
+part 'src/io/funcs.dart';
+part 'src/io/limited_reader.dart';
+part 'src/io/section_reader.dart';
+part 'src/io/offset_writer.dart';
+part 'src/io/multi.dart';
+part 'src/io/tee_reader.dart';
 
 GoError _err(String s) => ErrorString(Golang.String.fromDart(s));
 
@@ -30,6 +42,17 @@ final GoError errNoProgress = _err(
 
 /// `io.ErrClosedPipe`.
 final GoError errClosedPipe = _err('io: read/write on closed pipe');
+
+/// `errInvalidWrite` (não exportado): resultado impossível de `Write`.
+final GoError _errInvalidWrite = _err('invalid write result');
+
+/// `errWhence` (não exportado): `Seek` com whence inválido.
+final GoError _errWhence = _err('Seek: invalid whence');
+
+/// `errOffset` (não exportado): `Seek`/`WriteAt` com offset inválido.
+final GoError _errOffset = _err('Seek: invalid offset');
+
+const _byte = Elem<Golang.Uint8>(1, Golang.Uint8.new, ofInt: Golang.Uint8.from);
 
 /// `io.Reader`.
 abstract interface class Reader {
@@ -76,6 +99,31 @@ abstract interface class WriterAt {
   (Golang.Int, GoError?) writeAt(Slice<Golang.Uint8> p, Golang.Int64 off);
 }
 
+/// `io.ReaderFrom`.
+abstract interface class ReaderFrom {
+  (Golang.Int64, GoError?) readFrom(Reader? r);
+}
+
+/// `io.WriterTo`.
+abstract interface class WriterTo {
+  (Golang.Int64, GoError?) writeTo(Writer? w);
+}
+
+/// `io.RuneReader`.
+abstract interface class RuneReader {
+  (Golang.Rune, Golang.Int, GoError?) readRune();
+}
+
+/// `io.ByteScanner`.
+abstract interface class ByteScanner implements ByteReader {
+  GoError? unreadByte();
+}
+
+/// `io.RuneScanner`.
+abstract interface class RuneScanner implements RuneReader {
+  GoError? unreadRune();
+}
+
 /// `io.ReadCloser`.
 abstract interface class ReadCloser implements Reader, Closer {}
 
@@ -91,103 +139,11 @@ abstract interface class ReadWriteCloser implements Reader, Writer, Closer {}
 /// `io.ReadSeeker`.
 abstract interface class ReadSeeker implements Reader, Seeker {}
 
+/// `io.ReadSeekCloser`.
+abstract interface class ReadSeekCloser implements Reader, Seeker, Closer {}
+
 /// `io.WriteSeeker`.
 abstract interface class WriteSeeker implements Writer, Seeker {}
 
 /// `io.ReadWriteSeeker`.
 abstract interface class ReadWriteSeeker implements Reader, Writer, Seeker {}
-
-/// `io.SeekStart`, `io.SeekCurrent`, `io.SeekEnd` vêm dobradas pelo g2d.
-
-const _byte = Elem<Golang.Uint8>(1, Golang.Uint8.new, ofInt: Golang.Uint8.from);
-
-/// `io.ReadAtLeast(r, buf, min)`: lê até ter pelo menos min bytes;
-/// `ErrShortBuffer` se buf for menor, `ErrUnexpectedEOF` se o EOF vier no meio.
-(Golang.Int, GoError?) readAtLeast(
-  Reader? r,
-  Slice<Golang.Uint8> buf,
-  Golang.Int min,
-) {
-  final m = min.toIndex();
-  if (buf.length < m) return (Golang.Int(0), errShortBuffer);
-  var n = 0;
-  GoError? err;
-  while (n < m && err == null) {
-    final (nn, e) = r!.read(buf.slice(n));
-    n += nn.toInt();
-    err = e;
-  }
-  if (n >= m) {
-    err = null;
-  } else if (n > 0 && identical(err, eof)) {
-    err = errUnexpectedEOF;
-  }
-  return (Golang.Int(n), err);
-}
-
-/// `io.ReadFull(r, buf)`.
-(Golang.Int, GoError?) readFull(Reader? r, Slice<Golang.Uint8> buf) =>
-    readAtLeast(r, buf, Golang.Int(buf.length));
-
-/// `io.WriteString(w, s)`: `WriteString` do próprio w se ele tiver (no method
-/// set do valor), senão `Write([]byte(s))`.
-(Golang.Int, GoError?) writeString(Writer? w, Golang.String s) {
-  final Object? o = w;
-  if (o case final StringWriter sw when goHasMethod(sw, 'WriteString')) {
-    return sw.writeString(s);
-  }
-  return w!.write(bytesOf(s, _byte));
-}
-
-/// `io.ReadAll(r)`: o algoritmo do Go 1.26 (pedaços crescendo 1,5× a partir
-/// de 256 bytes, copiados no fim num slice do tamanho certo; mesmo `cap`).
-(Slice<Golang.Uint8>, GoError?) readAll(Reader? r) {
-  Slice<Golang.Uint8> fresh(int n) =>
-      Slice<Golang.Uint8>.nil(_byte)
-          .appendSlice(Slice<Golang.Uint8>.make(n, n, _byte))
-          .slice(0, 0);
-
-  var b = Slice<Golang.Uint8>.make(0, 512, _byte);
-  var next = 256;
-  final chunks = <Slice<Golang.Uint8>>[];
-  var finalSize = 0;
-  for (;;) {
-    final (n, err) = r!.read(b.slice(b.length, b.capacity));
-    b = b.slice(0, b.length + n.toInt());
-    if (err != null) {
-      final e = identical(err, eof) ? null : err;
-      if (chunks.isEmpty) return (b, e);
-      finalSize += b.length;
-      var out = fresh(finalSize);
-      for (final c in chunks) {
-        out = out.appendSlice(c);
-      }
-      return (out.appendSlice(b), e);
-    }
-    if (b.capacity - b.length < b.capacity ~/ 16) {
-      chunks.add(b);
-      finalSize += b.length;
-      b = fresh(next);
-      next += next ~/ 2;
-    }
-  }
-}
-
-/// `io.Discard`: Writer que aceita tudo e não faz nada.
-final Writer discard = _Discard();
-
-final class _Discard implements Writer, StringWriter, Golang.GoTyped {
-  @override
-  (Golang.Int, GoError?) write(Slice<Golang.Uint8> p) =>
-      (Golang.Int(p.length), null);
-
-  @override
-  (Golang.Int, GoError?) writeString(Golang.String s) =>
-      (Golang.Int(s.length), null);
-
-  @override
-  String get $goType => 'io.discard';
-
-  @override
-  List<String> get $methods => const ['Write', 'WriteString'];
-}
