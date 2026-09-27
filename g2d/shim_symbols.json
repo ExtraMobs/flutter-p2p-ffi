@@ -208,6 +208,7 @@
     ],
     "strings": [
       "Builder",
+      "Reader",
       "clone",
       "compare",
       "contains",
@@ -228,6 +229,7 @@
       "lastIndexAny",
       "lastIndexByte",
       "map",
+      "newReader",
       "repeat",
       "replace",
       "replaceAll",
