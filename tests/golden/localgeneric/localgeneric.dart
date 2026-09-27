@@ -9,7 +9,7 @@ import 'package:golib_dart/fmt.dart' as fmt;
 import 'package:golib_dart/builtin.dart' as go;
 
 Object? wrap<T>(go.Elem<T> $T, T v) {
-  return _wrap$box$<T>($T, v: v).$ifaceCopy();
+  return $_wrap$box<T>($T, v: v).$ifaceCopy();
 }
 
 go.Slice<Object?> pairs<K, V>(
@@ -18,13 +18,13 @@ go.Slice<Object?> pairs<K, V>(
   go.GoMap<K, V> m,
   go.Slice<K> keys,
 ) {
-  _pairs$list$<K, V> out = _pairs$list$<K, V>(
+  $_pairs$list<K, V> out = $_pairs$list<K, V>(
     $K,
     $V,
-    go.Slice<_pairs$pair$<K, V>>.nil(
-      go.Elem<_pairs$pair$<K, V>>(
+    go.Slice<$_pairs$pair<K, V>>.nil(
+      go.Elem<$_pairs$pair<K, V>>(
         8,
-        () => _pairs$pair$<K, V>($K, $V),
+        () => $_pairs$pair<K, V>($K, $V),
         pointers: true,
       ),
     ),
@@ -34,10 +34,10 @@ go.Slice<Object?> pairs<K, V>(
     for (var $t2 = 0; $t2 < $t1.length; $t2++) {
       K k = $t1[$t2];
       {
-        out = _pairs$list$<K, V>(
+        out = $_pairs$list<K, V>(
           $K,
           $V,
-          out.append([_pairs$pair$<K, V>($K, $V, k: k, v: m[k])]),
+          out.append([$_pairs$pair<K, V>($K, $V, k: k, v: m[k])]),
         );
       }
     }
@@ -47,7 +47,7 @@ go.Slice<Object?> pairs<K, V>(
     final $t3 = out;
     for (var $t4 = 0; $t4 < $t3.length; $t4++) {
       Golang.Int i = Golang.Int($t4);
-      _pairs$pair$<K, V> p = $t3[$t4].$copy();
+      $_pairs$pair<K, V> p = $t3[$t4].$copy();
       {
         res[i.toIndex()] = p.$ifaceCopy();
       }
@@ -96,8 +96,8 @@ void main() {
   });
 }
 
-class _wrap$box$<T> extends go.GoStruct<_wrap$box$<T>> {
-  _wrap$box$(this.$T, {T? v}) : _v = v ?? $T.zero();
+class $_wrap$box<T> extends go.GoStruct<$_wrap$box<T>> {
+  $_wrap$box(this.$T, {T? v}) : _v = v ?? $T.zero();
 
   final go.Elem<T> $T;
   T _v;
@@ -110,10 +110,10 @@ class _wrap$box$<T> extends go.GoStruct<_wrap$box$<T>> {
   List<String> get $ptrMethods => const [];
 
   @override
-  _wrap$box$<T> $copy() => _wrap$box$<T>($T, v: _v);
+  $_wrap$box<T> $copy() => $_wrap$box<T>($T, v: _v);
 
   @override
-  void $set(_wrap$box$<T> o) {
+  void $set($_wrap$box<T> o) {
     _v = o._v;
   }
 
@@ -124,8 +124,8 @@ class _wrap$box$<T> extends go.GoStruct<_wrap$box$<T>> {
   List<String> get $fieldNames => const ['v'];
 }
 
-class _pairs$pair$<K, V> extends go.GoStruct<_pairs$pair$<K, V>> {
-  _pairs$pair$(this.$K, this.$V, {K? k, V? v})
+class $_pairs$pair<K, V> extends go.GoStruct<$_pairs$pair<K, V>> {
+  $_pairs$pair(this.$K, this.$V, {K? k, V? v})
     : k = k ?? $K.zero(),
       v = v ?? $V.zero();
 
@@ -142,10 +142,10 @@ class _pairs$pair$<K, V> extends go.GoStruct<_pairs$pair$<K, V>> {
   List<String> get $ptrMethods => const [];
 
   @override
-  _pairs$pair$<K, V> $copy() => _pairs$pair$<K, V>($K, $V, k: k, v: v);
+  $_pairs$pair<K, V> $copy() => $_pairs$pair<K, V>($K, $V, k: k, v: v);
 
   @override
-  void $set(_pairs$pair$<K, V> o) {
+  void $set($_pairs$pair<K, V> o) {
     k = o.k;
     v = o.v;
   }
@@ -157,9 +157,9 @@ class _pairs$pair$<K, V> extends go.GoStruct<_pairs$pair$<K, V>> {
   List<String> get $fieldNames => const ['K', 'V'];
 }
 
-final class _pairs$list$<K, V> extends go.Slice<_pairs$pair$<K, V>>
+final class $_pairs$list<K, V> extends go.Slice<$_pairs$pair<K, V>>
     implements Golang.GoTyped {
-  _pairs$list$(this.$K, this.$V, go.Slice<_pairs$pair$<K, V>> v)
+  $_pairs$list(this.$K, this.$V, go.Slice<$_pairs$pair<K, V>> v)
     : super.alias(v);
 
   final go.Elem<K> $K;

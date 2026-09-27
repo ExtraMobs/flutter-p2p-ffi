@@ -80,10 +80,10 @@ class P extends go.GoStruct<P> {
 }
 
 class Box extends go.GoStruct<Box> {
-  Box({P? p, Golang.String? tag, _anon$14$? inner, P? ptr})
+  Box({P? p, Golang.String? tag, $_anon$14? inner, P? ptr})
     : p = p ?? P(),
       tag = tag ?? Golang.String(),
-      inner = inner ?? _anon$14$(),
+      inner = inner ?? $_anon$14(),
       ptr = ptr;
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
@@ -91,7 +91,7 @@ class Box extends go.GoStruct<Box> {
 
   P p;
   Golang.String tag;
-  _anon$14$ inner;
+  $_anon$14 inner;
   P? ptr;
 
   @override
@@ -119,11 +119,11 @@ class Box extends go.GoStruct<Box> {
   List<String> get $fieldNames => const ['P', 'Tag', 'Inner', 'Ptr'];
 }
 
-class _myErr$ extends go.GoStruct<_myErr$> implements go.GoError {
-  _myErr$({Golang.Int? code}) : _code = code ?? Golang.Int();
+class $_myErr extends go.GoStruct<$_myErr> implements go.GoError {
+  $_myErr({Golang.Int? code}) : _code = code ?? Golang.Int();
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _myErr$ $nil = _myErr$()..$nilPtr = true;
+  static final $_myErr $nil = $_myErr()..$nilPtr = true;
 
   Golang.Int _code;
 
@@ -135,10 +135,10 @@ class _myErr$ extends go.GoStruct<_myErr$> implements go.GoError {
   List<String> get $ptrMethods => const ['Error'];
 
   @override
-  _myErr$ $copy() => _myErr$(code: _code);
+  $_myErr $copy() => $_myErr(code: _code);
 
   @override
-  void $set(_myErr$ o) {
+  void $set($_myErr o) {
     _code = o._code;
   }
 
@@ -149,7 +149,7 @@ class _myErr$ extends go.GoStruct<_myErr$> implements go.GoError {
   List<String> get $fieldNames => const ['code'];
 
   Golang.String error() {
-    final _myErr$? e = $nilPtr ? null : this;
+    final $_myErr? e = $nilPtr ? null : this;
     return fmt.sprintf(
       Golang.String.fromDart('erro %d'),
       go.Slice<Object?>.of([e!._code], _$e0),
@@ -374,7 +374,7 @@ void main() {
       Golang.String.fromDart('%v %d %s %v %v\n'),
       go.Slice<Object?>.of([null, null, e, ip == null, ps ?? P.$nil], _$e0),
     );
-    go.GoError? err = _myErr$(code: Golang.Int(7)) ?? _myErr$.$nil;
+    go.GoError? err = $_myErr(code: Golang.Int(7)) ?? $_myErr.$nil;
     fmt.printf(
       Golang.String.fromDart('%v|%s|%q|%x|%d|%T\n'),
       go.Slice<Object?>.of([
@@ -383,7 +383,7 @@ void main() {
         err,
         err,
         go
-            .assertType<_myErr$?>(err, 'error', '*main.myErr', struct: false)!
+            .assertType<$_myErr?>(err, 'error', '*main.myErr', struct: false)!
             ._code,
         err,
       ], _$e0),
@@ -559,7 +559,7 @@ void main() {
     fmt.printf(
       Golang.String.fromDart('%+v|%+v\n'),
       go.Slice<Object?>.of([
-        _anon$46$(n: Golang.Int(9)).$ifaceCopy(),
+        $_anon$46(n: Golang.Int(9)).$ifaceCopy(),
         Box().ptr ?? P.$nil,
       ], _$e0),
     );
@@ -650,13 +650,13 @@ void main() {
 }
 
 /// `struct { A int; B int }` (struct anônima).
-class _anon$14$ extends go.GoStruct<_anon$14$> {
-  _anon$14$({Golang.Int? a, Golang.Int? b})
+class $_anon$14 extends go.GoStruct<$_anon$14> {
+  $_anon$14({Golang.Int? a, Golang.Int? b})
     : a = a ?? Golang.Int(),
       b = b ?? Golang.Int();
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _anon$14$ $nil = _anon$14$()..$nilPtr = true;
+  static final $_anon$14 $nil = $_anon$14()..$nilPtr = true;
 
   Golang.Int a;
   Golang.Int b;
@@ -669,10 +669,10 @@ class _anon$14$ extends go.GoStruct<_anon$14$> {
   List<String> get $ptrMethods => const [];
 
   @override
-  _anon$14$ $copy() => _anon$14$(a: a, b: b);
+  $_anon$14 $copy() => $_anon$14(a: a, b: b);
 
   @override
-  void $set(_anon$14$ o) {
+  void $set($_anon$14 o) {
     a = o.a;
     b = o.b;
   }
@@ -685,11 +685,11 @@ class _anon$14$ extends go.GoStruct<_anon$14$> {
 }
 
 /// `struct { N int }` (struct anônima).
-class _anon$46$ extends go.GoStruct<_anon$46$> {
-  _anon$46$({Golang.Int? n}) : n = n ?? Golang.Int();
+class $_anon$46 extends go.GoStruct<$_anon$46> {
+  $_anon$46({Golang.Int? n}) : n = n ?? Golang.Int();
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _anon$46$ $nil = _anon$46$()..$nilPtr = true;
+  static final $_anon$46 $nil = $_anon$46()..$nilPtr = true;
 
   Golang.Int n;
 
@@ -701,10 +701,10 @@ class _anon$46$ extends go.GoStruct<_anon$46$> {
   List<String> get $ptrMethods => const [];
 
   @override
-  _anon$46$ $copy() => _anon$46$(n: n);
+  $_anon$46 $copy() => $_anon$46(n: n);
 
   @override
-  void $set(_anon$46$ o) {
+  void $set($_anon$46 o) {
     n = o.n;
   }
 

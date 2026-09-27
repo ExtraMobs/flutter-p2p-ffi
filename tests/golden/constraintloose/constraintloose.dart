@@ -74,13 +74,13 @@ abstract mixin class Marshaler {
   Golang.String marshal();
 }
 
-class _point$ extends go.GoStruct<_point$> implements Marshaler {
-  _point$({Golang.Int? x, Golang.Int? y})
+class $_point extends go.GoStruct<$_point> implements Marshaler {
+  $_point({Golang.Int? x, Golang.Int? y})
     : _x = x ?? Golang.Int(),
       _y = y ?? Golang.Int();
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _point$ $nil = _point$()..$nilPtr = true;
+  static final $_point $nil = $_point()..$nilPtr = true;
 
   Golang.Int _x;
   Golang.Int _y;
@@ -93,10 +93,10 @@ class _point$ extends go.GoStruct<_point$> implements Marshaler {
   List<String> get $ptrMethods => const ['Marshal'];
 
   @override
-  _point$ $copy() => _point$(x: _x, y: _y);
+  $_point $copy() => $_point(x: _x, y: _y);
 
   @override
-  void $set(_point$ o) {
+  void $set($_point o) {
     _x = o._x;
     _y = o._y;
   }
@@ -108,7 +108,7 @@ class _point$ extends go.GoStruct<_point$> implements Marshaler {
   List<String> get $fieldNames => const ['x', 'y'];
 
   Golang.String marshal() {
-    final _point$? p = $nilPtr ? null : this;
+    final $_point? p = $nilPtr ? null : this;
     return fmt.sprint(
       go.Slice<Object?>.of([p!._x, Golang.String.fromDart(','), p!._y], _$e0),
     );
@@ -235,12 +235,12 @@ void main() {
     );
     fmt.println(
       go.Slice<Object?>.of([
-        _marshalAll<_point$, _point$?>(
+        _marshalAll<$_point, $_point?>(
           _$e10,
           _$e9,
-          go.Slice<_point$?>.of([
-            _point$(x: Golang.Int(1), y: Golang.Int(2)),
-            _point$(x: Golang.Int(3), y: Golang.Int(4)),
+          go.Slice<$_point?>.of([
+            $_point(x: Golang.Int(1), y: Golang.Int(2)),
+            $_point(x: Golang.Int(3), y: Golang.Int(4)),
           ], _$e9),
         ),
       ], _$e0),
@@ -290,5 +290,5 @@ go.GoArray<Golang.Int> _$z10_7() => go.GoArray<Golang.Int>.zero(3, _$e5);
 const _$e6 = go.Elem<go.GoArray<Golang.Int>>(24, _$z10_7);
 const _$e7 = go.Elem<void Function()?>(8, go.zeroNull, pointers: true);
 const _$e8 = go.Elem<go.GoError? Function()?>(8, go.zeroNull, pointers: true);
-const _$e9 = go.Elem<_point$?>(8, go.zeroNull, pointers: true);
-const _$e10 = go.Elem<_point$>(16, _point$.new);
+const _$e9 = go.Elem<$_point?>(8, go.zeroNull, pointers: true);
+const _$e10 = go.Elem<$_point>(16, $_point.new);

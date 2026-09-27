@@ -28,13 +28,13 @@ final class DoNotCopy extends go.GoArray<sync.Mutex> {
   List<String> get $methods => const [];
 }
 
-class _counter$ extends go.GoStruct<_counter$> {
-  _counter$({sync.Mutex? mu, go.GoMap<Golang.String, Golang.Int>? n})
+class $_counter extends go.GoStruct<$_counter> {
+  $_counter({sync.Mutex? mu, go.GoMap<Golang.String, Golang.Int>? n})
     : _mu = mu ?? sync.Mutex(),
       _n = n ?? go.GoMap<Golang.String, Golang.Int>.nil(_$e1);
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _counter$ $nil = _counter$()..$nilPtr = true;
+  static final $_counter $nil = $_counter()..$nilPtr = true;
 
   sync.Mutex _mu;
   go.GoMap<Golang.String, Golang.Int> _n;
@@ -47,10 +47,10 @@ class _counter$ extends go.GoStruct<_counter$> {
   List<String> get $ptrMethods => const ['inc'];
 
   @override
-  _counter$ $copy() => _counter$(mu: _mu.$copy(), n: _n);
+  $_counter $copy() => $_counter(mu: _mu.$copy(), n: _n);
 
   @override
-  void $set(_counter$ o) {
+  void $set($_counter o) {
     _mu.$set(o._mu);
     _n = o._n;
   }
@@ -66,7 +66,7 @@ class _counter$ extends go.GoStruct<_counter$> {
   List<String> get $fieldNames => const ['_', 'mu', 'n'];
 
   Golang.Int _inc(Golang.String k) {
-    final _counter$? c = $nilPtr ? null : this;
+    final $_counter? c = $nilPtr ? null : this;
     Golang.Int $t1 = Golang.Int();
     final $t2 = go.Defers();
     try {
@@ -91,13 +91,13 @@ class _counter$ extends go.GoStruct<_counter$> {
   }
 }
 
-class _cache$ extends go.GoStruct<_cache$> {
-  _cache$({sync.RWMutex? rw, go.GoMap<Golang.Int, Golang.String>? m})
+class $_cache extends go.GoStruct<$_cache> {
+  $_cache({sync.RWMutex? rw, go.GoMap<Golang.Int, Golang.String>? m})
     : _rw = rw ?? sync.RWMutex(),
       _m = m ?? go.GoMap<Golang.Int, Golang.String>.nil(_$e2);
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _cache$ $nil = _cache$()..$nilPtr = true;
+  static final $_cache $nil = $_cache()..$nilPtr = true;
 
   sync.RWMutex _rw;
   go.GoMap<Golang.Int, Golang.String> _m;
@@ -110,10 +110,10 @@ class _cache$ extends go.GoStruct<_cache$> {
   List<String> get $ptrMethods => const ['get'];
 
   @override
-  _cache$ $copy() => _cache$(rw: _rw.$copy(), m: _m);
+  $_cache $copy() => $_cache(rw: _rw.$copy(), m: _m);
 
   @override
-  void $set(_cache$ o) {
+  void $set($_cache o) {
     _rw.$set(o._rw);
     _m = o._m;
   }
@@ -125,7 +125,7 @@ class _cache$ extends go.GoStruct<_cache$> {
   List<String> get $fieldNames => const ['rw', 'm'];
 
   (Golang.String, bool) _get(Golang.Int k) {
-    final _cache$? c = $nilPtr ? null : this;
+    final $_cache? c = $nilPtr ? null : this;
     Golang.String $t1 = Golang.String();
     bool $t2 = false;
     final $t3 = go.Defers();
@@ -185,24 +185,24 @@ void main() {
         ),
       ], _$e3),
     );
-    _counter$? c = _counter$(
+    $_counter? c = $_counter(
       n: go.GoMap<Golang.String, Golang.Int>.of({}, _$e1),
     );
-    (c ?? _counter$.$nil)._inc(Golang.String.fromDart('a'));
+    (c ?? $_counter.$nil)._inc(Golang.String.fromDart('a'));
     fmt.println(
       go.Slice<Object?>.of([
-        (c ?? _counter$.$nil)._inc(Golang.String.fromDart('a')),
+        (c ?? $_counter.$nil)._inc(Golang.String.fromDart('a')),
         c!._mu.tryLock(),
         c!._mu.tryLock(),
       ], _$e3),
     );
     c!._mu.unlock();
-    _cache$? ca = _cache$(
+    $_cache? ca = $_cache(
       m: go.GoMap<Golang.Int, Golang.String>.of({
         Golang.Int(1): Golang.String.fromDart('um'),
       }, _$e2),
     );
-    (switch ((ca ?? _cache$.$nil)._get(Golang.Int(1))) {
+    (switch ((ca ?? $_cache.$nil)._get(Golang.Int(1))) {
       (final $t1, final $t2) => fmt.println(
         go.Slice<Object?>.of([$t1, $t2], _$e3),
       ),

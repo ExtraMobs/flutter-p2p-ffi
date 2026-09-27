@@ -61,13 +61,13 @@ final class BoolSlice extends go.Slice<bool>
 
 /// traced registra cada Less/Swap num hash: a sequência de chamadas tem de
 /// ser a do Go, não só o resultado.
-class _item$ extends go.GoStruct<_item$> {
-  _item$({Golang.Int? key, Golang.Int? id})
+class $_item extends go.GoStruct<$_item> {
+  $_item({Golang.Int? key, Golang.Int? id})
     : _key = key ?? Golang.Int(),
       _id = id ?? Golang.Int();
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _item$ $nil = _item$()..$nilPtr = true;
+  static final $_item $nil = $_item()..$nilPtr = true;
 
   Golang.Int _key;
   Golang.Int _id;
@@ -80,10 +80,10 @@ class _item$ extends go.GoStruct<_item$> {
   List<String> get $ptrMethods => const [];
 
   @override
-  _item$ $copy() => _item$(key: _key, id: _id);
+  $_item $copy() => $_item(key: _key, id: _id);
 
   @override
-  void $set(_item$ o) {
+  void $set($_item o) {
     _key = o._key;
     _id = o._id;
   }
@@ -95,16 +95,16 @@ class _item$ extends go.GoStruct<_item$> {
   List<String> get $fieldNames => const ['key', 'id'];
 }
 
-class _traced$ extends go.GoStruct<_traced$> implements sort.Interface {
-  _traced$({go.Slice<_item$>? xs, Golang.Uint32? h, Golang.Int? calls})
-    : _xs = xs ?? go.Slice<_item$>.nil(_$e0),
+class $_traced extends go.GoStruct<$_traced> implements sort.Interface {
+  $_traced({go.Slice<$_item>? xs, Golang.Uint32? h, Golang.Int? calls})
+    : _xs = xs ?? go.Slice<$_item>.nil(_$e0),
       _h = h ?? Golang.Uint32(),
       _calls = calls ?? Golang.Int();
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _traced$ $nil = _traced$()..$nilPtr = true;
+  static final $_traced $nil = $_traced()..$nilPtr = true;
 
-  go.Slice<_item$> _xs;
+  go.Slice<$_item> _xs;
   Golang.Uint32 _h;
   Golang.Int _calls;
 
@@ -116,10 +116,10 @@ class _traced$ extends go.GoStruct<_traced$> implements sort.Interface {
   List<String> get $ptrMethods => const ['Len', 'Less', 'Swap', 'mix'];
 
   @override
-  _traced$ $copy() => _traced$(xs: _xs, h: _h, calls: _calls);
+  $_traced $copy() => $_traced(xs: _xs, h: _h, calls: _calls);
 
   @override
-  void $set(_traced$ o) {
+  void $set($_traced o) {
     _xs = o._xs;
     _h = o._h;
     _calls = o._calls;
@@ -132,7 +132,7 @@ class _traced$ extends go.GoStruct<_traced$> implements sort.Interface {
   List<String> get $fieldNames => const ['xs', 'h', 'calls'];
 
   void _mix(Golang.Int op, Golang.Int i, Golang.Int j) {
-    final _traced$? t = $nilPtr ? null : this;
+    final $_traced? t = $nilPtr ? null : this;
     t!._h =
         (t!._h ^
             Golang.Uint32.from(
@@ -143,27 +143,27 @@ class _traced$ extends go.GoStruct<_traced$> implements sort.Interface {
   }
 
   Golang.Int len() {
-    final _traced$? t = $nilPtr ? null : this;
+    final $_traced? t = $nilPtr ? null : this;
     return Golang.Int(t!._xs.length);
   }
 
   bool less(Golang.Int i, Golang.Int j) {
-    final _traced$? t = $nilPtr ? null : this;
-    (t ?? _traced$.$nil)._mix(Golang.Int(1), i, j);
+    final $_traced? t = $nilPtr ? null : this;
+    (t ?? $_traced.$nil)._mix(Golang.Int(1), i, j);
     return t!._xs[i.toIndex()]._key < t!._xs[j.toIndex()]._key;
   }
 
   void swap(Golang.Int i, Golang.Int j) {
-    final _traced$? t = $nilPtr ? null : this;
-    (t ?? _traced$.$nil)._mix(Golang.Int(2), i, j);
+    final $_traced? t = $nilPtr ? null : this;
+    (t ?? $_traced.$nil)._mix(Golang.Int(2), i, j);
     final $t1 = (t!._xs[j.toIndex()].$copy(), t!._xs[i.toIndex()].$copy());
     t!._xs[i.toIndex()].$set($t1.$1);
     t!._xs[j.toIndex()].$set($t1.$2);
   }
 }
 
-go.Slice<_item$> _gen(Golang.Int n, Golang.Int pattern, Golang.Int mod) {
-  go.Slice<_item$> xs = go.Slice<_item$>.make(n.toIndex(), n.toIndex(), _$e0);
+go.Slice<$_item> _gen(Golang.Int n, Golang.Int pattern, Golang.Int mod) {
+  go.Slice<$_item> xs = go.Slice<$_item>.make(n.toIndex(), n.toIndex(), _$e0);
   Golang.Uint32 seed = Golang.Uint32.from(n * Golang.Int(31) + pattern);
   {
     final $t1 = xs;
@@ -191,19 +191,19 @@ go.Slice<_item$> _gen(Golang.Int n, Golang.Int pattern, Golang.Int mod) {
             }
           }
         }
-        xs[i.toIndex()].$set(_item$(key: k, id: i));
+        xs[i.toIndex()].$set($_item(key: k, id: i));
       }
     }
   }
   return xs;
 }
 
-Golang.Uint32 _ids(go.Slice<_item$> xs) {
+Golang.Uint32 _ids(go.Slice<$_item> xs) {
   Golang.Uint32 h = Golang.Uint32();
   {
     final $t1 = xs;
     for (var $t2 = 0; $t2 < $t1.length; $t2++) {
-      _item$ x = $t1[$t2].$copy();
+      $_item x = $t1[$t2].$copy();
       {
         h = h * Golang.Uint32(31) + Golang.Uint32.from(x._id);
       }
@@ -238,12 +238,12 @@ void main() {
             pattern < Golang.Int(6);
             pattern += Golang.Int(1)
           ) {
-            _traced$? t = _traced$(xs: _gen(n, pattern, Golang.Int(4)));
-            sort.sort(t ?? _traced$.$nil);
-            _traced$? s = _traced$(xs: _gen(n, pattern, Golang.Int(4)));
-            sort.stable(s ?? _traced$.$nil);
+            $_traced? t = $_traced(xs: _gen(n, pattern, Golang.Int(4)));
+            sort.sort(t ?? $_traced.$nil);
+            $_traced? s = $_traced(xs: _gen(n, pattern, Golang.Int(4)));
+            sort.stable(s ?? $_traced.$nil);
             var (calls, h) = (t!._calls, t!._h);
-            bool sorted = sort.isSorted(t ?? _traced$.$nil);
+            bool sorted = sort.isSorted(t ?? $_traced.$nil);
             fmt.println(
               go.Slice<Object?>.of([
                 n,
@@ -270,11 +270,11 @@ void main() {
       for (var $t4 = 0; $t4 < $t3.length; $t4++) {
         Golang.Int n$1 = $t3[$t4];
         {
-          go.Slice<_item$> xs = _gen(n$1, Golang.Int(0), Golang.Int(5));
+          go.Slice<$_item> xs = _gen(n$1, Golang.Int(0), Golang.Int(5));
           sort.slice$(xs, (Golang.Int i, Golang.Int j) {
             return xs[i.toIndex()]._key < xs[j.toIndex()]._key;
           });
-          go.Slice<_item$> ys = _gen(n$1, Golang.Int(0), Golang.Int(5));
+          go.Slice<$_item> ys = _gen(n$1, Golang.Int(0), Golang.Int(5));
           sort.sliceStable(ys, (Golang.Int i$1, Golang.Int j$1) {
             return ys[i$1.toIndex()]._key < ys[j$1.toIndex()]._key;
           });
@@ -348,7 +348,7 @@ void $goInit() {
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
-const _$e0 = go.Elem<_item$>(16, _item$.new);
+const _$e0 = go.Elem<$_item>(16, $_item.new);
 Golang.Int _$f1_2(Golang.FloatBase f) =>
     Golang.Int.from(f.toInteger(64, signed: true));
 const _$e1 = go.Elem<Golang.Int>(

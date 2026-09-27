@@ -89,11 +89,11 @@ class Pt extends go.GoStruct<Pt> implements fmt.Formatter {
   }
 }
 
-class _bomb$ extends go.GoStruct<_bomb$> implements fmt.Formatter {
-  _bomb$();
+class $_bomb extends go.GoStruct<$_bomb> implements fmt.Formatter {
+  $_bomb();
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _bomb$ $nil = _bomb$()..$nilPtr = true;
+  static final $_bomb $nil = $_bomb()..$nilPtr = true;
 
   @override
   String get $goType => 'main.bomb';
@@ -103,10 +103,10 @@ class _bomb$ extends go.GoStruct<_bomb$> implements fmt.Formatter {
   List<String> get $ptrMethods => const ['Format'];
 
   @override
-  _bomb$ $copy() => _bomb$();
+  $_bomb $copy() => $_bomb();
 
   @override
-  void $set(_bomb$ o) {}
+  void $set($_bomb o) {}
 
   @override
   List<Object?> get $fields => [];
@@ -149,7 +149,7 @@ void main() {
     );
     Pt? np = null;
     fmt.println(go.Slice<Object?>.of([np ?? Pt.$nil], _$e0));
-    fmt.println(go.Slice<Object?>.of([_bomb$().$ifaceCopy()], _$e0));
+    fmt.println(go.Slice<Object?>.of([$_bomb().$ifaceCopy()], _$e0));
     strings.Builder sb = strings.Builder();
     fmt.fprintf(
       sb ?? strings.Builder.$nil,

@@ -8,11 +8,11 @@ import 'package:golib_dart/fixed_types/golang.dart' as Golang;
 import 'package:golib_dart/fmt.dart' as fmt;
 import 'package:golib_dart/builtin.dart' as go;
 
-class _macGeneric$ extends go.GoStruct<_macGeneric$> {
-  _macGeneric$({Golang.Int? n}) : _n = n ?? Golang.Int();
+class $_macGeneric extends go.GoStruct<$_macGeneric> {
+  $_macGeneric({Golang.Int? n}) : _n = n ?? Golang.Int();
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _macGeneric$ $nil = _macGeneric$()..$nilPtr = true;
+  static final $_macGeneric $nil = $_macGeneric()..$nilPtr = true;
 
   Golang.Int _n;
 
@@ -24,10 +24,10 @@ class _macGeneric$ extends go.GoStruct<_macGeneric$> {
   List<String> get $ptrMethods => const ['Write'];
 
   @override
-  _macGeneric$ $copy() => _macGeneric$(n: _n);
+  $_macGeneric $copy() => $_macGeneric(n: _n);
 
   @override
-  void $set(_macGeneric$ o) {
+  void $set($_macGeneric o) {
     _n = o._n;
   }
 
@@ -38,20 +38,20 @@ class _macGeneric$ extends go.GoStruct<_macGeneric$> {
   List<String> get $fieldNames => const ['n'];
 
   Golang.Int write(go.Slice<Golang.Uint8> p) {
-    final _macGeneric$? h = $nilPtr ? null : this;
+    final $_macGeneric? h = $nilPtr ? null : this;
     h!._n += Golang.Int(p.length);
     return h!._n;
   }
 }
 
-class _mac$ extends go.GoStruct<_mac$> with _macGeneric$$Promote {
-  _mac$({_macGeneric$? macGeneric})
-    : _macGeneric = macGeneric ?? _macGeneric$();
+class $_mac extends go.GoStruct<$_mac> with $_macGeneric$Promote {
+  $_mac({$_macGeneric? macGeneric})
+    : _macGeneric = macGeneric ?? $_macGeneric();
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _mac$ $nil = _mac$()..$nilPtr = true;
+  static final $_mac $nil = $_mac()..$nilPtr = true;
 
-  _macGeneric$ _macGeneric;
+  $_macGeneric _macGeneric;
 
   @override
   String get $goType => 'main.mac';
@@ -60,13 +60,13 @@ class _mac$ extends go.GoStruct<_mac$> with _macGeneric$$Promote {
   @override
   List<String> get $ptrMethods => const ['Write'];
   @override
-  _macGeneric$ get $_macGeneric$ => _macGeneric;
+  $_macGeneric get $$_macGeneric => _macGeneric;
 
   @override
-  _mac$ $copy() => _mac$(macGeneric: _macGeneric.$copy());
+  $_mac $copy() => $_mac(macGeneric: _macGeneric.$copy());
 
   @override
-  void $set(_mac$ o) {
+  void $set($_mac o) {
     _macGeneric.$set(o._macGeneric);
   }
 
@@ -77,8 +77,8 @@ class _mac$ extends go.GoStruct<_mac$> with _macGeneric$$Promote {
   List<String> get $fieldNames => const ['macGeneric'];
 }
 
-final class _buf$ extends go.Slice<Golang.Uint8> implements Golang.GoTyped {
-  _buf$(go.Slice<Golang.Uint8> v) : super.alias(v);
+final class $_buf extends go.Slice<Golang.Uint8> implements Golang.GoTyped {
+  $_buf(go.Slice<Golang.Uint8> v) : super.alias(v);
 
   @override
   String get $goType => 'main.buf';
@@ -86,13 +86,13 @@ final class _buf$ extends go.Slice<Golang.Uint8> implements Golang.GoTyped {
   List<String> get $methods => const [];
 }
 
-class _state$ extends go.GoStruct<_state$> {
-  _state$({_buf$? buf}) : _buf = buf ?? _buf$(go.Slice<Golang.Uint8>.nil(_$e0));
+class $_state extends go.GoStruct<$_state> {
+  $_state({$_buf? buf}) : _buf = buf ?? $_buf(go.Slice<Golang.Uint8>.nil(_$e0));
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _state$ $nil = _state$()..$nilPtr = true;
+  static final $_state $nil = $_state()..$nilPtr = true;
 
-  _buf$ _buf;
+  $_buf _buf;
 
   @override
   String get $goType => 'main.state';
@@ -102,10 +102,10 @@ class _state$ extends go.GoStruct<_state$> {
   List<String> get $ptrMethods => const ['state'];
 
   @override
-  _state$ $copy() => _state$(buf: _buf);
+  $_state $copy() => $_state(buf: _buf);
 
   @override
-  void $set(_state$ o) {
+  void $set($_state o) {
     _buf = o._buf;
   }
 
@@ -116,7 +116,7 @@ class _state$ extends go.GoStruct<_state$> {
   List<String> get $fieldNames => const ['buf'];
 
   Golang.Int _state() {
-    final _state$? s = $nilPtr ? null : this;
+    final $_state? s = $nilPtr ? null : this;
     return Golang.Int(s!._buf.length);
   }
 }
@@ -124,7 +124,7 @@ class _state$ extends go.GoStruct<_state$> {
 void main() {
   go.runMain(() {
     $goInit();
-    _mac$ m = _mac$();
+    $_mac m = $_mac();
     m._macGeneric.write(go.bytesOf(Golang.String.fromDart('abc'), _$e0));
     fmt.println(
       go.Slice<Object?>.of([
@@ -133,8 +133,8 @@ void main() {
         m._macGeneric.$ifaceCopy(),
       ], _$e1),
     );
-    _state$ s = _state$(
-      buf: _buf$(go.bytesOf(Golang.String.fromDart('xyz'), _$e0)),
+    $_state s = $_state(
+      buf: $_buf(go.bytesOf(Golang.String.fromDart('xyz'), _$e0)),
     );
     fmt.println(
       go.Slice<Object?>.of([
@@ -155,9 +155,9 @@ void $goInit() {
 }
 
 /// Métodos de macGeneric promovidos por embedding (delegação).
-mixin _macGeneric$$Promote {
-  _macGeneric$ get $_macGeneric$;
-  Golang.Int write(go.Slice<Golang.Uint8> p0) => $_macGeneric$.write(p0);
+mixin $_macGeneric$Promote {
+  $_macGeneric get $$_macGeneric;
+  Golang.Int write(go.Slice<Golang.Uint8> p0) => $$_macGeneric.write(p0);
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.

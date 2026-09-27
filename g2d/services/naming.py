@@ -99,13 +99,28 @@ def top_member_name(name, fold=False):
 
 
 def type_name(name):
-    """Tipos: exportado mantém o nome; não exportado ganha `_` e `$`. `Golang`
-    é o prefixo dos tipos fixos."""
+    """Tipos: exportado mantém o nome (`Golang` e os nomes do `dart:core`
+    usados pelo runtime ganham `$`, pra não sombrear o prefixo/tipo
+    reservado); não exportado ganha o prefixo `$_` — público, porque outro
+    pacote não pode nomear o tipo no Go, mas pode recebê-lo por inferência
+    (`x := a.New()` com `New() *impl`) e o g2d declara locais com tipo
+    explícito e descritores `go.Elem<T>`, que citam `a.$_impl`. O Dart não
+    tem privacidade por caixa (só por `_` inicial), então isso continua
+    inacessível de fora do Go como antes — só nomeável no Dart gerado, o
+    que a privacidade do Go já garante que nunca acontece.
+
+    `$_` nunca colide: `ascii_name` só insere `$u`/`$U` (nunca `$_`), e um
+    nome exportado começa em maiúscula ASCII (ou, no raro caso de letra
+    Unicode maiúscula fora do ASCII, em `$u`/`$U`) — nunca em `$_`. Também
+    não colide com o membro não exportado do mesmo nome (`_impl`, sempre
+    com um só `_` inicial) nem com o membro exportado em lowerCamel de um
+    nome parecido (`type foo` vira o tipo `$_foo`; `func Foo` vira o membro
+    `foo`)."""
+    if not is_exported(name):
+        return "$_" + ascii_name(name)
     if name == GOLANG_PREFIX or name in DART_CORE_USED:
         return name + "$"
-    # Não exportado: `_t$`, nunca igual a um membro não exportado `_t` (um
-    # campo embutido `t` ou método `t` dentro da classe sombrearia o tipo).
-    return ascii_name(name) if is_exported(name) else "_" + ascii_name(name) + "$"
+    return ascii_name(name)
 
 
 def param_name(name):

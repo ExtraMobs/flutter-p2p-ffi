@@ -16,11 +16,11 @@ Golang.Int64 nextExporterID() {
   return _exporterN.add(Golang.Int64(1)) - Golang.Int64(1);
 }
 
-class _cfg$ extends go.GoStruct<_cfg$> {
-  _cfg$({Golang.String? name}) : _name = name ?? Golang.String();
+class $_cfg extends go.GoStruct<$_cfg> {
+  $_cfg({Golang.String? name}) : _name = name ?? Golang.String();
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _cfg$ $nil = _cfg$()..$nilPtr = true;
+  static final $_cfg $nil = $_cfg()..$nilPtr = true;
 
   Golang.String _name;
 
@@ -32,10 +32,10 @@ class _cfg$ extends go.GoStruct<_cfg$> {
   List<String> get $ptrMethods => const [];
 
   @override
-  _cfg$ $copy() => _cfg$(name: _name);
+  $_cfg $copy() => $_cfg(name: _name);
 
   @override
-  void $set(_cfg$ o) {
+  void $set($_cfg o) {
     _name = o._name;
   }
 
@@ -46,23 +46,23 @@ class _cfg$ extends go.GoStruct<_cfg$> {
   List<String> get $fieldNames => const ['name'];
 }
 
-class _stats$ extends go.GoStruct<_stats$> {
-  _stats$({
+class $_stats extends go.GoStruct<$_stats> {
+  $_stats({
     atomic.Uint64? hits,
     atomic.Bool? closed,
-    atomic.Pointer<_cfg$>? cur,
+    atomic.Pointer<$_cfg>? cur,
     atomic.Value? last,
   }) : _hits = hits ?? atomic.Uint64(),
        _closed = closed ?? atomic.Bool(),
-       _cur = cur ?? atomic.Pointer<_cfg$>(_$e0),
+       _cur = cur ?? atomic.Pointer<$_cfg>(_$e0),
        _last = last ?? atomic.Value();
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _stats$ $nil = _stats$()..$nilPtr = true;
+  static final $_stats $nil = $_stats()..$nilPtr = true;
 
   atomic.Uint64 _hits;
   atomic.Bool _closed;
-  atomic.Pointer<_cfg$> _cur;
+  atomic.Pointer<$_cfg> _cur;
   atomic.Value _last;
 
   @override
@@ -73,7 +73,7 @@ class _stats$ extends go.GoStruct<_stats$> {
   List<String> get $ptrMethods => const [];
 
   @override
-  _stats$ $copy() => _stats$(
+  $_stats $copy() => $_stats(
     hits: _hits.$copy(),
     closed: _closed.$copy(),
     cur: _cur.$copy(),
@@ -81,7 +81,7 @@ class _stats$ extends go.GoStruct<_stats$> {
   );
 
   @override
-  void $set(_stats$ o) {
+  void $set($_stats o) {
     _hits.$set(o._hits);
     _closed.$set(o._closed);
     _cur.$set(o._cur);
@@ -126,7 +126,7 @@ void main() {
         _exporterN.load(),
       ], _$e1),
     );
-    _stats$ s = _stats$();
+    $_stats s = $_stats();
     s._hits.add(Golang.Uint64(3));
     s._hits.add(Golang.Uint64(4));
     fmt.println(
@@ -137,7 +137,7 @@ void main() {
         s._closed.swap(false),
       ], _$e1),
     );
-    _cfg$? c1 = _cfg$(name: Golang.String.fromDart('a'));
+    $_cfg? c1 = $_cfg(name: Golang.String.fromDart('a'));
     fmt.println(
       go.Slice<Object?>.of([
         s._cur.load() == null,
@@ -219,5 +219,5 @@ void $goInit() {
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
-const _$e0 = go.Elem<_cfg$>(16, _cfg$.new, pointers: true);
+const _$e0 = go.Elem<$_cfg>(16, $_cfg.new, pointers: true);
 const _$e1 = go.Elem<Object?>(16, go.zeroNull, pointers: true);

@@ -20,12 +20,12 @@ abstract mixin class NodeID<K extends Key<K>> {
   Golang.String string();
 }
 
-final class _k8$ extends Golang.Uint8Base<_k8$> implements Key<_k8$> {
-  _k8$([int v = 0]) : super(v);
-  _k8$.from(Golang.IntBase v) : super.from(v);
-  _k8$.fromBigInt(BigInt v) : super.fromBigInt(v);
+final class $_k8 extends Golang.Uint8Base<$_k8> implements Key<$_k8> {
+  $_k8([int v = 0]) : super(v);
+  $_k8.from(Golang.IntBase v) : super.from(v);
+  $_k8.fromBigInt(BigInt v) : super.fromBigInt(v);
   @override
-  _k8$ $make(int v) => _k8$(v);
+  $_k8 $make(int v) => $_k8(v);
   @override
   String get $goType => 'main.k8';
   @override
@@ -35,11 +35,11 @@ final class _k8$ extends Golang.Uint8Base<_k8$> implements Key<_k8$> {
     return Golang.Int(8);
   }
 
-  _k8$ xor(_k8$ o) {
+  $_k8 xor($_k8 o) {
     return this ^ o;
   }
 
-  Golang.Int compare(_k8$ o) {
+  Golang.Int compare($_k8 o) {
     {
       if (this < o) {
         return Golang.Int(-1);
@@ -51,13 +51,13 @@ final class _k8$ extends Golang.Uint8Base<_k8$> implements Key<_k8$> {
   }
 }
 
-class _node$ extends go.GoStruct<_node$> implements fmt.Stringer, NodeID<_k8$> {
-  _node$({_k8$? k}) : _k = k ?? _k8$();
+class $_node extends go.GoStruct<$_node> implements fmt.Stringer, NodeID<$_k8> {
+  $_node({$_k8? k}) : _k = k ?? $_k8();
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _node$ $nil = _node$()..$nilPtr = true;
+  static final $_node $nil = $_node()..$nilPtr = true;
 
-  _k8$ _k;
+  $_k8 _k;
 
   @override
   String get $goType => 'main.node';
@@ -67,10 +67,10 @@ class _node$ extends go.GoStruct<_node$> implements fmt.Stringer, NodeID<_k8$> {
   List<String> get $ptrMethods => const ['Key', 'String'];
 
   @override
-  _node$ $copy() => _node$(k: _k);
+  $_node $copy() => $_node(k: _k);
 
   @override
-  void $set(_node$ o) {
+  void $set($_node o) {
     _k = o._k;
   }
 
@@ -80,7 +80,7 @@ class _node$ extends go.GoStruct<_node$> implements fmt.Stringer, NodeID<_k8$> {
   @override
   List<String> get $fieldNames => const ['k'];
 
-  _k8$ key() {
+  $_k8 key() {
     if ($nilPtr) go.nilDeref();
     return this._k;
   }
@@ -113,14 +113,14 @@ N closest<K extends Key<K>, N extends NodeID<K>>(
       N n = $t1[$t2];
       {
         if (Golang.Uint8.from(
-              go.assertType<_k8$>(
+              go.assertType<$_k8>(
                 n.key().xor(target),
                 'interface {}',
                 'main.k8',
               ),
             ) <
             Golang.Uint8.from(
-              go.assertType<_k8$>(
+              go.assertType<$_k8>(
                 best.key().xor(target),
                 'interface {}',
                 'main.k8',
@@ -167,8 +167,8 @@ abstract mixin class Cache<K, V> {
   (V, bool) get(K p0);
 }
 
-class _lru$<K, V> extends go.GoStruct<_lru$<K, V>> implements Cache<K, V> {
-  _lru$(this.$K, this.$V, {go.GoMap<K, V>? m})
+class $_lru<K, V> extends go.GoStruct<$_lru<K, V>> implements Cache<K, V> {
+  $_lru(this.$K, this.$V, {go.GoMap<K, V>? m})
     : _m = m ?? go.GoMap<K, V>.nil($V);
 
   final go.Elem<K> $K;
@@ -183,10 +183,10 @@ class _lru$<K, V> extends go.GoStruct<_lru$<K, V>> implements Cache<K, V> {
   List<String> get $ptrMethods => const ['Add', 'Get'];
 
   @override
-  _lru$<K, V> $copy() => _lru$<K, V>($K, $V, m: _m);
+  $_lru<K, V> $copy() => $_lru<K, V>($K, $V, m: _m);
 
   @override
-  void $set(_lru$<K, V> o) {
+  void $set($_lru<K, V> o) {
     _m = o._m;
   }
 
@@ -197,14 +197,14 @@ class _lru$<K, V> extends go.GoStruct<_lru$<K, V>> implements Cache<K, V> {
   List<String> get $fieldNames => const ['m'];
 
   bool add(K k, V v) {
-    final _lru$<K, V>? c = $nilPtr ? null : this;
+    final $_lru<K, V>? c = $nilPtr ? null : this;
     var (_, ok) = c!._m.lookup(k);
     c!._m[k] = v;
     return !ok;
   }
 
   (V, bool) get(K k) {
-    final _lru$<K, V>? c = $nilPtr ? null : this;
+    final $_lru<K, V>? c = $nilPtr ? null : this;
     var (v, ok) = c!._m.lookup(k);
     return (v, ok);
   }
@@ -223,34 +223,34 @@ void main() {
   go.runMain(() {
     $goInit();
     fmt.println(
-      go.Slice<Object?>.of([distance<_k8$>(_$e1, _k8$(3), _k8$(5))], _$e0),
+      go.Slice<Object?>.of([distance<$_k8>(_$e1, $_k8(3), $_k8(5))], _$e0),
     );
-    Key<_k8$>? key = _k8$(6);
-    fmt.println(go.Slice<Object?>.of([key!.xor(_k8$(3)), key!.bitLen()], _$e0));
+    Key<$_k8>? key = $_k8(6);
+    fmt.println(go.Slice<Object?>.of([key!.xor($_k8(3)), key!.bitLen()], _$e0));
     fmt.println(
       go.Slice<Object?>.of([
-        closest<_k8$, _node$>(
+        closest<$_k8, $_node>(
           _$e1,
           _$e2,
-          _k8$(1),
-          go.Slice<_node$>.of([
-            _node$(k: _k8$(7)),
-            _node$(k: _k8$(3)),
-            _node$(k: _k8$(1)),
+          $_k8(1),
+          go.Slice<$_node>.of([
+            $_node(k: $_k8(7)),
+            $_node(k: $_k8(3)),
+            $_node(k: $_k8(1)),
           ], _$e2),
         ).$ifaceCopy(),
       ], _$e0),
     );
-    List$<_k8$> l = List$<_k8$>(
+    List$<$_k8> l = List$<$_k8>(
       _$e1,
-      go.Slice<_k8$>.of([_k8$(3), _k8$(1), _k8$(2)], _$e1),
+      go.Slice<$_k8>.of([$_k8(3), $_k8(1), $_k8(2)], _$e1),
     );
     sort.sort(l);
     fmt.println(go.Slice<Object?>.of([l, sort.isSorted(l)], _$e0));
     _use<Golang.String, Golang.Int>(
       _$e4,
       _$e3,
-      _lru$<Golang.String, Golang.Int>(
+      $_lru<Golang.String, Golang.Int>(
         _$e4,
         _$e3,
         m: go.GoMap<Golang.String, Golang.Int>.of({}, _$e3),
@@ -258,7 +258,7 @@ void main() {
       Golang.String.fromDart('a'),
       Golang.Int(1),
     );
-    Cache<Golang.Int, Golang.String>? c = _lru$<Golang.Int, Golang.String>(
+    Cache<Golang.Int, Golang.String>? c = $_lru<Golang.Int, Golang.String>(
       _$e3,
       _$e4,
       m: go.GoMap<Golang.Int, Golang.String>.of({}, _$e4),
@@ -278,9 +278,9 @@ void $goInit() {
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
 const _$e0 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
-_k8$ _$f1_2(Golang.FloatBase f) => _k8$.from(f.toInteger(8, signed: false));
-const _$e1 = go.Elem<_k8$>(1, _k8$.new, ofInt: _k8$.from, ofFloat: _$f1_2);
-const _$e2 = go.Elem<_node$>(1, _node$.new);
+$_k8 _$f1_2(Golang.FloatBase f) => $_k8.from(f.toInteger(8, signed: false));
+const _$e1 = go.Elem<$_k8>(1, $_k8.new, ofInt: $_k8.from, ofFloat: _$f1_2);
+const _$e2 = go.Elem<$_node>(1, $_node.new);
 Golang.Int _$f4_4(Golang.FloatBase f) =>
     Golang.Int.from(f.toInteger(64, signed: true));
 const _$e3 = go.Elem<Golang.Int>(

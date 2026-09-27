@@ -274,15 +274,15 @@ void main() {
         ),
       ], _$e0),
     );
-    go.GoMap<_main$pt$, Golang.String> mp =
-        go.GoMap<_main$pt$, Golang.String>.of({
-          _main$pt$(x: Golang.Int(2), y: Golang.Int(1)): Golang.String.fromDart(
+    go.GoMap<$_main$pt, Golang.String> mp =
+        go.GoMap<$_main$pt, Golang.String>.of({
+          $_main$pt(x: Golang.Int(2), y: Golang.Int(1)): Golang.String.fromDart(
             'c',
           ),
-          _main$pt$(x: Golang.Int(1), y: Golang.Int(5)): Golang.String.fromDart(
+          $_main$pt(x: Golang.Int(1), y: Golang.Int(5)): Golang.String.fromDart(
             'b',
           ),
-          _main$pt$(x: Golang.Int(1), y: Golang.Int(2)): Golang.String.fromDart(
+          $_main$pt(x: Golang.Int(1), y: Golang.Int(2)): Golang.String.fromDart(
             'a',
           ),
         }, _$e3);
@@ -309,13 +309,13 @@ void main() {
   });
 }
 
-class _main$pt$ extends go.GoStruct<_main$pt$> {
-  _main$pt$({Golang.Int? x, Golang.Int? y})
+class $_main$pt extends go.GoStruct<$_main$pt> {
+  $_main$pt({Golang.Int? x, Golang.Int? y})
     : _x = x ?? Golang.Int(),
       _y = y ?? Golang.Int();
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _main$pt$ $nil = _main$pt$()..$nilPtr = true;
+  static final $_main$pt $nil = $_main$pt()..$nilPtr = true;
 
   Golang.Int _x;
   Golang.Int _y;
@@ -328,10 +328,10 @@ class _main$pt$ extends go.GoStruct<_main$pt$> {
   List<String> get $ptrMethods => const [];
 
   @override
-  _main$pt$ $copy() => _main$pt$(x: _x, y: _y);
+  $_main$pt $copy() => $_main$pt(x: _x, y: _y);
 
   @override
-  void $set(_main$pt$ o) {
+  void $set($_main$pt o) {
     _x = o._x;
     _y = o._y;
   }

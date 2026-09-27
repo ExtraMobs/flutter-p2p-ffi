@@ -108,21 +108,21 @@ final class Code$Ptr extends go.PtrView<Code>
   bool is$(go.GoError? p0) => $p.value.is$(p0);
 }
 
-abstract mixin class _temporary$ {
+abstract mixin class $_temporary {
   bool temporary();
 }
 
-abstract mixin class _tempErr$ implements go.GoError {
+abstract mixin class $_tempErr implements go.GoError {
   Golang.String error();
   bool temporary();
 }
 
-class _netErr$ extends go.GoStruct<_netErr$>
-    implements go.GoError, _tempErr$, _temporary$ {
-  _netErr$({Golang.String? msg}) : _msg = msg ?? Golang.String();
+class $_netErr extends go.GoStruct<$_netErr>
+    implements go.GoError, $_tempErr, $_temporary {
+  $_netErr({Golang.String? msg}) : _msg = msg ?? Golang.String();
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _netErr$ $nil = _netErr$()..$nilPtr = true;
+  static final $_netErr $nil = $_netErr()..$nilPtr = true;
 
   Golang.String _msg;
 
@@ -134,10 +134,10 @@ class _netErr$ extends go.GoStruct<_netErr$>
   List<String> get $ptrMethods => const ['Error', 'Temporary'];
 
   @override
-  _netErr$ $copy() => _netErr$(msg: _msg);
+  $_netErr $copy() => $_netErr(msg: _msg);
 
   @override
-  void $set(_netErr$ o) {
+  void $set($_netErr o) {
     _msg = o._msg;
   }
 
@@ -159,11 +159,11 @@ class _netErr$ extends go.GoStruct<_netErr$>
 }
 
 /// As próprio: preenche um netErr.
-class _named$ extends go.GoStruct<_named$> implements go.GoError, go.ErrorAs {
-  _named$({Golang.String? name}) : _name = name ?? Golang.String();
+class $_named extends go.GoStruct<$_named> implements go.GoError, go.ErrorAs {
+  $_named({Golang.String? name}) : _name = name ?? Golang.String();
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _named$ $nil = _named$()..$nilPtr = true;
+  static final $_named $nil = $_named()..$nilPtr = true;
 
   Golang.String _name;
 
@@ -175,10 +175,10 @@ class _named$ extends go.GoStruct<_named$> implements go.GoError, go.ErrorAs {
   List<String> get $ptrMethods => const ['As', 'Error'];
 
   @override
-  _named$ $copy() => _named$(name: _name);
+  $_named $copy() => $_named(name: _name);
 
   @override
-  void $set(_named$ o) {
+  void $set($_named o) {
     _name = o._name;
   }
 
@@ -189,16 +189,16 @@ class _named$ extends go.GoStruct<_named$> implements go.GoError, go.ErrorAs {
   List<String> get $fieldNames => const ['name'];
 
   Golang.String error() {
-    final _named$? n = $nilPtr ? null : this;
+    final $_named? n = $nilPtr ? null : this;
     return Golang.String.fromDart('named ') + n!._name;
   }
 
   bool as(Object? target) {
-    final _named$? n = $nilPtr ? null : this;
+    final $_named? n = $nilPtr ? null : this;
     {
-      var (p, ok) = go.tryType<_netErr$?>(target, null, struct: false);
+      var (p, ok) = go.tryType<$_netErr?>(target, null, struct: false);
       if (ok) {
-        p!.$set(_netErr$(msg: Golang.String.fromDart('via As ') + n!._name));
+        p!.$set($_netErr(msg: Golang.String.fromDart('via As ') + n!._name));
         return true;
       }
     }
@@ -206,13 +206,13 @@ class _named$ extends go.GoStruct<_named$> implements go.GoError, go.ErrorAs {
   }
 }
 
-class _multi$ extends go.GoStruct<_multi$>
+class $_multi extends go.GoStruct<$_multi>
     implements go.GoError, go.MultiUnwrapper {
-  _multi$({go.Slice<go.GoError?>? errs})
+  $_multi({go.Slice<go.GoError?>? errs})
     : _errs = errs ?? go.Slice<go.GoError?>.nil(_$e1);
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _multi$ $nil = _multi$()..$nilPtr = true;
+  static final $_multi $nil = $_multi()..$nilPtr = true;
 
   go.Slice<go.GoError?> _errs;
 
@@ -224,10 +224,10 @@ class _multi$ extends go.GoStruct<_multi$>
   List<String> get $ptrMethods => const ['Error', 'Unwrap'];
 
   @override
-  _multi$ $copy() => _multi$(errs: _errs);
+  $_multi $copy() => $_multi(errs: _errs);
 
   @override
-  void $set(_multi$ o) {
+  void $set($_multi o) {
     _errs = o._errs;
   }
 
@@ -322,53 +322,53 @@ void main() {
         c.value,
       ], _$e0),
     );
-    final go.Box<_temporary$?> tmp = go.Box<_temporary$?>(null);
+    final go.Box<$_temporary?> tmp = go.Box<$_temporary?>(null);
     fmt.println(
       go.Slice<Object?>.of([
         errors.as(
           fmt.errorf(
             Golang.String.fromDart('n: %w'),
             go.Slice<Object?>.of([
-              _netErr$(msg: Golang.String.fromDart('timeout')).$ifaceCopy(),
+              $_netErr(msg: Golang.String.fromDart('timeout')).$ifaceCopy(),
             ], _$e0),
           ),
-          tmp ?? const go.NilPtr<_temporary$?>(),
+          tmp ?? const go.NilPtr<$_temporary?>(),
         ),
         tmp.value!.temporary(),
         tmp.value,
       ], _$e0),
     );
-    _netErr$ ne = _netErr$();
+    $_netErr ne = $_netErr();
     fmt.println(
       go.Slice<Object?>.of([
         errors.as(
-          _netErr$(msg: Golang.String.fromDart('v')).$ifaceCopy(),
-          ne ?? _netErr$.$nil,
+          $_netErr(msg: Golang.String.fromDart('v')).$ifaceCopy(),
+          ne ?? $_netErr.$nil,
         ),
         ne._msg,
       ], _$e0),
     );
-    final go.Box<_netErr$?> pne = go.Box<_netErr$?>(null);
+    final go.Box<$_netErr?> pne = go.Box<$_netErr?>(null);
     fmt.println(
       go.Slice<Object?>.of([
         errors.as(
-          _netErr$(msg: Golang.String.fromDart('v')).$ifaceCopy(),
-          pne ?? const go.NilPtr<_netErr$?>(),
+          $_netErr(msg: Golang.String.fromDart('v')).$ifaceCopy(),
+          pne ?? const go.NilPtr<$_netErr?>(),
         ),
         pne.value == null,
       ], _$e0),
     );
-    _netErr$ viaAs = _netErr$();
+    $_netErr viaAs = $_netErr();
     fmt.println(
       go.Slice<Object?>.of([
         errors.as(
           fmt.errorf(
             Golang.String.fromDart('a: %w'),
             go.Slice<Object?>.of([
-              _named$(name: Golang.String.fromDart('zed')) ?? _named$.$nil,
+              $_named(name: Golang.String.fromDart('zed')) ?? $_named.$nil,
             ], _$e0),
           ),
-          viaAs ?? _netErr$.$nil,
+          viaAs ?? $_netErr.$nil,
         ),
         viaAs._msg,
       ], _$e0),
@@ -414,24 +414,24 @@ void main() {
         errors.unwrap(two) == null,
       ], _$e0),
     );
-    _multi$ m = _multi$(
+    $_multi m = $_multi(
       errs: go.Slice<go.GoError?>.of([Code(200), pe ?? PathError.$nil], _$e1),
     );
     fmt.println(
       go.Slice<Object?>.of([
         errors.is$(m.$ifaceCopy(), errNotFound),
         errors.is$(m.$ifaceCopy(), Code(250)),
-        errors.is$(m.$ifaceCopy(), _multi$().$ifaceCopy()),
+        errors.is$(m.$ifaceCopy(), $_multi().$ifaceCopy()),
       ], _$e0),
     );
     var (p1, ok1) = errors.asType<PathError?>(_$e2, wrapped);
     var (c2, ok2) = errors.asType<Code>(_$e3, wrapped);
-    var (t3, ok3) = errors.asType<_tempErr$?>(
+    var (t3, ok3) = errors.asType<$_tempErr?>(
       _$e4,
       fmt.errorf(
         Golang.String.fromDart('q: %w'),
         go.Slice<Object?>.of([
-          _netErr$(msg: Golang.String.fromDart('slow')).$ifaceCopy(),
+          $_netErr(msg: Golang.String.fromDart('slow')).$ifaceCopy(),
         ], _$e0),
       ),
     );
@@ -479,4 +479,4 @@ const _$e1 = go.Elem<go.GoError?>(16, go.zeroNull, pointers: true);
 const _$e2 = go.Elem<PathError?>(8, go.zeroNull, pointers: true);
 Code _$f3_4(Golang.FloatBase f) => Code.from(f.toInteger(64, signed: true));
 const _$e3 = go.Elem<Code>(8, Code.new, ofInt: Code.from, ofFloat: _$f3_4);
-const _$e4 = go.Elem<_tempErr$?>(16, go.zeroNull, pointers: true);
+const _$e4 = go.Elem<$_tempErr?>(16, go.zeroNull, pointers: true);

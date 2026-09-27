@@ -160,12 +160,12 @@ T _maxOf<T extends Golang.GoOrdered<T>>(go.Elem<T> $T, T a, T b) {
   return b;
 }
 
-final class _offset$ extends Golang.Uint32Base<_offset$> {
-  _offset$([int v = 0]) : super(v);
-  _offset$.from(Golang.IntBase v) : super.from(v);
-  _offset$.fromBigInt(BigInt v) : super.fromBigInt(v);
+final class $_offset extends Golang.Uint32Base<$_offset> {
+  $_offset([int v = 0]) : super(v);
+  $_offset.from(Golang.IntBase v) : super.from(v);
+  $_offset.fromBigInt(BigInt v) : super.fromBigInt(v);
   @override
-  _offset$ $make(int v) => _offset$(v);
+  $_offset $make(int v) => $_offset(v);
   @override
   String get $goType => 'main.offset';
   @override
@@ -271,7 +271,7 @@ void main() {
       go.Slice<Object?>.of([
         _align<Golang.Int>(_$e3, Golang.Int(13), Golang.Int(8)),
         _align<Golang.Uint8>(_$e8, Golang.Uint8(250), Golang.Uint8(4)),
-        _align<_offset$>(_$e9, _offset$(17), _offset$(16)),
+        _align<$_offset>(_$e9, $_offset(17), $_offset(16)),
         _align<Golang.Int64>(_$e10, Golang.Int64(-3), Golang.Int64(4)),
       ], _$e2),
     );
@@ -283,7 +283,7 @@ void main() {
           Golang.String.fromDart('a'),
           Golang.String.fromDart('b'),
         ),
-        _maxOf<_offset$>(_$e9, _offset$(3), _offset$(2)),
+        _maxOf<$_offset>(_$e9, $_offset(3), $_offset(2)),
       ], _$e2),
     );
   });
@@ -332,12 +332,12 @@ const _$e8 = go.Elem<Golang.Uint8>(
   ofInt: Golang.Uint8.from,
   ofFloat: _$f15_9,
 );
-_offset$ _$f17_10(Golang.FloatBase f) =>
-    _offset$.from(f.toInteger(32, signed: false));
-const _$e9 = go.Elem<_offset$>(
+$_offset _$f17_10(Golang.FloatBase f) =>
+    $_offset.from(f.toInteger(32, signed: false));
+const _$e9 = go.Elem<$_offset>(
   4,
-  _offset$.new,
-  ofInt: _offset$.from,
+  $_offset.new,
+  ofInt: $_offset.from,
   ofFloat: _$f17_10,
 );
 Golang.Int64 _$f19_11(Golang.FloatBase f) =>
