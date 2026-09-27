@@ -18,7 +18,7 @@ import sys
 import tempfile
 import unittest
 
-from g2d.cli import GOLIB, PUBSPEC, transpile_package
+from g2d.pipeline import GOLIB, PUBSPEC, transpile_package
 from g2d.model import link_packages, parse_dump
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

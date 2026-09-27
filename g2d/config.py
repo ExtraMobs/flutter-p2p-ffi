@@ -1,10 +1,4 @@
-"""Configuração do motor: prefixos, shims da stdlib e interfaces dos shims.
-
-Constantes de módulo são os padrões; `EngineConfig` permite injetar outros
-(ex.: um plugin que adiciona shims) sem editar o núcleo.
-"""
-
-from dataclasses import dataclass, field
+"""Constantes do motor: prefixos, URIs, shims da stdlib e interfaces dos shims."""
 
 
 # Prefixo do shim do universo Go (builtin.dart). `go` é palavra-chave em Go,
@@ -55,11 +49,3 @@ STDLIB_SHIMS = {
     "time": "package:golib_dart/time.dart",
     "unicode/utf8": "package:golib_dart/unicode/utf8.dart",
 }
-
-
-@dataclass
-class EngineConfig:
-    """Tabelas consultadas pelos serviços; plugins podem estendê-las."""
-
-    stdlib_shims: dict = field(default_factory=lambda: dict(STDLIB_SHIMS))
-    shim_interfaces: set = field(default_factory=lambda: set(SHIM_INTERFACES))

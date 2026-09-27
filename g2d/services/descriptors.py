@@ -13,7 +13,7 @@ class DescriptorRegistry(Service):
         self.elems = {}  # tipo Dart → nome do const go.Elem
         self.elem_decls = []  # declarações de nível de library
 
-    def has_tparam(self, t, seen=None):
+    def has_tparam(self, t):
         t = self.pkg.type_at(t) if isinstance(t, int) else t
         k = t["kind"]
         if k == "typeparam":

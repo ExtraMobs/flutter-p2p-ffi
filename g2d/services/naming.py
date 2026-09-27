@@ -110,13 +110,3 @@ def type_name(name):
 def local_name(name):
     """Variáveis locais e parâmetros: nome Go, escapando reservadas."""
     return escape(name)
-
-
-class NamingRules:
-    """As regras acima agrupadas (para quem prefere injetar um objeto)."""
-
-    escape = staticmethod(escape)
-    lower_camel = staticmethod(lower_camel)
-    member_name = staticmethod(member_name)
-    type_name = staticmethod(type_name)
-    local_name = staticmethod(local_name)

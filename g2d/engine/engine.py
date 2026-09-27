@@ -1,7 +1,6 @@
 """O motor: registra serviços, análises e comportamentos (via plugins) e
 despacha a AST Go tipada de um pacote para eles."""
 
-from g2d.config import EngineConfig
 from g2d.engine.behavior import NOT_HANDLED
 from g2d.engine.precedence import POSTFIX, UNARY
 from g2d.engine.registry import ChainRegistry, HandlerRegistry, ServiceRegistry
@@ -19,11 +18,10 @@ class Engine:
         Engine(pkg, plugins=[*DEFAULT_PLUGINS, MeuPlugin()]).emit_package()
     """
 
-    def __init__(self, pkg, plugins=None, config=None):
+    def __init__(self, pkg, plugins=None):
         from g2d.behaviors.plugins import DEFAULT_PLUGINS
 
         self.pkg = pkg
-        self.config = config or EngineConfig()
         self.facts = Facts()
         self.scope = None
         self.services = ServiceRegistry()

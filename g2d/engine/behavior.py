@@ -40,10 +40,6 @@ class Component:
         return self.engine.facts
 
     @property
-    def config(self):
-        return self.engine.config
-
-    @property
     def scope(self):
         """Estado da função Go sendo emitida (FunctionScope) ou None."""
         return self.engine.scope
