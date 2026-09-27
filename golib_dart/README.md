@@ -8,7 +8,7 @@ representações dos tipos primitivos Go.
 | Caminho | Conteúdo |
 |---|---|
 | `lib/fixed_types/golang.dart` (+ `golang/`) | Tipos primitivos Go (`Golang.Int8`, `Golang.Uint64`, `Golang.Float64`, `Golang.String`...). Não é stdlib: mantém o namespace do boilerplate, importado com prefixo `Golang`. |
-| `lib/<import path Go>.dart` | Shim de um pacote da stdlib (`fmt.dart`, `math.dart`, `net.dart`, `net/netip.dart`, `internal/poll.dart`). Partes internas em `lib/src/<import path>/`. |
+| `lib/<import path Go>.dart` | Shim de um pacote da stdlib (`fmt.dart`, `math.dart`, `net.dart`, `net/netip.dart`, `internal/poll.dart`). O que é interno fica em `lib/src/<import path>/`: as partes (`part`) de uma library grande, como `src/fmt/print.dart` (o `pp` do Go) e `src/fmt/format.dart` (o `fmt`), e libraries auxiliares. |
 | `lib/builtin.dart` | Universo Go e runtime do g2d; importado como `go`. Exporta `lib/src/runtime/`. |
 | `lib/src/unicode/isprint.dart` | `unicode.IsPrint` do Go (faixas geradas por `go run tool/gen_isprint.go \| dart format`; `test/isprint_test.dart` confere com o Go instalado). |
 
