@@ -56,3 +56,15 @@ Artefato guarda-chuva: quebrar em artefatos menores ao começar o M4.
 deadlock do Go (`go.fatal`). Com goroutines, `Lock`/`Wait`/`Cond.Wait` precisam suspender (async) em vez
 de encerrar, e `WaitGroup.Go` (ausente hoje) passa a existir.
 
+## Notas do shim `io`: `io.Pipe`
+
+`golib_dart/lib/io.dart` porta o resto de `io.go`/`multi.go` (interfaces, `ReadFull`/`ReadAll`/`Copy*`,
+`LimitedReader`, `SectionReader`, `OffsetWriter`, `MultiReader`/`MultiWriter`, `TeeReader`, `Discard`,
+`NopCloser`; ver `docs/mapping-spec.md`), mas `Pipe`/`PipeReader`/`PipeWriter` ficam de fora: no Go,
+`Write` bloqueia até um `Read` correspondente consumir os mesmos bytes (e vice-versa) — é
+`sync`/goroutines puros (`pipe.go` usa só um canal e um `sync.Once`, sem I/O de verdade). Sem goroutines
+suspendendo (M4), um `Write` sem leitor pronto teria que devolver na hora (errado) ou travar para sempre
+(o "deadlock" do `sync`, mas aqui numa operação que o Go corpus espera que complete depois que a outra
+goroutine agir). Com goroutines: `Write`/`Read` suspendem (`async`) até parear com a outra ponta, do
+mesmo jeito que `Chan<T>` sem buffer; `CloseWithError` acorda quem estiver esperando com o erro.
+

@@ -24,7 +24,8 @@ SHIM_INTERFACES = {("fmt", "Stringer"), ("fmt", "Formatter"), ("fmt", "State"), 
                    ("io", "ByteReader"), ("io", "ByteWriter"), ("io", "StringWriter"), ("io", "Closer"),
                    ("io", "Seeker"), ("io", "ReaderAt"), ("io", "WriterAt"), ("io", "ReadCloser"), ("io", "WriteCloser"),
                    ("io", "ReadWriter"), ("io", "ReadWriteCloser"), ("io", "ReadSeeker"), ("io", "WriteSeeker"),
-                   ("io", "ReadWriteSeeker"), ("sync", "Locker")}
+                   ("io", "ReadWriteSeeker"), ("io", "ReadSeekCloser"), ("io", "ReaderFrom"), ("io", "WriterTo"),
+                   ("io", "ByteScanner"), ("io", "RuneReader"), ("io", "RuneScanner"), ("sync", "Locker")}
 
 # Tipos não exportados da stdlib que o código do grafo recebe por inferência
 # (`var NBO = binary.BigEndian`): a classe pública do shim que os representa.
