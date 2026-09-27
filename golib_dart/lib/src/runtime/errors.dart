@@ -45,6 +45,12 @@ abstract interface class ErrorAs {
   bool as(Object? target);
 }
 
+/// `interface{ Timeout() bool }`: usada por `os`/`io/fs` (`os.IsTimeout`,
+/// `*PathError.Timeout`, `*SyscallError.Timeout`) e por `net.Error`.
+abstract interface class Timeouter {
+  bool timeout();
+}
+
 /// Descritor de `error` (slices de erros do runtime).
 const errorElem = Elem<GoError?>(16, zeroNull, pointers: true);
 
