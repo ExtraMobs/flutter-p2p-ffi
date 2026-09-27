@@ -23,6 +23,7 @@ export 'src/runtime/order.dart';
 export 'src/runtime/panic.dart';
 export 'src/runtime/ptr.dart';
 export 'src/runtime/sched.dart';
+export 'src/runtime/select.dart';
 export 'src/runtime/slice.dart';
 export 'src/runtime/struct.dart';
 
