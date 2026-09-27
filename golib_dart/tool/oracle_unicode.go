@@ -4,7 +4,7 @@
 // instalado. test/unicode_tables_test.dart roda este comando e confere,
 // runa a runa, contra o shim (golib_dart/lib/unicode.dart).
 //
-//	go run tool/oracle_unicode.go
+//	GOTOOLCHAIN=go1.26.5 go run tool/oracle_unicode.go
 package main
 
 import (

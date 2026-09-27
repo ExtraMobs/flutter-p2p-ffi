@@ -8,6 +8,10 @@ import 'package:test/test.dart';
 
 const _maxRune = 0x10ffff;
 
+/// Oráculo no Go de referência do projeto (AGENTS.md), como o e2e do g2d
+/// (`tests/test_golden.py`); baixado pelo toolchain do `go` se preciso.
+final _goEnv = {...Platform.environment, 'GOTOOLCHAIN': 'go1.26.5'};
+
 /// Saída de `tool/oracle_unicode.go`: faixas fechadas por nome (booleanos) e
 /// pares esparsos por nome (conversões, só onde `f(r) != r`).
 class _Oracle {
@@ -51,88 +55,86 @@ class _Oracle {
 
 void main() {
   test('tables.g.dart está em dia com o `unicode` do Go instalado', () async {
-    final go = await Process.run('go', [
-      'run',
-      'tool/gen_unicode.go',
-      'tool/gen_unicode_scripts.go',
-      'tool/gen_unicode_case.go',
-    ], stdoutEncoding: utf8);
+    final go = await Process.run(
+      'go',
+      [
+        'run',
+        'tool/gen_unicode.go',
+        'tool/gen_unicode_scripts.go',
+        'tool/gen_unicode_case.go',
+      ],
+      stdoutEncoding: utf8,
+      environment: _goEnv,
+    );
     expect(go.exitCode, 0, reason: '${go.stderr}');
     final fmt = await Process.start('dart', ['format'], runInShell: true);
     fmt.stdin.add(utf8.encode(go.stdout as String));
     await fmt.stdin.close();
     final formatted = await fmt.stdout.transform(utf8.decoder).join();
     expect(await fmt.exitCode, 0);
-    final file = File(
-      'lib/src/unicode/tables.g.dart',
-    ).readAsStringSync();
-    expect(
-      formatted.replaceAll('\r\n', '\n'),
-      file.replaceAll('\r\n', '\n'),
-    );
+    final file = File('lib/src/unicode/tables.g.dart').readAsStringSync();
+    expect(formatted.replaceAll('\r\n', '\n'), file.replaceAll('\r\n', '\n'));
   });
 
-  test(
-    'predicados e conversões batem com o oráculo Go em 0..0x10FFFF',
-    () async {
-      final oracleProc = await Process.run('go', [
-        'run',
-        'tool/oracle_unicode.go',
-      ], stdoutEncoding: utf8);
-      expect(oracleProc.exitCode, 0, reason: '${oracleProc.stderr}');
-      final oracle = _Oracle(oracleProc.stdout as String);
+  test('predicados e conversões batem com o oráculo Go em 0..0x10FFFF', () async {
+    final oracleProc = await Process.run(
+      'go',
+      ['run', 'tool/oracle_unicode.go'],
+      stdoutEncoding: utf8,
+      environment: _goEnv,
+    );
+    expect(oracleProc.exitCode, 0, reason: '${oracleProc.stderr}');
+    final oracle = _Oracle(oracleProc.stdout as String);
 
-      final boolChecks = <String, bool Function(Golang.Rune)>{
-        'IsDigit': unicode.isDigit,
-        'IsLetter': unicode.isLetter,
-        'IsSpace': unicode.isSpace,
-        'IsUpper': unicode.isUpper,
-        'IsLower': unicode.isLower,
-        'IsTitle': unicode.isTitle,
-        'IsControl': unicode.isControl,
-        'IsMark': unicode.isMark,
-        'IsNumber': unicode.isNumber,
-        'IsPunct': unicode.isPunct,
-        'IsSymbol': unicode.isSymbol,
-        'IsGraphic': unicode.isGraphic,
-        'IsPrint': unicode.isPrint,
-        'Greek': (r) => unicode.is$(unicode.greek, r),
-        'Soft_Dotted': (r) => unicode.is$(unicode.soft_Dotted, r),
-      };
-      final rangeChecks = <String, Uint8List>{
-        for (final name in boolChecks.keys) name: oracle.ranges[name]!,
-      };
+    final boolChecks = <String, bool Function(Golang.Rune)>{
+      'IsDigit': unicode.isDigit,
+      'IsLetter': unicode.isLetter,
+      'IsSpace': unicode.isSpace,
+      'IsUpper': unicode.isUpper,
+      'IsLower': unicode.isLower,
+      'IsTitle': unicode.isTitle,
+      'IsControl': unicode.isControl,
+      'IsMark': unicode.isMark,
+      'IsNumber': unicode.isNumber,
+      'IsPunct': unicode.isPunct,
+      'IsSymbol': unicode.isSymbol,
+      'IsGraphic': unicode.isGraphic,
+      'IsPrint': unicode.isPrint,
+      'Greek': (r) => unicode.is$(unicode.greek, r),
+      'Soft_Dotted': (r) => unicode.is$(unicode.soft_Dotted, r),
+    };
+    final rangeChecks = <String, Uint8List>{
+      for (final name in boolChecks.keys) name: oracle.ranges[name]!,
+    };
 
-      final mapChecks = <String, Golang.Rune Function(Golang.Rune)>{
-        'ToUpper': unicode.toUpper,
-        'ToLower': unicode.toLower,
-        'ToTitle': unicode.toTitle,
-        'SimpleFold': unicode.simpleFold,
-      };
+    final mapChecks = <String, Golang.Rune Function(Golang.Rune)>{
+      'ToUpper': unicode.toUpper,
+      'ToLower': unicode.toLower,
+      'ToTitle': unicode.toTitle,
+      'SimpleFold': unicode.simpleFold,
+    };
 
-      for (var r = 0; r <= _maxRune; r++) {
-        final rune = Golang.Rune(r);
-        boolChecks.forEach((name, fn) {
-          final want = rangeChecks[name]![r] != 0;
-          final got = fn(rune);
-          if (got != want) {
-            fail('$name(0x${r.toRadixString(16)}): esperado $want, veio $got');
-          }
-        });
-        mapChecks.forEach((name, fn) {
-          final want = oracle.map(name, r);
-          final got = fn(rune).toInt();
-          if (got != want) {
-            fail(
-              '$name(0x${r.toRadixString(16)}): esperado 0x${want.toRadixString(16)}, '
-              'veio 0x${got.toRadixString(16)}',
-            );
-          }
-        });
-      }
-    },
-    timeout: const Timeout(Duration(minutes: 3)),
-  );
+    for (var r = 0; r <= _maxRune; r++) {
+      final rune = Golang.Rune(r);
+      boolChecks.forEach((name, fn) {
+        final want = rangeChecks[name]![r] != 0;
+        final got = fn(rune);
+        if (got != want) {
+          fail('$name(0x${r.toRadixString(16)}): esperado $want, veio $got');
+        }
+      });
+      mapChecks.forEach((name, fn) {
+        final want = oracle.map(name, r);
+        final got = fn(rune).toInt();
+        if (got != want) {
+          fail(
+            '$name(0x${r.toRadixString(16)}): esperado 0x${want.toRadixString(16)}, '
+            'veio 0x${got.toRadixString(16)}',
+          );
+        }
+      });
+    }
+  }, timeout: const Timeout(Duration(minutes: 3)));
 
   test('casos conhecidos', () {
     Golang.Rune r(int v) => Golang.Rune(v);

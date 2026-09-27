@@ -25,11 +25,56 @@ final RangeTable c = RangeTable(
     ),
     Range16(
       lo: Golang.Uint16(0x00ad),
-      hi: Golang.Uint16(0x0600),
-      stride: Golang.Uint16(1363),
+      hi: Golang.Uint16(0x0378),
+      stride: Golang.Uint16(715),
     ),
     Range16(
-      lo: Golang.Uint16(0x0601),
+      lo: Golang.Uint16(0x0379),
+      hi: Golang.Uint16(0x0380),
+      stride: Golang.Uint16(7),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0381),
+      hi: Golang.Uint16(0x0383),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x038b),
+      hi: Golang.Uint16(0x038d),
+      stride: Golang.Uint16(2),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x03a2),
+      hi: Golang.Uint16(0x0530),
+      stride: Golang.Uint16(398),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0557),
+      hi: Golang.Uint16(0x0558),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x058b),
+      hi: Golang.Uint16(0x058c),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0590),
+      hi: Golang.Uint16(0x05c8),
+      stride: Golang.Uint16(56),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x05c9),
+      hi: Golang.Uint16(0x05cf),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x05eb),
+      hi: Golang.Uint16(0x05ee),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x05f5),
       hi: Golang.Uint16(0x0605),
       stride: Golang.Uint16(1),
     ),
@@ -39,19 +84,944 @@ final RangeTable c = RangeTable(
       stride: Golang.Uint16(193),
     ),
     Range16(
-      lo: Golang.Uint16(0x070f),
-      hi: Golang.Uint16(0x0890),
-      stride: Golang.Uint16(385),
+      lo: Golang.Uint16(0x070e),
+      hi: Golang.Uint16(0x070f),
+      stride: Golang.Uint16(1),
     ),
     Range16(
-      lo: Golang.Uint16(0x0891),
-      hi: Golang.Uint16(0x08e2),
-      stride: Golang.Uint16(81),
+      lo: Golang.Uint16(0x074b),
+      hi: Golang.Uint16(0x074c),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x07b2),
+      hi: Golang.Uint16(0x07bf),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x07fb),
+      hi: Golang.Uint16(0x07fc),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x082e),
+      hi: Golang.Uint16(0x082f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x083f),
+      hi: Golang.Uint16(0x085c),
+      stride: Golang.Uint16(29),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x085d),
+      hi: Golang.Uint16(0x085f),
+      stride: Golang.Uint16(2),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x086b),
+      hi: Golang.Uint16(0x086f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x088f),
+      hi: Golang.Uint16(0x0897),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x08e2),
+      hi: Golang.Uint16(0x0984),
+      stride: Golang.Uint16(162),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x098d),
+      hi: Golang.Uint16(0x098e),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0991),
+      hi: Golang.Uint16(0x0992),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x09a9),
+      hi: Golang.Uint16(0x09b1),
+      stride: Golang.Uint16(8),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x09b3),
+      hi: Golang.Uint16(0x09b5),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x09ba),
+      hi: Golang.Uint16(0x09bb),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x09c5),
+      hi: Golang.Uint16(0x09c6),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x09c9),
+      hi: Golang.Uint16(0x09ca),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x09cf),
+      hi: Golang.Uint16(0x09d6),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x09d8),
+      hi: Golang.Uint16(0x09db),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x09de),
+      hi: Golang.Uint16(0x09e4),
+      stride: Golang.Uint16(6),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x09e5),
+      hi: Golang.Uint16(0x09ff),
+      stride: Golang.Uint16(26),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0a00),
+      hi: Golang.Uint16(0x0a04),
+      stride: Golang.Uint16(4),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0a0b),
+      hi: Golang.Uint16(0x0a0e),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0a11),
+      hi: Golang.Uint16(0x0a12),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0a29),
+      hi: Golang.Uint16(0x0a31),
+      stride: Golang.Uint16(8),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0a34),
+      hi: Golang.Uint16(0x0a3a),
+      stride: Golang.Uint16(3),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0a3b),
+      hi: Golang.Uint16(0x0a3d),
+      stride: Golang.Uint16(2),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0a43),
+      hi: Golang.Uint16(0x0a46),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0a49),
+      hi: Golang.Uint16(0x0a4a),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0a4e),
+      hi: Golang.Uint16(0x0a50),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0a52),
+      hi: Golang.Uint16(0x0a58),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0a5d),
+      hi: Golang.Uint16(0x0a5f),
+      stride: Golang.Uint16(2),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0a60),
+      hi: Golang.Uint16(0x0a65),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0a77),
+      hi: Golang.Uint16(0x0a80),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0a84),
+      hi: Golang.Uint16(0x0a8e),
+      stride: Golang.Uint16(10),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0a92),
+      hi: Golang.Uint16(0x0aa9),
+      stride: Golang.Uint16(23),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0ab1),
+      hi: Golang.Uint16(0x0ab4),
+      stride: Golang.Uint16(3),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0aba),
+      hi: Golang.Uint16(0x0abb),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0ac6),
+      hi: Golang.Uint16(0x0ace),
+      stride: Golang.Uint16(4),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0acf),
+      hi: Golang.Uint16(0x0ad1),
+      stride: Golang.Uint16(2),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0ad2),
+      hi: Golang.Uint16(0x0adf),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0ae4),
+      hi: Golang.Uint16(0x0ae5),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0af2),
+      hi: Golang.Uint16(0x0af8),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0b00),
+      hi: Golang.Uint16(0x0b04),
+      stride: Golang.Uint16(4),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0b0d),
+      hi: Golang.Uint16(0x0b0e),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0b11),
+      hi: Golang.Uint16(0x0b12),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0b29),
+      hi: Golang.Uint16(0x0b31),
+      stride: Golang.Uint16(8),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0b34),
+      hi: Golang.Uint16(0x0b3a),
+      stride: Golang.Uint16(6),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0b3b),
+      hi: Golang.Uint16(0x0b45),
+      stride: Golang.Uint16(10),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0b46),
+      hi: Golang.Uint16(0x0b49),
+      stride: Golang.Uint16(3),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0b4a),
+      hi: Golang.Uint16(0x0b4e),
+      stride: Golang.Uint16(4),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0b4f),
+      hi: Golang.Uint16(0x0b54),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0b58),
+      hi: Golang.Uint16(0x0b5b),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0b5e),
+      hi: Golang.Uint16(0x0b64),
+      stride: Golang.Uint16(6),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0b65),
+      hi: Golang.Uint16(0x0b78),
+      stride: Golang.Uint16(19),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0b79),
+      hi: Golang.Uint16(0x0b81),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0b84),
+      hi: Golang.Uint16(0x0b8b),
+      stride: Golang.Uint16(7),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0b8c),
+      hi: Golang.Uint16(0x0b8d),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0b91),
+      hi: Golang.Uint16(0x0b96),
+      stride: Golang.Uint16(5),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0b97),
+      hi: Golang.Uint16(0x0b98),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0b9b),
+      hi: Golang.Uint16(0x0b9d),
+      stride: Golang.Uint16(2),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0ba0),
+      hi: Golang.Uint16(0x0ba2),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0ba5),
+      hi: Golang.Uint16(0x0ba7),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0bab),
+      hi: Golang.Uint16(0x0bad),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0bba),
+      hi: Golang.Uint16(0x0bbd),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0bc3),
+      hi: Golang.Uint16(0x0bc5),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0bc9),
+      hi: Golang.Uint16(0x0bce),
+      stride: Golang.Uint16(5),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0bcf),
+      hi: Golang.Uint16(0x0bd1),
+      stride: Golang.Uint16(2),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0bd2),
+      hi: Golang.Uint16(0x0bd6),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0bd8),
+      hi: Golang.Uint16(0x0be5),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0bfb),
+      hi: Golang.Uint16(0x0bff),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0c0d),
+      hi: Golang.Uint16(0x0c11),
+      stride: Golang.Uint16(4),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0c29),
+      hi: Golang.Uint16(0x0c3a),
+      stride: Golang.Uint16(17),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0c3b),
+      hi: Golang.Uint16(0x0c45),
+      stride: Golang.Uint16(10),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0c49),
+      hi: Golang.Uint16(0x0c4e),
+      stride: Golang.Uint16(5),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0c4f),
+      hi: Golang.Uint16(0x0c54),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0c57),
+      hi: Golang.Uint16(0x0c5b),
+      stride: Golang.Uint16(4),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0c5c),
+      hi: Golang.Uint16(0x0c5e),
+      stride: Golang.Uint16(2),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0c5f),
+      hi: Golang.Uint16(0x0c64),
+      stride: Golang.Uint16(5),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0c65),
+      hi: Golang.Uint16(0x0c70),
+      stride: Golang.Uint16(11),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0c71),
+      hi: Golang.Uint16(0x0c76),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0c8d),
+      hi: Golang.Uint16(0x0c91),
+      stride: Golang.Uint16(4),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0ca9),
+      hi: Golang.Uint16(0x0cb4),
+      stride: Golang.Uint16(11),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0cba),
+      hi: Golang.Uint16(0x0cbb),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0cc5),
+      hi: Golang.Uint16(0x0cc9),
+      stride: Golang.Uint16(4),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0cce),
+      hi: Golang.Uint16(0x0cd4),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0cd7),
+      hi: Golang.Uint16(0x0cdc),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0cdf),
+      hi: Golang.Uint16(0x0ce4),
+      stride: Golang.Uint16(5),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0ce5),
+      hi: Golang.Uint16(0x0cf0),
+      stride: Golang.Uint16(11),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0cf4),
+      hi: Golang.Uint16(0x0cff),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0d0d),
+      hi: Golang.Uint16(0x0d11),
+      stride: Golang.Uint16(4),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0d45),
+      hi: Golang.Uint16(0x0d49),
+      stride: Golang.Uint16(4),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0d50),
+      hi: Golang.Uint16(0x0d53),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0d64),
+      hi: Golang.Uint16(0x0d65),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0d80),
+      hi: Golang.Uint16(0x0d84),
+      stride: Golang.Uint16(4),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0d97),
+      hi: Golang.Uint16(0x0d99),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0db2),
+      hi: Golang.Uint16(0x0dbc),
+      stride: Golang.Uint16(10),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0dbe),
+      hi: Golang.Uint16(0x0dbf),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0dc7),
+      hi: Golang.Uint16(0x0dc9),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0dcb),
+      hi: Golang.Uint16(0x0dce),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0dd5),
+      hi: Golang.Uint16(0x0dd7),
+      stride: Golang.Uint16(2),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0de0),
+      hi: Golang.Uint16(0x0de5),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0df0),
+      hi: Golang.Uint16(0x0df1),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0df5),
+      hi: Golang.Uint16(0x0e00),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0e3b),
+      hi: Golang.Uint16(0x0e3e),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0e5c),
+      hi: Golang.Uint16(0x0e80),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0e83),
+      hi: Golang.Uint16(0x0e85),
+      stride: Golang.Uint16(2),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0e8b),
+      hi: Golang.Uint16(0x0ea4),
+      stride: Golang.Uint16(25),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0ea6),
+      hi: Golang.Uint16(0x0ebe),
+      stride: Golang.Uint16(24),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0ebf),
+      hi: Golang.Uint16(0x0ec5),
+      stride: Golang.Uint16(6),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0ec7),
+      hi: Golang.Uint16(0x0ecf),
+      stride: Golang.Uint16(8),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0eda),
+      hi: Golang.Uint16(0x0edb),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0ee0),
+      hi: Golang.Uint16(0x0eff),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0f48),
+      hi: Golang.Uint16(0x0f6d),
+      stride: Golang.Uint16(37),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0f6e),
+      hi: Golang.Uint16(0x0f70),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0f98),
+      hi: Golang.Uint16(0x0fbd),
+      stride: Golang.Uint16(37),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0fcd),
+      hi: Golang.Uint16(0x0fdb),
+      stride: Golang.Uint16(14),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0fdc),
+      hi: Golang.Uint16(0x0fff),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x10c6),
+      hi: Golang.Uint16(0x10c8),
+      stride: Golang.Uint16(2),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x10c9),
+      hi: Golang.Uint16(0x10cc),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x10ce),
+      hi: Golang.Uint16(0x10cf),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1249),
+      hi: Golang.Uint16(0x124e),
+      stride: Golang.Uint16(5),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x124f),
+      hi: Golang.Uint16(0x1257),
+      stride: Golang.Uint16(8),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1259),
+      hi: Golang.Uint16(0x125e),
+      stride: Golang.Uint16(5),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x125f),
+      hi: Golang.Uint16(0x1289),
+      stride: Golang.Uint16(42),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x128e),
+      hi: Golang.Uint16(0x128f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x12b1),
+      hi: Golang.Uint16(0x12b6),
+      stride: Golang.Uint16(5),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x12b7),
+      hi: Golang.Uint16(0x12bf),
+      stride: Golang.Uint16(8),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x12c1),
+      hi: Golang.Uint16(0x12c6),
+      stride: Golang.Uint16(5),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x12c7),
+      hi: Golang.Uint16(0x12d7),
+      stride: Golang.Uint16(16),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1311),
+      hi: Golang.Uint16(0x1316),
+      stride: Golang.Uint16(5),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1317),
+      hi: Golang.Uint16(0x135b),
+      stride: Golang.Uint16(68),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x135c),
+      hi: Golang.Uint16(0x137d),
+      stride: Golang.Uint16(33),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x137e),
+      hi: Golang.Uint16(0x137f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x139a),
+      hi: Golang.Uint16(0x139f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x13f6),
+      hi: Golang.Uint16(0x13f7),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x13fe),
+      hi: Golang.Uint16(0x13ff),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x169d),
+      hi: Golang.Uint16(0x169f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x16f9),
+      hi: Golang.Uint16(0x16ff),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1716),
+      hi: Golang.Uint16(0x171e),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1737),
+      hi: Golang.Uint16(0x173f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1754),
+      hi: Golang.Uint16(0x175f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x176d),
+      hi: Golang.Uint16(0x1771),
+      stride: Golang.Uint16(4),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1774),
+      hi: Golang.Uint16(0x177f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x17de),
+      hi: Golang.Uint16(0x17df),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x17ea),
+      hi: Golang.Uint16(0x17ef),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x17fa),
+      hi: Golang.Uint16(0x17ff),
+      stride: Golang.Uint16(1),
     ),
     Range16(
       lo: Golang.Uint16(0x180e),
+      hi: Golang.Uint16(0x181a),
+      stride: Golang.Uint16(12),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x181b),
+      hi: Golang.Uint16(0x181f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1879),
+      hi: Golang.Uint16(0x187f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x18ab),
+      hi: Golang.Uint16(0x18af),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x18f6),
+      hi: Golang.Uint16(0x18ff),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x191f),
+      hi: Golang.Uint16(0x192c),
+      stride: Golang.Uint16(13),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x192d),
+      hi: Golang.Uint16(0x192f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x193c),
+      hi: Golang.Uint16(0x193f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1941),
+      hi: Golang.Uint16(0x1943),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x196e),
+      hi: Golang.Uint16(0x196f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1975),
+      hi: Golang.Uint16(0x197f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x19ac),
+      hi: Golang.Uint16(0x19af),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x19ca),
+      hi: Golang.Uint16(0x19cf),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x19db),
+      hi: Golang.Uint16(0x19dd),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1a1c),
+      hi: Golang.Uint16(0x1a1d),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1a5f),
+      hi: Golang.Uint16(0x1a7d),
+      stride: Golang.Uint16(30),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1a7e),
+      hi: Golang.Uint16(0x1a8a),
+      stride: Golang.Uint16(12),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1a8b),
+      hi: Golang.Uint16(0x1a8f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1a9a),
+      hi: Golang.Uint16(0x1a9f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1aae),
+      hi: Golang.Uint16(0x1aaf),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1acf),
+      hi: Golang.Uint16(0x1aff),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1b4d),
+      hi: Golang.Uint16(0x1b4f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1b7f),
+      hi: Golang.Uint16(0x1bf4),
+      stride: Golang.Uint16(117),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1bf5),
+      hi: Golang.Uint16(0x1bfb),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1c38),
+      hi: Golang.Uint16(0x1c3a),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1c4a),
+      hi: Golang.Uint16(0x1c4c),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1c89),
+      hi: Golang.Uint16(0x1c8f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1cbb),
+      hi: Golang.Uint16(0x1cbc),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1cc8),
+      hi: Golang.Uint16(0x1ccf),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1cfb),
+      hi: Golang.Uint16(0x1cff),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1f16),
+      hi: Golang.Uint16(0x1f17),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1f1e),
+      hi: Golang.Uint16(0x1f1f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1f46),
+      hi: Golang.Uint16(0x1f47),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1f4e),
+      hi: Golang.Uint16(0x1f4f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1f58),
+      hi: Golang.Uint16(0x1f5e),
+      stride: Golang.Uint16(2),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1f7e),
+      hi: Golang.Uint16(0x1f7f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1fb5),
+      hi: Golang.Uint16(0x1fc5),
+      stride: Golang.Uint16(16),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1fd4),
+      hi: Golang.Uint16(0x1fd5),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1fdc),
+      hi: Golang.Uint16(0x1ff0),
+      stride: Golang.Uint16(20),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1ff1),
+      hi: Golang.Uint16(0x1ff5),
+      stride: Golang.Uint16(4),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1fff),
       hi: Golang.Uint16(0x200b),
-      stride: Golang.Uint16(2045),
+      stride: Golang.Uint16(12),
     ),
     Range16(
       lo: Golang.Uint16(0x200c),
@@ -65,35 +1035,1260 @@ final RangeTable c = RangeTable(
     ),
     Range16(
       lo: Golang.Uint16(0x2060),
-      hi: Golang.Uint16(0x2064),
-      stride: Golang.Uint16(1),
-    ),
-    Range16(
-      lo: Golang.Uint16(0x2066),
       hi: Golang.Uint16(0x206f),
       stride: Golang.Uint16(1),
     ),
     Range16(
-      lo: Golang.Uint16(0xd800),
+      lo: Golang.Uint16(0x2072),
+      hi: Golang.Uint16(0x2073),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x208f),
+      hi: Golang.Uint16(0x209d),
+      stride: Golang.Uint16(14),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x209e),
+      hi: Golang.Uint16(0x209f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x20c1),
+      hi: Golang.Uint16(0x20cf),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x20f1),
+      hi: Golang.Uint16(0x20ff),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x218c),
+      hi: Golang.Uint16(0x218f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x2427),
+      hi: Golang.Uint16(0x243f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x244b),
+      hi: Golang.Uint16(0x245f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x2b74),
+      hi: Golang.Uint16(0x2b75),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x2b96),
+      hi: Golang.Uint16(0x2cf4),
+      stride: Golang.Uint16(350),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x2cf5),
+      hi: Golang.Uint16(0x2cf8),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x2d26),
+      hi: Golang.Uint16(0x2d28),
+      stride: Golang.Uint16(2),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x2d29),
+      hi: Golang.Uint16(0x2d2c),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x2d2e),
+      hi: Golang.Uint16(0x2d2f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x2d68),
+      hi: Golang.Uint16(0x2d6e),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x2d71),
+      hi: Golang.Uint16(0x2d7e),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x2d97),
+      hi: Golang.Uint16(0x2d9f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x2da7),
+      hi: Golang.Uint16(0x2ddf),
+      stride: Golang.Uint16(8),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x2e5e),
+      hi: Golang.Uint16(0x2e7f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x2e9a),
+      hi: Golang.Uint16(0x2ef4),
+      stride: Golang.Uint16(90),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x2ef5),
+      hi: Golang.Uint16(0x2eff),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x2fd6),
+      hi: Golang.Uint16(0x2fef),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x2ffc),
+      hi: Golang.Uint16(0x2fff),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x3040),
+      hi: Golang.Uint16(0x3097),
+      stride: Golang.Uint16(87),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x3098),
+      hi: Golang.Uint16(0x3100),
+      stride: Golang.Uint16(104),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x3101),
+      hi: Golang.Uint16(0x3104),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x3130),
+      hi: Golang.Uint16(0x318f),
+      stride: Golang.Uint16(95),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x31e4),
+      hi: Golang.Uint16(0x31ef),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x321f),
+      hi: Golang.Uint16(0xa48d),
+      stride: Golang.Uint16(29294),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xa48e),
+      hi: Golang.Uint16(0xa48f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xa4c7),
+      hi: Golang.Uint16(0xa4cf),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xa62c),
+      hi: Golang.Uint16(0xa63f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xa6f8),
+      hi: Golang.Uint16(0xa6ff),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xa7cb),
+      hi: Golang.Uint16(0xa7cf),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xa7d2),
+      hi: Golang.Uint16(0xa7d4),
+      stride: Golang.Uint16(2),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xa7da),
+      hi: Golang.Uint16(0xa7f1),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xa82d),
+      hi: Golang.Uint16(0xa82f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xa83a),
+      hi: Golang.Uint16(0xa83f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xa878),
+      hi: Golang.Uint16(0xa87f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xa8c6),
+      hi: Golang.Uint16(0xa8cd),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xa8da),
+      hi: Golang.Uint16(0xa8df),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xa954),
+      hi: Golang.Uint16(0xa95e),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xa97d),
+      hi: Golang.Uint16(0xa97f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xa9ce),
+      hi: Golang.Uint16(0xa9da),
+      stride: Golang.Uint16(12),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xa9db),
+      hi: Golang.Uint16(0xa9dd),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xa9ff),
+      hi: Golang.Uint16(0xaa37),
+      stride: Golang.Uint16(56),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xaa38),
+      hi: Golang.Uint16(0xaa3f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xaa4e),
+      hi: Golang.Uint16(0xaa4f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xaa5a),
+      hi: Golang.Uint16(0xaa5b),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xaac3),
+      hi: Golang.Uint16(0xaada),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xaaf7),
+      hi: Golang.Uint16(0xab00),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xab07),
+      hi: Golang.Uint16(0xab08),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xab0f),
+      hi: Golang.Uint16(0xab10),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xab17),
+      hi: Golang.Uint16(0xab1f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xab27),
+      hi: Golang.Uint16(0xab2f),
+      stride: Golang.Uint16(8),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xab6c),
+      hi: Golang.Uint16(0xab6f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xabee),
+      hi: Golang.Uint16(0xabef),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xabfa),
+      hi: Golang.Uint16(0xabff),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xd7a4),
+      hi: Golang.Uint16(0xd7af),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xd7c7),
+      hi: Golang.Uint16(0xd7ca),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xd7fc),
       hi: Golang.Uint16(0xf8ff),
       stride: Golang.Uint16(1),
     ),
     Range16(
-      lo: Golang.Uint16(0xfeff),
-      hi: Golang.Uint16(0xfff9),
-      stride: Golang.Uint16(250),
+      lo: Golang.Uint16(0xfa6e),
+      hi: Golang.Uint16(0xfa6f),
+      stride: Golang.Uint16(1),
     ),
     Range16(
-      lo: Golang.Uint16(0xfffa),
+      lo: Golang.Uint16(0xfada),
+      hi: Golang.Uint16(0xfaff),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xfb07),
+      hi: Golang.Uint16(0xfb12),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xfb18),
+      hi: Golang.Uint16(0xfb1c),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xfb37),
+      hi: Golang.Uint16(0xfb3d),
+      stride: Golang.Uint16(6),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xfb3f),
+      hi: Golang.Uint16(0xfb45),
+      stride: Golang.Uint16(3),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xfbc3),
+      hi: Golang.Uint16(0xfbd2),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xfd90),
+      hi: Golang.Uint16(0xfd91),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xfdc8),
+      hi: Golang.Uint16(0xfdce),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xfdd0),
+      hi: Golang.Uint16(0xfdef),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xfe1a),
+      hi: Golang.Uint16(0xfe1f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xfe53),
+      hi: Golang.Uint16(0xfe67),
+      stride: Golang.Uint16(20),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xfe6c),
+      hi: Golang.Uint16(0xfe6f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xfe75),
+      hi: Golang.Uint16(0xfefd),
+      stride: Golang.Uint16(136),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xfefe),
+      hi: Golang.Uint16(0xff00),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xffbf),
+      hi: Golang.Uint16(0xffc1),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xffc8),
+      hi: Golang.Uint16(0xffc9),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xffd0),
+      hi: Golang.Uint16(0xffd1),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xffd8),
+      hi: Golang.Uint16(0xffd9),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xffdd),
+      hi: Golang.Uint16(0xffdf),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xffe7),
+      hi: Golang.Uint16(0xffef),
+      stride: Golang.Uint16(8),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xfff0),
       hi: Golang.Uint16(0xfffb),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xfffe),
+      hi: Golang.Uint16(0xffff),
       stride: Golang.Uint16(1),
     ),
   ], _range16Elem),
   r32: Slice.of([
     Range32(
-      lo: Golang.Uint32(0x0110bd),
-      hi: Golang.Uint32(0x0110cd),
+      lo: Golang.Uint32(0x01000c),
+      hi: Golang.Uint32(0x010027),
+      stride: Golang.Uint32(27),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01003b),
+      hi: Golang.Uint32(0x01003e),
+      stride: Golang.Uint32(3),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01004e),
+      hi: Golang.Uint32(0x01004f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01005e),
+      hi: Golang.Uint32(0x01007f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0100fb),
+      hi: Golang.Uint32(0x0100ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010103),
+      hi: Golang.Uint32(0x010106),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010134),
+      hi: Golang.Uint32(0x010136),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01018f),
+      hi: Golang.Uint32(0x01019d),
+      stride: Golang.Uint32(14),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01019e),
+      hi: Golang.Uint32(0x01019f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0101a1),
+      hi: Golang.Uint32(0x0101cf),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0101fe),
+      hi: Golang.Uint32(0x01027f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01029d),
+      hi: Golang.Uint32(0x01029f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0102d1),
+      hi: Golang.Uint32(0x0102df),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0102fc),
+      hi: Golang.Uint32(0x0102ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010324),
+      hi: Golang.Uint32(0x01032c),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01034b),
+      hi: Golang.Uint32(0x01034f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01037b),
+      hi: Golang.Uint32(0x01037f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01039e),
+      hi: Golang.Uint32(0x0103c4),
+      stride: Golang.Uint32(38),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0103c5),
+      hi: Golang.Uint32(0x0103c7),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0103d6),
+      hi: Golang.Uint32(0x0103ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01049e),
+      hi: Golang.Uint32(0x01049f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0104aa),
+      hi: Golang.Uint32(0x0104af),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0104d4),
+      hi: Golang.Uint32(0x0104d7),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0104fc),
+      hi: Golang.Uint32(0x0104ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010528),
+      hi: Golang.Uint32(0x01052f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010564),
+      hi: Golang.Uint32(0x01056e),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01057b),
+      hi: Golang.Uint32(0x01058b),
       stride: Golang.Uint32(16),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010593),
+      hi: Golang.Uint32(0x010596),
+      stride: Golang.Uint32(3),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0105a2),
+      hi: Golang.Uint32(0x0105b2),
+      stride: Golang.Uint32(16),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0105ba),
+      hi: Golang.Uint32(0x0105bd),
+      stride: Golang.Uint32(3),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0105be),
+      hi: Golang.Uint32(0x0105ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010737),
+      hi: Golang.Uint32(0x01073f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010756),
+      hi: Golang.Uint32(0x01075f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010768),
+      hi: Golang.Uint32(0x01077f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010786),
+      hi: Golang.Uint32(0x0107b1),
+      stride: Golang.Uint32(43),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0107bb),
+      hi: Golang.Uint32(0x0107ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010806),
+      hi: Golang.Uint32(0x010807),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010809),
+      hi: Golang.Uint32(0x010836),
+      stride: Golang.Uint32(45),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010839),
+      hi: Golang.Uint32(0x01083b),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01083d),
+      hi: Golang.Uint32(0x01083e),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010856),
+      hi: Golang.Uint32(0x01089f),
+      stride: Golang.Uint32(73),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0108a0),
+      hi: Golang.Uint32(0x0108a6),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0108b0),
+      hi: Golang.Uint32(0x0108df),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0108f3),
+      hi: Golang.Uint32(0x0108f6),
+      stride: Golang.Uint32(3),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0108f7),
+      hi: Golang.Uint32(0x0108fa),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01091c),
+      hi: Golang.Uint32(0x01091e),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01093a),
+      hi: Golang.Uint32(0x01093e),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010940),
+      hi: Golang.Uint32(0x01097f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0109b8),
+      hi: Golang.Uint32(0x0109bb),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0109d0),
+      hi: Golang.Uint32(0x0109d1),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010a04),
+      hi: Golang.Uint32(0x010a07),
+      stride: Golang.Uint32(3),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010a08),
+      hi: Golang.Uint32(0x010a0b),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010a14),
+      hi: Golang.Uint32(0x010a18),
+      stride: Golang.Uint32(4),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010a36),
+      hi: Golang.Uint32(0x010a37),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010a3b),
+      hi: Golang.Uint32(0x010a3e),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010a49),
+      hi: Golang.Uint32(0x010a4f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010a59),
+      hi: Golang.Uint32(0x010a5f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010aa0),
+      hi: Golang.Uint32(0x010abf),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010ae7),
+      hi: Golang.Uint32(0x010aea),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010af7),
+      hi: Golang.Uint32(0x010aff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010b36),
+      hi: Golang.Uint32(0x010b38),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010b56),
+      hi: Golang.Uint32(0x010b57),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010b73),
+      hi: Golang.Uint32(0x010b77),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010b92),
+      hi: Golang.Uint32(0x010b98),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010b9d),
+      hi: Golang.Uint32(0x010ba8),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010bb0),
+      hi: Golang.Uint32(0x010bff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010c49),
+      hi: Golang.Uint32(0x010c7f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010cb3),
+      hi: Golang.Uint32(0x010cbf),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010cf3),
+      hi: Golang.Uint32(0x010cf9),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010d28),
+      hi: Golang.Uint32(0x010d2f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010d3a),
+      hi: Golang.Uint32(0x010e5f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010e7f),
+      hi: Golang.Uint32(0x010eaa),
+      stride: Golang.Uint32(43),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010eae),
+      hi: Golang.Uint32(0x010eaf),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010eb2),
+      hi: Golang.Uint32(0x010efc),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010f28),
+      hi: Golang.Uint32(0x010f2f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010f5a),
+      hi: Golang.Uint32(0x010f6f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010f8a),
+      hi: Golang.Uint32(0x010faf),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010fcc),
+      hi: Golang.Uint32(0x010fdf),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010ff7),
+      hi: Golang.Uint32(0x010fff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01104e),
+      hi: Golang.Uint32(0x011051),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011076),
+      hi: Golang.Uint32(0x01107e),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0110bd),
+      hi: Golang.Uint32(0x0110c3),
+      stride: Golang.Uint32(6),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0110c4),
+      hi: Golang.Uint32(0x0110cf),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0110e9),
+      hi: Golang.Uint32(0x0110ef),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0110fa),
+      hi: Golang.Uint32(0x0110ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011135),
+      hi: Golang.Uint32(0x011148),
+      stride: Golang.Uint32(19),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011149),
+      hi: Golang.Uint32(0x01114f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011177),
+      hi: Golang.Uint32(0x01117f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0111e0),
+      hi: Golang.Uint32(0x0111f5),
+      stride: Golang.Uint32(21),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0111f6),
+      hi: Golang.Uint32(0x0111ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011212),
+      hi: Golang.Uint32(0x011242),
+      stride: Golang.Uint32(48),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011243),
+      hi: Golang.Uint32(0x01127f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011287),
+      hi: Golang.Uint32(0x011289),
+      stride: Golang.Uint32(2),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01128e),
+      hi: Golang.Uint32(0x01129e),
+      stride: Golang.Uint32(16),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0112aa),
+      hi: Golang.Uint32(0x0112af),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0112eb),
+      hi: Golang.Uint32(0x0112ef),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0112fa),
+      hi: Golang.Uint32(0x0112ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011304),
+      hi: Golang.Uint32(0x01130d),
+      stride: Golang.Uint32(9),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01130e),
+      hi: Golang.Uint32(0x011311),
+      stride: Golang.Uint32(3),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011312),
+      hi: Golang.Uint32(0x011329),
+      stride: Golang.Uint32(23),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011331),
+      hi: Golang.Uint32(0x011334),
+      stride: Golang.Uint32(3),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01133a),
+      hi: Golang.Uint32(0x011345),
+      stride: Golang.Uint32(11),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011346),
+      hi: Golang.Uint32(0x011349),
+      stride: Golang.Uint32(3),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01134a),
+      hi: Golang.Uint32(0x01134e),
+      stride: Golang.Uint32(4),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01134f),
+      hi: Golang.Uint32(0x011351),
+      stride: Golang.Uint32(2),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011352),
+      hi: Golang.Uint32(0x011356),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011358),
+      hi: Golang.Uint32(0x01135c),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011364),
+      hi: Golang.Uint32(0x011365),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01136d),
+      hi: Golang.Uint32(0x01136f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011375),
+      hi: Golang.Uint32(0x0113ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01145c),
+      hi: Golang.Uint32(0x011462),
+      stride: Golang.Uint32(6),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011463),
+      hi: Golang.Uint32(0x01147f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0114c8),
+      hi: Golang.Uint32(0x0114cf),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0114da),
+      hi: Golang.Uint32(0x01157f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0115b6),
+      hi: Golang.Uint32(0x0115b7),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0115de),
+      hi: Golang.Uint32(0x0115ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011645),
+      hi: Golang.Uint32(0x01164f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01165a),
+      hi: Golang.Uint32(0x01165f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01166d),
+      hi: Golang.Uint32(0x01167f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0116ba),
+      hi: Golang.Uint32(0x0116bf),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0116ca),
+      hi: Golang.Uint32(0x0116ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01171b),
+      hi: Golang.Uint32(0x01171c),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01172c),
+      hi: Golang.Uint32(0x01172f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011747),
+      hi: Golang.Uint32(0x0117ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01183c),
+      hi: Golang.Uint32(0x01189f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0118f3),
+      hi: Golang.Uint32(0x0118fe),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011907),
+      hi: Golang.Uint32(0x011908),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01190a),
+      hi: Golang.Uint32(0x01190b),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011914),
+      hi: Golang.Uint32(0x011917),
+      stride: Golang.Uint32(3),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011936),
+      hi: Golang.Uint32(0x011939),
+      stride: Golang.Uint32(3),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01193a),
+      hi: Golang.Uint32(0x011947),
+      stride: Golang.Uint32(13),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011948),
+      hi: Golang.Uint32(0x01194f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01195a),
+      hi: Golang.Uint32(0x01199f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0119a8),
+      hi: Golang.Uint32(0x0119a9),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0119d8),
+      hi: Golang.Uint32(0x0119d9),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0119e5),
+      hi: Golang.Uint32(0x0119ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011a48),
+      hi: Golang.Uint32(0x011a4f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011aa3),
+      hi: Golang.Uint32(0x011aaf),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011af9),
+      hi: Golang.Uint32(0x011aff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011b0a),
+      hi: Golang.Uint32(0x011bff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011c09),
+      hi: Golang.Uint32(0x011c37),
+      stride: Golang.Uint32(46),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011c46),
+      hi: Golang.Uint32(0x011c4f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011c6d),
+      hi: Golang.Uint32(0x011c6f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011c90),
+      hi: Golang.Uint32(0x011c91),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011ca8),
+      hi: Golang.Uint32(0x011cb7),
+      stride: Golang.Uint32(15),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011cb8),
+      hi: Golang.Uint32(0x011cff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011d07),
+      hi: Golang.Uint32(0x011d0a),
+      stride: Golang.Uint32(3),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011d37),
+      hi: Golang.Uint32(0x011d39),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011d3b),
+      hi: Golang.Uint32(0x011d3e),
+      stride: Golang.Uint32(3),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011d48),
+      hi: Golang.Uint32(0x011d4f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011d5a),
+      hi: Golang.Uint32(0x011d5f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011d66),
+      hi: Golang.Uint32(0x011d69),
+      stride: Golang.Uint32(3),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011d8f),
+      hi: Golang.Uint32(0x011d92),
+      stride: Golang.Uint32(3),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011d99),
+      hi: Golang.Uint32(0x011d9f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011daa),
+      hi: Golang.Uint32(0x011edf),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011ef9),
+      hi: Golang.Uint32(0x011eff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011f11),
+      hi: Golang.Uint32(0x011f3b),
+      stride: Golang.Uint32(42),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011f3c),
+      hi: Golang.Uint32(0x011f3d),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011f5a),
+      hi: Golang.Uint32(0x011faf),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011fb1),
+      hi: Golang.Uint32(0x011fbf),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011ff2),
+      hi: Golang.Uint32(0x011ffe),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01239a),
+      hi: Golang.Uint32(0x0123ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01246f),
+      hi: Golang.Uint32(0x012475),
+      stride: Golang.Uint32(6),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x012476),
+      hi: Golang.Uint32(0x01247f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x012544),
+      hi: Golang.Uint32(0x012f8f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x012ff3),
+      hi: Golang.Uint32(0x012fff),
+      stride: Golang.Uint32(1),
     ),
     Range32(
       lo: Golang.Uint32(0x013430),
@@ -101,8 +2296,203 @@ final RangeTable c = RangeTable(
       stride: Golang.Uint32(1),
     ),
     Range32(
+      lo: Golang.Uint32(0x013456),
+      hi: Golang.Uint32(0x0143ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x014647),
+      hi: Golang.Uint32(0x0167ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x016a39),
+      hi: Golang.Uint32(0x016a3f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x016a5f),
+      hi: Golang.Uint32(0x016a6a),
+      stride: Golang.Uint32(11),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x016a6b),
+      hi: Golang.Uint32(0x016a6d),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x016abf),
+      hi: Golang.Uint32(0x016aca),
+      stride: Golang.Uint32(11),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x016acb),
+      hi: Golang.Uint32(0x016acf),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x016aee),
+      hi: Golang.Uint32(0x016aef),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x016af6),
+      hi: Golang.Uint32(0x016aff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x016b46),
+      hi: Golang.Uint32(0x016b4f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x016b5a),
+      hi: Golang.Uint32(0x016b62),
+      stride: Golang.Uint32(8),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x016b78),
+      hi: Golang.Uint32(0x016b7c),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x016b90),
+      hi: Golang.Uint32(0x016e3f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x016e9b),
+      hi: Golang.Uint32(0x016eff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x016f4b),
+      hi: Golang.Uint32(0x016f4e),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x016f88),
+      hi: Golang.Uint32(0x016f8e),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x016fa0),
+      hi: Golang.Uint32(0x016fdf),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x016fe5),
+      hi: Golang.Uint32(0x016fef),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x016ff2),
+      hi: Golang.Uint32(0x016fff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0187f8),
+      hi: Golang.Uint32(0x0187ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x018cd6),
+      hi: Golang.Uint32(0x018cff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x018d09),
+      hi: Golang.Uint32(0x01afef),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01aff4),
+      hi: Golang.Uint32(0x01affc),
+      stride: Golang.Uint32(8),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01afff),
+      hi: Golang.Uint32(0x01b123),
+      stride: Golang.Uint32(292),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01b124),
+      hi: Golang.Uint32(0x01b131),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01b133),
+      hi: Golang.Uint32(0x01b14f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01b153),
+      hi: Golang.Uint32(0x01b154),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01b156),
+      hi: Golang.Uint32(0x01b163),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01b168),
+      hi: Golang.Uint32(0x01b16f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01b2fc),
+      hi: Golang.Uint32(0x01bbff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01bc6b),
+      hi: Golang.Uint32(0x01bc6f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01bc7d),
+      hi: Golang.Uint32(0x01bc7f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01bc89),
+      hi: Golang.Uint32(0x01bc8f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01bc9a),
+      hi: Golang.Uint32(0x01bc9b),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
       lo: Golang.Uint32(0x01bca0),
-      hi: Golang.Uint32(0x01bca3),
+      hi: Golang.Uint32(0x01ceff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01cf2e),
+      hi: Golang.Uint32(0x01cf2f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01cf47),
+      hi: Golang.Uint32(0x01cf4f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01cfc4),
+      hi: Golang.Uint32(0x01cfff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d0f6),
+      hi: Golang.Uint32(0x01d0ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d127),
+      hi: Golang.Uint32(0x01d128),
       stride: Golang.Uint32(1),
     ),
     Range32(
@@ -111,23 +2501,563 @@ final RangeTable c = RangeTable(
       stride: Golang.Uint32(1),
     ),
     Range32(
-      lo: Golang.Uint32(0x0e0001),
-      hi: Golang.Uint32(0x0e0020),
-      stride: Golang.Uint32(31),
-    ),
-    Range32(
-      lo: Golang.Uint32(0x0e0021),
-      hi: Golang.Uint32(0x0e007f),
+      lo: Golang.Uint32(0x01d1eb),
+      hi: Golang.Uint32(0x01d1ff),
       stride: Golang.Uint32(1),
     ),
     Range32(
-      lo: Golang.Uint32(0x0f0000),
-      hi: Golang.Uint32(0x0ffffd),
+      lo: Golang.Uint32(0x01d246),
+      hi: Golang.Uint32(0x01d2bf),
       stride: Golang.Uint32(1),
     ),
     Range32(
-      lo: Golang.Uint32(0x100000),
-      hi: Golang.Uint32(0x10fffd),
+      lo: Golang.Uint32(0x01d2d4),
+      hi: Golang.Uint32(0x01d2df),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d2f4),
+      hi: Golang.Uint32(0x01d2ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d357),
+      hi: Golang.Uint32(0x01d35f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d379),
+      hi: Golang.Uint32(0x01d3ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d455),
+      hi: Golang.Uint32(0x01d49d),
+      stride: Golang.Uint32(72),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d4a0),
+      hi: Golang.Uint32(0x01d4a1),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d4a3),
+      hi: Golang.Uint32(0x01d4a4),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d4a7),
+      hi: Golang.Uint32(0x01d4a8),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d4ad),
+      hi: Golang.Uint32(0x01d4ba),
+      stride: Golang.Uint32(13),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d4bc),
+      hi: Golang.Uint32(0x01d4c4),
+      stride: Golang.Uint32(8),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d506),
+      hi: Golang.Uint32(0x01d50b),
+      stride: Golang.Uint32(5),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d50c),
+      hi: Golang.Uint32(0x01d515),
+      stride: Golang.Uint32(9),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d51d),
+      hi: Golang.Uint32(0x01d53a),
+      stride: Golang.Uint32(29),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d53f),
+      hi: Golang.Uint32(0x01d545),
+      stride: Golang.Uint32(6),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d547),
+      hi: Golang.Uint32(0x01d549),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d551),
+      hi: Golang.Uint32(0x01d6a6),
+      stride: Golang.Uint32(341),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d6a7),
+      hi: Golang.Uint32(0x01d7cc),
+      stride: Golang.Uint32(293),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d7cd),
+      hi: Golang.Uint32(0x01da8c),
+      stride: Golang.Uint32(703),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01da8d),
+      hi: Golang.Uint32(0x01da9a),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01daa0),
+      hi: Golang.Uint32(0x01dab0),
+      stride: Golang.Uint32(16),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01dab1),
+      hi: Golang.Uint32(0x01deff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01df1f),
+      hi: Golang.Uint32(0x01df24),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01df2b),
+      hi: Golang.Uint32(0x01dfff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01e007),
+      hi: Golang.Uint32(0x01e019),
+      stride: Golang.Uint32(18),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01e01a),
+      hi: Golang.Uint32(0x01e022),
+      stride: Golang.Uint32(8),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01e025),
+      hi: Golang.Uint32(0x01e02b),
+      stride: Golang.Uint32(6),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01e02c),
+      hi: Golang.Uint32(0x01e02f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01e06e),
+      hi: Golang.Uint32(0x01e08e),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01e090),
+      hi: Golang.Uint32(0x01e0ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01e12d),
+      hi: Golang.Uint32(0x01e12f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01e13e),
+      hi: Golang.Uint32(0x01e13f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01e14a),
+      hi: Golang.Uint32(0x01e14d),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01e150),
+      hi: Golang.Uint32(0x01e28f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01e2af),
+      hi: Golang.Uint32(0x01e2bf),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01e2fa),
+      hi: Golang.Uint32(0x01e2fe),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01e300),
+      hi: Golang.Uint32(0x01e4cf),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01e4fa),
+      hi: Golang.Uint32(0x01e7df),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01e7e7),
+      hi: Golang.Uint32(0x01e7ec),
+      stride: Golang.Uint32(5),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01e7ef),
+      hi: Golang.Uint32(0x01e7ff),
+      stride: Golang.Uint32(16),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01e8c5),
+      hi: Golang.Uint32(0x01e8c6),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01e8d7),
+      hi: Golang.Uint32(0x01e8ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01e94c),
+      hi: Golang.Uint32(0x01e94f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01e95a),
+      hi: Golang.Uint32(0x01e95d),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01e960),
+      hi: Golang.Uint32(0x01ec70),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01ecb5),
+      hi: Golang.Uint32(0x01ed00),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01ed3e),
+      hi: Golang.Uint32(0x01edff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01ee04),
+      hi: Golang.Uint32(0x01ee20),
+      stride: Golang.Uint32(28),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01ee23),
+      hi: Golang.Uint32(0x01ee25),
+      stride: Golang.Uint32(2),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01ee26),
+      hi: Golang.Uint32(0x01ee28),
+      stride: Golang.Uint32(2),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01ee33),
+      hi: Golang.Uint32(0x01ee38),
+      stride: Golang.Uint32(5),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01ee3a),
+      hi: Golang.Uint32(0x01ee3c),
+      stride: Golang.Uint32(2),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01ee3d),
+      hi: Golang.Uint32(0x01ee41),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01ee43),
+      hi: Golang.Uint32(0x01ee46),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01ee48),
+      hi: Golang.Uint32(0x01ee4c),
+      stride: Golang.Uint32(2),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01ee50),
+      hi: Golang.Uint32(0x01ee53),
+      stride: Golang.Uint32(3),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01ee55),
+      hi: Golang.Uint32(0x01ee56),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01ee58),
+      hi: Golang.Uint32(0x01ee60),
+      stride: Golang.Uint32(2),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01ee63),
+      hi: Golang.Uint32(0x01ee65),
+      stride: Golang.Uint32(2),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01ee66),
+      hi: Golang.Uint32(0x01ee6b),
+      stride: Golang.Uint32(5),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01ee73),
+      hi: Golang.Uint32(0x01ee7d),
+      stride: Golang.Uint32(5),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01ee7f),
+      hi: Golang.Uint32(0x01ee8a),
+      stride: Golang.Uint32(11),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01ee9c),
+      hi: Golang.Uint32(0x01eea0),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01eea4),
+      hi: Golang.Uint32(0x01eeaa),
+      stride: Golang.Uint32(6),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01eebc),
+      hi: Golang.Uint32(0x01eeef),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01eef2),
+      hi: Golang.Uint32(0x01efff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f02c),
+      hi: Golang.Uint32(0x01f02f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f094),
+      hi: Golang.Uint32(0x01f09f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f0af),
+      hi: Golang.Uint32(0x01f0b0),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f0c0),
+      hi: Golang.Uint32(0x01f0d0),
+      stride: Golang.Uint32(16),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f0f6),
+      hi: Golang.Uint32(0x01f0ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f1ae),
+      hi: Golang.Uint32(0x01f1e5),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f203),
+      hi: Golang.Uint32(0x01f20f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f23c),
+      hi: Golang.Uint32(0x01f23f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f249),
+      hi: Golang.Uint32(0x01f24f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f252),
+      hi: Golang.Uint32(0x01f25f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f266),
+      hi: Golang.Uint32(0x01f2ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f6d8),
+      hi: Golang.Uint32(0x01f6db),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f6ed),
+      hi: Golang.Uint32(0x01f6ef),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f6fd),
+      hi: Golang.Uint32(0x01f6ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f777),
+      hi: Golang.Uint32(0x01f77a),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f7da),
+      hi: Golang.Uint32(0x01f7df),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f7ec),
+      hi: Golang.Uint32(0x01f7ef),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f7f1),
+      hi: Golang.Uint32(0x01f7ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f80c),
+      hi: Golang.Uint32(0x01f80f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f848),
+      hi: Golang.Uint32(0x01f84f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f85a),
+      hi: Golang.Uint32(0x01f85f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f888),
+      hi: Golang.Uint32(0x01f88f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f8ae),
+      hi: Golang.Uint32(0x01f8af),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f8b2),
+      hi: Golang.Uint32(0x01f8ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01fa54),
+      hi: Golang.Uint32(0x01fa5f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01fa6e),
+      hi: Golang.Uint32(0x01fa6f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01fa7d),
+      hi: Golang.Uint32(0x01fa7f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01fa89),
+      hi: Golang.Uint32(0x01fa8f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01fabe),
+      hi: Golang.Uint32(0x01fac6),
+      stride: Golang.Uint32(8),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01fac7),
+      hi: Golang.Uint32(0x01facd),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01fadc),
+      hi: Golang.Uint32(0x01fadf),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01fae9),
+      hi: Golang.Uint32(0x01faef),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01faf9),
+      hi: Golang.Uint32(0x01faff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01fb93),
+      hi: Golang.Uint32(0x01fbcb),
+      stride: Golang.Uint32(56),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01fbcc),
+      hi: Golang.Uint32(0x01fbef),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01fbfa),
+      hi: Golang.Uint32(0x01ffff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x02a6e0),
+      hi: Golang.Uint32(0x02a6ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x02b73a),
+      hi: Golang.Uint32(0x02b73f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x02b81e),
+      hi: Golang.Uint32(0x02b81f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x02cea2),
+      hi: Golang.Uint32(0x02ceaf),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x02ebe1),
+      hi: Golang.Uint32(0x02f7ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x02fa1e),
+      hi: Golang.Uint32(0x02ffff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x03134b),
+      hi: Golang.Uint32(0x03134f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0323b0),
+      hi: Golang.Uint32(0x0e00ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0e01f0),
+      hi: Golang.Uint32(0x10ffff),
       stride: Golang.Uint32(1),
     ),
   ], _range32Elem),
@@ -242,6 +3172,3033 @@ final RangeTable cf = RangeTable(
     Range32(
       lo: Golang.Uint32(0x0e0021),
       hi: Golang.Uint32(0x0e007f),
+      stride: Golang.Uint32(1),
+    ),
+  ], _range32Elem),
+);
+
+final RangeTable cn = RangeTable(
+  r16: Slice.of([
+    Range16(
+      lo: Golang.Uint16(0x0378),
+      hi: Golang.Uint16(0x0379),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0380),
+      hi: Golang.Uint16(0x0383),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x038b),
+      hi: Golang.Uint16(0x038d),
+      stride: Golang.Uint16(2),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x03a2),
+      hi: Golang.Uint16(0x0530),
+      stride: Golang.Uint16(398),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0557),
+      hi: Golang.Uint16(0x0558),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x058b),
+      hi: Golang.Uint16(0x058c),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0590),
+      hi: Golang.Uint16(0x05c8),
+      stride: Golang.Uint16(56),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x05c9),
+      hi: Golang.Uint16(0x05cf),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x05eb),
+      hi: Golang.Uint16(0x05ee),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x05f5),
+      hi: Golang.Uint16(0x05ff),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x070e),
+      hi: Golang.Uint16(0x074b),
+      stride: Golang.Uint16(61),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x074c),
+      hi: Golang.Uint16(0x07b2),
+      stride: Golang.Uint16(102),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x07b3),
+      hi: Golang.Uint16(0x07bf),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x07fb),
+      hi: Golang.Uint16(0x07fc),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x082e),
+      hi: Golang.Uint16(0x082f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x083f),
+      hi: Golang.Uint16(0x085c),
+      stride: Golang.Uint16(29),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x085d),
+      hi: Golang.Uint16(0x085f),
+      stride: Golang.Uint16(2),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x086b),
+      hi: Golang.Uint16(0x086f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x088f),
+      hi: Golang.Uint16(0x0892),
+      stride: Golang.Uint16(3),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0893),
+      hi: Golang.Uint16(0x0897),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0984),
+      hi: Golang.Uint16(0x098d),
+      stride: Golang.Uint16(9),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x098e),
+      hi: Golang.Uint16(0x0991),
+      stride: Golang.Uint16(3),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0992),
+      hi: Golang.Uint16(0x09a9),
+      stride: Golang.Uint16(23),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x09b1),
+      hi: Golang.Uint16(0x09b3),
+      stride: Golang.Uint16(2),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x09b4),
+      hi: Golang.Uint16(0x09b5),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x09ba),
+      hi: Golang.Uint16(0x09bb),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x09c5),
+      hi: Golang.Uint16(0x09c6),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x09c9),
+      hi: Golang.Uint16(0x09ca),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x09cf),
+      hi: Golang.Uint16(0x09d6),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x09d8),
+      hi: Golang.Uint16(0x09db),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x09de),
+      hi: Golang.Uint16(0x09e4),
+      stride: Golang.Uint16(6),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x09e5),
+      hi: Golang.Uint16(0x09ff),
+      stride: Golang.Uint16(26),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0a00),
+      hi: Golang.Uint16(0x0a04),
+      stride: Golang.Uint16(4),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0a0b),
+      hi: Golang.Uint16(0x0a0e),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0a11),
+      hi: Golang.Uint16(0x0a12),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0a29),
+      hi: Golang.Uint16(0x0a31),
+      stride: Golang.Uint16(8),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0a34),
+      hi: Golang.Uint16(0x0a3a),
+      stride: Golang.Uint16(3),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0a3b),
+      hi: Golang.Uint16(0x0a3d),
+      stride: Golang.Uint16(2),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0a43),
+      hi: Golang.Uint16(0x0a46),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0a49),
+      hi: Golang.Uint16(0x0a4a),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0a4e),
+      hi: Golang.Uint16(0x0a50),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0a52),
+      hi: Golang.Uint16(0x0a58),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0a5d),
+      hi: Golang.Uint16(0x0a5f),
+      stride: Golang.Uint16(2),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0a60),
+      hi: Golang.Uint16(0x0a65),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0a77),
+      hi: Golang.Uint16(0x0a80),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0a84),
+      hi: Golang.Uint16(0x0a8e),
+      stride: Golang.Uint16(10),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0a92),
+      hi: Golang.Uint16(0x0aa9),
+      stride: Golang.Uint16(23),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0ab1),
+      hi: Golang.Uint16(0x0ab4),
+      stride: Golang.Uint16(3),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0aba),
+      hi: Golang.Uint16(0x0abb),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0ac6),
+      hi: Golang.Uint16(0x0ace),
+      stride: Golang.Uint16(4),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0acf),
+      hi: Golang.Uint16(0x0ad1),
+      stride: Golang.Uint16(2),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0ad2),
+      hi: Golang.Uint16(0x0adf),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0ae4),
+      hi: Golang.Uint16(0x0ae5),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0af2),
+      hi: Golang.Uint16(0x0af8),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0b00),
+      hi: Golang.Uint16(0x0b04),
+      stride: Golang.Uint16(4),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0b0d),
+      hi: Golang.Uint16(0x0b0e),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0b11),
+      hi: Golang.Uint16(0x0b12),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0b29),
+      hi: Golang.Uint16(0x0b31),
+      stride: Golang.Uint16(8),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0b34),
+      hi: Golang.Uint16(0x0b3a),
+      stride: Golang.Uint16(6),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0b3b),
+      hi: Golang.Uint16(0x0b45),
+      stride: Golang.Uint16(10),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0b46),
+      hi: Golang.Uint16(0x0b49),
+      stride: Golang.Uint16(3),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0b4a),
+      hi: Golang.Uint16(0x0b4e),
+      stride: Golang.Uint16(4),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0b4f),
+      hi: Golang.Uint16(0x0b54),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0b58),
+      hi: Golang.Uint16(0x0b5b),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0b5e),
+      hi: Golang.Uint16(0x0b64),
+      stride: Golang.Uint16(6),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0b65),
+      hi: Golang.Uint16(0x0b78),
+      stride: Golang.Uint16(19),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0b79),
+      hi: Golang.Uint16(0x0b81),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0b84),
+      hi: Golang.Uint16(0x0b8b),
+      stride: Golang.Uint16(7),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0b8c),
+      hi: Golang.Uint16(0x0b8d),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0b91),
+      hi: Golang.Uint16(0x0b96),
+      stride: Golang.Uint16(5),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0b97),
+      hi: Golang.Uint16(0x0b98),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0b9b),
+      hi: Golang.Uint16(0x0b9d),
+      stride: Golang.Uint16(2),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0ba0),
+      hi: Golang.Uint16(0x0ba2),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0ba5),
+      hi: Golang.Uint16(0x0ba7),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0bab),
+      hi: Golang.Uint16(0x0bad),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0bba),
+      hi: Golang.Uint16(0x0bbd),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0bc3),
+      hi: Golang.Uint16(0x0bc5),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0bc9),
+      hi: Golang.Uint16(0x0bce),
+      stride: Golang.Uint16(5),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0bcf),
+      hi: Golang.Uint16(0x0bd1),
+      stride: Golang.Uint16(2),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0bd2),
+      hi: Golang.Uint16(0x0bd6),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0bd8),
+      hi: Golang.Uint16(0x0be5),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0bfb),
+      hi: Golang.Uint16(0x0bff),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0c0d),
+      hi: Golang.Uint16(0x0c11),
+      stride: Golang.Uint16(4),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0c29),
+      hi: Golang.Uint16(0x0c3a),
+      stride: Golang.Uint16(17),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0c3b),
+      hi: Golang.Uint16(0x0c45),
+      stride: Golang.Uint16(10),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0c49),
+      hi: Golang.Uint16(0x0c4e),
+      stride: Golang.Uint16(5),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0c4f),
+      hi: Golang.Uint16(0x0c54),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0c57),
+      hi: Golang.Uint16(0x0c5b),
+      stride: Golang.Uint16(4),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0c5c),
+      hi: Golang.Uint16(0x0c5e),
+      stride: Golang.Uint16(2),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0c5f),
+      hi: Golang.Uint16(0x0c64),
+      stride: Golang.Uint16(5),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0c65),
+      hi: Golang.Uint16(0x0c70),
+      stride: Golang.Uint16(11),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0c71),
+      hi: Golang.Uint16(0x0c76),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0c8d),
+      hi: Golang.Uint16(0x0c91),
+      stride: Golang.Uint16(4),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0ca9),
+      hi: Golang.Uint16(0x0cb4),
+      stride: Golang.Uint16(11),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0cba),
+      hi: Golang.Uint16(0x0cbb),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0cc5),
+      hi: Golang.Uint16(0x0cc9),
+      stride: Golang.Uint16(4),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0cce),
+      hi: Golang.Uint16(0x0cd4),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0cd7),
+      hi: Golang.Uint16(0x0cdc),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0cdf),
+      hi: Golang.Uint16(0x0ce4),
+      stride: Golang.Uint16(5),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0ce5),
+      hi: Golang.Uint16(0x0cf0),
+      stride: Golang.Uint16(11),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0cf4),
+      hi: Golang.Uint16(0x0cff),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0d0d),
+      hi: Golang.Uint16(0x0d11),
+      stride: Golang.Uint16(4),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0d45),
+      hi: Golang.Uint16(0x0d49),
+      stride: Golang.Uint16(4),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0d50),
+      hi: Golang.Uint16(0x0d53),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0d64),
+      hi: Golang.Uint16(0x0d65),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0d80),
+      hi: Golang.Uint16(0x0d84),
+      stride: Golang.Uint16(4),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0d97),
+      hi: Golang.Uint16(0x0d99),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0db2),
+      hi: Golang.Uint16(0x0dbc),
+      stride: Golang.Uint16(10),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0dbe),
+      hi: Golang.Uint16(0x0dbf),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0dc7),
+      hi: Golang.Uint16(0x0dc9),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0dcb),
+      hi: Golang.Uint16(0x0dce),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0dd5),
+      hi: Golang.Uint16(0x0dd7),
+      stride: Golang.Uint16(2),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0de0),
+      hi: Golang.Uint16(0x0de5),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0df0),
+      hi: Golang.Uint16(0x0df1),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0df5),
+      hi: Golang.Uint16(0x0e00),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0e3b),
+      hi: Golang.Uint16(0x0e3e),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0e5c),
+      hi: Golang.Uint16(0x0e80),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0e83),
+      hi: Golang.Uint16(0x0e85),
+      stride: Golang.Uint16(2),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0e8b),
+      hi: Golang.Uint16(0x0ea4),
+      stride: Golang.Uint16(25),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0ea6),
+      hi: Golang.Uint16(0x0ebe),
+      stride: Golang.Uint16(24),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0ebf),
+      hi: Golang.Uint16(0x0ec5),
+      stride: Golang.Uint16(6),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0ec7),
+      hi: Golang.Uint16(0x0ecf),
+      stride: Golang.Uint16(8),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0eda),
+      hi: Golang.Uint16(0x0edb),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0ee0),
+      hi: Golang.Uint16(0x0eff),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0f48),
+      hi: Golang.Uint16(0x0f6d),
+      stride: Golang.Uint16(37),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0f6e),
+      hi: Golang.Uint16(0x0f70),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0f98),
+      hi: Golang.Uint16(0x0fbd),
+      stride: Golang.Uint16(37),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0fcd),
+      hi: Golang.Uint16(0x0fdb),
+      stride: Golang.Uint16(14),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0fdc),
+      hi: Golang.Uint16(0x0fff),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x10c6),
+      hi: Golang.Uint16(0x10c8),
+      stride: Golang.Uint16(2),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x10c9),
+      hi: Golang.Uint16(0x10cc),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x10ce),
+      hi: Golang.Uint16(0x10cf),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1249),
+      hi: Golang.Uint16(0x124e),
+      stride: Golang.Uint16(5),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x124f),
+      hi: Golang.Uint16(0x1257),
+      stride: Golang.Uint16(8),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1259),
+      hi: Golang.Uint16(0x125e),
+      stride: Golang.Uint16(5),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x125f),
+      hi: Golang.Uint16(0x1289),
+      stride: Golang.Uint16(42),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x128e),
+      hi: Golang.Uint16(0x128f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x12b1),
+      hi: Golang.Uint16(0x12b6),
+      stride: Golang.Uint16(5),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x12b7),
+      hi: Golang.Uint16(0x12bf),
+      stride: Golang.Uint16(8),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x12c1),
+      hi: Golang.Uint16(0x12c6),
+      stride: Golang.Uint16(5),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x12c7),
+      hi: Golang.Uint16(0x12d7),
+      stride: Golang.Uint16(16),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1311),
+      hi: Golang.Uint16(0x1316),
+      stride: Golang.Uint16(5),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1317),
+      hi: Golang.Uint16(0x135b),
+      stride: Golang.Uint16(68),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x135c),
+      hi: Golang.Uint16(0x137d),
+      stride: Golang.Uint16(33),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x137e),
+      hi: Golang.Uint16(0x137f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x139a),
+      hi: Golang.Uint16(0x139f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x13f6),
+      hi: Golang.Uint16(0x13f7),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x13fe),
+      hi: Golang.Uint16(0x13ff),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x169d),
+      hi: Golang.Uint16(0x169f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x16f9),
+      hi: Golang.Uint16(0x16ff),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1716),
+      hi: Golang.Uint16(0x171e),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1737),
+      hi: Golang.Uint16(0x173f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1754),
+      hi: Golang.Uint16(0x175f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x176d),
+      hi: Golang.Uint16(0x1771),
+      stride: Golang.Uint16(4),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1774),
+      hi: Golang.Uint16(0x177f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x17de),
+      hi: Golang.Uint16(0x17df),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x17ea),
+      hi: Golang.Uint16(0x17ef),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x17fa),
+      hi: Golang.Uint16(0x17ff),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x181a),
+      hi: Golang.Uint16(0x181f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1879),
+      hi: Golang.Uint16(0x187f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x18ab),
+      hi: Golang.Uint16(0x18af),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x18f6),
+      hi: Golang.Uint16(0x18ff),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x191f),
+      hi: Golang.Uint16(0x192c),
+      stride: Golang.Uint16(13),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x192d),
+      hi: Golang.Uint16(0x192f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x193c),
+      hi: Golang.Uint16(0x193f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1941),
+      hi: Golang.Uint16(0x1943),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x196e),
+      hi: Golang.Uint16(0x196f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1975),
+      hi: Golang.Uint16(0x197f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x19ac),
+      hi: Golang.Uint16(0x19af),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x19ca),
+      hi: Golang.Uint16(0x19cf),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x19db),
+      hi: Golang.Uint16(0x19dd),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1a1c),
+      hi: Golang.Uint16(0x1a1d),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1a5f),
+      hi: Golang.Uint16(0x1a7d),
+      stride: Golang.Uint16(30),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1a7e),
+      hi: Golang.Uint16(0x1a8a),
+      stride: Golang.Uint16(12),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1a8b),
+      hi: Golang.Uint16(0x1a8f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1a9a),
+      hi: Golang.Uint16(0x1a9f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1aae),
+      hi: Golang.Uint16(0x1aaf),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1acf),
+      hi: Golang.Uint16(0x1aff),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1b4d),
+      hi: Golang.Uint16(0x1b4f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1b7f),
+      hi: Golang.Uint16(0x1bf4),
+      stride: Golang.Uint16(117),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1bf5),
+      hi: Golang.Uint16(0x1bfb),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1c38),
+      hi: Golang.Uint16(0x1c3a),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1c4a),
+      hi: Golang.Uint16(0x1c4c),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1c89),
+      hi: Golang.Uint16(0x1c8f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1cbb),
+      hi: Golang.Uint16(0x1cbc),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1cc8),
+      hi: Golang.Uint16(0x1ccf),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1cfb),
+      hi: Golang.Uint16(0x1cff),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1f16),
+      hi: Golang.Uint16(0x1f17),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1f1e),
+      hi: Golang.Uint16(0x1f1f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1f46),
+      hi: Golang.Uint16(0x1f47),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1f4e),
+      hi: Golang.Uint16(0x1f4f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1f58),
+      hi: Golang.Uint16(0x1f5e),
+      stride: Golang.Uint16(2),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1f7e),
+      hi: Golang.Uint16(0x1f7f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1fb5),
+      hi: Golang.Uint16(0x1fc5),
+      stride: Golang.Uint16(16),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1fd4),
+      hi: Golang.Uint16(0x1fd5),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1fdc),
+      hi: Golang.Uint16(0x1ff0),
+      stride: Golang.Uint16(20),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1ff1),
+      hi: Golang.Uint16(0x1ff5),
+      stride: Golang.Uint16(4),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1fff),
+      hi: Golang.Uint16(0x2065),
+      stride: Golang.Uint16(102),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x2072),
+      hi: Golang.Uint16(0x2073),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x208f),
+      hi: Golang.Uint16(0x209d),
+      stride: Golang.Uint16(14),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x209e),
+      hi: Golang.Uint16(0x209f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x20c1),
+      hi: Golang.Uint16(0x20cf),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x20f1),
+      hi: Golang.Uint16(0x20ff),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x218c),
+      hi: Golang.Uint16(0x218f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x2427),
+      hi: Golang.Uint16(0x243f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x244b),
+      hi: Golang.Uint16(0x245f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x2b74),
+      hi: Golang.Uint16(0x2b75),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x2b96),
+      hi: Golang.Uint16(0x2cf4),
+      stride: Golang.Uint16(350),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x2cf5),
+      hi: Golang.Uint16(0x2cf8),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x2d26),
+      hi: Golang.Uint16(0x2d28),
+      stride: Golang.Uint16(2),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x2d29),
+      hi: Golang.Uint16(0x2d2c),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x2d2e),
+      hi: Golang.Uint16(0x2d2f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x2d68),
+      hi: Golang.Uint16(0x2d6e),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x2d71),
+      hi: Golang.Uint16(0x2d7e),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x2d97),
+      hi: Golang.Uint16(0x2d9f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x2da7),
+      hi: Golang.Uint16(0x2ddf),
+      stride: Golang.Uint16(8),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x2e5e),
+      hi: Golang.Uint16(0x2e7f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x2e9a),
+      hi: Golang.Uint16(0x2ef4),
+      stride: Golang.Uint16(90),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x2ef5),
+      hi: Golang.Uint16(0x2eff),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x2fd6),
+      hi: Golang.Uint16(0x2fef),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x2ffc),
+      hi: Golang.Uint16(0x2fff),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x3040),
+      hi: Golang.Uint16(0x3097),
+      stride: Golang.Uint16(87),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x3098),
+      hi: Golang.Uint16(0x3100),
+      stride: Golang.Uint16(104),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x3101),
+      hi: Golang.Uint16(0x3104),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x3130),
+      hi: Golang.Uint16(0x318f),
+      stride: Golang.Uint16(95),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x31e4),
+      hi: Golang.Uint16(0x31ef),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x321f),
+      hi: Golang.Uint16(0xa48d),
+      stride: Golang.Uint16(29294),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xa48e),
+      hi: Golang.Uint16(0xa48f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xa4c7),
+      hi: Golang.Uint16(0xa4cf),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xa62c),
+      hi: Golang.Uint16(0xa63f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xa6f8),
+      hi: Golang.Uint16(0xa6ff),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xa7cb),
+      hi: Golang.Uint16(0xa7cf),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xa7d2),
+      hi: Golang.Uint16(0xa7d4),
+      stride: Golang.Uint16(2),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xa7da),
+      hi: Golang.Uint16(0xa7f1),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xa82d),
+      hi: Golang.Uint16(0xa82f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xa83a),
+      hi: Golang.Uint16(0xa83f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xa878),
+      hi: Golang.Uint16(0xa87f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xa8c6),
+      hi: Golang.Uint16(0xa8cd),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xa8da),
+      hi: Golang.Uint16(0xa8df),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xa954),
+      hi: Golang.Uint16(0xa95e),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xa97d),
+      hi: Golang.Uint16(0xa97f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xa9ce),
+      hi: Golang.Uint16(0xa9da),
+      stride: Golang.Uint16(12),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xa9db),
+      hi: Golang.Uint16(0xa9dd),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xa9ff),
+      hi: Golang.Uint16(0xaa37),
+      stride: Golang.Uint16(56),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xaa38),
+      hi: Golang.Uint16(0xaa3f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xaa4e),
+      hi: Golang.Uint16(0xaa4f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xaa5a),
+      hi: Golang.Uint16(0xaa5b),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xaac3),
+      hi: Golang.Uint16(0xaada),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xaaf7),
+      hi: Golang.Uint16(0xab00),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xab07),
+      hi: Golang.Uint16(0xab08),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xab0f),
+      hi: Golang.Uint16(0xab10),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xab17),
+      hi: Golang.Uint16(0xab1f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xab27),
+      hi: Golang.Uint16(0xab2f),
+      stride: Golang.Uint16(8),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xab6c),
+      hi: Golang.Uint16(0xab6f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xabee),
+      hi: Golang.Uint16(0xabef),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xabfa),
+      hi: Golang.Uint16(0xabff),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xd7a4),
+      hi: Golang.Uint16(0xd7af),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xd7c7),
+      hi: Golang.Uint16(0xd7ca),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xd7fc),
+      hi: Golang.Uint16(0xd7ff),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xfa6e),
+      hi: Golang.Uint16(0xfa6f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xfada),
+      hi: Golang.Uint16(0xfaff),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xfb07),
+      hi: Golang.Uint16(0xfb12),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xfb18),
+      hi: Golang.Uint16(0xfb1c),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xfb37),
+      hi: Golang.Uint16(0xfb3d),
+      stride: Golang.Uint16(6),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xfb3f),
+      hi: Golang.Uint16(0xfb45),
+      stride: Golang.Uint16(3),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xfbc3),
+      hi: Golang.Uint16(0xfbd2),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xfd90),
+      hi: Golang.Uint16(0xfd91),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xfdc8),
+      hi: Golang.Uint16(0xfdce),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xfdd0),
+      hi: Golang.Uint16(0xfdef),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xfe1a),
+      hi: Golang.Uint16(0xfe1f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xfe53),
+      hi: Golang.Uint16(0xfe67),
+      stride: Golang.Uint16(20),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xfe6c),
+      hi: Golang.Uint16(0xfe6f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xfe75),
+      hi: Golang.Uint16(0xfefd),
+      stride: Golang.Uint16(136),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xfefe),
+      hi: Golang.Uint16(0xff00),
+      stride: Golang.Uint16(2),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xffbf),
+      hi: Golang.Uint16(0xffc1),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xffc8),
+      hi: Golang.Uint16(0xffc9),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xffd0),
+      hi: Golang.Uint16(0xffd1),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xffd8),
+      hi: Golang.Uint16(0xffd9),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xffdd),
+      hi: Golang.Uint16(0xffdf),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xffe7),
+      hi: Golang.Uint16(0xffef),
+      stride: Golang.Uint16(8),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xfff0),
+      hi: Golang.Uint16(0xfff8),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xfffe),
+      hi: Golang.Uint16(0xffff),
+      stride: Golang.Uint16(1),
+    ),
+  ], _range16Elem),
+  r32: Slice.of([
+    Range32(
+      lo: Golang.Uint32(0x01000c),
+      hi: Golang.Uint32(0x010027),
+      stride: Golang.Uint32(27),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01003b),
+      hi: Golang.Uint32(0x01003e),
+      stride: Golang.Uint32(3),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01004e),
+      hi: Golang.Uint32(0x01004f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01005e),
+      hi: Golang.Uint32(0x01007f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0100fb),
+      hi: Golang.Uint32(0x0100ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010103),
+      hi: Golang.Uint32(0x010106),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010134),
+      hi: Golang.Uint32(0x010136),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01018f),
+      hi: Golang.Uint32(0x01019d),
+      stride: Golang.Uint32(14),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01019e),
+      hi: Golang.Uint32(0x01019f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0101a1),
+      hi: Golang.Uint32(0x0101cf),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0101fe),
+      hi: Golang.Uint32(0x01027f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01029d),
+      hi: Golang.Uint32(0x01029f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0102d1),
+      hi: Golang.Uint32(0x0102df),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0102fc),
+      hi: Golang.Uint32(0x0102ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010324),
+      hi: Golang.Uint32(0x01032c),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01034b),
+      hi: Golang.Uint32(0x01034f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01037b),
+      hi: Golang.Uint32(0x01037f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01039e),
+      hi: Golang.Uint32(0x0103c4),
+      stride: Golang.Uint32(38),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0103c5),
+      hi: Golang.Uint32(0x0103c7),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0103d6),
+      hi: Golang.Uint32(0x0103ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01049e),
+      hi: Golang.Uint32(0x01049f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0104aa),
+      hi: Golang.Uint32(0x0104af),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0104d4),
+      hi: Golang.Uint32(0x0104d7),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0104fc),
+      hi: Golang.Uint32(0x0104ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010528),
+      hi: Golang.Uint32(0x01052f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010564),
+      hi: Golang.Uint32(0x01056e),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01057b),
+      hi: Golang.Uint32(0x01058b),
+      stride: Golang.Uint32(16),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010593),
+      hi: Golang.Uint32(0x010596),
+      stride: Golang.Uint32(3),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0105a2),
+      hi: Golang.Uint32(0x0105b2),
+      stride: Golang.Uint32(16),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0105ba),
+      hi: Golang.Uint32(0x0105bd),
+      stride: Golang.Uint32(3),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0105be),
+      hi: Golang.Uint32(0x0105ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010737),
+      hi: Golang.Uint32(0x01073f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010756),
+      hi: Golang.Uint32(0x01075f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010768),
+      hi: Golang.Uint32(0x01077f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010786),
+      hi: Golang.Uint32(0x0107b1),
+      stride: Golang.Uint32(43),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0107bb),
+      hi: Golang.Uint32(0x0107ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010806),
+      hi: Golang.Uint32(0x010807),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010809),
+      hi: Golang.Uint32(0x010836),
+      stride: Golang.Uint32(45),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010839),
+      hi: Golang.Uint32(0x01083b),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01083d),
+      hi: Golang.Uint32(0x01083e),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010856),
+      hi: Golang.Uint32(0x01089f),
+      stride: Golang.Uint32(73),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0108a0),
+      hi: Golang.Uint32(0x0108a6),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0108b0),
+      hi: Golang.Uint32(0x0108df),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0108f3),
+      hi: Golang.Uint32(0x0108f6),
+      stride: Golang.Uint32(3),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0108f7),
+      hi: Golang.Uint32(0x0108fa),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01091c),
+      hi: Golang.Uint32(0x01091e),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01093a),
+      hi: Golang.Uint32(0x01093e),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010940),
+      hi: Golang.Uint32(0x01097f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0109b8),
+      hi: Golang.Uint32(0x0109bb),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0109d0),
+      hi: Golang.Uint32(0x0109d1),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010a04),
+      hi: Golang.Uint32(0x010a07),
+      stride: Golang.Uint32(3),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010a08),
+      hi: Golang.Uint32(0x010a0b),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010a14),
+      hi: Golang.Uint32(0x010a18),
+      stride: Golang.Uint32(4),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010a36),
+      hi: Golang.Uint32(0x010a37),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010a3b),
+      hi: Golang.Uint32(0x010a3e),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010a49),
+      hi: Golang.Uint32(0x010a4f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010a59),
+      hi: Golang.Uint32(0x010a5f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010aa0),
+      hi: Golang.Uint32(0x010abf),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010ae7),
+      hi: Golang.Uint32(0x010aea),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010af7),
+      hi: Golang.Uint32(0x010aff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010b36),
+      hi: Golang.Uint32(0x010b38),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010b56),
+      hi: Golang.Uint32(0x010b57),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010b73),
+      hi: Golang.Uint32(0x010b77),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010b92),
+      hi: Golang.Uint32(0x010b98),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010b9d),
+      hi: Golang.Uint32(0x010ba8),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010bb0),
+      hi: Golang.Uint32(0x010bff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010c49),
+      hi: Golang.Uint32(0x010c7f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010cb3),
+      hi: Golang.Uint32(0x010cbf),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010cf3),
+      hi: Golang.Uint32(0x010cf9),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010d28),
+      hi: Golang.Uint32(0x010d2f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010d3a),
+      hi: Golang.Uint32(0x010e5f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010e7f),
+      hi: Golang.Uint32(0x010eaa),
+      stride: Golang.Uint32(43),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010eae),
+      hi: Golang.Uint32(0x010eaf),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010eb2),
+      hi: Golang.Uint32(0x010efc),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010f28),
+      hi: Golang.Uint32(0x010f2f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010f5a),
+      hi: Golang.Uint32(0x010f6f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010f8a),
+      hi: Golang.Uint32(0x010faf),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010fcc),
+      hi: Golang.Uint32(0x010fdf),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010ff7),
+      hi: Golang.Uint32(0x010fff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01104e),
+      hi: Golang.Uint32(0x011051),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011076),
+      hi: Golang.Uint32(0x01107e),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0110c3),
+      hi: Golang.Uint32(0x0110cc),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0110ce),
+      hi: Golang.Uint32(0x0110cf),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0110e9),
+      hi: Golang.Uint32(0x0110ef),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0110fa),
+      hi: Golang.Uint32(0x0110ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011135),
+      hi: Golang.Uint32(0x011148),
+      stride: Golang.Uint32(19),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011149),
+      hi: Golang.Uint32(0x01114f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011177),
+      hi: Golang.Uint32(0x01117f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0111e0),
+      hi: Golang.Uint32(0x0111f5),
+      stride: Golang.Uint32(21),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0111f6),
+      hi: Golang.Uint32(0x0111ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011212),
+      hi: Golang.Uint32(0x011242),
+      stride: Golang.Uint32(48),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011243),
+      hi: Golang.Uint32(0x01127f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011287),
+      hi: Golang.Uint32(0x011289),
+      stride: Golang.Uint32(2),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01128e),
+      hi: Golang.Uint32(0x01129e),
+      stride: Golang.Uint32(16),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0112aa),
+      hi: Golang.Uint32(0x0112af),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0112eb),
+      hi: Golang.Uint32(0x0112ef),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0112fa),
+      hi: Golang.Uint32(0x0112ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011304),
+      hi: Golang.Uint32(0x01130d),
+      stride: Golang.Uint32(9),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01130e),
+      hi: Golang.Uint32(0x011311),
+      stride: Golang.Uint32(3),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011312),
+      hi: Golang.Uint32(0x011329),
+      stride: Golang.Uint32(23),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011331),
+      hi: Golang.Uint32(0x011334),
+      stride: Golang.Uint32(3),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01133a),
+      hi: Golang.Uint32(0x011345),
+      stride: Golang.Uint32(11),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011346),
+      hi: Golang.Uint32(0x011349),
+      stride: Golang.Uint32(3),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01134a),
+      hi: Golang.Uint32(0x01134e),
+      stride: Golang.Uint32(4),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01134f),
+      hi: Golang.Uint32(0x011351),
+      stride: Golang.Uint32(2),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011352),
+      hi: Golang.Uint32(0x011356),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011358),
+      hi: Golang.Uint32(0x01135c),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011364),
+      hi: Golang.Uint32(0x011365),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01136d),
+      hi: Golang.Uint32(0x01136f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011375),
+      hi: Golang.Uint32(0x0113ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01145c),
+      hi: Golang.Uint32(0x011462),
+      stride: Golang.Uint32(6),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011463),
+      hi: Golang.Uint32(0x01147f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0114c8),
+      hi: Golang.Uint32(0x0114cf),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0114da),
+      hi: Golang.Uint32(0x01157f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0115b6),
+      hi: Golang.Uint32(0x0115b7),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0115de),
+      hi: Golang.Uint32(0x0115ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011645),
+      hi: Golang.Uint32(0x01164f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01165a),
+      hi: Golang.Uint32(0x01165f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01166d),
+      hi: Golang.Uint32(0x01167f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0116ba),
+      hi: Golang.Uint32(0x0116bf),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0116ca),
+      hi: Golang.Uint32(0x0116ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01171b),
+      hi: Golang.Uint32(0x01171c),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01172c),
+      hi: Golang.Uint32(0x01172f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011747),
+      hi: Golang.Uint32(0x0117ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01183c),
+      hi: Golang.Uint32(0x01189f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0118f3),
+      hi: Golang.Uint32(0x0118fe),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011907),
+      hi: Golang.Uint32(0x011908),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01190a),
+      hi: Golang.Uint32(0x01190b),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011914),
+      hi: Golang.Uint32(0x011917),
+      stride: Golang.Uint32(3),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011936),
+      hi: Golang.Uint32(0x011939),
+      stride: Golang.Uint32(3),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01193a),
+      hi: Golang.Uint32(0x011947),
+      stride: Golang.Uint32(13),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011948),
+      hi: Golang.Uint32(0x01194f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01195a),
+      hi: Golang.Uint32(0x01199f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0119a8),
+      hi: Golang.Uint32(0x0119a9),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0119d8),
+      hi: Golang.Uint32(0x0119d9),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0119e5),
+      hi: Golang.Uint32(0x0119ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011a48),
+      hi: Golang.Uint32(0x011a4f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011aa3),
+      hi: Golang.Uint32(0x011aaf),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011af9),
+      hi: Golang.Uint32(0x011aff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011b0a),
+      hi: Golang.Uint32(0x011bff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011c09),
+      hi: Golang.Uint32(0x011c37),
+      stride: Golang.Uint32(46),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011c46),
+      hi: Golang.Uint32(0x011c4f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011c6d),
+      hi: Golang.Uint32(0x011c6f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011c90),
+      hi: Golang.Uint32(0x011c91),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011ca8),
+      hi: Golang.Uint32(0x011cb7),
+      stride: Golang.Uint32(15),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011cb8),
+      hi: Golang.Uint32(0x011cff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011d07),
+      hi: Golang.Uint32(0x011d0a),
+      stride: Golang.Uint32(3),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011d37),
+      hi: Golang.Uint32(0x011d39),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011d3b),
+      hi: Golang.Uint32(0x011d3e),
+      stride: Golang.Uint32(3),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011d48),
+      hi: Golang.Uint32(0x011d4f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011d5a),
+      hi: Golang.Uint32(0x011d5f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011d66),
+      hi: Golang.Uint32(0x011d69),
+      stride: Golang.Uint32(3),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011d8f),
+      hi: Golang.Uint32(0x011d92),
+      stride: Golang.Uint32(3),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011d99),
+      hi: Golang.Uint32(0x011d9f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011daa),
+      hi: Golang.Uint32(0x011edf),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011ef9),
+      hi: Golang.Uint32(0x011eff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011f11),
+      hi: Golang.Uint32(0x011f3b),
+      stride: Golang.Uint32(42),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011f3c),
+      hi: Golang.Uint32(0x011f3d),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011f5a),
+      hi: Golang.Uint32(0x011faf),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011fb1),
+      hi: Golang.Uint32(0x011fbf),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x011ff2),
+      hi: Golang.Uint32(0x011ffe),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01239a),
+      hi: Golang.Uint32(0x0123ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01246f),
+      hi: Golang.Uint32(0x012475),
+      stride: Golang.Uint32(6),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x012476),
+      hi: Golang.Uint32(0x01247f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x012544),
+      hi: Golang.Uint32(0x012f8f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x012ff3),
+      hi: Golang.Uint32(0x012fff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x013456),
+      hi: Golang.Uint32(0x0143ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x014647),
+      hi: Golang.Uint32(0x0167ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x016a39),
+      hi: Golang.Uint32(0x016a3f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x016a5f),
+      hi: Golang.Uint32(0x016a6a),
+      stride: Golang.Uint32(11),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x016a6b),
+      hi: Golang.Uint32(0x016a6d),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x016abf),
+      hi: Golang.Uint32(0x016aca),
+      stride: Golang.Uint32(11),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x016acb),
+      hi: Golang.Uint32(0x016acf),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x016aee),
+      hi: Golang.Uint32(0x016aef),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x016af6),
+      hi: Golang.Uint32(0x016aff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x016b46),
+      hi: Golang.Uint32(0x016b4f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x016b5a),
+      hi: Golang.Uint32(0x016b62),
+      stride: Golang.Uint32(8),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x016b78),
+      hi: Golang.Uint32(0x016b7c),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x016b90),
+      hi: Golang.Uint32(0x016e3f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x016e9b),
+      hi: Golang.Uint32(0x016eff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x016f4b),
+      hi: Golang.Uint32(0x016f4e),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x016f88),
+      hi: Golang.Uint32(0x016f8e),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x016fa0),
+      hi: Golang.Uint32(0x016fdf),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x016fe5),
+      hi: Golang.Uint32(0x016fef),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x016ff2),
+      hi: Golang.Uint32(0x016fff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0187f8),
+      hi: Golang.Uint32(0x0187ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x018cd6),
+      hi: Golang.Uint32(0x018cff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x018d09),
+      hi: Golang.Uint32(0x01afef),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01aff4),
+      hi: Golang.Uint32(0x01affc),
+      stride: Golang.Uint32(8),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01afff),
+      hi: Golang.Uint32(0x01b123),
+      stride: Golang.Uint32(292),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01b124),
+      hi: Golang.Uint32(0x01b131),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01b133),
+      hi: Golang.Uint32(0x01b14f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01b153),
+      hi: Golang.Uint32(0x01b154),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01b156),
+      hi: Golang.Uint32(0x01b163),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01b168),
+      hi: Golang.Uint32(0x01b16f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01b2fc),
+      hi: Golang.Uint32(0x01bbff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01bc6b),
+      hi: Golang.Uint32(0x01bc6f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01bc7d),
+      hi: Golang.Uint32(0x01bc7f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01bc89),
+      hi: Golang.Uint32(0x01bc8f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01bc9a),
+      hi: Golang.Uint32(0x01bc9b),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01bca4),
+      hi: Golang.Uint32(0x01ceff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01cf2e),
+      hi: Golang.Uint32(0x01cf2f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01cf47),
+      hi: Golang.Uint32(0x01cf4f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01cfc4),
+      hi: Golang.Uint32(0x01cfff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d0f6),
+      hi: Golang.Uint32(0x01d0ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d127),
+      hi: Golang.Uint32(0x01d128),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d1eb),
+      hi: Golang.Uint32(0x01d1ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d246),
+      hi: Golang.Uint32(0x01d2bf),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d2d4),
+      hi: Golang.Uint32(0x01d2df),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d2f4),
+      hi: Golang.Uint32(0x01d2ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d357),
+      hi: Golang.Uint32(0x01d35f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d379),
+      hi: Golang.Uint32(0x01d3ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d455),
+      hi: Golang.Uint32(0x01d49d),
+      stride: Golang.Uint32(72),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d4a0),
+      hi: Golang.Uint32(0x01d4a1),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d4a3),
+      hi: Golang.Uint32(0x01d4a4),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d4a7),
+      hi: Golang.Uint32(0x01d4a8),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d4ad),
+      hi: Golang.Uint32(0x01d4ba),
+      stride: Golang.Uint32(13),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d4bc),
+      hi: Golang.Uint32(0x01d4c4),
+      stride: Golang.Uint32(8),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d506),
+      hi: Golang.Uint32(0x01d50b),
+      stride: Golang.Uint32(5),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d50c),
+      hi: Golang.Uint32(0x01d515),
+      stride: Golang.Uint32(9),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d51d),
+      hi: Golang.Uint32(0x01d53a),
+      stride: Golang.Uint32(29),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d53f),
+      hi: Golang.Uint32(0x01d545),
+      stride: Golang.Uint32(6),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d547),
+      hi: Golang.Uint32(0x01d549),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d551),
+      hi: Golang.Uint32(0x01d6a6),
+      stride: Golang.Uint32(341),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d6a7),
+      hi: Golang.Uint32(0x01d7cc),
+      stride: Golang.Uint32(293),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d7cd),
+      hi: Golang.Uint32(0x01da8c),
+      stride: Golang.Uint32(703),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01da8d),
+      hi: Golang.Uint32(0x01da9a),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01daa0),
+      hi: Golang.Uint32(0x01dab0),
+      stride: Golang.Uint32(16),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01dab1),
+      hi: Golang.Uint32(0x01deff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01df1f),
+      hi: Golang.Uint32(0x01df24),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01df2b),
+      hi: Golang.Uint32(0x01dfff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01e007),
+      hi: Golang.Uint32(0x01e019),
+      stride: Golang.Uint32(18),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01e01a),
+      hi: Golang.Uint32(0x01e022),
+      stride: Golang.Uint32(8),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01e025),
+      hi: Golang.Uint32(0x01e02b),
+      stride: Golang.Uint32(6),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01e02c),
+      hi: Golang.Uint32(0x01e02f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01e06e),
+      hi: Golang.Uint32(0x01e08e),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01e090),
+      hi: Golang.Uint32(0x01e0ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01e12d),
+      hi: Golang.Uint32(0x01e12f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01e13e),
+      hi: Golang.Uint32(0x01e13f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01e14a),
+      hi: Golang.Uint32(0x01e14d),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01e150),
+      hi: Golang.Uint32(0x01e28f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01e2af),
+      hi: Golang.Uint32(0x01e2bf),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01e2fa),
+      hi: Golang.Uint32(0x01e2fe),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01e300),
+      hi: Golang.Uint32(0x01e4cf),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01e4fa),
+      hi: Golang.Uint32(0x01e7df),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01e7e7),
+      hi: Golang.Uint32(0x01e7ec),
+      stride: Golang.Uint32(5),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01e7ef),
+      hi: Golang.Uint32(0x01e7ff),
+      stride: Golang.Uint32(16),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01e8c5),
+      hi: Golang.Uint32(0x01e8c6),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01e8d7),
+      hi: Golang.Uint32(0x01e8ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01e94c),
+      hi: Golang.Uint32(0x01e94f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01e95a),
+      hi: Golang.Uint32(0x01e95d),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01e960),
+      hi: Golang.Uint32(0x01ec70),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01ecb5),
+      hi: Golang.Uint32(0x01ed00),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01ed3e),
+      hi: Golang.Uint32(0x01edff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01ee04),
+      hi: Golang.Uint32(0x01ee20),
+      stride: Golang.Uint32(28),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01ee23),
+      hi: Golang.Uint32(0x01ee25),
+      stride: Golang.Uint32(2),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01ee26),
+      hi: Golang.Uint32(0x01ee28),
+      stride: Golang.Uint32(2),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01ee33),
+      hi: Golang.Uint32(0x01ee38),
+      stride: Golang.Uint32(5),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01ee3a),
+      hi: Golang.Uint32(0x01ee3c),
+      stride: Golang.Uint32(2),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01ee3d),
+      hi: Golang.Uint32(0x01ee41),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01ee43),
+      hi: Golang.Uint32(0x01ee46),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01ee48),
+      hi: Golang.Uint32(0x01ee4c),
+      stride: Golang.Uint32(2),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01ee50),
+      hi: Golang.Uint32(0x01ee53),
+      stride: Golang.Uint32(3),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01ee55),
+      hi: Golang.Uint32(0x01ee56),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01ee58),
+      hi: Golang.Uint32(0x01ee60),
+      stride: Golang.Uint32(2),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01ee63),
+      hi: Golang.Uint32(0x01ee65),
+      stride: Golang.Uint32(2),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01ee66),
+      hi: Golang.Uint32(0x01ee6b),
+      stride: Golang.Uint32(5),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01ee73),
+      hi: Golang.Uint32(0x01ee7d),
+      stride: Golang.Uint32(5),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01ee7f),
+      hi: Golang.Uint32(0x01ee8a),
+      stride: Golang.Uint32(11),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01ee9c),
+      hi: Golang.Uint32(0x01eea0),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01eea4),
+      hi: Golang.Uint32(0x01eeaa),
+      stride: Golang.Uint32(6),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01eebc),
+      hi: Golang.Uint32(0x01eeef),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01eef2),
+      hi: Golang.Uint32(0x01efff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f02c),
+      hi: Golang.Uint32(0x01f02f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f094),
+      hi: Golang.Uint32(0x01f09f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f0af),
+      hi: Golang.Uint32(0x01f0b0),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f0c0),
+      hi: Golang.Uint32(0x01f0d0),
+      stride: Golang.Uint32(16),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f0f6),
+      hi: Golang.Uint32(0x01f0ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f1ae),
+      hi: Golang.Uint32(0x01f1e5),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f203),
+      hi: Golang.Uint32(0x01f20f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f23c),
+      hi: Golang.Uint32(0x01f23f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f249),
+      hi: Golang.Uint32(0x01f24f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f252),
+      hi: Golang.Uint32(0x01f25f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f266),
+      hi: Golang.Uint32(0x01f2ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f6d8),
+      hi: Golang.Uint32(0x01f6db),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f6ed),
+      hi: Golang.Uint32(0x01f6ef),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f6fd),
+      hi: Golang.Uint32(0x01f6ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f777),
+      hi: Golang.Uint32(0x01f77a),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f7da),
+      hi: Golang.Uint32(0x01f7df),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f7ec),
+      hi: Golang.Uint32(0x01f7ef),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f7f1),
+      hi: Golang.Uint32(0x01f7ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f80c),
+      hi: Golang.Uint32(0x01f80f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f848),
+      hi: Golang.Uint32(0x01f84f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f85a),
+      hi: Golang.Uint32(0x01f85f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f888),
+      hi: Golang.Uint32(0x01f88f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f8ae),
+      hi: Golang.Uint32(0x01f8af),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01f8b2),
+      hi: Golang.Uint32(0x01f8ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01fa54),
+      hi: Golang.Uint32(0x01fa5f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01fa6e),
+      hi: Golang.Uint32(0x01fa6f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01fa7d),
+      hi: Golang.Uint32(0x01fa7f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01fa89),
+      hi: Golang.Uint32(0x01fa8f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01fabe),
+      hi: Golang.Uint32(0x01fac6),
+      stride: Golang.Uint32(8),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01fac7),
+      hi: Golang.Uint32(0x01facd),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01fadc),
+      hi: Golang.Uint32(0x01fadf),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01fae9),
+      hi: Golang.Uint32(0x01faef),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01faf9),
+      hi: Golang.Uint32(0x01faff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01fb93),
+      hi: Golang.Uint32(0x01fbcb),
+      stride: Golang.Uint32(56),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01fbcc),
+      hi: Golang.Uint32(0x01fbef),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01fbfa),
+      hi: Golang.Uint32(0x01ffff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x02a6e0),
+      hi: Golang.Uint32(0x02a6ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x02b73a),
+      hi: Golang.Uint32(0x02b73f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x02b81e),
+      hi: Golang.Uint32(0x02b81f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x02cea2),
+      hi: Golang.Uint32(0x02ceaf),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x02ebe1),
+      hi: Golang.Uint32(0x02f7ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x02fa1e),
+      hi: Golang.Uint32(0x02ffff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x03134b),
+      hi: Golang.Uint32(0x03134f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0323b0),
+      hi: Golang.Uint32(0x0e0000),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0e0002),
+      hi: Golang.Uint32(0x0e001f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0e0080),
+      hi: Golang.Uint32(0x0e00ff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0e01f0),
+      hi: Golang.Uint32(0x0effff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0ffffe),
+      hi: Golang.Uint32(0x0fffff),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x10fffe),
+      hi: Golang.Uint32(0x10ffff),
       stride: Golang.Uint32(1),
     ),
   ], _range32Elem),
@@ -3400,6 +9357,689 @@ final RangeTable l = RangeTable(
     ),
   ], _range32Elem),
   latinOffset: Golang.Int(6),
+);
+
+final RangeTable lc = RangeTable(
+  r16: Slice.of([
+    Range16(
+      lo: Golang.Uint16(0x0041),
+      hi: Golang.Uint16(0x005a),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0061),
+      hi: Golang.Uint16(0x007a),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x00b5),
+      hi: Golang.Uint16(0x00c0),
+      stride: Golang.Uint16(11),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x00c1),
+      hi: Golang.Uint16(0x00d6),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x00d8),
+      hi: Golang.Uint16(0x00f6),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x00f8),
+      hi: Golang.Uint16(0x01ba),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x01bc),
+      hi: Golang.Uint16(0x01bf),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x01c4),
+      hi: Golang.Uint16(0x0293),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0295),
+      hi: Golang.Uint16(0x02af),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0370),
+      hi: Golang.Uint16(0x0373),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0376),
+      hi: Golang.Uint16(0x0377),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x037b),
+      hi: Golang.Uint16(0x037d),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x037f),
+      hi: Golang.Uint16(0x0386),
+      stride: Golang.Uint16(7),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0388),
+      hi: Golang.Uint16(0x038a),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x038c),
+      hi: Golang.Uint16(0x038e),
+      stride: Golang.Uint16(2),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x038f),
+      hi: Golang.Uint16(0x03a1),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x03a3),
+      hi: Golang.Uint16(0x03f5),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x03f7),
+      hi: Golang.Uint16(0x0481),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x048a),
+      hi: Golang.Uint16(0x052f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0531),
+      hi: Golang.Uint16(0x0556),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x0560),
+      hi: Golang.Uint16(0x0588),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x10a0),
+      hi: Golang.Uint16(0x10c5),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x10c7),
+      hi: Golang.Uint16(0x10cd),
+      stride: Golang.Uint16(6),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x10d0),
+      hi: Golang.Uint16(0x10fa),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x10fd),
+      hi: Golang.Uint16(0x10ff),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x13a0),
+      hi: Golang.Uint16(0x13f5),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x13f8),
+      hi: Golang.Uint16(0x13fd),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1c80),
+      hi: Golang.Uint16(0x1c88),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1c90),
+      hi: Golang.Uint16(0x1cba),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1cbd),
+      hi: Golang.Uint16(0x1cbf),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1d00),
+      hi: Golang.Uint16(0x1d2b),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1d6b),
+      hi: Golang.Uint16(0x1d77),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1d79),
+      hi: Golang.Uint16(0x1d9a),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1e00),
+      hi: Golang.Uint16(0x1f15),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1f18),
+      hi: Golang.Uint16(0x1f1d),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1f20),
+      hi: Golang.Uint16(0x1f45),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1f48),
+      hi: Golang.Uint16(0x1f4d),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1f50),
+      hi: Golang.Uint16(0x1f57),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1f59),
+      hi: Golang.Uint16(0x1f5f),
+      stride: Golang.Uint16(2),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1f60),
+      hi: Golang.Uint16(0x1f7d),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1f80),
+      hi: Golang.Uint16(0x1fb4),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1fb6),
+      hi: Golang.Uint16(0x1fbc),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1fbe),
+      hi: Golang.Uint16(0x1fc2),
+      stride: Golang.Uint16(4),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1fc3),
+      hi: Golang.Uint16(0x1fc4),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1fc6),
+      hi: Golang.Uint16(0x1fcc),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1fd0),
+      hi: Golang.Uint16(0x1fd3),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1fd6),
+      hi: Golang.Uint16(0x1fdb),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1fe0),
+      hi: Golang.Uint16(0x1fec),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1ff2),
+      hi: Golang.Uint16(0x1ff4),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x1ff6),
+      hi: Golang.Uint16(0x1ffc),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x2102),
+      hi: Golang.Uint16(0x2107),
+      stride: Golang.Uint16(5),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x210a),
+      hi: Golang.Uint16(0x2113),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x2115),
+      hi: Golang.Uint16(0x2119),
+      stride: Golang.Uint16(4),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x211a),
+      hi: Golang.Uint16(0x211d),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x2124),
+      hi: Golang.Uint16(0x212a),
+      stride: Golang.Uint16(2),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x212b),
+      hi: Golang.Uint16(0x212d),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x212f),
+      hi: Golang.Uint16(0x2134),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x2139),
+      hi: Golang.Uint16(0x213c),
+      stride: Golang.Uint16(3),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x213d),
+      hi: Golang.Uint16(0x213f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x2145),
+      hi: Golang.Uint16(0x2149),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x214e),
+      hi: Golang.Uint16(0x2183),
+      stride: Golang.Uint16(53),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x2184),
+      hi: Golang.Uint16(0x2c00),
+      stride: Golang.Uint16(2684),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x2c01),
+      hi: Golang.Uint16(0x2c7b),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x2c7e),
+      hi: Golang.Uint16(0x2ce4),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x2ceb),
+      hi: Golang.Uint16(0x2cee),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x2cf2),
+      hi: Golang.Uint16(0x2cf3),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x2d00),
+      hi: Golang.Uint16(0x2d25),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0x2d27),
+      hi: Golang.Uint16(0x2d2d),
+      stride: Golang.Uint16(6),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xa640),
+      hi: Golang.Uint16(0xa66d),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xa680),
+      hi: Golang.Uint16(0xa69b),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xa722),
+      hi: Golang.Uint16(0xa76f),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xa771),
+      hi: Golang.Uint16(0xa787),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xa78b),
+      hi: Golang.Uint16(0xa78e),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xa790),
+      hi: Golang.Uint16(0xa7ca),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xa7d0),
+      hi: Golang.Uint16(0xa7d1),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xa7d3),
+      hi: Golang.Uint16(0xa7d5),
+      stride: Golang.Uint16(2),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xa7d6),
+      hi: Golang.Uint16(0xa7d9),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xa7f5),
+      hi: Golang.Uint16(0xa7f6),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xa7fa),
+      hi: Golang.Uint16(0xab30),
+      stride: Golang.Uint16(822),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xab31),
+      hi: Golang.Uint16(0xab5a),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xab60),
+      hi: Golang.Uint16(0xab68),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xab70),
+      hi: Golang.Uint16(0xabbf),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xfb00),
+      hi: Golang.Uint16(0xfb06),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xfb13),
+      hi: Golang.Uint16(0xfb17),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xff21),
+      hi: Golang.Uint16(0xff3a),
+      stride: Golang.Uint16(1),
+    ),
+    Range16(
+      lo: Golang.Uint16(0xff41),
+      hi: Golang.Uint16(0xff5a),
+      stride: Golang.Uint16(1),
+    ),
+  ], _range16Elem),
+  r32: Slice.of([
+    Range32(
+      lo: Golang.Uint32(0x010400),
+      hi: Golang.Uint32(0x01044f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0104b0),
+      hi: Golang.Uint32(0x0104d3),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0104d8),
+      hi: Golang.Uint32(0x0104fb),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010570),
+      hi: Golang.Uint32(0x01057a),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01057c),
+      hi: Golang.Uint32(0x01058a),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01058c),
+      hi: Golang.Uint32(0x010592),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010594),
+      hi: Golang.Uint32(0x010595),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010597),
+      hi: Golang.Uint32(0x0105a1),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0105a3),
+      hi: Golang.Uint32(0x0105b1),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0105b3),
+      hi: Golang.Uint32(0x0105b9),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0105bb),
+      hi: Golang.Uint32(0x0105bc),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010c80),
+      hi: Golang.Uint32(0x010cb2),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x010cc0),
+      hi: Golang.Uint32(0x010cf2),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x0118a0),
+      hi: Golang.Uint32(0x0118df),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x016e40),
+      hi: Golang.Uint32(0x016e7f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d400),
+      hi: Golang.Uint32(0x01d454),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d456),
+      hi: Golang.Uint32(0x01d49c),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d49e),
+      hi: Golang.Uint32(0x01d49f),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d4a2),
+      hi: Golang.Uint32(0x01d4a5),
+      stride: Golang.Uint32(3),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d4a6),
+      hi: Golang.Uint32(0x01d4a9),
+      stride: Golang.Uint32(3),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d4aa),
+      hi: Golang.Uint32(0x01d4ac),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d4ae),
+      hi: Golang.Uint32(0x01d4b9),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d4bb),
+      hi: Golang.Uint32(0x01d4bd),
+      stride: Golang.Uint32(2),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d4be),
+      hi: Golang.Uint32(0x01d4c3),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d4c5),
+      hi: Golang.Uint32(0x01d505),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d507),
+      hi: Golang.Uint32(0x01d50a),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d50d),
+      hi: Golang.Uint32(0x01d514),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d516),
+      hi: Golang.Uint32(0x01d51c),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d51e),
+      hi: Golang.Uint32(0x01d539),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d53b),
+      hi: Golang.Uint32(0x01d53e),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d540),
+      hi: Golang.Uint32(0x01d544),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d546),
+      hi: Golang.Uint32(0x01d54a),
+      stride: Golang.Uint32(4),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d54b),
+      hi: Golang.Uint32(0x01d550),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d552),
+      hi: Golang.Uint32(0x01d6a5),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d6a8),
+      hi: Golang.Uint32(0x01d6c0),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d6c2),
+      hi: Golang.Uint32(0x01d6da),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d6dc),
+      hi: Golang.Uint32(0x01d6fa),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d6fc),
+      hi: Golang.Uint32(0x01d714),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d716),
+      hi: Golang.Uint32(0x01d734),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d736),
+      hi: Golang.Uint32(0x01d74e),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d750),
+      hi: Golang.Uint32(0x01d76e),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d770),
+      hi: Golang.Uint32(0x01d788),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d78a),
+      hi: Golang.Uint32(0x01d7a8),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d7aa),
+      hi: Golang.Uint32(0x01d7c2),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01d7c4),
+      hi: Golang.Uint32(0x01d7cb),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01df00),
+      hi: Golang.Uint32(0x01df09),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01df0b),
+      hi: Golang.Uint32(0x01df1e),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01df25),
+      hi: Golang.Uint32(0x01df2a),
+      stride: Golang.Uint32(1),
+    ),
+    Range32(
+      lo: Golang.Uint32(0x01e900),
+      hi: Golang.Uint32(0x01e943),
+      stride: Golang.Uint32(1),
+    ),
+  ], _range32Elem),
+  latinOffset: Golang.Int(5),
 );
 
 final RangeTable ll = RangeTable(

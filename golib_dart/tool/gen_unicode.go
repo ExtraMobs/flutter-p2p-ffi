@@ -5,8 +5,13 @@
 // dois em gen_unicode_case.go. Nenhum arquivo é `part` do gerador: os três
 // escrevem para o mesmo stdout, concatenados pelo pipeline de geração.
 //
-//	go run tool/gen_unicode.go tool/gen_unicode_scripts.go tool/gen_unicode_case.go \
+//	GOTOOLCHAIN=go1.26.5 go run tool/gen_unicode.go tool/gen_unicode_scripts.go tool/gen_unicode_case.go \
 //	  | dart format > lib/src/unicode/tables.g.dart
+//
+// GOTOOLCHAIN fixa o Go de referência do projeto (AGENTS.md): versões
+// diferentes de Go podem divergir nos dados Unicode mesmo relatando o mesmo
+// `unicode.Version` (o go1.26.5 tem mais entradas que o go1.24.7 em `C`,
+// além de `Cn`/`LC`, apesar dos dois dizerem "15.0.0").
 //
 // O teste test/unicode_tables_test.dart roda esse comando de novo e compara
 // com o arquivo no repo (como test/isprint_test.dart faz para IsPrint), e
