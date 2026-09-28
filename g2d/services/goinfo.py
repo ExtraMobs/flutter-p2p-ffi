@@ -15,7 +15,13 @@ class GoTypeInfo(Service):
         t = self.pkg.type_at(t)
         k = t["kind"]
         if k == "basic":
-            return t["name"].replace("untyped ", "")
+            # `byte`/`rune` são só apelidos de `uint8`/`int32` no go/types (o
+            # nome da fonte sobrevive em `Basic.Name()`); em runtime (reflect,
+            # que o fmt usa) sempre aparecem como uint8/int32 — só o slice
+            # `[]byte` exato tem a exceção (hardcoded no `fmt.fmtBytes` do
+            # Go), tratada em `go.Slice.goType`.
+            name = t["name"].replace("untyped ", "")
+            return {"byte": "uint8", "rune": "int32"}.get(name, name)
         if k == "named":
             if not t["pkg"]:
                 return t["name"]
@@ -48,6 +54,26 @@ class GoTypeInfo(Service):
             out = res[0] if len(res) == 1 else f"({', '.join(res)})" if res else ""
             return f"func({', '.join(params)})" + (f" {out}" if out else "")
         return k
+
+    def go_type_expr(self, t):
+        """Expressão Dart do nome Go de t, para `go.Elem.goType`/`GoMap.keyElem`:
+        string literal quando t não depende de parâmetro de tipo (o caso comum);
+        senão, concatena com o `.goType` do dicionário (`$T`) em runtime — o
+        mesmo `Elem<T>` real que `descriptors.elem` já passa nesse caso."""
+        t = self.pkg.type_at(t)
+        if t["kind"] == "typeparam":
+            return f"${t['name']}.goType"
+        if not self.descriptors.has_tparam(t):
+            return f"'{self.go_type_name(t)}'"
+        if t["kind"] == "pointer":
+            return f"'*' + {self.go_type_expr(t['elem'])}"
+        if t["kind"] == "slice":
+            return f"'[]' + {self.go_type_expr(t['elem'])}"
+        if t["kind"] == "array":
+            return f"'[{t['len']}]' + {self.go_type_expr(t['elem'])}"
+        if t["kind"] == "map":
+            return f"'map[' + {self.go_type_expr(t['key'])} + ']' + {self.go_type_expr(t['elem'])}"
+        return "'?'"  # struct/interface/func anônimos com parâmetro de tipo: raro, sem nome em runtime
 
     def method_names(self, t, value):
         """Method set (nomes Go ordenados) de T (value) ou *T."""

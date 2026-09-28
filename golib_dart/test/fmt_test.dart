@@ -172,13 +172,15 @@ void main() {
 
   test('%#v de slices, arrays e nil (oráculo: go run)', () {
     String f(Object? x) => sprintf(Golang.String.fromDart('%#v'), args([x])).toString();
+    final byteElem = const go.Elem<Golang.Uint8>(1, Golang.Uint8.new, goType: 'uint8');
     expect(f(go.Slice.of([Golang.Int(1), Golang.Int(2)], _intElem)), '[]int{1, 2}');
-    expect(
-      f(go.Slice.of([Golang.Uint8(1), Golang.Uint8(2)], const go.Elem<Golang.Uint8>(1, Golang.Uint8.new, goType: 'uint8'))),
-      '[]uint8{0x1, 0x2}',
-    );
+    // []byte/[]uint8 no topo: grafia fixa `[]byte` no Go (fmt.fmtBytes),
+    // mesmo com Elem.goType já normalizado para 'uint8'.
+    expect(f(go.Slice.of([Golang.Uint8(1), Golang.Uint8(2)], byteElem)), '[]byte{0x1, 0x2}');
     expect(f(go.Slice<Golang.Int>.nil(_intElem)), '[]int(nil)');
     expect(f(go.GoArray.of([Golang.Int(1), Golang.Int(2)], _intElem)), '[2]int{1, 2}');
+    // [N]byte não tem a exceção do []byte (oráculo: go run dá [2]uint8).
+    expect(f(go.GoArray.of([Golang.Uint8(1), Golang.Uint8(2)], byteElem)), '[2]uint8{0x1, 0x2}');
     expect(
       f(go.Slice.of([Golang.Int(1), Golang.Int(2)], _intElem).slice(0, 2)),
       '[]int{1, 2}',
@@ -189,6 +191,12 @@ void main() {
       go.Elem<go.Slice<Golang.Int>>(24, () => go.Slice.nil(_intElem), pointers: true, goType: '[]int'),
     );
     expect(f(ss), '[][]int{[]int{1}, []int{2}}');
+    // []byte aninhado (campo/elemento): 'uint8', sem a exceção do topo
+    // (oráculo: go run dá `S{B:[]uint8{0x1, 0x2}}`).
+    final nested = go.Slice.of([
+      go.Slice.of([Golang.Uint8(1), Golang.Uint8(2)], byteElem),
+    ], go.Elem<go.Slice<Golang.Uint8>>(24, () => go.Slice.nil(byteElem), pointers: true, goType: '[]uint8'));
+    expect(f(nested), '[][]uint8{[]uint8{0x1, 0x2}}');
   });
 
   test('%#v de maps e nil (oráculo: go run)', () {

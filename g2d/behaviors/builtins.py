@@ -132,7 +132,9 @@ class Make(BuiltinBehavior):
             cp = self.operands.to_int(args[2]) if len(args) > 2 else ln
             return self.types.wrap(t, f"{self.types.dart(u)}.make({ln}, {cp}, {self.descriptors.elem(u['elem'])})"), POSTFIX
         if u["kind"] == "map":
-            return self.types.wrap(t, f"{self.types.dart(u)}({self.descriptors.elem(u['elem'])}{self.typesys.map_args(t)})"), POSTFIX
+            text = (f"{self.types.dart(u)}({self.descriptors.elem(u['elem'])}, "
+                    f"{self.descriptors.elem(u['key'])}{self.typesys.map_args(t)})")
+            return self.types.wrap(t, text), POSTFIX
         raise Unsupported(f"make:{u['kind']}", f"make de {u['kind']}", n)
 
 

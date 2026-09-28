@@ -131,16 +131,15 @@ class FmtVerbCheck(ExprBehavior):
     @staticmethod
     def unsupported(flags, verb, kind):
         """Caso não portado (texto do código) ou None."""
-        if verb == "v" and "#" in flags:
-            return "%#v"
+        if verb == "v" and "#" in flags and kind == "ponteiro":
+            # `*T` sem nome de tipo em runtime (T não é struct nem um N$Ptr
+            # nomeado com métodos, que tem `$goType`): `%#v` não tem como
+            # escrever `(*T)(...)` sem adivinhar.
+            return "%#v-ponteiro"
         if kind == "float" and verb in "bxX":
             return f"%{verb}-float"
-        if kind == "float" and "#" in flags:
-            return "#-float"
         if kind == "complex" and verb not in "vT":
             return f"%{verb}-complex"
-        if kind == "int" and verb == "q" and "#" in flags:
-            return "%#q-runa"
         if verb == "T" and kind in ("composto", "func", "chan", "ponteiro"):
             return f"%T-{kind}"
         if verb not in "vTp" and kind in ("func", "chan", "ponteiro"):

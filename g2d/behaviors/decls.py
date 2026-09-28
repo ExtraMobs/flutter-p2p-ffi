@@ -198,7 +198,11 @@ class StructClass(TypeDeclBehavior):
             else:
                 copies.append(f"{pname}: {fname}")
                 sets.append(f"{fname} = o.{fname};")
-                values.append(f"{self.imports.qualify(None, 'Addr')}({fname})" if self.typesys.is_struct_pointer(ft) else fname)
+                if self.typesys.is_struct_pointer(ft):
+                    pointee = self.goinfo.go_type_name(ft["elem"])
+                    values.append(f"{self.imports.qualify(None, 'Addr')}({fname}, goType: '{pointee}')")
+                else:
+                    values.append(fname)
         # Struct genérica: os dicionários vêm primeiro, posicionais.
         dict_params = [f"this.${n}" for n in tnames]
         named = f"{{{', '.join(params)}}}" if params else ""

@@ -151,6 +151,8 @@ class TypeMapper(Service):
             return f"${t['name']}.zero()"  # dicionário do parâmetro de tipo
         if k == "array":
             return f"{self.dart(u)}.zero({u['len']}, {self.descriptors.elem(u['elem'])})"
-        if k in ("slice", "map"):  # nil
+        if k == "slice":  # nil
             return f"{self.dart(u)}.nil({self.descriptors.elem(u['elem'])})"
+        if k == "map":  # nil
+            return f"{self.dart(u)}.nil({self.descriptors.elem(u['elem'])}, {self.descriptors.elem(u['key'])})"
         raise Unsupported(f"zero-value:{k}", f"zero value de {k}")

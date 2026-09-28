@@ -381,7 +381,15 @@ final class _Printer implements State {
   /// Nome Go do tipo de um slice/array/map (nomeado ou não), para `%#v`;
   /// `'?'` no nome (dicionário de genérico ou descritor de shim escrito à
   /// mão sem o metadado) nunca vira saída — lança em vez de adivinhar.
-  static String _containerGoType(Object v) {
+  ///
+  /// `[]byte`/`[]uint8` no nível de topo (argumento direto do Printf, não
+  /// aninhado): o Go usa a grafia fixa `[]byte` aí (`fmt.fmtBytes`); aninhado
+  /// (campo, elemento...) é `[]uint8`, como o resto (`Slice.goType` já dá o
+  /// nome normalizado — `go_type_name` também normaliza `byte`/`rune`).
+  static String _containerGoType(Object v, {bool topLevel = false}) {
+    if (topLevel && v is Slice<Golang.Uint8> && v is! Golang.GoTyped) {
+      return '[]byte';
+    }
     final name = switch (v) {
       Golang.GoTyped t => t.$goType,
       Slice s => s.goType,
@@ -418,7 +426,7 @@ final class _Printer implements State {
   void _printList(Object container, Iterable<Object?> items, int verb, int depth, Elem elem) {
     final sharp = _fmt.sharpV;
     if (sharp) {
-      _b.add(utf8.encode(_containerGoType(container)));
+      _b.add(utf8.encode(_containerGoType(container, topLevel: depth == 0)));
       if (container is Slice && container.isNil) {
         _b.add(_ascii('(nil)'));
         return;

@@ -33,7 +33,8 @@ class DescriptorRegistry(Service):
         if self.has_tparam(t):
             ptrs = ", pointers: true" if self.typesys.underlying(t)["kind"] != "basic" else ""
             size = 24 if self.typesys.underlying(t)["kind"] == "slice" else 8
-            return f"{self.imports.qualify(None, 'Elem')}<{dt}>({size}, () => {self.types.zero(t)}{ptrs})"
+            gt = f", goType: {self.goinfo.go_type_expr(t)}"
+            return f"{self.imports.qualify(None, 'Elem')}<{dt}>({size}, () => {self.types.zero(t)}{ptrs}{gt})"
         if dt not in self.elems:
             name = f"_$e{len(self.elems)}"
             self.elems[dt] = name
@@ -45,6 +46,7 @@ class DescriptorRegistry(Service):
             b = self.typesys.basic(t)
             if b is not None and b.cat in ("wint", "float"):
                 flag += f", ofInt: {self.of_int_fn(t, b, dt)}, ofFloat: {self.of_float_fn(t, b, dt)}"
+            flag += f", goType: '{self.goinfo.go_type_name(t)}'"
             self.elem_decls.append(f"const {name} = {self.imports.qualify(None, 'Elem')}<{dt}>({size}, {zero}{flag});")
         return self.elems[dt]
 

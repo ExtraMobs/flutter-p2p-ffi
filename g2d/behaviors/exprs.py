@@ -320,7 +320,8 @@ class CompositeLit(ExprBehavior):
         if u["kind"] == "map":
             kt, vt = self.pkg.type_at(u["key"]), self.pkg.type_at(u["elem"])
             items = ", ".join(f"{self.values.coerce(e['key'], kt)}: {self.values.coerce(e['value'], vt)}" for e in elts)
-            lit = f"{self.types.dart(u)}.of({{{items}}}, {self.descriptors.elem(vt)}{self.typesys.map_args(t)})"
+            lit = (f"{self.types.dart(u)}.of({{{items}}}, {self.descriptors.elem(vt)}, "
+                   f"{self.descriptors.elem(kt)}{self.typesys.map_args(t)})")
             return self.types.wrap(t, lit), POSTFIX
         raise Unsupported(f"literal-composto:{u['kind']}", f"literal composto de {u['kind']}", n)
 
