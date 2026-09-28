@@ -8,6 +8,7 @@ from g2d.behaviors.conversions import CONVERSIONS
 from g2d.engine.behavior import Plugin
 from g2d.services.assertions import Assertions
 from g2d.services.calls import Calls
+from g2d.services.concurrency import Concurrency
 from g2d.services.control import ControlFlow
 from g2d.services.descriptors import DescriptorRegistry
 from g2d.services.functions import Functions
@@ -106,5 +107,18 @@ class FmtPlugin(Plugin):
         engine.register_expr(fmtcheck.FmtVerbCheck)
 
 
+class ConcurrencyPlugin(Plugin):
+    """Goroutines, canais e `select` (M4): `go`, `ch <- v`, `<-ch`, `close`,
+    `range` sobre chan (em RangeStmt/CollectionsPlugin) e a cor `async` das
+    funções que suspendem diretamente."""
+
+    def install(self, engine):
+        engine.register_service(Concurrency)
+        engine.register_stmt(stmts.SendStmt)
+        engine.register_stmt(stmts.GoStmt)
+        engine.register_stmt(stmts.SelectStmt)
+        engine.register_builtin(builtins.Close)
+
+
 DEFAULT_PLUGINS = [CorePlugin(), CollectionsPlugin(), PointersPlugin(), InterfacesPlugin(),
-                   DeferPlugin(), FmtPlugin()]
+                   DeferPlugin(), FmtPlugin(), ConcurrencyPlugin()]

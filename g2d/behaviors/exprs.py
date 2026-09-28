@@ -134,6 +134,11 @@ class UnaryExpr(ExprBehavior):
         op = n["op"]
         if op == "&":
             return self.address_of(n)
+        if op == "<-":
+            # `<-ch` (sem comma-ok): go.chanRecv (canal possivelmente nil
+            # bloqueia pra sempre). `v, ok := <-ch` vai por Operands.multi_value.
+            recv = self.imports.qualify(None, "chanRecv")
+            return f"await {recv}({self.expr(n['x'])})", UNARY
         dart_op = {"-": "-", "+": "", "!": "!", "^": "~"}.get(op)
         if dart_op is None:
             raise Unsupported(f"operador-unario:{op}", f"operador unário {op}", n)
@@ -349,13 +354,15 @@ class FuncLit(ExprBehavior):
         saved_rd, saved_breaks = self.scope.rd, self.scope.breaks
         self.scope.breaks = []
         self.scope.rd = "$rd" if has_recover(n["body"]) else None
+        is_async = self.concurrency.direct_suspend(n["body"])
         try:
             if self.scope.rd:
                 params = ", ".join(p for p in (params, self.functions.rd_param()) if p)
             body = self.functions.func_body(n["type"], n["body"], sig)
         finally:  # Unsupported no corpo não pode deixar trocado o estado da função externa
             self.scope.rd, self.scope.breaks = saved_rd, saved_breaks
-        return f"({params}) {{\n" + "\n".join(boxes + body) + "\n}", 0
+        kw = " async" if is_async else ""
+        return f"({params}){kw} {{\n" + "\n".join(boxes + body) + "\n}", 0
 
 
 class CallExpr(ExprBehavior):

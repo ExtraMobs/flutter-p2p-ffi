@@ -61,14 +61,24 @@ class Functions(Service):
         if has_recover(d["body"]) and not (name == "main" and not d["recv"]):
             self.scope.rd, rd = "$rd", self.rd_param()
         params = ", ".join(p for p in (dicts, params, rd) if p)
-        head = f"{self.types.results(sig['results'])} {name}{tparams}({params})"
+        main_case = name == "main" and not d["recv"]
+        # Suspensão direta (canal, select sem default, range sobre chan):
+        # a função vira `async`/`Future<...>` (main mantém `void main()`; a
+        # cor dela recai sobre o closure passado a go.runMain).
+        is_async = self.concurrency.direct_suspend(d["body"])
+        ret = self.types.results(sig["results"])
+        if is_async and not main_case:
+            ret = self.types.future(ret)
+        head = f"{ret} {name}{tparams}({params})"
         body = self.func_body(d["type"], d["body"], sig)
         self.scope = None
-        if name == "main" and not d["recv"]:
+        if main_case:
             # Panic não recuperado: mensagem no stderr e exit 2, como o Go.
-            body = [f"{self.imports.qualify(None, 'runMain')}(() {{", "$goInit();"] + prologue + boxes + body + ["});"]
+            kw = "async " if is_async else ""
+            body = [f"{self.imports.qualify(None, 'runMain')}(() {kw}{{", "$goInit();"] + prologue + boxes + body + ["});"]
             prologue, boxes = [], []
-        return doc_comment(d["doc"]) + [head + " {"] + prologue + boxes + body + ["}"]
+        opener = " async {" if (is_async and not main_case) else " {"
+        return doc_comment(d["doc"]) + [head + opener] + prologue + boxes + body + ["}"]
 
     def rd_param(self):
         """Parâmetro oculto de quem chama recover(): a pilha de defers que a

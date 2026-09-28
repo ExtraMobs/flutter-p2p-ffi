@@ -265,11 +265,38 @@ Goroutines viram código `async` do Dart sobre o único event loop: cooperativo,
 nunca paralelo de verdade (nem em AOT: uma só thread Dart roda o programa
 inteiro). Uma função Go que pode suspender (operação de canal, `select` sem
 `default`, `Lock` contendido, `WaitGroup.Wait`, `Cond.Wait`, `Sleep`, I/O) é
-emitida `async`, e quem a chama usa `await` — a análise de cor e a emissão
-são do g2d (`TODO/P0-design-m4-concorrencia.md`; ainda não feitas). Esta
-seção documenta só o runtime, em `golib_dart/lib/src/runtime/{chan,select,
-sched}.dart` e `golib_dart/lib/src/sync/*.dart`, exportado por `builtin.dart`
-(prefixo `go`).
+emitida `async`, e quem a chama usa `await`. Esta seção documenta o runtime,
+em `golib_dart/lib/src/runtime/{chan,select,sched}.dart` e
+`golib_dart/lib/src/sync/*.dart`, exportado por `builtin.dart` (prefixo `go`).
+
+### Emissão do g2d (M4b)
+
+`chan T`/`<-chan T`/`chan<- T` → `go.Chan<T>?` (nil = null; zero value nulo;
+`Concurrency.direct_suspend`/`g2d/services/concurrency.py` decide, por
+função/método/func literal, se ele suspende **diretamente**):
+
+| Go | Dart |
+|---|---|
+| `make(chan T[, n])` | `go.Chan<T>(n, <zero de T>)` |
+| `ch <- v` | `await go.chanSend(ch, v)` (valor copiado se struct, como em qualquer atribuição) |
+| `<-ch` | `await go.chanRecv(ch)` |
+| `v, ok := <-ch` | `await go.chanRecv2(ch)` (record `(T, bool)`) |
+| `close(ch)`, `len(ch)`, `cap(ch)` | `go.chanClose/chanLen/chanCap(ch)` |
+| `for v := range ch` | `while (true) { final $t = await go.chanRecv2(ch); if (!$t.$2) break; ... }` |
+| `select` com `default` | `go.selectNow([...])` (nunca suspende) |
+| `select` sem `default` | `await go.select([...])` (bloqueia) |
+| `select`, geral | canais/valores de envio na lista literal do Dart (avaliados uma vez, em ordem, como o Go); `switch` no índice do resultado (`if/else` encadeado, como o `switch` comum); `case v, ok := <-ch:` e `case ch <- f():` funcionam; `break` sem rótulo sai do select (reusa `ControlFlow.switch_label`) |
+| `go f(x)` / `go func(){...}()` / `go obj.m(x)` | função e argumentos avaliados na hora (mesma regra do `defer`); `go.spawn(() => f(a))` — nunca precisa saber se `f` é `async` (`Future<T> Function()` já serve de `FutureOr<void> Function()`) |
+
+Uma função/método/func literal cujo próprio corpo (sem contar func literals
+aninhadas) tem uma dessas operações de canal fora de um `select` com
+`default`, um `select` sem `default` ou um `range` sobre chan **suspende
+diretamente** e é emitida `async`/`Future<R>` (`main` mantém `void main()`;
+a cor recai sobre o closure `() { ... }` passado a `go.runMain`, que vira
+`() async { ... }` quando `main` suspende). ⚠️ Isto ainda não inclui: chamar
+uma função/método que suspende (transitivo), símbolo suspensivo de shim
+(`Mutex.Lock`...), nem as ligações de interface/valor func — essa análise de
+cor completa é o restante do `TODO/P0-design-m4-concorrencia.md`.
 
 ### `Chan<T>` (`src/runtime/chan.dart`)
 
@@ -425,7 +452,7 @@ a cor da chamada, do lado do g2d, nunca um lookup por nome Go em runtime.
 | `defer f(a)` | `{ final $t = a; $d.defer(() { f($t); }); }`, com o corpo em `try`/`catch`/`finally` de `go.Defers` |
 | `defer f()` com f de tipo func nomeado | o closure em `f.$f` (pode receber `$rd` e recuperar); assinatura do subjacente (fixture `defernamed`) |
 | `defer delete(m, k)`, `defer panic(v)`, `defer clear(s)`... | mesmo caminho, com a chamada do builtin no closure (fixture `deferbuiltin`); `defer recover()` → `Unsupported` `defer-recover` (no Go não recupera) |
-| `go`, `select`, range sobre chan/func | ❌ ainda no g2d (runtime pronto: "Concorrência (M4) — runtime" abaixo) |
+| `go`, `select`, `ch <- v`, `<-ch`, range sobre chan | ✅ M4b (sem cor de chamada ainda: "Concorrência (M4) — runtime" acima) |
 | `goto` | ❌ exigiria reescrever a função como máquina de estados. Medido no grafo do kubo (`docs/audit.md`, `branch:goto`): 54 ocorrências em 14 pacotes, 3 na fronteira (ex. gonum `mathext/internal/cephes`); decisão a rever se entrar no caminho |
 
 `defer`: os argumentos (e o receptor) são avaliados no `defer`. As chamadas
