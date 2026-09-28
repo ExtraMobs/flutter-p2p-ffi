@@ -172,6 +172,7 @@ GO_MODULE_TO_DART_PACKAGE = {
     'pion-rtcp': 'packages/transpiled_pion_rtcp',
     'pion-srtp': 'packages/transpiled_pion_srtp',
     'golang-x-net': 'packages/transpiled_golang_x_net',
+    'golang-x-crypto': 'packages/transpiled_golang_x_crypto',
     'golang-x-time': 'packages/transpiled_golang_x_time',
     'quic-go': 'packages/transpiled_quic_go',
     'qpack': 'packages/transpiled_qpack',

@@ -264,6 +264,45 @@ par Go real (exemplos `pion-dtls/examples/*/selfsign` e
 mais `local_kubo_transport_matrix_test.dart` passando em `/webrtc-direct` sem
 alteração das asserções. O critério de navegador continua valendo como no G.4.
 
+### G.5 — o transporte inventado saiu do nó (2026-09-25)
+
+Um levantamento arquivo a arquivo contra o upstream mostrou que o
+`WebRtcTransport` registrado em `lib/src/node/ipfs_node.dart` **não era WebRTC**:
+implementava um protocolo próprio (tags de um byte `0x52`/`0x53`/`0x54` para o
+"handshake" e `0x06` para framing de stream), sem SDP, ICE, STUN, DTLS ou SCTP,
+e anunciava `/certhash/` como o SHA-256 da chave privada crua. `cert.dart`
+produzia DER inválido e "assinava" com 64 bytes zerados; `logger.dart` era
+no-op. Nenhum par real conseguiria usar o `/webrtc-direct` que o nó publicava.
+
+Ao lado dele havia `connection.dart`, `listener.dart`, `stream.dart`,
+`sdp.dart`, `udpmux/` e `pb/`, mais próximos do Go, mas **sem nenhum chamador** e
+com 16 erros de análise (`ConnState` inexistente, `Stream.read` com assinatura
+incompatível com `MuxedStream.read`, entre outros).
+
+Removidos todos, junto com o registro no nó, o `export` do barril, o teste
+atômico que exercitava o protocolo inventado
+(`test/atomic/nivel_2/libp2p_webrtc_atomic_tests.dart`) e as partes WebRTC de
+`test/atomic/nivel_3/libp2p_transport_matrix_atomic_tests.dart` (um loopback
+Dart↔Dart que, pela regra do G.7, não comprovava nada). O diretório
+`p2p/transport/webrtc/` volta na Fase 5 do plano, portado 1:1 sobre um
+`pion-webrtc` Dart; o conteúdo antigo continua consultável em `d9618c7e`.
+
+Estado do fecho Pion medido na mesma passagem:
+
+| Pacote | Estado |
+| --- | --- |
+| `pion-sctp` | real e completo (INIT/COOKIE, T1/T3, SACK, fast retransmit, reassembly) |
+| `pion-stun`, `pion-sdp`, `pion-datachannel` | reais |
+| `pion-dtls` | **não compila** (120 erros): barril aponta para caminhos inexistentes, `pkg/crypto/signaturehash/` e `selfsign/` vazios, 16 `part` de `internal/ciphersuite` inexistentes; nenhum `flight*handler`, `fragment_buffer`, `handshake_cache`, `crypto.go` ou `options.go` |
+| `pion-ice` | esqueleto: `dial`/`accept` marcam o primeiro par como `succeeded` sem checagem STUN; faltam `candidate_base`, `gather`, `selection`, `icecontrol`, muxes, mDNS |
+| `pion-transport-v4` | subconjunto; `replaydetector` portado mas sem chamador no DTLS |
+| `pion-webrtc`, `turn`, `mdns`, `interceptor`, `rtp`, `rtcp`, `srtp` | 0% |
+
+O `dart analyze` da raiz exclui `test/**` e `packages/**` em
+`analysis_options.yaml`, e por isso nunca acusou que
+`test/atomic/nivel_1/pion_dtls_atomic_tests.dart` importa um barril que não
+compila.
+
 ### G.3 — a prova voltou a rodar depois de um cast defasado
 
 `public_wss_dial_test.dart` esteve vermelho entre o porte de `swarm.Conn`
@@ -1107,8 +1146,11 @@ apenas a finalidade dos hooks (`shutdown.CloseWithCtx`).
 - **mDNS só IPv4**, sem probing nem goodbye. `zeroconf` não foi portado como
   módulo (dependeria de `miekg/dns`); há um codec DNS mínimo privado dentro do
   pacote libp2p, e essa **dívida estrutural continua de pé**.
-- **`EvtNATDeviceTypeChanged` não portado**; o filtro de diversidade da tabela
-  de roteamento também não.
+- **`EvtNATDeviceTypeChanged` não portado.** O filtro de diversidade da tabela
+  (`kbucket/peerdiversity`) está portado, mas o `NewRTPeerDiversityFilter` do
+  kad-dht (`rt_diversity_filter.go:34`) não: no Go ele só entra pela opção
+  `RoutingTablePeerDiversityFilter` (`dht_options.go:347`), que o Kubo não usa,
+  então o nó sem filtro coincide com o default upstream.
 - **Chunker/importer**: `maxLinks == 1` com múltiplos chunks nunca foi testado;
   a conversão `int64 → uint32` do construtor e o tratamento de tamanho zero ou
   negativo não têm paridade completa; `strconv.NumError` não tem equivalente

@@ -126,7 +126,6 @@ final class IpfsNode {
       transports: [
         QuicTransport(privKey: identityKey),
         WebtransportTransport(privKey: identityKey),
-        WebRtcTransport(privKey: identityKey),
         WebsocketTransport(upgrader: upgrader),
         tcpTransport,
       ],

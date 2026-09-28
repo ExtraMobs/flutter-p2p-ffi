@@ -36,6 +36,7 @@ dos clones só podem alterar esta tabela junto com a revalidação dos ports afe
 | `qpack` | `github.com/quic-go/qpack` (v0.6.0) | `c415cad59091662a20b7b1c4505fbb177dbda0e3` | <https://github.com/quic-go/qpack.git> |
 | `webtransport-go` | `github.com/quic-go/webtransport-go` (v0.11.1) | `d03fbc34952e05e833ab2a3810ab55aeefe2bf30` | <https://github.com/quic-go/webtransport-go.git> |
 | `golang-x-net` | `golang.org/x/net` (v0.57.0) | `b8f09f6f062ceb4531b7af4bd17a5c8fe9c4b2b5` | <https://github.com/golang/net.git> |
+| `golang-x-crypto` | `golang.org/x/crypto` (v0.54.0) | `cdce021fa6c7d9c7eb2743bfbe551f0a98fd5d62` | <https://go.googlesource.com/crypto> |
 | `golang-x-time` | `golang.org/x/time` (v0.15.0) | `812b343c8714c317b0dad633efa6d103e554c006` | <https://github.com/golang/time.git> |
 | `zeroconf` | `github.com/libp2p/zeroconf/v2` (v2.2.0) | `586e7c571d106f842c8567012dacd28d73fcf966` | <https://github.com/libp2p/zeroconf.git> |
 | `go-stdlib` (sparse: `src/crypto/tls`, `src/crypto/internal`, `src/go.mod`) | `std` / `crypto/tls` (go1.25.1) | `56ebf80e57db9f61981fc0636fc6419dc6f68eda` | <https://go.googlesource.com/go> |
@@ -136,3 +137,11 @@ que o `go-libp2p/go.mod:63` seleciona. O clone é um checkout esparso: além de
 `pion/mdns`), `proxy` (via `pion/ice` e `pion/turn`) — e as dependências
 internas deles, `bpf`, `internal/iana`, `internal/socket` e `internal/socks`.
 `icmp`, `nettest` e `internal/sockstest` só aparecem em testes e ficaram fora.
+
+O `golang-x-crypto` entrou em 2026-09-25, na v0.54.0 que o `go-libp2p/go.mod:62`
+seleciona. O clone é esparso, copiado do cache de módulos Go
+(`go mod download -json` confirma a origem acima): contém só `cryptobyte` e
+`cryptobyte/asn1`, o único pacote de `x/crypto` que o fecho Pion alcança em
+código de produção (`pion/dtls`, 15 imports). O `crypto/tls` da biblioteca
+padrão usa o mesmo pacote, vendorizado; o `transpiled_crypto_tls` passa a
+consumir este porte em vez de helpers próprios.

@@ -200,6 +200,5 @@ export 'src/p2p/discovery/backoff/backoffconnector.dart';
 export 'src/p2p/transport/websocket/websocket.dart';
 export 'src/p2p/transport/quic/quic_transport.dart';
 export 'src/p2p/transport/webtransport/webtransport.dart';
-export 'src/p2p/transport/webrtc/webrtc_transport.dart';
 export 'src/p2p/host/peerstore/pstoreds/peerstore.dart';
 export 'src/p2p/net/conngater/conngater.dart';

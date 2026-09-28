@@ -14,7 +14,6 @@ void main() {
     late WebsocketTransport wsTransport;
     late QuicTransport quicTransport;
     late WebtransportTransport wtTransport;
-    late WebRtcTransport webrtcTransport;
     late List<Transport> allTransports;
     late List<SecureTransport> secTransports;
     late Swarm swarm;
@@ -40,12 +39,10 @@ void main() {
       wsTransport = WebsocketTransport(upgrader: upgrader);
       quicTransport = QuicTransport(privKey: localKey);
       wtTransport = WebtransportTransport(privKey: localKey);
-      webrtcTransport = WebRtcTransport(privKey: localKey);
 
       allTransports = [
         quicTransport,
         wtTransport,
-        webrtcTransport,
         wsTransport,
         tcpTransport,
       ];
@@ -63,7 +60,7 @@ void main() {
     });
 
     test(
-      'All 8 Kubo swarm address types are covered by canDial() across the matrix',
+      'Kubo swarm address types are claimed by exactly one transport via canDial()',
       () {
         final kuboSwarmAddresses = <String>[
           '/ip4/127.0.0.1/tcp/4001',
@@ -72,8 +69,6 @@ void main() {
           '/ip6/::1/udp/4001/quic-v1',
           '/ip4/127.0.0.1/udp/4001/quic-v1/webtransport',
           '/ip6/::1/udp/4001/quic-v1/webtransport',
-          '/ip4/127.0.0.1/udp/4001/webrtc-direct',
-          '/ip6/::1/udp/4001/webrtc-direct',
         ];
 
         for (final addrStr in kuboSwarmAddresses) {
@@ -169,26 +164,6 @@ void main() {
           ),
           isFalse,
         );
-
-        // 5. WebRTC Direct
-        expect(
-          webrtcTransport.canDial(
-            Multiaddr.parse('/ip4/127.0.0.1/udp/4001/webrtc-direct'),
-          ),
-          isTrue,
-        );
-        expect(
-          webrtcTransport.canDial(
-            Multiaddr.parse('/ip6/::1/udp/4001/webrtc-direct'),
-          ),
-          isTrue,
-        );
-        expect(
-          webrtcTransport.canDial(
-            Multiaddr.parse('/ip4/127.0.0.1/udp/4001/quic-v1'),
-          ),
-          isFalse,
-        );
       },
     );
 
@@ -206,7 +181,7 @@ void main() {
     });
 
     test(
-      'End-to-end loopback stream exchanges succeed on QUIC, WebTransport, and WebRTC Direct',
+      'End-to-end loopback stream exchanges succeed on QUIC and WebTransport',
       () async {
         // Test QUIC
         final qListener = await quicTransport.listen(
@@ -257,30 +232,6 @@ void main() {
         await wtServerConn.close();
         await wtListener.close();
 
-        // Test WebRTC Direct
-        final rtcListener = await webrtcTransport.listen(
-          Multiaddr.parse('/ip4/127.0.0.1/udp/0/webrtc-direct'),
-        );
-        final rtcAccept = rtcListener.accept();
-        final rtcDial = webrtcTransport.dial(
-          rtcListener.multiaddr(),
-          localPeer,
-        );
-        final rtcClientConn = await rtcDial;
-        final rtcServerConn = await rtcAccept;
-        final rtcClientStream = await rtcClientConn.openStream();
-        final rtcServerStreamFuture = rtcServerConn.acceptStream();
-        await rtcClientStream.write(
-          Uint8List.fromList(utf8.encode('matrix webrtc test')),
-        );
-        final rtcServerStream = await rtcServerStreamFuture;
-        final rtcReceived = await rtcServerStream.read();
-        expect(utf8.decode(rtcReceived), equals('matrix webrtc test'));
-        await rtcClientStream.close();
-        await rtcServerStream.close();
-        await rtcClientConn.close();
-        await rtcServerConn.close();
-        await rtcListener.close();
       },
     );
   });
