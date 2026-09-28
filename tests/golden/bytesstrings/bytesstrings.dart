@@ -490,7 +490,12 @@ void $goInit() {
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
-const _$e0 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
+const _$e0 = go.Elem<Object?>(
+  16,
+  go.zeroNull,
+  pointers: true,
+  goType: 'interface {}',
+);
 Golang.Uint8 _$f1_2(Golang.FloatBase f) =>
     Golang.Uint8.from(f.toInteger(8, signed: false));
 const _$e1 = go.Elem<Golang.Uint8>(
@@ -498,10 +503,21 @@ const _$e1 = go.Elem<Golang.Uint8>(
   Golang.Uint8.new,
   ofInt: Golang.Uint8.from,
   ofFloat: _$f1_2,
+  goType: 'uint8',
 );
 go.Slice<Golang.Uint8> _$z3_3() => go.Slice<Golang.Uint8>.nil(_$e1);
-const _$e2 = go.Elem<go.Slice<Golang.Uint8>>(24, _$z3_3, pointers: true);
-const _$e3 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);
+const _$e2 = go.Elem<go.Slice<Golang.Uint8>>(
+  24,
+  _$z3_3,
+  pointers: true,
+  goType: '[]uint8',
+);
+const _$e3 = go.Elem<Golang.String>(
+  16,
+  Golang.String.new,
+  pointers: true,
+  goType: 'string',
+);
 Golang.Int _$f6_5(Golang.FloatBase f) =>
     Golang.Int.from(f.toInteger(64, signed: true));
 const _$e4 = go.Elem<Golang.Int>(
@@ -509,4 +525,5 @@ const _$e4 = go.Elem<Golang.Int>(
   Golang.Int.new,
   ofInt: Golang.Int.from,
   ofFloat: _$f6_5,
+  goType: 'int',
 );

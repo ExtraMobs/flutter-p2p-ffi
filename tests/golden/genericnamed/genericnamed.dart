@@ -29,7 +29,7 @@ final class Set<T> extends go.GoMap<T, _anon$5$> implements Golang.GoTyped {
 }
 
 Set<T> newSet<T>(go.Elem<T> $T) {
-  return Set<T>($T, go.GoMap<T, _anon$5$>.of({}, _$e0));
+  return Set<T>($T, go.GoMap<T, _anon$5$>.of({}, _$e0, $T));
 }
 
 final class List$<T> extends go.Slice<T> implements Golang.GoTyped {
@@ -232,7 +232,7 @@ void main() {
     $goInit();
     Set<Golang.String> s = Set<Golang.String>(
       _$e1,
-      go.GoMap<Golang.String, _anon$5$>.of({}, _$e0),
+      go.GoMap<Golang.String, _anon$5$>.of({}, _$e0, _$e1),
     );
     s.add(Golang.String.fromDart('x'));
     Set<Golang.Int> t = newSet<Golang.Int>(_$e2);
@@ -343,8 +343,13 @@ void $goInit() {
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
-const _$e0 = go.Elem<_anon$5$>(0, _anon$5$.new);
-const _$e1 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);
+const _$e0 = go.Elem<_anon$5$>(0, _anon$5$.new, goType: 'struct {}');
+const _$e1 = go.Elem<Golang.String>(
+  16,
+  Golang.String.new,
+  pointers: true,
+  goType: 'string',
+);
 Golang.Int _$f2_3(Golang.FloatBase f) =>
     Golang.Int.from(f.toInteger(64, signed: true));
 const _$e2 = go.Elem<Golang.Int>(
@@ -352,12 +357,19 @@ const _$e2 = go.Elem<Golang.Int>(
   Golang.Int.new,
   ofInt: Golang.Int.from,
   ofFloat: _$f2_3,
+  goType: 'int',
 );
-const _$e3 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
+const _$e3 = go.Elem<Object?>(
+  16,
+  go.zeroNull,
+  pointers: true,
+  goType: 'interface {}',
+);
 _entry$<Golang.Int, Golang.String> _$z5_5() =>
     _entry$<Golang.Int, Golang.String>(_$e2, _$e1);
 const _$e4 = go.Elem<_entry$<Golang.Int, Golang.String>>(
   24,
   _$z5_5,
   pointers: true,
+  goType: 'main.entry',
 );

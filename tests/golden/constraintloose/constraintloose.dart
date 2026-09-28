@@ -257,9 +257,19 @@ void $goInit() {
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
-const _$e0 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
-const _$e1 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);
-const _$e2 = go.Elem<bool>(1, go.zeroBool);
+const _$e0 = go.Elem<Object?>(
+  16,
+  go.zeroNull,
+  pointers: true,
+  goType: 'interface {}',
+);
+const _$e1 = go.Elem<Golang.String>(
+  16,
+  Golang.String.new,
+  pointers: true,
+  goType: 'string',
+);
+const _$e2 = go.Elem<bool>(1, go.zeroBool, goType: 'bool');
 Golang.Float64 _$i3_4(Golang.IntBase n) => (n.$signed
     ? Golang.Float64.fromInt64(Golang.Int64.from(n))
     : Golang.Float64.fromUint64(Golang.Uint64.from(n)));
@@ -269,6 +279,7 @@ const _$e3 = go.Elem<Golang.Float64>(
   Golang.Float64.new,
   ofInt: _$i3_4,
   ofFloat: _$f4_4,
+  goType: 'float64',
 );
 Golang.Int64 _$f6_5(Golang.FloatBase f) =>
     Golang.Int64.from(f.toInteger(64, signed: true));
@@ -277,6 +288,7 @@ const _$e4 = go.Elem<Golang.Int64>(
   Golang.Int64.new,
   ofInt: Golang.Int64.from,
   ofFloat: _$f6_5,
+  goType: 'int64',
 );
 Golang.Int _$f8_6(Golang.FloatBase f) =>
     Golang.Int.from(f.toInteger(64, signed: true));
@@ -285,10 +297,26 @@ const _$e5 = go.Elem<Golang.Int>(
   Golang.Int.new,
   ofInt: Golang.Int.from,
   ofFloat: _$f8_6,
+  goType: 'int',
 );
 go.GoArray<Golang.Int> _$z10_7() => go.GoArray<Golang.Int>.zero(3, _$e5);
-const _$e6 = go.Elem<go.GoArray<Golang.Int>>(24, _$z10_7);
-const _$e7 = go.Elem<void Function()?>(8, go.zeroNull, pointers: true);
-const _$e8 = go.Elem<go.GoError? Function()?>(8, go.zeroNull, pointers: true);
-const _$e9 = go.Elem<_point$?>(8, go.zeroNull, pointers: true);
-const _$e10 = go.Elem<_point$>(16, _point$.new);
+const _$e6 = go.Elem<go.GoArray<Golang.Int>>(24, _$z10_7, goType: '[3]int');
+const _$e7 = go.Elem<void Function()?>(
+  8,
+  go.zeroNull,
+  pointers: true,
+  goType: 'func()',
+);
+const _$e8 = go.Elem<go.GoError? Function()?>(
+  8,
+  go.zeroNull,
+  pointers: true,
+  goType: 'func() error',
+);
+const _$e9 = go.Elem<_point$?>(
+  8,
+  go.zeroNull,
+  pointers: true,
+  goType: '*main.point',
+);
+const _$e10 = go.Elem<_point$>(16, _point$.new, goType: 'main.point');

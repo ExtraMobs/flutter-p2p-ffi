@@ -200,7 +200,7 @@ void main() {
         IDs(go.Slice<Golang.String>.make(2, 2, _$e1)).len(),
       ], _$e0),
     );
-    Set s = Set(go.GoMap<Golang.String, bool>.of({}, _$e2));
+    Set s = Set(go.GoMap<Golang.String, bool>.of({}, _$e2, _$e1));
     s.add(Golang.String.fromDart('x'));
     fmt.println(
       go.Slice<Object?>.of([
@@ -210,7 +210,7 @@ void main() {
         s,
       ], _$e0),
     );
-    Set none = Set(go.GoMap<Golang.String, bool>.nil(_$e2));
+    Set none = Set(go.GoMap<Golang.String, bool>.nil(_$e2, _$e1));
     fmt.println(
       go.Slice<Object?>.of([
         none.has(Golang.String.fromDart('x')),
@@ -315,7 +315,7 @@ final class Bag$Ptr extends go.PtrView<Bag> implements Deleter {
   Golang.Int value$(Golang.String p0) => $p.value.value$(p0);
 
   void reset() {
-    this.value = Bag(go.GoMap<Golang.String, Golang.Int>.of({}, _$e4));
+    this.value = Bag(go.GoMap<Golang.String, Golang.Int>.of({}, _$e4, _$e1));
   }
 }
 
@@ -327,10 +327,14 @@ void _init$0() {
   final Bag$Ptr b = Bag$Ptr(
     go.Box<Bag>(
       Bag(
-        go.GoMap<Golang.String, Golang.Int>.of({
-          Golang.String.fromDart('a'): Golang.Int(1),
-          Golang.String.fromDart('b'): Golang.Int(2),
-        }, _$e4),
+        go.GoMap<Golang.String, Golang.Int>.of(
+          {
+            Golang.String.fromDart('a'): Golang.Int(1),
+            Golang.String.fromDart('b'): Golang.Int(2),
+          },
+          _$e4,
+          _$e1,
+        ),
       ),
     ),
   );
@@ -357,9 +361,19 @@ void $goInit() {
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
-const _$e0 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
-const _$e1 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);
-const _$e2 = go.Elem<bool>(1, go.zeroBool);
+const _$e0 = go.Elem<Object?>(
+  16,
+  go.zeroNull,
+  pointers: true,
+  goType: 'interface {}',
+);
+const _$e1 = go.Elem<Golang.String>(
+  16,
+  Golang.String.new,
+  pointers: true,
+  goType: 'string',
+);
+const _$e2 = go.Elem<bool>(1, go.zeroBool, goType: 'bool');
 Counter _$f3_4(Golang.FloatBase f) =>
     Counter.from(f.toInteger(64, signed: true));
 const _$e3 = go.Elem<Counter>(
@@ -367,6 +381,7 @@ const _$e3 = go.Elem<Counter>(
   Counter.new,
   ofInt: Counter.from,
   ofFloat: _$f3_4,
+  goType: 'main.Counter',
 );
 Golang.Int _$f5_5(Golang.FloatBase f) =>
     Golang.Int.from(f.toInteger(64, signed: true));
@@ -375,4 +390,5 @@ const _$e4 = go.Elem<Golang.Int>(
   Golang.Int.new,
   ofInt: Golang.Int.from,
   ofFloat: _$f5_5,
+  goType: 'int',
 );

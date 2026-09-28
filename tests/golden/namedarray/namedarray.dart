@@ -158,10 +158,14 @@ void main() {
             ),
       ], _$e1),
     );
-    go.GoMap<Hash, Golang.String> m = go.GoMap<Hash, Golang.String>.of({
-      h.$copy(): Golang.String.fromDart('h'),
-      g.$copy(): Golang.String.fromDart('g'),
-    }, _$e5);
+    go.GoMap<Hash, Golang.String> m = go.GoMap<Hash, Golang.String>.of(
+      {
+        h.$copy(): Golang.String.fromDart('h'),
+        g.$copy(): Golang.String.fromDart('g'),
+      },
+      _$e5,
+      _$e6,
+    );
     fmt.println(go.Slice<Object?>.of([m[h], m[g], Golang.Int(m.length)], _$e1));
     Msg msg = Msg(
       id: Hash(
@@ -219,9 +223,20 @@ const _$e0 = go.Elem<Golang.Uint8>(
   Golang.Uint8.new,
   ofInt: Golang.Uint8.from,
   ofFloat: _$f0_1,
+  goType: 'uint8',
 );
-const _$e1 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
-const _$e2 = go.Elem<void Function()?>(8, go.zeroNull, pointers: true);
+const _$e1 = go.Elem<Object?>(
+  16,
+  go.zeroNull,
+  pointers: true,
+  goType: 'interface {}',
+);
+const _$e2 = go.Elem<void Function()?>(
+  8,
+  go.zeroNull,
+  pointers: true,
+  goType: 'func()',
+);
 Golang.Int _$f4_5(Golang.FloatBase f) =>
     Golang.Int.from(f.toInteger(64, signed: true));
 const _$e4 = go.Elem<Golang.Int>(
@@ -229,7 +244,16 @@ const _$e4 = go.Elem<Golang.Int>(
   Golang.Int.new,
   ofInt: Golang.Int.from,
   ofFloat: _$f4_5,
+  goType: 'int',
 );
 go.GoArray<Golang.Int> _$z4_4() => go.GoArray<Golang.Int>.zero(2, _$e4);
-const _$e3 = go.Elem<go.GoArray<Golang.Int>>(16, _$z4_4);
-const _$e5 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);
+const _$e3 = go.Elem<go.GoArray<Golang.Int>>(16, _$z4_4, goType: '[2]int');
+const _$e5 = go.Elem<Golang.String>(
+  16,
+  Golang.String.new,
+  pointers: true,
+  goType: 'string',
+);
+Hash _$z9_7() => Hash(go.GoArray<Golang.Uint8>.zero(4, _$e0));
+Hash _$w10_7(Object v) => Hash(v as go.GoArray<Golang.Uint8>);
+const _$e6 = go.Elem<Hash>(4, _$z9_7, rewrap: _$w10_7, goType: 'main.Hash');

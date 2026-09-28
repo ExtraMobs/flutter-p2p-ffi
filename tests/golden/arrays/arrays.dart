@@ -102,9 +102,14 @@ void main() {
     pa![0] = Golang.Int(-1);
     fmt.println(go.Slice<Object?>.of([a.$ifaceCopy(), pa![3]], _$e1));
     go.GoMap<go.GoArray<Golang.Int>, bool> seen =
-        go.GoMap<go.GoArray<Golang.Int>, bool>.of({
-          go.GoArray<Golang.Int>.of([Golang.Int(1), Golang.Int(2)], _$e0): true,
-        }, _$e3);
+        go.GoMap<go.GoArray<Golang.Int>, bool>.of(
+          {
+            go.GoArray<Golang.Int>.of([Golang.Int(1), Golang.Int(2)], _$e0):
+                true,
+          },
+          _$e3,
+          _$e4,
+        );
     fmt.println(
       go.Slice<Object?>.of([
         seen[go.GoArray<Golang.Int>.of([Golang.Int(1), Golang.Int(2)], _$e0)],
@@ -146,9 +151,20 @@ const _$e0 = go.Elem<Golang.Int>(
   Golang.Int.new,
   ofInt: Golang.Int.from,
   ofFloat: _$f0_1,
+  goType: 'int',
 );
-const _$e1 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
-const _$e2 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);
-const _$e3 = go.Elem<bool>(1, go.zeroBool);
-go.GoArray<Golang.Int> _$z5_5() => go.GoArray<Golang.Int>.zero(3, _$e0);
-const _$e4 = go.Elem<go.GoArray<Golang.Int>>(24, _$z5_5);
+const _$e1 = go.Elem<Object?>(
+  16,
+  go.zeroNull,
+  pointers: true,
+  goType: 'interface {}',
+);
+const _$e2 = go.Elem<Golang.String>(
+  16,
+  Golang.String.new,
+  pointers: true,
+  goType: 'string',
+);
+const _$e3 = go.Elem<bool>(1, go.zeroBool, goType: 'bool');
+go.GoArray<Golang.Int> _$z5_5() => go.GoArray<Golang.Int>.zero(2, _$e0);
+const _$e4 = go.Elem<go.GoArray<Golang.Int>>(16, _$z5_5, goType: '[2]int');

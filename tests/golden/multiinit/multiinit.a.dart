@@ -11,7 +11,7 @@ import 'package:golib_dart/builtin.dart' as go;
 
 final go.Box<go.GoMap<Golang.String, Golang.Int>> registry =
     go.Box<go.GoMap<Golang.String, Golang.Int>>(
-      go.GoMap<Golang.String, Golang.Int>.nil(_$e0),
+      go.GoMap<Golang.String, Golang.Int>.nil(_$e0, _$e1),
     );
 
 final go.Box<Golang.Int> base = go.Box<Golang.Int>(Golang.Int());
@@ -19,7 +19,7 @@ final go.Box<Golang.Int> base = go.Box<Golang.Int>(Golang.Int());
 void _init$0() {
   registry.value[Golang.String.fromDart('a')] = base.value;
   fmt.println(
-    go.Slice<Object?>.of([Golang.String.fromDart('init a'), base.value], _$e1),
+    go.Slice<Object?>.of([Golang.String.fromDart('init a'), base.value], _$e2),
   );
 }
 
@@ -29,7 +29,7 @@ bool _$inited = false;
 void $goInit() {
   if (_$inited) return;
   _$inited = true;
-  registry.value = go.GoMap<Golang.String, Golang.Int>.of({}, _$e0);
+  registry.value = go.GoMap<Golang.String, Golang.Int>.of({}, _$e0, _$e1);
   base.value = b.next(Golang.String.fromDart('a.Base'));
   _init$0();
 }
@@ -42,5 +42,17 @@ const _$e0 = go.Elem<Golang.Int>(
   Golang.Int.new,
   ofInt: Golang.Int.from,
   ofFloat: _$f0_1,
+  goType: 'int',
 );
-const _$e1 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
+const _$e1 = go.Elem<Golang.String>(
+  16,
+  Golang.String.new,
+  pointers: true,
+  goType: 'string',
+);
+const _$e2 = go.Elem<Object?>(
+  16,
+  go.zeroNull,
+  pointers: true,
+  goType: 'interface {}',
+);

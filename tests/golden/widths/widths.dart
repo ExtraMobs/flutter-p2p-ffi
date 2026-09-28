@@ -176,7 +176,7 @@ void main() {
       ], _$e0),
     );
     go.GoMap<Golang.Float64, Golang.Int> m =
-        go.GoMap<Golang.Float64, Golang.Int>.of({}, _$e1);
+        go.GoMap<Golang.Float64, Golang.Int>.of({}, _$e1, _$e2);
     Golang.Float64 nan = math.naN();
     m[nan] = Golang.Int(1);
     m[nan] = Golang.Int(2);
@@ -190,9 +190,11 @@ void main() {
       ], _$e0),
     );
     go.GoMap<Golang.String, Golang.Uint8> ms =
-        go.GoMap<Golang.String, Golang.Uint8>.of({
-          Golang.String.fromDart('x'): Golang.Uint8(250),
-        }, _$e2);
+        go.GoMap<Golang.String, Golang.Uint8>.of(
+          {Golang.String.fromDart('x'): Golang.Uint8(250)},
+          _$e3,
+          _$e4,
+        );
     ms[Golang.String.fromDart('x')] =
         ms[Golang.String.fromDart('x')] + Golang.Uint8(10);
     ms[Golang.String.fromDart('y')] =
@@ -261,7 +263,7 @@ void main() {
       Golang.String.fromDart('b'),
       Golang.String.fromDart('c'),
       Golang.String.fromDart('d'),
-    ], _$e3);
+    ], _$e4);
     Golang.Int64 ix64 = Golang.Int64(3);
     Golang.Uint8 ix8 = Golang.Uint8(1);
     fmt.println(
@@ -275,36 +277,51 @@ void main() {
       ], _$e0),
     );
     go.GoMap<_main$pt$, Golang.String> mp =
-        go.GoMap<_main$pt$, Golang.String>.of({
-          _main$pt$(x: Golang.Int(2), y: Golang.Int(1)): Golang.String.fromDart(
-            'c',
-          ),
-          _main$pt$(x: Golang.Int(1), y: Golang.Int(5)): Golang.String.fromDart(
-            'b',
-          ),
-          _main$pt$(x: Golang.Int(1), y: Golang.Int(2)): Golang.String.fromDart(
-            'a',
-          ),
-        }, _$e3);
-    go.GoMap<go.GoArray<Golang.Int8>, bool>
-    ma = go.GoMap<go.GoArray<Golang.Int8>, bool>.of({
-      go.GoArray<Golang.Int8>.of([Golang.Int8(1), Golang.Int8(-1)], _$e4): true,
-      go.GoArray<Golang.Int8>.of([Golang.Int8(-3), Golang.Int8(0)], _$e4):
-          false,
-      go.GoArray<Golang.Int8>.of([Golang.Int8(1), Golang.Int8(-2)], _$e4): true,
-    }, _$e5);
+        go.GoMap<_main$pt$, Golang.String>.of(
+          {
+            _main$pt$(x: Golang.Int(2), y: Golang.Int(1)):
+                Golang.String.fromDart('c'),
+            _main$pt$(x: Golang.Int(1), y: Golang.Int(5)):
+                Golang.String.fromDart('b'),
+            _main$pt$(x: Golang.Int(1), y: Golang.Int(2)):
+                Golang.String.fromDart('a'),
+          },
+          _$e4,
+          _$e5,
+        );
+    go.GoMap<go.GoArray<Golang.Int8>, bool> ma =
+        go.GoMap<go.GoArray<Golang.Int8>, bool>.of(
+          {
+            go.GoArray<Golang.Int8>.of([Golang.Int8(1), Golang.Int8(-1)], _$e6):
+                true,
+            go.GoArray<Golang.Int8>.of([Golang.Int8(-3), Golang.Int8(0)], _$e6):
+                false,
+            go.GoArray<Golang.Int8>.of([Golang.Int8(1), Golang.Int8(-2)], _$e6):
+                true,
+          },
+          _$e7,
+          _$e8,
+        );
     go.GoMap<Golang.Complex128, Golang.Int> mc =
-        go.GoMap<Golang.Complex128, Golang.Int>.of({
-          Golang.Complex128.fromDoubles(1.0, 2.0): Golang.Int(1),
-          Golang.Complex128.fromDoubles(0.0, 9.0): Golang.Int(2),
-          Golang.Complex128.fromDoubles(1.0, -1.0): Golang.Int(3),
-        }, _$e1);
-    go.GoMap<Object?, Golang.Int> mi = go.GoMap<Object?, Golang.Int>.of({
-      null: Golang.Int(0),
-      Golang.Int(3): Golang.Int(3),
-      Golang.Int(1): Golang.Int(1),
-      Golang.Int(2): Golang.Int(2),
-    }, _$e1);
+        go.GoMap<Golang.Complex128, Golang.Int>.of(
+          {
+            Golang.Complex128.fromDoubles(1.0, 2.0): Golang.Int(1),
+            Golang.Complex128.fromDoubles(0.0, 9.0): Golang.Int(2),
+            Golang.Complex128.fromDoubles(1.0, -1.0): Golang.Int(3),
+          },
+          _$e1,
+          _$e9,
+        );
+    go.GoMap<Object?, Golang.Int> mi = go.GoMap<Object?, Golang.Int>.of(
+      {
+        null: Golang.Int(0),
+        Golang.Int(3): Golang.Int(3),
+        Golang.Int(1): Golang.Int(1),
+        Golang.Int(2): Golang.Int(2),
+      },
+      _$e1,
+      _$e0,
+    );
     fmt.println(go.Slice<Object?>.of([mp, ma, mc, mi], _$e0));
   });
 }
@@ -353,7 +370,12 @@ void $goInit() {
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
-const _$e0 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
+const _$e0 = go.Elem<Object?>(
+  16,
+  go.zeroNull,
+  pointers: true,
+  goType: 'interface {}',
+);
 Golang.Int _$f1_2(Golang.FloatBase f) =>
     Golang.Int.from(f.toInteger(64, signed: true));
 const _$e1 = go.Elem<Golang.Int>(
@@ -361,22 +383,49 @@ const _$e1 = go.Elem<Golang.Int>(
   Golang.Int.new,
   ofInt: Golang.Int.from,
   ofFloat: _$f1_2,
+  goType: 'int',
 );
-Golang.Uint8 _$f3_3(Golang.FloatBase f) =>
+Golang.Float64 _$i3_3(Golang.IntBase n) => (n.$signed
+    ? Golang.Float64.fromInt64(Golang.Int64.from(n))
+    : Golang.Float64.fromUint64(Golang.Uint64.from(n)));
+Golang.Float64 _$f4_3(Golang.FloatBase f) => Golang.Float64(f.toDouble());
+const _$e2 = go.Elem<Golang.Float64>(
+  8,
+  Golang.Float64.new,
+  ofInt: _$i3_3,
+  ofFloat: _$f4_3,
+  goType: 'float64',
+);
+Golang.Uint8 _$f6_4(Golang.FloatBase f) =>
     Golang.Uint8.from(f.toInteger(8, signed: false));
-const _$e2 = go.Elem<Golang.Uint8>(
+const _$e3 = go.Elem<Golang.Uint8>(
   1,
   Golang.Uint8.new,
   ofInt: Golang.Uint8.from,
-  ofFloat: _$f3_3,
+  ofFloat: _$f6_4,
+  goType: 'uint8',
 );
-const _$e3 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);
-Golang.Int8 _$f6_5(Golang.FloatBase f) =>
+const _$e4 = go.Elem<Golang.String>(
+  16,
+  Golang.String.new,
+  pointers: true,
+  goType: 'string',
+);
+const _$e5 = go.Elem<_main$pt$>(16, _main$pt$.new, goType: 'main.pt');
+Golang.Int8 _$f10_7(Golang.FloatBase f) =>
     Golang.Int8.from(f.toInteger(8, signed: true));
-const _$e4 = go.Elem<Golang.Int8>(
+const _$e6 = go.Elem<Golang.Int8>(
   1,
   Golang.Int8.new,
   ofInt: Golang.Int8.from,
-  ofFloat: _$f6_5,
+  ofFloat: _$f10_7,
+  goType: 'int8',
 );
-const _$e5 = go.Elem<bool>(1, go.zeroBool);
+const _$e7 = go.Elem<bool>(1, go.zeroBool, goType: 'bool');
+go.GoArray<Golang.Int8> _$z13_9() => go.GoArray<Golang.Int8>.zero(2, _$e6);
+const _$e8 = go.Elem<go.GoArray<Golang.Int8>>(2, _$z13_9, goType: '[2]int8');
+const _$e9 = go.Elem<Golang.Complex128>(
+  16,
+  Golang.Complex128.new,
+  goType: 'complex128',
+);

@@ -474,9 +474,35 @@ void $goInit() {
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
-const _$e0 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
-const _$e1 = go.Elem<go.GoError?>(16, go.zeroNull, pointers: true);
-const _$e2 = go.Elem<PathError?>(8, go.zeroNull, pointers: true);
+const _$e0 = go.Elem<Object?>(
+  16,
+  go.zeroNull,
+  pointers: true,
+  goType: 'interface {}',
+);
+const _$e1 = go.Elem<go.GoError?>(
+  16,
+  go.zeroNull,
+  pointers: true,
+  goType: 'error',
+);
+const _$e2 = go.Elem<PathError?>(
+  8,
+  go.zeroNull,
+  pointers: true,
+  goType: '*main.PathError',
+);
 Code _$f3_4(Golang.FloatBase f) => Code.from(f.toInteger(64, signed: true));
-const _$e3 = go.Elem<Code>(8, Code.new, ofInt: Code.from, ofFloat: _$f3_4);
-const _$e4 = go.Elem<_tempErr$?>(16, go.zeroNull, pointers: true);
+const _$e3 = go.Elem<Code>(
+  8,
+  Code.new,
+  ofInt: Code.from,
+  ofFloat: _$f3_4,
+  goType: 'main.Code',
+);
+const _$e4 = go.Elem<_tempErr$?>(
+  16,
+  go.zeroNull,
+  pointers: true,
+  goType: 'main.tempErr',
+);

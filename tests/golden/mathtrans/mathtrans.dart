@@ -143,5 +143,11 @@ const _$e0 = go.Elem<Golang.Float64>(
   Golang.Float64.new,
   ofInt: _$i0_1,
   ofFloat: _$f1_1,
+  goType: 'float64',
 );
-const _$e1 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
+const _$e1 = go.Elem<Object?>(
+  16,
+  go.zeroNull,
+  pointers: true,
+  goType: 'interface {}',
+);

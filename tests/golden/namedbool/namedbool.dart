@@ -148,10 +148,11 @@ void main() {
         );
       }
     }
-    go.GoMap<Flag, Golang.Int> m = go.GoMap<Flag, Golang.Int>.of({
-      Flag(true): Golang.Int(1),
-      Flag(false): Golang.Int(0),
-    }, _$e1);
+    go.GoMap<Flag, Golang.Int> m = go.GoMap<Flag, Golang.Int>.of(
+      {Flag(true): Golang.Int(1), Flag(false): Golang.Int(0)},
+      _$e1,
+      _$e2,
+    );
     fmt.printf(
       Golang.String.fromDart('%v %t %v %T\n'),
       go.Slice<Object?>.of([m[f], o.value, Opt(false), o.value], _$e0),
@@ -174,7 +175,12 @@ void $goInit() {
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
-const _$e0 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
+const _$e0 = go.Elem<Object?>(
+  16,
+  go.zeroNull,
+  pointers: true,
+  goType: 'interface {}',
+);
 Golang.Int _$f1_2(Golang.FloatBase f) =>
     Golang.Int.from(f.toInteger(64, signed: true));
 const _$e1 = go.Elem<Golang.Int>(
@@ -182,4 +188,6 @@ const _$e1 = go.Elem<Golang.Int>(
   Golang.Int.new,
   ofInt: Golang.Int.from,
   ofFloat: _$f1_2,
+  goType: 'int',
 );
+const _$e2 = go.Elem<Flag>(1, Flag.new, goType: 'main.Flag');

@@ -31,7 +31,7 @@ final class _id$ extends Golang.Int64Base<_id$> implements Key {
 
 class Cache<K extends Key, V> extends go.GoStruct<Cache<K, V>> {
   Cache(this.$K, this.$V, {go.GoMap<K, V>? m})
-    : _m = m ?? go.GoMap<K, V>.nil($V);
+    : _m = m ?? go.GoMap<K, V>.nil($V, $K);
 
   final go.Elem<K> $K;
   final go.Elem<V> $V;
@@ -61,7 +61,7 @@ class Cache<K extends Key, V> extends go.GoStruct<Cache<K, V>> {
   Golang.Int put(K k, V v) {
     final Cache<K, V>? c = $nilPtr ? null : this;
     if (c!._m.isNil) {
-      c!._m = go.GoMap<K, V>.of({}, $V);
+      c!._m = go.GoMap<K, V>.of({}, $V, $K);
     }
     c!._m[k] = v;
     return k.shard(Golang.Int(4));
@@ -93,6 +93,22 @@ void $goInit() {
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
 _id$ _$f0_1(Golang.FloatBase f) => _id$.from(f.toInteger(64, signed: true));
-const _$e0 = go.Elem<_id$>(8, _id$.new, ofInt: _id$.from, ofFloat: _$f0_1);
-const _$e1 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);
-const _$e2 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
+const _$e0 = go.Elem<_id$>(
+  8,
+  _id$.new,
+  ofInt: _id$.from,
+  ofFloat: _$f0_1,
+  goType: 'main.id',
+);
+const _$e1 = go.Elem<Golang.String>(
+  16,
+  Golang.String.new,
+  pointers: true,
+  goType: 'string',
+);
+const _$e2 = go.Elem<Object?>(
+  16,
+  go.zeroNull,
+  pointers: true,
+  goType: 'interface {}',
+);

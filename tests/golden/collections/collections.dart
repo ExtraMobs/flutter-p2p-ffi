@@ -171,7 +171,7 @@ void main() {
       ], _$e2),
     );
     go.GoMap<Golang.String, Golang.Int> nm =
-        go.GoMap<Golang.String, Golang.Int>.nil(_$e1);
+        go.GoMap<Golang.String, Golang.Int>.nil(_$e1, _$e0);
     var (v, ok) = nm.lookup(Golang.String.fromDart('x'));
     fmt.println(
       go.Slice<Object?>.of([
@@ -183,11 +183,15 @@ void main() {
       ], _$e2),
     );
     go.GoMap<Golang.String, Golang.Int> m =
-        go.GoMap<Golang.String, Golang.Int>.of({
-          Golang.String.fromDart('a'): Golang.Int(1),
-          Golang.String.fromDart('b'): Golang.Int(2),
-          Golang.String.fromDart('c'): Golang.Int(3),
-        }, _$e1);
+        go.GoMap<Golang.String, Golang.Int>.of(
+          {
+            Golang.String.fromDart('a'): Golang.Int(1),
+            Golang.String.fromDart('b'): Golang.Int(2),
+            Golang.String.fromDart('c'): Golang.Int(3),
+          },
+          _$e1,
+          _$e0,
+        );
     (v, ok) = m.lookup(Golang.String.fromDart('b'));
     fmt.println(go.Slice<Object?>.of([v, ok, m], _$e2));
     {
@@ -203,7 +207,7 @@ void main() {
     m[Golang.String.fromDart('z')] = Golang.Int(26);
     fmt.println(go.Slice<Object?>.of([m, Golang.Int(m.length)], _$e2));
     go.GoMap<Golang.Int, go.Slice<Golang.String>> groups =
-        go.GoMap<Golang.Int, go.Slice<Golang.String>>.of({}, _$e4);
+        go.GoMap<Golang.Int, go.Slice<Golang.String>>.of({}, _$e4, _$e1);
     groups[Golang.Int(1)] = groups[Golang.Int(1)].append([
       Golang.String.fromDart('um'),
     ]);
@@ -272,7 +276,12 @@ void $goInit() {
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
-const _$e0 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);
+const _$e0 = go.Elem<Golang.String>(
+  16,
+  Golang.String.new,
+  pointers: true,
+  goType: 'string',
+);
 Golang.Int _$f1_2(Golang.FloatBase f) =>
     Golang.Int.from(f.toInteger(64, signed: true));
 const _$e1 = go.Elem<Golang.Int>(
@@ -280,8 +289,24 @@ const _$e1 = go.Elem<Golang.Int>(
   Golang.Int.new,
   ofInt: Golang.Int.from,
   ofFloat: _$f1_2,
+  goType: 'int',
 );
-const _$e2 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
-const _$e3 = go.Elem<Counter>(32, Counter.new, pointers: true);
+const _$e2 = go.Elem<Object?>(
+  16,
+  go.zeroNull,
+  pointers: true,
+  goType: 'interface {}',
+);
+const _$e3 = go.Elem<Counter>(
+  32,
+  Counter.new,
+  pointers: true,
+  goType: 'main.Counter',
+);
 go.Slice<Golang.String> _$z5_5() => go.Slice<Golang.String>.nil(_$e0);
-const _$e4 = go.Elem<go.Slice<Golang.String>>(24, _$z5_5, pointers: true);
+const _$e4 = go.Elem<go.Slice<Golang.String>>(
+  24,
+  _$z5_5,
+  pointers: true,
+  goType: '[]string',
+);

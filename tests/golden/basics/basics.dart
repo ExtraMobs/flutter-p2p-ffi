@@ -55,7 +55,12 @@ class Counter extends go.GoStruct<Counter> {
   }
 
   @override
-  List<Object?> get $fields => [_n, name, _tags, go.Addr(_next)];
+  List<Object?> get $fields => [
+    _n,
+    name,
+    _tags,
+    go.Addr(_next, goType: 'main.Counter'),
+  ];
 
   @override
   List<String> get $fieldNames => const ['n', 'Name', 'tags', 'next'];
@@ -179,11 +184,15 @@ void main() {
       }
     }
     go.GoMap<Golang.String, Golang.Int> m =
-        go.GoMap<Golang.String, Golang.Int>.of({
-          Golang.String.fromDart('a'): Golang.Int(1),
-          Golang.String.fromDart('b'): Golang.Int(2),
-          Golang.String.fromDart('c'): Golang.Int(3),
-        }, _$e3);
+        go.GoMap<Golang.String, Golang.Int>.of(
+          {
+            Golang.String.fromDart('a'): Golang.Int(1),
+            Golang.String.fromDart('b'): Golang.Int(2),
+            Golang.String.fromDart('c'): Golang.Int(3),
+          },
+          _$e3,
+          _$e0,
+        );
     m[Golang.String.fromDart('d')] =
         m[Golang.String.fromDart('d')] + Golang.Int(4);
     m[Golang.String.fromDart('a')] =
@@ -299,9 +308,24 @@ void $goInit() {
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
-const _$e0 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);
-const _$e1 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
-const _$e2 = go.Elem<Golang.Int Function()?>(8, go.zeroNull, pointers: true);
+const _$e0 = go.Elem<Golang.String>(
+  16,
+  Golang.String.new,
+  pointers: true,
+  goType: 'string',
+);
+const _$e1 = go.Elem<Object?>(
+  16,
+  go.zeroNull,
+  pointers: true,
+  goType: 'interface {}',
+);
+const _$e2 = go.Elem<Golang.Int Function()?>(
+  8,
+  go.zeroNull,
+  pointers: true,
+  goType: 'func() int',
+);
 Golang.Int _$f3_4(Golang.FloatBase f) =>
     Golang.Int.from(f.toInteger(64, signed: true));
 const _$e3 = go.Elem<Golang.Int>(
@@ -309,4 +333,5 @@ const _$e3 = go.Elem<Golang.Int>(
   Golang.Int.new,
   ofInt: Golang.Int.from,
   ofFloat: _$f3_4,
+  goType: 'int',
 );

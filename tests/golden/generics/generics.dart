@@ -245,6 +245,7 @@ const _$e0 = go.Elem<Golang.Int>(
   Golang.Int.new,
   ofInt: Golang.Int.from,
   ofFloat: _$f0_1,
+  goType: 'int',
 );
 Golang.Float64 _$i2_2(Golang.IntBase n) => (n.$signed
     ? Golang.Float64.fromInt64(Golang.Int64.from(n))
@@ -255,6 +256,7 @@ const _$e1 = go.Elem<Golang.Float64>(
   Golang.Float64.new,
   ofInt: _$i2_2,
   ofFloat: _$f3_2,
+  goType: 'float64',
 );
 Meters _$i5_3(Golang.IntBase n) => Meters(
   (n.$signed
@@ -263,6 +265,22 @@ Meters _$i5_3(Golang.IntBase n) => Meters(
       .toDouble(),
 );
 Meters _$f6_3(Golang.FloatBase f) => Meters(f.toDouble());
-const _$e2 = go.Elem<Meters>(8, Meters.new, ofInt: _$i5_3, ofFloat: _$f6_3);
-const _$e3 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
-const _$e4 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);
+const _$e2 = go.Elem<Meters>(
+  8,
+  Meters.new,
+  ofInt: _$i5_3,
+  ofFloat: _$f6_3,
+  goType: 'main.Meters',
+);
+const _$e3 = go.Elem<Object?>(
+  16,
+  go.zeroNull,
+  pointers: true,
+  goType: 'interface {}',
+);
+const _$e4 = go.Elem<Golang.String>(
+  16,
+  Golang.String.new,
+  pointers: true,
+  goType: 'string',
+);

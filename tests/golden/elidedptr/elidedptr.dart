@@ -88,13 +88,15 @@ void main() {
     ps[0]!.x = Golang.Int(10);
     P? q = ps[0];
     q!.y = Golang.Int(20);
-    go.GoMap<Golang.String, P?> m = go.GoMap<Golang.String, P?>.of({
-      Golang.String.fromDart('a'): P(x: Golang.Int(5), y: Golang.Int(6)),
-    }, _$e2);
+    go.GoMap<Golang.String, P?> m = go.GoMap<Golang.String, P?>.of(
+      {Golang.String.fromDart('a'): P(x: Golang.Int(5), y: Golang.Int(6))},
+      _$e2,
+      _$e3,
+    );
     go.Slice<go.GoArray<Golang.Int>?> arr =
         go.Slice<go.GoArray<Golang.Int>?>.of([
-          go.GoArray<Golang.Int>.of([Golang.Int(7), Golang.Int(8)], _$e3),
-        ], _$e4);
+          go.GoArray<Golang.Int>.of([Golang.Int(7), Golang.Int(8)], _$e4),
+        ], _$e5);
     arr[0]![1] = Golang.Int(9);
     fmt.println(
       go.Slice<Object?>.of([
@@ -105,13 +107,13 @@ void main() {
         _table[0]!._name,
         _table[1]!._decomp.$ifaceCopy(),
         Golang.Int(2),
-      ], _$e5),
+      ], _$e6),
     );
     fmt.println(
       go.Slice<Object?>.of([
         identical(ps[0], q),
         identical(ps[0], ps[1]),
-      ], _$e5),
+      ], _$e6),
     );
   });
 }
@@ -142,16 +144,39 @@ const _$e0 = go.Elem<Golang.Uint8>(
   Golang.Uint8.new,
   ofInt: Golang.Uint8.from,
   ofFloat: _$f0_1,
+  goType: 'uint8',
 );
-const _$e1 = go.Elem<_formInfo$?>(8, go.zeroNull, pointers: true);
-const _$e2 = go.Elem<P?>(8, go.zeroNull, pointers: true);
-Golang.Int _$f4_4(Golang.FloatBase f) =>
+const _$e1 = go.Elem<_formInfo$?>(
+  8,
+  go.zeroNull,
+  pointers: true,
+  goType: '*main.formInfo',
+);
+const _$e2 = go.Elem<P?>(8, go.zeroNull, pointers: true, goType: '*main.P');
+const _$e3 = go.Elem<Golang.String>(
+  16,
+  Golang.String.new,
+  pointers: true,
+  goType: 'string',
+);
+Golang.Int _$f5_5(Golang.FloatBase f) =>
     Golang.Int.from(f.toInteger(64, signed: true));
-const _$e3 = go.Elem<Golang.Int>(
+const _$e4 = go.Elem<Golang.Int>(
   8,
   Golang.Int.new,
   ofInt: Golang.Int.from,
-  ofFloat: _$f4_4,
+  ofFloat: _$f5_5,
+  goType: 'int',
 );
-const _$e4 = go.Elem<go.GoArray<Golang.Int>?>(8, go.zeroNull, pointers: true);
-const _$e5 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
+const _$e5 = go.Elem<go.GoArray<Golang.Int>?>(
+  8,
+  go.zeroNull,
+  pointers: true,
+  goType: '*[2]int',
+);
+const _$e6 = go.Elem<Object?>(
+  16,
+  go.zeroNull,
+  pointers: true,
+  goType: 'interface {}',
+);

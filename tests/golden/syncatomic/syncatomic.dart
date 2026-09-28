@@ -219,5 +219,10 @@ void $goInit() {
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
-const _$e0 = go.Elem<_cfg$>(16, _cfg$.new, pointers: true);
-const _$e1 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
+const _$e0 = go.Elem<_cfg$>(16, _cfg$.new, pointers: true, goType: 'main.cfg');
+const _$e1 = go.Elem<Object?>(
+  16,
+  go.zeroNull,
+  pointers: true,
+  goType: 'interface {}',
+);

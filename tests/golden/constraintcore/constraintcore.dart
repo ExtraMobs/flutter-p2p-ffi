@@ -254,16 +254,18 @@ void main() {
           _$e0,
           _$e5,
           Set(
-            go.GoMap<Golang.String, bool>.of({
-              Golang.String.fromDart('a'): true,
-            }, _$e5),
+            go.GoMap<Golang.String, bool>.of(
+              {Golang.String.fromDart('a'): true},
+              _$e5,
+              _$e0,
+            ),
           ),
         ),
         keys<go.GoMap<Golang.Int, Golang.Int>, Golang.Int, Golang.Int>(
           _$e7,
           _$e3,
           _$e3,
-          go.GoMap<Golang.Int, Golang.Int>.of({}, _$e3),
+          go.GoMap<Golang.Int, Golang.Int>.of({}, _$e3, _$e3),
         ),
       ], _$e2),
     );
@@ -298,11 +300,27 @@ void $goInit() {
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
-const _$e0 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);
+const _$e0 = go.Elem<Golang.String>(
+  16,
+  Golang.String.new,
+  pointers: true,
+  goType: 'string',
+);
 IDs _$z1_2() => IDs(go.Slice<Golang.String>.nil(_$e0));
 IDs _$w2_2(Object v) => IDs(v as go.Slice<Golang.String>);
-const _$e1 = go.Elem<IDs>(24, _$z1_2, pointers: true, rewrap: _$w2_2);
-const _$e2 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
+const _$e1 = go.Elem<IDs>(
+  24,
+  _$z1_2,
+  pointers: true,
+  rewrap: _$w2_2,
+  goType: 'main.IDs',
+);
+const _$e2 = go.Elem<Object?>(
+  16,
+  go.zeroNull,
+  pointers: true,
+  goType: 'interface {}',
+);
 Golang.Int _$f5_4(Golang.FloatBase f) =>
     Golang.Int.from(f.toInteger(64, signed: true));
 const _$e3 = go.Elem<Golang.Int>(
@@ -310,19 +328,32 @@ const _$e3 = go.Elem<Golang.Int>(
   Golang.Int.new,
   ofInt: Golang.Int.from,
   ofFloat: _$f5_4,
+  goType: 'int',
 );
 go.Slice<Golang.Int> _$z7_5() => go.Slice<Golang.Int>.nil(_$e3);
-const _$e4 = go.Elem<go.Slice<Golang.Int>>(24, _$z7_5, pointers: true);
-const _$e5 = go.Elem<bool>(1, go.zeroBool);
-Set _$z10_7() => Set(go.GoMap<Golang.String, bool>.nil(_$e5));
+const _$e4 = go.Elem<go.Slice<Golang.Int>>(
+  24,
+  _$z7_5,
+  pointers: true,
+  goType: '[]int',
+);
+const _$e5 = go.Elem<bool>(1, go.zeroBool, goType: 'bool');
+Set _$z10_7() => Set(go.GoMap<Golang.String, bool>.nil(_$e5, _$e0));
 Set _$w11_7(Object v) => Set(v as go.GoMap<Golang.String, bool>);
-const _$e6 = go.Elem<Set>(8, _$z10_7, pointers: true, rewrap: _$w11_7);
+const _$e6 = go.Elem<Set>(
+  8,
+  _$z10_7,
+  pointers: true,
+  rewrap: _$w11_7,
+  goType: 'main.Set',
+);
 go.GoMap<Golang.Int, Golang.Int> _$z13_8() =>
-    go.GoMap<Golang.Int, Golang.Int>.nil(_$e3);
+    go.GoMap<Golang.Int, Golang.Int>.nil(_$e3, _$e3);
 const _$e7 = go.Elem<go.GoMap<Golang.Int, Golang.Int>>(
   8,
   _$z13_8,
   pointers: true,
+  goType: 'map[int]int',
 );
 Golang.Uint8 _$f15_9(Golang.FloatBase f) =>
     Golang.Uint8.from(f.toInteger(8, signed: false));
@@ -331,6 +362,7 @@ const _$e8 = go.Elem<Golang.Uint8>(
   Golang.Uint8.new,
   ofInt: Golang.Uint8.from,
   ofFloat: _$f15_9,
+  goType: 'uint8',
 );
 _offset$ _$f17_10(Golang.FloatBase f) =>
     _offset$.from(f.toInteger(32, signed: false));
@@ -339,6 +371,7 @@ const _$e9 = go.Elem<_offset$>(
   _offset$.new,
   ofInt: _offset$.from,
   ofFloat: _$f17_10,
+  goType: 'main.offset',
 );
 Golang.Int64 _$f19_11(Golang.FloatBase f) =>
     Golang.Int64.from(f.toInteger(64, signed: true));
@@ -347,6 +380,7 @@ const _$e10 = go.Elem<Golang.Int64>(
   Golang.Int64.new,
   ofInt: Golang.Int64.from,
   ofFloat: _$f19_11,
+  goType: 'int64',
 );
 Golang.Float64 _$i21_12(Golang.IntBase n) => (n.$signed
     ? Golang.Float64.fromInt64(Golang.Int64.from(n))
@@ -357,4 +391,5 @@ const _$e11 = go.Elem<Golang.Float64>(
   Golang.Float64.new,
   ofInt: _$i21_12,
   ofFloat: _$f22_12,
+  goType: 'float64',
 );

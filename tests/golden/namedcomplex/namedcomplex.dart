@@ -98,10 +98,14 @@ void main() {
         z.$c.real + z.$c.imag,
       ], _$e0),
     );
-    go.GoMap<Z, Golang.Int> m = go.GoMap<Z, Golang.Int>.of({
-      z: Golang.Int(1),
-      Z(Golang.Complex128.fromDoubles(2.0, 0.0)): Golang.Int(2),
-    }, _$e1);
+    go.GoMap<Z, Golang.Int> m = go.GoMap<Z, Golang.Int>.of(
+      {
+        z: Golang.Int(1),
+        Z(Golang.Complex128.fromDoubles(2.0, 0.0)): Golang.Int(2),
+      },
+      _$e1,
+      _$e2,
+    );
     fmt.println(
       go.Slice<Object?>.of([
         m[Z(Golang.Complex128.fromDoubles(1.0, 2.0))],
@@ -120,11 +124,17 @@ void main() {
         fmt.sprint(go.Slice<Object?>.of([zs[2]], _$e0)),
       ], _$e0),
     );
-    go.GoMap<P, Golang.String> mp = go.GoMap<P, Golang.String>.of({
-      P(Golang.Complex128.fromDoubles(2.0, 1.0)): Golang.String.fromDart('b'),
-      P(Golang.Complex128.fromDoubles(1.0, 5.0)): Golang.String.fromDart('a'),
-      P(Golang.Complex128.fromDoubles(2.0, -1.0)): Golang.String.fromDart('c'),
-    }, _$e3);
+    go.GoMap<P, Golang.String> mp = go.GoMap<P, Golang.String>.of(
+      {
+        P(Golang.Complex128.fromDoubles(2.0, 1.0)): Golang.String.fromDart('b'),
+        P(Golang.Complex128.fromDoubles(1.0, 5.0)): Golang.String.fromDart('a'),
+        P(Golang.Complex128.fromDoubles(2.0, -1.0)): Golang.String.fromDart(
+          'c',
+        ),
+      },
+      _$e3,
+      _$e4,
+    );
     P zero = P();
     fmt.println(go.Slice<Object?>.of([mp, P(z.$c) / zero, zero / zero], _$e0));
     fmt.printf(
@@ -146,7 +156,12 @@ void $goInit() {
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
-const _$e0 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
+const _$e0 = go.Elem<Object?>(
+  16,
+  go.zeroNull,
+  pointers: true,
+  goType: 'interface {}',
+);
 Golang.Int _$f1_2(Golang.FloatBase f) =>
     Golang.Int.from(f.toInteger(64, signed: true));
 const _$e1 = go.Elem<Golang.Int>(
@@ -154,7 +169,13 @@ const _$e1 = go.Elem<Golang.Int>(
   Golang.Int.new,
   ofInt: Golang.Int.from,
   ofFloat: _$f1_2,
+  goType: 'int',
 );
-const _$e2 = go.Elem<Z>(16, Z.new);
-const _$e3 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);
-const _$e4 = go.Elem<P>(16, P.new);
+const _$e2 = go.Elem<Z>(16, Z.new, goType: 'main.Z');
+const _$e3 = go.Elem<Golang.String>(
+  16,
+  Golang.String.new,
+  pointers: true,
+  goType: 'string',
+);
+const _$e4 = go.Elem<P>(16, P.new, goType: 'main.P');

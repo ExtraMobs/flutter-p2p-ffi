@@ -31,7 +31,7 @@ final class DoNotCopy extends go.GoArray<sync.Mutex> {
 class _counter$ extends go.GoStruct<_counter$> {
   _counter$({sync.Mutex? mu, go.GoMap<Golang.String, Golang.Int>? n})
     : _mu = mu ?? sync.Mutex(),
-      _n = n ?? go.GoMap<Golang.String, Golang.Int>.nil(_$e1);
+      _n = n ?? go.GoMap<Golang.String, Golang.Int>.nil(_$e1, _$e2);
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
   static final _counter$ $nil = _counter$()..$nilPtr = true;
@@ -94,7 +94,7 @@ class _counter$ extends go.GoStruct<_counter$> {
 class _cache$ extends go.GoStruct<_cache$> {
   _cache$({sync.RWMutex? rw, go.GoMap<Golang.Int, Golang.String>? m})
     : _rw = rw ?? sync.RWMutex(),
-      _m = m ?? go.GoMap<Golang.Int, Golang.String>.nil(_$e2);
+      _m = m ?? go.GoMap<Golang.Int, Golang.String>.nil(_$e2, _$e1);
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
   static final _cache$ $nil = _cache$()..$nilPtr = true;
@@ -159,7 +159,7 @@ void main() {
         .assertType<go.Ptr<go.Slice<Golang.Uint8>>?>(
           _bufPool.get(),
           'interface {}',
-          '*[]byte',
+          '*[]uint8',
         );
     b!.value = b!.value.append([Golang.Uint8(120)]);
     _bufPool.put(b ?? const go.NilPtr<go.Slice<Golang.Uint8>>());
@@ -167,7 +167,7 @@ void main() {
         .assertType<go.Ptr<go.Slice<Golang.Uint8>>?>(
           _bufPool.get(),
           'interface {}',
-          '*[]byte',
+          '*[]uint8',
         );
     fmt.println(
       go.Slice<Object?>.of([
@@ -178,7 +178,7 @@ void main() {
               .assertType<go.Ptr<go.Slice<Golang.Uint8>>?>(
                 _bufPool.get(),
                 'interface {}',
-                '*[]byte',
+                '*[]uint8',
               )!
               .value
               .length,
@@ -186,7 +186,7 @@ void main() {
       ], _$e3),
     );
     _counter$? c = _counter$(
-      n: go.GoMap<Golang.String, Golang.Int>.of({}, _$e1),
+      n: go.GoMap<Golang.String, Golang.Int>.of({}, _$e1, _$e2),
     );
     (c ?? _counter$.$nil)._inc(Golang.String.fromDart('a'));
     fmt.println(
@@ -198,9 +198,11 @@ void main() {
     );
     c!._mu.unlock();
     _cache$? ca = _cache$(
-      m: go.GoMap<Golang.Int, Golang.String>.of({
-        Golang.Int(1): Golang.String.fromDart('um'),
-      }, _$e2),
+      m: go.GoMap<Golang.Int, Golang.String>.of(
+        {Golang.Int(1): Golang.String.fromDart('um')},
+        _$e2,
+        _$e1,
+      ),
     );
     (switch ((ca ?? _cache$.$nil)._get(Golang.Int(1))) {
       (final $t1, final $t2) => fmt.println(
@@ -323,7 +325,7 @@ void $goInit() {
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
-const _$e0 = go.Elem<sync.Mutex>(8, sync.Mutex.new);
+const _$e0 = go.Elem<sync.Mutex>(8, sync.Mutex.new, goType: 'sync.Mutex');
 Golang.Int _$f1_2(Golang.FloatBase f) =>
     Golang.Int.from(f.toInteger(64, signed: true));
 const _$e1 = go.Elem<Golang.Int>(
@@ -331,9 +333,20 @@ const _$e1 = go.Elem<Golang.Int>(
   Golang.Int.new,
   ofInt: Golang.Int.from,
   ofFloat: _$f1_2,
+  goType: 'int',
 );
-const _$e2 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);
-const _$e3 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
+const _$e2 = go.Elem<Golang.String>(
+  16,
+  Golang.String.new,
+  pointers: true,
+  goType: 'string',
+);
+const _$e3 = go.Elem<Object?>(
+  16,
+  go.zeroNull,
+  pointers: true,
+  goType: 'interface {}',
+);
 Golang.Uint8 _$f5_5(Golang.FloatBase f) =>
     Golang.Uint8.from(f.toInteger(8, signed: false));
 const _$e4 = go.Elem<Golang.Uint8>(
@@ -341,4 +354,5 @@ const _$e4 = go.Elem<Golang.Uint8>(
   Golang.Uint8.new,
   ofInt: Golang.Uint8.from,
   ofFloat: _$f5_5,
+  goType: 'uint8',
 );

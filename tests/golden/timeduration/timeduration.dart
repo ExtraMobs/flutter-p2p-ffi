@@ -195,5 +195,11 @@ const _$e0 = go.Elem<time.Duration>(
   time.Duration.new,
   ofInt: time.Duration.from,
   ofFloat: _$f0_1,
+  goType: 'time.Duration',
 );
-const _$e1 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
+const _$e1 = go.Elem<Object?>(
+  16,
+  go.zeroNull,
+  pointers: true,
+  goType: 'interface {}',
+);

@@ -348,7 +348,7 @@ void $goInit() {
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
-const _$e0 = go.Elem<_item$>(16, _item$.new);
+const _$e0 = go.Elem<_item$>(16, _item$.new, goType: 'main.item');
 Golang.Int _$f1_2(Golang.FloatBase f) =>
     Golang.Int.from(f.toInteger(64, signed: true));
 const _$e1 = go.Elem<Golang.Int>(
@@ -356,8 +356,14 @@ const _$e1 = go.Elem<Golang.Int>(
   Golang.Int.new,
   ofInt: Golang.Int.from,
   ofFloat: _$f1_2,
+  goType: 'int',
 );
-const _$e2 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
+const _$e2 = go.Elem<Object?>(
+  16,
+  go.zeroNull,
+  pointers: true,
+  goType: 'interface {}',
+);
 Golang.Uint64 _$f4_4(Golang.FloatBase f) =>
     Golang.Uint64.from(f.toInteger(64, signed: false));
 const _$e3 = go.Elem<Golang.Uint64>(
@@ -365,9 +371,15 @@ const _$e3 = go.Elem<Golang.Uint64>(
   Golang.Uint64.new,
   ofInt: Golang.Uint64.from,
   ofFloat: _$f4_4,
+  goType: 'uint64',
 );
-const _$e4 = go.Elem<bool>(1, go.zeroBool);
-const _$e5 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);
+const _$e4 = go.Elem<bool>(1, go.zeroBool, goType: 'bool');
+const _$e5 = go.Elem<Golang.String>(
+  16,
+  Golang.String.new,
+  pointers: true,
+  goType: 'string',
+);
 Golang.Float64 _$i8_7(Golang.IntBase n) => (n.$signed
     ? Golang.Float64.fromInt64(Golang.Int64.from(n))
     : Golang.Float64.fromUint64(Golang.Uint64.from(n)));
@@ -377,4 +389,5 @@ const _$e6 = go.Elem<Golang.Float64>(
   Golang.Float64.new,
   ofInt: _$i8_7,
   ofFloat: _$f9_7,
+  goType: 'float64',
 );

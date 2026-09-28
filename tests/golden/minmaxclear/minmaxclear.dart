@@ -288,15 +288,19 @@ void main() {
       ], _$e1),
     );
     go.GoMap<Golang.String, Golang.Int> m =
-        go.GoMap<Golang.String, Golang.Int>.of({
-          Golang.String.fromDart('a'): Golang.Int(1),
-          Golang.String.fromDart('b'): Golang.Int(2),
-        }, _$e2);
+        go.GoMap<Golang.String, Golang.Int>.of(
+          {
+            Golang.String.fromDart('a'): Golang.Int(1),
+            Golang.String.fromDart('b'): Golang.Int(2),
+          },
+          _$e2,
+          _$e3,
+        );
     m.clear();
     m[Golang.String.fromDart('c')] = Golang.Int(3);
     fmt.println(go.Slice<Object?>.of([Golang.Int(m.length), m], _$e1));
     go.GoMap<Golang.Int, Golang.Int> nilMap =
-        go.GoMap<Golang.Int, Golang.Int>.nil(_$e2);
+        go.GoMap<Golang.Int, Golang.Int>.nil(_$e2, _$e2);
     nilMap.clear();
     fmt.println(go.Slice<Object?>.of([Golang.Int(nilMap.length)], _$e1));
     go.Slice<Golang.Int> xs = go.Slice<Golang.Int>.of([
@@ -310,12 +314,12 @@ void main() {
     go.Slice<P> ps = go.Slice<P>.of([
       P(x: Golang.Int(1), y: Golang.Int(2)),
       P(x: Golang.Int(3), y: Golang.Int(4)),
-    ], _$e3);
+    ], _$e4);
     P? held = ps[0];
     ps.clear();
     held!.x = Golang.Int(7);
     fmt.println(go.Slice<Object?>.of([ps, held!.$ifaceCopy()], _$e1));
-    Ring<Golang.String> r = Ring<Golang.String>(_$e4);
+    Ring<Golang.String> r = Ring<Golang.String>(_$e3);
     r.init(Golang.Int(4));
     r.push(Golang.String.fromDart('x'));
     r.push(Golang.String.fromDart('y'));
@@ -348,8 +352,14 @@ const _$e0 = go.Elem<Golang.Uint8>(
   Golang.Uint8.new,
   ofInt: Golang.Uint8.from,
   ofFloat: _$f0_1,
+  goType: 'uint8',
 );
-const _$e1 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
+const _$e1 = go.Elem<Object?>(
+  16,
+  go.zeroNull,
+  pointers: true,
+  goType: 'interface {}',
+);
 Golang.Int _$f3_3(Golang.FloatBase f) =>
     Golang.Int.from(f.toInteger(64, signed: true));
 const _$e2 = go.Elem<Golang.Int>(
@@ -357,6 +367,12 @@ const _$e2 = go.Elem<Golang.Int>(
   Golang.Int.new,
   ofInt: Golang.Int.from,
   ofFloat: _$f3_3,
+  goType: 'int',
 );
-const _$e3 = go.Elem<P>(16, P.new);
-const _$e4 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);
+const _$e3 = go.Elem<Golang.String>(
+  16,
+  Golang.String.new,
+  pointers: true,
+  goType: 'string',
+);
+const _$e4 = go.Elem<P>(16, P.new, goType: 'main.P');

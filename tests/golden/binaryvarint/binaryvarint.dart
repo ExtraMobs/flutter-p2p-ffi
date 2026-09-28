@@ -446,6 +446,7 @@ const _$e0 = go.Elem<Golang.Int8>(
   Golang.Int8.new,
   ofInt: Golang.Int8.from,
   ofFloat: _$f0_1,
+  goType: 'int8',
 );
 Golang.Uint8 _$f2_2(Golang.FloatBase f) =>
     Golang.Uint8.from(f.toInteger(8, signed: false));
@@ -454,6 +455,7 @@ const _$e1 = go.Elem<Golang.Uint8>(
   Golang.Uint8.new,
   ofInt: Golang.Uint8.from,
   ofFloat: _$f2_2,
+  goType: 'uint8',
 );
 Golang.Uint64 _$f4_3(Golang.FloatBase f) =>
     Golang.Uint64.from(f.toInteger(64, signed: false));
@@ -462,8 +464,14 @@ const _$e2 = go.Elem<Golang.Uint64>(
   Golang.Uint64.new,
   ofInt: Golang.Uint64.from,
   ofFloat: _$f4_3,
+  goType: 'uint64',
 );
-const _$e3 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
+const _$e3 = go.Elem<Object?>(
+  16,
+  go.zeroNull,
+  pointers: true,
+  goType: 'interface {}',
+);
 Golang.Int64 _$f7_5(Golang.FloatBase f) =>
     Golang.Int64.from(f.toInteger(64, signed: true));
 const _$e4 = go.Elem<Golang.Int64>(
@@ -471,6 +479,7 @@ const _$e4 = go.Elem<Golang.Int64>(
   Golang.Int64.new,
   ofInt: Golang.Int64.from,
   ofFloat: _$f7_5,
+  goType: 'int64',
 );
 Golang.Int16 _$f9_6(Golang.FloatBase f) =>
     Golang.Int16.from(f.toInteger(16, signed: true));
@@ -479,6 +488,7 @@ const _$e5 = go.Elem<Golang.Int16>(
   Golang.Int16.new,
   ofInt: Golang.Int16.from,
   ofFloat: _$f9_6,
+  goType: 'int16',
 );
 _decSymbol$ _$f11_7(Golang.FloatBase f) =>
     _decSymbol$.from(f.toInteger(64, signed: false));
@@ -487,4 +497,5 @@ const _$e6 = go.Elem<_decSymbol$>(
   _decSymbol$.new,
   ofInt: _decSymbol$.from,
   ofFloat: _$f11_7,
+  goType: 'main.decSymbol',
 );

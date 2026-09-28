@@ -96,7 +96,7 @@ void $goInit() {
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
-const _$e0 = go.Elem<bool>(1, go.zeroBool);
+const _$e0 = go.Elem<bool>(1, go.zeroBool, goType: 'bool');
 Golang.Int _$f1_2(Golang.FloatBase f) =>
     Golang.Int.from(f.toInteger(64, signed: true));
 const _$e1 = go.Elem<Golang.Int>(
@@ -104,9 +104,20 @@ const _$e1 = go.Elem<Golang.Int>(
   Golang.Int.new,
   ofInt: Golang.Int.from,
   ofFloat: _$f1_2,
+  goType: 'int',
 );
-const _$e2 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);
-const _$e3 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
+const _$e2 = go.Elem<Golang.String>(
+  16,
+  Golang.String.new,
+  pointers: true,
+  goType: 'string',
+);
+const _$e3 = go.Elem<Object?>(
+  16,
+  go.zeroNull,
+  pointers: true,
+  goType: 'interface {}',
+);
 Golang.Float64 _$i5_5(Golang.IntBase n) => (n.$signed
     ? Golang.Float64.fromInt64(Golang.Int64.from(n))
     : Golang.Float64.fromUint64(Golang.Uint64.from(n)));
@@ -116,4 +127,5 @@ const _$e4 = go.Elem<Golang.Float64>(
   Golang.Float64.new,
   ofInt: _$i5_5,
   ofFloat: _$f6_5,
+  goType: 'float64',
 );

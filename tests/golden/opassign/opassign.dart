@@ -59,10 +59,14 @@ void main() {
     ], _$e1);
     arr[0] = arr[0].andNot(Golang.Int64(6));
     go.GoMap<Golang.String, Golang.Int> m =
-        go.GoMap<Golang.String, Golang.Int>.of({
-          Golang.String.fromDart('a'): Golang.Int(3),
-          Golang.String.fromDart('b'): Golang.Int(-7),
-        }, _$e2);
+        go.GoMap<Golang.String, Golang.Int>.of(
+          {
+            Golang.String.fromDart('a'): Golang.Int(3),
+            Golang.String.fromDart('b'): Golang.Int(-7),
+          },
+          _$e2,
+          _$e3,
+        );
     m[Golang.String.fromDart('a')] = m[Golang.String.fromDart('a')] << 2;
     m[Golang.String.fromDart('a')] =
         m[Golang.String.fromDart('a')] ~/ Golang.Int(5);
@@ -79,11 +83,13 @@ void main() {
     m[Golang.String.fromDart('d')] =
         m[Golang.String.fromDart('d')] << go.shiftCount(sh);
     go.GoMap<Golang.Int, Golang.Float64> fm =
-        go.GoMap<Golang.Int, Golang.Float64>.of({
-          Golang.Int(1): Golang.Float64(7.0),
-        }, _$e3);
+        go.GoMap<Golang.Int, Golang.Float64>.of(
+          {Golang.Int(1): Golang.Float64(7.0)},
+          _$e4,
+          _$e2,
+        );
     fm[Golang.Int(1)] = fm[Golang.Int(1)] / Golang.Float64(2.0);
-    fmt.println(go.Slice<Object?>.of([s, x._f, arr.$ifaceCopy(), m, fm], _$e4));
+    fmt.println(go.Slice<Object?>.of([s, x._f, arr.$ifaceCopy(), m, fm], _$e5));
   });
 }
 
@@ -103,6 +109,7 @@ const _$e0 = go.Elem<Golang.Uint8>(
   Golang.Uint8.new,
   ofInt: Golang.Uint8.from,
   ofFloat: _$f0_1,
+  goType: 'uint8',
 );
 Golang.Int64 _$f2_2(Golang.FloatBase f) =>
     Golang.Int64.from(f.toInteger(64, signed: true));
@@ -111,6 +118,7 @@ const _$e1 = go.Elem<Golang.Int64>(
   Golang.Int64.new,
   ofInt: Golang.Int64.from,
   ofFloat: _$f2_2,
+  goType: 'int64',
 );
 Golang.Int _$f4_3(Golang.FloatBase f) =>
     Golang.Int.from(f.toInteger(64, signed: true));
@@ -119,15 +127,28 @@ const _$e2 = go.Elem<Golang.Int>(
   Golang.Int.new,
   ofInt: Golang.Int.from,
   ofFloat: _$f4_3,
+  goType: 'int',
 );
-Golang.Float64 _$i6_4(Golang.IntBase n) => (n.$signed
+const _$e3 = go.Elem<Golang.String>(
+  16,
+  Golang.String.new,
+  pointers: true,
+  goType: 'string',
+);
+Golang.Float64 _$i7_5(Golang.IntBase n) => (n.$signed
     ? Golang.Float64.fromInt64(Golang.Int64.from(n))
     : Golang.Float64.fromUint64(Golang.Uint64.from(n)));
-Golang.Float64 _$f7_4(Golang.FloatBase f) => Golang.Float64(f.toDouble());
-const _$e3 = go.Elem<Golang.Float64>(
+Golang.Float64 _$f8_5(Golang.FloatBase f) => Golang.Float64(f.toDouble());
+const _$e4 = go.Elem<Golang.Float64>(
   8,
   Golang.Float64.new,
-  ofInt: _$i6_4,
-  ofFloat: _$f7_4,
+  ofInt: _$i7_5,
+  ofFloat: _$f8_5,
+  goType: 'float64',
 );
-const _$e4 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
+const _$e5 = go.Elem<Object?>(
+  16,
+  go.zeroNull,
+  pointers: true,
+  goType: 'interface {}',
+);

@@ -26,6 +26,7 @@ go.Slice<Object?> pairs<K, V>(
         8,
         () => _pairs$pair$<K, V>($K, $V),
         pointers: true,
+        goType: '?',
       ),
     ),
   );
@@ -70,10 +71,14 @@ void main() {
         pairs<Golang.String, Golang.Int>(
           _$e2,
           _$e1,
-          go.GoMap<Golang.String, Golang.Int>.of({
-            Golang.String.fromDart('a'): Golang.Int(1),
-            Golang.String.fromDart('b'): Golang.Int(2),
-          }, _$e1),
+          go.GoMap<Golang.String, Golang.Int>.of(
+            {
+              Golang.String.fromDart('a'): Golang.Int(1),
+              Golang.String.fromDart('b'): Golang.Int(2),
+            },
+            _$e1,
+            _$e2,
+          ),
           go.Slice<Golang.String>.of([
             Golang.String.fromDart('b'),
             Golang.String.fromDart('a'),
@@ -88,7 +93,7 @@ void main() {
         pairs<Golang.Int, bool>(
           _$e1,
           _$e3,
-          go.GoMap<Golang.Int, bool>.of({Golang.Int(1): true}, _$e3),
+          go.GoMap<Golang.Int, bool>.of({Golang.Int(1): true}, _$e3, _$e1),
           go.Slice<Golang.Int>.of([Golang.Int(1)], _$e1),
         ),
       ], _$e0),
@@ -179,7 +184,12 @@ void $goInit() {
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
-const _$e0 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
+const _$e0 = go.Elem<Object?>(
+  16,
+  go.zeroNull,
+  pointers: true,
+  goType: 'interface {}',
+);
 Golang.Int _$f1_2(Golang.FloatBase f) =>
     Golang.Int.from(f.toInteger(64, signed: true));
 const _$e1 = go.Elem<Golang.Int>(
@@ -187,6 +197,12 @@ const _$e1 = go.Elem<Golang.Int>(
   Golang.Int.new,
   ofInt: Golang.Int.from,
   ofFloat: _$f1_2,
+  goType: 'int',
 );
-const _$e2 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);
-const _$e3 = go.Elem<bool>(1, go.zeroBool);
+const _$e2 = go.Elem<Golang.String>(
+  16,
+  Golang.String.new,
+  pointers: true,
+  goType: 'string',
+);
+const _$e3 = go.Elem<bool>(1, go.zeroBool, goType: 'bool');

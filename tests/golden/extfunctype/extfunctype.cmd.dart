@@ -13,7 +13,7 @@ import 'package:golib_dart/builtin.dart' as go;
 cmds.Command? _updateCmd = null;
 
 cmds.EncoderMap _encoders = cmds.EncoderMap(
-  go.GoMap<Golang.String, cmds.EncoderFunc>.nil(_$e0),
+  go.GoMap<Golang.String, cmds.EncoderFunc>.nil(_$e0, _$e1),
 );
 
 void main() {
@@ -23,14 +23,14 @@ void main() {
       Golang.String.fromDart('/x'),
     )) {
       (final $t1, final $t2) => fmt.println(
-        go.Slice<Object?>.of([$t1, $t2], _$e1),
+        go.Slice<Object?>.of([$t1, $t2], _$e2),
       ),
     });
     (switch ((_updateCmd ?? cmds.Command.$nil).call$(
       Golang.String.fromDart('bad'),
     )) {
       (final $t3, final $t4) => fmt.println(
-        go.Slice<Object?>.of([$t3, $t4], _$e1),
+        go.Slice<Object?>.of([$t3, $t4], _$e2),
       ),
     });
     cmds.Function$ f = cmds.Function$((
@@ -41,9 +41,9 @@ void main() {
     });
     fmt.println(
       go.Slice<Object?>.of([
-        f(cmds.Request(), go.Slice<Golang.String>.nil(_$e2)),
+        f(cmds.Request(), go.Slice<Golang.String>.nil(_$e1)),
         !f.isNil,
-      ], _$e1),
+      ], _$e2),
     );
     cmds.EncoderFunc e = cmds.EncoderFunc(
       cmds.makeTypedEncoder(Golang.String.fromDart('a')),
@@ -52,12 +52,12 @@ void main() {
       go.Slice<Object?>.of([
         _encoders[Golang.String.fromDart('text')](
           cmds.Request(path: Golang.String.fromDart('p')),
-        )!(go.Slice<Golang.String>.of([Golang.String.fromDart('x')], _$e2)),
+        )!(go.Slice<Golang.String>.of([Golang.String.fromDart('x')], _$e1)),
         _encoders[Golang.String.fromDart('json')](null)!(
-          go.Slice<Golang.String>.nil(_$e2),
+          go.Slice<Golang.String>.nil(_$e1),
         ),
-        e(cmds.Request())!(go.Slice<Golang.String>.nil(_$e2)),
-      ], _$e1),
+        e(cmds.Request())!(go.Slice<Golang.String>.nil(_$e1)),
+      ], _$e2),
     );
   });
 }
@@ -80,21 +80,40 @@ void $goInit() {
     }),
   );
   _encoders = cmds.EncoderMap(
-    go.GoMap<Golang.String, cmds.EncoderFunc>.of({
-      Golang.String.fromDart('text'): cmds.EncoderFunc(
-        cmds.makeTypedEncoder(Golang.String.fromDart('tx')),
-      ),
-      Golang.String.fromDart('json'): cmds.EncoderFunc((cmds.Request? r) {
-        return (go.Slice<Golang.String> w) {
-          return Golang.Int(-1);
-        };
-      }),
-    }, _$e0),
+    go.GoMap<Golang.String, cmds.EncoderFunc>.of(
+      {
+        Golang.String.fromDart('text'): cmds.EncoderFunc(
+          cmds.makeTypedEncoder(Golang.String.fromDart('tx')),
+        ),
+        Golang.String.fromDart('json'): cmds.EncoderFunc((cmds.Request? r) {
+          return (go.Slice<Golang.String> w) {
+            return Golang.Int(-1);
+          };
+        }),
+      },
+      _$e0,
+      _$e1,
+    ),
   );
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
 cmds.EncoderFunc _$z0_1() => cmds.EncoderFunc(null);
-const _$e0 = go.Elem<cmds.EncoderFunc>(8, _$z0_1, pointers: true);
-const _$e1 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
-const _$e2 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);
+const _$e0 = go.Elem<cmds.EncoderFunc>(
+  8,
+  _$z0_1,
+  pointers: true,
+  goType: 'cmds.EncoderFunc',
+);
+const _$e1 = go.Elem<Golang.String>(
+  16,
+  Golang.String.new,
+  pointers: true,
+  goType: 'string',
+);
+const _$e2 = go.Elem<Object?>(
+  16,
+  go.zeroNull,
+  pointers: true,
+  goType: 'interface {}',
+);

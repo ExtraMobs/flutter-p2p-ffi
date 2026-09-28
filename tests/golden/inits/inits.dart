@@ -18,7 +18,7 @@ Golang.Int _y = Golang.Int();
 Golang.Int _counter = Golang.Int();
 
 go.GoMap<Golang.String, Golang.Int> _registry =
-    go.GoMap<Golang.String, Golang.Int>.nil(_$e0);
+    go.GoMap<Golang.String, Golang.Int>.nil(_$e0, _$e1);
 
 Golang.Int Function(Golang.Int)? _double = null;
 
@@ -30,13 +30,13 @@ Golang.Int _compute(Golang.String name, Golang.Int v) {
       name,
       v,
       _counter,
-    ], _$e1),
+    ], _$e2),
   );
   return v;
 }
 
 (Golang.Int, Golang.Int) _pair() {
-  fmt.println(go.Slice<Object?>.of([Golang.String.fromDart('pair')], _$e1));
+  fmt.println(go.Slice<Object?>.of([Golang.String.fromDart('pair')], _$e2));
   return (Golang.Int(1), Golang.Int(2));
 }
 
@@ -48,7 +48,7 @@ void _init$0() {
       _base,
       _fromB,
       _counter,
-    ], _$e1),
+    ], _$e2),
   );
   _registry[Golang.String.fromDart('a')] = Golang.Int(1);
 }
@@ -58,7 +58,7 @@ void _init$1() {
     go.Slice<Object?>.of([
       Golang.String.fromDart('init a2'),
       Golang.Int(_registry.length),
-    ], _$e1),
+    ], _$e2),
   );
 }
 
@@ -77,7 +77,7 @@ void main() {
         Golang.Int(_registry.length),
         _registry[Golang.String.fromDart('b')],
         _double!(Golang.Int(5)),
-      ], _$e1),
+      ], _$e2),
     );
   });
 }
@@ -85,7 +85,7 @@ void main() {
 Golang.Int _fromB = Golang.Int();
 
 void _init$2() {
-  fmt.println(go.Slice<Object?>.of([Golang.String.fromDart('init b')], _$e1));
+  fmt.println(go.Slice<Object?>.of([Golang.String.fromDart('init b')], _$e2));
   _registry[Golang.String.fromDart('b')] = Golang.Int(2);
 }
 
@@ -100,7 +100,7 @@ void $goInit() {
   _y = $t1.$2;
   _base = _compute(Golang.String.fromDart('base'), Golang.Int(21));
   _total = _compute(Golang.String.fromDart('total'), _base * Golang.Int(2));
-  _registry = go.GoMap<Golang.String, Golang.Int>.of({}, _$e0);
+  _registry = go.GoMap<Golang.String, Golang.Int>.of({}, _$e0, _$e1);
   _double = (Golang.Int n) {
     return n * Golang.Int(2);
   };
@@ -118,5 +118,17 @@ const _$e0 = go.Elem<Golang.Int>(
   Golang.Int.new,
   ofInt: Golang.Int.from,
   ofFloat: _$f0_1,
+  goType: 'int',
 );
-const _$e1 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
+const _$e1 = go.Elem<Golang.String>(
+  16,
+  Golang.String.new,
+  pointers: true,
+  goType: 'string',
+);
+const _$e2 = go.Elem<Object?>(
+  16,
+  go.zeroNull,
+  pointers: true,
+  goType: 'interface {}',
+);

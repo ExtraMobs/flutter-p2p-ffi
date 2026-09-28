@@ -188,8 +188,14 @@ const _$e0 = go.Elem<Golang.Uint8>(
   Golang.Uint8.new,
   ofInt: Golang.Uint8.from,
   ofFloat: _$f0_1,
+  goType: 'uint8',
 );
-const _$e1 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
+const _$e1 = go.Elem<Object?>(
+  16,
+  go.zeroNull,
+  pointers: true,
+  goType: 'interface {}',
+);
 Golang.Int32 _$f3_3(Golang.FloatBase f) =>
     Golang.Int32.from(f.toInteger(32, signed: true));
 const _$e2 = go.Elem<Golang.Int32>(
@@ -197,4 +203,5 @@ const _$e2 = go.Elem<Golang.Int32>(
   Golang.Int32.new,
   ofInt: Golang.Int32.from,
   ofFloat: _$f3_3,
+  goType: 'int32',
 );

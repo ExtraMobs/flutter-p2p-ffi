@@ -138,6 +138,7 @@ const _$e0 = go.Elem<Golang.Int64>(
   Golang.Int64.new,
   ofInt: Golang.Int64.from,
   ofFloat: _$f0_1,
+  goType: 'int64',
 );
 Golang.Float64 _$i2_2(Golang.IntBase n) => (n.$signed
     ? Golang.Float64.fromInt64(Golang.Int64.from(n))
@@ -148,6 +149,7 @@ const _$e1 = go.Elem<Golang.Float64>(
   Golang.Float64.new,
   ofInt: _$i2_2,
   ofFloat: _$f3_2,
+  goType: 'float64',
 );
 Golang.Int32 _$f5_3(Golang.FloatBase f) =>
     Golang.Int32.from(f.toInteger(32, signed: true));
@@ -156,6 +158,7 @@ const _$e2 = go.Elem<Golang.Int32>(
   Golang.Int32.new,
   ofInt: Golang.Int32.from,
   ofFloat: _$f5_3,
+  goType: 'int32',
 );
 Golang.Uint8 _$f7_4(Golang.FloatBase f) =>
     Golang.Uint8.from(f.toInteger(8, signed: false));
@@ -164,6 +167,7 @@ const _$e3 = go.Elem<Golang.Uint8>(
   Golang.Uint8.new,
   ofInt: Golang.Uint8.from,
   ofFloat: _$f7_4,
+  goType: 'uint8',
 );
 Golang.Float32 _$i9_5(Golang.IntBase n) => (n.$signed
     ? Golang.Float32.fromInt64(Golang.Int64.from(n))
@@ -174,7 +178,19 @@ const _$e4 = go.Elem<Golang.Float32>(
   Golang.Float32.new,
   ofInt: _$i9_5,
   ofFloat: _$f10_5,
+  goType: 'float32',
 );
-const _$e5 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
+const _$e5 = go.Elem<Object?>(
+  16,
+  go.zeroNull,
+  pointers: true,
+  goType: 'interface {}',
+);
 ID _$f13_7(Golang.FloatBase f) => ID.from(f.toInteger(64, signed: true));
-const _$e6 = go.Elem<ID>(8, ID.new, ofInt: ID.from, ofFloat: _$f13_7);
+const _$e6 = go.Elem<ID>(
+  8,
+  ID.new,
+  ofInt: ID.from,
+  ofFloat: _$f13_7,
+  goType: 'main.ID',
+);

@@ -9,7 +9,7 @@ import 'package:golib_dart/fmt.dart' as fmt;
 import 'package:golib_dart/builtin.dart' as go;
 
 go.GoMap<Golang.String, Golang.Int> _m =
-    go.GoMap<Golang.String, Golang.Int>.nil(_$e0);
+    go.GoMap<Golang.String, Golang.Int>.nil(_$e0, _$e1);
 
 Golang.Int _v = Golang.Int();
 bool _ok = false;
@@ -48,7 +48,7 @@ void main() {
         lok,
         ls,
         lis,
-      ], _$e1),
+      ], _$e2),
     );
   });
 }
@@ -59,9 +59,11 @@ bool _$inited = false;
 void $goInit() {
   if (_$inited) return;
   _$inited = true;
-  _m = go.GoMap<Golang.String, Golang.Int>.of({
-    Golang.String.fromDart('a'): Golang.Int(1),
-  }, _$e0);
+  _m = go.GoMap<Golang.String, Golang.Int>.of(
+    {Golang.String.fromDart('a'): Golang.Int(1)},
+    _$e0,
+    _$e1,
+  );
   final $t1 = _m.lookup(Golang.String.fromDart('a'));
   _v = $t1.$1;
   _ok = $t1.$2;
@@ -85,5 +87,17 @@ const _$e0 = go.Elem<Golang.Int>(
   Golang.Int.new,
   ofInt: Golang.Int.from,
   ofFloat: _$f0_1,
+  goType: 'int',
 );
-const _$e1 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
+const _$e1 = go.Elem<Golang.String>(
+  16,
+  Golang.String.new,
+  pointers: true,
+  goType: 'string',
+);
+const _$e2 = go.Elem<Object?>(
+  16,
+  go.zeroNull,
+  pointers: true,
+  goType: 'interface {}',
+);

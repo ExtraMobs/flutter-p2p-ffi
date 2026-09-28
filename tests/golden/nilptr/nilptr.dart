@@ -40,7 +40,7 @@ class Node extends go.GoStruct<Node> implements Speaker {
   }
 
   @override
-  List<Object?> get $fields => [name, go.Addr(next)];
+  List<Object?> get $fields => [name, go.Addr(next, goType: 'main.Node')];
 
   @override
   List<String> get $fieldNames => const ['Name', 'Next'];
@@ -199,4 +199,9 @@ void $goInit() {
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
-const _$e0 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
+const _$e0 = go.Elem<Object?>(
+  16,
+  go.zeroNull,
+  pointers: true,
+  goType: 'interface {}',
+);

@@ -169,7 +169,7 @@ abstract mixin class Cache<K, V> {
 
 class _lru$<K, V> extends go.GoStruct<_lru$<K, V>> implements Cache<K, V> {
   _lru$(this.$K, this.$V, {go.GoMap<K, V>? m})
-    : _m = m ?? go.GoMap<K, V>.nil($V);
+    : _m = m ?? go.GoMap<K, V>.nil($V, $K);
 
   final go.Elem<K> $K;
   final go.Elem<V> $V;
@@ -253,7 +253,7 @@ void main() {
       _lru$<Golang.String, Golang.Int>(
         _$e4,
         _$e3,
-        m: go.GoMap<Golang.String, Golang.Int>.of({}, _$e3),
+        m: go.GoMap<Golang.String, Golang.Int>.of({}, _$e3, _$e4),
       ),
       Golang.String.fromDart('a'),
       Golang.Int(1),
@@ -261,7 +261,7 @@ void main() {
     Cache<Golang.Int, Golang.String>? c = _lru$<Golang.Int, Golang.String>(
       _$e3,
       _$e4,
-      m: go.GoMap<Golang.Int, Golang.String>.of({}, _$e4),
+      m: go.GoMap<Golang.Int, Golang.String>.of({}, _$e4, _$e3),
     );
     var (_, isCache) = go.tryIface<Cache<Golang.Int, Golang.String>>(c);
     fmt.println(go.Slice<Object?>.of([isCache], _$e0));
@@ -277,10 +277,21 @@ void $goInit() {
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
-const _$e0 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
+const _$e0 = go.Elem<Object?>(
+  16,
+  go.zeroNull,
+  pointers: true,
+  goType: 'interface {}',
+);
 _k8$ _$f1_2(Golang.FloatBase f) => _k8$.from(f.toInteger(8, signed: false));
-const _$e1 = go.Elem<_k8$>(1, _k8$.new, ofInt: _k8$.from, ofFloat: _$f1_2);
-const _$e2 = go.Elem<_node$>(1, _node$.new);
+const _$e1 = go.Elem<_k8$>(
+  1,
+  _k8$.new,
+  ofInt: _k8$.from,
+  ofFloat: _$f1_2,
+  goType: 'main.k8',
+);
+const _$e2 = go.Elem<_node$>(1, _node$.new, goType: 'main.node');
 Golang.Int _$f4_4(Golang.FloatBase f) =>
     Golang.Int.from(f.toInteger(64, signed: true));
 const _$e3 = go.Elem<Golang.Int>(
@@ -288,5 +299,11 @@ const _$e3 = go.Elem<Golang.Int>(
   Golang.Int.new,
   ofInt: Golang.Int.from,
   ofFloat: _$f4_4,
+  goType: 'int',
 );
-const _$e4 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);
+const _$e4 = go.Elem<Golang.String>(
+  16,
+  Golang.String.new,
+  pointers: true,
+  goType: 'string',
+);

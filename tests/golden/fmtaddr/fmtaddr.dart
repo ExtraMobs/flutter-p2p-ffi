@@ -111,56 +111,56 @@ void main() {
       Golang.Int(2),
     ], _$e0);
     go.GoMap<Golang.String, Golang.Int> m =
-        go.GoMap<Golang.String, Golang.Int>.of({}, _$e0);
+        go.GoMap<Golang.String, Golang.Int>.of({}, _$e0, _$e1);
     final N$Ptr n = N$Ptr(go.Box<N>(N()));
     N$Ptr? pn = n;
     T? t = T(n: Golang.Int(1));
     {
       final $t1 = go.Slice<Golang.String>.of([
         fmt.sprint(
-          go.Slice<Object?>.of([p ?? const go.NilPtr<Golang.Int>()], _$e1),
+          go.Slice<Object?>.of([p ?? const go.NilPtr<Golang.Int>()], _$e2),
         ),
         fmt.sprint(
-          go.Slice<Object?>.of([np ?? const go.NilPtr<Golang.Int>()], _$e1),
+          go.Slice<Object?>.of([np ?? const go.NilPtr<Golang.Int>()], _$e2),
         ),
         fmt.sprintf(
           Golang.String.fromDart('%v'),
-          go.Slice<Object?>.of([p ?? const go.NilPtr<Golang.Int>()], _$e1),
+          go.Slice<Object?>.of([p ?? const go.NilPtr<Golang.Int>()], _$e2),
         ),
-        fmt.sprint(go.Slice<Object?>.of([f], _$e1)),
+        fmt.sprint(go.Slice<Object?>.of([f], _$e2)),
         fmt.sprintf(
           Golang.String.fromDart('%p'),
-          go.Slice<Object?>.of([p ?? const go.NilPtr<Golang.Int>()], _$e1),
-        ),
-        fmt.sprintf(
-          Golang.String.fromDart('%p'),
-          go.Slice<Object?>.of([s], _$e1),
+          go.Slice<Object?>.of([p ?? const go.NilPtr<Golang.Int>()], _$e2),
         ),
         fmt.sprintf(
           Golang.String.fromDart('%p'),
-          go.Slice<Object?>.of([m], _$e1),
+          go.Slice<Object?>.of([s], _$e2),
         ),
         fmt.sprintf(
           Golang.String.fromDart('%p'),
-          go.Slice<Object?>.of([f], _$e1),
+          go.Slice<Object?>.of([m], _$e2),
         ),
         fmt.sprintf(
           Golang.String.fromDart('%p'),
-          go.Slice<Object?>.of([t ?? T.$nil], _$e1),
+          go.Slice<Object?>.of([f], _$e2),
         ),
         fmt.sprintf(
           Golang.String.fromDart('%p'),
-          go.Slice<Object?>.of([pn ?? N$Ptr.$nil], _$e1),
+          go.Slice<Object?>.of([t ?? T.$nil], _$e2),
         ),
         fmt.sprintf(
           Golang.String.fromDart('%p'),
-          go.Slice<Object?>.of([np ?? const go.NilPtr<Golang.Int>()], _$e1),
+          go.Slice<Object?>.of([pn ?? N$Ptr.$nil], _$e2),
         ),
         fmt.sprintf(
           Golang.String.fromDart('%p'),
-          go.Slice<Object?>.of([x.value], _$e1),
+          go.Slice<Object?>.of([np ?? const go.NilPtr<Golang.Int>()], _$e2),
         ),
-      ], _$e2);
+        fmt.sprintf(
+          Golang.String.fromDart('%p'),
+          go.Slice<Object?>.of([x.value], _$e2),
+        ),
+      ], _$e1);
       for (var $t2 = 0; $t2 < $t1.length; $t2++) {
         Golang.String v = $t1[$t2];
         {
@@ -168,63 +168,63 @@ void main() {
             go.Slice<Object?>.of([
               _shape(v),
               Golang.String.fromDart(' '),
-            ], _$e1),
+            ], _$e2),
           );
         }
       }
     }
-    fmt.println(go.Slice<Object?>.nil(_$e1));
+    fmt.println(go.Slice<Object?>.nil(_$e2));
     fmt.println(
       go.Slice<Object?>.of([
         fmt.sprintf(
               Golang.String.fromDart('%p'),
-              go.Slice<Object?>.of([p ?? const go.NilPtr<Golang.Int>()], _$e1),
+              go.Slice<Object?>.of([p ?? const go.NilPtr<Golang.Int>()], _$e2),
             ) ==
             fmt.sprintf(
               Golang.String.fromDart('%p'),
-              go.Slice<Object?>.of([x ?? const go.NilPtr<Golang.Int>()], _$e1),
+              go.Slice<Object?>.of([x ?? const go.NilPtr<Golang.Int>()], _$e2),
             ),
         fmt.sprintf(
               Golang.String.fromDart('%p'),
-              go.Slice<Object?>.of([s], _$e1),
+              go.Slice<Object?>.of([s], _$e2),
             ) ==
             fmt.sprintf(
               Golang.String.fromDart('%p'),
               go.Slice<Object?>.of([
                 s.addr(0) ?? const go.NilPtr<Golang.Int>(),
-              ], _$e1),
+              ], _$e2),
             ),
         fmt.sprintf(
               Golang.String.fromDart('%p'),
-              go.Slice<Object?>.of([s], _$e1),
+              go.Slice<Object?>.of([s], _$e2),
             ) ==
             fmt.sprintf(
               Golang.String.fromDart('%p'),
-              go.Slice<Object?>.of([s.slice(1)], _$e1),
+              go.Slice<Object?>.of([s.slice(1)], _$e2),
             ),
         fmt.sprint(
-              go.Slice<Object?>.of([p ?? const go.NilPtr<Golang.Int>()], _$e1),
+              go.Slice<Object?>.of([p ?? const go.NilPtr<Golang.Int>()], _$e2),
             ) ==
             fmt.sprintf(
               Golang.String.fromDart('%p'),
-              go.Slice<Object?>.of([p ?? const go.NilPtr<Golang.Int>()], _$e1),
+              go.Slice<Object?>.of([p ?? const go.NilPtr<Golang.Int>()], _$e2),
             ),
-      ], _$e1),
+      ], _$e2),
     );
     Golang.String h = fmt.sprintf(
       Golang.String.fromDart('%#p'),
-      go.Slice<Object?>.of([t ?? T.$nil], _$e1),
+      go.Slice<Object?>.of([t ?? T.$nil], _$e2),
     );
     fmt.println(
       go.Slice<Object?>.of([
         !strings.hasPrefix(h, Golang.String.fromDart('0x')),
         Golang.Int(h.length) > Golang.Int(0),
-        fmt.sprint(go.Slice<Object?>.of([t ?? T.$nil], _$e1)),
+        fmt.sprint(go.Slice<Object?>.of([t ?? T.$nil], _$e2)),
         fmt.sprintf(
           Golang.String.fromDart('%v'),
-          go.Slice<Object?>.of([pn!.value], _$e1),
+          go.Slice<Object?>.of([pn!.value], _$e2),
         ),
-      ], _$e1),
+      ], _$e2),
     );
   });
 }
@@ -245,6 +245,17 @@ const _$e0 = go.Elem<Golang.Int>(
   Golang.Int.new,
   ofInt: Golang.Int.from,
   ofFloat: _$f0_1,
+  goType: 'int',
 );
-const _$e1 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
-const _$e2 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);
+const _$e1 = go.Elem<Golang.String>(
+  16,
+  Golang.String.new,
+  pointers: true,
+  goType: 'string',
+);
+const _$e2 = go.Elem<Object?>(
+  16,
+  go.zeroNull,
+  pointers: true,
+  goType: 'interface {}',
+);

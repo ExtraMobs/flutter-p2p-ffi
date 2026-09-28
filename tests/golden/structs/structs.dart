@@ -89,7 +89,12 @@ class Box extends go.GoStruct<Box> {
   }
 
   @override
-  List<Object?> get $fields => [name, min, max, go.Addr(owner)];
+  List<Object?> get $fields => [
+    name,
+    min,
+    max,
+    go.Addr(owner, goType: 'main.Point'),
+  ];
 
   @override
   List<String> get $fieldNames => const ['Name', 'Min', 'Max', 'Owner'];
@@ -185,9 +190,11 @@ void main() {
     Point q = pts[1].$copy();
     q.x = Golang.Int(42);
     fmt.println(go.Slice<Object?>.of([pts, q.$ifaceCopy()], _$e0));
-    go.GoMap<Point, Golang.String> seen = go.GoMap<Point, Golang.String>.of({
-      Point(x: Golang.Int(1), y: Golang.Int(2)): Golang.String.fromDart('a'),
-    }, _$e2);
+    go.GoMap<Point, Golang.String> seen = go.GoMap<Point, Golang.String>.of(
+      {Point(x: Golang.Int(1), y: Golang.Int(2)): Golang.String.fromDart('a')},
+      _$e2,
+      _$e1,
+    );
     seen[Point(x: Golang.Int(3), y: Golang.Int(4))] = Golang.String.fromDart(
       'b',
     );
@@ -215,6 +222,16 @@ void $goInit() {
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
-const _$e0 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
-const _$e1 = go.Elem<Point>(16, Point.new);
-const _$e2 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);
+const _$e0 = go.Elem<Object?>(
+  16,
+  go.zeroNull,
+  pointers: true,
+  goType: 'interface {}',
+);
+const _$e1 = go.Elem<Point>(16, Point.new, goType: 'main.Point');
+const _$e2 = go.Elem<Golang.String>(
+  16,
+  Golang.String.new,
+  pointers: true,
+  goType: 'string',
+);

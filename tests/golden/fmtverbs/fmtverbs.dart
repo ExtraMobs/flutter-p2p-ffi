@@ -113,7 +113,7 @@ class Box extends go.GoStruct<Box> {
   }
 
   @override
-  List<Object?> get $fields => [p, tag, inner, go.Addr(ptr)];
+  List<Object?> get $fields => [p, tag, inner, go.Addr(ptr, goType: 'main.P')];
 
   @override
   List<String> get $fieldNames => const ['P', 'Tag', 'Inner', 'Ptr'];
@@ -327,10 +327,14 @@ void main() {
       Golang.Int(333),
     ], _$e2);
     go.GoMap<Golang.String, Golang.Int> m =
-        go.GoMap<Golang.String, Golang.Int>.of({
-          Golang.String.fromDart('b'): Golang.Int(2),
-          Golang.String.fromDart('a'): Golang.Int(1),
-        }, _$e2);
+        go.GoMap<Golang.String, Golang.Int>.of(
+          {
+            Golang.String.fromDart('b'): Golang.Int(2),
+            Golang.String.fromDart('a'): Golang.Int(1),
+          },
+          _$e2,
+          _$e3,
+        );
     P p = P(
       x: Golang.Int(1),
       y: Golang.Int(2),
@@ -544,13 +548,17 @@ void main() {
             name: Golang.String.fromDart('b'),
           ),
         ], _$e6),
-        go.GoMap<Golang.String, P>.of({
-          Golang.String.fromDart('k'): P(
-            x: Golang.Int(5),
-            y: Golang.Int(6),
-            name: Golang.String.fromDart('c'),
-          ),
-        }, _$e6),
+        go.GoMap<Golang.String, P>.of(
+          {
+            Golang.String.fromDart('k'): P(
+              x: Golang.Int(5),
+              y: Golang.Int(6),
+              name: Golang.String.fromDart('c'),
+            ),
+          },
+          _$e6,
+          _$e3,
+        ),
         Golang.Int(7),
         Golang.Int(7),
         err,
@@ -724,7 +732,12 @@ void $goInit() {
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
-const _$e0 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
+const _$e0 = go.Elem<Object?>(
+  16,
+  go.zeroNull,
+  pointers: true,
+  goType: 'interface {}',
+);
 Golang.Uint8 _$f1_2(Golang.FloatBase f) =>
     Golang.Uint8.from(f.toInteger(8, signed: false));
 const _$e1 = go.Elem<Golang.Uint8>(
@@ -732,6 +745,7 @@ const _$e1 = go.Elem<Golang.Uint8>(
   Golang.Uint8.new,
   ofInt: Golang.Uint8.from,
   ofFloat: _$f1_2,
+  goType: 'uint8',
 );
 Golang.Int _$f3_3(Golang.FloatBase f) =>
     Golang.Int.from(f.toInteger(64, signed: true));
@@ -740,9 +754,15 @@ const _$e2 = go.Elem<Golang.Int>(
   Golang.Int.new,
   ofInt: Golang.Int.from,
   ofFloat: _$f3_3,
+  goType: 'int',
 );
-const _$e3 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);
-const _$e4 = go.Elem<bool>(1, go.zeroBool);
+const _$e3 = go.Elem<Golang.String>(
+  16,
+  Golang.String.new,
+  pointers: true,
+  goType: 'string',
+);
+const _$e4 = go.Elem<bool>(1, go.zeroBool, goType: 'bool');
 Golang.Uint16 _$f7_6(Golang.FloatBase f) =>
     Golang.Uint16.from(f.toInteger(16, signed: false));
 const _$e5 = go.Elem<Golang.Uint16>(
@@ -750,8 +770,9 @@ const _$e5 = go.Elem<Golang.Uint16>(
   Golang.Uint16.new,
   ofInt: Golang.Uint16.from,
   ofFloat: _$f7_6,
+  goType: 'uint16',
 );
-const _$e6 = go.Elem<P>(32, P.new, pointers: true);
+const _$e6 = go.Elem<P>(32, P.new, pointers: true, goType: 'main.P');
 Golang.Int32 _$f10_8(Golang.FloatBase f) =>
     Golang.Int32.from(f.toInteger(32, signed: true));
 const _$e7 = go.Elem<Golang.Int32>(
@@ -759,4 +780,5 @@ const _$e7 = go.Elem<Golang.Int32>(
   Golang.Int32.new,
   ofInt: Golang.Int32.from,
   ofFloat: _$f10_8,
+  goType: 'int32',
 );

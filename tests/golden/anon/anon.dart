@@ -361,7 +361,27 @@ void $goInit() {
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
-const _$e0 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
-const _$e1 = go.Elem<_anon$21$>(24, _anon$21$.new, pointers: true);
-const _$e2 = go.Elem<_main$reading$>(24, _main$reading$.new, pointers: true);
-const _$e3 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);
+const _$e0 = go.Elem<Object?>(
+  16,
+  go.zeroNull,
+  pointers: true,
+  goType: 'interface {}',
+);
+const _$e1 = go.Elem<_anon$21$>(
+  24,
+  _anon$21$.new,
+  pointers: true,
+  goType: 'struct { in string; want int }',
+);
+const _$e2 = go.Elem<_main$reading$>(
+  24,
+  _main$reading$.new,
+  pointers: true,
+  goType: 'main.reading',
+);
+const _$e3 = go.Elem<Golang.String>(
+  16,
+  Golang.String.new,
+  pointers: true,
+  goType: 'string',
+);
