@@ -12,4 +12,6 @@ import 'fixed_types/golang.dart' as Golang;
 import 'src/unicode/utf8.dart';
 
 part 'src/strings/funcs.dart';
+part 'src/strings/search.dart';
+part 'src/strings/replace.dart';
 part 'src/strings/builder.dart';

@@ -12,6 +12,9 @@ import 'fixed_types/golang.dart' as Golang;
 import 'src/unicode/utf8.dart';
 
 part 'src/bytes/funcs.dart';
+part 'src/bytes/split.dart';
+part 'src/bytes/search.dart';
+part 'src/bytes/edit.dart';
 part 'src/bytes/buffer.dart';
 
 typedef _Bytes = Slice<Golang.Uint8>;
