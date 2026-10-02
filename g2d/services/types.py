@@ -58,6 +58,10 @@ class TypeMapper(Service):
                 return DartType("Object", nullable=True)
             return DartType(self.synthetic(t, "anonIface"), nullable=True)
         if k == "struct":
+            if not t["fields"]:
+                # struct{}: o mesmo tipo em qualquer pacote (e nos shims, ex.
+                # `context.Context.Done()`), uma classe só no runtime.
+                return DartType(self.imports.qualify(None, "EmptyStruct"))
             return DartType(self.synthetic(t, "anon"))
         if k == "func":
             return self.func_type(t).as_nullable()

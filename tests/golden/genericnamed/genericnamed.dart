@@ -8,8 +8,9 @@ import 'package:golib_dart/fixed_types/golang.dart' as Golang;
 import 'package:golib_dart/fmt.dart' as fmt;
 import 'package:golib_dart/builtin.dart' as go;
 
-final class Set<T> extends go.GoMap<T, $_anon$5> implements Golang.GoTyped {
-  Set(this.$T, go.GoMap<T, $_anon$5> v) : super.alias(v);
+final class Set<T> extends go.GoMap<T, go.EmptyStruct>
+    implements Golang.GoTyped {
+  Set(this.$T, go.GoMap<T, go.EmptyStruct> v) : super.alias(v);
 
   final go.Elem<T> $T;
   @override
@@ -19,7 +20,7 @@ final class Set<T> extends go.GoMap<T, $_anon$5> implements Golang.GoTyped {
 
   void add(T v) {
     Set<T> s = this;
-    s[v] = $_anon$5();
+    s[v] = go.EmptyStruct();
   }
 
   bool has(T v) {
@@ -29,7 +30,7 @@ final class Set<T> extends go.GoMap<T, $_anon$5> implements Golang.GoTyped {
 }
 
 Set<T> newSet<T>(go.Elem<T> $T) {
-  return Set<T>($T, go.GoMap<T, $_anon$5>.of({}, _$e0));
+  return Set<T>($T, go.GoMap<T, go.EmptyStruct>.of({}, _$e0));
 }
 
 final class List$<T> extends go.Slice<T> implements Golang.GoTyped {
@@ -235,7 +236,7 @@ void main() {
     $goInit();
     Set<Golang.String> s = Set<Golang.String>(
       _$e1,
-      go.GoMap<Golang.String, $_anon$5>.of({}, _$e0),
+      go.GoMap<Golang.String, go.EmptyStruct>.of({}, _$e0),
     );
     s.add(Golang.String.fromDart('x'));
     Set<Golang.Int> t = newSet<Golang.Int>(_$e2);
@@ -316,33 +317,6 @@ void main() {
   });
 }
 
-/// `struct {}` (struct anônima).
-class $_anon$5 extends go.GoStruct<$_anon$5> {
-  $_anon$5();
-
-  /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final $_anon$5 $nil = $_anon$5()..$nilPtr = true;
-
-  @override
-  String get $goType => 'struct {}';
-  @override
-  List<String> get $valueMethods => const [];
-  @override
-  List<String> get $ptrMethods => const [];
-
-  @override
-  $_anon$5 $copy() => $_anon$5();
-
-  @override
-  void $set($_anon$5 o) {}
-
-  @override
-  List<Object?> get $fields => [];
-
-  @override
-  List<String> get $fieldNames => const [];
-}
-
 bool _$inited = false;
 
 /// Inicialização do pacote Go: variáveis em ordem de dependência, depois as funções init.
@@ -352,7 +326,7 @@ void $goInit() {
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
-const _$e0 = go.Elem<$_anon$5>(0, $_anon$5.new);
+const _$e0 = go.Elem<go.EmptyStruct>(0, go.EmptyStruct.new);
 const _$e1 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);
 Golang.Int _$f2_3(Golang.FloatBase f) =>
     Golang.Int.from(f.toInteger(64, signed: true));
