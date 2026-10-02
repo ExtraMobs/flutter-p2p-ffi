@@ -39,12 +39,9 @@ void main() {
     ) {
       return null;
     });
-    fmt.println(
-      go.Slice<Object?>.of([
-        f(cmds.Request(), go.Slice<Golang.String>.nil(_$e2)),
-        !f.isNil,
-      ], _$e1),
-    );
+    (switch (f(cmds.Request(), go.Slice<Golang.String>.nil(_$e2))) {
+      final $t5 => fmt.println(go.Slice<Object?>.of([$t5, !f.isNil], _$e1)),
+    });
     cmds.EncoderFunc e = cmds.EncoderFunc(
       cmds.makeTypedEncoder(Golang.String.fromDart('a')),
     );

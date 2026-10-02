@@ -67,7 +67,11 @@ void main() {
   go.runMain(() {
     $goInit();
     P p = P(time: time_.Duration(2000000000));
-    fmt_.println(go.Slice<Object?>.of([p.time, p.timeout, p.fmt()], _$e0));
+    (switch (p.fmt()) {
+      final $t1 => fmt_.println(
+        go.Slice<Object?>.of([p.time, p.timeout, $t1], _$e0),
+      ),
+    });
     _show(p.time);
     fmt_.println(
       go.Slice<Object?>.of([

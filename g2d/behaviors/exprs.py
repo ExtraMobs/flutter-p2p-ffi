@@ -394,6 +394,21 @@ class CallExpr(ExprBehavior):
             pattern = ", ".join(f"final {t}" for t in temps)
             return f"(switch ({self.expr(args[0])}) {{ ({pattern}) => {call} }})", POSTFIX
         inst = self.calls.instantiation(fun)
+        # Ordem do gc: `fun` (receptor de método inclusive) e os argumentos
+        # formam uma só lista; uma chamada entre eles roda antes de qualquer
+        # operando simples que ela possa alterar (`t.M(f())`, `f(x, g())`,
+        # variádicos; TODO/P1-construcao-ordem-avaliacao). Instanciação
+        # genérica (`f[T]`) não entra: o índice é o argumento de tipo, não
+        # uma expressão de runtime.
+        items = list(args) if inst else [fun] + list(args)
+        pending, rewritten, risky = self.evalorder.gather(items)
+        if pending and risky:
+            if inst:
+                args = rewritten
+            else:
+                fun, *args = rewritten
+            call, _ = self.emit(dict(n, fun=fun, args=args))
+            return self.evalorder.wrap(pending, call), POSTFIX
         ptypes = [self.pkg.type_at(t) for t in sig["params"]]
         if sig["variadic"] and n["ellipsis"] is None:
             elem = self.pkg.type_at(ptypes[-1]["elem"])

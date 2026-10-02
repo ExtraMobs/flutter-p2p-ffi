@@ -50,22 +50,26 @@ void main() {
     geom.Point p = geom.Point(x: Golang.Int(1), y: Golang.Int(2));
     geom.Point q = p.$copy();
     q.grow(Golang.Int(10));
-    fmt.println(
-      go.Slice<Object?>.of([
-        p.$ifaceCopy(),
-        q.$ifaceCopy(),
-        p.add(q.$copy()).$ifaceCopy(),
-      ], _$e0),
-    );
+    (switch (p.add(q.$copy())) {
+      final $t1 => fmt.println(
+        go.Slice<Object?>.of([
+          p.$ifaceCopy(),
+          q.$ifaceCopy(),
+          $t1.$ifaceCopy(),
+        ], _$e0),
+      ),
+    });
     geom.Point? n = geom.new$(Golang.Int(1), Golang.Int(1));
     (n ?? geom.Point.$nil).grow(Golang.Int(1));
     fmt.println(go.Slice<Object?>.of([n!.$ifaceCopy(), Golang.Int(3)], _$e0));
     geom.Path path = geom.Path(
       go.Slice<geom.Point>.of([p.$copy(), q.$copy()], _$e1),
     );
-    fmt.println(
-      go.Slice<Object?>.of([path.len(), Golang.Int(path.length)], _$e0),
-    );
+    (switch (path.len()) {
+      final $t2 => fmt.println(
+        go.Slice<Object?>.of([$t2, Golang.Int(path.length)], _$e0),
+      ),
+    });
     go.Slice<geom.Shape?> shapes = go.Slice<geom.Shape?>.of([
       geom.Rect(
         max: geom.Point(x: Golang.Int(2), y: Golang.Int(3)),
@@ -73,9 +77,9 @@ void main() {
       Square(side: Golang.Int(4)).$ifaceCopy(),
     ], _$e2);
     {
-      final $t1 = shapes;
-      for (var $t2 = 0; $t2 < $t1.length; $t2++) {
-        geom.Shape? s = $t1[$t2];
+      final $t3 = shapes;
+      for (var $t4 = 0; $t4 < $t3.length; $t4++) {
+        geom.Shape? s = $t3[$t4];
         {
           fmt.println(go.Slice<Object?>.of([s!.area()], _$e0));
         }

@@ -98,9 +98,11 @@ void main() {
     b.writeRune(Golang.Int32(8594));
     b.writeRune(Golang.Int32(-1));
     b.write(go.Slice<Golang.Uint8>.of([Golang.Uint8(33)], _$e1));
-    fmt.println(
-      go.Slice<Object?>.of([n, err, b.len(), b.cap(), b.string()], _$e0),
-    );
+    (switch ((b.len(), b.cap(), b.string())) {
+      (final $t1, final $t2, final $t3) => fmt.println(
+        go.Slice<Object?>.of([n, err, $t1, $t2, $t3], _$e0),
+      ),
+    });
     b.grow(Golang.Int(100));
     fmt.println(go.Slice<Object?>.of([b.len(), b.cap()], _$e0));
     $_replay r = $_replay();

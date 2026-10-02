@@ -136,13 +136,14 @@ void main() {
     Point p = Point(x: Golang.Int(1), y: Golang.Int(2));
     scale!(p, Golang.Int(10));
     Point Function(Point)? add = p.$copy().add;
-    fmt.println(
-      go.Slice<Object?>.of([
-        sumOf!(p.$copy()),
-        p.$ifaceCopy(),
-        add!(Point(x: Golang.Int(1), y: Golang.Int(1))).$ifaceCopy(),
-      ], _$e0),
-    );
+    (switch ((
+      sumOf!(p.$copy()),
+      add!(Point(x: Golang.Int(1), y: Golang.Int(1))),
+    )) {
+      (final $t8, final $t9) => fmt.println(
+        go.Slice<Object?>.of([$t8, p.$ifaceCopy(), $t9.$ifaceCopy()], _$e0),
+      ),
+    });
     var (a, b) = (
       Point(x: Golang.Int(1), y: Golang.Int(1)),
       Point(x: Golang.Int(1), y: Golang.Int(1)),

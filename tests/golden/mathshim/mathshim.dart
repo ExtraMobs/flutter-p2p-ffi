@@ -265,18 +265,37 @@ void main() {
       for (var $t4 = 0; $t4 < $t3.length; $t4++) {
         Golang.Float64 f = $t3[$t4];
         {
-          fmt.println(
-            go.Slice<Object?>.of([
-              f,
-              math.floor(f),
-              math.ceil(f),
-              math.trunc(f),
-              math.abs(f),
-              math.signbit(f),
-              math.isNaN(f),
-              math.isInf(f, Golang.Int(-1)),
-            ], _$e0),
-          );
+          (switch ((
+            math.floor(f),
+            math.ceil(f),
+            math.trunc(f),
+            math.abs(f),
+            math.signbit(f),
+            math.isNaN(f),
+            math.isInf(f, Golang.Int(-1)),
+          )) {
+            (
+              final $t5,
+              final $t6,
+              final $t7,
+              final $t8,
+              final $t9,
+              final $t10,
+              final $t11,
+            ) =>
+              fmt.println(
+                go.Slice<Object?>.of([
+                  f,
+                  $t5,
+                  $t6,
+                  $t7,
+                  $t8,
+                  $t9,
+                  $t10,
+                  $t11,
+                ], _$e0),
+              ),
+          });
         }
       }
     }
@@ -311,20 +330,20 @@ void main() {
       Golang.Uint32(3),
       Golang.Uint32(4294967295),
     )) {
-      (final $t5, final $t6, final $t7, final $t8) => fmt.println(
-        go.Slice<Object?>.of([$t5, $t6, $t7, $t8], _$e0),
+      (final $t12, final $t13, final $t14, final $t15) => fmt.println(
+        go.Slice<Object?>.of([$t12, $t13, $t14, $t15], _$e0),
       ),
     });
     $_int64Set set = $_int64Set();
     {
-      final $t9 = go.Slice<Golang.Uint64>.of([
+      final $t16 = go.Slice<Golang.Uint64>.of([
         Golang.Uint64(0),
         Golang.Uint64(5),
         Golang.Uint64(63),
         Golang.Uint64(5),
       ], _$e2);
-      for (var $t10 = 0; $t10 < $t9.length; $t10++) {
-        Golang.Uint64 i = $t9[$t10];
+      for (var $t17 = 0; $t17 < $t16.length; $t17++) {
+        Golang.Uint64 i = $t16[$t17];
         {
           set.set(i);
         }

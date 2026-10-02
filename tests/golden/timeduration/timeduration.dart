@@ -108,30 +108,49 @@ void main() {
       for (var $t2 = 0; $t2 < $t1.length; $t2++) {
         time.Duration d = $t1[$t2];
         {
-          fmt.println(
-            go.Slice<Object?>.of([
-              d,
-              d.nanoseconds(),
-              d.microseconds(),
-              d.milliseconds(),
-              d.seconds(),
-              d.minutes(),
-              d.hours(),
-              d.abs(),
-            ], _$e1),
-          );
+          (switch ((
+            d.nanoseconds(),
+            d.microseconds(),
+            d.milliseconds(),
+            d.seconds(),
+            d.minutes(),
+            d.hours(),
+            d.abs(),
+          )) {
+            (
+              final $t3,
+              final $t4,
+              final $t5,
+              final $t6,
+              final $t7,
+              final $t8,
+              final $t9,
+            ) =>
+              fmt.println(
+                go.Slice<Object?>.of([
+                  d,
+                  $t3,
+                  $t4,
+                  $t5,
+                  $t6,
+                  $t7,
+                  $t8,
+                  $t9,
+                ], _$e1),
+              ),
+          });
         }
       }
     }
     {
-      final $t3 = go.Slice<time.Duration>.of([
+      final $t10 = go.Slice<time.Duration>.of([
         time.Duration(0),
         time.Duration(1000000000),
         time.Duration(7000000),
         time.Duration(3600000000000),
       ], _$e0);
-      for (var $t4 = 0; $t4 < $t3.length; $t4++) {
-        time.Duration m = $t3[$t4];
+      for (var $t11 = 0; $t11 < $t10.length; $t11++) {
+        time.Duration m = $t10[$t11];
         {
           time.Duration d$1 = time.Duration(10801234567891);
           fmt.println(

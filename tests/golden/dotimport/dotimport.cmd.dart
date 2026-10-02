@@ -60,13 +60,11 @@ void main() {
       for (var $t2 = 0; $t2 < $t1.length; $t2++) {
         tok.Token t = $t1[$t2].$copy();
         {
-          fmt.println(
-            go.Slice<Object?>.of([
-              t.$ifaceCopy(),
-              tok.isValue(t.type),
-              t.string(),
-            ], _$e1),
-          );
+          (switch ((tok.isValue(t.type), t.string())) {
+            (final $t3, final $t4) => fmt.println(
+              go.Slice<Object?>.of([t.$ifaceCopy(), $t3, $t4], _$e1),
+            ),
+          });
         }
       }
     }

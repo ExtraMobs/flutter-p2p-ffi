@@ -105,9 +105,11 @@ void main() {
       ], _$e0),
     );
     Flag h = Flag(_check(Golang.Int(3)).$b && f.$b);
-    fmt.println(
-      go.Slice<Object?>.of([h, _check(Golang.Int(1)), h.$b, Flag(true)], _$e0),
-    );
+    (switch (_check(Golang.Int(1))) {
+      final $t1 => fmt.println(
+        go.Slice<Object?>.of([h, $t1, h.$b, Flag(true)], _$e0),
+      ),
+    });
     final Opt$Ptr o = Opt$Ptr(go.Box<Opt>(Opt()));
     o.toggle();
     fmt.println(

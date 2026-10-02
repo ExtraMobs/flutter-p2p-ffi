@@ -102,18 +102,24 @@ void main() {
     String$ s = String$(5);
     Map$ m = Map$(size: int$);
     Object? anything = o ?? Object$.$nil;
-    fmt.println(
-      go.Slice<Object?>.of([
-        identical$(o, o),
-        identical$(o, Object$(name: Golang.String.fromDart('x'))),
-        int$,
-        bool$,
-        s.double$(),
-        m.$ifaceCopy(),
-        o!.name,
-        anything != null,
-      ], _$e0),
-    );
+    (switch ((
+      identical$(o, o),
+      identical$(o, Object$(name: Golang.String.fromDart('x'))),
+      s.double$(),
+    )) {
+      (final $t1, final $t2, final $t3) => fmt.println(
+        go.Slice<Object?>.of([
+          $t1,
+          $t2,
+          int$,
+          bool$,
+          $t3,
+          m.$ifaceCopy(),
+          o!.name,
+          anything != null,
+        ], _$e0),
+      ),
+    });
     print(go.Slice<Object?>.of([Golang.String.fromDart('print'), int$], _$e0));
   });
 }

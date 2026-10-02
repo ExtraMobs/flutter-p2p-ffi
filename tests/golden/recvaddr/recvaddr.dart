@@ -97,16 +97,11 @@ void main() {
     l._inc();
     Stack st = Stack(go.Slice<Golang.Int>.of([Golang.Int(1)], _$e0));
     Stack st2 = st.with$(Golang.Int(2));
-    fmt.println(
-      go.Slice<Object?>.of([
-        Counter(1).twice(),
-        l.value,
-        l.value.addr$(),
-        l.value,
-        st,
-        st2,
-      ], _$e1),
-    );
+    (switch ((Counter(1).twice(), l.value.addr$())) {
+      (final $t1, final $t2) => fmt.println(
+        go.Slice<Object?>.of([$t1, l.value, $t2, l.value, st, st2], _$e1),
+      ),
+    });
   });
 }
 

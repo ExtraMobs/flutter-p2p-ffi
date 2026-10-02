@@ -172,21 +172,25 @@ void main() {
     ids.add(Golang.String.fromDart('a'));
     ids.value = IDs(ids.value.append([Golang.String.fromDart('b')]));
     _bubble(ids.value);
-    fmt.println(
-      go.Slice<Object?>.of([
-        ids.value,
-        Golang.Int(ids.value.length),
-        IDs(ids.value.slice(1)),
-        ids.value,
-        _total(ids.value),
-      ], _$e0),
-    );
+    (switch (_total(ids.value)) {
+      final $t1 => fmt.println(
+        go.Slice<Object?>.of([
+          ids.value,
+          Golang.Int(ids.value.length),
+          IDs(ids.value.slice(1)),
+          ids.value,
+          $t1,
+        ], _$e0),
+      ),
+    });
     go.Slice<Golang.String> plain = ids.value;
     IDs tail = IDs(ids.value.slice(1));
     tail[0] = Golang.String.fromDart('z');
-    fmt.println(
-      go.Slice<Object?>.of([plain, ids.value, IDs(plain).len()], _$e0),
-    );
+    (switch (IDs(plain).len()) {
+      final $t2 => fmt.println(
+        go.Slice<Object?>.of([plain, ids.value, $t2], _$e0),
+      ),
+    });
     IDs more = IDs(
       go.Slice<Golang.String>.of([
         Golang.String.fromDart('q'),
@@ -194,29 +198,23 @@ void main() {
       ], _$e1),
     );
     _bubble(more);
-    fmt.println(
-      go.Slice<Object?>.of([
-        more,
-        IDs(go.Slice<Golang.String>.make(2, 2, _$e1)).len(),
-      ], _$e0),
-    );
+    (switch (IDs(go.Slice<Golang.String>.make(2, 2, _$e1)).len()) {
+      final $t3 => fmt.println(go.Slice<Object?>.of([more, $t3], _$e0)),
+    });
     Set s = Set(go.GoMap<Golang.String, bool>.of({}, _$e2));
     s.add(Golang.String.fromDart('x'));
-    fmt.println(
-      go.Slice<Object?>.of([
-        s.has(Golang.String.fromDart('x')),
-        s.has(Golang.String.fromDart('y')),
-        Golang.Int(s.length),
-        s,
-      ], _$e0),
-    );
+    (switch ((
+      s.has(Golang.String.fromDart('x')),
+      s.has(Golang.String.fromDart('y')),
+    )) {
+      (final $t4, final $t5) => fmt.println(
+        go.Slice<Object?>.of([$t4, $t5, Golang.Int(s.length), s], _$e0),
+      ),
+    });
     Set none = Set(go.GoMap<Golang.String, bool>.nil(_$e2));
-    fmt.println(
-      go.Slice<Object?>.of([
-        none.has(Golang.String.fromDart('x')),
-        none.isNil,
-      ], _$e0),
-    );
+    (switch (none.has(Golang.String.fromDart('x'))) {
+      final $t6 => fmt.println(go.Slice<Object?>.of([$t6, none.isNil], _$e0)),
+    });
     Op add = Op((Golang.Int a, Golang.Int b) {
       return a + b;
     });
@@ -230,23 +228,30 @@ void main() {
       return a$1 * b$1;
     });
     Golang.Int Function(Golang.Int, Golang.Int)? raw = mul.$f;
-    fmt.println(
-      go.Slice<Object?>.of([
-        mul.apply(Golang.Int(3), Golang.Int(4)),
-        raw!(Golang.Int(5), Golang.Int(6)),
-        !mul.isNil,
-      ], _$e0),
-    );
+    (switch ((
+      mul.apply(Golang.Int(3), Golang.Int(4)),
+      raw!(Golang.Int(5), Golang.Int(6)),
+    )) {
+      (final $t7, final $t8) => fmt.println(
+        go.Slice<Object?>.of([$t7, $t8, !mul.isNil], _$e0),
+      ),
+    });
     final Counter$Ptr c = Counter$Ptr(go.Box<Counter>(Counter()));
     c.inc();
     c.inc();
     Counter$Ptr? p = c;
     p!.inc();
-    fmt.println(go.Slice<Object?>.of([c.value, p!.value, p!.string()], _$e0));
+    (switch (p!.string()) {
+      final $t9 => fmt.println(
+        go.Slice<Object?>.of([c.value, p!.value, $t9], _$e0),
+      ),
+    });
     Incer? i = p ?? Counter$Ptr.$nil;
     i!.inc();
     fmt.Stringer? st = c.value;
-    fmt.println(go.Slice<Object?>.of([c.value, st!.string()], _$e0));
+    (switch (st!.string()) {
+      final $t10 => fmt.println(go.Slice<Object?>.of([c.value, $t10], _$e0)),
+    });
     go.Slice<Counter> cs = go.Slice<Counter>.of([Counter(1), Counter(2)], _$e3);
     Counter$Ptr(cs.addr(1)).inc();
     Counter$Ptr? q = Counter$Ptr(cs.addr(0));
@@ -344,7 +349,9 @@ void _init$0() {
     ], _$e0),
   );
   b.reset();
-  fmt.println(go.Slice<Object?>.of([b.value.length$(), b.value.isNil], _$e0));
+  (switch (b.value.length$()) {
+    final $t1 => fmt.println(go.Slice<Object?>.of([$t1, b.value.isNil], _$e0)),
+  });
 }
 
 bool _$inited = false;
