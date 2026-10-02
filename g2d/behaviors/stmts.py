@@ -206,11 +206,32 @@ class ForStmt(StmtBehavior):
     def emit(self, s):
         init = self.simple(s["init"])  # antes da condição: declara a variável
         cond = self.operands.cond(s["cond"]) if s["cond"] else ""
-        post = self.simple(s["post"])
+        renew = self.renew(s["init"])
+        if renew and init.startswith("final "):
+            init = init[len("final "):]  # a caixa é trocada a cada iteração
+        post = ", ".join(renew + ([self.simple(s["post"])] if s["post"] else []))
         body = self.control.loop_body(s["body"])
         if not s["init"] and not s["post"]:
             return [f"while ({cond or 'true'})"] + body
         return [f"for ({init}; {cond}; {post})"] + body
+
+    def renew(self, init):
+        """Go ≥ 1.22: cada iteração tem a sua variável, criada antes do post
+        com o valor da anterior. O Dart já faz isso com a referência; falta a
+        cópia quando a variável é um objeto: caixa (`&i`) ou struct/array."""
+        if init is None or init["node"] != "AssignStmt" or init["tok"] != ":=":
+            return []
+        out = []
+        for ident in init["lhs"]:
+            obj = ident.get("$obj")
+            if ident["name"] == "_" or not obj or obj["decl"] not in self.scope.locals:
+                continue
+            name, t = self.scope.locals[obj["decl"]], self.pkg.type_at(obj["type"])
+            if self.names.boxed(obj):
+                out.append(f"{name} = {self.types.box(t, f'{name}.value')[1]}")
+            elif self.typesys.is_value(t):
+                out.append(f"{name} = {self.values.copy_text(name, t)}")
+        return out
 
     def simple(self, s):
         """Statement simples numa única linha, sem `;` (cláusulas do for)."""
