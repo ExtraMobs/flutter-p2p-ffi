@@ -18,6 +18,7 @@ part 'src/bytes/search.dart';
 part 'src/bytes/edit.dart';
 part 'src/bytes/buffer.dart';
 part 'src/bytes/case.dart';
+part 'src/bytes/reader.dart';
 
 typedef _Bytes = Slice<Golang.Uint8>;
 

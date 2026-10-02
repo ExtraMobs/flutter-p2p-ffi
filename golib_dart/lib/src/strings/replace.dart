@@ -140,3 +140,7 @@ Slice<Golang.String> splitAfterN(
   Golang.String sep,
   Golang.Int n,
 ) => _genSplit(s, sep, sep.length, n.toInt());
+
+/// `strings.Clone(s)`: cópia independente dos bytes (`String.slice` é uma
+/// view sobre o array do pai; ver `fixed_types/golang/string.dart`).
+Golang.String clone(Golang.String s) => Golang.String.fromBytes(s.toBytes());
