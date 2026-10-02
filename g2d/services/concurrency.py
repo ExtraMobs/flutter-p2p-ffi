@@ -19,6 +19,8 @@ SUSPENDING_SHIM = {
     ("m", "sync", "WaitGroup", "Wait"): ("wait$async", False),
     ("m", "sync", "Cond", "Wait"): ("wait$async", False),
 }
+# Funções do shim que sempre suspendem (devolvem Future): `await time.sleep(d)`.
+SUSPENDING_FUNCS = frozenset({("f", "time", "Sleep")})
 # Trava → destrava correspondente (seção crítica de um Mutex/RWMutex).
 LOCKS = {
     ("m", "sync", "Mutex", "Lock"): "Unlock",
@@ -240,7 +242,7 @@ class Concurrency(Service):
     def direct_suspend(self, node):
         """(hard, soft) da função/literal (sem contar func literals
         aninhadas): `hard` = operação de canal, `select` sem `default`,
-        `range` sobre chan, `WaitGroup.Wait`/`Cond.Wait`; `soft` = `Lock`
+        `range` sobre chan, `WaitGroup.Wait`/`Cond.Wait`, `time.Sleep`; `soft` = `Lock`
         (que só suspende se o Mutex for disputável: `lock_sites`)."""
         hard = soft = False
         polled = set()  # operações dos cases de `select` com `default`: nunca esperam
@@ -261,9 +263,12 @@ class Concurrency(Service):
             elif k == "RangeStmt" and self.is_chan_range(n):
                 hard = True
             elif k == "CallExpr":
-                shim = SUSPENDING_SHIM.get(self.callee_key(n))
+                ck = self.callee_key(n)
+                shim = SUSPENDING_SHIM.get(ck)
                 if shim:
                     soft, hard = soft or shim[1], hard or not shim[1]
+                elif ck in SUSPENDING_FUNCS:
+                    hard = True
         return hard, soft
 
     # ------------------------------------------------------------ Mutex
@@ -379,6 +384,8 @@ class Concurrency(Service):
             colors = self.facts.colors
             return bool(self.scope and self.scope.async_ctx and colors is not None
                         and colors.mutex_async(self.mutex_id(call)))
+        if key in SUSPENDING_FUNCS:
+            return True
         if key == ONCE_DO:
             return self.is_async(self.once_arg_key(call))
         if key is None:

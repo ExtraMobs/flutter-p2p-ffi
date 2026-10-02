@@ -343,15 +343,47 @@ uma interface da stdlib (`io.Reader`...). Lá dentro o `Lock` fica
 `lock()` síncrono (⚠️ `fatal` `g2d: ...` em runtime se estiver disputado);
 qualquer outra espera é recusada: `async:contexto-sincrono`.
 
+Valores de função (closure guardada, `f` sem chamar, method value `x.M`,
+`T.M`, campo/slice/map de funcs, tipo nomeado sobre func): a cor é por
+**classe de assinatura**, a assinatura subjacente canônica (identidade de
+tipo do Go, igual em todo pacote; `type H func(string) string` e
+`func(string) string` são a mesma classe). Todo valor de uma classe tem o
+mesmo tipo Dart: `Future<R> Function(...)` se alguma função `async` vira
+valor dela (nó `("sig", texto)` na `ColorTable`, com aresta classe → função),
+e aí toda chamada por valor da classe espera (`await f!(x)`, `await
+h(x)` no tipo nomeado, `defer f()` com closure adiada `async`, `Once.Do(f)`
+com `do$async`). Uma função síncrona que vira valor de uma classe `async` é
+embrulhada (`go.async1(upper)`, `go.async0`..`go.async8`; um literal vira
+`() async {...}`). Fixture `asyncfunc` (errgroup, pipeline de callbacks,
+method value, tipo nomeado, composição, `any` + type assertion, `Once.Do`,
+`defer`).
+
+Classes de **formato fixo** ficam síncronas (`ColorSummary.forced`):
+assinaturas de funções e métodos da stdlib usados no grafo (o shim recebe
+e devolve funções síncronas: `sort.Slice`, `context.CancelFunc`...), exceto
+o parâmetro de quem roda a função numa goroutine ou com `do$async`
+(`time.AfterFunc`, `context.AfterFunc`, `WaitGroup.Go`, `Once.Do`: o shim
+aceita `FutureOr<void> Function()`), e formatos derivados de genéricos
+(parâmetros/resultados de uma chamada genérica, campos e métodos de
+instâncias de tipos genéricos, assinaturas com parâmetro de tipo: lá
+dentro o Dart vê `U Function(T)`). ⚠️ Como `context.WithCancel` devolve
+`CancelFunc`, a classe `func()` fica síncrona em quase todo o grafo do kubo.
+
+`$goInit`: vira `Future<void> $goInit() async` se um inicializador de
+variável de pacote, uma função `init` ou (no main) o `$goInit` de uma
+dependência suspende; o `main` e o `$goInit` do main esperam com `await`
+(fixture `asyncinit`).
+
 Recusas (`Unsupported`, nunca Dart aproximado):
 
-- `async:valor-func`: função `async` usada como valor (closure guardada ou
-  passada adiante, `f` sem chamar, method value `x.M`, `T.M`). Chamadas por
-  valor de função são sempre síncronas (a cor por classe de assinatura de
-  func é o próximo passo do `TODO/P0-design-m4-concorrencia.md`);
-- `async:init`: inicializador de variável de pacote ou função `init` que
-  suspende (o `$goInit` é síncrono);
+- `async:valor-func`: função `async` usada como valor de uma classe de
+  formato fixo (acima);
 - `async:contexto-sincrono`: ver acima.
+
+`struct{}` é `go.EmptyStruct` (uma classe no runtime, não uma por library):
+`chan struct{}` atravessa pacotes e shims (`context.Context.Done()`).
+Métodos Go chamados `Go` viram `go$` (o membro `go` sombrearia o prefixo do
+runtime): `WaitGroup.Go` → `wg.go$(f)`.
 
 ⚠️ Uma interface só se liga às implementações que o `implements` do goast
 conhece (tipos do próprio pacote × interfaces da typeTable dele); entre
@@ -445,7 +477,7 @@ pendente bloqueia `RLock` novo, síncrono ou não), `WaitGroup.wait$async()`,
 com `L.lock$async()` se `L` for um `AsyncLocker`, senão o `lock()` síncrono
 dele), `Once.do$async(f)` (chamada concorrente espera a primeira terminar,
 sem rodar `f` de novo — mesmo que ela entre em panic: o Go marca `done` num
-defer, então só a primeira propaga o panic). `WaitGroup.go(f)` (Go 1.25):
+defer, então só a primeira propaga o panic). `WaitGroup.go$(f)` (Go 1.25; `go$` porque `go` é o prefixo do runtime):
 `Add(1)` + `spawn` + `Done` (mesmo em panic). `Unlock`/`RUnlock`/`Signal`/
 `Broadcast`/`Done` continuam síncronos: acordam quem espera em ordem FIFO,
 por handoff direto (a posse passa pro próximo sem "destravar" de verdade).

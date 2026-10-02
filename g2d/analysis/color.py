@@ -27,7 +27,8 @@ import collections
 
 from g2d.engine.behavior import Analysis
 from g2d.model import unparen, walk
-from g2d.services.concurrency import LOCKS, ONCE_DO, SPAWNING_SHIM, SUSPENDING_SHIM, WAITGROUP_GO, Concurrency
+from g2d.services.concurrency import (LOCKS, ONCE_DO, SPAWNING_SHIM, SUSPENDING_FUNCS, SUSPENDING_SHIM, WAITGROUP_GO,
+                                      Concurrency)
 
 
 class ColorSummary:
@@ -87,7 +88,7 @@ def summarize(engine, decls=None):
             ck = conc.callee_key(n)
             if ck in LOCKS:
                 locks.add(conc.mutex_id(n))
-            if ck in SUSPENDING_SHIM or ck == WAITGROUP_GO:
+            if ck in SUSPENDING_SHIM or ck in SUSPENDING_FUNCS or ck == WAITGROUP_GO:
                 continue
             if ck == ONCE_DO:  # espera f
                 ck = conc.once_arg_key(n)

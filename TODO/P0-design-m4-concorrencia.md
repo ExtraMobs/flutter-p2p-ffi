@@ -80,7 +80,7 @@ Detalhe completo em `docs/mapping-spec.md` § "Concorrência (M4) — runtime". 
 - **`Defers.runAsync`**: como `run()`, mas aguardando defer que devolve `Future`; o quadro que
   `recover()` consulta passou de pilha global pra `Zone` por chamada (goroutines intercaladas através
   de um `await` no meio de um defer quebrariam a pilha global — `defer_async_test.dart` prova).
-- **`sync` `$async`** (`lock$async`, `rLock$async`, `wait$async`, `do$async`, `WaitGroup.go`):
+- **`sync` `$async`** (`lock$async`, `rLock$async`, `wait$async`, `do$async`, `WaitGroup.go$`):
   suspendem de verdade em vez de `fatal`; RWMutex com preferência de escritor. Síncrono continua
   valendo pra uma goroutine só; travado com outras vivas é limite do g2d (`fatal` `g2d: ...`).
 
