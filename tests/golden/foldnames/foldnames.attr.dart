@@ -62,6 +62,9 @@ class KeyValue extends go.GoStruct<KeyValue> {
   @override
   List<String> get $fieldNames => const ['Key', 'Type', 'Value'];
 
+  @override
+  List<String> get $fieldTypes => const ['string', 'attr.Type', 'interface {}'];
+
   Golang.String describe() {
     if ($nilPtr) go.nilDeref();
     return fmt.sprint(

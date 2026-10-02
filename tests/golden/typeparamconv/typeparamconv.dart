@@ -75,6 +75,9 @@ class TypedAtomicInt64<T extends Golang.IntBase<T>>
   @override
   List<String> get $fieldNames => const ['v'];
 
+  @override
+  List<String> get $fieldTypes => const ['atomic.Int64'];
+
   T load() {
     final TypedAtomicInt64<T>? x = $nilPtr ? null : this;
     return $T.ofInt!(x!._v.load());

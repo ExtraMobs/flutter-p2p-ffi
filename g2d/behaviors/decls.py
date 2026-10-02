@@ -242,10 +242,23 @@ class StructClass(TypeDeclBehavior):
             "",
             "@override",
             f"List<String> get $fieldNames => const [{', '.join(names)}];",
-        ]
+        ] + self.field_types(st)
         for m in self.facts.methods.get(go_name, []):
             lines += [""] + self.functions.func_decl(m)
         return lines + ["}"]
+
+    def field_types(self, st):
+        """`$fieldTypes` (nomes Go dos tipos dos campos, para `%#v`), só se
+        algum campo não é básico: o valor Dart de slice/map/array/ponteiro/
+        interface não diz o próprio tipo Go, e uma struct por valor num campo
+        é o mesmo objeto de um ponteiro (só o nome do campo as distingue)."""
+        kinds = {self.typesys.underlying(self.pkg.type_at(f["type"]))["kind"] for f in st["fields"]}
+        if kinds <= {"basic"}:
+            return []
+        # Tipo que depende de parâmetro de tipo: sem nome estático ('' = desconhecido).
+        types = ", ".join("'" + ("" if self.descriptors.has_tparam(f["type"]) else self.goinfo.sharp_type_name(f["type"]))
+                          + "'" for f in st["fields"])
+        return ["", "@override", f"List<String> get $fieldTypes => const [{types}];"]
 
 
 class InterfaceClass(TypeDeclBehavior):

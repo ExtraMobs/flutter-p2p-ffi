@@ -178,7 +178,10 @@ class UnsupportedTest(unittest.TestCase):
         """Verbo que o shim fmt não formata vira Unsupported na transpilação
         (antes: UnimplementedError só em runtime, audit verde)."""
         cases = {
-            'fmt.Printf("%#v", 1)': "fmt-verbo:%#v",
+            'fmt.Printf("%#v", main)': "fmt-verbo:%#v-func",
+            'x := 1; fmt.Printf("%#v", &x)': "fmt-verbo:%#v-ponteiro",
+            'fmt.Printf("%#v", []func(){})': "fmt-verbo:%#v-func",
+            'type T struct{ C chan int }; fmt.Printf("%#v", T{})': "fmt-verbo:%#v-chan",
             'fmt.Printf("%x", 1.5)': "fmt-verbo:%x-float",
             'f := 2.5; fmt.Printf("%#.3g", f)': "fmt-verbo:#-float",
             'c := complex(1, 2); fmt.Printf("%d", c)': "fmt-verbo:%d-complex",
@@ -186,7 +189,7 @@ class UnsupportedTest(unittest.TestCase):
             'fmt.Printf("%T", []int{1})': "fmt-verbo:%T-composto",
             'fmt.Printf("%d", main)': "fmt-verbo:%d-func",
             'fmt.Printf("%d", 1, []int{2})': "fmt-verbo:extra-composto",
-            'fmt.Sprintf("%[2]d %#[1]v", 1, 2)': "fmt-verbo:%#v",
+            'fmt.Sprintf("%[2]d %#[1]v", main, 2)': "fmt-verbo:%#v-func",
         }
         for body, code in cases.items():
             with self.subTest(body=body):

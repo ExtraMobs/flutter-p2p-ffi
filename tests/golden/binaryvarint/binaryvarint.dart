@@ -68,6 +68,15 @@ class _rec$ extends go.GoStruct<_rec$> {
 
   @override
   List<String> get $fieldNames => const ['A', 'B', '_', 'C', 'D'];
+
+  @override
+  List<String> get $fieldTypes => const [
+    'uint16',
+    'int32',
+    'uint8',
+    'float64',
+    '[2]int8',
+  ];
 }
 
 go.Slice<Golang.Uint8> _ff(Golang.Int n) {

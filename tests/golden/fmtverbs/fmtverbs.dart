@@ -117,6 +117,14 @@ class Box extends go.GoStruct<Box> {
 
   @override
   List<String> get $fieldNames => const ['P', 'Tag', 'Inner', 'Ptr'];
+
+  @override
+  List<String> get $fieldTypes => const [
+    'main.P',
+    'string',
+    'struct { A int; B int }',
+    '*main.P',
+  ];
 }
 
 class _myErr$ extends go.GoStruct<_myErr$> implements go.GoError {

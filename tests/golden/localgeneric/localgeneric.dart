@@ -122,6 +122,9 @@ class _wrap$box$<T> extends go.GoStruct<_wrap$box$<T>> {
 
   @override
   List<String> get $fieldNames => const ['v'];
+
+  @override
+  List<String> get $fieldTypes => const [''];
 }
 
 class _pairs$pair$<K, V> extends go.GoStruct<_pairs$pair$<K, V>> {
@@ -155,6 +158,9 @@ class _pairs$pair$<K, V> extends go.GoStruct<_pairs$pair$<K, V>> {
 
   @override
   List<String> get $fieldNames => const ['K', 'V'];
+
+  @override
+  List<String> get $fieldTypes => const ['', ''];
 }
 
 final class _pairs$list$<K, V> extends go.Slice<_pairs$pair$<K, V>>

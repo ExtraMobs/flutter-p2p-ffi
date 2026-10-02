@@ -104,6 +104,13 @@ class Msg extends go.GoStruct<Msg> {
 
   @override
   List<String> get $fieldNames => const ['_', 'ID', 'Name'];
+
+  @override
+  List<String> get $fieldTypes => const [
+    'main.DoNotCompare',
+    'main.Hash',
+    'string',
+  ];
 }
 
 final class Grid extends go.GoArray<go.GoArray<Golang.Int>> {

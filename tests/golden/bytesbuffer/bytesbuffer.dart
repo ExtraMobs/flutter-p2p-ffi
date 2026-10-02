@@ -42,6 +42,9 @@ class _chunks$ extends go.GoStruct<_chunks$> implements io.Reader {
   @override
   List<String> get $fieldNames => const ['data'];
 
+  @override
+  List<String> get $fieldTypes => const ['[]uint8'];
+
   (Golang.Int, go.GoError?) read(go.Slice<Golang.Uint8> p) {
     final _chunks$? c = $nilPtr ? null : this;
     if (Golang.Int(c!._data.length) == Golang.Int(0)) {
@@ -92,6 +95,9 @@ class _sink$ extends go.GoStruct<_sink$> implements io.Writer {
 
   @override
   List<String> get $fieldNames => const ['got'];
+
+  @override
+  List<String> get $fieldTypes => const ['[]string'];
 
   (Golang.Int, go.GoError?) write(go.Slice<Golang.Uint8> p) {
     final _sink$? s = $nilPtr ? null : this;

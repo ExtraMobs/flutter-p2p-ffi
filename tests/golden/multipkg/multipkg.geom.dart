@@ -131,6 +131,9 @@ class Rect extends go.GoStruct<Rect> implements Shape {
   @override
   List<String> get $fieldNames => const ['Min', 'Max'];
 
+  @override
+  List<String> get $fieldTypes => const ['geom.Point', 'geom.Point'];
+
   Golang.Int area() {
     if ($nilPtr) go.nilDeref();
     return (this.max.x - this.min.x) * (this.max.y - this.min.y);

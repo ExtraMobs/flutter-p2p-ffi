@@ -48,6 +48,9 @@ class PathError extends go.GoStruct<PathError>
   @override
   List<String> get $fieldNames => const ['Op', 'Path', 'Err'];
 
+  @override
+  List<String> get $fieldTypes => const ['string', 'string', 'error'];
+
   Golang.String error() {
     final PathError? e = $nilPtr ? null : this;
     return e!.op +
@@ -236,6 +239,9 @@ class _multi$ extends go.GoStruct<_multi$>
 
   @override
   List<String> get $fieldNames => const ['errs'];
+
+  @override
+  List<String> get $fieldTypes => const ['[]error'];
 
   Golang.String error() {
     if ($nilPtr) go.nilDeref();

@@ -41,6 +41,9 @@ class _replay$ extends go.GoStruct<_replay$> {
 
   @override
   List<String> get $fieldNames => const ['name', 'sb'];
+
+  @override
+  List<String> get $fieldTypes => const ['string', 'strings.Builder'];
 }
 
 void _render(strings.Builder? b, go.Slice<Golang.String> parts) {

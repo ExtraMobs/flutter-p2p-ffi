@@ -94,6 +94,14 @@ class Box extends go.GoStruct<Box> {
   @override
   List<String> get $fieldNames => const ['Name', 'Min', 'Max', 'Owner'];
 
+  @override
+  List<String> get $fieldTypes => const [
+    'string',
+    'main.Point',
+    'main.Point',
+    '*main.Point',
+  ];
+
   Golang.Int width() {
     if ($nilPtr) go.nilDeref();
     return this.max.x - this.min.x;
