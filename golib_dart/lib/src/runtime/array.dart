@@ -89,9 +89,6 @@ base class GoArray<T> extends GoValue<GoArray<T>> {
   String get $goType => '[${_items.length}]';
 
   @override
-  List<String> get $methods => const [];
-
-  @override
   bool operator ==(Object other) {
     if (other is! GoArray<T> ||
         other._items.length != _items.length ||

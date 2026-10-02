@@ -306,7 +306,7 @@ void main() {
       );
       Object? anything = Point(x: Golang.Int(5), y: Golang.Int(6)).$ifaceCopy();
       {
-        var (st, ok$1) = go.tryIface<fmt.Stringer>(anything);
+        var (st, ok$1) = go.tryIface<fmt.Stringer>(anything, const ['String']);
         if (ok$1) {
           fmt.println(
             go.Slice<Object?>.of([

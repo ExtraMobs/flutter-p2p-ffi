@@ -25,7 +25,9 @@ final class DoNotCopy extends go.GoArray<sync.Mutex> {
   @override
   String get $goType => 'main.DoNotCopy';
   @override
-  List<String> get $methods => const [];
+  List<String> get $valueMethods => const [];
+  @override
+  List<String> get $ptrMethods => const [];
 }
 
 class $_counter extends go.GoStruct<$_counter> {

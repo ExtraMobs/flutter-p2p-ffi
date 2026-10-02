@@ -34,12 +34,20 @@ class Assertions(Service):
         struct por valor ou ponteiro para struct."""
         return {"value": ", struct: true", "pointer": ", struct: false"}.get(mode, "")
 
+    def iface_methods(self, t):
+        """`const ['A', 'B']`: method set da interface t (nomes Go ordenados),
+        conferido em runtime contra o de um valor guardado por valor
+        (`go.isIface`: a classe Dart de T também tem os métodos de *T)."""
+        names = sorted(m["name"] for m in self.typesys.underlying(t)["methods"])
+        return "const [" + ", ".join(f"'{m}'" for m in names) + "]" if names else ""
+
     def comma_ok_assert(self, n):
         """`v, ok := x.(T)` → record (valor, ok)."""
         mode, dt, t = self.assert_parts(n)
         x = self.expr(n["x"])
         if mode == "iface":
-            return f"{self.imports.qualify(None, 'tryIface')}<{dt}>({x})"
+            methods = self.iface_methods(t)
+            return f"{self.imports.qualify(None, 'tryIface')}<{dt}>({x}{', ' + methods if methods else ''})"
         if mode == "func":
             sig = self.goinfo.go_type_name(t)
             return f"{self.imports.qualify(None, 'tryFunc')}<{dt}>({x}, {self.types.zero(t)}, '{sig}')"
@@ -52,6 +60,9 @@ class Assertions(Service):
             return f"{subject} == null"
         mode, dt, t = self.assert_parts({"type": texpr})
         if mode == "iface":
+            methods = self.iface_methods(t)
+            if methods:
+                return f"{self.imports.qualify(None, 'isIface')}<{dt}>({subject}, {methods})"
             return f"{subject} is {dt}"
         if mode == "func":
             sig = self.goinfo.go_type_name(t)

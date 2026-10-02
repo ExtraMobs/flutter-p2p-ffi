@@ -91,7 +91,9 @@ final class Hash extends go.GoArray<Golang.Uint8> {
   @override
   String get $goType => 'main.Hash';
   @override
-  List<String> get $methods => const [];
+  List<String> get $valueMethods => const [];
+  @override
+  List<String> get $ptrMethods => const [];
 }
 
 final class Tags extends go.GoMap<Golang.String, Golang.Int>

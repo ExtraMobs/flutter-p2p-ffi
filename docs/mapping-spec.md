@@ -640,7 +640,14 @@ métodos da classe. As conversões usam os construtores:
   de falha são as do Go (`interface conversion: main.Point is not main.Shape:
   missing method Area`).
 - Comma-ok → `go.tryType`/`go.tryIface`. Type switch → cadeia de
-  `go.isType`/`is`, com a variável ligada por case.
+  `go.isType`/`go.isIface`/`is`, com a variável ligada por case.
+- A classe Dart de uma struct/array é a mesma para `T` e `*T` e declara as
+  interfaces dos dois; por isso o teste de interface com métodos
+  (`assertIface`, `tryIface`, `isIface`) recebe o method set da interface e,
+  para um valor guardado por valor (`$isValue`), confere o method set de `T`
+  (`$valueMethods`, em `go.GoValue`; array nomeado também gera
+  `$valueMethods`/`$ptrMethods`): `P{}` não satisfaz `Incer` com `Inc` em
+  `*P`. O `fmt` segue a mesma regra. Fixture `ifacemethodset`.
 - `==` entre interfaces → `go.ifaceEq` (identidade para ponteiros).
 - `fmt` usa `error` e depois `Stringer` antes da forma estrutural.
 - **Ponteiro nil tipado.** Cada struct tem a sentinela

@@ -108,7 +108,7 @@ void main() {
     );
     Object? anyv = Named(n: Golang.Int(9)).$ifaceCopy();
     {
-      var (nm, ok) = go.tryIface<$_anonIface$14>(anyv);
+      var (nm, ok) = go.tryIface<$_anonIface$14>(anyv, const ['Name']);
       if (ok) {
         fmt.println(go.Slice<Object?>.of([nm!.name()], _$e0));
       }

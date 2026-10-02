@@ -272,7 +272,10 @@ void main() {
       _$e4,
       m: go.GoMap<Golang.Int, Golang.String>.of({}, _$e4),
     );
-    var (_, isCache) = go.tryIface<Cache<Golang.Int, Golang.String>>(c);
+    var (_, isCache) = go.tryIface<Cache<Golang.Int, Golang.String>>(c, const [
+      'Add',
+      'Get',
+    ]);
     fmt.println(go.Slice<Object?>.of([isCache], _$e0));
   });
 }

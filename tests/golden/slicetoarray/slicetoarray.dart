@@ -54,7 +54,9 @@ final class Pair extends go.GoArray<KV> {
   @override
   String get $goType => 'main.Pair';
   @override
-  List<String> get $methods => const [];
+  List<String> get $valueMethods => const [];
+  @override
+  List<String> get $ptrMethods => const [];
 }
 
 Object? _try(void Function()? f) {

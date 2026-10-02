@@ -16,6 +16,16 @@ abstract class GoValue<T extends GoValue<T>> implements GoTyped {
   /// guardado numa interface (que, no Go, não é nil). Nunca é mutada.
   bool $nilPtr = false;
 
+  /// Method set de T (valor) e de *T (nomes Go ordenados). No Dart a
+  /// classe é a mesma para T e *T (e declara as interfaces dos dois), então
+  /// quem testa uma interface sobre um valor ([$isValue]) confere também
+  /// [$methods] (`go.isIface`).
+  List<String> get $valueMethods => const [];
+  List<String> get $ptrMethods => const [];
+
+  @override
+  List<String> get $methods => $isValue ? $valueMethods : $ptrMethods;
+
   /// Cópia de valor (aninhados copiados; ponteiros, slices, maps
   /// compartilhados, como no Go).
   T $copy();
@@ -38,13 +48,6 @@ abstract class GoValue<T extends GoValue<T>> implements GoTyped {
 /// `==` compara campo a campo sobre [$fields] (campos ponteiro vêm como
 /// [Addr], comparados por identidade).
 abstract class GoStruct<T extends GoStruct<T>> extends GoValue<T> {
-  /// Method set de T (valor) e de *T; ver [$methods].
-  List<String> get $valueMethods => const [];
-  List<String> get $ptrMethods => const [];
-
-  @override
-  List<String> get $methods => $isValue ? $valueMethods : $ptrMethods;
-
   /// Campos em ordem de declaração (ponteiros embrulhados em [Addr]).
   List<Object?> get $fields;
 

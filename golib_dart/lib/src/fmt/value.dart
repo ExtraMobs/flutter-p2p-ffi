@@ -4,7 +4,7 @@ part of '../../fmt.dart';
 /// interface ou campo aninhado) só tem os de receptor valor: `String()` de
 /// `*T` não vale para `T`, como no Go.
 bool _hasMethod(Object v, String name, bool nested) {
-  if (v is GoStruct) {
+  if (v is GoValue) {
     return (nested || v.$isValue ? v.$valueMethods : v.$ptrMethods).contains(
       name,
     );

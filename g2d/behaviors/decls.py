@@ -417,13 +417,15 @@ class NamedCompositeClass(NonStructNamed):
         ms = self.facts.methods.get(name, [])
         impl = self.goinfo.implements_clause(tidx)
         vm = ", ".join(f"'{n}'" for n in self.goinfo.method_names(t, True))
+        pm = ", ".join(f"'{n}'" for n in self.goinfo.method_names(t, False))
         lines = [f"final class {cls} extends {ud}" + (" implements " + ", ".join(impl) if impl else "") + " {",
                  f"{cls}({ud} v) : super.alias(v);", "",
                  "/// `(*T)(nil)` dentro de uma interface (não é nil no Go).",
                  f"static final {cls} $nil = {cls}({self.types.zero(u)})..$nilPtr = true;", "",
                  "@override", f"{cls} $copy() => {cls}(super.$copy());", "",
                  "@override", f"String get $goType => '{self.goinfo.go_type_name(t)}';",
-                 "@override", f"List<String> get $methods => const [{vm}];"]
+                 "@override", f"List<String> get $valueMethods => const [{vm}];",
+                 "@override", f"List<String> get $ptrMethods => const [{pm}];"]
         for m in ms:
             lines += [""] + self.functions.func_decl(m)
         return lines + ["}"]
