@@ -44,8 +44,14 @@ docs/stdlib-coverage.md:
 
 Feito: inteiros (`Itoa`, `FormatInt`/`FormatUint`, `ParseInt`/`ParseUint`/`Atoi`) com
 oráculo de ~2500 casos (`golib_dart/test/strconv_test.dart`) e fixture `tests/golden/strconvint`.
-Baratos a seguir: `ParseBool`/`FormatBool`, `Quote`/`QuoteRune`/`AppendQuote` (o `%q` do `fmt` já
-é o `strconv.Quote`), `AppendInt`/`AppendUint`, `Unquote`/`UnquoteChar`. `FormatFloat` reusa o
-formatador de float do `fmt`/fixed_types. `ParseFloat` exige a porta exata do Go (Eisel-Lemire +
-decimal lento) com oráculo. O tipo `NumError` exposto (campos, type assertion) depende de
-`P1-design-structs-de-shim.md`.
+Feito (segunda leva): `ParseBool`/`FormatBool`/`AppendBool`, `AppendInt`/`AppendUint`,
+`Quote`/`QuoteToASCII`/`QuoteRune`/`QuoteRuneToASCII`/`AppendQuote*`, `Unquote`/`UnquoteChar`,
+`IsPrint`, `CanBackquote`, `FormatFloat`/`AppendFloat` (`e E f g G`) e `ParseFloat` (32/64,
+decimal e hexadecimal), `IntSize` (constante dobrada). Oráculo em
+`golib_dart/test/strconv_misc_test.dart` (~5000 linhas comparadas ao Go) e fixture
+`tests/golden/strconvmisc` (go run × VM × JS × Wasm). O núcleo de quote saiu do `fmt` para
+`src/strconv/quote_core.dart`. Corrigido de passagem o `_roundDecimal` do `float_format.dart`
+(valor logo abaixo de 10^e arredondando para cima com `%.17g`).
+Falta: `FormatFloat` com `b`/`x`/`X` (`UnsupportedError`), `FormatComplex`, `Func`/`Num`/`Err`
+(`NumError` exposto, depende de `P1-design-structs-de-shim.md`), `QuotedPrefix`, `QuoteToGraphic`.
+Regerar o audit e remover/encolher este artefato depois.
