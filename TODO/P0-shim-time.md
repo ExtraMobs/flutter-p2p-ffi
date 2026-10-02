@@ -52,7 +52,10 @@ mesmos erros `*time.parseDurationError`); `Time` como struct de shim (`go.GoStru
 `UnixMicro`/`Date`/`Now`/`Since`/`Until`; `Month`/`Weekday` com `String()`; `Location` só de
 fuso fixo (`UTC`, `Local`, `FixedZone`). Oráculo: `golib_dart/test/time_test.dart` (VM, JS e
 Wasm, vetores de `test/go_time_vectors.go` embutidos em `test/time_vectors.dart`;
-`test/time_oracle_test.dart` confere na VM que estão atualizados).
+`test/time_oracle_test.dart` confere na VM que estão atualizados). Timers (Go ≥ 1.23):
+`Sleep`/`After`/`AfterFunc`/`NewTimer`/`NewTicker`/`Tick`, `Timer`/`Ticker` com `C`/`Stop`/`Reset`
+(`src/time/sleep.dart`; oráculos `test/timer_test.dart` e `test/timer_context_oracle_test.dart`);
+falta o g2d colorir `time.Sleep` como suspensiva (`await time.sleep(d)`) e o fixture e2e.
 
 Falta:
 
@@ -63,6 +66,4 @@ Falta:
 - `Format`/`AppendFormat`/`Parse` com layout arbitrário (porta de `format.go`: `nextStdChunk`,
   `RFC3339Nano`...), `MarshalJSON`/`UnmarshalJSON`/`MarshalText`, `LoadLocation`; `Time` só
   anuncia em `$methods` o que implementa.
-- `Sleep`, `After`, `AfterFunc`, `NewTimer`, `Ticker`, `Tick` dependem do M4
-  (`P0-design-m4-concorrencia.md`): timers do escalonador.
 - Audit não regerado nesta mudança (o ranking deve cair em `shim-simbolo:time.Time`/`now`/`unix`).
