@@ -21,6 +21,8 @@ class Functions(Service):
         prologue = []
         if d["recv"]:
             recv_t = self.pkg.recv_type(d)
+            base = self.pkg.type_at(recv_t["elem"]) if recv_t["kind"] == "pointer" else recv_t
+            self.scope.members = frozenset(self.facts.members.get(base["name"], ()))
             names = d["recv"]["list"][0]["names"]
             if names and names[0]["name"] != "_":
                 ident = names[0]

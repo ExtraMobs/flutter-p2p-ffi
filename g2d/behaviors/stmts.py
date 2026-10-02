@@ -2,10 +2,11 @@
 
 from g2d.engine.behavior import StmtBehavior
 from g2d.engine.precedence import DART_PREC, POSTFIX
-from g2d.model import Unsupported, is_blank, pos_key, uses_decl
+from g2d.model import Unsupported, assigns_var, is_blank, pos_key, unparen, uses_decl
 from g2d.services.control import RangeFuncFrame
 from g2d.services.dart_type import DartType
 from g2d.services.literals import tuple_expr
+from g2d.services.naming import local_name
 
 
 class BlockStmt(StmtBehavior):
@@ -112,7 +113,7 @@ class AssignStmt(StmtBehavior):
     kinds = ("AssignStmt",)
 
     def emit(self, s):
-        lhs, rhs, tok = s["lhs"], s["rhs"], s["tok"]
+        lhs, rhs, tok = [unparen(x) for x in s["lhs"]], s["rhs"], s["tok"]  # `(x) = 1`: alvo sem parênteses
         if tok not in ("=", ":="):
             return [self.op_assign(lhs[0], tok[:-1], rhs[0])]
         if len(lhs) == 1:
@@ -327,7 +328,7 @@ class BranchStmt(StmtBehavior):
             raise Unsupported(f"branch:{tok}", tok, s)
         frame = self.scope.rangefuncs[-1] if self.scope.rangefuncs else None
         if s["label"]:
-            name = s["label"]["name"]
+            name = local_name(s["label"]["name"])
             if frame is None or name in frame.inner_labels:
                 return [f"{tok} {name};"]
             if name == frame.label:  # o próprio range sobre func
@@ -360,9 +361,10 @@ class LabeledStmt(StmtBehavior):
     kinds = ("LabeledStmt",)
 
     def emit(self, s):
-        label = s["label"]["name"] + ":"
+        name = local_name(s["label"]["name"])  # `in:`, `new:`: reservadas do Dart ganham `$`
+        label = name + ":"
         if self.scope.rangefuncs:  # rótulo declarado dentro do corpo: nativo
-            self.scope.rangefuncs[-1].inner_labels.add(s["label"]["name"])
+            self.scope.rangefuncs[-1].inner_labels.add(name)
         if s["stmt"]["node"] == "RangeStmt":  # rótulo vai no laço, não no bloco
             return self.stmt(s["stmt"], label=label)
         return [label] + self.stmt(s["stmt"])
@@ -381,7 +383,7 @@ class SwitchStmt(StmtBehavior):
         if s["tag"]:
             tag = self.names.temp()
             out.append(f"final {tag} = {self.expr(s['tag'])};")
-        clauses = s["body"]["list"]
+        clauses = s["body"]["list"] or []  # `switch x {}`: só avalia a tag
 
         def cond(clause):
             return " || ".join(
@@ -441,7 +443,7 @@ class TypeSwitchStmt(StmtBehavior):
         out.append(f"final {subject} = {self.expr(ta['x'])};")
         decl = pos_key(ident["namePos"]) if ident else None
         chain, default = [], None
-        for clause in s["body"]["list"]:
+        for clause in s["body"]["list"] or []:  # `switch i.(type) {}`
             body = clause["body"] or []
             bind = []
             if ident is not None and uses_decl(body, decl):
@@ -459,12 +461,15 @@ class TypeSwitchStmt(StmtBehavior):
                         value, vt = f"{self.imports.qualify(None, 'unwrapFunc')}<{dt}>({subject})", t
                     else:
                         value, vt = f"{subject} as {dt}", t
-                    vtype = self.types.dart(vt)
                 else:
-                    value, vtype = subject, self.types.dart(static_t)
+                    value, vt = subject, static_t
                 obj = {"name": ident["name"], "decl": decl}
-                name = self.names.declare_local({"$obj": obj})
-                bind = [f"final {vtype} {name} = {value};"]
+                if decl in self.facts.boxed:  # `&v` no case: mora numa caixa
+                    bind = [self.names.local_decl({"$obj": obj}, vt, value)]
+                else:
+                    name = self.names.declare_local({"$obj": obj})
+                    kw = "" if assigns_var(body, decl) else "final "  # `v++` no case
+                    bind = [f"{kw}{self.types.dart(vt)} {name} = {value};"]
             lines = ["{"] + bind + [ln for b in body for ln in self.stmt(b)] + ["}"]
             if clause["list"] is None:
                 default = lines

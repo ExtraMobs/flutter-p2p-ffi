@@ -162,10 +162,29 @@ class Naming(Service):
         return f"$t{self.scope.temps}"
 
     def top_name(self, go_name, kind, fold=False):
-        """Função, var ou const de nível de pacote (`fold`: do `$obj`)."""
+        """Função, var ou const de nível de pacote (`fold`: do `$obj`).
+
+        Não exportado com o nome Dart de um membro de alguma classe da
+        library (`const sub` e o método `sub` viram `_sub`) ganha `$`: no
+        corpo da classe o membro sombrearia o top-level, e o Go os distingue.
+        `$` final nunca vem de um nome Go (`ascii_name` só insere `$u`/`$U`
+        no meio), e nome privado não sai da library: a troca é local."""
         if kind == "func" and go_name == "main" and self.pkg.name == "main":
             return "main"
-        return top_member_name(go_name, fold)
+        name = top_member_name(go_name, fold)
+        if not is_exported(go_name) and go_name != "_" and any(name in m for m in self.facts.members.values()):
+            return name + "$"
+        return name
+
+    def top_ref(self, obj):
+        """Referência a func/var/const de nível deste pacote. Dentro de um
+        método cuja classe tem membro com o mesmo nome Dart (exportado: o
+        nome não pode mudar, outros pacotes o citam), sai qualificada pelo
+        import da própria library."""
+        name = self.top_name(obj["name"], obj["kind"], obj.get("fold"))
+        if self.scope is not None and name in self.scope.members:
+            return self.imports.qualify_self(name)
+        return name
 
     def boxed(self, obj):
         """Variável que mora num go.Box: endereço tomado no pacote, ou var
@@ -186,7 +205,7 @@ class Naming(Service):
     def box_name(self, obj):
         """Nome Dart da caixa (go.Box) de uma variável com `&x`."""
         if obj.get("top"):
-            return self.top_name(obj["name"], obj["kind"], obj.get("fold"))
+            return self.top_ref(obj)
         return self.scope.locals[obj["decl"]]
 
     def local_decl(self, ident, t, init):

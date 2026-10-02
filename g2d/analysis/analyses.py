@@ -4,7 +4,7 @@ gravam em `engine.facts`)."""
 from g2d.config import BUILTIN_PREFIX, GOLANG_PREFIX
 from g2d.engine.behavior import Analysis
 from g2d.model import has_recover, pos_key, unparen, walk
-from g2d.services.naming import top_member_name, type_name
+from g2d.services.naming import member_name, type_name
 
 
 class ImplementsAnalysis(Analysis):
@@ -26,6 +26,22 @@ class MethodsAnalysis(Analysis):
                 self.facts.methods.setdefault(recv_t["name"], []).append(d)
 
 
+class MemberNamesAnalysis(Analysis):
+    """Nomes Dart dos membros de cada classe de tipo nomeado do pacote
+    (campos e method set, promovidos inclusive): no corpo da classe eles
+    sombreiam o nível de library (`Naming.top_name`, `Naming.top_ref`)."""
+
+    def run(self, decls):
+        for t in self.pkg.type_table:
+            if t["kind"] != "named" or t["pkg"] != self.pkg.path:
+                continue
+            names = {member_name(m["name"]) for m in t.get("methods") or []}
+            u = self.pkg.type_at(t["underlying"])
+            if u["kind"] == "struct":
+                names.update(member_name(f["name"]) for f in u.get("fields") or [])
+            self.facts.members.setdefault(t["name"], set()).update(names)
+
+
 class TopNamesAnalysis(Analysis):
     """Nomes de nível de library que um local não pode sombrear."""
 
@@ -38,7 +54,8 @@ class TopNamesAnalysis(Analysis):
                 names.add(self.names.top_name(d["name"]["name"], "func", d["name"]["$obj"].get("fold")))
             elif d["node"] == "GenDecl" and d["tok"] in ("var", "const"):
                 for spec in d["specs"]:
-                    names.update(top_member_name(i["name"], (i.get("$obj") or {}).get("fold")) for i in spec["names"])
+                    names.update(self.names.top_name(i["name"], d["tok"], (i.get("$obj") or {}).get("fold"))
+                                 for i in spec["names"])
             elif d["node"] == "GenDecl" and d["tok"] == "type":
                 names.update(type_name(s["name"]["name"]) for s in d["specs"])
 

@@ -24,7 +24,7 @@ class Ident(ExprBehavior):
             if obj["pkg"] != self.pkg.path:
                 return (self.imports.qualify(obj["pkg"], top_member_name(obj["name"], obj.get("fold")))
                         + self.names.box_suffix(obj))
-            return self.names.top_name(obj["name"], kind, obj.get("fold")) + self.names.box_suffix(obj)
+            return self.names.top_ref(obj) + self.names.box_suffix(obj)
         if kind == "var":
             if self.scope and obj.get("decl") == self.scope.recv:
                 return "this"

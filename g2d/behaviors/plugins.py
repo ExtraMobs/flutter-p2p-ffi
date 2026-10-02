@@ -32,7 +32,8 @@ class CorePlugin(Plugin):
     SERVICES = [ImportTable, Naming, TypeSystem, TypeMapper, DescriptorRegistry, ValueSemantics,
                 Literals, GoTypeInfo, Operands, Calls, Assertions, ControlFlow, Functions,
                 VarDecls, Promotion, EvalOrder]
-    ANALYSES = [analyses.ImplementsAnalysis, analyses.MethodsAnalysis, analyses.TopNamesAnalysis,
+    ANALYSES = [analyses.ImplementsAnalysis, analyses.MethodsAnalysis, analyses.MemberNamesAnalysis,
+                analyses.TopNamesAnalysis,
                 analyses.BoxingAnalysis, analyses.LocalTypesAnalysis, analyses.RecoverAnalysis, analyses.InitVarsAnalysis,
                 analyses.InitFuncsAnalysis]
     STMTS = [stmts.BlockStmt, stmts.ExprStmt, stmts.EmptyStmt, stmts.IncDecStmt, stmts.DeclStmt,

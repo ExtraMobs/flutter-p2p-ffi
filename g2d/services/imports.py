@@ -32,6 +32,9 @@ def declared_names(pkg):
     return top | {member_name(n) for n in names if is_exported(n)}
 
 
+SELF_PREFIX = "$self"
+
+
 class ImportTable(Service):
     """Imports Dart usados e prefixos (qualificação de símbolos)."""
 
@@ -100,6 +103,15 @@ class ImportTable(Service):
         if self.transpiled(pkg_path):
             return GRAPH_URI.format(path=pkg_path)
         raise Unsupported(f"shim-ausente:{pkg_path}", f"pacote sem shim/transpilação: {pkg_path}")
+
+    def qualify_self(self, name):
+        """Nome exportado da própria library pelo import dela mesma (`$self`:
+        nenhum nome Go tem `$`), para o corpo de uma classe com membro de
+        mesmo nome. Nome privado não passa por import: `Naming.top_name`
+        o renomeia. URI vazia: a própria library (referência relativa vazia
+        resolve para o URI base), qualquer que seja o nome do arquivo."""
+        self.used[SELF_PREFIX] = ""
+        return f"{SELF_PREFIX}.{name}"
 
     def qualify(self, pkg_path, name):
         """Nome Dart de um símbolo de outro pacote (ou do universo, se None)."""

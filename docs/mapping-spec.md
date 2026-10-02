@@ -111,6 +111,7 @@ Legenda: ✅ fiel · ⚠️ fiel no caso comum, com limite conhecido · ❌ não
 | func/var/const/campo/método exportado `HTTPServer` | `httpServer` (lowerCamel ciente de siglas) | ✅ |
 | func/var/const de pacote exportados que só diferem por caixa (`BOOL`/`Bool`, `FOO`/`Foo`) | o goast marca `fold` nos dois (também quando usados de outro pacote); o que perde a caixa de mais de uma letra no lowerCamel mantém a grafia Go (`BOOL`), o outro segue a regra (`bool$`). Nomes assim nunca colidem entre si nem com um lowerCamel | ✅ (fixture `foldnames`). ⚠️ campos/métodos: sem ocorrência no grafo do kubo, colidiriam |
 | idem não exportado `add` | `_add` (privado da library = do pacote) | |
+| func/var/const de pacote com o nome Dart de um membro de classe da library (`const sub` e o método `sub` → `_sub`; `func Name` e o método `Name` → `name`) | no corpo da classe o membro sombrearia o top-level. Não exportado: o top-level ganha `$` em toda a library (`_sub$`; nome privado não sai dela; `$` final nunca vem de nome Go). Exportado (outros pacotes citam o nome): dentro de método da classe com o membro, a referência sai pelo import da própria library, `import '' as $self;` (URI vazia = a própria library) → `$self.name` | ✅ (fixture `methodshadow`) |
 | local/parâmetro | nome Go; se repetido na função ou igual a um nome de library → `x$1` | |
 | palavra reservada Dart (`new`, `in`, ...) | sufixo `$` (`new$`) | |
 | nome do `dart:core` usado pelo código gerado (`Object`, `Map`, `String`, `List`, `Function`, `BigInt`, `identical`, `int`, `bool`, ...: `DART_CORE_USED`) | sufixo `$` (`Object$`, `identical$`, local `int$`), para não sombrear o core na library | |
@@ -550,9 +551,10 @@ a cor da chamada, do lado do g2d, nunca um lookup por nome Go em runtime.
 | `if init; cond`, `for`, `for cond`, `for {}` | `{ init; if }`, `for (...)`, `while (cond)`, `while (true)` |
 | `range` sobre slice / map / int | índice sobre a referência; `keysSnapshot` + `containsKey`; contador |
 | `range` sobre string | `for (var i = 0, w = 0; i < s.length; i += w)` com `s.decodeRune(i)` (runa, largura), igual ao `utf8.DecodeRune` |
-| `switch` / `switch {}` / type switch | cadeia `if/else` num bloco; `break` sem rótulo que sai do switch → `break $tN;` (bloco rotulado; a pilha de alvos distingue switch de laço) |
+| `switch` / `switch {}` / type switch | cadeia `if/else` num bloco; `break` sem rótulo que sai do switch → `break $tN;` (bloco rotulado; a pilha de alvos distingue switch de laço). Sem cases (`switch f() {}`, `switch i.(type) {}`): só avalia a tag. Variável do type switch atribuída em algum case não é `final`; com `&v`, mora numa `go.Box` (fixture `stmtedge`) |
 | `fallthrough` | seleção do case (`$c`) seguida dos corpos em sequência (`if ($c == i)`); `fallthrough` → `$c = i + 1` na ordem do fonte, inclusive para o `default` no meio |
-| rótulos, `break L`, `continue L` | rótulo no laço Dart |
+| rótulos, `break L`, `continue L` | rótulo no laço Dart; reservada do Dart ganha `$` (`in:` → `in$:`, fixture `stmtedge`) |
+| alvo entre parênteses (`(*p)++`, `(x) += 3`, `(m[k])++`) | parênteses removidos do alvo (o Dart não aceita `(p!.value) += 1`) |
 | `for k, v := range seq` (seq func, Go 1.23) | `seq((K k, V v) { if ($done) go.rangeFuncContinued(); corpo; return true; })`: `continue` → `return true`; `break` → `$done = true; return false`; `return`, `break L`/`continue L` para fora da closure gravam um código em `$st` (valores em `$rv`) e são refeitos depois da chamada; rótulos declarados no corpo ficam nativos; func literal dentro do corpo isola (fixture `rangefunc`) |
 | `defer f(a)` | `{ final $t = a; $d.defer(() { f($t); }); }`, com o corpo em `try`/`catch`/`finally` de `go.Defers` |
 | `defer f()` com f de tipo func nomeado | o closure em `f.$f` (pode receber `$rd` e recuperar); assinatura do subjacente (fixture `defernamed`) |

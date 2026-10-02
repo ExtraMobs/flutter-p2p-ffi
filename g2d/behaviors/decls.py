@@ -5,7 +5,7 @@ from g2d.engine.behavior import Behavior, TypeDeclBehavior
 from g2d.engine.scope import FunctionScope, TypeParams
 from g2d.model import Unsupported
 from g2d.services.literals import doc_comment
-from g2d.services.naming import member_name, param_name, top_member_name, type_name
+from g2d.services.naming import member_name, param_name, type_name
 
 
 HEADER = (
@@ -159,7 +159,7 @@ class InitBehavior(Behavior):
         return [f"{self.top_var(ident)} = {self.values.coerce(value, t)};"]
 
     def top_var(self, ident):
-        return top_member_name(ident["name"], ident["$obj"].get("fold")) + self.names.box_suffix(ident["$obj"])
+        return self.names.top_name(ident["name"], "var", ident["$obj"].get("fold")) + self.names.box_suffix(ident["$obj"])
 
 
 class StructClass(TypeDeclBehavior):

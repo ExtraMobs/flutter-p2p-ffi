@@ -45,7 +45,9 @@ class Operands(Service):
         return f"{self.imports.qualify(None, 'shiftCount')}({self.expr(y)})"
 
     def lvalue(self, n):
-        """Alvo de atribuição: `m[k]` sem o `?? zero` da leitura."""
+        """Alvo de atribuição: `m[k]` sem o `?? zero` da leitura; sem os
+        parênteses (`(*p)++`), que o Dart não aceita como alvo."""
+        n = unparen(n)
         if self.is_map_index(n):
             return f"{self.expr(n['x'], POSTFIX)}[{self.expr(n['index'])}]"
         return self.expr(n, POSTFIX)
@@ -97,4 +99,5 @@ class Operands(Service):
         return False
 
     def is_map_index(self, n):
+        n = unparen(n)
         return n["node"] == "IndexExpr" and self.typesys.underlying(self.pkg.type_of(n["x"]))["kind"] == "map"
