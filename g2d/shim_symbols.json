@@ -132,6 +132,16 @@
       "readFull",
       "writeString"
     ],
+    "io/fs": [
+      "FileMode",
+      "PathError",
+      "TimeoutError",
+      "errClosed",
+      "errExist",
+      "errInvalid",
+      "errNotExist",
+      "errPermission"
+    ],
     "math": [
       "abs",
       "atan",
@@ -199,6 +209,28 @@
       "trailingZeros",
       "trailingZeros32",
       "trailingZeros64"
+    ],
+    "os": [
+      "File",
+      "args",
+      "errClosed",
+      "errDeadlineExceeded",
+      "errExist",
+      "errInvalid",
+      "errNoDeadline",
+      "errNotExist",
+      "errPermission",
+      "exit",
+      "getenv",
+      "getpid",
+      "isExist",
+      "isNotExist",
+      "isPermission",
+      "isTimeout",
+      "lookupEnv",
+      "stderr",
+      "stdin",
+      "stdout"
     ],
     "sort": [
       "Interface",

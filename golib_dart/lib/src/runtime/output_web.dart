@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:js_interop';
+import 'dart:js_interop_unsafe';
 import 'dart:typed_data';
 
 @JS('process')
@@ -7,6 +8,8 @@ external _Process? get _process;
 
 extension type _Process(JSObject _) implements JSObject {
   external _Stdout? get stdout;
+  external JSObject? get env;
+  external JSNumber? get pid;
 }
 
 extension type _Stdout(JSObject _) implements JSObject {
@@ -14,7 +17,7 @@ extension type _Stdout(JSObject _) implements JSObject {
 }
 
 extension type _Stderr(JSObject _) implements JSObject {
-  external void write(JSString data);
+  external void write(JSAny data);
 }
 
 extension type _ProcessExit(JSObject _) implements JSObject {
@@ -40,6 +43,29 @@ void writeStdout(List<int> bytes) {
     nl = _pending.indexOf(0x0a);
   }
 }
+
+/// Node: bytes exatos em `process.stderr`; sem Node, o texto (UTF-8 com
+/// substituição) por linha completa no console.
+void writeStderrBytes(List<int> bytes) {
+  final p = _process;
+  final err = p == null ? null : _ProcessExit(p).stderr;
+  if (err != null) {
+    err.write(Uint8List.fromList(bytes).toJS);
+  } else {
+    writeStdout(bytes);
+  }
+}
+
+/// Node: `process.env[key]`; sem Node (navegador) não há ambiente: `null`.
+String? getEnv(String key) {
+  final env = _process?.env;
+  if (env == null || !env.has(key)) return null;
+  final v = env[key];
+  return v.isA<JSString>() ? (v as JSString).toDart : null;
+}
+
+/// Node: `process.pid`; sem Node, 0.
+int getPid() => _process?.pid?.toDartInt ?? 0;
 
 /// Mensagem em stderr (Node) ou no console.
 void writeStderr(String text) {

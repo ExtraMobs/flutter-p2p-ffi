@@ -35,3 +35,20 @@ docs/stdlib-coverage.md:
 ## Notas
 
 Decidir o recorte: `Getenv`, `Exit`, `Stdout`/`Stderr` (já há `writeStdout`), erros (`ErrNotExist`...); sistema de arquivos só onde o `dart:io` existe (import condicional).
+
+### Feito (1º recorte portável)
+
+`golib_dart/lib/os.dart` + `io/fs.dart` (registrados em `STDLIB_SHIMS`): `Getenv`, `LookupEnv`, `Exit`,
+`Getpid`, `Args` (só o nome do programa), `Stdin`/`Stdout`/`Stderr` (`*File`: `Write`, `WriteString`,
+`Close`, `Name`, `Fd`), erros sentinela (`ErrNotExist`, `ErrExist`, `ErrPermission`, `ErrClosed`,
+`ErrInvalid`, `ErrNoDeadline`, `ErrDeadlineExceeded`), `IsNotExist`/`IsExist`/`IsPermission`/`IsTimeout`,
+`PathError` e `FileMode` (vivem em `io/fs`, `os` só os reexpõe por alias na AST). Fixture `osbasic`
+(o e2e exige código de saída 0, então `Exit(0)`; `Exit(3)` foi conferido à mão na VM e no JS).
+Runtime: `getEnv`, `getPid`, `writeStderrBytes` em `src/runtime/output*.dart`.
+
+### Falta
+
+- Sistema de arquivos (`Open`, `OpenFile`, `Create`, `ReadFile`, `WriteFile`, `Stat`, `Remove`, `Rename`,
+  `MkdirAll`, `O_*`, `File.Read/Seek/Sync/Stat/Fd`, `FileInfo`...): exige `dart:io` por import condicional
+  (no JS/Wasm sem Node não há arquivos) e **decisão do usuário** sobre o comportamento fora da VM.
+- `os.Args` real, `Stdin.Read`, `Getppid`, `Hostname`, `Environ`, `Setenv`, `Signal`/`Process`.
