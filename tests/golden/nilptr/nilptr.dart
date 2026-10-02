@@ -136,14 +136,11 @@ void main() {
     $goInit();
     Node? p = null;
     Speaker? s = p ?? Node.$nil;
-    fmt.println(
-      go.Slice<Object?>.of([
-        s != null,
-        s!.speak(),
-        (p ?? Node.$nil).speak(),
-        (p ?? Node.$nil).len(),
-      ], _$e0),
-    );
+    (switch ((s!.speak(), (p ?? Node.$nil).speak(), (p ?? Node.$nil).len())) {
+      (final $t1, final $t2, final $t3) => fmt.println(
+        go.Slice<Object?>.of([s != null, $t1, $t2, $t3], _$e0),
+      ),
+    });
     Node? list = Node(
       name: Golang.String.fromDart('a'),
       next: Node(name: Golang.String.fromDart('b'), next: null),
@@ -165,9 +162,9 @@ void main() {
     Object? a = p ?? Node.$nil;
     fmt.println(go.Slice<Object?>.of([a != null, a], _$e0));
     {
-      final $t2 = s;
-      if (go.isType<Node?>($t2, struct: false)) {
-        final Node? v = go.unNil<Node>($t2 as Node?);
+      final $t5 = s;
+      if (go.isType<Node?>($t5, struct: false)) {
+        final Node? v = go.unNil<Node>($t5 as Node?);
         fmt.println(
           go.Slice<Object?>.of([
             Golang.String.fromDart('case *Node, nil?'),
@@ -199,6 +196,19 @@ bool _$inited = false;
 void $goInit() {
   if (_$inited) return;
   _$inited = true;
+}
+
+/// Métodos de Node promovidos por embedding (delegação).
+mixin Node$Promote {
+  Node? get $Node;
+  Golang.Int len() => $Node!.len();
+  Golang.String speak() => $Node!.speak();
+}
+
+/// Métodos de Val promovidos por embedding (delegação).
+mixin Val$Promote {
+  Val? get $Val;
+  Golang.String speak() => $Val!.speak();
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.

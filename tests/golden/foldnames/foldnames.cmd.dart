@@ -36,13 +36,15 @@ void main() {
       for (var $t2 = 0; $t2 < $t1.length; $t2++) {
         attr.KeyValue kv = $t1[$t2].$copy();
         {
-          fmt.println(
-            go.Slice<Object?>.of([
-              kv.describe(),
-              kv.type == attr.Type(1),
-              kv.type == attr.Type(3),
-            ], _$e0),
-          );
+          (switch (kv.describe()) {
+            final $t3 => fmt.println(
+              go.Slice<Object?>.of([
+                $t3,
+                kv.type == attr.Type(1),
+                kv.type == attr.Type(3),
+              ], _$e0),
+            ),
+          });
         }
       }
     }

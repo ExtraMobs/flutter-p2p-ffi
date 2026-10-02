@@ -9,13 +9,13 @@ import 'package:golib_dart/fmt.dart' as fmt;
 import 'package:golib_dart/builtin.dart' as go;
 import 'package:golib_dart/strings.dart' as strings;
 
-class _replay$ extends go.GoStruct<_replay$> {
-  _replay$({Golang.String? name, strings.Builder? sb})
+class $_replay extends go.GoStruct<$_replay> {
+  $_replay({Golang.String? name, strings.Builder? sb})
     : _name = name ?? Golang.String(),
       _sb = sb ?? strings.Builder();
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _replay$ $nil = _replay$()..$nilPtr = true;
+  static final $_replay $nil = $_replay()..$nilPtr = true;
 
   Golang.String _name;
   strings.Builder _sb;
@@ -28,10 +28,10 @@ class _replay$ extends go.GoStruct<_replay$> {
   List<String> get $ptrMethods => const [];
 
   @override
-  _replay$ $copy() => _replay$(name: _name, sb: _sb.$copy());
+  $_replay $copy() => $_replay(name: _name, sb: _sb.$copy());
 
   @override
-  void $set(_replay$ o) {
+  void $set($_replay o) {
     _name = o._name;
     _sb.$set(o._sb);
   }
@@ -98,12 +98,14 @@ void main() {
     b.writeRune(Golang.Int32(8594));
     b.writeRune(Golang.Int32(-1));
     b.write(go.Slice<Golang.Uint8>.of([Golang.Uint8(33)], _$e1));
-    fmt.println(
-      go.Slice<Object?>.of([n, err, b.len(), b.cap(), b.string()], _$e0),
-    );
+    (switch ((b.len(), b.cap(), b.string())) {
+      (final $t1, final $t2, final $t3) => fmt.println(
+        go.Slice<Object?>.of([n, err, $t1, $t2, $t3], _$e0),
+      ),
+    });
     b.grow(Golang.Int(100));
     fmt.println(go.Slice<Object?>.of([b.len(), b.cap()], _$e0));
-    _replay$ r = _replay$();
+    $_replay r = $_replay();
     r._name = Golang.String.fromDart('x');
     _render(
       r._sb,

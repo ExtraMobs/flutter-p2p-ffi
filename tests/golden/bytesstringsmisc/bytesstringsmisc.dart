@@ -109,40 +109,45 @@ void _stringsCases() {
                 for (var $t6 = 0; $t6 < $t5.length; $t6++) {
                   Golang.Int n = $t5[$t6];
                   {
-                    fmt.printf(
-                      Golang.String.fromDart('Replace(%q,%q,%q,%d)=%q\n'),
-                      go.Slice<Object?>.of([
-                        s,
-                        o,
-                        Golang.String.fromDart('XY'),
-                        n,
-                        strings.replace(s, o, Golang.String.fromDart('XY'), n),
-                      ], _$e0),
-                    );
+                    (switch (strings.replace(
+                      s,
+                      o,
+                      Golang.String.fromDart('XY'),
+                      n,
+                    )) {
+                      final $t7 => fmt.printf(
+                        Golang.String.fromDart('Replace(%q,%q,%q,%d)=%q\n'),
+                        go.Slice<Object?>.of([
+                          s,
+                          o,
+                          Golang.String.fromDart('XY'),
+                          n,
+                          $t7,
+                        ], _$e0),
+                      ),
+                    });
                   }
                 }
               }
-              fmt.printf(
-                Golang.String.fromDart('ReplaceAll(%q,%q)=%q\n'),
-                go.Slice<Object?>.of([
-                  s,
-                  o,
-                  strings.replaceAll(s, o, Golang.String.fromDart('')),
-                ], _$e0),
-              );
+              (switch (strings.replaceAll(s, o, Golang.String.fromDart(''))) {
+                final $t8 => fmt.printf(
+                  Golang.String.fromDart('ReplaceAll(%q,%q)=%q\n'),
+                  go.Slice<Object?>.of([s, o, $t8], _$e0),
+                ),
+              });
             }
           }
         }
         {
-          final $t7 = go.Slice<Golang.String>.of([
+          final $t9 = go.Slice<Golang.String>.of([
             Golang.String.fromDart(''),
             Golang.String.fromDart(','),
             Golang.String.fromDart('é'),
             go.stringOfBytes(const [255]),
             Golang.String.fromDart('zz'),
           ], _$e1);
-          for (var $t8 = 0; $t8 < $t7.length; $t8++) {
-            Golang.String sep = $t7[$t8];
+          for (var $t10 = 0; $t10 < $t9.length; $t10++) {
+            Golang.String sep = $t9[$t10];
             {
               var (before, after, ok) = strings.cut(s, sep);
               fmt.printf(
@@ -155,14 +160,12 @@ void _stringsCases() {
                 Golang.String.fromDart('CutPrefix/Suffix=%q %v %q %v\n'),
                 go.Slice<Object?>.of([a, ok1, b, ok2], _$e0),
               );
-              fmt.printf(
-                Golang.String.fromDart('SplitAfter(%q,%q)=%q\n'),
-                go.Slice<Object?>.of([
-                  s,
-                  sep,
-                  strings.splitAfter(s, sep),
-                ], _$e0),
-              );
+              (switch (strings.splitAfter(s, sep)) {
+                final $t11 => fmt.printf(
+                  Golang.String.fromDart('SplitAfter(%q,%q)=%q\n'),
+                  go.Slice<Object?>.of([s, sep, $t11], _$e0),
+                ),
+              });
               fmt.printf(
                 Golang.String.fromDart('SplitAfterN=%q %q\n'),
                 go.Slice<Object?>.of([
@@ -174,7 +177,7 @@ void _stringsCases() {
           }
         }
         {
-          final $t9 = go.Slice<Golang.String>.of([
+          final $t12 = go.Slice<Golang.String>.of([
             Golang.String.fromDart(''),
             Golang.String.fromDart('a'),
             Golang.String.fromDart('ab'),
@@ -185,19 +188,19 @@ void _stringsCases() {
             Golang.String.fromDart('�'),
             Golang.String.fromDart(',;'),
           ], _$e1);
-          for (var $t10 = 0; $t10 < $t9.length; $t10++) {
-            Golang.String cs = $t9[$t10];
+          for (var $t13 = 0; $t13 < $t12.length; $t13++) {
+            Golang.String cs = $t12[$t13];
             {
-              fmt.printf(
-                Golang.String.fromDart('Trim(%q,%q)=%q %q %q\n'),
-                go.Slice<Object?>.of([
-                  s,
-                  cs,
-                  strings.trim(s, cs),
-                  strings.trimLeft(s, cs),
-                  strings.trimRight(s, cs),
-                ], _$e0),
-              );
+              (switch ((
+                strings.trim(s, cs),
+                strings.trimLeft(s, cs),
+                strings.trimRight(s, cs),
+              )) {
+                (final $t14, final $t15, final $t16) => fmt.printf(
+                  Golang.String.fromDart('Trim(%q,%q)=%q %q %q\n'),
+                  go.Slice<Object?>.of([s, cs, $t14, $t15, $t16], _$e0),
+                ),
+              });
               fmt.printf(
                 Golang.String.fromDart(
                   'IndexAny=%d LastIndexAny=%d ContainsAny=%v\n',
@@ -212,7 +215,7 @@ void _stringsCases() {
           }
         }
         {
-          final $t11 = go.Slice<Golang.Int32>.of([
+          final $t17 = go.Slice<Golang.Int32>.of([
             Golang.Int32(97),
             Golang.Int32(233),
             Golang.Int32(65533),
@@ -222,13 +225,15 @@ void _stringsCases() {
             Golang.Int32(128512),
             Golang.Int32(0),
           ], _$e3);
-          for (var $t12 = 0; $t12 < $t11.length; $t12++) {
-            Golang.Int32 r = $t11[$t12];
+          for (var $t18 = 0; $t18 < $t17.length; $t18++) {
+            Golang.Int32 r = $t17[$t18];
             {
-              fmt.printf(
-                Golang.String.fromDart('IndexRune(%q,%d)=%d\n'),
-                go.Slice<Object?>.of([s, r, strings.indexRune(s, r)], _$e0),
-              );
+              (switch (strings.indexRune(s, r)) {
+                final $t19 => fmt.printf(
+                  Golang.String.fromDart('IndexRune(%q,%d)=%d\n'),
+                  go.Slice<Object?>.of([s, r, $t19], _$e0),
+                ),
+              });
             }
           }
         }
@@ -260,14 +265,16 @@ void _stringsCases() {
           go.Slice<Object?>.of([f, Golang.Int(f.length), f.isNil], _$e0),
         );
         {
-          final $t13 = ss;
-          for (var $t14 = 0; $t14 < $t13.length; $t14++) {
-            Golang.String t = $t13[$t14];
+          final $t20 = ss;
+          for (var $t21 = 0; $t21 < $t20.length; $t21++) {
+            Golang.String t = $t20[$t21];
             {
-              fmt.printf(
-                Golang.String.fromDart('Compare(%q,%q)=%d\n'),
-                go.Slice<Object?>.of([s, t, strings.compare(s, t)], _$e0),
-              );
+              (switch (strings.compare(s, t)) {
+                final $t22 => fmt.printf(
+                  Golang.String.fromDart('Compare(%q,%q)=%d\n'),
+                  go.Slice<Object?>.of([s, t, $t22], _$e0),
+                ),
+              });
             }
           }
         }
@@ -275,14 +282,14 @@ void _stringsCases() {
     }
   }
   {
-    final $t15 = go.Slice<Golang.Int>.of([
+    final $t23 = go.Slice<Golang.Int>.of([
       Golang.Int(0),
       Golang.Int(1),
       Golang.Int(2),
       Golang.Int(5),
     ], _$e2);
-    for (var $t16 = 0; $t16 < $t15.length; $t16++) {
-      Golang.Int c = $t15[$t16];
+    for (var $t24 = 0; $t24 < $t23.length; $t24++) {
+      Golang.Int c = $t23[$t24];
       {
         fmt.printf(
           Golang.String.fromDart('Repeat=%q %q %q\n'),
@@ -349,16 +356,24 @@ void _bytesCases() {
                 for (var $t6 = 0; $t6 < $t5.length; $t6++) {
                   Golang.Int n = $t5[$t6];
                   {
-                    go.Slice<Golang.Uint8> r = bytes.replace(
+                    go.Slice<Golang.Uint8> r = (switch ((
                       _bs(s),
                       _bs(o),
                       _bs(Golang.String.fromDart('XY')),
-                      n,
-                    );
-                    fmt.printf(
-                      Golang.String.fromDart('Replace(%q,%q,%d)=%q %s\n'),
-                      go.Slice<Object?>.of([s, o, n, r, _nl(r)], _$e0),
-                    );
+                    )) {
+                      (final $t7, final $t8, final $t9) => bytes.replace(
+                        $t7,
+                        $t8,
+                        $t9,
+                        n,
+                      ),
+                    });
+                    (switch (_nl(r)) {
+                      final $t10 => fmt.printf(
+                        Golang.String.fromDart('Replace(%q,%q,%d)=%q %s\n'),
+                        go.Slice<Object?>.of([s, o, n, r, $t10], _$e0),
+                      ),
+                    });
                   }
                 }
               }
@@ -383,29 +398,31 @@ void _bytesCases() {
           }
         }
         {
-          final $t7 = go.Slice<Golang.String>.of([
+          final $t11 = go.Slice<Golang.String>.of([
             Golang.String.fromDart(''),
             Golang.String.fromDart(','),
             Golang.String.fromDart('é'),
             go.stringOfBytes(const [255]),
             Golang.String.fromDart('zz'),
           ], _$e1);
-          for (var $t8 = 0; $t8 < $t7.length; $t8++) {
-            Golang.String sep = $t7[$t8];
+          for (var $t12 = 0; $t12 < $t11.length; $t12++) {
+            Golang.String sep = $t11[$t12];
             {
               var (before, after, ok) = bytes.cut(_bs(s), _bs(sep));
-              fmt.printf(
-                Golang.String.fromDart('Cut(%q,%q)=%q %s %q %s %v\n'),
-                go.Slice<Object?>.of([
-                  s,
-                  sep,
-                  before,
-                  _nl(before),
-                  after,
-                  _nl(after),
-                  ok,
-                ], _$e0),
-              );
+              (switch ((_nl(before), _nl(after))) {
+                (final $t13, final $t14) => fmt.printf(
+                  Golang.String.fromDart('Cut(%q,%q)=%q %s %q %s %v\n'),
+                  go.Slice<Object?>.of([
+                    s,
+                    sep,
+                    before,
+                    $t13,
+                    after,
+                    $t14,
+                    ok,
+                  ], _$e0),
+                ),
+              });
               var (a, ok1) = bytes.cutPrefix(_bs(s), _bs(sep));
               var (b, ok2) = bytes.cutSuffix(_bs(s), _bs(sep));
               fmt.printf(
@@ -451,7 +468,7 @@ void _bytesCases() {
           }
         }
         {
-          final $t9 = go.Slice<Golang.String>.of([
+          final $t15 = go.Slice<Golang.String>.of([
             Golang.String.fromDart(''),
             Golang.String.fromDart('a'),
             Golang.String.fromDart('ab'),
@@ -462,29 +479,39 @@ void _bytesCases() {
             Golang.String.fromDart('�'),
             Golang.String.fromDart(',;'),
           ], _$e1);
-          for (var $t10 = 0; $t10 < $t9.length; $t10++) {
-            Golang.String cs = $t9[$t10];
+          for (var $t16 = 0; $t16 < $t15.length; $t16++) {
+            Golang.String cs = $t15[$t16];
             {
-              go.Slice<Golang.Uint8> t = bytes.trim(_bs(s), cs);
-              fmt.printf(
-                Golang.String.fromDart('Trim(%q,%q)=%q %s\n'),
-                go.Slice<Object?>.of([s, cs, t, _nl(t)], _$e0),
-              );
+              go.Slice<Golang.Uint8> t = (switch (_bs(s)) {
+                final $t17 => bytes.trim($t17, cs),
+              });
+              (switch (_nl(t)) {
+                final $t18 => fmt.printf(
+                  Golang.String.fromDart('Trim(%q,%q)=%q %s\n'),
+                  go.Slice<Object?>.of([s, cs, t, $t18], _$e0),
+                ),
+              });
               fmt.printf(
                 Golang.String.fromDart(
                   'IndexAny=%d LastIndexAny=%d ContainsAny=%v\n',
                 ),
                 go.Slice<Object?>.of([
-                  bytes.indexAny(_bs(s), cs),
-                  bytes.lastIndexAny(_bs(s), cs),
-                  bytes.containsAny(_bs(s), cs),
+                  (switch (_bs(s)) {
+                    final $t19 => bytes.indexAny($t19, cs),
+                  }),
+                  (switch (_bs(s)) {
+                    final $t20 => bytes.lastIndexAny($t20, cs),
+                  }),
+                  (switch (_bs(s)) {
+                    final $t21 => bytes.containsAny($t21, cs),
+                  }),
                 ], _$e0),
               );
             }
           }
         }
         {
-          final $t11 = go.Slice<Golang.Int32>.of([
+          final $t22 = go.Slice<Golang.Int32>.of([
             Golang.Int32(97),
             Golang.Int32(233),
             Golang.Int32(65533),
@@ -494,18 +521,22 @@ void _bytesCases() {
             Golang.Int32(128512),
             Golang.Int32(0),
           ], _$e3);
-          for (var $t12 = 0; $t12 < $t11.length; $t12++) {
-            Golang.Int32 r$1 = $t11[$t12];
+          for (var $t23 = 0; $t23 < $t22.length; $t23++) {
+            Golang.Int32 r$1 = $t22[$t23];
             {
-              fmt.printf(
-                Golang.String.fromDart('IndexRune(%q,%d)=%d %v\n'),
-                go.Slice<Object?>.of([
-                  s,
-                  r$1,
-                  bytes.indexRune(_bs(s), r$1),
-                  bytes.containsRune(_bs(s), r$1),
-                ], _$e0),
-              );
+              (switch ((
+                (switch (_bs(s)) {
+                  final $t26 => bytes.indexRune($t26, r$1),
+                }),
+                (switch (_bs(s)) {
+                  final $t27 => bytes.containsRune($t27, r$1),
+                }),
+              )) {
+                (final $t24, final $t25) => fmt.printf(
+                  Golang.String.fromDart('IndexRune(%q,%d)=%d %v\n'),
+                  go.Slice<Object?>.of([s, r$1, $t24, $t25], _$e0),
+                ),
+              });
             }
           }
         }
@@ -526,10 +557,12 @@ void _bytesCases() {
         go.Slice<Golang.Uint8> l = bytes.trimLeftFunc(_bs(s), _isSep);
         go.Slice<Golang.Uint8> r$3 = bytes.trimRightFunc(_bs(s), _isSep);
         go.Slice<Golang.Uint8> t$1 = bytes.trimFunc(_bs(s), _isSep);
-        fmt.printf(
-          Golang.String.fromDart('TrimFuncs=%q %s %q %s %q %s\n'),
-          go.Slice<Object?>.of([l, _nl(l), r$3, _nl(r$3), t$1, _nl(t$1)], _$e0),
-        );
+        (switch ((_nl(l), _nl(r$3), _nl(t$1))) {
+          (final $t28, final $t29, final $t30) => fmt.printf(
+            Golang.String.fromDart('TrimFuncs=%q %s %q %s %q %s\n'),
+            go.Slice<Object?>.of([l, $t28, r$3, $t29, t$1, $t30], _$e0),
+          ),
+        });
         go.Slice<Golang.Uint8> m = bytes.map(_up, _bs(s));
         fmt.printf(
           Golang.String.fromDart('Map=%q cap=%d\n'),
@@ -541,14 +574,12 @@ void _bytesCases() {
           go.Slice<Object?>.of([f, Golang.Int(f.length), f.isNil], _$e0),
         );
         go.Slice<Golang.Uint8> c = bytes.clone(_bs(s));
-        fmt.printf(
-          Golang.String.fromDart('Clone=%q %s %s\n'),
-          go.Slice<Object?>.of([
-            c,
-            _nl(c),
-            _nl(bytes.clone(go.Slice<Golang.Uint8>.nil(_$e4))),
-          ], _$e0),
-        );
+        (switch ((_nl(c), _nl(bytes.clone(go.Slice<Golang.Uint8>.nil(_$e4))))) {
+          (final $t31, final $t32) => fmt.printf(
+            Golang.String.fromDart('Clone=%q %s %s\n'),
+            go.Slice<Object?>.of([c, $t31, $t32], _$e0),
+          ),
+        });
       }
     }
   }
@@ -556,9 +587,15 @@ void _bytesCases() {
   Golang.Int(src.copyFrom(go.bytesOf(Golang.String.fromDart('a,b,c'), _$e4)));
   fmt.println(
     go.Slice<Object?>.of([
-      _caps(bytes.splitAfter(src, _bs(Golang.String.fromDart(',')))),
-      _caps(bytes.split(src, _bs(Golang.String.fromDart(',')))),
-      _caps(bytes.splitN(src, _bs(Golang.String.fromDart(',')), Golang.Int(2))),
+      _caps((switch (_bs(Golang.String.fromDart(','))) {
+        final $t33 => bytes.splitAfter(src, $t33),
+      })),
+      _caps((switch (_bs(Golang.String.fromDart(','))) {
+        final $t34 => bytes.split(src, $t34),
+      })),
+      _caps((switch (_bs(Golang.String.fromDart(','))) {
+        final $t35 => bytes.splitN(src, $t35, Golang.Int(2)),
+      })),
       _caps(bytes.fieldsFunc(src, _isSep)),
       _caps(bytes.split(src, go.Slice<Golang.Uint8>.nil(_$e4))),
     ], _$e0),
@@ -574,31 +611,36 @@ void _bytesCases() {
     k <= Golang.Int(parts.length);
     k += Golang.Int(1)
   ) {
-    go.Slice<Golang.Uint8> j = bytes.join(
-      parts.slice(0, k.toIndex()),
-      _bs(Golang.String.fromDart('--')),
-    );
-    fmt.printf(
-      Golang.String.fromDart('Join=%q %s len=%d\n'),
-      go.Slice<Object?>.of([j, _nl(j), Golang.Int(j.length)], _$e0),
-    );
+    go.Slice<Golang.Uint8> j = (switch (_bs(Golang.String.fromDart('--'))) {
+      final $t36 => bytes.join(parts.slice(0, k.toIndex()), $t36),
+    });
+    (switch (_nl(j)) {
+      final $t37 => fmt.printf(
+        Golang.String.fromDart('Join=%q %s len=%d\n'),
+        go.Slice<Object?>.of([j, $t37, Golang.Int(j.length)], _$e0),
+      ),
+    });
   }
   {
-    final $t13 = go.Slice<Golang.Int>.of([
+    final $t38 = go.Slice<Golang.Int>.of([
       Golang.Int(0),
       Golang.Int(1),
       Golang.Int(2),
       Golang.Int(5),
     ], _$e2);
-    for (var $t14 = 0; $t14 < $t13.length; $t14++) {
-      Golang.Int c$1 = $t13[$t14];
+    for (var $t39 = 0; $t39 < $t38.length; $t39++) {
+      Golang.Int c$1 = $t38[$t39];
       {
         fmt.printf(
           Golang.String.fromDart('Repeat=%q %q %q\n'),
           go.Slice<Object?>.of([
             bytes.repeat(go.Slice<Golang.Uint8>.nil(_$e4), c$1),
-            bytes.repeat(_bs(Golang.String.fromDart('é')), c$1),
-            bytes.repeat(_bs(go.stringOfBytes(const [97, 98, 255])), c$1),
+            (switch (_bs(Golang.String.fromDart('é'))) {
+              final $t40 => bytes.repeat($t40, c$1),
+            }),
+            (switch (_bs(go.stringOfBytes(const [97, 98, 255]))) {
+              final $t41 => bytes.repeat($t41, c$1),
+            }),
           ], _$e0),
         );
       }

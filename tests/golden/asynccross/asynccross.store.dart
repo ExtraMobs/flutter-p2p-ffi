@@ -56,3 +56,9 @@ void $goInit() {
   if (_$inited) return;
   _$inited = true;
 }
+
+/// Métodos de Mem promovidos por embedding (delegação).
+mixin Mem$Promote {
+  Mem? get $Mem;
+  Future<Golang.String> get(Golang.String p0) => $Mem!.get(p0);
+}

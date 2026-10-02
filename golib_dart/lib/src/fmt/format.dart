@@ -116,7 +116,7 @@ final class _Fmt {
       zero = oldZero;
       return;
     }
-    if (sharp) throw UnimplementedError('fmt: # em float');
+    if (sharp && fmt != 'b') num = _sharpFloat(num, fmt, p);
     if (plus || num[0] != '+') {
       if (zero && !minus && widPresent && wid > num.length) {
         _b.addByte(num.codeUnitAt(0));
@@ -128,6 +128,35 @@ final class _Fmt {
       return;
     }
     pad(_ascii(num.substring(1)));
+  }
+
+  /// `#` em float (`fmt.fmtFloat` do Go): sempre com ponto decimal e, em
+  /// `g`/`G`/`x`, zeros até [prec] dígitos significativos (6 sem precisão).
+  /// `num` tem o sinal em `num[0]`.
+  static String _sharpFloat(String num, String verb, int prec) {
+    final hex = verb == 'x' || verb == 'X';
+    var digits = verb == 'g' || verb == 'G' || hex ? (prec < 0 ? 6 : prec) : 0;
+    var head = num, tail = '';
+    var hasDecimalPoint = false, sawNonzeroDigit = false;
+    for (var i = 1; i < num.length; i++) {
+      final c = num[i];
+      if (c == '.') {
+        hasDecimalPoint = true;
+      } else if (c == 'p' || c == 'P' || (!hex && (c == 'e' || c == 'E'))) {
+        head = num.substring(0, i);
+        tail = num.substring(i);
+        break;
+      } else {
+        if (c != '0') sawNonzeroDigit = true;
+        if (sawNonzeroDigit) digits--;
+      }
+    }
+    if (!hasDecimalPoint) {
+      if (head.length == 2 && head[1] == '0') digits--; // o 0 conta uma vez
+      head += '.';
+    }
+    if (digits > 0) head += '0' * digits;
+    return head + tail;
   }
 
   // -------------------------------------------------------------- strings

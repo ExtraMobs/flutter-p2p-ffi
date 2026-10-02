@@ -114,9 +114,11 @@ void main() {
     Command top = Command(4294967295);
     fmt.println(go.Slice<Object?>.of([Command(7).next(), top.next()], _$e0));
     Color c = Color(200);
-    fmt.println(
-      go.Slice<Object?>.of([Color(15).invert(), c + Color(100)], _$e0),
-    );
+    (switch (Color(15).invert()) {
+      final $t1 => fmt.println(
+        go.Slice<Object?>.of([$t1, c + Color(100)], _$e0),
+      ),
+    });
     Port p = Port(65535);
     p += Port(1);
     fmt.println(go.Slice<Object?>.of([p, Port(32768)], _$e0));
@@ -136,6 +138,23 @@ bool _$inited = false;
 void $goInit() {
   if (_$inited) return;
   _$inited = true;
+}
+
+/// Métodos de Command promovidos por embedding (delegação).
+mixin Command$Promote {
+  Command? get $Command;
+  Command next() => $Command!.next();
+}
+
+/// Métodos de Color promovidos por embedding (delegação).
+mixin Color$Promote {
+  Color? get $Color;
+  Color invert() => $Color!.invert();
+}
+
+/// Métodos de Seq promovidos por embedding (delegação).
+mixin Seq$Promote {
+  Seq? get $Seq;
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.

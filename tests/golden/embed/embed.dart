@@ -108,7 +108,7 @@ class Logger extends go.GoStruct<Logger> {
   }
 }
 
-class Doc extends go.GoStruct<Doc> with Logger$PromotePtr implements Named {
+class Doc extends go.GoStruct<Doc> with Logger$Promote implements Named {
   Doc({Base? base, Logger? logger, Golang.String? body})
     : base = base ?? Base(),
       logger = logger,
@@ -175,34 +175,31 @@ void main() {
       d.base.tag(Golang.String.fromDart('a'));
       d.base.tag(Golang.String.fromDart('b'));
       d.base.id += Golang.Int(1);
-      fmt.println(
-        go.Slice<Object?>.of([
-          d.base.id,
-          d.base.tags,
-          d.base.title(),
-          d.describe(),
-          d.base.describe(),
-        ], _$e1),
-      );
-      fmt.println(
-        go.Slice<Object?>.of([
-          d.logger!.log(Golang.String.fromDart('oi')),
-          d.logger!.prefix,
-          _show(d.$ifaceCopy()),
-          _show(d ?? Doc.$nil),
-        ], _$e1),
-      );
+      (switch ((d.base.title(), d.describe(), d.base.describe())) {
+        (final $t2, final $t3, final $t4) => fmt.println(
+          go.Slice<Object?>.of([d.base.id, d.base.tags, $t2, $t3, $t4], _$e1),
+        ),
+      });
+      (switch ((
+        d.logger!.log(Golang.String.fromDart('oi')),
+        _show(d.$ifaceCopy()),
+        _show(d ?? Doc.$nil),
+      )) {
+        (final $t5, final $t6, final $t7) => fmt.println(
+          go.Slice<Object?>.of([$t5, d.logger!.prefix, $t6, $t7], _$e1),
+        ),
+      });
       Doc e = d.$copy();
       e.base.id = Golang.Int(100);
       e.logger!.prefix = Golang.String.fromDart('# ');
-      fmt.println(
-        go.Slice<Object?>.of([
-          d.base.id,
-          e.base.id,
-          d.logger!.log(Golang.String.fromDart('x')),
-          e.logger!.log(Golang.String.fromDart('y')),
-        ], _$e1),
-      );
+      (switch ((
+        d.logger!.log(Golang.String.fromDart('x')),
+        e.logger!.log(Golang.String.fromDart('y')),
+      )) {
+        (final $t8, final $t9) => fmt.println(
+          go.Slice<Object?>.of([d.base.id, e.base.id, $t8, $t9], _$e1),
+        ),
+      });
       Doc empty = Doc();
       {
         $t1.defer(() {
@@ -222,8 +219,8 @@ void main() {
           empty.logger!.log(Golang.String.fromDart('nil logger')),
         ], _$e1),
       );
-    } catch ($t2, $t3) {
-      $t1.fail($t2, $t3);
+    } catch ($t10, $t11) {
+      $t1.fail($t10, $t11);
     } finally {
       $t1.run();
     }
@@ -238,10 +235,27 @@ void $goInit() {
   _$inited = true;
 }
 
+/// Métodos de Base promovidos por embedding (delegação).
+mixin Base$Promote {
+  Base? get $Base;
+  Golang.String describe() => $Base!.describe();
+  void tag(Golang.String p0) => $Base!.tag(p0);
+  Golang.String title() => $Base!.title();
+}
+
 /// Métodos de Logger promovidos por embedding (delegação).
-mixin Logger$PromotePtr {
+mixin Logger$Promote {
   Logger? get $Logger;
   Golang.String log(Golang.String p0) => $Logger!.log(p0);
+}
+
+/// Métodos de Doc promovidos por embedding (delegação).
+mixin Doc$Promote {
+  Doc? get $Doc;
+  Golang.String describe() => $Doc!.describe();
+  Golang.String log(Golang.String p0) => $Doc!.log(p0);
+  void tag(Golang.String p0) => $Doc!.tag(p0);
+  Golang.String title() => $Doc!.title();
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.

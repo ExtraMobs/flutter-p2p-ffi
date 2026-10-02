@@ -65,20 +65,22 @@ void _init$1() {
 void main() {
   go.runMain(() {
     $goInit();
-    fmt.println(
-      go.Slice<Object?>.of([
-        Golang.String.fromDart('main'),
-        _total,
-        _base,
-        _x,
-        _y,
-        _fromB,
-        _counter,
-        Golang.Int(_registry.length),
-        _registry[Golang.String.fromDart('b')],
-        _double!(Golang.Int(5)),
-      ], _$e1),
-    );
+    (switch (_double!(Golang.Int(5))) {
+      final $t1 => fmt.println(
+        go.Slice<Object?>.of([
+          Golang.String.fromDart('main'),
+          _total,
+          _base,
+          _x,
+          _y,
+          _fromB,
+          _counter,
+          Golang.Int(_registry.length),
+          _registry[Golang.String.fromDart('b')],
+          $t1,
+        ], _$e1),
+      ),
+    });
   });
 }
 

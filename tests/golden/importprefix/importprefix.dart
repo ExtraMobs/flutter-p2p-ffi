@@ -67,7 +67,11 @@ void main() {
   go.runMain(() {
     $goInit();
     P p = P(time: time_.Duration(2000000000));
-    fmt_.println(go.Slice<Object?>.of([p.time, p.timeout, p.fmt()], _$e0));
+    (switch (p.fmt()) {
+      final $t1 => fmt_.println(
+        go.Slice<Object?>.of([p.time, p.timeout, $t1], _$e0),
+      ),
+    });
     _show(p.time);
     fmt_.println(
       go.Slice<Object?>.of([
@@ -79,7 +83,7 @@ void main() {
         ),
       ], _$e0),
     );
-    _anon$29$ anon = _anon$29$();
+    $_anon$29 anon = $_anon$29();
     anon.strings = anon.strings.append([
       strings_.trimPrefix(
         Golang.String.fromDart('xy'),
@@ -91,12 +95,12 @@ void main() {
 }
 
 /// `struct { Strings []string }` (struct anônima).
-class _anon$29$ extends go.GoStruct<_anon$29$> {
-  _anon$29$({go.Slice<Golang.String>? strings})
+class $_anon$29 extends go.GoStruct<$_anon$29> {
+  $_anon$29({go.Slice<Golang.String>? strings})
     : strings = strings ?? go.Slice<Golang.String>.nil(_$e1);
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _anon$29$ $nil = _anon$29$()..$nilPtr = true;
+  static final $_anon$29 $nil = $_anon$29()..$nilPtr = true;
 
   go.Slice<Golang.String> strings;
 
@@ -108,10 +112,10 @@ class _anon$29$ extends go.GoStruct<_anon$29$> {
   List<String> get $ptrMethods => const [];
 
   @override
-  _anon$29$ $copy() => _anon$29$(strings: strings);
+  $_anon$29 $copy() => $_anon$29(strings: strings);
 
   @override
-  void $set(_anon$29$ o) {
+  void $set($_anon$29 o) {
     strings = o.strings;
   }
 
@@ -131,6 +135,12 @@ bool _$inited = false;
 void $goInit() {
   if (_$inited) return;
   _$inited = true;
+}
+
+/// Métodos de P promovidos por embedding (delegação).
+mixin P$Promote {
+  P? get $P;
+  Golang.String fmt() => $P!.fmt();
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.

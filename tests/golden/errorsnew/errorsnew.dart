@@ -85,13 +85,15 @@ void main() {
       errors.new$(Golang.String.fromDart('x')),
       errors.new$(Golang.String.fromDart('x')),
     );
-    fmt.println(
-      go.Slice<Object?>.of([
-        go.ifaceEq(a, b),
-        go.ifaceEq(a, a),
-        a!.error() == b!.error(),
-      ], _$e2),
-    );
+    (switch ((a!.error(), b!.error())) {
+      (final $t3, final $t4) => fmt.println(
+        go.Slice<Object?>.of([
+          go.ifaceEq(a, b),
+          go.ifaceEq(a, a),
+          $t3 == $t4,
+        ], _$e2),
+      ),
+    });
     go.GoError? w = fmt.errorf(
       Golang.String.fromDart('unmarshal: %w'),
       go.Slice<Object?>.of([_errShortPacket], _$e2),
@@ -113,6 +115,13 @@ void $goInit() {
     Golang.String.fromDart('packet is not large enough'),
   );
   _errTooMany = errors.new$(Golang.String.fromDart('too many spatial layers'));
+}
+
+/// Métodos de Header promovidos por embedding (delegação).
+mixin Header$Promote {
+  Header? get $Header;
+  (Golang.Int, go.GoError?) unmarshal(go.Slice<Golang.Uint8> p0) =>
+      $Header!.unmarshal(p0);
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.

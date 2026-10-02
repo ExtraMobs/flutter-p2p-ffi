@@ -215,17 +215,23 @@ void main() {
       Golang.String.fromDart('%#p'),
       go.Slice<Object?>.of([t ?? T.$nil], _$e1),
     );
-    fmt.println(
-      go.Slice<Object?>.of([
-        !strings.hasPrefix(h, Golang.String.fromDart('0x')),
-        Golang.Int(h.length) > Golang.Int(0),
-        fmt.sprint(go.Slice<Object?>.of([t ?? T.$nil], _$e1)),
-        fmt.sprintf(
-          Golang.String.fromDart('%v'),
-          go.Slice<Object?>.of([pn!.value], _$e1),
-        ),
-      ], _$e1),
-    );
+    (switch ((
+      strings.hasPrefix(h, Golang.String.fromDart('0x')),
+      fmt.sprint(go.Slice<Object?>.of([t ?? T.$nil], _$e1)),
+      fmt.sprintf(
+        Golang.String.fromDart('%v'),
+        go.Slice<Object?>.of([pn!.value], _$e1),
+      ),
+    )) {
+      (final $t3, final $t4, final $t5) => fmt.println(
+        go.Slice<Object?>.of([
+          !$t3,
+          Golang.Int(h.length) > Golang.Int(0),
+          $t4,
+          $t5,
+        ], _$e1),
+      ),
+    });
   });
 }
 
@@ -235,6 +241,11 @@ bool _$inited = false;
 void $goInit() {
   if (_$inited) return;
   _$inited = true;
+}
+
+/// Métodos de N promovidos por embedding (delegação).
+mixin N$Promote {
+  N? get $N;
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.

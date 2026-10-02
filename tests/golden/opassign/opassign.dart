@@ -8,11 +8,11 @@ import 'package:golib_dart/fixed_types/golang.dart' as Golang;
 import 'package:golib_dart/fmt.dart' as fmt;
 import 'package:golib_dart/builtin.dart' as go;
 
-class _flags$ extends go.GoStruct<_flags$> {
-  _flags$({Golang.Uint16? f}) : _f = f ?? Golang.Uint16();
+class $_flags extends go.GoStruct<$_flags> {
+  $_flags({Golang.Uint16? f}) : _f = f ?? Golang.Uint16();
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _flags$ $nil = _flags$()..$nilPtr = true;
+  static final $_flags $nil = $_flags()..$nilPtr = true;
 
   Golang.Uint16 _f;
 
@@ -24,10 +24,10 @@ class _flags$ extends go.GoStruct<_flags$> {
   List<String> get $ptrMethods => const [];
 
   @override
-  _flags$ $copy() => _flags$(f: _f);
+  $_flags $copy() => $_flags(f: _f);
 
   @override
-  void $set(_flags$ o) {
+  void $set($_flags o) {
     _f = o._f;
   }
 
@@ -48,10 +48,10 @@ void main() {
     s[0] = s[0].andNot(Golang.Uint8(15));
     Golang.Int i = Golang.Int(1);
     s[i.toIndex()] = s[i.toIndex()].andNot(Golang.Uint8(48));
-    _flags$ x = _flags$();
+    $_flags x = $_flags();
     x._f = Golang.Uint16(65535);
     x._f = x._f.andNot(Golang.Uint16(240));
-    _flags$? p = x;
+    $_flags? p = x;
     p!._f = p!._f.andNot(Golang.Uint16(1));
     go.GoArray<Golang.Int64> arr = go.GoArray<Golang.Int64>.of([
       Golang.Int64(-1),

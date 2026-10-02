@@ -159,15 +159,17 @@ void main() {
     Counter? c = Counter(name: Golang.String.fromDart('c1'));
     (c ?? Counter.$nil).inc();
     (c ?? Counter.$nil).inc();
-    fmt.println(
-      go.Slice<Object?>.of([
-        c!.name,
-        (c ?? Counter.$nil).inc(),
-        _counter,
-        c!._next == null,
-        Golang.Int(c!._tags.length),
-      ], _$e1),
-    );
+    (switch ((c ?? Counter.$nil).inc()) {
+      final $t2 => fmt.println(
+        go.Slice<Object?>.of([
+          c!.name,
+          $t2,
+          _counter,
+          c!._next == null,
+          Golang.Int(c!._tags.length),
+        ], _$e1),
+      ),
+    });
     go.Slice<Golang.Int Function()?> funcs =
         go.Slice<Golang.Int Function()?>.nil(_$e2);
     for (Golang.Int i = Golang.Int(0); i < Golang.Int(3); i += Golang.Int(1)) {
@@ -178,9 +180,9 @@ void main() {
       ]);
     }
     {
-      final $t2 = funcs;
-      for (var $t3 = 0; $t3 < $t2.length; $t3++) {
-        Golang.Int Function()? f = $t2[$t3];
+      final $t3 = funcs;
+      for (var $t4 = 0; $t4 < $t3.length; $t4++) {
+        Golang.Int Function()? f = $t3[$t4];
         {
           fmt.println(go.Slice<Object?>.of([f!()], _$e1));
         }
@@ -198,11 +200,11 @@ void main() {
         (m[Golang.String.fromDart('a')]) + Golang.Int(1);
     Golang.Int total = Golang.Int(0);
     {
-      final $t4 = m;
-      for (final $t5 in $t4.keysSnapshot()) {
-        if (!$t4.containsKey($t5)) continue;
-        Golang.String k = $t5;
-        Golang.Int v = $t4[$t5];
+      final $t5 = m;
+      for (final $t6 in $t5.keysSnapshot()) {
+        if (!$t5.containsKey($t6)) continue;
+        Golang.String k = $t6;
+        Golang.Int v = $t5[$t6];
         {
           if (k == Golang.String.fromDart('b')) {
             m.delete(Golang.String.fromDart('c'));
@@ -233,10 +235,10 @@ void main() {
     );
     Golang.Int n = Golang.Int(0);
     {
-      final $t6 = 5;
+      final $t7 = 5;
       outer:
-      for (var $t7 = 0; $t7 < $t6; $t7++) {
-        Golang.Int i$1 = Golang.Int($t7);
+      for (var $t8 = 0; $t8 < $t7; $t8++) {
+        Golang.Int i$1 = Golang.Int($t8);
         {
           for (Golang.Int j = Golang.Int(0); ; j += Golang.Int(1)) {
             if (j > i$1) {
@@ -271,14 +273,14 @@ void main() {
       }
     }
     {
-      final $t8 = go.Slice<Golang.Int>.of([
+      final $t9 = go.Slice<Golang.Int>.of([
         Golang.Int(-4),
         Golang.Int(0),
         Golang.Int(9),
         Golang.Int(10),
       ], _$e3);
-      for (var $t9 = 0; $t9 < $t8.length; $t9++) {
-        Golang.Int v$1 = $t8[$t9];
+      for (var $t10 = 0; $t10 < $t9.length; $t10++) {
+        Golang.Int v$1 = $t9[$t10];
         {
           fmt.println(go.Slice<Object?>.of([_classify(v$1)], _$e1));
         }
@@ -304,6 +306,12 @@ bool _$inited = false;
 void $goInit() {
   if (_$inited) return;
   _$inited = true;
+}
+
+/// Métodos de Counter promovidos por embedding (delegação).
+mixin Counter$Promote {
+  Counter? get $Counter;
+  Golang.Int inc() => $Counter!.inc();
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.

@@ -97,16 +97,11 @@ void main() {
     l._inc();
     Stack st = Stack(go.Slice<Golang.Int>.of([Golang.Int(1)], _$e0));
     Stack st2 = st.with$(Golang.Int(2));
-    fmt.println(
-      go.Slice<Object?>.of([
-        Counter(1).twice(),
-        l.value,
-        l.value.addr$(),
-        l.value,
-        st,
-        st2,
-      ], _$e1),
-    );
+    (switch ((Counter(1).twice(), l.value.addr$())) {
+      (final $t1, final $t2) => fmt.println(
+        go.Slice<Object?>.of([$t1, l.value, $t2, l.value, st, st2], _$e1),
+      ),
+    });
   });
 }
 
@@ -116,6 +111,19 @@ bool _$inited = false;
 void $goInit() {
   if (_$inited) return;
   _$inited = true;
+}
+
+/// Métodos de Counter promovidos por embedding (delegação).
+mixin Counter$Promote {
+  Counter? get $Counter;
+  Counter addr$() => $Counter!.addr$();
+  Counter twice() => $Counter!.twice();
+}
+
+/// Métodos de Stack promovidos por embedding (delegação).
+mixin Stack$Promote {
+  Stack? get $Stack;
+  Stack with$(Golang.Int p0) => $Stack!.with$(p0);
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.

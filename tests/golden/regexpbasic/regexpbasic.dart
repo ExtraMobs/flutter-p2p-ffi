@@ -63,12 +63,11 @@ void main() {
         (_kv ?? regexp.Regexp.$nil).numSubexp(),
       ], _$e0),
     );
-    fmt.println(
-      go.Slice<Object?>.of([
-        _kv ?? regexp.Regexp.$nil,
-        (_kv ?? regexp.Regexp.$nil).string(),
-      ], _$e0),
-    );
+    (switch ((_kv ?? regexp.Regexp.$nil).string()) {
+      final $t1 => fmt.println(
+        go.Slice<Object?>.of([_kv ?? regexp.Regexp.$nil, $t1], _$e0),
+      ),
+    });
     fmt.printf(
       Golang.String.fromDart('%q\n'),
       go.Slice<Object?>.of([(_date ?? regexp.Regexp.$nil).subexpNames()], _$e0),
@@ -281,14 +280,16 @@ void main() {
     fmt.printf(
       Golang.String.fromDart('%s\n'),
       go.Slice<Object?>.of([
-        (pair ?? regexp.Regexp.$nil).expandString(
-          go.bytesOf(Golang.String.fromDart('>'), _$e1),
-          Golang.String.fromDart('\$1<-\$2'),
+        (switch ((pair ?? regexp.Regexp.$nil).findStringSubmatchIndex(
           Golang.String.fromDart('foo=1'),
-          (pair ?? regexp.Regexp.$nil).findStringSubmatchIndex(
+        )) {
+          final $t2 => (pair ?? regexp.Regexp.$nil).expandString(
+            go.bytesOf(Golang.String.fromDart('>'), _$e1),
+            Golang.String.fromDart('\$1<-\$2'),
             Golang.String.fromDart('foo=1'),
+            $t2,
           ),
-        ),
+        }),
       ], _$e0),
     );
     fmt.printf(

@@ -42,8 +42,27 @@ docs/stdlib-coverage.md:
 
 ## Notas
 
-Feito: `Duration` (fixture `tests/golden/timeduration`). `Time` é struct de shim
-(`P1-design-structs-de-shim` resolvido: classe `extends go.GoStruct` no shim) com wall/ext/loc; `Now`
-é não determinístico (o e2e só pode comparar forma ou diferenças); `Since`/`Until`/`Sub`/`Add`
-derivam de `Time`; `Sleep`, `After`, `NewTimer`, `Ticker` dependem de goroutines/channels
-(`P0-design-m4-concorrencia.md`); `Format`/`Parse` exigem a porta do layout do Go e de `Location`.
+Feito: `Duration` (fixture `tests/golden/timeduration`); `ParseDuration` (bytes como o Go,
+mesmos erros `*time.parseDurationError`); `Time` como struct de shim (`go.GoStruct`, campos
+`wall`/`ext`/`loc` iguais aos do Go, então `==` de struct tem as mesmas pegadinhas) com
+`Unix`/`UnixNano`/`UnixMilli`/`UnixMicro`, `Add`/`Sub`/`AddDate`/`Truncate`/`Round`,
+`Before`/`After`/`Equal`/`Compare`/`IsZero`, `Date`/`Clock`/componentes/`Weekday`/`YearDay`/
+`ISOWeek`, `Zone`/`Location`/`UTC`/`Local`/`In`, `String()` (layout fixo
+`2006-01-02 15:04:05.999999999 -0700 MST` + ` m=±...`); funções `Unix`/`UnixMilli`/
+`UnixMicro`/`Date`/`Now`/`Since`/`Until`; `Month`/`Weekday` com `String()`; `Location` só de
+fuso fixo (`UTC`, `Local`, `FixedZone`). Oráculo: `golib_dart/test/time_test.dart` (VM, JS e
+Wasm, vetores de `test/go_time_vectors.go` embutidos em `test/time_vectors.dart`;
+`test/time_oracle_test.dart` confere na VM que estão atualizados).
+
+Falta:
+
+- ⚠️ `Local` = UTC: o shim se comporta como o Go com `TZ=UTC` (nome `UTC`, offset 0), sem ler
+  o fuso do sistema. `Now` usa `DateTime.now()` (parede) + `Stopwatch` (monotônico); o
+  instante é certo, mas componentes de `Now()` (ex. `Hour()`) diferem do Go num sistema
+  com outro fuso. Fuso real exige `tzdata`/`LoadLocation` (tabela de transições).
+- `Format`/`AppendFormat`/`Parse` com layout arbitrário (porta de `format.go`: `nextStdChunk`,
+  `RFC3339Nano`...), `MarshalJSON`/`UnmarshalJSON`/`MarshalText`, `LoadLocation`; `Time` só
+  anuncia em `$methods` o que implementa.
+- `Sleep`, `After`, `AfterFunc`, `NewTimer`, `Ticker`, `Tick` dependem do M4
+  (`P0-design-m4-concorrencia.md`): timers do escalonador.
+- Audit não regerado nesta mudança (o ranking deve cair em `shim-simbolo:time.Time`/`now`/`unix`).

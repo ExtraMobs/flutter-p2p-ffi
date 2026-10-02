@@ -21,8 +21,8 @@ List<MapEntry<Object?, Object?>> _sortedEntries(GoMap m) {
 /// embrulhado em [TypeTag], ou `$fieldTypes` da struct, ou o elemento do
 /// nome do pai) e `under` o nome do subjacente de um tipo nomeado. Sem nome
 /// onde ele faz falta, lança [UnimplementedError] (nunca imprime outro tipo).
-/// Ponteiro não nil aninhado imprime o endereço no Go (não reproduzível):
-/// também lança.
+/// Ponteiro não nil aninhado para struct sai `(*T)(0x...)` com o endereço
+/// estável por objeto do `%p` (o do Go nem o Go reproduz).
 extension _SharpV on _Printer {
   bool _printSharp(Object arg, int depth, String? name, String? under) {
     switch (arg) {
@@ -37,16 +37,38 @@ extension _SharpV on _Printer {
       case Addr(:final target) when depth == 0 && target is GoStruct:
         _b.addByte(0x26);
         _sharpStruct(target, depth);
+      case Addr(:final target) when target is GoStruct:
+        // Aninhado (depth == 0 é o caso acima): o Go imprime o endereço.
+        _sharpAddr('*${target.$goType}', target);
       case Addr() || Ptr() || Function():
         throw UnimplementedError('fmt: %#v de ponteiro/func (endereço)');
       case GoStruct s:
         if (depth == 0 && !s.$isValue) {
           _b.addByte(0x26); // &T{...}
         } else if (!s.$isValue && name != s.$goType) {
-          // Ponteiro aninhado (ou campo de interface): o Go imprime o endereço.
-          throw UnimplementedError('fmt: %#v de ponteiro aninhado (endereço)');
+          // Ponteiro aninhado (campo `*T` ou dentro de interface). Sem o nome
+          // do lugar (campo genérico) não dá para saber se é `T` ou `*T`.
+          if (name == null) {
+            throw UnimplementedError('fmt: %#v de struct sem o nome do campo');
+          }
+          _sharpAddr('*${s.$goType}', s);
+          return true;
         }
         _sharpStruct(s, depth);
+      case GoOpaqueStruct s:
+        // Os erros do runtime são sempre `*T` (`&errors.errorString{...}`).
+        if (depth > 0) {
+          _sharpAddr(s.$goType, s);
+          return true;
+        }
+        _b.addByte(0x26);
+        _sharpFields(
+          s.$goType.substring(1),
+          s.$fields,
+          s.$fieldNames,
+          s.$fieldTypes,
+          depth,
+        );
       case Slice s:
         final (tn, base) = _sharpName(s, name, under);
         if (depth == 0 && s is Slice<Golang.Uint8> && tn == '[]uint8') {
@@ -104,12 +126,26 @@ extension _SharpV on _Printer {
     _b.add(utf8.encode(paren ? '($name)(nil)' : '$name(nil)'));
   }
 
-  void _sharpStruct(GoStruct s, int depth) {
-    _b.add(utf8.encode(s.$goType));
+  /// Ponteiro aninhado não nil: `(*main.P)(0xc0...)` (`fmtPointer` do Go).
+  /// ⚠️ O endereço é o estável por objeto de [_pointerOf], não o do Go.
+  void _sharpAddr(String type, Object target) {
+    final a = _hexAddr(identityHashCode(target));
+    _b.add(utf8.encode('($type)(0x$a)'));
+  }
+
+  void _sharpStruct(GoStruct s, int depth) =>
+      _sharpFields(s.$goType, s.$fields, s.$fieldNames, s.$fieldTypes, depth);
+
+  /// `T{a:1, b:"x"}`: campos sempre nomeados, separados por `, `.
+  void _sharpFields(
+    String typeName,
+    List<Object?> fields,
+    List<String> names,
+    List<String> types,
+    int depth,
+  ) {
+    _b.add(utf8.encode(typeName));
     _b.addByte(0x7b);
-    final fields = s.$fields;
-    final names = s.$fieldNames;
-    final types = s.$fieldTypes;
     for (var i = 0; i < fields.length; i++) {
       if (i > 0) _b.add(_ascii(', '));
       _b.add(utf8.encode(names[i]));

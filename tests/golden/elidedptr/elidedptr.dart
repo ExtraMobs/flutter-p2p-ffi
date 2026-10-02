@@ -42,13 +42,13 @@ class P extends go.GoStruct<P> {
   List<String> get $fieldNames => const ['X', 'Y'];
 }
 
-class _formInfo$ extends go.GoStruct<_formInfo$> {
-  _formInfo$({Golang.String? name, go.GoArray<Golang.Uint8>? decomp})
+class $_formInfo extends go.GoStruct<$_formInfo> {
+  $_formInfo({Golang.String? name, go.GoArray<Golang.Uint8>? decomp})
     : _name = name ?? Golang.String(),
       _decomp = decomp ?? go.GoArray<Golang.Uint8>.zero(2, _$e0);
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _formInfo$ $nil = _formInfo$()..$nilPtr = true;
+  static final $_formInfo $nil = $_formInfo()..$nilPtr = true;
 
   Golang.String _name;
   go.GoArray<Golang.Uint8> _decomp;
@@ -61,10 +61,10 @@ class _formInfo$ extends go.GoStruct<_formInfo$> {
   List<String> get $ptrMethods => const [];
 
   @override
-  _formInfo$ $copy() => _formInfo$(name: _name, decomp: _decomp.$copy());
+  $_formInfo $copy() => $_formInfo(name: _name, decomp: _decomp.$copy());
 
   @override
-  void $set(_formInfo$ o) {
+  void $set($_formInfo o) {
     _name = o._name;
     _decomp.$set(o._decomp);
   }
@@ -79,7 +79,7 @@ class _formInfo$ extends go.GoStruct<_formInfo$> {
   List<String> get $fieldTypes => const ['string', '[2]uint8'];
 }
 
-go.GoArray<_formInfo$?> _table = go.GoArray<_formInfo$?>.zero(2, _$e1);
+go.GoArray<$_formInfo?> _table = go.GoArray<$_formInfo?>.zero(2, _$e1);
 
 void main() {
   go.runMain(() {
@@ -125,15 +125,15 @@ bool _$inited = false;
 void $goInit() {
   if (_$inited) return;
   _$inited = true;
-  _table = go.GoArray<_formInfo$?>.of([
-    _formInfo$(
+  _table = go.GoArray<$_formInfo?>.of([
+    $_formInfo(
       name: Golang.String.fromDart('nfc'),
       decomp: go.GoArray<Golang.Uint8>.of([
         Golang.Uint8(1),
         Golang.Uint8(2),
       ], _$e0),
     ),
-    _formInfo$(name: Golang.String.fromDart('nfd')),
+    $_formInfo(name: Golang.String.fromDart('nfd')),
   ], _$e1);
 }
 
@@ -146,7 +146,7 @@ const _$e0 = go.Elem<Golang.Uint8>(
   ofInt: Golang.Uint8.from,
   ofFloat: _$f0_1,
 );
-const _$e1 = go.Elem<_formInfo$?>(8, go.zeroNull, pointers: true);
+const _$e1 = go.Elem<$_formInfo?>(8, go.zeroNull, pointers: true);
 const _$e2 = go.Elem<P?>(8, go.zeroNull, pointers: true);
 Golang.Int _$f4_4(Golang.FloatBase f) =>
     Golang.Int.from(f.toInteger(64, signed: true));

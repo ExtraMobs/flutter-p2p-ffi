@@ -70,5 +70,11 @@ void $goInit() {
   _$inited = true;
 }
 
+/// Métodos de Greeter promovidos por embedding (delegação).
+mixin Greeter$Promote {
+  Greeter? get $Greeter;
+  Golang.String greet() => $Greeter!.greet();
+}
+
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
 const _$e0 = go.Elem<Object?>(16, go.zeroNull, pointers: true);

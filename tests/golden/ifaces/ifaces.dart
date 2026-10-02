@@ -274,13 +274,11 @@ void main() {
           shapes[1]!.name(),
         ], _$e0),
       );
-      fmt.println(
-        go.Slice<Object?>.of([
-          _describe(shapes[0]),
-          _describe(shapes[1]),
-          c!.r,
-        ], _$e0),
-      );
+      (switch ((_describe(shapes[0]), _describe(shapes[1]))) {
+        (final $t2, final $t3) => fmt.println(
+          go.Slice<Object?>.of([$t2, $t3, c!.r], _$e0),
+        ),
+      });
       Shape? s = Rect(
         w: Golang.Float64(1.0),
         h: Golang.Float64(1.0),
@@ -289,15 +287,17 @@ void main() {
       var (_, isCircle) = go.tryType<Circle?>(s, null, struct: false);
       fmt.println(go.Slice<Object?>.of([r.w, ok, isCircle], _$e0));
       go.GoError? err = _find(Golang.String.fromDart('x'));
-      fmt.println(
-        go.Slice<Object?>.of([
-          err,
-          err != null,
-          _find(Golang.String.fromDart('y')) == null,
-        ], _$e0),
-      );
+      (switch (_find(Golang.String.fromDart('y'))) {
+        final $t4 => fmt.println(
+          go.Slice<Object?>.of([err, err != null, $t4 == null], _$e0),
+        ),
+      });
       var (nf, isNF) = go.tryType<NotFound>(err, NotFound(), struct: true);
-      fmt.println(go.Slice<Object?>.of([isNF, nf.key, _nilAssert()], _$e0));
+      (switch (_nilAssert()) {
+        final $t5 => fmt.println(
+          go.Slice<Object?>.of([isNF, nf.key, $t5], _$e0),
+        ),
+      });
       fmt.println(
         go.Slice<Object?>.of([
           Point(x: Golang.Int(1), y: Golang.Int(2)).$ifaceCopy(),
@@ -332,8 +332,8 @@ void main() {
         'Area',
         'Name',
       ])!.area();
-    } catch ($t2, $t3) {
-      $t1.fail($t2, $t3);
+    } catch ($t6, $t7) {
+      $t1.fail($t6, $t7);
     } finally {
       $t1.run();
     }
@@ -346,6 +346,33 @@ bool _$inited = false;
 void $goInit() {
   if (_$inited) return;
   _$inited = true;
+}
+
+/// Métodos de Rect promovidos por embedding (delegação).
+mixin Rect$Promote {
+  Rect? get $Rect;
+  Golang.Float64 area() => $Rect!.area();
+  Golang.String name() => $Rect!.name();
+}
+
+/// Métodos de Circle promovidos por embedding (delegação).
+mixin Circle$Promote {
+  Circle? get $Circle;
+  Golang.Float64 area() => $Circle!.area();
+  void grow() => $Circle!.grow();
+  Golang.String name() => $Circle!.name();
+}
+
+/// Métodos de NotFound promovidos por embedding (delegação).
+mixin NotFound$Promote {
+  NotFound? get $NotFound;
+  Golang.String error() => $NotFound!.error();
+}
+
+/// Métodos de Point promovidos por embedding (delegação).
+mixin Point$Promote {
+  Point? get $Point;
+  Golang.String string() => $Point!.string();
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.

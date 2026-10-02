@@ -183,9 +183,7 @@ class UnsupportedTest(unittest.TestCase):
             'fmt.Printf("%#v", []func(){})': "fmt-verbo:%#v-func",
             'type T struct{ C chan int }; fmt.Printf("%#v", T{})': "fmt-verbo:%#v-chan",
             'fmt.Printf("%x", 1.5)': "fmt-verbo:%x-float",
-            'f := 2.5; fmt.Printf("%#.3g", f)': "fmt-verbo:#-float",
             'c := complex(1, 2); fmt.Printf("%d", c)': "fmt-verbo:%d-complex",
-            "fmt.Printf(\"%#q\", 'x')": "fmt-verbo:%#q-runa",
             'fmt.Printf("%T", []int{1})': "fmt-verbo:%T-composto",
             'fmt.Printf("%d", main)': "fmt-verbo:%d-func",
             'fmt.Printf("%d", 1, []int{2})': "fmt-verbo:extra-composto",
@@ -202,7 +200,8 @@ class UnsupportedTest(unittest.TestCase):
         src = ('package main\n\nimport "fmt"\n\ntype P struct{ X int }\n\nfunc main() {\n'
                '\tvar a any = 1.5\n\tf := "%x"\n\targs := []any{1}\n'
                '\tfmt.Printf("%+v %[1]v %x %d\\n", P{1}, a, 2)\n\tfmt.Printf(f, a)\n\tfmt.Printf("%d", args...)\n'
-               '\t_ = fmt.Errorf("%w", fmt.Errorf("x"))\n}\n')
+               '\t_ = fmt.Errorf("%w", fmt.Errorf("x"))\n'
+               '\tg := 2.5\n\tfmt.Printf("%#.3g %#e %#q %#+q\\n", g, g, \'x\', \'y\')\n}\n')
         Engine(dump_source(src)).emit_package()
 
     def test_async_refused_contexts(self):

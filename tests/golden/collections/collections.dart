@@ -134,18 +134,24 @@ void main() {
     ], _$e1);
     Golang.Int n = Golang.Int(s.slice(1).copyFrom(s));
     go.Slice<Golang.Int> nilSlice = go.Slice<Golang.Int>.nil(_$e1);
-    fmt.println(
-      go.Slice<Object?>.of([
-        s,
-        n,
-        nilSlice.isNil,
-        Golang.Int(nilSlice.length),
-        nilSlice,
-        _sum(go.Slice<Golang.Int>.nil(_$e1)),
-        _sum(s),
-        _sum(go.Slice<Golang.Int>.of([Golang.Int(1), Golang.Int(2)], _$e1)),
-      ], _$e2),
-    );
+    (switch ((
+      _sum(go.Slice<Golang.Int>.nil(_$e1)),
+      _sum(s),
+      _sum(go.Slice<Golang.Int>.of([Golang.Int(1), Golang.Int(2)], _$e1)),
+    )) {
+      (final $t1, final $t2, final $t3) => fmt.println(
+        go.Slice<Object?>.of([
+          s,
+          n,
+          nilSlice.isNil,
+          Golang.Int(nilSlice.length),
+          nilSlice,
+          $t1,
+          $t2,
+          $t3,
+        ], _$e2),
+      ),
+    });
     nilSlice = nilSlice.append([Golang.Int(1)]);
     fmt.println(
       go.Slice<Object?>.of([
@@ -194,10 +200,10 @@ void main() {
     (v, ok) = m.lookup(Golang.String.fromDart('b'));
     fmt.println(go.Slice<Object?>.of([v, ok, m], _$e2));
     {
-      final $t1 = m;
-      for (final $t2 in $t1.keysSnapshot()) {
-        if (!$t1.containsKey($t2)) continue;
-        Golang.String k = $t2;
+      final $t4 = m;
+      for (final $t5 in $t4.keysSnapshot()) {
+        if (!$t4.containsKey($t5)) continue;
+        Golang.String k = $t5;
         {
           m.delete(k);
         }
@@ -219,9 +225,9 @@ void main() {
         Golang.Int(groups[Golang.Int(2)].length),
       ], _$e2),
     );
-    final $t3 = (Golang.Int(1), Golang.Int(2));
-    final go.Box<Golang.Int> x = go.Box<Golang.Int>($t3.$1);
-    final go.Box<Golang.Int> y = go.Box<Golang.Int>($t3.$2);
+    final $t6 = (Golang.Int(1), Golang.Int(2));
+    final go.Box<Golang.Int> x = go.Box<Golang.Int>($t6.$1);
+    final go.Box<Golang.Int> y = go.Box<Golang.Int>($t6.$2);
     _swap(x, y);
     go.Ptr<Golang.Int>? px = x;
     _bump(px);

@@ -105,9 +105,11 @@ void main() {
       ], _$e0),
     );
     Flag h = Flag(_check(Golang.Int(3)).$b && f.$b);
-    fmt.println(
-      go.Slice<Object?>.of([h, _check(Golang.Int(1)), h.$b, Flag(true)], _$e0),
-    );
+    (switch (_check(Golang.Int(1))) {
+      final $t1 => fmt.println(
+        go.Slice<Object?>.of([h, $t1, h.$b, Flag(true)], _$e0),
+      ),
+    });
     final Opt$Ptr o = Opt$Ptr(go.Box<Opt>(Opt()));
     o.toggle();
     fmt.println(
@@ -171,6 +173,17 @@ bool _$inited = false;
 void $goInit() {
   if (_$inited) return;
   _$inited = true;
+}
+
+/// Métodos de Flag promovidos por embedding (delegação).
+mixin Flag$Promote {
+  Flag? get $Flag;
+  Golang.String string() => $Flag!.string();
+}
+
+/// Métodos de Opt promovidos por embedding (delegação).
+mixin Opt$Promote {
+  Opt? get $Opt;
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.

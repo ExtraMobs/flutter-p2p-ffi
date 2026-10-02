@@ -138,15 +138,17 @@ void main() {
     h[3] = Golang.Uint8(1);
     Hash g = h.$copy();
     g.set(Golang.Int(1), Golang.Uint8(255));
-    fmt.println(
-      go.Slice<Object?>.of([
-        h.hex(),
-        g.hex(),
-        h == g,
-        h.$ifaceCopy(),
-        Golang.Int(4),
-      ], _$e1),
-    );
+    (switch ((h.hex(), g.hex())) {
+      (final $t1, final $t2) => fmt.println(
+        go.Slice<Object?>.of([
+          $t1,
+          $t2,
+          h == g,
+          h.$ifaceCopy(),
+          Golang.Int(4),
+        ], _$e1),
+      ),
+    });
     go.GoArray<Golang.Uint8> a = go.GoArray<Golang.Uint8>.alias(h).$copy();
     a[0] = Golang.Uint8(0);
     Hash h2 = Hash(a).$copy();
@@ -183,7 +185,11 @@ void main() {
     );
     Hash? p = msg.id;
     (p ?? Hash.$nil).reset();
-    fmt.println(go.Slice<Object?>.of([msg.$ifaceCopy(), msg.id.hex()], _$e1));
+    (switch (msg.id.hex()) {
+      final $t3 => fmt.println(
+        go.Slice<Object?>.of([msg.$ifaceCopy(), $t3], _$e1),
+      ),
+    });
     Grid gr = Grid(go.GoArray<go.GoArray<Golang.Int>>.zero(2, _$e3));
     gr[1][0] = Golang.Int(7);
     fmt.printf(
@@ -216,6 +222,12 @@ bool _$inited = false;
 void $goInit() {
   if (_$inited) return;
   _$inited = true;
+}
+
+/// Métodos de Hash promovidos por embedding (delegação).
+mixin Hash$Promote {
+  Hash? get $Hash;
+  Golang.String hex() => $Hash!.hex();
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.

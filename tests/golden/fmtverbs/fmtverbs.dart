@@ -80,10 +80,10 @@ class P extends go.GoStruct<P> {
 }
 
 class Box extends go.GoStruct<Box> {
-  Box({P? p, Golang.String? tag, _anon$14$? inner, P? ptr})
+  Box({P? p, Golang.String? tag, $_anon$14? inner, P? ptr})
     : p = p ?? P(),
       tag = tag ?? Golang.String(),
-      inner = inner ?? _anon$14$(),
+      inner = inner ?? $_anon$14(),
       ptr = ptr;
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
@@ -91,7 +91,7 @@ class Box extends go.GoStruct<Box> {
 
   P p;
   Golang.String tag;
-  _anon$14$ inner;
+  $_anon$14 inner;
   P? ptr;
 
   @override
@@ -127,11 +127,11 @@ class Box extends go.GoStruct<Box> {
   ];
 }
 
-class _myErr$ extends go.GoStruct<_myErr$> implements go.GoError {
-  _myErr$({Golang.Int? code}) : _code = code ?? Golang.Int();
+class $_myErr extends go.GoStruct<$_myErr> implements go.GoError {
+  $_myErr({Golang.Int? code}) : _code = code ?? Golang.Int();
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _myErr$ $nil = _myErr$()..$nilPtr = true;
+  static final $_myErr $nil = $_myErr()..$nilPtr = true;
 
   Golang.Int _code;
 
@@ -143,10 +143,10 @@ class _myErr$ extends go.GoStruct<_myErr$> implements go.GoError {
   List<String> get $ptrMethods => const ['Error'];
 
   @override
-  _myErr$ $copy() => _myErr$(code: _code);
+  $_myErr $copy() => $_myErr(code: _code);
 
   @override
-  void $set(_myErr$ o) {
+  void $set($_myErr o) {
     _code = o._code;
   }
 
@@ -157,7 +157,7 @@ class _myErr$ extends go.GoStruct<_myErr$> implements go.GoError {
   List<String> get $fieldNames => const ['code'];
 
   Golang.String error() {
-    final _myErr$? e = $nilPtr ? null : this;
+    final $_myErr? e = $nilPtr ? null : this;
     return fmt.sprintf(
       Golang.String.fromDart('erro %d'),
       go.Slice<Object?>.of([e!._code], _$e0),
@@ -382,7 +382,7 @@ void main() {
       Golang.String.fromDart('%v %d %s %v %v\n'),
       go.Slice<Object?>.of([null, null, e, ip == null, ps ?? P.$nil], _$e0),
     );
-    go.GoError? err = _myErr$(code: Golang.Int(7)) ?? _myErr$.$nil;
+    go.GoError? err = $_myErr(code: Golang.Int(7)) ?? $_myErr.$nil;
     fmt.printf(
       Golang.String.fromDart('%v|%s|%q|%x|%d|%T\n'),
       go.Slice<Object?>.of([
@@ -391,7 +391,7 @@ void main() {
         err,
         err,
         go
-            .assertType<_myErr$?>(err, 'error', '*main.myErr', struct: false)!
+            .assertType<$_myErr?>(err, 'error', '*main.myErr', struct: false)!
             ._code,
         err,
       ], _$e0),
@@ -513,18 +513,14 @@ void main() {
       Golang.String.fromDart('%T %T %T %T\n'),
       go.Slice<Object?>.of([e1, e2, e3, e4], _$e0),
     );
-    fmt.println(
-      go.Slice<Object?>.of([
-        go.ifaceEq(e1, e1),
-        !go.ifaceEq(
-          e1,
-          fmt.errorf(
-            Golang.String.fromDart('falhou: %d'),
-            go.Slice<Object?>.of([Golang.Int(5)], _$e0),
-          ),
-        ),
-      ], _$e0),
-    );
+    (switch (fmt.errorf(
+      Golang.String.fromDart('falhou: %d'),
+      go.Slice<Object?>.of([Golang.Int(5)], _$e0),
+    )) {
+      final $t1 => fmt.println(
+        go.Slice<Object?>.of([go.ifaceEq(e1, e1), !go.ifaceEq(e1, $t1)], _$e0),
+      ),
+    });
     Box bx = Box(
       p: P(
         x: Golang.Int(1),
@@ -567,7 +563,7 @@ void main() {
     fmt.printf(
       Golang.String.fromDart('%+v|%+v\n'),
       go.Slice<Object?>.of([
-        _anon$46$(n: Golang.Int(9)).$ifaceCopy(),
+        $_anon$46(n: Golang.Int(9)).$ifaceCopy(),
         Box().ptr ?? P.$nil,
       ], _$e0),
     );
@@ -611,7 +607,7 @@ void main() {
       go.Slice<Object?>.of([u, u], _$e0),
     );
     {
-      final $t1 = go.Slice<Golang.Int32>.of([
+      final $t2 = go.Slice<Golang.Int32>.of([
         Golang.Int32(160),
         Golang.Int32(173),
         Golang.Int32(769),
@@ -622,8 +618,8 @@ void main() {
         Golang.Int32(1114111),
         Golang.Int32(8501),
       ], _$e7);
-      for (var $t2 = 0; $t2 < $t1.length; $t2++) {
-        Golang.Int32 r = $t1[$t2];
+      for (var $t3 = 0; $t3 < $t2.length; $t3++) {
+        Golang.Int32 r = $t2[$t3];
         {
           fmt.printf(
             Golang.String.fromDart('%q %+q %#U|'),
@@ -647,24 +643,23 @@ void main() {
         null,
       ], _$e0),
     );
-    fmt.printf(
-      Golang.String.fromDart('%q %q\n'),
-      go.Slice<Object?>.of([
-        ln,
-        fmt.sprintln(go.Slice<Object?>.nil(_$e0)),
-      ], _$e0),
-    );
+    (switch (fmt.sprintln(go.Slice<Object?>.nil(_$e0))) {
+      final $t4 => fmt.printf(
+        Golang.String.fromDart('%q %q\n'),
+        go.Slice<Object?>.of([ln, $t4], _$e0),
+      ),
+    });
   });
 }
 
 /// `struct { A int; B int }` (struct anônima).
-class _anon$14$ extends go.GoStruct<_anon$14$> {
-  _anon$14$({Golang.Int? a, Golang.Int? b})
+class $_anon$14 extends go.GoStruct<$_anon$14> {
+  $_anon$14({Golang.Int? a, Golang.Int? b})
     : a = a ?? Golang.Int(),
       b = b ?? Golang.Int();
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _anon$14$ $nil = _anon$14$()..$nilPtr = true;
+  static final $_anon$14 $nil = $_anon$14()..$nilPtr = true;
 
   Golang.Int a;
   Golang.Int b;
@@ -677,10 +672,10 @@ class _anon$14$ extends go.GoStruct<_anon$14$> {
   List<String> get $ptrMethods => const [];
 
   @override
-  _anon$14$ $copy() => _anon$14$(a: a, b: b);
+  $_anon$14 $copy() => $_anon$14(a: a, b: b);
 
   @override
-  void $set(_anon$14$ o) {
+  void $set($_anon$14 o) {
     a = o.a;
     b = o.b;
   }
@@ -693,11 +688,11 @@ class _anon$14$ extends go.GoStruct<_anon$14$> {
 }
 
 /// `struct { N int }` (struct anônima).
-class _anon$46$ extends go.GoStruct<_anon$46$> {
-  _anon$46$({Golang.Int? n}) : n = n ?? Golang.Int();
+class $_anon$46 extends go.GoStruct<$_anon$46> {
+  $_anon$46({Golang.Int? n}) : n = n ?? Golang.Int();
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _anon$46$ $nil = _anon$46$()..$nilPtr = true;
+  static final $_anon$46 $nil = $_anon$46()..$nilPtr = true;
 
   Golang.Int n;
 
@@ -709,10 +704,10 @@ class _anon$46$ extends go.GoStruct<_anon$46$> {
   List<String> get $ptrMethods => const [];
 
   @override
-  _anon$46$ $copy() => _anon$46$(n: n);
+  $_anon$46 $copy() => $_anon$46(n: n);
 
   @override
-  void $set(_anon$46$ o) {
+  void $set($_anon$46 o) {
     n = o.n;
   }
 
@@ -729,6 +724,18 @@ bool _$inited = false;
 void $goInit() {
   if (_$inited) return;
   _$inited = true;
+}
+
+/// Métodos de Celsius promovidos por embedding (delegação).
+mixin Celsius$Promote {
+  Celsius? get $Celsius;
+  Golang.String string() => $Celsius!.string();
+}
+
+/// Métodos de myErr promovidos por embedding (delegação).
+mixin $_myErr$Promote {
+  $_myErr? get $$_myErr;
+  Golang.String error() => $$_myErr!.error();
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.

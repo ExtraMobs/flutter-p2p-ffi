@@ -12,12 +12,12 @@ import 'package:golib_dart/io.dart' as io;
 import 'package:golib_dart/strings.dart' as strings;
 
 /// chunks é um io.Reader do usuário que entrega de 3 em 3 bytes.
-class _chunks$ extends go.GoStruct<_chunks$> implements io.Reader {
-  _chunks$({go.Slice<Golang.Uint8>? data})
+class $_chunks extends go.GoStruct<$_chunks> implements io.Reader {
+  $_chunks({go.Slice<Golang.Uint8>? data})
     : _data = data ?? go.Slice<Golang.Uint8>.nil(_$e0);
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _chunks$ $nil = _chunks$()..$nilPtr = true;
+  static final $_chunks $nil = $_chunks()..$nilPtr = true;
 
   go.Slice<Golang.Uint8> _data;
 
@@ -29,10 +29,10 @@ class _chunks$ extends go.GoStruct<_chunks$> implements io.Reader {
   List<String> get $ptrMethods => const ['Read'];
 
   @override
-  _chunks$ $copy() => _chunks$(data: _data);
+  $_chunks $copy() => $_chunks(data: _data);
 
   @override
-  void $set(_chunks$ o) {
+  void $set($_chunks o) {
     _data = o._data;
   }
 
@@ -46,7 +46,7 @@ class _chunks$ extends go.GoStruct<_chunks$> implements io.Reader {
   List<String> get $fieldTypes => const ['[]uint8'];
 
   (Golang.Int, go.GoError?) read(go.Slice<Golang.Uint8> p) {
-    final _chunks$? c = $nilPtr ? null : this;
+    final $_chunks? c = $nilPtr ? null : this;
     if (Golang.Int(c!._data.length) == Golang.Int(0)) {
       return (Golang.Int(0), io.eof);
     }
@@ -66,12 +66,12 @@ class _chunks$ extends go.GoStruct<_chunks$> implements io.Reader {
   }
 }
 
-class _sink$ extends go.GoStruct<_sink$> implements io.Writer {
-  _sink$({go.Slice<Golang.String>? got})
+class $_sink extends go.GoStruct<$_sink> implements io.Writer {
+  $_sink({go.Slice<Golang.String>? got})
     : _got = got ?? go.Slice<Golang.String>.nil(_$e1);
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _sink$ $nil = _sink$()..$nilPtr = true;
+  static final $_sink $nil = $_sink()..$nilPtr = true;
 
   go.Slice<Golang.String> _got;
 
@@ -83,10 +83,10 @@ class _sink$ extends go.GoStruct<_sink$> implements io.Writer {
   List<String> get $ptrMethods => const ['Write'];
 
   @override
-  _sink$ $copy() => _sink$(got: _got);
+  $_sink $copy() => $_sink(got: _got);
 
   @override
-  void $set(_sink$ o) {
+  void $set($_sink o) {
     _got = o._got;
   }
 
@@ -100,7 +100,7 @@ class _sink$ extends go.GoStruct<_sink$> implements io.Writer {
   List<String> get $fieldTypes => const ['[]string'];
 
   (Golang.Int, go.GoError?) write(go.Slice<Golang.Uint8> p) {
-    final _sink$? s = $nilPtr ? null : this;
+    final $_sink? s = $nilPtr ? null : this;
     s!._got = s!._got.append([go.stringOfByteSlice(p)]);
     return (Golang.Int(p.length), null);
   }
@@ -128,52 +128,69 @@ void main() {
       go.Slice<Object?>.of([line, err], _$e2),
     );
     var (c, _) = b.readByte();
-    fmt.println(
-      go.Slice<Object?>.of([
-        Golang.String.fromCodePoint(c.toInt()),
-        b.unreadByte(),
-        b.unreadByte() != null,
-      ], _$e2),
-    );
+    (switch ((b.unreadByte(), b.unreadByte())) {
+      (final $t1, final $t2) => fmt.println(
+        go.Slice<Object?>.of([
+          Golang.String.fromCodePoint(c.toInt()),
+          $t1,
+          $t2 != null,
+        ], _$e2),
+      ),
+    });
     var (r, size, _) = b.readRune();
-    fmt.println(
-      go.Slice<Object?>.of([
-        Golang.String.fromCodePoint(r.toInt()),
-        size,
-        b.unreadRune(),
-      ], _$e2),
-    );
-    final $t1 = b.readBytes(Golang.Uint8(33));
-    go.Slice<Golang.Uint8> rest = $t1.$1;
-    err = $t1.$2;
+    (switch (b.unreadRune()) {
+      final $t3 => fmt.println(
+        go.Slice<Object?>.of([
+          Golang.String.fromCodePoint(r.toInt()),
+          size,
+          $t3,
+        ], _$e2),
+      ),
+    });
+    final $t4 = b.readBytes(Golang.Uint8(33));
+    go.Slice<Golang.Uint8> rest = $t4.$1;
+    err = $t4.$2;
     fmt.printf(
       Golang.String.fromDart('%q %v %v\n'),
       go.Slice<Object?>.of([rest, err, go.ifaceEq(err, io.eof)], _$e2),
     );
     (_, err) = b.readByte();
-    fmt.println(go.Slice<Object?>.of([go.ifaceEq(err, io.eof), b.len()], _$e2));
+    (switch (b.len()) {
+      final $t5 => fmt.println(
+        go.Slice<Object?>.of([go.ifaceEq(err, io.eof), $t5], _$e2),
+      ),
+    });
     b.grow(Golang.Int(200));
     fmt.println(go.Slice<Object?>.of([b.cap()], _$e2));
-    final $t2 = b.readFrom(
-      _chunks$(data: go.bytesOf(Golang.String.fromDart('abcdefgh'), _$e0)) ??
-          _chunks$.$nil,
+    final $t6 = b.readFrom(
+      $_chunks(data: go.bytesOf(Golang.String.fromDart('abcdefgh'), _$e0)) ??
+          $_chunks.$nil,
     );
-    Golang.Int64 n = $t2.$1;
-    err = $t2.$2;
-    fmt.println(go.Slice<Object?>.of([n, err, b.string(), b.cap()], _$e2));
-    _sink$? s = _sink$();
-    final $t3 = b.writeTo(s ?? _sink$.$nil);
-    Golang.Int64 m = $t3.$1;
-    err = $t3.$2;
-    fmt.println(go.Slice<Object?>.of([m, err, s!._got, b.len()], _$e2));
+    Golang.Int64 n = $t6.$1;
+    err = $t6.$2;
+    (switch ((b.string(), b.cap())) {
+      (final $t7, final $t8) => fmt.println(
+        go.Slice<Object?>.of([n, err, $t7, $t8], _$e2),
+      ),
+    });
+    $_sink? s = $_sink();
+    final $t9 = b.writeTo(s ?? $_sink.$nil);
+    Golang.Int64 m = $t9.$1;
+    err = $t9.$2;
+    (switch (b.len()) {
+      final $t10 => fmt.println(
+        go.Slice<Object?>.of([m, err, s!._got, $t10], _$e2),
+      ),
+    });
     bytes.Buffer? nb = bytes.newBufferString(Golang.String.fromDart('xyz'));
-    fmt.println(
-      go.Slice<Object?>.of([
-        nb ?? bytes.Buffer.$nil,
-        (nb ?? bytes.Buffer.$nil).next(Golang.Int(2)),
-        (nb ?? bytes.Buffer.$nil).string(),
-      ], _$e2),
-    );
+    (switch ((
+      (nb ?? bytes.Buffer.$nil).next(Golang.Int(2)),
+      (nb ?? bytes.Buffer.$nil).string(),
+    )) {
+      (final $t11, final $t12) => fmt.println(
+        go.Slice<Object?>.of([nb ?? bytes.Buffer.$nil, $t11, $t12], _$e2),
+      ),
+    });
     (nb ?? bytes.Buffer.$nil).truncate(Golang.Int(0));
     fmt.println(
       go.Slice<Object?>.of([
@@ -213,6 +230,20 @@ bool _$inited = false;
 void $goInit() {
   if (_$inited) return;
   _$inited = true;
+}
+
+/// Métodos de chunks promovidos por embedding (delegação).
+mixin $_chunks$Promote {
+  $_chunks? get $$_chunks;
+  (Golang.Int, go.GoError?) read(go.Slice<Golang.Uint8> p0) =>
+      $$_chunks!.read(p0);
+}
+
+/// Métodos de sink promovidos por embedding (delegação).
+mixin $_sink$Promote {
+  $_sink? get $$_sink;
+  (Golang.Int, go.GoError?) write(go.Slice<Golang.Uint8> p0) =>
+      $$_sink!.write(p0);
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.

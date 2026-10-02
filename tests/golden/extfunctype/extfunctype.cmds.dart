@@ -160,5 +160,12 @@ void $goInit() {
   _$inited = true;
 }
 
+/// Métodos de Command promovidos por embedding (delegação).
+mixin Command$Promote {
+  Command? get $Command;
+  (go.Slice<Golang.String>, go.GoError?) call$(Golang.String p0) =>
+      $Command!.call$(p0);
+}
+
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
 const _$e0 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);

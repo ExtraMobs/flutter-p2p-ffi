@@ -62,5 +62,11 @@ void $goInit() {
   _$inited = true;
 }
 
+/// Métodos de T promovidos por embedding (delegação).
+mixin T$Promote {
+  T? get $T;
+  Golang.String string() => $T!.string();
+}
+
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
 const _$e0 = go.Elem<Object?>(16, go.zeroNull, pointers: true);

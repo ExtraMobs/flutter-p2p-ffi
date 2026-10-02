@@ -8,8 +8,8 @@ import 'package:golib_dart/fixed_types/golang.dart' as Golang;
 import 'package:golib_dart/fmt.dart' as fmt;
 import 'package:golib_dart/builtin.dart' as go;
 
-final class Set<T> extends go.GoMap<T, _anon$5$> implements Golang.GoTyped {
-  Set(this.$T, go.GoMap<T, _anon$5$> v) : super.alias(v);
+final class Set<T> extends go.GoMap<T, $_anon$5> implements Golang.GoTyped {
+  Set(this.$T, go.GoMap<T, $_anon$5> v) : super.alias(v);
 
   final go.Elem<T> $T;
   @override
@@ -19,7 +19,7 @@ final class Set<T> extends go.GoMap<T, _anon$5$> implements Golang.GoTyped {
 
   void add(T v) {
     Set<T> s = this;
-    s[v] = _anon$5$();
+    s[v] = $_anon$5();
   }
 
   bool has(T v) {
@@ -29,7 +29,7 @@ final class Set<T> extends go.GoMap<T, _anon$5$> implements Golang.GoTyped {
 }
 
 Set<T> newSet<T>(go.Elem<T> $T) {
-  return Set<T>($T, go.GoMap<T, _anon$5$>.of({}, _$e0));
+  return Set<T>($T, go.GoMap<T, $_anon$5>.of({}, _$e0));
 }
 
 final class List$<T> extends go.Slice<T> implements Golang.GoTyped {
@@ -81,8 +81,8 @@ final class Mapper<T> implements Golang.GoTyped {
   List<String> get $methods => const [];
 }
 
-class _entry$<K, V> extends go.GoStruct<_entry$<K, V>> {
-  _entry$(this.$K, this.$V, {K? key, V? value})
+class $_entry<K, V> extends go.GoStruct<$_entry<K, V>> {
+  $_entry(this.$K, this.$V, {K? key, V? value})
     : _key = key ?? $K.zero(),
       _value = value ?? $V.zero();
 
@@ -99,10 +99,10 @@ class _entry$<K, V> extends go.GoStruct<_entry$<K, V>> {
   List<String> get $ptrMethods => const [];
 
   @override
-  _entry$<K, V> $copy() => _entry$<K, V>($K, $V, key: _key, value: _value);
+  $_entry<K, V> $copy() => $_entry<K, V>($K, $V, key: _key, value: _value);
 
   @override
-  void $set(_entry$<K, V> o) {
+  void $set($_entry<K, V> o) {
     _key = o._key;
     _value = o._value;
   }
@@ -118,9 +118,9 @@ class _entry$<K, V> extends go.GoStruct<_entry$<K, V>> {
 }
 
 final class Heap<K extends Golang.GoOrdered<K>, V>
-    extends go.Slice<_entry$<K, V>>
+    extends go.Slice<$_entry<K, V>>
     implements Golang.GoTyped {
-  Heap(this.$K, this.$V, go.Slice<_entry$<K, V>> v) : super.alias(v);
+  Heap(this.$K, this.$V, go.Slice<$_entry<K, V>> v) : super.alias(v);
 
   final go.Elem<K> $K;
   final go.Elem<V> $V;
@@ -209,7 +209,7 @@ final class Heap$Ptr<K extends Golang.GoOrdered<K>, V>
     this.value = Heap<K, V>(
       $K,
       $V,
-      this.value.append([_entry$<K, V>($K, $V, key: key, value: value)]),
+      this.value.append([$_entry<K, V>($K, $V, key: key, value: value)]),
     );
     (this.value)._up(Golang.Int(this.value.length) - Golang.Int(1));
   }
@@ -217,9 +217,9 @@ final class Heap$Ptr<K extends Golang.GoOrdered<K>, V>
   (K, V) pop() {
     Heap<K, V> values = this.value;
     Golang.Int last = Golang.Int(values.length) - Golang.Int(1);
-    _entry$<K, V> v = values[0].$copy();
+    $_entry<K, V> v = values[0].$copy();
     values[0].$set(values[last.toIndex()]);
-    _entry$<K, V> zero = _entry$<K, V>($K, $V);
+    $_entry<K, V> zero = $_entry<K, V>($K, $V);
     values[last.toIndex()].$set(zero);
     values = Heap<K, V>($K, $V, values.slice(0, last.toIndex()));
     if (last > Golang.Int(0)) {
@@ -235,20 +235,26 @@ void main() {
     $goInit();
     Set<Golang.String> s = Set<Golang.String>(
       _$e1,
-      go.GoMap<Golang.String, _anon$5$>.of({}, _$e0),
+      go.GoMap<Golang.String, $_anon$5>.of({}, _$e0),
     );
     s.add(Golang.String.fromDart('x'));
     Set<Golang.Int> t = newSet<Golang.Int>(_$e2);
     t.add(Golang.Int(3));
-    fmt.println(
-      go.Slice<Object?>.of([
-        Golang.Int(s.length),
-        s.has(Golang.String.fromDart('x')),
-        s.has(Golang.String.fromDart('y')),
-        t.has(Golang.Int(3)),
-        Golang.Int(t.length),
-      ], _$e3),
-    );
+    (switch ((
+      s.has(Golang.String.fromDart('x')),
+      s.has(Golang.String.fromDart('y')),
+      t.has(Golang.Int(3)),
+    )) {
+      (final $t1, final $t2, final $t3) => fmt.println(
+        go.Slice<Object?>.of([
+          Golang.Int(s.length),
+          $t1,
+          $t2,
+          $t3,
+          Golang.Int(t.length),
+        ], _$e3),
+      ),
+    });
     List$<Golang.Int> l = List$<Golang.Int>(
       _$e2,
       go.Slice<Golang.Int>.of([Golang.Int(1), Golang.Int(2)], _$e2),
@@ -256,42 +262,42 @@ void main() {
     Mapper<Golang.Int> double$ = Mapper<Golang.Int>(_$e2, (Golang.Int i) {
       return i * Golang.Int(2);
     });
-    fmt.println(
-      go.Slice<Object?>.of([
-        l.len(),
-        l,
-        l.map(double$),
-        List$<Golang.String>(_$e1, go.Slice<Golang.String>.nil(_$e1)).len(),
-      ], _$e3),
-    );
+    (switch ((
+      l.len(),
+      l.map(double$),
+      List$<Golang.String>(_$e1, go.Slice<Golang.String>.nil(_$e1)).len(),
+    )) {
+      (final $t4, final $t5, final $t6) => fmt.println(
+        go.Slice<Object?>.of([$t4, l, $t5, $t6], _$e3),
+      ),
+    });
     final Heap$Ptr<Golang.Int, Golang.String> h =
         Heap$Ptr<Golang.Int, Golang.String>(
           go.Box<Heap<Golang.Int, Golang.String>>(
             Heap<Golang.Int, Golang.String>(
               _$e2,
               _$e1,
-              go.Slice<_entry$<Golang.Int, Golang.String>>.nil(_$e4),
+              go.Slice<$_entry<Golang.Int, Golang.String>>.nil(_$e4),
             ),
           ),
         );
     {
-      final $t1 = go.Slice<Golang.Int>.of([
+      final $t7 = go.Slice<Golang.Int>.of([
         Golang.Int(5),
         Golang.Int(1),
         Golang.Int(4),
         Golang.Int(2),
         Golang.Int(3),
       ], _$e2);
-      for (var $t2 = 0; $t2 < $t1.length; $t2++) {
-        Golang.Int i$1 = Golang.Int($t2);
-        Golang.Int k = $t1[$t2];
+      for (var $t8 = 0; $t8 < $t7.length; $t8++) {
+        Golang.Int i$1 = Golang.Int($t8);
+        Golang.Int k = $t7[$t8];
         {
-          h.push(
-            k,
-            fmt.sprint(
-              go.Slice<Object?>.of([Golang.String.fromDart('v'), i$1], _$e3),
-            ),
-          );
+          (switch (fmt.sprint(
+            go.Slice<Object?>.of([Golang.String.fromDart('v'), i$1], _$e3),
+          )) {
+            final $t9 => h.push(k, $t9),
+          });
         }
       }
     }
@@ -311,11 +317,11 @@ void main() {
 }
 
 /// `struct {}` (struct anônima).
-class _anon$5$ extends go.GoStruct<_anon$5$> {
-  _anon$5$();
+class $_anon$5 extends go.GoStruct<$_anon$5> {
+  $_anon$5();
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _anon$5$ $nil = _anon$5$()..$nilPtr = true;
+  static final $_anon$5 $nil = $_anon$5()..$nilPtr = true;
 
   @override
   String get $goType => 'struct {}';
@@ -325,10 +331,10 @@ class _anon$5$ extends go.GoStruct<_anon$5$> {
   List<String> get $ptrMethods => const [];
 
   @override
-  _anon$5$ $copy() => _anon$5$();
+  $_anon$5 $copy() => $_anon$5();
 
   @override
-  void $set(_anon$5$ o) {}
+  void $set($_anon$5 o) {}
 
   @override
   List<Object?> get $fields => [];
@@ -346,7 +352,7 @@ void $goInit() {
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
-const _$e0 = go.Elem<_anon$5$>(0, _anon$5$.new);
+const _$e0 = go.Elem<$_anon$5>(0, $_anon$5.new);
 const _$e1 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);
 Golang.Int _$f2_3(Golang.FloatBase f) =>
     Golang.Int.from(f.toInteger(64, signed: true));
@@ -357,9 +363,9 @@ const _$e2 = go.Elem<Golang.Int>(
   ofFloat: _$f2_3,
 );
 const _$e3 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
-_entry$<Golang.Int, Golang.String> _$z5_5() =>
-    _entry$<Golang.Int, Golang.String>(_$e2, _$e1);
-const _$e4 = go.Elem<_entry$<Golang.Int, Golang.String>>(
+$_entry<Golang.Int, Golang.String> _$z5_5() =>
+    $_entry<Golang.Int, Golang.String>(_$e2, _$e1);
+const _$e4 = go.Elem<$_entry<Golang.Int, Golang.String>>(
   24,
   _$z5_5,
   pointers: true,

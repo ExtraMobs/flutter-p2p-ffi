@@ -25,20 +25,13 @@ final class Safe extends Golang.StringBase<Safe> implements fmt.Formatter {
   void format(fmt.State? f, Golang.Int32 verb) {
     var (w, ok) = f!.width();
     var (p, pok) = f!.precision();
-    fmt.fprintf(
-      f,
-      Golang.String.fromDart('<%s|%c|%d|%v|%d|%v|%v|%v>'),
-      go.Slice<Object?>.of([
-        this.$str,
-        verb,
-        w,
-        ok,
-        p,
-        pok,
-        f!.flag(Golang.Int(43)),
-        f!.flag(Golang.Int(35)),
-      ], _$e0),
-    );
+    (switch ((f!.flag(Golang.Int(43)), f!.flag(Golang.Int(35)))) {
+      (final $t1, final $t2) => fmt.fprintf(
+        f,
+        Golang.String.fromDart('<%s|%c|%d|%v|%d|%v|%v|%v>'),
+        go.Slice<Object?>.of([this.$str, verb, w, ok, p, pok, $t1, $t2], _$e0),
+      ),
+    });
   }
 }
 
@@ -89,11 +82,11 @@ class Pt extends go.GoStruct<Pt> implements fmt.Formatter {
   }
 }
 
-class _bomb$ extends go.GoStruct<_bomb$> implements fmt.Formatter {
-  _bomb$();
+class $_bomb extends go.GoStruct<$_bomb> implements fmt.Formatter {
+  $_bomb();
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _bomb$ $nil = _bomb$()..$nilPtr = true;
+  static final $_bomb $nil = $_bomb()..$nilPtr = true;
 
   @override
   String get $goType => 'main.bomb';
@@ -103,10 +96,10 @@ class _bomb$ extends go.GoStruct<_bomb$> implements fmt.Formatter {
   List<String> get $ptrMethods => const ['Format'];
 
   @override
-  _bomb$ $copy() => _bomb$();
+  $_bomb $copy() => $_bomb();
 
   @override
-  void $set(_bomb$ o) {}
+  void $set($_bomb o) {}
 
   @override
   List<Object?> get $fields => [];
@@ -140,16 +133,15 @@ void main() {
     );
     Pt? p = Pt(x: Golang.Int(1), y: Golang.Int(2));
     fmt.println(go.Slice<Object?>.of([p ?? Pt.$nil, p!.$ifaceCopy()], _$e0));
-    fmt.printf(
-      Golang.String.fromDart('%v|%s\n'),
-      go.Slice<Object?>.of([
-        p ?? Pt.$nil,
-        fmt.sprint(go.Slice<Object?>.of([p ?? Pt.$nil], _$e0)),
-      ], _$e0),
-    );
+    (switch (fmt.sprint(go.Slice<Object?>.of([p ?? Pt.$nil], _$e0))) {
+      final $t1 => fmt.printf(
+        Golang.String.fromDart('%v|%s\n'),
+        go.Slice<Object?>.of([p ?? Pt.$nil, $t1], _$e0),
+      ),
+    });
     Pt? np = null;
     fmt.println(go.Slice<Object?>.of([np ?? Pt.$nil], _$e0));
-    fmt.println(go.Slice<Object?>.of([_bomb$().$ifaceCopy()], _$e0));
+    fmt.println(go.Slice<Object?>.of([$_bomb().$ifaceCopy()], _$e0));
     strings.Builder sb = strings.Builder();
     fmt.fprintf(
       sb ?? strings.Builder.$nil,
@@ -166,6 +158,24 @@ bool _$inited = false;
 void $goInit() {
   if (_$inited) return;
   _$inited = true;
+}
+
+/// Métodos de Safe promovidos por embedding (delegação).
+mixin Safe$Promote {
+  Safe? get $Safe;
+  void format(fmt.State? p0, Golang.Int32 p1) => $Safe!.format(p0, p1);
+}
+
+/// Métodos de Pt promovidos por embedding (delegação).
+mixin Pt$Promote {
+  Pt? get $Pt;
+  void format(fmt.State? p0, Golang.Int32 p1) => $Pt!.format(p0, p1);
+}
+
+/// Métodos de bomb promovidos por embedding (delegação).
+mixin $_bomb$Promote {
+  $_bomb? get $$_bomb;
+  void format(fmt.State? p0, Golang.Int32 p1) => $$_bomb!.format(p0, p1);
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.

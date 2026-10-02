@@ -3,6 +3,7 @@
   "shims": {
     "bytes": [
       "Buffer",
+      "Reader",
       "clone",
       "compare",
       "contains",
@@ -34,6 +35,7 @@
       "minRead",
       "newBuffer",
       "newBufferString",
+      "newReader",
       "repeat",
       "replace",
       "replaceAll",
@@ -285,6 +287,9 @@
     ],
     "strings": [
       "Builder",
+      "Reader",
+      "Replacer",
+      "clone",
       "compare",
       "contains",
       "containsAny",
@@ -310,6 +315,8 @@
       "lastIndexByte",
       "lastIndexFunc",
       "map",
+      "newReader",
+      "newReplacer",
       "repeat",
       "replace",
       "replaceAll",
@@ -378,7 +385,22 @@
       "swapUint64"
     ],
     "time": [
-      "Duration"
+      "Duration",
+      "Location",
+      "Month",
+      "Time",
+      "Weekday",
+      "date",
+      "fixedZone",
+      "local",
+      "now",
+      "parseDuration",
+      "since",
+      "unix",
+      "unixMicro",
+      "unixMilli",
+      "until",
+      "utc"
     ],
     "unicode": [
       "CaseRange",

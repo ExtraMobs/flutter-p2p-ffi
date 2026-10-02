@@ -107,7 +107,9 @@ void main() {
       for (var $t2 = 0; $t2 < $t1.length; $t2++) {
         Golang.Int n = $t1[$t2];
         {
-          fmt.println(go.Slice<Object?>.of([n, _grade(n)], _$e0));
+          (switch (_grade(n)) {
+            final $t3 => fmt.println(go.Slice<Object?>.of([n, $t3], _$e0)),
+          });
         }
       }
     }
@@ -121,13 +123,13 @@ void main() {
     );
     Golang.Int count = Golang.Int(0);
     for (Golang.Int i = Golang.Int(0); i < Golang.Int(6); i += Golang.Int(1)) {
-      $t3:
+      $t4:
       {
         if (i == Golang.Int(1)) {
           continue;
         } else if (i % Golang.Int(2) == Golang.Int(0)) {
           count += Golang.Int(10);
-          break $t3;
+          break $t4;
         }
       }
       count += Golang.Int(1);
@@ -143,15 +145,15 @@ void main() {
     ) {
       {
         Golang.Int x = i$1 * Golang.Int(3);
-        var $t5 = -1;
+        var $t6 = -1;
         if (x > Golang.Int(7)) {
-          $t5 = 0;
+          $t6 = 0;
         } else if (x == Golang.Int(3)) {
-          $t5 = 1;
+          $t6 = 1;
         } else if (x == Golang.Int(100)) {
-          $t5 = 2;
+          $t6 = 2;
         }
-        if ($t5 == 0) {
+        if ($t6 == 0) {
           fmt.println(
             go.Slice<Object?>.of([
               Golang.String.fromDart('sai do laço em'),
@@ -160,13 +162,13 @@ void main() {
           );
           break outer;
         }
-        if ($t5 == 1) {
+        if ($t6 == 1) {
           fmt.println(
             go.Slice<Object?>.of([Golang.String.fromDart('três')], _$e0),
           );
-          $t5 = 2;
+          $t6 = 2;
         }
-        if ($t5 == 2) {
+        if ($t6 == 2) {
           fmt.println(
             go.Slice<Object?>.of([
               Golang.String.fromDart('caiu no seguinte'),

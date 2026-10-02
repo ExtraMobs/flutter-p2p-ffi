@@ -74,7 +74,7 @@ class Q extends go.GoStruct<Q> {
   }
 
   @override
-  List<Object?> get $fields => [_anon$8$(), s, null];
+  List<Object?> get $fields => [$_anon$8(), s, null];
 
   @override
   List<String> get $fieldNames => const ['_', 'S', '_'];
@@ -112,13 +112,13 @@ void main() {
 }
 
 /// `struct { X int; Y int }` (struct anônima).
-class _anon$8$ extends go.GoStruct<_anon$8$> {
-  _anon$8$({Golang.Int? x, Golang.Int? y})
+class $_anon$8 extends go.GoStruct<$_anon$8> {
+  $_anon$8({Golang.Int? x, Golang.Int? y})
     : x = x ?? Golang.Int(),
       y = y ?? Golang.Int();
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _anon$8$ $nil = _anon$8$()..$nilPtr = true;
+  static final $_anon$8 $nil = $_anon$8()..$nilPtr = true;
 
   Golang.Int x;
   Golang.Int y;
@@ -131,10 +131,10 @@ class _anon$8$ extends go.GoStruct<_anon$8$> {
   List<String> get $ptrMethods => const [];
 
   @override
-  _anon$8$ $copy() => _anon$8$(x: x, y: y);
+  $_anon$8 $copy() => $_anon$8(x: x, y: y);
 
   @override
-  void $set(_anon$8$ o) {
+  void $set($_anon$8 o) {
     x = o.x;
     y = o.y;
   }

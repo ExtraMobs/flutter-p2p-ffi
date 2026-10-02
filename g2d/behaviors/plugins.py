@@ -11,6 +11,7 @@ from g2d.services.calls import Calls
 from g2d.services.concurrency import Concurrency
 from g2d.services.control import ControlFlow
 from g2d.services.descriptors import DescriptorRegistry
+from g2d.services.evalorder import EvalOrder
 from g2d.services.functions import Functions
 from g2d.services.goinfo import GoTypeInfo
 from g2d.services.imports import ImportTable
@@ -30,7 +31,7 @@ class CorePlugin(Plugin):
 
     SERVICES = [ImportTable, Naming, TypeSystem, TypeMapper, DescriptorRegistry, ValueSemantics,
                 Literals, GoTypeInfo, Operands, Calls, Assertions, ControlFlow, Functions,
-                VarDecls, Promotion]
+                VarDecls, Promotion, EvalOrder]
     ANALYSES = [analyses.ImplementsAnalysis, analyses.MethodsAnalysis, analyses.TopNamesAnalysis,
                 analyses.BoxingAnalysis, analyses.LocalTypesAnalysis, analyses.RecoverAnalysis, analyses.InitVarsAnalysis,
                 analyses.InitFuncsAnalysis]

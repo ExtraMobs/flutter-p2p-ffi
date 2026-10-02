@@ -123,18 +123,20 @@ void main() {
     );
     Golang.Float32 f32 = Golang.Float32(0.10000000149011612);
     Golang.Float64 f64 = Golang.Float64(0.1);
-    fmt.println(
-      go.Slice<Object?>.of([
-        f32,
-        f64,
-        f32 * Golang.Float32(3.0),
-        f64 * Golang.Float64(3.0),
-        _half(Golang.Float32(1.0)),
-        Golang.Float64(f32.toDouble()),
-        Golang.Float64(1e+21),
-        Golang.Float64(0.0),
-      ], _$e0),
-    );
+    (switch (_half(Golang.Float32(1.0))) {
+      final $t1 => fmt.println(
+        go.Slice<Object?>.of([
+          f32,
+          f64,
+          f32 * Golang.Float32(3.0),
+          f64 * Golang.Float64(3.0),
+          $t1,
+          Golang.Float64(f32.toDouble()),
+          Golang.Float64(1e+21),
+          Golang.Float64(0.0),
+        ], _$e0),
+      ),
+    });
     Golang.Float64 zero = Golang.Float64(0.0);
     fmt.println(
       go.Slice<Object?>.of([
@@ -274,15 +276,15 @@ void main() {
         ),
       ], _$e0),
     );
-    go.GoMap<_main$pt$, Golang.String> mp =
-        go.GoMap<_main$pt$, Golang.String>.of({
-          _main$pt$(x: Golang.Int(2), y: Golang.Int(1)): Golang.String.fromDart(
+    go.GoMap<$_main$pt, Golang.String> mp =
+        go.GoMap<$_main$pt, Golang.String>.of({
+          $_main$pt(x: Golang.Int(2), y: Golang.Int(1)): Golang.String.fromDart(
             'c',
           ),
-          _main$pt$(x: Golang.Int(1), y: Golang.Int(5)): Golang.String.fromDart(
+          $_main$pt(x: Golang.Int(1), y: Golang.Int(5)): Golang.String.fromDart(
             'b',
           ),
-          _main$pt$(x: Golang.Int(1), y: Golang.Int(2)): Golang.String.fromDart(
+          $_main$pt(x: Golang.Int(1), y: Golang.Int(2)): Golang.String.fromDart(
             'a',
           ),
         }, _$e3);
@@ -309,13 +311,13 @@ void main() {
   });
 }
 
-class _main$pt$ extends go.GoStruct<_main$pt$> {
-  _main$pt$({Golang.Int? x, Golang.Int? y})
+class $_main$pt extends go.GoStruct<$_main$pt> {
+  $_main$pt({Golang.Int? x, Golang.Int? y})
     : _x = x ?? Golang.Int(),
       _y = y ?? Golang.Int();
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _main$pt$ $nil = _main$pt$()..$nilPtr = true;
+  static final $_main$pt $nil = $_main$pt()..$nilPtr = true;
 
   Golang.Int _x;
   Golang.Int _y;
@@ -328,10 +330,10 @@ class _main$pt$ extends go.GoStruct<_main$pt$> {
   List<String> get $ptrMethods => const [];
 
   @override
-  _main$pt$ $copy() => _main$pt$(x: _x, y: _y);
+  $_main$pt $copy() => $_main$pt(x: _x, y: _y);
 
   @override
-  void $set(_main$pt$ o) {
+  void $set($_main$pt o) {
     _x = o._x;
     _y = o._y;
   }
