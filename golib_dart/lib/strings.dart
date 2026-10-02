@@ -10,6 +10,8 @@ import 'fmt.dart' show Stringer;
 import 'io.dart' as io;
 import 'fixed_types/golang.dart' as Golang;
 import 'src/unicode/utf8.dart';
+import 'unicode.dart' as unicode;
 
 part 'src/strings/funcs.dart';
 part 'src/strings/builder.dart';
+part 'src/strings/case.dart';

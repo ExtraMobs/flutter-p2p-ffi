@@ -10,9 +10,11 @@ import 'fmt.dart' show Stringer;
 import 'io.dart' as io;
 import 'fixed_types/golang.dart' as Golang;
 import 'src/unicode/utf8.dart';
+import 'unicode.dart' as unicode;
 
 part 'src/bytes/funcs.dart';
 part 'src/bytes/buffer.dart';
+part 'src/bytes/case.dart';
 
 typedef _Bytes = Slice<Golang.Uint8>;
 
