@@ -127,7 +127,7 @@ void main() {
           Golang.String.fromDart('%v'),
           go.Slice<Object?>.of([p ?? const go.NilPtr<Golang.Int>()], _$e1),
         ),
-        fmt.sprint(go.Slice<Object?>.of([f], _$e1)),
+        fmt.sprint(go.Slice<Object?>.of([go.Func(f, 'func()')], _$e1)),
         fmt.sprintf(
           Golang.String.fromDart('%p'),
           go.Slice<Object?>.of([p ?? const go.NilPtr<Golang.Int>()], _$e1),
@@ -142,7 +142,7 @@ void main() {
         ),
         fmt.sprintf(
           Golang.String.fromDart('%p'),
-          go.Slice<Object?>.of([f], _$e1),
+          go.Slice<Object?>.of([go.Func(f, 'func()')], _$e1),
         ),
         fmt.sprintf(
           Golang.String.fromDart('%p'),

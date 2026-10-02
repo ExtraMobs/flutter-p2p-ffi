@@ -39,6 +39,8 @@ STDLIB_SHIMS = {
     "errors": "package:golib_dart/errors.dart",
     "fmt": "package:golib_dart/fmt.dart",
     "io": "package:golib_dart/io.dart",
+    "io/fs": "package:golib_dart/io/fs.dart",
+    "os": "package:golib_dart/os.dart",
     "math": "package:golib_dart/math.dart",
     "math/bits": "package:golib_dart/math/bits.dart",
     "regexp": "package:golib_dart/regexp.dart",
@@ -48,5 +50,6 @@ STDLIB_SHIMS = {
     "sync": "package:golib_dart/sync.dart",
     "sync/atomic": "package:golib_dart/sync/atomic.dart",
     "time": "package:golib_dart/time.dart",
+    "unicode": "package:golib_dart/unicode.dart",
     "unicode/utf8": "package:golib_dart/unicode/utf8.dart",
 }

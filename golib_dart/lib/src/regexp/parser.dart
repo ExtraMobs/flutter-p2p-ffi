@@ -250,7 +250,7 @@ class _Parser {
           return;
       }
     }
-    final cls = _Class();
+    final cls = _Class()..fold = flags & _fFold != 0;
     if (_parseUnicodeClass(cur, cls) || _parsePerlClass(cur, cls)) {
       items.add(_Node(_K.cls)..cls = cls);
       return;

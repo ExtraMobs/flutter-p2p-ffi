@@ -53,17 +53,41 @@ class _Node {
 }
 
 /// Conjunto de runas de uma classe `[...]`, `\d`, `\pL`: intervalos
-/// (pares lo, hi), propriedades Unicode (com sinal) e negação.
+/// (pares lo, hi), propriedades Unicode (com sinal) e negação. Com `fold`,
+/// o que entra é dobrado na hora do parse (`appendFoldedRange` do Go),
+/// antes de qualquer negação.
 class _Class {
   final List<int> ranges = [];
   final List<(_Prop, bool)> props = [];
   bool neg = false;
   bool fold = false;
+  List<int>? _norm;
 
   void addRange(int lo, int hi) {
     ranges
       ..add(lo)
       ..add(hi);
+    if (!fold) return;
+    // simpleFold só muda runas entre 0x41 e 0x1e943.
+    final from = lo < 0x41 ? 0x41 : lo, to = hi > 0x1e943 ? 0x1e943 : hi;
+    for (var c = from; c <= to; c++) {
+      for (final f in _orbit(c)) {
+        if (f != c && (f < lo || f > hi)) {
+          ranges
+            ..add(f)
+            ..add(f);
+        }
+      }
+    }
+  }
+
+  /// Grupo fixo (`\d`, `[:alpha:]`), dobrado e só então negado.
+  void addGroup(List<int> g, {bool negate = false}) {
+    final tmp = _Class()..fold = fold;
+    for (var i = 0; i < g.length; i += 2) {
+      tmp.addRange(g[i], g[i + 1]);
+    }
+    addRanges(tmp.ranges, negate: negate);
   }
 
   void addRanges(List<int> rs, {bool negate = false}) {
@@ -76,113 +100,132 @@ class _Class {
       for (var i = 0; i < rs.length; i += 2) (rs[i], rs[i + 1]),
     ]..sort((a, b) => a.$1.compareTo(b.$1));
     for (final (lo, hi) in sorted) {
-      if (lo > next) addRange(next, lo - 1);
+      if (lo > next)
+        ranges
+          ..add(next)
+          ..add(lo - 1);
       if (hi + 1 > next) next = hi + 1;
     }
-    if (next <= _maxRune) addRange(next, _maxRune);
+    if (next <= _maxRune)
+      ranges
+        ..add(next)
+        ..add(_maxRune);
+  }
+
+  List<int> _normalized() {
+    final pairs = <(int, int)>[
+      for (var i = 0; i < ranges.length; i += 2) (ranges[i], ranges[i + 1]),
+    ]..sort((a, b) => a.$1.compareTo(b.$1));
+    final out = <int>[];
+    for (final (lo, hi) in pairs) {
+      if (out.isNotEmpty && lo <= out.last + 1) {
+        if (hi > out.last) out[out.length - 1] = hi;
+      } else {
+        out
+          ..add(lo)
+          ..add(hi);
+      }
+    }
+    return out;
   }
 
   bool _in(int r) {
-    for (var i = 0; i < ranges.length; i += 2) {
-      if (r >= ranges[i] && r <= ranges[i + 1]) return true;
+    final n = _norm ??= _normalized();
+    var lo = 0, hi = n.length ~/ 2 - 1;
+    while (lo <= hi) {
+      final m = (lo + hi) >> 1;
+      if (r < n[2 * m]) {
+        hi = m - 1;
+      } else if (r > n[2 * m + 1]) {
+        lo = m + 1;
+      } else {
+        return true;
+      }
     }
     for (final (p, neg) in props) {
-      if (p.test(r) != neg) return true;
+      if (p.test(r, fold) != neg) return true;
     }
     return false;
   }
 
-  bool matches(int r) {
-    var ok = _in(r);
-    if (!ok && fold) {
-      for (final v in _orbit(r)) {
-        if (v != r && _in(v)) {
-          ok = true;
-          break;
-        }
-      }
-    }
-    return ok != neg;
-  }
+  bool matches(int r) => _in(r) != neg;
 }
 
 final Map<int, List<int>> _orbitCache = {};
 
-// Órbitas de dobra de caixa com mais de duas runas (`unicode.SimpleFold`)
-// que maiúscula/minúscula do Dart não reconstroem sozinhas.
-const _orbits = [
-  [0x3a3, 0x3c3, 0x3c2],
-  [0xb5, 0x39c, 0x3bc],
-  [0xc5, 0xe5, 0x212b],
-  [0x398, 0x3b8, 0x3d1, 0x3f4],
-  [0x392, 0x3b2, 0x3d0],
-  [0x395, 0x3b5, 0x3f5],
-  [0x39a, 0x3ba, 0x3f0],
-  [0x3a0, 0x3c0, 0x3d6],
-  [0x3a1, 0x3c1, 0x3f1],
-  [0x3a6, 0x3c6, 0x3d5],
-  [0x3a9, 0x3c9, 0x2126],
-  [0x1e60, 0x1e61, 0x1e9b],
-  [0x345, 0x399, 0x3b9, 0x1fbe],
-];
-
-/// Runas equivalentes a `r` por dobra de caixa simples (aproxima
-/// `unicode.SimpleFold`: maiúscula/minúscula do Dart mais K/S especiais).
+/// Ciclo de `unicode.SimpleFold` de `r` (inclui `r`).
 List<int> _orbit(int r) {
   if (_orbitCache[r] case final c?) return c;
-  final out = <int>{r};
-  for (var round = 0; round < 2; round++) {
-    for (final c in out.toList()) {
-      if (c >= 0xd800 && c <= 0xdfff) continue;
-      final s = String.fromCharCode(c);
-      for (final t in [s.toLowerCase(), s.toUpperCase()]) {
-        final rs = t.runes;
-        if (rs.length == 1) out.add(rs.first);
-      }
-    }
+  final out = [r];
+  for (
+    var f = unicode.simpleFold(Golang.Rune(r)).toInt();
+    f != r;
+    f = unicode.simpleFold(Golang.Rune(f)).toInt()
+  ) {
+    out.add(f);
   }
-  for (final g in _orbits) {
-    if (out.any(g.contains)) out.addAll(g);
-  }
-  if (out.contains(0x6b)) out.add(0x212a);
-  if (out.contains(0x212a)) out.addAll([0x4b, 0x6b]);
-  if (out.contains(0x73)) out.add(0x17f);
-  if (out.contains(0x17f)) out.addAll([0x53, 0x73]);
-  return _orbitCache[r] = out.toList()..sort();
+  return _orbitCache[r] = out;
 }
 
-/// Propriedade Unicode (`\p{L}`, `\p{Greek}`) avaliada pelo `RegExp` do
-/// Dart com `unicode: true` (tabelas Unicode da plataforma).
+/// Tabela Unicode do Go (`unicode.Categories`/`Scripts`) de `\p{Nome}`.
 class _Prop {
-  _Prop._(this._re);
+  _Prop._(this._table);
 
-  final RegExp _re;
-  final Map<int, bool> _memo = {};
+  final unicode.RangeTable? _table; // null = Any
 
-  bool test(int r) => _memo[r] ??= _re.hasMatch(String.fromCharCode(r));
+  bool _t(int r) => _table == null || unicode.is$(_table, Golang.Rune(r));
 
-  static final Map<String, _Prop?> _cache = {};
+  /// Com `fold`: alguma runa do ciclo de dobra está na tabela (as tabelas
+  /// `FoldCategory`/`FoldScript` do Go).
+  bool test(int r, bool fold) {
+    if (_t(r)) return true;
+    if (!fold) return false;
+    return _orbit(r).any(_t);
+  }
 
-  static const _cats = {
-    'C', 'Cc', 'Cf', 'Co', 'Cs', 'L', 'Ll', 'Lm', 'Lo', 'Lt', 'Lu', //
-    'M', 'Mc', 'Me', 'Mn', 'N', 'Nd', 'Nl', 'No', 'P', 'Pc', 'Pd', 'Pe',
-    'Pf', 'Pi', 'Po', 'Ps', 'S', 'Sc', 'Sk', 'Sm', 'So', 'Z', 'Zl', 'Zp',
-    'Zs',
+  static final Map<String, unicode.RangeTable> _cats = {
+    'C': unicode.c,
+    'Cc': unicode.cc,
+    'Cf': unicode.cf,
+    'Co': unicode.co,
+    'Cs': unicode.cs,
+    'L': unicode.l,
+    'Ll': unicode.ll,
+    'Lm': unicode.lm,
+    'Lo': unicode.lo,
+    'Lt': unicode.lt,
+    'Lu': unicode.lu,
+    'M': unicode.m,
+    'Mc': unicode.mc,
+    'Me': unicode.me,
+    'Mn': unicode.mn,
+    'N': unicode.n,
+    'Nd': unicode.nd,
+    'Nl': unicode.nl,
+    'No': unicode.no,
+    'P': unicode.p,
+    'Pc': unicode.pc,
+    'Pd': unicode.pd,
+    'Pe': unicode.pe,
+    'Pf': unicode.pf,
+    'Pi': unicode.pi,
+    'Po': unicode.po,
+    'Ps': unicode.ps,
+    'S': unicode.s,
+    'Sc': unicode.sc,
+    'Sk': unicode.sk,
+    'Sm': unicode.sm,
+    'So': unicode.so,
+    'Z': unicode.z,
+    'Zl': unicode.zl,
+    'Zp': unicode.zp,
+    'Zs': unicode.zs,
   };
 
   /// `null` se o Go também rejeitaria o nome.
-  static _Prop? lookup(String name) => _cache.putIfAbsent(name, () {
-    if (name == 'Any') return _Prop._(RegExp(r'[\s\S]', unicode: true));
-    try {
-      if (_cats.contains(name)) {
-        return _Prop._(RegExp('\\p{$name}', unicode: true));
-      }
-      if (RegExp(r'^[A-Z][A-Za-z_]*$').hasMatch(name)) {
-        return _Prop._(RegExp('\\p{Script=$name}', unicode: true));
-      }
-    } on FormatException {
-      return null;
-    }
-    return null;
-  });
+  static _Prop? lookup(String name) {
+    if (name == 'Any') return _Prop._(null);
+    final t = _cats[name] ?? unicode.scripts[name];
+    return t == null ? null : _Prop._(t);
+  }
 }

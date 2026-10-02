@@ -127,7 +127,7 @@ final class _Printer implements State {
         _b.add(_ascii('%!(NOVERB)'));
         break;
       }
-      final (verb, size) = _decodeRune(f, i);
+      final (verb, size) = decodeRune(f, i);
       i += size;
       if (verb == 0x25) {
         _b.addByte(0x25); // `%%` não consome operando nem usa largura
@@ -222,7 +222,7 @@ final class _Printer implements State {
   }
 
   void _writeRune(int r) =>
-      _b.add(utf8.encode(String.fromCharCode(_validRune(r))));
+      _b.add(utf8.encode(String.fromCharCode(validRune(r))));
 
   // -------------------------------------------------------------- operandos
   void _printArg(Object? arg, int verb, int depth) {
@@ -428,6 +428,7 @@ final class _Printer implements State {
 
   static String _typeName(Object a) => switch (a) {
     bool() => 'bool',
+    Func f => f.sig,
     GoValue v when !v.$isValue => '*${v.$goType}',
     Golang.GoTyped t => t.$goType,
     Addr(target: final Golang.GoTyped t?) => '*${t.$goType}',
@@ -454,7 +455,7 @@ final class _Printer implements State {
       case 0x71: // q
         if (_fmt.sharp) throw UnimplementedError('fmt: %#q de runa');
         final r = utf8.encode(String.fromCharCode(_runeOf(v)));
-        _fmt.pad(_quote(r, 0x27, _fmt.plus));
+        _fmt.pad(quoteBytes(r, 0x27, _fmt.plus));
       case 0x55: // U
         _fmt.fmtUnicode(v);
       default:
@@ -462,9 +463,8 @@ final class _Printer implements State {
     }
   }
 
-  static int _runeOf(BigInt v) => v.isNegative || v > BigInt.from(0x10ffff)
-      ? 0xfffd
-      : _validRune(v.toInt());
+  static int _runeOf(BigInt v) =>
+      v.isNegative || v > BigInt.from(0x10ffff) ? 0xfffd : validRune(v.toInt());
 
   void _fmtFloatVerb(double v, int bits, int verb) {
     switch (verb) {
@@ -497,10 +497,10 @@ final class _Printer implements State {
         _fmt.fmtSbx(s, _hexUpper);
       case 0x71: // q
         final t = _fmt.truncate(s);
-        if (_fmt.sharp && _canBackquote(t)) {
+        if (_fmt.sharp && canBackquote(t)) {
           _fmt.pad([0x60, ...t, 0x60]);
         } else {
-          _fmt.pad(_quote(t, 0x22, _fmt.plus));
+          _fmt.pad(quoteBytes(t, 0x22, _fmt.plus));
         }
       default:
         _badVerb(verb);

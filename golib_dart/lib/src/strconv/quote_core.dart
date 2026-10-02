@@ -1,10 +1,20 @@
-part of '../../fmt.dart';
+/// Núcleo de `strconv.Quote`/`CanBackquote` e da decodificação de runas do
+/// Go; compartilhado por `fmt` (`%q`) e `strconv`.
+library;
 
-int _validRune(int r) =>
+import 'dart:convert';
+
+import '../unicode/isprint.dart';
+
+const _hexLower = '0123456789abcdef';
+
+List<int> _ascii(String s) => s.codeUnits;
+
+int validRune(int r) =>
     r < 0 || r > 0x10ffff || (r >= 0xd800 && r <= 0xdfff) ? 0xfffd : r;
 
 /// Runa UTF-8 em `s[i]`: (runa, largura); inválida → (U+FFFD, 1).
-(int, int) _decodeRune(List<int> s, int i) {
+(int, int) decodeRune(List<int> s, int i) {
   final c = s[i];
   if (c < 0x80) return (c, 1);
   final int need, min;
@@ -36,9 +46,9 @@ int _validRune(int r) =>
   return (r, need + 1);
 }
 
-int _runeCount(List<int> s) {
+int runeCount(List<int> s) {
   var n = 0;
-  for (var i = 0; i < s.length; i += _decodeRune(s, i).$2) {
+  for (var i = 0; i < s.length; i += decodeRune(s, i).$2) {
     n++;
   }
   return n;
@@ -46,10 +56,10 @@ int _runeCount(List<int> s) {
 
 /// `strconv.Quote` (`quote` = `"`) / `QuoteRune` (`'`); `ascii`: as versões
 /// `...ToASCII`. Byte inválido vira `\xNN`.
-List<int> _quote(List<int> s, int quote, bool ascii) {
+List<int> quoteBytes(List<int> s, int quote, bool ascii) {
   final out = <int>[quote];
   for (var i = 0; i < s.length;) {
-    final (r, w) = _decodeRune(s, i);
+    final (r, w) = decodeRune(s, i);
     if (w == 1 && s[i] >= 0x80) {
       out.addAll(_ascii('\\x'));
       out.add(_hexLower.codeUnitAt(s[i] >> 4));
@@ -94,9 +104,9 @@ List<int> _quote(List<int> s, int quote, bool ascii) {
 }
 
 /// `strconv.CanBackquote`.
-bool _canBackquote(List<int> s) {
+bool canBackquote(List<int> s) {
   for (var i = 0; i < s.length;) {
-    final (r, w) = _decodeRune(s, i);
+    final (r, w) = decodeRune(s, i);
     if (w == 1 && s[i] >= 0x80) return false;
     i += w;
     if (r == 0xfeff || r == 0x60 || (r < 0x20 && r != 0x09) || r == 0x7f) {

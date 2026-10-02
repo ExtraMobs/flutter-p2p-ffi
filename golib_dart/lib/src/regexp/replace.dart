@@ -35,10 +35,8 @@ Golang.String _replaceAll(Regexp re, Uint8List src, int ncap, _Repl repl) =>
 List<int> _replaceAllBytes(Regexp re, Uint8List src, int ncap, _Repl repl) =>
     _replaceAllList(re, src, ncap, repl);
 
-bool _isLetterOrDigit(int r) {
-  if (r < 0x80) return _isAlnum(r);
-  return _Prop.lookup('L')!.test(r) || _Prop.lookup('Nd')!.test(r);
-}
+bool _isLetterOrDigit(int r) =>
+    unicode.isLetter(Golang.Rune(r)) || unicode.isDigit(Golang.Rune(r));
 
 /// `extract` do Go: nome de `$name`/`${name}` (e o número, se só dígitos).
 ({String name, int num, int rest})? _extract(Uint8List t, int i) {

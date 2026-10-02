@@ -39,7 +39,7 @@ bool _parsePerlClass(_Cur cur, _Class into) {
   }
   if (c != lower && c != 0x44 && c != 0x53 && c != 0x57) return false;
   cur.i += 2;
-  into.addRanges(g, negate: c != lower);
+  into.addGroup(g, negate: c != lower);
   return true;
 }
 
@@ -61,7 +61,7 @@ bool _parseNamedClass(_Cur cur, _Class into) {
   final g = _posix[n];
   if (g == null) throw _SyntaxError('invalid character class range', name);
   cur.i = j + 2;
-  into.addRanges(g, negate: neg);
+  into.addGroup(g, negate: neg);
   return true;
 }
 

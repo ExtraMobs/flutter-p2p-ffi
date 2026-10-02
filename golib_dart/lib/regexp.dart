@@ -12,6 +12,7 @@ import 'dart:typed_data';
 import 'builtin.dart';
 import 'fmt.dart' show Stringer;
 import 'fixed_types/golang.dart' as Golang;
+import 'unicode.dart' as unicode;
 import 'src/unicode/isprint.dart' as isprint;
 
 part 'src/regexp/ast.dart';
