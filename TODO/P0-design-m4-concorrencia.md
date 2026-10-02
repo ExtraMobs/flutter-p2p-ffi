@@ -56,3 +56,36 @@ Artefato guarda-chuva: quebrar em artefatos menores ao começar o M4.
 deadlock do Go (`go.fatal`). Com goroutines, `Lock`/`Wait`/`Cond.Wait` precisam suspender (async) em vez
 de encerrar, e `WaitGroup.Go` (ausente hoje) passa a existir.
 
+## Runtime (feito)
+
+A parte de `golib_dart` está pronta e testada (VM, JS e Wasm); falta só o lado do g2d (análise de cor
+e emissão de `go`/`chan`/`<-`/`select`/`range` sobre canal — nenhuma mudança em `g2d/` neste commit).
+Detalhe completo em `docs/mapping-spec.md` § "Concorrência (M4) — runtime". Resumo:
+
+- **`go.Chan<T>`** (`golib_dart/lib/src/runtime/chan.dart`): `make`/`send`/`recv`/`recv2`/`close`,
+  FIFO de remetentes e receptores (sem buffer = entrega direta, com buffer = fila), canal nil bloqueia
+  pra sempre, panics com as mensagens exatas do Go (`send on closed channel`, `close of closed
+  channel`, `close of nil channel`, `makechan: size out of range`, conferidas com `go run`).
+- **`go.select`/`go.selectNow`** (`select.dart`): `SelectCase`/`SendCase<T>`/`RecvCase<T>`; escolha
+  uniforme pseudoaleatória entre prontos, como o Go; canal nil nunca fica pronto.
+- **`go.spawn`/deadlock** (`sched.dart`): `go f()` sempre agenda (nunca roda síncrono); contadores de
+  goroutines vivas/bloqueadas + `holdEvents`/`releaseEvents` (fontes de evento externo, pra outros
+  shims como `time.Sleep` usarem depois) detectam `fatal error: all goroutines are asleep -
+  deadlock!` (código 2, igual ao Go) depois que as microtasks assentam.
+- **`go.runMain`** (`defer.dart`): aceita `main` assíncrono; ao terminar, descarrega stdout/stderr e
+  encerra NA HORA (código 0/2), mesmo com goroutines/timers pendentes, como o Go ao retornar de
+  `main`. Resolvido de caminho: bug de truncamento do `exit()` (VM e Node, sem esperar I/O pendente)
+  e um gap do `dart2js` sob Node (precisa do global `self`, que o Node não define, pro primeiro
+  `await` de QUALQUER programa gerado — nem precisa de goroutine).
+- **`Defers.runAsync`**: como `run()`, mas aguardando defer que devolve `Future`; o quadro que
+  `recover()` consulta passou de pilha global pra `Zone` por chamada (goroutines intercaladas através
+  de um `await` no meio de um defer quebrariam a pilha global — `defer_async_test.dart` prova).
+- **`sync` `$async`** (`lock$async`, `rLock$async`, `wait$async`, `do$async`, `WaitGroup.go`):
+  suspendem de verdade em vez de `fatal`; RWMutex com preferência de escritor. Síncrono continua
+  valendo pra uma goroutine só; travado com outras vivas é limite do g2d (`fatal` `g2d: ...`).
+
+Testes: `golib_dart/test/{chan,select,sync_async,defer_async}_test.dart` (unitários) e
+`golib_dart/test/fixtures/{deadlock_recv,panic_goroutine,immediate_exit}.dart` (subprocesso, VM/JS/Wasm,
+conferidos com `go run`). Golden do g2d (`defers`, `deferbuiltin`, `defernamed`, `syncshim`,
+`syncatomic`, `hello`) continuam idênticos em VM/JS/Wasm.
+

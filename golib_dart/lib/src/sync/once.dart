@@ -8,6 +8,7 @@ final class Once extends GoStruct<Once> {
 
   bool _done = false;
   bool _running = false;
+  final _waiters = Queue<Completer<void>>();
 
   @override
   String get $goType => 'sync.Once';
@@ -33,16 +34,58 @@ final class Once extends GoStruct<Once> {
   List<String> get $fieldNames => const ['_', 'done', 'm'];
 
   /// `Do(f)`: f roda uma vez; se f entrar em panic, conta como feito (o Go
-  /// marca `done` num defer). `Do` dentro de f é deadlock, como no Go.
+  /// marca `done` num defer). `Do` concorrente dentro de f, sem outra
+  /// goroutine viva, é deadlock; com outras vivas, limite do g2d (só
+  /// `do$async` de fato espera a primeira chamada terminar).
   void do$(void Function()? f) {
     if (_done) return;
-    if (_running) fatal(_deadlock);
+    if (_running) {
+      if (aliveGoroutines <= 1) fatal(_deadlock);
+      fatal(
+        'g2d: Once.Do síncrono concorrente com outra chamada em andamento '
+        '(contexto que não pode suspender); era preciso do\$async aqui',
+      );
+    }
     _running = true;
     try {
       f!();
     } finally {
       _running = false;
       _done = true;
+      _wakeWaiters();
+    }
+  }
+
+  /// `Do(f)` suspensivo: chamadas concorrentes esperam a primeira terminar
+  /// (mesmo que ela entre em panic — o Go marca `done` num defer, então elas
+  /// só voltam a rodar `f`, nunca; ficam sem panic, como no Go).
+  Future<void> do$async(FutureOr<void> Function()? f) async {
+    if (_done) return;
+    if (_running) {
+      final c = Completer<void>();
+      _waiters.add(c);
+      goroutineBlocked();
+      try {
+        await c.future;
+      } finally {
+        goroutineUnblocked();
+      }
+      return;
+    }
+    _running = true;
+    try {
+      final r = f!();
+      if (r is Future) await r;
+    } finally {
+      _running = false;
+      _done = true;
+      _wakeWaiters();
+    }
+  }
+
+  void _wakeWaiters() {
+    while (_waiters.isNotEmpty) {
+      _waiters.removeFirst().complete();
     }
   }
 }

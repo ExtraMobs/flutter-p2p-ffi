@@ -47,7 +47,7 @@ Legenda: ✅ fiel · ⚠️ fiel no caso comum, com limite conhecido · ❌ não
 | embedding (promoção) | caminho `$sel.index` + `mixin E$Promote` (forwarders) | M3 | ✅ |
 | genéricos | parâmetros de tipo Dart + dicionário `go.Elem<T>` (`$T`) + bounds `IntBase/GoReal/GoOrdered/StringBase` | M3 | ✅ |
 | arrays `[N]T` (valor) | `go.GoArray<T>` (base `go.GoValue`, como `GoStruct`) | M3 | ✅ |
-| goroutines, canais, `select` | `Chan<T>` + scheduler (async/Streams) | M4 | ❌ |
+| goroutines, canais, `select` | `go.Chan<T>`, `go.select`/`go.selectNow`, `go.spawn` + escalonador (ver "Concorrência (M4) — runtime" abaixo) | M4 | ⚠️ runtime pronto; emissão do `go`/`select`/`<-`/`range` sobre chan pelo g2d ainda não (linha `go, select, range sobre chan/func` abaixo) |
 | reflexão | descritores estáticos (evolução de `go.Elem`) | M5 | ❌ |
 
 ## Plataformas: ponteiros e `Type` (verificado)
@@ -259,6 +259,123 @@ criado com `identity: true` (`Map.identity()`), então compara endereços.
   `this` (a cópia do Go): `final N$Ptr c = N$Ptr(go.Box<N>(this));` (fixture
   `recvaddr`).
 
+## Concorrência (M4) — runtime
+
+Goroutines viram código `async` do Dart sobre o único event loop: cooperativo,
+nunca paralelo de verdade (nem em AOT: uma só thread Dart roda o programa
+inteiro). Uma função Go que pode suspender (operação de canal, `select` sem
+`default`, `Lock` contendido, `WaitGroup.Wait`, `Cond.Wait`, `Sleep`, I/O) é
+emitida `async`, e quem a chama usa `await` — a análise de cor e a emissão
+são do g2d (`TODO/P0-design-m4-concorrencia.md`; ainda não feitas). Esta
+seção documenta só o runtime, em `golib_dart/lib/src/runtime/{chan,select,
+sched}.dart` e `golib_dart/lib/src/sync/*.dart`, exportado por `builtin.dart`
+(prefixo `go`).
+
+### `Chan<T>` (`src/runtime/chan.dart`)
+
+| Membro | Semântica |
+|---|---|
+| `Chan(int cap, T zero)` | `make(chan T, cap)`; `cap` negativo ou absurdamente grande → `panic: makechan: size out of range` (não dá pra calcular o limite real do Go — que é por bytes do elemento — sem um layout Go; o limite aqui é só uma trava de sanidade) |
+| `int get len`, `int get cap` | `len(ch)`/`cap(ch)` |
+| `Future<void> send(T v)` | `ch <- v`: sem buffer, só volta quando um `recv` pegou o valor (entrega direta); com buffer, enfileira e só bloqueia com o buffer cheio |
+| `Future<T> recv()`, `Future<(T, bool)> recv2()` | `<-ch` / `v, ok := <-ch`; FIFO de receptores |
+| `void close()` | `close(ch)`: acorda todo mundo esperando recv com `(zero, false)`; quem estava esperando send panica (`send on closed channel`) — o valor não é entregue |
+| `==`/`hashCode` | identidade (herdados de `Object`, sem override) — é a igualdade de canal do Go |
+| `chanSend`/`chanRecv`/`chanRecv2`/`chanClose`/`chanLen`/`chanCap` (funções livres, `Chan<T>?`) | canal nil: `send`/`recv` bloqueiam pra sempre (conta como bloqueada pro detector de deadlock); `close` → `panic: close of nil channel`; `len`/`cap` → 0 |
+
+Panics de canal (mensagens conferidas com `go run`, ver `chan_test.dart`):
+`send on closed channel`, `close of closed channel`, `close of nil channel`,
+`makechan: size out of range` — sempre `go.Panic(go.RuntimeError(...))`
+(recover devolve um `runtime.Error` cujo `Error()` é a mensagem, igual ao Go).
+
+### `select` (`src/runtime/select.dart`)
+
+`sealed class SelectCase`, com `SendCase<T>(ch, value)` e `RecvCase<T>(ch)`.
+`(int, Object?, bool) selectNow(cases)` nunca suspende (`select` com
+`default`): `-1` se nada está pronto. `Future<(int, Object?, bool)>
+select(cases)` bloqueia até algum caso ficar pronto. Em ambos, mais de um
+caso pronto ao mesmo tempo é decidido por escolha uniforme pseudoaleatória,
+como o Go; um `case` com canal nil nunca fica pronto (`select {}`, ou só com
+canais nil, bloqueia pra sempre); um `send` escolhido cujo canal está (ou
+fica, enquanto o `select` esperava) fechado panica igual a um `send` direto.
+
+### Escalonador (`src/runtime/sched.dart`)
+
+- `void spawn(FutureOr<void> Function() body)`: `go f()`. Nunca roda `body`
+  na hora — sempre agenda (`scheduleMicrotask`), como o `go` do Go devolve
+  antes da goroutine nova começar. Panic não recuperado dentro de `body`
+  imprime `panic: <valor>\n\ngoroutine N [running]:\n<stack>` no stderr e
+  encerra o processo com código 2 — mesmo com outras goroutines (inclusive a
+  `main`) ainda vivas, como o Go.
+- Detecção de deadlock: contadores globais de goroutines vivas (`main`
+  conta como uma goroutine "ambiente" implícita, nunca decrementada; `spawn`
+  soma/some uma unidade real por goroutine) e bloqueadas (canal, `select`,
+  mutex, `WaitGroup`, `Cond`), mais `holdEvents()`/`releaseEvents()` (fontes
+  de evento externo pendentes — timers, I/O — que outros shims chamam ao
+  agendar/resolver). Quando bloqueadas ≥ vivas e nada pendente, depois que
+  as microtasks assentarem (`Timer.run`, pra não falso-positivar com uma
+  goroutine recém-`spawn`ada que ainda não rodou): `fatal(...)` →
+  `fatal error: all goroutines are asleep - deadlock!`, código 2 — mensagem
+  e código conferidos com `go run` (fixture `deadlock_recv.dart`).
+- `Future<void> runMain(FutureOr<void> Function() main)`: ponto de entrada
+  (aceita `main` síncrono ou assíncrono — compatível com o código já
+  gerado). Ao terminar — sucesso ou panic —, descarrega stdout/stderr
+  (`flushOutput()`; `exit()` do `dart:io`/Node não espera I/O assíncrono
+  pendente por padrão e pode truncar saída) e encerra o processo NA HORA
+  (código 0 ou 2), mesmo com goroutines ou timers ainda vivos, como o Go faz
+  ao retornar de `main` (fixture `immediate_exit.dart`).
+
+`dart2js` só sabe agendar microtasks/timers olhando globais de browser/worker
+(`self.scheduleImmediate`...), que o Node não define; sem isso, o primeiro
+`await` de QUALQUER programa gerado (nem precisa de goroutine — `runMain`
+sempre tem pelo menos o `await flushOutput()` final) quebrava calado em
+`dart compile js` + `node`. `output_web.dart` poliifla (`self =
+globalThis`, só em Node) antes do primeiro ponto que pode precisar agendar;
+`dart compile wasm` não passa por isto (import condicional em
+`src/runtime/output*.dart`).
+
+### `defer`/`recover` com goroutines (`src/runtime/defer.dart`)
+
+`Defers.runAsync()` é como `run()`, mas aguarda cada `defer` que devolve
+`Future` (função `async` com `defer`). O quadro que `recover()` consulta
+("estou dentro de qual `Defers` agora?") vive numa `Zone` por chamada
+(`Zone.current.fork(zoneValues: {...})`), não numa pilha estática
+compartilhada: com goroutines se intercalando através de um `await` no meio
+de uma closure diferida, uma pilha global devolveria o quadro de quem
+tivesse empurrado por último — não necessariamente o certo (`Zone` carrega o
+valor certo através do próprio `await` de cada cadeia assíncrona, mesmo
+intercalada com outras). `defer_async_test.dart` prova a intercalação que
+quebraria a pilha global.
+
+### `sync` com goroutines (`src/sync/*.dart`)
+
+Cada primitiva que pode bloquear ganha uma variante suspensiva de sufixo
+`$` (impossível em Go — nunca colide): `Mutex.lock$async()`,
+`RWMutex.lock$async()`/`rLock$async()` (preferência de escritor: `Lock`
+pendente bloqueia `RLock` novo, síncrono ou não), `WaitGroup.wait$async()`,
+`Cond.wait$async()` (destrava `L`, espera `Signal`/`Broadcast`, retrava —
+com `L.lock$async()` se `L` for um `AsyncLocker`, senão o `lock()` síncrono
+dele), `Once.do$async(f)` (chamada concorrente espera a primeira terminar,
+sem rodar `f` de novo — mesmo que ela entre em panic: o Go marca `done` num
+defer, então só a primeira propaga o panic). `WaitGroup.go(f)` (Go 1.25):
+`Add(1)` + `spawn` + `Done` (mesmo em panic). `Unlock`/`RUnlock`/`Signal`/
+`Broadcast`/`Done` continuam síncronos: acordam quem espera em ordem FIFO,
+por handoff direto (a posse passa pro próximo sem "destravar" de verdade).
+
+As versões síncronas (`lock()`, `wait()`...) continuam valendo: sem outras
+goroutines vivas, esperar por algo que só outra resolveria é o deadlock de
+sempre (`go.fatal`); COM outras goroutines vivas, a versão síncrona travada
+é um **limite do g2d** — algum contexto que precisava ficar síncrono (ex.
+um método `String()`, que não pode virar `async`) tentou uma espera que só
+a variante `$async` resolveria de verdade — e vira `fatal` com mensagem em
+português começando com `g2d:` (não o `all goroutines are asleep` do Go,
+que seria enganoso: não é um deadlock real, é o transpilador não tendo como
+suspender ali).
+
+`$ptrMethods` (method set usado por `implements`/reflexão de shim) não
+ganha os `$async`: eles não são nomes Go — quem decide qual versão chamar é
+a cor da chamada, do lado do g2d, nunca um lookup por nome Go em runtime.
+
 ## Valores e expressões
 
 | Go | Dart |
@@ -308,7 +425,7 @@ criado com `identity: true` (`Map.identity()`), então compara endereços.
 | `defer f(a)` | `{ final $t = a; $d.defer(() { f($t); }); }`, com o corpo em `try`/`catch`/`finally` de `go.Defers` |
 | `defer f()` com f de tipo func nomeado | o closure em `f.$f` (pode receber `$rd` e recuperar); assinatura do subjacente (fixture `defernamed`) |
 | `defer delete(m, k)`, `defer panic(v)`, `defer clear(s)`... | mesmo caminho, com a chamada do builtin no closure (fixture `deferbuiltin`); `defer recover()` → `Unsupported` `defer-recover` (no Go não recupera) |
-| `go`, `select`, range sobre chan/func | ❌ (M4) |
+| `go`, `select`, range sobre chan/func | ❌ ainda no g2d (runtime pronto: "Concorrência (M4) — runtime" abaixo) |
 | `goto` | ❌ exigiria reescrever a função como máquina de estados. Medido no grafo do kubo (`docs/audit.md`, `branch:goto`): 54 ocorrências em 14 pacotes, 3 na fronteira (ex. gonum `mathext/internal/cephes`); decisão a rever se entrar no caminho |
 
 `defer`: os argumentos (e o receptor) são avaliados no `defer`. As chamadas
@@ -360,8 +477,8 @@ intervalo, nil pointer, escrita em map nil.
 | `os` | parcial (1º recorte portável VM/AOT/JS/Wasm): `getenv`/`lookupEnv` (JS/Wasm sem Node: `""`/`false`), `exit`, `getpid`, `args` (só `[nome do programa]`), `stdin`/`stdout`/`stderr` como `*File` (`write`, `writeString`, `close`, `name`, `fd`; `ErrClosed` depois de `Close`; `Read` não existe), `errNotExist`/`errExist`/`errPermission`/`errClosed`/`errInvalid`/`errNoDeadline`/`errDeadlineExceeded`, `isNotExist`/`isExist`/`isPermission`/`isTimeout` (como o `underlyingError` do Go). ❌ sistema de arquivos (`Open`, `ReadFile`, `Stat`, `MkdirAll`...): `Unsupported` `shim-simbolo:os.*` (`TODO/P0-shim-os.md`). Fixture `osbasic` |
 | `io/fs` | parcial: `PathError` (struct, `os.PathError` é alias), `FileMode` (`Uint32Base`; `IsDir`/`IsRegular`/`Perm`/`Type`/`String` sem `<<` acima de 30 bits), `errInvalid`/`errPermission`/`errExist`/`errNotExist`/`errClosed`. Fixture `osbasic` |
 | `time` | parcial: `Duration` (classe sobre `Int64Base`, a mesma forma de `type N int64` gerado; `String()` portado do Go, `Seconds`/`Minutes`/`Hours`/`Round`/`Truncate`/`Abs`/...); as constantes (`time.Second`) dobradas em `time.Duration(n)`. ❌ `Time`, `Now`, timers (`TODO/P0-shim-time.md`). Fixture `timeduration` |
-| `sync` | `Mutex`, `RWMutex`, `Once`, `WaitGroup`, `Pool` (campo `New` → `new$`), `Map$` (`sync.Map`; chave com igualdade de interface), `Cond`/`NewCond`, `Locker` (interface de shim), `OnceFunc`/`OnceValue`/`OnceValues`, como structs de shim. Sem goroutines (M4) a semântica é determinística: esperar o que só outra goroutine faria (Lock travado, `Wait` com contador > 0, `Cond.Wait`) é o deadlock do Go (`go.fatal`, sem recover); unlock de destravado é o fatal error do Go. ⚠️ `Map.Range` em ordem de inserção; `Pool` nunca é esvaziado pelo GC; `%v` de `Map`/`Pool`/`Cond` lança. ❌ `WaitGroup.Go` (M4). Fixture `syncshim` |
-| `sync/atomic` | `Int32`/`Int64`/`Uint32`/`Uint64`/`Uintptr`/`Bool`/`Value`/`Pointer[T]` (T struct) como structs de shim (`%v` como o Go: `{{} {} 5}`); `Add*`/`Load*`/`Store*`/`Swap*`/`CompareAndSwap*` sobre `go.Ptr`. Num isolate só são leituras/escritas simples (M4 decide com goroutines). Variantes `*Pointer` (unsafe) → `unsafe:Pointer`. Fixture `syncatomic` |
+| `sync` | `Mutex`, `RWMutex`, `Once`, `WaitGroup`, `Pool` (campo `New` → `new$`), `Map$` (`sync.Map`; chave com igualdade de interface), `Cond`/`NewCond`, `Locker`/`AsyncLocker` (interfaces de shim), `OnceFunc`/`OnceValue`/`OnceValues`, como structs de shim. Método síncrono (`Lock`, `Wait`...) continua valendo pra uma goroutine só: esperar o que só outra goroutine faria é o deadlock do Go (`go.fatal`, sem recover); unlock de destravado é o fatal error do Go. Com goroutines (M4), cada um ganha uma variante suspensiva de sufixo `$` (`lock$async`, `rLock$async`, `wait$async`, `do$async`; ver "Concorrência (M4) — runtime"), que o g2d escolhe pela cor da chamada; a versão síncrona travada com outras goroutines vivas é um limite do g2d (`fatal` com `g2d: ...`). `WaitGroup.Go` (Go 1.25) existe. ⚠️ `Map.Range` em ordem de inserção; `Pool` nunca é esvaziado pelo GC; `%v` de `Map`/`Pool`/`Cond` lança. Fixture `syncshim` |
+| `sync/atomic` | `Int32`/`Int64`/`Uint32`/`Uint64`/`Uintptr`/`Bool`/`Value`/`Pointer[T]` (T struct) como structs de shim (`%v` como o Go: `{{} {} 5}`); `Add*`/`Load*`/`Store*`/`Swap*`/`CompareAndSwap*` sobre `go.Ptr`. Decidido no M4: mesmo com goroutines, leitura/escrita simples continua certa — são cooperativas sobre um só event loop, nunca truly paralelas (ao contrário das OS threads que o `atomic` do Go protege), então não há corrida de verdade a impedir. Variantes `*Pointer` (unsafe) → `unsafe:Pointer`. Fixture `syncatomic` |
 | `fmt.Fprint`, `Fprintln`, `Fprintf` | `fmt.fprint(w, args)`: a mesma formatação, num só `w.write(bytes)` |
 | `sort` | `Interface` (interface de shim: tipo gerado que a satisfaz declara `implements sort.Interface`), `sort`, `stable`, `isSorted`, `slice$`, `sliceStable`, `search`, `ints`, `strings`, `float64s`: porta exata do pdqsort/stable do Go (mesmas chamadas a `Less`/`Swap`, mesmo resultado para iguais); swap de slice via `go.swapElems` (copia struct/array antes) |
 
