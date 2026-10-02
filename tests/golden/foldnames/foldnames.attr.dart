@@ -105,5 +105,11 @@ void $goInit() {
   pdf.value = Golang.String.fromDart('pdf');
 }
 
+/// Métodos de KeyValue promovidos por embedding (delegação).
+mixin KeyValue$Promote {
+  KeyValue? get $KeyValue;
+  Golang.String describe() => $KeyValue!.describe();
+}
+
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
 const _$e0 = go.Elem<Object?>(16, go.zeroNull, pointers: true);

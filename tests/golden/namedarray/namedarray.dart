@@ -218,6 +218,12 @@ void $goInit() {
   _$inited = true;
 }
 
+/// Métodos de Hash promovidos por embedding (delegação).
+mixin Hash$Promote {
+  Hash? get $Hash;
+  Golang.String hex() => $Hash!.hex();
+}
+
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
 Golang.Uint8 _$f0_1(Golang.FloatBase f) =>
     Golang.Uint8.from(f.toInteger(8, signed: false));

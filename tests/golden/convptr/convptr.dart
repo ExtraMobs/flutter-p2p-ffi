@@ -9,13 +9,13 @@ import 'package:golib_dart/math/bits.dart' as bits;
 import 'package:golib_dart/fmt.dart' as fmt;
 import 'package:golib_dart/builtin.dart' as go;
 
-final class _int64s$ extends Golang.Uint64Base<_int64s$> {
-  _int64s$([int v = 0]) : super(v);
-  _int64s$.from(Golang.IntBase v) : super.from(v);
-  _int64s$.fromBigInt(BigInt v) : super.fromBigInt(v);
-  _int64s$._(super.$hi, super.$lo) : super.raw();
+final class $_int64s extends Golang.Uint64Base<$_int64s> {
+  $_int64s([int v = 0]) : super(v);
+  $_int64s.from(Golang.IntBase v) : super.from(v);
+  $_int64s.fromBigInt(BigInt v) : super.fromBigInt(v);
+  $_int64s._(super.$hi, super.$lo) : super.raw();
   @override
-  _int64s$ $make(int hi, int lo) => _int64s$._(hi, lo);
+  $_int64s $make(int hi, int lo) => $_int64s._(hi, lo);
   @override
   String get $goType => 'main.int64s';
   @override
@@ -23,11 +23,11 @@ final class _int64s$ extends Golang.Uint64Base<_int64s$> {
 }
 
 /// `*main.int64s`: vista sobre qualquer ponteiro para o valor.
-final class _int64s$$Ptr extends go.PtrView<_int64s$> {
-  _int64s$$Ptr(super.$p);
+final class $_int64s$Ptr extends go.PtrView<$_int64s> {
+  $_int64s$Ptr(super.$p);
 
   /// `(*N)(nil)` dentro de uma interface (não é nil no Go).
-  static final _int64s$$Ptr $nil = _int64s$$Ptr(const go.NilPtr<_int64s$>());
+  static final $_int64s$Ptr $nil = $_int64s$Ptr(const go.NilPtr<$_int64s>());
 
   @override
   String get $goType => '*main.int64s';
@@ -46,10 +46,10 @@ final class _int64s$$Ptr extends go.PtrView<_int64s$> {
 
   void set(Golang.Uint64 n) {
     go
-            .convPtr<Golang.Uint64, _int64s$>(
+            .convPtr<Golang.Uint64, $_int64s>(
               this,
               (v) => Golang.Uint64.from(v),
-              (v) => _int64s$.from(v),
+              (v) => $_int64s.from(v),
             )!
             .value |=
         Golang.Uint64(1) << go.shiftCount(n);
@@ -57,16 +57,16 @@ final class _int64s$$Ptr extends go.PtrView<_int64s$> {
 
   void clear(Golang.Uint64 n) {
     go
-        .convPtr<Golang.Uint64, _int64s$>(
+        .convPtr<Golang.Uint64, $_int64s>(
           this,
           (v) => Golang.Uint64.from(v),
-          (v) => _int64s$.from(v),
+          (v) => $_int64s.from(v),
         )!
         .value = go
-        .convPtr<Golang.Uint64, _int64s$>(
+        .convPtr<Golang.Uint64, $_int64s>(
           this,
           (v) => Golang.Uint64.from(v),
-          (v) => _int64s$.from(v),
+          (v) => $_int64s.from(v),
         )!
         .value
         .andNot(Golang.Uint64(1) << go.shiftCount(n));
@@ -74,12 +74,12 @@ final class _int64s$$Ptr extends go.PtrView<_int64s$> {
 }
 
 class Ints extends go.GoStruct<Ints> {
-  Ints({_int64s$? lo}) : _lo = lo ?? _int64s$();
+  Ints({$_int64s? lo}) : _lo = lo ?? $_int64s();
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
   static final Ints $nil = Ints()..$nilPtr = true;
 
-  _int64s$ _lo;
+  $_int64s _lo;
 
   @override
   String get $goType => 'main.Ints';
@@ -157,7 +157,7 @@ void _try(void Function()? f) {
 void main() {
   go.runMain(() {
     $goInit();
-    final _int64s$$Ptr bs = _int64s$$Ptr(go.Box<_int64s$>(_int64s$()));
+    final $_int64s$Ptr bs = $_int64s$Ptr(go.Box<$_int64s>($_int64s()));
     bs.set(Golang.Uint64(3));
     bs.set(Golang.Uint64(5));
     bs.clear(Golang.Uint64(3));
@@ -170,8 +170,8 @@ void main() {
       ], _$e0),
     );
     Ints s = Ints();
-    _int64s$$Ptr(
-      go.FieldPtr<Ints, _int64s$>(s, '_lo', (o) => o._lo, (o, v) => o._lo = v),
+    $_int64s$Ptr(
+      go.FieldPtr<Ints, $_int64s>(s, '_lo', (o) => o._lo, (o, v) => o._lo = v),
     ).set(Golang.Uint64(1));
     fmt.println(go.Slice<Object?>.of([s._lo, s.$ifaceCopy()], _$e0));
     final go.Box<F> f = go.Box<F>(F(1.5));
@@ -253,6 +253,11 @@ bool _$inited = false;
 void $goInit() {
   if (_$inited) return;
   _$inited = true;
+}
+
+/// Métodos de int64s promovidos por embedding (delegação).
+mixin $_int64s$Promote {
+  $_int64s? get $$_int64s;
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.

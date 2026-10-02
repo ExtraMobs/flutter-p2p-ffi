@@ -164,5 +164,24 @@ void $goInit() {
   _$inited = true;
 }
 
+/// Métodos de Celsius promovidos por embedding (delegação).
+mixin Celsius$Promote {
+  Celsius? get $Celsius;
+  Golang.String string() => $Celsius!.string();
+  Fahrenheit toF() => $Celsius!.toF();
+}
+
+/// Métodos de ID promovidos por embedding (delegação).
+mixin ID$Promote {
+  ID? get $ID;
+  ID next() => $ID!.next();
+}
+
+/// Métodos de Name promovidos por embedding (delegação).
+mixin Name$Promote {
+  Name? get $Name;
+  Golang.String greeting() => $Name!.greeting();
+}
+
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
 const _$e0 = go.Elem<Object?>(16, go.zeroNull, pointers: true);

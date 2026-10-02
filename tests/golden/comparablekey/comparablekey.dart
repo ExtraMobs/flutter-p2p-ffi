@@ -12,13 +12,13 @@ abstract mixin class Key {
   Golang.Int shard(Golang.Int p0);
 }
 
-final class _id$ extends Golang.Int64Base<_id$> implements Key {
-  _id$([int v = 0]) : super(v);
-  _id$.from(Golang.IntBase v) : super.from(v);
-  _id$.fromBigInt(BigInt v) : super.fromBigInt(v);
-  _id$._(super.$hi, super.$lo) : super.raw();
+final class $_id extends Golang.Int64Base<$_id> implements Key {
+  $_id([int v = 0]) : super(v);
+  $_id.from(Golang.IntBase v) : super.from(v);
+  $_id.fromBigInt(BigInt v) : super.fromBigInt(v);
+  $_id._(super.$hi, super.$lo) : super.raw();
   @override
-  _id$ $make(int hi, int lo) => _id$._(hi, lo);
+  $_id $make(int hi, int lo) => $_id._(hi, lo);
   @override
   String get $goType => 'main.id';
   @override
@@ -74,13 +74,13 @@ class Cache<K extends Key, V> extends go.GoStruct<Cache<K, V>> {
 void main() {
   go.runMain(() {
     $goInit();
-    Cache<_id$, Golang.String> c = Cache<_id$, Golang.String>(_$e0, _$e1);
+    Cache<$_id, Golang.String> c = Cache<$_id, Golang.String>(_$e0, _$e1);
     fmt.println(
       go.Slice<Object?>.of([
-        c.put(_id$(7), Golang.String.fromDart('x')),
-        c.put(_id$(9), Golang.String.fromDart('y')),
+        c.put($_id(7), Golang.String.fromDart('x')),
+        c.put($_id(9), Golang.String.fromDart('y')),
         Golang.Int(c._m.length),
-        c._m[_id$(7)],
+        c._m[$_id(7)],
       ], _$e2),
     );
   });
@@ -94,8 +94,14 @@ void $goInit() {
   _$inited = true;
 }
 
+/// Métodos de id promovidos por embedding (delegação).
+mixin $_id$Promote {
+  $_id? get $$_id;
+  Golang.Int shard(Golang.Int p0) => $$_id!.shard(p0);
+}
+
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
-_id$ _$f0_1(Golang.FloatBase f) => _id$.from(f.toInteger(64, signed: true));
-const _$e0 = go.Elem<_id$>(8, _id$.new, ofInt: _id$.from, ofFloat: _$f0_1);
+$_id _$f0_1(Golang.FloatBase f) => $_id.from(f.toInteger(64, signed: true));
+const _$e0 = go.Elem<$_id>(8, $_id.new, ofInt: $_id.from, ofFloat: _$f0_1);
 const _$e1 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);
 const _$e2 = go.Elem<Object?>(16, go.zeroNull, pointers: true);

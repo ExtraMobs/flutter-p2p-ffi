@@ -145,6 +145,13 @@ void $goInit() {
   _$inited = true;
 }
 
+/// Métodos de Z promovidos por embedding (delegação).
+mixin Z$Promote {
+  Z? get $Z;
+  Z conj() => $Z!.conj();
+  Golang.String string() => $Z!.string();
+}
+
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
 const _$e0 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
 Golang.Int _$f1_2(Golang.FloatBase f) =>

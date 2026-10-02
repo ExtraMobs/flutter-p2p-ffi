@@ -118,6 +118,19 @@ void $goInit() {
   _$inited = true;
 }
 
+/// Métodos de Counter promovidos por embedding (delegação).
+mixin Counter$Promote {
+  Counter? get $Counter;
+  Counter addr$() => $Counter!.addr$();
+  Counter twice() => $Counter!.twice();
+}
+
+/// Métodos de Stack promovidos por embedding (delegação).
+mixin Stack$Promote {
+  Stack? get $Stack;
+  Stack with$(Golang.Int p0) => $Stack!.with$(p0);
+}
+
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
 Golang.Int _$f0_1(Golang.FloatBase f) =>
     Golang.Int.from(f.toInteger(64, signed: true));

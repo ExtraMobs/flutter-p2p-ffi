@@ -44,7 +44,7 @@ Legenda: ✅ fiel · ⚠️ fiel no caso comum, com limite conhecido · ❌ não
 | tipos nomeados sobre básicos | classe gerada sobre `Golang.<Largura>Base/FloatBase/StringBase<S>` | M3 | ✅ |
 | interfaces, type assertion, type switch | `abstract mixin class` + `implements` (go/types) + `go.assertType/assertIface/tryType/isType`; `x.(func(...))` comma-ok com o tipo anulável (o zero é nil). Tipo func sem nome (`x.(func(...))`/`case func(...):`) usa `go.Func` (linha abaixo): identidade exata pelo nome Go do tipo, não `is` (o Dart testa subtipo entre funcs: retorno covariante com `void` no topo, parâmetros contravariantes). Tipo func nomeado (`type Op func(...)`) já é nominal pela classe gerada, sem passar por `go.Func` | M3 | ✅ |
 | tipo func sem nome guardado numa interface | `go.Func` embrulha a closure com o nome Go do tipo (o de `%T`); `isFuncType`/`assertFunc`/`tryFunc`/`unwrapFunc` comparam o nome em vez de `is`. ⚠️ parâmetro de tipo com union de funcs (`~func() \| ~func() error`, ex. go.uber.org/fx.Callable) só sabe o nome Go concreto em cada instanciação, não dentro do corpo genérico: `any(x)` de um `T` assim continua sem embrulho e cai no teste de subtipo do Dart (fixture `constraintloose`, função `wrap`) | M3 | ✅ |
-| embedding (promoção) | caminho `$sel.index` + `mixin E$Promote` (forwarders) | M3 | ✅ |
+| embedding (promoção) | caminho `$sel.index` + `mixin E$Promote` (forwarders), sempre na library de `E`, mesmo pra quem embute `E` de outro pacote | M3 | ✅ |
 | genéricos | parâmetros de tipo Dart + dicionário `go.Elem<T>` (`$T`) + bounds `IntBase/GoReal/GoOrdered/StringBase` | M3 | ✅ |
 | arrays `[N]T` (valor) | `go.GoArray<T>` (base `go.GoValue`, como `GoStruct`) | M3 | ✅ |
 | goroutines, canais, `select` | `go.Chan<T>`, `go.select`/`go.selectNow`, `go.spawn` + escalonador; `async`/`await` pela cor transitiva (ver "Concorrência (M4) — runtime" e "Cor transitiva" abaixo) | M4 | ⚠️ runtime e emissão prontos; valor func `async`, `$goInit` que suspende e timers/`context` ainda não |
@@ -106,7 +106,7 @@ Legenda: ✅ fiel · ⚠️ fiel no caso comum, com limite conhecido · ❌ não
 | Go | Dart | Limite |
 |---|---|---|
 | tipo exportado `Greeter` | `Greeter` (tipo `Golang` → `Golang$`) | |
-| tipo não exportado `point` | `_point$`: o `$` separa do membro não exportado `_point` (campo embutido, campo ou método com o nome do tipo sombreariam a classe; fixture `embedprivate`) | |
+| tipo não exportado `point` | `$_point` — **público** (`$` não é `_`: no Dart privacidade é só por `_` inicial, caixa não importa). Outro pacote não pode nomear `point` no Go, mas pode recebê-lo por inferência (`x := a.New()` com `New() *point`), e o g2d declara locais com tipo explícito e descritores `go.Elem<T>` que citam `a.$_point`; a privacidade Go já garante que ninguém escreve esse nome à mão. `$_` nunca colide: não é produzido por `ascii_name` (só `$u`/`$U`), nem por um tipo exportado (maiúscula ASCII, ou `$u`/`$U` no raro caso de maiúscula Unicode fora do ASCII), nem pelo membro não exportado do mesmo nome (`_point`, um só `_`), nem pelo membro exportado em lowerCamel de um nome parecido (`type foo` → tipo `$_foo`; `func Foo` → membro `foo`). Fixtures `embedprivate`, `unexportedcross` (multi-pacote: `TODO/P1-design-tipos-nao-exportados-entre-libraries`, resolvido) | ✅ |
 | func/var/const/campo/método exportado `HTTPServer` | `httpServer` (lowerCamel ciente de siglas) | ✅ |
 | func/var/const de pacote exportados que só diferem por caixa (`BOOL`/`Bool`, `FOO`/`Foo`) | o goast marca `fold` nos dois (também quando usados de outro pacote); o que perde a caixa de mais de uma letra no lowerCamel mantém a grafia Go (`BOOL`), o outro segue a regra (`bool$`). Nomes assim nunca colidem entre si nem com um lowerCamel | ✅ (fixture `foldnames`). ⚠️ campos/métodos: sem ocorrência no grafo do kubo, colidiriam |
 | idem não exportado `add` | `_add` (privado da library = do pacote) | |
@@ -114,7 +114,7 @@ Legenda: ✅ fiel · ⚠️ fiel no caso comum, com limite conhecido · ❌ não
 | palavra reservada Dart (`new`, `in`, ...) | sufixo `$` (`new$`) | |
 | nome do `dart:core` usado pelo código gerado (`Object`, `Map`, `String`, `List`, `Function`, `BigInt`, `identical`, `int`, `bool`, ...: `DART_CORE_USED`) | sufixo `$` (`Object$`, `identical$`, local `int$`), para não sombrear o core na library | |
 | método/campo exportado com o nome de um membro das bases estendidas (`Delete`, `Append`, `Value`, `Length`, `Call`, `ToString`, ...: `DART_BASE_MEMBERS`) | sufixo `$` (`delete$`, `value$`, `toString$`), em todo lugar, inclusive nas interfaces (o despacho continua casando) | |
-| tipo declarado dentro de função | içado para a library como `_<função>$<Tipo>$` (`_first$pair$`; método: `_<Recv>_<Método>$<Tipo>$`; repetido na função: sufixo numérico) | em função genérica, a classe içada é genérica nos parâmetros da função (`_wrap$box$<T>`, dicionários no construtor; fixture `localgeneric`) |
+| tipo declarado dentro de função | içado para a library como `<função>$<Tipo>` (nome sintético sempre minúsculo no início, então sempre pela regra de tipo não exportado acima: `$_first$pair`; método: `$_<Recv>_<Método>$<Tipo>`; repetido na função: sufixo numérico). Nunca colide com um tipo de pacote de verdade: o nome sintético sempre tem um `$` literal no meio, que um identificador Go não pode ter | em função genérica, a classe içada é genérica nos parâmetros da função (`$_wrap$box$<T>`, dicionários no construtor; fixture `localgeneric`) |
 | letra não-ASCII (`Δ`, `Ωmega`) | `$uXXXX` (BMP) ou `$UXXXXXXXX`, largura fixa como no C (`Δ` → `$u0394`, `Δ0` → `$u03940`); o Go decide exportado por `unicode.IsUpper` (`Δx` → `$u03b4x`, `δx` → `_$u03b4x`) | ✅ (fixture `mathshim`) |
 | temporários e descritores | `$tN`, `_$eN`, `_$zN` (Go não permite `$`) | |
 
@@ -617,11 +617,53 @@ métodos da classe. As conversões usam os construtores:
 - O campo embutido é um campo comum.
 - Seleções promovidas seguem o caminho do go/types (`d.base.id`,
   `d.logger!.prefix`, nil → panic).
-- Para satisfazer interfaces, o method set promovido de um tipo embutido `E`
-  vira um **`mixin E$Promote`** (ou `E$PromotePtr`), gerado uma vez por
-  tipo: forwarders `m() => $E.m()` que mantêm o valor embutido como
-  receptor. A struct usa `with E$Promote` quando todo o method set de `E` é
-  promovido. Com sombreamento ou ambiguidade, os forwarders vão inline.
+- O pacote que declara um tipo nomeado `E` (struct, ou nomeado sobre
+  básico/slice/map/func/array, não genérico, com method set não vazio)
+  **sempre emite** `mixin E$Promote` — getter `$E` anulável + forwarders
+  `m() => $E!.m()` — mesmo sem uso local: quem embute `E` mais tarde (no
+  mesmo pacote ou em outro) não é conhecido no momento em que `E` é
+  emitido. Um único mixin serve embedding por valor e por ponteiro (getter
+  sempre anulável; `!` redundante no caso por valor, coberto pelo
+  `ignore_for_file`). A struct usa `with E$Promote` (com o import
+  qualificado, se `E` for de outro pacote) quando todo o method set de `E`
+  é promovido, sem sombreamento nem ambiguidade — o goast/go-types já
+  resolve os dois (um método ambíguo simplesmente não aparece no method
+  set promovido; dois embutidos de pacotes diferentes com método não
+  exportado de mesmo nome **não** são ambíguos, porque no Go um
+  identificador não exportado é por pacote — o Dart tem a mesma regra de
+  privacidade por library, então os dois mixins convivem na mesma classe
+  sem colidir). Com sombreamento, ambiguidade, `E` genérico, `E` de um
+  shim da stdlib (sem mixin pra referenciar) ou `E` interface (o valor é
+  uma prova de outra classe, sem forwarder concreto pra reusar): os
+  forwarders promovidos vão inline.
+- **Privacidade por library, entre pacotes.** Um método não exportado só
+  pode ser citado pelo nome (`_secret`) no Dart gerado a partir da library
+  de quem o declara de fato — `_secret` escrito em `b.dart` não é o mesmo
+  símbolo que `_secret` escrito em `a.dart`, mesmo que uma classe de `b`
+  tenha, por herança/mixin, um `_secret` vindo de `a` (verificado contra
+  oráculo `dart analyze`: `The method '_secret' isn't defined for the type
+  'W'`). Por isso o mixin `E$Promote` só repassa um método não exportado
+  quando é o próprio `E` quem o declara (`owner_pkg(E, index) == E.pkg`,
+  seguindo a cadeia de embedding pelo índice do goast); um método não
+  exportado que `E` promoveu de um embutido seu **não** entra no
+  `E$Promote` de `E` (⚠️ um pacote que embute `E` esperando promoção
+  completa desse método, transitivamente, não consegue: `mixin` não pode
+  ter `with`, então não dá pra encadear o mixin do dono de fato a partir
+  do mixin de `E`; quem precisar disso hoje tem de embutir o dono
+  diretamente. `TODO/P1-design-promocao-transitiva-nao-exportada.md`).
+  Método exportado não tem essa restrição (nome público, a mesma library
+  em qualquer lugar) e sempre é repassado.
+- Tipo nomeado sobre básico/slice/map/func: o método de receptor ponteiro
+  só existe na classe `E$Ptr`, não na classe `E` que o getter do mixin usa
+  — `E$Promote` só repassa os de receptor valor (⚠️ sem fixture: nenhum
+  pacote embute hoje um tipo assim esperando o método de ponteiro
+  promovido).
+- Fixtures `embed`, `embedprivate` (dentro do pacote) e `promotecross`
+  (entre pacotes: base do `TODO/P1-design-promocao-entre-pacotes`,
+  resolvido; embedding por ponteiro `*a.T2`, profundidade 2 através de dois
+  pacotes, ambiguidade de método exportado entre dois embutidos de pacotes
+  diferentes, e o caso de método não exportado de mesmo nome em pacotes
+  diferentes não ser ambíguo).
 
 **Genéricos (dicionários).**
 - `func F[T C](x T)` → `T f<T extends B>(go.Elem<T> $T, T x)`. O dicionário

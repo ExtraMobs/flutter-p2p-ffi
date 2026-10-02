@@ -13,21 +13,21 @@ import 'package:golib_dart/io.dart' as io;
 
 binary.BigEndian nbo = binary.BigEndian();
 
-final class _decSymbol$ extends Golang.Uint64Base<_decSymbol$> {
-  _decSymbol$([int v = 0]) : super(v);
-  _decSymbol$.from(Golang.IntBase v) : super.from(v);
-  _decSymbol$.fromBigInt(BigInt v) : super.fromBigInt(v);
-  _decSymbol$._(super.$hi, super.$lo) : super.raw();
+final class $_decSymbol extends Golang.Uint64Base<$_decSymbol> {
+  $_decSymbol([int v = 0]) : super(v);
+  $_decSymbol.from(Golang.IntBase v) : super.from(v);
+  $_decSymbol.fromBigInt(BigInt v) : super.fromBigInt(v);
+  $_decSymbol._(super.$hi, super.$lo) : super.raw();
   @override
-  _decSymbol$ $make(int hi, int lo) => _decSymbol$._(hi, lo);
+  $_decSymbol $make(int hi, int lo) => $_decSymbol._(hi, lo);
   @override
   String get $goType => 'main.decSymbol';
   @override
   List<String> get $methods => const [];
 }
 
-class _rec$ extends go.GoStruct<_rec$> {
-  _rec$({
+class $_rec extends go.GoStruct<$_rec> {
+  $_rec({
     Golang.Uint16? a,
     Golang.Int32? b,
     Golang.Float64? c,
@@ -38,7 +38,7 @@ class _rec$ extends go.GoStruct<_rec$> {
        d = d ?? go.GoArray<Golang.Int8>.zero(2, _$e0);
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _rec$ $nil = _rec$()..$nilPtr = true;
+  static final $_rec $nil = $_rec()..$nilPtr = true;
 
   Golang.Uint16 a;
   Golang.Int32 b;
@@ -53,10 +53,10 @@ class _rec$ extends go.GoStruct<_rec$> {
   List<String> get $ptrMethods => const [];
 
   @override
-  _rec$ $copy() => _rec$(a: a, b: b, c: c, d: d.$copy());
+  $_rec $copy() => $_rec(a: a, b: b, c: c, d: d.$copy());
 
   @override
-  void $set(_rec$ o) {
+  void $set($_rec o) {
     a = o.a;
     b = o.b;
     c = o.c;
@@ -235,7 +235,7 @@ void main() {
         binary.write(
           w ?? bytes.Buffer.$nil,
           binary.littleEndian.$ifaceCopy(),
-          _rec$(
+          $_rec(
             a: Golang.Uint16(1),
             b: Golang.Int32(-2),
             c: Golang.Float64(1.5),
@@ -282,7 +282,7 @@ void main() {
         pair.$ifaceCopy(),
       ], _$e3),
     );
-    go.GoArray<_decSymbol$> dt = go.GoArray<_decSymbol$>.zero(3, _$e6);
+    go.GoArray<$_decSymbol> dt = go.GoArray<$_decSymbol>.zero(3, _$e6);
     final go.Box<Golang.Uint16> sl = go.Box<Golang.Uint16>(Golang.Uint16());
     final go.Box<Golang.Uint8> tl = go.Box<Golang.Uint8>(Golang.Uint8());
     bytes.Buffer? r2 = bytes.newBuffer(
@@ -489,11 +489,11 @@ const _$e5 = go.Elem<Golang.Int16>(
   ofInt: Golang.Int16.from,
   ofFloat: _$f9_6,
 );
-_decSymbol$ _$f11_7(Golang.FloatBase f) =>
-    _decSymbol$.from(f.toInteger(64, signed: false));
-const _$e6 = go.Elem<_decSymbol$>(
+$_decSymbol _$f11_7(Golang.FloatBase f) =>
+    $_decSymbol.from(f.toInteger(64, signed: false));
+const _$e6 = go.Elem<$_decSymbol>(
   8,
-  _decSymbol$.new,
-  ofInt: _decSymbol$.from,
+  $_decSymbol.new,
+  ofInt: $_decSymbol.from,
   ofFloat: _$f11_7,
 );

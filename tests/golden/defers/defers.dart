@@ -471,6 +471,12 @@ void $goInit() {
   _$inited = true;
 }
 
+/// Métodos de R promovidos por embedding (delegação).
+mixin R$Promote {
+  R? get $R;
+  void _deferredMethod() => $R!._deferredMethod();
+}
+
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
 const _$e0 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
 Golang.Int _$f1_2(Golang.FloatBase f) =>

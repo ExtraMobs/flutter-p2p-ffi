@@ -8,7 +8,7 @@ import 'package:golib_dart/fixed_types/golang.dart' as Golang;
 import 'package:golib_dart/fmt.dart' as fmt;
 import 'package:golib_dart/builtin.dart' as go;
 
-class Named extends go.GoStruct<Named> implements _anonIface$14$ {
+class Named extends go.GoStruct<Named> implements $_anonIface$14 {
   Named({Golang.Int? n}) : n = n ?? Golang.Int();
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
@@ -46,17 +46,17 @@ class Named extends go.GoStruct<Named> implements _anonIface$14$ {
 }
 
 Golang.Int _first() {
-  _first$pair$ p = _first$pair$(a: Golang.Int(1), b: Golang.Int(2));
-  _first$pair$ q = p.$copy();
+  $_first$pair p = $_first$pair(a: Golang.Int(1), b: Golang.Int(2));
+  $_first$pair q = p.$copy();
   q._a = Golang.Int(10);
   return p._a + q._a;
 }
 
 Golang.String _second() {
-  return _second$pair$(s: Golang.String.fromDart('dois'))._s;
+  return $_second$pair(s: Golang.String.fromDart('dois'))._s;
 }
 
-Golang.String _describe(_anonIface$14$? v) {
+Golang.String _describe($_anonIface$14? v) {
   return Golang.String.fromDart('<') + v!.name() + Golang.String.fromDart('>');
 }
 
@@ -64,15 +64,15 @@ void main() {
   go.runMain(() {
     $goInit();
     fmt.println(go.Slice<Object?>.of([_first(), _second()], _$e0));
-    go.Slice<_anon$21$> tests = go.Slice<_anon$21$>.of([
-      _anon$21$(in$: Golang.String.fromDart('a'), want: Golang.Int(1)),
-      _anon$21$(in$: Golang.String.fromDart('bb'), want: Golang.Int(2)),
-      _anon$21$(in$: Golang.String.fromDart('ccc'), want: Golang.Int(3)),
+    go.Slice<$_anon$21> tests = go.Slice<$_anon$21>.of([
+      $_anon$21(in$: Golang.String.fromDart('a'), want: Golang.Int(1)),
+      $_anon$21(in$: Golang.String.fromDart('bb'), want: Golang.Int(2)),
+      $_anon$21(in$: Golang.String.fromDart('ccc'), want: Golang.Int(3)),
     ], _$e1);
     {
       final $t1 = tests;
       for (var $t2 = 0; $t2 < $t1.length; $t2++) {
-        _anon$21$ tc = $t1[$t2].$copy();
+        $_anon$21 tc = $t1[$t2].$copy();
         {
           fmt.println(
             go.Slice<Object?>.of([
@@ -83,9 +83,9 @@ void main() {
         }
       }
     }
-    _anon$25$ pt = _anon$25$(x: Golang.Int(1), y: Golang.Int(2));
-    _anon$25$ other = _anon$25$(x: Golang.Int(1), y: Golang.Int(2));
-    _anon$25$ cp = pt.$copy();
+    $_anon$25 pt = $_anon$25(x: Golang.Int(1), y: Golang.Int(2));
+    $_anon$25 other = $_anon$25(x: Golang.Int(1), y: Golang.Int(2));
+    $_anon$25 cp = pt.$copy();
     cp.x = Golang.Int(9);
     fmt.println(
       go.Slice<Object?>.of([
@@ -94,11 +94,11 @@ void main() {
         cp.$ifaceCopy(),
       ], _$e0),
     );
-    _anon$26$ box = _anon$26$();
+    $_anon$26 box = $_anon$26();
     box.items$ = box.items$.append([Golang.String.fromDart('x')]);
     box.count += Golang.Int(1);
     fmt.println(go.Slice<Object?>.of([box.$ifaceCopy()], _$e0));
-    _anonIface$14$? namer = Named(n: Golang.Int(7)).$ifaceCopy();
+    $_anonIface$14? namer = Named(n: Golang.Int(7)).$ifaceCopy();
     fmt.println(
       go.Slice<Object?>.of([
         namer!.name(),
@@ -108,34 +108,34 @@ void main() {
     );
     Object? anyv = Named(n: Golang.Int(9)).$ifaceCopy();
     {
-      var (nm, ok) = go.tryIface<_anonIface$14$>(anyv);
+      var (nm, ok) = go.tryIface<$_anonIface$14>(anyv);
       if (ok) {
         fmt.println(go.Slice<Object?>.of([nm!.name()], _$e0));
       }
     }
-    go.Slice<_main$reading$> rs = go.Slice<_main$reading$>.of([
-      _main$reading$(
+    go.Slice<$_main$reading> rs = go.Slice<$_main$reading>.of([
+      $_main$reading(
         where: Golang.String.fromDart('sala'),
-        temp: _main$celsius$(21.5),
+        temp: $_main$celsius(21.5),
       ),
-      _main$reading$(
+      $_main$reading(
         where: Golang.String.fromDart('rua'),
-        temp: _main$celsius$(-3.0),
+        temp: $_main$celsius(-3.0),
       ),
     ], _$e2);
     fmt.println(
-      go.Slice<Object?>.of([rs, rs[1]._temp + _main$celsius$(1.0)], _$e0),
+      go.Slice<Object?>.of([rs, rs[1]._temp + $_main$celsius(1.0)], _$e0),
     );
   });
 }
 
-class _first$pair$ extends go.GoStruct<_first$pair$> {
-  _first$pair$({Golang.Int? a, Golang.Int? b})
+class $_first$pair extends go.GoStruct<$_first$pair> {
+  $_first$pair({Golang.Int? a, Golang.Int? b})
     : _a = a ?? Golang.Int(),
       _b = b ?? Golang.Int();
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _first$pair$ $nil = _first$pair$()..$nilPtr = true;
+  static final $_first$pair $nil = $_first$pair()..$nilPtr = true;
 
   Golang.Int _a;
   Golang.Int _b;
@@ -148,10 +148,10 @@ class _first$pair$ extends go.GoStruct<_first$pair$> {
   List<String> get $ptrMethods => const [];
 
   @override
-  _first$pair$ $copy() => _first$pair$(a: _a, b: _b);
+  $_first$pair $copy() => $_first$pair(a: _a, b: _b);
 
   @override
-  void $set(_first$pair$ o) {
+  void $set($_first$pair o) {
     _a = o._a;
     _b = o._b;
   }
@@ -163,11 +163,11 @@ class _first$pair$ extends go.GoStruct<_first$pair$> {
   List<String> get $fieldNames => const ['a', 'b'];
 }
 
-class _second$pair$ extends go.GoStruct<_second$pair$> {
-  _second$pair$({Golang.String? s}) : _s = s ?? Golang.String();
+class $_second$pair extends go.GoStruct<$_second$pair> {
+  $_second$pair({Golang.String? s}) : _s = s ?? Golang.String();
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _second$pair$ $nil = _second$pair$()..$nilPtr = true;
+  static final $_second$pair $nil = $_second$pair()..$nilPtr = true;
 
   Golang.String _s;
 
@@ -179,10 +179,10 @@ class _second$pair$ extends go.GoStruct<_second$pair$> {
   List<String> get $ptrMethods => const [];
 
   @override
-  _second$pair$ $copy() => _second$pair$(s: _s);
+  $_second$pair $copy() => $_second$pair(s: _s);
 
   @override
-  void $set(_second$pair$ o) {
+  void $set($_second$pair o) {
     _s = o._s;
   }
 
@@ -193,13 +193,13 @@ class _second$pair$ extends go.GoStruct<_second$pair$> {
   List<String> get $fieldNames => const ['s'];
 }
 
-final class _main$celsius$ extends Golang.FloatBase<_main$celsius$> {
-  _main$celsius$([double v = 0.0]) : _v = Golang.Float64(v);
+final class $_main$celsius extends Golang.FloatBase<$_main$celsius> {
+  $_main$celsius([double v = 0.0]) : _v = Golang.Float64(v);
   final Golang.Float64 _v;
   @override
   double toDouble() => _v.toDouble();
   @override
-  _main$celsius$ $wrapDouble(double v) => _main$celsius$(v);
+  $_main$celsius $wrapDouble(double v) => $_main$celsius(v);
   @override
   int get $bits => 64;
   @override
@@ -208,16 +208,16 @@ final class _main$celsius$ extends Golang.FloatBase<_main$celsius$> {
   List<String> get $methods => const [];
 }
 
-class _main$reading$ extends go.GoStruct<_main$reading$> {
-  _main$reading$({Golang.String? where, _main$celsius$? temp})
+class $_main$reading extends go.GoStruct<$_main$reading> {
+  $_main$reading({Golang.String? where, $_main$celsius? temp})
     : _where = where ?? Golang.String(),
-      _temp = temp ?? _main$celsius$();
+      _temp = temp ?? $_main$celsius();
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _main$reading$ $nil = _main$reading$()..$nilPtr = true;
+  static final $_main$reading $nil = $_main$reading()..$nilPtr = true;
 
   Golang.String _where;
-  _main$celsius$ _temp;
+  $_main$celsius _temp;
 
   @override
   String get $goType => 'main.reading';
@@ -227,10 +227,10 @@ class _main$reading$ extends go.GoStruct<_main$reading$> {
   List<String> get $ptrMethods => const [];
 
   @override
-  _main$reading$ $copy() => _main$reading$(where: _where, temp: _temp);
+  $_main$reading $copy() => $_main$reading(where: _where, temp: _temp);
 
   @override
-  void $set(_main$reading$ o) {
+  void $set($_main$reading o) {
     _where = o._where;
     _temp = o._temp;
   }
@@ -243,18 +243,18 @@ class _main$reading$ extends go.GoStruct<_main$reading$> {
 }
 
 /// `interface { Name() string }` (interface anônima).
-abstract mixin class _anonIface$14$ {
+abstract mixin class $_anonIface$14 {
   Golang.String name();
 }
 
 /// `struct { in string; want int }` (struct anônima).
-class _anon$21$ extends go.GoStruct<_anon$21$> {
-  _anon$21$({Golang.String? in$, Golang.Int? want})
+class $_anon$21 extends go.GoStruct<$_anon$21> {
+  $_anon$21({Golang.String? in$, Golang.Int? want})
     : _in = in$ ?? Golang.String(),
       _want = want ?? Golang.Int();
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _anon$21$ $nil = _anon$21$()..$nilPtr = true;
+  static final $_anon$21 $nil = $_anon$21()..$nilPtr = true;
 
   Golang.String _in;
   Golang.Int _want;
@@ -267,10 +267,10 @@ class _anon$21$ extends go.GoStruct<_anon$21$> {
   List<String> get $ptrMethods => const [];
 
   @override
-  _anon$21$ $copy() => _anon$21$(in$: _in, want: _want);
+  $_anon$21 $copy() => $_anon$21(in$: _in, want: _want);
 
   @override
-  void $set(_anon$21$ o) {
+  void $set($_anon$21 o) {
     _in = o._in;
     _want = o._want;
   }
@@ -283,13 +283,13 @@ class _anon$21$ extends go.GoStruct<_anon$21$> {
 }
 
 /// `struct { X int; Y int }` (struct anônima).
-class _anon$25$ extends go.GoStruct<_anon$25$> {
-  _anon$25$({Golang.Int? x, Golang.Int? y})
+class $_anon$25 extends go.GoStruct<$_anon$25> {
+  $_anon$25({Golang.Int? x, Golang.Int? y})
     : x = x ?? Golang.Int(),
       y = y ?? Golang.Int();
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _anon$25$ $nil = _anon$25$()..$nilPtr = true;
+  static final $_anon$25 $nil = $_anon$25()..$nilPtr = true;
 
   Golang.Int x;
   Golang.Int y;
@@ -302,10 +302,10 @@ class _anon$25$ extends go.GoStruct<_anon$25$> {
   List<String> get $ptrMethods => const [];
 
   @override
-  _anon$25$ $copy() => _anon$25$(x: x, y: y);
+  $_anon$25 $copy() => $_anon$25(x: x, y: y);
 
   @override
-  void $set(_anon$25$ o) {
+  void $set($_anon$25 o) {
     x = o.x;
     y = o.y;
   }
@@ -318,13 +318,13 @@ class _anon$25$ extends go.GoStruct<_anon$25$> {
 }
 
 /// `struct { Items []string; Count int }` (struct anônima).
-class _anon$26$ extends go.GoStruct<_anon$26$> {
-  _anon$26$({go.Slice<Golang.String>? items, Golang.Int? count})
+class $_anon$26 extends go.GoStruct<$_anon$26> {
+  $_anon$26({go.Slice<Golang.String>? items, Golang.Int? count})
     : items$ = items ?? go.Slice<Golang.String>.nil(_$e3),
       count = count ?? Golang.Int();
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _anon$26$ $nil = _anon$26$()..$nilPtr = true;
+  static final $_anon$26 $nil = $_anon$26()..$nilPtr = true;
 
   go.Slice<Golang.String> items$;
   Golang.Int count;
@@ -337,10 +337,10 @@ class _anon$26$ extends go.GoStruct<_anon$26$> {
   List<String> get $ptrMethods => const [];
 
   @override
-  _anon$26$ $copy() => _anon$26$(items: items$, count: count);
+  $_anon$26 $copy() => $_anon$26(items: items$, count: count);
 
   @override
-  void $set(_anon$26$ o) {
+  void $set($_anon$26 o) {
     items$ = o.items$;
     count = o.count;
   }
@@ -363,8 +363,14 @@ void $goInit() {
   _$inited = true;
 }
 
+/// Métodos de Named promovidos por embedding (delegação).
+mixin Named$Promote {
+  Named? get $Named;
+  Golang.String name() => $Named!.name();
+}
+
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
 const _$e0 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
-const _$e1 = go.Elem<_anon$21$>(24, _anon$21$.new, pointers: true);
-const _$e2 = go.Elem<_main$reading$>(24, _main$reading$.new, pointers: true);
+const _$e1 = go.Elem<$_anon$21>(24, $_anon$21.new, pointers: true);
+const _$e2 = go.Elem<$_main$reading>(24, $_main$reading.new, pointers: true);
 const _$e3 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);

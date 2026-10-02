@@ -9,12 +9,12 @@ import 'package:golib_dart/fmt.dart' as fmt;
 import 'package:golib_dart/builtin.dart' as go;
 import 'package:out/g2d.test/dotimport/tok.dart' as tok;
 
-class _pump$ extends go.GoStruct<_pump$> {
-  _pump$({go.Slice<tok.Token>? toks})
+class $_pump extends go.GoStruct<$_pump> {
+  $_pump({go.Slice<tok.Token>? toks})
     : _toks = toks ?? go.Slice<tok.Token>.nil(_$e0);
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _pump$ $nil = _pump$()..$nilPtr = true;
+  static final $_pump $nil = $_pump()..$nilPtr = true;
 
   go.Slice<tok.Token> _toks;
 
@@ -26,10 +26,10 @@ class _pump$ extends go.GoStruct<_pump$> {
   List<String> get $ptrMethods => const ['step'];
 
   @override
-  _pump$ $copy() => _pump$(toks: _toks);
+  $_pump $copy() => $_pump(toks: _toks);
 
   @override
-  void $set(_pump$ o) {
+  void $set($_pump o) {
     _toks = o._toks;
   }
 
@@ -43,7 +43,7 @@ class _pump$ extends go.GoStruct<_pump$> {
   List<String> get $fieldTypes => const ['[]tok.Token'];
 
   void _step(tok.TokenType tt, Golang.String s) {
-    final _pump$? p = $nilPtr ? null : this;
+    final $_pump? p = $nilPtr ? null : this;
     p!._toks = p!._toks.append([tok.Token(type: tt, str: s)]);
   }
 }
@@ -51,7 +51,7 @@ class _pump$ extends go.GoStruct<_pump$> {
 void main() {
   go.runMain(() {
     $goInit();
-    _pump$ p = _pump$();
+    $_pump p = $_pump();
     p._step(tok.TokenType(123), Golang.String.fromDart(''));
     p._step(tok.TokenType(115), Golang.String.fromDart('k'));
     p._step(tok.TokenType(125), Golang.String.fromDart(''));
@@ -88,6 +88,12 @@ void $goInit() {
   if (_$inited) return;
   _$inited = true;
   tok.$goInit();
+}
+
+/// Métodos de pump promovidos por embedding (delegação).
+mixin $_pump$Promote {
+  $_pump? get $$_pump;
+  void _step(tok.TokenType p0, Golang.String p1) => $$_pump!._step(p0, p1);
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.

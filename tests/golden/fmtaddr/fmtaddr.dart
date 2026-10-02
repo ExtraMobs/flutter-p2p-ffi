@@ -237,6 +237,11 @@ void $goInit() {
   _$inited = true;
 }
 
+/// Métodos de N promovidos por embedding (delegação).
+mixin N$Promote {
+  N? get $N;
+}
+
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
 Golang.Int _$f0_1(Golang.FloatBase f) =>
     Golang.Int.from(f.toInteger(64, signed: true));

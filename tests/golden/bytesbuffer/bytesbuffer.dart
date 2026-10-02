@@ -12,12 +12,12 @@ import 'package:golib_dart/io.dart' as io;
 import 'package:golib_dart/strings.dart' as strings;
 
 /// chunks é um io.Reader do usuário que entrega de 3 em 3 bytes.
-class _chunks$ extends go.GoStruct<_chunks$> implements io.Reader {
-  _chunks$({go.Slice<Golang.Uint8>? data})
+class $_chunks extends go.GoStruct<$_chunks> implements io.Reader {
+  $_chunks({go.Slice<Golang.Uint8>? data})
     : _data = data ?? go.Slice<Golang.Uint8>.nil(_$e0);
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _chunks$ $nil = _chunks$()..$nilPtr = true;
+  static final $_chunks $nil = $_chunks()..$nilPtr = true;
 
   go.Slice<Golang.Uint8> _data;
 
@@ -29,10 +29,10 @@ class _chunks$ extends go.GoStruct<_chunks$> implements io.Reader {
   List<String> get $ptrMethods => const ['Read'];
 
   @override
-  _chunks$ $copy() => _chunks$(data: _data);
+  $_chunks $copy() => $_chunks(data: _data);
 
   @override
-  void $set(_chunks$ o) {
+  void $set($_chunks o) {
     _data = o._data;
   }
 
@@ -46,7 +46,7 @@ class _chunks$ extends go.GoStruct<_chunks$> implements io.Reader {
   List<String> get $fieldTypes => const ['[]uint8'];
 
   (Golang.Int, go.GoError?) read(go.Slice<Golang.Uint8> p) {
-    final _chunks$? c = $nilPtr ? null : this;
+    final $_chunks? c = $nilPtr ? null : this;
     if (Golang.Int(c!._data.length) == Golang.Int(0)) {
       return (Golang.Int(0), io.eof);
     }
@@ -66,12 +66,12 @@ class _chunks$ extends go.GoStruct<_chunks$> implements io.Reader {
   }
 }
 
-class _sink$ extends go.GoStruct<_sink$> implements io.Writer {
-  _sink$({go.Slice<Golang.String>? got})
+class $_sink extends go.GoStruct<$_sink> implements io.Writer {
+  $_sink({go.Slice<Golang.String>? got})
     : _got = got ?? go.Slice<Golang.String>.nil(_$e1);
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _sink$ $nil = _sink$()..$nilPtr = true;
+  static final $_sink $nil = $_sink()..$nilPtr = true;
 
   go.Slice<Golang.String> _got;
 
@@ -83,10 +83,10 @@ class _sink$ extends go.GoStruct<_sink$> implements io.Writer {
   List<String> get $ptrMethods => const ['Write'];
 
   @override
-  _sink$ $copy() => _sink$(got: _got);
+  $_sink $copy() => $_sink(got: _got);
 
   @override
-  void $set(_sink$ o) {
+  void $set($_sink o) {
     _got = o._got;
   }
 
@@ -100,7 +100,7 @@ class _sink$ extends go.GoStruct<_sink$> implements io.Writer {
   List<String> get $fieldTypes => const ['[]string'];
 
   (Golang.Int, go.GoError?) write(go.Slice<Golang.Uint8> p) {
-    final _sink$? s = $nilPtr ? null : this;
+    final $_sink? s = $nilPtr ? null : this;
     s!._got = s!._got.append([go.stringOfByteSlice(p)]);
     return (Golang.Int(p.length), null);
   }
@@ -155,14 +155,14 @@ void main() {
     b.grow(Golang.Int(200));
     fmt.println(go.Slice<Object?>.of([b.cap()], _$e2));
     final $t2 = b.readFrom(
-      _chunks$(data: go.bytesOf(Golang.String.fromDart('abcdefgh'), _$e0)) ??
-          _chunks$.$nil,
+      $_chunks(data: go.bytesOf(Golang.String.fromDart('abcdefgh'), _$e0)) ??
+          $_chunks.$nil,
     );
     Golang.Int64 n = $t2.$1;
     err = $t2.$2;
     fmt.println(go.Slice<Object?>.of([n, err, b.string(), b.cap()], _$e2));
-    _sink$? s = _sink$();
-    final $t3 = b.writeTo(s ?? _sink$.$nil);
+    $_sink? s = $_sink();
+    final $t3 = b.writeTo(s ?? $_sink.$nil);
     Golang.Int64 m = $t3.$1;
     err = $t3.$2;
     fmt.println(go.Slice<Object?>.of([m, err, s!._got, b.len()], _$e2));
@@ -213,6 +213,20 @@ bool _$inited = false;
 void $goInit() {
   if (_$inited) return;
   _$inited = true;
+}
+
+/// Métodos de chunks promovidos por embedding (delegação).
+mixin $_chunks$Promote {
+  $_chunks? get $$_chunks;
+  (Golang.Int, go.GoError?) read(go.Slice<Golang.Uint8> p0) =>
+      $$_chunks!.read(p0);
+}
+
+/// Métodos de sink promovidos por embedding (delegação).
+mixin $_sink$Promote {
+  $_sink? get $$_sink;
+  (Golang.Int, go.GoError?) write(go.Slice<Golang.Uint8> p0) =>
+      $$_sink!.write(p0);
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.

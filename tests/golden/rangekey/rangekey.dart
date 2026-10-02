@@ -8,11 +8,11 @@ import 'package:golib_dart/fixed_types/golang.dart' as Golang;
 import 'package:golib_dart/fmt.dart' as fmt;
 import 'package:golib_dart/builtin.dart' as go;
 
-class _node$ extends go.GoStruct<_node$> {
-  _node$({Golang.Int? n}) : _n = n ?? Golang.Int();
+class $_node extends go.GoStruct<$_node> {
+  $_node({Golang.Int? n}) : _n = n ?? Golang.Int();
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _node$ $nil = _node$()..$nilPtr = true;
+  static final $_node $nil = $_node()..$nilPtr = true;
 
   Golang.Int _n;
 
@@ -24,10 +24,10 @@ class _node$ extends go.GoStruct<_node$> {
   List<String> get $ptrMethods => const [];
 
   @override
-  _node$ $copy() => _node$(n: _n);
+  $_node $copy() => $_node(n: _n);
 
   @override
-  void $set(_node$ o) {
+  void $set($_node o) {
     _n = o._n;
   }
 
@@ -38,8 +38,8 @@ class _node$ extends go.GoStruct<_node$> {
   List<String> get $fieldNames => const ['n'];
 }
 
-final class _info$ extends go.Slice<_node$> implements Golang.GoTyped {
-  _info$(go.Slice<_node$> v) : super.alias(v);
+final class $_info extends go.Slice<$_node> implements Golang.GoTyped {
+  $_info(go.Slice<$_node> v) : super.alias(v);
 
   @override
   String get $goType => 'main.info';
@@ -50,11 +50,11 @@ final class _info$ extends go.Slice<_node$> implements Golang.GoTyped {
 void main() {
   go.runMain(() {
     $goInit();
-    _info$ xs = _info$(
-      go.Slice<_node$>.of([
-        _node$(n: Golang.Int(1)),
-        _node$(n: Golang.Int(2)),
-        _node$(n: Golang.Int(3)),
+    $_info xs = $_info(
+      go.Slice<$_node>.of([
+        $_node(n: Golang.Int(1)),
+        $_node(n: Golang.Int(2)),
+        $_node(n: Golang.Int(3)),
       ], _$e0),
     );
     {
@@ -115,7 +115,7 @@ void $goInit() {
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
-const _$e0 = go.Elem<_node$>(8, _node$.new);
+const _$e0 = go.Elem<$_node>(8, $_node.new);
 const _$e1 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
 const _$e2 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);
 Golang.Uint8 _$f3_4(Golang.FloatBase f) =>

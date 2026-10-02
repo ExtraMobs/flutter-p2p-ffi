@@ -356,6 +356,42 @@ void $goInit() {
   _init$0();
 }
 
+/// Métodos de IDs promovidos por embedding (delegação).
+mixin IDs$Promote {
+  IDs? get $IDs;
+  Golang.Int len() => $IDs!.len();
+  bool less(Golang.Int p0, Golang.Int p1) => $IDs!.less(p0, p1);
+  void swap(Golang.Int p0, Golang.Int p1) => $IDs!.swap(p0, p1);
+}
+
+/// Métodos de Set promovidos por embedding (delegação).
+mixin Set$Promote {
+  Set? get $Set;
+  void add(Golang.String p0) => $Set!.add(p0);
+  bool has(Golang.String p0) => $Set!.has(p0);
+}
+
+/// Métodos de Op promovidos por embedding (delegação).
+mixin Op$Promote {
+  Op? get $Op;
+  Golang.Int apply(Golang.Int p0, Golang.Int p1) => $Op!.apply(p0, p1);
+}
+
+/// Métodos de Counter promovidos por embedding (delegação).
+mixin Counter$Promote {
+  Counter? get $Counter;
+  Golang.String string() => $Counter!.string();
+}
+
+/// Métodos de Bag promovidos por embedding (delegação).
+mixin Bag$Promote {
+  Bag? get $Bag;
+  void delete$(Golang.String p0) => $Bag!.delete$(p0);
+  Golang.Int length$() => $Bag!.length$();
+  Golang.String toString$() => $Bag!.toString$();
+  Golang.Int value$(Golang.String p0) => $Bag!.value$(p0);
+}
+
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
 const _$e0 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
 const _$e1 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);

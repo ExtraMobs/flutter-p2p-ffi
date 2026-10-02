@@ -115,6 +115,13 @@ void $goInit() {
   _errTooMany = errors.new$(Golang.String.fromDart('too many spatial layers'));
 }
 
+/// Métodos de Header promovidos por embedding (delegação).
+mixin Header$Promote {
+  Header? get $Header;
+  (Golang.Int, go.GoError?) unmarshal(go.Slice<Golang.Uint8> p0) =>
+      $Header!.unmarshal(p0);
+}
+
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
 Golang.Uint8 _$f0_1(Golang.FloatBase f) =>
     Golang.Uint8.from(f.toInteger(8, signed: false));

@@ -130,6 +130,12 @@ void $goInit() {
   _$inited = true;
 }
 
+/// Métodos de Code promovidos por embedding (delegação).
+mixin Code$Promote {
+  Code? get $Code;
+  Golang.String string() => $Code!.string();
+}
+
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
 const _$e0 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
 const _$e1 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);

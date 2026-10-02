@@ -108,7 +108,7 @@ class Logger extends go.GoStruct<Logger> {
   }
 }
 
-class Doc extends go.GoStruct<Doc> with Logger$PromotePtr implements Named {
+class Doc extends go.GoStruct<Doc> with Logger$Promote implements Named {
   Doc({Base? base, Logger? logger, Golang.String? body})
     : base = base ?? Base(),
       logger = logger,
@@ -238,10 +238,27 @@ void $goInit() {
   _$inited = true;
 }
 
+/// Métodos de Base promovidos por embedding (delegação).
+mixin Base$Promote {
+  Base? get $Base;
+  Golang.String describe() => $Base!.describe();
+  void tag(Golang.String p0) => $Base!.tag(p0);
+  Golang.String title() => $Base!.title();
+}
+
 /// Métodos de Logger promovidos por embedding (delegação).
-mixin Logger$PromotePtr {
+mixin Logger$Promote {
   Logger? get $Logger;
   Golang.String log(Golang.String p0) => $Logger!.log(p0);
+}
+
+/// Métodos de Doc promovidos por embedding (delegação).
+mixin Doc$Promote {
+  Doc? get $Doc;
+  Golang.String describe() => $Doc!.describe();
+  Golang.String log(Golang.String p0) => $Doc!.log(p0);
+  void tag(Golang.String p0) => $Doc!.tag(p0);
+  Golang.String title() => $Doc!.title();
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.

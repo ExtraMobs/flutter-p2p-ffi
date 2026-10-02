@@ -190,14 +190,14 @@ void main() {
     fmt.println(
       go.Slice<Object?>.of([b.$ifaceCopy(), b.sum(), a.in$.n, b._tag], _$e0),
     );
-    P p = switch (_anon$10$(
+    P p = switch ($_anon$10(
       lat: Golang.Float64(1.5),
       lng: Golang.Float64(-2.0),
     )) {
       final $t2 => P(lat: $t2.lat, lng: $t2.lng),
     }.$copy();
-    _anon$10$ q = switch (p.$copy()) {
-      final $t3 => _anon$10$(lat: $t3.lat, lng: $t3.lng),
+    $_anon$10 q = switch (p.$copy()) {
+      final $t3 => $_anon$10(lat: $t3.lat, lng: $t3.lng),
     }.$copy();
     fmt.println(
       go.Slice<Object?>.of([
@@ -217,13 +217,13 @@ void main() {
 }
 
 /// `struct { Lat float64; Lng float64 }` (struct anônima).
-class _anon$10$ extends go.GoStruct<_anon$10$> {
-  _anon$10$({Golang.Float64? lat, Golang.Float64? lng})
+class $_anon$10 extends go.GoStruct<$_anon$10> {
+  $_anon$10({Golang.Float64? lat, Golang.Float64? lng})
     : lat = lat ?? Golang.Float64(),
       lng = lng ?? Golang.Float64();
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _anon$10$ $nil = _anon$10$()..$nilPtr = true;
+  static final $_anon$10 $nil = $_anon$10()..$nilPtr = true;
 
   Golang.Float64 lat;
   Golang.Float64 lng;
@@ -236,10 +236,10 @@ class _anon$10$ extends go.GoStruct<_anon$10$> {
   List<String> get $ptrMethods => const [];
 
   @override
-  _anon$10$ $copy() => _anon$10$(lat: lat, lng: lng);
+  $_anon$10 $copy() => $_anon$10(lat: lat, lng: lng);
 
   @override
-  void $set(_anon$10$ o) {
+  void $set($_anon$10 o) {
     lat = o.lat;
     lng = o.lng;
   }
@@ -257,6 +257,12 @@ bool _$inited = false;
 void $goInit() {
   if (_$inited) return;
   _$inited = true;
+}
+
+/// Métodos de B promovidos por embedding (delegação).
+mixin B$Promote {
+  B? get $B;
+  Golang.Int sum() => $B!.sum();
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.

@@ -52,14 +52,16 @@ class NamingTest(unittest.TestCase):
         self.assertEqual(member_name("Δx"), "$u03b4x")  # exportado (IsUpper) → lowerCamel
         self.assertEqual(member_name("δx"), "_$u03b4x")
         self.assertEqual(type_name("Ωmega"), "$u03a9mega")
-        self.assertEqual(type_name("ωmega"), "_$u03c9mega$")
+        self.assertEqual(type_name("ωmega"), "$_$u03c9mega")
 
     def test_member_and_type_names(self):
         self.assertEqual(member_name("Greet"), "greet")
         self.assertEqual(member_name("add"), "_add")
         self.assertEqual(member_name("New"), "new$")  # palavra reservada
         self.assertEqual(type_name("Greeter"), "Greeter")
-        self.assertEqual(type_name("point"), "_point$")  # ≠ membro `_point`
+        # Público (outro pacote recebe por inferência), ≠ membro `_point`
+        # e ≠ membro `point` de um `func Point` exportado (lowerCamel).
+        self.assertEqual(type_name("point"), "$_point")
 
 
 class DartCoreNamesTest(unittest.TestCase):
