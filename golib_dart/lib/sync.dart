@@ -3,7 +3,7 @@
 /// Cada primitiva tem uma versão síncrona (`lock()`, `wait()`...) e uma
 /// suspensiva (`lock$async()`, `wait$async()`... — sufixo `$` impossível em
 /// Go, nunca colide) que o g2d escolhe conforme a cor da função que chama
-/// (M4, `TODO/P0-design-m4-concorrencia.md`). Sem outra goroutine viva,
+/// (M4, `docs/mapping-spec.md` § "Concorrência (M4)"). Sem outra goroutine viva,
 /// esperar por algo que só ela resolveria ainda é o deadlock do Go (`fatal
 /// error: all goroutines are asleep - deadlock!`); unlock de destravado
 /// continua fatal error do Go. Com outras goroutines vivas, a versão

@@ -2,7 +2,7 @@
 /// com calendário/aritmética/`String()`, `Month`/`Weekday`, `Location` de
 /// fuso fixo, timers (`Sleep`, `Timer`, `Ticker`, `After`, `AfterFunc`,
 /// `Tick`); ⚠️ `Local` é UTC, como o Go com `TZ=UTC`. `Format`/`Parse` com
-/// layout e o resto em `TODO/P0-shim-time.md`).
+/// layout e o resto em `TODO/P1-shim-time-layout.md`).
 ///
 /// As constantes (`time.Second`...) o g2d dobra em `time.Duration(n)`.
 // ignore_for_file: library_prefixes

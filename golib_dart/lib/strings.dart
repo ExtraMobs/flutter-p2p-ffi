@@ -1,5 +1,5 @@
 /// Shim do pacote Go `strings` (só as funções que o grafo pede primeiro;
-/// o resto em `TODO/P0-shim-strings.md`). Tudo sobre os bytes, como no Go.
+/// o resto em `docs/stdlib-coverage.md`). Tudo sobre os bytes, como no Go.
 // ignore_for_file: library_prefixes
 library;
 

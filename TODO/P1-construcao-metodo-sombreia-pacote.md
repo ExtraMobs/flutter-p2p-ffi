@@ -31,11 +31,12 @@ func main() { fmt.Println((&T{}).Sub()) }
 
 ```text
 $ goast dump <dir> > dump.json && python -m g2d transpile dump.json -o out && (cd out && dart analyze)
-  error - lib/main.dart:57:31 - The argument type '_op$ Function(_op$)' can't be assigned to the parameter type '_op$'.  - argument_type_not_assignable
+  error - lib/shadow.dart:57:31 - The argument type '$_op Function($_op)' can't be assigned to the parameter type '$_op'.  - argument_type_not_assignable
 ```
 
-No grafo do kubo: `github.com/cskr/pubsub` (`const sub operation` e `func (ps *PubSub) sub`), que passou
-a emitir com o M4 (canais) e ficou `dart-invalido`.
+Reconferido em 2026-10-02. No grafo do kubo o caso que motivou o artefato
+(`github.com/cskr/pubsub`) está verde hoje e o audit mostra 0 `dart-invalido`,
+mas o g2d continua emitindo Dart inválido sem `Unsupported` para o repro.
 
 ## Critério de pronto
 

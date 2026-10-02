@@ -1,5 +1,5 @@
 /// Escalonador cooperativo das goroutines (M4,
-/// `TODO/P0-design-m4-concorrencia.md`): contadores de vivas/bloqueadas para
+/// `docs/mapping-spec.md` § "Concorrência (M4)"): contadores de vivas/bloqueadas para
 /// a detecção de deadlock do Go, e `go f()` (que agenda, nunca roda
 /// síncrono).
 ///

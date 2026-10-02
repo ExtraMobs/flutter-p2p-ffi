@@ -7,7 +7,7 @@
 /// `IsTimeout`, `PathError` (alias de `io/fs.PathError`, que vive em `io/fs.dart`) e
 /// `FileMode`. Fora, de propósito: o sistema de arquivos (`Open`, `ReadFile`,
 /// `Stat`...), que exige `dart:io` por import condicional e uma decisão
-/// (`TODO/P0-shim-os.md`); esses símbolos seguem `Unsupported`
+/// (`TODO/P0-design-os-arquivos.md`); esses símbolos seguem `Unsupported`
 /// `shim-simbolo:os.*`.
 ///
 /// Limites por plataforma: `Getenv` no JS/Wasm sem Node (navegador) devolve

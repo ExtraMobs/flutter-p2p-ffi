@@ -1,11 +1,11 @@
 # Método não exportado promovido através de dois pacotes (profundidade ≥ 2)
 
 - **Prioridade:** P1 · **Área:** design
-- **Depende de:** `TODO/P1-design-promocao-entre-pacotes` (resolvido: base de um salto)
+- **Depende de:** — (a base de um salto já está no `main`: fixture `promotecross`)
 
 ## Problema
 
-`mixin E$Promote` (o pacote que declara `E` sempre emite, `TODO/P1-design-promocao-entre-pacotes`)
+`mixin E$Promote` (o pacote que declara `E` sempre emite; fixture `promotecross`)
 só repassa um método não exportado quando é o próprio pacote de `E` quem o declara. Se `E` promoveu
 esse método de um campo embutido seu de **outro** pacote (profundidade ≥ 2 através de dois saltos
 de pacote), `E$Promote` não pode citar o nome (`_secret` escrito na library de `E` não é o mesmo

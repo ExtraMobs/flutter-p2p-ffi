@@ -1,6 +1,6 @@
 # Classes de func forçadas síncronas (`func()` por causa do `context.CancelFunc`)
 
-- **Prioridade:** P1 · **Área:** design
+- **Prioridade:** P1 · **Área:** design (decisão D7 do `TODO/README.md`)
 - **Depende de:** —
 
 ## Problema
@@ -35,9 +35,14 @@ docs/audit.md (ranking):
 - Valores async de `func()` (e das outras classes forçadas só por shim) deixam de ser recusados sem
   quebrar o formato Dart que o shim espera; fixture e2e; audit regerado sem perder verde.
 
-## Notas
+## Decisão pendente
 
-Caminhos possíveis: o shim tipar callbacks/resultados como `FutureOr<...> Function()` e o g2d
-embrulhar na fronteira (`go.async0(cancel)` no resultado de `WithCancel`); ou separar a classe de um
-tipo nomeado da stdlib (`context.CancelFunc`) da classe da assinatura subjacente, embrulhando a
-conversão síncrono → async e recusando só o sentido contrário.
+1. **Separar a classe de um tipo nomeado da stdlib (`context.CancelFunc`) da
+   classe da assinatura subjacente (recomendado).** A `CancelFunc` continua
+   síncrona; quando ela vira valor de `func()` comum, o g2d embrulha
+   (`go.async0(cancel)`), e só o sentido contrário (closure async virando
+   `CancelFunc`) é recusado. Mudança só na análise de cor; o shim fica como
+   está.
+2. **O shim aceitar e devolver `FutureOr<...> Function()`** e o g2d embrulhar
+   na fronteira de cada shim. Mais geral (vale para outros callbacks), mas
+   toca todos os shims que recebem ou devolvem funções.

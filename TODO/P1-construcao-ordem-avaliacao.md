@@ -1,15 +1,16 @@
-# Ordem de avaliação entre operandos e chamadas (como o gc)
+# Ordem de avaliação em literais compostos e atribuição múltipla
 
 - **Prioridade:** P1 · **Área:** construcao
 - **Depende de:** —
 
 ## Problema
 
-A spec do Go só fixa a ordem das chamadas (esquerda → direita); a leitura de um operando simples
-(`x`, `t.n`) em relação às chamadas da mesma expressão fica em aberto. O gc lê esses operandos
-**depois** de todas as chamadas (argumentos de chamada, literais compostos, atribuição múltipla).
-O g2d avalia tudo da esquerda para a direita: saída diferente do `go run` em silêncio sempre que
-uma chamada da expressão altera um operando lido antes dela.
+O gc lê os operandos simples (`x`, `t.n`) **depois** de todas as chamadas da
+mesma lista; a spec deixa isso em aberto, e o alvo é o `go run` de
+referência. O `g2d/services/evalorder.py` já faz isso em argumentos de
+chamada e em operandos de binário. Ainda leem da esquerda para a direita, e
+dão saída diferente do Go em silêncio: elementos de literal de slice,
+campos de literal de struct e o lado direito de atribuição múltipla.
 
 ## Prova
 
@@ -18,47 +19,37 @@ package main
 
 import "fmt"
 
-type T struct{ n int }
-
-func (t *T) inc() int { t.n++; return t.n }
-
 var x int
 
 func bump() int { x++; return x }
 
+type P struct{ A, B int }
+
 func main() {
-	t := &T{}
-	fmt.Println(t.n, t.inc())
-	fmt.Println(x, bump())
+	fmt.Println(x, bump())  // já certo
 	a := []int{x, bump()}
 	fmt.Println(a)
+	p := P{x, bump()}
+	fmt.Println(p)
+	u, v := x, bump()
+	fmt.Println(u, v)
 }
 ```
 
 ```text
-$ GOTOOLCHAIN=go1.26.5 go run main.go
-1 1
-1 1
-[2 2]
-
-$ goast dump <dir> -o dump.json && python -m g2d transpile dump.json -o out && dart run out/lib/main.dart
-0 1
-0 1
-[1 2]
+$ go run .            $ dart run (g2d)
+1 1                   1 1
+[2 2]                 [1 2]
+{3 3}                 {2 3}
+4 4                   3 4
 ```
 
-Também em atribuição múltipla: `calls, h, ok := t.calls, t.h, sort.IsSorted(t)` lê `t.calls`
-depois de `IsSorted` no gc (achado no fixture `tests/golden/sorting`, que separa as leituras).
+(Literal de map bate com o Go: o gc lê na ordem ali.)
 
 ## Critério de pronto
 
-- Quando uma lista de operandos (argumentos, elementos de literal composto, lado direito de
-  atribuição múltipla, operandos de binário) tem chamada, o g2d avalia as chamadas primeiro, em
-  ordem, para temporários, e só então lê os operandos simples, como o gc. Respeitar `&&`/`||`
-  (curto-circuito) e não duplicar efeitos.
-- O repro vira fixture em `tests/golden/`; e2e idêntico em VM × JS × Wasm.
-- `docs/mapping-spec.md` documenta a regra.
-
-## Notas
-
-É comportamento do gc, não da spec; o gccgo pode diferir. O alvo é o `go run` de referência.
+- `evalorder` aplicado também a literal de slice/array/struct e à
+  atribuição múltipla, respeitando `&&`/`||` e sem duplicar efeitos.
+- O repro vira fixture; e2e idêntico em VM × JS × Wasm.
+- `docs/mapping-spec.md` documenta a regra (e o caso `a + await f()` da
+  cor async).

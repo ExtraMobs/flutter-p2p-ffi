@@ -1,5 +1,5 @@
 /// Shim do pacote Go `strconv` (inteiros, bool, `Quote*`/`Unquote*`,
-/// `Append*`, `FormatFloat`/`ParseFloat`; o resto em `TODO/P0-shim-strconv.md`).
+/// `Append*`, `FormatFloat`/`ParseFloat`; o resto em `docs/stdlib-coverage.md`).
 ///
 /// Porta de `internal/strconv/atoi.go` do Go 1.26, com a aritmética nos
 /// fixed_types (exata também no JS).

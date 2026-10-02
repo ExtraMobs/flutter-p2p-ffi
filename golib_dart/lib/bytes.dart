@@ -1,5 +1,5 @@
 /// Shim do pacote Go `bytes` (só as funções que o grafo pede primeiro;
-/// o resto em `TODO/P0-shim-bytes.md`).
+/// o resto em `docs/stdlib-coverage.md`).
 // ignore_for_file: library_prefixes
 library;
 
