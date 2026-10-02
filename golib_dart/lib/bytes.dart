@@ -13,6 +13,9 @@ import 'src/unicode/utf8.dart';
 import 'unicode.dart' as unicode;
 
 part 'src/bytes/funcs.dart';
+part 'src/bytes/split.dart';
+part 'src/bytes/search.dart';
+part 'src/bytes/edit.dart';
 part 'src/bytes/buffer.dart';
 part 'src/bytes/case.dart';
 

@@ -238,44 +238,6 @@ Slice<_Bytes> fields(_Bytes s) {
   return a;
 }
 
-/// `bytes.FieldsFunc(s, f)`.
-Slice<_Bytes> fieldsFunc(_Bytes s, bool Function(Golang.Rune)? f) {
-  final spanStarts = <int>[], spanEnds = <int>[];
-  var start = -1, i = 0;
-  while (i < s.length) {
-    var w = 1;
-    var r = s[i].toInt();
-    if (r >= 0x80) {
-      final (rr, ww) = _str(s.slice(i)).decodeRune(0);
-      r = rr;
-      w = ww;
-    }
-    if (f!(Golang.Rune(r))) {
-      if (start >= 0) {
-        spanStarts.add(start);
-        spanEnds.add(i);
-        start = -1;
-      }
-    } else if (start < 0) {
-      start = i;
-    }
-    i += w;
-  }
-  if (start >= 0) {
-    spanStarts.add(start);
-    spanEnds.add(s.length);
-  }
-  final a = Slice<_Bytes>.make(
-    spanStarts.length,
-    spanStarts.length,
-    _bytesElem,
-  );
-  for (var k = 0; k < spanStarts.length; k++) {
-    a[k] = s.slice(spanStarts[k], spanEnds[k], spanEnds[k]);
-  }
-  return a;
-}
-
 int _scanIndexFunc(_Bytes s, bool Function(Golang.Rune)? f, bool truth) {
   var i = 0;
   while (i < s.length) {
@@ -300,18 +262,6 @@ int _scanLastIndexFunc(_Bytes s, bool Function(Golang.Rune)? f, bool truth) {
   }
   return -1;
 }
-
-/// `bytes.IndexFunc(s, f)`.
-Golang.Int indexFunc(_Bytes s, bool Function(Golang.Rune)? f) =>
-    Golang.Int(_scanIndexFunc(s, f, true));
-
-/// `bytes.LastIndexFunc(s, f)`.
-Golang.Int lastIndexFunc(_Bytes s, bool Function(Golang.Rune)? f) =>
-    Golang.Int(_scanLastIndexFunc(s, f, true));
-
-/// `bytes.ContainsFunc(s, f)`.
-bool containsFunc(_Bytes s, bool Function(Golang.Rune)? f) =>
-    _scanIndexFunc(s, f, true) >= 0;
 
 /// `bytes.Runes(s)`: os pontos de código decodificados como UTF-8, como
 /// `[]rune(string(s))`.

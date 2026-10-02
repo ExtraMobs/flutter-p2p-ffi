@@ -63,41 +63,6 @@ Golang.Int count(_Bytes s, _Bytes sep) {
   }
 }
 
-/// `bytes.Split(s, sep)`: subslices de s com cap limitado ao pedaço
-/// (`s[:m:m]`), como no Go.
-Slice<_Bytes> split(_Bytes s, _Bytes sep) {
-  var n = -1;
-  if (sep.length == 0) return _explode(s, n);
-  n = count(s, sep).toInt() + 1;
-  if (n > s.length + 1) n = s.length + 1;
-  final a = Slice<_Bytes>.make(n, n, _bytesElem);
-  var i = 0;
-  for (; i < n - 1; i++) {
-    final m = index(s, sep).toInt();
-    if (m < 0) break;
-    a[i] = s.slice(0, m, m);
-    s = s.slice(m + sep.length);
-  }
-  a[i] = s;
-  return a.slice(0, i + 1);
-}
-
-Slice<_Bytes> _explode(_Bytes s, int n) {
-  if (n <= 0 || n > s.length) n = s.length;
-  final a = Slice<_Bytes>.make(n, n, _bytesElem);
-  var na = 0;
-  while (s.length > 0) {
-    if (na + 1 >= n) {
-      a[na++] = s;
-      break;
-    }
-    final size = _str(s).decodeRune(0).$2;
-    a[na++] = s.slice(0, size, size);
-    s = s.slice(size);
-  }
-  return a.slice(0, na);
-}
-
 /// `bytes.TrimLeft(s, cutset)`: tira do início os bytes (cutset ASCII) ou
 /// runas (senão) de cutset; resultado vazio é nil, como no Go.
 _Bytes trimLeft(_Bytes s, Golang.String cutset) {

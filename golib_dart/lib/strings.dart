@@ -13,5 +13,7 @@ import 'src/unicode/utf8.dart';
 import 'unicode.dart' as unicode;
 
 part 'src/strings/funcs.dart';
+part 'src/strings/search.dart';
+part 'src/strings/replace.dart';
 part 'src/strings/builder.dart';
 part 'src/strings/case.dart';

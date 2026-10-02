@@ -222,41 +222,6 @@ Slice<Golang.String> fields(Golang.String s) {
   return a;
 }
 
-/// `strings.FieldsFunc(s, f)`.
-Slice<Golang.String> fieldsFunc(
-  Golang.String s,
-  bool Function(Golang.Rune)? f,
-) {
-  final spanStarts = <int>[], spanEnds = <int>[];
-  var start = -1, i = 0;
-  while (i < s.length) {
-    final (r, w) = s.decodeRune(i);
-    if (f!(Golang.Rune(r))) {
-      if (start >= 0) {
-        spanStarts.add(start);
-        spanEnds.add(i);
-        start = -1;
-      }
-    } else if (start < 0) {
-      start = i;
-    }
-    i += w;
-  }
-  if (start >= 0) {
-    spanStarts.add(start);
-    spanEnds.add(s.length);
-  }
-  final a = Slice<Golang.String>.make(
-    spanStarts.length,
-    spanStarts.length,
-    _strElem,
-  );
-  for (var k = 0; k < spanStarts.length; k++) {
-    a[k] = s.slice(spanStarts[k], spanEnds[k]);
-  }
-  return a;
-}
-
 /// `strings.ToValidUTF8(s, replacement)`: cada sequência UTF-8 inválida
 /// (bytes exatos, não a runa decodificada) vira uma cópia de `replacement`;
 /// o resto passa pelos bytes originais, sem recodificar.
@@ -287,37 +252,3 @@ Golang.String toValidUTF8(Golang.String s, Golang.String replacement) {
   }
   return Golang.String.fromBytes(out.toBytes());
 }
-
-int _scanIndexFunc(Golang.String s, bool Function(Golang.Rune)? f, bool truth) {
-  for (var i = 0; i < s.length;) {
-    final (r, w) = s.decodeRune(i);
-    if (f!(Golang.Rune(r)) == truth) return i;
-    i += w;
-  }
-  return -1;
-}
-
-int _scanLastIndexFunc(
-  Golang.String s,
-  bool Function(Golang.Rune)? f,
-  bool truth,
-) {
-  for (var i = s.length; i > 0;) {
-    final (r, w) = decodeLastRune(s, i);
-    i -= w;
-    if (f!(Golang.Rune(r)) == truth) return i;
-  }
-  return -1;
-}
-
-/// `strings.IndexFunc(s, f)`.
-Golang.Int indexFunc(Golang.String s, bool Function(Golang.Rune)? f) =>
-    Golang.Int(_scanIndexFunc(s, f, true));
-
-/// `strings.LastIndexFunc(s, f)`.
-Golang.Int lastIndexFunc(Golang.String s, bool Function(Golang.Rune)? f) =>
-    Golang.Int(_scanLastIndexFunc(s, f, true));
-
-/// `strings.ContainsFunc(s, f)`.
-bool containsFunc(Golang.String s, bool Function(Golang.Rune)? f) =>
-    _scanIndexFunc(s, f, true) >= 0;

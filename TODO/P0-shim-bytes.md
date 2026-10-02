@@ -47,3 +47,5 @@ docs/stdlib-coverage.md:
 tabelas Unicode do Go (gerar como `src/unicode/isprint.dart`, conferidas por teste). O resto
 (`LastIndexByte`, `TrimRight`, `TrimPrefix`/`TrimSuffix`, `CutPrefix`, `Join`, `Contains`, `Repeat`,
 `Clone`...) é barato: porta do fonte do Go, fixture em `tests/golden/bytesstrings`.
+
+**Feito (fixture `tests/golden/bytesstringsmisc`, VM x JS x Wasm contra `go run`):** `Contains`, `ContainsAny`, `ContainsRune`, `ContainsFunc`, `LastIndex`, `IndexRune`, `IndexAny`, `LastIndexAny`, `IndexFunc`, `LastIndexFunc`, `TrimPrefix`, `TrimSuffix`, `TrimLeftFunc`, `TrimRightFunc`, `TrimFunc`, `Trim`, `Cut`, `CutPrefix`, `CutSuffix`, `Clone`, `Join`, `Repeat`, `Map`, `Replace`, `ReplaceAll`, `SplitN`, `SplitAfter`, `SplitAfterN`, `FieldsFunc` (partes `src/bytes/{split,search,edit}.dart`). Falta o que depende de Unicode (acima), `Runes`, `ToValidUTF8`, `Buffer`/`Reader`.
