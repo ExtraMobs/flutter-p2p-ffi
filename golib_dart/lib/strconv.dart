@@ -1,14 +1,25 @@
-/// Shim do pacote Go `strconv` (inteiros: `Itoa`, `FormatInt`, `FormatUint`,
-/// `ParseInt`, `ParseUint`, `Atoi`; o resto em `TODO/P0-shim-strconv.md`).
+/// Shim do pacote Go `strconv` (inteiros, bool, `Quote*`/`Unquote*`,
+/// `Append*`, `FormatFloat`/`ParseFloat`; o resto em `TODO/P0-shim-strconv.md`).
 ///
 /// Porta de `internal/strconv/atoi.go` do Go 1.26, com a aritmética nos
 /// fixed_types (exata também no JS).
 // ignore_for_file: library_prefixes
 library;
 
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'builtin.dart';
 import 'fixed_types/golang.dart' as Golang;
+import 'fixed_types/golang/src/float_format.dart' as ff;
 import 'fmt.dart' as fmt;
+import 'math.dart' show naN;
+import 'src/strconv/quote_core.dart' as qc;
+import 'src/unicode/isprint.dart' as ip;
+
+part 'src/strconv/misc.dart';
+part 'src/strconv/ftoa.dart';
+part 'src/strconv/atof.dart';
 
 /// `strconv.ErrRange`.
 final GoError errRange = ErrorString(

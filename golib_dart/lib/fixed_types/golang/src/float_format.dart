@@ -78,15 +78,20 @@ String _trimZeros(String digits) {
       den *= BigInt.from(10).pow(-k);
     }
     var q = num ~/ den;
-    final twice = (num - q * den) * BigInt.two;
-    if (twice > den || (twice == den && q.isOdd)) q += BigInt.one;
+    // O expoente se decide pelo piso (antes de arredondar): senão um valor
+    // logo abaixo de 10^e que arredonda para cima passaria por p dígitos.
     if (q >= high) {
       exp++;
-    } else if (q < low) {
-      exp--;
-    } else {
-      return (q.toString(), exp);
+      continue;
     }
+    if (q < low) {
+      exp--;
+      continue;
+    }
+    final twice = (num - q * den) * BigInt.two;
+    if (twice > den || (twice == den && q.isOdd)) q += BigInt.one;
+    if (q == high) return ('1${'0' * (p - 1)}', exp + 1);
+    return (q.toString(), exp);
   }
 }
 
