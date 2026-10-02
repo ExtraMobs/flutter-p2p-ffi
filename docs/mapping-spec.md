@@ -37,7 +37,7 @@ Legenda: ✅ fiel · ⚠️ fiel no caso comum, com limite conhecido · ❌ não
 | ponteiro para não-struct (`&x`, `&s[i]`, `&o.f`, `new`) | `go.Ptr<T>`: `go.Box`, `go.ElemPtr`, `go.FieldPtr` | M3 | ✅ |
 | slice (aliasing, cap, `append`, nil) | `go.Slice<T>` | M3 | ✅ |
 | map (nil, zero value, comma-ok, delete no range) | `go.GoMap<K, V>` | M3 | ✅ |
-| descritor de tipo (tamanho, ponteiros, zero) | `go.Elem<T>` (`const`, um por tipo) | M3/M5 | ✅ (base da reflexão) |
+| descritor de tipo (tamanho, ponteiros, zero, por valor) | `go.Elem<T>` (`const`, um por tipo; `value: true` em struct/array por valor: só esses o `copyOf` copia e o `storeAt` sobrescreve in-place, ponteiro e interface copiam a referência; fixture `ptrelems`) | M3/M5 | ✅ (base da reflexão) |
 | `defer` / `recover` / `panic` / erros de runtime | `go.Defers`, `go.Panic`, `go.RuntimeError`, `go.runMain` | M3 | ✅ |
 | saída padrão em bytes | `writeStdout` (import condicional io/web) | M2 | ✅ |
 | identidade de tipo em runtime (`int` × `int64` × nomeado) | uma classe Dart por tipo Go (`Golang.Int` ≠ `Golang.Int64`) + `GoTyped` (`$goType`, `$methods`) | M3 | ✅ |

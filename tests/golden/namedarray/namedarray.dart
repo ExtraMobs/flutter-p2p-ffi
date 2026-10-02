@@ -250,5 +250,5 @@ const _$e4 = go.Elem<Golang.Int>(
   ofFloat: _$f4_5,
 );
 go.GoArray<Golang.Int> _$z4_4() => go.GoArray<Golang.Int>.zero(2, _$e4);
-const _$e3 = go.Elem<go.GoArray<Golang.Int>>(16, _$z4_4);
+const _$e3 = go.Elem<go.GoArray<Golang.Int>>(16, _$z4_4, value: true);
 const _$e5 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);

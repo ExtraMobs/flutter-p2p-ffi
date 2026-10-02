@@ -353,7 +353,12 @@ const _$e0 = go.Elem<Golang.Int32>(
 const _$e1 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
 const _$e2 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);
 go.GoArray<Golang.String> _$z4_4() => go.GoArray<Golang.String>.zero(2, _$e2);
-const _$e3 = go.Elem<go.GoArray<Golang.String>>(32, _$z4_4, pointers: true);
+const _$e3 = go.Elem<go.GoArray<Golang.String>>(
+  32,
+  _$z4_4,
+  pointers: true,
+  value: true,
+);
 Golang.Uint8 _$f6_5(Golang.FloatBase f) =>
     Golang.Uint8.from(f.toInteger(8, signed: false));
 const _$e4 = go.Elem<Golang.Uint8>(

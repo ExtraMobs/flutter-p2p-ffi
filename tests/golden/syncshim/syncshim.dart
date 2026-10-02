@@ -346,7 +346,7 @@ mixin $_cache$Promote {
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
-const _$e0 = go.Elem<sync.Mutex>(8, sync.Mutex.new);
+const _$e0 = go.Elem<sync.Mutex>(8, sync.Mutex.new, value: true);
 Golang.Int _$f1_2(Golang.FloatBase f) =>
     Golang.Int.from(f.toInteger(64, signed: true));
 const _$e1 = go.Elem<Golang.Int>(

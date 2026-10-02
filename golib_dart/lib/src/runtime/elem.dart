@@ -14,6 +14,7 @@ final class Elem<T> {
     this.size,
     this.zero, {
     this.pointers = false,
+    this.value = false,
     this.ofInt,
     this.ofFloat,
     this.rewrap,
@@ -39,11 +40,31 @@ final class Elem<T> {
   /// T contém ponteiros (string, slice, map, ponteiro, interface...).
   final bool pointers;
 
+  /// T é struct/array **por valor** ([GoValue] com armazenamento próprio).
+  /// Ponteiro `*T` e interface também guardam um [GoValue] no Dart (o objeto
+  /// apontado, ou a cópia por valor dentro da interface), mas copiar o
+  /// elemento é copiar a referência: só com [value] o elemento é copiado
+  /// ([copyOf]) e sobrescrito in-place ([storeAt]).
+  final bool value;
+
   /// Zero value novo (structs precisam de objetos distintos).
   final T Function() zero;
 
-  /// Cópia de valor de um elemento (structs são copiadas).
-  T copyOf(T v) => v is GoValue ? v.$copy() as T : v;
+  /// Cópia de valor de um elemento: struct/array por valor são copiados;
+  /// ponteiro e interface mantêm o mesmo objeto (e o `$isValue`).
+  T copyOf(T v) => value && v is GoValue ? v.$copy() as T : v;
+
+  /// `a[i] = v` num armazenamento de elementos T: struct/array por valor
+  /// sobrescrevem in-place (ponteiros para o elemento veem o novo valor);
+  /// os demais trocam a referência.
+  void storeAt(List<T> array, int i, T v) {
+    final cur = array[i];
+    if (value && cur is GoValue && v is GoValue) {
+      cur.$set(v);
+    } else {
+      array[i] = v;
+    }
+  }
 }
 
 /// Zero value de `bool` (tear-off const para [Elem]).

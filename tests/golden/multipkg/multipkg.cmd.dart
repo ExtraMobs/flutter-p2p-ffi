@@ -116,5 +116,5 @@ mixin Square$Promote {
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
 const _$e0 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
-const _$e1 = go.Elem<geom.Point>(16, geom.Point.new);
+const _$e1 = go.Elem<geom.Point>(16, geom.Point.new, value: true);
 const _$e2 = go.Elem<geom.Shape?>(16, go.zeroNull, pointers: true);

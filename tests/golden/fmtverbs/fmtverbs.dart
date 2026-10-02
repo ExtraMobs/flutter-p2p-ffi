@@ -766,7 +766,7 @@ const _$e5 = go.Elem<Golang.Uint16>(
   ofInt: Golang.Uint16.from,
   ofFloat: _$f7_6,
 );
-const _$e6 = go.Elem<P>(32, P.new, pointers: true);
+const _$e6 = go.Elem<P>(32, P.new, pointers: true, value: true);
 Golang.Int32 _$f10_8(Golang.FloatBase f) =>
     Golang.Int32.from(f.toInteger(32, signed: true));
 const _$e7 = go.Elem<Golang.Int32>(

@@ -304,7 +304,7 @@ mixin $_node$Promote {
 const _$e0 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
 $_k8 _$f1_2(Golang.FloatBase f) => $_k8.from(f.toInteger(8, signed: false));
 const _$e1 = go.Elem<$_k8>(1, $_k8.new, ofInt: $_k8.from, ofFloat: _$f1_2);
-const _$e2 = go.Elem<$_node>(1, $_node.new);
+const _$e2 = go.Elem<$_node>(1, $_node.new, value: true);
 Golang.Int _$f4_4(Golang.FloatBase f) =>
     Golang.Int.from(f.toInteger(64, signed: true));
 const _$e3 = go.Elem<Golang.Int>(

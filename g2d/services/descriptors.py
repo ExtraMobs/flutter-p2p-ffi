@@ -33,6 +33,7 @@ class DescriptorRegistry(Service):
         if self.has_tparam(t):
             ptrs = ", pointers: true" if self.typesys.underlying(t)["kind"] != "basic" else ""
             size = 24 if self.typesys.underlying(t)["kind"] == "slice" else 8
+            ptrs += self.value_flag(t)
             return f"{self.imports.qualify(None, 'Elem')}<{dt}>({size}, () => {self.types.zero(t)}{ptrs})"
         if dt not in self.elems:
             name = f"_$e{len(self.elems)}"
@@ -40,6 +41,7 @@ class DescriptorRegistry(Service):
             size, _, ptrs = self.typesys.layout(t)
             zero = self.zero_fn(t, dt)
             flag = ", pointers: true" if ptrs else ""
+            flag += self.value_flag(t)
             if self.typesys.named_composite(t) and self.typesys.underlying(t)["kind"] != "func":
                 flag += f", rewrap: {self.rewrap_fn(t, dt)}"  # S ~[]E instanciado com o nomeado
             b = self.typesys.basic(t)
@@ -47,6 +49,12 @@ class DescriptorRegistry(Service):
                 flag += f", ofInt: {self.of_int_fn(t, b, dt)}, ofFloat: {self.of_float_fn(t, b, dt)}"
             self.elem_decls.append(f"const {name} = {self.imports.qualify(None, 'Elem')}<{dt}>({size}, {zero}{flag});")
         return self.elems[dt]
+
+    def value_flag(self, t):
+        """`value: true` para struct/array por valor: só esses são copiados
+        (`copyOf`) e sobrescritos in-place (`storeAt`) nos elementos;
+        ponteiro e interface copiam a referência."""
+        return ", value: true" if self.typesys.is_value(t) else ""
 
     def of_int_fn(self, t, b, dt):
         """T(n) a partir de um inteiro Go (conversão para parâmetro de tipo)."""

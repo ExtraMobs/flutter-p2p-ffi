@@ -1096,7 +1096,7 @@ const _$e0 = go.Elem<Golang.Uint8>(
   ofInt: Golang.Uint8.from,
   ofFloat: _$f0_1,
 );
-const _$e1 = go.Elem<P>(16, P.new);
+const _$e1 = go.Elem<P>(16, P.new, value: true);
 Golang.Int _$f3_4(Golang.FloatBase f) =>
     Golang.Int.from(f.toInteger(64, signed: true));
 const _$e3 = go.Elem<Golang.Int>(
@@ -1130,5 +1130,5 @@ const _$e10 = go.Elem<go.GoMap<Golang.String, Golang.Int>>(
   _$z16_11,
   pointers: true,
 );
-const _$e11 = go.Elem<G>(8, G.new);
+const _$e11 = go.Elem<G>(8, G.new, value: true);
 const _$e12 = go.Elem<P?>(8, go.zeroNull, pointers: true);

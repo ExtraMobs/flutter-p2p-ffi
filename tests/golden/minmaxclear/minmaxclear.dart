@@ -361,5 +361,5 @@ const _$e2 = go.Elem<Golang.Int>(
   ofInt: Golang.Int.from,
   ofFloat: _$f3_3,
 );
-const _$e3 = go.Elem<P>(16, P.new);
+const _$e3 = go.Elem<P>(16, P.new, value: true);
 const _$e4 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);

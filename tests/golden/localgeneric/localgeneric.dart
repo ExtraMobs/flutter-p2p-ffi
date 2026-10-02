@@ -26,6 +26,7 @@ go.Slice<Object?> pairs<K, V>(
         8,
         () => $_pairs$pair<K, V>($K, $V),
         pointers: true,
+        value: true,
       ),
     ),
   );
