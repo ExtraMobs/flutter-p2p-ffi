@@ -205,6 +205,26 @@ class UnsupportedTest(unittest.TestCase):
                '\t_ = fmt.Errorf("%w", fmt.Errorf("x"))\n}\n')
         Engine(dump_source(src)).emit_package()
 
+    def test_async_refused_contexts(self):
+        """Cor async (M4) onde o Dart não tem como suspender: recusa explícita."""
+        recv = "func recv(c chan int) int { return <-c }\n\n"
+        cases = {
+            # chamada por valor é síncrona: função async guardada como valor
+            recv + "func main() { f := recv; _ = f }\n": ("async:valor-func", 5),
+            recv + "func main() { g := func() int { return <-make(chan int) }; _ = g }\n": ("async:valor-func", 5),
+            # String() é chamado pelo fmt de forma síncrona
+            "type T struct{ c chan int }\n\nfunc (t T) String() string { return string(rune(<-t.c)) }\n\n"
+            "func main() {}\n": ("async:contexto-sincrono", 5),
+            recv + "type T struct{ c chan int }\n\nfunc (t T) Error() string { recv(t.c); return \"\" }\n\n"
+            "func main() {}\n": ("async:contexto-sincrono", 7),
+            # o $goInit é síncrono
+            recv + "var x = recv(make(chan int, 1))\n\nfunc main() { _ = x }\n": ("async:init", 5),
+        }
+        for body, (code, line) in cases.items():
+            with self.subTest(body=body):
+                got, pos = self.emit_error("package main\n\n" + body)
+                self.assertEqual((got, pos[1]), (code, line))
+
     def test_import_spec_position(self):
         src = 'package main\n\nimport _ "embed"\n\nfunc main() {}\n'
         self.assertEqual(self.emit_error(src), ("go:embed", ("main.go", 3, 8)))

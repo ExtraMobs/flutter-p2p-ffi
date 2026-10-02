@@ -43,7 +43,7 @@ class Promotion(Service):
             else:
                 recv = f"{field}!" if ptr or self.typesys.underlying(et)["kind"] == "interface" else field
                 for m in via:
-                    inline += self.forwarder(m, recv)
+                    inline += self.forwarder(m, recv, self.concurrency.method_key(t, m["name"]))
         return withs, inline
 
     def embedded_methods(self, et):
@@ -54,12 +54,13 @@ class Promotion(Service):
             return [{"name": m["name"], "type": m["type"], "index": [0], "ptr": False} for m in u["methods"]]
         return et.get("methods") or []
 
-    def forwarder(self, m, recv):
+    def forwarder(self, m, recv, key):
         sig = self.pkg.type_at(m["type"])
         params = [f"{self.types.dart(pt)} p{i}" for i, pt in enumerate(sig["params"])]
         args = ", ".join(f"p{i}" for i in range(len(params)))
         name = member_name(m["name"])
-        return [f"{self.types.results(sig['results'])} {name}({', '.join(params)}) => {recv}.{name}({args});"]
+        ret = self.concurrency.results(key, sig)  # Future<R> se o método promovido é async
+        return [f"{ret} {name}({', '.join(params)}) => {recv}.{name}({args});"]
 
     def promote_mixin(self, et, ptr, emethods):
         """`mixin E$Promote` (uma vez por tipo embutido): forwarders do method
@@ -74,6 +75,6 @@ class Promotion(Service):
             lines = ["", f"/// Métodos de {et['name']} promovidos por embedding (delegação).",
                      f"mixin {name} {{", f"{cls}{'?' if ptr else ''} get {getter};"]
             for m in emethods:
-                lines += self.forwarder(m, recv)
+                lines += self.forwarder(m, recv, self.concurrency.method_key(et, m["name"]))
             self.mixin_decls += lines + ["}"]
         return self.mixins[key]

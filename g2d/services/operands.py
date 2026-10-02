@@ -67,12 +67,16 @@ class Operands(Service):
         return self.expr(n, min_prec)
 
     def multi_value(self, n):
-        """Expressão única com vários valores como record Dart: `x.(T)` e
-        `m[k]` em comma-ok, ou chamada com N resultados."""
+        """Expressão única com vários valores como record Dart: `x.(T)`,
+        `m[k]` e `<-ch` em comma-ok, ou chamada com N resultados."""
         if n["node"] == "TypeAssertExpr":
             return self.asserts.comma_ok_assert(n)
         if self.is_map_index(n):
             return f"{self.expr(n['x'], POSTFIX)}.lookup({self.expr(n['index'])})"
+        if n["node"] == "UnaryExpr" and n["op"] == "<-":
+            self.concurrency.require_async(n, "recepção de canal")
+            recv2 = self.imports.qualify(None, "chanRecv2")
+            return f"await {recv2}({self.expr(n['x'])})"
         return self.expr(n)
 
     def is_pure(self, n):

@@ -103,7 +103,12 @@ class InitBehavior(Behavior):
         """`$goInit`: variáveis de pacote na ordem de types.Info.InitOrder
         (dependências primeiro) e depois as funções init, em ordem de
         arquivo/fonte, uma vez só. O `main` a chama antes do corpo."""
-        self.scope = FunctionScope()
+        self.scope = FunctionScope(sync_reason="init")
+        for decl, name in self.facts.init_funcs.items():
+            fn = next(d for f in self.pkg.files for d in f["ast"]["decls"] or []
+                      if d["node"] == "FuncDecl" and d["name"]["$obj"]["decl"] == decl)
+            if self.concurrency.is_async(self.concurrency.decl_key(fn)):
+                raise Unsupported("async:init", "função init que suspende (o $goInit é síncrono)", fn)
         lines = self.deps_init()
         for entry in self.pkg.init_order:
             spec, idx = self.facts.var_inits[entry[0]]
@@ -269,9 +274,9 @@ class InterfaceClass(TypeDeclBehavior):
 
     def emit(self, spec, name, t, u, tidx):
         tparams = self.functions.type_params(spec["typeParams"] or self.facts.local_tparams.get(id(t)))
-        return self.iface_class(name, u, tparams.decl)
+        return self.iface_class(name, u, tparams.decl, t)
 
-    def iface_class(self, go_name, u, tparams=""):
+    def iface_class(self, go_name, u, tparams="", owner=None):
         """interface Go → `abstract mixin class` (métodos abstratos; interfaces
         embutidas em `implements`). Interfaces de restrição (unions) só existem
         como bound de genéricos: nada a emitir. Genérica: `Key<K>` (sem
@@ -291,7 +296,8 @@ class InterfaceClass(TypeDeclBehavior):
         for m in u["methods"]:
             sig = self.pkg.type_at(m["type"])
             params = ", ".join(f"{self.types.dart(pt)} p{i}" for i, pt in enumerate(sig["params"]))
-            lines.append(f"{self.types.results(sig['results'])} {member_name(m['name'])}({params});")
+            ret = self.concurrency.results(self.concurrency.iface_key(owner or u, m["name"]), sig)
+            lines.append(f"{ret} {member_name(m['name'])}({params});")
         return lines + ["}"]
 
 
@@ -344,7 +350,8 @@ class NonStructNamed(TypeDeclBehavior):
             params = ", ".join(f"{self.types.dart(p)} p{i}" for i, p in enumerate(sig["params"]))
             args = ", ".join(f"p{i}" for i in range(len(sig["params"])))
             name = member_name(m["name"])
-            lines += ["", f"{self.types.results(sig['results'])} {name}({params}) => $p.value.{name}({args});"]
+            ret = self.concurrency.results(self.concurrency.method_key(t, m["name"]), sig)
+            lines += ["", f"{ret} {name}({params}) => $p.value.{name}({args});"]
         for m in ptr_methods:
             lines += [""] + self.functions.func_decl(m)
         return lines + ["}"]

@@ -25,11 +25,18 @@ class Cap(BuiltinBehavior):
 
 def length_of(b, n):
     """`len`/`cap` como Golang.Int; o int Dart vem de Operands.dart_length
-    (que também serve índices e contagens sem o embrulho)."""
+    (que também serve índices e contagens sem o embrulho), ou de
+    go.chanLen/chanCap (canal, possivelmente nil)."""
+    fun_name = n["fun"]["name"]
+    x = n["args"][0]
+    kind = b.typesys.underlying(b.pkg.type_of(x))["kind"]
+    if kind == "chan":
+        helper = "chanLen" if fun_name == "len" else "chanCap"
+        d = f"{b.imports.qualify(None, helper)}({b.expr(x)})"
+        return f"{b.types.golang('Int')}({d})", POSTFIX
     d = b.operands.dart_length(n)
     if d is None:
-        kind = b.typesys.underlying(b.pkg.type_of(n["args"][0]))["kind"]
-        raise Unsupported(f"{n['fun']['name']}:{kind}", f"{n['fun']['name']} de {kind}", n)
+        raise Unsupported(f"{fun_name}:{kind}", f"{fun_name} de {kind}", n)
     return f"{b.types.golang('Int')}({d})", POSTFIX
 
 
@@ -133,7 +140,20 @@ class Make(BuiltinBehavior):
             return self.types.wrap(t, f"{self.types.dart(u)}.make({ln}, {cp}, {self.descriptors.elem(u['elem'])})"), POSTFIX
         if u["kind"] == "map":
             return self.types.wrap(t, f"{self.types.dart(u)}({self.descriptors.elem(u['elem'])}{self.typesys.map_args(t)})"), POSTFIX
+        if u["kind"] == "chan":
+            cap = self.operands.to_int(args[1]) if len(args) > 1 else "0"
+            elem = self.pkg.type_at(u["elem"])
+            return f"{self.types.dart(u).non_null()}({cap}, {self.types.zero(elem)})", POSTFIX
         raise Unsupported(f"make:{u['kind']}", f"make de {u['kind']}", n)
+
+
+class Close(BuiltinBehavior):
+    """`close(ch)` → go.chanClose (canal possivelmente nil: panic do Go)."""
+
+    name = "close"
+
+    def emit(self, n, args):
+        return f"{self.imports.qualify(None, 'chanClose')}({self.expr(args[0])})", POSTFIX
 
 
 class New(BuiltinBehavior):

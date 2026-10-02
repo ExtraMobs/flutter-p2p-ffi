@@ -12,6 +12,7 @@ import 'src/runtime/panic.dart';
 import 'src/runtime/slice.dart';
 
 export 'src/runtime/array.dart';
+export 'src/runtime/chan.dart';
 export 'src/runtime/defer.dart';
 export 'src/runtime/elem.dart';
 export 'src/runtime/errors.dart';
@@ -21,6 +22,8 @@ export 'src/runtime/named_bool.dart';
 export 'src/runtime/order.dart';
 export 'src/runtime/panic.dart';
 export 'src/runtime/ptr.dart';
+export 'src/runtime/sched.dart';
+export 'src/runtime/select.dart';
 export 'src/runtime/slice.dart';
 export 'src/runtime/struct.dart';
 export 'src/runtime/tag.dart';

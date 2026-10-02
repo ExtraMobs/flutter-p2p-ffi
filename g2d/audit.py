@@ -26,6 +26,7 @@ import subprocess
 import sys
 from dataclasses import dataclass, field
 
+from g2d.analysis.color import ColorSummary, ColorTable
 from g2d.config import STDLIB_SHIMS
 from g2d.engine import Engine
 from g2d.graph import BUILD_ENV, build_env, go_list, init_deps, topo_order
@@ -69,11 +70,11 @@ def finding(e):
     return Finding(e.code, e.what, where)
 
 
-def emit_collect(pkg):
+def emit_collect(pkg, colors=None):
     """(Dart ou None, [Finding]): o Engine segue depois de cada declaração
     que falha; só um pacote sem problemas tem Dart."""
     try:
-        engine = Engine(pkg)
+        engine = Engine(pkg, colors=colors)
         engine.errors = []
         source = engine.emit_package()
         errors = engine.errors
@@ -266,6 +267,36 @@ def cache_key(corpus):
     return h.hexdigest()[:12]
 
 
+def color_graph(order, dumps, log=print):
+    """ColorTable do grafo inteiro (a cor `async` atravessa pacotes nos dois
+    sentidos: implementação num pacote colore a interface de outro). Os
+    resumos ficam em cache ao lado dos dumps, por versão do código da cor."""
+    h = hashlib.sha256()
+    for f in ("analysis/color.py", "services/concurrency.py"):
+        with open(os.path.join(ROOT, "g2d", f), "rb") as fh:
+            h.update(fh.read())
+    cache = os.path.join(dumps, "color-" + h.hexdigest()[:12])
+    summaries = []
+    for i, path in enumerate(order, 1):
+        cached = os.path.join(cache, *path.split("/")) + ".json"
+        if os.path.exists(cached):
+            with open(cached, encoding="utf-8") as f:
+                summaries.append(ColorSummary.from_json(json.load(f)))
+            continue
+        (pkg,) = load_dump(dump_path(dumps, path))
+        try:
+            s = Engine(pkg).color_summary()
+        except Exception:  # noqa: BLE001 — o pacote cai na emissão, com o erro dele
+            continue
+        summaries.append(s)
+        os.makedirs(os.path.dirname(cached), exist_ok=True)
+        with open(cached, "w", encoding="utf-8") as f:
+            json.dump(s.to_json(), f)
+        if i % 100 == 0:
+            log(f"  cor {i}/{len(order)}")
+    return ColorTable(summaries)
+
+
 def dump_path(dumps, path):
     return os.path.join(dumps, *path.split("/")) + ".json"
 
@@ -304,6 +335,7 @@ def audit(target, corpus, docs, cache, log=print):
     dump_graph(order, corpus, dumps)
 
     imports = {p: graph[p]["imports"] for p in graph}
+    colors = color_graph(order, dumps, log)
     reports, sources, stdlib, reflection, meta = {}, {}, {}, [], {}
     for i, path in enumerate(order, 1):
         (pkg,) = load_dump(dump_path(dumps, path))
@@ -319,7 +351,7 @@ def audit(target, corpus, docs, cache, log=print):
         if not r.asm:
             if pkg.name == "main":
                 pkg.init_deps = init_deps(path, imports)
-            source, r.findings = emit_collect(pkg)
+            source, r.findings = emit_collect(pkg, colors)
             if source is not None:
                 sources[path] = source
         if i % 100 == 0:

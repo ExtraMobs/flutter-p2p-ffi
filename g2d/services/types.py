@@ -51,6 +51,8 @@ class TypeMapper(Service):
             return DartType(self.imports.qualify(None, "GoArray"), (self.dart(t["elem"]),))
         if k == "map":
             return DartType(self.imports.qualify(None, "GoMap"), (self.dart(t["key"]), self.dart(t["elem"])))
+        if k == "chan":
+            return DartType(self.imports.qualify(None, "Chan"), (self.dart(t["elem"]),), nullable=True)
         if k == "interface":
             if not t["methods"] and not t["embeddeds"]:
                 return DartType("Object", nullable=True)
@@ -124,7 +126,12 @@ class TypeMapper(Service):
     def nilable(self, t):
         """Tipos Go cujo zero value é nil e que mapeiam para tipo Dart anulável."""
         # Tipo nomeado sobre func é uma classe (nil = `$f` nulo), não anulável.
-        return self.typesys.underlying(t)["kind"] in ("interface", "pointer", "func") and not self.typesys.named_func(t)
+        return (self.typesys.underlying(t)["kind"] in ("interface", "pointer", "func", "chan")
+                and not self.typesys.named_func(t))
+
+    def future(self, t):
+        """`Future<T>` (funções coloridas `async` pela análise de concorrência)."""
+        return DartType("Future", (t,))
 
     def zero(self, index_or_desc):
         """Expressão Dart do zero value do tipo."""
@@ -141,7 +148,7 @@ class TypeMapper(Service):
                 return self.cls(t) + "()"
         if self.typesys.named_composite(t):
             return self.wrap(t, "null" if k == "func" else self.zero(u))
-        if k in ("interface", "pointer", "func"):
+        if k in ("interface", "pointer", "func", "chan"):
             return "null"
         if k == "struct":
             # Struct genérica: o construtor recebe os dicionários dos argumentos.

@@ -3,6 +3,7 @@
 from g2d.engine.behavior import NOT_HANDLED, ExprBehavior
 from g2d.engine.precedence import DART_PREC, NON_ASSOC, POSTFIX, UNARY
 from g2d.model import Unsupported, has_recover, unparen
+from g2d.services.concurrency import ONCE_DO, SUSPENDING_SHIM
 from g2d.services.naming import member_name, param_name, top_member_name, type_name
 
 
@@ -134,6 +135,12 @@ class UnaryExpr(ExprBehavior):
         op = n["op"]
         if op == "&":
             return self.address_of(n)
+        if op == "<-":
+            # `<-ch` (sem comma-ok): go.chanRecv (canal possivelmente nil
+            # bloqueia pra sempre). `v, ok := <-ch` vai por Operands.multi_value.
+            self.concurrency.require_async(n, "recepção de canal")
+            recv = self.imports.qualify(None, "chanRecv")
+            return f"await {recv}({self.expr(n['x'])})", UNARY
         dart_op = {"-": "-", "+": "", "!": "!", "^": "~"}.get(op)
         if dart_op is None:
             raise Unsupported(f"operador-unario:{op}", f"operador unário {op}", n)
@@ -347,15 +354,21 @@ class FuncLit(ExprBehavior):
         sig = self.pkg.type_of(n)
         params, boxes = self.functions.params(n["type"]["params"], sig)
         saved_rd, saved_breaks = self.scope.rd, self.scope.breaks
+        saved_color = self.scope.async_ctx, self.scope.sync_reason
         self.scope.breaks = []
         self.scope.rd = "$rd" if has_recover(n["body"]) else None
+        key = self.concurrency.lit_key(n)
+        is_async = self.concurrency.is_async(key)
         try:
+            self.functions.enter_color(is_async, n["body"], key, n)
             if self.scope.rd:
                 params = ", ".join(p for p in (params, self.functions.rd_param()) if p)
             body = self.functions.func_body(n["type"], n["body"], sig)
         finally:  # Unsupported no corpo não pode deixar trocado o estado da função externa
             self.scope.rd, self.scope.breaks = saved_rd, saved_breaks
-        return f"({params}) {{\n" + "\n".join(boxes + body) + "\n}", 0
+            self.scope.async_ctx, self.scope.sync_reason = saved_color
+        kw = " async" if is_async else ""
+        return f"({params}){kw} {{\n" + "\n".join(boxes + body) + "\n}", 0
 
 
 class CallExpr(ExprBehavior):
@@ -449,3 +462,36 @@ class G2DTemp(ExprBehavior):
 
     def emit(self, n):
         return n["text"], POSTFIX + 1
+
+
+class AsyncCall(ExprBehavior):
+    """Chamada que espera (cor `async`, g2d/analysis/color.py): `await f(x)`.
+    `Lock`/`Wait`/`Once.Do` do shim `sync` viram a variante suspensiva
+    (`lock$async`...) num contexto `async`; num síncrono forçado o `Lock`
+    fica `lock()`. A chamada em si é a do CallExpr (despacho com `$awaited`)."""
+
+    kinds = ("CallExpr",)
+
+    def emit(self, n):
+        if n.get("$awaited") or not self.concurrency.awaits(n):
+            return NOT_HANDLED
+        self.concurrency.require_async(n, "chamada que suspende")
+        key = self.concurrency.callee_key(n)
+        fun = unparen(n["fun"])
+        shim = SUSPENDING_SHIM.get(key)
+        if shim or key == ONCE_DO:
+            go_name = fun["sel"]["name"] + "$async"  # member_name: Lock$async → lock$async
+            n = dict(n, fun=dict(fun, sel=dict(fun["sel"], name=go_name)))
+        return f"await {self.expr(dict(n, **{'$awaited': True}), UNARY)}", UNARY
+
+
+class AsyncValueGuard(ExprBehavior):
+    """Função `async` usada como valor (closure guardada, `f` sem chamar,
+    method value): chamadas por valor são síncronas, então é recusada."""
+
+    kinds = ("Ident", "SelectorExpr", "FuncLit")
+
+    def emit(self, n):
+        if id(n) not in self.facts.async_values:
+            return NOT_HANDLED
+        raise Unsupported("async:valor-func", "função que suspende usada como valor (chamada por valor é síncrona)", n)

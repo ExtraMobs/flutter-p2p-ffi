@@ -1,14 +1,19 @@
 /// Shim do pacote Go `sync`.
 ///
-/// Sem goroutines (M4, `TODO/P0-design-m4-concorrencia.md`) só existe a
-/// goroutine do `main`: a semântica Go fica determinística. Esperar por algo
-/// que só outra goroutine faria (Lock de mutex travado, `Wait` com contador
-/// positivo, `Cond.Wait`) é o deadlock do Go (`fatal error: all goroutines
-/// are asleep - deadlock!`); unlock de destravado é o fatal error do Go.
-/// `WaitGroup.Go` (cria goroutine) fica de fora.
+/// Cada primitiva tem uma versão síncrona (`lock()`, `wait()`...) e uma
+/// suspensiva (`lock$async()`, `wait$async()`... — sufixo `$` impossível em
+/// Go, nunca colide) que o g2d escolhe conforme a cor da função que chama
+/// (M4, `TODO/P0-design-m4-concorrencia.md`). Sem outra goroutine viva,
+/// esperar por algo que só ela resolveria ainda é o deadlock do Go (`fatal
+/// error: all goroutines are asleep - deadlock!`); unlock de destravado
+/// continua fatal error do Go. Com outras goroutines vivas, a versão
+/// SÍNCRONA travada é um limite do g2d — um contexto que precisa ser
+/// síncrono (ex. um método `String()`) tentou uma espera que só a versão
+/// suspensiva resolveria — e vira `fatal` com mensagem `g2d: ...`.
 // ignore_for_file: library_prefixes
 library;
 
+import 'dart:async';
 import 'dart:collection';
 
 import 'builtin.dart';

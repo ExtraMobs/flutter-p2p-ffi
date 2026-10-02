@@ -272,6 +272,15 @@ class RangeStmt(StmtBehavior):
                 [bind(val, self.values.copy_text(f"{src}[{k}]", elem_t))] if val else [])
         elif u["kind"] == "func":
             return self.range_func(s, x, u, key, val, bind, label)
+        elif u["kind"] == "chan":
+            # `for v := range ch`: recebe até o canal fechar (chanRecv2);
+            # sem segunda variável (Go só dá o elemento).
+            self.concurrency.require_async(s, "range sobre canal")
+            t = self.names.temp()
+            recv2 = self.imports.qualify(None, "chanRecv2")
+            head = [f"final {src} = {self.expr(x)};", "while (true)"]
+            pre = [f"final {t} = await {recv2}({src});", f"if (!{t}.$2) break;"]
+            pre += [bind(key, f"{t}.$1")] if key else []
         else:
             raise Unsupported(f"range:{u['kind']}", f"range sobre {u['kind']}", s)
         body = self.control.loop_body(s["body"])
@@ -501,6 +510,9 @@ class DeferStmt(StmtBehavior):
             pre.append(f"final {tmp} = {self.expr(fun)};")
             callee_node = {"node": "G2DTemp", "text": tmp, "$type": fun.get("$type")}
         d = self.scope.defers
+        # Callee que suspende: a closure adiada é `async` (o `runAsync` da
+        # função, que a cor também fez `async`, espera por ela).
+        kw = " async" if self.concurrency.awaits(call) else ""
         if fun.get("$builtin"):  # delete, panic, print...: sem `$rd`
             text = self.expr(dict(call, args=fixed))
             return ["{"] + pre + [f"{d}.defer(() {{ {text}; }});", "}"]
@@ -527,4 +539,119 @@ class DeferStmt(StmtBehavior):
             return ["{"] + pre + [f"{d}.defer(() {{ {text} }});", "}"]
         else:
             text = self.expr(dict(call, fun=callee_node, args=fixed))
-        return ["{"] + pre + [f"{d}.defer(() {{ {text}; }});", "}"]
+        return ["{"] + pre + [f"{d}.defer((){kw} {{ {text}; }});", "}"]
+
+
+class SendStmt(StmtBehavior):
+    kinds = ("SendStmt",)
+
+    def emit(self, s):
+        """`ch <- v`: valor avaliado/copiado (struct) na hora, envio suspende
+        (go.chanSend; canal nil bloqueia pra sempre)."""
+        elem = self.pkg.type_at(self.typesys.underlying(self.pkg.type_of(s["chan"]))["elem"])
+        self.concurrency.require_async(s, "envio em canal")
+        ch, v = self.expr(s["chan"]), self.values.coerce(s["value"], elem)
+        send = self.imports.qualify(None, "chanSend")
+        return [f"await {send}({ch}, {v});"]
+
+
+class GoStmt(StmtBehavior):
+    kinds = ("GoStmt",)
+
+    def emit(self, s):
+        """`go f(args)`: função e argumentos avaliados na hora (mesma regra
+        do `defer`); go.spawn nunca chama o corpo na hora — sempre agenda."""
+        call = s["call"]
+        fun, args = call["fun"], call["args"] or []
+        if fun.get("$builtin"):
+            raise Unsupported(f"go:builtin:{fun.get('name')}", f"go de builtin {fun.get('name')}", s)
+        pre, fixed = [], []
+        for a in args:
+            if a.get("$value") is not None:
+                fixed.append(a)
+                continue
+            tmp = self.names.temp()
+            pre.append(f"final {tmp} = {self.values.coerce(a, self.pkg.type_of(a))};")
+            fixed.append({"node": "G2DTemp", "text": tmp, "$type": a.get("$type")})
+        callee_node = fun
+        if fun["node"] == "SelectorExpr" and fun.get("$sel", {}).get("kind") == "method":
+            recv = fun["x"]
+            tmp = self.names.temp()
+            pre.append(f"final {tmp} = {self.expr(recv)};")
+            callee_node = dict(fun, x={"node": "G2DTemp", "text": tmp, "$type": recv.get("$type")})
+        elif not self.calls.declared_func(fun):
+            # Valor de função (variável, campo, índice...): o Go fixa o
+            # valor no início do `go`, antes de agendar.
+            tmp = self.names.temp()
+            pre.append(f"final {tmp} = {self.expr(fun)};")
+            callee_node = {"node": "G2DTemp", "text": tmp, "$type": fun.get("$type")}
+        # Sem `await`: o go.spawn aceita a goroutine de qualquer cor.
+        text = self.expr(dict(call, fun=callee_node, args=fixed, **{"$awaited": True}))
+        spawn = self.imports.qualify(None, "spawn")
+        return ["{"] + pre + [f"{spawn}(() => {text});", "}"]
+
+
+class SelectStmt(StmtBehavior):
+    kinds = ("SelectStmt",)
+
+    def emit(self, s):
+        """`select`: canais e valores de envio avaliados uma vez, em ordem
+        (a lista literal do Dart já garante isso). `go.selectNow` com
+        `default` (nunca suspende); `await go.select` sem `default`
+        (bloqueia). `break` sem rótulo sai do select (como do switch)."""
+        clauses = s["body"]["list"] or []
+        real = [c for c in clauses if c["comm"] is not None]
+        default = next((c for c in clauses if c["comm"] is None), None)
+        label = self.control.switch_label()
+        recv_cls, send_cls = self.imports.qualify(None, "RecvCase"), self.imports.qualify(None, "SendCase")
+        items, elems = [], []
+        for c in real:
+            comm = c["comm"]
+            if comm["node"] == "SendStmt":
+                elem = self.pkg.type_at(self.typesys.underlying(self.pkg.type_of(comm["chan"]))["elem"])
+                items.append(f"{send_cls}({self.expr(comm['chan'])}, {self.values.coerce(comm['value'], elem)})")
+            elif comm["node"] in ("ExprStmt", "AssignStmt"):
+                unary = comm["rhs"][0] if comm["node"] == "AssignStmt" else comm["x"]
+                if unary["node"] != "UnaryExpr" or unary["op"] != "<-":
+                    raise Unsupported("select:comm", "case de select sem operação de canal", c)
+                chan_node = unary["x"]
+                elem = self.pkg.type_at(self.typesys.underlying(self.pkg.type_of(chan_node))["elem"])
+                items.append(f"{recv_cls}({self.expr(chan_node)})")
+            else:
+                raise Unsupported("select:comm", f"case de select {comm['node']}", c)
+            elems.append(elem)
+        cases_t = self.imports.qualify(None, "SelectCase")
+        cases = self.names.temp()
+        out = ["{", f"final {cases} = <{cases_t}>[{', '.join(items)}];"]
+        result = self.names.temp()
+        if default is not None:
+            out.append(f"final {result} = {self.imports.qualify(None, 'selectNow')}({cases});")
+        else:
+            self.concurrency.require_async(s, "select sem default")
+            out.append(f"final {result} = await {self.imports.qualify(None, 'select')}({cases});")
+        sel = self.names.temp()
+        out.append(f"final {sel} = {result}.$1;")
+        chain = []
+        for i, (c, elem) in enumerate(zip(real, elems)):
+            comm = c["comm"]
+            bind = []
+            if comm["node"] == "AssignStmt":
+                lhs, define = comm["lhs"], comm["tok"] == ":="
+                v = lhs[0]
+                if not is_blank(v):
+                    val = f"({result}.$2 as {self.types.dart(elem)})"
+                    bind.append(self.names.local_decl(v, elem, val) if define
+                                else f"{self.operands.lvalue(v)} = {val};")
+                if len(lhs) > 1 and not is_blank(lhs[1]):
+                    ok, okv = lhs[1], f"{result}.$3"
+                    bool_t = self.pkg.type_at(ok["$obj"]["type"]) if define else None
+                    bind.append(self.names.local_decl(ok, bool_t, okv) if define
+                                else f"{self.operands.lvalue(ok)} = {okv};")
+            body = ["{"] + bind + [ln for st in c["body"] or [] for ln in self.stmt(st)] + ["}"]
+            chain.append((f"{sel} == {i}", body))
+        for i, (cond, body) in enumerate(chain):
+            out += [("else " if i else "") + f"if ({cond})"] + body
+        if default is not None:
+            body = ["{"] + [ln for st in default["body"] or [] for ln in self.stmt(st)] + ["}"]
+            out += (["else"] if chain else []) + body
+        return self.control.close_switch(label, out + ["}"])
