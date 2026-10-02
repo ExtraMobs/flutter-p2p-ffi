@@ -1,13 +1,41 @@
 // ignore_for_file: library_prefixes
+import 'dart:convert';
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:golib_dart/builtin.dart' as go;
+import 'package:golib_dart/errors.dart' as errors;
 import 'package:golib_dart/fixed_types/golang.dart' as Golang;
 import 'package:golib_dart/fmt.dart';
 import 'package:test/test.dart';
 
 go.Slice<Object?> args(List<Object?> a) =>
     go.Slice.of(a, const go.Elem(16, go.zeroNull, pointers: true));
+
+Golang.String s(String x) => Golang.String.fromDart(x);
+
+/// O argumento Go da linha do oráculo (`go_fmt_sharp_vectors.go`).
+Object? operand(String kind, String arg) {
+  switch (kind) {
+    case 'f64':
+      final b = ByteData(8)
+        ..setUint64(0, BigInt.parse(arg, radix: 16).toSigned(64).toInt());
+      return Golang.Float64(b.getFloat64(0));
+    case 'f32':
+      final b = ByteData(4)..setUint32(0, int.parse(arg, radix: 16));
+      return Golang.Float32(b.getFloat32(0));
+    case 'rune':
+      return Golang.Rune(int.parse(arg));
+    case 'err':
+      return switch (arg) {
+        'new' => errors.new$(s('x"y')),
+        'wrapnil' => errorf(s('a %w'), args([null])),
+        'errorf' => errorf(s('b %d'), args([Golang.Int(1)])),
+        _ => throw ArgumentError(arg),
+      };
+  }
+  throw ArgumentError(kind);
+}
 
 void main() {
   test('sprint segue as regras de espaço do Go', () {
@@ -47,5 +75,45 @@ void main() {
     final m = go.GoMap<Golang.Int, Golang.Int>(elem);
     expect(() => sharp(m), throwsA(isA<UnimplementedError>()));
     expect(sharp(go.TypeTag(m, 'map[int]int')), 'map[int]int{}');
+  });
+
+  test(
+    '# em float e runa, %#v dos erros do runtime (oráculo: go run)',
+    () async {
+      final r = await Process.run('go', [
+        'run',
+        'test/go_fmt_sharp_vectors.go',
+      ]);
+      expect(r.exitCode, 0, reason: '${r.stderr}');
+      final rows = [
+        for (final row in jsonDecode(r.stdout as String) as List)
+          (row as List).cast<String>(),
+      ];
+      expect(rows, isNotEmpty);
+      for (final [format, kind, arg, want] in rows) {
+        final got = sprintf(s(format), args([operand(kind, arg)])).toString();
+        expect(got, want, reason: '$format de $kind $arg');
+      }
+    },
+  );
+
+  test('%#v de ponteiro aninhado: (*T)(endereço estável do %p)', () {
+    String sharp(Object? x) => sprintf(s('%#v'), args([x])).toString();
+    final e = errors.new$(s('x'));
+    final addr = RegExp(r'0xc0[0-9a-f]{8}');
+    String shape(String x) => x.replaceAll(addr, 'ADDR');
+    // Go: &fmt.wrapError{msg:"a x", err:(*errors.errorString)(0xc000014070)}
+    final w = sharp(errorf(s('a %w'), args([e])));
+    expect(
+      shape(w),
+      '&fmt.wrapError{msg:"a x", err:(*errors.errorString)(ADDR)}',
+    );
+    final j = sharp(errors.join(go.Slice.of([e], go.errorElem)));
+    expect(
+      shape(j),
+      '&errors.joinError{errs:[]error{(*errors.errorString)(ADDR)}}',
+    );
+    // Mesmo objeto, mesmo endereço.
+    expect(addr.firstMatch(w)![0], addr.firstMatch(j)![0]);
   });
 }

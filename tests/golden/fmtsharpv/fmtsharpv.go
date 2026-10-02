@@ -5,6 +5,7 @@ package main
 import (
 	"errors"
 	"fmt"
+	"strings"
 )
 
 type P struct{ X, Y int }
@@ -122,4 +123,39 @@ func main() {
 	fmt.Printf("%10v|%-6v|\n", []int{1}, "x")
 	var a any = P{5, 6}
 	fmt.Printf("%#v\n", a)
+
+	// `#` em float e runa; erros do runtime em %#v.
+	g := 3.5
+	fmt.Printf("%#g|%#.3g|%#e|%#.0f|%#10.0e|%#v\n", g, 100000.0, g, 3.0, g, g)
+	fmt.Printf("%#g|%#G|%#.0g\n", 1e6, float32(0.1), 0.0)
+	fmt.Printf("%#q|%#+q|%#v|%#U\n", 'x', 'é', 'y', 'z')
+	fmt.Printf("%#v\n", errors.New("boom"))
+	var err error = fmt.Errorf("n=%d", 1)
+	fmt.Printf("%#v\n", err)
+
+	// Ponteiro aninhado não nil: (*T)(endereço); o teste compara a forma.
+	n2 := Node{Name: "b", Next: &Node{Name: "a"}}
+	fmt.Println(mask(fmt.Sprintf("%#v", n2)))
+	fmt.Println(mask(fmt.Sprintf("%#v", []*P{&p, nil})))
+	fmt.Println(mask(fmt.Sprintf("%#v", []any{&p})))
+	fmt.Println(mask(fmt.Sprintf("%#v", map[string]*P{"k": &p})))
+	fmt.Println(mask(fmt.Sprintf("%#v", fmt.Errorf("w: %w", errors.New("in")))))
+	fmt.Println(strings.Contains(fmt.Sprintf("%#v", []*P{&p}), fmt.Sprintf("%p", &p)))
+}
+
+// mask troca o endereço de `(*T)(0x...)`, que nem o Go reproduz, por ADDR.
+func mask(s string) string {
+	out := ""
+	for {
+		i := strings.Index(s, ")(0x")
+		if i < 0 {
+			return out + s
+		}
+		j := i + 4
+		for j < len(s) && (s[j] >= '0' && s[j] <= '9' || s[j] >= 'a' && s[j] <= 'f') {
+			j++
+		}
+		out += s[:i] + ")(ADDR"
+		s = s[j:]
+	}
 }
