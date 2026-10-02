@@ -10,13 +10,13 @@ import 'io.dart' as io;
 import 'fixed_types/golang.dart' as Golang;
 import 'fixed_types/golang/src/float_format.dart' show formatGoFloatFmt;
 import 'src/runtime/output.dart';
+import 'src/strconv/quote_core.dart';
 import 'src/unicode/isprint.dart';
 
 part 'src/fmt/format.dart';
 part 'src/fmt/print.dart';
 part 'src/fmt/value.dart';
 part 'src/fmt/sort_keys.dart';
-part 'src/fmt/quote.dart';
 
 /// `fmt.Stringer`.
 abstract interface class Stringer {

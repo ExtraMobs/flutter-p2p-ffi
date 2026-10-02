@@ -32,7 +32,7 @@ final class _Fmt {
       _b.add(s);
       return;
     }
-    final width = wid - _runeCount(s);
+    final width = wid - runeCount(s);
     if (!minus) {
       writePadding(width);
       _b.add(s);
@@ -135,7 +135,7 @@ final class _Fmt {
   List<int> truncate(Uint8List s) {
     if (!precPresent) return s;
     var n = prec;
-    for (var i = 0; i < s.length; i += _decodeRune(s, i).$2) {
+    for (var i = 0; i < s.length; i += decodeRune(s, i).$2) {
       if (n-- <= 0) return Uint8List.sublistView(s, 0, i);
     }
     return s;
