@@ -499,6 +499,33 @@ class TypeSwitchStmt(StmtBehavior):
         return self.control.close_switch(label, out + ["}"])
 
 
+def fixed_receiver(b, fun, pre):
+    """Receptor de `defer x.M()`/`go x.M()` avaliado agora num temporário.
+    Método de receptor valor recebe uma cópia feita agora (desreferenciada
+    se x é `*T`, seguindo o caminho de embedding), como o Go."""
+    info, x = fun["$sel"], fun["x"]
+    t = b.pkg.type_of(x)
+    ref = x.get("$type", (x.get("$obj") or {}).get("type"))  # índice na typeTable
+    tmp = b.names.temp()
+    if b.calls.value_method_path(t, info["index"], fun["sel"]["name"]):
+        for fi in info["index"][:-1]:  # campos embutidos até o dono do método
+            base = b.pkg.type_at(t["elem"]) if t["kind"] == "pointer" else t
+            f = b.typesys.underlying(base)["fields"][fi]
+            x = {"node": "SelectorExpr", "x": x, "sel": {"name": f["name"]},
+                 "$sel": {"kind": "field", "index": [fi]}, "$type": f["type"]}
+            ref = f["type"]
+            t = b.pkg.type_at(ref)
+        text = b.expr(x, POSTFIX)
+        if t["kind"] == "pointer":
+            text, ref = text + "!", t["elem"]
+            t = b.pkg.type_at(ref)
+        pre.append(f"final {tmp} = {b.values.copy_text(text, t)};")
+        return dict(fun, x={"node": "G2DTemp", "text": tmp, "$type": ref},
+                    **{"$sel": dict(info, index=info["index"][-1:])})
+    pre.append(f"final {tmp} = {b.expr(x)};")
+    return dict(fun, x={"node": "G2DTemp", "text": tmp, "$type": x.get("$type")})
+
+
 class DeferStmt(StmtBehavior):
     kinds = ("DeferStmt",)
 
@@ -523,10 +550,7 @@ class DeferStmt(StmtBehavior):
             fixed.append({"node": "G2DTemp", "text": tmp, "$type": a.get("$type")})
         callee_node = fun
         if fun["node"] == "SelectorExpr" and fun.get("$sel", {}).get("kind") == "method":
-            recv = fun["x"]
-            tmp = self.names.temp()
-            pre.append(f"final {tmp} = {self.expr(recv)};")
-            callee_node = dict(fun, x={"node": "G2DTemp", "text": tmp, "$type": recv.get("$type")})
+            callee_node = fixed_receiver(self, fun, pre)
         elif fun["node"] not in ("FuncLit", "Ident", "SelectorExpr"):
             tmp = self.names.temp()
             pre.append(f"final {tmp} = {self.expr(fun)};")
@@ -597,10 +621,7 @@ class GoStmt(StmtBehavior):
             fixed.append({"node": "G2DTemp", "text": tmp, "$type": a.get("$type")})
         callee_node = fun
         if fun["node"] == "SelectorExpr" and fun.get("$sel", {}).get("kind") == "method":
-            recv = fun["x"]
-            tmp = self.names.temp()
-            pre.append(f"final {tmp} = {self.expr(recv)};")
-            callee_node = dict(fun, x={"node": "G2DTemp", "text": tmp, "$type": recv.get("$type")})
+            callee_node = fixed_receiver(self, fun, pre)
         elif not self.calls.declared_func(fun):
             # Valor de função (variável, campo, índice...): o Go fixa o
             # valor no início do `go`, antes de agendar.
