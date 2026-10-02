@@ -62,10 +62,12 @@ class Functions(Service):
             self.scope.rd, rd = "$rd", self.rd_param()
         params = ", ".join(p for p in (dicts, params, rd) if p)
         main_case = name == "main" and not d["recv"]
-        # Suspensão direta (canal, select sem default, range sobre chan):
-        # a função vira `async`/`Future<...>` (main mantém `void main()`; a
-        # cor dela recai sobre o closure passado a go.runMain).
-        is_async = self.concurrency.direct_suspend(d["body"])
+        # Cor (g2d/analysis/color.py): a função vira `async`/`Future<...>`
+        # (main mantém `void main()`; a cor dela recai sobre o closure
+        # passado a go.runMain).
+        key = self.concurrency.decl_key(d)
+        is_async = self.concurrency.is_async(key)
+        self.enter_color(is_async, d["body"], key, d)
         ret = self.types.results(sig["results"])
         if is_async and not main_case:
             ret = self.types.future(ret)
@@ -79,6 +81,16 @@ class Functions(Service):
             prologue, boxes = [], []
         opener = " async {" if (is_async and not main_case) else " {"
         return doc_comment(d["doc"]) + [head + opener] + prologue + boxes + body + ["}"]
+
+    def enter_color(self, is_async, body, key, node):
+        """Marca no escopo se a função corrente é `async`. Uma que precisa
+        ficar síncrona (`String()`, método de interface da stdlib) e
+        suspende de verdade no corpo (canal, `Wait`) não tem tradução."""
+        self.scope.async_ctx = is_async
+        self.scope.sync_reason = "contexto-sincrono"
+        if not is_async and self.concurrency.is_forced(key) and self.concurrency.direct_suspend(body)[0]:
+            raise Unsupported("async:contexto-sincrono",
+                              f"{key[-1]} precisa ser síncrono (chamado pelo shim) mas espera outra goroutine", node)
 
     def rd_param(self):
         """Parâmetro oculto de quem chama recover(): a pilha de defers que a
@@ -226,8 +238,9 @@ class Functions(Service):
         if deferring:
             e, st = self.names.temp(), self.names.temp()
             finish = [f"return {tuple_expr(self.scope.results)};"] if self.scope.results else []
+            run = f"await {d}.runAsync();" if self.scope.async_ctx else f"{d}.run();"
             out += [f"final {d} = {self.imports.qualify(None, 'Defers')}();", "try {"] + stmts + [
-                f"}} catch ({e}, {st}) {{", f"{d}.fail({e}, {st});", "} finally {", f"{d}.run();"
+                f"}} catch ({e}, {st}) {{", f"{d}.fail({e}, {st});", "} finally {", run
             ] + finish + ["}"]
         else:
             out += stmts

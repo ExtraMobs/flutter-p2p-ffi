@@ -47,7 +47,7 @@ Legenda: ✅ fiel · ⚠️ fiel no caso comum, com limite conhecido · ❌ não
 | embedding (promoção) | caminho `$sel.index` + `mixin E$Promote` (forwarders) | M3 | ✅ |
 | genéricos | parâmetros de tipo Dart + dicionário `go.Elem<T>` (`$T`) + bounds `IntBase/GoReal/GoOrdered/StringBase` | M3 | ✅ |
 | arrays `[N]T` (valor) | `go.GoArray<T>` (base `go.GoValue`, como `GoStruct`) | M3 | ✅ |
-| goroutines, canais, `select` | `go.Chan<T>`, `go.select`/`go.selectNow`, `go.spawn` + escalonador (ver "Concorrência (M4) — runtime" abaixo) | M4 | ⚠️ runtime pronto; emissão do `go`/`select`/`<-`/`range` sobre chan pelo g2d ainda não (linha `go, select, range sobre chan/func` abaixo) |
+| goroutines, canais, `select` | `go.Chan<T>`, `go.select`/`go.selectNow`, `go.spawn` + escalonador; `async`/`await` pela cor transitiva (ver "Concorrência (M4) — runtime" e "Cor transitiva" abaixo) | M4 | ⚠️ runtime e emissão prontos; valor func `async`, `$goInit` que suspende e timers/`context` ainda não |
 | reflexão | descritores estáticos (evolução de `go.Elem`) | M5 | ❌ |
 
 ## Plataformas: ponteiros e `Type` (verificado)
@@ -288,15 +288,76 @@ função/método/func literal, se ele suspende **diretamente**):
 | `select`, geral | canais/valores de envio na lista literal do Dart (avaliados uma vez, em ordem, como o Go); `switch` no índice do resultado (`if/else` encadeado, como o `switch` comum); `case v, ok := <-ch:` e `case ch <- f():` funcionam; `break` sem rótulo sai do select (reusa `ControlFlow.switch_label`) |
 | `go f(x)` / `go func(){...}()` / `go obj.m(x)` | função e argumentos avaliados na hora (mesma regra do `defer`); `go.spawn(() => f(a))` — nunca precisa saber se `f` é `async` (`Future<T> Function()` já serve de `FutureOr<void> Function()`) |
 
-Uma função/método/func literal cujo próprio corpo (sem contar func literals
-aninhadas) tem uma dessas operações de canal fora de um `select` com
-`default`, um `select` sem `default` ou um `range` sobre chan **suspende
-diretamente** e é emitida `async`/`Future<R>` (`main` mantém `void main()`;
-a cor recai sobre o closure `() { ... }` passado a `go.runMain`, que vira
-`() async { ... }` quando `main` suspende). ⚠️ Isto ainda não inclui: chamar
-uma função/método que suspende (transitivo), símbolo suspensivo de shim
-(`Mutex.Lock`...), nem as ligações de interface/valor func — essa análise de
-cor completa é o restante do `TODO/P0-design-m4-concorrencia.md`.
+### Cor transitiva (`g2d/analysis/color.py`)
+
+Decisão do dono (2026-10): só vira `async` quem pode suspender, e isso é
+calculado pelo g2d sobre o grafo inteiro (nada de "tudo async", nem
+isolates). Uma função/método/func literal é `async`/`Future<R>` se:
+
+- **suspende no próprio corpo** (sem contar func literals aninhadas): uma
+  das operações de canal acima fora dos cases de um `select` com `default`,
+  `select` sem `default`, `range` sobre chan, `WaitGroup.Wait`,
+  `Cond.Wait` (emitidos `await wg.wait$async()`...), ou `Mutex.Lock`,
+  `RWMutex.Lock`/`RLock` de um **Mutex disputável** (`await
+  x.lock$async()`, ver abaixo);
+- **ou espera quem é `async`**: chamada direta de função, método (inclusive
+  promovido por embedding, resolvido até o tipo que o declara), método de
+  interface ou da restrição de um genérico, func literal chamada na hora,
+  `defer` (a closure adiada vira `() async`, e a função roda
+  `await $d.runAsync()`) e `Once.Do(f)` com `f` async (`await
+  once.do$async(f)`). Recursão/ciclos não atrapalham (é um ponto fixo).
+
+Mutex disputável: no event loop cooperativo, um `Lock` só encontra o Mutex
+travado se quem o trava suspende antes de destravar. O g2d identifica o
+Mutex estaticamente (campo de struct nomeada, var de pacote ou local) e
+olha cada seção crítica: do `Lock` até o `Unlock` correspondente no mesmo
+bloco, ou até o fim da função com `defer Unlock`. Se alguma seção suspende
+(direto, chamando quem é `async` ou travando outro Mutex disputável), não
+destrava no mesmo bloco, ou o Mutex não tem identidade estática (ponteiro
+passado adiante), ele é disputável e todos os `Lock` dele suspendem; senão
+ficam `lock()` síncrono e não colorem ninguém (ponto fixo junto com a cor).
+⚠️ Um alias que o g2d não liga ao mesmo Mutex (ex. `m := &s.mu` travado
+segurando um canal, e `s.mu.Lock()` em outro lugar) cai no `fatal` `g2d:
+...` do `lock()` síncrono em runtime, nunca num resultado errado.
+
+`go f()` e `WaitGroup.Go(f)` não colorem quem chama: `go.spawn` aceita
+qualquer cor (o `go` emite a chamada sem `await`).
+
+Ligações que o Dart exige (união-busca): um método de interface e todas as
+implementações dele têm a mesma assinatura, logo a mesma cor (o
+`implements` do goast), assim como uma interface e as interfaces que ela
+embute; os forwarders de embedding (`E$Promote`, inline) e de `N$Ptr`
+devolvem `Future<R>` quando o método de destino é `async`. A cor atravessa
+pacotes nos dois sentidos (uma implementação com canal em `b` colore a
+interface de `a`, emitido antes): `pipeline.color_table` resume todos os
+pacotes carregados juntos antes de emitir, e o `audit` faz o mesmo passo
+sobre o grafo do kubo (resumos em cache ao lado dos dumps). Fixtures
+`asynccolor` (interfaces, embedding, tipo nomeado, genérico, recursão,
+`defer`, `Once`, `WaitGroup.Go`, multi-valor, `Mutex` disputado de verdade
+entre goroutines e um que nunca é disputado) e `asynccross` (interface em um pacote, implementação com
+goroutine servidora em outro).
+
+Contextos que precisam ficar síncronos (o shim chama de forma síncrona):
+métodos `String`, `Error`, `GoString`, `Format`, e todo método no grupo de
+uma interface da stdlib (`io.Reader`...). Lá dentro o `Lock` fica
+`lock()` síncrono (⚠️ `fatal` `g2d: ...` em runtime se estiver disputado);
+qualquer outra espera é recusada: `async:contexto-sincrono`.
+
+Recusas (`Unsupported`, nunca Dart aproximado):
+
+- `async:valor-func`: função `async` usada como valor (closure guardada ou
+  passada adiante, `f` sem chamar, method value `x.M`, `T.M`). Chamadas por
+  valor de função são sempre síncronas (a cor por classe de assinatura de
+  func é o próximo passo do `TODO/P0-design-m4-concorrencia.md`);
+- `async:init`: inicializador de variável de pacote ou função `init` que
+  suspende (o `$goInit` é síncrono);
+- `async:contexto-sincrono`: ver acima.
+
+⚠️ Uma interface só se liga às implementações que o `implements` do goast
+conhece (tipos do próprio pacote × interfaces da typeTable dele); entre
+pacotes isso depende de `TODO/P1-design-interfaces-entre-pacotes.md`.
+⚠️ Ordem de avaliação: `a + await f()` lê `a` antes de suspender; o gc
+pode ler depois da chamada (`TODO/P1-construcao-ordem-avaliacao.md`).
 
 ### `Chan<T>` (`src/runtime/chan.dart`)
 
@@ -452,7 +513,7 @@ a cor da chamada, do lado do g2d, nunca um lookup por nome Go em runtime.
 | `defer f(a)` | `{ final $t = a; $d.defer(() { f($t); }); }`, com o corpo em `try`/`catch`/`finally` de `go.Defers` |
 | `defer f()` com f de tipo func nomeado | o closure em `f.$f` (pode receber `$rd` e recuperar); assinatura do subjacente (fixture `defernamed`) |
 | `defer delete(m, k)`, `defer panic(v)`, `defer clear(s)`... | mesmo caminho, com a chamada do builtin no closure (fixture `deferbuiltin`); `defer recover()` → `Unsupported` `defer-recover` (no Go não recupera) |
-| `go`, `select`, `ch <- v`, `<-ch`, range sobre chan | ✅ M4b (sem cor de chamada ainda: "Concorrência (M4) — runtime" acima) |
+| `go`, `select`, `ch <- v`, `<-ch`, range sobre chan | ✅ M4b, com cor transitiva ("Cor transitiva" acima) |
 | `goto` | ❌ exigiria reescrever a função como máquina de estados. Medido no grafo do kubo (`docs/audit.md`, `branch:goto`): 54 ocorrências em 14 pacotes, 3 na fronteira (ex. gonum `mathext/internal/cephes`); decisão a rever se entrar no caminho |
 
 `defer`: os argumentos (e o receptor) são avaliados no `defer`. As chamadas
@@ -504,7 +565,7 @@ intervalo, nil pointer, escrita em map nil.
 | `os` | parcial (1º recorte portável VM/AOT/JS/Wasm): `getenv`/`lookupEnv` (JS/Wasm sem Node: `""`/`false`), `exit`, `getpid`, `args` (só `[nome do programa]`), `stdin`/`stdout`/`stderr` como `*File` (`write`, `writeString`, `close`, `name`, `fd`; `ErrClosed` depois de `Close`; `Read` não existe), `errNotExist`/`errExist`/`errPermission`/`errClosed`/`errInvalid`/`errNoDeadline`/`errDeadlineExceeded`, `isNotExist`/`isExist`/`isPermission`/`isTimeout` (como o `underlyingError` do Go). ❌ sistema de arquivos (`Open`, `ReadFile`, `Stat`, `MkdirAll`...): `Unsupported` `shim-simbolo:os.*` (`TODO/P0-shim-os.md`). Fixture `osbasic` |
 | `io/fs` | parcial: `PathError` (struct, `os.PathError` é alias), `FileMode` (`Uint32Base`; `IsDir`/`IsRegular`/`Perm`/`Type`/`String` sem `<<` acima de 30 bits), `errInvalid`/`errPermission`/`errExist`/`errNotExist`/`errClosed`. Fixture `osbasic` |
 | `time` | parcial: `Duration` (classe sobre `Int64Base`, a mesma forma de `type N int64` gerado; `String()` portado do Go, `Seconds`/`Minutes`/`Hours`/`Round`/`Truncate`/`Abs`/...); as constantes (`time.Second`) dobradas em `time.Duration(n)`. ❌ `Time`, `Now`, timers (`TODO/P0-shim-time.md`). Fixture `timeduration` |
-| `sync` | `Mutex`, `RWMutex`, `Once`, `WaitGroup`, `Pool` (campo `New` → `new$`), `Map$` (`sync.Map`; chave com igualdade de interface), `Cond`/`NewCond`, `Locker`/`AsyncLocker` (interfaces de shim), `OnceFunc`/`OnceValue`/`OnceValues`, como structs de shim. Método síncrono (`Lock`, `Wait`...) continua valendo pra uma goroutine só: esperar o que só outra goroutine faria é o deadlock do Go (`go.fatal`, sem recover); unlock de destravado é o fatal error do Go. Com goroutines (M4), cada um ganha uma variante suspensiva de sufixo `$` (`lock$async`, `rLock$async`, `wait$async`, `do$async`; ver "Concorrência (M4) — runtime"), que o g2d escolhe pela cor da chamada; a versão síncrona travada com outras goroutines vivas é um limite do g2d (`fatal` com `g2d: ...`). `WaitGroup.Go` (Go 1.25) existe. ⚠️ `Map.Range` em ordem de inserção; `Pool` nunca é esvaziado pelo GC; `%v` de `Map`/`Pool`/`Cond` lança. Fixture `syncshim` |
+| `sync` | `Mutex`, `RWMutex`, `Once`, `WaitGroup`, `Pool` (campo `New` → `new$`), `Map$` (`sync.Map`; chave com igualdade de interface), `Cond`/`NewCond`, `Locker`/`AsyncLocker` (interfaces de shim), `OnceFunc`/`OnceValue`/`OnceValues`, como structs de shim. Método síncrono (`Lock`, `Wait`...) continua valendo pra uma goroutine só: esperar o que só outra goroutine faria é o deadlock do Go (`go.fatal`, sem recover); unlock de destravado é o fatal error do Go. Com goroutines (M4), cada um ganha uma variante suspensiva de sufixo `$` (`lock$async`, `rLock$async`, `wait$async`, `do$async`; ver "Concorrência (M4) — runtime"), que o g2d emite numa função `async` (`Wait` sempre; `Lock`/`RLock` só de Mutex disputável, ver "Cor transitiva"; num contexto que precisa ficar síncrono, como `String()`, o `Lock` fica síncrono); a versão síncrona travada com outras goroutines vivas é um limite do g2d (`fatal` com `g2d: ...`). `WaitGroup.Go` (Go 1.25) existe. ⚠️ `Map.Range` em ordem de inserção; `Pool` nunca é esvaziado pelo GC; `%v` de `Map`/`Pool`/`Cond` lança. Fixture `syncshim` |
 | `sync/atomic` | `Int32`/`Int64`/`Uint32`/`Uint64`/`Uintptr`/`Bool`/`Value`/`Pointer[T]` (T struct) como structs de shim (`%v` como o Go: `{{} {} 5}`); `Add*`/`Load*`/`Store*`/`Swap*`/`CompareAndSwap*` sobre `go.Ptr`. Decidido no M4: mesmo com goroutines, leitura/escrita simples continua certa — são cooperativas sobre um só event loop, nunca truly paralelas (ao contrário das OS threads que o `atomic` do Go protege), então não há corrida de verdade a impedir. Variantes `*Pointer` (unsafe) → `unsafe:Pointer`. Fixture `syncatomic` |
 | `fmt.Fprint`, `Fprintln`, `Fprintf` | `fmt.fprint(w, args)`: a mesma formatação, num só `w.write(bytes)` |
 | `sort` | `Interface` (interface de shim: tipo gerado que a satisfaz declara `implements sort.Interface`), `sort`, `stable`, `isSorted`, `slice$`, `sliceStable`, `search`, `ints`, `strings`, `float64s`: porta exata do pdqsort/stable do Go (mesmas chamadas a `Less`/`Swap`, mesmo resultado para iguais); swap de slice via `go.swapElems` (copia struct/array antes) |

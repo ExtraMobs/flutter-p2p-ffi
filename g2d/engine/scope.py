@@ -34,6 +34,8 @@ class Facts:
     local_specs: list = field(default_factory=list)  # [(TypeSpec, nome içado)] na ordem do fonte
     local_targs: dict = field(default_factory=dict)  # id(tipo local) → parâmetros de tipo da função genérica
     local_tparams: dict = field(default_factory=dict)  # id(tipo local) → campos typeParams da função
+    colors: object = None  # ColorTable do grafo (g2d/analysis/color.py)
+    async_values: set = field(default_factory=set)  # id() de valores func cuja cor é async (recusados)
 
 
 @dataclass
@@ -51,3 +53,5 @@ class FunctionScope:
     breaks: list = field(default_factory=list)  # alvos de break: None (laço) ou rótulo (switch)
     rangefuncs: list = field(default_factory=list)  # RangeFuncFrame dos `range` sobre func abertos
     used_labels: set = field(default_factory=set)
+    async_ctx: bool = False  # a função (ou literal) sendo emitida é `async`
+    sync_reason: str = "contexto-sincrono"  # código do Unsupported se precisar suspender sem ser async

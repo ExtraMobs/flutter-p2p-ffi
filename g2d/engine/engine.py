@@ -16,12 +16,16 @@ class Engine:
     comportamento novo, passe um plugin extra:
 
         Engine(pkg, plugins=[*DEFAULT_PLUGINS, MeuPlugin()]).emit_package()
+
+    `colors` é a ColorTable do grafo (`g2d/analysis/color.py`), com a cor
+    `async` das funções de todos os pacotes; sem ela, vale a do pacote só.
     """
 
-    def __init__(self, pkg, plugins=None):
+    def __init__(self, pkg, plugins=None, colors=None):
         from g2d.behaviors.plugins import DEFAULT_PLUGINS
 
         self.pkg = pkg
+        self.colors = colors
         self.facts = Facts()
         self.scope = None
         self.services = ServiceRegistry()
@@ -136,6 +140,12 @@ class Engine:
             self.errors.append(Unsupported.internal(e, node))
         self.scope = scope
         return []
+
+    def color_summary(self):
+        """ColorSummary do pacote (primeiro passo da cor do grafo)."""
+        from g2d.analysis.color import summarize
+
+        return summarize(self)
 
     def emit_package(self):
         """Library Dart (não formatada) do pacote."""

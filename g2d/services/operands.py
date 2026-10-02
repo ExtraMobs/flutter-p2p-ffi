@@ -74,6 +74,7 @@ class Operands(Service):
         if self.is_map_index(n):
             return f"{self.expr(n['x'], POSTFIX)}.lookup({self.expr(n['index'])})"
         if n["node"] == "UnaryExpr" and n["op"] == "<-":
+            self.concurrency.require_async(n, "recepção de canal")
             recv2 = self.imports.qualify(None, "chanRecv2")
             return f"await {recv2}({self.expr(n['x'])})"
         return self.expr(n)

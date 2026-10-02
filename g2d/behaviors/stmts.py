@@ -275,6 +275,7 @@ class RangeStmt(StmtBehavior):
         elif u["kind"] == "chan":
             # `for v := range ch`: recebe até o canal fechar (chanRecv2);
             # sem segunda variável (Go só dá o elemento).
+            self.concurrency.require_async(s, "range sobre canal")
             t = self.names.temp()
             recv2 = self.imports.qualify(None, "chanRecv2")
             head = [f"final {src} = {self.expr(x)};", "while (true)"]
@@ -509,6 +510,9 @@ class DeferStmt(StmtBehavior):
             pre.append(f"final {tmp} = {self.expr(fun)};")
             callee_node = {"node": "G2DTemp", "text": tmp, "$type": fun.get("$type")}
         d = self.scope.defers
+        # Callee que suspende: a closure adiada é `async` (o `runAsync` da
+        # função, que a cor também fez `async`, espera por ela).
+        kw = " async" if self.concurrency.awaits(call) else ""
         if fun.get("$builtin"):  # delete, panic, print...: sem `$rd`
             text = self.expr(dict(call, args=fixed))
             return ["{"] + pre + [f"{d}.defer(() {{ {text}; }});", "}"]
@@ -535,7 +539,7 @@ class DeferStmt(StmtBehavior):
             return ["{"] + pre + [f"{d}.defer(() {{ {text} }});", "}"]
         else:
             text = self.expr(dict(call, fun=callee_node, args=fixed))
-        return ["{"] + pre + [f"{d}.defer(() {{ {text}; }});", "}"]
+        return ["{"] + pre + [f"{d}.defer((){kw} {{ {text}; }});", "}"]
 
 
 class SendStmt(StmtBehavior):
@@ -545,6 +549,7 @@ class SendStmt(StmtBehavior):
         """`ch <- v`: valor avaliado/copiado (struct) na hora, envio suspende
         (go.chanSend; canal nil bloqueia pra sempre)."""
         elem = self.pkg.type_at(self.typesys.underlying(self.pkg.type_of(s["chan"]))["elem"])
+        self.concurrency.require_async(s, "envio em canal")
         ch, v = self.expr(s["chan"]), self.values.coerce(s["value"], elem)
         send = self.imports.qualify(None, "chanSend")
         return [f"await {send}({ch}, {v});"]
@@ -580,7 +585,8 @@ class GoStmt(StmtBehavior):
             tmp = self.names.temp()
             pre.append(f"final {tmp} = {self.expr(fun)};")
             callee_node = {"node": "G2DTemp", "text": tmp, "$type": fun.get("$type")}
-        text = self.expr(dict(call, fun=callee_node, args=fixed))
+        # Sem `await`: o go.spawn aceita a goroutine de qualquer cor.
+        text = self.expr(dict(call, fun=callee_node, args=fixed, **{"$awaited": True}))
         spawn = self.imports.qualify(None, "spawn")
         return ["{"] + pre + [f"{spawn}(() => {text});", "}"]
 
@@ -621,6 +627,7 @@ class SelectStmt(StmtBehavior):
         if default is not None:
             out.append(f"final {result} = {self.imports.qualify(None, 'selectNow')}({cases});")
         else:
+            self.concurrency.require_async(s, "select sem default")
             out.append(f"final {result} = await {self.imports.qualify(None, 'select')}({cases});")
         sel = self.names.temp()
         out.append(f"final {sel} = {result}.$1;")

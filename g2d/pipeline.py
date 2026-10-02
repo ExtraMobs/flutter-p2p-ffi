@@ -12,6 +12,7 @@ import sys
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 
+from g2d.analysis.color import ColorTable
 from g2d.engine import Engine
 from g2d.model import Unsupported, link_packages, load_dump
 
@@ -65,12 +66,14 @@ class LoadStage(Stage):
 
 class EmitStage(Stage):
     """Transpila cada pacote com o Engine; construções não suportadas ficam
-    registradas no Unit (o pacote é pulado)."""
+    registradas no Unit (o pacote é pulado). A cor `async` é a do conjunto
+    de pacotes carregados juntos (`color_table`)."""
 
     def run(self, ctx):
+        colors = color_table([u.pkg for u in ctx.units], ctx.plugins)
         for unit in ctx.units:
             try:
-                unit.source = Engine(unit.pkg, plugins=ctx.plugins).emit_package()
+                unit.source = Engine(unit.pkg, plugins=ctx.plugins, colors=colors).emit_package()
             except Unsupported as e:
                 unit.error = e
 
@@ -139,6 +142,13 @@ def dart_format(source):
     return r.stdout
 
 
-def transpile_package(pkg, plugins=None):
-    """Atalho: um pacote → Dart formatado."""
-    return dart_format(Engine(pkg, plugins=plugins).emit_package())
+def color_table(pkgs, plugins=None):
+    """ColorTable (g2d/analysis/color.py) de pacotes transpilados juntos: a
+    cor `async` atravessa pacotes (chamadas e implementações de interface)."""
+    return ColorTable([Engine(p, plugins=plugins).color_summary() for p in pkgs])
+
+
+def transpile_package(pkg, plugins=None, colors=None):
+    """Atalho: um pacote → Dart formatado (`colors`: a ColorTable do grafo;
+    sem ela, a cor é a do pacote sozinho)."""
+    return dart_format(Engine(pkg, plugins=plugins, colors=colors).emit_package())

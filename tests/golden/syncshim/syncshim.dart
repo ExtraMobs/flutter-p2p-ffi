@@ -163,7 +163,7 @@ class _cache$ extends go.GoStruct<_cache$> {
 }
 
 void main() {
-  go.runMain(() {
+  go.runMain(() async {
     $goInit();
     go.Ptr<go.Slice<Golang.Uint8>>? b = go
         .assertType<go.Ptr<go.Slice<Golang.Uint8>>?>(
@@ -272,7 +272,7 @@ void main() {
     wg.add(Golang.Int(2));
     wg.done();
     wg.done();
-    wg.wait();
+    await wg.wait$async();
     fmt.println(go.Slice<Object?>.of([Golang.String.fromDart('wg ok')], _$e3));
     sync.Map$ m = sync.Map$();
     m.store(Golang.String.fromDart('a'), Golang.Int(1));

@@ -18,7 +18,7 @@ import sys
 import tempfile
 import unittest
 
-from g2d.pipeline import transpile_package, write_tree
+from g2d.pipeline import color_table, transpile_package, write_tree
 from g2d.model import link_packages, parse_dump
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -105,9 +105,11 @@ class GoldenTest(unittest.TestCase):
     @unittest.skipUnless(HAVE_DART, "dart ausente")
     def test_2_transpile(self):
         for case in CASES:
-            for pkg, golden, _ in case_packages(case):
+            pkgs = case_packages(case)
+            colors = color_table([pkg for pkg, _, _ in pkgs])
+            for pkg, golden, _ in pkgs:
                 with self.subTest(case=case, pkg=pkg.path):
-                    check_golden(self, golden, transpile_package(pkg))
+                    check_golden(self, golden, transpile_package(pkg, colors=colors))
 
     @unittest.skipUnless(HAVE_GO and HAVE_DART, "go/dart ausentes")
     def test_4_end_to_end(self):

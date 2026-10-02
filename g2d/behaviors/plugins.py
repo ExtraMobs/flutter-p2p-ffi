@@ -2,7 +2,7 @@
 comportamentos no motor. Para injetar comportamento, acrescente um plugin
 (ou substitua um destes) na lista passada ao Engine."""
 
-from g2d.analysis import analyses
+from g2d.analysis import analyses, color
 from g2d.behaviors import builtins, decls, exprs, fmtcheck, stmts
 from g2d.behaviors.conversions import CONVERSIONS
 from g2d.engine.behavior import Plugin
@@ -114,6 +114,9 @@ class ConcurrencyPlugin(Plugin):
 
     def install(self, engine):
         engine.register_service(Concurrency)
+        engine.register_analysis(color.ColorAnalysis)
+        engine.register_expr(exprs.AsyncCall)
+        engine.register_expr(exprs.AsyncValueGuard)
         engine.register_stmt(stmts.SendStmt)
         engine.register_stmt(stmts.GoStmt)
         engine.register_stmt(stmts.SelectStmt)

@@ -89,3 +89,27 @@ Testes: `golib_dart/test/{chan,select,sync_async,defer_async}_test.dart` (unitá
 conferidos com `go run`). Golden do g2d (`defers`, `deferbuiltin`, `defernamed`, `syncshim`,
 `syncatomic`, `hello`) continuam idênticos em VM/JS/Wasm.
 
+
+## g2d: emissão e cor transitiva (feito)
+
+Decisão do dono (2026-10-02): cor transitiva calculada pelo g2d (não "tudo async", não isolates).
+`g2d/analysis/color.py` resume cada pacote (`summarize`) e junta o grafo numa `ColorTable`
+(união-busca de interface × implementações e de interfaces embutidas, propagação callee → chamador,
+Mutex disputável só se alguma seção crítica suspende);
+`pipeline.color_table` e o `audit` fazem esse passo antes de emitir. Emissão: `AsyncCall`/`AsyncValueGuard`
+(`g2d/behaviors/exprs.py`), `Future<R>` nas assinaturas, forwarders e interfaces, `runAsync` nos defers,
+`lock$async`/`wait$async`/`do$async` do shim `sync`. Detalhe em `docs/mapping-spec.md` § "Cor transitiva".
+Fixtures `asynccolor`, `asynccross`; recusas em `tests/test_engine.py` (`test_async_refused_contexts`).
+
+## Falta (quebrar em artefatos ao atacar)
+
+- **Valor func `async`** (`async:valor-func`): cor por classe de assinatura de func (closure guardada,
+  callback de shim, method value); hoje chamada por valor é sempre síncrona e o valor async é recusado.
+  Bloqueia padrões como `errgroup.Go(func() error {...})`.
+- **`$goInit` que suspende** (`async:init`): tornar o `$goInit` async e esperá-lo no `runMain`.
+- **Interfaces entre pacotes**: a ligação interface × implementação só vê o `implements` do pacote que
+  declara o tipo (`TODO/P1-design-interfaces-entre-pacotes.md`).
+- **Timers e `context`** (M4c): `time.Sleep`/`After`/`NewTimer`/`NewTicker`/`AfterFunc` com
+  `holdEvents`/`releaseEvents`, e `TODO/P0-shim-context.md`.
+- ⚠️ **Sem preempção**: o event loop é cooperativo; laço que nunca suspende (ex. esperar um `atomic` mudar)
+  trava o programa inteiro, enquanto o Go o interromperia.
