@@ -289,7 +289,8 @@ class RangeStmt(StmtBehavior):
             head = [f"final {src} = {self.expr(x)};", f"for (final {k} in {src}.keysSnapshot())"]
             pre = [f"if (!{src}.containsKey({k})) continue;"]
             elem_t = self.pkg.type_at(u["elem"])
-            pre += ([bind(key, k)] if key else []) + (
+            key_t = self.pkg.type_at(u["key"])  # a chave guardada não pode ser alterada
+            pre += ([bind(key, self.values.copy_text(k, key_t))] if key else []) + (
                 [bind(val, self.values.copy_text(f"{src}[{k}]", elem_t))] if val else [])
         elif u["kind"] == "func":
             return self.range_func(s, x, u, key, val, bind, label)

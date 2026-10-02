@@ -263,9 +263,8 @@ class IndexExpr(ExprBehavior):
             return f"{x}[{self.operands.to_int(n['index'])}]", POSTFIX
         if u["kind"] == "basic":  # string: o byte no índice
             return f"{self.types.golang('Uint8')}({x}[{self.operands.to_int(n['index'])}])", POSTFIX
-        i = self.expr(n["index"])
         if u["kind"] == "map":
-            return f"{x}[{i}]", POSTFIX  # go.GoMap devolve o zero value
+            return f"{x}[{self.operands.map_key(n)}]", POSTFIX  # go.GoMap devolve o zero value
         raise Unsupported(f"indice:{u['kind']}", f"índice sobre {u['kind']}", n)
 
 
