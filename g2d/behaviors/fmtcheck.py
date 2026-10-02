@@ -205,12 +205,8 @@ class FmtVerbCheck(ExprBehavior):
         """Caso não portado (texto do código) ou None."""
         if kind == "float" and verb in "bxX":
             return f"%{verb}-float"
-        if kind == "float" and "#" in flags and verb != "v":  # %#v não usa o flag sharp
-            return "#-float"
         if kind == "complex" and verb not in "vT":
             return f"%{verb}-complex"
-        if kind == "int" and verb == "q" and "#" in flags:
-            return "%#q-runa"
         if verb == "T" and kind in ("composto", "chan", "ponteiro"):
             return f"%T-{kind}"
         if verb not in "vTp" and kind in ("func", "chan", "ponteiro"):

@@ -491,7 +491,7 @@ final class _Printer implements State {
       case 0x63: // c
         _fmt.pad(utf8.encode(String.fromCharCode(_runeOf(v))));
       case 0x71: // q
-        if (_fmt.sharp) throw UnimplementedError('fmt: %#q de runa');
+        // fmtQc do Go ignora o `#` (backquote só em string).
         final r = utf8.encode(String.fromCharCode(_runeOf(v)));
         _fmt.pad(quoteBytes(r, 0x27, _fmt.plus));
       case 0x55: // U

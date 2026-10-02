@@ -89,3 +89,17 @@ final class Addr {
   @override
   int get hashCode => identityHashCode(target);
 }
+
+/// Structs do runtime que não são [GoStruct] (os erros concretos de
+/// `errors`/`fmt`, comparados por identidade como o ponteiro do Go), mas
+/// que o `%#v` imprime campo a campo: `&errors.errorString{s:"x"}`.
+abstract interface class GoOpaqueStruct implements GoTyped {
+  /// Campos em ordem de declaração do Go.
+  List<Object?> get $fields;
+
+  /// Nomes Go dos campos.
+  List<String> get $fieldNames;
+
+  /// Nomes Go dos tipos dos campos (ver [GoStruct.$fieldTypes]).
+  List<String> get $fieldTypes;
+}

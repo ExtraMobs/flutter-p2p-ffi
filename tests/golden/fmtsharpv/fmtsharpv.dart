@@ -902,6 +902,47 @@ void main() {
       Golang.String.fromDart('%#v\n'),
       go.Slice<Object?>.of([a], _$e7),
     );
+    Golang.Float64 g = Golang.Float64(3.5);
+    fmt.printf(
+      Golang.String.fromDart('%#g|%#.3g|%#e|%#.0f|%#10.0e|%#v\n'),
+      go.Slice<Object?>.of([
+        g,
+        Golang.Float64(100000.0),
+        g,
+        Golang.Float64(3.0),
+        g,
+        g,
+      ], _$e7),
+    );
+    fmt.printf(
+      Golang.String.fromDart('%#g|%#G|%#.0g\n'),
+      go.Slice<Object?>.of([
+        Golang.Float64(1e+06),
+        Golang.Float32(0.10000000149011612),
+        Golang.Float64(0.0),
+      ], _$e7),
+    );
+    fmt.printf(
+      Golang.String.fromDart('%#q|%#+q|%#v|%#U\n'),
+      go.Slice<Object?>.of([
+        Golang.Int32(120),
+        Golang.Int32(233),
+        Golang.Int32(121),
+        Golang.Int32(122),
+      ], _$e7),
+    );
+    fmt.printf(
+      Golang.String.fromDart('%#v\n'),
+      go.Slice<Object?>.of([errors.new$(Golang.String.fromDart('boom'))], _$e7),
+    );
+    go.GoError? err = fmt.errorf(
+      Golang.String.fromDart('n=%d'),
+      go.Slice<Object?>.of([Golang.Int(1)], _$e7),
+    );
+    fmt.printf(
+      Golang.String.fromDart('%#v\n'),
+      go.Slice<Object?>.of([err], _$e7),
+    );
   });
 }
 

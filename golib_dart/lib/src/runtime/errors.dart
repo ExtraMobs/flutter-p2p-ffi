@@ -6,10 +6,11 @@ import '../../fixed_types/golang.dart' as Golang;
 import 'elem.dart';
 import 'panic.dart';
 import 'slice.dart';
+import 'struct.dart' show GoOpaqueStruct;
 
 /// `*errors.errorString` (`errors.New`, `fmt.Errorf` sem `%w`). Comparado
 /// por identidade, como o ponteiro do Go.
-final class ErrorString implements GoError, Golang.GoTyped {
+final class ErrorString implements GoError, GoOpaqueStruct {
   ErrorString(this.s);
 
   final Golang.String s;
@@ -22,6 +23,15 @@ final class ErrorString implements GoError, Golang.GoTyped {
 
   @override
   List<String> get $methods => const ['Error'];
+
+  @override
+  List<Object?> get $fields => [s];
+
+  @override
+  List<String> get $fieldNames => const ['s'];
+
+  @override
+  List<String> get $fieldTypes => const ['string'];
 }
 
 /// `interface{ Unwrap() error }`: o g2d declara em todo tipo com esse
@@ -49,7 +59,7 @@ abstract interface class ErrorAs {
 const errorElem = Elem<GoError?>(16, zeroNull, pointers: true);
 
 /// `*fmt.wrapError` (`fmt.Errorf` com um `%w`).
-final class WrapError implements GoError, Unwrapper, Golang.GoTyped {
+final class WrapError implements GoError, Unwrapper, GoOpaqueStruct {
   WrapError(this.msg, this.err);
 
   final Golang.String msg;
@@ -67,10 +77,19 @@ final class WrapError implements GoError, Unwrapper, Golang.GoTyped {
 
   @override
   List<String> get $methods => const ['Error', 'Unwrap'];
+
+  @override
+  List<Object?> get $fields => [msg, err];
+
+  @override
+  List<String> get $fieldNames => const ['msg', 'err'];
+
+  @override
+  List<String> get $fieldTypes => const ['string', 'error'];
 }
 
 /// `*fmt.wrapErrors` (`fmt.Errorf` com vários `%w`).
-final class WrapErrors implements GoError, MultiUnwrapper, Golang.GoTyped {
+final class WrapErrors implements GoError, MultiUnwrapper, GoOpaqueStruct {
   WrapErrors(this.msg, this.errs);
 
   final Golang.String msg;
@@ -88,10 +107,19 @@ final class WrapErrors implements GoError, MultiUnwrapper, Golang.GoTyped {
 
   @override
   List<String> get $methods => const ['Error', 'Unwrap'];
+
+  @override
+  List<Object?> get $fields => [msg, Slice.of(errs, errorElem)];
+
+  @override
+  List<String> get $fieldNames => const ['msg', 'errs'];
+
+  @override
+  List<String> get $fieldTypes => const ['string', '[]error'];
 }
 
 /// `*errors.joinError` (`errors.Join`).
-final class JoinError implements GoError, MultiUnwrapper, Golang.GoTyped {
+final class JoinError implements GoError, MultiUnwrapper, GoOpaqueStruct {
   JoinError(this.errs);
 
   final List<GoError> errs;
@@ -114,4 +142,13 @@ final class JoinError implements GoError, MultiUnwrapper, Golang.GoTyped {
 
   @override
   List<String> get $methods => const ['Error', 'Unwrap'];
+
+  @override
+  List<Object?> get $fields => [Slice.of(errs, errorElem)];
+
+  @override
+  List<String> get $fieldNames => const ['errs'];
+
+  @override
+  List<String> get $fieldTypes => const ['[]error'];
 }

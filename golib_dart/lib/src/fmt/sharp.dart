@@ -47,6 +47,20 @@ extension _SharpV on _Printer {
           throw UnimplementedError('fmt: %#v de ponteiro aninhado (endereço)');
         }
         _sharpStruct(s, depth);
+      case GoOpaqueStruct s:
+        // Os erros do runtime são sempre `*T` (`&errors.errorString{...}`);
+        // aninhados, o Go imprime o endereço.
+        if (depth > 0) {
+          throw UnimplementedError('fmt: %#v de ponteiro aninhado (endereço)');
+        }
+        _b.addByte(0x26);
+        _sharpFields(
+          s.$goType.substring(1),
+          s.$fields,
+          s.$fieldNames,
+          s.$fieldTypes,
+          depth,
+        );
       case Slice s:
         final (tn, base) = _sharpName(s, name, under);
         if (depth == 0 && s is Slice<Golang.Uint8> && tn == '[]uint8') {
@@ -104,12 +118,19 @@ extension _SharpV on _Printer {
     _b.add(utf8.encode(paren ? '($name)(nil)' : '$name(nil)'));
   }
 
-  void _sharpStruct(GoStruct s, int depth) {
-    _b.add(utf8.encode(s.$goType));
+  void _sharpStruct(GoStruct s, int depth) =>
+      _sharpFields(s.$goType, s.$fields, s.$fieldNames, s.$fieldTypes, depth);
+
+  /// `T{a:1, b:"x"}`: campos sempre nomeados, separados por `, `.
+  void _sharpFields(
+    String typeName,
+    List<Object?> fields,
+    List<String> names,
+    List<String> types,
+    int depth,
+  ) {
+    _b.add(utf8.encode(typeName));
     _b.addByte(0x7b);
-    final fields = s.$fields;
-    final names = s.$fieldNames;
-    final types = s.$fieldTypes;
     for (var i = 0; i < fields.length; i++) {
       if (i > 0) _b.add(_ascii(', '));
       _b.add(utf8.encode(names[i]));

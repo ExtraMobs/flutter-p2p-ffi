@@ -122,4 +122,13 @@ func main() {
 	fmt.Printf("%10v|%-6v|\n", []int{1}, "x")
 	var a any = P{5, 6}
 	fmt.Printf("%#v\n", a)
+
+	// `#` em float e runa; erros do runtime em %#v.
+	g := 3.5
+	fmt.Printf("%#g|%#.3g|%#e|%#.0f|%#10.0e|%#v\n", g, 100000.0, g, 3.0, g, g)
+	fmt.Printf("%#g|%#G|%#.0g\n", 1e6, float32(0.1), 0.0)
+	fmt.Printf("%#q|%#+q|%#v|%#U\n", 'x', 'é', 'y', 'z')
+	fmt.Printf("%#v\n", errors.New("boom"))
+	var err error = fmt.Errorf("n=%d", 1)
+	fmt.Printf("%#v\n", err)
 }
