@@ -23,6 +23,7 @@ export 'src/runtime/panic.dart';
 export 'src/runtime/ptr.dart';
 export 'src/runtime/slice.dart';
 export 'src/runtime/struct.dart';
+export 'src/runtime/tag.dart';
 
 /// Constante string Go que não é UTF-8 válido (bytes exatos).
 Golang.String stringOfBytes(List<int> bytes) =>
