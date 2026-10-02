@@ -28,7 +28,7 @@ transitiva").
 
 ## 2. Fila sem decisão pendente
 
-Em ordem de ataque (fronteira primeiro):
+### 2a. Destravam a fronteira do audit
 
 | Artefato | Pacotes / fronteira | Resumo |
 |---|---|---|
@@ -36,11 +36,47 @@ Em ordem de ataque (fronteira primeiro):
 | `P1-shim-io.md` | 58 ocorrências / 6 | `LimitReader`, `CopyN`, `Copy`, `MultiWriter`, `SectionReader`... |
 | `P1-shim-iter.md` | 19 / 4 (`iter`) e 10 / 3 (`SplitSeq`) | `iter.Seq` e `strings.SplitSeq`/`Lines` (range sobre func já funciona) |
 | `P1-shim-time-layout.md` | 10 / 2 | `time.Format`/`Parse` com layout |
-| `P1-infra-metodos-de-shim.md` | latente | método ausente em tipo de shim vira Dart inválido em vez de `Unsupported` |
-| `P1-construcao-ordem-avaliacao.md` | sem medida | literal de slice/struct e atribuição múltipla ainda leem o operando antes da chamada |
-| `P1-construcao-metodo-sombreia-pacote.md` | 0 hoje | método `_sub` sombreia constante `_sub`: Dart inválido |
-| `P1-design-anonimas-canonicas.md` | invisível no audit | `struct{ X int }` de pacotes diferentes vira classes diferentes |
-| `P1-design-promocao-transitiva-nao-exportada.md` | invisível no audit | método não exportado promovido por dois saltos de pacote quebra em runtime |
+
+### 2b. Saída errada em silêncio (o audit não vê)
+
+Achados da revisão diferencial de 2026-10-02 (programa Go × Dart gerado, VM e
+JS): o g2d gera Dart válido que imprime outra coisa. São os mais perigosos,
+porque um pacote "verde" pode estar errado.
+
+| Artefato | Resumo |
+|---|---|
+| `P1-runtime-copyof-ponteiro.md` | `append`/`copy`/cópia de array de `[]*T` duplicam os objetos apontados |
+| `P1-construcao-chave-de-map-sem-copia.md` | chave struct/array guardada por referência; mudar a variável perde a entrada |
+| `P1-construcao-generico-sem-copia.md` | valor de tipo `T` não é copiado dentro de genérico |
+| `P1-construcao-defer-go-receptor-valor.md` | `defer x.M()` vê mudanças feitas depois do `defer` |
+| `P1-construcao-for-variavel-por-iteracao.md` | `for i := ...` com `&i` ou struct compartilha a variável (Go ≥ 1.22 não) |
+| `P1-construcao-ordem-avaliacao.md` | `x + f()`, `x += f()`, `a[i] = f()`, literais e atribuição múltipla leem fora da ordem do gc |
+| `P1-construcao-incdec-impuro.md` | `m[f()]++` chama `f` duas vezes |
+| `P1-runtime-method-set-ponteiro.md` | `T` em interface satisfaz interface que exige método de `*T` |
+| `P1-construcao-assert-nomeado.md` | `x.([]int)` aceita `type IntList []int` |
+| `P1-runtime-comparacao-incomparavel.md` | `==` de interface com slice dentro não dá panic |
+| `P1-shim-fmt-metodos-aninhados.md` | `fmt` não chama `String()` de `*T` aninhado, chama em campo não exportado, quebra com panic/nil no método |
+| `P1-shim-fmt-formatos.md` | `Sprint` com string nomeada, nil aninhado com `%d`, `&slice`, `[]Code` com `%s` |
+| `P1-design-interfaces-entre-pacotes.md` | (D8) inclui tipo de shim em interface local: `err.(interface{ Unwrap() error })` falha |
+
+### 2c. Dart inválido ou g2d quebra (sem `Unsupported`)
+
+| Artefato | Resumo |
+|---|---|
+| `P1-construcao-statements-quebram.md` | `(*p)++`, `switch` vazio, rótulo `in:`, variável de type switch atribuída |
+| `P1-construcao-genericos-dart-invalido.md` | `*T`, `/=` e `+` sobre parâmetro de tipo |
+| `P1-construcao-promocao-dart-invalido.md` | embutir nomeado não-struct com método `*T`; embedding em tipo local |
+| `P1-construcao-array-nomeado-interface.md` | `type Arr [2]int` com métodos em interface |
+| `P1-infra-metodos-de-shim.md` | método ausente em tipo de shim (`t.Format`) não vira `Unsupported` |
+| `P1-construcao-metodo-sombreia-pacote.md` | método `_sub` sombreia constante `_sub` |
+| `P1-design-anonimas-canonicas.md` | `struct{ X int }` de pacotes diferentes vira classes diferentes |
+| `P1-design-promocao-transitiva-nao-exportada.md` | método não exportado promovido por dois saltos de pacote quebra em runtime |
+
+### 2d. P2
+
+`P2-construcao-shift-constante.md`, `P2-runtime-panic-nil-e-texto.md`,
+`P2-construcao-defer-iface-recover.md`, `P2-runtime-complex64.md`,
+`P2-shim-fmt-tipo-T.md`, `P2-runtime-slice-de-array-mensagem.md`.
 
 Shims sem artefato: a fila é o ranking do `docs/audit.md`. Hoje os que mais
 destravam a fronteira e não dependem de decisão são `hash` (28 / 11),

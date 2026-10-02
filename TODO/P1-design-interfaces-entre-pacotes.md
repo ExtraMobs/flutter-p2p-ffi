@@ -89,6 +89,31 @@ $ dart run (g2d, VM/JS/Wasm)       →  {123 }
 - Inclui a variante `fmt.Stringer` (e as demais interfaces de shim, como `sort.Interface`).
 - `docs/mapping-spec.md` atualizado.
 
+### Variante: tipo de shim em interface local
+
+O sentido contrário também falha: classe de shim escrita à mão não declara as
+interfaces locais ou anônimas que satisfaz (`err.(interface{ Unwrap() error })`,
+`Timeout() bool`). Comum no kubo/libp2p. O `implements` sobre o grafo não
+resolve, porque as classes de shim não são geradas.
+
+```go
+type timeouter interface{ Timeout() bool }
+
+func main() {
+	var err error = context.DeadlineExceeded
+	_, ok := err.(timeouter)
+	fmt.Println("assert:", ok)
+	w := fmt.Errorf("x: %w", io.EOF)
+	_, ok = w.(interface{ Unwrap() error })
+	fmt.Println("unwrap:", ok)
+}
+```
+
+```text
+go run:   assert: true / unwrap: true
+dart run: assert: false / unwrap: false
+```
+
 ## Prioridade
 
 Ainda invisível no `docs/audit.md`: os pacotes que expõem o problema param
