@@ -107,7 +107,7 @@ void main() {
               v$2,
             ], _$e0),
           );
-        } else if ($t10 == 1) {
+        } else {
           Golang.String v$3 = ($t9.$2 as Golang.String);
           fmt.println(
             go.Slice<Object?>.of([
@@ -134,7 +134,7 @@ void main() {
               v$4,
             ], _$e0),
           );
-        } else if ($t14 == 1) {
+        } else {
           Golang.Int v$5 = ($t13.$2 as Golang.Int);
           fmt.println(
             go.Slice<Object?>.of([

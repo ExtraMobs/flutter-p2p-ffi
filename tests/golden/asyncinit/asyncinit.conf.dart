@@ -62,7 +62,7 @@ Future<void> _init$0() async {
     for (var $t2 = 0; $t2 < $t1.length; $t2++) {
       Golang.String n = $t1[$t2];
       {
-        wg.go(() {
+        wg.go$(() {
           mu.lock();
           got[n] = true;
           mu.unlock();
