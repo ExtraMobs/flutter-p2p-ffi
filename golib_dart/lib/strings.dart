@@ -17,3 +17,5 @@ part 'src/strings/search.dart';
 part 'src/strings/replace.dart';
 part 'src/strings/builder.dart';
 part 'src/strings/case.dart';
+part 'src/strings/replacer.dart';
+part 'src/strings/reader.dart';

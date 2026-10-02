@@ -49,4 +49,20 @@ dependem de tabelas Unicode do Go (gerar como `src/unicode/isprint.dart`, confer
 `Trim`/`TrimLeft`/`TrimRight`, `Repeat`, `Compare`, `LastIndexByte`, `IndexAny`, `ContainsAny`,
 `CutPrefix`, `Map`...) é barato: porta do fonte do Go, fixture em `tests/golden/bytesstrings`.
 
-**Feito (fixture `tests/golden/bytesstringsmisc`, VM x JS x Wasm contra `go run`):** `Replace`, `ReplaceAll`, `Repeat`, `Compare`, `Cut`, `CutPrefix`, `CutSuffix`, `Trim`, `TrimLeft`, `TrimRight`, `LastIndexByte`, `IndexRune`, `IndexAny`, `LastIndexAny`, `ContainsAny`, `ContainsFunc`, `IndexFunc`, `LastIndexFunc`, `Map`, `FieldsFunc`, `SplitAfter`, `SplitAfterN` (partes `src/strings/{search,replace}.dart`). Falta o que depende de Unicode (acima), `SplitSeq`/`FieldsSeq`/`Lines`, `Reader`, `NewReplacer`.
+**Feito (fixture `tests/golden/bytesstringsmisc`, VM x JS x Wasm contra `go run`):** `Replace`, `ReplaceAll`, `Repeat`, `Compare`, `Cut`, `CutPrefix`, `CutSuffix`, `Trim`, `TrimLeft`, `TrimRight`, `LastIndexByte`, `IndexRune`, `IndexAny`, `LastIndexAny`, `ContainsAny`, `ContainsFunc`, `IndexFunc`, `LastIndexFunc`, `Map`, `FieldsFunc`, `SplitAfter`, `SplitAfterN` (partes `src/strings/{search,replace}.dart`). Falta o que depende de Unicode (acima), `SplitSeq`/`FieldsSeq`/`Lines`, `Reader`, `NewReplacer` (depois: Unicode, `Reader` e `NewReplacer` feitos; ver abaixo).
+
+**Feito (merge de `wip-strings-bytes`, fixture `tests/golden/stringsmore`, VM x JS x Wasm contra
+`go run`):** `Clone` e os tipos struct de shim `Reader`/`NewReader` (`Len`, `Size`, `Read`,
+`ReadAt`, `ReadByte`, `UnreadByte`, `ReadRune`, `UnreadRune`, `Seek`, `WriteTo`, `Reset`) e
+`Replacer`/`NewReplacer` (`Replace`, `WriteString`; só o algoritmo genérico de
+`strings/replace.go` — correto para qualquer entrada, sem as otimizações de par único/byte-a-byte
+que o Go escolhe conforme os argumentos). Partes `lib/src/strings/{reader,replacer}.dart`.
+`Reader` implementa `io.Reader`/`ReaderAt`/`ByteReader`/`Seeker` (o que `io.dart` já tem); faltam
+`io.RuneReader`/`RuneScanner`/`ByteScanner`/`WriterTo` no shim de `io` — os métodos existem na
+classe, só não entram no `implements` (marcado `ponytail:`).
+
+**Ainda pendente:** `SplitSeq`/`FieldsSeq`/`Lines` dependem de `iter.Seq` (range-over-func). O
+`RangeStmt` do g2d já trata `range` sobre um valor de tipo `func` (`g2d/behaviors/stmts.py`,
+`range_func`), então dá para expor `splitSeq`/`lines` como função Dart de assinatura estrutural
+equivalente a `func(yield func(V) bool)` sem shim do pacote `iter` (ocorrência: `SplitSeq(16)`,
+`Lines(1)`).

@@ -48,4 +48,14 @@ tabelas Unicode do Go (gerar como `src/unicode/isprint.dart`, conferidas por tes
 (`LastIndexByte`, `TrimRight`, `TrimPrefix`/`TrimSuffix`, `CutPrefix`, `Join`, `Contains`, `Repeat`,
 `Clone`...) é barato: porta do fonte do Go, fixture em `tests/golden/bytesstrings`.
 
-**Feito (fixture `tests/golden/bytesstringsmisc`, VM x JS x Wasm contra `go run`):** `Contains`, `ContainsAny`, `ContainsRune`, `ContainsFunc`, `LastIndex`, `IndexRune`, `IndexAny`, `LastIndexAny`, `IndexFunc`, `LastIndexFunc`, `TrimPrefix`, `TrimSuffix`, `TrimLeftFunc`, `TrimRightFunc`, `TrimFunc`, `Trim`, `Cut`, `CutPrefix`, `CutSuffix`, `Clone`, `Join`, `Repeat`, `Map`, `Replace`, `ReplaceAll`, `SplitN`, `SplitAfter`, `SplitAfterN`, `FieldsFunc` (partes `src/bytes/{split,search,edit}.dart`). Falta o que depende de Unicode (acima), `Runes`, `ToValidUTF8`, `Buffer`/`Reader`.
+**Feito (fixture `tests/golden/bytesstringsmisc`, VM x JS x Wasm contra `go run`):** `Contains`, `ContainsAny`, `ContainsRune`, `ContainsFunc`, `LastIndex`, `IndexRune`, `IndexAny`, `LastIndexAny`, `IndexFunc`, `LastIndexFunc`, `TrimPrefix`, `TrimSuffix`, `TrimLeftFunc`, `TrimRightFunc`, `TrimFunc`, `Trim`, `Cut`, `CutPrefix`, `CutSuffix`, `Clone`, `Join`, `Repeat`, `Map`, `Replace`, `ReplaceAll`, `SplitN`, `SplitAfter`, `SplitAfterN`, `FieldsFunc` (partes `src/bytes/{split,search,edit}.dart`). Falta o que depende de Unicode (acima), `Runes`, `ToValidUTF8`, `Buffer`/`Reader` (depois: Unicode, `Runes` e `Reader` feitos; ver abaixo).
+
+**Feito (merge de `wip-strings-bytes`, fixture `tests/golden/bytesmore`, VM x JS x Wasm contra
+`go run`):** o tipo struct de shim `Reader`/`NewReader` (`Len`, `Size`, `Read`, `ReadAt`,
+`ReadByte`, `UnreadByte`, `ReadRune`, `UnreadRune`, `Seek`, `WriteTo`, `Reset`), parte
+`lib/src/bytes/reader.dart`. `Reader` implementa `io.Reader`/`ReaderAt`/`ByteReader`/`Seeker` (o
+que `io.dart` já tem); faltam `io.RuneReader`/`RuneScanner`/`ByteScanner`/`WriterTo` no shim de
+`io` — os métodos existem na classe, só não entram no `implements` (marcado `ponytail:`).
+
+**Ainda pendente:** `ToValidUTF8`, `ToTitle`, `SplitSeq` (mesma situação de `strings.SplitSeq`,
+ver `TODO/P0-shim-strings.md`; ocorrência baixa: `SplitSeq(1)`).
