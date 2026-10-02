@@ -93,6 +93,14 @@ class _stats$ extends go.GoStruct<_stats$> {
 
   @override
   List<String> get $fieldNames => const ['hits', 'closed', 'cur', 'last'];
+
+  @override
+  List<String> get $fieldTypes => const [
+    'atomic.Uint64',
+    'atomic.Bool',
+    'atomic.Pointer',
+    'atomic.Value',
+  ];
 }
 
 Object? _try(void Function()? f) {

@@ -1,5 +1,7 @@
 """Identidade Go em runtime: nomes de tipo, method sets, `implements`."""
 
+import re
+
 from g2d.config import SHIM_INTERFACES
 from g2d.engine.behavior import Service
 from g2d.services.naming import type_name
@@ -48,6 +50,12 @@ class GoTypeInfo(Service):
             out = res[0] if len(res) == 1 else f"({', '.join(res)})" if res else ""
             return f"func({', '.join(params)})" + (f" {out}" if out else "")
         return k
+
+    def sharp_type_name(self, t):
+        """Nome Go do tipo como o `reflect` o escreve (`%#v`): `byte` é
+        `uint8` e `rune` é `int32`."""
+        return re.sub(r"(?<![\w.])(byte|rune)\b", lambda m: "uint8" if m[1] == "byte" else "int32",
+                      self.go_type_name(t))
 
     def method_names(self, t, value):
         """Method set (nomes Go ordenados) de T (value) ou *T."""

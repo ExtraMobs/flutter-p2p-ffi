@@ -39,6 +39,9 @@ class Pair<K, V> extends go.GoStruct<Pair<K, V>> {
 
   @override
   List<String> get $fieldNames => const ['K', 'V'];
+
+  @override
+  List<String> get $fieldTypes => const ['', ''];
 }
 
 Pair<K, V>? new$<K, V>(go.Elem<K> $K, go.Elem<V> $V, K k, V v) {

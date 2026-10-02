@@ -20,7 +20,7 @@ GOLANG_URI = "package:golib_dart/fixed_types/golang.dart"
 GRAPH_URI = "package:out/{path}.dart"
 
 # Interfaces da stdlib que existem nos shims (podem ir em `implements`).
-SHIM_INTERFACES = {("fmt", "Stringer"), ("fmt", "Formatter"), ("fmt", "State"), ("sort", "Interface"), ("io", "Reader"), ("io", "Writer"),
+SHIM_INTERFACES = {("fmt", "Stringer"), ("fmt", "GoStringer"), ("fmt", "Formatter"), ("fmt", "State"), ("sort", "Interface"), ("io", "Reader"), ("io", "Writer"),
                    ("io", "ByteReader"), ("io", "ByteWriter"), ("io", "StringWriter"), ("io", "Closer"),
                    ("io", "Seeker"), ("io", "ReaderAt"), ("io", "WriterAt"), ("io", "ReadCloser"), ("io", "WriteCloser"),
                    ("io", "ReadWriter"), ("io", "ReadWriteCloser"), ("io", "ReadSeeker"), ("io", "WriteSeeker"),
@@ -39,13 +39,17 @@ STDLIB_SHIMS = {
     "errors": "package:golib_dart/errors.dart",
     "fmt": "package:golib_dart/fmt.dart",
     "io": "package:golib_dart/io.dart",
+    "io/fs": "package:golib_dart/io/fs.dart",
+    "os": "package:golib_dart/os.dart",
     "math": "package:golib_dart/math.dart",
     "math/bits": "package:golib_dart/math/bits.dart",
+    "regexp": "package:golib_dart/regexp.dart",
     "sort": "package:golib_dart/sort.dart",
     "strconv": "package:golib_dart/strconv.dart",
     "strings": "package:golib_dart/strings.dart",
     "sync": "package:golib_dart/sync.dart",
     "sync/atomic": "package:golib_dart/sync/atomic.dart",
     "time": "package:golib_dart/time.dart",
+    "unicode": "package:golib_dart/unicode.dart",
     "unicode/utf8": "package:golib_dart/unicode/utf8.dart",
 }

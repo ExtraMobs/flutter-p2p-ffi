@@ -94,6 +94,9 @@ class Stack<T> extends go.GoStruct<Stack<T>> {
   @override
   List<String> get $fieldNames => const ['items'];
 
+  @override
+  List<String> get $fieldTypes => const [''];
+
   void push(T v) {
     final Stack<T>? s = $nilPtr ? null : this;
     s!._items = s!._items.append([v]);
@@ -150,6 +153,9 @@ class Pair<K, V> extends go.GoStruct<Pair<K, V>> {
 
   @override
   List<String> get $fieldNames => const ['Key', 'Val'];
+
+  @override
+  List<String> get $fieldTypes => const ['', ''];
 }
 
 void main() {

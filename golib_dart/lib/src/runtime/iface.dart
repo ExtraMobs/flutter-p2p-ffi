@@ -12,6 +12,7 @@ import 'struct.dart';
 /// Uma struct guardada como ponteiro aparece como `*T`.
 String goTypeName(Object? v) => switch (v) {
   null => 'nil',
+  Func f => f.sig,
   GoValue s when !s.$isValue => '*${s.$goType}',
   GoTyped t => t.$goType,
   bool() => 'bool',
@@ -19,6 +20,63 @@ String goTypeName(Object? v) => switch (v) {
   Ptr p when p is! NilPtr => '*${goTypeName(p.value)}',
   _ => v.runtimeType.toString(),
 };
+
+/// Valor de um tipo func **sem nome** guardado numa interface (`any(f)`,
+/// argumento variádico de `...any`...). O Dart só testa subtipo entre tipos
+/// de função (`void` é o topo do retorno, parâmetros são contravariantes),
+/// mas o Go exige o tipo idêntico em `x.(F)`/`case F:`. Por isso o valor
+/// viaja com o nome Go do tipo (o mesmo de `%T`), comparado bit a bit em vez
+/// de `is`. Tipo func **nomeado** (`type Op func(...)`) não passa por aqui:
+/// a classe gerada já dá identidade nominal (`x is Op`).
+final class Func {
+  const Func(this.value, this.sig);
+
+  /// A closure Dart. `null` é o zero value de um tipo func: guardado numa
+  /// interface ele não é nil (como ponteiro/slice/map/chan nil).
+  final Function? value;
+
+  /// Nome Go do tipo, como em `%T` (ex. `func(int) int`, `func() (int, error)`).
+  final String sig;
+}
+
+/// O valor dinâmico em [x] é exatamente o tipo func sem nome [sig]?
+///
+/// ponytail: [x] só chega embrulhado em [Func] quando o g2d viu, na
+/// conversão para interface, um tipo func concreto (`g2d/services/values.py`
+/// `coerce`); um parâmetro de tipo com union de funcs (`~func() | ~func()
+/// error`, ex. go.uber.org/fx.Callable) instanciado com T func não carrega o
+/// nome Go do tipo dentro do corpo genérico, então cai no teste de subtipo
+/// do Dart (limite conhecido, `docs/mapping-spec.md`).
+bool isFuncType<T>(Object? x, String sig) {
+  if (x == null) return false;
+  if (x is Func) return x.sig == sig;
+  return x is T;
+}
+
+/// Desembrulha o valor de um `case F:`/`x.(F)` de func sem nome já confirmado
+/// por [isFuncType] (case único de um type switch: o `is`/`as` já foi feito
+/// na condição, aqui só sai o valor Dart certo).
+T unwrapFunc<T>(Object? x) => x is Func ? x.value as T : x as T;
+
+/// `x.(F)` para F tipo func sem nome.
+T assertFunc<T>(Object? x, String iface, String target) {
+  if (x is Func) {
+    if (x.sig == target) return x.value as T;
+  } else if (x is T) {
+    return x;
+  }
+  final dyn = x == null ? 'nil' : goTypeName(x);
+  throw Panic(
+    RuntimeError('interface conversion: $iface is $dyn, not $target'),
+  );
+}
+
+/// `v, ok := x.(F)` para F tipo func sem nome.
+(T, bool) tryFunc<T>(Object? x, T zero, String sig) {
+  if (x == null) return (zero, false);
+  if (x is Func) return x.sig == sig ? (x.value as T, true) : (zero, false);
+  return x is T ? (x as T, true) : (zero, false);
+}
 
 /// Ponteiro para struct tirado de uma interface: a sentinela vira nil.
 T? unNil<T extends Object>(T? x) => x is GoValue && x.$nilPtr ? null : x;
@@ -108,7 +166,7 @@ bool goHasMethod(Object v, String name) {
 /// comparáveis, nem struct/array que os contenham.
 bool goComparable(Object? v) => switch (v) {
   null => true,
-  Slice() || GoMap() || Function() => false,
+  Slice() || GoMap() || Function() || Func() => false,
   GoStruct s when s.$isValue => s.$fields.every(goComparable),
   _ => true,
 };

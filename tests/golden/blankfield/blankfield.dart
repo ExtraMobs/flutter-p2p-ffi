@@ -45,6 +45,9 @@ class Pad extends go.GoStruct<Pad> {
 
   @override
   List<String> get $fieldNames => const ['A', '_', 'B', '_'];
+
+  @override
+  List<String> get $fieldTypes => const ['int', 'int', 'int', '[0]func()'];
 }
 
 class Q extends go.GoStruct<Q> {
@@ -75,6 +78,13 @@ class Q extends go.GoStruct<Q> {
 
   @override
   List<String> get $fieldNames => const ['_', 'S', '_'];
+
+  @override
+  List<String> get $fieldTypes => const [
+    'struct { X int; Y int }',
+    'string',
+    '*int',
+  ];
 }
 
 void main() {

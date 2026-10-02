@@ -32,4 +32,20 @@ void main() {
     final bad = Golang.String.fromBytes(Uint8List.fromList([0x61, 0xff]));
     expect(formatV(bad), [0x61, 0xff]);
   });
+
+  test('%#v: TypeTag dá o nome; sem nome, UnimplementedError', () {
+    final f = Golang.String.fromDart('%#v');
+    String sharp(Object? x) => sprintf(f, args([x])).toString();
+    final elem = go.Elem<Golang.Int>(8, () => Golang.Int(0));
+    final xs = go.Slice.of([Golang.Int(1), Golang.Int(2)], elem);
+    expect(sharp(go.TypeTag(xs, '[]int')), '[]int{1, 2}');
+    expect(sharp(go.TypeTag(go.Slice.nil(elem), '[]int')), '[]int(nil)');
+    expect(sharp(Golang.Uint8(7)), '0x7');
+    expect(sharp(Golang.String.fromDart('a"')), r'"a\""');
+    // Elemento básico: o nome sai do zero value do descritor.
+    expect(sharp(xs), '[]int{1, 2}');
+    final m = go.GoMap<Golang.Int, Golang.Int>(elem);
+    expect(() => sharp(m), throwsA(isA<UnimplementedError>()));
+    expect(sharp(go.TypeTag(m, 'map[int]int')), 'map[int]int{}');
+  });
 }

@@ -48,3 +48,5 @@ dependem de tabelas Unicode do Go (gerar como `src/unicode/isprint.dart`, confer
 `SplitSeq`/`FieldsSeq` dependem de `iter` (range-over-func). O resto (`Replace`/`ReplaceAll`, `Cut`,
 `Trim`/`TrimLeft`/`TrimRight`, `Repeat`, `Compare`, `LastIndexByte`, `IndexAny`, `ContainsAny`,
 `CutPrefix`, `Map`...) é barato: porta do fonte do Go, fixture em `tests/golden/bytesstrings`.
+
+**Feito (fixture `tests/golden/bytesstringsmisc`, VM x JS x Wasm contra `go run`):** `Replace`, `ReplaceAll`, `Repeat`, `Compare`, `Cut`, `CutPrefix`, `CutSuffix`, `Trim`, `TrimLeft`, `TrimRight`, `LastIndexByte`, `IndexRune`, `IndexAny`, `LastIndexAny`, `ContainsAny`, `ContainsFunc`, `IndexFunc`, `LastIndexFunc`, `Map`, `FieldsFunc`, `SplitAfter`, `SplitAfterN` (partes `src/strings/{search,replace}.dart`). Falta o que depende de Unicode (acima), `SplitSeq`/`FieldsSeq`/`Lines`, `Reader`, `NewReplacer`.

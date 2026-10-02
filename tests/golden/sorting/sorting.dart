@@ -131,6 +131,9 @@ class _traced$ extends go.GoStruct<_traced$> implements sort.Interface {
   @override
   List<String> get $fieldNames => const ['xs', 'h', 'calls'];
 
+  @override
+  List<String> get $fieldTypes => const ['[]main.item', 'uint32', 'int'];
+
   void _mix(Golang.Int op, Golang.Int i, Golang.Int j) {
     final _traced$? t = $nilPtr ? null : this;
     t!._h =

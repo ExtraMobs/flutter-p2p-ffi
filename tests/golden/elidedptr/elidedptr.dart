@@ -74,6 +74,9 @@ class _formInfo$ extends go.GoStruct<_formInfo$> {
 
   @override
   List<String> get $fieldNames => const ['name', 'decomp'];
+
+  @override
+  List<String> get $fieldTypes => const ['string', '[2]uint8'];
 }
 
 go.GoArray<_formInfo$?> _table = go.GoArray<_formInfo$?>.zero(2, _$e1);

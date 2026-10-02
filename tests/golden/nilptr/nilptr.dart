@@ -45,6 +45,9 @@ class Node extends go.GoStruct<Node> implements Speaker {
   @override
   List<String> get $fieldNames => const ['Name', 'Next'];
 
+  @override
+  List<String> get $fieldTypes => const ['string', '*main.Node'];
+
   Golang.String speak() {
     final Node? n = $nilPtr ? null : this;
     if (n == null) {

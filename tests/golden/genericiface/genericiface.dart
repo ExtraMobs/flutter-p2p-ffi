@@ -196,6 +196,9 @@ class _lru$<K, V> extends go.GoStruct<_lru$<K, V>> implements Cache<K, V> {
   @override
   List<String> get $fieldNames => const ['m'];
 
+  @override
+  List<String> get $fieldTypes => const [''];
+
   bool add(K k, V v) {
     final _lru$<K, V>? c = $nilPtr ? null : this;
     var (_, ok) = c!._m.lookup(k);

@@ -45,6 +45,9 @@ class Base extends go.GoStruct<Base> implements Named {
   @override
   List<String> get $fieldNames => const ['ID', 'Tags'];
 
+  @override
+  List<String> get $fieldTypes => const ['int', '[]string'];
+
   Golang.String title() {
     if ($nilPtr) go.nilDeref();
     return fmt.sprint(
@@ -144,6 +147,9 @@ class Doc extends go.GoStruct<Doc> with Logger$PromotePtr implements Named {
 
   @override
   List<String> get $fieldNames => const ['Base', 'Logger', 'Body'];
+
+  @override
+  List<String> get $fieldTypes => const ['main.Base', '*main.Logger', 'string'];
 
   Golang.String describe() {
     if ($nilPtr) go.nilDeref();

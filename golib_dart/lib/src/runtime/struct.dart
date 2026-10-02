@@ -51,6 +51,12 @@ abstract class GoStruct<T extends GoStruct<T>> extends GoValue<T> {
   /// Nomes Go dos campos de [$fields] (`%+v`; embutido = nome do tipo).
   List<String> get $fieldNames;
 
+  /// Nomes Go dos tipos dos campos de [$fields], para o `%#v` (`[]int`,
+  /// `*main.P`, `error`): o valor Dart de um campo slice/map/ponteiro/
+  /// interface não diz o próprio tipo Go. Vazio: o g2d não precisou (campos
+  /// só de básicos e structs).
+  List<String> get $fieldTypes => const [];
+
   @override
   bool operator ==(Object other) {
     if (other is! GoStruct<T> || other.runtimeType != runtimeType) return false;

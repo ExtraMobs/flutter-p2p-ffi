@@ -120,6 +120,9 @@ class _anon$29$ extends go.GoStruct<_anon$29$> {
 
   @override
   List<String> get $fieldNames => const ['Strings'];
+
+  @override
+  List<String> get $fieldTypes => const ['[]string'];
 }
 
 bool _$inited = false;

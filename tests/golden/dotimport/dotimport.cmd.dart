@@ -39,6 +39,9 @@ class _pump$ extends go.GoStruct<_pump$> {
   @override
   List<String> get $fieldNames => const ['toks'];
 
+  @override
+  List<String> get $fieldTypes => const ['[]tok.Token'];
+
   void _step(tok.TokenType tt, Golang.String s) {
     final _pump$? p = $nilPtr ? null : this;
     p!._toks = p!._toks.append([tok.Token(type: tt, str: s)]);

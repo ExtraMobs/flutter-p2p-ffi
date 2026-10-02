@@ -146,18 +146,18 @@ class UnsupportedTest(unittest.TestCase):
         self.assertEqual(self.emit_error(src), ("opassign-impuro", ("main.go", 5, 2)))
 
     def test_falls_back_to_declaration(self):
-        src = 'package main\n\nimport "unicode"\n\nvar E = unicode.IsUpper(120)\n\nfunc main() { _ = E }\n'
-        self.assertEqual(self.emit_error(src), ("shim-ausente:unicode", ("main.go", 5, 5)))
+        src = 'package main\n\nimport "unicode/utf16"\n\nvar E = utf16.IsSurrogate(120)\n\nfunc main() { _ = E }\n'
+        self.assertEqual(self.emit_error(src), ("shim-ausente:unicode/utf16", ("main.go", 5, 5)))
 
     def test_doc_comment_is_not_the_position(self):
-        src = 'package main\n\nimport "unicode"\n\n// F documenta.\nfunc F() bool { return unicode.IsUpper(120) }\n\nfunc main() {}\n'
-        self.assertEqual(self.emit_error(src), ("shim-ausente:unicode", ("main.go", 6, 6)))  # nome de F
+        src = 'package main\n\nimport "unicode/utf16"\n\n// F documenta.\nfunc F() bool { return utf16.IsSurrogate(120) }\n\nfunc main() {}\n'
+        self.assertEqual(self.emit_error(src), ("shim-ausente:unicode/utf16", ("main.go", 6, 6)))  # nome de F
 
     def test_error_inside_closure_in_loop(self):
         """O erro real sobe; antes o escopo trocado pela closure virava IndexError."""
-        src = ('package main\n\nimport "unicode"\n\nfunc main() {\n\tfor _, s := range []string{"a"} {\n'
-               '\t\tf := func() bool { return unicode.IsUpper(rune(len(s))) }\n\t\t_ = f\n\t}\n}\n')
-        self.assertEqual(self.emit_error(src), ("shim-ausente:unicode", ("main.go", 5, 6)))  # decl de main
+        src = ('package main\n\nimport "unicode/utf16"\n\nfunc main() {\n\tfor _, s := range []string{"a"} {\n'
+               '\t\tf := func() bool { return utf16.IsSurrogate(rune(len(s))) }\n\t\t_ = f\n\t}\n}\n')
+        self.assertEqual(self.emit_error(src), ("shim-ausente:unicode/utf16", ("main.go", 5, 6)))  # decl de main
 
     def test_bodyless_func(self):
         src = "package main\n\nfunc fastrand() uint64\n\nfunc main() {}\n"
@@ -178,7 +178,10 @@ class UnsupportedTest(unittest.TestCase):
         """Verbo que o shim fmt não formata vira Unsupported na transpilação
         (antes: UnimplementedError só em runtime, audit verde)."""
         cases = {
-            'fmt.Printf("%#v", 1)': "fmt-verbo:%#v",
+            'fmt.Printf("%#v", main)': "fmt-verbo:%#v-func",
+            'x := 1; fmt.Printf("%#v", &x)': "fmt-verbo:%#v-ponteiro",
+            'fmt.Printf("%#v", []func(){})': "fmt-verbo:%#v-func",
+            'type T struct{ C chan int }; fmt.Printf("%#v", T{})': "fmt-verbo:%#v-chan",
             'fmt.Printf("%x", 1.5)': "fmt-verbo:%x-float",
             'f := 2.5; fmt.Printf("%#.3g", f)': "fmt-verbo:#-float",
             'c := complex(1, 2); fmt.Printf("%d", c)': "fmt-verbo:%d-complex",
@@ -186,7 +189,7 @@ class UnsupportedTest(unittest.TestCase):
             'fmt.Printf("%T", []int{1})': "fmt-verbo:%T-composto",
             'fmt.Printf("%d", main)': "fmt-verbo:%d-func",
             'fmt.Printf("%d", 1, []int{2})': "fmt-verbo:extra-composto",
-            'fmt.Sprintf("%[2]d %#[1]v", 1, 2)': "fmt-verbo:%#v",
+            'fmt.Sprintf("%[2]d %#[1]v", main, 2)': "fmt-verbo:%#v-func",
         }
         for body, code in cases.items():
             with self.subTest(body=body):

@@ -112,6 +112,9 @@ class _entry$<K, V> extends go.GoStruct<_entry$<K, V>> {
 
   @override
   List<String> get $fieldNames => const ['key', 'value'];
+
+  @override
+  List<String> get $fieldTypes => const ['', ''];
 }
 
 final class Heap<K extends Golang.GoOrdered<K>, V>

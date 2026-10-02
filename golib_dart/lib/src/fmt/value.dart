@@ -25,6 +25,7 @@ int? _pointerOf(Object? v) => switch (v) {
   GoValue s when !s.$isValue => identityHashCode(s), // *T de struct/array
   Slice s => sliceAddr(s),
   GoMap m => m.isNil ? 0 : identityHashCode(m),
+  Func(:final value) => value == null ? 0 : identityHashCode(value),
   Function f => identityHashCode(f),
   _ => null,
 };
@@ -111,8 +112,8 @@ void _appendV(BytesBuilder b, Object? v, {bool nested = false}) {
     case Addr(:final target):
       // Ponteiro aninhado: o Go imprime o endereço.
       b.add(utf8.encode('0x${_hexAddr(identityHashCode(target))}'));
-    // *T (T não-struct) e func: o endereço, como o Go.
-    case Ptr() || Function():
+    // *T (T não-struct) e func (nomeado ou não): o endereço, como o Go.
+    case Ptr() || Function() || Func():
       final a = _pointerOf(v)!;
       b.add(utf8.encode(a == 0 ? '<nil>' : '0x${_hexAddr(a)}'));
     case Golang.StringBase s:

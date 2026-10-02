@@ -92,6 +92,13 @@ class Command extends go.GoStruct<Command> {
   @override
   List<String> get $fieldNames => const ['Helptext', 'Run', 'PreRun'];
 
+  @override
+  List<String> get $fieldTypes => const [
+    'string',
+    'cmds.Function',
+    'func(*cmds.Request) error',
+  ];
+
   (go.Slice<Golang.String>, go.GoError?) call$(Golang.String path) {
     final Command? c = $nilPtr ? null : this;
     Request? req = Request(path: path);
