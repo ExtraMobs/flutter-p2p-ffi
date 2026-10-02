@@ -203,6 +203,9 @@ final class Timer extends GoStruct<Timer> {
   Timer() : c = null, initTimer = false;
   Timer._(this.c, this.initTimer, this._rt);
 
+  /// `(*Timer)(nil)`: o g2d chama métodos por `(p ?? Timer.$nil)`.
+  static final Timer $nil = Timer()..$nilPtr = true;
+
   /// Campo `C`.
   Chan<Time>? c;
 
@@ -258,6 +261,9 @@ final class Timer extends GoStruct<Timer> {
 final class Ticker extends GoStruct<Ticker> {
   Ticker() : c = null, initTicker = false;
   Ticker._(this.c, this.initTicker, this._rt);
+
+  /// `(*Ticker)(nil)`: o g2d chama métodos por `(p ?? Ticker.$nil)`.
+  static final Ticker $nil = Ticker()..$nilPtr = true;
 
   /// Campo `C`.
   Chan<Time>? c;

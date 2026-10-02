@@ -650,7 +650,12 @@ class SelectStmt(StmtBehavior):
             body = ["{"] + bind + [ln for st in c["body"] or [] for ln in self.stmt(st)] + ["}"]
             chain.append((f"{sel} == {i}", body))
         for i, (cond, body) in enumerate(chain):
-            out += [("else " if i else "") + f"if ({cond})"] + body
+            if default is None and i == len(chain) - 1 and i:
+                # Sem default o índice é sempre um dos cases: o último é o
+                # `else` (o select é um statement terminal, como no Go).
+                out += ["else"] + body
+            else:
+                out += [("else " if i else "") + f"if ({cond})"] + body
         if default is not None:
             body = ["{"] + [ln for st in default["body"] or [] for ln in self.stmt(st)] + ["}"]
             out += (["else"] if chain else []) + body

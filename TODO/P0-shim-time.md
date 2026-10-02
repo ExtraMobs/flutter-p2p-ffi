@@ -55,7 +55,7 @@ Wasm, vetores de `test/go_time_vectors.go` embutidos em `test/time_vectors.dart`
 `test/time_oracle_test.dart` confere na VM que estão atualizados). Timers (Go ≥ 1.23):
 `Sleep`/`After`/`AfterFunc`/`NewTimer`/`NewTicker`/`Tick`, `Timer`/`Ticker` com `C`/`Stop`/`Reset`
 (`src/time/sleep.dart`; oráculos `test/timer_test.dart` e `test/timer_context_oracle_test.dart`);
-falta o g2d colorir `time.Sleep` como suspensiva (`await time.sleep(d)`) e o fixture e2e.
+o g2d colore `time.Sleep` como suspensiva (`await time.sleep(d)`); fixture e2e `tests/golden/timectx`.
 
 Falta:
 
