@@ -42,12 +42,12 @@ Golang.String _tryPanic(void Function()? f) {
 
 /// sink é um io.Writer puro (sem WriteString), para exercitar o fallback de
 /// io.WriteString/getStringWriter.
-class _sink$ extends go.GoStruct<_sink$> implements io.Writer {
-  _sink$({go.Slice<Golang.Uint8>? got})
+class $_sink extends go.GoStruct<$_sink> implements io.Writer {
+  $_sink({go.Slice<Golang.Uint8>? got})
     : _got = got ?? go.Slice<Golang.Uint8>.nil(_$e1);
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _sink$ $nil = _sink$()..$nilPtr = true;
+  static final $_sink $nil = $_sink()..$nilPtr = true;
 
   go.Slice<Golang.Uint8> _got;
 
@@ -59,10 +59,10 @@ class _sink$ extends go.GoStruct<_sink$> implements io.Writer {
   List<String> get $ptrMethods => const ['Write'];
 
   @override
-  _sink$ $copy() => _sink$(got: _got);
+  $_sink $copy() => $_sink(got: _got);
 
   @override
-  void $set(_sink$ o) {
+  void $set($_sink o) {
     _got = o._got;
   }
 
@@ -76,7 +76,7 @@ class _sink$ extends go.GoStruct<_sink$> implements io.Writer {
   List<String> get $fieldTypes => const ['[]uint8'];
 
   (Golang.Int, go.GoError?) write(go.Slice<Golang.Uint8> p) {
-    final _sink$? s = $nilPtr ? null : this;
+    final $_sink? s = $nilPtr ? null : this;
     s!._got = s!._got.appendSlice(p);
     return (Golang.Int(p.length), null);
   }
@@ -471,25 +471,19 @@ void main() {
     );
     go.Slice<Golang.Uint8> buf = go.Slice<Golang.Uint8>.make(5, 5, _$e1);
     var (n, err) = (r$3 ?? strings.Reader.$nil).read(buf);
-    fmt.printf(
-      Golang.String.fromDart('%d %v %q %d\n'),
-      go.Slice<Object?>.of([
-        n,
-        err,
-        buf.slice(0, n.toIndex()),
-        (r$3 ?? strings.Reader.$nil).len(),
-      ], _$e0),
-    );
+    (switch ((r$3 ?? strings.Reader.$nil).len()) {
+      final $t6 => fmt.printf(
+        Golang.String.fromDart('%d %v %q %d\n'),
+        go.Slice<Object?>.of([n, err, buf.slice(0, n.toIndex()), $t6], _$e0),
+      ),
+    });
     var (n2, err2) = (r$3 ?? strings.Reader.$nil).readAt(buf, Golang.Int64(1));
-    fmt.printf(
-      Golang.String.fromDart('%d %v %q %d\n'),
-      go.Slice<Object?>.of([
-        n2,
-        err2,
-        buf.slice(0, n2.toIndex()),
-        (r$3 ?? strings.Reader.$nil).len(),
-      ], _$e0),
-    );
+    (switch ((r$3 ?? strings.Reader.$nil).len()) {
+      final $t7 => fmt.printf(
+        Golang.String.fromDart('%d %v %q %d\n'),
+        go.Slice<Object?>.of([n2, err2, buf.slice(0, n2.toIndex()), $t7], _$e0),
+      ),
+    });
     var (rb, errB) = (r$3 ?? strings.Reader.$nil).readByte();
     fmt.println(go.Slice<Object?>.of([rb, errB], _$e0));
     fmt.println(
@@ -534,19 +528,23 @@ void main() {
     var (wn, errW) = (r$3 ?? strings.Reader.$nil).writeTo(
       wbuf ?? bytes.Buffer.$nil,
     );
-    fmt.println(go.Slice<Object?>.of([wn, errW, wbuf.string()], _$e0));
+    (switch (wbuf.string()) {
+      final $t8 => fmt.println(go.Slice<Object?>.of([wn, errW, $t8], _$e0)),
+    });
     strings.Reader empty = strings.Reader();
     var (_, errEmptyRead) = empty.read(buf);
     var (_, errEmptyByte) = empty.readByte();
     var (_, _, errEmptyRune) = empty.readRune();
-    fmt.println(
-      go.Slice<Object?>.of([
-        go.ifaceEq(errEmptyRead, io.eof),
-        go.ifaceEq(errEmptyByte, io.eof),
-        go.ifaceEq(errEmptyRune, io.eof),
-        empty.len(),
-      ], _$e0),
-    );
+    (switch (empty.len()) {
+      final $t9 => fmt.println(
+        go.Slice<Object?>.of([
+          go.ifaceEq(errEmptyRead, io.eof),
+          go.ifaceEq(errEmptyByte, io.eof),
+          go.ifaceEq(errEmptyRune, io.eof),
+          $t9,
+        ], _$e0),
+      ),
+    });
     fmt.println(
       go.Slice<Object?>.of([
         empty.unreadByte() != null,
@@ -609,10 +607,12 @@ void main() {
       wb ?? bytes.Buffer.$nil,
       Golang.String.fromDart('<<>>&'),
     );
-    fmt.println(go.Slice<Object?>.of([n3, err3, wb.string()], _$e0));
-    _sink$? sk = _sink$();
+    (switch (wb.string()) {
+      final $t10 => fmt.println(go.Slice<Object?>.of([n3, err3, $t10], _$e0)),
+    });
+    $_sink? sk = $_sink();
     var (n4, err4) = (rep2 ?? strings.Replacer.$nil).writeString(
-      sk ?? _sink$.$nil,
+      sk ?? $_sink.$nil,
       Golang.String.fromDart('aaaa'),
     );
     fmt.println(
@@ -636,6 +636,13 @@ bool _$inited = false;
 void $goInit() {
   if (_$inited) return;
   _$inited = true;
+}
+
+/// Métodos de sink promovidos por embedding (delegação).
+mixin $_sink$Promote {
+  $_sink? get $$_sink;
+  (Golang.Int, go.GoError?) write(go.Slice<Golang.Uint8> p0) =>
+      $$_sink!.write(p0);
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.

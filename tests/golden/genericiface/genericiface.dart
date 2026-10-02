@@ -114,14 +114,18 @@ N closest<K extends Key<K>, N extends NodeID<K>>(
       {
         if (Golang.Uint8.from(
               go.assertType<$_k8>(
-                n.key().xor(target),
+                (switch (n.key()) {
+                  final $t3 => $t3.xor(target),
+                }),
                 'interface {}',
                 'main.k8',
               ),
             ) <
             Golang.Uint8.from(
               go.assertType<$_k8>(
-                best.key().xor(target),
+                (switch (best.key()) {
+                  final $t4 => $t4.xor(target),
+                }),
                 'interface {}',
                 'main.k8',
               ),
@@ -249,7 +253,9 @@ void main() {
       go.Slice<$_k8>.of([$_k8(3), $_k8(1), $_k8(2)], _$e1),
     );
     sort.sort(l);
-    fmt.println(go.Slice<Object?>.of([l, sort.isSorted(l)], _$e0));
+    (switch (sort.isSorted(l)) {
+      final $t1 => fmt.println(go.Slice<Object?>.of([l, $t1], _$e0)),
+    });
     _use<Golang.String, Golang.Int>(
       _$e4,
       _$e3,

@@ -1069,6 +1069,24 @@ void $goInit() {
   _$inited = true;
 }
 
+/// Métodos de G promovidos por embedding (delegação).
+mixin G$Promote {
+  G? get $G;
+  Golang.String goString() => $G!.goString();
+}
+
+/// Métodos de S promovidos por embedding (delegação).
+mixin S$Promote {
+  S? get $S;
+  Golang.String string() => $S!.string();
+}
+
+/// Métodos de PG promovidos por embedding (delegação).
+mixin PG$Promote {
+  PG? get $PG;
+  Golang.String goString() => $PG!.goString();
+}
+
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
 Golang.Uint8 _$f0_1(Golang.FloatBase f) =>
     Golang.Uint8.from(f.toInteger(8, signed: false));

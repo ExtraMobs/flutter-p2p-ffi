@@ -35,37 +35,69 @@ void main() {
       for (var $t2 = 0; $t2 < $t1.length; $t2++) {
         Golang.Int32 r = $t1[$t2];
         {
-          fmt.printf(
-            Golang.String.fromDart(
-              '%q letter=%v digit=%v space=%v upper=%v lower=%v title=%v control=%v mark=%v number=%v punct=%v symbol=%v graphic=%v print=%v\n',
+          (switch ((
+            unicode.isLetter(r),
+            unicode.isDigit(r),
+            unicode.isSpace(r),
+            unicode.isUpper(r),
+            unicode.isLower(r),
+            unicode.isTitle(r),
+            unicode.isControl(r),
+            unicode.isMark(r),
+            unicode.isNumber(r),
+            unicode.isPunct(r),
+            unicode.isSymbol(r),
+            unicode.isGraphic(r),
+            unicode.isPrint(r),
+          )) {
+            (
+              final $t3,
+              final $t4,
+              final $t5,
+              final $t6,
+              final $t7,
+              final $t8,
+              final $t9,
+              final $t10,
+              final $t11,
+              final $t12,
+              final $t13,
+              final $t14,
+              final $t15,
+            ) =>
+              fmt.printf(
+                Golang.String.fromDart(
+                  '%q letter=%v digit=%v space=%v upper=%v lower=%v title=%v control=%v mark=%v number=%v punct=%v symbol=%v graphic=%v print=%v\n',
+                ),
+                go.Slice<Object?>.of([
+                  r,
+                  $t3,
+                  $t4,
+                  $t5,
+                  $t6,
+                  $t7,
+                  $t8,
+                  $t9,
+                  $t10,
+                  $t11,
+                  $t12,
+                  $t13,
+                  $t14,
+                  $t15,
+                ], _$e1),
+              ),
+          });
+          (switch ((
+            unicode.toUpper(r),
+            unicode.toLower(r),
+            unicode.toTitle(r),
+            unicode.simpleFold(r),
+          )) {
+            (final $t16, final $t17, final $t18, final $t19) => fmt.printf(
+              Golang.String.fromDart('%q upper=%q lower=%q title=%q fold=%q\n'),
+              go.Slice<Object?>.of([r, $t16, $t17, $t18, $t19], _$e1),
             ),
-            go.Slice<Object?>.of([
-              r,
-              unicode.isLetter(r),
-              unicode.isDigit(r),
-              unicode.isSpace(r),
-              unicode.isUpper(r),
-              unicode.isLower(r),
-              unicode.isTitle(r),
-              unicode.isControl(r),
-              unicode.isMark(r),
-              unicode.isNumber(r),
-              unicode.isPunct(r),
-              unicode.isSymbol(r),
-              unicode.isGraphic(r),
-              unicode.isPrint(r),
-            ], _$e1),
-          );
-          fmt.printf(
-            Golang.String.fromDart('%q upper=%q lower=%q title=%q fold=%q\n'),
-            go.Slice<Object?>.of([
-              r,
-              unicode.toUpper(r),
-              unicode.toLower(r),
-              unicode.toTitle(r),
-              unicode.simpleFold(r),
-            ], _$e1),
-          );
+          });
         }
       }
     }
@@ -99,30 +131,29 @@ void main() {
       Golang.String.fromDart('   '),
     ], _$e2);
     {
-      final $t3 = strCases;
-      for (var $t4 = 0; $t4 < $t3.length; $t4++) {
-        Golang.String s = $t3[$t4];
+      final $t20 = strCases;
+      for (var $t21 = 0; $t21 < $t20.length; $t21++) {
+        Golang.String s = $t20[$t21];
         {
-          fmt.printf(
-            Golang.String.fromDart(
-              '%q upper=%q lower=%q toTitle=%q Title=%q\n',
+          (switch ((
+            strings.toUpper(s),
+            strings.toLower(s),
+            strings.toTitle(s),
+            strings.title(s),
+          )) {
+            (final $t22, final $t23, final $t24, final $t25) => fmt.printf(
+              Golang.String.fromDart(
+                '%q upper=%q lower=%q toTitle=%q Title=%q\n',
+              ),
+              go.Slice<Object?>.of([s, $t22, $t23, $t24, $t25], _$e1),
             ),
-            go.Slice<Object?>.of([
-              s,
-              strings.toUpper(s),
-              strings.toLower(s),
-              strings.toTitle(s),
-              strings.title(s),
-            ], _$e1),
-          );
-          fmt.printf(
-            Golang.String.fromDart('%q trimSpace=%q fields=%q\n'),
-            go.Slice<Object?>.of([
-              s,
-              strings.trimSpace(s),
-              strings.fields(s),
-            ], _$e1),
-          );
+          });
+          (switch ((strings.trimSpace(s), strings.fields(s))) {
+            (final $t26, final $t27) => fmt.printf(
+              Golang.String.fromDart('%q trimSpace=%q fields=%q\n'),
+              go.Slice<Object?>.of([s, $t26, $t27], _$e1),
+            ),
+          });
         }
       }
     }
@@ -170,9 +201,9 @@ void main() {
           ], _$e2),
         ], _$e3);
     {
-      final $t5 = foldPairs;
-      for (var $t6 = 0; $t6 < $t5.length; $t6++) {
-        go.GoArray<Golang.String> p = $t5[$t6].$copy();
+      final $t28 = foldPairs;
+      for (var $t29 = 0; $t29 < $t28.length; $t29++) {
+        go.GoArray<Golang.String> p = $t28[$t29].$copy();
         {
           fmt.println(
             go.Slice<Object?>.of([strings.equalFold(p[0], p[1])], _$e1),
@@ -230,23 +261,25 @@ void main() {
           go.bytesOf(Golang.String.fromDart('   '), _$e4),
         ], _$e5);
     {
-      final $t7 = byteCases;
-      for (var $t8 = 0; $t8 < $t7.length; $t8++) {
-        go.Slice<Golang.Uint8> b = $t7[$t8];
+      final $t30 = byteCases;
+      for (var $t31 = 0; $t31 < $t30.length; $t31++) {
+        go.Slice<Golang.Uint8> b = $t30[$t31];
         {
-          fmt.printf(
-            Golang.String.fromDart(
-              '%q upper=%q lower=%q Title=%q trimSpace=%q fields=%q\n',
-            ),
-            go.Slice<Object?>.of([
-              b,
-              bytes.toUpper(b),
-              bytes.toLower(b),
-              bytes.title(b),
-              bytes.trimSpace(b),
-              bytes.fields(b),
-            ], _$e1),
-          );
+          (switch ((
+            bytes.toUpper(b),
+            bytes.toLower(b),
+            bytes.title(b),
+            bytes.trimSpace(b),
+            bytes.fields(b),
+          )) {
+            (final $t32, final $t33, final $t34, final $t35, final $t36) =>
+              fmt.printf(
+                Golang.String.fromDart(
+                  '%q upper=%q lower=%q Title=%q trimSpace=%q fields=%q\n',
+                ),
+                go.Slice<Object?>.of([b, $t32, $t33, $t34, $t35, $t36], _$e1),
+              ),
+          });
           fmt.println(go.Slice<Object?>.of([bytes.runes(b)], _$e1));
         }
       }

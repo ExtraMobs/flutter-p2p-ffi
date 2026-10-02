@@ -44,6 +44,9 @@ class W extends go.GoStruct<W> with a.T$Promote implements a.I {
 
   @override
   List<String> get $fieldNames => const ['T', 'Extra'];
+
+  @override
+  List<String> get $fieldTypes => const ['a.T', 'int'];
 }
 
 /// WPtr: embedding por ponteiro (*a.T2).
@@ -77,6 +80,9 @@ class WPtr extends go.GoStruct<WPtr> with a.T2$Promote {
 
   @override
   List<String> get $fieldNames => const ['T2'];
+
+  @override
+  List<String> get $fieldTypes => const ['*a.T2'];
 }
 
 /// Mid: primeiro nível da promoção em profundidade 2 (a.T3 → c.C).
@@ -110,6 +116,9 @@ class Mid extends go.GoStruct<Mid> with a.T3$Promote {
 
   @override
   List<String> get $fieldNames => const ['T3'];
+
+  @override
+  List<String> get $fieldTypes => const ['a.T3'];
 }
 
 bool _$inited = false;

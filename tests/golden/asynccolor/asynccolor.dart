@@ -33,11 +33,11 @@ abstract mixin class Source {
   Future<Golang.Int> next();
 }
 
-class _fixed$ extends go.GoStruct<_fixed$> implements Source, _nexter$ {
-  _fixed$({Golang.Int? v}) : _v = v ?? Golang.Int();
+class $_fixed extends go.GoStruct<$_fixed> implements Source, $_nexter {
+  $_fixed({Golang.Int? v}) : _v = v ?? Golang.Int();
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _fixed$ $nil = _fixed$()..$nilPtr = true;
+  static final $_fixed $nil = $_fixed()..$nilPtr = true;
 
   Golang.Int _v;
 
@@ -49,10 +49,10 @@ class _fixed$ extends go.GoStruct<_fixed$> implements Source, _nexter$ {
   List<String> get $ptrMethods => const ['Name', 'Next'];
 
   @override
-  _fixed$ $copy() => _fixed$(v: _v);
+  $_fixed $copy() => $_fixed(v: _v);
 
   @override
-  void $set(_fixed$ o) {
+  void $set($_fixed o) {
     _v = o._v;
   }
 
@@ -73,11 +73,11 @@ class _fixed$ extends go.GoStruct<_fixed$> implements Source, _nexter$ {
   }
 }
 
-class _piped$ extends go.GoStruct<_piped$> implements Source, _nexter$ {
-  _piped$({go.Chan<Golang.Int>? ch}) : _ch = ch;
+class $_piped extends go.GoStruct<$_piped> implements Source, $_nexter {
+  $_piped({go.Chan<Golang.Int>? ch}) : _ch = ch;
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _piped$ $nil = _piped$()..$nilPtr = true;
+  static final $_piped $nil = $_piped()..$nilPtr = true;
 
   go.Chan<Golang.Int>? _ch;
 
@@ -89,10 +89,10 @@ class _piped$ extends go.GoStruct<_piped$> implements Source, _nexter$ {
   List<String> get $ptrMethods => const ['Name', 'Next'];
 
   @override
-  _piped$ $copy() => _piped$(ch: _ch);
+  $_piped $copy() => $_piped(ch: _ch);
 
   @override
-  void $set(_piped$ o) {
+  void $set($_piped o) {
     _ch = o._ch;
   }
 
@@ -106,7 +106,7 @@ class _piped$ extends go.GoStruct<_piped$> implements Source, _nexter$ {
   List<String> get $fieldTypes => const ['chan'];
 
   Future<Golang.Int> next() async {
-    final _piped$? p = $nilPtr ? null : this;
+    final $_piped? p = $nilPtr ? null : this;
     return await go.chanRecv(p!._ch);
   }
 
@@ -116,17 +116,17 @@ class _piped$ extends go.GoStruct<_piped$> implements Source, _nexter$ {
 }
 
 /// Next e Name promovidos de *piped.
-class _wrapper$ extends go.GoStruct<_wrapper$>
-    with _piped$$PromotePtr
-    implements Source, _nexter$ {
-  _wrapper$({_piped$? piped, Golang.String? tag})
+class $_wrapper extends go.GoStruct<$_wrapper>
+    with $_piped$Promote
+    implements Source, $_nexter {
+  $_wrapper({$_piped? piped, Golang.String? tag})
     : _piped = piped,
       _tag = tag ?? Golang.String();
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _wrapper$ $nil = _wrapper$()..$nilPtr = true;
+  static final $_wrapper $nil = $_wrapper()..$nilPtr = true;
 
-  _piped$? _piped;
+  $_piped? _piped;
   Golang.String _tag;
 
   @override
@@ -136,13 +136,13 @@ class _wrapper$ extends go.GoStruct<_wrapper$>
   @override
   List<String> get $ptrMethods => const ['Name', 'Next'];
   @override
-  _piped$? get $_piped$ => _piped;
+  $_piped? get $$_piped => _piped;
 
   @override
-  _wrapper$ $copy() => _wrapper$(piped: _piped, tag: _tag);
+  $_wrapper $copy() => $_wrapper(piped: _piped, tag: _tag);
 
   @override
-  void $set(_wrapper$ o) {
+  void $set($_wrapper o) {
     _piped = o._piped;
     _tag = o._tag;
   }
@@ -158,13 +158,13 @@ class _wrapper$ extends go.GoStruct<_wrapper$>
 }
 
 /// Tipo nomeado sobre básico: *counter encaminha para o método de valor.
-final class _counter$ extends Golang.Int64Base<_counter$> implements _adder$ {
-  _counter$([int v = 0]) : super(v);
-  _counter$.from(Golang.IntBase v) : super.from(v);
-  _counter$.fromBigInt(BigInt v) : super.fromBigInt(v);
-  _counter$._(super.$hi, super.$lo) : super.raw();
+final class $_counter extends Golang.Int64Base<$_counter> implements $_adder {
+  $_counter([int v = 0]) : super(v);
+  $_counter.from(Golang.IntBase v) : super.from(v);
+  $_counter.fromBigInt(BigInt v) : super.fromBigInt(v);
+  $_counter._(super.$hi, super.$lo) : super.raw();
   @override
-  _counter$ $make(int hi, int lo) => _counter$._(hi, lo);
+  $_counter $make(int hi, int lo) => $_counter._(hi, lo);
   @override
   String get $goType => 'main.counter';
   @override
@@ -176,11 +176,11 @@ final class _counter$ extends Golang.Int64Base<_counter$> implements _adder$ {
 }
 
 /// `*main.counter`: vista sobre qualquer ponteiro para o valor.
-final class _counter$$Ptr extends go.PtrView<_counter$> implements _adder$ {
-  _counter$$Ptr(super.$p);
+final class $_counter$Ptr extends go.PtrView<$_counter> implements $_adder {
+  $_counter$Ptr(super.$p);
 
   /// `(*N)(nil)` dentro de uma interface (não é nil no Go).
-  static final _counter$$Ptr $nil = _counter$$Ptr(const go.NilPtr<_counter$>());
+  static final $_counter$Ptr $nil = $_counter$Ptr(const go.NilPtr<$_counter>());
 
   @override
   String get $goType => '*main.counter';
@@ -190,21 +190,21 @@ final class _counter$$Ptr extends go.PtrView<_counter$> implements _adder$ {
   Future<Golang.Int> plus(go.Chan<Golang.Int>? p0) => $p.value.plus(p0);
 }
 
-abstract mixin class _adder$ {
+abstract mixin class $_adder {
   Future<Golang.Int> plus(go.Chan<Golang.Int>? p0);
 }
 
 /// Genérico: chamada pelo método da restrição.
-abstract mixin class _nexter$ {
+abstract mixin class $_nexter {
   Future<Golang.Int> next();
 }
 
 /// tap tem receptor valor (argumento de tipo não anulável).
-class _tap$ extends go.GoStruct<_tap$> implements _nexter$ {
-  _tap$({go.Chan<Golang.Int>? ch}) : _ch = ch;
+class $_tap extends go.GoStruct<$_tap> implements $_nexter {
+  $_tap({go.Chan<Golang.Int>? ch}) : _ch = ch;
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _tap$ $nil = _tap$()..$nilPtr = true;
+  static final $_tap $nil = $_tap()..$nilPtr = true;
 
   go.Chan<Golang.Int>? _ch;
 
@@ -216,10 +216,10 @@ class _tap$ extends go.GoStruct<_tap$> implements _nexter$ {
   List<String> get $ptrMethods => const ['Next'];
 
   @override
-  _tap$ $copy() => _tap$(ch: _ch);
+  $_tap $copy() => $_tap(ch: _ch);
 
   @override
-  void $set(_tap$ o) {
+  void $set($_tap o) {
     _ch = o._ch;
   }
 
@@ -238,7 +238,7 @@ class _tap$ extends go.GoStruct<_tap$> implements _nexter$ {
   }
 }
 
-Future<Golang.Int> _sum<T extends _nexter$>(
+Future<Golang.Int> _sum<T extends $_nexter>(
   go.Elem<T> $T,
   go.Slice<T> xs,
 ) async {
@@ -255,13 +255,13 @@ Future<Golang.Int> _sum<T extends _nexter$>(
   return s;
 }
 
-class _locked$ extends go.GoStruct<_locked$> implements fmt.Stringer {
-  _locked$({sync.Mutex? mu, Golang.Int? n})
+class $_locked extends go.GoStruct<$_locked> implements fmt.Stringer {
+  $_locked({sync.Mutex? mu, Golang.Int? n})
     : _mu = mu ?? sync.Mutex(),
       _n = n ?? Golang.Int();
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _locked$ $nil = _locked$()..$nilPtr = true;
+  static final $_locked $nil = $_locked()..$nilPtr = true;
 
   sync.Mutex _mu;
   Golang.Int _n;
@@ -274,10 +274,10 @@ class _locked$ extends go.GoStruct<_locked$> implements fmt.Stringer {
   List<String> get $ptrMethods => const ['Inc', 'String'];
 
   @override
-  _locked$ $copy() => _locked$(mu: _mu.$copy(), n: _n);
+  $_locked $copy() => $_locked(mu: _mu.$copy(), n: _n);
 
   @override
-  void $set(_locked$ o) {
+  void $set($_locked o) {
     _mu.$set(o._mu);
     _n = o._n;
   }
@@ -293,7 +293,7 @@ class _locked$ extends go.GoStruct<_locked$> implements fmt.Stringer {
 
   /// Inc espera o Mutex (pode estar com outra goroutine): async.
   Future<void> inc() async {
-    final _locked$? l = $nilPtr ? null : this;
+    final $_locked? l = $nilPtr ? null : this;
     final $t1 = go.Defers();
     try {
       await l!._mu.lock$async();
@@ -313,7 +313,7 @@ class _locked$ extends go.GoStruct<_locked$> implements fmt.Stringer {
 
   /// String é chamado pelo fmt de forma síncrona: o Lock fica síncrono.
   Golang.String string() {
-    final _locked$? l = $nilPtr ? null : this;
+    final $_locked? l = $nilPtr ? null : this;
     Golang.String $t1 = Golang.String();
     final $t2 = go.Defers();
     try {
@@ -341,13 +341,13 @@ class _locked$ extends go.GoStruct<_locked$> implements fmt.Stringer {
 }
 
 /// tally nunca suspende segurando o Mutex: lock() síncrono, Add fica síncrona.
-class _tally$ extends go.GoStruct<_tally$> {
-  _tally$({sync.Mutex? mu, Golang.Int? n})
+class $_tally extends go.GoStruct<$_tally> {
+  $_tally({sync.Mutex? mu, Golang.Int? n})
     : _mu = mu ?? sync.Mutex(),
       _n = n ?? Golang.Int();
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
-  static final _tally$ $nil = _tally$()..$nilPtr = true;
+  static final $_tally $nil = $_tally()..$nilPtr = true;
 
   sync.Mutex _mu;
   Golang.Int _n;
@@ -360,10 +360,10 @@ class _tally$ extends go.GoStruct<_tally$> {
   List<String> get $ptrMethods => const ['Add'];
 
   @override
-  _tally$ $copy() => _tally$(mu: _mu.$copy(), n: _n);
+  $_tally $copy() => $_tally(mu: _mu.$copy(), n: _n);
 
   @override
-  void $set(_tally$ o) {
+  void $set($_tally o) {
     _mu.$set(o._mu);
     _n = o._n;
   }
@@ -378,7 +378,7 @@ class _tally$ extends go.GoStruct<_tally$> {
   List<String> get $fieldTypes => const ['sync.Mutex', 'int'];
 
   Golang.Int add(Golang.Int d) {
-    final _tally$? t = $nilPtr ? null : this;
+    final $_tally? t = $nilPtr ? null : this;
     t!._mu.lock();
     t!._n += d;
     Golang.Int v = t!._n;
@@ -435,10 +435,10 @@ void main() {
     );
     {
       final $t1 = go.Slice<Source?>.of([
-        _fixed$(v: Golang.Int(7)).$ifaceCopy(),
-        _piped$(ch: ch) ?? _piped$.$nil,
-        _wrapper$(
-          piped: _piped$(ch: ch),
+        $_fixed(v: Golang.Int(7)).$ifaceCopy(),
+        $_piped(ch: ch) ?? $_piped.$nil,
+        $_wrapper(
+          piped: $_piped(ch: ch),
           tag: Golang.String.fromDart('w'),
         ).$ifaceCopy(),
       ], _$e1);
@@ -466,9 +466,9 @@ void main() {
     }
     await go.chanSend(ch, Golang.Int(1));
     await go.chanSend(ch, Golang.Int(2));
-    _adder$? ad = _counter$(5);
-    _adder$? adp =
-        _counter$$Ptr(go.Box<_counter$>(_counter$())) ?? _counter$$Ptr.$nil;
+    $_adder? ad = $_counter(5);
+    $_adder? adp =
+        $_counter$Ptr(go.Box<$_counter>($_counter())) ?? $_counter$Ptr.$nil;
     fmt.println(
       go.Slice<Object?>.of([
         Golang.String.fromDart('plus'),
@@ -481,9 +481,9 @@ void main() {
     fmt.println(
       go.Slice<Object?>.of([
         Golang.String.fromDart('sum'),
-        await _sum<_tap$>(
+        await _sum<$_tap>(
           _$e2,
-          go.Slice<_tap$>.of([_tap$(ch: ch), _tap$(ch: ch)], _$e2),
+          go.Slice<$_tap>.of([$_tap(ch: ch), $_tap(ch: ch)], _$e2),
         ),
       ], _$e0),
     );
@@ -514,12 +514,12 @@ void main() {
     fmt.println(
       go.Slice<Object?>.of([Golang.String.fromDart('defer'), out.value], _$e0),
     );
-    _piped$? p = _piped$(ch: go.Chan<Golang.Int>(0, Golang.Int()));
+    $_piped? p = $_piped(ch: go.Chan<Golang.Int>(0, Golang.Int()));
     go.Chan<Golang.Int>? got = go.Chan<Golang.Int>(0, Golang.Int());
     {
       go.spawn(
         () => (() async {
-          await go.chanSend(got, await (p ?? _piped$.$nil).next());
+          await go.chanSend(got, await (p ?? $_piped.$nil).next());
         })(),
       );
     }
@@ -545,7 +545,7 @@ void main() {
         await go.chanRecv(res) + await go.chanRecv(res),
       ], _$e0),
     );
-    _locked$ l = _locked$();
+    $_locked l = $_locked();
     go.Chan<bool>? held = go.Chan<bool>(0, false);
     go.Chan<bool>? release = go.Chan<bool>(0, false);
     go.Chan<bool>? done = go.Chan<bool>(0, false);
@@ -577,10 +577,10 @@ void main() {
       go.Slice<Object?>.of([
         Golang.String.fromDart('mutex'),
         l.string(),
-        l ?? _locked$.$nil,
+        l ?? $_locked.$nil,
       ], _$e0),
     );
-    _tally$ tl = _tally$();
+    $_tally tl = $_tally();
     {
       go.spawn(
         () => (() async {
@@ -607,17 +607,56 @@ void $goInit() {
   _$inited = true;
 }
 
+/// Métodos de fixed promovidos por embedding (delegação).
+mixin $_fixed$Promote {
+  $_fixed? get $$_fixed;
+  Golang.String name() => $$_fixed!.name();
+  Future<Golang.Int> next() => $$_fixed!.next();
+}
+
 /// Métodos de piped promovidos por embedding (delegação).
-mixin _piped$$PromotePtr {
-  _piped$? get $_piped$;
-  Golang.String name() => $_piped$!.name();
-  Future<Golang.Int> next() => $_piped$!.next();
+mixin $_piped$Promote {
+  $_piped? get $$_piped;
+  Golang.String name() => $$_piped!.name();
+  Future<Golang.Int> next() => $$_piped!.next();
+}
+
+/// Métodos de wrapper promovidos por embedding (delegação).
+mixin $_wrapper$Promote {
+  $_wrapper? get $$_wrapper;
+  Golang.String name() => $$_wrapper!.name();
+  Future<Golang.Int> next() => $$_wrapper!.next();
+}
+
+/// Métodos de counter promovidos por embedding (delegação).
+mixin $_counter$Promote {
+  $_counter? get $$_counter;
+  Future<Golang.Int> plus(go.Chan<Golang.Int>? p0) => $$_counter!.plus(p0);
+}
+
+/// Métodos de tap promovidos por embedding (delegação).
+mixin $_tap$Promote {
+  $_tap? get $$_tap;
+  Future<Golang.Int> next() => $$_tap!.next();
+}
+
+/// Métodos de locked promovidos por embedding (delegação).
+mixin $_locked$Promote {
+  $_locked? get $$_locked;
+  Future<void> inc() => $$_locked!.inc();
+  Golang.String string() => $$_locked!.string();
+}
+
+/// Métodos de tally promovidos por embedding (delegação).
+mixin $_tally$Promote {
+  $_tally? get $$_tally;
+  Golang.Int add(Golang.Int p0) => $$_tally!.add(p0);
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
 const _$e0 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
 const _$e1 = go.Elem<Source?>(16, go.zeroNull, pointers: true);
-const _$e2 = go.Elem<_tap$>(8, _tap$.new, pointers: true);
+const _$e2 = go.Elem<$_tap>(8, $_tap.new, pointers: true);
 Golang.Int _$f3_4(Golang.FloatBase f) =>
     Golang.Int.from(f.toInteger(64, signed: true));
 const _$e3 = go.Elem<Golang.Int>(

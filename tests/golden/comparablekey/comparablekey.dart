@@ -75,14 +75,19 @@ void main() {
   go.runMain(() {
     $goInit();
     Cache<$_id, Golang.String> c = Cache<$_id, Golang.String>(_$e0, _$e1);
-    fmt.println(
-      go.Slice<Object?>.of([
-        c.put($_id(7), Golang.String.fromDart('x')),
-        c.put($_id(9), Golang.String.fromDart('y')),
-        Golang.Int(c._m.length),
-        c._m[$_id(7)],
-      ], _$e2),
-    );
+    (switch ((
+      c.put($_id(7), Golang.String.fromDart('x')),
+      c.put($_id(9), Golang.String.fromDart('y')),
+    )) {
+      (final $t1, final $t2) => fmt.println(
+        go.Slice<Object?>.of([
+          $t1,
+          $t2,
+          Golang.Int(c._m.length),
+          c._m[$_id(7)],
+        ], _$e2),
+      ),
+    });
   });
 }
 

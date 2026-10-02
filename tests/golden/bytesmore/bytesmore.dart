@@ -53,25 +53,19 @@ void main() {
     );
     go.Slice<Golang.Uint8> buf = go.Slice<Golang.Uint8>.make(5, 5, _$e1);
     var (n, err) = (r ?? bytes.Reader.$nil).read(buf);
-    fmt.printf(
-      Golang.String.fromDart('%d %v %q %d\n'),
-      go.Slice<Object?>.of([
-        n,
-        err,
-        buf.slice(0, n.toIndex()),
-        (r ?? bytes.Reader.$nil).len(),
-      ], _$e0),
-    );
+    (switch ((r ?? bytes.Reader.$nil).len()) {
+      final $t1 => fmt.printf(
+        Golang.String.fromDart('%d %v %q %d\n'),
+        go.Slice<Object?>.of([n, err, buf.slice(0, n.toIndex()), $t1], _$e0),
+      ),
+    });
     var (n2, err2) = (r ?? bytes.Reader.$nil).readAt(buf, Golang.Int64(1));
-    fmt.printf(
-      Golang.String.fromDart('%d %v %q %d\n'),
-      go.Slice<Object?>.of([
-        n2,
-        err2,
-        buf.slice(0, n2.toIndex()),
-        (r ?? bytes.Reader.$nil).len(),
-      ], _$e0),
-    );
+    (switch ((r ?? bytes.Reader.$nil).len()) {
+      final $t2 => fmt.printf(
+        Golang.String.fromDart('%d %v %q %d\n'),
+        go.Slice<Object?>.of([n2, err2, buf.slice(0, n2.toIndex()), $t2], _$e0),
+      ),
+    });
     var (rb, errB) = (r ?? bytes.Reader.$nil).readByte();
     fmt.println(go.Slice<Object?>.of([rb, errB], _$e0));
     fmt.println(
@@ -108,15 +102,16 @@ void main() {
     var (wn, errW) = (r ?? bytes.Reader.$nil).writeTo(
       wbuf ?? bytes.Buffer.$nil,
     );
-    fmt.println(go.Slice<Object?>.of([wn, errW, wbuf.string()], _$e0));
+    (switch (wbuf.string()) {
+      final $t3 => fmt.println(go.Slice<Object?>.of([wn, errW, $t3], _$e0)),
+    });
     bytes.Reader empty = bytes.Reader();
     var (_, errEmptyRead) = empty.read(buf);
-    fmt.println(
-      go.Slice<Object?>.of([
-        go.ifaceEq(errEmptyRead, io.eof),
-        empty.len(),
-      ], _$e0),
-    );
+    (switch (empty.len()) {
+      final $t4 => fmt.println(
+        go.Slice<Object?>.of([go.ifaceEq(errEmptyRead, io.eof), $t4], _$e0),
+      ),
+    });
     fmt.printf(
       Golang.String.fromDart('%q %q %q\n'),
       go.Slice<Object?>.of([
@@ -210,14 +205,14 @@ void main() {
       ], _$e0),
     );
     {
-      final $t1 = go.Slice<go.Slice<Golang.Uint8>>.of([
+      final $t5 = go.Slice<go.Slice<Golang.Uint8>>.of([
         go.bytesOf(Golang.String.fromDart(''), _$e1),
         go.bytesOf(Golang.String.fromDart('chicken'), _$e1),
         go.bytesOf(Golang.String.fromDart('hello, world'), _$e1),
         go.bytesOf(go.stringOfBytes(const [104, 255, 108, 108, 111]), _$e1),
       ], _$e2);
-      for (var $t2 = 0; $t2 < $t1.length; $t2++) {
-        go.Slice<Golang.Uint8> s = $t1[$t2];
+      for (var $t6 = 0; $t6 < $t5.length; $t6++) {
+        go.Slice<Golang.Uint8> s = $t5[$t6];
         {
           fmt.println(
             go.Slice<Object?>.of([

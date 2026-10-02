@@ -52,12 +52,14 @@ void main() {
       Golang.String.fromDart('%q %v\n'),
       go.Slice<Object?>.of([v, ok], _$e1),
     );
-    fmt.println(
-      go.Slice<Object?>.of([
-        os.getpid() > Golang.Int(0),
-        Golang.Int(os.args.length),
-      ], _$e1),
-    );
+    (switch (os.getpid()) {
+      final $t1 => fmt.println(
+        go.Slice<Object?>.of([
+          $t1 > Golang.Int(0),
+          Golang.Int(os.args.length),
+        ], _$e1),
+      ),
+    });
     fmt.println(
       go.Slice<Object?>.of([
         os.errNotExist,
@@ -100,18 +102,17 @@ void main() {
       ], _$e1),
     );
     final go.Box<fs.PathError?> target = go.Box<fs.PathError?>(null);
-    fmt.println(
-      go.Slice<Object?>.of([
-        errors.as(
-          fmt.errorf(
-            Golang.String.fromDart('wrap: %w'),
-            go.Slice<Object?>.of([pe ?? fs.PathError.$nil], _$e1),
-          ),
-          target ?? const go.NilPtr<fs.PathError?>(),
-        ),
-        target.value!.path,
-      ], _$e1),
-    );
+    (switch (errors.as(
+      fmt.errorf(
+        Golang.String.fromDart('wrap: %w'),
+        go.Slice<Object?>.of([pe ?? fs.PathError.$nil], _$e1),
+      ),
+      target ?? const go.NilPtr<fs.PathError?>(),
+    )) {
+      final $t2 => fmt.println(
+        go.Slice<Object?>.of([$t2, target.value!.path], _$e1),
+      ),
+    });
     fmt.println(
       go.Slice<Object?>.of([
         os.isTimeout(os.errDeadlineExceeded),
@@ -119,25 +120,23 @@ void main() {
       ], _$e1),
     );
     fs.FileMode m = fs.FileMode(420);
-    fmt.println(
-      go.Slice<Object?>.of([
-        m,
-        m.isRegular(),
-        m.isDir(),
-        m.perm(),
-        fs.FileMode(511),
-      ], _$e1),
-    );
+    (switch ((m.isRegular(), m.isDir(), m.perm())) {
+      (final $t3, final $t4, final $t5) => fmt.println(
+        go.Slice<Object?>.of([m, $t3, $t4, $t5, fs.FileMode(511)], _$e1),
+      ),
+    });
     fs.FileMode d = fs.FileMode(2147484141);
-    fmt.println(
-      go.Slice<Object?>.of([
-        d,
-        d.isDir(),
-        d.isRegular(),
-        d.type() == fs.FileMode(2147483648),
-        d.perm(),
-      ], _$e1),
-    );
+    (switch ((d.isDir(), d.isRegular(), d.type(), d.perm())) {
+      (final $t6, final $t7, final $t8, final $t9) => fmt.println(
+        go.Slice<Object?>.of([
+          d,
+          $t6,
+          $t7,
+          $t8 == fs.FileMode(2147483648),
+          $t9,
+        ], _$e1),
+      ),
+    });
     fmt.println(
       go.Slice<Object?>.of([
         (os.stdout ?? os.File.$nil).name(),

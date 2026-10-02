@@ -55,7 +55,9 @@ $_impl? new$() {
 /// Double: o tipo não exportado também aparece na assinatura (parâmetro e
 /// retorno) de uma função exportada.
 $_impl? double$($_impl? i) {
-  (i ?? $_impl.$nil).set((i ?? $_impl.$nil).get() * Golang.Int(2));
+  (switch ((i ?? $_impl.$nil).get()) {
+    final $t1 => (i ?? $_impl.$nil).set($t1 * Golang.Int(2)),
+  });
   return i;
 }
 
@@ -132,6 +134,9 @@ class Box extends go.GoStruct<Box> {
 
   @override
   List<String> get $fieldNames => const ['Impl'];
+
+  @override
+  List<String> get $fieldTypes => const ['*a.impl'];
 }
 
 Box newBox() {

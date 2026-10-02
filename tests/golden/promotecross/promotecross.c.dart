@@ -41,6 +41,9 @@ class C extends go.GoStruct<C> with b.Mid$Promote {
 
   @override
   List<String> get $fieldNames => const ['Mid'];
+
+  @override
+  List<String> get $fieldTypes => const ['b.Mid'];
 }
 
 bool _$inited = false;

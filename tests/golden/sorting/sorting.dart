@@ -247,31 +247,33 @@ void main() {
             sort.stable(s ?? $_traced.$nil);
             var (calls, h) = (t!._calls, t!._h);
             bool sorted = sort.isSorted(t ?? $_traced.$nil);
-            fmt.println(
-              go.Slice<Object?>.of([
-                n,
-                pattern,
-                calls,
-                h,
-                _ids(t!._xs),
-                sorted,
-                s!._calls,
-                s!._h,
-                _ids(s!._xs),
-              ], _$e2),
-            );
+            (switch ((_ids(t!._xs), _ids(s!._xs))) {
+              (final $t3, final $t4) => fmt.println(
+                go.Slice<Object?>.of([
+                  n,
+                  pattern,
+                  calls,
+                  h,
+                  $t3,
+                  sorted,
+                  s!._calls,
+                  s!._h,
+                  $t4,
+                ], _$e2),
+              ),
+            });
           }
         }
       }
     }
     {
-      final $t3 = go.Slice<Golang.Int>.of([
+      final $t5 = go.Slice<Golang.Int>.of([
         Golang.Int(7),
         Golang.Int(60),
         Golang.Int(250),
       ], _$e1);
-      for (var $t4 = 0; $t4 < $t3.length; $t4++) {
-        Golang.Int n$1 = $t3[$t4];
+      for (var $t6 = 0; $t6 < $t5.length; $t6++) {
+        Golang.Int n$1 = $t5[$t6];
         {
           go.Slice<$_item> xs = _gen(n$1, Golang.Int(0), Golang.Int(5));
           sort.slice$(xs, (Golang.Int i, Golang.Int j) {
@@ -281,15 +283,17 @@ void main() {
           sort.sliceStable(ys, (Golang.Int i$1, Golang.Int j$1) {
             return ys[i$1.toIndex()]._key < ys[j$1.toIndex()]._key;
           });
-          fmt.println(
-            go.Slice<Object?>.of([
-              n$1,
-              _ids(xs),
-              _ids(ys),
-              xs.slice(0, 3),
-              ys.slice(0, 3),
-            ], _$e2),
-          );
+          (switch ((_ids(xs), _ids(ys))) {
+            (final $t7, final $t8) => fmt.println(
+              go.Slice<Object?>.of([
+                n$1,
+                $t7,
+                $t8,
+                xs.slice(0, 3),
+                ys.slice(0, 3),
+              ], _$e2),
+            ),
+          });
         }
       }
     }

@@ -43,6 +43,9 @@ class Ambi extends go.GoStruct<Ambi> {
 
   @override
   List<String> get $fieldNames => const ['Kinded1', 'Kinded2'];
+
+  @override
+  List<String> get $fieldTypes => const ['a.Kinded1', 'd.Kinded2'];
 }
 
 /// Both: método não exportado de mesmo nome em pacotes diferentes → não é
@@ -88,6 +91,9 @@ class Both extends go.GoStruct<Both>
 
   @override
   List<String> get $fieldNames => const ['Whisperer1', 'Whisperer2'];
+
+  @override
+  List<String> get $fieldTypes => const ['a.Whisperer1', 'd.Whisperer2'];
 }
 
 bool _$inited = false;
