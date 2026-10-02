@@ -228,6 +228,8 @@ void $goInit() {
 mixin Hash$Promote {
   Hash? get $Hash;
   Golang.String hex() => $Hash!.hex();
+  void reset() => $Hash!.reset();
+  void set(Golang.Int p0, Golang.Uint8 p1) => $Hash!.set(p0, p1);
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.

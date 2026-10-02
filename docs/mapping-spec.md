@@ -693,23 +693,37 @@ métodos da classe. As conversões usam os construtores:
   quando é o próprio `E` quem o declara (`owner_pkg(E, index) == E.pkg`,
   seguindo a cadeia de embedding pelo índice do goast); um método não
   exportado que `E` promoveu de um embutido seu **não** entra no
-  `E$Promote` de `E` (⚠️ um pacote que embute `E` esperando promoção
-  completa desse método, transitivamente, não consegue: `mixin` não pode
-  ter `with`, então não dá pra encadear o mixin do dono de fato a partir
-  do mixin de `E`; quem precisar disso hoje tem de embutir o dono
-  diretamente. `TODO/P1-design-promocao-transitiva-nao-exportada.md`).
+  `E$Promote` de `E` (`mixin` não pode ter `with`, então o mixin de `E`
+  não encadeia o do dono de fato). Quem embute `E` resolve: para cada
+  método não exportado promovido de outro pacote que nem o mixin do campo
+  direto nem um forwarder inline repassa (profundidade ≥ 2, ou `E`
+  sombreado), a struct ganha um `with D$Promote` extra do dono de fato `D`,
+  com o getter `$D` encadeado pelos campos até ele (`a.T get $T => w.t;`,
+  `a.T? get $T => w?.t;` com ponteiro no caminho). ⚠️ `Unsupported`
+  `promocao:nao-exportada` quando isso não dá: `D` interface ou genérico
+  (sem mixin), campo do caminho não exportado de outro pacote, ou getter
+  `$D` já usado por outro mixin da struct.
   Método exportado não tem essa restrição (nome público, a mesma library
   em qualquer lugar) e sempre é repassado.
 - Tipo nomeado sobre básico/slice/map/func: o método de receptor ponteiro
-  só existe na classe `E$Ptr`, não na classe `E` que o getter do mixin usa
-  — `E$Promote` só repassa os de receptor valor (⚠️ sem fixture: nenhum
-  pacote embute hoje um tipo assim esperando o método de ponteiro
-  promovido).
-- Fixtures `embed`, `embedprivate` (dentro do pacote) e `promotecross`
-  (entre pacotes; embedding por ponteiro `*a.T2`, profundidade 2 através de dois
-  pacotes, ambiguidade de método exportado entre dois embutidos de pacotes
-  diferentes, e o caso de método não exportado de mesmo nome em pacotes
-  diferentes não ser ambíguo).
+  só existe na classe `E$Ptr`. `E$Promote` pede então, além de `$E`, o
+  getter `E$Ptr get $E$Ptr`, por onde repassa esses métodos; quem embute
+  implementa com a vista sobre o campo (`E$Ptr(go.FieldPtr<S, E>(this,
+  'e', ...))`) ou, embutido por ponteiro, o próprio campo (`e!`; o `$E`
+  vira `e?.value`). A seleção promovida `h.Inc()` vira `h.Counter.Inc()`
+  (`&h.Counter`); o forwarder inline (com sombreamento) usa a mesma vista.
+- Tipo local que embute ou é embutido: mixin e getter usam o nome içado
+  (`$_main$Q$Promote`, `$$_main$Q`), então locais homônimos em funções
+  diferentes não colidem.
+- Fixtures `embed`, `embedprivate` (dentro do pacote), `promotenamed`
+  (não-struct com método de ponteiro por valor, por ponteiro, em
+  profundidade 2, sombreado e por interface; tipos locais homônimos),
+  `promotecross` (entre pacotes; embedding por ponteiro `*a.T2`,
+  profundidade 2 através de dois pacotes, ambiguidade de método exportado
+  entre dois embutidos de pacotes diferentes, e o caso de método não
+  exportado de mesmo nome em pacotes diferentes não ser ambíguo) e
+  `promotedeep` (não exportado a dois saltos de pacote: por valor, por
+  ponteiro no meio, sombreado e de não-struct com receptor ponteiro).
 
 **Genéricos (dicionários).**
 - `func F[T C](x T)` → `T f<T extends B>(go.Elem<T> $T, T x)`. O dicionário

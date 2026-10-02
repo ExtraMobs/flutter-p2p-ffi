@@ -116,14 +116,18 @@ void $goInit() {
 /// Métodos de Counter promovidos por embedding (delegação).
 mixin Counter$Promote {
   Counter? get $Counter;
+  Counter$Ptr get $Counter$Ptr;
   Counter addr$() => $Counter!.addr$();
   Counter twice() => $Counter!.twice();
+  void _inc() => $Counter$Ptr._inc();
 }
 
 /// Métodos de Stack promovidos por embedding (delegação).
 mixin Stack$Promote {
   Stack? get $Stack;
+  Stack$Ptr get $Stack$Ptr;
   Stack with$(Golang.Int p0) => $Stack!.with$(p0);
+  void _push(Golang.Int p0) => $Stack$Ptr._push(p0);
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.

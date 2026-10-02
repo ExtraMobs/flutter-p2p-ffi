@@ -243,7 +243,7 @@ class StructClass(TypeDeclBehavior):
             f"List<String> get $valueMethods => const [{vm}];",
             "@override",
             f"List<String> get $ptrMethods => const [{pm}];",
-        ] + [ln for _, getter in withs for ln in ["@override", getter]] + promoted + [
+        ] + [ln for _, getters in withs for g in getters for ln in ["@override", g]] + promoted + [
             "",
             "@override",
             f"{self_t} $copy() => {self_t}({dict_args}{', '.join(copies)});",

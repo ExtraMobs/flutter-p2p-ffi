@@ -366,6 +366,8 @@ void $goInit() {
 /// Métodos de IDs promovidos por embedding (delegação).
 mixin IDs$Promote {
   IDs? get $IDs;
+  IDs$Ptr get $IDs$Ptr;
+  void add(Golang.String p0) => $IDs$Ptr.add(p0);
   Golang.Int len() => $IDs!.len();
   bool less(Golang.Int p0, Golang.Int p1) => $IDs!.less(p0, p1);
   void swap(Golang.Int p0, Golang.Int p1) => $IDs!.swap(p0, p1);
@@ -387,14 +389,18 @@ mixin Op$Promote {
 /// Métodos de Counter promovidos por embedding (delegação).
 mixin Counter$Promote {
   Counter? get $Counter;
+  Counter$Ptr get $Counter$Ptr;
+  void inc() => $Counter$Ptr.inc();
   Golang.String string() => $Counter!.string();
 }
 
 /// Métodos de Bag promovidos por embedding (delegação).
 mixin Bag$Promote {
   Bag? get $Bag;
+  Bag$Ptr get $Bag$Ptr;
   void delete$(Golang.String p0) => $Bag!.delete$(p0);
   Golang.Int length$() => $Bag!.length$();
+  void reset() => $Bag$Ptr.reset();
   Golang.String toString$() => $Bag!.toString$();
   Golang.Int value$(Golang.String p0) => $Bag!.value$(p0);
 }

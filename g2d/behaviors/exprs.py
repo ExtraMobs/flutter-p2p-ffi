@@ -209,6 +209,10 @@ class SelectorExpr(ExprBehavior):
         if info["kind"] == "methodExpr":
             return self.method_expr(n, info), 0
         t = self.pkg.type_of(x)
+        if info["kind"] == "method" and len(info["index"]) > 1:
+            explicit = self.promoted_ptr_method(n, x, t, info)
+            if explicit is not None:
+                return self.emit(explicit)
         if info["kind"] == "method" and len(info["index"]) == 1 and self.calls.ptr_method_of(t, sel):
             if self.scope and self.scope.recv and x.get("$obj", {}).get("decl") == self.scope.recv:
                 raise Unsupported("metodo-ptr-receptor-valor", "método de receptor ponteiro sobre o receptor valor", n)
@@ -238,6 +242,25 @@ class SelectorExpr(ExprBehavior):
             # Method value `x.M` (receptor valor): liga uma cópia de x feita agora.
             recv += ".$copy()"
         return f"{recv}.{member_name(sel)}", POSTFIX
+
+    def promoted_ptr_method(self, n, x, t, info):
+        """`h.Inc()` com Inc de receptor ponteiro de um N não-struct
+        embutido por valor (`type Counter int` em `Holder{Counter}`): vira a
+        seleção explícita `h.Counter.Inc()`, que usa `&h.Counter` (a vista
+        N$Ptr sobre go.FieldPtr). Outros casos: None (caminho normal)."""
+        fields, cur = [], t
+        for fi in info["index"][:-1]:
+            if cur["kind"] == "pointer":
+                cur = self.pkg.type_at(cur["elem"])
+            f = self.typesys.underlying(cur)["fields"][fi]
+            fields.append((fi, f))
+            cur = self.pkg.type_at(f["type"])
+        if not self.calls.ptr_method_of(cur, n["sel"]["name"]):
+            return None
+        for fi, f in fields:
+            x = {"node": "SelectorExpr", "x": x, "sel": {"node": "Ident", "name": f["name"]},
+                 "$sel": {"kind": "field", "index": [fi]}, "$type": f["type"]}
+        return dict(n, x=x, **{"$sel": dict(info, index=info["index"][-1:])})
 
     def method_expr(self, n, info):
         """Method expression `T.M` / `(*T).M`: função com o receptor como
