@@ -158,9 +158,8 @@ bool _equalFoldUnicode(_Bytes s, _Bytes t) {
   return t.length == 0;
 }
 
-// `bytes.TrimLeftFunc`/`TrimRightFunc` com `unicode.IsSpace`, privadas: o
-// shim `bytes` ainda não tem a família `Trim*Func` pública (fica para quem
-// mexe em `TODO/P0-shim-bytes.md`); `trimSpace` só precisa da lógica.
+// `bytes.TrimLeftFunc`/`TrimRightFunc` com `unicode.IsSpace`, privadas:
+// `trimSpace` só precisa da lógica.
 _Bytes _trimLeftFunc(_Bytes s, bool Function(Golang.Rune) f) {
   final i = _scanIndexFunc(s, f, false);
   return i == -1 ? _nilBytes() : s.slice(i);

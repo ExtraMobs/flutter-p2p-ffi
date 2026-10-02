@@ -131,14 +131,18 @@ usam a pura (sobram 7 com assembly, status `substituicao` no audit).
 pacotes não verdes com as dependências todas verdes, e o ranking diz qual
 problema destrava mais pacotes dela.
 
-O trabalho é guiado pelo backlog em `TODO/` (convenção em `TODO/README.md`):
+O trabalho é guiado pelo backlog em `TODO/`. O `TODO/README.md` abre com as
+**decisões do dono** que travam o próximo passo (D1–D8) e a **fila** sem
+decisão pendente; leia antes de escolher o que atacar.
 
 1. Todo problema encontrado vira **um artefato** `TODO/<P0|P1|P2>-<área>-<slug>.md`
    com **prova real** (repro Go mínimo, comando executado e saída colada).
    Candidato que não se reproduz não entra.
-2. Ataque em ordem de prioridade (`ls TODO/`), respeitando o "Depende de".
+2. Ataque pela fila do `TODO/README.md`, respeitando o "Depende de"; item
+   com decisão pendente só anda depois da escolha do dono.
 3. O commit que resolve o problema **apaga o artefato** (a mensagem cita o
-   nome), traz o repro como fixture e atualiza as docs vivas.
+   nome), traz o repro como fixture e atualiza as docs vivas e o
+   `TODO/README.md`.
 4. Problemas descobertos no caminho viram novos artefatos, provados antes
    de serem escritos.
 
@@ -166,10 +170,21 @@ em sequência. O agente principal planeja, integra e faz a verificação final.
   Os três saem de `python -m g2d audit github.com/ipfs/kubo/cmd/ipfs -C tests/corpus/kubo`
   (~2 min com os dumps em `.g2d-cache/`; ~6 min sem). Regerar e commitar junto com
   toda mudança que altere o resultado.
+- `TODO/README.md` — decisões em aberto e fila; atualizar quando um artefato
+  entra, sai ou muda de prioridade.
 - Este `AGENTS.md` — atualizar quando arquitetura ou convenções mudarem.
 
 ## Milestones
 
-Status: M0 ✅ · M1 ✅ · M2 em andamento (✅ import entre pacotes do grafo e inicialização das dependências na ordem do Go, inicialização de pacote/`init`, `switch` com break/fallthrough, method values/expressions, `f(g())`, literais indexados, structs/interfaces anônimas, tipos locais, conversões `[]byte`/`[]rune` e range sobre string; `goto` fica ❌) · M3 ✅ no escopo de pacote único (structs por valor, slices, maps, ponteiros, defer/recover, tipos nomeados (sobre básico, slice, map e func; `N$Ptr` para receptor ponteiro), interfaces, embedding, genéricos, arrays; promoção e tipos não exportados entre pacotes (fixtures `promotecross`/`unexportedcross`); ⚠️ interfaces entre pacotes, promoção de não exportado em dois saltos de pacote e structs anônimas entre pacotes: `TODO/P1-design-*`) · M4 em andamento (runtime pronto — `Chan<T>`, `select`, `sync` assíncrono, escalonador; g2d: `chan`/`go`/`select`/`ch<-v`/`<-ch`/range sobre chan emitidos com cor `async` transitiva sobre o grafo inteiro (`g2d/analysis/color.py`: chamadas, interfaces, embedding, `sync` do shim, valores func por classe de assinatura, `$goInit` async); shims `context` e timers do `time` (`Sleep` suspensiva); `struct{}` = `go.EmptyStruct`; falta interfaces entre pacotes, classes de func forçadas síncronas e I/O — `TODO/P0-design-m4-concorrencia.md`) · M6 medido: **167 de 1112** pacotes do grafo do kubo verdes (`docs/audit.md`). Detalhes em `docs/mapping-spec.md`.
+| Milestone | Escopo | Status |
+|---|---|---|
+| M0 | `AGENTS.md` | ✅ |
+| M1 | fundação: dumpers, grafo, esqueleto do g2d | ✅ |
+| M2 | MVP do transpilador (import entre pacotes, `init`, `switch`, method values, literais, tipos locais...) | ✅ menos `goto` (decisão D6) |
+| M3 | semântica avançada: structs por valor, slices, maps, ponteiros, `defer`/`recover`, tipos nomeados, interfaces, embedding, genéricos, arrays | ✅ num pacote; ⚠️ entre pacotes: interfaces (D8), structs anônimas e promoção de não exportado em dois saltos (`TODO/P1-design-*`) |
+| M4 | concorrência: `Chan<T>`, `select`, `go`, `sync`, timers, `context`, cor `async` transitiva | ✅ runtime e emissão; ⚠️ falta I/O que suspende (D2) e `func()` forçada síncrona (D7) |
+| M5 | reflexão estática + shims da stdlib | shims em andamento; `reflect` ❌ (D1) |
+| M6 | grafo completo do kubo/boxo (cobertura ≥ 95% por etapa) | **167 de 1112** verdes (`docs/audit.md`) |
 
-M0 AGENTS.md · M1 fundação (dumpers + grafo + esqueleto g2d) · M2 MVP transpilador · M3 semântica avançada (interfaces, embedding, generics, ponteiros, defer) · M4 concorrência (async/await + Streams, `Chan<T>`) · M5 reflexão estática + shims stdlib · M6 grafo completo boxo + deps (cobertura ≥ 95% por etapa).
+As decisões D1–D8 e a fila de trabalho estão em `TODO/README.md`; o que já
+funciona, com os limites ⚠️, em `docs/mapping-spec.md`.

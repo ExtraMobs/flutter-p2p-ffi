@@ -1,5 +1,5 @@
 /// Shim do pacote Go `io` (parcial: erros sentinela, interfaces, ReadFull,
-/// ReadAll, WriteString, Discard; o resto em `TODO/P0-shim-io.md`).
+/// ReadAll, WriteString, Discard; o resto em `TODO/P1-shim-io.md`).
 ///
 /// As interfaces entram em `SHIM_INTERFACES` (`g2d/config.py`): um tipo
 /// gerado com `Write([]byte) (int, error)` declara `implements io.Writer`.

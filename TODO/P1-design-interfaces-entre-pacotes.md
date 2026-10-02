@@ -1,6 +1,6 @@
 # Interface satisfeita por tipo de outro pacote
 
-- **Prioridade:** P1 · **Área:** design
+- **Prioridade:** P1 · **Área:** design (decisão D8 do `TODO/README.md`)
 - **Depende de:** —
 
 ## Problema
@@ -89,16 +89,53 @@ $ dart run (g2d, VM/JS/Wasm)       →  {123 }
 - Inclui a variante `fmt.Stringer` (e as demais interfaces de shim, como `sort.Interface`).
 - `docs/mapping-spec.md` atualizado.
 
-## Notas
+### Variante: tipo de shim em interface local
 
-Caminho provável: `implements` calculado sobre o grafo inteiro (o Dart aceita imports cíclicos). A parte da interface anônima também depende de `P1-design-anonimas-canonicas`.
+O sentido contrário também falha: classe de shim escrita à mão não declara as
+interfaces locais ou anônimas que satisfaz (`err.(interface{ Unwrap() error })`,
+`Timeout() bool`). Comum no kubo/libp2p. O `implements` sobre o grafo não
+resolve, porque as classes de shim não são geradas.
 
-## Nota de prioridade
+```go
+type timeouter interface{ Timeout() bool }
 
-Ainda invisível no `docs/audit.md`: os pacotes que expõem o problema param antes num shim
-ausente. Volta a P0 quando o audit mostrar `dart-invalido` com este padrão na fronteira.
+func main() {
+	var err error = context.DeadlineExceeded
+	_, ok := err.(timeouter)
+	fmt.Println("assert:", ok)
+	w := fmt.Errorf("x: %w", io.EOF)
+	_, ok = w.(interface{ Unwrap() error })
+	fmt.Println("unwrap:", ok)
+}
+```
 
-## Tentativa: `implements` sobre o grafo inteiro (branch `claude/wip-ifacecross`)
+```text
+go run:   assert: true / unwrap: true
+dart run: assert: false / unwrap: false
+```
+
+## Prioridade
+
+Ainda invisível no `docs/audit.md`: os pacotes que expõem o problema param
+antes num shim ausente. Volta a P0 quando o audit mostrar `dart-invalido` com
+este padrão na fronteira. A variante `fmt.Stringer` é saída errada em
+silêncio, e o audit nunca vai mostrá-la.
+
+## Decisão pendente
+
+1. **`implements` sobre o grafo, restrito (recomendado).** Só as interfaces
+   para as quais o grafo de fato converte o tipo (atribuição, argumento,
+   retorno, type assertion), e só com dono da interface fora da stdlib e
+   visível para a library do tipo. Corrige as duas causas da tentativa
+   abaixo. O Dart aceita imports cíclicos, então a library do tipo pode
+   importar a da interface.
+2. **Adaptador no ponto da conversão** (`b.Namer$Of(a.T)`). Não mexe nos
+   imports, mas quebra a identidade: type assertion de volta para `a.T` e
+   `==` de interface precisam desembrulhar.
+
+A parte da interface anônima também depende de `P1-design-anonimas-canonicas`.
+
+## Tentativa anterior: `implements` sobre o grafo inteiro (branch `claude/wip-ifacecross`)
 
 Integrada em 2026-10-02 sobre o main (cor async do M4 já mesclada), a wip passou nos
 goldens e no e2e, mas o audit caiu de 126 para **88** verdes (44 perdidos, 6 ganhos):
