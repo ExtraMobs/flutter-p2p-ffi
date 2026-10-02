@@ -88,6 +88,9 @@ class Ring<T> extends go.GoStruct<Ring<T>> {
   @override
   List<String> get $fieldNames => const ['ring', 'headPos'];
 
+  @override
+  List<String> get $fieldTypes => const ['', 'int'];
+
   void init(Golang.Int size) {
     final Ring<T>? r = $nilPtr ? null : this;
     r!._ring = go.Slice<T>.make(0, size.toIndex(), $T);

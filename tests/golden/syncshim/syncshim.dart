@@ -65,6 +65,13 @@ class _counter$ extends go.GoStruct<_counter$> {
   @override
   List<String> get $fieldNames => const ['_', 'mu', 'n'];
 
+  @override
+  List<String> get $fieldTypes => const [
+    'main.DoNotCopy',
+    'sync.Mutex',
+    'map[string]int',
+  ];
+
   Golang.Int _inc(Golang.String k) {
     final _counter$? c = $nilPtr ? null : this;
     Golang.Int $t1 = Golang.Int();
@@ -123,6 +130,9 @@ class _cache$ extends go.GoStruct<_cache$> {
 
   @override
   List<String> get $fieldNames => const ['rw', 'm'];
+
+  @override
+  List<String> get $fieldTypes => const ['sync.RWMutex', 'map[int]string'];
 
   (Golang.String, bool) _get(Golang.Int k) {
     final _cache$? c = $nilPtr ? null : this;

@@ -75,6 +75,9 @@ class _mac$ extends go.GoStruct<_mac$> with _macGeneric$$Promote {
 
   @override
   List<String> get $fieldNames => const ['macGeneric'];
+
+  @override
+  List<String> get $fieldTypes => const ['main.macGeneric'];
 }
 
 final class _buf$ extends go.Slice<Golang.Uint8> implements Golang.GoTyped {
@@ -114,6 +117,9 @@ class _state$ extends go.GoStruct<_state$> {
 
   @override
   List<String> get $fieldNames => const ['buf'];
+
+  @override
+  List<String> get $fieldTypes => const ['main.buf'];
 
   Golang.Int _state() {
     final _state$? s = $nilPtr ? null : this;

@@ -58,6 +58,9 @@ class Cache<K extends Key, V> extends go.GoStruct<Cache<K, V>> {
   @override
   List<String> get $fieldNames => const ['m'];
 
+  @override
+  List<String> get $fieldTypes => const [''];
+
   Golang.Int put(K k, V v) {
     final Cache<K, V>? c = $nilPtr ? null : this;
     if (c!._m.isNil) {

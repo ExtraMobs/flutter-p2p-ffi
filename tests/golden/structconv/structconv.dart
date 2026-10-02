@@ -76,6 +76,14 @@ class A extends go.GoStruct<A> {
 
   @override
   List<String> get $fieldNames => const ['X', 'In', 'Inner', 'tag'];
+
+  @override
+  List<String> get $fieldTypes => const [
+    'int',
+    'main.Inner',
+    'main.Inner',
+    'string',
+  ];
 }
 
 class B extends go.GoStruct<B> {
@@ -116,6 +124,14 @@ class B extends go.GoStruct<B> {
 
   @override
   List<String> get $fieldNames => const ['X', 'In', 'Inner', 'tag'];
+
+  @override
+  List<String> get $fieldTypes => const [
+    'int',
+    'main.Inner',
+    'main.Inner',
+    'string',
+  ];
 
   Golang.Int sum() {
     if ($nilPtr) go.nilDeref();

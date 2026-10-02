@@ -53,6 +53,7 @@
     ],
     "fmt": [
       "Formatter",
+      "GoStringer",
       "State",
       "Stringer",
       "errorf",
