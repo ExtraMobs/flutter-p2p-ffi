@@ -367,7 +367,9 @@ class FuncLit(ExprBehavior):
         finally:  # Unsupported no corpo não pode deixar trocado o estado da função externa
             self.scope.rd, self.scope.breaks = saved_rd, saved_breaks
             self.scope.async_ctx, self.scope.sync_reason = saved_color
-        kw = " async" if is_async else ""
+        # Literal síncrono numa classe de func async: o próprio literal vira
+        # `async` (o corpo não espera nada; o resultado vira Future).
+        kw = " async" if is_async or id(n) in self.facts.wrap_values else ""
         return f"({params}){kw} {{\n" + "\n".join(boxes + body) + "\n}", 0
 
 
@@ -501,12 +503,26 @@ class AsyncCall(ExprBehavior):
 
 
 class AsyncValueGuard(ExprBehavior):
-    """Função `async` usada como valor (closure guardada, `f` sem chamar,
-    method value): chamadas por valor são síncronas, então é recusada."""
+    """Função usada como valor (closure guardada, `f` sem chamar, method
+    value) com cor diferente da classe da assinatura dela
+    (g2d/analysis/color.py): `async` numa classe síncrona é recusada
+    (formato Dart fixo pelo shim ou por um genérico); síncrona numa classe
+    `async` é embrulhada (`go.async1(f)`; o literal vira `async` no FuncLit)."""
 
     kinds = ("Ident", "SelectorExpr", "FuncLit")
 
     def emit(self, n):
-        if id(n) not in self.facts.async_values:
+        if id(n) in self.facts.async_values:
+            raise Unsupported("async:valor-func",
+                              "função que suspende usada como valor de uma assinatura que precisa ficar síncrona", n)
+        if id(n) not in self.facts.wrap_values or n["node"] == "FuncLit":
             return NOT_HANDLED
-        raise Unsupported("async:valor-func", "função que suspende usada como valor (chamada por valor é síncrona)", n)
+        arity = len(self.typesys.underlying(self.pkg.type_of(n))["params"])
+        if arity > MAX_ASYNC_ARITY:
+            raise Unsupported("async:valor-func-aridade", f"valor func síncrono com {arity} parâmetros numa classe async", n)
+        inner = self.expr(dict(n), POSTFIX)  # cópia: id novo, não volta aqui
+        return f"{self.imports.qualify(None, f'async{arity}')}({inner})", POSTFIX
+
+
+# `go.async0`..`go.async8` (golib_dart/lib/src/runtime/async_fn.dart).
+MAX_ASYNC_ARITY = 8

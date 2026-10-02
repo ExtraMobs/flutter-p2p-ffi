@@ -208,9 +208,13 @@ class UnsupportedTest(unittest.TestCase):
         """Cor async (M4) onde o Dart não tem como suspender: recusa explícita."""
         recv = "func recv(c chan int) int { return <-c }\n\n"
         cases = {
-            # chamada por valor é síncrona: função async guardada como valor
-            recv + "func main() { f := recv; _ = f }\n": ("async:valor-func", 5),
-            recv + "func main() { g := func() int { return <-make(chan int) }; _ = g }\n": ("async:valor-func", 5),
+            # valor func async numa classe de formato fixo: parâmetro de shim
+            # (o sort chama de forma síncrona) e parâmetro derivado de genérico
+            'import "sort"\n\n' + recv + "func main() { c := make(chan int)\n"
+            "\tsort.Slice([]int{1}, func(i, j int) bool { return recv(c) > 0 }) }\n": ("async:valor-func", 8),
+            recv + "func apply[T any](x T, f func(T) T) T { return f(x) }\n\n"
+            "func main() { _ = apply(make(chan int), func(c chan int) chan int { recv(c); return c }) }\n":
+                ("async:valor-func", 7),
             # String() é chamado pelo fmt de forma síncrona
             "type T struct{ c chan int }\n\nfunc (t T) String() string { return string(rune(<-t.c)) }\n\n"
             "func main() {}\n": ("async:contexto-sincrono", 5),

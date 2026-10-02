@@ -30,6 +30,17 @@ LOCKS = {
 ONCE_DO = ("m", "sync", "Once", "Do")
 WAITGROUP_GO = ("m", "sync", "WaitGroup", "Go")
 
+# Funções/métodos da stdlib que recebem uma função e a rodam numa goroutine
+# nova (ou, no `Once.Do`, com `do$async`): o shim aceita `FutureOr<void>
+# Function()`, então o parâmetro (índice) não força a classe da func a
+# ficar síncrona.
+SPAWNING_SHIM = {
+    ("f", "time", "AfterFunc"): 1,
+    ("f", "context", "AfterFunc"): 1,
+    WAITGROUP_GO: 0,
+    ONCE_DO: 0,
+}
+
 # Métodos que o shim (fmt, errors, sort...) chama por nome, de forma
 # síncrona: nunca podem ser `async`, seja qual for a interface.
 SYNC_METHODS = frozenset({"String", "Error", "GoString", "Format"})
@@ -108,6 +119,106 @@ class Concurrency(Service):
                 return self.method_key(self.pkg.type_of(fun["x"]), fun["sel"]["name"])
         return None
 
+    # ------------------------------------------------------------ classes de func
+    # Um valor de função tem o tipo Dart da CLASSE da assinatura dele: a
+    # assinatura subjacente canônica (identidade de tipo do Go, igual em
+    # todo pacote). A classe é `async` (`Future<R> Function(...)`) se alguma
+    # função `async` vira valor dela; aí toda chamada por valor da classe
+    # espera. Chave: ("sig", texto canônico).
+    def sig_key(self, t):
+        """Classe de um tipo func (nomeado ou não): a assinatura subjacente."""
+        t = self.pkg.type_at(t)
+        return ("sig", self.canon(self.typesys.underlying(t)))
+
+    def canon(self, t):
+        """Texto canônico da identidade Go de um tipo (caminho completo dos
+        pacotes; `byte`/`rune` são `uint8`/`int32`)."""
+        t = self.pkg.type_at(t)
+        memo = self.__dict__.setdefault("_canon", {})
+        if id(t) in memo:
+            return memo[id(t)]
+        k, c = t["kind"], self.canon
+        if k == "basic":
+            out = {"byte": "uint8", "rune": "int32"}.get(t["name"], t["name"])
+        elif k == "named":
+            args = t.get("args") or []
+            out = (f"{t['pkg']}." if t["pkg"] else "") + t["name"] + (
+                "[" + ",".join(c(a) for a in args) + "]" if args else "")
+        elif k == "typeparam":
+            out = "$tp:" + t["name"]
+        elif k == "pointer":
+            out = "*" + c(t["elem"])
+        elif k == "slice":
+            out = "[]" + c(t["elem"])
+        elif k == "array":
+            out = f"[{t['len']}]" + c(t["elem"])
+        elif k == "chan":
+            out = f"chan{t.get('dir', '')} " + c(t["elem"])
+        elif k == "map":
+            out = f"map[{c(t['key'])}]" + c(t["elem"])
+        elif k == "func":
+            out = ("func(" + ",".join(c(p) for p in t["params"]) + ("..." if t["variadic"] else "")
+                   + ")(" + ",".join(c(r) for r in t["results"]) + ")")
+        elif k == "interface":
+            ms = sorted(m["name"] + c(m["type"])[4:] for m in t["methods"])
+            out = "interface{" + ";".join(ms + sorted(c(e) for e in t["embeddeds"])) + "}"
+        elif k == "struct":
+            out = "struct{" + ";".join(("~" if f["embedded"] else "") + f["name"] + " " + c(f["type"])
+                                       + (f" {f['tag']!r}" if f.get("tag") else "") for f in t["fields"]) + "}"
+        elif k == "tuple":
+            out = "(" + ",".join(c(e) for e in t["elems"]) + ")"
+        else:
+            out = k
+        memo[id(t)] = out
+        return out
+
+    def func_classes(self, t, out=None, seen=None):
+        """Classes de func que aparecem em t (dentro de compostos sem nome e
+        de tipos nomeados sobre func): o formato Dart delas está fixo ali."""
+        out = set() if out is None else out
+        seen = set() if seen is None else seen
+        t = self.pkg.type_at(t)
+        if id(t) in seen:
+            return out
+        seen.add(id(t))
+        k = t["kind"]
+        if k == "named":
+            u = self.typesys.underlying(t)
+            if u["kind"] == "func":
+                self.func_classes(u, out, seen)
+        elif k == "func":
+            out.add(("sig", self.canon(t)))
+            for x in t["params"] + t["results"]:
+                self.func_classes(x, out, seen)
+        elif k in ("pointer", "slice", "array", "chan"):
+            self.func_classes(t["elem"], out, seen)
+        elif k == "map":
+            self.func_classes(t["key"], out, seen)
+            self.func_classes(t["elem"], out, seen)
+        elif k == "struct":
+            for f in t["fields"]:
+                self.func_classes(f["type"], out, seen)
+        elif k == "tuple":
+            for e in t["elems"]:
+                self.func_classes(e, out, seen)
+        return out
+
+    def value_call_key(self, call):
+        """Classe da func de uma chamada por valor (variável, campo, resultado
+        de chamada, method value guardado...), ou None se não é chamada por
+        valor (função/método declarado, literal, builtin, conversão)."""
+        fun = unparen(call["fun"])
+        if fun.get("$isType") or fun.get("$builtin") or self.callee_key(call) is not None:
+            return None
+        if fun["node"] in ("IndexExpr", "IndexListExpr") and self.calls.instantiation(fun):
+            return None
+        if fun["node"] == "SelectorExpr" and (fun.get("$sel") or {}).get("kind") == "method":
+            return None  # método de struct anônima com embedding (sem chave)
+        t = self.pkg.type_of(fun)
+        if t is None or self.typesys.underlying(t)["kind"] != "func":
+            return None
+        return self.sig_key(t)
+
     @staticmethod
     def std(pkg):
         """Pacote da stdlib (shim): o `main` do modo loose não conta."""
@@ -119,6 +230,8 @@ class Concurrency(Service):
         (`String`, `Error`...) ou de tipo/interface da stdlib (`io.Reader`)."""
         if key[0] == "anon":
             return key[1] in SYNC_METHODS
+        if key[0] == "sig":  # assinatura com parâmetro de tipo: formato fixo pelo genérico
+            return "$tp:" in key[1]
         if key[0] == "m":
             return key[3] in SYNC_METHODS or key[1] == "" or Concurrency.std(key[1])
         return key[0] == "f" and Concurrency.std(key[1])
@@ -267,10 +380,20 @@ class Concurrency(Service):
             return bool(self.scope and self.scope.async_ctx and colors is not None
                         and colors.mutex_async(self.mutex_id(call)))
         if key == ONCE_DO:
-            from g2d.analysis.color import func_ref_key
-
-            return self.is_async(func_ref_key(self, (call["args"] or [None])[0]))
+            return self.is_async(self.once_arg_key(call))
+        if key is None:
+            return self.is_async(self.value_call_key(call))
         return self.is_async(key)
+
+    def once_arg_key(self, call):
+        """O que `Once.Do(f)` espera: a função de `f`, ou a classe dela se `f`
+        é um valor."""
+        from g2d.analysis.color import func_ref_key
+
+        arg = (call["args"] or [None])[0]
+        if arg is None:
+            return None
+        return func_ref_key(self, arg) or self.sig_key(self.pkg.type_of(arg))
 
     def require_async(self, node, what):
         """Ponto de suspensão (`await`) na função corrente: ela tem que ser

@@ -536,7 +536,7 @@ class DeferStmt(StmtBehavior):
             defers = DartType(self.imports.qualify(None, "Defers"), nullable=True)
             ftype = self.types.func_type(self.pkg.type_at(sig)).with_named("$rd", defers)
             text = f"if ({fn} is {ftype}) {{ {with_rd}; }} else {{ {plain}; }}"
-            return ["{"] + pre + [f"{d}.defer(() {{ {text} }});", "}"]
+            return ["{"] + pre + [f"{d}.defer((){kw} {{ {text} }});", "}"]
         else:
             text = self.expr(dict(call, fun=callee_node, args=fixed))
         return ["{"] + pre + [f"{d}.defer((){kw} {{ {text}; }});", "}"]
