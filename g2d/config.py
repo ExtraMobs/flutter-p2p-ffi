@@ -39,6 +39,8 @@ STDLIB_SHIMS = {
     "errors": "package:golib_dart/errors.dart",
     "fmt": "package:golib_dart/fmt.dart",
     "io": "package:golib_dart/io.dart",
+    "io/fs": "package:golib_dart/io/fs.dart",
+    "os": "package:golib_dart/os.dart",
     "math": "package:golib_dart/math.dart",
     "math/bits": "package:golib_dart/math/bits.dart",
     "sort": "package:golib_dart/sort.dart",
