@@ -97,3 +97,22 @@ Caminho provável: `implements` calculado sobre o grafo inteiro (o Dart aceita i
 
 Ainda invisível no `docs/audit.md`: os pacotes que expõem o problema param antes num shim
 ausente. Volta a P0 quando o audit mostrar `dart-invalido` com este padrão na fronteira.
+
+## Tentativa: `implements` sobre o grafo inteiro (branch `claude/wip-ifacecross`)
+
+Integrada em 2026-10-02 sobre o main (cor async do M4 já mesclada), a wip passou nos
+goldens e no e2e, mas o audit caiu de 126 para **88** verdes (44 perdidos, 6 ganhos):
+
+```text
+$ python -m g2d audit github.com/ipfs/kubo/cmd/ipfs -C tests/corpus/kubo
+| `shim-ausente:archive/tar` | 1170 | 267 | 55 | `github.com/cockroachdb/pebble/v2/sstable/block/blockkind` kind.go:10:1: pacote sem shim/transpilação: archive/tar |
+| `dart:uri_does_not_exist` | 30 | 14 | 14 | `github.com/pion/rtp/codecs/vp9` 10:8: error: Target of URI doesn't exist: 'package:out/github.com/gogo/protobuf/proto.dart'. |
+| `shim-simbolo:bytes.AnonIface_819f61b7a0` | 159 | 43 | 9 | `go.uber.org/dig/internal/graph` graph.go:108:1: símbolo sem shim: bytes.AnonIface_819f61b7a0 |
+```
+
+Duas causas: o dono de uma interface anônima compartilhada (`findAnonOwner`) pode cair num
+pacote da stdlib (`archive/tar`, `bufio`, `flag`, `bytes`...), que não é transpilado; e o
+`implements` sobre o grafo inteiro faz uma library importar pacotes que não são dependência
+Go dela (`github.com/kr/text` passa a importar `github.com/miekg/dns`), então ela só fica
+verde se esse pacote não relacionado também for emitido. Falta restringir o `implements` às
+conversões que acontecem de fato (ou a donos que a library já enxerga) antes de reintegrar.
