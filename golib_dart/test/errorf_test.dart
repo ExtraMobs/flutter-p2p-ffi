@@ -6,8 +6,10 @@ import 'package:test/test.dart';
 
 Golang.String _s(String s) => Golang.String.fromDart(s);
 
-go.Slice<Object?> _args(List<Object?> a) =>
-    go.Slice<Object?>.of(a, const go.Elem<Object?>(16, go.zeroNull, pointers: true));
+go.Slice<Object?> _args(List<Object?> a) => go.Slice<Object?>.of(
+  a,
+  const go.Elem<Object?>(16, go.zeroNull, pointers: true),
+);
 
 void main() {
   test('Errorf: %w guarda o erro para Unwrap; sem %w é errorString', () {
