@@ -35,3 +35,13 @@ docs/stdlib-coverage.md:
 ## Notas
 
 Sintaxe RE2 ≠ `RegExp` do Dart (ex.: classes POSIX, `(?P<n>)`, semântica leftmost-first): decidir entre port do `regexp` Go e tradução com lista de limites.
+
+### Estado (branch `claude/pq1hu0-regexp`)
+
+Feito: `golib_dart/lib/regexp.dart` (partes em `lib/src/regexp/`) com motor próprio
+(parser RE2 + simulação Pike, sobre bytes UTF-8), registrado em `STDLIB_SHIMS`;
+oráculo `golib_dart/test/regexp_test.dart` (~74 mil resultados iguais ao Go) e fixture
+`tests/golden/regexpbasic` (go run × VM × JS × Wasm). Limites e símbolos fora estão em
+`docs/mapping-spec.md` (`regexp`): `Longest`, `CompilePOSIX`, `MatchReader`/`RuneReader`,
+`LiteralPrefix`, `Copy`, `(Un)MarshalText`. Falta só regerar o audit (o agente principal) e
+apagar este artefato no commit que o fizer.

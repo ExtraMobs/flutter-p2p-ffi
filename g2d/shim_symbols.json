@@ -164,6 +164,14 @@
       "trailingZeros32",
       "trailingZeros64"
     ],
+    "regexp": [
+      "Regexp",
+      "compile",
+      "match",
+      "matchString",
+      "mustCompile",
+      "quoteMeta"
+    ],
     "sort": [
       "Interface",
       "float64s",
