@@ -24,7 +24,7 @@ SHIM_INTERFACES = {("fmt", "Stringer"), ("fmt", "GoStringer"), ("fmt", "Formatte
                    ("io", "ByteReader"), ("io", "ByteWriter"), ("io", "StringWriter"), ("io", "Closer"),
                    ("io", "Seeker"), ("io", "ReaderAt"), ("io", "WriterAt"), ("io", "ReadCloser"), ("io", "WriteCloser"),
                    ("io", "ReadWriter"), ("io", "ReadWriteCloser"), ("io", "ReadSeeker"), ("io", "WriteSeeker"),
-                   ("io", "ReadWriteSeeker"), ("sync", "Locker")}
+                   ("io", "ReadWriteSeeker"), ("sync", "Locker"), ("context", "Context")}
 
 # Tipos não exportados da stdlib que o código do grafo recebe por inferência
 # (`var NBO = binary.BigEndian`): a classe pública do shim que os representa.
@@ -34,6 +34,7 @@ SHIM_TYPES = {("encoding/binary", "bigEndian"): "BigEndian", ("encoding/binary",
 # Pacotes da stdlib com shim em golib_dart/.
 STDLIB_SHIMS = {
     "bytes": "package:golib_dart/bytes.dart",
+    "context": "package:golib_dart/context.dart",
     "crypto/subtle": "package:golib_dart/crypto/subtle.dart",
     "encoding/binary": "package:golib_dart/encoding/binary.dart",
     "errors": "package:golib_dart/errors.dart",

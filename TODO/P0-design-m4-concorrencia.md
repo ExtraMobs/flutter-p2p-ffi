@@ -80,7 +80,7 @@ Detalhe completo em `docs/mapping-spec.md` § "Concorrência (M4) — runtime". 
 - **`Defers.runAsync`**: como `run()`, mas aguardando defer que devolve `Future`; o quadro que
   `recover()` consulta passou de pilha global pra `Zone` por chamada (goroutines intercaladas através
   de um `await` no meio de um defer quebrariam a pilha global — `defer_async_test.dart` prova).
-- **`sync` `$async`** (`lock$async`, `rLock$async`, `wait$async`, `do$async`, `WaitGroup.go`):
+- **`sync` `$async`** (`lock$async`, `rLock$async`, `wait$async`, `do$async`, `WaitGroup.go$`):
   suspendem de verdade em vez de `fatal`; RWMutex com preferência de escritor. Síncrono continua
   valendo pra uma goroutine só; travado com outras vivas é limite do g2d (`fatal` `g2d: ...`).
 
@@ -101,15 +101,21 @@ Mutex disputável só se alguma seção crítica suspende);
 `lock$async`/`wait$async`/`do$async` do shim `sync`. Detalhe em `docs/mapping-spec.md` § "Cor transitiva".
 Fixtures `asynccolor`, `asynccross`; recusas em `tests/test_engine.py` (`test_async_refused_contexts`).
 
-## Falta (quebrar em artefatos ao atacar)
+## Feito na branch `claude/m4-implementacao-9fygn8`
 
-- **Valor func `async`** (`async:valor-func`): cor por classe de assinatura de func (closure guardada,
-  callback de shim, method value); hoje chamada por valor é sempre síncrona e o valor async é recusado.
-  Bloqueia padrões como `errgroup.Go(func() error {...})`.
-- **`$goInit` que suspende** (`async:init`): tornar o `$goInit` async e esperá-lo no `runMain`.
+- **Valor func `async`**: cor por classe de assinatura (`docs/mapping-spec.md` § "Cor transitiva";
+  fixture `asyncfunc`). Audit: `async:valor-func` 298 → 111 (o resto é classe de formato fixo:
+  `TODO/P1-design-func-sincrona-forcada.md`).
+- **`$goInit` que suspende**: `Future<void> $goInit() async`, esperado pelo main (fixture `asyncinit`);
+  `async:init` zerado.
+- **Timers e `context`** (M4c): shims `time` (Sleep/After/Tick/NewTimer/NewTicker/AfterFunc) e
+  `context`, `time.Sleep` suspensiva no g2d, `struct{}` canônica (`go.EmptyStruct`); fixture `timectx`.
+
+## Falta
+
 - **Interfaces entre pacotes**: a ligação interface × implementação só vê o `implements` do pacote que
   declara o tipo (`TODO/P1-design-interfaces-entre-pacotes.md`).
-- **Timers e `context`** (M4c): `time.Sleep`/`After`/`NewTimer`/`NewTicker`/`AfterFunc` com
-  `holdEvents`/`releaseEvents`, e `TODO/P0-shim-context.md`.
+- **Classes de func forçadas síncronas** (`TODO/P1-design-func-sincrona-forcada.md`).
+- **I/O que suspende** (`net`, `os`): `TODO/P0-shim-net.md`.
 - ⚠️ **Sem preempção**: o event loop é cooperativo; laço que nunca suspende (ex. esperar um `atomic` mudar)
   trava o programa inteiro, enquanto o Go o interromperia.

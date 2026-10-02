@@ -35,7 +35,8 @@ class Facts:
     local_targs: dict = field(default_factory=dict)  # id(tipo local) → parâmetros de tipo da função genérica
     local_tparams: dict = field(default_factory=dict)  # id(tipo local) → campos typeParams da função
     colors: object = None  # ColorTable do grafo (g2d/analysis/color.py)
-    async_values: set = field(default_factory=set)  # id() de valores func cuja cor é async (recusados)
+    async_values: set = field(default_factory=set)  # id() de valores func async em classe síncrona (recusados)
+    wrap_values: set = field(default_factory=set)  # id() de valores func síncronos em classe async (embrulhados)
 
 
 @dataclass

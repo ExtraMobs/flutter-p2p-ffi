@@ -150,7 +150,7 @@ void main() {
     final gates = List.generate(3, (_) => Completer<void>());
 
     for (var i = 0; i < 3; i++) {
-      wg.go(() async {
+      wg.go$(() async {
         await gates[i].future;
         order.add(i);
       });

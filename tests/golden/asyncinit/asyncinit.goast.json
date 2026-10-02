@@ -1,0 +1,5321 @@
+{
+  "schemaVersion": 8,
+  "tool": "goast",
+  "goVersion": "go1.26.5",
+  "packages": [
+    {
+      "path": "g2d.test/asyncinit/cmd",
+      "name": "main",
+      "files": [
+        {
+          "path": "main.go",
+          "ast": {
+            "node": "File",
+            "doc": null,
+            "package": {
+              "file": "main.go",
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "name": {
+              "node": "Ident",
+              "namePos": {
+                "file": "main.go",
+                "line": 1,
+                "column": 9,
+                "offset": 8
+              },
+              "name": "main",
+              "obj": null
+            },
+            "decls": [
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "main.go",
+                  "line": 3,
+                  "column": 1,
+                  "offset": 14
+                },
+                "tok": "import",
+                "lparen": {
+                  "file": "main.go",
+                  "line": 3,
+                  "column": 8,
+                  "offset": 21
+                },
+                "specs": [
+                  {
+                    "node": "ImportSpec",
+                    "doc": null,
+                    "name": null,
+                    "path": {
+                      "node": "BasicLit",
+                      "valuePos": {
+                        "file": "main.go",
+                        "line": 4,
+                        "column": 2,
+                        "offset": 24
+                      },
+                      "valueEnd": {
+                        "file": "main.go",
+                        "line": 4,
+                        "column": 7,
+                        "offset": 29
+                      },
+                      "kind": "STRING",
+                      "value": "\"fmt\""
+                    },
+                    "comment": null,
+                    "endPos": null
+                  },
+                  {
+                    "node": "ImportSpec",
+                    "doc": null,
+                    "name": null,
+                    "path": {
+                      "node": "BasicLit",
+                      "valuePos": {
+                        "file": "main.go",
+                        "line": 6,
+                        "column": 2,
+                        "offset": 32
+                      },
+                      "valueEnd": {
+                        "file": "main.go",
+                        "line": 6,
+                        "column": 27,
+                        "offset": 57
+                      },
+                      "kind": "STRING",
+                      "value": "\"g2d.test/asyncinit/conf\""
+                    },
+                    "comment": null,
+                    "endPos": null
+                  },
+                  {
+                    "node": "ImportSpec",
+                    "doc": null,
+                    "name": null,
+                    "path": {
+                      "node": "BasicLit",
+                      "valuePos": {
+                        "file": "main.go",
+                        "line": 7,
+                        "column": 2,
+                        "offset": 59
+                      },
+                      "valueEnd": {
+                        "file": "main.go",
+                        "line": 7,
+                        "column": 28,
+                        "offset": 85
+                      },
+                      "kind": "STRING",
+                      "value": "\"g2d.test/asyncinit/plain\""
+                    },
+                    "comment": null,
+                    "endPos": null
+                  }
+                ],
+                "rparen": {
+                  "file": "main.go",
+                  "line": 8,
+                  "column": 1,
+                  "offset": 86
+                }
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "main.go",
+                  "line": 10,
+                  "column": 1,
+                  "offset": 89
+                },
+                "tok": "var",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "ValueSpec",
+                    "doc": null,
+                    "names": [
+                      {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "main.go",
+                          "line": 10,
+                          "column": 5,
+                          "offset": 93
+                        },
+                        "name": "ready",
+                        "obj": {
+                          "node": "Object",
+                          "name": "ready",
+                          "kind": "var"
+                        },
+                        "$obj": {
+                          "name": "ready",
+                          "kind": "var",
+                          "def": true,
+                          "type": 0,
+                          "decl": "main.go:93",
+                          "pkg": "g2d.test/asyncinit/cmd",
+                          "top": true
+                        }
+                      }
+                    ],
+                    "type": null,
+                    "values": [
+                      {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "main.go",
+                            "line": 10,
+                            "column": 13,
+                            "offset": 101
+                          },
+                          "name": "make",
+                          "obj": null,
+                          "$type": 2,
+                          "$builtin": true,
+                          "$obj": {
+                            "name": "make",
+                            "kind": "builtin",
+                            "type": 4
+                          }
+                        },
+                        "lparen": {
+                          "file": "main.go",
+                          "line": 10,
+                          "column": 17,
+                          "offset": 105
+                        },
+                        "args": [
+                          {
+                            "node": "ChanType",
+                            "begin": {
+                              "file": "main.go",
+                              "line": 10,
+                              "column": 18,
+                              "offset": 106
+                            },
+                            "arrow": null,
+                            "dir": 3,
+                            "value": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "main.go",
+                                "line": 10,
+                                "column": 23,
+                                "offset": 111
+                              },
+                              "name": "bool",
+                              "obj": null,
+                              "$type": 1,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "bool",
+                                "kind": "type",
+                                "type": 1
+                              }
+                            },
+                            "$type": 0,
+                            "$isType": true
+                          },
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "main.go",
+                              "line": 10,
+                              "column": 29,
+                              "offset": 117
+                            },
+                            "valueEnd": {
+                              "file": "main.go",
+                              "line": 10,
+                              "column": 30,
+                              "offset": 118
+                            },
+                            "kind": "INT",
+                            "value": "1",
+                            "$type": 3,
+                            "$value": {
+                              "kind": "int",
+                              "value": "1"
+                            }
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "main.go",
+                          "line": 10,
+                          "column": 30,
+                          "offset": 118
+                        },
+                        "$type": 0
+                      }
+                    ],
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "main.go",
+                    "line": 12,
+                    "column": 6,
+                    "offset": 126
+                  },
+                  "name": "init",
+                  "obj": null,
+                  "$obj": {
+                    "name": "init",
+                    "kind": "func",
+                    "def": true,
+                    "type": 5,
+                    "decl": "main.go:126",
+                    "pkg": "g2d.test/asyncinit/cmd",
+                    "top": true
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "main.go",
+                    "line": 12,
+                    "column": 1,
+                    "offset": 121
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "main.go",
+                      "line": 12,
+                      "column": 10,
+                      "offset": 130
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "main.go",
+                      "line": 12,
+                      "column": 11,
+                      "offset": 131
+                    }
+                  },
+                  "results": null
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "main.go",
+                    "line": 12,
+                    "column": 13,
+                    "offset": 133
+                  },
+                  "list": [
+                    {
+                      "node": "SendStmt",
+                      "chan": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "main.go",
+                          "line": 13,
+                          "column": 2,
+                          "offset": 136
+                        },
+                        "name": "ready",
+                        "obj": {
+                          "node": "Object",
+                          "name": "ready",
+                          "kind": "var"
+                        },
+                        "$type": 0,
+                        "$obj": {
+                          "name": "ready",
+                          "kind": "var",
+                          "type": 0,
+                          "decl": "main.go:93",
+                          "pkg": "g2d.test/asyncinit/cmd",
+                          "top": true
+                        }
+                      },
+                      "arrow": {
+                        "file": "main.go",
+                        "line": 13,
+                        "column": 8,
+                        "offset": 142
+                      },
+                      "value": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "main.go",
+                          "line": 13,
+                          "column": 11,
+                          "offset": 145
+                        },
+                        "name": "true",
+                        "obj": null,
+                        "$type": 1,
+                        "$value": {
+                          "kind": "bool",
+                          "value": true
+                        },
+                        "$obj": {
+                          "name": "true",
+                          "kind": "const",
+                          "type": 6,
+                          "value": {
+                            "kind": "bool",
+                            "value": true
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "main.go",
+                              "line": 14,
+                              "column": 2,
+                              "offset": 151
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "main.go",
+                              "line": 14,
+                              "column": 6,
+                              "offset": 155
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 7,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 7
+                        },
+                        "lparen": {
+                          "file": "main.go",
+                          "line": 14,
+                          "column": 13,
+                          "offset": 162
+                        },
+                        "args": [
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "main.go",
+                              "line": 14,
+                              "column": 14,
+                              "offset": 163
+                            },
+                            "valueEnd": {
+                              "file": "main.go",
+                              "line": 14,
+                              "column": 25,
+                              "offset": 174
+                            },
+                            "kind": "STRING",
+                            "value": "\"main.init\"",
+                            "$type": 13,
+                            "$value": {
+                              "kind": "string",
+                              "value": "main.init"
+                            }
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "main.go",
+                          "line": 14,
+                          "column": 25,
+                          "offset": 174
+                        },
+                        "$type": 14
+                      }
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "main.go",
+                    "line": 15,
+                    "column": 1,
+                    "offset": 176
+                  }
+                }
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "main.go",
+                    "line": 17,
+                    "column": 6,
+                    "offset": 184
+                  },
+                  "name": "main",
+                  "obj": {
+                    "node": "Object",
+                    "name": "main",
+                    "kind": "func"
+                  },
+                  "$obj": {
+                    "name": "main",
+                    "kind": "func",
+                    "def": true,
+                    "type": 5,
+                    "decl": "main.go:184",
+                    "pkg": "g2d.test/asyncinit/cmd",
+                    "top": true
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "main.go",
+                    "line": 17,
+                    "column": 1,
+                    "offset": 179
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "main.go",
+                      "line": 17,
+                      "column": 10,
+                      "offset": 188
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "main.go",
+                      "line": 17,
+                      "column": 11,
+                      "offset": 189
+                    }
+                  },
+                  "results": null
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "main.go",
+                    "line": 17,
+                    "column": 13,
+                    "offset": 191
+                  },
+                  "list": [
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "main.go",
+                              "line": 18,
+                              "column": 2,
+                              "offset": 194
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "main.go",
+                              "line": 18,
+                              "column": 6,
+                              "offset": 198
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 7,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 7
+                        },
+                        "lparen": {
+                          "file": "main.go",
+                          "line": 18,
+                          "column": 13,
+                          "offset": 205
+                        },
+                        "args": [
+                          {
+                            "node": "SelectorExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "main.go",
+                                "line": 18,
+                                "column": 14,
+                                "offset": 206
+                              },
+                              "name": "plain",
+                              "obj": null,
+                              "$obj": {
+                                "name": "plain",
+                                "kind": "package",
+                                "pkg": "g2d.test/asyncinit/plain"
+                              }
+                            },
+                            "sel": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "main.go",
+                                "line": 18,
+                                "column": 20,
+                                "offset": 212
+                              },
+                              "name": "Greeting",
+                              "obj": null,
+                              "$obj": {
+                                "name": "Greeting",
+                                "kind": "var",
+                                "type": 13,
+                                "decl": "plain.go:138",
+                                "pkg": "g2d.test/asyncinit/plain",
+                                "top": true
+                              }
+                            },
+                            "$type": 13
+                          },
+                          {
+                            "node": "SelectorExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "main.go",
+                                "line": 18,
+                                "column": 30,
+                                "offset": 222
+                              },
+                              "name": "conf",
+                              "obj": null,
+                              "$obj": {
+                                "name": "conf",
+                                "kind": "package",
+                                "pkg": "g2d.test/asyncinit/conf"
+                              }
+                            },
+                            "sel": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "main.go",
+                                "line": 18,
+                                "column": 35,
+                                "offset": 227
+                              },
+                              "name": "Total",
+                              "obj": null,
+                              "$obj": {
+                                "name": "Total",
+                                "kind": "var",
+                                "type": 3,
+                                "decl": "conf.go:239",
+                                "pkg": "g2d.test/asyncinit/conf",
+                                "top": true
+                              }
+                            },
+                            "$type": 3
+                          },
+                          {
+                            "node": "SelectorExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "main.go",
+                                "line": 18,
+                                "column": 42,
+                                "offset": 234
+                              },
+                              "name": "conf",
+                              "obj": null,
+                              "$obj": {
+                                "name": "conf",
+                                "kind": "package",
+                                "pkg": "g2d.test/asyncinit/conf"
+                              }
+                            },
+                            "sel": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "main.go",
+                                "line": 18,
+                                "column": 47,
+                                "offset": 239
+                              },
+                              "name": "Names",
+                              "obj": null,
+                              "$obj": {
+                                "name": "Names",
+                                "kind": "var",
+                                "type": 15,
+                                "decl": "conf.go:336",
+                                "pkg": "g2d.test/asyncinit/conf",
+                                "top": true
+                              }
+                            },
+                            "$type": 15
+                          },
+                          {
+                            "node": "UnaryExpr",
+                            "opPos": {
+                              "file": "main.go",
+                              "line": 18,
+                              "column": 54,
+                              "offset": 246
+                            },
+                            "op": "\u003c-",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "main.go",
+                                "line": 18,
+                                "column": 56,
+                                "offset": 248
+                              },
+                              "name": "ready",
+                              "obj": {
+                                "node": "Object",
+                                "name": "ready",
+                                "kind": "var"
+                              },
+                              "$type": 0,
+                              "$obj": {
+                                "name": "ready",
+                                "kind": "var",
+                                "type": 0,
+                                "decl": "main.go:93",
+                                "pkg": "g2d.test/asyncinit/cmd",
+                                "top": true
+                              }
+                            },
+                            "$type": 1
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "main.go",
+                          "line": 18,
+                          "column": 61,
+                          "offset": 253
+                        },
+                        "$type": 14
+                      }
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "main.go",
+                    "line": 19,
+                    "column": 1,
+                    "offset": 255
+                  }
+                }
+              }
+            ],
+            "fileStart": {
+              "file": "main.go",
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "fileEnd": {
+              "file": "main.go",
+              "line": 19,
+              "column": 3,
+              "offset": 257
+            },
+            "scope": null,
+            "imports": [
+              {
+                "node": "ImportSpec",
+                "doc": null,
+                "name": null,
+                "path": {
+                  "node": "BasicLit",
+                  "valuePos": {
+                    "file": "main.go",
+                    "line": 4,
+                    "column": 2,
+                    "offset": 24
+                  },
+                  "valueEnd": {
+                    "file": "main.go",
+                    "line": 4,
+                    "column": 7,
+                    "offset": 29
+                  },
+                  "kind": "STRING",
+                  "value": "\"fmt\""
+                },
+                "comment": null,
+                "endPos": null
+              },
+              {
+                "node": "ImportSpec",
+                "doc": null,
+                "name": null,
+                "path": {
+                  "node": "BasicLit",
+                  "valuePos": {
+                    "file": "main.go",
+                    "line": 6,
+                    "column": 2,
+                    "offset": 32
+                  },
+                  "valueEnd": {
+                    "file": "main.go",
+                    "line": 6,
+                    "column": 27,
+                    "offset": 57
+                  },
+                  "kind": "STRING",
+                  "value": "\"g2d.test/asyncinit/conf\""
+                },
+                "comment": null,
+                "endPos": null
+              },
+              {
+                "node": "ImportSpec",
+                "doc": null,
+                "name": null,
+                "path": {
+                  "node": "BasicLit",
+                  "valuePos": {
+                    "file": "main.go",
+                    "line": 7,
+                    "column": 2,
+                    "offset": 59
+                  },
+                  "valueEnd": {
+                    "file": "main.go",
+                    "line": 7,
+                    "column": 28,
+                    "offset": 85
+                  },
+                  "kind": "STRING",
+                  "value": "\"g2d.test/asyncinit/plain\""
+                },
+                "comment": null,
+                "endPos": null
+              }
+            ],
+            "unresolved": [
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "main.go",
+                  "line": 10,
+                  "column": 13,
+                  "offset": 101
+                },
+                "name": "make",
+                "obj": null,
+                "$type": 2,
+                "$builtin": true,
+                "$obj": {
+                  "name": "make",
+                  "kind": "builtin",
+                  "type": 4
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "main.go",
+                  "line": 10,
+                  "column": 23,
+                  "offset": 111
+                },
+                "name": "bool",
+                "obj": null,
+                "$type": 1,
+                "$isType": true,
+                "$obj": {
+                  "name": "bool",
+                  "kind": "type",
+                  "type": 1
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "main.go",
+                  "line": 13,
+                  "column": 11,
+                  "offset": 145
+                },
+                "name": "true",
+                "obj": null,
+                "$type": 1,
+                "$value": {
+                  "kind": "bool",
+                  "value": true
+                },
+                "$obj": {
+                  "name": "true",
+                  "kind": "const",
+                  "type": 6,
+                  "value": {
+                    "kind": "bool",
+                    "value": true
+                  }
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "main.go",
+                  "line": 14,
+                  "column": 2,
+                  "offset": 151
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "main.go",
+                  "line": 18,
+                  "column": 2,
+                  "offset": 194
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "main.go",
+                  "line": 18,
+                  "column": 14,
+                  "offset": 206
+                },
+                "name": "plain",
+                "obj": null,
+                "$obj": {
+                  "name": "plain",
+                  "kind": "package",
+                  "pkg": "g2d.test/asyncinit/plain"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "main.go",
+                  "line": 18,
+                  "column": 30,
+                  "offset": 222
+                },
+                "name": "conf",
+                "obj": null,
+                "$obj": {
+                  "name": "conf",
+                  "kind": "package",
+                  "pkg": "g2d.test/asyncinit/conf"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "main.go",
+                  "line": 18,
+                  "column": 42,
+                  "offset": 234
+                },
+                "name": "conf",
+                "obj": null,
+                "$obj": {
+                  "name": "conf",
+                  "kind": "package",
+                  "pkg": "g2d.test/asyncinit/conf"
+                }
+              }
+            ],
+            "comments": null,
+            "goVersion": ""
+          }
+        }
+      ],
+      "imports": [
+        {
+          "path": "fmt",
+          "name": "fmt"
+        },
+        {
+          "path": "g2d.test/asyncinit/conf",
+          "name": "conf"
+        },
+        {
+          "path": "g2d.test/asyncinit/plain",
+          "name": "plain"
+        }
+      ],
+      "typeTable": [
+        {
+          "kind": "chan",
+          "dir": "both",
+          "elem": 1
+        },
+        {
+          "kind": "basic",
+          "name": "bool"
+        },
+        {
+          "kind": "func",
+          "params": [
+            0,
+            3
+          ],
+          "results": [
+            0
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "basic",
+          "name": "int"
+        },
+        {
+          "kind": "basic",
+          "name": "invalid type"
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [],
+          "variadic": false
+        },
+        {
+          "kind": "basic",
+          "name": "untyped bool"
+        },
+        {
+          "kind": "func",
+          "params": [
+            8
+          ],
+          "results": [
+            3,
+            10
+          ],
+          "variadic": true
+        },
+        {
+          "kind": "slice",
+          "elem": 9
+        },
+        {
+          "kind": "interface",
+          "methods": [],
+          "embeddeds": []
+        },
+        {
+          "kind": "named",
+          "pkg": "",
+          "name": "error",
+          "underlying": 11
+        },
+        {
+          "kind": "interface",
+          "methods": [
+            {
+              "name": "Error",
+              "type": 12
+            }
+          ],
+          "embeddeds": []
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            13
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "basic",
+          "name": "string"
+        },
+        {
+          "kind": "tuple",
+          "elems": [
+            3,
+            10
+          ]
+        },
+        {
+          "kind": "slice",
+          "elem": 13
+        }
+      ],
+      "implements": null,
+      "initOrder": [
+        [
+          "main.go:93"
+        ]
+      ],
+      "stdlibUsage": [
+        "fmt.Println"
+      ],
+      "reflectUsage": null,
+      "module": {
+        "path": "g2d.test/asyncinit"
+      }
+    },
+    {
+      "path": "g2d.test/asyncinit/conf",
+      "name": "conf",
+      "files": [
+        {
+          "path": "conf.go",
+          "ast": {
+            "node": "File",
+            "doc": {
+              "node": "CommentGroup",
+              "list": [
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "conf.go",
+                    "line": 1,
+                    "column": 1,
+                    "offset": 0
+                  },
+                  "text": "// Package conf inicializa variáveis de pacote esperando goroutines: o"
+                },
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "conf.go",
+                    "line": 2,
+                    "column": 1,
+                    "offset": 72
+                  },
+                  "text": "// $goInit vira async e o main o espera antes de tudo."
+                }
+              ]
+            },
+            "package": {
+              "file": "conf.go",
+              "line": 3,
+              "column": 1,
+              "offset": 127
+            },
+            "name": {
+              "node": "Ident",
+              "namePos": {
+                "file": "conf.go",
+                "line": 3,
+                "column": 9,
+                "offset": 135
+              },
+              "name": "conf",
+              "obj": null
+            },
+            "decls": [
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "conf.go",
+                  "line": 5,
+                  "column": 1,
+                  "offset": 141
+                },
+                "tok": "import",
+                "lparen": {
+                  "file": "conf.go",
+                  "line": 5,
+                  "column": 8,
+                  "offset": 148
+                },
+                "specs": [
+                  {
+                    "node": "ImportSpec",
+                    "doc": null,
+                    "name": null,
+                    "path": {
+                      "node": "BasicLit",
+                      "valuePos": {
+                        "file": "conf.go",
+                        "line": 6,
+                        "column": 2,
+                        "offset": 151
+                      },
+                      "valueEnd": {
+                        "file": "conf.go",
+                        "line": 6,
+                        "column": 7,
+                        "offset": 156
+                      },
+                      "kind": "STRING",
+                      "value": "\"fmt\""
+                    },
+                    "comment": null,
+                    "endPos": null
+                  },
+                  {
+                    "node": "ImportSpec",
+                    "doc": null,
+                    "name": null,
+                    "path": {
+                      "node": "BasicLit",
+                      "valuePos": {
+                        "file": "conf.go",
+                        "line": 7,
+                        "column": 2,
+                        "offset": 158
+                      },
+                      "valueEnd": {
+                        "file": "conf.go",
+                        "line": 7,
+                        "column": 8,
+                        "offset": 164
+                      },
+                      "kind": "STRING",
+                      "value": "\"sync\""
+                    },
+                    "comment": null,
+                    "endPos": null
+                  }
+                ],
+                "rparen": {
+                  "file": "conf.go",
+                  "line": 8,
+                  "column": 1,
+                  "offset": 165
+                }
+              },
+              {
+                "node": "GenDecl",
+                "doc": {
+                  "node": "CommentGroup",
+                  "list": [
+                    {
+                      "node": "Comment",
+                      "slash": {
+                        "file": "conf.go",
+                        "line": 10,
+                        "column": 1,
+                        "offset": 168
+                      },
+                      "text": "// Total é calculado por goroutines na inicialização do pacote."
+                    }
+                  ]
+                },
+                "tokPos": {
+                  "file": "conf.go",
+                  "line": 11,
+                  "column": 1,
+                  "offset": 235
+                },
+                "tok": "var",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "ValueSpec",
+                    "doc": null,
+                    "names": [
+                      {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "conf.go",
+                          "line": 11,
+                          "column": 5,
+                          "offset": 239
+                        },
+                        "name": "Total",
+                        "obj": {
+                          "node": "Object",
+                          "name": "Total",
+                          "kind": "var"
+                        },
+                        "$obj": {
+                          "name": "Total",
+                          "kind": "var",
+                          "def": true,
+                          "type": 0,
+                          "decl": "conf.go:239",
+                          "pkg": "g2d.test/asyncinit/conf",
+                          "top": true
+                        }
+                      }
+                    ],
+                    "type": null,
+                    "values": [
+                      {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "conf.go",
+                            "line": 11,
+                            "column": 13,
+                            "offset": 247
+                          },
+                          "name": "sum",
+                          "obj": {
+                            "node": "Object",
+                            "name": "sum",
+                            "kind": "func"
+                          },
+                          "$type": 1,
+                          "$obj": {
+                            "name": "sum",
+                            "kind": "func",
+                            "type": 1,
+                            "decl": "conf.go:357",
+                            "pkg": "g2d.test/asyncinit/conf",
+                            "top": true
+                          }
+                        },
+                        "lparen": {
+                          "file": "conf.go",
+                          "line": 11,
+                          "column": 16,
+                          "offset": 250
+                        },
+                        "args": [
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "conf.go",
+                              "line": 11,
+                              "column": 17,
+                              "offset": 251
+                            },
+                            "valueEnd": {
+                              "file": "conf.go",
+                              "line": 11,
+                              "column": 18,
+                              "offset": 252
+                            },
+                            "kind": "INT",
+                            "value": "1",
+                            "$type": 0,
+                            "$value": {
+                              "kind": "int",
+                              "value": "1"
+                            }
+                          },
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "conf.go",
+                              "line": 11,
+                              "column": 20,
+                              "offset": 254
+                            },
+                            "valueEnd": {
+                              "file": "conf.go",
+                              "line": 11,
+                              "column": 21,
+                              "offset": 255
+                            },
+                            "kind": "INT",
+                            "value": "2",
+                            "$type": 0,
+                            "$value": {
+                              "kind": "int",
+                              "value": "2"
+                            }
+                          },
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "conf.go",
+                              "line": 11,
+                              "column": 23,
+                              "offset": 257
+                            },
+                            "valueEnd": {
+                              "file": "conf.go",
+                              "line": 11,
+                              "column": 24,
+                              "offset": 258
+                            },
+                            "kind": "INT",
+                            "value": "3",
+                            "$type": 0,
+                            "$value": {
+                              "kind": "int",
+                              "value": "3"
+                            }
+                          },
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "conf.go",
+                              "line": 11,
+                              "column": 26,
+                              "offset": 260
+                            },
+                            "valueEnd": {
+                              "file": "conf.go",
+                              "line": 11,
+                              "column": 27,
+                              "offset": 261
+                            },
+                            "kind": "INT",
+                            "value": "4",
+                            "$type": 0,
+                            "$value": {
+                              "kind": "int",
+                              "value": "4"
+                            }
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "conf.go",
+                          "line": 11,
+                          "column": 27,
+                          "offset": 261
+                        },
+                        "$type": 0
+                      }
+                    ],
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "GenDecl",
+                "doc": {
+                  "node": "CommentGroup",
+                  "list": [
+                    {
+                      "node": "Comment",
+                      "slash": {
+                        "file": "conf.go",
+                        "line": 13,
+                        "column": 1,
+                        "offset": 264
+                      },
+                      "text": "// Names é preenchido pela função init, que espera um WaitGroup."
+                    }
+                  ]
+                },
+                "tokPos": {
+                  "file": "conf.go",
+                  "line": 14,
+                  "column": 1,
+                  "offset": 332
+                },
+                "tok": "var",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "ValueSpec",
+                    "doc": null,
+                    "names": [
+                      {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "conf.go",
+                          "line": 14,
+                          "column": 5,
+                          "offset": 336
+                        },
+                        "name": "Names",
+                        "obj": {
+                          "node": "Object",
+                          "name": "Names",
+                          "kind": "var"
+                        },
+                        "$obj": {
+                          "name": "Names",
+                          "kind": "var",
+                          "def": true,
+                          "type": 3,
+                          "decl": "conf.go:336",
+                          "pkg": "g2d.test/asyncinit/conf",
+                          "top": true
+                        }
+                      }
+                    ],
+                    "type": {
+                      "node": "ArrayType",
+                      "lbrack": {
+                        "file": "conf.go",
+                        "line": 14,
+                        "column": 11,
+                        "offset": 342
+                      },
+                      "len": null,
+                      "elt": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "conf.go",
+                          "line": 14,
+                          "column": 13,
+                          "offset": 344
+                        },
+                        "name": "string",
+                        "obj": null,
+                        "$type": 4,
+                        "$isType": true,
+                        "$obj": {
+                          "name": "string",
+                          "kind": "type",
+                          "type": 4
+                        }
+                      },
+                      "$type": 3,
+                      "$isType": true
+                    },
+                    "values": null,
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "conf.go",
+                    "line": 16,
+                    "column": 6,
+                    "offset": 357
+                  },
+                  "name": "sum",
+                  "obj": {
+                    "node": "Object",
+                    "name": "sum",
+                    "kind": "func"
+                  },
+                  "$obj": {
+                    "name": "sum",
+                    "kind": "func",
+                    "def": true,
+                    "type": 1,
+                    "decl": "conf.go:357",
+                    "pkg": "g2d.test/asyncinit/conf",
+                    "top": true
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "conf.go",
+                    "line": 16,
+                    "column": 1,
+                    "offset": 352
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "conf.go",
+                      "line": 16,
+                      "column": 9,
+                      "offset": 360
+                    },
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "conf.go",
+                              "line": 16,
+                              "column": 10,
+                              "offset": 361
+                            },
+                            "name": "xs",
+                            "obj": {
+                              "node": "Object",
+                              "name": "xs",
+                              "kind": "var"
+                            },
+                            "$obj": {
+                              "name": "xs",
+                              "kind": "var",
+                              "def": true,
+                              "type": 2,
+                              "decl": "conf.go:361",
+                              "pkg": "g2d.test/asyncinit/conf"
+                            }
+                          }
+                        ],
+                        "type": {
+                          "node": "Ellipsis",
+                          "ellipsis": {
+                            "file": "conf.go",
+                            "line": 16,
+                            "column": 13,
+                            "offset": 364
+                          },
+                          "elt": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "conf.go",
+                              "line": 16,
+                              "column": 16,
+                              "offset": 367
+                            },
+                            "name": "int",
+                            "obj": null,
+                            "$type": 0,
+                            "$isType": true,
+                            "$obj": {
+                              "name": "int",
+                              "kind": "type",
+                              "type": 0
+                            }
+                          },
+                          "$type": 2,
+                          "$isType": true
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": {
+                      "file": "conf.go",
+                      "line": 16,
+                      "column": 19,
+                      "offset": 370
+                    }
+                  },
+                  "results": {
+                    "node": "FieldList",
+                    "opening": null,
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": null,
+                        "type": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "conf.go",
+                            "line": 16,
+                            "column": 21,
+                            "offset": 372
+                          },
+                          "name": "int",
+                          "obj": null,
+                          "$type": 0,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "int",
+                            "kind": "type",
+                            "type": 0
+                          }
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": null
+                  }
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "conf.go",
+                    "line": 16,
+                    "column": 25,
+                    "offset": 376
+                  },
+                  "list": [
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "conf.go",
+                            "line": 17,
+                            "column": 2,
+                            "offset": 379
+                          },
+                          "name": "ch",
+                          "obj": {
+                            "node": "Object",
+                            "name": "ch",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "ch",
+                            "kind": "var",
+                            "def": true,
+                            "type": 5,
+                            "decl": "conf.go:379",
+                            "pkg": "g2d.test/asyncinit/conf"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "conf.go",
+                        "line": 17,
+                        "column": 5,
+                        "offset": 382
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "CallExpr",
+                          "fun": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "conf.go",
+                              "line": 17,
+                              "column": 8,
+                              "offset": 385
+                            },
+                            "name": "make",
+                            "obj": null,
+                            "$type": 6,
+                            "$builtin": true,
+                            "$obj": {
+                              "name": "make",
+                              "kind": "builtin",
+                              "type": 7
+                            }
+                          },
+                          "lparen": {
+                            "file": "conf.go",
+                            "line": 17,
+                            "column": 12,
+                            "offset": 389
+                          },
+                          "args": [
+                            {
+                              "node": "ChanType",
+                              "begin": {
+                                "file": "conf.go",
+                                "line": 17,
+                                "column": 13,
+                                "offset": 390
+                              },
+                              "arrow": null,
+                              "dir": 3,
+                              "value": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "conf.go",
+                                  "line": 17,
+                                  "column": 18,
+                                  "offset": 395
+                                },
+                                "name": "int",
+                                "obj": null,
+                                "$type": 0,
+                                "$isType": true,
+                                "$obj": {
+                                  "name": "int",
+                                  "kind": "type",
+                                  "type": 0
+                                }
+                              },
+                              "$type": 5,
+                              "$isType": true
+                            }
+                          ],
+                          "ellipsis": null,
+                          "rparen": {
+                            "file": "conf.go",
+                            "line": 17,
+                            "column": 21,
+                            "offset": 398
+                          },
+                          "$type": 5
+                        }
+                      ]
+                    },
+                    {
+                      "node": "RangeStmt",
+                      "for": {
+                        "file": "conf.go",
+                        "line": 18,
+                        "column": 2,
+                        "offset": 401
+                      },
+                      "key": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "conf.go",
+                          "line": 18,
+                          "column": 6,
+                          "offset": 405
+                        },
+                        "name": "_",
+                        "obj": {
+                          "node": "Object",
+                          "name": "_",
+                          "kind": "var"
+                        },
+                        "$obj": {
+                          "name": "_",
+                          "kind": "var",
+                          "def": true,
+                          "type": 0,
+                          "decl": "conf.go:405",
+                          "pkg": "g2d.test/asyncinit/conf"
+                        }
+                      },
+                      "value": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "conf.go",
+                          "line": 18,
+                          "column": 9,
+                          "offset": 408
+                        },
+                        "name": "x",
+                        "obj": {
+                          "node": "Object",
+                          "name": "x",
+                          "kind": "var"
+                        },
+                        "$obj": {
+                          "name": "x",
+                          "kind": "var",
+                          "def": true,
+                          "type": 0,
+                          "decl": "conf.go:408",
+                          "pkg": "g2d.test/asyncinit/conf"
+                        }
+                      },
+                      "tokPos": {
+                        "file": "conf.go",
+                        "line": 18,
+                        "column": 11,
+                        "offset": 410
+                      },
+                      "tok": ":=",
+                      "range": {
+                        "file": "conf.go",
+                        "line": 18,
+                        "column": 14,
+                        "offset": 413
+                      },
+                      "x": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "conf.go",
+                          "line": 18,
+                          "column": 20,
+                          "offset": 419
+                        },
+                        "name": "xs",
+                        "obj": {
+                          "node": "Object",
+                          "name": "xs",
+                          "kind": "var"
+                        },
+                        "$type": 2,
+                        "$obj": {
+                          "name": "xs",
+                          "kind": "var",
+                          "type": 2,
+                          "decl": "conf.go:361",
+                          "pkg": "g2d.test/asyncinit/conf"
+                        }
+                      },
+                      "body": {
+                        "node": "BlockStmt",
+                        "lbrace": {
+                          "file": "conf.go",
+                          "line": 18,
+                          "column": 23,
+                          "offset": 422
+                        },
+                        "list": [
+                          {
+                            "node": "GoStmt",
+                            "go": {
+                              "file": "conf.go",
+                              "line": 19,
+                              "column": 3,
+                              "offset": 426
+                            },
+                            "call": {
+                              "node": "CallExpr",
+                              "fun": {
+                                "node": "FuncLit",
+                                "type": {
+                                  "node": "FuncType",
+                                  "func": {
+                                    "file": "conf.go",
+                                    "line": 19,
+                                    "column": 6,
+                                    "offset": 429
+                                  },
+                                  "typeParams": null,
+                                  "params": {
+                                    "node": "FieldList",
+                                    "opening": {
+                                      "file": "conf.go",
+                                      "line": 19,
+                                      "column": 10,
+                                      "offset": 433
+                                    },
+                                    "list": null,
+                                    "closing": {
+                                      "file": "conf.go",
+                                      "line": 19,
+                                      "column": 11,
+                                      "offset": 434
+                                    }
+                                  },
+                                  "results": null,
+                                  "$type": 8,
+                                  "$isType": true
+                                },
+                                "body": {
+                                  "node": "BlockStmt",
+                                  "lbrace": {
+                                    "file": "conf.go",
+                                    "line": 19,
+                                    "column": 13,
+                                    "offset": 436
+                                  },
+                                  "list": [
+                                    {
+                                      "node": "SendStmt",
+                                      "chan": {
+                                        "node": "Ident",
+                                        "namePos": {
+                                          "file": "conf.go",
+                                          "line": 19,
+                                          "column": 15,
+                                          "offset": 438
+                                        },
+                                        "name": "ch",
+                                        "obj": {
+                                          "node": "Object",
+                                          "name": "ch",
+                                          "kind": "var"
+                                        },
+                                        "$type": 5,
+                                        "$obj": {
+                                          "name": "ch",
+                                          "kind": "var",
+                                          "type": 5,
+                                          "decl": "conf.go:379",
+                                          "pkg": "g2d.test/asyncinit/conf"
+                                        }
+                                      },
+                                      "arrow": {
+                                        "file": "conf.go",
+                                        "line": 19,
+                                        "column": 18,
+                                        "offset": 441
+                                      },
+                                      "value": {
+                                        "node": "BinaryExpr",
+                                        "x": {
+                                          "node": "Ident",
+                                          "namePos": {
+                                            "file": "conf.go",
+                                            "line": 19,
+                                            "column": 21,
+                                            "offset": 444
+                                          },
+                                          "name": "x",
+                                          "obj": {
+                                            "node": "Object",
+                                            "name": "x",
+                                            "kind": "var"
+                                          },
+                                          "$type": 0,
+                                          "$obj": {
+                                            "name": "x",
+                                            "kind": "var",
+                                            "type": 0,
+                                            "decl": "conf.go:408",
+                                            "pkg": "g2d.test/asyncinit/conf"
+                                          }
+                                        },
+                                        "opPos": {
+                                          "file": "conf.go",
+                                          "line": 19,
+                                          "column": 23,
+                                          "offset": 446
+                                        },
+                                        "op": "*",
+                                        "y": {
+                                          "node": "Ident",
+                                          "namePos": {
+                                            "file": "conf.go",
+                                            "line": 19,
+                                            "column": 25,
+                                            "offset": 448
+                                          },
+                                          "name": "x",
+                                          "obj": {
+                                            "node": "Object",
+                                            "name": "x",
+                                            "kind": "var"
+                                          },
+                                          "$type": 0,
+                                          "$obj": {
+                                            "name": "x",
+                                            "kind": "var",
+                                            "type": 0,
+                                            "decl": "conf.go:408",
+                                            "pkg": "g2d.test/asyncinit/conf"
+                                          }
+                                        },
+                                        "$type": 0
+                                      }
+                                    }
+                                  ],
+                                  "rbrace": {
+                                    "file": "conf.go",
+                                    "line": 19,
+                                    "column": 27,
+                                    "offset": 450
+                                  }
+                                },
+                                "$type": 8
+                              },
+                              "lparen": {
+                                "file": "conf.go",
+                                "line": 19,
+                                "column": 28,
+                                "offset": 451
+                              },
+                              "args": null,
+                              "ellipsis": null,
+                              "rparen": {
+                                "file": "conf.go",
+                                "line": 19,
+                                "column": 29,
+                                "offset": 452
+                              },
+                              "$type": 9
+                            }
+                          }
+                        ],
+                        "rbrace": {
+                          "file": "conf.go",
+                          "line": 20,
+                          "column": 2,
+                          "offset": 455
+                        }
+                      }
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "conf.go",
+                            "line": 21,
+                            "column": 2,
+                            "offset": 458
+                          },
+                          "name": "t",
+                          "obj": {
+                            "node": "Object",
+                            "name": "t",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "t",
+                            "kind": "var",
+                            "def": true,
+                            "type": 0,
+                            "decl": "conf.go:458",
+                            "pkg": "g2d.test/asyncinit/conf"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "conf.go",
+                        "line": 21,
+                        "column": 4,
+                        "offset": 460
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "BasicLit",
+                          "valuePos": {
+                            "file": "conf.go",
+                            "line": 21,
+                            "column": 7,
+                            "offset": 463
+                          },
+                          "valueEnd": {
+                            "file": "conf.go",
+                            "line": 21,
+                            "column": 8,
+                            "offset": 464
+                          },
+                          "kind": "INT",
+                          "value": "0",
+                          "$type": 0,
+                          "$value": {
+                            "kind": "int",
+                            "value": "0"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "node": "RangeStmt",
+                      "for": {
+                        "file": "conf.go",
+                        "line": 22,
+                        "column": 2,
+                        "offset": 466
+                      },
+                      "key": null,
+                      "value": null,
+                      "tokPos": null,
+                      "tok": "ILLEGAL",
+                      "range": {
+                        "file": "conf.go",
+                        "line": 22,
+                        "column": 6,
+                        "offset": 470
+                      },
+                      "x": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "conf.go",
+                          "line": 22,
+                          "column": 12,
+                          "offset": 476
+                        },
+                        "name": "xs",
+                        "obj": {
+                          "node": "Object",
+                          "name": "xs",
+                          "kind": "var"
+                        },
+                        "$type": 2,
+                        "$obj": {
+                          "name": "xs",
+                          "kind": "var",
+                          "type": 2,
+                          "decl": "conf.go:361",
+                          "pkg": "g2d.test/asyncinit/conf"
+                        }
+                      },
+                      "body": {
+                        "node": "BlockStmt",
+                        "lbrace": {
+                          "file": "conf.go",
+                          "line": 22,
+                          "column": 15,
+                          "offset": 479
+                        },
+                        "list": [
+                          {
+                            "node": "AssignStmt",
+                            "lhs": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "conf.go",
+                                  "line": 23,
+                                  "column": 3,
+                                  "offset": 483
+                                },
+                                "name": "t",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "t",
+                                  "kind": "var"
+                                },
+                                "$type": 0,
+                                "$obj": {
+                                  "name": "t",
+                                  "kind": "var",
+                                  "type": 0,
+                                  "decl": "conf.go:458",
+                                  "pkg": "g2d.test/asyncinit/conf"
+                                }
+                              }
+                            ],
+                            "tokPos": {
+                              "file": "conf.go",
+                              "line": 23,
+                              "column": 5,
+                              "offset": 485
+                            },
+                            "tok": "+=",
+                            "rhs": [
+                              {
+                                "node": "UnaryExpr",
+                                "opPos": {
+                                  "file": "conf.go",
+                                  "line": 23,
+                                  "column": 8,
+                                  "offset": 488
+                                },
+                                "op": "\u003c-",
+                                "x": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "conf.go",
+                                    "line": 23,
+                                    "column": 10,
+                                    "offset": 490
+                                  },
+                                  "name": "ch",
+                                  "obj": {
+                                    "node": "Object",
+                                    "name": "ch",
+                                    "kind": "var"
+                                  },
+                                  "$type": 5,
+                                  "$obj": {
+                                    "name": "ch",
+                                    "kind": "var",
+                                    "type": 5,
+                                    "decl": "conf.go:379",
+                                    "pkg": "g2d.test/asyncinit/conf"
+                                  }
+                                },
+                                "$type": 0
+                              }
+                            ]
+                          }
+                        ],
+                        "rbrace": {
+                          "file": "conf.go",
+                          "line": 24,
+                          "column": 2,
+                          "offset": 494
+                        }
+                      }
+                    },
+                    {
+                      "node": "ReturnStmt",
+                      "return": {
+                        "file": "conf.go",
+                        "line": 25,
+                        "column": 2,
+                        "offset": 497
+                      },
+                      "results": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "conf.go",
+                            "line": 25,
+                            "column": 9,
+                            "offset": 504
+                          },
+                          "name": "t",
+                          "obj": {
+                            "node": "Object",
+                            "name": "t",
+                            "kind": "var"
+                          },
+                          "$type": 0,
+                          "$obj": {
+                            "name": "t",
+                            "kind": "var",
+                            "type": 0,
+                            "decl": "conf.go:458",
+                            "pkg": "g2d.test/asyncinit/conf"
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "conf.go",
+                    "line": 26,
+                    "column": 1,
+                    "offset": 506
+                  }
+                }
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "conf.go",
+                    "line": 28,
+                    "column": 6,
+                    "offset": 514
+                  },
+                  "name": "init",
+                  "obj": null,
+                  "$obj": {
+                    "name": "init",
+                    "kind": "func",
+                    "def": true,
+                    "type": 8,
+                    "decl": "conf.go:514",
+                    "pkg": "g2d.test/asyncinit/conf",
+                    "top": true
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "conf.go",
+                    "line": 28,
+                    "column": 1,
+                    "offset": 509
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "conf.go",
+                      "line": 28,
+                      "column": 10,
+                      "offset": 518
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "conf.go",
+                      "line": 28,
+                      "column": 11,
+                      "offset": 519
+                    }
+                  },
+                  "results": null
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "conf.go",
+                    "line": 28,
+                    "column": 13,
+                    "offset": 521
+                  },
+                  "list": [
+                    {
+                      "node": "DeclStmt",
+                      "decl": {
+                        "node": "GenDecl",
+                        "doc": null,
+                        "tokPos": {
+                          "file": "conf.go",
+                          "line": 29,
+                          "column": 2,
+                          "offset": 524
+                        },
+                        "tok": "var",
+                        "lparen": null,
+                        "specs": [
+                          {
+                            "node": "ValueSpec",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "conf.go",
+                                  "line": 29,
+                                  "column": 6,
+                                  "offset": 528
+                                },
+                                "name": "wg",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "wg",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "wg",
+                                  "kind": "var",
+                                  "def": true,
+                                  "type": 10,
+                                  "decl": "conf.go:528",
+                                  "pkg": "g2d.test/asyncinit/conf"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "conf.go",
+                                  "line": 29,
+                                  "column": 9,
+                                  "offset": 531
+                                },
+                                "name": "sync",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "sync",
+                                  "kind": "package",
+                                  "pkg": "sync"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "conf.go",
+                                  "line": 29,
+                                  "column": 14,
+                                  "offset": 536
+                                },
+                                "name": "WaitGroup",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "WaitGroup",
+                                  "kind": "type",
+                                  "type": 10,
+                                  "decl": "waitgroup.go:47",
+                                  "pkg": "sync",
+                                  "top": true
+                                }
+                              },
+                              "$type": 10,
+                              "$isType": true
+                            },
+                            "values": null,
+                            "comment": null
+                          }
+                        ],
+                        "rparen": null
+                      }
+                    },
+                    {
+                      "node": "DeclStmt",
+                      "decl": {
+                        "node": "GenDecl",
+                        "doc": null,
+                        "tokPos": {
+                          "file": "conf.go",
+                          "line": 30,
+                          "column": 2,
+                          "offset": 547
+                        },
+                        "tok": "var",
+                        "lparen": null,
+                        "specs": [
+                          {
+                            "node": "ValueSpec",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "conf.go",
+                                  "line": 30,
+                                  "column": 6,
+                                  "offset": 551
+                                },
+                                "name": "mu",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "mu",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "mu",
+                                  "kind": "var",
+                                  "def": true,
+                                  "type": 27,
+                                  "decl": "conf.go:551",
+                                  "pkg": "g2d.test/asyncinit/conf"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "conf.go",
+                                  "line": 30,
+                                  "column": 9,
+                                  "offset": 554
+                                },
+                                "name": "sync",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "sync",
+                                  "kind": "package",
+                                  "pkg": "sync"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "conf.go",
+                                  "line": 30,
+                                  "column": 14,
+                                  "offset": 559
+                                },
+                                "name": "Mutex",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "Mutex",
+                                  "kind": "type",
+                                  "type": 27,
+                                  "decl": "mutex.go:29",
+                                  "pkg": "sync",
+                                  "top": true
+                                }
+                              },
+                              "$type": 27,
+                              "$isType": true
+                            },
+                            "values": null,
+                            "comment": null
+                          }
+                        ],
+                        "rparen": null
+                      }
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "conf.go",
+                            "line": 31,
+                            "column": 2,
+                            "offset": 566
+                          },
+                          "name": "got",
+                          "obj": {
+                            "node": "Object",
+                            "name": "got",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "got",
+                            "kind": "var",
+                            "def": true,
+                            "type": 34,
+                            "decl": "conf.go:566",
+                            "pkg": "g2d.test/asyncinit/conf"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "conf.go",
+                        "line": 31,
+                        "column": 6,
+                        "offset": 570
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "CompositeLit",
+                          "type": {
+                            "node": "MapType",
+                            "map": {
+                              "file": "conf.go",
+                              "line": 31,
+                              "column": 9,
+                              "offset": 573
+                            },
+                            "key": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "conf.go",
+                                "line": 31,
+                                "column": 13,
+                                "offset": 577
+                              },
+                              "name": "string",
+                              "obj": null,
+                              "$type": 4,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "string",
+                                "kind": "type",
+                                "type": 4
+                              }
+                            },
+                            "value": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "conf.go",
+                                "line": 31,
+                                "column": 20,
+                                "offset": 584
+                              },
+                              "name": "bool",
+                              "obj": null,
+                              "$type": 21,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "bool",
+                                "kind": "type",
+                                "type": 21
+                              }
+                            },
+                            "$type": 34,
+                            "$isType": true
+                          },
+                          "lbrace": {
+                            "file": "conf.go",
+                            "line": 31,
+                            "column": 24,
+                            "offset": 588
+                          },
+                          "elts": null,
+                          "rbrace": {
+                            "file": "conf.go",
+                            "line": 31,
+                            "column": 25,
+                            "offset": 589
+                          },
+                          "incomplete": false,
+                          "$type": 34
+                        }
+                      ]
+                    },
+                    {
+                      "node": "RangeStmt",
+                      "for": {
+                        "file": "conf.go",
+                        "line": 32,
+                        "column": 2,
+                        "offset": 592
+                      },
+                      "key": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "conf.go",
+                          "line": 32,
+                          "column": 6,
+                          "offset": 596
+                        },
+                        "name": "_",
+                        "obj": {
+                          "node": "Object",
+                          "name": "_",
+                          "kind": "var"
+                        },
+                        "$obj": {
+                          "name": "_",
+                          "kind": "var",
+                          "def": true,
+                          "type": 0,
+                          "decl": "conf.go:596",
+                          "pkg": "g2d.test/asyncinit/conf"
+                        }
+                      },
+                      "value": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "conf.go",
+                          "line": 32,
+                          "column": 9,
+                          "offset": 599
+                        },
+                        "name": "n",
+                        "obj": {
+                          "node": "Object",
+                          "name": "n",
+                          "kind": "var"
+                        },
+                        "$obj": {
+                          "name": "n",
+                          "kind": "var",
+                          "def": true,
+                          "type": 4,
+                          "decl": "conf.go:599",
+                          "pkg": "g2d.test/asyncinit/conf"
+                        }
+                      },
+                      "tokPos": {
+                        "file": "conf.go",
+                        "line": 32,
+                        "column": 11,
+                        "offset": 601
+                      },
+                      "tok": ":=",
+                      "range": {
+                        "file": "conf.go",
+                        "line": 32,
+                        "column": 14,
+                        "offset": 604
+                      },
+                      "x": {
+                        "node": "CompositeLit",
+                        "type": {
+                          "node": "ArrayType",
+                          "lbrack": {
+                            "file": "conf.go",
+                            "line": 32,
+                            "column": 20,
+                            "offset": 610
+                          },
+                          "len": null,
+                          "elt": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "conf.go",
+                              "line": 32,
+                              "column": 22,
+                              "offset": 612
+                            },
+                            "name": "string",
+                            "obj": null,
+                            "$type": 4,
+                            "$isType": true,
+                            "$obj": {
+                              "name": "string",
+                              "kind": "type",
+                              "type": 4
+                            }
+                          },
+                          "$type": 3,
+                          "$isType": true
+                        },
+                        "lbrace": {
+                          "file": "conf.go",
+                          "line": 32,
+                          "column": 28,
+                          "offset": 618
+                        },
+                        "elts": [
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "conf.go",
+                              "line": 32,
+                              "column": 29,
+                              "offset": 619
+                            },
+                            "valueEnd": {
+                              "file": "conf.go",
+                              "line": 32,
+                              "column": 32,
+                              "offset": 622
+                            },
+                            "kind": "STRING",
+                            "value": "\"b\"",
+                            "$type": 4,
+                            "$value": {
+                              "kind": "string",
+                              "value": "b"
+                            }
+                          },
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "conf.go",
+                              "line": 32,
+                              "column": 34,
+                              "offset": 624
+                            },
+                            "valueEnd": {
+                              "file": "conf.go",
+                              "line": 32,
+                              "column": 37,
+                              "offset": 627
+                            },
+                            "kind": "STRING",
+                            "value": "\"a\"",
+                            "$type": 4,
+                            "$value": {
+                              "kind": "string",
+                              "value": "a"
+                            }
+                          },
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "conf.go",
+                              "line": 32,
+                              "column": 39,
+                              "offset": 629
+                            },
+                            "valueEnd": {
+                              "file": "conf.go",
+                              "line": 32,
+                              "column": 42,
+                              "offset": 632
+                            },
+                            "kind": "STRING",
+                            "value": "\"c\"",
+                            "$type": 4,
+                            "$value": {
+                              "kind": "string",
+                              "value": "c"
+                            }
+                          }
+                        ],
+                        "rbrace": {
+                          "file": "conf.go",
+                          "line": 32,
+                          "column": 42,
+                          "offset": 632
+                        },
+                        "incomplete": false,
+                        "$type": 3
+                      },
+                      "body": {
+                        "node": "BlockStmt",
+                        "lbrace": {
+                          "file": "conf.go",
+                          "line": 32,
+                          "column": 44,
+                          "offset": 634
+                        },
+                        "list": [
+                          {
+                            "node": "ExprStmt",
+                            "x": {
+                              "node": "CallExpr",
+                              "fun": {
+                                "node": "SelectorExpr",
+                                "x": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "conf.go",
+                                    "line": 33,
+                                    "column": 3,
+                                    "offset": 638
+                                  },
+                                  "name": "wg",
+                                  "obj": {
+                                    "node": "Object",
+                                    "name": "wg",
+                                    "kind": "var"
+                                  },
+                                  "$type": 10,
+                                  "$obj": {
+                                    "name": "wg",
+                                    "kind": "var",
+                                    "type": 10,
+                                    "decl": "conf.go:528",
+                                    "pkg": "g2d.test/asyncinit/conf"
+                                  }
+                                },
+                                "sel": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "conf.go",
+                                    "line": 33,
+                                    "column": 6,
+                                    "offset": 641
+                                  },
+                                  "name": "Go",
+                                  "obj": null,
+                                  "$obj": {
+                                    "name": "Go",
+                                    "kind": "method",
+                                    "type": 26,
+                                    "decl": "waitgroup.go:235",
+                                    "pkg": "sync"
+                                  }
+                                },
+                                "$type": 26,
+                                "$sel": {
+                                  "kind": "method",
+                                  "recv": 10,
+                                  "index": [
+                                    3
+                                  ],
+                                  "indirect": false
+                                }
+                              },
+                              "lparen": {
+                                "file": "conf.go",
+                                "line": 33,
+                                "column": 8,
+                                "offset": 643
+                              },
+                              "args": [
+                                {
+                                  "node": "FuncLit",
+                                  "type": {
+                                    "node": "FuncType",
+                                    "func": {
+                                      "file": "conf.go",
+                                      "line": 33,
+                                      "column": 9,
+                                      "offset": 644
+                                    },
+                                    "typeParams": null,
+                                    "params": {
+                                      "node": "FieldList",
+                                      "opening": {
+                                        "file": "conf.go",
+                                        "line": 33,
+                                        "column": 13,
+                                        "offset": 648
+                                      },
+                                      "list": null,
+                                      "closing": {
+                                        "file": "conf.go",
+                                        "line": 33,
+                                        "column": 14,
+                                        "offset": 649
+                                      }
+                                    },
+                                    "results": null,
+                                    "$type": 8,
+                                    "$isType": true
+                                  },
+                                  "body": {
+                                    "node": "BlockStmt",
+                                    "lbrace": {
+                                      "file": "conf.go",
+                                      "line": 33,
+                                      "column": 16,
+                                      "offset": 651
+                                    },
+                                    "list": [
+                                      {
+                                        "node": "ExprStmt",
+                                        "x": {
+                                          "node": "CallExpr",
+                                          "fun": {
+                                            "node": "SelectorExpr",
+                                            "x": {
+                                              "node": "Ident",
+                                              "namePos": {
+                                                "file": "conf.go",
+                                                "line": 34,
+                                                "column": 4,
+                                                "offset": 656
+                                              },
+                                              "name": "mu",
+                                              "obj": {
+                                                "node": "Object",
+                                                "name": "mu",
+                                                "kind": "var"
+                                              },
+                                              "$type": 27,
+                                              "$obj": {
+                                                "name": "mu",
+                                                "kind": "var",
+                                                "type": 27,
+                                                "decl": "conf.go:551",
+                                                "pkg": "g2d.test/asyncinit/conf"
+                                              }
+                                            },
+                                            "sel": {
+                                              "node": "Ident",
+                                              "namePos": {
+                                                "file": "conf.go",
+                                                "line": 34,
+                                                "column": 7,
+                                                "offset": 659
+                                              },
+                                              "name": "Lock",
+                                              "obj": null,
+                                              "$obj": {
+                                                "name": "Lock",
+                                                "kind": "method",
+                                                "type": 8,
+                                                "decl": "mutex.go:44",
+                                                "pkg": "sync"
+                                              }
+                                            },
+                                            "$type": 8,
+                                            "$sel": {
+                                              "kind": "method",
+                                              "recv": 27,
+                                              "index": [
+                                                0
+                                              ],
+                                              "indirect": false
+                                            }
+                                          },
+                                          "lparen": {
+                                            "file": "conf.go",
+                                            "line": 34,
+                                            "column": 11,
+                                            "offset": 663
+                                          },
+                                          "args": null,
+                                          "ellipsis": null,
+                                          "rparen": {
+                                            "file": "conf.go",
+                                            "line": 34,
+                                            "column": 12,
+                                            "offset": 664
+                                          },
+                                          "$type": 9
+                                        }
+                                      },
+                                      {
+                                        "node": "AssignStmt",
+                                        "lhs": [
+                                          {
+                                            "node": "IndexExpr",
+                                            "x": {
+                                              "node": "Ident",
+                                              "namePos": {
+                                                "file": "conf.go",
+                                                "line": 35,
+                                                "column": 4,
+                                                "offset": 669
+                                              },
+                                              "name": "got",
+                                              "obj": {
+                                                "node": "Object",
+                                                "name": "got",
+                                                "kind": "var"
+                                              },
+                                              "$type": 34,
+                                              "$obj": {
+                                                "name": "got",
+                                                "kind": "var",
+                                                "type": 34,
+                                                "decl": "conf.go:566",
+                                                "pkg": "g2d.test/asyncinit/conf"
+                                              }
+                                            },
+                                            "lbrack": {
+                                              "file": "conf.go",
+                                              "line": 35,
+                                              "column": 7,
+                                              "offset": 672
+                                            },
+                                            "index": {
+                                              "node": "Ident",
+                                              "namePos": {
+                                                "file": "conf.go",
+                                                "line": 35,
+                                                "column": 8,
+                                                "offset": 673
+                                              },
+                                              "name": "n",
+                                              "obj": {
+                                                "node": "Object",
+                                                "name": "n",
+                                                "kind": "var"
+                                              },
+                                              "$type": 4,
+                                              "$obj": {
+                                                "name": "n",
+                                                "kind": "var",
+                                                "type": 4,
+                                                "decl": "conf.go:599",
+                                                "pkg": "g2d.test/asyncinit/conf"
+                                              }
+                                            },
+                                            "rbrack": {
+                                              "file": "conf.go",
+                                              "line": 35,
+                                              "column": 9,
+                                              "offset": 674
+                                            },
+                                            "$type": 21
+                                          }
+                                        ],
+                                        "tokPos": {
+                                          "file": "conf.go",
+                                          "line": 35,
+                                          "column": 11,
+                                          "offset": 676
+                                        },
+                                        "tok": "=",
+                                        "rhs": [
+                                          {
+                                            "node": "Ident",
+                                            "namePos": {
+                                              "file": "conf.go",
+                                              "line": 35,
+                                              "column": 13,
+                                              "offset": 678
+                                            },
+                                            "name": "true",
+                                            "obj": null,
+                                            "$type": 21,
+                                            "$value": {
+                                              "kind": "bool",
+                                              "value": true
+                                            },
+                                            "$obj": {
+                                              "name": "true",
+                                              "kind": "const",
+                                              "type": 35,
+                                              "value": {
+                                                "kind": "bool",
+                                                "value": true
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "node": "ExprStmt",
+                                        "x": {
+                                          "node": "CallExpr",
+                                          "fun": {
+                                            "node": "SelectorExpr",
+                                            "x": {
+                                              "node": "Ident",
+                                              "namePos": {
+                                                "file": "conf.go",
+                                                "line": 36,
+                                                "column": 4,
+                                                "offset": 686
+                                              },
+                                              "name": "mu",
+                                              "obj": {
+                                                "node": "Object",
+                                                "name": "mu",
+                                                "kind": "var"
+                                              },
+                                              "$type": 27,
+                                              "$obj": {
+                                                "name": "mu",
+                                                "kind": "var",
+                                                "type": 27,
+                                                "decl": "conf.go:551",
+                                                "pkg": "g2d.test/asyncinit/conf"
+                                              }
+                                            },
+                                            "sel": {
+                                              "node": "Ident",
+                                              "namePos": {
+                                                "file": "conf.go",
+                                                "line": 36,
+                                                "column": 7,
+                                                "offset": 689
+                                              },
+                                              "name": "Unlock",
+                                              "obj": null,
+                                              "$obj": {
+                                                "name": "Unlock",
+                                                "kind": "method",
+                                                "type": 8,
+                                                "decl": "mutex.go:63",
+                                                "pkg": "sync"
+                                              }
+                                            },
+                                            "$type": 8,
+                                            "$sel": {
+                                              "kind": "method",
+                                              "recv": 27,
+                                              "index": [
+                                                2
+                                              ],
+                                              "indirect": false
+                                            }
+                                          },
+                                          "lparen": {
+                                            "file": "conf.go",
+                                            "line": 36,
+                                            "column": 13,
+                                            "offset": 695
+                                          },
+                                          "args": null,
+                                          "ellipsis": null,
+                                          "rparen": {
+                                            "file": "conf.go",
+                                            "line": 36,
+                                            "column": 14,
+                                            "offset": 696
+                                          },
+                                          "$type": 9
+                                        }
+                                      }
+                                    ],
+                                    "rbrace": {
+                                      "file": "conf.go",
+                                      "line": 37,
+                                      "column": 3,
+                                      "offset": 700
+                                    }
+                                  },
+                                  "$type": 8
+                                }
+                              ],
+                              "ellipsis": null,
+                              "rparen": {
+                                "file": "conf.go",
+                                "line": 37,
+                                "column": 4,
+                                "offset": 701
+                              },
+                              "$type": 9
+                            }
+                          }
+                        ],
+                        "rbrace": {
+                          "file": "conf.go",
+                          "line": 38,
+                          "column": 2,
+                          "offset": 704
+                        }
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "conf.go",
+                              "line": 39,
+                              "column": 2,
+                              "offset": 707
+                            },
+                            "name": "wg",
+                            "obj": {
+                              "node": "Object",
+                              "name": "wg",
+                              "kind": "var"
+                            },
+                            "$type": 10,
+                            "$obj": {
+                              "name": "wg",
+                              "kind": "var",
+                              "type": 10,
+                              "decl": "conf.go:528",
+                              "pkg": "g2d.test/asyncinit/conf"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "conf.go",
+                              "line": 39,
+                              "column": 5,
+                              "offset": 710
+                            },
+                            "name": "Wait",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Wait",
+                              "kind": "method",
+                              "type": 8,
+                              "decl": "waitgroup.go:159",
+                              "pkg": "sync"
+                            }
+                          },
+                          "$type": 8,
+                          "$sel": {
+                            "kind": "method",
+                            "recv": 10,
+                            "index": [
+                              2
+                            ],
+                            "indirect": false
+                          }
+                        },
+                        "lparen": {
+                          "file": "conf.go",
+                          "line": 39,
+                          "column": 9,
+                          "offset": 714
+                        },
+                        "args": null,
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "conf.go",
+                          "line": 39,
+                          "column": 10,
+                          "offset": 715
+                        },
+                        "$type": 9
+                      }
+                    },
+                    {
+                      "node": "RangeStmt",
+                      "for": {
+                        "file": "conf.go",
+                        "line": 40,
+                        "column": 2,
+                        "offset": 718
+                      },
+                      "key": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "conf.go",
+                          "line": 40,
+                          "column": 6,
+                          "offset": 722
+                        },
+                        "name": "_",
+                        "obj": {
+                          "node": "Object",
+                          "name": "_",
+                          "kind": "var"
+                        },
+                        "$obj": {
+                          "name": "_",
+                          "kind": "var",
+                          "def": true,
+                          "type": 0,
+                          "decl": "conf.go:722",
+                          "pkg": "g2d.test/asyncinit/conf"
+                        }
+                      },
+                      "value": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "conf.go",
+                          "line": 40,
+                          "column": 9,
+                          "offset": 725
+                        },
+                        "name": "n",
+                        "obj": {
+                          "node": "Object",
+                          "name": "n",
+                          "kind": "var"
+                        },
+                        "$obj": {
+                          "name": "n",
+                          "kind": "var",
+                          "def": true,
+                          "type": 4,
+                          "decl": "conf.go:725",
+                          "pkg": "g2d.test/asyncinit/conf"
+                        }
+                      },
+                      "tokPos": {
+                        "file": "conf.go",
+                        "line": 40,
+                        "column": 11,
+                        "offset": 727
+                      },
+                      "tok": ":=",
+                      "range": {
+                        "file": "conf.go",
+                        "line": 40,
+                        "column": 14,
+                        "offset": 730
+                      },
+                      "x": {
+                        "node": "CompositeLit",
+                        "type": {
+                          "node": "ArrayType",
+                          "lbrack": {
+                            "file": "conf.go",
+                            "line": 40,
+                            "column": 20,
+                            "offset": 736
+                          },
+                          "len": null,
+                          "elt": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "conf.go",
+                              "line": 40,
+                              "column": 22,
+                              "offset": 738
+                            },
+                            "name": "string",
+                            "obj": null,
+                            "$type": 4,
+                            "$isType": true,
+                            "$obj": {
+                              "name": "string",
+                              "kind": "type",
+                              "type": 4
+                            }
+                          },
+                          "$type": 3,
+                          "$isType": true
+                        },
+                        "lbrace": {
+                          "file": "conf.go",
+                          "line": 40,
+                          "column": 28,
+                          "offset": 744
+                        },
+                        "elts": [
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "conf.go",
+                              "line": 40,
+                              "column": 29,
+                              "offset": 745
+                            },
+                            "valueEnd": {
+                              "file": "conf.go",
+                              "line": 40,
+                              "column": 32,
+                              "offset": 748
+                            },
+                            "kind": "STRING",
+                            "value": "\"a\"",
+                            "$type": 4,
+                            "$value": {
+                              "kind": "string",
+                              "value": "a"
+                            }
+                          },
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "conf.go",
+                              "line": 40,
+                              "column": 34,
+                              "offset": 750
+                            },
+                            "valueEnd": {
+                              "file": "conf.go",
+                              "line": 40,
+                              "column": 37,
+                              "offset": 753
+                            },
+                            "kind": "STRING",
+                            "value": "\"b\"",
+                            "$type": 4,
+                            "$value": {
+                              "kind": "string",
+                              "value": "b"
+                            }
+                          },
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "conf.go",
+                              "line": 40,
+                              "column": 39,
+                              "offset": 755
+                            },
+                            "valueEnd": {
+                              "file": "conf.go",
+                              "line": 40,
+                              "column": 42,
+                              "offset": 758
+                            },
+                            "kind": "STRING",
+                            "value": "\"c\"",
+                            "$type": 4,
+                            "$value": {
+                              "kind": "string",
+                              "value": "c"
+                            }
+                          }
+                        ],
+                        "rbrace": {
+                          "file": "conf.go",
+                          "line": 40,
+                          "column": 42,
+                          "offset": 758
+                        },
+                        "incomplete": false,
+                        "$type": 3
+                      },
+                      "body": {
+                        "node": "BlockStmt",
+                        "lbrace": {
+                          "file": "conf.go",
+                          "line": 40,
+                          "column": 44,
+                          "offset": 760
+                        },
+                        "list": [
+                          {
+                            "node": "IfStmt",
+                            "if": {
+                              "file": "conf.go",
+                              "line": 41,
+                              "column": 3,
+                              "offset": 764
+                            },
+                            "init": null,
+                            "cond": {
+                              "node": "IndexExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "conf.go",
+                                  "line": 41,
+                                  "column": 6,
+                                  "offset": 767
+                                },
+                                "name": "got",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "got",
+                                  "kind": "var"
+                                },
+                                "$type": 34,
+                                "$obj": {
+                                  "name": "got",
+                                  "kind": "var",
+                                  "type": 34,
+                                  "decl": "conf.go:566",
+                                  "pkg": "g2d.test/asyncinit/conf"
+                                }
+                              },
+                              "lbrack": {
+                                "file": "conf.go",
+                                "line": 41,
+                                "column": 9,
+                                "offset": 770
+                              },
+                              "index": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "conf.go",
+                                  "line": 41,
+                                  "column": 10,
+                                  "offset": 771
+                                },
+                                "name": "n",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "n",
+                                  "kind": "var"
+                                },
+                                "$type": 4,
+                                "$obj": {
+                                  "name": "n",
+                                  "kind": "var",
+                                  "type": 4,
+                                  "decl": "conf.go:725",
+                                  "pkg": "g2d.test/asyncinit/conf"
+                                }
+                              },
+                              "rbrack": {
+                                "file": "conf.go",
+                                "line": 41,
+                                "column": 11,
+                                "offset": 772
+                              },
+                              "$type": 21
+                            },
+                            "body": {
+                              "node": "BlockStmt",
+                              "lbrace": {
+                                "file": "conf.go",
+                                "line": 41,
+                                "column": 13,
+                                "offset": 774
+                              },
+                              "list": [
+                                {
+                                  "node": "AssignStmt",
+                                  "lhs": [
+                                    {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "conf.go",
+                                        "line": 42,
+                                        "column": 4,
+                                        "offset": 779
+                                      },
+                                      "name": "Names",
+                                      "obj": {
+                                        "node": "Object",
+                                        "name": "Names",
+                                        "kind": "var"
+                                      },
+                                      "$type": 3,
+                                      "$obj": {
+                                        "name": "Names",
+                                        "kind": "var",
+                                        "type": 3,
+                                        "decl": "conf.go:336",
+                                        "pkg": "g2d.test/asyncinit/conf",
+                                        "top": true
+                                      }
+                                    }
+                                  ],
+                                  "tokPos": {
+                                    "file": "conf.go",
+                                    "line": 42,
+                                    "column": 10,
+                                    "offset": 785
+                                  },
+                                  "tok": "=",
+                                  "rhs": [
+                                    {
+                                      "node": "CallExpr",
+                                      "fun": {
+                                        "node": "Ident",
+                                        "namePos": {
+                                          "file": "conf.go",
+                                          "line": 42,
+                                          "column": 12,
+                                          "offset": 787
+                                        },
+                                        "name": "append",
+                                        "obj": null,
+                                        "$type": 36,
+                                        "$builtin": true,
+                                        "$obj": {
+                                          "name": "append",
+                                          "kind": "builtin",
+                                          "type": 7
+                                        }
+                                      },
+                                      "lparen": {
+                                        "file": "conf.go",
+                                        "line": 42,
+                                        "column": 18,
+                                        "offset": 793
+                                      },
+                                      "args": [
+                                        {
+                                          "node": "Ident",
+                                          "namePos": {
+                                            "file": "conf.go",
+                                            "line": 42,
+                                            "column": 19,
+                                            "offset": 794
+                                          },
+                                          "name": "Names",
+                                          "obj": {
+                                            "node": "Object",
+                                            "name": "Names",
+                                            "kind": "var"
+                                          },
+                                          "$type": 3,
+                                          "$obj": {
+                                            "name": "Names",
+                                            "kind": "var",
+                                            "type": 3,
+                                            "decl": "conf.go:336",
+                                            "pkg": "g2d.test/asyncinit/conf",
+                                            "top": true
+                                          }
+                                        },
+                                        {
+                                          "node": "Ident",
+                                          "namePos": {
+                                            "file": "conf.go",
+                                            "line": 42,
+                                            "column": 26,
+                                            "offset": 801
+                                          },
+                                          "name": "n",
+                                          "obj": {
+                                            "node": "Object",
+                                            "name": "n",
+                                            "kind": "var"
+                                          },
+                                          "$type": 4,
+                                          "$obj": {
+                                            "name": "n",
+                                            "kind": "var",
+                                            "type": 4,
+                                            "decl": "conf.go:725",
+                                            "pkg": "g2d.test/asyncinit/conf"
+                                          }
+                                        }
+                                      ],
+                                      "ellipsis": null,
+                                      "rparen": {
+                                        "file": "conf.go",
+                                        "line": 42,
+                                        "column": 27,
+                                        "offset": 802
+                                      },
+                                      "$type": 3
+                                    }
+                                  ]
+                                }
+                              ],
+                              "rbrace": {
+                                "file": "conf.go",
+                                "line": 43,
+                                "column": 3,
+                                "offset": 806
+                              }
+                            },
+                            "else": null
+                          }
+                        ],
+                        "rbrace": {
+                          "file": "conf.go",
+                          "line": 44,
+                          "column": 2,
+                          "offset": 809
+                        }
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "conf.go",
+                              "line": 45,
+                              "column": 2,
+                              "offset": 812
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "conf.go",
+                              "line": 45,
+                              "column": 6,
+                              "offset": 816
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 37,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 37
+                        },
+                        "lparen": {
+                          "file": "conf.go",
+                          "line": 45,
+                          "column": 13,
+                          "offset": 823
+                        },
+                        "args": [
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "conf.go",
+                              "line": 45,
+                              "column": 14,
+                              "offset": 824
+                            },
+                            "valueEnd": {
+                              "file": "conf.go",
+                              "line": 45,
+                              "column": 25,
+                              "offset": 835
+                            },
+                            "kind": "STRING",
+                            "value": "\"conf.init\"",
+                            "$type": 4,
+                            "$value": {
+                              "kind": "string",
+                              "value": "conf.init"
+                            }
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "conf.go",
+                                "line": 45,
+                                "column": 27,
+                                "offset": 837
+                              },
+                              "name": "len",
+                              "obj": null,
+                              "$type": 43,
+                              "$builtin": true,
+                              "$obj": {
+                                "name": "len",
+                                "kind": "builtin",
+                                "type": 7
+                              }
+                            },
+                            "lparen": {
+                              "file": "conf.go",
+                              "line": 45,
+                              "column": 30,
+                              "offset": 840
+                            },
+                            "args": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "conf.go",
+                                  "line": 45,
+                                  "column": 31,
+                                  "offset": 841
+                                },
+                                "name": "Names",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "Names",
+                                  "kind": "var"
+                                },
+                                "$type": 3,
+                                "$obj": {
+                                  "name": "Names",
+                                  "kind": "var",
+                                  "type": 3,
+                                  "decl": "conf.go:336",
+                                  "pkg": "g2d.test/asyncinit/conf",
+                                  "top": true
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "conf.go",
+                              "line": 45,
+                              "column": 36,
+                              "offset": 846
+                            },
+                            "$type": 0
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "conf.go",
+                          "line": 45,
+                          "column": 37,
+                          "offset": 847
+                        },
+                        "$type": 44
+                      }
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "conf.go",
+                    "line": 46,
+                    "column": 1,
+                    "offset": 849
+                  }
+                }
+              }
+            ],
+            "fileStart": {
+              "file": "conf.go",
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "fileEnd": {
+              "file": "conf.go",
+              "line": 46,
+              "column": 3,
+              "offset": 851
+            },
+            "scope": null,
+            "imports": [
+              {
+                "node": "ImportSpec",
+                "doc": null,
+                "name": null,
+                "path": {
+                  "node": "BasicLit",
+                  "valuePos": {
+                    "file": "conf.go",
+                    "line": 6,
+                    "column": 2,
+                    "offset": 151
+                  },
+                  "valueEnd": {
+                    "file": "conf.go",
+                    "line": 6,
+                    "column": 7,
+                    "offset": 156
+                  },
+                  "kind": "STRING",
+                  "value": "\"fmt\""
+                },
+                "comment": null,
+                "endPos": null
+              },
+              {
+                "node": "ImportSpec",
+                "doc": null,
+                "name": null,
+                "path": {
+                  "node": "BasicLit",
+                  "valuePos": {
+                    "file": "conf.go",
+                    "line": 7,
+                    "column": 2,
+                    "offset": 158
+                  },
+                  "valueEnd": {
+                    "file": "conf.go",
+                    "line": 7,
+                    "column": 8,
+                    "offset": 164
+                  },
+                  "kind": "STRING",
+                  "value": "\"sync\""
+                },
+                "comment": null,
+                "endPos": null
+              }
+            ],
+            "unresolved": [
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "conf.go",
+                  "line": 14,
+                  "column": 13,
+                  "offset": 344
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 4,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 4
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "conf.go",
+                  "line": 16,
+                  "column": 16,
+                  "offset": 367
+                },
+                "name": "int",
+                "obj": null,
+                "$type": 0,
+                "$isType": true,
+                "$obj": {
+                  "name": "int",
+                  "kind": "type",
+                  "type": 0
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "conf.go",
+                  "line": 16,
+                  "column": 21,
+                  "offset": 372
+                },
+                "name": "int",
+                "obj": null,
+                "$type": 0,
+                "$isType": true,
+                "$obj": {
+                  "name": "int",
+                  "kind": "type",
+                  "type": 0
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "conf.go",
+                  "line": 17,
+                  "column": 8,
+                  "offset": 385
+                },
+                "name": "make",
+                "obj": null,
+                "$type": 6,
+                "$builtin": true,
+                "$obj": {
+                  "name": "make",
+                  "kind": "builtin",
+                  "type": 7
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "conf.go",
+                  "line": 17,
+                  "column": 18,
+                  "offset": 395
+                },
+                "name": "int",
+                "obj": null,
+                "$type": 0,
+                "$isType": true,
+                "$obj": {
+                  "name": "int",
+                  "kind": "type",
+                  "type": 0
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "conf.go",
+                  "line": 29,
+                  "column": 9,
+                  "offset": 531
+                },
+                "name": "sync",
+                "obj": null,
+                "$obj": {
+                  "name": "sync",
+                  "kind": "package",
+                  "pkg": "sync"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "conf.go",
+                  "line": 30,
+                  "column": 9,
+                  "offset": 554
+                },
+                "name": "sync",
+                "obj": null,
+                "$obj": {
+                  "name": "sync",
+                  "kind": "package",
+                  "pkg": "sync"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "conf.go",
+                  "line": 31,
+                  "column": 13,
+                  "offset": 577
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 4,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 4
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "conf.go",
+                  "line": 31,
+                  "column": 20,
+                  "offset": 584
+                },
+                "name": "bool",
+                "obj": null,
+                "$type": 21,
+                "$isType": true,
+                "$obj": {
+                  "name": "bool",
+                  "kind": "type",
+                  "type": 21
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "conf.go",
+                  "line": 32,
+                  "column": 22,
+                  "offset": 612
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 4,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 4
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "conf.go",
+                  "line": 35,
+                  "column": 13,
+                  "offset": 678
+                },
+                "name": "true",
+                "obj": null,
+                "$type": 21,
+                "$value": {
+                  "kind": "bool",
+                  "value": true
+                },
+                "$obj": {
+                  "name": "true",
+                  "kind": "const",
+                  "type": 35,
+                  "value": {
+                    "kind": "bool",
+                    "value": true
+                  }
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "conf.go",
+                  "line": 40,
+                  "column": 22,
+                  "offset": 738
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 4,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 4
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "conf.go",
+                  "line": 42,
+                  "column": 12,
+                  "offset": 787
+                },
+                "name": "append",
+                "obj": null,
+                "$type": 36,
+                "$builtin": true,
+                "$obj": {
+                  "name": "append",
+                  "kind": "builtin",
+                  "type": 7
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "conf.go",
+                  "line": 45,
+                  "column": 2,
+                  "offset": 812
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "conf.go",
+                  "line": 45,
+                  "column": 27,
+                  "offset": 837
+                },
+                "name": "len",
+                "obj": null,
+                "$type": 43,
+                "$builtin": true,
+                "$obj": {
+                  "name": "len",
+                  "kind": "builtin",
+                  "type": 7
+                }
+              }
+            ],
+            "comments": [
+              {
+                "node": "CommentGroup",
+                "list": [
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "conf.go",
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "text": "// Package conf inicializa variáveis de pacote esperando goroutines: o"
+                  },
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "conf.go",
+                      "line": 2,
+                      "column": 1,
+                      "offset": 72
+                    },
+                    "text": "// $goInit vira async e o main o espera antes de tudo."
+                  }
+                ]
+              },
+              {
+                "node": "CommentGroup",
+                "list": [
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "conf.go",
+                      "line": 10,
+                      "column": 1,
+                      "offset": 168
+                    },
+                    "text": "// Total é calculado por goroutines na inicialização do pacote."
+                  }
+                ]
+              },
+              {
+                "node": "CommentGroup",
+                "list": [
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "conf.go",
+                      "line": 13,
+                      "column": 1,
+                      "offset": 264
+                    },
+                    "text": "// Names é preenchido pela função init, que espera um WaitGroup."
+                  }
+                ]
+              }
+            ],
+            "goVersion": ""
+          }
+        }
+      ],
+      "imports": [
+        {
+          "path": "fmt",
+          "name": "fmt"
+        },
+        {
+          "path": "sync",
+          "name": "sync"
+        }
+      ],
+      "typeTable": [
+        {
+          "kind": "basic",
+          "name": "int"
+        },
+        {
+          "kind": "func",
+          "params": [
+            2
+          ],
+          "results": [
+            0
+          ],
+          "variadic": true
+        },
+        {
+          "kind": "slice",
+          "elem": 0
+        },
+        {
+          "kind": "slice",
+          "elem": 4
+        },
+        {
+          "kind": "basic",
+          "name": "string"
+        },
+        {
+          "kind": "chan",
+          "dir": "both",
+          "elem": 0
+        },
+        {
+          "kind": "func",
+          "params": [
+            5
+          ],
+          "results": [
+            5
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "basic",
+          "name": "invalid type"
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [],
+          "variadic": false
+        },
+        {
+          "kind": "tuple",
+          "elems": []
+        },
+        {
+          "kind": "named",
+          "pkg": "sync",
+          "name": "WaitGroup",
+          "underlying": 11,
+          "methods": [
+            {
+              "name": "Add",
+              "type": 25,
+              "index": [
+                0
+              ],
+              "ptr": true
+            },
+            {
+              "name": "Done",
+              "type": 8,
+              "index": [
+                1
+              ],
+              "ptr": true
+            },
+            {
+              "name": "Go",
+              "type": 26,
+              "index": [
+                3
+              ],
+              "ptr": true
+            },
+            {
+              "name": "Wait",
+              "type": 8,
+              "index": [
+                2
+              ],
+              "ptr": true
+            }
+          ]
+        },
+        {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "noCopy",
+              "type": 12,
+              "embedded": false,
+              "tag": ""
+            },
+            {
+              "name": "state",
+              "type": 14,
+              "embedded": false,
+              "tag": ""
+            },
+            {
+              "name": "sema",
+              "type": 24,
+              "embedded": false,
+              "tag": ""
+            }
+          ]
+        },
+        {
+          "kind": "named",
+          "pkg": "sync",
+          "name": "noCopy",
+          "underlying": 13,
+          "methods": [
+            {
+              "name": "Lock",
+              "type": 8,
+              "index": [
+                0
+              ],
+              "ptr": true
+            },
+            {
+              "name": "Unlock",
+              "type": 8,
+              "index": [
+                1
+              ],
+              "ptr": true
+            }
+          ]
+        },
+        {
+          "kind": "struct",
+          "fields": []
+        },
+        {
+          "kind": "named",
+          "pkg": "sync/atomic",
+          "name": "Uint64",
+          "underlying": 15,
+          "methods": [
+            {
+              "name": "Add",
+              "type": 19,
+              "index": [
+                4
+              ],
+              "ptr": true
+            },
+            {
+              "name": "And",
+              "type": 19,
+              "index": [
+                5
+              ],
+              "ptr": true
+            },
+            {
+              "name": "CompareAndSwap",
+              "type": 20,
+              "index": [
+                3
+              ],
+              "ptr": true
+            },
+            {
+              "name": "Load",
+              "type": 22,
+              "index": [
+                0
+              ],
+              "ptr": true
+            },
+            {
+              "name": "Or",
+              "type": 19,
+              "index": [
+                6
+              ],
+              "ptr": true
+            },
+            {
+              "name": "Store",
+              "type": 23,
+              "index": [
+                1
+              ],
+              "ptr": true
+            },
+            {
+              "name": "Swap",
+              "type": 19,
+              "index": [
+                2
+              ],
+              "ptr": true
+            }
+          ]
+        },
+        {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "_",
+              "type": 16,
+              "embedded": false,
+              "tag": ""
+            },
+            {
+              "name": "_",
+              "type": 17,
+              "embedded": false,
+              "tag": ""
+            },
+            {
+              "name": "v",
+              "type": 18,
+              "embedded": false,
+              "tag": ""
+            }
+          ]
+        },
+        {
+          "kind": "named",
+          "pkg": "sync/atomic",
+          "name": "noCopy",
+          "underlying": 13,
+          "methods": [
+            {
+              "name": "Lock",
+              "type": 8,
+              "index": [
+                0
+              ],
+              "ptr": true
+            },
+            {
+              "name": "Unlock",
+              "type": 8,
+              "index": [
+                1
+              ],
+              "ptr": true
+            }
+          ]
+        },
+        {
+          "kind": "named",
+          "pkg": "sync/atomic",
+          "name": "align64",
+          "underlying": 13,
+          "methods": []
+        },
+        {
+          "kind": "basic",
+          "name": "uint64"
+        },
+        {
+          "kind": "func",
+          "params": [
+            18
+          ],
+          "results": [
+            18
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            18,
+            18
+          ],
+          "results": [
+            21
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "basic",
+          "name": "bool"
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            18
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            18
+          ],
+          "results": [],
+          "variadic": false
+        },
+        {
+          "kind": "basic",
+          "name": "uint32"
+        },
+        {
+          "kind": "func",
+          "params": [
+            0
+          ],
+          "results": [],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            8
+          ],
+          "results": [],
+          "variadic": false
+        },
+        {
+          "kind": "named",
+          "pkg": "sync",
+          "name": "Mutex",
+          "underlying": 28,
+          "methods": [
+            {
+              "name": "Lock",
+              "type": 8,
+              "index": [
+                0
+              ],
+              "ptr": true
+            },
+            {
+              "name": "TryLock",
+              "type": 32,
+              "index": [
+                1
+              ],
+              "ptr": true
+            },
+            {
+              "name": "Unlock",
+              "type": 8,
+              "index": [
+                2
+              ],
+              "ptr": true
+            }
+          ]
+        },
+        {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "_",
+              "type": 12,
+              "embedded": false,
+              "tag": ""
+            },
+            {
+              "name": "mu",
+              "type": 29,
+              "embedded": false,
+              "tag": ""
+            }
+          ]
+        },
+        {
+          "kind": "named",
+          "pkg": "internal/sync",
+          "name": "Mutex",
+          "underlying": 30,
+          "methods": [
+            {
+              "name": "Lock",
+              "type": 8,
+              "index": [
+                0
+              ],
+              "ptr": true
+            },
+            {
+              "name": "TryLock",
+              "type": 32,
+              "index": [
+                1
+              ],
+              "ptr": true
+            },
+            {
+              "name": "Unlock",
+              "type": 8,
+              "index": [
+                3
+              ],
+              "ptr": true
+            },
+            {
+              "name": "lockSlow",
+              "type": 8,
+              "index": [
+                2
+              ],
+              "ptr": true
+            },
+            {
+              "name": "unlockSlow",
+              "type": 33,
+              "index": [
+                4
+              ],
+              "ptr": true
+            }
+          ]
+        },
+        {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "state",
+              "type": 31,
+              "embedded": false,
+              "tag": ""
+            },
+            {
+              "name": "sema",
+              "type": 24,
+              "embedded": false,
+              "tag": ""
+            }
+          ]
+        },
+        {
+          "kind": "basic",
+          "name": "int32"
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            21
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            31
+          ],
+          "results": [],
+          "variadic": false
+        },
+        {
+          "kind": "map",
+          "key": 4,
+          "elem": 21
+        },
+        {
+          "kind": "basic",
+          "name": "untyped bool"
+        },
+        {
+          "kind": "func",
+          "params": [
+            3,
+            3
+          ],
+          "results": [
+            3
+          ],
+          "variadic": true
+        },
+        {
+          "kind": "func",
+          "params": [
+            38
+          ],
+          "results": [
+            0,
+            40
+          ],
+          "variadic": true
+        },
+        {
+          "kind": "slice",
+          "elem": 39
+        },
+        {
+          "kind": "interface",
+          "methods": [],
+          "embeddeds": []
+        },
+        {
+          "kind": "named",
+          "pkg": "",
+          "name": "error",
+          "underlying": 41
+        },
+        {
+          "kind": "interface",
+          "methods": [
+            {
+              "name": "Error",
+              "type": 42
+            }
+          ],
+          "embeddeds": []
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            4
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            3
+          ],
+          "results": [
+            0
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "tuple",
+          "elems": [
+            0,
+            40
+          ]
+        }
+      ],
+      "implements": null,
+      "initOrder": [
+        [
+          "conf.go:239"
+        ]
+      ],
+      "stdlibUsage": [
+        "fmt.Println",
+        "sync.Go",
+        "sync.Lock",
+        "sync.Mutex",
+        "sync.Unlock",
+        "sync.Wait",
+        "sync.WaitGroup"
+      ],
+      "reflectUsage": null,
+      "module": {
+        "path": "g2d.test/asyncinit"
+      }
+    },
+    {
+      "path": "g2d.test/asyncinit/plain",
+      "name": "plain",
+      "files": [
+        {
+          "path": "plain.go",
+          "ast": {
+            "node": "File",
+            "doc": {
+              "node": "CommentGroup",
+              "list": [
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "plain.go",
+                    "line": 1,
+                    "column": 1,
+                    "offset": 0
+                  },
+                  "text": "// Package plain não suspende: o $goInit dele continua síncrono, mesmo"
+                },
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "plain.go",
+                    "line": 2,
+                    "column": 1,
+                    "offset": 73
+                  },
+                  "text": "// importado por quem é async."
+                }
+              ]
+            },
+            "package": {
+              "file": "plain.go",
+              "line": 3,
+              "column": 1,
+              "offset": 105
+            },
+            "name": {
+              "node": "Ident",
+              "namePos": {
+                "file": "plain.go",
+                "line": 3,
+                "column": 9,
+                "offset": 113
+              },
+              "name": "plain",
+              "obj": null
+            },
+            "decls": [
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "plain.go",
+                  "line": 5,
+                  "column": 1,
+                  "offset": 120
+                },
+                "tok": "import",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "ImportSpec",
+                    "doc": null,
+                    "name": null,
+                    "path": {
+                      "node": "BasicLit",
+                      "valuePos": {
+                        "file": "plain.go",
+                        "line": 5,
+                        "column": 8,
+                        "offset": 127
+                      },
+                      "valueEnd": {
+                        "file": "plain.go",
+                        "line": 5,
+                        "column": 13,
+                        "offset": 132
+                      },
+                      "kind": "STRING",
+                      "value": "\"fmt\""
+                    },
+                    "comment": null,
+                    "endPos": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "plain.go",
+                  "line": 7,
+                  "column": 1,
+                  "offset": 134
+                },
+                "tok": "var",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "ValueSpec",
+                    "doc": null,
+                    "names": [
+                      {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "plain.go",
+                          "line": 7,
+                          "column": 5,
+                          "offset": 138
+                        },
+                        "name": "Greeting",
+                        "obj": {
+                          "node": "Object",
+                          "name": "Greeting",
+                          "kind": "var"
+                        },
+                        "$obj": {
+                          "name": "Greeting",
+                          "kind": "var",
+                          "def": true,
+                          "type": 0,
+                          "decl": "plain.go:138",
+                          "pkg": "g2d.test/asyncinit/plain",
+                          "top": true
+                        }
+                      }
+                    ],
+                    "type": null,
+                    "values": [
+                      {
+                        "node": "BasicLit",
+                        "valuePos": {
+                          "file": "plain.go",
+                          "line": 7,
+                          "column": 16,
+                          "offset": 149
+                        },
+                        "valueEnd": {
+                          "file": "plain.go",
+                          "line": 7,
+                          "column": 22,
+                          "offset": 155
+                        },
+                        "kind": "STRING",
+                        "value": "\"olá\"",
+                        "$type": 0,
+                        "$value": {
+                          "kind": "string",
+                          "value": "olá"
+                        }
+                      }
+                    ],
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "plain.go",
+                    "line": 9,
+                    "column": 6,
+                    "offset": 162
+                  },
+                  "name": "init",
+                  "obj": null,
+                  "$obj": {
+                    "name": "init",
+                    "kind": "func",
+                    "def": true,
+                    "type": 1,
+                    "decl": "plain.go:162",
+                    "pkg": "g2d.test/asyncinit/plain",
+                    "top": true
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "plain.go",
+                    "line": 9,
+                    "column": 1,
+                    "offset": 157
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "plain.go",
+                      "line": 9,
+                      "column": 10,
+                      "offset": 166
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "plain.go",
+                      "line": 9,
+                      "column": 11,
+                      "offset": 167
+                    }
+                  },
+                  "results": null
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "plain.go",
+                    "line": 9,
+                    "column": 13,
+                    "offset": 169
+                  },
+                  "list": [
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "plain.go",
+                              "line": 9,
+                              "column": 15,
+                              "offset": 171
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "plain.go",
+                              "line": 9,
+                              "column": 19,
+                              "offset": 175
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 2,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 2
+                        },
+                        "lparen": {
+                          "file": "plain.go",
+                          "line": 9,
+                          "column": 26,
+                          "offset": 182
+                        },
+                        "args": [
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "plain.go",
+                              "line": 9,
+                              "column": 27,
+                              "offset": 183
+                            },
+                            "valueEnd": {
+                              "file": "plain.go",
+                              "line": 9,
+                              "column": 39,
+                              "offset": 195
+                            },
+                            "kind": "STRING",
+                            "value": "\"plain.init\"",
+                            "$type": 0,
+                            "$value": {
+                              "kind": "string",
+                              "value": "plain.init"
+                            }
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "plain.go",
+                          "line": 9,
+                          "column": 39,
+                          "offset": 195
+                        },
+                        "$type": 9
+                      }
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "plain.go",
+                    "line": 9,
+                    "column": 41,
+                    "offset": 197
+                  }
+                }
+              }
+            ],
+            "fileStart": {
+              "file": "plain.go",
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "fileEnd": {
+              "file": "plain.go",
+              "line": 9,
+              "column": 43,
+              "offset": 199
+            },
+            "scope": null,
+            "imports": [
+              {
+                "node": "ImportSpec",
+                "doc": null,
+                "name": null,
+                "path": {
+                  "node": "BasicLit",
+                  "valuePos": {
+                    "file": "plain.go",
+                    "line": 5,
+                    "column": 8,
+                    "offset": 127
+                  },
+                  "valueEnd": {
+                    "file": "plain.go",
+                    "line": 5,
+                    "column": 13,
+                    "offset": 132
+                  },
+                  "kind": "STRING",
+                  "value": "\"fmt\""
+                },
+                "comment": null,
+                "endPos": null
+              }
+            ],
+            "unresolved": [
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "plain.go",
+                  "line": 9,
+                  "column": 15,
+                  "offset": 171
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              }
+            ],
+            "comments": [
+              {
+                "node": "CommentGroup",
+                "list": [
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "plain.go",
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "text": "// Package plain não suspende: o $goInit dele continua síncrono, mesmo"
+                  },
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "plain.go",
+                      "line": 2,
+                      "column": 1,
+                      "offset": 73
+                    },
+                    "text": "// importado por quem é async."
+                  }
+                ]
+              }
+            ],
+            "goVersion": ""
+          }
+        }
+      ],
+      "imports": [
+        {
+          "path": "fmt",
+          "name": "fmt"
+        }
+      ],
+      "typeTable": [
+        {
+          "kind": "basic",
+          "name": "string"
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            3
+          ],
+          "results": [
+            5,
+            6
+          ],
+          "variadic": true
+        },
+        {
+          "kind": "slice",
+          "elem": 4
+        },
+        {
+          "kind": "interface",
+          "methods": [],
+          "embeddeds": []
+        },
+        {
+          "kind": "basic",
+          "name": "int"
+        },
+        {
+          "kind": "named",
+          "pkg": "",
+          "name": "error",
+          "underlying": 7
+        },
+        {
+          "kind": "interface",
+          "methods": [
+            {
+              "name": "Error",
+              "type": 8
+            }
+          ],
+          "embeddeds": []
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            0
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "tuple",
+          "elems": [
+            5,
+            6
+          ]
+        }
+      ],
+      "implements": null,
+      "initOrder": [
+        [
+          "plain.go:138"
+        ]
+      ],
+      "stdlibUsage": [
+        "fmt.Println"
+      ],
+      "reflectUsage": null,
+      "module": {
+        "path": "g2d.test/asyncinit"
+      }
+    }
+  ]
+}

@@ -70,7 +70,7 @@ final class WaitGroup extends GoStruct<WaitGroup> {
   /// `Go(f)` (Go 1.25): `Add(1)`, roda `f` numa goroutine nova, `Done()` ao
   /// final dela (mesmo em panic — `Done` corre num `finally`, como o `defer`
   /// do Go).
-  void go(FutureOr<void> Function() f) {
+  void go$(FutureOr<void> Function() f) {
     add(Golang.Int(1));
     spawn(() async {
       try {

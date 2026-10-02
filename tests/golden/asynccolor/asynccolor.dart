@@ -532,10 +532,10 @@ void main() {
     );
     sync.WaitGroup wg = sync.WaitGroup();
     go.Chan<Golang.Int>? res = go.Chan<Golang.Int>(2, Golang.Int());
-    wg.go(() async {
+    wg.go$(() async {
       await go.chanSend(res, Golang.Int(1));
     });
-    wg.go(() async {
+    wg.go$(() async {
       await go.chanSend(res, Golang.Int(2));
     });
     await wg.wait$async();

@@ -267,7 +267,7 @@ def cache_key(corpus):
     return h.hexdigest()[:12]
 
 
-def color_graph(order, dumps, log=print):
+def color_graph(order, dumps, log=print, imports=None):
     """ColorTable do grafo inteiro (a cor `async` atravessa pacotes nos dois
     sentidos: implementação num pacote colore a interface de outro). Os
     resumos ficam em cache ao lado dos dumps, por versão do código da cor."""
@@ -284,6 +284,8 @@ def color_graph(order, dumps, log=print):
                 summaries.append(ColorSummary.from_json(json.load(f)))
             continue
         (pkg,) = load_dump(dump_path(dumps, path))
+        if pkg.name == "main" and imports is not None:
+            pkg.init_deps = init_deps(path, imports)  # o $goInit do main espera o grafo
         try:
             s = Engine(pkg).color_summary()
         except Exception:  # noqa: BLE001 — o pacote cai na emissão, com o erro dele
@@ -335,7 +337,7 @@ def audit(target, corpus, docs, cache, log=print):
     dump_graph(order, corpus, dumps)
 
     imports = {p: graph[p]["imports"] for p in graph}
-    colors = color_graph(order, dumps, log)
+    colors = color_graph(order, dumps, log, imports)
     reports, sources, stdlib, reflection, meta = {}, {}, {}, [], {}
     for i, path in enumerate(order, 1):
         (pkg,) = load_dump(dump_path(dumps, path))

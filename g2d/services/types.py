@@ -58,6 +58,10 @@ class TypeMapper(Service):
                 return DartType("Object", nullable=True)
             return DartType(self.synthetic(t, "anonIface"), nullable=True)
         if k == "struct":
+            if not t["fields"]:
+                # struct{}: o mesmo tipo em qualquer pacote (e nos shims, ex.
+                # `context.Context.Done()`), uma classe só no runtime.
+                return DartType(self.imports.qualify(None, "EmptyStruct"))
             return DartType(self.synthetic(t, "anon"))
         if k == "func":
             return self.func_type(t).as_nullable()
@@ -121,7 +125,11 @@ class TypeMapper(Service):
 
     def func_type(self, t):
         # Variádico ...T já vem como []T na assinatura → Slice<T>.
-        return DartType.function(self.results(t["results"]), [self.dart(p) for p in t["params"]])
+        # Classe async (g2d/analysis/color.py): `Future<R> Function(...)`.
+        ret = self.results(t["results"])
+        if self.concurrency.is_async(self.concurrency.sig_key(t)):
+            ret = self.future(ret)
+        return DartType.function(ret, [self.dart(p) for p in t["params"]])
 
     def nilable(self, t):
         """Tipos Go cujo zero value é nil e que mapeiam para tipo Dart anulável."""

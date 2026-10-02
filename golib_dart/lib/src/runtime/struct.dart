@@ -103,3 +103,29 @@ abstract interface class GoOpaqueStruct implements GoTyped {
   /// Nomes Go dos tipos dos campos (ver [GoStruct.$fieldTypes]).
   List<String> get $fieldTypes;
 }
+
+/// `struct{}`: a struct vazia é o mesmo tipo em qualquer pacote Go, então tem
+/// uma classe só no runtime (as outras structs anônimas ainda são uma classe
+/// por library, `TODO/P1-design-anonimas-canonicas.md`). Canais `chan
+/// struct{}` (ex. `context.Context.Done()`) atravessam pacotes e shims.
+final class EmptyStruct extends GoStruct<EmptyStruct> {
+  EmptyStruct();
+
+  /// `(*struct{})(nil)` dentro de uma interface (não é nil no Go).
+  static final EmptyStruct $nil = EmptyStruct()..$nilPtr = true;
+
+  @override
+  String get $goType => 'struct {}';
+
+  @override
+  EmptyStruct $copy() => EmptyStruct();
+
+  @override
+  void $set(EmptyStruct o) {}
+
+  @override
+  List<Object?> get $fields => const [];
+
+  @override
+  List<String> get $fieldNames => const [];
+}

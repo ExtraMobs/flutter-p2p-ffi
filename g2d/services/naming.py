@@ -29,11 +29,13 @@ bool int double num dynamic identical
 # fixed_types, Object): um método/campo Go
 # com o mesmo nome (`func (s Set) Delete`) os sobrescreveria; ganha `$`. A
 # regra é global (vale também nas interfaces), então o despacho continua certo.
+# `go` também: é o prefixo do runtime (`go.spawn`), e um membro com esse nome
+# (método `Go`, como `WaitGroup.Go` e `errgroup.Group.Go`) o sombrearia.
 DART_BASE_MEMBERS = frozenset("""
 isNil length capacity addr slice append appendSlice copyFrom items elem
 containsKey lookup delete keysSnapshot entries value call
 toInt toBigInt toLittleEndianBytes andNot compareTo from fromBigInt
-hashCode runtimeType toString noSuchMethod
+hashCode runtimeType toString noSuchMethod go
 """.split())
 
 

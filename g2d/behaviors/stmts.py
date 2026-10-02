@@ -536,7 +536,7 @@ class DeferStmt(StmtBehavior):
             defers = DartType(self.imports.qualify(None, "Defers"), nullable=True)
             ftype = self.types.func_type(self.pkg.type_at(sig)).with_named("$rd", defers)
             text = f"if ({fn} is {ftype}) {{ {with_rd}; }} else {{ {plain}; }}"
-            return ["{"] + pre + [f"{d}.defer(() {{ {text} }});", "}"]
+            return ["{"] + pre + [f"{d}.defer((){kw} {{ {text} }});", "}"]
         else:
             text = self.expr(dict(call, fun=callee_node, args=fixed))
         return ["{"] + pre + [f"{d}.defer((){kw} {{ {text}; }});", "}"]
@@ -650,7 +650,12 @@ class SelectStmt(StmtBehavior):
             body = ["{"] + bind + [ln for st in c["body"] or [] for ln in self.stmt(st)] + ["}"]
             chain.append((f"{sel} == {i}", body))
         for i, (cond, body) in enumerate(chain):
-            out += [("else " if i else "") + f"if ({cond})"] + body
+            if default is None and i == len(chain) - 1 and i:
+                # Sem default o índice é sempre um dos cases: o último é o
+                # `else` (o select é um statement terminal, como no Go).
+                out += ["else"] + body
+            else:
+                out += [("else " if i else "") + f"if ({cond})"] + body
         if default is not None:
             body = ["{"] + [ln for st in default["body"] or [] for ln in self.stmt(st)] + ["}"]
             out += (["else"] if chain else []) + body

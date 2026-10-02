@@ -103,21 +103,27 @@ class InitBehavior(Behavior):
         """`$goInit`: variáveis de pacote na ordem de types.Info.InitOrder
         (dependências primeiro) e depois as funções init, em ordem de
         arquivo/fonte, uma vez só. O `main` a chama antes do corpo."""
-        self.scope = FunctionScope(sync_reason="init")
-        for decl, name in self.facts.init_funcs.items():
-            fn = next(d for f in self.pkg.files for d in f["ast"]["decls"] or []
-                      if d["node"] == "FuncDecl" and d["name"]["$obj"]["decl"] == decl)
-            if self.concurrency.is_async(self.concurrency.decl_key(fn)):
-                raise Unsupported("async:init", "função init que suspende (o $goInit é síncrono)", fn)
+        from g2d.analysis.color import init_key
+
+        # Cor (g2d/analysis/color.py): `$goInit` vira `Future<void> ... async`
+        # se um inicializador, uma função init ou o `$goInit` de uma
+        # dependência (no main) suspende; o main o espera.
+        is_async = self.concurrency.is_async(init_key(self.pkg))
+        self.scope = FunctionScope(sync_reason="init", async_ctx=is_async)
         lines = self.deps_init()
         for entry in self.pkg.init_order:
             spec, idx = self.facts.var_inits[entry[0]]
             lines += self.engine.guard(self.init_entry, spec, idx)
-        lines += [f"{name}();" for name in self.facts.init_funcs.values()]
+        for decl, name in self.facts.init_funcs.items():
+            fn = next(d for f in self.pkg.files for d in f["ast"]["decls"] or []
+                      if d["node"] == "FuncDecl" and d["name"]["$obj"]["decl"] == decl)
+            aw = "await " if self.concurrency.is_async(self.concurrency.decl_key(fn)) else ""
+            lines.append(f"{aw}{name}();")
         self.scope = None
+        head = "Future<void> $goInit() async {" if is_async else "void $goInit() {"
         return ["", "bool _$inited = false;", "",
                 "/// Inicialização do pacote Go: variáveis em ordem de dependência, depois as funções init.",
-                "void $goInit() {", "if (_$inited) return;", "_$inited = true;"] + lines + ["}"]
+                head, "if (_$inited) return;", "_$inited = true;"] + lines + ["}"]
 
     def deps_init(self):
         """No main, os pacotes do grafo antes (ordem de inicialização do Go:
@@ -129,7 +135,10 @@ class InitBehavior(Behavior):
             raise Unsupported("init-grafo-incompleto",
                               "main sem o grafo de imports no dump: a inicialização das dependências ficaria incompleta",
                               spec)
-        return [f"{self.imports.qualify(dep, '$goInit')}();" for dep in self.pkg.init_deps]
+        from g2d.analysis.color import init_key
+
+        return [("await " if self.concurrency.is_async(("init", dep)) else "")
+                + f"{self.imports.qualify(dep, '$goInit')}();" for dep in self.pkg.init_deps]
 
     def init_entry(self, spec, idx):
         """Um inicializador de variável de pacote (`var a, b = f()` é um só)."""

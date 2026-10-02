@@ -35,10 +35,25 @@ class _SendWaiter<T> {
 final class Chan<T> {
   /// `make(chan T, cap)`. [zero] é o valor zero de T, devolvido no `recv` de
   /// canal fechado (drenado ou não).
-  Chan(int cap, this.zero) : _cap = _checkSize(cap);
+  Chan(int cap, this.zero) : _cap = _checkSize(cap), _timer = false;
+
+  /// Canal de timer do Go ≥ 1.23 (`time.NewTimer`/`NewTicker`): por dentro
+  /// tem buffer de 1 (o disparo nunca bloqueia o timer), mas `len`/`cap`
+  /// dizem 0, como o `chanlen`/`chancap` do runtime para canal de timer
+  /// síncrono; o shim `time` descarta o valor velho em `Stop`/`Reset`
+  /// ([$drain]) e entrega um disparo vencido na hora do `recv`/`select`
+  /// ([$timerPoll]).
+  Chan.$timer(this.zero) : _cap = 1, _timer = true;
 
   final T zero;
   final int _cap;
+  final bool _timer;
+
+  /// Chamado antes de olhar o canal num `recv`/`select` (só canal de
+  /// timer): o timer vencido cujo evento do Dart ainda não rodou dispara
+  /// agora, como o `maybeRunChan` do Go (um laço `select` com `default` que
+  /// nunca cede ainda vê o timer).
+  void Function()? $timerPoll;
   final _buf = Queue<T>();
   final _recvQ = Queue<_RecvWaiter<T>>();
   final _sendQ = Queue<_SendWaiter<T>>();
@@ -57,11 +72,19 @@ final class Chan<T> {
     return n;
   }
 
-  /// `len(ch)`.
-  int get len => _buf.length;
+  /// `len(ch)` (0 em canal de timer, como o Go ≥ 1.23).
+  int get len => _timer ? 0 : _buf.length;
 
-  /// `cap(ch)`.
-  int get cap => _cap;
+  /// `cap(ch)` (0 em canal de timer).
+  int get cap => _timer ? 0 : _cap;
+
+  /// Descarta o valor no buffer (canal de timer: `Stop`/`Reset` garantem que
+  /// nenhum valor velho é recebido depois). `true` se havia um.
+  bool $drain() {
+    if (_buf.isEmpty) return false;
+    _buf.clear();
+    return true;
+  }
 
   // -------------------------------------------------------- API pública
 
@@ -133,8 +156,12 @@ final class Chan<T> {
   /// Um `send` completaria agora sem suspender? (Só olha; sem efeito.)
   bool $sendReady() => _closed || _hasLiveRecvWaiter() || _buf.length < _cap;
 
-  /// Um `recv` completaria agora sem suspender? (Só olha; sem efeito.)
-  bool $recvReady() => _buf.isNotEmpty || _hasLiveSendWaiter() || _closed;
+  /// Um `recv` completaria agora sem suspender? (Só olha; o único efeito é
+  /// o disparo de um timer vencido, [$timerPoll].)
+  bool $recvReady() {
+    $timerPoll?.call();
+    return _buf.isNotEmpty || _hasLiveSendWaiter() || _closed;
+  }
 
   /// Executa o envio já sabendo, por [$sendReady], que ele não bloqueia.
   void $commitSend(T v) {
@@ -166,9 +193,7 @@ final class Chan<T> {
   /// Registra um recebimento pendente: `onValue` roda quando um valor
   /// chegar (ou o canal fechar). Devolve como cancelar o registro (usado
   /// pelo `select` para retirar os casos não escolhidos).
-  void Function() $registerRecvWaiter(
-    void Function(T value, bool ok) onValue,
-  ) {
+  void Function() $registerRecvWaiter(void Function(T value, bool ok) onValue) {
     final w = _RecvWaiter<T>(onValue);
     _recvQ.add(w);
     return () => w.cancelled = true;
@@ -181,6 +206,10 @@ final class Chan<T> {
     _sendQ.add(w);
     return () => w.cancelled = true;
   }
+
+  /// Alguma goroutine espera um valor deste canal (`recv` ou `select`
+  /// bloqueado)? Usado pelo timer de canal do shim `time`.
+  bool $hasRecvWaiter() => _hasLiveRecvWaiter();
 
   bool _hasLiveRecvWaiter() {
     while (_recvQ.isNotEmpty && _recvQ.first.cancelled) {

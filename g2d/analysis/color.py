@@ -27,7 +27,8 @@ import collections
 
 from g2d.engine.behavior import Analysis
 from g2d.model import unparen, walk
-from g2d.services.concurrency import LOCKS, ONCE_DO, SUSPENDING_SHIM, WAITGROUP_GO, Concurrency
+from g2d.services.concurrency import (LOCKS, ONCE_DO, SPAWNING_SHIM, SUSPENDING_FUNCS, SUSPENDING_SHIM, WAITGROUP_GO,
+                                      Concurrency)
 
 
 class ColorSummary:
@@ -40,10 +41,12 @@ class ColorSummary:
         # (função, mutex, seção suspende direto, callees da seção, mutexes
         # travados na seção, vaza): ver Concurrency.lock_sites
         self.lock_sites = []
-        self.value_uses = []  # (chave, nó) de funções usadas como valor (não serializado)
+        self.value_uses = []  # (chave, classe, nó) de funções usadas como valor (não serializado)
+        self.forced = set()  # classes de func com formato Dart fixo (shim, genérico): síncronas
 
     def to_json(self):
         return {"direct": sorted(map(list, self.direct)),
+                "forced": sorted(map(list, self.forced)),
                 "edges": sorted([list(k), sorted(map(list, v))] for k, v in self.edges.items()),
                 "unions": sorted([list(a), list(b)] for a, b in self.unions),
                 "locks": [[list(f), list(m), h, sorted(map(list, c)), sorted(map(list, n)), lk]
@@ -53,6 +56,7 @@ class ColorSummary:
     def from_json(cls, doc):
         s = cls()
         s.direct = {tuple(k) for k in doc["direct"]}
+        s.forced = {tuple(k) for k in doc["forced"]}
         for k, v in doc["edges"]:
             s.edges[tuple(k)] = {tuple(x) for x in v}
         s.unions = {(tuple(a), tuple(b)) for a, b in doc["unions"]}
@@ -84,13 +88,14 @@ def summarize(engine, decls=None):
             ck = conc.callee_key(n)
             if ck in LOCKS:
                 locks.add(conc.mutex_id(n))
-            if ck is None or ck in SUSPENDING_SHIM or ck == WAITGROUP_GO:
+            if ck in SUSPENDING_SHIM or ck in SUSPENDING_FUNCS or ck == WAITGROUP_GO:
                 continue
             if ck == ONCE_DO:  # espera f
-                ck = func_ref_key(conc, (n["args"] or [None])[0])
-                if ck is None:
-                    continue
-            out.add(ck)
+                ck = conc.once_arg_key(n)
+            elif ck is None:  # chamada por valor: espera a classe da func
+                ck = conc.value_call_key(n)
+            if ck is not None:
+                out.add(ck)
         return out, locks
 
     def body(key, node):
@@ -112,14 +117,21 @@ def summarize(engine, decls=None):
             body(key, d["body"])
             if not d["recv"] and d["name"]["name"] == "init":
                 s.edges[init_key(pkg)].add(key)
+            if not d["recv"] and d["name"]["name"] == "main" and pkg.name == "main":
+                s.edges[key].add(init_key(pkg))  # o main espera o $goInit
         elif d["node"] == "GenDecl" and d["tok"] == "var":
             for spec in d["specs"]:
                 for v in spec["values"] or []:
                     body(init_key(pkg), v)
+    if pkg.name == "main":  # o $goInit do main inicializa o grafo inteiro
+        s.edges[init_key(pkg)] |= {("init", dep) for dep in pkg.init_deps or []}
     for n in walk(decls):
         if n.get("node") == "FuncLit":
             body(conc.lit_key(n), n["body"])
     value_uses(conc, decls, s)
+    for key, cls, _ in s.value_uses:
+        s.edges[cls].add(key)  # a classe é async se uma função async vira valor dela
+    fixed_classes(engine, decls, s)
     for e in pkg.implements:
         t = pkg.type_at(e["type"])
         for i in e["interfaces"]:
@@ -161,10 +173,14 @@ def value_uses(conc, decls, s):
             callees.add(id(fun))
             if fun["node"] in ("IndexExpr", "IndexListExpr"):
                 callees.add(id(unparen(fun["x"])))
-            if conc.callee_key(n) in (ONCE_DO, WAITGROUP_GO) and n["args"]:
-                callees.add(id(unparen(n["args"][0])))
+            spawn = SPAWNING_SHIM.get(conc.callee_key(n))
+            if spawn is not None and len(n["args"] or []) > spawn:
+                # Once.Do espera f (do$async); os outros a rodam numa goroutine
+                callees.add(id(unparen(n["args"][spawn])))
         elif k == "SelectorExpr":
             sels.add(id(n["sel"]))
+        elif k == "FuncDecl":
+            sels.add(id(n["name"]))  # o nome na declaração não é uso
     for n in walk(decls):
         k = n.get("node")
         if id(n) in callees or id(n) in sels:
@@ -181,7 +197,46 @@ def value_uses(conc, decls, s):
             elif info["kind"] == "methodExpr":
                 key = conc.method_key(info["recv"], n["sel"]["name"])
         if key is not None:
-            s.value_uses.append((key, n))
+            s.value_uses.append((key, conc.sig_key(conc.pkg.type_of(n)), n))
+
+
+def fixed_classes(engine, decls, s):
+    """Classes de func cujo formato Dart é fixo por quem não é gerado com a
+    cor: assinaturas de funções/métodos da stdlib (o shim recebe e devolve
+    funções síncronas; exceto quem roda a função numa goroutine,
+    `SPAWNING_SHIM`) e formatos derivados de genéricos (parâmetros e
+    resultados de uma chamada genérica, campos e métodos de instâncias de
+    tipos genéricos: lá dentro o Dart vê `R Function(T)`)."""
+    conc, pkg, calls = engine.services["concurrency"], engine.pkg, engine.services["calls"]
+    for n in walk(decls):
+        k = n.get("node")
+        if k == "CallExpr":
+            fun = unparen(n["fun"])
+            if fun.get("$isType") or fun.get("$builtin"):
+                continue
+            ck = conc.callee_key(n)
+            generic = calls.instantiation(fun) is not None
+            if not generic and not (ck is not None and conc.std(ck[1]) and ck[0] in ("f", "m")):
+                continue
+            sig = pkg.type_of(fun)
+            if sig is None or conc.typesys.underlying(sig)["kind"] != "func":
+                continue
+            sig = conc.typesys.underlying(sig)
+            skip = SPAWNING_SHIM.get(ck)
+            for i, p in enumerate(sig["params"]):
+                if i != skip:
+                    conc.func_classes(p, s.forced)
+            for r in sig["results"]:
+                conc.func_classes(r, s.forced)
+        elif k in ("IndexExpr", "IndexListExpr") and calls.instantiation(n):
+            conc.func_classes(pkg.type_of(n), s.forced)  # `f[int]` como valor
+    for t in pkg.type_table:
+        if t["kind"] == "named" and t.get("args"):
+            u = conc.typesys.underlying(t)
+            for f in u.get("fields") or []:
+                conc.func_classes(f["type"], s.forced)
+            for m in (t.get("methods") or []) + (u.get("methods") or []):
+                conc.func_classes(m["type"], s.forced)
 
 
 class ColorTable:
@@ -192,6 +247,7 @@ class ColorTable:
         self.direct = set()
         self.edges = collections.defaultdict(set)
         self.lock_sites = []
+        self.forced = set()
         self._async = None
         for s in summaries:
             self.add(s)
@@ -205,6 +261,7 @@ class ColorTable:
         for k, v in summary.edges.items():
             self.edges[k] |= v
         self.lock_sites += summary.lock_sites
+        self.forced |= summary.forced
         self._async = None
 
     def find(self, k):
@@ -234,7 +291,10 @@ class ColorTable:
             self.find(site[0])
             for c in site[3]:
                 self.find(c)
+        for k in self.forced:
+            self.find(k)
         forced = {self.find(k) for k in list(self.parent) if Concurrency.forced_sync(k)}
+        forced |= {self.find(k) for k in self.forced}
         callers = collections.defaultdict(set)  # grupo → grupos que o chamam
         for k, v in self.edges.items():
             for c in v:
@@ -284,4 +344,9 @@ class ColorAnalysis(Analysis):
         summary = summarize(self.engine, decls)
         table = self.engine.colors or ColorTable([summary])
         self.facts.colors = table
-        self.facts.async_values = {id(n) for key, n in summary.value_uses if table.is_async(key)}
+        # Valor func: função async numa classe síncrona é recusada; função
+        # síncrona numa classe async é embrulhada (`go.asyncN`, literal `async`).
+        self.facts.async_values = {id(n) for key, cls, n in summary.value_uses
+                                   if table.is_async(key) and not table.is_async(cls)}
+        self.facts.wrap_values = {id(n) for key, cls, n in summary.value_uses
+                                  if table.is_async(cls) and not table.is_async(key)}

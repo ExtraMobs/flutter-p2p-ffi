@@ -12,6 +12,7 @@ import 'src/runtime/panic.dart';
 import 'src/runtime/slice.dart';
 
 export 'src/runtime/array.dart';
+export 'src/runtime/async_fn.dart';
 export 'src/runtime/chan.dart';
 export 'src/runtime/defer.dart';
 export 'src/runtime/elem.dart';
