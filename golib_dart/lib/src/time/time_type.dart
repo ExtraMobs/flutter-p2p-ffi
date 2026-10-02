@@ -25,7 +25,6 @@ const _unixToInternal = 62135596800;
 const _internalToUnix = -62135596800;
 const _wallToInternal = 59453308800;
 const _minWallSec = _wallToInternal;
-const _maxWallSec = 63748276096; // wallToInternal + (1<<33 - 1)
 
 final _unixToAbsoluteI64 = Golang.Int64.fromBigInt(
   BigInt.parse('9223372028741760000'),
@@ -33,9 +32,7 @@ final _unixToAbsoluteI64 = Golang.Int64.fromBigInt(
 final _absoluteToUnixI64 = Golang.Int64.fromBigInt(
   BigInt.parse('-9223372028741760000'),
 );
-final _maxInt64 = Golang.Int64.fromBigInt(
-  BigInt.parse('9223372036854775807'),
-);
+final _maxInt64 = Golang.Int64.fromBigInt(BigInt.parse('9223372036854775807'));
 final _minInt64Plus1 = Golang.Int64.fromBigInt(
   BigInt.parse('-9223372036854775807'),
 );
@@ -51,13 +48,14 @@ final class Time extends GoStruct<Time> implements Stringer {
   /// `nil` é UTC, como no Go (`loc==nil` nunca é `&utcLoc`).
   Location? loc;
 
+  // Só os métodos que o shim implementa (`Format`, `MarshalJSON`... ficam
+  // de fora até existirem: uma asserção de interface não pode prometê-los).
   static const _ms = [
-    'Add', 'AddDate', 'After', 'AppendFormat', 'Before', 'Clock', 'Compare',
-    'Date', 'Equal', 'Format', 'Hour', 'ISOWeek', 'In', 'IsZero', 'Local',
-    'Location', 'MarshalJSON', 'MarshalText', 'Minute', 'Month',
-    'Nanosecond', 'Round', 'Second', 'String', 'Sub', 'Truncate', 'UTC',
-    'Unix', 'UnixMicro', 'UnixMilli', 'UnixNano', 'UnmarshalJSON',
-    'UnmarshalText', 'Weekday', 'Year', 'YearDay', 'Zone', //
+    'Add', 'AddDate', 'After', 'Before', 'Clock', 'Compare', 'Date', 'Day',
+    'Equal', 'Hour', 'ISOWeek', 'In', 'IsZero', 'Local', 'Location',
+    'Minute', 'Month', 'Nanosecond', 'Round', 'Second', 'String', 'Sub',
+    'Truncate', 'UTC', 'Unix', 'UnixMicro', 'UnixMilli', 'UnixNano',
+    'Weekday', 'Year', 'YearDay', 'Zone', //
   ];
 
   @override
@@ -94,14 +92,18 @@ final class Time extends GoStruct<Time> implements Stringer {
   }
 
   /// `unixSec()`.
-  Golang.Int64 unixSec() => _secInternal() + Golang.Int64(_internalToUnix);
+  Golang.Int64 _unixSec() => _secInternal() + Golang.Int64(_internalToUnix);
 
   void _addSecs(Golang.Int64 d) {
     if ((wall & _hasMonotonicU64) != _zeroU64) {
       final secField = (wall << 1) >> 31;
       final sec = Golang.Int64(secField.toInt());
       final dsec = sec + d;
-      if (_zeroI64 <= dsec && dsec <= Golang.Int64((1 << 33) - 1)) {
+      if (_zeroI64 <= dsec &&
+          dsec <=
+              Golang.Int64(
+                8589934591,
+              ) /* 1<<33 - 1 (o `<<` de `int` é 32 bits no JS) */ ) {
         wall =
             wall.andNot(_nsecMaskU64) |
             (dsec.toUint64() << 30) |
@@ -127,18 +129,6 @@ final class Time extends GoStruct<Time> implements Stringer {
     }
   }
 
-  void _setMono(Golang.Int64 m) {
-    if ((wall & _hasMonotonicU64) == _zeroU64) {
-      final sec = ext;
-      if (sec < Golang.Int64(_minWallSec) || Golang.Int64(_maxWallSec) < sec) {
-        return;
-      }
-      final diff = (sec - Golang.Int64(_minWallSec)).toUint64();
-      wall = wall | _hasMonotonicU64 | (diff << 30);
-    }
-    ext = m;
-  }
-
   // `utc`/`local` (as variáveis de nível de pacote) não podem ser
   // referenciadas sem qualificação aqui: a classe também tem métodos `utc()`
   // e `local()` (mesma regra de nomes do g2d para `Time.UTC`/`Time.Local`),
@@ -155,7 +145,7 @@ final class Time extends GoStruct<Time> implements Stringer {
   /// já ajustados pelo offset (uma só busca de zona, como o Go).
   (String, int, int, int) _locabs() {
     final (name, offset) = _zoneInfo();
-    final sec = unixSec() + Golang.Int64(offset);
+    final sec = _unixSec() + Golang.Int64(offset);
     final absU = (sec + _unixToAbsoluteI64).toUint64();
     final days = (absU ~/ _secDayU64).toInt();
     final secOfDay = (absU % _secDayU64).toInt();
@@ -289,6 +279,21 @@ final class Time extends GoStruct<Time> implements Stringer {
     t._setLocation(l);
     return t;
   }
+
+  // ---- época Unix (porta de `Unix`/`UnixNano`/`UnixMilli`/`UnixMicro`) ----
+
+  Golang.Int64 unix() => _unixSec();
+  Golang.Int64 unixNano() =>
+      _unixSec() * Golang.Int64(_nsPerSecond) + Golang.Int64(_nsecInt());
+  Golang.Int64 unixMilli() =>
+      _unixSec() * Golang.Int64(1000) + Golang.Int64(_nsecInt() ~/ 1000000);
+  Golang.Int64 unixMicro() =>
+      _unixSec() * Golang.Int64(1000000) + Golang.Int64(_nsecInt() ~/ 1000);
+
+  /// `String()`: `Format("2006-01-02 15:04:05.999999999 -0700 MST")` e,
+  /// com leitura monotônica, ` m=±s.nnnnnnnnn` (`time_format.dart`).
+  @override
+  Golang.String string() => Golang.String.fromDart(_timeString(this));
 
   // ---- aritmética (implementação em `time_arith.dart`) ----
 

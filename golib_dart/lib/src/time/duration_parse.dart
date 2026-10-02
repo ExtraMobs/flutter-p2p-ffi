@@ -6,13 +6,14 @@ part of '../../time.dart';
 // seguro do `int`/`double` do JS); a fração convertida em `double` já é
 // aritmética `float64` no próprio Go (`float64(f) * (float64(unit)/scale)`),
 // então usar `double` do Dart aqui é exato (IEEE 754 binary64 em toda
-// plataforma, ao contrário de `int`).
+// plataforma, ao contrário de `int`). A entrada é percorrida em bytes
+// (`_bytesOf`), como no Go.
 
 const _unitMap = <String, int>{
   'ns': 1,
   'us': 1000,
-  'µs': 1000, // U+00B5 (sinal de micro)
-  'μs': 1000, // U+03BC (letra grega mu)
+  '\xc2\xb5s': 1000, // "µs": U+00B5 (sinal de micro) em UTF-8
+  '\xce\xbcs': 1000, // "μs": U+03BC (letra grega mu) em UTF-8
   'ms': 1000000,
   's': 1000000000,
   'm': 60000000000,
@@ -26,8 +27,7 @@ final class _ParseDurationError implements GoError, Golang.GoTyped {
   final String value;
 
   @override
-  Golang.String error() =>
-      Golang.String.fromDart('time: $message ${_quote(value)}');
+  Golang.String error() => _fromByteString('time: $message ${_quote(value)}');
 
   @override
   String get $goType => '*time.parseDurationError';
@@ -81,7 +81,7 @@ bool _isAsciiDigit(String s, int i) {
 
 /// `time.ParseDuration(s)`.
 (Duration, GoError?) parseDuration(Golang.String s0) {
-  final orig = s0.toDart();
+  final orig = _bytesOf(s0);
   var s = orig;
   var neg = false;
   if (s.isNotEmpty) {
@@ -132,7 +132,10 @@ bool _isAsciiDigit(String s, int i) {
       if (s[i] == '.' || _isAsciiDigit(s, i)) break;
     }
     if (i == 0) {
-      return (Duration(), _ParseDurationError('missing unit in duration', orig));
+      return (
+        Duration(),
+        _ParseDurationError('missing unit in duration', orig),
+      );
     }
     final u = s.substring(0, i);
     s = s.substring(i);
@@ -150,7 +153,7 @@ bool _isAsciiDigit(String s, int i) {
     v = v * unitU64;
     if (f > Golang.Uint64()) {
       final add = f.toBigInt().toDouble() * (unit.toDouble() / scale);
-      v = v + Golang.Uint64(add.truncate());
+      v = v + Golang.Uint64.fromBigInt(BigInt.from(add));
       if (v > limit63) {
         return (Duration(), _ParseDurationError('invalid duration', orig));
       }

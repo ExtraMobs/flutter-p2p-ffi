@@ -39,7 +39,9 @@ int _dateToAbsDays(int year, int month, int day) {
   final d = 4 * days + 3;
   final century = d ~/ 146097;
   final cdayFull = d % 146097;
-  final cd = (cdayFull ~/ 4) * 4 + 3; // `| 3` do Go (arredonda para baixo e liga os 2 bits baixos)
+  final cd =
+      (cdayFull ~/ 4) * 4 +
+      3; // `| 3` do Go (arredonda para baixo e liga os 2 bits baixos)
   final full = 2939745 * cd;
   final cyear = full ~/ 0x100000000;
   final ayday = (full % 0x100000000) ~/ 2939745 ~/ 4;
@@ -109,30 +111,6 @@ int _weekdayOfDays(int days) => (days + 3) % 7;
   final min = sec ~/ 60;
   sec -= min * 60;
   return (hour, min, sec);
-}
-
-/// `isLeap(year)`: `%` do Dart em `int` é módulo euclidiano (sempre
-/// não-negativo, ao contrário do Go), o que já dá o resultado certo mesmo
-/// para `year` negativo, sem precisar do truque bit a bit do Go (`&`, que
-/// dependeria de complemento de dois).
-bool _isLeapYear(int year) {
-  final mod = year % 25 != 0 ? 4 : 16;
-  return year % mod == 0;
-}
-
-/// `daysBefore(m)`: dias antes do mês `m` (1-based) num ano não-bissexto;
-/// `daysBefore(13)` (December+1) devolve 365.
-int _daysBefore(int month) {
-  final adj = month >= 3 ? -2 : 0;
-  return (214 * month - 211) ~/ 7 + adj;
-}
-
-const _daysInMonthTable = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
-/// `daysIn(m, year)`.
-int _daysInMonth(int month, int year) {
-  if (month == 2) return _isLeapYear(year) ? 29 : 28;
-  return _daysInMonthTable[month - 1];
 }
 
 /// `norm(hi, lo, base)`: `hi*base+lo == nhi*base+nlo`, `0 <= nlo < base`.

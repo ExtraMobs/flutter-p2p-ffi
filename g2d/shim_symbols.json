@@ -378,7 +378,22 @@
       "swapUint64"
     ],
     "time": [
-      "Duration"
+      "Duration",
+      "Location",
+      "Month",
+      "Time",
+      "Weekday",
+      "date",
+      "fixedZone",
+      "local",
+      "now",
+      "parseDuration",
+      "since",
+      "unix",
+      "unixMicro",
+      "unixMilli",
+      "until",
+      "utc"
     ],
     "unicode": [
       "CaseRange",

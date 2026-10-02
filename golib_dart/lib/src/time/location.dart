@@ -10,7 +10,7 @@ part of '../../time.dart';
 /// `Local` e `UTC` são ponteiros distintos mesmo quando coincidem em
 /// offset). `LoadLocation`/o `TZ` do ambiente não têm shim (ficam
 /// `Unsupported` `shim-simbolo:time.LoadLocation`).
-final class Location implements Stringer {
+final class Location implements Stringer, Golang.GoTyped {
   const Location._(this._name, this._offset);
 
   final String _name;
@@ -37,8 +37,10 @@ final class Location implements Stringer {
 // iguais às variáveis exportadas abaixo. Um `t.utc()` referenciaria a si
 // mesmo (o método) em vez da variável de nível de pacote, então o resto do
 // shim usa estes dois nomes.
-const _utcSentinel = Location._('UTC', 0);
-const _localSentinel = Location._('UTC', 0);
+// Não `const`: duas constantes iguais seriam o mesmo objeto (canonicalizadas),
+// e `Local`/`UTC` precisam de identidades distintas.
+final _utcSentinel = Location._('UTC', 0);
+final _localSentinel = Location._('UTC', 0);
 
 /// `time.UTC`. `Time.loc == null` também significa UTC (como no Go,
 /// `loc==nil` nunca é `&utcLoc`): este objeto serve para comparações

@@ -5,16 +5,15 @@ const _longMonthNames = [
   'July', 'August', 'September', 'October', 'November', 'December', //
 ];
 
-const _shortMonthNames = [
-  'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-  'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', //
-];
-
 const _longDayNames = [
-  'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', //
+  'Sunday',
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday', //
 ];
-
-const _shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 /// `time.Month`: tipo nomeado sobre `int` (janeiro = 1, ...), como o g2d
 /// gera para `type Month int` — os construtores de `Golang.Int64Base` porque
@@ -37,14 +36,13 @@ final class Month extends Golang.Int64Base<Month> implements Stringer {
   List<String> get $methods => const ['String'];
 
   /// `String()`: `"January"`..`"December"`, ou `"%!Month(n)"` fora do
-  /// intervalo (como o Go).
+  /// intervalo, com `n` como `uint64` (como o Go).
   @override
   Golang.String string() {
-    final n = toInt();
-    if (n >= 1 && n <= 12 && $safe) {
-      return Golang.String.fromDart(_longMonthNames[n - 1]);
+    if (this >= Month(1) && this <= Month(12)) {
+      return Golang.String.fromDart(_longMonthNames[toInt() - 1]);
     }
-    return Golang.String.fromDart('%!Month(${toBigInt()})');
+    return Golang.String.fromDart('%!Month(${Golang.Uint64.from(this)})');
   }
 }
 
@@ -68,10 +66,9 @@ final class Weekday extends Golang.Int64Base<Weekday> implements Stringer {
   /// intervalo.
   @override
   Golang.String string() {
-    final n = toInt();
-    if (n >= 0 && n <= 6 && $safe) {
-      return Golang.String.fromDart(_longDayNames[n]);
+    if (this >= Weekday() && this <= Weekday(6)) {
+      return Golang.String.fromDart(_longDayNames[toInt()]);
     }
-    return Golang.String.fromDart('%!Weekday(${toBigInt()})');
+    return Golang.String.fromDart('%!Weekday(${Golang.Uint64.from(this)})');
   }
 }

@@ -17,9 +17,13 @@ final Golang.Int64 _startNano =
     Golang.Int64(_stopwatch.elapsedMicroseconds) * Golang.Int64(1000) -
     Golang.Int64(1);
 
-Golang.Int64 _runtimeNanoSinceStart() =>
-    Golang.Int64(_stopwatch.elapsedMicroseconds) * Golang.Int64(1000) -
-    _startNano;
+Golang.Int64 _runtimeNanoSinceStart() {
+  // `_startNano` é lazy: inicializa antes da leitura, senão a primeira
+  // leitura seria anterior ao início (monotônico negativo).
+  final start = _startNano;
+  return Golang.Int64(_stopwatch.elapsedMicroseconds) * Golang.Int64(1000) -
+      start;
+}
 
 /// `time.Now`.
 Time now() {
@@ -70,7 +74,7 @@ Time unixMicro(Golang.Int64 usec) => unix(
 );
 
 /// `time.Date`: implementação usada tanto pela função exportada quanto por
-/// `AddDate`/`Parse` (`time_arith.dart`/`parse.dart`).
+/// `AddDate` (`time_arith.dart`).
 Time _dateImpl(
   int year,
   int month,
@@ -114,7 +118,9 @@ Time date(
   Location? loc,
 ) {
   if (loc == null) {
-    throw Panic(Golang.String.fromDart('time: missing Location in call to Date'));
+    throw Panic(
+      Golang.String.fromDart('time: missing Location in call to Date'),
+    );
   }
   return _dateImpl(
     year.toInt(),
