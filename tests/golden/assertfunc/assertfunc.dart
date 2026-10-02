@@ -27,12 +27,20 @@ final class Op implements Golang.GoTyped {
 void main() {
   go.runMain(() {
     $goInit();
-    Object? x = (Golang.Int n) {
+    Object? x = go.Func(((Golang.Int n) {
       return n * Golang.Int(2);
-    };
-    var (f, ok) = go.tryType<Golang.Int Function(Golang.Int)?>(x, null);
+    }), 'func(int) int');
+    var (f, ok) = go.tryFunc<Golang.Int Function(Golang.Int)?>(
+      x,
+      null,
+      'func(int) int',
+    );
     fmt.println(go.Slice<Object?>.of([ok, f!(Golang.Int(4))], _$e0));
-    final $t1 = go.tryType<void Function(Golang.String)?>(x, null);
+    final $t1 = go.tryFunc<void Function(Golang.String)?>(
+      x,
+      null,
+      'func(string)',
+    );
     void Function(Golang.String)? g = $t1.$1;
     ok = $t1.$2;
     fmt.println(go.Slice<Object?>.of([ok, g == null], _$e0));
@@ -43,7 +51,11 @@ void main() {
     Op o = $t2.$1;
     ok = $t2.$2;
     fmt.println(go.Slice<Object?>.of([ok, o(Golang.Int(1))], _$e0));
-    final $t3 = go.tryType<Golang.Int Function(Golang.Int)?>(y, null);
+    final $t3 = go.tryFunc<Golang.Int Function(Golang.Int)?>(
+      y,
+      null,
+      'func(int) int',
+    );
     Golang.Int Function(Golang.Int)? h = $t3.$1;
     ok = $t3.$2;
     fmt.println(go.Slice<Object?>.of([ok, h == null], _$e0));

@@ -55,6 +55,17 @@ class ValueSemantics(Service):
             if nil:
                 inner = f"({text})" if prec < DART_PREC["||"] else text
                 text, prec = f"{inner} ?? {nil}", DART_PREC["||"] - 1
+        elif to_iface and src is not None and src["kind"] == "func":
+            # Tipo func sem nome numa interface: o Dart só testa subtipo entre
+            # tipos de função, então o valor viaja com o nome Go do tipo
+            # (comparado bit a bit na assertion/type switch; `go.Func`).
+            # ponytail: parâmetro de tipo com union de funcs (`~func() |
+            # ~func() error`, go.uber.org/fx.Callable) ainda usa o teste de
+            # subtipo do Dart dentro do corpo genérico: o nome Go concreto só
+            # existe em cada instanciação, não no `T` (TODO/P2 se pesar).
+            func = self.imports.qualify(None, "Func")
+            sig = self.goinfo.go_type_name(src)
+            text, prec = f"{func}({self.expr(n, POSTFIX)}, '{sig}')", POSTFIX
         else:
             text, prec = self.expr_prec(n)
         return f"({text})" if prec < min_prec else text

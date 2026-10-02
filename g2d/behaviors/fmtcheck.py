@@ -104,7 +104,7 @@ class FmtVerbCheck(ExprBehavior):
         if operands is not None and not reordered:
             for extra in operands[used:]:
                 kind = self.static_kind(extra)
-                if kind in ("composto", "func", "chan", "ponteiro"):
+                if kind in ("composto", "chan", "ponteiro"):
                     raise Unsupported(f"fmt-verbo:extra-{kind}", "fmt: %!(EXTRA ...) de tipo sem nome em runtime",
                                       fmt_node)
         return NOT_HANDLED
@@ -141,7 +141,7 @@ class FmtVerbCheck(ExprBehavior):
             return f"%{verb}-complex"
         if kind == "int" and verb == "q" and "#" in flags:
             return "%#q-runa"
-        if verb == "T" and kind in ("composto", "func", "chan", "ponteiro"):
+        if verb == "T" and kind in ("composto", "chan", "ponteiro"):
             return f"%T-{kind}"
         if verb not in "vTp" and kind in ("func", "chan", "ponteiro"):
             return f"%{verb}-{kind}"

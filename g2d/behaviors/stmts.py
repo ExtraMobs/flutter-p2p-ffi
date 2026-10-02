@@ -444,6 +444,10 @@ class TypeSwitchStmt(StmtBehavior):
                         value, vt = f"({subject} as {dt}).$copy()", t
                     elif mode == "pointer":
                         value, vt = f"{self.imports.qualify(None, 'unNil')}<{dt.non_null()}>({subject} as {dt})", t
+                    elif mode == "func":
+                        # `type_test` já confirmou o tipo (case único, exato
+                        # via `go.Func` ou, sem wrapper, por subtipo do Dart).
+                        value, vt = f"{self.imports.qualify(None, 'unwrapFunc')}<{dt}>({subject})", t
                     else:
                         value, vt = f"{subject} as {dt}", t
                     vtype = self.types.dart(vt)

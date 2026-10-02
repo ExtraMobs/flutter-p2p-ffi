@@ -419,6 +419,8 @@ class TypeAssertExpr(ExprBehavior):
                                                                 key=lambda m: m["name"]))
             return f"{self.imports.qualify(None, 'assertIface')}<{dt}>({x}, '{target}', const [{names}])", POSTFIX
         iface = self.goinfo.go_type_name(self.pkg.type_of(n["x"]))
+        if mode == "func":
+            return f"{self.imports.qualify(None, 'assertFunc')}<{dt}>({x}, '{iface}', '{target}')", POSTFIX
         struct = self.asserts.struct_flag(mode)
         return f"{self.imports.qualify(None, 'assertType')}<{dt}>({x}, '{iface}', '{target}'{struct})", POSTFIX
 

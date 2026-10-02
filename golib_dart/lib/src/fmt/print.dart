@@ -428,6 +428,7 @@ final class _Printer implements State {
 
   static String _typeName(Object a) => switch (a) {
     bool() => 'bool',
+    Func f => f.sig,
     GoValue v when !v.$isValue => '*${v.$goType}',
     Golang.GoTyped t => t.$goType,
     Addr(target: final Golang.GoTyped t?) => '*${t.$goType}',
