@@ -70,6 +70,25 @@ void releaseEvents() {
   _scheduleDeadlockCheck();
 }
 
+/// Fontes de evento condicionais: cada uma diz, na hora da checagem, se
+/// ainda pode acordar alguém. É o timer de canal do Go ≥ 1.23, que só conta
+/// para o `checkdead` enquanto alguma goroutine espera no canal dele
+/// (`time.NewTimer(time.Hour)` esquecido não impede o deadlock; `<-t.C`
+/// sim).
+final _conditionalSources = <bool Function()>{};
+
+/// Registra uma fonte condicional ([_conditionalSources]); [pending] tem
+/// que ser barata (roda a cada checagem de deadlock).
+void addEventSource(bool Function() pending) {
+  _conditionalSources.add(pending);
+}
+
+/// Retira a fonte condicional (disparou ou foi parada) e recheca o
+/// deadlock: quem esperava só por ela pode ter ficado sem saída.
+void removeEventSource(bool Function() pending) {
+  if (_conditionalSources.remove(pending)) _scheduleDeadlockCheck();
+}
+
 /// Agenda a checagem para depois que as microtasks assentarem (`Timer.run`
 /// vira um evento novo na fila, atrás de toda microtask já enfileirada), pra
 /// não falso-positivar com uma goroutine recém-[spawn]ada que ainda não
@@ -86,6 +105,9 @@ void _scheduleDeadlockCheck() {
 void _checkDeadlock() {
   _checkScheduled = false;
   if (_pendingEvents > 0) return;
+  for (final pending in _conditionalSources) {
+    if (pending()) return;
+  }
   if (_alive > 0 && _blocked >= _alive) {
     fatal('all goroutines are asleep - deadlock!');
   }
