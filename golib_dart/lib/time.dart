@@ -1,5 +1,7 @@
-/// Shim do pacote Go `time` (parcial: `Duration`; `Time`, `Now`, timers e o
-/// resto em `TODO/P0-shim-time.md`).
+/// Shim do pacote Go `time` (parcial: `Duration`, `ParseDuration`, `Time`
+/// com calendário/aritmética/`String()`, `Month`/`Weekday`, `Location` de
+/// fuso fixo; ⚠️ `Local` é UTC, como o Go com `TZ=UTC`. Timers, `Format`/
+/// `Parse` com layout e o resto em `TODO/P0-shim-time.md`).
 ///
 /// As constantes (`time.Second`...) o g2d dobra em `time.Duration(n)`.
 // ignore_for_file: library_prefixes
@@ -7,8 +9,19 @@ library;
 
 import 'dart:typed_data';
 
+import 'builtin.dart';
 import 'fixed_types/golang.dart' as Golang;
 import 'fmt.dart' show Stringer;
+
+part 'src/time/calendar.dart';
+part 'src/time/duration_parse.dart';
+part 'src/time/location.dart';
+part 'src/time/month_weekday.dart';
+part 'src/time/quote.dart';
+part 'src/time/time_arith.dart';
+part 'src/time/time_format.dart';
+part 'src/time/time_funcs.dart';
+part 'src/time/time_type.dart';
 
 final _second = Golang.Int64(1000000000);
 final _minute = Golang.Int64(60000000000);
