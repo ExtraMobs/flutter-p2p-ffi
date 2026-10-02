@@ -8,6 +8,7 @@ import 'package:golib_dart/fixed_types/golang.dart' as Golang;
 import 'package:golib_dart/errors.dart' as errors;
 import 'package:golib_dart/fmt.dart' as fmt;
 import 'package:golib_dart/builtin.dart' as go;
+import 'package:golib_dart/strings.dart' as strings;
 
 class P extends go.GoStruct<P> {
   P({Golang.Int? x, Golang.Int? y})
@@ -943,7 +944,121 @@ void main() {
       Golang.String.fromDart('%#v\n'),
       go.Slice<Object?>.of([err], _$e7),
     );
+    Node n2 = Node(
+      name: Golang.String.fromDart('b'),
+      next: Node(name: Golang.String.fromDart('a')),
+    );
+    fmt.println(
+      go.Slice<Object?>.of([
+        _mask(
+          fmt.sprintf(
+            Golang.String.fromDart('%#v'),
+            go.Slice<Object?>.of([n2.$ifaceCopy()], _$e7),
+          ),
+        ),
+      ], _$e7),
+    );
+    fmt.println(
+      go.Slice<Object?>.of([
+        _mask(
+          fmt.sprintf(
+            Golang.String.fromDart('%#v'),
+            go.Slice<Object?>.of([
+              go.TypeTag(go.Slice<P?>.of([p, null], _$e12), '[]*main.P', null),
+            ], _$e7),
+          ),
+        ),
+      ], _$e7),
+    );
+    fmt.println(
+      go.Slice<Object?>.of([
+        _mask(
+          fmt.sprintf(
+            Golang.String.fromDart('%#v'),
+            go.Slice<Object?>.of([
+              go.TypeTag(
+                go.Slice<Object?>.of([p ?? P.$nil], _$e7),
+                '[]interface {}',
+                null,
+              ),
+            ], _$e7),
+          ),
+        ),
+      ], _$e7),
+    );
+    fmt.println(
+      go.Slice<Object?>.of([
+        _mask(
+          fmt.sprintf(
+            Golang.String.fromDart('%#v'),
+            go.Slice<Object?>.of([
+              go.TypeTag(
+                go.GoMap<Golang.String, P?>.of({
+                  Golang.String.fromDart('k'): p,
+                }, _$e12),
+                'map[string]*main.P',
+                null,
+              ),
+            ], _$e7),
+          ),
+        ),
+      ], _$e7),
+    );
+    fmt.println(
+      go.Slice<Object?>.of([
+        _mask(
+          fmt.sprintf(
+            Golang.String.fromDart('%#v'),
+            go.Slice<Object?>.of([
+              fmt.errorf(
+                Golang.String.fromDart('w: %w'),
+                go.Slice<Object?>.of([
+                  errors.new$(Golang.String.fromDart('in')),
+                ], _$e7),
+              ),
+            ], _$e7),
+          ),
+        ),
+      ], _$e7),
+    );
+    fmt.println(
+      go.Slice<Object?>.of([
+        strings.contains(
+          fmt.sprintf(
+            Golang.String.fromDart('%#v'),
+            go.Slice<Object?>.of([
+              go.TypeTag(go.Slice<P?>.of([p], _$e12), '[]*main.P', null),
+            ], _$e7),
+          ),
+          fmt.sprintf(
+            Golang.String.fromDart('%p'),
+            go.Slice<Object?>.of([p ?? P.$nil], _$e7),
+          ),
+        ),
+      ], _$e7),
+    );
   });
+}
+
+/// mask troca o endereço de `(*T)(0x...)`, que nem o Go reproduz, por ADDR.
+Golang.String _mask(Golang.String s) {
+  Golang.String out = Golang.String.fromDart('');
+  while (true) {
+    Golang.Int i = strings.index(s, Golang.String.fromDart(')(0x'));
+    if (i < Golang.Int(0)) {
+      return out + s;
+    }
+    Golang.Int j = i + Golang.Int(4);
+    while (j < Golang.Int(s.length) &&
+        (Golang.Uint8(s[j.toIndex()]) >= Golang.Uint8(48) &&
+                Golang.Uint8(s[j.toIndex()]) <= Golang.Uint8(57) ||
+            Golang.Uint8(s[j.toIndex()]) >= Golang.Uint8(97) &&
+                Golang.Uint8(s[j.toIndex()]) <= Golang.Uint8(102))) {
+      j += Golang.Int(1);
+    }
+    out += s.slice(0, i.toIndex()) + Golang.String.fromDart(')(ADDR');
+    s = s.slice(j.toIndex());
+  }
 }
 
 bool _$inited = false;
@@ -998,3 +1113,4 @@ const _$e10 = go.Elem<go.GoMap<Golang.String, Golang.Int>>(
   pointers: true,
 );
 const _$e11 = go.Elem<G>(8, G.new);
+const _$e12 = go.Elem<P?>(8, go.zeroNull, pointers: true);

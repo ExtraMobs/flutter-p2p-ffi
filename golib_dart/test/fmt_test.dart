@@ -97,25 +97,23 @@ void main() {
     },
   );
 
-  test('%#v de erro do runtime aninhado: endereço, não reproduzível', () {
+  test('%#v de ponteiro aninhado: (*T)(endereço estável do %p)', () {
+    String sharp(Object? x) => sprintf(s('%#v'), args([x])).toString();
     final e = errors.new$(s('x'));
+    final addr = RegExp(r'0xc0[0-9a-f]{8}');
+    String shape(String x) => x.replaceAll(addr, 'ADDR');
+    // Go: &fmt.wrapError{msg:"a x", err:(*errors.errorString)(0xc000014070)}
+    final w = sharp(errorf(s('a %w'), args([e])));
     expect(
-      () => sprintf(
-        s('%#v'),
-        args([
-          errorf(s('a %w'), args([e])),
-        ]),
-      ),
-      throwsA(isA<UnimplementedError>()),
+      shape(w),
+      '&fmt.wrapError{msg:"a x", err:(*errors.errorString)(ADDR)}',
     );
+    final j = sharp(errors.join(go.Slice.of([e], go.errorElem)));
     expect(
-      () => sprintf(
-        s('%#v'),
-        args([
-          errors.join(go.Slice.of([e], go.errorElem)),
-        ]),
-      ),
-      throwsA(isA<UnimplementedError>()),
+      shape(j),
+      '&errors.joinError{errs:[]error{(*errors.errorString)(ADDR)}}',
     );
+    // Mesmo objeto, mesmo endereço.
+    expect(addr.firstMatch(w)![0], addr.firstMatch(j)![0]);
   });
 }
