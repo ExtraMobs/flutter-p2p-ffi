@@ -216,8 +216,6 @@ class UnsupportedTest(unittest.TestCase):
             "func main() {}\n": ("async:contexto-sincrono", 5),
             recv + "type T struct{ c chan int }\n\nfunc (t T) Error() string { recv(t.c); return \"\" }\n\n"
             "func main() {}\n": ("async:contexto-sincrono", 7),
-            # o $goInit é síncrono
-            recv + "var x = recv(make(chan int, 1))\n\nfunc main() { _ = x }\n": ("async:init", 5),
         }
         for body, (code, line) in cases.items():
             with self.subTest(body=body):

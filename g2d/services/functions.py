@@ -76,8 +76,11 @@ class Functions(Service):
         self.scope = None
         if main_case:
             # Panic não recuperado: mensagem no stderr e exit 2, como o Go.
+            from g2d.analysis.color import init_key
+
             kw = "async " if is_async else ""
-            body = [f"{self.imports.qualify(None, 'runMain')}(() {kw}{{", "$goInit();"] + prologue + boxes + body + ["});"]
+            init = "await $goInit();" if self.concurrency.is_async(init_key(self.pkg)) else "$goInit();"
+            body = [f"{self.imports.qualify(None, 'runMain')}(() {kw}{{", init] + prologue + boxes + body + ["});"]
             prologue, boxes = [], []
         opener = " async {" if (is_async and not main_case) else " {"
         return doc_comment(d["doc"]) + [head + opener] + prologue + boxes + body + ["}"]

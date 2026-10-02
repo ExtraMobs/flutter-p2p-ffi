@@ -112,10 +112,14 @@ def summarize(engine, decls=None):
             body(key, d["body"])
             if not d["recv"] and d["name"]["name"] == "init":
                 s.edges[init_key(pkg)].add(key)
+            if not d["recv"] and d["name"]["name"] == "main" and pkg.name == "main":
+                s.edges[key].add(init_key(pkg))  # o main espera o $goInit
         elif d["node"] == "GenDecl" and d["tok"] == "var":
             for spec in d["specs"]:
                 for v in spec["values"] or []:
                     body(init_key(pkg), v)
+    if pkg.name == "main":  # o $goInit do main inicializa o grafo inteiro
+        s.edges[init_key(pkg)] |= {("init", dep) for dep in pkg.init_deps or []}
     for n in walk(decls):
         if n.get("node") == "FuncLit":
             body(conc.lit_key(n), n["body"])
