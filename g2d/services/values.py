@@ -2,7 +2,7 @@
 
 from g2d.engine.behavior import Service
 from g2d.engine.precedence import DART_PREC, POSTFIX
-from g2d.model import unparen
+from g2d.model import Unsupported, unparen
 
 
 class ValueSemantics(Service):
@@ -23,6 +23,9 @@ class ValueSemantics(Service):
         argumento, retorno, elemento...): copia structs, embrulha ponteiros
         que entram em interface."""
         src = self.pkg.type_of(n)
+        reclass = self.concurrency.reclass(n, src, self.pkg.type_at(target) if target is not None else None)
+        if reclass in ("bare", "wrap-bare"):
+            n = dict(n)  # cópia: id novo, sai do embrulho da classe de origem
         to_iface = target is not None and self.typesys.underlying(target)["kind"] == "interface"
         if self.typesys.named_bool(target) and not self.operands.flag_object(n) and n.get("$value") is None:
             # bool sem nome (comparação, &&...) num lugar do tipo `Flag`.
@@ -74,7 +77,41 @@ class ValueSemantics(Service):
             text, prec = f"{func}({self.expr(n, POSTFIX)}, '{sig}')", POSTFIX
         else:
             text, prec = self.expr_prec(n)
+        if reclass in ("wrap", "wrap-bare"):
+            text, prec = self.async_wrap(text, src, nilable=reclass == "wrap"), POSTFIX
         return f"({text})" if prec < min_prec else text
+
+    def coerce_multi(self, n, targets):
+        """`operands.multi_value(n)` com os valores fluindo para os tipos
+        targets (None: não converte). Só a troca de classe de func pede
+        conversão aqui (`ctx, cancel = context.WithCancel(ctx)` com `cancel
+        func()` numa classe `async`): o record é desestruturado num switch
+        expression e refeito."""
+        text = self.operands.multi_value(n)
+        t = self.pkg.type_of(n)
+        if unparen(n)["node"] != "CallExpr" or t is None or t["kind"] != "tuple":
+            return text
+        elems = [self.pkg.type_at(e) for e in t["elems"]]
+        targets = [None if tg is None else self.pkg.type_at(tg) for tg in targets]
+        probe = [{"node": "G2DTemp", "text": "", "$type": e} for e in t["elems"]]
+        if not any(tg is not None and self.concurrency.reclass(x, e, tg)
+                   for x, e, tg in zip(probe, elems, targets)):
+            return text
+        temps = [dict(x, text=self.names.temp()) for x in probe]
+        items = [x["text"] if tg is None else self.coerce(x, tg) for x, tg in zip(temps, targets)]
+        pattern = ", ".join(f"final {x['text']}" for x in temps)
+        return f"(switch ({text}) {{ ({pattern}) => ({', '.join(items)}) }})"
+
+    def async_wrap(self, text, t, nilable=False):
+        """Valor func síncrono visto como `Future<R> Function(...)` (nil
+        continua nil se o valor pode ser nil: `go.asyncOrNil0`)."""
+        from g2d.behaviors.exprs import MAX_ASYNC_ARITY
+
+        arity = len(self.typesys.underlying(t)["params"])
+        if arity > MAX_ASYNC_ARITY:
+            raise Unsupported("async:valor-func-aridade", f"valor func síncrono com {arity} parâmetros numa classe async")
+        name = f"asyncOrNil{arity}" if nilable else f"async{arity}"
+        return f"{self.imports.qualify(None, name)}({text})"
 
     def retypes(self, src, target):
         """src flui para target com o mesmo subjacente e um deles é classe

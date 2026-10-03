@@ -320,8 +320,8 @@ class InterfaceClass(TypeDeclBehavior):
         for m in u["methods"]:
             sig = self.pkg.type_at(m["type"])
             params = ", ".join(f"{self.types.dart(pt)} p{i}" for i, pt in enumerate(sig["params"]))
-            ret = self.concurrency.results(self.concurrency.iface_key(owner or u, m["name"]), sig)
-            lines.append(f"{ret} {member_name(m['name'])}({params});")
+            key = self.concurrency.iface_key(owner or u, m["name"])
+            lines += [f"{ret} {dn}({params});" for dn, ret in self.dualio.members(key, m["name"], sig)]
         return lines + ["}"]
 
 
@@ -373,9 +373,9 @@ class NonStructNamed(TypeDeclBehavior):
             sig = self.pkg.type_at(m["type"])
             params = ", ".join(f"{self.types.dart(p)} p{i}" for i, p in enumerate(sig["params"]))
             args = ", ".join(f"p{i}" for i in range(len(sig["params"])))
-            name = member_name(m["name"])
-            ret = self.concurrency.results(self.concurrency.method_key(t, m["name"]), sig)
-            lines += ["", f"{ret} {name}({params}) => $p.value.{name}({args});"]
+            key = self.concurrency.method_key(t, m["name"])
+            for dn, ret in self.dualio.members(key, m["name"], sig):
+                lines += ["", f"{ret} {dn}({params}) => $p.value.{dn}({args});"]
         for m in ptr_methods:
             lines += [""] + self.functions.func_decl(m)
         return lines + ["}"]

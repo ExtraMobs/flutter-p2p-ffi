@@ -46,7 +46,7 @@ comportamento, com classes pais em `g2d/engine/behavior.py`:
 
 | Classe pai | Papel | Onde |
 |---|---|---|
-| `Service` | responsabilidade compartilhada, registrada por nome e substituível (`engine.services.replace`) | `services/`: `ImportTable`, `Naming`, `TypeSystem`, `TypeMapper`, `DescriptorRegistry`, `ValueSemantics`, `Literals`, `GoTypeInfo`, `Operands`, `Calls`, `Assertions`, `ControlFlow`, `Functions`, `VarDecls`, `Promotion` |
+| `Service` | responsabilidade compartilhada, registrada por nome e substituível (`engine.services.replace`) | `services/`: `ImportTable`, `Naming`, `TypeSystem`, `TypeMapper`, `DescriptorRegistry`, `ValueSemantics`, `Literals`, `GoTypeInfo`, `Operands`, `Calls`, `Assertions`, `ControlFlow`, `Functions`, `VarDecls`, `Promotion`, `Concurrency`, `DualIO` |
 | `Analysis` | pré-passo sobre as declarações; grava em `engine.facts` | `analysis/analyses.py` |
 | `ExprBehavior` / `StmtBehavior` | um por nó Go (`kinds`) | `behaviors/exprs.py`, `behaviors/stmts.py` |
 | `TypeDeclBehavior` | struct, interface ou nomeado, escolhido por `accepts(t, u)` | `behaviors/decls.py` |
@@ -182,9 +182,9 @@ em sequência. O agente principal planeja, integra e faz a verificação final.
 | M1 | fundação: dumpers, grafo, esqueleto do g2d | ✅ |
 | M2 | MVP do transpilador (import entre pacotes, `init`, `switch`, method values, literais, tipos locais...) | ✅ menos `goto` (decisão D6) |
 | M3 | semântica avançada: structs por valor, slices, maps, ponteiros, `defer`/`recover`, tipos nomeados, interfaces, embedding, genéricos, arrays | ✅ num pacote; ⚠️ entre pacotes: interfaces (D8), structs anônimas e promoção de não exportado em dois saltos (`TODO/P1-design-*`) |
-| M4 | concorrência: `Chan<T>`, `select`, `go`, `sync`, timers, `context`, cor `async` transitiva | ✅ runtime e emissão; ⚠️ falta I/O que suspende (D2) e `func()` forçada síncrona (D7) |
+| M4 | concorrência: `Chan<T>`, `select`, `go`, `sync`, timers, `context`, cor `async` transitiva | ✅ runtime e emissão; ⚠️ falta I/O que suspende (D2) |
 | M5 | reflexão estática + shims da stdlib | shims em andamento; `reflect` ❌ (D1) |
-| M6 | grafo completo do kubo/boxo (cobertura ≥ 95% por etapa) | **167 de 1112** verdes (`docs/audit.md`) |
+| M6 | grafo completo do kubo/boxo (cobertura ≥ 95% por etapa) | **158 de 1112** verdes (`docs/audit.md`) |
 
 As decisões D1–D8 e a fila de trabalho estão em `TODO/README.md`; o que já
 funciona, com os limites ⚠️, em `docs/mapping-spec.md`.

@@ -1,8 +1,9 @@
 # Shim do pacote `net`
 
 - **Prioridade:** P0 · **Área:** shim (decisão D4 do `TODO/README.md`)
-- **Depende de:** `P0-design-io-suspende` (D2); segue o modelo de plataforma
-  de `P0-design-os-arquivos` (D3)
+- **Depende de:** segue o modelo de plataforma de `P0-design-os-arquivos`
+  (D3). O D2 (I/O que suspende) já está feito: `net.Conn` entra em
+  `DUAL_IFACES` e `SHIM_INTERFACES`, e `Read`/`Write` reais vão no `$async`
 
 ## Problema
 

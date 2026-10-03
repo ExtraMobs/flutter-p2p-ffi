@@ -69,7 +69,7 @@ class ReturnStmt(StmtBehavior):
             return ["return;"]
         rtypes = self.scope.sig["results"]
         if len(res) != len(rtypes):  # return f() com múltiplos resultados
-            values = [self.expr(res[0])]
+            values = [self.values.coerce_multi(res[0], rtypes)]
         else:
             values = [self.values.coerce(r, self.pkg.type_at(t)) for r, t in zip(res, rtypes)]
         if not self.scope.defers:
@@ -95,7 +95,7 @@ class ReturnStmt(StmtBehavior):
             return [f"{frame.state} = {code};", f"{frame.done} = true;", "return false;"]
         rtypes = [self.pkg.type_at(t) for t in self.scope.sig["results"]]
         if len(res) != len(rtypes):
-            value = self.expr(res[0])  # return f() com vários resultados
+            value = self.values.coerce_multi(res[0], rtypes)  # return f() com vários resultados
         else:
             value = tuple_expr([self.values.coerce(r, t) for r, t in zip(res, rtypes)])
         dt = tuple_expr([str(self.types.dart(t)) for t in rtypes]) if len(rtypes) > 1 else str(self.types.dart(rtypes[0]))
@@ -126,7 +126,7 @@ class AssignStmt(StmtBehavior):
         if len(rhs) == len(lhs):
             value = tuple_expr([self.values.coerce(r, self.pkg.type_of(x)) for r, x in zip(rhs, lhs)])
         else:  # v, ok := x.(T) / m[k], ou 1 chamada com N resultados
-            value = self.operands.multi_value(rhs[0])
+            value = self.values.coerce_multi(rhs[0], [None if is_blank(x) else self.pkg.type_of(x) for x in lhs])
         # Alvos struct já existentes precisam de $set: caminho do temporário.
         # ... e variáveis em caixa (`x.value` não é padrão de atribuição).
         idents = all(x["node"] == "Ident" for x in lhs) and not any(
@@ -559,7 +559,7 @@ class DeferStmt(StmtBehavior):
         d = self.scope.defers
         # Callee que suspende: a closure adiada é `async` (o `runAsync` da
         # função, que a cor também fez `async`, espera por ela).
-        kw = " async" if self.concurrency.awaits(call) else ""
+        kw = " async" if self.concurrency.awaits(call) and self.scope.async_ctx else ""
         if fun.get("$builtin"):  # delete, panic, print...: sem `$rd`
             text = self.expr(dict(call, args=fixed))
             return ["{"] + pre + [f"{d}.defer(() {{ {text}; }});", "}"]
@@ -629,8 +629,12 @@ class GoStmt(StmtBehavior):
             tmp = self.names.temp()
             pre.append(f"final {tmp} = {self.expr(fun)};")
             callee_node = {"node": "G2DTemp", "text": tmp, "$type": fun.get("$type")}
-        # Sem `await`: o go.spawn aceita a goroutine de qualquer cor.
-        text = self.expr(dict(call, fun=callee_node, args=fixed, **{"$awaited": True}))
+        # Sem `await`: o go.spawn aceita a goroutine de qualquer cor (a
+        # forma `$async` do I/O dual que suspende, D2).
+        go_call = dict(call, fun=callee_node, args=fixed)
+        if self.concurrency.awaits(call):
+            go_call = self.dualio.async_form(go_call)
+        text = self.expr(dict(go_call, **{"$awaited": True}))
         spawn = self.imports.qualify(None, "spawn")
         return ["{"] + pre + [f"{spawn}(() => {text});", "}"]
 

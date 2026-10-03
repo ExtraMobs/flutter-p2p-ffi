@@ -132,6 +132,26 @@ void _decodeInto(ByteOrder o, List<int> b, Object data) {
 /// fixo, slice ou ponteiro para array. ⚠️ struct: UnimplementedError (o
 /// runtime não escreve campo por índice).
 GoError? read(io.Reader? r, ByteOrder? order, Object? data) {
+  final buf = _readBuffer(data);
+  if (buf is! Slice<Golang.Uint8>) return buf as GoError;
+  final (_, err) = io.readFull(r, buf);
+  return _readDone(order, data, buf, err);
+}
+
+/// `binary.Read` suspensivo (D2: `r.Read` pode esperar outra goroutine).
+Future<GoError?> read$async(
+  io.Reader? r,
+  ByteOrder? order,
+  Object? data,
+) async {
+  final buf = _readBuffer(data);
+  if (buf is! Slice<Golang.Uint8>) return buf as GoError;
+  final (_, err) = await io.readFull$async(r, buf);
+  return _readDone(order, data, buf, err);
+}
+
+/// O buffer do tamanho de data, ou o erro de tipo inválido.
+Object _readBuffer(Object? data) {
   final target = data is Ptr ? data.value : data;
   if (target is GoStruct) {
     throw UnimplementedError('binary.Read em struct (${goTypeName(data)})');
@@ -144,8 +164,15 @@ GoError? read(io.Reader? r, ByteOrder? order, Object? data) {
       Golang.String.fromDart('binary.Read: invalid type ${goTypeName(data)}'),
     );
   }
-  final buf = Slice<Golang.Uint8>.make(size, size, _byte);
-  final (_, err) = io.readFull(r, buf);
+  return Slice<Golang.Uint8>.make(size, size, _byte);
+}
+
+GoError? _readDone(
+  ByteOrder? order,
+  Object? data,
+  Slice<Golang.Uint8> buf,
+  GoError? err,
+) {
   if (err != null) return err;
   _decodeInto(order!, [for (final c in buf.items) c.toInt()], data!);
   return null;
@@ -154,10 +181,27 @@ GoError? read(io.Reader? r, ByteOrder? order, Object? data) {
 /// `binary.Write(w, order, data)`: valor de tamanho fixo (ou ponteiro para
 /// ele), slice, array ou struct; `[]byte` vai direto.
 GoError? write(io.Writer? w, ByteOrder? order, Object? data) {
-  if (data is Slice<Golang.Uint8>) {
-    final (_, err) = w!.write(data);
-    return err;
-  }
+  final bytes = _writeBytes(order, data);
+  if (bytes is! Slice<Golang.Uint8>) return bytes as GoError;
+  final (_, err) = w!.write(bytes);
+  return err;
+}
+
+/// `binary.Write` suspensivo (D2).
+Future<GoError?> write$async(
+  io.Writer? w,
+  ByteOrder? order,
+  Object? data,
+) async {
+  final bytes = _writeBytes(order, data);
+  if (bytes is! Slice<Golang.Uint8>) return bytes as GoError;
+  final (_, err) = await w!.write$async(bytes);
+  return err;
+}
+
+/// Os bytes de data, ou o erro de tamanho não fixo.
+Object _writeBytes(ByteOrder? order, Object? data) {
+  if (data is Slice<Golang.Uint8>) return data;
   final v = data is Ptr ? data.value : data;
   if (_dataSize(v) < 0) {
     return ErrorString(
@@ -169,6 +213,5 @@ GoError? write(io.Writer? w, ByteOrder? order, Object? data) {
   }
   final out = <Golang.Uint8>[];
   _encode(out, order!, v);
-  final (_, err) = w!.write(Slice.of(out, _byte));
-  return err;
+  return Slice.of(out, _byte);
 }

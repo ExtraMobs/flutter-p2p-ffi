@@ -3,6 +3,7 @@ part of '../../os.dart';
 /// `os.File` dos descritores padrão (0, 1, 2). Não abre arquivos: o sistema de
 /// arquivos não está neste recorte.
 final class File extends GoStruct<File>
+    with io.WriterSync, io.StringWriterSync, io.CloserSync
     implements io.Writer, io.StringWriter, io.Closer {
   File._(this._fd, this._name);
 

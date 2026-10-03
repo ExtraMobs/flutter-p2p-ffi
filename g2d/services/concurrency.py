@@ -7,6 +7,7 @@ funções e reconhecer, num corpo isolado, o que ELE MESMO faz."""
 from g2d.engine.behavior import Service
 from g2d.graph import is_std
 from g2d.model import Unsupported, first_pos, unparen, walk
+from g2d.services.dualio import dual_capable
 
 # Métodos do shim `sync` que esperam outra goroutine: chave → variante
 # suspensiva (`golib_dart/lib/src/sync/`). `soft`: num contexto que precisa
@@ -42,6 +43,11 @@ SPAWNING_SHIM = {
     WAITGROUP_GO: 0,
     ONCE_DO: 0,
 }
+
+# Funções do shim que devolvem uma função da mesma classe da que recebem e
+# são genéricas no formato Dart (`R Function() onceFunc<R>(R Function()?)`):
+# servem a uma classe síncrona ou `async`, então não a prendem.
+COLOR_POLYMORPHIC_SHIM = frozenset({("f", "sync", "OnceFunc")})
 
 # Métodos que o shim (fmt, errors, sort...) chama por nome, de forma
 # síncrona: nunca podem ser `async`, seja qual for a interface.
@@ -128,9 +134,19 @@ class Concurrency(Service):
     # função `async` vira valor dela; aí toda chamada por valor da classe
     # espera. Chave: ("sig", texto canônico).
     def sig_key(self, t):
-        """Classe de um tipo func (nomeado ou não): a assinatura subjacente."""
+        """Classe de um tipo func (nomeado ou não): a assinatura subjacente.
+        Tipo nomeado da stdlib (`context.CancelFunc`) é classe própria: o
+        shim fixa o formato dele (síncrono), sem prender a `func()` comum."""
         t = self.pkg.type_at(t)
+        if t.get("$class"):  # campo com classe própria (analysis/color.field_classes)
+            return t["$class"]
+        if self.std_named_func(t):
+            return ("sig", self.canon(t))
         return ("sig", self.canon(self.typesys.underlying(t)))
+
+    def std_named_func(self, t):
+        return (t is not None and t["kind"] == "named" and bool(t["pkg"]) and self.std(t["pkg"])
+                and self.typesys.underlying(t)["kind"] == "func")
 
     def canon(self, t):
         """Texto canônico da identidade Go de um tipo (caminho completo dos
@@ -186,7 +202,11 @@ class Concurrency(Service):
         k = t["kind"]
         if k == "named":
             u = self.typesys.underlying(t)
-            if u["kind"] == "func":
+            if u["kind"] == "func" and self.std_named_func(t):
+                out.add(self.sig_key(t))  # classe própria; as funcs dentro dela, não
+                for x in u["params"] + u["results"]:
+                    self.func_classes(x, out, seen)
+            elif u["kind"] == "func":
                 self.func_classes(u, out, seen)
         elif k == "func":
             out.add(("sig", self.canon(t)))
@@ -232,10 +252,11 @@ class Concurrency(Service):
         (`String`, `Error`...) ou de tipo/interface da stdlib (`io.Reader`)."""
         if key[0] == "anon":
             return key[1] in SYNC_METHODS
-        if key[0] == "sig":  # assinatura com parâmetro de tipo: formato fixo pelo genérico
-            return "$tp:" in key[1]
+        if key[0] == "sig":  # parâmetro de tipo (genérico) ou tipo nomeado da stdlib: formato fixo
+            return "$tp:" in key[1] or not key[1].startswith("func(")
         if key[0] == "m":
-            return key[3] in SYNC_METHODS or key[1] == "" or Concurrency.std(key[1])
+            # I/O com versão dupla (D2) segue a cor das implementações.
+            return key[3] in SYNC_METHODS or key[1] == "" or (Concurrency.std(key[1]) and not dual_capable(key))
         return key[0] == "f" and Concurrency.std(key[1])
 
     # ------------------------------------------------------------ suspensão direta
@@ -362,6 +383,11 @@ class Concurrency(Service):
         colors = self.facts.colors
         return key is not None and colors is not None and colors.is_async(key)
 
+    def has_twin(self, key):
+        """A função tem a gêmea síncrona `$sync` (I/O dual, D2)."""
+        colors = self.facts.colors
+        return key is not None and colors is not None and colors.has_twin(key)
+
     def is_forced(self, key):
         """O grupo da chave precisa ficar síncrono (ver `forced_sync`)."""
         colors = self.facts.colors
@@ -386,11 +412,42 @@ class Concurrency(Service):
                         and colors.mutex_async(self.mutex_id(call)))
         if key in SUSPENDING_FUNCS:
             return True
+        if self.dualio.dual_call(call):
+            return any(self.is_async(k) for k in self.dualio.call_deps(call))
         if key == ONCE_DO:
             return self.is_async(self.once_arg_key(call))
         if key is None:
             return self.is_async(self.value_call_key(call))
         return self.is_async(key)
+
+    def reclass(self, n, src, target):
+        """Valor func passando de uma classe para outra (só acontece entre um
+        tipo nomeado da stdlib, `context.CancelFunc`, e a assinatura comum):
+        None se o formato Dart é o mesmo; "wrap" se sai síncrono e entra
+        numa classe `async` (`go.async0(cancel)`; "wrap-bare" se citada direto);
+        "bare" se é uma função
+        síncrona citada direto (literal, `f`, `x.M`) entrando numa classe
+        síncrona a partir de uma `async` (emitida sem o embrulho). Recusa
+        `async` virando síncrona."""
+        from g2d.analysis.color import func_ref_key
+
+        if src is None or target is None or src["kind"] == "typeparam" or target["kind"] == "typeparam":
+            return None
+        if self.typesys.underlying(src)["kind"] != "func" or self.typesys.underlying(target)["kind"] != "func":
+            return None
+        cs, ct = self.sig_key(src), self.sig_key(target)
+        if cs == ct:
+            return None
+        a_src, a_tgt = self.is_async(cs), self.is_async(ct)
+        ref = func_ref_key(self, n)
+        if ref is not None:  # a cor que conta é a da própria função
+            a_src = self.is_async(ref)
+        if a_src == a_tgt:
+            return "bare" if ref is not None else None
+        if a_tgt:
+            return "wrap-bare" if ref is not None else "wrap"
+        raise Unsupported("async:valor-func",
+                          "função que suspende usada como valor de uma assinatura que precisa ficar síncrona", n)
 
     def once_arg_key(self, call):
         """O que `Once.Do(f)` espera: a função de `f`, ou a classe dela se `f`

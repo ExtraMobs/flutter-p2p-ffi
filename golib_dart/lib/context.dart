@@ -136,9 +136,9 @@ GoError? cause(Context? c) {
 /// `context.AfterFunc(ctx, f)`: roda [f] numa goroutine nova quando [ctx]
 /// for cancelado (na hora, se já foi). `stop()` impede [f] de rodar e
 /// devolve `true` se conseguiu.
-bool Function() afterFunc(Context? ctx, FutureOr<void> Function() f) {
+bool Function() afterFunc(Context? ctx, FutureOr<void> Function()? f) {
   if (ctx == null) nilDeref();
-  final a = _AfterFuncCtx(f);
+  final a = _AfterFuncCtx(() => f!());
   a.propagateCancel(ctx, a);
   return () {
     var stopped = false;

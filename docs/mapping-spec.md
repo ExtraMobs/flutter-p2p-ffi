@@ -47,7 +47,7 @@ Legenda: ✅ fiel · ⚠️ fiel no caso comum, com limite conhecido · ❌ não
 | embedding (promoção) | caminho `$sel.index` + `mixin E$Promote` (forwarders), sempre na library de `E`, mesmo pra quem embute `E` de outro pacote | M3 | ✅ |
 | genéricos | parâmetros de tipo Dart + dicionário `go.Elem<T>` (`$T`) + bounds `IntBase/GoReal/GoOrdered/StringBase` | M3 | ✅ |
 | arrays `[N]T` (valor) | `go.GoArray<T>` (base `go.GoValue`, como `GoStruct`) | M3 | ✅ |
-| goroutines, canais, `select` | `go.Chan<T>`, `go.select`/`go.selectNow`, `go.spawn` + escalonador; `async`/`await` pela cor transitiva (ver "Concorrência (M4) — runtime" e "Cor transitiva" abaixo) | M4 | ⚠️ runtime, emissão, timers, `context`, valor func `async` e `$goInit` que suspende prontos; faltam I/O que suspende (`TODO/P0-design-io-suspende.md`), classes de func forçadas síncronas (`TODO/P1-design-func-sincrona-forcada.md`) e interfaces entre pacotes (`TODO/P1-design-interfaces-entre-pacotes.md`) |
+| goroutines, canais, `select` | `go.Chan<T>`, `go.select`/`go.selectNow`, `go.spawn` + escalonador; `async`/`await` pela cor transitiva (ver "Concorrência (M4) — runtime" e "Cor transitiva" abaixo) | M4 | ⚠️ runtime, emissão, timers, `context`, valor func `async` e `$goInit` que suspende prontos; faltam I/O que suspende (`TODO/P0-design-io-suspende.md`), classes de func presas pela stdlib (`sort.Slice`...) e interfaces entre pacotes (`TODO/P1-design-interfaces-entre-pacotes.md`) |
 | reflexão | descritores estáticos (evolução de `go.Elem`); recorte em decisão (`TODO/P0-design-m5-reflexao.md`) | M5 | ❌ |
 
 ## Plataformas: ponteiros e `Type` (verificado)
@@ -346,9 +346,73 @@ goroutine servidora em outro).
 
 Contextos que precisam ficar síncronos (o shim chama de forma síncrona):
 métodos `String`, `Error`, `GoString`, `Format`, e todo método no grupo de
-uma interface da stdlib (`io.Reader`...). Lá dentro o `Lock` fica
+uma interface da stdlib sem versão dupla (`sort.Interface`, `fmt.State`...;
+as de I/O seguem a seção abaixo). Lá dentro o `Lock` fica
 `lock()` síncrono (⚠️ `fatal` `g2d: ...` em runtime se estiver disputado);
 qualquer outra espera é recusada: `async:contexto-sincrono`.
+
+### I/O que suspende (`g2d/services/dualio.py`)
+
+Decisão do dono (D2, 2026-10): **versão dupla**. Cada método das interfaces
+de I/O do shim (`io.Reader.Read`, `Writer.Write`, `Closer.Close`,
+`ByteReader.ReadByte`, `ByteWriter.WriteByte`, `StringWriter.WriteString`,
+`ReaderAt.ReadAt`, `WriterAt.WriteAt` e as compostas) existe no Dart como
+`read` (síncrono) e `read$async` (`Future`), e cada função do shim que os
+chama também (`io.readAll`/`io.readAll$async`). Quem escolhe é a cor:
+
+- o grupo de cor do método de interface junta as implementações do grafo
+  (união do `implements`, como qualquer interface) e é `async` quando alguma
+  delas suspende; `io.PipeReader.Read`/`PipeWriter.Write` suspendem sempre
+  e entram no grupo de `io.Reader`/`io.Writer` do pacote que cita o tipo;
+- todo membro de um grupo dual declara as duas formas: o corpo fica na forma
+  da cor do grupo; a outra é derivada (`read$async(p) async => read(p)`, ou
+  o síncrono `go.syncOfAsync('T.Read')`, um `fatal` `g2d:` que o g2d nunca
+  chama). Interfaces geradas, forwarders de embedding e de `N$Ptr` têm as
+  duas;
+- chamada pelo grupo `async`: `await r!.read$async(p)`; `go r.Read(p)`,
+  method value (`r.Read` vira o tear-off `read$async`) e method expression
+  idem;
+- tipo concreto do shim (`bytes.Buffer`, `strings.Reader`, `os.File`...)
+  nunca suspende: a chamada direta é síncrona em qualquer grupo, e ele tem o
+  `$async` pelos mixins `io.ReaderSync`, `io.WriterSync`...; o mesmo vale
+  para `fmt.State.Write` (o valor é sempre o impressor do `fmt`), que por
+  isso não força o grupo de `io.Writer`;
+- função do shim com versão dupla (`io.ReadAll`/`ReadFull`/`ReadAtLeast`/
+  `WriteString`, `fmt.Fprint*`, `binary.Read`/`Write`/`ReadUvarint`/
+  `ReadVarint`, `Buffer.ReadFrom`/`WriteTo`, `Reader.WriteTo`,
+  `Replacer.WriteString`; tabela `DUAL_SHIM_CALLS`) espera quando o método
+  que o shim chama é `async` **para o tipo estático do argumento**:
+  `fmt.Fprintf(&sb, ...)` com `*strings.Builder` fica síncrono (inclusive
+  dentro de `String()`), mesmo com `io.Writer.Write` async no grafo;
+- função do shim sem versão dupla que recebe uma interface de I/O cujo
+  método suspende para o argumento: `async:shim-sincrono`;
+- **contexto síncrono** (`Error()`, `String()`, `Format`, classe de func
+  forçada): uma chamada que só espera I/O dual usa a forma síncrona (o
+  método, a função do shim). Uma função gerada que é `async` só por esperar
+  I/O dual (*branda*: a cor sem os grupos duais não a alcança) ganha a
+  **gêmea síncrona** `f$sync`, emitida quando algum contexto síncrono a
+  alcança, com as formas síncronas lá dentro: o `Error()` do `multierr`
+  escreve num `*bytes.Buffer` por um helper `writeSingleline(w io.Writer)`.
+  Method value de I/O dual numa classe de func síncrona é o tear-off
+  síncrono. Um `Writer` que suspende de fato atrás dessa chamada cai no
+  `fatal` `g2d:` do `syncOfAsync` em runtime (nunca num resultado errado);
+  uma declaração concreta que suspende por si (`*chanReader` chamado
+  direto, `io.PipeReader`) segue recusada (`async:contexto-sincrono`).
+
+A granularidade é o grupo: uma implementação que suspende colore todas as
+chamadas por aquela interface no grafo inteiro (no kubo, `io.Reader.Read`,
+`io.Closer.Close` e `io.StringWriter.WriteString` ficam `async`; ver o
+ranking do `docs/audit.md`). ⚠️ `io.WriteString` (e `Reader.WriteTo`,
+`Replacer.WriteString`) testam `WriteString` no valor dinâmico; só o `Write`
+do tipo estático decide a forma, então um `WriteString` que suspende atrás
+de um `io.Writer` síncrono cai no `fatal` `g2d:` do `syncOfAsync`. ⚠️ Valor de I/O guardado
+dentro de um shim (campo de struct do shim, `bufio.NewReader(r)`) só é
+checado na chamada que o entrega; shim novo que guarde Reader/Writer precisa
+de versão dupla. `net.Conn` entra quando o shim `net` tiver rede (D4).
+Fixture `ioasync` (o repro do D2, `io.Pipe` com `fmt.Fprintf`, Writer
+gerado que suspende, shim concreto síncrono, embedding de `io.Reader`,
+method value, `ReadFull`/`ReadFrom`/`binary.Read`, `io.Closer` que espera um
+`WaitGroup`, gêmea síncrona no `Error()`, `Close` guardado em `func() error`).
 
 Valores de função (closure guardada, `f` sem chamar, method value `x.M`,
 `T.M`, campo/slice/map de funcs, tipo nomeado sobre func): a cor é por
@@ -367,14 +431,44 @@ method value, tipo nomeado, composição, `any` + type assertion, `Once.Do`,
 
 Classes de **formato fixo** ficam síncronas (`ColorSummary.forced`):
 assinaturas de funções e métodos da stdlib usados no grafo (o shim recebe
-e devolve funções síncronas: `sort.Slice`, `context.CancelFunc`...), exceto
+e devolve funções síncronas: `sort.Slice`, `http.HandlerFunc`...), exceto
 o parâmetro de quem roda a função numa goroutine ou com `do$async`
 (`time.AfterFunc`, `context.AfterFunc`, `WaitGroup.Go`, `Once.Do`: o shim
-aceita `FutureOr<void> Function()`), e formatos derivados de genéricos
-(parâmetros/resultados de uma chamada genérica, campos e métodos de
-instâncias de tipos genéricos, assinaturas com parâmetro de tipo: lá
-dentro o Dart vê `U Function(T)`). ⚠️ Como `context.WithCancel` devolve
-`CancelFunc`, a classe `func()` fica síncrona em quase todo o grafo do kubo.
+aceita `FutureOr<void> Function()?`), o `sync.OnceFunc` (genérico no Dart,
+`R Function() onceFunc<R>(R Function()?)`: serve às duas cores) e pacotes
+sem shim (o pacote cai na emissão de qualquer jeito); e formatos derivados
+de genéricos: assinaturas com parâmetro de tipo (lá dentro o Dart vê `U
+Function(T)`) e, nas instâncias (chamada genérica, campos e métodos de
+tipos genéricos), só as classes que citam um argumento de tipo
+(`queue[int]` prende `func(int)`, não a `func()` de um campo ou o tipo
+de um método `Clear()`; `StartStopHook[func()]` também não prende a
+`func()`, que lá dentro é um `T` opaco).
+
+**Tipo de função nomeado da stdlib** (`context.CancelFunc`,
+`CancelCauseFunc`...) é classe própria, `("sig", "context.CancelFunc")`,
+sempre síncrona (o `typedef` do shim), separada da assinatura comum. Assim
+a `func()` segue a cor dela no grafo (fixture `asynccancel`). Na passagem
+de uma classe para a outra (`ValueSemantics.coerce`, e `coerce_multi`
+para `ctx, cancel = context.WithCancel(ctx)` e `return
+context.WithCancel(ctx)`, refeitos num switch expression):
+
+- `CancelFunc` → `func()` `async`: `go.asyncOrNil0(cancel)` (nil continua
+  nil);
+- literal ou função síncrona citada direto → `CancelFunc`: emitida sem o
+  embrulho da classe dela;
+- valor `async` → `CancelFunc`: `async:valor-func`.
+
+**Campo com classe própria** (`color.field_classes`): campo não exportado
+de tipo `func` sem nome, numa struct nomeada não genérica, que só é chamado,
+comparado com nil ou escrito, e só recebe nil, função citada direto ou um
+tipo de função nomeado da stdlib, tem a classe `("field", pacote,
+declaração)`: é `async` só se recebe uma função `async`. Um `cancelInner
+func()` que guarda o `CancelFunc` de `context.WithCancel` fica síncrono, e a
+closure que o chama ainda pode ser devolvida como `CancelFunc`
+(`go.uber.org/fx/internal/fxclock`). O tipo do campo na struct e nos
+seletores vira uma cópia do tipo func com `$class`. ⚠️ Campo lido sem ser
+chamado (`f := x.cancel`, `&x.cancel`) ou que recebe um valor `func()`
+qualquer fica na classe da assinatura.
 
 `$goInit`: vira `Future<void> $goInit() async` se um inicializador de
 variável de pacote, uma função `init` ou (no main) o `$goInit` de uma
@@ -613,14 +707,14 @@ intervalo, nil pointer, escrita em map nil.
 | `strconv` | inteiros: `itoa`, `formatInt`, `formatUint`, `parseInt`, `parseUint`, `atoi` (porta de `internal/strconv`, `(valor, GoError?)`), erros `*strconv.NumError` (classe privada: `Error()` com `%q` do `fmt`, `Unwrap()`), `errRange`/`errSyntax`; oráculo com ~2500 casos; `parseBool`/`formatBool`/`appendBool`, `appendInt`/`appendUint`, `quote*`/`appendQuote*` (núcleo `src/strconv/quote_core.dart`, o mesmo do `%q` do `fmt`), `unquote`/`unquoteChar`, `isPrint`, `canBackquote`; `formatFloat`/`appendFloat` (`e E f g G`, sobre o formatador exato do `fmt`) e `parseFloat` (gramática do `atof.go`; arredondamento decimal por BigInt meio-para-par, igual ao do Go; hexadecimal é a porta de `atofHex`); oráculo em `golib_dart/test/strconv_misc_test.dart` e fixture `tests/golden/strconvmisc`. `IntSize` é constante dobrada pelo goast. ❌ `FormatFloat` com `b`/`x`/`X`, `ParseComplex`/`FormatComplex`, `QuotedPrefix`, `QuoteToGraphic`, `NumError` exposto |
 | `regexp` | motor próprio (não tradução para o `RegExp` do Dart, cujo `.`, `\b`, `$`, dobra de caixa e UTF-16 diferem do RE2): parser da sintaxe do `regexp/syntax` (flags Perl) com os mesmos códigos e trechos de erro (`error parsing regexp: missing closing ): ...`; `MustCompile` entra em pânico com `regexp: Compile(`...`): ...`), compilação para programa e simulação Pike (leftmost-first, tempo linear, sem backtracking), sobre os bytes UTF-8: índices em bytes e UTF-8 inválido casa como U+FFFD de largura 1. `Regexp` é struct de shim (`go.GoStruct`; o programa é imutável e compartilhado nas cópias). Cobre `compile`, `mustCompile`, `matchString`, `match`, `quoteMeta` e os métodos `match`/`matchString`, `find*`/`findAll*` (String, Index, Submatch e combinações, `n` do Go), `replaceAll*` (`$1`, `${name}`, `$$` com as regras do `expand`; `Literal`; `Func`), `expand`/`expandString`, `split`, `numSubexp`, `subexpNames`, `subexpIndex`, `string`; oráculo Go com ~90 mil resultados (255 padrões, válidos e inválidos × 34 entradas, inclusive UTF-8 inválido). Dobra de caixa pelo `unicode.simpleFold` e `\p{..}`/`\P{..}` pelas tabelas `Categories`/`Scripts` do shim `unicode` (as do Go, iguais em toda plataforma); nome desconhecido → `invalid character class range`, como o Go. ❌ `Longest`, `CompilePOSIX`/`MustCompilePOSIX`, `MatchReader`/`FindReaderIndex`, `ReplaceAll*` com `io.RuneReader`, `LiteralPrefix`, `Copy`, `MarshalText`/`UnmarshalText`, `Regexp.Match*` em `RuneReader`: `Unsupported shim-simbolo`. Backreferences e lookaround não existem no RE2 (erro de sintaxe, como no Go). Fixture `regexpbasic` |
 | tipo struct de shim (`strings.Builder`, `bytes.Buffer`) | classe do shim `extends go.GoStruct<T>`, com `$copy`/`$set`/`$fields`/`$valueMethods`/`$ptrMethods`: o g2d a trata como struct de outro pacote (zero `strings.Builder()`, cópia, métodos no próprio objeto, `go.Elem` com `.new`) sem olhar os campos não exportados do dump. Porta do Go com o mesmo crescimento (`Cap`) e checagens (cópia de Builder, `Truncate`...). Fixtures `stringsbuilder`, `bytesbuffer` |
-| `io` | parcial: `eof`, `errUnexpectedEOF`, `errShortWrite`...; `readFull`, `readAtLeast`, `writeString` (o `WriteString` do próprio Writer no method set do valor), `readAll` (o algoritmo do Go 1.26: pedaços 1,5× e cópia final, mesmo `cap`), `discard`; `Reader`, `Writer`, `ByteReader`, `ByteWriter`, `StringWriter`, `Closer`, `Seeker`, `ReaderAt`, `WriterAt` e as compostas (`ReadCloser`, `WriteCloser`, `ReadWriter`, `ReadWriteCloser`, `ReadSeeker`...) como interfaces de shim (`SHIM_INTERFACES`: tipo gerado com `Write([]byte) (int, error)` declara `implements io.Writer`). Var de shim é `final` Dart (sem caixa) |
+| `io` | parcial: `eof`, `errUnexpectedEOF`, `errShortWrite`...; `pipe` (`PipeReader`/`PipeWriter`, porta do `io/pipe.go` sobre `Chan`/`select`; só a forma `$async` espera); versão dupla (`$async`) dos métodos de I/O e de `readFull`, `readAtLeast`, `writeString`, `readAll` ("I/O que suspende"); `readFull`, `readAtLeast`, `writeString` (o `WriteString` do próprio Writer no method set do valor), `readAll` (o algoritmo do Go 1.26: pedaços 1,5× e cópia final, mesmo `cap`), `discard`; `Reader`, `Writer`, `ByteReader`, `ByteWriter`, `StringWriter`, `Closer`, `Seeker`, `ReaderAt`, `WriterAt` e as compostas (`ReadCloser`, `WriteCloser`, `ReadWriter`, `ReadWriteCloser`, `ReadSeeker`...) como interfaces de shim (`SHIM_INTERFACES`: tipo gerado com `Write([]byte) (int, error)` declara `implements io.Writer`). Var de shim é `final` Dart (sem caixa) |
 | `os` | parcial (1º recorte portável VM/AOT/JS/Wasm): `getenv`/`lookupEnv` (JS/Wasm sem Node: `""`/`false`), `exit`, `getpid`, `args` (só `[nome do programa]`), `stdin`/`stdout`/`stderr` como `*File` (`write`, `writeString`, `close`, `name`, `fd`; `ErrClosed` depois de `Close`; `Read` não existe), `errNotExist`/`errExist`/`errPermission`/`errClosed`/`errInvalid`/`errNoDeadline`/`errDeadlineExceeded`, `isNotExist`/`isExist`/`isPermission`/`isTimeout` (como o `underlyingError` do Go). ❌ sistema de arquivos (`Open`, `ReadFile`, `Stat`, `MkdirAll`...): `Unsupported` `shim-simbolo:os.*` (`TODO/P0-design-os-arquivos.md`). Fixture `osbasic` |
 | `io/fs` | parcial: `PathError` (struct, `os.PathError` é alias), `FileMode` (`Uint32Base`; `IsDir`/`IsRegular`/`Perm`/`Type`/`String` sem `<<` acima de 30 bits), `errInvalid`/`errPermission`/`errExist`/`errNotExist`/`errClosed`. Fixture `osbasic` |
 | `time` | parcial: `Duration` (classe sobre `Int64Base`, a mesma forma de `type N int64` gerado; `String()` portado do Go, `Seconds`/`Minutes`/`Hours`/`Round`/`Truncate`/`Abs`/...); as constantes (`time.Second`) dobradas em `time.Duration(n)`. `parseDuration` (sobre os bytes, erros do Go). `Time` struct de shim (`wall`/`ext`/`loc` do Go, relógio monotônico incluso): `unix*`, `add`/`sub`/`addDate`/`truncate`/`round`, comparações, `date`/`clock`/componentes/`isoWeek`, `zone`/`location`/`utc`/`local`/`in$`, `string()` (só o layout fixo do `String()`); `date`, `unix`/`unixMilli`/`unixMicro`, `now`/`since`/`until`; `Month`/`Weekday` (`Int64Base`, `String()`); `Location` de fuso fixo (`utc`, `local`, `fixedZone`). ⚠️ `Local` = UTC (o Go com `TZ=UTC`): componentes de `now()` diferem do Go em outro fuso. Oráculo `golib_dart/test/time_test.dart` (VM × JS × Wasm). Timers (Go ≥ 1.23, `src/time/sleep.dart`): `sleep(d)` → `Future<void>` (o g2d emite `await time.sleep(d)`; `d <= 0` volta sem timer); `newTimer`/`after`/`afterFunc` → `Timer` (struct de shim: campo `C` → `c`, `Chan<Time>?`, nulo no `afterFunc`; `stop()`/`reset(d)` → `bool`); `newTicker`/`tick` → `Ticker` (`c`, `stop()`, `reset(d)`). Canal de timer síncrono como o Go ≥ 1.23: `len`/`cap` 0 (`go.Chan.$timer`), `Stop`/`Reset` descartam o disparo não recebido (e então devolvem `true`), timer vencido dispara ao ser olhado (`recv`/`select`, mesmo sem ceder o laço de eventos). `afterFunc(d, f)` roda `f` com `go.spawn` (aceita closure `async`). Deadlock: `Sleep`/`AfterFunc` pendentes seguram o detector (`holdEvents`); timer de canal só enquanto alguém espera no canal dele (`addEventSource`), como o Go ≥ 1.23 (`time.NewTimer(time.Hour)` esquecido não impede o `fatal`). Esperas acima de 1 dia viram cadeia de `Timer` do Dart (o `setTimeout` do Node estoura em 2^31 ms); acima de 2^62 ns, saturam. Oráculos `golib_dart/test/timer_test.dart` (VM × JS × Wasm) e `timer_context_oracle_test.dart` (programas inteiros contra `go run`, VM × JS × Wasm). ❌ `Format`/`Parse` com layout, `LoadLocation`, JSON/Text (`TODO/P1-shim-time-layout.md`). Fixture `timeduration` |
 | `context` | porta de `context/context.go` (`golib_dart/lib/context.dart` + `src/context/impl.dart`): `Context` (interface de shim em `SHIM_INTERFACES`: `deadline()` → `(time.Time, bool)`, `done()` → `go.Chan<go.EmptyStruct>?`, `err()`, `value$(key)`), `background`/`todo`, `withCancel`/`withCancelCause` → `(Context, CancelFunc)`/`(Context, CancelCauseFunc)` (`typedef` de função), `withDeadline`/`withTimeout` (+ `Cause`), `withValue`, `withoutCancel`, `cause`, `afterFunc` (→ `bool Function()`), `canceled`, `deadlineExceeded` (struct vazia por valor: `Timeout()`/`Temporary()`, `%T`/`%#v` do Go). `String()` dos contextos idêntico ao Go (`context.Background.WithCancel.WithValue(main.key, int)`). Implementação de fora (tipo gerado) funciona como pai: acha o `cancelCtx` do shim pela cadeia de `Value` ou propaga com uma goroutine (`go.spawn` + `select`), como o Go. Timers de `WithDeadline` são `time.afterFunc`. ⚠️ `%T`/`stringify` de valor slice/map sem nome dentro do `WithValue` sai com o nome Dart (o valor não carrega o tipo Go); o atalho `afterFuncer` do Go (pai com método `AfterFunc`) cai na goroutine (mesmo efeito); `%T` de `CancelFunc` sai como func sem nome. Oráculos `golib_dart/test/context_test.dart` (VM × JS × Wasm) e `timer_context_oracle_test.dart` |
 | `sync` | `Mutex`, `RWMutex`, `Once`, `WaitGroup`, `Pool` (campo `New` → `new$`), `Map$` (`sync.Map`; chave com igualdade de interface), `Cond`/`NewCond`, `Locker`/`AsyncLocker` (interfaces de shim), `OnceFunc`/`OnceValue`/`OnceValues`, como structs de shim. Método síncrono (`Lock`, `Wait`...) continua valendo pra uma goroutine só: esperar o que só outra goroutine faria é o deadlock do Go (`go.fatal`, sem recover); unlock de destravado é o fatal error do Go. Com goroutines (M4), cada um ganha uma variante suspensiva de sufixo `$` (`lock$async`, `rLock$async`, `wait$async`, `do$async`; ver "Concorrência (M4) — runtime"), que o g2d emite numa função `async` (`Wait` sempre; `Lock`/`RLock` só de Mutex disputável, ver "Cor transitiva"; num contexto que precisa ficar síncrono, como `String()`, o `Lock` fica síncrono); a versão síncrona travada com outras goroutines vivas é um limite do g2d (`fatal` com `g2d: ...`). `WaitGroup.Go` (Go 1.25) existe. ⚠️ `Map.Range` em ordem de inserção; `Pool` nunca é esvaziado pelo GC; `%v` de `Map`/`Pool`/`Cond` lança. Fixture `syncshim` |
 | `sync/atomic` | `Int32`/`Int64`/`Uint32`/`Uint64`/`Uintptr`/`Bool`/`Value`/`Pointer[T]` (T struct) como structs de shim (`%v` como o Go: `{{} {} 5}`); `Add*`/`Load*`/`Store*`/`Swap*`/`CompareAndSwap*` sobre `go.Ptr`. Decidido no M4: mesmo com goroutines, leitura/escrita simples continua certa — são cooperativas sobre um só event loop, nunca truly paralelas (ao contrário das OS threads que o `atomic` do Go protege), então não há corrida de verdade a impedir. Variantes `*Pointer` (unsafe) → `unsafe:Pointer`. Fixture `syncatomic` |
-| `fmt.Fprint`, `Fprintln`, `Fprintf` | `fmt.fprint(w, args)`: a mesma formatação, num só `w.write(bytes)` |
+| `fmt.Fprint`, `Fprintln`, `Fprintf` | `fmt.fprint(w, args)`: a mesma formatação, num só `w.write(bytes)`; `fprint$async`... com `await w.write$async(bytes)` (D2) |
 | `sort` | `Interface` (interface de shim: tipo gerado que a satisfaz declara `implements sort.Interface`), `sort`, `stable`, `isSorted`, `slice$`, `sliceStable`, `search`, `ints`, `strings`, `float64s`: porta exata do pdqsort/stable do Go (mesmas chamadas a `Less`/`Swap`, mesmo resultado para iguais); swap de slice via `go.swapElems` (copia struct/array antes) |
 
 ## Tipos nomeados, interfaces, embedding, genéricos (M3)

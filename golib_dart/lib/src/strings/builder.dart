@@ -11,6 +11,7 @@ const _builderByte = Elem<Golang.Uint8>(
 /// `strings/builder.go` do Go 1.26: mesmo crescimento (`Cap`) e a checagem de
 /// cópia (`addr`), com o pânico do Go.
 final class Builder extends GoStruct<Builder>
+    with io.WriterSync, io.ByteWriterSync, io.StringWriterSync
     implements io.Writer, io.ByteWriter, io.StringWriter, Stringer {
   Builder();
 
