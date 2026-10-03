@@ -21,11 +21,11 @@ via `go list`. Se o alvo não pertence a um módulo (ex. fixtures em
 `tests/golden/`), cai no fallback `load_loose.go` (`go/parser` + `go/types` +
 `importer.Default()`, só imports da stdlib).
 
-## Schema do JSON (`schemaVersion: 8`)
+## Schema do JSON (`schemaVersion: 9`)
 
 ```jsonc
 {
-  "schemaVersion": 8,
+  "schemaVersion": 9,
   "tool": "goast",
   "goVersion": "go1.26.5",
   "packages": [ ... ]  // ordenados por import path (determinístico)
@@ -107,7 +107,8 @@ adicionou `methods` e `implements`; v5 adicionou `initOrder`; v6 incluiu as
 interfaces anônimas no `implements`; v7 adicionou `otherFiles` e
 `module`, o campo `valueEnd` do `BasicLit` (go/ast 1.26) e corrigiu o `decl` de
 objetos importados no modo loose (antes caía num arquivo errado); v8 adicionou `fold` e
-incluiu tipos genéricos e instâncias de interfaces genéricas no `implements`.
+incluiu tipos genéricos e instâncias de interfaces genéricas no `implements`; v9
+adicionou `pkg` aos campos de struct e métodos de interface não exportados.
 
 ### Tabela de tipos
 
@@ -123,8 +124,8 @@ por índice (sem ciclos).
 | `array` | `len`, `elem` |
 | `map` | `key`, `elem` |
 | `chan` | `dir` (`both\|send\|recv`), `elem` |
-| `struct` | `fields: [{name, type, embedded, tag}]` |
-| `interface` | `methods: [{name, type}]` (conjunto completo), `embeddeds` |
+| `struct` | `fields: [{name, type, embedded, tag, pkg?}]` (`pkg` só no campo não exportado: entra na identidade do tipo) |
+| `interface` | `methods: [{name, type, pkg?}]` (conjunto completo; `pkg` só no não exportado), `embeddeds` |
 | `func` | `params`, `results`, `variadic` |
 | `tuple` | `elems` |
 | `typeparam` | `name`, `index`, `constraint` |

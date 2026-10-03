@@ -4,7 +4,7 @@ import "runtime"
 
 // schemaVersion do JSON emitido: o g2d (g2d/model.py) recusa dump de outra
 // versão. Mudou o formato, mude aqui e lá.
-const schemaVersion = 8
+const schemaVersion = 9
 
 // DumpDoc é a raiz do JSON emitido pelo goast.
 type DumpDoc struct {

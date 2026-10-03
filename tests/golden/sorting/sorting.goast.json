@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 8,
+  "schemaVersion": 9,
   "tool": "goast",
   "goVersion": "go1.26.5",
   "packages": [
@@ -14878,13 +14878,15 @@
               "name": "key",
               "type": 4,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "main"
             },
             {
               "name": "id",
               "type": 4,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "main"
             }
           ]
         },
@@ -14935,19 +14937,22 @@
               "name": "xs",
               "type": 17,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "main"
             },
             {
               "name": "h",
               "type": 18,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "main"
             },
             {
               "name": "calls",
               "type": 4,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "main"
             }
           ]
         },

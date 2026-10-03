@@ -6,6 +6,7 @@ Cada estágio é uma classe (`Stage`); um pipeline customizado troca, remove ou
 acrescenta estágios (ex.: validar com `dart analyze`, gerar relatórios).
 """
 
+import dataclasses
 import os
 import subprocess
 import sys
@@ -15,6 +16,7 @@ from dataclasses import dataclass, field
 from g2d.analysis.color import ColorTable
 from g2d.engine import Engine
 from g2d.model import Unsupported, link_packages, load_dump
+from g2d.services.anon import anon_path
 
 
 GOLIB = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "golib_dart")
@@ -49,6 +51,7 @@ class RunContext:
     out: str = None
     plugins: list = None  # None = DEFAULT_PLUGINS
     units: list = field(default_factory=list)
+    shared: dict = field(default_factory=dict)  # import path → Dart (structs anônimas canônicas)
 
 
 class Stage(ABC):
@@ -67,15 +70,19 @@ class LoadStage(Stage):
 class EmitStage(Stage):
     """Transpila cada pacote com o Engine; construções não suportadas ficam
     registradas no Unit (o pacote é pulado). A cor `async` é a do conjunto
-    de pacotes carregados juntos (`color_table`)."""
+    de pacotes carregados juntos (`color_table`). As libraries das structs
+    anônimas canônicas que ele usa vão para `ctx.shared`."""
 
     def run(self, ctx):
         colors = color_table([u.pkg for u in ctx.units], ctx.plugins)
         for unit in ctx.units:
             try:
-                unit.source = Engine(unit.pkg, plugins=ctx.plugins, colors=colors).emit_package()
+                libs = emit_libraries(unit.pkg, plugins=ctx.plugins, colors=colors)
             except Unsupported as e:
                 unit.error = e
+                continue
+            unit.source = libs.pop(unit.pkg.path)
+            ctx.shared.update(libs)
 
 
 class FormatStage(Stage):
@@ -85,6 +92,7 @@ class FormatStage(Stage):
         for unit in ctx.units:
             if unit.source is not None:
                 unit.source = dart_format(unit.source)
+        ctx.shared = {p: dart_format(src) for p, src in sorted(ctx.shared.items())}
 
 
 class WriteStage(Stage):
@@ -92,7 +100,7 @@ class WriteStage(Stage):
 
     def run(self, ctx):
         units = [u for u in ctx.units if u.source is not None]
-        paths = write_tree(ctx.out, {u.pkg.path: u.source for u in units})
+        paths = write_tree(ctx.out, {**ctx.shared, **{u.pkg.path: u.source for u in units}})
         for u in units:
             u.path = paths[u.pkg.path]
 
@@ -148,7 +156,36 @@ def color_table(pkgs, plugins=None):
     return ColorTable([Engine(p, plugins=plugins).color_summary() for p in pkgs])
 
 
+def emit_libraries(pkg, plugins=None, colors=None, errors=None):
+    """{import path: Dart não formatado}: a library do pacote e as das structs
+    anônimas canônicas que ela usa (e as que essas usam). `errors` liga o modo
+    coleta do Engine (auditoria)."""
+    engine = Engine(pkg, plugins=plugins, colors=colors)
+    engine.errors = errors
+    out = {pkg.path: engine.emit_package()}
+    pending = [engine]
+    while pending:
+        e = pending.pop(0)
+        for h, idx in sorted(e.services["anon"].used.items()):
+            path = anon_path(h)
+            if path in out:
+                continue
+            synthetic = dataclasses.replace(e.pkg, path=path, name="anon", files=[], imports=[], implements=[],
+                                            init_order=[], init_deps=None)
+            sub = Engine(synthetic, plugins=plugins, colors=colors)
+            sub.errors = errors
+            out[path] = sub.anon_library.emit(idx, h)
+            pending.append(sub)
+    return out
+
+
+def transpile_libraries(pkg, plugins=None, colors=None):
+    """Atalho: um pacote → {import path: Dart formatado} (o dele e as
+    libraries compartilhadas das structs anônimas canônicas)."""
+    return {p: dart_format(src) for p, src in emit_libraries(pkg, plugins, colors).items()}
+
+
 def transpile_package(pkg, plugins=None, colors=None):
-    """Atalho: um pacote → Dart formatado (`colors`: a ColorTable do grafo;
-    sem ela, a cor é a do pacote sozinho)."""
+    """Atalho: um pacote → Dart formatado, só a library dele (`colors`: a
+    ColorTable do grafo; sem ela, a cor é a do pacote sozinho)."""
     return dart_format(Engine(pkg, plugins=plugins, colors=colors).emit_package())

@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 8,
+  "schemaVersion": 9,
   "tool": "goast",
   "goVersion": "go1.26.5",
   "packages": [
@@ -9131,19 +9131,22 @@
               "name": "wall",
               "type": 8,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             },
             {
               "name": "ext",
               "type": 9,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             },
             {
               "name": "loc",
               "type": 10,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             }
           ]
         },
@@ -9222,43 +9225,50 @@
               "name": "name",
               "type": 1,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             },
             {
               "name": "zone",
               "type": 13,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             },
             {
               "name": "tx",
               "type": 18,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             },
             {
               "name": "extend",
               "type": 1,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             },
             {
               "name": "cacheStart",
               "type": 9,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             },
             {
               "name": "cacheEnd",
               "type": 9,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             },
             {
               "name": "cacheZone",
               "type": 22,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             }
           ]
         },
@@ -9280,19 +9290,22 @@
               "name": "name",
               "type": 1,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             },
             {
               "name": "offset",
               "type": 16,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             },
             {
               "name": "isDST",
               "type": 17,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             }
           ]
         },
@@ -9322,25 +9335,29 @@
               "name": "when",
               "type": 9,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             },
             {
               "name": "index",
               "type": 21,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             },
             {
               "name": "isstd",
               "type": 17,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             },
             {
               "name": "isutc",
               "type": 17,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             }
           ]
         },
@@ -10194,7 +10211,8 @@
               "name": "initTicker",
               "type": 17,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             }
           ]
         },
@@ -10304,13 +10322,15 @@
               "name": "_",
               "type": 108,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "sync"
             },
             {
               "name": "mu",
               "type": 109,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "sync"
             }
           ]
         },
@@ -10393,13 +10413,15 @@
               "name": "state",
               "type": 84,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "internal/sync"
             },
             {
               "name": "sema",
               "type": 111,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "internal/sync"
             }
           ]
         },
@@ -10466,19 +10488,22 @@
               "name": "noCopy",
               "type": 108,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "sync"
             },
             {
               "name": "state",
               "type": 116,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "sync"
             },
             {
               "name": "sema",
               "type": 111,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "sync"
             }
           ]
         },
@@ -10553,19 +10578,22 @@
               "name": "_",
               "type": 118,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "sync/atomic"
             },
             {
               "name": "_",
               "type": 119,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "sync/atomic"
             },
             {
               "name": "v",
               "type": 8,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "sync/atomic"
             }
           ]
         },
@@ -10727,7 +10755,8 @@
               "name": "initTimer",
               "type": 17,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             }
           ]
         },

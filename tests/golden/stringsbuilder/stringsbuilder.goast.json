@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 8,
+  "schemaVersion": 9,
   "tool": "goast",
   "goVersion": "go1.26.5",
   "packages": [
@@ -5246,13 +5246,15 @@
               "name": "name",
               "type": 2,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "main"
             },
             {
               "name": "sb",
               "type": 3,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "main"
             }
           ]
         },
@@ -5363,13 +5365,15 @@
               "name": "addr",
               "type": 5,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "strings"
             },
             {
               "name": "buf",
               "type": 6,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "strings"
             }
           ]
         },

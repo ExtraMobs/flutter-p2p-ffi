@@ -4,6 +4,7 @@ inicialização do pacote e a cadeia de declarações de tipo nomeado."""
 from g2d.engine.behavior import Behavior, TypeDeclBehavior
 from g2d.engine.scope import FunctionScope, TypeParams
 from g2d.model import Unsupported
+from g2d.services.anon import anon_class
 from g2d.services.literals import doc_comment
 from g2d.services.naming import member_name, param_name, type_name
 
@@ -93,6 +94,25 @@ class PackageBehavior(Behavior):
                     out += ["", "/// `" + self.goinfo.go_type_name(t) + "` (interface anônima)."]
                     out += behavior.iface_class(name, t)
         return out
+
+
+class AnonLibraryBehavior(Behavior):
+    """Library de uma struct anônima canônica (`lib/_anon/<hash>.dart`): só a
+    classe `Struct$<hash>` e o que ela usa (descritores, imports). O motor
+    dela tem um pacote sintético com a typeTable de quem a usou; a saída só
+    depende da estrutura, então todo pacote escreve o mesmo arquivo."""
+
+    def emit(self, idx, h):
+        t = self.pkg.type_at(idx)
+        name = anon_class(h)
+        body = ["", "/// `" + self.goinfo.go_type_name(t) + "` (struct anônima canônica: igual em todo pacote)."]
+        body += self.engine.type_decls.find(t, t).struct_class(name, t, idx)
+        body += self.promoter.mixin_decls
+        if self.descriptors.elem_decls:
+            body += ["", "// Descritores de tipo (go.Elem) usados por slices, maps e ponteiros."]
+            body += self.descriptors.elem_decls
+        head = [HEADER.format(path="struct anônima")] + self.imports.directives()
+        return "\n".join(head + body) + "\n"
 
 
 class InitBehavior(Behavior):

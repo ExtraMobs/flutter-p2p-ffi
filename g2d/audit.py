@@ -31,7 +31,7 @@ from g2d.config import STDLIB_SHIMS
 from g2d.engine import Engine
 from g2d.graph import BUILD_ENV, build_env, go_list, init_deps, topo_order
 from g2d.model import Unsupported, load_dump
-from g2d.pipeline import run_dart, write_tree
+from g2d.pipeline import emit_libraries, run_dart, write_tree
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 GOAST = os.path.join(ROOT, "tools", "goast")
@@ -71,18 +71,17 @@ def finding(e):
 
 
 def emit_collect(pkg, colors=None):
-    """(Dart ou None, [Finding]): o Engine segue depois de cada declaração
-    que falha; só um pacote sem problemas tem Dart."""
+    """({import path: Dart} ou None, [Finding]): o Engine segue depois de
+    cada declaração que falha; só um pacote sem problemas tem Dart (a library
+    dele e as das structs anônimas canônicas que usa)."""
+    errors = []
     try:
-        engine = Engine(pkg, colors=colors)
-        engine.errors = []
-        source = engine.emit_package()
-        errors = engine.errors
+        libs = emit_libraries(pkg, colors=colors, errors=errors)
     except Unsupported as e:
-        source, errors = None, [e]
+        libs, errors = None, [e]
     except Exception as e:  # noqa: BLE001 — bug do g2d fora de declaração
-        source, errors = None, [Unsupported.internal(e)]
-    return (None if errors else source), [finding(e) for e in errors]
+        libs, errors = None, [Unsupported.internal(e)]
+    return (None if errors else libs), [finding(e) for e in errors]
 
 
 _MACHINE = re.compile(r"(?<!\\)\|")
@@ -339,6 +338,7 @@ def audit(target, corpus, docs, cache, log=print):
     imports = {p: graph[p]["imports"] for p in graph}
     colors = color_graph(order, dumps, log, imports)
     reports, sources, stdlib, reflection, meta = {}, {}, {}, [], {}
+    anon_users = collections.defaultdict(list)  # library `_anon/<hash>` → pacotes que a emitiram
     for i, path in enumerate(order, 1):
         (pkg,) = load_dump(dump_path(dumps, path))
         r = reports[path] = PackageReport(path, sorted(d for d in graph[path]["imports"] if d in graph
@@ -353,15 +353,21 @@ def audit(target, corpus, docs, cache, log=print):
         if not r.asm:
             if pkg.name == "main":
                 pkg.init_deps = init_deps(path, imports)
-            source, r.findings = emit_collect(pkg, colors)
-            if source is not None:
-                sources[path] = source
+            libs, r.findings = emit_collect(pkg, colors)
+            if libs is not None:
+                sources.update(libs)
+                for lib in libs.keys() - {path}:
+                    anon_users[lib].append(path)
         if i % 100 == 0:
             log(f"  {i}/{len(order)}")
     log(f"dart analyze de {len(sources)} pacotes emitidos")
     for path, fs in analyze(os.path.join(cache, "out"), sources).items():
         if path in reports:
-            reports[path].dart = fs
+            reports[path].dart += fs
+        # Erro numa struct anônima canônica (sem pacote próprio): conta para
+        # cada pacote que a usa, com o arquivo no `where`.
+        for user in anon_users.get(path, []):
+            reports[user].dart += [Finding(f.code, f.what, f"{path}.dart:{f.where}") for f in fs]
     classify(reports, order)
 
     command = f"python -m g2d audit {target} -C {corpus.replace(os.sep, '/')}"

@@ -133,7 +133,7 @@ silêncio, e o audit nunca vai mostrá-la.
    imports, mas quebra a identidade: type assertion de volta para `a.T` e
    `==` de interface precisam desembrulhar.
 
-A parte da interface anônima também depende de `P1-design-anonimas-canonicas`.
+A interface anônima com métodos continua uma classe por library (`$_anonIface$N`); as structs anônimas já são canônicas (`lib/_anon/<hash>.dart`, `g2d/services/anon.py`), e a interface anônima pode seguir o mesmo esquema quando a regra de interfaces entre pacotes existir.
 
 ## Tentativa anterior: `implements` sobre o grafo inteiro (branch `claude/wip-ifacecross`)
 

@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 8,
+  "schemaVersion": 9,
   "tool": "goast",
   "goVersion": "go1.26.5",
   "packages": [
@@ -19215,19 +19215,22 @@
               "name": "s",
               "type": 14,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "bytes"
             },
             {
               "name": "i",
               "type": 16,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "bytes"
             },
             {
               "name": "prevRune",
               "type": 17,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "bytes"
             }
           ]
         },
@@ -19708,19 +19711,22 @@
               "name": "buf",
               "type": 14,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "bytes"
             },
             {
               "name": "off",
               "type": 17,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "bytes"
             },
             {
               "name": "lastRead",
               "type": 46,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "bytes"
             }
           ]
         },

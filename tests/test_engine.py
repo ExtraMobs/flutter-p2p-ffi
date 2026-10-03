@@ -159,6 +159,38 @@ class UnsupportedTest(unittest.TestCase):
                '\t\tf := func() bool { return utf16.IsSurrogate(rune(len(s))) }\n\t\t_ = f\n\t}\n}\n')
         self.assertEqual(self.emit_error(src), ("shim-ausente:unicode/utf16", ("main.go", 5, 6)))  # decl de main
 
+    def test_anon_struct_unexported_from_other_package(self):
+        """`struct{ n int }` de outro pacote é outro tipo (o pacote do campo
+        entra na identidade): a classe local seria errada, então é recusada.
+        A exportada vira a classe canônica compartilhada."""
+        files = {
+            "go.mod": "module repro.local/mp\n\ngo 1.26\n",
+            "a/a.go": "package a\n\nfunc N() struct{ n int } { return struct{ n int }{1} }\n\n"
+                      "func X() struct{ X int } { return struct{ X int }{1} }\n\n"
+                      "type priv int\n\nfunc P() struct{ X priv } { return struct{ X priv }{1} }\n",
+            "cmd2/main.go": 'package main\n\nimport "repro.local/mp/a"\n\nfunc main() {\n\tv := a.P()\n\t_ = v\n}\n',
+            "cmd/main.go": 'package main\n\nimport "repro.local/mp/a"\n\nfunc main() {\n\tv := a.N()\n\t_ = v\n}\n\n'
+                           "func x() int { return a.X().X }\n",
+        }
+        with tempfile.TemporaryDirectory() as tmp:
+            for name, src in files.items():
+                os.makedirs(os.path.dirname(os.path.join(tmp, name)), exist_ok=True)
+                with open(os.path.join(tmp, name), "w", encoding="utf-8") as f:
+                    f.write(src)
+            out = subprocess.run(["go", "run", ".", "dump", "-C", tmp, "./..."], cwd=GOAST, capture_output=True,
+                                 text=True, encoding="utf-8", check=True).stdout
+        pkgs = {p.path: p for p in link_packages(parse_dump(json.loads(out)))}
+        a = Engine(pkgs["repro.local/mp/a"]).emit_package()
+        self.assertIn("_anon$", a)  # o dono emite a local
+        self.assertIn("Struct$", a)
+        with self.assertRaises(Unsupported) as cm:
+            Engine(pkgs["repro.local/mp/cmd"]).emit_package()
+        self.assertEqual(cm.exception.code, "anonima:nao-exportada-de-outro-pacote")
+        self.assertEqual(cm.exception.pos["line"], 5)  # decl de main
+        with self.assertRaises(Unsupported) as cm:  # tipo nomeado não exportado no campo
+            Engine(pkgs["repro.local/mp/cmd2"]).emit_package()
+        self.assertEqual(cm.exception.code, "anonima:nao-exportada-de-outro-pacote")
+
     def test_bodyless_func(self):
         src = "package main\n\nfunc fastrand() uint64\n\nfunc main() {}\n"
         self.assertEqual(self.emit_error(src), ("func-sem-corpo", ("main.go", 3, 6)))

@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 8,
+  "schemaVersion": 9,
   "tool": "goast",
   "goVersion": "go1.26.5",
   "packages": [
@@ -4104,7 +4104,8 @@
               "name": "n",
               "type": 2,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "g2d.test/unexportedcross/a"
             }
           ]
         },
@@ -4177,13 +4178,15 @@
               "name": "a",
               "type": 2,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "g2d.test/unexportedcross/a"
             },
             {
               "name": "b",
               "type": 2,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "g2d.test/unexportedcross/a"
             }
           ]
         },
@@ -6911,7 +6914,8 @@
               "name": "n",
               "type": 4,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "g2d.test/unexportedcross/a"
             }
           ]
         },
@@ -7031,13 +7035,15 @@
               "name": "a",
               "type": 4,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "g2d.test/unexportedcross/a"
             },
             {
               "name": "b",
               "type": 4,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "g2d.test/unexportedcross/a"
             }
           ]
         },

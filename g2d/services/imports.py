@@ -7,6 +7,7 @@ from g2d.config import (BUILTIN_PREFIX, BUILTIN_URI, GOLANG, GOLANG_PREFIX, GOLA
 from g2d.engine.behavior import Service
 from g2d.graph import is_std
 from g2d.model import Unsupported
+from g2d.services.anon import anon_class, anon_path
 from g2d.services.naming import escape, is_exported, member_name, top_member_name, type_name
 
 
@@ -45,6 +46,7 @@ class ImportTable(Service):
         super().__init__(engine)
         self.used = {}  # prefixo → URI (só os realmente usados)
         self.prefixes = {}  # import path → prefixo
+        self.anons = set()  # libraries de structs canônicas (import sem prefixo)
         self.taken = declared_names(self.pkg)
         for imp in self.pkg.imports:
             if imp["name"] == ".":
@@ -80,7 +82,15 @@ class ImportTable(Service):
 
     def directives(self):
         """`import '...' as p;` dos imports usados, em ordem."""
-        return [f"import '{self.used[p]}' as {p};" for p in sorted(self.used)]
+        return ([f"import '{self.used[p]}' as {p};" for p in sorted(self.used)]
+                + [f"import '{GRAPH_URI.format(path=anon_path(h))}';" for h in sorted(self.anons)])
+
+    def anon(self, h):
+        """Classe de uma struct anônima canônica. A library dela só declara
+        `Struct$<hash>` (nome Go não tem `$`), então vai sem prefixo."""
+        if anon_path(h) != self.pkg.path:
+            self.anons.add(h)
+        return anon_class(h)
 
     def transpiled(self, pkg_path):
         """Pacote transpilado pelo g2d: o próprio ou outro do grafo (fora da stdlib)."""

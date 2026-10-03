@@ -6,6 +6,7 @@ from g2d.analysis import analyses, color
 from g2d.behaviors import builtins, decls, exprs, fmtcheck, stmts
 from g2d.behaviors.conversions import CONVERSIONS
 from g2d.engine.behavior import Plugin
+from g2d.services.anon import AnonTypes
 from g2d.services.assertions import Assertions
 from g2d.services.calls import Calls
 from g2d.services.concurrency import Concurrency
@@ -32,7 +33,7 @@ class CorePlugin(Plugin):
 
     SERVICES = [ImportTable, Naming, TypeSystem, TypeMapper, DescriptorRegistry, ValueSemantics,
                 Literals, GoTypeInfo, Operands, Calls, Assertions, ControlFlow, Functions,
-                VarDecls, Promotion, EvalOrder, GenericPointers]
+                VarDecls, Promotion, EvalOrder, GenericPointers, AnonTypes]
     ANALYSES = [analyses.ImplementsAnalysis, analyses.MethodsAnalysis, analyses.MemberNamesAnalysis,
                 analyses.TopNamesAnalysis,
                 analyses.BoxingAnalysis, analyses.LocalTypesAnalysis, analyses.RecoverAnalysis, analyses.InitVarsAnalysis,
@@ -62,6 +63,7 @@ class CorePlugin(Plugin):
         engine.register_type_decl(decls.NamedClass)
         engine.register_type_decl(decls.NamedCompositeClass)
         engine.package_behavior = decls.PackageBehavior(engine)
+        engine.anon_library = decls.AnonLibraryBehavior(engine)
 
 
 class CollectionsPlugin(Plugin):
