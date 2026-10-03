@@ -14,6 +14,15 @@ class Functions(Service):
     name = "functions"
 
     def func_decl(self, d):
+        lines = self._func_decl(d)
+        key = self.concurrency.decl_key(d)
+        if self.concurrency.has_twin(key) and not (not d["recv"] and d["name"]["name"] in ("main", "init")):
+            lines += [""] + self._func_decl(d, twin=True)
+        return lines
+
+    def _func_decl(self, d, twin=False):
+        """A função; `twin`: a gêmea síncrona `f$sync` de uma função branda
+        (`ColorTable._solve_twins`, D2), com as formas síncronas do I/O."""
         if d["body"] is None:
             raise Unsupported("func-sem-corpo", "função sem corpo (assembly ou go:linkname): substituição", d)
         sig = self.pkg.type_at(d["name"]["$obj"]["type"])
@@ -66,11 +75,19 @@ class Functions(Service):
         # (main mantém `void main()`; a cor dela recai sobre o closure
         # passado a go.runMain).
         key = self.concurrency.decl_key(d)
-        is_async = self.concurrency.is_async(key)
+        is_async = self.concurrency.is_async(key) and not twin
         self.enter_color(is_async, d["body"], key, d)
         ret = self.types.results(sig["results"])
         if is_async and not main_case:
             ret = self.types.future(ret)
+        # I/O com versão dupla (D2): o corpo fica na forma da cor do grupo
+        # (`read` ou `read$async`); a outra forma é derivada.
+        dual = bool(d["recv"]) and self.dualio.is_dual(key) and not twin
+        if twin:
+            name += "$sync"
+        derived = self.dualio.derived(key, d["name"]["name"], sig, is_async) if dual else []
+        if dual and is_async:
+            name = member_name(d["name"]["name"] + "$async")
         head = f"{ret} {name}{tparams}({params})"
         body = self.func_body(d["type"], d["body"], sig)
         self.scope = None
@@ -83,7 +100,9 @@ class Functions(Service):
             body = [f"{self.imports.qualify(None, 'runMain')}(() {kw}{{", init] + prologue + boxes + body + ["});"]
             prologue, boxes = [], []
         opener = " async {" if (is_async and not main_case) else " {"
-        return doc_comment(d["doc"]) + [head + opener] + prologue + boxes + body + ["}"]
+        derived = [""] + derived if derived else []
+        doc = ["/// Gêmea síncrona (I/O com as formas síncronas, D2)."] if twin else doc_comment(d["doc"])
+        return doc + [head + opener] + prologue + boxes + body + ["}"] + derived
 
     def enter_color(self, is_async, body, key, node):
         """Marca no escopo se a função corrente é `async`. Uma que precisa

@@ -512,7 +512,7 @@ class DeferStmt(StmtBehavior):
         d = self.scope.defers
         # Callee que suspende: a closure adiada é `async` (o `runAsync` da
         # função, que a cor também fez `async`, espera por ela).
-        kw = " async" if self.concurrency.awaits(call) else ""
+        kw = " async" if self.concurrency.awaits(call) and self.scope.async_ctx else ""
         if fun.get("$builtin"):  # delete, panic, print...: sem `$rd`
             text = self.expr(dict(call, args=fixed))
             return ["{"] + pre + [f"{d}.defer(() {{ {text}; }});", "}"]
@@ -585,8 +585,12 @@ class GoStmt(StmtBehavior):
             tmp = self.names.temp()
             pre.append(f"final {tmp} = {self.expr(fun)};")
             callee_node = {"node": "G2DTemp", "text": tmp, "$type": fun.get("$type")}
-        # Sem `await`: o go.spawn aceita a goroutine de qualquer cor.
-        text = self.expr(dict(call, fun=callee_node, args=fixed, **{"$awaited": True}))
+        # Sem `await`: o go.spawn aceita a goroutine de qualquer cor (a
+        # forma `$async` do I/O dual que suspende, D2).
+        go_call = dict(call, fun=callee_node, args=fixed)
+        if self.concurrency.awaits(call):
+            go_call = self.dualio.async_form(go_call)
+        text = self.expr(dict(go_call, **{"$awaited": True}))
         spawn = self.imports.qualify(None, "spawn")
         return ["{"] + pre + [f"{spawn}(() => {text});", "}"]
 

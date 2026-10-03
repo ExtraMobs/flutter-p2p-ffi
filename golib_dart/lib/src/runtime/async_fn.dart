@@ -5,6 +5,17 @@
 /// que entra nessa classe é embrulhada aqui; quem chama pelo valor espera.
 library;
 
+import 'sched.dart';
+
+/// Forma síncrona de um método de I/O com versão dupla (D2, `io.Reader`...)
+/// numa implementação que suspende: o corpo mora no `$async`. O g2d sempre
+/// chama o `$async` nesse grupo de cor; chegar aqui é um limite do g2d (um
+/// caminho síncrono que ele não viu), nunca um resultado errado.
+Never syncOfAsync(String method) => fatal(
+  'g2d: $method síncrono numa implementação que suspende (contexto que não '
+  'pode suspender); era preciso a versão \$async aqui',
+);
+
 Future<R> Function() async0<R>(R Function() f) =>
     () async => f();
 

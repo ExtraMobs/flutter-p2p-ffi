@@ -5,7 +5,7 @@ part of '../../fmt.dart';
 /// precisão e padding ficam no [_Fmt] dele, sobre o mesmo buffer. O que não
 /// está portado lança [UnimplementedError] (nunca formata diferente do Go em
 /// silêncio).
-final class _Printer implements State {
+final class _Printer with io.WriterSync implements State {
   _Printer(this.args, {this.wrapErrs = false});
 
   final List<Object?> args;

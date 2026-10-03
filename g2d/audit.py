@@ -272,7 +272,7 @@ def color_graph(order, dumps, log=print, imports=None):
     sentidos: implementação num pacote colore a interface de outro). Os
     resumos ficam em cache ao lado dos dumps, por versão do código da cor."""
     h = hashlib.sha256()
-    for f in ("analysis/color.py", "services/concurrency.py"):
+    for f in ("analysis/color.py", "services/concurrency.py", "services/dualio.py"):
         with open(os.path.join(ROOT, "g2d", f), "rb") as fh:
             h.update(fh.read())
     cache = os.path.join(dumps, "color-" + h.hexdigest()[:12])

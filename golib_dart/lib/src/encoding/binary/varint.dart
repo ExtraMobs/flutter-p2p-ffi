@@ -75,10 +75,31 @@ final GoError _errOverflow = ErrorString(
 
 /// `ReadUvarint(r)`.
 (Golang.Uint64, GoError?) readUvarint(io.ByteReader? r) {
+  final acc = _Uvarint();
+  for (;;) {
+    final (b, err) = r!.readByte();
+    final out = acc.add(b, err);
+    if (out != null) return out;
+  }
+}
+
+/// `ReadUvarint(r)` suspensivo (D2: `r.ReadByte` pode esperar).
+Future<(Golang.Uint64, GoError?)> readUvarint$async(io.ByteReader? r) async {
+  final acc = _Uvarint();
+  for (;;) {
+    final (b, err) = await r!.readByte$async();
+    final out = acc.add(b, err);
+    if (out != null) return out;
+  }
+}
+
+/// Estado do `ReadUvarint` entre bytes (comum às duas versões).
+final class _Uvarint {
   var x = Golang.Uint64(0);
   var s = 0;
-  for (var i = 0; i < 10; i++) {
-    final (b, err) = r!.readByte();
+  var i = 0;
+
+  (Golang.Uint64, GoError?)? add(Golang.Uint8 b, GoError? err) {
     if (err != null) {
       return (x, i > 0 && identical(err, io.eof) ? io.errUnexpectedEOF : err);
     }
@@ -88,12 +109,19 @@ final GoError _errOverflow = ErrorString(
     }
     x = x | (Golang.Uint64.from(b & _x7f) << s);
     s += 7;
+    if (++i == 10) return (x, _errOverflow);
+    return null;
   }
-  return (x, _errOverflow);
 }
 
 /// `ReadVarint(r)`.
 (Golang.Int64, GoError?) readVarint(io.ByteReader? r) {
   final (ux, err) = readUvarint(r);
+  return (_unzigzag(ux), err);
+}
+
+/// `ReadVarint(r)` suspensivo.
+Future<(Golang.Int64, GoError?)> readVarint$async(io.ByteReader? r) async {
+  final (ux, err) = await readUvarint$async(r);
   return (_unzigzag(ux), err);
 }
