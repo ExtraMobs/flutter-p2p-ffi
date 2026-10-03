@@ -45,7 +45,7 @@ class Pair<K, V> extends go.GoStruct<Pair<K, V>> {
 }
 
 Pair<K, V>? new$<K, V>(go.Elem<K> $K, go.Elem<V> $V, K k, V v) {
-  return Pair<K, V>($K, $V, k: k, v: v);
+  return Pair<K, V>($K, $V, k: $K.copyOf(k), v: $V.copyOf(v));
 }
 
 bool _$inited = false;

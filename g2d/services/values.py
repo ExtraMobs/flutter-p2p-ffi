@@ -38,6 +38,12 @@ class ValueSemantics(Service):
             text, prec = f"{self.expr(n, POSTFIX)}.$ifaceCopy()", POSTFIX
         elif self.typesys.is_value(src) and not self.fresh(n):
             text, prec = self.copy_text(self.expr(n, POSTFIX), src), POSTFIX
+        elif to_iface and self.typesys.may_hold_value(src):
+            text, prec = f"{self.descriptors.elem(src)}.ifaceOf({self.expr(n)})", POSTFIX
+        elif not to_iface and not self.fresh(n) and self.typesys.may_hold_value(src):
+            # Valor de parâmetro de tipo: struct/array só se sabe em runtime;
+            # o dicionário copia (ponteiro e básico passam direto).
+            text, prec = f"{self.descriptors.elem(src)}.copyOf({self.expr(n)})", POSTFIX
         elif to_iface and src is not None and src["kind"] == "pointer":
             # `(*T)(nil)` numa interface não é nil: sentinela do tipo.
             elem = self.pkg.type_at(src["elem"])

@@ -54,6 +54,10 @@ final class Elem<T> {
   /// ponteiro e interface mantêm o mesmo objeto (e o `$isValue`).
   T copyOf(T v) => value && v is GoValue ? v.$copy() as T : v;
 
+  /// Valor de T entrando numa interface (`any(v)` com v de parâmetro de
+  /// tipo): struct/array por valor vira a cópia marcada `$isValue`.
+  Object? ifaceOf(T v) => value && v is GoValue ? v.$ifaceCopy() : v;
+
   /// `a[i] = v` num armazenamento de elementos T: struct/array por valor
   /// sobrescrevem in-place (ponteiros para o elemento veem o novo valor);
   /// os demais trocam a referência.

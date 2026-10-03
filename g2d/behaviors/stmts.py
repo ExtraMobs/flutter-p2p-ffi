@@ -519,7 +519,8 @@ def fixed_receiver(b, fun, pre):
         if t["kind"] == "pointer":
             text, ref = text + "!", t["elem"]
             t = b.pkg.type_at(ref)
-        pre.append(f"final {tmp} = {b.values.copy_text(text, t)};")
+        fresh = len(info["index"]) == 1 and x is fun["x"] and b.values.fresh(x) and not text.endswith("!")
+        pre.append(f"final {tmp} = {text if fresh else b.values.copy_text(text, t)};")
         return dict(fun, x={"node": "G2DTemp", "text": tmp, "$type": ref},
                     **{"$sel": dict(info, index=info["index"][-1:])})
     pre.append(f"final {tmp} = {b.expr(x)};")

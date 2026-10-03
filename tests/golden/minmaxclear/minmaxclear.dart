@@ -98,7 +98,7 @@ class Ring<T> extends go.GoStruct<Ring<T>> {
 
   void push(T t) {
     final Ring<T>? r = $nilPtr ? null : this;
-    r!._ring = r!._ring.append([t]);
+    r!._ring = r!._ring.append([$T.copyOf(t)]);
   }
 
   void clear() {

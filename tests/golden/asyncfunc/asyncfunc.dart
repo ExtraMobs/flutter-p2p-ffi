@@ -249,7 +249,7 @@ Handler _compose(Handler f, Handler g) {
 }
 
 U _apply<T, U>(go.Elem<T> $T, go.Elem<U> $U, T x, U Function(T)? f) {
-  return f!(x);
+  return f!($T.copyOf(x));
 }
 
 void main() {

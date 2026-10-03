@@ -20,7 +20,7 @@ final class Set<T> extends go.GoMap<T, go.EmptyStruct>
 
   void add(T v) {
     Set<T> s = this;
-    s[v] = go.EmptyStruct();
+    s[$T.copyOf(v)] = go.EmptyStruct();
   }
 
   bool has(T v) {
@@ -47,7 +47,7 @@ final class List$<T> extends go.Slice<T> implements Golang.GoTyped {
   }
 
   List$<T> push(T v) {
-    return List$<T>($T, this.append([v]));
+    return List$<T>($T, this.append([$T.copyOf(v)]));
   }
 
   List$<T> map(Mapper<T> f) {
@@ -57,7 +57,7 @@ final class List$<T> extends go.Slice<T> implements Golang.GoTyped {
       for (var $t2 = 0; $t2 < $t1.length; $t2++) {
         T v = $t1[$t2];
         {
-          out = List$<T>($T, out.append([f(v)]));
+          out = List$<T>($T, out.append([f($T.copyOf(v))]));
         }
       }
     }
@@ -210,7 +210,9 @@ final class Heap$Ptr<K extends Golang.GoOrdered<K>, V>
     this.value = Heap<K, V>(
       $K,
       $V,
-      this.value.append([$_entry<K, V>($K, $V, key: key, value: value)]),
+      this.value.append([
+        $_entry<K, V>($K, $V, key: key, value: $V.copyOf(value)),
+      ]),
     );
     (this.value)._up(Golang.Int(this.value.length) - Golang.Int(1));
   }
@@ -227,7 +229,7 @@ final class Heap$Ptr<K extends Golang.GoOrdered<K>, V>
       values._down(Golang.Int(0));
     }
     this.value = values;
-    return (v._key, v._value);
+    return (v._key, $V.copyOf(v._value));
   }
 }
 

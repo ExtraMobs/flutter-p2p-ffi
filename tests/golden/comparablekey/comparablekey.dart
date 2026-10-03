@@ -66,7 +66,7 @@ class Cache<K extends Key, V> extends go.GoStruct<Cache<K, V>> {
     if (c!._m.isNil) {
       c!._m = go.GoMap<K, V>.of({}, $V);
     }
-    c!._m[k] = v;
+    c!._m[$K.copyOf(k)] = $V.copyOf(v);
     return k.shard(Golang.Int(4));
   }
 }

@@ -97,7 +97,7 @@ class $_node extends go.GoStruct<$_node> implements fmt.Stringer, NodeID<$_k8> {
 }
 
 Golang.Int distance<K extends Key<K>>(go.Elem<K> $K, K a, K b) {
-  return a.xor(b).bitLen();
+  return a.xor($K.copyOf(b)).bitLen();
 }
 
 N closest<K extends Key<K>, N extends NodeID<K>>(
@@ -106,7 +106,7 @@ N closest<K extends Key<K>, N extends NodeID<K>>(
   K target,
   go.Slice<N> ns,
 ) {
-  N best = ns[0];
+  N best = $N.copyOf(ns[0]);
   {
     final $t1 = ns.slice(1);
     for (var $t2 = 0; $t2 < $t1.length; $t2++) {
@@ -114,28 +114,28 @@ N closest<K extends Key<K>, N extends NodeID<K>>(
       {
         if (Golang.Uint8.from(
               go.assertType<$_k8>(
-                (switch (n.key()) {
-                  final $t3 => $t3.xor(target),
-                }),
+                $K.ifaceOf((switch (n.key()) {
+                  final $t3 => $t3.xor($K.copyOf(target)),
+                })),
                 'interface {}',
                 'main.k8',
               ),
             ) <
             Golang.Uint8.from(
               go.assertType<$_k8>(
-                (switch (best.key()) {
-                  final $t4 => $t4.xor(target),
-                }),
+                $K.ifaceOf((switch (best.key()) {
+                  final $t4 => $t4.xor($K.copyOf(target)),
+                })),
                 'interface {}',
                 'main.k8',
               ),
             )) {
-          best = n;
+          best = $N.copyOf(n);
         }
       }
     }
   }
-  return best;
+  return $N.copyOf(best);
 }
 
 /// Tipo genérico que implementa sort.Interface.
@@ -155,12 +155,12 @@ final class List$<K extends Key<K>> extends go.Slice<K>
 
   bool less(Golang.Int i, Golang.Int j) {
     List$<K> l = this;
-    return l[i.toIndex()].compare(l[j.toIndex()]) < Golang.Int(0);
+    return l[i.toIndex()].compare($K.copyOf(l[j.toIndex()])) < Golang.Int(0);
   }
 
   void swap(Golang.Int i, Golang.Int j) {
     List$<K> l = this;
-    final $t1 = (l[j.toIndex()], l[i.toIndex()]);
+    final $t1 = ($K.copyOf(l[j.toIndex()]), $K.copyOf(l[i.toIndex()]));
     l[i.toIndex()] = $t1.$1;
     l[j.toIndex()] = $t1.$2;
   }
@@ -206,22 +206,27 @@ class $_lru<K, V> extends go.GoStruct<$_lru<K, V>> implements Cache<K, V> {
   bool add(K k, V v) {
     final $_lru<K, V>? c = $nilPtr ? null : this;
     var (_, ok) = c!._m.lookup(k);
-    c!._m[k] = v;
+    c!._m[$K.copyOf(k)] = $V.copyOf(v);
     return !ok;
   }
 
   (V, bool) get(K k) {
     final $_lru<K, V>? c = $nilPtr ? null : this;
     var (v, ok) = c!._m.lookup(k);
-    return (v, ok);
+    return ($V.copyOf(v), ok);
   }
 }
 
 void _use<K, V>(go.Elem<K> $K, go.Elem<V> $V, Cache<K, V>? c, K k, V v) {
-  fmt.println(go.Slice<Object?>.of([c!.add(k, v), c!.add(k, v)], _$e0));
-  (switch (c!.get(k)) {
+  fmt.println(
+    go.Slice<Object?>.of([
+      c!.add($K.copyOf(k), $V.copyOf(v)),
+      c!.add($K.copyOf(k), $V.copyOf(v)),
+    ], _$e0),
+  );
+  (switch (c!.get($K.copyOf(k))) {
     (final $t1, final $t2) => fmt.println(
-      go.Slice<Object?>.of([$t1, $t2], _$e0),
+      go.Slice<Object?>.of([$V.ifaceOf($t1), $t2], _$e0),
     ),
   });
 }
