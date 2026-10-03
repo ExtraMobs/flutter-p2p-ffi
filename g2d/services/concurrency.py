@@ -7,6 +7,7 @@ funções e reconhecer, num corpo isolado, o que ELE MESMO faz."""
 from g2d.engine.behavior import Service
 from g2d.graph import is_std
 from g2d.model import Unsupported, first_pos, unparen, walk
+from g2d.services.dualio import dual_capable
 
 # Métodos do shim `sync` que esperam outra goroutine: chave → variante
 # suspensiva (`golib_dart/lib/src/sync/`). `soft`: num contexto que precisa
@@ -235,7 +236,8 @@ class Concurrency(Service):
         if key[0] == "sig":  # assinatura com parâmetro de tipo: formato fixo pelo genérico
             return "$tp:" in key[1]
         if key[0] == "m":
-            return key[3] in SYNC_METHODS or key[1] == "" or Concurrency.std(key[1])
+            # I/O com versão dupla (D2) segue a cor das implementações.
+            return key[3] in SYNC_METHODS or key[1] == "" or (Concurrency.std(key[1]) and not dual_capable(key))
         return key[0] == "f" and Concurrency.std(key[1])
 
     # ------------------------------------------------------------ suspensão direta
@@ -362,6 +364,11 @@ class Concurrency(Service):
         colors = self.facts.colors
         return key is not None and colors is not None and colors.is_async(key)
 
+    def has_twin(self, key):
+        """A função tem a gêmea síncrona `$sync` (I/O dual, D2)."""
+        colors = self.facts.colors
+        return key is not None and colors is not None and colors.has_twin(key)
+
     def is_forced(self, key):
         """O grupo da chave precisa ficar síncrono (ver `forced_sync`)."""
         colors = self.facts.colors
@@ -386,6 +393,8 @@ class Concurrency(Service):
                         and colors.mutex_async(self.mutex_id(call)))
         if key in SUSPENDING_FUNCS:
             return True
+        if self.dualio.dual_call(call):
+            return any(self.is_async(k) for k in self.dualio.call_deps(call))
         if key == ONCE_DO:
             return self.is_async(self.once_arg_key(call))
         if key is None:

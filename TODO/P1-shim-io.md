@@ -1,12 +1,14 @@
 # Shim do pacote `io` (restante)
 
 - **Prioridade:** P1 · **Área:** shim
-- **Depende de:** — (`Pipe` depende de `P0-design-io-suspende`)
+- **Depende de:** —
 
 ## Problema
 
 O shim `io` tem as interfaces básicas, as sentinelas, `ReadFull`, `ReadAll`,
-`WriteString` e `Discard`. O resto vira `shim-simbolo:io.<nome>`.
+`WriteString`, `Discard` e `Pipe`. Toda função nova que chame métodos de
+I/O ganha também a versão `$async` e uma linha em `DUAL_SHIM_CALLS`
+(`g2d/services/dualio.py`; `docs/mapping-spec.md` § "I/O que suspende"). O resto vira `shim-simbolo:io.<nome>`.
 
 ## Prova
 

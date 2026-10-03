@@ -139,6 +139,6 @@ class Promotion(Service):
         sig = self.pkg.type_at(m["type"])
         params = [f"{self.types.dart(pt)} p{i}" for i, pt in enumerate(sig["params"])]
         args = ", ".join(f"p{i}" for i in range(len(params)))
-        name = member_name(m["name"])
-        ret = self.concurrency.results(key, sig)  # Future<R> se o método promovido é async
-        return [f"{ret} {name}({', '.join(params)}) => {recv}.{name}({args});"]
+        # Future<R> se o método promovido é async; as duas formas no I/O dual.
+        return [f"{ret} {dn}({', '.join(params)}) => {recv}.{dn}({args});"
+                for dn, ret in self.dualio.members(key, m["name"], sig)]

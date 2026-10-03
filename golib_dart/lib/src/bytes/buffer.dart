@@ -37,6 +37,12 @@ Buffer? newBufferString(Golang.String s) => Buffer().._buf = _bytesOf(s);
 /// (`go.GoStruct`). Porta de `bytes/buffer.go` do Go 1.26, com o mesmo
 /// crescimento (`Cap`, `Available`) e os mesmos erros e pânicos.
 final class Buffer extends GoStruct<Buffer>
+    with
+        io.ReaderSync,
+        io.WriterSync,
+        io.ByteReaderSync,
+        io.ByteWriterSync,
+        io.StringWriterSync
     implements
         io.Reader,
         io.Writer,
@@ -254,14 +260,43 @@ final class Buffer extends GoStruct<Buffer>
     }
   }
 
+  /// `ReadFrom(r)` suspensivo (D2: `r.Read` pode esperar outra goroutine).
+  Future<(Golang.Int64, GoError?)> readFrom$async(io.Reader? r) async {
+    _lastRead = _opInvalid;
+    var n = 0;
+    for (;;) {
+      final i = _grow(512);
+      _buf = _buf.slice(0, i);
+      final (m, e) = await r!.read$async(_buf.slice(i, _buf.capacity));
+      if (m.toInt() < 0) throw Panic(_errNegativeRead);
+      _buf = _buf.slice(0, i + m.toInt());
+      n += m.toInt();
+      if (identical(e, io.eof)) return (Golang.Int64(n), null);
+      if (e != null) return (Golang.Int64(n), e);
+    }
+  }
+
   /// `WriteTo(w)`.
   (Golang.Int64, GoError?) writeTo(io.Writer? w) {
     _lastRead = _opInvalid;
     final nBytes = _buf.length - _off;
+    if (nBytes <= 0) return _wroteTo(0, 0, null);
+    final (m, e) = w!.write(_buf.slice(_off));
+    return _wroteTo(nBytes, m.toInt(), e);
+  }
+
+  /// `WriteTo(w)` suspensivo.
+  Future<(Golang.Int64, GoError?)> writeTo$async(io.Writer? w) async {
+    _lastRead = _opInvalid;
+    final nBytes = _buf.length - _off;
+    if (nBytes <= 0) return _wroteTo(0, 0, null);
+    final (m, e) = await w!.write$async(_buf.slice(_off));
+    return _wroteTo(nBytes, m.toInt(), e);
+  }
+
+  (Golang.Int64, GoError?) _wroteTo(int nBytes, int k, GoError? e) {
     var n = 0;
     if (nBytes > 0) {
-      final (m, e) = w!.write(_buf.slice(_off));
-      final k = m.toInt();
       if (k > nBytes) {
         throw Panic(
           Golang.String.fromDart('bytes.Buffer.WriteTo: invalid Write count'),

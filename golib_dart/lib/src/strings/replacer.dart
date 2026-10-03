@@ -132,28 +132,48 @@ class _GenericReplacer {
     return (val, keylen, found);
   }
 
-  /// `WriteString(w, s)`.
-  (Golang.Int, GoError?) writeString(io.Writer w, Golang.String s) {
-    var n = 0, last = 0, i = 0;
+  /// Os pedaços que `WriteString(w, s)` escreve, na ordem (a busca não
+  /// depende de w; só a escrita pode suspender, D2).
+  List<Golang.String> pieces(Golang.String s) {
+    final out = <Golang.String>[];
+    var last = 0, i = 0;
     var prevMatchEmpty = false;
     while (i <= s.length) {
       final (val, keylen, match) = lookup(s.slice(i), prevMatchEmpty);
       prevMatchEmpty = match && keylen == 0;
       if (match) {
-        var (wn, err) = io.writeString(w, s.slice(last, i));
-        n += wn.toInt();
-        if (err != null) return (Golang.Int(n), err);
-        (wn, err) = io.writeString(w, val);
-        n += wn.toInt();
-        if (err != null) return (Golang.Int(n), err);
+        out
+          ..add(s.slice(last, i))
+          ..add(val);
         i += keylen;
         last = i;
         continue;
       }
       i++;
     }
-    if (last != s.length) {
-      final (wn, err) = io.writeString(w, s.slice(last));
+    if (last != s.length) out.add(s.slice(last));
+    return out;
+  }
+
+  /// `WriteString(w, s)`.
+  (Golang.Int, GoError?) writeString(io.Writer w, Golang.String s) {
+    var n = 0;
+    for (final p in pieces(s)) {
+      final (wn, err) = io.writeString(w, p);
+      n += wn.toInt();
+      if (err != null) return (Golang.Int(n), err);
+    }
+    return (Golang.Int(n), null);
+  }
+
+  /// `WriteString(w, s)` suspensivo.
+  Future<(Golang.Int, GoError?)> writeString$async(
+    io.Writer w,
+    Golang.String s,
+  ) async {
+    var n = 0;
+    for (final p in pieces(s)) {
+      final (wn, err) = await io.writeString$async(w, p);
       n += wn.toInt();
       if (err != null) return (Golang.Int(n), err);
     }
@@ -208,6 +228,12 @@ final class Replacer extends GoStruct<Replacer> {
   /// `WriteString(w, s)`.
   (Golang.Int, GoError?) writeString(io.Writer? w, Golang.String s) =>
       _r.writeString(w!, s);
+
+  /// `WriteString(w, s)` suspensivo (D2).
+  Future<(Golang.Int, GoError?)> writeString$async(
+    io.Writer? w,
+    Golang.String s,
+  ) => _r.writeString$async(w!, s);
 }
 
 /// `strings.NewReplacer(oldnew...)`: pânico com número ímpar de argumentos.
