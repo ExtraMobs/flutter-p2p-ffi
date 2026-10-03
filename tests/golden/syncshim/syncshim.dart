@@ -28,7 +28,9 @@ final class DoNotCopy extends go.GoArray<sync.Mutex> {
   @override
   String get $goType => 'main.DoNotCopy';
   @override
-  List<String> get $methods => const [];
+  List<String> get $valueMethods => const [];
+  @override
+  List<String> get $ptrMethods => const [];
 }
 
 class $_counter extends go.GoStruct<$_counter> {
@@ -349,7 +351,7 @@ mixin $_cache$Promote {
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
-const _$e0 = go.Elem<sync.Mutex>(8, sync.Mutex.new);
+const _$e0 = go.Elem<sync.Mutex>(8, sync.Mutex.new, value: true);
 Golang.Int _$f1_2(Golang.FloatBase f) =>
     Golang.Int.from(f.toInteger(64, signed: true));
 const _$e1 = go.Elem<Golang.Int>(

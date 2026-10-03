@@ -80,6 +80,10 @@ class $_sink extends go.GoStruct<$_sink> implements io.Writer {
     s!._got = s!._got.appendSlice(p);
     return (Golang.Int(p.length), null);
   }
+
+  Future<(Golang.Int, go.GoError?)> write$async(
+    go.Slice<Golang.Uint8> p0,
+  ) async => write(p0);
 }
 
 void main() {
@@ -643,6 +647,8 @@ mixin $_sink$Promote {
   $_sink? get $$_sink;
   (Golang.Int, go.GoError?) write(go.Slice<Golang.Uint8> p0) =>
       $$_sink!.write(p0);
+  Future<(Golang.Int, go.GoError?)> write$async(go.Slice<Golang.Uint8> p0) =>
+      $$_sink!.write$async(p0);
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.

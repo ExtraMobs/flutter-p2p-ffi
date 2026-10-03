@@ -118,10 +118,20 @@ T assertType<T>(Object? x, String iface, String target, {bool? struct}) {
   return (_unwrapNil(x) as T, true);
 }
 
+/// O valor dinâmico em `x` satisfaz a interface `I` (classe Dart [T],
+/// [methods] = method set de I)? A classe Dart de uma struct/array é a mesma
+/// para T e *T e declara as interfaces dos dois; um valor guardado por valor
+/// ([GoValue.$isValue]) só tem o method set de T (`$valueMethods`), como no
+/// Go: `P{}` não é `Incer` se `Inc` é de `*P`.
+bool isIface<T>(Object? x, List<String> methods) =>
+    x != null &&
+    x is T &&
+    (x is! GoValue || !x.$isValue || methods.every(x.$methods.contains));
+
 /// `x.(I)` para I interface; [methods] = method set de I (nomes Go
-/// ordenados), para a mensagem de erro do Go.
+/// ordenados), também para a mensagem de erro do Go.
 T assertIface<T>(Object? x, String target, List<String> methods) {
-  if (x != null && x is T) return x as T;
+  if (isIface<T>(x, methods)) return x as T;
   if (x == null) {
     throw Panic(
       RuntimeError('interface conversion: interface is nil, not $target'),
@@ -139,9 +149,9 @@ T assertIface<T>(Object? x, String target, List<String> methods) {
   );
 }
 
-/// `v, ok := x.(I)` para I interface.
-(T?, bool) tryIface<T>(Object? x) =>
-    x != null && x is T ? (x as T, true) : (null, false);
+/// `v, ok := x.(I)` para I interface ([methods]: ver [isIface]).
+(T?, bool) tryIface<T>(Object? x, [List<String> methods = const []]) =>
+    isIface<T>(x, methods) ? (x as T, true) : (null, false);
 
 /// `==` entre valores de interface: struct por valor compara campos,
 /// ponteiro (struct guardada por referência) compara identidade.
@@ -152,12 +162,9 @@ bool ifaceEq(Object? a, Object? b) {
   return a == b;
 }
 
-/// O método está no method set do valor dinâmico? Struct por valor numa
-/// interface só tem os de receptor valor (`$valueMethods`).
+/// O método está no method set do valor dinâmico? Struct/array por valor
+/// numa interface só tem os de receptor valor (`$valueMethods`).
 bool goHasMethod(Object v, String name) {
-  if (v is GoStruct) {
-    return (v.$isValue ? v.$valueMethods : v.$ptrMethods).contains(name);
-  }
   if (v is GoTyped) return v.$methods.contains(name);
   return true;
 }

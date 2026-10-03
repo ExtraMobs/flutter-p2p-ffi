@@ -10,7 +10,7 @@ import 'package:out/g2d.test/explicitinst/gen.dart' as gen;
 import 'package:golib_dart/builtin.dart' as go;
 
 T _id<T>(go.Elem<T> $T, T x) {
-  return x;
+  return $T.copyOf(x);
 }
 
 go.Slice<U> map<T, U>(
@@ -25,7 +25,7 @@ go.Slice<U> map<T, U>(
     for (var $t2 = 0; $t2 < $t1.length; $t2++) {
       T x = $t1[$t2];
       {
-        out = out.append([f!(x)]);
+        out = out.append([f!($T.copyOf(x))]);
       }
     }
   }

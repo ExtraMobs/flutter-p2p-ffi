@@ -35,7 +35,8 @@ class VarDecls(Service):
             values = []
         elif values and len(values) != len(names):
             tmp = self.names.temp()
-            out.append(f"final {tmp} = {self.operands.multi_value(values[0])};")
+            targets = [ident["$obj"]["type"] if "$obj" in ident else None for ident in names]
+            out.append(f"final {tmp} = {self.values.coerce_multi(values[0], targets)};")
             values = [f"{tmp}.${i + 1}" for i in range(len(names))]
         else:
             values = [self.values.coerce(v, self.pkg.type_at(ident["$obj"]["type"]) if "$obj" in ident else None)

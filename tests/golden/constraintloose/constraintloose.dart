@@ -293,8 +293,8 @@ const _$e5 = go.Elem<Golang.Int>(
   ofFloat: _$f8_6,
 );
 go.GoArray<Golang.Int> _$z10_7() => go.GoArray<Golang.Int>.zero(3, _$e5);
-const _$e6 = go.Elem<go.GoArray<Golang.Int>>(24, _$z10_7);
+const _$e6 = go.Elem<go.GoArray<Golang.Int>>(24, _$z10_7, value: true);
 const _$e7 = go.Elem<void Function()?>(8, go.zeroNull, pointers: true);
 const _$e8 = go.Elem<go.GoError? Function()?>(8, go.zeroNull, pointers: true);
 const _$e9 = go.Elem<$_point?>(8, go.zeroNull, pointers: true);
-const _$e10 = go.Elem<$_point>(16, $_point.new);
+const _$e10 = go.Elem<$_point>(16, $_point.new, value: true);

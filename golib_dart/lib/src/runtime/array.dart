@@ -54,12 +54,7 @@ base class GoArray<T> extends GoValue<GoArray<T>> {
 
   void operator []=(int i, T v) {
     _check(i);
-    final cur = _items[i];
-    if (cur is GoValue && v is GoValue) {
-      cur.$set(v);
-    } else {
-      _items[i] = v;
-    }
+    elem.storeAt(_items, i, v);
   }
 
   /// `&a[i]`.
@@ -92,9 +87,6 @@ base class GoArray<T> extends GoValue<GoArray<T>> {
 
   @override
   String get $goType => '[${_items.length}]';
-
-  @override
-  List<String> get $methods => const [];
 
   @override
   bool operator ==(Object other) {

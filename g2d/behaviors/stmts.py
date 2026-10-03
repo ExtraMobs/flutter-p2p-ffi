@@ -70,7 +70,7 @@ class ReturnStmt(StmtBehavior):
             return ["return;"]
         rtypes = self.scope.sig["results"]
         if len(res) != len(rtypes):  # return f() com múltiplos resultados
-            values = [self.expr(res[0])]
+            values = [self.values.coerce_multi(res[0], rtypes)]
         else:
             values = [self.values.coerce(r, self.pkg.type_at(t)) for r, t in zip(res, rtypes)]
         if not self.scope.defers:
@@ -96,7 +96,7 @@ class ReturnStmt(StmtBehavior):
             return [f"{frame.state} = {code};", f"{frame.done} = true;", "return false;"]
         rtypes = [self.pkg.type_at(t) for t in self.scope.sig["results"]]
         if len(res) != len(rtypes):
-            value = self.expr(res[0])  # return f() com vários resultados
+            value = self.values.coerce_multi(res[0], rtypes)  # return f() com vários resultados
         else:
             value = tuple_expr([self.values.coerce(r, t) for r, t in zip(res, rtypes)])
         dt = tuple_expr([str(self.types.dart(t)) for t in rtypes]) if len(rtypes) > 1 else str(self.types.dart(rtypes[0]))
@@ -127,7 +127,7 @@ class AssignStmt(StmtBehavior):
         if len(rhs) == len(lhs):
             value = tuple_expr([self.values.coerce(r, self.pkg.type_of(x)) for r, x in zip(rhs, lhs)])
         else:  # v, ok := x.(T) / m[k], ou 1 chamada com N resultados
-            value = self.operands.multi_value(rhs[0])
+            value = self.values.coerce_multi(rhs[0], [None if is_blank(x) else self.pkg.type_of(x) for x in lhs])
         # Alvos struct já existentes precisam de $set: caminho do temporário.
         # ... e variáveis em caixa (`x.value` não é padrão de atribuição).
         idents = all(x["node"] == "Ident" for x in lhs) and not any(
@@ -212,11 +212,32 @@ class ForStmt(StmtBehavior):
     def emit(self, s):
         init = self.simple(s["init"])  # antes da condição: declara a variável
         cond = self.operands.cond(s["cond"]) if s["cond"] else ""
-        post = self.simple(s["post"])
+        renew = self.renew(s["init"])
+        if renew and init.startswith("final "):
+            init = init[len("final "):]  # a caixa é trocada a cada iteração
+        post = ", ".join(renew + ([self.simple(s["post"])] if s["post"] else []))
         body = self.control.loop_body(s["body"])
         if not s["init"] and not s["post"]:
             return [f"while ({cond or 'true'})"] + body
         return [f"for ({init}; {cond}; {post})"] + body
+
+    def renew(self, init):
+        """Go ≥ 1.22: cada iteração tem a sua variável, criada antes do post
+        com o valor da anterior. O Dart já faz isso com a referência; falta a
+        cópia quando a variável é um objeto: caixa (`&i`) ou struct/array."""
+        if init is None or init["node"] != "AssignStmt" or init["tok"] != ":=":
+            return []
+        out = []
+        for ident in init["lhs"]:
+            obj = ident.get("$obj")
+            if ident["name"] == "_" or not obj or obj["decl"] not in self.scope.locals:
+                continue
+            name, t = self.scope.locals[obj["decl"]], self.pkg.type_at(obj["type"])
+            if self.names.boxed(obj):
+                out.append(f"{name} = {self.types.box(t, f'{name}.value')[1]}")
+            elif self.typesys.is_value(t):
+                out.append(f"{name} = {self.values.copy_text(name, t)}")
+        return out
 
     def simple(self, s):
         """Statement simples numa única linha, sem `;` (cláusulas do for)."""
@@ -274,7 +295,8 @@ class RangeStmt(StmtBehavior):
             head = [f"final {src} = {self.expr(x)};", f"for (final {k} in {src}.keysSnapshot())"]
             pre = [f"if (!{src}.containsKey({k})) continue;"]
             elem_t = self.pkg.type_at(u["elem"])
-            pre += ([bind(key, k)] if key else []) + (
+            key_t = self.pkg.type_at(u["key"])  # a chave guardada não pode ser alterada
+            pre += ([bind(key, self.values.copy_text(k, key_t))] if key else []) + (
                 [bind(val, self.values.copy_text(f"{src}[{k}]", elem_t))] if val else [])
         elif u["kind"] == "func":
             return self.range_func(s, x, u, key, val, bind, label)
@@ -487,6 +509,34 @@ class TypeSwitchStmt(StmtBehavior):
         return self.control.close_switch(label, out + ["}"])
 
 
+def fixed_receiver(b, fun, pre):
+    """Receptor de `defer x.M()`/`go x.M()` avaliado agora num temporário.
+    Método de receptor valor recebe uma cópia feita agora (desreferenciada
+    se x é `*T`, seguindo o caminho de embedding), como o Go."""
+    info, x = fun["$sel"], fun["x"]
+    t = b.pkg.type_of(x)
+    ref = x.get("$type", (x.get("$obj") or {}).get("type"))  # índice na typeTable
+    tmp = b.names.temp()
+    if b.calls.value_method_path(t, info["index"], fun["sel"]["name"]):
+        for fi in info["index"][:-1]:  # campos embutidos até o dono do método
+            base = b.pkg.type_at(t["elem"]) if t["kind"] == "pointer" else t
+            f = b.typesys.underlying(base)["fields"][fi]
+            x = {"node": "SelectorExpr", "x": x, "sel": {"name": f["name"]},
+                 "$sel": {"kind": "field", "index": [fi]}, "$type": f["type"]}
+            ref = f["type"]
+            t = b.pkg.type_at(ref)
+        text = b.expr(x, POSTFIX)
+        if t["kind"] == "pointer":
+            text, ref = text + "!", t["elem"]
+            t = b.pkg.type_at(ref)
+        fresh = len(info["index"]) == 1 and x is fun["x"] and b.values.fresh(x) and not text.endswith("!")
+        pre.append(f"final {tmp} = {text if fresh else b.values.copy_text(text, t)};")
+        return dict(fun, x={"node": "G2DTemp", "text": tmp, "$type": ref},
+                    **{"$sel": dict(info, index=info["index"][-1:])})
+    pre.append(f"final {tmp} = {b.expr(x)};")
+    return dict(fun, x={"node": "G2DTemp", "text": tmp, "$type": x.get("$type")})
+
+
 class DeferStmt(StmtBehavior):
     kinds = ("DeferStmt",)
 
@@ -511,10 +561,7 @@ class DeferStmt(StmtBehavior):
             fixed.append({"node": "G2DTemp", "text": tmp, "$type": a.get("$type")})
         callee_node = fun
         if fun["node"] == "SelectorExpr" and fun.get("$sel", {}).get("kind") == "method":
-            recv = fun["x"]
-            tmp = self.names.temp()
-            pre.append(f"final {tmp} = {self.expr(recv)};")
-            callee_node = dict(fun, x={"node": "G2DTemp", "text": tmp, "$type": recv.get("$type")})
+            callee_node = fixed_receiver(self, fun, pre)
         elif fun["node"] not in ("FuncLit", "Ident", "SelectorExpr"):
             tmp = self.names.temp()
             pre.append(f"final {tmp} = {self.expr(fun)};")
@@ -522,7 +569,7 @@ class DeferStmt(StmtBehavior):
         d = self.scope.defers
         # Callee que suspende: a closure adiada é `async` (o `runAsync` da
         # função, que a cor também fez `async`, espera por ela).
-        kw = " async" if self.concurrency.awaits(call) else ""
+        kw = " async" if self.concurrency.awaits(call) and self.scope.async_ctx else ""
         if fun.get("$builtin"):  # delete, panic, print...: sem `$rd`
             text = self.expr(dict(call, args=fixed))
             return ["{"] + pre + [f"{d}.defer(() {{ {text}; }});", "}"]
@@ -585,18 +632,19 @@ class GoStmt(StmtBehavior):
             fixed.append({"node": "G2DTemp", "text": tmp, "$type": a.get("$type")})
         callee_node = fun
         if fun["node"] == "SelectorExpr" and fun.get("$sel", {}).get("kind") == "method":
-            recv = fun["x"]
-            tmp = self.names.temp()
-            pre.append(f"final {tmp} = {self.expr(recv)};")
-            callee_node = dict(fun, x={"node": "G2DTemp", "text": tmp, "$type": recv.get("$type")})
+            callee_node = fixed_receiver(self, fun, pre)
         elif not self.calls.declared_func(fun):
             # Valor de função (variável, campo, índice...): o Go fixa o
             # valor no início do `go`, antes de agendar.
             tmp = self.names.temp()
             pre.append(f"final {tmp} = {self.expr(fun)};")
             callee_node = {"node": "G2DTemp", "text": tmp, "$type": fun.get("$type")}
-        # Sem `await`: o go.spawn aceita a goroutine de qualquer cor.
-        text = self.expr(dict(call, fun=callee_node, args=fixed, **{"$awaited": True}))
+        # Sem `await`: o go.spawn aceita a goroutine de qualquer cor (a
+        # forma `$async` do I/O dual que suspende, D2).
+        go_call = dict(call, fun=callee_node, args=fixed)
+        if self.concurrency.awaits(call):
+            go_call = self.dualio.async_form(go_call)
+        text = self.expr(dict(go_call, **{"$awaited": True}))
         spawn = self.imports.qualify(None, "spawn")
         return ["{"] + pre + [f"{spawn}(() => {text});", "}"]
 

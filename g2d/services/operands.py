@@ -49,8 +49,18 @@ class Operands(Service):
         parênteses (`(*p)++`), que o Dart não aceita como alvo."""
         n = unparen(n)
         if self.is_map_index(n):
-            return f"{self.expr(n['x'], POSTFIX)}[{self.expr(n['index'])}]"
+            return f"{self.expr(n['x'], POSTFIX)}[{self.map_key(n, store=True)}]"
         return self.expr(n, POSTFIX)
+
+    def map_key(self, n, store=False):
+        """Chave de `m[k]`. Guardada (`store`), struct/array é copiada: o
+        objeto vira a chave do Map Dart e mudar `k` depois perderia a
+        entrada. Chave interface recebe o valor como numa conversão
+        (`$ifaceCopy`) também na leitura, para casar com a guardada."""
+        key_t = self.pkg.type_at(self.typesys.underlying(self.pkg.type_of(n["x"]))["key"])
+        if store or self.typesys.underlying(key_t)["kind"] == "interface":
+            return self.values.coerce(n["index"], key_t)
+        return self.expr(n["index"])
 
     def flag_object(self, n):
         """n é um objeto de bool nomeado (`Flag`) no Dart? O go/types dá o
@@ -74,7 +84,7 @@ class Operands(Service):
         if n["node"] == "TypeAssertExpr":
             return self.asserts.comma_ok_assert(n)
         if self.is_map_index(n):
-            return f"{self.expr(n['x'], POSTFIX)}.lookup({self.expr(n['index'])})"
+            return f"{self.expr(n['x'], POSTFIX)}.lookup({self.map_key(n)})"
         if n["node"] == "UnaryExpr" and n["op"] == "<-":
             self.concurrency.require_async(n, "recepção de canal")
             recv2 = self.imports.qualify(None, "chanRecv2")

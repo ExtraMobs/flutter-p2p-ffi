@@ -20,6 +20,21 @@ final class _Fmt {
     widPresent = precPresent = false;
   }
 
+  /// Flags, largura e precisão de [o] (o `fmtFlags` salvo do Go).
+  void copyFlags(_Fmt o) {
+    minus = o.minus;
+    plus = o.plus;
+    sharp = o.sharp;
+    space = o.space;
+    zero = o.zero;
+    plusV = o.plusV;
+    sharpV = o.sharpV;
+    wid = o.wid;
+    prec = o.prec;
+    widPresent = o.widPresent;
+    precPresent = o.precPresent;
+  }
+
   // -------------------------------------------------------------- padding
   void writePadding(int n) {
     if (n <= 0) return;

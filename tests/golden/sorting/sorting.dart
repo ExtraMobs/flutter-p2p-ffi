@@ -381,7 +381,7 @@ mixin $_traced$Promote {
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
-const _$e0 = go.Elem<$_item>(16, $_item.new);
+const _$e0 = go.Elem<$_item>(16, $_item.new, value: true);
 Golang.Int _$f1_2(Golang.FloatBase f) =>
     Golang.Int.from(f.toInteger(64, signed: true));
 const _$e1 = go.Elem<Golang.Int>(

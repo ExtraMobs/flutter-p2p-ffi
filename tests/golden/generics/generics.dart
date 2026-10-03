@@ -60,7 +60,7 @@ go.Slice<U> map<T, U>(
     for (var $t2 = 0; $t2 < $t1.length; $t2++) {
       T x = $t1[$t2];
       {
-        out = out.append([f!(x)]);
+        out = out.append([f!($T.copyOf(x))]);
       }
     }
   }
@@ -99,21 +99,23 @@ class Stack<T> extends go.GoStruct<Stack<T>> {
 
   void push(T v) {
     final Stack<T>? s = $nilPtr ? null : this;
-    s!._items = s!._items.append([v]);
+    s!._items = s!._items.append([$T.copyOf(v)]);
   }
 
   (T, bool) pop() {
     final Stack<T>? s = $nilPtr ? null : this;
     T zero = $T.zero();
     if (Golang.Int(s!._items.length) == Golang.Int(0)) {
-      return (zero, false);
+      return ($T.copyOf(zero), false);
     }
-    T v = s!._items[(Golang.Int(s!._items.length) - Golang.Int(1)).toIndex()];
+    T v = $T.copyOf(
+      s!._items[(Golang.Int(s!._items.length) - Golang.Int(1)).toIndex()],
+    );
     s!._items = s!._items.slice(
       0,
       (Golang.Int(s!._items.length) - Golang.Int(1)).toIndex(),
     );
-    return (v, true);
+    return ($T.copyOf(v), true);
   }
 
   Golang.Int len() {
@@ -149,7 +151,7 @@ class Pair<K, V> extends go.GoStruct<Pair<K, V>> {
   }
 
   @override
-  List<Object?> get $fields => [key, val];
+  List<Object?> get $fields => [go.dynField(key, $K), go.dynField(val, $V)];
 
   @override
   List<String> get $fieldNames => const ['Key', 'Val'];

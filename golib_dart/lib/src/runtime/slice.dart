@@ -5,7 +5,6 @@ import '../../fixed_types/golang/src/bounds.dart';
 import 'elem.dart';
 import 'panic.dart';
 import 'ptr.dart';
-import 'struct.dart';
 
 /// `[]T` do Go.
 ///
@@ -169,14 +168,7 @@ base class Slice<T> {
     return n;
   }
 
-  static void _store<T>(List<T> array, int i, T v) {
-    final cur = array[i];
-    if (cur is GoValue && v is GoValue) {
-      cur.$set(v); // in-place: ponteiros para o elemento veem o novo valor
-    } else {
-      array[i] = v;
-    }
-  }
+  void _store(List<T> array, int i, T v) => elem.storeAt(array, i, v);
 
   /// Elementos da janela (formatação e utilitários do runtime).
   Iterable<T> get items sync* {
@@ -239,7 +231,7 @@ void swapElems<T>(Slice<T> s, int i, int j) {
   s._check(i);
   s._check(j);
   final a = s._array![s._off + i];
-  final t = a is GoValue ? a.$copy() as T : a;
+  final t = s.elem.copyOf(a);
   s[i] = s._array[s._off + j];
   s[j] = t;
 }

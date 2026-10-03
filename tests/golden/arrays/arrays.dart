@@ -156,4 +156,4 @@ const _$e1 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
 const _$e2 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);
 const _$e3 = go.Elem<bool>(1, go.zeroBool);
 go.GoArray<Golang.Int> _$z5_5() => go.GoArray<Golang.Int>.zero(3, _$e0);
-const _$e4 = go.Elem<go.GoArray<Golang.Int>>(24, _$z5_5);
+const _$e4 = go.Elem<go.GoArray<Golang.Int>>(24, _$z5_5, value: true);

@@ -5,7 +5,7 @@ part of '../../fmt.dart';
 /// precisão e padding ficam no [_Fmt] dele, sobre o mesmo buffer. O que não
 /// está portado lança [UnimplementedError] (nunca formata diferente do Go em
 /// silêncio).
-final class _Printer implements State {
+final class _Printer with io.WriterSync implements State {
   _Printer(this.args, {this.wrapErrs = false});
 
   final List<Object?> args;
@@ -15,9 +15,14 @@ final class _Printer implements State {
   late final _fmt = _Fmt(_b);
 
   bool _erroring = false;
+  bool _panicking = false;
   bool goodArgNum = true;
   bool reordered = false;
   Object? _arg;
+
+  /// Dentro de um campo não exportado: o Go não chama métodos ali
+  /// (`CanInterface` falso no `printValue`), em nenhuma profundidade.
+  bool _ro = false;
 
   @override
   (Golang.Int, GoError?) write(Slice<Golang.Uint8> p) {
@@ -225,19 +230,30 @@ final class _Printer implements State {
       _b.add(utf8.encode(String.fromCharCode(validRune(r))));
 
   // -------------------------------------------------------------- operandos
+  /// `printArg`/`printValue` do Go. [value] diz o que um [GoValue]
+  /// aninhado é no lugar de onde vem (o objeto Dart é o mesmo para T e *T):
+  /// `true` struct/array por valor, `false` ponteiro, `null` decidido pelo
+  /// `$isValue` (valor dentro de interface). Um campo `*T` vem como [Addr].
   void _printArg(
     Object? arg,
     int verb,
-    int depth, [
+    int depth, {
     String? name,
     String? under,
-  ]) {
+    bool? value,
+  }) {
     if (arg is TypeTag) {
       name = arg.name;
       under = arg.under;
       arg = arg.value;
     }
     if (name != null && name.isEmpty) name = null; // $fieldTypes: desconhecido
+    if (arg is Addr && arg.target != null) {
+      arg = arg.target;
+      value = false;
+    }
+    // Ponteiro para struct/array: o method set de *T e, aninhado, o endereço.
+    final ptr = arg is GoValue && (arg.$nilPtr || !(value ?? arg.$isValue));
     _arg = arg;
     if (arg == null) {
       if (_fmt.sharpV && verb == 0x76 && (depth > 0 || name != null)) {
@@ -263,8 +279,8 @@ final class _Printer implements State {
       }
       return;
     }
-    if (_handleMethods(verb, depth > 0)) return;
-    if (_fmt.sharpV && _printSharp(arg, depth, name, under)) return;
+    if ((depth == 0 || !_ro) && _handleMethods(verb, ptr)) return;
+    if (_fmt.sharpV && _printSharp(arg, depth, name, under, ptr)) return;
     switch (arg) {
       case bool() || GoBool():
         final b = arg is GoBool ? arg.$b : arg as bool;
@@ -292,70 +308,99 @@ final class _Printer implements State {
       case GoValue v when v.$nilPtr:
         _fmt.pad(_ascii('<nil>'));
       case Slice s:
-        _printList(s.items, verb, depth);
+        _printList(s.items, verb, depth, s.elem);
+      case GoValue v when ptr && depth > 0:
+        _fmtPointer(v, verb); // ponteiro aninhado: o endereço, como o Go
       case GoArray a:
-        _printList(a.items, verb, depth);
+        if (ptr) _b.addByte(0x26);
+        _printList(a.items, verb, depth, a.elem);
       case GoMap m:
         _printMap(m, verb, depth);
       case GoStruct s:
-        if (depth == 0 && !s.$isValue) _b.addByte(0x26);
+        if (ptr) _b.addByte(0x26);
         _b.addByte(0x7b);
         final fields = s.$fields;
-        final names = _fmt.plusV ? s.$fieldNames : const <String>[];
+        final names = s.$fieldNames;
+        final ro = _ro;
         for (var i = 0; i < fields.length; i++) {
           if (i > 0) _b.addByte(0x20);
           if (_fmt.plusV) {
             _b.add(utf8.encode(names[i]));
             _b.addByte(0x3a);
           }
-          _printArg(fields[i], verb, depth + 1);
+          _ro = ro || !_exported(names[i]);
+          _printArg(fields[i], verb, depth + 1, value: true);
         }
+        _ro = ro;
         _b.addByte(0x7d);
       case Addr(target: null):
         _fmt.pad(_ascii('<nil>'));
-      case Addr(:final target) when depth == 0 && target is GoStruct:
-        _b.addByte(0x26);
-        _printArg(target, verb, depth + 1);
       default:
         if (verb != 0x76) {
           throw UnimplementedError(
             'fmt: %${String.fromCharCode(verb)} de ${arg.runtimeType}',
           );
         }
-        final b = BytesBuilder(copy: false);
-        _appendV(b, arg, nested: depth > 0);
-        _fmt.pad(b.takeBytes());
+        _fmt.pad(_leafV(arg));
     }
+  }
+
+  /// `fmtPointer` do Go com verbo `v`: `0x` + endereço (⚠️ estável por
+  /// objeto, não o do Go). Os outros verbos não estão portados.
+  void _fmtPointer(Object target, int verb) {
+    if (verb != 0x76) {
+      throw UnimplementedError(
+        'fmt: %${String.fromCharCode(verb)} de ponteiro aninhado',
+      );
+    }
+    _fmt.pad(_ascii('0x${_hexAddr(identityHashCode(target))}'));
+  }
+
+  /// Campo exportado (`token.IsExported`): o fmt só chama métodos nele.
+  static bool _exported(String name) {
+    final r = name.runes.first;
+    if (r < 0x80) return r >= 0x41 && r <= 0x5a;
+    return unicode.isUpper(Golang.Rune(r));
   }
 
   static bool _bytesVerb(int verb) =>
       verb == 0x73 || verb == 0x71 || verb == 0x78 || verb == 0x58; // s q x X
 
-  void _printList(Iterable<Object?> items, int verb, int depth) {
+  /// Elementos de slice/array: struct/array por valor pelo descritor
+  /// (`Elem.value`); senão ponteiro, ou o `$isValue` de um valor em interface.
+  void _printList(Iterable<Object?> items, int verb, int depth, Elem elem) {
     _b.addByte(0x5b);
     var first = true;
     for (final e in items) {
       if (!first) _b.addByte(0x20);
       first = false;
-      _printArg(e, verb, depth + 1);
+      _printArg(e, verb, depth + 1, value: elem.value ? true : null);
     }
     _b.addByte(0x5d);
   }
 
+  /// Chave `*T` só em map `identity`. ⚠️ Chave de interface com `*T`
+  /// (`map[any]V`) é tratada como valor.
   void _printMap(GoMap m, int verb, int depth) {
     final entries = _sortedEntries(m);
     _b.add(_ascii('map['));
     for (var i = 0; i < entries.length; i++) {
       if (i > 0) _b.addByte(0x20);
-      _printArg(entries[i].key, verb, depth + 1);
+      _printArg(entries[i].key, verb, depth + 1, value: !m.identity);
       _b.addByte(0x3a);
-      _printArg(entries[i].value, verb, depth + 1);
+      _printArg(
+        entries[i].value,
+        verb,
+        depth + 1,
+        value: m.elem.value ? true : null,
+      );
     }
     _b.addByte(0x5d);
   }
 
-  /// `Error()`/`String()` nos verbos de string (o `handleMethods` do Go).
-  bool _handleMethods(int verb, bool nested) {
+  /// `Error()`/`String()` nos verbos de string (o `handleMethods` do Go);
+  /// [ptr]: o operando é `*T` (method set de *T), não T.
+  bool _handleMethods(int verb, bool ptr) {
     if (_erroring) return false;
     final arg = _arg;
     if (verb == 0x77) {
@@ -365,38 +410,22 @@ final class _Printer implements State {
       }
       verb = 0x76;
     }
-    if (arg is Formatter && _hasMethod(arg, 'Format', nested)) {
+    if (arg is Formatter && _hasMethod(arg, 'Format', ptr)) {
       try {
         arg.format(this, Golang.Rune(verb));
-      } on Panic catch (p) {
-        final Object o = arg;
-        if (o is GoValue && o.$nilPtr) {
-          _fmt.pad(_ascii('<nil>'));
-          return true;
-        }
-        _b.add(_ascii('%!'));
-        _writeRune(verb);
-        _b.add(utf8.encode('(PANIC=Format method: ${describePanic(p.value)})'));
+      } catch (e) {
+        _catchPanic(e, arg, verb, 'Format');
       }
       return true;
     }
     if (_fmt.sharpV) {
       // %#v: GoString() em vez de Error()/String() (handleMethods do Go).
-      if (arg is GoStringer && _hasMethod(arg, 'GoString', nested)) {
+      if (arg is GoStringer && _hasMethod(arg, 'GoString', ptr)) {
         final Uint8List text;
         try {
           text = arg.goString().toBytes();
-        } on Panic catch (p) {
-          final Object o = arg;
-          if (o is GoValue && o.$nilPtr) {
-            _fmt.pad(_ascii('<nil>'));
-            return true;
-          }
-          _b.add(_ascii('%!'));
-          _writeRune(verb);
-          _b.add(
-            utf8.encode('(PANIC=GoString method: ${describePanic(p.value)})'),
-          );
+        } catch (e) {
+          _catchPanic(e, arg, verb, 'GoString');
           return true;
         }
         _fmt.pad(_fmt.truncate(text));
@@ -413,10 +442,10 @@ final class _Printer implements State {
     }
     final String kind;
     final Golang.String Function() call;
-    if (arg is GoError && _hasMethod(arg, 'Error', nested)) {
+    if (arg is GoError && _hasMethod(arg, 'Error', ptr)) {
       kind = 'Error';
       call = arg.error;
-    } else if (arg is Stringer && _hasMethod(arg, 'String', nested)) {
+    } else if (arg is Stringer && _hasMethod(arg, 'String', ptr)) {
       kind = 'String';
       call = arg.string;
     } else {
@@ -425,19 +454,44 @@ final class _Printer implements State {
     final Uint8List text;
     try {
       text = call().toBytes();
-    } on Panic catch (p) {
-      if (arg is GoValue && arg.$nilPtr) {
-        _fmt.pad(_ascii('<nil>'));
-        return true;
-      }
-      _b.add(_ascii('%!'));
-      _writeRune(verb);
-      _b.add(utf8.encode('(PANIC=$kind method: ${describePanic(p.value)})'));
+    } catch (e) {
+      _catchPanic(e, arg, verb, kind);
       return true;
     }
     _fmtStringVerb(text, verb);
     return true;
   }
+
+  /// `catchPanic` do Go: panic (ou falha do runtime Dart que o Go teria
+  /// como panic, ex. nil deref) dentro de um método chamado pelo fmt. Com
+  /// receptor ponteiro nil sai `<nil>`; senão `%!v(PANIC=String method: ...)`
+  /// com o valor do panic em `%v`. Exceção que não é panic do Go (ex.
+  /// [UnimplementedError]) segue.
+  void _catchPanic(Object e, Object? arg, int verb, String method) {
+    final v = panicValue(e);
+    if (identical(v, e) && e is! Panic) throw e;
+    if (_isNilPtr(arg)) {
+      _fmt.pad(_ascii('<nil>'));
+      return;
+    }
+    if (_panicking) throw e;
+    final saved = _Fmt(_b)..copyFlags(_fmt);
+    _fmt.clearFlags();
+    _b.add(_ascii('%!'));
+    _writeRune(verb);
+    _b.add(utf8.encode('(PANIC=$method method: '));
+    _panicking = true;
+    _printArg(v, 0x76, 0);
+    _panicking = false;
+    _b.addByte(0x29);
+    _fmt.copyFlags(saved);
+  }
+
+  /// Ponteiro nil tipado (`(*T)(nil)` numa interface).
+  static bool _isNilPtr(Object? v) =>
+      (v is GoValue && v.$nilPtr) ||
+      v is NilPtr ||
+      (v is PtrView && v.$p is NilPtr);
 
   void _badVerb(int verb) {
     _erroring = true;

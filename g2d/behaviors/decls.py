@@ -234,7 +234,7 @@ class StructClass(TypeDeclBehavior):
             else:
                 copies.append(f"{pname}: {fname}")
                 sets.append(f"{fname} = o.{fname};")
-                values.append(f"{self.imports.qualify(None, 'Addr')}({fname})" if self.typesys.is_struct_pointer(ft) else fname)
+                values.append(self.field_value(ft, fname))
         # Struct genérica: os dicionários vêm primeiro, posicionais.
         dict_params = [f"this.${n}" for n in tnames]
         named = f"{{{', '.join(params)}}}" if params else ""
@@ -283,6 +283,19 @@ class StructClass(TypeDeclBehavior):
             lines += [""] + self.functions.func_decl(m)
         return lines + ["}"]
 
+    def field_value(self, ft, fname):
+        """Campo em `$fields`: ponteiro para struct/array como `go.Addr`
+        (identidade); interface e parâmetro de tipo por `go.dynField`, que
+        embrulha o ponteiro que estiver guardado (o objeto Dart é o mesmo
+        para T e *T)."""
+        if self.typesys.is_struct_pointer(ft):
+            return f"{self.imports.qualify(None, 'Addr')}({fname})"
+        if ft["kind"] == "typeparam":
+            return f"{self.imports.qualify(None, 'dynField')}({fname}, {self.descriptors.elem(ft)})"
+        if self.typesys.underlying(ft)["kind"] == "interface":
+            return f"{self.imports.qualify(None, 'dynField')}({fname})"
+        return fname
+
     def field_types(self, st):
         """`$fieldTypes` (nomes Go dos tipos dos campos, para `%#v`), só se
         algum campo não é básico: o valor Dart de slice/map/array/ponteiro/
@@ -327,8 +340,8 @@ class InterfaceClass(TypeDeclBehavior):
         for m in u["methods"]:
             sig = self.pkg.type_at(m["type"])
             params = ", ".join(f"{self.types.dart(pt)} p{i}" for i, pt in enumerate(sig["params"]))
-            ret = self.concurrency.results(self.concurrency.iface_key(owner or u, m["name"]), sig)
-            lines.append(f"{ret} {member_name(m['name'])}({params});")
+            key = self.concurrency.iface_key(owner or u, m["name"])
+            lines += [f"{ret} {dn}({params});" for dn, ret in self.dualio.members(key, m["name"], sig)]
         return lines + ["}"]
 
 
@@ -380,9 +393,9 @@ class NonStructNamed(TypeDeclBehavior):
             sig = self.pkg.type_at(m["type"])
             params = ", ".join(f"{self.types.dart(p)} p{i}" for i, p in enumerate(sig["params"]))
             args = ", ".join(f"p{i}" for i in range(len(sig["params"])))
-            name = member_name(m["name"])
-            ret = self.concurrency.results(self.concurrency.method_key(t, m["name"]), sig)
-            lines += ["", f"{ret} {name}({params}) => $p.value.{name}({args});"]
+            key = self.concurrency.method_key(t, m["name"])
+            for dn, ret in self.dualio.members(key, m["name"], sig):
+                lines += ["", f"{ret} {dn}({params}) => $p.value.{dn}({args});"]
         for m in ptr_methods:
             lines += [""] + self.functions.func_decl(m)
         return lines + ["}"]
@@ -437,6 +450,7 @@ class NamedCompositeClass(NonStructNamed):
         ms = self.facts.methods.get(name, [])
         impl = self.goinfo.implements_clause(tidx)
         vm = ", ".join(f"'{n}'" for n in self.goinfo.method_names(t, True))
+        pm = ", ".join(f"'{n}'" for n in self.goinfo.method_names(t, False))
         lines = [f"final class {cls} extends {ud}" + (" implements " + ", ".join(impl) if impl else "") + " {",
                  f"{cls}({ud} v) : super.alias(v);", "",
                  "/// `(*T)(nil)` dentro de uma interface (não é nil no Go).",
@@ -445,7 +459,8 @@ class NamedCompositeClass(NonStructNamed):
                  # A base devolve GoArray: sem isto, `Arr` não entra numa interface.
                  "@override", f"{cls} $ifaceCopy() => $copy()..$isValue = true;", "",
                  "@override", f"String get $goType => '{self.goinfo.go_type_name(t)}';",
-                 "@override", f"List<String> get $methods => const [{vm}];"]
+                 "@override", f"List<String> get $valueMethods => const [{vm}];",
+                 "@override", f"List<String> get $ptrMethods => const [{pm}];"]
         for m in ms:
             lines += [""] + self.functions.func_decl(m)
         return lines + ["}"]

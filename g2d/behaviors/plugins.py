@@ -12,6 +12,7 @@ from g2d.services.calls import Calls
 from g2d.services.concurrency import Concurrency
 from g2d.services.control import ControlFlow
 from g2d.services.descriptors import DescriptorRegistry
+from g2d.services.dualio import DualIO
 from g2d.services.evalorder import EvalOrder
 from g2d.services.functions import Functions
 from g2d.services.genptr import GenericPointers
@@ -119,6 +120,7 @@ class ConcurrencyPlugin(Plugin):
 
     def install(self, engine):
         engine.register_service(Concurrency)
+        engine.register_service(DualIO)
         engine.register_analysis(color.ColorAnalysis)
         engine.register_expr(exprs.AsyncCall)
         engine.register_expr(exprs.AsyncValueGuard)

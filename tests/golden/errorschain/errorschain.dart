@@ -43,7 +43,7 @@ class PathError extends go.GoStruct<PathError>
   }
 
   @override
-  List<Object?> get $fields => [op, path, err];
+  List<Object?> get $fields => [op, path, go.dynField(err)];
 
   @override
   List<String> get $fieldNames => const ['Op', 'Path', 'Err'];

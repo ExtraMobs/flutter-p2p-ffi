@@ -98,7 +98,7 @@ class Ring<T> extends go.GoStruct<Ring<T>> {
 
   void push(T t) {
     final Ring<T>? r = $nilPtr ? null : this;
-    r!._ring = r!._ring.append([t]);
+    r!._ring = r!._ring.append([$T.copyOf(t)]);
   }
 
   void clear() {
@@ -361,5 +361,5 @@ const _$e2 = go.Elem<Golang.Int>(
   ofInt: Golang.Int.from,
   ofFloat: _$f3_3,
 );
-const _$e3 = go.Elem<P>(16, P.new);
+const _$e3 = go.Elem<P>(16, P.new, value: true);
 const _$e4 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);

@@ -14,18 +14,21 @@ as opções e a recomendação; a tabela é o resumo.
 | # | Decisão | O que trava | Recomendação | Artefato |
 |---|---|---|---|---|
 | D1 | Recorte inicial do M5 (reflexão) | `reflect` 126 / 21 (1º do ranking); `encoding/json` 62 / 12 depende dele | shim `reflect` sobre descritores gerados, começando por `TypeOf`/`ValueOf`/`Kind`/`Elem`/`Type`/`Interface` | `P0-design-m5-reflexao.md` |
-| D2 | I/O que suspende atrás de interface da stdlib (`io.Reader`, `net.Conn`) | `async:contexto-sincrono` 62 / 5; é pré-requisito de D4 (arquivos podem ser lidos de forma síncrona, rede não) | interfaces de I/O do shim entram na cor como interface comum; shims que as chamam ganham versão `$async` | `P0-design-io-suspende.md` |
 | D3 | `os` acessa o sistema de arquivos real? | `os.*` + `io/fs.*` 24 ocorrências na fronteira (`os.open` sozinho: 22 / 4) | sim: `dart:io` na VM/AOT, `node:fs` no JS/Wasm sob Node, erro `*PathError` no navegador | `P0-design-os-arquivos.md` |
 | D4 | Rede real no `net` | `net` 139 / 20, `net/http` 65 / 13 | mesmo modelo do D3 (`dart:io` / `node:net`), sobre o port que já existe | `P0-shim-net.md` |
 | D5 | Como entra a substituição manual de pacote (`unsafe`, assembly, `go:linkname`) | `unsafe:Pointer` 80 / 11, `conversao:pointer-pointer` 39 / 5, `unsafe:Slice` 30 / 3, 7 pacotes com assembly | substituto Dart escrito à mão por pacote inteiro, registrado como um shim | `P0-design-substituicao.md` |
 | D6 | Reabrir `goto` (hoje ❌ por decisão) | `branch:goto` 28 / 10 (era 14 / 3 quando foi decidido) | implementar no g2d, começando pelos saltos que viram `break`/`continue` rotulados | `P0-design-goto.md` |
-| D7 | Valor `func()` async onde a stdlib força síncrono (`context.CancelFunc`) | `async:valor-func` 66 / 3 | separar a classe do tipo nomeado da stdlib da classe da assinatura e embrulhar síncrono → async | `P1-design-func-sincrona-forcada.md` |
 | D8 | Interface satisfeita por tipo de outro pacote | invisível no audit hoje (os pacotes param antes em shim); saída errada em silêncio com `fmt.Stringer` | `implements` sobre o grafo, restrito às conversões que acontecem e a donos fora da stdlib | `P1-design-interfaces-entre-pacotes.md` |
 
-Já decidido (não reabrir): M4 usa cor `async` transitiva calculada pelo g2d;
+Já decidido (não reabrir): D7 (2026-10-02), tipo de função nomeado da
+stdlib (`context.CancelFunc`) é classe de cor própria e a `func()` comum
+segue a cor dela, com cor própria para campo `func()` não exportado
+(`docs/mapping-spec.md` § "Cor transitiva"). M4 usa cor `async` transitiva calculada pelo g2d;
 contextos que precisam ficar síncronos viram `Unsupported`; Riverpod,
 "tudo async" e isolates foram descartados (`docs/mapping-spec.md` § "Cor
-transitiva").
+transitiva"). D2 (I/O que suspende): **versão dupla** — métodos de I/O e
+funções do shim que os chamam têm a forma síncrona e a `$async`, escolhida
+pela cor (`docs/mapping-spec.md` § "I/O que suspende").
 
 ## 2. Fila sem decisão pendente
 
@@ -34,7 +37,7 @@ transitiva").
 | Artefato | Pacotes / fronteira | Resumo |
 |---|---|---|
 | `P1-construcao-construtor-ambiguo.md` | 7 / 4 | campos `C` e `c` na mesma struct colidem no construtor |
-| `P1-shim-io.md` | 58 ocorrências / 6 | `LimitReader`, `CopyN`, `Copy`, `MultiWriter`, `SectionReader`... |
+| `P1-shim-io.md` | 58 ocorrências / 6; e `async:shim-sincrono` 68 / 11 | `LimitReader`, `CopyN`, `Copy`, `MultiWriter`, `SectionReader`... (com versão `$async`: hoje `io.Copy` sobre um Reader que suspende é recusado) |
 | `P1-shim-iter.md` | 19 / 4 (`iter`) e 10 / 3 (`SplitSeq`) | `iter.Seq` e `strings.SplitSeq`/`Lines` (range sobre func já funciona) |
 | `P1-shim-time-layout.md` | 10 / 2 | `time.Format`/`Parse` com layout |
 
@@ -42,21 +45,17 @@ transitiva").
 
 Achados da revisão diferencial de 2026-10-02 (programa Go × Dart gerado, VM e
 JS): o g2d gera Dart válido que imprime outra coisa. São os mais perigosos,
-porque um pacote "verde" pode estar errado.
+porque um pacote "verde" pode estar errado. Os sete primeiros (cópia de
+ponteiro em `append`/`copy`, chave de map, `T` em genéricos, receptor no
+`defer`/`go`, `for` por iteração, method set de `*T`, `String()` aninhado
+no `fmt`) foram resolvidos em 2026-10-03.
 
 | Artefato | Resumo |
 |---|---|
-| `P1-runtime-copyof-ponteiro.md` | `append`/`copy`/cópia de array de `[]*T` duplicam os objetos apontados |
-| `P1-construcao-chave-de-map-sem-copia.md` | chave struct/array guardada por referência; mudar a variável perde a entrada |
-| `P1-construcao-generico-sem-copia.md` | valor de tipo `T` não é copiado dentro de genérico |
-| `P1-construcao-defer-go-receptor-valor.md` | `defer x.M()` vê mudanças feitas depois do `defer` |
-| `P1-construcao-for-variavel-por-iteracao.md` | `for i := ...` com `&i` ou struct compartilha a variável (Go ≥ 1.22 não) |
 | `P1-construcao-ordem-avaliacao.md` | `x + f()`, `x += f()`, `a[i] = f()`, literais e atribuição múltipla leem fora da ordem do gc |
 | `P1-construcao-incdec-impuro.md` | `m[f()]++` chama `f` duas vezes |
-| `P1-runtime-method-set-ponteiro.md` | `T` em interface satisfaz interface que exige método de `*T` |
 | `P1-construcao-assert-nomeado.md` | `x.([]int)` aceita `type IntList []int` |
 | `P1-runtime-comparacao-incomparavel.md` | `==` de interface com slice dentro não dá panic |
-| `P1-shim-fmt-metodos-aninhados.md` | `fmt` não chama `String()` de `*T` aninhado, chama em campo não exportado, quebra com panic/nil no método |
 | `P1-shim-fmt-formatos.md` | `Sprint` com string nomeada, nil aninhado com `%d`, `&slice`, `[]Code` com `%s` |
 | `P1-design-interfaces-entre-pacotes.md` | (D8) inclui tipo de shim em interface local: `err.(interface{ Unwrap() error })` falha |
 

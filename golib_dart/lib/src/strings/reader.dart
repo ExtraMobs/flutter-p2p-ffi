@@ -10,6 +10,7 @@ const _seekStart = 0, _seekCurrent = 1, _seekEnd = 2;
 /// ponytail: adicionar ao `implements` quando `io.RuneReader`,
 /// `io.RuneScanner`, `io.ByteScanner` e `io.WriterTo` existirem.
 final class Reader extends GoStruct<Reader>
+    with io.ReaderSync, io.ReaderAtSync, io.ByteReaderSync
     implements io.Reader, io.ReaderAt, io.ByteReader, io.Seeker {
   Reader();
 
@@ -191,8 +192,20 @@ final class Reader extends GoStruct<Reader>
     if (_i >= _s.length) return (Golang.Int64(0), null);
     final s = _s.slice(_i);
     final (m, err) = io.writeString(w, s);
-    final mi = m.toInt();
-    if (mi > s.length) {
+    return _wroteTo(s.length, m.toInt(), err);
+  }
+
+  /// `WriteTo(w)` suspensivo (D2).
+  Future<(Golang.Int64, GoError?)> writeTo$async(io.Writer? w) async {
+    _prevRune = -1;
+    if (_i >= _s.length) return (Golang.Int64(0), null);
+    final s = _s.slice(_i);
+    final (m, err) = await io.writeString$async(w, s);
+    return _wroteTo(s.length, m.toInt(), err);
+  }
+
+  (Golang.Int64, GoError?) _wroteTo(int len, int mi, GoError? err) {
+    if (mi > len) {
       throw Panic(
         Golang.String.fromDart(
           'strings.Reader.WriteTo: invalid WriteString count',
@@ -200,7 +213,7 @@ final class Reader extends GoStruct<Reader>
       );
     }
     _i += mi;
-    if (mi != s.length && err == null) {
+    if (mi != len && err == null) {
       return (Golang.Int64(mi), io.errShortWrite);
     }
     return (Golang.Int64(mi), err);

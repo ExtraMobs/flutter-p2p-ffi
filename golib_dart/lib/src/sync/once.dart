@@ -92,20 +92,25 @@ final class Once extends GoStruct<Once> {
 
 /// `sync.OnceFunc(f)`: f roda na primeira chamada; se entrar em panic, toda
 /// chamada repete o panic com o mesmo valor.
-void Function() onceFunc(void Function()? f) {
+R Function() onceFunc<R>(R Function()? f) {
+  // R é `void` ou, numa classe de func `async`, `Future<void>`: as chamadas
+  // seguintes devolvem o mesmo Future (esperam a primeira terminar e repetem
+  // o panic dela, como o Go).
   var done = false, valid = false;
   Object? p;
+  late R result;
   return () {
     if (!done) {
       done = true;
       try {
-        f!();
+        result = f!();
         valid = true;
       } catch (e) {
         p = panicValue(e);
       }
     }
     if (!valid) throw Panic(p);
+    return result;
   };
 }
 
