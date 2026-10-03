@@ -97,6 +97,7 @@ void main() {
     fmt.println(go.Slice<Object?>.of([f2 == null], _$e1));
     await (c ?? $_closers.$nil)._run();
     await _generics(log);
+    await _fields(log);
     await plain!();
     done!();
     go.chanClose(log);
@@ -114,6 +115,122 @@ void main() {
     await go.chanRecv(ctx!.done());
     fmt.println(go.Slice<Object?>.of([ctx!.err(), ctx2!.err()], _$e1));
   });
+}
+
+/// Campo func() não exportado tem classe de cor própria: guardando um
+/// CancelFunc ele fica síncrono, e a closure que o chama ainda pode virar
+/// CancelFunc (go.uber.org/fx/internal/fxclock).
+class $_deadlineCtx extends go.GoStruct<$_deadlineCtx> {
+  $_deadlineCtx({void Function()? cancelInner, sync.Mutex? mu, go.GoError? err})
+    : _cancelInner = cancelInner,
+      _mu = mu ?? sync.Mutex(),
+      _err = err;
+
+  /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
+  static final $_deadlineCtx $nil = $_deadlineCtx()..$nilPtr = true;
+
+  void Function()? _cancelInner;
+  sync.Mutex _mu;
+  go.GoError? _err;
+
+  @override
+  String get $goType => 'main.deadlineCtx';
+  @override
+  List<String> get $valueMethods => const [];
+  @override
+  List<String> get $ptrMethods => const ['cancel'];
+
+  @override
+  $_deadlineCtx $copy() =>
+      $_deadlineCtx(cancelInner: _cancelInner, mu: _mu.$copy(), err: _err);
+
+  @override
+  void $set($_deadlineCtx o) {
+    _cancelInner = o._cancelInner;
+    _mu.$set(o._mu);
+    _err = o._err;
+  }
+
+  @override
+  List<Object?> get $fields => [_cancelInner, _mu, _err];
+
+  @override
+  List<String> get $fieldNames => const ['cancelInner', 'mu', 'err'];
+
+  @override
+  List<String> get $fieldTypes => const ['func()', 'sync.Mutex', 'error'];
+
+  void _cancel(go.GoError? err) {
+    final $_deadlineCtx? c = $nilPtr ? null : this;
+    c!._mu.lock();
+    if (c!._err == null) {
+      c!._err = err;
+      c!._cancelInner!();
+    }
+    c!._mu.unlock();
+  }
+}
+
+(context.Context?, context.CancelFunc?) _withTimeout(context.Context? ctx) {
+  var (inner, cancelInner) = context.withCancel(ctx);
+  $_deadlineCtx? d = $_deadlineCtx(cancelInner: cancelInner);
+  return (
+    inner,
+    () {
+      (d ?? $_deadlineCtx.$nil)._cancel(context.canceled);
+    },
+  );
+}
+
+/// Campo que recebe uma closure que suspende: classe async.
+class $_job extends go.GoStruct<$_job> {
+  $_job({Future<void> Function()? run}) : _run = run;
+
+  /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
+  static final $_job $nil = $_job()..$nilPtr = true;
+
+  Future<void> Function()? _run;
+
+  @override
+  String get $goType => 'main.job';
+  @override
+  List<String> get $valueMethods => const [];
+  @override
+  List<String> get $ptrMethods => const [];
+
+  @override
+  $_job $copy() => $_job(run: _run);
+
+  @override
+  void $set($_job o) {
+    _run = o._run;
+  }
+
+  @override
+  List<Object?> get $fields => [_run];
+
+  @override
+  List<String> get $fieldNames => const ['run'];
+
+  @override
+  List<String> get $fieldTypes => const ['func()'];
+}
+
+Future<void> _fields(go.Chan<Golang.String>? log) async {
+  var (ctx, cancel) = _withTimeout(context.background());
+  cancel!();
+  cancel!();
+  fmt.println(
+    go.Slice<Object?>.of([Golang.String.fromDart('fields:'), ctx!.err()], _$e1),
+  );
+  $_job j = $_job(
+    run: () async {
+      await go.chanSend(log, Golang.String.fromDart('job'));
+    },
+  );
+  if (j._run != null) {
+    await j._run!();
+  }
 }
 
 /// Métodos e campos func() de um tipo genérico não prendem a classe func():
@@ -222,6 +339,12 @@ mixin $_closers$Promote {
   $_closers? get $$_closers;
   void _add(Future<void> Function()? p0) => $$_closers!._add(p0);
   Future<void> _run() => $$_closers!._run();
+}
+
+/// Métodos de deadlineCtx promovidos por embedding (delegação).
+mixin $_deadlineCtx$Promote {
+  $_deadlineCtx? get $$_deadlineCtx;
+  void _cancel(go.GoError? p0) => $$_deadlineCtx!._cancel(p0);
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.

@@ -182,7 +182,7 @@ class Package:
         i = node.get("$type")
         if i is None:
             i = (node.get("$obj") or {}).get("type")
-        return None if i is None else self.type_table[i]
+        return None if i is None else self.type_at(i)
 
     def type_at(self, t):
         """Descritor da typeTable pelo índice; um descritor passa direto."""

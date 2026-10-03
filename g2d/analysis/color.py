@@ -78,6 +78,8 @@ def summarize(engine, decls=None):
     if decls is None:
         decls = [d for f in pkg.files for d in f["ast"]["decls"] or []]
     s = ColorSummary()
+    for key, ref in field_classes(engine, decls):
+        s.edges[key].add(ref)  # o campo é async se recebe uma função async
 
     def callees(node):
         """(callees que a função espera, mutexes que ela trava)."""
@@ -149,6 +151,123 @@ def summarize(engine, decls=None):
                 for m in typesys.underlying(et)["methods"]:
                     s.unions.add((conc.iface_key(t, m["name"]), conc.iface_key(et, m["name"])))
     return s
+
+
+def field_classes(engine, decls):
+    """Campos com classe de cor própria: campo não exportado de tipo `func`
+    sem nome, de struct nomeada não genérica do pacote (todo acesso a ele
+    está aqui), que só é chamado (`x.f()`), comparado com nil ou escrito, e
+    só recebe nil, função citada direto (literal, `f`, `x.M`) ou um tipo de
+    função nomeado da stdlib (`context.CancelFunc`). A classe dele é
+    `("field", pacote, declaração)`, `async` só se recebe uma função
+    `async`; um `cancelInner func()` que guarda um `CancelFunc` fica
+    síncrono mesmo com a `func()` `async` no grafo. O tipo do campo na
+    struct e nos seletores vira uma cópia do tipo func com `$class` (lida
+    por `Concurrency.sig_key`). Devolve as arestas (classe do campo, chave da
+    função escrita); idempotente por pacote."""
+    pkg, conc = engine.pkg, engine.services["concurrency"]
+    cached = pkg.__dict__.get("_field_classes")
+    if cached is not None:
+        return cached
+    typesys = conc.typesys
+    owner = {}  # declaração do campo → (dict da struct, nome)
+    slots = collections.Counter()
+    for d in decls:
+        if d["node"] != "GenDecl" or d["tok"] != "type":
+            continue
+        for spec in d["specs"]:
+            if spec.get("typeParams") or spec.get("assign") or spec["type"]["node"] != "StructType":
+                continue
+            st = typesys.underlying(pkg.type_at(spec["name"]["$obj"]["type"]))
+            for fld in spec["type"]["fields"]["list"] or []:
+                for name in fld["names"] or []:
+                    obj = name.get("$obj") or {}
+                    t = pkg.type_at(obj.get("type")) if obj.get("type") is not None else None
+                    if (t is None or t["kind"] != "func" or name["name"][:1].isupper()
+                            or name["name"] == "_"):
+                        continue
+                    owner[obj["decl"]] = (st, name["name"])
+                    slots[(id(st), name["name"])] += 1
+    # Structs idênticas no pacote compartilham o subjacente: campo ambíguo fica na assinatura.
+    owner = {k: v for k, v in owner.items() if slots[(id(v[0]), v[1])] == 1}
+    if not owner:
+        pkg._field_classes = []
+        return []
+    bad, edges, sels, ok = set(), [], {}, set()
+
+    def field_of(n):
+        n = unparen(n)
+        if n.get("node") == "SelectorExpr" and (n.get("$sel") or {}).get("kind") == "field":
+            decl = (n["sel"].get("$obj") or {}).get("decl")
+            return decl if decl in owner else None
+        return None
+
+    def write(decl, value, vt=None):
+        if decl is None:
+            return
+        ref = func_ref_key(conc, value) if value is not None else None
+        vt = vt if vt is not None else pkg.type_of(value)
+        if ref is not None:
+            edges.append((("field", pkg.path, decl), ref))
+        elif vt is not None and vt["kind"] == "basic" and vt["name"] == "untyped nil":
+            pass
+        elif not conc.std_named_func(vt):
+            bad.add(decl)
+
+    for n in walk(decls):
+        k = n.get("node")
+        decl = field_of(n)
+        if decl is not None:
+            sels[id(n)] = decl
+        if k == "CallExpr":
+            ok.add(id(unparen(n["fun"])))
+        elif k == "BinaryExpr" and n["op"] in ("==", "!="):
+            for a, b in ((n["x"], n["y"]), (n["y"], n["x"])):
+                bt = pkg.type_of(b)
+                if bt is not None and bt["kind"] == "basic" and bt["name"] == "untyped nil":
+                    ok.add(id(unparen(a)))
+        elif k == "AssignStmt" and n["tok"] == "=":
+            lhs, rhs = n["lhs"], n["rhs"]
+            tuple_t = pkg.type_of(rhs[0]) if len(rhs) == 1 and len(lhs) > 1 else None
+            for i, x in enumerate(lhs):
+                d = field_of(x)
+                if d is None:
+                    continue
+                ok.add(id(unparen(x)))
+                if len(rhs) == len(lhs):
+                    write(d, rhs[i])
+                elif tuple_t is not None and tuple_t["kind"] == "tuple":
+                    write(d, None, pkg.type_at(tuple_t["elems"][i]))
+                else:
+                    bad.add(d)
+        elif k == "CompositeLit":
+            t = pkg.type_of(n)
+            st = typesys.underlying(t) if t is not None else None
+            if st is None or st["kind"] != "struct":
+                continue
+            for i, e in enumerate(n["elts"] or []):
+                if e["node"] == "KeyValueExpr":
+                    d = (e["key"].get("$obj") or {}).get("decl")
+                    if d in owner:
+                        write(d, e["value"])
+                elif i < len(st["fields"]):
+                    name = st["fields"][i]["name"]
+                    for d, (ost, oname) in owner.items():
+                        if ost is st and oname == name:
+                            write(d, e)
+    bad |= {d for i, d in sels.items() if i not in ok}
+    for d, (st, name) in owner.items():
+        if d in bad:
+            continue
+        for f in st["fields"]:
+            if f["name"] == name:
+                f["type"] = dict(pkg.type_at(f["type"]), **{"$class": ("field", pkg.path, d)})
+                synthetic = f["type"]
+        for n in walk(decls):
+            if field_of(n) == d:
+                n["$type"] = synthetic
+    pkg._field_classes = [e for e in edges if e[0][2] not in bad]
+    return pkg._field_classes
 
 
 def func_ref_key(conc, n):

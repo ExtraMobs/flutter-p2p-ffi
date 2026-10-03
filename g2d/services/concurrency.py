@@ -137,6 +137,8 @@ class Concurrency(Service):
         Tipo nomeado da stdlib (`context.CancelFunc`) é classe própria: o
         shim fixa o formato dele (síncrono), sem prender a `func()` comum."""
         t = self.pkg.type_at(t)
+        if t.get("$class"):  # campo com classe própria (analysis/color.field_classes)
+            return t["$class"]
         if self.std_named_func(t):
             return ("sig", self.canon(t))
         return ("sig", self.canon(self.typesys.underlying(t)))

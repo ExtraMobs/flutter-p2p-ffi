@@ -1,8 +1,8 @@
 # TODO — backlog do desafio kubo/boxo
 
-Estado em 2026-10-03: **157 de 1112** pacotes do grafo do kubo verdes
+Estado em 2026-10-03: **158 de 1112** pacotes do grafo do kubo verdes
 (`docs/audit.md`). A fronteira (pacotes não verdes com as dependências todas
-verdes) tem 185 pacotes. Os números abaixo saem do ranking do audit
+verdes) tem 184 pacotes. Os números abaixo saem do ranking do audit
 (pacotes afetados / pacotes na fronteira).
 
 ## 1. Decisões do dono antes de seguir
@@ -22,8 +22,8 @@ as opções e a recomendação; a tabela é o resumo.
 
 Já decidido (não reabrir): D7 (2026-10-02), tipo de função nomeado da
 stdlib (`context.CancelFunc`) é classe de cor própria e a `func()` comum
-segue a cor dela (`docs/mapping-spec.md` § "Cor transitiva"; resto em
-`P1-design-cor-func-por-campo.md`). M4 usa cor `async` transitiva calculada pelo g2d;
+segue a cor dela, com cor própria para campo `func()` não exportado
+(`docs/mapping-spec.md` § "Cor transitiva"). M4 usa cor `async` transitiva calculada pelo g2d;
 contextos que precisam ficar síncronos viram `Unsupported`; Riverpod,
 "tudo async" e isolates foram descartados (`docs/mapping-spec.md` § "Cor
 transitiva").
@@ -35,7 +35,6 @@ transitiva").
 | Artefato | Pacotes / fronteira | Resumo |
 |---|---|---|
 | `P1-construcao-construtor-ambiguo.md` | 7 / 4 | campos `C` e `c` na mesma struct colidem no construtor |
-| `P1-design-cor-func-por-campo.md` | 1 verde perdido (`fxclock`) | closure `async` só por chamar campo `func()` não vira `CancelFunc` |
 | `P1-shim-io.md` | 58 ocorrências / 6 | `LimitReader`, `CopyN`, `Copy`, `MultiWriter`, `SectionReader`... |
 | `P1-shim-iter.md` | 19 / 4 (`iter`) e 10 / 3 (`SplitSeq`) | `iter.Seq` e `strings.SplitSeq`/`Lines` (range sobre func já funciona) |
 | `P1-shim-time-layout.md` | 10 / 2 | `time.Format`/`Parse` com layout |

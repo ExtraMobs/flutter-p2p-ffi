@@ -49,6 +49,7 @@ func main() {
 
 	c.run()
 	generics(log)
+	fields(log)
 	plain()
 	done()
 	close(log)
