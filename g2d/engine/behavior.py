@@ -69,6 +69,7 @@ class Component:
     promoter = property(lambda self: self.service("promoter"))
     concurrency = property(lambda self: self.service("concurrency"))
     evalorder = property(lambda self: self.service("evalorder"))
+    genptr = property(lambda self: self.service("genptr"))
 
     # --- despacho
     def expr(self, n, min_prec=0):

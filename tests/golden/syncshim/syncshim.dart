@@ -23,6 +23,9 @@ final class DoNotCopy extends go.GoArray<sync.Mutex> {
   DoNotCopy $copy() => DoNotCopy(super.$copy());
 
   @override
+  DoNotCopy $ifaceCopy() => $copy()..$isValue = true;
+
+  @override
   String get $goType => 'main.DoNotCopy';
   @override
   List<String> get $methods => const [];

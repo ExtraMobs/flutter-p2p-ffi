@@ -157,14 +157,19 @@ class AssignStmt(StmtBehavior):
 
     def op_assign(self, lhs, op, rhs):
         b = self.typesys.basic(self.pkg.type_of(lhs))
+        # `/` sobre parâmetro de tipo é o método $quo (truncado nos inteiros,
+        # IEEE nos floats), como no BinaryExpr.
+        quo = op == "/" and self.pkg.type_of(lhs)["kind"] == "typeparam"
         # Sem operador composto Dart equivalente: lê e escreve o alvo (map
         # guarda sem `??`; `&^` é o método andNot).
-        if self.operands.is_map_index(lhs) or (op == "&^" and lhs["node"] != "Ident"):
+        if self.operands.is_map_index(lhs) or (op == "&^" and lhs["node"] != "Ident") or quo:
             if not self.operands.is_pure(lhs):
                 raise Unsupported("opassign-impuro", f"{op}= sobre alvo com efeito (avaliado duas vezes)", lhs)
             read = self.expr(lhs, POSTFIX)
             if op == "&^":
                 value = f"{read}.andNot({self.expr(rhs)})"
+            elif quo:
+                value = f"{read}.$quo({self.expr(rhs)})"
             elif op in ("<<", ">>"):
                 value = f"{read} {op} {self.operands.shift_count(rhs)}"
             elif b and b.integer and op == "/":

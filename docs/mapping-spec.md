@@ -144,7 +144,7 @@ Legenda: ✅ fiel · ⚠️ fiel no caso comum, com limite conhecido · ❌ não
 | interface nomeada | `abstract mixin class I` (anulável: `I?`) | `null` |
 | parâmetro de tipo `T` | `T` (dicionário `go.Elem<T> $T`) | `$T.zero()` |
 | nomeado sobre bool (`type Flag bool`) | `final class Flag extends go.GoBool` (`$b`, `==` com o tipo, `toString`); condições (`if`, `for`, `switch` sem tag, `&&`/`||`) usam `.$b`; `!f`, `f && g` com resultado Flag e comparações que fluem para Flag (o go/types dá o tipo do contexto a `a < b`) são embrulhados; `Flag(b)`/`bool(f)` por `$b`. Fixture `namedbool` | `Flag()` |
-| nomeado sobre array (`type Hash [32]byte`) | `final class Hash extends go.GoArray<Golang.Uint8>` (`Hash(go.GoArray...)` via `alias`); array é valor como struct, então os métodos de receptor ponteiro também ficam na classe e `Hash.$nil` é a sentinela; `[32]byte(h)` → `go.GoArray<...>.alias(h)` (tipo dinâmico sem nome). Fixture `namedarray` | `Hash(go.GoArray<...>.zero(32, _$eN))` |
+| nomeado sobre array (`type Hash [32]byte`) | `final class Hash extends go.GoArray<Golang.Uint8>` (`Hash(go.GoArray...)` via `alias`); array é valor como struct, então os métodos de receptor ponteiro também ficam na classe e `Hash.$nil` é a sentinela; `[32]byte(h)` → `go.GoArray<...>.alias(h)` (tipo dinâmico sem nome); `$copy` e `$ifaceCopy` devolvem `Hash` (entra em interface; fixture `arraynomeadoiface`). Fixture `namedarray` | `Hash(go.GoArray<...>.zero(32, _$eN))` |
 | nomeado sobre slice/map (`type IDs []string`) | `final class IDs extends go.Slice<Golang.String>` (idem `go.GoMap`); conversão/atribuição = `IDs(s)` via `Slice.alias` (mesmo array) | `IDs(go.Slice<...>.nil(_$eN))` |
 | nomeado sobre func (`type Op func(int) int`) | `final class Op` chamável: `$f` (anulável), `call(...)`, `isNil`; `Op(fn)` / `op.$f` nas atribuições entre nomeado e não nomeado | `Op(null)` |
 | `*N`, N nomeado não-struct com métodos e `*N` usado no pacote | `N$Ptr?`: `final class N$Ptr extends go.PtrView<N>` (vista sobre `go.Box`/`ElemPtr`/`FieldPtr`) com os métodos de receptor ponteiro, forwarders dos de valor e as interfaces de `*N` | `null` |
@@ -750,7 +750,21 @@ métodos da classe. As conversões usam os construtores:
   interface de métodos embutida; P pode ser nil, então `p!.m()`), com
   métodos próprios na constraint → `constraint:ponteiro`. Fixture
   `constraintloose`.
-- `/` sobre `T` → `$quo` (truncado nos inteiros, IEEE nos floats).
+- `/` sobre `T` → `$quo` (truncado nos inteiros, IEEE nos floats); `a /= b`
+  → `a = a.$quo(b)` (alvo impuro → `opassign-impuro`). `+` está em
+  `GoOrdered` (soma ou concatenação); união só de strings tem bound
+  `StringBase<T>`, e uma constante string num contexto de T vira
+  `$T.zero().$wrapStr(...)`. Fixture `genericosptr`.
+- `*T` no genérico é `go.Ptr<T>`; instanciado com struct/array (o próprio
+  objeto fora do genérico), a chamada passa a vista `go.valPtr<P>(x)`
+  (`go.ValPtr`: `*p = v` é `$set` in-place, ler `*p` copia, `==` por identidade do objeto)
+  e desfaz o resultado `*T` com `go.ptrTarget<P>(r)`; `*N` com métodos
+  (`N$Ptr`) já é um `go.Ptr<N>` no argumento. Também em `f[P]` como valor.
+  Fixture `genericosptr`. ⚠️ `*T` aninhado (`[]*T`, `func(*T)`, `map[K]*T`,
+  resultado múltiplo...), resultado `*N` com métodos e resultado de
+  genérico `async` → `generico:ptr-valor`; métodos e campos `*T` de tipo
+  genérico instanciado com struct/array não são convertidos (o dump não liga
+  a instância à origem; dá erro no `dart analyze`).
 - A chamada instancia explicitamente, `f<Golang.Int>(_$e0, ...)`, com os
   argumentos de tipo vindos do goast (`$inst`), inclusive `f[int](x)` e
   `pkg.New[K, V](...)` escritos no Go. `f[int]` como valor (sem chamada) vira

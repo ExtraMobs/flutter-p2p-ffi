@@ -422,6 +422,8 @@ class NamedCompositeClass(NonStructNamed):
                  "/// `(*T)(nil)` dentro de uma interface (não é nil no Go).",
                  f"static final {cls} $nil = {cls}({self.types.zero(u)})..$nilPtr = true;", "",
                  "@override", f"{cls} $copy() => {cls}(super.$copy());", "",
+                 # A base devolve GoArray: sem isto, `Arr` não entra numa interface.
+                 "@override", f"{cls} $ifaceCopy() => $copy()..$isValue = true;", "",
                  "@override", f"String get $goType => '{self.goinfo.go_type_name(t)}';",
                  "@override", f"List<String> get $methods => const [{vm}];"]
         for m in ms:

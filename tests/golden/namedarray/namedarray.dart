@@ -19,6 +19,9 @@ final class Hash extends go.GoArray<Golang.Uint8> {
   Hash $copy() => Hash(super.$copy());
 
   @override
+  Hash $ifaceCopy() => $copy()..$isValue = true;
+
+  @override
   String get $goType => 'main.Hash';
   @override
   List<String> get $methods => const ['Hex'];
@@ -61,6 +64,9 @@ final class DoNotCompare extends go.GoArray<void Function()?> {
 
   @override
   DoNotCompare $copy() => DoNotCompare(super.$copy());
+
+  @override
+  DoNotCompare $ifaceCopy() => $copy()..$isValue = true;
 
   @override
   String get $goType => 'main.DoNotCompare';
@@ -123,6 +129,9 @@ final class Grid extends go.GoArray<go.GoArray<Golang.Int>> {
 
   @override
   Grid $copy() => Grid(super.$copy());
+
+  @override
+  Grid $ifaceCopy() => $copy()..$isValue = true;
 
   @override
   String get $goType => 'main.Grid';

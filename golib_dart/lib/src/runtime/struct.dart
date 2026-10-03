@@ -23,6 +23,9 @@ abstract class GoValue<T extends GoValue<T>> implements GoTyped {
   /// `x = other` do Go: copia o conteúdo de [other] para este objeto.
   void $set(T other);
 
+  /// [$set] sem o tipo estático (a vista [ValPtr] dos genéricos).
+  void $setAny(Object other) => $set(other as T);
+
   /// Cópia para guardar o valor numa interface.
   T $ifaceCopy() => $copy()..$isValue = true;
 

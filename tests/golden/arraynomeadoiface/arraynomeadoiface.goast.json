@@ -1,0 +1,3075 @@
+{
+  "schemaVersion": 8,
+  "tool": "goast",
+  "goVersion": "go1.26.5",
+  "packages": [
+    {
+      "path": "main",
+      "name": "main",
+      "files": [
+        {
+          "path": "arraynomeadoiface.go",
+          "ast": {
+            "node": "File",
+            "doc": null,
+            "package": {
+              "file": "arraynomeadoiface.go",
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "name": {
+              "node": "Ident",
+              "namePos": {
+                "file": "arraynomeadoiface.go",
+                "line": 1,
+                "column": 9,
+                "offset": 8
+              },
+              "name": "main",
+              "obj": null
+            },
+            "decls": [
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "arraynomeadoiface.go",
+                  "line": 3,
+                  "column": 1,
+                  "offset": 14
+                },
+                "tok": "import",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "ImportSpec",
+                    "doc": null,
+                    "name": null,
+                    "path": {
+                      "node": "BasicLit",
+                      "valuePos": {
+                        "file": "arraynomeadoiface.go",
+                        "line": 3,
+                        "column": 8,
+                        "offset": 21
+                      },
+                      "valueEnd": {
+                        "file": "arraynomeadoiface.go",
+                        "line": 3,
+                        "column": 13,
+                        "offset": 26
+                      },
+                      "kind": "STRING",
+                      "value": "\"fmt\""
+                    },
+                    "comment": null,
+                    "endPos": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "arraynomeadoiface.go",
+                  "line": 5,
+                  "column": 1,
+                  "offset": 28
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "arraynomeadoiface.go",
+                        "line": 5,
+                        "column": 6,
+                        "offset": 33
+                      },
+                      "name": "Arr",
+                      "obj": {
+                        "node": "Object",
+                        "name": "Arr",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "Arr",
+                        "kind": "type",
+                        "def": true,
+                        "type": 0,
+                        "decl": "arraynomeadoiface.go:33",
+                        "pkg": "main",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "ArrayType",
+                      "lbrack": {
+                        "file": "arraynomeadoiface.go",
+                        "line": 5,
+                        "column": 10,
+                        "offset": 37
+                      },
+                      "len": {
+                        "node": "BasicLit",
+                        "valuePos": {
+                          "file": "arraynomeadoiface.go",
+                          "line": 5,
+                          "column": 11,
+                          "offset": 38
+                        },
+                        "valueEnd": {
+                          "file": "arraynomeadoiface.go",
+                          "line": 5,
+                          "column": 12,
+                          "offset": 39
+                        },
+                        "kind": "INT",
+                        "value": "2",
+                        "$type": 5,
+                        "$value": {
+                          "kind": "int",
+                          "value": "2"
+                        }
+                      },
+                      "elt": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "arraynomeadoiface.go",
+                          "line": 5,
+                          "column": 13,
+                          "offset": 40
+                        },
+                        "name": "int",
+                        "obj": null,
+                        "$type": 2,
+                        "$isType": true,
+                        "$obj": {
+                          "name": "int",
+                          "kind": "type",
+                          "type": 2
+                        }
+                      },
+                      "$type": 1,
+                      "$isType": true
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": {
+                  "node": "FieldList",
+                  "opening": {
+                    "file": "arraynomeadoiface.go",
+                    "line": 7,
+                    "column": 6,
+                    "offset": 50
+                  },
+                  "list": [
+                    {
+                      "node": "Field",
+                      "doc": null,
+                      "names": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "arraynomeadoiface.go",
+                            "line": 7,
+                            "column": 7,
+                            "offset": 51
+                          },
+                          "name": "a",
+                          "obj": {
+                            "node": "Object",
+                            "name": "a",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "a",
+                            "kind": "var",
+                            "def": true,
+                            "type": 0,
+                            "decl": "arraynomeadoiface.go:51",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "type": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "arraynomeadoiface.go",
+                          "line": 7,
+                          "column": 9,
+                          "offset": 53
+                        },
+                        "name": "Arr",
+                        "obj": {
+                          "node": "Object",
+                          "name": "Arr",
+                          "kind": "type"
+                        },
+                        "$type": 0,
+                        "$isType": true,
+                        "$obj": {
+                          "name": "Arr",
+                          "kind": "type",
+                          "type": 0,
+                          "decl": "arraynomeadoiface.go:33",
+                          "pkg": "main",
+                          "top": true
+                        }
+                      },
+                      "tag": null,
+                      "comment": null
+                    }
+                  ],
+                  "closing": {
+                    "file": "arraynomeadoiface.go",
+                    "line": 7,
+                    "column": 12,
+                    "offset": 56
+                  }
+                },
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "arraynomeadoiface.go",
+                    "line": 7,
+                    "column": 14,
+                    "offset": 58
+                  },
+                  "name": "Sum",
+                  "obj": null,
+                  "$obj": {
+                    "name": "Sum",
+                    "kind": "method",
+                    "def": true,
+                    "type": 4,
+                    "decl": "arraynomeadoiface.go:58",
+                    "pkg": "main"
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "arraynomeadoiface.go",
+                    "line": 7,
+                    "column": 1,
+                    "offset": 45
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "arraynomeadoiface.go",
+                      "line": 7,
+                      "column": 17,
+                      "offset": 61
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "arraynomeadoiface.go",
+                      "line": 7,
+                      "column": 18,
+                      "offset": 62
+                    }
+                  },
+                  "results": {
+                    "node": "FieldList",
+                    "opening": null,
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": null,
+                        "type": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "arraynomeadoiface.go",
+                            "line": 7,
+                            "column": 20,
+                            "offset": 64
+                          },
+                          "name": "int",
+                          "obj": null,
+                          "$type": 2,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "int",
+                            "kind": "type",
+                            "type": 2
+                          }
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": null
+                  }
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "arraynomeadoiface.go",
+                    "line": 7,
+                    "column": 24,
+                    "offset": 68
+                  },
+                  "list": [
+                    {
+                      "node": "ReturnStmt",
+                      "return": {
+                        "file": "arraynomeadoiface.go",
+                        "line": 7,
+                        "column": 26,
+                        "offset": 70
+                      },
+                      "results": [
+                        {
+                          "node": "BinaryExpr",
+                          "x": {
+                            "node": "IndexExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "arraynomeadoiface.go",
+                                "line": 7,
+                                "column": 33,
+                                "offset": 77
+                              },
+                              "name": "a",
+                              "obj": {
+                                "node": "Object",
+                                "name": "a",
+                                "kind": "var"
+                              },
+                              "$type": 0,
+                              "$obj": {
+                                "name": "a",
+                                "kind": "var",
+                                "type": 0,
+                                "decl": "arraynomeadoiface.go:51",
+                                "pkg": "main"
+                              }
+                            },
+                            "lbrack": {
+                              "file": "arraynomeadoiface.go",
+                              "line": 7,
+                              "column": 34,
+                              "offset": 78
+                            },
+                            "index": {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "arraynomeadoiface.go",
+                                "line": 7,
+                                "column": 35,
+                                "offset": 79
+                              },
+                              "valueEnd": {
+                                "file": "arraynomeadoiface.go",
+                                "line": 7,
+                                "column": 36,
+                                "offset": 80
+                              },
+                              "kind": "INT",
+                              "value": "0",
+                              "$type": 2,
+                              "$value": {
+                                "kind": "int",
+                                "value": "0"
+                              }
+                            },
+                            "rbrack": {
+                              "file": "arraynomeadoiface.go",
+                              "line": 7,
+                              "column": 36,
+                              "offset": 80
+                            },
+                            "$type": 2
+                          },
+                          "opPos": {
+                            "file": "arraynomeadoiface.go",
+                            "line": 7,
+                            "column": 38,
+                            "offset": 82
+                          },
+                          "op": "+",
+                          "y": {
+                            "node": "IndexExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "arraynomeadoiface.go",
+                                "line": 7,
+                                "column": 40,
+                                "offset": 84
+                              },
+                              "name": "a",
+                              "obj": {
+                                "node": "Object",
+                                "name": "a",
+                                "kind": "var"
+                              },
+                              "$type": 0,
+                              "$obj": {
+                                "name": "a",
+                                "kind": "var",
+                                "type": 0,
+                                "decl": "arraynomeadoiface.go:51",
+                                "pkg": "main"
+                              }
+                            },
+                            "lbrack": {
+                              "file": "arraynomeadoiface.go",
+                              "line": 7,
+                              "column": 41,
+                              "offset": 85
+                            },
+                            "index": {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "arraynomeadoiface.go",
+                                "line": 7,
+                                "column": 42,
+                                "offset": 86
+                              },
+                              "valueEnd": {
+                                "file": "arraynomeadoiface.go",
+                                "line": 7,
+                                "column": 43,
+                                "offset": 87
+                              },
+                              "kind": "INT",
+                              "value": "1",
+                              "$type": 2,
+                              "$value": {
+                                "kind": "int",
+                                "value": "1"
+                              }
+                            },
+                            "rbrack": {
+                              "file": "arraynomeadoiface.go",
+                              "line": 7,
+                              "column": 43,
+                              "offset": 87
+                            },
+                            "$type": 2
+                          },
+                          "$type": 2
+                        }
+                      ]
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "arraynomeadoiface.go",
+                    "line": 7,
+                    "column": 45,
+                    "offset": 89
+                  }
+                }
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": {
+                  "node": "FieldList",
+                  "opening": {
+                    "file": "arraynomeadoiface.go",
+                    "line": 9,
+                    "column": 6,
+                    "offset": 97
+                  },
+                  "list": [
+                    {
+                      "node": "Field",
+                      "doc": null,
+                      "names": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "arraynomeadoiface.go",
+                            "line": 9,
+                            "column": 7,
+                            "offset": 98
+                          },
+                          "name": "a",
+                          "obj": {
+                            "node": "Object",
+                            "name": "a",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "a",
+                            "kind": "var",
+                            "def": true,
+                            "type": 6,
+                            "decl": "arraynomeadoiface.go:98",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "type": {
+                        "node": "StarExpr",
+                        "star": {
+                          "file": "arraynomeadoiface.go",
+                          "line": 9,
+                          "column": 9,
+                          "offset": 100
+                        },
+                        "x": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "arraynomeadoiface.go",
+                            "line": 9,
+                            "column": 10,
+                            "offset": 101
+                          },
+                          "name": "Arr",
+                          "obj": {
+                            "node": "Object",
+                            "name": "Arr",
+                            "kind": "type"
+                          },
+                          "$type": 0,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "Arr",
+                            "kind": "type",
+                            "type": 0,
+                            "decl": "arraynomeadoiface.go:33",
+                            "pkg": "main",
+                            "top": true
+                          }
+                        },
+                        "$type": 6,
+                        "$isType": true
+                      },
+                      "tag": null,
+                      "comment": null
+                    }
+                  ],
+                  "closing": {
+                    "file": "arraynomeadoiface.go",
+                    "line": 9,
+                    "column": 13,
+                    "offset": 104
+                  }
+                },
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "arraynomeadoiface.go",
+                    "line": 9,
+                    "column": 15,
+                    "offset": 106
+                  },
+                  "name": "Bump",
+                  "obj": null,
+                  "$obj": {
+                    "name": "Bump",
+                    "kind": "method",
+                    "def": true,
+                    "type": 3,
+                    "decl": "arraynomeadoiface.go:106",
+                    "pkg": "main"
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "arraynomeadoiface.go",
+                    "line": 9,
+                    "column": 1,
+                    "offset": 92
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "arraynomeadoiface.go",
+                      "line": 9,
+                      "column": 19,
+                      "offset": 110
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "arraynomeadoiface.go",
+                      "line": 9,
+                      "column": 20,
+                      "offset": 111
+                    }
+                  },
+                  "results": null
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "arraynomeadoiface.go",
+                    "line": 9,
+                    "column": 22,
+                    "offset": 113
+                  },
+                  "list": [
+                    {
+                      "node": "IncDecStmt",
+                      "x": {
+                        "node": "IndexExpr",
+                        "x": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "arraynomeadoiface.go",
+                            "line": 9,
+                            "column": 24,
+                            "offset": 115
+                          },
+                          "name": "a",
+                          "obj": {
+                            "node": "Object",
+                            "name": "a",
+                            "kind": "var"
+                          },
+                          "$type": 6,
+                          "$obj": {
+                            "name": "a",
+                            "kind": "var",
+                            "type": 6,
+                            "decl": "arraynomeadoiface.go:98",
+                            "pkg": "main"
+                          }
+                        },
+                        "lbrack": {
+                          "file": "arraynomeadoiface.go",
+                          "line": 9,
+                          "column": 25,
+                          "offset": 116
+                        },
+                        "index": {
+                          "node": "BasicLit",
+                          "valuePos": {
+                            "file": "arraynomeadoiface.go",
+                            "line": 9,
+                            "column": 26,
+                            "offset": 117
+                          },
+                          "valueEnd": {
+                            "file": "arraynomeadoiface.go",
+                            "line": 9,
+                            "column": 27,
+                            "offset": 118
+                          },
+                          "kind": "INT",
+                          "value": "0",
+                          "$type": 2,
+                          "$value": {
+                            "kind": "int",
+                            "value": "0"
+                          }
+                        },
+                        "rbrack": {
+                          "file": "arraynomeadoiface.go",
+                          "line": 9,
+                          "column": 27,
+                          "offset": 118
+                        },
+                        "$type": 2
+                      },
+                      "tokPos": {
+                        "file": "arraynomeadoiface.go",
+                        "line": 9,
+                        "column": 28,
+                        "offset": 119
+                      },
+                      "tok": "++"
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "arraynomeadoiface.go",
+                    "line": 9,
+                    "column": 31,
+                    "offset": 122
+                  }
+                }
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "arraynomeadoiface.go",
+                  "line": 11,
+                  "column": 1,
+                  "offset": 125
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "arraynomeadoiface.go",
+                        "line": 11,
+                        "column": 6,
+                        "offset": 130
+                      },
+                      "name": "Summer",
+                      "obj": {
+                        "node": "Object",
+                        "name": "Summer",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "Summer",
+                        "kind": "type",
+                        "def": true,
+                        "type": 7,
+                        "decl": "arraynomeadoiface.go:130",
+                        "pkg": "main",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "InterfaceType",
+                      "interface": {
+                        "file": "arraynomeadoiface.go",
+                        "line": 11,
+                        "column": 13,
+                        "offset": 137
+                      },
+                      "methods": {
+                        "node": "FieldList",
+                        "opening": {
+                          "file": "arraynomeadoiface.go",
+                          "line": 11,
+                          "column": 22,
+                          "offset": 146
+                        },
+                        "list": [
+                          {
+                            "node": "Field",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "arraynomeadoiface.go",
+                                  "line": 11,
+                                  "column": 24,
+                                  "offset": 148
+                                },
+                                "name": "Sum",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "Sum",
+                                  "kind": "func"
+                                },
+                                "$obj": {
+                                  "name": "Sum",
+                                  "kind": "method",
+                                  "def": true,
+                                  "type": 4,
+                                  "decl": "arraynomeadoiface.go:148",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "FuncType",
+                              "func": null,
+                              "typeParams": null,
+                              "params": {
+                                "node": "FieldList",
+                                "opening": {
+                                  "file": "arraynomeadoiface.go",
+                                  "line": 11,
+                                  "column": 27,
+                                  "offset": 151
+                                },
+                                "list": null,
+                                "closing": {
+                                  "file": "arraynomeadoiface.go",
+                                  "line": 11,
+                                  "column": 28,
+                                  "offset": 152
+                                }
+                              },
+                              "results": {
+                                "node": "FieldList",
+                                "opening": null,
+                                "list": [
+                                  {
+                                    "node": "Field",
+                                    "doc": null,
+                                    "names": null,
+                                    "type": {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "arraynomeadoiface.go",
+                                        "line": 11,
+                                        "column": 30,
+                                        "offset": 154
+                                      },
+                                      "name": "int",
+                                      "obj": null,
+                                      "$type": 2,
+                                      "$isType": true,
+                                      "$obj": {
+                                        "name": "int",
+                                        "kind": "type",
+                                        "type": 2
+                                      }
+                                    },
+                                    "tag": null,
+                                    "comment": null
+                                  }
+                                ],
+                                "closing": null
+                              },
+                              "$type": 4,
+                              "$isType": true
+                            },
+                            "tag": null,
+                            "comment": null
+                          }
+                        ],
+                        "closing": {
+                          "file": "arraynomeadoiface.go",
+                          "line": 11,
+                          "column": 34,
+                          "offset": 158
+                        }
+                      },
+                      "incomplete": false,
+                      "$type": 8,
+                      "$isType": true
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "arraynomeadoiface.go",
+                  "line": 13,
+                  "column": 1,
+                  "offset": 161
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "arraynomeadoiface.go",
+                        "line": 13,
+                        "column": 6,
+                        "offset": 166
+                      },
+                      "name": "Bumper",
+                      "obj": {
+                        "node": "Object",
+                        "name": "Bumper",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "Bumper",
+                        "kind": "type",
+                        "def": true,
+                        "type": 9,
+                        "decl": "arraynomeadoiface.go:166",
+                        "pkg": "main",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "InterfaceType",
+                      "interface": {
+                        "file": "arraynomeadoiface.go",
+                        "line": 13,
+                        "column": 13,
+                        "offset": 173
+                      },
+                      "methods": {
+                        "node": "FieldList",
+                        "opening": {
+                          "file": "arraynomeadoiface.go",
+                          "line": 13,
+                          "column": 23,
+                          "offset": 183
+                        },
+                        "list": [
+                          {
+                            "node": "Field",
+                            "doc": null,
+                            "names": null,
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "arraynomeadoiface.go",
+                                "line": 14,
+                                "column": 2,
+                                "offset": 186
+                              },
+                              "name": "Summer",
+                              "obj": {
+                                "node": "Object",
+                                "name": "Summer",
+                                "kind": "type"
+                              },
+                              "$type": 7,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "Summer",
+                                "kind": "type",
+                                "type": 7,
+                                "decl": "arraynomeadoiface.go:130",
+                                "pkg": "main",
+                                "top": true
+                              }
+                            },
+                            "tag": null,
+                            "comment": null
+                          },
+                          {
+                            "node": "Field",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "arraynomeadoiface.go",
+                                  "line": 15,
+                                  "column": 2,
+                                  "offset": 194
+                                },
+                                "name": "Bump",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "Bump",
+                                  "kind": "func"
+                                },
+                                "$obj": {
+                                  "name": "Bump",
+                                  "kind": "method",
+                                  "def": true,
+                                  "type": 3,
+                                  "decl": "arraynomeadoiface.go:194",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "FuncType",
+                              "func": null,
+                              "typeParams": null,
+                              "params": {
+                                "node": "FieldList",
+                                "opening": {
+                                  "file": "arraynomeadoiface.go",
+                                  "line": 15,
+                                  "column": 6,
+                                  "offset": 198
+                                },
+                                "list": null,
+                                "closing": {
+                                  "file": "arraynomeadoiface.go",
+                                  "line": 15,
+                                  "column": 7,
+                                  "offset": 199
+                                }
+                              },
+                              "results": null,
+                              "$type": 3,
+                              "$isType": true
+                            },
+                            "tag": null,
+                            "comment": null
+                          }
+                        ],
+                        "closing": {
+                          "file": "arraynomeadoiface.go",
+                          "line": 16,
+                          "column": 1,
+                          "offset": 201
+                        }
+                      },
+                      "incomplete": false,
+                      "$type": 10,
+                      "$isType": true
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "arraynomeadoiface.go",
+                    "line": 18,
+                    "column": 6,
+                    "offset": 209
+                  },
+                  "name": "main",
+                  "obj": {
+                    "node": "Object",
+                    "name": "main",
+                    "kind": "func"
+                  },
+                  "$obj": {
+                    "name": "main",
+                    "kind": "func",
+                    "def": true,
+                    "type": 3,
+                    "decl": "arraynomeadoiface.go:209",
+                    "pkg": "main",
+                    "top": true
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "arraynomeadoiface.go",
+                    "line": 18,
+                    "column": 1,
+                    "offset": 204
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "arraynomeadoiface.go",
+                      "line": 18,
+                      "column": 10,
+                      "offset": 213
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "arraynomeadoiface.go",
+                      "line": 18,
+                      "column": 11,
+                      "offset": 214
+                    }
+                  },
+                  "results": null
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "arraynomeadoiface.go",
+                    "line": 18,
+                    "column": 13,
+                    "offset": 216
+                  },
+                  "list": [
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "arraynomeadoiface.go",
+                            "line": 19,
+                            "column": 2,
+                            "offset": 219
+                          },
+                          "name": "a",
+                          "obj": {
+                            "node": "Object",
+                            "name": "a",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "a",
+                            "kind": "var",
+                            "def": true,
+                            "type": 0,
+                            "decl": "arraynomeadoiface.go:219",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "arraynomeadoiface.go",
+                        "line": 19,
+                        "column": 4,
+                        "offset": 221
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "CompositeLit",
+                          "type": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "arraynomeadoiface.go",
+                              "line": 19,
+                              "column": 7,
+                              "offset": 224
+                            },
+                            "name": "Arr",
+                            "obj": {
+                              "node": "Object",
+                              "name": "Arr",
+                              "kind": "type"
+                            },
+                            "$type": 0,
+                            "$isType": true,
+                            "$obj": {
+                              "name": "Arr",
+                              "kind": "type",
+                              "type": 0,
+                              "decl": "arraynomeadoiface.go:33",
+                              "pkg": "main",
+                              "top": true
+                            }
+                          },
+                          "lbrace": {
+                            "file": "arraynomeadoiface.go",
+                            "line": 19,
+                            "column": 10,
+                            "offset": 227
+                          },
+                          "elts": [
+                            {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "arraynomeadoiface.go",
+                                "line": 19,
+                                "column": 11,
+                                "offset": 228
+                              },
+                              "valueEnd": {
+                                "file": "arraynomeadoiface.go",
+                                "line": 19,
+                                "column": 12,
+                                "offset": 229
+                              },
+                              "kind": "INT",
+                              "value": "1",
+                              "$type": 2,
+                              "$value": {
+                                "kind": "int",
+                                "value": "1"
+                              }
+                            },
+                            {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "arraynomeadoiface.go",
+                                "line": 19,
+                                "column": 14,
+                                "offset": 231
+                              },
+                              "valueEnd": {
+                                "file": "arraynomeadoiface.go",
+                                "line": 19,
+                                "column": 15,
+                                "offset": 232
+                              },
+                              "kind": "INT",
+                              "value": "2",
+                              "$type": 2,
+                              "$value": {
+                                "kind": "int",
+                                "value": "2"
+                              }
+                            }
+                          ],
+                          "rbrace": {
+                            "file": "arraynomeadoiface.go",
+                            "line": 19,
+                            "column": 15,
+                            "offset": 232
+                          },
+                          "incomplete": false,
+                          "$type": 0
+                        }
+                      ]
+                    },
+                    {
+                      "node": "DeclStmt",
+                      "decl": {
+                        "node": "GenDecl",
+                        "doc": null,
+                        "tokPos": {
+                          "file": "arraynomeadoiface.go",
+                          "line": 20,
+                          "column": 2,
+                          "offset": 235
+                        },
+                        "tok": "var",
+                        "lparen": null,
+                        "specs": [
+                          {
+                            "node": "ValueSpec",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "arraynomeadoiface.go",
+                                  "line": 20,
+                                  "column": 6,
+                                  "offset": 239
+                                },
+                                "name": "s",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "s",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "s",
+                                  "kind": "var",
+                                  "def": true,
+                                  "type": 7,
+                                  "decl": "arraynomeadoiface.go:239",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "arraynomeadoiface.go",
+                                "line": 20,
+                                "column": 8,
+                                "offset": 241
+                              },
+                              "name": "Summer",
+                              "obj": {
+                                "node": "Object",
+                                "name": "Summer",
+                                "kind": "type"
+                              },
+                              "$type": 7,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "Summer",
+                                "kind": "type",
+                                "type": 7,
+                                "decl": "arraynomeadoiface.go:130",
+                                "pkg": "main",
+                                "top": true
+                              }
+                            },
+                            "values": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "arraynomeadoiface.go",
+                                  "line": 20,
+                                  "column": 17,
+                                  "offset": 250
+                                },
+                                "name": "a",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "a",
+                                  "kind": "var"
+                                },
+                                "$type": 0,
+                                "$obj": {
+                                  "name": "a",
+                                  "kind": "var",
+                                  "type": 0,
+                                  "decl": "arraynomeadoiface.go:219",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "comment": null
+                          }
+                        ],
+                        "rparen": null
+                      }
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "IndexExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "arraynomeadoiface.go",
+                              "line": 21,
+                              "column": 2,
+                              "offset": 253
+                            },
+                            "name": "a",
+                            "obj": {
+                              "node": "Object",
+                              "name": "a",
+                              "kind": "var"
+                            },
+                            "$type": 0,
+                            "$obj": {
+                              "name": "a",
+                              "kind": "var",
+                              "type": 0,
+                              "decl": "arraynomeadoiface.go:219",
+                              "pkg": "main"
+                            }
+                          },
+                          "lbrack": {
+                            "file": "arraynomeadoiface.go",
+                            "line": 21,
+                            "column": 3,
+                            "offset": 254
+                          },
+                          "index": {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "arraynomeadoiface.go",
+                              "line": 21,
+                              "column": 4,
+                              "offset": 255
+                            },
+                            "valueEnd": {
+                              "file": "arraynomeadoiface.go",
+                              "line": 21,
+                              "column": 5,
+                              "offset": 256
+                            },
+                            "kind": "INT",
+                            "value": "0",
+                            "$type": 2,
+                            "$value": {
+                              "kind": "int",
+                              "value": "0"
+                            }
+                          },
+                          "rbrack": {
+                            "file": "arraynomeadoiface.go",
+                            "line": 21,
+                            "column": 5,
+                            "offset": 256
+                          },
+                          "$type": 2
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "arraynomeadoiface.go",
+                        "line": 21,
+                        "column": 7,
+                        "offset": 258
+                      },
+                      "tok": "=",
+                      "rhs": [
+                        {
+                          "node": "BasicLit",
+                          "valuePos": {
+                            "file": "arraynomeadoiface.go",
+                            "line": 21,
+                            "column": 9,
+                            "offset": 260
+                          },
+                          "valueEnd": {
+                            "file": "arraynomeadoiface.go",
+                            "line": 21,
+                            "column": 11,
+                            "offset": 262
+                          },
+                          "kind": "INT",
+                          "value": "10",
+                          "$type": 2,
+                          "$value": {
+                            "kind": "int",
+                            "value": "10"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "arraynomeadoiface.go",
+                              "line": 22,
+                              "column": 2,
+                              "offset": 298
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "arraynomeadoiface.go",
+                              "line": 22,
+                              "column": 6,
+                              "offset": 302
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 11,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 11
+                        },
+                        "lparen": {
+                          "file": "arraynomeadoiface.go",
+                          "line": 22,
+                          "column": 13,
+                          "offset": 309
+                        },
+                        "args": [
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "arraynomeadoiface.go",
+                                  "line": 22,
+                                  "column": 14,
+                                  "offset": 310
+                                },
+                                "name": "s",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "s",
+                                  "kind": "var"
+                                },
+                                "$type": 7,
+                                "$obj": {
+                                  "name": "s",
+                                  "kind": "var",
+                                  "type": 7,
+                                  "decl": "arraynomeadoiface.go:239",
+                                  "pkg": "main"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "arraynomeadoiface.go",
+                                  "line": 22,
+                                  "column": 16,
+                                  "offset": 312
+                                },
+                                "name": "Sum",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "Sum",
+                                  "kind": "method",
+                                  "type": 4,
+                                  "decl": "arraynomeadoiface.go:148",
+                                  "pkg": "main"
+                                }
+                              },
+                              "$type": 4,
+                              "$sel": {
+                                "kind": "method",
+                                "recv": 7,
+                                "index": [
+                                  0
+                                ],
+                                "indirect": false
+                              }
+                            },
+                            "lparen": {
+                              "file": "arraynomeadoiface.go",
+                              "line": 22,
+                              "column": 19,
+                              "offset": 315
+                            },
+                            "args": null,
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "arraynomeadoiface.go",
+                              "line": 22,
+                              "column": 20,
+                              "offset": 316
+                            },
+                            "$type": 2
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "arraynomeadoiface.go",
+                                  "line": 22,
+                                  "column": 23,
+                                  "offset": 319
+                                },
+                                "name": "a",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "a",
+                                  "kind": "var"
+                                },
+                                "$type": 0,
+                                "$obj": {
+                                  "name": "a",
+                                  "kind": "var",
+                                  "type": 0,
+                                  "decl": "arraynomeadoiface.go:219",
+                                  "pkg": "main"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "arraynomeadoiface.go",
+                                  "line": 22,
+                                  "column": 25,
+                                  "offset": 321
+                                },
+                                "name": "Sum",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "Sum",
+                                  "kind": "method",
+                                  "type": 4,
+                                  "decl": "arraynomeadoiface.go:58",
+                                  "pkg": "main"
+                                }
+                              },
+                              "$type": 4,
+                              "$sel": {
+                                "kind": "method",
+                                "recv": 0,
+                                "index": [
+                                  0
+                                ],
+                                "indirect": false
+                              }
+                            },
+                            "lparen": {
+                              "file": "arraynomeadoiface.go",
+                              "line": 22,
+                              "column": 28,
+                              "offset": 324
+                            },
+                            "args": null,
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "arraynomeadoiface.go",
+                              "line": 22,
+                              "column": 29,
+                              "offset": 325
+                            },
+                            "$type": 2
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "arraynomeadoiface.go",
+                          "line": 22,
+                          "column": 30,
+                          "offset": 326
+                        },
+                        "$type": 18
+                      }
+                    },
+                    {
+                      "node": "IfStmt",
+                      "if": {
+                        "file": "arraynomeadoiface.go",
+                        "line": 23,
+                        "column": 2,
+                        "offset": 329
+                      },
+                      "init": {
+                        "node": "AssignStmt",
+                        "lhs": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "arraynomeadoiface.go",
+                              "line": 23,
+                              "column": 5,
+                              "offset": 332
+                            },
+                            "name": "b",
+                            "obj": {
+                              "node": "Object",
+                              "name": "b",
+                              "kind": "var"
+                            },
+                            "$obj": {
+                              "name": "b",
+                              "kind": "var",
+                              "def": true,
+                              "type": 0,
+                              "decl": "arraynomeadoiface.go:332",
+                              "pkg": "main"
+                            }
+                          },
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "arraynomeadoiface.go",
+                              "line": 23,
+                              "column": 8,
+                              "offset": 335
+                            },
+                            "name": "ok",
+                            "obj": {
+                              "node": "Object",
+                              "name": "ok",
+                              "kind": "var"
+                            },
+                            "$obj": {
+                              "name": "ok",
+                              "kind": "var",
+                              "def": true,
+                              "type": 19,
+                              "decl": "arraynomeadoiface.go:335",
+                              "pkg": "main"
+                            }
+                          }
+                        ],
+                        "tokPos": {
+                          "file": "arraynomeadoiface.go",
+                          "line": 23,
+                          "column": 11,
+                          "offset": 338
+                        },
+                        "tok": ":=",
+                        "rhs": [
+                          {
+                            "node": "TypeAssertExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "arraynomeadoiface.go",
+                                "line": 23,
+                                "column": 14,
+                                "offset": 341
+                              },
+                              "name": "s",
+                              "obj": {
+                                "node": "Object",
+                                "name": "s",
+                                "kind": "var"
+                              },
+                              "$type": 7,
+                              "$obj": {
+                                "name": "s",
+                                "kind": "var",
+                                "type": 7,
+                                "decl": "arraynomeadoiface.go:239",
+                                "pkg": "main"
+                              }
+                            },
+                            "lparen": {
+                              "file": "arraynomeadoiface.go",
+                              "line": 23,
+                              "column": 16,
+                              "offset": 343
+                            },
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "arraynomeadoiface.go",
+                                "line": 23,
+                                "column": 17,
+                                "offset": 344
+                              },
+                              "name": "Arr",
+                              "obj": {
+                                "node": "Object",
+                                "name": "Arr",
+                                "kind": "type"
+                              },
+                              "$type": 0,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "Arr",
+                                "kind": "type",
+                                "type": 0,
+                                "decl": "arraynomeadoiface.go:33",
+                                "pkg": "main",
+                                "top": true
+                              }
+                            },
+                            "rparen": {
+                              "file": "arraynomeadoiface.go",
+                              "line": 23,
+                              "column": 20,
+                              "offset": 347
+                            },
+                            "$type": 20
+                          }
+                        ]
+                      },
+                      "cond": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "arraynomeadoiface.go",
+                          "line": 23,
+                          "column": 23,
+                          "offset": 350
+                        },
+                        "name": "ok",
+                        "obj": {
+                          "node": "Object",
+                          "name": "ok",
+                          "kind": "var"
+                        },
+                        "$type": 19,
+                        "$obj": {
+                          "name": "ok",
+                          "kind": "var",
+                          "type": 19,
+                          "decl": "arraynomeadoiface.go:335",
+                          "pkg": "main"
+                        }
+                      },
+                      "body": {
+                        "node": "BlockStmt",
+                        "lbrace": {
+                          "file": "arraynomeadoiface.go",
+                          "line": 23,
+                          "column": 26,
+                          "offset": 353
+                        },
+                        "list": [
+                          {
+                            "node": "ExprStmt",
+                            "x": {
+                              "node": "CallExpr",
+                              "fun": {
+                                "node": "SelectorExpr",
+                                "x": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "arraynomeadoiface.go",
+                                    "line": 24,
+                                    "column": 3,
+                                    "offset": 357
+                                  },
+                                  "name": "fmt",
+                                  "obj": null,
+                                  "$obj": {
+                                    "name": "fmt",
+                                    "kind": "package",
+                                    "pkg": "fmt"
+                                  }
+                                },
+                                "sel": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "arraynomeadoiface.go",
+                                    "line": 24,
+                                    "column": 7,
+                                    "offset": 361
+                                  },
+                                  "name": "Println",
+                                  "obj": null,
+                                  "$obj": {
+                                    "name": "Println",
+                                    "kind": "func",
+                                    "type": 11,
+                                    "decl": "print.go:313",
+                                    "pkg": "fmt",
+                                    "top": true
+                                  }
+                                },
+                                "$type": 11
+                              },
+                              "lparen": {
+                                "file": "arraynomeadoiface.go",
+                                "line": 24,
+                                "column": 14,
+                                "offset": 368
+                              },
+                              "args": [
+                                {
+                                  "node": "IndexExpr",
+                                  "x": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "arraynomeadoiface.go",
+                                      "line": 24,
+                                      "column": 15,
+                                      "offset": 369
+                                    },
+                                    "name": "b",
+                                    "obj": {
+                                      "node": "Object",
+                                      "name": "b",
+                                      "kind": "var"
+                                    },
+                                    "$type": 0,
+                                    "$obj": {
+                                      "name": "b",
+                                      "kind": "var",
+                                      "type": 0,
+                                      "decl": "arraynomeadoiface.go:332",
+                                      "pkg": "main"
+                                    }
+                                  },
+                                  "lbrack": {
+                                    "file": "arraynomeadoiface.go",
+                                    "line": 24,
+                                    "column": 16,
+                                    "offset": 370
+                                  },
+                                  "index": {
+                                    "node": "BasicLit",
+                                    "valuePos": {
+                                      "file": "arraynomeadoiface.go",
+                                      "line": 24,
+                                      "column": 17,
+                                      "offset": 371
+                                    },
+                                    "valueEnd": {
+                                      "file": "arraynomeadoiface.go",
+                                      "line": 24,
+                                      "column": 18,
+                                      "offset": 372
+                                    },
+                                    "kind": "INT",
+                                    "value": "0",
+                                    "$type": 2,
+                                    "$value": {
+                                      "kind": "int",
+                                      "value": "0"
+                                    }
+                                  },
+                                  "rbrack": {
+                                    "file": "arraynomeadoiface.go",
+                                    "line": 24,
+                                    "column": 18,
+                                    "offset": 372
+                                  },
+                                  "$type": 2
+                                },
+                                {
+                                  "node": "IndexExpr",
+                                  "x": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "arraynomeadoiface.go",
+                                      "line": 24,
+                                      "column": 21,
+                                      "offset": 375
+                                    },
+                                    "name": "b",
+                                    "obj": {
+                                      "node": "Object",
+                                      "name": "b",
+                                      "kind": "var"
+                                    },
+                                    "$type": 0,
+                                    "$obj": {
+                                      "name": "b",
+                                      "kind": "var",
+                                      "type": 0,
+                                      "decl": "arraynomeadoiface.go:332",
+                                      "pkg": "main"
+                                    }
+                                  },
+                                  "lbrack": {
+                                    "file": "arraynomeadoiface.go",
+                                    "line": 24,
+                                    "column": 22,
+                                    "offset": 376
+                                  },
+                                  "index": {
+                                    "node": "BasicLit",
+                                    "valuePos": {
+                                      "file": "arraynomeadoiface.go",
+                                      "line": 24,
+                                      "column": 23,
+                                      "offset": 377
+                                    },
+                                    "valueEnd": {
+                                      "file": "arraynomeadoiface.go",
+                                      "line": 24,
+                                      "column": 24,
+                                      "offset": 378
+                                    },
+                                    "kind": "INT",
+                                    "value": "1",
+                                    "$type": 2,
+                                    "$value": {
+                                      "kind": "int",
+                                      "value": "1"
+                                    }
+                                  },
+                                  "rbrack": {
+                                    "file": "arraynomeadoiface.go",
+                                    "line": 24,
+                                    "column": 24,
+                                    "offset": 378
+                                  },
+                                  "$type": 2
+                                }
+                              ],
+                              "ellipsis": null,
+                              "rparen": {
+                                "file": "arraynomeadoiface.go",
+                                "line": 24,
+                                "column": 25,
+                                "offset": 379
+                              },
+                              "$type": 18
+                            }
+                          }
+                        ],
+                        "rbrace": {
+                          "file": "arraynomeadoiface.go",
+                          "line": 25,
+                          "column": 2,
+                          "offset": 382
+                        }
+                      },
+                      "else": null
+                    },
+                    {
+                      "node": "DeclStmt",
+                      "decl": {
+                        "node": "GenDecl",
+                        "doc": null,
+                        "tokPos": {
+                          "file": "arraynomeadoiface.go",
+                          "line": 26,
+                          "column": 2,
+                          "offset": 385
+                        },
+                        "tok": "var",
+                        "lparen": null,
+                        "specs": [
+                          {
+                            "node": "ValueSpec",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "arraynomeadoiface.go",
+                                  "line": 26,
+                                  "column": 6,
+                                  "offset": 389
+                                },
+                                "name": "bp",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "bp",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "bp",
+                                  "kind": "var",
+                                  "def": true,
+                                  "type": 9,
+                                  "decl": "arraynomeadoiface.go:389",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "arraynomeadoiface.go",
+                                "line": 26,
+                                "column": 9,
+                                "offset": 392
+                              },
+                              "name": "Bumper",
+                              "obj": {
+                                "node": "Object",
+                                "name": "Bumper",
+                                "kind": "type"
+                              },
+                              "$type": 9,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "Bumper",
+                                "kind": "type",
+                                "type": 9,
+                                "decl": "arraynomeadoiface.go:166",
+                                "pkg": "main",
+                                "top": true
+                              }
+                            },
+                            "values": [
+                              {
+                                "node": "UnaryExpr",
+                                "opPos": {
+                                  "file": "arraynomeadoiface.go",
+                                  "line": 26,
+                                  "column": 18,
+                                  "offset": 401
+                                },
+                                "op": "\u0026",
+                                "x": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "arraynomeadoiface.go",
+                                    "line": 26,
+                                    "column": 19,
+                                    "offset": 402
+                                  },
+                                  "name": "a",
+                                  "obj": {
+                                    "node": "Object",
+                                    "name": "a",
+                                    "kind": "var"
+                                  },
+                                  "$type": 0,
+                                  "$obj": {
+                                    "name": "a",
+                                    "kind": "var",
+                                    "type": 0,
+                                    "decl": "arraynomeadoiface.go:219",
+                                    "pkg": "main"
+                                  }
+                                },
+                                "$type": 6
+                              }
+                            ],
+                            "comment": null
+                          }
+                        ],
+                        "rparen": null
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "arraynomeadoiface.go",
+                              "line": 27,
+                              "column": 2,
+                              "offset": 405
+                            },
+                            "name": "bp",
+                            "obj": {
+                              "node": "Object",
+                              "name": "bp",
+                              "kind": "var"
+                            },
+                            "$type": 9,
+                            "$obj": {
+                              "name": "bp",
+                              "kind": "var",
+                              "type": 9,
+                              "decl": "arraynomeadoiface.go:389",
+                              "pkg": "main"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "arraynomeadoiface.go",
+                              "line": 27,
+                              "column": 5,
+                              "offset": 408
+                            },
+                            "name": "Bump",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Bump",
+                              "kind": "method",
+                              "type": 3,
+                              "decl": "arraynomeadoiface.go:194",
+                              "pkg": "main"
+                            }
+                          },
+                          "$type": 3,
+                          "$sel": {
+                            "kind": "method",
+                            "recv": 9,
+                            "index": [
+                              0
+                            ],
+                            "indirect": false
+                          }
+                        },
+                        "lparen": {
+                          "file": "arraynomeadoiface.go",
+                          "line": 27,
+                          "column": 9,
+                          "offset": 412
+                        },
+                        "args": null,
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "arraynomeadoiface.go",
+                          "line": 27,
+                          "column": 10,
+                          "offset": 413
+                        },
+                        "$type": 21
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "arraynomeadoiface.go",
+                              "line": 28,
+                              "column": 2,
+                              "offset": 416
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "arraynomeadoiface.go",
+                              "line": 28,
+                              "column": 6,
+                              "offset": 420
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 11,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 11
+                        },
+                        "lparen": {
+                          "file": "arraynomeadoiface.go",
+                          "line": 28,
+                          "column": 13,
+                          "offset": 427
+                        },
+                        "args": [
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "arraynomeadoiface.go",
+                                  "line": 28,
+                                  "column": 14,
+                                  "offset": 428
+                                },
+                                "name": "bp",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "bp",
+                                  "kind": "var"
+                                },
+                                "$type": 9,
+                                "$obj": {
+                                  "name": "bp",
+                                  "kind": "var",
+                                  "type": 9,
+                                  "decl": "arraynomeadoiface.go:389",
+                                  "pkg": "main"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "arraynomeadoiface.go",
+                                  "line": 28,
+                                  "column": 17,
+                                  "offset": 431
+                                },
+                                "name": "Sum",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "Sum",
+                                  "kind": "method",
+                                  "type": 4,
+                                  "decl": "arraynomeadoiface.go:148",
+                                  "pkg": "main"
+                                }
+                              },
+                              "$type": 4,
+                              "$sel": {
+                                "kind": "method",
+                                "recv": 9,
+                                "index": [
+                                  1
+                                ],
+                                "indirect": false
+                              }
+                            },
+                            "lparen": {
+                              "file": "arraynomeadoiface.go",
+                              "line": 28,
+                              "column": 20,
+                              "offset": 434
+                            },
+                            "args": null,
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "arraynomeadoiface.go",
+                              "line": 28,
+                              "column": 21,
+                              "offset": 435
+                            },
+                            "$type": 2
+                          },
+                          {
+                            "node": "IndexExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "arraynomeadoiface.go",
+                                "line": 28,
+                                "column": 24,
+                                "offset": 438
+                              },
+                              "name": "a",
+                              "obj": {
+                                "node": "Object",
+                                "name": "a",
+                                "kind": "var"
+                              },
+                              "$type": 0,
+                              "$obj": {
+                                "name": "a",
+                                "kind": "var",
+                                "type": 0,
+                                "decl": "arraynomeadoiface.go:219",
+                                "pkg": "main"
+                              }
+                            },
+                            "lbrack": {
+                              "file": "arraynomeadoiface.go",
+                              "line": 28,
+                              "column": 25,
+                              "offset": 439
+                            },
+                            "index": {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "arraynomeadoiface.go",
+                                "line": 28,
+                                "column": 26,
+                                "offset": 440
+                              },
+                              "valueEnd": {
+                                "file": "arraynomeadoiface.go",
+                                "line": 28,
+                                "column": 27,
+                                "offset": 441
+                              },
+                              "kind": "INT",
+                              "value": "0",
+                              "$type": 2,
+                              "$value": {
+                                "kind": "int",
+                                "value": "0"
+                              }
+                            },
+                            "rbrack": {
+                              "file": "arraynomeadoiface.go",
+                              "line": 28,
+                              "column": 27,
+                              "offset": 441
+                            },
+                            "$type": 2
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "arraynomeadoiface.go",
+                          "line": 28,
+                          "column": 28,
+                          "offset": 442
+                        },
+                        "$type": 18
+                      }
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "arraynomeadoiface.go",
+                            "line": 29,
+                            "column": 2,
+                            "offset": 445
+                          },
+                          "name": "_",
+                          "obj": {
+                            "node": "Object",
+                            "name": "_",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "_",
+                            "kind": "var",
+                            "def": true,
+                            "type": 6,
+                            "decl": "arraynomeadoiface.go:445",
+                            "pkg": "main"
+                          }
+                        },
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "arraynomeadoiface.go",
+                            "line": 29,
+                            "column": 5,
+                            "offset": 448
+                          },
+                          "name": "isPtr",
+                          "obj": {
+                            "node": "Object",
+                            "name": "isPtr",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "isPtr",
+                            "kind": "var",
+                            "def": true,
+                            "type": 19,
+                            "decl": "arraynomeadoiface.go:448",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "arraynomeadoiface.go",
+                        "line": 29,
+                        "column": 11,
+                        "offset": 454
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "TypeAssertExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "arraynomeadoiface.go",
+                              "line": 29,
+                              "column": 14,
+                              "offset": 457
+                            },
+                            "name": "s",
+                            "obj": {
+                              "node": "Object",
+                              "name": "s",
+                              "kind": "var"
+                            },
+                            "$type": 7,
+                            "$obj": {
+                              "name": "s",
+                              "kind": "var",
+                              "type": 7,
+                              "decl": "arraynomeadoiface.go:239",
+                              "pkg": "main"
+                            }
+                          },
+                          "lparen": {
+                            "file": "arraynomeadoiface.go",
+                            "line": 29,
+                            "column": 16,
+                            "offset": 459
+                          },
+                          "type": {
+                            "node": "StarExpr",
+                            "star": {
+                              "file": "arraynomeadoiface.go",
+                              "line": 29,
+                              "column": 17,
+                              "offset": 460
+                            },
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "arraynomeadoiface.go",
+                                "line": 29,
+                                "column": 18,
+                                "offset": 461
+                              },
+                              "name": "Arr",
+                              "obj": {
+                                "node": "Object",
+                                "name": "Arr",
+                                "kind": "type"
+                              },
+                              "$type": 0,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "Arr",
+                                "kind": "type",
+                                "type": 0,
+                                "decl": "arraynomeadoiface.go:33",
+                                "pkg": "main",
+                                "top": true
+                              }
+                            },
+                            "$type": 6,
+                            "$isType": true
+                          },
+                          "rparen": {
+                            "file": "arraynomeadoiface.go",
+                            "line": 29,
+                            "column": 21,
+                            "offset": 464
+                          },
+                          "$type": 22
+                        }
+                      ]
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "arraynomeadoiface.go",
+                              "line": 30,
+                              "column": 2,
+                              "offset": 467
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "arraynomeadoiface.go",
+                              "line": 30,
+                              "column": 6,
+                              "offset": 471
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 11,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 11
+                        },
+                        "lparen": {
+                          "file": "arraynomeadoiface.go",
+                          "line": 30,
+                          "column": 13,
+                          "offset": 478
+                        },
+                        "args": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "arraynomeadoiface.go",
+                              "line": 30,
+                              "column": 14,
+                              "offset": 479
+                            },
+                            "name": "isPtr",
+                            "obj": {
+                              "node": "Object",
+                              "name": "isPtr",
+                              "kind": "var"
+                            },
+                            "$type": 19,
+                            "$obj": {
+                              "name": "isPtr",
+                              "kind": "var",
+                              "type": 19,
+                              "decl": "arraynomeadoiface.go:448",
+                              "pkg": "main"
+                            }
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "arraynomeadoiface.go",
+                          "line": 30,
+                          "column": 19,
+                          "offset": 484
+                        },
+                        "$type": 18
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "arraynomeadoiface.go",
+                              "line": 31,
+                              "column": 2,
+                              "offset": 487
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "arraynomeadoiface.go",
+                              "line": 31,
+                              "column": 6,
+                              "offset": 491
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 11,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 11
+                        },
+                        "lparen": {
+                          "file": "arraynomeadoiface.go",
+                          "line": 31,
+                          "column": 13,
+                          "offset": 498
+                        },
+                        "args": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "arraynomeadoiface.go",
+                              "line": 31,
+                              "column": 14,
+                              "offset": 499
+                            },
+                            "name": "s",
+                            "obj": {
+                              "node": "Object",
+                              "name": "s",
+                              "kind": "var"
+                            },
+                            "$type": 7,
+                            "$obj": {
+                              "name": "s",
+                              "kind": "var",
+                              "type": 7,
+                              "decl": "arraynomeadoiface.go:239",
+                              "pkg": "main"
+                            }
+                          },
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "arraynomeadoiface.go",
+                              "line": 31,
+                              "column": 17,
+                              "offset": 502
+                            },
+                            "name": "a",
+                            "obj": {
+                              "node": "Object",
+                              "name": "a",
+                              "kind": "var"
+                            },
+                            "$type": 0,
+                            "$obj": {
+                              "name": "a",
+                              "kind": "var",
+                              "type": 0,
+                              "decl": "arraynomeadoiface.go:219",
+                              "pkg": "main"
+                            }
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "arraynomeadoiface.go",
+                          "line": 31,
+                          "column": 18,
+                          "offset": 503
+                        },
+                        "$type": 18
+                      }
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "arraynomeadoiface.go",
+                    "line": 32,
+                    "column": 1,
+                    "offset": 505
+                  }
+                }
+              }
+            ],
+            "fileStart": {
+              "file": "arraynomeadoiface.go",
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "fileEnd": {
+              "file": "arraynomeadoiface.go",
+              "line": 32,
+              "column": 3,
+              "offset": 507
+            },
+            "scope": null,
+            "imports": [
+              {
+                "node": "ImportSpec",
+                "doc": null,
+                "name": null,
+                "path": {
+                  "node": "BasicLit",
+                  "valuePos": {
+                    "file": "arraynomeadoiface.go",
+                    "line": 3,
+                    "column": 8,
+                    "offset": 21
+                  },
+                  "valueEnd": {
+                    "file": "arraynomeadoiface.go",
+                    "line": 3,
+                    "column": 13,
+                    "offset": 26
+                  },
+                  "kind": "STRING",
+                  "value": "\"fmt\""
+                },
+                "comment": null,
+                "endPos": null
+              }
+            ],
+            "unresolved": [
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "arraynomeadoiface.go",
+                  "line": 5,
+                  "column": 13,
+                  "offset": 40
+                },
+                "name": "int",
+                "obj": null,
+                "$type": 2,
+                "$isType": true,
+                "$obj": {
+                  "name": "int",
+                  "kind": "type",
+                  "type": 2
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "arraynomeadoiface.go",
+                  "line": 7,
+                  "column": 20,
+                  "offset": 64
+                },
+                "name": "int",
+                "obj": null,
+                "$type": 2,
+                "$isType": true,
+                "$obj": {
+                  "name": "int",
+                  "kind": "type",
+                  "type": 2
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "arraynomeadoiface.go",
+                  "line": 11,
+                  "column": 30,
+                  "offset": 154
+                },
+                "name": "int",
+                "obj": null,
+                "$type": 2,
+                "$isType": true,
+                "$obj": {
+                  "name": "int",
+                  "kind": "type",
+                  "type": 2
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "arraynomeadoiface.go",
+                  "line": 22,
+                  "column": 2,
+                  "offset": 298
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "arraynomeadoiface.go",
+                  "line": 24,
+                  "column": 3,
+                  "offset": 357
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "arraynomeadoiface.go",
+                  "line": 28,
+                  "column": 2,
+                  "offset": 416
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "arraynomeadoiface.go",
+                  "line": 30,
+                  "column": 2,
+                  "offset": 467
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "arraynomeadoiface.go",
+                  "line": 31,
+                  "column": 2,
+                  "offset": 487
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              }
+            ],
+            "comments": [
+              {
+                "node": "CommentGroup",
+                "list": [
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "arraynomeadoiface.go",
+                      "line": 21,
+                      "column": 12,
+                      "offset": 263
+                    },
+                    "text": "// a interface guardou uma cópia"
+                  }
+                ]
+              }
+            ],
+            "goVersion": ""
+          }
+        }
+      ],
+      "imports": [
+        {
+          "path": "fmt",
+          "name": "fmt"
+        }
+      ],
+      "typeTable": [
+        {
+          "kind": "named",
+          "pkg": "main",
+          "name": "Arr",
+          "underlying": 1,
+          "methods": [
+            {
+              "name": "Bump",
+              "type": 3,
+              "index": [
+                1
+              ],
+              "ptr": true
+            },
+            {
+              "name": "Sum",
+              "type": 4,
+              "index": [
+                0
+              ],
+              "ptr": false
+            }
+          ]
+        },
+        {
+          "kind": "array",
+          "len": 2,
+          "elem": 2
+        },
+        {
+          "kind": "basic",
+          "name": "int"
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            2
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "basic",
+          "name": "untyped int"
+        },
+        {
+          "kind": "pointer",
+          "elem": 0
+        },
+        {
+          "kind": "named",
+          "pkg": "main",
+          "name": "Summer",
+          "underlying": 8
+        },
+        {
+          "kind": "interface",
+          "methods": [
+            {
+              "name": "Sum",
+              "type": 4
+            }
+          ],
+          "embeddeds": []
+        },
+        {
+          "kind": "named",
+          "pkg": "main",
+          "name": "Bumper",
+          "underlying": 10
+        },
+        {
+          "kind": "interface",
+          "methods": [
+            {
+              "name": "Bump",
+              "type": 3
+            },
+            {
+              "name": "Sum",
+              "type": 4
+            }
+          ],
+          "embeddeds": [
+            7
+          ]
+        },
+        {
+          "kind": "func",
+          "params": [
+            12
+          ],
+          "results": [
+            2,
+            14
+          ],
+          "variadic": true
+        },
+        {
+          "kind": "slice",
+          "elem": 13
+        },
+        {
+          "kind": "interface",
+          "methods": [],
+          "embeddeds": []
+        },
+        {
+          "kind": "named",
+          "pkg": "",
+          "name": "error",
+          "underlying": 15
+        },
+        {
+          "kind": "interface",
+          "methods": [
+            {
+              "name": "Error",
+              "type": 16
+            }
+          ],
+          "embeddeds": []
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            17
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "basic",
+          "name": "string"
+        },
+        {
+          "kind": "tuple",
+          "elems": [
+            2,
+            14
+          ]
+        },
+        {
+          "kind": "basic",
+          "name": "bool"
+        },
+        {
+          "kind": "tuple",
+          "elems": [
+            0,
+            19
+          ]
+        },
+        {
+          "kind": "tuple",
+          "elems": []
+        },
+        {
+          "kind": "tuple",
+          "elems": [
+            6,
+            19
+          ]
+        }
+      ],
+      "implements": [
+        {
+          "type": 0,
+          "interfaces": [
+            9,
+            7
+          ]
+        }
+      ],
+      "initOrder": [],
+      "stdlibUsage": [
+        "fmt.Println"
+      ],
+      "reflectUsage": null
+    }
+  ]
+}

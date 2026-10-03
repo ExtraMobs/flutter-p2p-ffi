@@ -24,8 +24,10 @@ abstract interface class GoTyped {
   List<String> get $methods;
 }
 
-/// `cmp.Ordered`: inteiros, floats e strings.
+/// `cmp.Ordered`: inteiros, floats e strings. O `+` é comum aos três (soma
+/// ou concatenação).
 abstract interface class GoOrdered<S> implements Comparable<S> {
+  S operator +(S o);
   bool operator <(S o);
   bool operator <=(S o);
   bool operator >(S o);
@@ -180,6 +182,7 @@ abstract base class StringBase<S extends StringBase<S>>
   /// `s[i]`: o byte.
   int operator [](int i) => $str[i];
 
+  @override
   S operator +(S o) => $wrapStr($str + o.$str);
 
   /// `s[low:high]`: mesmo tipo nomeado, como no Go.

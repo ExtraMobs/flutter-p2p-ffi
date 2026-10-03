@@ -439,6 +439,13 @@ class CallExpr(ExprBehavior):
             elem = self.pkg.type_at(ptypes[-1]["elem"])
             ptypes = ptypes[:-1] + [elem] * (len(args) - len(ptypes) + 1)
         out = [self.values.coerce(a, t) for a, t in zip(args, ptypes)]
+        origin = self.genptr.origin_sig(inst[0]) if inst else None
+        if origin is not None:
+            # `*T` genérico ← `*P` (struct/array é o próprio objeto).
+            optypes = list(origin["params"])
+            if origin["variadic"] and n["ellipsis"] is None:
+                optypes = optypes[:-1] + [self.pkg.type_at(optypes[-1])["elem"]] * (len(args) - len(optypes) + 1)
+            out = [self.genptr.arg(text, o, t, a) for text, o, t, a in zip(out, optypes, ptypes, args)]
         if inst:
             generic, targs = inst
             callee = self.expr(generic, POSTFIX) + "<" + ", ".join(self.types.dart(a) for a in targs) + ">"
@@ -457,6 +464,8 @@ class CallExpr(ExprBehavior):
             out = out[:fixed] + [packed]
         if n.get("$rdArg"):
             out.append(f"$rd: {n['$rdArg']}")
+        if origin is not None:
+            return self.genptr.result(f"{callee}({', '.join(out)})", origin, sig, n), POSTFIX
         return f"{callee}({', '.join(out)})", POSTFIX
 
 
@@ -491,10 +500,17 @@ class FuncInstance(ExprBehavior):
             return NOT_HANDLED
         generic, targs = inst
         sig = self.pkg.type_of(n)
+        origin = self.genptr.origin_sig(generic)
         params = [f"{self.types.dart(p)} p{i}" for i, p in enumerate(sig["params"])]
-        args = [self.descriptors.elem(a) for a in targs] + [f"p{i}" for i in range(len(sig["params"]))]
+        args = [f"p{i}" for i in range(len(sig["params"]))]
+        if origin is not None:  # `*T` genérico ← `*P` (struct/array é o próprio objeto)
+            args = [self.genptr.arg(a, o, t, n) for a, o, t in zip(args, origin["params"], sig["params"])]
+        args = [self.descriptors.elem(a) for a in targs] + args
         callee = self.expr(generic, POSTFIX) + "<" + ", ".join(self.types.dart(a) for a in targs) + ">"
-        return f"(({', '.join(params)}) => {callee}({', '.join(args)}))", POSTFIX
+        call = f"{callee}({', '.join(args)})"
+        if origin is not None:
+            call = self.genptr.result(call, origin, sig, n)
+        return f"(({', '.join(params)}) => {call})", POSTFIX
 
 
 class G2DTemp(ExprBehavior):
