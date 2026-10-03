@@ -121,7 +121,7 @@ class $_wrap$box<T> extends go.GoStruct<$_wrap$box<T>> {
   }
 
   @override
-  List<Object?> get $fields => [_v];
+  List<Object?> get $fields => [go.dynField(_v, $T)];
 
   @override
   List<String> get $fieldNames => const ['v'];
@@ -157,7 +157,7 @@ class $_pairs$pair<K, V> extends go.GoStruct<$_pairs$pair<K, V>> {
   }
 
   @override
-  List<Object?> get $fields => [k, v];
+  List<Object?> get $fields => [go.dynField(k, $K), go.dynField(v, $V)];
 
   @override
   List<String> get $fieldNames => const ['K', 'V'];

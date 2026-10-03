@@ -42,7 +42,7 @@ class Group extends go.GoStruct<Group> {
   }
 
   @override
-  List<Object?> get $fields => [_wg, _once, _err];
+  List<Object?> get $fields => [_wg, _once, go.dynField(_err)];
 
   @override
   List<String> get $fieldNames => const ['wg', 'once', 'err'];

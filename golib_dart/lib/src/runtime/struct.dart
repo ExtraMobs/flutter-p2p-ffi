@@ -2,6 +2,7 @@
 library;
 
 import '../../fixed_types/golang.dart' show GoTyped;
+import 'elem.dart';
 
 /// Valor Go que ocupa armazenamento próprio (struct, array): o objeto é o
 /// próprio endereço, atribuir/passar copia ([$copy]) e `x = y` sobrescreve
@@ -92,6 +93,16 @@ final class Addr {
   @override
   int get hashCode => identityHashCode(target);
 }
+
+/// Campo de tipo interface ou parâmetro de tipo em [GoStruct.$fields]: um
+/// ponteiro para struct/array guardado nele sai como [Addr], igual a um
+/// campo `*T` (`==` por identidade; o fmt vê `*T`, não `T`). Valor por valor
+/// numa interface (`$isValue`), sentinela nil e, com o dicionário [elem] de
+/// um parâmetro de tipo, T struct/array por valor ficam como estão.
+Object? dynField(Object? v, [Elem<Object?>? elem]) =>
+    v is GoValue && !v.$isValue && !v.$nilPtr && !(elem?.value ?? false)
+    ? Addr(v)
+    : v;
 
 /// Structs do runtime que não são [GoStruct] (os erros concretos de
 /// `errors`/`fmt`, comparados por identidade como o ponteiro do Go), mas

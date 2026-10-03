@@ -24,7 +24,13 @@ List<MapEntry<Object?, Object?>> _sortedEntries(GoMap m) {
 /// Ponteiro não nil aninhado para struct sai `(*T)(0x...)` com o endereço
 /// estável por objeto do `%p` (o do Go nem o Go reproduz).
 extension _SharpV on _Printer {
-  bool _printSharp(Object arg, int depth, String? name, String? under) {
+  bool _printSharp(
+    Object arg,
+    int depth,
+    String? name,
+    String? under,
+    bool ptr,
+  ) {
     switch (arg) {
       case PtrView(:final $p) when $p is NilPtr:
         _b.add(utf8.encode('(${arg.$goType})(nil)'));
@@ -34,26 +40,16 @@ extension _SharpV on _Printer {
         _sharpNil(name);
       case Addr(target: null):
         _sharpNil(name);
-      case Addr(:final target) when depth == 0 && target is GoStruct:
-        _b.addByte(0x26);
-        _sharpStruct(target, depth);
-      case Addr(:final target) when target is GoStruct:
-        // Aninhado (depth == 0 é o caso acima): o Go imprime o endereço.
-        _sharpAddr('*${target.$goType}', target);
       case Addr() || Ptr() || Function():
         throw UnimplementedError('fmt: %#v de ponteiro/func (endereço)');
       case GoStruct s:
-        if (depth == 0 && !s.$isValue) {
-          _b.addByte(0x26); // &T{...}
-        } else if (!s.$isValue && name != s.$goType) {
-          // Ponteiro aninhado (campo `*T` ou dentro de interface). Sem o nome
-          // do lugar (campo genérico) não dá para saber se é `T` ou `*T`.
-          if (name == null) {
-            throw UnimplementedError('fmt: %#v de struct sem o nome do campo');
-          }
+        if (ptr && depth > 0) {
+          // Ponteiro aninhado (campo `*T`, elemento `*T` ou dentro de
+          // interface): o Go imprime o endereço.
           _sharpAddr('*${s.$goType}', s);
           return true;
         }
+        if (ptr) _b.addByte(0x26); // &T{...}
         _sharpStruct(s, depth);
       case GoOpaqueStruct s:
         // Os erros do runtime são sempre `*T` (`&errors.errorString{...}`).
@@ -86,11 +82,23 @@ extension _SharpV on _Printer {
             _b.addByte(0x7d);
           }
         } else {
-          _sharpList(s.items, tn, _sharpElem(base), depth, nil: s.isNil);
+          _sharpList(
+            s.items,
+            tn,
+            _sharpElem(base),
+            depth,
+            s.elem,
+            nil: s.isNil,
+          );
         }
       case GoArray a:
         final (tn, base) = _sharpName(a, name, under);
-        _sharpList(a.items, tn, _sharpElem(base), depth);
+        if (ptr && depth > 0) {
+          _sharpAddr('*$tn', a);
+          return true;
+        }
+        if (ptr) _b.addByte(0x26);
+        _sharpList(a.items, tn, _sharpElem(base), depth, a.elem);
       case GoMap m:
         final (tn, base) = _sharpName(m, name, under);
         _b.add(utf8.encode(tn));
@@ -102,9 +110,21 @@ extension _SharpV on _Printer {
           final entries = _sortedEntries(m);
           for (var i = 0; i < entries.length; i++) {
             if (i > 0) _b.add(_ascii(', '));
-            _printArg(entries[i].key, 0x76, depth + 1, kn);
+            _printArg(
+              entries[i].key,
+              0x76,
+              depth + 1,
+              name: kn,
+              value: !m.identity,
+            );
             _b.addByte(0x3a);
-            _printArg(entries[i].value, 0x76, depth + 1, vn);
+            _printArg(
+              entries[i].value,
+              0x76,
+              depth + 1,
+              name: vn,
+              value: m.elem.value ? true : null,
+            );
           }
           _b.addByte(0x7d);
         }
@@ -146,17 +166,21 @@ extension _SharpV on _Printer {
   ) {
     _b.add(utf8.encode(typeName));
     _b.addByte(0x7b);
+    final ro = _ro;
     for (var i = 0; i < fields.length; i++) {
       if (i > 0) _b.add(_ascii(', '));
       _b.add(utf8.encode(names[i]));
       _b.addByte(0x3a);
+      _ro = ro || !_Printer._exported(names[i]);
       _printArg(
         fields[i],
         0x76,
         depth + 1,
-        types.length == fields.length ? types[i] : null,
+        name: types.length == fields.length ? types[i] : null,
+        value: true,
       );
     }
+    _ro = ro;
     _b.addByte(0x7d);
   }
 
@@ -164,7 +188,8 @@ extension _SharpV on _Printer {
     Iterable<Object?> items,
     String tn,
     String? elem,
-    int depth, {
+    int depth,
+    Elem e, {
     bool nil = false,
   }) {
     _b.add(utf8.encode(tn));
@@ -174,10 +199,10 @@ extension _SharpV on _Printer {
     }
     _b.addByte(0x7b);
     var first = true;
-    for (final e in items) {
+    for (final x in items) {
       if (!first) _b.add(_ascii(', '));
       first = false;
-      _printArg(e, 0x76, depth + 1, elem);
+      _printArg(x, 0x76, depth + 1, name: elem, value: e.value ? true : null);
     }
     _b.addByte(0x7d);
   }

@@ -151,7 +151,7 @@ class Pair<K, V> extends go.GoStruct<Pair<K, V>> {
   }
 
   @override
-  List<Object?> get $fields => [key, val];
+  List<Object?> get $fields => [go.dynField(key, $K), go.dynField(val, $V)];
 
   @override
   List<String> get $fieldNames => const ['Key', 'Val'];

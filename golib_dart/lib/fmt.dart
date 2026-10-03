@@ -12,6 +12,7 @@ import 'fixed_types/golang/src/float_format.dart' show formatGoFloatFmt;
 import 'src/runtime/output.dart';
 import 'src/strconv/quote_core.dart';
 import 'src/unicode/isprint.dart';
+import 'unicode.dart' as unicode show isUpper;
 
 part 'src/fmt/format.dart';
 part 'src/fmt/print.dart';
@@ -55,15 +56,16 @@ abstract interface class Formatter {
 Golang.String sprintln(Slice<Object?> args) =>
     Golang.String.fromBytes(_sprintln(args));
 
+/// `doPrintln` do Go: cada operando pelo `printArg` com `%v`.
 Uint8List _sprintln(Slice<Object?> args) {
   final a = args.items.toList();
-  final b = BytesBuilder(copy: false);
+  final p = _Printer(a);
   for (var i = 0; i < a.length; i++) {
-    if (i > 0) b.addByte(0x20);
-    _appendV(b, a[i]);
+    if (i > 0) p._b.addByte(0x20);
+    p._printArg(a[i], 0x76, 0);
   }
-  b.addByte(0x0a);
-  return b.takeBytes();
+  p._b.addByte(0x0a);
+  return p._b.takeBytes();
 }
 
 /// `fmt.Print`: como [sprint], escrito na saída padrão.
@@ -77,16 +79,17 @@ Uint8List _sprintln(Slice<Object?> args) {
 Golang.String sprint(Slice<Object?> args) =>
     Golang.String.fromBytes(_sprint(args));
 
+/// `doPrint` do Go: cada operando pelo `printArg` com `%v`.
 Uint8List _sprint(Slice<Object?> args) {
   final a = args.items.toList();
-  final b = BytesBuilder(copy: false);
+  final p = _Printer(a);
   for (var i = 0; i < a.length; i++) {
     if (i > 0 && a[i] is! Golang.String && a[i - 1] is! Golang.String) {
-      b.addByte(0x20);
+      p._b.addByte(0x20);
     }
-    _appendV(b, a[i]);
+    p._printArg(a[i], 0x76, 0);
   }
-  return b.takeBytes();
+  return p._b.takeBytes();
 }
 
 // ------------------------------------------------------------------ Printf

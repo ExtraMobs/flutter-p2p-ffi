@@ -109,7 +109,7 @@ class $_entry<K, V> extends go.GoStruct<$_entry<K, V>> {
   }
 
   @override
-  List<Object?> get $fields => [_key, _value];
+  List<Object?> get $fields => [go.dynField(_key, $K), go.dynField(_value, $V)];
 
   @override
   List<String> get $fieldNames => const ['key', 'value'];

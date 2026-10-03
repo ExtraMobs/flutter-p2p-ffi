@@ -159,7 +159,14 @@ class Node extends go.GoStruct<Node> {
   }
 
   @override
-  List<Object?> get $fields => [name, go.Addr(next), items$, meta, any, err];
+  List<Object?> get $fields => [
+    name,
+    go.Addr(next),
+    items$,
+    meta,
+    go.dynField(any),
+    go.dynField(err),
+  ];
 
   @override
   List<String> get $fieldNames => const [
