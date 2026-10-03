@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 8,
+  "schemaVersion": 9,
   "tool": "goast",
   "goVersion": "go1.26.5",
   "packages": [
@@ -4365,19 +4365,22 @@
               "name": "noCopy",
               "type": 12,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "sync"
             },
             {
               "name": "state",
               "type": 14,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "sync"
             },
             {
               "name": "sema",
               "type": 24,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "sync"
             }
           ]
         },
@@ -4480,19 +4483,22 @@
               "name": "_",
               "type": 16,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "sync/atomic"
             },
             {
               "name": "_",
               "type": 17,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "sync/atomic"
             },
             {
               "name": "v",
               "type": 18,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "sync/atomic"
             }
           ]
         },
@@ -4631,13 +4637,15 @@
               "name": "_",
               "type": 12,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "sync"
             },
             {
               "name": "mu",
               "type": 29,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "sync"
             }
           ]
         },
@@ -4696,13 +4704,15 @@
               "name": "state",
               "type": 31,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "internal/sync"
             },
             {
               "name": "sema",
               "type": 24,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "internal/sync"
             }
           ]
         },

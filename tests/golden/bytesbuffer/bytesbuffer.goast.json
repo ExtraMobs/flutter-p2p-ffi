@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 8,
+  "schemaVersion": 9,
   "tool": "goast",
   "goVersion": "go1.26.5",
   "packages": [
@@ -9422,7 +9422,8 @@
               "name": "data",
               "type": 2,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "main"
             }
           ]
         },
@@ -9548,7 +9549,8 @@
               "name": "got",
               "type": 19,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "main"
             }
           ]
         },
@@ -9816,19 +9818,22 @@
               "name": "buf",
               "type": 2,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "bytes"
             },
             {
               "name": "off",
               "type": 5,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "bytes"
             },
             {
               "name": "lastRead",
               "type": 25,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "bytes"
             }
           ]
         },
@@ -10282,13 +10287,15 @@
               "name": "addr",
               "type": 69,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "strings"
             },
             {
               "name": "buf",
               "type": 2,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "strings"
             }
           ]
         },

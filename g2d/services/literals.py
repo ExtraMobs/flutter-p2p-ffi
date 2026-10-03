@@ -77,6 +77,10 @@ class Literals(Service):
                 text = f"{self.imports.qualify(None, 'stringOfBytes')}(const {v['bytes']})"
             else:
                 text = f"{g('String')}.fromDart({dart_string(v['value'])})"
+            if t is not None and t["kind"] == "typeparam":
+                # `a + "!"` com a de `T ~string` (bound StringBase): o valor
+                # do tipo T pelo zero do dicionário.
+                return f"{self.descriptors.elem(t)}.zero().$wrapStr({text})"
             return f"{cls}({text})" if named else text
         if k == "bool":
             text = "true" if v["value"] else "false"

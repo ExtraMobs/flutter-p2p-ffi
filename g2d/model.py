@@ -6,7 +6,7 @@ from dataclasses import dataclass
 
 from g2d.graph import init_deps, is_std
 
-SCHEMA_VERSION = 8
+SCHEMA_VERSION = 9
 
 
 class Unsupported(Exception):

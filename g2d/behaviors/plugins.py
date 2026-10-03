@@ -6,6 +6,7 @@ from g2d.analysis import analyses, color
 from g2d.behaviors import builtins, decls, exprs, fmtcheck, stmts
 from g2d.behaviors.conversions import CONVERSIONS
 from g2d.engine.behavior import Plugin
+from g2d.services.anon import AnonTypes
 from g2d.services.assertions import Assertions
 from g2d.services.calls import Calls
 from g2d.services.concurrency import Concurrency
@@ -14,6 +15,7 @@ from g2d.services.descriptors import DescriptorRegistry
 from g2d.services.dualio import DualIO
 from g2d.services.evalorder import EvalOrder
 from g2d.services.functions import Functions
+from g2d.services.genptr import GenericPointers
 from g2d.services.goinfo import GoTypeInfo
 from g2d.services.imports import ImportTable
 from g2d.services.literals import Literals
@@ -32,8 +34,9 @@ class CorePlugin(Plugin):
 
     SERVICES = [ImportTable, Naming, TypeSystem, TypeMapper, DescriptorRegistry, ValueSemantics,
                 Literals, GoTypeInfo, Operands, Calls, Assertions, ControlFlow, Functions,
-                VarDecls, Promotion, EvalOrder]
-    ANALYSES = [analyses.ImplementsAnalysis, analyses.MethodsAnalysis, analyses.TopNamesAnalysis,
+                VarDecls, Promotion, EvalOrder, GenericPointers, AnonTypes]
+    ANALYSES = [analyses.ImplementsAnalysis, analyses.MethodsAnalysis, analyses.MemberNamesAnalysis,
+                analyses.TopNamesAnalysis,
                 analyses.BoxingAnalysis, analyses.LocalTypesAnalysis, analyses.RecoverAnalysis, analyses.InitVarsAnalysis,
                 analyses.InitFuncsAnalysis]
     STMTS = [stmts.BlockStmt, stmts.ExprStmt, stmts.EmptyStmt, stmts.IncDecStmt, stmts.DeclStmt,
@@ -61,6 +64,7 @@ class CorePlugin(Plugin):
         engine.register_type_decl(decls.NamedClass)
         engine.register_type_decl(decls.NamedCompositeClass)
         engine.package_behavior = decls.PackageBehavior(engine)
+        engine.anon_library = decls.AnonLibraryBehavior(engine)
 
 
 class CollectionsPlugin(Plugin):

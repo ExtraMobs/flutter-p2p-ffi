@@ -166,5 +166,46 @@ class AuditTest(unittest.TestCase):
         self.assertEqual(dict(got), {"x.io/a.dart": [Finding("dart:invalid_assignment", "error: a | b", "3:7")]})
 
 
+class ShimMembersTest(unittest.TestCase):
+    """Membros de classe de shim (`g2d/shims.py`) sobre CompilationUnits do
+    dartast montadas à mão: herança na library e fora dela, extensão
+    pública, typedef e superclasse desconhecida."""
+
+    @staticmethod
+    def named(name):
+        return {"node": "NamedType", "name": {"token": name}}
+
+    def cls(self, name, members, extends=None):
+        d = {"node": "ClassDeclaration", "namePart": {"typeName": {"token": name}},
+             "body": {"members": [{"node": "MethodDeclaration", "name": {"token": m}} for m in members]}}
+        if extends:
+            d["extendsClause"] = {"superclass": self.named(extends)}
+        return d
+
+    def test_members(self):
+        from g2d.shims import ClassIndex
+
+        def unit(*decls):
+            return {"directives": [], "declarations": list(decls)}
+
+        units = {
+            "base.dart": unit(self.cls("GoStruct", ["$copy"])),
+            "shim.dart": unit(
+                self.cls("_Base", ["load", "_hidden"], extends="GoStruct"),
+                self.cls("Int64", ["add"], extends="_Base"),
+                self.cls("Err", ["error"], extends="RangeError"),
+                {"node": "GenericTypeAlias", "name": {"token": "Alias"}, "type": self.named("Int64")},
+                {"node": "ExtensionDeclaration", "name": {"token": "Fmt"},
+                 "onClause": {"extendedType": self.named("Int64")},
+                 "members": [{"node": "MethodDeclaration", "name": {"token": "format"}},
+                             {"node": "MethodDeclaration", "name": {"token": "parse"},
+                              "modifierKeyword": {"token": "static"}}]}),
+        }
+        index = ClassIndex(units, {f: [f] for f in units})
+        self.assertEqual(index.members("shim.dart", "Int64"), {"add", "load", "$copy", "format"})
+        self.assertEqual(index.members("shim.dart", "Alias"), {"add", "load", "$copy", "format"})
+        self.assertIsNone(index.members("shim.dart", "Err"))  # dart:core: sem conferência
+
+
 if __name__ == "__main__":
     unittest.main()

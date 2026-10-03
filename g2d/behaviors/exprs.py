@@ -25,7 +25,7 @@ class Ident(ExprBehavior):
             if obj["pkg"] != self.pkg.path:
                 return (self.imports.qualify(obj["pkg"], top_member_name(obj["name"], obj.get("fold")) + twin)
                         + self.names.box_suffix(obj))
-            return self.names.top_name(obj["name"], kind, obj.get("fold")) + twin + self.names.box_suffix(obj)
+            return self.names.top_ref(obj) + self.names.box_suffix(obj)
         if kind == "var":
             if self.scope and obj.get("decl") == self.scope.recv:
                 return "this"
@@ -173,6 +173,7 @@ class UnaryExpr(ExprBehavior):
             return view(f"{self.expr(x['x'], POSTFIX)}.addr({self.operands.to_int(x['index'])})"), POSTFIX
         if x["node"] == "SelectorExpr" and x.get("$sel", {}).get("kind") == "field":
             owner_t = self.pkg.type_of(x["x"])
+            self.imports.shim_member(owner_t, x["sel"]["name"], x)
             owner = self.expr(x["x"], POSTFIX)
             if owner_t["kind"] == "pointer":
                 owner += "!"
@@ -219,6 +220,11 @@ class SelectorExpr(ExprBehavior):
             suffix = "$async"  # method value de I/O dual que suspende (D2)
         mname = member_name(sel + suffix) + ("$sync" if n.get("$sync") else "")
         t = self.pkg.type_of(x)
+        self.check_shim_members(t, info, sel, n)
+        if info["kind"] == "method" and len(info["index"]) > 1:
+            explicit = self.promoted_ptr_method(n, x, t, info)
+            if explicit is not None:
+                return self.emit(explicit)
         if info["kind"] == "method" and len(info["index"]) == 1 and self.calls.ptr_method_of(t, sel):
             if self.scope and self.scope.recv and x.get("$obj", {}).get("decl") == self.scope.recv:
                 raise Unsupported("metodo-ptr-receptor-valor", "método de receptor ponteiro sobre o receptor valor", n)
@@ -248,6 +254,36 @@ class SelectorExpr(ExprBehavior):
             # Method value `x.M` (receptor valor): liga uma cópia de x feita agora.
             recv += ".$copy()"
         return f"{recv}.{mname}", POSTFIX
+
+    def promoted_ptr_method(self, n, x, t, info):
+        """`h.Inc()` com Inc de receptor ponteiro de um N não-struct
+        embutido por valor (`type Counter int` em `Holder{Counter}`): vira a
+        seleção explícita `h.Counter.Inc()`, que usa `&h.Counter` (a vista
+        N$Ptr sobre go.FieldPtr). Outros casos: None (caminho normal)."""
+        fields, cur = [], t
+        for fi in info["index"][:-1]:
+            if cur["kind"] == "pointer":
+                cur = self.pkg.type_at(cur["elem"])
+            f = self.typesys.underlying(cur)["fields"][fi]
+            fields.append((fi, f))
+            cur = self.pkg.type_at(f["type"])
+        if not self.calls.ptr_method_of(cur, n["sel"]["name"]):
+            return None
+        for fi, f in fields:
+            x = {"node": "SelectorExpr", "x": x, "sel": {"node": "Ident", "name": f["name"]},
+                 "$sel": {"kind": "field", "index": [fi]}, "$type": f["type"]}
+        return dict(n, x=x, **{"$sel": dict(info, index=info["index"][-1:])})
+
+    def check_shim_members(self, t, info, sel, n):
+        """Cada campo do caminho de embedding e o membro final, quando o dono
+        é tipo concreto de shim, têm de existir na classe Dart do shim."""
+        for fi in info["index"][:-1]:
+            if t["kind"] == "pointer":
+                t = self.pkg.type_at(t["elem"])
+            f = self.typesys.underlying(t)["fields"][fi]
+            self.imports.shim_member(t, f["name"], n)
+            t = self.pkg.type_at(f["type"])
+        self.imports.shim_member(t, sel, n)
 
     def method_expr(self, n, info):
         """Method expression `T.M` / `(*T).M`: função com o receptor como
@@ -427,6 +463,13 @@ class CallExpr(ExprBehavior):
             elem = self.pkg.type_at(ptypes[-1]["elem"])
             ptypes = ptypes[:-1] + [elem] * (len(args) - len(ptypes) + 1)
         out = [self.values.coerce(a, t) for a, t in zip(args, ptypes)]
+        origin = self.genptr.origin_sig(inst[0]) if inst else None
+        if origin is not None:
+            # `*T` genérico ← `*P` (struct/array é o próprio objeto).
+            optypes = list(origin["params"])
+            if origin["variadic"] and n["ellipsis"] is None:
+                optypes = optypes[:-1] + [self.pkg.type_at(optypes[-1])["elem"]] * (len(args) - len(optypes) + 1)
+            out = [self.genptr.arg(text, o, t, a) for text, o, t, a in zip(out, optypes, ptypes, args)]
         if inst:
             generic, targs = inst
             callee = self.expr(generic, POSTFIX) + "<" + ", ".join(self.types.dart(a) for a in targs) + ">"
@@ -445,6 +488,8 @@ class CallExpr(ExprBehavior):
             out = out[:fixed] + [packed]
         if n.get("$rdArg"):
             out.append(f"$rd: {n['$rdArg']}")
+        if origin is not None:
+            return self.genptr.result(f"{callee}({', '.join(out)})", origin, sig, n), POSTFIX
         return f"{callee}({', '.join(out)})", POSTFIX
 
 
@@ -479,10 +524,17 @@ class FuncInstance(ExprBehavior):
             return NOT_HANDLED
         generic, targs = inst
         sig = self.pkg.type_of(n)
+        origin = self.genptr.origin_sig(generic)
         params = [f"{self.types.dart(p)} p{i}" for i, p in enumerate(sig["params"])]
-        args = [self.descriptors.elem(a) for a in targs] + [f"p{i}" for i in range(len(sig["params"]))]
+        args = [f"p{i}" for i in range(len(sig["params"]))]
+        if origin is not None:  # `*T` genérico ← `*P` (struct/array é o próprio objeto)
+            args = [self.genptr.arg(a, o, t, n) for a, o, t in zip(args, origin["params"], sig["params"])]
+        args = [self.descriptors.elem(a) for a in targs] + args
         callee = self.expr(generic, POSTFIX) + "<" + ", ".join(self.types.dart(a) for a in targs) + ">"
-        return f"(({', '.join(params)}) => {callee}({', '.join(args)}))", POSTFIX
+        call = f"{callee}({', '.join(args)})"
+        if origin is not None:
+            call = self.genptr.result(call, origin, sig, n)
+        return f"(({', '.join(params)}) => {call})", POSTFIX
 
 
 class G2DTemp(ExprBehavior):

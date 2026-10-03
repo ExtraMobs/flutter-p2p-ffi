@@ -184,6 +184,8 @@ mixin Flag$Promote {
 /// Métodos de Opt promovidos por embedding (delegação).
 mixin Opt$Promote {
   Opt? get $Opt;
+  Opt$Ptr get $Opt$Ptr;
+  void toggle() => $Opt$Ptr.toggle();
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.

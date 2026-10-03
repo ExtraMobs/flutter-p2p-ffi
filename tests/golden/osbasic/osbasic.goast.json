@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 8,
+  "schemaVersion": 9,
   "tool": "goast",
   "goVersion": "go1.26.5",
   "packages": [
@@ -7554,7 +7554,8 @@
               "name": "file",
               "type": 4,
               "embedded": true,
-              "tag": ""
+              "tag": "",
+              "pkg": "os"
             }
           ]
         },
@@ -7585,43 +7586,50 @@
               "name": "pfd",
               "type": 7,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "os"
             },
             {
               "name": "name",
               "type": 30,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "os"
             },
             {
               "name": "dirinfo",
               "type": 187,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "os"
             },
             {
               "name": "nonblock",
               "type": 14,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "os"
             },
             {
               "name": "stdoutOrErr",
               "type": 14,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "os"
             },
             {
               "name": "appendMode",
               "type": 14,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "os"
             },
             {
               "name": "inRoot",
               "type": 14,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "os"
             }
           ]
         },
@@ -8121,7 +8129,8 @@
               "name": "fdmu",
               "type": 9,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "internal/poll"
             },
             {
               "name": "Sysfd",
@@ -8139,19 +8148,22 @@
               "name": "pd",
               "type": 31,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "internal/poll"
             },
             {
               "name": "csema",
               "type": 12,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "internal/poll"
             },
             {
               "name": "isBlocking",
               "type": 12,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "internal/poll"
             },
             {
               "name": "IsStream",
@@ -8169,7 +8181,8 @@
               "name": "isFile",
               "type": 14,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "internal/poll"
             }
           ]
         },
@@ -8228,19 +8241,22 @@
               "name": "state",
               "type": 11,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "internal/poll"
             },
             {
               "name": "rsema",
               "type": 12,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "internal/poll"
             },
             {
               "name": "wsema",
               "type": 12,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "internal/poll"
             }
           ]
         },
@@ -8309,7 +8325,8 @@
               "name": "iovecs",
               "type": 19,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "internal/poll"
             }
           ]
         },
@@ -8511,7 +8528,8 @@
               "name": "runtimeCtx",
               "type": 33,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "internal/poll"
             }
           ]
         },
@@ -8576,7 +8594,8 @@
           "methods": [
             {
               "name": "sockaddr",
-              "type": 41
+              "type": 41,
+              "pkg": "syscall"
             }
           ],
           "embeddeds": []
@@ -9001,7 +9020,8 @@
               "name": "raw",
               "type": 76,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "syscall"
             }
           ]
         },
@@ -9112,7 +9132,8 @@
               "name": "raw",
               "type": 85,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "syscall"
             }
           ]
         },
@@ -9736,19 +9757,22 @@
               "name": "wall",
               "type": 11,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             },
             {
               "name": "ext",
               "type": 53,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             },
             {
               "name": "loc",
               "type": 94,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             }
           ]
         },
@@ -9819,43 +9843,50 @@
               "name": "name",
               "type": 30,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             },
             {
               "name": "zone",
               "type": 97,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             },
             {
               "name": "tx",
               "type": 100,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             },
             {
               "name": "extend",
               "type": 30,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             },
             {
               "name": "cacheStart",
               "type": 53,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             },
             {
               "name": "cacheEnd",
               "type": 53,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             },
             {
               "name": "cacheZone",
               "type": 103,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             }
           ]
         },
@@ -9877,19 +9908,22 @@
               "name": "name",
               "type": 30,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             },
             {
               "name": "offset",
               "type": 16,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             },
             {
               "name": "isDST",
               "type": 14,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             }
           ]
         },
@@ -9911,25 +9945,29 @@
               "name": "when",
               "type": 53,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             },
             {
               "name": "index",
               "type": 24,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             },
             {
               "name": "isstd",
               "type": 14,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             },
             {
               "name": "isutc",
               "type": 14,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             }
           ]
         },
@@ -10991,25 +11029,29 @@
               "name": "mu",
               "type": 190,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "os"
             },
             {
               "name": "buf",
               "type": 197,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "os"
             },
             {
               "name": "nbuf",
               "type": 16,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "os"
             },
             {
               "name": "bufp",
               "type": 16,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "os"
             }
           ]
         },
@@ -11052,13 +11094,15 @@
               "name": "_",
               "type": 192,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "sync"
             },
             {
               "name": "mu",
               "type": 194,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "sync"
             }
           ]
         },
@@ -11145,13 +11189,15 @@
               "name": "state",
               "type": 52,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "internal/sync"
             },
             {
               "name": "sema",
               "type": 12,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "internal/sync"
             }
           ]
         },
@@ -11174,19 +11220,22 @@
               "name": "_",
               "type": 199,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "sync/atomic"
             },
             {
               "name": "_",
               "type": 201,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "sync/atomic"
             },
             {
               "name": "v",
               "type": 42,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "sync/atomic"
             }
           ]
         },

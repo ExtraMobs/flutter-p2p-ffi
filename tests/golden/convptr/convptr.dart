@@ -255,6 +255,11 @@ void $goInit() {
 /// Métodos de int64s promovidos por embedding (delegação).
 mixin $_int64s$Promote {
   $_int64s? get $$_int64s;
+  $_int64s$Ptr get $$_int64s$Ptr;
+  void clear(Golang.Uint64 p0) => $$_int64s$Ptr.clear(p0);
+  bool has(Golang.Uint64 p0) => $$_int64s$Ptr.has(p0);
+  Golang.Int len() => $$_int64s$Ptr.len();
+  void set(Golang.Uint64 p0) => $$_int64s$Ptr.set(p0);
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.

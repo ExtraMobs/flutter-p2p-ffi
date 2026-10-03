@@ -30,6 +30,8 @@ class Functions(Service):
         prologue = []
         if d["recv"]:
             recv_t = self.pkg.recv_type(d)
+            base = self.pkg.type_at(recv_t["elem"]) if recv_t["kind"] == "pointer" else recv_t
+            self.scope.members = frozenset(self.facts.members.get(base["name"], ()))
             names = d["recv"]["list"][0]["names"]
             if names and names[0]["name"] != "_":
                 ident = names[0]
@@ -148,14 +150,15 @@ class Functions(Service):
         cats = {self.typesys.basic(x).cat if self.typesys.basic(x) else None for x in terms}
         name = tp["name"]
         g = self.types.golang
+        # Do mais estreito ao mais largo: `{"string"}` também cabe em Ordered.
         if cats <= {"wint"}:
             return f"{g('IntBase')}<{name}>"
         if cats <= {"wint", "float"}:
             return f"{g('GoReal')}<{name}>"
-        if cats <= {"wint", "float", "string"}:
-            return f"{g('GoOrdered')}<{name}>"
         if cats == {"string"}:
             return f"{g('StringBase')}<{name}>"
+        if cats <= {"wint", "float", "string"}:
+            return f"{g('GoOrdered')}<{name}>"
         if any(self.typesys.underlying(x)["kind"] == "pointer" for x in terms):
             return self.pointer_bound(u)
         # União mista (`bool | int64 | string`, `[]byte | string`) ou de

@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 8,
+  "schemaVersion": 9,
   "tool": "goast",
   "goVersion": "go1.26.5",
   "packages": [
@@ -5136,13 +5136,15 @@
               "name": "addr",
               "type": 40,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "strings"
             },
             {
               "name": "buf",
               "type": 10,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "strings"
             }
           ]
         },

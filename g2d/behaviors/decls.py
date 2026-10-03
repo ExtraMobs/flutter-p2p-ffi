@@ -4,8 +4,9 @@ inicialização do pacote e a cadeia de declarações de tipo nomeado."""
 from g2d.engine.behavior import Behavior, TypeDeclBehavior
 from g2d.engine.scope import FunctionScope, TypeParams
 from g2d.model import Unsupported
+from g2d.services.anon import anon_class
 from g2d.services.literals import doc_comment
-from g2d.services.naming import member_name, param_name, top_member_name, type_name
+from g2d.services.naming import member_name, param_name, type_name
 
 
 HEADER = (
@@ -95,6 +96,25 @@ class PackageBehavior(Behavior):
         return out
 
 
+class AnonLibraryBehavior(Behavior):
+    """Library de uma struct anônima canônica (`lib/_anon/<hash>.dart`): só a
+    classe `Struct$<hash>` e o que ela usa (descritores, imports). O motor
+    dela tem um pacote sintético com a typeTable de quem a usou; a saída só
+    depende da estrutura, então todo pacote escreve o mesmo arquivo."""
+
+    def emit(self, idx, h):
+        t = self.pkg.type_at(idx)
+        name = anon_class(h)
+        body = ["", "/// `" + self.goinfo.go_type_name(t) + "` (struct anônima canônica: igual em todo pacote)."]
+        body += self.engine.type_decls.find(t, t).struct_class(name, t, idx)
+        body += self.promoter.mixin_decls
+        if self.descriptors.elem_decls:
+            body += ["", "// Descritores de tipo (go.Elem) usados por slices, maps e ponteiros."]
+            body += self.descriptors.elem_decls
+        head = [HEADER.format(path="struct anônima")] + self.imports.directives()
+        return "\n".join(head + body) + "\n"
+
+
 class InitBehavior(Behavior):
     """`$goInit`: variáveis de pacote em ordem de dependência, depois as
     funções init, uma vez só."""
@@ -159,7 +179,7 @@ class InitBehavior(Behavior):
         return [f"{self.top_var(ident)} = {self.values.coerce(value, t)};"]
 
     def top_var(self, ident):
-        return top_member_name(ident["name"], ident["$obj"].get("fold")) + self.names.box_suffix(ident["$obj"])
+        return self.names.top_name(ident["name"], "var", ident["$obj"].get("fold")) + self.names.box_suffix(ident["$obj"])
 
 
 class StructClass(TypeDeclBehavior):
@@ -243,7 +263,7 @@ class StructClass(TypeDeclBehavior):
             f"List<String> get $valueMethods => const [{vm}];",
             "@override",
             f"List<String> get $ptrMethods => const [{pm}];",
-        ] + [ln for _, getter in withs for ln in ["@override", getter]] + promoted + [
+        ] + [ln for _, getters in withs for g in getters for ln in ["@override", g]] + promoted + [
             "",
             "@override",
             f"{self_t} $copy() => {self_t}({dict_args}{', '.join(copies)});",
@@ -436,6 +456,8 @@ class NamedCompositeClass(NonStructNamed):
                  "/// `(*T)(nil)` dentro de uma interface (não é nil no Go).",
                  f"static final {cls} $nil = {cls}({self.types.zero(u)})..$nilPtr = true;", "",
                  "@override", f"{cls} $copy() => {cls}(super.$copy());", "",
+                 # A base devolve GoArray: sem isto, `Arr` não entra numa interface.
+                 "@override", f"{cls} $ifaceCopy() => $copy()..$isValue = true;", "",
                  "@override", f"String get $goType => '{self.goinfo.go_type_name(t)}';",
                  "@override", f"List<String> get $valueMethods => const [{vm}];",
                  "@override", f"List<String> get $ptrMethods => const [{pm}];"]

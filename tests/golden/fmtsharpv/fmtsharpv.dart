@@ -89,6 +89,9 @@ final class Hash extends go.GoArray<Golang.Uint8> {
   Hash $copy() => Hash(super.$copy());
 
   @override
+  Hash $ifaceCopy() => $copy()..$isValue = true;
+
+  @override
   String get $goType => 'main.Hash';
   @override
   List<String> get $valueMethods => const [];

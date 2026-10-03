@@ -52,6 +52,9 @@ final class Pair extends go.GoArray<KV> {
   Pair $copy() => Pair(super.$copy());
 
   @override
+  Pair $ifaceCopy() => $copy()..$isValue = true;
+
+  @override
   String get $goType => 'main.Pair';
   @override
   List<String> get $valueMethods => const [];

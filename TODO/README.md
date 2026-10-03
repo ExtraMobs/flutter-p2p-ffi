@@ -1,8 +1,9 @@
 # TODO — backlog do desafio kubo/boxo
 
-Estado em 2026-10-03: **158 de 1112** pacotes do grafo do kubo verdes
-(`docs/audit.md`). A fronteira (pacotes não verdes com as dependências todas
-verdes) tem 184 pacotes. Os números abaixo saem do ranking do audit
+Estado em 2026-10-03: **160 de 1112** pacotes do grafo do kubo verdes
+(`docs/audit.md`; o `main` de 2026-10-02 regerado no mesmo ambiente dá 157, não
+os 167 registrados antes, ver `P1-construcao-dart-invalido-audit.md`). A
+fronteira (pacotes não verdes com as dependências todas verdes) tem 184 pacotes. Os números abaixo saem do ranking do audit
 (pacotes afetados / pacotes na fronteira).
 
 ## 1. Decisões do dono antes de seguir
@@ -62,14 +63,8 @@ no `fmt`) foram resolvidos em 2026-10-03.
 
 | Artefato | Resumo |
 |---|---|
-| `P1-construcao-statements-quebram.md` | `(*p)++`, `switch` vazio, rótulo `in:`, variável de type switch atribuída |
-| `P1-construcao-genericos-dart-invalido.md` | `*T`, `/=` e `+` sobre parâmetro de tipo |
-| `P1-construcao-promocao-dart-invalido.md` | embutir nomeado não-struct com método `*T`; embedding em tipo local |
-| `P1-construcao-array-nomeado-interface.md` | `type Arr [2]int` com métodos em interface |
-| `P1-infra-metodos-de-shim.md` | método ausente em tipo de shim (`t.Format`) não vira `Unsupported` |
-| `P1-construcao-metodo-sombreia-pacote.md` | método `_sub` sombreia constante `_sub` |
-| `P1-design-anonimas-canonicas.md` | `struct{ X int }` de pacotes diferentes vira classes diferentes |
-| `P1-design-promocao-transitiva-nao-exportada.md` | método não exportado promovido por dois saltos de pacote quebra em runtime |
+| `P1-construcao-generico-metodo-ptr-t.md` | método ou campo `*T` de tipo genérico instanciado com struct (`Box[P].Set(&x)`; `crlib/fifo` no audit) |
+| `P1-construcao-dart-invalido-audit.md` | `pion/transport/deadline`, `x/text/.../compact` e `logtags` com Dart inválido no audit |
 
 ### 2d. P2
 

@@ -32,7 +32,7 @@ Regras fundamentais:
 | `tools/dartast/` | Dumper de AST Dart → JSON | Dart (`package:analyzer`) |
 | `g2d/` | Transpilador: motor (`engine/`), serviços (`services/`), análises (`analysis/`), comportamentos e plugins (`behaviors/`), dump do goast e consultas à AST (`model.py`), `pipeline.py`, `cli.py` — ver "Arquitetura do g2d" | Python (stdlib apenas) |
 | `golib_dart/` | Core de adaptação: `fixed_types/` (tipos primitivos Go, origem `dart IPFS/packages/boilerplate`), shims da stdlib em `lib/<import path>.dart` (partes em `lib/src/<import path>/`), runtime em `lib/src/runtime/` exportado por `builtin.dart` (prefixo `go`) | Dart |
-| `out/` | Mono-repo Dart gerado (não editar à mão) | Dart (gerado) |
+| `out/` | Mono-repo Dart gerado (não editar à mão): `lib/<import path>.dart` por pacote e `lib/_anon/<hash>.dart` por struct anônima canônica | Dart (gerado) |
 | `tests/golden/<caso>/` | `<caso>.go` → `.goast.json` → `.dart` esperados (+ `.dartast.json` opcional) | — |
 | `tests/corpus/kubo/` | Corpus real fixado: módulo que só declara `tool github.com/ipfs/kubo/cmd/ipfs` (kubo **v0.43.1**, boxo v0.42.x); `go.mod`/`go.sum` fixam o grafo inteiro | Go |
 | `TODO/` | Backlog: um artefato markdown por problema, com prova real (ver "Processo") | Markdown |
@@ -103,12 +103,12 @@ dart format out/ && dart analyze out/
 
 - **Sem novas dependências externas sem aprovação explícita do usuário.** As únicas permitidas hoje: `golang.org/x/tools` (goast), `package:analyzer` (dartast), shims Dart pontuais (`package:http`, `package:crypto`) quando um shim exigir.
 - Python: stdlib apenas (`json`, `dataclasses`, `argparse`, `unittest`).
-- Todo dump JSON carrega `schemaVersion`; bump ao mudar o schema. Atual: goast **8** (tipos inline na AST, `bytes`, method sets, `implements` com interfaces anônimas e genéricas, `$inst`, `initOrder`, `otherFiles`/`module`, `fold`; ver `tools/goast/README.md`), dartast **1**.
+- Todo dump JSON carrega `schemaVersion`; bump ao mudar o schema. Atual: goast **9** (tipos inline na AST, `bytes`, method sets, `implements` com interfaces anônimas e genéricas, `$inst`, `initOrder`, `otherFiles`/`module`, `fold`, `pkg` de campos/métodos não exportados; ver `tools/goast/README.md`), dartast **1**.
 - Ponteiros: `dart:ffi` não é usado (não existe no JS/Wasm). Identidade de tipo: uma classe Dart por tipo Go; testes de tipo sempre com `is T` (o `runtimeType` de coleções do core difere no JS).
 - `golib_dart/fixed_types` e os ports de `net`/`net/netip`/`internal/poll` vieram do boilerplate do `dart IPFS`; correções feitas aqui ficam listadas em `golib_dart/README.md` para devolver à origem.
 - Construção Go não coberta → `Unsupported(código, mensagem, nó)` com código estável (`área` ou `área:detalhe`, ex. `range:func`, `shim-ausente:errors`) e posição (a do nó, ou a da declaração em emissão); nunca emitir Dart aproximado em silêncio. Limites conhecidos ficam marcados ⚠️ em `docs/mapping-spec.md` e com `ponytail:` no código.
 - Novo caso de teste = novo diretório em `tests/golden/` (pode ter vários `.go`; o e2e roda `go run` com todos). Caso com `go.mod` é um módulo multi-pacote (`module g2d.test/<caso>`, main em `cmd/`): um `<caso>.goast.json` com o grafo e um `<caso>.<pacote>.dart` por pacote, e o e2e roda `go run ./cmd`; o e2e exige saída idêntica (em bytes) entre `go run` e o Dart gerado na VM, no JS (dart2js/Node) e no Wasm (dart2wasm/Node, via `tests/run_wasm.mjs`), e `dart analyze --fatal-infos` limpo.
-- Shim novo ou símbolo novo num shim: rodar `python -m g2d shims` (regera `g2d/shim_symbols.json`, a lista do que o g2d pode chamar, somando as partes `part` de cada shim; o resto vira `Unsupported` `shim-simbolo:`).
+- Shim novo ou símbolo novo num shim: rodar `python -m g2d shims` (regera `g2d/shim_symbols.json`, a lista do que o g2d pode chamar — nível de pacote e membros de cada classe, somando as partes `part` de cada shim; o resto vira `Unsupported` `shim-simbolo:`).
 - Arquivo escrito à mão acima de ~300 linhas é dividido por responsabilidade: no Go, um arquivo por responsabilidade (métodos de um tipo podem se espalhar por arquivos); no Dart, a library vira partes (`part`, em `lib/src/<import path>/`), com a mesma API e privacidade. Uma classe não é fatiada entre arquivos; arquivo gerado não se divide.
 - Runtime do `golib_dart` não usa API exclusiva de uma plataforma (ex. `ByteData.getUint64`, bitwise acima de 32 bits no JS); o que depende de plataforma vai por import condicional (`src/runtime/output.dart`).
 - Código gerado em `out/` nunca é editado à mão — correções vão nas regras do `g2d`.
@@ -181,10 +181,10 @@ em sequência. O agente principal planeja, integra e faz a verificação final.
 | M0 | `AGENTS.md` | ✅ |
 | M1 | fundação: dumpers, grafo, esqueleto do g2d | ✅ |
 | M2 | MVP do transpilador (import entre pacotes, `init`, `switch`, method values, literais, tipos locais...) | ✅ menos `goto` (decisão D6) |
-| M3 | semântica avançada: structs por valor, slices, maps, ponteiros, `defer`/`recover`, tipos nomeados, interfaces, embedding, genéricos, arrays | ✅ num pacote; ⚠️ entre pacotes: interfaces (D8), structs anônimas e promoção de não exportado em dois saltos (`TODO/P1-design-*`) |
-| M4 | concorrência: `Chan<T>`, `select`, `go`, `sync`, timers, `context`, cor `async` transitiva | ✅ runtime e emissão; ⚠️ falta I/O que suspende (D2) |
+| M3 | semântica avançada: structs por valor, slices, maps, ponteiros, `defer`/`recover`, tipos nomeados, interfaces, embedding, genéricos, arrays | ✅ num pacote; ⚠️ entre pacotes: interfaces (D8) |
+| M4 | concorrência: `Chan<T>`, `select`, `go`, `sync`, timers, `context`, cor `async` transitiva | ✅ runtime e emissão; ⚠️ falta I/O que suspende (D2) e `func()` forçada síncrona (D7) |
 | M5 | reflexão estática + shims da stdlib | shims em andamento; `reflect` ❌ (D1) |
-| M6 | grafo completo do kubo/boxo (cobertura ≥ 95% por etapa) | **158 de 1112** verdes (`docs/audit.md`) |
+| M6 | grafo completo do kubo/boxo (cobertura ≥ 95% por etapa) | **160 de 1112** verdes (`docs/audit.md`) |
 
 As decisões D1–D8 e a fila de trabalho estão em `TODO/README.md`; o que já
 funciona, com os limites ⚠️, em `docs/mapping-spec.md`.

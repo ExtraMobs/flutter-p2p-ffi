@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 8,
+  "schemaVersion": 9,
   "tool": "goast",
   "goVersion": "go1.26.5",
   "packages": [
@@ -11978,97 +11978,113 @@
               "name": "expr",
               "type": 3,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "regexp"
             },
             {
               "name": "prog",
               "type": 4,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "regexp"
             },
             {
               "name": "onepass",
               "type": 27,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "regexp"
             },
             {
               "name": "numSubexp",
               "type": 20,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "regexp"
             },
             {
               "name": "maxBitStateLen",
               "type": 20,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "regexp"
             },
             {
               "name": "subexpNames",
               "type": 34,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "regexp"
             },
             {
               "name": "prefix",
               "type": 3,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "regexp"
             },
             {
               "name": "prefixBytes",
               "type": 35,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "regexp"
             },
             {
               "name": "prefixRune",
               "type": 15,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "regexp"
             },
             {
               "name": "prefixEnd",
               "type": 13,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "regexp"
             },
             {
               "name": "mpool",
               "type": 20,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "regexp"
             },
             {
               "name": "matchcap",
               "type": 20,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "regexp"
             },
             {
               "name": "prefixComplete",
               "type": 17,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "regexp"
             },
             {
               "name": "cond",
               "type": 24,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "regexp"
             },
             {
               "name": "minInputLen",
               "type": 20,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "regexp"
             },
             {
               "name": "longest",
               "type": 17,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "regexp"
             }
           ]
         },
@@ -12986,49 +13002,57 @@
               "name": "re",
               "type": 0,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "regexp"
             },
             {
               "name": "p",
               "type": 4,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "regexp"
             },
             {
               "name": "q0",
               "type": 86,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "regexp"
             },
             {
               "name": "q1",
               "type": 86,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "regexp"
             },
             {
               "name": "pool",
               "type": 94,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "regexp"
             },
             {
               "name": "matched",
               "type": 17,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "regexp"
             },
             {
               "name": "matchcap",
               "type": 41,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "regexp"
             },
             {
               "name": "inputs",
               "type": 95,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "regexp"
             }
           ]
         },
@@ -13046,13 +13070,15 @@
               "name": "sparse",
               "type": 33,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "regexp"
             },
             {
               "name": "dense",
               "type": 88,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "regexp"
             }
           ]
         },
@@ -13074,13 +13100,15 @@
               "name": "pc",
               "type": 13,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "regexp"
             },
             {
               "name": "t",
               "type": 91,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "regexp"
             }
           ]
         },
@@ -13102,13 +13130,15 @@
               "name": "inst",
               "type": 26,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "regexp"
             },
             {
               "name": "cap",
               "type": 41,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "regexp"
             }
           ]
         },
@@ -13171,19 +13201,22 @@
               "name": "bytes",
               "type": 97,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "regexp"
             },
             {
               "name": "string",
               "type": 107,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "regexp"
             },
             {
               "name": "reader",
               "type": 109,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "regexp"
             }
           ]
         },
@@ -13242,7 +13275,8 @@
               "name": "str",
               "type": 35,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "regexp"
             }
           ]
         },
@@ -13381,7 +13415,8 @@
               "name": "str",
               "type": 3,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "regexp"
             }
           ]
         },
@@ -13440,19 +13475,22 @@
               "name": "r",
               "type": 56,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "regexp"
             },
             {
               "name": "atEOT",
               "type": 17,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "regexp"
             },
             {
               "name": "pos",
               "type": 20,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "regexp"
             }
           ]
         },
@@ -13480,23 +13518,28 @@
           "methods": [
             {
               "name": "canCheckPrefix",
-              "type": 99
+              "type": 99,
+              "pkg": "regexp"
             },
             {
               "name": "context",
-              "type": 100
+              "type": 100,
+              "pkg": "regexp"
             },
             {
               "name": "hasPrefix",
-              "type": 104
+              "type": 104,
+              "pkg": "regexp"
             },
             {
               "name": "index",
-              "type": 105
+              "type": 105,
+              "pkg": "regexp"
             },
             {
               "name": "step",
-              "type": 106
+              "type": 106,
+              "pkg": "regexp"
             }
           ],
           "embeddeds": []
@@ -13702,37 +13745,43 @@
               "name": "end",
               "type": 20,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "regexp"
             },
             {
               "name": "cap",
               "type": 41,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "regexp"
             },
             {
               "name": "matchcap",
               "type": 41,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "regexp"
             },
             {
               "name": "jobs",
               "type": 133,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "regexp"
             },
             {
               "name": "visited",
               "type": 33,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "regexp"
             },
             {
               "name": "inputs",
               "type": 95,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "regexp"
             }
           ]
         },
@@ -13754,19 +13803,22 @@
               "name": "pc",
               "type": 13,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "regexp"
             },
             {
               "name": "arg",
               "type": 17,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "regexp"
             },
             {
               "name": "pos",
               "type": 20,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "regexp"
             }
           ]
         },

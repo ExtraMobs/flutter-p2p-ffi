@@ -74,6 +74,50 @@ final class Box<T> implements Ptr<T> {
   bool $errorTargetOk() => _errorTarget<T>();
 }
 
+/// `*T` de um genérico (`go.Ptr<T>`) instanciado com struct ou array, que
+/// fora do genérico é o próprio objeto: o g2d cria a vista ao passar o
+/// argumento ([valPtr]) e a desfaz no resultado ([ptrTarget]). `*p = v`
+/// copia in-place ([GoValue.$set]), preservando os outros ponteiros para o
+/// objeto. Ler `*p` devolve uma cópia (valor do Go: `*a, *b = *b, *a` não
+/// pode ver o alias). Igualdade = mesmo objeto.
+final class ValPtr<T> implements Ptr<T> {
+  ValPtr(this.$v);
+
+  final GoValue $v;
+
+  @override
+  T get value => $v.$copy() as T;
+
+  @override
+  set value(T v) => $v.$setAny(v as GoValue);
+
+  @override
+  bool $assignIfIs(Object? v) {
+    if (!_accepts<T>(v)) return false;
+    value = v as T;
+    return true;
+  }
+
+  @override
+  bool $errorTargetOk() => _errorTarget<T>();
+
+  @override
+  bool operator ==(Object other) => other is ValPtr && identical(other.$v, $v);
+
+  @override
+  int get hashCode => identityHashCode($v);
+}
+
+/// `&x` (x struct ou array: o próprio objeto) passado a um `*T` genérico.
+Ptr<T>? valPtr<T>(GoValue? v) => v == null ? null : ValPtr<T>(v);
+
+/// `*T` devolvido por um genérico, de volta ao objeto (struct ou array).
+T? ptrTarget<T>(Ptr<T>? p) => switch (p) {
+  null || NilPtr() => null,
+  ValPtr(:final $v) => $v as T,
+  _ => p.value,
+};
+
 /// `*N` para N nomeado não-struct com métodos (`type Counter int`): a classe
 /// gerada `N$Ptr` estende esta vista sobre qualquer [Ptr] (caixa, elemento,
 /// campo), com os métodos de receptor ponteiro e as interfaces de `*N`.

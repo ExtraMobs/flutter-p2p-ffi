@@ -111,10 +111,11 @@ Legenda: ✅ fiel · ⚠️ fiel no caso comum, com limite conhecido · ❌ não
 | func/var/const/campo/método exportado `HTTPServer` | `httpServer` (lowerCamel ciente de siglas) | ✅ |
 | func/var/const de pacote exportados que só diferem por caixa (`BOOL`/`Bool`, `FOO`/`Foo`) | o goast marca `fold` nos dois (também quando usados de outro pacote); o que perde a caixa de mais de uma letra no lowerCamel mantém a grafia Go (`BOOL`), o outro segue a regra (`bool$`). Nomes assim nunca colidem entre si nem com um lowerCamel | ✅ (fixture `foldnames`). ⚠️ campos/métodos: sem ocorrência no grafo do kubo, colidiriam |
 | idem não exportado `add` | `_add` (privado da library = do pacote) | |
+| func/var/const de pacote com o nome Dart de um membro de classe da library (`const sub` e o método `sub` → `_sub`; `func Name` e o método `Name` → `name`) | no corpo da classe o membro sombrearia o top-level. Não exportado: o top-level ganha `$` em toda a library (`_sub$`; nome privado não sai dela; `$` final nunca vem de nome Go). Exportado (outros pacotes citam o nome): dentro de método da classe com o membro, a referência sai pelo import da própria library, `import '' as $self;` (URI vazia = a própria library) → `$self.name` | ✅ (fixture `methodshadow`) |
 | local/parâmetro | nome Go; se repetido na função ou igual a um nome de library → `x$1` | |
 | palavra reservada Dart (`new`, `in`, ...) | sufixo `$` (`new$`) | |
 | nome do `dart:core` usado pelo código gerado (`Object`, `Map`, `String`, `List`, `Function`, `BigInt`, `identical`, `int`, `bool`, ...: `DART_CORE_USED`) | sufixo `$` (`Object$`, `identical$`, local `int$`), para não sombrear o core na library | |
-| método/campo exportado com o nome de um membro das bases estendidas (`Delete`, `Append`, `Value`, `Length`, `Call`, `ToString`, ...: `DART_BASE_MEMBERS`) | sufixo `$` (`delete$`, `value$`, `toString$`), em todo lugar, inclusive nas interfaces (o despacho continua casando) | |
+| método/campo exportado com o nome de um membro das bases estendidas (`Delete`, `Append`, `Value`, `Length`, `Call`, `ToString`, `ToBytes`, `ToDouble`, `ToInteger`, ...: `DART_BASE_MEMBERS`) | sufixo `$` (`delete$`, `value$`, `toString$`), em todo lugar, inclusive nas interfaces (o despacho continua casando) | ✅ (fixture `basemembers`) |
 | tipo declarado dentro de função | içado para a library como `<função>$<Tipo>` (nome sintético sempre minúsculo no início, então sempre pela regra de tipo não exportado acima: `$_first$pair`; método: `$_<Recv>_<Método>$<Tipo>`; repetido na função: sufixo numérico). Nunca colide com um tipo de pacote de verdade: o nome sintético sempre tem um `$` literal no meio, que um identificador Go não pode ter | em função genérica, a classe içada é genérica nos parâmetros da função (`$_wrap$box$<T>`, dicionários no construtor; fixture `localgeneric`) |
 | letra não-ASCII (`Δ`, `Ωmega`) | `$uXXXX` (BMP) ou `$UXXXXXXXX`, largura fixa como no C (`Δ` → `$u0394`, `Δ0` → `$u03940`); o Go decide exportado por `unicode.IsUpper` (`Δx` → `$u03b4x`, `δx` → `_$u03b4x`) | ✅ (fixture `mathshim`) |
 | temporários e descritores | `$tN`, `_$eN`, `_$zN` (Go não permite `$`) | |
@@ -143,12 +144,13 @@ Legenda: ✅ fiel · ⚠️ fiel no caso comum, com limite conhecido · ❌ não
 | interface nomeada | `abstract mixin class I` (anulável: `I?`) | `null` |
 | parâmetro de tipo `T` | `T` (dicionário `go.Elem<T> $T`) | `$T.zero()` |
 | nomeado sobre bool (`type Flag bool`) | `final class Flag extends go.GoBool` (`$b`, `==` com o tipo, `toString`); condições (`if`, `for`, `switch` sem tag, `&&`/`||`) usam `.$b`; `!f`, `f && g` com resultado Flag e comparações que fluem para Flag (o go/types dá o tipo do contexto a `a < b`) são embrulhados; `Flag(b)`/`bool(f)` por `$b`. Fixture `namedbool` | `Flag()` |
-| nomeado sobre array (`type Hash [32]byte`) | `final class Hash extends go.GoArray<Golang.Uint8>` (`Hash(go.GoArray...)` via `alias`); array é valor como struct, então os métodos de receptor ponteiro também ficam na classe e `Hash.$nil` é a sentinela; `[32]byte(h)` → `go.GoArray<...>.alias(h)` (tipo dinâmico sem nome). Fixture `namedarray` | `Hash(go.GoArray<...>.zero(32, _$eN))` |
+| nomeado sobre array (`type Hash [32]byte`) | `final class Hash extends go.GoArray<Golang.Uint8>` (`Hash(go.GoArray...)` via `alias`); array é valor como struct, então os métodos de receptor ponteiro também ficam na classe e `Hash.$nil` é a sentinela; `[32]byte(h)` → `go.GoArray<...>.alias(h)` (tipo dinâmico sem nome); `$copy` e `$ifaceCopy` devolvem `Hash` (entra em interface; fixture `arraynomeadoiface`). Fixture `namedarray` | `Hash(go.GoArray<...>.zero(32, _$eN))` |
 | nomeado sobre slice/map (`type IDs []string`) | `final class IDs extends go.Slice<Golang.String>` (idem `go.GoMap`); conversão/atribuição = `IDs(s)` via `Slice.alias` (mesmo array) | `IDs(go.Slice<...>.nil(_$eN))` |
 | nomeado sobre func (`type Op func(int) int`) | `final class Op` chamável: `$f` (anulável), `call(...)`, `isNil`; `Op(fn)` / `op.$f` nas atribuições entre nomeado e não nomeado | `Op(null)` |
 | `*N`, N nomeado não-struct com métodos e `*N` usado no pacote | `N$Ptr?`: `final class N$Ptr extends go.PtrView<N>` (vista sobre `go.Box`/`ElemPtr`/`FieldPtr`) com os métodos de receptor ponteiro, forwarders dos de valor e as interfaces de `*N` | `null` |
-| struct anônima (`struct{ X int }`, tabelas de teste) | classe sintética `_anon$<índice da typeTable>$` (uma por tipo; `go.GoStruct`, igualdade e cópia como qualquer struct) | `_anon$N$()` |
-| interface anônima com métodos (`interface{ Name() string }`) | `abstract mixin class _anonIface$<índice>$`; o goast põe no `implements` os literais `interface{...}` usados fora de declaração de tipo | `null` |
+| struct anônima só com nomes exportados (`struct{ X int }`), sem parâmetro de tipo nem interface anônima com métodos na estrutura (`struct{}` é `go.EmptyStruct`) | classe canônica `Struct$<hash>` numa library própria, `out/lib/_anon/<hash>.dart` (importada sem prefixo): o hash (sha256, 12 hex) vem da estrutura — nomes, tags e tipos dos campos, com o import path dos nomeados — então todo pacote escreve o mesmo arquivo e a mesma classe (atribuição, `==` e type assertion entre pacotes, como no Go). O `main` que só importa a stdlib (programa de um pacote) fica com as classes locais: nenhuma outra library vê os tipos dele. Fixture multi-pacote `anoncross` | `Struct$<hash>()` |
+| struct anônima com campo não exportado (tabelas de teste `[]struct{ in string }`), parâmetro de tipo ou interface anônima com métodos | classe local `$_anon$<índice da typeTable>` na library do pacote (uma por tipo; `go.GoStruct`, igualdade e cópia como qualquer struct). O pacote do campo não exportado entra na identidade (goast v9: `pkg` no campo), então só o dono a escreve; vinda de outro pacote (campo, método ou tipo nomeado não exportado de lá) → `Unsupported` `anonima:nao-exportada-de-outro-pacote`. ⚠️ a com parâmetro de tipo ou interface anônima com métodos continua uma por library | `$_anon$N()` |
+| interface anônima com métodos (`interface{ Name() string }`) | `abstract mixin class $_anonIface$<índice>`; o goast põe no `implements` os literais `interface{...}` usados fora de declaração de tipo. ⚠️ uma por library: entre pacotes é o problema de interfaces entre pacotes (D8); com método não exportado de outro pacote → `Unsupported` `anonima:nao-exportada-de-outro-pacote` | `null` |
 | nomeado sobre complex (`type Z complex128`) | `final class Z extends Golang.ComplexBase<Z, Golang.Complex128>`: guarda o valor em `$c` e delega `+ - * /`, `==`, `%v` a ele (`Complex64/128` implementam `Golang.ComplexOps`); conversões por `$c` (`Z(c)`, `complex128(z)` → `z.$c`); chaves de map ordenadas como complex no `%v`. Fixture `namedcomplex` | `Z()` |
 | nomeado sobre chan | — ❌ | |
 
@@ -650,9 +652,10 @@ a cor da chamada, do lado do g2d, nunca um lookup por nome Go em runtime.
 | `if init; cond`, `for`, `for cond`, `for {}` | `{ init; if }`, `for (...)`, `while (cond)`, `while (true)`; variável do init em caixa (`&i`) ou struct/array ganha cópia nova antes do post (`i = go.Box(i.value), post`), uma por iteração como no Go 1.22 (fixture `forpervar`) |
 | `range` sobre slice / map / int | índice sobre a referência; `keysSnapshot` + `containsKey`; contador |
 | `range` sobre string | `for (var i = 0, w = 0; i < s.length; i += w)` com `s.decodeRune(i)` (runa, largura), igual ao `utf8.DecodeRune` |
-| `switch` / `switch {}` / type switch | cadeia `if/else` num bloco; `break` sem rótulo que sai do switch → `break $tN;` (bloco rotulado; a pilha de alvos distingue switch de laço) |
+| `switch` / `switch {}` / type switch | cadeia `if/else` num bloco; `break` sem rótulo que sai do switch → `break $tN;` (bloco rotulado; a pilha de alvos distingue switch de laço). Sem cases (`switch f() {}`, `switch i.(type) {}`): só avalia a tag. Variável do type switch atribuída em algum case não é `final`; com `&v`, mora numa `go.Box` (fixture `stmtedge`) |
 | `fallthrough` | seleção do case (`$c`) seguida dos corpos em sequência (`if ($c == i)`); `fallthrough` → `$c = i + 1` na ordem do fonte, inclusive para o `default` no meio |
-| rótulos, `break L`, `continue L` | rótulo no laço Dart |
+| rótulos, `break L`, `continue L` | rótulo no laço Dart; reservada do Dart ganha `$` (`in:` → `in$:`, fixture `stmtedge`) |
+| alvo entre parênteses (`(*p)++`, `(x) += 3`, `(m[k])++`) | parênteses removidos do alvo (o Dart não aceita `(p!.value) += 1`) |
 | `for k, v := range seq` (seq func, Go 1.23) | `seq((K k, V v) { if ($done) go.rangeFuncContinued(); corpo; return true; })`: `continue` → `return true`; `break` → `$done = true; return false`; `return`, `break L`/`continue L` para fora da closure gravam um código em `$st` (valores em `$rv`) e são refeitos depois da chamada; rótulos declarados no corpo ficam nativos; func literal dentro do corpo isola (fixture `rangefunc`) |
 | `defer f(a)` | `{ final $t = a; $d.defer(() { f($t); }); }`, com o corpo em `try`/`catch`/`finally` de `go.Defers` |
 | `defer f()` com f de tipo func nomeado | o closure em `f.$f` (pode receber `$rd` e recuperar); assinatura do subjacente (fixture `defernamed`) |
@@ -695,6 +698,7 @@ intervalo, nil pointer, escrita em map nil.
 | `fmt.Printf`, `Sprintf` | `fmt.printf(format, go.Slice<Object?>)` / `fmt.sprintf(...)`: porte do `doPrintf`/`format.go` — verbos `v d b o O x X c q U e E f F g G s t T w %`, flags `+ - # 0 ␠`, largura/precisão (inclusive `*`), `%!verbo(tipo=valor)`, `(MISSING)`, `%!(EXTRA ...)`, `BADWIDTH`/`BADPREC`/`NOVERB`; o verbo se aplica a cada elemento de slice/array/map/struct; `Error()`/`String()` para `v s q x X`. Floats com precisão: dígitos do binário exato, meio-para-par. `%q`/`%+q`/`%#U` usam o `unicode.IsPrint` exato do Go (tabela gerada em `golib_dart/lib/src/unicode/isprint.dart` por `tool/gen_isprint.go`, conferida pelo teste). `%+v` escreve os nomes dos campos (`$fieldNames` gerado em toda struct; embutido = nome do tipo), inclusive aninhados; índice explícito `[n]` como o `argNumber` do Go (`BADINDEX`, sem `EXTRA` quando reordenado, `%w` ordenados no `Errorf`). Endereços (`%p`, `%#p`, `%v` de `*T` não-struct, func e ponteiro aninhado): `0xc0` + 8 hex, ⚠️ estável por objeto (`Box` por identidade, `&s[i]`/`&o.f` por dono + posição, slice = `&s[0]`), não o endereço do Go (que nem o Go reproduz; fixture `fmtaddr` compara a forma). `%#v` (sintaxe Go; fixture `fmtsharpv`): básicos (`0x` em sem sinal, string com `%q`), structs (`$fieldNames`), slices, arrays e maps (chaves ordenadas), `&T{...}`, `(*T)(nil)`, `T(nil)`, `interface {}(nil)`, `[]byte{0x..}` no nível de topo, e `GoString()` (`fmt.GoStringer`, só no method set certo) no lugar de `Error()`/`String()`. Os erros do runtime (`errors.New`, `fmt.Errorf`, `errors.Join`) saem como o Go (`&errors.errorString{s:"x"}`, via `go.GoOpaqueStruct`); aninhados (o `err` de um `wrapError`) saem `(*errors.errorString)(0x...)`. `#` em float (`%#g` completa os dígitos significativos, `%#.0f`/`%#e` mantêm o ponto) e em runa (`%#q` = `%q`, como no Go): oráculo em `golib_dart/test/fmt_test.dart`. O valor Dart de slice/map/array não diz o tipo Go: o operando estático vai embrulhado em `go.TypeTag(valor, 'nome Go', 'subjacente')` (g2d `FmtVerbCheck.tag_operands`), e toda struct com campo não básico gera `$fieldTypes` (nomes Go dos campos, `''` se depende de parâmetro de tipo); dentro de interface um slice/array sem nome tem o nome inferido do zero value do elemento. ⚠️ `%#v` ❌ de func, chan e ponteiro para não-struct (aninhados ou não) é recusado na transpilação (`fmt-verbo:%#v-<caso>`); ponteiro aninhado para struct não nil sai `(*T)(0x...)` com o endereço ⚠️ estável do `%p` (fixture `fmtsharpv` compara a forma); lança `UnimplementedError` em runtime map, ou slice de ponteiro/interface, dentro de interface sem nome estático. ❌ `%b`/`%x` em float, verbo ≠ `v` em complex, `%T`/`%!(EXTRA)` de slice/array/map/chan/ponteiro não-struct: com formato constante e tipo estático conhecido o g2d recusa na transpilação (`fmt-verbo:<caso>`, `g2d/behaviors/fmtcheck.py`); ⚠️ operando interface, `args...` ou formato não constante só se descobrem em runtime, onde o shim lança `UnimplementedError` (nunca formata diferente). `%T`/`%!(EXTRA)` de func (nomeado ou não) já formatam (`go.Func`, linha de interfaces acima) |
 | `fmt.Errorf` | `fmt.errorf(...)` → `go.ErrorString` (`*errors.errorString`) sem `%w`; `go.WrapError` (`*fmt.wrapError`, `unwrap()`) com um; `go.WrapErrors` com vários (`src/runtime/errors.dart`, reusado pelo futuro shim `errors`) |
 | símbolo que o shim não tem | `Unsupported` `shim-simbolo:<pkg>.<nome Dart>` (lista em `g2d/shim_symbols.json`, gerada do dartast por `python -m g2d shims`; o teste de golden confere se está em dia) |
+| método ou campo que a classe de um tipo concreto de shim não tem (`t.Format` com `time.Time`; também via ponteiro, method value, method expression, promovido por embedding e cada campo do caminho de embedding) | `Unsupported` `shim-simbolo:<pkg>.<Classe>.<membro Dart>` (ex. `shim-simbolo:time.Time.format`). Membros de instância públicos de cada classe pública do shim em `g2d/shim_symbols.json` (`members`), com os herdados por `extends`/`with`/interfaces resolvidos em `golib_dart/lib`, extensões públicas da library e `typedef T = C`; classe com superclasse fora de `golib_dart` fica sem conferência (`null`). Método chamado via interface (`io.Writer.Write`, `fmt.Stringer`) não é conferido. ⚠️ Nomes de parâmetro de literal composto de struct de shim (`fs.PathError{Op: ...}`) não são conferidos |
 | `math` | `naN()` com os bits do Go (`0x7ff8000000000001`); `sqrt`, `floor`, `ceil`, `trunc`, `abs`, `max`, `min`, `inf`, `isInf`, `isNaN`, `signbit`, `copysign`, `float32bits`/`float64bits`/`...frombits`, com oráculo bit a bit; as constantes são dobradas. ⚠️ payload de NaN não é portável (o JS canoniza). Transcendentais e afins (`exp`, `expm1`, `log`, `log2`, `log10`, `log1p`, `pow`, `frexp`, `ldexp`, `modf`, `mod`, `round`, `roundToEven`, `nextafter`, `cbrt`, `sin`, `cos`, `tan`, `sincos` (Payne-Hanek acima de 2²⁹), `atan`, `lgamma`, `gamma`, `erfc`): porta do código Go puro (`golib_dart/lib/src/math/pure.dart`, fdlibm/Cephes via Go 1.26.5) sobre `double`, com as expressões constantes do Go já dobradas; oráculo bit a bit contra o Go com `GOARCH=386` (lá o `math` é só Go puro). ⚠️ No amd64 o gc usa assembly em `Exp`/`Log` (com FMA conforme a CPU), e por elas em `Pow` fracionário, `Log2`, `Log10`, `Lgamma`, `Gamma`, `Erfc`: o `go run` amd64 pode diferir no último bit; o alvo é o Go puro, igual em VM, JS e Wasm e ao Go fora de amd64/arm64/loong64/s390x. Fixture `mathtrans` (as que usam `Exp`/`Log` impressas com `%.12g`) |
 | `math/bits` | todas as funções usadas pelo grafo, sobre as metades de 32 bits dos fixed_types (`Add/Sub/Mul/Div(64)` em records; `Div64` com os pânicos do Go) |
 | `errors` | `new$` → `go.ErrorString` (identidade); `is$`, `as`, `unwrap`, `join` (`go.JoinError`), `asType` (Go 1.26), `errUnsupported`: porta de `wrap.go`/`join.go`. A cadeia é percorrida por interfaces do runtime que o g2d declara em todo tipo cujo method set tem a assinatura exata (`Unwrap() error` → `go.Unwrapper`, `Unwrap() []error` → `go.MultiUnwrapper`, `Is(error) bool` → `go.ErrorIs`, `As(any) bool` → `go.ErrorAs`), respeitando o method set do valor (`go.goHasMethod`); `Is` só compara com `==` alvo comparável (`go.goComparable`). `As` escreve no alvo com `Ptr.$assignIfIs` (genéricos reificados: `v is T`; struct por valor não serve a `*S`), ou `$set` quando o alvo é a própria struct; pânicos do Go para alvo nil/não ponteiro/não error. Fixture `errorschain` |
@@ -800,23 +804,37 @@ métodos da classe. As conversões usam os construtores:
   quando é o próprio `E` quem o declara (`owner_pkg(E, index) == E.pkg`,
   seguindo a cadeia de embedding pelo índice do goast); um método não
   exportado que `E` promoveu de um embutido seu **não** entra no
-  `E$Promote` de `E` (⚠️ um pacote que embute `E` esperando promoção
-  completa desse método, transitivamente, não consegue: `mixin` não pode
-  ter `with`, então não dá pra encadear o mixin do dono de fato a partir
-  do mixin de `E`; quem precisar disso hoje tem de embutir o dono
-  diretamente. `TODO/P1-design-promocao-transitiva-nao-exportada.md`).
+  `E$Promote` de `E` (`mixin` não pode ter `with`, então o mixin de `E`
+  não encadeia o do dono de fato). Quem embute `E` resolve: para cada
+  método não exportado promovido de outro pacote que nem o mixin do campo
+  direto nem um forwarder inline repassa (profundidade ≥ 2, ou `E`
+  sombreado), a struct ganha um `with D$Promote` extra do dono de fato `D`,
+  com o getter `$D` encadeado pelos campos até ele (`a.T get $T => w.t;`,
+  `a.T? get $T => w?.t;` com ponteiro no caminho). ⚠️ `Unsupported`
+  `promocao:nao-exportada` quando isso não dá: `D` interface ou genérico
+  (sem mixin), campo do caminho não exportado de outro pacote, ou getter
+  `$D` já usado por outro mixin da struct.
   Método exportado não tem essa restrição (nome público, a mesma library
   em qualquer lugar) e sempre é repassado.
 - Tipo nomeado sobre básico/slice/map/func: o método de receptor ponteiro
-  só existe na classe `E$Ptr`, não na classe `E` que o getter do mixin usa
-  — `E$Promote` só repassa os de receptor valor (⚠️ sem fixture: nenhum
-  pacote embute hoje um tipo assim esperando o método de ponteiro
-  promovido).
-- Fixtures `embed`, `embedprivate` (dentro do pacote) e `promotecross`
-  (entre pacotes; embedding por ponteiro `*a.T2`, profundidade 2 através de dois
-  pacotes, ambiguidade de método exportado entre dois embutidos de pacotes
-  diferentes, e o caso de método não exportado de mesmo nome em pacotes
-  diferentes não ser ambíguo).
+  só existe na classe `E$Ptr`. `E$Promote` pede então, além de `$E`, o
+  getter `E$Ptr get $E$Ptr`, por onde repassa esses métodos; quem embute
+  implementa com a vista sobre o campo (`E$Ptr(go.FieldPtr<S, E>(this,
+  'e', ...))`) ou, embutido por ponteiro, o próprio campo (`e!`; o `$E`
+  vira `e?.value`). A seleção promovida `h.Inc()` vira `h.Counter.Inc()`
+  (`&h.Counter`); o forwarder inline (com sombreamento) usa a mesma vista.
+- Tipo local que embute ou é embutido: mixin e getter usam o nome içado
+  (`$_main$Q$Promote`, `$$_main$Q`), então locais homônimos em funções
+  diferentes não colidem.
+- Fixtures `embed`, `embedprivate` (dentro do pacote), `promotenamed`
+  (não-struct com método de ponteiro por valor, por ponteiro, em
+  profundidade 2, sombreado e por interface; tipos locais homônimos),
+  `promotecross` (entre pacotes; embedding por ponteiro `*a.T2`,
+  profundidade 2 através de dois pacotes, ambiguidade de método exportado
+  entre dois embutidos de pacotes diferentes, e o caso de método não
+  exportado de mesmo nome em pacotes diferentes não ser ambíguo) e
+  `promotedeep` (não exportado a dois saltos de pacote: por valor, por
+  ponteiro no meio, sombreado e de não-struct com receptor ponteiro).
 
 **Genéricos (dicionários).**
 - `func F[T C](x T)` → `T f<T extends B>(go.Elem<T> $T, T x)`. O dicionário
@@ -843,7 +861,21 @@ métodos da classe. As conversões usam os construtores:
   interface de métodos embutida; P pode ser nil, então `p!.m()`), com
   métodos próprios na constraint → `constraint:ponteiro`. Fixture
   `constraintloose`.
-- `/` sobre `T` → `$quo` (truncado nos inteiros, IEEE nos floats).
+- `/` sobre `T` → `$quo` (truncado nos inteiros, IEEE nos floats); `a /= b`
+  → `a = a.$quo(b)` (alvo impuro → `opassign-impuro`). `+` está em
+  `GoOrdered` (soma ou concatenação); união só de strings tem bound
+  `StringBase<T>`, e uma constante string num contexto de T vira
+  `$T.zero().$wrapStr(...)`. Fixture `genericosptr`.
+- `*T` no genérico é `go.Ptr<T>`; instanciado com struct/array (o próprio
+  objeto fora do genérico), a chamada passa a vista `go.valPtr<P>(x)`
+  (`go.ValPtr`: `*p = v` é `$set` in-place, ler `*p` copia, `==` por identidade do objeto)
+  e desfaz o resultado `*T` com `go.ptrTarget<P>(r)`; `*N` com métodos
+  (`N$Ptr`) já é um `go.Ptr<N>` no argumento. Também em `f[P]` como valor.
+  Fixture `genericosptr`. ⚠️ `*T` aninhado (`[]*T`, `func(*T)`, `map[K]*T`,
+  resultado múltiplo...), resultado `*N` com métodos e resultado de
+  genérico `async` → `generico:ptr-valor`; métodos e campos `*T` de tipo
+  genérico instanciado com struct/array não são convertidos (o dump não liga
+  a instância à origem; dá erro no `dart analyze`).
 - A chamada instancia explicitamente, `f<Golang.Int>(_$e0, ...)`, com os
   argumentos de tipo vindos do goast (`$inst`), inclusive `f[int](x)` e
   `pkg.New[K, V](...)` escritos no Go. `f[int]` como valor (sem chamada) vira

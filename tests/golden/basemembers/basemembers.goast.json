@@ -1,0 +1,2953 @@
+{
+  "schemaVersion": 9,
+  "tool": "goast",
+  "goVersion": "go1.26.5",
+  "packages": [
+    {
+      "path": "main",
+      "name": "main",
+      "files": [
+        {
+          "path": "basemembers.go",
+          "ast": {
+            "node": "File",
+            "doc": null,
+            "package": {
+              "file": "basemembers.go",
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "name": {
+              "node": "Ident",
+              "namePos": {
+                "file": "basemembers.go",
+                "line": 1,
+                "column": 9,
+                "offset": 8
+              },
+              "name": "main",
+              "obj": null
+            },
+            "decls": [
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "basemembers.go",
+                  "line": 3,
+                  "column": 1,
+                  "offset": 14
+                },
+                "tok": "import",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "ImportSpec",
+                    "doc": null,
+                    "name": null,
+                    "path": {
+                      "node": "BasicLit",
+                      "valuePos": {
+                        "file": "basemembers.go",
+                        "line": 3,
+                        "column": 8,
+                        "offset": 21
+                      },
+                      "valueEnd": {
+                        "file": "basemembers.go",
+                        "line": 3,
+                        "column": 13,
+                        "offset": 26
+                      },
+                      "kind": "STRING",
+                      "value": "\"fmt\""
+                    },
+                    "comment": null,
+                    "endPos": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "GenDecl",
+                "doc": {
+                  "node": "CommentGroup",
+                  "list": [
+                    {
+                      "node": "Comment",
+                      "slash": {
+                        "file": "basemembers.go",
+                        "line": 5,
+                        "column": 1,
+                        "offset": 28
+                      },
+                      "text": "// Métodos Go com o nome de membros das bases do golib_dart (StringBase,"
+                    },
+                    {
+                      "node": "Comment",
+                      "slash": {
+                        "file": "basemembers.go",
+                        "line": 6,
+                        "column": 1,
+                        "offset": 102
+                      },
+                      "text": "// FloatBase): sem `$`, sobrescreveriam a base com outra assinatura."
+                    }
+                  ]
+                },
+                "tokPos": {
+                  "file": "basemembers.go",
+                  "line": 7,
+                  "column": 1,
+                  "offset": 171
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "basemembers.go",
+                        "line": 7,
+                        "column": 6,
+                        "offset": 176
+                      },
+                      "name": "Redactable",
+                      "obj": {
+                        "node": "Object",
+                        "name": "Redactable",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "Redactable",
+                        "kind": "type",
+                        "def": true,
+                        "type": 0,
+                        "decl": "basemembers.go:176",
+                        "pkg": "main",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "basemembers.go",
+                        "line": 7,
+                        "column": 17,
+                        "offset": 187
+                      },
+                      "name": "string",
+                      "obj": null,
+                      "$type": 1,
+                      "$isType": true,
+                      "$obj": {
+                        "name": "string",
+                        "kind": "type",
+                        "type": 1
+                      }
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": {
+                  "node": "FieldList",
+                  "opening": {
+                    "file": "basemembers.go",
+                    "line": 9,
+                    "column": 6,
+                    "offset": 200
+                  },
+                  "list": [
+                    {
+                      "node": "Field",
+                      "doc": null,
+                      "names": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "basemembers.go",
+                            "line": 9,
+                            "column": 7,
+                            "offset": 201
+                          },
+                          "name": "s",
+                          "obj": {
+                            "node": "Object",
+                            "name": "s",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "s",
+                            "kind": "var",
+                            "def": true,
+                            "type": 0,
+                            "decl": "basemembers.go:201",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "type": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "basemembers.go",
+                          "line": 9,
+                          "column": 9,
+                          "offset": 203
+                        },
+                        "name": "Redactable",
+                        "obj": {
+                          "node": "Object",
+                          "name": "Redactable",
+                          "kind": "type"
+                        },
+                        "$type": 0,
+                        "$isType": true,
+                        "$obj": {
+                          "name": "Redactable",
+                          "kind": "type",
+                          "type": 0,
+                          "decl": "basemembers.go:176",
+                          "pkg": "main",
+                          "top": true
+                        }
+                      },
+                      "tag": null,
+                      "comment": null
+                    }
+                  ],
+                  "closing": {
+                    "file": "basemembers.go",
+                    "line": 9,
+                    "column": 19,
+                    "offset": 213
+                  }
+                },
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "basemembers.go",
+                    "line": 9,
+                    "column": 21,
+                    "offset": 215
+                  },
+                  "name": "ToBytes",
+                  "obj": null,
+                  "$obj": {
+                    "name": "ToBytes",
+                    "kind": "method",
+                    "def": true,
+                    "type": 2,
+                    "decl": "basemembers.go:215",
+                    "pkg": "main"
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "basemembers.go",
+                    "line": 9,
+                    "column": 1,
+                    "offset": 195
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "basemembers.go",
+                      "line": 9,
+                      "column": 28,
+                      "offset": 222
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "basemembers.go",
+                      "line": 9,
+                      "column": 29,
+                      "offset": 223
+                    }
+                  },
+                  "results": {
+                    "node": "FieldList",
+                    "opening": null,
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": null,
+                        "type": {
+                          "node": "ArrayType",
+                          "lbrack": {
+                            "file": "basemembers.go",
+                            "line": 9,
+                            "column": 31,
+                            "offset": 225
+                          },
+                          "len": null,
+                          "elt": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "basemembers.go",
+                              "line": 9,
+                              "column": 33,
+                              "offset": 227
+                            },
+                            "name": "byte",
+                            "obj": null,
+                            "$type": 4,
+                            "$isType": true,
+                            "$obj": {
+                              "name": "byte",
+                              "kind": "type",
+                              "type": 4
+                            }
+                          },
+                          "$type": 3,
+                          "$isType": true
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": null
+                  }
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "basemembers.go",
+                    "line": 9,
+                    "column": 38,
+                    "offset": 232
+                  },
+                  "list": [
+                    {
+                      "node": "ReturnStmt",
+                      "return": {
+                        "file": "basemembers.go",
+                        "line": 9,
+                        "column": 40,
+                        "offset": 234
+                      },
+                      "results": [
+                        {
+                          "node": "CallExpr",
+                          "fun": {
+                            "node": "ArrayType",
+                            "lbrack": {
+                              "file": "basemembers.go",
+                              "line": 9,
+                              "column": 47,
+                              "offset": 241
+                            },
+                            "len": null,
+                            "elt": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "basemembers.go",
+                                "line": 9,
+                                "column": 49,
+                                "offset": 243
+                              },
+                              "name": "byte",
+                              "obj": null,
+                              "$type": 4,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "byte",
+                                "kind": "type",
+                                "type": 4
+                              }
+                            },
+                            "$type": 3,
+                            "$isType": true
+                          },
+                          "lparen": {
+                            "file": "basemembers.go",
+                            "line": 9,
+                            "column": 53,
+                            "offset": 247
+                          },
+                          "args": [
+                            {
+                              "node": "BinaryExpr",
+                              "x": {
+                                "node": "BinaryExpr",
+                                "x": {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "basemembers.go",
+                                    "line": 9,
+                                    "column": 54,
+                                    "offset": 248
+                                  },
+                                  "valueEnd": {
+                                    "file": "basemembers.go",
+                                    "line": 9,
+                                    "column": 57,
+                                    "offset": 251
+                                  },
+                                  "kind": "STRING",
+                                  "value": "\"\u003c\"",
+                                  "$type": 1,
+                                  "$value": {
+                                    "kind": "string",
+                                    "value": "\u003c"
+                                  }
+                                },
+                                "opPos": {
+                                  "file": "basemembers.go",
+                                  "line": 9,
+                                  "column": 58,
+                                  "offset": 252
+                                },
+                                "op": "+",
+                                "y": {
+                                  "node": "CallExpr",
+                                  "fun": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "basemembers.go",
+                                      "line": 9,
+                                      "column": 60,
+                                      "offset": 254
+                                    },
+                                    "name": "string",
+                                    "obj": null,
+                                    "$type": 1,
+                                    "$isType": true,
+                                    "$obj": {
+                                      "name": "string",
+                                      "kind": "type",
+                                      "type": 1
+                                    }
+                                  },
+                                  "lparen": {
+                                    "file": "basemembers.go",
+                                    "line": 9,
+                                    "column": 66,
+                                    "offset": 260
+                                  },
+                                  "args": [
+                                    {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "basemembers.go",
+                                        "line": 9,
+                                        "column": 67,
+                                        "offset": 261
+                                      },
+                                      "name": "s",
+                                      "obj": {
+                                        "node": "Object",
+                                        "name": "s",
+                                        "kind": "var"
+                                      },
+                                      "$type": 0,
+                                      "$obj": {
+                                        "name": "s",
+                                        "kind": "var",
+                                        "type": 0,
+                                        "decl": "basemembers.go:201",
+                                        "pkg": "main"
+                                      }
+                                    }
+                                  ],
+                                  "ellipsis": null,
+                                  "rparen": {
+                                    "file": "basemembers.go",
+                                    "line": 9,
+                                    "column": 68,
+                                    "offset": 262
+                                  },
+                                  "$type": 1
+                                },
+                                "$type": 1
+                              },
+                              "opPos": {
+                                "file": "basemembers.go",
+                                "line": 9,
+                                "column": 70,
+                                "offset": 264
+                              },
+                              "op": "+",
+                              "y": {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "basemembers.go",
+                                  "line": 9,
+                                  "column": 72,
+                                  "offset": 266
+                                },
+                                "valueEnd": {
+                                  "file": "basemembers.go",
+                                  "line": 9,
+                                  "column": 75,
+                                  "offset": 269
+                                },
+                                "kind": "STRING",
+                                "value": "\"\u003e\"",
+                                "$type": 1,
+                                "$value": {
+                                  "kind": "string",
+                                  "value": "\u003e"
+                                }
+                              },
+                              "$type": 1
+                            }
+                          ],
+                          "ellipsis": null,
+                          "rparen": {
+                            "file": "basemembers.go",
+                            "line": 9,
+                            "column": 75,
+                            "offset": 269
+                          },
+                          "$type": 3
+                        }
+                      ]
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "basemembers.go",
+                    "line": 9,
+                    "column": 77,
+                    "offset": 271
+                  }
+                }
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "basemembers.go",
+                  "line": 11,
+                  "column": 1,
+                  "offset": 274
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "basemembers.go",
+                        "line": 11,
+                        "column": 6,
+                        "offset": 279
+                      },
+                      "name": "Ratio",
+                      "obj": {
+                        "node": "Object",
+                        "name": "Ratio",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "Ratio",
+                        "kind": "type",
+                        "def": true,
+                        "type": 5,
+                        "decl": "basemembers.go:279",
+                        "pkg": "main",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "basemembers.go",
+                        "line": 11,
+                        "column": 12,
+                        "offset": 285
+                      },
+                      "name": "float64",
+                      "obj": null,
+                      "$type": 6,
+                      "$isType": true,
+                      "$obj": {
+                        "name": "float64",
+                        "kind": "type",
+                        "type": 6
+                      }
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": {
+                  "node": "FieldList",
+                  "opening": {
+                    "file": "basemembers.go",
+                    "line": 13,
+                    "column": 6,
+                    "offset": 299
+                  },
+                  "list": [
+                    {
+                      "node": "Field",
+                      "doc": null,
+                      "names": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "basemembers.go",
+                            "line": 13,
+                            "column": 7,
+                            "offset": 300
+                          },
+                          "name": "r",
+                          "obj": {
+                            "node": "Object",
+                            "name": "r",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "r",
+                            "kind": "var",
+                            "def": true,
+                            "type": 5,
+                            "decl": "basemembers.go:300",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "type": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "basemembers.go",
+                          "line": 13,
+                          "column": 9,
+                          "offset": 302
+                        },
+                        "name": "Ratio",
+                        "obj": {
+                          "node": "Object",
+                          "name": "Ratio",
+                          "kind": "type"
+                        },
+                        "$type": 5,
+                        "$isType": true,
+                        "$obj": {
+                          "name": "Ratio",
+                          "kind": "type",
+                          "type": 5,
+                          "decl": "basemembers.go:279",
+                          "pkg": "main",
+                          "top": true
+                        }
+                      },
+                      "tag": null,
+                      "comment": null
+                    }
+                  ],
+                  "closing": {
+                    "file": "basemembers.go",
+                    "line": 13,
+                    "column": 14,
+                    "offset": 307
+                  }
+                },
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "basemembers.go",
+                    "line": 13,
+                    "column": 16,
+                    "offset": 309
+                  },
+                  "name": "ToDouble",
+                  "obj": null,
+                  "$obj": {
+                    "name": "ToDouble",
+                    "kind": "method",
+                    "def": true,
+                    "type": 7,
+                    "decl": "basemembers.go:309",
+                    "pkg": "main"
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "basemembers.go",
+                    "line": 13,
+                    "column": 1,
+                    "offset": 294
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "basemembers.go",
+                      "line": 13,
+                      "column": 24,
+                      "offset": 317
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "basemembers.go",
+                      "line": 13,
+                      "column": 25,
+                      "offset": 318
+                    }
+                  },
+                  "results": {
+                    "node": "FieldList",
+                    "opening": null,
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": null,
+                        "type": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "basemembers.go",
+                            "line": 13,
+                            "column": 27,
+                            "offset": 320
+                          },
+                          "name": "string",
+                          "obj": null,
+                          "$type": 1,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "string",
+                            "kind": "type",
+                            "type": 1
+                          }
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": null
+                  }
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "basemembers.go",
+                    "line": 13,
+                    "column": 34,
+                    "offset": 327
+                  },
+                  "list": [
+                    {
+                      "node": "ReturnStmt",
+                      "return": {
+                        "file": "basemembers.go",
+                        "line": 13,
+                        "column": 36,
+                        "offset": 329
+                      },
+                      "results": [
+                        {
+                          "node": "CallExpr",
+                          "fun": {
+                            "node": "SelectorExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "basemembers.go",
+                                "line": 13,
+                                "column": 43,
+                                "offset": 336
+                              },
+                              "name": "fmt",
+                              "obj": null,
+                              "$obj": {
+                                "name": "fmt",
+                                "kind": "package",
+                                "pkg": "fmt"
+                              }
+                            },
+                            "sel": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "basemembers.go",
+                                "line": 13,
+                                "column": 47,
+                                "offset": 340
+                              },
+                              "name": "Sprintf",
+                              "obj": null,
+                              "$obj": {
+                                "name": "Sprintf",
+                                "kind": "func",
+                                "type": 10,
+                                "decl": "print.go:236",
+                                "pkg": "fmt",
+                                "top": true
+                              }
+                            },
+                            "$type": 10
+                          },
+                          "lparen": {
+                            "file": "basemembers.go",
+                            "line": 13,
+                            "column": 54,
+                            "offset": 347
+                          },
+                          "args": [
+                            {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "basemembers.go",
+                                "line": 13,
+                                "column": 55,
+                                "offset": 348
+                              },
+                              "valueEnd": {
+                                "file": "basemembers.go",
+                                "line": 13,
+                                "column": 63,
+                                "offset": 356
+                              },
+                              "kind": "STRING",
+                              "value": "\"r=%.1f\"",
+                              "$type": 1,
+                              "$value": {
+                                "kind": "string",
+                                "value": "r=%.1f"
+                              }
+                            },
+                            {
+                              "node": "CallExpr",
+                              "fun": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "basemembers.go",
+                                  "line": 13,
+                                  "column": 65,
+                                  "offset": 358
+                                },
+                                "name": "float64",
+                                "obj": null,
+                                "$type": 6,
+                                "$isType": true,
+                                "$obj": {
+                                  "name": "float64",
+                                  "kind": "type",
+                                  "type": 6
+                                }
+                              },
+                              "lparen": {
+                                "file": "basemembers.go",
+                                "line": 13,
+                                "column": 72,
+                                "offset": 365
+                              },
+                              "args": [
+                                {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "basemembers.go",
+                                    "line": 13,
+                                    "column": 73,
+                                    "offset": 366
+                                  },
+                                  "name": "r",
+                                  "obj": {
+                                    "node": "Object",
+                                    "name": "r",
+                                    "kind": "var"
+                                  },
+                                  "$type": 5,
+                                  "$obj": {
+                                    "name": "r",
+                                    "kind": "var",
+                                    "type": 5,
+                                    "decl": "basemembers.go:300",
+                                    "pkg": "main"
+                                  }
+                                }
+                              ],
+                              "ellipsis": null,
+                              "rparen": {
+                                "file": "basemembers.go",
+                                "line": 13,
+                                "column": 74,
+                                "offset": 367
+                              },
+                              "$type": 6
+                            }
+                          ],
+                          "ellipsis": null,
+                          "rparen": {
+                            "file": "basemembers.go",
+                            "line": 13,
+                            "column": 75,
+                            "offset": 368
+                          },
+                          "$type": 1
+                        }
+                      ]
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "basemembers.go",
+                    "line": 13,
+                    "column": 77,
+                    "offset": 370
+                  }
+                }
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": {
+                  "node": "FieldList",
+                  "opening": {
+                    "file": "basemembers.go",
+                    "line": 15,
+                    "column": 6,
+                    "offset": 378
+                  },
+                  "list": [
+                    {
+                      "node": "Field",
+                      "doc": null,
+                      "names": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "basemembers.go",
+                            "line": 15,
+                            "column": 7,
+                            "offset": 379
+                          },
+                          "name": "r",
+                          "obj": {
+                            "node": "Object",
+                            "name": "r",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "r",
+                            "kind": "var",
+                            "def": true,
+                            "type": 5,
+                            "decl": "basemembers.go:379",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "type": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "basemembers.go",
+                          "line": 15,
+                          "column": 9,
+                          "offset": 381
+                        },
+                        "name": "Ratio",
+                        "obj": {
+                          "node": "Object",
+                          "name": "Ratio",
+                          "kind": "type"
+                        },
+                        "$type": 5,
+                        "$isType": true,
+                        "$obj": {
+                          "name": "Ratio",
+                          "kind": "type",
+                          "type": 5,
+                          "decl": "basemembers.go:279",
+                          "pkg": "main",
+                          "top": true
+                        }
+                      },
+                      "tag": null,
+                      "comment": null
+                    }
+                  ],
+                  "closing": {
+                    "file": "basemembers.go",
+                    "line": 15,
+                    "column": 14,
+                    "offset": 386
+                  }
+                },
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "basemembers.go",
+                    "line": 15,
+                    "column": 16,
+                    "offset": 388
+                  },
+                  "name": "ToInteger",
+                  "obj": null,
+                  "$obj": {
+                    "name": "ToInteger",
+                    "kind": "method",
+                    "def": true,
+                    "type": 8,
+                    "decl": "basemembers.go:388",
+                    "pkg": "main"
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "basemembers.go",
+                    "line": 15,
+                    "column": 1,
+                    "offset": 373
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "basemembers.go",
+                      "line": 15,
+                      "column": 25,
+                      "offset": 397
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "basemembers.go",
+                      "line": 15,
+                      "column": 26,
+                      "offset": 398
+                    }
+                  },
+                  "results": {
+                    "node": "FieldList",
+                    "opening": null,
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": null,
+                        "type": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "basemembers.go",
+                            "line": 15,
+                            "column": 28,
+                            "offset": 400
+                          },
+                          "name": "int",
+                          "obj": null,
+                          "$type": 9,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "int",
+                            "kind": "type",
+                            "type": 9
+                          }
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": null
+                  }
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "basemembers.go",
+                    "line": 15,
+                    "column": 32,
+                    "offset": 404
+                  },
+                  "list": [
+                    {
+                      "node": "ReturnStmt",
+                      "return": {
+                        "file": "basemembers.go",
+                        "line": 15,
+                        "column": 34,
+                        "offset": 406
+                      },
+                      "results": [
+                        {
+                          "node": "BinaryExpr",
+                          "x": {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "basemembers.go",
+                                "line": 15,
+                                "column": 41,
+                                "offset": 413
+                              },
+                              "name": "int",
+                              "obj": null,
+                              "$type": 9,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "int",
+                                "kind": "type",
+                                "type": 9
+                              }
+                            },
+                            "lparen": {
+                              "file": "basemembers.go",
+                              "line": 15,
+                              "column": 44,
+                              "offset": 416
+                            },
+                            "args": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "basemembers.go",
+                                  "line": 15,
+                                  "column": 45,
+                                  "offset": 417
+                                },
+                                "name": "r",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "r",
+                                  "kind": "var"
+                                },
+                                "$type": 5,
+                                "$obj": {
+                                  "name": "r",
+                                  "kind": "var",
+                                  "type": 5,
+                                  "decl": "basemembers.go:379",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "basemembers.go",
+                              "line": 15,
+                              "column": 46,
+                              "offset": 418
+                            },
+                            "$type": 9
+                          },
+                          "opPos": {
+                            "file": "basemembers.go",
+                            "line": 15,
+                            "column": 48,
+                            "offset": 420
+                          },
+                          "op": "*",
+                          "y": {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "basemembers.go",
+                              "line": 15,
+                              "column": 50,
+                              "offset": 422
+                            },
+                            "valueEnd": {
+                              "file": "basemembers.go",
+                              "line": 15,
+                              "column": 52,
+                              "offset": 424
+                            },
+                            "kind": "INT",
+                            "value": "10",
+                            "$type": 9,
+                            "$value": {
+                              "kind": "int",
+                              "value": "10"
+                            }
+                          },
+                          "$type": 9
+                        }
+                      ]
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "basemembers.go",
+                    "line": 15,
+                    "column": 53,
+                    "offset": 425
+                  }
+                }
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "basemembers.go",
+                  "line": 17,
+                  "column": 1,
+                  "offset": 428
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "basemembers.go",
+                        "line": 17,
+                        "column": 6,
+                        "offset": 433
+                      },
+                      "name": "byteser",
+                      "obj": {
+                        "node": "Object",
+                        "name": "byteser",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "byteser",
+                        "kind": "type",
+                        "def": true,
+                        "type": 13,
+                        "decl": "basemembers.go:433",
+                        "pkg": "main",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "InterfaceType",
+                      "interface": {
+                        "file": "basemembers.go",
+                        "line": 17,
+                        "column": 14,
+                        "offset": 441
+                      },
+                      "methods": {
+                        "node": "FieldList",
+                        "opening": {
+                          "file": "basemembers.go",
+                          "line": 17,
+                          "column": 23,
+                          "offset": 450
+                        },
+                        "list": [
+                          {
+                            "node": "Field",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "basemembers.go",
+                                  "line": 17,
+                                  "column": 25,
+                                  "offset": 452
+                                },
+                                "name": "ToBytes",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "ToBytes",
+                                  "kind": "func"
+                                },
+                                "$obj": {
+                                  "name": "ToBytes",
+                                  "kind": "method",
+                                  "def": true,
+                                  "type": 2,
+                                  "decl": "basemembers.go:452",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "FuncType",
+                              "func": null,
+                              "typeParams": null,
+                              "params": {
+                                "node": "FieldList",
+                                "opening": {
+                                  "file": "basemembers.go",
+                                  "line": 17,
+                                  "column": 32,
+                                  "offset": 459
+                                },
+                                "list": null,
+                                "closing": {
+                                  "file": "basemembers.go",
+                                  "line": 17,
+                                  "column": 33,
+                                  "offset": 460
+                                }
+                              },
+                              "results": {
+                                "node": "FieldList",
+                                "opening": null,
+                                "list": [
+                                  {
+                                    "node": "Field",
+                                    "doc": null,
+                                    "names": null,
+                                    "type": {
+                                      "node": "ArrayType",
+                                      "lbrack": {
+                                        "file": "basemembers.go",
+                                        "line": 17,
+                                        "column": 35,
+                                        "offset": 462
+                                      },
+                                      "len": null,
+                                      "elt": {
+                                        "node": "Ident",
+                                        "namePos": {
+                                          "file": "basemembers.go",
+                                          "line": 17,
+                                          "column": 37,
+                                          "offset": 464
+                                        },
+                                        "name": "byte",
+                                        "obj": null,
+                                        "$type": 4,
+                                        "$isType": true,
+                                        "$obj": {
+                                          "name": "byte",
+                                          "kind": "type",
+                                          "type": 4
+                                        }
+                                      },
+                                      "$type": 3,
+                                      "$isType": true
+                                    },
+                                    "tag": null,
+                                    "comment": null
+                                  }
+                                ],
+                                "closing": null
+                              },
+                              "$type": 2,
+                              "$isType": true
+                            },
+                            "tag": null,
+                            "comment": null
+                          }
+                        ],
+                        "closing": {
+                          "file": "basemembers.go",
+                          "line": 17,
+                          "column": 42,
+                          "offset": 469
+                        }
+                      },
+                      "incomplete": false,
+                      "$type": 14,
+                      "$isType": true
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "basemembers.go",
+                    "line": 19,
+                    "column": 6,
+                    "offset": 477
+                  },
+                  "name": "main",
+                  "obj": {
+                    "node": "Object",
+                    "name": "main",
+                    "kind": "func"
+                  },
+                  "$obj": {
+                    "name": "main",
+                    "kind": "func",
+                    "def": true,
+                    "type": 15,
+                    "decl": "basemembers.go:477",
+                    "pkg": "main",
+                    "top": true
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "basemembers.go",
+                    "line": 19,
+                    "column": 1,
+                    "offset": 472
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "basemembers.go",
+                      "line": 19,
+                      "column": 10,
+                      "offset": 481
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "basemembers.go",
+                      "line": 19,
+                      "column": 11,
+                      "offset": 482
+                    }
+                  },
+                  "results": null
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "basemembers.go",
+                    "line": 19,
+                    "column": 13,
+                    "offset": 484
+                  },
+                  "list": [
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "basemembers.go",
+                            "line": 20,
+                            "column": 2,
+                            "offset": 487
+                          },
+                          "name": "s",
+                          "obj": {
+                            "node": "Object",
+                            "name": "s",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "s",
+                            "kind": "var",
+                            "def": true,
+                            "type": 0,
+                            "decl": "basemembers.go:487",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "basemembers.go",
+                        "line": 20,
+                        "column": 4,
+                        "offset": 489
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "CallExpr",
+                          "fun": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "basemembers.go",
+                              "line": 20,
+                              "column": 7,
+                              "offset": 492
+                            },
+                            "name": "Redactable",
+                            "obj": {
+                              "node": "Object",
+                              "name": "Redactable",
+                              "kind": "type"
+                            },
+                            "$type": 0,
+                            "$isType": true,
+                            "$obj": {
+                              "name": "Redactable",
+                              "kind": "type",
+                              "type": 0,
+                              "decl": "basemembers.go:176",
+                              "pkg": "main",
+                              "top": true
+                            }
+                          },
+                          "lparen": {
+                            "file": "basemembers.go",
+                            "line": 20,
+                            "column": 17,
+                            "offset": 502
+                          },
+                          "args": [
+                            {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "basemembers.go",
+                                "line": 20,
+                                "column": 18,
+                                "offset": 503
+                              },
+                              "valueEnd": {
+                                "file": "basemembers.go",
+                                "line": 20,
+                                "column": 21,
+                                "offset": 506
+                              },
+                              "kind": "STRING",
+                              "value": "\"x\"",
+                              "$type": 0,
+                              "$value": {
+                                "kind": "string",
+                                "value": "x"
+                              }
+                            }
+                          ],
+                          "ellipsis": null,
+                          "rparen": {
+                            "file": "basemembers.go",
+                            "line": 20,
+                            "column": 21,
+                            "offset": 506
+                          },
+                          "$type": 0,
+                          "$value": {
+                            "kind": "string",
+                            "value": "x"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "node": "DeclStmt",
+                      "decl": {
+                        "node": "GenDecl",
+                        "doc": null,
+                        "tokPos": {
+                          "file": "basemembers.go",
+                          "line": 21,
+                          "column": 2,
+                          "offset": 509
+                        },
+                        "tok": "var",
+                        "lparen": null,
+                        "specs": [
+                          {
+                            "node": "ValueSpec",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "basemembers.go",
+                                  "line": 21,
+                                  "column": 6,
+                                  "offset": 513
+                                },
+                                "name": "b",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "b",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "b",
+                                  "kind": "var",
+                                  "def": true,
+                                  "type": 13,
+                                  "decl": "basemembers.go:513",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "basemembers.go",
+                                "line": 21,
+                                "column": 8,
+                                "offset": 515
+                              },
+                              "name": "byteser",
+                              "obj": {
+                                "node": "Object",
+                                "name": "byteser",
+                                "kind": "type"
+                              },
+                              "$type": 13,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "byteser",
+                                "kind": "type",
+                                "type": 13,
+                                "decl": "basemembers.go:433",
+                                "pkg": "main",
+                                "top": true
+                              }
+                            },
+                            "values": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "basemembers.go",
+                                  "line": 21,
+                                  "column": 18,
+                                  "offset": 525
+                                },
+                                "name": "s",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "s",
+                                  "kind": "var"
+                                },
+                                "$type": 0,
+                                "$obj": {
+                                  "name": "s",
+                                  "kind": "var",
+                                  "type": 0,
+                                  "decl": "basemembers.go:487",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "comment": null
+                          }
+                        ],
+                        "rparen": null
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "basemembers.go",
+                              "line": 22,
+                              "column": 2,
+                              "offset": 528
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "basemembers.go",
+                              "line": 22,
+                              "column": 6,
+                              "offset": 532
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 16,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 16
+                        },
+                        "lparen": {
+                          "file": "basemembers.go",
+                          "line": 22,
+                          "column": 13,
+                          "offset": 539
+                        },
+                        "args": [
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "basemembers.go",
+                                "line": 22,
+                                "column": 14,
+                                "offset": 540
+                              },
+                              "name": "string",
+                              "obj": null,
+                              "$type": 1,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "string",
+                                "kind": "type",
+                                "type": 1
+                              }
+                            },
+                            "lparen": {
+                              "file": "basemembers.go",
+                              "line": 22,
+                              "column": 20,
+                              "offset": 546
+                            },
+                            "args": [
+                              {
+                                "node": "CallExpr",
+                                "fun": {
+                                  "node": "SelectorExpr",
+                                  "x": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "basemembers.go",
+                                      "line": 22,
+                                      "column": 21,
+                                      "offset": 547
+                                    },
+                                    "name": "s",
+                                    "obj": {
+                                      "node": "Object",
+                                      "name": "s",
+                                      "kind": "var"
+                                    },
+                                    "$type": 0,
+                                    "$obj": {
+                                      "name": "s",
+                                      "kind": "var",
+                                      "type": 0,
+                                      "decl": "basemembers.go:487",
+                                      "pkg": "main"
+                                    }
+                                  },
+                                  "sel": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "basemembers.go",
+                                      "line": 22,
+                                      "column": 23,
+                                      "offset": 549
+                                    },
+                                    "name": "ToBytes",
+                                    "obj": null,
+                                    "$obj": {
+                                      "name": "ToBytes",
+                                      "kind": "method",
+                                      "type": 2,
+                                      "decl": "basemembers.go:215",
+                                      "pkg": "main"
+                                    }
+                                  },
+                                  "$type": 2,
+                                  "$sel": {
+                                    "kind": "method",
+                                    "recv": 0,
+                                    "index": [
+                                      0
+                                    ],
+                                    "indirect": false
+                                  }
+                                },
+                                "lparen": {
+                                  "file": "basemembers.go",
+                                  "line": 22,
+                                  "column": 30,
+                                  "offset": 556
+                                },
+                                "args": null,
+                                "ellipsis": null,
+                                "rparen": {
+                                  "file": "basemembers.go",
+                                  "line": 22,
+                                  "column": 31,
+                                  "offset": 557
+                                },
+                                "$type": 3
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "basemembers.go",
+                              "line": 22,
+                              "column": 32,
+                              "offset": 558
+                            },
+                            "$type": 1
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "basemembers.go",
+                                "line": 22,
+                                "column": 35,
+                                "offset": 561
+                              },
+                              "name": "string",
+                              "obj": null,
+                              "$type": 1,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "string",
+                                "kind": "type",
+                                "type": 1
+                              }
+                            },
+                            "lparen": {
+                              "file": "basemembers.go",
+                              "line": 22,
+                              "column": 41,
+                              "offset": 567
+                            },
+                            "args": [
+                              {
+                                "node": "CallExpr",
+                                "fun": {
+                                  "node": "SelectorExpr",
+                                  "x": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "basemembers.go",
+                                      "line": 22,
+                                      "column": 42,
+                                      "offset": 568
+                                    },
+                                    "name": "b",
+                                    "obj": {
+                                      "node": "Object",
+                                      "name": "b",
+                                      "kind": "var"
+                                    },
+                                    "$type": 13,
+                                    "$obj": {
+                                      "name": "b",
+                                      "kind": "var",
+                                      "type": 13,
+                                      "decl": "basemembers.go:513",
+                                      "pkg": "main"
+                                    }
+                                  },
+                                  "sel": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "basemembers.go",
+                                      "line": 22,
+                                      "column": 44,
+                                      "offset": 570
+                                    },
+                                    "name": "ToBytes",
+                                    "obj": null,
+                                    "$obj": {
+                                      "name": "ToBytes",
+                                      "kind": "method",
+                                      "type": 2,
+                                      "decl": "basemembers.go:452",
+                                      "pkg": "main"
+                                    }
+                                  },
+                                  "$type": 2,
+                                  "$sel": {
+                                    "kind": "method",
+                                    "recv": 13,
+                                    "index": [
+                                      0
+                                    ],
+                                    "indirect": false
+                                  }
+                                },
+                                "lparen": {
+                                  "file": "basemembers.go",
+                                  "line": 22,
+                                  "column": 51,
+                                  "offset": 577
+                                },
+                                "args": null,
+                                "ellipsis": null,
+                                "rparen": {
+                                  "file": "basemembers.go",
+                                  "line": 22,
+                                  "column": 52,
+                                  "offset": 578
+                                },
+                                "$type": 3
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "basemembers.go",
+                              "line": 22,
+                              "column": 53,
+                              "offset": 579
+                            },
+                            "$type": 1
+                          },
+                          {
+                            "node": "BinaryExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "basemembers.go",
+                                "line": 22,
+                                "column": 56,
+                                "offset": 582
+                              },
+                              "name": "s",
+                              "obj": {
+                                "node": "Object",
+                                "name": "s",
+                                "kind": "var"
+                              },
+                              "$type": 0,
+                              "$obj": {
+                                "name": "s",
+                                "kind": "var",
+                                "type": 0,
+                                "decl": "basemembers.go:487",
+                                "pkg": "main"
+                              }
+                            },
+                            "opPos": {
+                              "file": "basemembers.go",
+                              "line": 22,
+                              "column": 57,
+                              "offset": 583
+                            },
+                            "op": "+",
+                            "y": {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "basemembers.go",
+                                "line": 22,
+                                "column": 58,
+                                "offset": 584
+                              },
+                              "valueEnd": {
+                                "file": "basemembers.go",
+                                "line": 22,
+                                "column": 61,
+                                "offset": 587
+                              },
+                              "kind": "STRING",
+                              "value": "\"y\"",
+                              "$type": 0,
+                              "$value": {
+                                "kind": "string",
+                                "value": "y"
+                              }
+                            },
+                            "$type": 0
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "basemembers.go",
+                                "line": 22,
+                                "column": 63,
+                                "offset": 589
+                              },
+                              "name": "len",
+                              "obj": null,
+                              "$type": 19,
+                              "$builtin": true,
+                              "$obj": {
+                                "name": "len",
+                                "kind": "builtin",
+                                "type": 20
+                              }
+                            },
+                            "lparen": {
+                              "file": "basemembers.go",
+                              "line": 22,
+                              "column": 66,
+                              "offset": 592
+                            },
+                            "args": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "basemembers.go",
+                                  "line": 22,
+                                  "column": 67,
+                                  "offset": 593
+                                },
+                                "name": "s",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "s",
+                                  "kind": "var"
+                                },
+                                "$type": 0,
+                                "$obj": {
+                                  "name": "s",
+                                  "kind": "var",
+                                  "type": 0,
+                                  "decl": "basemembers.go:487",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "basemembers.go",
+                              "line": 22,
+                              "column": 68,
+                              "offset": 594
+                            },
+                            "$type": 9
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "basemembers.go",
+                          "line": 22,
+                          "column": 69,
+                          "offset": 595
+                        },
+                        "$type": 21
+                      }
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "basemembers.go",
+                            "line": 23,
+                            "column": 2,
+                            "offset": 598
+                          },
+                          "name": "r",
+                          "obj": {
+                            "node": "Object",
+                            "name": "r",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "r",
+                            "kind": "var",
+                            "def": true,
+                            "type": 5,
+                            "decl": "basemembers.go:598",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "basemembers.go",
+                        "line": 23,
+                        "column": 4,
+                        "offset": 600
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "CallExpr",
+                          "fun": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "basemembers.go",
+                              "line": 23,
+                              "column": 7,
+                              "offset": 603
+                            },
+                            "name": "Ratio",
+                            "obj": {
+                              "node": "Object",
+                              "name": "Ratio",
+                              "kind": "type"
+                            },
+                            "$type": 5,
+                            "$isType": true,
+                            "$obj": {
+                              "name": "Ratio",
+                              "kind": "type",
+                              "type": 5,
+                              "decl": "basemembers.go:279",
+                              "pkg": "main",
+                              "top": true
+                            }
+                          },
+                          "lparen": {
+                            "file": "basemembers.go",
+                            "line": 23,
+                            "column": 12,
+                            "offset": 608
+                          },
+                          "args": [
+                            {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "basemembers.go",
+                                "line": 23,
+                                "column": 13,
+                                "offset": 609
+                              },
+                              "valueEnd": {
+                                "file": "basemembers.go",
+                                "line": 23,
+                                "column": 16,
+                                "offset": 612
+                              },
+                              "kind": "FLOAT",
+                              "value": "2.5",
+                              "$type": 5,
+                              "$value": {
+                                "kind": "float",
+                                "value": "2.5"
+                              }
+                            }
+                          ],
+                          "ellipsis": null,
+                          "rparen": {
+                            "file": "basemembers.go",
+                            "line": 23,
+                            "column": 16,
+                            "offset": 612
+                          },
+                          "$type": 5,
+                          "$value": {
+                            "kind": "float",
+                            "value": "2.5"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "basemembers.go",
+                              "line": 24,
+                              "column": 2,
+                              "offset": 615
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "basemembers.go",
+                              "line": 24,
+                              "column": 6,
+                              "offset": 619
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 16,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 16
+                        },
+                        "lparen": {
+                          "file": "basemembers.go",
+                          "line": 24,
+                          "column": 13,
+                          "offset": 626
+                        },
+                        "args": [
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "basemembers.go",
+                                  "line": 24,
+                                  "column": 14,
+                                  "offset": 627
+                                },
+                                "name": "r",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "r",
+                                  "kind": "var"
+                                },
+                                "$type": 5,
+                                "$obj": {
+                                  "name": "r",
+                                  "kind": "var",
+                                  "type": 5,
+                                  "decl": "basemembers.go:598",
+                                  "pkg": "main"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "basemembers.go",
+                                  "line": 24,
+                                  "column": 16,
+                                  "offset": 629
+                                },
+                                "name": "ToDouble",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "ToDouble",
+                                  "kind": "method",
+                                  "type": 7,
+                                  "decl": "basemembers.go:309",
+                                  "pkg": "main"
+                                }
+                              },
+                              "$type": 7,
+                              "$sel": {
+                                "kind": "method",
+                                "recv": 5,
+                                "index": [
+                                  0
+                                ],
+                                "indirect": false
+                              }
+                            },
+                            "lparen": {
+                              "file": "basemembers.go",
+                              "line": 24,
+                              "column": 24,
+                              "offset": 637
+                            },
+                            "args": null,
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "basemembers.go",
+                              "line": 24,
+                              "column": 25,
+                              "offset": 638
+                            },
+                            "$type": 1
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "basemembers.go",
+                                  "line": 24,
+                                  "column": 28,
+                                  "offset": 641
+                                },
+                                "name": "r",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "r",
+                                  "kind": "var"
+                                },
+                                "$type": 5,
+                                "$obj": {
+                                  "name": "r",
+                                  "kind": "var",
+                                  "type": 5,
+                                  "decl": "basemembers.go:598",
+                                  "pkg": "main"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "basemembers.go",
+                                  "line": 24,
+                                  "column": 30,
+                                  "offset": 643
+                                },
+                                "name": "ToInteger",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "ToInteger",
+                                  "kind": "method",
+                                  "type": 8,
+                                  "decl": "basemembers.go:388",
+                                  "pkg": "main"
+                                }
+                              },
+                              "$type": 8,
+                              "$sel": {
+                                "kind": "method",
+                                "recv": 5,
+                                "index": [
+                                  1
+                                ],
+                                "indirect": false
+                              }
+                            },
+                            "lparen": {
+                              "file": "basemembers.go",
+                              "line": 24,
+                              "column": 39,
+                              "offset": 652
+                            },
+                            "args": null,
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "basemembers.go",
+                              "line": 24,
+                              "column": 40,
+                              "offset": 653
+                            },
+                            "$type": 9
+                          },
+                          {
+                            "node": "BinaryExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "basemembers.go",
+                                "line": 24,
+                                "column": 43,
+                                "offset": 656
+                              },
+                              "name": "r",
+                              "obj": {
+                                "node": "Object",
+                                "name": "r",
+                                "kind": "var"
+                              },
+                              "$type": 5,
+                              "$obj": {
+                                "name": "r",
+                                "kind": "var",
+                                "type": 5,
+                                "decl": "basemembers.go:598",
+                                "pkg": "main"
+                              }
+                            },
+                            "opPos": {
+                              "file": "basemembers.go",
+                              "line": 24,
+                              "column": 44,
+                              "offset": 657
+                            },
+                            "op": "*",
+                            "y": {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "basemembers.go",
+                                "line": 24,
+                                "column": 45,
+                                "offset": 658
+                              },
+                              "valueEnd": {
+                                "file": "basemembers.go",
+                                "line": 24,
+                                "column": 46,
+                                "offset": 659
+                              },
+                              "kind": "INT",
+                              "value": "2",
+                              "$type": 5,
+                              "$value": {
+                                "kind": "float",
+                                "value": "2"
+                              }
+                            },
+                            "$type": 5
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "basemembers.go",
+                          "line": 24,
+                          "column": 46,
+                          "offset": 659
+                        },
+                        "$type": 21
+                      }
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "basemembers.go",
+                    "line": 25,
+                    "column": 1,
+                    "offset": 661
+                  }
+                }
+              }
+            ],
+            "fileStart": {
+              "file": "basemembers.go",
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "fileEnd": {
+              "file": "basemembers.go",
+              "line": 25,
+              "column": 3,
+              "offset": 663
+            },
+            "scope": null,
+            "imports": [
+              {
+                "node": "ImportSpec",
+                "doc": null,
+                "name": null,
+                "path": {
+                  "node": "BasicLit",
+                  "valuePos": {
+                    "file": "basemembers.go",
+                    "line": 3,
+                    "column": 8,
+                    "offset": 21
+                  },
+                  "valueEnd": {
+                    "file": "basemembers.go",
+                    "line": 3,
+                    "column": 13,
+                    "offset": 26
+                  },
+                  "kind": "STRING",
+                  "value": "\"fmt\""
+                },
+                "comment": null,
+                "endPos": null
+              }
+            ],
+            "unresolved": [
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "basemembers.go",
+                  "line": 7,
+                  "column": 17,
+                  "offset": 187
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 1,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 1
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "basemembers.go",
+                  "line": 9,
+                  "column": 33,
+                  "offset": 227
+                },
+                "name": "byte",
+                "obj": null,
+                "$type": 4,
+                "$isType": true,
+                "$obj": {
+                  "name": "byte",
+                  "kind": "type",
+                  "type": 4
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "basemembers.go",
+                  "line": 9,
+                  "column": 49,
+                  "offset": 243
+                },
+                "name": "byte",
+                "obj": null,
+                "$type": 4,
+                "$isType": true,
+                "$obj": {
+                  "name": "byte",
+                  "kind": "type",
+                  "type": 4
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "basemembers.go",
+                  "line": 9,
+                  "column": 60,
+                  "offset": 254
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 1,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 1
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "basemembers.go",
+                  "line": 11,
+                  "column": 12,
+                  "offset": 285
+                },
+                "name": "float64",
+                "obj": null,
+                "$type": 6,
+                "$isType": true,
+                "$obj": {
+                  "name": "float64",
+                  "kind": "type",
+                  "type": 6
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "basemembers.go",
+                  "line": 13,
+                  "column": 27,
+                  "offset": 320
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 1,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 1
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "basemembers.go",
+                  "line": 13,
+                  "column": 43,
+                  "offset": 336
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "basemembers.go",
+                  "line": 13,
+                  "column": 65,
+                  "offset": 358
+                },
+                "name": "float64",
+                "obj": null,
+                "$type": 6,
+                "$isType": true,
+                "$obj": {
+                  "name": "float64",
+                  "kind": "type",
+                  "type": 6
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "basemembers.go",
+                  "line": 15,
+                  "column": 28,
+                  "offset": 400
+                },
+                "name": "int",
+                "obj": null,
+                "$type": 9,
+                "$isType": true,
+                "$obj": {
+                  "name": "int",
+                  "kind": "type",
+                  "type": 9
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "basemembers.go",
+                  "line": 15,
+                  "column": 41,
+                  "offset": 413
+                },
+                "name": "int",
+                "obj": null,
+                "$type": 9,
+                "$isType": true,
+                "$obj": {
+                  "name": "int",
+                  "kind": "type",
+                  "type": 9
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "basemembers.go",
+                  "line": 17,
+                  "column": 37,
+                  "offset": 464
+                },
+                "name": "byte",
+                "obj": null,
+                "$type": 4,
+                "$isType": true,
+                "$obj": {
+                  "name": "byte",
+                  "kind": "type",
+                  "type": 4
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "basemembers.go",
+                  "line": 22,
+                  "column": 2,
+                  "offset": 528
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "basemembers.go",
+                  "line": 22,
+                  "column": 14,
+                  "offset": 540
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 1,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 1
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "basemembers.go",
+                  "line": 22,
+                  "column": 35,
+                  "offset": 561
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 1,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 1
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "basemembers.go",
+                  "line": 22,
+                  "column": 63,
+                  "offset": 589
+                },
+                "name": "len",
+                "obj": null,
+                "$type": 19,
+                "$builtin": true,
+                "$obj": {
+                  "name": "len",
+                  "kind": "builtin",
+                  "type": 20
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "basemembers.go",
+                  "line": 24,
+                  "column": 2,
+                  "offset": 615
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              }
+            ],
+            "comments": [
+              {
+                "node": "CommentGroup",
+                "list": [
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "basemembers.go",
+                      "line": 5,
+                      "column": 1,
+                      "offset": 28
+                    },
+                    "text": "// Métodos Go com o nome de membros das bases do golib_dart (StringBase,"
+                  },
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "basemembers.go",
+                      "line": 6,
+                      "column": 1,
+                      "offset": 102
+                    },
+                    "text": "// FloatBase): sem `$`, sobrescreveriam a base com outra assinatura."
+                  }
+                ]
+              }
+            ],
+            "goVersion": ""
+          }
+        }
+      ],
+      "imports": [
+        {
+          "path": "fmt",
+          "name": "fmt"
+        }
+      ],
+      "typeTable": [
+        {
+          "kind": "named",
+          "pkg": "main",
+          "name": "Redactable",
+          "underlying": 1,
+          "methods": [
+            {
+              "name": "ToBytes",
+              "type": 2,
+              "index": [
+                0
+              ],
+              "ptr": false
+            }
+          ]
+        },
+        {
+          "kind": "basic",
+          "name": "string"
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            3
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "slice",
+          "elem": 4
+        },
+        {
+          "kind": "basic",
+          "name": "byte"
+        },
+        {
+          "kind": "named",
+          "pkg": "main",
+          "name": "Ratio",
+          "underlying": 6,
+          "methods": [
+            {
+              "name": "ToDouble",
+              "type": 7,
+              "index": [
+                0
+              ],
+              "ptr": false
+            },
+            {
+              "name": "ToInteger",
+              "type": 8,
+              "index": [
+                1
+              ],
+              "ptr": false
+            }
+          ]
+        },
+        {
+          "kind": "basic",
+          "name": "float64"
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            1
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            9
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "basic",
+          "name": "int"
+        },
+        {
+          "kind": "func",
+          "params": [
+            1,
+            11
+          ],
+          "results": [
+            1
+          ],
+          "variadic": true
+        },
+        {
+          "kind": "slice",
+          "elem": 12
+        },
+        {
+          "kind": "interface",
+          "methods": [],
+          "embeddeds": []
+        },
+        {
+          "kind": "named",
+          "pkg": "main",
+          "name": "byteser",
+          "underlying": 14
+        },
+        {
+          "kind": "interface",
+          "methods": [
+            {
+              "name": "ToBytes",
+              "type": 2
+            }
+          ],
+          "embeddeds": []
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            11
+          ],
+          "results": [
+            9,
+            17
+          ],
+          "variadic": true
+        },
+        {
+          "kind": "named",
+          "pkg": "",
+          "name": "error",
+          "underlying": 18
+        },
+        {
+          "kind": "interface",
+          "methods": [
+            {
+              "name": "Error",
+              "type": 7
+            }
+          ],
+          "embeddeds": []
+        },
+        {
+          "kind": "func",
+          "params": [
+            0
+          ],
+          "results": [
+            9
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "basic",
+          "name": "invalid type"
+        },
+        {
+          "kind": "tuple",
+          "elems": [
+            9,
+            17
+          ]
+        }
+      ],
+      "implements": [
+        {
+          "type": 0,
+          "interfaces": [
+            13
+          ]
+        }
+      ],
+      "initOrder": [],
+      "stdlibUsage": [
+        "fmt.Println",
+        "fmt.Sprintf"
+      ],
+      "reflectUsage": null
+    }
+  ]
+}

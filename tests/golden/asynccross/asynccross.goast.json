@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 8,
+  "schemaVersion": 9,
   "tool": "goast",
   "goVersion": "go1.26.5",
   "packages": [
@@ -2363,7 +2363,8 @@
               "name": "reqs",
               "type": 6,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "g2d.test/asynccross/chanstore"
             }
           ]
         },
@@ -2386,13 +2387,15 @@
               "name": "key",
               "type": 3,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "g2d.test/asynccross/chanstore"
             },
             {
               "name": "reply",
               "type": 9,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "g2d.test/asynccross/chanstore"
             }
           ]
         },
@@ -3867,7 +3870,8 @@
               "name": "reqs",
               "type": 10,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "g2d.test/asynccross/chanstore"
             }
           ]
         },
@@ -3890,13 +3894,15 @@
               "name": "key",
               "type": 4,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "g2d.test/asynccross/chanstore"
             },
             {
               "name": "reply",
               "type": 13,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "g2d.test/asynccross/chanstore"
             }
           ]
         },

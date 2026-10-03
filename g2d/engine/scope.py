@@ -25,6 +25,7 @@ class Facts:
 
     methods: dict = field(default_factory=dict)  # nome do tipo Go → [FuncDecl]
     top_names: set = field(default_factory=set)  # nomes de library que locais não podem sombrear
+    members: dict = field(default_factory=dict)  # nome Go do tipo nomeado → nomes Dart dos membros da classe
     boxed: set = field(default_factory=set)  # decl de variáveis não-struct com `&x`
     recoverers: set = field(default_factory=set)  # decl de funções que chamam recover()
     var_inits: dict = field(default_factory=dict)  # posição de var de pacote → (ValueSpec, índice)
@@ -47,6 +48,7 @@ class FunctionScope:
     locals: dict = field(default_factory=dict)  # decl → nome Dart
     temps: int = 0
     recv: str = None  # decl do receptor mapeado para `this`
+    members: frozenset = frozenset()  # membros Dart da classe do método (sombreiam a library)
     results: list = None  # nomes dos resultados (nomeados ou sintetizados)
     sig: dict = None  # assinatura da função corrente
     defers: str = None  # variável go.Defers da função (se tem defer)

@@ -3,6 +3,8 @@
 Caso com `go.mod` é um módulo multi-pacote: um `<caso>.goast.json` com todos
 os pacotes (`goast dump -C <caso> ./...`), um `<caso>.<pacote>.dart` por
 pacote (import path relativo ao módulo, `/` → `.`) e o e2e roda `go run ./cmd`.
+As libraries compartilhadas das structs anônimas canônicas (`lib/_anon/<hash>`)
+ficam em `<caso>._anon.<hash>.dart`.
 
 G2D_UPDATE_GOLDEN=1 regrava os arquivos esperados (revisar o diff!). Os testes
 são numerados na ordem do pipeline (unittest ordena por nome), então o update
@@ -18,7 +20,8 @@ import sys
 import tempfile
 import unittest
 
-from g2d.pipeline import color_table, transpile_package, write_tree
+from g2d.pipeline import color_table, transpile_libraries, write_tree
+from g2d.services.anon import ANON_DIR
 from g2d.model import link_packages, parse_dump
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -57,6 +60,14 @@ def case_packages(case):
         rel = pkg.path[len(pkg.module["path"]) + 1:]
         out.append((pkg, case_file(case, "." + rel.replace("/", ".") + ".dart"), pkg.path + ".dart"))
     return out
+
+
+def shared_goldens(case):
+    """{import path em lib/: .dart esperado} das structs anônimas canônicas
+    do caso (`<caso>._anon.<hash>.dart`)."""
+    prefix = f"{case}.{ANON_DIR}."
+    return {f"{ANON_DIR}/{f[len(prefix):-len('.dart')]}": os.path.join(GOLDEN, case, f)
+            for f in sorted(os.listdir(os.path.join(GOLDEN, case))) if f.startswith(prefix) and f.endswith(".dart")}
 
 
 def main_lib(case):
@@ -107,9 +118,22 @@ class GoldenTest(unittest.TestCase):
         for case in CASES:
             pkgs = case_packages(case)
             colors = color_table([pkg for pkg, _, _ in pkgs])
+            shared = {}
             for pkg, golden, _ in pkgs:
                 with self.subTest(case=case, pkg=pkg.path):
-                    check_golden(self, golden, transpile_package(pkg, colors=colors))
+                    libs = transpile_libraries(pkg, colors=colors)
+                    check_golden(self, golden, libs.pop(pkg.path))
+                    for path, source in libs.items():  # todo pacote escreve o mesmo arquivo
+                        self.assertEqual(shared.setdefault(path, source), source, f"{path} difere entre pacotes")
+            with self.subTest(case=case, shared=True):
+                expected = shared_goldens(case)
+                if UPDATE:
+                    for path in set(expected) - set(shared):
+                        os.remove(expected[path])
+                else:
+                    self.assertEqual(sorted(expected), sorted(shared), f"libraries _anon desatualizadas: {case}")
+                for path, source in sorted(shared.items()):
+                    check_golden(self, os.path.join(GOLDEN, case, f"{case}.{path.replace('/', '.')}.dart"), source)
 
     @unittest.skipUnless(HAVE_GO and HAVE_DART, "go/dart ausentes")
     def test_4_end_to_end(self):
@@ -118,9 +142,12 @@ class GoldenTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             sources = {}
             for case in CASES:
-                for _, golden, lib in case_packages(case):
+                libs = [(lib[:-len(".dart")], golden) for _, golden, lib in case_packages(case)]
+                for lib, golden in libs + sorted(shared_goldens(case).items()):
                     with open(golden, encoding="utf-8") as f:
-                        sources[lib[:-len(".dart")]] = f.read()
+                        text = f.read()
+                    # Struct canônica: o mesmo arquivo, byte a byte, em todo caso.
+                    self.assertEqual(sources.setdefault(lib, text), text, f"{lib} difere entre casos")
             write_tree(tmp, sources)
             run(["dart", "pub", "get", "--offline"], cwd=tmp)
             run(["dart", "analyze", "--fatal-infos"], cwd=tmp)

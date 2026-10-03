@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 8,
+  "schemaVersion": 9,
   "tool": "goast",
   "goVersion": "go1.26.5",
   "packages": [
@@ -3709,7 +3709,8 @@
           "methods": [
             {
               "name": "secret",
-              "type": 3
+              "type": 3,
+              "pkg": "g2d.test/promotecross/a"
             }
           ],
           "embeddeds": []
@@ -3866,7 +3867,8 @@
           "methods": [
             {
               "name": "whisper",
-              "type": 3
+              "type": 3,
+              "pkg": "g2d.test/promotecross/a"
             }
           ],
           "embeddeds": []
@@ -4876,7 +4878,8 @@
           "methods": [
             {
               "name": "secret",
-              "type": 5
+              "type": 5,
+              "pkg": "g2d.test/promotecross/a"
             }
           ],
           "embeddeds": []
@@ -5813,7 +5816,8 @@
           "methods": [
             {
               "name": "whisper",
-              "type": 4
+              "type": 4,
+              "pkg": "g2d.test/promotecross/a"
             }
           ],
           "embeddeds": []
@@ -5829,7 +5833,8 @@
           "methods": [
             {
               "name": "whisper",
-              "type": 4
+              "type": 4,
+              "pkg": "g2d.test/promotecross/d"
             }
           ],
           "embeddeds": []
@@ -9510,7 +9515,8 @@
           "methods": [
             {
               "name": "secret",
-              "type": 6
+              "type": 6,
+              "pkg": "g2d.test/promotecross/a"
             }
           ],
           "embeddeds": []
@@ -9861,7 +9867,8 @@
           "methods": [
             {
               "name": "whisper",
-              "type": 6
+              "type": 6,
+              "pkg": "g2d.test/promotecross/a"
             }
           ],
           "embeddeds": []
@@ -9887,7 +9894,8 @@
           "methods": [
             {
               "name": "whisper",
-              "type": 6
+              "type": 6,
+              "pkg": "g2d.test/promotecross/d"
             }
           ],
           "embeddeds": []
@@ -11234,7 +11242,8 @@
           "methods": [
             {
               "name": "whisper",
-              "type": 2
+              "type": 2,
+              "pkg": "g2d.test/promotecross/d"
             }
           ],
           "embeddeds": []

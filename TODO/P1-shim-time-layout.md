@@ -9,8 +9,8 @@ O shim `time` cobre `Time`, `Duration`, timers e `ParseDuration`
 (`docs/mapping-spec.md` § "Stdlib"), mas não o interpretador de layouts:
 faltam `Time.Format`, `AppendFormat`, `Parse`/`ParseInLocation`,
 `MarshalJSON`/`UnmarshalJSON`/`MarshalText` e as constantes de layout
-(`RFC3339`...). `Parse` aparece no audit; `Format` não, e gera Dart inválido
-(ver `P1-infra-metodos-de-shim.md`).
+(`RFC3339`...). `Parse` aparece no audit como `shim-simbolo:time.parse`;
+`Format` como `shim-simbolo:time.Time.format` (método de tipo de shim).
 
 ## Prova
 
@@ -36,8 +36,8 @@ func main() {
 ```text
 $ go run .
 1970-01-01
-$ goast dump . -o dump.json && python -m g2d transpile dump.json -o out && (cd out && dart analyze)
-  error - lib/repro.local/tfmt.dart:18:11 - The method 'format' isn't defined for the type 'Time'. - undefined_method
+$ goast dump . -o dump.json && python -m g2d transpile dump.json -o out
+repro.local/tfmt: não suportado [shim-simbolo:time.Time.format]: membro sem shim: time.Time.format (Format) em main.go:10:14
 ```
 
 `docs/stdlib-coverage.md` conta `Format` em 30 pacotes do grafo e `Parse` em 17.

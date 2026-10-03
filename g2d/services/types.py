@@ -62,6 +62,9 @@ class TypeMapper(Service):
                 # struct{}: o mesmo tipo em qualquer pacote (e nos shims, ex.
                 # `context.Context.Done()`), uma classe só no runtime.
                 return DartType(self.imports.qualify(None, "EmptyStruct"))
+            h = self.anon.canonical(t)
+            if h is not None:  # mesma classe em todo o grafo
+                return DartType(self.imports.anon(h))
             return DartType(self.synthetic(t, "anon"))
         if k == "func":
             return self.func_type(t).as_nullable()
@@ -81,8 +84,11 @@ class TypeMapper(Service):
 
     def synthetic(self, t, prefix):
         """Classe sintética de struct/interface anônima: uma por tipo (a
-        typeTable já deduplica por identidade), emitida no fim da library."""
+        typeTable já deduplica por identidade), emitida no fim da library.
+        Só é certa no pacote dono dos membros não exportados (`anon`)."""
         idx = self.typesys.index_of(t)
+        if idx not in self.synthetics:
+            self.anon.check_owner(t)
         return type_name(self.synthetics.setdefault(idx, f"{prefix}${idx}"))
 
     def wrap(self, t, text):

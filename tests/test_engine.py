@@ -159,6 +159,38 @@ class UnsupportedTest(unittest.TestCase):
                '\t\tf := func() bool { return utf16.IsSurrogate(rune(len(s))) }\n\t\t_ = f\n\t}\n}\n')
         self.assertEqual(self.emit_error(src), ("shim-ausente:unicode/utf16", ("main.go", 5, 6)))  # decl de main
 
+    def test_anon_struct_unexported_from_other_package(self):
+        """`struct{ n int }` de outro pacote é outro tipo (o pacote do campo
+        entra na identidade): a classe local seria errada, então é recusada.
+        A exportada vira a classe canônica compartilhada."""
+        files = {
+            "go.mod": "module repro.local/mp\n\ngo 1.26\n",
+            "a/a.go": "package a\n\nfunc N() struct{ n int } { return struct{ n int }{1} }\n\n"
+                      "func X() struct{ X int } { return struct{ X int }{1} }\n\n"
+                      "type priv int\n\nfunc P() struct{ X priv } { return struct{ X priv }{1} }\n",
+            "cmd2/main.go": 'package main\n\nimport "repro.local/mp/a"\n\nfunc main() {\n\tv := a.P()\n\t_ = v\n}\n',
+            "cmd/main.go": 'package main\n\nimport "repro.local/mp/a"\n\nfunc main() {\n\tv := a.N()\n\t_ = v\n}\n\n'
+                           "func x() int { return a.X().X }\n",
+        }
+        with tempfile.TemporaryDirectory() as tmp:
+            for name, src in files.items():
+                os.makedirs(os.path.dirname(os.path.join(tmp, name)), exist_ok=True)
+                with open(os.path.join(tmp, name), "w", encoding="utf-8") as f:
+                    f.write(src)
+            out = subprocess.run(["go", "run", ".", "dump", "-C", tmp, "./..."], cwd=GOAST, capture_output=True,
+                                 text=True, encoding="utf-8", check=True).stdout
+        pkgs = {p.path: p for p in link_packages(parse_dump(json.loads(out)))}
+        a = Engine(pkgs["repro.local/mp/a"]).emit_package()
+        self.assertIn("_anon$", a)  # o dono emite a local
+        self.assertIn("Struct$", a)
+        with self.assertRaises(Unsupported) as cm:
+            Engine(pkgs["repro.local/mp/cmd"]).emit_package()
+        self.assertEqual(cm.exception.code, "anonima:nao-exportada-de-outro-pacote")
+        self.assertEqual(cm.exception.pos["line"], 5)  # decl de main
+        with self.assertRaises(Unsupported) as cm:  # tipo nomeado não exportado no campo
+            Engine(pkgs["repro.local/mp/cmd2"]).emit_package()
+        self.assertEqual(cm.exception.code, "anonima:nao-exportada-de-outro-pacote")
+
     def test_bodyless_func(self):
         src = "package main\n\nfunc fastrand() uint64\n\nfunc main() {}\n"
         self.assertEqual(self.emit_error(src), ("func-sem-corpo", ("main.go", 3, 6)))
@@ -173,6 +205,44 @@ class UnsupportedTest(unittest.TestCase):
         """Símbolo que o shim não tem é recusado (antes: chamada Dart inexistente)."""
         src = 'package main\n\nimport "math"\n\nfunc main() { _ = math.Hypot(3, 4) }\n'
         self.assertEqual(self.emit_error(src)[0], "shim-simbolo:math.hypot")
+
+    def test_missing_shim_member(self):
+        """Método/campo que a classe do shim não tem é recusado (antes:
+        `t.format(...)` e dart analyze acusava undefined_method): chamada
+        direta, via ponteiro, method value, method expression, promovido
+        por embedding, `defer` e `go`."""
+        head = 'package main\n\nimport "time"\n\ntype S struct{ time.Time }\n\nfunc main() {\n\tt := time.Unix(0, 0)\n\t_ = t\n'
+        cases = {
+            '_ = t.Format("2006")': 10,
+            'p := &t\n\t_ = p.Format("2006")': 11,
+            'f := t.Format\n\t_ = f': 10,
+            '_ = time.Time.Format': 10,
+            'var s S\n\t_ = s.Format("2006")': 11,
+            'defer t.Format("2006")': 10,
+            'go t.Format("2006")': 10,
+        }
+        for body, line in cases.items():
+            with self.subTest(body=body):
+                code, pos = self.emit_error(head + "\t" + body + "\n}\n")
+                self.assertEqual(code, "shim-simbolo:time.Time.format")
+                self.assertEqual(pos[1], line)
+
+    def test_shim_members_present(self):
+        """Membros que o shim tem passam: herdados da base (`Duration` sobre
+        `Int64Base`), promovidos, via ponteiro, campos, tipo não exportado
+        com classe pública (`binary.BigEndian`), alias Go (`os.PathError` é
+        `fs.PathError`) e métodos chamados via interface da stdlib."""
+        src = ('package main\n\nimport (\n\t"encoding/binary"\n\t"fmt"\n\t"io"\n\t"os"\n\t"strings"\n\t"sync"\n\t"sync/atomic"\n\t"time"\n)\n\n'
+               'type S struct{ time.Time }\n\n'
+               'func main() {\n\tt := time.Unix(0, 0)\n\tp := &t\n\tvar s S\n'
+               '\tfmt.Println(t.Unix(), p.Unix(), s.Unix(), s.Time.Unix(), time.Second.Seconds(), t.String())\n'
+               '\tf := t.Unix\n\tfmt.Println(f(), binary.BigEndian.Uint32([]byte{0, 0, 0, 1}))\n'
+               '\te := &os.PathError{Op: "x"}\n\tfmt.Println(e.Op, e.Error())\n'
+               '\tvar st fmt.Stringer = t\n\tvar w io.Writer = os.Stdout\n\tw.Write([]byte(st.String()))\n'
+               '\tvar b strings.Builder\n\tb.WriteString("x")\n\tfmt.Println(b.String(), b.Len())\n'
+               '\tvar ap atomic.Pointer[int]\n\tvar ai atomic.Int64\n\tvar m sync.Map\n'
+               '\tm.Store(1, 2)\n\tfmt.Println(ap.Load(), ai.Add(1))\n}\n')
+        Engine(dump_source(src)).emit_package()
 
     def test_fmt_verbs_refused_at_transpile_time(self):
         """Verbo que o shim fmt não formata vira Unsupported na transpilação

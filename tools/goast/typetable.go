@@ -75,13 +75,14 @@ func (tt *typeTable) describe(t types.Type) jobject {
 		for i := range fields {
 			f := t.Field(i)
 			fields[i] = jobject{{"name", f.Name()}, {"type", tt.ref(f.Type())}, {"embedded", f.Embedded()}, {"tag", t.Tag(i)}}
+			fields[i] = withPkg(fields[i], f)
 		}
 		return jobject{{"kind", "struct"}, {"fields", fields}}
 	case *types.Interface:
 		methods := make([]jobject, t.NumMethods())
 		for i := range methods {
 			m := t.Method(i)
-			methods[i] = jobject{{"name", m.Name()}, {"type", tt.ref(m.Type())}}
+			methods[i] = withPkg(jobject{{"name", m.Name()}, {"type", tt.ref(m.Type())}}, m)
 		}
 		return jobject{{"kind", "interface"}, {"methods", methods},
 			{"embeddeds", tt.refs(t.NumEmbeddeds(), t.EmbeddedType)}}
@@ -102,6 +103,16 @@ func (tt *typeTable) describe(t types.Type) jobject {
 	default:
 		return jobject{{"kind", "unknown"}, {"repr", types.TypeString(t, qualifier)}}
 	}
+}
+
+// withPkg acrescenta o pacote de um campo ou método não exportado: ele entra
+// na identidade do tipo (`struct{ x int }` de pacotes diferentes são tipos
+// diferentes; os exportados são iguais em qualquer pacote).
+func withPkg(d jobject, obj types.Object) jobject {
+	if obj.Exported() {
+		return d
+	}
+	return append(d, jpair{"pkg", pkgPath(obj.Pkg())})
 }
 
 func qualifier(p *types.Package) string { return p.Path() }

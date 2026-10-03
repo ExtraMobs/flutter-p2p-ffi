@@ -2,11 +2,13 @@
 
 import re
 
-from g2d.config import BUILTIN_PREFIX, BUILTIN_URI, GOLANG, GOLANG_PREFIX, GOLANG_URI, GRAPH_URI, STDLIB_SHIMS
+from g2d.config import (BUILTIN_PREFIX, BUILTIN_URI, GOLANG, GOLANG_PREFIX, GOLANG_URI, GRAPH_URI, SHIM_TYPES,
+                        STDLIB_SHIMS)
 from g2d.engine.behavior import Service
 from g2d.graph import is_std
 from g2d.model import Unsupported
-from g2d.services.naming import escape, is_exported, member_name, top_member_name
+from g2d.services.anon import anon_class, anon_path
+from g2d.services.naming import escape, is_exported, member_name, top_member_name, type_name
 
 
 def declared_names(pkg):
@@ -32,6 +34,9 @@ def declared_names(pkg):
     return top | {member_name(n) for n in names if is_exported(n)}
 
 
+SELF_PREFIX = "$self"
+
+
 class ImportTable(Service):
     """Imports Dart usados e prefixos (qualificação de símbolos)."""
 
@@ -41,6 +46,7 @@ class ImportTable(Service):
         super().__init__(engine)
         self.used = {}  # prefixo → URI (só os realmente usados)
         self.prefixes = {}  # import path → prefixo
+        self.anons = set()  # libraries de structs canônicas (import sem prefixo)
         self.taken = declared_names(self.pkg)
         for imp in self.pkg.imports:
             if imp["name"] == ".":
@@ -76,7 +82,15 @@ class ImportTable(Service):
 
     def directives(self):
         """`import '...' as p;` dos imports usados, em ordem."""
-        return [f"import '{self.used[p]}' as {p};" for p in sorted(self.used)]
+        return ([f"import '{self.used[p]}' as {p};" for p in sorted(self.used)]
+                + [f"import '{GRAPH_URI.format(path=anon_path(h))}';" for h in sorted(self.anons)])
+
+    def anon(self, h):
+        """Classe de uma struct anônima canônica. A library dela só declara
+        `Struct$<hash>` (nome Go não tem `$`), então vai sem prefixo."""
+        if anon_path(h) != self.pkg.path:
+            self.anons.add(h)
+        return anon_class(h)
 
     def transpiled(self, pkg_path):
         """Pacote transpilado pelo g2d: o próprio ou outro do grafo (fora da stdlib)."""
@@ -93,6 +107,32 @@ class ImportTable(Service):
         if name not in ImportTable._shim_symbols.get(pkg_path, ()):
             raise Unsupported(f"shim-simbolo:{pkg_path}.{name}", f"símbolo sem shim: {pkg_path}.{name}")
 
+    _shim_members = None
+
+    def shim_member(self, t, go_name, node=None):
+        """Membro (método ou campo Go `go_name`) selecionado num valor do tipo
+        t (ou *t): se t é tipo concreto de shim, o membro Dart tem de existir
+        na classe (lista do dartast, com herdados), ou Unsupported. Método
+        de interface não passa por aqui: a interface do shim declara os
+        métodos dela, e o valor dinâmico é de qualquer pacote."""
+        if t["kind"] == "pointer":
+            t = self.pkg.type_at(t["elem"])
+        if t["kind"] != "named" or t["pkg"] not in STDLIB_SHIMS:
+            return
+        if self.typesys.underlying(t)["kind"] == "interface":
+            return
+        if ImportTable._shim_members is None:
+            from g2d import shims
+
+            ImportTable._shim_members = shims.load_members()
+        cls = SHIM_TYPES.get((t["pkg"], t["name"])) or type_name(t["name"])
+        self.shim_symbol(t["pkg"], cls)  # a classe mesma (tipo alcançado sem ser nomeado)
+        members = ImportTable._shim_members.get(t["pkg"], {}).get(cls, set())
+        name = member_name(go_name)
+        if members is not None and name not in members:
+            raise Unsupported(f"shim-simbolo:{t['pkg']}.{cls}.{name}",
+                              f"membro sem shim: {t['pkg']}.{cls}.{name} ({go_name})", node)
+
     def uri(self, pkg_path):
         """Library Dart de outro pacote: shim da stdlib ou library do grafo."""
         if pkg_path in STDLIB_SHIMS:
@@ -100,6 +140,15 @@ class ImportTable(Service):
         if self.transpiled(pkg_path):
             return GRAPH_URI.format(path=pkg_path)
         raise Unsupported(f"shim-ausente:{pkg_path}", f"pacote sem shim/transpilação: {pkg_path}")
+
+    def qualify_self(self, name):
+        """Nome exportado da própria library pelo import dela mesma (`$self`:
+        nenhum nome Go tem `$`), para o corpo de uma classe com membro de
+        mesmo nome. Nome privado não passa por import: `Naming.top_name`
+        o renomeia. URI vazia: a própria library (referência relativa vazia
+        resolve para o URI base), qualquer que seja o nome do arquivo."""
+        self.used[SELF_PREFIX] = ""
+        return f"{SELF_PREFIX}.{name}"
 
     def qualify(self, pkg_path, name):
         """Nome Dart de um símbolo de outro pacote (ou do universo, se None)."""
