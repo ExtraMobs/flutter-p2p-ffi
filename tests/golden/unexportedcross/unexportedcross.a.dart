@@ -217,6 +217,8 @@ mixin $_pair$Promote {
 /// Métodos de counter promovidos por embedding (delegação).
 mixin $_counter$Promote {
   $_counter? get $$_counter;
+  $_counter$Ptr get $$_counter$Ptr;
+  void inc() => $$_counter$Ptr.inc();
   Golang.Int value$() => $$_counter!.value$();
 }
 

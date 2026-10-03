@@ -155,6 +155,8 @@ mixin Color$Promote {
 /// Métodos de Seq promovidos por embedding (delegação).
 mixin Seq$Promote {
   Seq? get $Seq;
+  Seq$Ptr get $Seq$Ptr;
+  void inc() => $Seq$Ptr.inc();
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.

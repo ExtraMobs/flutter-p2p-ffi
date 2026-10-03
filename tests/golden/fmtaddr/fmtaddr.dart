@@ -246,6 +246,8 @@ void $goInit() {
 /// Métodos de N promovidos por embedding (delegação).
 mixin N$Promote {
   N? get $N;
+  N$Ptr get $N$Ptr;
+  void _inc() => $N$Ptr._inc();
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.

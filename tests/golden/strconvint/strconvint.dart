@@ -133,6 +133,8 @@ void $goInit() {
 /// Métodos de Code promovidos por embedding (delegação).
 mixin Code$Promote {
   Code? get $Code;
+  Code$Ptr get $Code$Ptr;
+  go.GoError? set(Golang.String p0) => $Code$Ptr.set(p0);
   Golang.String string() => $Code!.string();
 }
 

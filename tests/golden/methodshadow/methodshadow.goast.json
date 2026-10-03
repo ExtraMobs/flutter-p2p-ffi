@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 8,
+  "schemaVersion": 9,
   "tool": "goast",
   "goVersion": "go1.26.5",
   "packages": [
@@ -5900,7 +5900,8 @@
               "name": "n",
               "type": 1,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "main"
             }
           ]
         },
@@ -6005,7 +6006,8 @@
           "methods": [
             {
               "name": "sub",
-              "type": 2
+              "type": 2,
+              "pkg": "main"
             }
           ],
           "embeddeds": []

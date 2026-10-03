@@ -213,6 +213,8 @@ mixin Rect$Promote {
 /// Métodos de Counter promovidos por embedding (delegação).
 mixin Counter$Promote {
   Counter? get $Counter;
+  Counter$Ptr get $Counter$Ptr;
+  void inc() => $Counter$Ptr.inc();
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.

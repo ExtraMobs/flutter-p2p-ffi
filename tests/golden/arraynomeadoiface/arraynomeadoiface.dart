@@ -87,6 +87,7 @@ void $goInit() {
 /// Métodos de Arr promovidos por embedding (delegação).
 mixin Arr$Promote {
   Arr? get $Arr;
+  void bump() => $Arr!.bump();
   Golang.Int sum() => $Arr!.sum();
 }
 

@@ -63,14 +63,7 @@ porque um pacote "verde" pode estar errado.
 
 | Artefato | Resumo |
 |---|---|
-| `P1-construcao-statements-quebram.md` | `(*p)++`, `switch` vazio, rótulo `in:`, variável de type switch atribuída |
-| `P1-construcao-genericos-dart-invalido.md` | `*T`, `/=` e `+` sobre parâmetro de tipo |
-| `P1-construcao-promocao-dart-invalido.md` | embutir nomeado não-struct com método `*T`; embedding em tipo local |
-| `P1-construcao-array-nomeado-interface.md` | `type Arr [2]int` com métodos em interface |
-| `P1-infra-metodos-de-shim.md` | método ausente em tipo de shim (`t.Format`) não vira `Unsupported` |
-| `P1-construcao-metodo-sombreia-pacote.md` | método `_sub` sombreia constante `_sub` |
-| `P1-design-anonimas-canonicas.md` | `struct{ X int }` de pacotes diferentes vira classes diferentes |
-| `P1-design-promocao-transitiva-nao-exportada.md` | método não exportado promovido por dois saltos de pacote quebra em runtime |
+| `P1-construcao-generico-metodo-ptr-t.md` | método ou campo `*T` de tipo genérico instanciado com struct (`Box[P].Set(&x)`) |
 
 ### 2d. P2
 

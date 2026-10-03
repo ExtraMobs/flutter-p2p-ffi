@@ -181,7 +181,7 @@ em sequência. O agente principal planeja, integra e faz a verificação final.
 | M0 | `AGENTS.md` | ✅ |
 | M1 | fundação: dumpers, grafo, esqueleto do g2d | ✅ |
 | M2 | MVP do transpilador (import entre pacotes, `init`, `switch`, method values, literais, tipos locais...) | ✅ menos `goto` (decisão D6) |
-| M3 | semântica avançada: structs por valor, slices, maps, ponteiros, `defer`/`recover`, tipos nomeados, interfaces, embedding, genéricos, arrays | ✅ num pacote; ⚠️ entre pacotes: interfaces (D8) e promoção de não exportado em dois saltos (`TODO/P1-design-*`) |
+| M3 | semântica avançada: structs por valor, slices, maps, ponteiros, `defer`/`recover`, tipos nomeados, interfaces, embedding, genéricos, arrays | ✅ num pacote; ⚠️ entre pacotes: interfaces (D8) |
 | M4 | concorrência: `Chan<T>`, `select`, `go`, `sync`, timers, `context`, cor `async` transitiva | ✅ runtime e emissão; ⚠️ falta I/O que suspende (D2) e `func()` forçada síncrona (D7) |
 | M5 | reflexão estática + shims da stdlib | shims em andamento; `reflect` ❌ (D1) |
 | M6 | grafo completo do kubo/boxo (cobertura ≥ 95% por etapa) | **167 de 1112** verdes (`docs/audit.md`) |
