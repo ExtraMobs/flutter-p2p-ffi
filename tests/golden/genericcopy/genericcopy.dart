@@ -69,7 +69,7 @@ class Box<T> extends go.GoStruct<Box<T>> {
   }
 
   @override
-  List<Object?> get $fields => [v];
+  List<Object?> get $fields => [go.dynField(v, $T)];
 
   @override
   List<String> get $fieldNames => const ['V'];
