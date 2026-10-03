@@ -47,7 +47,7 @@ Legenda: ✅ fiel · ⚠️ fiel no caso comum, com limite conhecido · ❌ não
 | embedding (promoção) | caminho `$sel.index` + `mixin E$Promote` (forwarders), sempre na library de `E`, mesmo pra quem embute `E` de outro pacote | M3 | ✅ |
 | genéricos | parâmetros de tipo Dart + dicionário `go.Elem<T>` (`$T`) + bounds `IntBase/GoReal/GoOrdered/StringBase` | M3 | ✅ |
 | arrays `[N]T` (valor) | `go.GoArray<T>` (base `go.GoValue`, como `GoStruct`) | M3 | ✅ |
-| goroutines, canais, `select` | `go.Chan<T>`, `go.select`/`go.selectNow`, `go.spawn` + escalonador; `async`/`await` pela cor transitiva (ver "Concorrência (M4) — runtime" e "Cor transitiva" abaixo) | M4 | ⚠️ runtime, emissão, timers, `context`, valor func `async` e `$goInit` que suspende prontos; I/O que suspende com versão dupla ("I/O que suspende" abaixo); faltam classes de func forçadas síncronas (`TODO/P1-design-func-sincrona-forcada.md`) e interfaces entre pacotes (`TODO/P1-design-interfaces-entre-pacotes.md`) |
+| goroutines, canais, `select` | `go.Chan<T>`, `go.select`/`go.selectNow`, `go.spawn` + escalonador; `async`/`await` pela cor transitiva (ver "Concorrência (M4) — runtime" e "Cor transitiva" abaixo) | M4 | ⚠️ runtime, emissão, timers, `context`, valor func `async` e `$goInit` que suspende prontos; faltam I/O que suspende (`TODO/P0-design-io-suspende.md`), classes de func presas pela stdlib (`sort.Slice`...) e interfaces entre pacotes (`TODO/P1-design-interfaces-entre-pacotes.md`) |
 | reflexão | descritores estáticos (evolução de `go.Elem`); recorte em decisão (`TODO/P0-design-m5-reflexao.md`) | M5 | ❌ |
 
 ## Plataformas: ponteiros e `Type` (verificado)
@@ -425,14 +425,44 @@ method value, tipo nomeado, composição, `any` + type assertion, `Once.Do`,
 
 Classes de **formato fixo** ficam síncronas (`ColorSummary.forced`):
 assinaturas de funções e métodos da stdlib usados no grafo (o shim recebe
-e devolve funções síncronas: `sort.Slice`, `context.CancelFunc`...), exceto
+e devolve funções síncronas: `sort.Slice`, `http.HandlerFunc`...), exceto
 o parâmetro de quem roda a função numa goroutine ou com `do$async`
 (`time.AfterFunc`, `context.AfterFunc`, `WaitGroup.Go`, `Once.Do`: o shim
-aceita `FutureOr<void> Function()`), e formatos derivados de genéricos
-(parâmetros/resultados de uma chamada genérica, campos e métodos de
-instâncias de tipos genéricos, assinaturas com parâmetro de tipo: lá
-dentro o Dart vê `U Function(T)`). ⚠️ Como `context.WithCancel` devolve
-`CancelFunc`, a classe `func()` fica síncrona em quase todo o grafo do kubo.
+aceita `FutureOr<void> Function()?`), o `sync.OnceFunc` (genérico no Dart,
+`R Function() onceFunc<R>(R Function()?)`: serve às duas cores) e pacotes
+sem shim (o pacote cai na emissão de qualquer jeito); e formatos derivados
+de genéricos: assinaturas com parâmetro de tipo (lá dentro o Dart vê `U
+Function(T)`) e, nas instâncias (chamada genérica, campos e métodos de
+tipos genéricos), só as classes que citam um argumento de tipo
+(`queue[int]` prende `func(int)`, não a `func()` de um campo ou o tipo
+de um método `Clear()`; `StartStopHook[func()]` também não prende a
+`func()`, que lá dentro é um `T` opaco).
+
+**Tipo de função nomeado da stdlib** (`context.CancelFunc`,
+`CancelCauseFunc`...) é classe própria, `("sig", "context.CancelFunc")`,
+sempre síncrona (o `typedef` do shim), separada da assinatura comum. Assim
+a `func()` segue a cor dela no grafo (fixture `asynccancel`). Na passagem
+de uma classe para a outra (`ValueSemantics.coerce`, e `coerce_multi`
+para `ctx, cancel = context.WithCancel(ctx)` e `return
+context.WithCancel(ctx)`, refeitos num switch expression):
+
+- `CancelFunc` → `func()` `async`: `go.asyncOrNil0(cancel)` (nil continua
+  nil);
+- literal ou função síncrona citada direto → `CancelFunc`: emitida sem o
+  embrulho da classe dela;
+- valor `async` → `CancelFunc`: `async:valor-func`.
+
+**Campo com classe própria** (`color.field_classes`): campo não exportado
+de tipo `func` sem nome, numa struct nomeada não genérica, que só é chamado,
+comparado com nil ou escrito, e só recebe nil, função citada direto ou um
+tipo de função nomeado da stdlib, tem a classe `("field", pacote,
+declaração)`: é `async` só se recebe uma função `async`. Um `cancelInner
+func()` que guarda o `CancelFunc` de `context.WithCancel` fica síncrono, e a
+closure que o chama ainda pode ser devolvida como `CancelFunc`
+(`go.uber.org/fx/internal/fxclock`). O tipo do campo na struct e nos
+seletores vira uma cópia do tipo func com `$class`. ⚠️ Campo lido sem ser
+chamado (`f := x.cancel`, `&x.cancel`) ou que recebe um valor `func()`
+qualquer fica na classe da assinatura.
 
 `$goInit`: vira `Future<void> $goInit() async` se um inicializador de
 variável de pacote, uma função `init` ou (no main) o `$goInit` de uma

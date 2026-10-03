@@ -27,11 +27,11 @@ pela cor do método no tipo estático do argumento.
 
 import collections
 
+from g2d.config import STDLIB_SHIMS
 from g2d.engine.behavior import Analysis
 from g2d.model import unparen, walk
-from g2d.services.concurrency import (LOCKS, ONCE_DO, SPAWNING_SHIM, SUSPENDING_FUNCS, SUSPENDING_SHIM, WAITGROUP_GO,
-                                      Concurrency)
-from g2d.services.dualio import ASYNC_SHIM_TYPES, DUAL_SHIM_CALLS, dual_capable, sync_shim
+from g2d.services.concurrency import (COLOR_POLYMORPHIC_SHIM, LOCKS, ONCE_DO, SPAWNING_SHIM, SUSPENDING_FUNCS,
+                                      SUSPENDING_SHIM, WAITGROUP_GO, Concurrency)
 
 
 class ColorSummary:
@@ -80,6 +80,8 @@ def summarize(engine, decls=None):
     if decls is None:
         decls = [d for f in pkg.files for d in f["ast"]["decls"] or []]
     s = ColorSummary()
+    for key, ref in field_classes(engine, decls):
+        s.edges[key].add(ref)  # o campo é async se recebe uma função async
 
     def callees(node):
         """(callees que a função espera, mutexes que ela trava)."""
@@ -163,6 +165,123 @@ def summarize(engine, decls=None):
     return s
 
 
+def field_classes(engine, decls):
+    """Campos com classe de cor própria: campo não exportado de tipo `func`
+    sem nome, de struct nomeada não genérica do pacote (todo acesso a ele
+    está aqui), que só é chamado (`x.f()`), comparado com nil ou escrito, e
+    só recebe nil, função citada direto (literal, `f`, `x.M`) ou um tipo de
+    função nomeado da stdlib (`context.CancelFunc`). A classe dele é
+    `("field", pacote, declaração)`, `async` só se recebe uma função
+    `async`; um `cancelInner func()` que guarda um `CancelFunc` fica
+    síncrono mesmo com a `func()` `async` no grafo. O tipo do campo na
+    struct e nos seletores vira uma cópia do tipo func com `$class` (lida
+    por `Concurrency.sig_key`). Devolve as arestas (classe do campo, chave da
+    função escrita); idempotente por pacote."""
+    pkg, conc = engine.pkg, engine.services["concurrency"]
+    cached = pkg.__dict__.get("_field_classes")
+    if cached is not None:
+        return cached
+    typesys = conc.typesys
+    owner = {}  # declaração do campo → (dict da struct, nome)
+    slots = collections.Counter()
+    for d in decls:
+        if d["node"] != "GenDecl" or d["tok"] != "type":
+            continue
+        for spec in d["specs"]:
+            if spec.get("typeParams") or spec.get("assign") or spec["type"]["node"] != "StructType":
+                continue
+            st = typesys.underlying(pkg.type_at(spec["name"]["$obj"]["type"]))
+            for fld in spec["type"]["fields"]["list"] or []:
+                for name in fld["names"] or []:
+                    obj = name.get("$obj") or {}
+                    t = pkg.type_at(obj.get("type")) if obj.get("type") is not None else None
+                    if (t is None or t["kind"] != "func" or name["name"][:1].isupper()
+                            or name["name"] == "_"):
+                        continue
+                    owner[obj["decl"]] = (st, name["name"])
+                    slots[(id(st), name["name"])] += 1
+    # Structs idênticas no pacote compartilham o subjacente: campo ambíguo fica na assinatura.
+    owner = {k: v for k, v in owner.items() if slots[(id(v[0]), v[1])] == 1}
+    if not owner:
+        pkg._field_classes = []
+        return []
+    bad, edges, sels, ok = set(), [], {}, set()
+
+    def field_of(n):
+        n = unparen(n)
+        if n.get("node") == "SelectorExpr" and (n.get("$sel") or {}).get("kind") == "field":
+            decl = (n["sel"].get("$obj") or {}).get("decl")
+            return decl if decl in owner else None
+        return None
+
+    def write(decl, value, vt=None):
+        if decl is None:
+            return
+        ref = func_ref_key(conc, value) if value is not None else None
+        vt = vt if vt is not None else pkg.type_of(value)
+        if ref is not None:
+            edges.append((("field", pkg.path, decl), ref))
+        elif vt is not None and vt["kind"] == "basic" and vt["name"] == "untyped nil":
+            pass
+        elif not conc.std_named_func(vt):
+            bad.add(decl)
+
+    for n in walk(decls):
+        k = n.get("node")
+        decl = field_of(n)
+        if decl is not None:
+            sels[id(n)] = decl
+        if k == "CallExpr":
+            ok.add(id(unparen(n["fun"])))
+        elif k == "BinaryExpr" and n["op"] in ("==", "!="):
+            for a, b in ((n["x"], n["y"]), (n["y"], n["x"])):
+                bt = pkg.type_of(b)
+                if bt is not None and bt["kind"] == "basic" and bt["name"] == "untyped nil":
+                    ok.add(id(unparen(a)))
+        elif k == "AssignStmt" and n["tok"] == "=":
+            lhs, rhs = n["lhs"], n["rhs"]
+            tuple_t = pkg.type_of(rhs[0]) if len(rhs) == 1 and len(lhs) > 1 else None
+            for i, x in enumerate(lhs):
+                d = field_of(x)
+                if d is None:
+                    continue
+                ok.add(id(unparen(x)))
+                if len(rhs) == len(lhs):
+                    write(d, rhs[i])
+                elif tuple_t is not None and tuple_t["kind"] == "tuple":
+                    write(d, None, pkg.type_at(tuple_t["elems"][i]))
+                else:
+                    bad.add(d)
+        elif k == "CompositeLit":
+            t = pkg.type_of(n)
+            st = typesys.underlying(t) if t is not None else None
+            if st is None or st["kind"] != "struct":
+                continue
+            for i, e in enumerate(n["elts"] or []):
+                if e["node"] == "KeyValueExpr":
+                    d = (e["key"].get("$obj") or {}).get("decl")
+                    if d in owner:
+                        write(d, e["value"])
+                elif i < len(st["fields"]):
+                    name = st["fields"][i]["name"]
+                    for d, (ost, oname) in owner.items():
+                        if ost is st and oname == name:
+                            write(d, e)
+    bad |= {d for i, d in sels.items() if i not in ok}
+    for d, (st, name) in owner.items():
+        if d in bad:
+            continue
+        for f in st["fields"]:
+            if f["name"] == name:
+                f["type"] = dict(pkg.type_at(f["type"]), **{"$class": ("field", pkg.path, d)})
+                synthetic = f["type"]
+        for n in walk(decls):
+            if field_of(n) == d:
+                n["$type"] = synthetic
+    pkg._field_classes = [e for e in edges if e[0][2] not in bad]
+    return pkg._field_classes
+
+
 def func_ref_key(conc, n):
     """Chave de uma referência direta a função (literal, função, método)."""
     n = unparen(n) if n else None
@@ -217,7 +336,8 @@ def fixed_classes(engine, decls, s):
     """Classes de func cujo formato Dart é fixo por quem não é gerado com a
     cor: assinaturas de funções/métodos da stdlib (o shim recebe e devolve
     funções síncronas; exceto quem roda a função numa goroutine,
-    `SPAWNING_SHIM`) e formatos derivados de genéricos (parâmetros e
+    `SPAWNING_SHIM`, quem serve às duas cores, `COLOR_POLYMORPHIC_SHIM`, e
+    pacote sem shim) e formatos derivados de genéricos (parâmetros e
     resultados de uma chamada genérica, campos e métodos de instâncias de
     tipos genéricos: lá dentro o Dart vê `R Function(T)`)."""
     conc, pkg, calls = engine.services["concurrency"], engine.pkg, engine.services["calls"]
@@ -228,28 +348,49 @@ def fixed_classes(engine, decls, s):
             if fun.get("$isType") or fun.get("$builtin"):
                 continue
             ck = conc.callee_key(n)
-            generic = calls.instantiation(fun) is not None
-            if not generic and not (ck is not None and conc.std(ck[1]) and ck[0] in ("f", "m")):
+            inst = calls.instantiation(fun)
+            std = ck is not None and conc.std(ck[1]) and ck[0] in ("f", "m")
+            if std and (ck in COLOR_POLYMORPHIC_SHIM or ck[1] not in STDLIB_SHIMS):
+                continue  # sem shim o pacote cai na emissão: não prende a classe no grafo
+            if inst is None and not std:
                 continue
             sig = pkg.type_of(fun)
             if sig is None or conc.typesys.underlying(sig)["kind"] != "func":
                 continue
             sig = conc.typesys.underlying(sig)
             skip = SPAWNING_SHIM.get(ck)
+            args = None if std else inst[1]
             for i, p in enumerate(sig["params"]):
                 if i != skip:
-                    conc.func_classes(p, s.forced)
+                    s.forced |= generic_classes(conc, p, args)
             for r in sig["results"]:
-                conc.func_classes(r, s.forced)
+                s.forced |= generic_classes(conc, r, args)
         elif k in ("IndexExpr", "IndexListExpr") and calls.instantiation(n):
-            conc.func_classes(pkg.type_of(n), s.forced)  # `f[int]` como valor
+            s.forced |= generic_classes(conc, pkg.type_of(n), calls.instantiation(n)[1])  # `f[int]` como valor
     for t in pkg.type_table:
         if t["kind"] == "named" and t.get("args"):
             u = conc.typesys.underlying(t)
             for f in u.get("fields") or []:
-                conc.func_classes(f["type"], s.forced)
+                s.forced |= generic_classes(conc, f["type"], t["args"])
             for m in (t.get("methods") or []) + (u.get("methods") or []):
-                conc.func_classes(m["type"], s.forced)
+                s.forced |= generic_classes(conc, m["type"], t["args"])
+
+
+def generic_classes(conc, t, args):
+    """Classes de func em t com formato fixo. Sem args (assinatura da
+    stdlib), todas. Numa instância genérica, só as que vêm de um parâmetro
+    de tipo: lá dentro o Dart vê `R Function(T)`; uma `func()` que não cita
+    o parâmetro tem a mesma classe dentro e fora do genérico e segue a cor
+    dela (o tipo do método em si também não conta), assim como o próprio
+    argumento quando ele é uma func (`StartStopHook[func()]`: lá dentro o
+    valor é um `T` opaco, reificado com o formato da classe). Aproximação
+    segura: a classe cita o texto de algum argumento de tipo (`func(int64)`
+    também fica presa por `T = int`, nunca o contrário)."""
+    classes = conc.func_classes(t)
+    if args is None:
+        return classes
+    names = [conc.canon(a) for a in args]
+    return {c for c in classes if any(a in c[1] and a != c[1] for a in names)}
 
 
 class ColorTable:
