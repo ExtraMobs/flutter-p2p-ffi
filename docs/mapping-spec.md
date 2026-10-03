@@ -47,7 +47,7 @@ Legenda: ✅ fiel · ⚠️ fiel no caso comum, com limite conhecido · ❌ não
 | embedding (promoção) | caminho `$sel.index` + `mixin E$Promote` (forwarders), sempre na library de `E`, mesmo pra quem embute `E` de outro pacote | M3 | ✅ |
 | genéricos | parâmetros de tipo Dart + dicionário `go.Elem<T>` (`$T`) + bounds `IntBase/GoReal/GoOrdered/StringBase` | M3 | ✅ |
 | arrays `[N]T` (valor) | `go.GoArray<T>` (base `go.GoValue`, como `GoStruct`) | M3 | ✅ |
-| goroutines, canais, `select` | `go.Chan<T>`, `go.select`/`go.selectNow`, `go.spawn` + escalonador; `async`/`await` pela cor transitiva (ver "Concorrência (M4) — runtime" e "Cor transitiva" abaixo) | M4 | ⚠️ runtime, emissão, timers, `context`, valor func `async` e `$goInit` que suspende prontos; faltam I/O que suspende (`TODO/P0-design-io-suspende.md`), classes de func presas pela stdlib (`sort.Slice`...) e interfaces entre pacotes (`TODO/P1-design-interfaces-entre-pacotes.md`) |
+| goroutines, canais, `select` | `go.Chan<T>`, `go.select`/`go.selectNow`, `go.spawn` + escalonador; `async`/`await` pela cor transitiva (ver "Concorrência (M4) — runtime" e "Cor transitiva" abaixo) | M4 | ⚠️ runtime, emissão, timers, `context`, valor func `async`, `$goInit` que suspende, I/O que suspende (versão dupla, D2) e `CancelFunc` com cor própria (D7) prontos; faltam as classes de func de formato fixo da stdlib (`sort.Slice`...: "Cor transitiva" abaixo) e interfaces entre pacotes (`TODO/P1-design-interfaces-entre-pacotes.md`) |
 | reflexão | descritores estáticos (evolução de `go.Elem`); recorte em decisão (`TODO/P0-design-m5-reflexao.md`) | M5 | ❌ |
 
 ## Plataformas: ponteiros e `Type` (verificado)

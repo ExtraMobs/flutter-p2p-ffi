@@ -13,26 +13,25 @@ Os casos que sobram depois de §2c:
 
 - `github.com/pion/transport/v3/deadline` e `v4/deadline`: `func afterFunc(...) timer { return
   time.AfterFunc(d, f) }`, com `timer` interface local (`Stop`, `Reset`) satisfeita pelo
-  `*time.Timer` do shim (tipo de shim em interface local, D8); e o `func()` passado onde o shim
-  espera `FutureOr<void> Function()`.
+  `*time.Timer` do shim (tipo de shim em interface local, D8).
 - `golang.org/x/text/internal/language/compact`: `tag._full = tFull.$ifaceCopy()` atribui `Tag`
   a `$_fullTag?` (interface local não exportada que `Tag` não declara implementar).
-- `github.com/cockroachdb/logtags`: `unnecessary_cast` (warning) no type switch sobre
-  `fmt.Stringer`: `final fmt.Stringer? v$1 = $t2 as fmt.Stringer;` depois de `$t2 is fmt.Stringer`.
 
 (`crlib/fifo` está em `P1-construcao-generico-metodo-ptr-t.md`.)
 
 ## Prova
 
 ```text
-$ python -m g2d audit github.com/ipfs/kubo/cmd/ipfs -C tests/corpus/kubo
+$ python -m g2d audit github.com/ipfs/kubo/cmd/ipfs -C tests/corpus/kubo   # main com #7–#10, 2026-10-03
 $ (cd .g2d-cache/out && dart analyze lib/github.com/pion/transport/v3/deadline.dart \
-     lib/golang.org/x/text/internal/language/compact.dart lib/github.com/cockroachdb/logtags.dart)
+     lib/golang.org/x/text/internal/language/compact.dart)
   error - lib/github.com/pion/transport/v3/deadline.dart:247:8 - A value of type 'Timer' can't be returned from the function '_afterFunc' because it has a return type of '$_timer?'. - return_of_invalid_type
-  error - lib/github.com/pion/transport/v3/deadline.dart:247:26 - The argument type 'void Function()?' can't be assigned to the parameter type 'FutureOr<void> Function()'.  - argument_type_not_assignable
-  error - lib/golang.org/x/text/internal/language/compact.dart:295:13 - A value of type 'Tag' can't be assigned to a variable of type '$_fullTag?'. - invalid_assignment
-warning - lib/github.com/cockroachdb/logtags.dart:442:27 - Unnecessary cast. Try removing the cast. - unnecessary_cast
+  error - lib/golang.org/x/text/internal/language/compact.dart:295:13 - A value of type 'Tag' can't be assigned to a variable of type '$_fullTag?'. Try changing the type of the variable, or casting the right-hand type to '$_fullTag?'. - invalid_assignment
+  error - lib/golang.org/x/text/internal/language/compact.dart:307:13 - A value of type 'Tag' can't be assigned to a variable of type '$_fullTag?'. Try changing the type of the variable, or casting the right-hand type to '$_fullTag?'. - invalid_assignment
 ```
+
+(O `logtags` e o `func()` passado ao `time.AfterFunc` do `deadline` deixaram de
+falhar com os PRs #7–#10.)
 
 ## Critério de pronto
 

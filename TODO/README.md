@@ -1,9 +1,10 @@
 # TODO — backlog do desafio kubo/boxo
 
-Estado em 2026-10-03: **160 de 1112** pacotes do grafo do kubo verdes
-(`docs/audit.md`; o `main` de 2026-10-02 regerado no mesmo ambiente dá 157, não
-os 167 registrados antes, ver `P1-construcao-dart-invalido-audit.md`). A
-fronteira (pacotes não verdes com as dependências todas verdes) tem 184 pacotes. Os números abaixo saem do ranking do audit
+Estado em 2026-10-03, com os PRs #7 a #10 no `main`: **162 de 1112** pacotes
+do grafo do kubo verdes (`docs/audit.md`, Dart SDK 3.13.5; o `main` de
+2026-10-02 regerado no mesmo ambiente dá 157, não os 167 registrados antes).
+A fronteira (pacotes não verdes com as dependências todas verdes) tem 182
+pacotes. Os números abaixo saem do ranking do audit
 (pacotes afetados / pacotes na fronteira).
 
 ## 1. Decisões do dono antes de seguir
@@ -13,10 +14,10 @@ as opções e a recomendação; a tabela é o resumo.
 
 | # | Decisão | O que trava | Recomendação | Artefato |
 |---|---|---|---|---|
-| D1 | Recorte inicial do M5 (reflexão) | `reflect` 126 / 21 (1º do ranking); `encoding/json` 62 / 12 depende dele | shim `reflect` sobre descritores gerados, começando por `TypeOf`/`ValueOf`/`Kind`/`Elem`/`Type`/`Interface` | `P0-design-m5-reflexao.md` |
+| D1 | Recorte inicial do M5 (reflexão) | `reflect` 124 / 19; `encoding/json` 56 / 11 depende dele | shim `reflect` sobre descritores gerados, começando por `TypeOf`/`ValueOf`/`Kind`/`Elem`/`Type`/`Interface` | `P0-design-m5-reflexao.md` |
 | D3 | `os` acessa o sistema de arquivos real? | `os.*` + `io/fs.*` 24 ocorrências na fronteira (`os.open` sozinho: 22 / 4) | sim: `dart:io` na VM/AOT, `node:fs` no JS/Wasm sob Node, erro `*PathError` no navegador | `P0-design-os-arquivos.md` |
-| D4 | Rede real no `net` | `net` 139 / 20, `net/http` 65 / 13 | mesmo modelo do D3 (`dart:io` / `node:net`), sobre o port que já existe | `P0-shim-net.md` |
-| D5 | Como entra a substituição manual de pacote (`unsafe`, assembly, `go:linkname`) | `unsafe:Pointer` 80 / 11, `conversao:pointer-pointer` 39 / 5, `unsafe:Slice` 30 / 3, 7 pacotes com assembly | substituto Dart escrito à mão por pacote inteiro, registrado como um shim | `P0-design-substituicao.md` |
+| D4 | Rede real no `net` | `net` 140 / 19 (1º do ranking), `net/http` 65 / 13 | mesmo modelo do D3 (`dart:io` / `node:net`), sobre o port que já existe | `P0-shim-net.md` |
+| D5 | Como entra a substituição manual de pacote (`unsafe`, assembly, `go:linkname`) | `unsafe:Pointer` 80 / 11, `conversao:pointer-pointer` 38 / 4, `unsafe:Slice` 30 / 3, 7 pacotes com assembly | substituto Dart escrito à mão por pacote inteiro, registrado como um shim | `P0-design-substituicao.md` |
 | D6 | Reabrir `goto` (hoje ❌ por decisão) | `branch:goto` 28 / 10 (era 14 / 3 quando foi decidido) | implementar no g2d, começando pelos saltos que viram `break`/`continue` rotulados | `P0-design-goto.md` |
 | D8 | Interface satisfeita por tipo de outro pacote | invisível no audit hoje (os pacotes param antes em shim); saída errada em silêncio com `fmt.Stringer` | `implements` sobre o grafo, restrito às conversões que acontecem e a donos fora da stdlib | `P1-design-interfaces-entre-pacotes.md` |
 
@@ -37,9 +38,9 @@ pela cor (`docs/mapping-spec.md` § "I/O que suspende").
 | Artefato | Pacotes / fronteira | Resumo |
 |---|---|---|
 | `P1-construcao-construtor-ambiguo.md` | 7 / 4 | campos `C` e `c` na mesma struct colidem no construtor |
-| `P1-shim-io.md` | 58 ocorrências / 6; e `async:shim-sincrono` 68 / 11 | `LimitReader`, `CopyN`, `Copy`, `MultiWriter`, `SectionReader`... (com versão `$async`: hoje `io.Copy` sobre um Reader que suspende é recusado) |
-| `P1-shim-iter.md` | 19 / 4 (`iter`) e 10 / 3 (`SplitSeq`) | `iter.Seq` e `strings.SplitSeq`/`Lines` (range sobre func já funciona) |
-| `P1-shim-time-layout.md` | 10 / 2 | `time.Format`/`Parse` com layout |
+| `P1-shim-io.md` | `shim-simbolo:io.*` 22 ocorrências / 4; e `async:shim-sincrono` 68 / 10 | `LimitReader`, `CopyN`, `Copy`, `MultiWriter`, `SectionReader`... (com versão `$async`: hoje `io.Copy` sobre um Reader que suspende é recusado) |
+| `P1-shim-iter.md` | 19 / 4 (`iter`) e 10 / 3 (`splitSeq`) | `iter.Seq` e `strings.SplitSeq`/`Lines` (range sobre func já funciona) |
+| `P1-shim-time-layout.md` | 15 / 2 (`Time.format`) e 10 / 2 (`parse`) | `time.Format`/`Parse` com layout |
 
 ### 2b. Saída errada em silêncio (o audit não vê)
 
@@ -64,7 +65,7 @@ no `fmt`) foram resolvidos em 2026-10-03.
 | Artefato | Resumo |
 |---|---|
 | `P1-construcao-generico-metodo-ptr-t.md` | método ou campo `*T` de tipo genérico instanciado com struct (`Box[P].Set(&x)`; `crlib/fifo` no audit) |
-| `P1-construcao-dart-invalido-audit.md` | `pion/transport/deadline`, `x/text/.../compact` e `logtags` com Dart inválido no audit |
+| `P1-construcao-dart-invalido-audit.md` | `pion/transport/deadline` e `x/text/.../compact` com Dart inválido no audit |
 
 ### 2d. P2
 
@@ -74,9 +75,13 @@ no `fmt`) foram resolvidos em 2026-10-03.
 
 Shims sem artefato: a fila é o ranking do `docs/audit.md`. Hoje os que mais
 destravam a fronteira e não dependem de decisão são `hash` (28 / 11),
-`slices` (83 / 10), `encoding/hex` (24 / 10), `net/url` (53 / 9), `runtime`
-(39 / 9), `log` (31 / 8), `encoding/base64` (26 / 8), `math/big` (18 / 7),
-`bufio` (32 / 6) e `crypto/rand` (32 / 6).
+`slices` (84 / 10), `encoding/hex` (24 / 10), `net/url` (53 / 9), `log`
+(31 / 8), `runtime` (40 / 7), `encoding/base64` (26 / 7), `math/big`
+(18 / 7), `bufio` (30 / 5) e `crypto/rand` (30 / 5).
+
+Sem artefato ainda: `async:contexto-sincrono` (33 / 6; ex. `benbjohnson/clock`,
+chamada que suspende onde o contexto precisa ficar síncrono) subiu no ranking
+depois do D2; precisa de prova e artefato antes de entrar na fila.
 
 ## 3. Convenção
 
@@ -131,6 +136,9 @@ Como provar:
 
 Conferido em 2026-10-02 contra o `main` (`git merge-base --is-ancestor`).
 As sessões daqui não apagam branches; o dono apaga pelo GitHub.
+
+- Branches dos PRs #2 a #10, já mesclados no `main` (2026-10-03), podem ser
+  apagadas.
 
 - Já contidas no `main`, podem ser apagadas: `wip-evalorder`,
   `wip-fmt-sharp-v`, `wip-m4a-runtime`, `wip-privacidade-libraries`,

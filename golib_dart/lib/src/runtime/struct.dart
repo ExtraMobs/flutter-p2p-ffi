@@ -122,8 +122,8 @@ abstract interface class GoOpaqueStruct implements GoTyped {
 }
 
 /// `struct{}`: a struct vazia é o mesmo tipo em qualquer pacote Go, então tem
-/// uma classe só no runtime (as outras structs anônimas ainda são uma classe
-/// por library, `TODO/P1-design-anonimas-canonicas.md`). Canais `chan
+/// uma classe só no runtime (as outras viram `Struct$<hash>` em
+/// `out/lib/_anon/`, `docs/mapping-spec.md` § "Tipos"). Canais `chan
 /// struct{}` (ex. `context.Context.Done()`) atravessam pacotes e shims.
 final class EmptyStruct extends GoStruct<EmptyStruct> {
   EmptyStruct();
