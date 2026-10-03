@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 8,
+  "schemaVersion": 9,
   "tool": "goast",
   "goVersion": "go1.26.5",
   "packages": [
@@ -21199,7 +21199,8 @@
               "name": "ch",
               "type": 2,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "main"
             }
           ]
         },
@@ -21316,13 +21317,15 @@
               "name": "ch",
               "type": 19,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "main"
             },
             {
               "name": "done",
               "type": 20,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "main"
             }
           ]
         },
@@ -21363,13 +21366,15 @@
               "name": "data",
               "type": 3,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "main"
             },
             {
               "name": "pos",
               "type": 6,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "main"
             }
           ]
         },
@@ -21421,7 +21426,8 @@
               "name": "tag",
               "type": 10,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "main"
             }
           ]
         },
@@ -21492,7 +21498,8 @@
               "name": "r",
               "type": 29,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "main"
             }
           ]
         },
@@ -21544,19 +21551,22 @@
               "name": "wg",
               "type": 40,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "main"
             },
             {
               "name": "out",
               "type": 56,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "main"
             },
             {
               "name": "mu",
               "type": 57,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "main"
             }
           ]
         },
@@ -21607,19 +21617,22 @@
               "name": "noCopy",
               "type": 42,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "sync"
             },
             {
               "name": "state",
               "type": 44,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "sync"
             },
             {
               "name": "sema",
               "type": 53,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "sync"
             }
           ]
         },
@@ -21724,19 +21737,22 @@
               "name": "_",
               "type": 46,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "sync/atomic"
             },
             {
               "name": "_",
               "type": 47,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "sync/atomic"
             },
             {
               "name": "v",
               "type": 48,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "sync/atomic"
             }
           ]
         },
@@ -21875,13 +21891,15 @@
               "name": "_",
               "type": 42,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "sync"
             },
             {
               "name": "mu",
               "type": 59,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "sync"
             }
           ]
         },
@@ -21940,13 +21958,15 @@
               "name": "state",
               "type": 61,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "internal/sync"
             },
             {
               "name": "sema",
               "type": 53,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "internal/sync"
             }
           ]
         },
@@ -22020,7 +22040,8 @@
               "name": "name",
               "type": 10,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "main"
             }
           ]
         },
@@ -22127,13 +22148,15 @@
               "name": "addr",
               "type": 72,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "strings"
             },
             {
               "name": "buf",
               "type": 3,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "strings"
             }
           ]
         },
@@ -22250,7 +22273,8 @@
               "name": "items",
               "type": 56,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "main"
             }
           ]
         },
@@ -22517,19 +22541,22 @@
               "name": "buf",
               "type": 3,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "bytes"
             },
             {
               "name": "off",
               "type": 6,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "bytes"
             },
             {
               "name": "lastRead",
               "type": 89,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "bytes"
             }
           ]
         },
@@ -22891,7 +22918,8 @@
               "name": "pipe",
               "type": 122,
               "embedded": true,
-              "tag": ""
+              "tag": "",
+              "pkg": "io"
             }
           ]
         },
@@ -22958,43 +22986,50 @@
               "name": "wrMu",
               "type": 57,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "io"
             },
             {
               "name": "wrCh",
               "type": 2,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "io"
             },
             {
               "name": "rdCh",
               "type": 20,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "io"
             },
             {
               "name": "once",
               "type": 124,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "io"
             },
             {
               "name": "done",
               "type": 131,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "io"
             },
             {
               "name": "rerr",
               "type": 132,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "io"
             },
             {
               "name": "werr",
               "type": 132,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "io"
             }
           ]
         },
@@ -23029,19 +23064,22 @@
               "name": "_",
               "type": 42,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "sync"
             },
             {
               "name": "done",
               "type": 126,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "sync"
             },
             {
               "name": "m",
               "type": 57,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "sync"
             }
           ]
         },
@@ -23092,13 +23130,15 @@
               "name": "_",
               "type": 46,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "sync/atomic"
             },
             {
               "name": "v",
               "type": 53,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "sync/atomic"
             }
           ]
         },
@@ -23200,7 +23240,8 @@
               "name": "err",
               "type": 7,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "io"
             }
           ]
         },
@@ -23265,7 +23306,8 @@
               "name": "r",
               "type": 120,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "io"
             }
           ]
         },

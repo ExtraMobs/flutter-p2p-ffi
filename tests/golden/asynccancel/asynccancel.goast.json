@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 8,
+  "schemaVersion": 9,
   "tool": "goast",
   "goVersion": "go1.26.5",
   "packages": [
@@ -11802,7 +11802,8 @@
               "name": "fns",
               "type": 2,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "main"
             }
           ]
         },
@@ -12416,19 +12417,22 @@
               "name": "wall",
               "type": 18,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             },
             {
               "name": "ext",
               "type": 19,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             },
             {
               "name": "loc",
               "type": 20,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             }
           ]
         },
@@ -12507,43 +12511,50 @@
               "name": "name",
               "type": 23,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             },
             {
               "name": "zone",
               "type": 24,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             },
             {
               "name": "tx",
               "type": 28,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             },
             {
               "name": "extend",
               "type": 23,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             },
             {
               "name": "cacheStart",
               "type": 19,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             },
             {
               "name": "cacheEnd",
               "type": 19,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             },
             {
               "name": "cacheZone",
               "type": 32,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             }
           ]
         },
@@ -12569,19 +12580,22 @@
               "name": "name",
               "type": 23,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             },
             {
               "name": "offset",
               "type": 8,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             },
             {
               "name": "isDST",
               "type": 27,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             }
           ]
         },
@@ -12607,25 +12621,29 @@
               "name": "when",
               "type": 19,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             },
             {
               "name": "index",
               "type": 31,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             },
             {
               "name": "isstd",
               "type": 27,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             },
             {
               "name": "isutc",
               "type": 27,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "time"
             }
           ]
         },
@@ -13552,19 +13570,22 @@
               "name": "cancelInner",
               "type": 3,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "main"
             },
             {
               "name": "mu",
               "type": 117,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "main"
             },
             {
               "name": "err",
               "type": 53,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "main"
             }
           ]
         },
@@ -13607,13 +13628,15 @@
               "name": "_",
               "type": 119,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "sync"
             },
             {
               "name": "mu",
               "type": 120,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "sync"
             }
           ]
         },
@@ -13696,13 +13719,15 @@
               "name": "state",
               "type": 94,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "internal/sync"
             },
             {
               "name": "sema",
               "type": 122,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "internal/sync"
             }
           ]
         },
@@ -13744,7 +13769,8 @@
               "name": "run",
               "type": 3,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "main"
             }
           ]
         },
@@ -13779,13 +13805,15 @@
               "name": "items",
               "type": 130,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "main"
             },
             {
               "name": "onEmpty",
               "type": 3,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "main"
             }
           ]
         },
@@ -13873,13 +13901,15 @@
               "name": "items",
               "type": 140,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "main"
             },
             {
               "name": "onEmpty",
               "type": 3,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "main"
             }
           ]
         },
@@ -13944,13 +13974,15 @@
               "name": "items",
               "type": 146,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "main"
             },
             {
               "name": "onEmpty",
               "type": 3,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "main"
             }
           ]
         },
@@ -14010,13 +14042,15 @@
               "name": "items",
               "type": 152,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "main"
             },
             {
               "name": "onEmpty",
               "type": 3,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "main"
             }
           ]
         },

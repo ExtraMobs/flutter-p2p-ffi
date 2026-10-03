@@ -192,7 +192,7 @@ class $_prefixed extends go.GoStruct<$_prefixed> implements io.Reader {
   }
 
   @override
-  List<Object?> get $fields => [reader, _tag];
+  List<Object?> get $fields => [go.dynField(reader), _tag];
 
   @override
   List<String> get $fieldNames => const ['Reader', 'tag'];
@@ -258,7 +258,7 @@ class $_upperReader extends go.GoStruct<$_upperReader> implements io.Reader {
   }
 
   @override
-  List<Object?> get $fields => [_r];
+  List<Object?> get $fields => [go.dynField(_r)];
 
   @override
   List<String> get $fieldNames => const ['r'];

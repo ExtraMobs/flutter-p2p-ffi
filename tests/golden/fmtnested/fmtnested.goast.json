@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 8,
+  "schemaVersion": 9,
   "tool": "goast",
   "goVersion": "go1.26.5",
   "packages": [
@@ -12946,7 +12946,8 @@
               "name": "n",
               "type": 2,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "main"
             }
           ]
         },
@@ -13019,7 +13020,8 @@
               "name": "k",
               "type": 9,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "main"
             },
             {
               "name": "E",
@@ -13112,7 +13114,8 @@
               "name": "msg",
               "type": 4,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "main"
             }
           ]
         },
@@ -13168,7 +13171,8 @@
               "name": "hidden",
               "type": 28,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "main"
             },
             {
               "name": "V",
@@ -13186,7 +13190,8 @@
               "name": "m",
               "type": 29,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "main"
             }
           ]
         },
@@ -13267,7 +13272,8 @@
               "name": "p",
               "type": 5,
               "embedded": false,
-              "tag": ""
+              "tag": "",
+              "pkg": "main"
             }
           ]
         },

@@ -59,7 +59,9 @@ final class Arr extends go.GoArray<Golang.Int> {
   @override
   String get $goType => 'main.Arr';
   @override
-  List<String> get $methods => const [];
+  List<String> get $valueMethods => const [];
+  @override
+  List<String> get $ptrMethods => const [];
 }
 
 final class Name extends Golang.StringBase<Name> {
@@ -77,11 +79,11 @@ final class Name extends Golang.StringBase<Name> {
 
 /// *T instanciado com struct/array: o objeto vira go.Ptr<T> na fronteira.
 void set<T>(go.Elem<T> $T, go.Ptr<T>? p, T v) {
-  p!.value = v;
+  p!.value = $T.copyOf(v);
 }
 
 T get<T>(go.Elem<T> $T, go.Ptr<T>? p) {
-  return p!.value;
+  return $T.copyOf(p!.value);
 }
 
 bool isNil$<T>(go.Elem<T> $T, go.Ptr<T>? p) {
@@ -104,11 +106,11 @@ go.Ptr<T>? new$<T>(go.Elem<T> $T) {
 }
 
 void setVia<T>(go.Elem<T> $T, go.Ptr<T>? p, T v) {
-  set<T>($T, p, v);
+  set<T>($T, p, $T.copyOf(v));
 }
 
 void swap<T>(go.Elem<T> $T, go.Ptr<T>? a, go.Ptr<T>? b) {
-  final $t1 = (b!.value, a!.value);
+  final $t1 = ($T.copyOf(b!.value), $T.copyOf(a!.value));
   a!.value = $t1.$1;
   b!.value = $t1.$2;
 }
@@ -271,14 +273,19 @@ const _$e0 = go.Elem<Golang.Int>(
   ofInt: Golang.Int.from,
   ofFloat: _$f0_1,
 );
-const _$e1 = go.Elem<P>(8, P.new);
+const _$e1 = go.Elem<P>(8, P.new, value: true);
 const _$e2 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
 Arr _$z4_4() => Arr(go.GoArray<Golang.Int>.zero(2, _$e0));
 Arr _$w5_4(Object v) => Arr(v as go.GoArray<Golang.Int>);
-const _$e3 = go.Elem<Arr>(16, _$z4_4, rewrap: _$w5_4);
+const _$e3 = go.Elem<Arr>(16, _$z4_4, value: true, rewrap: _$w5_4);
 const _$e4 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);
 go.GoArray<Golang.String> _$z8_6() => go.GoArray<Golang.String>.zero(2, _$e4);
-const _$e5 = go.Elem<go.GoArray<Golang.String>>(32, _$z8_6, pointers: true);
+const _$e5 = go.Elem<go.GoArray<Golang.String>>(
+  32,
+  _$z8_6,
+  pointers: true,
+  value: true,
+);
 Golang.Float64 _$i10_7(Golang.IntBase n) => (n.$signed
     ? Golang.Float64.fromInt64(Golang.Int64.from(n))
     : Golang.Float64.fromUint64(Golang.Uint64.from(n)));

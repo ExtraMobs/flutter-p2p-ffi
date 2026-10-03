@@ -24,7 +24,9 @@ final class Arr extends go.GoArray<Golang.Int> implements Bumper, Summer {
   @override
   String get $goType => 'main.Arr';
   @override
-  List<String> get $methods => const ['Sum'];
+  List<String> get $valueMethods => const ['Sum'];
+  @override
+  List<String> get $ptrMethods => const ['Bump', 'Sum'];
 
   Golang.Int sum() {
     if ($nilPtr) go.nilDeref();

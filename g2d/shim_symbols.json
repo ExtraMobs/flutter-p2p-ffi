@@ -620,10 +620,14 @@
         "next",
         "peek",
         "read",
+        "read$async",
         "readAt",
+        "readAt$async",
         "readByte",
+        "readByte$async",
         "readBytes",
         "readFrom",
+        "readFrom$async",
         "readRune",
         "readString",
         "reset",
@@ -634,10 +638,14 @@
         "unreadByte",
         "unreadRune",
         "write",
+        "write$async",
         "writeByte",
+        "writeByte$async",
         "writeRune",
         "writeString",
-        "writeTo"
+        "writeString$async",
+        "writeTo",
+        "writeTo$async"
       ],
       "Reader": [
         "$classIs",
@@ -657,15 +665,19 @@
         "hashCode",
         "len",
         "read",
+        "read$async",
         "readAt",
+        "readAt$async",
         "readByte",
+        "readByte$async",
         "readRune",
         "reset",
         "seek",
         "size",
         "unreadByte",
         "unreadRune",
-        "writeTo"
+        "writeTo",
+        "writeTo$async"
       ]
     },
     "context": {
@@ -799,7 +811,8 @@
         "flag",
         "precision",
         "width",
-        "write"
+        "write",
+        "write$async"
       ],
       "Stringer": [
         "string"
@@ -807,61 +820,158 @@
     },
     "io": {
       "ByteReader": [
-        "readByte"
+        "readByte",
+        "readByte$async"
+      ],
+      "ByteReaderSync": [
+        "readByte",
+        "readByte$async"
       ],
       "ByteWriter": [
-        "writeByte"
+        "writeByte",
+        "writeByte$async"
+      ],
+      "ByteWriterSync": [
+        "writeByte",
+        "writeByte$async"
       ],
       "Closer": [
-        "close"
+        "close",
+        "close$async"
+      ],
+      "CloserSync": [
+        "close",
+        "close$async"
+      ],
+      "PipeReader": [
+        "$classIs",
+        "$copy",
+        "$fieldNames",
+        "$fieldTypes",
+        "$fields",
+        "$goType",
+        "$ifaceCopy",
+        "$isValue",
+        "$methods",
+        "$nilPtr",
+        "$ptrMethods",
+        "$set",
+        "$setAny",
+        "$valueMethods",
+        "close",
+        "close$async",
+        "closeWithError",
+        "hashCode",
+        "read",
+        "read$async"
+      ],
+      "PipeWriter": [
+        "$classIs",
+        "$copy",
+        "$fieldNames",
+        "$fieldTypes",
+        "$fields",
+        "$goType",
+        "$ifaceCopy",
+        "$isValue",
+        "$methods",
+        "$nilPtr",
+        "$ptrMethods",
+        "$set",
+        "$setAny",
+        "$valueMethods",
+        "close",
+        "close$async",
+        "closeWithError",
+        "hashCode",
+        "write",
+        "write$async"
       ],
       "ReadCloser": [
         "close",
-        "read"
+        "close$async",
+        "read",
+        "read$async"
       ],
       "ReadSeeker": [
         "read",
+        "read$async",
         "seek"
       ],
       "ReadWriteCloser": [
         "close",
+        "close$async",
         "read",
-        "write"
+        "read$async",
+        "write",
+        "write$async"
       ],
       "ReadWriteSeeker": [
         "read",
+        "read$async",
         "seek",
-        "write"
+        "write",
+        "write$async"
       ],
       "ReadWriter": [
         "read",
-        "write"
+        "read$async",
+        "write",
+        "write$async"
       ],
       "Reader": [
-        "read"
+        "read",
+        "read$async"
       ],
       "ReaderAt": [
-        "readAt"
+        "readAt",
+        "readAt$async"
+      ],
+      "ReaderAtSync": [
+        "readAt",
+        "readAt$async"
+      ],
+      "ReaderSync": [
+        "read",
+        "read$async"
       ],
       "Seeker": [
         "seek"
       ],
       "StringWriter": [
-        "writeString"
+        "writeString",
+        "writeString$async"
+      ],
+      "StringWriterSync": [
+        "writeString",
+        "writeString$async"
       ],
       "WriteCloser": [
         "close",
-        "write"
+        "close$async",
+        "write",
+        "write$async"
       ],
       "WriteSeeker": [
         "seek",
-        "write"
+        "write",
+        "write$async"
       ],
       "Writer": [
-        "write"
+        "write",
+        "write$async"
       ],
       "WriterAt": [
-        "writeAt"
+        "writeAt",
+        "writeAt$async"
+      ],
+      "WriterAtSync": [
+        "writeAt",
+        "writeAt$async"
+      ],
+      "WriterSync": [
+        "write",
+        "write$async"
       ]
     },
     "io/fs": {
@@ -935,11 +1045,14 @@
         "$setAny",
         "$valueMethods",
         "close",
+        "close$async",
         "fd",
         "hashCode",
         "name",
         "write",
-        "writeString"
+        "write$async",
+        "writeString",
+        "writeString$async"
       ]
     },
     "regexp": {
@@ -1023,9 +1136,12 @@
         "reset",
         "string",
         "write",
+        "write$async",
         "writeByte",
+        "writeByte$async",
         "writeRune",
-        "writeString"
+        "writeString",
+        "writeString$async"
       ],
       "Reader": [
         "$classIs",
@@ -1045,15 +1161,19 @@
         "hashCode",
         "len",
         "read",
+        "read$async",
         "readAt",
+        "readAt$async",
         "readByte",
+        "readByte$async",
         "readRune",
         "reset",
         "seek",
         "size",
         "unreadByte",
         "unreadRune",
-        "writeTo"
+        "writeTo",
+        "writeTo$async"
       ],
       "Replacer": [
         "$classIs",
@@ -1072,7 +1192,8 @@
         "$valueMethods",
         "hashCode",
         "replace",
-        "writeString"
+        "writeString",
+        "writeString$async"
       ]
     },
     "sync": {

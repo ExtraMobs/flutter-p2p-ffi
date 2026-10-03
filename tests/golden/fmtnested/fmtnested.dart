@@ -336,6 +336,9 @@ final class Arr extends go.GoArray<Golang.Int> implements fmt.Stringer {
   Arr $copy() => Arr(super.$copy());
 
   @override
+  Arr $ifaceCopy() => $copy()..$isValue = true;
+
+  @override
   String get $goType => 'main.Arr';
   @override
   List<String> get $valueMethods => const [];
@@ -659,6 +662,7 @@ mixin V$Promote {
 /// Métodos de Arr promovidos por embedding (delegação).
 mixin Arr$Promote {
   Arr? get $Arr;
+  Golang.String string() => $Arr!.string();
 }
 
 /// Métodos de N promovidos por embedding (delegação).

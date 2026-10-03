@@ -152,7 +152,7 @@ class $_deadlineCtx extends go.GoStruct<$_deadlineCtx> {
   }
 
   @override
-  List<Object?> get $fields => [_cancelInner, _mu, _err];
+  List<Object?> get $fields => [_cancelInner, _mu, go.dynField(_err)];
 
   @override
   List<String> get $fieldNames => const ['cancelInner', 'mu', 'err'];
@@ -271,7 +271,7 @@ class $_queue<T> extends go.GoStruct<$_queue<T>> {
 
   void _push(T x) {
     final $_queue<T>? q = $nilPtr ? null : this;
-    q!._items = q!._items.append([x]);
+    q!._items = q!._items.append([$T.copyOf(x)]);
   }
 
   Future<void> _drain(void Function(T)? each) async {
@@ -281,7 +281,7 @@ class $_queue<T> extends go.GoStruct<$_queue<T>> {
       for (var $t2 = 0; $t2 < $t1.length; $t2++) {
         T x = $t1[$t2];
         {
-          each!(x);
+          each!($T.copyOf(x));
         }
       }
     }
@@ -293,7 +293,7 @@ class $_queue<T> extends go.GoStruct<$_queue<T>> {
 /// T = func(): o valor é um T opaco dentro do genérico (como no fx).
 Future<void> _runHook<T>(go.Elem<T> $T, T hook) async {
   {
-    final $t2 = hook;
+    final $t2 = $T.ifaceOf(hook);
     if (go.isFuncType<Future<void> Function()?>($t2, 'func()')) {
       final Future<void> Function()? f = go
           .unwrapFunc<Future<void> Function()?>($t2);

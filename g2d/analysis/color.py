@@ -32,6 +32,7 @@ from g2d.engine.behavior import Analysis
 from g2d.model import unparen, walk
 from g2d.services.concurrency import (COLOR_POLYMORPHIC_SHIM, LOCKS, ONCE_DO, SPAWNING_SHIM, SUSPENDING_FUNCS,
                                       SUSPENDING_SHIM, WAITGROUP_GO, Concurrency)
+from g2d.services.dualio import ASYNC_SHIM_TYPES, DUAL_SHIM_CALLS, dual_capable, sync_shim
 
 
 class ColorSummary:

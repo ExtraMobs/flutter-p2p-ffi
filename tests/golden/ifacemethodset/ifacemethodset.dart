@@ -66,6 +66,9 @@ final class A extends go.GoArray<Golang.Int> implements Incer, fmt.Stringer {
   A $copy() => A(super.$copy());
 
   @override
+  A $ifaceCopy() => $copy()..$isValue = true;
+
+  @override
   String get $goType => 'main.A';
   @override
   List<String> get $valueMethods => const [];
@@ -90,6 +93,9 @@ final class B extends go.GoArray<Golang.Int> implements fmt.Stringer {
 
   @override
   B $copy() => B(super.$copy());
+
+  @override
+  B $ifaceCopy() => $copy()..$isValue = true;
 
   @override
   String get $goType => 'main.B';
@@ -240,6 +246,8 @@ mixin P$Promote {
 /// Métodos de A promovidos por embedding (delegação).
 mixin A$Promote {
   A? get $A;
+  void inc() => $A!.inc();
+  Golang.String string() => $A!.string();
 }
 
 /// Métodos de B promovidos por embedding (delegação).
