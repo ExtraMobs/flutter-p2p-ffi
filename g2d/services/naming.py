@@ -35,6 +35,7 @@ DART_BASE_MEMBERS = frozenset("""
 isNil length capacity addr slice append appendSlice copyFrom items elem
 containsKey lookup delete keysSnapshot entries value call
 toInt toBigInt toLittleEndianBytes andNot compareTo from fromBigInt
+toBytes toDouble toInteger
 hashCode runtimeType toString noSuchMethod go
 """.split())
 

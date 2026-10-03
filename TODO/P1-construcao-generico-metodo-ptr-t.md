@@ -49,3 +49,12 @@ $ goast dump . -o dump.json && python -m g2d transpile dump.json -o out && (cd o
   de `genptr.py` vale também para métodos e campos; o que não der vira `Unsupported`
   `generico:ptr-valor`.
 - Repro vira fixture em `tests/golden/`; e2e idêntico em VM × JS × Wasm; `dart analyze --fatal-infos` limpo.
+
+## No grafo real
+
+`github.com/cockroachdb/crlib/fifo` (`Queue[T].PushBack(t T) *T`, instanciado com a struct
+`semaWaiter`) fica `dart-invalido` no `docs/audit.md`:
+
+```text
+error - lib/github.com/cockroachdb/crlib/fifo.dart:364:19 - A value of type 'Ptr<$_semaWaiter>?' can't be assigned to a variable of type '$_semaWaiter?'. - invalid_assignment
+```

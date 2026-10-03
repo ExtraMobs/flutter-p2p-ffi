@@ -1,8 +1,9 @@
 # TODO — backlog do desafio kubo/boxo
 
-Estado em 2026-10-02: **167 de 1112** pacotes do grafo do kubo verdes
-(`docs/audit.md`). A fronteira (pacotes não verdes com as dependências todas
-verdes) tem 183 pacotes. Os números abaixo saem do ranking do audit
+Estado em 2026-10-03: **160 de 1112** pacotes do grafo do kubo verdes
+(`docs/audit.md`; o `main` de 2026-10-02 regerado no mesmo ambiente dá 157, não
+os 167 registrados antes, ver `P1-construcao-dart-invalido-audit.md`). A
+fronteira (pacotes não verdes com as dependências todas verdes) tem 184 pacotes. Os números abaixo saem do ranking do audit
 (pacotes afetados / pacotes na fronteira).
 
 ## 1. Decisões do dono antes de seguir
@@ -63,7 +64,8 @@ porque um pacote "verde" pode estar errado.
 
 | Artefato | Resumo |
 |---|---|
-| `P1-construcao-generico-metodo-ptr-t.md` | método ou campo `*T` de tipo genérico instanciado com struct (`Box[P].Set(&x)`) |
+| `P1-construcao-generico-metodo-ptr-t.md` | método ou campo `*T` de tipo genérico instanciado com struct (`Box[P].Set(&x)`; `crlib/fifo` no audit) |
+| `P1-construcao-dart-invalido-audit.md` | `pion/transport/deadline`, `x/text/.../compact` e `logtags` com Dart inválido no audit |
 
 ### 2d. P2
 

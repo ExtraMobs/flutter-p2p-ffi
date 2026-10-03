@@ -184,7 +184,7 @@ em sequência. O agente principal planeja, integra e faz a verificação final.
 | M3 | semântica avançada: structs por valor, slices, maps, ponteiros, `defer`/`recover`, tipos nomeados, interfaces, embedding, genéricos, arrays | ✅ num pacote; ⚠️ entre pacotes: interfaces (D8) |
 | M4 | concorrência: `Chan<T>`, `select`, `go`, `sync`, timers, `context`, cor `async` transitiva | ✅ runtime e emissão; ⚠️ falta I/O que suspende (D2) e `func()` forçada síncrona (D7) |
 | M5 | reflexão estática + shims da stdlib | shims em andamento; `reflect` ❌ (D1) |
-| M6 | grafo completo do kubo/boxo (cobertura ≥ 95% por etapa) | **167 de 1112** verdes (`docs/audit.md`) |
+| M6 | grafo completo do kubo/boxo (cobertura ≥ 95% por etapa) | **160 de 1112** verdes (`docs/audit.md`) |
 
 As decisões D1–D8 e a fila de trabalho estão em `TODO/README.md`; o que já
 funciona, com os limites ⚠️, em `docs/mapping-spec.md`.
