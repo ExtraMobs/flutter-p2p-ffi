@@ -178,7 +178,10 @@ class Box extends go.GoStruct<Box> {
   argumento, retorno, elemento de literal, `append`, variável de `range`,
   `defer`) passa por `coerce`. Uma struct "não fresca" (variável, campo,
   índice, `*p`) recebe `.$copy()`; literais e resultados de chamada já são
-  valores novos.
+  valores novos. Valor de parâmetro de tipo cuja constraint admite
+  struct/array (`any`, só métodos, `comparable`) copia pelo dicionário,
+  `$T.copyOf(v)`, e entra em interface por `$T.ifaceOf(v)` (fixture
+  `genericcopy`).
 - **Atribuição.** `x = y` sobre uma struct existente vira `x.$set(y)`
   (in-place), então ponteiros para `x`, `x.f` e `s[i]` continuam válidos.
   `*p = v` vira `p!.$set(v)`.
@@ -242,6 +245,9 @@ As chaves usam a igualdade das classes intermediárias: NaN nunca é
 encontrado, +0 ≡ −0, structs comparadas campo a campo. Chave
 ponteiro-para-struct (`map[*T]V`) é o próprio objeto da struct; o map é
 criado com `identity: true` (`Map.identity()`), então compara endereços.
+Chave struct/array é copiada ao ser guardada (`m[k] = v`, `m[k]++`), a
+chave interface passa por `$ifaceCopy` também na leitura, e a variável de
+chave do `range` é uma cópia (fixture `mapkeycopy`).
 
 ## Ponteiros para não-struct (`go.Ptr`)
 
@@ -547,7 +553,7 @@ a cor da chamada, do lado do g2d, nunca um lookup por nome Go em runtime.
 | `a, b := f()` (todas novas) / `a, b = b, a` | `var (a, b) = f();` / `(a, b) = (b, a);` |
 | declaração mista, alvos não-identificador, struct existente, variável em caixa | `final $t = ...; a = $t.$1; ...` (com `$set` para structs) |
 | resultados nomeados + `return` nu | locais inicializados no zero + `return (q, r);`; resultado nomeado que o corpo nunca usa (sem `return` nu nem `defer`) não vira local (o Go aceita; o Dart acusaria local não usada) |
-| `if init; cond`, `for`, `for cond`, `for {}` | `{ init; if }`, `for (...)`, `while (cond)`, `while (true)` |
+| `if init; cond`, `for`, `for cond`, `for {}` | `{ init; if }`, `for (...)`, `while (cond)`, `while (true)`; variável do init em caixa (`&i`) ou struct/array ganha cópia nova antes do post (`i = go.Box(i.value), post`), uma por iteração como no Go 1.22 (fixture `forpervar`) |
 | `range` sobre slice / map / int | índice sobre a referência; `keysSnapshot` + `containsKey`; contador |
 | `range` sobre string | `for (var i = 0, w = 0; i < s.length; i += w)` com `s.decodeRune(i)` (runa, largura), igual ao `utf8.DecodeRune` |
 | `switch` / `switch {}` / type switch | cadeia `if/else` num bloco; `break` sem rótulo que sai do switch → `break $tN;` (bloco rotulado; a pilha de alvos distingue switch de laço) |
@@ -560,7 +566,9 @@ a cor da chamada, do lado do g2d, nunca um lookup por nome Go em runtime.
 | `go`, `select`, `ch <- v`, `<-ch`, range sobre chan | ✅ M4b, com cor transitiva ("Cor transitiva" acima) |
 | `goto` | ❌ exigiria reescrever a função (blocos rotulados ou máquina de estados). Medido no grafo do kubo (`docs/audit.md`, `branch:goto`, 2026-10-02): 74 ocorrências em 28 pacotes, 10 na fronteira; decisão reaberta em `TODO/P0-design-goto.md` |
 
-`defer`: os argumentos (e o receptor) são avaliados no `defer`. As chamadas
+`defer`: os argumentos (e o receptor) são avaliados no `defer`; receptor de
+método de receptor valor é copiado na hora (desreferenciado se `*T`), no
+`defer` e no `go` (fixture `deferrecv`). As chamadas
 rodam em ordem LIFO no `finally`, e um panic num defer substitui o anterior.
 O `finally` devolve os resultados, que os defers podem ter alterado. Os
 erros de runtime do Dart viram os `runtime.Error` do Go com as mesmas
