@@ -17,10 +17,12 @@ transitiva e atravessa pacotes, por isso é calculada em dois passos:
 
 `go f()` não colore quem chama (o `go.spawn` aceita qualquer cor). Um grupo
 com método que o shim chama de forma síncrona (`String`, `Error`, interface
-da stdlib) nunca é `async`: lá dentro o `Lock` fica síncrono e o resto que
-precisaria suspender é recusado na emissão (`async:contexto-sincrono`).
-Valor de função (closure guardada, method value) com cor `async` é
-recusado (`async:valor-func`): chamadas por valor são sempre síncronas.
+da stdlib sem versão dupla) nunca é `async`: lá dentro o `Lock` fica
+síncrono e o resto que precisaria suspender é recusado na emissão
+(`async:contexto-sincrono`). As interfaces de I/O (`io.Reader`...) têm
+versão dupla (D2, `g2d/services/dualio.py`): o grupo delas tem a cor das
+implementações, e as funções do shim que as chamam (`io.ReadAll`) esperam
+pela cor do método no tipo estático do argumento.
 """
 
 import collections
@@ -29,6 +31,7 @@ from g2d.engine.behavior import Analysis
 from g2d.model import unparen, walk
 from g2d.services.concurrency import (LOCKS, ONCE_DO, SPAWNING_SHIM, SUSPENDING_FUNCS, SUSPENDING_SHIM, WAITGROUP_GO,
                                       Concurrency)
+from g2d.services.dualio import ASYNC_SHIM_TYPES, DUAL_SHIM_CALLS, dual_capable, sync_shim
 
 
 class ColorSummary:
@@ -73,7 +76,7 @@ def init_key(pkg):
 def summarize(engine, decls=None):
     """ColorSummary de um pacote (só lê a AST tipada; nada é emitido)."""
     pkg, conc = engine.pkg, engine.services["concurrency"]
-    typesys = engine.services["typesys"]
+    typesys, dualio = engine.services["typesys"], engine.services["dualio"]
     if decls is None:
         decls = [d for f in pkg.files for d in f["ast"]["decls"] or []]
     s = ColorSummary()
@@ -88,7 +91,10 @@ def summarize(engine, decls=None):
             ck = conc.callee_key(n)
             if ck in LOCKS:
                 locks.add(conc.mutex_id(n))
-            if ck in SUSPENDING_SHIM or ck in SUSPENDING_FUNCS or ck == WAITGROUP_GO:
+            if ck in SUSPENDING_SHIM or ck in SUSPENDING_FUNCS or ck == WAITGROUP_GO or sync_shim(ck):
+                continue
+            if ck in DUAL_SHIM_CALLS:  # espera o I/O dos argumentos (D2)
+                out |= {k for k in dualio.call_deps(n) if not sync_shim(k)}
                 continue
             if ck == ONCE_DO:  # espera f
                 ck = conc.once_arg_key(n)
@@ -130,7 +136,8 @@ def summarize(engine, decls=None):
             body(conc.lit_key(n), n["body"])
     value_uses(conc, decls, s)
     for key, cls, _ in s.value_uses:
-        s.edges[cls].add(key)  # a classe é async se uma função async vira valor dela
+        if not sync_shim(key):
+            s.edges[cls].add(key)  # a classe é async se uma função async vira valor dela
     fixed_classes(engine, decls, s)
     for e in pkg.implements:
         t = pkg.type_at(e["type"])
@@ -140,6 +147,12 @@ def summarize(engine, decls=None):
                 if a is not None:
                     s.unions.add((a, b))
     for t in pkg.type_table:
+        # Tipo do shim que suspende (`io.PipeReader`): os métodos dele
+        # suspendem e entram no grupo da interface que o valor pode virar.
+        for m, (ip, iname) in ASYNC_SHIM_TYPES.get((t.get("pkg"), t.get("name")) if t["kind"] == "named" else None, ()):
+            key = ("m", t["pkg"], t["name"], m)
+            s.direct.add(key)
+            s.unions.add((key, ("m", ip, iname, m)))
         if t["kind"] != "named" or typesys.underlying(t)["kind"] != "interface":
             continue
         for e in typesys.underlying(t)["embeddeds"]:
@@ -317,6 +330,58 @@ class ColorTable:
                 break
             mutexes |= more
         self._async, self._forced, self._mutexes = colored, forced, mutexes
+        self._dual = {self.find(k) for k in list(self.parent) if dual_capable(k)}
+        self._twins = self._solve_twins(direct, callers)
+
+    def _solve_twins(self, direct, callers):
+        """Gêmeas síncronas (`f$sync`, D2): uma função é *branda* se é
+        `async` só por esperar I/O de versão dupla (a cor sem os grupos
+        duais não a alcança). Num contexto síncrono (`Error()`, `String()`,
+        `Format`), quem chama uma branda chama a gêmea, que usa as formas
+        síncronas do I/O: um `Writer` que suspende de fato cai no `fatal`
+        `g2d:` do `syncOfAsync`, nunca num resultado errado. Só ganham gêmea
+        as funções e métodos declarados alcançáveis a partir de um contexto
+        síncrono por chamadas a brandas."""
+        colored, dual = self._async, self._dual
+        hard = {g for g in {self.find(k) for k in direct} if g not in self._forced and g not in dual}
+        work = list(hard)
+        while work:
+            g = work.pop()
+            for c in callers[g]:
+                if c not in hard and c in colored and c not in dual:
+                    hard.add(c)
+                    work.append(c)
+        soft = colored - hard - dual
+        self._hard = hard
+
+        def soft_callees(k):
+            return [c for c in self.edges.get(k, ()) if c[0] in ("f", "m") and self.find(c) in soft]
+
+        twins = set()
+        work = [c for k, v in self.edges.items() if self.find(k) not in colored
+                for c in v if c[0] in ("f", "m") and self.find(c) in soft]
+        while work:
+            k = work.pop()
+            if k not in twins:
+                twins.add(k)
+                work += soft_callees(k)
+        return twins
+
+    def suspends_itself(self, key):
+        """A própria declaração suspende (no corpo ou por um callee que
+        suspende de verdade), sem contar a união do grupo: um método dual
+        assim só tem a forma síncrona que cai no `fatal`."""
+        if self._async is None:
+            self.solve()
+        if key in self.direct:
+            return True
+        return any(self.find(c) in self._hard for c in self.edges.get(key, ()))
+
+    def has_twin(self, key):
+        """A função/método tem a gêmea síncrona `$sync` (`_solve_twins`)."""
+        if self._async is None:
+            self.solve()
+        return key in self._twins
 
     def mutex_async(self, mid):
         """O Mutex é disputável (alguma seção crítica dele suspende)."""
@@ -325,10 +390,17 @@ class ColorTable:
         return mid in self._mutexes
 
     def is_async(self, key):
+        """A chamada da chave espera. Tipo concreto do shim nunca suspende
+        (exceto `ASYNC_SHIM_METHODS`), mesmo num grupo `async`."""
         if self._async is None:
             self.solve()
-        return key in self.parent and self.find(key) in self._async
+        return key in self.parent and not sync_shim(key) and self.find(key) in self._async
 
+    def is_dual(self, key):
+        """O grupo da chave tem versão dupla (`m` e `m$async`, D2)."""
+        if self._async is None:
+            self.solve()
+        return self.find(key) in self._dual if key in self.parent else dual_capable(key)
 
     def is_forced(self, key):
         if self._async is None:
@@ -346,7 +418,10 @@ class ColorAnalysis(Analysis):
         self.facts.colors = table
         # Valor func: função async numa classe síncrona é recusada; função
         # síncrona numa classe async é embrulhada (`go.asyncN`, literal `async`).
+        # Método de I/O dual (D2) cuja declaração não suspende por si (ou de
+        # interface): numa classe síncrona vale a forma síncrona.
         self.facts.async_values = {id(n) for key, cls, n in summary.value_uses
-                                   if table.is_async(key) and not table.is_async(cls)}
+                                   if table.is_async(key) and not table.is_async(cls)
+                                   and not (table.is_dual(key) and not table.suspends_itself(key))}
         self.facts.wrap_values = {id(n) for key, cls, n in summary.value_uses
                                   if table.is_async(cls) and not table.is_async(key)}

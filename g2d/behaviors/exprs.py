@@ -21,10 +21,11 @@ class Ident(ExprBehavior):
         if kind == "nil":
             return "null"
         if kind in ("var", "func", "const") and obj.get("top"):
+            twin = "$sync" if n.get("$sync") else ""  # gêmea síncrona (D2)
             if obj["pkg"] != self.pkg.path:
-                return (self.imports.qualify(obj["pkg"], top_member_name(obj["name"], obj.get("fold")))
+                return (self.imports.qualify(obj["pkg"], top_member_name(obj["name"], obj.get("fold")) + twin)
                         + self.names.box_suffix(obj))
-            return self.names.top_name(obj["name"], kind, obj.get("fold")) + self.names.box_suffix(obj)
+            return self.names.top_name(obj["name"], kind, obj.get("fold")) + twin + self.names.box_suffix(obj)
         if kind == "var":
             if self.scope and obj.get("decl") == self.scope.recv:
                 return "this"
@@ -198,29 +199,38 @@ class SelectorExpr(ExprBehavior):
 
     def emit(self, n):
         x, sel = n["x"], n["sel"]["name"]
+        # Forma suspensiva do método/função do shim (`lock$async`, `read$async`).
+        suffix = "$async" if n.get("$async") else ""
         xobj = x.get("$obj") if x["node"] == "Ident" else None
         if xobj and xobj["kind"] == "package":
             obj = n["sel"]["$obj"]
-            name = type_name(sel) if obj["kind"] == "type" else top_member_name(sel, obj.get("fold"))
+            name = type_name(sel) if obj["kind"] == "type" else top_member_name(sel + suffix, obj.get("fold"))
+            name += "$sync" if n.get("$sync") else ""  # gêmea síncrona (D2)
             return self.imports.qualify(xobj["pkg"], name) + self.names.box_suffix(obj), POSTFIX + 1
         info = n.get("$sel")
         if info is None:
             raise Unsupported("seletor", "seletor", n)
         if info["kind"] == "methodExpr":
             return self.method_expr(n, info), 0
+        if (info["kind"] == "method" and not n.get("$called") and not suffix
+                and self.dualio.is_dual(key := self.concurrency.callee_key({"fun": n}))
+                and self.concurrency.is_async(key)
+                and self.concurrency.is_async(self.concurrency.sig_key(self.pkg.type_of(n)))):
+            suffix = "$async"  # method value de I/O dual que suspende (D2)
+        mname = member_name(sel + suffix) + ("$sync" if n.get("$sync") else "")
         t = self.pkg.type_of(x)
         if info["kind"] == "method" and len(info["index"]) == 1 and self.calls.ptr_method_of(t, sel):
             if self.scope and self.scope.recv and x.get("$obj", {}).get("decl") == self.scope.recv:
                 raise Unsupported("metodo-ptr-receptor-valor", "método de receptor ponteiro sobre o receptor valor", n)
             recv = self.expr({"node": "UnaryExpr", "op": "&", "x": x}, POSTFIX)
-            return f"{recv}.{member_name(sel)}", POSTFIX
+            return f"{recv}.{mname}", POSTFIX
         recv = self.expr(x, POSTFIX)
         if (recv != "this" and info["kind"] == "method" and len(info["index"]) == 1
                 and self.typesys.is_struct_pointer(t) and self.calls.ptr_method(t, sel)):
             # Método com receptor ponteiro aceita ponteiro nil: sentinela.
             elem = self.pkg.type_at(t["elem"])
             if not self.typesys.type_args(elem):
-                return f"({recv} ?? {self.types.dart(elem)}.$nil).{member_name(sel)}", POSTFIX
+                return f"({recv} ?? {self.types.dart(elem)}.$nil).{mname}", POSTFIX
         # Ponteiro ou interface nil → panic do Go (via `!`).
         if recv != "this" and (t["kind"] == "pointer" or self.typesys.underlying(t)["kind"] == "interface"
                                or self.functions.pointer_tparam(t)):
@@ -237,7 +247,7 @@ class SelectorExpr(ExprBehavior):
         if info["kind"] == "method" and not n.get("$called") and self.calls.value_method(t, sel):
             # Method value `x.M` (receptor valor): liga uma cópia de x feita agora.
             recv += ".$copy()"
-        return f"{recv}.{member_name(sel)}", POSTFIX
+        return f"{recv}.{mname}", POSTFIX
 
     def method_expr(self, n, info):
         """Method expression `T.M` / `(*T).M`: função com o receptor como
@@ -246,7 +256,9 @@ class SelectorExpr(ExprBehavior):
         ft = self.pkg.type_of(n)
         params = [f"{self.types.dart(self.pkg.type_at(p))} ${i}" for i, p in enumerate(ft["params"])]
         recv = {"node": "G2DTemp", "text": "$0", "$type": info["recv"]}
-        sel = dict(n, x=recv, **{"$sel": dict(info, kind="method"), "$called": True})
+        key = self.concurrency.method_key(info["recv"], n["sel"]["name"])
+        dual = self.dualio.is_dual(key) and self.concurrency.is_async(key)  # `T.Read` que suspende (D2)
+        sel = dict(n, x=recv, **{"$sel": dict(info, kind="method"), "$called": True, "$async": dual})
         args = ", ".join(f"${i}" for i in range(1, len(params)))
         return f"({', '.join(params)}) => {self.expr(sel, POSTFIX)}({args})"
 
@@ -490,15 +502,20 @@ class AsyncCall(ExprBehavior):
     kinds = ("CallExpr",)
 
     def emit(self, n):
-        if n.get("$awaited") or not self.concurrency.awaits(n):
+        if n.get("$awaited"):
             return NOT_HANDLED
+        self.dualio.check_shim_args(n)
+        if not self.concurrency.awaits(n):
+            return NOT_HANDLED
+        if self.scope is not None and not self.scope.async_ctx:
+            sync = self.dualio.sync_form(n)  # contexto síncrono: I/O síncrono (D2)
+            if sync is not None:
+                return self.expr(dict(sync, **{"$awaited": True}), UNARY), POSTFIX
         self.concurrency.require_async(n, "chamada que suspende")
         key = self.concurrency.callee_key(n)
-        fun = unparen(n["fun"])
-        shim = SUSPENDING_SHIM.get(key)
-        if shim or key == ONCE_DO:
-            go_name = fun["sel"]["name"] + "$async"  # member_name: Lock$async → lock$async
-            n = dict(n, fun=dict(fun, sel=dict(fun["sel"], name=go_name)))
+        if SUSPENDING_SHIM.get(key) or key == ONCE_DO:
+            n = dict(n, fun=dict(unparen(n["fun"]), **{"$async": True}))  # `lock$async`
+        n = self.dualio.async_form(n)  # `readAll$async`, `read$async` (D2)
         return f"await {self.expr(dict(n, **{'$awaited': True}), UNARY)}", UNARY
 
 

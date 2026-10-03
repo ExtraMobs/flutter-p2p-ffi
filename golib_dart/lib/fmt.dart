@@ -103,7 +103,14 @@ Golang.String sprintf(Golang.String format, Slice<Object?> a) =>
 }
 
 (Golang.Int, GoError?) _fwrite(io.Writer? w, Uint8List bytes) =>
-    w!.write(Slice.of([for (final b in bytes) Golang.Uint8(b)], _fbyte));
+    w!.write(_fslice(bytes));
+
+/// Versão suspensiva (D2): `w.Write` pode esperar outra goroutine.
+Future<(Golang.Int, GoError?)> _fwrite$async(io.Writer? w, Uint8List bytes) =>
+    w!.write$async(_fslice(bytes));
+
+Slice<Golang.Uint8> _fslice(Uint8List bytes) =>
+    Slice.of([for (final b in bytes) Golang.Uint8(b)], _fbyte);
 
 const _fbyte = Elem<Golang.Uint8>(
   1,
@@ -125,6 +132,25 @@ const _fbyte = Elem<Golang.Uint8>(
   Golang.String format,
   Slice<Object?> a,
 ) => _fwrite(w, _Printer(a.items.toList()).run(format.toBytes()));
+
+/// `fmt.Fprint` suspensivo (o texto é formatado antes da espera).
+Future<(Golang.Int, GoError?)> fprint$async(
+  io.Writer? w,
+  Slice<Object?> args,
+) => _fwrite$async(w, _sprint(args));
+
+/// `fmt.Fprintln` suspensivo.
+Future<(Golang.Int, GoError?)> fprintln$async(
+  io.Writer? w,
+  Slice<Object?> args,
+) => _fwrite$async(w, _sprintln(args));
+
+/// `fmt.Fprintf` suspensivo.
+Future<(Golang.Int, GoError?)> fprintf$async(
+  io.Writer? w,
+  Golang.String format,
+  Slice<Object?> a,
+) => _fwrite$async(w, _Printer(a.items.toList()).run(format.toBytes()));
 
 /// `fmt.Errorf`: sem `%w`, `*errors.errorString`; com um, `*fmt.wrapError`
 /// (Unwrap devolve o operando); com vários, `*fmt.wrapErrors`.

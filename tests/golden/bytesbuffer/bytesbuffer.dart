@@ -64,6 +64,10 @@ class $_chunks extends go.GoStruct<$_chunks> implements io.Reader {
     c!._data = c!._data.slice(n.toIndex());
     return (n, null);
   }
+
+  Future<(Golang.Int, go.GoError?)> read$async(
+    go.Slice<Golang.Uint8> p0,
+  ) async => read(p0);
 }
 
 class $_sink extends go.GoStruct<$_sink> implements io.Writer {
@@ -104,6 +108,10 @@ class $_sink extends go.GoStruct<$_sink> implements io.Writer {
     s!._got = s!._got.append([go.stringOfByteSlice(p)]);
     return (Golang.Int(p.length), null);
   }
+
+  Future<(Golang.Int, go.GoError?)> write$async(
+    go.Slice<Golang.Uint8> p0,
+  ) async => write(p0);
 }
 
 void main() {
@@ -237,6 +245,8 @@ mixin $_chunks$Promote {
   $_chunks? get $$_chunks;
   (Golang.Int, go.GoError?) read(go.Slice<Golang.Uint8> p0) =>
       $$_chunks!.read(p0);
+  Future<(Golang.Int, go.GoError?)> read$async(go.Slice<Golang.Uint8> p0) =>
+      $$_chunks!.read$async(p0);
 }
 
 /// Métodos de sink promovidos por embedding (delegação).
@@ -244,6 +254,8 @@ mixin $_sink$Promote {
   $_sink? get $$_sink;
   (Golang.Int, go.GoError?) write(go.Slice<Golang.Uint8> p0) =>
       $$_sink!.write(p0);
+  Future<(Golang.Int, go.GoError?)> write$async(go.Slice<Golang.Uint8> p0) =>
+      $$_sink!.write$async(p0);
 }
 
 // Descritores de tipo (go.Elem) usados por slices, maps e ponteiros.
