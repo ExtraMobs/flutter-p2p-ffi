@@ -57,7 +57,7 @@ class KeyValue extends go.GoStruct<KeyValue> {
   }
 
   @override
-  List<Object?> get $fields => [key, type, value$];
+  List<Object?> get $fields => [key, type, go.dynField(value$)];
 
   @override
   List<String> get $fieldNames => const ['Key', 'Type', 'Value'];

@@ -214,7 +214,7 @@ class StructClass(TypeDeclBehavior):
             else:
                 copies.append(f"{pname}: {fname}")
                 sets.append(f"{fname} = o.{fname};")
-                values.append(f"{self.imports.qualify(None, 'Addr')}({fname})" if self.typesys.is_struct_pointer(ft) else fname)
+                values.append(self.field_value(ft, fname))
         # Struct genérica: os dicionários vêm primeiro, posicionais.
         dict_params = [f"this.${n}" for n in tnames]
         named = f"{{{', '.join(params)}}}" if params else ""
@@ -262,6 +262,19 @@ class StructClass(TypeDeclBehavior):
         for m in self.facts.methods.get(go_name, []):
             lines += [""] + self.functions.func_decl(m)
         return lines + ["}"]
+
+    def field_value(self, ft, fname):
+        """Campo em `$fields`: ponteiro para struct/array como `go.Addr`
+        (identidade); interface e parâmetro de tipo por `go.dynField`, que
+        embrulha o ponteiro que estiver guardado (o objeto Dart é o mesmo
+        para T e *T)."""
+        if self.typesys.is_struct_pointer(ft):
+            return f"{self.imports.qualify(None, 'Addr')}({fname})"
+        if ft["kind"] == "typeparam":
+            return f"{self.imports.qualify(None, 'dynField')}({fname}, {self.descriptors.elem(ft)})"
+        if self.typesys.underlying(ft)["kind"] == "interface":
+            return f"{self.imports.qualify(None, 'dynField')}({fname})"
+        return fname
 
     def field_types(self, st):
         """`$fieldTypes` (nomes Go dos tipos dos campos, para `%#v`), só se
@@ -417,13 +430,15 @@ class NamedCompositeClass(NonStructNamed):
         ms = self.facts.methods.get(name, [])
         impl = self.goinfo.implements_clause(tidx)
         vm = ", ".join(f"'{n}'" for n in self.goinfo.method_names(t, True))
+        pm = ", ".join(f"'{n}'" for n in self.goinfo.method_names(t, False))
         lines = [f"final class {cls} extends {ud}" + (" implements " + ", ".join(impl) if impl else "") + " {",
                  f"{cls}({ud} v) : super.alias(v);", "",
                  "/// `(*T)(nil)` dentro de uma interface (não é nil no Go).",
                  f"static final {cls} $nil = {cls}({self.types.zero(u)})..$nilPtr = true;", "",
                  "@override", f"{cls} $copy() => {cls}(super.$copy());", "",
                  "@override", f"String get $goType => '{self.goinfo.go_type_name(t)}';",
-                 "@override", f"List<String> get $methods => const [{vm}];"]
+                 "@override", f"List<String> get $valueMethods => const [{vm}];",
+                 "@override", f"List<String> get $ptrMethods => const [{pm}];"]
         for m in ms:
             lines += [""] + self.functions.func_decl(m)
         return lines + ["}"]

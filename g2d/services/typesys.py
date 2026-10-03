@@ -151,6 +151,21 @@ class TypeSystem(Service):
         é o endereço; atribuir copia; `x = y` é in-place (go.GoValue)."""
         return t is not None and (self.is_struct(t) or self.underlying(t)["kind"] == "array")
 
+    def may_hold_value(self, t):
+        """Parâmetro de tipo que pode ser instanciado com struct/array (a
+        constraint não restringe a termos sem valor: `any`, só métodos,
+        `comparable`, ou algum termo struct/array)."""
+        if t is None or t["kind"] != "typeparam" or self.is_value(t):
+            return False
+        c = self.pkg.type_at(t["constraint"])
+        while c["kind"] == "named":
+            c = self.pkg.type_at(c["underlying"])
+        if c["kind"] != "interface":
+            return False
+        terms = self.constraint_terms(c)
+        return not terms or any(self.may_hold_value(x) if x["kind"] == "typeparam" else self.is_value(x)
+                                for x in terms)
+
     def named_composite(self, t):
         """Tipo nomeado (de pacote transpilado) sobre slice/map/func/array:
         classe gerada — subclasse de go.Slice/go.GoMap/go.GoArray, ou função

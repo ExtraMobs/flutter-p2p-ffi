@@ -37,7 +37,7 @@ Legenda: ✅ fiel · ⚠️ fiel no caso comum, com limite conhecido · ❌ não
 | ponteiro para não-struct (`&x`, `&s[i]`, `&o.f`, `new`) | `go.Ptr<T>`: `go.Box`, `go.ElemPtr`, `go.FieldPtr` | M3 | ✅ |
 | slice (aliasing, cap, `append`, nil) | `go.Slice<T>` | M3 | ✅ |
 | map (nil, zero value, comma-ok, delete no range) | `go.GoMap<K, V>` | M3 | ✅ |
-| descritor de tipo (tamanho, ponteiros, zero) | `go.Elem<T>` (`const`, um por tipo) | M3/M5 | ✅ (base da reflexão) |
+| descritor de tipo (tamanho, ponteiros, zero, por valor) | `go.Elem<T>` (`const`, um por tipo; `value: true` em struct/array por valor: só esses o `copyOf` copia e o `storeAt` sobrescreve in-place, ponteiro e interface copiam a referência; fixture `ptrelems`) | M3/M5 | ✅ (base da reflexão) |
 | `defer` / `recover` / `panic` / erros de runtime | `go.Defers`, `go.Panic`, `go.RuntimeError`, `go.runMain` | M3 | ✅ |
 | saída padrão em bytes | `writeStdout` (import condicional io/web) | M2 | ✅ |
 | identidade de tipo em runtime (`int` × `int64` × nomeado) | uma classe Dart por tipo Go (`Golang.Int` ≠ `Golang.Int64`) + `GoTyped` (`$goType`, `$methods`) | M3 | ✅ |
@@ -178,7 +178,10 @@ class Box extends go.GoStruct<Box> {
   argumento, retorno, elemento de literal, `append`, variável de `range`,
   `defer`) passa por `coerce`. Uma struct "não fresca" (variável, campo,
   índice, `*p`) recebe `.$copy()`; literais e resultados de chamada já são
-  valores novos.
+  valores novos. Valor de parâmetro de tipo cuja constraint admite
+  struct/array (`any`, só métodos, `comparable`) copia pelo dicionário,
+  `$T.copyOf(v)`, e entra em interface por `$T.ifaceOf(v)` (fixture
+  `genericcopy`).
 - **Atribuição.** `x = y` sobre uma struct existente vira `x.$set(y)`
   (in-place), então ponteiros para `x`, `x.f` e `s[i]` continuam válidos.
   `*p = v` vira `p!.$set(v)`.
@@ -242,6 +245,9 @@ As chaves usam a igualdade das classes intermediárias: NaN nunca é
 encontrado, +0 ≡ −0, structs comparadas campo a campo. Chave
 ponteiro-para-struct (`map[*T]V`) é o próprio objeto da struct; o map é
 criado com `identity: true` (`Map.identity()`), então compara endereços.
+Chave struct/array é copiada ao ser guardada (`m[k] = v`, `m[k]++`), a
+chave interface passa por `$ifaceCopy` também na leitura, e a variável de
+chave do `range` é uma cópia (fixture `mapkeycopy`).
 
 ## Ponteiros para não-struct (`go.Ptr`)
 
@@ -641,7 +647,7 @@ a cor da chamada, do lado do g2d, nunca um lookup por nome Go em runtime.
 | `a, b := f()` (todas novas) / `a, b = b, a` | `var (a, b) = f();` / `(a, b) = (b, a);` |
 | declaração mista, alvos não-identificador, struct existente, variável em caixa | `final $t = ...; a = $t.$1; ...` (com `$set` para structs) |
 | resultados nomeados + `return` nu | locais inicializados no zero + `return (q, r);`; resultado nomeado que o corpo nunca usa (sem `return` nu nem `defer`) não vira local (o Go aceita; o Dart acusaria local não usada) |
-| `if init; cond`, `for`, `for cond`, `for {}` | `{ init; if }`, `for (...)`, `while (cond)`, `while (true)` |
+| `if init; cond`, `for`, `for cond`, `for {}` | `{ init; if }`, `for (...)`, `while (cond)`, `while (true)`; variável do init em caixa (`&i`) ou struct/array ganha cópia nova antes do post (`i = go.Box(i.value), post`), uma por iteração como no Go 1.22 (fixture `forpervar`) |
 | `range` sobre slice / map / int | índice sobre a referência; `keysSnapshot` + `containsKey`; contador |
 | `range` sobre string | `for (var i = 0, w = 0; i < s.length; i += w)` com `s.decodeRune(i)` (runa, largura), igual ao `utf8.DecodeRune` |
 | `switch` / `switch {}` / type switch | cadeia `if/else` num bloco; `break` sem rótulo que sai do switch → `break $tN;` (bloco rotulado; a pilha de alvos distingue switch de laço) |
@@ -654,7 +660,9 @@ a cor da chamada, do lado do g2d, nunca um lookup por nome Go em runtime.
 | `go`, `select`, `ch <- v`, `<-ch`, range sobre chan | ✅ M4b, com cor transitiva ("Cor transitiva" acima) |
 | `goto` | ❌ exigiria reescrever a função (blocos rotulados ou máquina de estados). Medido no grafo do kubo (`docs/audit.md`, `branch:goto`, 2026-10-02): 74 ocorrências em 28 pacotes, 10 na fronteira; decisão reaberta em `TODO/P0-design-goto.md` |
 
-`defer`: os argumentos (e o receptor) são avaliados no `defer`. As chamadas
+`defer`: os argumentos (e o receptor) são avaliados no `defer`; receptor de
+método de receptor valor é copiado na hora (desreferenciado se `*T`), no
+`defer` e no `go` (fixture `deferrecv`). As chamadas
 rodam em ordem LIFO no `finally`, e um panic num defer substitui o anterior.
 O `finally` devolve os resultados, que os defers podem ter alterado. Os
 erros de runtime do Dart viram os `runtime.Error` do Go com as mesmas
@@ -680,7 +688,7 @@ intervalo, nil pointer, escrita em map nil.
 | `fmt.Println` | `fmt.println(go.Slice<Object?>)` → `(Golang.Int, GoError?)`, com os bytes exatos |
 | `fmt.Print` | `fmt.print(go.Slice<Object?>)` → `(Golang.Int, GoError?)` (espaçamento do `Sprint`) |
 | `fmt.Sprint` | `fmt.sprint(go.Slice<Object?>)` → `Golang.String` |
-| `Error()`/`String()` no fmt | só se o método está no method set do valor impresso: struct por valor na interface (ou campo aninhado) usa os de receptor valor (`String()` de `*T` não vale para `T`; fixture `fmtmethodset`) |
+| `Error()`/`String()` no fmt | regras do `handleMethods`/`printValue` do Go: só se o método está no method set do operando — struct/array por valor (na interface, em campo ou elemento) usa os de receptor valor, `*T` aninhado (elemento `[]*T`, valor de map, campo `*T`, ponteiro guardado em campo interface/parâmetro de tipo via `go.dynField`) usa os de `*T` (fixtures `fmtmethodset`, `fmtnested`); campo não exportado não chama método em nenhuma profundidade; panic dentro do método (inclusive no `Println`/`Sprint`) vira `%!v(PANIC=String method: ...)`, e com receptor ponteiro nil (inclusive nil deref do Dart dentro do método) vira `<nil>`; oráculo em `golib_dart/test/fmt_methods_test.dart`. ⚠️ chave `*T` em `map[any]V` é tratada como valor |
 | `fmt.Sprintln` | `fmt.sprintln(go.Slice<Object?>)` → `Golang.String` (mesmo formato do `Println`) |
 | `fmt.Formatter`, `fmt.State` | interfaces de shim; o printer implementa `State` (`Write`, `Width`, `Precision`, `Flag`) e chama `format(state, verb)` antes de `Error`/`String`, para todo verbo menos `%T`/`%p`, com receptor nil e `%!v(PANIC=Format method: ...)` como o Go (fixture `fmtformatter`) |
 | `%v` | `<nil>`; wrappers pelo `toString` (floats = `FormatFloat 'g'`); structs `{a b}`; `&{...}`; slices `[a b]`; maps `map[k:v]` com as chaves na ordem do `internal/fmtsort` (nil primeiro, números, strings, bool, complex, structs e arrays campo a campo); ⚠️ ponteiros ficam na ordem de inserção e chaves interface de tipos diferentes vão pelo nome do tipo, porque o Go ordena ambos por endereço de memória (para tipos, o layout de símbolos do linker, que muda com os pacotes linkados; medido no gc 1.25, não há regra reproduzível); ponteiros aninhados como endereço |
@@ -734,7 +742,14 @@ métodos da classe. As conversões usam os construtores:
   de falha são as do Go (`interface conversion: main.Point is not main.Shape:
   missing method Area`).
 - Comma-ok → `go.tryType`/`go.tryIface`. Type switch → cadeia de
-  `go.isType`/`is`, com a variável ligada por case.
+  `go.isType`/`go.isIface`/`is`, com a variável ligada por case.
+- A classe Dart de uma struct/array é a mesma para `T` e `*T` e declara as
+  interfaces dos dois; por isso o teste de interface com métodos
+  (`assertIface`, `tryIface`, `isIface`) recebe o method set da interface e,
+  para um valor guardado por valor (`$isValue`), confere o method set de `T`
+  (`$valueMethods`, em `go.GoValue`; array nomeado também gera
+  `$valueMethods`/`$ptrMethods`): `P{}` não satisfaz `Incer` com `Inc` em
+  `*P`. O `fmt` segue a mesma regra. Fixture `ifacemethodset`.
 - `==` entre interfaces → `go.ifaceEq` (identidade para ponteiros).
 - `fmt` usa `error` e depois `Stringer` antes da forma estrutural.
 - **Ponteiro nil tipado.** Cada struct tem a sentinela

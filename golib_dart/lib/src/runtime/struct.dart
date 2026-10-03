@@ -2,6 +2,7 @@
 library;
 
 import '../../fixed_types/golang.dart' show GoTyped;
+import 'elem.dart';
 
 /// Valor Go que ocupa armazenamento próprio (struct, array): o objeto é o
 /// próprio endereço, atribuir/passar copia ([$copy]) e `x = y` sobrescreve
@@ -15,6 +16,16 @@ abstract class GoValue<T extends GoValue<T>> implements GoTyped {
   /// `true` só na sentinela `T.$nil`: o ponteiro nil tipado `(*T)(nil)`
   /// guardado numa interface (que, no Go, não é nil). Nunca é mutada.
   bool $nilPtr = false;
+
+  /// Method set de T (valor) e de *T (nomes Go ordenados). No Dart a
+  /// classe é a mesma para T e *T (e declara as interfaces dos dois), então
+  /// quem testa uma interface sobre um valor ([$isValue]) confere também
+  /// [$methods] (`go.isIface`).
+  List<String> get $valueMethods => const [];
+  List<String> get $ptrMethods => const [];
+
+  @override
+  List<String> get $methods => $isValue ? $valueMethods : $ptrMethods;
 
   /// Cópia de valor (aninhados copiados; ponteiros, slices, maps
   /// compartilhados, como no Go).
@@ -38,13 +49,6 @@ abstract class GoValue<T extends GoValue<T>> implements GoTyped {
 /// `==` compara campo a campo sobre [$fields] (campos ponteiro vêm como
 /// [Addr], comparados por identidade).
 abstract class GoStruct<T extends GoStruct<T>> extends GoValue<T> {
-  /// Method set de T (valor) e de *T; ver [$methods].
-  List<String> get $valueMethods => const [];
-  List<String> get $ptrMethods => const [];
-
-  @override
-  List<String> get $methods => $isValue ? $valueMethods : $ptrMethods;
-
   /// Campos em ordem de declaração (ponteiros embrulhados em [Addr]).
   List<Object?> get $fields;
 
@@ -89,6 +93,16 @@ final class Addr {
   @override
   int get hashCode => identityHashCode(target);
 }
+
+/// Campo de tipo interface ou parâmetro de tipo em [GoStruct.$fields]: um
+/// ponteiro para struct/array guardado nele sai como [Addr], igual a um
+/// campo `*T` (`==` por identidade; o fmt vê `*T`, não `T`). Valor por valor
+/// numa interface (`$isValue`), sentinela nil e, com o dicionário [elem] de
+/// um parâmetro de tipo, T struct/array por valor ficam como estão.
+Object? dynField(Object? v, [Elem<Object?>? elem]) =>
+    v is GoValue && !v.$isValue && !v.$nilPtr && !(elem?.value ?? false)
+    ? Addr(v)
+    : v;
 
 /// Structs do runtime que não são [GoStruct] (os erros concretos de
 /// `errors`/`fmt`, comparados por identidade como o ponteiro do Go), mas

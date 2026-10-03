@@ -53,6 +53,15 @@ class Calls(Service):
             t = self.pkg.type_at(t["elem"])
         return self.typesys.is_value(t) and any(m["name"] == name and not m["ptr"] for m in t.get("methods") or [])
 
+    def value_method_path(self, t, index, name):
+        """Como [value_method], seguindo o caminho de embedding `index` (do
+        `$sel`) a partir de t até o tipo que declara o método."""
+        for fi in index[:-1]:
+            if t["kind"] == "pointer":
+                t = self.pkg.type_at(t["elem"])
+            t = self.pkg.type_at(self.typesys.underlying(t)["fields"][fi]["type"])
+        return self.value_method(t, name)
+
     def ptr_method_of(self, t, name):
         """`name` é método de receptor ponteiro de N (não-struct, valor
         endereçável t = N)? A chamada `x.M()` usa `&x` (N$Ptr)."""

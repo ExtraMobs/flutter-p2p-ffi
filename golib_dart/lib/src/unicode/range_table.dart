@@ -1,7 +1,7 @@
 part of '../../unicode.dart';
 
-const _range16Elem = Elem<Range16>(6, Range16.new);
-const _range32Elem = Elem<Range32>(12, Range32.new);
+const _range16Elem = Elem<Range16>(6, Range16.new, value: true);
+const _range32Elem = Elem<Range32>(12, Range32.new, value: true);
 
 Slice<Range16> _nilR16() => Slice.nil(_range16Elem);
 Slice<Range32> _nilR32() => Slice.nil(_range32Elem);
@@ -245,7 +245,7 @@ final class CaseRange extends GoStruct<CaseRange> {
   List<String> get $fieldNames => const ['Lo', 'Hi', 'Delta'];
 }
 
-const _caseRangeElem = Elem<CaseRange>(20, CaseRange.new);
+const _caseRangeElem = Elem<CaseRange>(20, CaseRange.new, value: true);
 
 /// Índices em `Delta` (`unicode.UpperCase`/`LowerCase`/`TitleCase`).
 const upperCase = 0;

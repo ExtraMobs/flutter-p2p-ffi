@@ -44,21 +44,17 @@ pela cor (`docs/mapping-spec.md` § "I/O que suspende").
 
 Achados da revisão diferencial de 2026-10-02 (programa Go × Dart gerado, VM e
 JS): o g2d gera Dart válido que imprime outra coisa. São os mais perigosos,
-porque um pacote "verde" pode estar errado.
+porque um pacote "verde" pode estar errado. Os sete primeiros (cópia de
+ponteiro em `append`/`copy`, chave de map, `T` em genéricos, receptor no
+`defer`/`go`, `for` por iteração, method set de `*T`, `String()` aninhado
+no `fmt`) foram resolvidos em 2026-10-03.
 
 | Artefato | Resumo |
 |---|---|
-| `P1-runtime-copyof-ponteiro.md` | `append`/`copy`/cópia de array de `[]*T` duplicam os objetos apontados |
-| `P1-construcao-chave-de-map-sem-copia.md` | chave struct/array guardada por referência; mudar a variável perde a entrada |
-| `P1-construcao-generico-sem-copia.md` | valor de tipo `T` não é copiado dentro de genérico |
-| `P1-construcao-defer-go-receptor-valor.md` | `defer x.M()` vê mudanças feitas depois do `defer` |
-| `P1-construcao-for-variavel-por-iteracao.md` | `for i := ...` com `&i` ou struct compartilha a variável (Go ≥ 1.22 não) |
 | `P1-construcao-ordem-avaliacao.md` | `x + f()`, `x += f()`, `a[i] = f()`, literais e atribuição múltipla leem fora da ordem do gc |
 | `P1-construcao-incdec-impuro.md` | `m[f()]++` chama `f` duas vezes |
-| `P1-runtime-method-set-ponteiro.md` | `T` em interface satisfaz interface que exige método de `*T` |
 | `P1-construcao-assert-nomeado.md` | `x.([]int)` aceita `type IntList []int` |
 | `P1-runtime-comparacao-incomparavel.md` | `==` de interface com slice dentro não dá panic |
-| `P1-shim-fmt-metodos-aninhados.md` | `fmt` não chama `String()` de `*T` aninhado, chama em campo não exportado, quebra com panic/nil no método |
 | `P1-shim-fmt-formatos.md` | `Sprint` com string nomeada, nil aninhado com `%d`, `&slice`, `[]Code` com `%s` |
 | `P1-design-interfaces-entre-pacotes.md` | (D8) inclui tipo de shim em interface local: `err.(interface{ Unwrap() error })` falha |
 

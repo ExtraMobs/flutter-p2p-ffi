@@ -35,7 +35,7 @@ class Pair<K, V> extends go.GoStruct<Pair<K, V>> {
   }
 
   @override
-  List<Object?> get $fields => [k, v];
+  List<Object?> get $fields => [go.dynField(k, $K), go.dynField(v, $V)];
 
   @override
   List<String> get $fieldNames => const ['K', 'V'];
@@ -45,7 +45,7 @@ class Pair<K, V> extends go.GoStruct<Pair<K, V>> {
 }
 
 Pair<K, V>? new$<K, V>(go.Elem<K> $K, go.Elem<V> $V, K k, V v) {
-  return Pair<K, V>($K, $V, k: k, v: v);
+  return Pair<K, V>($K, $V, k: $K.copyOf(k), v: $V.copyOf(v));
 }
 
 bool _$inited = false;

@@ -291,6 +291,6 @@ const _$e1 = go.Elem<Golang.Int>(
   ofFloat: _$f1_2,
 );
 const _$e2 = go.Elem<Object?>(16, go.zeroNull, pointers: true);
-const _$e3 = go.Elem<Counter>(32, Counter.new, pointers: true);
+const _$e3 = go.Elem<Counter>(32, Counter.new, pointers: true, value: true);
 go.Slice<Golang.String> _$z5_5() => go.Slice<Golang.String>.nil(_$e0);
 const _$e4 = go.Elem<go.Slice<Golang.String>>(24, _$z5_5, pointers: true);

@@ -9,7 +9,7 @@ import 'package:golib_dart/fmt.dart' as fmt;
 import 'package:golib_dart/builtin.dart' as go;
 
 Object? wrap<T>(go.Elem<T> $T, T v) {
-  return $_wrap$box<T>($T, v: v).$ifaceCopy();
+  return $_wrap$box<T>($T, v: $T.copyOf(v)).$ifaceCopy();
 }
 
 go.Slice<Object?> pairs<K, V>(
@@ -26,6 +26,7 @@ go.Slice<Object?> pairs<K, V>(
         8,
         () => $_pairs$pair<K, V>($K, $V),
         pointers: true,
+        value: true,
       ),
     ),
   );
@@ -37,7 +38,9 @@ go.Slice<Object?> pairs<K, V>(
         out = $_pairs$list<K, V>(
           $K,
           $V,
-          out.append([$_pairs$pair<K, V>($K, $V, k: k, v: m[k])]),
+          out.append([
+            $_pairs$pair<K, V>($K, $V, k: $K.copyOf(k), v: $V.copyOf(m[k])),
+          ]),
         );
       }
     }
@@ -118,7 +121,7 @@ class $_wrap$box<T> extends go.GoStruct<$_wrap$box<T>> {
   }
 
   @override
-  List<Object?> get $fields => [_v];
+  List<Object?> get $fields => [go.dynField(_v, $T)];
 
   @override
   List<String> get $fieldNames => const ['v'];
@@ -154,7 +157,7 @@ class $_pairs$pair<K, V> extends go.GoStruct<$_pairs$pair<K, V>> {
   }
 
   @override
-  List<Object?> get $fields => [k, v];
+  List<Object?> get $fields => [go.dynField(k, $K), go.dynField(v, $V)];
 
   @override
   List<String> get $fieldNames => const ['K', 'V'];

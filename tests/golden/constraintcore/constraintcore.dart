@@ -35,7 +35,7 @@ bool contains<S extends go.Slice<E>, E>(
   S s,
   E v,
 ) {
-  return index<S, E>($S, $E, s, v) >= Golang.Int(0);
+  return index<S, E>($S, $E, s, $E.copyOf(v)) >= Golang.Int(0);
 }
 
 bool equal<S extends go.Slice<E>, E>(go.Elem<S> $S, go.Elem<E> $E, S s1, S s2) {
@@ -97,7 +97,7 @@ void reverse<S extends go.Slice<E>, E>(go.Elem<S> $S, go.Elem<E> $E, S s) {
     i < j;
     (i, j) = (i + Golang.Int(1), j - Golang.Int(1))
   ) {
-    final $t1 = (s[j.toIndex()], s[i.toIndex()]);
+    final $t1 = ($E.copyOf(s[j.toIndex()]), $E.copyOf(s[i.toIndex()]));
     s[i.toIndex()] = $t1.$1;
     s[j.toIndex()] = $t1.$2;
   }

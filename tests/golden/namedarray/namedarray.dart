@@ -21,7 +21,9 @@ final class Hash extends go.GoArray<Golang.Uint8> {
   @override
   String get $goType => 'main.Hash';
   @override
-  List<String> get $methods => const ['Hex'];
+  List<String> get $valueMethods => const ['Hex'];
+  @override
+  List<String> get $ptrMethods => const ['Hex', 'Reset', 'Set'];
 
   Golang.String hex() {
     if ($nilPtr) go.nilDeref();
@@ -65,7 +67,9 @@ final class DoNotCompare extends go.GoArray<void Function()?> {
   @override
   String get $goType => 'main.DoNotCompare';
   @override
-  List<String> get $methods => const [];
+  List<String> get $valueMethods => const [];
+  @override
+  List<String> get $ptrMethods => const [];
 }
 
 class Msg extends go.GoStruct<Msg> {
@@ -127,7 +131,9 @@ final class Grid extends go.GoArray<go.GoArray<Golang.Int>> {
   @override
   String get $goType => 'main.Grid';
   @override
-  List<String> get $methods => const [];
+  List<String> get $valueMethods => const [];
+  @override
+  List<String> get $ptrMethods => const [];
 }
 
 void main() {
@@ -250,5 +256,5 @@ const _$e4 = go.Elem<Golang.Int>(
   ofFloat: _$f4_5,
 );
 go.GoArray<Golang.Int> _$z4_4() => go.GoArray<Golang.Int>.zero(2, _$e4);
-const _$e3 = go.Elem<go.GoArray<Golang.Int>>(16, _$z4_4);
+const _$e3 = go.Elem<go.GoArray<Golang.Int>>(16, _$z4_4, value: true);
 const _$e5 = go.Elem<Golang.String>(16, Golang.String.new, pointers: true);

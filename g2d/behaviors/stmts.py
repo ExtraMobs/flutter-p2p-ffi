@@ -206,11 +206,32 @@ class ForStmt(StmtBehavior):
     def emit(self, s):
         init = self.simple(s["init"])  # antes da condição: declara a variável
         cond = self.operands.cond(s["cond"]) if s["cond"] else ""
-        post = self.simple(s["post"])
+        renew = self.renew(s["init"])
+        if renew and init.startswith("final "):
+            init = init[len("final "):]  # a caixa é trocada a cada iteração
+        post = ", ".join(renew + ([self.simple(s["post"])] if s["post"] else []))
         body = self.control.loop_body(s["body"])
         if not s["init"] and not s["post"]:
             return [f"while ({cond or 'true'})"] + body
         return [f"for ({init}; {cond}; {post})"] + body
+
+    def renew(self, init):
+        """Go ≥ 1.22: cada iteração tem a sua variável, criada antes do post
+        com o valor da anterior. O Dart já faz isso com a referência; falta a
+        cópia quando a variável é um objeto: caixa (`&i`) ou struct/array."""
+        if init is None or init["node"] != "AssignStmt" or init["tok"] != ":=":
+            return []
+        out = []
+        for ident in init["lhs"]:
+            obj = ident.get("$obj")
+            if ident["name"] == "_" or not obj or obj["decl"] not in self.scope.locals:
+                continue
+            name, t = self.scope.locals[obj["decl"]], self.pkg.type_at(obj["type"])
+            if self.names.boxed(obj):
+                out.append(f"{name} = {self.types.box(t, f'{name}.value')[1]}")
+            elif self.typesys.is_value(t):
+                out.append(f"{name} = {self.values.copy_text(name, t)}")
+        return out
 
     def simple(self, s):
         """Statement simples numa única linha, sem `;` (cláusulas do for)."""
@@ -268,7 +289,8 @@ class RangeStmt(StmtBehavior):
             head = [f"final {src} = {self.expr(x)};", f"for (final {k} in {src}.keysSnapshot())"]
             pre = [f"if (!{src}.containsKey({k})) continue;"]
             elem_t = self.pkg.type_at(u["elem"])
-            pre += ([bind(key, k)] if key else []) + (
+            key_t = self.pkg.type_at(u["key"])  # a chave guardada não pode ser alterada
+            pre += ([bind(key, self.values.copy_text(k, key_t))] if key else []) + (
                 [bind(val, self.values.copy_text(f"{src}[{k}]", elem_t))] if val else [])
         elif u["kind"] == "func":
             return self.range_func(s, x, u, key, val, bind, label)
@@ -477,6 +499,34 @@ class TypeSwitchStmt(StmtBehavior):
         return self.control.close_switch(label, out + ["}"])
 
 
+def fixed_receiver(b, fun, pre):
+    """Receptor de `defer x.M()`/`go x.M()` avaliado agora num temporário.
+    Método de receptor valor recebe uma cópia feita agora (desreferenciada
+    se x é `*T`, seguindo o caminho de embedding), como o Go."""
+    info, x = fun["$sel"], fun["x"]
+    t = b.pkg.type_of(x)
+    ref = x.get("$type", (x.get("$obj") or {}).get("type"))  # índice na typeTable
+    tmp = b.names.temp()
+    if b.calls.value_method_path(t, info["index"], fun["sel"]["name"]):
+        for fi in info["index"][:-1]:  # campos embutidos até o dono do método
+            base = b.pkg.type_at(t["elem"]) if t["kind"] == "pointer" else t
+            f = b.typesys.underlying(base)["fields"][fi]
+            x = {"node": "SelectorExpr", "x": x, "sel": {"name": f["name"]},
+                 "$sel": {"kind": "field", "index": [fi]}, "$type": f["type"]}
+            ref = f["type"]
+            t = b.pkg.type_at(ref)
+        text = b.expr(x, POSTFIX)
+        if t["kind"] == "pointer":
+            text, ref = text + "!", t["elem"]
+            t = b.pkg.type_at(ref)
+        fresh = len(info["index"]) == 1 and x is fun["x"] and b.values.fresh(x) and not text.endswith("!")
+        pre.append(f"final {tmp} = {text if fresh else b.values.copy_text(text, t)};")
+        return dict(fun, x={"node": "G2DTemp", "text": tmp, "$type": ref},
+                    **{"$sel": dict(info, index=info["index"][-1:])})
+    pre.append(f"final {tmp} = {b.expr(x)};")
+    return dict(fun, x={"node": "G2DTemp", "text": tmp, "$type": x.get("$type")})
+
+
 class DeferStmt(StmtBehavior):
     kinds = ("DeferStmt",)
 
@@ -501,10 +551,7 @@ class DeferStmt(StmtBehavior):
             fixed.append({"node": "G2DTemp", "text": tmp, "$type": a.get("$type")})
         callee_node = fun
         if fun["node"] == "SelectorExpr" and fun.get("$sel", {}).get("kind") == "method":
-            recv = fun["x"]
-            tmp = self.names.temp()
-            pre.append(f"final {tmp} = {self.expr(recv)};")
-            callee_node = dict(fun, x={"node": "G2DTemp", "text": tmp, "$type": recv.get("$type")})
+            callee_node = fixed_receiver(self, fun, pre)
         elif fun["node"] not in ("FuncLit", "Ident", "SelectorExpr"):
             tmp = self.names.temp()
             pre.append(f"final {tmp} = {self.expr(fun)};")
@@ -575,10 +622,7 @@ class GoStmt(StmtBehavior):
             fixed.append({"node": "G2DTemp", "text": tmp, "$type": a.get("$type")})
         callee_node = fun
         if fun["node"] == "SelectorExpr" and fun.get("$sel", {}).get("kind") == "method":
-            recv = fun["x"]
-            tmp = self.names.temp()
-            pre.append(f"final {tmp} = {self.expr(recv)};")
-            callee_node = dict(fun, x={"node": "G2DTemp", "text": tmp, "$type": recv.get("$type")})
+            callee_node = fixed_receiver(self, fun, pre)
         elif not self.calls.declared_func(fun):
             # Valor de função (variável, campo, índice...): o Go fixa o
             # valor no início do `go`, antes de agendar.

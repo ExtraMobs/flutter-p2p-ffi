@@ -1,0 +1,3965 @@
+{
+  "schemaVersion": 8,
+  "tool": "goast",
+  "goVersion": "go1.26.5",
+  "packages": [
+    {
+      "path": "main",
+      "name": "main",
+      "files": [
+        {
+          "path": "mapkeycopy.go",
+          "ast": {
+            "node": "File",
+            "doc": null,
+            "package": {
+              "file": "mapkeycopy.go",
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "name": {
+              "node": "Ident",
+              "namePos": {
+                "file": "mapkeycopy.go",
+                "line": 1,
+                "column": 9,
+                "offset": 8
+              },
+              "name": "main",
+              "obj": null
+            },
+            "decls": [
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "mapkeycopy.go",
+                  "line": 3,
+                  "column": 1,
+                  "offset": 14
+                },
+                "tok": "import",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "ImportSpec",
+                    "doc": null,
+                    "name": null,
+                    "path": {
+                      "node": "BasicLit",
+                      "valuePos": {
+                        "file": "mapkeycopy.go",
+                        "line": 3,
+                        "column": 8,
+                        "offset": 21
+                      },
+                      "valueEnd": {
+                        "file": "mapkeycopy.go",
+                        "line": 3,
+                        "column": 13,
+                        "offset": 26
+                      },
+                      "kind": "STRING",
+                      "value": "\"fmt\""
+                    },
+                    "comment": null,
+                    "endPos": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "mapkeycopy.go",
+                  "line": 5,
+                  "column": 1,
+                  "offset": 28
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "mapkeycopy.go",
+                        "line": 5,
+                        "column": 6,
+                        "offset": 33
+                      },
+                      "name": "S",
+                      "obj": {
+                        "node": "Object",
+                        "name": "S",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "S",
+                        "kind": "type",
+                        "def": true,
+                        "type": 0,
+                        "decl": "mapkeycopy.go:33",
+                        "pkg": "main",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "StructType",
+                      "struct": {
+                        "file": "mapkeycopy.go",
+                        "line": 5,
+                        "column": 8,
+                        "offset": 35
+                      },
+                      "fields": {
+                        "node": "FieldList",
+                        "opening": {
+                          "file": "mapkeycopy.go",
+                          "line": 5,
+                          "column": 14,
+                          "offset": 41
+                        },
+                        "list": [
+                          {
+                            "node": "Field",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "mapkeycopy.go",
+                                  "line": 5,
+                                  "column": 16,
+                                  "offset": 43
+                                },
+                                "name": "a",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "a",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "a",
+                                  "kind": "field",
+                                  "def": true,
+                                  "type": 2,
+                                  "decl": "mapkeycopy.go:43",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "mapkeycopy.go",
+                                "line": 5,
+                                "column": 18,
+                                "offset": 45
+                              },
+                              "name": "int",
+                              "obj": null,
+                              "$type": 2,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "int",
+                                "kind": "type",
+                                "type": 2
+                              }
+                            },
+                            "tag": null,
+                            "comment": null
+                          }
+                        ],
+                        "closing": {
+                          "file": "mapkeycopy.go",
+                          "line": 5,
+                          "column": 22,
+                          "offset": 49
+                        }
+                      },
+                      "incomplete": false,
+                      "$type": 1,
+                      "$isType": true
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "mapkeycopy.go",
+                    "line": 7,
+                    "column": 6,
+                    "offset": 57
+                  },
+                  "name": "main",
+                  "obj": {
+                    "node": "Object",
+                    "name": "main",
+                    "kind": "func"
+                  },
+                  "$obj": {
+                    "name": "main",
+                    "kind": "func",
+                    "def": true,
+                    "type": 3,
+                    "decl": "mapkeycopy.go:57",
+                    "pkg": "main",
+                    "top": true
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "mapkeycopy.go",
+                    "line": 7,
+                    "column": 1,
+                    "offset": 52
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "mapkeycopy.go",
+                      "line": 7,
+                      "column": 10,
+                      "offset": 61
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "mapkeycopy.go",
+                      "line": 7,
+                      "column": 11,
+                      "offset": 62
+                    }
+                  },
+                  "results": null
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "mapkeycopy.go",
+                    "line": 7,
+                    "column": 13,
+                    "offset": 64
+                  },
+                  "list": [
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "mapkeycopy.go",
+                            "line": 8,
+                            "column": 2,
+                            "offset": 67
+                          },
+                          "name": "m",
+                          "obj": {
+                            "node": "Object",
+                            "name": "m",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "m",
+                            "kind": "var",
+                            "def": true,
+                            "type": 4,
+                            "decl": "mapkeycopy.go:67",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "mapkeycopy.go",
+                        "line": 8,
+                        "column": 4,
+                        "offset": 69
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "CompositeLit",
+                          "type": {
+                            "node": "MapType",
+                            "map": {
+                              "file": "mapkeycopy.go",
+                              "line": 8,
+                              "column": 7,
+                              "offset": 72
+                            },
+                            "key": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "mapkeycopy.go",
+                                "line": 8,
+                                "column": 11,
+                                "offset": 76
+                              },
+                              "name": "S",
+                              "obj": {
+                                "node": "Object",
+                                "name": "S",
+                                "kind": "type"
+                              },
+                              "$type": 0,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "S",
+                                "kind": "type",
+                                "type": 0,
+                                "decl": "mapkeycopy.go:33",
+                                "pkg": "main",
+                                "top": true
+                              }
+                            },
+                            "value": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "mapkeycopy.go",
+                                "line": 8,
+                                "column": 13,
+                                "offset": 78
+                              },
+                              "name": "int",
+                              "obj": null,
+                              "$type": 2,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "int",
+                                "kind": "type",
+                                "type": 2
+                              }
+                            },
+                            "$type": 4,
+                            "$isType": true
+                          },
+                          "lbrace": {
+                            "file": "mapkeycopy.go",
+                            "line": 8,
+                            "column": 16,
+                            "offset": 81
+                          },
+                          "elts": null,
+                          "rbrace": {
+                            "file": "mapkeycopy.go",
+                            "line": 8,
+                            "column": 17,
+                            "offset": 82
+                          },
+                          "incomplete": false,
+                          "$type": 4
+                        }
+                      ]
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "mapkeycopy.go",
+                            "line": 9,
+                            "column": 2,
+                            "offset": 85
+                          },
+                          "name": "s",
+                          "obj": {
+                            "node": "Object",
+                            "name": "s",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "s",
+                            "kind": "var",
+                            "def": true,
+                            "type": 0,
+                            "decl": "mapkeycopy.go:85",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "mapkeycopy.go",
+                        "line": 9,
+                        "column": 4,
+                        "offset": 87
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "CompositeLit",
+                          "type": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "mapkeycopy.go",
+                              "line": 9,
+                              "column": 7,
+                              "offset": 90
+                            },
+                            "name": "S",
+                            "obj": {
+                              "node": "Object",
+                              "name": "S",
+                              "kind": "type"
+                            },
+                            "$type": 0,
+                            "$isType": true,
+                            "$obj": {
+                              "name": "S",
+                              "kind": "type",
+                              "type": 0,
+                              "decl": "mapkeycopy.go:33",
+                              "pkg": "main",
+                              "top": true
+                            }
+                          },
+                          "lbrace": {
+                            "file": "mapkeycopy.go",
+                            "line": 9,
+                            "column": 8,
+                            "offset": 91
+                          },
+                          "elts": [
+                            {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "mapkeycopy.go",
+                                "line": 9,
+                                "column": 9,
+                                "offset": 92
+                              },
+                              "valueEnd": {
+                                "file": "mapkeycopy.go",
+                                "line": 9,
+                                "column": 10,
+                                "offset": 93
+                              },
+                              "kind": "INT",
+                              "value": "1",
+                              "$type": 2,
+                              "$value": {
+                                "kind": "int",
+                                "value": "1"
+                              }
+                            }
+                          ],
+                          "rbrace": {
+                            "file": "mapkeycopy.go",
+                            "line": 9,
+                            "column": 10,
+                            "offset": 93
+                          },
+                          "incomplete": false,
+                          "$type": 0
+                        }
+                      ]
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "IndexExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "mapkeycopy.go",
+                              "line": 10,
+                              "column": 2,
+                              "offset": 96
+                            },
+                            "name": "m",
+                            "obj": {
+                              "node": "Object",
+                              "name": "m",
+                              "kind": "var"
+                            },
+                            "$type": 4,
+                            "$obj": {
+                              "name": "m",
+                              "kind": "var",
+                              "type": 4,
+                              "decl": "mapkeycopy.go:67",
+                              "pkg": "main"
+                            }
+                          },
+                          "lbrack": {
+                            "file": "mapkeycopy.go",
+                            "line": 10,
+                            "column": 3,
+                            "offset": 97
+                          },
+                          "index": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "mapkeycopy.go",
+                              "line": 10,
+                              "column": 4,
+                              "offset": 98
+                            },
+                            "name": "s",
+                            "obj": {
+                              "node": "Object",
+                              "name": "s",
+                              "kind": "var"
+                            },
+                            "$type": 0,
+                            "$obj": {
+                              "name": "s",
+                              "kind": "var",
+                              "type": 0,
+                              "decl": "mapkeycopy.go:85",
+                              "pkg": "main"
+                            }
+                          },
+                          "rbrack": {
+                            "file": "mapkeycopy.go",
+                            "line": 10,
+                            "column": 5,
+                            "offset": 99
+                          },
+                          "$type": 2
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "mapkeycopy.go",
+                        "line": 10,
+                        "column": 7,
+                        "offset": 101
+                      },
+                      "tok": "=",
+                      "rhs": [
+                        {
+                          "node": "BasicLit",
+                          "valuePos": {
+                            "file": "mapkeycopy.go",
+                            "line": 10,
+                            "column": 9,
+                            "offset": 103
+                          },
+                          "valueEnd": {
+                            "file": "mapkeycopy.go",
+                            "line": 10,
+                            "column": 10,
+                            "offset": 104
+                          },
+                          "kind": "INT",
+                          "value": "1",
+                          "$type": 2,
+                          "$value": {
+                            "kind": "int",
+                            "value": "1"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "mapkeycopy.go",
+                              "line": 11,
+                              "column": 2,
+                              "offset": 106
+                            },
+                            "name": "s",
+                            "obj": {
+                              "node": "Object",
+                              "name": "s",
+                              "kind": "var"
+                            },
+                            "$type": 0,
+                            "$obj": {
+                              "name": "s",
+                              "kind": "var",
+                              "type": 0,
+                              "decl": "mapkeycopy.go:85",
+                              "pkg": "main"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "mapkeycopy.go",
+                              "line": 11,
+                              "column": 4,
+                              "offset": 108
+                            },
+                            "name": "a",
+                            "obj": null,
+                            "$obj": {
+                              "name": "a",
+                              "kind": "field",
+                              "type": 2,
+                              "decl": "mapkeycopy.go:43",
+                              "pkg": "main"
+                            }
+                          },
+                          "$type": 2,
+                          "$sel": {
+                            "kind": "field",
+                            "recv": 0,
+                            "index": [
+                              0
+                            ],
+                            "indirect": false
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "mapkeycopy.go",
+                        "line": 11,
+                        "column": 6,
+                        "offset": 110
+                      },
+                      "tok": "=",
+                      "rhs": [
+                        {
+                          "node": "BasicLit",
+                          "valuePos": {
+                            "file": "mapkeycopy.go",
+                            "line": 11,
+                            "column": 8,
+                            "offset": 112
+                          },
+                          "valueEnd": {
+                            "file": "mapkeycopy.go",
+                            "line": 11,
+                            "column": 9,
+                            "offset": 113
+                          },
+                          "kind": "INT",
+                          "value": "2",
+                          "$type": 2,
+                          "$value": {
+                            "kind": "int",
+                            "value": "2"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "IndexExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "mapkeycopy.go",
+                              "line": 12,
+                              "column": 2,
+                              "offset": 115
+                            },
+                            "name": "m",
+                            "obj": {
+                              "node": "Object",
+                              "name": "m",
+                              "kind": "var"
+                            },
+                            "$type": 4,
+                            "$obj": {
+                              "name": "m",
+                              "kind": "var",
+                              "type": 4,
+                              "decl": "mapkeycopy.go:67",
+                              "pkg": "main"
+                            }
+                          },
+                          "lbrack": {
+                            "file": "mapkeycopy.go",
+                            "line": 12,
+                            "column": 3,
+                            "offset": 116
+                          },
+                          "index": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "mapkeycopy.go",
+                              "line": 12,
+                              "column": 4,
+                              "offset": 117
+                            },
+                            "name": "s",
+                            "obj": {
+                              "node": "Object",
+                              "name": "s",
+                              "kind": "var"
+                            },
+                            "$type": 0,
+                            "$obj": {
+                              "name": "s",
+                              "kind": "var",
+                              "type": 0,
+                              "decl": "mapkeycopy.go:85",
+                              "pkg": "main"
+                            }
+                          },
+                          "rbrack": {
+                            "file": "mapkeycopy.go",
+                            "line": 12,
+                            "column": 5,
+                            "offset": 118
+                          },
+                          "$type": 2
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "mapkeycopy.go",
+                        "line": 12,
+                        "column": 7,
+                        "offset": 120
+                      },
+                      "tok": "=",
+                      "rhs": [
+                        {
+                          "node": "BasicLit",
+                          "valuePos": {
+                            "file": "mapkeycopy.go",
+                            "line": 12,
+                            "column": 9,
+                            "offset": 122
+                          },
+                          "valueEnd": {
+                            "file": "mapkeycopy.go",
+                            "line": 12,
+                            "column": 10,
+                            "offset": 123
+                          },
+                          "kind": "INT",
+                          "value": "2",
+                          "$type": 2,
+                          "$value": {
+                            "kind": "int",
+                            "value": "2"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "mapkeycopy.go",
+                              "line": 13,
+                              "column": 2,
+                              "offset": 125
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "mapkeycopy.go",
+                              "line": 13,
+                              "column": 6,
+                              "offset": 129
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 5,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 5
+                        },
+                        "lparen": {
+                          "file": "mapkeycopy.go",
+                          "line": 13,
+                          "column": 13,
+                          "offset": 136
+                        },
+                        "args": [
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "mapkeycopy.go",
+                                "line": 13,
+                                "column": 14,
+                                "offset": 137
+                              },
+                              "name": "len",
+                              "obj": null,
+                              "$type": 12,
+                              "$builtin": true,
+                              "$obj": {
+                                "name": "len",
+                                "kind": "builtin",
+                                "type": 13
+                              }
+                            },
+                            "lparen": {
+                              "file": "mapkeycopy.go",
+                              "line": 13,
+                              "column": 17,
+                              "offset": 140
+                            },
+                            "args": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "mapkeycopy.go",
+                                  "line": 13,
+                                  "column": 18,
+                                  "offset": 141
+                                },
+                                "name": "m",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "m",
+                                  "kind": "var"
+                                },
+                                "$type": 4,
+                                "$obj": {
+                                  "name": "m",
+                                  "kind": "var",
+                                  "type": 4,
+                                  "decl": "mapkeycopy.go:67",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "mapkeycopy.go",
+                              "line": 13,
+                              "column": 19,
+                              "offset": 142
+                            },
+                            "$type": 2
+                          },
+                          {
+                            "node": "IndexExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "mapkeycopy.go",
+                                "line": 13,
+                                "column": 22,
+                                "offset": 145
+                              },
+                              "name": "m",
+                              "obj": {
+                                "node": "Object",
+                                "name": "m",
+                                "kind": "var"
+                              },
+                              "$type": 4,
+                              "$obj": {
+                                "name": "m",
+                                "kind": "var",
+                                "type": 4,
+                                "decl": "mapkeycopy.go:67",
+                                "pkg": "main"
+                              }
+                            },
+                            "lbrack": {
+                              "file": "mapkeycopy.go",
+                              "line": 13,
+                              "column": 23,
+                              "offset": 146
+                            },
+                            "index": {
+                              "node": "CompositeLit",
+                              "type": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "mapkeycopy.go",
+                                  "line": 13,
+                                  "column": 24,
+                                  "offset": 147
+                                },
+                                "name": "S",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "S",
+                                  "kind": "type"
+                                },
+                                "$type": 0,
+                                "$isType": true,
+                                "$obj": {
+                                  "name": "S",
+                                  "kind": "type",
+                                  "type": 0,
+                                  "decl": "mapkeycopy.go:33",
+                                  "pkg": "main",
+                                  "top": true
+                                }
+                              },
+                              "lbrace": {
+                                "file": "mapkeycopy.go",
+                                "line": 13,
+                                "column": 25,
+                                "offset": 148
+                              },
+                              "elts": [
+                                {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "mapkeycopy.go",
+                                    "line": 13,
+                                    "column": 26,
+                                    "offset": 149
+                                  },
+                                  "valueEnd": {
+                                    "file": "mapkeycopy.go",
+                                    "line": 13,
+                                    "column": 27,
+                                    "offset": 150
+                                  },
+                                  "kind": "INT",
+                                  "value": "1",
+                                  "$type": 2,
+                                  "$value": {
+                                    "kind": "int",
+                                    "value": "1"
+                                  }
+                                }
+                              ],
+                              "rbrace": {
+                                "file": "mapkeycopy.go",
+                                "line": 13,
+                                "column": 27,
+                                "offset": 150
+                              },
+                              "incomplete": false,
+                              "$type": 0
+                            },
+                            "rbrack": {
+                              "file": "mapkeycopy.go",
+                              "line": 13,
+                              "column": 28,
+                              "offset": 151
+                            },
+                            "$type": 2
+                          },
+                          {
+                            "node": "IndexExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "mapkeycopy.go",
+                                "line": 13,
+                                "column": 31,
+                                "offset": 154
+                              },
+                              "name": "m",
+                              "obj": {
+                                "node": "Object",
+                                "name": "m",
+                                "kind": "var"
+                              },
+                              "$type": 4,
+                              "$obj": {
+                                "name": "m",
+                                "kind": "var",
+                                "type": 4,
+                                "decl": "mapkeycopy.go:67",
+                                "pkg": "main"
+                              }
+                            },
+                            "lbrack": {
+                              "file": "mapkeycopy.go",
+                              "line": 13,
+                              "column": 32,
+                              "offset": 155
+                            },
+                            "index": {
+                              "node": "CompositeLit",
+                              "type": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "mapkeycopy.go",
+                                  "line": 13,
+                                  "column": 33,
+                                  "offset": 156
+                                },
+                                "name": "S",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "S",
+                                  "kind": "type"
+                                },
+                                "$type": 0,
+                                "$isType": true,
+                                "$obj": {
+                                  "name": "S",
+                                  "kind": "type",
+                                  "type": 0,
+                                  "decl": "mapkeycopy.go:33",
+                                  "pkg": "main",
+                                  "top": true
+                                }
+                              },
+                              "lbrace": {
+                                "file": "mapkeycopy.go",
+                                "line": 13,
+                                "column": 34,
+                                "offset": 157
+                              },
+                              "elts": [
+                                {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "mapkeycopy.go",
+                                    "line": 13,
+                                    "column": 35,
+                                    "offset": 158
+                                  },
+                                  "valueEnd": {
+                                    "file": "mapkeycopy.go",
+                                    "line": 13,
+                                    "column": 36,
+                                    "offset": 159
+                                  },
+                                  "kind": "INT",
+                                  "value": "2",
+                                  "$type": 2,
+                                  "$value": {
+                                    "kind": "int",
+                                    "value": "2"
+                                  }
+                                }
+                              ],
+                              "rbrace": {
+                                "file": "mapkeycopy.go",
+                                "line": 13,
+                                "column": 36,
+                                "offset": 159
+                              },
+                              "incomplete": false,
+                              "$type": 0
+                            },
+                            "rbrack": {
+                              "file": "mapkeycopy.go",
+                              "line": 13,
+                              "column": 37,
+                              "offset": 160
+                            },
+                            "$type": 2
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "mapkeycopy.go",
+                          "line": 13,
+                          "column": 38,
+                          "offset": 161
+                        },
+                        "$type": 14
+                      }
+                    },
+                    {
+                      "node": "RangeStmt",
+                      "for": {
+                        "file": "mapkeycopy.go",
+                        "line": 14,
+                        "column": 2,
+                        "offset": 164
+                      },
+                      "key": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "mapkeycopy.go",
+                          "line": 14,
+                          "column": 6,
+                          "offset": 168
+                        },
+                        "name": "k",
+                        "obj": {
+                          "node": "Object",
+                          "name": "k",
+                          "kind": "var"
+                        },
+                        "$obj": {
+                          "name": "k",
+                          "kind": "var",
+                          "def": true,
+                          "type": 0,
+                          "decl": "mapkeycopy.go:168",
+                          "pkg": "main"
+                        }
+                      },
+                      "value": null,
+                      "tokPos": {
+                        "file": "mapkeycopy.go",
+                        "line": 14,
+                        "column": 8,
+                        "offset": 170
+                      },
+                      "tok": ":=",
+                      "range": {
+                        "file": "mapkeycopy.go",
+                        "line": 14,
+                        "column": 11,
+                        "offset": 173
+                      },
+                      "x": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "mapkeycopy.go",
+                          "line": 14,
+                          "column": 17,
+                          "offset": 179
+                        },
+                        "name": "m",
+                        "obj": {
+                          "node": "Object",
+                          "name": "m",
+                          "kind": "var"
+                        },
+                        "$type": 4,
+                        "$obj": {
+                          "name": "m",
+                          "kind": "var",
+                          "type": 4,
+                          "decl": "mapkeycopy.go:67",
+                          "pkg": "main"
+                        }
+                      },
+                      "body": {
+                        "node": "BlockStmt",
+                        "lbrace": {
+                          "file": "mapkeycopy.go",
+                          "line": 14,
+                          "column": 19,
+                          "offset": 181
+                        },
+                        "list": [
+                          {
+                            "node": "AssignStmt",
+                            "lhs": [
+                              {
+                                "node": "SelectorExpr",
+                                "x": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "mapkeycopy.go",
+                                    "line": 15,
+                                    "column": 3,
+                                    "offset": 185
+                                  },
+                                  "name": "k",
+                                  "obj": {
+                                    "node": "Object",
+                                    "name": "k",
+                                    "kind": "var"
+                                  },
+                                  "$type": 0,
+                                  "$obj": {
+                                    "name": "k",
+                                    "kind": "var",
+                                    "type": 0,
+                                    "decl": "mapkeycopy.go:168",
+                                    "pkg": "main"
+                                  }
+                                },
+                                "sel": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "mapkeycopy.go",
+                                    "line": 15,
+                                    "column": 5,
+                                    "offset": 187
+                                  },
+                                  "name": "a",
+                                  "obj": null,
+                                  "$obj": {
+                                    "name": "a",
+                                    "kind": "field",
+                                    "type": 2,
+                                    "decl": "mapkeycopy.go:43",
+                                    "pkg": "main"
+                                  }
+                                },
+                                "$type": 2,
+                                "$sel": {
+                                  "kind": "field",
+                                  "recv": 0,
+                                  "index": [
+                                    0
+                                  ],
+                                  "indirect": false
+                                }
+                              }
+                            ],
+                            "tokPos": {
+                              "file": "mapkeycopy.go",
+                              "line": 15,
+                              "column": 7,
+                              "offset": 189
+                            },
+                            "tok": "=",
+                            "rhs": [
+                              {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "mapkeycopy.go",
+                                  "line": 15,
+                                  "column": 9,
+                                  "offset": 191
+                                },
+                                "valueEnd": {
+                                  "file": "mapkeycopy.go",
+                                  "line": 15,
+                                  "column": 12,
+                                  "offset": 194
+                                },
+                                "kind": "INT",
+                                "value": "100",
+                                "$type": 2,
+                                "$value": {
+                                  "kind": "int",
+                                  "value": "100"
+                                }
+                              }
+                            ]
+                          }
+                        ],
+                        "rbrace": {
+                          "file": "mapkeycopy.go",
+                          "line": 16,
+                          "column": 2,
+                          "offset": 196
+                        }
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "mapkeycopy.go",
+                              "line": 17,
+                              "column": 2,
+                              "offset": 199
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "mapkeycopy.go",
+                              "line": 17,
+                              "column": 6,
+                              "offset": 203
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 5,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 5
+                        },
+                        "lparen": {
+                          "file": "mapkeycopy.go",
+                          "line": 17,
+                          "column": 13,
+                          "offset": 210
+                        },
+                        "args": [
+                          {
+                            "node": "IndexExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "mapkeycopy.go",
+                                "line": 17,
+                                "column": 14,
+                                "offset": 211
+                              },
+                              "name": "m",
+                              "obj": {
+                                "node": "Object",
+                                "name": "m",
+                                "kind": "var"
+                              },
+                              "$type": 4,
+                              "$obj": {
+                                "name": "m",
+                                "kind": "var",
+                                "type": 4,
+                                "decl": "mapkeycopy.go:67",
+                                "pkg": "main"
+                              }
+                            },
+                            "lbrack": {
+                              "file": "mapkeycopy.go",
+                              "line": 17,
+                              "column": 15,
+                              "offset": 212
+                            },
+                            "index": {
+                              "node": "CompositeLit",
+                              "type": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "mapkeycopy.go",
+                                  "line": 17,
+                                  "column": 16,
+                                  "offset": 213
+                                },
+                                "name": "S",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "S",
+                                  "kind": "type"
+                                },
+                                "$type": 0,
+                                "$isType": true,
+                                "$obj": {
+                                  "name": "S",
+                                  "kind": "type",
+                                  "type": 0,
+                                  "decl": "mapkeycopy.go:33",
+                                  "pkg": "main",
+                                  "top": true
+                                }
+                              },
+                              "lbrace": {
+                                "file": "mapkeycopy.go",
+                                "line": 17,
+                                "column": 17,
+                                "offset": 214
+                              },
+                              "elts": [
+                                {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "mapkeycopy.go",
+                                    "line": 17,
+                                    "column": 18,
+                                    "offset": 215
+                                  },
+                                  "valueEnd": {
+                                    "file": "mapkeycopy.go",
+                                    "line": 17,
+                                    "column": 19,
+                                    "offset": 216
+                                  },
+                                  "kind": "INT",
+                                  "value": "1",
+                                  "$type": 2,
+                                  "$value": {
+                                    "kind": "int",
+                                    "value": "1"
+                                  }
+                                }
+                              ],
+                              "rbrace": {
+                                "file": "mapkeycopy.go",
+                                "line": 17,
+                                "column": 19,
+                                "offset": 216
+                              },
+                              "incomplete": false,
+                              "$type": 0
+                            },
+                            "rbrack": {
+                              "file": "mapkeycopy.go",
+                              "line": 17,
+                              "column": 20,
+                              "offset": 217
+                            },
+                            "$type": 2
+                          },
+                          {
+                            "node": "IndexExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "mapkeycopy.go",
+                                "line": 17,
+                                "column": 23,
+                                "offset": 220
+                              },
+                              "name": "m",
+                              "obj": {
+                                "node": "Object",
+                                "name": "m",
+                                "kind": "var"
+                              },
+                              "$type": 4,
+                              "$obj": {
+                                "name": "m",
+                                "kind": "var",
+                                "type": 4,
+                                "decl": "mapkeycopy.go:67",
+                                "pkg": "main"
+                              }
+                            },
+                            "lbrack": {
+                              "file": "mapkeycopy.go",
+                              "line": 17,
+                              "column": 24,
+                              "offset": 221
+                            },
+                            "index": {
+                              "node": "CompositeLit",
+                              "type": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "mapkeycopy.go",
+                                  "line": 17,
+                                  "column": 25,
+                                  "offset": 222
+                                },
+                                "name": "S",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "S",
+                                  "kind": "type"
+                                },
+                                "$type": 0,
+                                "$isType": true,
+                                "$obj": {
+                                  "name": "S",
+                                  "kind": "type",
+                                  "type": 0,
+                                  "decl": "mapkeycopy.go:33",
+                                  "pkg": "main",
+                                  "top": true
+                                }
+                              },
+                              "lbrace": {
+                                "file": "mapkeycopy.go",
+                                "line": 17,
+                                "column": 26,
+                                "offset": 223
+                              },
+                              "elts": [
+                                {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "mapkeycopy.go",
+                                    "line": 17,
+                                    "column": 27,
+                                    "offset": 224
+                                  },
+                                  "valueEnd": {
+                                    "file": "mapkeycopy.go",
+                                    "line": 17,
+                                    "column": 28,
+                                    "offset": 225
+                                  },
+                                  "kind": "INT",
+                                  "value": "2",
+                                  "$type": 2,
+                                  "$value": {
+                                    "kind": "int",
+                                    "value": "2"
+                                  }
+                                }
+                              ],
+                              "rbrace": {
+                                "file": "mapkeycopy.go",
+                                "line": 17,
+                                "column": 28,
+                                "offset": 225
+                              },
+                              "incomplete": false,
+                              "$type": 0
+                            },
+                            "rbrack": {
+                              "file": "mapkeycopy.go",
+                              "line": 17,
+                              "column": 29,
+                              "offset": 226
+                            },
+                            "$type": 2
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "mapkeycopy.go",
+                          "line": 17,
+                          "column": 30,
+                          "offset": 227
+                        },
+                        "$type": 14
+                      }
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "mapkeycopy.go",
+                            "line": 20,
+                            "column": 2,
+                            "offset": 258
+                          },
+                          "name": "n",
+                          "obj": {
+                            "node": "Object",
+                            "name": "n",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "n",
+                            "kind": "var",
+                            "def": true,
+                            "type": 15,
+                            "decl": "mapkeycopy.go:258",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "mapkeycopy.go",
+                        "line": 20,
+                        "column": 4,
+                        "offset": 260
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "CompositeLit",
+                          "type": {
+                            "node": "MapType",
+                            "map": {
+                              "file": "mapkeycopy.go",
+                              "line": 20,
+                              "column": 7,
+                              "offset": 263
+                            },
+                            "key": {
+                              "node": "ArrayType",
+                              "lbrack": {
+                                "file": "mapkeycopy.go",
+                                "line": 20,
+                                "column": 11,
+                                "offset": 267
+                              },
+                              "len": {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "mapkeycopy.go",
+                                  "line": 20,
+                                  "column": 12,
+                                  "offset": 268
+                                },
+                                "valueEnd": {
+                                  "file": "mapkeycopy.go",
+                                  "line": 20,
+                                  "column": 13,
+                                  "offset": 269
+                                },
+                                "kind": "INT",
+                                "value": "2",
+                                "$type": 17,
+                                "$value": {
+                                  "kind": "int",
+                                  "value": "2"
+                                }
+                              },
+                              "elt": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "mapkeycopy.go",
+                                  "line": 20,
+                                  "column": 14,
+                                  "offset": 270
+                                },
+                                "name": "int",
+                                "obj": null,
+                                "$type": 2,
+                                "$isType": true,
+                                "$obj": {
+                                  "name": "int",
+                                  "kind": "type",
+                                  "type": 2
+                                }
+                              },
+                              "$type": 16,
+                              "$isType": true
+                            },
+                            "value": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "mapkeycopy.go",
+                                "line": 20,
+                                "column": 18,
+                                "offset": 274
+                              },
+                              "name": "int",
+                              "obj": null,
+                              "$type": 2,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "int",
+                                "kind": "type",
+                                "type": 2
+                              }
+                            },
+                            "$type": 15,
+                            "$isType": true
+                          },
+                          "lbrace": {
+                            "file": "mapkeycopy.go",
+                            "line": 20,
+                            "column": 21,
+                            "offset": 277
+                          },
+                          "elts": null,
+                          "rbrace": {
+                            "file": "mapkeycopy.go",
+                            "line": 20,
+                            "column": 22,
+                            "offset": 278
+                          },
+                          "incomplete": false,
+                          "$type": 15
+                        }
+                      ]
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "mapkeycopy.go",
+                            "line": 21,
+                            "column": 2,
+                            "offset": 281
+                          },
+                          "name": "k",
+                          "obj": {
+                            "node": "Object",
+                            "name": "k",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "k",
+                            "kind": "var",
+                            "def": true,
+                            "type": 16,
+                            "decl": "mapkeycopy.go:281",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "mapkeycopy.go",
+                        "line": 21,
+                        "column": 4,
+                        "offset": 283
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "CompositeLit",
+                          "type": {
+                            "node": "ArrayType",
+                            "lbrack": {
+                              "file": "mapkeycopy.go",
+                              "line": 21,
+                              "column": 7,
+                              "offset": 286
+                            },
+                            "len": {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "mapkeycopy.go",
+                                "line": 21,
+                                "column": 8,
+                                "offset": 287
+                              },
+                              "valueEnd": {
+                                "file": "mapkeycopy.go",
+                                "line": 21,
+                                "column": 9,
+                                "offset": 288
+                              },
+                              "kind": "INT",
+                              "value": "2",
+                              "$type": 17,
+                              "$value": {
+                                "kind": "int",
+                                "value": "2"
+                              }
+                            },
+                            "elt": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "mapkeycopy.go",
+                                "line": 21,
+                                "column": 10,
+                                "offset": 289
+                              },
+                              "name": "int",
+                              "obj": null,
+                              "$type": 2,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "int",
+                                "kind": "type",
+                                "type": 2
+                              }
+                            },
+                            "$type": 16,
+                            "$isType": true
+                          },
+                          "lbrace": {
+                            "file": "mapkeycopy.go",
+                            "line": 21,
+                            "column": 13,
+                            "offset": 292
+                          },
+                          "elts": [
+                            {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "mapkeycopy.go",
+                                "line": 21,
+                                "column": 14,
+                                "offset": 293
+                              },
+                              "valueEnd": {
+                                "file": "mapkeycopy.go",
+                                "line": 21,
+                                "column": 15,
+                                "offset": 294
+                              },
+                              "kind": "INT",
+                              "value": "1",
+                              "$type": 2,
+                              "$value": {
+                                "kind": "int",
+                                "value": "1"
+                              }
+                            },
+                            {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "mapkeycopy.go",
+                                "line": 21,
+                                "column": 17,
+                                "offset": 296
+                              },
+                              "valueEnd": {
+                                "file": "mapkeycopy.go",
+                                "line": 21,
+                                "column": 18,
+                                "offset": 297
+                              },
+                              "kind": "INT",
+                              "value": "2",
+                              "$type": 2,
+                              "$value": {
+                                "kind": "int",
+                                "value": "2"
+                              }
+                            }
+                          ],
+                          "rbrace": {
+                            "file": "mapkeycopy.go",
+                            "line": 21,
+                            "column": 18,
+                            "offset": 297
+                          },
+                          "incomplete": false,
+                          "$type": 16
+                        }
+                      ]
+                    },
+                    {
+                      "node": "IncDecStmt",
+                      "x": {
+                        "node": "IndexExpr",
+                        "x": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "mapkeycopy.go",
+                            "line": 22,
+                            "column": 2,
+                            "offset": 300
+                          },
+                          "name": "n",
+                          "obj": {
+                            "node": "Object",
+                            "name": "n",
+                            "kind": "var"
+                          },
+                          "$type": 15,
+                          "$obj": {
+                            "name": "n",
+                            "kind": "var",
+                            "type": 15,
+                            "decl": "mapkeycopy.go:258",
+                            "pkg": "main"
+                          }
+                        },
+                        "lbrack": {
+                          "file": "mapkeycopy.go",
+                          "line": 22,
+                          "column": 3,
+                          "offset": 301
+                        },
+                        "index": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "mapkeycopy.go",
+                            "line": 22,
+                            "column": 4,
+                            "offset": 302
+                          },
+                          "name": "k",
+                          "obj": {
+                            "node": "Object",
+                            "name": "k",
+                            "kind": "var"
+                          },
+                          "$type": 16,
+                          "$obj": {
+                            "name": "k",
+                            "kind": "var",
+                            "type": 16,
+                            "decl": "mapkeycopy.go:281",
+                            "pkg": "main"
+                          }
+                        },
+                        "rbrack": {
+                          "file": "mapkeycopy.go",
+                          "line": 22,
+                          "column": 5,
+                          "offset": 303
+                        },
+                        "$type": 2
+                      },
+                      "tokPos": {
+                        "file": "mapkeycopy.go",
+                        "line": 22,
+                        "column": 6,
+                        "offset": 304
+                      },
+                      "tok": "++"
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "IndexExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "mapkeycopy.go",
+                              "line": 23,
+                              "column": 2,
+                              "offset": 308
+                            },
+                            "name": "k",
+                            "obj": {
+                              "node": "Object",
+                              "name": "k",
+                              "kind": "var"
+                            },
+                            "$type": 16,
+                            "$obj": {
+                              "name": "k",
+                              "kind": "var",
+                              "type": 16,
+                              "decl": "mapkeycopy.go:281",
+                              "pkg": "main"
+                            }
+                          },
+                          "lbrack": {
+                            "file": "mapkeycopy.go",
+                            "line": 23,
+                            "column": 3,
+                            "offset": 309
+                          },
+                          "index": {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "mapkeycopy.go",
+                              "line": 23,
+                              "column": 4,
+                              "offset": 310
+                            },
+                            "valueEnd": {
+                              "file": "mapkeycopy.go",
+                              "line": 23,
+                              "column": 5,
+                              "offset": 311
+                            },
+                            "kind": "INT",
+                            "value": "0",
+                            "$type": 2,
+                            "$value": {
+                              "kind": "int",
+                              "value": "0"
+                            }
+                          },
+                          "rbrack": {
+                            "file": "mapkeycopy.go",
+                            "line": 23,
+                            "column": 5,
+                            "offset": 311
+                          },
+                          "$type": 2
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "mapkeycopy.go",
+                        "line": 23,
+                        "column": 7,
+                        "offset": 313
+                      },
+                      "tok": "=",
+                      "rhs": [
+                        {
+                          "node": "BasicLit",
+                          "valuePos": {
+                            "file": "mapkeycopy.go",
+                            "line": 23,
+                            "column": 9,
+                            "offset": 315
+                          },
+                          "valueEnd": {
+                            "file": "mapkeycopy.go",
+                            "line": 23,
+                            "column": 10,
+                            "offset": 316
+                          },
+                          "kind": "INT",
+                          "value": "9",
+                          "$type": 2,
+                          "$value": {
+                            "kind": "int",
+                            "value": "9"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "IndexExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "mapkeycopy.go",
+                              "line": 24,
+                              "column": 2,
+                              "offset": 318
+                            },
+                            "name": "n",
+                            "obj": {
+                              "node": "Object",
+                              "name": "n",
+                              "kind": "var"
+                            },
+                            "$type": 15,
+                            "$obj": {
+                              "name": "n",
+                              "kind": "var",
+                              "type": 15,
+                              "decl": "mapkeycopy.go:258",
+                              "pkg": "main"
+                            }
+                          },
+                          "lbrack": {
+                            "file": "mapkeycopy.go",
+                            "line": 24,
+                            "column": 3,
+                            "offset": 319
+                          },
+                          "index": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "mapkeycopy.go",
+                              "line": 24,
+                              "column": 4,
+                              "offset": 320
+                            },
+                            "name": "k",
+                            "obj": {
+                              "node": "Object",
+                              "name": "k",
+                              "kind": "var"
+                            },
+                            "$type": 16,
+                            "$obj": {
+                              "name": "k",
+                              "kind": "var",
+                              "type": 16,
+                              "decl": "mapkeycopy.go:281",
+                              "pkg": "main"
+                            }
+                          },
+                          "rbrack": {
+                            "file": "mapkeycopy.go",
+                            "line": 24,
+                            "column": 5,
+                            "offset": 321
+                          },
+                          "$type": 2
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "mapkeycopy.go",
+                        "line": 24,
+                        "column": 7,
+                        "offset": 323
+                      },
+                      "tok": "+=",
+                      "rhs": [
+                        {
+                          "node": "BasicLit",
+                          "valuePos": {
+                            "file": "mapkeycopy.go",
+                            "line": 24,
+                            "column": 10,
+                            "offset": 326
+                          },
+                          "valueEnd": {
+                            "file": "mapkeycopy.go",
+                            "line": 24,
+                            "column": 11,
+                            "offset": 327
+                          },
+                          "kind": "INT",
+                          "value": "5",
+                          "$type": 2,
+                          "$value": {
+                            "kind": "int",
+                            "value": "5"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "mapkeycopy.go",
+                              "line": 25,
+                              "column": 2,
+                              "offset": 329
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "mapkeycopy.go",
+                              "line": 25,
+                              "column": 6,
+                              "offset": 333
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 5,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 5
+                        },
+                        "lparen": {
+                          "file": "mapkeycopy.go",
+                          "line": 25,
+                          "column": 13,
+                          "offset": 340
+                        },
+                        "args": [
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "mapkeycopy.go",
+                                "line": 25,
+                                "column": 14,
+                                "offset": 341
+                              },
+                              "name": "len",
+                              "obj": null,
+                              "$type": 18,
+                              "$builtin": true,
+                              "$obj": {
+                                "name": "len",
+                                "kind": "builtin",
+                                "type": 13
+                              }
+                            },
+                            "lparen": {
+                              "file": "mapkeycopy.go",
+                              "line": 25,
+                              "column": 17,
+                              "offset": 344
+                            },
+                            "args": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "mapkeycopy.go",
+                                  "line": 25,
+                                  "column": 18,
+                                  "offset": 345
+                                },
+                                "name": "n",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "n",
+                                  "kind": "var"
+                                },
+                                "$type": 15,
+                                "$obj": {
+                                  "name": "n",
+                                  "kind": "var",
+                                  "type": 15,
+                                  "decl": "mapkeycopy.go:258",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "mapkeycopy.go",
+                              "line": 25,
+                              "column": 19,
+                              "offset": 346
+                            },
+                            "$type": 2
+                          },
+                          {
+                            "node": "IndexExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "mapkeycopy.go",
+                                "line": 25,
+                                "column": 22,
+                                "offset": 349
+                              },
+                              "name": "n",
+                              "obj": {
+                                "node": "Object",
+                                "name": "n",
+                                "kind": "var"
+                              },
+                              "$type": 15,
+                              "$obj": {
+                                "name": "n",
+                                "kind": "var",
+                                "type": 15,
+                                "decl": "mapkeycopy.go:258",
+                                "pkg": "main"
+                              }
+                            },
+                            "lbrack": {
+                              "file": "mapkeycopy.go",
+                              "line": 25,
+                              "column": 23,
+                              "offset": 350
+                            },
+                            "index": {
+                              "node": "CompositeLit",
+                              "type": {
+                                "node": "ArrayType",
+                                "lbrack": {
+                                  "file": "mapkeycopy.go",
+                                  "line": 25,
+                                  "column": 24,
+                                  "offset": 351
+                                },
+                                "len": {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "mapkeycopy.go",
+                                    "line": 25,
+                                    "column": 25,
+                                    "offset": 352
+                                  },
+                                  "valueEnd": {
+                                    "file": "mapkeycopy.go",
+                                    "line": 25,
+                                    "column": 26,
+                                    "offset": 353
+                                  },
+                                  "kind": "INT",
+                                  "value": "2",
+                                  "$type": 17,
+                                  "$value": {
+                                    "kind": "int",
+                                    "value": "2"
+                                  }
+                                },
+                                "elt": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "mapkeycopy.go",
+                                    "line": 25,
+                                    "column": 27,
+                                    "offset": 354
+                                  },
+                                  "name": "int",
+                                  "obj": null,
+                                  "$type": 2,
+                                  "$isType": true,
+                                  "$obj": {
+                                    "name": "int",
+                                    "kind": "type",
+                                    "type": 2
+                                  }
+                                },
+                                "$type": 16,
+                                "$isType": true
+                              },
+                              "lbrace": {
+                                "file": "mapkeycopy.go",
+                                "line": 25,
+                                "column": 30,
+                                "offset": 357
+                              },
+                              "elts": [
+                                {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "mapkeycopy.go",
+                                    "line": 25,
+                                    "column": 31,
+                                    "offset": 358
+                                  },
+                                  "valueEnd": {
+                                    "file": "mapkeycopy.go",
+                                    "line": 25,
+                                    "column": 32,
+                                    "offset": 359
+                                  },
+                                  "kind": "INT",
+                                  "value": "1",
+                                  "$type": 2,
+                                  "$value": {
+                                    "kind": "int",
+                                    "value": "1"
+                                  }
+                                },
+                                {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "mapkeycopy.go",
+                                    "line": 25,
+                                    "column": 34,
+                                    "offset": 361
+                                  },
+                                  "valueEnd": {
+                                    "file": "mapkeycopy.go",
+                                    "line": 25,
+                                    "column": 35,
+                                    "offset": 362
+                                  },
+                                  "kind": "INT",
+                                  "value": "2",
+                                  "$type": 2,
+                                  "$value": {
+                                    "kind": "int",
+                                    "value": "2"
+                                  }
+                                }
+                              ],
+                              "rbrace": {
+                                "file": "mapkeycopy.go",
+                                "line": 25,
+                                "column": 35,
+                                "offset": 362
+                              },
+                              "incomplete": false,
+                              "$type": 16
+                            },
+                            "rbrack": {
+                              "file": "mapkeycopy.go",
+                              "line": 25,
+                              "column": 36,
+                              "offset": 363
+                            },
+                            "$type": 2
+                          },
+                          {
+                            "node": "IndexExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "mapkeycopy.go",
+                                "line": 25,
+                                "column": 39,
+                                "offset": 366
+                              },
+                              "name": "n",
+                              "obj": {
+                                "node": "Object",
+                                "name": "n",
+                                "kind": "var"
+                              },
+                              "$type": 15,
+                              "$obj": {
+                                "name": "n",
+                                "kind": "var",
+                                "type": 15,
+                                "decl": "mapkeycopy.go:258",
+                                "pkg": "main"
+                              }
+                            },
+                            "lbrack": {
+                              "file": "mapkeycopy.go",
+                              "line": 25,
+                              "column": 40,
+                              "offset": 367
+                            },
+                            "index": {
+                              "node": "CompositeLit",
+                              "type": {
+                                "node": "ArrayType",
+                                "lbrack": {
+                                  "file": "mapkeycopy.go",
+                                  "line": 25,
+                                  "column": 41,
+                                  "offset": 368
+                                },
+                                "len": {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "mapkeycopy.go",
+                                    "line": 25,
+                                    "column": 42,
+                                    "offset": 369
+                                  },
+                                  "valueEnd": {
+                                    "file": "mapkeycopy.go",
+                                    "line": 25,
+                                    "column": 43,
+                                    "offset": 370
+                                  },
+                                  "kind": "INT",
+                                  "value": "2",
+                                  "$type": 17,
+                                  "$value": {
+                                    "kind": "int",
+                                    "value": "2"
+                                  }
+                                },
+                                "elt": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "mapkeycopy.go",
+                                    "line": 25,
+                                    "column": 44,
+                                    "offset": 371
+                                  },
+                                  "name": "int",
+                                  "obj": null,
+                                  "$type": 2,
+                                  "$isType": true,
+                                  "$obj": {
+                                    "name": "int",
+                                    "kind": "type",
+                                    "type": 2
+                                  }
+                                },
+                                "$type": 16,
+                                "$isType": true
+                              },
+                              "lbrace": {
+                                "file": "mapkeycopy.go",
+                                "line": 25,
+                                "column": 47,
+                                "offset": 374
+                              },
+                              "elts": [
+                                {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "mapkeycopy.go",
+                                    "line": 25,
+                                    "column": 48,
+                                    "offset": 375
+                                  },
+                                  "valueEnd": {
+                                    "file": "mapkeycopy.go",
+                                    "line": 25,
+                                    "column": 49,
+                                    "offset": 376
+                                  },
+                                  "kind": "INT",
+                                  "value": "9",
+                                  "$type": 2,
+                                  "$value": {
+                                    "kind": "int",
+                                    "value": "9"
+                                  }
+                                },
+                                {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "mapkeycopy.go",
+                                    "line": 25,
+                                    "column": 51,
+                                    "offset": 378
+                                  },
+                                  "valueEnd": {
+                                    "file": "mapkeycopy.go",
+                                    "line": 25,
+                                    "column": 52,
+                                    "offset": 379
+                                  },
+                                  "kind": "INT",
+                                  "value": "2",
+                                  "$type": 2,
+                                  "$value": {
+                                    "kind": "int",
+                                    "value": "2"
+                                  }
+                                }
+                              ],
+                              "rbrace": {
+                                "file": "mapkeycopy.go",
+                                "line": 25,
+                                "column": 52,
+                                "offset": 379
+                              },
+                              "incomplete": false,
+                              "$type": 16
+                            },
+                            "rbrack": {
+                              "file": "mapkeycopy.go",
+                              "line": 25,
+                              "column": 53,
+                              "offset": 380
+                            },
+                            "$type": 2
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "mapkeycopy.go",
+                          "line": 25,
+                          "column": 54,
+                          "offset": 381
+                        },
+                        "$type": 14
+                      }
+                    },
+                    {
+                      "node": "DeclStmt",
+                      "decl": {
+                        "node": "GenDecl",
+                        "doc": {
+                          "node": "CommentGroup",
+                          "list": [
+                            {
+                              "node": "Comment",
+                              "slash": {
+                                "file": "mapkeycopy.go",
+                                "line": 27,
+                                "column": 2,
+                                "offset": 385
+                              },
+                              "text": "// Chave interface com struct dentro."
+                            }
+                          ]
+                        },
+                        "tokPos": {
+                          "file": "mapkeycopy.go",
+                          "line": 28,
+                          "column": 2,
+                          "offset": 424
+                        },
+                        "tok": "var",
+                        "lparen": null,
+                        "specs": [
+                          {
+                            "node": "ValueSpec",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "mapkeycopy.go",
+                                  "line": 28,
+                                  "column": 6,
+                                  "offset": 428
+                                },
+                                "name": "i",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "i",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "i",
+                                  "kind": "var",
+                                  "def": true,
+                                  "type": 19,
+                                  "decl": "mapkeycopy.go:428",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "MapType",
+                              "map": {
+                                "file": "mapkeycopy.go",
+                                "line": 28,
+                                "column": 8,
+                                "offset": 430
+                              },
+                              "key": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "mapkeycopy.go",
+                                  "line": 28,
+                                  "column": 12,
+                                  "offset": 434
+                                },
+                                "name": "any",
+                                "obj": null,
+                                "$type": 7,
+                                "$isType": true,
+                                "$obj": {
+                                  "name": "any",
+                                  "kind": "type",
+                                  "type": 7
+                                }
+                              },
+                              "value": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "mapkeycopy.go",
+                                  "line": 28,
+                                  "column": 16,
+                                  "offset": 438
+                                },
+                                "name": "string",
+                                "obj": null,
+                                "$type": 11,
+                                "$isType": true,
+                                "$obj": {
+                                  "name": "string",
+                                  "kind": "type",
+                                  "type": 11
+                                }
+                              },
+                              "$type": 19,
+                              "$isType": true
+                            },
+                            "values": [
+                              {
+                                "node": "CompositeLit",
+                                "type": {
+                                  "node": "MapType",
+                                  "map": {
+                                    "file": "mapkeycopy.go",
+                                    "line": 28,
+                                    "column": 25,
+                                    "offset": 447
+                                  },
+                                  "key": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "mapkeycopy.go",
+                                      "line": 28,
+                                      "column": 29,
+                                      "offset": 451
+                                    },
+                                    "name": "any",
+                                    "obj": null,
+                                    "$type": 7,
+                                    "$isType": true,
+                                    "$obj": {
+                                      "name": "any",
+                                      "kind": "type",
+                                      "type": 7
+                                    }
+                                  },
+                                  "value": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "mapkeycopy.go",
+                                      "line": 28,
+                                      "column": 33,
+                                      "offset": 455
+                                    },
+                                    "name": "string",
+                                    "obj": null,
+                                    "$type": 11,
+                                    "$isType": true,
+                                    "$obj": {
+                                      "name": "string",
+                                      "kind": "type",
+                                      "type": 11
+                                    }
+                                  },
+                                  "$type": 19,
+                                  "$isType": true
+                                },
+                                "lbrace": {
+                                  "file": "mapkeycopy.go",
+                                  "line": 28,
+                                  "column": 39,
+                                  "offset": 461
+                                },
+                                "elts": null,
+                                "rbrace": {
+                                  "file": "mapkeycopy.go",
+                                  "line": 28,
+                                  "column": 40,
+                                  "offset": 462
+                                },
+                                "incomplete": false,
+                                "$type": 19
+                              }
+                            ],
+                            "comment": null
+                          }
+                        ],
+                        "rparen": null
+                      }
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "mapkeycopy.go",
+                            "line": 29,
+                            "column": 2,
+                            "offset": 465
+                          },
+                          "name": "t",
+                          "obj": {
+                            "node": "Object",
+                            "name": "t",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "t",
+                            "kind": "var",
+                            "def": true,
+                            "type": 0,
+                            "decl": "mapkeycopy.go:465",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "mapkeycopy.go",
+                        "line": 29,
+                        "column": 4,
+                        "offset": 467
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "CompositeLit",
+                          "type": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "mapkeycopy.go",
+                              "line": 29,
+                              "column": 7,
+                              "offset": 470
+                            },
+                            "name": "S",
+                            "obj": {
+                              "node": "Object",
+                              "name": "S",
+                              "kind": "type"
+                            },
+                            "$type": 0,
+                            "$isType": true,
+                            "$obj": {
+                              "name": "S",
+                              "kind": "type",
+                              "type": 0,
+                              "decl": "mapkeycopy.go:33",
+                              "pkg": "main",
+                              "top": true
+                            }
+                          },
+                          "lbrace": {
+                            "file": "mapkeycopy.go",
+                            "line": 29,
+                            "column": 8,
+                            "offset": 471
+                          },
+                          "elts": [
+                            {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "mapkeycopy.go",
+                                "line": 29,
+                                "column": 9,
+                                "offset": 472
+                              },
+                              "valueEnd": {
+                                "file": "mapkeycopy.go",
+                                "line": 29,
+                                "column": 10,
+                                "offset": 473
+                              },
+                              "kind": "INT",
+                              "value": "3",
+                              "$type": 2,
+                              "$value": {
+                                "kind": "int",
+                                "value": "3"
+                              }
+                            }
+                          ],
+                          "rbrace": {
+                            "file": "mapkeycopy.go",
+                            "line": 29,
+                            "column": 10,
+                            "offset": 473
+                          },
+                          "incomplete": false,
+                          "$type": 0
+                        }
+                      ]
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "IndexExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "mapkeycopy.go",
+                              "line": 30,
+                              "column": 2,
+                              "offset": 476
+                            },
+                            "name": "i",
+                            "obj": {
+                              "node": "Object",
+                              "name": "i",
+                              "kind": "var"
+                            },
+                            "$type": 19,
+                            "$obj": {
+                              "name": "i",
+                              "kind": "var",
+                              "type": 19,
+                              "decl": "mapkeycopy.go:428",
+                              "pkg": "main"
+                            }
+                          },
+                          "lbrack": {
+                            "file": "mapkeycopy.go",
+                            "line": 30,
+                            "column": 3,
+                            "offset": 477
+                          },
+                          "index": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "mapkeycopy.go",
+                              "line": 30,
+                              "column": 4,
+                              "offset": 478
+                            },
+                            "name": "t",
+                            "obj": {
+                              "node": "Object",
+                              "name": "t",
+                              "kind": "var"
+                            },
+                            "$type": 0,
+                            "$obj": {
+                              "name": "t",
+                              "kind": "var",
+                              "type": 0,
+                              "decl": "mapkeycopy.go:465",
+                              "pkg": "main"
+                            }
+                          },
+                          "rbrack": {
+                            "file": "mapkeycopy.go",
+                            "line": 30,
+                            "column": 5,
+                            "offset": 479
+                          },
+                          "$type": 11
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "mapkeycopy.go",
+                        "line": 30,
+                        "column": 7,
+                        "offset": 481
+                      },
+                      "tok": "=",
+                      "rhs": [
+                        {
+                          "node": "BasicLit",
+                          "valuePos": {
+                            "file": "mapkeycopy.go",
+                            "line": 30,
+                            "column": 9,
+                            "offset": 483
+                          },
+                          "valueEnd": {
+                            "file": "mapkeycopy.go",
+                            "line": 30,
+                            "column": 16,
+                            "offset": 490
+                          },
+                          "kind": "STRING",
+                          "value": "\"três\"",
+                          "$type": 11,
+                          "$value": {
+                            "kind": "string",
+                            "value": "três"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "mapkeycopy.go",
+                              "line": 31,
+                              "column": 2,
+                              "offset": 492
+                            },
+                            "name": "t",
+                            "obj": {
+                              "node": "Object",
+                              "name": "t",
+                              "kind": "var"
+                            },
+                            "$type": 0,
+                            "$obj": {
+                              "name": "t",
+                              "kind": "var",
+                              "type": 0,
+                              "decl": "mapkeycopy.go:465",
+                              "pkg": "main"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "mapkeycopy.go",
+                              "line": 31,
+                              "column": 4,
+                              "offset": 494
+                            },
+                            "name": "a",
+                            "obj": null,
+                            "$obj": {
+                              "name": "a",
+                              "kind": "field",
+                              "type": 2,
+                              "decl": "mapkeycopy.go:43",
+                              "pkg": "main"
+                            }
+                          },
+                          "$type": 2,
+                          "$sel": {
+                            "kind": "field",
+                            "recv": 0,
+                            "index": [
+                              0
+                            ],
+                            "indirect": false
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "mapkeycopy.go",
+                        "line": 31,
+                        "column": 6,
+                        "offset": 496
+                      },
+                      "tok": "=",
+                      "rhs": [
+                        {
+                          "node": "BasicLit",
+                          "valuePos": {
+                            "file": "mapkeycopy.go",
+                            "line": 31,
+                            "column": 8,
+                            "offset": 498
+                          },
+                          "valueEnd": {
+                            "file": "mapkeycopy.go",
+                            "line": 31,
+                            "column": 9,
+                            "offset": 499
+                          },
+                          "kind": "INT",
+                          "value": "4",
+                          "$type": 2,
+                          "$value": {
+                            "kind": "int",
+                            "value": "4"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "mapkeycopy.go",
+                            "line": 32,
+                            "column": 2,
+                            "offset": 501
+                          },
+                          "name": "_",
+                          "obj": {
+                            "node": "Object",
+                            "name": "_",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "_",
+                            "kind": "var",
+                            "def": true,
+                            "type": 11,
+                            "decl": "mapkeycopy.go:501",
+                            "pkg": "main"
+                          }
+                        },
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "mapkeycopy.go",
+                            "line": 32,
+                            "column": 5,
+                            "offset": 504
+                          },
+                          "name": "ok",
+                          "obj": {
+                            "node": "Object",
+                            "name": "ok",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "ok",
+                            "kind": "var",
+                            "def": true,
+                            "type": 20,
+                            "decl": "mapkeycopy.go:504",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "mapkeycopy.go",
+                        "line": 32,
+                        "column": 8,
+                        "offset": 507
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "IndexExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "mapkeycopy.go",
+                              "line": 32,
+                              "column": 11,
+                              "offset": 510
+                            },
+                            "name": "i",
+                            "obj": {
+                              "node": "Object",
+                              "name": "i",
+                              "kind": "var"
+                            },
+                            "$type": 19,
+                            "$obj": {
+                              "name": "i",
+                              "kind": "var",
+                              "type": 19,
+                              "decl": "mapkeycopy.go:428",
+                              "pkg": "main"
+                            }
+                          },
+                          "lbrack": {
+                            "file": "mapkeycopy.go",
+                            "line": 32,
+                            "column": 12,
+                            "offset": 511
+                          },
+                          "index": {
+                            "node": "CompositeLit",
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "mapkeycopy.go",
+                                "line": 32,
+                                "column": 13,
+                                "offset": 512
+                              },
+                              "name": "S",
+                              "obj": {
+                                "node": "Object",
+                                "name": "S",
+                                "kind": "type"
+                              },
+                              "$type": 0,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "S",
+                                "kind": "type",
+                                "type": 0,
+                                "decl": "mapkeycopy.go:33",
+                                "pkg": "main",
+                                "top": true
+                              }
+                            },
+                            "lbrace": {
+                              "file": "mapkeycopy.go",
+                              "line": 32,
+                              "column": 14,
+                              "offset": 513
+                            },
+                            "elts": [
+                              {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "mapkeycopy.go",
+                                  "line": 32,
+                                  "column": 15,
+                                  "offset": 514
+                                },
+                                "valueEnd": {
+                                  "file": "mapkeycopy.go",
+                                  "line": 32,
+                                  "column": 16,
+                                  "offset": 515
+                                },
+                                "kind": "INT",
+                                "value": "3",
+                                "$type": 2,
+                                "$value": {
+                                  "kind": "int",
+                                  "value": "3"
+                                }
+                              }
+                            ],
+                            "rbrace": {
+                              "file": "mapkeycopy.go",
+                              "line": 32,
+                              "column": 16,
+                              "offset": 515
+                            },
+                            "incomplete": false,
+                            "$type": 0
+                          },
+                          "rbrack": {
+                            "file": "mapkeycopy.go",
+                            "line": 32,
+                            "column": 17,
+                            "offset": 516
+                          },
+                          "$type": 21
+                        }
+                      ]
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "mapkeycopy.go",
+                              "line": 33,
+                              "column": 2,
+                              "offset": 519
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "mapkeycopy.go",
+                              "line": 33,
+                              "column": 6,
+                              "offset": 523
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 5,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 5
+                        },
+                        "lparen": {
+                          "file": "mapkeycopy.go",
+                          "line": 33,
+                          "column": 13,
+                          "offset": 530
+                        },
+                        "args": [
+                          {
+                            "node": "IndexExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "mapkeycopy.go",
+                                "line": 33,
+                                "column": 14,
+                                "offset": 531
+                              },
+                              "name": "i",
+                              "obj": {
+                                "node": "Object",
+                                "name": "i",
+                                "kind": "var"
+                              },
+                              "$type": 19,
+                              "$obj": {
+                                "name": "i",
+                                "kind": "var",
+                                "type": 19,
+                                "decl": "mapkeycopy.go:428",
+                                "pkg": "main"
+                              }
+                            },
+                            "lbrack": {
+                              "file": "mapkeycopy.go",
+                              "line": 33,
+                              "column": 15,
+                              "offset": 532
+                            },
+                            "index": {
+                              "node": "CompositeLit",
+                              "type": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "mapkeycopy.go",
+                                  "line": 33,
+                                  "column": 16,
+                                  "offset": 533
+                                },
+                                "name": "S",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "S",
+                                  "kind": "type"
+                                },
+                                "$type": 0,
+                                "$isType": true,
+                                "$obj": {
+                                  "name": "S",
+                                  "kind": "type",
+                                  "type": 0,
+                                  "decl": "mapkeycopy.go:33",
+                                  "pkg": "main",
+                                  "top": true
+                                }
+                              },
+                              "lbrace": {
+                                "file": "mapkeycopy.go",
+                                "line": 33,
+                                "column": 17,
+                                "offset": 534
+                              },
+                              "elts": [
+                                {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "mapkeycopy.go",
+                                    "line": 33,
+                                    "column": 18,
+                                    "offset": 535
+                                  },
+                                  "valueEnd": {
+                                    "file": "mapkeycopy.go",
+                                    "line": 33,
+                                    "column": 19,
+                                    "offset": 536
+                                  },
+                                  "kind": "INT",
+                                  "value": "3",
+                                  "$type": 2,
+                                  "$value": {
+                                    "kind": "int",
+                                    "value": "3"
+                                  }
+                                }
+                              ],
+                              "rbrace": {
+                                "file": "mapkeycopy.go",
+                                "line": 33,
+                                "column": 19,
+                                "offset": 536
+                              },
+                              "incomplete": false,
+                              "$type": 0
+                            },
+                            "rbrack": {
+                              "file": "mapkeycopy.go",
+                              "line": 33,
+                              "column": 20,
+                              "offset": 537
+                            },
+                            "$type": 11
+                          },
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "mapkeycopy.go",
+                              "line": 33,
+                              "column": 23,
+                              "offset": 540
+                            },
+                            "name": "ok",
+                            "obj": {
+                              "node": "Object",
+                              "name": "ok",
+                              "kind": "var"
+                            },
+                            "$type": 20,
+                            "$obj": {
+                              "name": "ok",
+                              "kind": "var",
+                              "type": 20,
+                              "decl": "mapkeycopy.go:504",
+                              "pkg": "main"
+                            }
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "mapkeycopy.go",
+                                "line": 33,
+                                "column": 27,
+                                "offset": 544
+                              },
+                              "name": "len",
+                              "obj": null,
+                              "$type": 22,
+                              "$builtin": true,
+                              "$obj": {
+                                "name": "len",
+                                "kind": "builtin",
+                                "type": 13
+                              }
+                            },
+                            "lparen": {
+                              "file": "mapkeycopy.go",
+                              "line": 33,
+                              "column": 30,
+                              "offset": 547
+                            },
+                            "args": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "mapkeycopy.go",
+                                  "line": 33,
+                                  "column": 31,
+                                  "offset": 548
+                                },
+                                "name": "i",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "i",
+                                  "kind": "var"
+                                },
+                                "$type": 19,
+                                "$obj": {
+                                  "name": "i",
+                                  "kind": "var",
+                                  "type": 19,
+                                  "decl": "mapkeycopy.go:428",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "mapkeycopy.go",
+                              "line": 33,
+                              "column": 32,
+                              "offset": 549
+                            },
+                            "$type": 2
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "mapkeycopy.go",
+                          "line": 33,
+                          "column": 33,
+                          "offset": 550
+                        },
+                        "$type": 14
+                      }
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "mapkeycopy.go",
+                    "line": 34,
+                    "column": 1,
+                    "offset": 552
+                  }
+                }
+              }
+            ],
+            "fileStart": {
+              "file": "mapkeycopy.go",
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "fileEnd": {
+              "file": "mapkeycopy.go",
+              "line": 34,
+              "column": 3,
+              "offset": 554
+            },
+            "scope": null,
+            "imports": [
+              {
+                "node": "ImportSpec",
+                "doc": null,
+                "name": null,
+                "path": {
+                  "node": "BasicLit",
+                  "valuePos": {
+                    "file": "mapkeycopy.go",
+                    "line": 3,
+                    "column": 8,
+                    "offset": 21
+                  },
+                  "valueEnd": {
+                    "file": "mapkeycopy.go",
+                    "line": 3,
+                    "column": 13,
+                    "offset": 26
+                  },
+                  "kind": "STRING",
+                  "value": "\"fmt\""
+                },
+                "comment": null,
+                "endPos": null
+              }
+            ],
+            "unresolved": [
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "mapkeycopy.go",
+                  "line": 5,
+                  "column": 18,
+                  "offset": 45
+                },
+                "name": "int",
+                "obj": null,
+                "$type": 2,
+                "$isType": true,
+                "$obj": {
+                  "name": "int",
+                  "kind": "type",
+                  "type": 2
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "mapkeycopy.go",
+                  "line": 8,
+                  "column": 13,
+                  "offset": 78
+                },
+                "name": "int",
+                "obj": null,
+                "$type": 2,
+                "$isType": true,
+                "$obj": {
+                  "name": "int",
+                  "kind": "type",
+                  "type": 2
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "mapkeycopy.go",
+                  "line": 13,
+                  "column": 2,
+                  "offset": 125
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "mapkeycopy.go",
+                  "line": 13,
+                  "column": 14,
+                  "offset": 137
+                },
+                "name": "len",
+                "obj": null,
+                "$type": 12,
+                "$builtin": true,
+                "$obj": {
+                  "name": "len",
+                  "kind": "builtin",
+                  "type": 13
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "mapkeycopy.go",
+                  "line": 17,
+                  "column": 2,
+                  "offset": 199
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "mapkeycopy.go",
+                  "line": 20,
+                  "column": 14,
+                  "offset": 270
+                },
+                "name": "int",
+                "obj": null,
+                "$type": 2,
+                "$isType": true,
+                "$obj": {
+                  "name": "int",
+                  "kind": "type",
+                  "type": 2
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "mapkeycopy.go",
+                  "line": 20,
+                  "column": 18,
+                  "offset": 274
+                },
+                "name": "int",
+                "obj": null,
+                "$type": 2,
+                "$isType": true,
+                "$obj": {
+                  "name": "int",
+                  "kind": "type",
+                  "type": 2
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "mapkeycopy.go",
+                  "line": 21,
+                  "column": 10,
+                  "offset": 289
+                },
+                "name": "int",
+                "obj": null,
+                "$type": 2,
+                "$isType": true,
+                "$obj": {
+                  "name": "int",
+                  "kind": "type",
+                  "type": 2
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "mapkeycopy.go",
+                  "line": 25,
+                  "column": 2,
+                  "offset": 329
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "mapkeycopy.go",
+                  "line": 25,
+                  "column": 14,
+                  "offset": 341
+                },
+                "name": "len",
+                "obj": null,
+                "$type": 18,
+                "$builtin": true,
+                "$obj": {
+                  "name": "len",
+                  "kind": "builtin",
+                  "type": 13
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "mapkeycopy.go",
+                  "line": 25,
+                  "column": 27,
+                  "offset": 354
+                },
+                "name": "int",
+                "obj": null,
+                "$type": 2,
+                "$isType": true,
+                "$obj": {
+                  "name": "int",
+                  "kind": "type",
+                  "type": 2
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "mapkeycopy.go",
+                  "line": 25,
+                  "column": 44,
+                  "offset": 371
+                },
+                "name": "int",
+                "obj": null,
+                "$type": 2,
+                "$isType": true,
+                "$obj": {
+                  "name": "int",
+                  "kind": "type",
+                  "type": 2
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "mapkeycopy.go",
+                  "line": 28,
+                  "column": 29,
+                  "offset": 451
+                },
+                "name": "any",
+                "obj": null,
+                "$type": 7,
+                "$isType": true,
+                "$obj": {
+                  "name": "any",
+                  "kind": "type",
+                  "type": 7
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "mapkeycopy.go",
+                  "line": 28,
+                  "column": 33,
+                  "offset": 455
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 11,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 11
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "mapkeycopy.go",
+                  "line": 28,
+                  "column": 12,
+                  "offset": 434
+                },
+                "name": "any",
+                "obj": null,
+                "$type": 7,
+                "$isType": true,
+                "$obj": {
+                  "name": "any",
+                  "kind": "type",
+                  "type": 7
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "mapkeycopy.go",
+                  "line": 28,
+                  "column": 16,
+                  "offset": 438
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 11,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 11
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "mapkeycopy.go",
+                  "line": 33,
+                  "column": 2,
+                  "offset": 519
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "mapkeycopy.go",
+                  "line": 33,
+                  "column": 27,
+                  "offset": 544
+                },
+                "name": "len",
+                "obj": null,
+                "$type": 22,
+                "$builtin": true,
+                "$obj": {
+                  "name": "len",
+                  "kind": "builtin",
+                  "type": 13
+                }
+              }
+            ],
+            "comments": [
+              {
+                "node": "CommentGroup",
+                "list": [
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "mapkeycopy.go",
+                      "line": 19,
+                      "column": 2,
+                      "offset": 231
+                    },
+                    "text": "// ++, op= e chave array."
+                  }
+                ]
+              },
+              {
+                "node": "CommentGroup",
+                "list": [
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "mapkeycopy.go",
+                      "line": 27,
+                      "column": 2,
+                      "offset": 385
+                    },
+                    "text": "// Chave interface com struct dentro."
+                  }
+                ]
+              }
+            ],
+            "goVersion": ""
+          }
+        }
+      ],
+      "imports": [
+        {
+          "path": "fmt",
+          "name": "fmt"
+        }
+      ],
+      "typeTable": [
+        {
+          "kind": "named",
+          "pkg": "main",
+          "name": "S",
+          "underlying": 1,
+          "methods": []
+        },
+        {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "a",
+              "type": 2,
+              "embedded": false,
+              "tag": ""
+            }
+          ]
+        },
+        {
+          "kind": "basic",
+          "name": "int"
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [],
+          "variadic": false
+        },
+        {
+          "kind": "map",
+          "key": 0,
+          "elem": 2
+        },
+        {
+          "kind": "func",
+          "params": [
+            6
+          ],
+          "results": [
+            2,
+            8
+          ],
+          "variadic": true
+        },
+        {
+          "kind": "slice",
+          "elem": 7
+        },
+        {
+          "kind": "interface",
+          "methods": [],
+          "embeddeds": []
+        },
+        {
+          "kind": "named",
+          "pkg": "",
+          "name": "error",
+          "underlying": 9
+        },
+        {
+          "kind": "interface",
+          "methods": [
+            {
+              "name": "Error",
+              "type": 10
+            }
+          ],
+          "embeddeds": []
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            11
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "basic",
+          "name": "string"
+        },
+        {
+          "kind": "func",
+          "params": [
+            4
+          ],
+          "results": [
+            2
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "basic",
+          "name": "invalid type"
+        },
+        {
+          "kind": "tuple",
+          "elems": [
+            2,
+            8
+          ]
+        },
+        {
+          "kind": "map",
+          "key": 16,
+          "elem": 2
+        },
+        {
+          "kind": "array",
+          "len": 2,
+          "elem": 2
+        },
+        {
+          "kind": "basic",
+          "name": "untyped int"
+        },
+        {
+          "kind": "func",
+          "params": [
+            15
+          ],
+          "results": [
+            2
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "map",
+          "key": 7,
+          "elem": 11
+        },
+        {
+          "kind": "basic",
+          "name": "bool"
+        },
+        {
+          "kind": "tuple",
+          "elems": [
+            11,
+            20
+          ]
+        },
+        {
+          "kind": "func",
+          "params": [
+            19
+          ],
+          "results": [
+            2
+          ],
+          "variadic": false
+        }
+      ],
+      "implements": null,
+      "initOrder": [],
+      "stdlibUsage": [
+        "fmt.Println"
+      ],
+      "reflectUsage": null
+    }
+  ]
+}
