@@ -172,6 +172,7 @@ class UnaryExpr(ExprBehavior):
             return view(f"{self.expr(x['x'], POSTFIX)}.addr({self.operands.to_int(x['index'])})"), POSTFIX
         if x["node"] == "SelectorExpr" and x.get("$sel", {}).get("kind") == "field":
             owner_t = self.pkg.type_of(x["x"])
+            self.imports.shim_member(owner_t, x["sel"]["name"], x)
             owner = self.expr(x["x"], POSTFIX)
             if owner_t["kind"] == "pointer":
                 owner += "!"
@@ -209,6 +210,7 @@ class SelectorExpr(ExprBehavior):
         if info["kind"] == "methodExpr":
             return self.method_expr(n, info), 0
         t = self.pkg.type_of(x)
+        self.check_shim_members(t, info, sel, n)
         if info["kind"] == "method" and len(info["index"]) > 1:
             explicit = self.promoted_ptr_method(n, x, t, info)
             if explicit is not None:
@@ -261,6 +263,17 @@ class SelectorExpr(ExprBehavior):
             x = {"node": "SelectorExpr", "x": x, "sel": {"node": "Ident", "name": f["name"]},
                  "$sel": {"kind": "field", "index": [fi]}, "$type": f["type"]}
         return dict(n, x=x, **{"$sel": dict(info, index=info["index"][-1:])})
+
+    def check_shim_members(self, t, info, sel, n):
+        """Cada campo do caminho de embedding e o membro final, quando o dono
+        é tipo concreto de shim, têm de existir na classe Dart do shim."""
+        for fi in info["index"][:-1]:
+            if t["kind"] == "pointer":
+                t = self.pkg.type_at(t["elem"])
+            f = self.typesys.underlying(t)["fields"][fi]
+            self.imports.shim_member(t, f["name"], n)
+            t = self.pkg.type_at(f["type"])
+        self.imports.shim_member(t, sel, n)
 
     def method_expr(self, n, info):
         """Method expression `T.M` / `(*T).M`: função com o receptor como

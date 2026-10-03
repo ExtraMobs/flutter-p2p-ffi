@@ -174,6 +174,44 @@ class UnsupportedTest(unittest.TestCase):
         src = 'package main\n\nimport "math"\n\nfunc main() { _ = math.Hypot(3, 4) }\n'
         self.assertEqual(self.emit_error(src)[0], "shim-simbolo:math.hypot")
 
+    def test_missing_shim_member(self):
+        """Método/campo que a classe do shim não tem é recusado (antes:
+        `t.format(...)` e dart analyze acusava undefined_method): chamada
+        direta, via ponteiro, method value, method expression, promovido
+        por embedding, `defer` e `go`."""
+        head = 'package main\n\nimport "time"\n\ntype S struct{ time.Time }\n\nfunc main() {\n\tt := time.Unix(0, 0)\n\t_ = t\n'
+        cases = {
+            '_ = t.Format("2006")': 10,
+            'p := &t\n\t_ = p.Format("2006")': 11,
+            'f := t.Format\n\t_ = f': 10,
+            '_ = time.Time.Format': 10,
+            'var s S\n\t_ = s.Format("2006")': 11,
+            'defer t.Format("2006")': 10,
+            'go t.Format("2006")': 10,
+        }
+        for body, line in cases.items():
+            with self.subTest(body=body):
+                code, pos = self.emit_error(head + "\t" + body + "\n}\n")
+                self.assertEqual(code, "shim-simbolo:time.Time.format")
+                self.assertEqual(pos[1], line)
+
+    def test_shim_members_present(self):
+        """Membros que o shim tem passam: herdados da base (`Duration` sobre
+        `Int64Base`), promovidos, via ponteiro, campos, tipo não exportado
+        com classe pública (`binary.BigEndian`), alias Go (`os.PathError` é
+        `fs.PathError`) e métodos chamados via interface da stdlib."""
+        src = ('package main\n\nimport (\n\t"encoding/binary"\n\t"fmt"\n\t"io"\n\t"os"\n\t"strings"\n\t"sync"\n\t"sync/atomic"\n\t"time"\n)\n\n'
+               'type S struct{ time.Time }\n\n'
+               'func main() {\n\tt := time.Unix(0, 0)\n\tp := &t\n\tvar s S\n'
+               '\tfmt.Println(t.Unix(), p.Unix(), s.Unix(), s.Time.Unix(), time.Second.Seconds(), t.String())\n'
+               '\tf := t.Unix\n\tfmt.Println(f(), binary.BigEndian.Uint32([]byte{0, 0, 0, 1}))\n'
+               '\te := &os.PathError{Op: "x"}\n\tfmt.Println(e.Op, e.Error())\n'
+               '\tvar st fmt.Stringer = t\n\tvar w io.Writer = os.Stdout\n\tw.Write([]byte(st.String()))\n'
+               '\tvar b strings.Builder\n\tb.WriteString("x")\n\tfmt.Println(b.String(), b.Len())\n'
+               '\tvar ap atomic.Pointer[int]\n\tvar ai atomic.Int64\n\tvar m sync.Map\n'
+               '\tm.Store(1, 2)\n\tfmt.Println(ap.Load(), ai.Add(1))\n}\n')
+        Engine(dump_source(src)).emit_package()
+
     def test_fmt_verbs_refused_at_transpile_time(self):
         """Verbo que o shim fmt não formata vira Unsupported na transpilação
         (antes: UnimplementedError só em runtime, audit verde)."""
