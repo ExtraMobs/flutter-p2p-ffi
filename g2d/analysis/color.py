@@ -25,10 +25,11 @@ recusado (`async:valor-func`): chamadas por valor são sempre síncronas.
 
 import collections
 
+from g2d.config import STDLIB_SHIMS
 from g2d.engine.behavior import Analysis
 from g2d.model import unparen, walk
-from g2d.services.concurrency import (LOCKS, ONCE_DO, SPAWNING_SHIM, SUSPENDING_FUNCS, SUSPENDING_SHIM, WAITGROUP_GO,
-                                      Concurrency)
+from g2d.services.concurrency import (COLOR_POLYMORPHIC_SHIM, LOCKS, ONCE_DO, SPAWNING_SHIM, SUSPENDING_FUNCS,
+                                      SUSPENDING_SHIM, WAITGROUP_GO, Concurrency)
 
 
 class ColorSummary:
@@ -204,7 +205,8 @@ def fixed_classes(engine, decls, s):
     """Classes de func cujo formato Dart é fixo por quem não é gerado com a
     cor: assinaturas de funções/métodos da stdlib (o shim recebe e devolve
     funções síncronas; exceto quem roda a função numa goroutine,
-    `SPAWNING_SHIM`) e formatos derivados de genéricos (parâmetros e
+    `SPAWNING_SHIM`, quem serve às duas cores, `COLOR_POLYMORPHIC_SHIM`, e
+    pacote sem shim) e formatos derivados de genéricos (parâmetros e
     resultados de uma chamada genérica, campos e métodos de instâncias de
     tipos genéricos: lá dentro o Dart vê `R Function(T)`)."""
     conc, pkg, calls = engine.services["concurrency"], engine.pkg, engine.services["calls"]
@@ -215,28 +217,49 @@ def fixed_classes(engine, decls, s):
             if fun.get("$isType") or fun.get("$builtin"):
                 continue
             ck = conc.callee_key(n)
-            generic = calls.instantiation(fun) is not None
-            if not generic and not (ck is not None and conc.std(ck[1]) and ck[0] in ("f", "m")):
+            inst = calls.instantiation(fun)
+            std = ck is not None and conc.std(ck[1]) and ck[0] in ("f", "m")
+            if std and (ck in COLOR_POLYMORPHIC_SHIM or ck[1] not in STDLIB_SHIMS):
+                continue  # sem shim o pacote cai na emissão: não prende a classe no grafo
+            if inst is None and not std:
                 continue
             sig = pkg.type_of(fun)
             if sig is None or conc.typesys.underlying(sig)["kind"] != "func":
                 continue
             sig = conc.typesys.underlying(sig)
             skip = SPAWNING_SHIM.get(ck)
+            args = None if std else inst[1]
             for i, p in enumerate(sig["params"]):
                 if i != skip:
-                    conc.func_classes(p, s.forced)
+                    s.forced |= generic_classes(conc, p, args)
             for r in sig["results"]:
-                conc.func_classes(r, s.forced)
+                s.forced |= generic_classes(conc, r, args)
         elif k in ("IndexExpr", "IndexListExpr") and calls.instantiation(n):
-            conc.func_classes(pkg.type_of(n), s.forced)  # `f[int]` como valor
+            s.forced |= generic_classes(conc, pkg.type_of(n), calls.instantiation(n)[1])  # `f[int]` como valor
     for t in pkg.type_table:
         if t["kind"] == "named" and t.get("args"):
             u = conc.typesys.underlying(t)
             for f in u.get("fields") or []:
-                conc.func_classes(f["type"], s.forced)
+                s.forced |= generic_classes(conc, f["type"], t["args"])
             for m in (t.get("methods") or []) + (u.get("methods") or []):
-                conc.func_classes(m["type"], s.forced)
+                s.forced |= generic_classes(conc, m["type"], t["args"])
+
+
+def generic_classes(conc, t, args):
+    """Classes de func em t com formato fixo. Sem args (assinatura da
+    stdlib), todas. Numa instância genérica, só as que vêm de um parâmetro
+    de tipo: lá dentro o Dart vê `R Function(T)`; uma `func()` que não cita
+    o parâmetro tem a mesma classe dentro e fora do genérico e segue a cor
+    dela (o tipo do método em si também não conta), assim como o próprio
+    argumento quando ele é uma func (`StartStopHook[func()]`: lá dentro o
+    valor é um `T` opaco, reificado com o formato da classe). Aproximação
+    segura: a classe cita o texto de algum argumento de tipo (`func(int64)`
+    também fica presa por `T = int`, nunca o contrário)."""
+    classes = conc.func_classes(t)
+    if args is None:
+        return classes
+    names = [conc.canon(a) for a in args]
+    return {c for c in classes if any(a in c[1] and a != c[1] for a in names)}
 
 
 class ColorTable:

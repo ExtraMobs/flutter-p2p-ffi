@@ -339,9 +339,9 @@ Chan<Time>? after(Duration d) => newTimer(d).c;
 
 /// `time.AfterFunc(d, f)`: [f] roda numa goroutine nova (`go f()`) quando
 /// o timer dispara; aceita closure síncrona ou `async`. O `C` do timer é
-/// nil.
-Timer afterFunc(Duration d, async.FutureOr<void> Function() f) {
-  final rt = _RuntimeTimer(null, f, 0);
+/// nil. `f` nil só falha (panic de nil) quando o timer dispara, como no Go.
+Timer afterFunc(Duration d, async.FutureOr<void> Function()? f) {
+  final rt = _RuntimeTimer(null, () => f!(), 0);
   rt.start(_whenNs(d));
   return Timer._(null, true, rt);
 }

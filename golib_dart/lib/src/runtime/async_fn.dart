@@ -19,20 +19,62 @@ Future<R> Function(A, B, C) async3<R, A, B, C>(R Function(A, B, C) f) =>
 
 Future<R> Function(A, B, C, D) async4<R, A, B, C, D>(
   R Function(A, B, C, D) f,
-) => (a, b, c, d) async => f(a, b, c, d);
+) =>
+    (a, b, c, d) async => f(a, b, c, d);
 
 Future<R> Function(A, B, C, D, E) async5<R, A, B, C, D, E>(
   R Function(A, B, C, D, E) f,
-) => (a, b, c, d, e) async => f(a, b, c, d, e);
+) =>
+    (a, b, c, d, e) async => f(a, b, c, d, e);
 
 Future<R> Function(A, B, C, D, E, F) async6<R, A, B, C, D, E, F>(
   R Function(A, B, C, D, E, F) f,
-) => (a, b, c, d, e, g) async => f(a, b, c, d, e, g);
+) =>
+    (a, b, c, d, e, g) async => f(a, b, c, d, e, g);
 
 Future<R> Function(A, B, C, D, E, F, G) async7<R, A, B, C, D, E, F, G>(
   R Function(A, B, C, D, E, F, G) f,
-) => (a, b, c, d, e, g, h) async => f(a, b, c, d, e, g, h);
+) =>
+    (a, b, c, d, e, g, h) async => f(a, b, c, d, e, g, h);
 
 Future<R> Function(A, B, C, D, E, F, G, H) async8<R, A, B, C, D, E, F, G, H>(
   R Function(A, B, C, D, E, F, G, H) f,
-) => (a, b, c, d, e, g, h, i) async => f(a, b, c, d, e, g, h, i);
+) =>
+    (a, b, c, d, e, g, h, i) async => f(a, b, c, d, e, g, h, i);
+
+/// Como `asyncN`, para um valor func que pode ser nil (tipo nomeado da
+/// stdlib, `context.CancelFunc`, entrando numa classe `async`): nil continua
+/// nil.
+Future<R> Function()? asyncOrNil0<R>(R Function()? f) =>
+    f == null ? null : () async => f();
+
+Future<R> Function(A)? asyncOrNil1<R, A>(R Function(A)? f) =>
+    f == null ? null : (a) async => f(a);
+
+Future<R> Function(A, B)? asyncOrNil2<R, A, B>(R Function(A, B)? f) =>
+    f == null ? null : (a, b) async => f(a, b);
+
+Future<R> Function(A, B, C)? asyncOrNil3<R, A, B, C>(R Function(A, B, C)? f) =>
+    f == null ? null : (a, b, c) async => f(a, b, c);
+
+Future<R> Function(A, B, C, D)? asyncOrNil4<R, A, B, C, D>(
+  R Function(A, B, C, D)? f,
+) => f == null ? null : (a, b, c, d) async => f(a, b, c, d);
+
+Future<R> Function(A, B, C, D, E)? asyncOrNil5<R, A, B, C, D, E>(
+  R Function(A, B, C, D, E)? f,
+) => f == null ? null : (a, b, c, d, e) async => f(a, b, c, d, e);
+
+Future<R> Function(A, B, C, D, E, F)? asyncOrNil6<R, A, B, C, D, E, F>(
+  R Function(A, B, C, D, E, F)? f,
+) => f == null ? null : (a, b, c, d, e, g) async => f(a, b, c, d, e, g);
+
+Future<R> Function(A, B, C, D, E, F, G)? asyncOrNil7<R, A, B, C, D, E, F, G>(
+  R Function(A, B, C, D, E, F, G)? f,
+) => f == null ? null : (a, b, c, d, e, g, h) async => f(a, b, c, d, e, g, h);
+
+Future<R> Function(A, B, C, D, E, F, G, H)?
+asyncOrNil8<R, A, B, C, D, E, F, G, H>(R Function(A, B, C, D, E, F, G, H)? f) =>
+    f == null
+    ? null
+    : (a, b, c, d, e, g, h, i) async => f(a, b, c, d, e, g, h, i);

@@ -1,8 +1,8 @@
 # TODO — backlog do desafio kubo/boxo
 
-Estado em 2026-10-02: **167 de 1112** pacotes do grafo do kubo verdes
+Estado em 2026-10-03: **157 de 1112** pacotes do grafo do kubo verdes
 (`docs/audit.md`). A fronteira (pacotes não verdes com as dependências todas
-verdes) tem 183 pacotes. Os números abaixo saem do ranking do audit
+verdes) tem 185 pacotes. Os números abaixo saem do ranking do audit
 (pacotes afetados / pacotes na fronteira).
 
 ## 1. Decisões do dono antes de seguir
@@ -18,10 +18,12 @@ as opções e a recomendação; a tabela é o resumo.
 | D4 | Rede real no `net` | `net` 139 / 20, `net/http` 65 / 13 | mesmo modelo do D3 (`dart:io` / `node:net`), sobre o port que já existe | `P0-shim-net.md` |
 | D5 | Como entra a substituição manual de pacote (`unsafe`, assembly, `go:linkname`) | `unsafe:Pointer` 80 / 11, `conversao:pointer-pointer` 39 / 5, `unsafe:Slice` 30 / 3, 7 pacotes com assembly | substituto Dart escrito à mão por pacote inteiro, registrado como um shim | `P0-design-substituicao.md` |
 | D6 | Reabrir `goto` (hoje ❌ por decisão) | `branch:goto` 28 / 10 (era 14 / 3 quando foi decidido) | implementar no g2d, começando pelos saltos que viram `break`/`continue` rotulados | `P0-design-goto.md` |
-| D7 | Valor `func()` async onde a stdlib força síncrono (`context.CancelFunc`) | `async:valor-func` 66 / 3 | separar a classe do tipo nomeado da stdlib da classe da assinatura e embrulhar síncrono → async | `P1-design-func-sincrona-forcada.md` |
 | D8 | Interface satisfeita por tipo de outro pacote | invisível no audit hoje (os pacotes param antes em shim); saída errada em silêncio com `fmt.Stringer` | `implements` sobre o grafo, restrito às conversões que acontecem e a donos fora da stdlib | `P1-design-interfaces-entre-pacotes.md` |
 
-Já decidido (não reabrir): M4 usa cor `async` transitiva calculada pelo g2d;
+Já decidido (não reabrir): D7 (2026-10-02), tipo de função nomeado da
+stdlib (`context.CancelFunc`) é classe de cor própria e a `func()` comum
+segue a cor dela (`docs/mapping-spec.md` § "Cor transitiva"; resto em
+`P1-design-cor-func-por-campo.md`). M4 usa cor `async` transitiva calculada pelo g2d;
 contextos que precisam ficar síncronos viram `Unsupported`; Riverpod,
 "tudo async" e isolates foram descartados (`docs/mapping-spec.md` § "Cor
 transitiva").
@@ -33,6 +35,7 @@ transitiva").
 | Artefato | Pacotes / fronteira | Resumo |
 |---|---|---|
 | `P1-construcao-construtor-ambiguo.md` | 7 / 4 | campos `C` e `c` na mesma struct colidem no construtor |
+| `P1-design-cor-func-por-campo.md` | 1 verde perdido (`fxclock`) | closure `async` só por chamar campo `func()` não vira `CancelFunc` |
 | `P1-shim-io.md` | 58 ocorrências / 6 | `LimitReader`, `CopyN`, `Copy`, `MultiWriter`, `SectionReader`... |
 | `P1-shim-iter.md` | 19 / 4 (`iter`) e 10 / 3 (`SplitSeq`) | `iter.Seq` e `strings.SplitSeq`/`Lines` (range sobre func já funciona) |
 | `P1-shim-time-layout.md` | 10 / 2 | `time.Format`/`Parse` com layout |
