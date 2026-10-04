@@ -102,7 +102,7 @@ DUAL_SHIM_CALLS = {
 WRAPPING_SHIM_CALLS = frozenset({
     ("f", "io", "LimitReader"), ("f", "io", "MultiReader"), ("f", "io", "MultiWriter"),
     ("f", "io", "TeeReader"), ("f", "io", "NopCloser"), ("f", "io", "NewSectionReader"),
-    ("f", "io", "NewOffsetWriter"),
+    ("f", "io", "NewOffsetWriter"), ("f", "encoding/json", "NewEncoder"), ("f", "encoding/json", "NewDecoder"),
 })
 
 

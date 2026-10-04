@@ -46,6 +46,10 @@ final class Chan<T> {
   Chan.$timer(this.zero) : _cap = 1, _timer = true;
 
   final T zero;
+
+  /// Chama [f] com o T reificado (o reflect descobre o tipo do elemento).
+  R $with<R>(R Function<E>() f) => f<T>();
+
   final int _cap;
   final bool _timer;
 

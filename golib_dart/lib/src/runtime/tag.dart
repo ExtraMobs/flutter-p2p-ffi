@@ -13,3 +13,10 @@ final class TypeTag {
   final String name;
   final String? under;
 }
+
+/// `reflect.Value` visto pelo fmt: o Go imprime o valor que ele guarda
+/// (`<invalid reflect.Value>` se inválido), não a struct.
+abstract interface class FmtReflectValue {
+  bool get $valid;
+  Object? get $fmtArg;
+}

@@ -27,7 +27,7 @@ import sys
 from dataclasses import dataclass, field
 
 from g2d.analysis.color import ColorSummary, ColorTable
-from g2d.config import STDLIB_SHIMS
+from g2d.config import REFLECT_PKGS, STDLIB_SHIMS
 from g2d.engine import Engine
 from g2d.graph import BUILD_ENV, build_env, go_list, init_deps, topo_order
 from g2d.model import Unsupported, load_dump
@@ -337,6 +337,7 @@ def audit(target, corpus, docs, cache, log=print):
 
     imports = {p: graph[p]["imports"] for p in graph}
     colors = color_graph(order, dumps, log, imports)
+    colors.reflective = any(d in REFLECT_PKGS for p in order for d in graph[p]["imports"])
     reports, sources, stdlib, reflection, meta = {}, {}, {}, [], {}
     anon_users = collections.defaultdict(list)  # library `_anon/<hash>` → pacotes que a emitiram
     for i, path in enumerate(order, 1):

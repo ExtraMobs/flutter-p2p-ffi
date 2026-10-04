@@ -17,6 +17,7 @@ from g2d.analysis.color import ColorTable
 from g2d.engine import Engine
 from g2d.model import Unsupported, link_packages, load_dump
 from g2d.services.anon import anon_path
+from g2d.services.reflection import reflective_pkg
 
 
 GOLIB = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "golib_dart")
@@ -153,7 +154,9 @@ def dart_format(source):
 def color_table(pkgs, plugins=None):
     """ColorTable (g2d/analysis/color.py) de pacotes transpilados juntos: a
     cor `async` atravessa pacotes (chamadas e implementações de interface)."""
-    return ColorTable([Engine(p, plugins=plugins).color_summary() for p in pkgs])
+    table = ColorTable([Engine(p, plugins=plugins).color_summary() for p in pkgs])
+    table.reflective = any(reflective_pkg(p) for p in pkgs)
+    return table
 
 
 def emit_libraries(pkg, plugins=None, colors=None, errors=None):

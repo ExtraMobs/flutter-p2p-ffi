@@ -22,23 +22,40 @@ import 'panic.dart';
 /// entre eles é [GoMap.alias] (mesmo armazenamento).
 base class GoMap<K, V> {
   /// Mesmo map que [m] (tipos de map com o mesmo subjacente).
-  GoMap.alias(GoMap<K, V> m) : _m = m._m, elem = m.elem, identity = m.identity;
+  GoMap.alias(GoMap<K, V> m)
+    : _m = m._m,
+      elem = m.elem,
+      identity = m.identity,
+      $key = m.$key;
 
   /// `make(map[K]V)` / `map[K]V{}`.
-  GoMap(this.elem, {this.identity = false}) : _m = _new<K, V>(identity);
+  GoMap(this.elem, {this.identity = false, Elem<K>? key})
+    : $key = key,
+      _m = _new<K, V>(identity);
 
   /// Map nil (zero value).
-  GoMap.nil(this.elem) : _m = null, identity = false;
+  GoMap.nil(this.elem, {Elem<K>? key})
+    : $key = key,
+      _m = null,
+      identity = false;
 
   /// Literal `map[K]V{k: v, ...}`.
-  GoMap.of(Map<K, V> entries, this.elem, {this.identity = false})
-    : _m = _new<K, V>(identity)..addAll(entries);
+  GoMap.of(Map<K, V> entries, this.elem, {this.identity = false, Elem<K>? key})
+    : $key = key,
+      _m = _new<K, V>(identity)..addAll(entries);
 
   static Map<K, V> _new<K, V>(bool identity) =>
       identity ? Map<K, V>.identity() : <K, V>{};
 
   final Map<K, V>? _m;
   final Elem<V> elem;
+
+  /// Descritor da chave (só num grafo que usa reflexão: o tipo dinâmico de
+  /// um map numa interface).
+  final Elem<K>? $key;
+
+  /// `f<K, V>()`: K e V reificados (reflexão).
+  R $withKV<R>(R Function<K2, V2>() f) => f<K, V>();
 
   /// Chaves `*T` (struct): comparadas por endereço.
   final bool identity;

@@ -13,6 +13,8 @@ representações dos tipos primitivos Go.
 | `lib/src/unicode/isprint.dart` | `unicode.IsPrint` do Go (faixas geradas por `go run tool/gen_isprint.go \| dart format`; `test/isprint_test.dart` confere com o Go instalado). |
 | `lib/unicode.dart` (+ `lib/src/unicode/range_table.dart`, `predicates.dart`, `tables.g.dart`) | Shim do pacote `unicode`: `RangeTable`/`Range16`/`Range32`/`CaseRange` (structs de shim), predicados e conversões de caixa. `tables.g.dart` é gerado por `tool/gen_unicode*.go` a partir do `unicode` do **Go 1.26.5** (`GOTOOLCHAIN=go1.26.5`, a referência do projeto — difere do Go local em `Cn`/`LC`, mesmo relatando o mesmo `unicode.Version`); `test/unicode_tables_test.dart` confere o gerado em dia e varre 0..0x10FFFF contra `tool/oracle_unicode.go`. |
 | `lib/time.dart` (+ `src/time/sleep.dart`), `lib/context.dart` (+ `src/context/impl.dart`) | Timers do `time` (`Sleep`, `Timer`, `Ticker`, `After`, `AfterFunc`, `Tick`) e o pacote `context`, sobre o escalonador do runtime (M4). `test/fixtures/<caso>.go` + `<caso>.dart` são programas inteiros (o `.dart` escrito como o g2d emitiria) que `test/timer_context_oracle_test.dart` compara com `go build` em VM, JS e Wasm (stdout em bytes, código de saída, `fatal error`). |
+| `lib/reflect.dart` (+ `src/reflect/`) | Shim `reflect` (M5, D1): `RType<T>` (descritor estático que o g2d gera por tipo; básicos e construtores `rt*` exportados também por `builtin.dart`), `Type`/`Value`/`StructTag`/`DeepEqual` lendo só o descritor. `test/reflect_test.dart` usa um descritor escrito como o g2d emitiria. |
+| `lib/encoding/json.dart` (+ `src/encoding/json/`), `lib/encoding.dart` | Port do `encoding/json` v1 sobre o shim `reflect`; `encoding` só com as interfaces `Text`/`Binary` `Marshaler`/`Unmarshaler`. |
 
 `fixed_types`, `net`, `net/netip` e `internal/poll` vêm de
 `dart IPFS/packages/boilerplate`, mas a divisão em arquivos já não é a da
@@ -40,7 +42,7 @@ igual em VM, AOT, Wasm e JS. A tabela completa está em
 | `slice.dart` | `Slice<T>` (array compartilhado, `append` com o `growslice` do Go 1.25), `growCap`; `base` para os tipos nomeados sobre slice (`Slice.alias`) |
 | `map.dart` | `GoMap<K, V>` (nil, zero value, `lookup`, iteração tolerante a `delete`, `identity` para chave `*T`); `base` para os tipos nomeados sobre map (`GoMap.alias`) |
 | `ptr.dart` | `Ptr<T>`: `Box`, `ElemPtr`, `FieldPtr`, `NilPtr` (ponteiro nil tipado em interface), `PtrView` (base de `N$Ptr`, ponteiro para nomeado não-struct com métodos) |
-| `elem.dart` | `Elem<T>` (sizeof/ponteiros/zero de um tipo; `const`, um por tipo) |
+| `elem.dart` | `Elem<T>` (sizeof/ponteiros/zero de um tipo; `const`, um por tipo; num grafo reflexivo, `type` aponta o `RType` e `$with` dá o T reificado ao `reflect`) |
 | `panic.dart` | `GoError`, `Panic`, `RuntimeError`, `nilDeref`, `panicValue` (erros do Dart → `runtime.Error` do Go) |
 | `defer.dart` | `Defers`, `recover(frame)` (só a chamada direta da função adiada recupera), `runMain` |
 | `output*.dart` | `writeStdout`/`writeStderr`/`writeStderrBytes`/`getEnv`/`getPid`/`exitProcess` por import condicional (io × js_interop) |

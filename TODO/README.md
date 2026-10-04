@@ -1,9 +1,9 @@
 # TODO — backlog do desafio kubo/boxo
 
-Estado em 2026-10-04, com o PR #1 (resto do shim `io`) no `main`: **163 de 1112** pacotes
+Estado em 2026-10-04, com o D1 (reflexão e `encoding/json`) no `main`: **173 de 1112** pacotes
 do grafo do kubo verdes (`docs/audit.md`, Dart SDK 3.13.5; o `main` de
 2026-10-02 regerado no mesmo ambiente dá 157, não os 167 registrados antes).
-A fronteira (pacotes não verdes com as dependências todas verdes) tem 182
+A fronteira (pacotes não verdes com as dependências todas verdes) tem 176
 pacotes. Os números abaixo saem do ranking do audit
 (pacotes afetados / pacotes na fronteira).
 
@@ -14,14 +14,16 @@ as opções e a recomendação; a tabela é o resumo.
 
 | # | Decisão | O que trava | Recomendação | Artefato |
 |---|---|---|---|---|
-| D1 | Recorte inicial do M5 (reflexão) | `reflect` 124 / 19; `encoding/json` 56 / 11 depende dele | shim `reflect` sobre descritores gerados, começando por `TypeOf`/`ValueOf`/`Kind`/`Elem`/`Type`/`Interface` | `P0-design-m5-reflexao.md` |
 | D3 | `os` acessa o sistema de arquivos real? | `os.*` + `io/fs.*` 24 ocorrências na fronteira (`os.open` sozinho: 22 / 4) | sim: `dart:io` na VM/AOT, `node:fs` no JS/Wasm sob Node, erro `*PathError` no navegador | `P0-design-os-arquivos.md` |
 | D4 | Rede real no `net` | `net` 140 / 19 (1º do ranking), `net/http` 65 / 13 | mesmo modelo do D3 (`dart:io` / `node:net`), sobre o port que já existe | `P0-shim-net.md` |
 | D5 | Como entra a substituição manual de pacote (`unsafe`, assembly, `go:linkname`) | `unsafe:Pointer` 80 / 11, `conversao:pointer-pointer` 38 / 4, `unsafe:Slice` 30 / 3, 7 pacotes com assembly | substituto Dart escrito à mão por pacote inteiro, registrado como um shim | `P0-design-substituicao.md` |
 | D6 | Reabrir `goto` (hoje ❌ por decisão) | `branch:goto` 28 / 10 (era 14 / 3 quando foi decidido) | implementar no g2d, começando pelos saltos que viram `break`/`continue` rotulados | `P0-design-goto.md` |
 | D8 | Interface satisfeita por tipo de outro pacote | invisível no audit hoje (os pacotes param antes em shim); saída errada em silêncio com `fmt.Stringer` | `implements` sobre o grafo, restrito às conversões que acontecem e a donos fora da stdlib | `P1-design-interfaces-entre-pacotes.md` |
 
-Já decidido (não reabrir): D7 (2026-10-02), tipo de função nomeado da
+Já decidido (não reabrir): D1 (2026-10-04), reflexão por descritores
+estáticos que o g2d gera por tipo (nome, tipo, tag, getter e setter como
+closures, métodos), com o shim `reflect` só lendo o descritor
+(`docs/mapping-spec.md` § "Reflexão (M5, D1)"). D7 (2026-10-02), tipo de função nomeado da
 stdlib (`context.CancelFunc`) é classe de cor própria e a `func()` comum
 segue a cor dela, com cor própria para campo `func()` não exportado
 (`docs/mapping-spec.md` § "Cor transitiva"). M4 usa cor `async` transitiva calculada pelo g2d;
@@ -40,6 +42,7 @@ pela cor (`docs/mapping-spec.md` § "I/O que suspende").
 | `P1-construcao-construtor-ambiguo.md` | 7 / 4 | campos `C` e `c` na mesma struct colidem no construtor |
 | `P1-shim-iter.md` | 19 / 4 (`iter`) e 10 / 3 (`splitSeq`) | `iter.Seq` e `strings.SplitSeq`/`Lines` (range sobre func já funciona) |
 | `P1-shim-time-layout.md` | 15 / 2 (`Time.format`) e 10 / 2 (`parse`) | `time.Format`/`Parse` com layout |
+| `P1-shim-reflect-funcoes-shim.md` | 9 / 1 (`Value.call$`) e 5 / 2 (`methodByName`) | `Value.Call`/`MethodByName`, assinaturas de func e descritores dos tipos de shim (`time.Time`) |
 
 ### 2b. Saída errada em silêncio (o audit não vê)
 

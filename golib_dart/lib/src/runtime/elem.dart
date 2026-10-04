@@ -18,7 +18,17 @@ final class Elem<T> {
     this.ofInt,
     this.ofFloat,
     this.rewrap,
+    this.type,
   });
+
+  /// Descritor de reflexão de T (`reflect.Type`, thunk): o g2d o emite só
+  /// num grafo que usa reflexão; o reflect o lê para o tipo dinâmico de um
+  /// `[]T`/`map[K]T` guardado numa interface.
+  final Object Function()? type;
+
+  /// `f<T>()`: T reificado (reflexão sobre um `Elem` de tipo estático
+  /// desconhecido).
+  R $with<R>(R Function<E>() f) => f<T>();
 
   /// Slice/map/array visto como T (T de core type composto, `S ~[]E`):
   /// o tipo nomeado reembrulha (`IDs(v)`); o sem nome é o próprio valor.

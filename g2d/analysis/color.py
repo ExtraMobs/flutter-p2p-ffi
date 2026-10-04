@@ -404,6 +404,9 @@ class ColorTable:
         self.lock_sites = []
         self.forced = set()
         self._async = None
+        # Grafo com reflexão (M5, `g2d/services/reflection.py`): quem monta a
+        # tabela do grafo decide; None = cada pacote por si.
+        self.reflective = None
         for s in summaries:
             self.add(s)
 

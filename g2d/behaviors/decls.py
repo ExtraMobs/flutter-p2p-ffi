@@ -245,6 +245,9 @@ class StructClass(TypeDeclBehavior):
         base = self.imports.qualify(None, "GoStruct")
         withs, promoted = self.promoter.promotion(t, st)
         impl = self.goinfo.implements_clause(tidx)
+        reflective = self.reflection.enabled
+        if reflective:
+            impl = impl + [self.reflection.typed()]
         head = f"class {cls} extends {base}<{self_t}>"
         if withs:
             head += " with " + ", ".join(w for w, _ in withs)
@@ -279,6 +282,10 @@ class StructClass(TypeDeclBehavior):
             "@override",
             f"List<String> get $fieldNames => const [{', '.join(names)}];",
         ] + self.field_types(st)
+        if reflective and tnames:
+            lines += self.reflection.generic_struct_members(self_t, tps.decl, tnames, t, st)
+        elif reflective:
+            lines += self.reflection.struct_members(self_t, t, st, t["kind"] == "named")
         for m in self.facts.methods.get(go_name, []):
             lines += [""] + self.functions.func_decl(m)
         return lines + ["}"]
@@ -337,6 +344,8 @@ class InterfaceClass(TypeDeclBehavior):
         if supers:
             head += " implements " + ", ".join(supers)
         lines = [head + " {"]
+        if self.reflection.enabled and owner is not None and owner["kind"] == "named" and not tparams:
+            lines += self.reflection.iface_members(type_name(go_name), owner, u) + [""]
         for m in u["methods"]:
             sig = self.pkg.type_at(m["type"])
             params = ", ".join(f"{self.types.dart(pt)} p{i}" for i, pt in enumerate(sig["params"]))
@@ -355,11 +364,14 @@ class NonStructNamed(TypeDeclBehavior):
         is_ptr = [self.pkg.recv_type(m)["kind"] == "pointer" for m in ms]
         return [m for m, p in zip(ms, is_ptr) if not p], [m for m, p in zip(ms, is_ptr) if p]
 
-    def class_tail(self, t, tidx, value_methods):
-        """Membros GoTyped e métodos de receptor valor da classe de N."""
+    def class_tail(self, t, tidx, value_methods, reflect_cls=None, tps=None):
+        """Membros GoTyped e métodos de receptor valor da classe de N (e o
+        descritor de reflexão, com `reflect_cls`)."""
         names = ", ".join(f"'{n}'" for n in self.goinfo.method_names(t, True))
         lines = ["@override", f"String get $goType => '{self.goinfo.go_type_name(t)}';",
                  "@override", f"List<String> get $methods => const [{names}];"]
+        if reflect_cls is not None:
+            lines += self.reflection.named_members(reflect_cls, t, self.typesys.underlying(t), tps)
         for m in value_methods:
             lines += [""] + self.functions.func_decl(m)
         return lines + ["}"]
@@ -424,6 +436,9 @@ class NamedCompositeClass(NonStructNamed):
         dict_params = "".join(f"this.${n}, " for n in tps.names)
         value_ms, ptr_ms = self.split_methods(name)
         impl = self.value_implements(t, tidx) + [self.types.golang("GoTyped")]
+        reflect_cls = cls if self.reflection.enabled else None
+        if reflect_cls:
+            impl.append(self.reflection.typed())
         head = cls + tps.decl
         if u["kind"] == "func":
             ft = ud.non_null()
@@ -437,7 +452,7 @@ class NamedCompositeClass(NonStructNamed):
         else:
             lines = [f"final class {head} extends {ud} implements {', '.join(impl)} {{",
                      f"{cls}({dict_params}{ud} v) : super.alias(v);", ""] + dict_fields
-        return lines + self.class_tail(t, tidx, value_ms) + self.ptr_class(t, tidx, ptr_ms, tps)
+        return lines + self.class_tail(t, tidx, value_ms, reflect_cls, tps) + self.ptr_class(t, tidx, ptr_ms, tps)
 
     def named_array_class(self, spec, name, t, u, tidx, cls, ud, tps):
         """`type Hash [32]byte` → `final class Hash extends go.GoArray<Uint8>`
@@ -449,6 +464,8 @@ class NamedCompositeClass(NonStructNamed):
         self.promoter.declare(t, t.get("methods") or [])
         ms = self.facts.methods.get(name, [])
         impl = self.goinfo.implements_clause(tidx)
+        if self.reflection.enabled:
+            impl = impl + [self.reflection.typed()]
         vm = ", ".join(f"'{n}'" for n in self.goinfo.method_names(t, True))
         pm = ", ".join(f"'{n}'" for n in self.goinfo.method_names(t, False))
         lines = [f"final class {cls} extends {ud}" + (" implements " + ", ".join(impl) if impl else "") + " {",
@@ -461,6 +478,8 @@ class NamedCompositeClass(NonStructNamed):
                  "@override", f"String get $goType => '{self.goinfo.go_type_name(t)}';",
                  "@override", f"List<String> get $valueMethods => const [{vm}];",
                  "@override", f"List<String> get $ptrMethods => const [{pm}];"]
+        if self.reflection.enabled:
+            lines += self.reflection.named_members(cls, t, u)
         for m in ms:
             lines += [""] + self.functions.func_decl(m)
         return lines + ["}"]
@@ -523,5 +542,9 @@ class NamedClass(NonStructNamed):
             raise Unsupported(f"tipo-nomeado:{b.cat}", f"tipo nomeado sobre {b.cat}")
         value_ms, ptr_ms = self.split_methods(go_name)
         impl = self.value_implements(t, tidx)
+        reflect_cls = cls if self.reflection.enabled else None
+        if reflect_cls:
+            impl = impl + [self.reflection.typed()]
         head = f"final class {cls} extends {base}" + (" implements " + ", ".join(impl) if impl else "")
-        return [head + " {"] + body + self.class_tail(t, tidx, value_ms) + self.ptr_class(t, tidx, ptr_ms)
+        return ([head + " {"] + body + self.class_tail(t, tidx, value_ms, reflect_cls)
+                + self.ptr_class(t, tidx, ptr_ms))

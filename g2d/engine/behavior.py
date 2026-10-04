@@ -72,6 +72,7 @@ class Component:
     dualio = property(lambda self: self.service("dualio"))
     genptr = property(lambda self: self.service("genptr"))
     anon = property(lambda self: self.service("anon"))
+    reflection = property(lambda self: self.service("reflection"))
 
     # --- despacho
     def expr(self, n, min_prec=0):

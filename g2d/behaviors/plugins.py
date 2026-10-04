@@ -3,7 +3,7 @@ comportamentos no motor. Para injetar comportamento, acrescente um plugin
 (ou substitua um destes) na lista passada ao Engine."""
 
 from g2d.analysis import analyses, color
-from g2d.behaviors import builtins, decls, exprs, fmtcheck, stmts
+from g2d.behaviors import builtins, decls, exprs, fmtcheck, reflectcalls, stmts
 from g2d.behaviors.conversions import CONVERSIONS
 from g2d.engine.behavior import Plugin
 from g2d.services.anon import AnonTypes
@@ -22,6 +22,7 @@ from g2d.services.literals import Literals
 from g2d.services.naming import Naming
 from g2d.services.operands import Operands
 from g2d.services.promotion import Promotion
+from g2d.services.reflection import Reflection
 from g2d.services.types import TypeMapper
 from g2d.services.typesys import TypeSystem
 from g2d.services.values import ValueSemantics
@@ -34,7 +35,7 @@ class CorePlugin(Plugin):
 
     SERVICES = [ImportTable, Naming, TypeSystem, TypeMapper, DescriptorRegistry, ValueSemantics,
                 Literals, GoTypeInfo, Operands, Calls, Assertions, ControlFlow, Functions,
-                VarDecls, Promotion, EvalOrder, GenericPointers, AnonTypes]
+                VarDecls, Promotion, EvalOrder, GenericPointers, AnonTypes, Reflection]
     ANALYSES = [analyses.ImplementsAnalysis, analyses.MethodsAnalysis, analyses.MemberNamesAnalysis,
                 analyses.TopNamesAnalysis,
                 analyses.BoxingAnalysis, analyses.LocalTypesAnalysis, analyses.RecoverAnalysis, analyses.InitVarsAnalysis,
@@ -130,5 +131,14 @@ class ConcurrencyPlugin(Plugin):
         engine.register_builtin(builtins.Close)
 
 
+class ReflectPlugin(Plugin):
+    """Reflexão (M5): `reflect.TypeOf`/`ValueOf`/`TypeFor` com o tipo
+    estático já conhecido viram o descritor (`g2d/behaviors/reflectcalls.py`).
+    Os descritores em si saem do serviço `Reflection` (CorePlugin)."""
+
+    def install(self, engine):
+        engine.register_expr(reflectcalls.ReflectStaticCall)
+
+
 DEFAULT_PLUGINS = [CorePlugin(), CollectionsPlugin(), PointersPlugin(), InterfacesPlugin(),
-                   DeferPlugin(), FmtPlugin(), ConcurrencyPlugin()]
+                   DeferPlugin(), FmtPlugin(), ConcurrencyPlugin(), ReflectPlugin()]

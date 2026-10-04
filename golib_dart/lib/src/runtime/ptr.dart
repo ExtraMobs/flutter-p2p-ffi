@@ -2,6 +2,7 @@
 library;
 
 import '../../fixed_types/golang.dart' show GoTyped;
+import 'elem.dart';
 import 'panic.dart';
 import 'struct.dart';
 
@@ -16,6 +17,9 @@ abstract interface class Ptr<T> {
 
   /// T é interface ou implementa `error`? (o `errors.As` exige.)
   bool $errorTargetOk();
+
+  /// `f<T>()`: o tipo apontado reificado (reflexão: `reflect.TypeOf(&x)`).
+  R $withElem<R>(R Function<E>() f);
 }
 
 /// T implementa `error`, ou é anulável sem ser ponteiro de dado/struct
@@ -34,7 +38,11 @@ bool _accepts<T>(Object? v) =>
 /// Ponteiro nil tipado (`(*int)(nil)`) dentro de uma interface, que no Go
 /// não é nil. Ler ou escrever dá o panic de nil pointer.
 final class NilPtr<T> implements Ptr<T> {
-  const NilPtr();
+  const NilPtr([this.elem]);
+
+  /// Descritor de T, quando só se sabe em runtime (`*T` nil dentro de
+  /// genérico): o `reflect` acha o tipo por ele.
+  final Elem<T>? elem;
 
   @override
   T get value => nilDeref();
@@ -47,6 +55,9 @@ final class NilPtr<T> implements Ptr<T> {
 
   @override
   bool $errorTargetOk() => _errorTarget<T>();
+
+  @override
+  R $withElem<R>(R Function<E>() f) => f<T>();
 
   @override
   bool operator ==(Object other) => other is NilPtr<T>;
@@ -72,6 +83,9 @@ final class Box<T> implements Ptr<T> {
 
   @override
   bool $errorTargetOk() => _errorTarget<T>();
+
+  @override
+  R $withElem<R>(R Function<E>() f) => f<T>();
 }
 
 /// `*T` de um genérico (`go.Ptr<T>`) instanciado com struct ou array, que
@@ -100,6 +114,9 @@ final class ValPtr<T> implements Ptr<T> {
 
   @override
   bool $errorTargetOk() => _errorTarget<T>();
+
+  @override
+  R $withElem<R>(R Function<E>() f) => f<T>();
 
   @override
   bool operator ==(Object other) => other is ValPtr && identical(other.$v, $v);
@@ -140,6 +157,9 @@ abstract base class PtrView<T> implements Ptr<T>, GoTyped {
   bool $errorTargetOk() => $p.$errorTargetOk();
 
   @override
+  R $withElem<R>(R Function<E>() f) => f<T>();
+
+  @override
   bool operator ==(Object other) => other is PtrView<T> && other.$p == $p;
 
   @override
@@ -168,6 +188,9 @@ final class ElemPtr<T> implements Ptr<T> {
 
   @override
   bool $errorTargetOk() => _errorTarget<T>();
+
+  @override
+  R $withElem<R>(R Function<E>() f) => f<T>();
 
   @override
   bool operator ==(Object other) =>
@@ -205,6 +228,9 @@ final class FieldPtr<O extends Object, T> implements Ptr<T> {
   bool $errorTargetOk() => _errorTarget<T>();
 
   @override
+  R $withElem<R>(R Function<E>() f) => f<T>();
+
+  @override
   bool operator ==(Object other) =>
       other is FieldPtr &&
       identical(other._owner, _owner) &&
@@ -239,6 +265,9 @@ final class ConvPtr<U, T> implements Ptr<U> {
 
   @override
   bool $errorTargetOk() => _errorTarget<U>();
+
+  @override
+  R $withElem<R>(R Function<E>() f) => f<U>();
 
   @override
   bool operator ==(Object other) => other is ConvPtr && other.$p == $p;

@@ -26,7 +26,9 @@ SHIM_INTERFACES = {("fmt", "Stringer"), ("fmt", "GoStringer"), ("fmt", "Formatte
                    ("io", "ReadWriter"), ("io", "ReadWriteCloser"), ("io", "ReadSeeker"), ("io", "WriteSeeker"),
                    ("io", "ReadWriteSeeker"), ("io", "ReadSeekCloser"), ("io", "ReaderFrom"), ("io", "WriterTo"),
                    ("io", "ByteScanner"), ("io", "RuneReader"), ("io", "RuneScanner"), ("sync", "Locker"),
-                   ("context", "Context")}
+                   ("context", "Context"), ("encoding", "TextMarshaler"), ("encoding", "TextUnmarshaler"),
+                   ("encoding", "BinaryMarshaler"), ("encoding", "BinaryUnmarshaler"),
+                   ("encoding/json", "Marshaler"), ("encoding/json", "Unmarshaler")}
 
 # Tipos não exportados da stdlib que o código do grafo recebe por inferência
 # (`var NBO = binary.BigEndian`): a classe pública do shim que os representa.
@@ -38,12 +40,15 @@ STDLIB_SHIMS = {
     "bytes": "package:golib_dart/bytes.dart",
     "context": "package:golib_dart/context.dart",
     "crypto/subtle": "package:golib_dart/crypto/subtle.dart",
+    "encoding": "package:golib_dart/encoding.dart",
     "encoding/binary": "package:golib_dart/encoding/binary.dart",
+    "encoding/json": "package:golib_dart/encoding/json.dart",
     "errors": "package:golib_dart/errors.dart",
     "fmt": "package:golib_dart/fmt.dart",
     "io": "package:golib_dart/io.dart",
     "io/fs": "package:golib_dart/io/fs.dart",
     "os": "package:golib_dart/os.dart",
+    "reflect": "package:golib_dart/reflect.dart",
     "math": "package:golib_dart/math.dart",
     "math/bits": "package:golib_dart/math/bits.dart",
     "regexp": "package:golib_dart/regexp.dart",
@@ -56,3 +61,11 @@ STDLIB_SHIMS = {
     "unicode": "package:golib_dart/unicode.dart",
     "unicode/utf8": "package:golib_dart/unicode/utf8.dart",
 }
+
+# Pacotes cuja presença no grafo liga os descritores de reflexão (M5):
+# `reflect` e os shims construídos sobre ele.
+REFLECT_PKGS = frozenset({"reflect", "encoding/json"})
+
+# Tipos nomeados de shim com descritor de reflexão próprio (`static final $rt`
+# na classe do shim); os outros viram `go.rtOpaque`.
+SHIM_RTYPES = frozenset({("encoding/json", "Number"), ("encoding/json", "Delim")})

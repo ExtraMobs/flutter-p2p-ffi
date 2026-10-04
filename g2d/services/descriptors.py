@@ -47,6 +47,9 @@ class DescriptorRegistry(Service):
             b = self.typesys.basic(t)
             if b is not None and b.cat in ("wint", "float"):
                 flag += f", ofInt: {self.of_int_fn(t, b, dt)}, ofFloat: {self.of_float_fn(t, b, dt)}"
+            rt = self.reflection.elem_type_fn(t)
+            if rt is not None:
+                flag += f", type: {rt}"
             self.elem_decls.append(f"const {name} = {self.imports.qualify(None, 'Elem')}<{dt}>({size}, {zero}{flag});")
         return self.elems[dt]
 

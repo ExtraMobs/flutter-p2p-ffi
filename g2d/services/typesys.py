@@ -222,7 +222,7 @@ class TypeSystem(Service):
 
     def map_args(self, t):
         """Argumentos extras dos construtores de go.GoMap para o tipo t."""
-        return ", identity: true" if self.identity_keys(t) else ""
+        return (", identity: true" if self.identity_keys(t) else "") + self.reflection.map_key(t)
 
     def is_struct_pointer(self, t):
         """`*T` com T struct/array: representado pelo próprio objeto (`T?`)."""

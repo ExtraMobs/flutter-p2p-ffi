@@ -248,6 +248,15 @@ final class _Printer with io.WriterSync implements State {
       arg = arg.value;
     }
     if (name != null && name.isEmpty) name = null; // $fieldTypes: desconhecido
+    if (arg is FmtReflectValue && verb != 0x54 && verb != 0x70) {
+      if (!arg.$valid) {
+        _fmt.pad(
+          _ascii(depth == 0 ? '<invalid reflect.Value>' : '<invalid Value>'),
+        );
+        return;
+      }
+      arg = arg.$fmtArg;
+    }
     if (arg is Addr && arg.target != null) {
       arg = arg.target;
       value = false;

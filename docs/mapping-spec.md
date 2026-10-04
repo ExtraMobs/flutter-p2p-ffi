@@ -48,7 +48,7 @@ Legenda: ✅ fiel · ⚠️ fiel no caso comum, com limite conhecido · ❌ não
 | genéricos | parâmetros de tipo Dart + dicionário `go.Elem<T>` (`$T`) + bounds `IntBase/GoReal/GoOrdered/StringBase` | M3 | ✅ |
 | arrays `[N]T` (valor) | `go.GoArray<T>` (base `go.GoValue`, como `GoStruct`) | M3 | ✅ |
 | goroutines, canais, `select` | `go.Chan<T>`, `go.select`/`go.selectNow`, `go.spawn` + escalonador; `async`/`await` pela cor transitiva (ver "Concorrência (M4) — runtime" e "Cor transitiva" abaixo) | M4 | ⚠️ runtime, emissão, timers, `context`, valor func `async`, `$goInit` que suspende, I/O que suspende (versão dupla, D2) e `CancelFunc` com cor própria (D7) prontos; faltam as classes de func de formato fixo da stdlib (`sort.Slice`...: "Cor transitiva" abaixo) e interfaces entre pacotes (`TODO/P1-design-interfaces-entre-pacotes.md`) |
-| reflexão | descritores estáticos (evolução de `go.Elem`); recorte em decisão (`TODO/P0-design-m5-reflexao.md`) | M5 | ❌ |
+| reflexão | `go.RType<T>` (descritor estático gerado pelo g2d, um por tipo; genéricos por fábrica `$rtOf`) + shim `reflect` que só lê o descritor (§ "Reflexão (M5, D1)") | M5 | ✅ `Type`/`Value` sem chamar funções; ⚠️ tipos de shim opacos |
 
 ## Plataformas: ponteiros e `Type` (verificado)
 
@@ -714,6 +714,7 @@ intervalo, nil pointer, escrita em map nil.
 | `math` | `naN()` com os bits do Go (`0x7ff8000000000001`); `sqrt`, `floor`, `ceil`, `trunc`, `abs`, `max`, `min`, `inf`, `isInf`, `isNaN`, `signbit`, `copysign`, `float32bits`/`float64bits`/`...frombits`, com oráculo bit a bit; as constantes são dobradas. ⚠️ payload de NaN não é portável (o JS canoniza). Transcendentais e afins (`exp`, `expm1`, `log`, `log2`, `log10`, `log1p`, `pow`, `frexp`, `ldexp`, `modf`, `mod`, `round`, `roundToEven`, `nextafter`, `cbrt`, `sin`, `cos`, `tan`, `sincos` (Payne-Hanek acima de 2²⁹), `atan`, `lgamma`, `gamma`, `erfc`): porta do código Go puro (`golib_dart/lib/src/math/pure.dart`, fdlibm/Cephes via Go 1.26.5) sobre `double`, com as expressões constantes do Go já dobradas; oráculo bit a bit contra o Go com `GOARCH=386` (lá o `math` é só Go puro). ⚠️ No amd64 o gc usa assembly em `Exp`/`Log` (com FMA conforme a CPU), e por elas em `Pow` fracionário, `Log2`, `Log10`, `Lgamma`, `Gamma`, `Erfc`: o `go run` amd64 pode diferir no último bit; o alvo é o Go puro, igual em VM, JS e Wasm e ao Go fora de amd64/arm64/loong64/s390x. Fixture `mathtrans` (as que usam `Exp`/`Log` impressas com `%.12g`) |
 | `math/bits` | todas as funções usadas pelo grafo, sobre as metades de 32 bits dos fixed_types (`Add/Sub/Mul/Div(64)` em records; `Div64` com os pânicos do Go) |
 | `errors` | `new$` → `go.ErrorString` (identidade); `is$`, `as`, `unwrap`, `join` (`go.JoinError`), `asType` (Go 1.26), `errUnsupported`: porta de `wrap.go`/`join.go`. A cadeia é percorrida por interfaces do runtime que o g2d declara em todo tipo cujo method set tem a assinatura exata (`Unwrap() error` → `go.Unwrapper`, `Unwrap() []error` → `go.MultiUnwrapper`, `Is(error) bool` → `go.ErrorIs`, `As(any) bool` → `go.ErrorAs`), respeitando o method set do valor (`go.goHasMethod`); `Is` só compara com `==` alvo comparável (`go.goComparable`). `As` escreve no alvo com `Ptr.$assignIfIs` (genéricos reificados: `v is T`; struct por valor não serve a `*S`), ou `$set` quando o alvo é a própria struct; pânicos do Go para alvo nil/não ponteiro/não error. Fixture `errorschain` |
+| `encoding/json`, `encoding` | Port do json v1 do Go 1.26.5 sobre o shim `reflect` (`golib_dart/lib/encoding/json.dart`, partes em `lib/src/encoding/json/`); do `encoding`, só as quatro interfaces. `Marshal`, `MarshalIndent`, `Unmarshal`, `Valid`, `Compact`, `Indent`, `HTMLEscape`, `Encoder` (`Encode`, `SetIndent`, `SetEscapeHTML`), `Decoder` (`Decode`, `Token`, `More`, `Buffered`, `InputOffset`, `UseNumber`, `DisallowUnknownFields`; o buffer cresce como no Go), `RawMessage`, `Number`, `Delim`, `Marshaler`/`Unmarshaler` e os erros (`SyntaxError`, `UnmarshalTypeError`, `InvalidUnmarshalError`, `UnsupportedTypeError`, `UnsupportedValueError`, `MarshalerError`) com as mensagens exatas. Regras do Go: tag `json` (`-`, `omitempty`, `omitzero`, `string`), embutidos e o campo que vence por profundidade e tag, chaves de map ordenadas (string, inteiro ou `TextMarshaler`), `[]byte` em base64, escape de HTML, UTF-8 inválido como U+FFFD, cortes `'e'`/`'f'` de float (inclusive float32), `Marshaler`/`TextMarshaler`/`Unmarshaler` no valor e no ponteiro endereçável, ciclo depois de 1000 níveis, `UnmarshalTypeError` que segue e devolve o primeiro erro, nome sem diferenciar caixa; scanner e offsets do `SyntaxError` iguais. Método presente sem `implements` declarado pelo g2d vai pelo nome, decidido pelo method set do descritor. Fixtures `jsonencode`, `jsondecode`, `jsonstream`. ⚠️ `RawMessage` é `typedef` de `[]byte`: fiel onde o descritor `json.RawMessage` chega (campo, elemento, valor de map), mas como alvo direto ou dentro de `any` vira base64; método de receptor ponteiro de nomeado não struct alcançado pelo endereço de campo/elemento/chave dá panic explícito; tipo de shim sem descritor (`time.Time`) dá panic explícito; `Encode`/`Decode`/`Token`/`More` são síncronos (sobre I/O que suspende, o fatal do `go.syncOfAsync`); copiar `Decoder` por valor dá panic. Os deprecados `UnmarshalFieldError`/`InvalidUTF8Error` viram `shim-simbolo:` |
 | `encoding/binary` | `littleEndian`/`bigEndian`/`nativeEndian` (little no amd64): `uint16/32/64`, `putUint16/32/64`, `appendUint16/32/64`, `String()`, acessando o último índice primeiro (mesmo pânico de bounds do Go). As structs vazias não exportadas do Go (`bigEndian`...) são as subclasses `BigEndian`/`LittleEndian`/`NativeEndian` de `ByteOrder` (struct de shim; `var NBO = binary.BigEndian` usa o mapeamento `SHIM_TYPES` do `g2d/config.py`). Varints (`uvarint`, `putUvarint`, `appendUvarint`, `varint`, `putVarint`, `appendVarint`, `readUvarint`, `readVarint`) com os overflows do Go. `read`/`write` sem reflexão: ponteiro para valor de tamanho fixo, slice e array (inteiros de largura fixa, floats, bool; `[]byte` vai direto), struct no `write`; `int`/`uint` dão o erro do Go. ⚠️ `read` em struct lança `UnimplementedError`; tipo nomeado sobre `int` passa como int64. Fixture `binaryvarint` |
 | `crypto/subtle` | `xorBytes` (pânicos `dst too short` / `invalid overlap`, via `go.inexactOverlap`), `constantTimeCompare` |
 | `bytes` | `equal`, `compare`, `indexByte`, `index`, `count`, `hasPrefix`, `hasSuffix`, `lastIndexByte`, `split` (pedaços com cap limitado, `s[:m:m]`), `trimLeft` (vazio → nil), `trimRight` (vazio continua vazio). `toUpper`/`toLower` (atalho ASCII, senão `unicode.ToUpper`/`ToLower`), `title`, `equalFold`, `trimSpace` (tudo espaço → nil, como o Go), `fields`/`fieldsFunc`, `indexFunc`/`lastIndexFunc`/`containsFunc`, `runes` — sobre o shim `unicode` novo (`src/bytes/case.dart`, parte nova). `contains`/`containsAny`/`containsRune`, `lastIndex`, `indexRune`, `indexAny`/`lastIndexAny`, `trimPrefix`/`trimSuffix`, `trim`/`trimFunc`/`trimLeftFunc`/`trimRightFunc`, `cut`/`cutPrefix`/`cutSuffix`, `clone`, `join`, `repeat`, `map`, `replace`/`replaceAll`, `splitN`/`splitAfter`/`splitAfterN` (porta direta do Go; `src/bytes/search.dart`, `edit.dart`, `split.dart`; fixture `bytesstringsmisc`). `Buffer`, `Reader`/`newReader` como structs de shim (fixture `bytesmore`). ❌ `ToValidUTF8`, `ToTitle`, `SplitSeq` (`TODO/P1-shim-iter.md`) |
@@ -918,9 +919,67 @@ atribuição, argumento e range; `$set` in-place; `==`/hash elemento a elemento
 Resolvido pela regra "um tipo Go = uma classe Dart". `Golang.Int` e
 `Golang.Int64` são classes distintas, e os tipos nomeados têm a sua própria.
 `byte`/`uint8` e `rune`/`int32` são aliases no próprio Go e continuam
-`typedef`. Os testes de tipo usam `is T` (reificado). Para o M5, a reflexão
-pode indexar descritores por `runtimeType` das classes geradas (confiável nas
-três plataformas).
+`typedef`. Os testes de tipo usam `is T` (reificado). A reflexão (abaixo)
+lê o descritor pelo próprio objeto (`go.Typed.$rtype`), nunca por
+`runtimeType`.
+
+## Reflexão (M5, D1)
+
+Decisão do dono (2026-10-04): o g2d vê o programa inteiro e gera, para cada
+tipo, um dicionário estático refletível (nome, tipo, tag, getter e setter
+como closures, métodos); o `reflect` do Dart só lê esse dicionário.
+`dart:mirrors` continua proibido. Fixtures `reflectbasic` (um pacote) e
+`reflectcross` (descritores entre pacotes, `PkgPath` de campo não exportado).
+
+**Quando gera.** Só num grafo reflexivo: algum pacote importa `reflect` ou
+`encoding/json` (`REFLECT_PKGS` em `g2d/config.py`; `ColorTable.reflective`
+no pipeline e no audit). Fora disso a saída não muda. Num grafo reflexivo,
+todo tipo nomeado de pacote transpilado ganha descritor; o tipo genérico
+ganha a fábrica estática `$rtOf<T>($T)`, que monta o descritor da instância
+(`Box[int]`: nome `Box[int]`, `String()` `main.Box[int]`, argumento nomeado
+com o import path inteiro, como o Go) uma vez por argumentos de tipo, com
+tamanho e offsets calculados no runtime (`go.rtGeneric`).
+⚠️ Default escolhido no lugar de "só os tipos que chegam a `reflect` ou
+`interface{}`": a análise de alcance fica para depois, e o tree shaking do
+AOT/dart2js descarta os descritores não usados.
+
+**Descritor** (`golib_dart/lib/src/reflect/rtype*.dart`, `go.RType<T>`, T =
+representação Dart do tipo). Instâncias canônicas, comparáveis por
+identidade como o `reflect.Type` do Go: tipo nomeado em `static final $rt`
+na classe gerada (struct, nomeado, array nomeado, interface nomeada) e
+`$rtype` de instância (`go.Typed`); básicos são singletons (`go.rtInt`...);
+compostos sem nome saem de caches (`ptrTo`, `sliceOf`, `arrayOf`, `chanOf`,
+`map` por despacho duplo). Struct: campos `go.RField` com nome, pacote (só
+os não exportados), tag, embutido, offset do layout amd64 e getter/setter
+como closures. Métodos: method set de T e de `*T` (nomes Go ordenados) e a
+assinatura Go de cada um (`Method.Type` com o receptor).
+
+**Tipo dinâmico** (`reflect.TypeOf(x)` com `x` interface): `$rtype` do
+objeto; básicos pela classe fixa; slice/map/array/chan pelo T reificado
+(`Elem.type`, `Elem.$with`, `GoMap.$withKV`, `Ptr.$withElem`, `Chan.$with`);
+func sem nome pelo `go.Func` (assinatura). Com tipo estático concreto, o g2d
+passa o descritor direto (`reflect.typeOf$static`/`valueOf$static`,
+`reflect.TypeFor[T]()` → `typeFor(T.$rt)`), o que cobre ponteiro nil
+tipado (`(*I)(nil)`).
+
+**Value** (`src/reflect/value*.dart`): descritor + representação + closures
+de leitura/escrita do lugar de onde veio (campo, elemento, `*p`), com as
+flags do Go (endereçável, só leitura por campo não exportado). `Set*`,
+`Field*`, `Index`, `Slice`, `Elem`, `Addr`, `MapIndex`/`SetMapIndex`/
+`MapKeys`/`MapRange`, `Len`/`Cap`/`SetLen`, `IsNil`/`IsZero`, `Convert`,
+`Interface`, `New`, `Zero`, `MakeSlice`, `MakeMap`, `Append`, `Copy`,
+`Swapper`, `DeepEqual` (com ciclos), `StructTag.Get`/`Lookup` (port do
+Go), com os mesmos panics (`*reflect.ValueError`, "using unaddressable
+value"...). O `fmt` imprime um `reflect.Value` como o valor que ele guarda.
+
+⚠️ Limites (`TODO/P1-shim-reflect-funcoes-shim.md`): `Value.Call`,
+`Method`/`MethodByName` e `MakeFunc` não existem (`Unsupported`
+`shim-simbolo:`); `NumIn`/`In`/`Out` dão panic explícito; tipo de shim
+(`time.Time`) e instância de genérico sobre básico, array ou interface têm
+descritor opaco (listar campos dá panic explícito). `Implements`
+compara nomes de métodos, não assinaturas. A direção de um `chan` guardado
+em interface sai sempre `chan` (o `Chan<T>` não guarda a direção).
+
 
 ## Código gerado
 
