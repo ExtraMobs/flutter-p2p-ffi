@@ -112,7 +112,7 @@ class Functions(Service):
         suspende de verdade no corpo (canal, `Wait`) não tem tradução."""
         self.scope.async_ctx = is_async
         self.scope.sync_reason = "contexto-sincrono"
-        if not is_async and self.concurrency.is_forced(key) and self.concurrency.direct_suspend(body)[0]:
+        if not is_async and self.concurrency.is_forced(key) and self.concurrency.direct_suspend(body, fallback=False)[0]:
             raise Unsupported("async:contexto-sincrono",
                               f"{key[-1]} precisa ser síncrono (chamado pelo shim) mas espera outra goroutine", node)
 

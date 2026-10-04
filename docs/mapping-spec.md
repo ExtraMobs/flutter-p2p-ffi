@@ -987,14 +987,24 @@ ligam o receptor pelo tear-off que o descritor do tipo guarda (`binds`;
 uma closure com o tipo Dart exato (parâmetros e resultados reificados por
 `RType.$with`; até 8 parâmetros e 5 resultados, `src/reflect/make_func.dart`
 gerado por `golib_dart/tool/gen_make_func.py`); `FuncOf` acha o tipo
-canônico pela assinatura. Função que suspende (cor `async`): num contexto
-`async` o g2d emite `await v.call$async(in)` (`ReflectAsyncCall`), que
-espera o `Future`; num contexto síncrono a chamada dá panic explícito
-(como o `syncOfAsync` do D2). Fixtures `reflectcall`, `reflectcallasync`.
+canônico pela assinatura. **D9 (2026-10-04): `Call`/`CallSlice` sempre
+suspendem** (a cor não atravessa a reflexão, e a função guardada pode ser
+`async`: os construtores do `dig`/`fx`): o g2d os trata como chamada do
+shim que suspende (`SUSPENDING_SHIM`), emite `await v.call$async(in)` e
+quem chama ganha a cor `async`. Num contexto que precisa ficar síncrono
+(`String()`, `Error()`...) a chamada fica `call$` (`SYNC_FALLBACK`), que
+dá panic explícito só se a função chamada suspender; uma função `async`
+só por chamar por reflexão é *branda* e ganha a gêmea `f$sync` do D2 para
+esses contextos (`directSoft` em `g2d/analysis/color.py`). Fixtures
+`reflectcall`, `reflectcallasync`, `reflectcallsuspende`.
 
-⚠️ Limites (`TODO/P1-reflect-call-sincrono.md, D9`): função que suspende
-chamada por `Value.Call` num contexto síncrono (a cor não atravessa a
-reflexão: o `dig`/`fx` chamam construtores assim) dá panic explícito;
+⚠️ Limites: `Value.Call` de função que suspende dentro de `String()`/`Error()`
+e outros contextos síncronos dá panic explícito; um valor func cuja classe
+de assinatura fica `async` só por `Value.Call` não tem gêmea síncrona
+(chamá-lo num contexto síncrono é `async:contexto-sincrono`, ex.
+`gogo/protobuf/proto`); `Value.Call` numa seção crítica não torna o Mutex
+disputável (se a função chamada suspender com ele travado, o `Lock`
+síncrono de outra goroutine falha explícito);
 `NewAt`, `UnsafeAddr`, `UnsafePointer`, `SliceHeader`/`StringHeader`
 dependem do `unsafe` (D5); método promovido de struct genérica não entra
 em `binds` (sem mixin); tipo de shim sem `$rt` em `SHIM_RTYPES` (têm:

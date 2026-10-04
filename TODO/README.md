@@ -19,9 +19,10 @@ as opções e a recomendação; a tabela é o resumo.
 | D5 | Como entra a substituição manual de pacote (`unsafe`, assembly, `go:linkname`) | `unsafe:Pointer` 80 / 11, `conversao:pointer-pointer` 38 / 4, `unsafe:Slice` 30 / 3, 7 pacotes com assembly | substituto Dart escrito à mão por pacote inteiro, registrado como um shim | `P0-design-substituicao.md` |
 | D6 | Reabrir `goto` (hoje ❌ por decisão) | `branch:goto` 28 / 10 (era 14 / 3 quando foi decidido) | implementar no g2d, começando pelos saltos que viram `break`/`continue` rotulados | `P0-design-goto.md` |
 | D8 | Interface satisfeita por tipo de outro pacote | invisível no audit hoje (os pacotes param antes em shim); saída errada em silêncio com `fmt.Stringer` | `implements` sobre o grafo, restrito às conversões que acontecem e a donos fora da stdlib | `P1-design-interfaces-entre-pacotes.md` |
-| D9 | `reflect.Value.Call` sempre suspende? | função que suspende chamada por reflexão num contexto síncrono dá panic (`go.uber.org/dig`/`fx` montam o nó do kubo assim) | sim: todo `Call` vira `await call$async` e quem chama ganha a cor `async` | `P1-reflect-call-sincrono.md` |
 
-Já decidido (não reabrir): D1 (2026-10-04), reflexão por descritores
+Já decidido (não reabrir): D9 (2026-10-04), `reflect.Value.Call`/`CallSlice`
+sempre suspendem e quem chama ganha a cor `async` (forma síncrona só em
+contexto que precisa ficar síncrono). D1 (2026-10-04), reflexão por descritores
 estáticos que o g2d gera por tipo (nome, tipo, tag, getter e setter como
 closures, métodos, assinaturas de func e tear-offs), com o shim `reflect` só lendo o descritor;
 `Call`/`Method`/`MakeFunc`/`FuncOf`/`StructOf`/`Select` prontos

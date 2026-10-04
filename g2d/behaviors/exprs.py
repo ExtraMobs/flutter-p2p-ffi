@@ -3,7 +3,7 @@
 from g2d.engine.behavior import NOT_HANDLED, ExprBehavior
 from g2d.engine.precedence import DART_PREC, NON_ASSOC, POSTFIX, UNARY
 from g2d.model import Unsupported, has_recover, unparen
-from g2d.services.concurrency import ONCE_DO, SUSPENDING_SHIM
+from g2d.services.concurrency import ONCE_DO, SUSPENDING_SHIM, SYNC_FALLBACK
 from g2d.services.naming import member_name, param_name, top_member_name, type_name
 
 
@@ -562,6 +562,8 @@ class AsyncCall(ExprBehavior):
             sync = self.dualio.sync_form(n)  # contexto síncrono: I/O síncrono (D2)
             if sync is not None:
                 return self.expr(dict(sync, **{"$awaited": True}), UNARY), POSTFIX
+            if self.concurrency.callee_key(n) in SYNC_FALLBACK:  # `v.call$(in)` (D9)
+                return self.expr(dict(n, **{"$awaited": True}), UNARY), POSTFIX
         self.concurrency.require_async(n, "chamada que suspende")
         key = self.concurrency.callee_key(n)
         if SUSPENDING_SHIM.get(key) or key == ONCE_DO:

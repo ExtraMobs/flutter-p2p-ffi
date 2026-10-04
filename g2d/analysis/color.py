@@ -40,6 +40,8 @@ class ColorSummary:
 
     def __init__(self):
         self.direct = set()  # chaves que suspendem no próprio corpo
+        # ...só por chamadas com forma síncrona (`Value.Call`, D9): brandas
+        self.direct_soft = set()
         self.edges = collections.defaultdict(set)  # chave → callees (chamada que espera o resultado)
         self.unions = set()  # pares de chaves com a mesma assinatura Dart
         # (função, mutex, seção suspende direto, callees da seção, mutexes
@@ -50,6 +52,7 @@ class ColorSummary:
 
     def to_json(self):
         return {"direct": sorted(map(list, self.direct)),
+                "directSoft": sorted(map(list, self.direct_soft)),
                 "forced": sorted(map(list, self.forced)),
                 "edges": sorted([list(k), sorted(map(list, v))] for k, v in self.edges.items()),
                 "unions": sorted([list(a), list(b)] for a, b in self.unions),
@@ -60,6 +63,7 @@ class ColorSummary:
     def from_json(cls, doc):
         s = cls()
         s.direct = {tuple(k) for k in doc["direct"]}
+        s.direct_soft = {tuple(k) for k in doc.get("directSoft", [])}
         s.forced = {tuple(k) for k in doc["forced"]}
         for k, v in doc["edges"]:
             s.edges[tuple(k)] = {tuple(x) for x in v}
@@ -110,9 +114,14 @@ def summarize(engine, decls=None):
     def body(key, node):
         if conc.direct_suspend(node)[0]:
             s.direct.add(key)
+            if not conc.direct_suspend(node, fallback=False)[0]:
+                s.direct_soft.add(key)
         s.edges[key] |= callees(node)[0]
         for mid, section, leak in conc.lock_sites(node):
-            hard = any(conc.direct_suspend(x)[0] for x in section)
+            # ponytail: `Value.Call` (D9) na seção não torna o Mutex
+            # disputável; se a função chamada suspender com ele travado, o
+            # `Lock` síncrono de outra goroutine falha explícito.
+            hard = any(conc.direct_suspend(x, fallback=False)[0] for x in section)
             cs, ls = set(), set()
             for x in section:
                 c, lk = callees(x)
@@ -400,6 +409,7 @@ class ColorTable:
     def __init__(self, summaries=()):
         self.parent = {}
         self.direct = set()
+        self.direct_soft = set()
         self.edges = collections.defaultdict(set)
         self.lock_sites = []
         self.forced = set()
@@ -416,6 +426,7 @@ class ColorTable:
         for k in summary.direct:
             self.find(k)
         self.direct |= summary.direct
+        self.direct_soft |= summary.direct_soft
         for k, v in summary.edges.items():
             self.edges[k] |= v
         self.lock_sites += summary.lock_sites
@@ -469,8 +480,18 @@ class ColorTable:
                     if c not in colored and c not in forced:
                         colored.add(c)
                         work.append(c)
+            # Callee `async` só por `Value.Call` (D9) não torna o Mutex
+            # disputável (ponytail: ver `lock_sites` em `ColorSummary`).
+            strict = set(g for g in {self.find(k) for k in direct - self.direct_soft} if g not in forced)
+            work = list(strict)
+            while work:
+                g = work.pop()
+                for c in callers[g]:
+                    if c not in strict and c not in forced:
+                        strict.add(c)
+                        work.append(c)
             more = {m for _, m, _, cs, ls, _ in self.lock_sites if m not in mutexes
-                    and (any(self.find(c) in colored for c in cs) or ls & mutexes)}
+                    and (any(self.find(c) in strict for c in cs) or ls & mutexes)}
             if not more:
                 break
             mutexes |= more
@@ -488,7 +509,10 @@ class ColorTable:
         as funções e métodos declarados alcançáveis a partir de um contexto
         síncrono por chamadas a brandas."""
         colored, dual = self._async, self._dual
-        hard = {g for g in {self.find(k) for k in direct} if g not in self._forced and g not in dual}
+        # Suspende de fato no corpo; `Value.Call` (D9) tem a forma síncrona
+        # `call$`, então só por ele a função é branda.
+        strict = {self.find(k) for k in direct if k not in self.direct_soft}
+        hard = {g for g in strict if g not in self._forced and g not in dual}
         work = list(hard)
         while work:
             g = work.pop()

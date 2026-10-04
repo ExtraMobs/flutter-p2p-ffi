@@ -138,7 +138,6 @@ class ReflectPlugin(Plugin):
 
     def install(self, engine):
         engine.register_expr(reflectcalls.ReflectStaticCall)
-        engine.register_expr(reflectcalls.ReflectAsyncCall)
 
 
 DEFAULT_PLUGINS = [CorePlugin(), CollectionsPlugin(), PointersPlugin(), InterfacesPlugin(),

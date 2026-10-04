@@ -265,7 +265,7 @@ Golang.Int _sum(go.Slice<Golang.Int> xs) {
 }
 
 void main() {
-  go.runMain(() {
+  go.runMain(() async {
     $goInit();
     final $t1 = go.Defers();
     try {
@@ -319,7 +319,7 @@ void main() {
           go.Slice<Object?>.of([st, $t7, $t8], _$e0),
         ),
       });
-      go.Slice<reflect.Value> out = reflect
+      go.Slice<reflect.Value> out = await reflect
           .valueOf$static(
             go.Func(
               _add,
@@ -336,7 +336,7 @@ void main() {
               () => [go.rtInt],
             ),
           )
-          .call$(
+          .call$async(
             go.Slice<reflect.Value>.of([
               reflect.valueOf$static(Golang.Int(2), go.rtInt),
               reflect.valueOf$static(Golang.Int(3), go.rtInt),
@@ -347,7 +347,7 @@ void main() {
           go.Slice<Object?>.of([Golang.Int(out.length), $t9], _$e0),
         ),
       });
-      (switch (reflect
+      (switch (await reflect
           .valueOf$static(
             go.Func(
               _sum,
@@ -366,7 +366,7 @@ void main() {
               variadic: true,
             ),
           )
-          .call$(
+          .call$async(
             go.Slice<reflect.Value>.of([
               reflect.valueOf$static(Golang.Int(1), go.rtInt),
               reflect.valueOf$static(Golang.Int(2), go.rtInt),
@@ -377,7 +377,7 @@ void main() {
           go.Slice<Object?>.of([$t10[0].$ifaceCopy()], _$e0),
         ),
       });
-      (switch (reflect
+      (switch (await reflect
           .valueOf$static(
             go.Func(
               _sum,
@@ -396,7 +396,7 @@ void main() {
               variadic: true,
             ),
           )
-          .callSlice(
+          .callSlice$async(
             go.Slice<reflect.Value>.of([
               reflect.valueOf$static(
                 go.Slice<Golang.Int>.of([Golang.Int(4), Golang.Int(5)], _$e2),
@@ -408,7 +408,7 @@ void main() {
           go.Slice<Object?>.of([$t11[0].$ifaceCopy()], _$e0),
         ),
       });
-      (switch (reflect
+      (switch (await reflect
           .valueOf$static(
             go.Func(
               _sum,
@@ -427,7 +427,7 @@ void main() {
               variadic: true,
             ),
           )
-          .call$(go.Slice<reflect.Value>.nil(_$e1))) {
+          .call$async(go.Slice<reflect.Value>.nil(_$e1))) {
         final $t12 => fmt.println(
           go.Slice<Object?>.of([$t12[0].$ifaceCopy()], _$e0),
         ),
@@ -441,9 +441,9 @@ void main() {
           go.Slice<Object?>.of([ot, $t13, $t14], _$e0),
         ),
       });
-      (switch (reflect
+      (switch (await reflect
           .valueOf$static(op, Op.$rt)
-          .call$(
+          .call$async(
             go.Slice<reflect.Value>.of([
               reflect.valueOf$static(Golang.Int(6), go.rtInt),
               reflect.valueOf$static(Golang.Int(7), go.rtInt),
@@ -458,9 +458,9 @@ void main() {
       (switch ((
         v.numMethod(),
         v.method(Golang.Int(0)).type(),
-        v
+        await v
             .methodByName(Golang.String.fromDart('Hi'))
-            .call$(
+            .call$async(
               go.Slice<reflect.Value>.of([
                 reflect.valueOf$static(Golang.Int(4), go.rtInt),
               ], _$e1),
@@ -470,9 +470,9 @@ void main() {
           go.Slice<Object?>.of([$t16, $t17, $t18[0].$ifaceCopy()], _$e0),
         ),
       });
-      go.Slice<reflect.Value> r = v
+      go.Slice<reflect.Value> r = await v
           .methodByName(Golang.String.fromDart('Pair'))
-          .call$(go.Slice<reflect.Value>.nil(_$e1));
+          .call$async(go.Slice<reflect.Value>.nil(_$e1));
       (switch (r[1].type()) {
         final $t19 => fmt.println(
           go.Slice<Object?>.of([
@@ -482,9 +482,9 @@ void main() {
           ], _$e0),
         ),
       });
-      (switch (v
+      (switch (await v
           .methodByName(Golang.String.fromDart('Join'))
-          .call$(
+          .call$async(
             go.Slice<reflect.Value>.of([
               reflect.valueOf$static(Golang.String.fromDart('-'), go.rtString),
               reflect.valueOf$static(Golang.String.fromDart('a'), go.rtString),
@@ -496,9 +496,9 @@ void main() {
         ),
       });
       reflect.Value pv = reflect.valueOf$static(g ?? G.$nil, go.rtPtr(G.$rt));
-      pv
+      await pv
           .methodByName(Golang.String.fromDart('Inc'))
-          .call$(
+          .call$async(
             go.Slice<reflect.Value>.of([
               reflect.valueOf$static(Golang.Int(10), go.rtInt),
             ], _$e1),
@@ -514,7 +514,7 @@ void main() {
       var (m, _) = reflect
           .typeOf$static(g ?? G.$nil, go.rtPtr(G.$rt))!
           .methodByName(Golang.String.fromDart('Hi'));
-      (switch (m.func.call$(
+      (switch (await m.func.call$async(
         go.Slice<reflect.Value>.of([
           reflect.valueOf$static(g ?? G.$nil, go.rtPtr(G.$rt)),
           reflect.valueOf$static(Golang.Int(1), go.rtInt),
@@ -537,21 +537,21 @@ void main() {
         c ?? Count$Ptr.$nil,
         go.rtPtr(Count.$rt),
       );
-      cv
+      await cv
           .methodByName(Golang.String.fromDart('Add'))
-          .call$(
+          .call$async(
             go.Slice<reflect.Value>.of([
               reflect.valueOf$static(Golang.Int(4), go.rtInt),
             ], _$e1),
           );
       (switch ((
-        cv
+        await cv
             .methodByName(Golang.String.fromDart('Double'))
-            .call$(go.Slice<reflect.Value>.nil(_$e1)),
-        cv
+            .call$async(go.Slice<reflect.Value>.nil(_$e1)),
+        await cv
             .elem$()
             .methodByName(Golang.String.fromDart('Double'))
-            .call$(go.Slice<reflect.Value>.nil(_$e1)),
+            .call$async(go.Slice<reflect.Value>.nil(_$e1)),
       )) {
         (final $t25, final $t26) => fmt.println(
           go.Slice<Object?>.of([
@@ -571,9 +571,9 @@ void main() {
       (switch ((
         iv.kind(),
         iv.numMethod(),
-        iv
+        await iv
             .method(Golang.Int(0))
-            .call$(
+            .call$async(
               go.Slice<reflect.Value>.of([
                 reflect.valueOf$static(Golang.Int(5), go.rtInt),
               ], _$e1),
@@ -772,7 +772,7 @@ void main() {
           })($rd: $t1);
         });
       }
-      reflect
+      await reflect
           .valueOf$static(
             go.Func(
               _add,
@@ -789,7 +789,7 @@ void main() {
               () => [go.rtInt],
             ),
           )
-          .call$(
+          .call$async(
             go.Slice<reflect.Value>.of([
               reflect.valueOf$static(Golang.Int(1), go.rtInt),
             ], _$e1),
@@ -797,7 +797,7 @@ void main() {
     } catch ($t38, $t39) {
       $t1.fail($t38, $t39);
     } finally {
-      $t1.run();
+      await $t1.runAsync();
     }
   });
 }

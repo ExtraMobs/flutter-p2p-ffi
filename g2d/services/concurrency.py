@@ -23,7 +23,14 @@ SUSPENDING_SHIM = {
     ("f", "reflect", "Select"): ("select$async", False),
     ("m", "reflect", "Value", "Send"): ("send$async", False),
     ("m", "reflect", "Value", "Recv"): ("recv$async", False),
+    # D9: chamar por reflexão sempre suspende (a função guardada pode ser
+    # `async`); num contexto que precisa ficar síncrono fica `call$`.
+    ("m", "reflect", "Value", "Call"): ("call$async", False),
+    ("m", "reflect", "Value", "CallSlice"): ("callSlice$async", False),
 }
+# Chamadas suspensivas com forma síncrona para contexto forçado síncrono
+# (`String()`...): a forma síncrona dá panic se a função chamada suspende.
+SYNC_FALLBACK = frozenset({("m", "reflect", "Value", "Call"), ("m", "reflect", "Value", "CallSlice")})
 # Funções do shim que sempre suspendem (devolvem Future): `await time.sleep(d)`.
 SUSPENDING_FUNCS = frozenset({("f", "time", "Sleep")})
 # Trava → destrava correspondente (seção crítica de um Mutex/RWMutex).
@@ -264,11 +271,13 @@ class Concurrency(Service):
         return key[0] == "f" and Concurrency.std(key[1])
 
     # ------------------------------------------------------------ suspensão direta
-    def direct_suspend(self, node):
+    def direct_suspend(self, node, fallback=True):
         """(hard, soft) da função/literal (sem contar func literals
         aninhadas): `hard` = operação de canal, `select` sem `default`,
         `range` sobre chan, `WaitGroup.Wait`/`Cond.Wait`, `time.Sleep`; `soft` = `Lock`
-        (que só suspende se o Mutex for disputável: `lock_sites`)."""
+        (que só suspende se o Mutex for disputável: `lock_sites`). Sem
+        `fallback`, as chamadas com forma síncrona (`SYNC_FALLBACK`) não
+        contam."""
         hard = soft = False
         polled = set()  # operações dos cases de `select` com `default`: nunca esperam
         for n in walk(node, funclits=False):
@@ -290,6 +299,8 @@ class Concurrency(Service):
             elif k == "CallExpr":
                 ck = self.callee_key(n)
                 shim = SUSPENDING_SHIM.get(ck)
+                if shim and not fallback and ck in SYNC_FALLBACK:
+                    continue  # tem forma síncrona (`call$`): não obriga a ser async
                 if shim:
                     soft, hard = soft or shim[1], hard or not shim[1]
                 elif ck in SUSPENDING_FUNCS:
