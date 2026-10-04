@@ -45,6 +45,10 @@ DUAL_IFACES = {
     ("io", "ReadSeeker"): ("Read",),
     ("io", "WriteSeeker"): ("Write",),
     ("io", "ReadWriteSeeker"): ("Read", "Write"),
+    ("io", "ReadSeekCloser"): ("Read", "Close"),
+    ("io", "ByteScanner"): ("ReadByte",),
+    ("io", "ReaderFrom"): ("ReadFrom",),
+    ("io", "WriterTo"): ("WriteTo",),
 }
 DUAL_METHODS = frozenset(m for ms in DUAL_IFACES.values() for m in ms)
 
@@ -72,6 +76,9 @@ DUAL_SHIM_CALLS = {
     ("f", "io", "ReadFull"): ((0, "Read"),),
     ("f", "io", "ReadAtLeast"): ((0, "Read"),),
     ("f", "io", "WriteString"): ((0, "Write"),),
+    ("f", "io", "Copy"): ((0, "Write"), (1, "Read")),
+    ("f", "io", "CopyBuffer"): ((0, "Write"), (1, "Read")),
+    ("f", "io", "CopyN"): ((0, "Write"), (1, "Read")),
     ("f", "fmt", "Fprint"): ((0, "Write"),),
     ("f", "fmt", "Fprintf"): ((0, "Write"),),
     ("f", "fmt", "Fprintln"): ((0, "Write"),),
@@ -85,6 +92,18 @@ DUAL_SHIM_CALLS = {
     ("m", "strings", "Reader", "WriteTo"): ((0, "Write"),),
     ("m", "strings", "Replacer", "WriteString"): ((0, "Write"),),
 }
+
+# Funções do shim que só guardam a interface de I/O num tipo do shim que
+# embrulha (`io.LimitReader`...): não chamam nada, e o embrulho tem as duas
+# formas reais (a `$async` espera a de baixo). Não recusam argumento que
+# suspende. ⚠️ O método do embrulho chamado direto pelo tipo concreto
+# (`(*io.LimitedReader).Read`) é síncrono, como todo tipo do shim: sobre um
+# leitor que suspende, cai no `fatal` `g2d:` do `syncOfAsync`.
+WRAPPING_SHIM_CALLS = frozenset({
+    ("f", "io", "LimitReader"), ("f", "io", "MultiReader"), ("f", "io", "MultiWriter"),
+    ("f", "io", "TeeReader"), ("f", "io", "NopCloser"), ("f", "io", "NewSectionReader"),
+    ("f", "io", "NewOffsetWriter"),
+})
 
 
 def _std(pkg):
@@ -105,7 +124,8 @@ def sync_shim(key):
     """Método de I/O de tipo concreto do shim que nunca suspende (ou de
     `fmt.State`, cujo valor é sempre o impressor do shim): chamado direto é
     síncrono, seja qual for a cor do grupo dele."""
-    if key is None or key[0] != "m" or key[3] not in DUAL_METHODS or key in ASYNC_SHIM_METHODS:
+    if (key is None or key[0] != "m" or key[3] not in DUAL_METHODS or key in ASYNC_SHIM_METHODS
+            or key in DUAL_SHIM_CALLS):  # `Buffer.WriteTo(w)` espera o `w`
         return False
     return _std(key[1]) and ((key[1], key[2]) not in SHIM_INTERFACES or (key[1], key[2]) in SYNC_SHIM_IFACES)
 
@@ -206,7 +226,7 @@ class DualIO(Service):
         if fun.get("$isType") or fun.get("$builtin"):
             return
         key = self.concurrency.callee_key(call)
-        if key is None or key[0] not in ("f", "m") or not _std(key[1]) or key in DUAL_SHIM_CALLS:
+        if key is None or key[0] not in ("f", "m") or not _std(key[1]) or key in DUAL_SHIM_CALLS or key in WRAPPING_SHIM_CALLS:
             return
         sig = self.pkg.type_of(fun)
         if sig is None or self.typesys.underlying(sig)["kind"] != "func":

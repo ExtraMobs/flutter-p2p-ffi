@@ -3,15 +3,16 @@ part of '../../strings.dart';
 const _seekStart = 0, _seekCurrent = 1, _seekEnd = 2;
 
 /// `strings.Reader`: struct de shim usada por ponteiro (`*Reader`, do
-/// `NewReader`). Porta de `strings/reader.go` do Go 1.26. Implementa as
-/// interfaces de shim que `io.dart` já tem (`Reader`, `ReaderAt`,
-/// `ByteReader`, `Seeker`); `RuneReader`, `RuneScanner`, `ByteScanner` e
-/// `WriterTo` ainda não existem em `io.dart`.
-/// ponytail: adicionar ao `implements` quando `io.RuneReader`,
-/// `io.RuneScanner`, `io.ByteScanner` e `io.WriterTo` existirem.
+/// `NewReader`). Porta de `strings/reader.go` do Go 1.26.
 final class Reader extends GoStruct<Reader>
     with io.ReaderSync, io.ReaderAtSync, io.ByteReaderSync
-    implements io.Reader, io.ReaderAt, io.ByteReader, io.Seeker {
+    implements
+        io.Reader,
+        io.ReaderAt,
+        io.ByteScanner,
+        io.RuneScanner,
+        io.Seeker,
+        io.WriterTo {
   Reader();
 
   /// `(*Reader)(nil)` dentro de uma interface.

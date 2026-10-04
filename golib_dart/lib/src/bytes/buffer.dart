@@ -46,9 +46,12 @@ final class Buffer extends GoStruct<Buffer>
     implements
         io.Reader,
         io.Writer,
-        io.ByteReader,
+        io.ByteScanner,
+        io.RuneScanner,
         io.ByteWriter,
         io.StringWriter,
+        io.ReaderFrom,
+        io.WriterTo,
         Stringer {
   Buffer();
 

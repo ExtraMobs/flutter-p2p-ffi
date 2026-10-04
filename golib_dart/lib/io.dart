@@ -1,5 +1,4 @@
-/// Shim do pacote Go `io` (parcial: erros sentinela, interfaces, ReadFull,
-/// ReadAll, WriteString, Discard, Pipe; o resto em `TODO/P1-shim-io.md`).
+/// Shim do pacote Go `io`: porta de `io.go`, `multi.go` e `pipe.go` do Go 1.26.
 ///
 /// As interfaces entram em `SHIM_INTERFACES` (`g2d/config.py`): um tipo
 /// gerado com `Write([]byte) (int, error)` declara `implements io.Writer`.
@@ -20,6 +19,13 @@ import 'fixed_types/golang.dart' as Golang;
 part 'src/io/interfaces.dart';
 part 'src/io/read_write.dart';
 part 'src/io/pipe.dart';
+part 'src/io/copy.dart';
+part 'src/io/limited_reader.dart';
+part 'src/io/section_reader.dart';
+part 'src/io/offset_writer.dart';
+part 'src/io/multi.dart';
+part 'src/io/tee_reader.dart';
+part 'src/io/nop_closer.dart';
 
 GoError _err(String s) => ErrorString(Golang.String.fromDart(s));
 
@@ -45,25 +51,13 @@ final GoError errClosedPipe = _err('io: read/write on closed pipe');
 
 /// `io.SeekStart`, `io.SeekCurrent`, `io.SeekEnd` vêm dobradas pelo g2d.
 
+/// `errInvalidWrite` (não exportado): resultado impossível de `Write`.
+final GoError _errInvalidWrite = _err('invalid write result');
+
+/// `errWhence` (não exportado): `Seek` com whence inválido.
+final GoError _errWhence = _err('Seek: invalid whence');
+
+/// `errOffset` (não exportado): `Seek`/`WriteAt` com offset inválido.
+final GoError _errOffset = _err('Seek: invalid offset');
+
 const _byte = Elem<Golang.Uint8>(1, Golang.Uint8.new, ofInt: Golang.Uint8.from);
-
-/// `io.Discard`: Writer que aceita tudo e não faz nada.
-final Writer discard = _Discard();
-
-final class _Discard
-    with WriterSync, StringWriterSync
-    implements Writer, StringWriter, Golang.GoTyped {
-  @override
-  (Golang.Int, GoError?) write(Slice<Golang.Uint8> p) =>
-      (Golang.Int(p.length), null);
-
-  @override
-  (Golang.Int, GoError?) writeString(Golang.String s) =>
-      (Golang.Int(s.length), null);
-
-  @override
-  String get $goType => 'io.discard';
-
-  @override
-  List<String> get $methods => const ['Write', 'WriteString'];
-}

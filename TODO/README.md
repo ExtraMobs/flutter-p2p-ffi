@@ -1,6 +1,6 @@
 # TODO — backlog do desafio kubo/boxo
 
-Estado em 2026-10-03, com os PRs #7 a #10 no `main`: **162 de 1112** pacotes
+Estado em 2026-10-04, com o PR #1 (resto do shim `io`) no `main`: **163 de 1112** pacotes
 do grafo do kubo verdes (`docs/audit.md`, Dart SDK 3.13.5; o `main` de
 2026-10-02 regerado no mesmo ambiente dá 157, não os 167 registrados antes).
 A fronteira (pacotes não verdes com as dependências todas verdes) tem 182
@@ -38,7 +38,6 @@ pela cor (`docs/mapping-spec.md` § "I/O que suspende").
 | Artefato | Pacotes / fronteira | Resumo |
 |---|---|---|
 | `P1-construcao-construtor-ambiguo.md` | 7 / 4 | campos `C` e `c` na mesma struct colidem no construtor |
-| `P1-shim-io.md` | `shim-simbolo:io.*` 22 ocorrências / 4; e `async:shim-sincrono` 68 / 10 | `LimitReader`, `CopyN`, `Copy`, `MultiWriter`, `SectionReader`... (com versão `$async`: hoje `io.Copy` sobre um Reader que suspende é recusado) |
 | `P1-shim-iter.md` | 19 / 4 (`iter`) e 10 / 3 (`splitSeq`) | `iter.Seq` e `strings.SplitSeq`/`Lines` (range sobre func já funciona) |
 | `P1-shim-time-layout.md` | 15 / 2 (`Time.format`) e 10 / 2 (`parse`) | `time.Format`/`Parse` com layout |
 
@@ -137,8 +136,9 @@ Como provar:
 Conferido em 2026-10-02 contra o `main` (`git merge-base --is-ancestor`).
 As sessões daqui não apagam branches; o dono apaga pelo GitHub.
 
-- Branches dos PRs #2 a #10, já mesclados no `main` (2026-10-03), podem ser
-  apagadas.
+- Branches dos PRs #1 a #10, já mesclados no `main`, podem ser apagadas
+  (#1, `wonderful-mendel-00xe54`, o resto do shim `io`, entrou em
+  2026-10-04 portado para a versão dupla do D2).
 
 - Já contidas no `main`, podem ser apagadas: `wip-evalorder`,
   `wip-fmt-sharp-v`, `wip-m4a-runtime`, `wip-privacidade-libraries`,

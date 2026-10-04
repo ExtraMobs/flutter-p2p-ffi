@@ -64,6 +64,34 @@ abstract interface class WriterAt {
   );
 }
 
+/// `io.ReaderFrom`: `ReadFrom` chama `Read` no argumento, então tem as duas
+/// formas como os métodos de I/O.
+abstract interface class ReaderFrom {
+  (Golang.Int64, GoError?) readFrom(Reader? r);
+  Future<(Golang.Int64, GoError?)> readFrom$async(Reader? r);
+}
+
+/// `io.WriterTo`: `WriteTo` chama `Write` no argumento (duas formas).
+abstract interface class WriterTo {
+  (Golang.Int64, GoError?) writeTo(Writer? w);
+  Future<(Golang.Int64, GoError?)> writeTo$async(Writer? w);
+}
+
+/// `io.RuneReader` (só síncrono, como [Seeker]).
+abstract interface class RuneReader {
+  (Golang.Rune, Golang.Int, GoError?) readRune();
+}
+
+/// `io.ByteScanner`.
+abstract interface class ByteScanner implements ByteReader {
+  GoError? unreadByte();
+}
+
+/// `io.RuneScanner`.
+abstract interface class RuneScanner implements RuneReader {
+  GoError? unreadRune();
+}
+
 /// `io.ReadCloser`.
 abstract interface class ReadCloser implements Reader, Closer {}
 
@@ -78,6 +106,9 @@ abstract interface class ReadWriteCloser implements Reader, Writer, Closer {}
 
 /// `io.ReadSeeker`.
 abstract interface class ReadSeeker implements Reader, Seeker {}
+
+/// `io.ReadSeekCloser`.
+abstract interface class ReadSeekCloser implements Reader, Seeker, Closer {}
 
 /// `io.WriteSeeker`.
 abstract interface class WriteSeeker implements Writer, Seeker {}

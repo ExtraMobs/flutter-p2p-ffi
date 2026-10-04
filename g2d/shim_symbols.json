@@ -135,13 +135,17 @@
     "io": [
       "ByteReader",
       "ByteReaderSync",
+      "ByteScanner",
       "ByteWriter",
       "ByteWriterSync",
       "Closer",
       "CloserSync",
+      "LimitedReader",
+      "OffsetWriter",
       "PipeReader",
       "PipeWriter",
       "ReadCloser",
+      "ReadSeekCloser",
       "ReadSeeker",
       "ReadWriteCloser",
       "ReadWriteSeeker",
@@ -149,7 +153,11 @@
       "Reader",
       "ReaderAt",
       "ReaderAtSync",
+      "ReaderFrom",
       "ReaderSync",
+      "RuneReader",
+      "RuneScanner",
+      "SectionReader",
       "Seeker",
       "StringWriter",
       "StringWriterSync",
@@ -159,6 +167,13 @@
       "WriterAt",
       "WriterAtSync",
       "WriterSync",
+      "WriterTo",
+      "copy",
+      "copy$async",
+      "copyBuffer",
+      "copyBuffer$async",
+      "copyN",
+      "copyN$async",
       "discard",
       "eof",
       "errClosedPipe",
@@ -166,6 +181,12 @@
       "errShortBuffer",
       "errShortWrite",
       "errUnexpectedEOF",
+      "limitReader",
+      "multiReader",
+      "multiWriter",
+      "newOffsetWriter",
+      "newSectionReader",
+      "nopCloser",
       "pipe",
       "readAll",
       "readAll$async",
@@ -173,6 +194,7 @@
       "readAtLeast$async",
       "readFull",
       "readFull$async",
+      "teeReader",
       "writeString",
       "writeString$async"
     ],
@@ -827,6 +849,11 @@
         "readByte",
         "readByte$async"
       ],
+      "ByteScanner": [
+        "readByte",
+        "readByte$async",
+        "unreadByte"
+      ],
       "ByteWriter": [
         "writeByte",
         "writeByte$async"
@@ -842,6 +869,49 @@
       "CloserSync": [
         "close",
         "close$async"
+      ],
+      "LimitedReader": [
+        "$classIs",
+        "$copy",
+        "$fieldNames",
+        "$fieldTypes",
+        "$fields",
+        "$goType",
+        "$ifaceCopy",
+        "$isValue",
+        "$methods",
+        "$nilPtr",
+        "$ptrMethods",
+        "$set",
+        "$setAny",
+        "$valueMethods",
+        "hashCode",
+        "n",
+        "r",
+        "read",
+        "read$async"
+      ],
+      "OffsetWriter": [
+        "$classIs",
+        "$copy",
+        "$fieldNames",
+        "$fieldTypes",
+        "$fields",
+        "$goType",
+        "$ifaceCopy",
+        "$isValue",
+        "$methods",
+        "$nilPtr",
+        "$ptrMethods",
+        "$set",
+        "$setAny",
+        "$valueMethods",
+        "hashCode",
+        "seek",
+        "write",
+        "write$async",
+        "writeAt",
+        "writeAt$async"
       ],
       "PipeReader": [
         "$classIs",
@@ -893,6 +963,13 @@
         "read",
         "read$async"
       ],
+      "ReadSeekCloser": [
+        "close",
+        "close$async",
+        "read",
+        "read$async",
+        "seek"
+      ],
       "ReadSeeker": [
         "read",
         "read$async",
@@ -931,9 +1008,44 @@
         "readAt",
         "readAt$async"
       ],
+      "ReaderFrom": [
+        "readFrom",
+        "readFrom$async"
+      ],
       "ReaderSync": [
         "read",
         "read$async"
+      ],
+      "RuneReader": [
+        "readRune"
+      ],
+      "RuneScanner": [
+        "readRune",
+        "unreadRune"
+      ],
+      "SectionReader": [
+        "$classIs",
+        "$copy",
+        "$fieldNames",
+        "$fieldTypes",
+        "$fields",
+        "$goType",
+        "$ifaceCopy",
+        "$isValue",
+        "$methods",
+        "$nilPtr",
+        "$ptrMethods",
+        "$set",
+        "$setAny",
+        "$valueMethods",
+        "hashCode",
+        "outer",
+        "read",
+        "read$async",
+        "readAt",
+        "readAt$async",
+        "seek",
+        "size"
       ],
       "Seeker": [
         "seek"
@@ -972,6 +1084,10 @@
       "WriterSync": [
         "write",
         "write$async"
+      ],
+      "WriterTo": [
+        "writeTo",
+        "writeTo$async"
       ]
     },
     "io/fs": {
