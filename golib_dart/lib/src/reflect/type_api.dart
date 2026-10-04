@@ -5,7 +5,6 @@ extension TypeApi on RType {
   Kind kind() => Kind($kind);
   Golang.String name() => Golang.String.fromDart($name);
   Golang.String pkgPath() => Golang.String.fromDart($pkg);
-  Golang.String string() => Golang.String.fromDart($str);
   Golang.Uintptr size() => Golang.Uintptr($size);
   Golang.Int align() => Golang.Int($align);
   Golang.Int fieldAlign() => Golang.Int($align);
@@ -101,18 +100,15 @@ extension TypeApi on RType {
   /// `Type.NumMethod()`: métodos exportados (de uma interface, todos).
   Golang.Int numMethod() => Golang.Int(_methodNames(this).length);
 
-  /// `Type.Method(i)` (sem `Func`: o reflect ainda não chama).
+  /// `Type.Method(i)`: fora de interface, `Type` e `Func` com o receptor
+  /// como primeiro parâmetro.
   Method method(Golang.Int i) {
     final ms = _methodNames(this);
     final n = i.toInt();
     if (n < 0 || n >= ms.length) {
       throw Panic(Golang.String.fromDart('reflect: Method index out of range'));
     }
-    return Method(
-      name: Golang.String.fromDart(ms[n]),
-      type: _methodType(this, ms[n]),
-      index: Golang.Int(n),
-    );
+    return _methodAt(this, ms[n], n);
   }
 
   /// `Type.MethodByName(name)`.
@@ -120,10 +116,7 @@ extension TypeApi on RType {
     final ms = _methodNames(this);
     final n = ms.indexOf(name.toString());
     if (n < 0) return (Method(), false);
-    return (
-      Method(name: name, type: _methodType(this, ms[n]), index: Golang.Int(n)),
-      true,
-    );
+    return (_methodAt(this, ms[n], n), true);
   }
 
   /// `Type.Implements(u)`.
@@ -161,20 +154,6 @@ extension TypeApi on RType {
       );
     return $convertible(this, u);
   }
-
-  /// `Type.IsVariadic()` etc.: funções não são descritas ainda.
-  Golang.Int numIn() => _funcPanic('NumIn');
-  Golang.Int numOut() => _funcPanic('NumOut');
-
-  Never _funcPanic(String m) => $kind == kFunc
-      ? throw Panic(
-          Golang.String.fromDart(
-            'reflect: $m de ${$str}: assinatura sem descritor (g2d)',
-          ),
-        )
-      : throw Panic(
-          Golang.String.fromDart('reflect: $m of non-func type ${$str}'),
-        );
 
   /// `Type.OverflowInt(x)`.
   bool overflowInt(Golang.Int64 x) {
@@ -223,18 +202,37 @@ List<String> _methodSet(RType t) {
   return t.$methods;
 }
 
-/// `Method.Type`: a assinatura; fora de interface, com o receptor t como
-/// primeiro parâmetro (`func(*T, int) string`).
-RType? _methodType(RType t, String name) {
-  if (t.$kind == kInterface) {
-    final sig = t.$sigs[name];
-    return sig == null ? null : rtFunc(sig);
+/// `Method` de [t] (`Type.Method`/`MethodByName`).
+Method _methodAt(RType t, String name, int i) {
+  final sig = _methodSig(t, name);
+  if (t.$kind == kInterface || sig == null) {
+    return Method(
+      name: Golang.String.fromDart(name),
+      type: sig,
+      index: Golang.Int(i),
+    );
   }
+  final fn = sig.$fn!;
+  final mt = rtFuncOf<Object?>(
+    '',
+    () => [t, ...fn.ins()],
+    fn.outs,
+    variadic: fn.variadic,
+    async: fn.async,
+  );
+  return Method(
+    name: Golang.String.fromDart(name),
+    type: mt,
+    func: Value._of(mt, _MethodExpr(t, name)),
+    index: Golang.Int(i),
+  );
+}
+
+/// Descritor da assinatura do método [name] de [t] (sem o receptor).
+RType? _methodSig(RType t, String name) {
+  if (t.$kind == kInterface) return t.$sigs[name]?.call();
   final owner = t.$kind == kPointer && t.$name.isEmpty ? t.$elem! : t;
-  final sig = owner.$sigs[name];
-  if (sig == null || !sig.startsWith('func(')) return null;
-  final rest = sig.substring(5);
-  return rtFunc('func(${t.$str}${rest.startsWith(')') ? '' : ', '}$rest');
+  return owner.$sigs[name]?.call();
 }
 
 /// Métodos que o `NumMethod` conta: de interface, todos; senão, os exportados.

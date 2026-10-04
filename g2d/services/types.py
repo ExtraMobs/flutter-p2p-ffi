@@ -107,7 +107,13 @@ class TypeMapper(Service):
         métodos é `N$Ptr` sobre a go.Box."""
         box = self.imports.qualify(None, "Box")
         dt = self.dart(t)
-        text = f"{box}<{dt}>({init})"
+        # Num grafo reflexivo, T anulável leva o descritor: o `reflect` não
+        # acha o tipo de `*S`/interface nil pelo valor (`json.Unmarshal(b, &p)`).
+        elem = ""
+        if self.reflection.enabled and self.typesys.underlying(t)["kind"] in ("pointer", "interface") \
+                and not self.descriptors.has_tparam(t):
+            elem = f", {self.descriptors.elem(t)}"
+        text = f"{box}<{dt}>({init}{elem})"
         if self.typesys.ptr_class(t):
             pv = self.ptr_view(t)
             return pv, f"{pv}({text})"

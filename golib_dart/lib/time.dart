@@ -1,10 +1,13 @@
 /// Shim do pacote Go `time` (parcial: `Duration`, `ParseDuration`, `Time`
-/// com calendário/aritmética/`String()`, `Month`/`Weekday`, `Location` de
-/// fuso fixo, timers (`Sleep`, `Timer`, `Ticker`, `After`, `AfterFunc`,
-/// `Tick`); ⚠️ `Local` é UTC, como o Go com `TZ=UTC`. `Format`/`Parse` com
-/// layout e o resto em `TODO/P1-shim-time-layout.md`).
+/// com calendário/aritmética/`String()`, `Format`/`AppendFormat`/`Parse`/
+/// `ParseInLocation` com layout, `*ParseError`, `Marshal`/`Unmarshal` em
+/// JSON, texto e binário, `Month`/`Weekday`, `Location` de fuso fixo,
+/// timers (`Sleep`, `Timer`, `Ticker`, `After`, `AfterFunc`, `Tick`) e os
+/// descritores de reflexão de `Time`/`Duration`/`Month`/`Weekday`); ⚠️
+/// `Local` é UTC, como o Go com `TZ=UTC`; sem `LoadLocation`/tzdata.
 ///
-/// As constantes (`time.Second`...) o g2d dobra em `time.Duration(n)`.
+/// As constantes (`time.Second`, `time.RFC3339`...) o g2d dobra no literal
+/// (`time.Duration(n)`, a string).
 // ignore_for_file: library_prefixes
 library;
 
@@ -14,15 +17,23 @@ import 'dart:core' as core show Duration;
 import 'dart:typed_data';
 
 import 'builtin.dart';
+import 'encoding.dart' as encoding;
+import 'encoding/json.dart' as json;
 import 'fixed_types/golang.dart' as Golang;
+import 'fmt.dart' as fmt show GoStringer;
 import 'fmt.dart' show Stringer;
 import 'src/runtime/output.dart' show ensureAsyncScheduling;
 
 part 'src/time/calendar.dart';
 part 'src/time/duration_parse.dart';
+part 'src/time/layout.dart';
 part 'src/time/location.dart';
+part 'src/time/marshal.dart';
 part 'src/time/month_weekday.dart';
+part 'src/time/parse.dart';
+part 'src/time/parse_layout.dart';
 part 'src/time/quote.dart';
+part 'src/time/rtypes.dart';
 part 'src/time/sleep.dart';
 part 'src/time/time_arith.dart';
 part 'src/time/time_format.dart';
@@ -37,7 +48,8 @@ final _maxDuration = Golang.Int64.fromBigInt((BigInt.one << 63) - BigInt.one);
 
 /// `time.Duration`: nanossegundos em `int64`, tipo nomeado com os métodos do
 /// Go (mesma forma das classes que o g2d gera para `type N int64`).
-final class Duration extends Golang.Int64Base<Duration> implements Stringer {
+final class Duration extends Golang.Int64Base<Duration>
+    implements Stringer, Typed {
   Duration([int v = 0]) : super(v);
   Duration.from(Golang.IntBase v) : super.from(v);
   Duration.fromBigInt(BigInt v) : super.fromBigInt(v);
@@ -50,18 +62,13 @@ final class Duration extends Golang.Int64Base<Duration> implements Stringer {
   String get $goType => 'time.Duration';
 
   @override
-  List<String> get $methods => const [
-    'Abs',
-    'Hours',
-    'Microseconds',
-    'Milliseconds',
-    'Minutes',
-    'Nanoseconds',
-    'Round',
-    'Seconds',
-    'String',
-    'Truncate',
-  ];
+  List<String> get $methods => _durationMethods;
+
+  /// Descritor de reflexão (`SHIM_RTYPES`, `rtypes.dart`).
+  static final RType<Duration> $rt = _durationRType();
+
+  @override
+  RType get $rtype => $rt;
 
   Golang.Int64 get _v => Golang.Int64.from(this);
 

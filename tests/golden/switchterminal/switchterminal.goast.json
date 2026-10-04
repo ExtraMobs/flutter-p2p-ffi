@@ -1,0 +1,1345 @@
+{
+  "schemaVersion": 9,
+  "tool": "goast",
+  "goVersion": "go1.26.5",
+  "packages": [
+    {
+      "path": "main",
+      "name": "main",
+      "files": [
+        {
+          "path": "switchterminal.go",
+          "ast": {
+            "node": "File",
+            "doc": {
+              "node": "CommentGroup",
+              "list": [
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "switchterminal.go",
+                    "line": 1,
+                    "column": 1,
+                    "offset": 0
+                  },
+                  "text": "// Package main: switch com fallthrough e default em que todo case termina"
+                },
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "switchterminal.go",
+                    "line": 2,
+                    "column": 1,
+                    "offset": 75
+                  },
+                  "text": "// é terminal no Go (sem return depois); o Dart precisa ver o fim."
+                }
+              ]
+            },
+            "package": {
+              "file": "switchterminal.go",
+              "line": 3,
+              "column": 1,
+              "offset": 143
+            },
+            "name": {
+              "node": "Ident",
+              "namePos": {
+                "file": "switchterminal.go",
+                "line": 3,
+                "column": 9,
+                "offset": 151
+              },
+              "name": "main",
+              "obj": null
+            },
+            "decls": [
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "switchterminal.go",
+                  "line": 5,
+                  "column": 1,
+                  "offset": 157
+                },
+                "tok": "import",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "ImportSpec",
+                    "doc": null,
+                    "name": null,
+                    "path": {
+                      "node": "BasicLit",
+                      "valuePos": {
+                        "file": "switchterminal.go",
+                        "line": 5,
+                        "column": 8,
+                        "offset": 164
+                      },
+                      "valueEnd": {
+                        "file": "switchterminal.go",
+                        "line": 5,
+                        "column": 13,
+                        "offset": 169
+                      },
+                      "kind": "STRING",
+                      "value": "\"fmt\""
+                    },
+                    "comment": null,
+                    "endPos": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "switchterminal.go",
+                    "line": 7,
+                    "column": 6,
+                    "offset": 176
+                  },
+                  "name": "kind",
+                  "obj": {
+                    "node": "Object",
+                    "name": "kind",
+                    "kind": "func"
+                  },
+                  "$obj": {
+                    "name": "kind",
+                    "kind": "func",
+                    "def": true,
+                    "type": 0,
+                    "decl": "switchterminal.go:176",
+                    "pkg": "main",
+                    "top": true
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "switchterminal.go",
+                    "line": 7,
+                    "column": 1,
+                    "offset": 171
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "switchterminal.go",
+                      "line": 7,
+                      "column": 10,
+                      "offset": 180
+                    },
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "switchterminal.go",
+                              "line": 7,
+                              "column": 11,
+                              "offset": 181
+                            },
+                            "name": "x",
+                            "obj": {
+                              "node": "Object",
+                              "name": "x",
+                              "kind": "var"
+                            },
+                            "$obj": {
+                              "name": "x",
+                              "kind": "var",
+                              "def": true,
+                              "type": 1,
+                              "decl": "switchterminal.go:181",
+                              "pkg": "main"
+                            }
+                          }
+                        ],
+                        "type": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "switchterminal.go",
+                            "line": 7,
+                            "column": 13,
+                            "offset": 183
+                          },
+                          "name": "int",
+                          "obj": null,
+                          "$type": 1,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "int",
+                            "kind": "type",
+                            "type": 1
+                          }
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": {
+                      "file": "switchterminal.go",
+                      "line": 7,
+                      "column": 16,
+                      "offset": 186
+                    }
+                  },
+                  "results": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "switchterminal.go",
+                      "line": 7,
+                      "column": 18,
+                      "offset": 188
+                    },
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": null,
+                        "type": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "switchterminal.go",
+                            "line": 7,
+                            "column": 19,
+                            "offset": 189
+                          },
+                          "name": "string",
+                          "obj": null,
+                          "$type": 2,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "string",
+                            "kind": "type",
+                            "type": 2
+                          }
+                        },
+                        "tag": null,
+                        "comment": null
+                      },
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": null,
+                        "type": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "switchterminal.go",
+                            "line": 7,
+                            "column": 27,
+                            "offset": 197
+                          },
+                          "name": "error",
+                          "obj": null,
+                          "$type": 3,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "error",
+                            "kind": "type",
+                            "type": 3
+                          }
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": {
+                      "file": "switchterminal.go",
+                      "line": 7,
+                      "column": 32,
+                      "offset": 202
+                    }
+                  }
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "switchterminal.go",
+                    "line": 7,
+                    "column": 34,
+                    "offset": 204
+                  },
+                  "list": [
+                    {
+                      "node": "SwitchStmt",
+                      "switch": {
+                        "file": "switchterminal.go",
+                        "line": 8,
+                        "column": 2,
+                        "offset": 207
+                      },
+                      "init": null,
+                      "tag": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "switchterminal.go",
+                          "line": 8,
+                          "column": 9,
+                          "offset": 214
+                        },
+                        "name": "x",
+                        "obj": {
+                          "node": "Object",
+                          "name": "x",
+                          "kind": "var"
+                        },
+                        "$type": 1,
+                        "$obj": {
+                          "name": "x",
+                          "kind": "var",
+                          "type": 1,
+                          "decl": "switchterminal.go:181",
+                          "pkg": "main"
+                        }
+                      },
+                      "body": {
+                        "node": "BlockStmt",
+                        "lbrace": {
+                          "file": "switchterminal.go",
+                          "line": 8,
+                          "column": 11,
+                          "offset": 216
+                        },
+                        "list": [
+                          {
+                            "node": "CaseClause",
+                            "case": {
+                              "file": "switchterminal.go",
+                              "line": 9,
+                              "column": 2,
+                              "offset": 219
+                            },
+                            "list": [
+                              {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "switchterminal.go",
+                                  "line": 9,
+                                  "column": 7,
+                                  "offset": 224
+                                },
+                                "valueEnd": {
+                                  "file": "switchterminal.go",
+                                  "line": 9,
+                                  "column": 8,
+                                  "offset": 225
+                                },
+                                "kind": "INT",
+                                "value": "0",
+                                "$type": 1,
+                                "$value": {
+                                  "kind": "int",
+                                  "value": "0"
+                                }
+                              }
+                            ],
+                            "colon": {
+                              "file": "switchterminal.go",
+                              "line": 9,
+                              "column": 8,
+                              "offset": 225
+                            },
+                            "body": [
+                              {
+                                "node": "ReturnStmt",
+                                "return": {
+                                  "file": "switchterminal.go",
+                                  "line": 10,
+                                  "column": 3,
+                                  "offset": 229
+                                },
+                                "results": [
+                                  {
+                                    "node": "BasicLit",
+                                    "valuePos": {
+                                      "file": "switchterminal.go",
+                                      "line": 10,
+                                      "column": 10,
+                                      "offset": 236
+                                    },
+                                    "valueEnd": {
+                                      "file": "switchterminal.go",
+                                      "line": 10,
+                                      "column": 16,
+                                      "offset": 242
+                                    },
+                                    "kind": "STRING",
+                                    "value": "\"zero\"",
+                                    "$type": 2,
+                                    "$value": {
+                                      "kind": "string",
+                                      "value": "zero"
+                                    }
+                                  },
+                                  {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "switchterminal.go",
+                                      "line": 10,
+                                      "column": 18,
+                                      "offset": 244
+                                    },
+                                    "name": "nil",
+                                    "obj": null,
+                                    "$type": 6,
+                                    "$obj": {
+                                      "name": "nil",
+                                      "kind": "nil",
+                                      "type": 6
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "node": "CaseClause",
+                            "case": {
+                              "file": "switchterminal.go",
+                              "line": 11,
+                              "column": 2,
+                              "offset": 249
+                            },
+                            "list": [
+                              {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "switchterminal.go",
+                                  "line": 11,
+                                  "column": 7,
+                                  "offset": 254
+                                },
+                                "valueEnd": {
+                                  "file": "switchterminal.go",
+                                  "line": 11,
+                                  "column": 8,
+                                  "offset": 255
+                                },
+                                "kind": "INT",
+                                "value": "1",
+                                "$type": 1,
+                                "$value": {
+                                  "kind": "int",
+                                  "value": "1"
+                                }
+                              }
+                            ],
+                            "colon": {
+                              "file": "switchterminal.go",
+                              "line": 11,
+                              "column": 8,
+                              "offset": 255
+                            },
+                            "body": [
+                              {
+                                "node": "BranchStmt",
+                                "tokPos": {
+                                  "file": "switchterminal.go",
+                                  "line": 12,
+                                  "column": 3,
+                                  "offset": 259
+                                },
+                                "tok": "fallthrough",
+                                "label": null
+                              }
+                            ]
+                          },
+                          {
+                            "node": "CaseClause",
+                            "case": {
+                              "file": "switchterminal.go",
+                              "line": 13,
+                              "column": 2,
+                              "offset": 272
+                            },
+                            "list": null,
+                            "colon": {
+                              "file": "switchterminal.go",
+                              "line": 13,
+                              "column": 9,
+                              "offset": 279
+                            },
+                            "body": [
+                              {
+                                "node": "ReturnStmt",
+                                "return": {
+                                  "file": "switchterminal.go",
+                                  "line": 14,
+                                  "column": 3,
+                                  "offset": 283
+                                },
+                                "results": [
+                                  {
+                                    "node": "BasicLit",
+                                    "valuePos": {
+                                      "file": "switchterminal.go",
+                                      "line": 14,
+                                      "column": 10,
+                                      "offset": 290
+                                    },
+                                    "valueEnd": {
+                                      "file": "switchterminal.go",
+                                      "line": 14,
+                                      "column": 17,
+                                      "offset": 297
+                                    },
+                                    "kind": "STRING",
+                                    "value": "\"outro\"",
+                                    "$type": 2,
+                                    "$value": {
+                                      "kind": "string",
+                                      "value": "outro"
+                                    }
+                                  },
+                                  {
+                                    "node": "CallExpr",
+                                    "fun": {
+                                      "node": "SelectorExpr",
+                                      "x": {
+                                        "node": "Ident",
+                                        "namePos": {
+                                          "file": "switchterminal.go",
+                                          "line": 14,
+                                          "column": 19,
+                                          "offset": 299
+                                        },
+                                        "name": "fmt",
+                                        "obj": null,
+                                        "$obj": {
+                                          "name": "fmt",
+                                          "kind": "package",
+                                          "pkg": "fmt"
+                                        }
+                                      },
+                                      "sel": {
+                                        "node": "Ident",
+                                        "namePos": {
+                                          "file": "switchterminal.go",
+                                          "line": 14,
+                                          "column": 23,
+                                          "offset": 303
+                                        },
+                                        "name": "Errorf",
+                                        "obj": null,
+                                        "$obj": {
+                                          "name": "Errorf",
+                                          "kind": "func",
+                                          "type": 7,
+                                          "decl": "errors.go:22",
+                                          "pkg": "fmt",
+                                          "top": true
+                                        }
+                                      },
+                                      "$type": 7
+                                    },
+                                    "lparen": {
+                                      "file": "switchterminal.go",
+                                      "line": 14,
+                                      "column": 29,
+                                      "offset": 309
+                                    },
+                                    "args": [
+                                      {
+                                        "node": "BasicLit",
+                                        "valuePos": {
+                                          "file": "switchterminal.go",
+                                          "line": 14,
+                                          "column": 30,
+                                          "offset": 310
+                                        },
+                                        "valueEnd": {
+                                          "file": "switchterminal.go",
+                                          "line": 14,
+                                          "column": 36,
+                                          "offset": 316
+                                        },
+                                        "kind": "STRING",
+                                        "value": "\"x=%d\"",
+                                        "$type": 2,
+                                        "$value": {
+                                          "kind": "string",
+                                          "value": "x=%d"
+                                        }
+                                      },
+                                      {
+                                        "node": "Ident",
+                                        "namePos": {
+                                          "file": "switchterminal.go",
+                                          "line": 14,
+                                          "column": 38,
+                                          "offset": 318
+                                        },
+                                        "name": "x",
+                                        "obj": {
+                                          "node": "Object",
+                                          "name": "x",
+                                          "kind": "var"
+                                        },
+                                        "$type": 1,
+                                        "$obj": {
+                                          "name": "x",
+                                          "kind": "var",
+                                          "type": 1,
+                                          "decl": "switchterminal.go:181",
+                                          "pkg": "main"
+                                        }
+                                      }
+                                    ],
+                                    "ellipsis": null,
+                                    "rparen": {
+                                      "file": "switchterminal.go",
+                                      "line": 14,
+                                      "column": 39,
+                                      "offset": 319
+                                    },
+                                    "$type": 3
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ],
+                        "rbrace": {
+                          "file": "switchterminal.go",
+                          "line": 15,
+                          "column": 2,
+                          "offset": 322
+                        }
+                      }
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "switchterminal.go",
+                    "line": 16,
+                    "column": 1,
+                    "offset": 324
+                  }
+                }
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "switchterminal.go",
+                    "line": 18,
+                    "column": 6,
+                    "offset": 332
+                  },
+                  "name": "main",
+                  "obj": {
+                    "node": "Object",
+                    "name": "main",
+                    "kind": "func"
+                  },
+                  "$obj": {
+                    "name": "main",
+                    "kind": "func",
+                    "def": true,
+                    "type": 10,
+                    "decl": "switchterminal.go:332",
+                    "pkg": "main",
+                    "top": true
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "switchterminal.go",
+                    "line": 18,
+                    "column": 1,
+                    "offset": 327
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "switchterminal.go",
+                      "line": 18,
+                      "column": 10,
+                      "offset": 336
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "switchterminal.go",
+                      "line": 18,
+                      "column": 11,
+                      "offset": 337
+                    }
+                  },
+                  "results": null
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "switchterminal.go",
+                    "line": 18,
+                    "column": 13,
+                    "offset": 339
+                  },
+                  "list": [
+                    {
+                      "node": "RangeStmt",
+                      "for": {
+                        "file": "switchterminal.go",
+                        "line": 19,
+                        "column": 2,
+                        "offset": 342
+                      },
+                      "key": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "switchterminal.go",
+                          "line": 19,
+                          "column": 6,
+                          "offset": 346
+                        },
+                        "name": "_",
+                        "obj": {
+                          "node": "Object",
+                          "name": "_",
+                          "kind": "var"
+                        },
+                        "$obj": {
+                          "name": "_",
+                          "kind": "var",
+                          "def": true,
+                          "type": 1,
+                          "decl": "switchterminal.go:346",
+                          "pkg": "main"
+                        }
+                      },
+                      "value": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "switchterminal.go",
+                          "line": 19,
+                          "column": 9,
+                          "offset": 349
+                        },
+                        "name": "x",
+                        "obj": {
+                          "node": "Object",
+                          "name": "x",
+                          "kind": "var"
+                        },
+                        "$obj": {
+                          "name": "x",
+                          "kind": "var",
+                          "def": true,
+                          "type": 1,
+                          "decl": "switchterminal.go:349",
+                          "pkg": "main"
+                        }
+                      },
+                      "tokPos": {
+                        "file": "switchterminal.go",
+                        "line": 19,
+                        "column": 11,
+                        "offset": 351
+                      },
+                      "tok": ":=",
+                      "range": {
+                        "file": "switchterminal.go",
+                        "line": 19,
+                        "column": 14,
+                        "offset": 354
+                      },
+                      "x": {
+                        "node": "CompositeLit",
+                        "type": {
+                          "node": "ArrayType",
+                          "lbrack": {
+                            "file": "switchterminal.go",
+                            "line": 19,
+                            "column": 20,
+                            "offset": 360
+                          },
+                          "len": null,
+                          "elt": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "switchterminal.go",
+                              "line": 19,
+                              "column": 22,
+                              "offset": 362
+                            },
+                            "name": "int",
+                            "obj": null,
+                            "$type": 1,
+                            "$isType": true,
+                            "$obj": {
+                              "name": "int",
+                              "kind": "type",
+                              "type": 1
+                            }
+                          },
+                          "$type": 11,
+                          "$isType": true
+                        },
+                        "lbrace": {
+                          "file": "switchterminal.go",
+                          "line": 19,
+                          "column": 25,
+                          "offset": 365
+                        },
+                        "elts": [
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "switchterminal.go",
+                              "line": 19,
+                              "column": 26,
+                              "offset": 366
+                            },
+                            "valueEnd": {
+                              "file": "switchterminal.go",
+                              "line": 19,
+                              "column": 27,
+                              "offset": 367
+                            },
+                            "kind": "INT",
+                            "value": "0",
+                            "$type": 1,
+                            "$value": {
+                              "kind": "int",
+                              "value": "0"
+                            }
+                          },
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "switchterminal.go",
+                              "line": 19,
+                              "column": 29,
+                              "offset": 369
+                            },
+                            "valueEnd": {
+                              "file": "switchterminal.go",
+                              "line": 19,
+                              "column": 30,
+                              "offset": 370
+                            },
+                            "kind": "INT",
+                            "value": "1",
+                            "$type": 1,
+                            "$value": {
+                              "kind": "int",
+                              "value": "1"
+                            }
+                          },
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "switchterminal.go",
+                              "line": 19,
+                              "column": 32,
+                              "offset": 372
+                            },
+                            "valueEnd": {
+                              "file": "switchterminal.go",
+                              "line": 19,
+                              "column": 33,
+                              "offset": 373
+                            },
+                            "kind": "INT",
+                            "value": "2",
+                            "$type": 1,
+                            "$value": {
+                              "kind": "int",
+                              "value": "2"
+                            }
+                          }
+                        ],
+                        "rbrace": {
+                          "file": "switchterminal.go",
+                          "line": 19,
+                          "column": 33,
+                          "offset": 373
+                        },
+                        "incomplete": false,
+                        "$type": 11
+                      },
+                      "body": {
+                        "node": "BlockStmt",
+                        "lbrace": {
+                          "file": "switchterminal.go",
+                          "line": 19,
+                          "column": 35,
+                          "offset": 375
+                        },
+                        "list": [
+                          {
+                            "node": "ExprStmt",
+                            "x": {
+                              "node": "CallExpr",
+                              "fun": {
+                                "node": "SelectorExpr",
+                                "x": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "switchterminal.go",
+                                    "line": 20,
+                                    "column": 3,
+                                    "offset": 379
+                                  },
+                                  "name": "fmt",
+                                  "obj": null,
+                                  "$obj": {
+                                    "name": "fmt",
+                                    "kind": "package",
+                                    "pkg": "fmt"
+                                  }
+                                },
+                                "sel": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "switchterminal.go",
+                                    "line": 20,
+                                    "column": 7,
+                                    "offset": 383
+                                  },
+                                  "name": "Println",
+                                  "obj": null,
+                                  "$obj": {
+                                    "name": "Println",
+                                    "kind": "func",
+                                    "type": 12,
+                                    "decl": "print.go:313",
+                                    "pkg": "fmt",
+                                    "top": true
+                                  }
+                                },
+                                "$type": 12
+                              },
+                              "lparen": {
+                                "file": "switchterminal.go",
+                                "line": 20,
+                                "column": 14,
+                                "offset": 390
+                              },
+                              "args": [
+                                {
+                                  "node": "CallExpr",
+                                  "fun": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "switchterminal.go",
+                                      "line": 20,
+                                      "column": 15,
+                                      "offset": 391
+                                    },
+                                    "name": "kind",
+                                    "obj": {
+                                      "node": "Object",
+                                      "name": "kind",
+                                      "kind": "func"
+                                    },
+                                    "$type": 0,
+                                    "$obj": {
+                                      "name": "kind",
+                                      "kind": "func",
+                                      "type": 0,
+                                      "decl": "switchterminal.go:176",
+                                      "pkg": "main",
+                                      "top": true
+                                    }
+                                  },
+                                  "lparen": {
+                                    "file": "switchterminal.go",
+                                    "line": 20,
+                                    "column": 19,
+                                    "offset": 395
+                                  },
+                                  "args": [
+                                    {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "switchterminal.go",
+                                        "line": 20,
+                                        "column": 20,
+                                        "offset": 396
+                                      },
+                                      "name": "x",
+                                      "obj": {
+                                        "node": "Object",
+                                        "name": "x",
+                                        "kind": "var"
+                                      },
+                                      "$type": 1,
+                                      "$obj": {
+                                        "name": "x",
+                                        "kind": "var",
+                                        "type": 1,
+                                        "decl": "switchterminal.go:349",
+                                        "pkg": "main"
+                                      }
+                                    }
+                                  ],
+                                  "ellipsis": null,
+                                  "rparen": {
+                                    "file": "switchterminal.go",
+                                    "line": 20,
+                                    "column": 21,
+                                    "offset": 397
+                                  },
+                                  "$type": 13
+                                }
+                              ],
+                              "ellipsis": null,
+                              "rparen": {
+                                "file": "switchterminal.go",
+                                "line": 20,
+                                "column": 22,
+                                "offset": 398
+                              },
+                              "$type": 14
+                            }
+                          }
+                        ],
+                        "rbrace": {
+                          "file": "switchterminal.go",
+                          "line": 21,
+                          "column": 2,
+                          "offset": 401
+                        }
+                      }
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "switchterminal.go",
+                    "line": 22,
+                    "column": 1,
+                    "offset": 403
+                  }
+                }
+              }
+            ],
+            "fileStart": {
+              "file": "switchterminal.go",
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "fileEnd": {
+              "file": "switchterminal.go",
+              "line": 22,
+              "column": 3,
+              "offset": 405
+            },
+            "scope": null,
+            "imports": [
+              {
+                "node": "ImportSpec",
+                "doc": null,
+                "name": null,
+                "path": {
+                  "node": "BasicLit",
+                  "valuePos": {
+                    "file": "switchterminal.go",
+                    "line": 5,
+                    "column": 8,
+                    "offset": 164
+                  },
+                  "valueEnd": {
+                    "file": "switchterminal.go",
+                    "line": 5,
+                    "column": 13,
+                    "offset": 169
+                  },
+                  "kind": "STRING",
+                  "value": "\"fmt\""
+                },
+                "comment": null,
+                "endPos": null
+              }
+            ],
+            "unresolved": [
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "switchterminal.go",
+                  "line": 7,
+                  "column": 13,
+                  "offset": 183
+                },
+                "name": "int",
+                "obj": null,
+                "$type": 1,
+                "$isType": true,
+                "$obj": {
+                  "name": "int",
+                  "kind": "type",
+                  "type": 1
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "switchterminal.go",
+                  "line": 7,
+                  "column": 19,
+                  "offset": 189
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 2,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 2
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "switchterminal.go",
+                  "line": 7,
+                  "column": 27,
+                  "offset": 197
+                },
+                "name": "error",
+                "obj": null,
+                "$type": 3,
+                "$isType": true,
+                "$obj": {
+                  "name": "error",
+                  "kind": "type",
+                  "type": 3
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "switchterminal.go",
+                  "line": 10,
+                  "column": 18,
+                  "offset": 244
+                },
+                "name": "nil",
+                "obj": null,
+                "$type": 6,
+                "$obj": {
+                  "name": "nil",
+                  "kind": "nil",
+                  "type": 6
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "switchterminal.go",
+                  "line": 14,
+                  "column": 19,
+                  "offset": 299
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "switchterminal.go",
+                  "line": 19,
+                  "column": 22,
+                  "offset": 362
+                },
+                "name": "int",
+                "obj": null,
+                "$type": 1,
+                "$isType": true,
+                "$obj": {
+                  "name": "int",
+                  "kind": "type",
+                  "type": 1
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "switchterminal.go",
+                  "line": 20,
+                  "column": 3,
+                  "offset": 379
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              }
+            ],
+            "comments": [
+              {
+                "node": "CommentGroup",
+                "list": [
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "switchterminal.go",
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "text": "// Package main: switch com fallthrough e default em que todo case termina"
+                  },
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "switchterminal.go",
+                      "line": 2,
+                      "column": 1,
+                      "offset": 75
+                    },
+                    "text": "// é terminal no Go (sem return depois); o Dart precisa ver o fim."
+                  }
+                ]
+              }
+            ],
+            "goVersion": ""
+          }
+        }
+      ],
+      "imports": [
+        {
+          "path": "fmt",
+          "name": "fmt"
+        }
+      ],
+      "typeTable": [
+        {
+          "kind": "func",
+          "params": [
+            1
+          ],
+          "results": [
+            2,
+            3
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "basic",
+          "name": "int"
+        },
+        {
+          "kind": "basic",
+          "name": "string"
+        },
+        {
+          "kind": "named",
+          "pkg": "",
+          "name": "error",
+          "underlying": 4
+        },
+        {
+          "kind": "interface",
+          "methods": [
+            {
+              "name": "Error",
+              "type": 5
+            }
+          ],
+          "embeddeds": []
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            2
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "basic",
+          "name": "untyped nil"
+        },
+        {
+          "kind": "func",
+          "params": [
+            2,
+            8
+          ],
+          "results": [
+            3
+          ],
+          "variadic": true
+        },
+        {
+          "kind": "slice",
+          "elem": 9
+        },
+        {
+          "kind": "interface",
+          "methods": [],
+          "embeddeds": []
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [],
+          "variadic": false
+        },
+        {
+          "kind": "slice",
+          "elem": 1
+        },
+        {
+          "kind": "func",
+          "params": [
+            8
+          ],
+          "results": [
+            1,
+            3
+          ],
+          "variadic": true
+        },
+        {
+          "kind": "tuple",
+          "elems": [
+            2,
+            3
+          ]
+        },
+        {
+          "kind": "tuple",
+          "elems": [
+            1,
+            3
+          ]
+        }
+      ],
+      "implements": null,
+      "initOrder": [],
+      "stdlibUsage": [
+        "fmt.Errorf",
+        "fmt.Println"
+      ],
+      "reflectUsage": null
+    }
+  ]
+}

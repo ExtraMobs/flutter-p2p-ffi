@@ -1,9 +1,9 @@
 part of '../../time.dart';
 
-// Porta de `Time.String` de `time/format.go` do Go 1.26: só o layout fixo
-// `"2006-01-02 15:04:05.999999999 -0700 MST"` (sem o interpretador de
-// layouts de `Format`/`Parse`, ver `TODO/P1-shim-time-layout.md`), mais o sufixo
-// monotônico ` m=±s.nnnnnnnnn`.
+// Porta de `Time.String` de `time/format.go` do Go 1.26: o layout fixo
+// `"2006-01-02 15:04:05.999999999 -0700 MST"` escrito direto (o
+// interpretador de layouts está em `layout.dart`), mais o sufixo monotônico
+// ` m=±s.nnnnnnnnn`.
 
 /// `appendInt(b, x, width)`: sinal e zeros à esquerda até `width` dígitos.
 void _appendInt(StringBuffer b, int x, int width) {

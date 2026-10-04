@@ -27,8 +27,8 @@
 ///   tipo nomeado que não é struct, alcançado pelo endereço de um campo,
 ///   elemento ou chave (o `*N` do reflect não é a classe `N$Ptr`): panic
 ///   explícito;
-/// - tipos de shim sem descritor (`time.Time`...): panic explícito do
-///   reflect ao listar os campos ou ao gravar.
+/// - tipos de shim sem descritor (`big.Int`...; `time.Time` tem): panic
+///   explícito do reflect ao listar os campos ou ao gravar.
 // ignore_for_file: library_prefixes
 library;
 

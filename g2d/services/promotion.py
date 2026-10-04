@@ -63,6 +63,14 @@ class Promotion(Service):
         (segue a cadeia de campos embutidos até a declaração própria)."""
         return self.chain(t, index)[1]["pkg"]
 
+    def shim_lacks(self, t, m):
+        """O método `m` de `t` é declarado por um tipo de shim que não o tem
+        (`time.Time.GobEncode`): sem forwarder. ponytail: chamá-lo já dá
+        `shim-simbolo:` na chamada; só a interface que o exige fica de fora."""
+        d = self.chain(t, m["index"])[1]
+        return (not self.imports.transpiled(d["pkg"])
+                and not self.imports.has_shim_member(d, m["name"]))
+
     def spellable(self, t, m):
         """Se o forwarder de `m` (método efetivo de `t`) pode ser escrito na
         library do pacote de `t`: exportado (nome público, qualquer
@@ -108,7 +116,7 @@ class Promotion(Service):
         if ptr_getter:
             lines.append(f"{self.types.ptr_view(t)} get {getter}$Ptr;")
         for m in methods:
-            if not self.spellable(t, m):
+            if not self.spellable(t, m) or self.shim_lacks(t, m):
                 continue
             if value or not m["ptr"]:
                 recv = f"{getter}!"
@@ -154,6 +162,8 @@ class Promotion(Service):
                 recv = f"{field}!" if ptr or iface else field
                 for m in via:
                     if not self.spellable(t, m):
+                        continue
+                    if self.shim_lacks(t, m):
                         continue
                     r = recv
                     if m["ptr"] and len(m["index"]) == 2 and not iface and not self.typesys.is_value(et):

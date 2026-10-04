@@ -1,6 +1,6 @@
 # TODO — backlog do desafio kubo/boxo
 
-Estado em 2026-10-04, com o D1 (reflexão e `encoding/json`) no `main`: **173 de 1112** pacotes
+Estado em 2026-10-04, com o D1 completo (reflexão, `encoding/json`, `time` com layout) no `main`: **177 de 1112** pacotes
 do grafo do kubo verdes (`docs/audit.md`, Dart SDK 3.13.5; o `main` de
 2026-10-02 regerado no mesmo ambiente dá 157, não os 167 registrados antes).
 A fronteira (pacotes não verdes com as dependências todas verdes) tem 176
@@ -19,10 +19,12 @@ as opções e a recomendação; a tabela é o resumo.
 | D5 | Como entra a substituição manual de pacote (`unsafe`, assembly, `go:linkname`) | `unsafe:Pointer` 80 / 11, `conversao:pointer-pointer` 38 / 4, `unsafe:Slice` 30 / 3, 7 pacotes com assembly | substituto Dart escrito à mão por pacote inteiro, registrado como um shim | `P0-design-substituicao.md` |
 | D6 | Reabrir `goto` (hoje ❌ por decisão) | `branch:goto` 28 / 10 (era 14 / 3 quando foi decidido) | implementar no g2d, começando pelos saltos que viram `break`/`continue` rotulados | `P0-design-goto.md` |
 | D8 | Interface satisfeita por tipo de outro pacote | invisível no audit hoje (os pacotes param antes em shim); saída errada em silêncio com `fmt.Stringer` | `implements` sobre o grafo, restrito às conversões que acontecem e a donos fora da stdlib | `P1-design-interfaces-entre-pacotes.md` |
+| D9 | `reflect.Value.Call` sempre suspende? | função que suspende chamada por reflexão num contexto síncrono dá panic (`go.uber.org/dig`/`fx` montam o nó do kubo assim) | sim: todo `Call` vira `await call$async` e quem chama ganha a cor `async` | `P1-reflect-call-sincrono.md` |
 
 Já decidido (não reabrir): D1 (2026-10-04), reflexão por descritores
 estáticos que o g2d gera por tipo (nome, tipo, tag, getter e setter como
-closures, métodos), com o shim `reflect` só lendo o descritor
+closures, métodos, assinaturas de func e tear-offs), com o shim `reflect` só lendo o descritor;
+`Call`/`Method`/`MakeFunc`/`FuncOf`/`StructOf`/`Select` prontos
 (`docs/mapping-spec.md` § "Reflexão (M5, D1)"). D7 (2026-10-02), tipo de função nomeado da
 stdlib (`context.CancelFunc`) é classe de cor própria e a `func()` comum
 segue a cor dela, com cor própria para campo `func()` não exportado
@@ -41,8 +43,6 @@ pela cor (`docs/mapping-spec.md` § "I/O que suspende").
 |---|---|---|
 | `P1-construcao-construtor-ambiguo.md` | 7 / 4 | campos `C` e `c` na mesma struct colidem no construtor |
 | `P1-shim-iter.md` | 19 / 4 (`iter`) e 10 / 3 (`splitSeq`) | `iter.Seq` e `strings.SplitSeq`/`Lines` (range sobre func já funciona) |
-| `P1-shim-time-layout.md` | 15 / 2 (`Time.format`) e 10 / 2 (`parse`) | `time.Format`/`Parse` com layout |
-| `P1-shim-reflect-funcoes-shim.md` | 9 / 1 (`Value.call$`) e 5 / 2 (`methodByName`) | `Value.Call`/`MethodByName`, assinaturas de func e descritores dos tipos de shim (`time.Time`) |
 
 ### 2b. Saída errada em silêncio (o audit não vê)
 

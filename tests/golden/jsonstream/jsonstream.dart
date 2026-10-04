@@ -137,7 +137,17 @@ class $_chunky extends go.GoStruct<$_chunky> implements io.Reader, go.Typed {
     nil: () => $_chunky.$nil,
     methods: const [],
     ptrMethods: const ['Read'],
-    sigs: const {'Read': 'func([]uint8) (int, error)'},
+    sigs: {
+      'Read': () =>
+          go.rtFuncOf<
+            (Golang.Int, go.GoError?) Function(go.Slice<Golang.Uint8>)?
+          >(
+            'func([]uint8) (int, error)',
+            () => [go.rtSlice(go.rtUint8)],
+            () => [go.rtInt, go.rtError],
+          ),
+    },
+    binds: {'Read': (o) => (o as $_chunky).read},
     fields: () => [
       go.rtField(
         'data',
@@ -240,7 +250,7 @@ void main() {
           strings.Reader.$nil,
     );
     while (true) {
-      final go.Box<Object?> v = go.Box<Object?>(null);
+      final go.Box<Object?> v = go.Box<Object?>(null, _$e2);
       go.GoError? err = (dec ?? json.Decoder.$nil).decode(
         v ?? const go.NilPtr<Object?>(),
       );
@@ -373,7 +383,7 @@ void main() {
         Golang.String s$1 = $t10[$t11];
         {
           dec = json.newDecoder(strings.newReader(s$1) ?? strings.Reader.$nil);
-          final go.Box<Object?> v$1 = go.Box<Object?>(null);
+          final go.Box<Object?> v$1 = go.Box<Object?>(null, _$e2);
           go.GoError? err$5 = (dec ?? json.Decoder.$nil).decode(
             v$1 ?? const go.NilPtr<Object?>(),
           );
@@ -393,8 +403,8 @@ void main() {
       strings.newReader(Golang.String.fromDart('{"a": 1}  x')) ??
           strings.Reader.$nil,
     );
-    final go.Box<Object?> v1 = go.Box<Object?>(null);
-    final go.Box<Object?> v2 = go.Box<Object?>(null);
+    final go.Box<Object?> v1 = go.Box<Object?>(null, _$e2);
+    final go.Box<Object?> v2 = go.Box<Object?>(null, _$e2);
     (switch ((dec ?? json.Decoder.$nil).decode(
       v1 ?? const go.NilPtr<Object?>(),
     )) {
@@ -533,7 +543,7 @@ void main() {
     fmt.print(go.Slice<Object?>.of([buf.string()], _$e2));
     dec = json.newDecoder(buf ?? bytes.Buffer.$nil);
     while ((dec ?? json.Decoder.$nil).more()) {
-      final go.Box<Object?> v$2 = go.Box<Object?>(null);
+      final go.Box<Object?> v$2 = go.Box<Object?>(null, _$e2);
       go.GoError? err$8 = (dec ?? json.Decoder.$nil).decode(
         v$2 ?? const go.NilPtr<Object?>(),
       );

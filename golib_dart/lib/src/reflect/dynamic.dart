@@ -19,7 +19,7 @@ RType? rtypeOf(Object? x) {
           ? t.$rtype.ptrTo()
           : t.$rtype;
     case Func f:
-      return rtFunc(f.sig);
+      return f.type != null ? f.type!() as RType : rtFunc(f.sig);
     case Golang.String():
       return rtString;
     case Golang.Int():
@@ -63,6 +63,8 @@ RType? rtypeOf(Object? x) {
       return _elemType(p.elem!).ptrTo();
     case NilPtr p:
       return p.$withElem(<E>() => _typeFor<E>(null)).ptrTo();
+    case Box p when p.elem != null:
+      return _elemType(p.elem!).ptrTo();
     case Ptr p:
       return p.$withElem(<E>() => _typeFor<E>(p as Ptr<E>)).ptrTo();
     case EmptyStruct e:

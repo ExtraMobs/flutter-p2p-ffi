@@ -121,7 +121,14 @@ class Holder<T> extends go.GoStruct<Holder<T>> implements go.Typed {
       nil: () => Holder<T>($T)..$nilPtr = true,
       methods: const ['Kind'],
       ptrMethods: const ['Kind'],
-      sigs: const {'Kind': 'func() reflect.Kind'},
+      sigs: {
+        'Kind': () => go.rtFuncOf<reflect.Kind Function()?>(
+          'func() reflect.Kind',
+          () => [],
+          () => [go.rtOpaque('reflect.Kind', go.kUint)],
+        ),
+      },
+      binds: {'Kind': (o) => (o as Holder<T>).kind},
       fields: () => [
         go.rtField(
           'v',
@@ -245,7 +252,19 @@ class Box<T> extends go.GoStruct<Box<T>> implements go.Typed {
       nil: () => Box<T>($T)..$nilPtr = true,
       methods: const ['Get'],
       ptrMethods: const ['Get', 'Set'],
-      sigs: const {'Get': 'func() typeparam', 'Set': 'func(typeparam)'},
+      sigs: {
+        'Get': () => go.rtFuncOf<T Function()?>(
+          'func() typeparam',
+          () => [],
+          () => [go.rtOfElem($T)],
+        ),
+        'Set': () => go.rtFuncOf<void Function(T)?>(
+          'func(typeparam)',
+          () => [go.rtOfElem($T)],
+          () => [],
+        ),
+      },
+      binds: {'Get': (o) => (o as Box<T>).get, 'Set': (o) => (o as Box<T>).set},
       fields: () => [
         go.rtField(
           'V',
@@ -499,7 +518,14 @@ final class Celsius extends Golang.FloatBase<Celsius>
     conv: (v) => Celsius(v as double),
     methods: const ['String'],
     ptrMethods: const ['String'],
-    sigs: const {'String': 'func() string'},
+    sigs: {
+      'String': () => go.rtFuncOf<Golang.String Function()?>(
+        'func() string',
+        () => [],
+        () => [go.rtString],
+      ),
+    },
+    binds: {'String': (o) => (o as Celsius).string},
   );
   @override
   go.RType get $rtype => $rt;
@@ -734,7 +760,22 @@ class Outer extends go.GoStruct<Outer> implements Greeter, go.Typed {
     nil: () => Outer.$nil,
     methods: const ['Value'],
     ptrMethods: const ['Hello', 'Value'],
-    sigs: const {'Hello': 'func() string', 'Value': 'func() int'},
+    sigs: {
+      'Hello': () => go.rtFuncOf<Golang.String Function()?>(
+        'func() string',
+        () => [],
+        () => [go.rtString],
+      ),
+      'Value': () => go.rtFuncOf<Golang.Int Function()?>(
+        'func() int',
+        () => [],
+        () => [go.rtInt],
+      ),
+    },
+    binds: {
+      'Hello': (o) => (o as Outer).hello,
+      'Value': (o) => (o as Outer).value$,
+    },
     fields: () => [
       go.rtField(
         'Inner',
@@ -849,7 +890,13 @@ abstract mixin class Greeter {
     'Greeter',
     'main.Greeter',
     const ['Hello'],
-    sigs: const {'Hello': 'func() string'},
+    sigs: {
+      'Hello': () => go.rtFuncOf<Golang.String Function()?>(
+        'func() string',
+        () => [],
+        () => [go.rtString],
+      ),
+    },
   );
 
   Golang.String hello();
@@ -1144,7 +1191,7 @@ void main() {
         reflect.zero(t).field(Golang.Int(1)).string(),
       ], _$e3),
     );
-    final go.Box<go.GoError?> e = go.Box<go.GoError?>(null);
+    final go.Box<go.GoError?> e = go.Box<go.GoError?>(null, _$e11);
     fmt.println(
       go.Slice<Object?>.of([
         reflect
@@ -1244,7 +1291,7 @@ final class Matrix extends go.GoArray<go.GoArray<Golang.Int>>
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).
   static final Matrix $nil = Matrix(
-    go.GoArray<go.GoArray<Golang.Int>>.zero(2, _$e11),
+    go.GoArray<go.GoArray<Golang.Int>>.zero(2, _$e12),
   )..$nilPtr = true;
 
   @override
@@ -1270,7 +1317,7 @@ final class Matrix extends go.GoArray<go.GoArray<Golang.Int>>
     size: 32,
     align: 8,
     ptrs: false,
-    zero: () => Matrix(go.GoArray<go.GoArray<Golang.Int>>.zero(2, _$e11)),
+    zero: () => Matrix(go.GoArray<go.GoArray<Golang.Int>>.zero(2, _$e12)),
     conv: (v) => Matrix(v as go.GoArray<go.GoArray<Golang.Int>>),
     nil: () => Matrix.$nil,
     methods: const [],
@@ -1280,9 +1327,10 @@ final class Matrix extends go.GoArray<go.GoArray<Golang.Int>>
   go.RType get $rtype => $rt;
 }
 
-final class Handler implements Golang.GoTyped, go.Typed {
+final class Handler implements Golang.GoTyped, go.Typed, go.FuncValue {
   Handler(this.$f);
 
+  @override
   final Golang.Int Function(Golang.Int)? $f;
 
   /// `f == nil`.
@@ -1300,7 +1348,11 @@ final class Handler implements Golang.GoTyped, go.Typed {
     'main',
     'Handler',
     'main.Handler',
-    () => go.rtFunc('func(int) int'),
+    () => go.rtFuncOf<Golang.Int Function(Golang.Int)?>(
+      'func(int) int',
+      () => [go.rtInt],
+      () => [go.rtInt],
+    ),
     kind: go.kFunc,
     size: 8,
     align: 8,
@@ -1334,7 +1386,7 @@ final class Set extends go.GoMap<Golang.String, go.EmptyStruct>
     align: 8,
     ptrs: true,
     zero: () =>
-        Set(go.GoMap<Golang.String, go.EmptyStruct>.nil(_$e12, key: _$e1)),
+        Set(go.GoMap<Golang.String, go.EmptyStruct>.nil(_$e13, key: _$e1)),
     conv: (v) => Set(v as go.GoMap<Golang.String, go.EmptyStruct>),
     methods: const [],
     ptrMethods: const [],
@@ -1353,12 +1405,16 @@ void _extras() {
           go.GoArray<go.GoArray<Golang.Int>>.of([
             go.GoArray<Golang.Int>.zero(2, _$e0),
             go.GoArray<Golang.Int>.zero(2, _$e0),
-          ], _$e11),
+          ], _$e12),
         ).$ifaceCopy(),
         Handler(null),
-        Set(go.GoMap<Golang.String, go.EmptyStruct>.of({}, _$e12, key: _$e1)),
+        Set(go.GoMap<Golang.String, go.EmptyStruct>.of({}, _$e13, key: _$e1)),
         go.Chan<Golang.Int>(0, Golang.Int()),
-        go.Func((() {}), 'func()'),
+        go.Func(
+          (() {}),
+          'func()',
+          () => go.rtFuncOf<void Function()?>('func()', () => [], () => []),
+        ),
         $_anon$1(x: Golang.Int(1)).$ifaceCopy(),
         Golang.Uintptr(3),
         Golang.Complex128.fromDoubles(1.0, 2.0),
@@ -1404,7 +1460,7 @@ void _extras() {
       go.GoArray<go.GoArray<Golang.Int>>.of([
         go.GoArray<Golang.Int>.of([Golang.Int(1), Golang.Int(2)], _$e0),
         go.GoArray<Golang.Int>.of([Golang.Int(3), Golang.Int(4)], _$e0),
-      ], _$e11),
+      ], _$e12),
     );
     reflect.Value mv = reflect.valueOf$static(m, go.rtPtr(Matrix.$rt)).elem$();
     mv.index(Golang.Int(1)).index(Golang.Int(0)).setInt(Golang.Int64(30));
@@ -1454,7 +1510,7 @@ void _extras() {
           Golang.String.fromDart('b'): go.EmptyStruct(),
           Golang.String.fromDart('a'): go.EmptyStruct(),
         },
-        _$e12,
+        _$e13,
         key: _$e1,
       ),
     );
@@ -1563,6 +1619,16 @@ void _extras() {
       go.Slice<Object?>.of([
         reflect.valueOf$static(Celsius(3.0), Celsius.$rt).string(),
         reflect.valueOf$static(Celsius(3.0), Celsius.$rt).$ifaceCopy(),
+      ], _$e3),
+    );
+    fmt.printf(
+      Golang.String.fromDart('%s %v\n'),
+      go.Slice<Object?>.of([
+        reflect.typeOf$static(Celsius(0.0), Celsius.$rt),
+        reflect.typeOf$static(
+          go.Slice<Golang.String>.of([], _$e1),
+          go.rtSlice(go.rtString),
+        ),
       ], _$e3),
     );
     {
@@ -1811,18 +1877,25 @@ const _$e10 = go.Elem<go.Slice<Golang.Int>>(
   pointers: true,
   type: _$t26_11,
 );
-go.GoArray<Golang.Int> _$z28_12() => go.GoArray<Golang.Int>.zero(2, _$e0);
-go.RType _$t29_12() => go.rtArray(2, go.rtInt);
-const _$e11 = go.Elem<go.GoArray<Golang.Int>>(
+go.RType _$t28_12() => go.rtError;
+const _$e11 = go.Elem<go.GoError?>(
   16,
-  _$z28_12,
-  value: true,
-  type: _$t29_12,
+  go.zeroNull,
+  pointers: true,
+  type: _$t28_12,
 );
-go.RType _$t31_13() => go.rtEmptyStruct;
-const _$e12 = go.Elem<go.EmptyStruct>(
+go.GoArray<Golang.Int> _$z30_13() => go.GoArray<Golang.Int>.zero(2, _$e0);
+go.RType _$t31_13() => go.rtArray(2, go.rtInt);
+const _$e12 = go.Elem<go.GoArray<Golang.Int>>(
+  16,
+  _$z30_13,
+  value: true,
+  type: _$t31_13,
+);
+go.RType _$t33_14() => go.rtEmptyStruct;
+const _$e13 = go.Elem<go.EmptyStruct>(
   0,
   go.EmptyStruct.new,
   value: true,
-  type: _$t31_13,
+  type: _$t33_14,
 );

@@ -34,6 +34,9 @@ WASM_RUNNER = os.path.join(os.path.dirname(os.path.abspath(__file__)), "run_wasm
 WIN = sys.platform == "win32"
 # Oráculo no mesmo Go do corpus/goast (baixado pelo toolchain do go, se preciso).
 os.environ.setdefault("GOTOOLCHAIN", "go1.26.5")
+# O shim `time` modela `Local` como o Go com TZ=UTC (`Local.String()` é
+# "UTC"; com /etc/localtime seria "Local"): o oráculo roda nesse fuso.
+os.environ["TZ"] = "UTC"
 
 CASES = sorted(d for d in os.listdir(GOLDEN) if os.path.isdir(os.path.join(GOLDEN, d)))
 if os.environ.get("G2D_CASES"):  # G2D_CASES=a,b: só esses casos (iteração local)

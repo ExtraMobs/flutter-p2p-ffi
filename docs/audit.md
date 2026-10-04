@@ -11,13 +11,13 @@ Gerado por `python -m g2d audit github.com/ipfs/kubo/cmd/ipfs -C tests/corpus/ku
 
 | status | pacotes | % |
 |---|---:|---:|
-| verde | 173 | 15.6 |
+| verde | 177 | 15.9 |
 | dart-invalido | 5 | 0.4 |
 | bloqueado | 271 | 24.4 |
-| unsupported | 656 | 59.0 |
+| unsupported | 652 | 58.6 |
 | substituicao | 7 | 0.6 |
 
-**Verde: 173 de 1112 (15.6%).**
+**Verde: 177 de 1112 (15.9%).**
 
 ## Ranking de códigos
 
@@ -31,27 +31,26 @@ Ordem: pacotes da fronteira afetados, pacotes afetados, ocorrências.
 | `shim-ausente:log` | 78 | 33 | 11 | `github.com/AndreasBriese/bbloom` bbloom.go:64:6: pacote sem shim/transpilação: log |
 | `shim-ausente:hash` | 85 | 28 | 11 | `github.com/spaolacci/murmur3` murmur128.go:23:1: pacote sem shim/transpilação: hash |
 | `shim-ausente:slices` | 179 | 85 | 10 | `golang.org/x/exp/slices` slices.go:20:6: pacote sem shim/transpilação: slices |
+| `shim-ausente:runtime` | 72 | 41 | 10 | `github.com/cockroachdb/pebble/v2/internal/invariants` invariants.go:40:6: pacote sem shim/transpilação: runtime |
 | `branch:goto` | 74 | 28 | 10 | `gonum.org/v1/gonum/mathext/internal/cephes` hyp2f1.go:106:4: goto |
 | `shim-ausente:encoding/hex` | 58 | 26 | 10 | `github.com/dunglas/httpsfv` displaystring.go:11:1: pacote sem shim/transpilação: encoding/hex |
 | `shim-ausente:net/url` | 177 | 53 | 9 | `github.com/cockroachdb/pebble/v2/internal/lsmview` url.go:17:6: pacote sem shim/transpilação: net/url |
-| `shim-ausente:runtime` | 72 | 41 | 8 | `github.com/cockroachdb/pebble/v2/internal/invariants` invariants.go:40:6: pacote sem shim/transpilação: runtime |
-| `shim-ausente:encoding/base64` | 53 | 28 | 8 | `github.com/dunglas/httpsfv` binary.go:14:6: pacote sem shim/transpilação: encoding/base64 |
-| `async:shim-sincrono` | 90 | 37 | 7 | `github.com/anmitsu/go-shlex` shlex.go:64:20: NewReader do shim chamaria Read de forma síncrona, mas o argumento suspende |
-| `shim-ausente:bufio` | 76 | 32 | 7 | `github.com/anmitsu/go-shlex` shlex.go:52:1: pacote sem shim/transpilação: bufio |
+| `shim-ausente:encoding/base64` | 53 | 28 | 9 | `github.com/dunglas/httpsfv` binary.go:14:6: pacote sem shim/transpilação: encoding/base64 |
+| `shim-ausente:bufio` | 76 | 32 | 8 | `github.com/anmitsu/go-shlex` shlex.go:52:1: pacote sem shim/transpilação: bufio |
+| `async:shim-sincrono` | 92 | 38 | 7 | `github.com/anmitsu/go-shlex` shlex.go:64:20: NewReader do shim chamaria Read de forma síncrona, mas o argumento suspende |
 | `shim-ausente:math/big` | 91 | 18 | 7 | `github.com/dustin/go-humanize` big.go:8:6: pacote sem shim/transpilação: math/big |
 | `async:contexto-sincrono` | 46 | 35 | 6 | `github.com/benbjohnson/clock` context.go:85:79: chamada que suspende num contexto que não pode suspender (contexto-sincrono) |
-| `conversao:pointer-pointer` | 190 | 40 | 5 | `github.com/spaolacci/murmur3` murmur64.go:34:11: conversão pointer → pointer |
+| `conversao:pointer-pointer` | 192 | 41 | 5 | `github.com/spaolacci/murmur3` murmur64.go:34:11: conversão pointer → pointer |
+| `shim-ausente:path/filepath` | 63 | 40 | 5 | `github.com/caddyserver/certmagic/internal/atomicfile` file.go:76:6: pacote sem shim/transpilação: path/filepath |
 | `shim-ausente:crypto/rand` | 41 | 30 | 5 | `github.com/flynn/noise` cipher_suite.go:105:1: pacote sem shim/transpilação: crypto/rand |
 | `shim-ausente:iter` | 37 | 20 | 5 | `github.com/cockroachdb/pebble/v2/sstable/block/blockkind` kind.go:46:6: pacote sem shim/transpilação: iter |
 | `shim-ausente:hash/crc32` | 33 | 12 | 5 | `github.com/cockroachdb/pebble/v2/internal/crc` crc.go:21:1: pacote sem shim/transpilação: hash/crc32 |
 | `shim-ausente:log/slog` | 192 | 51 | 4 | `github.com/go-logr/logr` context_slog.go:28:6: pacote sem shim/transpilação: log/slog |
-| `shim-ausente:path/filepath` | 62 | 39 | 4 | `github.com/caddyserver/certmagic/internal/atomicfile` file.go:76:6: pacote sem shim/transpilação: path/filepath |
 | `shim-ausente:syscall` | 177 | 35 | 4 | `github.com/pbnjay/memory` memory_linux.go:7:6: pacote sem shim/transpilação: syscall |
 | `shim-ausente:math/rand/v2` | 27 | 24 | 4 | `google.golang.org/grpc/balancer/pickfirst/internal` internal.go:28:2: pacote sem shim/transpilação: math/rand/v2 |
 | `shim-simbolo:os.open` | 36 | 22 | 4 | `github.com/prometheus/procfs/internal/util` readfile.go:26:6: símbolo sem shim: os.open |
 | `shim-ausente:runtime/debug` | 28 | 22 | 4 | `github.com/ipfs/boxo/util` util.go:34:6: pacote sem shim/transpilação: runtime/debug |
 | `shim-ausente:crypto/x509` | 60 | 20 | 4 | `github.com/libp2p/go-libp2p/core/crypto` ecdsa.go:76:6: pacote sem shim/transpilação: crypto/x509 |
-| `shim-simbolo:time.Time.format` | 28 | 19 | 4 | `github.com/fsnotify/fsnotify/internal` debug_linux.go:55:3: membro sem shim: time.Time.format (Format) |
 | `shim-ausente:crypto` | 52 | 15 | 4 | `golang.org/x/crypto/blake2s` blake2s.go:59:6: pacote sem shim/transpilação: crypto |
 | `construtor-ambiguo` | 13 | 7 | 4 | `github.com/cenkalti/backoff/v4` ticker.go:13:1: parâmetro de construtor ambíguo para campo c |
 | `unsafe:Slice` | 62 | 30 | 3 | `filippo.io/bigmod` nat_noasm.go:12:19: unsafe.Slice (sem memória crua fora do dart:ffi) |
@@ -69,27 +68,24 @@ Ordem: pacotes da fronteira afetados, pacotes afetados, ocorrências.
 | `shim-ausente:math/rand` | 49 | 23 | 2 | `github.com/cenkalti/backoff/v4` exponential.go:54:1: pacote sem shim/transpilação: math/rand |
 | `shim-ausente:maps` | 23 | 20 | 2 | `github.com/guillaumemichel/reservedpool` pool.go:14:1: pacote sem shim/transpilação: maps |
 | `shim-simbolo:os.readFile` | 18 | 14 | 2 | `github.com/crackcomm/go-gitignore` ignore.go:173:6: símbolo sem shim: os.readFile |
-| `shim-simbolo:time.parse` | 10 | 10 | 2 | `github.com/gabriel-vasile/mimetype/internal/magic` text.go:504:6: símbolo sem shim: time.parse |
 | `range:pointer` | 7 | 6 | 2 | `github.com/klauspost/compress/huff0` build_table.go:107:2: range sobre pointer |
 | `func-sem-corpo` | 7 | 5 | 2 | `github.com/cockroachdb/pebble/v2/internal/rawalloc` rawalloc_go1.9.go:27:6: função sem corpo (assembly ou go:linkname): substituição |
 | `shim-ausente:io/ioutil` | 5 | 5 | 2 | `github.com/minio/sha256-simd` cpuid_other.go:31:6: pacote sem shim/transpilação: io/ioutil |
 | `shim-ausente:unicode/utf16` | 5 | 5 | 2 | `github.com/go-jose/go-jose/v4/json` decode.go:1104:6: pacote sem shim/transpilação: unicode/utf16 |
 | `shim-ausente:encoding/xml` | 7 | 4 | 2 | `github.com/huin/goupnp/scpd` scpd.go:20:1: pacote sem shim/transpilação: encoding/xml |
 | `shim-simbolo:fmt.sscanf` | 6 | 4 | 2 | `github.com/syndtr/goleveldb/leveldb/storage` file_storage.go:649:6: símbolo sem shim: fmt.sscanf |
-| `shim-simbolo:reflect.Value.methodByName` | 5 | 4 | 2 | `github.com/pion/rtcp` packet_stringifier.go:62:21: membro sem shim: reflect.Value.methodByName (MethodByName) |
 | `unsafe:String` | 5 | 4 | 2 | `go.opentelemetry.io/auto/sdk/internal/telemetry` value.go:140:10: unsafe.String (sem memória crua fora do dart:ffi) |
 | `shim-ausente:crypto/md5` | 4 | 4 | 2 | `github.com/multiformats/go-multihash/core` registry.go:112:6: pacote sem shim/transpilação: crypto/md5 |
 | `shim-ausente:crypto/sha1` | 4 | 4 | 2 | `github.com/pion/stun/v3/internal/hmac` pool.go:40:5: pacote sem shim/transpilação: crypto/sha1 |
 | `shim-ausente:crypto/ecdh` | 4 | 3 | 2 | `golang.org/x/crypto/curve25519` curve25519.go:38:6: pacote sem shim/transpilação: crypto/ecdh |
 | `shim-ausente:flag` | 3 | 3 | 2 | `github.com/grpc-ecosystem/grpc-gateway/v2/utilities` string_array_flag.go:9:1: pacote sem shim/transpilação: flag |
 | `conversao:pointer-named-pointer` | 8 | 2 | 2 | `go.opentelemetry.io/auto/sdk/internal/telemetry` value.go:84:8: conversão pointer → named-pointer |
-| `dart:invalid_assignment` | 4 | 2 | 2 | `github.com/cockroachdb/crlib/fifo` 384:19: error: A value of type 'Ptr<$_semaWaiter>?' can't be assigned to a variable of type '$_semaWaiter?'. |
+| `dart:invalid_assignment` | 4 | 2 | 2 | `github.com/cockroachdb/crlib/fifo` 385:19: error: A value of type 'Ptr<$_semaWaiter>?' can't be assigned to a variable of type '$_semaWaiter?'. |
 | `dart:return_of_invalid_type` | 2 | 2 | 2 | `github.com/pion/transport/v3/deadline` 261:8: error: A value of type 'Timer' can't be returned from the function '_afterFunc' because it has a return type of '$_timer?'. |
 | `go:embed` | 2 | 2 | 2 | `google.golang.org/protobuf/internal/editiondefaults` defaults.go:9:8: //go:embed (import _ embed) |
-| `async:valor-func` | 85 | 59 | 1 | `github.com/ipfs/go-datastore/query` query_impl.go:21:10: função que suspende usada como valor de uma assinatura que precisa ficar síncrona |
+| `async:valor-func` | 87 | 61 | 1 | `github.com/ipfs/go-datastore/query` query_impl.go:21:10: função que suspende usada como valor de uma assinatura que precisa ficar síncrona |
 | `shim-ausente:net/netip` | 52 | 17 | 1 | `github.com/libdns/libdns` record.go:39:1: pacote sem shim/transpilação: net/netip |
 | `shim-simbolo:os.openFile` | 15 | 10 | 1 | `github.com/syndtr/goleveldb/leveldb/storage` file_storage.go:53:6: símbolo sem shim: os.openFile |
-| `shim-simbolo:reflect.Value.call$` | 9 | 7 | 1 | `github.com/polydawn/refmt/obj/atlas` transformFuncs.go:32:14: membro sem shim: reflect.Value.call$ (Call) |
 | `shim-ausente:container/heap` | 8 | 7 | 1 | `github.com/ipfs/go-ipfs-pq` pq.go:35:6: pacote sem shim/transpilação: container/heap |
 | `shim-simbolo:os.Signal` | 11 | 6 | 1 | `github.com/cheggaaa/pb/v3/termutil` term.go:56:6: símbolo sem shim: os.Signal |
 | `shim-simbolo:os.lstat` | 6 | 6 | 1 | `github.com/ipfs/kubo/misc/fsutil` fsutil.go:79:6: símbolo sem shim: os.lstat |
@@ -107,21 +103,19 @@ Ordem: pacotes da fronteira afetados, pacotes afetados, ocorrências.
 | `shim-simbolo:os.rename` | 3 | 3 | 1 | `github.com/syndtr/goleveldb/leveldb/storage` file_storage_unix.go:63:6: símbolo sem shim: os.rename |
 | `shim-ausente:math/cmplx` | 9 | 2 | 1 | `gonum.org/v1/gonum/mathext/internal/amos` amos.go:31:6: pacote sem shim/transpilação: math/cmplx |
 | `shim-ausente:os/user` | 3 | 2 | 1 | `github.com/hanwen/go-fuse/v2/internal` access.go:14:6: pacote sem shim/transpilação: os/user |
+| `shim-ausente:text/tabwriter` | 3 | 2 | 1 | `github.com/kr/pretty` formatter.go:14:1: pacote sem shim/transpilação: text/tabwriter |
+| `len:typeparam` | 2 | 2 | 1 | `go.uber.org/zap/zapcore` json_encoder.go:526:18: len de typeparam |
 | `shim-simbolo:os.unsetenv` | 2 | 2 | 1 | `github.com/coreos/go-systemd/v22/daemon` watchdog.go:36:6: símbolo sem shim: os.unsetenv |
-| `dart:referenced_before_declaration` | 2 | 1 | 1 | `github.com/polydawn/refmt/shared` 73:1: error: Local variable 'tok' can't be referenced before it is declared. |
-| `shim-ausente:text/tabwriter` | 2 | 1 | 1 | `github.com/kr/pretty` formatter.go:14:1: pacote sem shim/transpilação: text/tabwriter |
 | `builtin:print` | 1 | 1 | 1 | `github.com/gogo/protobuf/proto` properties.go:441:4: builtin print |
 | `builtin:println` | 1 | 1 | 1 | `golang.org/x/exp/mmap` mmap_unix.go:51:3: builtin println |
 | `conversao:slice-typeparam` | 1 | 1 | 1 | `github.com/multiformats/go-multistream` multistream.go:263:9: conversão slice → typeparam |
 | `conversao:typeparam-slice` | 1 | 1 | 1 | `github.com/multiformats/go-multistream` client.go:139:33: conversão typeparam → slice |
 | `dart:argument_type_not_assignable` | 1 | 1 | 1 | `github.com/polydawn/refmt/shared` 111:30: error: The argument type 'Buffer' can't be assigned to the parameter type '$_readerScanner?'.  |
-| `dart:prefix_shadowed_by_local_declaration` | 1 | 1 | 1 | `github.com/polydawn/refmt/shared` 73:1: error: The prefix 'tok' can't be used here because it's shadowed by a local declaration. |
 | `shim-ausente:crypto/fips140` | 1 | 1 | 1 | `golang.org/x/crypto/chacha20poly1305` fips140only_go1.26.go:11:6: pacote sem shim/transpilação: crypto/fips140 |
 | `shim-simbolo:os.getgid` | 1 | 1 | 1 | `github.com/google/uuid` dce.go:54:6: símbolo sem shim: os.getgid |
 | `shim-simbolo:os.interrupt` | 1 | 1 | 1 | `github.com/cheggaaa/pb/v3/termutil` term_x.go:17:2: símbolo sem shim: os.interrupt |
 | `shim-simbolo:os.userHomeDir` | 1 | 1 | 1 | `github.com/ipfs/kubo/misc/fsutil` fsutil.go:57:6: símbolo sem shim: os.userHomeDir |
 | `shim-simbolo:reflect.Value.unsafeAddr` | 1 | 1 | 1 | `github.com/kr/pretty` diff.go:108:17: membro sem shim: reflect.Value.unsafeAddr (UnsafeAddr) |
-| `shim-simbolo:time.Time.appendFormat` | 1 | 1 | 1 | `go.uber.org/zap/buffer` buffer.go:62:9: membro sem shim: time.Time.appendFormat (AppendFormat) |
 | `promocao:nao-exportada` | 156 | 24 | 0 | `go.opentelemetry.io/otel/metric/noop` noop.go:48:1: método não exportado meterProvider promovido de go.opentelemetry.io/otel/metric/embedded.MeterProvider (interface ou genérico, sem mixin) |
 | `shim-simbolo:io/fs.FileInfo` | 30 | 9 | 0 | `github.com/ipfs/boxo/filestore/posinfo` posinfo.go:12:1: símbolo sem shim: io/fs.FileInfo |
 | `shim-ausente:compress/gzip` | 13 | 8 | 0 | `google.golang.org/protobuf/internal/impl` legacy_file.go:43:6: pacote sem shim/transpilação: compress/gzip |
@@ -132,7 +126,7 @@ Ordem: pacotes da fronteira afetados, pacotes afetados, ocorrências.
 | `shim-ausente:text/template` | 12 | 4 | 0 | `github.com/cheggaaa/pb/v3` pb.go:89:1: pacote sem shim/transpilação: text/template |
 | `shim-ausente:crypto/aes` | 8 | 4 | 0 | `github.com/flynn/noise` cipher_suite.go:140:6: pacote sem shim/transpilação: crypto/aes |
 | `shim-ausente:net/http/httptrace` | 22 | 3 | 0 | `github.com/quic-go/quic-go/http3` stream.go:54:6: pacote sem shim/transpilação: net/http/httptrace |
-| `shim-ausente:html/template` | 10 | 3 | 0 | `github.com/ipfs/boxo/gateway/assets` : pacote sem shim/transpilação: html/template |
+| `shim-ausente:html/template` | 11 | 3 | 0 | `github.com/ipfs/boxo/gateway/assets` : pacote sem shim/transpilação: html/template |
 | `shim-ausente:go/token` | 8 | 3 | 0 | `google.golang.org/protobuf/internal/strs` strings.go:71:6: pacote sem shim/transpilação: go/token |
 | `generico:ptr-valor` | 6 | 3 | 0 | `github.com/cockroachdb/pebble/v2/internal/cache` block_map.go:42:30: *T de genérico instanciado com struct/array (ou *N com métodos) dentro de tipo composto |
 | `shim-ausente:archive/zip` | 4 | 3 | 0 | `github.com/ipfs/kubo/profile` profile.go:117:6: pacote sem shim/transpilação: archive/zip |
@@ -146,7 +140,6 @@ Ordem: pacotes da fronteira afetados, pacotes afetados, ocorrências.
 | `tipo-nomeado:chan` | 3 | 3 | 0 | `github.com/libp2p/go-libp2p-kad-dht/internal` ctx_mutex.go:7:6: tipo nomeado sobre chan |
 | `shim-ausente:testing` | 8 | 2 | 0 | `github.com/ipfs/kubo/repo/fsrepo/migrations/common` testing_helpers.go:28:6: pacote sem shim/transpilação: testing |
 | `shim-ausente:mime/multipart` | 7 | 2 | 0 | `github.com/ipfs/boxo/files` multifilereader.go:45:6: pacote sem shim/transpilação: mime/multipart |
-| `shim-simbolo:reflect.structOf` | 6 | 2 | 0 | `github.com/ipld/go-ipld-prime/node/bindnode` infer.go:287:6: símbolo sem shim: reflect.structOf |
 | `shim-simbolo:encoding/binary.NativeEndian._littleEndian` | 5 | 2 | 0 | `golang.org/x/net/ipv6` control_rfc3542_unix.go:24:3: membro sem shim: encoding/binary.NativeEndian._littleEndian (littleEndian) |
 | `conversao:pointer-typeparam` | 4 | 2 | 0 | `google.golang.org/protobuf/proto` wrapperopaque.go:68:10: conversão pointer → typeparam |
 | `shim-simbolo:os.LinkError` | 4 | 2 | 0 | `github.com/cockroachdb/errors/errbase` adapters.go:114:6: símbolo sem shim: os.LinkError |
@@ -154,7 +147,6 @@ Ordem: pacotes da fronteira afetados, pacotes afetados, ocorrências.
 | `shim-ausente:crypto/ed25519` | 3 | 2 | 0 | `github.com/libp2p/go-libp2p/core/crypto` ed25519.go:16:1: pacote sem shim/transpilação: crypto/ed25519 |
 | `shim-ausente:expvar` | 3 | 2 | 0 | `github.com/dgraph-io/badger/y` metrics.go:21:1: pacote sem shim/transpilação: expvar |
 | `shim-simbolo:os.getpagesize` | 3 | 2 | 0 | `github.com/hanwen/go-fuse/v2/fuse` bufferpool.go:24:5: símbolo sem shim: os.getpagesize |
-| `len:typeparam` | 2 | 2 | 0 | `go.uber.org/zap/zapcore` json_encoder.go:526:18: len de typeparam |
 | `shim-ausente:archive/tar` | 2 | 2 | 0 | `github.com/ipfs/boxo/files` tarwriter.go:15:1: pacote sem shim/transpilação: archive/tar |
 | `shim-ausente:crypto/x509/pkix` | 2 | 2 | 0 | `github.com/caddyserver/certmagic` config.go:1385:2: pacote sem shim/transpilação: crypto/x509/pkix |
 | `shim-ausente:go/build` | 2 | 2 | 0 | `github.com/getsentry/sentry-go` stacktrace.go:333:5: pacote sem shim/transpilação: go/build |
@@ -164,10 +156,8 @@ Ordem: pacotes da fronteira afetados, pacotes afetados, ocorrências.
 | `shim-simbolo:os.newSyscallError` | 2 | 2 | 0 | `github.com/cockroachdb/errors/errbase` adapters.go:151:6: símbolo sem shim: os.newSyscallError |
 | `shim-simbolo:os.readDir` | 2 | 2 | 0 | `github.com/prometheus/procfs` net_dev_snmp6.go:45:6: símbolo sem shim: os.readDir |
 | `shim-simbolo:strconv.NumError` | 2 | 2 | 0 | `github.com/polydawn/refmt/json` jsonDecoder.go:17:1: símbolo sem shim: strconv.NumError |
-| `shim-simbolo:time.Time.marshalJSON` | 2 | 2 | 0 | `github.com/whyrusleeping/cbor-gen` helper_types.go:123:9: membro sem shim: time.Time.marshalJSON (MarshalJSON) |
 | `shim-ausente:crypto/sha3` | 9 | 1 | 0 | `golang.org/x/crypto/sha3` hashes.go:66:6: pacote sem shim/transpilação: crypto/sha3 |
 | `fmt-verbo:%#v-ponteiro` | 7 | 1 | 0 | `github.com/gogo/protobuf/protoc-gen-gogo/descriptor` descriptor_gostring.gen.go:71:41: fmt: %#v-ponteiro não portado no shim |
-| `shim-simbolo:reflect.funcOf` | 7 | 1 | 0 | `go.uber.org/fx` annotated.go:145:1: símbolo sem shim: reflect.funcOf |
 | `shim-ausente:compress/flate` | 3 | 1 | 0 | `github.com/gorilla/websocket` compression.go:48:6: pacote sem shim/transpilação: compress/flate |
 | `shim-ausente:hash/maphash` | 3 | 1 | 0 | `github.com/ipfs/boxo/bitswap/server/internal/decision` scheduler.go:34:1: pacote sem shim/transpilação: hash/maphash |
 | `shim-ausente:mime` | 3 | 1 | 0 | `github.com/gabriel-vasile/mimetype` mime.go:14:1: pacote sem shim/transpilação: mime |
@@ -199,9 +189,9 @@ Ordem: pacotes da fronteira afetados, pacotes afetados, ocorrências.
 | `shim-simbolo:os.newFile` | 1 | 1 | 0 | `github.com/fsnotify/fsnotify` backend_inotify.go:147:6: símbolo sem shim: os.newFile |
 | `shim-simbolo:os.pipe` | 1 | 1 | 0 | `github.com/hanwen/go-fuse/v2/fuse` mount.go:12:6: símbolo sem shim: os.pipe |
 | `shim-simbolo:os.removeAll` | 1 | 1 | 0 | `github.com/ipfs/kubo/cmd/ipfs/kubo` daemon.go:213:6: símbolo sem shim: os.removeAll |
-| `shim-simbolo:reflect.SelectCase` | 1 | 1 | 0 | `github.com/libp2p/go-libp2p-routing-helpers` parallel.go:481:6: símbolo sem shim: reflect.SelectCase |
 | `shim-simbolo:sort.searchFloat64s` | 1 | 1 | 0 | `go.opentelemetry.io/otel/sdk/metric/internal/aggregate` histogram.go:96:1: símbolo sem shim: sort.searchFloat64s |
 | `shim-simbolo:strconv.formatComplex` | 1 | 1 | 0 | `github.com/go-logr/logr/funcr` funcr.go:238:1: símbolo sem shim: strconv.formatComplex |
+| `shim-simbolo:time.$_absSeconds` | 1 | 1 | 0 | `github.com/ipfs/boxo/routing/http/types` time.go:10:1: símbolo sem shim: time.$_absSeconds |
 | `unsafe:Add` | 1 | 1 | 0 | `github.com/cockroachdb/pebble/v2/sstable/colblk` prefix_bytes.go:1034:4: unsafe.Add (sem memória crua fora do dart:ffi) |
 | `unsafe:Sizeof` | 1 | 1 | 0 | `github.com/cockroachdb/pebble/v2/internal/genericcache` cache.go:177:3: unsafe.Sizeof (sem memória crua fora do dart:ffi) |
 
@@ -209,17 +199,17 @@ Ordem: pacotes da fronteira afetados, pacotes afetados, ocorrências.
 
 | área | ocorrências | pacotes |
 |---|---:|---:|
-| `shim-ausente` | 4064 | 522 |
-| `shim-simbolo` | 320 | 124 |
-| `async` | 221 | 121 |
+| `shim-ausente` | 4067 | 522 |
+| `async` | 225 | 124 |
+| `shim-simbolo` | 252 | 96 |
 | `unsafe` | 474 | 87 |
-| `conversao` | 222 | 49 |
+| `conversao` | 224 | 50 |
 | `branch` | 74 | 28 |
 | `promocao` | 156 | 24 |
 | `construtor-ambiguo` | 13 | 7 |
 | `range` | 7 | 6 |
 | `tipo-nomeado` | 6 | 6 |
-| `dart` | 10 | 5 |
+| `dart` | 7 | 5 |
 | `func-sem-corpo` | 7 | 5 |
 | `generico` | 6 | 3 |
 | `opassign-impuro` | 3 | 3 |
@@ -271,7 +261,7 @@ Não verdes com todas as dependências do grafo verdes: o próximo trabalho.
 | `github.com/ipfs/boxo/routing/http/internal` | unsupported | `shim-ausente:slices` |
 | `github.com/pion/transport/v3/deadline` | dart-invalido | `dart:return_of_invalid_type` |
 | `github.com/pion/transport/v4/deadline` | dart-invalido | `dart:return_of_invalid_type` |
-| `go.uber.org/zap/buffer` | unsupported | `shim-simbolo:time.Time.appendFormat` |
+| `go.uber.org/zap/internal/stacktrace` | unsupported | `shim-ausente:runtime`×3 |
 | `golang.org/x/net/internal/httpsfv` | unsupported | `shim-ausente:slices`×5 |
 | `google.golang.org/grpc/balancer/pickfirst/internal` | unsupported | `shim-ausente:math/rand/v2`×2 |
 | `google.golang.org/grpc/internal/backoff` | unsupported | `shim-ausente:math/rand/v2` |
@@ -307,13 +297,12 @@ Não verdes com todas as dependências do grafo verdes: o próximo trabalho.
 | `github.com/multiformats/go-multihash/core` | unsupported | `shim-ausente:hash`×7, `shim-ausente:crypto/md5` |
 | `github.com/pion/dtls/v3/pkg/crypto/ccm` | unsupported | `shim-ausente:crypto/cipher`×3 |
 | `github.com/pion/dtls/v3/pkg/crypto/hash` | unsupported | `shim-ausente:crypto` |
-| `github.com/pion/rtcp` | unsupported | `shim-simbolo:reflect.Value.methodByName`, `unsafe:Pointer` |
+| `github.com/pion/rtcp` | unsupported | `unsafe:Pointer` |
 | `github.com/pion/stun/v3/internal/hmac` | unsupported | `shim-ausente:hash`×6, `shim-ausente:crypto/sha1`, `shim-ausente:crypto/sha256` |
 | `github.com/pion/webrtc/v4/internal/fmtp` | unsupported | `shim-ausente:encoding/hex` |
 | `github.com/pkg/errors` | unsupported | `shim-ausente:runtime`×2 |
-| `github.com/polydawn/refmt/obj/atlas` | unsupported | `shim-simbolo:reflect.Value.call$`×2 |
 | `github.com/polydawn/refmt/pretty` | unsupported | `shim-ausente:encoding/hex` |
-| `github.com/polydawn/refmt/shared` | dart-invalido | `dart:referenced_before_declaration`×2, `dart:argument_type_not_assignable`, `dart:prefix_shadowed_by_local_declaration` |
+| `github.com/polydawn/refmt/shared` | dart-invalido | `dart:argument_type_not_assignable` |
 | `github.com/prometheus/otlptranslator` | unsupported | `shim-ausente:slices` |
 | `github.com/prometheus/procfs/internal/util` | unsupported | `shim-simbolo:os.readFile`×3, `shim-simbolo:os.open`×2 |
 | `github.com/quic-go/quic-go/qlogwriter/jsontext` | unsupported | `unsafe:Slice` |
@@ -321,6 +310,7 @@ Não verdes com todas as dependências do grafo verdes: o próximo trabalho.
 | `go.opentelemetry.io/auto/sdk/internal/telemetry` | unsupported | `shim-ausente:encoding/hex`×5, `conversao:pointer-named-pointer`×4, `shim-ausente:cmp`, `tipo-nomeado:pointer`, `unsafe:String` |
 | `go.opentelemetry.io/otel/codes` | unsupported | `shim-simbolo:fmt.appendf` |
 | `go.opentelemetry.io/otel/trace/internal/telemetry` | unsupported | `shim-ausente:encoding/hex`×5, `conversao:pointer-named-pointer`×4, `shim-ausente:cmp`, `tipo-nomeado:pointer`, `unsafe:String` |
+| `go.uber.org/zap/zapcore` | unsupported | `len:typeparam`, `shim-ausente:bufio`, `shim-ausente:encoding/base64`, `shim-ausente:runtime` |
 | `golang.org/x/crypto/chacha20poly1305` | unsupported | `shim-ausente:crypto/cipher`×2, `shim-ausente:crypto/fips140` |
 | `golang.org/x/crypto/curve25519` | unsupported | `shim-ausente:crypto/ecdh`×2, `range:pointer` |
 | `golang.org/x/crypto/hkdf` | unsupported | `shim-ausente:hash`×4 |
@@ -332,10 +322,10 @@ Não verdes com todas as dependências do grafo verdes: o próximo trabalho.
 | `google.golang.org/grpc/attributes` | unsupported | `shim-ausente:iter` |
 | `google.golang.org/grpc/internal/envconfig` | unsupported | `shim-simbolo:strings.splitSeq` |
 | `google.golang.org/protobuf/internal/detrand` | unsupported | `shim-simbolo:os.executable` |
-| `gopkg.in/yaml.v2` | unsupported | `shim-ausente:encoding/base64`×2, `shim-simbolo:time.Time.format`, `shim-simbolo:time.parse` |
-| `gopkg.in/yaml.v3` | unsupported | `shim-ausente:encoding/base64`×2, `shim-simbolo:time.Time.format`, `shim-simbolo:time.parse` |
+| `gopkg.in/yaml.v2` | unsupported | `shim-ausente:encoding/base64`×2 |
+| `gopkg.in/yaml.v3` | unsupported | `shim-ausente:encoding/base64`×2 |
 | `github.com/AndreasBriese/bbloom` | unsupported | `unsafe:Pointer`×2, `shim-ausente:log` |
-| `github.com/gogo/protobuf/proto` | unsupported | `shim-ausente:log`×9, `branch:goto`×2, `builtin:print`, `shim-ausente:bufio`, `shim-simbolo:reflect.Value.methodByName` |
+| `github.com/gogo/protobuf/proto` | unsupported | `shim-ausente:log`×9, `branch:goto`×2, `builtin:print`, `shim-ausente:bufio` |
 | `github.com/ipfs/bbloom` | unsupported | `shim-ausente:log` |
 | `github.com/koron/go-ssdp/internal/ssdplog` | unsupported | `shim-ausente:log`×2 |
 | `github.com/pion/logging` | unsupported | `async:shim-sincrono`, `shim-ausente:log` |
@@ -362,7 +352,7 @@ Não verdes com todas as dependências do grafo verdes: o próximo trabalho.
 | `github.com/ipfs/kubo/misc/fsutil` | unsupported | `shim-simbolo:os.lstat`, `shim-simbolo:os.stat`, `shim-simbolo:os.userHomeDir` |
 | `github.com/ipfs/kubo/repo/fsrepo/migrations/atomicfile` | unsupported | `shim-ausente:path/filepath`, `shim-simbolo:io/fs.DirEntry` |
 | `github.com/prometheus/procfs/internal/fs` | unsupported | `shim-ausente:path/filepath`, `shim-simbolo:os.stat` |
-| `github.com/syndtr/goleveldb/leveldb/storage` | unsupported | `shim-simbolo:os.openFile`×2, `shim-ausente:syscall`, `shim-simbolo:fmt.sscanf`, `shim-simbolo:io/fs.DirEntry`, `shim-simbolo:os.SyscallError` (+4) |
+| `github.com/syndtr/goleveldb/leveldb/storage` | unsupported | `shim-simbolo:os.openFile`×2, `shim-ausente:path/filepath`, `shim-ausente:syscall`, `shim-simbolo:fmt.sscanf`, `shim-simbolo:io/fs.DirEntry` (+4) |
 | `golang.org/x/sys/execabs` | unsupported | `shim-ausente:os/exec`×7 |
 | `github.com/RaduBerinde/axisds` | unsupported | `shim-simbolo:fmt.sscanf` |
 | `github.com/ipfs/kubo/core/commands/e` | unsupported | `shim-ausente:runtime/debug` |
@@ -404,7 +394,7 @@ Não verdes com todas as dependências do grafo verdes: o próximo trabalho.
 | `github.com/felixge/httpsnoop` | unsupported | `shim-ausente:net/http`×521, `shim-ausente:net` |
 | `github.com/gorilla/mux` | unsupported | `shim-ausente:net/http`×25, `shim-ausente:net/url`, `shim-ausente:path` |
 | `github.com/huin/goupnp/httpu` | unsupported | `shim-ausente:net/http`×7, `shim-ausente:net`×4 |
-| `github.com/huin/goupnp/soap` | unsupported | `shim-ausente:net/url`×4, `shim-ausente:encoding/xml`×3, `shim-simbolo:time.Time.format`×3, `shim-ausente:encoding/base64`×2, `shim-ausente:encoding/hex`×2 |
+| `github.com/huin/goupnp/soap` | unsupported | `shim-ausente:net/url`×4, `shim-ausente:encoding/xml`×3, `shim-ausente:encoding/base64`×2, `shim-ausente:encoding/hex`×2 |
 | `github.com/ipfs/kubo/client/rpc/auth` | unsupported | `shim-ausente:net/http`×2 |
 | `github.com/mholt/acmez/v3/acme` | unsupported | `shim-ausente:crypto`×9, `shim-ausente:net/http`×4, `shim-ausente:log/slog`×2, `shim-ausente:crypto/sha256`, `shim-ausente:crypto/x509` (+1) |
 | `github.com/opentracing/opentracing-go` | unsupported | `shim-ausente:net/http` |
@@ -577,8 +567,8 @@ Não verdes com todas as dependências do grafo verdes: o próximo trabalho.
 | 155 | `go.opentelemetry.io/otel/internal/baggage` | verde |  |
 | 156 | `go.uber.org/dig/internal/digclock` | verde |  |
 | 157 | `go.uber.org/fx/internal/fxclock` | verde |  |
-| 158 | `go.uber.org/zap/buffer` | unsupported | `shim-simbolo:time.Time.appendFormat` |
-| 159 | `go.uber.org/zap/internal/bufferpool` | bloqueado | `dart:uri_does_not_exist` |
+| 158 | `go.uber.org/zap/buffer` | verde |  |
+| 159 | `go.uber.org/zap/internal/bufferpool` | verde |  |
 | 160 | `go.uber.org/zap/internal/stacktrace` | unsupported | `shim-ausente:runtime`×3 |
 | 161 | `golang.org/x/net/internal/httpsfv` | unsupported | `shim-ausente:slices`×5 |
 | 162 | `golang.org/x/sys/unix` | substituicao | assembly: asm_linux_amd64.s |
@@ -621,8 +611,8 @@ Não verdes com todas as dependências do grafo verdes: o próximo trabalho.
 | 199 | `github.com/davidlazar/go-crypto/salsa20` | unsupported | `shim-ausente:crypto/cipher` |
 | 200 | `github.com/dunglas/httpsfv` | unsupported | `shim-ausente:encoding/base64`×2, `shim-ausente:encoding/hex` |
 | 201 | `github.com/filecoin-project/go-clock` | unsupported | `construtor-ambiguo`×4, `async:contexto-sincrono`, `conversao:pointer-pointer` |
-| 202 | `github.com/fsnotify/fsnotify/internal` | unsupported | `shim-ausente:syscall`×4, `shim-simbolo:time.Time.format` |
-| 203 | `github.com/gabriel-vasile/mimetype/internal/magic` | unsupported | `shim-ausente:slices`×5, `shim-simbolo:time.parse` |
+| 202 | `github.com/fsnotify/fsnotify/internal` | unsupported | `shim-ausente:syscall`×4 |
+| 203 | `github.com/gabriel-vasile/mimetype/internal/magic` | unsupported | `shim-ausente:slices`×5 |
 | 204 | `github.com/gammazero/deque` | unsupported | `shim-ausente:iter` |
 | 205 | `github.com/gammazero/chanqueue` | bloqueado | `dart:uri_does_not_exist` |
 | 206 | `github.com/go-jose/go-jose/v4/json` | unsupported | `shim-ausente:runtime`×2, `shim-ausente:encoding/base64`, `shim-ausente:unicode/utf16` |
@@ -676,7 +666,7 @@ Não verdes com todas as dependências do grafo verdes: o próximo trabalho.
 | 254 | `github.com/pion/dtls/v3/pkg/crypto/ccm` | unsupported | `shim-ausente:crypto/cipher`×3 |
 | 255 | `github.com/pion/dtls/v3/pkg/crypto/hash` | unsupported | `shim-ausente:crypto` |
 | 256 | `github.com/pion/dtls/v3/pkg/crypto/signature` | bloqueado | `dart:uri_does_not_exist` |
-| 257 | `github.com/pion/rtcp` | unsupported | `shim-simbolo:reflect.Value.methodByName`, `unsafe:Pointer` |
+| 257 | `github.com/pion/rtcp` | unsupported | `unsafe:Pointer` |
 | 258 | `github.com/pion/rtp/codecs/av1/obu` | verde |  |
 | 259 | `github.com/pion/stun/v3/internal/hmac` | unsupported | `shim-ausente:hash`×6, `shim-ausente:crypto/sha1`, `shim-ausente:crypto/sha256` |
 | 260 | `github.com/pion/transport/v3/replaydetector` | verde |  |
@@ -684,15 +674,15 @@ Não verdes com todas as dependências do grafo verdes: o próximo trabalho.
 | 262 | `github.com/pion/webrtc/v4/internal/fmtp` | unsupported | `shim-ausente:encoding/hex` |
 | 263 | `github.com/pion/webrtc/v4/pkg/rtcerr` | verde |  |
 | 264 | `github.com/pkg/errors` | unsupported | `shim-ausente:runtime`×2 |
-| 265 | `github.com/polydawn/refmt/obj/atlas` | unsupported | `shim-simbolo:reflect.Value.call$`×2 |
+| 265 | `github.com/polydawn/refmt/obj/atlas` | verde |  |
 | 266 | `github.com/polydawn/refmt/tok` | verde |  |
-| 267 | `github.com/polydawn/refmt/obj` | bloqueado | `dart:undefined_method`×84, `dart:body_might_complete_normally`, `dart:undefined_getter`, `dart:uri_does_not_exist` |
+| 267 | `github.com/polydawn/refmt/obj` | verde |  |
 | 268 | `github.com/polydawn/refmt/pretty` | unsupported | `shim-ausente:encoding/hex` |
-| 269 | `github.com/polydawn/refmt/shared` | dart-invalido | `dart:referenced_before_declaration`×2, `dart:argument_type_not_assignable`, `dart:prefix_shadowed_by_local_declaration` |
+| 269 | `github.com/polydawn/refmt/shared` | dart-invalido | `dart:argument_type_not_assignable` |
 | 270 | `github.com/polydawn/refmt/cbor` | unsupported | `branch:goto` |
 | 271 | `github.com/polydawn/refmt/json` | unsupported | `shim-ausente:unicode/utf16`, `shim-simbolo:strconv.NumError` |
-| 272 | `github.com/polydawn/refmt` | bloqueado | `dart:uri_does_not_exist`×3, `dart:argument_type_not_assignable`×2 |
-| 273 | `github.com/ipfs/go-ipld-cbor/encoding` | bloqueado | `dart:uri_does_not_exist`×2 |
+| 272 | `github.com/polydawn/refmt` | bloqueado | `dart:argument_type_not_assignable`×2, `dart:uri_does_not_exist`×2 |
+| 273 | `github.com/ipfs/go-ipld-cbor/encoding` | bloqueado | `dart:uri_does_not_exist` |
 | 274 | `github.com/prometheus/otlptranslator` | unsupported | `shim-ausente:slices` |
 | 275 | `github.com/prometheus/procfs/internal/util` | unsupported | `shim-simbolo:os.readFile`×3, `shim-simbolo:os.open`×2 |
 | 276 | `github.com/quic-go/quic-go/qlogwriter/jsontext` | unsupported | `unsafe:Slice` |
@@ -743,7 +733,7 @@ Não verdes com todas as dependências do grafo verdes: o próximo trabalho.
 | 321 | `go.uber.org/multierr` | verde |  |
 | 322 | `go.uber.org/zap/internal/color` | verde |  |
 | 323 | `go.uber.org/zap/internal/exit` | verde |  |
-| 324 | `go.uber.org/zap/zapcore` | unsupported | `len:typeparam`, `shim-ausente:bufio`, `shim-ausente:encoding/base64`, `shim-ausente:runtime`, `shim-simbolo:time.Time.format` |
+| 324 | `go.uber.org/zap/zapcore` | unsupported | `len:typeparam`, `shim-ausente:bufio`, `shim-ausente:encoding/base64`, `shim-ausente:runtime` |
 | 325 | `go.uber.org/zap/internal` | bloqueado | `dart:uri_does_not_exist` |
 | 326 | `golang.org/x/crypto/chacha20` | verde |  |
 | 327 | `golang.org/x/crypto/chacha20poly1305` | unsupported | `shim-ausente:crypto/cipher`×2, `shim-ausente:crypto/fips140` |
@@ -776,7 +766,7 @@ Não verdes com todas as dependências do grafo verdes: o próximo trabalho.
 | 354 | `google.golang.org/protobuf/encoding/protowire` | bloqueado |  |
 | 355 | `google.golang.org/protobuf/internal/version` | verde |  |
 | 356 | `google.golang.org/protobuf/reflect/protoreflect` | unsupported | `unsafe:Pointer`×10 |
-| 357 | `google.golang.org/protobuf/internal/descfmt` | unsupported | `shim-simbolo:reflect.Value.methodByName`×2, `shim-simbolo:reflect.Value.call$` |
+| 357 | `google.golang.org/protobuf/internal/descfmt` | bloqueado | `dart:uri_does_not_exist`×2 |
 | 358 | `google.golang.org/protobuf/internal/descopts` | bloqueado | `dart:uri_does_not_exist` |
 | 359 | `google.golang.org/protobuf/internal/encoding/messageset` | bloqueado | `dart:uri_does_not_exist` |
 | 360 | `google.golang.org/protobuf/internal/genid` | bloqueado | `dart:uri_does_not_exist` |
@@ -790,11 +780,11 @@ Não verdes com todas as dependências do grafo verdes: o próximo trabalho.
 | 368 | `google.golang.org/protobuf/internal/protolazy` | unsupported | `branch:goto`×2, `unsafe:Pointer`×2 |
 | 369 | `google.golang.org/protobuf/proto` | unsupported | `conversao:pointer-typeparam` |
 | 370 | `google.golang.org/protobuf/encoding/protodelim` | unsupported | `shim-ausente:bufio` |
-| 371 | `google.golang.org/protobuf/encoding/prototext` | bloqueado | `dart:undefined_method`×15, `dart:uri_does_not_exist`×4, `dart:invalid_assignment`×2, `dart:override_on_non_overriding_member`×2, `dart:built_in_identifier_in_declaration` |
-| 372 | `google.golang.org/protobuf/internal/filedesc` | bloqueado | `dart:invalid_constant`×5, `dart:uri_does_not_exist`×5, `dart:undefined_getter`×4, `dart:invalid_assignment`×2 |
-| 373 | `google.golang.org/protobuf/encoding/protojson` | unsupported | `shim-ausente:encoding/base64`×2, `shim-simbolo:time.parse` |
+| 371 | `google.golang.org/protobuf/encoding/prototext` | bloqueado | `dart:undefined_getter`×15, `dart:undefined_method`×15, `dart:uri_does_not_exist`×4, `dart:invalid_assignment`×2, `dart:override_on_non_overriding_member`×2 (+1) |
+| 372 | `google.golang.org/protobuf/internal/filedesc` | bloqueado | `dart:argument_type_not_assignable`×14, `dart:invalid_constant`×5, `dart:undefined_getter`×4, `dart:uri_does_not_exist`×4, `dart:invalid_assignment`×2 |
+| 373 | `google.golang.org/protobuf/encoding/protojson` | unsupported | `shim-ausente:encoding/base64`×2 |
 | 374 | `google.golang.org/protobuf/internal/encoding/tag` | bloqueado | `dart:uri_does_not_exist`×2 |
-| 375 | `google.golang.org/protobuf/internal/impl` | unsupported | `unsafe:Pointer`×15, `shim-simbolo:reflect.Value.call$`×2, `conversao:pointer-pointer`, `shim-ausente:compress/gzip` |
+| 375 | `google.golang.org/protobuf/internal/impl` | unsupported | `unsafe:Pointer`×15, `conversao:pointer-pointer`×2, `shim-ausente:compress/gzip` |
 | 376 | `google.golang.org/protobuf/internal/filetype` | bloqueado | `dart:invalid_constant`×5, `dart:undefined_getter`×4, `dart:invalid_assignment`×3, `dart:uri_does_not_exist`×2, `dart:argument_type_not_assignable` |
 | 377 | `google.golang.org/protobuf/runtime/protoimpl` | bloqueado | `dart:uri_does_not_exist` |
 | 378 | `github.com/ipfs/boxo/bitswap/message/pb` | unsupported | `unsafe:Pointer`×5 |
@@ -836,20 +826,20 @@ Não verdes com todas as dependências do grafo verdes: o próximo trabalho.
 | 414 | `github.com/prometheus/client_golang/prometheus/internal` | unsupported | `async:shim-sincrono`, `shim-ausente:runtime/metrics` |
 | 415 | `google.golang.org/grpc/binarylog/grpc_binarylog_v1` | unsupported | `unsafe:Pointer`×8, `unsafe:Slice`×2 |
 | 416 | `google.golang.org/protobuf/types/known/wrapperspb` | unsupported | `unsafe:Pointer`×9, `unsafe:Slice`×2 |
-| 417 | `gopkg.in/yaml.v2` | unsupported | `shim-ausente:encoding/base64`×2, `shim-simbolo:time.Time.format`, `shim-simbolo:time.parse` |
-| 418 | `gopkg.in/yaml.v3` | unsupported | `shim-ausente:encoding/base64`×2, `shim-simbolo:time.Time.format`, `shim-simbolo:time.parse` |
-| 419 | `github.com/golang/protobuf/proto` | unsupported | `shim-ausente:compress/gzip`, `shim-simbolo:reflect.Value.call$` |
+| 417 | `gopkg.in/yaml.v2` | unsupported | `shim-ausente:encoding/base64`×2 |
+| 418 | `gopkg.in/yaml.v3` | unsupported | `shim-ausente:encoding/base64`×2 |
+| 419 | `github.com/golang/protobuf/proto` | unsupported | `shim-ausente:compress/gzip` |
 | 420 | `github.com/dgraph-io/badger/pb` | bloqueado | `dart:uri_does_not_exist` |
 | 421 | `github.com/minio/sha256-simd` | unsupported | `shim-ausente:hash`, `shim-ausente:io/ioutil` |
 | 422 | `github.com/AndreasBriese/bbloom` | unsupported | `unsafe:Pointer`×2, `shim-ausente:log` |
 | 423 | `github.com/dgraph-io/ristretto/z` | substituicao | assembly: rtutil.s |
-| 424 | `github.com/go-kit/log` | unsupported | `shim-ausente:log`, `shim-ausente:runtime`, `shim-simbolo:time.Time.format` |
+| 424 | `github.com/go-kit/log` | unsupported | `shim-ausente:log`, `shim-ausente:runtime` |
 | 425 | `github.com/go-kit/log/level` | bloqueado | `dart:uri_does_not_exist` |
-| 426 | `github.com/gogo/protobuf/proto` | unsupported | `shim-ausente:log`×9, `branch:goto`×2, `builtin:print`, `shim-ausente:bufio`, `shim-simbolo:reflect.Value.methodByName` |
+| 426 | `github.com/gogo/protobuf/proto` | unsupported | `shim-ausente:log`×9, `branch:goto`×2, `builtin:print`, `shim-ausente:bufio` |
 | 427 | `github.com/gogo/protobuf/protoc-gen-gogo/descriptor` | unsupported | `fmt-verbo:%#v-ponteiro`×7, `shim-ausente:compress/gzip` |
 | 428 | `github.com/gogo/protobuf/gogoproto` | bloqueado | `dart:uri_does_not_exist`×2 |
-| 429 | `github.com/gogo/protobuf/types` | unsupported | `shim-simbolo:time.Time.format` |
-| 430 | `github.com/cockroachdb/errors/errorspb` | bloqueado | `dart:uri_does_not_exist`×2 |
+| 429 | `github.com/gogo/protobuf/types` | bloqueado | `dart:missing_identifier`×9, `dart:argument_type_not_assignable`×6, `dart:uri_does_not_exist` |
+| 430 | `github.com/cockroachdb/errors/errorspb` | bloqueado | `dart:uri_does_not_exist` |
 | 431 | `github.com/hanwen/go-fuse/v2/splice` | unsupported | `shim-ausente:syscall`×5, `shim-simbolo:os.open`, `shim-simbolo:os.readFile` |
 | 432 | `github.com/ipfs/bbloom` | unsupported | `shim-ausente:log` |
 | 433 | `github.com/koron/go-ssdp/internal/ssdplog` | unsupported | `shim-ausente:log`×2 |
@@ -891,7 +881,7 @@ Não verdes com todas as dependências do grafo verdes: o próximo trabalho.
 | 469 | `github.com/ipfs/go-cidutil` | unsupported | `async:valor-func`, `shim-ausente:slices` |
 | 470 | `github.com/ipfs/go-cidutil/cidenc` | bloqueado | `dart:uri_does_not_exist`×2 |
 | 471 | `github.com/ipld/go-car/v2/internal/carv1/util` | bloqueado | `dart:uri_does_not_exist` |
-| 472 | `github.com/ipld/go-ipld-prime/linking/cid` | bloqueado | `dart:uri_does_not_exist`×5, `dart:undefined_method`×4, `dart:override_on_non_overriding_member` |
+| 472 | `github.com/ipld/go-ipld-prime/linking/cid` | bloqueado | `dart:uri_does_not_exist`×5, `dart:undefined_getter`×4, `dart:undefined_method`×4, `dart:override_on_non_overriding_member` |
 | 473 | `github.com/ipld/go-ipld-prime/codec/dagcbor` | bloqueado | `dart:uri_does_not_exist`×2 |
 | 474 | `github.com/ipld/go-ipld-prime/codec/cbor` | bloqueado |  |
 | 475 | `github.com/ipld/go-ipld-prime/codec/dagjson` | unsupported | `shim-ausente:encoding/base64`×2 |
@@ -917,7 +907,7 @@ Não verdes com todas as dependências do grafo verdes: o próximo trabalho.
 | 495 | `github.com/pion/webrtc/v4/internal/util` | bloqueado | `dart:uri_does_not_exist` |
 | 496 | `github.com/pion/webrtc/v4/pkg/media` | bloqueado |  |
 | 497 | `github.com/whyrusleeping/cbor/go` | unsupported | `shim-ausente:math/big`×5, `shim-ausente:iter`, `shim-ausente:log` |
-| 498 | `github.com/ipld/go-car/v2/index` | bloqueado | `dart:undefined_method`×18, `dart:uri_does_not_exist`×4, `dart:instance_access_to_static_member`, `dart:non_abstract_class_inherits_abstract_member`, `dart:not_enough_positional_arguments` (+1) |
+| 498 | `github.com/ipld/go-car/v2/index` | bloqueado | `dart:undefined_getter`×18, `dart:undefined_method`×18, `dart:uri_does_not_exist`×4, `dart:instance_access_to_static_member`×2, `dart:non_abstract_class_inherits_abstract_member` (+2) |
 | 499 | `github.com/whyrusleeping/chunker` | unsupported | `shim-ausente:hash`×2, `shim-ausente:crypto/rand` |
 | 500 | `github.com/whyrusleeping/go-keyspace` | unsupported | `shim-ausente:math/big`×4 |
 | 501 | `github.com/whyrusleeping/go-sysinfo` | unsupported | `shim-ausente:io/ioutil`, `shim-ausente:syscall` |
@@ -927,13 +917,13 @@ Não verdes com todas as dependências do grafo verdes: o próximo trabalho.
 | 505 | `github.com/hanwen/go-fuse/v2/internal` | unsupported | `shim-ausente:os/user` |
 | 506 | `github.com/caddyserver/certmagic/internal/atomicfile` | unsupported | `shim-ausente:path/filepath`, `shim-simbolo:os.remove` |
 | 507 | `github.com/facebookgo/atomicfile` | unsupported | `shim-ausente:path/filepath`, `shim-simbolo:io/fs.DirEntry` |
-| 508 | `github.com/fsnotify/fsnotify` | unsupported | `shim-ausente:path/filepath`, `shim-simbolo:os.newFile`, `shim-simbolo:time.Time.format`, `unsafe:Pointer` |
+| 508 | `github.com/fsnotify/fsnotify` | unsupported | `async:valor-func`, `shim-ausente:path/filepath`, `shim-simbolo:os.newFile`, `unsafe:Pointer` |
 | 509 | `github.com/go-logr/logr/funcr` | unsupported | `shim-ausente:log/slog`×2, `shim-simbolo:strconv.formatComplex` |
 | 510 | `github.com/go-logr/stdr` | unsupported | `shim-ausente:log` |
 | 511 | `github.com/ipfs/kubo/misc/fsutil` | unsupported | `shim-simbolo:os.lstat`, `shim-simbolo:os.stat`, `shim-simbolo:os.userHomeDir` |
 | 512 | `github.com/ipfs/kubo/repo/fsrepo/migrations/atomicfile` | unsupported | `shim-ausente:path/filepath`, `shim-simbolo:io/fs.DirEntry` |
 | 513 | `github.com/prometheus/procfs/internal/fs` | unsupported | `shim-ausente:path/filepath`, `shim-simbolo:os.stat` |
-| 514 | `github.com/syndtr/goleveldb/leveldb/storage` | unsupported | `shim-simbolo:os.openFile`×2, `shim-ausente:syscall`, `shim-simbolo:fmt.sscanf`, `shim-simbolo:io/fs.DirEntry`, `shim-simbolo:os.SyscallError` (+4) |
+| 514 | `github.com/syndtr/goleveldb/leveldb/storage` | unsupported | `shim-simbolo:os.openFile`×2, `shim-ausente:path/filepath`, `shim-ausente:syscall`, `shim-simbolo:fmt.sscanf`, `shim-simbolo:io/fs.DirEntry` (+4) |
 | 515 | `github.com/syndtr/goleveldb/leveldb/errors` | bloqueado | `dart:uri_does_not_exist`×2, `dart:invalid_constant`, `dart:undefined_getter` |
 | 516 | `github.com/syndtr/goleveldb/leveldb/iterator` | unsupported | `shim-ausente:container/heap` |
 | 517 | `github.com/syndtr/goleveldb/leveldb/journal` | bloqueado | `dart:uri_does_not_exist`×2 |
@@ -944,7 +934,7 @@ Não verdes com todas as dependências do grafo verdes: o próximo trabalho.
 | 522 | `golang.org/x/sys/execabs` | unsupported | `shim-ausente:os/exec`×7 |
 | 523 | `github.com/RaduBerinde/axisds` | unsupported | `shim-simbolo:fmt.sscanf` |
 | 524 | `github.com/RaduBerinde/axisds/regiontree` | unsupported | `layout:typeparam`×2 |
-| 525 | `github.com/ipfs/boxo/util` | unsupported | `shim-ausente:path/filepath`, `shim-ausente:runtime/debug`, `shim-simbolo:os.lstat`, `shim-simbolo:time.Time.format`, `shim-simbolo:time.parse` |
+| 525 | `github.com/ipfs/boxo/util` | unsupported | `shim-ausente:path/filepath`, `shim-ausente:runtime/debug`, `shim-simbolo:os.lstat` |
 | 526 | `github.com/ipfs/go-block-format` | unsupported | `async:contexto-sincrono` |
 | 527 | `github.com/ipfs/boxo/bitswap/client/internal/sessioninterestmanager` | unsupported | `shim-ausente:slices` |
 | 528 | `github.com/ipfs/boxo/exchange` | bloqueado | `dart:uri_does_not_exist`×2 |
@@ -978,7 +968,7 @@ Não verdes com todas as dependências do grafo verdes: o próximo trabalho.
 | 556 | `github.com/cockroachdb/errors/safedetails` | bloqueado | `dart:uri_does_not_exist`×2 |
 | 557 | `github.com/cockroachdb/errors/secondary` | bloqueado | `dart:uri_does_not_exist`×2 |
 | 558 | `github.com/cockroachdb/errors/telemetrykeys` | bloqueado | `dart:uri_does_not_exist`×2 |
-| 559 | `github.com/ipld/go-ipld-prime/node/bindnode` | unsupported | `conversao:pointer-pointer`×18, `shim-ausente:go/format`, `shim-ausente:go/token`, `shim-ausente:runtime`, `shim-simbolo:reflect.structOf` |
+| 559 | `github.com/ipld/go-ipld-prime/node/bindnode` | unsupported | `conversao:pointer-pointer`×18, `shim-ausente:go/format`, `shim-ausente:go/token`, `shim-ausente:runtime` |
 | 560 | `github.com/ipld/go-ipld-prime/schema/dmt` | bloqueado | `dart:uri_does_not_exist` |
 | 561 | `github.com/ipld/go-ipld-prime/schema/dsl` | unsupported | `async:shim-sincrono`, `shim-ausente:bufio`, `shim-simbolo:os.open` |
 | 562 | `github.com/ipld/go-ipld-prime` | unsupported | `shim-simbolo:os.open` |
@@ -1081,7 +1071,7 @@ Não verdes com todas as dependências do grafo verdes: o próximo trabalho.
 | 659 | `github.com/ipfs/go-ipfs-redirects-file` | unsupported | `shim-ausente:net/url`×3, `shim-ausente:bufio` |
 | 660 | `github.com/libp2p/go-libp2p/core/crypto` | unsupported | `conversao:pointer-pointer`×5, `shim-ausente:crypto/ecdsa`×5, `shim-ausente:crypto/x509`×5, `shim-ausente:crypto`×3, `shim-ausente:crypto/elliptic`×3 (+7) |
 | 661 | `github.com/libp2p/go-libp2p/core/record` | bloqueado | `dart:uri_does_not_exist`×6 |
-| 662 | `github.com/miekg/dns` | unsupported | `shim-ausente:net`×43, `shim-ausente:crypto`×8, `shim-ausente:encoding/hex`×8, `shim-ausente:crypto/tls`×7, `shim-ausente:encoding/base64`×7 (+20) |
+| 662 | `github.com/miekg/dns` | unsupported | `shim-ausente:net`×43, `shim-ausente:crypto`×8, `shim-ausente:encoding/hex`×8, `shim-ausente:crypto/tls`×7, `shim-ausente:encoding/base64`×7 (+18) |
 | 663 | `github.com/libp2p/zeroconf/v2` | unsupported | `shim-ausente:net`×20 |
 | 664 | `github.com/multiformats/go-multiaddr` | unsupported | `shim-ausente:encoding/base32`×8, `shim-ausente:encoding/base64`×4, `shim-ausente:net`×4, `conversao:slice-named-slice`×2, `shim-ausente:log`×2 (+4) |
 | 665 | `github.com/libp2p/go-libp2p/core/peer` | unsupported | `async:contexto-sincrono` |
@@ -1089,7 +1079,7 @@ Não verdes com todas as dependências do grafo verdes: o próximo trabalho.
 | 667 | `github.com/ipfs/boxo/bitswap/client/traceability` | bloqueado | `dart:uri_does_not_exist`×3 |
 | 668 | `github.com/ipfs/boxo/bitswap/client/internal/notifications` | bloqueado | `dart:uri_does_not_exist`×3, `dart:unnecessary_cast` |
 | 669 | `github.com/ipfs/boxo/retrieval` | unsupported | `shim-ausente:slices` |
-| 670 | `github.com/ipfs/boxo/routing/http/types` | unsupported | `async:contexto-sincrono`, `conversao:named-slice-slice` |
+| 670 | `github.com/ipfs/boxo/routing/http/types` | unsupported | `async:contexto-sincrono`, `conversao:named-slice-slice`, `shim-simbolo:time.$_absSeconds` |
 | 671 | `github.com/ipfs/boxo/routing/http/types/json` | bloqueado | `dart:uri_does_not_exist` |
 | 672 | `github.com/ipfs/boxo/routing/http/types/ndjson` | bloqueado | `dart:invalid_constant`, `dart:undefined_getter`, `dart:uri_does_not_exist` |
 | 673 | `github.com/ipfs/go-peertaskqueue/peertask` | bloqueado | `dart:uri_does_not_exist`×2 |
@@ -1157,7 +1147,7 @@ Não verdes com todas as dependências do grafo verdes: o próximo trabalho.
 | 735 | `github.com/quic-go/quic-go/internal/qerr` | unsupported | `shim-ausente:net`×6, `shim-ausente:crypto/tls` |
 | 736 | `github.com/quic-go/quic-go/internal/utils` | unsupported | `shim-ausente:bufio`×2, `shim-ausente:crypto/rand`, `shim-ausente:log` |
 | 737 | `github.com/quic-go/quic-go/internal/wire` | unsupported | `shim-ausente:crypto/rand`, `shim-ausente:net/netip`, `shim-ausente:slices` |
-| 738 | `github.com/quic-go/quic-go/qlogwriter` | unsupported | `shim-ausente:runtime/debug`, `shim-ausente:slices`, `shim-simbolo:time.Time.format` |
+| 738 | `github.com/quic-go/quic-go/qlogwriter` | unsupported | `shim-ausente:runtime/debug`, `shim-ausente:slices` |
 | 739 | `github.com/quic-go/quic-go/qlog` | unsupported | `shim-ausente:encoding/hex`×4, `shim-ausente:net/netip`×2, `shim-ausente:hash/crc32`, `shim-ausente:slices`, `shim-simbolo:os.stat` |
 | 740 | `github.com/quic-go/quic-go/internal/congestion` | bloqueado | `dart:unchecked_use_of_nullable_value`×5, `dart:uri_does_not_exist`×4 |
 | 741 | `github.com/quic-go/quic-go/internal/ackhandler` | unsupported | `shim-ausente:iter`×3 |
@@ -1166,7 +1156,7 @@ Não verdes com todas as dependências do grafo verdes: o próximo trabalho.
 | 744 | `github.com/quic-go/quic-go/http3/qlog` | bloqueado | `dart:uri_does_not_exist`×4 |
 | 745 | `go.opentelemetry.io/otel/baggage` | unsupported | `shim-ausente:net/url`×3, `shim-simbolo:strings.splitSeq`×2 |
 | 746 | `go.uber.org/dig/internal/digreflect` | unsupported | `shim-ausente:net/url`, `shim-ausente:runtime` |
-| 747 | `go.uber.org/dig` | unsupported | `shim-ausente:math/rand`×5, `shim-ausente:container/list`, `shim-simbolo:reflect.Value.call$` |
+| 747 | `go.uber.org/dig` | unsupported | `shim-ausente:math/rand`×5, `shim-ausente:container/list` |
 | 748 | `go.uber.org/fx/internal/fxreflect` | unsupported | `shim-ausente:runtime`×2, `shim-ausente:net/url` |
 | 749 | `golang.org/x/crypto/ocsp` | unsupported | `shim-ausente:crypto/x509` |
 | 750 | `golang.org/x/net/proxy` | unsupported | `shim-ausente:net`×6, `shim-ausente:net/url`×4 |
@@ -1200,7 +1190,7 @@ Não verdes com todas as dependências do grafo verdes: o próximo trabalho.
 | 778 | `google.golang.org/grpc/resolver/dns` | bloqueado | `dart:uri_does_not_exist`×2 |
 | 779 | `golang.org/x/net/internal/httpcommon` | unsupported | `shim-ausente:net/textproto`×3, `shim-ausente:net/url`×3 |
 | 780 | `github.com/cheggaaa/pb/v3` | unsupported | `shim-ausente:text/template`×6, `shim-ausente:math/rand`×2 |
-| 781 | `github.com/whyrusleeping/cbor-gen` | unsupported | `shim-ausente:bufio`×4, `shim-ausente:math/big`, `shim-ausente:text/template`, `shim-simbolo:time.Time.marshalJSON` |
+| 781 | `github.com/whyrusleeping/cbor-gen` | unsupported | `shim-ausente:bufio`×4, `conversao:pointer-pointer`, `shim-ausente:math/big`, `shim-ausente:text/template` |
 | 782 | `github.com/ipfs/go-ipld-cbor` | unsupported | `async:contexto-sincrono`, `shim-ausente:bufio`, `shim-ausente:math/big` |
 | 783 | `github.com/ipld/go-car/v2/internal/carv1` | bloqueado | `dart:uri_does_not_exist`×3, `dart:invalid_constant`, `dart:undefined_getter` |
 | 784 | `github.com/ipld/go-car/v2` | unsupported | `shim-simbolo:os.open`×3, `shim-simbolo:os.openFile`×2, `shim-simbolo:os.create` |
@@ -1213,7 +1203,7 @@ Não verdes com todas as dependências do grafo verdes: o próximo trabalho.
 | 791 | `github.com/gorilla/mux` | unsupported | `shim-ausente:net/http`×25, `shim-ausente:net/url`, `shim-ausente:path` |
 | 792 | `github.com/gorilla/websocket` | unsupported | `shim-ausente:net/http`×9, `shim-ausente:net`×7, `shim-ausente:compress/flate`×3, `shim-ausente:crypto/tls`×3, `shim-ausente:crypto/rand`×2 (+6) |
 | 793 | `github.com/huin/goupnp/httpu` | unsupported | `shim-ausente:net/http`×7, `shim-ausente:net`×4 |
-| 794 | `github.com/huin/goupnp/soap` | unsupported | `shim-ausente:net/url`×4, `shim-ausente:encoding/xml`×3, `shim-simbolo:time.Time.format`×3, `shim-ausente:encoding/base64`×2, `shim-ausente:encoding/hex`×2 |
+| 794 | `github.com/huin/goupnp/soap` | unsupported | `shim-ausente:net/url`×4, `shim-ausente:encoding/xml`×3, `shim-ausente:encoding/base64`×2, `shim-ausente:encoding/hex`×2 |
 | 795 | `github.com/huin/goupnp/ssdp` | unsupported | `shim-ausente:net/http`×10, `shim-ausente:net/url` |
 | 796 | `github.com/huin/goupnp` | unsupported | `shim-ausente:net/url`×12, `shim-ausente:net/http`×4, `shim-ausente:net`×2 |
 | 797 | `github.com/huin/goupnp/dcps/internetgateway1` | unsupported | `shim-ausente:net/url`×27, `shim-ausente:net`×9 |
@@ -1241,7 +1231,7 @@ Não verdes com todas as dependências do grafo verdes: o próximo trabalho.
 | 819 | `github.com/libp2p/go-libp2p/p2p/host/autonat` | unsupported | `shim-ausente:log/slog`×4, `shim-ausente:net` |
 | 820 | `github.com/libp2p/go-libp2p/p2p/host/blank` | unsupported | `shim-ausente:log/slog`×2, `async:valor-func` |
 | 821 | `github.com/libp2p/go-libp2p/p2p/host/pstoremanager` | unsupported | `shim-ausente:log/slog`×2 |
-| 822 | `github.com/libp2p/go-libp2p/p2p/host/resource-manager` | unsupported | `shim-ausente:net/netip`×7, `shim-ausente:net`×5, `shim-ausente:log/slog`×4, `conversao:pointer-pointer`, `shim-ausente:maps` (+3) |
+| 822 | `github.com/libp2p/go-libp2p/p2p/host/resource-manager` | unsupported | `shim-ausente:net/netip`×7, `shim-ausente:net`×5, `shim-ausente:log/slog`×4, `async:shim-sincrono`, `conversao:pointer-pointer` (+3) |
 | 823 | `github.com/libp2p/go-libp2p/p2p/net/swarm` | unsupported | `shim-ausente:log/slog`×5, `async:contexto-sincrono`×2, `shim-ausente:net`×2, `shim-ausente:net/netip`×2, `shim-ausente:slices` |
 | 824 | `github.com/libp2p/go-libp2p/p2p/protocol/autonatv2` | unsupported | `shim-ausente:log/slog`×3, `async:valor-func`×2, `shim-ausente:iter`, `shim-ausente:math/rand`, `shim-ausente:net` |
 | 825 | `github.com/libp2p/go-libp2p/p2p/protocol/circuitv2/relay` | unsupported | `shim-ausente:log/slog`×3, `async:valor-func`, `shim-ausente:slices` |
@@ -1268,7 +1258,7 @@ Não verdes com todas as dependências do grafo verdes: o próximo trabalho.
 | 846 | `go.opencensus.io/trace/propagation` | unsupported | `shim-ausente:net/http` |
 | 847 | `go.opencensus.io/plugin/ocgrpc` | bloqueado | `dart:uri_does_not_exist`×4, `dart:invalid_constant`×2, `dart:undefined_getter`×2 |
 | 848 | `go.opencensus.io/zpages/internal` | unsupported | `shim-ausente:net/http`×7, `shim-ausente:io/ioutil` |
-| 849 | `go.opencensus.io/zpages` | unsupported | `async:shim-sincrono`×8, `shim-ausente:net/http`×6, `shim-ausente:html/template`×2, `shim-ausente:log`, `shim-simbolo:time.Time.format` |
+| 849 | `go.opencensus.io/zpages` | unsupported | `async:shim-sincrono`×8, `shim-ausente:net/http`×6, `shim-ausente:html/template`×3, `shim-ausente:log` |
 | 850 | `go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp/internal/request` | unsupported | `shim-ausente:net/http`×2 |
 | 851 | `go.opentelemetry.io/otel/propagation` | unsupported | `shim-ausente:encoding/hex`×2 |
 | 852 | `go.opentelemetry.io/contrib/propagators/b3` | bloqueado | `dart:uri_does_not_exist`×2 |
@@ -1279,7 +1269,7 @@ Não verdes com todas as dependências do grafo verdes: o próximo trabalho.
 | 857 | `github.com/ipfs/boxo/bitswap/client/internal` | bloqueado | `dart:uri_does_not_exist` |
 | 858 | `github.com/ipfs/boxo/bitswap/internal` | bloqueado | `dart:uri_does_not_exist` |
 | 859 | `github.com/ipfs/boxo/blockservice/internal` | bloqueado | `dart:uri_does_not_exist` |
-| 860 | `github.com/libp2p/go-libp2p-kad-dht/internal` | unsupported | `shim-simbolo:time.Time.format`, `shim-simbolo:time.parse`, `tipo-nomeado:chan` |
+| 860 | `github.com/libp2p/go-libp2p-kad-dht/internal` | unsupported | `tipo-nomeado:chan` |
 | 861 | `github.com/libp2p/go-libp2p-routing-helpers/tracing` | bloqueado | `dart:uri_does_not_exist`×9, `dart:invalid_constant`, `dart:undefined_getter` |
 | 862 | `go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp/internal/semconv` | unsupported | `shim-ausente:net/http`×3, `shim-ausente:net` |
 | 863 | `go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp` | unsupported | `shim-ausente:net/http`×12, `shim-ausente:net/http/httptrace` |
@@ -1307,7 +1297,7 @@ Não verdes com todas as dependências do grafo verdes: o próximo trabalho.
 | 885 | `go.opentelemetry.io/otel/semconv/internal` | unsupported | `shim-ausente:net`, `shim-ausente:net/http` |
 | 886 | `go.opentelemetry.io/otel/semconv/v1.4.0` | unsupported | `shim-ausente:net/http`×5 |
 | 887 | `go.uber.org/zap` | unsupported | `shim-ausente:log`×3, `shim-ausente:net/http`×3, `shim-ausente:net/url`×3, `async:contexto-sincrono`×2, `shim-ausente:flag` |
-| 888 | `github.com/ipfs/go-log/v2` | unsupported | `shim-ausente:log/slog`×11, `shim-ausente:path/filepath`, `shim-simbolo:os.openFile`, `shim-simbolo:time.Time.format` |
+| 888 | `github.com/ipfs/go-log/v2` | unsupported | `shim-ausente:log/slog`×11, `shim-ausente:path/filepath`, `shim-simbolo:os.openFile` |
 | 889 | `github.com/ipfs-shipyard/nopfs` | unsupported | `shim-ausente:bufio`×2, `shim-ausente:net/url`, `shim-ausente:path/filepath`, `shim-simbolo:io/fs.DirEntry`, `shim-simbolo:os.open` (+2) |
 | 890 | `github.com/ipfs/boxo/autoconf` | unsupported | `shim-ausente:net/http`×4, `shim-ausente:slices`×4, `shim-ausente:math/rand/v2`, `shim-ausente:net/url`, `shim-simbolo:os.writeFile` |
 | 891 | `github.com/ipfs/boxo/bitswap/client/internal/getter` | bloqueado | `dart:uri_does_not_exist`×6, `dart:expected_token`×2, `dart:invalid_constant`×2, `dart:non_bool_negation_expression`×2, `dart:undefined_getter`×2 (+1) |
@@ -1315,7 +1305,7 @@ Não verdes com todas as dependências do grafo verdes: o próximo trabalho.
 | 893 | `github.com/ipfs/boxo/bitswap/network` | unsupported | `shim-ausente:net`, `shim-ausente:net/url` |
 | 894 | `github.com/ipfs/boxo/bitswap/client/internal/messagequeue` | unsupported | `async:contexto-sincrono`, `branch:goto` |
 | 895 | `github.com/ipfs/boxo/bitswap/network/bsnet` | unsupported | `async:valor-func`×2, `conversao:pointer-pointer` |
-| 896 | `github.com/ipfs/boxo/bitswap/network/httpnet` | unsupported | `shim-ausente:net/http`×2, `shim-ausente:net`, `shim-ausente:runtime/debug`, `shim-ausente:slices`, `shim-simbolo:time.parse` |
+| 896 | `github.com/ipfs/boxo/bitswap/network/httpnet` | unsupported | `shim-ausente:net/http`×2, `shim-ausente:net`, `shim-ausente:runtime/debug`, `shim-ausente:slices` |
 | 897 | `github.com/ipfs/boxo/bootstrap` | unsupported | `shim-ausente:math/rand/v2` |
 | 898 | `github.com/ipfs/boxo/chunker` | unsupported | `shim-ausente:hash/fnv` |
 | 899 | `github.com/ipfs/boxo/ipns` | unsupported | `shim-ausente:cmp`, `shim-ausente:iter`, `shim-simbolo:fmt.append$` |
@@ -1355,7 +1345,7 @@ Não verdes com todas as dependências do grafo verdes: o próximo trabalho.
 | 933 | `github.com/ipfs/boxo/mfs` | unsupported | `shim-ausente:path`×3 |
 | 934 | `github.com/ipfs/boxo/pinning/pinner/dspinner` | unsupported | `shim-ausente:path`×4, `async:valor-func` |
 | 935 | `github.com/ipfs/go-fs-lock` | unsupported | `shim-ausente:path/filepath`×2, `branch:goto`, `shim-ausente:syscall`, `shim-simbolo:os.lstat` |
-| 936 | `github.com/ipfs/go-ipfs-cmds` | unsupported | `conversao:chan-chan`×2, `shim-ausente:encoding/xml`×2, `async:contexto-sincrono`, `async:shim-sincrono`, `conversao:pointer-pointer` (+3) |
+| 936 | `github.com/ipfs/go-ipfs-cmds` | unsupported | `conversao:chan-chan`×2, `shim-ausente:encoding/xml`×2, `async:contexto-sincrono`, `async:shim-sincrono`, `conversao:pointer-pointer` (+2) |
 | 937 | `github.com/ipfs/go-ipfs-cmds/cli` | unsupported | `shim-ausente:net/url`×3, `shim-ausente:text/template`×3, `async:shim-sincrono`×2, `shim-ausente:syscall`, `shim-simbolo:os.File.stat` (+2) |
 | 938 | `github.com/ipfs/go-ipfs-cmds/http` | unsupported | `shim-ausente:net/http`×21, `shim-ausente:net/url` |
 | 939 | `github.com/ipfs/go-metrics-prometheus` | unsupported | `promocao:nao-exportada` |
@@ -1381,7 +1371,7 @@ Não verdes com todas as dependências do grafo verdes: o próximo trabalho.
 | 959 | `github.com/libp2p/go-libp2p-kad-dht/netsize` | unsupported | `shim-ausente:math/big`×4 |
 | 960 | `github.com/libp2p/go-libp2p-kad-dht/provider/internal/keyspace` | unsupported | `shim-ausente:iter`×4, `shim-ausente:crypto/sha256`×2, `shim-ausente:cmp`, `shim-ausente:slices` |
 | 961 | `github.com/libp2p/go-libp2p-kad-dht/provider/internal/queue` | unsupported | `shim-ausente:slices` |
-| 962 | `github.com/libp2p/go-libp2p-kad-dht/provider/internal/timeseries` | bloqueado | `dart:uri_does_not_exist`×4, `dart:invalid_constant`, `dart:unchecked_use_of_nullable_value`, `dart:undefined_getter` |
+| 962 | `github.com/libp2p/go-libp2p-kad-dht/provider/internal/timeseries` | bloqueado | `dart:uri_does_not_exist`×4, `dart:invalid_constant`, `dart:undefined_getter` |
 | 963 | `github.com/libp2p/go-libp2p-kad-dht/provider/keystore` | unsupported | `shim-ausente:encoding/base64`×2, `async:valor-func` |
 | 964 | `github.com/libp2p/go-libp2p-kad-dht/provider` | unsupported | `async:valor-func`, `shim-ausente:crypto/rand`, `shim-simbolo:fmt.sscanf` |
 | 965 | `github.com/libp2p/go-libp2p-kad-dht/provider/buffered` | bloqueado | `dart:uri_does_not_exist`×4 |
@@ -1396,8 +1386,8 @@ Não verdes com todas as dependências do grafo verdes: o próximo trabalho.
 | 974 | `github.com/ipfs/kubo` | unsupported | `shim-ausente:runtime`, `shim-ausente:runtime/debug` |
 | 975 | `github.com/ipfs/kubo/profile` | unsupported | `async:shim-sincrono`×5, `shim-ausente:runtime`×3, `shim-ausente:archive/zip`×2, `shim-simbolo:os.executable` |
 | 976 | `github.com/libp2p/go-libp2p-pubsub-router` | unsupported | `async:valor-func`, `shim-ausente:encoding/base64` |
-| 977 | `github.com/libp2p/go-libp2p-routing-helpers` | unsupported | `async:valor-func`×2, `async:contexto-sincrono`, `shim-simbolo:reflect.SelectCase` |
-| 978 | `github.com/ipfs/boxo/gateway` | unsupported | `shim-ausente:net/http`×54, `shim-ausente:net/textproto`×4, `shim-ausente:net`×3, `shim-ausente:net/url`×2, `shim-ausente:path`×2 (+4) |
+| 977 | `github.com/libp2p/go-libp2p-routing-helpers` | unsupported | `async:valor-func`×2, `async:contexto-sincrono` |
+| 978 | `github.com/ipfs/boxo/gateway` | unsupported | `shim-ausente:net/http`×54, `shim-ausente:net/textproto`×4, `shim-ausente:net`×3, `shim-ausente:net/url`×2, `shim-ausente:path`×2 (+3) |
 | 979 | `github.com/ipfs/boxo/routing/http/contentrouter` | unsupported | `async:valor-func` |
 | 980 | `github.com/ipfs/boxo/routing/http/client` | unsupported | `shim-ausente:net/http`×5, `shim-ausente:net/url`×2, `shim-ausente:slices`×2, `shim-ausente:net`, `shim-ausente:runtime/debug` |
 | 981 | `github.com/libp2p/go-libp2p-kad-dht/dual` | unsupported | `async:contexto-sincrono` |
@@ -1410,14 +1400,14 @@ Não verdes com todas as dependências do grafo verdes: o próximo trabalho.
 | 988 | `go.uber.org/fx/fxevent` | unsupported | `shim-ausente:log/slog`×5, `shim-simbolo:os.Signal` |
 | 989 | `go.uber.org/fx/internal/fxlog` | bloqueado | `dart:uri_does_not_exist` |
 | 990 | `go.uber.org/fx/internal/lifecycle` | bloqueado | `dart:uri_does_not_exist`×2 |
-| 991 | `go.uber.org/fx` | unsupported | `shim-simbolo:reflect.funcOf`×7, `shim-simbolo:reflect.structOf`×5, `shim-simbolo:os.Signal`×4, `shim-ausente:syscall`×2, `shim-ausente:os/signal` |
+| 991 | `go.uber.org/fx` | unsupported | `shim-simbolo:os.Signal`×4, `shim-ausente:syscall`×2, `async:valor-func`, `shim-ausente:os/signal` |
 | 992 | `github.com/ipfs/kubo/core/node/helpers` | bloqueado | `dart:argument_type_not_assignable`, `dart:uri_does_not_exist` |
 | 993 | `github.com/libp2p/go-libp2p/config` | unsupported | `shim-ausente:crypto/sha256`×2, `shim-ausente:log/slog`×2, `shim-simbolo:os.Signal`×2 |
 | 994 | `github.com/libp2p/go-libp2p` | unsupported | `shim-ausente:crypto/rand`×2, `conversao:pointer-pointer` |
 | 995 | `go.uber.org/zap/exp/zapslog` | unsupported | `shim-ausente:log/slog`×6 |
 | 996 | `github.com/caddyserver/certmagic` | unsupported | `shim-ausente:net/http`×12, `shim-ausente:crypto/tls`×11, `shim-ausente:net`×11, `shim-ausente:crypto/x509`×8, `shim-ausente:crypto`×4 (+11) |
 | 997 | `golang.org/x/net/http2` | unsupported | `shim-ausente:net/http`×44, `shim-ausente:net`×13, `shim-ausente:net/http/httptrace`×6, `shim-ausente:compress/gzip`×4, `shim-ausente:log`×3 (+9) |
-| 998 | `golang.org/x/net/trace` | unsupported | `shim-ausente:net/http`×8, `shim-ausente:html/template`×7, `shim-ausente:runtime`×3, `shim-simbolo:time.Time.format`×3, `shim-ausente:net/url` |
+| 998 | `golang.org/x/net/trace` | unsupported | `shim-ausente:net/http`×8, `shim-ausente:html/template`×7, `shim-ausente:runtime`×3, `shim-ausente:net/url`, `shim-ausente:text/tabwriter` |
 | 999 | `github.com/dgraph-io/badger/y` | unsupported | `shim-simbolo:os.openFile`×4, `shim-ausente:log`×3, `shim-ausente:expvar`×2, `shim-ausente:hash/crc32`×2, `shim-ausente:container/heap` (+1) |
 | 1000 | `github.com/dgraph-io/badger/skl` | unsupported | `unsafe:Pointer` |
 | 1001 | `github.com/dgraph-io/badger/table` | unsupported | `shim-ausente:path`, `shim-ausente:path/filepath`, `shim-simbolo:os.File.stat`, `shim-simbolo:os.File.truncate` |
@@ -1427,7 +1417,7 @@ Não verdes com todas as dependências do grafo verdes: o próximo trabalho.
 | 1005 | `golang.org/x/oauth2` | unsupported | `shim-ausente:net/http`×5, `shim-ausente:net/url`×5, `conversao:pointer-pointer`, `shim-ausente:crypto/rand`, `shim-ausente:crypto/sha256` |
 | 1006 | `github.com/ipshipyard/p2p-forge/client` | unsupported | `shim-ausente:net/http`×10, `shim-ausente:crypto/x509`×2, `shim-ausente:net`×2, `shim-ausente:crypto/tls`, `shim-ausente:encoding/pem` (+1) |
 | 1007 | `github.com/getsentry/sentry-go/internal/debug` | unsupported | `shim-ausente:net/http` |
-| 1008 | `github.com/getsentry/sentry-go` | unsupported | `shim-ausente:log`×11, `shim-ausente:net/http`×9, `shim-ausente:runtime`×7, `conversao:pointer-pointer`×3, `shim-ausente:net/url`×3 (+14) |
+| 1008 | `github.com/getsentry/sentry-go` | unsupported | `shim-ausente:log`×11, `shim-ausente:net/http`×9, `shim-ausente:runtime`×7, `conversao:pointer-pointer`×3, `shim-ausente:net/url`×3 (+12) |
 | 1009 | `github.com/cockroachdb/errors/withstack` | unsupported | `shim-ausente:go/build`, `shim-ausente:path/filepath`, `shim-ausente:runtime` |
 | 1010 | `github.com/cockroachdb/errors/errutil` | unsupported | `shim-ausente:runtime` |
 | 1011 | `github.com/cockroachdb/errors/report` | bloqueado | `dart:uri_does_not_exist`×4, `dart:invalid_constant`×2, `dart:undefined_getter`×2 |
@@ -1475,7 +1465,7 @@ Não verdes com todas as dependências do grafo verdes: o próximo trabalho.
 | 1053 | `github.com/cockroachdb/pebble/v2/rangekey` | bloqueado | `dart:uri_does_not_exist`×3 |
 | 1054 | `github.com/cockroachdb/pebble/v2/wal` | unsupported | `conversao:pointer-pointer`×2, `shim-ausente:cmp`×2, `shim-ausente:slices`×2, `shim-ausente:math/rand/v2` |
 | 1055 | `github.com/cockroachdb/pebble/v2` | unsupported | `shim-ausente:slices`×11, `shim-ausente:runtime/pprof`×9, `shim-ausente:iter`×6, `unsafe:Pointer`×6, `shim-ausente:cmp`×4 (+6) |
-| 1056 | `github.com/ipfs/boxo/pinning/remote/client/openapi` | unsupported | `shim-ausente:net/http`×13, `shim-ausente:encoding/xml`, `shim-ausente:mime/multipart`, `shim-ausente:slices`, `shim-simbolo:time.Time.format` (+1) |
+| 1056 | `github.com/ipfs/boxo/pinning/remote/client/openapi` | unsupported | `shim-ausente:net/http`×13, `shim-ausente:encoding/xml`, `shim-ausente:mime/multipart`, `shim-ausente:slices` |
 | 1057 | `github.com/ipfs/boxo/pinning/remote/client` | unsupported | `async:contexto-sincrono`, `shim-ausente:net/http`, `shim-ausente:slices` |
 | 1058 | `github.com/ipfs/go-ds-pebble` | unsupported | `async:valor-func` |
 | 1059 | `github.com/ipfs/kubo/config` | unsupported | `shim-ausente:path/filepath`×3, `shim-ausente:encoding/base64`×2, `shim-ausente:slices`×2, `conversao:pointer-pointer`, `shim-ausente:crypto/rand` (+5) |
@@ -1508,7 +1498,7 @@ Não verdes com todas as dependências do grafo verdes: o próximo trabalho.
 | 1086 | `go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc/internal/otlpconfig` | unsupported | `shim-ausente:crypto/tls`×4, `shim-ausente:net/url`×4, `shim-ausente:net/http`, `shim-ausente:path`, `shim-simbolo:os.readFile` |
 | 1087 | `go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp/internal/otlpconfig` | unsupported | `shim-ausente:crypto/tls`×4, `shim-ausente:net/url`×4, `shim-ausente:net/http`, `shim-ausente:path`, `shim-simbolo:os.readFile` |
 | 1088 | `google.golang.org/grpc/health/grpc_health_v1` | unsupported | `unsafe:Pointer`×4, `unsafe:Slice`×2 |
-| 1089 | `github.com/grpc-ecosystem/grpc-gateway/v2/runtime` | unsupported | `shim-ausente:net/http`×26, `shim-ausente:net/url`×3, `conversao:named-slice-slice`×2, `shim-ausente:encoding/base64`×2, `async:valor-func` (+3) |
+| 1089 | `github.com/grpc-ecosystem/grpc-gateway/v2/runtime` | unsupported | `shim-ausente:net/http`×26, `shim-ausente:net/url`×3, `conversao:named-slice-slice`×2, `shim-ausente:encoding/base64`×2, `async:valor-func` (+2) |
 | 1090 | `go.opentelemetry.io/proto/otlp/collector/trace/v1` | unsupported | `shim-ausente:net/http`×5, `unsafe:Pointer`×3 |
 | 1091 | `go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc` | unsupported | `promocao:nao-exportada` |
 | 1092 | `go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp/internal/otlpjson` | unsupported | `shim-ausente:encoding/hex`×2 |
@@ -1527,8 +1517,8 @@ Não verdes com todas as dependências do grafo verdes: o próximo trabalho.
 | 1105 | `github.com/ipfs/kubo/core/commands/name` | unsupported | `shim-ausente:encoding/hex` |
 | 1106 | `github.com/ipfs/kubo/core/commands/object` | bloqueado | `dart:uri_does_not_exist`×6, `dart:invalid_constant`×2, `dart:undefined_getter`×2 |
 | 1107 | `github.com/ipfs/kubo/core/commands/pin` | unsupported | `async:shim-sincrono`, `async:valor-func`, `shim-ausente:net/url` |
-| 1108 | `github.com/ipfs/kubo/core/commands` | unsupported | `async:shim-sincrono`×14, `shim-ausente:path`×13, `shim-ausente:slices`×12, `shim-ausente:path/filepath`×5, `shim-simbolo:time.Time.format`×5 (+25) |
+| 1108 | `github.com/ipfs/kubo/core/commands` | unsupported | `async:shim-sincrono`×15, `shim-ausente:path`×13, `shim-ausente:slices`×12, `shim-ausente:path/filepath`×5, `shim-ausente:encoding/asn1`×4 (+24) |
 | 1109 | `github.com/ipfs/kubo/core/corehttp` | unsupported | `shim-ausente:net`×21, `shim-ausente:net/http`×10, `shim-ausente:maps` |
 | 1110 | `github.com/ipfs/kubo/repo/fsrepo/migrations/ipfsfetcher` | unsupported | `shim-ausente:net/url`, `shim-ausente:path`, `shim-simbolo:os.mkdirTemp`, `shim-simbolo:os.open` |
 | 1111 | `github.com/ipfs/kubo/cmd/ipfs/kubo` | unsupported | `shim-ausente:net/http`×3, `shim-simbolo:os.create`×2, `shim-simbolo:os.stat`×2, `shim-ausente:log/slog`, `shim-ausente:net` (+6) |
-| 1112 | `github.com/ipfs/kubo/cmd/ipfs` | bloqueado | `dart:uri_does_not_exist`×663, `dart:built_in_identifier_in_declaration`×2 |
+| 1112 | `github.com/ipfs/kubo/cmd/ipfs` | bloqueado | `dart:uri_does_not_exist`×659, `dart:built_in_identifier_in_declaration`×2 |

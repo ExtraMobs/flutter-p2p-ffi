@@ -1,0 +1,4761 @@
+{
+  "schemaVersion": 9,
+  "tool": "goast",
+  "goVersion": "go1.26.5",
+  "packages": [
+    {
+      "path": "main",
+      "name": "main",
+      "files": [
+        {
+          "path": "embedshim.go",
+          "ast": {
+            "node": "File",
+            "doc": {
+              "node": "CommentGroup",
+              "list": [
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "embedshim.go",
+                    "line": 1,
+                    "column": 1,
+                    "offset": 0
+                  },
+                  "text": "// Struct que embute um tipo de shim (time.Time): os métodos que o shim tem"
+                },
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "embedshim.go",
+                    "line": 2,
+                    "column": 1,
+                    "offset": 77
+                  },
+                  "text": "// são promovidos; os que ele não tem (GobEncode...) ficam sem forwarder."
+                }
+              ]
+            },
+            "package": {
+              "file": "embedshim.go",
+              "line": 3,
+              "column": 1,
+              "offset": 153
+            },
+            "name": {
+              "node": "Ident",
+              "namePos": {
+                "file": "embedshim.go",
+                "line": 3,
+                "column": 9,
+                "offset": 161
+              },
+              "name": "main",
+              "obj": null
+            },
+            "decls": [
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "embedshim.go",
+                  "line": 5,
+                  "column": 1,
+                  "offset": 167
+                },
+                "tok": "import",
+                "lparen": {
+                  "file": "embedshim.go",
+                  "line": 5,
+                  "column": 8,
+                  "offset": 174
+                },
+                "specs": [
+                  {
+                    "node": "ImportSpec",
+                    "doc": null,
+                    "name": null,
+                    "path": {
+                      "node": "BasicLit",
+                      "valuePos": {
+                        "file": "embedshim.go",
+                        "line": 6,
+                        "column": 2,
+                        "offset": 177
+                      },
+                      "valueEnd": {
+                        "file": "embedshim.go",
+                        "line": 6,
+                        "column": 7,
+                        "offset": 182
+                      },
+                      "kind": "STRING",
+                      "value": "\"fmt\""
+                    },
+                    "comment": null,
+                    "endPos": null
+                  },
+                  {
+                    "node": "ImportSpec",
+                    "doc": null,
+                    "name": null,
+                    "path": {
+                      "node": "BasicLit",
+                      "valuePos": {
+                        "file": "embedshim.go",
+                        "line": 7,
+                        "column": 2,
+                        "offset": 184
+                      },
+                      "valueEnd": {
+                        "file": "embedshim.go",
+                        "line": 7,
+                        "column": 8,
+                        "offset": 190
+                      },
+                      "kind": "STRING",
+                      "value": "\"time\""
+                    },
+                    "comment": null,
+                    "endPos": null
+                  }
+                ],
+                "rparen": {
+                  "file": "embedshim.go",
+                  "line": 8,
+                  "column": 1,
+                  "offset": 191
+                }
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "embedshim.go",
+                  "line": 10,
+                  "column": 1,
+                  "offset": 194
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "embedshim.go",
+                        "line": 10,
+                        "column": 6,
+                        "offset": 199
+                      },
+                      "name": "T",
+                      "obj": {
+                        "node": "Object",
+                        "name": "T",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "T",
+                        "kind": "type",
+                        "def": true,
+                        "type": 0,
+                        "decl": "embedshim.go:199",
+                        "pkg": "main",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "StructType",
+                      "struct": {
+                        "file": "embedshim.go",
+                        "line": 10,
+                        "column": 8,
+                        "offset": 201
+                      },
+                      "fields": {
+                        "node": "FieldList",
+                        "opening": {
+                          "file": "embedshim.go",
+                          "line": 10,
+                          "column": 14,
+                          "offset": 207
+                        },
+                        "list": [
+                          {
+                            "node": "Field",
+                            "doc": null,
+                            "names": null,
+                            "type": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "embedshim.go",
+                                  "line": 10,
+                                  "column": 16,
+                                  "offset": 209
+                                },
+                                "name": "time",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "time",
+                                  "kind": "package",
+                                  "pkg": "time"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "embedshim.go",
+                                  "line": 10,
+                                  "column": 21,
+                                  "offset": 214
+                                },
+                                "name": "Time",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "Time",
+                                  "kind": "field",
+                                  "def": true,
+                                  "type": 2,
+                                  "decl": "embedshim.go:214",
+                                  "pkg": "main",
+                                  "embedded": true
+                                }
+                              },
+                              "$type": 2,
+                              "$isType": true
+                            },
+                            "tag": null,
+                            "comment": null
+                          }
+                        ],
+                        "closing": {
+                          "file": "embedshim.go",
+                          "line": 10,
+                          "column": 26,
+                          "offset": 219
+                        }
+                      },
+                      "incomplete": false,
+                      "$type": 1,
+                      "$isType": true
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "embedshim.go",
+                  "line": 12,
+                  "column": 1,
+                  "offset": 222
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "embedshim.go",
+                        "line": 12,
+                        "column": 6,
+                        "offset": 227
+                      },
+                      "name": "P",
+                      "obj": {
+                        "node": "Object",
+                        "name": "P",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "P",
+                        "kind": "type",
+                        "def": true,
+                        "type": 84,
+                        "decl": "embedshim.go:227",
+                        "pkg": "main",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "StructType",
+                      "struct": {
+                        "file": "embedshim.go",
+                        "line": 12,
+                        "column": 8,
+                        "offset": 229
+                      },
+                      "fields": {
+                        "node": "FieldList",
+                        "opening": {
+                          "file": "embedshim.go",
+                          "line": 12,
+                          "column": 14,
+                          "offset": 235
+                        },
+                        "list": [
+                          {
+                            "node": "Field",
+                            "doc": null,
+                            "names": null,
+                            "type": {
+                              "node": "StarExpr",
+                              "star": {
+                                "file": "embedshim.go",
+                                "line": 12,
+                                "column": 16,
+                                "offset": 237
+                              },
+                              "x": {
+                                "node": "SelectorExpr",
+                                "x": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "embedshim.go",
+                                    "line": 12,
+                                    "column": 17,
+                                    "offset": 238
+                                  },
+                                  "name": "time",
+                                  "obj": null,
+                                  "$obj": {
+                                    "name": "time",
+                                    "kind": "package",
+                                    "pkg": "time"
+                                  }
+                                },
+                                "sel": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "embedshim.go",
+                                    "line": 12,
+                                    "column": 22,
+                                    "offset": 243
+                                  },
+                                  "name": "Time",
+                                  "obj": null,
+                                  "$obj": {
+                                    "name": "Time",
+                                    "kind": "field",
+                                    "def": true,
+                                    "type": 86,
+                                    "decl": "embedshim.go:243",
+                                    "pkg": "main",
+                                    "embedded": true
+                                  }
+                                },
+                                "$type": 2,
+                                "$isType": true
+                              },
+                              "$type": 86,
+                              "$isType": true
+                            },
+                            "tag": null,
+                            "comment": null
+                          }
+                        ],
+                        "closing": {
+                          "file": "embedshim.go",
+                          "line": 12,
+                          "column": 27,
+                          "offset": 248
+                        }
+                      },
+                      "incomplete": false,
+                      "$type": 85,
+                      "$isType": true
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "embedshim.go",
+                    "line": 14,
+                    "column": 6,
+                    "offset": 256
+                  },
+                  "name": "main",
+                  "obj": {
+                    "node": "Object",
+                    "name": "main",
+                    "kind": "func"
+                  },
+                  "$obj": {
+                    "name": "main",
+                    "kind": "func",
+                    "def": true,
+                    "type": 83,
+                    "decl": "embedshim.go:256",
+                    "pkg": "main",
+                    "top": true
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "embedshim.go",
+                    "line": 14,
+                    "column": 1,
+                    "offset": 251
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "embedshim.go",
+                      "line": 14,
+                      "column": 10,
+                      "offset": 260
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "embedshim.go",
+                      "line": 14,
+                      "column": 11,
+                      "offset": 261
+                    }
+                  },
+                  "results": null
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "embedshim.go",
+                    "line": 14,
+                    "column": 13,
+                    "offset": 263
+                  },
+                  "list": [
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "embedshim.go",
+                            "line": 15,
+                            "column": 2,
+                            "offset": 266
+                          },
+                          "name": "t",
+                          "obj": {
+                            "node": "Object",
+                            "name": "t",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "t",
+                            "kind": "var",
+                            "def": true,
+                            "type": 0,
+                            "decl": "embedshim.go:266",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "embedshim.go",
+                        "line": 15,
+                        "column": 4,
+                        "offset": 268
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "CompositeLit",
+                          "type": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "embedshim.go",
+                              "line": 15,
+                              "column": 7,
+                              "offset": 271
+                            },
+                            "name": "T",
+                            "obj": {
+                              "node": "Object",
+                              "name": "T",
+                              "kind": "type"
+                            },
+                            "$type": 0,
+                            "$isType": true,
+                            "$obj": {
+                              "name": "T",
+                              "kind": "type",
+                              "type": 0,
+                              "decl": "embedshim.go:199",
+                              "pkg": "main",
+                              "top": true
+                            }
+                          },
+                          "lbrace": {
+                            "file": "embedshim.go",
+                            "line": 15,
+                            "column": 8,
+                            "offset": 272
+                          },
+                          "elts": [
+                            {
+                              "node": "CallExpr",
+                              "fun": {
+                                "node": "SelectorExpr",
+                                "x": {
+                                  "node": "CallExpr",
+                                  "fun": {
+                                    "node": "SelectorExpr",
+                                    "x": {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "embedshim.go",
+                                        "line": 15,
+                                        "column": 9,
+                                        "offset": 273
+                                      },
+                                      "name": "time",
+                                      "obj": null,
+                                      "$obj": {
+                                        "name": "time",
+                                        "kind": "package",
+                                        "pkg": "time"
+                                      }
+                                    },
+                                    "sel": {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "embedshim.go",
+                                        "line": 15,
+                                        "column": 14,
+                                        "offset": 278
+                                      },
+                                      "name": "Unix",
+                                      "obj": null,
+                                      "$obj": {
+                                        "name": "Unix",
+                                        "kind": "func",
+                                        "type": 87,
+                                        "decl": "time.go:1654",
+                                        "pkg": "time",
+                                        "top": true
+                                      }
+                                    },
+                                    "$type": 87
+                                  },
+                                  "lparen": {
+                                    "file": "embedshim.go",
+                                    "line": 15,
+                                    "column": 18,
+                                    "offset": 282
+                                  },
+                                  "args": [
+                                    {
+                                      "node": "BasicLit",
+                                      "valuePos": {
+                                        "file": "embedshim.go",
+                                        "line": 15,
+                                        "column": 19,
+                                        "offset": 283
+                                      },
+                                      "valueEnd": {
+                                        "file": "embedshim.go",
+                                        "line": 15,
+                                        "column": 20,
+                                        "offset": 284
+                                      },
+                                      "kind": "INT",
+                                      "value": "0",
+                                      "$type": 5,
+                                      "$value": {
+                                        "kind": "int",
+                                        "value": "0"
+                                      }
+                                    },
+                                    {
+                                      "node": "BasicLit",
+                                      "valuePos": {
+                                        "file": "embedshim.go",
+                                        "line": 15,
+                                        "column": 22,
+                                        "offset": 286
+                                      },
+                                      "valueEnd": {
+                                        "file": "embedshim.go",
+                                        "line": 15,
+                                        "column": 23,
+                                        "offset": 287
+                                      },
+                                      "kind": "INT",
+                                      "value": "0",
+                                      "$type": 5,
+                                      "$value": {
+                                        "kind": "int",
+                                        "value": "0"
+                                      }
+                                    }
+                                  ],
+                                  "ellipsis": null,
+                                  "rparen": {
+                                    "file": "embedshim.go",
+                                    "line": 15,
+                                    "column": 23,
+                                    "offset": 287
+                                  },
+                                  "$type": 2
+                                },
+                                "sel": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "embedshim.go",
+                                    "line": 15,
+                                    "column": 25,
+                                    "offset": 289
+                                  },
+                                  "name": "UTC",
+                                  "obj": null,
+                                  "$obj": {
+                                    "name": "UTC",
+                                    "kind": "method",
+                                    "type": 52,
+                                    "decl": "time.go:1367",
+                                    "pkg": "time"
+                                  }
+                                },
+                                "$type": 52,
+                                "$sel": {
+                                  "kind": "method",
+                                  "recv": 2,
+                                  "index": [
+                                    37
+                                  ],
+                                  "indirect": false
+                                }
+                              },
+                              "lparen": {
+                                "file": "embedshim.go",
+                                "line": 15,
+                                "column": 28,
+                                "offset": 292
+                              },
+                              "args": null,
+                              "ellipsis": null,
+                              "rparen": {
+                                "file": "embedshim.go",
+                                "line": 15,
+                                "column": 29,
+                                "offset": 293
+                              },
+                              "$type": 2
+                            }
+                          ],
+                          "rbrace": {
+                            "file": "embedshim.go",
+                            "line": 15,
+                            "column": 30,
+                            "offset": 294
+                          },
+                          "incomplete": false,
+                          "$type": 0
+                        }
+                      ]
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "embedshim.go",
+                              "line": 16,
+                              "column": 2,
+                              "offset": 297
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "embedshim.go",
+                              "line": 16,
+                              "column": 6,
+                              "offset": 301
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 88,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 88
+                        },
+                        "lparen": {
+                          "file": "embedshim.go",
+                          "line": 16,
+                          "column": 13,
+                          "offset": 308
+                        },
+                        "args": [
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "embedshim.go",
+                                  "line": 16,
+                                  "column": 14,
+                                  "offset": 309
+                                },
+                                "name": "t",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "t",
+                                  "kind": "var"
+                                },
+                                "$type": 0,
+                                "$obj": {
+                                  "name": "t",
+                                  "kind": "var",
+                                  "type": 0,
+                                  "decl": "embedshim.go:266",
+                                  "pkg": "main"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "embedshim.go",
+                                  "line": 16,
+                                  "column": 16,
+                                  "offset": 311
+                                },
+                                "name": "Year",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "Year",
+                                  "kind": "method",
+                                  "type": 24,
+                                  "decl": "time.go:816",
+                                  "pkg": "time"
+                                }
+                              },
+                              "$type": 24,
+                              "$sel": {
+                                "kind": "method",
+                                "recv": 0,
+                                "index": [
+                                  0,
+                                  23
+                                ],
+                                "indirect": false
+                              }
+                            },
+                            "lparen": {
+                              "file": "embedshim.go",
+                              "line": 16,
+                              "column": 20,
+                              "offset": 315
+                            },
+                            "args": null,
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "embedshim.go",
+                              "line": 16,
+                              "column": 21,
+                              "offset": 316
+                            },
+                            "$type": 13
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "embedshim.go",
+                                  "line": 16,
+                                  "column": 24,
+                                  "offset": 319
+                                },
+                                "name": "t",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "t",
+                                  "kind": "var"
+                                },
+                                "$type": 0,
+                                "$obj": {
+                                  "name": "t",
+                                  "kind": "var",
+                                  "type": 0,
+                                  "decl": "embedshim.go:266",
+                                  "pkg": "main"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "embedshim.go",
+                                  "line": 16,
+                                  "column": 26,
+                                  "offset": 321
+                                },
+                                "name": "Format",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "Format",
+                                  "kind": "method",
+                                  "type": 47,
+                                  "decl": "format.go:638",
+                                  "pkg": "time"
+                                }
+                              },
+                              "$type": 47,
+                              "$sel": {
+                                "kind": "method",
+                                "recv": 0,
+                                "index": [
+                                  0,
+                                  2
+                                ],
+                                "indirect": false
+                              }
+                            },
+                            "lparen": {
+                              "file": "embedshim.go",
+                              "line": 16,
+                              "column": 32,
+                              "offset": 327
+                            },
+                            "args": [
+                              {
+                                "node": "SelectorExpr",
+                                "x": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "embedshim.go",
+                                    "line": 16,
+                                    "column": 33,
+                                    "offset": 328
+                                  },
+                                  "name": "time",
+                                  "obj": null,
+                                  "$obj": {
+                                    "name": "time",
+                                    "kind": "package",
+                                    "pkg": "time"
+                                  }
+                                },
+                                "sel": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "embedshim.go",
+                                    "line": 16,
+                                    "column": 38,
+                                    "offset": 333
+                                  },
+                                  "name": "RFC3339",
+                                  "obj": null,
+                                  "$obj": {
+                                    "name": "RFC3339",
+                                    "kind": "const",
+                                    "type": 91,
+                                    "decl": "format.go:118",
+                                    "pkg": "time",
+                                    "top": true,
+                                    "value": {
+                                      "kind": "string",
+                                      "value": "2006-01-02T15:04:05Z07:00"
+                                    }
+                                  }
+                                },
+                                "$type": 9,
+                                "$value": {
+                                  "kind": "string",
+                                  "value": "2006-01-02T15:04:05Z07:00"
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "embedshim.go",
+                              "line": 16,
+                              "column": 45,
+                              "offset": 340
+                            },
+                            "$type": 9
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "embedshim.go",
+                          "line": 16,
+                          "column": 46,
+                          "offset": 341
+                        },
+                        "$type": 92
+                      }
+                    },
+                    {
+                      "node": "DeclStmt",
+                      "decl": {
+                        "node": "GenDecl",
+                        "doc": null,
+                        "tokPos": {
+                          "file": "embedshim.go",
+                          "line": 17,
+                          "column": 2,
+                          "offset": 344
+                        },
+                        "tok": "var",
+                        "lparen": null,
+                        "specs": [
+                          {
+                            "node": "ValueSpec",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "embedshim.go",
+                                  "line": 17,
+                                  "column": 6,
+                                  "offset": 348
+                                },
+                                "name": "s",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "s",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "s",
+                                  "kind": "var",
+                                  "def": true,
+                                  "type": 93,
+                                  "decl": "embedshim.go:348",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "embedshim.go",
+                                  "line": 17,
+                                  "column": 8,
+                                  "offset": 350
+                                },
+                                "name": "fmt",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "fmt",
+                                  "kind": "package",
+                                  "pkg": "fmt"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "embedshim.go",
+                                  "line": 17,
+                                  "column": 12,
+                                  "offset": 354
+                                },
+                                "name": "Stringer",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "Stringer",
+                                  "kind": "type",
+                                  "type": 93,
+                                  "decl": "print.go:62",
+                                  "pkg": "fmt",
+                                  "top": true
+                                }
+                              },
+                              "$type": 93,
+                              "$isType": true
+                            },
+                            "values": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "embedshim.go",
+                                  "line": 17,
+                                  "column": 23,
+                                  "offset": 365
+                                },
+                                "name": "t",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "t",
+                                  "kind": "var"
+                                },
+                                "$type": 0,
+                                "$obj": {
+                                  "name": "t",
+                                  "kind": "var",
+                                  "type": 0,
+                                  "decl": "embedshim.go:266",
+                                  "pkg": "main"
+                                }
+                              }
+                            ],
+                            "comment": null
+                          }
+                        ],
+                        "rparen": null
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "embedshim.go",
+                              "line": 18,
+                              "column": 2,
+                              "offset": 368
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "embedshim.go",
+                              "line": 18,
+                              "column": 6,
+                              "offset": 372
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 88,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 88
+                        },
+                        "lparen": {
+                          "file": "embedshim.go",
+                          "line": 18,
+                          "column": 13,
+                          "offset": 379
+                        },
+                        "args": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "embedshim.go",
+                              "line": 18,
+                              "column": 14,
+                              "offset": 380
+                            },
+                            "name": "s",
+                            "obj": {
+                              "node": "Object",
+                              "name": "s",
+                              "kind": "var"
+                            },
+                            "$type": 93,
+                            "$obj": {
+                              "name": "s",
+                              "kind": "var",
+                              "type": 93,
+                              "decl": "embedshim.go:348",
+                              "pkg": "main"
+                            }
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "embedshim.go",
+                          "line": 18,
+                          "column": 15,
+                          "offset": 381
+                        },
+                        "$type": 92
+                      }
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "embedshim.go",
+                            "line": 19,
+                            "column": 2,
+                            "offset": 384
+                          },
+                          "name": "u",
+                          "obj": {
+                            "node": "Object",
+                            "name": "u",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "u",
+                            "kind": "var",
+                            "def": true,
+                            "type": 2,
+                            "decl": "embedshim.go:384",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "embedshim.go",
+                        "line": 19,
+                        "column": 4,
+                        "offset": 386
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "CallExpr",
+                          "fun": {
+                            "node": "SelectorExpr",
+                            "x": {
+                              "node": "CallExpr",
+                              "fun": {
+                                "node": "SelectorExpr",
+                                "x": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "embedshim.go",
+                                    "line": 19,
+                                    "column": 7,
+                                    "offset": 389
+                                  },
+                                  "name": "time",
+                                  "obj": null,
+                                  "$obj": {
+                                    "name": "time",
+                                    "kind": "package",
+                                    "pkg": "time"
+                                  }
+                                },
+                                "sel": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "embedshim.go",
+                                    "line": 19,
+                                    "column": 12,
+                                    "offset": 394
+                                  },
+                                  "name": "Unix",
+                                  "obj": null,
+                                  "$obj": {
+                                    "name": "Unix",
+                                    "kind": "func",
+                                    "type": 87,
+                                    "decl": "time.go:1654",
+                                    "pkg": "time",
+                                    "top": true
+                                  }
+                                },
+                                "$type": 87
+                              },
+                              "lparen": {
+                                "file": "embedshim.go",
+                                "line": 19,
+                                "column": 16,
+                                "offset": 398
+                              },
+                              "args": [
+                                {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "embedshim.go",
+                                    "line": 19,
+                                    "column": 17,
+                                    "offset": 399
+                                  },
+                                  "valueEnd": {
+                                    "file": "embedshim.go",
+                                    "line": 19,
+                                    "column": 22,
+                                    "offset": 404
+                                  },
+                                  "kind": "INT",
+                                  "value": "86400",
+                                  "$type": 5,
+                                  "$value": {
+                                    "kind": "int",
+                                    "value": "86400"
+                                  }
+                                },
+                                {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "embedshim.go",
+                                    "line": 19,
+                                    "column": 24,
+                                    "offset": 406
+                                  },
+                                  "valueEnd": {
+                                    "file": "embedshim.go",
+                                    "line": 19,
+                                    "column": 25,
+                                    "offset": 407
+                                  },
+                                  "kind": "INT",
+                                  "value": "0",
+                                  "$type": 5,
+                                  "$value": {
+                                    "kind": "int",
+                                    "value": "0"
+                                  }
+                                }
+                              ],
+                              "ellipsis": null,
+                              "rparen": {
+                                "file": "embedshim.go",
+                                "line": 19,
+                                "column": 25,
+                                "offset": 407
+                              },
+                              "$type": 2
+                            },
+                            "sel": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "embedshim.go",
+                                "line": 19,
+                                "column": 27,
+                                "offset": 409
+                              },
+                              "name": "UTC",
+                              "obj": null,
+                              "$obj": {
+                                "name": "UTC",
+                                "kind": "method",
+                                "type": 52,
+                                "decl": "time.go:1367",
+                                "pkg": "time"
+                              }
+                            },
+                            "$type": 52,
+                            "$sel": {
+                              "kind": "method",
+                              "recv": 2,
+                              "index": [
+                                37
+                              ],
+                              "indirect": false
+                            }
+                          },
+                          "lparen": {
+                            "file": "embedshim.go",
+                            "line": 19,
+                            "column": 30,
+                            "offset": 412
+                          },
+                          "args": null,
+                          "ellipsis": null,
+                          "rparen": {
+                            "file": "embedshim.go",
+                            "line": 19,
+                            "column": 31,
+                            "offset": 413
+                          },
+                          "$type": 2
+                        }
+                      ]
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "embedshim.go",
+                            "line": 20,
+                            "column": 2,
+                            "offset": 416
+                          },
+                          "name": "p",
+                          "obj": {
+                            "node": "Object",
+                            "name": "p",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "p",
+                            "kind": "var",
+                            "def": true,
+                            "type": 84,
+                            "decl": "embedshim.go:416",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "embedshim.go",
+                        "line": 20,
+                        "column": 4,
+                        "offset": 418
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "CompositeLit",
+                          "type": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "embedshim.go",
+                              "line": 20,
+                              "column": 7,
+                              "offset": 421
+                            },
+                            "name": "P",
+                            "obj": {
+                              "node": "Object",
+                              "name": "P",
+                              "kind": "type"
+                            },
+                            "$type": 84,
+                            "$isType": true,
+                            "$obj": {
+                              "name": "P",
+                              "kind": "type",
+                              "type": 84,
+                              "decl": "embedshim.go:227",
+                              "pkg": "main",
+                              "top": true
+                            }
+                          },
+                          "lbrace": {
+                            "file": "embedshim.go",
+                            "line": 20,
+                            "column": 8,
+                            "offset": 422
+                          },
+                          "elts": [
+                            {
+                              "node": "UnaryExpr",
+                              "opPos": {
+                                "file": "embedshim.go",
+                                "line": 20,
+                                "column": 9,
+                                "offset": 423
+                              },
+                              "op": "\u0026",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "embedshim.go",
+                                  "line": 20,
+                                  "column": 10,
+                                  "offset": 424
+                                },
+                                "name": "u",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "u",
+                                  "kind": "var"
+                                },
+                                "$type": 2,
+                                "$obj": {
+                                  "name": "u",
+                                  "kind": "var",
+                                  "type": 2,
+                                  "decl": "embedshim.go:384",
+                                  "pkg": "main"
+                                }
+                              },
+                              "$type": 86
+                            }
+                          ],
+                          "rbrace": {
+                            "file": "embedshim.go",
+                            "line": 20,
+                            "column": 11,
+                            "offset": 425
+                          },
+                          "incomplete": false,
+                          "$type": 84
+                        }
+                      ]
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "embedshim.go",
+                              "line": 21,
+                              "column": 2,
+                              "offset": 428
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "embedshim.go",
+                              "line": 21,
+                              "column": 6,
+                              "offset": 432
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 88,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 88
+                        },
+                        "lparen": {
+                          "file": "embedshim.go",
+                          "line": 21,
+                          "column": 13,
+                          "offset": 439
+                        },
+                        "args": [
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "embedshim.go",
+                                  "line": 21,
+                                  "column": 14,
+                                  "offset": 440
+                                },
+                                "name": "p",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "p",
+                                  "kind": "var"
+                                },
+                                "$type": 84,
+                                "$obj": {
+                                  "name": "p",
+                                  "kind": "var",
+                                  "type": 84,
+                                  "decl": "embedshim.go:416",
+                                  "pkg": "main"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "embedshim.go",
+                                  "line": 21,
+                                  "column": 16,
+                                  "offset": 442
+                                },
+                                "name": "Day",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "Day",
+                                  "kind": "method",
+                                  "type": 24,
+                                  "decl": "time.go:830",
+                                  "pkg": "time"
+                                }
+                              },
+                              "$type": 24,
+                              "$sel": {
+                                "kind": "method",
+                                "recv": 84,
+                                "index": [
+                                  0,
+                                  25
+                                ],
+                                "indirect": true
+                              }
+                            },
+                            "lparen": {
+                              "file": "embedshim.go",
+                              "line": 21,
+                              "column": 19,
+                              "offset": 445
+                            },
+                            "args": null,
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "embedshim.go",
+                              "line": 21,
+                              "column": 20,
+                              "offset": 446
+                            },
+                            "$type": 13
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "CallExpr",
+                                "fun": {
+                                  "node": "SelectorExpr",
+                                  "x": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "embedshim.go",
+                                      "line": 21,
+                                      "column": 23,
+                                      "offset": 449
+                                    },
+                                    "name": "p",
+                                    "obj": {
+                                      "node": "Object",
+                                      "name": "p",
+                                      "kind": "var"
+                                    },
+                                    "$type": 84,
+                                    "$obj": {
+                                      "name": "p",
+                                      "kind": "var",
+                                      "type": 84,
+                                      "decl": "embedshim.go:416",
+                                      "pkg": "main"
+                                    }
+                                  },
+                                  "sel": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "embedshim.go",
+                                      "line": 21,
+                                      "column": 25,
+                                      "offset": 451
+                                    },
+                                    "name": "Add",
+                                    "obj": null,
+                                    "$obj": {
+                                      "name": "Add",
+                                      "kind": "method",
+                                      "type": 26,
+                                      "decl": "time.go:1169",
+                                      "pkg": "time"
+                                    }
+                                  },
+                                  "$type": 26,
+                                  "$sel": {
+                                    "kind": "method",
+                                    "recv": 84,
+                                    "index": [
+                                      0,
+                                      34
+                                    ],
+                                    "indirect": true
+                                  }
+                                },
+                                "lparen": {
+                                  "file": "embedshim.go",
+                                  "line": 21,
+                                  "column": 28,
+                                  "offset": 454
+                                },
+                                "args": [
+                                  {
+                                    "node": "SelectorExpr",
+                                    "x": {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "embedshim.go",
+                                        "line": 21,
+                                        "column": 29,
+                                        "offset": 455
+                                      },
+                                      "name": "time",
+                                      "obj": null,
+                                      "$obj": {
+                                        "name": "time",
+                                        "kind": "package",
+                                        "pkg": "time"
+                                      }
+                                    },
+                                    "sel": {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "embedshim.go",
+                                        "line": 21,
+                                        "column": 34,
+                                        "offset": 460
+                                      },
+                                      "name": "Hour",
+                                      "obj": null,
+                                      "$obj": {
+                                        "name": "Hour",
+                                        "kind": "const",
+                                        "type": 27,
+                                        "decl": "time.go:939",
+                                        "pkg": "time",
+                                        "top": true,
+                                        "value": {
+                                          "kind": "int",
+                                          "value": "3600000000000"
+                                        }
+                                      }
+                                    },
+                                    "$type": 27,
+                                    "$value": {
+                                      "kind": "int",
+                                      "value": "3600000000000"
+                                    }
+                                  }
+                                ],
+                                "ellipsis": null,
+                                "rparen": {
+                                  "file": "embedshim.go",
+                                  "line": 21,
+                                  "column": 38,
+                                  "offset": 464
+                                },
+                                "$type": 2
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "embedshim.go",
+                                  "line": 21,
+                                  "column": 40,
+                                  "offset": 466
+                                },
+                                "name": "Hour",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "Hour",
+                                  "kind": "method",
+                                  "type": 24,
+                                  "decl": "time.go:884",
+                                  "pkg": "time"
+                                }
+                              },
+                              "$type": 24,
+                              "$sel": {
+                                "kind": "method",
+                                "recv": 2,
+                                "index": [
+                                  29
+                                ],
+                                "indirect": false
+                              }
+                            },
+                            "lparen": {
+                              "file": "embedshim.go",
+                              "line": 21,
+                              "column": 44,
+                              "offset": 470
+                            },
+                            "args": null,
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "embedshim.go",
+                              "line": 21,
+                              "column": 45,
+                              "offset": 471
+                            },
+                            "$type": 13
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "embedshim.go",
+                          "line": 21,
+                          "column": 46,
+                          "offset": 472
+                        },
+                        "$type": 92
+                      }
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "embedshim.go",
+                    "line": 22,
+                    "column": 1,
+                    "offset": 474
+                  }
+                }
+              }
+            ],
+            "fileStart": {
+              "file": "embedshim.go",
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "fileEnd": {
+              "file": "embedshim.go",
+              "line": 22,
+              "column": 3,
+              "offset": 476
+            },
+            "scope": null,
+            "imports": [
+              {
+                "node": "ImportSpec",
+                "doc": null,
+                "name": null,
+                "path": {
+                  "node": "BasicLit",
+                  "valuePos": {
+                    "file": "embedshim.go",
+                    "line": 6,
+                    "column": 2,
+                    "offset": 177
+                  },
+                  "valueEnd": {
+                    "file": "embedshim.go",
+                    "line": 6,
+                    "column": 7,
+                    "offset": 182
+                  },
+                  "kind": "STRING",
+                  "value": "\"fmt\""
+                },
+                "comment": null,
+                "endPos": null
+              },
+              {
+                "node": "ImportSpec",
+                "doc": null,
+                "name": null,
+                "path": {
+                  "node": "BasicLit",
+                  "valuePos": {
+                    "file": "embedshim.go",
+                    "line": 7,
+                    "column": 2,
+                    "offset": 184
+                  },
+                  "valueEnd": {
+                    "file": "embedshim.go",
+                    "line": 7,
+                    "column": 8,
+                    "offset": 190
+                  },
+                  "kind": "STRING",
+                  "value": "\"time\""
+                },
+                "comment": null,
+                "endPos": null
+              }
+            ],
+            "unresolved": [
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "embedshim.go",
+                  "line": 10,
+                  "column": 16,
+                  "offset": 209
+                },
+                "name": "time",
+                "obj": null,
+                "$obj": {
+                  "name": "time",
+                  "kind": "package",
+                  "pkg": "time"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "embedshim.go",
+                  "line": 12,
+                  "column": 17,
+                  "offset": 238
+                },
+                "name": "time",
+                "obj": null,
+                "$obj": {
+                  "name": "time",
+                  "kind": "package",
+                  "pkg": "time"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "embedshim.go",
+                  "line": 15,
+                  "column": 9,
+                  "offset": 273
+                },
+                "name": "time",
+                "obj": null,
+                "$obj": {
+                  "name": "time",
+                  "kind": "package",
+                  "pkg": "time"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "embedshim.go",
+                  "line": 16,
+                  "column": 2,
+                  "offset": 297
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "embedshim.go",
+                  "line": 16,
+                  "column": 33,
+                  "offset": 328
+                },
+                "name": "time",
+                "obj": null,
+                "$obj": {
+                  "name": "time",
+                  "kind": "package",
+                  "pkg": "time"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "embedshim.go",
+                  "line": 17,
+                  "column": 8,
+                  "offset": 350
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "embedshim.go",
+                  "line": 18,
+                  "column": 2,
+                  "offset": 368
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "embedshim.go",
+                  "line": 19,
+                  "column": 7,
+                  "offset": 389
+                },
+                "name": "time",
+                "obj": null,
+                "$obj": {
+                  "name": "time",
+                  "kind": "package",
+                  "pkg": "time"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "embedshim.go",
+                  "line": 21,
+                  "column": 2,
+                  "offset": 428
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "embedshim.go",
+                  "line": 21,
+                  "column": 29,
+                  "offset": 455
+                },
+                "name": "time",
+                "obj": null,
+                "$obj": {
+                  "name": "time",
+                  "kind": "package",
+                  "pkg": "time"
+                }
+              }
+            ],
+            "comments": [
+              {
+                "node": "CommentGroup",
+                "list": [
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "embedshim.go",
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "text": "// Struct que embute um tipo de shim (time.Time): os métodos que o shim tem"
+                  },
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "embedshim.go",
+                      "line": 2,
+                      "column": 1,
+                      "offset": 77
+                    },
+                    "text": "// são promovidos; os que ele não tem (GobEncode...) ficam sem forwarder."
+                  }
+                ]
+              }
+            ],
+            "goVersion": ""
+          }
+        }
+      ],
+      "imports": [
+        {
+          "path": "fmt",
+          "name": "fmt"
+        },
+        {
+          "path": "time",
+          "name": "time"
+        }
+      ],
+      "typeTable": [
+        {
+          "kind": "named",
+          "pkg": "main",
+          "name": "T",
+          "underlying": 1,
+          "methods": [
+            {
+              "name": "Add",
+              "type": 26,
+              "index": [
+                0,
+                34
+              ],
+              "ptr": false
+            },
+            {
+              "name": "AddDate",
+              "type": 36,
+              "index": [
+                0,
+                36
+              ],
+              "ptr": false
+            },
+            {
+              "name": "After",
+              "type": 37,
+              "index": [
+                0,
+                16
+              ],
+              "ptr": false
+            },
+            {
+              "name": "AppendBinary",
+              "type": 38,
+              "index": [
+                0,
+                47
+              ],
+              "ptr": false
+            },
+            {
+              "name": "AppendFormat",
+              "type": 42,
+              "index": [
+                0,
+                3
+              ],
+              "ptr": false
+            },
+            {
+              "name": "AppendText",
+              "type": 38,
+              "index": [
+                0,
+                55
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Before",
+              "type": 37,
+              "index": [
+                0,
+                17
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Clock",
+              "type": 43,
+              "index": [
+                0,
+                28
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Compare",
+              "type": 44,
+              "index": [
+                0,
+                18
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Date",
+              "type": 45,
+              "index": [
+                0,
+                22
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Day",
+              "type": 24,
+              "index": [
+                0,
+                25
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Equal",
+              "type": 37,
+              "index": [
+                0,
+                19
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Format",
+              "type": 47,
+              "index": [
+                0,
+                2
+              ],
+              "ptr": false
+            },
+            {
+              "name": "GoString",
+              "type": 20,
+              "index": [
+                0,
+                1
+              ],
+              "ptr": false
+            },
+            {
+              "name": "GobDecode",
+              "type": 48,
+              "index": [
+                0,
+                51
+              ],
+              "ptr": true
+            },
+            {
+              "name": "GobEncode",
+              "type": 49,
+              "index": [
+                0,
+                50
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Hour",
+              "type": 24,
+              "index": [
+                0,
+                29
+              ],
+              "ptr": false
+            },
+            {
+              "name": "ISOWeek",
+              "type": 50,
+              "index": [
+                0,
+                27
+              ],
+              "ptr": false
+            },
+            {
+              "name": "In",
+              "type": 51,
+              "index": [
+                0,
+                39
+              ],
+              "ptr": false
+            },
+            {
+              "name": "IsDST",
+              "type": 21,
+              "index": [
+                0,
+                58
+              ],
+              "ptr": false
+            },
+            {
+              "name": "IsZero",
+              "type": 21,
+              "index": [
+                0,
+                15
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Local",
+              "type": 52,
+              "index": [
+                0,
+                38
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Location",
+              "type": 22,
+              "index": [
+                0,
+                40
+              ],
+              "ptr": false
+            },
+            {
+              "name": "MarshalBinary",
+              "type": 49,
+              "index": [
+                0,
+                48
+              ],
+              "ptr": false
+            },
+            {
+              "name": "MarshalJSON",
+              "type": 49,
+              "index": [
+                0,
+                52
+              ],
+              "ptr": false
+            },
+            {
+              "name": "MarshalText",
+              "type": 49,
+              "index": [
+                0,
+                56
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Minute",
+              "type": 24,
+              "index": [
+                0,
+                30
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Month",
+              "type": 53,
+              "index": [
+                0,
+                24
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Nanosecond",
+              "type": 24,
+              "index": [
+                0,
+                32
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Round",
+              "type": 26,
+              "index": [
+                0,
+                60
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Second",
+              "type": 24,
+              "index": [
+                0,
+                31
+              ],
+              "ptr": false
+            },
+            {
+              "name": "String",
+              "type": 20,
+              "index": [
+                0,
+                0
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Sub",
+              "type": 54,
+              "index": [
+                0,
+                35
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Truncate",
+              "type": 26,
+              "index": [
+                0,
+                59
+              ],
+              "ptr": false
+            },
+            {
+              "name": "UTC",
+              "type": 52,
+              "index": [
+                0,
+                37
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Unix",
+              "type": 31,
+              "index": [
+                0,
+                43
+              ],
+              "ptr": false
+            },
+            {
+              "name": "UnixMicro",
+              "type": 31,
+              "index": [
+                0,
+                45
+              ],
+              "ptr": false
+            },
+            {
+              "name": "UnixMilli",
+              "type": 31,
+              "index": [
+                0,
+                44
+              ],
+              "ptr": false
+            },
+            {
+              "name": "UnixNano",
+              "type": 31,
+              "index": [
+                0,
+                46
+              ],
+              "ptr": false
+            },
+            {
+              "name": "UnmarshalBinary",
+              "type": 48,
+              "index": [
+                0,
+                49
+              ],
+              "ptr": true
+            },
+            {
+              "name": "UnmarshalJSON",
+              "type": 48,
+              "index": [
+                0,
+                53
+              ],
+              "ptr": true
+            },
+            {
+              "name": "UnmarshalText",
+              "type": 48,
+              "index": [
+                0,
+                57
+              ],
+              "ptr": true
+            },
+            {
+              "name": "Weekday",
+              "type": 55,
+              "index": [
+                0,
+                26
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Year",
+              "type": 24,
+              "index": [
+                0,
+                23
+              ],
+              "ptr": false
+            },
+            {
+              "name": "YearDay",
+              "type": 24,
+              "index": [
+                0,
+                33
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Zone",
+              "type": 57,
+              "index": [
+                0,
+                41
+              ],
+              "ptr": false
+            },
+            {
+              "name": "ZoneBounds",
+              "type": 58,
+              "index": [
+                0,
+                42
+              ],
+              "ptr": false
+            },
+            {
+              "name": "absSec",
+              "type": 59,
+              "index": [
+                0,
+                20
+              ],
+              "ptr": false
+            },
+            {
+              "name": "addSec",
+              "type": 76,
+              "index": [
+                0,
+                10
+              ],
+              "ptr": true
+            },
+            {
+              "name": "appendFormat",
+              "type": 42,
+              "index": [
+                0,
+                4
+              ],
+              "ptr": false
+            },
+            {
+              "name": "appendFormatRFC3339",
+              "type": 77,
+              "index": [
+                0,
+                5
+              ],
+              "ptr": false
+            },
+            {
+              "name": "appendStrictRFC3339",
+              "type": 38,
+              "index": [
+                0,
+                6
+              ],
+              "ptr": false
+            },
+            {
+              "name": "appendTo",
+              "type": 78,
+              "index": [
+                0,
+                54
+              ],
+              "ptr": false
+            },
+            {
+              "name": "locabs",
+              "type": 79,
+              "index": [
+                0,
+                21
+              ],
+              "ptr": false
+            },
+            {
+              "name": "mono",
+              "type": 31,
+              "index": [
+                0,
+                14
+              ],
+              "ptr": true
+            },
+            {
+              "name": "nsec",
+              "type": 80,
+              "index": [
+                0,
+                7
+              ],
+              "ptr": true
+            },
+            {
+              "name": "sec",
+              "type": 31,
+              "index": [
+                0,
+                8
+              ],
+              "ptr": true
+            },
+            {
+              "name": "setLoc",
+              "type": 82,
+              "index": [
+                0,
+                11
+              ],
+              "ptr": true
+            },
+            {
+              "name": "setMono",
+              "type": 76,
+              "index": [
+                0,
+                13
+              ],
+              "ptr": true
+            },
+            {
+              "name": "stripMono",
+              "type": 83,
+              "index": [
+                0,
+                12
+              ],
+              "ptr": true
+            },
+            {
+              "name": "unixSec",
+              "type": 31,
+              "index": [
+                0,
+                9
+              ],
+              "ptr": true
+            }
+          ]
+        },
+        {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "Time",
+              "type": 2,
+              "embedded": true,
+              "tag": ""
+            }
+          ]
+        },
+        {
+          "kind": "named",
+          "pkg": "time",
+          "name": "Time",
+          "underlying": 3,
+          "methods": [
+            {
+              "name": "Add",
+              "type": 26,
+              "index": [
+                34
+              ],
+              "ptr": false
+            },
+            {
+              "name": "AddDate",
+              "type": 36,
+              "index": [
+                36
+              ],
+              "ptr": false
+            },
+            {
+              "name": "After",
+              "type": 37,
+              "index": [
+                16
+              ],
+              "ptr": false
+            },
+            {
+              "name": "AppendBinary",
+              "type": 38,
+              "index": [
+                47
+              ],
+              "ptr": false
+            },
+            {
+              "name": "AppendFormat",
+              "type": 42,
+              "index": [
+                3
+              ],
+              "ptr": false
+            },
+            {
+              "name": "AppendText",
+              "type": 38,
+              "index": [
+                55
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Before",
+              "type": 37,
+              "index": [
+                17
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Clock",
+              "type": 43,
+              "index": [
+                28
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Compare",
+              "type": 44,
+              "index": [
+                18
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Date",
+              "type": 45,
+              "index": [
+                22
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Day",
+              "type": 24,
+              "index": [
+                25
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Equal",
+              "type": 37,
+              "index": [
+                19
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Format",
+              "type": 47,
+              "index": [
+                2
+              ],
+              "ptr": false
+            },
+            {
+              "name": "GoString",
+              "type": 20,
+              "index": [
+                1
+              ],
+              "ptr": false
+            },
+            {
+              "name": "GobDecode",
+              "type": 48,
+              "index": [
+                51
+              ],
+              "ptr": true
+            },
+            {
+              "name": "GobEncode",
+              "type": 49,
+              "index": [
+                50
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Hour",
+              "type": 24,
+              "index": [
+                29
+              ],
+              "ptr": false
+            },
+            {
+              "name": "ISOWeek",
+              "type": 50,
+              "index": [
+                27
+              ],
+              "ptr": false
+            },
+            {
+              "name": "In",
+              "type": 51,
+              "index": [
+                39
+              ],
+              "ptr": false
+            },
+            {
+              "name": "IsDST",
+              "type": 21,
+              "index": [
+                58
+              ],
+              "ptr": false
+            },
+            {
+              "name": "IsZero",
+              "type": 21,
+              "index": [
+                15
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Local",
+              "type": 52,
+              "index": [
+                38
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Location",
+              "type": 22,
+              "index": [
+                40
+              ],
+              "ptr": false
+            },
+            {
+              "name": "MarshalBinary",
+              "type": 49,
+              "index": [
+                48
+              ],
+              "ptr": false
+            },
+            {
+              "name": "MarshalJSON",
+              "type": 49,
+              "index": [
+                52
+              ],
+              "ptr": false
+            },
+            {
+              "name": "MarshalText",
+              "type": 49,
+              "index": [
+                56
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Minute",
+              "type": 24,
+              "index": [
+                30
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Month",
+              "type": 53,
+              "index": [
+                24
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Nanosecond",
+              "type": 24,
+              "index": [
+                32
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Round",
+              "type": 26,
+              "index": [
+                60
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Second",
+              "type": 24,
+              "index": [
+                31
+              ],
+              "ptr": false
+            },
+            {
+              "name": "String",
+              "type": 20,
+              "index": [
+                0
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Sub",
+              "type": 54,
+              "index": [
+                35
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Truncate",
+              "type": 26,
+              "index": [
+                59
+              ],
+              "ptr": false
+            },
+            {
+              "name": "UTC",
+              "type": 52,
+              "index": [
+                37
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Unix",
+              "type": 31,
+              "index": [
+                43
+              ],
+              "ptr": false
+            },
+            {
+              "name": "UnixMicro",
+              "type": 31,
+              "index": [
+                45
+              ],
+              "ptr": false
+            },
+            {
+              "name": "UnixMilli",
+              "type": 31,
+              "index": [
+                44
+              ],
+              "ptr": false
+            },
+            {
+              "name": "UnixNano",
+              "type": 31,
+              "index": [
+                46
+              ],
+              "ptr": false
+            },
+            {
+              "name": "UnmarshalBinary",
+              "type": 48,
+              "index": [
+                49
+              ],
+              "ptr": true
+            },
+            {
+              "name": "UnmarshalJSON",
+              "type": 48,
+              "index": [
+                53
+              ],
+              "ptr": true
+            },
+            {
+              "name": "UnmarshalText",
+              "type": 48,
+              "index": [
+                57
+              ],
+              "ptr": true
+            },
+            {
+              "name": "Weekday",
+              "type": 55,
+              "index": [
+                26
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Year",
+              "type": 24,
+              "index": [
+                23
+              ],
+              "ptr": false
+            },
+            {
+              "name": "YearDay",
+              "type": 24,
+              "index": [
+                33
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Zone",
+              "type": 57,
+              "index": [
+                41
+              ],
+              "ptr": false
+            },
+            {
+              "name": "ZoneBounds",
+              "type": 58,
+              "index": [
+                42
+              ],
+              "ptr": false
+            },
+            {
+              "name": "absSec",
+              "type": 59,
+              "index": [
+                20
+              ],
+              "ptr": false
+            },
+            {
+              "name": "addSec",
+              "type": 76,
+              "index": [
+                10
+              ],
+              "ptr": true
+            },
+            {
+              "name": "appendFormat",
+              "type": 42,
+              "index": [
+                4
+              ],
+              "ptr": false
+            },
+            {
+              "name": "appendFormatRFC3339",
+              "type": 77,
+              "index": [
+                5
+              ],
+              "ptr": false
+            },
+            {
+              "name": "appendStrictRFC3339",
+              "type": 38,
+              "index": [
+                6
+              ],
+              "ptr": false
+            },
+            {
+              "name": "appendTo",
+              "type": 78,
+              "index": [
+                54
+              ],
+              "ptr": false
+            },
+            {
+              "name": "locabs",
+              "type": 79,
+              "index": [
+                21
+              ],
+              "ptr": false
+            },
+            {
+              "name": "mono",
+              "type": 31,
+              "index": [
+                14
+              ],
+              "ptr": true
+            },
+            {
+              "name": "nsec",
+              "type": 80,
+              "index": [
+                7
+              ],
+              "ptr": true
+            },
+            {
+              "name": "sec",
+              "type": 31,
+              "index": [
+                8
+              ],
+              "ptr": true
+            },
+            {
+              "name": "setLoc",
+              "type": 82,
+              "index": [
+                11
+              ],
+              "ptr": true
+            },
+            {
+              "name": "setMono",
+              "type": 76,
+              "index": [
+                13
+              ],
+              "ptr": true
+            },
+            {
+              "name": "stripMono",
+              "type": 83,
+              "index": [
+                12
+              ],
+              "ptr": true
+            },
+            {
+              "name": "unixSec",
+              "type": 31,
+              "index": [
+                9
+              ],
+              "ptr": true
+            }
+          ]
+        },
+        {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "wall",
+              "type": 4,
+              "embedded": false,
+              "tag": "",
+              "pkg": "time"
+            },
+            {
+              "name": "ext",
+              "type": 5,
+              "embedded": false,
+              "tag": "",
+              "pkg": "time"
+            },
+            {
+              "name": "loc",
+              "type": 6,
+              "embedded": false,
+              "tag": "",
+              "pkg": "time"
+            }
+          ]
+        },
+        {
+          "kind": "basic",
+          "name": "uint64"
+        },
+        {
+          "kind": "basic",
+          "name": "int64"
+        },
+        {
+          "kind": "pointer",
+          "elem": 7
+        },
+        {
+          "kind": "named",
+          "pkg": "time",
+          "name": "Location",
+          "underlying": 8,
+          "methods": [
+            {
+              "name": "String",
+              "type": 20,
+              "index": [
+                1
+              ],
+              "ptr": true
+            },
+            {
+              "name": "firstZoneUsed",
+              "type": 21,
+              "index": [
+                4
+              ],
+              "ptr": true
+            },
+            {
+              "name": "get",
+              "type": 22,
+              "index": [
+                0
+              ],
+              "ptr": true
+            },
+            {
+              "name": "lookup",
+              "type": 23,
+              "index": [
+                2
+              ],
+              "ptr": true
+            },
+            {
+              "name": "lookupFirstZone",
+              "type": 24,
+              "index": [
+                3
+              ],
+              "ptr": true
+            },
+            {
+              "name": "lookupName",
+              "type": 25,
+              "index": [
+                5
+              ],
+              "ptr": true
+            }
+          ]
+        },
+        {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "name",
+              "type": 9,
+              "embedded": false,
+              "tag": "",
+              "pkg": "time"
+            },
+            {
+              "name": "zone",
+              "type": 10,
+              "embedded": false,
+              "tag": "",
+              "pkg": "time"
+            },
+            {
+              "name": "tx",
+              "type": 15,
+              "embedded": false,
+              "tag": "",
+              "pkg": "time"
+            },
+            {
+              "name": "extend",
+              "type": 9,
+              "embedded": false,
+              "tag": "",
+              "pkg": "time"
+            },
+            {
+              "name": "cacheStart",
+              "type": 5,
+              "embedded": false,
+              "tag": "",
+              "pkg": "time"
+            },
+            {
+              "name": "cacheEnd",
+              "type": 5,
+              "embedded": false,
+              "tag": "",
+              "pkg": "time"
+            },
+            {
+              "name": "cacheZone",
+              "type": 19,
+              "embedded": false,
+              "tag": "",
+              "pkg": "time"
+            }
+          ]
+        },
+        {
+          "kind": "basic",
+          "name": "string"
+        },
+        {
+          "kind": "slice",
+          "elem": 11
+        },
+        {
+          "kind": "named",
+          "pkg": "time",
+          "name": "zone",
+          "underlying": 12,
+          "methods": []
+        },
+        {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "name",
+              "type": 9,
+              "embedded": false,
+              "tag": "",
+              "pkg": "time"
+            },
+            {
+              "name": "offset",
+              "type": 13,
+              "embedded": false,
+              "tag": "",
+              "pkg": "time"
+            },
+            {
+              "name": "isDST",
+              "type": 14,
+              "embedded": false,
+              "tag": "",
+              "pkg": "time"
+            }
+          ]
+        },
+        {
+          "kind": "basic",
+          "name": "int"
+        },
+        {
+          "kind": "basic",
+          "name": "bool"
+        },
+        {
+          "kind": "slice",
+          "elem": 16
+        },
+        {
+          "kind": "named",
+          "pkg": "time",
+          "name": "zoneTrans",
+          "underlying": 17,
+          "methods": []
+        },
+        {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "when",
+              "type": 5,
+              "embedded": false,
+              "tag": "",
+              "pkg": "time"
+            },
+            {
+              "name": "index",
+              "type": 18,
+              "embedded": false,
+              "tag": "",
+              "pkg": "time"
+            },
+            {
+              "name": "isstd",
+              "type": 14,
+              "embedded": false,
+              "tag": "",
+              "pkg": "time"
+            },
+            {
+              "name": "isutc",
+              "type": 14,
+              "embedded": false,
+              "tag": "",
+              "pkg": "time"
+            }
+          ]
+        },
+        {
+          "kind": "basic",
+          "name": "uint8"
+        },
+        {
+          "kind": "pointer",
+          "elem": 11
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            9
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            14
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            6
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            5
+          ],
+          "results": [
+            9,
+            13,
+            5,
+            5,
+            14
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            13
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            9,
+            5
+          ],
+          "results": [
+            13,
+            14
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            27
+          ],
+          "results": [
+            2
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "named",
+          "pkg": "time",
+          "name": "Duration",
+          "underlying": 5,
+          "methods": [
+            {
+              "name": "Abs",
+              "type": 28,
+              "index": [
+                10
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Hours",
+              "type": 29,
+              "index": [
+                7
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Microseconds",
+              "type": 31,
+              "index": [
+                3
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Milliseconds",
+              "type": 31,
+              "index": [
+                4
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Minutes",
+              "type": 29,
+              "index": [
+                6
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Nanoseconds",
+              "type": 31,
+              "index": [
+                2
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Round",
+              "type": 32,
+              "index": [
+                9
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Seconds",
+              "type": 29,
+              "index": [
+                5
+              ],
+              "ptr": false
+            },
+            {
+              "name": "String",
+              "type": 20,
+              "index": [
+                0
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Truncate",
+              "type": 32,
+              "index": [
+                8
+              ],
+              "ptr": false
+            },
+            {
+              "name": "format",
+              "type": 33,
+              "index": [
+                1
+              ],
+              "ptr": false
+            }
+          ]
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            27
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            30
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "basic",
+          "name": "float64"
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            5
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            27
+          ],
+          "results": [
+            27
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            34
+          ],
+          "results": [
+            13
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "pointer",
+          "elem": 35
+        },
+        {
+          "kind": "array",
+          "len": 32,
+          "elem": 18
+        },
+        {
+          "kind": "func",
+          "params": [
+            13,
+            13,
+            13
+          ],
+          "results": [
+            2
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            2
+          ],
+          "results": [
+            14
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            39
+          ],
+          "results": [
+            39,
+            40
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "slice",
+          "elem": 18
+        },
+        {
+          "kind": "named",
+          "pkg": "",
+          "name": "error",
+          "underlying": 41
+        },
+        {
+          "kind": "interface",
+          "methods": [
+            {
+              "name": "Error",
+              "type": 20
+            }
+          ],
+          "embeddeds": []
+        },
+        {
+          "kind": "func",
+          "params": [
+            39,
+            9
+          ],
+          "results": [
+            39
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            13,
+            13,
+            13
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            2
+          ],
+          "results": [
+            13
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            13,
+            46,
+            13
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "named",
+          "pkg": "time",
+          "name": "Month",
+          "underlying": 13,
+          "methods": [
+            {
+              "name": "String",
+              "type": 20,
+              "index": [
+                0
+              ],
+              "ptr": false
+            }
+          ]
+        },
+        {
+          "kind": "func",
+          "params": [
+            9
+          ],
+          "results": [
+            9
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            39
+          ],
+          "results": [
+            40
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            39,
+            40
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            13,
+            13
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            6
+          ],
+          "results": [
+            2
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            2
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            46
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            2
+          ],
+          "results": [
+            27
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            56
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "named",
+          "pkg": "time",
+          "name": "Weekday",
+          "underlying": 13,
+          "methods": [
+            {
+              "name": "String",
+              "type": 20,
+              "index": [
+                0
+              ],
+              "ptr": false
+            }
+          ]
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            9,
+            13
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            2,
+            2
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            60
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "named",
+          "pkg": "time",
+          "name": "absSeconds",
+          "underlying": 4,
+          "methods": [
+            {
+              "name": "clock",
+              "type": 43,
+              "index": [
+                1
+              ],
+              "ptr": false
+            },
+            {
+              "name": "days",
+              "type": 61,
+              "index": [
+                0
+              ],
+              "ptr": false
+            }
+          ]
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            62
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "named",
+          "pkg": "time",
+          "name": "absDays",
+          "underlying": 4,
+          "methods": [
+            {
+              "name": "date",
+              "type": 45,
+              "index": [
+                1
+              ],
+              "ptr": false
+            },
+            {
+              "name": "split",
+              "type": 63,
+              "index": [
+                0
+              ],
+              "ptr": false
+            },
+            {
+              "name": "weekday",
+              "type": 55,
+              "index": [
+                3
+              ],
+              "ptr": false
+            },
+            {
+              "name": "yearYday",
+              "type": 50,
+              "index": [
+                2
+              ],
+              "ptr": false
+            }
+          ]
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            64,
+            66,
+            70
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "named",
+          "pkg": "time",
+          "name": "absCentury",
+          "underlying": 4,
+          "methods": [
+            {
+              "name": "leap",
+              "type": 65,
+              "index": [
+                0
+              ],
+              "ptr": false
+            },
+            {
+              "name": "year",
+              "type": 68,
+              "index": [
+                1
+              ],
+              "ptr": false
+            }
+          ]
+        },
+        {
+          "kind": "func",
+          "params": [
+            66
+          ],
+          "results": [
+            67
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "named",
+          "pkg": "time",
+          "name": "absCyear",
+          "underlying": 13,
+          "methods": []
+        },
+        {
+          "kind": "named",
+          "pkg": "time",
+          "name": "absLeap",
+          "underlying": 13,
+          "methods": []
+        },
+        {
+          "kind": "func",
+          "params": [
+            66,
+            69
+          ],
+          "results": [
+            13
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "named",
+          "pkg": "time",
+          "name": "absJanFeb",
+          "underlying": 13,
+          "methods": []
+        },
+        {
+          "kind": "named",
+          "pkg": "time",
+          "name": "absYday",
+          "underlying": 13,
+          "methods": [
+            {
+              "name": "janFeb",
+              "type": 71,
+              "index": [
+                1
+              ],
+              "ptr": false
+            },
+            {
+              "name": "split",
+              "type": 72,
+              "index": [
+                0
+              ],
+              "ptr": false
+            },
+            {
+              "name": "yday",
+              "type": 75,
+              "index": [
+                2
+              ],
+              "ptr": false
+            }
+          ]
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            69
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            73,
+            13
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "named",
+          "pkg": "time",
+          "name": "absMonth",
+          "underlying": 13,
+          "methods": [
+            {
+              "name": "month",
+              "type": 74,
+              "index": [
+                0
+              ],
+              "ptr": false
+            }
+          ]
+        },
+        {
+          "kind": "func",
+          "params": [
+            69
+          ],
+          "results": [
+            46
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            69,
+            67
+          ],
+          "results": [
+            13
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            5
+          ],
+          "results": [],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            39,
+            14
+          ],
+          "results": [
+            39
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            39,
+            9
+          ],
+          "results": [
+            39,
+            40
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            9,
+            13,
+            60
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            81
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "basic",
+          "name": "int32"
+        },
+        {
+          "kind": "func",
+          "params": [
+            6
+          ],
+          "results": [],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [],
+          "variadic": false
+        },
+        {
+          "kind": "named",
+          "pkg": "main",
+          "name": "P",
+          "underlying": 85,
+          "methods": [
+            {
+              "name": "Add",
+              "type": 26,
+              "index": [
+                0,
+                34
+              ],
+              "ptr": false
+            },
+            {
+              "name": "AddDate",
+              "type": 36,
+              "index": [
+                0,
+                36
+              ],
+              "ptr": false
+            },
+            {
+              "name": "After",
+              "type": 37,
+              "index": [
+                0,
+                16
+              ],
+              "ptr": false
+            },
+            {
+              "name": "AppendBinary",
+              "type": 38,
+              "index": [
+                0,
+                47
+              ],
+              "ptr": false
+            },
+            {
+              "name": "AppendFormat",
+              "type": 42,
+              "index": [
+                0,
+                3
+              ],
+              "ptr": false
+            },
+            {
+              "name": "AppendText",
+              "type": 38,
+              "index": [
+                0,
+                55
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Before",
+              "type": 37,
+              "index": [
+                0,
+                17
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Clock",
+              "type": 43,
+              "index": [
+                0,
+                28
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Compare",
+              "type": 44,
+              "index": [
+                0,
+                18
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Date",
+              "type": 45,
+              "index": [
+                0,
+                22
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Day",
+              "type": 24,
+              "index": [
+                0,
+                25
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Equal",
+              "type": 37,
+              "index": [
+                0,
+                19
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Format",
+              "type": 47,
+              "index": [
+                0,
+                2
+              ],
+              "ptr": false
+            },
+            {
+              "name": "GoString",
+              "type": 20,
+              "index": [
+                0,
+                1
+              ],
+              "ptr": false
+            },
+            {
+              "name": "GobDecode",
+              "type": 48,
+              "index": [
+                0,
+                51
+              ],
+              "ptr": false
+            },
+            {
+              "name": "GobEncode",
+              "type": 49,
+              "index": [
+                0,
+                50
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Hour",
+              "type": 24,
+              "index": [
+                0,
+                29
+              ],
+              "ptr": false
+            },
+            {
+              "name": "ISOWeek",
+              "type": 50,
+              "index": [
+                0,
+                27
+              ],
+              "ptr": false
+            },
+            {
+              "name": "In",
+              "type": 51,
+              "index": [
+                0,
+                39
+              ],
+              "ptr": false
+            },
+            {
+              "name": "IsDST",
+              "type": 21,
+              "index": [
+                0,
+                58
+              ],
+              "ptr": false
+            },
+            {
+              "name": "IsZero",
+              "type": 21,
+              "index": [
+                0,
+                15
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Local",
+              "type": 52,
+              "index": [
+                0,
+                38
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Location",
+              "type": 22,
+              "index": [
+                0,
+                40
+              ],
+              "ptr": false
+            },
+            {
+              "name": "MarshalBinary",
+              "type": 49,
+              "index": [
+                0,
+                48
+              ],
+              "ptr": false
+            },
+            {
+              "name": "MarshalJSON",
+              "type": 49,
+              "index": [
+                0,
+                52
+              ],
+              "ptr": false
+            },
+            {
+              "name": "MarshalText",
+              "type": 49,
+              "index": [
+                0,
+                56
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Minute",
+              "type": 24,
+              "index": [
+                0,
+                30
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Month",
+              "type": 53,
+              "index": [
+                0,
+                24
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Nanosecond",
+              "type": 24,
+              "index": [
+                0,
+                32
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Round",
+              "type": 26,
+              "index": [
+                0,
+                60
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Second",
+              "type": 24,
+              "index": [
+                0,
+                31
+              ],
+              "ptr": false
+            },
+            {
+              "name": "String",
+              "type": 20,
+              "index": [
+                0,
+                0
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Sub",
+              "type": 54,
+              "index": [
+                0,
+                35
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Truncate",
+              "type": 26,
+              "index": [
+                0,
+                59
+              ],
+              "ptr": false
+            },
+            {
+              "name": "UTC",
+              "type": 52,
+              "index": [
+                0,
+                37
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Unix",
+              "type": 31,
+              "index": [
+                0,
+                43
+              ],
+              "ptr": false
+            },
+            {
+              "name": "UnixMicro",
+              "type": 31,
+              "index": [
+                0,
+                45
+              ],
+              "ptr": false
+            },
+            {
+              "name": "UnixMilli",
+              "type": 31,
+              "index": [
+                0,
+                44
+              ],
+              "ptr": false
+            },
+            {
+              "name": "UnixNano",
+              "type": 31,
+              "index": [
+                0,
+                46
+              ],
+              "ptr": false
+            },
+            {
+              "name": "UnmarshalBinary",
+              "type": 48,
+              "index": [
+                0,
+                49
+              ],
+              "ptr": false
+            },
+            {
+              "name": "UnmarshalJSON",
+              "type": 48,
+              "index": [
+                0,
+                53
+              ],
+              "ptr": false
+            },
+            {
+              "name": "UnmarshalText",
+              "type": 48,
+              "index": [
+                0,
+                57
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Weekday",
+              "type": 55,
+              "index": [
+                0,
+                26
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Year",
+              "type": 24,
+              "index": [
+                0,
+                23
+              ],
+              "ptr": false
+            },
+            {
+              "name": "YearDay",
+              "type": 24,
+              "index": [
+                0,
+                33
+              ],
+              "ptr": false
+            },
+            {
+              "name": "Zone",
+              "type": 57,
+              "index": [
+                0,
+                41
+              ],
+              "ptr": false
+            },
+            {
+              "name": "ZoneBounds",
+              "type": 58,
+              "index": [
+                0,
+                42
+              ],
+              "ptr": false
+            },
+            {
+              "name": "absSec",
+              "type": 59,
+              "index": [
+                0,
+                20
+              ],
+              "ptr": false
+            },
+            {
+              "name": "addSec",
+              "type": 76,
+              "index": [
+                0,
+                10
+              ],
+              "ptr": false
+            },
+            {
+              "name": "appendFormat",
+              "type": 42,
+              "index": [
+                0,
+                4
+              ],
+              "ptr": false
+            },
+            {
+              "name": "appendFormatRFC3339",
+              "type": 77,
+              "index": [
+                0,
+                5
+              ],
+              "ptr": false
+            },
+            {
+              "name": "appendStrictRFC3339",
+              "type": 38,
+              "index": [
+                0,
+                6
+              ],
+              "ptr": false
+            },
+            {
+              "name": "appendTo",
+              "type": 78,
+              "index": [
+                0,
+                54
+              ],
+              "ptr": false
+            },
+            {
+              "name": "locabs",
+              "type": 79,
+              "index": [
+                0,
+                21
+              ],
+              "ptr": false
+            },
+            {
+              "name": "mono",
+              "type": 31,
+              "index": [
+                0,
+                14
+              ],
+              "ptr": false
+            },
+            {
+              "name": "nsec",
+              "type": 80,
+              "index": [
+                0,
+                7
+              ],
+              "ptr": false
+            },
+            {
+              "name": "sec",
+              "type": 31,
+              "index": [
+                0,
+                8
+              ],
+              "ptr": false
+            },
+            {
+              "name": "setLoc",
+              "type": 82,
+              "index": [
+                0,
+                11
+              ],
+              "ptr": false
+            },
+            {
+              "name": "setMono",
+              "type": 76,
+              "index": [
+                0,
+                13
+              ],
+              "ptr": false
+            },
+            {
+              "name": "stripMono",
+              "type": 83,
+              "index": [
+                0,
+                12
+              ],
+              "ptr": false
+            },
+            {
+              "name": "unixSec",
+              "type": 31,
+              "index": [
+                0,
+                9
+              ],
+              "ptr": false
+            }
+          ]
+        },
+        {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "Time",
+              "type": 86,
+              "embedded": true,
+              "tag": ""
+            }
+          ]
+        },
+        {
+          "kind": "pointer",
+          "elem": 2
+        },
+        {
+          "kind": "func",
+          "params": [
+            5,
+            5
+          ],
+          "results": [
+            2
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            89
+          ],
+          "results": [
+            13,
+            40
+          ],
+          "variadic": true
+        },
+        {
+          "kind": "slice",
+          "elem": 90
+        },
+        {
+          "kind": "interface",
+          "methods": [],
+          "embeddeds": []
+        },
+        {
+          "kind": "basic",
+          "name": "untyped string"
+        },
+        {
+          "kind": "tuple",
+          "elems": [
+            13,
+            40
+          ]
+        },
+        {
+          "kind": "named",
+          "pkg": "fmt",
+          "name": "Stringer",
+          "underlying": 94
+        },
+        {
+          "kind": "interface",
+          "methods": [
+            {
+              "name": "String",
+              "type": 20
+            }
+          ],
+          "embeddeds": []
+        },
+        {
+          "kind": "named",
+          "pkg": "fmt",
+          "name": "GoStringer",
+          "underlying": 96
+        },
+        {
+          "kind": "interface",
+          "methods": [
+            {
+              "name": "GoString",
+              "type": 20
+            }
+          ],
+          "embeddeds": []
+        }
+      ],
+      "implements": [
+        {
+          "type": 84,
+          "interfaces": [
+            95,
+            93
+          ]
+        },
+        {
+          "type": 0,
+          "interfaces": [
+            95,
+            93
+          ]
+        }
+      ],
+      "initOrder": [],
+      "stdlibUsage": [
+        "fmt.Println",
+        "fmt.Stringer",
+        "time.Add",
+        "time.Day",
+        "time.Format",
+        "time.Hour",
+        "time.RFC3339",
+        "time.Time",
+        "time.UTC",
+        "time.Unix",
+        "time.Year"
+      ],
+      "reflectUsage": null
+    }
+  ]
+}

@@ -39001,12 +39001,329 @@
                       }
                     },
                     {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "reflectbasic.go",
+                              "line": 202,
+                              "column": 2,
+                              "offset": 6513
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "reflectbasic.go",
+                              "line": 202,
+                              "column": 6,
+                              "offset": 6517
+                            },
+                            "name": "Printf",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Printf",
+                              "kind": "func",
+                              "type": 365,
+                              "decl": "print.go:231",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 365
+                        },
+                        "lparen": {
+                          "file": "reflectbasic.go",
+                          "line": 202,
+                          "column": 12,
+                          "offset": 6523
+                        },
+                        "args": [
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "reflectbasic.go",
+                              "line": 202,
+                              "column": 13,
+                              "offset": 6524
+                            },
+                            "valueEnd": {
+                              "file": "reflectbasic.go",
+                              "line": 202,
+                              "column": 22,
+                              "offset": 6533
+                            },
+                            "kind": "STRING",
+                            "value": "\"%s %v\\n\"",
+                            "$type": 4,
+                            "$value": {
+                              "kind": "string",
+                              "value": "%s %v\n"
+                            }
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "reflectbasic.go",
+                                  "line": 202,
+                                  "column": 24,
+                                  "offset": 6535
+                                },
+                                "name": "reflect",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "reflect",
+                                  "kind": "package",
+                                  "pkg": "reflect"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "reflectbasic.go",
+                                  "line": 202,
+                                  "column": 32,
+                                  "offset": 6543
+                                },
+                                "name": "TypeOf",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "TypeOf",
+                                  "kind": "func",
+                                  "type": 260,
+                                  "decl": "type.go:1382",
+                                  "pkg": "reflect",
+                                  "top": true
+                                }
+                              },
+                              "$type": 260
+                            },
+                            "lparen": {
+                              "file": "reflectbasic.go",
+                              "line": 202,
+                              "column": 38,
+                              "offset": 6549
+                            },
+                            "args": [
+                              {
+                                "node": "CallExpr",
+                                "fun": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "reflectbasic.go",
+                                    "line": 202,
+                                    "column": 39,
+                                    "offset": 6550
+                                  },
+                                  "name": "Celsius",
+                                  "obj": {
+                                    "node": "Object",
+                                    "name": "Celsius",
+                                    "kind": "type"
+                                  },
+                                  "$type": 312,
+                                  "$isType": true,
+                                  "$obj": {
+                                    "name": "Celsius",
+                                    "kind": "type",
+                                    "type": 312,
+                                    "decl": "reflectbasic.go:382",
+                                    "pkg": "main",
+                                    "top": true
+                                  }
+                                },
+                                "lparen": {
+                                  "file": "reflectbasic.go",
+                                  "line": 202,
+                                  "column": 46,
+                                  "offset": 6557
+                                },
+                                "args": [
+                                  {
+                                    "node": "BasicLit",
+                                    "valuePos": {
+                                      "file": "reflectbasic.go",
+                                      "line": 202,
+                                      "column": 47,
+                                      "offset": 6558
+                                    },
+                                    "valueEnd": {
+                                      "file": "reflectbasic.go",
+                                      "line": 202,
+                                      "column": 48,
+                                      "offset": 6559
+                                    },
+                                    "kind": "INT",
+                                    "value": "0",
+                                    "$type": 312,
+                                    "$value": {
+                                      "kind": "int",
+                                      "value": "0"
+                                    }
+                                  }
+                                ],
+                                "ellipsis": null,
+                                "rparen": {
+                                  "file": "reflectbasic.go",
+                                  "line": 202,
+                                  "column": 48,
+                                  "offset": 6559
+                                },
+                                "$type": 312,
+                                "$value": {
+                                  "kind": "float",
+                                  "value": "0"
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "reflectbasic.go",
+                              "line": 202,
+                              "column": 49,
+                              "offset": 6560
+                            },
+                            "$type": 8
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "reflectbasic.go",
+                                  "line": 202,
+                                  "column": 52,
+                                  "offset": 6563
+                                },
+                                "name": "reflect",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "reflect",
+                                  "kind": "package",
+                                  "pkg": "reflect"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "reflectbasic.go",
+                                  "line": 202,
+                                  "column": 60,
+                                  "offset": 6571
+                                },
+                                "name": "TypeOf",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "TypeOf",
+                                  "kind": "func",
+                                  "type": 260,
+                                  "decl": "type.go:1382",
+                                  "pkg": "reflect",
+                                  "top": true
+                                }
+                              },
+                              "$type": 260
+                            },
+                            "lparen": {
+                              "file": "reflectbasic.go",
+                              "line": 202,
+                              "column": 66,
+                              "offset": 6577
+                            },
+                            "args": [
+                              {
+                                "node": "CompositeLit",
+                                "type": {
+                                  "node": "ArrayType",
+                                  "lbrack": {
+                                    "file": "reflectbasic.go",
+                                    "line": 202,
+                                    "column": 67,
+                                    "offset": 6578
+                                  },
+                                  "len": null,
+                                  "elt": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "reflectbasic.go",
+                                      "line": 202,
+                                      "column": 69,
+                                      "offset": 6580
+                                    },
+                                    "name": "string",
+                                    "obj": null,
+                                    "$type": 4,
+                                    "$isType": true,
+                                    "$obj": {
+                                      "name": "string",
+                                      "kind": "type",
+                                      "type": 4
+                                    }
+                                  },
+                                  "$type": 264,
+                                  "$isType": true
+                                },
+                                "lbrace": {
+                                  "file": "reflectbasic.go",
+                                  "line": 202,
+                                  "column": 75,
+                                  "offset": 6586
+                                },
+                                "elts": null,
+                                "rbrace": {
+                                  "file": "reflectbasic.go",
+                                  "line": 202,
+                                  "column": 76,
+                                  "offset": 6587
+                                },
+                                "incomplete": false,
+                                "$type": 264
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "reflectbasic.go",
+                              "line": 202,
+                              "column": 77,
+                              "offset": 6588
+                            },
+                            "$type": 8
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "reflectbasic.go",
+                          "line": 202,
+                          "column": 78,
+                          "offset": 6589
+                        },
+                        "$type": 262
+                      }
+                    },
+                    {
                       "node": "DeferStmt",
                       "defer": {
                         "file": "reflectbasic.go",
-                        "line": 202,
+                        "line": 203,
                         "column": 2,
-                        "offset": 6513
+                        "offset": 6592
                       },
                       "call": {
                         "node": "CallExpr",
@@ -39016,25 +39333,25 @@
                             "node": "FuncType",
                             "func": {
                               "file": "reflectbasic.go",
-                              "line": 202,
+                              "line": 203,
                               "column": 8,
-                              "offset": 6519
+                              "offset": 6598
                             },
                             "typeParams": null,
                             "params": {
                               "node": "FieldList",
                               "opening": {
                                 "file": "reflectbasic.go",
-                                "line": 202,
+                                "line": 203,
                                 "column": 12,
-                                "offset": 6523
+                                "offset": 6602
                               },
                               "list": null,
                               "closing": {
                                 "file": "reflectbasic.go",
-                                "line": 202,
+                                "line": 203,
                                 "column": 13,
-                                "offset": 6524
+                                "offset": 6603
                               }
                             },
                             "results": null,
@@ -39045,9 +39362,9 @@
                             "node": "BlockStmt",
                             "lbrace": {
                               "file": "reflectbasic.go",
-                              "line": 202,
+                              "line": 203,
                               "column": 15,
-                              "offset": 6526
+                              "offset": 6605
                             },
                             "list": [
                               {
@@ -39060,9 +39377,9 @@
                                       "node": "Ident",
                                       "namePos": {
                                         "file": "reflectbasic.go",
-                                        "line": 202,
+                                        "line": 203,
                                         "column": 17,
-                                        "offset": 6528
+                                        "offset": 6607
                                       },
                                       "name": "fmt",
                                       "obj": null,
@@ -39076,9 +39393,9 @@
                                       "node": "Ident",
                                       "namePos": {
                                         "file": "reflectbasic.go",
-                                        "line": 202,
+                                        "line": 203,
                                         "column": 21,
-                                        "offset": 6532
+                                        "offset": 6611
                                       },
                                       "name": "Println",
                                       "obj": null,
@@ -39095,24 +39412,24 @@
                                   },
                                   "lparen": {
                                     "file": "reflectbasic.go",
-                                    "line": 202,
+                                    "line": 203,
                                     "column": 28,
-                                    "offset": 6539
+                                    "offset": 6618
                                   },
                                   "args": [
                                     {
                                       "node": "BasicLit",
                                       "valuePos": {
                                         "file": "reflectbasic.go",
-                                        "line": 202,
+                                        "line": 203,
                                         "column": 29,
-                                        "offset": 6540
+                                        "offset": 6619
                                       },
                                       "valueEnd": {
                                         "file": "reflectbasic.go",
-                                        "line": 202,
+                                        "line": 203,
                                         "column": 42,
-                                        "offset": 6553
+                                        "offset": 6632
                                       },
                                       "kind": "STRING",
                                       "value": "\"recuperado:\"",
@@ -39128,9 +39445,9 @@
                                         "node": "Ident",
                                         "namePos": {
                                           "file": "reflectbasic.go",
-                                          "line": 202,
+                                          "line": 203,
                                           "column": 44,
-                                          "offset": 6555
+                                          "offset": 6634
                                         },
                                         "name": "recover",
                                         "obj": null,
@@ -39144,17 +39461,17 @@
                                       },
                                       "lparen": {
                                         "file": "reflectbasic.go",
-                                        "line": 202,
+                                        "line": 203,
                                         "column": 51,
-                                        "offset": 6562
+                                        "offset": 6641
                                       },
                                       "args": null,
                                       "ellipsis": null,
                                       "rparen": {
                                         "file": "reflectbasic.go",
-                                        "line": 202,
+                                        "line": 203,
                                         "column": 52,
-                                        "offset": 6563
+                                        "offset": 6642
                                       },
                                       "$type": 6
                                     }
@@ -39162,9 +39479,9 @@
                                   "ellipsis": null,
                                   "rparen": {
                                     "file": "reflectbasic.go",
-                                    "line": 202,
+                                    "line": 203,
                                     "column": 53,
-                                    "offset": 6564
+                                    "offset": 6643
                                   },
                                   "$type": 262
                                 }
@@ -39172,26 +39489,26 @@
                             ],
                             "rbrace": {
                               "file": "reflectbasic.go",
-                              "line": 202,
+                              "line": 203,
                               "column": 55,
-                              "offset": 6566
+                              "offset": 6645
                             }
                           },
                           "$type": 113
                         },
                         "lparen": {
                           "file": "reflectbasic.go",
-                          "line": 202,
+                          "line": 203,
                           "column": 56,
-                          "offset": 6567
+                          "offset": 6646
                         },
                         "args": null,
                         "ellipsis": null,
                         "rparen": {
                           "file": "reflectbasic.go",
-                          "line": 202,
+                          "line": 203,
                           "column": 57,
-                          "offset": 6568
+                          "offset": 6647
                         },
                         "$type": 303
                       }
@@ -39210,9 +39527,9 @@
                                 "node": "Ident",
                                 "namePos": {
                                   "file": "reflectbasic.go",
-                                  "line": 203,
+                                  "line": 204,
                                   "column": 2,
-                                  "offset": 6571
+                                  "offset": 6650
                                 },
                                 "name": "reflect",
                                 "obj": null,
@@ -39226,9 +39543,9 @@
                                 "node": "Ident",
                                 "namePos": {
                                   "file": "reflectbasic.go",
-                                  "line": 203,
+                                  "line": 204,
                                   "column": 10,
-                                  "offset": 6579
+                                  "offset": 6658
                                 },
                                 "name": "ValueOf",
                                 "obj": null,
@@ -39245,24 +39562,24 @@
                             },
                             "lparen": {
                               "file": "reflectbasic.go",
-                              "line": 203,
+                              "line": 204,
                               "column": 17,
-                              "offset": 6586
+                              "offset": 6665
                             },
                             "args": [
                               {
                                 "node": "BasicLit",
                                 "valuePos": {
                                   "file": "reflectbasic.go",
-                                  "line": 203,
+                                  "line": 204,
                                   "column": 18,
-                                  "offset": 6587
+                                  "offset": 6666
                                 },
                                 "valueEnd": {
                                   "file": "reflectbasic.go",
-                                  "line": 203,
+                                  "line": 204,
                                   "column": 19,
-                                  "offset": 6588
+                                  "offset": 6667
                                 },
                                 "kind": "INT",
                                 "value": "3",
@@ -39276,9 +39593,9 @@
                             "ellipsis": null,
                             "rparen": {
                               "file": "reflectbasic.go",
-                              "line": 203,
+                              "line": 204,
                               "column": 19,
-                              "offset": 6588
+                              "offset": 6667
                             },
                             "$type": 44
                           },
@@ -39286,9 +39603,9 @@
                             "node": "Ident",
                             "namePos": {
                               "file": "reflectbasic.go",
-                              "line": 203,
+                              "line": 204,
                               "column": 21,
-                              "offset": 6590
+                              "offset": 6669
                             },
                             "name": "SetInt",
                             "obj": null,
@@ -39312,24 +39629,24 @@
                         },
                         "lparen": {
                           "file": "reflectbasic.go",
-                          "line": 203,
+                          "line": 204,
                           "column": 27,
-                          "offset": 6596
+                          "offset": 6675
                         },
                         "args": [
                           {
                             "node": "BasicLit",
                             "valuePos": {
                               "file": "reflectbasic.go",
-                              "line": 203,
+                              "line": 204,
                               "column": 28,
-                              "offset": 6597
+                              "offset": 6676
                             },
                             "valueEnd": {
                               "file": "reflectbasic.go",
-                              "line": 203,
+                              "line": 204,
                               "column": 29,
-                              "offset": 6598
+                              "offset": 6677
                             },
                             "kind": "INT",
                             "value": "4",
@@ -39343,9 +39660,9 @@
                         "ellipsis": null,
                         "rparen": {
                           "file": "reflectbasic.go",
-                          "line": 203,
+                          "line": 204,
                           "column": 29,
-                          "offset": 6598
+                          "offset": 6677
                         },
                         "$type": 303
                       }
@@ -39353,9 +39670,9 @@
                   ],
                   "rbrace": {
                     "file": "reflectbasic.go",
-                    "line": 204,
+                    "line": 205,
                     "column": 1,
-                    "offset": 6600
+                    "offset": 6679
                   }
                 }
               }
@@ -39368,9 +39685,9 @@
             },
             "fileEnd": {
               "file": "reflectbasic.go",
-              "line": 204,
+              "line": 205,
               "column": 3,
-              "offset": 6602
+              "offset": 6681
             },
             "scope": null,
             "imports": [
@@ -42620,8 +42937,8 @@
                 "namePos": {
                   "file": "reflectbasic.go",
                   "line": 202,
-                  "column": 17,
-                  "offset": 6528
+                  "column": 2,
+                  "offset": 6513
                 },
                 "name": "fmt",
                 "obj": null,
@@ -42636,8 +42953,74 @@
                 "namePos": {
                   "file": "reflectbasic.go",
                   "line": 202,
+                  "column": 24,
+                  "offset": 6535
+                },
+                "name": "reflect",
+                "obj": null,
+                "$obj": {
+                  "name": "reflect",
+                  "kind": "package",
+                  "pkg": "reflect"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "reflectbasic.go",
+                  "line": 202,
+                  "column": 52,
+                  "offset": 6563
+                },
+                "name": "reflect",
+                "obj": null,
+                "$obj": {
+                  "name": "reflect",
+                  "kind": "package",
+                  "pkg": "reflect"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "reflectbasic.go",
+                  "line": 202,
+                  "column": 69,
+                  "offset": 6580
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 4,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 4
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "reflectbasic.go",
+                  "line": 203,
+                  "column": 17,
+                  "offset": 6607
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "reflectbasic.go",
+                  "line": 203,
                   "column": 44,
-                  "offset": 6555
+                  "offset": 6634
                 },
                 "name": "recover",
                 "obj": null,
@@ -42653,9 +43036,9 @@
                 "node": "Ident",
                 "namePos": {
                   "file": "reflectbasic.go",
-                  "line": 203,
+                  "line": 204,
                   "column": 2,
-                  "offset": 6571
+                  "offset": 6650
                 },
                 "name": "reflect",
                 "obj": null,
@@ -49535,10 +49918,22 @@
           "name": "float32"
         },
         {
+          "kind": "func",
+          "params": [
+            4,
+            257
+          ],
+          "results": [
+            2,
+            126
+          ],
+          "variadic": true
+        },
+        {
           "kind": "named",
           "pkg": "fmt",
           "name": "Stringer",
-          "underlying": 366
+          "underlying": 367
         },
         {
           "kind": "interface",
@@ -49555,7 +49950,7 @@
         {
           "type": 312,
           "interfaces": [
-            365
+            366
           ]
         },
         {
@@ -49568,6 +49963,7 @@
       "initOrder": [],
       "stdlibUsage": [
         "errors.New",
+        "fmt.Printf",
         "fmt.Println",
         "fmt.Sprintf",
         "reflect.Addr",
@@ -50424,11 +50820,19 @@
           "expr": "reflect.ValueOf"
         },
         {
-          "pos": "reflectbasic.go:203:2",
+          "pos": "reflectbasic.go:202:24",
+          "expr": "reflect.TypeOf"
+        },
+        {
+          "pos": "reflectbasic.go:202:52",
+          "expr": "reflect.TypeOf"
+        },
+        {
+          "pos": "reflectbasic.go:204:2",
           "expr": "reflect.ValueOf"
         },
         {
-          "pos": "reflectbasic.go:203:2",
+          "pos": "reflectbasic.go:204:2",
           "expr": "reflect.ValueOf(3).SetInt"
         },
         {

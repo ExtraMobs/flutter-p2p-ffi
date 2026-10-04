@@ -19,6 +19,10 @@ SUSPENDING_SHIM = {
     ("m", "sync", "RWMutex", "RLock"): ("rLock$async", True),
     ("m", "sync", "WaitGroup", "Wait"): ("wait$async", False),
     ("m", "sync", "Cond", "Wait"): ("wait$async", False),
+    # Canais pelo reflect: `select$async`, `send$async`, `recv$async`.
+    ("f", "reflect", "Select"): ("select$async", False),
+    ("m", "reflect", "Value", "Send"): ("send$async", False),
+    ("m", "reflect", "Value", "Recv"): ("recv$async", False),
 }
 # Funções do shim que sempre suspendem (devolvem Future): `await time.sleep(d)`.
 SUSPENDING_FUNCS = frozenset({("f", "time", "Sleep")})

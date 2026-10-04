@@ -199,6 +199,7 @@ func extras() {
 	fmt.Println(reflect.TypeOf(0).ConvertibleTo(reflect.TypeOf("")), reflect.TypeOf(IDs{}).AssignableTo(reflect.TypeOf([]string{})),
 		reflect.TypeOf(Celsius(0)).AssignableTo(reflect.TypeOf(0.0)))
 	fmt.Println(reflect.ValueOf(Celsius(3)).String(), reflect.ValueOf(Celsius(3)))
+	fmt.Printf("%s %v\n", reflect.TypeOf(Celsius(0)), reflect.TypeOf([]string{}))
 	defer func() { fmt.Println("recuperado:", recover()) }()
 	reflect.ValueOf(3).SetInt(4)
 }

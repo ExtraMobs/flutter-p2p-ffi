@@ -11,7 +11,7 @@ casos seguem a chamada comum (tipo dinâmico em runtime).
 """
 
 from g2d.engine.behavior import NOT_HANDLED, ExprBehavior
-from g2d.engine.precedence import POSTFIX
+from g2d.engine.precedence import POSTFIX, UNARY
 
 
 def reflect_func(fun):
@@ -49,3 +49,24 @@ class ReflectStaticCall(ExprBehavior):
         value = self.values.coerce(args[0], param)
         fn = "typeOf$static" if name == "TypeOf" else "valueOf$static"
         return f"{self.imports.qualify('reflect', fn)}({value}, {self.reflection.rtype(t)})", POSTFIX
+
+
+class ReflectAsyncCall(ExprBehavior):
+    """`v.Call(in)`/`v.CallSlice(in)` de `reflect.Value` num contexto
+    `async` (D2): `await v.call$async(in)`, que espera a função chamada se
+    ela suspende. Num contexto síncrono fica `call$`, e a função que
+    suspende dá panic explícito no runtime."""
+
+    kinds = ("CallExpr",)
+
+    def emit(self, n):
+        fun = n["fun"]
+        if (fun["node"] != "SelectorExpr" or fun["sel"]["name"] not in ("Call", "CallSlice")
+                or self.scope is None or not self.scope.async_ctx or len(n["args"] or []) != 1):
+            return NOT_HANDLED
+        recv = self.pkg.type_of(fun["x"])
+        if recv is None or recv["kind"] != "named" or recv.get("pkg") != "reflect" or recv.get("name") != "Value":
+            return NOT_HANDLED
+        param = self.pkg.type_at(self.pkg.type_of(fun)["params"][0])
+        name = "call$async" if fun["sel"]["name"] == "Call" else "callSlice$async"
+        return f"await {self.expr(fun['x'], POSTFIX)}.{name}({self.values.coerce(n['args'][0], param)})", UNARY

@@ -436,6 +436,10 @@ class SwitchStmt(StmtBehavior):
                 if falls(c):
                     lines.append(f"{sel} = {i + 1};")  # fallthrough: próximo case do fonte
                 out += [f"if ({sel} == {i})", "{"] + lines + ["}"]
+            if default is not None and all(self.ends_terminating(c["body"] or []) for c in clauses):
+                # Terminal no Go (default e todo case termina): o Dart não vê
+                # a cadeia de `if` como exaustiva.
+                out.append("throw StateError('g2d: switch terminal');")
             return self.control.close_switch(label, out + ["}"])
 
         chain, default = [], None
@@ -450,6 +454,34 @@ class SwitchStmt(StmtBehavior):
         if default:
             out += (["else"] if chain else []) + default
         return self.control.close_switch(label, out + ["}"])
+
+
+    @staticmethod
+    def ends_terminating(body):
+        """O corpo de um case termina sem sair do switch: `return`,
+        `panic(...)`, `fallthrough` ou `goto` no fim, e nenhum `break` dele
+        (fora de laços e switches aninhados)."""
+        if not body:
+            return False
+        last = body[-1]
+        ok = (last["node"] == "ReturnStmt"
+              or (last["node"] == "BranchStmt" and last["tok"] in ("fallthrough", "goto"))
+              or (last["node"] == "ExprStmt" and last["x"]["node"] == "CallExpr"
+                  and last["x"]["fun"]["node"] == "Ident" and last["x"]["fun"]["name"] == "panic"))
+        if not ok:
+            return False
+        stack = list(body)
+        while stack:
+            n = stack.pop()
+            if isinstance(n, dict):
+                if n.get("node") in ("ForStmt", "RangeStmt", "SwitchStmt", "TypeSwitchStmt", "SelectStmt", "FuncLit"):
+                    continue
+                if n.get("node") == "BranchStmt" and n["tok"] == "break":
+                    return False
+                stack.extend(v for v in n.values() if isinstance(v, (dict, list)))
+            elif isinstance(n, list):
+                stack.extend(n)
+        return True
 
 
 class TypeSwitchStmt(StmtBehavior):

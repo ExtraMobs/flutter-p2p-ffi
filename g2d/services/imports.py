@@ -12,9 +12,9 @@ from g2d.services.naming import escape, is_exported, member_name, top_member_nam
 
 
 def declared_names(pkg):
-    """Nomes Dart exportados que a library declara: funções, vars e consts de
-    pacote, e membros das classes dela (campos, métodos, promovidos). Um
-    prefixo de import igual a um deles seria sombreado."""
+    """Nomes Dart que a library declara: funções, vars e consts de pacote,
+    locais, e membros exportados das classes dela (campos, métodos,
+    promovidos). Um prefixo de import igual a um deles seria sombreado."""
     names, top = set(), set()
     for f in pkg.files:
         for d in f["ast"]["decls"] or []:
@@ -23,12 +23,27 @@ def declared_names(pkg):
             elif d["node"] == "GenDecl" and d["tok"] in ("var", "const"):
                 top.update(top_member_name(i["name"], (i.get("$obj") or {}).get("fold"))
                            for s in d["specs"] for i in s["names"])
+    # Locais (variáveis, parâmetros, tipos locais): o g2d pode citar o
+    # pacote dentro do escopo deles, onde o Go não cita (constante dobrada
+    # `tok.TokenType(48)` numa função com parâmetro `tok`).
+    stack = [f["ast"] for f in pkg.files]
+    while stack:
+        n = stack.pop()
+        if isinstance(n, dict):
+            o = n.get("$obj")
+            if n.get("node") == "Ident" and o and o.get("def") and not o.get("top") and o.get("kind") in ("var", "type"):
+                top.add(escape(n["name"]))
+            stack.extend(v for v in n.values() if isinstance(v, (dict, list)))
+        elif isinstance(n, list):
+            stack.extend(n)
     underlying = {t["underlying"] for t in pkg.type_table if t["kind"] == "named"}
     for i, t in enumerate(pkg.type_table):
         if t["kind"] == "named" and t["pkg"] == pkg.path:
             names.update(m["name"] for m in t.get("methods") or [])
             u = pkg.type_at(t["underlying"])
             names.update(x["name"] for x in u.get("fields") or u.get("methods") or [])
+            # Campo não exportado: nome do parâmetro do construtor.
+            top.update(escape(x["name"]) for x in u.get("fields") or [] if not is_exported(x["name"]))
         elif t["kind"] == "struct" and i not in underlying:  # struct anônima
             names.update(x["name"] for x in t["fields"])
     return top | {member_name(n) for n in names if is_exported(n)}
@@ -132,6 +147,14 @@ class ImportTable(Service):
         if members is not None and name not in members:
             raise Unsupported(f"shim-simbolo:{t['pkg']}.{cls}.{name}",
                               f"membro sem shim: {t['pkg']}.{cls}.{name} ({go_name})", node)
+
+    def has_shim_member(self, t, go_name):
+        """`shim_member` sem Unsupported: o membro existe (ou t não é shim)."""
+        try:
+            self.shim_member(t, go_name)
+        except Unsupported:
+            return False
+        return True
 
     def uri(self, pkg_path):
         """Library Dart de outro pacote: shim da stdlib ou library do grafo."""

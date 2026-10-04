@@ -195,6 +195,54 @@ void main() {
     _check('pd', out, go['pdOut'] as List);
   });
 
+  test('Format, Parse e ParseInLocation com layout iguais ao Go', () {
+    final layouts = [for (final l in go['layouts'] as List) _gs(l as String)];
+    String describeParse((time.Time, GoError?) r) {
+      final (p, err) = r;
+      final (zn, zo) = p.zone();
+      return '${p.string()} $zn $zo ${p.location() == time.local} '
+          '${p.location() == fz} ${err == null ? '<nil>' : err.error()}';
+    }
+
+    final fmtOut = <String>[], parseOut = <String>[];
+    var di = 0;
+    for (final a in go['dates'] as List) {
+      final v = [for (final x in a as List) int.parse(x as String)];
+      for (final z in go['zones'] as List) {
+        final loc = z == null
+            ? time.utc
+            : time.fixedZone(
+                _gs(z['name'] as String),
+                Golang.Int(z['offset'] as int),
+              );
+        final t = time.date(
+          Golang.Int(v[0]),
+          time.Month(v[1]),
+          Golang.Int(v[2]),
+          Golang.Int(v[3]),
+          Golang.Int(v[4]),
+          Golang.Int(v[5]),
+          Golang.Int(v[6]),
+          loc,
+        );
+        for (final l in layouts) {
+          final s = t.format(l).toString();
+          fmtOut.add(s);
+          if (di % 4 != 0) continue;
+          parseOut
+            ..add(describeParse(time.parse(l, _gs(s))))
+            ..add(describeParse(time.parseInLocation(l, _gs(s), fz)))
+            ..add(
+              describeParse(time.parse(l, _gs(s.substring(0, s.length - 1)))),
+            );
+        }
+      }
+      di++;
+    }
+    _check('format', fmtOut, go['format'] as List);
+    _check('parse', parseOut, go['parse'] as List);
+  });
+
   test('Now/Since/Until: leitura monotônica com a forma do Go', () {
     final n = time.now();
     expect(n.string().toString(), contains(' m=+'));

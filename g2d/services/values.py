@@ -77,7 +77,8 @@ class ValueSemantics(Service):
             # existe em cada instanciação, não no `T` (TODO/P2 se pesar).
             func = self.imports.qualify(None, "Func")
             sig = self.goinfo.go_type_name(src)
-            text, prec = f"{func}({self.expr(n, POSTFIX)}, '{sig}')", POSTFIX
+            rt = f", () => {self.reflection.rtype(src)}" if self.reflection.enabled else ""
+            text, prec = f"{func}({self.expr(n, POSTFIX)}, '{sig}'{rt})", POSTFIX
         else:
             text, prec = self.expr_prec(n)
         if reclass in ("wrap", "wrap-bare"):

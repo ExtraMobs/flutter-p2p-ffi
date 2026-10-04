@@ -59,7 +59,7 @@ final class RField {
 /// struct, `Point?` para `*Point`, `go.Ptr<Golang.Int>?` para `*int`,
 /// `Object?` para interfaces), usada para criar slices, maps e ponteiros
 /// com o tipo reificado certo.
-final class RType<T> {
+final class RType<T> implements fmt.Stringer {
   RType._(
     this.$kind,
     this.$str, {
@@ -77,7 +77,9 @@ final class RType<T> {
     List<RField> Function()? fields,
     List<String> methods = const [],
     List<String> ptrMethods = const [],
-    Map<String, String> sigs = const {},
+    Map<String, RType Function()> sigs = const {},
+    Map<String, Function Function(Object)> binds = const {},
+    Map<String, Function Function(Object)> pbinds = const {},
     Object Function()? nil,
     bool opaque = false,
     RType Function()? under,
@@ -97,6 +99,8 @@ final class RType<T> {
        $methods = methods,
        $ptrMethods = ptrMethods,
        $sigs = sigs,
+       $binds = binds,
+       $pbinds = pbinds,
        $nil = nil,
        $opaque = opaque;
 
@@ -185,8 +189,25 @@ final class RType<T> {
   /// Method set de `*T` (structs e nomeados).
   final List<String> $ptrMethods;
 
-  /// Assinatura Go de cada método, sem o receptor (`func(int) string`).
-  final Map<String, String> $sigs;
+  /// Descritor da assinatura de cada método, sem o receptor.
+  final Map<String, RType Function()> $sigs;
+
+  /// Método de T ligado a um receptor (a representação de um T): a
+  /// closure Dart (tear-off), para `Value.Method`.
+  final Map<String, Function Function(Object)> $binds;
+
+  /// Método só de `*T` de um nomeado que não é struct, ligado a um `*T`
+  /// (`go.Ptr<T>`); nos de struct o receptor é o próprio objeto ([$binds]).
+  final Map<String, Function Function(Object)> $pbinds;
+
+  RFunc? _fnInfo;
+
+  /// Assinatura de um tipo func (parâmetros, resultados, variádico); de um
+  /// nomeado, a do subjacente.
+  RFunc? get $fn => _fnInfo ?? (_underFn != null ? $under._fnInfo : null);
+
+  /// Chama [f] com o T reificado (closures com o tipo Dart certo).
+  R $with<R>(R Function<E>() f) => f<T>();
 
   /// `(*T)(nil)` dentro de uma interface (a sentinela `T.$nil` de uma struct).
   final Object Function()? $nil;
@@ -219,6 +240,10 @@ final class RType<T> {
 
   @override
   String toString() => $str;
+
+  /// `Type.String()`; `fmt` imprime o tipo com `%v`/`%s`.
+  @override
+  Golang.String string() => Golang.String.fromDart($str);
 
   /// Struct ou array: o valor ocupa armazenamento próprio (`go.GoValue`), e
   /// `*T` é o próprio objeto.

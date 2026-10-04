@@ -20,6 +20,8 @@ import 'dart:typed_data';
 import 'builtin.dart';
 import 'fmt.dart' as fmt;
 import 'strconv.dart' as strconv;
+import 'unicode.dart' as unicode;
+import 'src/runtime/select.dart' as rt;
 import 'fixed_types/golang.dart' as Golang;
 
 part 'src/reflect/kind.dart';
@@ -33,6 +35,11 @@ part 'src/reflect/value_set.dart';
 part 'src/reflect/value_map.dart';
 part 'src/reflect/ops.dart';
 part 'src/reflect/deep_equal.dart';
+part 'src/reflect/func.dart';
+part 'src/reflect/make_func.dart';
+part 'src/reflect/struct_of.dart';
+part 'src/reflect/select.dart';
+part 'src/reflect/chan_ops.dart';
 
 /// `reflect.Type`: o descritor ([RType]). Tipos são canônicos, então
 /// `t1 == t2` do Go é identidade.

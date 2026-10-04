@@ -53,7 +53,14 @@ class Base extends go.GoStruct<Base> implements go.Typed {
     nil: () => Base.$nil,
     methods: const ['Describe'],
     ptrMethods: const ['Describe'],
-    sigs: const {'Describe': 'func() string'},
+    sigs: {
+      'Describe': () => go.rtFuncOf<Golang.String Function()?>(
+        'func() string',
+        () => [],
+        () => [go.rtString],
+      ),
+    },
+    binds: {'Describe': (o) => (o as Base).describe},
     fields: () => [
       go.rtField(
         'ID',
@@ -92,7 +99,13 @@ abstract mixin class Shape {
     'Shape',
     'shapes.Shape',
     const ['Area'],
-    sigs: const {'Area': 'func() float64'},
+    sigs: {
+      'Area': () => go.rtFuncOf<Golang.Float64 Function()?>(
+        'func() float64',
+        () => [],
+        () => [go.rtFloat64],
+      ),
+    },
   );
 
   Golang.Float64 area();
@@ -190,7 +203,22 @@ class Rect extends go.GoStruct<Rect>
     nil: () => Rect.$nil,
     methods: const ['Describe'],
     ptrMethods: const ['Area', 'Describe'],
-    sigs: const {'Area': 'func() float64', 'Describe': 'func() string'},
+    sigs: {
+      'Area': () => go.rtFuncOf<Golang.Float64 Function()?>(
+        'func() float64',
+        () => [],
+        () => [go.rtFloat64],
+      ),
+      'Describe': () => go.rtFuncOf<Golang.String Function()?>(
+        'func() string',
+        () => [],
+        () => [go.rtString],
+      ),
+    },
+    binds: {
+      'Area': (o) => (o as Rect).area,
+      'Describe': (o) => (o as Rect).describe,
+    },
     fields: () => [
       go.rtField(
         'Base',
@@ -289,7 +317,14 @@ final class Unit extends Golang.Int64Base<Unit>
     conv: (v) => Unit.from(v as Golang.IntBase),
     methods: const ['String'],
     ptrMethods: const ['String'],
-    sigs: const {'String': 'func() string'},
+    sigs: {
+      'String': () => go.rtFuncOf<Golang.String Function()?>(
+        'func() string',
+        () => [],
+        () => [go.rtString],
+      ),
+    },
+    binds: {'String': (o) => (o as Unit).string},
   );
   @override
   go.RType get $rtype => $rt;

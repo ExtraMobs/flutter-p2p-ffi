@@ -20,7 +20,7 @@ const _longDayNames = [
 /// `int` do Go é 64 bits (`fixed_types/golang/int.dart`). As constantes
 /// (`time.January`...) o g2d dobra no literal `Month(n)` (mesma regra de
 /// `time.Second`, ver `duration.dart`), então não há símbolos delas aqui.
-final class Month extends Golang.Int64Base<Month> implements Stringer {
+final class Month extends Golang.Int64Base<Month> implements Stringer, Typed {
   Month([int v = 0]) : super(v);
   Month.from(Golang.IntBase v) : super.from(v);
   Month.fromBigInt(BigInt v) : super.fromBigInt(v);
@@ -31,6 +31,12 @@ final class Month extends Golang.Int64Base<Month> implements Stringer {
 
   @override
   String get $goType => 'time.Month';
+
+  /// Descritor de reflexão (`SHIM_RTYPES`, `rtypes.dart`).
+  static final RType<Month> $rt = _monthRType();
+
+  @override
+  RType get $rtype => $rt;
 
   @override
   List<String> get $methods => const ['String'];
@@ -47,7 +53,8 @@ final class Month extends Golang.Int64Base<Month> implements Stringer {
 }
 
 /// `time.Weekday`: tipo nomeado sobre `int` (domingo = 0, ...).
-final class Weekday extends Golang.Int64Base<Weekday> implements Stringer {
+final class Weekday extends Golang.Int64Base<Weekday>
+    implements Stringer, Typed {
   Weekday([int v = 0]) : super(v);
   Weekday.from(Golang.IntBase v) : super.from(v);
   Weekday.fromBigInt(BigInt v) : super.fromBigInt(v);
@@ -58,6 +65,12 @@ final class Weekday extends Golang.Int64Base<Weekday> implements Stringer {
 
   @override
   String get $goType => 'time.Weekday';
+
+  /// Descritor de reflexão (`SHIM_RTYPES`, `rtypes.dart`).
+  static final RType<Weekday> $rt = _weekdayRType();
+
+  @override
+  RType get $rtype => $rt;
 
   @override
   List<String> get $methods => const ['String'];

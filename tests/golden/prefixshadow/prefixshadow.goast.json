@@ -1,0 +1,4919 @@
+{
+  "schemaVersion": 9,
+  "tool": "goast",
+  "goVersion": "go1.26.5",
+  "packages": [
+    {
+      "path": "g2d.test/prefixshadow/atlas",
+      "name": "atlas",
+      "files": [
+        {
+          "path": "atlas.go",
+          "ast": {
+            "node": "File",
+            "doc": {
+              "node": "CommentGroup",
+              "list": [
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "atlas.go",
+                    "line": 1,
+                    "column": 1,
+                    "offset": 0
+                  },
+                  "text": "// Package atlas tem o mesmo nome de um campo e de um parâmetro do obj."
+                }
+              ]
+            },
+            "package": {
+              "file": "atlas.go",
+              "line": 2,
+              "column": 1,
+              "offset": 73
+            },
+            "name": {
+              "node": "Ident",
+              "namePos": {
+                "file": "atlas.go",
+                "line": 2,
+                "column": 9,
+                "offset": 81
+              },
+              "name": "atlas",
+              "obj": null
+            },
+            "decls": [
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "atlas.go",
+                  "line": 4,
+                  "column": 1,
+                  "offset": 88
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "atlas.go",
+                        "line": 4,
+                        "column": 6,
+                        "offset": 93
+                      },
+                      "name": "Atlas",
+                      "obj": {
+                        "node": "Object",
+                        "name": "Atlas",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "Atlas",
+                        "kind": "type",
+                        "def": true,
+                        "type": 0,
+                        "decl": "atlas.go:93",
+                        "pkg": "g2d.test/prefixshadow/atlas",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "StructType",
+                      "struct": {
+                        "file": "atlas.go",
+                        "line": 4,
+                        "column": 12,
+                        "offset": 99
+                      },
+                      "fields": {
+                        "node": "FieldList",
+                        "opening": {
+                          "file": "atlas.go",
+                          "line": 4,
+                          "column": 18,
+                          "offset": 105
+                        },
+                        "list": [
+                          {
+                            "node": "Field",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "atlas.go",
+                                  "line": 4,
+                                  "column": 20,
+                                  "offset": 107
+                                },
+                                "name": "Name",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "Name",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "Name",
+                                  "kind": "field",
+                                  "def": true,
+                                  "type": 2,
+                                  "decl": "atlas.go:107",
+                                  "pkg": "g2d.test/prefixshadow/atlas"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "atlas.go",
+                                "line": 4,
+                                "column": 25,
+                                "offset": 112
+                              },
+                              "name": "string",
+                              "obj": null,
+                              "$type": 2,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "string",
+                                "kind": "type",
+                                "type": 2
+                              }
+                            },
+                            "tag": null,
+                            "comment": null
+                          }
+                        ],
+                        "closing": {
+                          "file": "atlas.go",
+                          "line": 4,
+                          "column": 32,
+                          "offset": 119
+                        }
+                      },
+                      "incomplete": false,
+                      "$type": 1,
+                      "$isType": true
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "atlas.go",
+                    "line": 6,
+                    "column": 6,
+                    "offset": 127
+                  },
+                  "name": "Build",
+                  "obj": {
+                    "node": "Object",
+                    "name": "Build",
+                    "kind": "func"
+                  },
+                  "$obj": {
+                    "name": "Build",
+                    "kind": "func",
+                    "def": true,
+                    "type": 3,
+                    "decl": "atlas.go:127",
+                    "pkg": "g2d.test/prefixshadow/atlas",
+                    "top": true
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "atlas.go",
+                    "line": 6,
+                    "column": 1,
+                    "offset": 122
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "atlas.go",
+                      "line": 6,
+                      "column": 11,
+                      "offset": 132
+                    },
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "atlas.go",
+                              "line": 6,
+                              "column": 12,
+                              "offset": 133
+                            },
+                            "name": "name",
+                            "obj": {
+                              "node": "Object",
+                              "name": "name",
+                              "kind": "var"
+                            },
+                            "$obj": {
+                              "name": "name",
+                              "kind": "var",
+                              "def": true,
+                              "type": 2,
+                              "decl": "atlas.go:133",
+                              "pkg": "g2d.test/prefixshadow/atlas"
+                            }
+                          }
+                        ],
+                        "type": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "atlas.go",
+                            "line": 6,
+                            "column": 17,
+                            "offset": 138
+                          },
+                          "name": "string",
+                          "obj": null,
+                          "$type": 2,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "string",
+                            "kind": "type",
+                            "type": 2
+                          }
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": {
+                      "file": "atlas.go",
+                      "line": 6,
+                      "column": 23,
+                      "offset": 144
+                    }
+                  },
+                  "results": {
+                    "node": "FieldList",
+                    "opening": null,
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": null,
+                        "type": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "atlas.go",
+                            "line": 6,
+                            "column": 25,
+                            "offset": 146
+                          },
+                          "name": "Atlas",
+                          "obj": {
+                            "node": "Object",
+                            "name": "Atlas",
+                            "kind": "type"
+                          },
+                          "$type": 0,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "Atlas",
+                            "kind": "type",
+                            "type": 0,
+                            "decl": "atlas.go:93",
+                            "pkg": "g2d.test/prefixshadow/atlas",
+                            "top": true
+                          }
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": null
+                  }
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "atlas.go",
+                    "line": 6,
+                    "column": 31,
+                    "offset": 152
+                  },
+                  "list": [
+                    {
+                      "node": "ReturnStmt",
+                      "return": {
+                        "file": "atlas.go",
+                        "line": 6,
+                        "column": 33,
+                        "offset": 154
+                      },
+                      "results": [
+                        {
+                          "node": "CompositeLit",
+                          "type": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "atlas.go",
+                              "line": 6,
+                              "column": 40,
+                              "offset": 161
+                            },
+                            "name": "Atlas",
+                            "obj": {
+                              "node": "Object",
+                              "name": "Atlas",
+                              "kind": "type"
+                            },
+                            "$type": 0,
+                            "$isType": true,
+                            "$obj": {
+                              "name": "Atlas",
+                              "kind": "type",
+                              "type": 0,
+                              "decl": "atlas.go:93",
+                              "pkg": "g2d.test/prefixshadow/atlas",
+                              "top": true
+                            }
+                          },
+                          "lbrace": {
+                            "file": "atlas.go",
+                            "line": 6,
+                            "column": 45,
+                            "offset": 166
+                          },
+                          "elts": [
+                            {
+                              "node": "KeyValueExpr",
+                              "key": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "atlas.go",
+                                  "line": 6,
+                                  "column": 46,
+                                  "offset": 167
+                                },
+                                "name": "Name",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "Name",
+                                  "kind": "field",
+                                  "type": 2,
+                                  "decl": "atlas.go:107",
+                                  "pkg": "g2d.test/prefixshadow/atlas"
+                                }
+                              },
+                              "colon": {
+                                "file": "atlas.go",
+                                "line": 6,
+                                "column": 50,
+                                "offset": 171
+                              },
+                              "value": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "atlas.go",
+                                  "line": 6,
+                                  "column": 52,
+                                  "offset": 173
+                                },
+                                "name": "name",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "name",
+                                  "kind": "var"
+                                },
+                                "$type": 2,
+                                "$obj": {
+                                  "name": "name",
+                                  "kind": "var",
+                                  "type": 2,
+                                  "decl": "atlas.go:133",
+                                  "pkg": "g2d.test/prefixshadow/atlas"
+                                }
+                              }
+                            }
+                          ],
+                          "rbrace": {
+                            "file": "atlas.go",
+                            "line": 6,
+                            "column": 56,
+                            "offset": 177
+                          },
+                          "incomplete": false,
+                          "$type": 0
+                        }
+                      ]
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "atlas.go",
+                    "line": 6,
+                    "column": 58,
+                    "offset": 179
+                  }
+                }
+              }
+            ],
+            "fileStart": {
+              "file": "atlas.go",
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "fileEnd": {
+              "file": "atlas.go",
+              "line": 6,
+              "column": 60,
+              "offset": 181
+            },
+            "scope": null,
+            "imports": null,
+            "unresolved": [
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "atlas.go",
+                  "line": 4,
+                  "column": 25,
+                  "offset": 112
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 2,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 2
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "atlas.go",
+                  "line": 6,
+                  "column": 17,
+                  "offset": 138
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 2,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 2
+                }
+              }
+            ],
+            "comments": [
+              {
+                "node": "CommentGroup",
+                "list": [
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "atlas.go",
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "text": "// Package atlas tem o mesmo nome de um campo e de um parâmetro do obj."
+                  }
+                ]
+              }
+            ],
+            "goVersion": ""
+          }
+        }
+      ],
+      "imports": null,
+      "typeTable": [
+        {
+          "kind": "named",
+          "pkg": "g2d.test/prefixshadow/atlas",
+          "name": "Atlas",
+          "underlying": 1,
+          "methods": []
+        },
+        {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "Name",
+              "type": 2,
+              "embedded": false,
+              "tag": ""
+            }
+          ]
+        },
+        {
+          "kind": "basic",
+          "name": "string"
+        },
+        {
+          "kind": "func",
+          "params": [
+            2
+          ],
+          "results": [
+            0
+          ],
+          "variadic": false
+        }
+      ],
+      "implements": null,
+      "initOrder": [],
+      "stdlibUsage": [],
+      "reflectUsage": null,
+      "module": {
+        "path": "g2d.test/prefixshadow"
+      }
+    },
+    {
+      "path": "g2d.test/prefixshadow/cmd",
+      "name": "main",
+      "files": [
+        {
+          "path": "main.go",
+          "ast": {
+            "node": "File",
+            "doc": null,
+            "package": {
+              "file": "main.go",
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "name": {
+              "node": "Ident",
+              "namePos": {
+                "file": "main.go",
+                "line": 1,
+                "column": 9,
+                "offset": 8
+              },
+              "name": "main",
+              "obj": null
+            },
+            "decls": [
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "main.go",
+                  "line": 3,
+                  "column": 1,
+                  "offset": 14
+                },
+                "tok": "import",
+                "lparen": {
+                  "file": "main.go",
+                  "line": 3,
+                  "column": 8,
+                  "offset": 21
+                },
+                "specs": [
+                  {
+                    "node": "ImportSpec",
+                    "doc": null,
+                    "name": null,
+                    "path": {
+                      "node": "BasicLit",
+                      "valuePos": {
+                        "file": "main.go",
+                        "line": 4,
+                        "column": 2,
+                        "offset": 24
+                      },
+                      "valueEnd": {
+                        "file": "main.go",
+                        "line": 4,
+                        "column": 7,
+                        "offset": 29
+                      },
+                      "kind": "STRING",
+                      "value": "\"fmt\""
+                    },
+                    "comment": null,
+                    "endPos": null
+                  },
+                  {
+                    "node": "ImportSpec",
+                    "doc": null,
+                    "name": null,
+                    "path": {
+                      "node": "BasicLit",
+                      "valuePos": {
+                        "file": "main.go",
+                        "line": 6,
+                        "column": 2,
+                        "offset": 32
+                      },
+                      "valueEnd": {
+                        "file": "main.go",
+                        "line": 6,
+                        "column": 31,
+                        "offset": 61
+                      },
+                      "kind": "STRING",
+                      "value": "\"g2d.test/prefixshadow/atlas\""
+                    },
+                    "comment": null,
+                    "endPos": null
+                  },
+                  {
+                    "node": "ImportSpec",
+                    "doc": null,
+                    "name": null,
+                    "path": {
+                      "node": "BasicLit",
+                      "valuePos": {
+                        "file": "main.go",
+                        "line": 7,
+                        "column": 2,
+                        "offset": 63
+                      },
+                      "valueEnd": {
+                        "file": "main.go",
+                        "line": 7,
+                        "column": 29,
+                        "offset": 90
+                      },
+                      "kind": "STRING",
+                      "value": "\"g2d.test/prefixshadow/obj\""
+                    },
+                    "comment": null,
+                    "endPos": null
+                  },
+                  {
+                    "node": "ImportSpec",
+                    "doc": null,
+                    "name": null,
+                    "path": {
+                      "node": "BasicLit",
+                      "valuePos": {
+                        "file": "main.go",
+                        "line": 8,
+                        "column": 2,
+                        "offset": 92
+                      },
+                      "valueEnd": {
+                        "file": "main.go",
+                        "line": 8,
+                        "column": 29,
+                        "offset": 119
+                      },
+                      "kind": "STRING",
+                      "value": "\"g2d.test/prefixshadow/tok\""
+                    },
+                    "comment": null,
+                    "endPos": null
+                  }
+                ],
+                "rparen": {
+                  "file": "main.go",
+                  "line": 9,
+                  "column": 1,
+                  "offset": 120
+                }
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "main.go",
+                    "line": 11,
+                    "column": 6,
+                    "offset": 128
+                  },
+                  "name": "main",
+                  "obj": {
+                    "node": "Object",
+                    "name": "main",
+                    "kind": "func"
+                  },
+                  "$obj": {
+                    "name": "main",
+                    "kind": "func",
+                    "def": true,
+                    "type": 0,
+                    "decl": "main.go:128",
+                    "pkg": "g2d.test/prefixshadow/cmd",
+                    "top": true
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "main.go",
+                    "line": 11,
+                    "column": 1,
+                    "offset": 123
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "main.go",
+                      "line": 11,
+                      "column": 10,
+                      "offset": 132
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "main.go",
+                      "line": 11,
+                      "column": 11,
+                      "offset": 133
+                    }
+                  },
+                  "results": null
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "main.go",
+                    "line": 11,
+                    "column": 13,
+                    "offset": 135
+                  },
+                  "list": [
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "main.go",
+                            "line": 12,
+                            "column": 2,
+                            "offset": 138
+                          },
+                          "name": "t",
+                          "obj": {
+                            "node": "Object",
+                            "name": "t",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "t",
+                            "kind": "var",
+                            "def": true,
+                            "type": 1,
+                            "decl": "main.go:138",
+                            "pkg": "g2d.test/prefixshadow/cmd"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "main.go",
+                        "line": 12,
+                        "column": 4,
+                        "offset": 140
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "UnaryExpr",
+                          "opPos": {
+                            "file": "main.go",
+                            "line": 12,
+                            "column": 7,
+                            "offset": 143
+                          },
+                          "op": "\u0026",
+                          "x": {
+                            "node": "CompositeLit",
+                            "type": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "main.go",
+                                  "line": 12,
+                                  "column": 8,
+                                  "offset": 144
+                                },
+                                "name": "tok",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "tok",
+                                  "kind": "package",
+                                  "pkg": "g2d.test/prefixshadow/tok"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "main.go",
+                                  "line": 12,
+                                  "column": 12,
+                                  "offset": 148
+                                },
+                                "name": "Token",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "Token",
+                                  "kind": "type",
+                                  "type": 2,
+                                  "decl": "tok.go:159",
+                                  "pkg": "g2d.test/prefixshadow/tok",
+                                  "top": true
+                                }
+                              },
+                              "$type": 2,
+                              "$isType": true
+                            },
+                            "lbrace": {
+                              "file": "main.go",
+                              "line": 12,
+                              "column": 17,
+                              "offset": 153
+                            },
+                            "elts": [
+                              {
+                                "node": "KeyValueExpr",
+                                "key": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "main.go",
+                                    "line": 12,
+                                    "column": 18,
+                                    "offset": 154
+                                  },
+                                  "name": "Type",
+                                  "obj": null,
+                                  "$obj": {
+                                    "name": "Type",
+                                    "kind": "field",
+                                    "type": 4,
+                                    "decl": "tok.go:175",
+                                    "pkg": "g2d.test/prefixshadow/tok"
+                                  }
+                                },
+                                "colon": {
+                                  "file": "main.go",
+                                  "line": 12,
+                                  "column": 22,
+                                  "offset": 158
+                                },
+                                "value": {
+                                  "node": "SelectorExpr",
+                                  "x": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "main.go",
+                                      "line": 12,
+                                      "column": 24,
+                                      "offset": 160
+                                    },
+                                    "name": "tok",
+                                    "obj": null,
+                                    "$obj": {
+                                      "name": "tok",
+                                      "kind": "package",
+                                      "pkg": "g2d.test/prefixshadow/tok"
+                                    }
+                                  },
+                                  "sel": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "main.go",
+                                      "line": 12,
+                                      "column": 28,
+                                      "offset": 164
+                                    },
+                                    "name": "TString",
+                                    "obj": null,
+                                    "$obj": {
+                                      "name": "TString",
+                                      "kind": "const",
+                                      "type": 4,
+                                      "decl": "tok.go:127",
+                                      "pkg": "g2d.test/prefixshadow/tok",
+                                      "top": true,
+                                      "value": {
+                                        "kind": "int",
+                                        "value": "115"
+                                      }
+                                    }
+                                  },
+                                  "$type": 4,
+                                  "$value": {
+                                    "kind": "int",
+                                    "value": "115"
+                                  }
+                                }
+                              },
+                              {
+                                "node": "KeyValueExpr",
+                                "key": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "main.go",
+                                    "line": 12,
+                                    "column": 37,
+                                    "offset": 173
+                                  },
+                                  "name": "Str",
+                                  "obj": null,
+                                  "$obj": {
+                                    "name": "Str",
+                                    "kind": "field",
+                                    "type": 6,
+                                    "decl": "tok.go:191",
+                                    "pkg": "g2d.test/prefixshadow/tok"
+                                  }
+                                },
+                                "colon": {
+                                  "file": "main.go",
+                                  "line": 12,
+                                  "column": 40,
+                                  "offset": 176
+                                },
+                                "value": {
+                                  "node": "BasicLit",
+                                  "valuePos": {
+                                    "file": "main.go",
+                                    "line": 12,
+                                    "column": 42,
+                                    "offset": 178
+                                  },
+                                  "valueEnd": {
+                                    "file": "main.go",
+                                    "line": 12,
+                                    "column": 45,
+                                    "offset": 181
+                                  },
+                                  "kind": "STRING",
+                                  "value": "\"x\"",
+                                  "$type": 6,
+                                  "$value": {
+                                    "kind": "string",
+                                    "value": "x"
+                                  }
+                                }
+                              }
+                            ],
+                            "rbrace": {
+                              "file": "main.go",
+                              "line": 12,
+                              "column": 45,
+                              "offset": 181
+                            },
+                            "incomplete": false,
+                            "$type": 2
+                          },
+                          "$type": 1
+                        }
+                      ]
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "main.go",
+                              "line": 13,
+                              "column": 2,
+                              "offset": 184
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "main.go",
+                              "line": 13,
+                              "column": 6,
+                              "offset": 188
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 7,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 7
+                        },
+                        "lparen": {
+                          "file": "main.go",
+                          "line": 13,
+                          "column": 13,
+                          "offset": 195
+                        },
+                        "args": [
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "main.go",
+                                  "line": 13,
+                                  "column": 14,
+                                  "offset": 196
+                                },
+                                "name": "obj",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "obj",
+                                  "kind": "package",
+                                  "pkg": "g2d.test/prefixshadow/obj"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "main.go",
+                                  "line": 13,
+                                  "column": 18,
+                                  "offset": 200
+                                },
+                                "name": "Reset",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "Reset",
+                                  "kind": "func",
+                                  "type": 14,
+                                  "decl": "obj.go:528",
+                                  "pkg": "g2d.test/prefixshadow/obj",
+                                  "top": true
+                                }
+                              },
+                              "$type": 14
+                            },
+                            "lparen": {
+                              "file": "main.go",
+                              "line": 13,
+                              "column": 23,
+                              "offset": 205
+                            },
+                            "args": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "main.go",
+                                  "line": 13,
+                                  "column": 24,
+                                  "offset": 206
+                                },
+                                "name": "t",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "t",
+                                  "kind": "var"
+                                },
+                                "$type": 1,
+                                "$obj": {
+                                  "name": "t",
+                                  "kind": "var",
+                                  "type": 1,
+                                  "decl": "main.go:138",
+                                  "pkg": "g2d.test/prefixshadow/cmd"
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "main.go",
+                              "line": 13,
+                              "column": 25,
+                              "offset": 207
+                            },
+                            "$type": 15
+                          },
+                          {
+                            "node": "BinaryExpr",
+                            "x": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "main.go",
+                                  "line": 13,
+                                  "column": 28,
+                                  "offset": 210
+                                },
+                                "name": "t",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "t",
+                                  "kind": "var"
+                                },
+                                "$type": 1,
+                                "$obj": {
+                                  "name": "t",
+                                  "kind": "var",
+                                  "type": 1,
+                                  "decl": "main.go:138",
+                                  "pkg": "g2d.test/prefixshadow/cmd"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "main.go",
+                                  "line": 13,
+                                  "column": 30,
+                                  "offset": 212
+                                },
+                                "name": "Type",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "Type",
+                                  "kind": "field",
+                                  "type": 4,
+                                  "decl": "tok.go:175",
+                                  "pkg": "g2d.test/prefixshadow/tok"
+                                }
+                              },
+                              "$type": 4,
+                              "$sel": {
+                                "kind": "field",
+                                "recv": 1,
+                                "index": [
+                                  0
+                                ],
+                                "indirect": true
+                              }
+                            },
+                            "opPos": {
+                              "file": "main.go",
+                              "line": 13,
+                              "column": 35,
+                              "offset": 217
+                            },
+                            "op": "==",
+                            "y": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "main.go",
+                                  "line": 13,
+                                  "column": 38,
+                                  "offset": 220
+                                },
+                                "name": "tok",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "tok",
+                                  "kind": "package",
+                                  "pkg": "g2d.test/prefixshadow/tok"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "main.go",
+                                  "line": 13,
+                                  "column": 42,
+                                  "offset": 224
+                                },
+                                "name": "TNull",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "TNull",
+                                  "kind": "const",
+                                  "type": 4,
+                                  "decl": "tok.go:102",
+                                  "pkg": "g2d.test/prefixshadow/tok",
+                                  "top": true,
+                                  "value": {
+                                    "kind": "int",
+                                    "value": "48"
+                                  }
+                                }
+                              },
+                              "$type": 4,
+                              "$value": {
+                                "kind": "int",
+                                "value": "48"
+                              }
+                            },
+                            "$type": 15
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "main.go",
+                                  "line": 13,
+                                  "column": 49,
+                                  "offset": 231
+                                },
+                                "name": "obj",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "obj",
+                                  "kind": "package",
+                                  "pkg": "g2d.test/prefixshadow/obj"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "main.go",
+                                  "line": 13,
+                                  "column": 53,
+                                  "offset": 235
+                                },
+                                "name": "Reset",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "Reset",
+                                  "kind": "func",
+                                  "type": 14,
+                                  "decl": "obj.go:528",
+                                  "pkg": "g2d.test/prefixshadow/obj",
+                                  "top": true
+                                }
+                              },
+                              "$type": 14
+                            },
+                            "lparen": {
+                              "file": "main.go",
+                              "line": 13,
+                              "column": 58,
+                              "offset": 240
+                            },
+                            "args": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "main.go",
+                                  "line": 13,
+                                  "column": 59,
+                                  "offset": 241
+                                },
+                                "name": "t",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "t",
+                                  "kind": "var"
+                                },
+                                "$type": 1,
+                                "$obj": {
+                                  "name": "t",
+                                  "kind": "var",
+                                  "type": 1,
+                                  "decl": "main.go:138",
+                                  "pkg": "g2d.test/prefixshadow/cmd"
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "main.go",
+                              "line": 13,
+                              "column": 60,
+                              "offset": 242
+                            },
+                            "$type": 15
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "main.go",
+                          "line": 13,
+                          "column": 61,
+                          "offset": 243
+                        },
+                        "$type": 16
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "main.go",
+                              "line": 14,
+                              "column": 2,
+                              "offset": 246
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "main.go",
+                              "line": 14,
+                              "column": 6,
+                              "offset": 250
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 7,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 7
+                        },
+                        "lparen": {
+                          "file": "main.go",
+                          "line": 14,
+                          "column": 13,
+                          "offset": 257
+                        },
+                        "args": [
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "CallExpr",
+                                "fun": {
+                                  "node": "SelectorExpr",
+                                  "x": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "main.go",
+                                      "line": 14,
+                                      "column": 14,
+                                      "offset": 258
+                                    },
+                                    "name": "obj",
+                                    "obj": null,
+                                    "$obj": {
+                                      "name": "obj",
+                                      "kind": "package",
+                                      "pkg": "g2d.test/prefixshadow/obj"
+                                    }
+                                  },
+                                  "sel": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "main.go",
+                                      "line": 14,
+                                      "column": 18,
+                                      "offset": 262
+                                    },
+                                    "name": "NewSlab",
+                                    "obj": null,
+                                    "$obj": {
+                                      "name": "NewSlab",
+                                      "kind": "func",
+                                      "type": 17,
+                                      "decl": "obj.go:413",
+                                      "pkg": "g2d.test/prefixshadow/obj",
+                                      "top": true
+                                    }
+                                  },
+                                  "$type": 17
+                                },
+                                "lparen": {
+                                  "file": "main.go",
+                                  "line": 14,
+                                  "column": 25,
+                                  "offset": 269
+                                },
+                                "args": [
+                                  {
+                                    "node": "CallExpr",
+                                    "fun": {
+                                      "node": "SelectorExpr",
+                                      "x": {
+                                        "node": "Ident",
+                                        "namePos": {
+                                          "file": "main.go",
+                                          "line": 14,
+                                          "column": 26,
+                                          "offset": 270
+                                        },
+                                        "name": "atlas",
+                                        "obj": null,
+                                        "$obj": {
+                                          "name": "atlas",
+                                          "kind": "package",
+                                          "pkg": "g2d.test/prefixshadow/atlas"
+                                        }
+                                      },
+                                      "sel": {
+                                        "node": "Ident",
+                                        "namePos": {
+                                          "file": "main.go",
+                                          "line": 14,
+                                          "column": 32,
+                                          "offset": 276
+                                        },
+                                        "name": "Build",
+                                        "obj": null,
+                                        "$obj": {
+                                          "name": "Build",
+                                          "kind": "func",
+                                          "type": 24,
+                                          "decl": "atlas.go:127",
+                                          "pkg": "g2d.test/prefixshadow/atlas",
+                                          "top": true
+                                        }
+                                      },
+                                      "$type": 24
+                                    },
+                                    "lparen": {
+                                      "file": "main.go",
+                                      "line": 14,
+                                      "column": 37,
+                                      "offset": 281
+                                    },
+                                    "args": [
+                                      {
+                                        "node": "BasicLit",
+                                        "valuePos": {
+                                          "file": "main.go",
+                                          "line": 14,
+                                          "column": 38,
+                                          "offset": 282
+                                        },
+                                        "valueEnd": {
+                                          "file": "main.go",
+                                          "line": 14,
+                                          "column": 41,
+                                          "offset": 285
+                                        },
+                                        "kind": "STRING",
+                                        "value": "\"a\"",
+                                        "$type": 6,
+                                        "$value": {
+                                          "kind": "string",
+                                          "value": "a"
+                                        }
+                                      }
+                                    ],
+                                    "ellipsis": null,
+                                    "rparen": {
+                                      "file": "main.go",
+                                      "line": 14,
+                                      "column": 41,
+                                      "offset": 285
+                                    },
+                                    "$type": 18
+                                  }
+                                ],
+                                "ellipsis": null,
+                                "rparen": {
+                                  "file": "main.go",
+                                  "line": 14,
+                                  "column": 42,
+                                  "offset": 286
+                                },
+                                "$type": 20
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "main.go",
+                                  "line": 14,
+                                  "column": 44,
+                                  "offset": 288
+                                },
+                                "name": "Name",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "Name",
+                                  "kind": "method",
+                                  "type": 13,
+                                  "decl": "obj.go:484",
+                                  "pkg": "g2d.test/prefixshadow/obj"
+                                }
+                              },
+                              "$type": 13,
+                              "$sel": {
+                                "kind": "method",
+                                "recv": 20,
+                                "index": [
+                                  0
+                                ],
+                                "indirect": true
+                              }
+                            },
+                            "lparen": {
+                              "file": "main.go",
+                              "line": 14,
+                              "column": 48,
+                              "offset": 292
+                            },
+                            "args": null,
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "main.go",
+                              "line": 14,
+                              "column": 49,
+                              "offset": 293
+                            },
+                            "$type": 6
+                          },
+                          {
+                            "node": "BinaryExpr",
+                            "x": {
+                              "node": "CallExpr",
+                              "fun": {
+                                "node": "SelectorExpr",
+                                "x": {
+                                  "node": "CallExpr",
+                                  "fun": {
+                                    "node": "SelectorExpr",
+                                    "x": {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "main.go",
+                                        "line": 14,
+                                        "column": 52,
+                                        "offset": 296
+                                      },
+                                      "name": "obj",
+                                      "obj": null,
+                                      "$obj": {
+                                        "name": "obj",
+                                        "kind": "package",
+                                        "pkg": "g2d.test/prefixshadow/obj"
+                                      }
+                                    },
+                                    "sel": {
+                                      "node": "Ident",
+                                      "namePos": {
+                                        "file": "main.go",
+                                        "line": 14,
+                                        "column": 56,
+                                        "offset": 300
+                                      },
+                                      "name": "Empty",
+                                      "obj": null,
+                                      "$obj": {
+                                        "name": "Empty",
+                                        "kind": "func",
+                                        "type": 25,
+                                        "decl": "obj.go:637",
+                                        "pkg": "g2d.test/prefixshadow/obj",
+                                        "top": true
+                                      }
+                                    },
+                                    "$type": 25
+                                  },
+                                  "lparen": {
+                                    "file": "main.go",
+                                    "line": 14,
+                                    "column": 61,
+                                    "offset": 305
+                                  },
+                                  "args": null,
+                                  "ellipsis": null,
+                                  "rparen": {
+                                    "file": "main.go",
+                                    "line": 14,
+                                    "column": 62,
+                                    "offset": 306
+                                  },
+                                  "$type": 21
+                                },
+                                "sel": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "main.go",
+                                    "line": 14,
+                                    "column": 64,
+                                    "offset": 308
+                                  },
+                                  "name": "Name",
+                                  "obj": null,
+                                  "$obj": {
+                                    "name": "Name",
+                                    "kind": "method",
+                                    "type": 13,
+                                    "decl": "obj.go:484",
+                                    "pkg": "g2d.test/prefixshadow/obj"
+                                  }
+                                },
+                                "$type": 13,
+                                "$sel": {
+                                  "kind": "method",
+                                  "recv": 21,
+                                  "index": [
+                                    0
+                                  ],
+                                  "indirect": false
+                                }
+                              },
+                              "lparen": {
+                                "file": "main.go",
+                                "line": 14,
+                                "column": 68,
+                                "offset": 312
+                              },
+                              "args": null,
+                              "ellipsis": null,
+                              "rparen": {
+                                "file": "main.go",
+                                "line": 14,
+                                "column": 69,
+                                "offset": 313
+                              },
+                              "$type": 6
+                            },
+                            "opPos": {
+                              "file": "main.go",
+                              "line": 14,
+                              "column": 71,
+                              "offset": 315
+                            },
+                            "op": "==",
+                            "y": {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "main.go",
+                                "line": 14,
+                                "column": 74,
+                                "offset": 318
+                              },
+                              "valueEnd": {
+                                "file": "main.go",
+                                "line": 14,
+                                "column": 76,
+                                "offset": 320
+                              },
+                              "kind": "STRING",
+                              "value": "\"\"",
+                              "$type": 6,
+                              "$value": {
+                                "kind": "string",
+                                "value": ""
+                              }
+                            },
+                            "$type": 15
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "main.go",
+                          "line": 14,
+                          "column": 76,
+                          "offset": 320
+                        },
+                        "$type": 16
+                      }
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "main.go",
+                    "line": 15,
+                    "column": 1,
+                    "offset": 322
+                  }
+                }
+              }
+            ],
+            "fileStart": {
+              "file": "main.go",
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "fileEnd": {
+              "file": "main.go",
+              "line": 15,
+              "column": 3,
+              "offset": 324
+            },
+            "scope": null,
+            "imports": [
+              {
+                "node": "ImportSpec",
+                "doc": null,
+                "name": null,
+                "path": {
+                  "node": "BasicLit",
+                  "valuePos": {
+                    "file": "main.go",
+                    "line": 4,
+                    "column": 2,
+                    "offset": 24
+                  },
+                  "valueEnd": {
+                    "file": "main.go",
+                    "line": 4,
+                    "column": 7,
+                    "offset": 29
+                  },
+                  "kind": "STRING",
+                  "value": "\"fmt\""
+                },
+                "comment": null,
+                "endPos": null
+              },
+              {
+                "node": "ImportSpec",
+                "doc": null,
+                "name": null,
+                "path": {
+                  "node": "BasicLit",
+                  "valuePos": {
+                    "file": "main.go",
+                    "line": 6,
+                    "column": 2,
+                    "offset": 32
+                  },
+                  "valueEnd": {
+                    "file": "main.go",
+                    "line": 6,
+                    "column": 31,
+                    "offset": 61
+                  },
+                  "kind": "STRING",
+                  "value": "\"g2d.test/prefixshadow/atlas\""
+                },
+                "comment": null,
+                "endPos": null
+              },
+              {
+                "node": "ImportSpec",
+                "doc": null,
+                "name": null,
+                "path": {
+                  "node": "BasicLit",
+                  "valuePos": {
+                    "file": "main.go",
+                    "line": 7,
+                    "column": 2,
+                    "offset": 63
+                  },
+                  "valueEnd": {
+                    "file": "main.go",
+                    "line": 7,
+                    "column": 29,
+                    "offset": 90
+                  },
+                  "kind": "STRING",
+                  "value": "\"g2d.test/prefixshadow/obj\""
+                },
+                "comment": null,
+                "endPos": null
+              },
+              {
+                "node": "ImportSpec",
+                "doc": null,
+                "name": null,
+                "path": {
+                  "node": "BasicLit",
+                  "valuePos": {
+                    "file": "main.go",
+                    "line": 8,
+                    "column": 2,
+                    "offset": 92
+                  },
+                  "valueEnd": {
+                    "file": "main.go",
+                    "line": 8,
+                    "column": 29,
+                    "offset": 119
+                  },
+                  "kind": "STRING",
+                  "value": "\"g2d.test/prefixshadow/tok\""
+                },
+                "comment": null,
+                "endPos": null
+              }
+            ],
+            "unresolved": [
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "main.go",
+                  "line": 12,
+                  "column": 8,
+                  "offset": 144
+                },
+                "name": "tok",
+                "obj": null,
+                "$obj": {
+                  "name": "tok",
+                  "kind": "package",
+                  "pkg": "g2d.test/prefixshadow/tok"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "main.go",
+                  "line": 12,
+                  "column": 24,
+                  "offset": 160
+                },
+                "name": "tok",
+                "obj": null,
+                "$obj": {
+                  "name": "tok",
+                  "kind": "package",
+                  "pkg": "g2d.test/prefixshadow/tok"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "main.go",
+                  "line": 13,
+                  "column": 2,
+                  "offset": 184
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "main.go",
+                  "line": 13,
+                  "column": 14,
+                  "offset": 196
+                },
+                "name": "obj",
+                "obj": null,
+                "$obj": {
+                  "name": "obj",
+                  "kind": "package",
+                  "pkg": "g2d.test/prefixshadow/obj"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "main.go",
+                  "line": 13,
+                  "column": 38,
+                  "offset": 220
+                },
+                "name": "tok",
+                "obj": null,
+                "$obj": {
+                  "name": "tok",
+                  "kind": "package",
+                  "pkg": "g2d.test/prefixshadow/tok"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "main.go",
+                  "line": 13,
+                  "column": 49,
+                  "offset": 231
+                },
+                "name": "obj",
+                "obj": null,
+                "$obj": {
+                  "name": "obj",
+                  "kind": "package",
+                  "pkg": "g2d.test/prefixshadow/obj"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "main.go",
+                  "line": 14,
+                  "column": 2,
+                  "offset": 246
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "main.go",
+                  "line": 14,
+                  "column": 14,
+                  "offset": 258
+                },
+                "name": "obj",
+                "obj": null,
+                "$obj": {
+                  "name": "obj",
+                  "kind": "package",
+                  "pkg": "g2d.test/prefixshadow/obj"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "main.go",
+                  "line": 14,
+                  "column": 26,
+                  "offset": 270
+                },
+                "name": "atlas",
+                "obj": null,
+                "$obj": {
+                  "name": "atlas",
+                  "kind": "package",
+                  "pkg": "g2d.test/prefixshadow/atlas"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "main.go",
+                  "line": 14,
+                  "column": 52,
+                  "offset": 296
+                },
+                "name": "obj",
+                "obj": null,
+                "$obj": {
+                  "name": "obj",
+                  "kind": "package",
+                  "pkg": "g2d.test/prefixshadow/obj"
+                }
+              }
+            ],
+            "comments": null,
+            "goVersion": ""
+          }
+        }
+      ],
+      "imports": [
+        {
+          "path": "fmt",
+          "name": "fmt"
+        },
+        {
+          "path": "g2d.test/prefixshadow/atlas",
+          "name": "atlas"
+        },
+        {
+          "path": "g2d.test/prefixshadow/obj",
+          "name": "obj"
+        },
+        {
+          "path": "g2d.test/prefixshadow/tok",
+          "name": "tok"
+        }
+      ],
+      "typeTable": [
+        {
+          "kind": "func",
+          "params": [],
+          "results": [],
+          "variadic": false
+        },
+        {
+          "kind": "pointer",
+          "elem": 2
+        },
+        {
+          "kind": "named",
+          "pkg": "g2d.test/prefixshadow/tok",
+          "name": "Token",
+          "underlying": 3,
+          "methods": []
+        },
+        {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "Type",
+              "type": 4,
+              "embedded": false,
+              "tag": ""
+            },
+            {
+              "name": "Str",
+              "type": 6,
+              "embedded": false,
+              "tag": ""
+            }
+          ]
+        },
+        {
+          "kind": "named",
+          "pkg": "g2d.test/prefixshadow/tok",
+          "name": "TokenType",
+          "underlying": 5,
+          "methods": []
+        },
+        {
+          "kind": "basic",
+          "name": "byte"
+        },
+        {
+          "kind": "basic",
+          "name": "string"
+        },
+        {
+          "kind": "func",
+          "params": [
+            8
+          ],
+          "results": [
+            10,
+            11
+          ],
+          "variadic": true
+        },
+        {
+          "kind": "slice",
+          "elem": 9
+        },
+        {
+          "kind": "interface",
+          "methods": [],
+          "embeddeds": []
+        },
+        {
+          "kind": "basic",
+          "name": "int"
+        },
+        {
+          "kind": "named",
+          "pkg": "",
+          "name": "error",
+          "underlying": 12
+        },
+        {
+          "kind": "interface",
+          "methods": [
+            {
+              "name": "Error",
+              "type": 13
+            }
+          ],
+          "embeddeds": []
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            6
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            1
+          ],
+          "results": [
+            15
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "basic",
+          "name": "bool"
+        },
+        {
+          "kind": "tuple",
+          "elems": [
+            10,
+            11
+          ]
+        },
+        {
+          "kind": "func",
+          "params": [
+            18
+          ],
+          "results": [
+            20
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "named",
+          "pkg": "g2d.test/prefixshadow/atlas",
+          "name": "Atlas",
+          "underlying": 19,
+          "methods": []
+        },
+        {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "Name",
+              "type": 6,
+              "embedded": false,
+              "tag": ""
+            }
+          ]
+        },
+        {
+          "kind": "pointer",
+          "elem": 21
+        },
+        {
+          "kind": "named",
+          "pkg": "g2d.test/prefixshadow/obj",
+          "name": "Slab",
+          "underlying": 22,
+          "methods": [
+            {
+              "name": "Name",
+              "type": 13,
+              "index": [
+                0
+              ],
+              "ptr": false
+            }
+          ]
+        },
+        {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "atlas",
+              "type": 18,
+              "embedded": false,
+              "tag": "",
+              "pkg": "g2d.test/prefixshadow/obj"
+            },
+            {
+              "name": "rows",
+              "type": 23,
+              "embedded": false,
+              "tag": "",
+              "pkg": "g2d.test/prefixshadow/obj"
+            }
+          ]
+        },
+        {
+          "kind": "slice",
+          "elem": 6
+        },
+        {
+          "kind": "func",
+          "params": [
+            6
+          ],
+          "results": [
+            18
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            21
+          ],
+          "variadic": false
+        }
+      ],
+      "implements": null,
+      "initOrder": [],
+      "stdlibUsage": [
+        "fmt.Println"
+      ],
+      "reflectUsage": null,
+      "module": {
+        "path": "g2d.test/prefixshadow"
+      }
+    },
+    {
+      "path": "g2d.test/prefixshadow/obj",
+      "name": "obj",
+      "files": [
+        {
+          "path": "obj.go",
+          "ast": {
+            "node": "File",
+            "doc": {
+              "node": "CommentGroup",
+              "list": [
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "obj.go",
+                    "line": 1,
+                    "column": 1,
+                    "offset": 0
+                  },
+                  "text": "// Package obj: parâmetro `tok` e campo `atlas` com o nome de pacotes"
+                },
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "obj.go",
+                    "line": 2,
+                    "column": 1,
+                    "offset": 71
+                  },
+                  "text": "// importados. O g2d cita o pacote onde o Go não cita (constante dobrada"
+                },
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "obj.go",
+                    "line": 3,
+                    "column": 1,
+                    "offset": 145
+                  },
+                  "text": "// `tok.TokenType(48)`, zero value do campo no construtor): o prefixo do"
+                },
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "obj.go",
+                    "line": 4,
+                    "column": 1,
+                    "offset": 218
+                  },
+                  "text": "// import não pode ser sombreado pelo local."
+                }
+              ]
+            },
+            "package": {
+              "file": "obj.go",
+              "line": 5,
+              "column": 1,
+              "offset": 264
+            },
+            "name": {
+              "node": "Ident",
+              "namePos": {
+                "file": "obj.go",
+                "line": 5,
+                "column": 9,
+                "offset": 272
+              },
+              "name": "obj",
+              "obj": null
+            },
+            "decls": [
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "obj.go",
+                  "line": 7,
+                  "column": 1,
+                  "offset": 277
+                },
+                "tok": "import",
+                "lparen": {
+                  "file": "obj.go",
+                  "line": 7,
+                  "column": 8,
+                  "offset": 284
+                },
+                "specs": [
+                  {
+                    "node": "ImportSpec",
+                    "doc": null,
+                    "name": null,
+                    "path": {
+                      "node": "BasicLit",
+                      "valuePos": {
+                        "file": "obj.go",
+                        "line": 8,
+                        "column": 2,
+                        "offset": 287
+                      },
+                      "valueEnd": {
+                        "file": "obj.go",
+                        "line": 8,
+                        "column": 31,
+                        "offset": 316
+                      },
+                      "kind": "STRING",
+                      "value": "\"g2d.test/prefixshadow/atlas\""
+                    },
+                    "comment": null,
+                    "endPos": null
+                  },
+                  {
+                    "node": "ImportSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "obj.go",
+                        "line": 9,
+                        "column": 2,
+                        "offset": 318
+                      },
+                      "name": ".",
+                      "obj": null,
+                      "$obj": {
+                        "name": ".",
+                        "kind": "package",
+                        "def": true,
+                        "pkg": "g2d.test/prefixshadow/tok"
+                      }
+                    },
+                    "path": {
+                      "node": "BasicLit",
+                      "valuePos": {
+                        "file": "obj.go",
+                        "line": 9,
+                        "column": 4,
+                        "offset": 320
+                      },
+                      "valueEnd": {
+                        "file": "obj.go",
+                        "line": 9,
+                        "column": 31,
+                        "offset": 347
+                      },
+                      "kind": "STRING",
+                      "value": "\"g2d.test/prefixshadow/tok\""
+                    },
+                    "comment": null,
+                    "endPos": null
+                  }
+                ],
+                "rparen": {
+                  "file": "obj.go",
+                  "line": 10,
+                  "column": 1,
+                  "offset": 348
+                }
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "obj.go",
+                  "line": 12,
+                  "column": 1,
+                  "offset": 351
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "obj.go",
+                        "line": 12,
+                        "column": 6,
+                        "offset": 356
+                      },
+                      "name": "Slab",
+                      "obj": {
+                        "node": "Object",
+                        "name": "Slab",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "Slab",
+                        "kind": "type",
+                        "def": true,
+                        "type": 0,
+                        "decl": "obj.go:356",
+                        "pkg": "g2d.test/prefixshadow/obj",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "StructType",
+                      "struct": {
+                        "file": "obj.go",
+                        "line": 12,
+                        "column": 11,
+                        "offset": 361
+                      },
+                      "fields": {
+                        "node": "FieldList",
+                        "opening": {
+                          "file": "obj.go",
+                          "line": 12,
+                          "column": 18,
+                          "offset": 368
+                        },
+                        "list": [
+                          {
+                            "node": "Field",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "obj.go",
+                                  "line": 13,
+                                  "column": 2,
+                                  "offset": 371
+                                },
+                                "name": "atlas",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "atlas",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "atlas",
+                                  "kind": "field",
+                                  "def": true,
+                                  "type": 2,
+                                  "decl": "obj.go:371",
+                                  "pkg": "g2d.test/prefixshadow/obj"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "obj.go",
+                                  "line": 13,
+                                  "column": 8,
+                                  "offset": 377
+                                },
+                                "name": "atlas",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "atlas",
+                                  "kind": "package",
+                                  "pkg": "g2d.test/prefixshadow/atlas"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "obj.go",
+                                  "line": 13,
+                                  "column": 14,
+                                  "offset": 383
+                                },
+                                "name": "Atlas",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "Atlas",
+                                  "kind": "type",
+                                  "type": 2,
+                                  "decl": "atlas.go:93",
+                                  "pkg": "g2d.test/prefixshadow/atlas",
+                                  "top": true
+                                }
+                              },
+                              "$type": 2,
+                              "$isType": true
+                            },
+                            "tag": null,
+                            "comment": null
+                          },
+                          {
+                            "node": "Field",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "obj.go",
+                                  "line": 14,
+                                  "column": 2,
+                                  "offset": 390
+                                },
+                                "name": "rows",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "rows",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "rows",
+                                  "kind": "field",
+                                  "def": true,
+                                  "type": 5,
+                                  "decl": "obj.go:390",
+                                  "pkg": "g2d.test/prefixshadow/obj"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "ArrayType",
+                              "lbrack": {
+                                "file": "obj.go",
+                                "line": 14,
+                                "column": 8,
+                                "offset": 396
+                              },
+                              "len": null,
+                              "elt": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "obj.go",
+                                  "line": 14,
+                                  "column": 10,
+                                  "offset": 398
+                                },
+                                "name": "string",
+                                "obj": null,
+                                "$type": 4,
+                                "$isType": true,
+                                "$obj": {
+                                  "name": "string",
+                                  "kind": "type",
+                                  "type": 4
+                                }
+                              },
+                              "$type": 5,
+                              "$isType": true
+                            },
+                            "tag": null,
+                            "comment": null
+                          }
+                        ],
+                        "closing": {
+                          "file": "obj.go",
+                          "line": 15,
+                          "column": 1,
+                          "offset": 405
+                        }
+                      },
+                      "incomplete": false,
+                      "$type": 1,
+                      "$isType": true
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "obj.go",
+                    "line": 17,
+                    "column": 6,
+                    "offset": 413
+                  },
+                  "name": "NewSlab",
+                  "obj": {
+                    "node": "Object",
+                    "name": "NewSlab",
+                    "kind": "func"
+                  },
+                  "$obj": {
+                    "name": "NewSlab",
+                    "kind": "func",
+                    "def": true,
+                    "type": 7,
+                    "decl": "obj.go:413",
+                    "pkg": "g2d.test/prefixshadow/obj",
+                    "top": true
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "obj.go",
+                    "line": 17,
+                    "column": 1,
+                    "offset": 408
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "obj.go",
+                      "line": 17,
+                      "column": 13,
+                      "offset": 420
+                    },
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "obj.go",
+                              "line": 17,
+                              "column": 14,
+                              "offset": 421
+                            },
+                            "name": "a",
+                            "obj": {
+                              "node": "Object",
+                              "name": "a",
+                              "kind": "var"
+                            },
+                            "$obj": {
+                              "name": "a",
+                              "kind": "var",
+                              "def": true,
+                              "type": 2,
+                              "decl": "obj.go:421",
+                              "pkg": "g2d.test/prefixshadow/obj"
+                            }
+                          }
+                        ],
+                        "type": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "obj.go",
+                              "line": 17,
+                              "column": 16,
+                              "offset": 423
+                            },
+                            "name": "atlas",
+                            "obj": null,
+                            "$obj": {
+                              "name": "atlas",
+                              "kind": "package",
+                              "pkg": "g2d.test/prefixshadow/atlas"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "obj.go",
+                              "line": 17,
+                              "column": 22,
+                              "offset": 429
+                            },
+                            "name": "Atlas",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Atlas",
+                              "kind": "type",
+                              "type": 2,
+                              "decl": "atlas.go:93",
+                              "pkg": "g2d.test/prefixshadow/atlas",
+                              "top": true
+                            }
+                          },
+                          "$type": 2,
+                          "$isType": true
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": {
+                      "file": "obj.go",
+                      "line": 17,
+                      "column": 27,
+                      "offset": 434
+                    }
+                  },
+                  "results": {
+                    "node": "FieldList",
+                    "opening": null,
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": null,
+                        "type": {
+                          "node": "StarExpr",
+                          "star": {
+                            "file": "obj.go",
+                            "line": 17,
+                            "column": 29,
+                            "offset": 436
+                          },
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "obj.go",
+                              "line": 17,
+                              "column": 30,
+                              "offset": 437
+                            },
+                            "name": "Slab",
+                            "obj": {
+                              "node": "Object",
+                              "name": "Slab",
+                              "kind": "type"
+                            },
+                            "$type": 0,
+                            "$isType": true,
+                            "$obj": {
+                              "name": "Slab",
+                              "kind": "type",
+                              "type": 0,
+                              "decl": "obj.go:356",
+                              "pkg": "g2d.test/prefixshadow/obj",
+                              "top": true
+                            }
+                          },
+                          "$type": 8,
+                          "$isType": true
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": null
+                  }
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "obj.go",
+                    "line": 17,
+                    "column": 35,
+                    "offset": 442
+                  },
+                  "list": [
+                    {
+                      "node": "ReturnStmt",
+                      "return": {
+                        "file": "obj.go",
+                        "line": 17,
+                        "column": 37,
+                        "offset": 444
+                      },
+                      "results": [
+                        {
+                          "node": "UnaryExpr",
+                          "opPos": {
+                            "file": "obj.go",
+                            "line": 17,
+                            "column": 44,
+                            "offset": 451
+                          },
+                          "op": "\u0026",
+                          "x": {
+                            "node": "CompositeLit",
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "obj.go",
+                                "line": 17,
+                                "column": 45,
+                                "offset": 452
+                              },
+                              "name": "Slab",
+                              "obj": {
+                                "node": "Object",
+                                "name": "Slab",
+                                "kind": "type"
+                              },
+                              "$type": 0,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "Slab",
+                                "kind": "type",
+                                "type": 0,
+                                "decl": "obj.go:356",
+                                "pkg": "g2d.test/prefixshadow/obj",
+                                "top": true
+                              }
+                            },
+                            "lbrace": {
+                              "file": "obj.go",
+                              "line": 17,
+                              "column": 49,
+                              "offset": 456
+                            },
+                            "elts": [
+                              {
+                                "node": "KeyValueExpr",
+                                "key": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "obj.go",
+                                    "line": 17,
+                                    "column": 50,
+                                    "offset": 457
+                                  },
+                                  "name": "atlas",
+                                  "obj": null,
+                                  "$obj": {
+                                    "name": "atlas",
+                                    "kind": "field",
+                                    "type": 2,
+                                    "decl": "obj.go:371",
+                                    "pkg": "g2d.test/prefixshadow/obj"
+                                  }
+                                },
+                                "colon": {
+                                  "file": "obj.go",
+                                  "line": 17,
+                                  "column": 55,
+                                  "offset": 462
+                                },
+                                "value": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "obj.go",
+                                    "line": 17,
+                                    "column": 57,
+                                    "offset": 464
+                                  },
+                                  "name": "a",
+                                  "obj": {
+                                    "node": "Object",
+                                    "name": "a",
+                                    "kind": "var"
+                                  },
+                                  "$type": 2,
+                                  "$obj": {
+                                    "name": "a",
+                                    "kind": "var",
+                                    "type": 2,
+                                    "decl": "obj.go:421",
+                                    "pkg": "g2d.test/prefixshadow/obj"
+                                  }
+                                }
+                              }
+                            ],
+                            "rbrace": {
+                              "file": "obj.go",
+                              "line": 17,
+                              "column": 58,
+                              "offset": 465
+                            },
+                            "incomplete": false,
+                            "$type": 0
+                          },
+                          "$type": 8
+                        }
+                      ]
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "obj.go",
+                    "line": 17,
+                    "column": 60,
+                    "offset": 467
+                  }
+                }
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": {
+                  "node": "FieldList",
+                  "opening": {
+                    "file": "obj.go",
+                    "line": 19,
+                    "column": 6,
+                    "offset": 475
+                  },
+                  "list": [
+                    {
+                      "node": "Field",
+                      "doc": null,
+                      "names": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "obj.go",
+                            "line": 19,
+                            "column": 7,
+                            "offset": 476
+                          },
+                          "name": "s",
+                          "obj": {
+                            "node": "Object",
+                            "name": "s",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "s",
+                            "kind": "var",
+                            "def": true,
+                            "type": 0,
+                            "decl": "obj.go:476",
+                            "pkg": "g2d.test/prefixshadow/obj"
+                          }
+                        }
+                      ],
+                      "type": {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "obj.go",
+                          "line": 19,
+                          "column": 9,
+                          "offset": 478
+                        },
+                        "name": "Slab",
+                        "obj": {
+                          "node": "Object",
+                          "name": "Slab",
+                          "kind": "type"
+                        },
+                        "$type": 0,
+                        "$isType": true,
+                        "$obj": {
+                          "name": "Slab",
+                          "kind": "type",
+                          "type": 0,
+                          "decl": "obj.go:356",
+                          "pkg": "g2d.test/prefixshadow/obj",
+                          "top": true
+                        }
+                      },
+                      "tag": null,
+                      "comment": null
+                    }
+                  ],
+                  "closing": {
+                    "file": "obj.go",
+                    "line": 19,
+                    "column": 13,
+                    "offset": 482
+                  }
+                },
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "obj.go",
+                    "line": 19,
+                    "column": 15,
+                    "offset": 484
+                  },
+                  "name": "Name",
+                  "obj": null,
+                  "$obj": {
+                    "name": "Name",
+                    "kind": "method",
+                    "def": true,
+                    "type": 6,
+                    "decl": "obj.go:484",
+                    "pkg": "g2d.test/prefixshadow/obj"
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "obj.go",
+                    "line": 19,
+                    "column": 1,
+                    "offset": 470
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "obj.go",
+                      "line": 19,
+                      "column": 19,
+                      "offset": 488
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "obj.go",
+                      "line": 19,
+                      "column": 20,
+                      "offset": 489
+                    }
+                  },
+                  "results": {
+                    "node": "FieldList",
+                    "opening": null,
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": null,
+                        "type": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "obj.go",
+                            "line": 19,
+                            "column": 22,
+                            "offset": 491
+                          },
+                          "name": "string",
+                          "obj": null,
+                          "$type": 4,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "string",
+                            "kind": "type",
+                            "type": 4
+                          }
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": null
+                  }
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "obj.go",
+                    "line": 19,
+                    "column": 29,
+                    "offset": 498
+                  },
+                  "list": [
+                    {
+                      "node": "ReturnStmt",
+                      "return": {
+                        "file": "obj.go",
+                        "line": 19,
+                        "column": 31,
+                        "offset": 500
+                      },
+                      "results": [
+                        {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "SelectorExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "obj.go",
+                                "line": 19,
+                                "column": 38,
+                                "offset": 507
+                              },
+                              "name": "s",
+                              "obj": {
+                                "node": "Object",
+                                "name": "s",
+                                "kind": "var"
+                              },
+                              "$type": 0,
+                              "$obj": {
+                                "name": "s",
+                                "kind": "var",
+                                "type": 0,
+                                "decl": "obj.go:476",
+                                "pkg": "g2d.test/prefixshadow/obj"
+                              }
+                            },
+                            "sel": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "obj.go",
+                                "line": 19,
+                                "column": 40,
+                                "offset": 509
+                              },
+                              "name": "atlas",
+                              "obj": null,
+                              "$obj": {
+                                "name": "atlas",
+                                "kind": "field",
+                                "type": 2,
+                                "decl": "obj.go:371",
+                                "pkg": "g2d.test/prefixshadow/obj"
+                              }
+                            },
+                            "$type": 2,
+                            "$sel": {
+                              "kind": "field",
+                              "recv": 0,
+                              "index": [
+                                0
+                              ],
+                              "indirect": false
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "obj.go",
+                              "line": 19,
+                              "column": 46,
+                              "offset": 515
+                            },
+                            "name": "Name",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Name",
+                              "kind": "field",
+                              "type": 4,
+                              "decl": "atlas.go:107",
+                              "pkg": "g2d.test/prefixshadow/atlas"
+                            }
+                          },
+                          "$type": 4,
+                          "$sel": {
+                            "kind": "field",
+                            "recv": 2,
+                            "index": [
+                              0
+                            ],
+                            "indirect": false
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "obj.go",
+                    "line": 19,
+                    "column": 51,
+                    "offset": 520
+                  }
+                }
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "obj.go",
+                    "line": 21,
+                    "column": 6,
+                    "offset": 528
+                  },
+                  "name": "Reset",
+                  "obj": {
+                    "node": "Object",
+                    "name": "Reset",
+                    "kind": "func"
+                  },
+                  "$obj": {
+                    "name": "Reset",
+                    "kind": "func",
+                    "def": true,
+                    "type": 9,
+                    "decl": "obj.go:528",
+                    "pkg": "g2d.test/prefixshadow/obj",
+                    "top": true
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "obj.go",
+                    "line": 21,
+                    "column": 1,
+                    "offset": 523
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "obj.go",
+                      "line": 21,
+                      "column": 11,
+                      "offset": 533
+                    },
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "obj.go",
+                              "line": 21,
+                              "column": 12,
+                              "offset": 534
+                            },
+                            "name": "tok",
+                            "obj": {
+                              "node": "Object",
+                              "name": "tok",
+                              "kind": "var"
+                            },
+                            "$obj": {
+                              "name": "tok",
+                              "kind": "var",
+                              "def": true,
+                              "type": 10,
+                              "decl": "obj.go:534",
+                              "pkg": "g2d.test/prefixshadow/obj"
+                            }
+                          }
+                        ],
+                        "type": {
+                          "node": "StarExpr",
+                          "star": {
+                            "file": "obj.go",
+                            "line": 21,
+                            "column": 16,
+                            "offset": 538
+                          },
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "obj.go",
+                              "line": 21,
+                              "column": 17,
+                              "offset": 539
+                            },
+                            "name": "Token",
+                            "obj": null,
+                            "$type": 11,
+                            "$isType": true,
+                            "$obj": {
+                              "name": "Token",
+                              "kind": "type",
+                              "type": 11,
+                              "decl": "tok.go:159",
+                              "pkg": "g2d.test/prefixshadow/tok",
+                              "top": true
+                            }
+                          },
+                          "$type": 10,
+                          "$isType": true
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": {
+                      "file": "obj.go",
+                      "line": 21,
+                      "column": 22,
+                      "offset": 544
+                    }
+                  },
+                  "results": {
+                    "node": "FieldList",
+                    "opening": null,
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": null,
+                        "type": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "obj.go",
+                            "line": 21,
+                            "column": 24,
+                            "offset": 546
+                          },
+                          "name": "bool",
+                          "obj": null,
+                          "$type": 15,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "bool",
+                            "kind": "type",
+                            "type": 15
+                          }
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": null
+                  }
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "obj.go",
+                    "line": 21,
+                    "column": 29,
+                    "offset": 551
+                  },
+                  "list": [
+                    {
+                      "node": "IfStmt",
+                      "if": {
+                        "file": "obj.go",
+                        "line": 22,
+                        "column": 2,
+                        "offset": 554
+                      },
+                      "init": null,
+                      "cond": {
+                        "node": "BinaryExpr",
+                        "x": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "obj.go",
+                              "line": 22,
+                              "column": 5,
+                              "offset": 557
+                            },
+                            "name": "tok",
+                            "obj": {
+                              "node": "Object",
+                              "name": "tok",
+                              "kind": "var"
+                            },
+                            "$type": 10,
+                            "$obj": {
+                              "name": "tok",
+                              "kind": "var",
+                              "type": 10,
+                              "decl": "obj.go:534",
+                              "pkg": "g2d.test/prefixshadow/obj"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "obj.go",
+                              "line": 22,
+                              "column": 9,
+                              "offset": 561
+                            },
+                            "name": "Type",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Type",
+                              "kind": "field",
+                              "type": 13,
+                              "decl": "tok.go:175",
+                              "pkg": "g2d.test/prefixshadow/tok"
+                            }
+                          },
+                          "$type": 13,
+                          "$sel": {
+                            "kind": "field",
+                            "recv": 10,
+                            "index": [
+                              0
+                            ],
+                            "indirect": true
+                          }
+                        },
+                        "opPos": {
+                          "file": "obj.go",
+                          "line": 22,
+                          "column": 14,
+                          "offset": 566
+                        },
+                        "op": "==",
+                        "y": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "obj.go",
+                            "line": 22,
+                            "column": 17,
+                            "offset": 569
+                          },
+                          "name": "TString",
+                          "obj": null,
+                          "$type": 13,
+                          "$value": {
+                            "kind": "int",
+                            "value": "115"
+                          },
+                          "$obj": {
+                            "name": "TString",
+                            "kind": "const",
+                            "type": 13,
+                            "decl": "tok.go:127",
+                            "pkg": "g2d.test/prefixshadow/tok",
+                            "top": true,
+                            "value": {
+                              "kind": "int",
+                              "value": "115"
+                            }
+                          }
+                        },
+                        "$type": 16
+                      },
+                      "body": {
+                        "node": "BlockStmt",
+                        "lbrace": {
+                          "file": "obj.go",
+                          "line": 22,
+                          "column": 25,
+                          "offset": 577
+                        },
+                        "list": [
+                          {
+                            "node": "AssignStmt",
+                            "lhs": [
+                              {
+                                "node": "SelectorExpr",
+                                "x": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "obj.go",
+                                    "line": 23,
+                                    "column": 3,
+                                    "offset": 581
+                                  },
+                                  "name": "tok",
+                                  "obj": {
+                                    "node": "Object",
+                                    "name": "tok",
+                                    "kind": "var"
+                                  },
+                                  "$type": 10,
+                                  "$obj": {
+                                    "name": "tok",
+                                    "kind": "var",
+                                    "type": 10,
+                                    "decl": "obj.go:534",
+                                    "pkg": "g2d.test/prefixshadow/obj"
+                                  }
+                                },
+                                "sel": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "obj.go",
+                                    "line": 23,
+                                    "column": 7,
+                                    "offset": 585
+                                  },
+                                  "name": "Type",
+                                  "obj": null,
+                                  "$obj": {
+                                    "name": "Type",
+                                    "kind": "field",
+                                    "type": 13,
+                                    "decl": "tok.go:175",
+                                    "pkg": "g2d.test/prefixshadow/tok"
+                                  }
+                                },
+                                "$type": 13,
+                                "$sel": {
+                                  "kind": "field",
+                                  "recv": 10,
+                                  "index": [
+                                    0
+                                  ],
+                                  "indirect": true
+                                }
+                              }
+                            ],
+                            "tokPos": {
+                              "file": "obj.go",
+                              "line": 23,
+                              "column": 12,
+                              "offset": 590
+                            },
+                            "tok": "=",
+                            "rhs": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "obj.go",
+                                  "line": 23,
+                                  "column": 14,
+                                  "offset": 592
+                                },
+                                "name": "TNull",
+                                "obj": null,
+                                "$type": 13,
+                                "$value": {
+                                  "kind": "int",
+                                  "value": "48"
+                                },
+                                "$obj": {
+                                  "name": "TNull",
+                                  "kind": "const",
+                                  "type": 13,
+                                  "decl": "tok.go:102",
+                                  "pkg": "g2d.test/prefixshadow/tok",
+                                  "top": true,
+                                  "value": {
+                                    "kind": "int",
+                                    "value": "48"
+                                  }
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "node": "ReturnStmt",
+                            "return": {
+                              "file": "obj.go",
+                              "line": 24,
+                              "column": 3,
+                              "offset": 600
+                            },
+                            "results": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "obj.go",
+                                  "line": 24,
+                                  "column": 10,
+                                  "offset": 607
+                                },
+                                "name": "true",
+                                "obj": null,
+                                "$type": 15,
+                                "$value": {
+                                  "kind": "bool",
+                                  "value": true
+                                },
+                                "$obj": {
+                                  "name": "true",
+                                  "kind": "const",
+                                  "type": 16,
+                                  "value": {
+                                    "kind": "bool",
+                                    "value": true
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ],
+                        "rbrace": {
+                          "file": "obj.go",
+                          "line": 25,
+                          "column": 2,
+                          "offset": 613
+                        }
+                      },
+                      "else": null
+                    },
+                    {
+                      "node": "ReturnStmt",
+                      "return": {
+                        "file": "obj.go",
+                        "line": 26,
+                        "column": 2,
+                        "offset": 616
+                      },
+                      "results": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "obj.go",
+                            "line": 26,
+                            "column": 9,
+                            "offset": 623
+                          },
+                          "name": "false",
+                          "obj": null,
+                          "$type": 15,
+                          "$value": {
+                            "kind": "bool",
+                            "value": false
+                          },
+                          "$obj": {
+                            "name": "false",
+                            "kind": "const",
+                            "type": 16,
+                            "value": {
+                              "kind": "bool",
+                              "value": false
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "obj.go",
+                    "line": 27,
+                    "column": 1,
+                    "offset": 629
+                  }
+                }
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "obj.go",
+                    "line": 29,
+                    "column": 6,
+                    "offset": 637
+                  },
+                  "name": "Empty",
+                  "obj": {
+                    "node": "Object",
+                    "name": "Empty",
+                    "kind": "func"
+                  },
+                  "$obj": {
+                    "name": "Empty",
+                    "kind": "func",
+                    "def": true,
+                    "type": 17,
+                    "decl": "obj.go:637",
+                    "pkg": "g2d.test/prefixshadow/obj",
+                    "top": true
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "obj.go",
+                    "line": 29,
+                    "column": 1,
+                    "offset": 632
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "obj.go",
+                      "line": 29,
+                      "column": 11,
+                      "offset": 642
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "obj.go",
+                      "line": 29,
+                      "column": 12,
+                      "offset": 643
+                    }
+                  },
+                  "results": {
+                    "node": "FieldList",
+                    "opening": null,
+                    "list": [
+                      {
+                        "node": "Field",
+                        "doc": null,
+                        "names": null,
+                        "type": {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "obj.go",
+                            "line": 29,
+                            "column": 14,
+                            "offset": 645
+                          },
+                          "name": "Slab",
+                          "obj": {
+                            "node": "Object",
+                            "name": "Slab",
+                            "kind": "type"
+                          },
+                          "$type": 0,
+                          "$isType": true,
+                          "$obj": {
+                            "name": "Slab",
+                            "kind": "type",
+                            "type": 0,
+                            "decl": "obj.go:356",
+                            "pkg": "g2d.test/prefixshadow/obj",
+                            "top": true
+                          }
+                        },
+                        "tag": null,
+                        "comment": null
+                      }
+                    ],
+                    "closing": null
+                  }
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "obj.go",
+                    "line": 29,
+                    "column": 19,
+                    "offset": 650
+                  },
+                  "list": [
+                    {
+                      "node": "ReturnStmt",
+                      "return": {
+                        "file": "obj.go",
+                        "line": 29,
+                        "column": 21,
+                        "offset": 652
+                      },
+                      "results": [
+                        {
+                          "node": "CompositeLit",
+                          "type": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "obj.go",
+                              "line": 29,
+                              "column": 28,
+                              "offset": 659
+                            },
+                            "name": "Slab",
+                            "obj": {
+                              "node": "Object",
+                              "name": "Slab",
+                              "kind": "type"
+                            },
+                            "$type": 0,
+                            "$isType": true,
+                            "$obj": {
+                              "name": "Slab",
+                              "kind": "type",
+                              "type": 0,
+                              "decl": "obj.go:356",
+                              "pkg": "g2d.test/prefixshadow/obj",
+                              "top": true
+                            }
+                          },
+                          "lbrace": {
+                            "file": "obj.go",
+                            "line": 29,
+                            "column": 32,
+                            "offset": 663
+                          },
+                          "elts": null,
+                          "rbrace": {
+                            "file": "obj.go",
+                            "line": 29,
+                            "column": 33,
+                            "offset": 664
+                          },
+                          "incomplete": false,
+                          "$type": 0
+                        }
+                      ]
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "obj.go",
+                    "line": 29,
+                    "column": 35,
+                    "offset": 666
+                  }
+                }
+              }
+            ],
+            "fileStart": {
+              "file": "obj.go",
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "fileEnd": {
+              "file": "obj.go",
+              "line": 29,
+              "column": 37,
+              "offset": 668
+            },
+            "scope": null,
+            "imports": [
+              {
+                "node": "ImportSpec",
+                "doc": null,
+                "name": null,
+                "path": {
+                  "node": "BasicLit",
+                  "valuePos": {
+                    "file": "obj.go",
+                    "line": 8,
+                    "column": 2,
+                    "offset": 287
+                  },
+                  "valueEnd": {
+                    "file": "obj.go",
+                    "line": 8,
+                    "column": 31,
+                    "offset": 316
+                  },
+                  "kind": "STRING",
+                  "value": "\"g2d.test/prefixshadow/atlas\""
+                },
+                "comment": null,
+                "endPos": null
+              },
+              {
+                "node": "ImportSpec",
+                "doc": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "obj.go",
+                    "line": 9,
+                    "column": 2,
+                    "offset": 318
+                  },
+                  "name": ".",
+                  "obj": null,
+                  "$obj": {
+                    "name": ".",
+                    "kind": "package",
+                    "def": true,
+                    "pkg": "g2d.test/prefixshadow/tok"
+                  }
+                },
+                "path": {
+                  "node": "BasicLit",
+                  "valuePos": {
+                    "file": "obj.go",
+                    "line": 9,
+                    "column": 4,
+                    "offset": 320
+                  },
+                  "valueEnd": {
+                    "file": "obj.go",
+                    "line": 9,
+                    "column": 31,
+                    "offset": 347
+                  },
+                  "kind": "STRING",
+                  "value": "\"g2d.test/prefixshadow/tok\""
+                },
+                "comment": null,
+                "endPos": null
+              }
+            ],
+            "unresolved": [
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "obj.go",
+                  "line": 13,
+                  "column": 8,
+                  "offset": 377
+                },
+                "name": "atlas",
+                "obj": null,
+                "$obj": {
+                  "name": "atlas",
+                  "kind": "package",
+                  "pkg": "g2d.test/prefixshadow/atlas"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "obj.go",
+                  "line": 14,
+                  "column": 10,
+                  "offset": 398
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 4,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 4
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "obj.go",
+                  "line": 17,
+                  "column": 16,
+                  "offset": 423
+                },
+                "name": "atlas",
+                "obj": null,
+                "$obj": {
+                  "name": "atlas",
+                  "kind": "package",
+                  "pkg": "g2d.test/prefixshadow/atlas"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "obj.go",
+                  "line": 19,
+                  "column": 22,
+                  "offset": 491
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 4,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 4
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "obj.go",
+                  "line": 21,
+                  "column": 17,
+                  "offset": 539
+                },
+                "name": "Token",
+                "obj": null,
+                "$type": 11,
+                "$isType": true,
+                "$obj": {
+                  "name": "Token",
+                  "kind": "type",
+                  "type": 11,
+                  "decl": "tok.go:159",
+                  "pkg": "g2d.test/prefixshadow/tok",
+                  "top": true
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "obj.go",
+                  "line": 21,
+                  "column": 24,
+                  "offset": 546
+                },
+                "name": "bool",
+                "obj": null,
+                "$type": 15,
+                "$isType": true,
+                "$obj": {
+                  "name": "bool",
+                  "kind": "type",
+                  "type": 15
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "obj.go",
+                  "line": 22,
+                  "column": 17,
+                  "offset": 569
+                },
+                "name": "TString",
+                "obj": null,
+                "$type": 13,
+                "$value": {
+                  "kind": "int",
+                  "value": "115"
+                },
+                "$obj": {
+                  "name": "TString",
+                  "kind": "const",
+                  "type": 13,
+                  "decl": "tok.go:127",
+                  "pkg": "g2d.test/prefixshadow/tok",
+                  "top": true,
+                  "value": {
+                    "kind": "int",
+                    "value": "115"
+                  }
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "obj.go",
+                  "line": 23,
+                  "column": 14,
+                  "offset": 592
+                },
+                "name": "TNull",
+                "obj": null,
+                "$type": 13,
+                "$value": {
+                  "kind": "int",
+                  "value": "48"
+                },
+                "$obj": {
+                  "name": "TNull",
+                  "kind": "const",
+                  "type": 13,
+                  "decl": "tok.go:102",
+                  "pkg": "g2d.test/prefixshadow/tok",
+                  "top": true,
+                  "value": {
+                    "kind": "int",
+                    "value": "48"
+                  }
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "obj.go",
+                  "line": 24,
+                  "column": 10,
+                  "offset": 607
+                },
+                "name": "true",
+                "obj": null,
+                "$type": 15,
+                "$value": {
+                  "kind": "bool",
+                  "value": true
+                },
+                "$obj": {
+                  "name": "true",
+                  "kind": "const",
+                  "type": 16,
+                  "value": {
+                    "kind": "bool",
+                    "value": true
+                  }
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "obj.go",
+                  "line": 26,
+                  "column": 9,
+                  "offset": 623
+                },
+                "name": "false",
+                "obj": null,
+                "$type": 15,
+                "$value": {
+                  "kind": "bool",
+                  "value": false
+                },
+                "$obj": {
+                  "name": "false",
+                  "kind": "const",
+                  "type": 16,
+                  "value": {
+                    "kind": "bool",
+                    "value": false
+                  }
+                }
+              }
+            ],
+            "comments": [
+              {
+                "node": "CommentGroup",
+                "list": [
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "obj.go",
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "text": "// Package obj: parâmetro `tok` e campo `atlas` com o nome de pacotes"
+                  },
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "obj.go",
+                      "line": 2,
+                      "column": 1,
+                      "offset": 71
+                    },
+                    "text": "// importados. O g2d cita o pacote onde o Go não cita (constante dobrada"
+                  },
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "obj.go",
+                      "line": 3,
+                      "column": 1,
+                      "offset": 145
+                    },
+                    "text": "// `tok.TokenType(48)`, zero value do campo no construtor): o prefixo do"
+                  },
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "obj.go",
+                      "line": 4,
+                      "column": 1,
+                      "offset": 218
+                    },
+                    "text": "// import não pode ser sombreado pelo local."
+                  }
+                ]
+              }
+            ],
+            "goVersion": ""
+          }
+        }
+      ],
+      "imports": [
+        {
+          "path": "g2d.test/prefixshadow/atlas",
+          "name": "atlas"
+        },
+        {
+          "path": "g2d.test/prefixshadow/tok",
+          "name": "."
+        }
+      ],
+      "typeTable": [
+        {
+          "kind": "named",
+          "pkg": "g2d.test/prefixshadow/obj",
+          "name": "Slab",
+          "underlying": 1,
+          "methods": [
+            {
+              "name": "Name",
+              "type": 6,
+              "index": [
+                0
+              ],
+              "ptr": false
+            }
+          ]
+        },
+        {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "atlas",
+              "type": 2,
+              "embedded": false,
+              "tag": "",
+              "pkg": "g2d.test/prefixshadow/obj"
+            },
+            {
+              "name": "rows",
+              "type": 5,
+              "embedded": false,
+              "tag": "",
+              "pkg": "g2d.test/prefixshadow/obj"
+            }
+          ]
+        },
+        {
+          "kind": "named",
+          "pkg": "g2d.test/prefixshadow/atlas",
+          "name": "Atlas",
+          "underlying": 3,
+          "methods": []
+        },
+        {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "Name",
+              "type": 4,
+              "embedded": false,
+              "tag": ""
+            }
+          ]
+        },
+        {
+          "kind": "basic",
+          "name": "string"
+        },
+        {
+          "kind": "slice",
+          "elem": 4
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            4
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            2
+          ],
+          "results": [
+            8
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "pointer",
+          "elem": 0
+        },
+        {
+          "kind": "func",
+          "params": [
+            10
+          ],
+          "results": [
+            15
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "pointer",
+          "elem": 11
+        },
+        {
+          "kind": "named",
+          "pkg": "g2d.test/prefixshadow/tok",
+          "name": "Token",
+          "underlying": 12,
+          "methods": []
+        },
+        {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "Type",
+              "type": 13,
+              "embedded": false,
+              "tag": ""
+            },
+            {
+              "name": "Str",
+              "type": 4,
+              "embedded": false,
+              "tag": ""
+            }
+          ]
+        },
+        {
+          "kind": "named",
+          "pkg": "g2d.test/prefixshadow/tok",
+          "name": "TokenType",
+          "underlying": 14,
+          "methods": []
+        },
+        {
+          "kind": "basic",
+          "name": "byte"
+        },
+        {
+          "kind": "basic",
+          "name": "bool"
+        },
+        {
+          "kind": "basic",
+          "name": "untyped bool"
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            0
+          ],
+          "variadic": false
+        }
+      ],
+      "implements": null,
+      "initOrder": [],
+      "stdlibUsage": [],
+      "reflectUsage": null,
+      "module": {
+        "path": "g2d.test/prefixshadow"
+      }
+    },
+    {
+      "path": "g2d.test/prefixshadow/tok",
+      "name": "tok",
+      "files": [
+        {
+          "path": "tok.go",
+          "ast": {
+            "node": "File",
+            "doc": {
+              "node": "CommentGroup",
+              "list": [
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "tok.go",
+                    "line": 1,
+                    "column": 1,
+                    "offset": 0
+                  },
+                  "text": "// Package tok declara o tipo que o obj importa com ponto."
+                }
+              ]
+            },
+            "package": {
+              "file": "tok.go",
+              "line": 2,
+              "column": 1,
+              "offset": 59
+            },
+            "name": {
+              "node": "Ident",
+              "namePos": {
+                "file": "tok.go",
+                "line": 2,
+                "column": 9,
+                "offset": 67
+              },
+              "name": "tok",
+              "obj": null
+            },
+            "decls": [
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "tok.go",
+                  "line": 4,
+                  "column": 1,
+                  "offset": 72
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "tok.go",
+                        "line": 4,
+                        "column": 6,
+                        "offset": 77
+                      },
+                      "name": "TokenType",
+                      "obj": {
+                        "node": "Object",
+                        "name": "TokenType",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "TokenType",
+                        "kind": "type",
+                        "def": true,
+                        "type": 0,
+                        "decl": "tok.go:77",
+                        "pkg": "g2d.test/prefixshadow/tok",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "tok.go",
+                        "line": 4,
+                        "column": 16,
+                        "offset": 87
+                      },
+                      "name": "byte",
+                      "obj": null,
+                      "$type": 1,
+                      "$isType": true,
+                      "$obj": {
+                        "name": "byte",
+                        "kind": "type",
+                        "type": 1
+                      }
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "tok.go",
+                  "line": 6,
+                  "column": 1,
+                  "offset": 93
+                },
+                "tok": "const",
+                "lparen": {
+                  "file": "tok.go",
+                  "line": 6,
+                  "column": 7,
+                  "offset": 99
+                },
+                "specs": [
+                  {
+                    "node": "ValueSpec",
+                    "doc": null,
+                    "names": [
+                      {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "tok.go",
+                          "line": 7,
+                          "column": 2,
+                          "offset": 102
+                        },
+                        "name": "TNull",
+                        "obj": {
+                          "node": "Object",
+                          "name": "TNull",
+                          "kind": "const"
+                        },
+                        "$obj": {
+                          "name": "TNull",
+                          "kind": "const",
+                          "def": true,
+                          "type": 0,
+                          "decl": "tok.go:102",
+                          "pkg": "g2d.test/prefixshadow/tok",
+                          "top": true,
+                          "value": {
+                            "kind": "int",
+                            "value": "48"
+                          }
+                        }
+                      }
+                    ],
+                    "type": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "tok.go",
+                        "line": 7,
+                        "column": 10,
+                        "offset": 110
+                      },
+                      "name": "TokenType",
+                      "obj": {
+                        "node": "Object",
+                        "name": "TokenType",
+                        "kind": "type"
+                      },
+                      "$type": 0,
+                      "$isType": true,
+                      "$obj": {
+                        "name": "TokenType",
+                        "kind": "type",
+                        "type": 0,
+                        "decl": "tok.go:77",
+                        "pkg": "g2d.test/prefixshadow/tok",
+                        "top": true
+                      }
+                    },
+                    "values": [
+                      {
+                        "node": "BasicLit",
+                        "valuePos": {
+                          "file": "tok.go",
+                          "line": 7,
+                          "column": 22,
+                          "offset": 122
+                        },
+                        "valueEnd": {
+                          "file": "tok.go",
+                          "line": 7,
+                          "column": 25,
+                          "offset": 125
+                        },
+                        "kind": "CHAR",
+                        "value": "'0'",
+                        "$type": 0,
+                        "$value": {
+                          "kind": "int",
+                          "value": "48"
+                        }
+                      }
+                    ],
+                    "comment": null
+                  },
+                  {
+                    "node": "ValueSpec",
+                    "doc": null,
+                    "names": [
+                      {
+                        "node": "Ident",
+                        "namePos": {
+                          "file": "tok.go",
+                          "line": 8,
+                          "column": 2,
+                          "offset": 127
+                        },
+                        "name": "TString",
+                        "obj": {
+                          "node": "Object",
+                          "name": "TString",
+                          "kind": "const"
+                        },
+                        "$obj": {
+                          "name": "TString",
+                          "kind": "const",
+                          "def": true,
+                          "type": 0,
+                          "decl": "tok.go:127",
+                          "pkg": "g2d.test/prefixshadow/tok",
+                          "top": true,
+                          "value": {
+                            "kind": "int",
+                            "value": "115"
+                          }
+                        }
+                      }
+                    ],
+                    "type": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "tok.go",
+                        "line": 8,
+                        "column": 10,
+                        "offset": 135
+                      },
+                      "name": "TokenType",
+                      "obj": {
+                        "node": "Object",
+                        "name": "TokenType",
+                        "kind": "type"
+                      },
+                      "$type": 0,
+                      "$isType": true,
+                      "$obj": {
+                        "name": "TokenType",
+                        "kind": "type",
+                        "type": 0,
+                        "decl": "tok.go:77",
+                        "pkg": "g2d.test/prefixshadow/tok",
+                        "top": true
+                      }
+                    },
+                    "values": [
+                      {
+                        "node": "BasicLit",
+                        "valuePos": {
+                          "file": "tok.go",
+                          "line": 8,
+                          "column": 22,
+                          "offset": 147
+                        },
+                        "valueEnd": {
+                          "file": "tok.go",
+                          "line": 8,
+                          "column": 25,
+                          "offset": 150
+                        },
+                        "kind": "CHAR",
+                        "value": "'s'",
+                        "$type": 0,
+                        "$value": {
+                          "kind": "int",
+                          "value": "115"
+                        }
+                      }
+                    ],
+                    "comment": null
+                  }
+                ],
+                "rparen": {
+                  "file": "tok.go",
+                  "line": 9,
+                  "column": 1,
+                  "offset": 151
+                }
+              },
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "tok.go",
+                  "line": 11,
+                  "column": 1,
+                  "offset": 154
+                },
+                "tok": "type",
+                "lparen": null,
+                "specs": [
+                  {
+                    "node": "TypeSpec",
+                    "doc": null,
+                    "name": {
+                      "node": "Ident",
+                      "namePos": {
+                        "file": "tok.go",
+                        "line": 11,
+                        "column": 6,
+                        "offset": 159
+                      },
+                      "name": "Token",
+                      "obj": {
+                        "node": "Object",
+                        "name": "Token",
+                        "kind": "type"
+                      },
+                      "$obj": {
+                        "name": "Token",
+                        "kind": "type",
+                        "def": true,
+                        "type": 2,
+                        "decl": "tok.go:159",
+                        "pkg": "g2d.test/prefixshadow/tok",
+                        "top": true
+                      }
+                    },
+                    "typeParams": null,
+                    "assign": null,
+                    "type": {
+                      "node": "StructType",
+                      "struct": {
+                        "file": "tok.go",
+                        "line": 11,
+                        "column": 12,
+                        "offset": 165
+                      },
+                      "fields": {
+                        "node": "FieldList",
+                        "opening": {
+                          "file": "tok.go",
+                          "line": 11,
+                          "column": 19,
+                          "offset": 172
+                        },
+                        "list": [
+                          {
+                            "node": "Field",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "tok.go",
+                                  "line": 12,
+                                  "column": 2,
+                                  "offset": 175
+                                },
+                                "name": "Type",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "Type",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "Type",
+                                  "kind": "field",
+                                  "def": true,
+                                  "type": 0,
+                                  "decl": "tok.go:175",
+                                  "pkg": "g2d.test/prefixshadow/tok"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "tok.go",
+                                "line": 12,
+                                "column": 7,
+                                "offset": 180
+                              },
+                              "name": "TokenType",
+                              "obj": {
+                                "node": "Object",
+                                "name": "TokenType",
+                                "kind": "type"
+                              },
+                              "$type": 0,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "TokenType",
+                                "kind": "type",
+                                "type": 0,
+                                "decl": "tok.go:77",
+                                "pkg": "g2d.test/prefixshadow/tok",
+                                "top": true
+                              }
+                            },
+                            "tag": null,
+                            "comment": null
+                          },
+                          {
+                            "node": "Field",
+                            "doc": null,
+                            "names": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "tok.go",
+                                  "line": 13,
+                                  "column": 2,
+                                  "offset": 191
+                                },
+                                "name": "Str",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "Str",
+                                  "kind": "var"
+                                },
+                                "$obj": {
+                                  "name": "Str",
+                                  "kind": "field",
+                                  "def": true,
+                                  "type": 4,
+                                  "decl": "tok.go:191",
+                                  "pkg": "g2d.test/prefixshadow/tok"
+                                }
+                              }
+                            ],
+                            "type": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "tok.go",
+                                "line": 13,
+                                "column": 7,
+                                "offset": 196
+                              },
+                              "name": "string",
+                              "obj": null,
+                              "$type": 4,
+                              "$isType": true,
+                              "$obj": {
+                                "name": "string",
+                                "kind": "type",
+                                "type": 4
+                              }
+                            },
+                            "tag": null,
+                            "comment": null
+                          }
+                        ],
+                        "closing": {
+                          "file": "tok.go",
+                          "line": 14,
+                          "column": 1,
+                          "offset": 203
+                        }
+                      },
+                      "incomplete": false,
+                      "$type": 3,
+                      "$isType": true
+                    },
+                    "comment": null
+                  }
+                ],
+                "rparen": null
+              }
+            ],
+            "fileStart": {
+              "file": "tok.go",
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "fileEnd": {
+              "file": "tok.go",
+              "line": 14,
+              "column": 3,
+              "offset": 205
+            },
+            "scope": null,
+            "imports": null,
+            "unresolved": [
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "tok.go",
+                  "line": 4,
+                  "column": 16,
+                  "offset": 87
+                },
+                "name": "byte",
+                "obj": null,
+                "$type": 1,
+                "$isType": true,
+                "$obj": {
+                  "name": "byte",
+                  "kind": "type",
+                  "type": 1
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "tok.go",
+                  "line": 13,
+                  "column": 7,
+                  "offset": 196
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 4,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 4
+                }
+              }
+            ],
+            "comments": [
+              {
+                "node": "CommentGroup",
+                "list": [
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "tok.go",
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "text": "// Package tok declara o tipo que o obj importa com ponto."
+                  }
+                ]
+              }
+            ],
+            "goVersion": ""
+          }
+        }
+      ],
+      "imports": null,
+      "typeTable": [
+        {
+          "kind": "named",
+          "pkg": "g2d.test/prefixshadow/tok",
+          "name": "TokenType",
+          "underlying": 1,
+          "methods": []
+        },
+        {
+          "kind": "basic",
+          "name": "byte"
+        },
+        {
+          "kind": "named",
+          "pkg": "g2d.test/prefixshadow/tok",
+          "name": "Token",
+          "underlying": 3,
+          "methods": []
+        },
+        {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "Type",
+              "type": 0,
+              "embedded": false,
+              "tag": ""
+            },
+            {
+              "name": "Str",
+              "type": 4,
+              "embedded": false,
+              "tag": ""
+            }
+          ]
+        },
+        {
+          "kind": "basic",
+          "name": "string"
+        }
+      ],
+      "implements": null,
+      "initOrder": [],
+      "stdlibUsage": [],
+      "reflectUsage": null,
+      "module": {
+        "path": "g2d.test/prefixshadow"
+      }
+    }
+  ]
+}

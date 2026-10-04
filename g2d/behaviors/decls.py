@@ -441,12 +441,14 @@ class NamedCompositeClass(NonStructNamed):
             impl.append(self.reflection.typed())
         head = cls + tps.decl
         if u["kind"] == "func":
+            if reflect_cls:
+                impl.append(self.imports.qualify(None, "FuncValue"))
             ft = ud.non_null()
             params = ", ".join(f"{p} p{i}" for i, p in enumerate(ft.params))
             args = ", ".join(f"p{i}" for i in range(len(ft.params)))
             lines = [f"final class {head} implements {', '.join(impl)} {{",
                      f"{cls}({dict_params}this.$f);", ""] + dict_fields + [
-                     f"final {ft.as_nullable()} $f;", "",
+                     *(["@override"] if reflect_cls else []), f"final {ft.as_nullable()} $f;", "",
                      "/// `f == nil`.", "bool get isNil => $f == null;", "",
                      f"{ft.returns} call({params}) => $f!({args});", ""]
         else:

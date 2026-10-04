@@ -1,7 +1,7 @@
 //go:build ignore
 
 // Oráculo do shim `time` (Time, Date, Unix, aritmética, Month/Weekday,
-// ParseDuration): imprime em JSON as entradas e a saída do Go. Rodar com
+// ParseDuration, Format/Parse/ParseInLocation com layout): imprime em JSON as entradas e a saída do Go. Rodar com
 // TZ=UTC (o `Local` do shim é o do Go com TZ=UTC). Inteiros vão como string
 // (o JSON do JS perderia precisão acima de 2^53); entradas do ParseDuration
 // em hex (podem ter UTF-8 inválido).
@@ -183,6 +183,38 @@ func main() {
 		pdOut = append(pdOut, j(int64(d), d.String(), hex.EncodeToString([]byte(errText(err)))))
 	}
 	res["pdIn"], res["pdOut"] = pdIn, pdOut
+
+	// Format sobre datas×zonas; Parse/ParseInLocation do texto formatado e
+	// Parse do texto sem o último byte (erros), numa data a cada 4.
+	layouts := []string{time.Layout, time.ANSIC, time.UnixDate, time.RubyDate, time.RFC822, time.RFC822Z,
+		time.RFC850, time.RFC1123, time.RFC1123Z, time.RFC3339, time.RFC3339Nano, time.Kitchen,
+		time.StampNano, time.DateTime, "2006-01-02T15:04:05.000Z0700", "Z07 -07 Z070000 -070000 Z07:00:00 -07:00:00 MST",
+		"Monday Mon January Jan 1 01 2 _2 02 __2 002 06 2006 15 3 03 4 04 5 05 PM pm .0 .99 ,999999",
+		"2006 002 15:04:05,000000000 -07:00"}
+	var fmtOut, parseOut []string
+	describeParse := func(p time.Time, err error) string {
+		zn, zo := p.Zone()
+		return j(p.String(), zn, zo, p.Location() == time.Local, p.Location() == fz, errText(err))
+	}
+	for di, a := range dates {
+		for _, z := range zones {
+			t := time.Date(int(a[0]), time.Month(a[1]), int(a[2]), int(a[3]), int(a[4]), int(a[5]), int(a[6]), loc(z))
+			for _, l := range layouts {
+				s := t.Format(l)
+				fmtOut = append(fmtOut, s)
+				if di%4 != 0 {
+					continue
+				}
+				p, err := time.Parse(l, s)
+				parseOut = append(parseOut, describeParse(p, err))
+				p, err = time.ParseInLocation(l, s, fz)
+				parseOut = append(parseOut, describeParse(p, err))
+				p, err = time.Parse(l, s[:len(s)-1])
+				parseOut = append(parseOut, describeParse(p, err))
+			}
+		}
+	}
+	res["layouts"], res["format"], res["parse"] = layouts, fmtOut, parseOut
 
 	enc := json.NewEncoder(os.Stdout)
 	if err := enc.Encode(res); err != nil {

@@ -29,7 +29,7 @@ String goTypeName(Object? v) => switch (v) {
 /// de `is`. Tipo func **nomeado** (`type Op func(...)`) não passa por aqui:
 /// a classe gerada já dá identidade nominal (`x is Op`).
 final class Func {
-  const Func(this.value, this.sig);
+  const Func(this.value, this.sig, [this.type]);
 
   /// A closure Dart. `null` é o zero value de um tipo func: guardado numa
   /// interface ele não é nil (como ponteiro/slice/map/chan nil).
@@ -37,6 +37,15 @@ final class Func {
 
   /// Nome Go do tipo, como em `%T` (ex. `func(int) int`, `func() (int, error)`).
   final String sig;
+
+  /// Descritor de reflexão do tipo (thunk; só num grafo que usa reflexão).
+  final Object Function()? type;
+}
+
+/// Valor de tipo func nomeado (`type Op func(int) int`): a classe gerada
+/// guarda a closure em `$f` (o `reflect` a chama).
+abstract interface class FuncValue {
+  Function? get $f;
 }
 
 /// O valor dinâmico em [x] é exatamente o tipo func sem nome [sig]?

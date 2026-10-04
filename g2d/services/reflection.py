@@ -22,6 +22,7 @@ descritor viram `go.rtOpaque` (nome e kind; campos desconhecidos: o reflect
 dá panic explícito ao listá-los).
 """
 
+from g2d.model import Unsupported
 from g2d.config import REFLECT_PKGS, SHIM_RTYPES, STDLIB_SHIMS
 from g2d.engine.behavior import Service
 from g2d.services.naming import member_name, type_name
@@ -92,7 +93,7 @@ class Reflection(Service):
         if k == "chan":
             return f"{self.go('rtChan')}({_CHAN_DIR.get(t['dir'], 3)}, {self.rtype(t['elem'])})"
         if k == "func":
-            return f"{self.go('rtFunc')}({self.str_lit(self.goinfo.sharp_type_name(t))})"
+            return self.func_rtype(t)
         if k == "interface":
             if not t["methods"]:
                 return self.go("rtAny")
@@ -106,6 +107,21 @@ class Reflection(Service):
         if k == "typeparam":
             return f"{self.go('rtOfElem')}(${t['name']})"
         return f"{self.go('rtOpaque')}({self.str_lit(k)}, {self.go('kInvalid')})"
+
+    def func_rtype(self, t):
+        """`go.rtFuncOf` de um tipo func sem nome: parâmetros, resultados,
+        variádico e cor `async` (com parâmetro de tipo, o texto Go sai dos
+        tipos em runtime)."""
+        sig = "''" if self.descriptors.has_tparam(t) else self.str_lit(self.goinfo.sharp_type_name(t))
+        ins = ", ".join(self.rtype(p) for p in t["params"])
+        outs = ", ".join(self.rtype(r) for r in t["results"])
+        extra = ""
+        if t.get("variadic"):
+            extra += ", variadic: true"
+        if self.concurrency.is_async(self.concurrency.sig_key(t)):
+            extra += ", async: true"
+        dt = self.types.dart(t).as_nullable()
+        return f"{self.go('rtFuncOf')}<{dt}>({sig}, () => [{ins}], () => [{outs}]{extra})"
 
     def named_rtype(self, t):
         if self.typesys.is_universe(t, "error"):
@@ -122,8 +138,30 @@ class Reflection(Service):
         if t["pkg"] in STDLIB_SHIMS or not self.imports.transpiled(t["pkg"]):
             if (t["pkg"], t["name"]) in SHIM_RTYPES:
                 return f"{self.types.dart(t).non_null()}.$rt"
+            if u["kind"] == "interface" and u["methods"]:
+                return self.shim_iface(t, u)
             return self.opaque(t, u)
         return f"{self.types.dart(t).non_null()}.$rt"
+
+    def shim_iface(self, t, u):
+        """Interface de shim (`json.Marshaler`, `io.Reader`...): descritor com
+        o method set, canônico por nome (`go.rtShimIface`). Sem a classe no
+        shim, ou com assinatura que o g2d não descreve, fica opaco."""
+        key = f"{t['pkg']}.{t['name']}"
+        building = self.__dict__.setdefault("_shim_ifaces", set())
+        if key in building:  # método que cita a própria interface (thunk: já no cache)
+            return f"{self.go('rtShimIfaceRef')}({self.str_lit(key)})"
+        building.add(key)
+        try:
+            cls = self.types.dart(t).as_nullable()
+            pkg, name, s = self.common(t)
+            ms = ", ".join(self.str_lit(m["name"]) for m in u["methods"])
+            return (f"{self.go('rtShimIface')}<{cls}>({pkg}, {name}, {s}, const [{ms}]"
+                    f"{self.sigs_arg(u['methods'])})")
+        except Unsupported:
+            return self.opaque(t, u)
+        finally:
+            building.discard(key)
 
     def opaque(self, t, u):
         kind = _KIND.get(u["kind"]) or _BASIC_KIND.get(u.get("name", ""), "kInvalid")
@@ -170,19 +208,47 @@ class Reflection(Service):
         return (self.str_lit(self.pkg_path(t["pkg"])), self.str_lit(t["name"]),
                 self.str_lit(self.goinfo.sharp_type_name(t)))
 
-    def method_args(self, t, value_methods=True):
+    def method_args(self, t, value_methods=True, cls=None):
         vm = ", ".join(self.str_lit(n) for n in self.goinfo.method_names(t, True))
         pm = ", ".join(self.str_lit(n) for n in self.goinfo.method_names(t, False))
-        return f"methods: const [{vm}], ptrMethods: const [{pm}]{self.sigs_arg(t.get('methods') or [])}"
+        out = f"methods: const [{vm}], ptrMethods: const [{pm}]{self.sigs_arg(t.get('methods') or [])}"
+        return out + (self.binds_arg(t, cls) if cls else "")
+
+    def binds_arg(self, t, cls):
+        """`binds`/`pbinds`: cada método exportado ligado a um receptor
+        (tear-off), para `Value.Method`. Struct: o receptor é o objeto, para
+        T e *T. Nomeado não struct: os de receptor valor sobre N, os de `*N`
+        sobre a vista `N$Ptr`."""
+        struct = self.typesys.underlying(t)["kind"] == "struct"
+        tps = self.typesys.type_args(t)
+        binds, pbinds = [], []
+        for m in sorted(t.get("methods") or [], key=lambda m: m["name"]):
+            name = m["name"]
+            if not name[:1].isupper() or len(m.get("index") or [0]) > 1 and tps:
+                continue  # genérico: sem os promovidos (sem mixin)
+            sig = self.pkg.type_at(m["type"])
+            dn = self.dualio.members(self.concurrency.method_key(t, name), name, sig)[0][0]
+            if struct or not m["ptr"]:
+                binds.append(f"{self.str_lit(name)}: (o) => (o as {cls}).{dn}")
+            else:
+                pcls = self.types.dart(t).non_null().name + "$Ptr"
+                targs = cls[len(cls.partition("<")[0]):]
+                pbinds.append(f"{self.str_lit(name)}: (o) => {pcls}{targs}(o as {self.imports.qualify(None, 'Ptr')}<{cls}>).{dn}")
+        out = ""
+        if binds:
+            out += ", binds: {" + ", ".join(binds) + "}"
+        if pbinds:
+            out += ", pbinds: {" + ", ".join(pbinds) + "}"
+        return out
 
     def sigs_arg(self, methods):
         """`, sigs: const {...}`: a assinatura Go de cada método, sem o
         receptor (`Method.Type`); vazio sem métodos."""
-        sigs = sorted((m["name"], self.goinfo.sharp_type_name(self.pkg.type_at(m["type"])))
+        sigs = sorted((m["name"], self.rtype(self.pkg.type_at(m["type"])))
                       for m in methods if m.get("type") is not None)
         if not sigs:
             return ""
-        return ", sigs: const {" + ", ".join(f"{self.str_lit(n)}: {self.str_lit(g)}" for n, g in sigs) + "}"
+        return ", sigs: {" + ", ".join(f"{self.str_lit(n)}: () => {g}" for n, g in sigs) + "}"
 
     def struct_members(self, cls, t, st, named=True):
         """`$rt`/`$rtype` de uma classe de struct (nomeada, ou sem nome com
@@ -190,7 +256,7 @@ class Reflection(Service):
         size, align, ptrs = self.typesys.layout(st)
         pkg, name, s = self.common(t) if named else ("''", "''", self.str_lit(self.goinfo.sharp_type_name(st)))
         fields = ", ".join(self.field(cls, f, off) for f, off in zip(st["fields"], self.offsets(st)))
-        methods = self.method_args(t) if named else "methods: const [], ptrMethods: const []"
+        methods = self.method_args(t, cls=cls) if named else "methods: const [], ptrMethods: const []"
         desc = (f"{self.go('rtStruct')}<{cls}>({pkg}, {name}, {s}, size: {size}, align: {align}, "
                 f"ptrs: {'true' if ptrs else 'false'}, zero: {cls}.new, nil: () => {cls}.$nil, {methods}, "
                 f"fields: () => [{fields}])")
@@ -212,7 +278,7 @@ class Reflection(Service):
         tl = f"<{', '.join(tnames)}>"
         desc = (f"{self.go('rtStruct')}<{self_t}>({pkg}, n, s, size: -1, align: -1, ptrs: true, "
                 f"zero: () => {base}{tl}({dicts}), nil: () => {base}{tl}({dicts})..$nilPtr = true, "
-                f"{self.method_args(t)}, fields: () => [{fields}])")
+                f"{self.method_args(t, cls=self_t)}, fields: () => [{fields}])")
         return ["", "/// Descritor de reflexão da instância (`reflect.Type`).",
                 f"static {self.go('RType')}<{self_t}> $rtOf{decl}({params}) => "
                 f"{self.go('rtGeneric')}<{self_t}>({pkg}, {name}, {short}, [{args}], (n, s) => {desc});",
@@ -272,7 +338,7 @@ class Reflection(Service):
             extra = f", conv: (v) => {ctor}v as {self.types.dart(u)})"
             desc = (f"{self.go('rtNamed')}<{self_t}>({pkg}, n, s, () => {self.rtype(u)}, kind: {self.go(kind)}, "
                     f"size: -1, align: -1, ptrs: {'true' if ptrs else 'false'}, "
-                    f"zero: () => {ctor}{self.types.zero(u)}){extra}, {self.method_args(t)})")
+                    f"zero: () => {ctor}{self.types.zero(u)}){extra}, {self.method_args(t, cls=self_t)})")
             args = ", ".join(f"{self.go('rtOfElem')}(${n})" for n in tps.names)
             dicts = ", ".join(f"${n}" for n in tps.names)
             params = ", ".join(f"{self.imports.qualify(None, 'Elem')}<{n}> ${n}" for n in tps.names)
@@ -283,7 +349,7 @@ class Reflection(Service):
                     "@override", f"{self.go('RType')} get $rtype => $rtOf{tl}({dicts});"]
         desc = (f"{self.go('rtNamed')}<{cls}>({pkg}, {name}, {s}, () => {self.rtype(u)}, kind: {self.go(kind)}, "
                 f"size: {size}, align: {align}, ptrs: {'true' if ptrs else 'false'}, "
-                f"zero: () => {self.types.zero(t)}{extra}, {self.method_args(t)})")
+                f"zero: () => {self.types.zero(t)}{extra}, {self.method_args(t, cls=cls)})")
         return ["", "/// Descritor de reflexão (`reflect.Type`).",
                 f"static final {self.go('RType')}<{cls}> $rt = {desc};"] + self.instance_member()
 

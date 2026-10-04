@@ -168,7 +168,7 @@ final rtError = RType<GoError?>._(
   zero: () => null,
   ptrs: true,
   methods: const ['Error'],
-  sigs: const {'Error': 'func() string'},
+  sigs: {'Error': () => _errorSig},
 );
 
 /// `*T`.
@@ -188,8 +188,15 @@ RType rtChan(int dir, RType t) => t.chanOf(dir);
 
 final _funcs = <String, RType>{};
 
-/// Tipo func sem nome pela assinatura Go (`func(int) string`). Os
-/// parâmetros não são descritos (o reflect ainda não chama funções).
+final _errorSig = rtFuncOf<Golang.String Function()?>(
+  'func() string',
+  () => const [],
+  () => [rtString],
+);
+
+/// Tipo func sem nome pela assinatura Go (`func(int) string`), sem os
+/// parâmetros descritos: o de [rtFuncOf] com a mesma assinatura, se já
+/// existe.
 RType rtFunc(String sig) => _funcs[sig] ??= RType<Object?>._(
   kFunc,
   sig,
@@ -200,6 +207,51 @@ RType rtFunc(String sig) => _funcs[sig] ??= RType<Object?>._(
   conv: (v) => v,
 );
 
+/// Tipo func sem nome descrito pelo g2d: [ins]/[outs] (thunks: tipos
+/// recursivos), variádico (o último de [ins] é o `[]E`) e a cor `async` da
+/// assinatura (a closure Dart devolve `Future`). [sig] vazio: o texto Go
+/// sai dos tipos (assinatura com parâmetro de tipo). T é o tipo Dart
+/// anulável da closure. Canônico pelo texto Go.
+RType rtFuncOf<T>(
+  String sig,
+  List<RType> Function() ins,
+  List<RType> Function() outs, {
+  bool variadic = false,
+  bool async = false,
+}) {
+  if (sig.isEmpty) sig = _funcSig(ins(), outs(), variadic);
+  final old = _funcs[sig];
+  if (old != null) {
+    old._fnInfo ??= RFunc(ins, outs, variadic, async);
+    return old;
+  }
+  return _funcs[sig] = RType<T>._(
+    kFunc,
+    sig,
+    size: 8,
+    align: 8,
+    zero: () => null as T,
+    ptrs: true,
+    conv: (v) => v as T,
+  ).._fnInfo = RFunc(ins, outs, variadic, async);
+}
+
+/// Texto Go de uma assinatura (`func(int, ...string) (bool, error)`).
+String _funcSig(List<RType> ins, List<RType> outs, bool variadic) {
+  final ps = [
+    for (var i = 0; i < ins.length; i++)
+      variadic && i == ins.length - 1
+          ? '...${ins[i].$elem!.$str}'
+          : ins[i].$str,
+  ];
+  final r = switch (outs.length) {
+    0 => '',
+    1 => ' ${outs[0].$str}',
+    _ => ' (${outs.map((t) => t.$str).join(', ')})',
+  };
+  return 'func(${ps.join(', ')})$r';
+}
+
 final _ifaces = <String, RType>{};
 
 /// Interface sem nome com estes métodos (`interface { M() }`); [str] é o
@@ -207,7 +259,7 @@ final _ifaces = <String, RType>{};
 RType rtIface(
   String str,
   List<String> methods, {
-  Map<String, String> sigs = const {},
+  Map<String, RType Function()> sigs = const {},
 }) => methods.isEmpty
     ? rtAny
     : _ifaces[str] ??= RType<Object?>._(
@@ -228,7 +280,7 @@ RType<T> rtNamedIface<T>(
   String name,
   String str,
   List<String> methods, {
-  Map<String, String> sigs = const {},
+  Map<String, RType Function()> sigs = const {},
 }) => RType<T>._(
   kInterface,
   str,
@@ -255,7 +307,9 @@ RType<T> rtStruct<T>(
   bool ptrs = false,
   List<String> methods = const [],
   List<String> ptrMethods = const [],
-  Map<String, String> sigs = const {},
+  Map<String, RType Function()> sigs = const {},
+  Map<String, Function Function(Object)> binds = const {},
+  Map<String, Function Function(Object)> pbinds = const {},
   Object Function()? nil,
 }) => RType<T>._(
   kStruct,
@@ -270,6 +324,8 @@ RType<T> rtStruct<T>(
   methods: methods,
   ptrMethods: ptrMethods,
   sigs: sigs,
+  binds: binds,
+  pbinds: pbinds,
   nil: nil,
 );
 
@@ -288,7 +344,9 @@ RType<T> rtNamed<T>(
   bool ptrs = false,
   List<String> methods = const [],
   List<String> ptrMethods = const [],
-  Map<String, String> sigs = const {},
+  Map<String, RType Function()> sigs = const {},
+  Map<String, Function Function(Object)> binds = const {},
+  Map<String, Function Function(Object)> pbinds = const {},
   Object Function()? nil,
 }) => RType<T>._(
   kind,
@@ -305,6 +363,8 @@ RType<T> rtNamed<T>(
   methods: methods,
   ptrMethods: ptrMethods,
   sigs: sigs,
+  binds: binds,
+  pbinds: pbinds,
   nil: nil,
   under: under,
 );
@@ -382,6 +442,30 @@ final _opaque = <String, RType>{};
 /// Descritor montado em runtime para um tipo sem descritor gerado (tipo de
 /// shim, instância de genérico): nome Go e kind; campos desconhecidos. O
 /// primeiro uso de cada nome fixa o descritor (canônico daí em diante).
+/// Interface nomeada de um shim (`json.Marshaler`...): o g2d a descreve em
+/// cada uso, então o descritor é canônico pelo nome.
+RType<T> rtShimIface<T>(
+  String pkg,
+  String name,
+  String str,
+  List<String> methods, {
+  Map<String, RType Function()> sigs = const {},
+}) =>
+    (_shimIfaces['$pkg.$name'] ??= rtNamedIface<T>(
+          pkg,
+          name,
+          str,
+          methods,
+          sigs: sigs,
+        ))
+        as RType<T>;
+
+final _shimIfaces = <String, RType>{};
+
+/// A interface de shim [key] (`pkg.Nome`) já descrita: o g2d cita assim a
+/// própria interface dentro das assinaturas dela (`thunk`).
+RType rtShimIfaceRef(String key) => _shimIfaces[key]!;
+
 RType rtOpaque(
   String goType,
   int kind, {

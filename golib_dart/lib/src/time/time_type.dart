@@ -38,9 +38,22 @@ final _minInt64Plus1 = Golang.Int64.fromBigInt(
 );
 
 /// `time.Time`.
-final class Time extends GoStruct<Time> implements Stringer {
+final class Time extends GoStruct<Time>
+    implements
+        Stringer,
+        fmt.GoStringer,
+        Typed,
+        json.Marshaler,
+        json.Unmarshaler,
+        encoding.TextMarshaler,
+        encoding.TextUnmarshaler,
+        encoding.BinaryMarshaler,
+        encoding.BinaryUnmarshaler {
   Time() : wall = Golang.Uint64(), ext = Golang.Int64(), loc = null;
   Time._(this.wall, this.ext, this.loc);
+
+  /// `(*Time)(nil)` dentro de uma interface.
+  static final Time $nil = Time()..$nilPtr = true;
 
   Golang.Uint64 wall;
   Golang.Int64 ext;
@@ -48,22 +61,18 @@ final class Time extends GoStruct<Time> implements Stringer {
   /// `nil` é UTC, como no Go (`loc==nil` nunca é `&utcLoc`).
   Location? loc;
 
-  // Só os métodos que o shim implementa (`Format`, `MarshalJSON`... ficam
-  // de fora até existirem: uma asserção de interface não pode prometê-los).
-  static const _ms = [
-    'Add', 'AddDate', 'After', 'Before', 'Clock', 'Compare', 'Date', 'Day',
-    'Equal', 'Hour', 'ISOWeek', 'In', 'IsZero', 'Local', 'Location',
-    'Minute', 'Month', 'Nanosecond', 'Round', 'Second', 'String', 'Sub',
-    'Truncate', 'UTC', 'Unix', 'UnixMicro', 'UnixMilli', 'UnixNano',
-    'Weekday', 'Year', 'YearDay', 'Zone', //
-  ];
+  /// Descritor de reflexão (`SHIM_RTYPES`, `rtypes.dart`).
+  static final RType<Time> $rt = _timeRType();
+
+  @override
+  RType get $rtype => $rt;
 
   @override
   String get $goType => 'time.Time';
   @override
-  List<String> get $valueMethods => _ms;
+  List<String> get $valueMethods => _timeValueMethods;
   @override
-  List<String> get $ptrMethods => _ms;
+  List<String> get $ptrMethods => _timePtrMethods;
 
   @override
   Time $copy() => Time._(wall, ext, loc);
@@ -303,4 +312,38 @@ final class Time extends GoStruct<Time> implements Stringer {
       _addDateImpl(this, years.toInt(), months.toInt(), days.toInt());
   Time truncate(Duration d) => _truncateImpl(this, d);
   Time round(Duration d) => _roundImpl(this, d);
+
+  // ---- layout e serialização (`layout.dart`, `marshal.dart`) ----
+
+  Golang.String format(Golang.String layout) => _formatImpl(this, layout);
+  Slice<Golang.Uint8> appendFormat(
+    Slice<Golang.Uint8> b,
+    Golang.String layout,
+  ) => _appendFormatImpl(this, b, layout);
+  @override
+  Golang.String goString() => _goStringImpl(this);
+
+  /// `IsDST()`: fuso fixo nunca está em horário de verão.
+  bool isDST() => false;
+
+  (Slice<Golang.Uint8>, GoError?) appendBinary(Slice<Golang.Uint8> b) =>
+      _appendBinaryImpl(this, b);
+  @override
+  (Slice<Golang.Uint8>, GoError?) marshalBinary() => _marshalBinaryImpl(this);
+  @override
+  GoError? unmarshalBinary(Slice<Golang.Uint8> data) =>
+      _unmarshalBinaryImpl(this, data);
+  @override
+  (Slice<Golang.Uint8>, GoError?) marshalJSON() => _marshalJSONImpl(this);
+  @override
+  GoError? unmarshalJSON(Slice<Golang.Uint8> data) =>
+      _unmarshalJSONImpl(this, data);
+  (Slice<Golang.Uint8>, GoError?) appendText(Slice<Golang.Uint8> b) =>
+      _appendTextImpl(this, b, 'Time.AppendText: ');
+  @override
+  (Slice<Golang.Uint8>, GoError?) marshalText() =>
+      _appendTextImpl(this, _nilBytes(), 'Time.MarshalText: ');
+  @override
+  GoError? unmarshalText(Slice<Golang.Uint8> data) =>
+      _unmarshalTextImpl(this, data);
 }

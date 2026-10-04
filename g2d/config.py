@@ -68,4 +68,5 @@ REFLECT_PKGS = frozenset({"reflect", "encoding/json"})
 
 # Tipos nomeados de shim com descritor de reflexão próprio (`static final $rt`
 # na classe do shim); os outros viram `go.rtOpaque`.
-SHIM_RTYPES = frozenset({("encoding/json", "Number"), ("encoding/json", "Delim")})
+SHIM_RTYPES = frozenset({("encoding/json", "Number"), ("encoding/json", "Delim"), ("time", "Time"),
+                         ("time", "Duration"), ("time", "Month"), ("time", "Weekday")})

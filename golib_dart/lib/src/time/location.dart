@@ -10,19 +10,44 @@ part of '../../time.dart';
 /// `Local` e `UTC` são ponteiros distintos mesmo quando coincidem em
 /// offset). `LoadLocation`/o `TZ` do ambiente não têm shim (ficam
 /// `Unsupported` `shim-simbolo:time.LoadLocation`).
-final class Location implements Stringer, Golang.GoTyped {
-  const Location._(this._name, this._offset);
+final class Location extends GoStruct<Location> implements Stringer {
+  Location._(this._name, this._offset);
 
-  final String _name;
+  /// `(*Location)(nil)` dentro de uma interface.
+  static final Location $nil = Location._('UTC', 0)..$nilPtr = true;
+
+  String _name;
 
   /// Segundos a leste de UTC.
-  final int _offset;
+  int _offset;
 
   @override
-  String get $goType => '*time.Location';
+  String get $goType => 'time.Location';
 
   @override
-  List<String> get $methods => const ['String'];
+  List<String> get $ptrMethods => const ['String'];
+
+  @override
+  Location $copy() => Location._(_name, _offset);
+
+  @override
+  void $set(Location o) {
+    _name = o._name;
+    _offset = o._offset;
+  }
+
+  // Campos do Go (`name`, `zone`, `tx`...) não são descritos: `Location`
+  // só aparece por ponteiro, e `==` é identidade (como o `*Location`).
+  @override
+  List<Object?> get $fields => const [];
+  @override
+  List<String> get $fieldNames => const [];
+
+  @override
+  bool operator ==(Object other) => identical(this, other);
+
+  @override
+  int get hashCode => identityHashCode(this);
 
   /// `(name string, offset int)` em vigor: sempre o mesmo, fuso fixo.
   (String, int) _lookup() => (_name, _offset);
@@ -37,8 +62,7 @@ final class Location implements Stringer, Golang.GoTyped {
 // iguais às variáveis exportadas abaixo. Um `t.utc()` referenciaria a si
 // mesmo (o método) em vez da variável de nível de pacote, então o resto do
 // shim usa estes dois nomes.
-// Não `const`: duas constantes iguais seriam o mesmo objeto (canonicalizadas),
-// e `Local`/`UTC` precisam de identidades distintas.
+// Objetos distintos: `Local`/`UTC` têm identidades próprias.
 final _utcSentinel = Location._('UTC', 0);
 final _localSentinel = Location._('UTC', 0);
 

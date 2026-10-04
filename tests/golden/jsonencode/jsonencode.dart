@@ -1185,7 +1185,15 @@ class Point extends go.GoStruct<Point> implements json.Marshaler, go.Typed {
     nil: () => Point.$nil,
     methods: const ['MarshalJSON'],
     ptrMethods: const ['MarshalJSON'],
-    sigs: const {'MarshalJSON': 'func() ([]uint8, error)'},
+    sigs: {
+      'MarshalJSON': () =>
+          go.rtFuncOf<(go.Slice<Golang.Uint8>, go.GoError?) Function()?>(
+            'func() ([]uint8, error)',
+            () => [],
+            () => [go.rtSlice(go.rtUint8), go.rtError],
+          ),
+    },
+    binds: {'MarshalJSON': (o) => (o as Point).marshalJSON},
     fields: () => [
       go.rtField(
         'X',
@@ -1264,7 +1272,15 @@ class PtrM extends go.GoStruct<PtrM> implements json.Marshaler, go.Typed {
     nil: () => PtrM.$nil,
     methods: const [],
     ptrMethods: const ['MarshalJSON'],
-    sigs: const {'MarshalJSON': 'func() ([]uint8, error)'},
+    sigs: {
+      'MarshalJSON': () =>
+          go.rtFuncOf<(go.Slice<Golang.Uint8>, go.GoError?) Function()?>(
+            'func() ([]uint8, error)',
+            () => [],
+            () => [go.rtSlice(go.rtUint8), go.rtError],
+          ),
+    },
+    binds: {'MarshalJSON': (o) => (o as PtrM).marshalJSON},
     fields: () => [
       go.rtField(
         'N',
@@ -1407,7 +1423,15 @@ class Key extends go.GoStruct<Key> implements go.Typed {
     nil: () => Key.$nil,
     methods: const ['MarshalText'],
     ptrMethods: const ['MarshalText'],
-    sigs: const {'MarshalText': 'func() ([]uint8, error)'},
+    sigs: {
+      'MarshalText': () =>
+          go.rtFuncOf<(go.Slice<Golang.Uint8>, go.GoError?) Function()?>(
+            'func() ([]uint8, error)',
+            () => [],
+            () => [go.rtSlice(go.rtUint8), go.rtError],
+          ),
+    },
+    binds: {'MarshalText': (o) => (o as Key).marshalText},
     fields: () => [
       go.rtField(
         'A',
@@ -1464,7 +1488,15 @@ final class Color extends Golang.Int64Base<Color> implements go.Typed {
     conv: (v) => Color.from(v as Golang.IntBase),
     methods: const ['MarshalText'],
     ptrMethods: const ['MarshalText'],
-    sigs: const {'MarshalText': 'func() ([]uint8, error)'},
+    sigs: {
+      'MarshalText': () =>
+          go.rtFuncOf<(go.Slice<Golang.Uint8>, go.GoError?) Function()?>(
+            'func() ([]uint8, error)',
+            () => [],
+            () => [go.rtSlice(go.rtUint8), go.rtError],
+          ),
+    },
+    binds: {'MarshalText': (o) => (o as Color).marshalText},
   );
   @override
   go.RType get $rtype => $rt;
@@ -1521,7 +1553,15 @@ class Bad extends go.GoStruct<Bad> implements json.Marshaler, go.Typed {
     nil: () => Bad.$nil,
     methods: const ['MarshalJSON'],
     ptrMethods: const ['MarshalJSON'],
-    sigs: const {'MarshalJSON': 'func() ([]uint8, error)'},
+    sigs: {
+      'MarshalJSON': () =>
+          go.rtFuncOf<(go.Slice<Golang.Uint8>, go.GoError?) Function()?>(
+            'func() ([]uint8, error)',
+            () => [],
+            () => [go.rtSlice(go.rtUint8), go.rtError],
+          ),
+    },
+    binds: {'MarshalJSON': (o) => (o as Bad).marshalJSON},
     fields: () => [],
   );
   @override
@@ -1570,7 +1610,15 @@ class Fails extends go.GoStruct<Fails> implements json.Marshaler, go.Typed {
     nil: () => Fails.$nil,
     methods: const ['MarshalJSON'],
     ptrMethods: const ['MarshalJSON'],
-    sigs: const {'MarshalJSON': 'func() ([]uint8, error)'},
+    sigs: {
+      'MarshalJSON': () =>
+          go.rtFuncOf<(go.Slice<Golang.Uint8>, go.GoError?) Function()?>(
+            'func() ([]uint8, error)',
+            () => [],
+            () => [go.rtSlice(go.rtUint8), go.rtError],
+          ),
+    },
+    binds: {'MarshalJSON': (o) => (o as Fails).marshalJSON},
     fields: () => [],
   );
   @override
@@ -1622,7 +1670,15 @@ class TextFails extends go.GoStruct<TextFails> implements go.Typed {
     nil: () => TextFails.$nil,
     methods: const ['MarshalText'],
     ptrMethods: const ['MarshalText'],
-    sigs: const {'MarshalText': 'func() ([]uint8, error)'},
+    sigs: {
+      'MarshalText': () =>
+          go.rtFuncOf<(go.Slice<Golang.Uint8>, go.GoError?) Function()?>(
+            'func() ([]uint8, error)',
+            () => [],
+            () => [go.rtSlice(go.rtUint8), go.rtError],
+          ),
+    },
+    binds: {'MarshalText': (o) => (o as TextFails).marshalText},
     fields: () => [],
   );
   @override
@@ -1678,7 +1734,14 @@ class Zeroer extends go.GoStruct<Zeroer> implements go.Typed {
     nil: () => Zeroer.$nil,
     methods: const ['IsZero'],
     ptrMethods: const ['IsZero'],
-    sigs: const {'IsZero': 'func() bool'},
+    sigs: {
+      'IsZero': () => go.rtFuncOf<bool Function()?>(
+        'func() bool',
+        () => [],
+        () => [go.rtBool],
+      ),
+    },
+    binds: {'IsZero': (o) => (o as Zeroer).isZero},
     fields: () => [
       go.rtField(
         'V',
@@ -2409,7 +2472,13 @@ void main() {
     _show(math.inf(Golang.Int(-1)));
     _show(Golang.Float32(math.inf(Golang.Int(1)).toDouble()));
     _show(go.Slice<go.Chan<Golang.Int>?>.of([null], _$e13));
-    _show(go.Func((() {}), 'func()'));
+    _show(
+      go.Func(
+        (() {}),
+        'func()',
+        () => go.rtFuncOf<void Function()?>('func()', () => [], () => []),
+      ),
+    );
     _show(
       go.GoMap<go.GoArray<Golang.Int>, Golang.Int>.of(
         {
@@ -2423,7 +2492,10 @@ void main() {
     _show(Golang.Complex128.fromDoubles(1.0, 2.0));
     _show($_anon$112().$ifaceCopy());
     var (_, err) = json.marshal(Fails().$ifaceCopy());
-    final go.Box<json.MarshalerError?> me = go.Box<json.MarshalerError?>(null);
+    final go.Box<json.MarshalerError?> me = go.Box<json.MarshalerError?>(
+      null,
+      _$e15,
+    );
     if (errors.as(err, me ?? const go.NilPtr<json.MarshalerError?>())) {
       (switch (errors.unwrap(err)) {
         final $t1 => fmt.println(
@@ -2455,7 +2527,7 @@ void main() {
     (_, err) = json.marshal(
       go.GoMap<Golang.String, go.Chan<bool>?>.of(
         {Golang.String.fromDart('c'): null},
-        _$e15,
+        _$e16,
         key: _$e1,
       ),
     );
@@ -2934,10 +3006,17 @@ const _$e14 = go.Elem<go.GoArray<Golang.Int>>(
   value: true,
   type: _$t37_15,
 );
-go.RType _$t39_16() => go.rtChan(3, go.rtBool);
-const _$e15 = go.Elem<go.Chan<bool>?>(
+go.RType _$t39_16() => go.rtPtr(go.rtOpaque('json.MarshalerError', go.kStruct));
+const _$e15 = go.Elem<json.MarshalerError?>(
   8,
   go.zeroNull,
   pointers: true,
   type: _$t39_16,
+);
+go.RType _$t41_17() => go.rtChan(3, go.rtBool);
+const _$e16 = go.Elem<go.Chan<bool>?>(
+  8,
+  go.zeroNull,
+  pointers: true,
+  type: _$t41_17,
 );

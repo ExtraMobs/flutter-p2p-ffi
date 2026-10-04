@@ -69,10 +69,14 @@ final class NilPtr<T> implements Ptr<T> {
 /// Variável cujo endereço é tomado (`&x`) ou criada por `new(T)`: ela passa
 /// a morar numa caixa, e a identidade da caixa é o endereço.
 final class Box<T> implements Ptr<T> {
-  Box(this.value);
+  Box(this.value, [this.elem]);
 
   @override
   T value;
+
+  /// Descritor de T num grafo reflexivo quando T é anulável (`*S`,
+  /// interface): o `reflect` não acha o tipo de um valor nil.
+  final Elem<T>? elem;
 
   @override
   bool $assignIfIs(Object? v) {

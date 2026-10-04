@@ -208,23 +208,23 @@ class UnsupportedTest(unittest.TestCase):
 
     def test_missing_shim_member(self):
         """Método/campo que a classe do shim não tem é recusado (antes:
-        `t.format(...)` e dart analyze acusava undefined_method): chamada
+        `t.gobDecode(...)` e dart analyze acusava undefined_method): chamada
         direta, via ponteiro, method value, method expression, promovido
         por embedding, `defer` e `go`."""
         head = 'package main\n\nimport "time"\n\ntype S struct{ time.Time }\n\nfunc main() {\n\tt := time.Unix(0, 0)\n\t_ = t\n'
         cases = {
-            '_ = t.Format("2006")': 10,
-            'p := &t\n\t_ = p.Format("2006")': 11,
-            'f := t.Format\n\t_ = f': 10,
-            '_ = time.Time.Format': 10,
-            'var s S\n\t_ = s.Format("2006")': 11,
-            'defer t.Format("2006")': 10,
-            'go t.Format("2006")': 10,
+            '_ = t.GobDecode(nil)': 10,
+            'p := &t\n\t_ = p.GobDecode(nil)': 11,
+            'f := t.GobDecode\n\t_ = f': 10,
+            '_ = (*time.Time).GobDecode': 10,
+            'var s S\n\t_ = s.GobDecode(nil)': 11,
+            'defer t.GobDecode([]byte{})': 10,
+            'go t.GobDecode([]byte{})': 10,
         }
         for body, line in cases.items():
             with self.subTest(body=body):
                 code, pos = self.emit_error(head + "\t" + body + "\n}\n")
-                self.assertEqual(code, "shim-simbolo:time.Time.format")
+                self.assertEqual(code, "shim-simbolo:time.Time.gobDecode")
                 self.assertEqual(pos[1], line)
 
     def test_shim_members_present(self):

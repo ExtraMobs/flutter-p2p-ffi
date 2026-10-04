@@ -622,7 +622,15 @@ class Point extends go.GoStruct<Point> implements json.Unmarshaler, go.Typed {
     nil: () => Point.$nil,
     methods: const [],
     ptrMethods: const ['UnmarshalJSON'],
-    sigs: const {'UnmarshalJSON': 'func([]uint8) error'},
+    sigs: {
+      'UnmarshalJSON': () =>
+          go.rtFuncOf<go.GoError? Function(go.Slice<Golang.Uint8>)?>(
+            'func([]uint8) error',
+            () => [go.rtSlice(go.rtUint8)],
+            () => [go.rtError],
+          ),
+    },
+    binds: {'UnmarshalJSON': (o) => (o as Point).unmarshalJSON},
     fields: () => [
       go.rtField(
         'X',
@@ -719,7 +727,15 @@ class Level extends go.GoStruct<Level> implements go.Typed {
     nil: () => Level.$nil,
     methods: const [],
     ptrMethods: const ['UnmarshalText'],
-    sigs: const {'UnmarshalText': 'func([]uint8) error'},
+    sigs: {
+      'UnmarshalText': () =>
+          go.rtFuncOf<go.GoError? Function(go.Slice<Golang.Uint8>)?>(
+            'func([]uint8) error',
+            () => [go.rtSlice(go.rtUint8)],
+            () => [go.rtError],
+          ),
+    },
+    binds: {'UnmarshalText': (o) => (o as Level).unmarshalText},
     fields: () => [
       go.rtField(
         'V',
@@ -769,7 +785,17 @@ final class Upper extends Golang.StringBase<Upper> implements go.Typed {
     conv: (v) => Upper(v as Golang.String),
     methods: const [],
     ptrMethods: const ['UnmarshalJSON'],
-    sigs: const {'UnmarshalJSON': 'func([]uint8) error'},
+    sigs: {
+      'UnmarshalJSON': () =>
+          go.rtFuncOf<go.GoError? Function(go.Slice<Golang.Uint8>)?>(
+            'func([]uint8) error',
+            () => [go.rtSlice(go.rtUint8)],
+            () => [go.rtError],
+          ),
+    },
+    pbinds: {
+      'UnmarshalJSON': (o) => Upper$Ptr(o as go.Ptr<Upper>).unmarshalJSON,
+    },
   );
   @override
   go.RType get $rtype => $rt;
@@ -1464,7 +1490,7 @@ void main() {
       Golang.String.fromDart('%+v %v\n'),
       go.Slice<Object?>.of([pts.value, err], _$e4),
     );
-    final go.Box<Object?> anyv = go.Box<Object?>(null);
+    final go.Box<Object?> anyv = go.Box<Object?>(null, _$e4);
     {
       final $t5 = go.Slice<Golang.String>.of([
         Golang.String.fromDart('1'),
@@ -1494,6 +1520,7 @@ void main() {
     }
     final go.Box<Object?> target = go.Box<Object?>(
       Inner(n: Golang.Int(-1)) ?? Inner.$nil,
+      _$e4,
     );
     err = json.unmarshal(
       go.bytesOf(Golang.String.fromDart('{"N": 10}'), _$e3),
@@ -1547,7 +1574,7 @@ void main() {
     );
     fmt.println(go.Slice<Object?>.of([err], _$e4));
     final go.Box<json.UnmarshalTypeError?> ute =
-        go.Box<json.UnmarshalTypeError?>(null);
+        go.Box<json.UnmarshalTypeError?>(null, _$e12);
     if (errors.as(err, ute ?? const go.NilPtr<json.UnmarshalTypeError?>())) {
       fmt.println(
         go.Slice<Object?>.of([
@@ -1664,7 +1691,7 @@ void main() {
       ], _$e4),
     );
     final go.Box<json.InvalidUnmarshalError?> iue =
-        go.Box<json.InvalidUnmarshalError?>(null);
+        go.Box<json.InvalidUnmarshalError?>(null, _$e13);
     (switch (errors.as(
       json.unmarshal(
         go.bytesOf(Golang.String.fromDart('{}'), _$e3),
@@ -1696,12 +1723,15 @@ void main() {
       for (var $t16 = 0; $t16 < $t15.length; $t16++) {
         Golang.String s$2 = $t15[$t16];
         {
-          final go.Box<Object?> x$1 = go.Box<Object?>(null);
+          final go.Box<Object?> x$1 = go.Box<Object?>(null, _$e4);
           go.GoError? err$1 = json.unmarshal(
             go.bytesOf(s$2, _$e3),
             x$1 ?? const go.NilPtr<Object?>(),
           );
-          final go.Box<json.SyntaxError?> se = go.Box<json.SyntaxError?>(null);
+          final go.Box<json.SyntaxError?> se = go.Box<json.SyntaxError?>(
+            null,
+            _$e14,
+          );
           if (errors.as(err$1, se ?? const go.NilPtr<json.SyntaxError?>())) {
             fmt.printf(
               Golang.String.fromDart('%q -> %v (offset %d)\n'),
@@ -1946,4 +1976,27 @@ const _$e11 = go.Elem<go.Slice<Golang.Int>>(
   _$z27_12,
   pointers: true,
   type: _$t28_12,
+);
+go.RType _$t30_13() =>
+    go.rtPtr(go.rtOpaque('json.UnmarshalTypeError', go.kStruct));
+const _$e12 = go.Elem<json.UnmarshalTypeError?>(
+  8,
+  go.zeroNull,
+  pointers: true,
+  type: _$t30_13,
+);
+go.RType _$t32_14() =>
+    go.rtPtr(go.rtOpaque('json.InvalidUnmarshalError', go.kStruct));
+const _$e13 = go.Elem<json.InvalidUnmarshalError?>(
+  8,
+  go.zeroNull,
+  pointers: true,
+  type: _$t32_14,
+);
+go.RType _$t34_15() => go.rtPtr(go.rtOpaque('json.SyntaxError', go.kStruct));
+const _$e14 = go.Elem<json.SyntaxError?>(
+  8,
+  go.zeroNull,
+  pointers: true,
+  type: _$t34_15,
 );
