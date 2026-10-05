@@ -7,6 +7,7 @@ import 'package:golib_dart/builtin.dart' hide Addr;
 import 'package:golib_dart/fixed_types/golang.dart' as Golang;
 import 'package:golib_dart/net.dart' as net;
 import 'package:golib_dart/net/netip.dart' as netip;
+import 'package:golib_dart/os.dart' as os;
 import 'package:test/test.dart';
 
 Golang.String gs(String s) => Golang.String.fromDart(s);
@@ -166,10 +167,12 @@ net.IPMask mask(List<int> b) => net.IPMask(
 void main() {
   test('net e net/netip iguais ao Go: parse, formatação, máscaras, '
       'prefixos e erros', () async {
-    final r = await Process.run('go', [
-      'run',
-      'test/go_net_vectors.go',
-    ], stdoutEncoding: utf8);
+    final r = await Process.run(
+      'go',
+      ['run', 'test/go_net_vectors.go'],
+      environment: {...Platform.environment, 'GOTOOLCHAIN': 'go1.26.5'},
+      stdoutEncoding: utf8,
+    );
     expect(r.exitCode, 0, reason: '${r.stderr}');
     final go = jsonDecode(r.stdout as String) as Map<String, dynamic>;
     final inputs = [for (final s in go['inputs'] as List) s as String];
@@ -261,6 +264,16 @@ void main() {
     );
     expect(op.unwrap(), same(net.errClosed));
     expect(op.timeout(), isFalse);
+    // Go: os.IsTimeout(&net.OpError{Err: os.ErrDeadlineExceeded}) == true.
+    expect(os.isTimeout(op), isFalse);
+    final dl = net.OpError(
+      op: gs('read'),
+      net: gs('tcp'),
+      err: os.errDeadlineExceeded,
+    );
+    expect(dl.timeout(), isTrue);
+    expect(os.isTimeout(dl), isTrue);
+    expect(dl.error().toString(), 'read tcp: i/o timeout');
     expect(net.OpError.$nil.error().toString(), '<nil>');
     expect(net.TCPAddr.$nil.string().toString(), '<nil>');
     expect(

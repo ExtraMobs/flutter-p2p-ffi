@@ -8,9 +8,18 @@
 ## Problema
 
 Sem shim de `net`, nada de rede transpila; `net/http` (65 pacotes) e boa
-parte do libp2p vêm atrás. Já existe um port em `golib_dart/lib/net.dart`
-(do boilerplate do dart IPFS), mas a API é Dart idiomática (`Ip`,
-`tryParse`) e não está registrada em `STDLIB_SHIMS`.
+parte do libp2p vêm atrás. (Antes do passo 1 o port em `golib_dart/lib/net.dart`
+vinha do boilerplate do dart IPFS, com API Dart idiomática.)
+
+## Feito (passo 1, 2026-10-05)
+
+A parte sem I/O está pronta e registrada em `STDLIB_SHIMS`: `net`
+(endereços, `IP`/`IPMask`/`HardwareAddr` com a forma de nomeado gerado via
+`SHIM_NAMED_CLASSES`, `TCPAddr`/`UDPAddr`/`IPAddr`/`UnixAddr`, `IPNet`,
+erros `OpError`/`DNSError`/`AddrError`/`ParseError`..., `ErrClosed`) e
+`net/netip` inteiro, portados do Go 1.26 sem `dart:io`; oráculo em
+`golib_dart/test/net_test.dart`, fixtures `netaddr` e `netipaddr`. Falta a
+rede de verdade (`Conn`, `Listener`, `Dialer`, `PacketConn`, resolver/DNS).
 
 ## Prova
 
@@ -44,9 +53,7 @@ Símbolos mais usados (`docs/stdlib-coverage.md`): `Addr`, `Conn`, `IP`,
 Como D3, para sockets: `dart:io` na VM/AOT, `node:net`/`node:dgram` no
 JS/Wasm sob Node (escolha em runtime: o import condicional não distingue Node
 de navegador), e escopo da 1ª entrega (recomendado: endereços, TCP, UDP, DNS e
-interfaces de uma vez). A parte sem I/O (`IP`, `IPNet`,
-`ParseIP`, `SplitHostPort`, `netip`) não depende de decisão e pode começar
-antes.
+interfaces de uma vez). A parte sem I/O já foi feita (passo 1, acima).
 
 ## Critério de pronto
 
