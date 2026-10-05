@@ -7,11 +7,9 @@ from g2d.engine.behavior import Service
 from g2d.model import Unsupported
 
 
-# Palavras reservadas do Dart (não podem ser identificadores). `as` é
-# identificador embutido, mas não pode nomear variável de padrão
-# (`final (n, as) = ...`, a desestruturação de multi-valor).
+# Palavras reservadas do Dart (não podem ser identificadores).
 DART_RESERVED = frozenset("""
-as assert break case catch class const continue default do else enum extends
+assert break case catch class const continue default do else enum extends
 false final finally for if in is new null rethrow return super switch this
 throw true try var void while with
 """.split())
@@ -135,8 +133,10 @@ def param_name(name):
 
 
 def local_name(name):
-    """Variáveis locais e parâmetros: nome Go, escapando reservadas."""
-    return escape(name)
+    """Variáveis locais e parâmetros: nome Go, escapando reservadas. `as` é
+    identificador embutido do Dart que não pode nomear variável de padrão
+    (`final (n, as) = ...`, a desestruturação de multi-valor)."""
+    return "as$" if name == "as" else escape(name)
 
 
 class Naming(Service):
