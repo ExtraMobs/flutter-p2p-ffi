@@ -529,7 +529,7 @@ nos erros do Go: `*OpError{Op, Net, Source, Addr, Err}` com
 |---|---|
 | `Dial`, `DialTimeout`, `DialTCP`, `DialUDP`, `Dialer.Dial`/`DialContext` (prazo, `Timeout`, `LocalAddr`, cancelamento pelo `ctx`) | funções e métodos `Future` (cor `async`) |
 | `Listen`, `ListenPacket`, `ListenTCP`, `ListenUDP`, `ListenConfig` | idem |
-| `TCPConn`, `UDPConn` | structs de shim; `Read`/`Write` de versão dupla (`read$async` real, `read` síncrono = `fatal` do `syncOfAsync`); `ReadFrom`/`WriteTo` (`io.ReaderFrom`/`WriterTo`) de `TCPConn`, `CloseRead`/`CloseWrite`, deadlines, `SetNoDelay`/`SetKeepAlive` |
+| `TCPConn`, `UDPConn` | structs de shim; `Read`/`Write` de versão dupla (`read$async` real, `read` síncrono = `fatal` do `syncOfAsync`); `ReadFrom`/`WriteTo` (`io.ReaderFrom`/`WriterTo`) de `TCPConn`, `CloseRead`/`CloseWrite`, deadlines, `SetNoDelay`/`SetKeepAlive`/`SetKeepAlivePeriod` (`TCP_KEEPIDLE`, segundos para cima) e `SetLinger` (`SO_LINGER`; com 0 o `Close` manda RST). Toda conexão nova nasce com o keepalive do Go (ocioso 15s, 15s entre sondas, 9 sondas), honrando `Dialer.KeepAlive`/`ListenConfig.KeepAlive` (negativo desliga) |
 | `TCPListener.Accept`/`AcceptTCP`, `UDPConn.ReadFrom*`/`WriteTo*` | `Future` |
 | `Conn`, `Listener`, `PacketConn` | interfaces de shim (`SHIM_INTERFACES`); tipo gerado que as implementa (embrulho de `net.Conn`) entra no grupo de cor do método |
 | `LookupHost`, `LookupIP`, `LookupTXT`, `LookupPort`, `Resolver.Lookup{Host,IP,IPAddr,NetIP,Port,TXT}`, `Resolve{TCP,UDP}Addr` | resolver do sistema para IP: `getaddrinfo` na VM e `dns.lookup` no Node; TXT por cliente DNS UDP próprio na VM (lê `/etc/resolv.conf` com os padrões do Go) e `dns.resolveTxt` no Node; portas pela tabela embutida do Go |
@@ -539,17 +539,23 @@ Fixtures `nettcp` (servidor de eco, embrulho de `net.Conn`, 1 MiB, prazo de
 leitura, `CloseWrite` + `ReadAll`, `Close` durante `Read`, conexão recusada,
 erros de endereço e rede) e `netudp` (`PacketConn` com embrulho, `DialUDP`,
 truncamento, `ReadFromUDP`/`WriteToUDP`, prazo, `LookupHost`,
-`ResolveTCPAddr`, porta desconhecida, `Interfaces`), byte a byte iguais ao
-`go run` na VM, no JS e no Wasm; oráculo da camada em
+`ResolveTCPAddr`, porta desconhecida, `Interfaces`) e `netlinger`
+(`SetLinger(0)` + `Close` → `connection reset by peer` e depois EOF,
+`SetKeepAlive*`/`SetLinger` em conexão aberta e fechada, `Dialer.KeepAlive`
+negativo), byte a byte iguais ao `go run` na VM, no JS e no Wasm; oráculo
+da camada em
 `golib_dart/test/net_sys_test.dart` e `test/net_sys_node/`.
 
 ⚠️ Limites: sockets Unix e IP brutos (`unix*`, `ip:*`) dão
 `operation not supported` em runtime; `LookupAddr`/`CNAME`/`MX`/`NS`/`SRV`,
-`Resolver.Dial`, `Dialer.Control`/`FallbackDelay` e `ListenConfig.Control`
-não existem no shim (`Unsupported` na transpilação); `/etc/services` não é
-lido; `SetLinger` é aceito e ignorado e `SetKeepAlivePeriod` só liga o
-keepalive; o Node não tem `shutdown(SHUT_RD)` (o `CloseRead` só passa a dar
-EOF); a VM não expõe `IPV6_V6ONLY` para UDP; fora do linux, MTU, MAC e
+`Resolver.Dial`, `Dialer.Control`/`FallbackDelay`, `ListenConfig.Control` e
+`KeepAliveConfig`/`SetKeepAliveConfig` não existem no shim (`Unsupported` na
+transpilação); `/etc/services` não é lido; `SO_LINGER` e `TCP_KEEP{IDLE,
+INTVL,CNT}` só valem no linux (fora dele as constantes mudam e os ajustes
+ficam aceitos e ignorados), e no Node só o tempo de ociosidade do keepalive
+é ajustável (`socket.setKeepAlive`), `SetLinger(0)` vira
+`resetAndDestroy()` e `SetLinger(sec > 0)` fica aceito e ignorado; o Node
+não tem `shutdown(SHUT_RD)` (o `CloseRead` só passa a dar EOF); a VM não expõe `IPV6_V6ONLY` para UDP; fora do linux, MTU, MAC e
 flags de interface são aproximados. O DoH do kubo é código transpilado e
 vem com o shim `net/http`.
 

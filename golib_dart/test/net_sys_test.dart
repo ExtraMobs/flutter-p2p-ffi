@@ -21,6 +21,9 @@ import 'dart:typed_data';
 import 'package:golib_dart/src/net/sys/dns_msg.dart';
 import 'package:golib_dart/src/net/sys/resolv_conf.dart';
 import 'package:golib_dart/src/net/sys/sys.dart';
+// `sysGetRawOption` só existe no motor da VM (o `sys.dart` resolve o
+// export condicional para o stub na análise estática).
+import 'package:golib_dart/src/net/sys/sys_io.dart' show sysGetRawOption;
 import 'package:golib_dart/src/runtime/sched.dart';
 import 'package:test/test.dart';
 
@@ -172,6 +175,61 @@ void main() {
       final n = await c.read(Uint8List(1));
       goroutineUnblocked();
       expect(n, 1);
+      c.close();
+      s.close();
+      l.close();
+    });
+
+    // `SO_LINGER` e `TCP_KEEP*` gravados no socket (como o Go no linux),
+    // lidos de volta com `getsockopt`. Constantes do linux: SOL_SOCKET=1,
+    // SO_LINGER=13, IPPROTO_TCP=6, TCP_KEEPIDLE=4, TCP_KEEPINTVL=5,
+    // TCP_KEEPCNT=6; `struct linger` são dois int32 na ordem do host.
+    test('SO_LINGER e TCP_KEEP* no socket (linux)', () async {
+      if (!Platform.isLinux) {
+        markTestSkipped('constantes só valem no linux');
+        return;
+      }
+      final l = await sysListenTcp(
+        SysAddr(Uint8List.fromList([127, 0, 0, 1]), 0),
+      );
+      final accepted = l.accept();
+      final c = await sysDialTcp(l.local);
+      final s = await accepted;
+      int opt(int level, int option) {
+        final raw = sysGetRawOption(c, level, option, 4)!;
+        return ByteData.view(raw.buffer, raw.offsetInBytes, 4).getInt32(
+          0,
+          Endian.host,
+        );
+      }
+
+      (int, int) linger() {
+        final raw = sysGetRawOption(c, 1, 13, 8)!;
+        final d = ByteData.view(raw.buffer, raw.offsetInBytes, 8);
+        return (d.getInt32(0, Endian.host), d.getInt32(4, Endian.host));
+      }
+
+      c.setLinger(-1);
+      expect(linger(), (0, 0));
+      c.setLinger(0);
+      expect(linger(), (1, 0));
+      c.setLinger(7);
+      expect(linger(), (1, 7));
+
+      // O keepalive (SO_KEEPALIVE=9) e os três parâmetros.
+      c.setKeepAlive(true);
+      expect(opt(1, 9), 1);
+      c.setKeepAliveIdle(2);
+      c.setKeepAliveInterval(3);
+      c.setKeepAliveCount(4);
+      expect(opt(6, 4), 2);
+      expect(opt(6, 5), 3);
+      expect(opt(6, 6), 4);
+      c.setKeepAlive(false);
+      expect(opt(1, 9), 0);
+      // Os parâmetros ficam como estavam (o Go também não os desfaz).
+      expect(opt(6, 4), 2);
+
       c.close();
       s.close();
       l.close();

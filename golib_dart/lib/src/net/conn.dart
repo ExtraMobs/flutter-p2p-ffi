@@ -226,26 +226,54 @@ final class TCPConn extends _NetConn<TCPConn>
     return null;
   }
 
-  /// `SetNoDelay(noDelay)`.
-  GoError? setNoDelay(bool noDelay) {
+  /// Uma opção de socket: fechada, o erro do Go (`set ...: use of closed
+  /// network connection`); falhando, o `setsockopt` embrulhado.
+  GoError? _setOpt(void Function() set) {
     if (_closed) return _opError('set', _net, _laddr, _raddr, errClosed);
-    _fd!.setNoDelay(noDelay);
+    try {
+      set();
+    } on Object catch (e) {
+      return _opError('set', _net, _laddr, _raddr, _sysError(e));
+    }
     return null;
   }
+
+  /// `SetNoDelay(noDelay)`.
+  GoError? setNoDelay(bool noDelay) => _setOpt(() => _fd!.setNoDelay(noDelay));
 
   /// `SetKeepAlive(keepalive)`.
-  GoError? setKeepAlive(bool keepalive) {
-    if (_closed) return _opError('set', _net, _laddr, _raddr, errClosed);
-    _fd!.setKeepAlive(keepalive);
-    return null;
+  GoError? setKeepAlive(bool keepalive) =>
+      _setOpt(() => _fd!.setKeepAlive(keepalive));
+
+  /// `SetKeepAlivePeriod(d)`: `TCP_KEEPIDLE` com `d` arredondado para cima
+  /// em segundos, como o `setKeepAliveIdle` do Go — `d == 0` usa o padrão
+  /// (15s) e `d < 0` não mexe no socket. Não liga o keepalive.
+  GoError? setKeepAlivePeriod(time.Duration d) => _setOpt(() {
+    final secs = _keepAliveSecs(d.toInt(), _keepAliveIdleDefault);
+    if (secs > 0) _fd!.setKeepAliveIdle(secs);
+  });
+
+  /// `SetKeepAliveConfig(config)` com `Enable` ligado: as três opções do
+  /// keepalive, cada uma com o padrão do Go no zero e intocada no negativo.
+  GoError? _setKeepAliveConfig(int idleNs, int intervalNs, int count) {
+    final err = setKeepAlive(true);
+    if (err != null) return err;
+    return _setOpt(() {
+      final idle = _keepAliveSecs(idleNs, _keepAliveIdleDefault);
+      if (idle > 0) _fd!.setKeepAliveIdle(idle);
+      final intvl = _keepAliveSecs(intervalNs, _keepAliveIntervalDefault);
+      if (intvl > 0) _fd!.setKeepAliveInterval(intvl);
+      final n = count == 0 ? _keepAliveCountDefault : count;
+      if (n > 0) _fd!.setKeepAliveCount(n);
+    });
   }
 
-  /// `SetKeepAlivePeriod(d)`: ⚠️ o período é do sistema (só liga).
-  GoError? setKeepAlivePeriod(time.Duration d) => setKeepAlive(true);
-
-  /// `SetLinger(sec)`: ⚠️ aceito e ignorado (o `Close` é sempre imediato).
+  /// `SetLinger(sec)`: `SO_LINGER` (`sec < 0` desliga; `sec >= 0` liga com
+  /// esse prazo). Com `sec == 0`, o `Close` descarta o que falta e manda
+  /// RST. ⚠️ Fora do linux (e no Node, com `sec > 0`) fica aceito e
+  /// ignorado — ver `_IoTcpConn.setLinger` e `_NodeTcpConn.setLinger`.
   GoError? setLinger(Golang.Int sec) =>
-      _closed ? _opError('set', _net, _laddr, _raddr, errClosed) : null;
+      _setOpt(() => _fd!.setLinger(sec.toInt()));
 
   /// `ReadFrom(r)` síncrono (o socket só escreve suspendendo).
   @override
@@ -295,7 +323,7 @@ final class _ConnReader with io.ReaderSync implements io.Reader {
 final class TCPListener extends GoStruct<TCPListener>
     with io.CloserSync
     implements Listener {
-  TCPListener._(this._ln, this._net, this._laddr);
+  TCPListener._(this._ln, this._net, this._laddr, [this._keepAlive]);
 
   /// `(*TCPListener)(nil)` dentro de uma interface.
   static final TCPListener $nil = TCPListener._(null, 'tcp', null)
@@ -304,6 +332,10 @@ final class TCPListener extends GoStruct<TCPListener>
   final sys.SysTcpListener? _ln;
   final String _net;
   final TCPAddr? _laddr;
+
+  /// `ListenConfig.KeepAlive` do listener, repassado a cada conexão aceita
+  /// (como o `ln.lc.KeepAlive` do Go).
+  final time.Duration? _keepAlive;
   bool _closed = false;
 
   @override
@@ -317,7 +349,7 @@ final class TCPListener extends GoStruct<TCPListener>
     'SetDeadline',
   ];
   @override
-  TCPListener $copy() => TCPListener._(_ln, _net, _laddr);
+  TCPListener $copy() => TCPListener._(_ln, _net, _laddr, _keepAlive);
   @override
   void $set(TCPListener o) {}
   @override
@@ -332,7 +364,7 @@ final class TCPListener extends GoStruct<TCPListener>
     if (_closed) return (null, _op('accept', errClosed));
     try {
       final c = await _ln!.accept();
-      return (_newTCPConn(c, _net), null);
+      return (_newTCPConn(c, _net, keepAlive: _keepAlive), null);
     } on Object catch (e) {
       return (null, _op('accept', _sysError(e)));
     }
@@ -366,10 +398,30 @@ final class TCPListener extends GoStruct<TCPListener>
   }
 }
 
-TCPConn _newTCPConn(sys.SysTcpConn c, String net) {
-  // O Go liga o keepalive (15s) em toda conexão TCP nova.
-  c.setKeepAlive(true);
-  return TCPConn._(c, net, _tcpAddrOf(c.local), _tcpAddrOf(c.remote));
+/// Padrões do `KeepAliveConfig` do Go (`net/dial.go`): ociosidade de 15s,
+/// 15s entre sondas e 9 sondas. Em nanossegundos, como a `time.Duration`.
+const int _keepAliveIdleDefault = 15 * 1000 * 1000 * 1000;
+const int _keepAliveIntervalDefault = 15 * 1000 * 1000 * 1000;
+const int _keepAliveCountDefault = 9;
+
+/// `roundDurationUp(d, time.Second)` do Go: nanossegundos → segundos para
+/// cima. Zero vira [padrao]; negativo devolve 0 ("não mexe no socket").
+int _keepAliveSecs(int ns, int padrao) {
+  if (ns < 0) return 0;
+  final d = ns == 0 ? padrao : ns;
+  return (d + 999999999) ~/ 1000000000;
+}
+
+/// O `newTCPConn` do Go: toda conexão TCP nova nasce com o keepalive ligado
+/// nos padrões (idle 15s, intervalo 15s, 9 sondas); [keepAlive] é o
+/// `Dialer.KeepAlive`/`ListenConfig.KeepAlive` — zero usa o padrão e
+/// negativo deixa o keepalive desligado. ⚠️ `KeepAliveConfig` ainda não
+/// existe no shim. O Go ignora o erro destes `setsockopt`.
+TCPConn _newTCPConn(sys.SysTcpConn c, String net, {time.Duration? keepAlive}) {
+  final conn = TCPConn._(c, net, _tcpAddrOf(c.local), _tcpAddrOf(c.remote));
+  final idle = keepAlive?.toInt() ?? 0;
+  if (idle >= 0) conn._setKeepAliveConfig(idle, 0, 0);
+  return conn;
 }
 
 /// `net.UDPConn`: socket de datagramas; com destino fixo (`DialUDP`), lê só

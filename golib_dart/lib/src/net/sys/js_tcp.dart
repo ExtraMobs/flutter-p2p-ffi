@@ -128,7 +128,13 @@ final class _NodeTcpConn implements SysTcpConn {
   bool _paused = false;
   bool _eof = false;
   bool _readShut = false;
+
+  /// Erro de leitura já entregue (ver [read]).
+  bool _readErrDone = false;
   bool _closed = false;
+  bool _keepAlive = false;
+  int _keepAliveIdleMs = 0;
+  bool _lingerReset = false;
   JSAny? _error;
   final _readers = Waiters();
   final _writers = Waiters();
@@ -150,9 +156,14 @@ final class _NodeTcpConn implements SysTcpConn {
         while (true) {
           if (_closed) throw const SysClosed();
           if (_rd.expired) throw const SysTimeout();
-          if (_readShut) return 0;
+          if (_readShut || _readErrDone) return 0;
           if (_chunks.isNotEmpty) return _take(buf);
-          if (_error != null) throw _mapNode(_error, 'read');
+          if (_error != null) {
+            // O erro do socket (um `ECONNRESET`, por exemplo) vai uma vez
+            // só: a leitura seguinte dá EOF, como no kernel e no Go.
+            _readErrDone = true;
+            throw _mapNode(_error, 'read');
+          }
           if (_eof) return 0;
           await _readers.wait();
         }
@@ -238,7 +249,13 @@ final class _NodeTcpConn implements SysTcpConn {
     _rd.cancel();
     _wd.cancel();
     _chunks.clear();
-    _s.callMethod<JSAny?>('destroy'.toJS);
+    // `SetLinger(0)`: RST em vez de FIN (o par lê `connection reset by
+    // peer`). `resetAndDestroy` existe no Node ≥ 18.3.
+    if (_lingerReset && _s.has('resetAndDestroy')) {
+      _s.callMethod<JSAny?>('resetAndDestroy'.toJS);
+    } else {
+      _s.callMethod<JSAny?>('destroy'.toJS);
+    }
     _readers.wakeAll();
     _writers.wakeAll();
   }
@@ -279,6 +296,45 @@ final class _NodeTcpConn implements SysTcpConn {
   @override
   void setKeepAlive(bool v) {
     if (_closed) throw const SysClosed();
-    _s.callMethod<JSAny?>('setKeepAlive'.toJS, v.toJS);
+    _keepAlive = v;
+    _applyKeepAlive();
+  }
+
+  /// O Node só expõe `setKeepAlive(enable, initialDelay)`: o estado tem de
+  /// ser lembrado aqui para que mudar um não desfaça o outro.
+  void _applyKeepAlive() => _s.callMethod<JSAny?>(
+    'setKeepAlive'.toJS,
+    _keepAlive.toJS,
+    _keepAliveIdleMs.toJS,
+  );
+
+  /// ⚠️ No Node só o tempo de ociosidade é ajustável (`initialDelay`), e
+  /// ele só vale com o keepalive ligado.
+  @override
+  void setKeepAliveIdle(int secs) {
+    if (_closed) throw const SysClosed();
+    _keepAliveIdleMs = secs * 1000;
+    _applyKeepAlive();
+  }
+
+  /// ⚠️ `TCP_KEEPINTVL` não existe no Node: aceito e ignorado.
+  @override
+  void setKeepAliveInterval(int secs) {
+    if (_closed) throw const SysClosed();
+  }
+
+  /// ⚠️ `TCP_KEEPCNT` não existe no Node: aceito e ignorado.
+  @override
+  void setKeepAliveCount(int n) {
+    if (_closed) throw const SysClosed();
+  }
+
+  /// `sec == 0` vira `resetAndDestroy()` no [close] (RST, como o
+  /// `SO_LINGER` com prazo zero). ⚠️ `sec > 0` não tem equivalente no Node:
+  /// aceito e ignorado (o `close` não espera).
+  @override
+  void setLinger(int sec) {
+    if (_closed) throw const SysClosed();
+    _lingerReset = sec == 0;
   }
 }

@@ -95,6 +95,15 @@ Future<List<String>> sysLookupTxt(String name, {SysAddr? server}) =>
 /// Interfaces de rede (ver `io_iface.dart` para o que vem de onde).
 Future<List<SysInterface>> sysInterfaces() => _interfaces();
 
+/// `getsockopt` cru de uma conexão TCP desta plataforma (só na VM; não faz
+/// parte do contrato de [SysTcpConn]): os testes conferem com ele o que
+/// `setLinger`/`setKeepAlive*` gravaram no socket. `null` se [c] não é uma
+/// conexão desta plataforma.
+Uint8List? sysGetRawOption(SysTcpConn c, int level, int option, int length) =>
+    c is _IoTcpConn
+    ? c._socket.getRawOption(RawSocketOption(level, option, Uint8List(length)))
+    : null;
+
 SysDnsError _dnsError(String host, SocketException e) {
   final code = e.osError?.errorCode ?? 0;
   // EAI_NONAME (-2) e EAI_NODATA (-5) no glibc; 8/7 no macOS; 11001/11004
