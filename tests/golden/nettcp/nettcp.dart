@@ -178,6 +178,17 @@ Future<void> _echoServer(net.Listener? ln, sync.WaitGroup? wg) async {
   }
 }
 
+/// ping recebe a conexão como io.ReadWriter (como o socks do x/net).
+Future<void> _ping(io.ReadWriter? rw) async {
+  await io.writeString$async(rw, Golang.String.fromDart('oi!'));
+  go.Slice<Golang.Uint8> b = go.Slice<Golang.Uint8>.make(3, 3, _$e1);
+  var (_, err) = await io.readFull$async(rw, b);
+  fmt.printf(
+    Golang.String.fromDart('ping %q %v\n'),
+    go.Slice<Object?>.of([b, err], _$e0),
+  );
+}
+
 void _describe(go.GoError? err) {
   final go.Box<net.OpError?> op = go.Box<net.OpError?>(null);
   if (errors.as(err, op ?? const go.NilPtr<net.OpError?>())) {
@@ -278,6 +289,7 @@ void main() {
       Golang.String.fromDart('%q %v\n'),
       go.Slice<Object?>.of([line.slice(0, n0.toIndex()), err], _$e0),
     );
+    await _ping(c);
     $_countingConn? cc = $_countingConn(conn: c);
     go.Slice<Golang.Uint8> big = bytes.repeat(
       go.bytesOf(Golang.String.fromDart('0123456789abcdef'), _$e1),

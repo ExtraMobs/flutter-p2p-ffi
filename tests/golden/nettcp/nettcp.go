@@ -53,6 +53,14 @@ func echoServer(ln net.Listener, wg *sync.WaitGroup) {
 	}
 }
 
+// ping recebe a conexão como io.ReadWriter (como o socks do x/net).
+func ping(rw io.ReadWriter) {
+	io.WriteString(rw, "oi!")
+	b := make([]byte, 3)
+	_, err := io.ReadFull(rw, b)
+	fmt.Printf("ping %q %v\n", b, err)
+}
+
 func describe(err error) {
 	var op *net.OpError
 	if errors.As(err, &op) {
@@ -85,6 +93,7 @@ func main() {
 	line := make([]byte, 8)
 	n0, err := io.ReadFull(c, line)
 	fmt.Printf("%q %v\n", line[:n0], err)
+	ping(c)
 
 	// Conexão embrulhada por tipo gerado: as chamadas passam pela interface.
 	cc := &countingConn{Conn: c}

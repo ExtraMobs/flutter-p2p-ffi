@@ -189,7 +189,7 @@ em sequência. O agente principal planeja, integra e faz a verificação final.
 | M3 | semântica avançada: structs por valor, slices, maps, ponteiros, `defer`/`recover`, tipos nomeados, interfaces, embedding, genéricos, arrays | ✅; interfaces entre pacotes pelo `implements` sobre o grafo (D8) |
 | M4 | concorrência: `Chan<T>`, `select`, `go`, `sync`, timers, `context`, cor `async` transitiva | ✅ runtime, emissão, I/O que suspende (D2, versão dupla) e `CancelFunc` com cor própria (D7); ⚠️ classes de func de formato fixo da stdlib (`sort.Slice`...) ficam síncronas |
 | M5 | reflexão estática + shims da stdlib | shims em andamento; `reflect` ✅ sobre descritores gerados (D1), inclusive `Call`/`Method`/`MakeFunc`/`StructOf`/`Select`, e `encoding/json` ✅; `Call` sempre suspende (D9); ⚠️ o que depende de `unsafe` (D5) |
-| M6 | grafo completo do kubo/boxo (cobertura ≥ 95% por etapa) | **177 de 1112** verdes (`docs/audit.md`) |
+| M6 | grafo completo do kubo/boxo (cobertura ≥ 95% por etapa) | **191 de 1112** verdes (`docs/audit.md`) |
 
 As decisões D1–D9 e a fila de trabalho estão em `TODO/README.md`; o que já
 funciona, com os limites ⚠️, em `docs/mapping-spec.md`.

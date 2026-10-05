@@ -8,9 +8,14 @@ part of '../../net.dart';
 // g2d nunca chama); `Accept`, `ReadFrom`/`WriteTo` de datagrama só existem
 // como `Future`; `Close`, endereços e deadlines nunca suspendem.
 
-/// `net.Conn`. No Dart é também `io.Reader`/`io.Writer`/`io.Closer`, porque
-/// todo `net.Conn` vira um deles sem conversão explícita.
-abstract interface class Conn implements io.Reader, io.Writer, io.Closer {
+/// `net.Conn`. No Dart é também as interfaces do `io` que o method set satisfaz
+/// (`ReadWriter`, `ReadWriteCloser`...): no Go vira qualquer uma sem conversão.
+abstract interface class Conn
+    implements
+        io.ReadWriter,
+        io.ReadCloser,
+        io.WriteCloser,
+        io.ReadWriteCloser {
   Addr? localAddr();
   Addr? remoteAddr();
   GoError? setDeadline(time.Time t);
@@ -33,7 +38,6 @@ abstract interface class PacketConn implements io.Closer {
   GoError? setReadDeadline(time.Time t);
   GoError? setWriteDeadline(time.Time t);
 }
-
 
 /// Maior leitura de uma vez (um `Read` curto é válido no Go).
 const _maxRead = 1 << 18;
@@ -81,7 +85,8 @@ abstract base class _NetConn<T extends _NetConn<T>> extends GoStruct<T>
   /// Muda o deadline de leitura e/ou escrita (vale para a op pendente).
   GoError? _setDeadlines(time.Time t, {bool read = true, bool write = true});
 
-  GoError _op(String op, Object e) => _opError(op, _net, _laddr, _raddr, _sysError(e));
+  GoError _op(String op, Object e) =>
+      _opError(op, _net, _laddr, _raddr, _sysError(e));
 
   /// `LocalAddr()`.
   Addr? localAddr() => _laddr;
@@ -109,8 +114,10 @@ abstract base class _NetConn<T extends _NetConn<T>> extends GoStruct<T>
 
   /// `SetReadBuffer`/`SetWriteBuffer`: o tamanho é do sistema (aceito e
   /// ignorado, como dica que é).
-  GoError? setReadBuffer(Golang.Int bytes) => _closed ? _opError('set', _net, _laddr, _raddr, errClosed) : null;
-  GoError? setWriteBuffer(Golang.Int bytes) => _closed ? _opError('set', _net, _laddr, _raddr, errClosed) : null;
+  GoError? setReadBuffer(Golang.Int bytes) =>
+      _closed ? _opError('set', _net, _laddr, _raddr, errClosed) : null;
+  GoError? setWriteBuffer(Golang.Int bytes) =>
+      _closed ? _opError('set', _net, _laddr, _raddr, errClosed) : null;
 }
 
 /// `net.TCPConn`.
@@ -120,7 +127,8 @@ final class TCPConn extends _NetConn<TCPConn>
     : super(net, laddr, raddr);
 
   /// `(*TCPConn)(nil)` dentro de uma interface.
-  static final TCPConn $nil = TCPConn._(null, 'tcp', null, null)..$nilPtr = true;
+  static final TCPConn $nil = TCPConn._(null, 'tcp', null, null)
+    ..$nilPtr = true;
 
   final sys.SysTcpConn? _fd;
 
@@ -197,7 +205,10 @@ final class TCPConn extends _NetConn<TCPConn>
       final n = await _fd!.write(_u8(b));
       return (Golang.Int(n), null);
     } on Object catch (e) {
-      return (Golang.Int(e is sys.SysException ? e.written : 0), _op('write', e));
+      return (
+        Golang.Int(e is sys.SysException ? e.written : 0),
+        _op('write', e),
+      );
     }
   }
 
@@ -287,7 +298,8 @@ final class TCPListener extends GoStruct<TCPListener>
   TCPListener._(this._ln, this._net, this._laddr);
 
   /// `(*TCPListener)(nil)` dentro de uma interface.
-  static final TCPListener $nil = TCPListener._(null, 'tcp', null)..$nilPtr = true;
+  static final TCPListener $nil = TCPListener._(null, 'tcp', null)
+    ..$nilPtr = true;
 
   final sys.SysTcpListener? _ln;
   final String _net;
@@ -367,7 +379,8 @@ final class UDPConn extends _NetConn<UDPConn> implements Conn, PacketConn {
     : super(net, laddr, _peer);
 
   /// `(*UDPConn)(nil)` dentro de uma interface.
-  static final UDPConn $nil = UDPConn._(null, 'udp', null, null)..$nilPtr = true;
+  static final UDPConn $nil = UDPConn._(null, 'udp', null, null)
+    ..$nilPtr = true;
 
   final sys.SysUdpConn? _fd;
   final UDPAddr? _peer;
@@ -466,17 +479,29 @@ final class UDPConn extends _NetConn<UDPConn> implements Conn, PacketConn {
   ) async {
     if (_closed) return (Golang.Int(0), _op('write', sys.SysClosed()));
     if (_peer != null) {
-      return (Golang.Int(0), _opError('write', _net, _laddr, addr, errWriteToConnected));
+      return (
+        Golang.Int(0),
+        _opError('write', _net, _laddr, addr, errWriteToConnected),
+      );
     }
     if (addr == null) {
-      return (Golang.Int(0), _opError('write', _net, _laddr, null, _errMissingAddress));
+      return (
+        Golang.Int(0),
+        _opError('write', _net, _laddr, null, _errMissingAddress),
+      );
     }
     return _send(b, addr);
   }
 
-  Future<(Golang.Int, GoError?)> _send(Slice<Golang.Uint8> b, UDPAddr to) async {
+  Future<(Golang.Int, GoError?)> _send(
+    Slice<Golang.Uint8> b,
+    UDPAddr to,
+  ) async {
     try {
-      final n = await _fd!.writeTo(_u8(b), _sysAddrOf(to.ip, to.port.toInt(), to.zone));
+      final n = await _fd!.writeTo(
+        _u8(b),
+        _sysAddrOf(to.ip, to.port.toInt(), to.zone),
+      );
       return (Golang.Int(n), null);
     } on Object catch (e) {
       return (Golang.Int(0), _opError('write', _net, _laddr, to, _sysError(e)));
@@ -515,14 +540,14 @@ final class UDPConn extends _NetConn<UDPConn> implements Conn, PacketConn {
     if (_closed) return (Golang.Int(0), _op('write', sys.SysClosed()));
     final peer = _peer;
     if (peer == null) {
-      return (Golang.Int(0), _opError('write', _net, _laddr, null, _errMissingAddress));
+      return (
+        Golang.Int(0),
+        _opError('write', _net, _laddr, null, _errMissingAddress),
+      );
     }
     return _send(b, peer);
   }
 }
 
-
-GoError _invalidAddr(Addr addr) => AddrError(
-  err: _s('invalid address type'),
-  addr: addr.string(),
-);
+GoError _invalidAddr(Addr addr) =>
+    AddrError(err: _s('invalid address type'), addr: addr.string());

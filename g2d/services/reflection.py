@@ -226,6 +226,11 @@ class Reflection(Service):
             name = m["name"]
             if not name[:1].isupper() or len(m.get("index") or [0]) > 1 and tps:
                 continue  # genérico: sem os promovidos (sem mixin)
+            if self.promoter.shim_lacks(t, m):
+                # ponytail: promovido de tipo de shim que não o tem
+                # (`net.Interface.MulticastAddrs`): `Value.Method` dá o panic
+                # `g2d` do runtime; chamada direta já é `shim-simbolo:`.
+                continue
             sig = self.pkg.type_at(m["type"])
             dn = self.dualio.members(self.concurrency.method_key(t, name), name, sig)[0][0]
             if struct or not m["ptr"]:
