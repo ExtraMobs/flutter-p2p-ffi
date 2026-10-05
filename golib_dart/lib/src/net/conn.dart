@@ -202,7 +202,7 @@ final class TCPConn extends _NetConn<TCPConn>
       final n = await _fd!.write(_bytesOf(b));
       return (Golang.Int(n), null);
     } on Object catch (e) {
-      return (Golang.Int(sys.sysWritten(e)), _op('write', e));
+      return (Golang.Int(e is sys.SysException ? e.written : 0), _op('write', e));
     }
   }
 

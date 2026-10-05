@@ -211,6 +211,9 @@ final class Dialer extends GoStruct<Dialer> {
           final local = la is TCPAddr ? _sysAddrOf(la.ip, la.port.toInt(), la.zone) : null;
           final fd = await sys.sysDialTcp(a, local: local, deadline: when, cancel: cancel.future);
           return (_newTCPConn(fd, net) as Conn, null);
+        } on sys.SysCanceled {
+          last = _opError('dial', net, null, _addrFor(net, a), _errCanceled);
+          break;
         } on sys.SysTimeout {
           last = _opError('dial', net, null, _addrFor(net, a), cancel.done ? _errCanceled : _errTimeout);
           break;

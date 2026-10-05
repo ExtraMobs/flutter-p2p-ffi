@@ -88,6 +88,7 @@ Golang.String _s(String s) => Golang.String.fromDart(s);
 GoError _sysError(Object e) => switch (e) {
   sys.SysTimeout() => os.errDeadlineExceeded,
   sys.SysClosed() => errClosed,
+  sys.SysCanceled() => _errCanceled,
   final sys.SysError x => os.newSyscallError(
     _s(x.syscall),
     _Errno(x.code, x.message),
@@ -99,6 +100,7 @@ GoError _sysError(Object e) => switch (e) {
 DNSError _dnsError(sys.SysDnsError x, [String? name]) => DNSError(
   err: _s(x.message),
   name: _s(name ?? x.name),
+  server: _s(x.server),
   isTimeout: x.isTimeout,
   isTemporary: x.isTemporary,
   isNotFound: x.isNotFound,
