@@ -187,9 +187,7 @@ final class OpError extends GoStruct<OpError> implements Error, Unwrapper {
     return s + _gs(': ') + err!.error();
   }
 
-  /// `Timeout()`.
-  // ponytail: o ramo `*os.SyscallError` do Go entra quando o shim `os` tiver
-  // o tipo.
+  /// `Timeout()`. O ramo `*os.SyscallError` do Go é o `SyscallError.Timeout`.
   @override
   bool timeout() {
     final OpError? e = $nilPtr ? null : this;
@@ -199,13 +197,22 @@ final class OpError extends GoStruct<OpError> implements Error, Unwrapper {
     };
   }
 
-  /// `Temporary()`.
-  // ponytail: `Op == "accept" && isConnError(Err)` (ECONNRESET/ECONNABORTED
-  // de `syscall.Errno`) e o ramo `*os.SyscallError` entram com esses tipos.
+  /// `Temporary()`: `accept` com ECONNRESET/ECONNABORTED (`isConnError`),
+  /// e o `Temporary` do erro (dentro do `*os.SyscallError`, se for um).
   @override
   bool temporary() {
     final OpError? e = $nilPtr ? null : this;
-    return switch (e!.err) {
+    final err = e!.err;
+    if (e.op.toString() == 'accept' &&
+        err is _Errno &&
+        (err.code == 'ECONNRESET' || err.code == 'ECONNABORTED')) {
+      return true;
+    }
+    return switch (err) {
+      final os.SyscallError ne when !ne.$nilPtr => switch (ne.err) {
+        final Temporary t => t.temporary(),
+        _ => false,
+      },
       final Temporary t => t.temporary(),
       _ => false,
     };
