@@ -15,6 +15,7 @@ representações dos tipos primitivos Go.
 | `lib/time.dart` (+ `src/time/sleep.dart`), `lib/context.dart` (+ `src/context/impl.dart`) | Timers do `time` (`Sleep`, `Timer`, `Ticker`, `After`, `AfterFunc`, `Tick`) e o pacote `context`, sobre o escalonador do runtime (M4). `test/fixtures/<caso>.go` + `<caso>.dart` são programas inteiros (o `.dart` escrito como o g2d emitiria) que `test/timer_context_oracle_test.dart` compara com `go build` em VM, JS e Wasm (stdout em bytes, código de saída, `fatal error`). |
 | `lib/reflect.dart` (+ `src/reflect/`) | Shim `reflect` (M5, D1): `RType<T>` (descritor estático que o g2d gera por tipo; básicos e construtores `rt*` exportados também por `builtin.dart`), `Type`/`Value`/`StructTag`/`DeepEqual` lendo só o descritor; `Call`/`Method`/`MakeFunc`/`FuncOf` em `src/reflect/func.dart` (as closures tipadas do `MakeFunc`, `src/reflect/make_func.dart`, são geradas por `tool/gen_make_func.py`), `StructOf`/`Select`/operações de canal em `struct_of.dart`/`select.dart`/`chan_ops.dart`. `test/reflect_test.dart` usa um descritor escrito como o g2d emitiria. |
 | `lib/encoding/json.dart` (+ `src/encoding/json/`), `lib/encoding.dart` | Port do `encoding/json` v1 sobre o shim `reflect`; `encoding` só com as interfaces `Text`/`Binary` `Marshaler`/`Unmarshaler`. |
+| `lib/src/net/sys/` | Motor de rede por plataforma (D4), API Dart simples sob o shim `net` do Go: `sys.dart` reexporta `common.dart` (`SysAddr`, `SysError`/`SysTimeout`/`SysClosed`/`SysCanceled`/`SysDnsError`, `SysTcpConn`/`SysTcpListener`/`SysUdpConn`, `SysInterface`, IP em texto, `Deadline`, `heldIo` — a espera que segura o detector de deadlock) e, por import condicional, `sys_io.dart` (VM/AOT: TCP pelo `Fd` do `internal/poll`, UDP por `RawDatagramSocket` com o mesmo `PollDesc`, IP pelo `getaddrinfo`, TXT pelo cliente próprio `dns_client.dart` + `dns_msg.dart` lendo `/etc/resolv.conf`; partes `io_*.dart`), `sys_js.dart` (JS e Wasm: sob Node, `node:net`/`dgram`/`dns`/`os`/`fs` por `dart:js_interop` via `process.getBuiltinModule`; no navegador, decidido em runtime, toda operação lança `EOPNOTSUPP`; partes `js_*.dart`) ou `sys_stub.dart`. `linux_iface.dart`: índice/MTU/MAC/flags de `/sys/class/net` (VM e Node). `test/net_sys_test.dart` roda os cenários de `test/net_sys_node/` na VM e compara a saída de `main.dart` compilado para JS e Wasm (Node); `browser_main.dart` + `run_as_browser.mjs` simulam o navegador. Limites ⚠️ no cabeçalho de cada arquivo e em "Lacunas conhecidas". |
 
 `fixed_types`, `net`, `net/netip` e `internal/poll` vêm de
 `dart IPFS/packages/boilerplate`, mas a divisão em arquivos já não é a da
@@ -150,6 +151,30 @@ por `test/go_float_vectors_extra.go`):
    `complex128.dart`): base dos tipos nomeados sobre complex, que delegam as
    operações ao valor do subjacente.
 
+### `internal/poll` (devolver à origem)
+
+Sem oráculo Go (são sockets reais); cobertas por `test/internal_poll_fd_test.dart`
+e pelos cenários de `test/net_sys_test.dart`:
+
+11. **Leitura por borda** (`PollDesc`): o `dart:io` reemite
+    `RawSocketEvent.read` numa microtask atrás da outra enquanto há dado não
+    lido (`issueReadEvent`); com ninguém lendo, o laço de eventos travava e
+    nem temporizador disparava. Agora o evento de leitura desliga
+    `readEventsEnabled` até a próxima espera (`waitRead`) ou até o leitor
+    esvaziar o socket (`drained`, que deixa o `readClosed` chegar).
+12. **Espera depois do despejo**: `waitRead`/`waitWrite` com o descritor já
+    despejado (erro assíncrono, `closed` do par) esperavam para sempre — uma
+    escrita que encontrava o buffer cheio depois de um `EPIPE` assíncrono
+    travava. Agora voltam na hora e quem chamou relança o erro.
+13. **Prazos** (`setReadDeadline`/`setWriteDeadline`/`setDeadline` no `Fd` e
+    no `PollDesc`, como o `pollDesc` do runtime Go): vencido, `read`/`write`
+    lançam `DeadlineExceededException` antes de tocar no socket ou ao acordar;
+    mudar o prazo vale para a espera pendente.
+14. **`Fd.read` checa o fechamento local antes do EOF**, e **`Fd.write`
+    informa o progresso** (`progress:`, o `n` que o Go devolve junto com o
+    erro numa escrita interrompida).
+15. **`PollDesc.datagram`**: a mesma prontidão sobre `RawDatagramSocket`.
+
 Chaves de map `Float64` (NaN nunca encontrado, +0 ≡ −0) foram auditadas e já
 batiam com o Go.
 
@@ -163,6 +188,23 @@ dart test -p node $(grep -L "dart:io" test/*_test.dart)   # mesmos testes no JS
 ## Lacunas conhecidas
 
 - A matriz de conversões não cobre todos os pares de tipos.
+- Motor de rede (`src/net/sys/`), ⚠️ por plataforma:
+  - VM: o `dart:io` dá como IP local de uma conexão o do listener (aceitas)
+    ou o do par (discadas); o IP local vem de `/proc/net/tcp{,6}` no linux
+    (exato) e, fora dele, é o loopback quando o par é loopback e "não
+    especificado" no resto. Interfaces fora do linux: sem MTU, MAC e flags
+    reais. UDP: `v6Only` ignorado (o `dart:io` não expõe `IPV6_V6ONLY` em
+    UDP) e datagrama vazio não é enviado (`send` devolve 0 igual a buffer
+    cheio). DNS TXT: cliente próprio só com `/etc/resolv.conf` (Windows cai no
+    padrão `127.0.0.1:53`); TXT com UTF-8 inválido vira U+FFFD (também no
+    Node).
+  - Node: escrita interrompida por prazo/close só conta pedaços de 64 KiB
+    confirmados, e o pedaço em voo ainda pode sair; `closeRead` é local
+    (descarta o que chega); UDP recebido sem leitor fica numa fila de até
+    4096 datagramas (o resto se perde); listener sem contrapressão de
+    `accept` (as conexões ficam pausadas até serem aceitas); fora do linux,
+    interfaces com índice pela ordem e sem MTU/flags.
+  - Navegador: sem rede (`EOPNOTSUPP` em toda operação), por decisão (D4).
 - JS/Wasm: validados pelo e2e dos fixtures (Node) e pelos testes sem
   `dart:io`; os oráculos Go rodam só na VM (usam `Process`). Navegador: a
   saída cai no `print` por linha (bytes inválidos viram U+FFFD).

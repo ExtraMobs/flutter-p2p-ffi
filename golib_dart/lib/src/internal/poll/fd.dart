@@ -85,17 +85,30 @@ final class Fd {
   ///
   /// Diferente do `flush()` do `IOSink`, o future só completa quando **estes**
   /// bytes foram entregues ao kernel, o que dá contrapressão real por chamada.
-  Future<int> write(Uint8List buffer) async {
+  ///
+  /// [progress], se dado, recebe o total já aceito pelo kernel a cada avanço:
+  /// é o `n` que o `FD.Write` do Go devolve junto com o erro quando a escrita
+  /// é interrompida no meio (prazo, fechamento, erro do socket).
+  ///
+  /// Um prazo de escrita vencido ([setWriteDeadline]) lança
+  /// [DeadlineExceededException], antes de tocar no socket ou ao acordar.
+  Future<int> write(
+    Uint8List buffer, {
+    void Function(int written)? progress,
+  }) async {
     if (!await _fdmu.rwlock(false)) throw errClosing(isFile: _isFile);
     try {
       var written = 0;
       while (written < buffer.length) {
+        // `prepareWrite` do Go: prazo vencido falha antes da syscall.
+        if (_pd.writeExpired) throw const DeadlineExceededException();
         final accepted = _socket.write(
           buffer,
           written,
           buffer.length - written,
         );
         written += accepted;
+        if (accepted > 0) progress?.call(written);
         if (written < buffer.length) {
           // Aceitou menos que o pedido: é o EAGAIN do dart:io. Estaciona à
           // espera de prontidão. Não é preciso reavaliar o estado antes de
@@ -104,6 +117,7 @@ final class Fd {
           // eviction. Só ao acordar é que o estado pode ter mudado.
           await _pd.waitWrite();
           _throwIfBroken();
+          if (_pd.writeExpired) throw const DeadlineExceededException();
         }
       }
       return written;
@@ -121,6 +135,12 @@ final class Fd {
     if (!await _fdmu.rwlock(true)) throw errClosing(isFile: _isFile);
     try {
       while (true) {
+        // Fechado localmente e prazo vencido vêm antes de tudo, como no
+        // `prepareRead` do Go (que falha antes da syscall, mesmo com dado ou
+        // EOF esperando). O despejo por `closed` do par não entra aqui: ele
+        // ainda entrega o EOF abaixo.
+        if (_fdmu.isClosed) throw errClosing(isFile: _isFile);
+        if (_pd.readExpired) throw const DeadlineExceededException();
         // O fim de leitura é verificado ANTES de tocar no socket, e isso é
         // obrigatório, não estilo. Duas razões, ambas verificadas:
         //
@@ -146,7 +166,11 @@ final class Fd {
         // evento, e é ela que faz o papel do retorno do syscall.
         if (_pd.readable) {
           final data = _socket.read(len);
-          if (data != null && data.isNotEmpty) return data;
+          if (data != null && data.isNotEmpty) {
+            // Esvaziou: religa os eventos de leitura (ver `PollDesc`).
+            if (_socket.available() == 0) _pd.drained();
+            return data;
+          }
           _pd.readable = false;
         }
         _throwIfBroken();
@@ -228,6 +252,19 @@ final class Fd {
   Future<void> shutdown(SocketDirection direction) async {
     if (_fdmu.isClosed) throw errClosing(isFile: _isFile);
     _socket.shutdown(direction);
+  }
+
+  /// `FD.SetReadDeadline`: vale também para a leitura já estacionada;
+  /// `null` tira o prazo, e um instante no passado vence na hora.
+  void setReadDeadline(DateTime? deadline) => _pd.setReadDeadline(deadline);
+
+  /// `FD.SetWriteDeadline` (mesmas regras de [setReadDeadline]).
+  void setWriteDeadline(DateTime? deadline) => _pd.setWriteDeadline(deadline);
+
+  /// `FD.SetDeadline`: os dois prazos de uma vez.
+  void setDeadline(DateTime? deadline) {
+    _pd.setReadDeadline(deadline);
+    _pd.setWriteDeadline(deadline);
   }
 
   /// Quem acordou de uma espera ([PollDesc.evict], erro do socket ou fechado)

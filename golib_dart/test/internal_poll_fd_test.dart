@@ -452,6 +452,31 @@ void main() {
     });
   });
 
+  group('Fd - prontidão por borda', () {
+    // Regressão: o `dart:io` reemite `RawSocketEvent.read` numa microtask
+    // atrás da outra enquanto houver dado não lido; sem desligar os eventos
+    // de leitura até a próxima espera, um dado que ninguém lê (prazo
+    // vencido, leitor ocupado) travava o laço de eventos: nenhum
+    // temporizador disparava mais.
+    test('dado não lido não trava o laço de eventos', () async {
+      final server = await ServerSocket.bind('127.0.0.1', 0);
+      server.listen((socket) => socket.add(<int>[1, 2, 3]));
+      final raw = await RawSocket.connect('127.0.0.1', server.port);
+      final fd = Fd(raw);
+      // Prazo vencido: a leitura falha sem consumir o dado que chega.
+      fd.setReadDeadline(DateTime.now());
+      await expectLater(fd.read(), throwsA(isA<DeadlineExceededException>()));
+      await _ate(() => raw.available() > 0, motivo: 'dado do par');
+      final disparou = Completer<void>();
+      Timer(const Duration(milliseconds: 20), disparou.complete);
+      await disparou.future.timeout(const Duration(seconds: 2));
+      fd.setReadDeadline(null);
+      expect(await fd.read(), equals(Uint8List.fromList([1, 2, 3])));
+      await fd.close();
+      await server.close();
+    });
+  });
+
   group('Fd - fim de leitura', () {
     test(
       'read devolve vazio quando o par encerra a direção de envio',
