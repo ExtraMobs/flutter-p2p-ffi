@@ -1,0 +1,458 @@
+part of '../../net.dart';
+
+// `Dial`/`Listen` e a resolução de endereço (porta de `dial.go`,
+// `ipsock.go`, `tcpsock.go`, `udpsock.go` do Go 1.26), sobre o `sys`.
+
+// ------------------------------------------------------------ endereços
+
+IP _ipOf(Uint8List b) => IP(Slice.of([for (final x in b) Golang.Uint8(x)], _byteElem));
+
+Uint8List _ipBytes(IP? ip) {
+  if (ip == null || ip.length == 0) return Uint8List(0);
+  final v4 = ip.to4();
+  return _bytesOf(v4.length == 4 ? v4 : ip);
+}
+
+TCPAddr? _tcpAddrOf(sys.SysAddr a) =>
+    TCPAddr(ip: _ipOf(a.ip), port: Golang.Int(a.port), zone: _s(a.zone));
+
+UDPAddr _udpAddrOf(sys.SysAddr a) =>
+    UDPAddr(ip: _ipOf(a.ip), port: Golang.Int(a.port), zone: _s(a.zone));
+
+sys.SysAddr _sysAddrOf(IP? ip, int port, Golang.String zone) =>
+    sys.SysAddr(_ipBytes(ip), port, zone.toString());
+
+bool _sameAddr(sys.SysAddr a, UDPAddr b) {
+  if (a.port != b.port.toInt()) return false;
+  return _ipOf(a.ip).equal(b.ip ?? IP(Slice.nil(_byteElem)));
+}
+
+/// Família e protocolo da rede (`parseNetwork` do Go, só o que o shim faz).
+(String, GoError?) _network(String network, {required bool packet}) {
+  const stream = {'tcp', 'tcp4', 'tcp6'};
+  const dgram = {'udp', 'udp4', 'udp6'};
+  if (stream.contains(network) || dgram.contains(network)) return (network, null);
+  if (network.startsWith('ip') || network.startsWith('unix')) {
+    // ⚠️ sockets IP brutos e Unix: o shim não tem (erro em runtime).
+    return (network, _notSupported('socket'));
+  }
+  return (network, UnknownNetworkError(_s(network)));
+}
+
+/// `ip4`/`ip6`/`ip` da rede, para filtrar a resolução.
+String _family(String network) => network.endsWith('4')
+    ? 'ip4'
+    : network.endsWith('6')
+    ? 'ip6'
+    : 'ip';
+
+bool _fits(Uint8List ip, String family) => switch (family) {
+  'ip4' => ip.isEmpty || ip.length == 4 || _isV4Mapped(ip),
+  'ip6' => ip.isEmpty || (ip.length == 16 && !_isV4Mapped(ip)),
+  _ => true,
+};
+
+bool _isV4Mapped(Uint8List ip) {
+  if (ip.length != 16) return false;
+  for (var i = 0; i < 10; i++) {
+    if (ip[i] != 0) return false;
+  }
+  return ip[10] == 0xff && ip[11] == 0xff;
+}
+
+/// `host:port` → lista de (ip, porta, zona) (`resolveAddrList` do Go).
+/// `forDial`: host vazio é o próprio host (o Go disca o "não especificado").
+Future<(List<sys.SysAddr>, GoError?)> _resolve(
+  String network,
+  String address, {
+  required String op,
+}) async {
+  final (host, port, err) = splitHostPort(_s(address));
+  if (err != null) return (const <sys.SysAddr>[], err);
+  final (p, perr) = await _lookupPort(network, port.toString());
+  if (perr != null) return (const <sys.SysAddr>[], perr);
+  final family = _family(network);
+  final h = host.toString();
+  if (h.isEmpty) {
+    final any = family == 'ip6' ? Uint8List(16) : family == 'ip4' ? Uint8List(4) : Uint8List(0);
+    return ([sys.SysAddr(any, p)], null);
+  }
+  // IP literal, com zona IPv6 opcional (`fe80::1%eth0`).
+  final pct = h.indexOf('%');
+  final literal = parseIP(_s(pct < 0 ? h : h.substring(0, pct)));
+  if (literal != null && literal.length != 0) {
+    final b = _ipBytes(literal);
+    if (!_fits(b, family)) {
+      return (const <sys.SysAddr>[], AddrError(err: _s('no suitable address found'), addr: _s(h)) as GoError);
+    }
+    return ([sys.SysAddr(b, p, pct < 0 ? '' : h.substring(pct + 1))], null);
+  }
+  try {
+    final ips = await sys.sysLookupIp(h, network: family);
+    final out = [for (final ip in ips) if (_fits(ip, family)) sys.SysAddr(ip, p)];
+    if (out.isEmpty) {
+      return (const <sys.SysAddr>[], AddrError(err: _s('no suitable address found'), addr: _s(h)) as GoError);
+    }
+    // O Go prefere IPv4 quando a rede não diz a família (`forResolve`).
+    if (family == 'ip' && op == 'resolve') {
+      out.sort((a, b) => (a.ip.length == 4 ? 0 : 1) - (b.ip.length == 4 ? 0 : 1));
+    }
+    return (out, null);
+  } on sys.SysDnsError catch (e) {
+    return (const <sys.SysAddr>[], _dnsError(e, h) as GoError);
+  }
+}
+
+// ------------------------------------------------------------ Dialer
+
+/// `net.Dialer`. ⚠️ `Control`/`ControlContext`, `FallbackDelay`,
+/// `KeepAliveConfig` e `Resolver` próprio não existem no shim (os campos
+/// ausentes viram `Unsupported` na transpilação).
+final class Dialer extends GoStruct<Dialer> {
+  Dialer({
+    time.Duration? timeout,
+    time.Time? deadline,
+    this.localAddr,
+    bool? dualStack,
+    time.Duration? keepAlive,
+    this.cancel,
+  }) : timeout = timeout ?? time.Duration(),
+       deadline = deadline ?? time.Time(),
+       dualStack = dualStack ?? false,
+       keepAlive = keepAlive ?? time.Duration();
+
+  /// `(*Dialer)(nil)` dentro de uma interface.
+  static final Dialer $nil = Dialer()..$nilPtr = true;
+
+  time.Duration timeout;
+  time.Time deadline;
+  Addr? localAddr;
+  bool dualStack;
+  time.Duration keepAlive;
+  Chan<EmptyStruct>? cancel;
+
+  @override
+  String get $goType => 'net.Dialer';
+  @override
+  List<String> get $ptrMethods => const ['Dial', 'DialContext'];
+  @override
+  Dialer $copy() => Dialer(
+    timeout: timeout,
+    deadline: deadline.$copy(),
+    localAddr: localAddr,
+    dualStack: dualStack,
+    keepAlive: keepAlive,
+    cancel: cancel,
+  );
+  @override
+  void $set(Dialer o) {
+    timeout = o.timeout;
+    deadline.$set(o.deadline);
+    localAddr = o.localAddr;
+    dualStack = o.dualStack;
+    keepAlive = o.keepAlive;
+    cancel = o.cancel;
+  }
+
+  @override
+  List<Object?> get $fields => [timeout, deadline, localAddr, dualStack, keepAlive, cancel];
+  @override
+  List<String> get $fieldNames => const ['Timeout', 'Deadline', 'LocalAddr', 'DualStack', 'KeepAlive', 'Cancel'];
+
+  /// `Dial(network, address)`.
+  Future<(Conn?, GoError?)> dial(Golang.String network, Golang.String address) =>
+      dialContext(context.background(), network, address);
+
+  /// O prazo mais cedo entre `Deadline`, `Timeout` e o do `ctx`.
+  DateTime? _when(context.Context? ctx) {
+    DateTime? d = _deadline(deadline);
+    if (timeout.toInt() > 0) {
+      final t = DateTime.now().toUtc().add(core.Duration(microseconds: timeout.toInt() ~/ 1000));
+      if (d == null || t.isBefore(d)) d = t;
+    }
+    if (ctx != null) {
+      final (cd, ok) = ctx.deadline();
+      if (ok) {
+        final t = _deadline(cd);
+        if (t != null && (d == null || t.isBefore(d))) d = t;
+      }
+    }
+    return d;
+  }
+
+  /// `DialContext(ctx, network, address)`.
+  Future<(Conn?, GoError?)> dialContext(
+    context.Context? ctx,
+    Golang.String network,
+    Golang.String address,
+  ) async {
+    final net = network.toString();
+    final (_, nerr) = _network(net, packet: false);
+    if (nerr != null) return (null, _opError('dial', net, null, null, nerr));
+    final (addrs, rerr) = await _resolve(net, address.toString(), op: 'dial');
+    if (rerr != null) return (null, _opError('dial', net, null, null, rerr));
+    final when = _when(ctx);
+    final cancel = _cancelOf(ctx, this.cancel);
+    final la = localAddr;
+    try {
+      GoError? last;
+      for (final a in addrs) {
+        if (cancel.done) {
+          return (null, _opError('dial', net, null, _addrFor(net, a), _errCanceled));
+        }
+        try {
+          if (net.startsWith('udp')) {
+            final local = la is UDPAddr
+                ? _sysAddrOf(la.ip, la.port.toInt(), la.zone)
+                : sys.SysAddr(a.ip.length == 4 ? Uint8List(4) : Uint8List(16), 0);
+            final fd = await sys.sysListenUdp(local);
+            return (UDPConn._(fd, net, _udpAddrOf(fd.local), _udpAddrOf(a)) as Conn, null);
+          }
+          final local = la is TCPAddr ? _sysAddrOf(la.ip, la.port.toInt(), la.zone) : null;
+          final fd = await sys.sysDialTcp(a, local: local, deadline: when, cancel: cancel.future);
+          return (_newTCPConn(fd, net) as Conn, null);
+        } on sys.SysTimeout {
+          last = _opError('dial', net, null, _addrFor(net, a), cancel.done ? _errCanceled : _errTimeout);
+          break;
+        } on Object catch (e) {
+          last = _opError('dial', net, la, _addrFor(net, a), cancel.done ? _errCanceled : _sysError(e));
+          if (cancel.done) break;
+        }
+      }
+      return (null, last);
+    } finally {
+      cancel.stop();
+    }
+  }
+}
+
+Addr _addrFor(String net, sys.SysAddr a) =>
+    net.startsWith('udp') ? _udpAddrOf(a) : _tcpAddrOf(a)!;
+
+/// O cancelamento do `Dial`: `ctx.Done()` ou o `Dialer.Cancel` fechado, sem
+/// contar como goroutine bloqueada (o detector de deadlock não o vê).
+final class _Cancel {
+  final _c = Completer<void>();
+  final _stops = <void Function()>[];
+  bool get done => _c.isCompleted;
+  Future<void> get future => _c.future;
+  void fire() {
+    if (!_c.isCompleted) _c.complete();
+  }
+
+  void stop() {
+    for (final s in _stops) {
+      s();
+    }
+  }
+}
+
+_Cancel _cancelOf(context.Context? ctx, Chan<EmptyStruct>? ch) {
+  final c = _Cancel();
+  void watch(Chan<EmptyStruct>? done) {
+    if (done == null) return;
+    if (done.$recvReady()) {
+      c.fire();
+      return;
+    }
+    c._stops.add(done.$registerRecvWaiter((_, _) => c.fire()));
+  }
+
+  if (ctx != null) {
+    if (ctx.err() != null) c.fire();
+    watch(ctx.done());
+  }
+  watch(ch);
+  return c;
+}
+
+/// `net.Dial(network, address)`.
+Future<(Conn?, GoError?)> dial(Golang.String network, Golang.String address) =>
+    Dialer().dial(network, address);
+
+/// `net.DialTimeout(network, address, timeout)`.
+Future<(Conn?, GoError?)> dialTimeout(
+  Golang.String network,
+  Golang.String address,
+  time.Duration timeout,
+) => Dialer(timeout: timeout).dial(network, address);
+
+/// `net.DialTCP(network, laddr, raddr)`.
+Future<(TCPConn?, GoError?)> dialTCP(
+  Golang.String network,
+  TCPAddr? laddr,
+  TCPAddr? raddr,
+) async {
+  final net = network.toString();
+  if (!const {'tcp', 'tcp4', 'tcp6'}.contains(net)) {
+    return (null, _opError('dial', net, laddr, raddr, UnknownNetworkError(network)));
+  }
+  if (raddr == null) {
+    return (null, _opError('dial', net, laddr, null, _errMissingAddress));
+  }
+  try {
+    final fd = await sys.sysDialTcp(
+      _sysAddrOf(raddr.ip, raddr.port.toInt(), raddr.zone),
+      local: laddr == null ? null : _sysAddrOf(laddr.ip, laddr.port.toInt(), laddr.zone),
+    );
+    return (_newTCPConn(fd, net), null);
+  } on Object catch (e) {
+    return (null, _opError('dial', net, laddr, raddr, _sysError(e)));
+  }
+}
+
+/// `net.DialUDP(network, laddr, raddr)`.
+Future<(UDPConn?, GoError?)> dialUDP(
+  Golang.String network,
+  UDPAddr? laddr,
+  UDPAddr? raddr,
+) async {
+  final net = network.toString();
+  if (!const {'udp', 'udp4', 'udp6'}.contains(net)) {
+    return (null, _opError('dial', net, laddr, raddr, UnknownNetworkError(network)));
+  }
+  if (raddr == null) {
+    return (null, _opError('dial', net, laddr, null, _errMissingAddress));
+  }
+  final r = _sysAddrOf(raddr.ip, raddr.port.toInt(), raddr.zone);
+  try {
+    final local = laddr != null
+        ? _sysAddrOf(laddr.ip, laddr.port.toInt(), laddr.zone)
+        : sys.SysAddr(r.ip.length == 4 ? Uint8List(4) : Uint8List(16), 0);
+    final fd = await sys.sysListenUdp(local);
+    return (UDPConn._(fd, net, _udpAddrOf(fd.local), _udpAddrOf(r)), null);
+  } on Object catch (e) {
+    return (null, _opError('dial', net, laddr, raddr, _sysError(e)));
+  }
+}
+
+// ------------------------------------------------------------ Listen
+
+/// `net.ListenConfig`. ⚠️ `Control` e `KeepAliveConfig` não existem no shim.
+final class ListenConfig extends GoStruct<ListenConfig> {
+  ListenConfig({time.Duration? keepAlive}) : keepAlive = keepAlive ?? time.Duration();
+
+  /// `(*ListenConfig)(nil)` dentro de uma interface.
+  static final ListenConfig $nil = ListenConfig()..$nilPtr = true;
+
+  time.Duration keepAlive;
+
+  @override
+  String get $goType => 'net.ListenConfig';
+  @override
+  List<String> get $ptrMethods => const ['Listen', 'ListenPacket'];
+  @override
+  ListenConfig $copy() => ListenConfig(keepAlive: keepAlive);
+  @override
+  void $set(ListenConfig o) => keepAlive = o.keepAlive;
+  @override
+  List<Object?> get $fields => [keepAlive];
+  @override
+  List<String> get $fieldNames => const ['KeepAlive'];
+
+  /// `Listen(ctx, network, address)`.
+  Future<(Listener?, GoError?)> listen(
+    context.Context? ctx,
+    Golang.String network,
+    Golang.String address,
+  ) async {
+    final net = network.toString();
+    final (_, nerr) = _network(net, packet: false);
+    if (nerr != null || !net.startsWith('tcp')) {
+      return (null, _opError('listen', net, null, null, nerr ?? UnknownNetworkError(network)));
+    }
+    final (addrs, rerr) = await _resolve(net, address.toString(), op: 'listen');
+    if (rerr != null) return (null, _opError('listen', net, null, null, rerr));
+    final a = addrs.first;
+    try {
+      final ln = await sys.sysListenTcp(a);
+      return (TCPListener._(ln, net, _tcpAddrOf(ln.local)) as Listener, null);
+    } on Object catch (e) {
+      return (null, _opError('listen', net, null, _tcpAddrOf(a), _sysError(e)));
+    }
+  }
+
+  /// `ListenPacket(ctx, network, address)`.
+  Future<(PacketConn?, GoError?)> listenPacket(
+    context.Context? ctx,
+    Golang.String network,
+    Golang.String address,
+  ) async {
+    final net = network.toString();
+    final (_, nerr) = _network(net, packet: true);
+    if (nerr != null || !net.startsWith('udp')) {
+      return (null, _opError('listen', net, null, null, nerr ?? UnknownNetworkError(network)));
+    }
+    final (addrs, rerr) = await _resolve(net, address.toString(), op: 'listen');
+    if (rerr != null) return (null, _opError('listen', net, null, null, rerr));
+    final a = addrs.first;
+    try {
+      final fd = await sys.sysListenUdp(a);
+      return (UDPConn._(fd, net, _udpAddrOf(fd.local), null) as PacketConn, null);
+    } on Object catch (e) {
+      return (null, _opError('listen', net, null, _udpAddrOf(a), _sysError(e)));
+    }
+  }
+}
+
+/// `net.Listen(network, address)`.
+Future<(Listener?, GoError?)> listen(Golang.String network, Golang.String address) =>
+    ListenConfig().listen(context.background(), network, address);
+
+/// `net.ListenPacket(network, address)`.
+Future<(PacketConn?, GoError?)> listenPacket(Golang.String network, Golang.String address) =>
+    ListenConfig().listenPacket(context.background(), network, address);
+
+/// `net.ListenTCP(network, laddr)`.
+Future<(TCPListener?, GoError?)> listenTCP(Golang.String network, TCPAddr? laddr) async {
+  final net = network.toString();
+  if (!const {'tcp', 'tcp4', 'tcp6'}.contains(net)) {
+    return (null, _opError('listen', net, null, laddr, UnknownNetworkError(network)));
+  }
+  final a = laddr == null
+      ? sys.SysAddr(Uint8List(net == 'tcp4' ? 4 : net == 'tcp6' ? 16 : 0), 0)
+      : _sysAddrOf(laddr.ip, laddr.port.toInt(), laddr.zone);
+  try {
+    final ln = await sys.sysListenTcp(a);
+    return (TCPListener._(ln, net, _tcpAddrOf(ln.local)), null);
+  } on Object catch (e) {
+    return (null, _opError('listen', net, null, laddr, _sysError(e)));
+  }
+}
+
+/// `net.ListenUDP(network, laddr)`.
+Future<(UDPConn?, GoError?)> listenUDP(Golang.String network, UDPAddr? laddr) async {
+  final net = network.toString();
+  if (!const {'udp', 'udp4', 'udp6'}.contains(net)) {
+    return (null, _opError('listen', net, null, laddr, UnknownNetworkError(network)));
+  }
+  final a = laddr == null
+      ? sys.SysAddr(Uint8List(net == 'udp4' ? 4 : net == 'udp6' ? 16 : 0), 0)
+      : _sysAddrOf(laddr.ip, laddr.port.toInt(), laddr.zone);
+  try {
+    final fd = await sys.sysListenUdp(a);
+    return (UDPConn._(fd, net, _udpAddrOf(fd.local), null), null);
+  } on Object catch (e) {
+    return (null, _opError('listen', net, null, laddr, _sysError(e)));
+  }
+}
+
+// ------------------------------------------------------------ Resolve*Addr
+
+/// `net.ResolveTCPAddr(network, address)`.
+Future<(TCPAddr?, GoError?)> resolveTCPAddr(Golang.String network, Golang.String address) async {
+  final net = network.toString();
+  if (!const {'tcp', 'tcp4', 'tcp6', ''}.contains(net)) return (null, UnknownNetworkError(network) as GoError);
+  final (addrs, err) = await _resolve(net.isEmpty ? 'tcp' : net, address.toString(), op: 'resolve');
+  if (err != null) return (null, err);
+  return (_tcpAddrOf(addrs.first), null);
+}
+
+/// `net.ResolveUDPAddr(network, address)`.
+Future<(UDPAddr?, GoError?)> resolveUDPAddr(Golang.String network, Golang.String address) async {
+  final net = network.toString();
+  if (!const {'udp', 'udp4', 'udp6', ''}.contains(net)) return (null, UnknownNetworkError(network) as GoError);
+  final (addrs, err) = await _resolve(net.isEmpty ? 'udp' : net, address.toString(), op: 'resolve');
+  if (err != null) return (null, err);
+  return (_udpAddrOf(addrs.first), null);
+}

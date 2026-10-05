@@ -148,6 +148,8 @@ def summarize(engine, decls=None):
             body(conc.lit_key(n), n["body"])
     value_uses(conc, decls, s)
     for key, cls, _ in s.value_uses:
+        if key in SUSPENDING_FUNCS:
+            s.direct.add(key)  # `d.DialContext` como valor: a função do shim devolve Future
         if not sync_shim(key):
             s.edges[cls].add(key)  # a classe é async se uma função async vira valor dela
     fixed_classes(engine, decls, s)

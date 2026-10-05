@@ -7,7 +7,7 @@ funções e reconhecer, num corpo isolado, o que ELE MESMO faz."""
 from g2d.engine.behavior import Service
 from g2d.graph import is_std
 from g2d.model import Unsupported, first_pos, unparen, walk
-from g2d.services.dualio import dual_capable
+from g2d.services.dualio import ASYNC_IFACE_METHODS, NET_SUSPENDING, dual_capable
 
 # Métodos do shim `sync` que esperam outra goroutine: chave → variante
 # suspensiva (`golib_dart/lib/src/sync/`). `soft`: num contexto que precisa
@@ -32,7 +32,7 @@ SUSPENDING_SHIM = {
 # (`String()`...): a forma síncrona dá panic se a função chamada suspende.
 SYNC_FALLBACK = frozenset({("m", "reflect", "Value", "Call"), ("m", "reflect", "Value", "CallSlice")})
 # Funções do shim que sempre suspendem (devolvem Future): `await time.sleep(d)`.
-SUSPENDING_FUNCS = frozenset({("f", "time", "Sleep")})
+SUSPENDING_FUNCS = frozenset({("f", "time", "Sleep")}) | NET_SUSPENDING
 # Trava → destrava correspondente (seção crítica de um Mutex/RWMutex).
 LOCKS = {
     ("m", "sync", "Mutex", "Lock"): "Unlock",
@@ -277,9 +277,12 @@ class Concurrency(Service):
         if key[0] == "sig":  # parâmetro de tipo (genérico) ou tipo nomeado da stdlib: formato fixo
             return "$tp:" in key[1] or not key[1].startswith("func(")
         if key[0] == "m":
-            # I/O com versão dupla (D2) segue a cor das implementações.
+            # I/O com versão dupla (D2) segue a cor das implementações; o
+            # `Accept` da rede (D4) suspende sempre.
+            if key in ASYNC_IFACE_METHODS or key in SUSPENDING_FUNCS:
+                return False
             return key[3] in SYNC_METHODS or key[1] == "" or (Concurrency.std(key[1]) and not dual_capable(key))
-        return key[0] == "f" and Concurrency.std(key[1])
+        return key[0] == "f" and Concurrency.std(key[1]) and key not in SUSPENDING_FUNCS
 
     # ------------------------------------------------------------ suspensão direta
     def direct_suspend(self, node, fallback=True):

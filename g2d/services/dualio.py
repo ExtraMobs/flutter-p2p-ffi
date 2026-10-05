@@ -49,17 +49,66 @@ DUAL_IFACES = {
     ("io", "ByteScanner"): ("ReadByte",),
     ("io", "ReaderFrom"): ("ReadFrom",),
     ("io", "WriterTo"): ("WriteTo",),
+    # Rede (D4): `Read`/`Write` da conexão real suspendem; `Close` nunca.
+    ("net", "Conn"): ("Read", "Write", "Close"),
+    ("net", "Listener"): ("Close",),
+    ("net", "PacketConn"): ("Close",),
 }
 DUAL_METHODS = frozenset(m for ms in DUAL_IFACES.values() for m in ms)
 
+# Conexões do shim `net` (D4): o socket real só lê e escreve suspendendo.
+_NET_CONNS = ("TCPConn", "UDPConn", "IPConn", "UnixConn")
+
 # Métodos de tipo do shim que sempre suspendem (o corpo é o `$async`).
-ASYNC_SHIM_METHODS = frozenset({("m", "io", "PipeReader", "Read"), ("m", "io", "PipeWriter", "Write")})
+ASYNC_SHIM_METHODS = frozenset({("m", "io", "PipeReader", "Read"), ("m", "io", "PipeWriter", "Write")}
+                               | {("m", "net", c, m) for c in _NET_CONNS for m in ("Read", "Write")}
+                               | {("m", "net", c, m) for c in ("TCPConn", "UnixConn") for m in ("ReadFrom", "WriteTo")})
 # Tipo do shim que suspende → (método dele, interface onde entra): um
 # pacote que cita o tipo liga os grupos (o valor pode virar a interface).
+# Uma interface do shim cujo valor costuma ser do próprio shim (`net.Conn`
+# que veio de `net.Dial`) entra aqui também: o método dela suspende, e o
+# valor pode virar `io.Reader`.
 ASYNC_SHIM_TYPES = {
     ("io", "PipeReader"): (("Read", ("io", "Reader")),),
     ("io", "PipeWriter"): (("Write", ("io", "Writer")),),
+    **{("net", c): (("Read", ("net", "Conn")), ("Write", ("net", "Conn"))) for c in _NET_CONNS},
+    # `io.Copy` prefere o `ReadFrom`/`WriteTo` da conexão (splice no Go).
+    **{("net", c): (("Read", ("net", "Conn")), ("Write", ("net", "Conn")), ("ReadFrom", ("io", "ReaderFrom")),
+                    ("WriteTo", ("io", "WriterTo"))) for c in ("TCPConn", "UnixConn")},
+    ("net", "Conn"): (("Read", ("io", "Reader")), ("Write", ("io", "Writer"))),
+    ("net", "Listener"): (("Accept", ("net", "Listener")),),
+    ("net", "PacketConn"): (("ReadFrom", ("net", "PacketConn")), ("WriteTo", ("net", "PacketConn"))),
 }
+# Rede (D4): discar, escutar, aceitar, datagramas, DNS e a lista de
+# interfaces esperam o sistema (`golib_dart/lib/src/net/sys/`).
+_NET_FUNCS = ("Dial", "DialTimeout", "DialTCP", "DialUDP", "DialIP", "DialUnix", "Listen", "ListenTCP", "ListenUDP",
+              "ListenPacket", "ListenIP", "ListenUnix", "ListenUnixgram", "ListenMulticastUDP", "LookupHost", "LookupIP",
+              "LookupAddr", "LookupCNAME", "LookupMX", "LookupNS", "LookupPort", "LookupSRV", "LookupTXT",
+              "ResolveTCPAddr", "ResolveUDPAddr", "ResolveIPAddr", "Interfaces", "InterfaceAddrs", "InterfaceByIndex",
+              "InterfaceByName")
+_NET_METHODS = {
+    "Dialer": ("Dial", "DialContext"),
+    "ListenConfig": ("Listen", "ListenPacket"),
+    "Resolver": ("LookupHost", "LookupIP", "LookupIPAddr", "LookupNetIP", "LookupAddr", "LookupCNAME", "LookupMX",
+                 "LookupNS", "LookupPort", "LookupSRV", "LookupTXT"),
+    "TCPListener": ("Accept", "AcceptTCP"),
+    "UnixListener": ("Accept", "AcceptUnix"),
+    "UDPConn": ("ReadFrom", "ReadFromUDP", "ReadFromUDPAddrPort", "ReadMsgUDP", "ReadMsgUDPAddrPort", "WriteTo",
+                "WriteToUDP", "WriteToUDPAddrPort", "WriteMsgUDP", "WriteMsgUDPAddrPort"),
+    "IPConn": ("ReadFrom", "ReadFromIP", "ReadMsgIP", "WriteTo", "WriteToIP", "WriteMsgIP"),
+    "Interface": ("Addrs", "MulticastAddrs"),
+}
+# Funções e métodos de tipo do shim `net` que sempre suspendem (devolvem
+# `Future`; `Concurrency` os junta a `SUSPENDING_FUNCS`). `UDPConn.ReadFrom`
+# e `WriteTo` têm nome de método de I/O, mas não têm versão dupla.
+NET_SUSPENDING = frozenset({("f", "net", f) for f in _NET_FUNCS}
+                           | {("m", "net", t, m) for t, ms in _NET_METHODS.items() for m in ms})
+
+# Métodos de interface do shim que suspendem sem ter versão dupla (só a
+# forma `Future`): as implementações geradas seguem a cor do grupo, que
+# não é presa como síncrona por ser da stdlib.
+ASYNC_IFACE_METHODS = frozenset({("m", "net", "Listener", "Accept"), ("m", "net", "PacketConn", "ReadFrom"),
+                                 ("m", "net", "PacketConn", "WriteTo")})
 
 # Interfaces do shim cujo valor é sempre um tipo do próprio shim (o `State`
 # que o `fmt` passa ao `Format`): a chamada é síncrona, e o grupo delas não
@@ -114,7 +163,7 @@ def dual_capable(key):
     """Método da stdlib com as duas formas no shim: método de uma interface
     de `DUAL_IFACES`, ou de um tipo concreto do shim com nome de método de
     I/O (os mixins `io.*Sync` dão o `$async`)."""
-    if key is None or key[0] != "m" or not _std(key[1]) or key[3] not in DUAL_METHODS:
+    if key is None or key[0] != "m" or not _std(key[1]) or key[3] not in DUAL_METHODS or key in NET_SUSPENDING:
         return False
     owner = (key[1], key[2])
     return key[3] in DUAL_IFACES.get(owner, ()) or owner not in SHIM_INTERFACES or owner in SYNC_SHIM_IFACES
@@ -125,7 +174,7 @@ def sync_shim(key):
     `fmt.State`, cujo valor é sempre o impressor do shim): chamado direto é
     síncrono, seja qual for a cor do grupo dele."""
     if (key is None or key[0] != "m" or key[3] not in DUAL_METHODS or key in ASYNC_SHIM_METHODS
-            or key in DUAL_SHIM_CALLS):  # `Buffer.WriteTo(w)` espera o `w`
+            or key in DUAL_SHIM_CALLS or key in NET_SUSPENDING):  # `Buffer.WriteTo(w)` espera o `w`
         return False
     return _std(key[1]) and ((key[1], key[2]) not in SHIM_INTERFACES or (key[1], key[2]) in SYNC_SHIM_IFACES)
 
