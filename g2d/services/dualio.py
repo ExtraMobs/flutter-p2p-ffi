@@ -62,7 +62,7 @@ _NET_CONNS = ("TCPConn", "UDPConn", "IPConn", "UnixConn")
 # Métodos de tipo do shim que sempre suspendem (o corpo é o `$async`).
 ASYNC_SHIM_METHODS = frozenset({("m", "io", "PipeReader", "Read"), ("m", "io", "PipeWriter", "Write")}
                                | {("m", "net", c, m) for c in _NET_CONNS for m in ("Read", "Write")}
-                               | {("m", "net", c, m) for c in ("TCPConn", "UnixConn") for m in ("ReadFrom", "WriteTo")})
+                               | {("m", "net", "TCPConn", m) for m in ("ReadFrom", "WriteTo")})
 # Tipo do shim que suspende → (método dele, interface onde entra): um
 # pacote que cita o tipo liga os grupos (o valor pode virar a interface).
 # Uma interface do shim cujo valor costuma ser do próprio shim (`net.Conn`
@@ -72,9 +72,13 @@ ASYNC_SHIM_TYPES = {
     ("io", "PipeReader"): (("Read", ("io", "Reader")),),
     ("io", "PipeWriter"): (("Write", ("io", "Writer")),),
     **{("net", c): (("Read", ("net", "Conn")), ("Write", ("net", "Conn"))) for c in _NET_CONNS},
-    # `io.Copy` prefere o `ReadFrom`/`WriteTo` da conexão (splice no Go).
-    **{("net", c): (("Read", ("net", "Conn")), ("Write", ("net", "Conn")), ("ReadFrom", ("io", "ReaderFrom")),
-                    ("WriteTo", ("io", "WriterTo"))) for c in ("TCPConn", "UnixConn")},
+    # `io.Copy` prefere o `ReadFrom`/`WriteTo` da conexão (splice no Go). O
+    # `ReadFrom`/`WriteTo` do `UnixConn` é o do `net.PacketConn` (outra
+    # assinatura), então ele fica fora deste grupo.
+    ("net", "TCPConn"): (("Read", ("net", "Conn")), ("Write", ("net", "Conn")), ("ReadFrom", ("io", "ReaderFrom")),
+                         ("WriteTo", ("io", "WriterTo"))),
+    ("net", "UnixConn"): (("Read", ("net", "Conn")), ("Write", ("net", "Conn")),
+                          ("ReadFrom", ("net", "PacketConn")), ("WriteTo", ("net", "PacketConn"))),
     ("net", "Conn"): (("Read", ("io", "Reader")), ("Write", ("io", "Writer"))),
     ("net", "Listener"): (("Accept", ("net", "Listener")),),
     ("net", "PacketConn"): (("ReadFrom", ("net", "PacketConn")), ("WriteTo", ("net", "PacketConn"))),
@@ -93,6 +97,7 @@ _NET_METHODS = {
                  "LookupNS", "LookupPort", "LookupSRV", "LookupTXT"),
     "TCPListener": ("Accept", "AcceptTCP"),
     "UnixListener": ("Accept", "AcceptUnix"),
+    "UnixConn": ("ReadFrom", "ReadFromUnix", "ReadMsgUnix", "WriteTo", "WriteToUnix", "WriteMsgUnix"),
     "UDPConn": ("ReadFrom", "ReadFromUDP", "ReadFromUDPAddrPort", "ReadMsgUDP", "ReadMsgUDPAddrPort", "WriteTo",
                 "WriteToUDP", "WriteToUDPAddrPort", "WriteMsgUDP", "WriteMsgUDPAddrPort"),
     "IPConn": ("ReadFrom", "ReadFromIP", "ReadMsgIP", "WriteTo", "WriteToIP", "WriteMsgIP"),

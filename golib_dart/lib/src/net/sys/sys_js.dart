@@ -22,6 +22,7 @@ part 'js_listen.dart';
 part 'js_node.dart';
 part 'js_tcp.dart';
 part 'js_udp.dart';
+part 'js_unix.dart';
 
 /// Rede disponível: só sob Node (com `process.getBuiltinModule`).
 bool get sysNetSupported => _node != null;
@@ -47,6 +48,29 @@ Future<SysTcpListener> sysListenTcp(
 }) async {
   _require('socket');
   return _listenTcp(local, backlog, v6Only);
+}
+
+/// Conecta no socket Unix de fluxo em [path]; [deadline] vence com
+/// [SysTimeout]; [cancel] completando aborta com [SysCanceled].
+Future<SysTcpConn> sysDialUnix(
+  String path, {
+  DateTime? deadline,
+  Future<void>? cancel,
+}) async {
+  _require('socket');
+  return heldIo(() => _dialUnix(path, deadline, cancel));
+}
+
+/// Escuta no socket Unix de fluxo em [path].
+Future<SysTcpListener> sysListenUnix(String path, {int backlog = 128}) async {
+  _require('socket');
+  return _listenUnix(path, backlog);
+}
+
+/// Apaga o arquivo do socket Unix [path] (o `unlink` do `Close`).
+void sysUnlinkUnix(String path) {
+  if (_node == null) return;
+  _unlinkUnix(path);
 }
 
 /// Socket UDP em [local] (IP vazio: `udp6` dual-stack, ou `udp4` sem IPv6).

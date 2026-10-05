@@ -23,8 +23,9 @@ Já decidido (não reabrir): D4 (2026-10-05), rede real no `net` com o
 comportamento do Go: `dart:io` na VM/AOT, `node:net`/`node:dgram`/`node:dns`
 no JS/Wasm sob Node (escolha em runtime) e erro Go no navegador, sem emular
 TCP sobre WebSocket; DNS do sistema para IP e TXT (cliente UDP próprio na
-VM); feito: TCP, UDP, DNS, portas e interfaces (`docs/mapping-spec.md`
-§ "Rede (D4)"). D8 (2026-10-05), interface satisfeita por tipo
+VM); feito: TCP, UDP, sockets Unix de fluxo (`unix`; `unixgram`/`unixpacket`
+seguem `operation not supported`), DNS, portas e interfaces
+(`docs/mapping-spec.md` § "Rede (D4)"). D8 (2026-10-05), interface satisfeita por tipo
 de outro pacote: `implements` sobre o grafo, restrito às conversões que
 acontecem (e aos tipos que viram interface e são testados por type
 assertion), com a library do tipo importando a da interface

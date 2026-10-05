@@ -32,9 +32,12 @@ bool _sameAddr(sys.SysAddr a, UDPAddr b) {
   const stream = {'tcp', 'tcp4', 'tcp6'};
   const dgram = {'udp', 'udp4', 'udp6'};
   if (stream.contains(network) || dgram.contains(network)) return (network, null);
+  // Sockets Unix: só `unix` (fluxo) existe; `unixgram`/`unixpacket` chegam
+  // ao `unix.dart` e falham lá com `operation not supported`.
+  if (_unixNets.contains(network)) return (network, null);
   final base = network.split(':').first;
-  if (const {'ip', 'ip4', 'ip6', 'unix', 'unixgram', 'unixpacket'}.contains(base)) {
-    // ⚠️ sockets IP brutos e Unix: o shim não tem (erro em runtime).
+  if (const {'ip', 'ip4', 'ip6'}.contains(base)) {
+    // ⚠️ sockets IP brutos: o shim não tem (erro em runtime).
     return (network, _notSupported('socket'));
   }
   return (network, UnknownNetworkError(_s(network)));
@@ -190,6 +193,23 @@ final class Dialer extends GoStruct<Dialer> {
     final net = network.toString();
     final (_, nerr) = _network(net, packet: false);
     if (nerr != null) return (null, _opError('dial', net, null, null, nerr));
+    if (_unixNets.contains(net)) {
+      final (ua, uerr) = resolveUnixAddr(network, address);
+      if (uerr != null) return (null, _opError('dial', net, null, null, uerr));
+      final la = localAddr;
+      final cancel = _cancelOf(ctx, this.cancel);
+      try {
+        return await _dialUnix(
+          net,
+          la is UnixAddr ? la : null,
+          ua,
+          deadline: _when(ctx),
+          cancel: cancel.future,
+        );
+      } finally {
+        cancel.stop();
+      }
+    }
     final (addrs, rerr) = await _resolve(net, address.toString(), op: 'dial');
     if (rerr != null) return (null, _opError('dial', net, null, null, rerr));
     final when = _when(ctx);
@@ -362,6 +382,12 @@ final class ListenConfig extends GoStruct<ListenConfig> {
   ) async {
     final net = network.toString();
     final (_, nerr) = _network(net, packet: false);
+    if (_unixNets.contains(net)) {
+      final (ua, uerr) = resolveUnixAddr(network, address);
+      if (uerr != null) return (null, _opError('listen', net, null, null, uerr));
+      final (ln, err) = await listenUnix(network, ua);
+      return (ln, err);
+    }
     if (nerr != null || !net.startsWith('tcp')) {
       return (null, _opError('listen', net, null, null, nerr ?? UnknownNetworkError(network)));
     }
@@ -384,6 +410,12 @@ final class ListenConfig extends GoStruct<ListenConfig> {
   ) async {
     final net = network.toString();
     final (_, nerr) = _network(net, packet: true);
+    if (_unixNets.contains(net)) {
+      // ⚠️ datagrama Unix não existe na plataforma.
+      final (ua, uerr) = resolveUnixAddr(network, address);
+      if (uerr != null) return (null, _opError('listen', net, null, null, uerr));
+      return (null, _opError('listen', net, null, ua, _notSupported('socket')));
+    }
     if (nerr != null || !net.startsWith('udp')) {
       return (null, _opError('listen', net, null, null, nerr ?? UnknownNetworkError(network)));
     }

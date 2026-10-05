@@ -72,9 +72,11 @@ const _highWater = 256 * 1024;
 /// Conexão TCP sobre um `net.Socket` do Node, com a leitura em fila
 /// própria (o Node empurra `data`; o Go puxa com `Read`).
 final class _NodeTcpConn implements SysTcpConn {
-  _NodeTcpConn(this._s)
-    : local = _addr(_s['localAddress'], _s['localPort']),
-      remote = _addr(_s['remoteAddress'], _s['remotePort']) {
+  /// [local] e [remote] dados: socket Unix de fluxo, cujos endereços são
+  /// caminhos já conhecidos (o Node não os informa num `pipe`).
+  _NodeTcpConn(this._s, {SysAddr? local, SysAddr? remote})
+    : local = local ?? _addr(_s['localAddress'], _s['localPort']),
+      remote = remote ?? _addr(_s['remoteAddress'], _s['remotePort']) {
     _on(
       _s,
       'data',

@@ -27,6 +27,17 @@ Future<SysTcpListener> sysListenTcp(
 Future<SysUdpConn> sysListenUdp(SysAddr local, {bool v6Only = false}) async =>
     throw SysError.unsupported('socket');
 
+Future<SysTcpConn> sysDialUnix(
+  String path, {
+  DateTime? deadline,
+  Future<void>? cancel,
+}) async => throw SysError.unsupported('socket');
+
+Future<SysTcpListener> sysListenUnix(String path, {int backlog = 128}) async =>
+    throw SysError.unsupported('socket');
+
+void sysUnlinkUnix(String path) {}
+
 Future<List<Uint8List>> sysLookupIp(
   String host, {
   String network = 'ip',

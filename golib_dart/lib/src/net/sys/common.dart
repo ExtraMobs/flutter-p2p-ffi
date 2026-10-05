@@ -6,6 +6,7 @@
 library;
 
 import 'dart:async';
+import 'dart:convert';
 import 'dart:typed_data';
 
 import '../../runtime/sched.dart' show holdEvents, releaseEvents;
@@ -19,11 +20,25 @@ part 'common_wait.dart';
 /// IPv4 visto por um socket IPv6 dual-stack chega como IPv4 mapeado em IPv6
 /// (`::ffff:a.b.c.d`, 16 bytes), como o `net.IP` do Go.
 final class SysAddr {
-  SysAddr(this.ip, this.port, [this.zone = '']);
+  SysAddr(this.ip, this.port, [this.zone = '']) : path = null;
+
+  /// Socket Unix: [path] é o caminho no sistema de arquivos (ou `@nome`
+  /// abstrato no linux; `@` sozinho é o lado que discou, sem nome). [ip],
+  /// [port] e [zone] ficam vazios.
+  SysAddr.unix(String this.path)
+    : ip = _noIp,
+      port = 0,
+      zone = '';
 
   final Uint8List ip;
   final int port;
   final String zone;
+
+  /// Caminho do socket Unix, ou `null` num endereço IP.
+  final String? path;
+
+  /// Endereço de socket Unix (não de IP).
+  bool get isUnix => path != null;
 
   /// Sem IP, ou IP todo zero (`0.0.0.0`, `::`).
   bool get isUnspecified => ip.every((b) => b == 0);
@@ -31,22 +46,44 @@ final class SysAddr {
   @override
   bool operator ==(Object other) =>
       other is SysAddr &&
+      other.path == path &&
       other.port == port &&
       other.zone == zone &&
       _sameBytes(other.ip, ip);
 
   @override
-  int get hashCode => Object.hash(port, zone, Object.hashAll(ip));
+  int get hashCode => Object.hash(path, port, zone, Object.hashAll(ip));
 
-  /// `ip:port` / `[ip%zona]:port`, como o `net.JoinHostPort` do Go.
+  /// `ip:port` / `[ip%zona]:port`, como o `net.JoinHostPort` do Go; num
+  /// socket Unix, o próprio caminho.
   @override
   String toString() {
+    final unix = path;
+    if (unix != null) return unix;
     final host = ip.isEmpty ? '' : ipToString(ip);
     final z = zone.isEmpty ? '' : '%$zone';
     return host.contains(':') || z.isNotEmpty
         ? '[$host$z]:$port'
         : '$host:$port';
   }
+}
+
+final Uint8List _noIp = Uint8List(0);
+
+/// Nome do socket Unix sem nome (quem discou): o Go imprime `@`, por
+/// reescrever o NUL inicial de um nome abstrato vazio.
+const unixUnnamed = '@';
+
+/// Limite do `sun_path` do linux (108 bytes): o Go recusa um nome que não
+/// cabe com `EINVAL` (nome não abstrato precisa do NUL final). Devolve o
+/// erro de [syscall] (`bind`, `connect`), ou `null` se o nome serve.
+SysError? sysUnixPathError(String name, String syscall) {
+  final n = utf8.encode(name).length;
+  final abstract = n > 0 && (name[0] == '@' || name.codeUnitAt(0) == 0);
+  if (n > 108 || (n == 108 && !abstract)) {
+    return SysError.errno(syscall, 'EINVAL');
+  }
+  return null;
 }
 
 bool _sameBytes(Uint8List a, Uint8List b) {
@@ -188,6 +225,13 @@ const errnoText = <String, String>{
   'EBADF': 'bad file descriptor',
   'ENOMEM': 'cannot allocate memory',
   'EPROTONOSUPPORT': 'protocol not supported',
+  'ENOENT': 'no such file or directory',
+  'ENOTDIR': 'not a directory',
+  'EISDIR': 'is a directory',
+  'ENAMETOOLONG': 'file name too long',
+  'ENOTSOCK': 'socket operation on non-socket',
+  'ELOOP': 'too many levels of symbolic links',
+  'EROFS': 'read-only file system',
 };
 
 /// Conexão TCP aberta.

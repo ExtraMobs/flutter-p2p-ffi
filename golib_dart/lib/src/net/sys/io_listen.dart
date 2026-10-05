@@ -43,8 +43,13 @@ Future<SysTcpListener> _listenTcp(
 }
 
 final class _IoTcpListener implements SysTcpListener {
-  _IoTcpListener(this._srv, this._backlog)
-    : local = _addrOf(_srv.address, _srv.port) {
+  /// [unixPath] (socket Unix de fluxo): o endereço é o caminho, e as
+  /// conexões aceitas não têm nome do outro lado (`@`).
+  _IoTcpListener(this._srv, this._backlog, {String? unixPath})
+    : _unixPath = unixPath,
+      local = unixPath != null
+          ? SysAddr.unix(unixPath)
+          : _addrOf(_srv.address, _srv.port) {
     _sub = _srv.listen(
       (s) {
         _ready.add(s);
@@ -61,6 +66,7 @@ final class _IoTcpListener implements SysTcpListener {
 
   final RawServerSocket _srv;
   final int _backlog;
+  final String? _unixPath;
   late final StreamSubscription<RawSocket> _sub;
   final _ready = Queue<RawSocket>();
   final _waiters = Waiters();
@@ -79,7 +85,11 @@ final class _IoTcpListener implements SysTcpListener {
       if (_ready.isNotEmpty) {
         final s = _ready.removeFirst();
         if (_sub.isPaused && _ready.length < _backlog) _sub.resume();
+        final unix = _unixPath;
         try {
+          if (unix != null) {
+            return _IoTcpConn.unix(s, local: unix, remote: unixUnnamed);
+          }
           return await _IoTcpConn.create(s, local.ip);
         } on SocketException {
           // O par já desistiu antes do accept: o Go também pula essa.

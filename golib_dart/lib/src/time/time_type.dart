@@ -113,8 +113,11 @@ final class Time extends GoStruct<Time>
               Golang.Int64(
                 8589934591,
               ) /* 1<<33 - 1 (o `<<` de `int` é 32 bits no JS) */ ) {
+        // `t.wall&nsecMask | uint64(dsec)<<nsecShift | hasMonotonic` do Go:
+        // guarda só o nsec e troca o campo de segundos (guardar o resto
+        // deixaria os segundos antigos no OU).
         wall =
-            wall.andNot(_nsecMaskU64) |
+            (wall & _nsecMaskU64) |
             (dsec.toUint64() << 30) |
             _hasMonotonicU64;
         return;

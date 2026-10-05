@@ -24,6 +24,7 @@ part 'io_iface.dart';
 part 'io_listen.dart';
 part 'io_tcp.dart';
 part 'io_udp.dart';
+part 'io_unix.dart';
 
 /// Rede disponível (sempre, na VM).
 bool get sysNetSupported => true;
@@ -45,6 +46,21 @@ Future<SysTcpListener> sysListenTcp(
   int backlog = 128,
   bool v6Only = false,
 }) => _listenTcp(local, backlog, v6Only);
+
+/// Conecta no socket Unix de fluxo em [path]; [deadline] vence com
+/// [SysTimeout]; [cancel] completando aborta com [SysCanceled].
+Future<SysTcpConn> sysDialUnix(
+  String path, {
+  DateTime? deadline,
+  Future<void>? cancel,
+}) => heldIo(() => _dialUnix(path, deadline, cancel));
+
+/// Escuta no socket Unix de fluxo em [path].
+Future<SysTcpListener> sysListenUnix(String path, {int backlog = 128}) =>
+    _listenUnix(path, backlog);
+
+/// Apaga o arquivo do socket Unix [path] (o `unlink` do `Close`).
+void sysUnlinkUnix(String path) => _unlinkUnix(path);
 
 /// Socket UDP em [local] (IP vazio: dual-stack quando há IPv6). [v6Only] é
 /// ignorado na VM (⚠️ o `dart:io` não expõe `IPV6_V6ONLY` para UDP).

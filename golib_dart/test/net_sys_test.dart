@@ -89,6 +89,29 @@ const _expected = <String, List<String>>{
     'fail.example.test -> SysDnsError(fail.example.test, server misbehaving, '
         'notFound=false, timeout=false, temporary=true)',
   ],
+  'unix_echo': [
+    'listener é unix true nome=true',
+    'aceito local=true remoto=@',
+    'cliente local=@ remoto=true',
+    'eco olá, unix',
+    'segundo listen no mesmo caminho ok ok',
+  ],
+  'unix_errors': [
+    'SysError(bind, EADDRINUSE, address already in use)',
+    'SysError(connect, ENOENT, no such file or directory)',
+    'SysError(bind, ENOENT, no such file or directory)',
+    'SysError(bind, EINVAL, invalid argument)',
+    'SysError(connect, EINVAL, invalid argument)',
+    'SysError(connect, ENOENT, no such file or directory)',
+  ],
+  'unix_deadline': [
+    'SysTimeout',
+    'SysTimeout',
+    'lido abcd 4',
+    'depois do EOF SysTimeout',
+    'EOF ok 0',
+    'SysClosed',
+  ],
   'interfaces': [
     'tem loopback true',
     'loopback up true',

@@ -82,12 +82,23 @@ final class _NodeTcpListener implements SysTcpListener {
   @override
   SysAddr local = SysAddr(Uint8List(0), 0);
 
+  /// Socket Unix de fluxo: o caminho escutado (as conexões aceitas não têm
+  /// nome do outro lado, `@`).
+  String? unixPath;
+
   @override
   Future<SysTcpConn> accept() => heldIo(() async {
     while (true) {
       if (_closed) throw const SysClosed();
       if (_deadline.expired) throw const SysTimeout();
-      if (_ready.isNotEmpty) return _NodeTcpConn(_ready.removeFirst());
+      if (_ready.isNotEmpty) {
+        final unix = unixPath;
+        return _NodeTcpConn(
+          _ready.removeFirst(),
+          local: unix == null ? null : SysAddr.unix(unix),
+          remote: unix == null ? null : SysAddr.unix(unixUnnamed),
+        );
+      }
       final err = _error;
       if (err != null) {
         _error = null;

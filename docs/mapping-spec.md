@@ -529,22 +529,33 @@ nos erros do Go: `*OpError{Op, Net, Source, Addr, Err}` com
 |---|---|
 | `Dial`, `DialTimeout`, `DialTCP`, `DialUDP`, `Dialer.Dial`/`DialContext` (prazo, `Timeout`, `LocalAddr`, cancelamento pelo `ctx`) | funções e métodos `Future` (cor `async`) |
 | `Listen`, `ListenPacket`, `ListenTCP`, `ListenUDP`, `ListenConfig` | idem |
-| `TCPConn`, `UDPConn` | structs de shim; `Read`/`Write` de versão dupla (`read$async` real, `read` síncrono = `fatal` do `syncOfAsync`); `ReadFrom`/`WriteTo` (`io.ReaderFrom`/`WriterTo`) de `TCPConn`, `CloseRead`/`CloseWrite`, deadlines, `SetNoDelay`/`SetKeepAlive` |
-| `TCPListener.Accept`/`AcceptTCP`, `UDPConn.ReadFrom*`/`WriteTo*` | `Future` |
+| `TCPConn`, `UDPConn`, `UnixConn` | structs de shim; `Read`/`Write` de versão dupla (`read$async` real, `read` síncrono = `fatal` do `syncOfAsync`); `ReadFrom`/`WriteTo` (`io.ReaderFrom`/`WriterTo`) de `TCPConn`, `CloseRead`/`CloseWrite`, deadlines, `SetNoDelay`/`SetKeepAlive` |
+| `TCPListener.Accept`/`AcceptTCP`, `UnixListener.Accept`/`AcceptUnix`, `UDPConn.ReadFrom*`/`WriteTo*`, `UnixConn.ReadFrom`/`ReadFromUnix`/`WriteTo`/`WriteToUnix` | `Future` |
+| sockets Unix de fluxo: `Dial`/`Listen`/`Dialer.Dial`/`ListenConfig.Listen` com `unix`, `DialUnix`, `ListenUnix`, `UnixConn`, `UnixListener` (`Addr`, `SetDeadline`, `Close` que apaga o arquivo do socket, `SetUnlinkOnClose`) | `InternetAddress(path, type: unix)` com `RawSocket`/`RawServerSocket` na VM, `net.connect({path})`/`server.listen({path})` no Node (`src/net/unix.dart`, `sys/io_unix.dart`, `sys/js_unix.dart`); o lado que disca tem `LocalAddr` `@` (sem nome), como no linux; nome `@abstrato` do linux nos dois |
 | `Conn`, `Listener`, `PacketConn` | interfaces de shim (`SHIM_INTERFACES`); tipo gerado que as implementa (embrulho de `net.Conn`) entra no grupo de cor do método |
 | `LookupHost`, `LookupIP`, `LookupTXT`, `LookupPort`, `Resolver.Lookup{Host,IP,IPAddr,NetIP,Port,TXT}`, `Resolve{TCP,UDP}Addr` | resolver do sistema para IP: `getaddrinfo` na VM e `dns.lookup` no Node; TXT por cliente DNS UDP próprio na VM (lê `/etc/resolv.conf` com os padrões do Go) e `dns.resolveTxt` no Node; portas pela tabela embutida do Go |
 | `Interfaces`, `InterfaceAddrs`, `InterfaceByIndex`/`ByName`, `Interface.Addrs` | `NetworkInterface.list` / `os.networkInterfaces`, com `/sys/class/net` no linux para índice, MTU, MAC e flags |
 
 Fixtures `nettcp` (servidor de eco, embrulho de `net.Conn`, 1 MiB, prazo de
 leitura, `CloseWrite` + `ReadAll`, `Close` durante `Read`, conexão recusada,
-erros de endereço e rede) e `netudp` (`PacketConn` com embrulho, `DialUDP`,
+erros de endereço e rede), `netudp` (`PacketConn` com embrulho, `DialUDP`,
 truncamento, `ReadFromUDP`/`WriteToUDP`, prazo, `LookupHost`,
-`ResolveTCPAddr`, porta desconhecida, `Interfaces`), byte a byte iguais ao
-`go run` na VM, no JS e no Wasm; oráculo da camada em
+`ResolveTCPAddr`, porta desconhecida, `Interfaces`) e `netunix` (eco sobre
+socket Unix, endereços dos dois lados, `CloseWrite`, prazos, `Close` que
+apaga o arquivo do socket, `ReadFrom`/`WriteTo` do `net.PacketConn` no
+`UnixConn`, caminho ausente/ocupado, rede desconhecida), byte a byte iguais
+ao `go run` na VM, no JS e no Wasm; oráculo da camada em
 `golib_dart/test/net_sys_test.dart` e `test/net_sys_node/`.
 
-⚠️ Limites: sockets Unix e IP brutos (`unix*`, `ip:*`) dão
-`operation not supported` em runtime; `LookupAddr`/`CNAME`/`MX`/`NS`/`SRV`,
+⚠️ Limites: `unixgram`/`unixpacket` e sockets IP brutos (`ip:*`) dão
+`operation not supported` em runtime (nem o `dart:io` nem o Node têm
+datagrama ou seqpacket Unix), e no navegador `unix` também;
+`SetUnlinkOnClose(false)` não preserva o arquivo (VM e Node apagam o arquivo
+do socket ao fechar o que o criou); `DialUnix` com `laddr` nomeado dá
+`operation not supported` (o Node não liga a origem de um socket Unix);
+`Listen("unix", "")` (autobind abstrato do linux) dá `missing address`;
+`UnixConn.ReadMsgUnix`/`WriteMsgUnix` e `UnixListener.File`/`SyscallConn` não
+existem no shim; `LookupAddr`/`CNAME`/`MX`/`NS`/`SRV`,
 `Resolver.Dial`, `Dialer.Control`/`FallbackDelay` e `ListenConfig.Control`
 não existem no shim (`Unsupported` na transpilação); `/etc/services` não é
 lido; `SetLinger` é aceito e ignorado e `SetKeepAlivePeriod` só liga o
@@ -780,7 +791,7 @@ intervalo, nil pointer, escrita em map nil.
 | `sync/atomic` | `Int32`/`Int64`/`Uint32`/`Uint64`/`Uintptr`/`Bool`/`Value`/`Pointer[T]` (T struct) como structs de shim (`%v` como o Go: `{{} {} 5}`); `Add*`/`Load*`/`Store*`/`Swap*`/`CompareAndSwap*` sobre `go.Ptr`. Decidido no M4: mesmo com goroutines, leitura/escrita simples continua certa — são cooperativas sobre um só event loop, nunca truly paralelas (ao contrário das OS threads que o `atomic` do Go protege), então não há corrida de verdade a impedir. Variantes `*Pointer` (unsafe) → `unsafe:Pointer`. Fixture `syncatomic` |
 | `fmt.Fprint`, `Fprintln`, `Fprintf` | `fmt.fprint(w, args)`: a mesma formatação, num só `w.write(bytes)`; `fprint$async`... com `await w.write$async(bytes)` (D2) |
 | `sort` | `Interface` (interface de shim: tipo gerado que a satisfaz declara `implements sort.Interface`), `sort`, `stable`, `isSorted`, `slice$`, `sliceStable`, `search`, `ints`, `strings`, `float64s`: porta exata do pdqsort/stable do Go (mesmas chamadas a `Less`/`Swap`, mesmo resultado para iguais); swap de slice via `go.swapElems` (copia struct/array antes) |
-| `net` | porta do Go 1.26 (`golib_dart/lib/net.dart`, partes em `lib/src/net/`): `IP`/`IPMask`/`HardwareAddr` com a forma de nomeado sobre slice (`SHIM_NAMED_CLASSES`: `net.IP(b)`, `[]byte(ip)`, índice, `len`, `append`, fatia, `(*IP).UnmarshalText` em `IP$Ptr`); `IPNet`, `TCPAddr`, `UDPAddr`, `IPAddr`, `UnixAddr` como structs de shim (`GoStruct`, `String()` de `*T` com `<nil>` no nil); `Addr` e `Error` em `SHIM_INTERFACES`; `parseIP`, `parseCIDR`, `iPv4`, `iPv4Mask`, `cidrMask`, `parseMAC`, `splitHostPort`, `joinHostPort`, `tcpAddrFromAddrPort`, `udpAddrFromAddrPort`, `resolveUnixAddr`, as vars `iPv4bcast`...`iPv6linklocalallrouters`; erros `OpError`, `AddrError`, `ParseError`, `DNSError`, `UnknownNetworkError`, `InvalidAddrError` (nomeados sobre string), `errClosed` (`poll.errNetClosing`), `errWriteToConnected`, com o texto do Go. Oráculo em `golib_dart/test/net_test.dart`; fixture `netaddr`. Rede real (TCP, UDP, DNS, interfaces) em § "Rede (D4)". ⚠️ reflexão de `IP` e das structs de `net` é opaca (`rtOpaque`, sem `SHIM_RTYPES`), então `json` sobre elas ainda não serializa como o Go |
+| `net` | porta do Go 1.26 (`golib_dart/lib/net.dart`, partes em `lib/src/net/`): `IP`/`IPMask`/`HardwareAddr` com a forma de nomeado sobre slice (`SHIM_NAMED_CLASSES`: `net.IP(b)`, `[]byte(ip)`, índice, `len`, `append`, fatia, `(*IP).UnmarshalText` em `IP$Ptr`); `IPNet`, `TCPAddr`, `UDPAddr`, `IPAddr`, `UnixAddr` como structs de shim (`GoStruct`, `String()` de `*T` com `<nil>` no nil); `Addr` e `Error` em `SHIM_INTERFACES`; `parseIP`, `parseCIDR`, `iPv4`, `iPv4Mask`, `cidrMask`, `parseMAC`, `splitHostPort`, `joinHostPort`, `tcpAddrFromAddrPort`, `udpAddrFromAddrPort`, `resolveUnixAddr`, as vars `iPv4bcast`...`iPv6linklocalallrouters`; erros `OpError`, `AddrError`, `ParseError`, `DNSError`, `UnknownNetworkError`, `InvalidAddrError` (nomeados sobre string), `errClosed` (`poll.errNetClosing`), `errWriteToConnected`, com o texto do Go. Oráculo em `golib_dart/test/net_test.dart`; fixture `netaddr`. Rede real (TCP, UDP, sockets Unix de fluxo, DNS, interfaces) em § "Rede (D4)". ⚠️ reflexão de `IP` e das structs de `net` é opaca (`rtOpaque`, sem `SHIM_RTYPES`), então `json` sobre elas ainda não serializa como o Go |
 | `net/netip` | porta inteira de `netip.go`/`uint128.go` do Go 1.26: `Addr`, `AddrPort`, `Prefix` como structs de shim por valor (`==`, chave de map, `$set`), `uint128` em duas metades `Golang.Uint64`, zona comparada por valor (`unique.Handle` vira `_Z`); `parseAddr`/`parsePrefix`/`parseAddrPort` com os erros do Go (`parseAddrError`/`parsePrefixError` por valor), `mustParse*`, `addrFrom4`/`addrFrom16`/`addrFromSlice`, `prefixFrom`, `addrPortFrom`, `iPv4Unspecified`/`iPv6*`, e todos os métodos (texto, binário, `Append*` com o crescimento de cap do Go). Oráculo em `golib_dart/test/net_test.dart`; fixture `netipaddr` |
 
 ## Tipos nomeados, interfaces, embedding, genéricos (M3)

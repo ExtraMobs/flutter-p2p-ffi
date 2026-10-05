@@ -7,6 +7,10 @@
 /// - Navegador (mesmo `sys_js.dart`, decidido em runtime): toda operação
 ///   falha com `SysError(code: 'EOPNOTSUPP')`; não há emulação de TCP.
 ///
+/// Sockets Unix: só de fluxo (`unix`), com o caminho em [SysAddr.unix]
+/// ([sysDialUnix], [sysListenUnix], [sysUnlinkUnix]); ⚠️ datagrama e
+/// seqpacket (`unixgram`/`unixpacket`) não existem em nenhuma plataforma.
+///
 /// Os tipos (`SysAddr`, erros, `SysTcpConn`...) estão em `common.dart`.
 library;
 

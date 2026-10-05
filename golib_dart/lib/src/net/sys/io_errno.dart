@@ -4,6 +4,8 @@ part of 'sys_io.dart';
 // linux), em qualquer SO.
 
 const _linuxErrno = <int, String>{
+  2: 'ENOENT', 20: 'ENOTDIR', 21: 'EISDIR', 30: 'EROFS', //
+  36: 'ENAMETOOLONG', 40: 'ELOOP', 88: 'ENOTSOCK',
   1: 'EPERM', 4: 'EINTR', 9: 'EBADF', 11: 'EAGAIN', 12: 'ENOMEM', //
   13: 'EACCES', 22: 'EINVAL', 23: 'ENFILE', 24: 'EMFILE', 32: 'EPIPE',
   90: 'EMSGSIZE', 93: 'EPROTONOSUPPORT', 95: 'EOPNOTSUPP',
@@ -15,6 +17,8 @@ const _linuxErrno = <int, String>{
 };
 
 const _darwinErrno = <int, String>{
+  2: 'ENOENT', 20: 'ENOTDIR', 21: 'EISDIR', 30: 'EROFS', //
+  63: 'ENAMETOOLONG', 62: 'ELOOP', 38: 'ENOTSOCK',
   1: 'EPERM', 4: 'EINTR', 9: 'EBADF', 35: 'EAGAIN', 12: 'ENOMEM', //
   13: 'EACCES', 22: 'EINVAL', 23: 'ENFILE', 24: 'EMFILE', 32: 'EPIPE',
   40: 'EMSGSIZE', 43: 'EPROTONOSUPPORT', 45: 'EOPNOTSUPP',
@@ -26,6 +30,7 @@ const _darwinErrno = <int, String>{
 };
 
 const _windowsErrno = <int, String>{
+  2: 'ENOENT', 10038: 'ENOTSOCK', 10063: 'ENAMETOOLONG', //
   10013: 'EACCES', 10022: 'EINVAL', 10024: 'EMFILE', 10035: 'EAGAIN', //
   10036: 'EINPROGRESS', 10037: 'EALREADY', 10040: 'EMSGSIZE',
   10043: 'EPROTONOSUPPORT', 10045: 'EOPNOTSUPP', 10047: 'EAFNOSUPPORT',

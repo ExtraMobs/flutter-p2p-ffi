@@ -40,6 +40,7 @@ part 'src/net/dns_error.dart';
 part 'src/net/parse.dart';
 part 'src/net/errno.dart';
 part 'src/net/conn.dart';
+part 'src/net/unix.dart';
 part 'src/net/dial.dart';
 part 'src/net/lookup.dart';
 part 'src/net/interfaces.dart';

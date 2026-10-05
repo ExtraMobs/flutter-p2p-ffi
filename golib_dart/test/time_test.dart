@@ -259,6 +259,19 @@ void main() {
     expect(later.sub(n).nanoseconds().toInt(), 1500);
     expect(later.after(n) && n.before(later), isTrue);
     expect(later.string().toString(), contains(' m=+'));
+    // `Add` com leitura monotônica mexe no relógio de parede também (o
+    // `addSec` do Go guarda só o nsec do `wall`), nos dois sentidos.
+    for (final ns in [1000000000, -1000000000, 1500000000, -2500000000]) {
+      final t = n.add(time.Duration(ns));
+      expect(
+        t.unixMicro().toInt() - n.unixMicro().toInt(),
+        ns ~/ 1000,
+        reason: 'Add($ns) no relógio de parede',
+      );
+      if (ns % 1000000000 == 0) {
+        expect(t.nanosecond().toInt(), n.nanosecond().toInt());
+      }
+    }
     expect(
       () => n.in$(null),
       throwsA(isA<Panic>()),

@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:golib_dart/src/net/sys/sys.dart';
+import 'package:golib_dart/src/runtime/output.dart' show getPid;
 
 import 'fake_dns.dart';
 
@@ -67,6 +68,9 @@ Future<(SysTcpListener, SysTcpConn, SysTcpConn)> _pair() async {
 }
 
 String _ip(SysAddr a) => a.ip.isEmpty ? '<vazio>' : ipToString(a.ip);
+
+/// Caminho de socket Unix só deste processo (o pid nunca é impresso).
+String _sock(String tag) => '/tmp/g2d-sys-${getPid()}-$tag.sock';
 
 final scenarios = <String, Future<List<String>> Function()>{
   'tcp_echo': () async {
@@ -363,6 +367,84 @@ final scenarios = <String, Future<List<String>> Function()>{
     await q('empty.example.test');
     await q('fail.example.test');
     server.close();
+    return out;
+  },
+
+  // Sockets Unix de fluxo: caminho em /tmp com o pid (nunca impresso).
+  'unix_echo': () async {
+    final out = <String>[];
+    final path = _sock('echo');
+    final l = await sysListenUnix(path);
+    out.add('listener é unix ${l.local.isUnix} nome=${l.local.path == path}');
+    final served = () async {
+      final s = await l.accept();
+      out.add('aceito local=${s.local.path == path} remoto=${s.remote.path}');
+      final data = await _readAll(s);
+      await s.write(data);
+      s.closeWrite();
+      s.close();
+    }();
+    final c = await sysDialUnix(path);
+    out.add('cliente local=${c.local.path} remoto=${c.remote.path == path}');
+    await c.write(_b('olá, unix'));
+    c.closeWrite();
+    out.add('eco ${utf8.decode(await _readAll(c))}');
+    await served;
+    c.close();
+    l.close();
+    sysUnlinkUnix(path);
+    out.add('segundo listen no mesmo caminho ${await _try(() async {
+      final l2 = await sysListenUnix(path);
+      l2.close();
+      sysUnlinkUnix(path);
+      return 'ok';
+    })}');
+    return out;
+  },
+
+  'unix_errors': () async {
+    final path = _sock('err');
+    final l = await sysListenUnix(path);
+    final out = [
+      await _try(() => sysListenUnix(path)),
+      await _try(() => sysDialUnix('$path-ausente')),
+      await _try(() => sysListenUnix('/tmp/g2d-inexistente/x.sock')),
+      await _try(() => sysListenUnix('/tmp/${'a' * 120}')),
+      await _try(() => sysDialUnix('/tmp/${'a' * 120}')),
+    ];
+    l.close();
+    sysUnlinkUnix(path);
+    out.add(await _try(() => sysDialUnix(path)));
+    return out;
+  },
+
+  'unix_deadline': () async {
+    final path = _sock('dl');
+    final l = await sysListenUnix(path);
+    l.deadline = _in(-1000);
+    final out = [await _try(() => l.accept())];
+    l.deadline = null;
+    final accepted = l.accept();
+    final c = await sysDialUnix(path);
+    final s = await accepted;
+    c.readDeadline = _in(30);
+    out.add(await _try(() => c.read(Uint8List(4))));
+    c.readDeadline = null;
+    await s.write(_b('abcd'));
+    final buf = Uint8List(4);
+    out.add('lido ${await _readN(c, 4)} ${buf.length}');
+    // EOF do par e prazo vencido: o prazo vence antes do EOF.
+    s.closeWrite();
+    await Future<void>.delayed(const Duration(milliseconds: 20));
+    c.readDeadline = _in(-1000);
+    out.add('depois do EOF ${await _try(() => c.read(Uint8List(1)))}');
+    c.readDeadline = null;
+    out.add('EOF ${await _try(() => c.read(Uint8List(1)))}');
+    c.close();
+    out.add(await _try(() => c.read(Uint8List(1))));
+    s.close();
+    l.close();
+    sysUnlinkUnix(path);
     return out;
   },
 

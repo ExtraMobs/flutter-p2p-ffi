@@ -75,6 +75,13 @@ final class _IoTcpConn implements SysTcpConn {
     return _IoTcpConn._(s, fd, SysAddr(ip, port), remote);
   }
 
+  /// Socket Unix de fluxo: os endereços são caminhos, já conhecidos.
+  static _IoTcpConn unix(
+    RawSocket s, {
+    required String local,
+    required String remote,
+  }) => _IoTcpConn._(s, Fd(s), SysAddr.unix(local), SysAddr.unix(remote));
+
   final RawSocket _socket;
   final Fd _fd;
 
