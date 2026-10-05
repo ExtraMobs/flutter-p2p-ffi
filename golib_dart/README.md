@@ -200,11 +200,16 @@ dart test -p node $(grep -L "dart:io" test/*_test.dart)   # mesmos testes no JS
     UDP) e datagrama vazio não é enviado (`send` devolve 0 igual a buffer
     cheio). DNS TXT: cliente próprio só com `/etc/resolv.conf` (Windows cai no
     padrão `127.0.0.1:53`); TXT com UTF-8 inválido vira U+FFFD (também no
-    Node).
+    Node). `SO_LINGER`/`TCP_KEEP{IDLE,INTVL,CNT}` só no linux (as
+    constantes mudam nos BSD/macOS e no Windows): fora dele, `setLinger` e
+    `setKeepAlive{Idle,Interval,Count}` ficam aceitos e ignorados.
   - Node: escrita interrompida por prazo/close só conta pedaços de 64 KiB
     confirmados, e o pedaço em voo ainda pode sair; `closeRead` é local
-    (descarta o que chega); UDP recebido sem leitor fica numa fila de até
-    4096 datagramas (o resto se perde); listener sem contrapressão de
+    (descarta o que chega); do keepalive só o tempo de ociosidade é
+    ajustável (`socket.setKeepAlive(enable, initialDelay)`: sem
+    `TCP_KEEPINTVL`/`TCP_KEEPCNT`) e do linger só o prazo zero
+    (`resetAndDestroy()`, que manda RST — prazo maior que zero fica aceito e
+    ignorado); UDP recebido sem leitor fica numa fila de até 4096 datagramas (o resto se perde); listener sem contrapressão de
     `accept` (as conexões ficam pausadas até serem aceitas); fora do linux,
     interfaces com índice pela ordem e sem MTU/flags.
   - Sockets Unix (`unix`, fluxo): `unixgram`/`unixpacket` não existem

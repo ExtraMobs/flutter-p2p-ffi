@@ -267,6 +267,22 @@ abstract interface class SysTcpConn {
 
   void setNoDelay(bool v);
   void setKeepAlive(bool v);
+
+  /// `SO_LINGER`: `sec < 0` desliga (o sistema termina de enviar em segundo
+  /// plano); `sec == 0` descarta o que falta e o [close] manda RST (o par lê
+  /// `connection reset by peer`); `sec > 0` liga com esse prazo em segundos.
+  void setLinger(int sec);
+
+  /// `TCP_KEEPIDLE`: segundos de ociosidade antes da primeira sonda
+  /// (sempre > 0; quem chama já resolveu o padrão do Go).
+  void setKeepAliveIdle(int secs);
+
+  /// `TCP_KEEPINTVL`: segundos entre sondas (sempre > 0).
+  void setKeepAliveInterval(int secs);
+
+  /// `TCP_KEEPCNT`: sondas sem resposta antes de derrubar a conexão
+  /// (sempre > 0).
+  void setKeepAliveCount(int n);
 }
 
 /// Socket TCP escutando.

@@ -231,7 +231,7 @@ final class Dialer extends GoStruct<Dialer> {
           }
           final local = la is TCPAddr ? _sysAddrOf(la.ip, la.port.toInt(), la.zone) : null;
           final fd = await sys.sysDialTcp(a, local: local, deadline: when, cancel: cancel.future);
-          return (_newTCPConn(fd, net) as Conn, null);
+          return (_newTCPConn(fd, net, keepAlive: keepAlive) as Conn, null);
         } on sys.SysCanceled {
           last = _opError('dial', net, null, _addrFor(net, a), _errCanceled);
           break;
@@ -396,7 +396,10 @@ final class ListenConfig extends GoStruct<ListenConfig> {
     final a = addrs.first;
     try {
       final ln = await sys.sysListenTcp(a);
-      return (TCPListener._(ln, net, _tcpAddrOf(ln.local)) as Listener, null);
+      return (
+        TCPListener._(ln, net, _tcpAddrOf(ln.local), keepAlive) as Listener,
+        null,
+      );
     } on Object catch (e) {
       return (null, _opError('listen', net, null, _tcpAddrOf(a), _sysError(e)));
     }

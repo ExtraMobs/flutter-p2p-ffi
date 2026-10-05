@@ -85,6 +85,9 @@ final class _IoTcpConn implements SysTcpConn {
   final RawSocket _socket;
   final Fd _fd;
 
+  /// Erro de leitura já entregue (ver [read]).
+  bool _readErrDone = false;
+
   @override
   final SysAddr local;
 
@@ -95,12 +98,17 @@ final class _IoTcpConn implements SysTcpConn {
   Future<int> read(Uint8List buf) async {
     if (buf.isEmpty) return 0;
     return heldIo(() async {
+      if (_readErrDone) return 0;
       try {
         final data = await _fd.read(buf.length);
         buf.setRange(0, data.length, data);
         return data.length;
       } catch (e) {
-        throw _mapIo(e, 'read');
+        final mapped = _mapIo(e, 'read');
+        // O kernel reporta o erro do socket (um `ECONNRESET`, por exemplo)
+        // uma vez só: a leitura seguinte dá EOF, como no Go.
+        if (mapped is SysError) _readErrDone = true;
+        throw mapped;
       }
     });
   }
@@ -153,6 +161,40 @@ final class _IoTcpConn implements SysTcpConn {
     ),
   );
 
+  /// `setsockopt(SOL_SOCKET, SO_LINGER, struct linger)`. ⚠️ Só no linux: a
+  /// constante e o formato da struct mudam nos BSD/macOS e no Windows, e
+  /// fora do linux isto fica aceito e ignorado (o `close` é imediato).
+  @override
+  void setLinger(int sec) => _opt(() {
+    if (!_linuxSockopt) return;
+    // `struct linger { int l_onoff; int l_linger; }` na ordem do host.
+    final v = Uint8List(8);
+    final d = ByteData.view(v.buffer);
+    d.setInt32(0, sec >= 0 ? 1 : 0, Endian.host);
+    d.setInt32(4, sec >= 0 ? sec : 0, Endian.host);
+    _socket.setRawOption(
+      RawSocketOption(RawSocketOption.levelSocket, _soLinger, v),
+    );
+  });
+
+  @override
+  void setKeepAliveIdle(int secs) => _tcpOpt(_tcpKeepIdle, secs);
+
+  @override
+  void setKeepAliveInterval(int secs) => _tcpOpt(_tcpKeepIntvl, secs);
+
+  @override
+  void setKeepAliveCount(int n) => _tcpOpt(_tcpKeepCnt, n);
+
+  /// ⚠️ Fora do linux as três opções ficam aceitas e ignoradas (constantes
+  /// diferentes; no Windows nem existem assim).
+  void _tcpOpt(int option, int value) => _opt(() {
+    if (!_linuxSockopt) return;
+    _socket.setRawOption(
+      RawSocketOption.fromInt(RawSocketOption.levelTcp, option, value),
+    );
+  });
+
   void _opt(void Function() set) {
     if (_fd.isClosed) throw const SysClosed();
     try {
@@ -165,6 +207,16 @@ final class _IoTcpConn implements SysTcpConn {
 
 /// `SO_KEEPALIVE`: 9 no linux, 8 nos BSD/macOS e no Windows.
 final int _soKeepAlive = Platform.isLinux || Platform.isAndroid ? 9 : 8;
+
+/// Constantes do linux (as de outras plataformas divergem): `SO_LINGER`,
+/// `TCP_KEEPIDLE`, `TCP_KEEPINTVL` e `TCP_KEEPCNT`.
+const int _soLinger = 13;
+const int _tcpKeepIdle = 4;
+const int _tcpKeepIntvl = 5;
+const int _tcpKeepCnt = 6;
+
+/// Linux (ou Android): só lá as constantes acima valem.
+final bool _linuxSockopt = Platform.isLinux || Platform.isAndroid;
 
 /// IP local de uma conexão. Com IP fixado (bind explícito), é ele; no linux,
 /// a linha da conexão em `/proc/net/tcp{,6}` (exato); senão, ⚠️ o loopback
