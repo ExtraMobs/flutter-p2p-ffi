@@ -2,6 +2,7 @@
 tipo subjacente, valores com armazenamento próprio e layout (amd64).
 """
 
+from g2d.config import SHIM_NAMED_CLASSES
 from g2d.engine.behavior import Service
 from g2d.model import Unsupported
 
@@ -166,11 +167,17 @@ class TypeSystem(Service):
         return not terms or any(self.may_hold_value(x) if x["kind"] == "typeparam" else self.is_value(x)
                                 for x in terms)
 
+    def generated_shape(self, t):
+        """Tipo nomeado com a classe na forma que o g2d gera: de pacote
+        transpilado, ou de shim listado em `SHIM_NAMED_CLASSES` (`net.IP`:
+        o shim escreve à mão a mesma classe, com `N$Ptr`)."""
+        return self.imports.transpiled(t["pkg"]) or (t["pkg"], t["name"]) in SHIM_NAMED_CLASSES
+
     def named_composite(self, t):
-        """Tipo nomeado (de pacote transpilado) sobre slice/map/func/array:
-        classe gerada — subclasse de go.Slice/go.GoMap/go.GoArray, ou função
-        chamável (`$f`)."""
-        return (t is not None and t["kind"] == "named" and self.imports.transpiled(t["pkg"])
+        """Tipo nomeado (de pacote transpilado, ou de shim com forma gerada)
+        sobre slice/map/func/array: classe gerada — subclasse de
+        go.Slice/go.GoMap/go.GoArray, ou função chamável (`$f`)."""
+        return (t is not None and t["kind"] == "named" and self.generated_shape(t)
                 and self.underlying(t)["kind"] in ("slice", "map", "func", "array"))
 
     def type_args(self, t):
@@ -181,7 +188,7 @@ class TypeSystem(Service):
     def named_bool(self, t):
         """Tipo nomeado (de pacote transpilado) sobre bool: classe go.GoBool,
         desembrulhada com `.$b` onde o Dart exige bool."""
-        if t is None or t["kind"] != "named" or not self.imports.transpiled(t["pkg"]):
+        if t is None or t["kind"] != "named" or not self.generated_shape(t):
             return False
         u = self.underlying(t)
         return u["kind"] == "basic" and (self.basic(u) is not None and self.basic(u).cat == "bool")
@@ -190,11 +197,12 @@ class TypeSystem(Service):
         return self.named_composite(t) and self.underlying(t)["kind"] == "func"
 
     def ptr_class(self, t):
-        """N nomeado (de pacote transpilado) não-struct com métodos, com `*N`
-        usado no pacote ou exportado: `*N` é a classe gerada `N$Ptr`
-        (go.PtrView com os métodos e interfaces de *N). Exportado sempre tem
-        `N$Ptr`, porque o pacote dono não sabe se outro usa `*N`."""
-        return (t is not None and t["kind"] == "named" and self.imports.transpiled(t["pkg"])
+        """N nomeado (de pacote transpilado, ou de shim com forma gerada)
+        não-struct com métodos, com `*N` usado no pacote ou exportado: `*N` é
+        a classe gerada `N$Ptr` (go.PtrView com os métodos e interfaces de
+        *N). Exportado sempre tem `N$Ptr`, porque o pacote dono não sabe se
+        outro usa `*N`."""
+        return (t is not None and t["kind"] == "named" and self.generated_shape(t)
                 and bool(t.get("methods"))
                 and self.underlying(t)["kind"] not in ("struct", "interface", "array")
                 and ((t["pkg"], t["name"]) in self.pointed_named or self.exported(t["pkg"], t["name"])))

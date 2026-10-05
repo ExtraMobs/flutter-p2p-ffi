@@ -136,6 +136,10 @@ class ValueSemantics(Service):
         if self.typesys.underlying(target)["kind"] == "array":
             # `[4]byte(h)`: o tipo dinâmico deixa de ser Hash (interface, %T).
             return f"{self.types.dart(target)}.alias({text})", POSTFIX
+        if self.typesys.named_composite(src) and self.typesys.underlying(target)["kind"] in ("slice", "map"):
+            # `[]byte(ip)`: mesmo armazenamento, mas o tipo dinâmico deixa de
+            # ser IP (o fmt não chama mais o `String()`; type switch, %T).
+            return f"{self.types.dart(target)}.alias({text})", POSTFIX
         return text, prec
 
     def copy_text(self, text, t):

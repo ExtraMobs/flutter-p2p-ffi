@@ -1,128 +1,230 @@
-// ignore_for_file: duplicate_ignore, sort_constructors_first, directives_ordering, dangling_library_doc_comments, library_prefixes, constant_identifier_names, depend_on_referenced_packages
-import 'dart:io';
-import 'dart:typed_data';
+part of '../../net.dart';
 
-/// An IP address as Go's `net` package models it: a byte slice of length 4 or
-/// 16, with no family discriminator of its own.
-///
-/// This is **not** the same model as `net/netip`, and the difference is
-/// load-bearing rather than cosmetic. `net.IP` folds an IPv4-mapped IPv6
-/// address into its IPv4 form before printing and before comparing, so
-/// `10.0.0.0/8` contains `::ffff:10.1.2.3`; `netip.Prefix.contains` rejects the
-/// same pair because the bit lengths differ. `conngater.go` relies on the
-/// `net` behaviour, `conn_limiter.go` on the `netip` one, which is why both
-/// live here.
-final class Ip {
-  const Ip._(this._bytes);
+const _ipValueMethods = [
+  'AppendText', 'DefaultMask', 'Equal', 'IsGlobalUnicast', //
+  'IsInterfaceLocalMulticast', 'IsLinkLocalMulticast', 'IsLinkLocalUnicast',
+  'IsLoopback', 'IsMulticast', 'IsPrivate', 'IsUnspecified', 'MarshalText',
+  'Mask', 'String', 'To16', 'To4',
+];
 
-  /// The nil address, which Go prints as `<nil>`.
-  const Ip.nil() : _bytes = const <int>[];
+const _ipPtrMethods = [..._ipValueMethods, 'UnmarshalText'];
 
-  /// Wraps [bytes] as an address. Any length is accepted, as in Go, where
-  /// `net.IP` is a plain byte slice; only 4 and 16 behave as addresses.
-  ///
-  /// Go: the conversion `net.IP(b)` (`conngater.go:95`).
-  factory Ip.fromBytes(List<int> bytes) => Ip._(List<int>.unmodifiable(bytes));
+/// `IPv4len`, `IPv6len` (o g2d dobra as constantes; o shim as usa).
+const _iPv4len = 4, _iPv6len = 16;
 
-  /// Parses a textual IPv4 or IPv6 address, or returns null.
-  ///
-  /// Go: `net.ParseIP` (`net/ip.go`), which returns nil on failure. Note that
-  /// Go yields a **16-byte** slice for a dotted-quad address, and this port
-  /// does the same so that [toString] and [Ip.to4] behave identically.
-  static Ip? tryParse(String text) {
-    if (text.contains('%') || text.contains('/')) return null;
-    final parsed = InternetAddress.tryParse(text);
-    if (parsed == null) return null;
-    if (parsed.type == InternetAddressType.IPv4) {
-      return Ip._(
-        List<int>.unmodifiable(<int>[..._v4InV6Prefix, ...parsed.rawAddress]),
+/// `net.IP` (`type IP []byte`): endereço IPv4 (4 ou 16 bytes) ou IPv6.
+final class IP extends Slice<Golang.Uint8>
+    implements Stringer, encoding.TextMarshaler, Golang.GoTyped {
+  IP(Slice<Golang.Uint8> v) : super.alias(v);
+
+  @override
+  String get $goType => 'net.IP';
+  @override
+  List<String> get $methods => _ipValueMethods;
+
+  int _b(int i) => this[i].toInt();
+
+  /// `IsUnspecified()`: 0.0.0.0 ou ::.
+  bool isUnspecified() => equal(iPv4zero) || equal(iPv6unspecified);
+
+  /// `IsLoopback()`.
+  bool isLoopback() {
+    final ip4 = to4();
+    if (!ip4.isNil) return ip4._b(0) == 127;
+    return equal(iPv6loopback);
+  }
+
+  /// `IsPrivate()` (RFC 1918 / RFC 4193).
+  bool isPrivate() {
+    final ip4 = to4();
+    if (!ip4.isNil) {
+      return ip4._b(0) == 10 ||
+          (ip4._b(0) == 172 && ip4._b(1) & 0xf0 == 16) ||
+          (ip4._b(0) == 192 && ip4._b(1) == 168);
+    }
+    return length == _iPv6len && _b(0) & 0xfe == 0xfc;
+  }
+
+  /// `IsMulticast()`.
+  bool isMulticast() {
+    final ip4 = to4();
+    if (!ip4.isNil) return ip4._b(0) & 0xf0 == 0xe0;
+    return length == _iPv6len && _b(0) == 0xff;
+  }
+
+  /// `IsInterfaceLocalMulticast()`.
+  bool isInterfaceLocalMulticast() =>
+      length == _iPv6len && _b(0) == 0xff && _b(1) & 0x0f == 0x01;
+
+  /// `IsLinkLocalMulticast()`.
+  bool isLinkLocalMulticast() {
+    final ip4 = to4();
+    if (!ip4.isNil) {
+      return ip4._b(0) == 224 && ip4._b(1) == 0 && ip4._b(2) == 0;
+    }
+    return length == _iPv6len && _b(0) == 0xff && _b(1) & 0x0f == 0x02;
+  }
+
+  /// `IsLinkLocalUnicast()`.
+  bool isLinkLocalUnicast() {
+    final ip4 = to4();
+    if (!ip4.isNil) return ip4._b(0) == 169 && ip4._b(1) == 254;
+    return length == _iPv6len && _b(0) == 0xfe && _b(1) & 0xc0 == 0x80;
+  }
+
+  /// `IsGlobalUnicast()`.
+  bool isGlobalUnicast() =>
+      (length == _iPv4len || length == _iPv6len) &&
+      !equal(iPv4bcast) &&
+      !isUnspecified() &&
+      !isLoopback() &&
+      !isMulticast() &&
+      !isLinkLocalUnicast();
+
+  /// `To4()`: os 4 bytes do IPv4 (também do IPv4 mapeado), ou nil.
+  IP to4() {
+    if (length == _iPv4len) return this;
+    if (length == _iPv6len &&
+        _isZeros(this, 0, 10) &&
+        _b(10) == 0xff &&
+        _b(11) == 0xff) {
+      return IP(slice(12, 16));
+    }
+    return IP(Slice.nil(_byteElem));
+  }
+
+  /// `To16()`: os 16 bytes, ou nil.
+  IP to16() {
+    if (length == _iPv4len) return iPv4(this[0], this[1], this[2], this[3]);
+    if (length == _iPv6len) return this;
+    return IP(Slice.nil(_byteElem));
+  }
+
+  /// `DefaultMask()`: a máscara de classe do IPv4, ou nil.
+  IPMask defaultMask() {
+    final ip = to4();
+    if (ip.isNil) return IPMask(Slice.nil(_byteElem));
+    if (ip._b(0) < 0x80) return _classAMask;
+    if (ip._b(0) < 0xC0) return _classBMask;
+    return _classCMask;
+  }
+
+  /// `Mask(mask)`: ip & mask, ou nil se os tamanhos não casam.
+  IP mask(IPMask mask) {
+    _Bytes m = mask;
+    _Bytes ip = this;
+    if (m.length == _iPv6len && ip.length == _iPv4len && _allFF(m, 0, 12)) {
+      m = m.slice(12);
+    }
+    if (m.length == _iPv4len &&
+        ip.length == _iPv6len &&
+        _equalAt(ip, 0, _v4InV6Prefix)) {
+      ip = ip.slice(12);
+    }
+    final n = ip.length;
+    if (n != m.length) return IP(Slice.nil(_byteElem));
+    return IP(
+      _bytes([for (var i = 0; i < n; i++) ip[i].toInt() & m[i].toInt()]),
+    );
+  }
+
+  /// `String()`: `<nil>`, `?hex`, decimal com pontos ou IPv6 (RFC 5952).
+  @override
+  Golang.String string() {
+    if (length == 0) return _gs('<nil>');
+    if (length != _iPv4len && length != _iPv6len) {
+      return _gs('?') + _hexString(this);
+    }
+    final buf = _make0(length == _iPv4len ? 15 : 39);
+    return _str(_bytesOf(_appendTo(buf)));
+  }
+
+  /// `appendTo(b)`: pela formatação do `netip.Addr`.
+  _Bytes _appendTo(_Bytes b) {
+    _Bytes ip = this;
+    final p4 = to4();
+    if (p4.length == _iPv4len) ip = p4;
+    final (addr, _) = netip.addrFromSlice(ip);
+    return addr.appendTo(b);
+  }
+
+  /// `AppendText(b)`.
+  (_Bytes, GoError?) appendText(_Bytes b) {
+    if (length == 0) return (b, null);
+    if (length != _iPv4len && length != _iPv6len) {
+      return (
+        b,
+        AddrError(err: _gs('invalid IP address'), addr: _hexString(this)),
       );
     }
-    return Ip._(List<int>.unmodifiable(parsed.rawAddress));
+    return (_appendTo(b), null);
   }
 
-  static const List<int> _v4InV6Prefix = <int>[
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xff, 0xff, //
-  ];
+  /// `MarshalText()`.
+  @override
+  (_Bytes, GoError?) marshalText() {
+    final (b, err) = appendText(_make0(24));
+    if (err != null) return (Slice.nil(_byteElem), err);
+    return (b, null);
+  }
 
-  final List<int> _bytes;
-
-  /// The raw bytes, 4 or 16 for a usable address and empty for nil.
-  Uint8List asBytes() => Uint8List.fromList(_bytes);
-
-  /// The number of bytes, as `len(ip)` would give in Go.
-  int get length => _bytes.length;
-
-  /// Whether this is the nil address.
-  bool get isNil => _bytes.isEmpty;
-
-  /// The 4-byte form when this is an IPv4 address or an IPv4-mapped IPv6
-  /// address, and null otherwise.
-  ///
-  /// Go: `IP.To4` (`net/ip.go`).
-  Ip? to4() {
-    if (_bytes.length == 4) return this;
-    if (_bytes.length == 16 && _isV4Mapped) {
-      return Ip._(List<int>.unmodifiable(_bytes.sublist(12)));
+  /// `Equal(x)`: o IPv4 e o mesmo IPv4 em 16 bytes são iguais.
+  bool equal(IP x) {
+    if (length == x.length) return _equalAt(this, 0, _bytesOf(x));
+    if (length == _iPv4len && x.length == _iPv6len) {
+      return _equalAt(x, 0, _v4InV6Prefix) && _equalAt(x, 12, _bytesOf(this));
     }
+    if (length == _iPv6len && x.length == _iPv4len) {
+      return _equalAt(this, 0, _v4InV6Prefix) &&
+          _equalAt(this, 12, _bytesOf(x));
+    }
+    return false;
+  }
+}
+
+/// `*net.IP`: vista sobre qualquer ponteiro para o valor.
+final class IP$Ptr extends PtrView<IP>
+    implements Stringer, encoding.TextMarshaler, encoding.TextUnmarshaler {
+  IP$Ptr(super.$p);
+
+  /// `(*IP)(nil)` dentro de uma interface.
+  static final IP$Ptr $nil = IP$Ptr(const NilPtr<IP>());
+
+  @override
+  String get $goType => '*net.IP';
+  @override
+  List<String> get $methods => _ipPtrMethods;
+
+  (_Bytes, GoError?) appendText(_Bytes p0) => $p.value.appendText(p0);
+  IPMask defaultMask() => $p.value.defaultMask();
+  bool equal(IP p0) => $p.value.equal(p0);
+  bool isGlobalUnicast() => $p.value.isGlobalUnicast();
+  bool isInterfaceLocalMulticast() => $p.value.isInterfaceLocalMulticast();
+  bool isLinkLocalMulticast() => $p.value.isLinkLocalMulticast();
+  bool isLinkLocalUnicast() => $p.value.isLinkLocalUnicast();
+  bool isLoopback() => $p.value.isLoopback();
+  bool isMulticast() => $p.value.isMulticast();
+  bool isPrivate() => $p.value.isPrivate();
+  bool isUnspecified() => $p.value.isUnspecified();
+  @override
+  (_Bytes, GoError?) marshalText() => $p.value.marshalText();
+  IP mask(IPMask p0) => $p.value.mask(p0);
+  @override
+  Golang.String string() => $p.value.string();
+  IP to16() => $p.value.to16();
+  IP to4() => $p.value.to4();
+
+  /// `(*IP).UnmarshalText(text)`: vazio dá nil.
+  @override
+  GoError? unmarshalText(_Bytes text) {
+    if (text.length == 0) {
+      value = IP(Slice.nil(_byteElem));
+      return null;
+    }
+    final s = _str(_bytesOf(text));
+    final x = parseIP(s);
+    if (x.isNil) return ParseError(type: _gs('IP address'), text: s);
+    value = x;
     return null;
   }
-
-  /// The 16-byte form, or null when this is neither 4 nor 16 bytes.
-  ///
-  /// Go: `IP.To16` (`net/ip.go`).
-  Ip? to16() {
-    if (_bytes.length == 16) return this;
-    if (_bytes.length == 4) {
-      return Ip._(List<int>.unmodifiable(<int>[..._v4InV6Prefix, ..._bytes]));
-    }
-    return null;
-  }
-
-  bool get _isV4Mapped {
-    for (var i = 0; i < 10; i++) {
-      if (_bytes[i] != 0) return false;
-    }
-    return _bytes[10] == 0xff && _bytes[11] == 0xff;
-  }
-
-  /// Whether this address equals [other], comparing an IPv4 address and its
-  /// IPv4-mapped form as equal.
-  ///
-  /// Go: `IP.Equal` (`net/ip.go`).
-  bool equal(Ip other) {
-    final a = to4() ?? this;
-    final b = other.to4() ?? other;
-    if (a._bytes.length != b._bytes.length) return false;
-    for (var i = 0; i < a._bytes.length; i++) {
-      if (a._bytes[i] != b._bytes[i]) return false;
-    }
-    return true;
-  }
-
-  /// The textual form, dotted-quad whenever the address has an IPv4 form.
-  ///
-  /// Go: `IP.String` (`net/ip.go`), which prints `<nil>` for a nil address and
-  /// `?` followed by hex for a slice that is neither 4 nor 16 bytes long. The
-  /// dotted-quad folding is why `net.ParseIP("::ffff:127.0.0.1").String()` is
-  /// `127.0.0.1` and not `::ffff:127.0.0.1`.
-  @override
-  String toString() {
-    if (isNil) return '<nil>';
-    final v4 = to4();
-    if (v4 != null) return v4._bytes.join('.');
-    if (_bytes.length != 16) {
-      return '?${_bytes.map((b) => b.toRadixString(16).padLeft(2, '0')).join()}';
-    }
-    return InternetAddress.fromRawAddress(
-      Uint8List.fromList(_bytes),
-      type: InternetAddressType.IPv6,
-    ).address;
-  }
-
-  @override
-  bool operator ==(Object other) => other is Ip && equal(other);
-
-  @override
-  int get hashCode => Object.hashAll((to4() ?? this)._bytes);
 }
