@@ -58,7 +58,7 @@ final GoError deadlineExceeded = _DeadlineExceededError();
 /// `deadlineExceededError{}`: struct vazia guardada por valor na interface
 /// (`$isValue`), então `%T`/`%#v` saem sem `*` e todo valor é igual.
 final class _DeadlineExceededError extends GoStruct<_DeadlineExceededError>
-    implements GoError {
+    implements GoError, Timeouter, Temporary {
   _DeadlineExceededError() {
     $isValue = true;
   }
@@ -67,9 +67,11 @@ final class _DeadlineExceededError extends GoStruct<_DeadlineExceededError>
   Golang.String error() => Golang.String.fromDart('context deadline exceeded');
 
   /// `Timeout() bool`.
+  @override
   bool timeout() => true;
 
   /// `Temporary() bool`.
+  @override
   bool temporary() => true;
 
   static const _ms = ['Error', 'Temporary', 'Timeout'];

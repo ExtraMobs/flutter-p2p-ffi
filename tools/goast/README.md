@@ -42,6 +42,8 @@ Cada pacote:
   "imports": [ { "path": "fmt", "name": "fmt" } ],
   "typeTable": [ { "kind": "basic", "name": "int" }, ... ],
   "implements": [ { "type": 3, "interfaces": [7, 9] } ],  // tipo nomeado → interfaces satisfeitas
+  "conversions": [ { "type": 4, "iface": 7 } ],            // tipo concreto → interface, no pacote
+  "asserts": [ 9 ],                                        // alvos dinâmicos (assertion, type switch, interface → interface)
   "initOrder": [ ["a.go:120", "a.go:123"], ... ],          // types.Info.InitOrder: decl das variáveis por inicializador
   "stdlibUsage":  [ "fmt.Println", ... ],   // ordenado alfabeticamente
   "reflectUsage": [ { "pos": "arquivo.go:linha:coluna", "expr": "reflect.ValueOf(x)" } ],
@@ -102,13 +104,27 @@ dos mesmos escopos cujos argumentos saem dos métodos de `T` (`Key[k8]` para
 métodos fora de uma declaração de tipo, em ordem do fonte). Tipo genérico
 entra instanciado com os próprios parâmetros (`KeyList[K]` → `sort.Interface`).
 
+`conversions`: os pares (tipo concreto, interface) das conversões que
+acontecem no pacote (`conversions.go`, `conversions_sites.go`): atribuição, `var x I = v`, argumento
+(variádico inclusive), retorno, elemento de literal composto (campo, slice,
+array, chave e valor de map), `append`, envio em canal, chave de índice de
+map, `==`/`!=` com interface, conversão `I(x)` e argumento de tipo de
+restrição com métodos (`F[T]` com `[X I]`). O tipo é nomeado ou `*nomeado`
+não-interface; a interface pode ser vazia (`any`: o tipo "escapa"). Um par
+por identidade, na ordem do fonte. `asserts`: as interfaces com métodos que
+o pacote testa no runtime (type assertion `x.(I)`, `case I:` de type switch
+e a atribuição de uma interface a outra não idêntica). O g2d junta os dois
+do grafo inteiro para declarar `implements` de interfaces que o pacote do
+tipo não enxerga (D8, `g2d/analysis/ifacecross.py`).
+
 Histórico: v2 moveu os tipos para dentro da AST; v3 adicionou `bytes`; v4
 adicionou `methods` e `implements`; v5 adicionou `initOrder`; v6 incluiu as
 interfaces anônimas no `implements`; v7 adicionou `otherFiles` e
 `module`, o campo `valueEnd` do `BasicLit` (go/ast 1.26) e corrigiu o `decl` de
 objetos importados no modo loose (antes caía num arquivo errado); v8 adicionou `fold` e
 incluiu tipos genéricos e instâncias de interfaces genéricas no `implements`; v9
-adicionou `pkg` aos campos de struct e métodos de interface não exportados.
+adicionou `pkg` aos campos de struct e métodos de interface não exportados; v10
+adicionou `conversions` e `asserts`.
 
 ### Tabela de tipos
 

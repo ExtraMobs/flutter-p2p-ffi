@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 9,
+  "schemaVersion": 10,
   "tool": "goast",
   "goVersion": "go1.26.5",
   "packages": [
@@ -43773,6 +43773,121 @@
           ]
         }
       ],
+      "conversions": [
+        {
+          "type": 45,
+          "iface": 1
+        },
+        {
+          "type": 20,
+          "iface": 1
+        },
+        {
+          "type": 90,
+          "iface": 1
+        },
+        {
+          "type": 37,
+          "iface": 1
+        },
+        {
+          "type": 39,
+          "iface": 1
+        },
+        {
+          "type": 41,
+          "iface": 1
+        },
+        {
+          "type": 43,
+          "iface": 1
+        },
+        {
+          "type": 81,
+          "iface": 1
+        },
+        {
+          "type": 48,
+          "iface": 1
+        },
+        {
+          "type": 47,
+          "iface": 1
+        },
+        {
+          "type": 50,
+          "iface": 1
+        },
+        {
+          "type": 98,
+          "iface": 1
+        },
+        {
+          "type": 54,
+          "iface": 1
+        },
+        {
+          "type": 56,
+          "iface": 1
+        },
+        {
+          "type": 57,
+          "iface": 1
+        },
+        {
+          "type": 100,
+          "iface": 1
+        },
+        {
+          "type": 59,
+          "iface": 1
+        },
+        {
+          "type": 61,
+          "iface": 1
+        },
+        {
+          "type": 62,
+          "iface": 1
+        },
+        {
+          "type": 64,
+          "iface": 1
+        },
+        {
+          "type": 66,
+          "iface": 1
+        },
+        {
+          "type": 70,
+          "iface": 1
+        },
+        {
+          "type": 76,
+          "iface": 1
+        },
+        {
+          "type": 78,
+          "iface": 1
+        },
+        {
+          "type": 75,
+          "iface": 1
+        },
+        {
+          "type": 16,
+          "iface": 1
+        },
+        {
+          "type": 385,
+          "iface": 372
+        },
+        {
+          "type": 377,
+          "iface": 372
+        }
+      ],
+      "asserts": [],
       "initOrder": [],
       "stdlibUsage": [
         "bytes.Buffer",

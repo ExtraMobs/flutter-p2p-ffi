@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 9,
+  "schemaVersion": 10,
   "tool": "goast",
   "goVersion": "go1.26.5",
   "packages": [
@@ -16980,6 +16980,45 @@
         }
       ],
       "implements": null,
+      "conversions": [
+        {
+          "type": 53,
+          "iface": 49
+        },
+        {
+          "type": 0,
+          "iface": 37
+        },
+        {
+          "type": 80,
+          "iface": 37
+        },
+        {
+          "type": 81,
+          "iface": 37
+        },
+        {
+          "type": 53,
+          "iface": 73
+        },
+        {
+          "type": 0,
+          "iface": 84
+        },
+        {
+          "type": 80,
+          "iface": 84
+        },
+        {
+          "type": 19,
+          "iface": 37
+        },
+        {
+          "type": 53,
+          "iface": 64
+        }
+      ],
+      "asserts": [],
       "initOrder": [
         [
           "binaryvarint.go:368"

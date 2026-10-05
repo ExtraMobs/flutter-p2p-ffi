@@ -13,8 +13,8 @@ import (
 
 // packageDumper produz o dump de um pacote: a AST anotada de cada arquivo
 // (walker), a tabela de tipos e os inventários. Os métodos se dividem entre
-// package.go (arquivos, imports, ordem de init), usage.go (stdlib e reflect)
-// e implements.go.
+// package.go (arquivos, imports, ordem de init), usage.go (stdlib e reflect),
+// implements.go e conversions*.go.
 type packageDumper struct {
 	fset *token.FileSet
 	p    *packages.Package
@@ -34,6 +34,7 @@ func (d *packageDumper) dump() *PackageDump {
 	out := &PackageDump{Path: d.p.PkgPath, Name: d.p.Name}
 	out.Files = d.files()
 	out.Implements = d.implements()
+	out.Conversions, out.Asserts = d.conversions()
 	out.InitOrder = d.initOrder()
 	out.TypeTable = d.w.tt.list
 	out.Imports = d.imports()

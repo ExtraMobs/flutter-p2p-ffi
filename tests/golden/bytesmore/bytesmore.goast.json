@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 9,
+  "schemaVersion": 10,
   "tool": "goast",
   "goVersion": "go1.26.5",
   "packages": [
@@ -20094,6 +20094,13 @@
         }
       ],
       "implements": null,
+      "conversions": [
+        {
+          "type": 63,
+          "iface": 32
+        }
+      ],
+      "asserts": [],
       "initOrder": [],
       "stdlibUsage": [
         "bytes.Buffer",

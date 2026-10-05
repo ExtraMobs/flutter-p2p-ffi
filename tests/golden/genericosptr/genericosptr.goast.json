@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 9,
+  "schemaVersion": 10,
   "tool": "goast",
   "goVersion": "go1.26.5",
   "packages": [
@@ -11957,6 +11957,21 @@
         }
       ],
       "implements": null,
+      "conversions": [
+        {
+          "type": 0,
+          "iface": 13
+        },
+        {
+          "type": 5,
+          "iface": 13
+        },
+        {
+          "type": 8,
+          "iface": 13
+        }
+      ],
+      "asserts": [],
       "initOrder": [],
       "stdlibUsage": [
         "cmp.Ordered",

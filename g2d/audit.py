@@ -27,11 +27,13 @@ import sys
 from dataclasses import dataclass, field
 
 from g2d.analysis.color import ColorSummary, ColorTable
+from g2d.analysis.ifacecross import IfaceSummary, IfaceTable
 from g2d.config import REFLECT_PKGS, STDLIB_SHIMS
 from g2d.engine import Engine
-from g2d.graph import BUILD_ENV, build_env, go_list, init_deps, topo_order
+from g2d.graph import BUILD_ENV, build_env, go_list, init_deps, is_std, topo_order
 from g2d.model import Unsupported, load_dump
 from g2d.pipeline import emit_libraries, run_dart, write_tree
+from g2d.services.anon import anon_hash, anon_path
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 GOAST = os.path.join(ROOT, "tools", "goast")
@@ -268,34 +270,57 @@ def cache_key(corpus):
 
 def color_graph(order, dumps, log=print, imports=None):
     """ColorTable do grafo inteiro (a cor `async` atravessa pacotes nos dois
-    sentidos: implementação num pacote colore a interface de outro). Os
-    resumos ficam em cache ao lado dos dumps, por versão do código da cor."""
+    sentidos: implementação num pacote colore a interface de outro), com a
+    IfaceTable (`implements` entre pacotes, D8). Os resumos ficam em cache
+    ao lado dos dumps, por versão do código que os calcula."""
     h = hashlib.sha256()
-    for f in ("analysis/color.py", "services/concurrency.py", "services/dualio.py"):
+    for f in ("analysis/color.py", "analysis/ifacecross.py", "services/concurrency.py", "services/dualio.py",
+              "services/anon.py"):
         with open(os.path.join(ROOT, "g2d", f), "rb") as fh:
             h.update(fh.read())
     cache = os.path.join(dumps, "color-" + h.hexdigest()[:12])
-    summaries = []
+    summaries, ifaces = [], []
     for i, path in enumerate(order, 1):
         cached = os.path.join(cache, *path.split("/")) + ".json"
         if os.path.exists(cached):
             with open(cached, encoding="utf-8") as f:
-                summaries.append(ColorSummary.from_json(json.load(f)))
+                doc = json.load(f)
+            if doc is not None:
+                summaries.append(ColorSummary.from_json(doc["color"]))
+                ifaces.append(IfaceSummary.from_json(doc["ifaces"]))
             continue
         (pkg,) = load_dump(dump_path(dumps, path))
         if pkg.name == "main" and imports is not None:
             pkg.init_deps = init_deps(path, imports)  # o $goInit do main espera o grafo
         try:
-            s = Engine(pkg).color_summary()
+            engine = Engine(pkg)
+            doc = {"color": engine.color_summary().to_json(), "ifaces": engine.iface_summary().to_json()}
         except Exception:  # noqa: BLE001 — o pacote cai na emissão, com o erro dele
-            continue
-        summaries.append(s)
+            doc = None
+        else:
+            summaries.append(ColorSummary.from_json(doc["color"]))
+            ifaces.append(IfaceSummary.from_json(doc["ifaces"]))
         os.makedirs(os.path.dirname(cached), exist_ok=True)
         with open(cached, "w", encoding="utf-8") as f:
-            json.dump(s.to_json(), f)
+            json.dump(doc, f)
         if i % 100 == 0:
             log(f"  cor {i}/{len(order)}")
-    return ColorTable(summaries)
+    table = ColorTable(summaries)
+    table.set_ifaces(IfaceTable(ifaces))
+    return table
+
+
+def missing_libraries(table, sources):
+    """Libraries que um `implements` entre pacotes importaria e que não foram
+    emitidas: o pacote dono da interface (ou o usuário da interface anônima
+    canônica) caiu em Unsupported."""
+    missing = set()
+    for refs in table.needs.values():
+        for ref in refs:
+            lib = ref[1] if ref[0] == "n" else anon_path(anon_hash(ref[1]))
+            if not (ref[0] == "n" and is_std(ref[1])) and lib not in sources:
+                missing.add(lib)
+    return missing
 
 
 def dump_path(dumps, path):
@@ -361,6 +386,21 @@ def audit(target, corpus, docs, cache, log=print):
                     anon_users[lib].append(path)
         if i % 100 == 0:
             log(f"  {i}/{len(order)}")
+    # `implements` de interface cuja library não existe: reemite sem ela.
+    table = colors.ifaces
+    table.missing = missing_libraries(table, sources)
+    redo = sorted({tid[0] for tid, refs in table.needs.items() if tid[0] in sources
+                   and any((r[1] if r[0] == "n" else anon_path(anon_hash(r[1]))) in table.missing for r in refs)})
+    if redo:
+        log(f"reemitindo {len(redo)} pacotes sem implements de libraries ausentes")
+    for path in redo:
+        (pkg,) = load_dump(dump_path(dumps, path))
+        if pkg.name == "main":
+            pkg.init_deps = init_deps(path, imports)
+        libs, reports[path].findings = emit_collect(pkg, colors)
+        sources.pop(path, None)
+        if libs is not None:
+            sources.update(libs)
     log(f"dart analyze de {len(sources)} pacotes emitidos")
     for path, fs in analyze(os.path.join(cache, "out"), sources).items():
         if path in reports:

@@ -4,7 +4,7 @@ inicialização do pacote e a cadeia de declarações de tipo nomeado."""
 from g2d.engine.behavior import Behavior, TypeDeclBehavior
 from g2d.engine.scope import FunctionScope, TypeParams
 from g2d.model import Unsupported
-from g2d.services.anon import anon_class
+from g2d.services.anon import anon_class, anon_iface
 from g2d.services.literals import doc_comment
 from g2d.services.naming import member_name, param_name, type_name
 
@@ -104,14 +104,19 @@ class AnonLibraryBehavior(Behavior):
 
     def emit(self, idx, h):
         t = self.pkg.type_at(idx)
-        name = anon_class(h)
-        body = ["", "/// `" + self.goinfo.go_type_name(t) + "` (struct anônima canônica: igual em todo pacote)."]
-        body += self.engine.type_decls.find(t, t).struct_class(name, t, idx)
+        behavior = self.engine.type_decls.find(t, t)
+        if t["kind"] == "interface":
+            body = ["", "/// `" + self.goinfo.go_type_name(t) + "` (interface anônima canônica: igual em todo pacote)."]
+            body += behavior.iface_class(anon_iface(h), t)
+        else:
+            body = ["", "/// `" + self.goinfo.go_type_name(t) + "` (struct anônima canônica: igual em todo pacote)."]
+            body += behavior.struct_class(anon_class(h), t, idx)
         body += self.promoter.mixin_decls
         if self.descriptors.elem_decls:
             body += ["", "// Descritores de tipo (go.Elem) usados por slices, maps e ponteiros."]
             body += self.descriptors.elem_decls
-        head = [HEADER.format(path="struct anônima")] + self.imports.directives()
+        kind = "interface anônima" if t["kind"] == "interface" else "struct anônima"
+        head = [HEADER.format(path=kind)] + self.imports.directives()
         return "\n".join(head + body) + "\n"
 
 

@@ -4,6 +4,7 @@ import re
 
 from g2d.config import SHIM_INTERFACES
 from g2d.engine.behavior import Service
+from g2d.services.anon import anon_hash, anon_path
 from g2d.services.naming import type_name
 
 
@@ -79,18 +80,52 @@ class GoTypeInfo(Service):
             elif self.imports.transpiled(it["pkg"]) or (it["pkg"], it["name"]) in SHIM_INTERFACES:
                 names.append(self.types.dart(it).non_null())  # com argumentos: `Key<k8>`
         t = self.pkg.type_at(tidx)
+        names += self.cross_implements(t, methods)
         for m in t.get("methods") or []:
             if methods is not None and m["name"] not in methods:
                 continue
             iface = self.error_iface(m)
             if iface is not None:
                 names.append(self.imports.qualify(None, iface))
-        return names
+        return list(dict.fromkeys(names))
+
+    def cross_implements(self, t, methods=None):
+        """Interfaces que outros pacotes do grafo exigem de t (conversão ou
+        type assertion que acontece lá; `g2d/analysis/ifacecross.py`), cuja
+        library existe: a nomeada pelo import do pacote dela, a anônima pela
+        classe canônica `Iface$<hash>`."""
+        colors = self.facts.colors
+        table = colors.ifaces if colors is not None else None
+        if table is None or t["kind"] != "named":
+            return []
+        out = []
+        for ref in table.interfaces((t["pkg"], t["name"])):
+            if methods is not None and not table.method_names(ref) <= set(methods):
+                continue
+            if ref[0] == "n":
+                if ref[1] in table.missing:
+                    continue
+                out.append(self.imports.qualify(ref[1], type_name(ref[2])))
+            else:
+                h = anon_hash(ref[1])
+                if anon_path(h) in table.missing:
+                    continue
+                out.append(self.imports.anon_iface(h))
+        return out
+
+    def runtime_iface(self, t):
+        """Interface do runtime (`Unwrapper`...) que representa a interface
+        anônima t de um método só com a assinatura exata: todo tipo com o
+        método já a declara, inclusive as classes dos shims (`fmt.Errorf`)."""
+        if len(t["methods"]) != 1 or t["embeddeds"]:
+            return None
+        return self.error_iface(t["methods"][0])
 
     def error_iface(self, m):
         """Interface do runtime que o pacote `errors` usa para percorrer a
         cadeia, se o método tem a assinatura exata: `Unwrap() error`,
-        `Unwrap() []error`, `Is(error) bool`, `As(any) bool`."""
+        `Unwrap() []error`, `Is(error) bool`, `As(any) bool`; e as que o
+        `os`/`net` testam, `Timeout() bool` e `Temporary() bool`."""
         sig = self.pkg.type_at(m["type"])
         params = [self.pkg.type_at(p) for p in sig["params"]]
         results = [self.pkg.type_at(r) for r in sig["results"]]
@@ -107,6 +142,11 @@ class GoTypeInfo(Service):
                 return "Unwrapper"
             if r["kind"] == "slice" and is_error(self.pkg.type_at(r["elem"])):
                 return "MultiUnwrapper"
+        if not params and len(results) == 1 and is_bool(results[0]):
+            if m["name"] == "Timeout":
+                return "Timeouter"
+            if m["name"] == "Temporary":
+                return "Temporary"
         if len(params) == 1 and len(results) == 1 and is_bool(results[0]):
             p = params[0]
             if m["name"] == "Is" and is_error(p):

@@ -14,6 +14,7 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 
 from g2d.analysis.color import ColorTable
+from g2d.analysis.ifacecross import IfaceTable
 from g2d.engine import Engine
 from g2d.model import Unsupported, link_packages, load_dump
 from g2d.services.anon import anon_path
@@ -153,8 +154,11 @@ def dart_format(source):
 
 def color_table(pkgs, plugins=None):
     """ColorTable (g2d/analysis/color.py) de pacotes transpilados juntos: a
-    cor `async` atravessa pacotes (chamadas e implementações de interface)."""
-    table = ColorTable([Engine(p, plugins=plugins).color_summary() for p in pkgs])
+    cor `async` atravessa pacotes (chamadas e implementações de interface),
+    com a IfaceTable do grafo (`implements` entre pacotes, D8)."""
+    engines = [Engine(p, plugins=plugins) for p in pkgs]
+    table = ColorTable([e.color_summary() for e in engines])
+    table.set_ifaces(IfaceTable([e.iface_summary() for e in engines]))
     table.reflective = any(reflective_pkg(p) for p in pkgs)
     return table
 

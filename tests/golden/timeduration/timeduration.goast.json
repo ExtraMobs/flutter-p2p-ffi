@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 9,
+  "schemaVersion": 10,
   "tool": "goast",
   "goVersion": "go1.26.5",
   "packages": [
@@ -7006,6 +7006,17 @@
         }
       ],
       "implements": null,
+      "conversions": [
+        {
+          "type": 2,
+          "iface": 23
+        },
+        {
+          "type": 0,
+          "iface": 23
+        }
+      ],
+      "asserts": [],
       "initOrder": [
         [
           "timeduration.go:340"

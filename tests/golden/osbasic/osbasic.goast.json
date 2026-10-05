@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 9,
+  "schemaVersion": 10,
   "tool": "goast",
   "goVersion": "go1.26.5",
   "packages": [
@@ -11895,6 +11895,25 @@
         }
       ],
       "implements": null,
+      "conversions": [
+        {
+          "type": 1,
+          "iface": 231
+        },
+        {
+          "type": 252,
+          "iface": 218
+        },
+        {
+          "type": 252,
+          "iface": 27
+        },
+        {
+          "type": 207,
+          "iface": 218
+        }
+      ],
+      "asserts": [],
       "initOrder": [],
       "stdlibUsage": [
         "errors.As",

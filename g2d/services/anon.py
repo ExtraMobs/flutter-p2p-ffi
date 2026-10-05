@@ -8,9 +8,14 @@ import path completo dos nomeados), então todo pacote que a usa escreve o
 mesmo arquivo e importa a mesma classe. `_anon` não tem ponto no primeiro
 segmento: nunca é o import path de um pacote do grafo.
 
+A interface anônima com métodos, todos exportados e sem interface embutida,
+segue o mesmo esquema (`Iface$<hash>`, D8): um tipo de outro pacote pode
+declará-la no `implements` (`g2d/analysis/ifacecross.py`).
+
 O resto continua local (`$_anon$N` na library do pacote, correto dentro
 dele): com campo não exportado (o pacote do campo entra na identidade: só o
-dono escreve esse tipo), parâmetro de tipo ou interface anônima com métodos.
+dono escreve esse tipo), parâmetro de tipo ou interface anônima com
+embutida.
 E o `main` que só importa a stdlib também fica com as locais: ninguém o
 importa e ele não importa pacote do grafo, então nenhuma outra library
 transpilada vê os tipos dele (programa de um pacote só sai como antes).
@@ -35,6 +40,15 @@ def anon_class(h):
     return f"Struct${h}"
 
 
+def anon_iface(h):
+    return f"Iface${h}"
+
+
+def anon_hash(key):
+    """Hash da chave estrutural (nome da library e da classe)."""
+    return hashlib.sha256(key.encode("utf-8")).hexdigest()[:12]
+
+
 class AnonTypes(Service):
     """Chave estrutural e registro das structs anônimas canônicas usadas."""
 
@@ -57,7 +71,7 @@ class AnonTypes(Service):
         k = self._keys[idx]
         if k is None:
             return None
-        h = hashlib.sha256(k.encode("utf-8")).hexdigest()[:12]
+        h = anon_hash(k)
         self.used.setdefault(h, idx)
         return h
 
@@ -93,7 +107,17 @@ class AnonTypes(Service):
             dots = "..." if t["variadic"] else ""
             return f"func({','.join(parts[:n])}{dots})({','.join(parts[n:])})"
         if k == "interface":
-            return "interface{}" if not t["methods"] and not t["embeddeds"] else None
+            if not t["methods"] and not t["embeddeds"]:
+                return "interface{}"
+            if t["embeddeds"]:
+                return None  # a classe declara as embutidas: depende de como se escreveu
+            ms = []
+            for m in t["methods"]:
+                sig = self.key(m["type"]) if is_exported(m["name"]) else None
+                if sig is None:
+                    return None
+                ms.append(f"{m['name']} {sig}")
+            return "interface{" + "; ".join(sorted(ms)) + "}"
         if k == "struct":
             fields = []
             for f in t["fields"]:

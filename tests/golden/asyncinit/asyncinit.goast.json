@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 9,
+  "schemaVersion": 10,
   "tool": "goast",
   "goVersion": "go1.26.5",
   "packages": [
@@ -1112,6 +1112,8 @@
         }
       ],
       "implements": null,
+      "conversions": [],
+      "asserts": [],
       "initOrder": [
         [
           "main.go:93"
@@ -4819,6 +4821,8 @@
         }
       ],
       "implements": null,
+      "conversions": [],
+      "asserts": [],
       "initOrder": [
         [
           "conf.go:239"
@@ -5314,6 +5318,8 @@
         }
       ],
       "implements": null,
+      "conversions": [],
+      "asserts": [],
       "initOrder": [
         [
           "plain.go:138"

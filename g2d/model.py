@@ -6,7 +6,7 @@ from dataclasses import dataclass
 
 from g2d.graph import init_deps, is_std
 
-SCHEMA_VERSION = 9
+SCHEMA_VERSION = 10
 
 
 class Unsupported(Exception):
@@ -168,6 +168,11 @@ class Package:
     # main: pacotes do grafo a inicializar antes dele, na ordem do Go
     # (link_packages); None = grafo desconhecido.
     init_deps: list = None
+    # Conversões tipo concreto → interface ([{"type", "iface"}]) e alvos
+    # dinâmicos (type assertion, type switch, interface → interface) do
+    # pacote: o g2d junta os do grafo (`g2d/analysis/ifacecross.py`).
+    conversions: list = ()
+    asserts: list = ()
 
     def graph_imports(self):
         """Imports diretos que são pacotes do grafo (fora da stdlib)."""
@@ -220,6 +225,7 @@ def parse_dump(doc):
         Package(p["path"], p["name"], p["files"] or [], p["imports"] or [], p["typeTable"] or [],
                 p.get("implements") or [], p.get("initOrder") or [],
                 p.get("otherFiles") or [], p.get("module"), p.get("stdlibUsage") or [],
-                p.get("reflectUsage") or [], doc.get("goVersion", ""))
+                p.get("reflectUsage") or [], doc.get("goVersion", ""),
+                conversions=p.get("conversions") or [], asserts=p.get("asserts") or [])
         for p in doc["packages"]
     ]

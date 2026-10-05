@@ -47,7 +47,7 @@ comportamento, com classes pais em `g2d/engine/behavior.py`:
 | Classe pai | Papel | Onde |
 |---|---|---|
 | `Service` | responsabilidade compartilhada, registrada por nome e substituível (`engine.services.replace`) | `services/`: `ImportTable`, `Naming`, `TypeSystem`, `TypeMapper`, `DescriptorRegistry`, `ValueSemantics`, `Literals`, `GoTypeInfo`, `Operands`, `Calls`, `Assertions`, `ControlFlow`, `Functions`, `VarDecls`, `Promotion`, `Concurrency`, `DualIO`, `Reflection` (descritores `go.RType` do M5) |
-| `Analysis` | pré-passo sobre as declarações; grava em `engine.facts` | `analysis/analyses.py` |
+| `Analysis` | pré-passo sobre as declarações; grava em `engine.facts`. As do grafo inteiro (cor `async`, `implements` entre pacotes) resumem cada pacote e juntam numa tabela | `analysis/analyses.py`, `analysis/color.py`, `analysis/ifacecross.py` |
 | `ExprBehavior` / `StmtBehavior` | um por nó Go (`kinds`) | `behaviors/exprs.py`, `behaviors/stmts.py` |
 | `TypeDeclBehavior` | struct, interface ou nomeado, escolhido por `accepts(t, u)` | `behaviors/decls.py` |
 | `BuiltinBehavior` | um por builtin (`name`) | `behaviors/builtins.py` |
@@ -103,7 +103,7 @@ dart format out/ && dart analyze out/
 
 - **Sem novas dependências externas sem aprovação explícita do usuário.** As únicas permitidas hoje: `golang.org/x/tools` (goast), `package:analyzer` (dartast), shims Dart pontuais (`package:http`, `package:crypto`) quando um shim exigir.
 - Python: stdlib apenas (`json`, `dataclasses`, `argparse`, `unittest`).
-- Todo dump JSON carrega `schemaVersion`; bump ao mudar o schema. Atual: goast **9** (tipos inline na AST, `bytes`, method sets, `implements` com interfaces anônimas e genéricas, `$inst`, `initOrder`, `otherFiles`/`module`, `fold`, `pkg` de campos/métodos não exportados; ver `tools/goast/README.md`), dartast **1**.
+- Todo dump JSON carrega `schemaVersion`; bump ao mudar o schema. Atual: goast **10** (tipos inline na AST, `bytes`, method sets, `implements` com interfaces anônimas e genéricas, `$inst`, `initOrder`, `otherFiles`/`module`, `fold`, `pkg` de campos/métodos não exportados, `conversions`/`asserts` para o `implements` entre pacotes; ver `tools/goast/README.md`), dartast **1**.
 - Ponteiros: `dart:ffi` não é usado (não existe no JS/Wasm). Identidade de tipo: uma classe Dart por tipo Go; testes de tipo sempre com `is T` (o `runtimeType` de coleções do core difere no JS).
 - `golib_dart/fixed_types` e os ports de `net`/`net/netip`/`internal/poll` vieram do boilerplate do `dart IPFS`; correções feitas aqui ficam listadas em `golib_dart/README.md` para devolver à origem.
 - Construção Go não coberta → `Unsupported(código, mensagem, nó)` com código estável (`área` ou `área:detalhe`, ex. `range:func`, `shim-ausente:errors`) e posição (a do nó, ou a da declaração em emissão); nunca emitir Dart aproximado em silêncio. Limites conhecidos ficam marcados ⚠️ em `docs/mapping-spec.md` e com `ponytail:` no código.
@@ -186,7 +186,7 @@ em sequência. O agente principal planeja, integra e faz a verificação final.
 | M0 | `AGENTS.md` | ✅ |
 | M1 | fundação: dumpers, grafo, esqueleto do g2d | ✅ |
 | M2 | MVP do transpilador (import entre pacotes, `init`, `switch`, method values, literais, tipos locais...) | ✅ menos `goto` (decisão D6) |
-| M3 | semântica avançada: structs por valor, slices, maps, ponteiros, `defer`/`recover`, tipos nomeados, interfaces, embedding, genéricos, arrays | ✅ num pacote; ⚠️ entre pacotes: interfaces (D8) |
+| M3 | semântica avançada: structs por valor, slices, maps, ponteiros, `defer`/`recover`, tipos nomeados, interfaces, embedding, genéricos, arrays | ✅; interfaces entre pacotes pelo `implements` sobre o grafo (D8) |
 | M4 | concorrência: `Chan<T>`, `select`, `go`, `sync`, timers, `context`, cor `async` transitiva | ✅ runtime, emissão, I/O que suspende (D2, versão dupla) e `CancelFunc` com cor própria (D7); ⚠️ classes de func de formato fixo da stdlib (`sort.Slice`...) ficam síncronas |
 | M5 | reflexão estática + shims da stdlib | shims em andamento; `reflect` ✅ sobre descritores gerados (D1), inclusive `Call`/`Method`/`MakeFunc`/`StructOf`/`Select`, e `encoding/json` ✅; `Call` sempre suspende (D9); ⚠️ o que depende de `unsafe` (D5) |
 | M6 | grafo completo do kubo/boxo (cobertura ≥ 95% por etapa) | **177 de 1112** verdes (`docs/audit.md`) |

@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 9,
+  "schemaVersion": 10,
   "tool": "goast",
   "goVersion": "go1.26.5",
   "packages": [
@@ -2627,6 +2627,8 @@
           ]
         }
       ],
+      "conversions": [],
+      "asserts": [],
       "initOrder": [],
       "stdlibUsage": [],
       "reflectUsage": null,
@@ -3814,6 +3816,8 @@
           ]
         }
       ],
+      "conversions": [],
+      "asserts": [],
       "initOrder": [],
       "stdlibUsage": [],
       "reflectUsage": null,
@@ -6171,6 +6175,25 @@
           ]
         }
       ],
+      "conversions": [
+        {
+          "type": 0,
+          "iface": 21
+        },
+        {
+          "type": 8,
+          "iface": 21
+        },
+        {
+          "type": 25,
+          "iface": 21
+        },
+        {
+          "type": 27,
+          "iface": 29
+        }
+      ],
+      "asserts": [],
       "initOrder": [],
       "stdlibUsage": [],
       "reflectUsage": null,
@@ -9236,6 +9259,13 @@
         }
       ],
       "implements": null,
+      "conversions": [
+        {
+          "type": 28,
+          "iface": 11
+        }
+      ],
+      "asserts": [],
       "initOrder": [],
       "stdlibUsage": [
         "fmt.Println"

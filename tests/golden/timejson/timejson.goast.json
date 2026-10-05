@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 9,
+  "schemaVersion": 10,
   "tool": "goast",
   "goVersion": "go1.26.5",
   "packages": [
@@ -25514,6 +25514,48 @@
         }
       ],
       "implements": null,
+      "conversions": [
+        {
+          "type": 117,
+          "iface": 87
+        },
+        {
+          "type": 3,
+          "iface": 87
+        },
+        {
+          "type": 0,
+          "iface": 87
+        },
+        {
+          "type": 27,
+          "iface": 87
+        },
+        {
+          "type": 338,
+          "iface": 87
+        },
+        {
+          "type": 84,
+          "iface": 87
+        },
+        {
+          "type": 46,
+          "iface": 87
+        },
+        {
+          "type": 56,
+          "iface": 87
+        },
+        {
+          "type": 342,
+          "iface": 87
+        }
+      ],
+      "asserts": [
+        317,
+        351
+      ],
       "initOrder": [],
       "stdlibUsage": [
         "encoding.TextMarshaler",

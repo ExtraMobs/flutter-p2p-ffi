@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 9,
+  "schemaVersion": 10,
   "tool": "goast",
   "goVersion": "go1.26.5",
   "packages": [
@@ -39496,6 +39496,81 @@
           ]
         }
       ],
+      "conversions": [
+        {
+          "type": 76,
+          "iface": 19
+        },
+        {
+          "type": 0,
+          "iface": 19
+        },
+        {
+          "type": 14,
+          "iface": 19
+        },
+        {
+          "type": 324,
+          "iface": 19
+        },
+        {
+          "type": 8,
+          "iface": 19
+        },
+        {
+          "type": 333,
+          "iface": 19
+        },
+        {
+          "type": 337,
+          "iface": 19
+        },
+        {
+          "type": 24,
+          "iface": 19
+        },
+        {
+          "type": 42,
+          "iface": 19
+        },
+        {
+          "type": 44,
+          "iface": 19
+        },
+        {
+          "type": 49,
+          "iface": 19
+        },
+        {
+          "type": 48,
+          "iface": 19
+        },
+        {
+          "type": 30,
+          "iface": 19
+        },
+        {
+          "type": 338,
+          "iface": 19
+        },
+        {
+          "type": 56,
+          "iface": 19
+        },
+        {
+          "type": 60,
+          "iface": 19
+        },
+        {
+          "type": 54,
+          "iface": 19
+        },
+        {
+          "type": 344,
+          "iface": 19
+        }
+      ],
+      "asserts": [],
       "initOrder": [],
       "stdlibUsage": [
         "encoding/json.Field",

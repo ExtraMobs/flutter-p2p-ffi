@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 9,
+  "schemaVersion": 10,
   "tool": "goast",
   "goVersion": "go1.26.5",
   "packages": [
@@ -14157,6 +14157,21 @@
         }
       ],
       "implements": null,
+      "conversions": [
+        {
+          "type": 177,
+          "iface": 83
+        },
+        {
+          "type": 58,
+          "iface": 8
+        },
+        {
+          "type": 97,
+          "iface": 8
+        }
+      ],
+      "asserts": [],
       "initOrder": [
         [
           "syncshim.go:273"

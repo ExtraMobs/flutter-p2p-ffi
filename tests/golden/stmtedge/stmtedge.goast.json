@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 9,
+  "schemaVersion": 10,
   "tool": "goast",
   "goVersion": "go1.26.5",
   "packages": [
@@ -8358,6 +8358,13 @@
         }
       ],
       "implements": null,
+      "conversions": [
+        {
+          "type": 0,
+          "iface": 6
+        }
+      ],
+      "asserts": [],
       "initOrder": [],
       "stdlibUsage": [
         "fmt.Println",

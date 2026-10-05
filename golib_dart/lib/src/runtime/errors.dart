@@ -55,6 +55,17 @@ abstract interface class ErrorAs {
   bool as(Object? target);
 }
 
+/// `interface{ Timeout() bool }` (`os.IsTimeout`, `net.Error`...): o g2d a
+/// declara em todo tipo com esse método, e os shims nos erros deles.
+abstract interface class Timeouter {
+  bool timeout();
+}
+
+/// `interface{ Temporary() bool }`.
+abstract interface class Temporary {
+  bool temporary();
+}
+
 /// Descritor de `error` (slices de erros do runtime).
 const errorElem = Elem<GoError?>(16, zeroNull, pointers: true);
 

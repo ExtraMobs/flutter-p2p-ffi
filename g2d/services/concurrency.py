@@ -75,7 +75,11 @@ class Concurrency(Service):
     #   ("f", pacote, nome)              função de pacote
     #   ("m", pacote, tipo, método)      método declarado em `tipo` (ou
     #                                    método de interface nomeada)
-    #   ("anon", método)                 método de interface anônima
+    #   ("anon", estrutura, método)      método de interface anônima
+    #                                    canônica (`AnonTypes.key`)
+    #   ("anon", método)                 das outras interfaces anônimas
+    #   ("m", "", Classe, método)        interface anônima que é a do
+    #                                    runtime (`go.ErrorIs`...): síncrona
     #   ("lit", pacote, posição)         func literal
     def decl_key(self, d):
         """Chave de uma FuncDecl."""
@@ -114,6 +118,13 @@ class Concurrency(Service):
         t = self.pkg.type_at(t)
         if t["kind"] == "named":
             return ("m", t["pkg"], t["name"], name)
+        if t["kind"] == "interface":
+            runtime = self.goinfo.runtime_iface(t)
+            if runtime is not None:
+                return ("m", "", runtime, name)
+            k = self.anon.key(t)
+            if k is not None:
+                return ("anon", k, name)
         return ("anon", name)
 
     def callee_key(self, call):
@@ -262,7 +273,7 @@ class Concurrency(Service):
         """A chave precisa ficar síncrona: método que o shim chama por nome
         (`String`, `Error`...) ou de tipo/interface da stdlib (`io.Reader`)."""
         if key[0] == "anon":
-            return key[1] in SYNC_METHODS
+            return key[-1] in SYNC_METHODS
         if key[0] == "sig":  # parâmetro de tipo (genérico) ou tipo nomeado da stdlib: formato fixo
             return "$tp:" in key[1] or not key[1].startswith("func(")
         if key[0] == "m":

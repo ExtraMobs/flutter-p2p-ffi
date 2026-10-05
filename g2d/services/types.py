@@ -56,6 +56,12 @@ class TypeMapper(Service):
         if k == "interface":
             if not t["methods"] and not t["embeddeds"]:
                 return DartType("Object", nullable=True)
+            runtime = self.goinfo.runtime_iface(t)
+            if runtime is not None:  # `interface{ Unwrap() error }`: a do runtime
+                return DartType(self.imports.qualify(None, runtime), nullable=True)
+            h = self.anon.canonical(t)
+            if h is not None:  # mesma classe em todo o grafo
+                return DartType(self.imports.anon_iface(h), nullable=True)
             return DartType(self.synthetic(t, "anonIface"), nullable=True)
         if k == "struct":
             if not t["fields"]:

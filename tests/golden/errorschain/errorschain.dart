@@ -121,7 +121,7 @@ abstract mixin class $_tempErr implements go.GoError {
 }
 
 class $_netErr extends go.GoStruct<$_netErr>
-    implements go.GoError, $_tempErr, $_temporary {
+    implements go.GoError, $_tempErr, $_temporary, go.Temporary {
   $_netErr({Golang.String? msg}) : _msg = msg ?? Golang.String();
 
   /// `(*T)(nil)` dentro de uma interface (não é nil no Go).

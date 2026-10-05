@@ -147,6 +147,12 @@ class Engine:
 
         return summarize(self)
 
+    def iface_summary(self):
+        """IfaceSummary do pacote (`implements` entre pacotes, D8)."""
+        from g2d.analysis.ifacecross import summarize
+
+        return summarize(self)
+
     def emit_package(self):
         """Library Dart (não formatada) do pacote."""
         return self.package_behavior.emit()

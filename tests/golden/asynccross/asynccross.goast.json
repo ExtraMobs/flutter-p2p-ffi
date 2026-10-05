@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 9,
+  "schemaVersion": 10,
   "tool": "goast",
   "goVersion": "go1.26.5",
   "packages": [
@@ -2470,6 +2470,13 @@
           ]
         }
       ],
+      "conversions": [
+        {
+          "type": 10,
+          "iface": 0
+        }
+      ],
+      "asserts": [],
       "initOrder": [
         [
           "chanstore.go:206"
@@ -3995,6 +4002,17 @@
         }
       ],
       "implements": null,
+      "conversions": [
+        {
+          "type": 7,
+          "iface": 1
+        },
+        {
+          "type": 23,
+          "iface": 1
+        }
+      ],
+      "asserts": [],
       "initOrder": [],
       "stdlibUsage": [
         "fmt.Println"
@@ -5387,6 +5405,8 @@
           ]
         }
       ],
+      "conversions": [],
+      "asserts": [],
       "initOrder": [],
       "stdlibUsage": [],
       "reflectUsage": null,

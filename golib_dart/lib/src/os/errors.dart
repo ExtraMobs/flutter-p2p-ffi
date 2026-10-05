@@ -22,13 +22,14 @@ final GoError errNoDeadline = ErrorString(
 
 /// `*poll.DeadlineExceededError`.
 final class _DeadlineExceeded
-    implements GoError, fs.TimeoutError, Golang.GoTyped {
+    implements GoError, Timeouter, Temporary, Golang.GoTyped {
   @override
   Golang.String error() => Golang.String.fromDart('i/o timeout');
 
   @override
   bool timeout() => true;
 
+  @override
   bool temporary() => true;
 
   @override

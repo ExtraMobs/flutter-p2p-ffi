@@ -42,12 +42,12 @@ Legenda: ✅ fiel · ⚠️ fiel no caso comum, com limite conhecido · ❌ não
 | saída padrão em bytes | `writeStdout` (import condicional io/web) | M2 | ✅ |
 | identidade de tipo em runtime (`int` × `int64` × nomeado) | uma classe Dart por tipo Go (`Golang.Int` ≠ `Golang.Int64`) + `GoTyped` (`$goType`, `$methods`) | M3 | ✅ |
 | tipos nomeados sobre básicos | classe gerada sobre `Golang.<Largura>Base/FloatBase/StringBase<S>` | M3 | ✅ |
-| interfaces, type assertion, type switch | `abstract mixin class` + `implements` (go/types) + `go.assertType/assertIface/tryType/isType`; `x.(func(...))` comma-ok com o tipo anulável (o zero é nil). Tipo func sem nome (`x.(func(...))`/`case func(...):`) usa `go.Func` (linha abaixo): identidade exata pelo nome Go do tipo, não `is` (o Dart testa subtipo entre funcs: retorno covariante com `void` no topo, parâmetros contravariantes). Tipo func nomeado (`type Op func(...)`) já é nominal pela classe gerada, sem passar por `go.Func` | M3 | ✅ |
+| interfaces, type assertion, type switch | `abstract mixin class` + `implements` (go/types; entre pacotes, ver "Interfaces entre pacotes (D8)") + `go.assertType/assertIface/tryType/isType`; `x.(func(...))` comma-ok com o tipo anulável (o zero é nil). Tipo func sem nome (`x.(func(...))`/`case func(...):`) usa `go.Func` (linha abaixo): identidade exata pelo nome Go do tipo, não `is` (o Dart testa subtipo entre funcs: retorno covariante com `void` no topo, parâmetros contravariantes). Tipo func nomeado (`type Op func(...)`) já é nominal pela classe gerada, sem passar por `go.Func` | M3 | ✅ |
 | tipo func sem nome guardado numa interface | `go.Func` embrulha a closure com o nome Go do tipo (o de `%T`); `isFuncType`/`assertFunc`/`tryFunc`/`unwrapFunc` comparam o nome em vez de `is`. ⚠️ parâmetro de tipo com union de funcs (`~func() \| ~func() error`, ex. go.uber.org/fx.Callable) só sabe o nome Go concreto em cada instanciação, não dentro do corpo genérico: `any(x)` de um `T` assim continua sem embrulho e cai no teste de subtipo do Dart (fixture `constraintloose`, função `wrap`) | M3 | ✅ |
 | embedding (promoção) | caminho `$sel.index` + `mixin E$Promote` (forwarders), sempre na library de `E`, mesmo pra quem embute `E` de outro pacote | M3 | ✅ |
 | genéricos | parâmetros de tipo Dart + dicionário `go.Elem<T>` (`$T`) + bounds `IntBase/GoReal/GoOrdered/StringBase` | M3 | ✅ |
 | arrays `[N]T` (valor) | `go.GoArray<T>` (base `go.GoValue`, como `GoStruct`) | M3 | ✅ |
-| goroutines, canais, `select` | `go.Chan<T>`, `go.select`/`go.selectNow`, `go.spawn` + escalonador; `async`/`await` pela cor transitiva (ver "Concorrência (M4) — runtime" e "Cor transitiva" abaixo) | M4 | ⚠️ runtime, emissão, timers, `context`, valor func `async`, `$goInit` que suspende, I/O que suspende (versão dupla, D2) e `CancelFunc` com cor própria (D7) prontos; faltam as classes de func de formato fixo da stdlib (`sort.Slice`...: "Cor transitiva" abaixo) e interfaces entre pacotes (`TODO/P1-design-interfaces-entre-pacotes.md`) |
+| goroutines, canais, `select` | `go.Chan<T>`, `go.select`/`go.selectNow`, `go.spawn` + escalonador; `async`/`await` pela cor transitiva (ver "Concorrência (M4) — runtime" e "Cor transitiva" abaixo) | M4 | ⚠️ runtime, emissão, timers, `context`, valor func `async`, `$goInit` que suspende, I/O que suspende (versão dupla, D2) e `CancelFunc` com cor própria (D7) prontos; faltam as classes de func de formato fixo da stdlib (`sort.Slice`...: "Cor transitiva" abaixo) |
 | reflexão | `go.RType<T>` (descritor estático gerado pelo g2d, um por tipo; genéricos por fábrica `$rtOf`) + shim `reflect` que só lê o descritor (§ "Reflexão (M5, D1)") | M5 | ✅ `Type`/`Value` sem chamar funções; ⚠️ tipos de shim opacos |
 
 ## Plataformas: ponteiros e `Type` (verificado)
@@ -150,7 +150,7 @@ Legenda: ✅ fiel · ⚠️ fiel no caso comum, com limite conhecido · ❌ não
 | `*N`, N nomeado não-struct com métodos e `*N` usado no pacote | `N$Ptr?`: `final class N$Ptr extends go.PtrView<N>` (vista sobre `go.Box`/`ElemPtr`/`FieldPtr`) com os métodos de receptor ponteiro, forwarders dos de valor e as interfaces de `*N` | `null` |
 | struct anônima só com nomes exportados (`struct{ X int }`), sem parâmetro de tipo nem interface anônima com métodos na estrutura (`struct{}` é `go.EmptyStruct`) | classe canônica `Struct$<hash>` numa library própria, `out/lib/_anon/<hash>.dart` (importada sem prefixo): o hash (sha256, 12 hex) vem da estrutura — nomes, tags e tipos dos campos, com o import path dos nomeados — então todo pacote escreve o mesmo arquivo e a mesma classe (atribuição, `==` e type assertion entre pacotes, como no Go). O `main` que só importa a stdlib (programa de um pacote) fica com as classes locais: nenhuma outra library vê os tipos dele. Fixture multi-pacote `anoncross` | `Struct$<hash>()` |
 | struct anônima com campo não exportado (tabelas de teste `[]struct{ in string }`), parâmetro de tipo ou interface anônima com métodos | classe local `$_anon$<índice da typeTable>` na library do pacote (uma por tipo; `go.GoStruct`, igualdade e cópia como qualquer struct). O pacote do campo não exportado entra na identidade (goast v9: `pkg` no campo), então só o dono a escreve; vinda de outro pacote (campo, método ou tipo nomeado não exportado de lá) → `Unsupported` `anonima:nao-exportada-de-outro-pacote`. ⚠️ a com parâmetro de tipo ou interface anônima com métodos continua uma por library | `$_anon$N()` |
-| interface anônima com métodos (`interface{ Name() string }`) | `abstract mixin class $_anonIface$<índice>`; o goast põe no `implements` os literais `interface{...}` usados fora de declaração de tipo. ⚠️ uma por library: entre pacotes é o problema de interfaces entre pacotes (D8); com método não exportado de outro pacote → `Unsupported` `anonima:nao-exportada-de-outro-pacote` | `null` |
+| interface anônima com métodos (`interface{ Name() string }`) | só métodos exportados e sem interface embutida: classe canônica `Iface$<hash>` em `out/lib/_anon/<hash>.dart`, como a struct canônica (a mesma em todo pacote, D8). Um método só com a assinatura de uma interface do runtime vira ela: `Unwrap() error` → `go.Unwrapper`, `Unwrap() []error` → `go.MultiUnwrapper`, `Is(error) bool` → `go.ErrorIs`, `As(any) bool` → `go.ErrorAs`, `Timeout() bool` → `go.Timeouter`, `Temporary() bool` → `go.Temporary` (os shims e os tipos gerados as declaram: `err.(interface{ Timeout() bool })` acha o `context.DeadlineExceeded`; fixture `ifaceshim`). As outras (com embutida ou método não exportado) e as do `main` que só importa a stdlib: `abstract mixin class $_anonIface$<índice>` local; o goast põe no `implements` os literais `interface{...}` usados fora de declaração de tipo. Com método não exportado de outro pacote → `Unsupported` `anonima:nao-exportada-de-outro-pacote` | `null` |
 | nomeado sobre complex (`type Z complex128`) | `final class Z extends Golang.ComplexBase<Z, Golang.Complex128>`: guarda o valor em `$c` e delega `+ - * /`, `==`, `%v` a ele (`Complex64/128` implementam `Golang.ComplexOps`); conversões por `$c` (`Z(c)`, `complex128(z)` → `z.$c`); chaves de map ordenadas como complex no `%v`. Fixture `namedcomplex` | `Z()` |
 | nomeado sobre chan | — ❌ | |
 
@@ -500,9 +500,9 @@ Recusas (`Unsupported`, nunca Dart aproximado):
 Métodos Go chamados `Go` viram `go$` (o membro `go` sombrearia o prefixo do
 runtime): `WaitGroup.Go` → `wg.go$(f)`.
 
-⚠️ Uma interface só se liga às implementações que o `implements` do goast
-conhece (tipos do próprio pacote × interfaces da typeTable dele); entre
-pacotes isso depende de `TODO/P1-design-interfaces-entre-pacotes.md`.
+Uma interface se liga às implementações que o `implements` do goast conhece
+(tipos do próprio pacote × interfaces da typeTable dele) e às que outros
+pacotes exigem (`IfaceTable.unions`, "Interfaces entre pacotes (D8)").
 ⚠️ Ordem de avaliação: `a + await f()` lê `a` antes de suspender; o gc
 pode ler depois da chamada (`TODO/P1-construcao-ordem-avaliacao.md`).
 
@@ -1052,3 +1052,48 @@ v.Recv`) não foi coberto; a escolha entre casos prontos é pseudoaleatória
 - Os descritores `const _$eN = go.Elem<T>(...)` ficam no fim da library.
 - A saída é canonicalizada por `dart format` e precisa passar em
   `dart analyze --fatal-infos`.
+
+## Interfaces entre pacotes (D8)
+
+Decisão do dono (2026-10-05): **`implements` sobre o grafo, restrito às
+conversões que acontecem**. O Go satisfaz interfaces estruturalmente; o
+`implements` do goast só olha as interfaces que o pacote do tipo enxerga (as
+dele, dos imports diretos e `error`). Um `a.T` passado como `b.Namer` num
+`c` que importa os dois não seria um `b.Namer` no Dart; um tipo com
+`String()` num pacote sem `import "fmt"` imprimiria os campos.
+
+- O goast (v10) lista por pacote as conversões tipo concreto → interface
+  (`conversions`) e os alvos dinâmicos (`asserts`: type assertion, `case I:`,
+  interface → interface; `tools/goast/README.md`).
+- `g2d/analysis/ifacecross.py`: cada pacote vira um `IfaceSummary` (tipos
+  nomeados não genéricos com o method set em assinaturas canônicas,
+  conversões, asserts); a `IfaceTable` do grafo diz que T precisa de I se
+  algum pacote converte T para I, ou se T vira interface em algum lugar
+  (escapa) e algum pacote testa I e o method set de T cobre I. As interfaces
+  que os shims testam por dentro (`fmt.Stringer`, `fmt.GoStringer`,
+  `fmt.Formatter`, `encoding.TextMarshaler`/`TextUnmarshaler`,
+  `json.Marshaler`/`Unmarshaler`) contam como testadas sempre.
+- A classe de T ganha o `implements` e a library dele importa a da interface
+  (o Dart aceita import cíclico). Só entram interfaces nomeadas não
+  genéricas de pacote transpilado ou de shim (`SHIM_INTERFACES`) e anônimas
+  canônicas (`Iface$<hash>`); tipos nomeados não genéricos de nível de
+  pacote.
+- Cor: o método de T e o da interface ficam no mesmo grupo
+  (`ColorTable.set_ifaces`).
+- O audit reemite sem o `implements` o pacote cuja interface mora numa
+  library que não foi emitida (`IfaceTable.missing`): ele não fica
+  dependente de um pacote que não é dependência Go dele.
+
+Fixtures: `ifacecross` (interface nomeada entre pacotes por argumento,
+`*T` por ponteiro, type assertion e type switch sobre tipo que só virou
+`any`, interface anônima entre pacotes, `fmt.Stringer` e `sort.Interface`
+sem import) e `ifaceshim`.
+
+⚠️ Limites: tipo genérico e interface genérica ficam de fora (o `implements`
+deles continua o do goast); interface anônima com embutida continua uma por
+library; interface **nomeada** do pacote testada contra valor de classe de
+shim (`type timeouter interface{ Timeout() bool }` com
+`context.DeadlineExceeded`) dá `false`
+(`TODO/P2-design-interface-nomeada-valor-de-shim.md`); a atribuição de uma
+interface a outra que não a embute continua sem cast no Dart.
+

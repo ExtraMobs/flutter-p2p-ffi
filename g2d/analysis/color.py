@@ -417,8 +417,19 @@ class ColorTable:
         # Grafo com reflexão (M5, `g2d/services/reflection.py`): quem monta a
         # tabela do grafo decide; None = cada pacote por si.
         self.reflective = None
+        # `implements` entre pacotes (D8, `g2d/analysis/ifacecross.py`):
+        # quem monta a tabela do grafo põe a IfaceTable com `set_ifaces`.
+        self.ifaces = None
         for s in summaries:
             self.add(s)
+
+    def set_ifaces(self, ifaces):
+        """Liga a IfaceTable do grafo: um tipo e a interface de outro pacote
+        que ele passa a declarar têm a mesma cor."""
+        self.ifaces = ifaces
+        for a, b in sorted(ifaces.unions()):
+            self.union(a, b)
+        self._async = None
 
     def add(self, summary):
         for a, b in summary.unions:

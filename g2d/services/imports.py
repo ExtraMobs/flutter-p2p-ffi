@@ -7,7 +7,7 @@ from g2d.config import (BUILTIN_PREFIX, BUILTIN_URI, GOLANG, GOLANG_PREFIX, GOLA
 from g2d.engine.behavior import Service
 from g2d.graph import is_std
 from g2d.model import Unsupported
-from g2d.services.anon import anon_class, anon_path
+from g2d.services.anon import anon_class, anon_iface, anon_path
 from g2d.services.naming import escape, is_exported, member_name, top_member_name, type_name
 
 
@@ -106,6 +106,12 @@ class ImportTable(Service):
         if anon_path(h) != self.pkg.path:
             self.anons.add(h)
         return anon_class(h)
+
+    def anon_iface(self, h):
+        """Classe de uma interface anônima canônica (`Iface$<hash>`)."""
+        if anon_path(h) != self.pkg.path:
+            self.anons.add(h)
+        return anon_iface(h)
 
     def transpiled(self, pkg_path):
         """Pacote transpilado pelo g2d: o próprio ou outro do grafo (fora da stdlib)."""

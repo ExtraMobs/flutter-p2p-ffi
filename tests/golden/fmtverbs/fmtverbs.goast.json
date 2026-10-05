@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 9,
+  "schemaVersion": 10,
   "tool": "goast",
   "goVersion": "go1.26.5",
   "packages": [
@@ -18065,6 +18065,33 @@
           ]
         }
       ],
+      "conversions": [
+        {
+          "type": 0,
+          "iface": 8
+        },
+        {
+          "type": 2,
+          "iface": 8
+        },
+        {
+          "type": 9,
+          "iface": 8
+        },
+        {
+          "type": 15,
+          "iface": 8
+        },
+        {
+          "type": 18,
+          "iface": 22
+        },
+        {
+          "type": 12,
+          "iface": 8
+        }
+      ],
+      "asserts": [],
       "initOrder": [],
       "stdlibUsage": [
         "fmt.Errorf",

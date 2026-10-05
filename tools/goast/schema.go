@@ -4,7 +4,7 @@ import "runtime"
 
 // schemaVersion do JSON emitido: o g2d (g2d/model.py) recusa dump de outra
 // versão. Mudou o formato, mude aqui e lá.
-const schemaVersion = 9
+const schemaVersion = 10
 
 // DumpDoc é a raiz do JSON emitido pelo goast.
 type DumpDoc struct {
@@ -16,12 +16,17 @@ type DumpDoc struct {
 
 // PackageDump é o dump de um único pacote Go (a unidade de trabalho).
 type PackageDump struct {
-	Path         string       `json:"path"`
-	Name         string       `json:"name"`
-	Files        []*FileDump  `json:"files"`
-	Imports      []ImportDump `json:"imports"`
-	TypeTable    []jobject    `json:"typeTable"`
-	Implements   []jobject    `json:"implements"`
+	Path       string       `json:"path"`
+	Name       string       `json:"name"`
+	Files      []*FileDump  `json:"files"`
+	Imports    []ImportDump `json:"imports"`
+	TypeTable  []jobject    `json:"typeTable"`
+	Implements []jobject    `json:"implements"`
+	// Conversions/Asserts: conversões tipo concreto → interface e alvos
+	// dinâmicos (type assertion, type switch, interface → interface) do
+	// pacote (conversions.go).
+	Conversions  []jobject    `json:"conversions"`
+	Asserts      []any        `json:"asserts"`
 	InitOrder    [][]string   `json:"initOrder"`
 	StdlibUsage  []string     `json:"stdlibUsage"`
 	ReflectUsage []ReflectUse `json:"reflectUsage"`

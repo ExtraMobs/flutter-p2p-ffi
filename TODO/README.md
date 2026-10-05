@@ -1,6 +1,7 @@
 # TODO — backlog do desafio kubo/boxo
 
-Estado em 2026-10-04, com o D1 completo (reflexão, `encoding/json`, `time` com layout) no `main`: **177 de 1112** pacotes
+Estado em 2026-10-05, com o D1 completo (reflexão, `encoding/json`, `time` com layout) e o D8
+(interfaces entre pacotes) no `main`: **177 de 1112** pacotes
 do grafo do kubo verdes (`docs/audit.md`, Dart SDK 3.13.5; o `main` de
 2026-10-02 regerado no mesmo ambiente dá 157, não os 167 registrados antes).
 A fronteira (pacotes não verdes com as dependências todas verdes) tem 176
@@ -18,9 +19,12 @@ as opções e a recomendação; a tabela é o resumo.
 | D4 | Rede real no `net` | `net` 140 / 19 (1º do ranking), `net/http` 65 / 13 | mesmo modelo do D3 (`dart:io` / `node:net`), sobre o port que já existe | `P0-shim-net.md` |
 | D5 | Como entra a substituição manual de pacote (`unsafe`, assembly, `go:linkname`) | `unsafe:Pointer` 80 / 11, `conversao:pointer-pointer` 38 / 4, `unsafe:Slice` 30 / 3, 7 pacotes com assembly | substituto Dart escrito à mão por pacote inteiro, registrado como um shim | `P0-design-substituicao.md` |
 | D6 | Reabrir `goto` (hoje ❌ por decisão) | `branch:goto` 28 / 10 (era 14 / 3 quando foi decidido) | implementar no g2d, começando pelos saltos que viram `break`/`continue` rotulados | `P0-design-goto.md` |
-| D8 | Interface satisfeita por tipo de outro pacote | invisível no audit hoje (os pacotes param antes em shim); saída errada em silêncio com `fmt.Stringer` | `implements` sobre o grafo, restrito às conversões que acontecem e a donos fora da stdlib | `P1-design-interfaces-entre-pacotes.md` |
 
-Já decidido (não reabrir): D9 (2026-10-04), `reflect.Value.Call`/`CallSlice`
+Já decidido (não reabrir): D8 (2026-10-05), interface satisfeita por tipo
+de outro pacote: `implements` sobre o grafo, restrito às conversões que
+acontecem (e aos tipos que viram interface e são testados por type
+assertion), com a library do tipo importando a da interface
+(`docs/mapping-spec.md` § "Interfaces entre pacotes (D8)"). D9 (2026-10-04), `reflect.Value.Call`/`CallSlice`
 sempre suspendem e quem chama ganha a cor `async` (forma síncrona só em
 contexto que precisa ficar síncrono). D1 (2026-10-04), reflexão por descritores
 estáticos que o g2d gera por tipo (nome, tipo, tag, getter e setter como
@@ -61,7 +65,6 @@ no `fmt`) foram resolvidos em 2026-10-03.
 | `P1-construcao-assert-nomeado.md` | `x.([]int)` aceita `type IntList []int` |
 | `P1-runtime-comparacao-incomparavel.md` | `==` de interface com slice dentro não dá panic |
 | `P1-shim-fmt-formatos.md` | `Sprint` com string nomeada, nil aninhado com `%d`, `&slice`, `[]Code` com `%s` |
-| `P1-design-interfaces-entre-pacotes.md` | (D8) inclui tipo de shim em interface local: `err.(interface{ Unwrap() error })` falha |
 
 ### 2c. Dart inválido ou g2d quebra (sem `Unsupported`)
 
@@ -74,7 +77,8 @@ no `fmt`) foram resolvidos em 2026-10-03.
 
 `P2-construcao-shift-constante.md`, `P2-runtime-panic-nil-e-texto.md`,
 `P2-construcao-defer-iface-recover.md`, `P2-runtime-complex64.md`,
-`P2-shim-fmt-tipo-T.md`, `P2-runtime-slice-de-array-mensagem.md`.
+`P2-shim-fmt-tipo-T.md`, `P2-runtime-slice-de-array-mensagem.md`,
+`P2-design-interface-nomeada-valor-de-shim.md`.
 
 Shims sem artefato: a fila é o ranking do `docs/audit.md`. Hoje os que mais
 destravam a fronteira e não dependem de decisão são `hash` (28 / 11),
@@ -82,9 +86,14 @@ destravam a fronteira e não dependem de decisão são `hash` (28 / 11),
 (31 / 8), `runtime` (40 / 7), `encoding/base64` (26 / 7), `math/big`
 (18 / 7), `bufio` (30 / 5) e `crypto/rand` (30 / 5).
 
-Sem artefato ainda: `async:contexto-sincrono` (33 / 6; ex. `benbjohnson/clock`,
+Sem artefato ainda: `async:contexto-sincrono` (63 / 7; ex. `benbjohnson/clock`,
 chamada que suspende onde o contexto precisa ficar síncrono) subiu no ranking
-depois do D2; precisa de prova e artefato antes de entrar na fila.
+depois do D2 e de novo com o D8 (de 40 para 63 pacotes, todos antes
+bloqueados): com o `implements` entre pacotes, a cor `async` de uma
+implementação chega à interface de outro pacote, e um `String()`/`Error()`
+que chama um logger (`grpclog` em `grpc/connectivity`) ou o `redact`
+(`cockroachdb/errors`) passa a ver a chamada que suspende. Precisa de prova
+e artefato antes de entrar na fila.
 
 ## 3. Convenção
 
@@ -149,10 +158,10 @@ As sessões daqui não apagam branches; o dono apaga pelo GitHub.
   `wip-shims-pequenos` (aponta para um commit antigo do `main`; os shims
   pequenos que ela descrevia nunca foram feitos), `wip-strings-bytes`,
   `wip-time`, `wip-typeswitch-func`, `wip-unicode`.
-- Superadas, podem ser apagadas: `wip-handoff` (plano de 2026-09-27, já
+- Superadas, podem ser apagadas: `wip-ifacecross` (o D8 entrou
+  reescrito em 2026-10-05), `wip-handoff` (plano de 2026-09-27, já
   executado ou refletido aqui), `wip-m4b-g2d-async` (a etapa 1 do M4b, que
   entrou reescrita pelo PR #3), `wip-regexp` (port parcial do parser; o
   `main` tem o shim completo).
 - Com trabalho aproveitável: `wip-os` (erros e constantes do `os`, espera
-  D3), `wip-ifacecross` (`implements` sobre o grafo, espera D8),
-  `wip-strconv` (snapshot com `FormatComplex`, ainda ausente no `main`).
+  D3), `wip-strconv` (snapshot com `FormatComplex`, ainda ausente no `main`).

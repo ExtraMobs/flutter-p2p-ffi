@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 9,
+  "schemaVersion": 10,
   "tool": "goast",
   "goVersion": "go1.26.5",
   "packages": [
@@ -15994,6 +15994,51 @@
             17
           ]
         }
+      ],
+      "conversions": [
+        {
+          "type": 8,
+          "iface": 15
+        },
+        {
+          "type": 8,
+          "iface": 0
+        },
+        {
+          "type": 9,
+          "iface": 0
+        },
+        {
+          "type": 9,
+          "iface": 15
+        },
+        {
+          "type": 47,
+          "iface": 15
+        },
+        {
+          "type": 22,
+          "iface": 15
+        },
+        {
+          "type": 22,
+          "iface": 0
+        },
+        {
+          "type": 29,
+          "iface": 15
+        },
+        {
+          "type": 28,
+          "iface": 15
+        },
+        {
+          "type": 31,
+          "iface": 0
+        }
+      ],
+      "asserts": [
+        0
       ],
       "initOrder": [
         [

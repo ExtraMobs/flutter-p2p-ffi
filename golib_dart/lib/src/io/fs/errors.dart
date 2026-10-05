@@ -17,14 +17,13 @@ final GoError errNotExist = _e('file does not exist');
 /// `fs.ErrClosed`.
 final GoError errClosed = _e('file already closed');
 
-/// `interface{ Timeout() bool }` (não exportada no Go; o `os` a implementa).
-abstract interface class TimeoutError {
-  bool timeout();
-}
+/// `interface{ Timeout() bool }` (não exportada no Go; o `os` a implementa):
+/// a do runtime, que o g2d declara em todo tipo com `Timeout() bool`.
+typedef TimeoutError = Timeouter;
 
 /// `fs.PathError`: erro de operação sobre um caminho.
 final class PathError extends GoStruct<PathError>
-    implements GoError, Unwrapper {
+    implements GoError, Unwrapper, Timeouter {
   PathError({Golang.String? op, Golang.String? path, this.err})
     : op = op ?? Golang.String(),
       path = path ?? Golang.String();
@@ -68,6 +67,7 @@ final class PathError extends GoStruct<PathError>
   GoError? unwrap() => err;
 
   /// `Timeout()`: o erro embrulhado diz que é timeout.
+  @override
   bool timeout() => switch (err) {
     final TimeoutError t => t.timeout(),
     _ => false,

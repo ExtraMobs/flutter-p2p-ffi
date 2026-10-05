@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 9,
+  "schemaVersion": 10,
   "tool": "goast",
   "goVersion": "go1.26.5",
   "packages": [
@@ -3898,6 +3898,8 @@
           ]
         }
       ],
+      "conversions": [],
+      "asserts": [],
       "initOrder": [],
       "stdlibUsage": [],
       "reflectUsage": null,
@@ -4893,6 +4895,8 @@
           ]
         }
       ],
+      "conversions": [],
+      "asserts": [],
       "initOrder": [],
       "stdlibUsage": [],
       "reflectUsage": null,
@@ -5849,6 +5853,8 @@
           ]
         }
       ],
+      "conversions": [],
+      "asserts": [],
       "initOrder": [],
       "stdlibUsage": [],
       "reflectUsage": null,
@@ -6283,6 +6289,8 @@
         }
       ],
       "implements": null,
+      "conversions": [],
+      "asserts": [],
       "initOrder": [],
       "stdlibUsage": [],
       "reflectUsage": null,
@@ -9902,6 +9910,21 @@
         }
       ],
       "implements": null,
+      "conversions": [
+        {
+          "type": 1,
+          "iface": 14
+        },
+        {
+          "type": 35,
+          "iface": 41
+        },
+        {
+          "type": 35,
+          "iface": 44
+        }
+      ],
+      "asserts": [],
       "initOrder": [],
       "stdlibUsage": [
         "fmt.Println"
@@ -11267,6 +11290,8 @@
           ]
         }
       ],
+      "conversions": [],
+      "asserts": [],
       "initOrder": [],
       "stdlibUsage": [],
       "reflectUsage": null,
