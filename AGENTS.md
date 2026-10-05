@@ -38,6 +38,12 @@ Regras fundamentais:
 | `TODO/` | Backlog: um artefato markdown por problema, com prova real (ver "Processo") | Markdown |
 | `docs/` | Documentos vivos (ver abaixo) | Markdown |
 
+Branch `archive` (só leitura): a tentativa anterior, o port manual `dart IPFS`
+(Bitswap/DHT interoperando com o Kubo, DNS de multiaddr em
+`lib/src/transport/dns/`, `packages/transpiled_*`). Quando faltar resposta
+(como o Go se comporta num caso, como portar um pacote), consulte-a antes de
+perguntar ao dono; ela é referência, não fonte de código do g2d.
+
 ## Arquitetura do g2d
 
 O g2d é um **motor** (`g2d/engine/Engine`) que despacha a AST Go tipada para
