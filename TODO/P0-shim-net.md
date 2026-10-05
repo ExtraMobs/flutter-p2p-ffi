@@ -25,10 +25,26 @@ Símbolos mais usados (`docs/stdlib-coverage.md`): `Addr`, `Conn`, `IP`,
 `UDPAddr`, `PacketConn`, `SplitHostPort`, `ParseIP`, `TCPAddr`, `Listener`,
 `Dialer`, `IPNet`...
 
+## Decidido (dono, 2026-10-05)
+
+- **Navegador:** sem emular TCP sobre WebSocket (exigiria servidor-ponte,
+  sem `Listen`/UDP e com semântica diferente da do Go). No navegador o `net`
+  devolve erro Go em runtime, como em `js/wasm`; o libp2p/IPFS ali usa os
+  próprios transportes de browser (WebSocket, WebTransport, WebRTC), por
+  substituição (D5) quando chegar a hora.
+- **DNS:** resolver do sistema para IP **e TXT**. O `/dnsaddr` do libp2p
+  consulta `_dnsaddr.<domínio>` por TXT (`go-multiaddr-dns` v0.6.0
+  `resolve.go:224`, sobre `net.DefaultResolver`). O `dart:io` não faz TXT, então
+  a VM leva um cliente DNS UDP próprio; o Node usa `dns.resolveTxt`. O DoH do
+  kubo (`DNS.Resolvers`, `go-doh-resolver`) é código transpilado e vem com o
+  shim `net/http`.
+
 ## Decisão pendente
 
 Como D3, para sockets: `dart:io` na VM/AOT, `node:net`/`node:dgram` no
-JS/Wasm sob Node, erro no navegador. A parte sem I/O (`IP`, `IPNet`,
+JS/Wasm sob Node (escolha em runtime: o import condicional não distingue Node
+de navegador), e escopo da 1ª entrega (recomendado: endereços, TCP, UDP, DNS e
+interfaces de uma vez). A parte sem I/O (`IP`, `IPNet`,
 `ParseIP`, `SplitHostPort`, `netip`) não depende de decisão e pode começar
 antes.
 

@@ -16,7 +16,7 @@ as opções e a recomendação; a tabela é o resumo.
 | # | Decisão | O que trava | Recomendação | Artefato |
 |---|---|---|---|---|
 | D3 | `os` acessa o sistema de arquivos real? | `os.*` + `io/fs.*` 24 ocorrências na fronteira (`os.open` sozinho: 22 / 4) | sim: `dart:io` na VM/AOT, `node:fs` no JS/Wasm sob Node, erro `*PathError` no navegador | `P0-design-os-arquivos.md` |
-| D4 | Rede real no `net` | `net` 140 / 19 (1º do ranking), `net/http` 65 / 13 | mesmo modelo do D3 (`dart:io` / `node:net`), sobre o port que já existe | `P0-shim-net.md` |
+| D4 | Rede real no `net` | `net` 140 / 19 (1º do ranking), `net/http` 65 / 13 | mesmo modelo do D3 (`dart:io` / `node:net`), sobre o port que já existe; já decidido (2026-10-05): erro no navegador, sem emular TCP sobre WebSocket, e DNS do sistema com TXT | `P0-shim-net.md` |
 | D5 | Como entra a substituição manual de pacote (`unsafe`, assembly, `go:linkname`) | `unsafe:Pointer` 80 / 11, `conversao:pointer-pointer` 38 / 4, `unsafe:Slice` 30 / 3, 7 pacotes com assembly | substituto Dart escrito à mão por pacote inteiro, registrado como um shim | `P0-design-substituicao.md` |
 | D6 | Reabrir `goto` (hoje ❌ por decisão) | `branch:goto` 28 / 10 (era 14 / 3 quando foi decidido) | implementar no g2d, começando pelos saltos que viram `break`/`continue` rotulados | `P0-design-goto.md` |
 
