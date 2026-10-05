@@ -67,8 +67,8 @@ Ordem: pacotes da fronteira afetados, pacotes afetados, ocorrências.
 | `shim-ausente:cmp` | 35 | 24 | 2 | `go.opentelemetry.io/auto/sdk/internal/telemetry` value.go:290:6: pacote sem shim/transpilação: cmp |
 | `shim-ausente:maps` | 23 | 20 | 2 | `github.com/guillaumemichel/reservedpool` pool.go:14:1: pacote sem shim/transpilação: maps |
 | `shim-simbolo:os.readFile` | 18 | 14 | 2 | `github.com/crackcomm/go-gitignore` ignore.go:173:6: símbolo sem shim: os.readFile |
+| `shim-simbolo:net.IPConn` | 9 | 6 | 2 | `github.com/pion/transport/v3/stdnet` net.go:157:1: símbolo sem shim: net.IPConn |
 | `range:pointer` | 7 | 6 | 2 | `github.com/klauspost/compress/huff0` build_table.go:107:2: range sobre pointer |
-| `shim-simbolo:net.IPConn` | 8 | 5 | 2 | `github.com/pion/transport/v3/stdnet` net.go:157:1: símbolo sem shim: net.IPConn |
 | `func-sem-corpo` | 7 | 5 | 2 | `github.com/cockroachdb/pebble/v2/internal/rawalloc` rawalloc_go1.9.go:27:6: função sem corpo (assembly ou go:linkname): substituição |
 | `shim-ausente:io/ioutil` | 5 | 5 | 2 | `github.com/minio/sha256-simd` cpuid_other.go:31:6: pacote sem shim/transpilação: io/ioutil |
 | `shim-ausente:unicode/utf16` | 5 | 5 | 2 | `github.com/go-jose/go-jose/v4/json` decode.go:1104:6: pacote sem shim/transpilação: unicode/utf16 |
@@ -185,7 +185,6 @@ Ordem: pacotes da fronteira afetados, pacotes afetados, ocorrências.
 | `shim-simbolo:io/fs.FS` | 1 | 1 | 0 | `github.com/miekg/dns` scan.go:168:1: símbolo sem shim: io/fs.FS |
 | `shim-simbolo:net.UDPConn.readMsgUDP` | 1 | 1 | 0 | `github.com/miekg/dns` udp.go:43:28: membro sem shim: net.UDPConn.readMsgUDP (ReadMsgUDP) |
 | `shim-simbolo:net.UDPConn.writeMsgUDP` | 1 | 1 | 0 | `github.com/miekg/dns` udp.go:53:15: membro sem shim: net.UDPConn.writeMsgUDP (WriteMsgUDP) |
-| `shim-simbolo:net.UnixConn` | 1 | 1 | 0 | `google.golang.org/grpc/internal/transport/readyreader` ready_reader.go:68:6: símbolo sem shim: net.UnixConn |
 | `shim-simbolo:net.fileConn` | 1 | 1 | 0 | `github.com/hanwen/go-fuse/v2/fuse` mount.go:34:6: símbolo sem shim: net.fileConn |
 | `shim-simbolo:os.File.truncate` | 1 | 1 | 0 | `github.com/dgraph-io/badger/table` table.go:95:13: membro sem shim: os.File.truncate (Truncate) |
 | `shim-simbolo:os.chmod` | 1 | 1 | 0 | `github.com/ipfs/boxo/files` meta_posix.go:14:6: símbolo sem shim: os.chmod |
@@ -1047,7 +1046,7 @@ Não verdes com todas as dependências do grafo verdes: o próximo trabalho.
 | 639 | `google.golang.org/grpc/internal/status` | bloqueado | `dart:uri_does_not_exist`×3, `dart:invalid_override` |
 | 640 | `google.golang.org/grpc/internal/syscall` | unsupported | `shim-ausente:syscall`×2, `shim-simbolo:net.TCPConn.syscallConn`×2 |
 | 641 | `google.golang.org/grpc/mem` | unsupported | `async:shim-sincrono` |
-| 642 | `google.golang.org/grpc/internal/transport/readyreader` | unsupported | `shim-ausente:syscall`×3, `shim-simbolo:net.UnixConn` |
+| 642 | `google.golang.org/grpc/internal/transport/readyreader` | unsupported | `shim-ausente:syscall`×3, `shim-simbolo:net.IPConn` |
 | 643 | `google.golang.org/grpc/metadata` | bloqueado | `dart:uri_does_not_exist` |
 | 644 | `google.golang.org/grpc/internal/balancerload` | bloqueado |  |
 | 645 | `google.golang.org/grpc/internal/grpcutil` | bloqueado |  |
