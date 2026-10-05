@@ -108,11 +108,22 @@ class Concurrency(Service):
             return self.iface_key(t, name)
         if t["kind"] != "named":
             return None
+        if self.shim_owner(t):
+            return ("m", t["pkg"], t["name"], name)  # o shim declara os promovidos
         m = next((m for m in t.get("methods") or [] if m["name"] == name), None)
         if m is None or len(m["index"]) == 1:
             return ("m", t["pkg"], t["name"], name)
         f = u["fields"][m["index"][0]]
         return self.method_key(f["type"], name)
+
+    def shim_owner(self, t):
+        """Tipo nomeado da stdlib (ou ponteiro para ele): a classe do shim
+        declara os métodos promovidos de campos embutidos (o `conn` do
+        `net.TCPConn`) como seus."""
+        t = self.pkg.type_at(t)
+        if t is not None and t["kind"] == "pointer":
+            t = self.pkg.type_at(t["elem"])
+        return t is not None and t["kind"] == "named" and bool(t.get("pkg")) and self.std(t["pkg"])
 
     def iface_key(self, t, name):
         t = self.pkg.type_at(t)

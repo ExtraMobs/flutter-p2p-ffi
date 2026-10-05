@@ -7,9 +7,11 @@ from g2d.engine.behavior import Service
 from g2d.model import Unsupported
 
 
-# Palavras reservadas do Dart (não podem ser identificadores).
+# Palavras reservadas do Dart (não podem ser identificadores). `as` é
+# identificador embutido, mas não pode nomear variável de padrão
+# (`final (n, as) = ...`, a desestruturação de multi-valor).
 DART_RESERVED = frozenset("""
-assert break case catch class const continue default do else enum extends
+as assert break case catch class const continue default do else enum extends
 false final finally for if in is new null rethrow return super switch this
 throw true try var void while with
 """.split())

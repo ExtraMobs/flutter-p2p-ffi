@@ -46,34 +46,7 @@ final class _Errno implements GoError, Timeouter, Temporary, Golang.GoTyped {
   int get hashCode => code.hashCode;
 }
 
-/// `errTimeout` do Go (`*timeoutError`): o `Dial` que estourou o prazo.
-final class _TimeoutError implements GoError, Timeouter, Temporary, Golang.GoTyped {
-  const _TimeoutError();
-  @override
-  Golang.String error() => Golang.String.fromDart('i/o timeout');
-  @override
-  bool timeout() => true;
-  @override
-  bool temporary() => true;
-  @override
-  String get $goType => '*net.timeoutError';
-  @override
-  List<String> get $methods => const ['Error', 'Is', 'Temporary', 'Timeout'];
-}
 
-/// `errCanceled` do Go: o `Dial` cancelado pelo `context`.
-final class _CanceledError implements GoError, Golang.GoTyped {
-  const _CanceledError();
-  @override
-  Golang.String error() => Golang.String.fromDart('operation was canceled');
-  @override
-  String get $goType => '*net.canceledError';
-  @override
-  List<String> get $methods => const ['Error', 'Is'];
-}
-
-const GoError _errTimeout = _TimeoutError();
-const GoError _errCanceled = _CanceledError();
 
 /// O "operation not supported" do navegador e do que o shim não faz
 /// (sockets Unix e IP brutos).

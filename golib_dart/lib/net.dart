@@ -12,6 +12,7 @@
 // ignore_for_file: library_prefixes
 library;
 
+import 'dart:async';
 import 'dart:typed_data';
 
 import 'builtin.dart' hide Addr;
@@ -19,9 +20,14 @@ import 'context.dart' as context;
 import 'encoding.dart' as encoding;
 import 'errors.dart' as errors;
 import 'fixed_types/golang.dart' as Golang;
+import 'fmt.dart' as fmt show Stringer;
 import 'fmt.dart' show Stringer;
+import 'io.dart' as io;
 import 'net/netip.dart' as netip;
+import 'os.dart' as os;
+import 'src/net/sys/sys.dart' as sys;
 import 'strconv.dart' as strconv;
+import 'time.dart' as time;
 
 part 'src/net/ip.dart';
 part 'src/net/ip_funcs.dart';
@@ -32,6 +38,11 @@ part 'src/net/errors.dart';
 part 'src/net/addr_errors.dart';
 part 'src/net/dns_error.dart';
 part 'src/net/parse.dart';
+part 'src/net/errno.dart';
+part 'src/net/conn.dart';
+part 'src/net/dial.dart';
+part 'src/net/lookup.dart';
+part 'src/net/interfaces.dart';
 
 const _byteElem = Elem<Golang.Uint8>(
   1,

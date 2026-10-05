@@ -220,6 +220,10 @@ class SelectorExpr(ExprBehavior):
             suffix = "$async"  # method value de I/O dual que suspende (D2)
         mname = member_name(sel + suffix) + ("$sync" if n.get("$sync") else "")
         t = self.pkg.type_of(x)
+        if info["kind"] == "method" and len(info["index"]) > 1 and self.concurrency.shim_owner(t):
+            # Método promovido de tipo do shim (`TCPConn.Read` vem do `conn`
+            # não exportado): a classe do shim o declara direto.
+            info = dict(info, index=info["index"][-1:])
         self.check_shim_members(t, info, sel, n)
         if info["kind"] == "method" and len(info["index"]) > 1:
             explicit = self.promoted_ptr_method(n, x, t, info)

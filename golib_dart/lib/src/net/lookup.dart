@@ -105,7 +105,7 @@ final class Resolver extends GoStruct<Resolver> {
       return (const <Uint8List>[], DNSError(err: _s('no such host'), name: _s(host), isNotFound: true) as GoError);
     }
     final literal = parseIP(_s(host));
-    if (literal != null && literal.length != 0) return ([_ipBytes(literal)], null);
+    if (literal.length != 0) return ([_ipBytes(literal)], null);
     try {
       final ips = await sys.sysLookupIp(host, network: family);
       return (ips, null);

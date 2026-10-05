@@ -10,7 +10,7 @@ IP _ipOf(Uint8List b) => IP(Slice.of([for (final x in b) Golang.Uint8(x)], _byte
 Uint8List _ipBytes(IP? ip) {
   if (ip == null || ip.length == 0) return Uint8List(0);
   final v4 = ip.to4();
-  return _bytesOf(v4.length == 4 ? v4 : ip);
+  return _u8(v4.length == 4 ? v4 : ip);
 }
 
 TCPAddr? _tcpAddrOf(sys.SysAddr a) =>
@@ -24,7 +24,7 @@ sys.SysAddr _sysAddrOf(IP? ip, int port, Golang.String zone) =>
 
 bool _sameAddr(sys.SysAddr a, UDPAddr b) {
   if (a.port != b.port.toInt()) return false;
-  return _ipOf(a.ip).equal(b.ip ?? IP(Slice.nil(_byteElem)));
+  return _ipOf(a.ip).equal(b.ip);
 }
 
 /// Família e protocolo da rede (`parseNetwork` do Go, só o que o shim faz).
@@ -32,7 +32,8 @@ bool _sameAddr(sys.SysAddr a, UDPAddr b) {
   const stream = {'tcp', 'tcp4', 'tcp6'};
   const dgram = {'udp', 'udp4', 'udp6'};
   if (stream.contains(network) || dgram.contains(network)) return (network, null);
-  if (network.startsWith('ip') || network.startsWith('unix')) {
+  final base = network.split(':').first;
+  if (const {'ip', 'ip4', 'ip6', 'unix', 'unixgram', 'unixpacket'}.contains(base)) {
     // ⚠️ sockets IP brutos e Unix: o shim não tem (erro em runtime).
     return (network, _notSupported('socket'));
   }
@@ -80,7 +81,7 @@ Future<(List<sys.SysAddr>, GoError?)> _resolve(
   // IP literal, com zona IPv6 opcional (`fe80::1%eth0`).
   final pct = h.indexOf('%');
   final literal = parseIP(_s(pct < 0 ? h : h.substring(0, pct)));
-  if (literal != null && literal.length != 0) {
+  if (literal.length != 0) {
     final b = _ipBytes(literal);
     if (!_fits(b, family)) {
       return (const <sys.SysAddr>[], AddrError(err: _s('no suitable address found'), addr: _s(h)) as GoError);
@@ -167,7 +168,7 @@ final class Dialer extends GoStruct<Dialer> {
   DateTime? _when(context.Context? ctx) {
     DateTime? d = _deadline(deadline);
     if (timeout.toInt() > 0) {
-      final t = DateTime.now().toUtc().add(core.Duration(microseconds: timeout.toInt() ~/ 1000));
+      final t = DateTime.now().toUtc().add(Duration(microseconds: timeout.toInt() ~/ 1000));
       if (d == null || t.isBefore(d)) d = t;
     }
     if (ctx != null) {

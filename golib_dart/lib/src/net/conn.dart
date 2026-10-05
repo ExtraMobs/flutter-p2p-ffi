@@ -21,7 +21,7 @@ abstract interface class Conn implements io.Reader, io.Writer, io.Closer {
 /// `net.Listener`.
 abstract interface class Listener implements io.Closer {
   Future<(Conn?, GoError?)> accept();
-  Addr? addr();
+  Addr? addr$();
 }
 
 /// `net.PacketConn`.
@@ -34,11 +34,6 @@ abstract interface class PacketConn implements io.Closer {
   GoError? setWriteDeadline(time.Time t);
 }
 
-const _byteElem = Elem<Golang.Uint8>(
-  1,
-  Golang.Uint8.new,
-  ofInt: Golang.Uint8.from,
-);
 
 /// Maior leitura de uma vez (um `Read` curto é válido no Go).
 const _maxRead = 1 << 18;
@@ -48,7 +43,7 @@ DateTime? _deadline(time.Time t) => t.isZero()
     ? null
     : DateTime.fromMicrosecondsSinceEpoch(t.unixMicro().toInt(), isUtc: true);
 
-Uint8List _bytesOf(Slice<Golang.Uint8> p, [int? n]) {
+Uint8List _u8(Slice<Golang.Uint8> p, [int? n]) {
   final len = n ?? p.length;
   final out = Uint8List(len);
   for (var i = 0; i < len; i++) {
@@ -199,7 +194,7 @@ final class TCPConn extends _NetConn<TCPConn>
     if (_closed) return (Golang.Int(0), _op('write', sys.SysClosed()));
     if (b.length == 0) return (Golang.Int(0), null);
     try {
-      final n = await _fd!.write(_bytesOf(b));
+      final n = await _fd!.write(_u8(b));
       return (Golang.Int(n), null);
     } on Object catch (e) {
       return (Golang.Int(e is sys.SysException ? e.written : 0), _op('write', e));
@@ -340,7 +335,7 @@ final class TCPListener extends GoStruct<TCPListener>
 
   /// `Addr()`.
   @override
-  Addr? addr() => _laddr;
+  Addr? addr$() => _laddr;
 
   /// `Close()`.
   @override
@@ -481,7 +476,7 @@ final class UDPConn extends _NetConn<UDPConn> implements Conn, PacketConn {
 
   Future<(Golang.Int, GoError?)> _send(Slice<Golang.Uint8> b, UDPAddr to) async {
     try {
-      final n = await _fd!.writeTo(_bytesOf(b), _sysAddrOf(to.ip, to.port.toInt(), to.zone));
+      final n = await _fd!.writeTo(_u8(b), _sysAddrOf(to.ip, to.port.toInt(), to.zone));
       return (Golang.Int(n), null);
     } on Object catch (e) {
       return (Golang.Int(0), _opError('write', _net, _laddr, to, _sysError(e)));
@@ -494,7 +489,7 @@ final class UDPConn extends _NetConn<UDPConn> implements Conn, PacketConn {
     Slice<Golang.Uint8> b,
     Addr? addr,
   ) async {
-    if (addr is! UDPAddr && addr != null) {
+    if (addr is! UDPAddr?) {
       return (
         Golang.Int(0),
         _opError('write', _net, _laddr, addr, _invalidAddr(addr)),
@@ -507,7 +502,7 @@ final class UDPConn extends _NetConn<UDPConn> implements Conn, PacketConn {
   Future<(Golang.Int, GoError?)> writeToUDPAddrPort(
     Slice<Golang.Uint8> b,
     netip.AddrPort addr,
-  ) => writeToUDP(b, uDPAddrFromAddrPort(addr));
+  ) => writeToUDP(b, udpAddrFromAddrPort(addr));
 
   /// `Write(b)` síncrono: o socket só escreve suspendendo.
   @override
@@ -526,8 +521,6 @@ final class UDPConn extends _NetConn<UDPConn> implements Conn, PacketConn {
   }
 }
 
-/// `errMissingAddress` do Go.
-final GoError _errMissingAddress = ErrorString(_s('missing address'));
 
 GoError _invalidAddr(Addr addr) => AddrError(
   err: _s('invalid address type'),

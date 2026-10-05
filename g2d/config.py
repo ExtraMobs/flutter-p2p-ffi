@@ -29,7 +29,7 @@ SHIM_INTERFACES = {("fmt", "Stringer"), ("fmt", "GoStringer"), ("fmt", "Formatte
                    ("context", "Context"), ("encoding", "TextMarshaler"), ("encoding", "TextUnmarshaler"),
                    ("encoding", "BinaryMarshaler"), ("encoding", "BinaryUnmarshaler"),
                    ("encoding/json", "Marshaler"), ("encoding/json", "Unmarshaler"),
-                   ("net", "Addr"), ("net", "Error")}
+                   ("net", "Addr"), ("net", "Error"), ("net", "Conn"), ("net", "Listener"), ("net", "PacketConn")}
 
 # Tipos não exportados da stdlib que o código do grafo recebe por inferência
 # (`var NBO = binary.BigEndian`): a classe pública do shim que os representa.
