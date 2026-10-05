@@ -28,7 +28,8 @@ SHIM_INTERFACES = {("fmt", "Stringer"), ("fmt", "GoStringer"), ("fmt", "Formatte
                    ("io", "ByteScanner"), ("io", "RuneReader"), ("io", "RuneScanner"), ("sync", "Locker"),
                    ("context", "Context"), ("encoding", "TextMarshaler"), ("encoding", "TextUnmarshaler"),
                    ("encoding", "BinaryMarshaler"), ("encoding", "BinaryUnmarshaler"),
-                   ("encoding/json", "Marshaler"), ("encoding/json", "Unmarshaler")}
+                   ("encoding/json", "Marshaler"), ("encoding/json", "Unmarshaler"),
+                   ("net", "Addr"), ("net", "Error")}
 
 # Tipos não exportados da stdlib que o código do grafo recebe por inferência
 # (`var NBO = binary.BigEndian`): a classe pública do shim que os representa.
@@ -51,6 +52,8 @@ STDLIB_SHIMS = {
     "reflect": "package:golib_dart/reflect.dart",
     "math": "package:golib_dart/math.dart",
     "math/bits": "package:golib_dart/math/bits.dart",
+    "net": "package:golib_dart/net.dart",
+    "net/netip": "package:golib_dart/net/netip.dart",
     "regexp": "package:golib_dart/regexp.dart",
     "sort": "package:golib_dart/sort.dart",
     "strconv": "package:golib_dart/strconv.dart",
@@ -61,6 +64,14 @@ STDLIB_SHIMS = {
     "unicode": "package:golib_dart/unicode.dart",
     "unicode/utf8": "package:golib_dart/unicode/utf8.dart",
 }
+
+# Tipos nomeados de shim sobre slice/map/func/array/bool que o shim escreve
+# na forma que o g2d gera para um pacote transpilado (`final class IP extends
+# go.Slice<Golang.Uint8>` com `super.alias`, e `IP$Ptr extends go.PtrView`
+# quando tem métodos): conversões `net.IP(b)`/`[]byte(ip)`, zero value,
+# descritores e `*N` seguem as regras dos tipos gerados. Os outros compostos
+# nomeados de shim são typedef do subjacente (`json.RawMessage`).
+SHIM_NAMED_CLASSES = frozenset({("net", "IP"), ("net", "IPMask"), ("net", "HardwareAddr")})
 
 # Pacotes cuja presença no grafo liga os descritores de reflexão (M5):
 # `reflect` e os shims construídos sobre ele.

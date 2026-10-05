@@ -14,9 +14,10 @@ representações dos tipos primitivos Go.
 | `lib/unicode.dart` (+ `lib/src/unicode/range_table.dart`, `predicates.dart`, `tables.g.dart`) | Shim do pacote `unicode`: `RangeTable`/`Range16`/`Range32`/`CaseRange` (structs de shim), predicados e conversões de caixa. `tables.g.dart` é gerado por `tool/gen_unicode*.go` a partir do `unicode` do **Go 1.26.5** (`GOTOOLCHAIN=go1.26.5`, a referência do projeto — difere do Go local em `Cn`/`LC`, mesmo relatando o mesmo `unicode.Version`); `test/unicode_tables_test.dart` confere o gerado em dia e varre 0..0x10FFFF contra `tool/oracle_unicode.go`. |
 | `lib/time.dart` (+ `src/time/sleep.dart`), `lib/context.dart` (+ `src/context/impl.dart`) | Timers do `time` (`Sleep`, `Timer`, `Ticker`, `After`, `AfterFunc`, `Tick`) e o pacote `context`, sobre o escalonador do runtime (M4). `test/fixtures/<caso>.go` + `<caso>.dart` são programas inteiros (o `.dart` escrito como o g2d emitiria) que `test/timer_context_oracle_test.dart` compara com `go build` em VM, JS e Wasm (stdout em bytes, código de saída, `fatal error`). |
 | `lib/reflect.dart` (+ `src/reflect/`) | Shim `reflect` (M5, D1): `RType<T>` (descritor estático que o g2d gera por tipo; básicos e construtores `rt*` exportados também por `builtin.dart`), `Type`/`Value`/`StructTag`/`DeepEqual` lendo só o descritor; `Call`/`Method`/`MakeFunc`/`FuncOf` em `src/reflect/func.dart` (as closures tipadas do `MakeFunc`, `src/reflect/make_func.dart`, são geradas por `tool/gen_make_func.py`), `StructOf`/`Select`/operações de canal em `struct_of.dart`/`select.dart`/`chan_ops.dart`. `test/reflect_test.dart` usa um descritor escrito como o g2d emitiria. |
+| `lib/net.dart` (+ `src/net/`), `lib/net/netip.dart` (+ `src/net/netip/`) | `net` sem rede (endereços e erros: `IP`, `IPMask`, `IPNet`, `HardwareAddr`, `TCPAddr`/`UDPAddr`/`IPAddr`/`UnixAddr`, `OpError`, `DNSError`, `ErrClosed`...) e `net/netip` inteiro, portados do Go 1.26 com a forma Go (`IP` é subclasse de `Slice` como os nomeados gerados; `SHIM_NAMED_CLASSES`). `test/net_test.dart` compara com o oráculo `test/go_net_vectors.go`. |
 | `lib/encoding/json.dart` (+ `src/encoding/json/`), `lib/encoding.dart` | Port do `encoding/json` v1 sobre o shim `reflect`; `encoding` só com as interfaces `Text`/`Binary` `Marshaler`/`Unmarshaler`. |
 
-`fixed_types`, `net`, `net/netip` e `internal/poll` vêm de
+`fixed_types` e `internal/poll` vêm de
 `dart IPFS/packages/boilerplate`, mas a divisão em arquivos já não é a da
 origem: `src/ints.dart` virou library + partes (`src/ints/`), e a espera de I/O
 saiu do `Fd` para o `PollDesc` (`src/internal/poll/poll_desc.dart`, o
@@ -24,9 +25,11 @@ saiu do `Fd` para o `PollDesc` (`src/internal/poll/poll_desc.dart`, o
 leve as correções abaixo para a origem, ou traga as de lá para os arquivos
 correspondentes.
 
-Os ports de `net`, `net/netip` e `internal/poll` mantêm a API Dart idiomática
-da origem (`Ip`, `tryParse`...). Eles ainda não estão ligados ao g2d
-(`STDLIB_SHIMS`), porque a API não segue a regra de nomes do transpilador.
+O port de `internal/poll` mantém a API Dart idiomática da origem e não está
+ligado ao g2d. Os antigos ports de `net` e `net/netip` do boilerplate (`Ip`,
+`tryParse`, sobre `dart:io`) foram substituídos por portas diretas do Go 1.26
+(`ip.go`, `netip.go`...) com a forma Go, sem `dart:io` (VM, JS e Wasm) e
+registradas em `STDLIB_SHIMS`; não há mais o que sincronizar com a origem.
 
 ## Runtime (`lib/src/runtime/`, prefixo `go`)
 

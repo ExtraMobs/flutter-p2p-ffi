@@ -172,18 +172,18 @@ void main() {
     ids.add(Golang.String.fromDart('a'));
     ids.value = IDs(ids.value.append([Golang.String.fromDart('b')]));
     _bubble(ids.value);
-    (switch (_total(ids.value)) {
+    (switch (_total(go.Slice<Golang.String>.alias(ids.value))) {
       final $t1 => fmt.println(
         go.Slice<Object?>.of([
           ids.value,
           Golang.Int(ids.value.length),
           IDs(ids.value.slice(1)),
-          ids.value,
+          go.Slice<Golang.String>.alias(ids.value),
           $t1,
         ], _$e0),
       ),
     });
-    go.Slice<Golang.String> plain = ids.value;
+    go.Slice<Golang.String> plain = go.Slice<Golang.String>.alias(ids.value);
     IDs tail = IDs(ids.value.slice(1));
     tail[0] = Golang.String.fromDart('z');
     (switch (IDs(plain).len()) {

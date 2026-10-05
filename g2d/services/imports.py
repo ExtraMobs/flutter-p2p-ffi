@@ -136,7 +136,8 @@ class ImportTable(Service):
         na classe (lista do dartast, com herdados), ou Unsupported. Método
         de interface não passa por aqui: a interface do shim declara os
         métodos dela, e o valor dinâmico é de qualquer pacote."""
-        if t["kind"] == "pointer":
+        ptr = t["kind"] == "pointer"
+        if ptr:
             t = self.pkg.type_at(t["elem"])
         if t["kind"] != "named" or t["pkg"] not in STDLIB_SHIMS:
             return
@@ -147,6 +148,9 @@ class ImportTable(Service):
 
             ImportTable._shim_members = shims.load_members()
         cls = SHIM_TYPES.get((t["pkg"], t["name"])) or type_name(t["name"])
+        if self.typesys.ptr_class(t) and (ptr or any(m["name"] == go_name and m["ptr"]
+                                                     for m in t.get("methods") or [])):
+            cls += "$Ptr"  # `*N` de shim com forma gerada: os membros moram em N$Ptr
         self.shim_symbol(t["pkg"], cls)  # a classe mesma (tipo alcançado sem ser nomeado)
         members = ImportTable._shim_members.get(t["pkg"], {}).get(cls, set())
         name = member_name(go_name)
