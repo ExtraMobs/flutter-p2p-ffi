@@ -87,6 +87,8 @@ def summarize(engine, decls=None):
     s = ColorSummary()
     for key, ref in field_classes(engine, decls):
         s.edges[key].add(ref)  # o campo é async se recebe uma função async
+    if "shimfields" in engine.services:  # campo func do shim com cor fixa (`net.Resolver.Dial`)
+        s.direct |= engine.services["shimfields"].apply(decls)
 
     def callees(node):
         """(callees que a função espera, mutexes que ela trava)."""

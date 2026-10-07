@@ -7,6 +7,7 @@ library;
 
 import 'dart:async';
 import 'dart:collection';
+import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -112,9 +113,24 @@ Future<List<String>> sysLookupTxt(String name, {SysAddr? server}) =>
 /// Interfaces de rede (ver `io_iface.dart` para o que vem de onde).
 Future<List<SysInterface>> sysInterfaces() => _interfaces();
 
-/// Conteúdo de um arquivo de configuração do sistema (`/etc/protocols`),
-/// ou `null` se não dá para ler.
-String? sysReadFile(String path) => _readSys(path);
+/// Conteúdo do arquivo de texto [path] (`/etc/hosts`, `/etc/resolv.conf`...),
+/// ou `null` se não dá para ler. Síncrono, como o `open` do `net` do Go.
+String? sysReadFile(String path) {
+  try {
+    return File(path).readAsStringSync(encoding: latin1);
+  } on FileSystemException {
+    return null;
+  }
+}
+
+/// O nome do host (`os.Hostname`).
+String sysHostname() {
+  try {
+    return Platform.localHostname;
+  } on Object {
+    return '';
+  }
+}
 
 /// `getsockopt` cru de uma conexão TCP desta plataforma (só na VM; não faz
 /// parte do contrato de [SysTcpConn]): os testes conferem com ele o que

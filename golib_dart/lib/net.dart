@@ -17,6 +17,7 @@
 library;
 
 import 'dart:async';
+import 'dart:math' show Random;
 import 'dart:typed_data';
 
 import 'builtin.dart' hide Addr;
@@ -29,6 +30,7 @@ import 'fmt.dart' show Stringer;
 import 'io.dart' as io;
 import 'net/netip.dart' as netip;
 import 'os.dart' as os;
+import 'src/net/sys/dns_rr.dart' as dns;
 import 'src/net/sys/sys.dart' as sys;
 import 'strconv.dart' as strconv;
 import 'syscall.dart' as syscall;
@@ -49,7 +51,17 @@ part 'src/net/unix.dart';
 part 'src/net/dial.dart';
 part 'src/net/iprawsock.dart';
 part 'src/net/ipconn.dart';
+part 'src/net/dial_parallel.dart';
+part 'src/net/keepalive.dart';
 part 'src/net/lookup.dart';
+part 'src/net/lookup_ip.dart';
+part 'src/net/lookup_port.dart';
+part 'src/net/lookup_types.dart';
+part 'src/net/lookup_go.dart';
+part 'src/net/dns_conf.dart';
+part 'src/net/dns_hosts.dart';
+part 'src/net/dns_go.dart';
+part 'src/net/addrselect.dart';
 part 'src/net/interfaces.dart';
 
 const _byteElem = Elem<Golang.Uint8>(

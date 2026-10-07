@@ -108,8 +108,9 @@ bool _isIPNetwork(String network) {
 /// `internetAddrList` para `ip`/`ip4`/`ip6`: o endereço é só o host.
 Future<(List<IPAddr>, GoError?)> _ipAddrList(String afnet, String addr) async {
   if (addr.isEmpty) return ([IPAddr()], null);
-  final (ips, err) = await _lookupIPAddr(afnet, addr);
+  final (found, err) = await defaultResolver._lookupIPAddr(null, afnet, addr);
   if (err != null) return (const <IPAddr>[], err);
+  final ips = [for (final (ip, z) in found) IPAddr(ip: _ipOf(ip), zone: _s(z))];
   // Issue 18806 do Go: `::` sozinho também tenta 0.0.0.0.
   if (ips.length == 1 && ips[0].ip.equal(iPv6unspecified)) {
     ips.add(IPAddr(ip: iPv4zero));
@@ -130,25 +131,6 @@ Future<(List<IPAddr>, GoError?)> _ipAddrList(String afnet, String addr) async {
     );
   }
   return (out, null);
-}
-
-/// `Resolver.lookupIPAddr`: IP literal (com zona) ou o resolver do sistema.
-Future<(List<IPAddr>, GoError?)> _lookupIPAddr(
-  String network,
-  String host,
-) async {
-  final (a, perr) = netip.parseAddr(_s(host));
-  if (perr == null) {
-    return ([IPAddr(ip: IP(a.asSlice()).to16(), zone: a.zone())], null);
-  }
-  try {
-    final ips = await sys.sysLookupIp(host, network: network);
-    return ([for (final ip in ips) IPAddr(ip: _ipOf(ip))], null);
-  } on sys.SysDnsError catch (e) {
-    return (const <IPAddr>[], _dnsError(e, host) as GoError);
-  } on Object catch (e) {
-    return (const <IPAddr>[], _sysError(e));
-  }
 }
 
 /// `addrList.forResolve`: IPv6 se a rede é `ip` e o endereço tem `:`,
