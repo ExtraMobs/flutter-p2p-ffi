@@ -487,6 +487,15 @@ seletores vira uma cópia do tipo func com `$class`. ⚠️ Campo lido sem ser
 chamado (`f := x.cancel`, `&x.cancel`) ou que recebe um valor `func()`
 qualquer fica na classe da assinatura.
 
+**Campo func de struct do shim com cor fixa** (`ShimFieldColors`,
+`g2d/services/shimfields.py`, `SHIM_FUNC_FIELDS`): o shim declara o tipo
+Dart do campo, então a classe dele é `("field", pacote, "Tipo.Campo")` com a
+cor da tabela, sem prender a assinatura comum. `net.Resolver.Dial` sempre
+suspende (`Future<(Conn?, GoError?)> Function(...)`: o certmagic chama
+`DialContext` dentro dele); uma função síncrona que entra no campo é
+embrulhada (`go.async3`), e `r.Dial(...)` no código gerado espera (fixture
+`netresolver`, com um `Dial` que suspende e outro síncrono).
+
 `$goInit`: vira `Future<void> $goInit() async` se um inicializador de
 variável de pacote, uma função `init` ou (no main) o `$goInit` de uma
 dependência suspende; o `main` e o `$goInit` do main esperam com `await`
@@ -527,13 +536,15 @@ nos erros do Go: `*OpError{Op, Net, Source, Addr, Err}` com
 
 | Go | Dart |
 |---|---|
-| `Dial`, `DialTimeout`, `DialTCP`, `DialUDP`, `Dialer.Dial`/`DialContext` (prazo, `Timeout`, `LocalAddr`, cancelamento pelo `ctx`) | funções e métodos `Future` (cor `async`) |
+| `Dial`, `DialTimeout`, `DialTCP`, `DialUDP`, `Dialer.Dial`/`DialContext` (prazo, `Timeout`, `LocalAddr`, cancelamento pelo `ctx`, `Resolver`, `KeepAliveConfig`) | funções e métodos `Future` (cor `async`); vários endereços pelo `dialSerial` do Go (prazo repartido, erro do primeiro endereço) e, na rede `tcp` com as duas famílias, o `dialParallel` (a família do primeiro endereço na frente, a outra depois de `FallbackDelay`, 300 ms no zero, negativo desliga, ou logo que a primeira falha; `src/net/dial_parallel.dart`) |
 | `Listen`, `ListenPacket`, `ListenTCP`, `ListenUDP`, `ListenConfig` | idem |
-| `TCPConn`, `UDPConn`, `UnixConn` | structs de shim; `Read`/`Write` de versão dupla (`read$async` real, `read` síncrono = `fatal` do `syncOfAsync`); `ReadFrom`/`WriteTo` (`io.ReaderFrom`/`WriterTo`) de `TCPConn`, `CloseRead`/`CloseWrite`, deadlines, `SetNoDelay`/`SetKeepAlive`/`SetKeepAlivePeriod` (`TCP_KEEPIDLE`, segundos para cima) e `SetLinger` (`SO_LINGER`; com 0 o `Close` manda RST) no `TCPConn`. Toda conexão TCP nova nasce com o keepalive do Go (ocioso 15s, 15s entre sondas, 9 sondas), honrando `Dialer.KeepAlive`/`ListenConfig.KeepAlive` (negativo desliga) |
+| `TCPConn`, `UDPConn`, `UnixConn` | structs de shim; `Read`/`Write` de versão dupla (`read$async` real, `read` síncrono = `fatal` do `syncOfAsync`); `ReadFrom`/`WriteTo` (`io.ReaderFrom`/`WriterTo`) de `TCPConn`, `CloseRead`/`CloseWrite`, deadlines, `SetNoDelay`/`SetKeepAlive`/`SetKeepAlivePeriod` (`TCP_KEEPIDLE`, segundos para cima)/`SetKeepAliveConfig` (`KeepAliveConfig`: zero é o padrão, negativo não mexe) e `SetLinger` (`SO_LINGER`; com 0 o `Close` manda RST) no `TCPConn`. Toda conexão TCP nova nasce com o keepalive do Go (ocioso 15s, 15s entre sondas, 9 sondas), honrando `KeepAliveConfig` e `KeepAlive` do `Dialer`/`ListenConfig` (`KeepAlive` negativo desliga) |
 | `TCPListener.Accept`/`AcceptTCP`, `UnixListener.Accept`/`AcceptUnix`, `UDPConn.ReadFrom*`/`WriteTo*`, `UnixConn.ReadFrom`/`ReadFromUnix`/`WriteTo`/`WriteToUnix` | `Future` |
 | sockets Unix de fluxo: `Dial`/`Listen`/`Dialer.Dial`/`ListenConfig.Listen` com `unix`, `DialUnix`, `ListenUnix`, `UnixConn`, `UnixListener` (`Addr`, `SetDeadline`, `Close` que apaga o arquivo do socket, `SetUnlinkOnClose`) | `InternetAddress(path, type: unix)` com `RawSocket`/`RawServerSocket` na VM, `net.connect({path})`/`server.listen({path})` no Node (`src/net/unix.dart`, `sys/io_unix.dart`, `sys/js_unix.dart`); o lado que disca tem `LocalAddr` `@` (sem nome), como no linux; nome `@abstrato` do linux nos dois |
 | `Conn`, `Listener`, `PacketConn` | interfaces de shim (`SHIM_INTERFACES`); tipo gerado que as implementa (embrulho de `net.Conn`) entra no grupo de cor do método |
-| `LookupHost`, `LookupIP`, `LookupTXT`, `LookupPort`, `Resolver.Lookup{Host,IP,IPAddr,NetIP,Port,TXT}`, `Resolve{TCP,UDP}Addr` | resolver do sistema para IP: `getaddrinfo` na VM e `dns.lookup` no Node; TXT por cliente DNS UDP próprio na VM (lê `/etc/resolv.conf` com os padrões do Go) e `dns.resolveTxt` no Node; portas pela tabela embutida do Go |
+| `Resolver` com `Dial` ou `PreferGo` | todo lookup dele pelo cliente DNS puro do Go, como com `CGO_ENABLED=0` (`src/net/dns_go.dart`, `lookup_go.dart`, `dns_conf.dart`, `dns_hosts.dart`, `sys/dns_rr.dart`): `/etc/resolv.conf` inteiro (servidores, `search`/`domain` ou o domínio do hostname, `ndots`, `timeout`, `attempts`, `rotate`, `single-request`, `use-vc`, `trust-ad`), ordem do `hosts:` do `/etc/nsswitch.conf`, `/etc/hosts`, `.onion` fora do DNS, A e AAAA em paralelo, UDP com EDNS0 e retomada por TCP na resposta truncada, `StrictErrors`, erros com `Server`; o `Dial` recebe `udp`/`tcp` e o `ip:53` do resolv.conf, e uma `Conn` que é `PacketConn` troca datagramas, a outra o formato com tamanho |
+| `LookupCNAME`, `LookupSRV`, `LookupMX`, `LookupNS`, `LookupTXT`, `LookupAddr` (pacote e `Resolver`), `SRV`, `MX`, `NS` | sempre o cliente do Go (o do `Resolver`, ou o `Dialer` padrão sobre os sockets do shim, igual na VM e no Node): nomes com ponto final, SRV por prioridade e embaralhado pelo peso, MX embaralhado e ordenado pela preferência, `LookupCNAME` pela consulta A/AAAA (nome canônico da resposta; sem CNAME, o próprio nome), PTR pelo `/etc/hosts` antes do DNS, registros com nome inválido filtrados com o `DNSError` do Go; no navegador sem `Dial`, o erro da rede ausente |
+| `LookupHost`, `LookupIP`, `LookupPort`, `Resolver.Lookup{Host,IP,IPAddr,NetIP,Port}` sem `Dial`/`PreferGo`, `Resolve{TCP,UDP}Addr` | resolver do sistema para IP: `getaddrinfo` na VM e `dns.lookup` no Node (o `Dialer.Resolver` vale no dial); portas pela tabela embutida do Go completada pelo `/etc/services` (o arquivo vence, com os aliases; `parsePort` do Go) |
 | `Interfaces`, `InterfaceAddrs`, `InterfaceByIndex`/`ByName`, `Interface.Addrs` | `NetworkInterface.list` / `os.networkInterfaces`, com `/sys/class/net` no linux para índice, MTU, MAC e flags |
 
 Fixtures `nettcp` (servidor de eco, embrulho de `net.Conn`, 1 MiB, prazo de
@@ -546,7 +557,14 @@ truncamento, `ReadFromUDP`/`WriteToUDP`, prazo, `LookupHost`,
 negativo) e `netunix` (eco sobre socket Unix, endereços dos dois lados,
 `CloseWrite`, prazos, `Close` que apaga o arquivo do socket,
 `ReadFrom`/`WriteTo` do `net.PacketConn` no `UnixConn`, caminho
-ausente/ocupado, rede desconhecida), byte a byte iguais ao `go run` na VM,
+ausente/ocupado, rede desconhecida), `netresolver` (servidor DNS falso UDP e
+TCP no próprio programa, alcançado pelo `Resolver.Dial`: A/AAAA, CNAME,
+SRV, MX, NS, TXT truncado → TCP, PTR, NXDOMAIN, SERVFAIL, nome inválido,
+`/etc/hosts`, `Dial` síncrono que falha), `netports` (`LookupPort` com
+`/etc/services`, rede `ip`, `parsePort`) e `netdialer` (`dialSerial` com o
+primeiro endereço recusado, erro do primeiro, `dialParallel` com
+`FallbackDelay`, `KeepAliveConfig` no `Dialer`, no `ListenConfig` e em
+`SetKeepAliveConfig`), byte a byte iguais ao `go run` na VM,
 no JS e no Wasm; oráculo da camada em
 `golib_dart/test/net_sys_test.dart` e `test/net_sys_node/`.
 
@@ -558,10 +576,15 @@ do socket ao fechar o que o criou); `DialUnix` com `laddr` nomeado dá
 `operation not supported` (o Node não liga a origem de um socket Unix);
 `Listen("unix", "")` (autobind abstrato do linux) dá `missing address`;
 `UnixConn.ReadMsgUnix`/`WriteMsgUnix` e `UnixListener.File`/`SyscallConn` não
-existem no shim; `LookupAddr`/`CNAME`/`MX`/`NS`/`SRV`,
-`Resolver.Dial`, `Dialer.Control`/`FallbackDelay`, `ListenConfig.Control` e
-`KeepAliveConfig`/`SetKeepAliveConfig` não existem no shim (`Unsupported` na
-transpilação); `/etc/services` não é lido; `SO_LINGER` e `TCP_KEEP{IDLE,
+existem no shim; `Dialer.Control`/`ControlContext` e `ListenConfig.Control`
+não existem no shim (`Unsupported` na transpilação); `LookupHost`/`IP` sem
+`Dial`/`PreferGo` usam o resolvedor do sistema (o `DNSError` dele não traz
+`Server`); no cliente do Go, a ordem RFC 6724 acha a origem de cada destino
+pela lista de interfaces (o Go faz um `connect` UDP), o resolv.conf e o
+hosts são relidos a cada 5 s sem olhar o mtime, o cancelamento do `ctx` no
+meio de uma consulta só vale pelo prazo da `Conn` (o Go também), e o
+`singleflight` do `LookupIPAddr` não existe (consultas iguais simultâneas
+saem duas vezes); `SO_LINGER` e `TCP_KEEP{IDLE,
 INTVL,CNT}` só valem no linux (fora dele as constantes mudam e os ajustes
 ficam aceitos e ignorados), e no Node só o tempo de ociosidade do keepalive
 é ajustável (`socket.setKeepAlive`), `SetLinger(0)` vira

@@ -145,6 +145,7 @@ final class TCPConn extends _NetConn<TCPConn>
     'RemoteAddr',
     'SetDeadline',
     'SetKeepAlive',
+    'SetKeepAliveConfig',
     'SetKeepAlivePeriod',
     'SetLinger',
     'SetNoDelay',
@@ -253,20 +254,9 @@ final class TCPConn extends _NetConn<TCPConn>
     if (secs > 0) _fd!.setKeepAliveIdle(secs);
   });
 
-  /// `SetKeepAliveConfig(config)` com `Enable` ligado: as três opções do
-  /// keepalive, cada uma com o padrão do Go no zero e intocada no negativo.
-  GoError? _setKeepAliveConfig(int idleNs, int intervalNs, int count) {
-    final err = setKeepAlive(true);
-    if (err != null) return err;
-    return _setOpt(() {
-      final idle = _keepAliveSecs(idleNs, _keepAliveIdleDefault);
-      if (idle > 0) _fd!.setKeepAliveIdle(idle);
-      final intvl = _keepAliveSecs(intervalNs, _keepAliveIntervalDefault);
-      if (intvl > 0) _fd!.setKeepAliveInterval(intvl);
-      final n = count == 0 ? _keepAliveCountDefault : count;
-      if (n > 0) _fd!.setKeepAliveCount(n);
-    });
-  }
+  /// `SetKeepAliveConfig(config)` (`keepalive.dart`).
+  GoError? setKeepAliveConfig(KeepAliveConfig config) =>
+      _setKeepAliveConfig(this, config);
 
   /// `SetLinger(sec)`: `SO_LINGER` (`sec < 0` desliga; `sec >= 0` liga com
   /// esse prazo). Com `sec == 0`, o `Close` descarta o que falta e manda
@@ -323,7 +313,13 @@ final class _ConnReader with io.ReaderSync implements io.Reader {
 final class TCPListener extends GoStruct<TCPListener>
     with io.CloserSync
     implements Listener {
-  TCPListener._(this._ln, this._net, this._laddr, [this._keepAlive]);
+  TCPListener._(
+    this._ln,
+    this._net,
+    this._laddr, [
+    this._keepAlive,
+    this._keepAliveConfig,
+  ]);
 
   /// `(*TCPListener)(nil)` dentro de uma interface.
   static final TCPListener $nil = TCPListener._(null, 'tcp', null)
@@ -336,6 +332,9 @@ final class TCPListener extends GoStruct<TCPListener>
   /// `ListenConfig.KeepAlive` do listener, repassado a cada conexão aceita
   /// (como o `ln.lc.KeepAlive` do Go).
   final time.Duration? _keepAlive;
+
+  /// `ListenConfig.KeepAliveConfig`, idem.
+  final KeepAliveConfig? _keepAliveConfig;
   bool _closed = false;
 
   @override
@@ -349,7 +348,8 @@ final class TCPListener extends GoStruct<TCPListener>
     'SetDeadline',
   ];
   @override
-  TCPListener $copy() => TCPListener._(_ln, _net, _laddr, _keepAlive);
+  TCPListener $copy() =>
+      TCPListener._(_ln, _net, _laddr, _keepAlive, _keepAliveConfig);
   @override
   void $set(TCPListener o) {}
   @override
@@ -364,7 +364,15 @@ final class TCPListener extends GoStruct<TCPListener>
     if (_closed) return (null, _op('accept', errClosed));
     try {
       final c = await _ln!.accept();
-      return (_newTCPConn(c, _net, keepAlive: _keepAlive), null);
+      return (
+        _newTCPConn(
+          c,
+          _net,
+          keepAlive: _keepAlive,
+          keepAliveConfig: _keepAliveConfig,
+        ),
+        null,
+      );
     } on Object catch (e) {
       return (null, _op('accept', _sysError(e)));
     }
@@ -412,15 +420,24 @@ int _keepAliveSecs(int ns, int padrao) {
   return (d + 999999999) ~/ 1000000000;
 }
 
-/// O `newTCPConn` do Go: toda conexão TCP nova nasce com o keepalive ligado
-/// nos padrões (idle 15s, intervalo 15s, 9 sondas); [keepAlive] é o
-/// `Dialer.KeepAlive`/`ListenConfig.KeepAlive` — zero usa o padrão e
-/// negativo deixa o keepalive desligado. ⚠️ `KeepAliveConfig` ainda não
-/// existe no shim. O Go ignora o erro destes `setsockopt`.
-TCPConn _newTCPConn(sys.SysTcpConn c, String net, {time.Duration? keepAlive}) {
+/// O `newTCPConn` do Go: com [keepAliveConfig] ligado (`Enable`), ele vale;
+/// senão [keepAlive] (`Dialer.KeepAlive`/`ListenConfig.KeepAlive`) liga o
+/// keepalive com essa ociosidade (zero: os padrões, idle 15s, intervalo
+/// 15s, 9 sondas) e, negativo, o deixa desligado. O Go ignora o erro destes
+/// `setsockopt`.
+TCPConn _newTCPConn(
+  sys.SysTcpConn c,
+  String net, {
+  time.Duration? keepAlive,
+  KeepAliveConfig? keepAliveConfig,
+}) {
   final conn = TCPConn._(c, net, _tcpAddrOf(c.local), _tcpAddrOf(c.remote));
-  final idle = keepAlive?.toInt() ?? 0;
-  if (idle >= 0) conn._setKeepAliveConfig(idle, 0, 0);
+  var cfg = keepAliveConfig ?? KeepAliveConfig();
+  final idle = keepAlive ?? time.Duration();
+  if (!cfg.enable && idle.toInt() >= 0) {
+    cfg = KeepAliveConfig(enable: true, idle: idle);
+  }
+  if (cfg.enable) conn.setKeepAliveConfig(cfg);
   return conn;
 }
 

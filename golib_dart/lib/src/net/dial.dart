@@ -70,6 +70,8 @@ Future<(List<sys.SysAddr>, GoError?)> _resolve(
   String network,
   String address, {
   required String op,
+  Resolver? resolver,
+  context.Context? ctx,
 }) async {
   final (host, port, err) = splitHostPort(_s(address));
   if (err != null) return (const <sys.SysAddr>[], err);
@@ -91,39 +93,41 @@ Future<(List<sys.SysAddr>, GoError?)> _resolve(
     }
     return ([sys.SysAddr(b, p, pct < 0 ? '' : h.substring(pct + 1))], null);
   }
-  try {
-    final ips = await sys.sysLookupIp(h, network: family);
-    final out = [for (final ip in ips) if (_fits(ip, family)) sys.SysAddr(ip, p)];
-    if (out.isEmpty) {
-      return (const <sys.SysAddr>[], AddrError(err: _s('no suitable address found'), addr: _s(h)) as GoError);
-    }
-    // O Go prefere IPv4 quando a rede não diz a família (`forResolve`).
-    if (family == 'ip' && op == 'resolve') {
-      out.sort((a, b) => (a.ip.length == 4 ? 0 : 1) - (b.ip.length == 4 ? 0 : 1));
-    }
-    return (out, null);
-  } on sys.SysDnsError catch (e) {
-    return (const <sys.SysAddr>[], _dnsError(e, h) as GoError);
+  // O `Resolver` do Dialer (`d.resolver()`), ou o do sistema.
+  final (ips, lerr) = await (resolver ?? defaultResolver)._lookupIPAddr(ctx, network, h);
+  if (lerr != null) return (const <sys.SysAddr>[], lerr);
+  final out = [for (final (ip, zone) in ips) if (_fits(ip, family)) sys.SysAddr(ip, p, zone)];
+  if (out.isEmpty) {
+    return (const <sys.SysAddr>[], AddrError(err: _s('no suitable address found'), addr: _s(h)) as GoError);
   }
+  // O Go prefere IPv4 quando a rede não diz a família (`forResolve`).
+  if (family == 'ip' && op == 'resolve') {
+    out.sort((a, b) => (a.ip.length == 4 ? 0 : 1) - (b.ip.length == 4 ? 0 : 1));
+  }
+  return (out, null);
 }
 
 // ------------------------------------------------------------ Dialer
 
-/// `net.Dialer`. ⚠️ `Control`/`ControlContext`, `FallbackDelay`,
-/// `KeepAliveConfig` e `Resolver` próprio não existem no shim (os campos
-/// ausentes viram `Unsupported` na transpilação).
+/// `net.Dialer`. ⚠️ `Control`/`ControlContext` não existem no shim (os
+/// campos ausentes viram `Unsupported` na transpilação).
 final class Dialer extends GoStruct<Dialer> {
   Dialer({
     time.Duration? timeout,
     time.Time? deadline,
     this.localAddr,
     bool? dualStack,
+    time.Duration? fallbackDelay,
     time.Duration? keepAlive,
+    KeepAliveConfig? keepAliveConfig,
+    this.resolver,
     this.cancel,
   }) : timeout = timeout ?? time.Duration(),
        deadline = deadline ?? time.Time(),
        dualStack = dualStack ?? false,
-       keepAlive = keepAlive ?? time.Duration();
+       fallbackDelay = fallbackDelay ?? time.Duration(),
+       keepAlive = keepAlive ?? time.Duration(),
+       keepAliveConfig = keepAliveConfig ?? KeepAliveConfig();
 
   /// `(*Dialer)(nil)` dentro de uma interface.
   static final Dialer $nil = Dialer()..$nilPtr = true;
@@ -132,7 +136,15 @@ final class Dialer extends GoStruct<Dialer> {
   time.Time deadline;
   Addr? localAddr;
   bool dualStack;
+
+  /// `FallbackDelay`: espera da família reserva no "Happy Eyeballs" da rede
+  /// `tcp` (zero: 300 ms; negativo: desligado).
+  time.Duration fallbackDelay;
   time.Duration keepAlive;
+  KeepAliveConfig keepAliveConfig;
+
+  /// `Resolver`: quem resolve os nomes (nil: o `DefaultResolver`).
+  Resolver? resolver;
   Chan<EmptyStruct>? cancel;
 
   @override
@@ -145,7 +157,10 @@ final class Dialer extends GoStruct<Dialer> {
     deadline: deadline.$copy(),
     localAddr: localAddr,
     dualStack: dualStack,
+    fallbackDelay: fallbackDelay,
     keepAlive: keepAlive,
+    keepAliveConfig: keepAliveConfig.$copy(),
+    resolver: resolver,
     cancel: cancel,
   );
   @override
@@ -154,14 +169,37 @@ final class Dialer extends GoStruct<Dialer> {
     deadline.$set(o.deadline);
     localAddr = o.localAddr;
     dualStack = o.dualStack;
+    fallbackDelay = o.fallbackDelay;
     keepAlive = o.keepAlive;
+    keepAliveConfig.$set(o.keepAliveConfig);
+    resolver = o.resolver;
     cancel = o.cancel;
   }
 
   @override
-  List<Object?> get $fields => [timeout, deadline, localAddr, dualStack, keepAlive, cancel];
+  List<Object?> get $fields => [
+    timeout,
+    deadline,
+    localAddr,
+    dualStack,
+    fallbackDelay,
+    keepAlive,
+    keepAliveConfig,
+    resolver,
+    cancel,
+  ];
   @override
-  List<String> get $fieldNames => const ['Timeout', 'Deadline', 'LocalAddr', 'DualStack', 'KeepAlive', 'Cancel'];
+  List<String> get $fieldNames => const [
+    'Timeout',
+    'Deadline',
+    'LocalAddr',
+    'DualStack',
+    'FallbackDelay',
+    'KeepAlive',
+    'KeepAliveConfig',
+    'Resolver',
+    'Cancel',
+  ];
 
   /// `Dial(network, address)`.
   Future<(Conn?, GoError?)> dial(Golang.String network, Golang.String address) =>
@@ -210,40 +248,16 @@ final class Dialer extends GoStruct<Dialer> {
         cancel.stop();
       }
     }
-    final (addrs, rerr) = await _resolve(net, address.toString(), op: 'dial');
+    final (addrs, rerr) = await _resolve(net, address.toString(), op: 'dial', resolver: resolver, ctx: ctx);
     if (rerr != null) return (null, _opError('dial', net, null, null, rerr));
-    final when = _when(ctx);
+    final sd = _SysDialer(this, ctx, net, _when(ctx));
     final cancel = _cancelOf(ctx, this.cancel);
-    final la = localAddr;
     try {
-      GoError? last;
-      for (final a in addrs) {
-        if (cancel.done) {
-          return (null, _opError('dial', net, null, _addrFor(net, a), _errCanceled));
-        }
-        try {
-          if (net.startsWith('udp')) {
-            final local = la is UDPAddr
-                ? _sysAddrOf(la.ip, la.port.toInt(), la.zone)
-                : sys.SysAddr(a.ip.length == 4 ? Uint8List(4) : Uint8List(16), 0);
-            final fd = await sys.sysListenUdp(local);
-            return (UDPConn._(fd, net, _udpAddrOf(fd.local), _udpAddrOf(a)) as Conn, null);
-          }
-          final local = la is TCPAddr ? _sysAddrOf(la.ip, la.port.toInt(), la.zone) : null;
-          final fd = await sys.sysDialTcp(a, local: local, deadline: when, cancel: cancel.future);
-          return (_newTCPConn(fd, net, keepAlive: keepAlive) as Conn, null);
-        } on sys.SysCanceled {
-          last = _opError('dial', net, null, _addrFor(net, a), _errCanceled);
-          break;
-        } on sys.SysTimeout {
-          last = _opError('dial', net, null, _addrFor(net, a), cancel.done ? _errCanceled : _errTimeout);
-          break;
-        } on Object catch (e) {
-          last = _opError('dial', net, la, _addrFor(net, a), cancel.done ? _errCanceled : _sysError(e));
-          if (cancel.done) break;
-        }
-      }
-      return (null, last);
+      // `dualStack()`: só a rede `tcp` disca as duas famílias em paralelo.
+      final (primaries, fallbacks) = fallbackDelay.toInt() >= 0 && net == 'tcp'
+          ? _partitionByFamily(addrs)
+          : (addrs, const <sys.SysAddr>[]);
+      return await sd.dialParallel(cancel, primaries, fallbacks);
     } finally {
       cancel.stop();
     }
@@ -352,27 +366,34 @@ Future<(UDPConn?, GoError?)> dialUDP(
 
 // ------------------------------------------------------------ Listen
 
-/// `net.ListenConfig`. ⚠️ `Control` e `KeepAliveConfig` não existem no shim.
+/// `net.ListenConfig`. ⚠️ `Control` não existe no shim.
 final class ListenConfig extends GoStruct<ListenConfig> {
-  ListenConfig({time.Duration? keepAlive}) : keepAlive = keepAlive ?? time.Duration();
+  ListenConfig({time.Duration? keepAlive, KeepAliveConfig? keepAliveConfig})
+    : keepAlive = keepAlive ?? time.Duration(),
+      keepAliveConfig = keepAliveConfig ?? KeepAliveConfig();
 
   /// `(*ListenConfig)(nil)` dentro de uma interface.
   static final ListenConfig $nil = ListenConfig()..$nilPtr = true;
 
   time.Duration keepAlive;
+  KeepAliveConfig keepAliveConfig;
 
   @override
   String get $goType => 'net.ListenConfig';
   @override
   List<String> get $ptrMethods => const ['Listen', 'ListenPacket'];
   @override
-  ListenConfig $copy() => ListenConfig(keepAlive: keepAlive);
+  ListenConfig $copy() => ListenConfig(keepAlive: keepAlive, keepAliveConfig: keepAliveConfig.$copy());
   @override
-  void $set(ListenConfig o) => keepAlive = o.keepAlive;
+  void $set(ListenConfig o) {
+    keepAlive = o.keepAlive;
+    keepAliveConfig.$set(o.keepAliveConfig);
+  }
+
   @override
-  List<Object?> get $fields => [keepAlive];
+  List<Object?> get $fields => [keepAlive, keepAliveConfig];
   @override
-  List<String> get $fieldNames => const ['KeepAlive'];
+  List<String> get $fieldNames => const ['KeepAlive', 'KeepAliveConfig'];
 
   /// `Listen(ctx, network, address)`.
   Future<(Listener?, GoError?)> listen(
@@ -397,7 +418,7 @@ final class ListenConfig extends GoStruct<ListenConfig> {
     try {
       final ln = await sys.sysListenTcp(a);
       return (
-        TCPListener._(ln, net, _tcpAddrOf(ln.local), keepAlive) as Listener,
+        TCPListener._(ln, net, _tcpAddrOf(ln.local), keepAlive, keepAliveConfig.$copy()) as Listener,
         null,
       );
     } on Object catch (e) {
