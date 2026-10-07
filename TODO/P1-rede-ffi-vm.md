@@ -17,6 +17,15 @@ ip4: listen ip4:icmp 127.0.0.1: socket: Operation not supported on transport end
 lookup: <nil>
 ```
 
+## Andamento
+
+- 2026-10-07 no `main`: E0 (shim `syscall` com `Errno`, `IPConn`/`ResolveIPAddr`
+  sem socket, regra `.node.out` no e2e), E1 (`sysffi/`, poller, ponte; ainda
+  sem uso pelo `net`) e S1–S5. Audit 192/1112 (`grpc/internal/resolver/dns/
+  internal` verde); `pion/transport/*/stdnet` passou a ser emitido e caiu em
+  `dart-invalido` (ver `P1-construcao-dart-invalido-audit.md`).
+- Em execução: E2+E7 e E3–E6.
+
 O Go/js simula a rede em memória (`Listen` e `unixgram` funcionam), por isso
 não serve de oráculo para o Node: daí o F5.
 

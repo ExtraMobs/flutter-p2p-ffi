@@ -1,10 +1,10 @@
 # TODO — backlog do desafio kubo/boxo
 
-Estado em 2026-10-05, com o D1 completo (reflexão, `encoding/json`, `time` com layout), o D8
-(interfaces entre pacotes) e o D4 (rede real no `net`) no `main`: **191 de 1112** pacotes
+Estado em 2026-10-07, com o D1 completo (reflexão, `encoding/json`, `time` com layout), o D8
+(interfaces entre pacotes) e o D4 (rede real no `net`, com o shim `syscall`, `IPConn` e as correções S1–S5 do D10) no `main`: **192 de 1112** pacotes
 do grafo do kubo verdes (`docs/audit.md`, Dart SDK 3.13.5; o `main` de
 2026-10-02 regerado no mesmo ambiente dá 157, não os 167 registrados antes).
-A fronteira (pacotes não verdes com as dependências todas verdes) tem 167
+A fronteira (pacotes não verdes com as dependências todas verdes) tem 166
 pacotes. Os números abaixo saem do ranking do audit
 (pacotes afetados / pacotes na fronteira).
 
