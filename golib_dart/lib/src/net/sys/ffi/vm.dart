@@ -9,7 +9,8 @@
 /// - [FfiFd]: socket não bloqueante da libc com `waitRead`/`waitWrite`,
 ///   prazos, `io` (repete uma chamada leaf até não dar `EAGAIN`), `read`,
 ///   `write`, `connect` não bloqueante (`POLLOUT` + `SO_ERROR`), `accept`
-///   (`accept4`), `localAddr`/`peerAddr` e `close` síncrono.
+///   (`accept4`), `localAddr`/`peerAddr`, `close` síncrono e `release`
+///   (entrega o número do fd a outro dono depois do ack do poller).
 /// - [ffiToRawSocket]: conexão de fluxo do FFI → `RawSocket` do `dart:io`.
 /// - [FfiErrno]: errno cru; prazo/fechado/cancelado são os `SysTimeout`/
 ///   `SysClosed`/`SysCanceled` do motor.

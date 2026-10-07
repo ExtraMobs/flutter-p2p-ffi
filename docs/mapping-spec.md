@@ -58,6 +58,16 @@ Legenda: ✅ fiel · ⚠️ fiel no caso comum, com limite conhecido · ❌ não
   para objetos, variáveis ou campos Dart. O Dart não tem `ref`/`out` nem
   endereço de variável. Por isso os ponteiros são as classes `go.Ptr`
   (`Box`/`ElemPtr`/`FieldPtr`), e structs e arrays são o próprio endereço.
+- **`dart:ffi` para syscalls (decisão F1, 2026-10-07).** Exceção restrita:
+  `dart:ffi` entra só em `golib_dart/lib/src/sysffi/` (libc por `@Native`
+  resolvido do processo, sem `package:ffi`) e nas libraries da VM que o
+  usam (`lib/src/net/sys/ffi/`), alcançadas **só** por import condicional
+  `if (dart.library.ffi)` (`src/net/sys/ffi/ffi.dart`); o dart2js e o
+  dart2wasm ficam com o stub (provado em
+  `golib_dart/test/net_ffi_build_test.dart`, com o import direto como
+  controle negativo). Serve à rede da VM (D4/FFI), e depois ao shim
+  `syscall`, ao `x/sys/unix` (D5) e ao `Fd()` (D3); nunca a ponteiros Go.
+  Só linux/amd64 (F3); macOS na etapa E8; Windows sem FFI.
 - **`Type` como objeto de primeira classe.** Nas três plataformas:
   - a identidade por classe funciona (`runtimeType == Celsius`, `is T`
     reificado, `Type` como chave de map);
@@ -570,6 +580,36 @@ não tem `shutdown(SHUT_RD)` (o `CloseRead` só passa a dar EOF); a VM não
 expõe `IPV6_V6ONLY` para UDP; fora do linux, MTU, MAC e
 flags de interface são aproximados. O DoH do kubo é código transpilado e
 vem com o shim `net/http`.
+
+#### Rede FFI da VM (F1, etapa E1: só a base)
+
+Infraestrutura pronta e testada, ainda **não ligada** a `Dial`/`Listen`/
+`Control` (etapas E2–E7 do plano D4/FFI); nada no comportamento do shim
+`net` mudou.
+
+- `src/sysffi/`: libc por `@Native` (resultado `>= 0` ou `-errno` cru).
+  Regra do errno: chamada leaf com o ponteiro do `__errno_location` pego
+  antes e lido logo depois, sem alocação no meio (0 erro sob GC em
+  `net_ffi_test.dart`); `close` e `poll` não são leaf. Buffers de dados
+  vão direto do `Uint8List` (`TypedData.address`). Constantes e layouts do
+  linux/amd64 (`consts_linux.dart`, `structs_linux.dart`).
+- Poller (`src/net/sys/ffi/poller*.dart`): um isolate auxiliar por isolate
+  que usa a rede FFI, `poll(2)` sobre um `eventfd` + interesses de um
+  disparo, em fatias de 250 ms (a VM encerra com ele vivo; testado em JIT e
+  AOT). `FfiFd` (`fd.dart`): `waitRead`/`waitWrite` dentro do `heldIo` do
+  detector de deadlock, prazos pelo `Deadline` do motor (`SysTimeout`),
+  cancelamento (`SysCanceled`), `connect` não bloqueante (`POLLOUT` +
+  `SO_ERROR`), `accept4`, e `close` síncrono que acorda quem espera com
+  `SysClosed` e só faz o `close(2)` depois do ack do auxiliar;
+  `NativeFinalizer` fecha fd esquecido.
+- Ponte (`bridge.dart`): conexão de fluxo conectada do FFI vira
+  `RawSocket` do `dart:io` (o caminho atual, `Fd`/`PollDesc` do
+  `internal/poll`) por `SCM_RIGHTS` num par Unix abstrato privado, com
+  `SO_PEERCRED` (pid igual ao `getpid()`) conferido nos dois lados. A sessão
+  só vive durante a transferência (um `RawSocket` aberto segura a VM).
+  ⚠️ Listeners e UDP não passam pela ponte (o `dart:io` não tem
+  `toRawServerSocket`, e `toRawDatagramSocket` não funciona na VM): ficam
+  no FFI.
 
 ### `Chan<T>` (`src/runtime/chan.dart`)
 

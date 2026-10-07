@@ -203,6 +203,21 @@ void main() {
       await expectLater(w, throwsA(isA<SysCanceled>()));
     });
 
+    test('release entrega o fd aberto depois do ack', () async {
+      final (a, b) = ffiPair();
+      addTearDown(b.close);
+      final cancel = Completer<void>();
+      final w = a.waitRead(cancel: cancel.future);
+      await Future<void>.delayed(const Duration(milliseconds: 10));
+      cancel.complete();
+      await expectLater(w, throwsA(isA<SysCanceled>()));
+      // O interesse continua armado no auxiliar: o número só sai com o ack.
+      final fd = await a.release();
+      expect(a.isClosed, isTrue);
+      expect(sf.fcntl(fd, sf.F_GETFD), greaterThanOrEqualTo(0));
+      expect(sf.close(fd), 0);
+    });
+
     test('espera FFI segura o detector de deadlock', () async {
       final (a, b) = ffiPair();
       addTearDown(a.close);

@@ -22,8 +22,13 @@ import 'errors.dart';
 import 'poller.dart';
 
 final class FfiFd implements Finalizable {
-  /// Assume [fd] (já não bloqueante): daqui em diante é deste objeto.
+  /// Assume [fd]: daqui em diante é deste objeto. Liga `O_NONBLOCK` se
+  /// faltar (as chamadas leaf não podem bloquear).
   FfiFd.adopt(int fd) : _fd = fd, _watch = PollWatch(fd) {
+    final fl = sf.fcntl(fd, sf.F_GETFL);
+    if (fl >= 0 && fl & sf.O_NONBLOCK == 0) {
+      sf.fcntl(fd, sf.F_SETFL, fl | sf.O_NONBLOCK);
+    }
     _rd = Deadline(_watch.wakeReaders);
     _wd = Deadline(_watch.wakeWriters);
     _finalizer.attach(this, Pointer<Void>.fromAddress(fd), detach: this);
@@ -245,15 +250,13 @@ final class FfiFd implements Finalizable {
     }
   }
 
-  /// Entrega o número do fd a outro dono (a ponte para o `dart:io`) sem
-  /// fechá-lo: depois disto este objeto está fechado e o finalizador
-  /// desligado. Só sem espera pendente nem interesse armado.
-  int release() {
+  /// Entrega o número do fd a outro dono sem fechá-lo: este objeto fica
+  /// fechado (quem espera acorda com `SysClosed`) e o finalizador
+  /// desligado; o número sai depois do ack do poller, quando o auxiliar já
+  /// não o tem no `poll`.
+  Future<int> release() {
     final fd = _fd;
-    if (fd < 0) throw const SysClosed();
-    if (_watch.inHelper) {
-      throw StateError('FfiFd.release com interesse armado no poller');
-    }
+    if (fd < 0) return Future.error(const SysClosed());
     _fd = -1;
     _finalizer.detach(this);
     _rd.cancel();
@@ -261,8 +264,19 @@ final class FfiFd implements Finalizable {
     _watch
       ..wakeReaders()
       ..wakeWriters();
-    if (!_done.isCompleted) _done.complete();
-    return fd;
+    final out = Completer<int>();
+    void handOver() {
+      if (!_done.isCompleted) _done.complete();
+      out.complete(fd);
+    }
+
+    final poller = Poller.current;
+    if (poller != null && _watch.inHelper) {
+      poller.forget(_watch, handOver);
+    } else {
+      handOver();
+    }
+    return out.future;
   }
 
   void _check(int events) {
@@ -276,6 +290,7 @@ final class FfiFd implements Finalizable {
     _check(events);
     final poller = await Poller.instance();
     _check(events);
+    if (poller.dead) throw StateError('golib-netpoller morreu');
     final c = Completer<void>();
     final list = events == sf.POLLIN ? _watch.readers : _watch.writers;
     list.add(c);

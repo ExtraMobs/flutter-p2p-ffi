@@ -70,15 +70,12 @@ final class Poller {
   static Future<Poller> instance() {
     final live = _live;
     if (live != null) return Future.value(live);
-    return _starting ??= _start();
+    return _starting ??= _start().whenComplete(() => _starting = null);
   }
 
   static Future<Poller> _start() async {
     final efd = sf.eventfd(0, sf.EFD_NONBLOCK | sf.EFD_CLOEXEC);
-    if (efd < 0) {
-      _starting = null;
-      throw FfiErrno('eventfd', -efd);
-    }
+    if (efd < 0) throw FfiErrno('eventfd', -efd);
     final port = RawReceivePort(null, 'golib-netpoller');
     final p = Poller._(port, efd);
     port.handler = p._onMessage;
@@ -93,12 +90,10 @@ final class Poller {
     } catch (_) {
       port.close();
       sf.close(efd);
-      _starting = null;
       rethrow;
     }
     port.keepIsolateAlive = p._holds > 0;
     _live = p;
-    _starting = null;
     return p;
   }
 
