@@ -9,6 +9,10 @@
 /// (`IPNet`, `TCPAddr`, `OpError`...) seguem a forma de [GoStruct] das
 /// structs geradas; as interfaces `Addr` e `Error` entram em
 /// `SHIM_INTERFACES`.
+///
+/// Rede real em `src/net/{conn,unix,dial,lookup,interfaces}.dart` (D4); IP
+/// bruto sem socket (`ResolveIPAddr`, `IPConn`) em `src/net/{iprawsock,
+/// ipconn}.dart`; os erros de sistema são `syscall.Errno` (shim `syscall`).
 // ignore_for_file: library_prefixes
 library;
 
@@ -27,6 +31,7 @@ import 'net/netip.dart' as netip;
 import 'os.dart' as os;
 import 'src/net/sys/sys.dart' as sys;
 import 'strconv.dart' as strconv;
+import 'syscall.dart' as syscall;
 import 'time.dart' as time;
 
 part 'src/net/ip.dart';
@@ -42,6 +47,8 @@ part 'src/net/errno.dart';
 part 'src/net/conn.dart';
 part 'src/net/unix.dart';
 part 'src/net/dial.dart';
+part 'src/net/iprawsock.dart';
+part 'src/net/ipconn.dart';
 part 'src/net/lookup.dart';
 part 'src/net/interfaces.dart';
 

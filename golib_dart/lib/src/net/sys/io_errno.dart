@@ -1,20 +1,8 @@
 part of 'sys_io.dart';
 
 // errno numérico do SO → nome; o texto vem de `errnoText` (o do Go no
-// linux), em qualquer SO.
-
-const _linuxErrno = <int, String>{
-  2: 'ENOENT', 20: 'ENOTDIR', 21: 'EISDIR', 30: 'EROFS', //
-  36: 'ENAMETOOLONG', 40: 'ELOOP', 88: 'ENOTSOCK',
-  1: 'EPERM', 4: 'EINTR', 9: 'EBADF', 11: 'EAGAIN', 12: 'ENOMEM', //
-  13: 'EACCES', 22: 'EINVAL', 23: 'ENFILE', 24: 'EMFILE', 32: 'EPIPE',
-  90: 'EMSGSIZE', 93: 'EPROTONOSUPPORT', 95: 'EOPNOTSUPP',
-  97: 'EAFNOSUPPORT', 98: 'EADDRINUSE', 99: 'EADDRNOTAVAIL',
-  100: 'ENETDOWN', 101: 'ENETUNREACH', 103: 'ECONNABORTED',
-  104: 'ECONNRESET', 105: 'ENOBUFS', 106: 'EISCONN', 107: 'ENOTCONN',
-  110: 'ETIMEDOUT', 111: 'ECONNREFUSED', 112: 'EHOSTDOWN',
-  113: 'EHOSTUNREACH', 114: 'EALREADY', 115: 'EINPROGRESS',
-};
+// linux), em qualquer SO. No linux o número já é o do `syscall.Errno`:
+// todo errno tem nome (`errnoNames`, a tabela do Go).
 
 const _darwinErrno = <int, String>{
   2: 'ENOENT', 20: 'ENOTDIR', 21: 'EISDIR', 30: 'EROFS', //
@@ -45,7 +33,7 @@ final Map<int, String> _errnoNames = Platform.isWindows
     ? _windowsErrno
     : (Platform.isMacOS || Platform.isIOS)
     ? _darwinErrno
-    : _linuxErrno;
+    : errnoNames;
 
 /// Qualquer falha de uma operação de I/O → exceção do motor. [written]: o
 /// que um `write` já tinha entregue.

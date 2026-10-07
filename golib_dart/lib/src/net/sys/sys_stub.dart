@@ -48,3 +48,6 @@ Future<List<String>> sysLookupTxt(String name, {SysAddr? server}) async =>
 
 Future<List<SysInterface>> sysInterfaces() async =>
     throw SysError.unsupported('netlink');
+
+/// Sem sistema de arquivos aqui.
+String? sysReadFile(String path) => null;

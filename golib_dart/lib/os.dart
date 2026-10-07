@@ -21,6 +21,7 @@ import 'fixed_types/golang.dart' as Golang;
 import 'io.dart' as io;
 import 'io/fs.dart' as fs;
 import 'src/runtime/output.dart' as out;
+import 'syscall.dart' as syscall;
 
 part 'src/os/errors.dart';
 part 'src/os/file.dart';

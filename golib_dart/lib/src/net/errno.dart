@@ -5,55 +5,19 @@ part of '../../net.dart';
 // sobre um `syscall.Errno`, `os.ErrDeadlineExceeded`, `ErrClosed`,
 // `*DNSError`).
 
-/// `syscall.Errno` com o texto do Go no linux (`connection refused`...).
-/// O pacote `syscall` não tem shim: o tipo só aparece dentro dos erros.
-final class _Errno implements GoError, Timeouter, Temporary, Golang.GoTyped {
-  _Errno(this.code, this.text);
-
-  /// Nome do errno (`ECONNREFUSED`).
-  final String code;
-  final String text;
-
-  @override
-  Golang.String error() => Golang.String.fromDart(text);
-
-  /// `Errno.Timeout`: EAGAIN, EWOULDBLOCK, ETIMEDOUT.
-  @override
-  bool timeout() =>
-      code == 'EAGAIN' || code == 'EWOULDBLOCK' || code == 'ETIMEDOUT';
-
-  /// `Errno.Temporary`: EINTR, EMFILE, ENFILE, ECONNRESET, ECONNABORTED ou
-  /// timeout.
-  @override
-  bool temporary() =>
-      const {
-        'EINTR',
-        'EMFILE',
-        'ENFILE',
-        'ECONNRESET',
-        'ECONNABORTED',
-      }.contains(code) ||
-      timeout();
-
-  @override
-  String get $goType => 'syscall.Errno';
-  @override
-  List<String> get $methods => const ['Error', 'Is', 'Temporary', 'Timeout'];
-
-  @override
-  bool operator ==(Object other) => other is _Errno && other.code == code;
-  @override
-  int get hashCode => code.hashCode;
+/// O erro do sistema de um [sys.SysError]: o `syscall.Errno` do número
+/// (numeração do linux em toda plataforma). ⚠️ Falha sem errno (`EOTHER`:
+/// exceção do `dart:io`/Node sem código conhecido) vira um erro de texto,
+/// como `errors.New`.
+GoError _errnoOf(sys.SysError x) {
+  final n = x.errno;
+  return n != null ? syscall.Errno(n) : _errNew(x.message);
 }
-
-
 
 /// O "operation not supported" do navegador e do que o shim não faz
 /// (sockets Unix e IP brutos).
-GoError _notSupported(String syscall) => os.newSyscallError(
-  _s(syscall),
-  _Errno('EOPNOTSUPP', 'operation not supported'),
-)!;
+GoError _notSupported(String call) =>
+    os.newSyscallError(_s(call), syscall.eopnotsupp)!;
 
 Golang.String _s(String s) => Golang.String.fromDart(s);
 
@@ -62,10 +26,7 @@ GoError _sysError(Object e) => switch (e) {
   sys.SysTimeout() => os.errDeadlineExceeded,
   sys.SysClosed() => errClosed,
   sys.SysCanceled() => _errCanceled,
-  final sys.SysError x => os.newSyscallError(
-    _s(x.syscall),
-    _Errno(x.code, x.message),
-  )!,
+  final sys.SysError x => os.newSyscallError(_s(x.syscall), _errnoOf(x))!,
   final sys.SysDnsError x => _dnsError(x),
   _ => throw e,
 };
@@ -80,5 +41,10 @@ DNSError _dnsError(sys.SysDnsError x, [String? name]) => DNSError(
 );
 
 /// `*OpError` montado como o Go (`Source`/`Addr` nil viram interface nil).
-OpError _opError(String op, String net, Addr? source, Addr? addr, GoError err) =>
-    OpError(op: _s(op), net: _s(net), source: source, addr: addr, err: err);
+OpError _opError(
+  String op,
+  String net,
+  Addr? source,
+  Addr? addr,
+  GoError err,
+) => OpError(op: _s(op), net: _s(net), source: source, addr: addr, err: err);

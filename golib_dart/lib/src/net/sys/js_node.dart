@@ -85,7 +85,7 @@ SysException _mapNode(JSAny? err, String syscall, {int written = 0}) {
     code = 'EPIPE';
   }
   if (code == 'ENOTSUP') code = 'EOPNOTSUPP';
-  if (errnoText.containsKey(code)) {
+  if (errnoText(code) != null) {
     return SysError.errno(syscall, code, written: written);
   }
   final msg = _str(o?['message']) ?? '$err';

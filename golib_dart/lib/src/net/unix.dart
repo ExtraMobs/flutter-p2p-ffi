@@ -159,13 +159,7 @@ final class UnixConn extends _NetConn<UnixConn> implements Conn, PacketConn {
     if (addr is! UnixAddr) {
       return (
         Golang.Int(0),
-        _opError(
-          'write',
-          _net,
-          _laddr,
-          addr,
-          _Errno('EINVAL', 'invalid argument'),
-        ),
+        _opError('write', _net, _laddr, addr, syscall.einval),
       );
     }
     return writeToUnix(b, addr);
@@ -177,12 +171,9 @@ final class UnixConn extends _NetConn<UnixConn> implements Conn, PacketConn {
     if (_connected) return errWriteToConnected;
     if (addr == null) return _errMissingAddress;
     if (addr.net != _s(_net)) {
-      return _Errno('EAFNOSUPPORT', 'address family not supported by protocol');
+      return syscall.eafnosupport;
     }
-    return os.newSyscallError(
-      _s('sendto'),
-      _Errno('EISCONN', 'transport endpoint is already connected'),
-    )!;
+    return os.newSyscallError(_s('sendto'), syscall.eisconn)!;
   }
 
   /// `CloseRead()`.
@@ -315,7 +306,10 @@ Future<(UnixConn?, GoError?)> dialUnix(
 ) async {
   final net = network.toString();
   if (!_unixNets.contains(net)) {
-    return (null, _opError('dial', net, laddr, raddr, UnknownNetworkError(network)));
+    return (
+      null,
+      _opError('dial', net, laddr, raddr, UnknownNetworkError(network)),
+    );
   }
   final (c, err) = await _dialUnix(net, laddr, raddr);
   return (c, err);
@@ -358,7 +352,10 @@ Future<(UnixListener?, GoError?)> listenUnix(
 ) async {
   final net = network.toString();
   if (net != 'unix' && net != 'unixpacket') {
-    return (null, _opError('listen', net, null, laddr, UnknownNetworkError(network)));
+    return (
+      null,
+      _opError('listen', net, null, laddr, UnknownNetworkError(network)),
+    );
   }
   final (ln, err) = await _listenUnix(net, laddr);
   return (ln, err);
@@ -390,7 +387,10 @@ Future<(UnixConn?, GoError?)> listenUnixgram(
 ) async {
   final net = network.toString();
   if (net != 'unixgram') {
-    return (null, _opError('listen', net, null, laddr, UnknownNetworkError(network)));
+    return (
+      null,
+      _opError('listen', net, null, laddr, UnknownNetworkError(network)),
+    );
   }
   return (null, _opError('listen', net, null, laddr, _notSupported('socket')));
 }

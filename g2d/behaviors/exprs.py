@@ -224,6 +224,8 @@ class SelectorExpr(ExprBehavior):
             # Método promovido de tipo do shim (`TCPConn.Read` vem do `conn`
             # não exportado): a classe do shim o declara direto.
             info = dict(info, index=info["index"][-1:])
+        elif info["kind"] == "method" and len(info["index"]) > 2:
+            info = self.shim_cut(t, info)
         self.check_shim_members(t, info, sel, n)
         if info["kind"] == "method" and len(info["index"]) > 1:
             explicit = self.promoted_ptr_method(n, x, t, info)
@@ -258,6 +260,19 @@ class SelectorExpr(ExprBehavior):
             # Method value `x.M` (receptor valor): liga uma cópia de x feita agora.
             recv += ".$copy()"
         return f"{recv}.{mname}", POSTFIX
+
+    def shim_cut(self, t, info):
+        """Caminho de embedding que atravessa um tipo do shim (`Close` de um
+        `*net.IPConn` embutido vem do `conn` não exportado dele): a classe do
+        shim declara os promovidos, então o caminho para nela."""
+        idx, cur = info["index"], t
+        for k, fi in enumerate(idx[:-2]):
+            if cur["kind"] == "pointer":
+                cur = self.pkg.type_at(cur["elem"])
+            cur = self.pkg.type_at(self.typesys.underlying(cur)["fields"][fi]["type"])
+            if self.concurrency.shim_owner(cur):
+                return dict(info, index=idx[:k + 1] + idx[-1:])
+        return info
 
     def promoted_ptr_method(self, n, x, t, info):
         """`h.Inc()` com Inc de receptor ponteiro de um N não-struct

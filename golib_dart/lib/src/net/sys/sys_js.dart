@@ -101,6 +101,10 @@ Future<List<SysInterface>> sysInterfaces() async {
   return _interfaces();
 }
 
+/// Conteúdo de um arquivo de configuração do sistema (`/etc/protocols`),
+/// ou `null` (sem Node, ou sem o arquivo).
+String? sysReadFile(String path) => _node == null ? null : _readFile(path);
+
 /// Sem Node: `operation not supported`. Com Node: garante o agendamento
 /// do dart2js (`self`) antes do primeiro temporizador.
 void _require(String syscall) {
