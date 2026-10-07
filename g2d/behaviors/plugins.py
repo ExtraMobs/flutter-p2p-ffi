@@ -23,6 +23,7 @@ from g2d.services.naming import Naming
 from g2d.services.operands import Operands
 from g2d.services.promotion import Promotion
 from g2d.services.reflection import Reflection
+from g2d.services.shimfields import ShimFieldColors
 from g2d.services.types import TypeMapper
 from g2d.services.typesys import TypeSystem
 from g2d.services.values import ValueSemantics
@@ -122,6 +123,7 @@ class ConcurrencyPlugin(Plugin):
     def install(self, engine):
         engine.register_service(Concurrency)
         engine.register_service(DualIO)
+        engine.register_service(ShimFieldColors)
         engine.register_analysis(color.ColorAnalysis)
         engine.register_expr(exprs.AsyncCall)
         engine.register_expr(exprs.AsyncValueGuard)

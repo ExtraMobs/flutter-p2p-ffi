@@ -101,6 +101,25 @@ Future<List<SysInterface>> sysInterfaces() async {
   return _interfaces();
 }
 
+/// Conteúdo do arquivo de texto [path], ou `null` (sem Node, ou não dá
+/// para ler). Síncrono (`fs.readFileSync`).
+String? sysReadFile(String path) {
+  if (_node == null) return null;
+  try {
+    return _str(
+      _fs.callMethod<JSAny?>('readFileSync'.toJS, path.toJS, 'latin1'.toJS),
+    );
+  } catch (_) {
+    return null;
+  }
+}
+
+/// O nome do host (`os.hostname()`); vazio sem Node.
+String sysHostname() {
+  if (_node == null) return '';
+  return _str(_os.callMethod<JSAny?>('hostname'.toJS)) ?? '';
+}
+
 /// Sem Node: `operation not supported`. Com Node: garante o agendamento
 /// do dart2js (`self`) antes do primeiro temporizador.
 void _require(String syscall) {
