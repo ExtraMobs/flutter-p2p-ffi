@@ -10,6 +10,13 @@ G2D_UPDATE_GOLDEN=1 regrava os arquivos esperados (revisar o diff!). Os testes
 são numerados na ordem do pipeline (unittest ordena por nome), então o update
 de uma etapa já alimenta a seguinte.
 O teste end-to-end compara `go run` com `dart run` do código gerado.
+
+Saída do Node (decisão F5 do dono): o que o Node não suporta (sockets Unix de
+datagrama, IP bruto, `Control`...) falha como o Go falharia numa plataforma
+sem o recurso. Esses casos versionam `<caso>.node.out`, a saída esperada no JS
+e no Wasm; a VM continua idêntica ao `go run`. Cada linha do `.node.out` que
+difere do `go run` tem de ser o erro de "não suportado" da mesma operação
+(mesmo rótulo antes do primeiro `: `), então a divergência é sempre a prevista.
 """
 
 import json
@@ -85,6 +92,26 @@ def run(cmd, cwd=None, binary=False):
         err = r.stderr.decode("utf-8", "replace")
         raise AssertionError(f"{' '.join(cmd)} falhou ({r.returncode}):\n{r.stdout!r}\n{err}")
     return r.stdout if binary else r.stdout.decode("utf-8")
+
+
+# Erros Go de recurso ausente na plataforma (textos do linux, como no shim).
+UNSUPPORTED = ("operation not supported", "protocol not available")
+
+
+def node_divergences(want, got):
+    """Linhas de `got` (saída no Node) que divergem de `want` (`go run`) sem
+    ser o erro de "não suportado" da mesma operação. Vazio = divergência aceita."""
+    w, g = want.decode("utf-8", "replace").split("\n"), got.decode("utf-8", "replace").split("\n")
+    if len(w) != len(g):
+        return [f"{len(g)} linhas no Node, {len(w)} no go run"]
+    bad = []
+    for i, (a, b) in enumerate(zip(w, g), 1):
+        if a == b:
+            continue
+        label = b.split(": ", 1)[0]
+        if not (any(u in b for u in UNSUPPORTED) and a.split(": ", 1)[0] == label and label != b):
+            bad.append(f"linha {i}: go run {a!r}, Node {b!r}")
+    return bad
 
 
 def check_golden(test, path, actual):
@@ -163,14 +190,54 @@ class GoldenTest(unittest.TestCase):
                     self.assertEqual(want, run(["dart", "run", src], cwd=tmp, binary=True))
                 if not HAVE_NODE:
                     continue
+                node_out = case_file(case, ".node.out")
+                node_want = want
+                if os.path.exists(node_out):
+                    with open(node_out, "rb") as f:
+                        node_want = f.read()
                 js = os.path.join("out", case + ".js")
                 with self.subTest(case=case, platform="js"):
                     run(["dart", "compile", "js", "-O1", "-o", js, src], cwd=tmp)
-                    self.assertEqual(want, run(["node", js], cwd=tmp, binary=True))
+                    got = run(["node", js], cwd=tmp, binary=True)
+                    if UPDATE and got != want and not node_divergences(want, got):
+                        with open(node_out, "wb") as f:
+                            f.write(got)
+                        node_want = got
+                    elif UPDATE and got == want and os.path.exists(node_out):
+                        os.remove(node_out)
+                        node_want = want
+                    self.assertEqual([], node_divergences(want, node_want), f"{node_out} fora da regra F5")
+                    self.assertEqual(node_want, got)
                 mjs, wasm = os.path.join("out", case + ".mjs"), os.path.join("out", case + ".wasm")
                 with self.subTest(case=case, platform="wasm"):
                     run(["dart", "compile", "wasm", "-o", wasm, src], cwd=tmp)
-                    self.assertEqual(want, run(["node", WASM_RUNNER, mjs, wasm], cwd=tmp, binary=True))
+                    self.assertEqual(node_want, run(["node", WASM_RUNNER, mjs, wasm], cwd=tmp, binary=True))
+
+class NodeOutputRuleTest(unittest.TestCase):
+    """Regra F5: o `.node.out` só diverge do `go run` no erro de "não suportado"."""
+
+    def test_same_output(self):
+        self.assertEqual([], node_divergences(b"a: <nil>\n", b"a: <nil>\n"))
+
+    def test_unsupported_same_operation(self):
+        want = b"tcp: ok\nunixgram: <nil>\n"
+        got = b"tcp: ok\nunixgram: listen unixgram /tmp/x: socket: operation not supported\n"
+        self.assertEqual([], node_divergences(want, got))
+        self.assertEqual([], node_divergences(b"opt: 1\n", b"opt: setsockopt: protocol not available\n"))
+
+    def test_other_divergence_rejected(self):
+        self.assertTrue(node_divergences(b"tcp: ok\n", b"tcp: connection refused\n"))
+
+    def test_different_operation_rejected(self):
+        got = b"tcp: listen unixgram /tmp/x: socket: operation not supported\n"
+        self.assertTrue(node_divergences(b"unixgram: <nil>\n", got))
+
+    def test_unlabeled_line_rejected(self):
+        self.assertTrue(node_divergences(b"x\n", b"socket operation not supported\n"))
+
+    def test_line_count_mismatch_rejected(self):
+        self.assertTrue(node_divergences(b"a\nb\n", b"a\n"))
+
 
 class ShimSymbolsTest(unittest.TestCase):
     @unittest.skipUnless(HAVE_DART, "dart ausente")

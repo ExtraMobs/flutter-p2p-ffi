@@ -74,7 +74,7 @@ Na fronteira: `cespare/xxhash` (v1 e v2), `spaolacci/murmur3`,
 ## Pendências da rede para quando o D5 for decidido (dono, 2026-10-07)
 
 Implementar junto com o D5, assim que possível. Plano completo em
-`/mnt/project-files/analises/d4-ffi-vm-plano.md` (etapas E2 e E6).
+`TODO/P1-rede-ffi-vm.md` (etapas E2 e E6).
 
 - `golang.org/x/sys/unix` substituído à mão sobre a mesma camada libc do
   `dart:ffi` da VM (`golib_dart/lib/src/net/sys/ffi/`, exceção F1 do plano):

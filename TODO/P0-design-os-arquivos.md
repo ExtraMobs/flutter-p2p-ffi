@@ -54,7 +54,7 @@ subagente) que servem de base para qualquer opção.
 ## Pendências da rede para quando o D3 for decidido (dono, 2026-10-07)
 
 Implementar junto com o D3, assim que possível. Plano completo em
-`/mnt/project-files/analises/d4-ffi-vm-plano.md` (etapa E5).
+`TODO/P1-rede-ffi-vm.md` (etapa E5).
 
 - `*os.File` com descritor real (`Fd()`), que é o que o `net` precisa.
 - `net.FileConn`, `net.FileListener`, `net.FilePacketConn` e o caminho
