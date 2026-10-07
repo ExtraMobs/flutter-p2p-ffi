@@ -3,11 +3,34 @@ part of 'sys_io.dart';
 // Listener TCP: fila de conexões aceitas pelo `RawServerSocket`, com prazo
 // e contrapressão (pausa acima do backlog).
 
+/// Fechamentos de listener em curso. O `Close` do Go é síncrono: depois dele
+/// um dial na porta dá `connection refused` e a porta pode ser reusada. O
+/// `close` do `dart:io` só termina numa volta do laço de eventos, e um dial
+/// nesse meio entra na fila do listener e leva `connection reset by peer`
+/// (medido: 57 em 2000). Dial e listen esperam os fechamentos pendentes.
+final _pendingCloses = <Future<void>>{};
+
+void _trackClose(Future<Object?> close) {
+  late final Future<void> done;
+  done = close
+      .then<void>((_) {}, onError: (Object _) {})
+      .whenComplete(() => _pendingCloses.remove(done));
+  _pendingCloses.add(done);
+}
+
+/// Espera os fechamentos de listener pedidos antes desta chamada.
+Future<void> _closesSettled() async {
+  while (_pendingCloses.isNotEmpty) {
+    await Future.wait(_pendingCloses.toList());
+  }
+}
+
 Future<SysTcpListener> _listenTcp(
   SysAddr local,
   int backlog,
   bool v6Only,
 ) async {
+  if (_pendingCloses.isNotEmpty) await _closesSettled();
   RawServerSocket srv;
   try {
     if (local.ip.isEmpty) {
@@ -112,7 +135,7 @@ final class _IoTcpListener implements SysTcpListener {
     _closed = true;
     _deadline.cancel();
     unawaited(_sub.cancel());
-    unawaited(_srv.close());
+    _trackClose(_srv.close());
     while (_ready.isNotEmpty) {
       unawaited(_ready.removeFirst().close());
     }

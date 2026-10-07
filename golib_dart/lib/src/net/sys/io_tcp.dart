@@ -9,6 +9,7 @@ Future<SysTcpConn> _dialTcp(
   if (deadline != null && !deadline.isAfter(DateTime.now())) {
     throw const SysTimeout();
   }
+  if (_pendingCloses.isNotEmpty) await _closesSettled();
   final source = local == null || local.ip.isEmpty ? null : _inet(local.ip);
   final ConnectionTask<RawSocket> task;
   try {

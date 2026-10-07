@@ -18,6 +18,7 @@ Future<SysTcpConn> _dialUnix(
   }
   final bad = sysUnixPathError(path, 'connect');
   if (bad != null) throw bad;
+  if (_pendingCloses.isNotEmpty) await _closesSettled();
   final ConnectionTask<RawSocket> task;
   try {
     task = await RawSocket.startConnect(_unixAddr(path), 0);
@@ -63,6 +64,7 @@ Future<SysTcpConn> _dialUnix(
 Future<SysTcpListener> _listenUnix(String path, int backlog) async {
   final bad = sysUnixPathError(path, 'bind');
   if (bad != null) throw bad;
+  if (_pendingCloses.isNotEmpty) await _closesSettled();
   final RawServerSocket srv;
   try {
     srv = await RawServerSocket.bind(_unixAddr(path), 0, backlog: backlog);

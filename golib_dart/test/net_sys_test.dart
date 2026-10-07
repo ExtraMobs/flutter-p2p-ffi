@@ -207,6 +207,27 @@ void main() {
     // lidos de volta com `getsockopt`. Constantes do linux: SOL_SOCKET=1,
     // SO_LINGER=13, IPPROTO_TCP=6, TCP_KEEPIDLE=4, TCP_KEEPINTVL=5,
     // TCP_KEEPCNT=6; `struct linger` são dois int32 na ordem do host.
+    // `Close` do listener é síncrono no Go: o dial logo depois é recusado.
+    // O `close` do `dart:io` termina no laço de eventos; sem a espera dos
+    // fechamentos pendentes, ~3% dos dials levavam `connection reset`.
+    test('dial logo após o Close do listener é recusado', () async {
+      final lo = SysAddr(Uint8List.fromList([127, 0, 0, 1]), 0);
+      for (var i = 0; i < 500; i++) {
+        final l = await sysListenTcp(lo);
+        l.close();
+        await expectLater(
+          sysDialTcp(l.local),
+          throwsA(
+            isA<SysError>().having(
+              (e) => e.toString(),
+              'erro',
+              contains('connection refused'),
+            ),
+          ),
+        );
+      }
+    });
+
     test('SO_LINGER e TCP_KEEP* no socket (linux)', () async {
       if (!Platform.isLinux) {
         markTestSkipped('constantes só valem no linux');
