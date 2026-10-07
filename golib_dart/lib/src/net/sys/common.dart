@@ -13,6 +13,7 @@ import '../../runtime/sched.dart' show holdEvents, releaseEvents;
 import '../../syscall/errno_table.dart';
 
 part 'common_ip.dart';
+part 'common_sock.dart';
 part 'common_wait.dart';
 
 /// Endereço cru: [ip] com 4 ou 16 bytes (vazio = não especificado/"any",

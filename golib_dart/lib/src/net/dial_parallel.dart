@@ -167,7 +167,45 @@ final class _SysDialer {
     DateTime? when,
   ) async {
     final la = d.localAddr;
+    final ctrl = _dialerCtrl(d);
     try {
+      if (net.startsWith('udp') && (sys.sysFfiAvailable || ctrl != null)) {
+        // Rede FFI (E7): o socket conectado do Go, com o `Control`.
+        final fd = await _udpGo(
+          ctx ?? context.background(),
+          net,
+          la is UDPAddr ? _sysAddrOf(la.ip, la.port.toInt(), la.zone) : null,
+          a,
+          ctrl,
+        );
+        final peer = (fd as sys.SysUdpMsg).remote;
+        return (
+          UDPConn._(fd, net, _udpAddrOf(fd.local), _udpAddrOf(peer ?? a))
+              as Conn,
+          null,
+        );
+      }
+      if (net.startsWith('tcp') && ctrl != null) {
+        final fd = await _dialTcpGo(
+          ctx ?? context.background(),
+          net,
+          la is TCPAddr ? _sysAddrOf(la.ip, la.port.toInt(), la.zone) : null,
+          a,
+          ctrl,
+          deadline: when,
+          cancel: cancel.future,
+        );
+        return (
+          _newTCPConn(
+                fd,
+                net,
+                keepAlive: d.keepAlive,
+                keepAliveConfig: d.keepAliveConfig,
+              )
+              as Conn,
+          null,
+        );
+      }
       if (net.startsWith('udp')) {
         final local = la is UDPAddr
             ? _sysAddrOf(la.ip, la.port.toInt(), la.zone)
@@ -196,6 +234,9 @@ final class _SysDialer {
         ) as Conn,
         null,
       );
+    } on _GoErr catch (e) {
+      // O erro do `Control` (ou de endereço) vai sem embrulho.
+      return (null, _opError('dial', net, la, _addrFor(net, a), e.err));
     } on sys.SysCanceled {
       return (
         null,
