@@ -1,0 +1,10 @@
+unlink: close <nil>; false: dial unix SOCK-keep: connect: connection refused | listen unix SOCK-keep: bind: address already in use; true: dial unix SOCK-gone: connect: no such file or directory
+autobind: nome 6 "@" unix; aceito "oi" remoto unix @; volta "oi"
+laddr: dial unix @SOCK-c->@SOCK-b: socket: operation not supported
+rights: 24 [24 0 0 0 0 0 0 0 1 0 0 0 1 0 0 0 1 0 0 0 2 0 0 0]; 1 msg: len=24 level=1 type=1 data=[1 0 0 0 2 0 0 0]; fds [1 2] <nil>
+parse: invalid argument | 0 true<nil> | 20 [7] | 28 [8 9 10] | invalid argument | 20invalid argument | 20 24 16 16
+oob: write unix @: sendmsg: operation not supported
+só oob: dial unix @SOCK-f->@SOCK-e: socket: operation not supported
+sem oob: write 9 0 <nil>; read "12345" 0 0x40000000 nil <nil>; resto "6789"; erros write unix @->y: address family not supported by protocol | write unix @->y: sendmsg: transport endpoint is already connected | read unix @SOCK-g->@: EOF | write unix @: use of closed network connection | read unix @->@SOCK-g: use of closed network connection
+unixgram: listen unixgram @SOCK-h: socket: operation not supported
+fim

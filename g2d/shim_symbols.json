@@ -723,9 +723,11 @@
       "swapUint64"
     ],
     "syscall": [
+      "Cmsghdr",
       "Conn",
       "Errno",
       "RawConn",
+      "SocketControlMessage",
       "af_ALG",
       "af_APPLETALK",
       "af_ASH",
@@ -767,6 +769,8 @@
       "af_UNSPEC",
       "af_WANPIPE",
       "af_X25",
+      "cmsgLen",
+      "cmsgSpace",
       "e2BIG",
       "eacces",
       "eaddrinuse",
@@ -1045,11 +1049,14 @@
       "msg_TRYHARD",
       "msg_WAITALL",
       "msg_WAITFORONE",
+      "parseSocketControlMessage",
+      "parseUnixRights",
       "scm_CREDENTIALS",
       "scm_RIGHTS",
       "scm_TIMESTAMP",
       "scm_TIMESTAMPING",
       "scm_TIMESTAMPNS",
+      "sizeofCmsghdr",
       "so_ACCEPTCONN",
       "so_ATTACH_FILTER",
       "so_BINDTODEVICE",
@@ -1128,7 +1135,8 @@
       "tcp_NODELAY",
       "tcp_QUICKACK",
       "tcp_SYNCNT",
-      "tcp_WINDOW_CLAMP"
+      "tcp_WINDOW_CLAMP",
+      "unixRights"
     ],
     "time": [
       "Duration",
@@ -3961,6 +3969,27 @@
       ]
     },
     "syscall": {
+      "Cmsghdr": [
+        "$classIs",
+        "$copy",
+        "$fieldNames",
+        "$fieldTypes",
+        "$fields",
+        "$goType",
+        "$ifaceCopy",
+        "$isValue",
+        "$methods",
+        "$nilPtr",
+        "$ptrMethods",
+        "$set",
+        "$setAny",
+        "$valueMethods",
+        "hashCode",
+        "len",
+        "level",
+        "setLen",
+        "type"
+      ],
       "Conn": [
         "syscallConn"
       ],
@@ -3991,6 +4020,25 @@
         "control",
         "read",
         "write"
+      ],
+      "SocketControlMessage": [
+        "$classIs",
+        "$copy",
+        "$fieldNames",
+        "$fieldTypes",
+        "$fields",
+        "$goType",
+        "$ifaceCopy",
+        "$isValue",
+        "$methods",
+        "$nilPtr",
+        "$ptrMethods",
+        "$set",
+        "$setAny",
+        "$valueMethods",
+        "data",
+        "hashCode",
+        "header"
       ]
     },
     "time": {

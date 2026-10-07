@@ -24,3 +24,4 @@ import 'src/syscall/errno_table.dart';
 part 'src/syscall/errno.dart';
 part 'src/syscall/consts_linux_amd64.dart';
 part 'src/syscall/rawconn.dart';
+part 'src/syscall/sockcmsg.dart';
