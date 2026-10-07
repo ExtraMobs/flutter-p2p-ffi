@@ -49,8 +49,13 @@ GoError? _underlying(GoError? err) => switch (err) {
   _ => err,
 };
 
-bool _underlyingIs(GoError? err, GoError target) =>
-    identical(_underlying(err), target);
+/// `underlyingErrorIs` do Go: o erro de dentro é o alvo, ou é um
+/// `syscall.Errno` que diz ser (`ENOENT` é `ErrNotExist`...).
+bool _underlyingIs(GoError? err, GoError target) {
+  final e = _underlying(err);
+  if (identical(e, target)) return true;
+  return e is syscall.Errno && e.is$(target);
+}
 
 /// `os.IsExist(err)`.
 bool isExist(GoError? err) => _underlyingIs(err, errExist);

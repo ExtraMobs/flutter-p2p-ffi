@@ -67,7 +67,16 @@ class Promotion(Service):
         """O método `m` de `t` é declarado por um tipo de shim que não o tem
         (`time.Time.GobEncode`): sem forwarder. ponytail: chamá-lo já dá
         `shim-simbolo:` na chamada; só a interface que o exige fica de fora."""
-        d = self.chain(t, m["index"])[1]
+        hops, d = self.chain(t, m["index"])
+        # O primeiro tipo do shim no caminho declara os promovidos dos campos
+        # não exportados dele (`net.IPConn.Close` vem do `conn`): é nele que
+        # o membro existe.
+        for _, f, _ in hops:
+            ft = self.pkg.type_at(f["type"])
+            et = self.pkg.type_at(ft["elem"]) if ft["kind"] == "pointer" else ft
+            if et["kind"] == "named" and not self.imports.transpiled(et["pkg"]):
+                d = et
+                break
         return (not self.imports.transpiled(d["pkg"])
                 and not self.imports.has_shim_member(d, m["name"]))
 

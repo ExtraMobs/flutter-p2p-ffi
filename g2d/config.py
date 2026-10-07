@@ -29,7 +29,8 @@ SHIM_INTERFACES = {("fmt", "Stringer"), ("fmt", "GoStringer"), ("fmt", "Formatte
                    ("context", "Context"), ("encoding", "TextMarshaler"), ("encoding", "TextUnmarshaler"),
                    ("encoding", "BinaryMarshaler"), ("encoding", "BinaryUnmarshaler"),
                    ("encoding/json", "Marshaler"), ("encoding/json", "Unmarshaler"),
-                   ("net", "Addr"), ("net", "Error"), ("net", "Conn"), ("net", "Listener"), ("net", "PacketConn")}
+                   ("net", "Addr"), ("net", "Error"), ("net", "Conn"), ("net", "Listener"), ("net", "PacketConn"),
+                   ("syscall", "RawConn"), ("syscall", "Conn")}
 
 # Tipos não exportados da stdlib que o código do grafo recebe por inferência
 # (`var NBO = binary.BigEndian`): a classe pública do shim que os representa.
@@ -60,6 +61,7 @@ STDLIB_SHIMS = {
     "strings": "package:golib_dart/strings.dart",
     "sync": "package:golib_dart/sync.dart",
     "sync/atomic": "package:golib_dart/sync/atomic.dart",
+    "syscall": "package:golib_dart/syscall.dart",
     "time": "package:golib_dart/time.dart",
     "unicode": "package:golib_dart/unicode.dart",
     "unicode/utf8": "package:golib_dart/unicode/utf8.dart",
@@ -80,4 +82,4 @@ REFLECT_PKGS = frozenset({"reflect", "encoding/json"})
 # Tipos nomeados de shim com descritor de reflexão próprio (`static final $rt`
 # na classe do shim); os outros viram `go.rtOpaque`.
 SHIM_RTYPES = frozenset({("encoding/json", "Number"), ("encoding/json", "Delim"), ("time", "Time"),
-                         ("time", "Duration"), ("time", "Month"), ("time", "Weekday")})
+                         ("time", "Duration"), ("time", "Month"), ("time", "Weekday"), ("syscall", "Errno")})

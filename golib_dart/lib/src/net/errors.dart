@@ -4,8 +4,10 @@ part of '../../net.dart';
 // de rede (conexões, DNS), que mora nesta mesma library.
 // ignore_for_file: unused_element
 
-/// `net.Error`: erro de rede com `Timeout()` e `Temporary()`.
-abstract interface class Error implements GoError, Timeouter, Temporary {}
+/// `net.Error`: erro de rede com `Timeout()` e `Temporary()`. A interface
+/// mora no runtime ([NetError]) porque o `syscall.Errno` a satisfaz, como no
+/// Go, e o `syscall` não importa o `net`.
+typedef Error = NetError;
 
 /// `ErrWriteToConnected`.
 final GoError errWriteToConnected = _errNew(
@@ -204,8 +206,7 @@ final class OpError extends GoStruct<OpError> implements Error, Unwrapper {
     final OpError? e = $nilPtr ? null : this;
     final err = e!.err;
     if (e.op.toString() == 'accept' &&
-        err is _Errno &&
-        (err.code == 'ECONNRESET' || err.code == 'ECONNABORTED')) {
+        (err == syscall.econnreset || err == syscall.econnaborted)) {
       return true;
     }
     return switch (err) {

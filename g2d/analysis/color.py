@@ -573,9 +573,14 @@ class ColorTable:
 
     def is_async(self, key):
         """A chamada da chave espera. Tipo concreto do shim nunca suspende
-        (exceto `ASYNC_SHIM_METHODS`), mesmo num grupo `async`."""
+        (exceto `ASYNC_SHIM_METHODS`), mesmo num grupo `async`; função ou
+        método do shim que sempre suspende (`SUSPENDING_FUNCS`) espera
+        sempre (o forwarder de `ReadFromIP` promovido de um `*net.IPConn`
+        embutido devolve `Future`)."""
         if self._async is None:
             self.solve()
+        if key in SUSPENDING_FUNCS:
+            return True
         return key in self.parent and not sync_shim(key) and self.find(key) in self._async
 
     def is_dual(self, key):

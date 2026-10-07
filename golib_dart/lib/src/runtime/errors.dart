@@ -66,6 +66,10 @@ abstract interface class Temporary {
   bool temporary();
 }
 
+/// `net.Error` (`typedef` no shim `net`): mora aqui para o `syscall.Errno`
+/// satisfazê-la sem o `syscall` importar o `net`.
+abstract interface class NetError implements GoError, Timeouter, Temporary {}
+
 /// Descritor de `error` (slices de erros do runtime).
 const errorElem = Elem<GoError?>(16, zeroNull, pointers: true);
 

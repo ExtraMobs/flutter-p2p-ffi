@@ -10,6 +10,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import '../../runtime/sched.dart' show holdEvents, releaseEvents;
+import '../../syscall/errno_table.dart';
 
 part 'common_ip.dart';
 part 'common_wait.dart';
@@ -25,10 +26,7 @@ final class SysAddr {
   /// Socket Unix: [path] é o caminho no sistema de arquivos (ou `@nome`
   /// abstrato no linux; `@` sozinho é o lado que discou, sem nome). [ip],
   /// [port] e [zone] ficam vazios.
-  SysAddr.unix(String this.path)
-    : ip = _noIp,
-      port = 0,
-      zone = '';
+  SysAddr.unix(String this.path) : ip = _noIp, port = 0, zone = '';
 
   final Uint8List ip;
   final int port;
@@ -117,7 +115,7 @@ final class SysError extends SysException {
       SysError(
         syscall,
         code,
-        errnoText[code] ?? code.toLowerCase(),
+        errnoText(code) ?? code.toLowerCase(),
         written: written,
       );
 
@@ -128,6 +126,10 @@ final class SysError extends SysException {
   final String syscall;
   final String code;
   final String message;
+
+  /// O número do errno no linux (o do `syscall.Errno`), ou `null` para
+  /// `EOTHER`.
+  int? get errno => errnoNumbers[code];
 
   /// O `os.SyscallError` do Go: `connect: connection refused`.
   @override
@@ -194,45 +196,14 @@ final class SysDnsError implements Exception {
       'lookup $name${server.isEmpty ? '' : ' on $server'}: $message';
 }
 
-/// Texto do Go (linux, `syscall.Errno.Error()`) para cada errno conhecido.
-const errnoText = <String, String>{
-  'ECONNREFUSED': 'connection refused',
-  'ECONNRESET': 'connection reset by peer',
-  'ECONNABORTED': 'software caused connection abort',
-  'EPIPE': 'broken pipe',
-  'EADDRINUSE': 'address already in use',
-  'EADDRNOTAVAIL': 'cannot assign requested address',
-  'ETIMEDOUT': 'connection timed out',
-  'EHOSTUNREACH': 'no route to host',
-  'EHOSTDOWN': 'host is down',
-  'ENETUNREACH': 'network is unreachable',
-  'ENETDOWN': 'network is down',
-  'EACCES': 'permission denied',
-  'EPERM': 'operation not permitted',
-  'EINVAL': 'invalid argument',
-  'EAFNOSUPPORT': 'address family not supported by protocol',
-  'EOPNOTSUPP': 'operation not supported',
-  'EMSGSIZE': 'message too long',
-  'EMFILE': 'too many open files',
-  'ENFILE': 'too many open files in system',
-  'ENOBUFS': 'no buffer space available',
-  'ENOTCONN': 'transport endpoint is not connected',
-  'EISCONN': 'transport endpoint is already connected',
-  'EALREADY': 'operation already in progress',
-  'EINPROGRESS': 'operation now in progress',
-  'EAGAIN': 'resource temporarily unavailable',
-  'EINTR': 'interrupted system call',
-  'EBADF': 'bad file descriptor',
-  'ENOMEM': 'cannot allocate memory',
-  'EPROTONOSUPPORT': 'protocol not supported',
-  'ENOENT': 'no such file or directory',
-  'ENOTDIR': 'not a directory',
-  'EISDIR': 'is a directory',
-  'ENAMETOOLONG': 'file name too long',
-  'ENOTSOCK': 'socket operation on non-socket',
-  'ELOOP': 'too many levels of symbolic links',
-  'EROFS': 'read-only file system',
-};
+/// Texto do Go (linux, `syscall.Errno.Error()`) do errno de nome [code]
+/// (`ECONNREFUSED`...), ou `null` se o nome não é de um errno.
+String? errnoText(String code) {
+  final n = errnoNumbers[code];
+  if (n == null) return null;
+  final s = errnoTexts[n];
+  return s.isEmpty ? null : s;
+}
 
 /// Conexão TCP aberta.
 abstract interface class SysTcpConn {

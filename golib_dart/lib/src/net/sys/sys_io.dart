@@ -14,6 +14,7 @@ import '../../internal/poll/errors.dart';
 import '../../internal/poll/fd.dart';
 import '../../internal/poll/fd_mutex.dart';
 import '../../internal/poll/poll_desc.dart';
+import '../../syscall/errno_table.dart' show errnoNames;
 import 'common.dart';
 import 'dns_client.dart';
 import 'linux_iface.dart';
@@ -110,6 +111,10 @@ Future<List<String>> sysLookupTxt(String name, {SysAddr? server}) =>
 
 /// Interfaces de rede (ver `io_iface.dart` para o que vem de onde).
 Future<List<SysInterface>> sysInterfaces() => _interfaces();
+
+/// Conteúdo de um arquivo de configuração do sistema (`/etc/protocols`),
+/// ou `null` se não dá para ler.
+String? sysReadFile(String path) => _readSys(path);
 
 /// `getsockopt` cru de uma conexão TCP desta plataforma (só na VM; não faz
 /// parte do contrato de [SysTcpConn]): os testes conferem com ele o que

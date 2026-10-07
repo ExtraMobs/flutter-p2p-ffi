@@ -82,6 +82,7 @@ ASYNC_SHIM_TYPES = {
     ("net", "Conn"): (("Read", ("io", "Reader")), ("Write", ("io", "Writer"))),
     ("net", "Listener"): (("Accept", ("net", "Listener")),),
     ("net", "PacketConn"): (("ReadFrom", ("net", "PacketConn")), ("WriteTo", ("net", "PacketConn"))),
+    ("syscall", "RawConn"): (("Read", ("syscall", "RawConn")), ("Write", ("syscall", "RawConn"))),
 }
 # Rede (D4): discar, escutar, aceitar, datagramas, DNS e a lista de
 # interfaces esperam o sistema (`golib_dart/lib/src/net/sys/`).
@@ -113,7 +114,9 @@ NET_SUSPENDING = frozenset({("f", "net", f) for f in _NET_FUNCS}
 # forma `Future`): as implementações geradas seguem a cor do grupo, que
 # não é presa como síncrona por ser da stdlib.
 ASYNC_IFACE_METHODS = frozenset({("m", "net", "Listener", "Accept"), ("m", "net", "PacketConn", "ReadFrom"),
-                                 ("m", "net", "PacketConn", "WriteTo")})
+                                 ("m", "net", "PacketConn", "WriteTo"),
+                                 # `RawConn.Read`/`Write` esperam o descritor (o `f` é síncrono).
+                                 ("m", "syscall", "RawConn", "Read"), ("m", "syscall", "RawConn", "Write")})
 
 # Interfaces do shim cujo valor é sempre um tipo do próprio shim (o `State`
 # que o `fmt` passa ao `Format`): a chamada é síncrona, e o grupo delas não

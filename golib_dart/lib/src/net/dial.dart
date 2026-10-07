@@ -35,11 +35,7 @@ bool _sameAddr(sys.SysAddr a, UDPAddr b) {
   // Sockets Unix: só `unix` (fluxo) existe; `unixgram`/`unixpacket` chegam
   // ao `unix.dart` e falham lá com `operation not supported`.
   if (_unixNets.contains(network)) return (network, null);
-  final base = network.split(':').first;
-  if (const {'ip', 'ip4', 'ip6'}.contains(base)) {
-    // ⚠️ sockets IP brutos: o shim não tem (erro em runtime).
-    return (network, _notSupported('socket'));
-  }
+  // Redes IP (`ip4:icmp`...) não chegam aqui: `ipconn.dart`.
   return (network, UnknownNetworkError(_s(network)));
 }
 
@@ -191,6 +187,9 @@ final class Dialer extends GoStruct<Dialer> {
     Golang.String address,
   ) async {
     final net = network.toString();
+    if (_isIPNetwork(net)) {
+      return _dialIPNetwork(net, address.toString(), localAddr);
+    }
     final (_, nerr) = _network(net, packet: false);
     if (nerr != null) return (null, _opError('dial', net, null, null, nerr));
     if (_unixNets.contains(net)) {
@@ -381,6 +380,9 @@ final class ListenConfig extends GoStruct<ListenConfig> {
     Golang.String address,
   ) async {
     final net = network.toString();
+    if (_isIPNetwork(net)) {
+      return (null, await _listenIPNetwork(net, address.toString(), packet: false));
+    }
     final (_, nerr) = _network(net, packet: false);
     if (_unixNets.contains(net)) {
       final (ua, uerr) = resolveUnixAddr(network, address);
@@ -412,6 +414,9 @@ final class ListenConfig extends GoStruct<ListenConfig> {
     Golang.String address,
   ) async {
     final net = network.toString();
+    if (_isIPNetwork(net)) {
+      return (null, await _listenIPNetwork(net, address.toString(), packet: true));
+    }
     final (_, nerr) = _network(net, packet: true);
     if (_unixNets.contains(net)) {
       // ⚠️ datagrama Unix não existe na plataforma.
