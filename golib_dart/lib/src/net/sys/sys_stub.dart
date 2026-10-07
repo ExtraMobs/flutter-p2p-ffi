@@ -54,3 +54,13 @@ String? sysReadFile(String path) => null;
 
 /// Sem nome de host.
 String sysHostname() => '';
+
+/// Socket cru da rede FFI (`Control`, `SyscallConn` com fd real): não
+/// existe aqui; falha como o Go em js/wasm (F4: `socket: operation not
+/// supported`).
+SysSocket sysSocket(int family, int sotype, int proto) =>
+    throw SysError.unsupported('socket');
+
+/// Sem rede FFI, a família não é escolhida por aqui.
+SysIpStack sysIpStack() =>
+    const SysIpStack(ipv4: true, ipv6: false, ipv4MappedIPv6: false);

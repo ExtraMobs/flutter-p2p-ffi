@@ -25,7 +25,7 @@ Future<SysUdpConn> _listenUdp(SysAddr local) async {
 }
 
 /// UDP com o mesmo `PollDesc`/`FdMutex` do TCP (`internal/poll`).
-final class _IoUdpConn implements SysUdpConn {
+final class _IoUdpConn implements SysUdpConn, SysSockopts {
   _IoUdpConn(this._socket)
     : _pd = PollDesc.datagram(_socket),
       local = _addrOf(_socket.address, _socket.port),
@@ -98,6 +98,16 @@ final class _IoUdpConn implements SysUdpConn {
       _mu.rwunlock(false);
     }
   });
+
+  @override
+  int rawSetsockopt(int level, int opt, Uint8List value) => _mu.isClosed
+      ? -sf.EBADF
+      : _ioSetsockopt(_socket.setRawOption, level, opt, value);
+
+  @override
+  int rawGetsockopt(int level, int opt, Uint8List out) => _mu.isClosed
+      ? -sf.EBADF
+      : _ioGetsockopt(_socket.getRawOption, level, opt, out);
 
   @override
   void close() {

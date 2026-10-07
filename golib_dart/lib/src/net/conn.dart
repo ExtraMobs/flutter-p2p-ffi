@@ -82,6 +82,10 @@ abstract base class _NetConn<T extends _NetConn<T>> extends GoStruct<T>
 
   void _sysClose();
 
+  /// O socket do `sys` (o `SyscallConn` olha o dono do descritor); `null`
+  /// no `(*T)(nil)`.
+  Object? get _sysSocket;
+
   /// Muda o deadline de leitura e/ou escrita (vale para a op pendente).
   GoError? _setDeadlines(time.Time t, {bool read = true, bool write = true});
 
@@ -99,8 +103,16 @@ abstract base class _NetConn<T extends _NetConn<T>> extends GoStruct<T>
   GoError? close() {
     if (_closed) return _opError('close', _net, _laddr, _raddr, errClosed);
     _closed = true;
+    _vfdRelease(_sysSocket);
     _sysClose();
     return null;
+  }
+
+  /// `SyscallConn()` (`rawconn.dart`).
+  (syscall.RawConn?, GoError?) syscallConn() {
+    final s = _sysSocket;
+    if (s == null) return (null, syscall.einval);
+    return (_RawConn(s, _net, _laddr, _raddr, () => _closed), null);
   }
 
   /// `SetDeadline(t)`.
@@ -122,7 +134,7 @@ abstract base class _NetConn<T extends _NetConn<T>> extends GoStruct<T>
 
 /// `net.TCPConn`.
 final class TCPConn extends _NetConn<TCPConn>
-    implements Conn, io.ReaderFrom, io.WriterTo {
+    implements Conn, io.ReaderFrom, io.WriterTo, syscall.Conn {
   TCPConn._(this._fd, String net, Addr? laddr, Addr? raddr)
     : super(net, laddr, raddr);
 
@@ -153,6 +165,7 @@ final class TCPConn extends _NetConn<TCPConn>
     'SetReadDeadline',
     'SetWriteBuffer',
     'SetWriteDeadline',
+    'SyscallConn',
     'Write',
     'WriteTo',
   ];
@@ -161,6 +174,9 @@ final class TCPConn extends _NetConn<TCPConn>
 
   @override
   void _sysClose() => _fd!.close();
+
+  @override
+  Object? get _sysSocket => _fd;
 
   @override
   GoError? _setDeadlines(time.Time t, {bool read = true, bool write = true}) {
@@ -312,7 +328,7 @@ final class _ConnReader with io.ReaderSync implements io.Reader {
 /// `net.TCPListener`.
 final class TCPListener extends GoStruct<TCPListener>
     with io.CloserSync
-    implements Listener {
+    implements Listener, syscall.Conn {
   TCPListener._(
     this._ln,
     this._net,
@@ -346,6 +362,7 @@ final class TCPListener extends GoStruct<TCPListener>
     'Addr',
     'Close',
     'SetDeadline',
+    'SyscallConn',
   ];
   @override
   TCPListener $copy() =>
@@ -394,8 +411,22 @@ final class TCPListener extends GoStruct<TCPListener>
   GoError? close() {
     if (_closed) return _op('close', errClosed);
     _closed = true;
+    _vfdRelease(_ln);
     _ln!.close();
     return null;
+  }
+
+  /// `SyscallConn()`: o `rawListener` do Go (`Read`/`Write` dão `EINVAL`).
+  /// ⚠️ O listener do `dart:io` (sem `Control`) não responde por opções:
+  /// o descritor virtual dá `ENOPROTOOPT`.
+  @override
+  (syscall.RawConn?, GoError?) syscallConn() {
+    final ln = _ln;
+    if (ln == null) return (null, syscall.einval);
+    return (
+      _RawConn(ln, _net, _laddr, null, () => _closed, listener: true),
+      null,
+    );
   }
 
   /// `SetDeadline(t)`.
@@ -432,6 +463,8 @@ TCPConn _newTCPConn(
   KeepAliveConfig? keepAliveConfig,
 }) {
   final conn = TCPConn._(c, net, _tcpAddrOf(c.local), _tcpAddrOf(c.remote));
+  // `setNoDelay(fd, true)` do Go (erro ignorado).
+  conn.setNoDelay(true);
   var cfg = keepAliveConfig ?? KeepAliveConfig();
   final idle = keepAlive ?? time.Duration();
   if (!cfg.enable && idle.toInt() >= 0) {
@@ -443,7 +476,8 @@ TCPConn _newTCPConn(
 
 /// `net.UDPConn`: socket de datagramas; com destino fixo (`DialUDP`), lê só
 /// o que vem dele e `Write` envia para ele.
-final class UDPConn extends _NetConn<UDPConn> implements Conn, PacketConn {
+final class UDPConn extends _NetConn<UDPConn>
+    implements Conn, PacketConn, syscall.Conn {
   UDPConn._(this._fd, String net, Addr? laddr, this._peer)
     : super(net, laddr, _peer);
 
@@ -464,13 +498,18 @@ final class UDPConn extends _NetConn<UDPConn> implements Conn, PacketConn {
     'ReadFrom',
     'ReadFromUDP',
     'ReadFromUDPAddrPort',
+    'ReadMsgUDP',
+    'ReadMsgUDPAddrPort',
     'RemoteAddr',
     'SetDeadline',
     'SetReadBuffer',
     'SetReadDeadline',
     'SetWriteBuffer',
     'SetWriteDeadline',
+    'SyscallConn',
     'Write',
+    'WriteMsgUDP',
+    'WriteMsgUDPAddrPort',
     'WriteTo',
     'WriteToUDP',
     'WriteToUDPAddrPort',
@@ -480,6 +519,42 @@ final class UDPConn extends _NetConn<UDPConn> implements Conn, PacketConn {
 
   @override
   void _sysClose() => _fd!.close();
+
+  @override
+  Object? get _sysSocket => _fd;
+
+  /// `ReadMsgUDP(b, oob)` (`udp_msg.dart`).
+  Future<(Golang.Int, Golang.Int, Golang.Int, UDPAddr?, GoError?)> readMsgUDP(
+    Slice<Golang.Uint8> b,
+    Slice<Golang.Uint8> oob,
+  ) async {
+    final (n, oobn, flags, ap, err) = await _readMsgUDP(this, b, oob);
+    return (n, oobn, flags, ap.isValid() ? udpAddrFromAddrPort(ap) : null, err);
+  }
+
+  /// `ReadMsgUDPAddrPort(b, oob)`.
+  Future<(Golang.Int, Golang.Int, Golang.Int, netip.AddrPort, GoError?)>
+  readMsgUDPAddrPort(Slice<Golang.Uint8> b, Slice<Golang.Uint8> oob) =>
+      _readMsgUDP(this, b, oob);
+
+  /// `WriteMsgUDP(b, oob, addr)`.
+  Future<(Golang.Int, Golang.Int, GoError?)> writeMsgUDP(
+    Slice<Golang.Uint8> b,
+    Slice<Golang.Uint8> oob,
+    UDPAddr? addr,
+  ) => _writeMsgUDP(this, b, oob, addr);
+
+  /// `WriteMsgUDPAddrPort(b, oob, addr)`.
+  Future<(Golang.Int, Golang.Int, GoError?)> writeMsgUDPAddrPort(
+    Slice<Golang.Uint8> b,
+    Slice<Golang.Uint8> oob,
+    netip.AddrPort addr,
+  ) => _writeMsgUDP(
+    this,
+    b,
+    oob,
+    addr.isValid() ? udpAddrFromAddrPort(addr) : null,
+  );
 
   @override
   GoError? _setDeadlines(time.Time t, {bool read = true, bool write = true}) {
@@ -534,9 +609,22 @@ final class UDPConn extends _NetConn<UDPConn> implements Conn, PacketConn {
   (Golang.Int, GoError?) read(Slice<Golang.Uint8> b) =>
       syncOfAsync('UDPConn.Read');
 
-  /// `Read(b)`: um datagrama (truncado em `len(b)`).
+  /// `Read(b)`: um datagrama (truncado em `len(b)`). Na rede FFI é o
+  /// `read(2)` do Go (num socket conectado, o `ECONNREFUSED` do ICMP chega
+  /// aqui).
   @override
   Future<(Golang.Int, GoError?)> read$async(Slice<Golang.Uint8> b) async {
+    final fd = _fd;
+    if (fd is sys.SysUdpMsg && !_closed) {
+      final buf = Uint8List(b.length);
+      try {
+        final n = await (fd as sys.SysUdpMsg).recv(buf);
+        _copyInto(b, buf, n < buf.length ? n : buf.length);
+        return (Golang.Int(n < buf.length ? n : buf.length), null);
+      } on Object catch (e) {
+        return (Golang.Int(0), _op('read', e));
+      }
+    }
     final (n, _, err) = await readFromUDP(b);
     return (n, err);
   }
@@ -566,6 +654,14 @@ final class UDPConn extends _NetConn<UDPConn> implements Conn, PacketConn {
     Slice<Golang.Uint8> b,
     UDPAddr to,
   ) async {
+    final fd = _fd;
+    if (fd is sys.SysUdpMsg) {
+      // `addr.sockaddr(c.fd.family)`: IPv6 num socket `AF_INET` não cabe.
+      final ferr = _familyError((fd as sys.SysUdpMsg).family, _ipBytes(to.ip));
+      if (ferr != null) {
+        return (Golang.Int(0), _opError('write', _net, _laddr, to, ferr));
+      }
+    }
     try {
       final n = await _fd!.writeTo(
         _u8(b),
@@ -603,10 +699,20 @@ final class UDPConn extends _NetConn<UDPConn> implements Conn, PacketConn {
   (Golang.Int, GoError?) write(Slice<Golang.Uint8> b) =>
       syncOfAsync('UDPConn.Write');
 
-  /// `Write(b)`: um datagrama para o destino fixo.
+  /// `Write(b)`: um datagrama para o destino fixo. Na rede FFI é o
+  /// `write(2)` do Go (sem destino: `destination address required`).
   @override
   Future<(Golang.Int, GoError?)> write$async(Slice<Golang.Uint8> b) async {
     if (_closed) return (Golang.Int(0), _op('write', sys.SysClosed()));
+    final fd = _fd;
+    if (fd is sys.SysUdpMsg) {
+      try {
+        final n = await (fd as sys.SysUdpMsg).send(_u8(b));
+        return (Golang.Int(n), null);
+      } on Object catch (e) {
+        return (Golang.Int(0), _op('write', e));
+      }
+    }
     final peer = _peer;
     if (peer == null) {
       return (

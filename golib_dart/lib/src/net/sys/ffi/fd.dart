@@ -72,6 +72,12 @@ final class FfiFd implements Finalizable {
   /// Prazo das escritas e do [connect].
   set writeDeadline(DateTime? d) => _wd.set(d);
 
+  /// O prazo de leitura venceu (e não foi re-armado).
+  bool get readExpired => _rd.expired;
+
+  /// O prazo de escrita venceu.
+  bool get writeExpired => _wd.expired;
+
   /// Estaciona até o fd ficar legível (ou erro/fim). Erros: `SysClosed`,
   /// `SysTimeout` (prazo de leitura), `SysCanceled` ([cancel] completou).
   Future<void> waitRead({Future<void>? cancel}) =>

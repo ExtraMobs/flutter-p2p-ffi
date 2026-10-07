@@ -15,7 +15,8 @@ UnixAddr _unixAddrOf(sys.SysAddr a, String net) =>
     UnixAddr(name: _s(a.path ?? ''), net: _s(net));
 
 /// `net.UnixConn`: um dos lados de um socket Unix de fluxo.
-final class UnixConn extends _NetConn<UnixConn> implements Conn, PacketConn {
+final class UnixConn extends _NetConn<UnixConn>
+    implements Conn, PacketConn, syscall.Conn {
   UnixConn._(this._fd, String net, Addr? laddr, Addr? raddr, this._connected)
     : super(net, laddr, raddr);
 
@@ -46,6 +47,7 @@ final class UnixConn extends _NetConn<UnixConn> implements Conn, PacketConn {
     'SetReadDeadline',
     'SetWriteBuffer',
     'SetWriteDeadline',
+    'SyscallConn',
     'Write',
     'WriteTo',
     'WriteToUnix',
@@ -55,6 +57,9 @@ final class UnixConn extends _NetConn<UnixConn> implements Conn, PacketConn {
 
   @override
   void _sysClose() => _fd!.close();
+
+  @override
+  Object? get _sysSocket => _fd;
 
   @override
   GoError? _setDeadlines(time.Time t, {bool read = true, bool write = true}) {
@@ -203,7 +208,7 @@ UnixConn _newUnixConn(sys.SysTcpConn c, String net, {required bool dialed}) =>
 /// `net.UnixListener`.
 final class UnixListener extends GoStruct<UnixListener>
     with io.CloserSync
-    implements Listener {
+    implements Listener, syscall.Conn {
   UnixListener._(this._ln, this._net, this._laddr, {bool unlink = true})
     : _unlink = unlink;
 
@@ -228,6 +233,7 @@ final class UnixListener extends GoStruct<UnixListener>
     'Close',
     'SetDeadline',
     'SetUnlinkOnClose',
+    'SyscallConn',
   ];
   @override
   UnixListener $copy() => UnixListener._(_ln, _net, _laddr, unlink: _unlink);
@@ -282,6 +288,18 @@ final class UnixListener extends GoStruct<UnixListener>
     if (_closed) return _op('set', errClosed);
     _ln!.deadline = _deadline(t);
     return null;
+  }
+
+  /// `SyscallConn()`: o `rawListener` do Go (`rawconn.dart`). ⚠️ O
+  /// listener do `dart:io` não responde por opções (`ENOPROTOOPT`).
+  @override
+  (syscall.RawConn?, GoError?) syscallConn() {
+    final ln = _ln;
+    if (ln == null) return (null, syscall.einval);
+    return (
+      _RawConn(ln, _net, _laddr, null, () => _closed, listener: true),
+      null,
+    );
   }
 
   /// `SetUnlinkOnClose(unlink)`. ⚠️ `false` não preserva o arquivo: a

@@ -1,6 +1,8 @@
 /// Motor de rede da VM/AOT sobre `dart:io`: TCP pelo `Fd` do
 /// `internal/poll` (sobre `RawSocket`), UDP por `RawDatagramSocket` com o
-/// mesmo `PollDesc`/`FdMutex`, DNS de IP pelo `getaddrinfo` do sistema
+/// mesmo `PollDesc`/`FdMutex` (no linux, pela rede FFI: `io_ffi_udp.dart`),
+/// sockets montados passo a passo para o `Control` do Go (`io_ffi.dart`,
+/// importando `ffi/vm.dart` direto: esta library só existe na VM), DNS de IP pelo `getaddrinfo` do sistema
 /// (`InternetAddress.lookup`) e TXT pelo cliente próprio (`dns_client.dart`)
 /// lendo `/etc/resolv.conf`.
 library;
@@ -8,6 +10,7 @@ library;
 import 'dart:async';
 import 'dart:collection';
 import 'dart:convert';
+import 'dart:ffi';
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -15,13 +18,17 @@ import '../../internal/poll/errors.dart';
 import '../../internal/poll/fd.dart';
 import '../../internal/poll/fd_mutex.dart';
 import '../../internal/poll/poll_desc.dart';
-import '../../syscall/errno_table.dart' show errnoNames;
+import '../../syscall/errno_table.dart' show errnoNames, errnoNumbers;
+import '../../sysffi/sysffi.dart' as sf;
 import 'common.dart';
 import 'dns_client.dart';
+import 'ffi/vm.dart' as ffi;
 import 'linux_iface.dart';
 import 'resolv_conf.dart';
 
 part 'io_errno.dart';
+part 'io_ffi.dart';
+part 'io_ffi_udp.dart';
 part 'io_iface.dart';
 part 'io_listen.dart';
 part 'io_tcp.dart';
@@ -65,7 +72,9 @@ Future<SysTcpListener> sysListenUnix(String path, {int backlog = 128}) =>
 void sysUnlinkUnix(String path) => _unlinkUnix(path);
 
 /// Socket UDP em [local] (IP vazio: dual-stack quando há IPv6). [v6Only] é
-/// ignorado na VM (⚠️ o `dart:io` não expõe `IPV6_V6ONLY` para UDP).
+/// ignorado na VM (⚠️ o `dart:io` não expõe `IPV6_V6ONLY` para UDP). Com
+/// rede FFI (`sysFfiAvailable`, VM no linux), o `net` não passa por aqui:
+/// monta o socket com [sysSocket] na ordem do Go (E7).
 Future<SysUdpConn> sysListenUdp(SysAddr local, {bool v6Only = false}) =>
     _listenUdp(local);
 
