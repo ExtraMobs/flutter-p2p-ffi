@@ -50,3 +50,21 @@ subagente) que servem de base para qualquer opção.
 - Audit regerado.
 - Depois disso: `os.Args` real, `Stdin.Read`, `Hostname`, `Environ`,
   `Setenv`, `Signal`/`Process`.
+
+## Pendências da rede para quando o D3 for decidido (dono, 2026-10-07)
+
+Implementar junto com o D3, assim que possível. Plano completo em
+`/mnt/project-files/analises/d4-ffi-vm-plano.md` (etapa E5).
+
+- `*os.File` com descritor real (`Fd()`), que é o que o `net` precisa.
+- `net.FileConn`, `net.FileListener`, `net.FilePacketConn` e o caminho
+  inverso `(*TCPConn|*UnixConn|*UDPConn|*TCPListener|*UnixListener).File()`.
+  Prova no audit: `shim-simbolo:net.fileListener` (3 / 2 / 1) e
+  `net.filePacketConn` (1 / 1 / 1) em `coreos/go-systemd/v22/activation` e
+  `libp2p/go-socket-activation` (ativação por socket do systemd).
+- go-fuse (`hanwen/go-fuse/v2/fuse/mount.go:34-70`): `syscall.Socketpair(AF_UNIX,
+  SOCK_SEQPACKET)` → `net.FileConn` → `ReadMsgUnix` com SCM_RIGHTS →
+  `syscall.ParseSocketControlMessage`/`ParseUnixRights`. Depende também do
+  `unixpacket` e do `ReadMsgUnix` (etapas E4/E5 do plano, com `dart:ffi` na VM).
+- No Go, um listener vindo de `FileListener` não apaga o arquivo do socket
+  no `Close` (`unlink=false`); o original apaga.

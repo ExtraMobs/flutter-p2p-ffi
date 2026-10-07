@@ -70,3 +70,24 @@ Na fronteira: `cespare/xxhash` (v1 e v2), `spaolacci/murmur3`,
 - Mecanismo escolhido documentado no `AGENTS.md` e no `docs/mapping-spec.md`.
 - Um pacote da fronteira (ex. `cespare/xxhash/v2`) substituído, com teste
   contra oráculo Go; audit regerado.
+
+## Pendências da rede para quando o D5 for decidido (dono, 2026-10-07)
+
+Implementar junto com o D5, assim que possível. Plano completo em
+`/mnt/project-files/analises/d4-ffi-vm-plano.md` (etapas E2 e E6).
+
+- `golang.org/x/sys/unix` substituído à mão sobre a mesma camada libc do
+  `dart:ffi` da VM (`golib_dart/lib/src/net/sys/ffi/`, exceção F1 do plano):
+  `SetsockoptInt`, `GetsockoptInt`, `GetsockoptLinger`, `GetsockoptTimeval`,
+  `GetsockoptTCPInfo` e as constantes `SO_*`/`IPPROTO_*`/`TCP_*`/`IP_*`/
+  `IPV6_*`/`UDP_SEGMENT` de linux/amd64. É por ele que passa a maior parte
+  do uso real de `Dialer.Control`/`ListenConfig.Control`/`SyscallConn`:
+  go-reuseport e go-libp2p (`SO_REUSEADDR`+`SO_REUSEPORT`), quic-go
+  (buffers `SO_RCVBUFFORCE`/`SO_SNDBUFFORCE`, GSO, `IP_MTU_DISCOVER`, ECN:
+  falha com "activating ECN failed for both IPv4 and IPv6" se as duas
+  opções falharem), miekg/dns, grpc (`TCP_USER_TIMEOUT`, channelz).
+- `golang.org/x/net/internal/socket` (de `x/net/ipv4`/`ipv6`, usado por
+  quic-go, miekg/dns, zeroconf, pion/mdns, go-ssdp): `RawConn.Read/Write`
+  com `recvmmsg`/`sendmmsg`, também sobre a camada libc.
+- No Node e no navegador o substituto devolve o erro do Go
+  (`operation not supported`): não há syscall ali.
