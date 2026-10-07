@@ -163,34 +163,11 @@ a espera, a VM encerrando com o poller vivo, um build AOT
 - Usuários: go-reuseport/go-libp2p (cai no caminho sem reuseport se falhar,
   `reuseport_posix.go:23-25`, `listen.go:46-51`), miekg/dns, grpc.
 
-### E3. `unixgram` (FFI + poller)
-Semântica e erros conferidos com `go run` (ver o relatório do Go): excesso
-descartado em silêncio, remetente sem nome → `addr` nil, datagrama vazio →
-`0, nil`, `UnixConn.Close` nunca apaga, nomes abstratos, autobind,
-`Listen("unixgram")` com `accept4: operation not supported`,
-`ListenPacket("unix")` funcional, e a lista de mensagens de erro.
-Uso real: `go-systemd/daemon` (`SdNotify`), que ainda está bloqueado por
-`os.unsetenv` e só roda sob systemd: valor baixo no curto prazo.
-
-### E4. `unixpacket` (FFI + poller)
-Fronteira de mensagem preservada; mensagem de 0 bytes = EOF, como no Go
-(`ZeroReadIsEOF`); `ReadFrom` embrulha o EOF em `OpError`. Uso: go-fuse,
-que também depende de `unsafe` (×47) e do D3.
-
-### E5. Extras de Unix
-- `SetUnlinkOnClose(false)` sem listener no FFI: no `Close`, `link(path,
-  tmp)`, fechar o `dart:io` (que apaga) e `rename(tmp, path)`.
-- Autobind (`Listen("unix", "")`), `DialUnix` com laddr nomeado (dial no
-  FFI + ponte), `ReadMsgUnix`/`WriteMsgUnix` (`MSG_CMSG_CLOEXEC` nas flags,
-  byte fictício só com oob).
-- `FileConn`/`FileListener` dependem do D3.
-
-### E6. IP bruto
-O tipo e o `ResolveIPAddr` já vêm no E0. Aqui só o socket (`SOCK_RAW`,
-`/etc/protocols`, `stripIPv4Header` no `ReadFrom`); exige root, então o
-fixture precisa não depender de privilégio (ou usa F5).
-
 ### E7. UDP no FFI (com F2)
+Já existem do E6: o socket genérico (`sys.sysSocket`/`FfiSock`, com
+`SO_BROADCAST` e `IPV6_V6ONLY` do Go), `sys.sysSupportsIPv4map()` e o
+`favoriteAddrFamily` do IP bruto (`_favoriteFamily`, `iprawsock_sock.dart`),
+que o UDP pode generalizar.
 `favoriteAddrFamily` do Go com o teste de capacidade da pilha
 (`supportsIPv4map`; sem IPv6 cai em AF_INET), `SyscallConn`,
 `ReadMsgUDP`/`WriteMsgUDP` com oob (`IP_RECVTOS`, `IPV6_RECVTCLASS`,
@@ -219,8 +196,9 @@ do limite de ~300: o código novo entra em partes novas (`control.dart`,
 
 ## 5. O que continua sem solução
 
-- **Node** (sem FFI nativo): `unixgram`, `unixpacket`, IP bruto e
-  `SyscallConn.Read/Write` dão o erro do Go; intervalo e contagem do
+- **Node** (sem FFI nativo): `unixgram`, `unixpacket`, IP bruto,
+  `laddr` nomeado e oob no Unix (E3–E6 feitos na VM linux; fixtures com
+  `.node.out`) e `SyscallConn.Read/Write` dão o erro do Go; intervalo e contagem do
   keepalive e linger > 0 seguem aceitos e ignorados, e `CloseRead` só passa
   a dar EOF (como está hoje no `mapping-spec`). QUIC não roda no Node em
   nenhuma escolha (o quic-go falha se não conseguir `DF` nem `SyscallConn`).
@@ -229,7 +207,9 @@ do limite de ~300: o código novo entra em partes novas (`control.dart`,
 ## 6. Execução
 
 E0 primeiro (sem decisão pendente além do F5 para o item 1). Depois, com F1:
-E1, e então E2 e E7 (maior valor, junto do D5), E3–E6 por último. As
+E1, e então E2 e E7 (maior valor, junto do D5); E3–E6 feitos
+(`docs/mapping-spec.md` § "Rede (D4)"). `FileConn`/`FileListener` (D3)
+continuam fora. As
 worktrees em paralelo mexem nos mesmos arquivos (`sys_io.dart`, `sys.dart`,
 lista de partes do `net.dart`, `shim_symbols.json`): cada arquivo tem um
 dono por rodada, ou as etapas vão em série. Integração numa branch só,

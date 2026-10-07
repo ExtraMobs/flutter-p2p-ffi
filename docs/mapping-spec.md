@@ -556,12 +556,12 @@ conhecido (exceção do `dart:io`/Node sem código) vira um erro de texto
 | `Listen`, `ListenPacket`, `ListenTCP`, `ListenUDP`, `ListenConfig` | idem |
 | `TCPConn`, `UDPConn`, `UnixConn` | structs de shim; `Read`/`Write` de versão dupla (`read$async` real, `read` síncrono = `fatal` do `syncOfAsync`); `ReadFrom`/`WriteTo` (`io.ReaderFrom`/`WriterTo`) de `TCPConn`, `CloseRead`/`CloseWrite`, deadlines, `SetNoDelay`/`SetKeepAlive`/`SetKeepAlivePeriod` (`TCP_KEEPIDLE`, segundos para cima)/`SetKeepAliveConfig` (`KeepAliveConfig`: zero é o padrão, negativo não mexe) e `SetLinger` (`SO_LINGER`; com 0 o `Close` manda RST) no `TCPConn`. Toda conexão TCP nova nasce com o keepalive do Go (ocioso 15s, 15s entre sondas, 9 sondas), honrando `KeepAliveConfig` e `KeepAlive` do `Dialer`/`ListenConfig` (`KeepAlive` negativo desliga) |
 | `TCPListener.Accept`/`AcceptTCP`, `UnixListener.Accept`/`AcceptUnix`, `UDPConn.ReadFrom*`/`WriteTo*`, `UnixConn.ReadFrom`/`ReadFromUnix`/`WriteTo`/`WriteToUnix` | `Future` |
-| sockets Unix de fluxo: `Dial`/`Listen`/`Dialer.Dial`/`ListenConfig.Listen` com `unix`, `DialUnix`, `ListenUnix`, `UnixConn`, `UnixListener` (`Addr`, `SetDeadline`, `Close` que apaga o arquivo do socket, `SetUnlinkOnClose`) | `InternetAddress(path, type: unix)` com `RawSocket`/`RawServerSocket` na VM, `net.connect({path})`/`server.listen({path})` no Node (`src/net/unix.dart`, `sys/io_unix.dart`, `sys/js_unix.dart`); o lado que disca tem `LocalAddr` `@` (sem nome), como no linux; nome `@abstrato` do linux nos dois |
+| sockets Unix (`unix`, `unixgram`, `unixpacket`): `Dial`/`Listen`/`ListenPacket`/`Dialer.Dial`/`ListenConfig.Listen`, `DialUnix` (com `laddr` nomeado), `ListenUnix` (nome vazio = autobind abstrato do linux, 5 dígitos hexadecimais), `ListenUnixgram`, `UnixConn` (`ReadFromUnix`/`WriteToUnix`, `ReadMsgUnix`/`WriteMsgUnix` com oob), `UnixListener` (`Addr`, `SetDeadline`, `Close` que apaga o arquivo do socket antes de fechar, `SetUnlinkOnClose(false)` que o preserva) | VM no linux: o socket do sistema pela rede FFI (`sys.sysSockSupported`; `FfiSock` em `sys/ffi/sock.dart`, porta do `socket()` de `sock_posix.go`), como o Go: datagrama com o excesso descartado, remetente sem nome → `addr` nil, datagrama vazio → `0, nil`; seqpacket com fronteira de mensagem e mensagem de 0 bytes = EOF (`ZeroReadIsEOF`), `ReadFrom` embrulhando o EOF no `*OpError`; `UnixConn.Close` nunca apaga o arquivo; `Listen("unixgram")` dá um `UnixListener` cujo `Accept` falha com `accept4: operation not supported`, e `ListenPacket("unix")` um `UnixConn` sobre o socket escutando; `ReadMsgUnix` com `MSG_CMSG_CLOEXEC` nas flags e o byte fictício do Go só com oob em socket que não é datagrama; `SCM_RIGHTS` entrega fds reais. Nomes de syscall nos erros como o Go (`recvfrom`, `sendmsg`, `accept4`...). Node: `net.connect({path})`/`server.listen({path})` só para `unix` (`sys/js_unix.dart`), autobind emulado com um nome abstrato aleatório de 5 dígitos hexadecimais e `SetUnlinkOnClose(false)` com `link` + `close` + `rename`; `ReadMsgUnix` sem oob emulado (flags `MSG_CMSG_CLOEXEC`). VM fora do linux: `dart:io` (`sys/io_unix.dart`) só para `unix`. O lado que disca tem `LocalAddr` `@` (sem nome), como no linux; nome `@abstrato` do linux em toda parte |
 | `Conn`, `Listener`, `PacketConn` | interfaces de shim (`SHIM_INTERFACES`); tipo gerado que as implementa (embrulho de `net.Conn`) entra no grupo de cor do método |
 | `Resolver` com `Dial` ou `PreferGo` | todo lookup dele pelo cliente DNS puro do Go, como com `CGO_ENABLED=0` (`src/net/dns_go.dart`, `lookup_go.dart`, `dns_conf.dart`, `dns_hosts.dart`, `sys/dns_rr.dart`): `/etc/resolv.conf` inteiro (servidores, `search`/`domain` ou o domínio do hostname, `ndots`, `timeout`, `attempts`, `rotate`, `single-request`, `use-vc`, `trust-ad`), ordem do `hosts:` do `/etc/nsswitch.conf`, `/etc/hosts`, `.onion` fora do DNS, A e AAAA em paralelo, UDP com EDNS0 e retomada por TCP na resposta truncada, `StrictErrors`, erros com `Server`; o `Dial` recebe `udp`/`tcp` e o `ip:53` do resolv.conf, e uma `Conn` que é `PacketConn` troca datagramas, a outra o formato com tamanho |
 | `LookupCNAME`, `LookupSRV`, `LookupMX`, `LookupNS`, `LookupTXT`, `LookupAddr` (pacote e `Resolver`), `SRV`, `MX`, `NS` | sempre o cliente do Go (o do `Resolver`, ou o `Dialer` padrão sobre os sockets do shim, igual na VM e no Node): nomes com ponto final, SRV por prioridade e embaralhado pelo peso, MX embaralhado e ordenado pela preferência, `LookupCNAME` pela consulta A/AAAA (nome canônico da resposta; sem CNAME, o próprio nome), PTR pelo `/etc/hosts` antes do DNS, registros com nome inválido filtrados com o `DNSError` do Go; no navegador sem `Dial`, o erro da rede ausente |
 | `LookupHost`, `LookupIP`, `LookupPort`, `Resolver.Lookup{Host,IP,IPAddr,NetIP,Port}` sem `Dial`/`PreferGo`, `Resolve{TCP,UDP}Addr` | resolver do sistema para IP: `getaddrinfo` na VM e `dns.lookup` no Node (o `Dialer.Resolver` vale no dial); portas pela tabela embutida do Go completada pelo `/etc/services` (o arquivo vence, com os aliases; `parsePort` do Go) |
-| IP bruto: `ResolveIPAddr`, `IPConn`, `DialIP`, `ListenIP`, `Dial`/`Listen`/`ListenPacket` com `ip`/`ip4`/`ip6` + `:protocolo` (`src/net/iprawsock.dart`, `ipconn.dart`) | sem socket bruto: `parseNetwork` do Go (protocolo por número ou nome, `/etc/protocols` lido pela camada `sys` e a tabela embutida `icmp`/`igmp`/`tcp`/`udp`/`ipv6-icmp`, `unknown IP protocol specified`, `unknown network`), resolução como o `internetAddrList`/`forResolve` do Go (literal com zona, resolver do sistema, filtro `ip4`/`ip6`, `no suitable address found`), e o socket falha com `socket: operation not supported` no `*OpError` com o `Addr` do Go. `IPConn` é struct de shim (`Conn`, `PacketConn`, `syscall.Conn`) sem descritor: todo método age como o `!c.ok()` do Go (`EINVAL`, endereços nil, pânico de nil sobre `(*IPConn)(nil)`); serve a type switch, embutimento (`*net.IPConn` embutido repassa os métodos, inclusive os do `conn` não exportado) e assinaturas |
+| IP bruto: `ResolveIPAddr`, `IPConn`, `DialIP`, `ListenIP`, `Dial`/`Listen`/`ListenPacket` com `ip`/`ip4`/`ip6` + `:protocolo` (`src/net/iprawsock.dart`, `iprawsock_sock.dart`, `ipconn.dart`) | `parseNetwork` do Go (protocolo por número ou nome, `/etc/protocols` lido pela camada `sys` e a tabela embutida `icmp`/`igmp`/`tcp`/`udp`/`ipv6-icmp`, `unknown IP protocol specified`, `unknown network`), resolução como o `internetAddrList`/`forResolve` do Go (literal com zona, resolver do sistema, filtro `ip4`/`ip6`, `no suitable address found`). Na VM no linux, `SOCK_RAW` pela rede FFI com o `favoriteAddrFamily` do Go (`supportsIPv4map` sondado): `Read`/`ReadMsgIP` trazem o cabeçalho IPv4 e `ReadFrom`/`ReadFromIP` o tiram (`stripIPv4Header`), `WriteTo` em conexão discada dá `use of WriteTo with pre-connected connection`, erros de endereço (`non-IPv4 address`) e do `bind`/`sendto` como o Go, prazos e `Close`; sem privilégio o sistema recusa com o mesmo `socket: operation not permitted` do Go. Node, navegador e VM fora do linux: `socket: operation not supported` no `*OpError` com o `Addr` do Go. `IPConn` é struct de shim (`Conn`, `PacketConn`, `syscall.Conn`); o valor zero e `(*IPConn)(nil)` agem como o `!c.ok()` do Go (`EINVAL`, endereços nil, pânico de nil); serve a type switch, embutimento (`*net.IPConn` embutido repassa os métodos, inclusive os do `conn` não exportado) e assinaturas |
 | `Interfaces`, `InterfaceAddrs`, `InterfaceByIndex`/`ByName`, `Interface.Addrs` | `NetworkInterface.list` / `os.networkInterfaces`, com `/sys/class/net` no linux para índice, MTU, MAC e flags |
 
 Fixtures `nettcp` (servidor de eco, embrulho de `net.Conn`, 1 MiB, prazo de
@@ -586,20 +586,33 @@ literais, zona, `localhost` e os erros de rede/protocolo, `Dial`/`DialIP`/
 `ListenIP`/`ListenPacket` com rede IP só nos erros de rede, `*net.IPConn`
 em type switch e embutido) e `syscallerrno` (cadeia `*OpError` →
 `*os.SyscallError` → `syscall.Errno` da conexão recusada, `errors.Is`/`As`,
-`os.IsNotExist`), byte a byte iguais ao `go run` na VM,
-no JS e no Wasm; oráculo da camada em
-`golib_dart/test/net_sys_test.dart` e `test/net_sys_node/`.
+`os.IsNotExist`), `netunixgram` (datagrama Unix: excesso descartado,
+remetente sem nome, datagrama vazio, nomes abstratos, `Listen("unixgram")`,
+`ListenPacket("unix")`, `Close` que não apaga, erros), `netunixpacket`
+(seqpacket: fronteira, mensagem vazia = EOF, `ReadFrom` com EOF no
+`*OpError`), `netunixmsg` (autobind, `SetUnlinkOnClose(false)`, `laddr`
+nomeado, `ReadMsgUnix`/`WriteMsgUnix` com `SCM_RIGHTS` e o shim `syscall`
+`UnixRights`/`ParseSocketControlMessage`/`ParseUnixRights`) e
+`netiprawsock` (eco ICMP no loopback por `ListenPacket` e `DialIP`,
+`stripIPv4Header` só no `ReadFrom`, erros, prazo e `Close`; sem root, o
+`EPERM` do Go em cada linha), byte a byte iguais ao `go run` na VM,
+no JS e no Wasm (os quatro últimos com `<caso>.node.out` no Node, regra
+F5: cada linha que difere é o `operation not supported` da mesma operação);
+oráculo da camada em `golib_dart/test/net_sys_test.dart`,
+`test/net_sys_node/` e, para o socket FFI genérico (fd recebido por
+`SCM_RIGHTS` que funciona, formato do autobind, `close` adiado, eco ICMP),
+`test/net_ffi_sock_test.dart`.
 
-⚠️ Limites: `unixgram`/`unixpacket` e sockets IP brutos (`ip:*`) dão
-`operation not supported` em runtime (o Go dá `operation not permitted` sem
-root e abre o socket como root) (nem o `dart:io` nem o Node têm
-datagrama ou seqpacket Unix), e no navegador `unix` também;
-`SetUnlinkOnClose(false)` não preserva o arquivo (VM e Node apagam o arquivo
-do socket ao fechar o que o criou); `DialUnix` com `laddr` nomeado dá
-`operation not supported` (o Node não liga a origem de um socket Unix);
-`Listen("unix", "")` (autobind abstrato do linux) dá `missing address`;
-`UnixConn.ReadMsgUnix`/`WriteMsgUnix` e `UnixListener.File`/`SyscallConn` não
-existem no shim; `Dialer.Control`/`ControlContext` e `ListenConfig.Control`
+⚠️ Limites: no Node (sem FFI), `unixgram`, `unixpacket`, IP bruto,
+`DialUnix` com `laddr` nomeado e `WriteMsgUnix`/`ReadMsgUnix` com oob dão
+`operation not supported` (decisões F4/F5), e no navegador `unix` também;
+na VM fora do linux (F3), o mesmo, e `SetUnlinkOnClose(false)` não preserva
+o arquivo; o autobind do Node escolhe o nome no shim (o formato é o do
+kernel, mas o nome não é dele); zona IPv6 de IP bruto só numérica;
+`supportsIPv4` é sempre verdadeiro no `favoriteAddrFamily`;
+`IPConn.SyscallConn` e `UnixListener.File`/`SyscallConn` ainda não existem
+(⚠️ o primeiro dá `socket: operation not supported`; E2);
+`Dialer.Control`/`ControlContext` e `ListenConfig.Control`
 não existem no shim (`Unsupported` na transpilação); `LookupHost`/`IP` sem
 `Dial`/`PreferGo` usam o resolvedor do sistema (o `DNSError` dele não traz
 `Server`); no cliente do Go, a ordem RFC 6724 acha a origem de cada destino
@@ -617,11 +630,24 @@ expõe `IPV6_V6ONLY` para UDP; fora do linux, MTU, MAC e
 flags de interface são aproximados. O DoH do kubo é código transpilado e
 vem com o shim `net/http`.
 
-#### Rede FFI da VM (F1, etapa E1: só a base)
+#### Rede FFI da VM (F1: base E1; sockets genéricos E3–E6)
 
-Infraestrutura pronta e testada, ainda **não ligada** a `Dial`/`Listen`/
-`Control` (etapas E2–E7 do plano D4/FFI); nada no comportamento do shim
-`net` mudou.
+Base (E1) e o socket genérico do Go (E3–E6) ligados aos sockets Unix e ao
+IP bruto na VM no linux; TCP e UDP seguem no `dart:io` (E2/E7).
+
+- Socket genérico (`src/net/sys/ffi/sock.dart`, `FfiSock`, pela
+  `sys.sysSocket`): porta do `socket()` de `sock_posix.go`: `IPV6_V6ONLY`
+  (INET6 não bruto), `SO_BROADCAST` (datagrama/bruto fora do Unix); modo
+  listen (só `laddr`) com `SO_REUSEADDR` + `bind` + `listen` para fluxo e
+  seqpacket, só `bind` para datagrama e bruto; modo dial com `bind` do
+  `laddr` e `connect`. `anyToSockaddr` do Go (`@` para sem nome, `AF_UNSPEC`
+  → nil). `recvmsg`/`sendmsg` com o byte fictício do Go. A rede `unix` da
+  VM no linux também vai por aqui (⚠️ desvio do plano, que mantinha o fluxo
+  no `dart:io` com `link`/`rename`): o `ReadMsgUnix` com `SCM_RIGHTS`
+  precisa do fd real, e autobind, `laddr` nomeado e `SetUnlinkOnClose(false)`
+  saem iguais ao Go sem emulação. `FfiFd.closesSettled()`: o próximo socket
+  espera os `close(2)` adiados (o `Close` do Go é síncrono: rebind e dial
+  logo depois do `Close` veem o fd fechado).
 
 - `src/sysffi/`: libc por `@Native` (resultado `>= 0` ou `-errno` cru).
   Regra do errno: chamada leaf com o ponteiro do `__errno_location` pego
@@ -875,7 +901,7 @@ intervalo, nil pointer, escrita em map nil.
 | `fmt.Fprint`, `Fprintln`, `Fprintf` | `fmt.fprint(w, args)`: a mesma formatação, num só `w.write(bytes)`; `fprint$async`... com `await w.write$async(bytes)` (D2) |
 | `sort` | `Interface` (interface de shim: tipo gerado que a satisfaz declara `implements sort.Interface`), `sort`, `stable`, `isSorted`, `slice$`, `sliceStable`, `search`, `ints`, `strings`, `float64s`: porta exata do pdqsort/stable do Go (mesmas chamadas a `Less`/`Swap`, mesmo resultado para iguais); swap de slice via `go.swapElems` (copia struct/array antes) |
 | `net` | porta do Go 1.26 (`golib_dart/lib/net.dart`, partes em `lib/src/net/`): `IP`/`IPMask`/`HardwareAddr` com a forma de nomeado sobre slice (`SHIM_NAMED_CLASSES`: `net.IP(b)`, `[]byte(ip)`, índice, `len`, `append`, fatia, `(*IP).UnmarshalText` em `IP$Ptr`); `IPNet`, `TCPAddr`, `UDPAddr`, `IPAddr`, `UnixAddr` como structs de shim (`GoStruct`, `String()` de `*T` com `<nil>` no nil); `Addr` e `Error` em `SHIM_INTERFACES`; `parseIP`, `parseCIDR`, `iPv4`, `iPv4Mask`, `cidrMask`, `parseMAC`, `splitHostPort`, `joinHostPort`, `tcpAddrFromAddrPort`, `udpAddrFromAddrPort`, `resolveUnixAddr`, `resolveIPAddr` e o tipo `IPConn` (§ "Rede (D4)"), as vars `iPv4bcast`...`iPv6linklocalallrouters`; erros `OpError`, `AddrError`, `ParseError`, `DNSError`, `UnknownNetworkError`, `InvalidAddrError` (nomeados sobre string), `errClosed` (`poll.errNetClosing`), `errWriteToConnected`, com o texto do Go. Oráculo em `golib_dart/test/net_test.dart`; fixture `netaddr`. Rede real (TCP, UDP, sockets Unix de fluxo, DNS, interfaces) em § "Rede (D4)". ⚠️ reflexão de `IP` e das structs de `net` é opaca (`rtOpaque`, sem `SHIM_RTYPES`), então `json` sobre elas ainda não serializa como o Go |
-| `syscall` | parcial, sem chamada de sistema (`golib_dart/lib/syscall.dart`, partes em `lib/src/syscall/`; tabelas geradas de `zerrors_linux_amd64.go` do Go 1.26.5 em `errno_table.dart` e `consts_linux_amd64.dart`): `Errno` com a forma de nomeado sobre `uintptr` (classe sobre `Uint64Base`: `syscall.Errno(11)`, `int(e)`, `==` com constante também dentro de interface, chave de map, `%d`/`%v`/`%T`), numeração e textos do linux em toda plataforma (o build é `GOOS=linux`); `Error()` com `errno N` fora da tabela, `Is` (`fs.ErrPermission`/`ErrExist`/`ErrNotExist`, `errors.ErrUnsupported`, as mesmas instâncias do `io/fs`/`errors`; o `os.IsNotExist`... também olha o `Errno` como o `underlyingErrorIs`), `Timeout`, `Temporary` de `syscall_unix.go`; satisfaz `net.Error` (a interface mora no runtime como `go.NetError`, e `net.Error` é `typedef` dela); descritor de reflexão (`SHIM_RTYPES`). As constantes `E*` e as de rede (`AF_*`, `SOCK_*`, `SOL_*`, `SO_*`, `IPPROTO_*`, `IP_*`, `IPV6_*`, `TCP_*`, `MSG_*`, `SCM_*`, `SOMAXCONN`) existem para os shims escritos à mão; no código gerado o g2d as dobra no literal. `RawConn` (`Control` síncrono, `Read`/`Write` que suspendem: `ASYNC_IFACE_METHODS`) e `Conn` em `SHIM_INTERFACES`. ❌ funções que fazem syscall (`Socket`, `SetsockoptInt`, `Read`, `Syscall`...), `Signal`, `Stat_t`, `O_*`...: `Unsupported` `shim-simbolo:syscall.*`. Fixture `syscallerrno` |
+| `syscall` | parcial, sem chamada de sistema (`golib_dart/lib/syscall.dart`, partes em `lib/src/syscall/`; tabelas geradas de `zerrors_linux_amd64.go` do Go 1.26.5 em `errno_table.dart` e `consts_linux_amd64.dart`): `Errno` com a forma de nomeado sobre `uintptr` (classe sobre `Uint64Base`: `syscall.Errno(11)`, `int(e)`, `==` com constante também dentro de interface, chave de map, `%d`/`%v`/`%T`), numeração e textos do linux em toda plataforma (o build é `GOOS=linux`); `Error()` com `errno N` fora da tabela, `Is` (`fs.ErrPermission`/`ErrExist`/`ErrNotExist`, `errors.ErrUnsupported`, as mesmas instâncias do `io/fs`/`errors`; o `os.IsNotExist`... também olha o `Errno` como o `underlyingErrorIs`), `Timeout`, `Temporary` de `syscall_unix.go`; satisfaz `net.Error` (a interface mora no runtime como `go.NetError`, e `net.Error` é `typedef` dela); descritor de reflexão (`SHIM_RTYPES`). As constantes `E*` e as de rede (`AF_*`, `SOCK_*`, `SOL_*`, `SO_*`, `IPPROTO_*`, `IP_*`, `IPV6_*`, `TCP_*`, `MSG_*`, `SCM_*`, `SOMAXCONN`) existem para os shims escritos à mão; no código gerado o g2d as dobra no literal. `RawConn` (`Control` síncrono, `Read`/`Write` que suspendem: `ASYNC_IFACE_METHODS`) e `Conn` em `SHIM_INTERFACES`. Mensagens de controle em Dart puro (`src/syscall/sockcmsg.dart`, porta de `sockcmsg_unix.go`/`sockcmsg_linux.go`): `Cmsghdr`, `SocketControlMessage`, `CmsgLen`, `CmsgSpace`, `UnixRights`, `ParseSocketControlMessage`, `ParseUnixRights` (com os erros `EINVAL` do Go; fixture `netunixmsg`). ❌ funções que fazem syscall (`Socket`, `SetsockoptInt`, `Read`, `Syscall`...), `Signal`, `Stat_t`, `O_*`...: `Unsupported` `shim-simbolo:syscall.*`. Fixture `syscallerrno` |
 | `net/netip` | porta inteira de `netip.go`/`uint128.go` do Go 1.26: `Addr`, `AddrPort`, `Prefix` como structs de shim por valor (`==`, chave de map, `$set`), `uint128` em duas metades `Golang.Uint64`, zona comparada por valor (`unique.Handle` vira `_Z`); `parseAddr`/`parsePrefix`/`parseAddrPort` com os erros do Go (`parseAddrError`/`parsePrefixError` por valor), `mustParse*`, `addrFrom4`/`addrFrom16`/`addrFromSlice`, `prefixFrom`, `addrPortFrom`, `iPv4Unspecified`/`iPv6*`, e todos os métodos (texto, binário, `Append*` com o crescimento de cap do Go). Oráculo em `golib_dart/test/net_test.dart`; fixture `netipaddr` |
 
 ## Tipos nomeados, interfaces, embedding, genéricos (M3)
