@@ -1,0 +1,25 @@
+listen: <nil>
+listen control: operation not supported
+dial: <nil>
+dial remote: SRV
+syscallconn: <nil>
+recvtos: protocol not available
+tos: 0 protocol not available protocol not available
+readmsg: com tos 0 true <nil>
+oob: protocol not available
+truncated: 0123 4 <nil>
+msg_trunc: protocol not available
+writemsg: 0 0 write udp CL: sendmsg: operation not supported
+readmsg tos: write udp CL: sendmsg: operation not supported
+writeto connected: write udp CL->SRV: use of WriteTo with pre-connected connection
+writemsg connected: write udp CL->SRV: use of WriteTo with pre-connected connection
+writemsg sem destino: write udp SRV: missing address
+writemsg resposta: <nil>
+client read: resposta <nil>
+raw write: <nil> raw-write udp CL->SRV: operation not supported
+raw read:  <nil> raw-write udp CL->SRV: operation not supported
+dial control: dial udp SRV: socket: operation not supported
+dial control info: operation not supported
+listen any: <nil>
+listen any control: operation not supported
+raw-control after close: raw-control udp SRV: use of closed network connection

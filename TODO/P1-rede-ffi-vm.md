@@ -150,18 +150,16 @@ a espera, a VM encerrando com o poller vivo, um build AOT
 (`dart compile exe`), e compilação JS/Wasm de uma entrada que importa o
 `net` sem puxar `dart:ffi`.
 
-### E2. `Control`, `ControlContext`, `SyscallConn` (com F1 e F4)
-- Sequência do Go: `socket` → `IPV6_V6ONLY` (AF_INET6 não raw, erro
-  ignorado) → `SO_BROADCAST` (UDP/raw) → `SO_REUSEADDR` (listen de fluxo)
-  → **Control** → `bind` → `listen`/`connect`. Erro do Control volta sem
-  embrulho dentro do `OpError` e o fd é fechado. `network` passado:
-  `tcp4`/`udp6`... pela família (`ctrlNetwork`). `ListenConfig` não tem
-  `ControlContext`.
-- Funções do shim `syscall` sobre o `sysffi`: `SetsockoptInt`,
-  `GetsockoptInt`, `Read`, `Write`, `Socketpair`, `UnixRights`,
-  `ParseSocketControlMessage`, `ParseUnixRights`, `EAGAIN`/`EWOULDBLOCK`.
-- Usuários: go-reuseport/go-libp2p (cai no caminho sem reuseport se falhar,
-  `reuseport_posix.go:23-25`, `listen.go:46-51`), miekg/dns, grpc.
+### E2. `Control`, `ControlContext`, `SyscallConn` — feito
+Entregue (fixtures `netcontrol`, `syscallsock`; `docs/mapping-spec.md` §
+Rede). Sobra: `UnixRights`/`ParseSocketControlMessage`/`ParseUnixRights`
+(com o E5); Unix com `Control` (discar falha, escutar ignora; E5).
+⚠️ `SyscallConn` de socket do `dart:io` (TCP, Unix) tem `Read`/`Write`
+com `operation not supported`: o readyreader do gRPC só recai no caminho
+normal se o `SyscallConn()` falhar, então ele quebra na VM quando a
+conexão é TCP (o gRPC disca com `Control` do keepalive, e a conexão vai ao
+`dart:io` pela ponte). Caminho possível: `Read` do descritor virtual pelo
+`RawSocket.read` (síncrono, `null` = `EAGAIN`) em vez de recusar.
 
 ### E3. `unixgram` (FFI + poller)
 Semântica e erros conferidos com `go run` (ver o relatório do Go): excesso
@@ -190,12 +188,11 @@ O tipo e o `ResolveIPAddr` já vêm no E0. Aqui só o socket (`SOCK_RAW`,
 `/etc/protocols`, `stripIPv4Header` no `ReadFrom`); exige root, então o
 fixture precisa não depender de privilégio (ou usa F5).
 
-### E7. UDP no FFI (com F2)
-`favoriteAddrFamily` do Go com o teste de capacidade da pilha
-(`supportsIPv4map`; sem IPv6 cai em AF_INET), `SyscallConn`,
-`ReadMsgUDP`/`WriteMsgUDP` com oob (`IP_RECVTOS`, `IPV6_RECVTCLASS`,
-`IP_PKTINFO`). ⚠️ O sandbox não tem IPv6: dual stack e `V6ONLY` precisam
-de teste numa máquina com IPv6. O `io_udp.dart` atual fica fora do linux.
+### E7. UDP no FFI — feito
+Entregue (fixture `netudpffi`, `golib_dart/test/net_ffi_control_test.dart`).
+⚠️ O sandbox não tem IPv6: dual stack e `V6ONLY` ainda precisam de teste
+numa máquina com IPv6 (o `favoriteAddrFamily` mede a pilha como o Go).
+`ListenMulticastUDP` segue fora.
 
 ### E8. macOS
 Layouts (`sin_len`, `sun_path` de 104, `cmsghdr` alinhado a 4, `__error()`),
