@@ -12,9 +12,15 @@
 /// seqpacket (`unixgram`/`unixpacket`) não existem em nenhuma plataforma.
 ///
 /// Os tipos (`SysAddr`, erros, `SysTcpConn`...) estão em `common.dart`.
+///
+/// Rede FFI (VM no linux, F1): `ffi/ffi.dart`, só por import condicional
+/// `if (dart.library.ffi)`; o dart2js e o dart2wasm ficam com o stub e nunca
+/// veem `dart:ffi`. Por ora só [sysFfiAvailable] sai daqui; o poller, o
+/// `FfiFd` e a ponte para o `dart:io` estão em `ffi/vm.dart`.
 library;
 
 export 'common.dart';
+export 'ffi/ffi.dart' show sysFfiAvailable;
 export 'sys_stub.dart'
     if (dart.library.io) 'sys_io.dart'
     if (dart.library.js_interop) 'sys_js.dart';
