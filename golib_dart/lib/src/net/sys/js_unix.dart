@@ -75,6 +75,7 @@ Future<SysTcpConn> _dialUnix(
 }
 
 Future<SysTcpListener> _listenUnix(String path, int backlog) async {
+  if (path.isEmpty) return _autobindUnix(backlog);
   final bad = sysUnixPathError(path, 'bind');
   if (bad != null) throw bad;
   // O `listen` do Node num diretório que não existe devolve EACCES; o Go
@@ -116,11 +117,48 @@ Future<SysTcpListener> _listenUnix(String path, int backlog) async {
   return l;
 }
 
+/// `Listen("unix", "")`: o linux dá ao socket sem nome um nome abstrato de
+/// 5 dígitos hexadecimais (autobind); o Node não faz isso, então o nome é
+/// sorteado aqui no mesmo formato (outro, se ocupado).
+Future<SysTcpListener> _autobindUnix(int backlog) async {
+  final rnd = Random();
+  for (var i = 0;; i++) {
+    final name = '@${rnd.nextInt(0x100000).toRadixString(16).padLeft(5, '0')}';
+    try {
+      return await _listenUnix(name, backlog);
+    } on SysError catch (e) {
+      if (e.code != 'EADDRINUSE' || i > 64) rethrow;
+    }
+  }
+}
+
+/// [close] sem perder o arquivo [path]: um segundo nome (`link`) antes do
+/// fechamento (que o apaga) e o `rename` de volta.
+void _keepUnixFile(String path, void Function() close) {
+  final tmp = '$path.g2d-keep-${Random().nextInt(1 << 30)}';
+  var linked = false;
+  try {
+    _fs.callMethod<JSAny?>('linkSync'.toJS, path.toJS, tmp.toJS);
+    linked = true;
+  } catch (_) {
+    // Sem o arquivo (ou sem permissão): nada a preservar.
+  }
+  close();
+  if (!linked) return;
+  try {
+    _fs.callMethod<JSAny?>('renameSync'.toJS, tmp.toJS, path.toJS);
+  } catch (_) {
+    try {
+      _fs.callMethod<JSAny?>('unlinkSync'.toJS, tmp.toJS);
+    } catch (_) {}
+  }
+}
+
 /// Apaga o arquivo do socket (o `unlink` do `Close` do `UnixListener`); o
 /// que não dá para apagar é ignorado, como o Go ignora o erro do `unlink`.
 ///
-/// ⚠️ O Node (libuv) já apaga o arquivo ao fechar o socket que o criou,
-/// antes disto: `SetUnlinkOnClose(false)` não o preserva.
+/// O Node (libuv) já apaga o arquivo ao fechar o socket que o criou, antes
+/// disto: `SetUnlinkOnClose(false)` passa por [_keepUnixFile].
 void _unlinkUnix(String path) {
   if (path.isEmpty || path.startsWith('@')) return;
   try {

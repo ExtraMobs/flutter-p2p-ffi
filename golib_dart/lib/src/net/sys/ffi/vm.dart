@@ -14,6 +14,8 @@
 /// - [ffiToRawSocket]: conexão de fluxo do FFI → `RawSocket` do `dart:io`.
 /// - [FfiErrno]: errno cru; prazo/fechado/cancelado são os `SysTimeout`/
 ///   `SysClosed`/`SysCanceled` do motor.
+/// - [ffiSocket]/[FfiSock]: o socket genérico do Go (`netFD`), base dos
+///   sockets Unix de todos os tipos e do IP bruto (E3–E6).
 /// - `sf.*` (`src/sysffi/sysffi.dart`): libc, constantes e layouts.
 library;
 
@@ -23,6 +25,7 @@ export '../../../sysffi/sysffi.dart' show Sockaddr, sysFfiSupported;
 export 'bridge.dart' show ffiToRawSocket;
 export 'errors.dart';
 export 'fd.dart';
+export 'sock.dart' show FfiSock, ffiSocket, ffiSupportsIPv4map, sysErrorOfErrno;
 
 /// A rede FFI existe neste processo (VM no linux/amd64; F3).
 bool get sysFfiAvailable => sysFfiSupported;

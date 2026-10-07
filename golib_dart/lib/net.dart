@@ -48,6 +48,8 @@ part 'src/net/parse.dart';
 part 'src/net/errno.dart';
 part 'src/net/conn.dart';
 part 'src/net/unix.dart';
+part 'src/net/unix_conn.dart';
+part 'src/net/unix_msg.dart';
 part 'src/net/dial.dart';
 part 'src/net/iprawsock.dart';
 part 'src/net/ipconn.dart';

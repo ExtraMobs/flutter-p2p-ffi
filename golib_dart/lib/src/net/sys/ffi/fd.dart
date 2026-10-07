@@ -244,9 +244,24 @@ final class FfiFd implements Finalizable {
 
     final poller = Poller.current;
     if (poller != null && _watch.inHelper) {
+      final pending = _done.future;
+      _closing.add(pending);
+      unawaited(pending.whenComplete(() => _closing.remove(pending)));
       poller.forget(_watch, reallyClose);
     } else {
       reallyClose();
+    }
+  }
+
+  /// `close(2)` adiados (esperando o ack do poller) deste isolate.
+  static final _closing = <Future<void>>{};
+
+  /// Completa quando todo `close(2)` adiado até aqui tiver acontecido: o
+  /// `Close` do Go é síncrono, então um `bind`/`connect` logo depois tem de
+  /// ver o socket já fechado (o nome livre, a conexão recusada).
+  static Future<void> closesSettled() async {
+    while (_closing.isNotEmpty) {
+      await Future.wait(_closing.toList());
     }
   }
 

@@ -2807,6 +2807,7 @@
         "read$async",
         "readFrom",
         "readFromUnix",
+        "readMsgUnix",
         "remoteAddr",
         "setDeadline",
         "setReadBuffer",
@@ -2815,6 +2816,7 @@
         "setWriteDeadline",
         "write",
         "write$async",
+        "writeMsgUnix",
         "writeTo",
         "writeToUnix"
       ],

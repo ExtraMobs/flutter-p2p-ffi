@@ -18,6 +18,7 @@ import '../../internal/poll/poll_desc.dart';
 import '../../syscall/errno_table.dart' show errnoNames;
 import 'common.dart';
 import 'dns_client.dart';
+import 'ffi/ffi.dart';
 import 'linux_iface.dart';
 import 'resolv_conf.dart';
 
@@ -30,6 +31,40 @@ part 'io_unix.dart';
 
 /// Rede disponível (sempre, na VM).
 bool get sysNetSupported => true;
+
+/// [sysSocket] existe: a rede FFI (VM no linux, F3).
+bool get sysSockSupported => sysFfiAvailable;
+
+/// Socket genérico do Go (o `netFD`, `sock_posix.go`): sockets Unix de
+/// todos os tipos e IP bruto, pela rede FFI. Só onde [sysSockSupported];
+/// fora dela, `socket: operation not supported`.
+Future<SysSock> sysSocket({
+  required int family,
+  required int sotype,
+  int proto = 0,
+  bool ipv6only = false,
+  SysAddr? laddr,
+  SysAddr? raddr,
+  DateTime? deadline,
+  Future<void>? cancel,
+}) => ffiSocket(
+  family: family,
+  sotype: sotype,
+  proto: proto,
+  ipv6only: ipv6only,
+  laddr: laddr,
+  raddr: raddr,
+  deadline: deadline,
+  cancel: cancel,
+);
+
+/// `supportsIPv4map` do Go (sem a rede FFI: `false`).
+bool sysSupportsIPv4map() => ffiSupportsIPv4map();
+
+/// Fecha o listener Unix [close] preservando o arquivo [path]
+/// (`SetUnlinkOnClose(false)`). ⚠️ Sem a rede FFI (VM fora do linux), o
+/// `dart:io` apaga o arquivo ao fechar o socket e ele não é preservado.
+void sysCloseKeepingUnixFile(String path, void Function() close) => close();
 
 /// Conecta em [remote]; [local] fixa a origem; [deadline] vence com
 /// [SysTimeout]; [cancel] completando aborta com [SysCanceled].

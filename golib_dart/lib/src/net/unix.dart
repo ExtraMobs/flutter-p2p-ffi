@@ -1,220 +1,46 @@
 part of '../../net.dart';
 
-// Sockets Unix de fluxo (`unix`): porta de `unixsock.go` e
-// `unixsock_posix.go` do Go 1.26 sobre o `sys` da plataforma.
+// Sockets Unix (`unix`, `unixgram`, `unixpacket`): `UnixListener` e os
+// dials/listens, porta de `unixsock.go`, `unixsock_posix.go` e do
+// `socket()` de `sock_posix.go` do Go 1.26. A conexão está em
+// `unix_conn.dart`; as mensagens com dados de controle, em `unix_msg.dart`.
 //
-// ⚠️ `unixgram` e `unixpacket` não existem (nem o `dart:io` nem o Node têm
-// datagrama/seqpacket Unix): toda operação neles devolve o
-// `operation not supported` do Go. ⚠️ No navegador, `unix` também.
-// ⚠️ `SetUnlinkOnClose(false)` não preserva o arquivo (a plataforma apaga
-// o arquivo do socket ao fechá-lo), e `DialUnix` com `laddr` nomeado não
-// existe.
+// Com a rede FFI (VM no linux, `sys.sysSockSupported`) tudo é o socket do
+// sistema, como no Go: os três tipos, autobind (`Listen("unix", "")`),
+// `laddr` nomeado, nomes abstratos, `SetUnlinkOnClose(false)`. Sem ela (Node,
+// VM fora do linux), só `unix` sobre a conexão de fluxo da plataforma
+// (autobind e `SetUnlinkOnClose(false)` emulados no Node); ⚠️ `unixgram`,
+// `unixpacket` e `laddr` nomeado no dial dão `operation not supported`
+// (decisões F4/F5). ⚠️ No navegador, `unix` também.
 
-/// `*UnixAddr` do caminho de um endereço do `sys`.
-UnixAddr _unixAddrOf(sys.SysAddr a, String net) =>
-    UnixAddr(name: _s(a.path ?? ''), net: _s(net));
+/// `(*UnixAddr)(nil)` também como `null`.
+UnixAddr? _nilUnix(UnixAddr? a) => a == null || a.$nilPtr ? null : a;
 
-/// `net.UnixConn`: um dos lados de um socket Unix de fluxo.
-final class UnixConn extends _NetConn<UnixConn> implements Conn, PacketConn {
-  UnixConn._(this._fd, String net, Addr? laddr, Addr? raddr, this._connected)
-    : super(net, laddr, raddr);
+/// `SOCK_*` da rede Unix.
+int _unixSotype(String net) => switch (net) {
+  'unixgram' => sys.sysSockDgram,
+  'unixpacket' => sys.sysSockSeqpacket,
+  _ => sys.sysSockStream,
+};
 
-  /// `(*UnixConn)(nil)` dentro de uma interface.
-  static final UnixConn $nil = UnixConn._(null, 'unix', null, null, false)
-    ..$nilPtr = true;
-
-  final sys.SysTcpConn? _fd;
-
-  /// `fd.isConnected` do Go: verdadeiro no lado que discou (o aceito não o
-  /// é, mesmo num socket de fluxo).
-  final bool _connected;
-
-  @override
-  String get $goType => 'net.UnixConn';
-  @override
-  List<String> get $ptrMethods => const [
-    'Close',
-    'CloseRead',
-    'CloseWrite',
-    'LocalAddr',
-    'Read',
-    'ReadFrom',
-    'ReadFromUnix',
-    'RemoteAddr',
-    'SetDeadline',
-    'SetReadBuffer',
-    'SetReadDeadline',
-    'SetWriteBuffer',
-    'SetWriteDeadline',
-    'Write',
-    'WriteTo',
-    'WriteToUnix',
-  ];
-  @override
-  UnixConn $copy() => UnixConn._(_fd, _net, _laddr, _raddr, _connected);
-
-  @override
-  void _sysClose() => _fd!.close();
-
-  @override
-  GoError? _setDeadlines(time.Time t, {bool read = true, bool write = true}) {
-    if (_closed) return _opError('set', _net, _laddr, _raddr, errClosed);
-    final d = _deadline(t);
-    if (read) _fd!.readDeadline = d;
-    if (write) _fd!.writeDeadline = d;
-    return null;
-  }
-
-  /// `Read(b)` síncrono: o socket só lê suspendendo.
-  @override
-  (Golang.Int, GoError?) read(Slice<Golang.Uint8> b) =>
-      syncOfAsync('UnixConn.Read');
-
-  /// `Read(b)`: até `len(b)` bytes; EOF quando o outro lado fecha a escrita.
-  @override
-  Future<(Golang.Int, GoError?)> read$async(Slice<Golang.Uint8> b) async {
-    if (_closed) return (Golang.Int(0), _op('read', sys.SysClosed()));
-    if (b.length == 0) return (Golang.Int(0), null);
-    final buf = Uint8List(b.length < _maxRead ? b.length : _maxRead);
-    try {
-      final n = await _fd!.read(buf);
-      if (n == 0) return (Golang.Int(0), io.eof);
-      _copyInto(b, buf, n);
-      return (Golang.Int(n), null);
-    } on Object catch (e) {
-      return (Golang.Int(0), _op('read', e));
-    }
-  }
-
-  /// `Write(b)` síncrono: o socket só escreve suspendendo.
-  @override
-  (Golang.Int, GoError?) write(Slice<Golang.Uint8> b) =>
-      syncOfAsync('UnixConn.Write');
-
-  /// `Write(b)`: escreve tudo (ou para no erro, com o que já foi).
-  @override
-  Future<(Golang.Int, GoError?)> write$async(Slice<Golang.Uint8> b) async {
-    if (_closed) return (Golang.Int(0), _op('write', sys.SysClosed()));
-    if (b.length == 0) return (Golang.Int(0), null);
-    try {
-      final n = await _fd!.write(_u8(b));
-      return (Golang.Int(n), null);
-    } on Object catch (e) {
-      return (
-        Golang.Int(e is sys.SysException ? e.written : 0),
-        _op('write', e),
-      );
-    }
-  }
-
-  /// `ReadFromUnix(b)`: num socket de fluxo o `recvfrom` não traz nome, e o
-  /// endereço devolvido é nil, como no Go. O `ReadFrom` do Go embrulha até
-  /// o EOF num `*OpError` (ao contrário do `Read`).
-  Future<(Golang.Int, UnixAddr?, GoError?)> readFromUnix(
-    Slice<Golang.Uint8> b,
-  ) async {
-    final (n, err) = await read$async(b);
-    if (err == null) {
-      // O `recvfrom` traz o nome do par quando ele tem nome (o lado que
-      // discou vê o caminho do listener); sem nome, o Go devolve nil.
-      final r = _raddr;
-      final named =
-          r is UnixAddr && r.name.length != 0 && r.name.toString() != '@';
-      return (n, named ? r : null, null);
-    }
-    return (
-      n,
-      null,
-      err == io.eof ? _opError('read', _net, _laddr, _raddr, io.eof) : err,
-    );
-  }
-
-  /// `ReadFrom(b)` (`net.PacketConn`).
-  @override
-  Future<(Golang.Int, Addr?, GoError?)> readFrom(Slice<Golang.Uint8> b) async {
-    final (n, a, err) = await readFromUnix(b);
-    return (n, a, err);
-  }
-
-  /// `WriteToUnix(b, addr)`: um socket de fluxo não tem `sendto`.
-  Future<(Golang.Int, GoError?)> writeToUnix(
-    Slice<Golang.Uint8> b,
-    UnixAddr? addr,
-  ) async {
-    final nil = addr == null || addr.$nilPtr;
-    final err = _writeToError(nil ? null : addr);
-    return (
-      Golang.Int(0),
-      _opError('write', _net, _laddr, nil ? null : addr, err),
-    );
-  }
-
-  /// `WriteTo(b, addr)` (`net.PacketConn`): addr precisa ser `*UnixAddr`.
-  @override
-  Future<(Golang.Int, GoError?)> writeTo(
-    Slice<Golang.Uint8> b,
-    Addr? addr,
-  ) async {
-    // `addr` nil (interface nil) falha a asserção de tipo do Go: `EINVAL`.
-    if (addr is! UnixAddr) {
-      return (
-        Golang.Int(0),
-        _opError('write', _net, _laddr, addr, syscall.einval),
-      );
-    }
-    return writeToUnix(b, addr);
-  }
-
-  /// O erro do `writeTo` do Go: o lado que discou recusa na hora; o aceito
-  /// chega ao `sendto`, que num socket de fluxo conectado dá `EISCONN`.
-  GoError _writeToError(UnixAddr? addr) {
-    if (_connected) return errWriteToConnected;
-    if (addr == null) return _errMissingAddress;
-    if (addr.net != _s(_net)) {
-      return syscall.eafnosupport;
-    }
-    return os.newSyscallError(_s('sendto'), syscall.eisconn)!;
-  }
-
-  /// `CloseRead()`.
-  GoError? closeRead() {
-    if (_closed) return _opError('close', _net, _laddr, _raddr, errClosed);
-    _fd!.closeRead();
-    return null;
-  }
-
-  /// `CloseWrite()`: o outro lado lê EOF.
-  GoError? closeWrite() {
-    if (_closed) return _opError('close', _net, _laddr, _raddr, errClosed);
-    _fd!.closeWrite();
-    return null;
-  }
-}
-
-UnixConn _newUnixConn(sys.SysTcpConn c, String net, {required bool dialed}) =>
-    UnixConn._(
-      c,
-      net,
-      _unixAddrOf(c.local, net),
-      _unixAddrOf(c.remote, net),
-      dialed,
-    );
-
-/// `net.UnixListener`.
+/// `net.UnixListener`: um socket Unix de fluxo ou seqpacket escutando (ou,
+/// com `Listen("unixgram")`, um datagrama, cujo `Accept` falha como no Go).
 final class UnixListener extends GoStruct<UnixListener>
     with io.CloserSync
     implements Listener {
-  UnixListener._(this._ln, this._net, this._laddr, {bool unlink = true})
-    : _unlink = unlink;
+  UnixListener._(this._ln, this._net, this._laddr, this._path);
 
   /// `(*UnixListener)(nil)` dentro de uma interface.
-  static final UnixListener $nil = UnixListener._(null, 'unix', null)
+  static final UnixListener $nil = UnixListener._(null, 'unix', null, '')
     ..$nilPtr = true;
 
   final sys.SysTcpListener? _ln;
   final String _net;
   final UnixAddr? _laddr;
-  bool _unlink;
+
+  /// `fd.laddr.String()` (o `path` do Go): o nome que o arquivo tem.
+  final String _path;
+  bool _unlink = true;
   bool _unlinked = false;
   bool _closed = false;
 
@@ -230,7 +56,8 @@ final class UnixListener extends GoStruct<UnixListener>
     'SetUnlinkOnClose',
   ];
   @override
-  UnixListener $copy() => UnixListener._(_ln, _net, _laddr, unlink: _unlink);
+  UnixListener $copy() => UnixListener._(_ln, _net, _laddr, _path)
+    .._unlink = _unlink;
   @override
   void $set(UnixListener o) {}
   @override
@@ -263,17 +90,22 @@ final class UnixListener extends GoStruct<UnixListener>
   Addr? addr$() => _laddr;
 
   /// `Close()`: apaga o arquivo do socket antes de fechar, quando foi o
-  /// pacote `net` que o criou (`SetUnlinkOnClose`).
+  /// pacote `net` que o criou (`SetUnlinkOnClose`); nome abstrato não tem
+  /// arquivo.
   @override
   GoError? close() {
     if (_closed) return _op('close', errClosed);
     _closed = true;
+    final named = _path.isNotEmpty && !_path.startsWith('@');
     if (!_unlinked) {
       _unlinked = true;
-      final path = _laddr?.name.toString() ?? '';
-      if (_unlink && !path.startsWith('@')) sys.sysUnlinkUnix(path);
+      if (_unlink && named) sys.sysUnlinkUnix(_path);
     }
-    _ln!.close();
+    if (_unlink || !named) {
+      _ln!.close();
+    } else {
+      sys.sysCloseKeepingUnixFile(_path, _ln!.close);
+    }
     return null;
   }
 
@@ -284,19 +116,14 @@ final class UnixListener extends GoStruct<UnixListener>
     return null;
   }
 
-  /// `SetUnlinkOnClose(unlink)`. ⚠️ `false` não preserva o arquivo: a
-  /// plataforma (VM e Node) apaga o arquivo do socket ao fechá-lo.
+  /// `SetUnlinkOnClose(unlink)`.
   void setUnlinkOnClose(bool unlink) => _unlink = unlink;
 }
 
 // ------------------------------------------------------------ dial/listen
 
-/// As redes Unix do Go, e quais o shim faz.
+/// As redes Unix do Go.
 const _unixNets = {'unix', 'unixgram', 'unixpacket'};
-
-/// `unixgram`/`unixpacket`: sem datagrama nem seqpacket Unix na plataforma.
-GoError? _unixUnsupported(String net) =>
-    net == 'unix' ? null : _notSupported('socket');
 
 /// `DialUnix(network, laddr, raddr)`.
 Future<(UnixConn?, GoError?)> dialUnix(
@@ -305,16 +132,16 @@ Future<(UnixConn?, GoError?)> dialUnix(
   UnixAddr? raddr,
 ) async {
   final net = network.toString();
+  final la = _nilUnix(laddr), ra = _nilUnix(raddr);
   if (!_unixNets.contains(net)) {
-    return (
-      null,
-      _opError('dial', net, laddr, raddr, UnknownNetworkError(network)),
-    );
+    return (null, _opError('dial', net, la, ra, UnknownNetworkError(network)));
   }
-  final (c, err) = await _dialUnix(net, laddr, raddr);
-  return (c, err);
+  final (c, err) = await _dialUnix(net, la, ra);
+  return (c, err == null ? null : _opError('dial', net, la, ra, err));
 }
 
+/// `sysDialer.dialUnix` (o `unixSocket` em modo dial): o erro sem o
+/// `*OpError`, que quem chama monta.
 Future<(UnixConn?, GoError?)> _dialUnix(
   String net,
   UnixAddr? laddr,
@@ -322,26 +149,41 @@ Future<(UnixConn?, GoError?)> _dialUnix(
   DateTime? deadline,
   Future<void>? cancel,
 }) async {
-  if (raddr == null || raddr.name.length == 0) {
-    return (null, _opError('dial', net, laddr, raddr, _errMissingAddress));
+  // `isWildcard`: nil ou sem nome.
+  final l = laddr == null || laddr.name.length == 0 ? null : laddr;
+  final r = raddr == null || raddr.name.length == 0 ? null : raddr;
+  final sotype = _unixSotype(net);
+  if (r == null && (sotype != sys.sysSockDgram || l == null)) {
+    return (null, _errMissingAddress);
   }
-  final unsupported = _unixUnsupported(net);
-  if (unsupported != null) {
-    return (null, _opError('dial', net, laddr, raddr, unsupported));
-  }
-  // ⚠️ `laddr` nomeado (bind do lado que disca) não existe no shim.
-  if (laddr != null && laddr.name.length != 0) {
-    return (null, _opError('dial', net, laddr, raddr, _notSupported('socket')));
+  if (!sys.sysSockSupported) {
+    // Só o fluxo da plataforma, sem nome do lado que disca.
+    if (sotype != sys.sysSockStream || l != null) {
+      return (null, _notSupported('socket'));
+    }
+    try {
+      final c = await sys.sysDialUnix(
+        r!.name.toString(),
+        deadline: deadline,
+        cancel: cancel,
+      );
+      return (_newUnixConn(c, net, dialed: true), null);
+    } on Object catch (e) {
+      return (null, _sysError(e));
+    }
   }
   try {
-    final c = await sys.sysDialUnix(
-      raddr.name.toString(),
+    final s = await sys.sysSocket(
+      family: sys.sysAfUnix,
+      sotype: sotype,
+      laddr: l == null ? null : sys.SysAddr.unix(l.name.toString()),
+      raddr: r == null ? null : sys.SysAddr.unix(r.name.toString()),
       deadline: deadline,
       cancel: cancel,
     );
-    return (_newUnixConn(c, net, dialed: true), null);
+    return (_newUnixConn(s, net, dialed: true), null);
   } on Object catch (e) {
-    return (null, _opError('dial', net, null, raddr, _sysError(e)));
+    return (null, _sysError(e));
   }
 }
 
@@ -351,46 +193,88 @@ Future<(UnixListener?, GoError?)> listenUnix(
   UnixAddr? laddr,
 ) async {
   final net = network.toString();
+  final la = _nilUnix(laddr);
   if (net != 'unix' && net != 'unixpacket') {
     return (
       null,
-      _opError('listen', net, null, laddr, UnknownNetworkError(network)),
+      _opError('listen', net, null, la, UnknownNetworkError(network)),
     );
   }
-  final (ln, err) = await _listenUnix(net, laddr);
-  return (ln, err);
+  if (la == null) {
+    return (null, _opError('listen', net, null, null, _errMissingAddress));
+  }
+  final (ln, err) = await _listenUnix(net, la);
+  return (ln, err == null ? null : _opError('listen', net, null, la, err));
 }
 
-Future<(UnixListener?, GoError?)> _listenUnix(
-  String net,
-  UnixAddr? laddr,
-) async {
-  if (laddr == null || laddr.name.length == 0) {
-    return (null, _opError('listen', net, null, laddr, _errMissingAddress));
-  }
-  final unsupported = _unixUnsupported(net);
-  if (unsupported != null) {
-    return (null, _opError('listen', net, null, laddr, unsupported));
+/// `sysListener.listenUnix`: o erro sem o `*OpError`. Nome vazio é o
+/// autobind do linux (um nome abstrato de 5 dígitos hexadecimais).
+Future<(UnixListener?, GoError?)> _listenUnix(String net, UnixAddr la) async {
+  final sotype = _unixSotype(net);
+  if (!sys.sysSockSupported) {
+    if (sotype != sys.sysSockStream) return (null, _notSupported('socket'));
+    try {
+      final ln = await sys.sysListenUnix(la.name.toString());
+      final path = ln.local.path ?? '';
+      return (UnixListener._(ln, net, _unixAddrOf(ln.local, net), path), null);
+    } on Object catch (e) {
+      return (null, _sysError(e));
+    }
   }
   try {
-    final ln = await sys.sysListenUnix(laddr.name.toString());
-    return (UnixListener._(ln, net, _unixAddrOf(ln.local, net)), null);
+    final s = await sys.sysSocket(
+      family: sys.sysAfUnix,
+      sotype: sotype,
+      laddr: sys.SysAddr.unix(la.name.toString()),
+    );
+    final local = s.localAddr;
+    return (
+      UnixListener._(
+        s,
+        net,
+        local == null ? null : _unixAddrOf(local, _sotypeToNet(sotype)),
+        local?.path ?? '',
+      ),
+      null,
+    );
   } on Object catch (e) {
-    return (null, _opError('listen', net, null, laddr, _sysError(e)));
+    return (null, _sysError(e));
   }
 }
 
-/// `ListenUnixgram(network, laddr)`: ⚠️ sem datagrama Unix na plataforma.
+/// `ListenUnixgram(network, laddr)`.
 Future<(UnixConn?, GoError?)> listenUnixgram(
   Golang.String network,
   UnixAddr? laddr,
 ) async {
   final net = network.toString();
+  final la = _nilUnix(laddr);
   if (net != 'unixgram') {
     return (
       null,
-      _opError('listen', net, null, laddr, UnknownNetworkError(network)),
+      _opError('listen', net, null, la, UnknownNetworkError(network)),
     );
   }
-  return (null, _opError('listen', net, null, laddr, _notSupported('socket')));
+  if (la == null) {
+    return (null, _opError('listen', net, null, null, _errMissingAddress));
+  }
+  final (c, err) = await _listenUnixgram(net, la);
+  return (c, err == null ? null : _opError('listen', net, null, la, err));
+}
+
+/// `sysListener.listenUnixgram` (também o `ListenPacket` de `unix` e
+/// `unixpacket`, que no Go devolve um `UnixConn` sobre o socket
+/// escutando): o erro sem o `*OpError`.
+Future<(UnixConn?, GoError?)> _listenUnixgram(String net, UnixAddr la) async {
+  if (!sys.sysSockSupported) return (null, _notSupported('socket'));
+  try {
+    final s = await sys.sysSocket(
+      family: sys.sysAfUnix,
+      sotype: _unixSotype(net),
+      laddr: sys.SysAddr.unix(la.name.toString()),
+    );
+    return (_newUnixConn(s, net, dialed: false), null);
+  } on Object catch (e) {
+    return (null, _sysError(e));
+  }
 }
