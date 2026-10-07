@@ -1,0 +1,5 @@
+eco: listen ip4:icmp 127.0.0.1: socket: operation not supported
+dial: dial ip4:icmp 127.0.0.1: socket: operation not supported
+erros: listen ip4:icmp 127.0.0.1: socket: operation not supported
+fechar: listen ip4:255 : socket: operation not supported
+fim

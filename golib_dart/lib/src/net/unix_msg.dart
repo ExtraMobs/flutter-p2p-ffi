@@ -41,11 +41,18 @@ Future<(Golang.Int, Golang.Int, Golang.Int, UnixAddr?, GoError?)> _readMsgUnix(
   Slice<Golang.Uint8> oob,
 ) async {
   final zero = Golang.Int(0);
-  if (c._closed) return (zero, zero, zero, null, c._op('read', sys.SysClosed()));
+  if (c._closed)
+    return (zero, zero, zero, null, c._op('read', sys.SysClosed()));
   final sock = c._sock;
   if (sock == null) {
     if (oob.length != 0) {
-      return (zero, zero, zero, null, c._op('read', _unsupportedMsg('recvmsg')));
+      return (
+        zero,
+        zero,
+        zero,
+        null,
+        c._op('read', _unsupportedMsg('recvmsg')),
+      );
     }
     final (n, a, err) = await _readFromStream(c, b);
     return (n, zero, err == null ? Golang.Int(_msgCmsgCloexec) : zero, a, err);
@@ -53,11 +60,7 @@ Future<(Golang.Int, Golang.Int, Golang.Int, UnixAddr?, GoError?)> _readMsgUnix(
   final buf = Uint8List(b.length);
   final ob = Uint8List(oob.length);
   try {
-    final (n, oobn, flags, from) = await sock.readMsg(
-      buf,
-      ob,
-      _msgCmsgCloexec,
-    );
+    final (n, oobn, flags, from) = await sock.readMsg(buf, ob, _msgCmsgCloexec);
     _copyInto(b, buf, n < b.length ? n : b.length);
     _copyInto(oob, ob, oobn);
     final name = from?.path ?? '';

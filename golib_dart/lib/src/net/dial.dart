@@ -407,7 +407,8 @@ final class ListenConfig extends GoStruct<ListenConfig> {
   ) async {
     final net = network.toString();
     if (_isIPNetwork(net)) {
-      return (null, await _listenIPNetwork(net, address.toString(), packet: false));
+      final (_, err) = await _listenIPNetwork(net, address.toString(), packet: false);
+      return (null, err);
     }
     final (_, nerr) = _network(net, packet: false);
     if (_unixNets.contains(net)) {
@@ -443,7 +444,8 @@ final class ListenConfig extends GoStruct<ListenConfig> {
   ) async {
     final net = network.toString();
     if (_isIPNetwork(net)) {
-      return (null, await _listenIPNetwork(net, address.toString(), packet: true));
+      final (c, err) = await _listenIPNetwork(net, address.toString(), packet: true);
+      return (c as PacketConn?, err);
     }
     final (_, nerr) = _network(net, packet: true);
     if (_unixNets.contains(net)) {

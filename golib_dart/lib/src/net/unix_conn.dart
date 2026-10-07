@@ -148,7 +148,11 @@ final class UnixConn extends _NetConn<UnixConn> implements Conn, PacketConn {
           ? null
           : UnixAddr(name: _s(name), net: _s(_sotypeToNet(_sotype)));
       if (n == 0 && _zeroIsEof) {
-        return (Golang.Int(0), addr, _opError('read', _net, _laddr, _raddr, io.eof));
+        return (
+          Golang.Int(0),
+          addr,
+          _opError('read', _net, _laddr, _raddr, io.eof),
+        );
       }
       return (Golang.Int(n), addr, null);
     } on Object catch (e) {
@@ -189,7 +193,10 @@ final class UnixConn extends _NetConn<UnixConn> implements Conn, PacketConn {
         final n = await sock.writeTo(_u8(b), sys.SysAddr.unix('${to.name}'));
         return (Golang.Int(n), null);
       } on Object catch (e) {
-        return (Golang.Int(0), _opError('write', _net, _laddr, to, _sysError(e)));
+        return (
+          Golang.Int(0),
+          _opError('write', _net, _laddr, to, _sysError(e)),
+        );
       }
     }
     return (Golang.Int(0), _opError('write', _net, _laddr, to, err));
@@ -212,9 +219,10 @@ final class UnixConn extends _NetConn<UnixConn> implements Conn, PacketConn {
   }
 
   /// `ReadMsgUnix(b, oob)`: `(n, oobn, flags, addr, err)` (`unix_msg.dart`).
-  Future<(Golang.Int, Golang.Int, Golang.Int, UnixAddr?, GoError?)>
-  readMsgUnix(Slice<Golang.Uint8> b, Slice<Golang.Uint8> oob) =>
-      _readMsgUnix(this, b, oob);
+  Future<(Golang.Int, Golang.Int, Golang.Int, UnixAddr?, GoError?)> readMsgUnix(
+    Slice<Golang.Uint8> b,
+    Slice<Golang.Uint8> oob,
+  ) => _readMsgUnix(this, b, oob);
 
   /// `WriteMsgUnix(b, oob, addr)`: `(n, oobn, err)` (`unix_msg.dart`).
   Future<(Golang.Int, Golang.Int, GoError?)> writeMsgUnix(

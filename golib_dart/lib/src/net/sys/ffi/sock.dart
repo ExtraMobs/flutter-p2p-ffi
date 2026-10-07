@@ -164,7 +164,12 @@ Future<SysSock> ffiSocket({
   try {
     // `setDefaultSockopts`.
     if (family == sf.AF_INET6 && sotype != sf.SOCK_RAW) {
-      sf.setsockoptInt(fd.fd, sf.IPPROTO_IPV6, sf.IPV6_V6ONLY, ipv6only ? 1 : 0);
+      sf.setsockoptInt(
+        fd.fd,
+        sf.IPPROTO_IPV6,
+        sf.IPV6_V6ONLY,
+        ipv6only ? 1 : 0,
+      );
     }
     if ((sotype == sf.SOCK_DGRAM || sotype == sf.SOCK_RAW) &&
         family != sf.AF_UNIX) {
@@ -340,7 +345,9 @@ final class FfiSock implements SysSock {
     final len = sf.libcAlloc<Uint32>();
     try {
       final n = await _fd.io(sf.POLLIN, 'recvfrom', (fd) {
-        sa.asTypedList(sf.sockaddrStorageSize).fillRange(0, sf.sockaddrStorageSize, 0);
+        sa
+            .asTypedList(sf.sockaddrStorageSize)
+            .fillRange(0, sf.sockaddrStorageSize, 0);
         len.value = sf.sockaddrStorageSize;
         return sf.recvfrom(fd, buf, 0, sa, len);
       });
@@ -457,7 +464,9 @@ final class FfiSock implements SysSock {
       try {
         nfd = await _fd.io(sf.POLLIN, 'accept4', (fd) {
           while (true) {
-            sa.asTypedList(sf.sockaddrStorageSize).fillRange(0, sf.sockaddrStorageSize, 0);
+            sa
+                .asTypedList(sf.sockaddrStorageSize)
+                .fillRange(0, sf.sockaddrStorageSize, 0);
             len.value = sf.sockaddrStorageSize;
             final r = sf.accept4(
               fd,

@@ -56,8 +56,8 @@ final class UnixListener extends GoStruct<UnixListener>
     'SetUnlinkOnClose',
   ];
   @override
-  UnixListener $copy() => UnixListener._(_ln, _net, _laddr, _path)
-    .._unlink = _unlink;
+  UnixListener $copy() =>
+      UnixListener._(_ln, _net, _laddr, _path).._unlink = _unlink;
   @override
   void $set(UnixListener o) {}
   @override
